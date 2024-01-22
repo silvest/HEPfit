@@ -5539,6 +5539,2585 @@ void NPSMEFTd6General::setSMEFTEvolWC()
 
 }
 
+void NPSMEFTd6General::printNonVanishingSMEFTCoeffEW() const
+{
+
+    if(SMEFTEvolEW.GetCoefficient("g1") != 0.) std::cout << "g1 = " << SMEFTEvolEW.GetCoefficient("g1") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("g2") != 0.) std::cout << "g2 = " << SMEFTEvolEW.GetCoefficient("g2") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("g3") != 0.) std::cout << "g3 = " << SMEFTEvolEW.GetCoefficient("g3") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("lambda") != 0.) std::cout << "lambda = " << SMEFTEvolEW.GetCoefficient("lambda") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("mh2") != 0.) std::cout << "mh2 = " << SMEFTEvolEW.GetCoefficient("mh2") << std::endl;
+    
+    if(SMEFTEvolEW.GetCKMAngle("s12") != 0.) std::cout << "s12 = " << SMEFTEvolEW.GetCKMAngle("s12") << std::endl;
+    if(SMEFTEvolEW.GetCKMAngle("s23") != 0.) std::cout << "s23 = " << SMEFTEvolEW.GetCKMAngle("s23") << std::endl;
+    if(SMEFTEvolEW.GetCKMAngle("s13") != 0.) std::cout << "s13 = " << SMEFTEvolEW.GetCKMAngle("s13") << std::endl;
+    if(SMEFTEvolEW.GetCKMPhase() != 0.) std::cout << "delta = " << SMEFTEvolEW.GetCKMPhase() << std::endl;
+ 
+    if(SMEFTEvolEW.GetCoefficient("YuR", 0, 0) != 0.) std::cout << "YuR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("YuR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuI", 0, 0) != 0.) std::cout << "YuI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("YuI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuR", 0, 1) != 0.) std::cout << "YuR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("YuR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuI", 0, 1) != 0.) std::cout << "YuI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("YuI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuR", 0, 2) != 0.) std::cout << "YuR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("YuR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuI", 0, 2) != 0.) std::cout << "YuI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("YuI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuR", 1, 0) != 0.) std::cout << "YuR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("YuR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuI", 1, 0) != 0.) std::cout << "YuI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("YuI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuR", 1, 1) != 0.) std::cout << "YuR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("YuR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuI", 1, 1) != 0.) std::cout << "YuI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("YuI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuR", 1, 2) != 0.) std::cout << "YuR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("YuR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuI", 1, 2) != 0.) std::cout << "YuI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("YuI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuR", 2, 0) != 0.) std::cout << "YuR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("YuR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuI", 2, 0) != 0.) std::cout << "YuI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("YuI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuR", 2, 1) != 0.) std::cout << "YuR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("YuR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuI", 2, 1) != 0.) std::cout << "YuI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("YuI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuR", 2, 2) != 0.) std::cout << "YuR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("YuR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YuI", 2, 2) != 0.) std::cout << "YuI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("YuI", 2, 2) << std::endl;
+
+    if(SMEFTEvolEW.GetCoefficient("YdR", 0, 0) != 0.) std::cout << "YdR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("YdR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdI", 0, 0) != 0.) std::cout << "YdI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("YdI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdR", 0, 1) != 0.) std::cout << "YdR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("YdR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdI", 0, 1) != 0.) std::cout << "YdI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("YdI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdR", 0, 2) != 0.) std::cout << "YdR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("YdR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdI", 0, 2) != 0.) std::cout << "YdI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("YdI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdR", 1, 0) != 0.) std::cout << "YdR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("YdR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdI", 1, 0) != 0.) std::cout << "YdI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("YdI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdR", 1, 1) != 0.) std::cout << "YdR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("YdR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdI", 1, 1) != 0.) std::cout << "YdI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("YdI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdR", 1, 2) != 0.) std::cout << "YdR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("YdR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdI", 1, 2) != 0.) std::cout << "YdI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("YdI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdR", 2, 0) != 0.) std::cout << "YdR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("YdR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdI", 2, 0) != 0.) std::cout << "YdI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("YdI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdR", 2, 1) != 0.) std::cout << "YdR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("YdR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdI", 2, 1) != 0.) std::cout << "YdI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("YdI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdR", 2, 2) != 0.) std::cout << "YdR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("YdR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YdI", 2, 2) != 0.) std::cout << "YdI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("YdI", 2, 2) << std::endl;
+
+    if(SMEFTEvolEW.GetCoefficient("YeR", 0, 0) != 0.) std::cout << "YeR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("YeR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeI", 0, 0) != 0.) std::cout << "YeI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("YeI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeR", 0, 1) != 0.) std::cout << "YeR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("YeR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeI", 0, 1) != 0.) std::cout << "YeI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("YeI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeR", 0, 2) != 0.) std::cout << "YeR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("YeR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeI", 0, 2) != 0.) std::cout << "YeI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("YeI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeR", 1, 0) != 0.) std::cout << "YeR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("YeR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeI", 1, 0) != 0.) std::cout << "YeI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("YeI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeR", 1, 1) != 0.) std::cout << "YeR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("YeR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeI", 1, 1) != 0.) std::cout << "YeI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("YeI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeR", 1, 2) != 0.) std::cout << "YeR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("YeR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeI", 1, 2) != 0.) std::cout << "YeI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("YeI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeR", 2, 0) != 0.) std::cout << "YeR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("YeR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeI", 2, 0) != 0.) std::cout << "YeI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("YeI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeR", 2, 1) != 0.) std::cout << "YeR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("YeR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeI", 2, 1) != 0.) std::cout << "YeI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("YeI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeR", 2, 2) != 0.) std::cout << "YeR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("YeR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("YeI", 2, 2) != 0.) std::cout << "YeI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("YeI", 2, 2) << std::endl;
+
+   
+    if(SMEFTEvolEW.GetCoefficient("CG") != 0.) std::cout << "CG = " << SMEFTEvolEW.GetCoefficient("CG") << std::endl;
+    
+    if(SMEFTEvolEW.GetCoefficient("CW")  != 0.) std::cout << "CW" << " = " << SMEFTEvolEW.GetCoefficient("CW") << std::endl;
+
+    if(SMEFTEvolEW.GetCoefficient("CHG") != 0.) std::cout << "CHG" << " = " << SMEFTEvolEW.GetCoefficient("CHG") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHW") != 0.) std::cout << "CHW" << " = " << SMEFTEvolEW.GetCoefficient("CHW") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHB") != 0.) std::cout << "CHB" << " = " << SMEFTEvolEW.GetCoefficient("CHB") << std::endl;
+
+    if(SMEFTEvolEW.GetCoefficient("CHWB") != 0.) std::cout << "CHWB" << " = " << SMEFTEvolEW.GetCoefficient("CHWB") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHD") != 0.) std::cout << "CHD" << " = " << SMEFTEvolEW.GetCoefficient("CHD") << std::endl;
+
+    if(SMEFTEvolEW.GetCoefficient("CHbox") != 0.) std::cout << "CHbox" << " = " << SMEFTEvolEW.GetCoefficient("CHbox") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CH") != 0.) std::cout << "CH" << " = " << SMEFTEvolEW.GetCoefficient("CH") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CGtilde") != 0.) std::cout << "CGtilde" << " = " << SMEFTEvolEW.GetCoefficient("CGtilde") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CWtilde") != 0.) std::cout << "CWtilde" << " = " << SMEFTEvolEW.GetCoefficient("CWtilde") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHGtilde") != 0.) std::cout << "CHGtilde" << " = " << SMEFTEvolEW.GetCoefficient("CHGtilde") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHWtilde") != 0.) std::cout << "CHWtilde" << " = " << SMEFTEvolEW.GetCoefficient("CHWtilde") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHBtilde") != 0.) std::cout << "CHBtilde" << " = " << SMEFTEvolEW.GetCoefficient("CHBtilde") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHWtildeB") != 0.) std::cout << "CHWtildeB" << " = " << SMEFTEvolEW.GetCoefficient("CHWtildeB") << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl1R", 0, 0) != 0.) std::cout << "CHl1R" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHl1R", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl1R", 0, 1) != 0.) std::cout << "CHl1R" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHl1R", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl1R", 0, 2) != 0.) std::cout << "CHl1R" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl1R", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl1R", 1, 1) != 0.) std::cout << "CHl1R" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHl1R", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl1R", 1, 2) != 0.) std::cout << "CHl1R" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl1R", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl1R", 2, 2) != 0.) std::cout << "CHl1R" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl1R", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl1I", 0, 1) != 0.) std::cout << "CHl1I" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHl1I", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl1I", 0, 2) != 0.) std::cout << "CHl1I" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl1I", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl1I", 1, 2) != 0.) std::cout << "CHl1I" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl1I", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl3R", 0, 0) != 0.) std::cout << "CHl3R" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHl3R", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl3R", 0, 1) != 0.) std::cout << "CHl3R" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHl3R", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl3R", 0, 2) != 0.) std::cout << "CHl3R" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl3R", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl3R", 1, 1) != 0.) std::cout << "CHl3R" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHl3R", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl3R", 1, 2) != 0.) std::cout << "CHl3R" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl3R", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl3R", 2, 2) != 0.) std::cout << "CHl3R" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl3R", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl3I", 0, 1) != 0.) std::cout << "CHl3I" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHl3I", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl3I", 0, 2) != 0.) std::cout << "CHl3I" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl3I", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHl3I", 1, 2) != 0.) std::cout << "CHl3I" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHl3I", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHeR", 0, 0) != 0.) std::cout << "CHeR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHeR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHeR", 0, 1) != 0.) std::cout << "CHeR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHeR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHeR", 0, 2) != 0.) std::cout << "CHeR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHeR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHeR", 1, 1) != 0.) std::cout << "CHeR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHeR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHeR", 1, 2) != 0.) std::cout << "CHeR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHeR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHeR", 2, 2) != 0.) std::cout << "CHeR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHeR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHeI", 0, 1) != 0.) std::cout << "CHeI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHeI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHeI", 0, 2) != 0.) std::cout << "CHeI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHeI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHeI", 1, 2) != 0.) std::cout << "CHeI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHeI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq1R", 0, 0) != 0.) std::cout << "CHq1R" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHq1R", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq1R", 0, 1) != 0.) std::cout << "CHq1R" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHq1R", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq1R", 0, 2) != 0.) std::cout << "CHq1R" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq1R", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq1R", 1, 1) != 0.) std::cout << "CHq1R" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHq1R", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq1R", 1, 2) != 0.) std::cout << "CHq1R" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq1R", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq1R", 2, 2) != 0.) std::cout << "CHq1R" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq1R", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq1I", 0, 1) != 0.) std::cout << "CHq1I" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHq1I", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq1I", 0, 2) != 0.) std::cout << "CHq1I" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq1I", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq1I", 1, 2) != 0.) std::cout << "CHq1I" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq1I", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq3R", 0, 0) != 0.) std::cout << "CHq3R" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHq3R", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq3R", 0, 1) != 0.) std::cout << "CHq3R" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHq3R", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq3R", 0, 2) != 0.) std::cout << "CHq3R" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq3R", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq3R", 1, 1) != 0.) std::cout << "CHq3R" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHq3R", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq3R", 1, 2) != 0.) std::cout << "CHq3R" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq3R", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq3R", 2, 2) != 0.) std::cout << "CHq3R" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq3R", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq3I", 0, 1) != 0.) std::cout << "CHq3I" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHq3I", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq3I", 0, 2) != 0.) std::cout << "CHq3I" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq3I", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHq3I", 1, 2) != 0.) std::cout << "CHq3I" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHq3I", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHuR", 0, 0) != 0.) std::cout << "CHuR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHuR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHuR", 0, 1) != 0.) std::cout << "CHuR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHuR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHuR", 0, 2) != 0.) std::cout << "CHuR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHuR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHuR", 1, 1) != 0.) std::cout << "CHuR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHuR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHuR", 1, 2) != 0.) std::cout << "CHuR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHuR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHuR", 2, 2) != 0.) std::cout << "CHuR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHuR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHuI", 0, 1) != 0.) std::cout << "CHuI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHuI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHuI", 0, 2) != 0.) std::cout << "CHuI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHuI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHuI", 1, 2) != 0.) std::cout << "CHuI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHuI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHdR", 0, 0) != 0.) std::cout << "CHdR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHdR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHdR", 0, 1) != 0.) std::cout << "CHdR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHdR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHdR", 0, 2) != 0.) std::cout << "CHdR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHdR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHdR", 1, 1) != 0.) std::cout << "CHdR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHdR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHdR", 1, 2) != 0.) std::cout << "CHdR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHdR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHdR", 2, 2) != 0.) std::cout << "CHdR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHdR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHdI", 0, 1) != 0.) std::cout << "CHdI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHdI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHdI", 0, 2) != 0.) std::cout << "CHdI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHdI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHdI", 1, 2) != 0.) std::cout << "CHdI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHdI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudR", 0, 0) != 0.) std::cout << "CHudR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHudR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudR", 0, 1) != 0.) std::cout << "CHudR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHudR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudR", 0, 2) != 0.) std::cout << "CHudR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHudR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudR", 1, 0) != 0.) std::cout << "CHudR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHudR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudR", 1, 1) != 0.) std::cout << "CHudR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHudR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudR", 1, 2) != 0.) std::cout << "CHudR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHudR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudR", 2, 0) != 0.) std::cout << "CHudR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHudR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudR", 2, 1) != 0.) std::cout << "CHudR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHudR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudR", 2, 2) != 0.) std::cout << "CHudR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHudR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudI", 0, 0) != 0.) std::cout << "CHudI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHudI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudI", 0, 1) != 0.) std::cout << "CHudI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHudI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudI", 0, 2) != 0.) std::cout << "CHudI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHudI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudI", 1, 0) != 0.) std::cout << "CHudI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHudI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudI", 1, 1) != 0.) std::cout << "CHudI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHudI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudI", 1, 2) != 0.) std::cout << "CHudI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHudI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudI", 2, 0) != 0.) std::cout << "CHudI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CHudI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudI", 2, 1) != 0.) std::cout << "CHudI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CHudI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CHudI", 2, 2) != 0.) std::cout << "CHudI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CHudI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHR", 0, 0) != 0.) std::cout << "CeHR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeHR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHR", 0, 1) != 0.) std::cout << "CeHR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeHR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHR", 0, 2) != 0.) std::cout << "CeHR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeHR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHR", 1, 0) != 0.) std::cout << "CeHR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeHR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHR", 1, 1) != 0.) std::cout << "CeHR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeHR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHR", 1, 2) != 0.) std::cout << "CeHR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeHR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHR", 2, 0) != 0.) std::cout << "CeHR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeHR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHR", 2, 1) != 0.) std::cout << "CeHR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeHR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHR", 2, 2) != 0.) std::cout << "CeHR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeHR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHI", 0, 0) != 0.) std::cout << "CeHI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeHI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHI", 0, 1) != 0.) std::cout << "CeHI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeHI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHI", 0, 2) != 0.) std::cout << "CeHI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeHI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHI", 1, 0) != 0.) std::cout << "CeHI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeHI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHI", 1, 1) != 0.) std::cout << "CeHI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeHI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHI", 1, 2) != 0.) std::cout << "CeHI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeHI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHI", 2, 0) != 0.) std::cout << "CeHI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeHI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHI", 2, 1) != 0.) std::cout << "CeHI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeHI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeHI", 2, 2) != 0.) std::cout << "CeHI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeHI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHR", 0, 0) != 0.) std::cout << "CuHR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuHR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHR", 0, 1) != 0.) std::cout << "CuHR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuHR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHR", 0, 2) != 0.) std::cout << "CuHR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuHR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHR", 1, 0) != 0.) std::cout << "CuHR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuHR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHR", 1, 1) != 0.) std::cout << "CuHR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuHR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHR", 1, 2) != 0.) std::cout << "CuHR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuHR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHR", 2, 0) != 0.) std::cout << "CuHR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuHR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHR", 2, 1) != 0.) std::cout << "CuHR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuHR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHR", 2, 2) != 0.) std::cout << "CuHR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuHR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHI", 0, 0) != 0.) std::cout << "CuHI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuHI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHI", 0, 1) != 0.) std::cout << "CuHI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuHI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHI", 0, 2) != 0.) std::cout << "CuHI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuHI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHI", 1, 0) != 0.) std::cout << "CuHI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuHI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHI", 1, 1) != 0.) std::cout << "CuHI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuHI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHI", 1, 2) != 0.) std::cout << "CuHI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuHI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHI", 2, 0) != 0.) std::cout << "CuHI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuHI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHI", 2, 1) != 0.) std::cout << "CuHI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuHI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuHI", 2, 2) != 0.) std::cout << "CuHI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuHI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHR", 0, 0) != 0.) std::cout << "CdHR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdHR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHR", 0, 1) != 0.) std::cout << "CdHR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdHR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHR", 0, 2) != 0.) std::cout << "CdHR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdHR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHR", 1, 0) != 0.) std::cout << "CdHR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdHR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHR", 1, 1) != 0.) std::cout << "CdHR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdHR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHR", 1, 2) != 0.) std::cout << "CdHR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdHR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHR", 2, 0) != 0.) std::cout << "CdHR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdHR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHR", 2, 1) != 0.) std::cout << "CdHR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdHR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHR", 2, 2) != 0.) std::cout << "CdHR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdHR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHI", 0, 0) != 0.) std::cout << "CdHI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdHI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHI", 0, 1) != 0.) std::cout << "CdHI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdHI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHI", 0, 2) != 0.) std::cout << "CdHI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdHI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHI", 1, 0) != 0.) std::cout << "CdHI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdHI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHI", 1, 1) != 0.) std::cout << "CdHI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdHI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHI", 1, 2) != 0.) std::cout << "CdHI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdHI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHI", 2, 0) != 0.) std::cout << "CdHI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdHI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHI", 2, 1) != 0.) std::cout << "CdHI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdHI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdHI", 2, 2) != 0.) std::cout << "CdHI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdHI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGR", 0, 0) != 0.) std::cout << "CuGR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuGR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGR", 0, 1) != 0.) std::cout << "CuGR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuGR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGR", 0, 2) != 0.) std::cout << "CuGR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuGR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGR", 1, 0) != 0.) std::cout << "CuGR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuGR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGR", 1, 1) != 0.) std::cout << "CuGR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuGR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGR", 1, 2) != 0.) std::cout << "CuGR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuGR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGR", 2, 0) != 0.) std::cout << "CuGR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuGR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGR", 2, 1) != 0.) std::cout << "CuGR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuGR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGR", 2, 2) != 0.) std::cout << "CuGR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuGR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGI", 0, 0) != 0.) std::cout << "CuGI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuGI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGI", 0, 1) != 0.) std::cout << "CuGI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuGI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGI", 0, 2) != 0.) std::cout << "CuGI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuGI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGI", 1, 0) != 0.) std::cout << "CuGI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuGI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGI", 1, 1) != 0.) std::cout << "CuGI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuGI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGI", 1, 2) != 0.) std::cout << "CuGI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuGI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGI", 2, 0) != 0.) std::cout << "CuGI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuGI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGI", 2, 1) != 0.) std::cout << "CuGI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuGI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuGI", 2, 2) != 0.) std::cout << "CuGI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuGI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWR", 0, 0) != 0.) std::cout << "CuWR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuWR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWR", 0, 1) != 0.) std::cout << "CuWR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuWR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWR", 0, 2) != 0.) std::cout << "CuWR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuWR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWR", 1, 0) != 0.) std::cout << "CuWR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuWR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWR", 1, 1) != 0.) std::cout << "CuWR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuWR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWR", 1, 2) != 0.) std::cout << "CuWR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuWR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWR", 2, 0) != 0.) std::cout << "CuWR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuWR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWR", 2, 1) != 0.) std::cout << "CuWR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuWR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWR", 2, 2) != 0.) std::cout << "CuWR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuWR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWI", 0, 0) != 0.) std::cout << "CuWI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuWI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWI", 0, 1) != 0.) std::cout << "CuWI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuWI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWI", 0, 2) != 0.) std::cout << "CuWI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuWI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWI", 1, 0) != 0.) std::cout << "CuWI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuWI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWI", 1, 1) != 0.) std::cout << "CuWI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuWI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWI", 1, 2) != 0.) std::cout << "CuWI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuWI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWI", 2, 0) != 0.) std::cout << "CuWI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuWI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWI", 2, 1) != 0.) std::cout << "CuWI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuWI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuWI", 2, 2) != 0.) std::cout << "CuWI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuWI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBR", 0, 0) != 0.) std::cout << "CuBR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuBR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBR", 0, 1) != 0.) std::cout << "CuBR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuBR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBR", 0, 2) != 0.) std::cout << "CuBR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuBR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBR", 1, 0) != 0.) std::cout << "CuBR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuBR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBR", 1, 1) != 0.) std::cout << "CuBR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuBR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBR", 1, 2) != 0.) std::cout << "CuBR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuBR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBR", 2, 0) != 0.) std::cout << "CuBR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuBR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBR", 2, 1) != 0.) std::cout << "CuBR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuBR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBR", 2, 2) != 0.) std::cout << "CuBR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuBR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBI", 0, 0) != 0.) std::cout << "CuBI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuBI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBI", 0, 1) != 0.) std::cout << "CuBI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuBI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBI", 0, 2) != 0.) std::cout << "CuBI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuBI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBI", 1, 0) != 0.) std::cout << "CuBI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuBI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBI", 1, 1) != 0.) std::cout << "CuBI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuBI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBI", 1, 2) != 0.) std::cout << "CuBI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuBI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBI", 2, 0) != 0.) std::cout << "CuBI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuBI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBI", 2, 1) != 0.) std::cout << "CuBI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuBI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuBI", 2, 2) != 0.) std::cout << "CuBI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuBI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGR", 0, 0) != 0.) std::cout << "CdGR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdGR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGR", 0, 1) != 0.) std::cout << "CdGR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdGR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGR", 0, 2) != 0.) std::cout << "CdGR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdGR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGR", 1, 0) != 0.) std::cout << "CdGR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdGR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGR", 1, 1) != 0.) std::cout << "CdGR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdGR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGR", 1, 2) != 0.) std::cout << "CdGR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdGR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGR", 2, 0) != 0.) std::cout << "CdGR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdGR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGR", 2, 1) != 0.) std::cout << "CdGR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdGR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGR", 2, 2) != 0.) std::cout << "CdGR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdGR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGI", 0, 0) != 0.) std::cout << "CdGI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdGI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGI", 0, 1) != 0.) std::cout << "CdGI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdGI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGI", 0, 2) != 0.) std::cout << "CdGI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdGI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGI", 1, 0) != 0.) std::cout << "CdGI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdGI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGI", 1, 1) != 0.) std::cout << "CdGI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdGI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGI", 1, 2) != 0.) std::cout << "CdGI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdGI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGI", 2, 0) != 0.) std::cout << "CdGI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdGI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGI", 2, 1) != 0.) std::cout << "CdGI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdGI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdGI", 2, 2) != 0.) std::cout << "CdGI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdGI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWR", 0, 0) != 0.) std::cout << "CdWR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdWR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWR", 0, 1) != 0.) std::cout << "CdWR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdWR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWR", 0, 2) != 0.) std::cout << "CdWR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdWR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWR", 1, 0) != 0.) std::cout << "CdWR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdWR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWR", 1, 1) != 0.) std::cout << "CdWR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdWR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWR", 1, 2) != 0.) std::cout << "CdWR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdWR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWR", 2, 0) != 0.) std::cout << "CdWR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdWR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWR", 2, 1) != 0.) std::cout << "CdWR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdWR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWR", 2, 2) != 0.) std::cout << "CdWR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdWR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWI", 0, 0) != 0.) std::cout << "CdWI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdWI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWI", 0, 1) != 0.) std::cout << "CdWI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdWI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWI", 0, 2) != 0.) std::cout << "CdWI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdWI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWI", 1, 0) != 0.) std::cout << "CdWI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdWI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWI", 1, 1) != 0.) std::cout << "CdWI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdWI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWI", 1, 2) != 0.) std::cout << "CdWI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdWI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWI", 2, 0) != 0.) std::cout << "CdWI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdWI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWI", 2, 1) != 0.) std::cout << "CdWI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdWI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdWI", 2, 2) != 0.) std::cout << "CdWI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdWI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBR", 0, 0) != 0.) std::cout << "CdBR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdBR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBR", 0, 1) != 0.) std::cout << "CdBR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdBR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBR", 0, 2) != 0.) std::cout << "CdBR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdBR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBR", 1, 0) != 0.) std::cout << "CdBR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdBR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBR", 1, 1) != 0.) std::cout << "CdBR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdBR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBR", 1, 2) != 0.) std::cout << "CdBR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdBR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBR", 2, 0) != 0.) std::cout << "CdBR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdBR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBR", 2, 1) != 0.) std::cout << "CdBR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdBR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBR", 2, 2) != 0.) std::cout << "CdBR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdBR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBI", 0, 0) != 0.) std::cout << "CdBI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdBI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBI", 0, 1) != 0.) std::cout << "CdBI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdBI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBI", 0, 2) != 0.) std::cout << "CdBI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdBI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBI", 1, 0) != 0.) std::cout << "CdBI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdBI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBI", 1, 1) != 0.) std::cout << "CdBI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdBI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBI", 1, 2) != 0.) std::cout << "CdBI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdBI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBI", 2, 0) != 0.) std::cout << "CdBI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CdBI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBI", 2, 1) != 0.) std::cout << "CdBI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CdBI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CdBI", 2, 2) != 0.) std::cout << "CdBI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CdBI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWR", 0, 0) != 0.) std::cout << "CeWR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeWR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWR", 0, 1) != 0.) std::cout << "CeWR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeWR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWR", 0, 2) != 0.) std::cout << "CeWR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeWR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWR", 1, 0) != 0.) std::cout << "CeWR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeWR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWR", 1, 1) != 0.) std::cout << "CeWR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeWR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWR", 1, 2) != 0.) std::cout << "CeWR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeWR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWR", 2, 0) != 0.) std::cout << "CeWR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeWR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWR", 2, 1) != 0.) std::cout << "CeWR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeWR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWR", 2, 2) != 0.) std::cout << "CeWR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeWR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWI", 0, 0) != 0.) std::cout << "CeWI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeWI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWI", 0, 1) != 0.) std::cout << "CeWI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeWI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWI", 0, 2) != 0.) std::cout << "CeWI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeWI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWI", 1, 0) != 0.) std::cout << "CeWI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeWI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWI", 1, 1) != 0.) std::cout << "CeWI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeWI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWI", 1, 2) != 0.) std::cout << "CeWI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeWI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWI", 2, 0) != 0.) std::cout << "CeWI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeWI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWI", 2, 1) != 0.) std::cout << "CeWI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeWI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeWI", 2, 2) != 0.) std::cout << "CeWI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeWI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBR", 0, 0) != 0.) std::cout << "CeBR" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeBR", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBR", 0, 1) != 0.) std::cout << "CeBR" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeBR", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBR", 0, 2) != 0.) std::cout << "CeBR" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeBR", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBR", 1, 0) != 0.) std::cout << "CeBR" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeBR", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBR", 1, 1) != 0.) std::cout << "CeBR" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeBR", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBR", 1, 2) != 0.) std::cout << "CeBR" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeBR", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBR", 2, 0) != 0.) std::cout << "CeBR" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeBR", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBR", 2, 1) != 0.) std::cout << "CeBR" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeBR", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBR", 2, 2) != 0.) std::cout << "CeBR" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeBR", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBI", 0, 0) != 0.) std::cout << "CeBI" << ", 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeBI", 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBI", 0, 1) != 0.) std::cout << "CeBI" << ", 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeBI", 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBI", 0, 2) != 0.) std::cout << "CeBI" << ", 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeBI", 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBI", 1, 0) != 0.) std::cout << "CeBI" << ", 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeBI", 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBI", 1, 1) != 0.) std::cout << "CeBI" << ", 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeBI", 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBI", 1, 2) != 0.) std::cout << "CeBI" << ", 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeBI", 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBI", 2, 0) != 0.) std::cout << "CeBI" << ", 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeBI", 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBI", 2, 1) != 0.) std::cout << "CeBI" << ", 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeBI", 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeBI", 2, 2) != 0.) std::cout << "CeBI" << ", 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeBI", 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 0, 0) != 0.) std::cout << "CllR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 0, 1) != 0.) std::cout << "CllR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 0, 2) != 0.) std::cout << "CllR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 1, 1) != 0.) std::cout << "CllR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 1, 2) != 0.) std::cout << "CllR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 2, 2) != 0.) std::cout << "CllR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 0, 1) != 0.) std::cout << "CllR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 0, 2) != 0.) std::cout << "CllR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 1, 0) != 0.) std::cout << "CllR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 1, 1) != 0.) std::cout << "CllR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 1, 2) != 0.) std::cout << "CllR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 2, 0) != 0.) std::cout << "CllR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 2, 1) != 0.) std::cout << "CllR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 2, 2) != 0.) std::cout << "CllR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 0, 2) != 0.) std::cout << "CllR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 1, 1) != 0.) std::cout << "CllR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 1, 2) != 0.) std::cout << "CllR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 2, 0) != 0.) std::cout << "CllR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 2, 1) != 0.) std::cout << "CllR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 2, 2) != 0.) std::cout << "CllR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 1, 1, 1, 1) != 0.) std::cout << "CllR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 1, 1, 1, 2) != 0.) std::cout << "CllR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 1, 1, 2, 2) != 0.) std::cout << "CllR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 1, 2, 1, 2) != 0.) std::cout << "CllR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 1, 2, 2, 1) != 0.) std::cout << "CllR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 1, 2, 2, 2) != 0.) std::cout << "CllR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllR", 2, 2, 2, 2) != 0.) std::cout << "CllR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 0, 0, 1) != 0.) std::cout << "CllI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 0, 0, 2) != 0.) std::cout << "CllI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 0, 1, 2) != 0.) std::cout << "CllI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 0, 1) != 0.) std::cout << "CllI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 0, 2) != 0.) std::cout << "CllI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 1, 1) != 0.) std::cout << "CllI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 1, 2) != 0.) std::cout << "CllI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 2, 0) != 0.) std::cout << "CllI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 2, 1) != 0.) std::cout << "CllI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 2, 2) != 0.) std::cout << "CllI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 0, 2) != 0.) std::cout << "CllI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 1, 1) != 0.) std::cout << "CllI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 1, 2) != 0.) std::cout << "CllI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 2, 1) != 0.) std::cout << "CllI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 2, 2) != 0.) std::cout << "CllI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 1, 1, 1, 2) != 0.) std::cout << "CllI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 1, 2, 1, 2) != 0.) std::cout << "CllI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CllI", 1, 2, 2, 2) != 0.) std::cout << "CllI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CllI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 0, 0) != 0.) std::cout << "Clq1R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 0, 1) != 0.) std::cout << "Clq1R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 0, 2) != 0.) std::cout << "Clq1R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 1, 1) != 0.) std::cout << "Clq1R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 1, 2) != 0.) std::cout << "Clq1R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 2, 2) != 0.) std::cout << "Clq1R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 0, 0) != 0.) std::cout << "Clq1R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 0, 1) != 0.) std::cout << "Clq1R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 0, 2) != 0.) std::cout << "Clq1R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 1, 0) != 0.) std::cout << "Clq1R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 1, 1) != 0.) std::cout << "Clq1R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 1, 2) != 0.) std::cout << "Clq1R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 2, 0) != 0.) std::cout << "Clq1R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 2, 1) != 0.) std::cout << "Clq1R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 2, 2) != 0.) std::cout << "Clq1R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 0, 0) != 0.) std::cout << "Clq1R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 0, 1) != 0.) std::cout << "Clq1R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 0, 2) != 0.) std::cout << "Clq1R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 1, 0) != 0.) std::cout << "Clq1R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 1, 1) != 0.) std::cout << "Clq1R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 1, 2) != 0.) std::cout << "Clq1R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 2, 0) != 0.) std::cout << "Clq1R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 2, 1) != 0.) std::cout << "Clq1R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 2, 2) != 0.) std::cout << "Clq1R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 0, 0) != 0.) std::cout << "Clq1R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 0, 1) != 0.) std::cout << "Clq1R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 0, 2) != 0.) std::cout << "Clq1R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 1, 1) != 0.) std::cout << "Clq1R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 1, 2) != 0.) std::cout << "Clq1R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 2, 2) != 0.) std::cout << "Clq1R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 0, 0) != 0.) std::cout << "Clq1R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 0, 1) != 0.) std::cout << "Clq1R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 0, 2) != 0.) std::cout << "Clq1R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 1, 0) != 0.) std::cout << "Clq1R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 1, 1) != 0.) std::cout << "Clq1R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 1, 2) != 0.) std::cout << "Clq1R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 2, 0) != 0.) std::cout << "Clq1R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 2, 1) != 0.) std::cout << "Clq1R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 2, 2) != 0.) std::cout << "Clq1R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 0, 0) != 0.) std::cout << "Clq1R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 0, 1) != 0.) std::cout << "Clq1R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 0, 2) != 0.) std::cout << "Clq1R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 1, 1) != 0.) std::cout << "Clq1R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 1, 2) != 0.) std::cout << "Clq1R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 2, 2) != 0.) std::cout << "Clq1R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 0, 0, 1) != 0.) std::cout << "Clq1I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 0, 0, 2) != 0.) std::cout << "Clq1I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 0, 1, 2) != 0.) std::cout << "Clq1I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 0, 0) != 0.) std::cout << "Clq1I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 0, 1) != 0.) std::cout << "Clq1I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 0, 2) != 0.) std::cout << "Clq1I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 1, 0) != 0.) std::cout << "Clq1I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 1, 1) != 0.) std::cout << "Clq1I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 1, 2) != 0.) std::cout << "Clq1I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 2, 0) != 0.) std::cout << "Clq1I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 2, 1) != 0.) std::cout << "Clq1I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 2, 2) != 0.) std::cout << "Clq1I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 0, 0) != 0.) std::cout << "Clq1I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 0, 1) != 0.) std::cout << "Clq1I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 0, 2) != 0.) std::cout << "Clq1I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 1, 0) != 0.) std::cout << "Clq1I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 1, 1) != 0.) std::cout << "Clq1I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 1, 2) != 0.) std::cout << "Clq1I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 2, 0) != 0.) std::cout << "Clq1I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 2, 1) != 0.) std::cout << "Clq1I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 2, 2) != 0.) std::cout << "Clq1I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 1, 0, 1) != 0.) std::cout << "Clq1I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 1, 0, 2) != 0.) std::cout << "Clq1I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 1, 1, 2) != 0.) std::cout << "Clq1I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 0, 0) != 0.) std::cout << "Clq1I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 0, 1) != 0.) std::cout << "Clq1I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 0, 2) != 0.) std::cout << "Clq1I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 1, 0) != 0.) std::cout << "Clq1I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 1, 1) != 0.) std::cout << "Clq1I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 1, 2) != 0.) std::cout << "Clq1I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 2, 0) != 0.) std::cout << "Clq1I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 2, 1) != 0.) std::cout << "Clq1I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 2, 2) != 0.) std::cout << "Clq1I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 2, 2, 0, 1) != 0.) std::cout << "Clq1I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 2, 2, 0, 2) != 0.) std::cout << "Clq1I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq1I", 2, 2, 1, 2) != 0.) std::cout << "Clq1I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq1I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 0, 0) != 0.) std::cout << "Clq3R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 0, 1) != 0.) std::cout << "Clq3R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 0, 2) != 0.) std::cout << "Clq3R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 1, 1) != 0.) std::cout << "Clq3R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 1, 2) != 0.) std::cout << "Clq3R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 2, 2) != 0.) std::cout << "Clq3R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 0, 0) != 0.) std::cout << "Clq3R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 0, 1) != 0.) std::cout << "Clq3R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 0, 2) != 0.) std::cout << "Clq3R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 1, 0) != 0.) std::cout << "Clq3R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 1, 1) != 0.) std::cout << "Clq3R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 1, 2) != 0.) std::cout << "Clq3R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 2, 0) != 0.) std::cout << "Clq3R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 2, 1) != 0.) std::cout << "Clq3R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 2, 2) != 0.) std::cout << "Clq3R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 0, 0) != 0.) std::cout << "Clq3R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 0, 1) != 0.) std::cout << "Clq3R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 0, 2) != 0.) std::cout << "Clq3R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 1, 0) != 0.) std::cout << "Clq3R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 1, 1) != 0.) std::cout << "Clq3R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 1, 2) != 0.) std::cout << "Clq3R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 2, 0) != 0.) std::cout << "Clq3R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 2, 1) != 0.) std::cout << "Clq3R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 2, 2) != 0.) std::cout << "Clq3R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 0, 0) != 0.) std::cout << "Clq3R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 0, 1) != 0.) std::cout << "Clq3R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 0, 2) != 0.) std::cout << "Clq3R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 1, 1) != 0.) std::cout << "Clq3R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 1, 2) != 0.) std::cout << "Clq3R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 2, 2) != 0.) std::cout << "Clq3R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 0, 0) != 0.) std::cout << "Clq3R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 0, 1) != 0.) std::cout << "Clq3R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 0, 2) != 0.) std::cout << "Clq3R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 1, 0) != 0.) std::cout << "Clq3R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 1, 1) != 0.) std::cout << "Clq3R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 1, 2) != 0.) std::cout << "Clq3R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 2, 0) != 0.) std::cout << "Clq3R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 2, 1) != 0.) std::cout << "Clq3R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 2, 2) != 0.) std::cout << "Clq3R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 0, 0) != 0.) std::cout << "Clq3R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 0, 1) != 0.) std::cout << "Clq3R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 0, 2) != 0.) std::cout << "Clq3R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 1, 1) != 0.) std::cout << "Clq3R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 1, 2) != 0.) std::cout << "Clq3R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 2, 2) != 0.) std::cout << "Clq3R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 0, 0, 1) != 0.) std::cout << "Clq3I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 0, 0, 2) != 0.) std::cout << "Clq3I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 0, 1, 2) != 0.) std::cout << "Clq3I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 0, 0) != 0.) std::cout << "Clq3I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 0, 1) != 0.) std::cout << "Clq3I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 0, 2) != 0.) std::cout << "Clq3I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 1, 0) != 0.) std::cout << "Clq3I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 1, 1) != 0.) std::cout << "Clq3I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 1, 2) != 0.) std::cout << "Clq3I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 2, 0) != 0.) std::cout << "Clq3I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 2, 1) != 0.) std::cout << "Clq3I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 2, 2) != 0.) std::cout << "Clq3I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 0, 0) != 0.) std::cout << "Clq3I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 0, 1) != 0.) std::cout << "Clq3I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 0, 2) != 0.) std::cout << "Clq3I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 1, 0) != 0.) std::cout << "Clq3I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 1, 1) != 0.) std::cout << "Clq3I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 1, 2) != 0.) std::cout << "Clq3I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 2, 0) != 0.) std::cout << "Clq3I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 2, 1) != 0.) std::cout << "Clq3I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 2, 2) != 0.) std::cout << "Clq3I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 1, 0, 1) != 0.) std::cout << "Clq3I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 1, 0, 2) != 0.) std::cout << "Clq3I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 1, 1, 2) != 0.) std::cout << "Clq3I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 0, 0) != 0.) std::cout << "Clq3I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 0, 1) != 0.) std::cout << "Clq3I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 0, 2) != 0.) std::cout << "Clq3I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 1, 0) != 0.) std::cout << "Clq3I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 1, 1) != 0.) std::cout << "Clq3I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 1, 2) != 0.) std::cout << "Clq3I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 2, 0) != 0.) std::cout << "Clq3I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 2, 1) != 0.) std::cout << "Clq3I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 2, 2) != 0.) std::cout << "Clq3I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 2, 2, 0, 1) != 0.) std::cout << "Clq3I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 2, 2, 0, 2) != 0.) std::cout << "Clq3I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clq3I", 2, 2, 1, 2) != 0.) std::cout << "Clq3I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clq3I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 0, 0) != 0.) std::cout << "CeeR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 0, 1) != 0.) std::cout << "CeeR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 0, 2) != 0.) std::cout << "CeeR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 1, 1) != 0.) std::cout << "CeeR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 1, 2) != 0.) std::cout << "CeeR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 2, 2) != 0.) std::cout << "CeeR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 0, 1) != 0.) std::cout << "CeeR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 0, 2) != 0.) std::cout << "CeeR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 1, 1) != 0.) std::cout << "CeeR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 1, 2) != 0.) std::cout << "CeeR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 2, 1) != 0.) std::cout << "CeeR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 2, 2) != 0.) std::cout << "CeeR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 2, 0, 2) != 0.) std::cout << "CeeR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 2, 1, 2) != 0.) std::cout << "CeeR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 0, 2, 2, 2) != 0.) std::cout << "CeeR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 1, 1, 1, 1) != 0.) std::cout << "CeeR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 1, 1, 1, 2) != 0.) std::cout << "CeeR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 1, 1, 2, 2) != 0.) std::cout << "CeeR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 1, 2, 1, 2) != 0.) std::cout << "CeeR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 1, 2, 2, 2) != 0.) std::cout << "CeeR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeR", 2, 2, 2, 2) != 0.) std::cout << "CeeR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 0, 0, 1) != 0.) std::cout << "CeeI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 0, 0, 2) != 0.) std::cout << "CeeI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 0, 1, 2) != 0.) std::cout << "CeeI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 0, 1) != 0.) std::cout << "CeeI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 0, 2) != 0.) std::cout << "CeeI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 1, 1) != 0.) std::cout << "CeeI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 1, 2) != 0.) std::cout << "CeeI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 2, 1) != 0.) std::cout << "CeeI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 2, 2) != 0.) std::cout << "CeeI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 2, 0, 2) != 0.) std::cout << "CeeI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 2, 1, 2) != 0.) std::cout << "CeeI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 0, 2, 2, 2) != 0.) std::cout << "CeeI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 1, 1, 1, 2) != 0.) std::cout << "CeeI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 1, 2, 1, 2) != 0.) std::cout << "CeeI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeeI", 1, 2, 2, 2) != 0.) std::cout << "CeeI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeeI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 0, 0) != 0.) std::cout << "CeuR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 0, 1) != 0.) std::cout << "CeuR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 0, 2) != 0.) std::cout << "CeuR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 1, 1) != 0.) std::cout << "CeuR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 1, 2) != 0.) std::cout << "CeuR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 2, 2) != 0.) std::cout << "CeuR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 0, 0) != 0.) std::cout << "CeuR" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 0, 1) != 0.) std::cout << "CeuR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 0, 2) != 0.) std::cout << "CeuR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 1, 0) != 0.) std::cout << "CeuR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 1, 1) != 0.) std::cout << "CeuR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 1, 2) != 0.) std::cout << "CeuR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 2, 0) != 0.) std::cout << "CeuR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 2, 1) != 0.) std::cout << "CeuR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 2, 2) != 0.) std::cout << "CeuR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 0, 0) != 0.) std::cout << "CeuR" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 0, 1) != 0.) std::cout << "CeuR" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 0, 2) != 0.) std::cout << "CeuR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 1, 0) != 0.) std::cout << "CeuR" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 1, 1) != 0.) std::cout << "CeuR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 1, 2) != 0.) std::cout << "CeuR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 2, 0) != 0.) std::cout << "CeuR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 2, 1) != 0.) std::cout << "CeuR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 2, 2) != 0.) std::cout << "CeuR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 0, 0) != 0.) std::cout << "CeuR" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 0, 1) != 0.) std::cout << "CeuR" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 0, 2) != 0.) std::cout << "CeuR" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 1, 1) != 0.) std::cout << "CeuR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 1, 2) != 0.) std::cout << "CeuR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 2, 2) != 0.) std::cout << "CeuR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 0, 0) != 0.) std::cout << "CeuR" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 0, 1) != 0.) std::cout << "CeuR" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 0, 2) != 0.) std::cout << "CeuR" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 1, 0) != 0.) std::cout << "CeuR" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 1, 1) != 0.) std::cout << "CeuR" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 1, 2) != 0.) std::cout << "CeuR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 2, 0) != 0.) std::cout << "CeuR" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 2, 1) != 0.) std::cout << "CeuR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 2, 2) != 0.) std::cout << "CeuR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 0, 0) != 0.) std::cout << "CeuR" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 0, 1) != 0.) std::cout << "CeuR" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 0, 2) != 0.) std::cout << "CeuR" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 1, 1) != 0.) std::cout << "CeuR" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 1, 2) != 0.) std::cout << "CeuR" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 2, 2) != 0.) std::cout << "CeuR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 0, 0, 1) != 0.) std::cout << "CeuI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 0, 0, 2) != 0.) std::cout << "CeuI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 0, 1, 2) != 0.) std::cout << "CeuI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 0, 0) != 0.) std::cout << "CeuI" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 0, 1) != 0.) std::cout << "CeuI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 0, 2) != 0.) std::cout << "CeuI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 1, 0) != 0.) std::cout << "CeuI" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 1, 1) != 0.) std::cout << "CeuI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 1, 2) != 0.) std::cout << "CeuI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 2, 0) != 0.) std::cout << "CeuI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 2, 1) != 0.) std::cout << "CeuI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 2, 2) != 0.) std::cout << "CeuI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 0, 0) != 0.) std::cout << "CeuI" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 0, 1) != 0.) std::cout << "CeuI" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 0, 2) != 0.) std::cout << "CeuI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 1, 0) != 0.) std::cout << "CeuI" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 1, 1) != 0.) std::cout << "CeuI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 1, 2) != 0.) std::cout << "CeuI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 2, 0) != 0.) std::cout << "CeuI" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 2, 1) != 0.) std::cout << "CeuI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 2, 2) != 0.) std::cout << "CeuI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 1, 0, 1) != 0.) std::cout << "CeuI" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 1, 0, 2) != 0.) std::cout << "CeuI" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 1, 1, 2) != 0.) std::cout << "CeuI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 0, 0) != 0.) std::cout << "CeuI" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 0, 1) != 0.) std::cout << "CeuI" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 0, 2) != 0.) std::cout << "CeuI" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 1, 0) != 0.) std::cout << "CeuI" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 1, 1) != 0.) std::cout << "CeuI" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 1, 2) != 0.) std::cout << "CeuI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 2, 0) != 0.) std::cout << "CeuI" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 2, 1) != 0.) std::cout << "CeuI" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 2, 2) != 0.) std::cout << "CeuI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 2, 2, 0, 1) != 0.) std::cout << "CeuI" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 2, 2, 0, 2) != 0.) std::cout << "CeuI" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CeuI", 2, 2, 1, 2) != 0.) std::cout << "CeuI" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CeuI", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 0, 0) != 0.) std::cout << "CedR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 0, 1) != 0.) std::cout << "CedR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 0, 2) != 0.) std::cout << "CedR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 1, 1) != 0.) std::cout << "CedR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 1, 2) != 0.) std::cout << "CedR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 2, 2) != 0.) std::cout << "CedR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 0, 0) != 0.) std::cout << "CedR" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 0, 1) != 0.) std::cout << "CedR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 0, 2) != 0.) std::cout << "CedR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 1, 0) != 0.) std::cout << "CedR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 1, 1) != 0.) std::cout << "CedR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 1, 2) != 0.) std::cout << "CedR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 2, 0) != 0.) std::cout << "CedR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 2, 1) != 0.) std::cout << "CedR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 2, 2) != 0.) std::cout << "CedR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 0, 0) != 0.) std::cout << "CedR" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 0, 1) != 0.) std::cout << "CedR" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 0, 2) != 0.) std::cout << "CedR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 1, 0) != 0.) std::cout << "CedR" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 1, 1) != 0.) std::cout << "CedR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 1, 2) != 0.) std::cout << "CedR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 2, 0) != 0.) std::cout << "CedR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 2, 1) != 0.) std::cout << "CedR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 2, 2) != 0.) std::cout << "CedR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 0, 0) != 0.) std::cout << "CedR" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 0, 1) != 0.) std::cout << "CedR" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 0, 2) != 0.) std::cout << "CedR" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 1, 1) != 0.) std::cout << "CedR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 1, 2) != 0.) std::cout << "CedR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 2, 2) != 0.) std::cout << "CedR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 0, 0) != 0.) std::cout << "CedR" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 0, 1) != 0.) std::cout << "CedR" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 0, 2) != 0.) std::cout << "CedR" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 1, 0) != 0.) std::cout << "CedR" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 1, 1) != 0.) std::cout << "CedR" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 1, 2) != 0.) std::cout << "CedR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 2, 0) != 0.) std::cout << "CedR" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 2, 1) != 0.) std::cout << "CedR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 2, 2) != 0.) std::cout << "CedR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 0, 0) != 0.) std::cout << "CedR" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 0, 1) != 0.) std::cout << "CedR" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 0, 2) != 0.) std::cout << "CedR" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 1, 1) != 0.) std::cout << "CedR" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 1, 2) != 0.) std::cout << "CedR" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 2, 2) != 0.) std::cout << "CedR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 0, 0, 1) != 0.) std::cout << "CedI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 0, 0, 2) != 0.) std::cout << "CedI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 0, 1, 2) != 0.) std::cout << "CedI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 0, 0) != 0.) std::cout << "CedI" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 0, 1) != 0.) std::cout << "CedI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 0, 2) != 0.) std::cout << "CedI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 1, 0) != 0.) std::cout << "CedI" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 1, 1) != 0.) std::cout << "CedI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 1, 2) != 0.) std::cout << "CedI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 2, 0) != 0.) std::cout << "CedI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 2, 1) != 0.) std::cout << "CedI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 2, 2) != 0.) std::cout << "CedI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 0, 0) != 0.) std::cout << "CedI" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 0, 1) != 0.) std::cout << "CedI" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 0, 2) != 0.) std::cout << "CedI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 1, 0) != 0.) std::cout << "CedI" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 1, 1) != 0.) std::cout << "CedI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 1, 2) != 0.) std::cout << "CedI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 2, 0) != 0.) std::cout << "CedI" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 2, 1) != 0.) std::cout << "CedI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 2, 2) != 0.) std::cout << "CedI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 1, 0, 1) != 0.) std::cout << "CedI" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 1, 0, 2) != 0.) std::cout << "CedI" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 1, 1, 2) != 0.) std::cout << "CedI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 0, 0) != 0.) std::cout << "CedI" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 0, 1) != 0.) std::cout << "CedI" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 0, 2) != 0.) std::cout << "CedI" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 1, 0) != 0.) std::cout << "CedI" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 1, 1) != 0.) std::cout << "CedI" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 1, 2) != 0.) std::cout << "CedI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 2, 0) != 0.) std::cout << "CedI" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 2, 1) != 0.) std::cout << "CedI" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 2, 2) != 0.) std::cout << "CedI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 2, 2, 0, 1) != 0.) std::cout << "CedI" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 2, 2, 0, 2) != 0.) std::cout << "CedI" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CedI", 2, 2, 1, 2) != 0.) std::cout << "CedI" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CedI", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 0, 0) != 0.) std::cout << "CleR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 0, 1) != 0.) std::cout << "CleR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 0, 2) != 0.) std::cout << "CleR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 1, 1) != 0.) std::cout << "CleR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 1, 2) != 0.) std::cout << "CleR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 2, 2) != 0.) std::cout << "CleR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 0, 0) != 0.) std::cout << "CleR" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 0, 1) != 0.) std::cout << "CleR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 0, 2) != 0.) std::cout << "CleR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 1, 0) != 0.) std::cout << "CleR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 1, 1) != 0.) std::cout << "CleR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 1, 2) != 0.) std::cout << "CleR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 2, 0) != 0.) std::cout << "CleR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 2, 1) != 0.) std::cout << "CleR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 2, 2) != 0.) std::cout << "CleR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 0, 0) != 0.) std::cout << "CleR" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 0, 1) != 0.) std::cout << "CleR" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 0, 2) != 0.) std::cout << "CleR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 1, 0) != 0.) std::cout << "CleR" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 1, 1) != 0.) std::cout << "CleR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 1, 2) != 0.) std::cout << "CleR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 2, 0) != 0.) std::cout << "CleR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 2, 1) != 0.) std::cout << "CleR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 2, 2) != 0.) std::cout << "CleR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 0, 0) != 0.) std::cout << "CleR" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 0, 1) != 0.) std::cout << "CleR" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 0, 2) != 0.) std::cout << "CleR" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 1, 1) != 0.) std::cout << "CleR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 1, 2) != 0.) std::cout << "CleR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 2, 2) != 0.) std::cout << "CleR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 0, 0) != 0.) std::cout << "CleR" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 0, 1) != 0.) std::cout << "CleR" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 0, 2) != 0.) std::cout << "CleR" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 1, 0) != 0.) std::cout << "CleR" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 1, 1) != 0.) std::cout << "CleR" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 1, 2) != 0.) std::cout << "CleR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 2, 0) != 0.) std::cout << "CleR" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 2, 1) != 0.) std::cout << "CleR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 2, 2) != 0.) std::cout << "CleR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 0, 0) != 0.) std::cout << "CleR" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 0, 1) != 0.) std::cout << "CleR" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 0, 2) != 0.) std::cout << "CleR" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 1, 1) != 0.) std::cout << "CleR" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 1, 2) != 0.) std::cout << "CleR" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 2, 2) != 0.) std::cout << "CleR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 0, 0, 1) != 0.) std::cout << "CleI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 0, 0, 2) != 0.) std::cout << "CleI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 0, 1, 2) != 0.) std::cout << "CleI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 0, 0) != 0.) std::cout << "CleI" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 0, 1) != 0.) std::cout << "CleI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 0, 2) != 0.) std::cout << "CleI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 1, 0) != 0.) std::cout << "CleI" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 1, 1) != 0.) std::cout << "CleI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 1, 2) != 0.) std::cout << "CleI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 2, 0) != 0.) std::cout << "CleI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 2, 1) != 0.) std::cout << "CleI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 2, 2) != 0.) std::cout << "CleI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 0, 0) != 0.) std::cout << "CleI" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 0, 1) != 0.) std::cout << "CleI" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 0, 2) != 0.) std::cout << "CleI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 1, 0) != 0.) std::cout << "CleI" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 1, 1) != 0.) std::cout << "CleI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 1, 2) != 0.) std::cout << "CleI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 2, 0) != 0.) std::cout << "CleI" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 2, 1) != 0.) std::cout << "CleI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 2, 2) != 0.) std::cout << "CleI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 1, 0, 1) != 0.) std::cout << "CleI" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 1, 0, 2) != 0.) std::cout << "CleI" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 1, 1, 2) != 0.) std::cout << "CleI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 0, 0) != 0.) std::cout << "CleI" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 0, 1) != 0.) std::cout << "CleI" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 0, 2) != 0.) std::cout << "CleI" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 1, 0) != 0.) std::cout << "CleI" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 1, 1) != 0.) std::cout << "CleI" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 1, 2) != 0.) std::cout << "CleI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 2, 0) != 0.) std::cout << "CleI" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 2, 1) != 0.) std::cout << "CleI" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 2, 2) != 0.) std::cout << "CleI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 2, 2, 0, 1) != 0.) std::cout << "CleI" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 2, 2, 0, 2) != 0.) std::cout << "CleI" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CleI", 2, 2, 1, 2) != 0.) std::cout << "CleI" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CleI", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 0, 0) != 0.) std::cout << "CluR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 0, 1) != 0.) std::cout << "CluR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 0, 2) != 0.) std::cout << "CluR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 1, 1) != 0.) std::cout << "CluR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 1, 2) != 0.) std::cout << "CluR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 2, 2) != 0.) std::cout << "CluR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 0, 0) != 0.) std::cout << "CluR" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 0, 1) != 0.) std::cout << "CluR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 0, 2) != 0.) std::cout << "CluR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 1, 0) != 0.) std::cout << "CluR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 1, 1) != 0.) std::cout << "CluR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 1, 2) != 0.) std::cout << "CluR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 2, 0) != 0.) std::cout << "CluR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 2, 1) != 0.) std::cout << "CluR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 2, 2) != 0.) std::cout << "CluR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 0, 0) != 0.) std::cout << "CluR" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 0, 1) != 0.) std::cout << "CluR" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 0, 2) != 0.) std::cout << "CluR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 1, 0) != 0.) std::cout << "CluR" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 1, 1) != 0.) std::cout << "CluR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 1, 2) != 0.) std::cout << "CluR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 2, 0) != 0.) std::cout << "CluR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 2, 1) != 0.) std::cout << "CluR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 2, 2) != 0.) std::cout << "CluR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 0, 0) != 0.) std::cout << "CluR" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 0, 1) != 0.) std::cout << "CluR" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 0, 2) != 0.) std::cout << "CluR" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 1, 1) != 0.) std::cout << "CluR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 1, 2) != 0.) std::cout << "CluR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 2, 2) != 0.) std::cout << "CluR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 0, 0) != 0.) std::cout << "CluR" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 0, 1) != 0.) std::cout << "CluR" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 0, 2) != 0.) std::cout << "CluR" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 1, 0) != 0.) std::cout << "CluR" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 1, 1) != 0.) std::cout << "CluR" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 1, 2) != 0.) std::cout << "CluR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 2, 0) != 0.) std::cout << "CluR" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 2, 1) != 0.) std::cout << "CluR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 2, 2) != 0.) std::cout << "CluR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 0, 0) != 0.) std::cout << "CluR" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 0, 1) != 0.) std::cout << "CluR" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 0, 2) != 0.) std::cout << "CluR" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 1, 1) != 0.) std::cout << "CluR" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 1, 2) != 0.) std::cout << "CluR" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 2, 2) != 0.) std::cout << "CluR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 0, 0, 1) != 0.) std::cout << "CluI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 0, 0, 2) != 0.) std::cout << "CluI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 0, 1, 2) != 0.) std::cout << "CluI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 0, 0) != 0.) std::cout << "CluI" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 0, 1) != 0.) std::cout << "CluI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 0, 2) != 0.) std::cout << "CluI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 1, 0) != 0.) std::cout << "CluI" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 1, 1) != 0.) std::cout << "CluI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 1, 2) != 0.) std::cout << "CluI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 2, 0) != 0.) std::cout << "CluI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 2, 1) != 0.) std::cout << "CluI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 2, 2) != 0.) std::cout << "CluI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 0, 0) != 0.) std::cout << "CluI" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 0, 1) != 0.) std::cout << "CluI" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 0, 2) != 0.) std::cout << "CluI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 1, 0) != 0.) std::cout << "CluI" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 1, 1) != 0.) std::cout << "CluI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 1, 2) != 0.) std::cout << "CluI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 2, 0) != 0.) std::cout << "CluI" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 2, 1) != 0.) std::cout << "CluI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 2, 2) != 0.) std::cout << "CluI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 1, 0, 1) != 0.) std::cout << "CluI" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 1, 0, 2) != 0.) std::cout << "CluI" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 1, 1, 2) != 0.) std::cout << "CluI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 0, 0) != 0.) std::cout << "CluI" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 0, 1) != 0.) std::cout << "CluI" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 0, 2) != 0.) std::cout << "CluI" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 1, 0) != 0.) std::cout << "CluI" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 1, 1) != 0.) std::cout << "CluI" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 1, 2) != 0.) std::cout << "CluI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 2, 0) != 0.) std::cout << "CluI" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 2, 1) != 0.) std::cout << "CluI" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 2, 2) != 0.) std::cout << "CluI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 2, 2, 0, 1) != 0.) std::cout << "CluI" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 2, 2, 0, 2) != 0.) std::cout << "CluI" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CluI", 2, 2, 1, 2) != 0.) std::cout << "CluI" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CluI", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 0, 0) != 0.) std::cout << "CldR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 0, 1) != 0.) std::cout << "CldR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 0, 2) != 0.) std::cout << "CldR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 1, 1) != 0.) std::cout << "CldR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 1, 2) != 0.) std::cout << "CldR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 2, 2) != 0.) std::cout << "CldR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 0, 0) != 0.) std::cout << "CldR" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 0, 1) != 0.) std::cout << "CldR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 0, 2) != 0.) std::cout << "CldR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 1, 0) != 0.) std::cout << "CldR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 1, 1) != 0.) std::cout << "CldR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 1, 2) != 0.) std::cout << "CldR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 2, 0) != 0.) std::cout << "CldR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 2, 1) != 0.) std::cout << "CldR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 2, 2) != 0.) std::cout << "CldR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 0, 0) != 0.) std::cout << "CldR" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 0, 1) != 0.) std::cout << "CldR" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 0, 2) != 0.) std::cout << "CldR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 1, 0) != 0.) std::cout << "CldR" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 1, 1) != 0.) std::cout << "CldR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 1, 2) != 0.) std::cout << "CldR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 2, 0) != 0.) std::cout << "CldR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 2, 1) != 0.) std::cout << "CldR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 2, 2) != 0.) std::cout << "CldR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 0, 0) != 0.) std::cout << "CldR" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 0, 1) != 0.) std::cout << "CldR" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 0, 2) != 0.) std::cout << "CldR" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 1, 1) != 0.) std::cout << "CldR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 1, 2) != 0.) std::cout << "CldR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 2, 2) != 0.) std::cout << "CldR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 0, 0) != 0.) std::cout << "CldR" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 0, 1) != 0.) std::cout << "CldR" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 0, 2) != 0.) std::cout << "CldR" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 1, 0) != 0.) std::cout << "CldR" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 1, 1) != 0.) std::cout << "CldR" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 1, 2) != 0.) std::cout << "CldR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 2, 0) != 0.) std::cout << "CldR" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 2, 1) != 0.) std::cout << "CldR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 2, 2) != 0.) std::cout << "CldR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 0, 0) != 0.) std::cout << "CldR" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 0, 1) != 0.) std::cout << "CldR" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 0, 2) != 0.) std::cout << "CldR" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 1, 1) != 0.) std::cout << "CldR" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 1, 2) != 0.) std::cout << "CldR" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 2, 2) != 0.) std::cout << "CldR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 0, 0, 1) != 0.) std::cout << "CldI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 0, 0, 2) != 0.) std::cout << "CldI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 0, 1, 2) != 0.) std::cout << "CldI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 0, 0) != 0.) std::cout << "CldI" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 0, 1) != 0.) std::cout << "CldI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 0, 2) != 0.) std::cout << "CldI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 1, 0) != 0.) std::cout << "CldI" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 1, 1) != 0.) std::cout << "CldI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 1, 2) != 0.) std::cout << "CldI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 2, 0) != 0.) std::cout << "CldI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 2, 1) != 0.) std::cout << "CldI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 2, 2) != 0.) std::cout << "CldI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 0, 0) != 0.) std::cout << "CldI" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 0, 1) != 0.) std::cout << "CldI" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 0, 2) != 0.) std::cout << "CldI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 1, 0) != 0.) std::cout << "CldI" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 1, 1) != 0.) std::cout << "CldI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 1, 2) != 0.) std::cout << "CldI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 2, 0) != 0.) std::cout << "CldI" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 2, 1) != 0.) std::cout << "CldI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 2, 2) != 0.) std::cout << "CldI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 1, 0, 1) != 0.) std::cout << "CldI" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 1, 0, 2) != 0.) std::cout << "CldI" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 1, 1, 2) != 0.) std::cout << "CldI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 0, 0) != 0.) std::cout << "CldI" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 0, 1) != 0.) std::cout << "CldI" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 0, 2) != 0.) std::cout << "CldI" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 1, 0) != 0.) std::cout << "CldI" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 1, 1) != 0.) std::cout << "CldI" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 1, 2) != 0.) std::cout << "CldI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 2, 0) != 0.) std::cout << "CldI" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 2, 1) != 0.) std::cout << "CldI" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 2, 2) != 0.) std::cout << "CldI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 2, 2, 0, 1) != 0.) std::cout << "CldI" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 2, 2, 0, 2) != 0.) std::cout << "CldI" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CldI", 2, 2, 1, 2) != 0.) std::cout << "CldI" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CldI", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 0, 0) != 0.) std::cout << "CqeR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 0, 1) != 0.) std::cout << "CqeR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 0, 2) != 0.) std::cout << "CqeR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 1, 1) != 0.) std::cout << "CqeR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 1, 2) != 0.) std::cout << "CqeR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 2, 2) != 0.) std::cout << "CqeR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 0, 0) != 0.) std::cout << "CqeR" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 0, 1) != 0.) std::cout << "CqeR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 0, 2) != 0.) std::cout << "CqeR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 1, 0) != 0.) std::cout << "CqeR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 1, 1) != 0.) std::cout << "CqeR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 1, 2) != 0.) std::cout << "CqeR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 2, 0) != 0.) std::cout << "CqeR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 2, 1) != 0.) std::cout << "CqeR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 2, 2) != 0.) std::cout << "CqeR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 0, 0) != 0.) std::cout << "CqeR" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 0, 1) != 0.) std::cout << "CqeR" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 0, 2) != 0.) std::cout << "CqeR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 1, 0) != 0.) std::cout << "CqeR" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 1, 1) != 0.) std::cout << "CqeR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 1, 2) != 0.) std::cout << "CqeR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 2, 0) != 0.) std::cout << "CqeR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 2, 1) != 0.) std::cout << "CqeR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 2, 2) != 0.) std::cout << "CqeR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 0, 0) != 0.) std::cout << "CqeR" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 0, 1) != 0.) std::cout << "CqeR" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 0, 2) != 0.) std::cout << "CqeR" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 1, 1) != 0.) std::cout << "CqeR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 1, 2) != 0.) std::cout << "CqeR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 2, 2) != 0.) std::cout << "CqeR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 0, 0) != 0.) std::cout << "CqeR" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 0, 1) != 0.) std::cout << "CqeR" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 0, 2) != 0.) std::cout << "CqeR" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 1, 0) != 0.) std::cout << "CqeR" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 1, 1) != 0.) std::cout << "CqeR" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 1, 2) != 0.) std::cout << "CqeR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 2, 0) != 0.) std::cout << "CqeR" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 2, 1) != 0.) std::cout << "CqeR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 2, 2) != 0.) std::cout << "CqeR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 0, 0) != 0.) std::cout << "CqeR" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 0, 1) != 0.) std::cout << "CqeR" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 0, 2) != 0.) std::cout << "CqeR" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 1, 1) != 0.) std::cout << "CqeR" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 1, 2) != 0.) std::cout << "CqeR" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 2, 2) != 0.) std::cout << "CqeR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 0, 0, 1) != 0.) std::cout << "CqeI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 0, 0, 2) != 0.) std::cout << "CqeI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 0, 1, 2) != 0.) std::cout << "CqeI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 0, 0) != 0.) std::cout << "CqeI" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 0, 1) != 0.) std::cout << "CqeI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 0, 2) != 0.) std::cout << "CqeI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 1, 0) != 0.) std::cout << "CqeI" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 1, 1) != 0.) std::cout << "CqeI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 1, 2) != 0.) std::cout << "CqeI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 2, 0) != 0.) std::cout << "CqeI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 2, 1) != 0.) std::cout << "CqeI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 2, 2) != 0.) std::cout << "CqeI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 0, 0) != 0.) std::cout << "CqeI" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 0, 1) != 0.) std::cout << "CqeI" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 0, 2) != 0.) std::cout << "CqeI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 1, 0) != 0.) std::cout << "CqeI" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 1, 1) != 0.) std::cout << "CqeI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 1, 2) != 0.) std::cout << "CqeI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 2, 0) != 0.) std::cout << "CqeI" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 2, 1) != 0.) std::cout << "CqeI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 2, 2) != 0.) std::cout << "CqeI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 1, 0, 1) != 0.) std::cout << "CqeI" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 1, 0, 2) != 0.) std::cout << "CqeI" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 1, 1, 2) != 0.) std::cout << "CqeI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 0, 0) != 0.) std::cout << "CqeI" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 0, 1) != 0.) std::cout << "CqeI" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 0, 2) != 0.) std::cout << "CqeI" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 1, 0) != 0.) std::cout << "CqeI" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 1, 1) != 0.) std::cout << "CqeI" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 1, 2) != 0.) std::cout << "CqeI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 2, 0) != 0.) std::cout << "CqeI" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 2, 1) != 0.) std::cout << "CqeI" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 2, 2) != 0.) std::cout << "CqeI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 2, 2, 0, 1) != 0.) std::cout << "CqeI" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 2, 2, 0, 2) != 0.) std::cout << "CqeI" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CqeI", 2, 2, 1, 2) != 0.) std::cout << "CqeI" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CqeI", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 0, 0) != 0.) std::cout << "CledqR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 0, 1) != 0.) std::cout << "CledqR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 0, 2) != 0.) std::cout << "CledqR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 1, 0) != 0.) std::cout << "CledqR" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 1, 1) != 0.) std::cout << "CledqR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 1, 2) != 0.) std::cout << "CledqR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 2, 0) != 0.) std::cout << "CledqR" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 2, 1) != 0.) std::cout << "CledqR" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 2, 2) != 0.) std::cout << "CledqR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 0, 0) != 0.) std::cout << "CledqR" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 0, 1) != 0.) std::cout << "CledqR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 0, 2) != 0.) std::cout << "CledqR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 1, 0) != 0.) std::cout << "CledqR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 1, 1) != 0.) std::cout << "CledqR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 1, 2) != 0.) std::cout << "CledqR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 2, 0) != 0.) std::cout << "CledqR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 2, 1) != 0.) std::cout << "CledqR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 2, 2) != 0.) std::cout << "CledqR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 0, 0) != 0.) std::cout << "CledqR" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 0, 1) != 0.) std::cout << "CledqR" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 0, 2) != 0.) std::cout << "CledqR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 1, 0) != 0.) std::cout << "CledqR" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 1, 1) != 0.) std::cout << "CledqR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 1, 2) != 0.) std::cout << "CledqR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 2, 0) != 0.) std::cout << "CledqR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 2, 1) != 0.) std::cout << "CledqR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 2, 2) != 0.) std::cout << "CledqR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 0, 0) != 0.) std::cout << "CledqR" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 0, 1) != 0.) std::cout << "CledqR" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 0, 2) != 0.) std::cout << "CledqR" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 1, 0) != 0.) std::cout << "CledqR" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 1, 1) != 0.) std::cout << "CledqR" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 1, 2) != 0.) std::cout << "CledqR" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 2, 0) != 0.) std::cout << "CledqR" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 2, 1) != 0.) std::cout << "CledqR" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 2, 2) != 0.) std::cout << "CledqR" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 0, 0) != 0.) std::cout << "CledqR" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 0, 1) != 0.) std::cout << "CledqR" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 0, 2) != 0.) std::cout << "CledqR" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 1, 0) != 0.) std::cout << "CledqR" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 1, 1) != 0.) std::cout << "CledqR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 1, 2) != 0.) std::cout << "CledqR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 2, 0) != 0.) std::cout << "CledqR" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 2, 1) != 0.) std::cout << "CledqR" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 2, 2) != 0.) std::cout << "CledqR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 0, 0) != 0.) std::cout << "CledqR" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 0, 1) != 0.) std::cout << "CledqR" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 0, 2) != 0.) std::cout << "CledqR" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 1, 0) != 0.) std::cout << "CledqR" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 1, 1) != 0.) std::cout << "CledqR" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 1, 2) != 0.) std::cout << "CledqR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 2, 0) != 0.) std::cout << "CledqR" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 2, 1) != 0.) std::cout << "CledqR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 2, 2) != 0.) std::cout << "CledqR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 0, 0) != 0.) std::cout << "CledqR" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 0, 1) != 0.) std::cout << "CledqR" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 0, 2) != 0.) std::cout << "CledqR" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 1, 0) != 0.) std::cout << "CledqR" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 1, 1) != 0.) std::cout << "CledqR" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 1, 2) != 0.) std::cout << "CledqR" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 2, 0) != 0.) std::cout << "CledqR" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 2, 1) != 0.) std::cout << "CledqR" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 2, 2) != 0.) std::cout << "CledqR" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 0, 0) != 0.) std::cout << "CledqR" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 0, 1) != 0.) std::cout << "CledqR" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 0, 2) != 0.) std::cout << "CledqR" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 1, 0) != 0.) std::cout << "CledqR" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 1, 1) != 0.) std::cout << "CledqR" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 1, 2) != 0.) std::cout << "CledqR" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 2, 0) != 0.) std::cout << "CledqR" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 2, 1) != 0.) std::cout << "CledqR" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 2, 2) != 0.) std::cout << "CledqR" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 0, 0) != 0.) std::cout << "CledqR" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 0, 1) != 0.) std::cout << "CledqR" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 0, 2) != 0.) std::cout << "CledqR" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 1, 0) != 0.) std::cout << "CledqR" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 1, 1) != 0.) std::cout << "CledqR" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 1, 2) != 0.) std::cout << "CledqR" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 2, 0) != 0.) std::cout << "CledqR" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 2, 1) != 0.) std::cout << "CledqR" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 2, 2) != 0.) std::cout << "CledqR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 0, 0) != 0.) std::cout << "CledqI" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 0, 1) != 0.) std::cout << "CledqI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 0, 2) != 0.) std::cout << "CledqI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 1, 0) != 0.) std::cout << "CledqI" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 1, 1) != 0.) std::cout << "CledqI" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 1, 2) != 0.) std::cout << "CledqI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 2, 0) != 0.) std::cout << "CledqI" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 2, 1) != 0.) std::cout << "CledqI" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 2, 2) != 0.) std::cout << "CledqI" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 0, 0) != 0.) std::cout << "CledqI" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 0, 1) != 0.) std::cout << "CledqI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 0, 2) != 0.) std::cout << "CledqI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 1, 0) != 0.) std::cout << "CledqI" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 1, 1) != 0.) std::cout << "CledqI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 1, 2) != 0.) std::cout << "CledqI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 2, 0) != 0.) std::cout << "CledqI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 2, 1) != 0.) std::cout << "CledqI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 2, 2) != 0.) std::cout << "CledqI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 0, 0) != 0.) std::cout << "CledqI" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 0, 1) != 0.) std::cout << "CledqI" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 0, 2) != 0.) std::cout << "CledqI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 1, 0) != 0.) std::cout << "CledqI" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 1, 1) != 0.) std::cout << "CledqI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 1, 2) != 0.) std::cout << "CledqI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 2, 0) != 0.) std::cout << "CledqI" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 2, 1) != 0.) std::cout << "CledqI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 2, 2) != 0.) std::cout << "CledqI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 0, 0) != 0.) std::cout << "CledqI" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 0, 1) != 0.) std::cout << "CledqI" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 0, 2) != 0.) std::cout << "CledqI" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 1, 0) != 0.) std::cout << "CledqI" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 1, 1) != 0.) std::cout << "CledqI" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 1, 2) != 0.) std::cout << "CledqI" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 2, 0) != 0.) std::cout << "CledqI" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 2, 1) != 0.) std::cout << "CledqI" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 2, 2) != 0.) std::cout << "CledqI" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 0, 0) != 0.) std::cout << "CledqI" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 0, 1) != 0.) std::cout << "CledqI" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 0, 2) != 0.) std::cout << "CledqI" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 1, 0) != 0.) std::cout << "CledqI" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 1, 1) != 0.) std::cout << "CledqI" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 1, 2) != 0.) std::cout << "CledqI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 2, 0) != 0.) std::cout << "CledqI" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 2, 1) != 0.) std::cout << "CledqI" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 2, 2) != 0.) std::cout << "CledqI" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 0, 0) != 0.) std::cout << "CledqI" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 0, 1) != 0.) std::cout << "CledqI" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 0, 2) != 0.) std::cout << "CledqI" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 1, 0) != 0.) std::cout << "CledqI" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 1, 1) != 0.) std::cout << "CledqI" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 1, 2) != 0.) std::cout << "CledqI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 2, 0) != 0.) std::cout << "CledqI" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 2, 1) != 0.) std::cout << "CledqI" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 2, 2) != 0.) std::cout << "CledqI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 0, 0) != 0.) std::cout << "CledqI" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 0, 1) != 0.) std::cout << "CledqI" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 0, 2) != 0.) std::cout << "CledqI" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 1, 0) != 0.) std::cout << "CledqI" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 1, 1) != 0.) std::cout << "CledqI" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 1, 2) != 0.) std::cout << "CledqI" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 2, 0) != 0.) std::cout << "CledqI" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 2, 1) != 0.) std::cout << "CledqI" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 2, 2) != 0.) std::cout << "CledqI" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 0, 0) != 0.) std::cout << "CledqI" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 0, 1) != 0.) std::cout << "CledqI" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 0, 2) != 0.) std::cout << "CledqI" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 1, 0) != 0.) std::cout << "CledqI" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 1, 1) != 0.) std::cout << "CledqI" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 1, 2) != 0.) std::cout << "CledqI" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 2, 0) != 0.) std::cout << "CledqI" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 2, 1) != 0.) std::cout << "CledqI" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 2, 2) != 0.) std::cout << "CledqI" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 0, 0) != 0.) std::cout << "CledqI" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 0, 1) != 0.) std::cout << "CledqI" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 0, 2) != 0.) std::cout << "CledqI" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 1, 0) != 0.) std::cout << "CledqI" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 1, 1) != 0.) std::cout << "CledqI" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 1, 2) != 0.) std::cout << "CledqI" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 2, 0) != 0.) std::cout << "CledqI" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 2, 1) != 0.) std::cout << "CledqI" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 2, 2) != 0.) std::cout << "CledqI" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CledqI", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 0, 0) != 0.) std::cout << "Cqq1R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 0, 1) != 0.) std::cout << "Cqq1R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 0, 2) != 0.) std::cout << "Cqq1R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 1, 1) != 0.) std::cout << "Cqq1R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 1, 2) != 0.) std::cout << "Cqq1R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 2, 2) != 0.) std::cout << "Cqq1R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 0, 1) != 0.) std::cout << "Cqq1R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 0, 2) != 0.) std::cout << "Cqq1R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 1, 0) != 0.) std::cout << "Cqq1R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 1, 1) != 0.) std::cout << "Cqq1R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 1, 2) != 0.) std::cout << "Cqq1R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 2, 0) != 0.) std::cout << "Cqq1R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 2, 1) != 0.) std::cout << "Cqq1R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 2, 2) != 0.) std::cout << "Cqq1R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 0, 2) != 0.) std::cout << "Cqq1R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 1, 1) != 0.) std::cout << "Cqq1R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 1, 2) != 0.) std::cout << "Cqq1R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 2, 0) != 0.) std::cout << "Cqq1R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 2, 1) != 0.) std::cout << "Cqq1R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 2, 2) != 0.) std::cout << "Cqq1R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 1, 1, 1) != 0.) std::cout << "Cqq1R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 1, 1, 2) != 0.) std::cout << "Cqq1R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 1, 2, 2) != 0.) std::cout << "Cqq1R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 2, 1, 2) != 0.) std::cout << "Cqq1R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 2, 2, 1) != 0.) std::cout << "Cqq1R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 2, 2, 2) != 0.) std::cout << "Cqq1R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1R", 2, 2, 2, 2) != 0.) std::cout << "Cqq1R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 0, 0, 1) != 0.) std::cout << "Cqq1I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 0, 0, 2) != 0.) std::cout << "Cqq1I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 0, 1, 2) != 0.) std::cout << "Cqq1I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 0, 1) != 0.) std::cout << "Cqq1I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 0, 2) != 0.) std::cout << "Cqq1I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 1, 1) != 0.) std::cout << "Cqq1I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 1, 2) != 0.) std::cout << "Cqq1I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 2, 0) != 0.) std::cout << "Cqq1I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 2, 1) != 0.) std::cout << "Cqq1I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 2, 2) != 0.) std::cout << "Cqq1I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 0, 2) != 0.) std::cout << "Cqq1I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 1, 1) != 0.) std::cout << "Cqq1I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 1, 2) != 0.) std::cout << "Cqq1I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 2, 1) != 0.) std::cout << "Cqq1I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 2, 2) != 0.) std::cout << "Cqq1I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 1, 1, 1, 2) != 0.) std::cout << "Cqq1I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 1, 2, 1, 2) != 0.) std::cout << "Cqq1I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq1I", 1, 2, 2, 2) != 0.) std::cout << "Cqq1I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq1I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 0, 0) != 0.) std::cout << "Cqq3R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 0, 1) != 0.) std::cout << "Cqq3R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 0, 2) != 0.) std::cout << "Cqq3R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 1, 1) != 0.) std::cout << "Cqq3R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 1, 2) != 0.) std::cout << "Cqq3R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 2, 2) != 0.) std::cout << "Cqq3R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 0, 1) != 0.) std::cout << "Cqq3R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 0, 2) != 0.) std::cout << "Cqq3R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 1, 0) != 0.) std::cout << "Cqq3R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 1, 1) != 0.) std::cout << "Cqq3R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 1, 2) != 0.) std::cout << "Cqq3R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 2, 0) != 0.) std::cout << "Cqq3R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 2, 1) != 0.) std::cout << "Cqq3R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 2, 2) != 0.) std::cout << "Cqq3R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 0, 2) != 0.) std::cout << "Cqq3R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 1, 1) != 0.) std::cout << "Cqq3R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 1, 2) != 0.) std::cout << "Cqq3R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 2, 0) != 0.) std::cout << "Cqq3R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 2, 1) != 0.) std::cout << "Cqq3R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 2, 2) != 0.) std::cout << "Cqq3R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 1, 1, 1) != 0.) std::cout << "Cqq3R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 1, 1, 2) != 0.) std::cout << "Cqq3R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 1, 2, 2) != 0.) std::cout << "Cqq3R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 2, 1, 2) != 0.) std::cout << "Cqq3R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 2, 2, 1) != 0.) std::cout << "Cqq3R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 2, 2, 2) != 0.) std::cout << "Cqq3R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3R", 2, 2, 2, 2) != 0.) std::cout << "Cqq3R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 0, 0, 1) != 0.) std::cout << "Cqq3I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 0, 0, 2) != 0.) std::cout << "Cqq3I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 0, 1, 2) != 0.) std::cout << "Cqq3I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 0, 1) != 0.) std::cout << "Cqq3I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 0, 2) != 0.) std::cout << "Cqq3I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 1, 1) != 0.) std::cout << "Cqq3I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 1, 2) != 0.) std::cout << "Cqq3I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 2, 0) != 0.) std::cout << "Cqq3I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 2, 1) != 0.) std::cout << "Cqq3I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 2, 2) != 0.) std::cout << "Cqq3I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 0, 2) != 0.) std::cout << "Cqq3I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 1, 1) != 0.) std::cout << "Cqq3I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 1, 2) != 0.) std::cout << "Cqq3I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 2, 1) != 0.) std::cout << "Cqq3I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 2, 2) != 0.) std::cout << "Cqq3I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 1, 1, 1, 2) != 0.) std::cout << "Cqq3I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 1, 2, 1, 2) != 0.) std::cout << "Cqq3I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqq3I", 1, 2, 2, 2) != 0.) std::cout << "Cqq3I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqq3I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 0, 0) != 0.) std::cout << "CuuR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 0, 1) != 0.) std::cout << "CuuR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 0, 2) != 0.) std::cout << "CuuR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 1, 1) != 0.) std::cout << "CuuR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 1, 2) != 0.) std::cout << "CuuR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 2, 2) != 0.) std::cout << "CuuR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 0, 1) != 0.) std::cout << "CuuR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 0, 2) != 0.) std::cout << "CuuR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 1, 0) != 0.) std::cout << "CuuR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 1, 1) != 0.) std::cout << "CuuR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 1, 2) != 0.) std::cout << "CuuR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 2, 0) != 0.) std::cout << "CuuR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 2, 1) != 0.) std::cout << "CuuR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 2, 2) != 0.) std::cout << "CuuR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 0, 2) != 0.) std::cout << "CuuR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 1, 1) != 0.) std::cout << "CuuR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 1, 2) != 0.) std::cout << "CuuR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 2, 0) != 0.) std::cout << "CuuR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 2, 1) != 0.) std::cout << "CuuR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 2, 2) != 0.) std::cout << "CuuR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 1, 1, 1, 1) != 0.) std::cout << "CuuR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 1, 1, 1, 2) != 0.) std::cout << "CuuR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 1, 1, 2, 2) != 0.) std::cout << "CuuR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 1, 2, 1, 2) != 0.) std::cout << "CuuR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 1, 2, 2, 1) != 0.) std::cout << "CuuR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 1, 2, 2, 2) != 0.) std::cout << "CuuR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuR", 2, 2, 2, 2) != 0.) std::cout << "CuuR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 0, 0, 1) != 0.) std::cout << "CuuI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 0, 0, 2) != 0.) std::cout << "CuuI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 0, 1, 2) != 0.) std::cout << "CuuI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 0, 1) != 0.) std::cout << "CuuI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 0, 2) != 0.) std::cout << "CuuI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 1, 1) != 0.) std::cout << "CuuI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 1, 2) != 0.) std::cout << "CuuI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 2, 0) != 0.) std::cout << "CuuI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 2, 1) != 0.) std::cout << "CuuI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 2, 2) != 0.) std::cout << "CuuI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 0, 2) != 0.) std::cout << "CuuI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 1, 1) != 0.) std::cout << "CuuI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 1, 2) != 0.) std::cout << "CuuI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 2, 1) != 0.) std::cout << "CuuI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 2, 2) != 0.) std::cout << "CuuI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 1, 1, 1, 2) != 0.) std::cout << "CuuI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 1, 2, 1, 2) != 0.) std::cout << "CuuI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CuuI", 1, 2, 2, 2) != 0.) std::cout << "CuuI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CuuI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 0, 0) != 0.) std::cout << "CddR" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 0, 1) != 0.) std::cout << "CddR" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 0, 2) != 0.) std::cout << "CddR" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 1, 1) != 0.) std::cout << "CddR" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 1, 2) != 0.) std::cout << "CddR" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 2, 2) != 0.) std::cout << "CddR" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 0, 1) != 0.) std::cout << "CddR" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 0, 2) != 0.) std::cout << "CddR" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 1, 0) != 0.) std::cout << "CddR" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 1, 1) != 0.) std::cout << "CddR" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 1, 2) != 0.) std::cout << "CddR" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 2, 0) != 0.) std::cout << "CddR" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 2, 1) != 0.) std::cout << "CddR" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 2, 2) != 0.) std::cout << "CddR" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 0, 2) != 0.) std::cout << "CddR" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 1, 1) != 0.) std::cout << "CddR" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 1, 2) != 0.) std::cout << "CddR" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 2, 0) != 0.) std::cout << "CddR" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 2, 1) != 0.) std::cout << "CddR" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 2, 2) != 0.) std::cout << "CddR" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 1, 1, 1, 1) != 0.) std::cout << "CddR" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 1, 1, 1, 2) != 0.) std::cout << "CddR" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 1, 1, 2, 2) != 0.) std::cout << "CddR" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 1, 2, 1, 2) != 0.) std::cout << "CddR" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 1, 2, 2, 1) != 0.) std::cout << "CddR" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 1, 2, 2, 2) != 0.) std::cout << "CddR" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddR", 2, 2, 2, 2) != 0.) std::cout << "CddR" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddR", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 0, 0, 1) != 0.) std::cout << "CddI" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 0, 0, 2) != 0.) std::cout << "CddI" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 0, 1, 2) != 0.) std::cout << "CddI" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 0, 1) != 0.) std::cout << "CddI" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 0, 2) != 0.) std::cout << "CddI" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 1, 1) != 0.) std::cout << "CddI" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 1, 2) != 0.) std::cout << "CddI" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 2, 0) != 0.) std::cout << "CddI" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 2, 1) != 0.) std::cout << "CddI" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 2, 2) != 0.) std::cout << "CddI" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 0, 2) != 0.) std::cout << "CddI" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 1, 1) != 0.) std::cout << "CddI" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 1, 2) != 0.) std::cout << "CddI" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 2, 1) != 0.) std::cout << "CddI" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 2, 2) != 0.) std::cout << "CddI" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 1, 1, 1, 2) != 0.) std::cout << "CddI" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 1, 2, 1, 2) != 0.) std::cout << "CddI" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("CddI", 1, 2, 2, 2) != 0.) std::cout << "CddI" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("CddI", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 0, 0) != 0.) std::cout << "Cud1R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 0, 1) != 0.) std::cout << "Cud1R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 0, 2) != 0.) std::cout << "Cud1R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 1, 1) != 0.) std::cout << "Cud1R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 1, 2) != 0.) std::cout << "Cud1R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 2, 2) != 0.) std::cout << "Cud1R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 0, 0) != 0.) std::cout << "Cud1R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 0, 1) != 0.) std::cout << "Cud1R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 0, 2) != 0.) std::cout << "Cud1R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 1, 0) != 0.) std::cout << "Cud1R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 1, 1) != 0.) std::cout << "Cud1R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 1, 2) != 0.) std::cout << "Cud1R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 2, 0) != 0.) std::cout << "Cud1R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 2, 1) != 0.) std::cout << "Cud1R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 2, 2) != 0.) std::cout << "Cud1R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 0, 0) != 0.) std::cout << "Cud1R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 0, 1) != 0.) std::cout << "Cud1R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 0, 2) != 0.) std::cout << "Cud1R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 1, 0) != 0.) std::cout << "Cud1R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 1, 1) != 0.) std::cout << "Cud1R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 1, 2) != 0.) std::cout << "Cud1R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 2, 0) != 0.) std::cout << "Cud1R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 2, 1) != 0.) std::cout << "Cud1R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 2, 2) != 0.) std::cout << "Cud1R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 0, 0) != 0.) std::cout << "Cud1R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 0, 1) != 0.) std::cout << "Cud1R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 0, 2) != 0.) std::cout << "Cud1R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 1, 1) != 0.) std::cout << "Cud1R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 1, 2) != 0.) std::cout << "Cud1R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 2, 2) != 0.) std::cout << "Cud1R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 0, 0) != 0.) std::cout << "Cud1R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 0, 1) != 0.) std::cout << "Cud1R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 0, 2) != 0.) std::cout << "Cud1R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 1, 0) != 0.) std::cout << "Cud1R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 1, 1) != 0.) std::cout << "Cud1R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 1, 2) != 0.) std::cout << "Cud1R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 2, 0) != 0.) std::cout << "Cud1R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 2, 1) != 0.) std::cout << "Cud1R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 2, 2) != 0.) std::cout << "Cud1R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 0, 0) != 0.) std::cout << "Cud1R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 0, 1) != 0.) std::cout << "Cud1R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 0, 2) != 0.) std::cout << "Cud1R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 1, 1) != 0.) std::cout << "Cud1R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 1, 2) != 0.) std::cout << "Cud1R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 2, 2) != 0.) std::cout << "Cud1R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 0, 0, 1) != 0.) std::cout << "Cud1I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 0, 0, 2) != 0.) std::cout << "Cud1I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 0, 1, 2) != 0.) std::cout << "Cud1I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 0, 0) != 0.) std::cout << "Cud1I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 0, 1) != 0.) std::cout << "Cud1I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 0, 2) != 0.) std::cout << "Cud1I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 1, 0) != 0.) std::cout << "Cud1I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 1, 1) != 0.) std::cout << "Cud1I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 1, 2) != 0.) std::cout << "Cud1I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 2, 0) != 0.) std::cout << "Cud1I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 2, 1) != 0.) std::cout << "Cud1I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 2, 2) != 0.) std::cout << "Cud1I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 0, 0) != 0.) std::cout << "Cud1I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 0, 1) != 0.) std::cout << "Cud1I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 0, 2) != 0.) std::cout << "Cud1I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 1, 0) != 0.) std::cout << "Cud1I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 1, 1) != 0.) std::cout << "Cud1I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 1, 2) != 0.) std::cout << "Cud1I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 2, 0) != 0.) std::cout << "Cud1I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 2, 1) != 0.) std::cout << "Cud1I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 2, 2) != 0.) std::cout << "Cud1I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 1, 0, 1) != 0.) std::cout << "Cud1I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 1, 0, 2) != 0.) std::cout << "Cud1I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 1, 1, 2) != 0.) std::cout << "Cud1I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 0, 0) != 0.) std::cout << "Cud1I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 0, 1) != 0.) std::cout << "Cud1I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 0, 2) != 0.) std::cout << "Cud1I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 1, 0) != 0.) std::cout << "Cud1I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 1, 1) != 0.) std::cout << "Cud1I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 1, 2) != 0.) std::cout << "Cud1I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 2, 0) != 0.) std::cout << "Cud1I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 2, 1) != 0.) std::cout << "Cud1I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 2, 2) != 0.) std::cout << "Cud1I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 2, 2, 0, 1) != 0.) std::cout << "Cud1I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 2, 2, 0, 2) != 0.) std::cout << "Cud1I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud1I", 2, 2, 1, 2) != 0.) std::cout << "Cud1I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud1I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 0, 0) != 0.) std::cout << "Cud8R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 0, 1) != 0.) std::cout << "Cud8R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 0, 2) != 0.) std::cout << "Cud8R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 1, 1) != 0.) std::cout << "Cud8R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 1, 2) != 0.) std::cout << "Cud8R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 2, 2) != 0.) std::cout << "Cud8R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 0, 0) != 0.) std::cout << "Cud8R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 0, 1) != 0.) std::cout << "Cud8R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 0, 2) != 0.) std::cout << "Cud8R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 1, 0) != 0.) std::cout << "Cud8R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 1, 1) != 0.) std::cout << "Cud8R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 1, 2) != 0.) std::cout << "Cud8R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 2, 0) != 0.) std::cout << "Cud8R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 2, 1) != 0.) std::cout << "Cud8R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 2, 2) != 0.) std::cout << "Cud8R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 0, 0) != 0.) std::cout << "Cud8R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 0, 1) != 0.) std::cout << "Cud8R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 0, 2) != 0.) std::cout << "Cud8R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 1, 0) != 0.) std::cout << "Cud8R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 1, 1) != 0.) std::cout << "Cud8R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 1, 2) != 0.) std::cout << "Cud8R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 2, 0) != 0.) std::cout << "Cud8R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 2, 1) != 0.) std::cout << "Cud8R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 2, 2) != 0.) std::cout << "Cud8R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 0, 0) != 0.) std::cout << "Cud8R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 0, 1) != 0.) std::cout << "Cud8R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 0, 2) != 0.) std::cout << "Cud8R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 1, 1) != 0.) std::cout << "Cud8R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 1, 2) != 0.) std::cout << "Cud8R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 2, 2) != 0.) std::cout << "Cud8R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 0, 0) != 0.) std::cout << "Cud8R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 0, 1) != 0.) std::cout << "Cud8R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 0, 2) != 0.) std::cout << "Cud8R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 1, 0) != 0.) std::cout << "Cud8R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 1, 1) != 0.) std::cout << "Cud8R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 1, 2) != 0.) std::cout << "Cud8R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 2, 0) != 0.) std::cout << "Cud8R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 2, 1) != 0.) std::cout << "Cud8R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 2, 2) != 0.) std::cout << "Cud8R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 0, 0) != 0.) std::cout << "Cud8R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 0, 1) != 0.) std::cout << "Cud8R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 0, 2) != 0.) std::cout << "Cud8R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 1, 1) != 0.) std::cout << "Cud8R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 1, 2) != 0.) std::cout << "Cud8R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 2, 2) != 0.) std::cout << "Cud8R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 0, 0, 1) != 0.) std::cout << "Cud8I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 0, 0, 2) != 0.) std::cout << "Cud8I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 0, 1, 2) != 0.) std::cout << "Cud8I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 0, 0) != 0.) std::cout << "Cud8I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 0, 1) != 0.) std::cout << "Cud8I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 0, 2) != 0.) std::cout << "Cud8I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 1, 0) != 0.) std::cout << "Cud8I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 1, 1) != 0.) std::cout << "Cud8I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 1, 2) != 0.) std::cout << "Cud8I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 2, 0) != 0.) std::cout << "Cud8I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 2, 1) != 0.) std::cout << "Cud8I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 2, 2) != 0.) std::cout << "Cud8I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 0, 0) != 0.) std::cout << "Cud8I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 0, 1) != 0.) std::cout << "Cud8I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 0, 2) != 0.) std::cout << "Cud8I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 1, 0) != 0.) std::cout << "Cud8I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 1, 1) != 0.) std::cout << "Cud8I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 1, 2) != 0.) std::cout << "Cud8I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 2, 0) != 0.) std::cout << "Cud8I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 2, 1) != 0.) std::cout << "Cud8I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 2, 2) != 0.) std::cout << "Cud8I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 1, 0, 1) != 0.) std::cout << "Cud8I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 1, 0, 2) != 0.) std::cout << "Cud8I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 1, 1, 2) != 0.) std::cout << "Cud8I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 0, 0) != 0.) std::cout << "Cud8I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 0, 1) != 0.) std::cout << "Cud8I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 0, 2) != 0.) std::cout << "Cud8I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 1, 0) != 0.) std::cout << "Cud8I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 1, 1) != 0.) std::cout << "Cud8I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 1, 2) != 0.) std::cout << "Cud8I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 2, 0) != 0.) std::cout << "Cud8I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 2, 1) != 0.) std::cout << "Cud8I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 2, 2) != 0.) std::cout << "Cud8I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 2, 2, 0, 1) != 0.) std::cout << "Cud8I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 2, 2, 0, 2) != 0.) std::cout << "Cud8I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cud8I", 2, 2, 1, 2) != 0.) std::cout << "Cud8I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cud8I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 0, 0) != 0.) std::cout << "Cqu1R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 0, 1) != 0.) std::cout << "Cqu1R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 0, 2) != 0.) std::cout << "Cqu1R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 1, 1) != 0.) std::cout << "Cqu1R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 1, 2) != 0.) std::cout << "Cqu1R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 2, 2) != 0.) std::cout << "Cqu1R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 0, 0) != 0.) std::cout << "Cqu1R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 0, 1) != 0.) std::cout << "Cqu1R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 0, 2) != 0.) std::cout << "Cqu1R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 1, 0) != 0.) std::cout << "Cqu1R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 1, 1) != 0.) std::cout << "Cqu1R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 1, 2) != 0.) std::cout << "Cqu1R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 2, 0) != 0.) std::cout << "Cqu1R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 2, 1) != 0.) std::cout << "Cqu1R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 2, 2) != 0.) std::cout << "Cqu1R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 0, 0) != 0.) std::cout << "Cqu1R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 0, 1) != 0.) std::cout << "Cqu1R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 0, 2) != 0.) std::cout << "Cqu1R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 1, 0) != 0.) std::cout << "Cqu1R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 1, 1) != 0.) std::cout << "Cqu1R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 1, 2) != 0.) std::cout << "Cqu1R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 2, 0) != 0.) std::cout << "Cqu1R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 2, 1) != 0.) std::cout << "Cqu1R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 2, 2) != 0.) std::cout << "Cqu1R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 0, 0) != 0.) std::cout << "Cqu1R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 0, 1) != 0.) std::cout << "Cqu1R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 0, 2) != 0.) std::cout << "Cqu1R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 1, 1) != 0.) std::cout << "Cqu1R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 1, 2) != 0.) std::cout << "Cqu1R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 2, 2) != 0.) std::cout << "Cqu1R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 0, 0) != 0.) std::cout << "Cqu1R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 0, 1) != 0.) std::cout << "Cqu1R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 0, 2) != 0.) std::cout << "Cqu1R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 1, 0) != 0.) std::cout << "Cqu1R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 1, 1) != 0.) std::cout << "Cqu1R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 1, 2) != 0.) std::cout << "Cqu1R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 2, 0) != 0.) std::cout << "Cqu1R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 2, 1) != 0.) std::cout << "Cqu1R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 2, 2) != 0.) std::cout << "Cqu1R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 0, 0) != 0.) std::cout << "Cqu1R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 0, 1) != 0.) std::cout << "Cqu1R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 0, 2) != 0.) std::cout << "Cqu1R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 1, 1) != 0.) std::cout << "Cqu1R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 1, 2) != 0.) std::cout << "Cqu1R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 2, 2) != 0.) std::cout << "Cqu1R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 0, 0, 1) != 0.) std::cout << "Cqu1I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 0, 0, 2) != 0.) std::cout << "Cqu1I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 0, 1, 2) != 0.) std::cout << "Cqu1I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 0, 0) != 0.) std::cout << "Cqu1I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 0, 1) != 0.) std::cout << "Cqu1I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 0, 2) != 0.) std::cout << "Cqu1I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 1, 0) != 0.) std::cout << "Cqu1I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 1, 1) != 0.) std::cout << "Cqu1I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 1, 2) != 0.) std::cout << "Cqu1I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 2, 0) != 0.) std::cout << "Cqu1I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 2, 1) != 0.) std::cout << "Cqu1I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 2, 2) != 0.) std::cout << "Cqu1I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 0, 0) != 0.) std::cout << "Cqu1I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 0, 1) != 0.) std::cout << "Cqu1I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 0, 2) != 0.) std::cout << "Cqu1I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 1, 0) != 0.) std::cout << "Cqu1I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 1, 1) != 0.) std::cout << "Cqu1I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 1, 2) != 0.) std::cout << "Cqu1I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 2, 0) != 0.) std::cout << "Cqu1I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 2, 1) != 0.) std::cout << "Cqu1I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 2, 2) != 0.) std::cout << "Cqu1I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 1, 0, 1) != 0.) std::cout << "Cqu1I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 1, 0, 2) != 0.) std::cout << "Cqu1I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 1, 1, 2) != 0.) std::cout << "Cqu1I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 0, 0) != 0.) std::cout << "Cqu1I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 0, 1) != 0.) std::cout << "Cqu1I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 0, 2) != 0.) std::cout << "Cqu1I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 1, 0) != 0.) std::cout << "Cqu1I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 1, 1) != 0.) std::cout << "Cqu1I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 1, 2) != 0.) std::cout << "Cqu1I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 2, 0) != 0.) std::cout << "Cqu1I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 2, 1) != 0.) std::cout << "Cqu1I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 2, 2) != 0.) std::cout << "Cqu1I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 2, 2, 0, 1) != 0.) std::cout << "Cqu1I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 2, 2, 0, 2) != 0.) std::cout << "Cqu1I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu1I", 2, 2, 1, 2) != 0.) std::cout << "Cqu1I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu1I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 0, 0) != 0.) std::cout << "Cqu8R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 0, 1) != 0.) std::cout << "Cqu8R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 0, 2) != 0.) std::cout << "Cqu8R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 1, 1) != 0.) std::cout << "Cqu8R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 1, 2) != 0.) std::cout << "Cqu8R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 2, 2) != 0.) std::cout << "Cqu8R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 0, 0) != 0.) std::cout << "Cqu8R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 0, 1) != 0.) std::cout << "Cqu8R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 0, 2) != 0.) std::cout << "Cqu8R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 1, 0) != 0.) std::cout << "Cqu8R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 1, 1) != 0.) std::cout << "Cqu8R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 1, 2) != 0.) std::cout << "Cqu8R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 2, 0) != 0.) std::cout << "Cqu8R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 2, 1) != 0.) std::cout << "Cqu8R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 2, 2) != 0.) std::cout << "Cqu8R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 0, 0) != 0.) std::cout << "Cqu8R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 0, 1) != 0.) std::cout << "Cqu8R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 0, 2) != 0.) std::cout << "Cqu8R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 1, 0) != 0.) std::cout << "Cqu8R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 1, 1) != 0.) std::cout << "Cqu8R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 1, 2) != 0.) std::cout << "Cqu8R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 2, 0) != 0.) std::cout << "Cqu8R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 2, 1) != 0.) std::cout << "Cqu8R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 2, 2) != 0.) std::cout << "Cqu8R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 0, 0) != 0.) std::cout << "Cqu8R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 0, 1) != 0.) std::cout << "Cqu8R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 0, 2) != 0.) std::cout << "Cqu8R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 1, 1) != 0.) std::cout << "Cqu8R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 1, 2) != 0.) std::cout << "Cqu8R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 2, 2) != 0.) std::cout << "Cqu8R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 0, 0) != 0.) std::cout << "Cqu8R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 0, 1) != 0.) std::cout << "Cqu8R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 0, 2) != 0.) std::cout << "Cqu8R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 1, 0) != 0.) std::cout << "Cqu8R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 1, 1) != 0.) std::cout << "Cqu8R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 1, 2) != 0.) std::cout << "Cqu8R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 2, 0) != 0.) std::cout << "Cqu8R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 2, 1) != 0.) std::cout << "Cqu8R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 2, 2) != 0.) std::cout << "Cqu8R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 0, 0) != 0.) std::cout << "Cqu8R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 0, 1) != 0.) std::cout << "Cqu8R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 0, 2) != 0.) std::cout << "Cqu8R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 1, 1) != 0.) std::cout << "Cqu8R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 1, 2) != 0.) std::cout << "Cqu8R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 2, 2) != 0.) std::cout << "Cqu8R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 0, 0, 1) != 0.) std::cout << "Cqu8I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 0, 0, 2) != 0.) std::cout << "Cqu8I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 0, 1, 2) != 0.) std::cout << "Cqu8I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 0, 0) != 0.) std::cout << "Cqu8I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 0, 1) != 0.) std::cout << "Cqu8I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 0, 2) != 0.) std::cout << "Cqu8I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 1, 0) != 0.) std::cout << "Cqu8I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 1, 1) != 0.) std::cout << "Cqu8I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 1, 2) != 0.) std::cout << "Cqu8I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 2, 0) != 0.) std::cout << "Cqu8I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 2, 1) != 0.) std::cout << "Cqu8I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 2, 2) != 0.) std::cout << "Cqu8I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 0, 0) != 0.) std::cout << "Cqu8I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 0, 1) != 0.) std::cout << "Cqu8I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 0, 2) != 0.) std::cout << "Cqu8I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 1, 0) != 0.) std::cout << "Cqu8I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 1, 1) != 0.) std::cout << "Cqu8I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 1, 2) != 0.) std::cout << "Cqu8I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 2, 0) != 0.) std::cout << "Cqu8I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 2, 1) != 0.) std::cout << "Cqu8I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 2, 2) != 0.) std::cout << "Cqu8I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 1, 0, 1) != 0.) std::cout << "Cqu8I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 1, 0, 2) != 0.) std::cout << "Cqu8I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 1, 1, 2) != 0.) std::cout << "Cqu8I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 0, 0) != 0.) std::cout << "Cqu8I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 0, 1) != 0.) std::cout << "Cqu8I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 0, 2) != 0.) std::cout << "Cqu8I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 1, 0) != 0.) std::cout << "Cqu8I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 1, 1) != 0.) std::cout << "Cqu8I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 1, 2) != 0.) std::cout << "Cqu8I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 2, 0) != 0.) std::cout << "Cqu8I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 2, 1) != 0.) std::cout << "Cqu8I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 2, 2) != 0.) std::cout << "Cqu8I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 2, 2, 0, 1) != 0.) std::cout << "Cqu8I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 2, 2, 0, 2) != 0.) std::cout << "Cqu8I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqu8I", 2, 2, 1, 2) != 0.) std::cout << "Cqu8I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqu8I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 0, 0) != 0.) std::cout << "Cqd1R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 0, 1) != 0.) std::cout << "Cqd1R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 0, 2) != 0.) std::cout << "Cqd1R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 1, 1) != 0.) std::cout << "Cqd1R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 1, 2) != 0.) std::cout << "Cqd1R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 2, 2) != 0.) std::cout << "Cqd1R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 0, 0) != 0.) std::cout << "Cqd1R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 0, 1) != 0.) std::cout << "Cqd1R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 0, 2) != 0.) std::cout << "Cqd1R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 1, 0) != 0.) std::cout << "Cqd1R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 1, 1) != 0.) std::cout << "Cqd1R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 1, 2) != 0.) std::cout << "Cqd1R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 2, 0) != 0.) std::cout << "Cqd1R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 2, 1) != 0.) std::cout << "Cqd1R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 2, 2) != 0.) std::cout << "Cqd1R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 0, 0) != 0.) std::cout << "Cqd1R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 0, 1) != 0.) std::cout << "Cqd1R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 0, 2) != 0.) std::cout << "Cqd1R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 1, 0) != 0.) std::cout << "Cqd1R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 1, 1) != 0.) std::cout << "Cqd1R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 1, 2) != 0.) std::cout << "Cqd1R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 2, 0) != 0.) std::cout << "Cqd1R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 2, 1) != 0.) std::cout << "Cqd1R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 2, 2) != 0.) std::cout << "Cqd1R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 0, 0) != 0.) std::cout << "Cqd1R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 0, 1) != 0.) std::cout << "Cqd1R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 0, 2) != 0.) std::cout << "Cqd1R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 1, 1) != 0.) std::cout << "Cqd1R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 1, 2) != 0.) std::cout << "Cqd1R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 2, 2) != 0.) std::cout << "Cqd1R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 0, 0) != 0.) std::cout << "Cqd1R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 0, 1) != 0.) std::cout << "Cqd1R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 0, 2) != 0.) std::cout << "Cqd1R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 1, 0) != 0.) std::cout << "Cqd1R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 1, 1) != 0.) std::cout << "Cqd1R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 1, 2) != 0.) std::cout << "Cqd1R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 2, 0) != 0.) std::cout << "Cqd1R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 2, 1) != 0.) std::cout << "Cqd1R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 2, 2) != 0.) std::cout << "Cqd1R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 0, 0) != 0.) std::cout << "Cqd1R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 0, 1) != 0.) std::cout << "Cqd1R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 0, 2) != 0.) std::cout << "Cqd1R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 1, 1) != 0.) std::cout << "Cqd1R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 1, 2) != 0.) std::cout << "Cqd1R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 2, 2) != 0.) std::cout << "Cqd1R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 0, 0, 1) != 0.) std::cout << "Cqd1I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 0, 0, 2) != 0.) std::cout << "Cqd1I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 0, 1, 2) != 0.) std::cout << "Cqd1I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 0, 0) != 0.) std::cout << "Cqd1I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 0, 1) != 0.) std::cout << "Cqd1I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 0, 2) != 0.) std::cout << "Cqd1I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 1, 0) != 0.) std::cout << "Cqd1I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 1, 1) != 0.) std::cout << "Cqd1I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 1, 2) != 0.) std::cout << "Cqd1I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 2, 0) != 0.) std::cout << "Cqd1I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 2, 1) != 0.) std::cout << "Cqd1I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 2, 2) != 0.) std::cout << "Cqd1I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 0, 0) != 0.) std::cout << "Cqd1I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 0, 1) != 0.) std::cout << "Cqd1I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 0, 2) != 0.) std::cout << "Cqd1I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 1, 0) != 0.) std::cout << "Cqd1I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 1, 1) != 0.) std::cout << "Cqd1I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 1, 2) != 0.) std::cout << "Cqd1I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 2, 0) != 0.) std::cout << "Cqd1I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 2, 1) != 0.) std::cout << "Cqd1I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 2, 2) != 0.) std::cout << "Cqd1I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 1, 0, 1) != 0.) std::cout << "Cqd1I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 1, 0, 2) != 0.) std::cout << "Cqd1I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 1, 1, 2) != 0.) std::cout << "Cqd1I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 0, 0) != 0.) std::cout << "Cqd1I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 0, 1) != 0.) std::cout << "Cqd1I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 0, 2) != 0.) std::cout << "Cqd1I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 1, 0) != 0.) std::cout << "Cqd1I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 1, 1) != 0.) std::cout << "Cqd1I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 1, 2) != 0.) std::cout << "Cqd1I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 2, 0) != 0.) std::cout << "Cqd1I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 2, 1) != 0.) std::cout << "Cqd1I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 2, 2) != 0.) std::cout << "Cqd1I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 2, 2, 0, 1) != 0.) std::cout << "Cqd1I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 2, 2, 0, 2) != 0.) std::cout << "Cqd1I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd1I", 2, 2, 1, 2) != 0.) std::cout << "Cqd1I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd1I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 0, 0) != 0.) std::cout << "Cqd8R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 0, 1) != 0.) std::cout << "Cqd8R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 0, 2) != 0.) std::cout << "Cqd8R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 1, 1) != 0.) std::cout << "Cqd8R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 1, 2) != 0.) std::cout << "Cqd8R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 2, 2) != 0.) std::cout << "Cqd8R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 0, 0) != 0.) std::cout << "Cqd8R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 0, 1) != 0.) std::cout << "Cqd8R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 0, 2) != 0.) std::cout << "Cqd8R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 1, 0) != 0.) std::cout << "Cqd8R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 1, 1) != 0.) std::cout << "Cqd8R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 1, 2) != 0.) std::cout << "Cqd8R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 2, 0) != 0.) std::cout << "Cqd8R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 2, 1) != 0.) std::cout << "Cqd8R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 2, 2) != 0.) std::cout << "Cqd8R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 0, 0) != 0.) std::cout << "Cqd8R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 0, 1) != 0.) std::cout << "Cqd8R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 0, 2) != 0.) std::cout << "Cqd8R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 1, 0) != 0.) std::cout << "Cqd8R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 1, 1) != 0.) std::cout << "Cqd8R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 1, 2) != 0.) std::cout << "Cqd8R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 2, 0) != 0.) std::cout << "Cqd8R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 2, 1) != 0.) std::cout << "Cqd8R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 2, 2) != 0.) std::cout << "Cqd8R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 0, 0) != 0.) std::cout << "Cqd8R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 0, 1) != 0.) std::cout << "Cqd8R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 0, 2) != 0.) std::cout << "Cqd8R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 1, 1) != 0.) std::cout << "Cqd8R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 1, 2) != 0.) std::cout << "Cqd8R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 2, 2) != 0.) std::cout << "Cqd8R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 0, 0) != 0.) std::cout << "Cqd8R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 0, 1) != 0.) std::cout << "Cqd8R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 0, 2) != 0.) std::cout << "Cqd8R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 1, 0) != 0.) std::cout << "Cqd8R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 1, 1) != 0.) std::cout << "Cqd8R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 1, 2) != 0.) std::cout << "Cqd8R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 2, 0) != 0.) std::cout << "Cqd8R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 2, 1) != 0.) std::cout << "Cqd8R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 2, 2) != 0.) std::cout << "Cqd8R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 0, 0) != 0.) std::cout << "Cqd8R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 0, 1) != 0.) std::cout << "Cqd8R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 0, 2) != 0.) std::cout << "Cqd8R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 1, 1) != 0.) std::cout << "Cqd8R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 1, 2) != 0.) std::cout << "Cqd8R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 2, 2) != 0.) std::cout << "Cqd8R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 0, 0, 1) != 0.) std::cout << "Cqd8I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 0, 0, 2) != 0.) std::cout << "Cqd8I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 0, 1, 2) != 0.) std::cout << "Cqd8I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 0, 0) != 0.) std::cout << "Cqd8I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 0, 1) != 0.) std::cout << "Cqd8I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 0, 2) != 0.) std::cout << "Cqd8I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 1, 0) != 0.) std::cout << "Cqd8I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 1, 1) != 0.) std::cout << "Cqd8I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 1, 2) != 0.) std::cout << "Cqd8I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 2, 0) != 0.) std::cout << "Cqd8I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 2, 1) != 0.) std::cout << "Cqd8I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 2, 2) != 0.) std::cout << "Cqd8I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 0, 0) != 0.) std::cout << "Cqd8I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 0, 1) != 0.) std::cout << "Cqd8I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 0, 2) != 0.) std::cout << "Cqd8I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 1, 0) != 0.) std::cout << "Cqd8I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 1, 1) != 0.) std::cout << "Cqd8I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 1, 2) != 0.) std::cout << "Cqd8I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 2, 0) != 0.) std::cout << "Cqd8I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 2, 1) != 0.) std::cout << "Cqd8I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 2, 2) != 0.) std::cout << "Cqd8I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 1, 0, 1) != 0.) std::cout << "Cqd8I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 1, 0, 2) != 0.) std::cout << "Cqd8I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 1, 1, 2) != 0.) std::cout << "Cqd8I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 0, 0) != 0.) std::cout << "Cqd8I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 0, 1) != 0.) std::cout << "Cqd8I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 0, 2) != 0.) std::cout << "Cqd8I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 1, 0) != 0.) std::cout << "Cqd8I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 1, 1) != 0.) std::cout << "Cqd8I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 1, 2) != 0.) std::cout << "Cqd8I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 2, 0) != 0.) std::cout << "Cqd8I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 2, 1) != 0.) std::cout << "Cqd8I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 2, 2) != 0.) std::cout << "Cqd8I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 2, 2, 0, 1) != 0.) std::cout << "Cqd8I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 2, 2, 0, 2) != 0.) std::cout << "Cqd8I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cqd8I", 2, 2, 1, 2) != 0.) std::cout << "Cqd8I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cqd8I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 0, 0) != 0.) std::cout << "Cquqd1R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 0, 1) != 0.) std::cout << "Cquqd1R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 0, 2) != 0.) std::cout << "Cquqd1R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 1, 0) != 0.) std::cout << "Cquqd1R" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 1, 1) != 0.) std::cout << "Cquqd1R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 1, 2) != 0.) std::cout << "Cquqd1R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 2, 0) != 0.) std::cout << "Cquqd1R" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 2, 1) != 0.) std::cout << "Cquqd1R" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 2, 2) != 0.) std::cout << "Cquqd1R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 0, 0) != 0.) std::cout << "Cquqd1R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 0, 1) != 0.) std::cout << "Cquqd1R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 0, 2) != 0.) std::cout << "Cquqd1R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 1, 0) != 0.) std::cout << "Cquqd1R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 1, 1) != 0.) std::cout << "Cquqd1R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 1, 2) != 0.) std::cout << "Cquqd1R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 2, 0) != 0.) std::cout << "Cquqd1R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 2, 1) != 0.) std::cout << "Cquqd1R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 2, 2) != 0.) std::cout << "Cquqd1R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 0, 0) != 0.) std::cout << "Cquqd1R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 0, 1) != 0.) std::cout << "Cquqd1R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 0, 2) != 0.) std::cout << "Cquqd1R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 1, 0) != 0.) std::cout << "Cquqd1R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 1, 1) != 0.) std::cout << "Cquqd1R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 1, 2) != 0.) std::cout << "Cquqd1R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 2, 0) != 0.) std::cout << "Cquqd1R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 2, 1) != 0.) std::cout << "Cquqd1R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 2, 2) != 0.) std::cout << "Cquqd1R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 0, 0) != 0.) std::cout << "Cquqd1R" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 0, 1) != 0.) std::cout << "Cquqd1R" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 0, 2) != 0.) std::cout << "Cquqd1R" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 1, 0) != 0.) std::cout << "Cquqd1R" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 1, 1) != 0.) std::cout << "Cquqd1R" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 1, 2) != 0.) std::cout << "Cquqd1R" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 2, 0) != 0.) std::cout << "Cquqd1R" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 2, 1) != 0.) std::cout << "Cquqd1R" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 2, 2) != 0.) std::cout << "Cquqd1R" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 0, 0) != 0.) std::cout << "Cquqd1R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 0, 1) != 0.) std::cout << "Cquqd1R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 0, 2) != 0.) std::cout << "Cquqd1R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 1, 0) != 0.) std::cout << "Cquqd1R" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 1, 1) != 0.) std::cout << "Cquqd1R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 1, 2) != 0.) std::cout << "Cquqd1R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 2, 0) != 0.) std::cout << "Cquqd1R" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 2, 1) != 0.) std::cout << "Cquqd1R" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 2, 2) != 0.) std::cout << "Cquqd1R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 0, 0) != 0.) std::cout << "Cquqd1R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 0, 1) != 0.) std::cout << "Cquqd1R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 0, 2) != 0.) std::cout << "Cquqd1R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 1, 0) != 0.) std::cout << "Cquqd1R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 1, 1) != 0.) std::cout << "Cquqd1R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 1, 2) != 0.) std::cout << "Cquqd1R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 2, 0) != 0.) std::cout << "Cquqd1R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 2, 1) != 0.) std::cout << "Cquqd1R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 2, 2) != 0.) std::cout << "Cquqd1R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 0, 0) != 0.) std::cout << "Cquqd1R" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 0, 1) != 0.) std::cout << "Cquqd1R" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 0, 2) != 0.) std::cout << "Cquqd1R" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 1, 0) != 0.) std::cout << "Cquqd1R" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 1, 1) != 0.) std::cout << "Cquqd1R" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 1, 2) != 0.) std::cout << "Cquqd1R" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 2, 0) != 0.) std::cout << "Cquqd1R" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 2, 1) != 0.) std::cout << "Cquqd1R" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 2, 2) != 0.) std::cout << "Cquqd1R" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 0, 0) != 0.) std::cout << "Cquqd1R" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 0, 1) != 0.) std::cout << "Cquqd1R" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 0, 2) != 0.) std::cout << "Cquqd1R" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 1, 0) != 0.) std::cout << "Cquqd1R" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 1, 1) != 0.) std::cout << "Cquqd1R" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 1, 2) != 0.) std::cout << "Cquqd1R" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 2, 0) != 0.) std::cout << "Cquqd1R" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 2, 1) != 0.) std::cout << "Cquqd1R" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 2, 2) != 0.) std::cout << "Cquqd1R" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 0, 0) != 0.) std::cout << "Cquqd1R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 0, 1) != 0.) std::cout << "Cquqd1R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 0, 2) != 0.) std::cout << "Cquqd1R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 1, 0) != 0.) std::cout << "Cquqd1R" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 1, 1) != 0.) std::cout << "Cquqd1R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 1, 2) != 0.) std::cout << "Cquqd1R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 2, 0) != 0.) std::cout << "Cquqd1R" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 2, 1) != 0.) std::cout << "Cquqd1R" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 2, 2) != 0.) std::cout << "Cquqd1R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 0, 0) != 0.) std::cout << "Cquqd1I" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 0, 1) != 0.) std::cout << "Cquqd1I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 0, 2) != 0.) std::cout << "Cquqd1I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 1, 0) != 0.) std::cout << "Cquqd1I" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 1, 1) != 0.) std::cout << "Cquqd1I" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 1, 2) != 0.) std::cout << "Cquqd1I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 2, 0) != 0.) std::cout << "Cquqd1I" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 2, 1) != 0.) std::cout << "Cquqd1I" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 2, 2) != 0.) std::cout << "Cquqd1I" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 0, 0) != 0.) std::cout << "Cquqd1I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 0, 1) != 0.) std::cout << "Cquqd1I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 0, 2) != 0.) std::cout << "Cquqd1I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 1, 0) != 0.) std::cout << "Cquqd1I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 1, 1) != 0.) std::cout << "Cquqd1I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 1, 2) != 0.) std::cout << "Cquqd1I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 2, 0) != 0.) std::cout << "Cquqd1I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 2, 1) != 0.) std::cout << "Cquqd1I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 2, 2) != 0.) std::cout << "Cquqd1I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 0, 0) != 0.) std::cout << "Cquqd1I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 0, 1) != 0.) std::cout << "Cquqd1I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 0, 2) != 0.) std::cout << "Cquqd1I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 1, 0) != 0.) std::cout << "Cquqd1I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 1, 1) != 0.) std::cout << "Cquqd1I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 1, 2) != 0.) std::cout << "Cquqd1I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 2, 0) != 0.) std::cout << "Cquqd1I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 2, 1) != 0.) std::cout << "Cquqd1I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 2, 2) != 0.) std::cout << "Cquqd1I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 0, 0) != 0.) std::cout << "Cquqd1I" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 0, 1) != 0.) std::cout << "Cquqd1I" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 0, 2) != 0.) std::cout << "Cquqd1I" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 1, 0) != 0.) std::cout << "Cquqd1I" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 1, 1) != 0.) std::cout << "Cquqd1I" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 1, 2) != 0.) std::cout << "Cquqd1I" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 2, 0) != 0.) std::cout << "Cquqd1I" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 2, 1) != 0.) std::cout << "Cquqd1I" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 2, 2) != 0.) std::cout << "Cquqd1I" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 0, 0) != 0.) std::cout << "Cquqd1I" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 0, 1) != 0.) std::cout << "Cquqd1I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 0, 2) != 0.) std::cout << "Cquqd1I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 1, 0) != 0.) std::cout << "Cquqd1I" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 1, 1) != 0.) std::cout << "Cquqd1I" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 1, 2) != 0.) std::cout << "Cquqd1I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 2, 0) != 0.) std::cout << "Cquqd1I" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 2, 1) != 0.) std::cout << "Cquqd1I" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 2, 2) != 0.) std::cout << "Cquqd1I" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 0, 0) != 0.) std::cout << "Cquqd1I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 0, 1) != 0.) std::cout << "Cquqd1I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 0, 2) != 0.) std::cout << "Cquqd1I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 1, 0) != 0.) std::cout << "Cquqd1I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 1, 1) != 0.) std::cout << "Cquqd1I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 1, 2) != 0.) std::cout << "Cquqd1I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 2, 0) != 0.) std::cout << "Cquqd1I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 2, 1) != 0.) std::cout << "Cquqd1I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 2, 2) != 0.) std::cout << "Cquqd1I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 0, 0) != 0.) std::cout << "Cquqd1I" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 0, 1) != 0.) std::cout << "Cquqd1I" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 0, 2) != 0.) std::cout << "Cquqd1I" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 1, 0) != 0.) std::cout << "Cquqd1I" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 1, 1) != 0.) std::cout << "Cquqd1I" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 1, 2) != 0.) std::cout << "Cquqd1I" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 2, 0) != 0.) std::cout << "Cquqd1I" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 2, 1) != 0.) std::cout << "Cquqd1I" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 2, 2) != 0.) std::cout << "Cquqd1I" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 0, 0) != 0.) std::cout << "Cquqd1I" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 0, 1) != 0.) std::cout << "Cquqd1I" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 0, 2) != 0.) std::cout << "Cquqd1I" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 1, 0) != 0.) std::cout << "Cquqd1I" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 1, 1) != 0.) std::cout << "Cquqd1I" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 1, 2) != 0.) std::cout << "Cquqd1I" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 2, 0) != 0.) std::cout << "Cquqd1I" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 2, 1) != 0.) std::cout << "Cquqd1I" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 2, 2) != 0.) std::cout << "Cquqd1I" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 0, 0) != 0.) std::cout << "Cquqd1I" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 0, 1) != 0.) std::cout << "Cquqd1I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 0, 2) != 0.) std::cout << "Cquqd1I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 1, 0) != 0.) std::cout << "Cquqd1I" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 1, 1) != 0.) std::cout << "Cquqd1I" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 1, 2) != 0.) std::cout << "Cquqd1I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 2, 0) != 0.) std::cout << "Cquqd1I" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 2, 1) != 0.) std::cout << "Cquqd1I" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 2, 2) != 0.) std::cout << "Cquqd1I" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd1I", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 0, 0) != 0.) std::cout << "Cquqd8R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 0, 1) != 0.) std::cout << "Cquqd8R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 0, 2) != 0.) std::cout << "Cquqd8R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 1, 0) != 0.) std::cout << "Cquqd8R" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 1, 1) != 0.) std::cout << "Cquqd8R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 1, 2) != 0.) std::cout << "Cquqd8R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 2, 0) != 0.) std::cout << "Cquqd8R" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 2, 1) != 0.) std::cout << "Cquqd8R" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 2, 2) != 0.) std::cout << "Cquqd8R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 0, 0) != 0.) std::cout << "Cquqd8R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 0, 1) != 0.) std::cout << "Cquqd8R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 0, 2) != 0.) std::cout << "Cquqd8R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 1, 0) != 0.) std::cout << "Cquqd8R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 1, 1) != 0.) std::cout << "Cquqd8R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 1, 2) != 0.) std::cout << "Cquqd8R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 2, 0) != 0.) std::cout << "Cquqd8R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 2, 1) != 0.) std::cout << "Cquqd8R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 2, 2) != 0.) std::cout << "Cquqd8R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 0, 0) != 0.) std::cout << "Cquqd8R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 0, 1) != 0.) std::cout << "Cquqd8R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 0, 2) != 0.) std::cout << "Cquqd8R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 1, 0) != 0.) std::cout << "Cquqd8R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 1, 1) != 0.) std::cout << "Cquqd8R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 1, 2) != 0.) std::cout << "Cquqd8R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 2, 0) != 0.) std::cout << "Cquqd8R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 2, 1) != 0.) std::cout << "Cquqd8R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 2, 2) != 0.) std::cout << "Cquqd8R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 0, 0) != 0.) std::cout << "Cquqd8R" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 0, 1) != 0.) std::cout << "Cquqd8R" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 0, 2) != 0.) std::cout << "Cquqd8R" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 1, 0) != 0.) std::cout << "Cquqd8R" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 1, 1) != 0.) std::cout << "Cquqd8R" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 1, 2) != 0.) std::cout << "Cquqd8R" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 2, 0) != 0.) std::cout << "Cquqd8R" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 2, 1) != 0.) std::cout << "Cquqd8R" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 2, 2) != 0.) std::cout << "Cquqd8R" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 0, 0) != 0.) std::cout << "Cquqd8R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 0, 1) != 0.) std::cout << "Cquqd8R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 0, 2) != 0.) std::cout << "Cquqd8R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 1, 0) != 0.) std::cout << "Cquqd8R" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 1, 1) != 0.) std::cout << "Cquqd8R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 1, 2) != 0.) std::cout << "Cquqd8R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 2, 0) != 0.) std::cout << "Cquqd8R" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 2, 1) != 0.) std::cout << "Cquqd8R" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 2, 2) != 0.) std::cout << "Cquqd8R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 0, 0) != 0.) std::cout << "Cquqd8R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 0, 1) != 0.) std::cout << "Cquqd8R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 0, 2) != 0.) std::cout << "Cquqd8R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 1, 0) != 0.) std::cout << "Cquqd8R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 1, 1) != 0.) std::cout << "Cquqd8R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 1, 2) != 0.) std::cout << "Cquqd8R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 2, 0) != 0.) std::cout << "Cquqd8R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 2, 1) != 0.) std::cout << "Cquqd8R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 2, 2) != 0.) std::cout << "Cquqd8R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 0, 0) != 0.) std::cout << "Cquqd8R" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 0, 1) != 0.) std::cout << "Cquqd8R" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 0, 2) != 0.) std::cout << "Cquqd8R" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 1, 0) != 0.) std::cout << "Cquqd8R" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 1, 1) != 0.) std::cout << "Cquqd8R" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 1, 2) != 0.) std::cout << "Cquqd8R" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 2, 0) != 0.) std::cout << "Cquqd8R" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 2, 1) != 0.) std::cout << "Cquqd8R" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 2, 2) != 0.) std::cout << "Cquqd8R" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 0, 0) != 0.) std::cout << "Cquqd8R" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 0, 1) != 0.) std::cout << "Cquqd8R" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 0, 2) != 0.) std::cout << "Cquqd8R" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 1, 0) != 0.) std::cout << "Cquqd8R" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 1, 1) != 0.) std::cout << "Cquqd8R" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 1, 2) != 0.) std::cout << "Cquqd8R" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 2, 0) != 0.) std::cout << "Cquqd8R" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 2, 1) != 0.) std::cout << "Cquqd8R" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 2, 2) != 0.) std::cout << "Cquqd8R" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 0, 0) != 0.) std::cout << "Cquqd8R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 0, 1) != 0.) std::cout << "Cquqd8R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 0, 2) != 0.) std::cout << "Cquqd8R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 1, 0) != 0.) std::cout << "Cquqd8R" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 1, 1) != 0.) std::cout << "Cquqd8R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 1, 2) != 0.) std::cout << "Cquqd8R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 2, 0) != 0.) std::cout << "Cquqd8R" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 2, 1) != 0.) std::cout << "Cquqd8R" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 2, 2) != 0.) std::cout << "Cquqd8R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 0, 0) != 0.) std::cout << "Cquqd8I" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 0, 1) != 0.) std::cout << "Cquqd8I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 0, 2) != 0.) std::cout << "Cquqd8I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 1, 0) != 0.) std::cout << "Cquqd8I" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 1, 1) != 0.) std::cout << "Cquqd8I" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 1, 2) != 0.) std::cout << "Cquqd8I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 2, 0) != 0.) std::cout << "Cquqd8I" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 2, 1) != 0.) std::cout << "Cquqd8I" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 2, 2) != 0.) std::cout << "Cquqd8I" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 0, 0) != 0.) std::cout << "Cquqd8I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 0, 1) != 0.) std::cout << "Cquqd8I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 0, 2) != 0.) std::cout << "Cquqd8I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 1, 0) != 0.) std::cout << "Cquqd8I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 1, 1) != 0.) std::cout << "Cquqd8I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 1, 2) != 0.) std::cout << "Cquqd8I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 2, 0) != 0.) std::cout << "Cquqd8I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 2, 1) != 0.) std::cout << "Cquqd8I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 2, 2) != 0.) std::cout << "Cquqd8I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 0, 0) != 0.) std::cout << "Cquqd8I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 0, 1) != 0.) std::cout << "Cquqd8I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 0, 2) != 0.) std::cout << "Cquqd8I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 1, 0) != 0.) std::cout << "Cquqd8I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 1, 1) != 0.) std::cout << "Cquqd8I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 1, 2) != 0.) std::cout << "Cquqd8I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 2, 0) != 0.) std::cout << "Cquqd8I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 2, 1) != 0.) std::cout << "Cquqd8I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 2, 2) != 0.) std::cout << "Cquqd8I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 0, 0) != 0.) std::cout << "Cquqd8I" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 0, 1) != 0.) std::cout << "Cquqd8I" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 0, 2) != 0.) std::cout << "Cquqd8I" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 1, 0) != 0.) std::cout << "Cquqd8I" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 1, 1) != 0.) std::cout << "Cquqd8I" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 1, 2) != 0.) std::cout << "Cquqd8I" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 2, 0) != 0.) std::cout << "Cquqd8I" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 2, 1) != 0.) std::cout << "Cquqd8I" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 2, 2) != 0.) std::cout << "Cquqd8I" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 0, 0) != 0.) std::cout << "Cquqd8I" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 0, 1) != 0.) std::cout << "Cquqd8I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 0, 2) != 0.) std::cout << "Cquqd8I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 1, 0) != 0.) std::cout << "Cquqd8I" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 1, 1) != 0.) std::cout << "Cquqd8I" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 1, 2) != 0.) std::cout << "Cquqd8I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 2, 0) != 0.) std::cout << "Cquqd8I" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 2, 1) != 0.) std::cout << "Cquqd8I" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 2, 2) != 0.) std::cout << "Cquqd8I" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 0, 0) != 0.) std::cout << "Cquqd8I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 0, 1) != 0.) std::cout << "Cquqd8I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 0, 2) != 0.) std::cout << "Cquqd8I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 1, 0) != 0.) std::cout << "Cquqd8I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 1, 1) != 0.) std::cout << "Cquqd8I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 1, 2) != 0.) std::cout << "Cquqd8I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 2, 0) != 0.) std::cout << "Cquqd8I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 2, 1) != 0.) std::cout << "Cquqd8I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 2, 2) != 0.) std::cout << "Cquqd8I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 0, 0) != 0.) std::cout << "Cquqd8I" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 0, 1) != 0.) std::cout << "Cquqd8I" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 0, 2) != 0.) std::cout << "Cquqd8I" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 1, 0) != 0.) std::cout << "Cquqd8I" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 1, 1) != 0.) std::cout << "Cquqd8I" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 1, 2) != 0.) std::cout << "Cquqd8I" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 2, 0) != 0.) std::cout << "Cquqd8I" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 2, 1) != 0.) std::cout << "Cquqd8I" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 2, 2) != 0.) std::cout << "Cquqd8I" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 0, 0) != 0.) std::cout << "Cquqd8I" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 0, 1) != 0.) std::cout << "Cquqd8I" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 0, 2) != 0.) std::cout << "Cquqd8I" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 1, 0) != 0.) std::cout << "Cquqd8I" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 1, 1) != 0.) std::cout << "Cquqd8I" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 1, 2) != 0.) std::cout << "Cquqd8I" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 2, 0) != 0.) std::cout << "Cquqd8I" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 2, 1) != 0.) std::cout << "Cquqd8I" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 2, 2) != 0.) std::cout << "Cquqd8I" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 0, 0) != 0.) std::cout << "Cquqd8I" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 0, 1) != 0.) std::cout << "Cquqd8I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 0, 2) != 0.) std::cout << "Cquqd8I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 1, 0) != 0.) std::cout << "Cquqd8I" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 1, 1) != 0.) std::cout << "Cquqd8I" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 1, 2) != 0.) std::cout << "Cquqd8I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 2, 0) != 0.) std::cout << "Cquqd8I" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 2, 1) != 0.) std::cout << "Cquqd8I" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 2, 2) != 0.) std::cout << "Cquqd8I" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Cquqd8I", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 0, 0) != 0.) std::cout << "Clequ1R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 0, 1) != 0.) std::cout << "Clequ1R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 0, 2) != 0.) std::cout << "Clequ1R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 1, 0) != 0.) std::cout << "Clequ1R" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 1, 1) != 0.) std::cout << "Clequ1R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 1, 2) != 0.) std::cout << "Clequ1R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 2, 0) != 0.) std::cout << "Clequ1R" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 2, 1) != 0.) std::cout << "Clequ1R" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 2, 2) != 0.) std::cout << "Clequ1R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 0, 0) != 0.) std::cout << "Clequ1R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 0, 1) != 0.) std::cout << "Clequ1R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 0, 2) != 0.) std::cout << "Clequ1R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 1, 0) != 0.) std::cout << "Clequ1R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 1, 1) != 0.) std::cout << "Clequ1R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 1, 2) != 0.) std::cout << "Clequ1R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 2, 0) != 0.) std::cout << "Clequ1R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 2, 1) != 0.) std::cout << "Clequ1R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 2, 2) != 0.) std::cout << "Clequ1R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 0, 0) != 0.) std::cout << "Clequ1R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 0, 1) != 0.) std::cout << "Clequ1R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 0, 2) != 0.) std::cout << "Clequ1R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 1, 0) != 0.) std::cout << "Clequ1R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 1, 1) != 0.) std::cout << "Clequ1R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 1, 2) != 0.) std::cout << "Clequ1R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 2, 0) != 0.) std::cout << "Clequ1R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 2, 1) != 0.) std::cout << "Clequ1R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 2, 2) != 0.) std::cout << "Clequ1R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 0, 0) != 0.) std::cout << "Clequ1R" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 0, 1) != 0.) std::cout << "Clequ1R" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 0, 2) != 0.) std::cout << "Clequ1R" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 1, 0) != 0.) std::cout << "Clequ1R" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 1, 1) != 0.) std::cout << "Clequ1R" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 1, 2) != 0.) std::cout << "Clequ1R" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 2, 0) != 0.) std::cout << "Clequ1R" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 2, 1) != 0.) std::cout << "Clequ1R" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 2, 2) != 0.) std::cout << "Clequ1R" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 0, 0) != 0.) std::cout << "Clequ1R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 0, 1) != 0.) std::cout << "Clequ1R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 0, 2) != 0.) std::cout << "Clequ1R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 1, 0) != 0.) std::cout << "Clequ1R" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 1, 1) != 0.) std::cout << "Clequ1R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 1, 2) != 0.) std::cout << "Clequ1R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 2, 0) != 0.) std::cout << "Clequ1R" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 2, 1) != 0.) std::cout << "Clequ1R" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 2, 2) != 0.) std::cout << "Clequ1R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 0, 0) != 0.) std::cout << "Clequ1R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 0, 1) != 0.) std::cout << "Clequ1R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 0, 2) != 0.) std::cout << "Clequ1R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 1, 0) != 0.) std::cout << "Clequ1R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 1, 1) != 0.) std::cout << "Clequ1R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 1, 2) != 0.) std::cout << "Clequ1R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 2, 0) != 0.) std::cout << "Clequ1R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 2, 1) != 0.) std::cout << "Clequ1R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 2, 2) != 0.) std::cout << "Clequ1R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 0, 0) != 0.) std::cout << "Clequ1R" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 0, 1) != 0.) std::cout << "Clequ1R" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 0, 2) != 0.) std::cout << "Clequ1R" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 1, 0) != 0.) std::cout << "Clequ1R" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 1, 1) != 0.) std::cout << "Clequ1R" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 1, 2) != 0.) std::cout << "Clequ1R" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 2, 0) != 0.) std::cout << "Clequ1R" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 2, 1) != 0.) std::cout << "Clequ1R" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 2, 2) != 0.) std::cout << "Clequ1R" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 0, 0) != 0.) std::cout << "Clequ1R" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 0, 1) != 0.) std::cout << "Clequ1R" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 0, 2) != 0.) std::cout << "Clequ1R" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 1, 0) != 0.) std::cout << "Clequ1R" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 1, 1) != 0.) std::cout << "Clequ1R" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 1, 2) != 0.) std::cout << "Clequ1R" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 2, 0) != 0.) std::cout << "Clequ1R" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 2, 1) != 0.) std::cout << "Clequ1R" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 2, 2) != 0.) std::cout << "Clequ1R" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 0, 0) != 0.) std::cout << "Clequ1R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 0, 1) != 0.) std::cout << "Clequ1R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 0, 2) != 0.) std::cout << "Clequ1R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 1, 0) != 0.) std::cout << "Clequ1R" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 1, 1) != 0.) std::cout << "Clequ1R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 1, 2) != 0.) std::cout << "Clequ1R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 2, 0) != 0.) std::cout << "Clequ1R" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 2, 1) != 0.) std::cout << "Clequ1R" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 2, 2) != 0.) std::cout << "Clequ1R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 0, 0) != 0.) std::cout << "Clequ1I" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 0, 1) != 0.) std::cout << "Clequ1I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 0, 2) != 0.) std::cout << "Clequ1I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 1, 0) != 0.) std::cout << "Clequ1I" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 1, 1) != 0.) std::cout << "Clequ1I" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 1, 2) != 0.) std::cout << "Clequ1I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 2, 0) != 0.) std::cout << "Clequ1I" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 2, 1) != 0.) std::cout << "Clequ1I" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 2, 2) != 0.) std::cout << "Clequ1I" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 0, 0) != 0.) std::cout << "Clequ1I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 0, 1) != 0.) std::cout << "Clequ1I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 0, 2) != 0.) std::cout << "Clequ1I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 1, 0) != 0.) std::cout << "Clequ1I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 1, 1) != 0.) std::cout << "Clequ1I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 1, 2) != 0.) std::cout << "Clequ1I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 2, 0) != 0.) std::cout << "Clequ1I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 2, 1) != 0.) std::cout << "Clequ1I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 2, 2) != 0.) std::cout << "Clequ1I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 0, 0) != 0.) std::cout << "Clequ1I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 0, 1) != 0.) std::cout << "Clequ1I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 0, 2) != 0.) std::cout << "Clequ1I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 1, 0) != 0.) std::cout << "Clequ1I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 1, 1) != 0.) std::cout << "Clequ1I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 1, 2) != 0.) std::cout << "Clequ1I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 2, 0) != 0.) std::cout << "Clequ1I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 2, 1) != 0.) std::cout << "Clequ1I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 2, 2) != 0.) std::cout << "Clequ1I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 0, 0) != 0.) std::cout << "Clequ1I" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 0, 1) != 0.) std::cout << "Clequ1I" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 0, 2) != 0.) std::cout << "Clequ1I" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 1, 0) != 0.) std::cout << "Clequ1I" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 1, 1) != 0.) std::cout << "Clequ1I" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 1, 2) != 0.) std::cout << "Clequ1I" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 2, 0) != 0.) std::cout << "Clequ1I" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 2, 1) != 0.) std::cout << "Clequ1I" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 2, 2) != 0.) std::cout << "Clequ1I" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 0, 0) != 0.) std::cout << "Clequ1I" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 0, 1) != 0.) std::cout << "Clequ1I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 0, 2) != 0.) std::cout << "Clequ1I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 1, 0) != 0.) std::cout << "Clequ1I" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 1, 1) != 0.) std::cout << "Clequ1I" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 1, 2) != 0.) std::cout << "Clequ1I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 2, 0) != 0.) std::cout << "Clequ1I" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 2, 1) != 0.) std::cout << "Clequ1I" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 2, 2) != 0.) std::cout << "Clequ1I" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 0, 0) != 0.) std::cout << "Clequ1I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 0, 1) != 0.) std::cout << "Clequ1I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 0, 2) != 0.) std::cout << "Clequ1I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 1, 0) != 0.) std::cout << "Clequ1I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 1, 1) != 0.) std::cout << "Clequ1I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 1, 2) != 0.) std::cout << "Clequ1I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 2, 0) != 0.) std::cout << "Clequ1I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 2, 1) != 0.) std::cout << "Clequ1I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 2, 2) != 0.) std::cout << "Clequ1I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 0, 0) != 0.) std::cout << "Clequ1I" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 0, 1) != 0.) std::cout << "Clequ1I" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 0, 2) != 0.) std::cout << "Clequ1I" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 1, 0) != 0.) std::cout << "Clequ1I" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 1, 1) != 0.) std::cout << "Clequ1I" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 1, 2) != 0.) std::cout << "Clequ1I" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 2, 0) != 0.) std::cout << "Clequ1I" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 2, 1) != 0.) std::cout << "Clequ1I" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 2, 2) != 0.) std::cout << "Clequ1I" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 0, 0) != 0.) std::cout << "Clequ1I" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 0, 1) != 0.) std::cout << "Clequ1I" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 0, 2) != 0.) std::cout << "Clequ1I" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 1, 0) != 0.) std::cout << "Clequ1I" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 1, 1) != 0.) std::cout << "Clequ1I" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 1, 2) != 0.) std::cout << "Clequ1I" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 2, 0) != 0.) std::cout << "Clequ1I" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 2, 1) != 0.) std::cout << "Clequ1I" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 2, 2) != 0.) std::cout << "Clequ1I" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 0, 0) != 0.) std::cout << "Clequ1I" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 0, 1) != 0.) std::cout << "Clequ1I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 0, 2) != 0.) std::cout << "Clequ1I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 1, 0) != 0.) std::cout << "Clequ1I" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 1, 1) != 0.) std::cout << "Clequ1I" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 1, 2) != 0.) std::cout << "Clequ1I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 2, 0) != 0.) std::cout << "Clequ1I" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 2, 1) != 0.) std::cout << "Clequ1I" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 2, 2) != 0.) std::cout << "Clequ1I" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ1I", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 0, 0) != 0.) std::cout << "Clequ3R" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 0, 1) != 0.) std::cout << "Clequ3R" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 0, 2) != 0.) std::cout << "Clequ3R" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 1, 0) != 0.) std::cout << "Clequ3R" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 1, 1) != 0.) std::cout << "Clequ3R" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 1, 2) != 0.) std::cout << "Clequ3R" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 2, 0) != 0.) std::cout << "Clequ3R" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 2, 1) != 0.) std::cout << "Clequ3R" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 2, 2) != 0.) std::cout << "Clequ3R" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 0, 0) != 0.) std::cout << "Clequ3R" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 0, 1) != 0.) std::cout << "Clequ3R" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 0, 2) != 0.) std::cout << "Clequ3R" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 1, 0) != 0.) std::cout << "Clequ3R" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 1, 1) != 0.) std::cout << "Clequ3R" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 1, 2) != 0.) std::cout << "Clequ3R" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 2, 0) != 0.) std::cout << "Clequ3R" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 2, 1) != 0.) std::cout << "Clequ3R" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 2, 2) != 0.) std::cout << "Clequ3R" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 0, 0) != 0.) std::cout << "Clequ3R" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 0, 1) != 0.) std::cout << "Clequ3R" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 0, 2) != 0.) std::cout << "Clequ3R" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 1, 0) != 0.) std::cout << "Clequ3R" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 1, 1) != 0.) std::cout << "Clequ3R" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 1, 2) != 0.) std::cout << "Clequ3R" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 2, 0) != 0.) std::cout << "Clequ3R" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 2, 1) != 0.) std::cout << "Clequ3R" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 2, 2) != 0.) std::cout << "Clequ3R" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 0, 0) != 0.) std::cout << "Clequ3R" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 0, 1) != 0.) std::cout << "Clequ3R" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 0, 2) != 0.) std::cout << "Clequ3R" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 1, 0) != 0.) std::cout << "Clequ3R" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 1, 1) != 0.) std::cout << "Clequ3R" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 1, 2) != 0.) std::cout << "Clequ3R" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 2, 0) != 0.) std::cout << "Clequ3R" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 2, 1) != 0.) std::cout << "Clequ3R" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 2, 2) != 0.) std::cout << "Clequ3R" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 0, 0) != 0.) std::cout << "Clequ3R" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 0, 1) != 0.) std::cout << "Clequ3R" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 0, 2) != 0.) std::cout << "Clequ3R" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 1, 0) != 0.) std::cout << "Clequ3R" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 1, 1) != 0.) std::cout << "Clequ3R" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 1, 2) != 0.) std::cout << "Clequ3R" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 2, 0) != 0.) std::cout << "Clequ3R" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 2, 1) != 0.) std::cout << "Clequ3R" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 2, 2) != 0.) std::cout << "Clequ3R" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 0, 0) != 0.) std::cout << "Clequ3R" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 0, 1) != 0.) std::cout << "Clequ3R" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 0, 2) != 0.) std::cout << "Clequ3R" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 1, 0) != 0.) std::cout << "Clequ3R" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 1, 1) != 0.) std::cout << "Clequ3R" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 1, 2) != 0.) std::cout << "Clequ3R" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 2, 0) != 0.) std::cout << "Clequ3R" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 2, 1) != 0.) std::cout << "Clequ3R" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 2, 2) != 0.) std::cout << "Clequ3R" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 0, 0) != 0.) std::cout << "Clequ3R" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 0, 1) != 0.) std::cout << "Clequ3R" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 0, 2) != 0.) std::cout << "Clequ3R" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 1, 0) != 0.) std::cout << "Clequ3R" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 1, 1) != 0.) std::cout << "Clequ3R" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 1, 2) != 0.) std::cout << "Clequ3R" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 2, 0) != 0.) std::cout << "Clequ3R" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 2, 1) != 0.) std::cout << "Clequ3R" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 2, 2) != 0.) std::cout << "Clequ3R" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 0, 0) != 0.) std::cout << "Clequ3R" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 0, 1) != 0.) std::cout << "Clequ3R" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 0, 2) != 0.) std::cout << "Clequ3R" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 1, 0) != 0.) std::cout << "Clequ3R" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 1, 1) != 0.) std::cout << "Clequ3R" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 1, 2) != 0.) std::cout << "Clequ3R" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 2, 0) != 0.) std::cout << "Clequ3R" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 2, 1) != 0.) std::cout << "Clequ3R" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 2, 2) != 0.) std::cout << "Clequ3R" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 0, 0) != 0.) std::cout << "Clequ3R" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 0, 1) != 0.) std::cout << "Clequ3R" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 0, 2) != 0.) std::cout << "Clequ3R" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 1, 0) != 0.) std::cout << "Clequ3R" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 1, 1) != 0.) std::cout << "Clequ3R" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 1, 2) != 0.) std::cout << "Clequ3R" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 2, 0) != 0.) std::cout << "Clequ3R" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 2, 1) != 0.) std::cout << "Clequ3R" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 2, 2) != 0.) std::cout << "Clequ3R" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3R", 2, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 0, 0) != 0.) std::cout << "Clequ3I" << ", 0, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 0, 1) != 0.) std::cout << "Clequ3I" << ", 0, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 0, 2) != 0.) std::cout << "Clequ3I" << ", 0, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 1, 0) != 0.) std::cout << "Clequ3I" << ", 0, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 1, 1) != 0.) std::cout << "Clequ3I" << ", 0, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 1, 2) != 0.) std::cout << "Clequ3I" << ", 0, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 2, 0) != 0.) std::cout << "Clequ3I" << ", 0, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 2, 1) != 0.) std::cout << "Clequ3I" << ", 0, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 2, 2) != 0.) std::cout << "Clequ3I" << ", 0, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 0, 0) != 0.) std::cout << "Clequ3I" << ", 0, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 0, 1) != 0.) std::cout << "Clequ3I" << ", 0, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 0, 2) != 0.) std::cout << "Clequ3I" << ", 0, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 1, 0) != 0.) std::cout << "Clequ3I" << ", 0, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 1, 1) != 0.) std::cout << "Clequ3I" << ", 0, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 1, 2) != 0.) std::cout << "Clequ3I" << ", 0, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 2, 0) != 0.) std::cout << "Clequ3I" << ", 0, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 2, 1) != 0.) std::cout << "Clequ3I" << ", 0, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 2, 2) != 0.) std::cout << "Clequ3I" << ", 0, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 0, 0) != 0.) std::cout << "Clequ3I" << ", 0, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 0, 1) != 0.) std::cout << "Clequ3I" << ", 0, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 0, 2) != 0.) std::cout << "Clequ3I" << ", 0, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 1, 0) != 0.) std::cout << "Clequ3I" << ", 0, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 1, 1) != 0.) std::cout << "Clequ3I" << ", 0, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 1, 2) != 0.) std::cout << "Clequ3I" << ", 0, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 2, 0) != 0.) std::cout << "Clequ3I" << ", 0, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 2, 1) != 0.) std::cout << "Clequ3I" << ", 0, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 2, 2) != 0.) std::cout << "Clequ3I" << ", 0, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 0, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 0, 0) != 0.) std::cout << "Clequ3I" << ", 1, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 0, 1) != 0.) std::cout << "Clequ3I" << ", 1, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 0, 2) != 0.) std::cout << "Clequ3I" << ", 1, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 1, 0) != 0.) std::cout << "Clequ3I" << ", 1, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 1, 1) != 0.) std::cout << "Clequ3I" << ", 1, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 1, 2) != 0.) std::cout << "Clequ3I" << ", 1, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 2, 0) != 0.) std::cout << "Clequ3I" << ", 1, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 2, 1) != 0.) std::cout << "Clequ3I" << ", 1, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 2, 2) != 0.) std::cout << "Clequ3I" << ", 1, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 0, 0) != 0.) std::cout << "Clequ3I" << ", 1, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 0, 1) != 0.) std::cout << "Clequ3I" << ", 1, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 0, 2) != 0.) std::cout << "Clequ3I" << ", 1, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 1, 0) != 0.) std::cout << "Clequ3I" << ", 1, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 1, 1) != 0.) std::cout << "Clequ3I" << ", 1, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 1, 2) != 0.) std::cout << "Clequ3I" << ", 1, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 2, 0) != 0.) std::cout << "Clequ3I" << ", 1, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 2, 1) != 0.) std::cout << "Clequ3I" << ", 1, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 2, 2) != 0.) std::cout << "Clequ3I" << ", 1, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 0, 0) != 0.) std::cout << "Clequ3I" << ", 1, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 0, 1) != 0.) std::cout << "Clequ3I" << ", 1, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 0, 2) != 0.) std::cout << "Clequ3I" << ", 1, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 1, 0) != 0.) std::cout << "Clequ3I" << ", 1, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 1, 1) != 0.) std::cout << "Clequ3I" << ", 1, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 1, 2) != 0.) std::cout << "Clequ3I" << ", 1, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 2, 0) != 0.) std::cout << "Clequ3I" << ", 1, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 2, 1) != 0.) std::cout << "Clequ3I" << ", 1, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 2, 2) != 0.) std::cout << "Clequ3I" << ", 1, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 1, 2, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 0, 0) != 0.) std::cout << "Clequ3I" << ", 2, 0, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 0, 1) != 0.) std::cout << "Clequ3I" << ", 2, 0, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 0, 2) != 0.) std::cout << "Clequ3I" << ", 2, 0, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 1, 0) != 0.) std::cout << "Clequ3I" << ", 2, 0, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 1, 1) != 0.) std::cout << "Clequ3I" << ", 2, 0, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 1, 2) != 0.) std::cout << "Clequ3I" << ", 2, 0, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 2, 0) != 0.) std::cout << "Clequ3I" << ", 2, 0, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 2, 1) != 0.) std::cout << "Clequ3I" << ", 2, 0, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 2, 2) != 0.) std::cout << "Clequ3I" << ", 2, 0, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 0, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 0, 0) != 0.) std::cout << "Clequ3I" << ", 2, 1, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 0, 1) != 0.) std::cout << "Clequ3I" << ", 2, 1, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 0, 2) != 0.) std::cout << "Clequ3I" << ", 2, 1, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 1, 0) != 0.) std::cout << "Clequ3I" << ", 2, 1, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 1, 1) != 0.) std::cout << "Clequ3I" << ", 2, 1, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 1, 2) != 0.) std::cout << "Clequ3I" << ", 2, 1, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 2, 0) != 0.) std::cout << "Clequ3I" << ", 2, 1, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 2, 1) != 0.) std::cout << "Clequ3I" << ", 2, 1, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 2, 2) != 0.) std::cout << "Clequ3I" << ", 2, 1, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 1, 2, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 0, 0) != 0.) std::cout << "Clequ3I" << ", 2, 2, 0, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 0, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 0, 1) != 0.) std::cout << "Clequ3I" << ", 2, 2, 0, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 0, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 0, 2) != 0.) std::cout << "Clequ3I" << ", 2, 2, 0, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 0, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 1, 0) != 0.) std::cout << "Clequ3I" << ", 2, 2, 1, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 1, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 1, 1) != 0.) std::cout << "Clequ3I" << ", 2, 2, 1, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 1, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 1, 2) != 0.) std::cout << "Clequ3I" << ", 2, 2, 1, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 1, 2) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 2, 0) != 0.) std::cout << "Clequ3I" << ", 2, 2, 2, 0" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 2, 0) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 2, 1) != 0.) std::cout << "Clequ3I" << ", 2, 2, 2, 1" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 2, 1) << std::endl;
+    if(SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 2, 2) != 0.) std::cout << "Clequ3I" << ", 2, 2, 2, 2" << " = " << SMEFTEvolEW.GetCoefficient("Clequ3I", 2, 2, 2, 2) << std::endl;
+
+
+}
+
 /*
 void NPSMEFTd6General::getWCFromEvolutor()
 {
@@ -5727,9 +8306,11 @@ bool NPSMEFTd6General::PostUpdate()
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
 
     setSMEFTEvolWC();
-
+    //printNonVanishingSMEFTCoeffEW();
+    //std::cout << Lambda_NP << " " << muw << " " << SMEFTBasisFlag << std::endl;
     SMEFTEvolEW.EvolveToBasis("Numeric", Lambda_NP, muw, SMEFTBasisFlag);
-
+    //printNonVanishingSMEFTCoeffEW();
+      
     // Renormalization of gauge fields parameters
     delta_ZZ = (cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree * getSMEFTCoeffEW("CHB") + sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
     delta_AA = (sW2_tree * getSMEFTCoeffEW("CHW") + cW2_tree * getSMEFTCoeffEW("CHB") - sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
@@ -12203,11 +14784,11 @@ gslpp::complex NPSMEFTd6General::AHZga_W(const double tau, const double lambda) 
     return sqrt(trueSM.cW2()) * tmp;
 }
 
-double NPSMEFTd6General::muggH(const double sqrt_s) const
+double NPSMEFTd6General::muggH(const double sqrt_s) const                       //AG:modified
 {
-
     double C1 = 0.0066; //It seems to be independent of energy 
-
+    
+    /*
     double m_t = mtpole;
     //double m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
@@ -12236,27 +14817,40 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const
     gslpp::complex tmpb = G_eff_b_SM * dKappa_b / G_eff_SM;
     gslpp::complex tmpc = G_eff_c_SM * dKappa_c / G_eff_SM;
 
-    double mu = (1.0 + 2.0 * (tmpt.real() + tmpb.real() + tmpc.real() + tmpHG.real()));
+    double mu = (1.0 + 2.0 * (tmpt.real() + tmpb.real() + tmpc.real() + tmpHG.real()));*/
+    
+    //AG:
+    double mu = 1.0;
+    mu += cWsch * ( 
+            ( (0.121) * getSMEFTCoeffEW("CHbox")
+            + (-0.03031) * getSMEFTCoeffEW("CHD")
+            + (-0.12245) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.127) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.06062) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.06062) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0606) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     //  Linear contribution from 4 top operators
     //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
     //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-    mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(9.91 + cRGEon * 2.0 * 2.76 * log(0.5 * mHl / Lambda_NP))*1000.
+    mu += cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(9.91 + cRGEon * 2.0 * 2.76 * log(0.5 * mHl / Lambda_NP))*1000.
             + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(13.2 + cRGEon * 2.0 * 3.68 * log(0.5 * mHl / Lambda_NP))*1000.
             + (getSMEFTCoeffEW("Cquqd1R", 2, 2, 2, 2))*(28.4 + cRGEon * 2.0 * 9.21 * log(0.5 * mHl / Lambda_NP))*1000.
             + (getSMEFTCoeffEW("Cquqd8R", 2, 2, 2, 2))*(5.41 + cRGEon * 2.0 * 1.76 * log(0.5 * mHl / Lambda_NP))*1000.
             );
 
     if (FlagQuadraticTerms) {
-        //Add contributions that are quadratic in the effective coefficients
+        /*//Add contributions that are quadratic in the effective coefficients
         gslpp::complex tmp2 = tmpt + tmpb + tmpc + tmpHG;
-
-        mu += tmp2.abs2();
+        mu += tmp2.abs2();*/
+        
+        mu += 0;
 
     }
 
@@ -12347,7 +14941,7 @@ double NPSMEFTd6General::muggHH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6General::muVBF(const double sqrt_s) const
+double NPSMEFTd6General::muVBF(const double sqrt_s) const                       //AG:modified
 {
     double mu = 1.0;
 
@@ -12461,7 +15055,7 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const
 
         C1 = 0.0064;
 
-        mu +=
+        /*mu +=
                 +121332. * getSMEFTCoeffEW("CHbox")
                 - 283.27 * getSMEFTCoeffEW("CHB")
                 - 80829.5 * getSMEFTCoeffEW("CHW")
@@ -12483,7 +15077,28 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const
                 + cWsch * (-11844.9 * getSMEFTCoeffEW("CHD")
                 + 21545. * getSMEFTCoeffEW("CHWB")
                 - 2.999 * delta_GF)
-                ;
+                ;*/
+        //AG:
+        mu += cWsch * ( 
+            ( (0.1212406417550307) * getSMEFTCoeffEW("CHbox")
+            + (0.06142523377274677) * getSMEFTCoeffEW("CHW")
+            + (0.004440347548061384) * getSMEFTCoeffEW("CHB")
+            + (-0.009911432985019508) * getSMEFTCoeffEW("CHD")
+            + (0.037975229200429186) * getSMEFTCoeffEW("CHWB")
+            + (0.0039122818815915126) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0014407251350224736) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.04856326738769942) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.022970502178268144) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.004976297514423232) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0006701158819439234) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0025856234791106006) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (5.657383535127137e-05) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.18189764914837833) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.18189764914837833) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.1818631973746222) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-0.107) * deltaGwd6()
+            + (-0.051) * deltaGzd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -15837,7 +18452,7 @@ double NPSMEFTd6General::muepZBF(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6General::muWH(const double sqrt_s) const
+double NPSMEFTd6General::muWH(const double sqrt_s) const                        //AG:modified
 {
     double mu = 1.0;
 
@@ -15922,7 +18537,7 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
 
         C1 = 0.0103;
 
-        mu +=
+        /*mu +=
                 +121126. * getSMEFTCoeffEW("CHbox")
                 + 886205. * getSMEFTCoeffEW("CHW")
                 + 193294. * CDHW
@@ -15935,8 +18550,19 @@ double NPSMEFTd6General::muWH(const double sqrt_s) const
                 + cWsch * (-30285.8 * getSMEFTCoeffEW("CHD")
                 + 0. * getSMEFTCoeffEW("CHWB")
                 - 1.999 * delta_GF)
-                ;
-
+                ;*/
+        // AG: 
+        mu += cWsch * ( 
+            ( (0.121101) * getSMEFTCoeffEW("CHbox")
+            + (-0.0303067) * getSMEFTCoeffEW("CHD")
+            + (0.88567) * getSMEFTCoeffEW("CHW")
+            + (1.77457) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.211757) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121101) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+        
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             mu += 0.0;
@@ -16077,8 +18703,8 @@ double NPSMEFTd6General::muWHpT250(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6General::muZH(const double sqrt_s) const
-{
+double NPSMEFTd6General::muZH(const double sqrt_s) const                        //AG:modified
+{   
     double mu = 1.0;
 
     double C1 = 0.0;
@@ -16183,7 +18809,7 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
 
         C1 = 0.0119;
 
-        mu +=
+        /*mu +=
                 +121234. * getSMEFTCoeffEW("CHbox")
                 + 88512.4 * getSMEFTCoeffEW("CHB")
                 + 728790. * getSMEFTCoeffEW("CHW")
@@ -16203,7 +18829,26 @@ double NPSMEFTd6General::muZH(const double sqrt_s) const
                 + cWsch * (+35605.2 * getSMEFTCoeffEW("CHD")
                 + 319361. * getSMEFTCoeffEW("CHWB")
                 - 1.999 * delta_GF)
-                ;
+                ;*/
+        // AG: 
+        mu += cWsch * ( 
+            ( (0.121192) * getSMEFTCoeffEW("CHbox")
+            + (0.03642) * getSMEFTCoeffEW("CHD")
+            + (0.73614) * getSMEFTCoeffEW("CHW")
+            + (0.083281) * getSMEFTCoeffEW("CHB")
+            + (0.31376) * getSMEFTCoeffEW("CHWB")
+            + (-0.14875) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.119254) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (1.68531) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.23596) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.38725) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.024635) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.13405115) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.03097592) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121192) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -17914,7 +20559,7 @@ double NPSMEFTd6General::muVBFpVH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6General::muttH(const double sqrt_s) const
+double NPSMEFTd6General::muttH(const double sqrt_s) const                       //AG:modified
 {
     double mu = 1.0;
 
@@ -18019,7 +20664,7 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
 
         C1 = 0.0351;
 
-        mu +=
+        /*mu +=
                 +538046. * getSMEFTCoeffEW("CHG")
                 - 85159.5 * getSMEFTCoeffEW("CG")
                 + 861157. * getSMEFTCoeffEW("CuGR", 2, 2)
@@ -18038,7 +20683,59 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
                 + 53893.6 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
                 - 2791.1 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
                 + 30575.2 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;
+                ;*/
+                
+        //AG:
+        mu += cWsch * ( 
+            ( (0.121253) * getSMEFTCoeffEW("CHbox")
+            + (-0.03041198) * getSMEFTCoeffEW("CHD")
+            + (0.00103446) * getSMEFTCoeffEW("CHW")
+            + (0.00025946) * getSMEFTCoeffEW("CHB")
+            + (-0.000742598) * getSMEFTCoeffEW("CHWB")
+            + (-0.0007786) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.00010096) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00047263) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0041742) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00020702) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00047302) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.53137) * getSMEFTCoeffEW("CHG")
+            + (-0.12237745) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.886486) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.08865) * getSMEFTCoeffEW("CG")
+            + (-0.00742823) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.00251436) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.015413) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.235) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.00096746) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.0061331) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.047955) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.49933) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.0025728) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.035934) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.016092) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.22973) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00040886) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.0060015) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.00245805) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000269443) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.034415) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.0038829) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.0057251) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.0049893) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00013645) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.000135916) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.090545) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.056059) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0053369) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0014659) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.00154141) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.000180838) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.034414) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0038833) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06091) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);      
 
         //  Linear contribution from 4 top operators
         //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
@@ -18137,6 +20834,11 @@ double NPSMEFTd6General::muttH(const double sqrt_s) const
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
 
     return mu;
+}
+
+double NPSMEFTd6General::mutH(const double sqrt_s) const                        //AG:added
+{
+    return STXS12_tH(sqrt_s);
 }
 
 double NPSMEFTd6General::mutHq(const double sqrt_s) const
@@ -21518,7 +24220,7 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
 
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHZgaint + eHZgapar;
-
+    
     return dwidth;
 }
 
@@ -21706,6 +24408,25 @@ double NPSMEFTd6General::BrHgagaRatio() const
 
 }
 
+double NPSMEFTd6General::deltaGammaHffRatio1(const double mf, const double CifH) const //AG:added
+{
+    double CiHbox = getSMEFTCoeffEW("CHbox");
+    double CiHD = getSMEFTCoeffEW("CHD");
+    
+    return (-delta_GF + 2.0*CiHbox*v2 - CiHD*v2/2.0 - pow(2.0,0.5)*CifH*pow(v(),3.0)/mf);
+}
+
+double NPSMEFTd6General::deltaGammaHffRatio2(const double mf, const double CifH) const  //AG:added
+{
+    double CiHbox = getSMEFTCoeffEW("CHbox");
+    double CiHD = getSMEFTCoeffEW("CHD");
+    
+    return (pow(delta_GF,2.0) - delta_GF_2 - CifH*delta_GF*pow(v(),3.0)/pow(2.0,0.5)/mf 
+           + 4.0*pow(CiHbox,2.0)*pow(v(),4.0) - 2.0*CiHbox*CiHD*pow(v(),4.0) + pow(CiHD,2.0)*pow(v(),4.0)/4.0 
+           - 2.0*pow(2.0,0.5)*CifH*CiHbox*pow(v(),5.0)/mf + CifH*CiHD*pow(v(),5.0)/pow(2.0,0.5)/mf 
+           + pow(CifH,2.0)*pow(v(),6.0)/2.0/pow(mf,2.0));
+}
+
 double NPSMEFTd6General::GammaHmumuRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
@@ -21722,16 +24443,22 @@ double NPSMEFTd6General::GammaHmumuRatio() const
 
 }
 
-double NPSMEFTd6General::deltaGammaHmumuRatio1() const
+double NPSMEFTd6General::deltaGammaHmumuRatio1() const                          //AG:modified
 {
     double dwidth = 0.0;
 
     double C1 = 0.0;
 
-    dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
             - 199792511. * getSMEFTCoeffEW("CeHR", 1, 1)
             - 30312.1 * getSMEFTCoeffEW("CHD")
-            - 60624.1 * delta_GF / v() / v());
+            - 60624.1 * delta_GF / v() / v());*/
+    
+    //AG:begin
+    double mf = leptons[MU].getMass();
+    double CifH = getSMEFTCoeffEW("CeHR", 1,1);
+    dwidth = deltaGammaHffRatio1(mf, CifH);
+    //AG:end
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -21748,10 +24475,15 @@ double NPSMEFTd6General::deltaGammaHmumuRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6General::deltaGammaHmumuRatio2() const
+double NPSMEFTd6General::deltaGammaHmumuRatio2() const                          //AG:modified
 {
     double dwidth = 0.0;
-
+    
+    //AG:begin
+    //double mf = leptons[MU].getMass();
+    //double CifH = getSMEFTCoeffEW("CeHR", 1,1);
+    //dwidth += deltaGammaHffRatio2(mf, CifH);
+    //AG:end 
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
@@ -21800,17 +24532,22 @@ double NPSMEFTd6General::GammaHtautauRatio() const
 
 }
 
-double NPSMEFTd6General::deltaGammaHtautauRatio1() const
+double NPSMEFTd6General::deltaGammaHtautauRatio1() const                        //AG:modified
 {
     double dwidth = 0.0;
 
     double C1 = 0.0;
 
-    dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+    /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
             - 11880369. * getSMEFTCoeffEW("CeHR", 2, 2)
             - 30312.1 * getSMEFTCoeffEW("CHD")
-            - 60624.1 * delta_GF / v() / v());
-
+            - 60624.1 * delta_GF / v() / v());*/
+    //AG:begin
+    double mf = leptons[TAU].getMass();
+    double CifH = getSMEFTCoeffEW("CeHR", 2,2);
+    dwidth = deltaGammaHffRatio1(mf, CifH);
+    //AG:end
+    
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
@@ -21827,10 +24564,15 @@ double NPSMEFTd6General::deltaGammaHtautauRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6General::deltaGammaHtautauRatio2() const
+double NPSMEFTd6General::deltaGammaHtautauRatio2() const                        //AG:modified
 {
     double dwidth = 0.0;
-
+    
+    //AG:begin
+    //double mf = leptons[TAU].getMass();
+    //double CifH = getSMEFTCoeffEW("CeHR", 2,2);
+    //dwidth += deltaGammaHffRatio2(mf, CifH);
+    //AG:end
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
@@ -21879,7 +24621,7 @@ double NPSMEFTd6General::GammaHccRatio() const
 
 }
 
-double NPSMEFTd6General::deltaGammaHccRatio1() const
+double NPSMEFTd6General::deltaGammaHccRatio1() const                            //AG:modified
 {
     double dwidth = 0.0;
 
@@ -21895,10 +24637,17 @@ double NPSMEFTd6General::deltaGammaHccRatio1() const
 
     } else {
 
-        dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+        /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
                 - 16556668. * getSMEFTCoeffEW("CuHR", 1, 1)
                 - 30312.1 * getSMEFTCoeffEW("CHD")
-                - 60624.1 * delta_GF / v() / v());
+                - 60624.1 * delta_GF / v() / v());*/
+        
+        //AG:begin
+        double mf = quarks[CHARM].getMass();
+        double CifH = getSMEFTCoeffEW("CuHR", 1,1);
+        dwidth = deltaGammaHffRatio1(mf, CifH);
+        //AG:end
+     
     }
 
     //  Linear contribution from Higgs self-coupling
@@ -21919,10 +24668,15 @@ double NPSMEFTd6General::deltaGammaHccRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6General::deltaGammaHccRatio2() const
+double NPSMEFTd6General::deltaGammaHccRatio2() const                            //AG:modified
 {
     double dwidth = 0.0;
-
+    
+    //AG:begin
+    //double mf = quarks[CHARM].getMass();
+    //double CifH = getSMEFTCoeffEW("CuHR", 1,1);
+    //dwidth += deltaGammaHffRatio2(mf, CifH);
+    //AG:end
 
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
@@ -21970,7 +24724,7 @@ double NPSMEFTd6General::GammaHbbRatio() const
     return width;
 }
 
-double NPSMEFTd6General::deltaGammaHbbRatio1() const
+double NPSMEFTd6General::deltaGammaHbbRatio1() const                            //AG:modified
 {
     double dwidth = 0.0;
 
@@ -21986,10 +24740,16 @@ double NPSMEFTd6General::deltaGammaHbbRatio1() const
 
     } else {
 
-        dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+        /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
                 - 5050180. * getSMEFTCoeffEW("CdHR", 2, 2)
                 - 30312.1 * getSMEFTCoeffEW("CHD")
-                - 60624.1 * delta_GF / v() / v());
+                - 60624.1 * delta_GF / v() / v());*/
+        
+        //AG:begin
+        double mf = quarks[BOTTOM].getMass();
+        double CifH = getSMEFTCoeffEW("CdHR", 2,2);
+        dwidth = deltaGammaHffRatio1(mf, CifH);
+        //AG:end
     }
 
     //  Linear contribution from Higgs self-coupling
@@ -22017,11 +24777,16 @@ double NPSMEFTd6General::deltaGammaHbbRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6General::deltaGammaHbbRatio2() const
+double NPSMEFTd6General::deltaGammaHbbRatio2() const                            //AG:modified
 {
     double dwidth = 0.0;
 
-
+    //AG:begin
+    //double mf = leptons[BOTTOM].getMass();
+    //double CifH = getSMEFTCoeffEW("CdHR", 2,2);
+    //dwidth += deltaGammaHffRatio2(mf, CifH);
+    //AG:end
+    
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
 
@@ -31085,17 +33850,26 @@ double NPSMEFTd6General::STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const      //AG:modified
 {
-
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0294 * getSMEFTCoeffEW("CHD") + 42.0 * getSMEFTCoeffEW("CHG") - 0.117 * getSMEFTCoeffEW("CuHR", 2, 2)
+        // To be fixed together with the UFO file when going beyond U(2)
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0294 * getSMEFTCoeffEW("CHD") + 42.0 * getSMEFTCoeffEW("CHG") - 0.117 * getSMEFTCoeffEW("CuHR", 2, 2)
                 - 1.59 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.117 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 0.0587 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.0587 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        //AG:
+        STXSb += cWsch * ( 
+            ( (0.12127490039840637) * getSMEFTCoeffEW("CHbox")
+            + (-0.030326693227091632) * getSMEFTCoeffEW("CHD")
+            + (-0.12254980079681274) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.1274900398406373) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.060669322709163344) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.060669322709163344) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06064541832669322) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31137,18 +33911,29 @@ double NPSMEFTd6General::STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const      //AG:modified
 {
 
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0330 * getSMEFTCoeffEW("CHD") + 44.0 * getSMEFTCoeffEW("CHG") - 0.132 * getSMEFTCoeffEW("CuHR", 2, 2)
+        // To be fixed together with the UFO file when going beyond U(2)
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0330 * getSMEFTCoeffEW("CHD") + 44.0 * getSMEFTCoeffEW("CHG") - 0.132 * getSMEFTCoeffEW("CuHR", 2, 2)
                 - 1.60 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.132 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 0.065 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
-
+                + 0.065 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        
+        //AG:
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12123683316343867) * getSMEFTCoeffEW("CHbox")
+            + (-0.030312606184165817) * getSMEFTCoeffEW("CHD")
+            + (-0.12249405368671423) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.126741420319402) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.060618416581719334) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.060618416581719334) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.060618416581719334) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
 
@@ -31163,17 +33948,27 @@ double NPSMEFTd6General::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const    //AG:modified
 {
-
     double STXSb = 1.0;
 
-    // To be fixed together with the UFO file when going beyond U(2)
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0314 * getSMEFTCoeffEW("CHD") + 43.5 * getSMEFTCoeffEW("CHG") - 0.125 * getSMEFTCoeffEW("CuHR", 2, 2)
+        // To be fixed together with the UFO file when going beyond U(2)
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0314 * getSMEFTCoeffEW("CHD") + 43.5 * getSMEFTCoeffEW("CHG") - 0.125 * getSMEFTCoeffEW("CuHR", 2, 2)
                 - 1.58 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.125 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 0.063 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.063 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        //AG:
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12123503465658475) * getSMEFTCoeffEW("CHbox")
+            + (-0.030315059861373662) * getSMEFTCoeffEW("CHD")
+            + (-0.12249527410207939) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.119722747321991) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.060636420919974794) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.060636420919974794) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.060636420919974794) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31189,17 +33984,27 @@ double NPSMEFTd6General::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const   //AG:modified
 {
-
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.028 * getSMEFTCoeffEW("CHD") + 44 * getSMEFTCoeffEW("CHG") - 0.118 * getSMEFTCoeffEW("CuHR", 2, 2)
+        // To be fixed together with the UFO file when going beyond U(2)
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.028 * getSMEFTCoeffEW("CHD") + 44 * getSMEFTCoeffEW("CHG") - 0.118 * getSMEFTCoeffEW("CuHR", 2, 2)
                 - 1.60 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.112 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 0.058 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.058 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12123076923076923) * getSMEFTCoeffEW("CHbox")
+            + (-0.030307692307692306) * getSMEFTCoeffEW("CHD")
+            + (-0.12248076923076923) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.115576923076923) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.06061538461538461) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.06061538461538461) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06061538461538461) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31215,17 +34020,28 @@ double NPSMEFTd6General::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const     //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.033 * getSMEFTCoeffEW("CHD") + 46 * getSMEFTCoeffEW("CHG") - 0.128 * getSMEFTCoeffEW("CuHR", 2, 2)
+        // To be fixed together with the UFO file when going beyond U(2)
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.033 * getSMEFTCoeffEW("CHD") + 46 * getSMEFTCoeffEW("CHG") - 0.128 * getSMEFTCoeffEW("CuHR", 2, 2)
                 - 1.63 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.132 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 0.065 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
-
+                + 0.065 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        //AG:
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12117552334943638) * getSMEFTCoeffEW("CHbox")
+            + (-0.03036231884057971) * getSMEFTCoeffEW("CHD")
+            + (-0.12262479871175523) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.0990338164251208) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.060708534621578096) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.060708534621578096) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06058776167471819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+                
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
 
@@ -31240,16 +34056,28 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) co
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const       //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.033 * getSMEFTCoeffEW("CHD") + 47 * getSMEFTCoeffEW("CHG") - 0.133 * getSMEFTCoeffEW("CuHR", 2, 2)
+        // To be fixed together with the UFO file when going beyond U(2)
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.033 * getSMEFTCoeffEW("CHD") + 47 * getSMEFTCoeffEW("CHG") - 0.133 * getSMEFTCoeffEW("CuHR", 2, 2)
                 - 1.59 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.130 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 0.065 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.065 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+                 
+	//AG:
+        //pTj>30GeV
+        STXSb += cWsch * (
+            ( (0.121) * getSMEFTCoeffEW("CHbox")
+            + (-0.0303) * getSMEFTCoeffEW("CHD")
+            + (-0.1224) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.093) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.0606) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0606) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.061) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31265,16 +34093,27 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) 
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const         //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.032 * getSMEFTCoeffEW("CHD") + 46 * getSMEFTCoeffEW("CHG") - 0.132 * getSMEFTCoeffEW("CuHR", 2, 2)
+        // To be fixed together with the UFO file when going beyond U(2)
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.032 * getSMEFTCoeffEW("CHD") + 46 * getSMEFTCoeffEW("CHG") - 0.132 * getSMEFTCoeffEW("CuHR", 2, 2)
                 - 1.48 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.130 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 0.066 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.066 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        //pTj>30GeV
+        STXSb +=  cWsch * ( 
+            ( (0.121) * getSMEFTCoeffEW("CHbox")
+            + (-0.0303) * getSMEFTCoeffEW("CHD")
+            + (-0.123) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.077) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.061) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.061) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.061) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31384,6 +34223,68 @@ double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const do
         }
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_Nj2(const double sqrt_s) const      //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12121771217712178) * getSMEFTCoeffEW("CHbox")
+            + (-0.030401291512915127) * getSMEFTCoeffEW("CHD")
+            + (-0.12283210332103321) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (0.992158671586716) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.06079335793357934) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.06079335793357934) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06060885608856089) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_Nj2()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(const double sqrt_s) const      //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12123629112662014) * getSMEFTCoeffEW("CHbox")
+            + (-0.030348953140578262) * getSMEFTCoeffEW("CHD")
+            + (-0.12263210368893321) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (0.9950149551345963) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.060697906281156525) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.060697906281156525) * getSMEFTCoeffEW("CHl3R", 1,1) 
+            + (0.006083) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_Nj2()");
 
     if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
 
@@ -31728,23 +34629,43 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const          //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
     CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
-    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0072 * getSMEFTCoeffEW("CHD") + 0.188 * getSMEFTCoeffEW("CHW") - 0.0012 * getSMEFTCoeffEW("CHB")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0072 * getSMEFTCoeffEW("CHD") + 0.188 * getSMEFTCoeffEW("CHW") - 0.0012 * getSMEFTCoeffEW("CHB")
                 + 0.038 * getSMEFTCoeffEW("CHWB") - 0.362 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 0.047 * CiHQ1 - 1.33 * CiHQ3 - 0.095 * CiHu
-                + 0.0314 * CiHd + 0.181 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.0314 * CiHd + 0.181 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+                
+        //AG: pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12125) * getSMEFTCoeffEW("CHbox")
+            + (-0.007062) * getSMEFTCoeffEW("CHD")
+            + (0.16946) * getSMEFTCoeffEW("CHW")
+            + (-0.001466) * getSMEFTCoeffEW("CHB")
+            + (0.024549) * getSMEFTCoeffEW("CHWB")
+            + (0.09586) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.026874) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-1.622623) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.257163) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1258851) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.01050939) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.035465) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0090063) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.181911) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.181911) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18186) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );  
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31889,20 +34810,272 @@ double NPSMEFTd6General::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const 
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHlv_pTV0_75(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHqq_mjj350_700_pTH0_200_Nj2(const double sqrt_s) const        //AG:added
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
-
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.813 * getSMEFTCoeffEW("CHW")
-                - 0.241 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 1.142 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12116) * getSMEFTCoeffEW("CHbox")
+            + (-0.011205) * getSMEFTCoeffEW("CHD")
+            + (-0.133485) * getSMEFTCoeffEW("CHW")
+            + (-0.000416) * getSMEFTCoeffEW("CHB")
+            + (0.02047) * getSMEFTCoeffEW("CHWB")
+            + (0.006534) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0081187) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.312986) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0850237) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.019281554) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00320807) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0068702) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0027355) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.1818408) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1818408) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18165) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHqq_mjj350_700_pTH0_200_Nj2()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2(const double sqrt_s) const       //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12117) * getSMEFTCoeffEW("CHbox")
+            + (-0.011057) * getSMEFTCoeffEW("CHD")
+            + (-0.128786) * getSMEFTCoeffEW("CHW")
+            + (-0.00024) * getSMEFTCoeffEW("CHB")
+            + (0.020319) * getSMEFTCoeffEW("CHWB")
+            + (0.009981) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0068709) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.325754) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0692495) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0208126) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.002523013) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0068893) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0022378) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.1817542) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1817542) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18181) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(const double sqrt_s) const      //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12096) * getSMEFTCoeffEW("CHbox")
+            + (-0.010795) * getSMEFTCoeffEW("CHD")
+            + (-0.126544) * getSMEFTCoeffEW("CHW")
+            + (-0.000155) * getSMEFTCoeffEW("CHB")
+            + (0.020471) * getSMEFTCoeffEW("CHWB")
+            + (0.013753) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0056663) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.334119) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0563833) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0222351) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00200624) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0068001) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0018158) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.181549) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.181549) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18153) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(const double sqrt_s) const       //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12137) * getSMEFTCoeffEW("CHbox")
+            + (-0.010058) * getSMEFTCoeffEW("CHD")
+            + (-0.126696) * getSMEFTCoeffEW("CHW")
+            + (-4.9e-05) * getSMEFTCoeffEW("CHB")
+            + (0.021522) * getSMEFTCoeffEW("CHWB")
+            + (0.023913) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0034782) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.346713) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0398273) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.02563591) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.001467832) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0064338) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0012111) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.181736) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.181736) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18193) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2(const double sqrt_s) const       //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12119388244615271) * getSMEFTCoeffEW("CHbox")
+            + (-0.007520073014376603) * getSMEFTCoeffEW("CHD")
+            + (0.20031065061792538) * getSMEFTCoeffEW("CHW")
+            + (-0.0017028701729685037) * getSMEFTCoeffEW("CHB")
+            + (0.025477338005929776) * getSMEFTCoeffEW("CHWB")
+            + (0.05762202703511021) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.034704492909866734) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-1.5262530035586555) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.31670221602330967) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.11035352246217908) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.012911611060134444) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.03570087989045835) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.01138089675090921) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.1816546926779029) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1816546926779029) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18178862464555604) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2(const double sqrt_s) const       //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        //pTj>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12115277435803268) * getSMEFTCoeffEW("CHbox")
+            + (-0.006700175570443445) * getSMEFTCoeffEW("CHD")
+            + (0.14503609950278334) * getSMEFTCoeffEW("CHW")
+            + (-0.001181392562850623) * getSMEFTCoeffEW("CHB")
+            + (0.023797404695001557) * getSMEFTCoeffEW("CHWB")
+            + (0.1267974703204301) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.020350888277334663) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-1.7030969805490792) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.2091291453108325) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.13908329182938856) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.008563055128991819) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.035275554702358033) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.007091459551226658) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.18157625796816287) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.18157625796816287) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18172255774352347) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHlv_pTV0_75(const double sqrt_s) const        //AG:modified
+{
+    double STXSb = 1.0;
+
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
+
+    if (sqrt_s == 13.0) {
+
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.813 * getSMEFTCoeffEW("CHW")
+                - 0.241 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
+                + 1.142 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0); */
+        // AG:
+        STXSb += cWsch * ( 
+            ( (0.12114) * getSMEFTCoeffEW("CHbox")
+            + (-0.03031269) * getSMEFTCoeffEW("CHD")
+            + (0.8155) * getSMEFTCoeffEW("CHW")
+            + (0.9523) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.15907) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1412857) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.14124287) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18176) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.012) * deltaGwd6()
+	);
+                
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
 
@@ -31917,19 +35090,31 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV0_75(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHlv_pTV75_150(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHlv_pTV75_150(const double sqrt_s) const      //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.946 * getSMEFTCoeffEW("CHW")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0304 * getSMEFTCoeffEW("CHD") + 0.946 * getSMEFTCoeffEW("CHW")
                 - 0.244 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 1.90 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 1.90 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG:
+        STXSb += cWsch * ( 
+            ( (0.12127) * getSMEFTCoeffEW("CHbox")
+            + (-0.03032518) * getSMEFTCoeffEW("CHD")
+            + (0.9462) * getSMEFTCoeffEW("CHW")
+            + (1.7004) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.22393) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1410885) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1408925) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.1819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-0.996) * deltaGwd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31945,19 +35130,31 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV75_150(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0312 * getSMEFTCoeffEW("CHD") + 1.06 * getSMEFTCoeffEW("CHW")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0312 * getSMEFTCoeffEW("CHD") + 1.06 * getSMEFTCoeffEW("CHW")
                 - 0.247 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 4.07 * CiHQ3 + 0.187 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 4.07 * CiHQ3 + 0.187 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12103) * getSMEFTCoeffEW("CHbox")
+            + (-0.03027479) * getSMEFTCoeffEW("CHD")
+            + (1.0506) * getSMEFTCoeffEW("CHW")
+            + (3.6846) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.34645) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1403732) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1405017) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18154) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.017) * deltaGwd6()
+	);        
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -31973,19 +35170,31 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0307 * getSMEFTCoeffEW("CHD") + 1.08 * getSMEFTCoeffEW("CHW")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0307 * getSMEFTCoeffEW("CHD") + 1.08 * getSMEFTCoeffEW("CHW")
                 - 0.239 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 3.58 * CiHQ3 + 0.180 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 3.58 * CiHQ3 + 0.180 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: pTj=>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12125) * getSMEFTCoeffEW("CHbox")
+            + (-0.03035345) * getSMEFTCoeffEW("CHD")
+            + (1.0561) * getSMEFTCoeffEW("CHW")
+            + (3.2437) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.36816) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1200448) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1201971) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18189) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.009) * deltaGwd6()
+	);        
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32029,24 +35238,144 @@ double NPSMEFTd6General::STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHll_pTV0_75(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHlv_pTV0_150(const double sqrt_s) const       //AG:added
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
-
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
-    CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
-    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0129 * getSMEFTCoeffEW("CHD") + 0.665 * getSMEFTCoeffEW("CHW") + 0.0835 * getSMEFTCoeffEW("CHB")
+        STXSb += cWsch * ( 
+            ( (0.12122) * getSMEFTCoeffEW("CHbox")
+            + (-0.03033245) * getSMEFTCoeffEW("CHD")
+            + (0.86411) * getSMEFTCoeffEW("CHW")
+            + (1.2279) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.18313) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1411777) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1411553) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18183) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.002) * deltaGwd6()
+	);        
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHlv_pTV0_150)");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHlv_pTV250_400(const double sqrt_s) const     //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.12126) * getSMEFTCoeffEW("CHbox")
+            + (-0.03028419) * getSMEFTCoeffEW("CHD")
+            + (1.1087) * getSMEFTCoeffEW("CHW")
+            + (8.462) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.54273) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1402818) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1402079) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18188) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-0.99) * deltaGwd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHlv_pTV250_400()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHlv_pTV400_Inf(const double sqrt_s) const     //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.1213) * getSMEFTCoeffEW("CHbox")
+            + (-0.03031894) * getSMEFTCoeffEW("CHD")
+            + (1.1361) * getSMEFTCoeffEW("CHW")
+            + (25.302) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.9521) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.14003358) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.14005959) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18197) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.005) * deltaGwd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHlv_pTV400_Inf()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHll_pTV0_75(const double sqrt_s) const        //AG:modified
+{
+    double STXSb = 1.0;
+
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;*/
+
+    if (sqrt_s == 13.0) {
+
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0129 * getSMEFTCoeffEW("CHD") + 0.665 * getSMEFTCoeffEW("CHW") + 0.0835 * getSMEFTCoeffEW("CHB")
                 + 0.303 * getSMEFTCoeffEW("CHWB") - 0.0362 * 0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1))
                 - 0.2772 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) - 0.0359 * 0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
                 + 0.029 * CiHQ1 + 1.27 * CiHQ3 + 0.245 * CiHu - 0.1064 * CiHd
-                + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12122) * getSMEFTCoeffEW("CHbox")
+            + (0.01275) * getSMEFTCoeffEW("CHD")
+            + (0.66498) * getSMEFTCoeffEW("CHW")
+            + (0.07923) * getSMEFTCoeffEW("CHB")
+            + (0.29801) * getSMEFTCoeffEW("CHWB")
+            + (-0.05107) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.08713) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.9403) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.17685) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.20932) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.018933) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0776056) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.0230333) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011958) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.011973) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.011982) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.1402374) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1403242) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041685) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0117029) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.0115373) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.0116341) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18182) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.164) * deltaGzd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32062,24 +35391,50 @@ double NPSMEFTd6General::STXS12_qqHll_pTV0_75(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHll_pTV75_150(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHll_pTV75_150(const double sqrt_s) const      //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
     CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
-    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0128 * getSMEFTCoeffEW("CHD") + 0.771 * getSMEFTCoeffEW("CHW") + 0.092 * getSMEFTCoeffEW("CHB")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.0128 * getSMEFTCoeffEW("CHD") + 0.771 * getSMEFTCoeffEW("CHW") + 0.092 * getSMEFTCoeffEW("CHB")
                 + 0.341 * getSMEFTCoeffEW("CHWB") - 0.0360 * 0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1))
                 - 0.274 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) - 0.0362 * 0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
                 + 0.01 * CiHQ1 + 1.80 * CiHQ3 + 0.403 * CiHu - 0.166 * CiHd
-                + 0.182 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.182 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.1071) * getSMEFTCoeffEW("CHbox")
+            + (0.01084) * getSMEFTCoeffEW("CHD")
+            + (0.7) * getSMEFTCoeffEW("CHW")
+            + (0.07851) * getSMEFTCoeffEW("CHB")
+            + (0.3063) * getSMEFTCoeffEW("CHWB")
+            + (-0.093) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.113) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (1.53) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.2248) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.3302) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.02362) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.1143) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.0288097) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011924) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.011969) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.1403624) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.14009461) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041736) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0066) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.00815) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (0) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18191) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.166) * deltaGzd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32095,24 +35450,51 @@ double NPSMEFTd6General::STXS12_qqHll_pTV75_150(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
     CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
-    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.86 * getSMEFTCoeffEW("CHW") + 0.103 * getSMEFTCoeffEW("CHB")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.86 * getSMEFTCoeffEW("CHW") + 0.103 * getSMEFTCoeffEW("CHB")
                 + 0.366 * getSMEFTCoeffEW("CHWB") - 0.035 * 0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1))
                 - 0.267 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) - 0.0358 * 0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
                 - 0.12 * CiHQ1 + 3.63 * CiHQ3 + 0.87 * CiHu - 0.323 * CiHd
-                + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12131) * getSMEFTCoeffEW("CHbox")
+            + (0.01327) * getSMEFTCoeffEW("CHD")
+            + (0.9015) * getSMEFTCoeffEW("CHW")
+            + (0.0923) * getSMEFTCoeffEW("CHB")
+            + (0.37402) * getSMEFTCoeffEW("CHWB")
+            + (-0.3625) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.20275) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (3.4124) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.38616) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.79679) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.038688) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.266298) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.05133963) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011931) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.011941) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.011982) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.14015811) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1400332) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.04169) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00795995) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.007957808) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.00793949) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18198) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.17) * deltaGzd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32128,24 +35510,50 @@ double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
     CiHu = (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1) + getSMEFTCoeffEW("CHuR", 2, 2)) / 3.0;
-    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;
+    CiHd = (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.85 * getSMEFTCoeffEW("CHW") + 0.102 * getSMEFTCoeffEW("CHB")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") + 0.013 * getSMEFTCoeffEW("CHD") + 0.85 * getSMEFTCoeffEW("CHW") + 0.102 * getSMEFTCoeffEW("CHB")
                 + 0.373 * getSMEFTCoeffEW("CHWB") - 0.036 * 0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1))
                 - 0.266 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) - 0.0367 * 0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
                 - 0.10 * CiHQ1 + 3.19 * CiHQ3 + 0.77 * CiHu - 0.282 * CiHd
-                + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+                + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
+        //AG: pTj=>30GeV
+        STXSb += cWsch * ( 
+            ( (0.12186) * getSMEFTCoeffEW("CHbox")
+            + (0.0117) * getSMEFTCoeffEW("CHD")
+            + (0.8996) * getSMEFTCoeffEW("CHW")
+            + (0.09276) * getSMEFTCoeffEW("CHB")
+            + (0.37312) * getSMEFTCoeffEW("CHWB")
+            + (-0.3902) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.16551) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (3.0189) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.38783) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.72034) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.047152) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.230024) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.048349) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.019699) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.019614) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.141473) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1415195) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041872) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.008903) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.0089573) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.0089657) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18278) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.113) * deltaGzd6()
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32194,17 +35602,153 @@ double NPSMEFTd6General::STXS12_qqHll_pTV250_Inf(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ttH_pTH0_60(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_qqHll_pTV0_150(const double sqrt_s) const       //AG:added
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
-
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (-0.021 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0301 * getSMEFTCoeffEW("CHD") + 0.411 * getSMEFTCoeffEW("CHG")
+        STXSb += cWsch * ( 
+            ( (0.12123) * getSMEFTCoeffEW("CHbox")
+            + (0.012881) * getSMEFTCoeffEW("CHD")
+            + (0.70945) * getSMEFTCoeffEW("CHW")
+            + (0.08197) * getSMEFTCoeffEW("CHB")
+            + (0.31278) * getSMEFTCoeffEW("CHWB")
+            + (-0.07723) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.10149) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (1.1939) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.20331) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.26871) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.021453) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0973464) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.02656685) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011957) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.011952) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.011971) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.13992658) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.13999665) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041673) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.01157) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.01147) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.011664) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18184) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.158) * deltaGzd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHll_pTV0_150()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHll_pTV250_400(const double sqrt_s) const     //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.12128) * getSMEFTCoeffEW("CHbox")
+            + (0.013624) * getSMEFTCoeffEW("CHD")
+            + (0.9689) * getSMEFTCoeffEW("CHW")
+            + (0.09471) * getSMEFTCoeffEW("CHB")
+            + (0.395) * getSMEFTCoeffEW("CHWB")
+            + (-1.023) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.32931) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (7.7452) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.61719) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (1.8529) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.060759) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.586475) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.0825726) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.011971) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.011947) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.01199) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.1402367) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1402747) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041712) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00793968) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.00794877) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.00792663) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18192) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.173) * deltaGzd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHll_pTV250_400()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_qqHll_pTV400_Inf(const double sqrt_s) const     //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += cWsch * ( 
+            ( (0.12137) * getSMEFTCoeffEW("CHbox")
+            + (0.011638) * getSMEFTCoeffEW("CHD")
+            + (1.0294) * getSMEFTCoeffEW("CHW")
+            + (0.09718) * getSMEFTCoeffEW("CHB")
+            + (0.41079) * getSMEFTCoeffEW("CHWB")
+            + (-3.4338) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.54859) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (21.293) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (1.0603) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (5.2254) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.108) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-1.557636) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.1402551) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.021029) * getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.021045) * getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.021123) * getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.14045) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1405169) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.041324) * getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00540608) * getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.00540827) * getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.0053773) * getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.18206) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-1.144) * deltaGzd6()
+	);
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHll_pTV400_Inf()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_ttH_pTH0_60(const double sqrt_s) const          //AG:modified
+{
+    double STXSb = 1.0;
+
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
+
+    if (sqrt_s == 13.0) {
+
+        /*STXSb += (-0.021 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0301 * getSMEFTCoeffEW("CHD") + 0.411 * getSMEFTCoeffEW("CHG")
                 - 0.121 * getSMEFTCoeffEW("CuHR", 2, 2) + 0.764 * getSMEFTCoeffEW("CuGR", 2, 2) + 0.004 * getSMEFTCoeffEW("CuWR", 2, 2)
                 + 0.0015 * getSMEFTCoeffEW("CuBR", 2, 2) - 0.121 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 0.0031 * CiHQ3
@@ -32215,7 +35759,58 @@ double NPSMEFTd6General::STXS12_ttH_pTH0_60(const double sqrt_s) const
                 //- 0.0015 * Ciud1 + 0.0213 * Ciud8 
                 //+ 0.0056 * Ciqu1 + 0.082 * Ciqu8 
                 //- 0.001 * Ciqd1 + 0.0215 * Ciqd8
-                ) * (1000000.0);
+                ) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12138) * getSMEFTCoeffEW("CHbox")
+            + (-0.03041037) * getSMEFTCoeffEW("CHD")
+            + (0.00057116) * getSMEFTCoeffEW("CHW")
+            + (0.00014153) * getSMEFTCoeffEW("CHB")
+            + (-0.000531127) * getSMEFTCoeffEW("CHWB")
+            + (-9.889e-05) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (1.2627e-05) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.000339881) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.00038671) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (2.9689e-05) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00033949) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.41274) * getSMEFTCoeffEW("CHG")
+            + (-0.1225944) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.776767) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.00435) * getSMEFTCoeffEW("CG")
+            + (-0.0047023) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.00153602) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.007596) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.12404) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.00063485) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.0041376) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.024355) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.27065) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.0016752) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.024707) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.008176) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.12146) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00026666) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.0040529) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.001302936) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000180091) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.018975) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.0026805) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.0030841) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.0028183) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00011935) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (9.671e-05) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.048705) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.029737) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0036627) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0009909) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.000901344) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.000130598) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.018966) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0026786) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0608986) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0608986) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.060896) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32231,17 +35826,17 @@ double NPSMEFTd6General::STXS12_ttH_pTH0_60(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ttH_pTH60_120(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ttH_pTH60_120(const double sqrt_s) const        //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (-0.061 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0286 * getSMEFTCoeffEW("CHD") + 0.450 * getSMEFTCoeffEW("CHG")
+        /*STXSb += (-0.061 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0286 * getSMEFTCoeffEW("CHD") + 0.450 * getSMEFTCoeffEW("CHG")
                 - 0.1149 * getSMEFTCoeffEW("CuHR", 2, 2) + 0.790 * getSMEFTCoeffEW("CuGR", 2, 2) + 0.005 * getSMEFTCoeffEW("CuWR", 2, 2)
                 + 0.0017 * getSMEFTCoeffEW("CuBR", 2, 2) - 0.1151 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 0.0032 * CiHQ3
@@ -32252,7 +35847,56 @@ double NPSMEFTd6General::STXS12_ttH_pTH60_120(const double sqrt_s) const
                 //- 0.0017 * Ciud1 + 0.0244 * Ciud8 
                 //+ 0.0066 * Ciqu1 + 0.0968 * Ciqu8 
                 //- 0.001 * Ciqd1 + 0.0243 * Ciqd8
-                ) * (1000000.0);
+                ) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12137) * getSMEFTCoeffEW("CHbox")
+            + (-0.03041016) * getSMEFTCoeffEW("CHD")
+            + (0.00073702) * getSMEFTCoeffEW("CHW")
+            + (0.00018385) * getSMEFTCoeffEW("CHB")
+            + (-0.000620406) * getSMEFTCoeffEW("CHWB")
+            + (-0.00015089) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (2.3128e-05) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.000399286) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0006773) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (5.0356e-05) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00039923) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.48136) * getSMEFTCoeffEW("CHG")
+            + (0.03963) * getSMEFTCoeffEW("CG")
+            + (-0.00571315) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.00189) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.009791) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.15791) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.00076589) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.0048919) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.031236) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.34185) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.0020056) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.029204) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.010484) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.15461) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00031756) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.0047899) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.001652491) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.0002149805) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.023897) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.0031647) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.0039242) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.0035367) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.0001347) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.00011278) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.061685) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.037794) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0043275) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0011707) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.00112222) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.000152545) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.023878) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0031642) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0608954) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0608954) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.060897) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32268,17 +35912,17 @@ double NPSMEFTd6General::STXS12_ttH_pTH60_120(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ttH_pTH120_200(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ttH_pTH120_200(const double sqrt_s) const       //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (-0.152 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0282 * getSMEFTCoeffEW("CHD") + 0.553 * getSMEFTCoeffEW("CHG")
+        /*STXSb += (-0.152 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0282 * getSMEFTCoeffEW("CHD") + 0.553 * getSMEFTCoeffEW("CHG")
                 + 0.0013 * getSMEFTCoeffEW("CHW") - 0.113 * getSMEFTCoeffEW("CuHR", 2, 2) + 0.890 * getSMEFTCoeffEW("CuGR", 2, 2)
                 + 0.007 * getSMEFTCoeffEW("CuWR", 2, 2) + 0.002 * getSMEFTCoeffEW("CuBR", 2, 2)
                 - 0.114 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
@@ -32289,7 +35933,58 @@ double NPSMEFTd6General::STXS12_ttH_pTH120_200(const double sqrt_s) const
                 //- 0.0025 * Ciud1 + 0.0347 * Ciud8 
                 //+ 0.0097 * Ciqu1 + 0.138 * Ciqu8 
                 //- 0.0016 * Ciqd1 + 0.0345 * Ciqd8
-                ) * (1000000.0);
+                ) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.12143) * getSMEFTCoeffEW("CHbox")
+            + (-0.030489) * getSMEFTCoeffEW("CHD")
+            + (0.0011161) * getSMEFTCoeffEW("CHW")
+            + (0.00027979) * getSMEFTCoeffEW("CHB")
+            + (-0.00080248) * getSMEFTCoeffEW("CHWB")
+            + (-0.0003474) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (6.353e-05) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.000517856) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0018597) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00012826) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00051778) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.59632) * getSMEFTCoeffEW("CHG")
+            + (-0.1226997) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.952237) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.11918) * getSMEFTCoeffEW("CG")
+            + (-0.00794352) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.00267574) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.015284) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.2389) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.0010437) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.0064995) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.048067) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.51215) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.0027253) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.038576) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.016124) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.23377) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00042951) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.0063635) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.002501944) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.00028836) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.035499) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.0041847) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.005906) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.0052058) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00015687) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.00014599) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.09268) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.057085) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0057247) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0015548) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.00162258) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.000196522) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.035455) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0041763) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0610094) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0610094) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.060995) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32305,18 +36000,18 @@ double NPSMEFTd6General::STXS12_ttH_pTH120_200(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6General::STXS12_ttH_pTH200_300(const double sqrt_s) const
+double NPSMEFTd6General::STXS12_ttH_pTH200_300(const double sqrt_s) const       //AG:modified
 {
-    // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ1, CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
+    // To be fixed together with the UFO file when going beyond U(2)
+    /*double CiHQ1, CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
+    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;*/
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (-0.311 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0277 * getSMEFTCoeffEW("CHD") + 0.68 * getSMEFTCoeffEW("CHG")
+        /*STXSb += (-0.311 * getSMEFTCoeffEW("CG") + 0.12 * getSMEFTCoeffEW("CHbox") - 0.0277 * getSMEFTCoeffEW("CHD") + 0.68 * getSMEFTCoeffEW("CHG")
                 + 0.002 * getSMEFTCoeffEW("CHW") - 0.001 * getSMEFTCoeffEW("CHWB") - 0.112 * getSMEFTCoeffEW("CuHR", 2, 2)
                 + 0.97 * getSMEFTCoeffEW("CuGR", 2, 2) + 0.0105 * getSMEFTCoeffEW("CuWR", 2, 2) + 0.003 * getSMEFTCoeffEW("CuBR", 2, 2)
                 - 0.114 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) - 0.0015 * CiHQ1
@@ -32327,7 +36022,58 @@ double NPSMEFTd6General::STXS12_ttH_pTH200_300(const double sqrt_s) const
                 //- 0.0042 * Ciud1 + 0.0545 * Ciud8 
                 //+ 0.0159 * Ciqu1 + 0.228 * Ciqu8 
                 //- 0.0025 * Ciqd1 + 0.0541 * Ciqd8
-                ) * (1000000.0);
+                ) * (1000000.0);*/
+        // AG: 
+        STXSb += cWsch * ( 
+            ( (0.1215) * getSMEFTCoeffEW("CHbox")
+            + (-0.03053419) * getSMEFTCoeffEW("CHD")
+            + (0.0017669) * getSMEFTCoeffEW("CHW")
+            + (0.00044617) * getSMEFTCoeffEW("CHB")
+            + (-0.001069327) * getSMEFTCoeffEW("CHWB")
+            + (-0.0010712) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.00019776) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.000682555) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0063625) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00038586) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0006827) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.699) * getSMEFTCoeffEW("CHG")
+            + (-0.122786) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-1.018646) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.23561) * getSMEFTCoeffEW("CG")
+            + (-0.01157907) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.00400075) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.026362) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.39604) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.0014893) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.009094) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.08184) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.8361) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.0039269) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.053073) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.027433) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.38713) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00061782) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.008897) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.00415657) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000406717) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.057429) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.0057328) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.009662) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.008247) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00016591) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.00019516) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.15174) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.09449) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.007903) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0021725) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.002515173) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.000258378) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.057392) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0057293) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0611484) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0611484) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.061133) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -32378,6 +36124,140 @@ double NPSMEFTd6General::STXS12_ttH_pTH300_Inf(const double sqrt_s) const
         }
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ttH_pTH300_Inf()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_ttH_pTH300_450(const double sqrt_s) const       //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb += 0.0;
+        /*STXSb += cWsch * ( 
+            ( (0.12144) * getSMEFTCoeffEW("CHbox")
+            + (-0.0304974) * getSMEFTCoeffEW("CHD")
+            + (0.0026863) * getSMEFTCoeffEW("CHW")
+            + (0.0006807) * getSMEFTCoeffEW("CHB")
+            + (-0.001390866) * getSMEFTCoeffEW("CHWB")
+            + (-0.003736) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0005801) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0008496083) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.022385) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0011312) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0008529) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.732) * getSMEFTCoeffEW("CHG")
+            + (-0.1225144) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-1.0107) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.32789) * getSMEFTCoeffEW("CG")
+            + (-0.01679391) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.00592538) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.04717) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.67332) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.002097) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.01284) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.14412) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (1.3958) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.005691) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.072025) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.048185) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.65757) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.0009062) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.012541) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.0071052) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000570256) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.09471) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.007746) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.015989) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.013192) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00012464) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.00025769) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.25508) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.16044) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.010784) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.003061) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.003910363) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.0003286955) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.09472) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.007745) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0612235) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0612235) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.061249) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);*/
+                
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ttH_pTH300_450()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+double NPSMEFTd6General::STXS12_ttH_pTH450_Inf(const double sqrt_s) const       //AG:added
+{
+    double STXSb = 1.0;
+
+    if (sqrt_s == 13.0) {
+
+        STXSb +=  cWsch * ( 
+            ( (0.12111) * getSMEFTCoeffEW("CHbox")
+            + (-0.030308) * getSMEFTCoeffEW("CHD")
+            + (0.0044801) * getSMEFTCoeffEW("CHW")
+            + (0.0011466) * getSMEFTCoeffEW("CHB")
+            + (-0.00194247) * getSMEFTCoeffEW("CHWB")
+            + (-0.1218236) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-1.07104) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.33119) * getSMEFTCoeffEW("CG")
+            + (-0.0285223) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.0104832) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.11537) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (1.4881) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.0030909) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.023079) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.33421) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (2.9818) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.010023) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.11364) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.11257) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (1.4506) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.0017341) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.022496) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.015613057) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000929212) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.19582) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.01189) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.033516) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.026074) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (0.000103) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.00040951) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.54906) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.3534) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.017338) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0054804) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.00728397) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.000451772) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.19585) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.011884) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0613195) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0613195) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06135) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+                
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ttH_pTH450_Inf()");
 
     if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
 

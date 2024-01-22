@@ -2431,6 +2431,586 @@ double StandardModel::RVh() const
     return ( gV_sum.abs2()*(-0.4132 * AlsMzPi3 - 4.9841 * AlsMzPi4));
 }
 
+////////////////////////////////////////////////////////////////////////     
+// EW low-energy observables: Parity violation
+
+
+//    The anomalous magnetic moment of the muon a_mu=(g_mu-2)/2
+
+double StandardModel::amuon() const
+{
+      
+//      output
+      double amu;
+      
+//      -----------------------------------------------------------------
+//      qed contributions
+      double amuqed,alfa0pi;
+      
+//      ew contributions
+      double amuew,amuew1,amuew2b,amuew2f,amuew2,amuew3,cft,cf,corr1amuew2, corr2amuew2,corrwaamuew2,al,aq,b1; //,b2;
+
+//      qcd contributions
+      double amuhad,amuhhovp,amuhholbl,amuhho,amuhlo;
+      
+//      -----------------------------------------------------------------
+//     numerical constants
+      const double sn2=0.2604341;
+
+//      -----------------------------------------------------------------
+//     SM parameters
+
+//     light quark masses. constituent masses
+      const double umass=0.3;
+      const double dmass=0.3;
+      const double smass=0.5;
+      
+      const double mum=leptons[MU].getMass(),taum=leptons[TAU].getMass();
+      const double cqm=quarks[CHARM].getMass(),bqm=quarks[BOTTOM].getMass();
+
+//     all fermion masses (constituent masses for u,d,s. for the other from model)
+      double fermmass[9]={leptons[ELECTRON].getMass(),mum,taum,
+            dmass,umass,
+            smass,cqm,
+            bqm,mtpole};
+     
+//      w mass and on-shell weak angle
+      double MwSM, s2;
+      
+//      running of alfa_qed and dummy variable
+      double aqed;
+
+//     for the 2-loop bosonic corrections
+      double a2l[4]={0.,0.,0.,0.},b2l[4]={0.,0.,0.,0.},sw2l[4]={0.,0.,0.,0.};
+
+//     for the 2-loop corrections from the renormalization of weak angle
+      double c2lren[6]={0.,0.,0.,0.,0.,0.};
+      
+//      w mass
+      MwSM=Mw();
+      
+      s2=1.0 - MwSM*MwSM/Mz/Mz;
+      
+//------------------------------------------------------------------
+//      qed contribution to amu (arxiv: hep-ph/0606174)
+      alfa0pi=ale/M_PI;
+      
+      amuqed=alfa0pi*(0.5+alfa0pi*(0.765857410+alfa0pi*(24.05050964+
+     + alfa0pi*(130.8055+663.0*alfa0pi))));
+
+//-----------------------------------------------------------------
+//      one-loop ew correction(phys.rev.lett. 76,3267 (1996))
+
+      amuew1=5.0*GF*mum*mum/(24.0*sqrt(2.0)*M_PI*M_PI)*(1.0+
+     + 0.2*(1.0-4.0*s2)*(1.0-4.0*s2));
+
+//-----------------------------------------------------------------
+//      two-loop computation
+
+//      these depend on aqed and since we are going to include also three-loop
+//      effects we need to include in the two-loop results the running of aqed at
+//      1-loop up to the scale mum
+//-----------------------------------------------------------------
+//      running of alpha em down to mu mass
+            
+      //aqed = Ale(mum, NLO, true);  // NOT WORKING!!!!
+      
+      aqed = ale; // TEMPORARY FIX: Use alpha(0)...
+
+//-----------------------------------------------------------------
+//      two-loop ew bosonic correction(phys.rev.lett. 76,3267 (1996))
+
+//      previous definitions
+      a2l[0]=19.0/36.0-99.0*sn2/8.0-1.0*2.0*log(mHl/MwSM)/24.0;
+      
+      b2l[0]=155.0/192.0+3.0*M_PI*M_PI/8.0-9.0*sn2/8.0+3.0*2.0*pow(log(mHl/MwSM),2)/2.0-21.0*2.0*log(mHl/MwSM)/16.0;
+
+      sw2l[0]=1.0/s2;
+
+      a2l[1]=-859.0/18.0+11.0*M_PI/sqrt(3.0)+20.0*M_PI*M_PI/9.0+ 393.0*sn2/8.0-65.0*2.0*log(MwSM/mum)/9.0+ 31.0*2.0*log(mHl/MwSM)/72.0;
+
+      b2l[1]=433.0/36.0+5.0*M_PI*M_PI/24.0-51.0*sn2/8.0+ 3.0*4.0*pow(log(mHl/MwSM),2)/8.0+9.0*2.0*log(mHl/MwSM)/4.0;
+
+      sw2l[1]=1.0;
+
+      a2l[2]=165169.0/1080.0-385.0*M_PI/(6.0*sqrt(3.0))-29.0*M_PI*M_PI/6.0+ 33.0*sn2/8.0+92.0*2.0*log(MwSM/mum)/9.0- 133.0*2.0*log(mHl/MwSM)/72.0;
+
+      b2l[2]=-431.0/144.0+3.0*M_PI*M_PI/8.0+315.0*sn2/8.0+ 3.0*4.0*pow(log(mHl/MwSM),2)/2.0-11.0*2.0*log(mHl/MwSM)/8.0;
+
+      sw2l[2]=s2;
+
+      a2l[3]=-195965.0/864.0+265.0*M_PI/(3.0*sqrt(3.0))+163.0*M_PI*M_PI/18.0+ 223.0*sn2/12.0-184.0*2.0*log(MwSM/mum)/9.0- 5.0*2.0*log(mHl/MwSM)/8.0;
+
+      b2l[3]=433.0/216.0+13.0*M_PI*M_PI/24.0+349.0*sn2/24.0+ 21.0*4.0*pow(log(mHl/MwSM),2)/8.0-49.0*2.0*log(mHl/MwSM)/12.0;
+
+      sw2l[3]=s2*s2;
+
+//      computation
+
+      amuew2b=0.0;
+
+      for (int i = 0; i < 4; ++i) {
+            amuew2b=amuew2b+a2l[i]*sw2l[i]+(MwSM*MwSM/mHl/mHl)*b2l[i]*sw2l[i];
+      }
+
+//      the contribution with the running of aqed up to the mu scale
+      amuew2b=mum*mum*aqed*GF*amuew2b/(8.0*sqrt(2.0)*M_PI*M_PI*M_PI);
+
+//-----------------------------------------------------------------
+//      two-loop ew fermionic correction(phys.rev.d 52,r2619(1995)
+
+//      contribution from higgs boson diagram
+      if (mHl < (mtpole-10.0)) {
+            cft=-104.0/45.0-16.0*2.0*log(mtpole/mHl)/15.0;
+      } else if (mHl > (mtpole+10)) {
+            cft=-(mtpole*mtpole/mHl/mHl)*(24.0/5.0+8.0*M_PI*M_PI/15.0+
+                                     + 8.0/5.0*pow(2.0*log(mHl/mtpole)-1.0,2));
+      } else {
+            cft=-(32.0/5.0)*(1.0-9.0*sn2/4.0);
+      }
+
+      cf=pow((umass*cqm*Mz),(4.0/3.0));
+
+      cf=cf/(pow((dmass*smass*bqm),(1.0/3.0))*mum*mum*taum);
+
+      cf=-18.0*log(cf)/5.0-3.0*mtpole*mtpole/(16.0*s2*MwSM*MwSM)- 3.0*2.0*log(mtpole/MwSM)/(10.0*s2)- 8.0*2.0*log(mtpole/Mz)/5.0-41.0/5.0-7.0/(10.0*s2)+ 8.0*M_PI*M_PI/15.0+cft;
+
+//      the contribution with the running of aqed up to the mu scale
+      amuew2f=5.0*GF*mum*mum*cf*aqed/(24.0*sqrt(2.0)*M_PI*M_PI*M_PI);
+
+//-----------------------------------------------------------------
+//      corrections from hadronic loops (phys.rev.d 67,073006(2003))
+//      i also include the running here even though in the previous reference seems that it is not included
+//      first family (eqs. (60) and (61))
+      corr1amuew2=-aqed*GF*mum*mum/(8.0*M_PI*M_PI*M_PI*sqrt(2.0))*(8.41- log(pow(umass,8)/(pow(mum,6)*pow(dmass,2)))-17.0/2.0);
+//      second family (eqs. (65) and (66))
+      corr2amuew2=-aqed*GF*mum*mum/(8.0*M_PI*M_PI*M_PI*sqrt(2.0))*(17.1- log(pow(cqm,8)/(pow(mum,6)*pow(smass,2)))-47.0/6.0+8.0*M_PI*M_PI/9.0);
+
+//-----------------------------------------------------------------
+//      corrections from the renormalization of the weak mixing
+//      terms prop. to (1-4s2) included in eq. (7) of phys.rev.d 67,073006(2003)
+//      and neglected in the previous references
+      
+      corrwaamuew2=-43.0*31.0*(1.0-4.0*s2)*(1.0-4.0*s2)/(215.0*3.0)*log(Mz/mum);
+
+      c2lren[0]=(72.0/135.0)*(-1.0+2.0*s2)*(1.0-4.0*s2); //leptons
+      c2lren[1]=(72.0/135.0)*(-1.0+2.0*s2/3.0)*(1.0-4.0*s2); //d-quark
+      c2lren[2]=-(144.0/135.0)*(1.0-4.0*s2/3.0)*(1.0-4.0*s2); //u-quark
+      c2lren[3]=c2lren[1];//d-quark
+      c2lren[4]=c2lren[2]; //u-quark
+      c2lren[5]=c2lren[1]; //d-quark
+
+      for (int i = 2; i < 8; ++i) {
+            corrwaamuew2=corrwaamuew2+c2lren[i-2]*log(Mz/fermmass[i]);
+      }
+
+      corrwaamuew2=5*GF*mum*mum*aqed/(24.0*sqrt(2.0)*M_PI*M_PI*M_PI)*corrwaamuew2;
+
+//      finally i also add the small correction to the eq.8
+      corrwaamuew2=corrwaamuew2-0.2e-11;
+
+//-----------------------------------------------------------------
+//      total 2-loop ew contribution
+      amuew2=amuew2b+amuew2f+corr1amuew2+corr2amuew2+corrwaamuew2;
+
+//-----------------------------------------------------------------
+//      three-loop ew correction(phys.rev.d 67,073006(2003)
+      
+      al=2789.0*log(Mz/mum)*log(Mz/mum)/90.0- 302.0*log(Mz/taum)*log(Mz/taum)/45.0+ 72.0*log(Mz/taum)*log(Mz/mum)/5.0;
+
+      aq=-2662.0*log(Mz/bqm)*log(Mz/bqm)/1215.0+11216.0*log(Mz/cqm)*log(Mz/cqm)/1215.0+1964.0*log(Mz/umass)*log(Mz/umass)/405.0+24.0*log(Mz/bqm)*log(Mz/mum)/5.0-96.0*log(Mz/cqm)*log(Mz/mum)/5.0-48.0*log(Mz/umass)*log(Mz/mum)/5.0+32.0*log(Mz/bqm)*log(Mz/cqm)/405.0+32.0*log(Mz/bqm)*log(Mz/umass)/135.0;
+
+      b1=-179.0/45.0*(log(Mz/bqm)*log(Mz/bqm)/3.0+log(Mz/taum)*log(Mz/taum)+4.0*log(Mz/cqm)*log(Mz/cqm)/3.0+2.0*log(Mz/umass)*log(Mz/umass)+2.0*log(Mz/mum)*log(Mz/mum))+2.0/5.0*(log(bqm/taum)*log(bqm/taum)+4.0/3.0*log(bqm/cqm)*log(bqm/cqm)+2.0*log(bqm/umass)*log(bqm/umass)+2.0*log(bqm/mum)*log(bqm/mum) )-8.0/5.0*(2.0*log(cqm/umass)*log(cqm/umass)+2.0*log(cqm/mum)*log(cqm/mum))+6.0/5.0*(4.0/3.0*log(taum/cqm)*log(taum/cqm)+2.0*log(taum/umass)*log(taum/umass)+2.0*log(taum/mum)*log(taum/mum))-8.0*log(umass/mum)*log(umass/mum)/5.0;
+
+      // b2 is not used, as it can be absorved in the two loop part if alpha(m_mu) is used instead of alpha(Mz), as done above
+      // b2=2.0/5.0*(2.0*log(Mz/mum)+2.0*log(Mz/umass)+4.0*log(Mz/cqm)/3.0+log(Mz/taum)+log(Mz/bqm)/3.0)*(215.0*log(Mz/mum)/9.0-4.0*log(Mz/umass)-8.0*log(Mz/cqm)+6.0*log(Mz/taum)+2.0*log(Mz/bqm));
+
+//      the final correction(it is implied aqed at mum for the 2-loop
+//      correction
+
+      amuew3=amuew1*(ale*ale/M_PI/M_PI)*(al+aq+b1);
+
+//-----------------------------------------------------------------
+//      total ew correction
+
+      amuew=amuew1+amuew2+amuew3;
+
+//-----------------------------------------------------------------
+//      hadronic contributions (arxiv: 0908.4300 & 1001.5401 [hep-ph])
+
+//      leading order: vacuum polarization (arxiv: 0908.4300 [hep-ph])
+      amuhlo=6955.e-11;
+
+//      higher order: vacuum polarization
+      amuhhovp=-97.9e-11;
+      
+//      higher order: light-by-light
+      amuhholbl=105.e-11;
+
+      amuhho=amuhhovp+amuhholbl;
+
+//      total hadronic contribution
+
+      amuhad=amuhlo+amuhho;
+
+//-----------------------------------------------------------------
+//      final value for the muon (g-2)/2
+
+      amu=amuqed+amuew+amuhad;
+      
+//-----------------------------------------------------------------
+
+      return amu;
+
+}
+
+
+//      The electron's weak charge
+
+double StandardModel::Qwemoller(const double q2, const double y) const
+{
+      //      Weak charge
+      double Qwe;
+      
+      //      definitions
+      double MwSM,f1,fy,f2,af2;
+      const double mpion=134.9766e-3;
+      
+      //      -----------------------------------------------------------------
+
+      double dalfos, dalfms, alfams;
+      double rhoNC, kappa0, s2MSbar,c2MSbar;
+      double xi;
+      double leptk0,quarkk0;
+      double elm=leptons[ELECTRON].getMass(), mum=leptons[MU].getMass(), taum=leptons[TAU].getMass();
+      
+      //      -----------------------------------------------------------------
+      
+      //      w mass
+      MwSM=Mw();
+      
+      // xi factor
+      xi=mHl*mHl/Mz/Mz;
+      
+      //      -----------------------------------------------------------------
+      
+      //      universal corrections
+      //      ---------------------
+            
+      //      obtaining alfa(mz)_msbar from alfa(mz)_on-shell
+      //      -----------------------------------------------
+      
+      //      on-shell value of delta alpha(mz)
+      dalfos=1.0-ale/alphaMz();
+      //      msbar value of delta alpha(mz) (formula from PDG, Erler & Langacker ew review)
+      dalfms=dalfos+ale/M_PI*(100.0/27.0-1.0/6.0-7.0*2.0*log(Mz/MwSM)/4.0);
+      //      msbar value of alfa(mz)
+      alfams=ale/(1.0-dalfms);
+            
+      //      ms bar weinberg's angle from the effective leptonic angle
+      //      (formula from PDG, Erler & Langacker ew review)
+      //	---------------------------------------------------------
+      s2MSbar=(myApproximateFormulae->sin2thetaEff_l_full())-0.00029;
+      c2MSbar=1.0-s2MSbar;
+      
+      //      rho parameter (expansion in alfams)
+      //      -------------
+      
+      rhoNC=1.0+alfams/(4.0*M_PI)*(3.0/(4.0*s2MSbar*s2MSbar)*log(c2MSbar)-7.0/(4.0*s2MSbar)+3.0*mtpole*mtpole/(4.0*s2MSbar*MwSM*MwSM) + 3.0*xi/(4.0*s2MSbar)*(log(c2MSbar/xi)/(c2MSbar-xi)+(1.0/c2MSbar)*log(xi)/(1.0-xi)));
+           
+      //      kappa at zero momentum (expansion in alfa)
+      //      ----------------------
+      
+      //      lepton contribution to kappa0
+      leptk0=((-0.5)*(-1)-2.0*s2MSbar)*2.0*(log(elm/Mz)+log(mum/Mz)+log(taum/Mz))/3.0;
+      
+      //      quark contribution to kappa0 (updated from hep-ph/0302149)
+      quarkk0=-6.802;
+
+      kappa0=1.0-ale/(2.0*M_PI*s2MSbar)*(leptk0+quarkk0-(7.0*c2MSbar/2.0+1.0/12.0)*log(c2MSbar)+(7.0/9.0-s2MSbar/3.0));
+      
+      //      -----------------------------------------------------------------
+      
+      //      f1(y,q2) (expansion in alfa)
+      //      --------
+      
+      //      f(y)
+      fy=-2.0*log(y*(1.0-y))/3.0+1.0/pow((1.0-y+y*y),2)*(-2.0*(1.0-y)*(3.0-3.0*y+4.0*y*y*y- 3.0*y*y*y*y)*log(1.0-y)-2.0*y*(1.0+3.0*y-6.0*y*y+8.0*y*y*y-3.0*y*y*y*y)*log(y)+ (1.0-y)*(2.0-2.0*y-7.0*y*y+10.0*y*y*y-8.0*y*y*y*y+3.0*y*y*y*y*y)*log(1.0-y)*log(1.0-y)- y*(2.0-3.0*y-5.0*y*y+8.0*y*y*y-7.0*y*y*y*y+3.0*y*y*y*y*y)*log(y)*log(y)+ (2.0-4.0*y+11.0*y*y*y-13.0*y*y*y*y+9.0*y*y*y*y*y-3.0*y*y*y*y*y*y)*(M_PI*M_PI-2.0*log(1.0-y)*log(y)));
+      
+      f1=-ale/(4.0*M_PI)*(1.0-4.0*kappa0*s2MSbar)*(22.0*log(y*Mz*Mz/q2)/3.0+85.0/9.0+fy);
+      
+      //      note that i have used 1-4*kappa*s2MSbar instead of 1-4*s2MSbar or an average as suggested in the
+      //      reference
+      
+      
+      //      f2(y,q2) (expansion in alfa)
+      //      --------
+      //      (y=1/2 approximattion using a pion loop calculation)
+      
+      //      af2
+      af2=sqrt(1.0+4.0*mpion*mpion/q2);
+      f2=ale/(4.0*M_PI)*(af2*af2*af2/3.0*log((af2+1.0)/(af2-1.0))-2.0/9.0-2.0*af2*af2/3.0);
+      
+      
+      //      electron's weak charge
+      //      ----------------------
+      Qwe=-rhoNC*(1.0-4.0*kappa0*s2MSbar+alfams/(4.0*M_PI*s2MSbar)+f1+f2- 3.0*alfams*(1.0-4.0*kappa0*s2MSbar)*(1.0+(1.0-4.0*kappa0*s2MSbar)*(1.0-4.0*kappa0*s2MSbar))/(32.0*M_PI*s2MSbar*c2MSbar));
+      
+      //      again, i have used 1-4*kappa*s2MSbar even in the loop contributions
+      
+      return Qwe;
+}
+
+
+
+//     The parity violating asymmetry in Moller scattering
+
+double StandardModel::alrmoller(const double q2, const double y) const
+{
+      //      functions and inputs
+      double alrmoller;
+      
+      // which alfa is this? => alpha(0). is this ale?
+      
+      //      parity violation asymmetry
+      //      --------------------------
+      alrmoller=-GF*q2*(1.0-y)/(sqrt(2.0)*M_PI*ale*(1.0+pow(y,4)+pow(1.0-y,4)))*Qwemoller(q2,y);
+      
+      return alrmoller;
+}
+
+
+
+//    The computation of the proton and neutron weak charge: Qwp,Qwn
+
+double StandardModel::Qwp() const
+{
+      //      Definitions
+      double qwproton;
+
+      double MwSM,alfapi,asMw,dkappa5h,s2MSbar0,deltae,deltaep,boxpww,boxpzz,boxpaz,boxnww,boxnzz,boxnaz;
+      //      I choose as lambda m_rho (pdg rho(770)) --> caz=3/2
+      const double lambda=775.49e-3;
+      const double caz=1.5;
+      
+      //      lepton masses
+      double mlept[3]={leptons[ELECTRON].getMass(),leptons[MU].getMass(),leptons[TAU].getMass()};
+      
+      //      -----------------------------------------------------------------
+      double dalfos, dalfms, alfams;
+      double rhoNC, s2MSbar,c2MSbar;
+      double xi;
+      double elm=leptons[ELECTRON].getMass();
+      //      -----------------------------------------------------------------
+      
+      //      W mass
+      MwSM=Mw();
+      
+      // xi factor
+      xi=mHl*mHl/Mz/Mz;
+      
+      //      alfa/pi
+      alfapi=ale/M_PI;
+      
+      //      alfa_s(Mw)
+      asMw = Als(MwSM, FULLNLO);
+      
+      //      -----------------------------------------------------------------
+      
+      //      Universal corrections
+      //      ---------------------
+            
+      //      Obtaining alfa(mz)_msbar from alfa(mz)_on-shell
+      //      -----------------------------------------------
+      
+      //      on-shell value of delta alpha(mz)
+      dalfos=1.0-ale/alphaMz();
+      //      MSbar value of delta alpha(mz) (formula from PDG, Erler & Langacker ew review)
+      dalfms=dalfos+ale/M_PI*(100.0/27.0-1.0/6.0-7.0*2.0*log(Mz/MwSM)/4.0);
+      //      MSbar value of alfa(mz)
+      alfams=ale/(1.0-dalfms);
+            
+      //      MS bar weinberg's angle from the effective leptonic angle
+      //      (formula from PDG, Erler & Langacker ew review)
+      //	---------------------------------------------------------
+      s2MSbar=(myApproximateFormulae->sin2thetaEff_l_full())-0.00029;
+      c2MSbar=1.0-s2MSbar;
+      
+      //      rho parameter (expansion in alfams)
+      //      -------------
+      
+      rhoNC=1.0+alfams/(4.0*M_PI)*(3.0/(4.0*s2MSbar*s2MSbar)*log(c2MSbar)-7.0/(4.0*s2MSbar)+3.0*mtpole*mtpole/(4.0*s2MSbar*MwSM*MwSM) + 3.0*xi/(4.0*s2MSbar)*(log(c2MSbar/xi)/(c2MSbar-xi)+(1.0/c2MSbar)*log(xi)/(1.0-xi)));
+      
+      //      -----------------------------------------------------------------
+      
+      //      sin2w_ms(0) eq.14
+      //      -----------------
+      
+      //      hadronic contribution
+      dkappa5h=7.9e-3;
+      
+      s2MSbar0=0.0;
+      
+      for (int i = 0; i < 3; ++i) {
+            s2MSbar0=s2MSbar0+2.0*log(Mz/mlept[i]);
+      }
+      
+      s2MSbar0=s2MSbar+dkappa5h+alfapi*((s2MSbar0*(1.0+0.75*alfapi)+135.0*alfapi/32.0)*(1.0-4.0*s2MSbar)/12.0- (7.0*c2MSbar/4.0+1.0/24.0)*2.0*log(Mz/MwSM)+s2MSbar/6.0-7.0/18.0);
+      
+      //      -----------------------------------------------------------------
+      
+      //      external leg corrections
+      
+      deltae=-0.5*alfapi;
+      
+      deltaep=-alfapi/3.0*(1.0-4.0*s2MSbar)*(2.0*log(Mz/elm)+1.0/6.0);
+      
+      //      -----------------------------------------------------------------
+      
+      //      boxes
+      //      -----
+      
+      boxpww=alfams*(2.0+5.0*(1.0-asMw/M_PI))/(4.0*M_PI*s2MSbar);
+      
+      boxnww=alfams*(-2.0+4.0*(1.0-asMw/M_PI))/(4.0*M_PI*s2MSbar);
+      
+      //      pure zz and az boxes from prd 17 3055 app.a
+      
+      boxpzz=alfams*(9.0/4.0-14.0*s2MSbar+38.0*s2MSbar*s2MSbar-40.0*s2MSbar*s2MSbar*s2MSbar)*(1.0-AlsMz/M_PI)/(4.0*M_PI*s2MSbar*c2MSbar);
+      
+      boxnzz=alfams*(9.0/4.0-13.0*s2MSbar+34.0*s2MSbar*s2MSbar-32.0*s2MSbar*s2MSbar*s2MSbar)*(1.0-AlsMz/M_PI)/(4.0*M_PI*s2MSbar*c2MSbar);
+      
+      boxpaz=5.0*alfams*(1.0-4.0*s2MSbar)*(2.0*log(Mz/lambda)+caz)/(2.0*M_PI);
+      
+      //      i assumme the same caz as in the proton enters for the neutron
+      boxnaz=alfams*(4.0-16.0*s2MSbar)*(2.0*log(Mz/lambda)+caz)/(2.0*M_PI);
+      
+      //      -----------------------------------------------------------------
+      
+      //      weak charges
+      //      ------------
+      
+      qwproton=(rhoNC+deltae)*(1.0-4.0*s2MSbar0+deltaep)+boxpww+boxpzz+boxpaz;
+      
+      return qwproton;
+      
+}
+
+
+double StandardModel::Qwn() const
+{
+      //      Definitions
+      double qwneutron;
+
+      double MwSM,alfapi,asMw,dkappa5h,s2MSbar0,deltae,deltaep,boxpww,boxpzz,boxpaz,boxnww,boxnzz,boxnaz;
+      //      I choose as lambda m_rho (pdg rho(770)) --> caz=3/2
+      const double lambda=775.49e-3;
+      const double caz=1.5;
+      
+      //      lepton masses
+      double mlept[3]={leptons[ELECTRON].getMass(),leptons[MU].getMass(),leptons[TAU].getMass()};
+      
+      //      -----------------------------------------------------------------
+      double dalfos, dalfms, alfams;
+      double rhoNC, s2MSbar,c2MSbar;
+      double xi;
+      double elm=leptons[ELECTRON].getMass();
+      //      -----------------------------------------------------------------
+      
+      //      W mass
+      MwSM=Mw();
+      
+      // xi factor
+      xi=mHl*mHl/Mz/Mz;
+      
+      //      alfa/pi
+      alfapi=ale/M_PI;
+      
+      //      alfa_s(Mw)
+      asMw = Als(MwSM, FULLNLO);
+      
+      //      -----------------------------------------------------------------
+      
+      //      Universal corrections
+      //      ---------------------
+            
+      //      Obtaining alfa(mz)_msbar from alfa(mz)_on-shell
+      //      -----------------------------------------------
+      
+      //      on-shell value of delta alpha(mz)
+      dalfos=1.0-ale/alphaMz();
+      //      MSbar value of delta alpha(mz) (formula from PDG, Erler & Langacker ew review)
+      dalfms=dalfos+ale/M_PI*(100.0/27.0-1.0/6.0-7.0*2.0*log(Mz/MwSM)/4.0);
+      //      MSbar value of alfa(mz)
+      alfams=ale/(1.0-dalfms);
+            
+      //      MS bar weinberg's angle from the effective leptonic angle
+      //      (formula from PDG, Erler & Langacker ew review)
+      //	---------------------------------------------------------
+      s2MSbar=(myApproximateFormulae->sin2thetaEff_l_full())-0.00029;
+      c2MSbar=1.0-s2MSbar;
+      
+      //      rho parameter (expansion in alfams)
+      //      -------------
+      
+      rhoNC=1.0+alfams/(4.0*M_PI)*(3.0/(4.0*s2MSbar*s2MSbar)*log(c2MSbar)-7.0/(4.0*s2MSbar)+3.0*mtpole*mtpole/(4.0*s2MSbar*MwSM*MwSM) + 3.0*xi/(4.0*s2MSbar)*(log(c2MSbar/xi)/(c2MSbar-xi)+(1.0/c2MSbar)*log(xi)/(1.0-xi)));
+      
+      //      -----------------------------------------------------------------
+      
+      //      sin2w_ms(0) eq.14
+      //      -----------------
+      
+      //      hadronic contribution
+      dkappa5h=7.9e-3;
+      
+      s2MSbar0=0.0;
+      
+      for (int i = 0; i < 3; ++i) {
+            s2MSbar0=s2MSbar0+2.0*log(Mz/mlept[i]);
+      }
+      
+      s2MSbar0=s2MSbar+dkappa5h+alfapi*((s2MSbar0*(1.0+0.75*alfapi)+135.0*alfapi/32.0)*(1.0-4.0*s2MSbar)/12.0- (7.0*c2MSbar/4.0+1.0/24.0)*2.0*log(Mz/MwSM)+s2MSbar/6.0-7.0/18.0);
+      
+      //      -----------------------------------------------------------------
+      
+      //      external leg corrections
+      
+      deltae=-0.5*alfapi;
+      
+      deltaep=-alfapi/3.0*(1.0-4.0*s2MSbar)*(2.0*log(Mz/elm)+1.0/6.0);
+      
+      //      -----------------------------------------------------------------
+      
+      //      boxes
+      //      -----
+      
+      boxpww=alfams*(2.0+5.0*(1.0-asMw/M_PI))/(4.0*M_PI*s2MSbar);
+      
+      boxnww=alfams*(-2.0+4.0*(1.0-asMw/M_PI))/(4.0*M_PI*s2MSbar);
+      
+      //      pure zz and az boxes from prd 17 3055 app.a
+      
+      boxpzz=alfams*(9.0/4.0-14.0*s2MSbar+38.0*s2MSbar*s2MSbar-40.0*s2MSbar*s2MSbar*s2MSbar)*(1.0-AlsMz/M_PI)/(4.0*M_PI*s2MSbar*c2MSbar);
+      
+      boxnzz=alfams*(9.0/4.0-13.0*s2MSbar+34.0*s2MSbar*s2MSbar-32.0*s2MSbar*s2MSbar*s2MSbar)*(1.0-AlsMz/M_PI)/(4.0*M_PI*s2MSbar*c2MSbar);
+      
+      boxpaz=5.0*alfams*(1.0-4.0*s2MSbar)*(2.0*log(Mz/lambda)+caz)/(2.0*M_PI);
+      
+      //      i assumme the same caz as in the proton enters for the neutron
+      boxnaz=alfams*(4.0-16.0*s2MSbar)*(2.0*log(Mz/lambda)+caz)/(2.0*M_PI);
+      
+      //      -----------------------------------------------------------------
+      
+      //      weak charges
+      //      ------------
+      
+      qwneutron=-(rhoNC+deltae)*(1.0+deltaep)+boxnww+boxnzz+boxnaz;
+      
+      return qwneutron;
+      
+}
+
+
 /* BEGIN: REMOVE FROM THE PACKAGE */
 ////////////////////////////////////////////////////////////////////////////////////
 //LEP2 Observables

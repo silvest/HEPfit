@@ -10,6 +10,7 @@
 
 #include "ModelParameter.h"
 #include "gslpp.h"
+#include <TMatrixDSymEigen.h>
 
 /**
  * @class CorrelatedGaussianParameters
@@ -48,7 +49,7 @@ public:
      * @brief Diagonalizes the correlated Gaussian parameters set.
      * @param Corr the correlation matrix for the correlated Gaussian parameters set
      */
-    void DiagonalizePars(gslpp::matrix<double> Corr);
+    void DiagonalizePars(TMatrixDSym Corr);
 
     /**
      * @brief A method to add parameters to the list of correlated Gaussian parameters.
@@ -88,9 +89,9 @@ public:
     /**
      * @brief A get method to access the covariance matrix of the correlated Gaussian parameters.
      */
-    gslpp::matrix<double> getCov() const
+    const TMatrixDSym& getCov() const
     {
-        return *Cov;
+        return Cov;
     }
 
     /**
@@ -133,7 +134,7 @@ public:
     
 private:
     std::vector<ModelParameter> Pars; ///< A vector of parameters whose correlation will be calculated.
-    gslpp::matrix<double>* Cov; ///< The covariance matrix.
+    TMatrixDSym Cov; ///< The covariance matrix.
     std::string name; ///< The name of the correlated Gaussian Parameters set.
     gslpp::matrix<double> * v; ///< The rotation matrix form the diagonalized parameters to the original parameters
     gslpp::vector<double> * e;///< The diagonalized parameters

@@ -11,6 +11,7 @@
 #include "Observable.h"
 #include "gslpp.h"
 #include <boost/ptr_container/ptr_vector.hpp>
+#include <TMatrixDSym.h>
 
 class ThObsFactory;
 
@@ -57,7 +58,7 @@ public:
      * @brief Computes the covariance matrix for the correlated Gaussian observables set.
      * @param Corr the correlation matrix for the correlated Gassian observables set
      */
-    void ComputeCov(gslpp::matrix<double> Corr);
+    void ComputeCov(const TMatrixDSym& Corr);
 
     /**
      * @brief A method to compute the weight associated with the observable.
@@ -102,9 +103,9 @@ public:
     /**
      * @brief A get method to access the covariance matrix of the correlated Gaussian observables.
      */
-    gslpp::matrix<double> getCov() const
+    const TMatrixDSym& getCov() const
     {
-        return *InvCov;
+        return InvCov;
     }
     
     /**
@@ -173,7 +174,7 @@ public:
     
 private:
     std::vector<Observable> Obs;///< A vector of observables whose correlation will be calculated.
-    gslpp::matrix<double>* InvCov;///< The inverse covariance matrix.
+    TMatrixDSym InvCov;///< The inverse covariance matrix.
     std::string name;///< The name of the correlated Gaussian Observables set.
     std::string filepath;///< The path to the config file being parsed
     bool IsEOF;///< A boolean which is true if the end of file is reached.
