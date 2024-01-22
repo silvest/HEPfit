@@ -45,11 +45,11 @@ T_cache(5, 0.)
     dispersion = false;
     zExpansion = false;
     FixedWCbtos = false;
-    mJpsi = 3.096;
+    mJpsi = 3.0969;
     mJ2 = mJpsi * mJpsi;
-    mPsi2S = 3.686;
+    mPsi2S = 3.6861;
     mPsi2S2 = mPsi2S * mPsi2S;
-    mD2 = 1.864 * 1.864;
+    mD2 = 1.8648 * 1.8648;
 
     I0_updated = 0;
     I1_updated = 0;
@@ -502,9 +502,10 @@ void MVll::updateParameters()
     t_0 = t_p * (1. - sqrt(1. - t_m / t_p)); /*Modify it for Lattice*/
     z_0 = (sqrt(t_p) - sqrt(t_p - t_0)) / (sqrt(t_p) + sqrt(t_p - t_0));
     s_p = 4. * mD2;
-    s_0 = 4.;
+    // s_0 = 4.;
+    s_0 = s_p - sqrt(s_p * (s_p - mPsi2S2));
     Q2 = - Mb*Mb;
-    chiOPE = 1.81;
+    chiOPE = 0.000181;
     twoalphaBtoKst = 2.276;
     rho_0 = 0.7977;
     rho_1 = -0.8298;
@@ -1863,20 +1864,22 @@ gslpp::complex MVll::phi_4(double q2)
 
 gslpp::complex MVll::DeltaC9_zExpansion(double q2, int tran)
 {
+    gslpp::complex z = zh(q2);
+    
     gslpp::complex invpref = 4.*M_PI*sqrt(2.*(4.*mD2-s_0)/3./chiOPE)*sqrt(1+zh(q2)) * P(q2);
     
     if (tran == 0) {
         invpref *= MM4 * pow(1.-zh(q2),4.5) * phi_1(q2)*phi_1(q2)*phi_1(q2) * sqrt(phi_2(q2)) * phi_3(q2)*phi_3(q2) * phi_4(q2)*phi_4(q2);
         
-        return 1./invpref * (beta_0[0]*p0() + beta_0[1]*p1(q2) + beta_0[2]*p2(q2) + beta_0[3]*p3(q2) + beta_0[4]*p4(q2) + beta_0[5]*p5(q2) + beta_0[6]*p6(q2));
+        return 1./invpref * (beta_0[0] + beta_0[1]*z + beta_0[2]*z*z + beta_0[3]*z*z*z + beta_0[4]*z*z*z*z + beta_0[5]*z*z*z*z*z + beta_0[6]*z*z*z*z*z*z);
     } else if (tran == 1) { // parallel
         invpref *= MM2*MM * pow(1.-zh(q2),3.5) * phi_1(q2)*phi_1(q2)*phi_1(q2) * sqrt(phi_2(q2)) * phi_3(q2)*phi_3(q2)*phi_3(q2);
         
-        return 1./invpref * (beta_1[0]*p0() + beta_1[1]*p1(q2) + beta_1[2]*p2(q2) + beta_1[3]*p3(q2) + beta_1[4]*p4(q2) + beta_1[5]*p5(q2) + beta_1[6]*p6(q2));
+        return 1./invpref * (beta_1[0] + beta_1[1]*z + beta_1[2]*z*z + beta_1[3]*z*z*z + beta_1[4]*z*z*z*z + beta_1[5]*z*z*z*z*z + beta_1[6]*z*z*z*z*z*z);
     } else {                // perpendicular
         invpref *= MM2*MM * pow(1.-zh(q2),3.5) * phi_1(q2)*phi_1(q2)*phi_1(q2) * sqrt(phi_2(q2)) * phi_3(q2)*phi_3(q2)*phi_3(q2);
         
-        return 1./invpref * (beta_2[0]*p0() + beta_2[1]*p1(q2) + beta_2[2]*p2(q2) + beta_2[3]*p3(q2) + beta_2[4]*p4(q2) + beta_2[5]*p5(q2) + beta_2[6]*p6(q2));
+        return 1./invpref * (beta_2[0] + beta_2[1]*z + beta_2[2]*z*z + beta_2[3]*z*z*z + beta_2[4]*z*z*z*z + beta_2[5]*z*z*z*z*z + beta_2[6]*z*z*z*z*z*z);
     }
 }
 
@@ -1884,11 +1887,11 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
 {
     if (zExpansion) {
         if (hel == 0) 
-            return DeltaC9_zExpansion(q2, 0);
+            return DeltaC9_zExpansion(q2, 0) * MM / sqrt(q2);
         else if (hel == 1) 
-            return (DeltaC9_zExpansion(q2, 1) + DeltaC9_zExpansion(q2, 2)) / sqrt(2.);
-        else
             return (DeltaC9_zExpansion(q2, 1) - DeltaC9_zExpansion(q2, 2)) / sqrt(2.);
+        else
+            return (DeltaC9_zExpansion(q2, 1) + DeltaC9_zExpansion(q2, 2)) / sqrt(2.);
     } else if (dispersion) {
         if (hel == 0) return SU3_breaking * (-sqrt(q2) / (MM2 * 16. * M_PI * M_PI) * ((MMpMV2 * (MM2mMV2 - q2) * A_1(q2) * DeltaC9_KD(q2, 1) - lambda(q2) * A_2(q2) * DeltaC9_KD(q2, 2)) / (4. * MV * MM * MMpMV)));
         else if (hel == 1) {
@@ -1972,7 +1975,7 @@ gslpp::complex MVll::AmpMVpsi_zExpansion(double mpsi, int tran)
         fpsi = sqrt(Gammaepm*(3.*sqrt(q2))/(4.*M_PI*ale*ale)/(4./9.));
     }
     else if(fabs(mpsi - mPsi2S)< 1.e-5){
-        double Gammaepm = 7.93/100.*(294.*1e-6);
+        double Gammaepm = 7.93/1000.*(294.*1e-6);
         fpsi = sqrt(Gammaepm*(3.*sqrt(q2))/(4.*M_PI*ale*ale)/(4./9.));
     }
     else{

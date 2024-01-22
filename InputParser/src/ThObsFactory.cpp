@@ -4447,10 +4447,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Argh_m_BdKstmu"] = bind(boost::factory<h_m*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, 4);
     
     obsThFactory["BR_MVpsi"] = bind(boost::factory<BR_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["BR_MVpsi_ratio"] = bind(boost::factory<BR_MVpsi_ratio*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["Abs2Ampar_MVpsi"] = bind(boost::factory<Abs2Ampar_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["ArgAmpar_MVpsi"] = bind(boost::factory<ArgAmpar_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["Abs2Amperp_MVpsi"] = bind(boost::factory<Abs2Amperp_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["ArgAmperp_MVpsi"] = bind(boost::factory<ArgAmperp_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["Abs2Ampzero_MVpsi"] = bind(boost::factory<Abs2Ampzero_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 
     //----- B+ to K*+ ll  -----
     obsThFactory["A_FB_BpKstmu"] = bind(boost::factory<A_FB*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);
