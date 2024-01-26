@@ -4128,32 +4128,35 @@ ThObsFactory::ThObsFactory()
    //----- TopQuarkObservables begin -----
    
    
+   obsThFactory["FB_asymmetry_Tevatron_tt_diff_mtt_LO"] = boost::factory<FB_asymmetry_Tevatron_tt_diff_mtt_LO*>();
+   
+   obsThFactory["charge_asymmetry_tt_diff_mtt_LO"] = boost::factory<charge_asymmetry_tt_diff_mtt_LO*>();
+   
    obsThFactory["sigma_tt_diff_LO"] = boost::factory<sigma_tt_diff_LO*>();
    
    obsThFactory["sigma_ttz_diff_LO_ATLAS_210312603"] = boost::factory<sigma_ttz_diff_LO_ATLAS_210312603*>();
    
-   obsThFactory["sigma_tta_diff_LO_CMS_dilepton"] = boost::factory<sigma_tta_diff_LO_CMS_dilepton*>();
+   
+   obsThFactory["sigma_tta_diff_LO_ATLAS_emu"] = boost::factory<sigma_tta_diff_LO_ATLAS_emu_200706946*>();
+   obsThFactory["sigma_tta_diff_LO_CMS_dilepton"] = boost::factory<sigma_tta_diff_LO_CMS_dilepton_220107301*>();
+   obsThFactory["sigma_tta_diff_LO_CMS_semileptonic"] = boost::factory<sigma_tta_diff_LO_CMS_semileptonic_210701508*>();
    
    
    
    obsThFactory["F0_LO"] = boost::factory<F0_LO*>();
    obsThFactory["FL_LO"] = boost::factory<FL_LO*>();
+   obsThFactory["FR_LO"] = boost::factory<FL_LO*>();
    
    
    obsThFactory["sigma_taq_LO_CMS"] = boost::factory<sigma_taq_LO_CMS*>();
    obsThFactory["sigma_taq_LO_ATLAS"] = boost::factory<sigma_taq_LO_ATLAS*>();
    
-   //NOT COMPLETELY SURE IF MAPPING WITH TWO DIFFERENT NAMES WILL MAKE THE JOB (PROBALBY NOT)
-   obsThFactory["sigma_tzq_LO_CMS"] = boost::factory<sigma_tzq_LO*>();
-   obsThFactory["sigma_tzq_LO_ATLAS"] = boost::factory<sigma_tzq_LO*>();
-   obsThFactory["sigma_ttw_LO_CMS"] = boost::factory<sigma_ttw_LO*>();
-   obsThFactory["sigma_ttw_LO_ATLAS"] = boost::factory<sigma_ttw_LO*>();
-   obsThFactory["sigma_tw_13_LO_CMS"] = boost::factory<sigma_tw_13_LO*>();
-   obsThFactory["sigma_tw_13_LO_ATLAS"] = boost::factory<sigma_tw_13_LO*>();
-   obsThFactory["sigma_tb_13_LO_CMS"] = boost::factory<sigma_tb_13_LO*>();
-   obsThFactory["sigma_tb_13_LO_ATLAS"] = boost::factory<sigma_tb_13_LO*>();
-   obsThFactory["sigma_tq_13_LO_CMS"] = boost::factory<sigma_tq_13_LO*>();
-   obsThFactory["sigma_tq_13_LO_ATLAS"] = boost::factory<sigma_tq_13_LO*>();
+   
+   obsThFactory["sigma_tzq_LO"] = boost::factory<sigma_tzq_LO*>();
+   obsThFactory["sigma_ttw_LO"] = boost::factory<sigma_ttw_LO*>();
+   obsThFactory["sigma_tw_13_LO"] = boost::factory<sigma_tw_13_LO*>();
+   obsThFactory["sigma_tb_13_LO"] = boost::factory<sigma_tb_13_LO*>();
+   obsThFactory["sigma_tq_13_LO"] = boost::factory<sigma_tq_13_LO*>();
 
 
    
