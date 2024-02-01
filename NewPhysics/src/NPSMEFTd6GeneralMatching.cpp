@@ -56,24 +56,18 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
     //    CDW = 0.; 
     //    CT = 0.;
 
-    //For operators with fermionic indices we need to switch to the mass eigenstate basis 
+    //For operators with quark indices we need to switch to the mass eigenstate basis; leptons are already in the mass eigenstate basis since we do not have any lepton flavour violation
 
     // Let us first define the full mass matrices, including the effect of dimension six operators
 
-    gslpp::matrix<complex> MU(3, 0.), MD(3, 0.), ME(3, 0.);
+    gslpp::matrix<complex> MU(3, 0.), MD(3, 0.);
 
-    // For light leptons convergence requires adding a theory uncertainty of order v^4/Lambda^4
-    
-    double errlam = v2oLam2*v2oLam2;
-    
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
             MU.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
             MU.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
             MD.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
             MD.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
-            ME.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHR", i, j) * v2 / 2.) * (1. - errlam + 2.*myrnd.Rndm()*errlam));
-            ME.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YeI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CeHI", i, j) * v2 / 2.) * (1. - errlam + 2.*myrnd.Rndm()*errlam));
         }
 
     gslpp::vector<double> m2(3);
@@ -87,12 +81,6 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
     mySMEFT.getQuarks(QCD::DOWN).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::DOWN).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(0))));
     mySMEFT.getQuarks(QCD::STRANGE).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::STRANGE).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(1))));
     mySMEFT.getQuarks(QCD::BOTTOM).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::BOTTOM).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(2))));
-
-    ME.singularvalue(VeR, VeL, m2);
-
-    mySMEFT.getLeptons(QCD::ELECTRON).setMass(sqrt(m2(0)));
-    mySMEFT.getLeptons(QCD::MU).setMass(sqrt(m2(1)));
-    mySMEFT.getLeptons(QCD::TAU).setMass(sqrt(m2(2)));
 
     //Computing the CKM 
     gslpp::matrix<complex> CKMUnphys = (VuL.hconjugate()) * VdL;
@@ -124,13 +112,8 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
     phi2dag.assign(1, 1, gslpp::complex(1., -a12, true));
     phi2dag.assign(2, 2, gslpp::complex(1., -a13, true));
 
-    gslpp::matrix<gslpp::complex> phie(3, 3, 0.);
-    phie.assign(0, 0, gslpp::complex(1., -(VeR(0, 0)).arg(), true));
-    phie.assign(1, 1, gslpp::complex(1., -(VeR(1, 1)).arg(), true));
-    phie.assign(2, 2, gslpp::complex(1., -(VeR(2, 2)).arg(), true));
-
-    VeR = VeR*phie;
-    VeL = VeL*phie;
+    VeR = gslpp::matrix<complex>::Id(3);
+    VeL = gslpp::matrix<complex>::Id(3);
     VuL = VuL*phi1;
     VuR = VuR*phi1;
     VdL = VdL*phi2dag;
@@ -167,7 +150,6 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters() {
 
     //std::cout << "has the diagonalization worked? " << VuR.hconjugate()*MU*VuL << std::endl;
     //std::cout << "has the diagonalization worked? " << VdR.hconjugate()*MD*VdL << std::endl;
-    //std::cout << "has the diagonalization worked? " << VeR.hconjugate()*ME*VeL << std::endl;
 
     //match and rotate following Manohar. This is performed AT LINEAR ORDER for the moment
 

@@ -8308,7 +8308,11 @@ bool NPSMEFTd6General::PostUpdate()
     setSMEFTEvolWC();
     //printNonVanishingSMEFTCoeffEW();
     //std::cout << Lambda_NP << " " << muw << " " << SMEFTBasisFlag << std::endl;
-    SMEFTEvolEW.EvolveToBasis("Numeric", Lambda_NP, muw, SMEFTBasisFlag);
+    // Do the evolution of the SMEFT Coefficients at linear order first; THIS DOES NOT EVOLVE THE SM PARAMETERS, only computes the corrections to them due to the SMEFT coefficients
+    SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, muw);
+    // Evolve the SM parameters with the SM RGEs
+    SMEFTEvolEW.EvolveSMOnly("Numeric",Lambda_NP, muw);
+    //Now everything has been evolved
     //printNonVanishingSMEFTCoeffEW();
       
     // Renormalization of gauge fields parameters
