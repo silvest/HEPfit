@@ -4224,6 +4224,7 @@ ThObsFactory::ThObsFactory()
     
     //-----  Low Energy EW observables  -----    
     obsThFactory["QWeMoller"] = boost::factory<QWe*>();
+    obsThFactory["QWproton"] = boost::factory<QWp*>();
     obsThFactory["QWCs133_55"] = bind(boost::factory<QWAPV*>(), _1, 55, 78);
     obsThFactory["QWTl205_81"] = bind(boost::factory<QWAPV*>(), _1, 81, 124);
     // Temporary observable: for testing

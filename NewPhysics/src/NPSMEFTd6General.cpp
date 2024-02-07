@@ -39193,3 +39193,108 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         
         return dAFB;      
     };
+
+    
+// EW low-energy observables: Muon g-2
+
+    double NPSMEFTd6General::delta_amuon() const
+    {
+        return 0.;
+    }
+
+// EW low-energy observables: Parity violation
+
+    double NPSMEFTd6General::delta_Qwemoller(const double q2, const double y) const
+    {
+        double deltaQ;
+        double deltaCe;
+        
+        double dCeeVRR1111, dCeeVLL1111; // NP corrections to LEFT operators at low energy 
+        
+        dCeeVRR1111 = 0.;
+        dCeeVLL1111 = 0.; //To be implemented from matching class + RGE
+        
+        // Modification in terms of the LEFT basis (at low energies)
+        deltaCe= (1./GF/sqrt(2.)) * ( dCeeVRR1111 - dCeeVLL1111 );
+
+        //double dgLe, dgRe, gLe, gRe;
+        
+        //dgLe = deltaGL_f(leptons[ELECTRON]);
+        //dgRe = deltaGR_f(leptons[ELECTRON]);
+        
+        //gLe = gZlL;
+        //gRe = gZlR;
+        
+        //deltaQ = trueSM.Qwemoller(q2,y) * ((dgLe - dgRe)/(gLe - gRe) + (dgLe + dgRe)/(gLe + gRe));
+        
+        //deltaQ += (getSMEFTCoeffEW("CllR", 0, 0, 0, 0) - getSMEFTCoeffEW("CeeR", 0, 0, 0, 0)) * v2; 
+        
+        deltaQ = -2. * deltaCe;
+        
+        return deltaQ;    
+    }
+
+
+    double NPSMEFTd6General::delta_alrmoller(const double q2, const double y) const
+    {
+        return 0.;    
+    }
+
+
+    double NPSMEFTd6General::delta_Qwp() const
+    {
+        double deltaQ;        
+        double deltaC1u, deltaC1d;
+        
+        double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
+        double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
+        
+        dCeuVLL1111 = 0.;
+        dCeuVRR1111 = 0.;
+        dCeuVLR1111 = 0.;
+        dCueVLR1111 = 0.; //To be implemented from matching class + RGE
+        
+        dCedVLL1111 = 0.;
+        dCedVRR1111 = 0.;
+        dCedVLR1111 = 0.;
+        dCdeVLR1111 = 0.; //To be implemented from matching class + RGE
+        
+        // Modification in terms of the LEFT basis (at low energies)
+        deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
+        deltaC1d = (1./GF/2./sqrt(2.)) * ( - dCedVLL1111 + dCedVRR1111 - dCedVLR1111 + dCdeVLR1111 );
+        
+        // Proton Z=1, N=0
+        deltaQ = -2. * ( 2.* deltaC1u + deltaC1d );
+        
+        return deltaQ;    
+    }
+
+      
+    double NPSMEFTd6General::delta_Qwn() const
+    {
+        double deltaQ;        
+        double deltaC1u, deltaC1d;
+        
+        double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
+        double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
+        
+        dCeuVLL1111 = 0.;
+        dCeuVRR1111 = 0.;
+        dCeuVLR1111 = 0.;
+        dCueVLR1111 = 0.; //To be implemented from matching class + RGE
+        
+        dCedVLL1111 = 0.;
+        dCedVRR1111 = 0.;
+        dCedVLR1111 = 0.;
+        dCdeVLR1111 = 0.; //To be implemented from matching class + RGE
+        
+        // Modification in terms of the LEFT basis (at low energies)
+        deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
+        deltaC1d = (1./GF/2./sqrt(2.)) * ( - dCedVLL1111 + dCedVRR1111 - dCedVLR1111 + dCdeVLR1111 );
+       
+        // Neutron Z=0, N=1
+        deltaQ = -2. * ( deltaC1u + 2. * deltaC1d );
+        
+        return deltaQ;    
+    }
+      

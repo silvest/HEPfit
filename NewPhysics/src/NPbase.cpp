@@ -1154,7 +1154,9 @@ double NPbase::delta_AFB_f(const Particle f, const double s) const
 {
     return 0.0;
 }
-    
+
+
+//   Extension of SM observable definitions
 double NPbase::LEP2sigmaMu(const double s) const
 {
     return (trueSM.LEP2sigmaMu(s) + delta_sigmaTot_f(leptons[MU], s));
@@ -1208,4 +1210,64 @@ double NPbase::LEP2Rcharm(const double s) const
 double NPbase::LEP2Rbottom(const double s) const
 {
     return (trueSM.LEP2Rbottom(s));
+}
+
+
+// EW low-energy observables: Muon g-2
+
+double NPbase::delta_amuon() const
+{
+    return 0.;
+}
+
+// EW low-energy observables: Parity violation
+
+double NPbase::delta_Qwemoller(const double q2, const double y) const
+{
+    return 0.;    
+}
+
+
+double NPbase::delta_alrmoller(const double q2, const double y) const
+{
+    return 0.;    
+}
+
+
+double NPbase::delta_Qwp() const
+{
+    return 0.;    
+}
+
+      
+double NPbase::delta_Qwn() const
+{
+    return 0.;    
+}
+      
+      
+//   Extension of SM observable definitions
+double NPbase::amuon() const
+{
+    return (trueSM.amuon() + delta_amuon());
+}
+
+double NPbase::Qwemoller(const double q2, const double y) const
+{
+    return (trueSM.Qwemoller(q2,y) + delta_Qwemoller(q2,y));    
+}
+
+double NPbase::alrmoller(const double q2, const double y) const
+{
+    return (trueSM.alrmoller(q2,y) + delta_alrmoller(q2,y));      
+}
+
+double NPbase::Qwp() const
+{
+    return (trueSM.Qwp() + delta_Qwp());     
+}
+
+double NPbase::Qwn() const
+{
+    return (trueSM.Qwn() + delta_Qwn());    
 }
