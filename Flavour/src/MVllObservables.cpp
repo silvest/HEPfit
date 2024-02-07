@@ -1412,7 +1412,7 @@ double BR_MVpsi::computeThValue()
     double A2_0 = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).abs2();
     double A2_par = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1).abs2();
     double A2_perp = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,2).abs2();
-    return (A2_0+A2_par+A2_perp)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth();
+    return 2.*(A2_0+A2_par+A2_perp)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth();
 }
 
 BR_MVpsi_ratio::BR_MVpsi_ratio(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
@@ -1470,8 +1470,7 @@ ArgAmpar_MVpsi::ArgAmpar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QC
 double ArgAmpar_MVpsi::computeThValue() 
 {
     double q2 = getBinMin();
-    return (SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1).arg() 
-            - SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).arg());
+    return (SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1)/SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0)).arg();
 }
 
 Abs2Amperp_MVpsi::Abs2Amperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
@@ -1506,8 +1505,7 @@ ArgAmperp_MVpsi::ArgAmperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, 
 double ArgAmperp_MVpsi::computeThValue() 
 {
     double q2 = getBinMin();
-    return SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,2).arg() 
-            - SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).arg();
+    return (SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,2)/SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0)).arg();
 }
 
 Abs2Ampzero_MVpsi::Abs2Ampzero_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
