@@ -71,6 +71,239 @@ public:
     virtual  std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
     
 
+    //dimension 6 four-fermion operators involving all left-handed fields
+
+    /**
+     * @brief Return CnunuVLL
+     * @return \f$ C_{\nu \nu}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCnunuVLL(int i, int j, int k, int l) const;
+
+    /**
+     * @brief Return CeeVLL
+     * @return \f$ C_{ee}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCeeVLL(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CnueVLL
+     * @return \f$ C_{\nu e}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCnueVLL(int i, int j, int k, int l) const;
+
+    /**
+     * @brief Return CnuuVLL
+     * @return \f$ C_{\nu u}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCnuuVLL(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CnudVLL
+     * @return \f$ C_{\nu d}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCnudVLL(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CeuVLL
+     * @return \f$ C_{eu}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCeuVLL(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CedVLL
+     * @return \f$ C_{ed}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCedVLL(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CnueduVLL
+     * @return \f$ C_{\nu e d u}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCnueduVLL(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CuuVLL
+     * @return \f$ C_{uu}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCuuVLL(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CddVLL
+     * @return \f$ C_{dd}^{V,LL} \f$ 
+     */    
+    gslpp::complex getCddVLL(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CudV1LL
+     * @return \f$ C_{ud}^{V1,LL} \f$ 
+     */    
+    gslpp::complex getCudV1LL(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CudV8LL
+     * @return \f$ C_{ud}^{V8,LL} \f$ 
+     */    
+    gslpp::complex getCudV8LL(int i, int j, int k, int l) const;
+    
+    //dimension 6 four-fermion operators involving all right-handed fields
+    
+    /**
+     * @brief Return CeeVRR
+     * @return \f$ C_{ee}^{V,RR} \f$ 
+     */    
+    gslpp::complex getCeeVRR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CeuVRR
+     * @return \f$ C_{eu}^{V,RR} \f$ 
+     */    
+    gslpp::complex getCeuVRR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CedVRR
+     * @return \f$ C_{ed}^{V,RR} \f$ 
+     */    
+    gslpp::complex getCedVRR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CuuVRR
+     * @return \f$ C_{uu}^{V,RR} \f$ 
+     */    
+    gslpp::complex getCuuVRR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CddVRR
+     * @return \f$ C_{dd}^{V,RR} \f$ 
+     */    
+    gslpp::complex getCddVRR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CudV1RR
+     * @return \f$ C_{ud}^{V1,RR} \f$ 
+     */    
+    gslpp::complex getCudV1RR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CudV8RR
+     * @return \f$ C_{ud}^{V8,RR} \f$ 
+     */    
+    gslpp::complex getCudV8RR(int i, int j, int k, int l) const;
+    
+    //dimension 6 four-fermion operators involving a left-handed vector current and a right-handed vector current
+
+    /**
+     * @brief Return CnueVLR
+     * @return \f$ C_{\nu e}^{V,LR} \f$ 
+     */    
+    gslpp::complex getCnueVLR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CeeVLR
+     * @return \f$ C_{e e}^{V,LR} \f$ 
+     */    
+    gslpp::complex getCeeVLR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CnuuVLR
+     * @return \f$ C_{\nu u}^{V,LR} \f$ 
+     */    
+    gslpp::complex getCnuuVLR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CnudVLR
+     * @return \f$ C_{\nu d}^{V,LR} \f$ 
+     */    
+    gslpp::complex getCnudVLR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CeuVLR
+     * @return \f$ C_{eu}^{V,LR} \f$ 
+     */    
+    gslpp::complex getCeuVLR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CedVLR
+     * @return \f$ C_{ed}^{V,LR} \f$ 
+     */    
+    gslpp::complex getCedVLR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CueVLR
+     * @return \f$ C_{ue}^{V,LR} \f$ 
+     */    
+    gslpp::complex getCueVLR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CdeVLR
+     * @return \f$ C_{de}^{V,LR} \f$ 
+     */    
+    gslpp::complex getCdeVLR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CnueduVLR
+     * @return \f$ C_{\nu e d u}^{V,LR} \f$ 
+     */    
+    gslpp::complex getCnueduVLR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CuuV1LR
+     * @return \f$ C_{uu}^{V1,LR} \f$ 
+     */    
+    gslpp::complex getCuuV1LR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CuuV8LR
+     * @return \f$ C_{uu}^{V8,LR} \f$ 
+     */    
+    gslpp::complex getCuuV8LR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CudV1LR
+     * @return \f$ C_{ud}^{V1,LR} \f$ 
+     */    
+    gslpp::complex getCudV1LR(int i, int j, int k, int l) const; 
+    
+    /**
+     * @brief Return CudV8LR
+     * @return \f$ C_{ud}^{V8,LR} \f$ 
+     */    
+    gslpp::complex getCudV8LR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CduV1LR
+     * @return \f$ C_{du}^{V1,LR} \f$ 
+     */    
+    gslpp::complex getCduV1LR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CduV8LR
+     * @return \f$ C_{du}^{V8,LR} \f$ 
+     */    
+    gslpp::complex getCduV8LR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CddV1LR
+     * @return \f$ C_{dd}^{V1,LR} \f$ 
+     */    
+    gslpp::complex getCddV1LR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CddV8LR
+     * @return \f$ C_{dd}^{V8,LR} \f$ 
+     */    
+    gslpp::complex getCddV8LR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CudduV1LR
+     * @return \f$ C_{\uddu}^{V1,LR} \f$ 
+     */    
+    gslpp::complex getCudduV1LR(int i, int j, int k, int l) const;
+    
+    /**
+     * @brief Return CudduV8LR
+     * @return \f$ C_{uddu}^{V8,LR} \f$ 
+     */    
+    gslpp::complex getCudduV8LR(int i, int j, int k, int l) const;
 
 protected:
 
@@ -112,7 +345,7 @@ protected:
     std::array<std::array<std::array<std::array<gslpp::complex, 3>, 3>, 2>, 2> CudV1RR = {}; ///< The dimension-6 operator coefficient \f$(C_{ud}^{V1,RR})_{ijkl}(\Lambda_{\rm{EW}})\f$.
     std::array<std::array<std::array<std::array<gslpp::complex, 3>, 3>, 2>, 2> CudV8RR = {}; ///< The dimension-6 operator coefficient \f$(C_{ud}^{V8,RR})_{ijkl}(\Lambda_{\rm{EW}})\f$.
 
-    //dimension 6 four-fermion operators involving a left-handed current and a right-handed current
+    //dimension 6 four-fermion operators involving a left-handed vector current and a right-handed vector current
 
     std::array<std::array<std::array<std::array<gslpp::complex, 3>, 3>, 3>, 3> CnueVLR = {}; ///< The dimension-6 operator coefficient \f$(C_{\nu e}^{V,LR})_{ijkl}(\Lambda_{\rm{EW}})\f$.
     std::array<std::array<std::array<std::array<gslpp::complex, 3>, 3>, 3>, 3> CeeVLR = {}; ///< The dimension-6 operator coefficient \f$(C_{ee}^{V,LR})_{ijkl}(\Lambda_{\rm{EW}})\f$.

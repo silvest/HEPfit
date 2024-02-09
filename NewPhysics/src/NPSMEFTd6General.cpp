@@ -39211,8 +39211,8 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         
         double dCeeVRR1111, dCeeVLL1111; // NP corrections to LEFT operators at low energy 
         
-        dCeeVRR1111 = 0.;
-        dCeeVLL1111 = 0.; //To be implemented from matching class + RGE
+        dCeeVRR1111 = (getMatching().getCeeVRR(1,1,1,1)).real();
+        dCeeVLL1111 = (getMatching().getCeeVLL(1,1,1,1)).real(); //RGE effects very small
         
         // Modification in terms of the LEFT basis (at low energies)
         deltaCe= (1./GF/sqrt(2.)) * ( dCeeVRR1111 - dCeeVLL1111 );
@@ -39249,15 +39249,15 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
         double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
         
-        dCeuVLL1111 = 0.;
-        dCeuVRR1111 = 0.;
-        dCeuVLR1111 = 0.;
-        dCueVLR1111 = 0.; //To be implemented from matching class + RGE
+        dCeuVLL1111 = (getMatching().getCeuVLL(1,1,1,1)).real();
+        dCeuVRR1111 = (getMatching().getCeuVRR(1,1,1,1)).real();
+        dCeuVLR1111 = (getMatching().getCeuVLR(1,1,1,1)).real();
+        dCueVLR1111 = (getMatching().getCueVLR(1,1,1,1)).real(); //RGE effects very small
         
-        dCedVLL1111 = 0.;
-        dCedVRR1111 = 0.;
-        dCedVLR1111 = 0.;
-        dCdeVLR1111 = 0.; //To be implemented from matching class + RGE
+        dCedVLL1111 = (getMatching().getCedVLL(1,1,1,1)).real();
+        dCedVRR1111 = (getMatching().getCedVRR(1,1,1,1)).real();
+        dCedVLR1111 = (getMatching().getCedVLR(1,1,1,1)).real();
+        dCdeVLR1111 = (getMatching().getCdeVLR(1,1,1,1)).real(); //RGE effects very small
         
         // Modification in terms of the LEFT basis (at low energies)
         deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
@@ -39278,15 +39278,15 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
         double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
         
-        dCeuVLL1111 = 0.;
-        dCeuVRR1111 = 0.;
-        dCeuVLR1111 = 0.;
-        dCueVLR1111 = 0.; //To be implemented from matching class + RGE
+        dCeuVLL1111 = (getMatching().getCeuVLL(1,1,1,1)).real();
+        dCeuVRR1111 = (getMatching().getCeuVRR(1,1,1,1)).real();
+        dCeuVLR1111 = (getMatching().getCeuVLR(1,1,1,1)).real();
+        dCueVLR1111 = (getMatching().getCueVLR(1,1,1,1)).real(); //RGE effects very small
         
-        dCedVLL1111 = 0.;
-        dCedVRR1111 = 0.;
-        dCedVLR1111 = 0.;
-        dCdeVLR1111 = 0.; //To be implemented from matching class + RGE
+        dCedVLL1111 = (getMatching().getCedVLL(1,1,1,1)).real();
+        dCedVRR1111 = (getMatching().getCedVRR(1,1,1,1)).real();
+        dCedVLR1111 = (getMatching().getCedVLR(1,1,1,1)).real();
+        dCdeVLR1111 = (getMatching().getCdeVLR(1,1,1,1)).real(); //RGE effects very small
         
         // Modification in terms of the LEFT basis (at low energies)
         deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
