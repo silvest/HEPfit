@@ -1765,101 +1765,39 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
+
+
+
 // ttZ differential cross section for different bins
 
+/**
+    * @class sigma_ttz_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_ttz_diff_NLO_ATLAS_210312603: public ThObservable {
+    public:
 
+    /**
+     * @brief sigma_ttz_diff_LO constructor.
+     */
+    sigma_ttz_diff_NLO_ATLAS_210312603(const StandardModel& SM_i);
 
-class ttZ_bin_0_40 : public ThObservable {
-public:   
-
-    ttZ_bin_0_40(const StandardModel& SM_i);
-    
-   
+    /**
+     * @return The value of Test_direct
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
 
-
-class ttZ_bin_40_70 : public ThObservable {
-public:   
-
-    ttZ_bin_40_70(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-class ttZ_bin_70_110 : public ThObservable {
-public:   
-
-    ttZ_bin_70_110(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-class ttZ_bin_110_160 : public ThObservable {
-public:   
-
-    ttZ_bin_110_160(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttZ_bin_160_220 : public ThObservable {
-public:   
-
-    ttZ_bin_160_220(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttZ_bin_220_290 : public ThObservable {
-public:   
-
-    ttZ_bin_220_290(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-class ttZ_bin_290_400 : public ThObservable {
-public:   
-
-    ttZ_bin_290_400(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+        
+        
+    };
 
 
 
@@ -1867,564 +1805,145 @@ private:
 
 // ttA differential cross section for different bins
 
-
-class ttA_bin_20_25 : public ThObservable {
-public:   
-
-    ttA_bin_20_25(const StandardModel& SM_i);
     
-   
+/**
+    * @class sigma_tta_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_tta_diff_NLO_ATLAS_emu_200706946: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tta_diff_NLO_ATLAS_emu_200706946 constructor.
+     */
+    sigma_tta_diff_NLO_ATLAS_emu_200706946(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_25_30 : public ThObservable {
-public:   
-
-    ttA_bin_25_30(const StandardModel& SM_i);
     
-   
-    double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
 
-class ttA_bin_30_35 : public ThObservable {
-public:   
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 
-    ttA_bin_30_35(const StandardModel& SM_i);
+    };
     
-   
-    double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_35_40 : public ThObservable {
-public:   
-
-    ttA_bin_35_40(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_40_47 : public ThObservable {
-public:   
-
-    ttA_bin_40_47(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-class ttA_bin_47_55 : public ThObservable {
-public:   
-
-    ttA_bin_47_55(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_55_70 : public ThObservable {
-public:   
-
-    ttA_bin_55_70(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_70_85 : public ThObservable {
-public:   
-
-    ttA_bin_70_85(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_85_132 : public ThObservable {
-public:   
-
-    ttA_bin_85_132(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_132_180 : public ThObservable {
-public:   
-
-    ttA_bin_132_180(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_180_300 : public ThObservable {
-public:   
-
-    ttA_bin_180_300(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
 
 // tt differential cross section for different bins
 
 
-
-class tt_bin_250_400 : public ThObservable {
-public:   
-
-    tt_bin_250_400(const StandardModel& SM_i);
     
-   
+    /**
+    * @class sigma_ttbar_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_tt_diff_NLO: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tt_diff_NLO constructor.
+     */
+    sigma_tt_diff_NLO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
 
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 
-class tt_bin_400_480 : public ThObservable {
-public:   
-
-    tt_bin_400_480(const StandardModel& SM_i);
+    };
     
-   
-    double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_480_560 : public ThObservable {
-public:   
-
-    tt_bin_480_560(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_560_640 : public ThObservable {
-public:   
-
-    tt_bin_560_640(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_640_720 : public ThObservable {
-public:   
-
-    tt_bin_640_720(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_720_800 : public ThObservable {
-public:   
-
-    tt_bin_720_800(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_800_900 : public ThObservable {
-public:   
-
-    tt_bin_800_900(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_900_1000 : public ThObservable {
-public:   
-
-    tt_bin_900_1000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1000_1150 : public ThObservable {
-public:   
-
-    tt_bin_1000_1150(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1150_1300 : public ThObservable {
-public:   
-
-    tt_bin_1150_1300(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1300_1500 : public ThObservable {
-public:   
-
-    tt_bin_1300_1500(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1500_1700 : public ThObservable {
-public:   
-
-    tt_bin_1500_1700(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1700_2000 : public ThObservable {
-public:   
-
-    tt_bin_1700_2000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_2000_2300 : public ThObservable {
-public:   
-
-    tt_bin_2000_2300(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_2300_2600 : public ThObservable {
-public:   
-
-    tt_bin_2300_2600(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_2600_3000 : public ThObservable {
-public:   
-
-    tt_bin_2600_3000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_3000_3500 : public ThObservable {
-public:   
-
-    tt_bin_3000_3500(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_3500_4000 : public ThObservable {
-public:   
-
-    tt_bin_3500_4000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
 
 
 
 
 // Charge Asymmetry ttbar for different bins
 
+/**
+    * @class charge_asymmetry_tt_diff_mtt_LO
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class charge_asymmetry_tt_diff_mtt_NLO: public ThObservable {
+    public:
 
+    /**
+     * @brief charge_asymmetry_tt_diff_mtt_LO constructor.
+     */
+    charge_asymmetry_tt_diff_mtt_NLO(const StandardModel& SM_i);
 
-class Charge_Asymmetry_bin_tt_0_500 : public ThObservable {
-public:   
-
-    Charge_Asymmetry_bin_tt_0_500(const StandardModel& SM_i);
-    
-   
+    /**
+     * @return The value of charge_asymmetry_tt_diff_mtt_LO
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-
-class Charge_Asymmetry_bin_tt_500_750 : public ThObservable {
-public:   
-
-    Charge_Asymmetry_bin_tt_500_750(const StandardModel& SM_i);
     
-   
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+// ttll
+
+    /**
+    * @class sigma_ttll_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_ttll_diff_LO: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tt_diff_NLO constructor.
+     */
+    sigma_ttll_diff_LO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
 
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 
-
-
-
-
-class Charge_Asymmetry_bin_tt_750_1000 : public ThObservable {
-public:   
-
-    Charge_Asymmetry_bin_tt_750_1000(const StandardModel& SM_i);
+    };
     
-   
-    double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-
-class Charge_Asymmetry_bin_tt_1000_1500 : public ThObservable {
-public:   
-
-    Charge_Asymmetry_bin_tt_1000_1500(const StandardModel& SM_i);
     
-   
-    double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-
-class Charge_Asymmetry_bin_tt_1500_2000 : public ThObservable {
-public:   
-
-    Charge_Asymmetry_bin_tt_1500_2000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-
-class Charge_Asymmetry_bin_tt_2000_2500 : public ThObservable {
-public:   
-
-    Charge_Asymmetry_bin_tt_2000_2500(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-
-class Charge_Asymmetry_bin_tt_2500_3000 : public ThObservable {
-public:   
-
-    Charge_Asymmetry_bin_tt_2500_3000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-class ttll_bin_100_120 : public ThObservable {
-public:   
-
-    ttll_bin_100_120(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttll_bin_120_140 : public ThObservable {
-public:   
-
-    ttll_bin_120_140(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttll_bin_140_180 : public ThObservable {
-public:   
-
-    ttll_bin_140_180(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttll_bin_180_500 : public ThObservable {
-public:   
-
-    ttll_bin_180_500(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
 
 
 

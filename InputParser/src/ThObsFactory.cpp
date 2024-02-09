@@ -4037,67 +4037,25 @@ ThObsFactory::ThObsFactory()
     
     //SM ttZ bins
     
-    obsThFactory["ttZ_bin_0_40"] = boost::factory<ttZ_bin_0_40*>();
-    obsThFactory["ttZ_bin_40_70"] = boost::factory<ttZ_bin_40_70*>();
-    obsThFactory["ttZ_bin_70_110"] = boost::factory<ttZ_bin_70_110*>();
-    obsThFactory["ttZ_bin_110_160"] = boost::factory<ttZ_bin_110_160*>();
-    obsThFactory["ttZ_bin_160_220"] = boost::factory<ttZ_bin_160_220*>();
-    obsThFactory["ttZ_bin_220_290"] = boost::factory<ttZ_bin_220_290*>();
-    obsThFactory["ttZ_bin_290_400"] = boost::factory<ttZ_bin_290_400*>();
-    
-   
+    obsThFactory["sigma_ttz_diff_NLO_ATLAS_210312603"] = boost::factory<sigma_ttz_diff_NLO_ATLAS_210312603*>();    
     
     //ttA bins
-    obsThFactory["ttA_bin_20_25"] = boost::factory<ttA_bin_20_25*>();
-    obsThFactory["ttA_bin_25_30"] = boost::factory<ttA_bin_25_30*>();
-    obsThFactory["ttA_bin_30_35"] = boost::factory<ttA_bin_30_35*>();
-    obsThFactory["ttA_bin_35_40"] = boost::factory<ttA_bin_35_40*>();
-    obsThFactory["ttA_bin_40_47"] = boost::factory<ttA_bin_40_47*>();
-    obsThFactory["ttA_bin_47_55"] = boost::factory<ttA_bin_47_55*>();
-    obsThFactory["ttA_bin_55_70"] = boost::factory<ttA_bin_55_70*>();
-    obsThFactory["ttA_bin_70_85"] = boost::factory<ttA_bin_70_85*>();
-    obsThFactory["ttA_bin_85_132"] = boost::factory<ttA_bin_85_132*>();
-    obsThFactory["ttA_bin_132_180"] = boost::factory<ttA_bin_132_180*>();
-    obsThFactory["ttA_bin_180_300"] = boost::factory<ttA_bin_180_300*>();
     
-    
-    
+    obsThFactory["sigma_tta_diff_NLO_ATLAS_emu"] = boost::factory<sigma_tta_diff_NLO_ATLAS_emu_200706946*>();    
+
     //ttbar bins
-    obsThFactory["tt_bin_250_400"] = boost::factory<tt_bin_250_400*>();
-    obsThFactory["tt_bin_400_480"] = boost::factory<tt_bin_400_480*>();
-    obsThFactory["tt_bin_480_560"] = boost::factory<tt_bin_480_560*>();
-    obsThFactory["tt_bin_560_640"] = boost::factory<tt_bin_560_640*>();
-    obsThFactory["tt_bin_640_720"] = boost::factory<tt_bin_640_720*>();
-    obsThFactory["tt_bin_720_800"] = boost::factory<tt_bin_720_800*>();
-    obsThFactory["tt_bin_800_900"] = boost::factory<tt_bin_800_900*>();
-    obsThFactory["tt_bin_900_1000"] = boost::factory<tt_bin_900_1000*>();
-    obsThFactory["tt_bin_1000_1150"] = boost::factory<tt_bin_1000_1150*>();
-    obsThFactory["tt_bin_1150_1300"] = boost::factory<tt_bin_1150_1300*>();
-    obsThFactory["tt_bin_1300_1500"] = boost::factory<tt_bin_1300_1500*>();
-    obsThFactory["tt_bin_1500_1700"] = boost::factory<tt_bin_1500_1700*>();
-    obsThFactory["tt_bin_1700_2000"] = boost::factory<tt_bin_1700_2000*>();
-    obsThFactory["tt_bin_2000_2300"] = boost::factory<tt_bin_2000_2300*>();
-    obsThFactory["tt_bin_2300_2600"] = boost::factory<tt_bin_2300_2600*>();
-    obsThFactory["tt_bin_2600_3000"] = boost::factory<tt_bin_2600_3000*>();
-    obsThFactory["tt_bin_3000_3500"] = boost::factory<tt_bin_3000_3500*>(); 
-    obsThFactory["tt_bin_3500_4000"] = boost::factory<tt_bin_3500_4000*>();
-   
     
+    obsThFactory["sigma_tt_diff_NLO"] = boost::factory<sigma_tt_diff_NLO*>();    
     
     //Charged asymmetry bins
-    obsThFactory["Charge_Asymmetry_bin_tt_0_500"] = boost::factory<Charge_Asymmetry_bin_tt_0_500*>();
-    obsThFactory["Charge_Asymmetry_bin_tt_500_750"] = boost::factory<Charge_Asymmetry_bin_tt_500_750*>();
-    obsThFactory["Charge_Asymmetry_bin_tt_750_1000"] = boost::factory<Charge_Asymmetry_bin_tt_750_1000*>();
-    obsThFactory["Charge_Asymmetry_bin_tt_1000_1500"] = boost::factory<Charge_Asymmetry_bin_tt_1000_1500*>();
-    obsThFactory["Charge_Asymmetry_bin_tt_1500_2000"] = boost::factory<Charge_Asymmetry_bin_tt_1500_2000*>();
-    obsThFactory["Charge_Asymmetry_bin_tt_2000_2500"] = boost::factory<Charge_Asymmetry_bin_tt_2000_2500*>();
-    obsThFactory["Charge_Asymmetry_bin_tt_2500_3000"] = boost::factory<Charge_Asymmetry_bin_tt_2500_3000*>();
+    
+    obsThFactory["charge_asymmetry_tt_diff_mtt_NLO"] = boost::factory<charge_asymmetry_tt_diff_mtt_NLO*>();
+    
     
     //ttll LHC observables
-    obsThFactory["ttll_bin_100_120"] = boost::factory<ttll_bin_100_120*>();
-    obsThFactory["ttll_bin_120_140"] = boost::factory<ttll_bin_120_140*>();
-    obsThFactory["ttll_bin_140_180"] = boost::factory<ttll_bin_140_180*>();
-    obsThFactory["ttll_bin_180_500"] = boost::factory<ttll_bin_180_500*>();
+    
+    obsThFactory["sigma_ttll_diff_LO"] = boost::factory<sigma_ttll_diff_LO*>();
+    
     
     //OPTIMIZED OBSERVABLES
     //I don't really like this implementation, these constraints should be included in the prior,
@@ -4154,6 +4112,7 @@ ThObsFactory::ThObsFactory()
    
    obsThFactory["sigma_tzq_LO"] = boost::factory<sigma_tzq_LO*>();
    obsThFactory["sigma_ttw_LO"] = boost::factory<sigma_ttw_LO*>();
+   obsThFactory["R_ttw_LO"] = boost::factory<R_ttw_LO*>();
    obsThFactory["sigma_tw_13_LO"] = boost::factory<sigma_tw_13_LO*>();
    obsThFactory["sigma_tb_13_LO"] = boost::factory<sigma_tb_13_LO*>();
    obsThFactory["sigma_tq_13_LO"] = boost::factory<sigma_tq_13_LO*>();
