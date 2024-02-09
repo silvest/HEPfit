@@ -1,0 +1,13 @@
+# CMS-HIG-17-024, Fig. 7d
+# observed 95% exclusion limits on sig/sigSM(pp->h) BR(h->AA[->bbtautau])
+# mA[GeV] | (sig/sigSM)*BR_95%
+15	0.121
+20	0.0771
+25	0.0513
+30	0.0307
+35	0.034
+40	0.0234
+45	0.0363
+50	0.0498
+55	0.0723
+60	0.0921

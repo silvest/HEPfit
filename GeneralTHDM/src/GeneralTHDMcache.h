@@ -99,6 +99,12 @@ public:
     double interpolate (gslpp::matrix<double> arrayTab, double x);
 
     /**
+     * @brief Linearly interpolates a table with one parameter dimension and non-uniform intervals between bin values.
+     * @return the interpolated value
+     */
+    double interpolateNU (gslpp::matrix<double> arrayTab, double x);
+
+    /**
      * @brief Linearly interpolates a table with two parameter dimensions. In this case the x variable changes first.
      * @return the interpolated value
      */
@@ -279,12 +285,49 @@ public:
      */
     gslpp::matrix<double> CMS13_pp_h_phi3phi3_mumutautau;
 
+    //Added in 2024 for low mass scenario
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
+     */
+    gslpp::matrix<double> CMS13_pp_h_phi3phi3_bbtautau;
+
+    //Added in 2024 for low mass scenario
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
+     */
+    gslpp::matrix<double> CMS13_pp_h_phi3phi3_bbmumu;
+
+    //Added in 2024 for low mass scenario
+    /**
+     * @brief CMS observed @f$95\%@f$ upper branching limits at 13 TeV, depending on the pseudoscalar mass.
+     */
+    gslpp::matrix<double> CMS13_pp_h_phi23Z_mumull;
+
+    //Added in 2024 for low mass scenario
+    /**
+     * @brief CMS observed @f$95\%@f$ upper branching limits at 13 TeV, depending on the pseudoscalar mass.
+     */
+    gslpp::matrix<double> CMS13_pp_h_phi23phi23_mumumumu;
+
+    //Added in 2024 for low mass scenario
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
+     */
+    gslpp::matrix<double> CMS13_pp_h_phi3phi3_gagagaga;
+
+    //Added in 2024 for low mass scenario
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
+     */
+    gslpp::matrix<double> CMS13_pp_h_phi3phi3_tautautautau;
+
+
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
      */
     gslpp::matrix<double> arraybsgamma;
     
-        /**
+    /**
      * @brief Interpolating function for the SM branching ratio to two top quarks.
      * @return @f$BR^{\text{SM}}(phi3\to t\bar t)@f$
      */
@@ -619,6 +662,12 @@ public:
     double ip_ex_pp_Hpm_tb_CMS13(double mass);
 
     double ip_low_pp_h_phi3phi3_mumutautau_CMS13(double mass);
+    double ip_low_pp_h_phi3phi3_bbtautau_CMS13(double mass);
+    double ip_low_pp_h_phi3phi3_bbmumu_CMS13(double mass);
+    double ip_low_pp_h_phi23Z_mumull_CMS13(double mass);
+    double ip_low_pp_h_phi23phi23_mumumumu_CMS13(double mass);
+    double ip_low_pp_h_phi3phi3_gagagaga_CMS13(double mass);
+    double ip_low_pp_h_phi3phi3_tautautautau_CMS13(double mass);
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
@@ -812,14 +861,6 @@ public:
      * @return @f$\beta(mf, m_2)=\sqrt{1-4*mf*mf/(m_2)}@f$
      */
     double beta(const double mf, const double m_2) const;
-
-    
-      /**
-     * @brief beta_mt_sq function
-     * @return @f$\beta_mt_sq(mf, m_2)=abs(1-4*mf*mf/(m_2))@f$
-     */
-    double beta_mt_sq(const double mt, const double m_2) const;
-
     
         
     /**
@@ -1103,6 +1144,12 @@ public:
     double pph13;
 
     /**
+     * @brief SM cross sections for the production of h at 13 TeV at LHC.
+     * @return @f$\sigma^{\text SM}_{\text ggF+VBF+Vh+tth}@f$
+     */
+    double SigSM_pph13;
+
+    /**
      * @brief Ratio of GTHDM and SM cross sections for VBF and Vh production of h.
      * @return @f$\sigma^{\text GTHDM}_{\text VBF+Vh}/\sigma^{\text SM}_{\text VBF+Vh}@f$
      */
@@ -1174,9 +1221,21 @@ public:
      */
     double GTHDM_BR_h_AA;
 
+    /**
+     * @brief @f$h@f$ branching ratio to @f$H@f$ @f$Z@f$ bosons in the %GTHDM.
+     * @return @f$BR^{\text{GTHDM}}(h\to HZ)@f$
+     */
+    double GTHDM_BR_h_HZ;
+
+    /**
+     * @brief @f$h@f$ branching ratio to @f$A@f$ @f$Z@f$ bosons in the %GTHDM.
+     * @return @f$BR^{\text{GTHDM}}(h\to AZ)@f$
+     */
+    double GTHDM_BR_h_AZ;
+
 
     //Higgs direct searches
-    
+
     double SigmaSumphi3_8;
     double SigmaggF_phi3_8;
     double SigmabbF_phi3_8;
@@ -2581,6 +2640,16 @@ public:
     double THoEX_pp_Hpm_tb_CMS13;           //Included in mid 2022
 
     double THoEX_pp_h_phi3phi3_mumutautau_CMS13;
+    double THoEX_pp_h_phi3phi3_bbtautau_CMS13;
+    double THoEX_pp_h_phi3phi3_bbmumu_CMS13;
+    double THoEX_pp_h_phi3Z_mumull_CMS13;
+    double THoEX_pp_h_phi3phi3_mumumumu_CMS13;
+    double THoEX_pp_h_phi3phi3_gagagaga_CMS13;
+    double THoEX_pp_h_phi3phi3_tautautautau_CMS13;
+
+
+    double THoEX_pp_h_phi2Z_mumull_CMS13;
+    double THoEX_pp_h_phi2phi2_mumumumu_CMS13;
 
     double SigmaSumphi2_8;
     double SigmaggF_phi2_8;
@@ -2853,6 +2922,7 @@ public:
     double mH1sq;
     double mH2sq;
     double mH3sq;
+    double mH2;
     double mH3;
     double mHp;
     double mHp2;
@@ -3236,6 +3306,12 @@ private:
     mutable double ip_ex_pp_Hpm_tb_CMS13_cache[2][CacheSize];
 
     mutable double ip_low_pp_h_phi3phi3_mumutautau_CMS13_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi3phi3_bbtautau_CMS13_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi3phi3_bbmumu_CMS13_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi23Z_mumull_CMS13_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi23phi23_mumumumu_CMS13_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi3phi3_gagagaga_CMS13_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi3phi3_tautautautau_CMS13_cache[2][CacheSize];
 
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 

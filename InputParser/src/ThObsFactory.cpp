@@ -5759,6 +5759,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_pp_Hpm_tb_CMS13"] = boost::factory<Hobs_pp_Hpm_tb_CMS13*>();
 
     obsThFactory["Hobs_pp_h_phi3phi3_mumutautau_CMS13"] = boost::factory<Hobs_pp_h_phi3phi3_mumutautau_CMS13*>();
+    obsThFactory["Hobs_pp_h_phi3phi3_bbtautau_CMS13"] = boost::factory<Hobs_pp_h_phi3phi3_bbtautau_CMS13*>();
+    obsThFactory["Hobs_pp_h_phi3phi3_bbmumu_CMS13"] = boost::factory<Hobs_pp_h_phi3phi3_bbmumu_CMS13*>();
+    obsThFactory["Hobs_pp_h_phi3Z_mumull_CMS13"] = boost::factory<Hobs_pp_h_phi3Z_mumull_CMS13*>();
+    obsThFactory["Hobs_pp_h_phi3phi3_mumumumu_CMS13"] = boost::factory<Hobs_pp_h_phi3phi3_mumumumu_CMS13*>();
+    obsThFactory["Hobs_pp_h_phi3phi3_gagagaga_CMS13"] = boost::factory<Hobs_pp_h_phi3phi3_gagagaga_CMS13*>();
+    obsThFactory["Hobs_pp_h_phi3phi3_tautautautau_CMS13"] = boost::factory<Hobs_pp_h_phi3phi3_tautautautau_CMS13*>();
+
+    obsThFactory["Hobs_pp_h_phi2Z_mumull_CMS13"] = boost::factory<Hobs_pp_h_phi2Z_mumull_CMS13*>();
+    obsThFactory["Hobs_pp_h_phi2phi2_mumumumu_CMS13"] = boost::factory<Hobs_pp_h_phi2phi2_mumumumu_CMS13*>();
 
     obsThFactory["log10_tt_phi2_tt_TH13"] = boost::factory<log10_tt_phi2_tt_TH13*>();
     obsThFactory["log10_tt_phi3_tt_TH13"] = boost::factory<log10_tt_phi3_tt_TH13*>();
