@@ -74,6 +74,16 @@ public:
 
 protected:
 
+    //utility zeroes
+    const std::array<std::array<gslpp::complex, 3>, 3> zero33 {};
+    const std::array<std::array<gslpp::complex, 2>, 2> zero22 {};
+    const std::array<std::array<std::array<std::array<gslpp::complex, 3>, 3>, 3>, 3> zero3333 {};
+    const std::array<std::array<std::array<std::array<gslpp::complex, 2>, 2>, 3>, 3> zero3322 {};
+    const std::array<std::array<std::array<std::array<gslpp::complex, 3>, 3>, 2>, 2> zero2233 {};
+    const std::array<std::array<std::array<std::array<gslpp::complex, 2>, 3>, 3>, 2> zero2332 {};
+    const std::array<std::array<std::array<std::array<gslpp::complex, 2>, 3>, 3>, 3> zero3332 {};
+    const std::array<std::array<std::array<std::array<gslpp::complex, 2>, 2>, 2>, 2> zero2222 {};
+
     //WET coefficients following Manohar
     //dimension 5 L-conserving dipole operators
     std::array<std::array<gslpp::complex, 3>, 3> Ceg = {}; ///< The real part of the dimension-5 operator coefficient \f$(C_{e\gamma})_{ij}(\Lambda_{\rm{EW}})\f$.
@@ -163,9 +173,9 @@ private:
     double LambdaNP2;
     double v2;
     double v;
-    gslpp::matrix<gslpp::complex> VuL, VuR, VdL, VdR, VeL, VeR;
+    gslpp::matrix<gslpp::complex> VuL, VuLd, VuR, VuRd, VdL, VdLd, VdR, VdRd, VeL, VeLd, VeR, VeRd, MU, MD;
     WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2, mculeptonnu;
-    TRandom3 myrnd;
+    //TRandom3 myrnd;
 
 };
 
