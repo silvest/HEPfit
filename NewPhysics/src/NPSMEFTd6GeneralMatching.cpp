@@ -729,3 +729,210 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdiujleptonknu(int i,
         vmculeptonnu.push_back(mculeptonnu);
         return (vmculeptonnu);
 }
+
+
+/*******************************************************************************
+ * Methods to get the NP contribution to the LEFT basis [1709.04486]          *
+ * ****************************************************************************/
+
+//dimension 6 four-fermion operators involving all left-handed fields
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnunuVLL(int i, int j, int k, int l) const
+{
+    return (CnunuVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCeeVLL(int i, int j, int k, int l) const
+{
+    return (CeeVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnueVLL(int i, int j, int k, int l) const
+{
+    return (CnueVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnuuVLL(int i, int j, int k, int l) const
+{
+    return (CnuuVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnudVLL(int i, int j, int k, int l) const
+{
+    return (CnudVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCeuVLL(int i, int j, int k, int l) const
+{
+    return (CeuVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCedVLL(int i, int j, int k, int l) const
+{
+    return (CedVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnueduVLL(int i, int j, int k, int l) const
+{
+    return (CnueduVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCuuVLL(int i, int j, int k, int l) const
+{
+    return (CuuVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCddVLL(int i, int j, int k, int l) const
+{
+    return (CddVLL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCudV1LL(int i, int j, int k, int l) const
+{
+    return (CudV1LL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCudV8LL(int i, int j, int k, int l) const
+{
+    return (CudV8LL.at(i).at(j).at(k).at(l));
+}
+
+
+
+//dimension 6 four-fermion operators involving all right-handed fields
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCeeVRR(int i, int j, int k, int l) const
+{
+    return (CeeVRR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCeuVRR(int i, int j, int k, int l) const
+{
+    return (CeuVRR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCedVRR(int i, int j, int k, int l) const
+{
+    return (CedVRR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCuuVRR(int i, int j, int k, int l) const
+{
+    return (CuuVRR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCddVRR(int i, int j, int k, int l) const
+{
+    return (CddVRR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCudV1RR(int i, int j, int k, int l) const
+{
+    return (CudV1RR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCudV8RR(int i, int j, int k, int l) const
+{
+    return (CudV8RR.at(i).at(j).at(k).at(l));
+}
+
+
+
+//dimension 6 four-fermion operators involving a left-handed vector current and a right-handed vector current
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnueVLR(int i, int j, int k, int l) const
+{
+    return (CnueVLR.at(i).at(j).at(k).at(l));
+}
+
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCeeVLR(int i, int j, int k, int l) const
+{
+    return (CeeVLR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnuuVLR(int i, int j, int k, int l) const
+{
+    return (CnuuVLR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnudVLR(int i, int j, int k, int l) const
+{
+    return (CnudVLR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCeuVLR(int i, int j, int k, int l) const
+{
+    return (CeuVLR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCedVLR(int i, int j, int k, int l) const
+{
+    return (CedVLR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCueVLR(int i, int j, int k, int l) const
+{
+    return (CueVLR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCdeVLR(int i, int j, int k, int l) const
+{
+    return (CdeVLR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnueduVLR(int i, int j, int k, int l) const
+{
+    return (CnueduVLR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCuuV1LR(int i, int j, int k, int l) const
+{
+    return (CuuV1LR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCuuV8LR(int i, int j, int k, int l) const
+{
+    return (CuuV8LR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCudV1LR(int i, int j, int k, int l) const
+{
+    return (CudV1LR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCudV8LR(int i, int j, int k, int l) const
+{
+    return (CudV8LR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCduV1LR(int i, int j, int k, int l) const
+{
+    return (CduV1LR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCduV8LR(int i, int j, int k, int l) const
+{
+    return (CduV8LR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCddV1LR(int i, int j, int k, int l) const
+{
+    return (CddV1LR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCddV8LR(int i, int j, int k, int l) const
+{
+    return (CddV8LR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCudduV1LR(int i, int j, int k, int l) const
+{
+    return (CudduV1LR.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCudduV8LR(int i, int j, int k, int l) const
+{
+    return (CudduV8LR.at(i).at(j).at(k).at(l));
+}
+

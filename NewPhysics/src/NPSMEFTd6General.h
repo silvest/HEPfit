@@ -1591,6 +1591,50 @@ public:
     
 //  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
     double delta_AFB_f(const Particle f, const double s) const;
+    
+    
+    ////////////////////////////////////////////////////////////////////////     
+    // EW low-energy observables: Muon g-2
+       
+    /**
+     * @brief The computation of the anomalous magnetic moment of the muon @f$a_\mu=(g_\mu-2)/2@f$
+     * @return @f$a_\mu=(g_\mu-2)/2@f$
+     */
+      virtual double delta_amuon() const;
+      
+    // EW low-energy observables: Parity violation
+
+    /**
+     * @brief The computation of the electron's weak charge
+     * @param[in] q2 the @f$Q^2@f$ at which the weak charge is measured
+     * @param[in] y
+     * @return @f$Q_{w}(e)@f$
+     */
+      virtual double delta_Qwemoller(const double q2, const double y) const;
+
+
+    /**
+     * @brief The computation of the parity violating asymmetry in Moller scattering
+     * @param[in] q2 the @f$Q^2@f$ of the process
+     * @param[in] y
+     * @return @f$A_{LR}@f$
+     */
+      virtual double delta_alrmoller(const double q2, const double y) const;
+
+
+    /**
+     * @brief The computation of the proton weak charge: Qwp
+     * @return @f$Q_{W}(p)@f$
+     */
+      virtual double delta_Qwp() const;
+
+      
+    /**
+     * @brief The computation of the neutron weak charge: Qwn
+     * @return @f$Q_{W}(n)@f$
+     */
+      virtual double delta_Qwn() const;
+    
 
     ////////////////////////////////////////////////////////////////////////
 

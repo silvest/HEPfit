@@ -221,9 +221,6 @@ double FB_asymmetry_Tevatron_tt_diff_mtt_LO::computeThValue()
 
 
 
-
-
-
 ////// ttbar differential cross section ///////////////////////////////////
 
 sigma_tt_diff_LO::sigma_tt_diff_LO(const StandardModel& SM_i)
@@ -733,8 +730,8 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
             +3.676260*ewgc("Cqq3R",0,2,2,0)+0.245826*ewgc("Cqq3R",1,2,2,1)+0.316581*ewgc("Cqu8R",0,0,2,2)
             +0.022092*ewgc("Cqu8R",1,1,2,2)+0.190067*ewgc("Cqu8R",2,2,0,0)+0.021485*ewgc("Cqu8R",2,2,1,1)
             +0.258731*ewgc("Cud8R",2,2,0,0)+0.013146*ewgc("Cud8R",2,2,1,1)-4.307000*ewgc("CuGR",2,2)
-            +1.792720*ewgc("CuuR",0,2,2,0)+0.019910*ewgc("CuuR",1,2,2,1)
-;
+            +1.792720*ewgc("CuuR",0,2,2,0)+0.019910*ewgc("CuuR",1,2,2,1);
+            
             double sigma_neg_bin_mtt_750_1000_madgraph = 16.965400;
             double sigma_neg_bin_mtt_750_1000_NP = -1.909310*ewgc("CG")+0.253028*ewgc("Cqd8R",2,2,0,0)
             +0.026868*ewgc("Cqd8R",2,2,1,1)+0.775801*ewgc("Cqq1R",0,2,2,0)+0.021341*ewgc("Cqq1R",1,2,2,1)
@@ -1663,6 +1660,126 @@ double sigma_tta_diff_LO_CMS_dilepton_220107301::computeThValue()
 //// ttz differential cross section //////
 
 
+sigma_ttz_diff_LO_CMS_190711270::sigma_ttz_diff_LO_CMS_190711270(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_ttz_bin_0_75_CMS_190711270"
+            << "SM_sigma_ttz_bin_75_150_CMS_190711270" << "SM_sigma_ttz_bin_150_250_CMS_190711270"
+            << "SM_sigma_ttz_bin_250_500_CMS_190711270");
+
+    
+};
+
+
+double sigma_ttz_diff_LO_CMS_190711270::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+   
+    if(b_min == 0 && b_max == 75){
+        
+        double SM_sigma_ttz_bin_0_75 = SM.getOptionalParameter("SM_sigma_ttz_bin_0_75_CMS_190711270");
+        double sigma_ttz_bin_0_75_madgraph = 0.177589; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            return SM_sigma_ttz_bin_0_75 + (-0.031991*ewgc("CG")+-0.016710*ewgc("CHq1R",2,2)+0.016573*ewgc("CHq3R",2,2)
+                    +0.009051*ewgc("CHuR",2,2)+0.003299*ewgc("Cqd8R",2,2,0,0)+0.000362*ewgc("Cqd8R",2,2,1,1)
+                    +0.024362*ewgc("Cqq1R",0,2,2,0)+0.000624*ewgc("Cqq1R",1,2,2,1)+0.119583*ewgc("Cqq3R",0,2,2,0)
+                    +0.012655*ewgc("Cqq3R",1,2,2,1)+0.015687*ewgc("Cqu8R",0,0,2,2)+0.001422*ewgc("Cqu8R",1,1,2,2)
+                    +0.002967*ewgc("Cqu8R",2,2,0,0)+0.000052*ewgc("Cqu8R",2,2,1,1)+-0.000318*ewgc("CuBR",2,2)
+                    +0.001835*ewgc("Cud8R",2,2,0,0)+0.000209*ewgc("Cud8R",2,2,1,1)-0.052919*ewgc("CuGR",2,2)
+                    +0.006972*ewgc("CuuR",0,2,2,0)+0.000145*ewgc("CuuR",1,2,2,1)+-0.000317*ewgc("CuWR",2,2))
+                    *(SM_sigma_ttz_bin_0_75/sigma_ttz_bin_0_75_madgraph);
+        }
+        
+    } else if(b_min == 75 && b_max == 150){
+        
+        double SM_sigma_ttz_bin_75_150 = SM.getOptionalParameter("SM_sigma_ttz_bin_75_150_CMS_190711270");
+        double sigma_ttz_bin_75_150_madgraph = 0.209588; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            return SM_sigma_ttz_bin_75_150 + (-0.051622*ewgc("CG")+-0.021757*ewgc("CHq1R",2,2)+0.021813*ewgc("CHq3R",2,2)
+                    +0.013632*ewgc("CHuR",2,2)+0.004262*ewgc("Cqd8R",2,2,0,0)+0.000521*ewgc("Cqd8R",2,2,1,1)
+                    +0.030335*ewgc("Cqq1R",0,2,2,0)+0.000796*ewgc("Cqq1R",1,2,2,1)+0.129627*ewgc("Cqq3R",0,2,2,0)
+                    +0.012107*ewgc("Cqq3R",1,2,2,1)+0.016607*ewgc("Cqu8R",0,0,2,2)+0.001371*ewgc("Cqu8R",1,1,2,2)
+                    +0.004665*ewgc("Cqu8R",2,2,0,0)+0.000163*ewgc("Cqu8R",2,2,1,1)+-0.000026*ewgc("CuBR",2,2)
+                    +0.002538*ewgc("Cud8R",2,2,0,0)+0.000335*ewgc("Cud8R",2,2,1,1)-0.067116*ewgc("CuGR",2,2)
+                    +0.011624*ewgc("CuuR",0,2,2,0)+0.000337*ewgc("CuuR",1,2,2,1)+-0.000735*ewgc("CuWR",2,2))
+                    *(SM_sigma_ttz_bin_75_150/sigma_ttz_bin_75_150_madgraph);
+        }
+        
+    } else if(b_min == 150 && b_max == 250){
+        
+        double SM_sigma_ttz_bin_150_250 = SM.getOptionalParameter("SM_sigma_ttz_bin_150_250_CMS_190711270");
+        double sigma_ttz_bin_150_250_madgraph = 0.132915; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            return SM_sigma_ttz_bin_150_250 + (-0.044763*ewgc("CG")-0.014558*ewgc("CHq1R",2,2)+0.014567*ewgc("CHq3R",2,2)
+                    +0.010078*ewgc("CHuR",2,2)+0.003298*ewgc("Cqd8R",2,2,0,0)+0.000314*ewgc("Cqd8R",2,2,1,1)
+                    +0.022847*ewgc("Cqq1R",0,2,2,0)+0.000511*ewgc("Cqq1R",1,2,2,1)+0.084393*ewgc("Cqq3R",0,2,2,0)
+                    +0.006512*ewgc("Cqq3R",1,2,2,1)+0.010724*ewgc("Cqu8R",0,0,2,2)+0.000696*ewgc("Cqu8R",1,1,2,2)
+                    +0.004171*ewgc("Cqu8R",2,2,0,0)+0.000098*ewgc("Cqu8R",2,2,1,1)+0.000118*ewgc("CuBR",2,2)
+                    +0.002011*ewgc("Cud8R",2,2,0,0)+0.000196*ewgc("Cud8R",2,2,1,1)-0.045686*ewgc("CuGR",2,2)
+                    +0.011095*ewgc("CuuR",0,2,2,0)+0.000255*ewgc("CuuR",1,2,2,1)+-0.000811*ewgc("CuWR",2,2))
+                    *(SM_sigma_ttz_bin_150_250/sigma_ttz_bin_150_250_madgraph);
+        }
+        
+    } else if(b_min == 250 && b_max == 500){
+        
+        double SM_sigma_ttz_bin_250_500 = SM.getOptionalParameter("SM_sigma_ttz_bin_250_500_CMS_190711270");
+        double sigma_ttz_bin_250_500_madgraph = 0.067464; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            return SM_sigma_ttz_bin_250_500 + (-0.031862*ewgc("CG")+-0.007411*ewgc("CHq1R",2,2)+0.007439*ewgc("CHq3R",2,2)
+                    +0.005451*ewgc("CHuR",2,2)+0.002779*ewgc("Cqd8R",2,2,0,0)+0.000235*ewgc("Cqd8R",2,2,1,1)
+                    +0.019482*ewgc("Cqq1R",0,2,2,0)+0.000381*ewgc("Cqq1R",1,2,2,1)+0.060750*ewgc("Cqq3R",0,2,2,0)
+                    +0.003621*ewgc("Cqq3R",1,2,2,1)+0.007854*ewgc("Cqu8R",0,0,2,2)+0.000404*ewgc("Cqu8R",1,1,2,2)
+                    +0.003938*ewgc("Cqu8R",2,2,0,0)+0.000089*ewgc("Cqu8R",2,2,1,1)+0.000042*ewgc("CuBR",2,2)
+                    +0.001798*ewgc("Cud8R",2,2,0,0)+0.000162*ewgc("Cud8R",2,2,1,1)-0.026610*ewgc("CuGR",2,2)
+                    +0.011353*ewgc("CuuR",0,2,2,0)+0.000235*ewgc("CuuR",1,2,2,1)+-0.000517*ewgc("CuWR",2,2))
+                    *(SM_sigma_ttz_bin_250_500/sigma_ttz_bin_250_500_madgraph);
+        }
+        
+    }  else throw std::runtime_error("wrong bin choice in sigma_ttz_diff_LO_CMS_190711270");
+    
+}
+
+
+
+
+
 sigma_ttz_diff_LO_ATLAS_210312603::sigma_ttz_diff_LO_ATLAS_210312603(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
@@ -1863,6 +1980,43 @@ double sigma_ttz_diff_LO_ATLAS_210312603::computeThValue()
 
 
 
+
+
+
+
+//// s-channel 8 TeV ////
+
+sigma_tb_8_LO::sigma_tb_8_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tb_8");
+};
+
+double sigma_tb_8_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tb_8_LO_madgraph = 4.142840; //pb?
+    double sigma_tb_8_SM = SM.getOptionalParameter("SM_sigma_tb_8"); 
+
+    
+    
+    if(flag_Quadratic){
+        return  0.;
+        }
+    else{
+         return sigma_tb_8_SM + (0.502537*ewgc("CHq3R",2,2)-1.915120*ewgc("CuWR",2,2))*(sigma_tb_8_SM/sigma_tb_8_LO_madgraph);
+    }
+
+}
+
+
+
+
+
+
+
 //// s-channel 13 TeV ////
 
 sigma_tb_13_LO::sigma_tb_13_LO(const StandardModel& SM_i)
@@ -1889,6 +2043,74 @@ double sigma_tb_13_LO::computeThValue()
         }
 
 }
+
+
+
+
+
+//// t-channel 7 TeV ////
+
+sigma_tq_7_LO::sigma_tq_7_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tq_7");
+};
+
+double sigma_tq_7_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tq_7_LO_madgraph = 53.962300; //pb?
+    double sigma_tq_7_SM = SM.getOptionalParameter("SM_sigma_tq_7"); 
+
+    
+    
+    if(flag_Quadratic){
+        return  0.;
+        }
+        else{
+            return sigma_tq_7_SM +(6.512720*ewgc("CHq3R",2,2)-1.642790*ewgc("CuWR",2,2))*(sigma_tq_7_SM/sigma_tq_7_LO_madgraph);
+        }
+
+}
+
+
+
+
+
+
+//// t-channel 8 TeV ////
+
+sigma_tq_8_LO::sigma_tq_8_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tq_8");
+};
+
+double sigma_tq_8_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tq_8_LO_madgraph = 71.914000; //pb?
+    double sigma_tq_8_SM = SM.getOptionalParameter("SM_sigma_tq_8"); 
+
+    
+    
+    if(flag_Quadratic){
+        return  0.;
+        }
+        else{
+            return sigma_tq_8_SM +(8.681900*ewgc("CHq3R",2,2)-2.086100*ewgc("CuWR",2,2))*(sigma_tq_8_SM/sigma_tq_8_LO_madgraph);
+        }
+
+}
+
+
+
+
+
 
 
 
@@ -2010,7 +2232,73 @@ double sigma_tzq_LO::computeThValue()
 
 
 
-//// tw  ////
+
+
+
+//// tw 7 TeV ////
+
+sigma_tw_7_LO::sigma_tw_7_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tw_7");
+};
+
+double sigma_tw_7_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tw_7_LO_madgraph = 10.784300; //pb?
+    double sigma_tw_7_SM = SM.getOptionalParameter("SM_sigma_tw_7"); 
+      
+    if(flag_Quadratic){
+        return  0.;
+        }
+        else{
+            return sigma_tw_7_SM + (1.299580*ewgc("CHq3R",2,2)+0.931471*ewgc("CuWR",2,2))*(sigma_tw_7_SM/sigma_tw_7_LO_madgraph);
+        }
+
+}
+
+
+
+
+
+
+
+//// tw 8 TeV ////
+
+sigma_tw_8_LO::sigma_tw_8_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tw_8");
+};
+
+double sigma_tw_8_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tw_8_LO_madgraph = 15.495600; //pb?
+    double sigma_tw_8_SM = SM.getOptionalParameter("SM_sigma_tw_8"); 
+      
+    if(flag_Quadratic){
+        return  0.;
+        }
+        else{
+            return sigma_tw_8_SM + (1.867690*ewgc("CHq3R",2,2)+1.335140*ewgc("CuWR",2,2))*(sigma_tw_8_SM/sigma_tw_8_LO_madgraph);
+        }
+
+}
+
+
+
+
+
+
+
+
+//// tw 13 TeV ////
 
 sigma_tw_13_LO::sigma_tw_13_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
@@ -2025,11 +2313,7 @@ double sigma_tw_13_LO::computeThValue()
     
     double sigma_tw_13_LO_madgraph = 51.021400; //pb?
     double sigma_tw_13_SM = SM.getOptionalParameter("SM_sigma_tw_13"); 
-    
-//    std::cout<<"\033[1;33m ewgc(\"CuWR\",2,2)*1000000 \033[0m "<< ewgc("CuWR",2,2)*1000000 << std::endl;
-//
-//    std::cout<<"\033[1;33m sigma_tw_13_LO \033[0m "<< sigma_tw_13_LO_madgraph + 6.152940*ewgc("CHq3R",2,2)+4.361620*ewgc("CuWR",2,2)*1000000 << std::endl;
-    
+      
     if(flag_Quadratic){
         return  0.;
         }
@@ -2074,6 +2358,56 @@ double sigma_ttw_LO::computeThValue()
 
 }
 
+
+
+
+//// R_ttw  ////
+
+R_ttw_LO::R_ttw_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_R_ttw" << "SM_sigma_ttw");
+
+};
+
+double R_ttw_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_ttwp_LO_madgraph = 0.349605; //pb?
+    double sigma_ttwm_LO_madgraph = 0.166990; //pb?
+    double sigma_ttw_SM = SM.getOptionalParameter("SM_sigma_ttw"); 
+    double R_ttw_SM = SM.getOptionalParameter("SM_R_ttw"); 
+
+    
+    double sigma_ttwp_SM = sigma_ttw_SM/(1+1/R_ttw_SM);
+    double sigma_ttwm_SM = sigma_ttw_SM/(1+R_ttw_SM);
+    
+   
+    
+    
+    if(flag_Quadratic){
+        return  0.;
+    }
+    else{
+            
+        double sigma_ttwp_NP = -0.000229*ewgc("CHq1R",2,2)+0.000409*ewgc("CHq3R",2,2)+-0.000105*ewgc("CHuR",2,2)
+        +0.131627*ewgc("Cqq1R",0,2,2,0)+0.004173*ewgc("Cqq1R",1,2,2,1)+0.622300*ewgc("Cqq3R",0,2,2,0)
+        +0.029216*ewgc("Cqq3R",1,2,2,1)+0.095061*ewgc("Cqu8R",0,0,2,2)+0.004239*ewgc("Cqu8R",1,1,2,2)
+        +0.000066*ewgc("CuBR",2,2)-0.085559*ewgc("CuGR",2,2)-0.004044*ewgc("CuWR",2,2);
+        double sigma_ttwm_NP = -0.000104*ewgc("CHq1R",2,2)+0.000188*ewgc("CHq3R",2,2)+-0.000050*ewgc("CHuR",2,2)
+        +0.051853*ewgc("Cqq1R",0,2,2,0)+0.006487*ewgc("Cqq1R",1,2,2,1)+0.251097*ewgc("Cqq3R",0,2,2,0)
+        +0.025657*ewgc("Cqq3R",1,2,2,1)+0.038346*ewgc("Cqu8R",0,0,2,2)+0.004035*ewgc("Cqu8R",1,1,2,2)
+        +0.000030*ewgc("CuBR",2,2)-0.040504*ewgc("CuGR",2,2)-0.001812*ewgc("CuWR",2,2);
+        
+        double sigma_ttwp_NP_Corrected = sigma_ttwp_NP*(sigma_ttwp_SM/sigma_ttwp_LO_madgraph);
+        double sigma_ttwm_NP_Corrected = sigma_ttwm_NP*(sigma_ttwm_SM/sigma_ttwm_LO_madgraph);
+            
+        return R_ttw_SM + (sigma_ttwp_NP_Corrected - sigma_ttwm_NP_Corrected*sigma_ttwp_SM/sigma_ttwm_SM)/sigma_ttwm_SM ;
+    }
+
+}
 
 
 
