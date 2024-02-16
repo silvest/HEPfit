@@ -4500,6 +4500,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Abs2Amperp_MVpsi"] = bind(boost::factory<Abs2Amperp_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["ArgAmperp_MVpsi"] = bind(boost::factory<ArgAmperp_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["Abs2Ampzero_MVpsi"] = bind(boost::factory<Abs2Ampzero_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    
+    obsThFactory["Delta_C9_zExp_0"] = bind(boost::factory<Delta_C9_zExp_0*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["Delta_C9_zExp_p"] = bind(boost::factory<Delta_C9_zExp_p*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["Delta_C9_zExp_m"] = bind(boost::factory<Delta_C9_zExp_m*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 
     //----- B+ to K*+ ll  -----
     obsThFactory["A_FB_BpKstmu"] = bind(boost::factory<A_FB*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);

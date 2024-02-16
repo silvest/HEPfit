@@ -458,6 +458,43 @@ public:
     gslpp::complex h_lambda(int hel, double q2);
     
     /**
+     * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+     * @param hel helicity
+     * @return \f$h_{hel}(q^2)\f$
+     */
+    double Delta_C9_zExp(int hel);
+    
+    /**
+    * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+    * @return \f$ Delta_C9_zExp \f$
+    */
+    double getDelta_C9_zExp_0()
+    {
+        updateParameters();
+        return Delta_C9_zExp(0);
+    };
+    
+    /**
+    * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+    * @return \f$ Delta_C9_zExp \f$
+    */
+    double getDelta_C9_zExp_p()
+    {
+        updateParameters();
+        return Delta_C9_zExp(1);
+    };
+    
+    /**
+    * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+    * @return \f$ Delta_C9_zExp \f$
+    */
+    double getDelta_C9_zExp_m()
+    {
+        updateParameters();
+        return Delta_C9_zExp(2);
+    };
+    
+    /**
     * @brief The helicity amplitude \f$ H_V^0 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_V^0 \f$

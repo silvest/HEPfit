@@ -2866,6 +2866,108 @@ private:
 
 };
 
+/**
+ * @class Abs2Ampzero_MVpsi
+ * @ingroup Flavour
+ * @brief A class for the absolute value ^2 of the 0 polarization amplitude of @f$M \to V \psi@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the observable @f$QCDfC9p_3@f$ in 
+ * @f$M \to V l^+l^-@f$
+ */
+class Delta_C9_zExp_0 : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    Delta_C9_zExp_0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable Abs(A0) of @f$M \to V \psi@f$.
+    * @return Abs(A0)^2 of @f$M \to V \psi@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+/**
+ * @class Abs2Ampzero_MVpsi
+ * @ingroup Flavour
+ * @brief A class for the absolute value ^2 of the 0 polarization amplitude of @f$M \to V \psi@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the observable @f$QCDfC9p_3@f$ in 
+ * @f$M \to V l^+l^-@f$
+ */
+class Delta_C9_zExp_p : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    Delta_C9_zExp_p(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable Abs(A0) of @f$M \to V \psi@f$.
+    * @return Abs(A0)^2 of @f$M \to V \psi@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+/**
+ * @class Abs2Ampzero_MVpsi
+ * @ingroup Flavour
+ * @brief A class for the absolute value ^2 of the 0 polarization amplitude of @f$M \to V \psi@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the observable @f$QCDfC9p_3@f$ in 
+ * @f$M \to V l^+l^-@f$
+ */
+class Delta_C9_zExp_m : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    Delta_C9_zExp_m(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable Abs(A0) of @f$M \to V \psi@f$.
+    * @return Abs(A0)^2 of @f$M \to V \psi@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
 #endif	/* MVLLOBSERVABLES_H */
 
     

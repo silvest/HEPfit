@@ -1172,90 +1172,98 @@ gslpp::complex MVll::C_Seidel(double q2)
 
 gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate, bool spline)
 {
-#if COMPUTECP && SPLINE
-    if (spline && !conjugate) return gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
-    else if (spline && conjugate) return gsl_spline_eval(spline_Re_deltaC7_QCDF_conj, q2, acc_Re_deltaC7_QCDF_conj);
-#elif SPLINE
-    if (spline) return gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
-#endif
+    if (zExpansion)
+        return 0.;
+    else {
+    #if COMPUTECP && SPLINE
+        if (spline && !conjugate) return gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
+        else if (spline && conjugate) return gsl_spline_eval(spline_Re_deltaC7_QCDF_conj, q2, acc_Re_deltaC7_QCDF_conj);
+    #elif SPLINE
+        if (spline) return gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
+    #endif
 
-    double muh = mu_b / mb_pole;
-    double z = mc_pole * mc_pole / mb_pole / mb_pole;
-    double sh = q2 / mb_pole / mb_pole;
-    double sh2 = sh*sh;
+        double muh = mu_b / mb_pole;
+        double z = mc_pole * mc_pole / mb_pole / mb_pole;
+        double sh = q2 / mb_pole / mb_pole;
+        double sh2 = sh*sh;
 
-#if FULLNLOQCDF_MVLL    
-    gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
-    gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-#endif    
-    gslpp::complex F_17 = myF_1->F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_17im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_27 = myF_2->F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_27im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_87 = F87_0 + F87_1 * sh + F87_2 * sh2 + F87_3 * sh * sh2 - 8. / 9. * log(sh) * (sh + sh2 + sh * sh2);
+    #if FULLNLOQCDF_MVLL    
+        gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+        gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+        gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    #endif    
+        gslpp::complex F_17 = myF_1->F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_17im(muh, z, sh, 20); /*arXiv:0810.4077*/
+        gslpp::complex F_27 = myF_2->F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_27im(muh, z, sh, 20); /*arXiv:0810.4077*/
+        gslpp::complex F_87 = F87_0 + F87_1 * sh + F87_2 * sh2 + F87_3 * sh * sh2 - 8. / 9. * log(sh) * (sh + sh2 + sh * sh2);
 
-    if (!conjugate) {
-        gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
-        gslpp::complex delta_t = C_8 * F_87 + delta;
-#if FULLNLOQCDF_MVLL        
-        gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
-#else
-        return -alpha_s_mub / (4. * M_PI) * delta_t;
-#endif        
-    } else {
-        gslpp::complex delta = C_1.conjugate() * F_17 + C_2.conjugate() * F_27;
-        gslpp::complex delta_t = C_8.conjugate() * F_87 + delta;
-#if FULLNLOQCDF_MVLL
-        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
-#else
-        return -alpha_s_mub / (4. * M_PI) * delta_t;
-#endif        
+        if (!conjugate) {
+            gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
+            gslpp::complex delta_t = C_8 * F_87 + delta;
+    #if FULLNLOQCDF_MVLL        
+            gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
+            return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+    #else
+            return -alpha_s_mub / (4. * M_PI) * delta_t;
+    #endif        
+        } else {
+            gslpp::complex delta = C_1.conjugate() * F_17 + C_2.conjugate() * F_27;
+            gslpp::complex delta_t = C_8.conjugate() * F_87 + delta;
+    #if FULLNLOQCDF_MVLL
+            gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
+            return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+    #else
+            return -alpha_s_mub / (4. * M_PI) * delta_t;
+    #endif        
+        }
     }
 }
 
 gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate, bool spline)
 {
-#if COMPUTECP && SPLINE
-    if (spline && !conjugate) return gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
-    else if (spline && conjugate) return gsl_spline_eval(spline_Re_deltaC9_QCDF_conj, q2, acc_Re_deltaC9_QCDF_conj);
-#elif SPLINE
-    if (spline) return gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
-#endif
+    if (zExpansion)
+        return 0.;
+    else {
+    #if COMPUTECP && SPLINE
+        if (spline && !conjugate) return gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
+        else if (spline && conjugate) return gsl_spline_eval(spline_Re_deltaC9_QCDF_conj, q2, acc_Re_deltaC9_QCDF_conj);
+    #elif SPLINE
+        if (spline) return gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
+    #endif
 
-    double muh = mu_b / mb_pole;
-    double z = mc_pole * mc_pole / mb_pole / mb_pole;
-    double sh = q2 / mb_pole / mb_pole;
-    double sh2 = sh*sh;
+        double muh = mu_b / mb_pole;
+        double z = mc_pole * mc_pole / mb_pole / mb_pole;
+        double sh = q2 / mb_pole / mb_pole;
+        double sh2 = sh*sh;
 
-#if FULLNLOQCDF_MVLL    
-    gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
-    gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
-    gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-#endif    
-    gslpp::complex F_19 = myF_1->F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_19im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_29 = myF_2->F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_29im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_89 = (F89_0 + F89_1 * sh + F89_2 * sh2 + F89_3 * sh * sh2 + 16. / 9. * log(sh) * (1. + sh + sh2 + sh * sh2));
+    #if FULLNLOQCDF_MVLL    
+        gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+        gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
+        gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+        gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    #endif    
+        gslpp::complex F_19 = myF_1->F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_19im(muh, z, sh, 20); /*arXiv:0810.4077*/
+        gslpp::complex F_29 = myF_2->F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_29im(muh, z, sh, 20); /*arXiv:0810.4077*/
+        gslpp::complex F_89 = (F89_0 + F89_1 * sh + F89_2 * sh2 + F89_3 * sh * sh2 + 16. / 9. * log(sh) * (1. + sh + sh2 + sh * sh2));
 
-    if (!conjugate) {
-        gslpp::complex delta = C_1 * F_19 + C_2 * F_29;
-        gslpp::complex delta_t = C_8 * F_89 + delta;
-#if FULLNLOQCDF_MVLL
-        gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
-#else        
-        return -alpha_s_mub / (4. * M_PI) * delta_t;
-#endif        
-    } else {
-        gslpp::complex delta = C_1.conjugate() * F_19 + C_2.conjugate() * F_29;
-        gslpp::complex delta_t = C_8.conjugate() * F_89 + delta;
-#if FULLNLOQCDF_MVLL        
-        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_19 + C_2.conjugate() * Fu_29;
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
-#else        
-        return -alpha_s_mub / (4. * M_PI) * delta_t;
-#endif        
+        if (!conjugate) {
+            gslpp::complex delta = C_1 * F_19 + C_2 * F_29;
+            gslpp::complex delta_t = C_8 * F_89 + delta;
+    #if FULLNLOQCDF_MVLL
+            gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
+            return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+    #else        
+            return -alpha_s_mub / (4. * M_PI) * delta_t;
+    #endif        
+        } else {
+            gslpp::complex delta = C_1.conjugate() * F_19 + C_2.conjugate() * F_29;
+            gslpp::complex delta_t = C_8.conjugate() * F_89 + delta;
+    #if FULLNLOQCDF_MVLL        
+            gslpp::complex delta_u = delta + C_1.conjugate() * Fu_19 + C_2.conjugate() * Fu_29;
+            return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+    #else        
+            return -alpha_s_mub / (4. * M_PI) * delta_t;
+    #endif        
+        }
     }
 }
 
@@ -1659,36 +1667,45 @@ void MVll::spline_QCDF_func()
 
 gslpp::complex MVll::T_minus(double q2, bool conjugate)
 {
-#if COMPUTECP && SPLINE 
-    if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
-    else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp_conj, q2, acc_Re_T_perp_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp_conj, q2, acc_Im_T_perp_conj));
-#elif SPLINE
-    return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
-#endif     
+    if (zExpansion)
+        return 0.;
+    else {
+    #if COMPUTECP && SPLINE 
+        if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
+        else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp_conj, q2, acc_Re_T_perp_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp_conj, q2, acc_Im_T_perp_conj));
+    #elif SPLINE
+        return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
+    #endif     
 
-#if COMPUTECP  && !SPLINE
-    if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
-    else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res_conj->GetParams())));
-#elif !SPLINE
-    return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
-#endif    
+    #if COMPUTECP  && !SPLINE
+        if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
+        else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res_conj->GetParams())));
+    #elif !SPLINE
+        return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
+    #endif   
+    }
+ 
 }
 
 gslpp::complex MVll::T_0(double q2, bool conjugate)
 {
-#if COMPUTECP && SPLINE
-    if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
-    else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para_conj, q2, acc_Re_T_para_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para_conj, q2, acc_Im_T_para_conj));
-#elif SPLINE
-    return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
-#endif
+    if (zExpansion)
+        return 0.;
+    else {
+    #if COMPUTECP && SPLINE
+        if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+        else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para_conj, q2, acc_Re_T_para_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para_conj, q2, acc_Im_T_para_conj));
+    #elif SPLINE
+        return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+    #endif
 
-#if COMPUTECP && !SPLINE
-    if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res->GetParams())));
-    else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res_conj->GetParams())));
-#elif !SPLINE
-    return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res->GetParams())));
-#endif
+    #if COMPUTECP && !SPLINE
+        if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res->GetParams())));
+        else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res_conj->GetParams())));
+    #elif !SPLINE
+        return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res->GetParams())));
+    #endif
+    }
 }
 
 /*******************************************************************************
@@ -1712,7 +1729,10 @@ gslpp::complex MVll::H_0(double q2)
 
 gslpp::complex MVll::Y(double q2)
 {
-    return -half * H_0(q2) * H_0_WC + H(q2, mc_pole*mc_pole, mu_b2) * H_c_WC - half * H(q2, mb_pole*mb_pole, mu_b2) * H_b_WC;
+    if (zExpansion)
+        return 0.;
+    else
+        return -half * H_0(q2) * H_0_WC + H(q2, mc_pole*mc_pole, mu_b2) * H_c_WC - half * H(q2, mb_pole*mb_pole, mu_b2) * H_b_WC;
 }
 
 gslpp::complex MVll::funct_g(double q2)
@@ -1911,6 +1931,33 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
         else if (hel == 2) return SU3_breaking * (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2)) / sixteenM_PI2 + h_2[2] * q2 * q2;
         else return SU3_breaking * ((h_0[hel] + h_1[hel] * q2) * sqrt(q2) + (twoMboMM * h_0[2] * T_0t(q2) + h_1[2] * q2 * V_0t(q2) / MM2) / sixteenM_PI2);
     }
+}
+
+double MVll::Delta_C9_zExp(int hel)
+{
+    if (hel == 0) 
+            return beta_0[3].real()*(-26.55265491727846*a_0A12)/a_0A12/a_0A12 +
+                    beta_0[2].real()*(-60.539167428104925*a_0A12)/a_0A12/a_0A12 + 
+                    beta_0[1].real()*(-138.02728217972742*a_0A12)/a_0A12/a_0A12 + 
+                    beta_0[0].real()*(-314.6975988486678*a_0A12)/a_0A12/a_0A12;
+        else if (hel == 1) 
+            return (63.24357991272575*a_0A1 - 293.67248647811704*a_0V + 66.1650673421469*a_1A1 - 46.966706577539846*a_1V)*(beta_1[0].real() - beta_2[0].real())/
+                    (1.*a_0A1 - 0.7098414384537659*a_0V)/(1.*a_0A1 - 0.7098414384537659*a_0V) + 
+                   (-119.89709952961475*a_0A1 - 24.007514603707598*a_0V + 29.020190982985117*a_1A1 - 20.59973411156516*a_1V)*(beta_1[1].real() - beta_2[1].real())/
+                    (1.*a_0A1 - 0.7098414384537659*a_0V)/(1.*a_0A1 - 0.7098414384537659*a_0V) + 
+                   (-117.34075946812884*a_0A1 + 35.43498229234759*a_0V + 12.728340172828181*a_1A1 - 9.035103297409211*a_1V)*(beta_1[2].real() - beta_2[2].real())/
+                    (1.*a_0A1 - 0.7098414384537659*a_0V)/(1.*a_0A1 - 0.7098414384537659*a_0V) + 
+                   (-79.86709064819027*a_0A1 + 35.702158475408076*a_0V + 5.582687021261181*a_1A1 - 3.962822585609206*a_1V)*(beta_1[3].real() - beta_2[3].real())/
+                    (1.*a_0A1 - 0.7098414384537659*a_0V)/(1.*a_0A1 - 0.7098414384537659*a_0V);
+        else
+            return (63.24357991272575*a_0A1 + 293.67248647811704*a_0V + 66.1650673421469*a_1A1 + 46.966706577539846*a_1V)*(beta_1[0].real() + beta_2[0].real())/
+                    (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V) + 
+                   (-119.89709952961475*a_0A1 + 24.007514603707598*a_0V + 29.020190982985117*a_1A1 + 20.59973411156516*a_1V)*(beta_1[1].real() + beta_2[1].real())/
+                    (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V) + 
+                   (-117.34075946812884*a_0A1 - 35.43498229234759*a_0V + 12.728340172828181*a_1A1 + 9.035103297409211*a_1V)*(beta_1[2].real() + beta_2[2].real())/
+                    (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V) + 
+                   (-79.86709064819027*a_0A1 - 35.702158475408076*a_0V + 5.582687021261181*a_1A1 + 3.962822585609206*a_1V)*(beta_1[3].real() - beta_2[3].real())/
+                    (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V);
 }
 
 gslpp::complex MVll::H_V_0(double q2, bool bar)
