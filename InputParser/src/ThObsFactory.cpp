@@ -4116,6 +4116,11 @@ ThObsFactory::ThObsFactory()
    obsThFactory["sigma_tw_13_LO"] = boost::factory<sigma_tw_13_LO*>();
    obsThFactory["sigma_tb_13_LO"] = boost::factory<sigma_tb_13_LO*>();
    obsThFactory["sigma_tq_13_LO"] = boost::factory<sigma_tq_13_LO*>();
+   obsThFactory["sigma_tw_8_LO"] = boost::factory<sigma_tw_8_LO*>();
+   obsThFactory["sigma_tb_8_LO"] = boost::factory<sigma_tb_8_LO*>();
+   obsThFactory["sigma_tq_8_LO"] = boost::factory<sigma_tq_8_LO*>();
+   obsThFactory["sigma_tw_7_LO"] = boost::factory<sigma_tw_7_LO*>();
+   obsThFactory["sigma_tq_7_LO"] = boost::factory<sigma_tq_7_LO*>();
 
 
    

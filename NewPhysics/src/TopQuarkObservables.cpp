@@ -1980,6 +1980,43 @@ double sigma_ttz_diff_LO_ATLAS_210312603::computeThValue()
 
 
 
+
+
+
+
+//// s-channel 8 TeV ////
+
+sigma_tb_8_LO::sigma_tb_8_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tb_8");
+};
+
+double sigma_tb_8_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tb_8_LO_madgraph = 4.142840; //pb?
+    double sigma_tb_8_SM = SM.getOptionalParameter("SM_sigma_tb_8"); 
+
+    
+    
+    if(flag_Quadratic){
+        return  0.;
+        }
+    else{
+         return sigma_tb_8_SM + (0.502537*ewgc("CHq3R",2,2)-1.915120*ewgc("CuWR",2,2))*(sigma_tb_8_SM/sigma_tb_8_LO_madgraph);
+    }
+
+}
+
+
+
+
+
+
+
 //// s-channel 13 TeV ////
 
 sigma_tb_13_LO::sigma_tb_13_LO(const StandardModel& SM_i)
@@ -2006,6 +2043,74 @@ double sigma_tb_13_LO::computeThValue()
         }
 
 }
+
+
+
+
+
+//// t-channel 7 TeV ////
+
+sigma_tq_7_LO::sigma_tq_7_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tq_7");
+};
+
+double sigma_tq_7_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tq_7_LO_madgraph = 53.962300; //pb?
+    double sigma_tq_7_SM = SM.getOptionalParameter("SM_sigma_tq_7"); 
+
+    
+    
+    if(flag_Quadratic){
+        return  0.;
+        }
+        else{
+            return sigma_tq_7_SM +(6.512720*ewgc("CHq3R",2,2)-1.642790*ewgc("CuWR",2,2))*(sigma_tq_7_SM/sigma_tq_7_LO_madgraph);
+        }
+
+}
+
+
+
+
+
+
+//// t-channel 8 TeV ////
+
+sigma_tq_8_LO::sigma_tq_8_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tq_8");
+};
+
+double sigma_tq_8_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tq_8_LO_madgraph = 71.914000; //pb?
+    double sigma_tq_8_SM = SM.getOptionalParameter("SM_sigma_tq_8"); 
+
+    
+    
+    if(flag_Quadratic){
+        return  0.;
+        }
+        else{
+            return sigma_tq_8_SM +(8.681900*ewgc("CHq3R",2,2)-2.086100*ewgc("CuWR",2,2))*(sigma_tq_8_SM/sigma_tq_8_LO_madgraph);
+        }
+
+}
+
+
+
+
+
 
 
 
@@ -2127,7 +2232,73 @@ double sigma_tzq_LO::computeThValue()
 
 
 
-//// tw  ////
+
+
+
+//// tw 7 TeV ////
+
+sigma_tw_7_LO::sigma_tw_7_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tw_7");
+};
+
+double sigma_tw_7_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tw_7_LO_madgraph = 10.784300; //pb?
+    double sigma_tw_7_SM = SM.getOptionalParameter("SM_sigma_tw_7"); 
+      
+    if(flag_Quadratic){
+        return  0.;
+        }
+        else{
+            return sigma_tw_7_SM + (1.299580*ewgc("CHq3R",2,2)+0.931471*ewgc("CuWR",2,2))*(sigma_tw_7_SM/sigma_tw_7_LO_madgraph);
+        }
+
+}
+
+
+
+
+
+
+
+//// tw 8 TeV ////
+
+sigma_tw_8_LO::sigma_tw_8_LO(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tw_8");
+};
+
+double sigma_tw_8_LO::computeThValue()
+{
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+    double sigma_tw_8_LO_madgraph = 15.495600; //pb?
+    double sigma_tw_8_SM = SM.getOptionalParameter("SM_sigma_tw_8"); 
+      
+    if(flag_Quadratic){
+        return  0.;
+        }
+        else{
+            return sigma_tw_8_SM + (1.867690*ewgc("CHq3R",2,2)+1.335140*ewgc("CuWR",2,2))*(sigma_tw_8_SM/sigma_tw_8_LO_madgraph);
+        }
+
+}
+
+
+
+
+
+
+
+
+//// tw 13 TeV ////
 
 sigma_tw_13_LO::sigma_tw_13_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
@@ -2142,11 +2313,7 @@ double sigma_tw_13_LO::computeThValue()
     
     double sigma_tw_13_LO_madgraph = 51.021400; //pb?
     double sigma_tw_13_SM = SM.getOptionalParameter("SM_sigma_tw_13"); 
-    
-//    std::cout<<"\033[1;33m ewgc(\"CuWR\",2,2)*1000000 \033[0m "<< ewgc("CuWR",2,2)*1000000 << std::endl;
-//
-//    std::cout<<"\033[1;33m sigma_tw_13_LO \033[0m "<< sigma_tw_13_LO_madgraph + 6.152940*ewgc("CHq3R",2,2)+4.361620*ewgc("CuWR",2,2)*1000000 << std::endl;
-    
+      
     if(flag_Quadratic){
         return  0.;
         }
