@@ -387,5 +387,6 @@ public:
     double computeThValue();
 
     private:
-};#endif /* DGAMMA_H */
+};
 
+#endif /* DGAMMA_H */

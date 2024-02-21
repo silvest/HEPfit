@@ -250,7 +250,7 @@ private:
     
     double Md; //mass of the down quark in GeV
     double Ms; //mass of the strange quark in GeV
-    double Mc_Mc; //mass of the charm quark in GeV
+    double Mc; //mass of the charm quark in GeV   
     double Mb; //mass of the bottom quark in GeV
     double MB; //mass of the $B_d$ meson in GeV
     double MB_s; //mass of the $B_s$ meson in GeV
@@ -261,9 +261,9 @@ private:
     
     //parameters to calculate the bottom quark mass in the PS scheme (hep-ph/9804241)
     double mu_f = 2.;
-    double K = 13.44 - 1.04 * 5.;
-    double a1 = 10.33 - 1.11 * 5.;
-    double b0 = 11. - 2. * 5. / 3.;
+    double K = 13.44 - 1.04 * 4.;
+    double a1 = 31./3. - 10./9. * 4.;
+    double b0 = 11. - 2. * 4. / 3.;
     
 /**********                 DB=1 Wilson coefficients               ************/
     
