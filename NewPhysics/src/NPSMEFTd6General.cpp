@@ -36423,12 +36423,33 @@ double NPSMEFTd6General::STXS12_tH(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0272 * getSMEFTCoeffEW("CHD") + 0.254 * getSMEFTCoeffEW("CHG") + 0.1808 * getSMEFTCoeffEW("CHW")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0272 * getSMEFTCoeffEW("CHD") + 0.254 * getSMEFTCoeffEW("CHG") + 0.1808 * getSMEFTCoeffEW("CHW")
                 - 0.0764 * getSMEFTCoeffEW("CuHR", 2, 2) + 0.119 * getSMEFTCoeffEW("CuGR", 2, 2) + 0.170 * getSMEFTCoeffEW("CuWR", 2, 2)
                 - 0.2679 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) + 0.319 * CiHQ3
                 + 0.1341 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 //+ 0.418 * Ciqq3
-                ) * (1000000.0);
+                ) * (1000000.0);*/
+        
+        //AG:begin
+        // pp>htj in 5Flavor-scheme:
+        STXSb += cWsch * ( 
+            ( (0.121052940) * getSMEFTCoeffEW("CHbox")
+            + (-0.030239040) * getSMEFTCoeffEW("CHD")
+            + (0.189185967) * getSMEFTCoeffEW("CHW")
+            + (-0.131496416) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.017240530) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.007847224) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.033303725) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.431705777) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.912339660) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.152113154) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (-0.094318402) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.015638663) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (-0.181433480) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.181433480) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.181581588) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000. 
+	);
+        //AG:end
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
