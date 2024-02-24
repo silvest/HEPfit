@@ -24343,6 +24343,151 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
             - 124462. * delta_GF / v() / v()
             - 1.257 * deltaMwd6())
             );
+    
+    //AG:begin
+    /*
+     * Numeric parametrizations based on arXiV:1805.00302.
+     * The analytical expressions were entered into a Mathematica notebook, and a numeric
+     parametrization was obtained upon using the updated input values in the MW-scheme.
+     * The contribution from eq.411 was rederived in the MW-scheme which now depends on cHD.
+     * CKM=1. Pending to add the CKM into the cdH, coming from defining the SU2-doublet as (u,Vd).
+     * Future improvement: change to analytic parametrization. 
+     */
+    double cHbox = getSMEFTCoeffEW("CHbox");
+    double cHD = getSMEFTCoeffEW("CHD");
+    double cHW = getSMEFTCoeffEW("CHW");
+    double cHB = getSMEFTCoeffEW("CHB");
+    double cHWB = getSMEFTCoeffEW("CHWB");
+    double cW = getSMEFTCoeffEW("CHW");
+    double dgf = delta_GF;
+    double ceH11 = getSMEFTCoeffEW("CeHR",0,0);
+    double ceH22 = getSMEFTCoeffEW("CeHR",1,1);
+    double ceH33 = getSMEFTCoeffEW("CeHR",2,2);
+    double cuH11 = getSMEFTCoeffEW("CuHR",0,0);
+    double cuH22 = getSMEFTCoeffEW("CuHR",1,1);
+    double cuH33 = getSMEFTCoeffEW("CuHR",2,2);
+    double cdH11 = getSMEFTCoeffEW("CdHR",0,0);
+    double cdH22 = getSMEFTCoeffEW("CdHR",1,1);
+    double cdH33 = getSMEFTCoeffEW("CdHR",2,2);
+    double ceB11 = getSMEFTCoeffEW("CeBR",0,0);
+    double ceB22 = getSMEFTCoeffEW("CeBR",1,1);
+    double ceB33 = getSMEFTCoeffEW("CeBR",2,2);
+    double ceW11 = getSMEFTCoeffEW("CeWR",0,0);
+    double ceW22 = getSMEFTCoeffEW("CeWR",1,1);
+    double ceW33 = getSMEFTCoeffEW("CeWR",2,2);
+    double cuB11 = getSMEFTCoeffEW("CuBR",0,0);
+    double cuB22 = getSMEFTCoeffEW("CuBR",1,1);
+    double cuB33 = getSMEFTCoeffEW("CuBR",2,2);
+    double cuW11 = getSMEFTCoeffEW("CuWR",0,0);
+    double cuW22 = getSMEFTCoeffEW("CuWR",1,1);
+    double cuW33 = getSMEFTCoeffEW("CuWR",2,2);
+    double cdB11 = getSMEFTCoeffEW("CdBR",0,0);
+    double cdB22 = getSMEFTCoeffEW("CdBR",1,1);
+    double cdB33 = getSMEFTCoeffEW("CdBR",2,2);
+    double cdW11 = getSMEFTCoeffEW("CdWR",0,0);
+    double cdW22 = getSMEFTCoeffEW("CdWR",1,1);
+    double cdW33 = getSMEFTCoeffEW("CdWR",2,2);
+    
+    /*double cHbox = 0.;
+    double cHD = 0.;
+    double cHW = 0.;
+    double cHB = 0.;
+    double cHWB = 0.;
+    double cW = 0.;
+    double dgf = 0.;
+    double ceH11 = 0.;
+    double ceH22 = 0.;
+    double ceH33 = 0.;
+    double cuH11 = 0.;
+    double cuH22 = 0.;
+    double cuH33 = 0.;
+    double cdH11 = 0.;
+    double cdH22 = 0.;
+    double cdH33 = 0.;
+    double ceB11=0.;
+    double ceB22=0.;
+    double ceB33=0.;
+    double ceW11=1.;
+    double ceW22=0.;
+    double ceW33=0.;
+    double cuB11=0.;
+    double cuB22=0.;
+    double cuB33=0.;
+    double cuW11=0.;
+    double cuW22=0.;
+    double cuW33=0.;
+    double cdB11=0.;
+    double cdB22=0.;
+    double cdB33=0.;
+    double cdW11=0.;
+    double cdW22=0.;
+    double cdW33=0.;*/
+
+    double MuS = mHl;
+    double MuS2 = MuS*MuS;
+    double MZ = Mz;
+    double MZ2 = MZ*MZ;
+    
+    double deltaGammaHgaga_Prefactor, dGammaHgagaRatio_HiggsField;
+    double dGammaHgagaRatio_Yukawa, dGammaHgagaRatio_dipoleOp;
+    double dGammaHgagaRatio_cW;
+    double dGammaHgaga_cHB, dGammaHgaga_cHW, dGammaHgaga_cHWB, dGammaHgagaRatio_tree;
+    
+    //-- Indirect effects from the theory-scheme prefactors:
+    deltaGammaHgaga_Prefactor = (-0.211587*cHD - 0.352136*cHWB - 0.181872*dgf)*pow(1000,2);
+
+    //-- Indirect effect from Higgs-shift:
+    dGammaHgagaRatio_HiggsField = sqrt(2)*(cHbox - cHD/4.)/GF;
+    
+    //-- Insertions in fermion-loop:
+    dGammaHgagaRatio_Yukawa = 
+        (-0.000257658*cdH11 - 0.00248474*cdH22 - 0.0186489*cdH33 
+        - 0.000126593*ceH11 - 0.00812649*ceH22 - 0.0430632*ceH33 
+        - 0.000562257*cuH11 - 0.0493429*cuH22 + 0.0342643*cuH33)*pow(1000,2);
+    
+    dGammaHgagaRatio_dipoleOp = (
+        cuB33*(1.863305361 - 0.828073331*log(MuS2/MZ2))+ 
+        cuW33*(0.966911579 - 0.429706107*log(MuS2/MZ2))+ 
+        cuB22*(-0.027127066 - 0.006102554*log(MuS2/MZ2))+ 
+        cdW33*(-0.017084248 - 0.005211430*log(MuS2/MZ2))+ 
+        cuW22*(-0.014076852 - 0.003166754*log(MuS2/MZ2))+ 
+        ceW33*(-0.009110967 - 0.002215306*log(MuS2/MZ2))+ 
+        ceW22*(-0.000912481 - 0.000131729*log(MuS2/MZ2))+ 
+        cdW22*(-0.000820980 - 0.000116446*log(MuS2/MZ2))+ 
+        cuB11*(-0.000147805 - 0.000010570*log(MuS2/MZ2))+ 
+        cdW11*(-0.000065914 - 5.822339464e-6*log(MuS2/MZ2))+ 
+        cuW11*(-0.000076699 - 5.485466633e-6*log(MuS2/MZ2))+ 
+        ceW11*(-0.000011198 - 6.370897972e-7*log(MuS2/MZ2))+ 
+        ceB11*(0.000021579 + 1.227716019e-6*log(MuS2/MZ2))+ 
+        cdB11*(0.000127022 + 0.000011220*log(MuS2/MZ2))+ 
+        cdB22*(0.001582086 + 0.000224401*log(MuS2/MZ2))+ 
+        ceB22*(0.001758414 + 0.000253852*log(MuS2/MZ2))+ 
+        ceB33*(0.01755746253200913 + 0.004269048861525898*log(MuS2/MZ2))+ 
+        cdB33*(0.03292252565024579 + 0.010042785723792674*log(MuS2/MZ2)))*pow(1000,2); 
+
+    //-- Insertions in boson-loop: 
+    dGammaHgagaRatio_cW = (-0.0338638*cW)*pow(1000,2);
+    
+    //-- Tree-Level contributions:
+    dGammaHgaga_cHB  = (-45.2606 + 0.975724*log(MuS2/MZ2))*pow(1000,2);
+    dGammaHgaga_cHW  = (-13.0377 + 0.196935*log(MuS2/MZ2))*pow(1000,2);
+    dGammaHgaga_cHWB = (24.4444 - 0.500946*log(MuS2/MZ2))*pow(1000,2);
+
+    dGammaHgagaRatio_tree = dGammaHgaga_cHB*cHB + dGammaHgaga_cHW*cHW + dGammaHgaga_cHWB*cHWB;
+    
+    //--- TOTAL:
+    dwidth += deltaGammaHgaga_Prefactor + dGammaHgagaRatio_HiggsField
+            + dGammaHgagaRatio_Yukawa + dGammaHgagaRatio_dipoleOp
+            + dGammaHgagaRatio_cW
+            + dGammaHgagaRatio_tree;  
+    
+    std::cout<<"deltaGammaHgaga_Prefactor = "<<deltaGammaHgaga_Prefactor<<std::endl;
+    std::cout<<"dGammaZgagaRatio_HiggsField = "<<dGammaHgagaRatio_HiggsField<<std::endl;
+    std::cout<<"dGammaZgagaRatio_Yukawa = "<<dGammaHgagaRatio_Yukawa<<std::endl;
+    std::cout<<"dGammaHgagaRatio_dipoleOp = "<<dGammaHgagaRatio_dipoleOp<<std::endl;
+    std::cout<<"dGammaZgagaRatio_cW = "<<dGammaHgagaRatio_cW<<std::endl;
+    std::cout<<"dGammaHZgagaRatio_tree = "<<dGammaHgagaRatio_tree<<std::endl;
+    //AG:end
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -36278,12 +36423,33 @@ double NPSMEFTd6General::STXS12_tH(const double sqrt_s) const
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0272 * getSMEFTCoeffEW("CHD") + 0.254 * getSMEFTCoeffEW("CHG") + 0.1808 * getSMEFTCoeffEW("CHW")
+        /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0272 * getSMEFTCoeffEW("CHD") + 0.254 * getSMEFTCoeffEW("CHG") + 0.1808 * getSMEFTCoeffEW("CHW")
                 - 0.0764 * getSMEFTCoeffEW("CuHR", 2, 2) + 0.119 * getSMEFTCoeffEW("CuGR", 2, 2) + 0.170 * getSMEFTCoeffEW("CuWR", 2, 2)
                 - 0.2679 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) + 0.319 * CiHQ3
                 + 0.1341 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 //+ 0.418 * Ciqq3
-                ) * (1000000.0);
+                ) * (1000000.0);*/
+        
+        //AG:begin
+        // pp>htj in 5Flavor-scheme:
+        STXSb += cWsch * ( 
+            ( (0.121052940) * getSMEFTCoeffEW("CHbox")
+            + (-0.030239040) * getSMEFTCoeffEW("CHD")
+            + (0.189185967) * getSMEFTCoeffEW("CHW")
+            + (-0.131496416) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.017240530) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.007847224) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.033303725) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.431705777) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.912339660) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.152113154) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (-0.094318402) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.015638663) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (-0.181433480) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.181433480) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.181581588) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000. 
+	);
+        //AG:end
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
