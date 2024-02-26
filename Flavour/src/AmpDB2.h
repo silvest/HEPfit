@@ -364,6 +364,8 @@ private:
     gslpp::complex H(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
     gslpp::complex H_s(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
 
+    //Values of DB=2 Wilson coefficients (Gerlach thesis) separated for
+    //C-12-12 (LO, NLO, NNLO), C-12-36 (LO, NLO), C-36-36 (LO, NLO),C-12-8 (LO, NLO), C-36-8 (LO, NLO), C-8-8 (LO)
     gslpp::vector< gslpp::complex >  c_H_partial(int i);
     gslpp::vector<gslpp::complex> H_allpartial(quarks qq); /*Values of partial contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
     gslpp::vector<gslpp::complex> H_s_allpartial(quarks qq); /*Values of partial contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
