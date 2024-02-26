@@ -22,7 +22,7 @@ class MPlnu;
 #include "QCD.h"
 #include <boost/tuple/tuple.hpp>
 #include <memory>
-#include "masses.h"
+
 /**
  * @class Flavour
  * @ingroup Flavour

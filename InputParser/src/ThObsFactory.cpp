@@ -9,6 +9,7 @@
 #include "ThObservable.h"
 #include "ParamObs.h"
 #include "EWObservables.h"
+#include "masses.h"
 #include "NP_couplings.h"
 #include "OptimizedObservablesSMEFTd6.h"
 #include "HiggsThObservables.h"
