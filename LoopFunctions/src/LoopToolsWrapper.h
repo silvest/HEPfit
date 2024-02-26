@@ -43,7 +43,7 @@ public:
     virtual ~LoopToolsWrapper();
     
 #ifdef USE_LOOPTOOLS
-
+    
     /**
      * @brief @f$A_0(m^2)@f$.
      * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
@@ -149,6 +149,14 @@ public:
      */
     gslpp::complex PV_C0(const double p2, 
                   const double m02, const double m12, const double m22) const;
+    
+    /**
+     * @brief @f$C_{0}(0,0,p^2; m_0^2, m_1^2, m_2^2)@f$.
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12, m22 mass squared, @f$m_0^2@f$, @f$m_1^2@f$ and @f$m_2^2@f$
+     * @return @f$C_{0}(0,0,p^2; m_0^2, m_1^2, m_2^2)@f$
+     */
+    gslpp::complex PV_C0(const double p1, const double p2, const double p1p22, const double m02, const double m12, const double m22) const;     //AG:added
     
     /**
      * @brief @f$D_{0}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$.
