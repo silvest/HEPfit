@@ -181,9 +181,6 @@ gslpp::complex AmpDB2::M21_Bs(orders order) {
  * ****************************************************************************/  
 
 gslpp::complex AmpDB2::Gamma21overM21_BdFULLNLO_tradBasis(){
-    //source: hep-ph/0308029v2
-    std::cout.precision(5);
-
     computeCKMandMasses(NLO);
     //calculate M_21 / <O_1>
     gslpp::vector<gslpp::complex> ** M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBd(
@@ -211,9 +208,6 @@ gslpp::complex AmpDB2::Gamma21overM21_BdFULLNLO_tradBasis(){
 }
 
 gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO_tradBasis(){
-    //source: hep-ph/0308029v2
-    std::cout.precision(5);
-
     computeCKMandMasses(NLO);
     
     //calculate M_21 / <O_1>
@@ -238,7 +232,6 @@ gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO_tradBasis(){
     //gslpp::complex Gamma21overM21_Bs = -Gf2 / (24 * M_PI * MB_s) / M21overme0 *
     //            (Mb2_prefactor * (c(s)(0) + c(s)(1) * me(1)/me(0) + c(s)(2) * me(2)/me(0)) + 
     //        Mb_PS * Mb_PS * delta_1overm_tradBasis(s)/me(0));
-    //std::cout << "NLO " << Gamma21overM21_Bs << " " << delta_1overm_tradBasis(s) << "\n";
 
     //new basis
     double alpha1 = as_4pi_mu2 * 4./3. * (12. * log(mu_2/Mb_pole) + 6.);
@@ -253,9 +246,6 @@ gslpp::complex AmpDB2::Gamma21overM21_BsFULLNLO_tradBasis(){
 }
 
 gslpp::complex AmpDB2::Gamma21overM21_BsLO_tradBasis(){
-    //source: hep-ph/0308029v2
-    std::cout.precision(5);
-
     computeCKMandMasses(NLO);
     
     //calculate M_21 / <O_1>
@@ -341,7 +331,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     as_4pi_mu2 = mySM.Als(mu_2, FULLNNNLO, true)/(4.*M_PI);;//mySM.Alstilde5(mu_2);
     as_4pi = mySM.Als(Mb_Mb, FULLNNNLO, true)/(4.*M_PI);;//mySM.Alstilde5(Mb_Mb);
 
-    //adapt "Mb2_prefactor" to the used mass scheme, always Mb, Mc, resummed z in MSbar 
+    //adapt "Mb2_prefactor" to the used mass scheme; Mb, Mc, resummed z always in MSbar 
     //explained in Gerlach thesis chapter 7.0 and arxiv:2205.07907 Results.
     if(order == NNLO){
         Mb = Mb_mub;
@@ -353,10 +343,10 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
                 Mb2_prefactor = Mb_pole * Mb_pole;
                 break;
             case MSbar:
-                Mb2_prefactor = Mb_mub * Mb_mub;         
+                Mb2_prefactor = Mb_mub * Mb_mub;
                 break;
             case PS:
-                Mb2_prefactor = Mb_PS * Mb_PS;       
+                Mb2_prefactor = Mb_PS * Mb_PS;
                 break;
             case only1overmb:
                 Mb2_prefactor = 0.;
@@ -431,15 +421,6 @@ void AmpDB2::computeWilsonCoeffsDB1bsg(){
         cacheC_NLO[i] = (*(WilsonCoeffsDB1bsg[NLO]))(i);
         cacheC_NNLO[i] = (*(WilsonCoeffsDB1bsg[NNLO]))(i);
     } 
-//    for(int i=0; i<=7; i++){
-//        if(i==6) i++;
-//        std::cout << "C_" << i << " "
-//                << cacheC[i].gslpp::complex::real() << " "
-//                << cacheC_LO[i].gslpp::complex::real() << " "
-//                << cacheC_NLO[i].gslpp::complex::real() << " "
-//                << cacheC_NNLO[i].gslpp::complex::real() << "\n";
-//    }
-//    std::cout << "--------\n";
     
     //LO DB=1 Wilson coefficients for 1/mb corrections
     WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(Mb_pole);    
@@ -450,30 +431,6 @@ void AmpDB2::computeWilsonCoeffsDB1bsg(){
     return;
 }
 
-void AmpDB2::computeWilsonCoeffs(){
-    //NLO DB=1 Wilson coefficients C_i, i=1-6,8
-   gslpp::vector<gslpp::complex> ** WilsonCoeffs = mySM.getFlavour().ComputeCoeffBMll_Buras(mu_1, QCD::NOLEPTON);
-    for (int i = 0; i < 8; i++) {
-        if (i==6) i=7;
-        cacheC[i] = (*(WilsonCoeffs[LO]))(i) + (*(WilsonCoeffs[NLO]))(i);
-        cacheC_LO[i] = (*(WilsonCoeffs[LO]))(i);
-        cacheC_NLO[i] = (*(WilsonCoeffs[NLO]))(i);        
-    }  
-//    for(int i=0; i<=7; i++){
-//        if(i==6) i++;
-//        std::cout << "C_" << i << " "
-//                << cacheC_LO[i].gslpp::complex::real() << " "
-//                << cacheC_NLO[i].gslpp::complex::real() << "\n";     
-//    }
-//    std::cout << "--------\n" ;
-   
-    //LO DB=1 Wilson coefficients for 1/mb corrections    
-    WilsonCoeffs = mySM.getFlavour().ComputeCoeffBMll_Buras(Mb_pole, QCD::NOLEPTON);
-    C_1LO = (*(WilsonCoeffs[LO]))(0);
-    C_2LO = (*(WilsonCoeffs[LO]))(1);
-    K_1 = 3. * C_1LO * C_1LO + 2. * C_1LO * C_2LO;
-    K_2 = C_2LO * C_2LO;
-}
 
 gslpp::complex AmpDB2::C(int i){
     if (i>=1 and (i<=6 or i==8)) return cacheC[i - 1];
@@ -865,9 +822,7 @@ gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
                         VtbVtd2 * D(uu, i) + 2. * VcbVcd * VtbVtd * (D(uu, i) - D(cu, i))
                         + VcbVcd2 * (D(cc, i) + D(uu, i) - 2. * D(cu, i))
                         );
-            }
-            //std::cout << "D " << D(uu, 1) << " " << D(uu,1)-D(cu,1) << " " << D(cc,1)+D(uu,1)-2.*D(cu,1) << "\n";            
-            //std::cout << "D " << D(uu, 2) << " " << D(uu,2)-D(cu,2) << " " << D(cc,2)+D(uu,2)-2.*D(cu,2) << "\n";            
+            }         
             break;
         case s:
             for (int i = 1; i <= 2; i++) {              
@@ -1029,9 +984,7 @@ int AmpDB2::indexg(quarks qq, int i){
  *  @f$\Gamma_{21}@f$ in NNLO from Marvin Gerlach (2205.07907 and thesis)       * 
  * ****************************************************************************/
 
-gslpp::complex AmpDB2::Gamma21overM21_Bd(orders order, mass_schemes mass_scheme) {
-    std::cout.precision(5);
-    
+gslpp::complex AmpDB2::Gamma21overM21_Bd(orders order, mass_schemes mass_scheme) {    
     //save the order that shall be computed
     orderofp[1] = true;
     orderofp[2] = true;
@@ -1079,8 +1032,6 @@ gslpp::complex AmpDB2::Gamma21overM21_Bd(orders order, mass_schemes mass_scheme)
 
 
 gslpp::complex AmpDB2::Gamma21overM21_Bs(orders order, mass_schemes mass_scheme) {
-    std::cout.precision(5); 
-    
     //save the order that shall be computed    
     orderofp[1] = true;
     orderofp[2] = true;
@@ -1126,7 +1077,6 @@ gslpp::complex AmpDB2::Gamma21overM21_Bs(orders order, mass_schemes mass_scheme)
     computeWilsonCoeffsDB1bsg(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
     Gamma21overM21_Bs += Mb_PS * Mb_PS * delta_1overm(s)/me(0);
     Gamma21overM21_Bs *= Gf2 / (24 * M_PI * MB_s) / M21overme0;
-    //std::cout << "1omb " << Mb_PS * Mb_PS * delta_1overm(s)/me(0) * Gf2 / (24 * M_PI * MB_s) / M21overme0.real()  << "\n";
      return Gamma21overM21_Bs;
 }
 
@@ -1141,15 +1091,6 @@ void AmpDB2::computeWilsonCoeffsMisiak(){
         cacheC_NLO[i] = (*(WilsonCoeffsMisiak[NLO]))(i);
         cacheC_NNLO[i] = (*(WilsonCoeffsMisiak[NNLO]))(i);
     }
-    /*
-    for(int i=0; i<=7; i++){
-        if(i==6) i++;
-        std::cout << "C_" << i << " "
-                << cacheC_LO[i].gslpp::complex::real() << " "
-                << cacheC_NLO[i].gslpp::complex::real() << " "
-                << cacheC_NNLO[i].gslpp::complex::real() << "\n";
-    }
-    */
 }
 
 

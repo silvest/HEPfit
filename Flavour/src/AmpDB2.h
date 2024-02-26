@@ -266,9 +266,7 @@ private:
     double b0 = 11. - 2. * 4. / 3.;
     
 /**********                 DB=1 Wilson coefficients               ************/
-    
-    //Method to compute the DB=1 Wilson coefficients in the Buras basis to NLO (hep-ph/9512380v1)
-    void computeWilsonCoeffs();
+
     
     //Method to compute the DB=1 Wilson coefficients in the Buras basis to NNLO (arXiv:0401041)
     void computeWilsonCoeffsDB1bsg();
