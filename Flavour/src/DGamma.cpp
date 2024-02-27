@@ -240,7 +240,7 @@ DGamma_d_NLO_tradBasis::~DGamma_d_NLO_tradBasis() {
 }
 
 double DGamma_d_NLO_tradBasis::computeThValue() {
-    return -Gamma21overM21_BdFULLNLO_tradBasis().real() * SM.getOptionalParameter("DmBd_ex");
+    return -getGamma21overM21_Bd_tradBasis(FULLNLO).real() * SM.getOptionalParameter("DmBd_ex");
 }
 
 DGamma_s_NLO_tradBasis::DGamma_s_NLO_tradBasis(const StandardModel& SM_i)
@@ -252,7 +252,7 @@ DGamma_s_NLO_tradBasis::~DGamma_s_NLO_tradBasis() {
 }
 
 double DGamma_s_NLO_tradBasis::computeThValue() {
-    return -Gamma21overM21_BsFULLNLO_tradBasis().real() * SM.getOptionalParameter("DmBs_ex");
+    return -getGamma21overM21_Bs_tradBasis(FULLNLO).real() * SM.getOptionalParameter("DmBs_ex");
 }
 
 DGamma_s_LO_tradBasis::DGamma_s_LO_tradBasis(const StandardModel& SM_i)
@@ -264,5 +264,5 @@ DGamma_s_LO_tradBasis::~DGamma_s_LO_tradBasis() {
 }
 
 double DGamma_s_LO_tradBasis::computeThValue() {
-    return -Gamma21overM21_BsLO_tradBasis().real() * SM.getOptionalParameter("DmBs_ex");
+    return -getGamma21overM21_Bs_tradBasis(LO).real() * SM.getOptionalParameter("DmBs_ex");
 }

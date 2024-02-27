@@ -106,7 +106,7 @@ Asl_d_MSbar_NLO_tradBasis::~Asl_d_MSbar_NLO_tradBasis() {
 }
 
 double Asl_d_MSbar_NLO_tradBasis::computeThValue() {
-    return -Gamma21overM21_BdFULLNLO_tradBasis().imag();
+    return -getGamma21overM21_Bd_tradBasis(FULLNLO).imag();
 }
 
 Asl_s_MSbar_NLO_tradBasis::Asl_s_MSbar_NLO_tradBasis(const StandardModel& SM_i)
@@ -117,5 +117,5 @@ Asl_s_MSbar_NLO_tradBasis::~Asl_s_MSbar_NLO_tradBasis() {
 }
 
 double Asl_s_MSbar_NLO_tradBasis::computeThValue() {
-    return -Gamma21overM21_BsFULLNLO_tradBasis().imag();
+    return -getGamma21overM21_Bs_tradBasis(FULLNLO).imag();
 }

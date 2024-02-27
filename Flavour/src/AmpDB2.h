@@ -60,8 +60,9 @@ public:
         return M21_Bs(order);
     }
     
-    //mass schemes used in 2205.07907
-    enum mass_schemes {pole, MSbar, PS, only1overmb};
+    enum mass_schemes {pole, MSbar, PS, only1overmb}; //mass schemes
+    enum quark {d,s};   /*quark index i used for $B_i$*/
+    enum quarks {cc, cu, uu};   /*combinations of u- and c- quarks in diagrams */
     
     /**
     * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$ from Gerlach (2205.07907 and thesis)
@@ -70,7 +71,7 @@ public:
     * @return @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$
     */
     gslpp::complex getGamma21overM21_Bd(orders order, mass_schemes mass_scheme = MSbar){
-        return Gamma21overM21_Bd(order, mass_scheme);
+        return Gamma21overM21(order, mass_scheme, d);
     }
 
     /**
@@ -80,26 +81,27 @@ public:
     * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
     */
     gslpp::complex getGamma21overM21_Bs(orders order, mass_schemes mass_scheme = MSbar){
-        return Gamma21overM21_Bs(order, mass_scheme);
+        return Gamma21overM21(order, mass_scheme, s);
     }
     
     /**
-    * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$ in the traditional basis (hep-ph/0308029v2)
+    * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$ in the traditional basis (hep-ph/0308029v2)
+    * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$
     */
-    gslpp::complex Gamma21overM21_BdFULLNLO_tradBasis();
-    
-    /**
-    * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bD}@f$ in the traditional basis (hep-ph/0308029v2)
-    * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
-    */
-    gslpp::complex Gamma21overM21_BsFULLNLO_tradBasis();
+    gslpp::complex getGamma21overM21_Bd_tradBasis(orders order){
+        return Gamma21overM21_tradBasis(order, d);
+    }
 
     /**
-    * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bD}@f$ in the traditional basis (hep-ph/0308029v2)
+    * @brief The value of @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$ in the traditional basis (hep-ph/0308029v2)
+    * @param[in] order the %QCD order of the computation
     * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
     */
-    gslpp::complex Gamma21overM21_BsLO_tradBasis();    
+    gslpp::complex getGamma21overM21_Bs_tradBasis(orders order){
+        return Gamma21overM21_tradBasis(order, s);
+    }
+
 
     gslpp::complex getPBd(){
         return PBd();
@@ -125,24 +127,23 @@ protected:
     gslpp::complex M21_Bs(orders order);
 
     /**
-    * @brief A method to compute @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$
+    * @brief A method to compute @f$\frac{\Gamma_{21},M_{21}}^{bq}@f$
     * @detail source: Marvin Gerlach (2205.07907 and thesis) with 1/mb corrections from Lenz (hep-ph/0612167)
     * @param[in] order the %QCD order of the computation
     * @param[in] mass_scheme the scheme for the bottom quark mass
-    * @return @f$\frac{\Gamma_{21},M_{21}}^{bd}@f$
+    * @param[in] q the quark flavor in $B_q$
+    * @return @f$\frac{\Gamma_{21},M_{21}}^{bq}@f$
     */
-    gslpp::complex Gamma21overM21_Bd(orders order, mass_schemes mass_scheme);
+    gslpp::complex Gamma21overM21(orders order, mass_schemes mass_scheme, quark q);
     
-
     /**
-    * @brief A method to compute @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$ 
-    * @detail source: Marvin Gerlach (2205.07907 and thesis) with 1/mb corrections from Lenz (hep-ph/0612167)
+    * @brief A method to compute @f$\frac{\Gamma_{21},M_{21}}^{bq}@f$ in the traditional basis
+    * @detail source: Ciuchini (hep-ph/0308029v2)
     * @param[in] order the %QCD order of the computation
-    * @param[in] mass_scheme the scheme for the bottom quark mass
-    * @return @f$\frac{\Gamma_{21},M_{21}}^{bs}@f$
+    * @param[in] q the quark flavor in $B_q$
+    * @return @f$\frac{\Gamma_{21},M_{21}}^{bq}@f$
     */
-    gslpp::complex Gamma21overM21_Bs(orders order, mass_schemes mass_scheme);
-    
+    gslpp::complex Gamma21overM21_tradBasis(orders order, quark q);  
     
     /**
     * @brief A method to compute the ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value.
@@ -159,9 +160,6 @@ private:
     
     gslpp::complex C_1_SM;/**<Wilson coeffients H_{eff}^{DF2} @f$C_1@f$*/
     
-public:
-    enum quark {d,s};   /*quark index i used for $B_i$*/
-    enum quarks {cc, cu, uu};   /*combinations of u- and c- quarks in diagrams */
     
 private:
     //mathematical constants
@@ -313,8 +311,7 @@ private:
     void computeF0();
     void computeF1(); //requires "F0"
     void computeP();
-    void computeD(); //requires "F" and "P"
-    void computeD_LO(); //requires "F" and "P"
+    void computeD(orders order); //requires "F" and "P"
 
     //returns position in our array parameterization of the corresponding coefficient function
     int indexF(quarks qq, int k, int i, int j);
@@ -350,29 +347,30 @@ private:
  *  @f$\Gamma_{21}@f$ in NNLO from Marvin Gerlach (2205.07907 and thesis)       * 
  * ****************************************************************************/
     
-    gslpp::complex lambda_c; /* V_cq* V_cb  q=d,s */
-    gslpp::complex lambda_u; /* V_uq* V_ub  q=d,s */
+    //Values of the products of CKM elements
+    gslpp::complex lambda_c_d; /* V_cd* V_cb  */
+    gslpp::complex lambda_u_d; /* V_ud* V_ub  */
+    gslpp::complex lambda_c_s; /* V_cs* V_cb  */
+    gslpp::complex lambda_u_s; /* V_us* V_ub  */
     
     const double M_PI4 = M_PI2 * M_PI2;
     bool orderofp[3] = {true, true, true}; /*signals if LO, NLO and NNLO contributions are used for DB=2 coefficients*/
     gslpp::vector<gslpp::complex> transformation(gslpp::vector< gslpp::complex > result, orders order);
     
     //Values of DB=2 Wilson coefficients (Gerlach thesis)
-    gslpp::vector<gslpp::complex> c_H(); //require compute_pp_s and Wilson coefficients in Misiak basis
+    gslpp::vector<gslpp::complex> c_H(quark q, orders order); //require compute_pp_s and Wilson coefficients in Misiak basis
     gslpp::complex H(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
     gslpp::complex H_s(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
 
     //Values of DB=2 Wilson coefficients (Gerlach thesis) separated for
     //C-12-12 (LO, NLO, NNLO), C-12-36 (LO, NLO), C-36-36 (LO, NLO),C-12-8 (LO, NLO), C-36-8 (LO, NLO), C-8-8 (LO)
-    gslpp::vector< gslpp::complex >  c_H_partial(int i);
+    gslpp::vector< gslpp::complex >  c_H_partial(quark q, int i);
     gslpp::vector<gslpp::complex> H_allpartial(quarks qq); /*Values of partial contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
     gslpp::vector<gslpp::complex> H_s_allpartial(quarks qq); /*Values of partial contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
     gslpp::complex H_partial(quarks qq, int i_start, int i_end, int j_start, int j_end, int n);
     gslpp::complex H_s_partial(quarks qq, int i_start, int i_end, int j_start, int j_end, int n); 
     
     //Values of the coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
-    double p(quarks qq, int i, int j);
-    double p_s(quarks qq, int i, int j);
     double p(quarks qq, int i, int j, int n);
     double p_s(quarks qq, int i, int j, int n);
     double lastInput_compute_pp_s[3] = {NAN, NAN, NAN};
