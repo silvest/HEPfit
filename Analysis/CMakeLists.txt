@@ -49,6 +49,7 @@ target_link_libraries(analysis ${ROOT_LDFLAGS})
 target_link_libraries(analysis ${ROOT_LIBS})
 target_link_libraries(analysis -lMinuit)
 target_link_libraries(analysis ${GSL_LIBS})
+target_link_libraries(analysis ${RGESOLVER_LIBS})
 
 #add_dependencies(analysis BATBUILD)
 #add_dependencies(analysis FHBUILD)
