@@ -16,7 +16,7 @@ class StandardModel;
 /**
  * @class Btaunu
  * @ingroup Flavour
- * @brief A class for @f$S_{J/\psi\phi}@f$
+ * @brief A class for @f$B\to \tau\nu@f$
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of

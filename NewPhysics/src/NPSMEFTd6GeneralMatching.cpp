@@ -699,7 +699,7 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
 }
 
 /*******************************************************************************
- * Wilson coefficients matching, LEFT basis [1709.04486] ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij             *
+ * Wilson coefficients matching, LEFT basis [1709.04486] ordered as CnueduVLLkkij^+, CnueduVLRkkij^+, CnueduSRRkkij^+, CnueduSRLkkij^+, CnueduTRRkkij^+             *
  * ****************************************************************************/
 std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdiujleptonknu(int i, int j, int k)
 {
@@ -714,11 +714,11 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdiujleptonknu(int i,
         case NNLO:
         case NLO:
         case LO:
-                mculeptonnu.setCoeff(0, CnueduVLL.at(k).at(k).at(i).at(j), LO);
-                mculeptonnu.setCoeff(1, CnueduVLR.at(k).at(k).at(i).at(j), LO);
-                mculeptonnu.setCoeff(2, CnueduSRR.at(k).at(k).at(i).at(j), LO);
-                mculeptonnu.setCoeff(3, CnueduSRL.at(k).at(k).at(i).at(j), LO);
-                mculeptonnu.setCoeff(4, CnueduTRR.at(k).at(k).at(i).at(j), LO);
+                mculeptonnu.setCoeff(0, -(CnueduVLL.at(k).at(k).at(i).at(j)).conjugate(), LO);
+                mculeptonnu.setCoeff(1, -(CnueduVLR.at(k).at(k).at(i).at(j)).conjugate(), LO);
+                mculeptonnu.setCoeff(2, -(CnueduSRR.at(k).at(k).at(i).at(j)).conjugate(), LO);
+                mculeptonnu.setCoeff(3, -(CnueduSRL.at(k).at(k).at(i).at(j)).conjugate(), LO);
+                mculeptonnu.setCoeff(4, -(CnueduTRR.at(k).at(k).at(i).at(j)).conjugate(), LO);
                 break;
         default:
                 std::stringstream out;
