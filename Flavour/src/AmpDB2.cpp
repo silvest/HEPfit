@@ -230,11 +230,11 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q){
             Gamma21overM21 = Mb2_prefactor * (c(q, LO) * meoverme0) + Mb_PS * Mb_PS * -delta_1overm(q)/me(0);
             computeD(LO);
             Gamma21overM21 += Mb2_prefactor * (c(q, NLO) * meoverme0);
-            Gamma21overM21 *= -Gf2 / (24 * M_PI * MBq) / M21overme0;
+            Gamma21overM21 *= -Gf2 / (24. * M_PI * MBq) / M21overme0;
             break;
         case LO:
             computeD(LO);
-            Gamma21overM21 = -Gf2 / (24 * M_PI * MBq) / M21overme0 *
+            Gamma21overM21 = -Gf2 / (24. * M_PI * MBq) / M21overme0 *
                         (Mb2_prefactor * (c(q, LO) * meoverme0) + Mb_PS * Mb_PS * -delta_1overm(q)/me(0));
             break;
         default:
@@ -1018,7 +1018,7 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, qu
     gslpp::complex Gamma21overM21 = Mb2_prefactor * (c_H(q, order) * meoverme0).conjugate();
     computeWilsonCoeffsDB1bsg(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
     Gamma21overM21 += Mb_PS * Mb_PS * delta_1overm(q)/me(0);
-    Gamma21overM21 *= Gf2 / (24 * M_PI * MBq) / M21overme0;
+    Gamma21overM21 *= Gf2 / (24. * M_PI * MBq) / M21overme0;
     return Gamma21overM21;
 }
 
@@ -1213,17 +1213,17 @@ void AmpDB2::compute_pp_s(){
     }
     
     //remember value of z after setting it to 0 for calculation of uu coefficients
-    double cache_z = z;
+    const double cache_z = z;
+    const double cache_sqrt1minus4z = sqrt1minus4z;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {    
         //Gerlach thesis eq. (6.6)
-        cache_p[index_p(qq, 1, 1, 0)]= (23*sqrt1minus4z)/72 - (43*sqrt1minus4z*z)/36;
-        cache_p[index_p(qq, 1, 2, 0)]= sqrt1minus4z/6 - (5*sqrt1minus4z*z)/3;
+        cache_p[index_p(qq, 1, 1, 0)]= (23.*sqrt1minus4z)/72. - (43.*sqrt1minus4z*z)/36.;
+        cache_p[index_p(qq, 1, 2, 0)]= sqrt1minus4z/6. - (5.*sqrt1minus4z*z)/3.;
         cache_p[index_p(qq, 2, 2, 0)]= sqrt1minus4z - sqrt1minus4z*z;
-        cache_ps[index_p(qq, 1, 1, 0)]= (-5*sqrt1minus4z)/9 - (10*sqrt1minus4z*z)/9;
-        cache_ps[index_p(qq, 1, 2, 0)]= (-4*sqrt1minus4z)/3 - (8*sqrt1minus4z*z)/3;
-        cache_ps[index_p(qq, 2, 2, 0)]= sqrt1minus4z + 2*sqrt1minus4z*z;
-
-        //Gerlach thesis eq. (6.7)
+        cache_ps[index_p(qq, 1, 1, 0)]= (-5.*sqrt1minus4z)/9. - (10.*sqrt1minus4z*z)/9.;
+        cache_ps[index_p(qq, 1, 2, 0)]= (-4.*sqrt1minus4z)/3. - (8.*sqrt1minus4z*z)/3.;
+        cache_ps[index_p(qq, 2, 2, 0)]= sqrt1minus4z + 2.*sqrt1minus4z*z;
+        
         cache_p[index_p(qq, 1, 3, 0)]= 4./3.;
         cache_p[index_p(qq, 1, 4, 0)]= -5./36.;
         cache_p[index_p(qq, 1, 5, 0)]= (64.*sqrt1minus4z)/3. - (160.*sqrt1minus4z*z)/3.;
@@ -1243,9 +1243,11 @@ void AmpDB2::compute_pp_s(){
         cache_ps[index_p(qq, 2, 6, 0)]= 64./3.;
         
         //Gerlach thesis eq. (6.9)
-        z = 0;
+        z = 0.;
+        sqrt1minus4z = 1.;
     }
     z = cache_z;
+    sqrt1minus4z = cache_sqrt1minus4z;
     
     //Gerlach thesis eq. (6.8)
     double n_l = 3.;
@@ -1253,20 +1255,20 @@ void AmpDB2::compute_pp_s(){
     cache_p[index_p(cc, 3, 3, 0)]= 3. * (n_l + n_v) + 2.;
     cache_p[index_p(cc, 3, 4, 0)]= 7./3.;
     cache_p[index_p(cc, 3, 5, 0)]= 60. * (n_l + n_v) + 64.;
-    cache_p[index_p(cc, 3, 6, 0)]= 112./3;
+    cache_p[index_p(cc, 3, 6, 0)]= 112./3.;
     cache_p[index_p(cc, 4, 4, 0)]= 5. * (n_l + n_v) / 12. + 13./72.;
     cache_p[index_p(cc, 4, 5, 0)]= 112./3.;
     cache_p[index_p(cc, 4, 6, 0)]= 25./3. * (n_l + n_v) + 52./9.;
     cache_p[index_p(cc, 5, 5, 0)]= 512. + 408.*n_l + 408.*n_v*sqrt1minus4z - 480.*n_v*sqrt1minus4z*z;
     cache_p[index_p(cc, 5, 6, 0)]= 1792./3.;
-    cache_p[index_p(cc, 6, 6, 0)]= 416./9. + (340.*n_l)/9. + (170.*n_v)/3. + (170.*n_l*sqrt1minus4z)/9. + (124.*n_l*sqrt1minus4z*z)/9.;
-    
+    cache_p[index_p(cc, 6, 6, 0)]= 416./9. + (170.*n_l)/3. + (170.*n_v*sqrt1minus4z)/3. + (124.*n_v*sqrt1minus4z*z)/3.;
+
     cache_ps[index_p(cc, 3, 3, 0)]= -6. * (n_l + n_v) - 1.;
-    cache_ps[index_p(cc, 3, 4, 0)]= -8./3;
+    cache_ps[index_p(cc, 3, 4, 0)]= -8./3.;
     cache_ps[index_p(cc, 3, 5, 0)]= -120. * (n_l + n_v) - 32.;
     cache_ps[index_p(cc, 3, 6, 0)]= -128./3.;
     cache_ps[index_p(cc, 4, 4, 0)]= 2./3. * (n_l + n_v) - 7./9.;
-    cache_ps[index_p(cc, 4, 5, 0)]= -128./3;
+    cache_ps[index_p(cc, 4, 5, 0)]= -128./3.;
     cache_ps[index_p(cc, 4, 6, 0)]= 40./3. * (n_l + n_v) - 224./9.;
     cache_ps[index_p(cc, 5, 5, 0)]= -816. * (n_l + n_v) - 256.;
     cache_ps[index_p(cc, 5, 6, 0)]= -2048./3.;
@@ -1350,7 +1352,7 @@ void AmpDB2::compute_pp_s(){
          3. - (8.*(M_PI2))/3. - (16.*z*(M_PI2))/3.;
         
     cache_p[index_p(uu, 1, 1, 1)]= 299./81. + (19.*L_1)/18. + (149.*L_2)/108. - (5.*(M_PI2))/108.;
-    cache_p[index_p(uu, 1, 2, 1)]= -452/27. - (37.*L_1)/6. + (19.*L_2)/9. + (5.*(M_PI2))/9.;
+    cache_p[index_p(uu, 1, 2, 1)]= -452./27. - (37.*L_1)/6. + (19.*L_2)/9. + (5.*(M_PI2))/9.;
     cache_p[index_p(uu, 2, 2, 1)]= 37./18. - L_1 + (2.*L_2)/3. - (5.*(M_PI2))/3.;
     cache_ps[index_p(uu, 1, 1, 1)]= 2./81. - (4.*L_1)/9. - (40.*L_2)/27. - (2.*(M_PI2))/27.;
     cache_ps[index_p(uu, 1, 2, 1)]= 88./27. + (4.*L_1)/3. - (32.*L_2)/9. + (8.*(M_PI2))/9.;
@@ -1399,8 +1401,9 @@ void AmpDB2::compute_pp_s(){
         cache_p[index_p(cc, 1, 1, 1)]+= (-11./6. - 43./6. * z)/sqrt1minus4z * z_replace;
         cache_p[index_p(cc, 1, 2, 1)]+= (-2. + 10. * z)/sqrt1minus4z * z_replace;
         cache_p[index_p(cc, 2, 2, 1)]+= (-3. + 6. * z)/sqrt1minus4z * z_replace;
-
-        
+        cache_ps[index_p(cc, 1, 1, 1)]+= (20./3. * z)/sqrt1minus4z * z_replace;
+        cache_ps[index_p(cc, 1, 2, 1)]+= (16. * z)/sqrt1minus4z * z_replace;
+        cache_ps[index_p(cc, 2, 2, 1)]+= (-12. * z)/sqrt1minus4z * z_replace;        
     
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {    
         //equation (6.14)
@@ -1411,17 +1414,17 @@ void AmpDB2::compute_pp_s(){
                 + 376./9. * L_1 + 896./9. * L_2 - 40./(9. * sqrt3) * M_PI + 318.;
         cache_p[index_p(qq, 1, 6, 1)]= z * (764./3. * L_1 + 8. * L_2 + 32. * logz + 8./9. * M_PI2 + 22850./27.)
                 - 1259./27. * L_1 + 8./27. * L_2 + 40./9. * M_PI2 - 55./(27. * sqrt3) * M_PI - 4243./27.;
-        cache_p[index_p(qq, 2, 3, 1)]= (24. * L_1 + 170./3.) * z - 47./3. * L_1 + 14./3. * L_2 + 5./(3. * sqrt3) * M_PI - 677./18;
+        cache_p[index_p(qq, 2, 3, 1)]= (24. * L_1 + 170./3.) * z - 47./3. * L_1 + 14./3. * L_2 + 5./(3. * sqrt3) * M_PI - 677./18.;
         cache_p[index_p(qq, 2, 4, 1)]= (26. * L_1 - 10./3. * M_PI2 + 1429./18.) * z - 35./9. * L_1 - L_2 / 9. - 5./3. * M_PI2
                 + 25./(18. * sqrt3) * M_PI - 88./27.;
-        cache_p[index_p(qq, 2, 5, 1)]= z * (816. * L_1 - 144. * L_2 - 576 * logz + 3656./3.)
+        cache_p[index_p(qq, 2, 5, 1)]= z * (816. * L_1 - 144. * L_2 - 576. * logz + 3656./3.)
                 - 752./3. * L_1 + 224./3. * L_2 + 80./(3. * sqrt3) * M_PI - 580.;
         cache_p[index_p(qq, 2, 6, 1)]= z * (128. * L_1 - 48. * L_2 - 192. * logz - 16./3. * M_PI2 + 6140./9.)
                 - 290./9. * L_1 - 16./9. * L_2 - 80./3. * M_PI2 + 110./(9. * sqrt3) * M_PI - 442./9.;
 
         cache_ps[index_p(qq, 1, 3, 1)]= -4./3. * L_1 - 64./9. * L_2 - 1720./9. * z - 4./(9. * sqrt3) * M_PI - 130./27.;
         cache_ps[index_p(qq, 1, 4, 1)]= 2. * L_1 - 16./27. * L_2 + (80./27. + 8./9. * M_PI2) * z + 4./9. * M_PI2 - 10./(27. * sqrt3) * M_PI + 404./81.;
-        cache_ps[index_p(qq, 1, 5, 1)]= -64./3. * L_1 - 1024./9. * L_2 - 27952./9. * z - 64./(9 * sqrt3) * M_PI - 2128./9.;
+        cache_ps[index_p(qq, 1, 5, 1)]= -64./3. * L_1 - 1024./9. * L_2 - 27952./9. * z - 64./(9. * sqrt3) * M_PI - 2128./9.;
         cache_ps[index_p(qq, 1, 6, 1)]= 24. * L_1 - 256./27. * L_2 + (128./9. * M_PI2 - 520./27.) * z - 64./9. * M_PI2
                 - 88./(27. * sqrt3) * M_PI + 2824./27.;
         cache_ps[index_p(qq, 2, 3, 1)]= 8. * L_1 - 16./3. * L_2 - 448./3. * z + 8./(3. * sqrt3) * M_PI + 116./9.;
@@ -1431,7 +1434,7 @@ void AmpDB2::compute_pp_s(){
                 - 128./3. * M_PI2 + 176./(9. * sqrt3) * M_PI + 1840./9.;
 
         //Gerlach thesis eq. (6.13) and (6.15)
-        z = 0;
+        z = 0.;
     }
     z = cache_z;
     //Gerlach thesis eq. (6.15)
@@ -1469,7 +1472,7 @@ void AmpDB2::compute_pp_s(){
     cache_p[index_p(cc, 3, 6, 1)] = (144. * L_1 + 440./3.) * z - 12932./27. * L_1 + 1184./9. * L_2 - 160./9. * M_PI2
             + 670./(9. * sqrt3) * M_PI - 131410./81.;
     cache_p[index_p(cc, 4, 4, 1)] = 181./162. * L_1 + 127./108. * L_2 + (323./36. - 5./3. * M_PI2) * z - 335./108. * M_PI2
-            + 575/(108. * sqrt3) * M_PI + 779./486.;
+            + 575./(108. * sqrt3) * M_PI + 779./486.;
     cache_p[index_p(cc, 4, 5, 1)] = (576. * L_1 + 3836./3.) * z - 14912./27. * L_1 + 1184./9. * L_2 - 160./9. * M_PI2
             + 1120./(9. * sqrt3) * M_PI - 127990./81.;
     cache_p[index_p(cc, 4, 6, 1)] = (60. * L_1 - 100./3. * M_PI2 + 2455./9.) * z - 8759./81. * L_1 + 1088./27. * L_2
@@ -1485,7 +1488,7 @@ void AmpDB2::compute_pp_s(){
     cache_ps[index_p(cc, 3, 4, 1)] = 268./27. * L_1 - 64./9. * L_2 - 16./3. * z - 16./9. * M_PI2 + 112./(9. * sqrt3) * M_PI + 3506./81.;
     cache_ps[index_p(cc, 3, 5, 1)] = 5632./9. * L_1 - 4096./3. * L_2 - 8640. * z - 256./3. * M_PI2 + 256./(3. * sqrt3) * M_PI + 9728./27.;
     cache_ps[index_p(cc, 3, 6, 1)] = 9184./27. * L_1 - 1024./9. * L_2 - 160./3. * z - 256./9. * M_PI2 + 1072./(9. * sqrt3) * M_PI + 88688./81.;
-    cache_ps[index_p(cc, 4, 4, 1)] = 1028./81. * L_1 + 136./27. * L_2 - 8./3. * M_PI2 * z + 230./9. * z - 134./27 * M_PI2 + 230./(27. * sqrt3) * M_PI
+    cache_ps[index_p(cc, 4, 4, 1)] = 1028./81. * L_1 + 136./27. * L_2 - 8./3. * M_PI2 * z + 230./9. * z - 134./27. * M_PI2 + 230./(27. * sqrt3) * M_PI
             + 6214./243.;
     cache_ps[index_p(cc, 4, 5, 1)] = 9472./27. * L_1 - 1024./9. * L_2 + 608./3. * z - 256./9. * M_PI2 + 1792./(9. * sqrt3) + 64784./81.;
     cache_ps[index_p(cc, 4, 6, 1)] = 10792./81. * L_1 + 2048./27. * L_2 - 160./3. * M_PI2 * z + 3568./9. * z - 2560./27. * M_PI2
@@ -1605,7 +1608,7 @@ void AmpDB2::compute_pp_s(){
                 + n_v * (3.55556 * L_1 * z + 176.979 * z -105.276 * sqrtz);
     
         //Gerlach thesis eq. (6.26)
-        z = 0;
+        z = 0.;
     }
      */
     z = cache_z;   
@@ -1736,7 +1739,7 @@ void AmpDB2::compute_pp_s(){
     
     //resummation affecting arguments of logs and Dilogs
     cache_p[index_p(cc, 1, 1, 2)]+= 2./81. * logz * (15. + 1615.*z + 1014.*z * logz);
-    cache_p[index_p(cc, 1, 2, 2)]+= 4./27. * logz * (-48 + 973 * z + 276 * z * logz);
+    cache_p[index_p(cc, 1, 2, 2)]+= 4./27. * logz * (-48. + 973. * z + 276. * z * logz);
     cache_p[index_p(cc, 2, 2, 2)]+= 8./9.* logz * (33. + 4.*z + 6.*z * logz);
     cache_ps[index_p(cc, 1, 1, 2)]+= -32./27. * logz + 5216./27. * logz * z - 1376./27. * log2z * z;
     cache_ps[index_p(cc, 1, 2, 2)]+= 32./9. * logz + 3712./9. * logz * z - 640./9. * log2z * z;
@@ -1809,7 +1812,7 @@ void AmpDB2::compute_pp_s(){
                 - 8416./(27. * sqrt3) * M_PI - 423440./243.;
         
         //Gerlach thesis eq. (6.31) and (6.29)
-        z = 0;
+        z = 0.;
     }
     z = cache_z;
     
