@@ -99,7 +99,7 @@ double Asl_s_MSbar_NLO::computeThValue() {
 }
 
 Asl_d_MSbar_NLO_tradBasis::Asl_d_MSbar_NLO_tradBasis(const StandardModel& SM_i)
-: ThObservable(SM_i), AmpDB2(SM_i, true) {
+: ThObservable(SM_i), AmpDB2(SM_i) {
 }
 
 Asl_d_MSbar_NLO_tradBasis::~Asl_d_MSbar_NLO_tradBasis() {
@@ -110,7 +110,7 @@ double Asl_d_MSbar_NLO_tradBasis::computeThValue() {
 }
 
 Asl_s_MSbar_NLO_tradBasis::Asl_s_MSbar_NLO_tradBasis(const StandardModel& SM_i)
-: ThObservable(SM_i), AmpDB2(SM_i, true) {
+: ThObservable(SM_i), AmpDB2(SM_i) {
 }
 
 Asl_s_MSbar_NLO_tradBasis::~Asl_s_MSbar_NLO_tradBasis() {

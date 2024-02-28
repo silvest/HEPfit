@@ -222,25 +222,20 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q){
             Mb_PS * Mb_PS * delta_1overm_tradBasis(q)/me(0));
     */
     
-    //switching to the new basis of hep-ph/0612167
+    //switching to the new basis
     gslpp::complex Gamma21overM21;
-    double alpha1, alpha2;
     switch (order) {
         case FULLNLO:
-            alpha1 = as_4pi_mu2 * 4./3. * (12. * log(mu_2/Mb_pole) + 6.);
-            alpha2 = as_4pi_mu2 * 4./3. * (6. * log(mu_2/Mb_pole) + 13./2.);
             computeD(FULLNLO);
-            Gamma21overM21 = Mb2_prefactor * (c(q)(0) - 1/2. * c(q)(1) - 1. * c(q)(1) * me(2)/me(0)) + 
-                    Mb_PS * Mb_PS * -delta_1overm(q)/me(0);
+            Gamma21overM21 = Mb2_prefactor * (c(q, LO) * meoverme0) + Mb_PS * Mb_PS * -delta_1overm(q)/me(0);
             computeD(LO);
-            Gamma21overM21 += Mb2_prefactor * (-alpha2/2. * c(q)(1) - alpha1 * c(q)(1) * me(2)/me(0));
+            Gamma21overM21 += Mb2_prefactor * (c(q, NLO) * meoverme0);
             Gamma21overM21 *= -Gf2 / (24 * M_PI * MBq) / M21overme0;
             break;
         case LO:
             computeD(LO);
             Gamma21overM21 = -Gf2 / (24 * M_PI * MBq) / M21overme0 *
-                        (Mb2_prefactor * (c(q)(0) - 1/2. * c(q)(1) - 1. * c(q)(1) * me(2)/me(0)) + 
-                    Mb_PS * Mb_PS * -delta_1overm(q)/me(0));
+                        (Mb2_prefactor * (c(q, LO) * meoverme0) + Mb_PS * Mb_PS * -delta_1overm(q)/me(0));
             break;
         default:
             throw std::runtime_error("AmpDB2::Gamma21overM21_tradBasis(orders order, quark q): order not implemented");    
@@ -757,6 +752,11 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
     me_Rtilde(1) = -me_R(2);
     me_Rtilde(2) = me_R(3) + 0.5 * me_R(2);
     
+    //matrix elements needed for the leading term of Gamma21overM21
+    meoverme0(0) = 1.;
+    meoverme0(1) = me(1)/me(0);
+    meoverme0(2) = me(2)/me(0);
+    
     //double n_l = 3.; //number of massless quark flavors
     //double n_h = 1.; //number of quarks with mass of mb
     //double L = 2. * log(mu_2/Mb_pole);
@@ -792,12 +792,12 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
 }
 
 //hep-ph/0308029v2 eq. 18
-gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
-    gslpp::vector< complex > c(3, 0.);
+gslpp::vector<gslpp::complex> AmpDB2::c(quark q, orders order) {
+    gslpp::vector< gslpp::complex > result = gslpp::vector< gslpp::complex >(3, 0.);
     switch (q) {
         case d:
             for (int i = 1; i <= 2; i++) {
-                c.assign(i-1,
+                result.assign(i-1,
                         VtbVtd2 * D(uu, i) + 2. * VcbVcd * VtbVtd * (D(uu, i) - D(cu, i))
                         + VcbVcd2 * (D(cc, i) + D(uu, i) - 2. * D(cu, i))
                         );
@@ -805,7 +805,7 @@ gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
             break;
         case s:
             for (int i = 1; i <= 2; i++) {              
-                c.assign(i-1,
+                result.assign(i-1,
                         VtbVts2 * D(uu, i) + 2. * VcbVcs * VtbVts * (D(uu, i) - D(cu, i))
                         + VcbVcs2 * (D(cc, i) + D(uu, i) - 2. * D(cu, i))
                         );
@@ -814,15 +814,25 @@ gslpp::vector<gslpp::complex> AmpDB2::c(quark q) {
         default:
             throw std::runtime_error("AmpDB2::c(quark q, double mu_2): invalid quark index: ");
     }
+    
     //transformation to the new basis (hep-ph/0612167 eq. 18 + 21)
-    //double alpha1 = 1. + as_4pi_mu2 * 4./3. * (12. * log(mu_2/Mb_pole) + 6.);
-    //double alpha2 = 1. + as_4pi_mu2 * 4./3. * (6. * log(mu_2/Mb_pole) + 13./2.);    
-    //c.assign(0, c(0) - alpha2/2. * c(1));
-    //c.assign(2, -alpha1 * c(1));    
-    //c.assign(1, 0.);
+    if (order == LO){
+        result.assign(0, result(0) - 0.5 * result(1));
+        result.assign(2, -result(1));
+        result.assign(1, 0.);
+    } else if (order == NLO){
+        double alpha1 = as_4pi_mu2 * 4./3. * (12. * log(mu_2/Mb_pole) + 6.);
+        double alpha2 = as_4pi_mu2 * 4./3. * (6. * log(mu_2/Mb_pole) + 13./2.);    
+        result.assign(0, -alpha2/2. * result(1));
+        result.assign(2, -alpha1 * result(1));
+        result.assign(1, 0.);
+    } else {
+        throw std::runtime_error("AmpDB2::c(quark q, orders order): order not implemented"); 
+    }
+
     //switch Wilson coefficients to RI scheme
-    if (flag_RI) c += as_4pi_mu2 * coeffsMStoRI.transpose() * c;
-    return c;
+    if (flag_RI) result += as_4pi_mu2 * coeffsMStoRI.transpose() * result;
+    return result;
 }
 
 gslpp::complex AmpDB2::D(quarks qq, int k) {
@@ -1005,7 +1015,7 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, qu
             * Gf2 / (24 * M_PI * MBq) / M21overme0; */
     
    //Gerlach thesis eq. 6.1 divided by M_21
-    gslpp::complex Gamma21overM21 = Mb2_prefactor * (c_H(q, order)(0) + c_H(q, order)(1) * me(1)/me(0) + c_H(q, order)(2) * me(2)/me(0)).conjugate();
+    gslpp::complex Gamma21overM21 = Mb2_prefactor * (c_H(q, order) * meoverme0).conjugate();
     computeWilsonCoeffsDB1bsg(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
     Gamma21overM21 += Mb_PS * Mb_PS * delta_1overm(q)/me(0);
     Gamma21overM21 *= Gf2 / (24 * M_PI * MBq) / M21overme0;
@@ -1531,6 +1541,7 @@ void AmpDB2::compute_pp_s(){
     double log2z = logz * logz;
     double sqrtz = sqrt(z);
     
+    /*
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {
         //Gerlach thesis eq. (6.22)
         cache_p[index_p(qq, 1, 1, 2)] = z * (-1348./9. * L_1 * logz - 88./3. * L_2  * logz - 2347./54. * L_12 + 187./18. * L_22
@@ -1596,6 +1607,7 @@ void AmpDB2::compute_pp_s(){
         //Gerlach thesis eq. (6.26)
         z = 0;
     }
+     */
     z = cache_z;   
     gslpp::complex log1M1OverSqrtz = log(abs(1. - 1./sqrtz));
     if (1./sqrtz > 1) log1M1OverSqrtz += M_PI * complex::i();

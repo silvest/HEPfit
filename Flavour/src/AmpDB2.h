@@ -178,6 +178,7 @@ private:
     double mu_b;        /*scale the running MSbar mass of the bottom quark */
     
     gslpp::vector<double> me = gslpp::vector<double>(5, 0.); /*DB=2 matrix elements in SUSY basis (arXiv:1907.01025v2) */
+    gslpp::vector<double> meoverme0 = gslpp::vector<double>(3, 0.); /*DB=2 matrix elements me(1),me(2),me(3) */
     gslpp::vector<double> me_R = gslpp::vector<double>(5, 0.); /*subleading DB=2 matrix elements R_0 to R_3 (Gerlach thesis) and R_4 (hep-ph/0308029v2) */
     gslpp::vector<double> me_Rtilde = gslpp::vector<double>(3, 0.); /*subleading DB=2 matrix elements R_1 to R_3 (Gerlach thesis) */
  
@@ -321,9 +322,10 @@ private:
     /**
     * @brief Values of DB=2 Wilson coefficients (hep-ph/0308029v2)
     * @param[in] quark index of the neutral B mesons
+    * @param[in] order the %QCD order of the computation
     * @detail requires computeCKMandMasses() and "D"
     */
-    gslpp::vector<gslpp::complex> c(quark q);
+    gslpp::vector<gslpp::complex> c(quark q, orders order);
     
     
     /**
