@@ -298,15 +298,15 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
         mySM.getQuarks(QCD::CHARM).getMass_scale(),
         mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
     
-    //PS mass of bottom quark
-    Mb_PS = 4.479; //fixed to compare with (Gerlach thesis)
-    //NNLO evaluation from hep-ph/9804241v2 eq. (25) has to expanded to 4-loops
-    //Mb_PS = Mb_Mb * (1. + 16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (K - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2))));
-    
     //strong coupling constant divided by 4*Pi
     as_4pi_mu1 = mySM.Als(mu_1, FULLNNNLO, true)/(4.*M_PI);//mySM.Alstilde5(mu_1);
-    as_4pi_mu2 = mySM.Als(mu_2, FULLNNNLO, true)/(4.*M_PI);;//mySM.Alstilde5(mu_2);
-    as_4pi = mySM.Als(Mb_Mb, FULLNNNLO, true)/(4.*M_PI);;//mySM.Alstilde5(Mb_Mb);
+    as_4pi_mu2 = mySM.Als(mu_2, FULLNNNLO, true)/(4.*M_PI);//mySM.Alstilde5(mu_2);
+    as_4pi = mySM.Als(Mb_Mb, FULLNNNLO, true)/(4.*M_PI);//mySM.Alstilde5(Mb_Mb);
+            
+    //PS mass of bottom quark
+    //Mb_PS = 4.479; //fixed to compare with (Gerlach thesis)
+    //NNLO evaluation from hep-ph/9804241v2 eq. (25) should be expanded to 4-loops
+    Mb_PS = Mb_Mb * (1. + 16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (K - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2))));
 
     //adapt "Mb2_prefactor" to the used mass scheme; Mb, Mc, resummed z always in MSbar 
     //explained in Gerlach thesis chapter 7.0 and arxiv:2205.07907 Results.
