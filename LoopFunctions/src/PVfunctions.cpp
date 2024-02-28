@@ -466,6 +466,16 @@ gslpp::complex PVfunctions::Bfp(const double mu2, const double p2,
     return Bfp;
 }
 
+gslpp::complex PVfunctions::C0(const double p1, const double p2, const double p1p22, 
+                  const double m02, const double m12, const double m22) const
+{
+#ifdef USE_LOOPTOOLS
+    return ( ExtraMinusSign * myLT.PV_C0(p1,p2,p1p22,m02,m12,m22) );
+#else    
+    throw std::runtime_error("PVfunctions::C0(p1,p2,p1p22,m02,m12,m22): Only available with LoopTools.");
+#endif
+}                                                                   //AG:added
+
 gslpp::complex PVfunctions::C0(const double p2, 
                         const double m02, const double m12, const double m22) const
 {

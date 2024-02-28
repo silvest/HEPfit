@@ -22,9 +22,8 @@ HeffDF1_diujlknu::~HeffDF1_diujlknu() {
 
 /******************************************************************************
  * evolution of Wilson Coefficients for M -> lepton nu  
- * The WC are written in the LEFT basis of arxiv:1709.04486, ordered as CnueduVLL3331, CnueduVLR3331, CnueduSRR3331, CnueduSRL3331, CnueduTRR3331
+ * The WC are written in the LEFT basis of arxiv:1709.04486, ordered as CnueduVLLkkji^+, CnueduVLRkkji^+, CnueduSRRkkji^+, CnueduSRLkkji^+, CnueduTRRkkji^+
  * the expressions can be found in arxiv:1706.00410 and arxiv:1605.07114
- * in a similar basis
  *
  ******************************************************************************/
 gslpp::vector<gslpp::complex>** HeffDF1_diujlknu::ComputeCoeffdiujleptonknu(int i, int j, int k, double mu) {

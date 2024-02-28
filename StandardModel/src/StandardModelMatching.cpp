@@ -1806,7 +1806,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
 }
 
 /*******************************************************************************
- * Wilson coefficients matching, LEFT basis [1709.04486] ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij             *
+ * Wilson coefficients matching, LEFT basis [1709.04486] ordered as CnueduVLLkkij^+, CnueduVLRkkij^+, CnueduSRRkkij^+, CnueduSRLkkij^+, CnueduTRRkkij^+             *
  * ****************************************************************************/
 std::vector<WilsonCoefficient>& StandardModelMatching::CMdiujleptonknu(int i, int j, int k) {
 
@@ -1818,7 +1818,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMdiujleptonknu(int i, in
         case NNLO:
         case NLO:
         case LO:
-            mculeptonnu.setCoeff(0, 4. * GF * Vckm(j, i).conjugate() / sqrt(2.), LO);
+            mculeptonnu.setCoeff(0, 4. * GF * Vckm(j, i) / sqrt(2.), LO);
             break;
         default:
             std::stringstream out;

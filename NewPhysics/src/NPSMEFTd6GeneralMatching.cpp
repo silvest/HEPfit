@@ -516,7 +516,7 @@ NPSMEFTd6GeneralMatching::~NPSMEFTd6GeneralMatching()
 {
 }
 
-// Matching to the Delta F=2 Hamiltonian in the SUSY Basis, using eq. (199) of 2009.07276
+// Matching to the Delta F=2 Hamiltonian in the SUSY Basis, checked using 1512.02830
 
 std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdk2()
 {
@@ -529,10 +529,10 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdk2()
         switch (mck2.getOrder())
         {
         case LO:
-                mck2.setCoeff(0, CddVLL.at(0).at(1).at(0).at(1), LO);
-                mck2.setCoeff(1, CddS1RR.at(1).at(0).at(1).at(0).conjugate() - CddS8RR.at(1).at(0).at(1).at(0).conjugate() / 6., LO);
-                mck2.setCoeff(2, CddS8RR.at(1).at(0).at(1).at(0).conjugate() / 2., LO);
-                mck2.setCoeff(3, CddV1LR.at(0).at(1).at(0).at(1), LO);
+                mck2.setCoeff(0, -CddVLL.at(0).at(1).at(0).at(1), LO);
+                mck2.setCoeff(1, -(CddS1RR.at(1).at(0).at(1).at(0).conjugate() - CddS8RR.at(1).at(0).at(1).at(0).conjugate() / 6.), LO);
+                mck2.setCoeff(2, -CddS8RR.at(1).at(0).at(1).at(0).conjugate() / 2., LO);
+                mck2.setCoeff(3, CddV8LR.at(0).at(1).at(0).at(1), LO);
                 mck2.setCoeff(4, 2. * CddV1LR.at(0).at(1).at(0).at(1) - CddV8LR.at(0).at(1).at(0).at(1) / 3., LO);
                 break;
         default:
@@ -546,9 +546,9 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdk2()
         switch (mck2.getOrder())
         {
         case LO:
-                mck2.setCoeff(0, CddVRR.at(0).at(1).at(0).at(1), LO);
-                mck2.setCoeff(1, CddS1RR.at(0).at(1).at(0).at(1) - CddS8RR.at(0).at(1).at(0).at(1) / 6., LO);
-                mck2.setCoeff(2, CddS8RR.at(0).at(1).at(0).at(1) / 2., LO);
+                mck2.setCoeff(0, -CddVRR.at(0).at(1).at(0).at(1), LO);
+                mck2.setCoeff(1, -(CddS1RR.at(0).at(1).at(0).at(1) - CddS8RR.at(0).at(1).at(0).at(1) / 6.), LO);
+                mck2.setCoeff(2, -CddS8RR.at(0).at(1).at(0).at(1) / 2., LO);
                 mck2.setCoeff(3, 0., LO);
                 mck2.setCoeff(4, 0., LO);
                 break;
@@ -574,10 +574,10 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdd2()
         switch (mcd2.getOrder())
         {
         case LO:
-                mcd2.setCoeff(0, CuuVLL.at(0).at(1).at(0).at(1), LO);
-                mcd2.setCoeff(1, CuuS1RR.at(1).at(0).at(1).at(0).conjugate() - CuuS8RR.at(1).at(0).at(1).at(0).conjugate() / 6., LO);
-                mcd2.setCoeff(2, CuuS8RR.at(1).at(0).at(1).at(0).conjugate() / 2., LO);
-                mcd2.setCoeff(3, CuuV1LR.at(0).at(1).at(0).at(1), LO);
+                mcd2.setCoeff(0, -CuuVLL.at(0).at(1).at(0).at(1), LO);
+                mcd2.setCoeff(1, -(CuuS1RR.at(1).at(0).at(1).at(0).conjugate() - CuuS8RR.at(1).at(0).at(1).at(0).conjugate() / 6.), LO);
+                mcd2.setCoeff(2, -CuuS8RR.at(1).at(0).at(1).at(0).conjugate() / 2., LO);
+                mcd2.setCoeff(3, CuuV8LR.at(0).at(1).at(0).at(1), LO);
                 mcd2.setCoeff(4, 2. * CuuV1LR.at(0).at(1).at(0).at(1) - CuuV8LR.at(0).at(1).at(0).at(1) / 3., LO);
                 break;
         default:
@@ -591,9 +591,9 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdd2()
         switch (mcd2.getOrder())
         {
         case LO:
-                mcd2.setCoeff(0, CuuVRR.at(0).at(1).at(0).at(1), LO);
-                mcd2.setCoeff(1, CuuS1RR.at(0).at(1).at(0).at(1) - CuuS8RR.at(0).at(1).at(0).at(1) / 6., LO);
-                mcd2.setCoeff(2, CuuS8RR.at(0).at(1).at(0).at(1) / 2., LO);
+                mcd2.setCoeff(0, -CuuVRR.at(0).at(1).at(0).at(1), LO);
+                mcd2.setCoeff(1, -(CuuS1RR.at(0).at(1).at(0).at(1) - CuuS8RR.at(0).at(1).at(0).at(1) / 6.), LO);
+                mcd2.setCoeff(2, -CuuS8RR.at(0).at(1).at(0).at(1) / 2., LO);
                 mcd2.setCoeff(3, 0., LO);
                 mcd2.setCoeff(4, 0., LO);
                 break;
@@ -619,10 +619,10 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbd2()
         switch (mcbd.getOrder())
         {
         case LO:
-                mcbd.setCoeff(0, CddVLL.at(0).at(2).at(0).at(2), LO);
-                mcbd.setCoeff(1, CddS1RR.at(2).at(0).at(2).at(0).conjugate() - CddS8RR.at(2).at(0).at(2).at(0).conjugate() / 6., LO);
-                mcbd.setCoeff(2, CddS8RR.at(2).at(0).at(2).at(0).conjugate() / 2., LO);
-                mcbd.setCoeff(3, CddV1LR.at(0).at(2).at(0).at(2), LO);
+                mcbd.setCoeff(0, -CddVLL.at(0).at(2).at(0).at(2), LO);
+                mcbd.setCoeff(1, -(CddS1RR.at(2).at(0).at(2).at(0).conjugate() - CddS8RR.at(2).at(0).at(2).at(0).conjugate() / 6.), LO);
+                mcbd.setCoeff(2, -CddS8RR.at(2).at(0).at(2).at(0).conjugate() / 2., LO);
+                mcbd.setCoeff(3, CddV8LR.at(0).at(2).at(0).at(2), LO);
                 mcbd.setCoeff(4, 2. * CddV1LR.at(0).at(2).at(0).at(2) - CddV8LR.at(0).at(2).at(0).at(2) / 3., LO);
                 break;
         default:
@@ -636,9 +636,9 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbd2()
         switch (mcbd.getOrder())
         {
         case LO:
-                mcbd.setCoeff(0, CddVRR.at(0).at(2).at(0).at(2), LO);
-                mcbd.setCoeff(1, CddS1RR.at(0).at(2).at(0).at(2) - CddS8RR.at(0).at(2).at(0).at(2) / 6., LO);
-                mcbd.setCoeff(2, CddS8RR.at(0).at(2).at(0).at(2) / 2., LO);
+                mcbd.setCoeff(0, -CddVRR.at(0).at(2).at(0).at(2), LO);
+                mcbd.setCoeff(1, -(CddS1RR.at(0).at(2).at(0).at(2) - CddS8RR.at(0).at(2).at(0).at(2) / 6.), LO);
+                mcbd.setCoeff(2, -CddS8RR.at(0).at(2).at(0).at(2) / 2., LO);
                 mcbd.setCoeff(3, 0., LO);
                 mcbd.setCoeff(4, 0., LO);
                 break;
@@ -664,10 +664,10 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
         switch (mcbs.getOrder())
         {
         case LO:
-                mcbs.setCoeff(0, CddVLL.at(1).at(2).at(1).at(2), LO);
-                mcbs.setCoeff(1, CddS1RR.at(2).at(1).at(2).at(1).conjugate() - CddS8RR.at(2).at(1).at(2).at(1).conjugate() / 6., LO);
-                mcbs.setCoeff(2, CddS8RR.at(2).at(1).at(2).at(1).conjugate() / 2., LO);
-                mcbs.setCoeff(3, CddV1LR.at(1).at(2).at(1).at(2), LO);
+                mcbs.setCoeff(0, -CddVLL.at(1).at(2).at(1).at(2), LO);
+                mcbs.setCoeff(1, -(CddS1RR.at(2).at(1).at(2).at(1).conjugate() - CddS8RR.at(2).at(1).at(2).at(1).conjugate() / 6.), LO);
+                mcbs.setCoeff(2, -CddS8RR.at(2).at(1).at(2).at(1).conjugate() / 2., LO);
+                mcbs.setCoeff(3, CddV8LR.at(1).at(2).at(1).at(2), LO);
                 mcbs.setCoeff(4, 2. * CddV1LR.at(1).at(2).at(1).at(2) - CddV8LR.at(1).at(2).at(1).at(2) / 3., LO);
                 break;
         default:
@@ -681,9 +681,9 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
         switch (mcbs.getOrder())
         {
         case LO:
-                mcbs.setCoeff(0, CddVRR.at(1).at(2).at(1).at(2), LO);
-                mcbs.setCoeff(1, CddS1RR.at(1).at(2).at(1).at(2) - CddS8RR.at(1).at(2).at(1).at(2) / 6., LO);
-                mcbs.setCoeff(2, CddS8RR.at(1).at(2).at(1).at(2) / 2., LO);
+                mcbs.setCoeff(0, -CddVRR.at(1).at(2).at(1).at(2), LO);
+                mcbs.setCoeff(1, -(CddS1RR.at(1).at(2).at(1).at(2) - CddS8RR.at(1).at(2).at(1).at(2) / 6.), LO);
+                mcbs.setCoeff(2, - CddS8RR.at(1).at(2).at(1).at(2) / 2., LO);
                 mcbs.setCoeff(3, 0., LO);
                 mcbs.setCoeff(4, 0., LO);
                 break;
@@ -699,7 +699,7 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
 }
 
 /*******************************************************************************
- * Wilson coefficients matching, LEFT basis [1709.04486] ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij             *
+ * Wilson coefficients matching, LEFT basis [1709.04486] ordered as CnueduVLLkkij^+, CnueduVLRkkij^+, CnueduSRRkkij^+, CnueduSRLkkij^+, CnueduTRRkkij^+             *
  * ****************************************************************************/
 std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdiujleptonknu(int i, int j, int k)
 {
@@ -714,11 +714,11 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdiujleptonknu(int i,
         case NNLO:
         case NLO:
         case LO:
-                mculeptonnu.setCoeff(0, CnueduVLL.at(k).at(k).at(i).at(j), LO);
-                mculeptonnu.setCoeff(1, CnueduVLR.at(k).at(k).at(i).at(j), LO);
-                mculeptonnu.setCoeff(2, CnueduSRR.at(k).at(k).at(i).at(j), LO);
-                mculeptonnu.setCoeff(3, CnueduSRL.at(k).at(k).at(i).at(j), LO);
-                mculeptonnu.setCoeff(4, CnueduTRR.at(k).at(k).at(i).at(j), LO);
+                mculeptonnu.setCoeff(0, -(CnueduVLL.at(k).at(k).at(i).at(j)).conjugate(), LO);
+                mculeptonnu.setCoeff(1, -(CnueduVLR.at(k).at(k).at(i).at(j)).conjugate(), LO);
+                mculeptonnu.setCoeff(2, -(CnueduSRR.at(k).at(k).at(i).at(j)).conjugate(), LO);
+                mculeptonnu.setCoeff(3, -(CnueduSRL.at(k).at(k).at(i).at(j)).conjugate(), LO);
+                mculeptonnu.setCoeff(4, -(CnueduTRR.at(k).at(k).at(i).at(j)).conjugate(), LO);
                 break;
         default:
                 std::stringstream out;

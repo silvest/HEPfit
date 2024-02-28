@@ -28,6 +28,9 @@
 */dist
 */build
 
+#CMake specific
+dist
+build
 
 *~
 */*.dep.inc

@@ -7476,7 +7476,7 @@ protected:
     double CT = 0.; ///< The dimension-6 operator coefficient \f$C_{T}(\Lambda_{\rm{EW}})\f$.
     
 private:
-
+    
 
     bool FlagLeptonUniversal; ///< A boolean flag that is true if the lepton universality is switched on.
     bool FlagQuarkUniversal; ///< A boolean flag that is true if the quark universality is switched on.

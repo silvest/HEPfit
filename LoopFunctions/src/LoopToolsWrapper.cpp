@@ -124,6 +124,14 @@ gslpp::complex LoopToolsWrapper::PV_C0(const double p2,
     return gslpp::complex( C0val.real(), C0val.imag(), false );
 }
     
+gslpp::complex LoopToolsWrapper::PV_C0(const double p1, const double p2, const double p1p22, 
+                  const double m02, const double m12, const double m22) const
+{
+    setlambda(0);
+    std::complex<double> C0val = C0(p1,p2,p1p22, m02, m12, m22);
+    return gslpp::complex( C0val.real(), C0val.imag(), false );
+}                                                                   //AG:added
+
 gslpp::complex LoopToolsWrapper::PV_D0(const double s, const double t, const double m02,
                                 const double m12, const double m22, const double m32) const
 {
