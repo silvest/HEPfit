@@ -278,7 +278,6 @@ private:
     gslpp::complex cacheC_LO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};   /*LO DB=1 Wilson coefficients C_i, i=1-6,8 */
     gslpp::complex cacheC_NLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};  /*NLO DB=1 Wilson coefficients C_i, i=1-6,8 */
     gslpp::complex cacheC_NNLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.}; /*NNLO DB=1 Wilson coefficients C_i, i=1-6,8 */
-    gslpp::complex C(int i);    /*Value of the FULLNNLO DB=1 Wilson coefficients C_i, i=1-6,8 */
     
     
     

@@ -409,11 +409,6 @@ void AmpDB2::computeWilsonCoeffsDB1bsg(){
 }
 
 
-gslpp::complex AmpDB2::C(int i){
-    if (i>=1 and (i<=6 or i==8)) return cacheC[i - 1];
-    throw std::runtime_error("Wilson cofficient out of order");
-}
-
 //hep-ph/0308029v2: eq.: 41-42: F0 = A
 void AmpDB2::computeF0() {
     cacheF0[indexF(cu, 1, 1, 1)] = 1.5 * (2. - 3. * z + z3);
