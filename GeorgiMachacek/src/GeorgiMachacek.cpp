@@ -6,6 +6,7 @@
  */
 
 #include <StandardModelMatching.h>
+#include <algorithm>
 #include "GeorgiMachacek.h"
 #include "GMcache.h"
 
