@@ -155,6 +155,60 @@ public:
     private:
 };
 
+class Asl_s_pole_fixmub : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_pole_fixmub(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_pole_fixmub();
+    
+    double computeThValue();
+
+    private:
+};
+
+class Asl_s_MSbar_fixmub : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_MSbar_fixmub(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_MSbar_fixmub();
+    
+    double computeThValue();
+
+    private:
+};
+
+class Asl_s_PS_fixmub : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_PS_fixmub(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_PS_fixmub();
+    
+    double computeThValue();
+
+    private:
+};
+
 class Asl_d_MSbar_NLO_tradBasis : public ThObservable, AmpDB2{
 public:
     /**

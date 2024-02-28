@@ -10,15 +10,16 @@
 #include "HeffDF2.h"
 #include <chrono>
 
-AmpDB2::AmpDB2(const StandardModel& SM_i, bool flag_RI)
+AmpDB2::AmpDB2(const StandardModel& SM_i, bool flag_fixmub, bool flag_RI)
 : mySM(SM_i), meMStoRI(5, 0.), coeffsMStoRI(3, 0.)
 {
     mySM.initializeBParameter("BBs");
     mySM.initializeBParameter("BBd");
     mySM.initializeBParameter("BBs_subleading");
     mySM.initializeBParameter("BBd_subleading");    
-    this->flag_resumz = true;    
-    this->flag_RI = flag_RI; 
+    this->flag_resumz = true;
+    this->flag_fixmub = flag_fixmub;
+    this->flag_RI = flag_RI;
     
     //hep-ph/0606197 eq. 4.7 - 4.10
     double meMStoRI0[5] = {-3. - 5./3.+8.*log2, 0., 0., 0., 0.},
@@ -268,7 +269,9 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     
     //DB=1 matching scales (arxiv: 2205.07907 Results. or Gerlach thesis eq. 7.7) varied by "getMub()" or fixed to 4.2
     mu_1 = mySM.getMub();
+    //mass scale mu_b=mu_c
     mu_b = mu_1;
+    if (flag_fixmub) mu_b = 4.2;
     mu_1_overm = Mb_pole;
     
     //DB=2 matching scale mu_2

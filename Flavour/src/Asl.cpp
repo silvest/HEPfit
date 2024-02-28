@@ -98,6 +98,39 @@ double Asl_s_MSbar_NLO::computeThValue() {
     return -getGamma21overM21_Bs(FULLNLO, MSbar).imag();
 }
 
+Asl_s_pole_fixmub::Asl_s_pole_fixmub(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, true) {
+}
+
+Asl_s_pole_fixmub::~Asl_s_pole_fixmub() {
+}
+
+double Asl_s_pole_fixmub::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNLO, pole).imag();
+}
+
+Asl_s_MSbar_fixmub::Asl_s_MSbar_fixmub(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, true) {
+}
+
+Asl_s_MSbar_fixmub::~Asl_s_MSbar_fixmub() {
+}
+
+double Asl_s_MSbar_fixmub::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNLO, MSbar).imag();
+}
+
+Asl_s_PS_fixmub::Asl_s_PS_fixmub(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, true) {
+}
+
+Asl_s_PS_fixmub::~Asl_s_PS_fixmub() {
+}
+
+double Asl_s_PS_fixmub::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNLO, PS).imag();
+}
+
 Asl_d_MSbar_NLO_tradBasis::Asl_d_MSbar_NLO_tradBasis(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i) {
 }

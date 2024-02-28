@@ -40,7 +40,7 @@ public:
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    AmpDB2(const StandardModel& SM_i, bool flag_RI = false);
+    AmpDB2(const StandardModel& SM_i, bool flag_fixmub = false, bool flag_RI = false);
 
     /**
     * @brief The value of @f$M_{21}^{bd}@f$.
@@ -191,8 +191,9 @@ private:
     gslpp::matrix<double> meMStoRI;
     //transformation matrix to switch to the RI scheme for the three DB=2 Wilson coefficients (hep-ph/0606197 eq. 5.10)
     gslpp::matrix<double> coeffsMStoRI;
+    bool flag_fixmub; //flag to fix mu_b=mu_c to 4.2 GeV
     bool flag_RI; //flag to signal if transformation to RI is applied
-    
+
     
     
     /**

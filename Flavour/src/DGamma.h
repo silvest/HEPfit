@@ -299,6 +299,60 @@ public:
     private:
 };
 
+class DGamma_s_pole_fixmub : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s_pole_fixmub(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s_pole_fixmub();
+    
+    double computeThValue();
+
+    private:
+};
+
+class DGamma_s_MSbar_fixmub : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s_MSbar_fixmub(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s_MSbar_fixmub();
+    
+    double computeThValue();
+
+    private:
+};
+
+class DGamma_s_PS_fixmub : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s_PS_fixmub(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s_PS_fixmub();
+    
+    double computeThValue();
+
+    private:
+};
+
 class DGamma_d_only1overmb : public ThObservable, AmpDB2{
 public:
     /**

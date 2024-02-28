@@ -207,6 +207,42 @@ double DGamma_s_PS_LO::computeThValue() {
     return -getGamma21overM21_Bs(LO, PS).real() * SM.getOptionalParameter("DmBs_ex");
 }
 
+DGamma_s_pole_fixmub::DGamma_s_pole_fixmub(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, true) {
+    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
+}
+
+DGamma_s_pole_fixmub::~DGamma_s_pole_fixmub() {
+}
+
+double DGamma_s_pole_fixmub::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNLO, pole).real() * SM.getOptionalParameter("DmBs_ex");
+}
+
+DGamma_s_MSbar_fixmub::DGamma_s_MSbar_fixmub(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, true) {
+    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
+}
+
+DGamma_s_MSbar_fixmub::~DGamma_s_MSbar_fixmub() {
+}
+
+double DGamma_s_MSbar_fixmub::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNLO, MSbar).real() * SM.getOptionalParameter("DmBs_ex");
+}
+
+DGamma_s_PS_fixmub::DGamma_s_PS_fixmub(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, true) {
+    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
+}
+
+DGamma_s_PS_fixmub::~DGamma_s_PS_fixmub() {
+}
+
+double DGamma_s_PS_fixmub::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNLO, PS).real() * SM.getOptionalParameter("DmBs_ex");
+}
+
 DGamma_d_only1overmb::DGamma_d_only1overmb(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i) {
     setParametersForObservable(make_vector<std::string>() << "DmBd_ex" );
