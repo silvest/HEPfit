@@ -14827,7 +14827,7 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
     double mu = 1.0;
     
     if (sqrt_s == 8.0){
-        mu+ = cWsch * ( 
+        mu += cWsch * ( 
             ( (0.12124142781783014) * getSMEFTCoeffEW("CHbox")
             + (-0.030314752945313873) * getSMEFTCoeffEW("CHD")
             + (-0.1224898892210304) * getSMEFTCoeffEW("CuHR", 2,2)
