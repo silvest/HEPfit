@@ -1225,7 +1225,7 @@ mutHgaga::mutHgaga(const StandardModel& SM_i, const double sqrt_s_i)    //AG:add
 double mutHgaga::computeThValue()                                           //AG:added
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->mutH(sqrt_s))  + (myNPbase->BrHgagaRatio()));
+        return ( 1.0 + (myNPbase->mutH(sqrt_s) -1.)  + (myNPbase->BrHgagaRatio()-1.) );
     } else {
         return ((myNPbase->mutH(sqrt_s)) )*(myNPbase->BrHgagaRatio()) ;
     }
@@ -1241,9 +1241,9 @@ muggHpbbH_Hgaga::muggHpbbH_Hgaga(const StandardModel& SM_i, const double sqrt_s_
 double muggHpbbH_Hgaga::computeThValue()                                          //AG:added
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + 1.01*(myNPbase->muggH(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+        return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHgagaRatio()-1.) );
     } else {
-        return 1.01*(myNPbase->muggHgaga(sqrt_s));
+        return (myNPbase->muggHgaga(sqrt_s));
     }
 }
 
@@ -1464,10 +1464,54 @@ muttHptH_HZZ::muttHptH_HZZ(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_HZZ::computeThValue()                                           //AG:added
 {
+    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
     if ((this->getModel()).isModelLinearized()) {
-        return ( -2.0 + (myNPbase->muttH(sqrt_s)+myNPbase->mutH(sqrt_s))  + (myNPbase->BrHZZRatio()));
+        return ( 1.0 
+                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
+                + (myNPbase->BrHZZRatio()-1.));
     } else {
-        return (-1.0 + (myNPbase->muttH(sqrt_s)+myNPbase->mutH(sqrt_s)) )*(myNPbase->BrHZZRatio()) ;
+        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHZZRatio()) ;
+    }
+}
+
+muttHptH_Hgaga::muttHptH_Hgaga(const StandardModel& SM_i, const double sqrt_s_i)//AG:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muttHptH_Hgaga called with a class whose parent is not NPbase");
+}
+
+double muttHptH_Hgaga::computeThValue()                                         //AG:added
+{
+    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    if ((this->getModel()).isModelLinearized()) {
+        return ( 1.0 
+                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
+                + (myNPbase->BrHgagaRatio()-1.));
+    } else {
+        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHgagaRatio()) ;
+    }
+}
+
+muttHptH_Hmumu::muttHptH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i)//AG:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muttHptH_Hmumu called with a class whose parent is not NPbase");
+}
+
+double muttHptH_Hmumu::computeThValue()                                         //AG:added
+{
+    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    if ((this->getModel()).isModelLinearized()) {
+        return ( 1.0 
+                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
+                + (myNPbase->BrHmumuRatio()-1.));
+    } else {
+        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHmumuRatio()) ;
     }
 }
 
@@ -1481,9 +1525,9 @@ muggHpbbH_HZZ::muggHpbbH_HZZ(const StandardModel& SM_i, const double sqrt_s_i)  
 double muggHpbbH_HZZ::computeThValue()                                          //AG:added
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + 1.01*(myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZZRatio()));
+        return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHZZRatio()-1.));
     } else {
-        return 1.01*(myNPbase->muggHZZ(sqrt_s));
+        return (myNPbase->muggHZZ(sqrt_s));
     }
 }
 
@@ -1704,10 +1748,14 @@ muttHptH_HWW::muttHptH_HWW(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_HWW::computeThValue()                                           //AG:added
 {
+    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
     if ((this->getModel()).isModelLinearized()) {
-        return ( -2.0 + (myNPbase->muttH(sqrt_s)+myNPbase->mutH(sqrt_s))  + (myNPbase->BrHWWRatio()));
+        return ( 1.0 
+                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
+                + (myNPbase->BrHWWRatio()-1.));
     } else {
-        return (-1.0 + (myNPbase->muttH(sqrt_s)+myNPbase->mutH(sqrt_s)) )*(myNPbase->BrHWWRatio()) ;
+        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHWWRatio()) ;
     }
 }
 
@@ -1721,9 +1769,9 @@ muggHpbbH_HWW::muggHpbbH_HWW(const StandardModel& SM_i, const double sqrt_s_i)  
 double muggHpbbH_HWW::computeThValue()                                          //AG:added
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + 1.01*(myNPbase->muggH(sqrt_s)) + (myNPbase->BrHWWRatio()));
+        return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHWWRatio()-1.));
     } else {
-        return 1.01*(myNPbase->muggHWW(sqrt_s));
+        return (myNPbase->muggHWW(sqrt_s));
     }
 }
 
@@ -1944,10 +1992,15 @@ muggHpttHptHpbbH_Hmumu::muggHpttHptHpbbH_Hmumu(const StandardModel& SM_i, const 
 
 double muggHpttHptHpbbH_Hmumu::computeThValue()                                           //AG:added
 {
+    double xsSM_ggHbbH = 44.757;    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    double xsSM_ttH    = 0.4998;    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    double xsSM_tH     = 0.084769;  //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
     if ((this->getModel()).isModelLinearized()) {
-        return ( -2.0 + (myNPbase->muttH(sqrt_s)+1.01*myNPbase->muggH(sqrt_s))  + (myNPbase->BrHmumuRatio()));
+        return ( 1.0 
+                + (xsSM_ggHbbH*(myNPbase->muggH(sqrt_s)-1.)+xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.)+xsSM_tH*(myNPbase->mutH(sqrt_s)-1.)) / (xsSM_ggHbbH+xsSM_ttH+xsSM_tH) 
+                + (myNPbase->BrHmumuRatio()-1.) );
     } else {
-        return (-1.0 + (myNPbase->muttH(sqrt_s)+1.01*myNPbase->muggH(sqrt_s)) )*(myNPbase->BrHmumuRatio()) ;
+        return ( (xsSM_ggHbbH*(myNPbase->muggH(sqrt_s))+xsSM_ttH*(myNPbase->muttH(sqrt_s))+xsSM_tH*(myNPbase->mutH(sqrt_s))) / (xsSM_ggHbbH+xsSM_ttH+xsSM_tH)  )*(myNPbase->BrHmumuRatio()) ;
     }
 }
 
@@ -1960,10 +2013,15 @@ muVBFpVH_Hmumu::muVBFpVH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFpVH_Hmumu::computeThValue()                                          //AG:added
 {
+    double xsSM_VBF = 3.4999;
+    double xsSM_WH  = 1.2157;
+    double xsSM_ZH  = 0.79599;
     if ((this->getModel()).isModelLinearized()) {
-        return ( -2.0 + (myNPbase->muVBF(sqrt_s)+myNPbase->muVH(sqrt_s)) + (myNPbase->BrHmumuRatio()));
+        return ( 1.0 
+                + (xsSM_VBF*(myNPbase->muVBF(sqrt_s)-1.)+xsSM_WH*(myNPbase->muWH(sqrt_s)-1.)+xsSM_ZH*(myNPbase->muZH(sqrt_s)-1.)) / (xsSM_VBF+xsSM_WH+xsSM_ZH) 
+                + (myNPbase->BrHmumuRatio()-1.) );
     } else {
-        return ( -1.0 + (myNPbase->muVBF(sqrt_s)+myNPbase->muVH(sqrt_s)) )*(myNPbase->BrHmumuRatio());
+        return ( (xsSM_VBF*(myNPbase->muVBF(sqrt_s))+xsSM_WH*(myNPbase->muWH(sqrt_s))+xsSM_ZH*(myNPbase->muZH(sqrt_s))) / (xsSM_VBF+xsSM_WH+xsSM_ZH)  )*(myNPbase->BrHmumuRatio()) ;
     }
 }
 
@@ -2091,10 +2149,14 @@ muttHptH_Htautau::muttHptH_Htautau(const StandardModel& SM_i, const double sqrt_
 
 double muttHptH_Htautau::computeThValue()                                           //AG:added
 {
+    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
     if ((this->getModel()).isModelLinearized()) {
-        return ( -2.0 + (myNPbase->muttH(sqrt_s)+myNPbase->mutH(sqrt_s))  + (myNPbase->BrHtautauRatio()));
+        return ( 1.0 
+                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
+                + (myNPbase->BrHtautauRatio()-1.));
     } else {
-        return (-1.0 + (myNPbase->muttH(sqrt_s)+myNPbase->mutH(sqrt_s)) )*(myNPbase->BrHtautauRatio()) ;
+        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHtautauRatio()) ;
     }
 }
 
@@ -2108,9 +2170,9 @@ muggHpbbH_Htautau::muggHpbbH_Htautau(const StandardModel& SM_i, const double sqr
 double muggHpbbH_Htautau::computeThValue()                                          //AG:added
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + 1.01*(myNPbase->muggH(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+        return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHtautauRatio()-1.));
     } else {
-        return 1.01*(myNPbase->muggHtautau(sqrt_s));
+        return (myNPbase->muggHtautau(sqrt_s));
     }
 }
 
@@ -2219,10 +2281,14 @@ muttHptH_Hbb::muttHptH_Hbb(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_Hbb::computeThValue()                                           //AG:added
 {
+    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
     if ((this->getModel()).isModelLinearized()) {
-        return ( -2.0 + (myNPbase->muttH(sqrt_s)+myNPbase->mutH(sqrt_s)) + (myNPbase->BrHbbRatio())  );
+        return ( 1.0 
+                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
+                + (myNPbase->BrHbbRatio()-1.));
     } else {
-        return ( (-1.0 + (myNPbase->muttH(sqrt_s)+myNPbase->mutH(sqrt_s)))*(myNPbase->BrHbbRatio())  );
+        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHbbRatio()) ;
     }
 }
 
@@ -2235,10 +2301,14 @@ muggHpVBFpbbH_Hbb::muggHpVBFpbbH_Hbb(const StandardModel& SM_i, const double sqr
 
 double muggHpVBFpbbH_Hbb::computeThValue()                                      //AG:added
 {
+    double xsSM_ggHbbH = 44.757;   //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
+    double xsSM_VBF    = 3.4999;   //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
     if ((this->getModel()).isModelLinearized()) {
-        return ( -2.0 + (1.01*myNPbase->muggH(sqrt_s) + myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHbbRatio()));
+        return ( 1.0 
+                + ( xsSM_ggHbbH*(myNPbase->muggH(sqrt_s)-1.) + xsSM_VBF*(myNPbase->muVBF(sqrt_s)-1.) )/(xsSM_ggHbbH+xsSM_VBF)
+                + (myNPbase->BrHbbRatio()-1.));
     } else {
-        return ( ( -1.0 + (1.01*myNPbase->muggH(sqrt_s) + myNPbase->muVBF(sqrt_s)) )*(myNPbase->BrHbbRatio()) );
+        return ( xsSM_ggHbbH*(myNPbase->muttH(sqrt_s)) + xsSM_VBF*(myNPbase->mutH(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF) * (myNPbase->BrHbbRatio()) ;
     }
 }
 
@@ -5619,7 +5689,7 @@ double STXS12_ggH_pTH0_10_Nj0::computeThValue()                                 
 {
     //AG:begin
     if (fstate==0){
-        double SM_prediction = 6.63808;
+        double SM_prediction = 6.63808; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_ggH_pTH0_10_Nj0(sqrt_s))  );
     } else {
     //AG:end
@@ -5690,7 +5760,7 @@ double STXS12_ggH_pTH0_60_Nj1::computeThValue()                                 
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 6.50045;
+        double SM_prediction = 6.50045; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * ( myNPbase->STXS12_ggH_pTH0_60_Nj1(sqrt_s))  );
     } else {
     //AG:end
@@ -5729,7 +5799,7 @@ double STXS12_ggH_pTH60_120_Nj1::computeThValue()                               
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 4.50294;
+        double SM_prediction = 4.50294; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_ggH_pTH60_120_Nj1(sqrt_s))  );
     } else {
     //AG:end
@@ -5768,7 +5838,7 @@ double STXS12_ggH_pTH120_200_Nj1::computeThValue()                              
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.74712;
+        double SM_prediction = 0.74712; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_ggH_pTH120_200_Nj1(sqrt_s))  );
     } else {
     //AG:end
@@ -5871,7 +5941,7 @@ double STXS12_ggH_mjj0_350_pTH120_200_Nj2::computeThValue()                     
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.94325;
+        double SM_prediction = 0.94325; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_ggH_mjj0_350_pTH120_200_Nj2(sqrt_s))  );
     } else {
     //AG:end
@@ -6050,8 +6120,8 @@ STXS12_ggH_mjj0_350_pTH0_120_Nj2::STXS12_ggH_mjj0_350_pTH0_120_Nj2(const Standar
 double STXS12_ggH_mjj0_350_pTH0_120_Nj2::computeThValue()                               //AG:added
 {
     if (fstate == 0){
-        double SM_prediction = 2.96349;
-        return ( SM_prediction * ( -1 + (myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s)) + (myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s))  ) );
+        double SM_prediction = 2.96349; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        return ( SM_prediction * ( 1. + (myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s)-1.) + (myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s)-1.)  ) );
     } else {
         throw std::runtime_error("STXS12_ggH_mjj0_350_pTH0_120_Nj2 called with invalid argument for final state in fstate_i");
     }
@@ -6070,8 +6140,8 @@ STXS12_ggH_mjj350_Inf_pTH0_200_Nj2::STXS12_ggH_mjj350_Inf_pTH0_200_Nj2(const Sta
 double STXS12_ggH_mjj350_Inf_pTH0_200_Nj2::computeThValue()                               //AG:added
 {
     if (fstate == 0){
-        double SM_prediction = 0.87753;
-        return ( SM_prediction  * ( -1 + myNPbase->STXS12_ggH_mjj350_700_pTH0_200_Nj2(sqrt_s) + (myNPbase->STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(sqrt_s)) )  );
+        double SM_prediction = 0.87753; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        return ( SM_prediction  * ( 1. + (myNPbase->STXS12_ggH_mjj350_700_pTH0_200_Nj2(sqrt_s)-1.) + (myNPbase->STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(sqrt_s)-1.) )  );
     } else {
         throw std::runtime_error("STXS12_ggH_mjj350_Inf_pTH0_200_Nj2 called with invalid argument for final state in fstate_i");
     }
@@ -6572,7 +6642,7 @@ double STXS12_qqHqq_mjj350_700_pTH0_200_Nj2::computeThValue()                   
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.53537;
+        double SM_prediction = 0.53537; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_Nj2(sqrt_s)) );
     } else {
     //AG:end
@@ -6611,7 +6681,7 @@ double STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2::computeThValue()                  
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.25614;
+        double SM_prediction = 0.25614; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2(sqrt_s))  );
     } else {
     //AG:end
@@ -6650,7 +6720,7 @@ double STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2::computeThValue()                 
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.22408;
+        double SM_prediction = 0.22408; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(sqrt_s))  );
     } else {
     //AG:end
@@ -6689,7 +6759,7 @@ double STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2::computeThValue()                  
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.21578;
+        double SM_prediction = 0.21578; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(sqrt_s))  );
     } else {
     //AG:end
@@ -6728,7 +6798,7 @@ double STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2::computeThValue()                
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.07372;
+        double SM_prediction = 0.07372; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2(sqrt_s))  );
     } else {
     //AG:end
@@ -6767,7 +6837,7 @@ double STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2::computeThValue()                
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.07121;
+        double SM_prediction = 0.07315; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2(sqrt_s))  );
     } else {
     //AG:end
@@ -6806,7 +6876,7 @@ double STXS12_qqHlv_pTV0_75::computeThValue()                                   
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.21509;
+        double SM_prediction = 0.21509; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHlv_pTV0_75(sqrt_s))  );
     } else {
     //AG:end
@@ -6845,7 +6915,7 @@ double STXS12_qqHlv_pTV75_150::computeThValue()                                 
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.13440;
+        double SM_prediction = 0.13440; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction *  (myNPbase->STXS12_qqHlv_pTV75_150(sqrt_s))  );
     } else {
     //AG:end
@@ -6884,7 +6954,7 @@ double STXS12_qqHlv_pTV150_250_Nj0::computeThValue()                            
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.04117;
+        double SM_prediction = 0.04117; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHlv_pTV150_250_Nj0(sqrt_s)) );
     } else {
     //AG:end
@@ -7019,7 +7089,7 @@ double STXS12_qqHlv_pTV250_400::computeThValue()                                
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.01004;
+        double SM_prediction = 0.01004; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction *  (myNPbase->STXS12_qqHlv_pTV250_400(sqrt_s))  );
     } else {
     //AG:end
@@ -7058,7 +7128,7 @@ double STXS12_qqHlv_pTV400_Inf::computeThValue()                                
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.00214;
+        double SM_prediction = 0.00214; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHlv_pTV400_Inf(sqrt_s))  );
     } else {
     //AG:end
@@ -7162,7 +7232,7 @@ double STXS12_qqHll_pTV150_250_Nj0::computeThValue()                            
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.19845;
+        double SM_prediction = 0.03223; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s)) );
     } else {
     //AG:end
@@ -7266,7 +7336,7 @@ double STXS12_qqHll_pTV0_150::computeThValue()                                //
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.03223;
+        double SM_prediction = 0.19845; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * ( -1 + (myNPbase->STXS12_qqHll_pTV0_75(sqrt_s)) + (myNPbase->STXS12_qqHll_pTV75_150(sqrt_s)))  );
         //return ( SM_prediction * (myNPbase->STXS12_qqHll_pTV0_150(sqrt_s))  );
     } else {
@@ -7306,7 +7376,7 @@ double STXS12_qqHll_pTV250_400::computeThValue()                                
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.00715;
+        double SM_prediction = 0.00715; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHll_pTV250_400(sqrt_s))  );
     } else {
     //AG:end
@@ -7345,7 +7415,7 @@ double STXS12_qqHll_pTV400_Inf::computeThValue()                                
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.00126;
+        double SM_prediction = 0.00126; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * (myNPbase->STXS12_qqHll_pTV400_Inf(sqrt_s))  );
     } else {
     //AG:end
@@ -7384,7 +7454,7 @@ double STXS12_ttH_pTH0_60::computeThValue()                                     
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.11821;
+        double SM_prediction = 0.11821; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * myNPbase->STXS12_ttH_pTH0_60(sqrt_s) );
     } else {
     //AG:end
@@ -7423,7 +7493,7 @@ double STXS12_ttH_pTH60_120::computeThValue()                                   
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.17813;
+        double SM_prediction = 0.17813; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * myNPbase->STXS12_ttH_pTH60_120(sqrt_s) );
     } else {
     //AG:end
@@ -7462,7 +7532,7 @@ double STXS12_ttH_pTH120_200::computeThValue()                                  
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.12647;
+        double SM_prediction = 0.12647; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * myNPbase->STXS12_ttH_pTH120_200(sqrt_s) );
     } else {
     //AG:end
@@ -7501,7 +7571,7 @@ double STXS12_ttH_pTH200_300::computeThValue()                                  
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.05263;
+        double SM_prediction = 0.05263; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * myNPbase->STXS12_ttH_pTH200_300(sqrt_s));
     } else {
     //AG:end
@@ -7572,7 +7642,7 @@ double STXS12_ttH_pTH300_450::computeThValue()                                  
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.01903;
+        double SM_prediction = 0.01903; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * myNPbase->STXS12_ttH_pTH300_450(sqrt_s) );
     } else {
     //AG:end
@@ -7610,7 +7680,7 @@ double STXS12_ttH_pTH450_Inf::computeThValue()                                  
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.00538;
+        double SM_prediction = 0.00538; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s));
     } else {
     //AG:end
@@ -7649,7 +7719,7 @@ double STXS12_tH::computeThValue()                                              
 {
     //AG:begin
     if (fstate == 0){
-        double SM_prediction = 0.08207;
+        double SM_prediction = 0.08207; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
         return ( SM_prediction * myNPbase->STXS12_tH(sqrt_s));
     } else {
     //AG:end

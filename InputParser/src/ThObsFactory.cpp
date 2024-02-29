@@ -1469,6 +1469,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muggHpttHptHpbbH_Hmumu13"] = bind(boost::factory<muggHpttHptHpbbH_Hmumu*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVBFpVH_Hmumu13"]    = bind(boost::factory<muVBFpVH_Hmumu*>(), _1, sqrt_s_LHC13);
     obsThFactory["mutHgaga13"] = bind(boost::factory<mutHgaga*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muttHptH_Hgaga13"]      = bind(boost::factory<muttHptH_Hgaga*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muttHptH_Hmumu13"]      = bind(boost::factory<muttHptH_Hmumu*>(), _1, sqrt_s_LHC13);
     //AG:end
     //
     obsThFactory["muggHgaga14"] = bind(boost::factory<muggHgaga*>(), _1, sqrt_s_LHC14);
@@ -4501,10 +4503,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Abs2Amperp_MVpsi"] = bind(boost::factory<Abs2Amperp_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["ArgAmperp_MVpsi"] = bind(boost::factory<ArgAmperp_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["Abs2Ampzero_MVpsi"] = bind(boost::factory<Abs2Ampzero_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
-    
-    obsThFactory["Delta_C9_zExp_0"] = bind(boost::factory<Delta_C9_zExp_0*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
-    obsThFactory["Delta_C9_zExp_p"] = bind(boost::factory<Delta_C9_zExp_p*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
-    obsThFactory["Delta_C9_zExp_m"] = bind(boost::factory<Delta_C9_zExp_m*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 
     //----- B+ to K*+ ll  -----
     obsThFactory["A_FB_BpKstmu"] = bind(boost::factory<A_FB*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);

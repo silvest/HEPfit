@@ -3235,6 +3235,64 @@ private:
 };                       //AG:added
 
 /**
+ * @class muttHptH_Hgaga
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHptH_Hgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHptH_Hgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                     //AG:added
+
+/**
+ * @class muttHptH_Hmumu
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHptH_Hmumu : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHptH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                     //AG:added
+
+/**
  * @class muggHpbbH_HZZ
  * @ingroup NewPhysics
  * @brief 
