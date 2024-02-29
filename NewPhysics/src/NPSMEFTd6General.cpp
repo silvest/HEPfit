@@ -22372,6 +22372,15 @@ double NPSMEFTd6General::deltaGammaTotalRatio1() const
     //  pure contribution from BrHinv and BrHexo even in case of no dim 6 contributions    
     deltaGammaRatio = -1.0 + (1.0 + deltaGammaRatio) / (1.0 - BrHinv - BrHexo);
 
+    //std::cout<<"deltaGammaHggRatio1()="<<deltaGammaHggRatio1()<<std::endl;
+    //std::cout<<"deltaGammaH4fRatio1()="<<deltaGammaH4fRatio1()<<std::endl;
+    //std::cout<<"deltaGammaHZgaRatio1()="<<deltaGammaHZgaRatio1()<<std::endl;
+    //std::cout<<"deltaGammaHgagaRatio1()="<<deltaGammaHgagaRatio1()<<std::endl;
+    //std::cout<<"deltaGammaHmumuRatio1()="<<deltaGammaHmumuRatio1()<<std::endl;
+    //std::cout<<"deltaGammaHtautauRatio1()="<<deltaGammaHtautauRatio1()<<std::endl;
+    //std::cout<<"deltaGammaHccRatio1()="<<deltaGammaHccRatio1()<<std::endl;
+    //std::cout<<"deltaGammaHbbRatio1()="<<deltaGammaHbbRatio1()<<std::endl;
+
     return deltaGammaRatio;
 }
 
@@ -24327,6 +24336,19 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
             - 96076.1 * delta_GF / v() / v()
             - 0.123 * deltaMwd6())
             );
+    //std::cout<<"deltaG1_hZA()="<<deltaG1_hZA()<<std::endl;
+    //std::cout<<"delta_GF="<<delta_GF<<std::endl;
+    //std::cout<<"delta_AZ="<<delta_AZ<<std::endl;
+    //std::cout<<"eeMz="<<eeMz<<std::endl;
+    //std::cout<<"sW_tree="<<sW_tree<<std::endl;
+    //std::cout<<"cW_tree="<<cW_tree<<std::endl;
+    //std::cout<<"v2="<<v2<<std::endl;
+    //std::cout<<"cAsch="<<cAsch<<std::endl;
+    //std::cout<<"cWsch="<<cWsch<<std::endl;
+    //std::cout<<"Mw_inp="<<Mw_inp<<std::endl;
+    //std::cout<<"Mz="<<Mz<<std::endl;
+    //std::cout<<"GF="<<GF<<std::endl;
+    //std::cout<<"aleMz="<<aleMz<<std::endl;
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24604,12 +24626,12 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
             + dGammaHgagaRatio_cW
             + dGammaHgagaRatio_tree;  
     
-    std::cout<<"deltaGammaHgaga_Prefactor = "<<deltaGammaHgaga_Prefactor<<std::endl;
-    std::cout<<"dGammaZgagaRatio_HiggsField = "<<dGammaHgagaRatio_HiggsField<<std::endl;
-    std::cout<<"dGammaZgagaRatio_Yukawa = "<<dGammaHgagaRatio_Yukawa<<std::endl;
-    std::cout<<"dGammaHgagaRatio_dipoleOp = "<<dGammaHgagaRatio_dipoleOp<<std::endl;
-    std::cout<<"dGammaZgagaRatio_cW = "<<dGammaHgagaRatio_cW<<std::endl;
-    std::cout<<"dGammaHZgagaRatio_tree = "<<dGammaHgagaRatio_tree<<std::endl;
+    //std::cout<<"deltaGammaHgaga_Prefactor = "<<deltaGammaHgaga_Prefactor<<std::endl;
+    //std::cout<<"dGammaZgagaRatio_HiggsField = "<<dGammaHgagaRatio_HiggsField<<std::endl;
+    //std::cout<<"dGammaZgagaRatio_Yukawa = "<<dGammaHgagaRatio_Yukawa<<std::endl;
+    //std::cout<<"dGammaHgagaRatio_dipoleOp = "<<dGammaHgagaRatio_dipoleOp<<std::endl;
+    //std::cout<<"dGammaZgagaRatio_cW = "<<dGammaHgagaRatio_cW<<std::endl;
+    //std::cout<<"dGammaHZgagaRatio_tree = "<<dGammaHgagaRatio_tree<<std::endl;
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
