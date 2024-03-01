@@ -8245,8 +8245,9 @@ void NPSMEFTd6General::getWCFromEvolutor()
 
 bool NPSMEFTd6General::PostUpdate()
 {
-
-
+    
+//    std::cout<<"\033[1;31m Mw_inp = \033[0m "<< Mw_inp << std::endl;
+    
     if (!NPbase::PostUpdate()) return (false);
 
     LambdaNP2 = Lambda_NP * Lambda_NP;
@@ -13646,7 +13647,8 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("MWinput") == 0) {
         FlagMWinput = value;
-        res = true;
+        res = NPbase::setFlag(name, value); //We need to fix FlagMWinput also in the StandardModel
+    //    res = true;
     } else if (name.compare("LeptonUniversal") == 0) {
         FlagLeptonUniversal = value;
         res = true;
@@ -13655,7 +13657,6 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
         res = true;
     } else
         res = NPbase::setFlag(name, value);
-
     if (FlagMWinput) {
         //  MW scheme
         cAsch = 0.;
@@ -24742,6 +24743,9 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
             + dGammaHgagaRatio_Yukawa + dGammaHgagaRatio_dipoleOp
             + dGammaHgagaRatio_cW
             + dGammaHgagaRatio_tree;  
+    
+    
+    
     
     //std::cout<<"deltaGammaHgaga_Prefactor = "<<deltaGammaHgaga_Prefactor<<std::endl;
     //std::cout<<"dGammaZgagaRatio_HiggsField = "<<dGammaHgagaRatio_HiggsField<<std::endl;

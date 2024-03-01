@@ -13,6 +13,8 @@
 #include "ThObservable.h"
 #include "ScalarPotential.h"
 #include "SUSY.h"
+#include <cassert>
+
 
 /**
  * @class FindAction
