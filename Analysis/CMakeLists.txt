@@ -24,10 +24,10 @@ set(CMAKE_CXX_LINK_FLAGS "")
 set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} ${RGESOLVER_LIBS} -L${BAT_LIB_PATH}")
 
 link_directories(${BAT_LIB})
+link_directories(${BOOST_LIB_DIR})
 if(LOOPTOOLS)
   link_directories(${LOOPTOOLS_LIB_PATH})
 endif(LOOPTOOLS)
-link_directories(${BOOST_LIB})
 
 foreach(_project ${PROJECTLIST})
   set(target_lib_list ${target_lib_list} ${_project})

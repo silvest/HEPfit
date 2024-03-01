@@ -9,7 +9,7 @@
 #define	PVFUNCTIONS_H
 
 // set in case where LoopTools library is employed.
-#define USE_LOOPTOOLS
+// #define USE_LOOPTOOLS
 
 #include "gslpp.h"
 #include "Polylogarithms.h"

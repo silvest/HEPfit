@@ -27,7 +27,7 @@ Kmunu_o_Pmunu::Kmunu_o_Pmunu(const StandardModel& SM_i)
 
 double Kmunu_o_Pmunu::computeThValue()
 {
-    //The WC are written in the LEFT basis of arxiv:1709.04486 the expressions can be found in arxiv:1706.00410 and arxiv:1605.07114 in a similar basis
+    //The WC are written in the LEFT basis of arxiv:1709.04486 the expressions can be found in arxiv:1706.00410 and arxiv:1605.07114
     gslpp::vector<gslpp::complex> ** allcoeff_K_mu_nu = SM.getFlavour().ComputeCoeffdiujlknu(1,0,1,2.);
     gslpp::vector<gslpp::complex> ** allcoeff_P_mu_nu = SM.getFlavour().ComputeCoeffdiujlknu(0,0,1,2.);
 

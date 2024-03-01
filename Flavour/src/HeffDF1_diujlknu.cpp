@@ -33,8 +33,18 @@ gslpp::vector<gslpp::complex>** HeffDF1_diujlknu::ComputeCoeffdiujleptonknu(int 
     coeffdiujleptonknu.setMu(mu);
     coeffdiujleptonknu.setScheme(mcu[0].getScheme());
 
+    //Hard-coding the Sirlin factor for the moment, Mauro's student can implement the full calculation
+    double Sew;
+    if(i==2)
+        Sew = 1.0066;
+    else
+        Sew = 1.0232;
+
     orders ordDF1 = coeffdiujleptonknu.getOrder();
     for (unsigned int i = 0; i < mcu.size(); i++) {
+        if(i==0)
+            coeffdiujleptonknu.setCoeff(*coeffdiujleptonknu.getCoeff(LO)*Sew, orders(LO));
+        else
         for (int j = LO; j <= ordDF1; j++) {
             for (int k = LO; k <= j; k++) {
                 coeffdiujleptonknu.setCoeff(*coeffdiujleptonknu.getCoeff(orders(j))
