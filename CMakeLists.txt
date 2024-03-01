@@ -35,7 +35,7 @@ option(NOMCMC "No MCMC mode" OFF)
 option(MPICXX "Use MPI" OFF)
 option(MPIBAT "Use MPI BAT" OFF)
 option(BAT_INSTALL "Download and install BAT" ON)
-option(LOOPTOOLS "Use LoopTools library" OFF)
+option(LOOPTOOLS "Use LoopTools library" ON)
 option(INTEL_FORTRAN "Use ifort libraries" OFF)
 
 # Local installation option

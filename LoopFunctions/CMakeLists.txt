@@ -7,7 +7,9 @@ if(NOT CMAKE_BUILD_TYPE)
 endif(NOT CMAKE_BUILD_TYPE)
 
 set(CMAKE_CXX_FLAGS "-Wall ${GSL_CFLAGS} ${ROOT_CFLAGS}")
-
+if(LOOPTOOLS)
+  set(CMAKE_CXX_FLAGS "-I${LOOPTOOLS_DIR}/include ${CMAKE_CXX_FLAGS}")
+endif(LOOPTOOLS)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../gslpp/src)
 include_directories(${BOOST_INC})
 
