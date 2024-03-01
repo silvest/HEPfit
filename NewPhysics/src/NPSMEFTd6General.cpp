@@ -21001,7 +21001,7 @@ double NPSMEFTd6General::mutH(const double sqrt_s) const                        
 
     } else if (sqrt_s == 13.0) {
 
-        C1=0;  // to be added
+        C1 = 0.0091; 
         mu += cWsch * (
             ( (0.12105) * getSMEFTCoeffEW("CHbox")
             + (-0.03023904) * getSMEFTCoeffEW("CHD")
@@ -24384,11 +24384,9 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
     double C1 = 0.0;
 
     //  It includes modifications of Zff vertices and MW, but not on the pure VVV and VVVV vertices
-
     //  Write the tree-level contributions directly as a function 
-    //  of delta_ZA (or deltaG1_hZA()) to account for variations of sw2 and cw2
-
-    dwidth = (-71769.02 * deltaG1_hZA()
+    //  of delta_ZA (or deltaG1_hZA()) to account for variations of sw2 and cw
+    /*dwidth = (-71769.02 * deltaG1_hZA()
             //            +14894914. *getSMEFTCoeffEW("CHB") 
             //            -14894913. * getSMEFTCoeffEW("CHW") 
             //            +9508089. * getSMEFTCoeffEW("CHWB") 
@@ -24411,7 +24409,50 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
             - 162538. * getSMEFTCoeffEW("CHWB")
             - 96076.1 * delta_GF / v() / v()
             - 0.123 * deltaMwd6())
-            );
+            );*/
+    
+    //AG:begin
+    // Ref: https://arxiv.org/pdf/1903.12046.pdf
+    double cHbox = getSMEFTCoeffEW("CHbox");
+    double cHD = getSMEFTCoeffEW("CHD");
+    double cHW = getSMEFTCoeffEW("CHW");
+    double cHB = getSMEFTCoeffEW("CHB");
+    double cHWB = getSMEFTCoeffEW("CHWB");
+    double cW = getSMEFTCoeffEW("CHW");
+    double cHu33 = getSMEFTCoeffEW("CHuR",2,2);
+    double cuH33 = getSMEFTCoeffEW("CuHR",2,2);
+    double cdH33 = getSMEFTCoeffEW("CdHR",2,2);
+    double cuB33 = getSMEFTCoeffEW("CuBR",2,2);
+    double cuW22 = getSMEFTCoeffEW("CuWR",1,1);
+    double cuW33 = getSMEFTCoeffEW("CuWR",2,2);
+    double cdW33 = getSMEFTCoeffEW("CdWR",2,2);
+    double cHq133 = getSMEFTCoeffEW("CHq1R",2,2);
+    double cHq333 = getSMEFTCoeffEW("CHq3R",2,2);
+    double cHl311 = getSMEFTCoeffEW("CHl3R",0,0);
+    double cHl322 = getSMEFTCoeffEW("CHl3R",1,1);
+    double cLL = getSMEFTCoeffEW("CllR",0,1,1,0);
+    
+    dwidth = cWsch*(
+        (-0.01 * cdH33 
+        - 0.01 * cdW33 
+        + 14.6799 * cHB 
+        + 0.12 * cHbox 
+        - 0.12 * cHD 
+        - 0.18 * cHl311 
+        - 0.18 * cHl322 
+        + 0.02 * cHq133 
+        - 0.02 * cHq333 
+        + 0.02 * cHu33 
+        - 14.7471 * cHW 
+        + 9.20962 * cHWB 
+        + 0.18 * cLL 
+        - 0.0745564 * cuB33 
+        + 0.01 * cuH33 
+        - 0.01 * cuW22 
+        + 0.461895 * cuW33 
+        - 0.0772181 * cW )*1000000
+    );
+    
     //std::cout<<"deltaG1_hZA()="<<deltaG1_hZA()<<std::endl;
     //std::cout<<"delta_GF="<<delta_GF<<std::endl;
     //std::cout<<"delta_AZ="<<delta_AZ<<std::endl;
@@ -24425,6 +24466,8 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
     //std::cout<<"Mz="<<Mz<<std::endl;
     //std::cout<<"GF="<<GF<<std::endl;
     //std::cout<<"aleMz="<<aleMz<<std::endl;
+    
+    //AG:end
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24545,11 +24588,9 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
     double C1 = 0.0049;
 
     //  It does not include modifications of MW
-
     //  Write the tree-level contributions directly as a function 
     //  of delta_AA (or deltaG_hAA) to account for variations of sw2 and cw2
-
-    dwidth = (-255156.97 * deltaG_hAA()
+    /*dwidth = (-255156.97 * deltaG_hAA()
             //            -48314158. *getSMEFTCoeffEW("CHB") 
             //            -14510502. * getSMEFTCoeffEW("CHW") 
             //            +26477588. * getSMEFTCoeffEW("CHWB")  
@@ -24563,7 +24604,7 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
             - 235677. * getSMEFTCoeffEW("CHWB")
             - 124462. * delta_GF / v() / v()
             - 1.257 * deltaMwd6())
-            );
+            );*/
     
     //AG:begin
     /*
