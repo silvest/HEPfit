@@ -2430,6 +2430,348 @@ double muttHZbbboost::computeThValue()
     return (myNPbase->muttHZbbboost(sqrt_s));
 }
 
+//AG:begin
+ggHgaga::ggHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ggHgaga called with a class whose parent is not NPbase");
+}
+double ggHgaga::computeThValue()
+{
+    double SM_prediction = 0.0439;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHgagaRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muggH(sqrt_s))*(myNPbase->BrHgagaRatio());
+    }
+}
+
+
+ggHZZ::ggHZZ(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ggHZZ called with a class whose parent is not NPbase");
+}
+double ggHZZ::computeThValue()
+{
+    double SM_prediction = 0.5197;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHZZRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muggH(sqrt_s))*(myNPbase->BrHZZRatio());
+    }
+}
+
+
+ggHWW::ggHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ggHWW called with a class whose parent is not NPbase");
+}
+double ggHWW::computeThValue()
+{
+    double SM_prediction = 4.1603;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHWWRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muggH(sqrt_s))*(myNPbase->BrHWWRatio());
+    }
+}
+
+
+ggHtautau::ggHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ggHtautau called with a class whose parent is not NPbase");
+}
+double ggHtautau::computeThValue()
+{
+    double SM_prediction = 1.2215;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHtautauRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muggH(sqrt_s))*(myNPbase->BrHtautauRatio());
+    }
+}
+
+
+VBFHgaga::VBFHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("VBFHgaga called with a class whose parent is not NPbase");
+}
+double VBFHgaga::computeThValue()
+{
+    double SM_prediction = 0.0037;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muVBF(sqrt_s)-1.) + (myNPbase->BrHgagaRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muVBF(sqrt_s))*(myNPbase->BrHgagaRatio());
+    }
+}
+
+
+VBFHZZ::VBFHZZ(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("VBFHZZ called with a class whose parent is not NPbase");
+}
+double VBFHZZ::computeThValue()
+{
+    double SM_prediction = 0.0530;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muVBF(sqrt_s)-1.) + (myNPbase->BrHZZRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muVBF(sqrt_s))*(myNPbase->BrHZZRatio());
+    }
+}
+
+
+VBFHWW::VBFHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("VBFHWW called with a class whose parent is not NPbase");
+}
+double VBFHWW::computeThValue()
+{
+    double SM_prediction = 0.3494;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muVBF(sqrt_s)-1.) + (myNPbase->BrHWWRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muVBF(sqrt_s))*(myNPbase->BrHWWRatio());
+    }
+}
+
+
+VBFHtautau::VBFHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("VBFHtautau called with a class whose parent is not NPbase");
+}
+double VBFHtautau::computeThValue()
+{
+    double SM_prediction = 0.1011;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muVBF(sqrt_s)-1.) + (myNPbase->BrHtautauRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muVBF(sqrt_s))*(myNPbase->BrHtautauRatio());
+    }
+}
+
+
+WHgaga::WHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("WHgaga called with a class whose parent is not NPbase");
+}
+double WHgaga::computeThValue()
+{
+    double SM_prediction = 0.0017;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muWH(sqrt_s)-1.) + (myNPbase->BrHgagaRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muWH(sqrt_s))*(myNPbase->BrHgagaRatio());
+    }
+}
+
+
+WHWW::WHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("WHWW called with a class whose parent is not NPbase");
+}
+double WHWW::computeThValue()
+{
+    double SM_prediction = 0.1614;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muWH(sqrt_s)-1.) + (myNPbase->BrHWWRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muWH(sqrt_s))*(myNPbase->BrHWWRatio());
+    }
+}
+
+
+WHtautau::WHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("WWHtautau called with a class whose parent is not NPbase");
+}
+double WHtautau::computeThValue()
+{
+    double SM_prediction = 0.0462;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muWH(sqrt_s)-1.) + (myNPbase->BrHtautauRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muWH(sqrt_s))*(myNPbase->BrHtautauRatio());
+    }
+}
+
+
+WHbb::WHbb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("WHbb called with a class whose parent is not NPbase");
+}
+double WHbb::computeThValue()
+{
+    double SM_prediction = 0.4090;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muWH(sqrt_s)-1.) + (myNPbase->BrHbbRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muWH(sqrt_s))*(myNPbase->BrHbbRatio());
+    }    
+}
+
+
+ZHgaga::ZHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ZHgaga called with a class whose parent is not NPbase");
+}
+double ZHgaga::computeThValue()
+{
+    double SM_prediction = 0.0011;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muZH(sqrt_s)-1.) + (myNPbase->BrHgagaRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muZH(sqrt_s))*(myNPbase->BrHgagaRatio());
+    } 
+}
+
+
+ZHWW::ZHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ZHWW called with a class whose parent is not NPbase");
+}
+double ZHWW::computeThValue()
+{
+    double SM_prediction = 0.0996;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muZH(sqrt_s)-1.) + (myNPbase->BrHWWRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muZH(sqrt_s))*(myNPbase->BrHWWRatio());
+    } 
+}
+
+
+ZHtautau::ZHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ZHtautau called with a class whose parent is not NPbase");
+}
+double ZHtautau::computeThValue()
+{
+    double SM_prediction = 0.0304;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muZH(sqrt_s)-1.) + (myNPbase->BrHtautauRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muZH(sqrt_s))*(myNPbase->BrHtautauRatio());
+    } 
+}
+
+
+ZHbb::ZHbb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ZHbb called with a class whose parent is not NPbase");
+}
+double ZHbb::computeThValue()
+{
+    double SM_prediction = 0.2410;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muZH(sqrt_s)-1.) + (myNPbase->BrHbbRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muZH(sqrt_s))*(myNPbase->BrHbbRatio());
+    } 
+}
+
+
+ttHgaga::ttHgaga(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ttHgaga called with a class whose parent is not NPbase");
+}
+double ttHgaga::computeThValue()
+{
+    double SM_prediction = 0.0004;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muttH(sqrt_s)-1.) + (myNPbase->BrHgagaRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muttH(sqrt_s))*(myNPbase->BrHgagaRatio());
+    } 
+}
+
+
+ttHWW::ttHWW(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ttHWW called with a class whose parent is not NPbase");
+}
+double ttHWW::computeThValue()
+{
+    double SM_prediction = 0.0281;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muttH(sqrt_s)-1.) + (myNPbase->BrHWWRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muttH(sqrt_s))*(myNPbase->BrHWWRatio());
+    } 
+}
+
+
+ttHtautau::ttHtautau(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ttHtautau called with a class whose parent is not NPbase");
+}
+double ttHtautau::computeThValue()
+{
+    double SM_prediction = 0.0106;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muttH(sqrt_s)-1.) + (myNPbase->BrHtautauRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muttH(sqrt_s))*(myNPbase->BrHtautauRatio());
+    } 
+}
+
+
+ttHbb::ttHbb(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("ttHbb called with a class whose parent is not NPbase");
+}
+double ttHbb::computeThValue()
+{
+    double SM_prediction = 0.0751;   //Ref:https://www.hepdata.net/record/ins1468068, Table1 (after symmetrizing)
+    if ((this->getModel()).isModelLinearized()) {
+        return SM_prediction*( 1. + (myNPbase->muttH(sqrt_s)-1.) + (myNPbase->BrHbbRatio()-1.) );
+    } else {
+        return SM_prediction*(myNPbase->muttH(sqrt_s))*(myNPbase->BrHbbRatio());
+    } 
+}
+
+//AG:end
+
 UpperLimit_ppHZgammaA::UpperLimit_ppHZgammaA(const StandardModel& SM_i, const double sqrt_s_i) : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)

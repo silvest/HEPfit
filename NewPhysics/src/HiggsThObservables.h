@@ -4949,6 +4949,576 @@ private:
 };
 
 
+//AG:begin
+/**
+ * @class ggHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ggHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ggHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ggH) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(ggH) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ggHZZ
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(ZZ)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ggHZZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ggHZZ(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ggH) Br(ZZ)@f$.
+     * @return @f$\sigma(ggH) Br(ZZ)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ggHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ggHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ggHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ggH) Br(WW)@f$.
+     * @return @f$\sigma(ggH) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ggHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ggHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ggHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ggH) Br(\tau\tau)@f$.
+     * @return @f$\sigma(ggH) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+//--------------------------------------------------
+
+/**
+ * @class VBFHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(VBF) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class VBFHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    VBFHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(VBF) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(VBF) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class VBFHZZ
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(VBF) Br(ZZ)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class VBFHZZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    VBFHZZ(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(VBF) Br(ZZ)@f$.
+     * @return @f$\sigma(VBF) Br(ZZ)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class VBFHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(VBF) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class VBFHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    VBFHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(VBF) Br(WW)@f$.
+     * @return @f$\sigma(VBF) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class VBFHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(VBF) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class VBFHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    VBFHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(VBF) Br(\tau\tau)@f$.
+     * @return @f$\sigma(VBF) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+//--------------------------------------------------
+
+/**
+ * @class WHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(WH) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class WHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    WHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(WH) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(WH) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class WHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(WH) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class WHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    WHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(WH) Br(WW)@f$.
+     * @return @f$\sigma(WH) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ggHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class WHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    WHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(WH) Br(\tau\tau)@f$.
+     * @return @f$\sigma(WH) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class WHbb
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(WH) Br(bb)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class WHbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    WHbb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(WH) Br(bb)@f$.
+     * @return @f$\sigma(WH) Br(bb)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+//--------------------------------------------------
+
+/**
+ * @class ZHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ZH) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ZHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ZHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ZH) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(ZH) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ZHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ZH) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ZHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ZHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ZH) Br(WW)@f$.
+     * @return @f$\sigma(ZH) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ZHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ZH) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ZHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ZHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ZH) Br(\tau\tau)@f$.
+     * @return @f$\sigma(ZH) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ZHbb
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ZH) Br(bb)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ZHbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ZHbb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ZH) Br(bb)@f$.
+     * @return @f$\sigma(ZH) Br(bb)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+//--------------------------------------------------
+
+/**
+ * @class ttHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ttH) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ttHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ttHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(ttH) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ttHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ttH) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ttHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ttHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH) Br(WW)@f$.
+     * @return @f$\sigma(ttH) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ttHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ttH) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ttHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ttHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH) Br(\tau\tau)@f$.
+     * @return @f$\sigma(ttH) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ttHbb
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ttH) Br(bb)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ttHbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ttHbb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH) Br(bb)@f$.
+     * @return @f$\sigma(ttH) Br(bb)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+//AG:end
+
 /**
  * @class UpperLimit_ppHZgammaA
  * @ingroup NewPhysics

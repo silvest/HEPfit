@@ -1457,6 +1457,27 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muVHinv13"] = bind(boost::factory<muVHinv*>(), _1, sqrt_s_LHC13);
     //
     //AG:begin
+    obsThFactory["ggHgaga8"]   = bind(boost::factory<ggHgaga*>(), _1, sqrt_s_LHC8);       
+    obsThFactory["ggHZZ8"]     = bind(boost::factory<ggHZZ*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ggHWW8"]     = bind(boost::factory<ggHWW*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ggHtautau8"] = bind(boost::factory<ggHtautau*>(), _1, sqrt_s_LHC8);
+    obsThFactory["VBFHgaga8"]  = bind(boost::factory<VBFHgaga*>(), _1, sqrt_s_LHC8);
+    obsThFactory["VBFHZZ8"]    = bind(boost::factory<VBFHZZ*>(), _1, sqrt_s_LHC8);
+    obsThFactory["VBFHWW8"]    = bind(boost::factory<VBFHWW*>(), _1, sqrt_s_LHC8);
+    obsThFactory["VBFHtautau8"]= bind(boost::factory<VBFHtautau*>(), _1, sqrt_s_LHC8);
+    obsThFactory["WHgaga8"]    = bind(boost::factory<WHgaga*>(), _1, sqrt_s_LHC8);
+    obsThFactory["WHWW8"]      = bind(boost::factory<WHWW*>(), _1, sqrt_s_LHC8);
+    obsThFactory["WHtautau8"]  = bind(boost::factory<WHtautau*>(), _1, sqrt_s_LHC8);
+    obsThFactory["WHbb8"]      = bind(boost::factory<WHbb*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ZHgaga8"]    = bind(boost::factory<ZHgaga*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ZHWW8"]      = bind(boost::factory<ZHWW*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ZHtautau8"]  = bind(boost::factory<ZHtautau*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ZHbb8"]      = bind(boost::factory<ZHbb*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ttHgaga8"]   = bind(boost::factory<ttHgaga*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ttHWW8"]     = bind(boost::factory<ttHWW*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ttHtautau8"] = bind(boost::factory<ttHtautau*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ttHbb8"]     = bind(boost::factory<ttHbb*>(), _1, sqrt_s_LHC8);
+    
     obsThFactory["muggHpVBFpbbH_Hbb13"] = bind(boost::factory<muggHpVBFpbbH_Hbb*>(), _1, sqrt_s_LHC13);       
     obsThFactory["muttHptH_Hbb13"]      = bind(boost::factory<muttHptH_Hbb*>(), _1, sqrt_s_LHC13); 
     obsThFactory["muggHpbbH_HWW13"]     = bind(boost::factory<muggHpbbH_HWW*>(), _1, sqrt_s_LHC13);       
