@@ -14825,6 +14825,7 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
     double mu = (1.0 + 2.0 * (tmpt.real() + tmpb.real() + tmpc.real() + tmpHG.real()));*/
     
     //AG:
+    // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
     double mu = 1.0;
     
     if (sqrt_s == 8.0){
@@ -14832,7 +14833,7 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
             ( (0.12124142781783014) * getSMEFTCoeffEW("CHbox")
             + (-0.030314752945313873) * getSMEFTCoeffEW("CHD")
             + (-0.1224898892210304) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (1.1269562159310709) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (1.1269562159310709) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.060629505890627745) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.060629505890627745) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.060629505890627745) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -14843,7 +14844,7 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
             ( (0.121) * getSMEFTCoeffEW("CHbox")
             + (-0.03031) * getSMEFTCoeffEW("CHD")
             + (-0.12245) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (1.127) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (1.127) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.06062) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.06062) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.0606) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -21034,9 +21035,9 @@ double NPSMEFTd6General::mutH(const double sqrt_s) const                        
     mu += ettHint + ettHpar;
 
     //  Linear contribution from Higgs self-coupling
-    //mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    //mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -22528,7 +22529,7 @@ double NPSMEFTd6General::deltaGammaHggRatio1() const
 
     double C1 = 0.0066;
 
-    dwidth = (+37526258. * getSMEFTCoeffEW("CHG")
+    /*dwidth = (+37526258. * getSMEFTCoeffEW("CHG")
             + cLHd6 * (
             +121248. * getSMEFTCoeffEW("CHbox")
             + 173353. * getSMEFTCoeffEW("CuHR", 1, 1)
@@ -22536,8 +22537,24 @@ double NPSMEFTd6General::deltaGammaHggRatio1() const
             + 248530. * getSMEFTCoeffEW("CdHR", 2, 2)
             - 30312.1 * getSMEFTCoeffEW("CHD")
             - 60624.1 * delta_GF / v() / v())
-            );
-
+            );*/
+    
+    // AG:begin
+    // Obtained with SMEFTatNLO. 
+    // cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
+    // Used reweigthing procedure for cHG
+    dwidth = cWsch*(( 
+        (39.3001) * getSMEFTCoeffEW("CHG")
+        + (0.12124) * getSMEFTCoeffEW("CHbox")
+        + (-0.12251) * getSMEFTCoeffEW("CuHR", 2, 2)
+        + (1.12694) * getSMEFTCoeffEW("CuGR", 2, 2)*g3_tree
+        + (-0.03032) * getSMEFTCoeffEW("CHD")
+        + (-0.06064) * getSMEFTCoeffEW("CHl3R", 0,0)
+        + (-0.06064) * getSMEFTCoeffEW("CHl3R", 1,1)
+        + (0.06064) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+    );
+    //AG:end
+    
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
@@ -23094,7 +23111,7 @@ double NPSMEFTd6General::deltaGammaHWW4fRatio1() const
 
     double C1 = 0.0073;
 
-    double CWff, sf;
+    /*double CWff, sf;
 
     CWff = (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2)) * v2 +
             Nc * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1)) * v2;
@@ -23112,7 +23129,13 @@ double NPSMEFTd6General::deltaGammaHWW4fRatio1() const
             - 4.757 * delta_GF
             - 13.716 * deltaMwd6()
             - 0.963 * deltaGwd6()
-            );
+            );*/
+    
+    //AG:begin
+    // Same format as H>4f parametrization.
+    double wHLvvLSM = 6.318e-05, wHudduSM = 0.0001716, wHLvudSM = 0.0003606;
+    dwidth = (wHLvvLSM * deltaGammaHLvvLRatio1() + wHudduSM * deltaGammaHudduRatio1() + wHLvudSM * deltaGammaHLvudRatio1()) / (wHLvvLSM+wHudduSM+wHLvudSM);
+    //AG:end
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24266,7 +24289,7 @@ double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const
 
     double C1 = 0.0083;
 
-    double CZff, sf;
+    /*double CZff, sf;
 
     CZff = gZvL * (-0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1) - getSMEFTCoeffEW("CHl3R", 2, 2)) * v2) +
             gZlL * (-0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2)) * v2) +
@@ -24300,7 +24323,39 @@ double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const
             + 29628.7 * CDHW
             - 3.715 * delta_GF
             - 0.834 * deltaGzd6()
-            );
+            );*/
+    
+    //AG:begin
+    dwidth += cWsch * (
+        ( (0.12122) * getSMEFTCoeffEW("CHbox")
+        + (-0.047198) * getSMEFTCoeffEW("CHW")
+        + (-0.0135232) * getSMEFTCoeffEW("CHB")
+        + (0.02186) * getSMEFTCoeffEW("CHD")
+        + (0.03069) * getSMEFTCoeffEW("CHWB")
+        + (-0.003629) * getSMEFTCoeffEW("CHl1R", 0,0)
+        + (-0.003599) * getSMEFTCoeffEW("CHl1R", 1,1)
+        + (-0.003638) * getSMEFTCoeffEW("CHl1R", 2,2)
+        + (-0.1695621) * getSMEFTCoeffEW("CHl3R", 0,0)
+        + (-0.169394) * getSMEFTCoeffEW("CHl3R", 1,1)
+        + (0.012565) * getSMEFTCoeffEW("CHl3R", 2,2)
+        + (-0.0035714) * getSMEFTCoeffEW("CHeR", 0,0)
+        + (-0.00356593) * getSMEFTCoeffEW("CHeR", 1,1)
+        + (-0.00354753) * getSMEFTCoeffEW("CHeR", 2,2)
+        + (0.003628) * getSMEFTCoeffEW("CHq1R", 0,0)
+        + (0.003571) * getSMEFTCoeffEW("CHq1R", 1,1)
+        + (0.020258) * getSMEFTCoeffEW("CHq1R", 2,2)
+        + (0.03756) * getSMEFTCoeffEW("CHq3R", 0,0)
+        + (0.0375) * getSMEFTCoeffEW("CHq3R", 1,1)
+        + (0.020258) * getSMEFTCoeffEW("CHq3R", 2,2)
+        + (-0.00358248) * getSMEFTCoeffEW("CHdR", 0,0)
+        + (-0.00356297) * getSMEFTCoeffEW("CHdR", 1,1)
+        + (-0.0032766) * getSMEFTCoeffEW("CHdR", 2,2)
+        + (0.007165) * getSMEFTCoeffEW("CHuR", 0,0)
+        + (0.007119) * getSMEFTCoeffEW("CHuR", 1,1)
+        + (0.18183) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        + (-0.805) * deltaGzd6()
+    );
+    //AG:end
 
     //  Linear contribution from Higgs self-coupling
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -24743,9 +24798,6 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
             + dGammaHgagaRatio_Yukawa + dGammaHgagaRatio_dipoleOp
             + dGammaHgagaRatio_cW
             + dGammaHgagaRatio_tree;  
-    
-    
-    
     
     //std::cout<<"deltaGammaHgaga_Prefactor = "<<deltaGammaHgaga_Prefactor<<std::endl;
     //std::cout<<"dGammaZgagaRatio_HiggsField = "<<dGammaHgagaRatio_HiggsField<<std::endl;
@@ -34275,11 +34327,13 @@ double NPSMEFTd6General::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const      
         /*STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0294 * getSMEFTCoeffEW("CHD") + 42.0 * getSMEFTCoeffEW("CHG") - 0.117 * getSMEFTCoeffEW("CuHR", 2, 2)
                 - 1.59 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.117 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 0.0587 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
-        //AG:
+        //AG: Obtained with SMEFETatNLO.
+        // cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         STXSb += cWsch * ( 
             ( (0.12127490039840637) * getSMEFTCoeffEW("CHbox")
             + (-0.030326693227091632) * getSMEFTCoeffEW("CHD")
-            + (-0.12254980079681274) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (39.28731544) * getSMEFTCoeffEW("CHG")
+            + (-0.12254980079681274) * getSMEFTCoeffEW("CuHR", 2,2)*g3_tree
             + (1.1274900398406373) * getSMEFTCoeffEW("CuGR", 2,2)
             + (-0.060669322709163344) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.060669322709163344) * getSMEFTCoeffEW("CHl3R", 1,1)
@@ -34338,13 +34392,15 @@ double NPSMEFTd6General::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const      
                 - 1.60 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.132 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 0.065 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         
-        //AG:
+        //AG: 
+        // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
         STXSb += cWsch * ( 
             ( (0.12123683316343867) * getSMEFTCoeffEW("CHbox")
             + (-0.030312606184165817) * getSMEFTCoeffEW("CHD")
+            + (39.36687385) * getSMEFTCoeffEW("CHG")
             + (-0.12249405368671423) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (1.126741420319402) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (1.126741420319402) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.060618416581719334) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.060618416581719334) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.060618416581719334) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -34374,12 +34430,14 @@ double NPSMEFTd6General::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const    
                 - 1.58 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.125 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 0.063 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         //AG:
+        // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
         STXSb += cWsch * ( 
             ( (0.12123503465658475) * getSMEFTCoeffEW("CHbox")
             + (-0.030315059861373662) * getSMEFTCoeffEW("CHD")
+            + (39.68515459) * getSMEFTCoeffEW("CHG")
             + (-0.12249527410207939) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (1.119722747321991) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (1.119722747321991) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.060636420919974794) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.060636420919974794) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.060636420919974794) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -34410,12 +34468,14 @@ double NPSMEFTd6General::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const   
                 - 1.60 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.112 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 0.058 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         // AG: 
+        // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
         STXSb += cWsch * ( 
             ( (0.12123076923076923) * getSMEFTCoeffEW("CHbox")
             + (-0.030307692307692306) * getSMEFTCoeffEW("CHD")
+            + (40.11053009) * getSMEFTCoeffEW("CHG")
             + (-0.12248076923076923) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (1.115576923076923) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (1.115576923076923) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.06061538461538461) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.06061538461538461) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.06061538461538461) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -34446,12 +34506,14 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) co
                 - 1.63 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.132 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 0.065 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         //AG:
+        // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
         STXSb += cWsch * ( 
             ( (0.12117552334943638) * getSMEFTCoeffEW("CHbox")
             + (-0.03036231884057971) * getSMEFTCoeffEW("CHD")
+            + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
             + (-0.12262479871175523) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (1.0990338164251208) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (1.0990338164251208) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.060708534621578096) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.060708534621578096) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.06058776167471819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -34483,12 +34545,14 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) 
                 + 0.065 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
                  
 	//AG:
+        // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
         STXSb += cWsch * (
             ( (0.121) * getSMEFTCoeffEW("CHbox")
             + (-0.0303) * getSMEFTCoeffEW("CHD")
+            + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
             + (-0.1224) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (1.093) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (1.093) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.0606) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0606) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.061) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -34519,12 +34583,14 @@ double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s)
                 - 1.48 * getSMEFTCoeffEW("CuGR", 2, 2) - 0.130 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 0.066 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         // AG: 
+        // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
         STXSb +=  cWsch * ( 
             ( (0.121) * getSMEFTCoeffEW("CHbox")
             + (-0.0303) * getSMEFTCoeffEW("CHD")
+            + (39.3) * getSMEFTCoeffEW("CHG")    //To be updated
             + (-0.123) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (1.077) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (1.077) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.061) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.061) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.061) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
@@ -34650,12 +34716,14 @@ double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_Nj2(const double sqrt_s)
 
     if (sqrt_s == 13.0) {
 
+        // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
         STXSb += cWsch * ( 
             ( (0.12121771217712178) * getSMEFTCoeffEW("CHbox")
             + (-0.030401291512915127) * getSMEFTCoeffEW("CHD")
+            + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
             + (-0.12283210332103321) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (0.992158671586716) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.992158671586716) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.06079335793357934) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.06079335793357934) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.06060885608856089) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
@@ -34681,12 +34749,14 @@ double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(const double sqrt_s)
 
     if (sqrt_s == 13.0) {
 
+        // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
         STXSb += cWsch * ( 
             ( (0.12123629112662014) * getSMEFTCoeffEW("CHbox")
             + (-0.030348953140578262) * getSMEFTCoeffEW("CHD")
+            + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
             + (-0.12263210368893321) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (0.9950149551345963) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.9950149551345963) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.060697906281156525) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.060697906281156525) * getSMEFTCoeffEW("CHl3R", 1,1) 
             + (0.006083) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
