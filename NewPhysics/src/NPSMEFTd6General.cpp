@@ -34333,8 +34333,8 @@ double NPSMEFTd6General::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const      
             ( (0.12127490039840637) * getSMEFTCoeffEW("CHbox")
             + (-0.030326693227091632) * getSMEFTCoeffEW("CHD")
             + (39.28731544) * getSMEFTCoeffEW("CHG")
-            + (-0.12254980079681274) * getSMEFTCoeffEW("CuHR", 2,2)*g3_tree
-            + (1.1274900398406373) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (-0.12254980079681274) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (1.1274900398406373) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.060669322709163344) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.060669322709163344) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.06064541832669322) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
