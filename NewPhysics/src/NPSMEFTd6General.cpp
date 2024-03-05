@@ -23132,9 +23132,19 @@ double NPSMEFTd6General::deltaGammaHWW4fRatio1() const
             );*/
     
     //AG:begin
-    // Same format as H>4f parametrization.
-    double wHLvvLSM = 6.318e-05, wHudduSM = 0.0001716, wHLvudSM = 0.0003606;
-    dwidth = (wHLvvLSM * deltaGammaHLvvLRatio1() + wHudduSM * deltaGammaHudduRatio1() + wHLvudSM * deltaGammaHLvudRatio1()) / (wHLvvLSM+wHudduSM+wHLvudSM);
+    dwidth = cWsch * (
+        ((0.12183) * getSMEFTCoeffEW("CHbox")
+        + (-0.090903) * getSMEFTCoeffEW("CHW")
+        + (-0.0303382) * getSMEFTCoeffEW("CHD")
+        + (-0.167922) * getSMEFTCoeffEW("CHl3R", 0, 0)
+        + (-0.167737) * getSMEFTCoeffEW("CHl3R", 1, 1)
+        + (0.015083) * getSMEFTCoeffEW("CHl3R", 2, 2)
+        + (0.04423) * getSMEFTCoeffEW("CHq3R", 0, 0)
+        + (0.04403) * getSMEFTCoeffEW("CHq3R", 1, 1)
+        + (0.18267) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+        + (-0.908) * deltaGwd6()
+        );
+
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
