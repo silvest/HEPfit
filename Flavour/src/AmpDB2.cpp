@@ -220,7 +220,7 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q){
     computeD(order);
     gslpp::complex Gamma21overM21 = -Gf2 / (24 * M_PI * MBq) / M21overme0 *
                 (Mb2_prefactor * (c(q)(0) + c(q)(1) * me(1)/me(0) + c(q)(2) * me(2)/me(0)) + 
-            Mb_PS * Mb_PS * delta_1overm_tradBasis(q)/me(0));
+            Mb2_prefactor_1overm * delta_1overm_tradBasis(q)/me(0));
     */
     
     //switching to the new basis
@@ -228,7 +228,7 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q){
     switch (order) {
         case FULLNLO:
             computeD(FULLNLO);
-            Gamma21overM21 = Mb2_prefactor * (c(q, LO) * meoverme0) + Mb_PS * Mb_PS * -delta_1overm(q)/me(0);
+            Gamma21overM21 = Mb2_prefactor * (c(q, LO) * meoverme0) + Mb2_prefactor_1overm * -delta_1overm(q)/me(0);
             computeD(LO);
             Gamma21overM21 += Mb2_prefactor * (c(q, NLO) * meoverme0);
             Gamma21overM21 *= -Gf2 / (24. * M_PI * MBq) / M21overme0;
@@ -236,7 +236,7 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q){
         case LO:
             computeD(LO);
             Gamma21overM21 = -Gf2 / (24. * M_PI * MBq) / M21overme0 *
-                        (Mb2_prefactor * (c(q, LO) * meoverme0) + Mb_PS * Mb_PS * -delta_1overm(q)/me(0));
+                        (Mb2_prefactor * (c(q, LO) * meoverme0) + Mb2_prefactor_1overm * -delta_1overm(q)/me(0));
             break;
         default:
             throw std::runtime_error("AmpDB2::Gamma21overM21_tradBasis(orders order, quark q): order not implemented");    
@@ -310,6 +310,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
 
     //adapt "Mb2_prefactor" to the used mass scheme; Mb, Mc, resummed z always in MSbar 
     //explained in Gerlach thesis chapter 7.0 and arxiv:2205.07907 Results.
+    Mb2_prefactor_1overm = Mb_PS * Mb_PS;
     if(order == NNLO){
         Mb = Mb_mub;
         Mc = Mc_mub;
@@ -932,7 +933,10 @@ void AmpDB2::compute_deltas_1overm(quark q) {
 void AmpDB2::compute_g(){
     //hep-ph/0612167
     //equation (25)
-    double cache_zc = z_1overm;
+    double cache_z = z_1overm;
+    double cache_z2 = z_1overm2;
+    double cache_oneminusz_1overm2 = oneminusz_1overm2;
+    double cache_sqrt1minus4z = sqrt1minus4z_1overm;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {
         cacheg[indexg(qq, 0)] = sqrt1minus4z_1overm * (1. + 2. * z_1overm) * K_1;
         cacheg[indexg(qq, 1)] = -2. * sqrt1minus4z_1overm * (1. + 2. * z_1overm) * K_1;
@@ -941,10 +945,16 @@ void AmpDB2::compute_g(){
         cachegtilde[indexg(qq, 0)] = -2. * sqrt1minus4z_1overm * (1. + 2. * z_1overm) * K_2;
         cachegtilde[indexg(qq, 1)] = -2. * (1. - 2. * z_1overm - 2. * z_1overm2) / sqrt1minus4z_1overm * K_2;
         cachegtilde[indexg(qq, 2)] = -24. * z_1overm2 / sqrt1minus4z_1overm * K_2;
-        z_1overm = 0;
+        z_1overm = 0.;
+        z_1overm2 = 0.;
+        oneminusz_1overm2 = 1.;
+        sqrt1minus4z_1overm = 1.;
     }
     //equation (26)
-    z_1overm = cache_zc;
+    z_1overm = cache_z;
+    z_1overm2 = cache_z2;
+    oneminusz_1overm2 = cache_oneminusz_1overm2;
+    sqrt1minus4z_1overm = cache_sqrt1minus4z;
     cacheg[indexg(cu, 0)] = oneminusz_1overm2 * (1. + 2. * z_1overm) * K_1;
     cacheg[indexg(cu, 1)] = -2. * oneminusz_1overm2 * (1. + 2. * z_1overm) * K_1;
     cacheg[indexg(cu, 2)] = -2. * (1. - z_1overm) * (1. + z_1overm + z_1overm2) * K_1;;
@@ -1015,7 +1025,7 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, qu
    //Gerlach thesis eq. 6.1 divided by M_21
     gslpp::complex Gamma21overM21 = Mb2_prefactor * (c_H(q, order) * meoverme0).conjugate();
     computeWilsonCoeffsDB1bsg(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
-    Gamma21overM21 += Mb_PS * Mb_PS * delta_1overm(q)/me(0);
+    Gamma21overM21 += Mb2_prefactor_1overm * delta_1overm(q)/me(0);
     Gamma21overM21 *= Gf2 / (24. * M_PI * MBq) / M21overme0;
     return Gamma21overM21;
 }
@@ -1050,7 +1060,6 @@ gslpp::vector<gslpp::complex> AmpDB2::c_H(quark q, orders order){
         default:
             throw std::runtime_error("AmpDB2::c_H(quark q): invalid quark index: ");
     }
-    
     result.assign(0, -lambda_c*lambda_c * H(cc, order) - 2. * lambda_c*lambda_u * H(cu, order) - lambda_u*lambda_u * H(uu, order));
     result.assign(2, -lambda_c*lambda_c * H_s(cc, order) - 2. * lambda_c*lambda_u * H_s(cu, order) - lambda_u*lambda_u * H_s(uu, order));
     
@@ -1067,7 +1076,7 @@ gslpp::complex AmpDB2::H(quarks qq, orders order){
     if (order == FULLNNLO) return H_partial(qq, 1, 8, 1, 8, 0) + H_partial(qq, 1, 8, 1, 8, 1) + H_partial(qq, 1, 8, 1, 8, 2);
     throw std::runtime_error("AmpDB2::H(quarks qq, orders order) order not implemented");
 }
-gslpp::complex AmpDB2::H_s(quarks qq, orders order){   
+gslpp::complex AmpDB2::H_s(quarks qq, orders order){
     if (order == LO) return H_s_partial(qq, 1, 8, 1, 8, 0);
     if (order == FULLNLO) return H_s_partial(qq, 1, 8, 1, 8, 0) + H_s_partial(qq, 1, 8, 1, 8, 1);
     if (order == FULLNNLO) return H_s_partial(qq, 1, 8, 1, 8, 0) + H_s_partial(qq, 1, 8, 1, 8, 1) + H_s_partial(qq, 1, 8, 1, 8, 2); 
@@ -1145,13 +1154,19 @@ gslpp::complex AmpDB2::H_partial(quarks qq, int i_start, int i_end, int j_start,
                 result += cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0);
             }
             else if (n==1) {
+                if(j==1 or j==2 or j==8){
                 result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
                         + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0);
+                }
+                else if (3<=j and j<=6){
+                result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0, flag_LOz);                    
+                }
             }
             else if (n==2) {
                 result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
-                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1)
-                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0);
+                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1, flag_LOz)
+                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0, flag_LOz);
             }
             else {
                 throw(std::runtime_error("AmpDB2::H_partial order not implemented"));
@@ -1171,13 +1186,19 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
                 result += cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0);
             }
             else if (n==1) {
+                if(j==1 or j==2 or j==8){
                 result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
                         + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0);
+                }
+                else if (3<=j and j<=6){
+                result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
+                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0, flag_LOz);
+                }
             }
             else if (n==2) {
                 result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
-                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1)
-                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0);
+                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1, flag_LOz)
+                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0, flag_LOz);
             }
             else {
                 throw(std::runtime_error("AmpDB2::H_s_partial order not implemented"));
@@ -1188,10 +1209,12 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
 }
 
 
-double AmpDB2::p(quarks qq, int i, int j, int n){
+double AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz){
+    if (flag_LOz) return cache_p_LO[index_p(qq, i, j, n)];
     return cache_p[index_p(qq, i, j, n)];
 }
-double AmpDB2::p_s(quarks qq, int i, int j, int n){
+double AmpDB2::p_s(quarks qq, int i, int j, int n, bool flag_LOz){
+    if (flag_LOz) return cache_ps_LO[index_p(qq, i, j, n)];
     return cache_ps[index_p(qq, i, j, n)];    
 }
 
@@ -1202,7 +1225,7 @@ int AmpDB2::index_p(quarks qq, int i, int j, int n){
 
 void AmpDB2::compute_pp_s(){
     //input didn't change nothing to compute
-    double currentInput_compute_pp_s[3] = {z, mu_1, mu_2};
+    double currentInput_compute_pp_s[4] = {z, mu_1, mu_2, mu_b};
     if (lastInput_compute_pp_s == currentInput_compute_pp_s) return;
     
     double cache_logz = logz;
@@ -1394,14 +1417,14 @@ void AmpDB2::compute_pp_s(){
     cache_ps[index_p(uu, 2, 2, 1)]+= -16./27. - (8.*L_1)/9.;
     
     
-        //Corrections from LO coefficients when resummation logz
-        double z_replace = -6. * 4./3. * logz * z;  
-        cache_p[index_p(cc, 1, 1, 1)]+= (-11./6. - 43./6. * z)/sqrt1minus4z * z_replace;
-        cache_p[index_p(cc, 1, 2, 1)]+= (-2. + 10. * z)/sqrt1minus4z * z_replace;
-        cache_p[index_p(cc, 2, 2, 1)]+= (-3. + 6. * z)/sqrt1minus4z * z_replace;
-        cache_ps[index_p(cc, 1, 1, 1)]+= (20./3. * z)/sqrt1minus4z * z_replace;
-        cache_ps[index_p(cc, 1, 2, 1)]+= (16. * z)/sqrt1minus4z * z_replace;
-        cache_ps[index_p(cc, 2, 2, 1)]+= (-12. * z)/sqrt1minus4z * z_replace;        
+    //Corrections from LO coefficients when resummation logz
+    double z_replace = -6. * 4./3. * logz * z;  
+    cache_p[index_p(cc, 1, 1, 1)]+= (-11./6. - 43./6. * z)/sqrt1minus4z * z_replace;
+    cache_p[index_p(cc, 1, 2, 1)]+= (-2. + 10. * z)/sqrt1minus4z * z_replace;
+    cache_p[index_p(cc, 2, 2, 1)]+= (-3. + 6. * z)/sqrt1minus4z * z_replace;
+    cache_ps[index_p(cc, 1, 1, 1)]+= (20./3. * z)/sqrt1minus4z * z_replace;
+    cache_ps[index_p(cc, 1, 2, 1)]+= (16. * z)/sqrt1minus4z * z_replace;
+    cache_ps[index_p(cc, 2, 2, 1)]+= (-12. * z)/sqrt1minus4z * z_replace;        
     
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {    
         //equation (6.14)
@@ -1461,7 +1484,66 @@ void AmpDB2::compute_pp_s(){
                     0.5 * (cache_ps[index_p(cc, i, j, 1)] + cache_ps[index_p(uu, i, j, 1)]);
         }
     }
+
+    cache_p[index_p(cu, 1, 1, 1)]= (15.*log1minusz + 2407.*z + 894.*L_2*z - 1065.*log1minusz*z + 1014.*log1minusz*logz*z - 1539.*log1minusz*z4*z + 
+        1539.*logz*z4*z - 36.*L_1*oneminusz2*z*(-19. + 4.*z) - 9255.*z2 - 1188.*L_2*z2 + 5679.*log1minusz*z2 - 3738.*logz*z2 - 
+        2970.*log1minusz*logz*z2 + 10008.*z3 - 306.*L_2*z3 - 9762.*log1minusz*z3 + 7794.*logz*z3 + 3060.*log1minusz*logz*z3 - 
+        12.*Dilogz*z*(-169. + 495.*z - 510.*z2 + 184.*z3) - 3160.*z4 + 600.*L_2*z4 + 6672.*log1minusz*z4 - 6876.*logz*z4 - 
+        1104.*log1minusz*logz*z4 - 30.*z*(M_PI2) + 6.*z2*(M_PI2) + 24.*z3*(M_PI2))/(648.*z);
+    cache_p[index_p(cu, 1, 2, 1)]= -1./108.*(48.*log1minusz + 1856.*z - 228.*L_2*z - 627.*log1minusz*z - 276.*log1minusz*logz*z + 378.*log1minusz*z4*z - 
+        378.*logz*z4*z - 18.*L_1*oneminusz2*z*(-37. + 4.*z) - 3588.*z2 + 216.*L_2*z2 + 72.*log1minusz*z2 + 588.*logz*z2 + 
+        972.*log1minusz*logz*z2 + 1143.*z3 + 252.*L_2*z3 + 1923.*log1minusz*z3 - 2421.*logz*z3 - 792.*log1minusz*logz*z3 + 
+        24.*Dilogz*z*(-23. + 81.*z - 66.*z2 + 8.*z3) + 589.*z4 - 240.*L_2*z4 - 1794.*log1minusz*z4 + 1746.*logz*z4 + 
+        96.*log1minusz*logz*z4 - 60.*z*(M_PI2) + 12.*z2*(M_PI2) + 48.*z3*(M_PI2))/z;
+    cache_p[index_p(cu, 2, 2, 1)]= (70. + 12.*L_2 - 210.*log1minusz + 6.*log1minusz*logz + (33.*log1minusz)/z - 3.*z - 54.*L_2*z + 225.*log1minusz*z - 210.*logz*z + 
+        54.*log1minusz*logz*z + 18.*L_1*oneminusz2*(-1. + 4.*z) - 360.*z2 + 72.*L_2*z2 + 21.*log1minusz*z2 + 153.*logz*z2 + 
+        36.*log1minusz*logz*z2 + 293.*z3 - 30.*L_2*z3 - 42.*log1minusz*z3 - 126.*logz*z3 - 96.*log1minusz*logz*z3 - 
+        12.*Dilogz*(-1. - 9.*z - 6.*z2 + 16.*z3) - 27.*log1minusz*z4 + 27.*logz*z4 - 30.*(M_PI2) + 6.*z*(M_PI2) + 24.*z2*(M_PI2))/18.;
+    cache_ps[index_p(cu, 1, 1, 1)]= -1./162.*(12.*log1minusz + 8.*z + 240.*L_2*z - 978.*log1minusz*z + 516.*log1minusz*logz*z + 
+        774.*log1minusz*z4*z - 774.*logz*z4*z + 72.*L_1*oneminusz2*z*(1. + 2.*z) + 1461.*z2 - 
+        1674.*log1minusz*z2 + 516.*logz*z2 - 36.*log1minusz*logz*z2 - 3654.*z3 - 720.*L_2*z3 + 
+        7008.*log1minusz*z3 - 5796.*logz*z3 - 1584.*log1minusz*logz*z3 + 
+        24.*Dilogz*z*(43. - 3.*z - 132.*z2 + 92.*z3) + 2185.*z4 + 480.*L_2*z4 - 5142.*log1minusz*z4 + 
+        5346.*logz*z4 + 1104.*log1minusz*logz*z4 + 12.*z*(M_PI2) + 12.*z2*(M_PI2) - 24.*z3*(M_PI2))/z;
+    cache_ps[index_p(cu, 1, 2, 1)]= (6.*log1minusz + 94.*z - 96.*L_2*z + 402.*log1minusz*z - 120.*log1minusz*logz*z - 180.*log1minusz*z4*z + 
+        180.*logz*z4*z + 36.*L_1*oneminusz2*z*(1. + 2.*z) - 363.*z2 + 216.*log1minusz*z2 - 120.*logz*z2 - 
+        72.*log1minusz*logz*z2 + 792.*z3 + 288.*L_2*z3 - 1842.*log1minusz*z3 + 1638.*logz*z3 + 
+        288.*log1minusz*logz*z3 - 48.*Dilogz*z*(5. + 3.*z - 12.*z2 + 4.*z3) - 523.*z4 - 192.*L_2*z4 + 
+        1398.*log1minusz*z4 - 1350.*logz*z4 - 96.*log1minusz*logz*z4 + 24.*z*(M_PI2) + 24.*z2*(M_PI2) - 
+        48.*z3*(M_PI2))/(27.*z);
+    cache_ps[index_p(cu, 2, 2, 1)]= (4.*(12.*oneminusz2*(1. + 2.*z) + 18.*L_1*oneminusz2*(1. + 2.*z) - 12.*L_2*oneminusz2*(1. + 2.*z) + 
+        18.*(1. + L_2)*oneminusz2*(1. + 2.*z) - 6.*(2.*Dilogz + log1minusz*logz)*(-1. + z)*(1. + 2.*z)*
+         (-1. + 4.*z) - (3.*log1minusz*oneminusz2*(1. + z)*(-1. + 13.*z + 3.*z2))/z + 
+        7.*(-1. + z)*(-5. - 8.*z + 19.*z2) + 3.*logz*z*(-2. + 3.*z - 18.*z2 + 3.*z3) + 
+        6.*(-1. + z)*(1. + 2.*z)*(M_PI2)))/9.;
     
+    //pengFlag terms from P12-36 here in full z dependence
+    cache_p[index_p(cu, 1, 1, 1)]+= (5.*(-2. - 3.*L_1 + 3.*logz - 12.*z - 2.*sqrt1minus4z*(1. + 2.*z) - 
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z*
+         (1. + 2.*z)))/1944.;
+    cache_p[index_p(cu, 1, 2, 1)]+= (5.*(2. + 3.*L_1 - 3.*logz + 12.*z + 2.*sqrt1minus4z*(1. + 2.*z) + 
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) + 3.*logsigma*sqrt1minus4z*
+         (1. + 2.*z)))/162.;
+    cache_p[index_p(cu, 2, 2, 1)]+= (5.*(-2. - 3.*L_1 + 3.*logz - 12.*z - 2.*sqrt1minus4z*(1. + 2.*z) - 
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z*
+         (1. + 2.*z)))/54.;
+    cache_ps[index_p(cu, 1, 1, 1)]+= (-2. - 3.*L_1 + 3.*logz - 12.*z - 2.*sqrt1minus4z*(1. + 2.*z) - 
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z*
+         (1. + 2.*z))/243.;
+    cache_ps[index_p(cu, 1, 2, 1)]+= (4.*(2. + 3.*L_1 - 3.*logz + 12.*z + 2.*sqrt1minus4z*(1. + 2.*z) + 
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) + 3.*logsigma*sqrt1minus4z*
+         (1. + 2.*z)))/81.;
+    cache_ps[index_p(cu, 2, 2, 1)]+= (-8.*(1. + 2.*z)*(3.*L_1*sqrt1minus4z + sqrt1minus4z*(2. - 3.*logz + 12.*z) - 
+        3.*logsigma*(-1. + 2.*z + 8.*z2)))/27.;
+    
+    //Corrections from LO coefficients when resummation logz
+    cache_p[index_p(cu, 1, 1, 1)]+= (-11./12. + 7./4. * z + 5./6. * z2) * z_replace;
+    cache_p[index_p(cu, 1, 2, 1)]+= (-1. + 3. * z - 2. * z2) * z_replace;
+    cache_p[index_p(cu, 2, 2, 1)]+= (-3./2. + 3./2. * z2) * z_replace;
+    cache_ps[index_p(cu, 1, 1, 1)]+= (10./3. * z - 10./3. * z2) * z_replace;
+    cache_ps[index_p(cu, 1, 2, 1)]+= (8. * z - 8. * z2) * z_replace;
+    cache_ps[index_p(cu, 2, 2, 1)]+= (-6. * z + 6. * z2) * z_replace;  
+
     //Gerlach thesis eq. (6.18)
     cache_p[index_p(cc, 3, 3, 1)] = -154./9. * L_1 + 184./3. * L_2 + 90. * z - 5./3. * M_PI2 + 5./(3. * sqrt3) * M_PI + 1390./27.;
     cache_p[index_p(cc, 3, 4, 1)] = -811./54. * L_1 + 74./9. * L_2 - 10./3. * z - 10./9. * M_PI2 + 70./(9. * sqrt3) * M_PI - 27991./324.;
@@ -1513,23 +1595,33 @@ void AmpDB2::compute_pp_s(){
     }
     
     //Gerlach thesis eq. (6.19)
-    cache_p[index_p(cc, 1, 8, 1)] = 5./18.;
-    cache_p[index_p(cc, 2, 8, 1)] = -5./3.;
-    cache_ps[index_p(cc, 1, 8, 1)] = 4./9.;
-    cache_ps[index_p(cc, 2, 8, 1)] = -8./3.;
+    cache_p[index_p(cc, 1, 8, 1)] = 5./18. * sqrt1minus4z + 5./9. * z * sqrt1minus4z;
+    cache_p[index_p(cc, 2, 8, 1)] = -5./3. * sqrt1minus4z - 10./3. * z * sqrt1minus4z; 
+    cache_ps[index_p(cc, 1, 8, 1)] = 4./9. * sqrt1minus4z + 8./9. * z * sqrt1minus4z;
+    cache_ps[index_p(cc, 2, 8, 1)] = -8./3. * sqrt1minus4z - 16./3. * z * sqrt1minus4z;
+    cache_p[index_p(uu, 1, 8, 1)] = 5./18.;
+    cache_p[index_p(uu, 2, 8, 1)] = -5./3.;
+    cache_ps[index_p(uu, 1, 8, 1)] = 4./9.;
+    cache_ps[index_p(uu, 2, 8, 1)] = -8./3.;
+    
+    //Gerlach thesis eq. (6.27)
+    for (int i=1; i<=2; i++){
+            cache_p[index_p(cu, i, 8, 1)] = 0.5 * (cache_p[index_p(cc, i, 8, 1)] + cache_p[index_p(uu, i, 8, 1)]);
+            cache_ps[index_p(cu, i, 8, 1)] = 0.5 * (cache_ps[index_p(cc, i, 8, 1)] + cache_ps[index_p(uu, i, 8, 1)]);
+    }
     
     //Gerlach thesis eq. (6.21)
     cache_p[index_p(cc, 3, 8, 1)] = -32./3.;
-    cache_p[index_p(cc, 4, 8, 1)] = -169./18.;
+    cache_p[index_p(cc, 4, 8, 1)] = (-139. - 30.*sqrt1minus4z - 60.*sqrt1minus4z*z)/18.;
     cache_p[index_p(cc, 5, 8, 1)] = -512./3.;
-    cache_p[index_p(cc, 6, 8, 1)] = -992./9.;
+    cache_p[index_p(cc, 6, 8, 1)] = (-1684. - 300.*sqrt1minus4z - 600.*sqrt1minus4z*z)/18.;
     cache_ps[index_p(cc, 3, 8, 1)] = 64./3.;
-    cache_ps[index_p(cc, 4, 8, 1)] = -20./9.;
+    cache_ps[index_p(cc, 4, 8, 1)] = (4.*(1. - 6.*sqrt1minus4z - 12.*sqrt1minus4z*z))/9.;
     cache_ps[index_p(cc, 5, 8, 1)] = 1024./3.;
-    cache_ps[index_p(cc, 6, 8, 1)] = 256./9.;
+    cache_ps[index_p(cc, 6, 8, 1)] = (4*(124. - 60.*sqrt1minus4z - 120.*sqrt1minus4z*z))/9.;
     
     //Gerlach thesis eq. (6.20)
-    for (int i=1; i<=6; i++){
+    for (int i=3; i<=6; i++){
         cache_p[index_p(cu, i, 8, 1)] = cache_p[index_p(cc, i, 8, 1)];
         cache_p[index_p(uu, i, 8, 1)] = cache_p[index_p(cc, i, 8, 1)];
         cache_ps[index_p(cu, i, 8, 1)] = cache_ps[index_p(cc, i, 8, 1)];
@@ -1541,200 +1633,123 @@ void AmpDB2::compute_pp_s(){
 
     double log2z = logz * logz;
     double sqrtz = sqrt(z);
-    
-    /*
-    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {
-        //Gerlach thesis eq. (6.22)
-        cache_p[index_p(qq, 1, 1, 2)] = z * (-1348./9. * L_1 * logz - 88./3. * L_2  * logz - 2347./54. * L_12 + 187./18. * L_22
-                + 31./54. * M_PI2 * L_1 - 722039./1944. * L_1 - 337./9. * L_1 * L_2 + 19./81. * M_PI2 * L_2 + 1891./81. * L_2
-                + 22./9. * log2z + 4./27. * M_PI2 * logz - 1591./3. * logz + 128581./216. * zeta3
-                - 13637./116640. * M_PI4 + 203./81. * sqrt5 * M_PI2 + 235469./3888. * M_PI2 - 25./(162. * sqrt3) * M_PI
-                - 601385353./583200. + 176./27. * M_PI2 * log2 - 4321./324. * M_PI2 * log2
-                - 68./27. * M_PI2 * log12sqrt52) + 3211./324. * L_12 + 12911./972. * L_2 * L_1 - 5./4. * M_PI2 * L_1
-                - 25./(972. * sqrt3) * M_PI * L_1 + 1320817./17496. * L_1 - 311./216. * L_22 + M_PI2 * L_2 /162. + 259603./11664. * L_2
-                + 5./(162. * sqrt3) * t_2 + 28333./486. * zeta3 + 23./4860. * M_PI4 - 2197./972 * sqrt5 * M_PI2 - 216641./69984. * M_PI2
-                - 25./(1458. * sqrt3) * M_PI + 814589597./4199040. - 71./972. * M_PI2 * log2 - 5./(1944. * sqrt3) * M_PI * log3
-                - 169./81. * M_PI2 * log12sqrt52 * 56./(243. * sqrt3) * Cl2PI3
-                + n_v * (0.0617284 * L_1 * z + 4.60031 * z + 4.75206 * sqrtz - 5.55556 * z * logz);
-        cache_p[index_p(qq, 1, 2, 2)] = z * (256./3. * L_1 * logz - 32. * L_2 * logz + 1193./9. * L_12 + 34./3. * L_22
-                - 44./9. * M_PI2 * L_1 + 117563./162. * L_1 + 64./3. * L_1 * L_2 - 76./27. * M_PI2 * L_2 + 6350./27. * L_2
-                + 8./3. * log2z - 16./9. * M_PI2 * logz + 364./3. * logz + 85027./90. * zeta3
-                + 20833./4860. * M_PI4 + 548./(27. * sqrt5) * M_PI2 - 11245./162. * M_PI2 + 50./(27. * sqrt3) * M_PI + 12685151./9720.
-                + 64./9. * M_PI2 * log2 - 1361./27. * M_PI2 * log2 - 176./45. * M_PI2 * log12sqrt52)
-                - 1751./54. * L_12 + 166./81. * L_2 * L_1 + 10. * M_PI2 * L_1 + 25./(81. * sqrt3) * M_PI * L_1 - 1026907./5832. * L_1
-                - L_22/18. - 2./27. * M_PI2 * L_2 - 619./972. * L_2 - 10./(27. * sqrt3) * t_2 + 10573./324. * zeta3 - 799./810. * M_PI4
-                - 299./81. * sqrt5 * M_PI2 + 497221./11664. * M_PI2 + 50./(243. * sqrt3) * M_PI - 95740679./349920.
-                + 596./81. * M_PI2 * log2 + 5./(162. * sqrt3) * M_PI * log3 - 92./27. * M_PI2 * log12sqrt52
-                - 224./(81. * sqrt3) * Cl2PI3 + n_v * (-0.740741 * L_1 * z - 85.8705 * z
-                + 48.2515 * sqrtz + 2.66667 * z * logz);
-        cache_p[index_p(qq, 2, 2, 2)] = z * (-88. * L_1 * logz - 48. * L_2 * logz - 122./3. * L_12 + 17. * L_22 + 26./3. * M_PI2 * L_1
-                - 16583./54. * L_1 - 22. * L_1 * L_2 + 76./9. * M_PI2 * L_2 - 109./18. * L_2 + 4. * log2z
-                + 16./3. * M_PI2 * logz - 464. * logz + 2521./15. * zeta3 + 5203./3240 * M_PI4
-                + 28./(9. * sqrt5) * M_PI2 + 7097./108. * M_PI2 - 50./(9. * sqrt3) * M_PI - 12332857./16200. + 32./3. * M_PI2 * log2
-                - 274./9. * M_PI2 * log2 - 16./15. * M_PI2 * log12sqrt52) + 239./18. * L_12
-                - 202./27. * L_2 * L_1 - 15. * M_PI2 * L_1 - 25./(27. * sqrt3) * M_PI * L_1 + 106199./972. * L_1 - 19./3. * L_22
-                + 2./9. * M_PI2 * L_2 - 5117./81. * L_2 + 10./(9. * sqrt3) * t_2 - 3157./54. * zeta3 + 971./540. * M_PI4
-                - 13./27. * sqrt5 * M_PI2 - 177247./3888. * M_PI2 - 50./(81. * sqrt3) * M_PI + 74041./14580. + 148./27. * M_PI2 * log2
-                + 5./(54. * sqrt3) * M_PI * log3 - 4./9. * M_PI2 * log12sqrt52 + 224./(27. * sqrt3) * Cl2PI3
-                + n_v * (2.22222 * L_1 * z + 70.6121 * z - 105.276 * sqrtz - 32. * z * logz);
-        cache_ps[index_p(qq, 1, 1, 2)] = z * (-4. * M_PI2 * L_1 - 98023./243. * L_1 - 32./81. * M_PI2 * L_2 - 9272./81. * L_2
-                - 32./27. * M_PI2 * logz - 9272./27. * logz + 29./3. * zeta3 - 27529./14580. * M_PI4
-                - 344./81. * sqrt5 * M_PI2 - 7103./486 * M_PI2 - 20./(81. * sqrt3) * M_PI - 33198263./36450.
-                + 1826./81. * M_PI2 * log2) - 902./243. * L_12 - 3064./243. * L_2 * L_1 - 2. * M_PI2 * L_1
-                - 10./(243. * sqrt3) * M_PI * L_1 - 77617./2187. * L_1 + 260./27. * L_22 - 16./81. * M_PI2 * L_2 - 5504./729 * L_2
-                + 4./(81. * sqrt3) * t_2 + 28528./243. * zeta3 + 449./1215. * M_PI4 + 1118./243. * sqrt5 * M_PI2 - 44209./8748. * M_PI2
-                - 20./(729. * sqrt3) * M_PI - 67489177./262440. - 3506./243. * M_PI2 * log2 - M_PI * log3 / (243. * sqrt3)
-                + 344./81. * M_PI2 * log12sqrt52 + 104./(243. * sqrt3) * Cl2PI3
-                + n_v * (0.0987654 * L_1 * z - 26.8617 * z + 27.7812 * sqrtz);
-        cache_ps[index_p(qq, 1, 2, 2)] = z * (32. * M_PI2 * L_1 - 23276./81. * L_1 + 128./27. * M_PI2 * L_2 - 5248./27. * L_2
-                + 128./9. * M_PI2 * logz - 5248./9. * logz - 244. * zeta3 + 5692./1215. * M_PI4
-                - 160./27. * sqrt5 * M_PI2 + 3238./81. * M_PI2 + 80./(27. * sqrt3) * M_PI + 5060009./12150.
-                + 208./27. * M_PI2 * log2) + 44./81. * L_12 - 1856./81. * L_2 * L_1 + 16. * M_PI2 * L_1 + 40./(81. * sqrt3) * M_PI * L_1
-                - 28733./729. * L_1 + 208./9. * L_22 + 64./27. * M_PI2 * L_2 - 2176./243. * L_2 - 16./(27. * sqrt3) * t_2
-                + 13934./81. * zeta3 + 226./405. * M_PI4 + 520./81. * sqrt5 * M_PI2 + 39995./1458. * M_PI2 + 80./(243. * sqrt3) * M_PI
-                - 1336127./2187. - 1624./81. * M_PI2 * log2 + 4./(81. * sqrt3) * M_PI * log3
-                + 160./27. * M_PI2 * log12sqrt52 - 416./(81. * sqrt3) * Cl2PI3
-                + n_v * (-1.18519 * L_1 * z - 72.3265 * z + 87.73 * sqrtz);
-        cache_ps[index_p(qq, 2, 2, 2)] = z * (-48. * M_PI2 * L_1 + 18740./27. * L_1 - 128./9. * M_PI2 * L_2 + 928./9. * L_2
-                - 128./3. * M_PI2 * logz + 928./3. * logz - 600. * zeta3 + 7991./405 * M_PI4
-                - 32./9. * sqrt5 * M_PI2 - 8038./27. * M_PI2 - 80./(9. * sqrt3) * M_PI + 6836747./2025.
-                + 272./9. * M_PI2 * log2) + 604./27. * L_12 + 1064./27. * L_2 * L_1 - 24. * M_PI2 * L_1 - 40./(27. * sqrt3) * M_PI * L_1
-                + 40370./243. * L_1 - 52./3. * L_22 - 64./9. * M_PI2 * L_2 + 6928./81. * L_2 + 16./(9. * sqrt3) * t_2
-                - 4388./27. * zeta3 + 398./135. * M_PI4 + 104./27. * sqrt5 * M_PI2 - 41279./486. * M_PI2 - 80./(81. * sqrt3) * M_PI
-                + 27476329./58320. - 656./27. * M_PI2 * log2 - 4./(27. * sqrt3) * M_PI * log3
-                + 32./9. * M_PI2 * log12sqrt52 + 416./(27. * sqrt3) * Cl2PI3
-                + n_v * (3.55556 * L_1 * z + 176.979 * z -105.276 * sqrtz);
-    
-        //Gerlach thesis eq. (6.26)
-        z = 0.;
-    }
-     */
-    z = cache_z;   
+      
     gslpp::complex log1M1OverSqrtz = log(abs(1. - 1./sqrtz));
     if (1./sqrtz > 1) log1M1OverSqrtz += M_PI * complex::i();
     gslpp::complex logM1OverSqrtz = log(abs(-1./sqrtz)) + M_PI * complex::i();
     gslpp::complex logM1OverSqrtz2 = logM1OverSqrtz * logM1OverSqrtz;
 
-            //LO in z
-        cache_p[index_p(cc, 1, 1, 2)] = (814589597./4199040. + (1320817.*L_1)/17496. + (3211.*L_12)/324. + (259603.*L_2)/11664. + (12911.*L_1*L_2)/972. - (311.*L_22)/216. + (56.*Cl2PI3*sqrt3)/729. - 
-            ((5.*complex::i())/3888.)*log3 * log3*sqrt3 + (855371.*sqrtz)/180000. + (22.*log2z*sqrtz)/9. + (88.*logM1OverSqrtz2*sqrtz)/9. + (88.*logM1OverSqrtz*logz*sqrtz)/9. - 
-            ((5.*1.)/486.)*sqrt3*t_2 - (22.*log2z)/(9.*z) - (88.*logM1OverSqrtz2)/(9.*z) - (88.*logM1OverSqrtz*logz)/(9.*z) + (22.*log2z)/(9.*sqrtz) + 
-            (88.*logM1OverSqrtz2)/(9.*sqrtz) + (88.*logM1OverSqrtz*logz)/(9.*sqrtz) - (3547371902315179.*z)/3455518320000. - (721919.*L_1*z)/1944. - (2347.*L_12*z)/54. + 
-            (1891.*L_2*z)/81. - (337.*L_1*L_2*z)/9. + (187.*L_22*z)/18. - (88.*logM1OverSqrtz2*z)/9. - (4823.*logz*z)/9. - (1348.*L_1*logz*z)/9. - (88.*L_2*logz*z)/3. - 
-            (88.*logM1OverSqrtz*logz*z)/9. - (28333.*zeta3)/486. + (128581.*z*zeta3)/216. - (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/17496. + 
-            ((-684288. + 684288.*sqrtz - (216641. + 87480.*L_1 - 432.*L_2 + 146016.*log12sqrt52 + 5112.*log2 - (50.*complex::i())*sqrt3 + 158184.*sqrt5 - 684288.*sqrtz)*z + 
-               18.*(197453. + 2232.*L_1 + 912.*L_2 - 9792.*log12sqrt52 - 26508.*log2 + 576.*logz + 9744.*sqrt5)*z2)*(M_PI2))/(69984.*z) + (23.*(M_PI4))/4860. - (13637.*z*(M_PI4))/116640.).real();
-        cache_p[index_p(cc, 1, 2, 2)] = (-95740679./349920. - (1026907.*L_1)/5832. - (1751.*L_12)/54. - (619.*L_2)/972. + (166.*L_1*L_2)/81. - L_22/18. - (224.*Cl2PI3*sqrt3)/243. + ((5.*complex::i())/324.)*log3 * log3*sqrt3 + 
-            (2895091.*sqrtz)/60000. + (8.*log2z*sqrtz)/3. + (32.*logM1OverSqrtz2*sqrtz)/3. + (32.*logM1OverSqrtz*logz*sqrtz)/3. + ((10.*1.)/81.)*sqrt3*t_2 - (8.*log2z)/(3.*z) - 
-            (32.*logM1OverSqrtz2)/(3.*z) - (32.*logM1OverSqrtz*logz)/(3.*z) + (8.*log2z)/(3.*sqrtz) + (32.*logM1OverSqrtz2)/(3.*sqrtz) + 
-            (32.*logM1OverSqrtz*logz)/(3.*sqrtz) + (2370097879.*z)/1944000. + (117443.*L_1*z)/162. + (1193.*L_12*z)/9. + (6350.*L_2*z)/27. + (64.*L_1*L_2*z)/3. + (34.*L_22*z)/3. - 
-            (32.*logM1OverSqrtz2*z)/3. + 124.*logz*z + (256.*L_1*logz*z)/3. - 32.*L_2*logz*z - (32.*logM1OverSqrtz*logz*z)/3. - (10573.*zeta3)/324. + (85027.*z*zeta3)/90. + 
-            (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/1458. - 
-            ((622080. - 622080.*sqrtz - 5.*(497221. + 116640.*L_1 - 864.*L_2 - 39744.*log12sqrt52 + 85824.*log2 - (100.*complex::i())*sqrt3 - 43056.*sqrt5 + 124416.*sqrtz)*z + 
-               72.*(64865. + 3960.*L_1 + 2280.*L_2 + 3168.*log12sqrt52 + 35070.*log2 + 1440.*logz - 3288.*sqrt5)*z2)*(M_PI2))/(58320.*z) - (799.*(M_PI4))/810. + (20833.*z*(M_PI4))/4860.).real();
-        cache_p[index_p(cc, 2, 2, 2)] = (74041./14580. + (106199.*L_1)/972. + (239.*L_12)/18. - (5117.*L_2)/81. - (202.*L_1*L_2)/27. - (19.*L_22)/3. + (224.*Cl2PI3*sqrt3)/81. - ((5.*complex::i())/108.)*log3 * log3*sqrt3 - 
-            (1052759.*sqrtz)/10000. + 4.*log2z*sqrtz + 16.*logM1OverSqrtz2*sqrtz + 16.*logM1OverSqrtz*logz*sqrtz - ((10.*1.)/27.)*sqrt3*t_2 - (4.*log2z)/z - 
-            (16.*logM1OverSqrtz2)/z - (16.*logM1OverSqrtz*logz)/z + (4.*log2z)/sqrtz + (16.*logM1OverSqrtz2)/sqrtz + (16.*logM1OverSqrtz*logz)/sqrtz - 
-            (69930883.*z)/101250. - (16463.*L_1*z)/54. - (122.*L_12*z)/3. - (109.*L_2*z)/18. - 22.*L_1*L_2*z + 17.*L_22*z - 16.*logM1OverSqrtz2*z - 496.*logz*z - 88.*L_1*logz*z - 
-            48.*L_2*logz*z - 16.*logM1OverSqrtz*logz*z - (3157.*zeta3)/54. + (2521.*z*zeta3)/15. - (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/486. + 
-            (-177247./3888. - (4.*log12sqrt52)/9. + (148.*log2)/27. + ((25.*complex::i())/972.)*sqrt3 - (13.*sqrt5)/27. + 16.*sqrtz - 16./z + 16./sqrtz + (5369.*z)/108. - (16.*log12sqrt52*z)/15. - 
-              (178.*log2*z)/9. + (16.*logz*z)/3. + (28.*sqrt5*z)/45. + L_1*(-15. + (26.*z)/3.) + (2.*L_2*(1. + 38.*z))/9.)*(M_PI2) + (971.*(M_PI4))/540. + (5203.*z*(M_PI4))/3240.).real();
-        
-        cache_ps[index_p(cc, 1, 1, 2)] = (-67489177./262440. - (77617.*L_1)/2187. - (902.*L_12)/243. - 
-            (5504.*L_2)/729. - (3064.*L_1*L_2)/243. + (260.*L_22)/27. + 
-            (104.*Cl2PI3*sqrt3)/729. - (complex::i()/486.)*log3 * log3*sqrt3 + 
-            (166687.*sqrtz)/6000. - ((4.*1.)/243.)*sqrt3*t_2 - 
-            (27341897029.*z)/29160000. - (97999.*L_1*z)/243. - (9272.*L_2*z)/81. - 
-            (9272.*logz*z)/27. + (28528.*zeta3)/243. + (29.*z*zeta3)/3. - 
-            (sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/2187. - 
-            ((44209. - 37152.*log12sqrt52 + 126216.*log2 - (10.*complex::i())*sqrt3 - 
-               40248.*sqrt5 + 127854.*z - 197208.*log2*z + 10368.*logz*z + 
-               37152.*sqrt5*z + 17496.*L_1*(1. + 2.*z) + 1728.*L_2*(1. + 2.*z))*
-              (M_PI2))/8748. + (449.*(M_PI4))/1215. - (27529.*z*(M_PI4))/14580.).real();
-        cache_ps[index_p(cc, 1, 2, 2)] = (-1336127./2187. - (28733.*L_1)/729. + (44.*L_12)/81. - (2176.*L_2)/243. - 
-            (1856.*L_1*L_2)/81. + (208.*L_22)/9. - (416.*Cl2PI3*sqrt3)/243. + 
-            ((2.*complex::i())/81.)*log3 * log3*sqrt3 + (8773.*sqrtz)/100. + ((16.*1.)/81.)*sqrt3*t_2 + 
-            (1672496939.*z)/4860000. - (23372.*L_1*z)/81. - (5248.*L_2*z)/27. - 
-            (5248.*logz*z)/9. + (13934.*zeta3)/81. - 244.*z*zeta3 + 
-            (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/729. + 
-            ((39995. + 8640.*log12sqrt52 - 29232.*log2 - (20.*complex::i())*sqrt3 + 9360.*sqrt5 + 
-               58284.*z + 11232.*log2*z + 20736.*logz*z - 8640.*sqrt5*z + 
-               23328.*L_1*(1. + 2.*z) + 3456.*L_2*(1. + 2.*z))*(M_PI2))/1458. + 
-            (226.*(M_PI4))/405. + (5692.*z*(M_PI4))/1215.).real();
-        cache_ps[index_p(cc, 2, 2, 2)] = (27476329./58320. + (40370.*L_1)/243. + (604.*L_12)/27. + (6928.*L_2)/81. + 
-            (1064.*L_1*L_2)/27. - (52.*L_22)/3. + (416.*Cl2PI3*sqrt3)/81. - 
-            ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*1.)/27.)*sqrt3*t_2 + 
-            (287805209.*z)/81000. + (18836.*L_1*z)/27. + (928.*L_2*z)/9. + (928.*logz*z)/3. - 
-            (4388.*zeta3)/27. - 600.*z*zeta3 - 
-            (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/243. - 
-            ((41279. - 1728.*log12sqrt52 + 11808.*log2 - (20.*complex::i())*sqrt3 - 1872.*sqrt5 + 
-               144684.*z - 14688.*log2*z + 20736.*logz*z + 1728.*sqrt5*z + 
-               11664.*L_1*(1. + 2.*z) + 3456.*L_2*(1. + 2.*z))*(M_PI2))/486. + 
-            (398.*(M_PI4))/135. + (7991.*z*(M_PI4))/405.).real();
+    //LO in z
+    cache_p[index_p(cc, 1, 1, 2)] = (814589597./4199040. + (1320817.*L_1)/17496. + (3211.*L_12)/324. + (259603.*L_2)/11664. + (12911.*L_1*L_2)/972. - (311.*L_22)/216. + (56.*Cl2PI3*sqrt3)/729. - 
+        ((5.*complex::i())/3888.)*log3 * log3*sqrt3 + (855371.*sqrtz)/180000. + (22.*log2z*sqrtz)/9. + (88.*logM1OverSqrtz2*sqrtz)/9. + (88.*logM1OverSqrtz*logz*sqrtz)/9. - 
+        ((5.*1.)/486.)*sqrt3*t_2 - (22.*log2z)/(9.*z) - (88.*logM1OverSqrtz2)/(9.*z) - (88.*logM1OverSqrtz*logz)/(9.*z) + (22.*log2z)/(9.*sqrtz) + 
+        (88.*logM1OverSqrtz2)/(9.*sqrtz) + (88.*logM1OverSqrtz*logz)/(9.*sqrtz) - (3547371902315179.*z)/3455518320000. - (721919.*L_1*z)/1944. - (2347.*L_12*z)/54. + 
+        (1891.*L_2*z)/81. - (337.*L_1*L_2*z)/9. + (187.*L_22*z)/18. - (88.*logM1OverSqrtz2*z)/9. - (4823.*logz*z)/9. - (1348.*L_1*logz*z)/9. - (88.*L_2*logz*z)/3. - 
+        (88.*logM1OverSqrtz*logz*z)/9. - (28333.*zeta3)/486. + (128581.*z*zeta3)/216. - (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/17496. + 
+        ((-684288. + 684288.*sqrtz - (216641. + 87480.*L_1 - 432.*L_2 + 146016.*log12sqrt52 + 5112.*log2 - (50.*complex::i())*sqrt3 + 158184.*sqrt5 - 684288.*sqrtz)*z + 
+           18.*(197453. + 2232.*L_1 + 912.*L_2 - 9792.*log12sqrt52 - 26508.*log2 + 576.*logz + 9744.*sqrt5)*z2)*(M_PI2))/(69984.*z) + (23.*(M_PI4))/4860. - (13637.*z*(M_PI4))/116640.).real();
+    cache_p[index_p(cc, 1, 2, 2)] = (-95740679./349920. - (1026907.*L_1)/5832. - (1751.*L_12)/54. - (619.*L_2)/972. + (166.*L_1*L_2)/81. - L_22/18. - (224.*Cl2PI3*sqrt3)/243. + ((5.*complex::i())/324.)*log3 * log3*sqrt3 + 
+        (2895091.*sqrtz)/60000. + (8.*log2z*sqrtz)/3. + (32.*logM1OverSqrtz2*sqrtz)/3. + (32.*logM1OverSqrtz*logz*sqrtz)/3. + ((10.*1.)/81.)*sqrt3*t_2 - (8.*log2z)/(3.*z) - 
+        (32.*logM1OverSqrtz2)/(3.*z) - (32.*logM1OverSqrtz*logz)/(3.*z) + (8.*log2z)/(3.*sqrtz) + (32.*logM1OverSqrtz2)/(3.*sqrtz) + 
+        (32.*logM1OverSqrtz*logz)/(3.*sqrtz) + (2370097879.*z)/1944000. + (117443.*L_1*z)/162. + (1193.*L_12*z)/9. + (6350.*L_2*z)/27. + (64.*L_1*L_2*z)/3. + (34.*L_22*z)/3. - 
+        (32.*logM1OverSqrtz2*z)/3. + 124.*logz*z + (256.*L_1*logz*z)/3. - 32.*L_2*logz*z - (32.*logM1OverSqrtz*logz*z)/3. - (10573.*zeta3)/324. + (85027.*z*zeta3)/90. + 
+        (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/1458. - 
+        ((622080. - 622080.*sqrtz - 5.*(497221. + 116640.*L_1 - 864.*L_2 - 39744.*log12sqrt52 + 85824.*log2 - (100.*complex::i())*sqrt3 - 43056.*sqrt5 + 124416.*sqrtz)*z + 
+           72.*(64865. + 3960.*L_1 + 2280.*L_2 + 3168.*log12sqrt52 + 35070.*log2 + 1440.*logz - 3288.*sqrt5)*z2)*(M_PI2))/(58320.*z) - (799.*(M_PI4))/810. + (20833.*z*(M_PI4))/4860.).real();
+    cache_p[index_p(cc, 2, 2, 2)] = (74041./14580. + (106199.*L_1)/972. + (239.*L_12)/18. - (5117.*L_2)/81. - (202.*L_1*L_2)/27. - (19.*L_22)/3. + (224.*Cl2PI3*sqrt3)/81. - ((5.*complex::i())/108.)*log3 * log3*sqrt3 - 
+        (1052759.*sqrtz)/10000. + 4.*log2z*sqrtz + 16.*logM1OverSqrtz2*sqrtz + 16.*logM1OverSqrtz*logz*sqrtz - ((10.*1.)/27.)*sqrt3*t_2 - (4.*log2z)/z - 
+        (16.*logM1OverSqrtz2)/z - (16.*logM1OverSqrtz*logz)/z + (4.*log2z)/sqrtz + (16.*logM1OverSqrtz2)/sqrtz + (16.*logM1OverSqrtz*logz)/sqrtz - 
+        (69930883.*z)/101250. - (16463.*L_1*z)/54. - (122.*L_12*z)/3. - (109.*L_2*z)/18. - 22.*L_1*L_2*z + 17.*L_22*z - 16.*logM1OverSqrtz2*z - 496.*logz*z - 88.*L_1*logz*z - 
+        48.*L_2*logz*z - 16.*logM1OverSqrtz*logz*z - (3157.*zeta3)/54. + (2521.*z*zeta3)/15. - (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/486. + 
+        (-177247./3888. - (4.*log12sqrt52)/9. + (148.*log2)/27. + ((25.*complex::i())/972.)*sqrt3 - (13.*sqrt5)/27. + 16.*sqrtz - 16./z + 16./sqrtz + (5369.*z)/108. - (16.*log12sqrt52*z)/15. - 
+          (178.*log2*z)/9. + (16.*logz*z)/3. + (28.*sqrt5*z)/45. + L_1*(-15. + (26.*z)/3.) + (2.*L_2*(1. + 38.*z))/9.)*(M_PI2) + (971.*(M_PI4))/540. + (5203.*z*(M_PI4))/3240.).real();
 
-        
-        cache_p[index_p(uu, 1, 1, 2)] = (814589597./4199040. + (1320817.*L_1)/17496. + (3211.*L_12)/324. + 
-            (259603.*L_2)/11664. + (12911.*L_1*L_2)/972. - (311.*L_22)/216. + 
-            (56.*Cl2PI3*sqrt3)/729. - ((5.*complex::i())/3888.)*log3 * log3*sqrt3 + 
-            (855371.*sqrtz)/180000. - ((5.*1.)/486.)*sqrt3*t_2 + 
-            (5298817581707.*z)/1151839440000. + (5.*L_1*z)/81. - (50.*logz*z)/9. - 
-            (28333.*zeta3)/486. - (5.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/17496. - 
-            ((216641. + 87480.*L_1 - 432.*L_2 + 146016.*log12sqrt52 + 5112.*log2 - 
-               (50.*complex::i())*sqrt3 + 158184.*sqrt5)*(M_PI2))/69984. + (23.*(M_PI4))/4860.).real();
-        cache_p[index_p(uu, 1, 2, 2)] = (-95740679./349920. - (1026907.*L_1)/5832. - (1751.*L_12)/54. - (619.*L_2)/972. + 
-            (166.*L_1*L_2)/81. - L_22/18. - (224.*Cl2PI3*sqrt3)/243. + 
-            ((5.*complex::i())/324.)*log3 * log3*sqrt3 + (2895091.*sqrtz)/60000. + 
-            ((10.*1.)/81.)*sqrt3*t_2 - (55644107.*z)/648000. - (20.*L_1*z)/27. + 
-            (8.*logz*z)/3. - (10573.*zeta3)/324. + 
-            (5.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/1458. + 
-            ((497221. + 116640.*L_1 - 864.*L_2 - 39744.*log12sqrt52 + 85824.*log2 - 
-               (100.*complex::i())*sqrt3 - 43056.*sqrt5)*(M_PI2))/11664. - (799.*(M_PI4))/810.).real();
-        cache_p[index_p(uu, 2, 2, 2)] = (74041./14580. + (106199.*L_1)/972. + (239.*L_12)/18. - (5117.*L_2)/81. - 
-            (202.*L_1*L_2)/27. - (19.*L_22)/3. + (224.*Cl2PI3*sqrt3)/81. - 
-            ((5.*complex::i())/108.)*log3 * log3*sqrt3 - (1052759.*sqrtz)/10000. - 
-            ((10.*1.)/27.)*sqrt3*t_2 + (9532631.*z)/135000. + (20.*L_1*z)/9. - 32.*logz*z - 
-            (3157.*zeta3)/54. - (5.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/486. - 
-            ((177247. + 58320.*L_1 - 864.*L_2 + 1728.*log12sqrt52 - 21312.*log2 - 
-               (100.*complex::i())*sqrt3 + 1872.*sqrt5)*(M_PI2))/3888. + (971.*(M_PI4))/540.).real();
-        cache_ps[index_p(uu, 1, 1, 2)] = (-67489177./262440. - (77617.*L_1)/2187. - (902.*L_12)/243. - (5504.*L_2)/729. - 
-            (3064.*L_1*L_2)/243. + (260.*L_22)/27. + (104.*Cl2PI3*sqrt3)/729. - 
-            (complex::i()/486.)*log3 * log3*sqrt3 + (166687.*sqrtz)/6000. - ((4.*1.)/243.)*sqrt3*t_2 - 
-            (261095543.*z)/9720000. + (8.*L_1*z)/81. + (28528.*zeta3)/243. - 
-            ((20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/2187. - 
-            ((44209. + 17496.*L_1 + 1728.*L_2 - 37152.*log12sqrt52 + 126216.*log2 - 
-               (10.*complex::i())*sqrt3 - 40248.*sqrt5)*(M_PI2))/8748. + (449.*(M_PI4))/1215.).real();
-        cache_ps[index_p(uu, 1, 2, 2)] = (-1336127./2187. - (28733.*L_1)/729. + (44.*L_12)/81. - (2176.*L_2)/243. - 
-            (1856.*L_1*L_2)/81. + (208.*L_22)/9. - (416.*Cl2PI3*sqrt3)/243. + 
-            ((2.*complex::i())/81.)*log3 * log3*sqrt3 + (8773.*sqrtz)/100. + ((16.*1.)/81.)*sqrt3*t_2 - 
-            (117168887.*z)/1620000. - (32.*L_1*z)/27. + (13934.*zeta3)/81. + 
-            (4.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/729. + 
-            ((39995. + 23328.*L_1 + 3456.*L_2 + 8640.*log12sqrt52 - 29232.*log2 - 
-               (20.*complex::i())*sqrt3 + 9360.*sqrt5)*(M_PI2))/1458. + (226.*(M_PI4))/405.).real();
-        cache_ps[index_p(uu, 2, 2, 2)] = (27476329./58320. + (40370.*L_1)/243. + (604.*L_12)/27. + (6928.*L_2)/81. + 
-            (1064.*L_1*L_2)/27. - (52.*L_22)/3. + (416.*Cl2PI3*sqrt3)/81. - 
-            ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*1.)/27.)*sqrt3*t_2 + 
-            (4778443.*z)/27000. + (32.*L_1*z)/9. - (4388.*zeta3)/27. - 
-            (4.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/243. - 
-            ((41279. + 11664.*L_1 + 3456.*L_2 - 1728.*log12sqrt52 + 11808.*log2 - 
-               (20.*complex::i())*sqrt3 - 1872.*sqrt5)*(M_PI2))/486. + (398.*(M_PI4))/135.).real();
+    cache_ps[index_p(cc, 1, 1, 2)] = (-67489177./262440. - (77617.*L_1)/2187. - (902.*L_12)/243. - 
+        (5504.*L_2)/729. - (3064.*L_1*L_2)/243. + (260.*L_22)/27. + 
+        (104.*Cl2PI3*sqrt3)/729. - (complex::i()/486.)*log3 * log3*sqrt3 + 
+        (166687.*sqrtz)/6000. - ((4.*1.)/243.)*sqrt3*t_2 - 
+        (27341897029.*z)/29160000. - (97999.*L_1*z)/243. - (9272.*L_2*z)/81. - 
+        (9272.*logz*z)/27. + (28528.*zeta3)/243. + (29.*z*zeta3)/3. - 
+        (sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/2187. - 
+        ((44209. - 37152.*log12sqrt52 + 126216.*log2 - (10.*complex::i())*sqrt3 - 
+           40248.*sqrt5 + 127854.*z - 197208.*log2*z + 10368.*logz*z + 
+           37152.*sqrt5*z + 17496.*L_1*(1. + 2.*z) + 1728.*L_2*(1. + 2.*z))*
+          (M_PI2))/8748. + (449.*(M_PI4))/1215. - (27529.*z*(M_PI4))/14580.).real();
+    cache_ps[index_p(cc, 1, 2, 2)] = (-1336127./2187. - (28733.*L_1)/729. + (44.*L_12)/81. - (2176.*L_2)/243. - 
+        (1856.*L_1*L_2)/81. + (208.*L_22)/9. - (416.*Cl2PI3*sqrt3)/243. + 
+        ((2.*complex::i())/81.)*log3 * log3*sqrt3 + (8773.*sqrtz)/100. + ((16.*1.)/81.)*sqrt3*t_2 + 
+        (1672496939.*z)/4860000. - (23372.*L_1*z)/81. - (5248.*L_2*z)/27. - 
+        (5248.*logz*z)/9. + (13934.*zeta3)/81. - 244.*z*zeta3 + 
+        (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/729. + 
+        ((39995. + 8640.*log12sqrt52 - 29232.*log2 - (20.*complex::i())*sqrt3 + 9360.*sqrt5 + 
+           58284.*z + 11232.*log2*z + 20736.*logz*z - 8640.*sqrt5*z + 
+           23328.*L_1*(1. + 2.*z) + 3456.*L_2*(1. + 2.*z))*(M_PI2))/1458. + 
+        (226.*(M_PI4))/405. + (5692.*z*(M_PI4))/1215.).real();
+    cache_ps[index_p(cc, 2, 2, 2)] = (27476329./58320. + (40370.*L_1)/243. + (604.*L_12)/27. + (6928.*L_2)/81. + 
+        (1064.*L_1*L_2)/27. - (52.*L_22)/3. + (416.*Cl2PI3*sqrt3)/81. - 
+        ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*1.)/27.)*sqrt3*t_2 + 
+        (287805209.*z)/81000. + (18836.*L_1*z)/27. + (928.*L_2*z)/9. + (928.*logz*z)/3. - 
+        (4388.*zeta3)/27. - 600.*z*zeta3 - 
+        (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/243. - 
+        ((41279. - 1728.*log12sqrt52 + 11808.*log2 - (20.*complex::i())*sqrt3 - 1872.*sqrt5 + 
+           144684.*z - 14688.*log2*z + 20736.*logz*z + 1728.*sqrt5*z + 
+           11664.*L_1*(1. + 2.*z) + 3456.*L_2*(1. + 2.*z))*(M_PI2))/486. + 
+        (398.*(M_PI4))/135. + (7991.*z*(M_PI4))/405.).real();
+
+    cache_p[index_p(uu, 1, 1, 2)] = (814589597./4199040. + (1320817.*L_1)/17496. + (3211.*L_12)/324. + 
+        (259603.*L_2)/11664. + (12911.*L_1*L_2)/972. - (311.*L_22)/216. + 
+        (56.*Cl2PI3*sqrt3)/729. - ((5.*complex::i())/3888.)*log3 * log3*sqrt3 + 
+        (855371.*sqrtz)/180000. - ((5.*1.)/486.)*sqrt3*t_2 + 
+        (5298817581707.*z)/1151839440000. + (5.*L_1*z)/81. - (50.*logz*z)/9. - 
+        (28333.*zeta3)/486. - (5.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/17496. - 
+        ((216641. + 87480.*L_1 - 432.*L_2 + 146016.*log12sqrt52 + 5112.*log2 - 
+           (50.*complex::i())*sqrt3 + 158184.*sqrt5)*(M_PI2))/69984. + (23.*(M_PI4))/4860.).real();
+    cache_p[index_p(uu, 1, 2, 2)] = (-95740679./349920. - (1026907.*L_1)/5832. - (1751.*L_12)/54. - (619.*L_2)/972. + 
+        (166.*L_1*L_2)/81. - L_22/18. - (224.*Cl2PI3*sqrt3)/243. + 
+        ((5.*complex::i())/324.)*log3 * log3*sqrt3 + (2895091.*sqrtz)/60000. + 
+        ((10.*1.)/81.)*sqrt3*t_2 - (55644107.*z)/648000. - (20.*L_1*z)/27. + 
+        (8.*logz*z)/3. - (10573.*zeta3)/324. + 
+        (5.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/1458. + 
+        ((497221. + 116640.*L_1 - 864.*L_2 - 39744.*log12sqrt52 + 85824.*log2 - 
+           (100.*complex::i())*sqrt3 - 43056.*sqrt5)*(M_PI2))/11664. - (799.*(M_PI4))/810.).real();
+    cache_p[index_p(uu, 2, 2, 2)] = (74041./14580. + (106199.*L_1)/972. + (239.*L_12)/18. - (5117.*L_2)/81. - 
+        (202.*L_1*L_2)/27. - (19.*L_22)/3. + (224.*Cl2PI3*sqrt3)/81. - 
+        ((5.*complex::i())/108.)*log3 * log3*sqrt3 - (1052759.*sqrtz)/10000. - 
+        ((10.*1.)/27.)*sqrt3*t_2 + (9532631.*z)/135000. + (20.*L_1*z)/9. - 32.*logz*z - 
+        (3157.*zeta3)/54. - (5.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/486. - 
+        ((177247. + 58320.*L_1 - 864.*L_2 + 1728.*log12sqrt52 - 21312.*log2 - 
+           (100.*complex::i())*sqrt3 + 1872.*sqrt5)*(M_PI2))/3888. + (971.*(M_PI4))/540.).real();
+    cache_ps[index_p(uu, 1, 1, 2)] = (-67489177./262440. - (77617.*L_1)/2187. - (902.*L_12)/243. - (5504.*L_2)/729. - 
+        (3064.*L_1*L_2)/243. + (260.*L_22)/27. + (104.*Cl2PI3*sqrt3)/729. - 
+        (complex::i()/486.)*log3 * log3*sqrt3 + (166687.*sqrtz)/6000. - ((4.*1.)/243.)*sqrt3*t_2 - 
+        (261095543.*z)/9720000. + (8.*L_1*z)/81. + (28528.*zeta3)/243. - 
+        ((20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/2187. - 
+        ((44209. + 17496.*L_1 + 1728.*L_2 - 37152.*log12sqrt52 + 126216.*log2 - 
+           (10.*complex::i())*sqrt3 - 40248.*sqrt5)*(M_PI2))/8748. + (449.*(M_PI4))/1215.).real();
+    cache_ps[index_p(uu, 1, 2, 2)] = (-1336127./2187. - (28733.*L_1)/729. + (44.*L_12)/81. - (2176.*L_2)/243. - 
+        (1856.*L_1*L_2)/81. + (208.*L_22)/9. - (416.*Cl2PI3*sqrt3)/243. + 
+        ((2.*complex::i())/81.)*log3 * log3*sqrt3 + (8773.*sqrtz)/100. + ((16.*1.)/81.)*sqrt3*t_2 - 
+        (117168887.*z)/1620000. - (32.*L_1*z)/27. + (13934.*zeta3)/81. + 
+        (4.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/729. + 
+        ((39995. + 23328.*L_1 + 3456.*L_2 + 8640.*log12sqrt52 - 29232.*log2 - 
+           (20.*complex::i())*sqrt3 + 9360.*sqrt5)*(M_PI2))/1458. + (226.*(M_PI4))/405.).real();
+    cache_ps[index_p(uu, 2, 2, 2)] = (27476329./58320. + (40370.*L_1)/243. + (604.*L_12)/27. + (6928.*L_2)/81. + 
+        (1064.*L_1*L_2)/27. - (52.*L_22)/3. + (416.*Cl2PI3*sqrt3)/81. - 
+        ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*1.)/27.)*sqrt3*t_2 + 
+        (4778443.*z)/27000. + (32.*L_1*z)/9. - (4388.*zeta3)/27. - 
+        (4.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/243. - 
+        ((41279. + 11664.*L_1 + 3456.*L_2 - 1728.*log12sqrt52 + 11808.*log2 - 
+           (20.*complex::i())*sqrt3 - 1872.*sqrt5)*(M_PI2))/486. + (398.*(M_PI4))/135.).real();
    
-    //Corrections from LO and NLO coefficients
-    //resummation logz in NLO coefficients
-    cache_p[index_p(cc, 1, 1, 2)]+= (z_replace*(-4113. - 1008.*L_1 - 792.*L_2 - 3168.*logz + 4.*(M_PI2)))/216.;
-    cache_p[index_p(cc, 1, 2, 2)]+= (z_replace*(1179. + 468.*L_1 - 72.*L_2 - 288.*logz - 4.*(M_PI2)))/18.;
-    cache_p[index_p(cc, 2, 2, 2)]+= (z_replace*(135. + 72.*L_1 - 36.*L_2 - 144.*logz + 4.*(M_PI2)))/6.;
-    cache_ps[index_p(cc, 1, 1, 2)]+= z_replace*(-385./9. - (4.*(M_PI2))/27.);
-    cache_ps[index_p(cc, 1, 2, 2)]+= (16.*z_replace*(-42. + (M_PI2)))/9.;
-    cache_ps[index_p(cc, 2, 2, 2)]+= z_replace*(44. - (16.*(M_PI2))/3.);
+    //Corrections from LO and NLO coefficients (incl. pengFlag)
+    //resummation of logz
+    cache_p[index_p(cc, 1, 1, 2)]+= (-2.*(1661. + 1113.*log2z + 132.*M_PI2)*z + logz*(-30. + (39727. + 12132.*L_1 + 2376.*L_2 - 12.*M_PI2)*z))/81.;
+    cache_p[index_p(cc, 1, 2, 2)]+= (-8.*((151 + 147.*log2z + 12.*M_PI2)*z + 2*logz*(-12. + (448. + 144.*L_1 - 54.*L_2 - 3.*M_PI2)*z)))/27.;
+    cache_p[index_p(cc, 2, 2, 2)]+= (-4.*(66.*logz - 2.*logz*(518. + 99.*L_1 + 54.*L_2 - 6.*M_PI2)*z + (151. + 21.*log2z + 12.*M_PI2)*z))/9.;
+    cache_ps[index_p(cc, 1, 1, 2)]+= (8.*logz*(4. + (507. + 172.*logz + 4.*M_PI2)*z))/27.;
+    cache_ps[index_p(cc, 1, 2, 2)]+= (32.*logz*(-1. + 4.*(12. + 5.*logz - M_PI2)*z))/9.;
+    cache_ps[index_p(cc, 2, 2, 2)]+= (32.*logz*(-2. + (-9. + 4.*logz + 4.*M_PI2)*z))/3.;
 
-    //resummation logz in NLO pengFlag terms
-    cache_p[index_p(cc, 1, 1, 2)]+= -(5.*z_replace)/54.;
-    cache_p[index_p(cc, 1, 2, 2)]+= (10.*z_replace)/9.;
-    cache_p[index_p(cc, 2, 2, 2)]+= -(10.*z_replace)/3.;
-    cache_ps[index_p(cc, 1, 1, 2)]+= -(4.*z_replace)/27.;
-    cache_ps[index_p(cc, 1, 2, 2)]+= (16.*z_replace)/9.;
-    cache_ps[index_p(cc, 2, 2, 2)]+= -(16.*z_replace)/3.;
-    
     //resummation affecting arguments of logs and Dilogs
     cache_p[index_p(cc, 1, 1, 2)]+= 2./81. * logz * (15. + 1615.*z + 1014.*z * logz);
     cache_p[index_p(cc, 1, 2, 2)]+= 4./27. * logz * (-48. + 973. * z + 276. * z * logz);
@@ -1743,13 +1758,7 @@ void AmpDB2::compute_pp_s(){
     cache_ps[index_p(cc, 1, 2, 2)]+= 32./9. * logz + 3712./9. * logz * z - 640./9. * log2z * z;
     cache_ps[index_p(cc, 2, 2, 2)]+= 64./3. * logz - 640./3. * logz * z - 128./3. * log2z * z;
     
-    double L_c = 2. * log(mu_b/Mc);
-    double L_c2 = L_c * L_c;    
     double L_b = 2. * log(mu_b/Mb);
-    double L_b2 = L_b * L_b;
-    double L_1b = 2. * log(mu_1/mu_b);
-    double L_cb = L_b;
-    double L_cb2 = L_b2;
     
     //Transforming mb in NLO coefficients from Pole scheme to MSbar
     cache_p[index_p(cc, 1, 1, 2)]+= (8.*(4. + 3.*L_b)*(-196. + 675.*z))/243.;
@@ -1764,17 +1773,8 @@ void AmpDB2::compute_pp_s(){
     cache_p[index_p(uu, 2, 2, 2)]+= (64.*(4. + 3.*L_1))/27.;
     cache_ps[index_p(uu, 1, 1, 2)]+= (1264.*(4. + 3.*L_b))/243.;
     cache_ps[index_p(uu, 1, 2, 2)]+= (416.*(4. + 3.*L_b))/81.;
-    cache_ps[index_p(uu, 2, 2, 2)]+= (-704.*(4. + 3.*L_b))/27.;    
-    
-    //resummation logz in LO coefficients
-    double z_replace2 = z * 16. * 1./72. * (226.5 + 368. * L_1 - 368. * L_1b - 586. * L_b -
-        276. * L_1b * L_b + 6. * L_b2 + 638. * L_c + 276. * L_1 * L_c - 288. * L_b * L_c + 294. * L_c2 -
-        420. * L_cb - 276. * L_c * L_cb - 12. * L_cb2 - 24. * L_cb * logz + 8. * M_PI2);
-    cache_p[index_p(cc, 1, 1, 2)]+= -11./6. * z_replace2;
-    cache_p[index_p(cc, 1, 2, 2)]+= -2. * z_replace2;
-    cache_p[index_p(cc, 2, 2, 2)]+= -3. * z_replace2; 
+    cache_ps[index_p(uu, 2, 2, 2)]+= (-704.*(4. + 3.*L_b))/27.;
 
-    
     //Gerlach thesis eq. (6.27)
     for (int i=1; i<=2; i++){
         for (int j=i; j<=2; j++){
@@ -1782,6 +1782,98 @@ void AmpDB2::compute_pp_s(){
             cache_ps[index_p(cu, i, j, 2)] = 0.5 * (cache_ps[index_p(cc, i, j, 2)] + cache_ps[index_p(uu, i, j, 2)]);
         }
     }
+
+    //LO in z
+    cache_p[index_p(cu, 1, 1, 2)] = (814589597./4199040. + (56.*Cl2PI3)/(243.*sqrt3) + (1320817.*L_1)/17496. + (3211.*L_12)/324. + 
+        (259603.*L_2)/11664. + (12911.*L_1*L_2)/972. - (311.*L_22)/216. - (((5.*complex::i())/1296.)*log3 * log3)/sqrt3 + 
+        (855371.*sqrtz)/180000. + (11.*log2z*sqrtz)/9. + (44.*logM1OverSqrtz2*sqrtz)/9. + 
+        (44.*logM1OverSqrtz*logz*sqrtz)/9. - (((5.*complex::i())/162.)*t_2)/sqrt3 - (11.*log2z)/(9.*z) - 
+        (44.*logM1OverSqrtz2)/(9.*z) - (44.*logM1OverSqrtz*logz)/(9.*z) + (11.*log2z)/(9.*sqrtz) + 
+        (44.*logM1OverSqrtz2)/(9.*sqrtz) + (44.*logM1OverSqrtz*logz)/(9.*sqrtz) - 
+        (1765737724785029.*z)/3455518320000. - (721799.*L_1*z)/3888. - (2347.*L_12*z)/108. + (1891.*L_2*z)/162. - 
+        (337.*L_1*L_2*z)/18. + (187.*L_22*z)/36. - (44.*logM1OverSqrtz2*z)/9. - (4873.*logz*z)/18. - 
+        (674.*L_1*logz*z)/9. - (44.*L_2*logz*z)/3. - (44.*logM1OverSqrtz*logz*z)/9. - (28333.*zeta3)/486. + 
+        (128581.*z*zeta3)/432. - (5.*(3.*sqrt3*log3 + 30.*L_1*sqrt3 + 10.*sqrt3*(2. + 9.*z))*(M_PI))/17496. + 
+        ((-342144. + 342144.*sqrtz + (-216641. + (50.*complex::i())*sqrt3 - 87480.*L_1 + 432.*L_2 - 5112.*log2 - 
+             158184.*sqrt5 + 342144.*sqrtz)*z + 9.*(197453. + 2232.*L_1 + 912.*L_2 - 26508.*log2 + 576.*logz + 
+             9744.*sqrt5)*z2 - 864.*z*(169. + 102.*z)*log12sqrt52)*(M_PI2))/(69984.*z) + 
+        (23.*(M_PI4))/4860. - (13637.*z*(M_PI4))/233280.).real();
+    cache_p[index_p(cu, 1, 2, 2)] = (-95740679./349920. - (1026907.*L_1)/5832. - (1751.*L_12)/54. - (619.*L_2)/972. + (166.*L_1*L_2)/81. - L_22/18. - 
+        (224.*Cl2PI3*sqrt3)/243. + ((5.*complex::i())/324.)*log3 * log3*sqrt3 + (2895091.*sqrtz)/60000. + (4.*log2z*sqrtz)/3. + 
+        (16.*logM1OverSqrtz2*sqrtz)/3. + (16.*logM1OverSqrtz*logz*sqrtz)/3. + ((10.*complex::i())/81.)*sqrt3*t_2 - 
+        (4.*log2z)/(3.*z) - (16.*logM1OverSqrtz2)/(3.*z) - (16.*logM1OverSqrtz*logz)/(3.*z) + 
+        (4.*log2z)/(3.*sqrtz) + (16.*logM1OverSqrtz2)/(3.*sqrtz) + 
+        (16.*logM1OverSqrtz*logz)/(3.*sqrtz) + (1101582779.*z)/1944000. + (117323.*L_1*z)/324. + 
+        (1193.*L_12*z)/18. + (3175.*L_2*z)/27. + (32.*L_1*L_2*z)/3. + (17.*L_22*z)/3. - (16.*logM1OverSqrtz2*z)/3. + 
+        (190.*logz*z)/3. + (128.*L_1*logz*z)/3. - 16.*L_2*logz*z - (16.*logM1OverSqrtz*logz*z)/3. - 
+        (10573.*zeta3)/324. + (85027.*z*zeta3)/180. + (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 90.*z)*(M_PI))/1458. - 
+        ((311040. - 311040.*sqrtz - 5.*(497221. + 116640.*L_1 - 864.*L_2 - 39744.*log12sqrt52 + 85824.*log2 - 
+             (100.*complex::i())*sqrt3 - 43056.*sqrt5 + 62208.*sqrtz)*z + 
+           36.*(64865. + 3960.*L_1 + 2280.*L_2 + 3168.*log12sqrt52 + 35070.*log2 + 1440.*logz - 3288.*sqrt5)*z2)*
+          (M_PI2))/(58320.*z) - (799.*(M_PI4))/810. + (20833.*z*(M_PI4))/9720.).real();
+    cache_p[index_p(cu, 2, 2, 2)] = (74041./14580. + (106199.*L_1)/972. + (239.*L_12)/18. - (5117.*L_2)/81. - (202.*L_1*L_2)/27. - (19.*L_22)/3. + 
+        (224.*Cl2PI3*sqrt3)/81. - ((5.*complex::i())/108.)*log3 * log3*sqrt3 - (1052759.*sqrtz)/10000. + 2.*log2z*sqrtz + 
+        8.*logM1OverSqrtz2*sqrtz + 8.*logM1OverSqrtz*logz*sqrtz - ((10.*complex::i())/27.)*sqrt3*t_2 - (2.*log2z)/z - 
+        (8.*logM1OverSqrtz2)/z - (8.*logM1OverSqrtz*logz)/z + (2.*log2z)/sqrtz + 
+        (8.*logM1OverSqrtz2)/sqrtz + (8.*logM1OverSqrtz*logz)/sqrtz - (251125639.*z)/810000. - 
+        (16343.*L_1*z)/108. - (61.*L_12*z)/3. - (109.*L_2*z)/36. - 11.*L_1*L_2*z + (17.*L_22*z)/2. - 
+        8.*logM1OverSqrtz2*z - 264.*logz*z - 44.*L_1*logz*z - 24.*L_2*logz*z - 8.*logM1OverSqrtz*logz*z - 
+        (3157.*zeta3)/54. + (2521.*z*zeta3)/30. - (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 90.*z)*(M_PI))/486. + 
+        (-177247./3888. - (4.*log12sqrt52)/9. + (148.*log2)/27. + ((25.*complex::i())/972.)*sqrt3 - (13.*sqrt5)/27. + 
+          8.*sqrtz - 8./z + 8./sqrtz + (5369.*z)/216. - (8.*log12sqrt52*z)/15. - (89.*log2*z)/9. + 
+          (8.*logz*z)/3. + (14.*sqrt5*z)/45. + L_1*(-15. + (13.*z)/3.) + (2.*L_2*(1. + 19.*z))/9.)*(M_PI2) + 
+        (971.*(M_PI4))/540. + (5203.*z*(M_PI4))/6480.).real();
+    cache_ps[index_p(cu, 1, 1, 2)] = (-67489177./262440. + (104.*Cl2PI3)/(243.*sqrt3) - (77617.*L_1)/2187. - 
+        (902.*L_12)/243. - (5504.*L_2)/729. - (3064.*L_1*L_2)/243. + (260.*L_22)/27. - 
+        ((complex::i()/162.)*log3 * log3)/sqrt3 + (166687.*sqrtz)/6000. - (((4.*complex::i())/81.)*t_2)/sqrt3 - 
+        (14062591829.*z)/29160000. - (97975.*L_1*z)/486. - (4636.*L_2*z)/81. - 
+        (4636.*logz*z)/27. + (28528.*zeta3)/243. + (29.*z*zeta3)/6. - 
+        ((3.*sqrt3*log3 + 30.*L_1*sqrt3 + 10.*sqrt3*(2. + 9.*z))*(M_PI))/2187. + 
+        ((-44209. + (10.*complex::i())*sqrt3 - 1728.*L_2 - 163368.*log2 + 40248.*sqrt5 - 63927.*z - 
+           1728.*L_2*z + 98604.*log2*z - 5184.*logz*z - 18576.*sqrt5*z - 17496.*L_1*(1. + z) + 
+           37152.*log(1. + sqrt5))*(M_PI2))/8748. + (449.*(M_PI4))/1215. - 
+        (27529.*z*(M_PI4))/29160.).real();
+    cache_ps[index_p(cu, 1, 2, 2)] = (-1336127./2187. - (28733.*L_1)/729. + (44.*L_12)/81. - (2176.*L_2)/243. - (1856.*L_1*L_2)/81. + 
+        (208.*L_22)/9. - (416.*Cl2PI3*sqrt3)/243. + ((2.*complex::i())/81.)*log3 * log3*sqrt3 + 
+        (8773.*sqrtz)/100. + ((16.*complex::i())/81.)*sqrt3*t_2 + (660495139.*z)/4860000. - 
+        (11734.*L_1*z)/81. - (2624.*L_2*z)/27. - (2624.*logz*z)/9. + (13934.*zeta3)/81. - 
+        122.*z*zeta3 + (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 90.*z)*(M_PI))/729. + 
+        ((39995. + 8640.*log12sqrt52 - 29232.*log2 - (20.*complex::i())*sqrt3 + 9360.*sqrt5 + 29142.*z + 
+           5616.*log2*z + 10368.*logz*z - 4320.*sqrt5*z + 23328.*L_1*(1. + z) + 
+           3456.*L_2*(1. + z))*(M_PI2))/1458. + (226.*(M_PI4))/405. + (2846.*z*(M_PI4))/1215.).real();
+    cache_ps[index_p(cu, 2, 2, 2)] = (27476329./58320. + (40370.*L_1)/243. + (604.*L_12)/27. + (6928.*L_2)/81. + 
+        (1064.*L_1*L_2)/27. - (52.*L_22)/3. + (416.*Cl2PI3*sqrt3)/81. - 
+        ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*complex::i())/27.)*sqrt3*t_2 + 
+        (151070269.*z)/81000. + (9466.*L_1*z)/27. + (464.*L_2*z)/9. + (464.*logz*z)/3. - 
+        (4388.*zeta3)/27. - 300.*z*zeta3 - (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 90.*z)*(M_PI))/
+         243. - ((41279. - 1728.*log12sqrt52 + 11808.*log2 - (20.*complex::i())*sqrt3 - 1872.*sqrt5 + 
+           72342.*z - 7344.*log2*z + 10368.*logz*z + 864.*sqrt5*z + 11664.*L_1*(1. + z) + 
+    3456.*L_2*(1. + z))*(M_PI2))/486. + (398.*(M_PI4))/135. + (7991.*z*(M_PI4))/810.).real();
+    
+    //Corrections from LO and NLO coefficients (incl. pengFlag)
+    //resummation logz in NLO coefficients
+    cache_p[index_p(cu, 1, 1, 2)]+= ((logz*(33433. + 12132.*L_1 + 2376.*L_2 - 12.*M_PI2) - 22.*(151. + 9.*log2z + 12.*M_PI2))*z)/162.;
+    cache_p[index_p(cu, 1, 2, 2)]+= (-2.*(302. + 18.*log2z + logz*(1663. + 576.*L_1 - 216.*L_2 - 12.*M_PI2) + 24.*M_PI2)*z)/27.;
+    cache_p[index_p(cu, 2, 2, 2)]+= (2.*(-151. - 9.*log2z + 2.*logz*(296. + 99.*L_1 + 54.*L_2 - 6.*M_PI2) - 12.*M_PI2)*z)/9.;
+    cache_ps[index_p(cu, 1, 1, 2)]+= (4.*logz*(3473. + 12.*M_PI2)*z)/81.;
+    cache_ps[index_p(cu, 1, 2, 2)]+= (-64.*logz*(-124. + 3.*M_PI2)*z)/27.;
+    cache_ps[index_p(cu, 2, 2, 2)]+= (16.*logz*(-91. + 12.*M_PI2)*z)/9.;
+
+    //resummation affecting arguments of logs and Dilogs
+    cache_p[index_p(cu, 1, 1, 2)]+= 4762./81. * logz * z;
+    cache_p[index_p(cu, 1, 2, 2)]+= 1688./27. * logz * z;
+    cache_p[index_p(cu, 2, 2, 2)]+= 904./9. * logz * z;
+    cache_ps[index_p(cu, 1, 1, 2)]+= 16./81. * logz * z;
+    cache_ps[index_p(cu, 1, 2, 2)]+= -64./27. * logz * z;
+    cache_ps[index_p(cu, 2, 2, 2)]+= 64./9. * logz * z;
+
+    //Transforming mb in NLO coefficients from Pole scheme to MSbar
+    cache_p[index_p(cu, 1, 1, 2)]+= (4.*(4. + 3.*L_b)*(-392. + 675.*z))/243.;
+    cache_p[index_p(cu, 1, 2, 2)]+= (-44.*(4. + 3.*L_b)*(-19. + 54.*z))/81.;
+    cache_p[index_p(cu, 2, 2, 2)]+= (-8.*(4. + 3.*L_b)*(-8. + 27.*z))/27.;
+    cache_ps[index_p(cu, 1, 1, 2)]+= (1264.*(4. + 3.*L_b))/243.;
+    cache_ps[index_p(cu, 1, 2, 2)]+= (416.*(4. + 3.*L_b))/81.;
+    cache_ps[index_p(cu, 2, 2, 2)]+= (-704.*(4. + 3.*L_b))/27.;
     
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {
         //Gerlach thesis eq. (6.28)
@@ -1845,11 +1937,106 @@ void AmpDB2::compute_pp_s(){
     cache_ps[index_p(cc, 8, 8, 2)] = -68./9.;
     cache_ps[index_p(cu, 8, 8, 2)] = -68./9.;
     cache_ps[index_p(uu, 8, 8, 2)] = -68./9.;
+    
+    //compute flag_LOz terms
+    for(int i=0; i<576; i++){
+        cache_p_LO[i] = cache_p[i];
+        cache_ps_LO[i] = cache_ps[i];
+    }
+   
+    cache_p_LO[index_p(cc, 1, 1, 0)]= 23./72. - 11./6. * z;
+    cache_p_LO[index_p(cc, 1, 2, 0)]= 1./6. - 2. * z;
+    cache_p_LO[index_p(cc, 2, 2, 0)]= 1. - 3. * z;
+    cache_ps_LO[index_p(cc, 1, 1, 0)]= -5./9.;
+    cache_ps_LO[index_p(cc, 1, 2, 0)]= -4./3.;
+    cache_ps_LO[index_p(cc, 2, 2, 0)]= 1.;
+    
+    cache_p_LO[index_p(cc, 1, 3, 0)]= 4./3.;
+    cache_p_LO[index_p(cc, 1, 4, 0)]= -5./36.;
+    cache_p_LO[index_p(cc, 1, 5, 0)]= 64./3. - 96. * z;
+    cache_p_LO[index_p(cc, 1, 6, 0)]= 4. * z - 20./9.;
+    cache_p_LO[index_p(cc, 2, 3, 0)]= 1.;
+    cache_p_LO[index_p(cc, 2, 4, 0)]= 5./6.;
+    cache_p_LO[index_p(cc, 2, 5, 0)]= 16. - 72. * z;
+    cache_p_LO[index_p(cc, 2, 6, 0)]= 40./3. - 24. * z;
+
+    cache_p_LO[index_p(cc, 5, 5, 0)]= -1296. * n_v * z + 408. * (n_l + n_v) + 512.;
+    cache_p_LO[index_p(cc, 6, 6, 0)]= -72. * n_v * z + 170./3. * (n_l + n_v) + 416./9.;
+    
+    for (int i=3; i<=6; i++){
+        for (int j=i; j<=6; j++){
+            cache_p_LO[index_p(uu, i, j, 0)] = cache_p_LO[index_p(cc, i, j, 0)];
+            cache_ps_LO[index_p(uu, i, j, 0)] = cache_ps_LO[index_p(cc, i, j, 0)];            
+        }
+    }
+    
+    //Gerlach thesis eq. (6.10)
+    for (int i=1; i<=6; i++){
+        for (int j=i; j<=6; j++){
+            cache_p_LO[index_p(cu, i, j, 0)] =
+                    0.5 * (cache_p_LO[index_p(cc, i, j, 0)] +cache_p_LO[index_p(uu, i, j, 0)]);
+            cache_ps_LO[index_p(cu, i, j, 0)] =
+                    0.5 * (cache_ps_LO[index_p(cc, i, j, 0)] +cache_ps_LO[index_p(uu, i, j, 0)]);
+        }
+    }
+    
+    cache_p_LO[index_p(cc, 1, 1, 1)]= (1196. + 342.*L_1 + 447.*L_2 - 15.*(M_PI2))/324. + (z*(-4113. - 1008.*L_1 - 792.*L_2 - 3168.*logz + 4.*(M_PI2)))/216.;
+    cache_p_LO[index_p(cc, 1, 2, 1)]= (z*(1179. + 468.*L_1 - 72.*L_2 - 288.*logz - 4.*(M_PI2)))/18. + (-452. - (333.*L_1)/2. + 57.*L_2 + 15.*(M_PI2))/27.;
+    cache_p_LO[index_p(cc, 2, 2, 1)]= (37. - 18.*L_1 + 12.*L_2 - 30.*(M_PI2))/18. + (z*(135. + 72.*L_1 - 36.*L_2 - 144.*logz + 4.*(M_PI2)))/6.;
+    cache_ps_LO[index_p(cc, 1, 1, 1)]= z*(-385./9. - (4.*(M_PI2))/27.) - (2.*(-1. + 18.*L_1 + 60.*L_2 + 3.*(M_PI2)))/81.;
+    cache_ps_LO[index_p(cc, 1, 2, 1)]= (16.*z*(-42. + (M_PI2)))/9. + (8.*(11. + (9.*L_1)/2. - 12.*L_2 + 3.*(M_PI2)))/27.;
+    cache_ps_LO[index_p(cc, 2, 2, 1)]= z*(44. - (16.*(M_PI2))/3.) - (8.*(-31. - 9.*L_1 - 3.*L_2 + 3.*(M_PI2)))/9.;
+    
+    cache_p_LO[index_p(cc, 1, 1, 1)]+= -5./486. - (5.*L_1)/324. - (5.*z)/54.;
+    cache_p_LO[index_p(cc, 1, 2, 1)]+= 10./81. + (5.*L_1)/27. + (10.*z)/9.;
+    cache_p_LO[index_p(cc, 2, 2, 1)]+= -10./27. - (5.*L_1)/9. - (10.*z)/3.;
+    cache_ps_LO[index_p(cc, 1, 1, 1)]+= -4./243. - (2.*L_1)/81. - (4.*z)/27.;
+    cache_ps_LO[index_p(cc, 1, 2, 1)]+= 16./81. + (8.*L_1)/27. + (16.*z)/9.;
+    cache_ps_LO[index_p(cc, 2, 2, 1)]+= -16./27. - (8.*L_1)/9. - (16.*z)/3.;
+    
+    cache_p_LO[index_p(cc, 1, 1, 1)]+= -11./6. * z_replace;
+    cache_p_LO[index_p(cc, 1, 2, 1)]+= -2. * z_replace;
+    cache_p_LO[index_p(cc, 2, 2, 1)]+= -3. * z_replace;
+    
+    //Gerlach thesis eq. (6.13) and (6.16)
+    for (int i=1; i<=2; i++){
+        for (int j=i; j<=2; j++){
+            cache_p_LO[index_p(cu, i, j, 1)] =
+                    0.5 * (cache_p_LO[index_p(cc, i, j, 1)] + cache_p_LO[index_p(uu, i, j, 1)]);
+            cache_ps_LO[index_p(cu, i, j, 1)] =
+                    0.5 * (cache_ps_LO[index_p(cc, i, j, 1)] + cache_ps_LO[index_p(uu, i, j, 1)]);
+        }
+    }
+    
+    //Gerlach thesis eq. (6.19)
+    cache_p_LO[index_p(cc, 1, 8, 1)] = 5./18.;
+    cache_p_LO[index_p(cc, 2, 8, 1)] = -5./3.;
+    cache_ps_LO[index_p(cc, 1, 8, 1)] = 4./9.;
+    cache_ps_LO[index_p(cc, 2, 8, 1)] = -8./3.;
+    
+    //Gerlach thesis eq. (6.21)
+    cache_p_LO[index_p(cc, 3, 8, 1)] = -32./3.;
+    cache_p_LO[index_p(cc, 4, 8, 1)] = -169./18.;
+    cache_p_LO[index_p(cc, 5, 8, 1)] = -512./3.;
+    cache_p_LO[index_p(cc, 6, 8, 1)] = -992./9.;
+    cache_ps_LO[index_p(cc, 3, 8, 1)] = 64./3.;
+    cache_ps_LO[index_p(cc, 4, 8, 1)] = -20./9.;
+    cache_ps_LO[index_p(cc, 5, 8, 1)] = 1024./3.;
+    cache_ps_LO[index_p(cc, 6, 8, 1)] = 256./9.;
+    
+    //Gerlach thesis eq. (6.20)
+    for (int i=1; i<=6; i++){
+        cache_p_LO[index_p(cu, i, 8, 1)] = cache_p_LO[index_p(cc, i, 8, 1)];
+        cache_p_LO[index_p(uu, i, 8, 1)] = cache_p_LO[index_p(cc, i, 8, 1)];
+        cache_ps_LO[index_p(cu, i, 8, 1)] = cache_ps_LO[index_p(cc, i, 8, 1)];
+        cache_ps_LO[index_p(uu, i, 8, 1)] = cache_ps_LO[index_p(cc, i, 8, 1)];
+    }
 
     logz = cache_logz;
     lastInput_compute_pp_s[0] = z;
     lastInput_compute_pp_s[1] = mu_1;
     lastInput_compute_pp_s[2] = mu_2;
+    lastInput_compute_pp_s[3] = mu_b;
     return;
 }
 
@@ -1860,26 +2047,32 @@ void AmpDB2::poletoMSbar_pp_s(){
     PoletoMS_as1 = 4./3. + logmuM;
     PoletoMS_as2 = (307./32. + M_PI2/3. + M_PI2/9. * log2 - 1./6. * zeta3 - (71./144. + M_PI2/18.) * n_l + logmuM * (493./72. - n_l * 13./36. + logmuM * (43./24. - n_l/12.)) + 4./3. * M_PI2/8. * Mc/Mb - z);
     double log_mu1_mub = 2. * log(mu_1/mu_b);
+    bool flag_LOz = true;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
         for (int i=1; i<=6; i++){
             //not all terms used for n=2
             for (int j=i; j<=8; j++){
                 if(j==3) j=8;
                 if(i>=3) j=8;
-                cache_p[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p(qq, i, j, 1)
+                cache_p[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p(qq, i, j, 1, flag_LOz)
                         + (16.* 2. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
-                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p(qq, i, j, 0);
-                cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 1)
+                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p(qq, i, j, 0, flag_LOz);
+                cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 1, flag_LOz)
                         + (16.* 2. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
-                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p_s(qq, i, j, 0);                
+                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p_s(qq, i, j, 0, flag_LOz);                
             }
             for (int j=i; j<=8; j++){
-                    if(j==7) j++;
+                if(j==1 or j==2 or j==8){
                     cache_p[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p(qq, i, j, 0);
                     cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 0);
                 }
+                else if (3<=j and j<=6){
+                    cache_p[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p(qq, i, j, 0, flag_LOz);
+                    cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 0, flag_LOz);
+                }
             }
         }
+    }
     return;
 }
 
@@ -1887,25 +2080,31 @@ void AmpDB2::poletoPS_pp_s(){
     //analog to arxiv:2106.05979 eq. (33) for PS mass
     double log_mu1_Mb = 2. * log(mu_1/Mb);
     double log_mub_Mb = 2. * log(mu_b/Mb);
+    bool flag_LOz = true;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
         for (int i=1; i<=6; i++){
             //not all terms used for n=2
             for (int j=i; j<=8; j++){
                 if(j==3) j=8;
                 if(i>=3) j=8;
-                cache_p[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p(qq, i, j, 1)
+                cache_p[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p(qq, i, j, 1, flag_LOz)
                         + (16.* 2. * PoletoPS_as2 + 16.* PoletoPS_as1 * PoletoPS_as1 * 3. +
                             8.* PoletoPS_as1 * 23./3. * log_mu1_Mb -
-                            8.* PoletoPS_as1 * 4. * (4./3. + log_mub_Mb)) * p(qq, i, j, 0);
-                cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 1)
+                            8.* PoletoPS_as1 * 4. * (4./3. + log_mub_Mb)) * p(qq, i, j, 0, flag_LOz);
+                cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 1, flag_LOz)
                         + (16.* 2. * PoletoPS_as2 + 16.* PoletoPS_as1 * PoletoPS_as1 * 3. +
                            8.* PoletoPS_as1 * 23./3. * log_mu1_Mb -
-                           8.* PoletoPS_as1 * 4. * (4./3. + log_mub_Mb)) * p_s(qq, i, j, 0);
+                           8.* PoletoPS_as1 * 4. * (4./3. + log_mub_Mb)) * p_s(qq, i, j, 0, flag_LOz);
             }            
             for (int j=i; j<=8; j++){
-                    if(j==7) j++;
+                if(j==1 or j==2 or j==8){
                     cache_p[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p(qq, i, j, 0);
                     cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 0);
+                }
+                else if (3<=j and j<=6){
+                    cache_p[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p(qq, i, j, 0, flag_LOz);
+                    cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 0, flag_LOz);
+                }
             }
         }
     }

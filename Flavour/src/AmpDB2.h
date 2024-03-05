@@ -255,6 +255,7 @@ private:
     double MB; //mass of the $B_d$ meson in GeV
     double MB_s; //mass of the $B_s$ meson in GeV
     double Mb2_prefactor; //overall Mb^2 prefactor of @f$\Gamma_{21}@f$
+    double Mb2_prefactor_1overm; // Mb^2 prefactor of the 1/mb part of @f$\Gamma_{21}@f$
     double Mb_Mb; //MSbar mass of bottom
     double Mb_pole; //pole mass of bottom
     double Mb_PS; //PS mass of bottom 
@@ -373,13 +374,17 @@ private:
     gslpp::complex H_s_partial(quarks qq, int i_start, int i_end, int j_start, int j_end, int n); 
     
     //Values of the coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
-    double p(quarks qq, int i, int j, int n);
-    double p_s(quarks qq, int i, int j, int n);
-    double lastInput_compute_pp_s[3] = {NAN, NAN, NAN};
+    double p(quarks qq, int i, int j, int n, bool flag_LOz = false);
+    double p_s(quarks qq, int i, int j, int n, bool flag_LOz = false);
+    double lastInput_compute_pp_s[4] = {NAN, NAN, NAN, NAN};
     
     //Values of the coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
     double cache_p[576] = { 0. };
     double cache_ps[576] = { 0. };
+    //Values of the coefficient functions in LO in z needed for DB=2 Wilson coefficients (Gerlach thesis)
+    bool flag_LOz = true;
+    double cache_p_LO[576] = { 0. };
+    double cache_ps_LO[576] = { 0. };
     
     //Method to compute coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
     void compute_pp_s();
