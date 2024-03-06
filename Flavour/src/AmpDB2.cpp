@@ -1316,62 +1316,76 @@ void AmpDB2::compute_pp_s(){
     double L_2 = 2. * log(mu_2/Mb);
     double log_some_z = log((2*sqrt1minus4z)/(1 + sqrt1minus4z));
     
-    cache_p[index_p(cc, 1, 1, 1)]= (169.*Dilogsigma)/27. + (92.*Dilogsigma2)/27. - (191.*logsigma)/54. + (46.*log1minus4z*logsigma)/27. + (92.*log2sigma)/27. - 
-        (92.*logsigma*logz)/27. + (1211.*sqrt1minus4z)/324. + (19.*L_1*sqrt1minus4z)/18. + (149.*L_2*sqrt1minus4z)/108. - 
-        (8.*log1minus4z*sqrt1minus4z)/3. + (43.*logz*sqrt1minus4z)/12. - (5.*logsigma)/(216.*z) + (5.*logz*sqrt1minus4z)/(216.*z) - 
-        (340.*Dilogsigma*z)/9. - 19.*Dilogsigma2*z + (371.*logsigma*z)/27. - (19.*log1minus4z*logsigma*z)/2. - 19.*log2sigma*z + 
-        19.*logsigma*logz*z - (6917.*sqrt1minus4z*z)/324. - (23.*L_1*sqrt1minus4z*z)/9. - (49.*L_2*sqrt1minus4z*z)/54. + 
-        (128.*log1minus4z*sqrt1minus4z*z)/9. - (1951.*logz*sqrt1minus4z*z)/108. + (1364.*Dilogsigma*z2)/27. + 
-        (682.*Dilogsigma2*z2)/27. - (263.*logsigma*z2)/54. + (341.*log1minus4z*logsigma*z2)/27. + (682.*log2sigma*z2)/27. - 
-        (682.*logsigma*logz*z2)/27. - (295.*sqrt1minus4z*z2)/54. + (295.*logsigma*z3)/27. + 
-        (169.*logsigma*log_some_z)/54. - (170.*logsigma*z*log_some_z)/
-         9. + (682.*logsigma*z2*log_some_z)/27. - (5.*(M_PI2))/108. + (z*(M_PI2))/54.;
-    cache_p[index_p(cc, 1, 2, 1)]= (92.*Dilogsigma)/9. + (16.*Dilogsigma2)/9. - (275.*logsigma)/36. + (8.*log1minus4z*logsigma)/9. + (16.*log2sigma)/9. - 
-        (16.*logsigma*logz)/9. - (476.*sqrt1minus4z)/27. - (37.*L_1*sqrt1minus4z)/6. + (19.*L_2*sqrt1minus4z)/9. + 
-        (27.*logz*sqrt1minus4z)/4. + (4.*logsigma)/(9.*z) - (4.*logz*sqrt1minus4z)/(9.*z) - (176.*Dilogsigma*z)/3. - 28.*Dilogsigma2*z + 
-        (815.*logsigma*z)/18. - 14.*log1minus4z*logsigma*z - 28.*log2sigma*z + 28.*logsigma*logz*z + (917.*sqrt1minus4z*z)/27. + 
-        (41.*L_1*sqrt1minus4z*z)/3. + (2.*L_2*sqrt1minus4z*z)/9. + (64.*log1minus4z*sqrt1minus4z*z)/3. - (392.*logz*sqrt1minus4z*z)/9. + 
-        (688.*Dilogsigma*z2)/9. + (344.*Dilogsigma2*z2)/9. - (269.*logsigma*z2)/9. + (172.*log1minus4z*logsigma*z2)/9. + 
-        (344.*log2sigma*z2)/9. - (344.*logsigma*logz*z2)/9. - (91.*sqrt1minus4z*z2)/9. + (182.*logsigma*z3)/9. + 
-        (46.*logsigma*log_some_z)/9. - (88.*logsigma*z*log_some_z)/3. + 
-        (344.*logsigma*z2*log_some_z)/9. + (5.*(M_PI2))/9. - (2.*z*(M_PI2))/9.;
-    cache_p[index_p(cc, 2, 2, 1)]= (4.*Dilogsigma)/3. + (32.*Dilogsigma2)/3. - (41.*logsigma)/6. + (16.*log1minus4z*logsigma)/3. + (32.*log2sigma)/3. - 
-        (32.*logsigma*logz)/3. + (103.*sqrt1minus4z)/18. - L_1*sqrt1minus4z + (2.*L_2*sqrt1minus4z)/3. - 12.*log1minus4z*sqrt1minus4z + 
-        (21.*logz*sqrt1minus4z)/2. - (11.*logsigma)/(6.*z) + (11.*logz*sqrt1minus4z)/(6.*z) - 16.*Dilogsigma*z - 12.*Dilogsigma2*z + 
-        (77.*logsigma*z)/3. - 6.*log1minus4z*logsigma*z - 12.*log2sigma*z + 12.*logsigma*logz*z + (34.*sqrt1minus4z*z)/9. + 
-        10.*L_1*sqrt1minus4z*z - (14.*L_2*sqrt1minus4z*z)/3. + 8.*log1minus4z*sqrt1minus4z*z - (73.*logz*sqrt1minus4z*z)/3. + 
-        (80.*Dilogsigma*z2)/3. + (40.*Dilogsigma2*z2)/3. - (16.*logsigma*z2)/3. + (20.*log1minus4z*logsigma*z2)/3. + 
-        (40.*log2sigma*z2)/3. - (40.*logsigma*logz*z2)/3. + (16.*sqrt1minus4z*z2)/3. - (32.*logsigma*z3)/3. + 
-        (2.*logsigma*log_some_z)/3. - 8.*logsigma*z*log_some_z + 
-        (40.*logsigma*z2*log_some_z)/3. - (5.*(M_PI2))/3. + (2.*z*(M_PI2))/3.;
-    cache_ps[index_p(cc, 1, 1, 1)]= (-344.*Dilogsigma)/27. - (160.*Dilogsigma2)/27. + (320.*logsigma)/27. - (80.*log1minus4z*logsigma)/27. - (160.*log2sigma)/27. + 
-        (160.*logsigma*logz)/27. - (10.*sqrt1minus4z)/81. - (4.*L_1*sqrt1minus4z)/9. - (40.*L_2*sqrt1minus4z)/27. + 
-        (80.*log1minus4z*sqrt1minus4z)/9. - 12.*logz*sqrt1minus4z + (2.*logsigma)/(27.*z) - (2.*logz*sqrt1minus4z)/(27.*z) + 
-        (8.*Dilogsigma2*z)/9. - (214.*logsigma*z)/27. + (4.*log1minus4z*logsigma*z)/9. + (8.*log2sigma*z)/9. - (8.*logsigma*logz*z)/9. - 
-        (1511.*sqrt1minus4z*z)/81. - (8.*L_1*sqrt1minus4z*z)/9. - (80.*L_2*sqrt1minus4z*z)/27. + (160.*log1minus4z*sqrt1minus4z*z)/9. - 
-        (610.*logz*sqrt1minus4z*z)/27. + (1376.*Dilogsigma*z2)/27. + (688.*Dilogsigma2*z2)/27. - (460.*logsigma*z2)/27. + 
-        (344.*log1minus4z*logsigma*z2)/27. + (688.*log2sigma*z2)/27. - (688.*logsigma*logz*z2)/27. - (590.*sqrt1minus4z*z2)/27. + 
-        (1180.*logsigma*z3)/27. - (172.*logsigma*log_some_z)/27. + 
-        (688.*logsigma*z2*log_some_z)/27. - (2.*(M_PI2))/27. - (4.*z*(M_PI2))/27.;
-    cache_ps[index_p(cc, 1, 2, 1)]= (-160.*Dilogsigma)/9. - (128.*Dilogsigma2)/9. + (238.*logsigma)/9. - (64.*log1minus4z*logsigma)/9. - (128.*log2sigma)/9. + 
-        (128.*logsigma*logz)/9. + (100.*sqrt1minus4z)/27. + (4.*L_1*sqrt1minus4z)/3. - (32.*L_2*sqrt1minus4z)/9. + 
-        (64.*log1minus4z*sqrt1minus4z)/3. - 26.*logz*sqrt1minus4z - (2.*logsigma)/(9.*z) + (2.*logz*sqrt1minus4z)/(9.*z) - 
-        (32.*Dilogsigma2*z)/3. + (16.*logsigma*z)/9. - (16.*log1minus4z*logsigma*z)/3. - (32.*log2sigma*z)/3. + 
-        (32.*logsigma*logz*z)/3. - (442.*sqrt1minus4z*z)/27. + (8.*L_1*sqrt1minus4z*z)/3. - (64.*L_2*sqrt1minus4z*z)/9. + 
-        (128.*log1minus4z*sqrt1minus4z*z)/3. - (560.*logz*sqrt1minus4z*z)/9. + (640.*Dilogsigma*z2)/9. + (320.*Dilogsigma2*z2)/9. - 
-        (728.*logsigma*z2)/9. + (160.*log1minus4z*logsigma*z2)/9. + (320.*log2sigma*z2)/9. - (320.*logsigma*logz*z2)/9. - 
-        (364.*sqrt1minus4z*z2)/9. + (728.*logsigma*z3)/9. - (80.*logsigma*log_some_z)/9. + 
-        (320.*logsigma*z2*log_some_z)/9. + (8.*(M_PI2))/9. + (16.*z*(M_PI2))/9.;
-    cache_ps[index_p(cc, 2, 2, 1)]= (-32.*Dilogsigma)/3. + (32.*Dilogsigma2)/3. - (28.*logsigma)/3. + (16.*log1minus4z*logsigma)/3. + (32.*log2sigma)/3. - 
-        (32.*logsigma*logz)/3. + (272.*sqrt1minus4z)/9. + 8.*L_1*sqrt1minus4z + (8.*L_2*sqrt1minus4z)/3. - 16.*log1minus4z*sqrt1minus4z + 
-        12.*logz*sqrt1minus4z - (4.*logsigma)/(3.*z) + (4.*logz*sqrt1minus4z)/(3.*z) + 32.*Dilogsigma2*z - (40.*logsigma*z)/3. + 
-        16.*log1minus4z*logsigma*z + 32.*log2sigma*z - 32.*logsigma*logz*z + (664.*sqrt1minus4z*z)/9. + 16.*L_1*sqrt1minus4z*z + 
-        (16.*L_2*sqrt1minus4z*z)/3. - 32.*log1minus4z*sqrt1minus4z*z + (104.*logz*sqrt1minus4z*z)/3. + (128.*Dilogsigma*z2)/3. + 
-        (64.*Dilogsigma2*z2)/3. + (272.*logsigma*z2)/3. + (32.*log1minus4z*logsigma*z2)/3. + (64.*log2sigma*z2)/3. - 
-        (64.*logsigma*logz*z2)/3. + (64.*sqrt1minus4z*z2)/3. - (128.*logsigma*z3)/3. - 
-        (16.*logsigma*log_some_z)/3. + (64.*logsigma*z2*log_some_z)/
-         3. - (8.*(M_PI2))/3. - (16.*z*(M_PI2))/3.;
-        
+    cache_p[index_p(cc, 1, 1, 1)]= (169.*Dilogsigma)/27. + (92.*Dilogsigma2)/27. + (92.*log2sigma)/27. - (191.*logsigma)/54. + 
+        (46.*log1minus4z*logsigma)/27. + (169.*logsigma*log_some_z)/54. - (92.*logsigma*logz)/27. + 
+        (1211.*sqrt1minus4z)/324. + (19.*L_1*sqrt1minus4z)/18. + (149.*L_2*sqrt1minus4z)/108. - 
+        (8.*log1minus4z*sqrt1minus4z)/3. + (43.*logz*sqrt1minus4z)/12. - (5.*logsigma)/(216.*z) + 
+        (5.*logz*sqrt1minus4z)/(216.*z) - (340.*Dilogsigma*z)/9. - 19.*Dilogsigma2*z - 
+        19.*log2sigma*z + (371.*logsigma*z)/27. - (19.*log1minus4z*logsigma*z)/2. - 
+        (170.*logsigma*log_some_z*z)/9. + 19.*logsigma*logz*z - (6917.*sqrt1minus4z*z)/324. - 
+        (23.*L_1*sqrt1minus4z*z)/9. - (49.*L_2*sqrt1minus4z*z)/54. + 
+        (128.*log1minus4z*sqrt1minus4z*z)/9. - (1951.*logz*sqrt1minus4z*z)/108. + 
+        (1364.*Dilogsigma*z2)/27. + (682.*Dilogsigma2*z2)/27. + (682.*log2sigma*z2)/27. - 
+        (263.*logsigma*z2)/54. + (341.*log1minus4z*logsigma*z2)/27. + 
+        (682.*logsigma*log_some_z*z2)/27. - (682.*logsigma*logz*z2)/27. - 
+        (295.*sqrt1minus4z*z2)/54. + (295.*logsigma*z3)/27. - (5.*(M_PI2))/108. + (z*(M_PI2))/54.;
+    cache_p[index_p(cc, 1, 2, 1)]= (92.*Dilogsigma)/9. + (16.*Dilogsigma2)/9. + (16.*log2sigma)/9. - (275.*logsigma)/36. + 
+        (8.*log1minus4z*logsigma)/9. + (46.*logsigma*log_some_z)/9. - (16.*logsigma*logz)/9. - 
+        (476.*sqrt1minus4z)/27. - (37.*L_1*sqrt1minus4z)/6. + (19.*L_2*sqrt1minus4z)/9. + 
+        (27.*logz*sqrt1minus4z)/4. + (4.*logsigma)/(9.*z) - (4.*logz*sqrt1minus4z)/(9.*z) - 
+        (176.*Dilogsigma*z)/3. - 28.*Dilogsigma2*z - 28.*log2sigma*z + (815.*logsigma*z)/18. - 
+        14.*log1minus4z*logsigma*z - (88.*logsigma*log_some_z*z)/3. + 28.*logsigma*logz*z + 
+        (917.*sqrt1minus4z*z)/27. + (41.*L_1*sqrt1minus4z*z)/3. + (2.*L_2*sqrt1minus4z*z)/9. + 
+        (64.*log1minus4z*sqrt1minus4z*z)/3. - (392.*logz*sqrt1minus4z*z)/9. + (688.*Dilogsigma*z2)/9. + 
+        (344.*Dilogsigma2*z2)/9. + (344.*log2sigma*z2)/9. - (269.*logsigma*z2)/9. + 
+        (172.*log1minus4z*logsigma*z2)/9. + (344.*logsigma*log_some_z*z2)/9. - (344.*logsigma*logz*z2)/9. - 
+        (91.*sqrt1minus4z*z2)/9. + (182.*logsigma*z3)/9. + (5.*(M_PI2))/9. - (2.*z*(M_PI2))/9.;
+    cache_p[index_p(cc, 2, 2, 1)]= (4.*Dilogsigma)/3. + (32.*Dilogsigma2)/3. + (32.*log2sigma)/3. - (41.*logsigma)/6. + 
+        (16.*log1minus4z*logsigma)/3. + (2.*logsigma*log_some_z)/3. - (32.*logsigma*logz)/3. + 
+        (103.*sqrt1minus4z)/18. - L_1*sqrt1minus4z + (2.*L_2*sqrt1minus4z)/3. - 
+        12.*log1minus4z*sqrt1minus4z + (21.*logz*sqrt1minus4z)/2. - (11.*logsigma)/(6.*z) + 
+        (11.*logz*sqrt1minus4z)/(6.*z) - 16.*Dilogsigma*z - 12.*Dilogsigma2*z - 12.*log2sigma*z + 
+        (77.*logsigma*z)/3. - 6.*log1minus4z*logsigma*z - 8.*logsigma*log_some_z*z + 12.*logsigma*logz*z + 
+        (34.*sqrt1minus4z*z)/9. + 10.*L_1*sqrt1minus4z*z - (14.*L_2*sqrt1minus4z*z)/3. + 
+        8.*log1minus4z*sqrt1minus4z*z - (73.*logz*sqrt1minus4z*z)/3. + (80.*Dilogsigma*z2)/3. + 
+        (40.*Dilogsigma2*z2)/3. + (40.*log2sigma*z2)/3. - (16.*logsigma*z2)/3. + 
+        (20.*log1minus4z*logsigma*z2)/3. + (40.*logsigma*log_some_z*z2)/3. - (40.*logsigma*logz*z2)/3. + 
+        (16.*sqrt1minus4z*z2)/3. - (32.*logsigma*z3)/3. - (5.*(M_PI2))/3. + (2.*z*(M_PI2))/3.;
+    cache_ps[index_p(cc, 1, 1, 1)]= (-344.*Dilogsigma)/27. - (160.*Dilogsigma2)/27. - (160.*log2sigma)/27. + (320.*logsigma)/27. - 
+        (80.*log1minus4z*logsigma)/27. - (172.*logsigma*log_some_z)/27. + (160.*logsigma*logz)/27. - 
+        (10.*sqrt1minus4z)/81. - (4.*L_1*sqrt1minus4z)/9. - (40.*L_2*sqrt1minus4z)/27. + 
+        (80.*log1minus4z*sqrt1minus4z)/9. - 12.*logz*sqrt1minus4z + (2.*logsigma)/(27.*z) - 
+        (2.*logz*sqrt1minus4z)/(27.*z) + (8.*Dilogsigma2*z)/9. + (8.*log2sigma*z)/9. - 
+        (214.*logsigma*z)/27. + (4.*log1minus4z*logsigma*z)/9. - (8.*logsigma*logz*z)/9. - 
+        (1511.*sqrt1minus4z*z)/81. - (8.*L_1*sqrt1minus4z*z)/9. - (80.*L_2*sqrt1minus4z*z)/27. + 
+        (160.*log1minus4z*sqrt1minus4z*z)/9. - (610.*logz*sqrt1minus4z*z)/27. + 
+        (1376.*Dilogsigma*z2)/27. + (688.*Dilogsigma2*z2)/27. + (688.*log2sigma*z2)/27. - 
+        (460.*logsigma*z2)/27. + (344.*log1minus4z*logsigma*z2)/27. + (688.*logsigma*log_some_z*z2)/27. - 
+        (688.*logsigma*logz*z2)/27. - (590.*sqrt1minus4z*z2)/27. + (1180.*logsigma*z3)/27. - 
+        (2.*(M_PI2))/27. - (4.*z*(M_PI2))/27.;
+    cache_ps[index_p(cc, 1, 2, 1)]= (-160.*Dilogsigma)/9. - (128.*Dilogsigma2)/9. - (128.*log2sigma)/9. + (238.*logsigma)/9. - 
+        (64.*log1minus4z*logsigma)/9. - (80.*logsigma*log_some_z)/9. + (128.*logsigma*logz)/9. + 
+        (100.*sqrt1minus4z)/27. + (4.*L_1*sqrt1minus4z)/3. - (32.*L_2*sqrt1minus4z)/9. + 
+        (64.*log1minus4z*sqrt1minus4z)/3. - 26.*logz*sqrt1minus4z - (2.*logsigma)/(9.*z) + 
+        (2.*logz*sqrt1minus4z)/(9.*z) - (32.*Dilogsigma2*z)/3. - (32.*log2sigma*z)/3. + 
+        (16.*logsigma*z)/9. - (16.*log1minus4z*logsigma*z)/3. + (32.*logsigma*logz*z)/3. - 
+        (442.*sqrt1minus4z*z)/27. + (8.*L_1*sqrt1minus4z*z)/3. - (64.*L_2*sqrt1minus4z*z)/9. + 
+        (128.*log1minus4z*sqrt1minus4z*z)/3. - (560.*logz*sqrt1minus4z*z)/9. + (640.*Dilogsigma*z2)/9. + 
+        (320.*Dilogsigma2*z2)/9. + (320.*log2sigma*z2)/9. - (728.*logsigma*z2)/9. + 
+        (160.*log1minus4z*logsigma*z2)/9. + (320.*logsigma*log_some_z*z2)/9. - (320.*logsigma*logz*z2)/9. - 
+        (364.*sqrt1minus4z*z2)/9. + (728.*logsigma*z3)/9. + (8.*(M_PI2))/9. + (16.*z*(M_PI2))/9.;
+    cache_ps[index_p(cc, 2, 2, 1)]= (-32.*Dilogsigma)/3. + (32.*Dilogsigma2)/3. + (32.*log2sigma)/3. - (28.*logsigma)/3. + 
+        (16.*log1minus4z*logsigma)/3. - (16.*logsigma*log_some_z)/3. - (32.*logsigma*logz)/3. + 
+        (272.*sqrt1minus4z)/9. + 8.*L_1*sqrt1minus4z + (8.*L_2*sqrt1minus4z)/3. - 
+        16.*log1minus4z*sqrt1minus4z + 12.*logz*sqrt1minus4z - (4.*logsigma)/(3.*z) + 
+        (4.*logz*sqrt1minus4z)/(3.*z) + 32.*Dilogsigma2*z + 32.*log2sigma*z - (40.*logsigma*z)/3. + 
+        16.*log1minus4z*logsigma*z - 32.*logsigma*logz*z + (664.*sqrt1minus4z*z)/9. + 
+        16.*L_1*sqrt1minus4z*z + (16.*L_2*sqrt1minus4z*z)/3. - 32.*log1minus4z*sqrt1minus4z*z + 
+        (104.*logz*sqrt1minus4z*z)/3. + (128.*Dilogsigma*z2)/3. + (64.*Dilogsigma2*z2)/3. + 
+        (64.*log2sigma*z2)/3. + (272.*logsigma*z2)/3. + (32.*log1minus4z*logsigma*z2)/3. + 
+        (64.*logsigma*log_some_z*z2)/3. - (64.*logsigma*logz*z2)/3. + (64.*sqrt1minus4z*z2)/3. - 
+        (128.*logsigma*z3)/3. - (8.*(M_PI2))/3. - (16.*z*(M_PI2))/3.;
+  
     cache_p[index_p(uu, 1, 1, 1)]= 299./81. + (19.*L_1)/18. + (149.*L_2)/108. - (5.*(M_PI2))/108.;
     cache_p[index_p(uu, 1, 2, 1)]= -452./27. - (37.*L_1)/6. + (19.*L_2)/9. + (5.*(M_PI2))/9.;
     cache_p[index_p(uu, 2, 2, 1)]= 37./18. - L_1 + (2.*L_2)/3. - (5.*(M_PI2))/3.;
@@ -1408,7 +1422,7 @@ void AmpDB2::compute_pp_s(){
         (8.*logz*sqrt1minus4z)/9. - (128.*sqrt1minus4z*z)/27. - 
         (16.*L_1*sqrt1minus4z*z)/9. + (16.*logz*sqrt1minus4z*z)/9. + 
         (32.*logsigma*z2)/3. - (64.*sqrt1minus4z*z2)/9. + (128.*logsigma*z3)/9.;
-                
+
     cache_p[index_p(uu, 1, 1, 1)]+= -5./486. - (5.*L_1)/324.;
     cache_p[index_p(uu, 1, 2, 1)]+= 10./81. + (5.*L_1)/27.;
     cache_p[index_p(uu, 2, 2, 1)]+= -10./27. - (5.*L_1)/9.;
@@ -1419,13 +1433,13 @@ void AmpDB2::compute_pp_s(){
     
     //Corrections from LO coefficients when resummation logz
     double z_replace = -6. * 4./3. * logz * z;  
-    cache_p[index_p(cc, 1, 1, 1)]+= (-11./6. - 43./6. * z)/sqrt1minus4z * z_replace;
+    cache_p[index_p(cc, 1, 1, 1)]+= (-11./6. + 43./6. * z)/sqrt1minus4z * z_replace;
     cache_p[index_p(cc, 1, 2, 1)]+= (-2. + 10. * z)/sqrt1minus4z * z_replace;
     cache_p[index_p(cc, 2, 2, 1)]+= (-3. + 6. * z)/sqrt1minus4z * z_replace;
     cache_ps[index_p(cc, 1, 1, 1)]+= (20./3. * z)/sqrt1minus4z * z_replace;
     cache_ps[index_p(cc, 1, 2, 1)]+= (16. * z)/sqrt1minus4z * z_replace;
     cache_ps[index_p(cc, 2, 2, 1)]+= (-12. * z)/sqrt1minus4z * z_replace;        
-    
+
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 2)) {    
         //equation (6.14)
         cache_p[index_p(qq, 1, 3, 1)]= (320./9. - 4. * L_1) * z + 47./18. * L_1 + 56./9. * L_2 - 5./(18. * sqrt3) * M_PI + 1523./108.;
@@ -1519,22 +1533,17 @@ void AmpDB2::compute_pp_s(){
     
     //pengFlag terms from P12-36 here in full z dependence
     cache_p[index_p(cu, 1, 1, 1)]+= (5.*(-2. - 3.*L_1 + 3.*logz - 12.*z - 2.*sqrt1minus4z*(1. + 2.*z) - 
-        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z*
-         (1. + 2.*z)))/1944.;
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z * (1. + 2.*z)))/1944.;
     cache_p[index_p(cu, 1, 2, 1)]+= (5.*(2. + 3.*L_1 - 3.*logz + 12.*z + 2.*sqrt1minus4z*(1. + 2.*z) + 
-        3.*L_1*sqrt1minus4z*(1. + 2.*z) + 3.*logsigma*sqrt1minus4z*
-         (1. + 2.*z)))/162.;
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) + 3.*logsigma*sqrt1minus4z * (1. + 2.*z)))/162.;
     cache_p[index_p(cu, 2, 2, 1)]+= (5.*(-2. - 3.*L_1 + 3.*logz - 12.*z - 2.*sqrt1minus4z*(1. + 2.*z) - 
-        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z*
-         (1. + 2.*z)))/54.;
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z * (1. + 2.*z)))/54.;
     cache_ps[index_p(cu, 1, 1, 1)]+= (-2. - 3.*L_1 + 3.*logz - 12.*z - 2.*sqrt1minus4z*(1. + 2.*z) - 
-        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z*
-         (1. + 2.*z))/243.;
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z * (1. + 2.*z))/243.;
     cache_ps[index_p(cu, 1, 2, 1)]+= (4.*(2. + 3.*L_1 - 3.*logz + 12.*z + 2.*sqrt1minus4z*(1. + 2.*z) + 
-        3.*L_1*sqrt1minus4z*(1. + 2.*z) + 3.*logsigma*sqrt1minus4z*
-         (1. + 2.*z)))/81.;
-    cache_ps[index_p(cu, 2, 2, 1)]+= (-8.*(1. + 2.*z)*(3.*L_1*sqrt1minus4z + sqrt1minus4z*(2. - 3.*logz + 12.*z) - 
-        3.*logsigma*(-1. + 2.*z + 8.*z2)))/27.;
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) + 3.*logsigma*sqrt1minus4z * (1. + 2.*z)))/81.;
+    cache_ps[index_p(cu, 2, 2, 1)]+= (4.*(-2. - 3.*L_1 + 3.*logz - 12.*z - 2.*sqrt1minus4z*(1. + 2.*z) - 
+        3.*L_1*sqrt1minus4z*(1. + 2.*z) - 3.*logsigma*sqrt1minus4z*(1. + 2.*z)))/27.;
     
     //Corrections from LO coefficients when resummation logz
     cache_p[index_p(cu, 1, 1, 1)]+= (-11./12. + 7./4. * z + 5./6. * z2) * z_replace;
