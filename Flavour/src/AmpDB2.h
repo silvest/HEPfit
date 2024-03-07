@@ -169,8 +169,8 @@ private:
     const double sqrt3 = sqrt(3);        
     const double sqrt5 = sqrt(5);
     const double log12sqrt52 = log(0.5 + sqrt5/2.);    
-    const double t_2 = -0.389012;   /*Gerlach thesis, eq. 3.102*/
-    const double Cl2PI3 = 1.014941; /*Gerlach thesis, eq. 6.23*/
+    const double t_2 = -0.389011713;   //Im(Dilog((3 - i*sqrt(3))/6)
+    const double Cl2PI3 = 1.014941606; // Clausen(2, Pi/3)
     
     double mu_1;        /*matching scale of DB=1 theory for leading order in 1/mb */
     double mu_1_overm;  /*matching scale of DB=1 theory for subleading order in 1/mb */

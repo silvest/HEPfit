@@ -1150,6 +1150,7 @@ gslpp::complex AmpDB2::H_partial(quarks qq, int i_start, int i_end, int j_start,
         if (i==7) i++;
         for (int j=j_start; j<=j_end; j++){
             if(j==7) j++;
+            if (j<i) continue;
             if (n==0) {
                 result += cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0);
             }
@@ -1164,9 +1165,11 @@ gslpp::complex AmpDB2::H_partial(quarks qq, int i_start, int i_end, int j_start,
                 }
             }
             else if (n==2) {
-                result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
+                if (j==1 or j==2 or j==8){
+                    result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
                         + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1, flag_LOz)
                         + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0, flag_LOz);
+                }
             }
             else {
                 throw(std::runtime_error("AmpDB2::H_partial order not implemented"));
@@ -1182,6 +1185,7 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
         if (i==7) i++;
         for (int j=j_start; j<=j_end; j++){
             if(j==7) j++;
+            if (j<i) continue;
             if (n==0) {
                 result += cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0);
             }
@@ -1196,9 +1200,11 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
                 }
             }
             else if (n==2) {
-                result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
+                if (j==1 or j==2 or j==8){
+                    result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
                         + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1, flag_LOz)
                         + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0, flag_LOz);
+                }
             }
             else {
                 throw(std::runtime_error("AmpDB2::H_s_partial order not implemented"));
@@ -1651,14 +1657,14 @@ void AmpDB2::compute_pp_s(){
     //LO in z
     cache_p[index_p(cc, 1, 1, 2)] = (814589597./4199040. + (1320817.*L_1)/17496. + (3211.*L_12)/324. + (259603.*L_2)/11664. + (12911.*L_1*L_2)/972. - (311.*L_22)/216. + (56.*Cl2PI3*sqrt3)/729. - 
         ((5.*complex::i())/3888.)*log3 * log3*sqrt3 + (855371.*sqrtz)/180000. + (22.*log2z*sqrtz)/9. + (88.*logM1OverSqrtz2*sqrtz)/9. + (88.*logM1OverSqrtz*logz*sqrtz)/9. - 
-        ((5.*1.)/486.)*sqrt3*t_2 - (22.*log2z)/(9.*z) - (88.*logM1OverSqrtz2)/(9.*z) - (88.*logM1OverSqrtz*logz)/(9.*z) + (22.*log2z)/(9.*sqrtz) + 
+        ((5.*-1.)/486.)*sqrt3*t_2 - (22.*log2z)/(9.*z) - (88.*logM1OverSqrtz2)/(9.*z) - (88.*logM1OverSqrtz*logz)/(9.*z) + (22.*log2z)/(9.*sqrtz) + 
         (88.*logM1OverSqrtz2)/(9.*sqrtz) + (88.*logM1OverSqrtz*logz)/(9.*sqrtz) - (3547371902315179.*z)/3455518320000. - (721919.*L_1*z)/1944. - (2347.*L_12*z)/54. + 
         (1891.*L_2*z)/81. - (337.*L_1*L_2*z)/9. + (187.*L_22*z)/18. - (88.*logM1OverSqrtz2*z)/9. - (4823.*logz*z)/9. - (1348.*L_1*logz*z)/9. - (88.*L_2*logz*z)/3. - 
         (88.*logM1OverSqrtz*logz*z)/9. - (28333.*zeta3)/486. + (128581.*z*zeta3)/216. - (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/17496. + 
         ((-684288. + 684288.*sqrtz - (216641. + 87480.*L_1 - 432.*L_2 + 146016.*log12sqrt52 + 5112.*log2 - (50.*complex::i())*sqrt3 + 158184.*sqrt5 - 684288.*sqrtz)*z + 
            18.*(197453. + 2232.*L_1 + 912.*L_2 - 9792.*log12sqrt52 - 26508.*log2 + 576.*logz + 9744.*sqrt5)*z2)*(M_PI2))/(69984.*z) + (23.*(M_PI4))/4860. - (13637.*z*(M_PI4))/116640.).real();
     cache_p[index_p(cc, 1, 2, 2)] = (-95740679./349920. - (1026907.*L_1)/5832. - (1751.*L_12)/54. - (619.*L_2)/972. + (166.*L_1*L_2)/81. - L_22/18. - (224.*Cl2PI3*sqrt3)/243. + ((5.*complex::i())/324.)*log3 * log3*sqrt3 + 
-        (2895091.*sqrtz)/60000. + (8.*log2z*sqrtz)/3. + (32.*logM1OverSqrtz2*sqrtz)/3. + (32.*logM1OverSqrtz*logz*sqrtz)/3. + ((10.*1.)/81.)*sqrt3*t_2 - (8.*log2z)/(3.*z) - 
+        (2895091.*sqrtz)/60000. + (8.*log2z*sqrtz)/3. + (32.*logM1OverSqrtz2*sqrtz)/3. + (32.*logM1OverSqrtz*logz*sqrtz)/3. + ((10.*-1.)/81.)*sqrt3*t_2 - (8.*log2z)/(3.*z) - 
         (32.*logM1OverSqrtz2)/(3.*z) - (32.*logM1OverSqrtz*logz)/(3.*z) + (8.*log2z)/(3.*sqrtz) + (32.*logM1OverSqrtz2)/(3.*sqrtz) + 
         (32.*logM1OverSqrtz*logz)/(3.*sqrtz) + (2370097879.*z)/1944000. + (117443.*L_1*z)/162. + (1193.*L_12*z)/9. + (6350.*L_2*z)/27. + (64.*L_1*L_2*z)/3. + (34.*L_22*z)/3. - 
         (32.*logM1OverSqrtz2*z)/3. + 124.*logz*z + (256.*L_1*logz*z)/3. - 32.*L_2*logz*z - (32.*logM1OverSqrtz*logz*z)/3. - (10573.*zeta3)/324. + (85027.*z*zeta3)/90. + 
@@ -1666,7 +1672,7 @@ void AmpDB2::compute_pp_s(){
         ((622080. - 622080.*sqrtz - 5.*(497221. + 116640.*L_1 - 864.*L_2 - 39744.*log12sqrt52 + 85824.*log2 - (100.*complex::i())*sqrt3 - 43056.*sqrt5 + 124416.*sqrtz)*z + 
            72.*(64865. + 3960.*L_1 + 2280.*L_2 + 3168.*log12sqrt52 + 35070.*log2 + 1440.*logz - 3288.*sqrt5)*z2)*(M_PI2))/(58320.*z) - (799.*(M_PI4))/810. + (20833.*z*(M_PI4))/4860.).real();
     cache_p[index_p(cc, 2, 2, 2)] = (74041./14580. + (106199.*L_1)/972. + (239.*L_12)/18. - (5117.*L_2)/81. - (202.*L_1*L_2)/27. - (19.*L_22)/3. + (224.*Cl2PI3*sqrt3)/81. - ((5.*complex::i())/108.)*log3 * log3*sqrt3 - 
-        (1052759.*sqrtz)/10000. + 4.*log2z*sqrtz + 16.*logM1OverSqrtz2*sqrtz + 16.*logM1OverSqrtz*logz*sqrtz - ((10.*1.)/27.)*sqrt3*t_2 - (4.*log2z)/z - 
+        (1052759.*sqrtz)/10000. + 4.*log2z*sqrtz + 16.*logM1OverSqrtz2*sqrtz + 16.*logM1OverSqrtz*logz*sqrtz - ((10.*-1.)/27.)*sqrt3*t_2 - (4.*log2z)/z - 
         (16.*logM1OverSqrtz2)/z - (16.*logM1OverSqrtz*logz)/z + (4.*log2z)/sqrtz + (16.*logM1OverSqrtz2)/sqrtz + (16.*logM1OverSqrtz*logz)/sqrtz - 
         (69930883.*z)/101250. - (16463.*L_1*z)/54. - (122.*L_12*z)/3. - (109.*L_2*z)/18. - 22.*L_1*L_2*z + 17.*L_22*z - 16.*logM1OverSqrtz2*z - 496.*logz*z - 88.*L_1*logz*z - 
         48.*L_2*logz*z - 16.*logM1OverSqrtz*logz*z - (3157.*zeta3)/54. + (2521.*z*zeta3)/15. - (5.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/486. + 
@@ -1676,7 +1682,7 @@ void AmpDB2::compute_pp_s(){
     cache_ps[index_p(cc, 1, 1, 2)] = (-67489177./262440. - (77617.*L_1)/2187. - (902.*L_12)/243. - 
         (5504.*L_2)/729. - (3064.*L_1*L_2)/243. + (260.*L_22)/27. + 
         (104.*Cl2PI3*sqrt3)/729. - (complex::i()/486.)*log3 * log3*sqrt3 + 
-        (166687.*sqrtz)/6000. - ((4.*1.)/243.)*sqrt3*t_2 - 
+        (166687.*sqrtz)/6000. - ((4.*-1.)/243.)*sqrt3*t_2 - 
         (27341897029.*z)/29160000. - (97999.*L_1*z)/243. - (9272.*L_2*z)/81. - 
         (9272.*logz*z)/27. + (28528.*zeta3)/243. + (29.*z*zeta3)/3. - 
         (sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/2187. - 
@@ -1686,7 +1692,7 @@ void AmpDB2::compute_pp_s(){
           (M_PI2))/8748. + (449.*(M_PI4))/1215. - (27529.*z*(M_PI4))/14580.).real();
     cache_ps[index_p(cc, 1, 2, 2)] = (-1336127./2187. - (28733.*L_1)/729. + (44.*L_12)/81. - (2176.*L_2)/243. - 
         (1856.*L_1*L_2)/81. + (208.*L_22)/9. - (416.*Cl2PI3*sqrt3)/243. + 
-        ((2.*complex::i())/81.)*log3 * log3*sqrt3 + (8773.*sqrtz)/100. + ((16.*1.)/81.)*sqrt3*t_2 + 
+        ((2.*complex::i())/81.)*log3 * log3*sqrt3 + (8773.*sqrtz)/100. + ((16.*-1.)/81.)*sqrt3*t_2 + 
         (1672496939.*z)/4860000. - (23372.*L_1*z)/81. - (5248.*L_2*z)/27. - 
         (5248.*logz*z)/9. + (13934.*zeta3)/81. - 244.*z*zeta3 + 
         (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/729. + 
@@ -1696,7 +1702,7 @@ void AmpDB2::compute_pp_s(){
         (226.*(M_PI4))/405. + (5692.*z*(M_PI4))/1215.).real();
     cache_ps[index_p(cc, 2, 2, 2)] = (27476329./58320. + (40370.*L_1)/243. + (604.*L_12)/27. + (6928.*L_2)/81. + 
         (1064.*L_1*L_2)/27. - (52.*L_22)/3. + (416.*Cl2PI3*sqrt3)/81. - 
-        ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*1.)/27.)*sqrt3*t_2 + 
+        ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*-1.)/27.)*sqrt3*t_2 + 
         (287805209.*z)/81000. + (18836.*L_1*z)/27. + (928.*L_2*z)/9. + (928.*logz*z)/3. - 
         (4388.*zeta3)/27. - 600.*z*zeta3 - 
         (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 180.*z)*(M_PI))/243. - 
@@ -1708,7 +1714,7 @@ void AmpDB2::compute_pp_s(){
     cache_p[index_p(uu, 1, 1, 2)] = (814589597./4199040. + (1320817.*L_1)/17496. + (3211.*L_12)/324. + 
         (259603.*L_2)/11664. + (12911.*L_1*L_2)/972. - (311.*L_22)/216. + 
         (56.*Cl2PI3*sqrt3)/729. - ((5.*complex::i())/3888.)*log3 * log3*sqrt3 + 
-        (855371.*sqrtz)/180000. - ((5.*1.)/486.)*sqrt3*t_2 + 
+        (855371.*sqrtz)/180000. - ((5.*-1.)/486.)*sqrt3*t_2 + 
         (5298817581707.*z)/1151839440000. + (5.*L_1*z)/81. - (50.*logz*z)/9. - 
         (28333.*zeta3)/486. - (5.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/17496. - 
         ((216641. + 87480.*L_1 - 432.*L_2 + 146016.*log12sqrt52 + 5112.*log2 - 
@@ -1716,7 +1722,7 @@ void AmpDB2::compute_pp_s(){
     cache_p[index_p(uu, 1, 2, 2)] = (-95740679./349920. - (1026907.*L_1)/5832. - (1751.*L_12)/54. - (619.*L_2)/972. + 
         (166.*L_1*L_2)/81. - L_22/18. - (224.*Cl2PI3*sqrt3)/243. + 
         ((5.*complex::i())/324.)*log3 * log3*sqrt3 + (2895091.*sqrtz)/60000. + 
-        ((10.*1.)/81.)*sqrt3*t_2 - (55644107.*z)/648000. - (20.*L_1*z)/27. + 
+        ((10.*-1.)/81.)*sqrt3*t_2 - (55644107.*z)/648000. - (20.*L_1*z)/27. + 
         (8.*logz*z)/3. - (10573.*zeta3)/324. + 
         (5.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/1458. + 
         ((497221. + 116640.*L_1 - 864.*L_2 - 39744.*log12sqrt52 + 85824.*log2 - 
@@ -1724,27 +1730,27 @@ void AmpDB2::compute_pp_s(){
     cache_p[index_p(uu, 2, 2, 2)] = (74041./14580. + (106199.*L_1)/972. + (239.*L_12)/18. - (5117.*L_2)/81. - 
         (202.*L_1*L_2)/27. - (19.*L_22)/3. + (224.*Cl2PI3*sqrt3)/81. - 
         ((5.*complex::i())/108.)*log3 * log3*sqrt3 - (1052759.*sqrtz)/10000. - 
-        ((10.*1.)/27.)*sqrt3*t_2 + (9532631.*z)/135000. + (20.*L_1*z)/9. - 32.*logz*z - 
+        ((10.*-1.)/27.)*sqrt3*t_2 + (9532631.*z)/135000. + (20.*L_1*z)/9. - 32.*logz*z - 
         (3157.*zeta3)/54. - (5.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/486. - 
         ((177247. + 58320.*L_1 - 864.*L_2 + 1728.*log12sqrt52 - 21312.*log2 - 
            (100.*complex::i())*sqrt3 + 1872.*sqrt5)*(M_PI2))/3888. + (971.*(M_PI4))/540.).real();
     cache_ps[index_p(uu, 1, 1, 2)] = (-67489177./262440. - (77617.*L_1)/2187. - (902.*L_12)/243. - (5504.*L_2)/729. - 
         (3064.*L_1*L_2)/243. + (260.*L_22)/27. + (104.*Cl2PI3*sqrt3)/729. - 
-        (complex::i()/486.)*log3 * log3*sqrt3 + (166687.*sqrtz)/6000. - ((4.*1.)/243.)*sqrt3*t_2 - 
+        (complex::i()/486.)*log3 * log3*sqrt3 + (166687.*sqrtz)/6000. - ((4.*-1.)/243.)*sqrt3*t_2 - 
         (261095543.*z)/9720000. + (8.*L_1*z)/81. + (28528.*zeta3)/243. - 
         ((20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/2187. - 
         ((44209. + 17496.*L_1 + 1728.*L_2 - 37152.*log12sqrt52 + 126216.*log2 - 
            (10.*complex::i())*sqrt3 - 40248.*sqrt5)*(M_PI2))/8748. + (449.*(M_PI4))/1215.).real();
     cache_ps[index_p(uu, 1, 2, 2)] = (-1336127./2187. - (28733.*L_1)/729. + (44.*L_12)/81. - (2176.*L_2)/243. - 
         (1856.*L_1*L_2)/81. + (208.*L_22)/9. - (416.*Cl2PI3*sqrt3)/243. + 
-        ((2.*complex::i())/81.)*log3 * log3*sqrt3 + (8773.*sqrtz)/100. + ((16.*1.)/81.)*sqrt3*t_2 - 
+        ((2.*complex::i())/81.)*log3 * log3*sqrt3 + (8773.*sqrtz)/100. + ((16.*-1.)/81.)*sqrt3*t_2 - 
         (117168887.*z)/1620000. - (32.*L_1*z)/27. + (13934.*zeta3)/81. + 
         (4.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/729. + 
         ((39995. + 23328.*L_1 + 3456.*L_2 + 8640.*log12sqrt52 - 29232.*log2 - 
            (20.*complex::i())*sqrt3 + 9360.*sqrt5)*(M_PI2))/1458. + (226.*(M_PI4))/405.).real();
     cache_ps[index_p(uu, 2, 2, 2)] = (27476329./58320. + (40370.*L_1)/243. + (604.*L_12)/27. + (6928.*L_2)/81. + 
         (1064.*L_1*L_2)/27. - (52.*L_22)/3. + (416.*Cl2PI3*sqrt3)/81. - 
-        ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*1.)/27.)*sqrt3*t_2 + 
+        ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*-1.)/27.)*sqrt3*t_2 + 
         (4778443.*z)/27000. + (32.*L_1*z)/9. - (4388.*zeta3)/27. - 
         (4.*(20. + 30.*L_1 + 3.*log3)*sqrt3*(M_PI))/243. - 
         ((41279. + 11664.*L_1 + 3456.*L_2 - 1728.*log12sqrt52 + 11808.*log2 - 
@@ -1796,7 +1802,7 @@ void AmpDB2::compute_pp_s(){
     cache_p[index_p(cu, 1, 1, 2)] = (814589597./4199040. + (56.*Cl2PI3)/(243.*sqrt3) + (1320817.*L_1)/17496. + (3211.*L_12)/324. + 
         (259603.*L_2)/11664. + (12911.*L_1*L_2)/972. - (311.*L_22)/216. - (((5.*complex::i())/1296.)*log3 * log3)/sqrt3 + 
         (855371.*sqrtz)/180000. + (11.*log2z*sqrtz)/9. + (44.*logM1OverSqrtz2*sqrtz)/9. + 
-        (44.*logM1OverSqrtz*logz*sqrtz)/9. - (((5.*complex::i())/162.)*t_2)/sqrt3 - (11.*log2z)/(9.*z) - 
+        (44.*logM1OverSqrtz*logz*sqrtz)/9. - (((5.*-1.)/162.)*t_2)/sqrt3 - (11.*log2z)/(9.*z) - 
         (44.*logM1OverSqrtz2)/(9.*z) - (44.*logM1OverSqrtz*logz)/(9.*z) + (11.*log2z)/(9.*sqrtz) + 
         (44.*logM1OverSqrtz2)/(9.*sqrtz) + (44.*logM1OverSqrtz*logz)/(9.*sqrtz) - 
         (1765737724785029.*z)/3455518320000. - (721799.*L_1*z)/3888. - (2347.*L_12*z)/108. + (1891.*L_2*z)/162. - 
@@ -1809,7 +1815,7 @@ void AmpDB2::compute_pp_s(){
         (23.*(M_PI4))/4860. - (13637.*z*(M_PI4))/233280.).real();
     cache_p[index_p(cu, 1, 2, 2)] = (-95740679./349920. - (1026907.*L_1)/5832. - (1751.*L_12)/54. - (619.*L_2)/972. + (166.*L_1*L_2)/81. - L_22/18. - 
         (224.*Cl2PI3*sqrt3)/243. + ((5.*complex::i())/324.)*log3 * log3*sqrt3 + (2895091.*sqrtz)/60000. + (4.*log2z*sqrtz)/3. + 
-        (16.*logM1OverSqrtz2*sqrtz)/3. + (16.*logM1OverSqrtz*logz*sqrtz)/3. + ((10.*complex::i())/81.)*sqrt3*t_2 - 
+        (16.*logM1OverSqrtz2*sqrtz)/3. + (16.*logM1OverSqrtz*logz*sqrtz)/3. + ((10.*-1.)/81.)*sqrt3*t_2 - 
         (4.*log2z)/(3.*z) - (16.*logM1OverSqrtz2)/(3.*z) - (16.*logM1OverSqrtz*logz)/(3.*z) + 
         (4.*log2z)/(3.*sqrtz) + (16.*logM1OverSqrtz2)/(3.*sqrtz) + 
         (16.*logM1OverSqrtz*logz)/(3.*sqrtz) + (1101582779.*z)/1944000. + (117323.*L_1*z)/324. + 
@@ -1822,7 +1828,7 @@ void AmpDB2::compute_pp_s(){
           (M_PI2))/(58320.*z) - (799.*(M_PI4))/810. + (20833.*z*(M_PI4))/9720.).real();
     cache_p[index_p(cu, 2, 2, 2)] = (74041./14580. + (106199.*L_1)/972. + (239.*L_12)/18. - (5117.*L_2)/81. - (202.*L_1*L_2)/27. - (19.*L_22)/3. + 
         (224.*Cl2PI3*sqrt3)/81. - ((5.*complex::i())/108.)*log3 * log3*sqrt3 - (1052759.*sqrtz)/10000. + 2.*log2z*sqrtz + 
-        8.*logM1OverSqrtz2*sqrtz + 8.*logM1OverSqrtz*logz*sqrtz - ((10.*complex::i())/27.)*sqrt3*t_2 - (2.*log2z)/z - 
+        8.*logM1OverSqrtz2*sqrtz + 8.*logM1OverSqrtz*logz*sqrtz - ((10.*-1.)/27.)*sqrt3*t_2 - (2.*log2z)/z - 
         (8.*logM1OverSqrtz2)/z - (8.*logM1OverSqrtz*logz)/z + (2.*log2z)/sqrtz + 
         (8.*logM1OverSqrtz2)/sqrtz + (8.*logM1OverSqrtz*logz)/sqrtz - (251125639.*z)/810000. - 
         (16343.*L_1*z)/108. - (61.*L_12*z)/3. - (109.*L_2*z)/36. - 11.*L_1*L_2*z + (17.*L_22*z)/2. - 
@@ -1834,7 +1840,7 @@ void AmpDB2::compute_pp_s(){
         (971.*(M_PI4))/540. + (5203.*z*(M_PI4))/6480.).real();
     cache_ps[index_p(cu, 1, 1, 2)] = (-67489177./262440. + (104.*Cl2PI3)/(243.*sqrt3) - (77617.*L_1)/2187. - 
         (902.*L_12)/243. - (5504.*L_2)/729. - (3064.*L_1*L_2)/243. + (260.*L_22)/27. - 
-        ((complex::i()/162.)*log3 * log3)/sqrt3 + (166687.*sqrtz)/6000. - (((4.*complex::i())/81.)*t_2)/sqrt3 - 
+        ((complex::i()/162.)*log3 * log3)/sqrt3 + (166687.*sqrtz)/6000. - (((4.*-1.)/81.)*t_2)/sqrt3 - 
         (14062591829.*z)/29160000. - (97975.*L_1*z)/486. - (4636.*L_2*z)/81. - 
         (4636.*logz*z)/27. + (28528.*zeta3)/243. + (29.*z*zeta3)/6. - 
         ((3.*sqrt3*log3 + 30.*L_1*sqrt3 + 10.*sqrt3*(2. + 9.*z))*(M_PI))/2187. + 
@@ -1844,7 +1850,7 @@ void AmpDB2::compute_pp_s(){
         (27529.*z*(M_PI4))/29160.).real();
     cache_ps[index_p(cu, 1, 2, 2)] = (-1336127./2187. - (28733.*L_1)/729. + (44.*L_12)/81. - (2176.*L_2)/243. - (1856.*L_1*L_2)/81. + 
         (208.*L_22)/9. - (416.*Cl2PI3*sqrt3)/243. + ((2.*complex::i())/81.)*log3 * log3*sqrt3 + 
-        (8773.*sqrtz)/100. + ((16.*complex::i())/81.)*sqrt3*t_2 + (660495139.*z)/4860000. - 
+        (8773.*sqrtz)/100. + ((16.*-1.)/81.)*sqrt3*t_2 + (660495139.*z)/4860000. - 
         (11734.*L_1*z)/81. - (2624.*L_2*z)/27. - (2624.*logz*z)/9. + (13934.*zeta3)/81. - 
         122.*z*zeta3 + (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 90.*z)*(M_PI))/729. + 
         ((39995. + 8640.*log12sqrt52 - 29232.*log2 - (20.*complex::i())*sqrt3 + 9360.*sqrt5 + 29142.*z + 
@@ -1852,7 +1858,7 @@ void AmpDB2::compute_pp_s(){
            3456.*L_2*(1. + z))*(M_PI2))/1458. + (226.*(M_PI4))/405. + (2846.*z*(M_PI4))/1215.).real();
     cache_ps[index_p(cu, 2, 2, 2)] = (27476329./58320. + (40370.*L_1)/243. + (604.*L_12)/27. + (6928.*L_2)/81. + 
         (1064.*L_1*L_2)/27. - (52.*L_22)/3. + (416.*Cl2PI3*sqrt3)/81. - 
-        ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*complex::i())/27.)*sqrt3*t_2 + 
+        ((2.*complex::i())/27.)*log3 * log3*sqrt3 - (26319.*sqrtz)/250. - ((16.*-1.)/27.)*sqrt3*t_2 + 
         (151070269.*z)/81000. + (9466.*L_1*z)/27. + (464.*L_2*z)/9. + (464.*logz*z)/3. - 
         (4388.*zeta3)/27. - 300.*z*zeta3 - (4.*sqrt3*(20. + 30.*L_1 + 3.*log3 + 90.*z)*(M_PI))/
          243. - ((41279. - 1728.*log12sqrt52 + 11808.*log2 - (20.*complex::i())*sqrt3 - 1872.*sqrt5 + 
