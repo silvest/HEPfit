@@ -82,6 +82,7 @@ ThObsFactory::ThObsFactory()
     const double sqrt_s_LHC7 = 7.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_LHC8 = 8.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_LHC13 = 13.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_LHC13p6 = 13.6; ///< the center-of-mass energy in TeV
     const double sqrt_s_LHC14 = 14.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_LHC27 = 27.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_FCC100 = 100.0; ///< the center-of-mass energy in TeV

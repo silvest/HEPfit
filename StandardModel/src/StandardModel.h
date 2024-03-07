@@ -2053,6 +2053,8 @@ public:
      * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2065,7 +2067,9 @@ public:
         } else if (sqrt_s == 8.0) {
             return 21.40; // in pb for Mh=125.1 GeV
         } else if (sqrt_s == 13.0) {
-            return 48.61; // in pb for Mh=125.09 GeV            
+            return 48.61; // in pb for Mh=125.09 GeV   
+        } else if (sqrt_s == 13.6) {
+            return 52.17; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 14.0) {
             return 54.72; // in pb for Mh=125.09 GeV     
         } else if (sqrt_s == 27.0) {
@@ -2082,6 +2086,9 @@ public:
      * @brief The square of the top-quark contribution to the ggH cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{tt}@f$ in pb
      */
@@ -2092,7 +2099,9 @@ public:
         } else if (sqrt_s == 8.0) {
             return 21.20; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 13.0) {
-            return 47.94; // in pb for Mh=125.09 GeV            
+            return 47.94; // in pb for Mh=125.09 GeV             
+        } else if (sqrt_s == 13.6) {
+            return 51.534; // in pb for Mh=125.09 GeV (interpolation between 13 and 14 TeV)
         } else if (sqrt_s == 14.0) {
             return 53.93; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2107,6 +2116,9 @@ public:
      * @brief The square of the bottom-quark contribution to the ggH cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{bb}@f$ in pb
      */
@@ -2117,7 +2129,9 @@ public:
         } else if (sqrt_s == 8.0) {
             return 0.05; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 13.0) {
-            return 0.10; // in pb for Mh=125.09 GeV             
+            return 0.10; // in pb for Mh=125.09 GeV      
+        } else if (sqrt_s == 13.6) {
+            return 0.106; // in pb for Mh=125.09 GeV (interpolation between 13 and 14 TeV) 
         } else if (sqrt_s == 14.0) {
             return 0.11; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2132,6 +2146,9 @@ public:
      * @brief The top-bottom interference contribution to the ggH cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{tb}@f$ in pb
      */
@@ -2143,6 +2160,8 @@ public:
             return -0.82; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 13.0) {
             return -1.73; // in pb for Mh=125.09 GeV 
+        } else if (sqrt_s == 13.6) {
+            return -1.844; // in pb for Mh=125.09 GeV (interpolation between 13 and 14 TeV)  
         } else if (sqrt_s == 14.0) {
             return -1.92; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 27.0) {
@@ -2159,6 +2178,8 @@ public:
      * For the 7, 8, 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2171,7 +2192,9 @@ public:
         } else if (sqrt_s == 8.0) {
             return 1.601; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 13.0) {
-            return 3.766; // in pb for Mh=125.09 GeV            
+            return 3.766; // in pb for Mh=125.09 GeV 
+        } else if (sqrt_s == 13.6) {
+            return 4.075; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 14.0) {
             return 4.260; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2189,6 +2212,9 @@ public:
      * cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return W fusion contribution @f$\sigma_{WF}@f$ to cross section in pb
      */
@@ -2199,7 +2225,9 @@ public:
         } else if (sqrt_s == 8.0) {
             return 1.220; // in pb for Mh=125 GeV
         } else if (sqrt_s == 13.0) {
-            return 2.882; // in pb for Mh=125 GeV            
+            return 2.882; // in pb for Mh=125 GeV      
+        } else if (sqrt_s == 13.6) {
+            return 3.1088; // in pb for Mh=125 GeV (interpolation between 13 and 14 TeV)
         } else if (sqrt_s == 14.0) {
             return 3.260; // in pb for Mh=125 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2217,6 +2245,9 @@ public:
      * cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return W fusion contribution @f$\sigma_{ZF}@f$ to cross section in pb
      */
@@ -2228,6 +2259,8 @@ public:
             return 0.432; // in pb for Mh=125 GeV
         } else if (sqrt_s == 13.0) {
             return 1.049; // in pb for Mh=125 GeV
+        } else if (sqrt_s == 13.6) {
+            return 1.1342; // in pb for Mh=125 GeV (interpolation between 13 and 14 TeV)
         } else if (sqrt_s == 14.0) {
             return 1.191; // in pb for Mh=125 GeV
         } else if (sqrt_s == 27.0) {
@@ -2258,6 +2291,8 @@ public:
      * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2272,7 +2307,9 @@ public:
             return 0.7027; // in pb for Mh=125.1 GeV
             //return 0.6931; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 1.358; // in pb for Mh=125.09 GeV            
+            return 1.358; // in pb for Mh=125.09 GeV   
+        } else if (sqrt_s == 13.6) {
+            return 1.453; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 14.0) {
             return 1.498; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2291,6 +2328,8 @@ public:
      * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2305,7 +2344,9 @@ public:
             return 0.4142; // in pb for Mh=125.1 GeV
             //return 0.4091; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 0.880; // in pb for Mh=125.09 GeV            
+            return 0.880; // in pb for Mh=125.09 GeV   
+        } else if (sqrt_s == 13.6) {
+            return 0.9422; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 14.0) {
             return 0.981; // in pb for Mh=125.09 GeV   
         } else if (sqrt_s == 27.0) {
@@ -2327,6 +2368,8 @@ public:
      * For the 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2341,7 +2384,9 @@ public:
             return 0.129; // in pb for Mh=125.1 GeV
             //return 0.1274; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 0.5060; // in pb for Mh=125.1 GeV            
+            return 0.5060; // in pb for Mh=125.1 GeV 
+        } else if (sqrt_s == 13.6) {
+            return 0.5688; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 14.0) {
             return 0.6128; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2352,6 +2397,23 @@ public:
             return 0.0043; // in pb for Mh=125 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmattH()");
+    }
+    
+    
+    /**
+     * @brief The bbH production cross section in the Standard Model.
+     * @details 
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return bbH production cross section in pb
+     */
+    double computeSigmabbH(const double sqrt_s) const
+    {
+        if (sqrt_s == 13.6) {
+            return 0.566; // in pb for Mh=125.09 GeV (NLO+NNLLpart+ybyt matching)
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmabbH()");
     }
 
     /**
