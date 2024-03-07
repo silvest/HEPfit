@@ -353,7 +353,8 @@ void GenerateEvent::initModel() {
     if (!myInputParser.getModel()->Init(DP)) {
         if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
             if (rank == 0) std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
-            for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+            std::vector<std::string> missingParameters = myInputParser.getModel()->getmissingModelParameters();
+            for (std::vector<std::string>::iterator it = missingParameters.begin(); it != missingParameters.end(); it++) {
                 if (rank == 0) std::cout << "ModelParameter\t" << *it << std::endl;
             }
             std::cout << std::endl;
