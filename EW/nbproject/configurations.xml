@@ -39,6 +39,7 @@
       <itemPath>src/LEP2sigmaMu.h</itemPath>
       <itemPath>src/LEP2sigmaTau.h</itemPath>
       <itemPath>src/LEP2test.h</itemPath>
+      <itemPath>src/LE_NuScatt.h</itemPath>
       <itemPath>src/LE_ParityViolation.h</itemPath>
       <itemPath>src/Mw.h</itemPath>
       <itemPath>src/Nneutrinos.h</itemPath>
@@ -93,6 +94,7 @@
       <itemPath>src/LEP2sigmaMu.cpp</itemPath>
       <itemPath>src/LEP2sigmaTau.cpp</itemPath>
       <itemPath>src/LEP2test.cpp</itemPath>
+      <itemPath>src/LE_NuScatt.cpp</itemPath>
       <itemPath>src/LE_ParityViolation.cpp</itemPath>
       <itemPath>src/Mw.cpp</itemPath>
       <itemPath>src/Nneutrinos.cpp</itemPath>
@@ -417,6 +419,10 @@
       </item>
       <item path="src/LEP2test.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/LE_NuScatt.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LE_NuScatt.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/LE_ParityViolation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LE_ParityViolation.h" ex="false" tool="3" flavor2="0">
@@ -665,6 +671,10 @@
       <item path="src/LEP2test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2test.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LE_NuScatt.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LE_NuScatt.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LE_ParityViolation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -915,6 +925,10 @@
       <item path="src/LEP2test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2test.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LE_NuScatt.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LE_NuScatt.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LE_ParityViolation.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1272,6 +1286,10 @@
       <item path="src/LEP2test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LEP2test.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LE_NuScatt.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LE_NuScatt.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LE_ParityViolation.cpp" ex="false" tool="1" flavor2="0">
       </item>

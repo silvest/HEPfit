@@ -1974,7 +1974,45 @@ public:
      * @return @f$Q_{W}(n)@f$
      */
       virtual double Qwn() const;
+      
+    ////////////////////////////////////////////////////////////////////////     
+    // EW low-energy observables: neutrino-scattering
+      
+    /**
+     * @brief The effective neutrino nucleon LH coupling: gLnuN2
+     * @details
+     * For the moment using the value reported by the PDG 2023.
+     * @return @f$g_L^2(\nu N)@f$
+     */
+      virtual double gLnuN2() const;
   
+      
+    /**
+     * @brief The effective neutrino nucleon RH coupling: gRnuN2
+     * @details
+     * For the moment using the value reported by the PDG 2023.
+     * @return @f$g_R^2(\nu N)@f$
+     */
+      virtual double gRnuN2() const;
+      
+      
+    /**
+     * @brief The effective (muon) neutrino-electron vector coupling: gVnue
+     * @details
+     * For the moment using the value reported by the PDG 2023.
+     * @return @f$g_V^{\nu_\mu e}@f$
+     */
+      virtual double gVnue() const;
+      
+      
+    /**
+     * @brief The effective (muon) neutrino-electron axial-vector coupling: gAnue
+     * @details
+     * For the moment using the value reported by the PDG 2023.
+     * @return @f$g_A^{\nu_\mu e}@f$
+     */
+      virtual double gAnue() const;
+
 
     ////////////////////////////////////////////////////////////////////////
     // For EWPO caches

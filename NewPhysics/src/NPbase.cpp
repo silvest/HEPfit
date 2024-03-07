@@ -1244,8 +1244,28 @@ double NPbase::delta_Qwn() const
 {
     return 0.;    
 }
+
+double NPbase::delta_gLnuN2() const
+{
+    return 0.;    
+}
+
+double NPbase::delta_gRnuN2() const
+{
+    return 0.;    
+}
+
+double NPbase::delta_gVnue() const
+{
+    return 0.;    
+}
+
+double NPbase::delta_gAnue() const
+{
+    return 0.;    
+}
       
-      
+
 //   Extension of SM observable definitions
 double NPbase::amuon() const
 {
@@ -1270,4 +1290,24 @@ double NPbase::Qwp() const
 double NPbase::Qwn() const
 {
     return (trueSM.Qwn() + delta_Qwn());    
+}
+
+double NPbase::gLnuN2() const
+{
+    return (trueSM.gLnuN2() + delta_gLnuN2());    
+}
+
+double NPbase::gRnuN2() const
+{
+    return (trueSM.gRnuN2() + delta_gRnuN2());    
+}
+
+double NPbase::gVnue() const
+{
+    return (trueSM.gVnue() + delta_gVnue());    
+}
+
+double NPbase::gAnue() const
+{
+    return (trueSM.gAnue() + delta_gAnue());    
 }

@@ -1634,6 +1634,34 @@ public:
      * @return @f$Q_{W}(n)@f$
      */
       virtual double delta_Qwn() const;
+      
+    // EW low-energy observables: neutrino scattering
+      
+    /**
+     * @brief The computation of the correction to the effective neutrino nucleon LH coupling: delta_gLnuN2
+     * @return @f$\Delta g_L^2(\nu N)@f$
+     */
+      virtual double delta_gLnuN2() const;
+      
+    /**
+     * @brief The computation of the correction to the effective neutrino nucleon RH coupling: delta_gRnuN2
+     * @return @f$\Delta g_R^2(\nu N)@f$
+     */
+      virtual double delta_gRnuN2() const;
+      
+    /**
+     * @brief The computation of the correction to the effective (muon) neutrino-electron vector coupling: delta_gVnue
+     * @details
+     * @return @f$\Delta g_V^{\nu_\mu e}@f$
+     */
+      virtual double delta_gVnue() const;
+      
+    /**
+     * @brief The computation of the correction to the effective (muon) neutrino-electron vector coupling: delta_gAnue
+     * @details
+     * @return @f$\Delta g_A^{\nu_\mu e}@f$
+     */
+      virtual double delta_gAnue() const;
     
 
     ////////////////////////////////////////////////////////////////////////

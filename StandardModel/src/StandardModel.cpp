@@ -3011,6 +3011,56 @@ double StandardModel::Qwn() const
 }
 
 
+    ////////////////////////////////////////////////////////////////////////     
+    // EW low-energy observables: neutrino-scattering
+
+
+double StandardModel::gLnuN2() const
+{
+      //      Definitions
+      double gL2;
+      
+      gL2 = 0.3457*0.3457 + (-0.4288)*(-0.4288);
+      
+      return gL2;
+      
+}
+
+
+double StandardModel::gRnuN2() const
+{
+      //      Definitions
+      double gR2;
+      
+      gR2 = (-0.1553)*(-0.1553) + (0.0777)*(0.0777);
+      
+      return gR2;
+      
+}
+
+
+double StandardModel::gVnue() const
+{
+      //      Definitions
+      double gV;
+      
+      gV = -0.0397;
+      
+      return gV;
+      
+}
+
+double StandardModel::gAnue() const
+{
+      //      Definitions
+      double gA;
+      
+      gA = -0.5064;
+      
+      return gA;
+      
+}
+
 /* BEGIN: REMOVE FROM THE PACKAGE */
 ////////////////////////////////////////////////////////////////////////////////////
 //LEP2 Observables

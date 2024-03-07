@@ -50,6 +50,7 @@
 #include "aTGC.h"
 #include "ee_WW.h"
 #include "pp_DiBoson.h"
+#include "LE_NuScatt.h"
 #include "LE_ParityViolation.h"
 /* BEGIN: REMOVE FROM THE PACKAGE */
 #include "LEP2sigmaElectron.h"

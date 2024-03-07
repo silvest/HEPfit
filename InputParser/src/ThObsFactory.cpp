@@ -4211,10 +4211,16 @@ ThObsFactory::ThObsFactory()
 
     
     //-----  Low Energy EW observables  -----    
+    // Parity violation
     obsThFactory["QWeMoller"] = boost::factory<QWe*>();
     obsThFactory["QWproton"] = boost::factory<QWp*>();
     obsThFactory["QWCs133_55"] = bind(boost::factory<QWAPV*>(), _1, 55, 78);
     obsThFactory["QWTl205_81"] = bind(boost::factory<QWAPV*>(), _1, 81, 124);
+    // Neutrino scattering
+    obsThFactory["gL2_nuN"] = boost::factory<gLnuN2*>(); 
+    obsThFactory["gR2_nuN"] = boost::factory<gRnuN2*>();
+    obsThFactory["gV_nue"] = boost::factory<gVnue*>();
+    obsThFactory["gA_nue"] = boost::factory<gAnue*>();
     // Temporary observable: for testing
     obsThFactory["amuongminus2"] = boost::factory<agminus2muon*>();
     

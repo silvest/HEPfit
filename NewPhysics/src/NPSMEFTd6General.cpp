@@ -39785,4 +39785,68 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         
         return deltaQ;    
     }
+    
+    double NPSMEFTd6General::delta_gLnuN2() const
+    {
+        double deLu,deLd;
+        double dFCC,Vud;
+        double delta;
+        
+        // Scattering is with muon neutrinos -> only (22) interfere
+        deLu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLL(2,2,1,1)).real();
+        deLd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLL(2,2,1,1)).real();
+        
+        Vud=1.;
+        
+        dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(2,2,1,1))/Vud).real();
+        
+        delta = 0.;
+        
+        return delta;   // WIP 
+    }
+
+    double NPSMEFTd6General::delta_gRnuN2() const
+    {
+        double deRu,deRd;
+        double dFCC,Vud;
+        double delta;
+        
+        // Scattering is with muon neutrinos -> only (22) interfere
+        deRu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLR(2,2,1,1)).real();
+        deRd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLR(2,2,1,1)).real();
+        
+        Vud=1.;
+        
+        dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(2,2,1,1))/Vud).real();
+        
+        delta = 0.;
+        
+        return delta;    // WIP
+    }
+
+    double NPSMEFTd6General::delta_gVnue() const
+    {
+        double dCnueVLL2211, dCnueVLR2211, delta;
+        
+        dCnueVLL2211 = (getMatching().getCnueVLL(2,2,1,1)).real();
+        dCnueVLR2211 = (getMatching().getCnueVLR(2,2,1,1)).real();
+
+        // Modification in terms of the LEFT basis (at low energies)        
+        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL2211 + dCnueVLR2211);
+        
+        return delta;    
+    }
+
+    double NPSMEFTd6General::delta_gAnue() const
+    {
+        double dCnueVLL2211, dCnueVLR2211, delta;
+        
+        dCnueVLL2211 = (getMatching().getCnueVLL(2,2,1,1)).real();
+        dCnueVLR2211 = (getMatching().getCnueVLR(2,2,1,1)).real();
+
+        // Modification in terms of the LEFT basis (at low energies)        
+        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL2211 - dCnueVLR2211);
+        
+        return delta;    
+    }
       
