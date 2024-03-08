@@ -333,9 +333,6 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
                 throw(std::runtime_error("mass_scheme not implemented"));
         }
     }
-    //hep-ph/9804241v2 eq. (21)
-    PoletoPS_as1 = 4./3. * mu_f / Mb;
-    PoletoPS_as2 = 4./3. * mu_f / (Mb * 4.) * (a1 - b0 * (2. * log(mu_f/Mb) - 2.));
     
     //adapt to MSbar mass scheme for the traditional basis
     if (order == NLO){
@@ -2060,7 +2057,8 @@ void AmpDB2::poletoMSbar_pp_s(){
     double logmuM = 2. * log(mu_b/Mb);
     double n_l = 4.;
     PoletoMS_as1 = 4./3. + logmuM;
-    PoletoMS_as2 = (307./32. + M_PI2/3. + M_PI2/9. * log2 - 1./6. * zeta3 - (71./144. + M_PI2/18.) * n_l + logmuM * (493./72. - n_l * 13./36. + logmuM * (43./24. - n_l/12.)) + 4./3. * M_PI2/8. * Mc/Mb - z);
+    PoletoMS_as2_z0 = (307./32. + M_PI2/3. + M_PI2/9. * log2 - 1./6. * zeta3 - (71./144. + M_PI2/18.) * n_l + logmuM * (493./72. - n_l * 13./36. + logmuM * (43./24. - n_l/12.)));
+    PoletoMS_as2_z1 = 4./3. * M_PI2/8. * Mc/Mb - z;
     double log_mu1_mub = 2. * log(mu_1/mu_b);
     bool flag_LOz = true;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
@@ -2070,11 +2068,13 @@ void AmpDB2::poletoMSbar_pp_s(){
                 if(j==3) j=8;
                 if(i>=3) j=8;
                 cache_p[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p(qq, i, j, 1, flag_LOz)
-                        + (16.* 2. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
-                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p(qq, i, j, 0, flag_LOz);
+                        + (16.* 2. * PoletoMS_as2_z0 + 16.* PoletoMS_as1 * PoletoMS_as1 +
+                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p(qq, i, j, 0, flag_LOz)
+                        + 16.* 2. * PoletoMS_as2_z1 * p(uu, i, j, 0, flag_LOz);
                 cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 1, flag_LOz)
-                        + (16.* 2. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
-                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p_s(qq, i, j, 0, flag_LOz);                
+                        + (16.* 2. * PoletoMS_as2_z1 + 16.* PoletoMS_as1 * PoletoMS_as1 +
+                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p_s(qq, i, j, 0, flag_LOz)
+                        + 16.* 2. * PoletoMS_as2_z1 * p_s(uu, i, j, 0, flag_LOz);
             }
             for (int j=i; j<=8; j++){
                 if(j==1 or j==2 or j==8){
@@ -2095,6 +2095,9 @@ void AmpDB2::poletoPS_pp_s(){
     //analog to arxiv:2106.05979 eq. (33) for PS mass
     double log_mu1_Mb = 2. * log(mu_1/Mb);
     double log_mub_Mb = 2. * log(mu_b/Mb);
+    //hep-ph/9804241v2 eq. (21)
+    PoletoPS_as1 = 4./3. * mu_f / Mb;
+    PoletoPS_as2 = 4./3. * mu_f / (Mb * 4.) * (a1 - b0 * (2. * log(mu_f/Mb) - 2.));
     bool flag_LOz = true;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
         for (int i=1; i<=6; i++){

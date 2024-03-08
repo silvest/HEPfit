@@ -396,8 +396,9 @@ private:
     //A Method to adapt the DB=2 coefficient functions for the MSbar scheme (2106.05979 eq. (33))
     void poletoMSbar_pp_s();
     //constants from hep-ph/9912391v2  eq. (11)
-    double PoletoMS_as1 = 4./3.;                                
-    double PoletoMS_as2 = -(4. * (71./144. + M_PI2/18.) - 3019./288. + 1./6. * zeta3 - M_PI2/9. * log2 - M_PI2/3.);
+    double PoletoMS_as1;                                
+    double PoletoMS_as2_z0; //0th order in z
+    double PoletoMS_as2_z1; //1st order in z
     
     //A Method to adapt the DB=2 coefficient functions for the PS scheme (analog to 2106.05979 eq. (33))    
     void poletoPS_pp_s();
