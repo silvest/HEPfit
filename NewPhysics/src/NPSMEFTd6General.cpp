@@ -39788,40 +39788,48 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
     
     double NPSMEFTd6General::delta_gLnuN2() const
     {
-        double deLu,deLd;
+        double eLuSM,eLdSM,deLu,deLd;
         double dFCC,Vud;
         double delta;
         
+        // SM vvqq couplings (up to -4GF/sqrt(2))
+        eLuSM = 2.0*gZvL*gZuL;         
+        eLdSM = 2.0*gZvL*gZdL;
+                
         // Scattering is with muon neutrinos -> only (22) interfere
         deLu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLL(2,2,1,1)).real();
         deLd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLL(2,2,1,1)).real();
         
-        Vud=1.;
+        Vud=0.97373; // PDG 2023
         
         dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(2,2,1,1))/Vud).real();
         
-        delta = 0.;
+        delta = 2.0*(eLuSM*deLu + eLdSM*deLd) + (trueSM.gLnuN2())*(-dFCC);
         
-        return delta;   // WIP 
+        return delta;
     }
 
     double NPSMEFTd6General::delta_gRnuN2() const
     {
-        double deRu,deRd;
+        double eRuSM,eRdSM,deRu,deRd;
         double dFCC,Vud;
         double delta;
+        
+        // SM vvqq couplings (up to -4GF/sqrt(2))
+        eRuSM = 2.0*gZvL*gZuR;         
+        eRdSM = 2.0*gZvL*gZdR;
         
         // Scattering is with muon neutrinos -> only (22) interfere
         deRu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLR(2,2,1,1)).real();
         deRd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLR(2,2,1,1)).real();
         
-        Vud=1.;
+        Vud=0.97373; // PDG 2023
         
         dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(2,2,1,1))/Vud).real();
         
-        delta = 0.;
+        delta = 2.0*(eRuSM*deRu + eRdSM*deRd) + (trueSM.gRnuN2())*(-dFCC);
         
-        return delta;    // WIP
+        return delta;
     }
 
     double NPSMEFTd6General::delta_gVnue() const
