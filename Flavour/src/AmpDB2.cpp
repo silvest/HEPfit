@@ -2072,11 +2072,15 @@ void AmpDB2::poletoMSbar_pp_s(){
                            8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p(qq, i, j, 0, flag_LOz)
                         + 16.* 2. * PoletoMS_as2_z1 * p(uu, i, j, 0, flag_LOz);
                 cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 1, flag_LOz)
-                        + (16.* 2. * PoletoMS_as2_z1 + 16.* PoletoMS_as1 * PoletoMS_as1 +
+                        + (16.* 2. * PoletoMS_as2_z0 + 16.* PoletoMS_as1 * PoletoMS_as1 +
                            8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p_s(qq, i, j, 0, flag_LOz)
                         + 16.* 2. * PoletoMS_as2_z1 * p_s(uu, i, j, 0, flag_LOz);
+                cache_p_LO[index_p(qq, i, j, 2)] = cache_p[index_p(qq, i, j, 2)];
+                cache_ps_LO[index_p(qq, i, j, 2)] = cache_ps[index_p(qq, i, j, 2)];
             }
             for (int j=i; j<=8; j++){
+                cache_p_LO[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p(qq, i, j, 0, flag_LOz);
+                cache_ps_LO[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 0, flag_LOz);
                 if(j==1 or j==2 or j==8){
                     cache_p[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p(qq, i, j, 0);
                     cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 0);
@@ -2113,8 +2117,12 @@ void AmpDB2::poletoPS_pp_s(){
                         + (16.* 2. * PoletoPS_as2 + 16.* PoletoPS_as1 * PoletoPS_as1 * 3. +
                            8.* PoletoPS_as1 * 23./3. * log_mu1_Mb -
                            8.* PoletoPS_as1 * 4. * (4./3. + log_mub_Mb)) * p_s(qq, i, j, 0, flag_LOz);
+                cache_p_LO[index_p(qq, i, j, 2)] = cache_p[index_p(qq, i, j, 2)];
+                cache_ps_LO[index_p(qq, i, j, 2)] = cache_ps[index_p(qq, i, j, 2)];
             }            
             for (int j=i; j<=8; j++){
+                cache_p_LO[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p(qq, i, j, 0, flag_LOz);
+                cache_ps_LO[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 0, flag_LOz);
                 if(j==1 or j==2 or j==8){
                     cache_p[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p(qq, i, j, 0);
                     cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 0);
