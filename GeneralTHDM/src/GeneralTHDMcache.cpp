@@ -188,6 +188,20 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         CMS13_pp_h_phi3phi3_tautautautau(12, 2, 0.), //Added in 2024
         //
+        ATLAS13_pp_h_phi3phi3_bbmumu(47, 2, 0.), //Added in 2024
+        //
+        ATLAS13_gg_h_phi23phi23_mumumumu(110, 2, 0.), //Added in 2024
+        //
+        ATLAS13_gg_h_phi23Z_mumull(16, 2, 0.), //Added in 2024
+        //
+        ATLAS13_Vh_h_phi23phi23_bbbb(41, 2, 0.), //Added in 2024
+        //
+        ATLAS13_Zh_h_phi23phi23_bbbb(7, 2, 0.), //Added in 2024
+        //
+        ATLAS13_pp_h_phi23phi23_bbmumu_old(101, 2, 0.), //Added in 2024
+        //
+        ATLAS13_pp_h_phi23phi23_gagagg(13, 2, 0.), //Added in 2024
+        //
         arraybsgamma(1111, 3, 0.),
         Rij_GTHDM(3, 3, 0.),
         //The below matrices are not used anywhere, the first ones are the mass matrices and the second ones not sure
@@ -1799,6 +1813,7 @@ void GeneralTHDMcache::read(){
     std::stringstream ex57,ex58,ex59,ex60,ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex67p1,ex67p2,ex67p3,ex67p4,ex67p5,ex68,ex69,ex70,ex71,ex72,ex73,ex74,ex75,ex76,ex77,\
             ex78,ex79;//,ex80,ex81,ex82,ex83,ex84,ex85,ex86,ex87,ex88,ex89,ex90,ex91,ex92,ex93,ex94,ex95,ex96,ex97,ex98
     std::stringstream low01,lowC02,lowC03,lowC04,lowC05,lowC06,lowC07;
+    std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07;
     std::stringstream bsg1;
 
        std::cout<<"reading tables"<<std::endl;
@@ -2220,6 +2235,27 @@ void GeneralTHDMcache::read(){
 
     lowC07 << tablepath << "CMS-HIG-18-006_10.dat";               //Added in 2024
     CMS13_pp_h_phi3phi3_tautautautau = readTable(lowC07.str(),12,2);
+
+    lowA01 << tablepath << "ATLAS_CERN-EP-2021-157_9.dat";               //Added in 2024
+    ATLAS13_pp_h_phi3phi3_bbmumu = readTable(lowA01.str(),47,2);
+
+    lowA02 << tablepath << "ATLAS_CERN-EP-2021-193_14b.dat";               //Added in 2024
+    ATLAS13_gg_h_phi23phi23_mumumumu = readTable(lowA02.str(),110,2);
+
+    lowA03 << tablepath << "ATLAS_CERN-EP-2021-193_17b.dat";               //Added in 2024
+    ATLAS13_gg_h_phi23Z_mumull = readTable(lowA03.str(),16,2);
+
+    lowA04 << tablepath << "ATLAS_CERN-EP-2018-128_9c.dat";               //Added in 2024
+    ATLAS13_Vh_h_phi23phi23_bbbb = readTable(lowA04.str(),41,2);
+
+    lowA05 << tablepath << "ATLAS_CERN-EP-2020-067_10.dat";               //Added in 2024
+    ATLAS13_Zh_h_phi23phi23_bbbb = readTable(lowA05.str(),7,2);
+
+    lowA06 << tablepath << "ATLAS_CERN-EP-2018-153_6a.dat";               //Added in 2024
+    ATLAS13_pp_h_phi23phi23_bbmumu_old = readTable(lowA06.str(),101,2);
+
+    lowA07 << tablepath << "ATLAS_CERN-EP-2017-295_2.dat";               //Added in 2024
+    ATLAS13_pp_h_phi23phi23_gagagg = readTable(lowA07.str(),13,2);
 
     //std::cout<< CMS13_pp_Hpm_taunu<<std::endl;
 
@@ -4622,7 +4658,96 @@ double GeneralTHDMcache::ip_low_pp_h_phi3phi3_tautautautau_CMS13(double mass){
     }
 }
 
+double GeneralTHDMcache::ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_h_phi3phi3_bbmumu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_h_phi3phi3_bbmumu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_h_phi3phi3_bbmumu,mass);
+        CacheShiftReal(ip_low_pp_h_phi3phi3_bbmumu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
+double GeneralTHDMcache::ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_gg_h_phi23phi23_mumumumu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_gg_h_phi23phi23_mumumumu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolateNU (ATLAS13_gg_h_phi23phi23_mumumumu,mass);
+        CacheShiftReal(ip_low_gg_h_phi23phi23_mumumumu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_gg_h_phi23Z_mumull_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_gg_h_phi23Z_mumull_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_gg_h_phi23Z_mumull_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_gg_h_phi23Z_mumull,mass);
+        CacheShiftReal(ip_low_gg_h_phi23Z_mumull_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_Vh_h_phi23phi23_bbbb_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_Vh_h_phi23phi23_bbbb_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_Vh_h_phi23phi23_bbbb_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_Vh_h_phi23phi23_bbbb,mass);
+        CacheShiftReal(ip_low_Vh_h_phi23phi23_bbbb_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_Zh_h_phi23phi23_bbbb_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_Zh_h_phi23phi23_bbbb_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_Zh_h_phi23phi23_bbbb_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_Zh_h_phi23phi23_bbbb,mass);
+        CacheShiftReal(ip_low_Zh_h_phi23phi23_bbbb_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_h_phi23phi23_bbmumu_old,mass);
+        CacheShiftReal(ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_h_phi23phi23_gagagg_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_h_phi23phi23_gagagg_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_h_phi23phi23_gagagg_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolateNU (ATLAS13_pp_h_phi23phi23_gagagg,mass);
+        CacheShiftReal(ip_low_pp_h_phi23phi23_gagagg_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 //This seems not to be used by the code. Check if this was only something included of the THDM
 double GeneralTHDMcache::ip_ex_bsgamma(double logtb, double logmHp){
@@ -5216,8 +5341,6 @@ void GeneralTHDMcache::computeSignalStrengths()
 
     //The ggH cross section in the SM at 8 TeV
     double SigmaggF8 = myGTHDM->computeSigmaggH(8.0);
-    //The ggH cross section in the SM at 13 TeV.
-    double SigmaggF13 = myGTHDM->computeSigmaggH(13.0);
     //The square of the top-quark contribution to the ggH cross section in the SM at 8 TeV
     double Sigmaggh_tt8 = myGTHDM->computeSigmaggH_tt(8.0);
     //The square of the top-quark contribution to the ggH cross section in the SM at 13 TeV
@@ -5228,6 +5351,17 @@ void GeneralTHDMcache::computeSignalStrengths()
 //    double Sigmaggh_bb13 = myTHDM->computeSigmaggH_bb(13.0);
     //The ttH production cross section in the SM at 8 TeV
     double Sigmatth8 = myGTHDM->computeSigmattH(8.0);
+    //The Vh cross section in the SM at 8 TeV.
+    SigmaVh8 = myGTHDM->computeSigmaWH(8.0)+myGTHDM->computeSigmaZH(8.0);
+    //The VBF cross section in the SM at 8 TeV.
+    SigmaVBF8 = myGTHDM->computeSigmaVBF(8.0);
+
+    //The ggH cross section in the SM at 13 TeV.
+    SigmaggF13 = myGTHDM->computeSigmaggH(13.0);
+    //The Vh cross section in the SM at 13 TeV.
+    SigmaVh13 = myGTHDM->computeSigmaWH(13.0)+myGTHDM->computeSigmaZH(13.0);
+    //The Zh cross section in the SM at 13 TeV.
+    SigmaZh13 = myGTHDM->computeSigmaZH(13.0);
     //The ttH production cross section in the SM at 13 TeV
     double Sigmatth13 = myGTHDM->computeSigmattH(13.0);
     //The bbH production cross section in the SM at 13 TeV
@@ -5378,16 +5512,19 @@ void GeneralTHDMcache::computeSignalStrengths()
   //  /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF or Vh production */
   //  VBF_Vh = rh_VV;
 
-    /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF or tth production at 8 TeV*/
+    /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF and tth production at 8 TeV*/
     ggF_tth8 = (SigmaggF8*rh_gg + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF8 + Sigmatth8);
-    /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF or tth production at 13 TeV */
+    /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF and tth production at 13 TeV */
     ggF_tth13 = (SigmaggF13*rh_gg + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF13 + Sigmatth13);
     /*SM cross-section of higgs production at 13 TeV at LHC*/
     SigSM_pph13 = (SigmaggF13 + SigmaVBFVh13 + Sigmatth13 + Sigmabbh13);
-    /* pph13 is the ratio of the THDM and SM cross sections for an h production at 13 TeV */
+    /* pph13 is the ratio of the THDM and SM cross sections for h production at 13 TeV */
     pph13 = (SigmaggF13*rh_gg+ SigmaVBFVh13*rh_VV + Sigmatth13*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))) + Sigmabbh13*(rh_QdQdE + rh_QdQdE/(beta(Mb, m1_2)*beta(Mb, m1_2))))/SigSM_pph13;
-    /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF or Vh production */
+    /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF and Vh production */
     VBF_Vh = rh_VV;
+
+    /* ggF_VBF_Vh8 is the ratio of the GTHDM and SM cross sections for ggF + VBF + Vh production at 13 TeV */
+    ggF_VBF_Vh13 = (SigmaggF13 * rh_gg + SigmaVBFVh13 * rh_VV)/(SigmaggF13 + SigmaVBFVh13);
 
     double Gamma_h_exp = myGTHDM->computeGammaHTotal();
 
@@ -5751,6 +5888,7 @@ Gammaphi2tot= Gammaphi2tot + Gammaphi2_tt+Gammaphi2_cc
     Br_phi2toWW=Gammaphi2_WW/Gammaphi2tot;
     Br_phi2toZZ=Gammaphi2_ZZ/Gammaphi2tot;
     Br_phi2togaga=Gamma_phi2gaga/Gammaphi2tot;
+    Br_phi2togg=Gamma_phi2gg/Gammaphi2tot;
     Br_phi2toZga=Gamma_phi2Zga/Gammaphi2tot;
     Br_phi2tophi1phi1=Gammaphi2_phi1phi1/Gammaphi2tot;
     Br_phi2tophi3phi3=Gammaphi2_phi3phi3/Gammaphi2tot;
@@ -6067,6 +6205,7 @@ Gammaphi3tot = Gammaphi3tot + Gammaphi3_tt + Gammaphi3_cc + Gammaphi3_bb
     Br_phi3toWW=Gammaphi3_WW/Gammaphi3tot;
     Br_phi3toZZ=Gammaphi3_ZZ/Gammaphi3tot;
     Br_phi3togaga=Gamma_phi3gaga/Gammaphi3tot;
+    Br_phi3togg=Gamma_phi3gg/Gammaphi3tot;
     Br_phi3toZga=Gamma_phi3Zga/Gammaphi3tot;
     Br_phi3tophi1phi1=Gammaphi3_phi1phi1/Gammaphi3tot;
     Br_phi3tophi2phi2=Gammaphi3_phi2phi2/Gammaphi3tot;
@@ -8670,6 +8809,8 @@ double GeneralTHDMcache::computeHeavyHiggs()
 
 void GeneralTHDMcache::computeLowMass()
 {
+    BrSM_Ztoll = 6.73e-2;
+
     /*********************************/
     /* Observables with phi_3, i.e A */
     /*********************************/
@@ -8724,6 +8865,56 @@ void GeneralTHDMcache::computeLowMass()
         THoEX_pp_h_phi3phi3_tautautautau_CMS13 = (pph13 * GTHDM_BR_h_AA * Br_phi3totautau * Br_phi3totautau) / ip_low_pp_h_phi3phi3_tautautautau_CMS13(mH3);
     }
 
+    THoEX_pp_h_phi3phi3_bbmumu_ATLAS13 = 0.0;
+
+    if(mH3 >= 16.0 && mH3 <= 62.0)
+    {
+        THoEX_pp_h_phi3phi3_bbmumu_ATLAS13 = (GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(mH3);
+    }
+
+    THoEX_gg_h_phi3phi3_mumumumu_ATLAS13 = 0.0;
+
+    if((mH3 >= 1.5 && mH3 <= 2.0)||(mH3 >= 4.5 && mH3 <= 8.5)||(mH3 >= 11.5 && mH3 <= 14.999)||(mH3 >= 15.0 && mH3 <= 60.0))
+    {
+        //The experimental values are in fb whereas the theoretical value is calculated in pb.
+        THoEX_gg_h_phi3phi3_mumumumu_ATLAS13 = (1.0e3) * ((SigmaggF13 * rh_gg) * GTHDM_BR_h_AA * Br_phi3tomumu * Br_phi3tomumu) / ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(mH3);
+    }
+
+    THoEX_gg_h_phi3Z_mumull_ATLAS13 = 0.0;
+
+    if(mH3 >= 15 && mH3 <= 30.0)
+    {
+        //The experimental values are in fb whereas the theoretical value is calculated in pb.
+        THoEX_gg_h_phi3Z_mumull_ATLAS13 = (1.0e3) * ((SigmaggF13 * rh_gg) * GTHDM_BR_h_AZ * Br_phi3tomumu * BrSM_Ztoll) / ip_low_gg_h_phi23Z_mumull_ATLAS13(mH3);
+    }
+
+    THoEX_Vh_h_phi3phi3_bbbb_ATLAS13 = 0.0;
+
+    if(mH3 >= 20.0 && mH3 <= 60.0)
+    {
+        THoEX_Vh_h_phi3phi3_bbbb_ATLAS13 = ((SigmaVh13 * rh_VV) * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tobb) / ip_low_Vh_h_phi23phi23_bbbb_ATLAS13(mH3);
+    }
+
+    THoEX_Zh_h_phi3phi3_bbbb_ATLAS13 = 0.0;
+
+    if(mH3 >= 15.0 && mH3 <= 30.0)
+    {
+        THoEX_Zh_h_phi3phi3_bbbb_ATLAS13 = ((SigmaZh13 * rh_VV) * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tobb) / ip_low_Zh_h_phi23phi23_bbbb_ATLAS13(mH3);
+    }
+
+    THoEX_pp_h_phi3phi3_bbmumu_ATLAS13_old = 0.0;
+
+    if(mH3 >= 20.0 && mH3 <= 60.0)
+    {
+        THoEX_pp_h_phi3phi3_bbmumu_ATLAS13_old = (ggF_VBF_Vh13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old(mH3);
+    }
+
+    THoEX_pp_h_phi3phi3_gagagg_ATLAS13 = 0.0;
+
+    if((mH3 >= 20.0 && mH3 <= 24.999)||(mH3 >= 25.0 && mH3 <= 34.999)||(mH3 >= 35.0 && mH3 <= 44.999)||(mH3 >= 45.0 && mH3 <= 54.999)||(mH3 >= 55.0 && mH3 <= 60.0))
+    {
+        THoEX_pp_h_phi3phi3_gagagg_ATLAS13 = (pph13 * GTHDM_BR_h_AA * Br_phi3togaga * Br_phi3togg) / ip_low_pp_h_phi23phi23_gagagg_ATLAS13(mH3);
+    }
 
     /*********************************/
     /* Observables with phi_2, i.e H */
@@ -8741,6 +8932,48 @@ void GeneralTHDMcache::computeLowMass()
     if(mH2 >= 4.2 && mH2 <= 59.946)
     {
         THoEX_pp_h_phi2phi2_mumumumu_CMS13 = (GTHDM_BR_h_HH * Br_phi2tomumu * Br_phi2tomumu) / ip_low_pp_h_phi23phi23_mumumumu_CMS13(mH2);
+    }
+
+    THoEX_gg_h_phi2phi2_mumumumu_ATLAS13 = 0.0;
+
+    if((mH2 >= 1.5 && mH2 <= 2.0)||(mH2 >= 4.5 && mH2 <= 8.5)||(mH2 >= 11.5 && mH2 <= 14.999)||(mH2 >= 15.0 && mH2 <= 60.0))
+    {
+        //The experimental values are in fb whereas the theoretical value is calculated in pb.
+        THoEX_gg_h_phi2phi2_mumumumu_ATLAS13 = (1.0e3) * ((SigmaggF13 * rh_gg) * GTHDM_BR_h_HH * Br_phi2tomumu * Br_phi2tomumu) / ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(mH2);
+    }
+
+    if(mH2 >= 15 && mH2 <= 30.0)
+    {
+        //The experimental values are in fb whereas the theoretical value is calculated in pb.
+        THoEX_gg_h_phi2Z_mumull_ATLAS13 = (1.0e3) * ((SigmaggF13 * rh_gg) * GTHDM_BR_h_HZ * Br_phi2tomumu * BrSM_Ztoll) / ip_low_gg_h_phi23Z_mumull_ATLAS13(mH2);
+    }
+
+    THoEX_Vh_h_phi2phi2_bbbb_ATLAS13 = 0.0;
+
+    if(mH2 >= 20.0 && mH2 <= 60.0)
+    {
+        THoEX_Vh_h_phi2phi2_bbbb_ATLAS13 = ((SigmaVh13 * rh_VV) * GTHDM_BR_h_HH * Br_phi2tobb * Br_phi2tobb) / ip_low_Vh_h_phi23phi23_bbbb_ATLAS13(mH2);
+    }
+
+    THoEX_Zh_h_phi2phi2_bbbb_ATLAS13 = 0.0;
+
+    if(mH2 >= 15.0 && mH2 <= 30.0)
+    {
+        THoEX_Zh_h_phi2phi2_bbbb_ATLAS13 = ((SigmaZh13 * rh_VV) * GTHDM_BR_h_HH * Br_phi2tobb * Br_phi2tobb) / ip_low_Zh_h_phi23phi23_bbbb_ATLAS13(mH2);
+    }
+
+    THoEX_pp_h_phi2phi2_bbmumu_ATLAS13_old = 0.0;
+
+    if(mH2 >= 20.0 && mH2 <= 60.0)
+    {
+        THoEX_pp_h_phi2phi2_bbmumu_ATLAS13_old = (ggF_VBF_Vh13 * GTHDM_BR_h_AA * Br_phi2tobb * Br_phi2tomumu) / ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old(mH2);
+    }
+
+    THoEX_pp_h_phi2phi2_gagagg_ATLAS13 = 0.0;
+
+    if((mH2 >= 20.0 && mH2 <= 24.999)||(mH2 >= 25.0 && mH2 <= 34.999)||(mH2 >= 35.0 && mH2 <= 44.999)||(mH2 >= 45.0 && mH2 <= 54.999)||(mH2 >= 55.0 && mH2 <= 60.0))
+    {
+        THoEX_pp_h_phi2phi2_gagagg_ATLAS13 = (pph13 * GTHDM_BR_h_HH * Br_phi2togaga * Br_phi2togg) / ip_low_pp_h_phi23phi23_gagagg_ATLAS13(mH2);
     }
 }
 

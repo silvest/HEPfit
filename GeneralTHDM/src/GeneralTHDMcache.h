@@ -279,48 +279,24 @@ public:
      */
     gslpp::matrix<double> CMS13_pp_Hpm_taunu, CMS13_pp_Hpm_tb;
 
-    //Added in late 2023 for low mass scenario
+    //Added in late 2023 and the beginning of 2024 for low mass scenario
     /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
+     * @brief CMS observed @f$95\%@f$ upper cross section (or branching fraction) limits at 13 TeV, depending on the pseudoscalar mass.
      */
-    gslpp::matrix<double> CMS13_pp_h_phi3phi3_mumutautau;
+    gslpp::matrix<double> CMS13_pp_h_phi3phi3_mumutautau, CMS13_pp_h_phi3phi3_bbtautau, CMS13_pp_h_phi3phi3_bbmumu, CMS13_pp_h_phi23Z_mumull,\
+                          CMS13_pp_h_phi23phi23_mumumumu, CMS13_pp_h_phi3phi3_gagagaga, CMS13_pp_h_phi3phi3_tautautautau;
 
-    //Added in 2024 for low mass scenario
+    //Added in the beginning of 2024 for low mass scenario
     /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
+     * @brief ATLAS observed @f$95\%@f$ upper cross section (or branching fraction) limits at 13 TeV, depending on the pseudoscalar mass.
      */
-    gslpp::matrix<double> CMS13_pp_h_phi3phi3_bbtautau;
+    gslpp::matrix<double> ATLAS13_pp_h_phi3phi3_bbmumu, ATLAS13_gg_h_phi23phi23_mumumumu, ATLAS13_gg_h_phi23Z_mumull, ATLAS13_Vh_h_phi23phi23_bbbb,\
+                          ATLAS13_Zh_h_phi23phi23_bbbb, ATLAS13_pp_h_phi23phi23_bbmumu_old, ATLAS13_pp_h_phi23phi23_gagagg;
 
-    //Added in 2024 for low mass scenario
+    //Added in the beginning of 2024 for low mass scenario
     /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
+     * @brief ATLAS observed @f$95\%@f$ upper cross section (or branching fraction) limits at 8 TeV, depending on the pseudoscalar mass.
      */
-    gslpp::matrix<double> CMS13_pp_h_phi3phi3_bbmumu;
-
-    //Added in 2024 for low mass scenario
-    /**
-     * @brief CMS observed @f$95\%@f$ upper branching limits at 13 TeV, depending on the pseudoscalar mass.
-     */
-    gslpp::matrix<double> CMS13_pp_h_phi23Z_mumull;
-
-    //Added in 2024 for low mass scenario
-    /**
-     * @brief CMS observed @f$95\%@f$ upper branching limits at 13 TeV, depending on the pseudoscalar mass.
-     */
-    gslpp::matrix<double> CMS13_pp_h_phi23phi23_mumumumu;
-
-    //Added in 2024 for low mass scenario
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
-     */
-    gslpp::matrix<double> CMS13_pp_h_phi3phi3_gagagaga;
-
-    //Added in 2024 for low mass scenario
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the pseudoscalar mass.
-     */
-    gslpp::matrix<double> CMS13_pp_h_phi3phi3_tautautautau;
-
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -668,6 +644,14 @@ public:
     double ip_low_pp_h_phi23phi23_mumumumu_CMS13(double mass);
     double ip_low_pp_h_phi3phi3_gagagaga_CMS13(double mass);
     double ip_low_pp_h_phi3phi3_tautautautau_CMS13(double mass);
+
+    double ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(double mass);
+    double ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(double mass);
+    double ip_low_gg_h_phi23Z_mumull_ATLAS13(double mass);
+    double ip_low_Vh_h_phi23phi23_bbbb_ATLAS13(double mass);
+    double ip_low_Zh_h_phi23phi23_bbbb_ATLAS13(double mass);
+    double ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old(double mass);
+    double ip_low_pp_h_phi23phi23_gagagg_ATLAS13(double mass);
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
@@ -1139,7 +1123,7 @@ public:
 
     /**
      * @brief Ratio of GTHDM and SM cross sections for the production of h at 13 TeV.
-     * @return @f$\sigma^{\text GTHDM}_{\text ggF+VBF+Vh+tth}/\sigma^{\text SM}_{\text ggF+VBF+Vh+tth}@f$
+     * @return @f$\sigma^{\text GTHDM}_{\text ggF+VBF+Vh+tth+bbh}/\sigma^{\text SM}_{\text ggF+VBF+Vh+tth+bbh}@f$
      */
     double pph13;
 
@@ -1148,6 +1132,43 @@ public:
      * @return @f$\sigma^{\text SM}_{\text ggF+VBF+Vh+tth}@f$
      */
     double SigSM_pph13;
+
+    /**
+     * @brief SM cross sections for the production of h at 13 TeV at LHC through gluon fusion.
+     * @return @f$\sigma^{\text SM}_{\text ggF}@f$
+     */
+    double SigmaggF13;
+
+    /**
+     * @brief SM cross sections for the associated production of h with a vector boson at 13 TeV at LHC.
+     * @return @f$\sigma^{\text SM}_{\text Vh}@f$
+     */
+    double SigmaVh13;
+
+    /**
+     * @brief SM cross sections for the associated production of h with a Z boson at 13 TeV at LHC.
+     * @return @f$\sigma^{\text SM}_{\text Zh}@f$
+     */
+    double SigmaZh13;
+
+    /**
+     * @brief Ratio of GTHDM and SM cross sections for the production of h through ggF, VBF and Vh at 13 TeV.
+     * @return @f$\sigma^{\text GTHDM}_{\text ggF+VBF+Vh}/\sigma^{\text SM}_{\text ggF+VBF+Vh}@f$
+     */
+    double ggF_VBF_Vh13;
+
+    /**
+     * @brief SM cross sections for the associated production of h with a vector boson at 8 TeV at LHC.
+     * @return @f$\sigma^{\text SM}_{\text Vh,8}@f$
+     */
+    double SigmaVh8;
+
+    /**
+     * @brief SM cross sections for the production of h through vector boson fusion at 8 TeV at LHC.
+     * @return @f$\sigma^{\text SM}_{\text VBF,8}@f$
+     */
+    double SigmaVBF8;
+
 
     /**
      * @brief Ratio of GTHDM and SM cross sections for VBF and Vh production of h.
@@ -1233,6 +1254,11 @@ public:
      */
     double GTHDM_BR_h_AZ;
 
+    /**
+     * @brief @f$Z@f$ branching ratio to @f$l@f$ @f$l@f$ in the SM.
+     * @return @f$BR(Z\to ll)@f$
+     */
+    double BrSM_Ztoll;
 
     //Higgs direct searches
 
@@ -1253,6 +1279,7 @@ public:
     double Br_phi3tomumu;
     double Br_phi3totautau;
     double Br_phi3togaga;
+    double Br_phi3togg;
     double Br_phi3toZga;
     double Br_phi3toZZ;
     double Br_phi3toWW;
@@ -2647,9 +2674,23 @@ public:
     double THoEX_pp_h_phi3phi3_gagagaga_CMS13;
     double THoEX_pp_h_phi3phi3_tautautautau_CMS13;
 
+    double THoEX_pp_h_phi3phi3_bbmumu_ATLAS13;
+    double THoEX_gg_h_phi3phi3_mumumumu_ATLAS13;
+    double THoEX_gg_h_phi3Z_mumull_ATLAS13;
+    double THoEX_Vh_h_phi3phi3_bbbb_ATLAS13;
+    double THoEX_Zh_h_phi3phi3_bbbb_ATLAS13;
+    double THoEX_pp_h_phi3phi3_bbmumu_ATLAS13_old;
+    double THoEX_pp_h_phi3phi3_gagagg_ATLAS13;
 
     double THoEX_pp_h_phi2Z_mumull_CMS13;
     double THoEX_pp_h_phi2phi2_mumumumu_CMS13;
+
+    double THoEX_gg_h_phi2phi2_mumumumu_ATLAS13;
+    double THoEX_gg_h_phi2Z_mumull_ATLAS13;
+    double THoEX_Vh_h_phi2phi2_bbbb_ATLAS13;
+    double THoEX_Zh_h_phi2phi2_bbbb_ATLAS13;
+    double THoEX_pp_h_phi2phi2_bbmumu_ATLAS13_old;
+    double THoEX_pp_h_phi2phi2_gagagg_ATLAS13;
 
     double SigmaSumphi2_8;
     double SigmaggF_phi2_8;
@@ -2668,6 +2709,7 @@ public:
     double Br_phi2tomumu;
     double Br_phi2totautau;
     double Br_phi2togaga;
+    double Br_phi2togg;
     double Br_phi2toZga;
     double Br_phi2toZZ;
     double Br_phi2toWW;
@@ -3312,6 +3354,14 @@ private:
     mutable double ip_low_pp_h_phi23phi23_mumumumu_CMS13_cache[2][CacheSize];
     mutable double ip_low_pp_h_phi3phi3_gagagaga_CMS13_cache[2][CacheSize];
     mutable double ip_low_pp_h_phi3phi3_tautautautau_CMS13_cache[2][CacheSize];
+
+    mutable double ip_low_pp_h_phi3phi3_bbmumu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_gg_h_phi23phi23_mumumumu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_gg_h_phi23Z_mumull_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_Vh_h_phi23phi23_bbbb_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_Zh_h_phi23phi23_bbbb_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi23phi23_gagagg_ATLAS13_cache[2][CacheSize];
 
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 
