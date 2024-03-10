@@ -1251,7 +1251,7 @@ void AmpDB2::compute_pp_s(){
         cache_p[index_p(qq, 1, 3, 0)]= 4./3.;
         cache_p[index_p(qq, 1, 4, 0)]= -5./36.;
         cache_p[index_p(qq, 1, 5, 0)]= (64.*sqrt1minus4z)/3. - (160.*sqrt1minus4z*z)/3.;
-        cache_p[index_p(qq, 1, 6, 0)]= 4.*(-20.*sqrt1minus4z)/9. - (4.*sqrt1minus4z*z)/9.;
+        cache_p[index_p(qq, 1, 6, 0)]= (-20.*sqrt1minus4z)/9. - (4.*sqrt1minus4z*z)/9.;
         cache_p[index_p(qq, 2, 3, 0)]= 1.;
         cache_p[index_p(qq, 2, 4, 0)]= 5./6.;
         cache_p[index_p(qq, 2, 5, 0)]= 16.*sqrt1minus4z - 40.*sqrt1minus4z*z;
@@ -1963,12 +1963,8 @@ void AmpDB2::compute_pp_s(){
     cache_ps_LO[index_p(cc, 1, 2, 0)]= -4./3.;
     cache_ps_LO[index_p(cc, 2, 2, 0)]= 1.;
     
-    cache_p_LO[index_p(cc, 1, 3, 0)]= 4./3.;
-    cache_p_LO[index_p(cc, 1, 4, 0)]= -5./36.;
     cache_p_LO[index_p(cc, 1, 5, 0)]= 64./3. - 96. * z;
     cache_p_LO[index_p(cc, 1, 6, 0)]= 4. * z - 20./9.;
-    cache_p_LO[index_p(cc, 2, 3, 0)]= 1.;
-    cache_p_LO[index_p(cc, 2, 4, 0)]= 5./6.;
     cache_p_LO[index_p(cc, 2, 5, 0)]= 16. - 72. * z;
     cache_p_LO[index_p(cc, 2, 6, 0)]= 40./3. - 24. * z;
 
