@@ -139,12 +139,9 @@ std::vector<std::string> BParameter::parameterList(std::string name_i)
 bool BParameter::setParameter(std::string name_i, double value)
 {
 
-    if (name.compare("BBs") == 0 || name.compare("BBd") == 0) {
+    if (name.compare("BBs") == 0) {
         if (!FlagCsi) {
-            if (name_i.compare("BBsoBBd") == 0) {
-                BBsoBBd = value;
-                return true;
-            } else if (name_i.compare("BBs1") == 0) {
+            if (name_i.compare("BBs1") == 0) {
                 setBpars(0, value);
                 return true;
             } else if (name_i.compare("BBs2") == 0) {
@@ -158,6 +155,38 @@ bool BParameter::setParameter(std::string name_i, double value)
                 return true;
             } else if (name_i.compare("BBs5") == 0) {
                 setBpars(4, value);
+                return true;
+            }
+        } else {
+            if (name_i.compare("FBsSqrtBBs1") == 0) {
+                FBsSqrtBBs1 = value;
+                return true;
+            } else if (name_i.compare("FBsSqrtBBs2") == 0) {
+                FBsSqrtBBs2 = value;
+                return true;
+            } else if (name_i.compare("FBsSqrtBBs3") == 0) {
+                FBsSqrtBBs3 = value;
+                return true;
+            } else if (name_i.compare("FBsSqrtBBs4") == 0) {
+                FBsSqrtBBs4 = value;
+                return true;
+            } else if (name_i.compare("FBsSqrtBBs5") == 0) {
+                FBsSqrtBBs5 = value;
+                return true;
+            }
+        }
+        if (name_i.compare("BBsscale") == 0) {
+            setMu(value);
+            return true;
+        } else if (name_i.compare("BBsscheme") == 0) {
+            setScheme((schemes) value);
+            return true;
+        }
+    }
+    if (name.compare("BBd") == 0) {
+        if (!FlagCsi) {
+            if (name_i.compare("BBsoBBd") == 0) {
+                BBsoBBd = value;
                 return true;
             } else if (name_i.compare("BBd2") == 0) {
                 setBpars(1, value);
@@ -175,21 +204,6 @@ bool BParameter::setParameter(std::string name_i, double value)
         } else {
             if (name_i.compare("csi") == 0) {
                 csi = value;
-                return true;
-            } else if (name_i.compare("FBsSqrtBBs1") == 0) {
-                FBsSqrtBBs1 = value;
-                return true;
-            } else if (name_i.compare("FBsSqrtBBs2") == 0) {
-                FBsSqrtBBs2 = value;
-                return true;
-            } else if (name_i.compare("FBsSqrtBBs3") == 0) {
-                FBsSqrtBBs3 = value;
-                return true;
-            } else if (name_i.compare("FBsSqrtBBs4") == 0) {
-                FBsSqrtBBs4 = value;
-                return true;
-            } else if (name_i.compare("FBsSqrtBBs5") == 0) {
-                FBsSqrtBBs5 = value;
                 return true;
             } else if (name_i.compare("FBdSqrtBBd2") == 0) {
                 FBdSqrtBBd2 = value;
@@ -209,12 +223,6 @@ bool BParameter::setParameter(std::string name_i, double value)
             setMu(value);
             return true;
         } else if (name_i.compare("BBdscheme") == 0) {
-            setScheme((schemes) value);
-            return true;
-        } else if (name_i.compare("BBsscale") == 0) {
-            setMu(value);
-            return true;
-        } else if (name_i.compare("BBsscheme") == 0) {
             setScheme((schemes) value);
             return true;
         }
