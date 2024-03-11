@@ -87,6 +87,74 @@ private:
 
 
 /**
+ * @class ThetaLnuN 
+ * @ingroup EW
+ * @brief An observable class for the effective neutrino nucleon LH parameter ThetaLnuN
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective neutrino nucleon LH parameter 
+ * @f$\theta_L(\nu N)@f$
+ *
+ */
+class ThetaLnuN : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    ThetaLnuN(const StandardModel& SM_i) 
+    : ThObservable(SM_i)  
+    {
+    };
+
+    /**
+     * @brief The effective neutrino nucleon LH parameter @f$\theta_L(\nu N)@f$
+     * @return @f$\theta_L(\nu N)@f$
+     */
+    double computeThValue();
+
+    
+private:
+
+
+};
+
+
+/**
+ * @class ThetaRnuN 
+ * @ingroup EW
+ * @brief An observable class for the effective neutrino nucleon RH parameter ThetaRnuN
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective neutrino nucleon RH parameter 
+ * @f$\theta_R(\nu N)@f$
+ *
+ */
+class ThetaRnuN : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    ThetaRnuN(const StandardModel& SM_i) 
+    : ThObservable(SM_i)  
+    {
+    };
+
+    /**
+     * @brief The effective neutrino nucleon RH parameter @f$\theta_R(\nu N)@f$
+     * @return @f$\theta_R(\nu N)@f$
+     */
+    double computeThValue();
+
+    
+private:
+
+
+};
+
+
+/**
  * @class gVnue 
  * @ingroup EW
  * @brief An observable class for the effective (muon) neutrino-electron vector coupling

@@ -4313,3 +4313,174 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
             + caS * Das + caS2 * Das * Das
             + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
 }
+
+
+// EW low-energy observables: neutrino-scattering
+
+
+double EWSMApproximateFormulae::LEgLnuN2Approx() const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+        X0 = 0.3037; 
+        cMH = -0.00067; 
+        cmt = 0.00654; 
+        caS = -0.00096; 
+        caS2 = -0.00072; 
+        caSmt = 0.00002; 
+        cda5h = -0.00701; 
+        cMZ = 0.47995; 
+  
+        RelThError = 0.; 
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEgRnuN2Approx() const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+        X0 = 0.03014; 
+        cMH = 0.00007; 
+        cmt = -0.00001; 
+        caS = 0.00013; 
+        caS2 = 0.00021; 
+        caSmt = -0.0002; 
+        cda5h = 0.00243; 
+        cMZ = -0.16544; 
+  
+        RelThError = 0.; 
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEThetaLnuNApprox() const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+        X0 = 2.4631; 
+        cMH = 0.00019; 
+        cmt = -0.00077; 
+        caS = 0.00034; 
+        caS2 = 0.00045; 
+        caSmt = -0.00034; 
+        cda5h = 0.00495; 
+        cMZ = -0.33743; 
+  
+        RelThError = 0.; 
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEThetaRnuNApprox() const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+        X0 = 5.17646; 
+        cMH = 0.; 
+        cmt = -0.00002; 
+        caS = -0.00002; 
+        caS2 = 0.; 
+        caSmt = -0.00001; 
+        cda5h = 0.; 
+        cMZ = -0.00013; 
+  
+        RelThError = 0.; 
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEgVnueApprox() const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+        X0 = -0.03959; 
+        cMH = 0.00095; 
+        cmt = -0.00563; 
+        caS = 0.00076; 
+        caS2 = 0.00071; 
+        caSmt = 0.; 
+        cda5h = 0.0188; 
+        cMZ = -1.2809; 
+  
+        RelThError = 0.; 
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
+
+
+double EWSMApproximateFormulae::LEgAnueApprox() const
+{
+    double LH = log(mycache.getSM().getMHl() / 125.21);
+    double Dt = pow(mycache.getSM().getMtpole() / 172.33, 2.0) - 1.0;
+    double Das = mycache.getSM().getAlsMz() / 0.11802 - 1.0;
+    double Da5h = mycache.getSM().Dalpha5hMz() / 0.027660 - 1.0;
+    double DZ = mycache.getSM().getMz() / 91.1875 - 1.0;
+
+    double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
+    double RelThError = 0.0; // (Relative) Theoretical uncertainty
+    
+        X0 = -0.50693; 
+        cMH = 0.00029; 
+        cmt = -0.00466; 
+        caS = 0.; 
+        caS2 = 0.00013; 
+        caSmt = 0.; 
+        cda5h = 0.00004; 
+        cMZ = -0.00779; 
+  
+        RelThError = 0.; 
+
+    return ((X0 + cMH * LH + cmt * Dt 
+            + caS * Das + caS2 * Das * Das
+            + caSmt * Das * Dt + cda5h * Da5h + cMZ * DZ)*(1. + RelThError));
+}
