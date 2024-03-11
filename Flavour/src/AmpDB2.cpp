@@ -292,10 +292,6 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
         mySM.getQuarks(QCD::CHARM).getMass_scale(),
         mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
     
-    //MSbar charm quark mass Mb(Mb)    
-    double Mc_Mb = mySM.Mrun(mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
-        mySM.getQuarks(QCD::CHARM).getMass_scale(),
-        mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
     
     //strong coupling constant divided by 4*Pi
     as_4pi_mu1 = mySM.Als(mu_1, FULLNNNLO, true)/(4.*M_PI);
@@ -355,6 +351,10 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     
     //calculate "z" values for 1/m_b contributions
     //z_1overm = Mc_Mc * Mc_Mc / (Mb_Mb * Mb_Mb); //hep-ph/0612167 eq. 27
+    //MSbar charm quark mass Mb(Mb)    
+    //double Mc_Mb = mySM.Mrun(mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
+    //    mySM.getQuarks(QCD::CHARM).getMass_scale(),
+    //    mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
     //z_1overm = Mc_Mb * Mc_Mb / (Mb_Mb * Mb_Mb); //arxiv:1910.00970 eq. 11
     //if z for the 1/m_b contributions shall be varied with "mu_b"
     z_1overm = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);

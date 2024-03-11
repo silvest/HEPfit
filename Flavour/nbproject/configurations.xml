@@ -158,9 +158,6 @@
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
-      <logicalFolder name="f1" displayName="Asl_test" projectFiles="true" kind="TEST">
-        <itemPath>tests/Asl.cpp</itemPath>
-      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -208,21 +205,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="src/AmpDB2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AmpDB2.h" ex="false" tool="3" flavor2="0">
@@ -513,8 +495,6 @@
       </item>
       <item path="src/xi.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/Asl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
@@ -538,21 +518,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="src/AmpDB2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AmpDB2.h" ex="false" tool="3" flavor2="0">
@@ -843,8 +808,6 @@
       </item>
       <item path="src/xi.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="tests/Asl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Cluster" type="3">
       <toolsSet>
@@ -869,21 +832,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="src/AmpDB2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AmpDB2.h" ex="false" tool="3" flavor2="0">
@@ -1168,8 +1116,6 @@
       <item path="src/xi.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/xi.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/Asl.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="ArchLinux" type="3">
@@ -1198,21 +1144,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
       <item path="src/AmpDB2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AmpDB2.h" ex="false" tool="3" flavor2="0">
@@ -1502,8 +1433,6 @@
       <item path="src/xi.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/xi.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/Asl.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
