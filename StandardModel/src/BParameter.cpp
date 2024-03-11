@@ -58,17 +58,13 @@ void BParameter::ModelParameterMapInsert(std::map< std::string, std::reference_w
         return;
     }
     if (name.compare("BBs_subleading") == 0) {
-        ModelParamMap.insert(std::make_pair("Rs1tilde", std::cref(bpars(0))));
-        ModelParamMap.insert(std::make_pair("Rs1", std::cref(bpars(1))));
-        ModelParamMap.insert(std::make_pair("Rs2", std::cref(bpars(2))));
-        ModelParamMap.insert(std::make_pair("Rs3", std::cref(bpars(3))));
+        ModelParamMap.insert(std::make_pair("Rs2", std::cref(bpars(0))));
+        ModelParamMap.insert(std::make_pair("Rs3", std::cref(bpars(1))));
         return;
     }
     if (name.compare("BBd_subleading") == 0) {
-        ModelParamMap.insert(std::make_pair("Rd1tilde", std::cref(bpars(0))));
-        ModelParamMap.insert(std::make_pair("Rd1", std::cref(bpars(1))));
-        ModelParamMap.insert(std::make_pair("Rd2", std::cref(bpars(2))));
-        ModelParamMap.insert(std::make_pair("Rd3", std::cref(bpars(3))));
+        ModelParamMap.insert(std::make_pair("Rd2", std::cref(bpars(0))));
+        ModelParamMap.insert(std::make_pair("Rd3", std::cref(bpars(1))));
         return;
     }
     if (name.compare("BK") == 0) {
@@ -125,8 +121,8 @@ std::vector<std::string> BParameter::parameterList(std::string name_i)
     if (name_i.compare("BBs") == 0 && FlagCsi) return make_vector<std::string>() << "FBsSqrtBBs1" << "FBsSqrtBBs2" << "FBsSqrtBBs3" << "FBsSqrtBBs4" << "FBsSqrtBBs5" << "BBsscale" << "BBsscheme";
     if (name_i.compare("BBd") == 0 && !FlagCsi) return make_vector<std::string>() << "BBsoBBd" << "BBd2" << "BBd3" << "BBd4" << "BBd5" << "BBdscale" << "BBdscheme";
     if (name_i.compare("BBd") == 0 && FlagCsi) return make_vector<std::string>() << "csi" << "FBdSqrtBBd2" << "FBdSqrtBBd3" << "FBdSqrtBBd4" << "FBdSqrtBBd5" << "BBdscale" << "BBdscheme";
-    if (name_i.compare("BBs_subleading") == 0) return make_vector<std::string>() << "Rs1tilde" << "Rs1" << "Rs2" << "Rs3" << "BBsscale" << "BBsscheme";
-    if (name_i.compare("BBd_subleading") == 0) return make_vector<std::string>() << "Rd1tilde" << "Rd1" << "Rd2" << "Rd3" << "BBdscale" << "BBdscheme";
+    if (name_i.compare("BBs_subleading") == 0) return make_vector<std::string>() << "Rs2" << "Rs3" << "BBsscale" << "BBsscheme";
+    if (name_i.compare("BBd_subleading") == 0) return make_vector<std::string>() << "Rd2" << "Rd3" << "BBdscale" << "BBdscheme";
     if (name_i.compare("BK") == 0) return make_vector<std::string>() << "BK1" << "BK2" << "BK3" << "BK4" << "BK5" << "BKscale" << "BKscheme";
     if (name_i.compare("BD") == 0) return make_vector<std::string>() << "BD1" << "BD2" << "BD3" << "BD4" << "BD5" << "BDscale" << "BDscheme";
     if (name_i.compare("BKd1") == 0) return make_vector<std::string>() << "BK(1/2)1" << "BK(1/2)2" << "BK(1/2)3" << "BK(1/2)4" << "BK(1/2)5"
@@ -229,32 +225,20 @@ bool BParameter::setParameter(std::string name_i, double value)
     }
     
     if (name.compare("BBs_subleading") == 0) {
-        if (name_i.compare("Rs1tilde") == 0) {
+        if (name_i.compare("Rs2") == 0) {
             setBpars(0, value);
             return true;
-        } else if (name_i.compare("Rs1") == 0) {
-            setBpars(1, value);
-            return true;
-        } else if (name_i.compare("Rs2") == 0) {
-            setBpars(2, value);
-            return true;
         } else if (name_i.compare("Rs3") == 0) {
-            setBpars(3, value);
+            setBpars(1, value);
             return true;
         }
     }
     if (name.compare("BBd_subleading") == 0) {
-        if (name_i.compare("Rd1tilde") == 0) {
+        if (name_i.compare("Rd2") == 0) {
             setBpars(0, value);
             return true;
-        } else if (name_i.compare("Rd1") == 0) {
-            setBpars(1, value);
-            return true;
-        } else if (name_i.compare("Rd2") == 0) {
-            setBpars(2, value);
-            return true;
         } else if (name_i.compare("Rd3") == 0) {
-            setBpars(3, value);
+            setBpars(1, value);
             return true;
         }
     }

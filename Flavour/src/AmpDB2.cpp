@@ -348,10 +348,6 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     }
 
     Gf2 = mySM.getGF() * mySM.getGF();
-    Md = mySM.getQuarks(QCD::DOWN).getMass();
-    Ms = mySM.Mrun(mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
-                mySM.getQuarks(QCD::STRANGE).getMass_scale(),
-                mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
     MB = mySM.getMesons(QCD::B_D).getMass();
     MB_s = mySM.getMesons(QCD::B_S).getMass();
 
@@ -673,22 +669,26 @@ int AmpDB2::indexP(quarks qq, int k, int i, int j) {
 
 void AmpDB2::compute_matrixelements(quark q, orders order){
     double Mq;
-    double Mb_mu;
+    double Mb_mu2 = mySM.Mrun(mu_2,
+        mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
+        mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
     double MBq2;
     double KBq;
     double FBq2;
     switch (q) {
         case d:
             me = mySM.getBBd().getBpars();
-            Mq = Md;
-            Mb_mu = mySM.getBBd().getMu();
+            Mq = mySM.Mrun(mu_2,
+                mySM.getQuarks(QCD::DOWN).getMass_scale(),
+                mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
             MBq2 = MB * MB;
             FBq2 = mySM.getMesons(QCD::B_D).getDecayconst() * mySM.getMesons(QCD::B_D).getDecayconst();
             break;
         case s:
             me = mySM.getBBs().getBpars();
-            Mq = Ms;
-            Mb_mu = mySM.getBBs().getMu();
+            Mq = mySM.Mrun(mu_2,
+                mySM.getQuarks(QCD::STRANGE).getMass_scale(),
+                mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
             MBq2 = MB_s * MB_s;
             FBq2 = mySM.getMesons(QCD::B_S).getDecayconst() * mySM.getMesons(QCD::B_S).getDecayconst();            
             break;
@@ -702,12 +702,12 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
     
     
     //arXiv:1907.01025v2 equation (4)
-    KBq = MBq2 / ((Mb_Mb + Mq) * (Mb_Mb + Mq));
+    KBq = MBq2 / ((Mb_mu2 + Mq) * (Mb_mu2 + Mq));
     me(0) *=  8. / 3. * MBq2 * FBq2;
     me(1) *= -5. / 3. * KBq * MBq2 * FBq2;
     me(2) *=  1. / 3. * KBq * MBq2 * FBq2;
     me(3) *=       2. * (KBq + 1./6.) * MBq2 * FBq2;
-    me(4) *=  2. / 3. * (KBq + 2./3.) * MBq2 * FBq2;
+    me(4) *=  2. / 3. * (KBq + 3./2.) * MBq2 * FBq2;
       
     //switch matrix elements to RI scheme
     if (flag_RI) me += -as_4pi_mu2 * meMStoRI * me;
@@ -724,27 +724,18 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
     //Gerlach thesis eq.7.5, 7.6
     switch (q) {
         case d:
-            me_R(0) = -0.35; //value in Gerlach thesis
-            me_Rtilde(0) = mySM.getBBd_subleading().getBpars()(0);
-            me_R(1) = mySM.getBBd_subleading().getBpars()(1);       
-            me_R(2) = mySM.getBBd_subleading().getBpars()(2);                    
-            me_R(3) = mySM.getBBd_subleading().getBpars()(3);            
+            me_R(2) = mySM.getBBd_subleading().getBpars()(0);                    
+            me_R(3) = mySM.getBBd_subleading().getBpars()(1);            
             break;
         case s:
-            me_R(0) = -0.43; //value in Gerlach thesis
-            me_Rtilde(0) = mySM.getBBs_subleading().getBpars()(0);
-            me_R(1) = mySM.getBBs_subleading().getBpars()(1);       
-            me_R(2) = mySM.getBBs_subleading().getBpars()(2);                    
-            me_R(3) = mySM.getBBs_subleading().getBpars()(3);            
+            me_R(2) = mySM.getBBs_subleading().getBpars()(0);                    
+            me_R(3) = mySM.getBBs_subleading().getBpars()(1);            
             break;
     } 
-    me_R(0) *= MBq2 * FBq2;
-    me_R(1) *= MBq2 * FBq2;
     me_R(2) *= MBq2 * FBq2;
     me_R(3) *= MBq2 * FBq2;
-    me_R(4) = 0.5 * (me(2) + 0.5 * me(0) + me(1) - 2. * Mq/Mb_mu * me(4) + me_R(2));
+    me_R(4) = 0.5 * (me(2) + 0.5 * me(0) + me(1) - 2. * Mq/Mb_mu2 * me(4) + me_R(2));
     
-    me_Rtilde(0) *= MBq2 * FBq2;        
     me_Rtilde(1) = -me_R(2);
     me_Rtilde(2) = me_R(3) + 0.5 * me_R(2);
     
@@ -753,37 +744,18 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
     meoverme0(1) = me(1)/me(0);
     meoverme0(2) = me(2)/me(0);
     
-    //double n_l = 3.; //number of massless quark flavors
-    //double n_h = 1.; //number of quarks with mass of mb
-    //double L = 2. * log(mu_2/Mb_pole);
-    //double L2 = L * L;
-    /*
-    double as1_me0 = 0., as1_me2 = 0., as2_me0 = 0., as2_me2 = 0;
+    //subleading matrix elements that are not independent
+    //Gerlach thesis eq. (3.64)
+    double L_2 = 2. * log(mu_2/Mb_mu2);
+    double as1_me0 = 0., as1_me2 = 0.;
     if (order == NLO or order == NNLO){
-        //Gerlach thesis eq. (3.84)
-        as1_me0 = 4. * L + 26./3.;   
-        as1_me2 = 8. * L + 8.;
+        as1_me0 = 4. * L_2 + 26./3.;   
+        as1_me2 = 8. * L_2 + 8.;
     }
-    
-    if (order == NNLO){
-        //Gerlach thesis eq. (3.104, 3.105)
-        as2_me0 = (n_l + n_h) * (-4./3. * L2 - 52./9. * L - 8./9. * M_PI2 - 218./27.) + n_h * (8./3. * M_PI2 - 8.)
-                            + 58./3. * L2 + 649./6. * L + 17./3. * M_PI2 + 11183./48. + 16./3. * M_PI2 * log2 - 8. * zeta3;
-        as2_me2 = (n_l + n_h) * (-8./3. * L2 - 104./9. * L - 16./9. * M_PI2 - 422./27.) + n_h * (16./3. * M_PI2 - 16.)
-                            + 188./3. * L2 + 220. * L + 320./27. * M_PI2 + 326047./720. + 32./3. * M_PI2 * log2 - 16. * zeta3;
-        //std::cout << "me_R" << me_R << "\n";
-        me_R(0) = 0.5 * (1. + as1_me0 * as_4pi_mu2 + as2_me0 * as_4pi_mu2 * as_4pi_mu2) * me(0) + me(1) + (1. + as1_me2 * as_4pi_mu2 + as2_me2 * as_4pi_mu2 * as_4pi_mu2) * me(2);
-    }
-    */
-    //std::cout << "me" << me << "\n";
-    //std::cout << "me_R" << me_R(0) << " meR(0): " << 0.5 * (1. + 26./3. * as_4pi_mu2) * me(0) + me(1) + (1. + 8. * as_4pi_mu2) * me(2) << "\n";
-    
-    //fix leading matrix elements "me" to obtain only the uncertainties  from the subleading matrix elements "me_R"
-//    if (q==s) {me(0) = 0.813; me(1) = 0.817; me(2) = 0.816;}
-//    if (q==d) {me(0) = 0.806; me(1) = 0.769; me(2) = 0.747;}
-//    me(0) *=  8. / 3. * MBq2 * FBq2;
-//    me(1) *= -5. / 3. * KBq * MBq2 * FBq2;
-//    me(2) *=  1. / 3. * KBq * MBq2 * FBq2;
+    me_R(0) = 0.5 * (1. + as1_me0 * as_4pi_mu2) * me(0) + me(1) + (1. + as1_me2 * as_4pi_mu2) * me(2);
+    //arxiv/1907.01025 eq.26
+    me_R(1) = Mq/Mb_mu2 * me(3);
+    me_Rtilde(0) = Mq/Mb_mu2* me(4);
     return;
 }
 
