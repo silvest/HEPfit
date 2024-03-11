@@ -46,6 +46,8 @@
 #include "MPlnuObservables.h"
 #include "Bdmumu.h"
 #include "Bsmumu.h"
+#include "Asl.h"
+#include "DGamma.h"
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

@@ -17,6 +17,8 @@ class EvolBsmm;
 #include "QCD.h"
 #include "WilsonCoefficient.h"
 #include <memory>
+#include "gslpp_matrix_double.h"
+#include "gslpp_complex.h"
 
 class HeffDB1 {
 public:
@@ -127,6 +129,14 @@ public:
      * 
      * @param mu is the low energy scale
      * @param scheme indicates the renormalization scheme
+     * @return short distance contribution to the rare decay \f$ b \rightarrow s \gamma \f$, Buras basis pdf/hep-ph/9512380v1 (VI.33)
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma_Buras(double mu, bool noSM = false, schemes scheme = NDR);
+    
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, QCD::lepton lepton, bool noSM = false, schemes scheme = NDR);
@@ -138,6 +148,14 @@ public:
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme = NDR);
+    
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
+     * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Buras basis pdf/hep-ph/9512380v1 (VI.33)
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll_Buras(double mu, QCD::lepton lepton, bool noSM = false, schemes scheme = NDR);
     
     WilsonCoefficient getCoeffnlep00() const {
         return coeffnlep00;
@@ -218,7 +236,9 @@ private :
     WilsonCoefficient coeffbtaunu;
     WilsonCoefficient coeffsnunu, coeffdnunu;
     WilsonCoefficient coeffsgamma, coeffprimesgamma;
+    WilsonCoefficient coeffsgamma_Buras;
     WilsonCoefficient coeffBMll, coeffprimeBMll;
+    WilsonCoefficient coeffBMll_Buras;
     std::unique_ptr<EvolDB1Mll> evolDF1BMll;
     std::unique_ptr<EvolDB1bsg> evolDB1bsg;
     std::unique_ptr<EvolDF1nlep> u;
@@ -257,6 +277,20 @@ private :
     std::vector<WilsonCoefficient> Bdmumu_WC_cache;
     
     gslpp::vector<gslpp::complex> nlep, nlep2, nlepCC;
+    
+    //for transformation matrix from Misiak basis to Buras basis
+    void setMisiaktoBuras();
+    gslpp::matrix<double> R_inv_t = gslpp::matrix< double >(6, 6, 0.);
+    gslpp::matrix<double> dR_t = gslpp::matrix< double >(6, 6, 0.);
+    gslpp::matrix<double> MisiaktoBurasNLO = gslpp::matrix< double >(6, 6, 0.);
+    
+    gslpp::vector<gslpp::complex> tmp_coeffsgamma = gslpp::vector<gslpp::complex>(6, 0.);
+    gslpp::vector<gslpp::complex> tmp_coeffsgammaLO = gslpp::vector<gslpp::complex>(6, 0.);
+    gslpp::vector<gslpp::complex> tmp_coeffsgammaNLO = gslpp::vector<gslpp::complex>(6, 0.);    
+    gslpp::vector<gslpp::complex> tmp_coeffsgammaNNLO = gslpp::vector<gslpp::complex>(6, 0.);            
+    gslpp::vector<gslpp::complex> tmp_coeffBMll = gslpp::vector<gslpp::complex>(6, 0.);
+    gslpp::vector<gslpp::complex> tmp_coeffBMllLO = gslpp::vector<gslpp::complex>(6, 0.);
+    gslpp::vector<gslpp::complex> tmp_coeffBMllNLO = gslpp::vector<gslpp::complex>(6, 0.);    
 };
 
 #endif	/* HEFFDB1_H */

@@ -622,6 +622,28 @@ public:
     {
         return BParameterMap.at("BBs");
     }
+    
+    /**
+     * @brief For getting the subleading bag parameters corresponding
+     * to the operator basis \f$\widetilde{R}_1, R_1 - R_3\f$ in \f$\Delta b = 2\f$
+     * process in the \f$B_d\f$ meson system.
+     * @return the vector of bag parameters
+     */
+    BParameter getBBd_subleading() const
+    {
+        return BParameterMap.at("BBd_subleading");
+    }  
+    
+    /**
+     * @brief For getting the subleading bag parameters corresponding
+     * to the operator basis \f$\widetilde{R}_1, R_1 - R_3\f$ in \f$\Delta b = 2\f$
+     * process in the \f$B_s\f$ meson system.
+     * @return the vector of bag parameters
+     */
+    BParameter getBBs_subleading() const
+    {
+        return BParameterMap.at("BBs_subleading");
+    }    
 
     /**
      * @brief For getting the bag parameters corresponding

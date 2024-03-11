@@ -7,6 +7,7 @@
 
 #include "MVllObservables.h"
 #include "MVll.h"
+#include "DGamma.h"
 #include "StandardModel.h"
 //#include "gslpp.h"
 
@@ -222,7 +223,7 @@ double BR_MVll::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
+    double ys = DGamma_s_MSbar(SM).computeThValue()*SM.getMesons(QCD::B_S).getLifetime()/2.;
     
     switch(vectorM){
             case StandardModel::K_star:

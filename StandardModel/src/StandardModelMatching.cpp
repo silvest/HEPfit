@@ -169,8 +169,9 @@ double StandardModelMatching::S0(double x) const {
     return S0(x, x);
 }
 
-double StandardModelMatching::S0(double x, double y) const { // Buras 2000 Appendix
-    if (fabs(1. - y / x) < LEPS) {
+double StandardModelMatching::S0(double x, double y) const 
+{ // Buras 2000 (hep-ph/0007313v1) Appendix
+    if (fabs(1. - y / x) < LEPS){
         return ((x * (-4. + 15. * x - 12. * x * x + x * x * x +
                 6. * x * x * log(x))) / (4. * pow(-1. + x, 3.)));
     } else
@@ -976,7 +977,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() {
         default:
             std::stringstream out;
             out << mcdbd2.getScheme();
-            throw std::runtime_error("StandardModel::CMdb2(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMdb2(): scheme " + out.str() + "not implemented"); 
     }
 
     mcdbd2.setMu(Mut);
@@ -1024,7 +1025,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() {
         default:
             std::stringstream out;
             out << mcdbs2.getScheme();
-            throw std::runtime_error("StandardModel::CMdbs2(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMdbs2(): scheme " + out.str() + "not implemented"); 
     }
 
     mcdbs2.setMu(Mut);
@@ -1086,7 +1087,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras() {
         default:
             std::stringstream out;
             out << mcd1Buras.getScheme();
-            throw std::runtime_error("StandardModel::CMd1Buras(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMd1Buras(): scheme " + out.str() + "not implemented"); 
     }
 
     mcd1Buras.setMu(Muw);
@@ -1129,7 +1130,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMd1() {
         default:
             std::stringstream out;
             out << mcd1.getScheme();
-            throw std::runtime_error("StandardModel::CMd1(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMd1(): scheme " + out.str() + "not implemented"); 
     }
 
     mcd1.setMu(Muw);
@@ -1171,7 +1172,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() {
         default:
             std::stringstream out;
             out << mcdd2.getScheme();
-            throw std::runtime_error("StandardModel::CMdd2(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMdd2(): scheme " + out.str() + "not implemented"); 
     }
 
     mcdd2.setMu(Muw);
@@ -1255,7 +1256,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC() {
         default:
             std::stringstream out;
             out << mckcc.getScheme();
-            throw "StandardModel::CMKCC(): scheme " + out.str() + "not implemented";
+            throw "StandardModelMatching::CMKCC(): scheme " + out.str() + "not implemented";
     }
 
     mckcc.setMu(Muw);
@@ -1310,7 +1311,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() {
         default:
             std::stringstream out;
             out << mcbsg.getScheme();
-            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbsg.setMu(Muw);
@@ -1351,7 +1352,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMprimebsg() {
         default:
             std::stringstream out;
             out << mcprimebsg.getScheme();
-            throw std::runtime_error("StandardModel::CMprimebsg(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMprimebsg(): scheme " + out.str() + "not implemented"); 
     }
 
     mcprimebsg.setMu(Muw);
@@ -1473,7 +1474,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBMll(QCD::lepton lepton
         default:
             std::stringstream out;
             out << mcBMll.getScheme();
-            throw std::runtime_error("StandardModel::CMBKstrall(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMBMll(): scheme " + out.str() + "not implemented"); 
     }
 
     mcBMll.setMu(Muw);
@@ -1492,7 +1493,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBMll(QCD::lepton lepton
         default:
             std::stringstream out;
             out << mcBMll.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMBMll(): order " + out.str() + "not implemented"); 
     }
 
     vmcBMll.push_back(mcBMll);
@@ -1587,7 +1588,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBMll(QCD::lepton l
         default:
             std::stringstream out;
             out << mcprimeBMll.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMprimeBMll(): order " + out.str() + "not implemented"); 
     }
     vmcprimeBMll.push_back(mcprimeBMll);
     return (vmcprimeBMll);
@@ -1621,7 +1622,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() {
         default:
             std::stringstream out;
             out << mcbsmm.getScheme();
-            throw std::runtime_error("StandardModel::CMbsmm(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMbsmm(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbsmm.setMu(Muw);
@@ -1726,7 +1727,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
         default:
             std::stringstream out;
             out << mcbdmm.getScheme();
-            throw std::runtime_error("StandardModel::CMbdmm(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMbdmm(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbdmm.setMu(Muw);
@@ -1868,7 +1869,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep(const int a) {
         default:
             std::stringstream out;
             out << mcbnlep.getScheme();
-            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMbnlep(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbnlep.setMu(Muw);
@@ -1891,7 +1892,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep(const int a) {
         default:
             std::stringstream out;
             out << mcbnlep.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMbnlep(): order " + out.str() + "not implemented"); 
     }
 
     vmcbnlep.push_back(mcbnlep);
@@ -1940,7 +1941,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int a) {
         default:
             std::stringstream out;
             out << mcbnlepCC.getScheme();
-            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMbnlepCC(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbnlepCC.setMu(Muw);
@@ -1965,7 +1966,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int a) {
         default:
             std::stringstream out;
             out << mcbnlepCC.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMbnlepCC(): order " + out.str() + "not implemented"); 
     }
 
     vmcbnlepCC.push_back(mcbnlepCC);
@@ -2721,7 +2722,7 @@ WilsonCoefficientNew& StandardModelMatching::mc_P() {
         default:
             std::stringstream out;
             out << mcP.getScheme();
-            throw "StandardModel::mc_P(): scheme " + out.str() + "not implemented";
+            throw "StandardModelMatching::mc_P(): scheme " + out.str() + "not implemented";
     }
 
     mcP.setMu(Muw); // cleared too
@@ -2815,7 +2816,7 @@ WilsonCoefficientNew& StandardModelMatching::mc_M() {
         default:
             std::stringstream out;
             out << mcM.getScheme();
-            throw "StandardModel::mc_M(): scheme " + out.str() + "not implemented";
+            throw "StandardModelMatching::mc_M(): scheme " + out.str() + "not implemented";
     }
 
     mcM.setMu(Muw); // cleared too
@@ -3084,7 +3085,7 @@ WilsonCoefficientNew& StandardModelMatching::mc_B() {
         default:
             std::stringstream out;
             out << mcB.getScheme();
-            throw "StandardModel::mc_B(): scheme " + out.str() + "not implemented";
+            throw "StandardModelMatching::mc_B(): scheme " + out.str() + "not implemented";
     }
 
     mcB.setMu(Muw); // cleared too

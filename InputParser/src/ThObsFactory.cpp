@@ -4247,6 +4247,48 @@ ThObsFactory::ThObsFactory()
     /* BEGIN: REMOVE FROM THE PACKAGE */
     obsThFactory["M12D"] = boost::factory<M12D*>();
     obsThFactory["ArgD"] = boost::factory<ArgD*>();
+    //semileptonic asymmetry
+    obsThFactory["Asl_d_pole"] = boost::factory<Asl_d_pole*>();
+    obsThFactory["Asl_s_pole"] = boost::factory<Asl_s_pole*>();
+    obsThFactory["Asl_s_pole_NLO"] = boost::factory<Asl_s_pole_NLO*>();
+    obsThFactory["Asl_s_pole_LO"] = boost::factory<Asl_s_pole_LO*>();
+    obsThFactory["Asl_d_MSbar"] = boost::factory<Asl_d_MSbar*>();
+    obsThFactory["Asl_s_MSbar"] = boost::factory<Asl_s_MSbar*>();
+    obsThFactory["Asl_s_MSbar_NLO"] = boost::factory<Asl_s_MSbar_NLO*>();
+    obsThFactory["Asl_s_MSbar_LO"] = boost::factory<Asl_s_MSbar_LO*>();
+    obsThFactory["Asl_d_PS"] = boost::factory<Asl_d_PS*>();
+    obsThFactory["Asl_s_PS"] = boost::factory<Asl_s_PS*>();
+    obsThFactory["Asl_s_PS_NLO"] = boost::factory<Asl_s_PS_NLO*>();
+    obsThFactory["Asl_s_PS_LO"] = boost::factory<Asl_s_PS_LO*>();
+    obsThFactory["Asl_s_pole_fixmub"] = boost::factory<Asl_s_pole_fixmub*>();
+    obsThFactory["Asl_s_MSbar_fixmub"] = boost::factory<Asl_s_MSbar_fixmub*>();
+    obsThFactory["Asl_s_PS_fixmub"] = boost::factory<Asl_s_PS_fixmub*>();
+    obsThFactory["Asl_d_only1overmb"] = boost::factory<Asl_d_only1overmb*>();
+    obsThFactory["Asl_s_only1overmb"] = boost::factory<Asl_s_only1overmb*>();
+    obsThFactory["Asl_d_MSbar_NLO_tradBasis"] = boost::factory<Asl_d_MSbar_NLO_tradBasis*>();
+    obsThFactory["Asl_s_MSbar_NLO_tradBasis"] = boost::factory<Asl_s_MSbar_NLO_tradBasis*>();
+    //DeltaGamma
+    obsThFactory["DGamma_d_pole"] = boost::factory<DGamma_d_pole*>();
+    obsThFactory["DGamma_s_pole"] = boost::factory<DGamma_s_pole*>();
+    obsThFactory["DGamma_s_pole_NLO"] = boost::factory<DGamma_s_pole_NLO*>();
+    obsThFactory["DGamma_s_pole_LO"] = boost::factory<DGamma_s_pole_LO*>();    
+    obsThFactory["DGamma_d_MSbar"] = boost::factory<DGamma_d_MSbar*>();
+    obsThFactory["DGamma_s_MSbar"] = boost::factory<DGamma_s_MSbar*>();
+    obsThFactory["DGamma_s_MSbar_NLO"] = boost::factory<DGamma_s_MSbar_NLO*>();
+    obsThFactory["DGamma_s_MSbar_LO"] = boost::factory<DGamma_s_MSbar_LO*>();
+    obsThFactory["DGamma_d_PS"] = boost::factory<DGamma_d_PS*>();
+    obsThFactory["DGamma_s_PS"] = boost::factory<DGamma_s_PS*>();
+    obsThFactory["DGamma_s_PS_NLO"] = boost::factory<DGamma_s_PS_NLO*>();
+    obsThFactory["DGamma_s_PS_LO"] = boost::factory<DGamma_s_PS_LO*>();
+    obsThFactory["DGamma_s_pole_fixmub"] = boost::factory<DGamma_s_pole_fixmub*>();
+    obsThFactory["DGamma_s_MSbar_fixmub"] = boost::factory<DGamma_s_MSbar_fixmub*>();
+    obsThFactory["DGamma_s_PS_fixmub"] = boost::factory<DGamma_s_PS_fixmub*>();
+    obsThFactory["DGamma_d_only1overmb"] = boost::factory<DGamma_d_only1overmb*>();
+    obsThFactory["DGamma_s_only1overmb"] = boost::factory<DGamma_s_only1overmb*>();    
+    obsThFactory["DGamma_d_NLO_tradBasis"] = boost::factory<DGamma_d_NLO_tradBasis*>();
+    obsThFactory["DGamma_s_NLO_tradBasis"] = boost::factory<DGamma_s_NLO_tradBasis*>();
+    obsThFactory["DGamma_d_LO_tradBasis"] = boost::factory<DGamma_d_LO_tradBasis*>();  
+    obsThFactory["DGamma_s_LO_tradBasis"] = boost::factory<DGamma_s_LO_tradBasis*>();  
     //----- eps'/eps  -----
     obsThFactory["EpsilonP_O_Epsilon_ReA0EXP"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 0);
     obsThFactory["EpsilonP_O_Epsilon_ReA2EXP"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 1);
