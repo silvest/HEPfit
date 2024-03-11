@@ -263,16 +263,15 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     lambda_u_s = mySM.getCKM().getV_us().conjugate() * mySM.getCKM().getV_ub();   
     
     //pole mass of bottom quark
-    //Mb_pole = 4.56; //fixed to compare with /arxiv.org/pdf/2202.12305
-    //Mb_pole = 4.757; //fixed to compare with (Gerlach thesis)
-    Mb_pole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass()); //4.765
+    Mb_pole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
     
     //DB=1 matching scales (arxiv: 2205.07907 Results. or Gerlach thesis eq. 7.7) varied by "getMub()" or fixed to 4.2
     mu_1 = mySM.getMub();
     //mass scale mu_b=mu_c
     mu_b = mu_1;
     if (flag_fixmub) mu_b = 4.2;
-    mu_1_overm = Mb_pole;
+    // mu_1_overm = Mb_pole; // Gerlach thesis
+    mu_1_overm = mu_1;
     
     //DB=2 matching scale mu_2
     mu_2 = mySM.getBBs().getMu();
@@ -299,13 +298,11 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
         mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
     
     //strong coupling constant divided by 4*Pi
-    as_4pi_mu1 = mySM.Als(mu_1, FULLNNNLO, true)/(4.*M_PI);//mySM.Alstilde5(mu_1);
-    as_4pi_mu2 = mySM.Als(mu_2, FULLNNNLO, true)/(4.*M_PI);//mySM.Alstilde5(mu_2);
-    as_4pi = mySM.Als(Mb_Mb, FULLNNNLO, true)/(4.*M_PI);//mySM.Alstilde5(Mb_Mb);
+    as_4pi_mu1 = mySM.Als(mu_1, FULLNNNLO, true)/(4.*M_PI);
+    as_4pi_mu2 = mySM.Als(mu_2, FULLNNNLO, true)/(4.*M_PI);
+    as_4pi = mySM.Als(Mb_Mb, FULLNNNLO, true)/(4.*M_PI);
             
-    //PS mass of bottom quark
-    //Mb_PS = 4.479; //fixed to compare with (Gerlach thesis)
-    //NNLO evaluation from hep-ph/9804241v2 eq. (25) should be expanded to 4-loops
+    //PS mass of bottom quark: NNLO evaluation from hep-ph/9804241v2 eq. (25)
     Mb_PS = Mb_Mb * (1. + 16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (K - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2))));
 
     //adapt "Mb2_prefactor" to the used mass scheme; Mb, Mc, resummed z always in MSbar 
@@ -357,10 +354,10 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     sqrt1minus4z = sqrt(1. - 4. * z);
     
     //calculate "z" values for 1/m_b contributions
-    z_1overm = Mc_Mc * Mc_Mc / (Mb_Mb * Mb_Mb); //hep-ph/0612167 eq. 27
-    z_1overm = Mc_Mb * Mc_Mb / (Mb_Mb * Mb_Mb); //arxiv:1910.00970 eq. 11
+    //z_1overm = Mc_Mc * Mc_Mc / (Mb_Mb * Mb_Mb); //hep-ph/0612167 eq. 27
+    //z_1overm = Mc_Mb * Mc_Mb / (Mb_Mb * Mb_Mb); //arxiv:1910.00970 eq. 11
     //if z for the 1/m_b contributions shall be varied with "mu_b"
-    //z_1overm = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);
+    z_1overm = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);
     
     z_1overm2 = z_1overm * z_1overm;
     oneminusz_1overm2 = (1. - z_1overm) * (1. - z_1overm);
