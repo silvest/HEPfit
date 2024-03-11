@@ -8,6 +8,7 @@
 #include "Mll.h"
 #include "StandardModel.h"
 #include "HeffDB1.h"
+#include "DGamma.h"
 
 Mll::Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton lep_i)
 : ThObservable(SM_i)
@@ -53,7 +54,7 @@ void Mll::computeObs(orders order, orders_qed order_qed)
     if (meson == QCD::B_S) {
         ms = SM.getQuarks(QCD::STRANGE).getMass();
         CKM_factor = SM.getCKM().computelamt_s();
-        ys = SM.getMesons(meson).getDgamma_gamma()/2.; // For now. To be explicitly calculated.
+        ys = DGamma_s_MSbar(SM).computeThValue()*SM.getMesons(QCD::B_S).getLifetime()/2.;
     } else if (meson == QCD::B_D) {
         ms = SM.getQuarks(QCD::DOWN).getMass();
         CKM_factor = SM.getCKM().computelamt_d();
