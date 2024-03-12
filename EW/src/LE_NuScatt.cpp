@@ -20,6 +20,18 @@ double gRnuN2::computeThValue()
 }
 
 
+double ThetaLnuN::computeThValue()
+{    
+    return SM.ThetaLnuN();
+}
+
+
+double ThetaRnuN::computeThValue()
+{    
+    return SM.ThetaRnuN();
+}
+
+
 double gVnue::computeThValue()
 {    
     return SM.gVnue();

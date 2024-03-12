@@ -451,6 +451,62 @@ public:
      * @return the @f$e^+e^- \to \tau^+\tau^-@f$ cross section in units of pb
      */
     double LEP2dsigmadcosTauApprox(const double s, const double cos) const;
+
+    // EW low-energy observables: neutrino-scattering
+    
+    /**
+     * @brief The effective neutrino nucleon LH coupling: gLnuN2
+     * @details This function is based on the approximate formula for the
+     * coupling, obtained fitting the ZFitter predictions to a semi-
+     * analytical expression as function of the SM parameters.
+     * @return @f$g_L^2(\nu N)@f$
+     */
+    double LEgLnuN2Approx() const;
+    
+    /**
+     * @brief The effective neutrino nucleon RH coupling: gRnuN2
+     * @details This function is based on the approximate formula for the
+     * coupling, obtained fitting the ZFitter predictions to a semi-
+     * analytical expression as function of the SM parameters.
+     * @return @f$g_R^2(\nu N)@f$
+     */    
+    double LEgRnuN2Approx() const;
+    
+    /**
+     * @brief The effective neutrino nucleon LH parameter: ThetaLnuN
+     * @details This function is based on the approximate formula for the
+     * parameter, obtained fitting the ZFitter predictions to a semi-
+     * analytical expression as function of the SM parameters.
+     * @return @f$\theta_L(\nu N)@f$
+     */     
+    double LEThetaLnuNApprox() const;
+
+    /**
+     * @brief The effective neutrino nucleon RH parameter: ThetaRnuN
+     * @details This function is based on the approximate formula for the
+     * parameter, obtained fitting the ZFitter predictions to a semi-
+     * analytical expression as function of the SM parameters.
+     * @return @f$\theta_R(\nu N)@f$
+     */     
+    double LEThetaRnuNApprox() const;
+    
+    /**
+     * @brief The effective (muon) neutrino-electron vector coupling: gVnue
+     * @details This function is based on the approximate formula for the
+     * coupling, obtained fitting the SM predictions to a semi-
+     * analytical expression as function of the SM parameters.
+     * @return @f$g_V^{\nu_\mu e}@f$
+     */
+    double LEgVnueApprox() const;
+    
+    /**
+     * @brief The effective (muon) neutrino-electron axial-vector coupling: gAnue
+     * @details This function is based on the approximate formula for the
+     * coupling, obtained fitting the SM predictions to a semi-
+     * analytical expression as function of the SM parameters.
+     * @return @f$g_A^{\nu_\mu e}@f$
+     */
+    double LEgAnueApprox() const;
     
     ////////////////////////////////////////////////////////////////////////
 
