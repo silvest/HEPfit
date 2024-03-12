@@ -1981,7 +1981,7 @@ public:
     /**
      * @brief The effective neutrino nucleon LH coupling: gLnuN2
      * @details
-     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * For the moment using the value reported by the PDG 2023.
      * @return @f$g_L^2(\nu N)@f$
      */
       virtual double gLnuN2() const;
@@ -1990,34 +1990,16 @@ public:
     /**
      * @brief The effective neutrino nucleon RH coupling: gRnuN2
      * @details
-     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * For the moment using the value reported by the PDG 2023.
      * @return @f$g_R^2(\nu N)@f$
      */
       virtual double gRnuN2() const;
-      
-
-    /**
-     * @brief The effective neutrino nucleon LH parameter: ThetaLnuN
-     * @details
-     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
-     * @return @f$\theta_L(\nu N)@f$
-     */
-      virtual double ThetaLnuN() const;
-  
-      
-    /**
-     * @brief The effective neutrino nucleon RH parameter: ThetaRnuN
-     * @details
-     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
-     * @return @f$\theta_R(\nu N)@f$
-     */
-      virtual double ThetaRnuN() const;
       
       
     /**
      * @brief The effective (muon) neutrino-electron vector coupling: gVnue
      * @details
-     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * For the moment using the value reported by the PDG 2023.
      * @return @f$g_V^{\nu_\mu e}@f$
      */
       virtual double gVnue() const;
@@ -2026,7 +2008,7 @@ public:
     /**
      * @brief The effective (muon) neutrino-electron axial-vector coupling: gAnue
      * @details
-     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * For the moment using the value reported by the PDG 2023.
      * @return @f$g_A^{\nu_\mu e}@f$
      */
       virtual double gAnue() const;

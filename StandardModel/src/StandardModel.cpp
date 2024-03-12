@@ -3016,83 +3016,49 @@ double StandardModel::Qwn() const
 
 
 double StandardModel::gLnuN2() const
-{    
-    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
-    if (!IsFlagNoApproximateGammaZ()){
-            
-    /* SM contribution with the approximate formula */
-        return (myApproximateFormulae->LEgLnuN2Approx());
-
-    } else {
-        throw std::runtime_error("ERROR: StandardModel::gLnuN2, prediction implemented only via semianalytical approximate formula. Check flags!");
-    }      
+{
+      //      Definitions
+      double gL2;
+      
+      gL2 = 0.3457*0.3457 + (-0.4288)*(-0.4288);
+      
+      return gL2;
+      
 }
 
 
 double StandardModel::gRnuN2() const
 {
-    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
-    if (!IsFlagNoApproximateGammaZ()){
-            
-    /* SM contribution with the approximate formula */
-        return (myApproximateFormulae->LEgRnuN2Approx());
-
-    } else {
-        throw std::runtime_error("ERROR: StandardModel::gRnuN2, prediction implemented only via semianalytical approximate formula. Check flags!");
-    }   
+      //      Definitions
+      double gR2;
+      
+      gR2 = (-0.1553)*(-0.1553) + (0.0777)*(0.0777);
+      
+      return gR2;
+      
 }
 
-double StandardModel::ThetaLnuN() const
-{
-    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
-    if (!IsFlagNoApproximateGammaZ()){
-            
-    /* SM contribution with the approximate formula */
-        return (myApproximateFormulae->LEThetaLnuNApprox());
-
-    } else {
-        throw std::runtime_error("ERROR: StandardModel::ThetaLnuN, prediction implemented only via semianalytical approximate formula. Check flags!");
-    }   
-}
-
-
-double StandardModel::ThetaRnuN() const
-{
-    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
-    if (!IsFlagNoApproximateGammaZ()){
-            
-    /* SM contribution with the approximate formula */
-        return (myApproximateFormulae->LEThetaRnuNApprox());
-
-    } else {
-        throw std::runtime_error("ERROR: StandardModel::ThetaRnuN, prediction implemented only via semianalytical approximate formula. Check flags!");
-    }   
-}
 
 double StandardModel::gVnue() const
 {
-    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
-    if (!IsFlagNoApproximateGammaZ()){
-            
-    /* SM contribution with the approximate formula */
-        return (myApproximateFormulae->LEgVnueApprox());
-
-    } else {
-        throw std::runtime_error("ERROR: StandardModel::gVnue, prediction implemented only via semianalytical approximate formula. Check flags!");
-    }   
+      //      Definitions
+      double gV;
+      
+      gV = -0.0397;
+      
+      return gV;
+      
 }
 
 double StandardModel::gAnue() const
 {
-    // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
-    if (!IsFlagNoApproximateGammaZ()){
-            
-    /* SM contribution with the approximate formula */
-        return (myApproximateFormulae->LEgAnueApprox());
-
-    } else {
-        throw std::runtime_error("ERROR: StandardModel::gAnue, prediction implemented only via semianalytical approximate formula. Check flags!");
-    }   
+      //      Definitions
+      double gA;
+      
+      gA = -0.5064;
+      
+      return gA;
+      
 }
 
 /* BEGIN: REMOVE FROM THE PACKAGE */
