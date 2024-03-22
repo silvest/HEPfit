@@ -624,8 +624,8 @@ public:
     }
     
     /**
-     * @brief For getting the subleading bag parameters corresponding
-     * to the operator basis \f$\widetilde{R}_1, R_1 - R_3\f$ in \f$\Delta b = 2\f$
+     * @brief For getting the subleading bag parameters
+     * \f$R_2 - R_3\f$ in \f$\Delta b = 2\f$
      * process in the \f$B_d\f$ meson system.
      * @return the vector of bag parameters
      */
@@ -635,8 +635,8 @@ public:
     }  
     
     /**
-     * @brief For getting the subleading bag parameters corresponding
-     * to the operator basis \f$\widetilde{R}_1, R_1 - R_3\f$ in \f$\Delta b = 2\f$
+     * @brief For getting the subleading bag parameters
+     * \f$R_2 - R_3\f$ in \f$\Delta b = 2\f$
      * process in the \f$B_s\f$ meson system.
      * @return the vector of bag parameters
      */
