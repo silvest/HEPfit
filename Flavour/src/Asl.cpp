@@ -219,3 +219,69 @@ Asl_s_MSbar_NLO_tradBasis::~Asl_s_MSbar_NLO_tradBasis() {
 double Asl_s_MSbar_NLO_tradBasis::computeThValue() {
     return -getGamma21overM21_Bs_tradBasis(FULLNLO).imag();
 }
+
+Asl_s_MSbar_RI::Asl_s_MSbar_RI(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, false, true) {
+}
+
+Asl_s_MSbar_RI::~Asl_s_MSbar_RI() {
+}
+
+double Asl_s_MSbar_RI::computeThValue() {
+    return -getGamma21overM21_Bs_tradBasis(FULLNLO).imag();
+}
+
+Asl_s_MSbar_NLO_RI::Asl_s_MSbar_NLO_RI(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, false, true) {
+}
+
+Asl_s_MSbar_NLO_RI::~Asl_s_MSbar_NLO_RI() {
+}
+
+double Asl_s_MSbar_NLO_RI::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNLO, MSbar).imag();
+}
+
+Asl_s_PS_RI::Asl_s_PS_RI(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, false, true) {
+}
+
+Asl_s_PS_RI::~Asl_s_PS_RI() {
+}
+
+double Asl_s_PS_RI::computeThValue() {
+    return -getGamma21overM21_Bs_tradBasis(FULLNLO).imag();
+}
+
+Asl_s_PS_NLO_RI::Asl_s_PS_NLO_RI(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i, false, true) {
+}
+
+Asl_s_PS_NLO_RI::~Asl_s_PS_NLO_RI() {
+}
+
+double Asl_s_PS_NLO_RI::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNLO, PS).imag();
+}
+
+Asl_s_MSbar_takeall::Asl_s_MSbar_takeall(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i) {
+}
+
+Asl_s_MSbar_takeall::~Asl_s_MSbar_takeall() {
+}
+
+double Asl_s_MSbar_takeall::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNNLO, MSbar_takeall).imag();
+}
+
+Asl_s_PS_takeall::Asl_s_PS_takeall(const StandardModel& SM_i)
+: ThObservable(SM_i), AmpDB2(SM_i) {
+}
+
+Asl_s_PS_takeall::~Asl_s_PS_takeall() {
+}
+
+double Asl_s_PS_takeall::computeThValue() {
+    return -getGamma21overM21_Bs(FULLNNNLO, PS_takeall).imag();
+}
