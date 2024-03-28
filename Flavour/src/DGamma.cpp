@@ -243,14 +243,14 @@ double DGamma_s_NLO_tradBasis::computeThValue() {
 
 DGamma_d_LO_tradBasis::DGamma_d_LO_tradBasis(const StandardModel& SM_i)
 : ThObservable(SM_i), AmpDB2(SM_i) {
-    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
+    setParametersForObservable(make_vector<std::string>() << "DmBd_ex" );
 }
 
 DGamma_d_LO_tradBasis::~DGamma_d_LO_tradBasis() {
 }
 
 double DGamma_d_LO_tradBasis::computeThValue() {
-    return -getGamma21overM21_Bd_tradBasis(LO).real() * SM.getOptionalParameter("DmBs_ex");
+    return -getGamma21overM21_Bd_tradBasis(LO).real() * SM.getOptionalParameter("DmBd_ex");
 }
 
 DGamma_s_LO_tradBasis::DGamma_s_LO_tradBasis(const StandardModel& SM_i)

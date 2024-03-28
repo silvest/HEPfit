@@ -989,10 +989,10 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, qu
     //switch to another scheme if needed    
     if (mass_scheme == MSbar) { poletoMSbar_pp_s();
     } else if (mass_scheme == PS) { poletoPS_pp_s();
-    } else if (mass_scheme == pole) {
+    } else if (mass_scheme == pole or mass_scheme == only1overmb) {
     } else if (mass_scheme == MSbar_takeall) { poletoMSbar_pp_s_takeall();
     } else if (mass_scheme == PS_takeall) { poletoPS_pp_s_takeall();
-    } else { throw(std::runtime_error("mass_scheme not implemented"));
+    } else { std::cerr << "WARNING: mass_scheme might no be implemented.\n";
     }
     
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_(quark)"    
@@ -1050,11 +1050,11 @@ gslpp::vector<gslpp::complex> AmpDB2::c_H(quark q, orders order){
         result += as_4pi_mu2 * coeffsMStoRI.transpose() * result;
         //return to tradBasis + FULLNLO
         result.assign(0, result(0) - 0.5 * result(1) +
-            -lambda_c*lambda_c * H(cc, FULLNLO) - 2. * lambda_c*lambda_u * H(cu, FULLNLO) - lambda_u*lambda_u * H(uu, FULLNLO));
+            -lambda_c*lambda_c * H(cc, NLO) - 2. * lambda_c*lambda_u * H(cu, NLO) - lambda_u*lambda_u * H(uu, NLO));
         result.assign(2, -result(1) + 
-            -lambda_c*lambda_c * H_s(cc, FULLNLO) - 2. * lambda_c*lambda_u * H_s(cu, FULLNLO) - lambda_u*lambda_u * H_s(uu, FULLNLO));
+            -lambda_c*lambda_c * H_s(cc, NLO) - 2. * lambda_c*lambda_u * H_s(cu, NLO) - lambda_u*lambda_u * H_s(uu, NLO));
         result.assign(1, 0.);
-    return result;
+        return result;
     }
     if (flag_RI and order!=LO) throw std::runtime_error("AmpDB2::c_H(quark q, orders order) order for RI not implemented");
     
@@ -1229,7 +1229,7 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
 
 
 double AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz){
-    if (n<0 and n>=768) throw(std::runtime_error("AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
+    if (n<0 or n>=768) throw(std::runtime_error("AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
     if (flag_LOz) {
         if (n>=576) throw(std::runtime_error("AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
         return cache_p_LO[index_p(qq, i, j, n)];
@@ -1237,7 +1237,7 @@ double AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz){
     return cache_p[index_p(qq, i, j, n)];
 }
 double AmpDB2::p_s(quarks qq, int i, int j, int n, bool flag_LOz){
-    if (n<0 and n>=768) throw(std::runtime_error("AmpDB2::p_s(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
+    if (n<0 or n>=768) throw(std::runtime_error("AmpDB2::p_s(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
     if (flag_LOz) {
         if (n>=576) throw(std::runtime_error("AmpDB2::p_s(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
         return cache_ps_LO[index_p(qq, i, j, n)];
@@ -2200,17 +2200,20 @@ void AmpDB2::poletoMSbar_pp_s_takeall(){
             for (int j=i; j<=8; j++){
                 if(j==7) j++;
                 if (j<i) continue;
-                cache_p[index_p(qq, i, j, 3)] += 8. * PoletoMS_as1 * p(qq, i, j, 2)
+                cache_p[index_p(qq, i, j, 3)] = 8. * PoletoMS_as1 * p(qq, i, j, 2)
                         + (32. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
                             8.* PoletoMS_as1 * as_running1) * p(qq, i, j, 1)
                         + (128. * (PoletoMS_as3 + PoletoMS_as1 * PoletoMS_as2) +
                             8.* PoletoMS_as1 * as_running2 + 32.* PoletoMS_as2 * as_running1) * p(qq, i, j, 0);
-                cache_ps[index_p(qq, i, j, 3)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 2)
+                cache_ps[index_p(qq, i, j, 3)] = 8. * PoletoMS_as1 * p_s(qq, i, j, 2)
                         + (32. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
                             8.* PoletoMS_as1 * as_running1) * p_s(qq, i, j, 1)
                         + (128. * (PoletoMS_as3 + PoletoMS_as1 * PoletoMS_as2) +
                             8.* PoletoMS_as1 * as_running2 + 32.* PoletoMS_as2 * as_running1) * p_s(qq, i, j, 0);
-                
+                if (j>=3 and j<=6) {
+                    cache_p[index_p(qq, i, j, 2)] = 0.;
+                    cache_ps[index_p(qq, i, j, 2)] = 0.;
+                }
                 cache_p[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p(qq, i, j, 1)
                         + (32. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
                             8.* PoletoMS_as1 * as_running1) * p(qq, i, j, 0);
@@ -2257,7 +2260,7 @@ void AmpDB2::poletoPS_pp_s_takeall(){
             for (int j=i; j<=8; j++){
                 if(j==7) j++;
                 if (j<i) continue;
-                cache_p[index_p(qq, i, j, 3)] += 8. * PoletoPS_as1 * p(qq, i, j, 2)
+                cache_p[index_p(qq, i, j, 3)] = 8. * PoletoPS_as1 * p(qq, i, j, 2)
                         + (32. * PoletoPS_as2 + 16.* PoletoPS_as1_2 +
                             8.* PoletoPS_as1 * as_running1 -
                             8.* PoletoPS_as1 * 4. * (-PoletoPS_as1 + PoletoMS_as1)) * p(qq, i, j, 1)
@@ -2267,7 +2270,7 @@ void AmpDB2::poletoPS_pp_s_takeall(){
                             (-PoletoPS_as2 + PoletoMS_as2) * 128. * PoletoPS_as1 +
                             (32. * PoletoPS_as1_2 + 64. * PoletoPS_as2) * as_running1 +
                             8. * PoletoPS_as1 * as_running2) * p(qq, i, j, 0);
-                cache_ps[index_p(qq, i, j, 3)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 2)
+                cache_ps[index_p(qq, i, j, 3)] = 8. * PoletoPS_as1 * p_s(qq, i, j, 2)
                         + (32. * PoletoPS_as2 + 16.* PoletoPS_as1_2 +
                            8.* PoletoPS_as1 * as_running1 -
                            8.* PoletoPS_as1 * 4. * (-PoletoPS_as1 + PoletoMS_as1)) * p_s(qq, i, j, 1)
@@ -2277,7 +2280,10 @@ void AmpDB2::poletoPS_pp_s_takeall(){
                             (-PoletoPS_as2 + PoletoMS_as2) * 128. * PoletoPS_as1 +
                             (32. * PoletoPS_as1_2 + 64. * PoletoPS_as2) * as_running1 +
                             8. * PoletoPS_as1 * as_running2) * p_s(qq, i, j, 0);
-                        
+                if (j>=3 and j<=6) {
+                    cache_p[index_p(qq, i, j, 2)] = 0.;
+                    cache_ps[index_p(qq, i, j, 2)] = 0.;
+                }        
                 cache_p[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p(qq, i, j, 1)
                         + (32. * PoletoPS_as2 + 16.* PoletoPS_as1_2 +
                             8.* PoletoPS_as1 * as_running1 -
