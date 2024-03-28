@@ -11,6 +11,9 @@
 #include "NPSMEFTd6General.h"
 #include "ThObservable.h"
 
+#include "PVfunctions.h"
+
+
 class TopQuarkObservables {
 public:
 
@@ -99,7 +102,8 @@ private:
         
         
         const TopQuarkObservables mytopobs;
-
+        
+//        const PVfunctions PV;
     };
 
 
@@ -1273,8 +1277,8 @@ private:
 
     const TopQuarkObservables mytopobs;
 
-
     
+
     };
     
     

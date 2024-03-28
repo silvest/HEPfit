@@ -3978,6 +3978,7 @@ ThObsFactory::ThObsFactory()
     
     
     //Now that the map is defined these lines should be useless. Remove them and check that is fine
+    /*
     obsThFactory["C_phit"] = boost::factory<C_phit*>();
     obsThFactory["C_phiQ3"] = boost::factory<C_phiQ3*>();
     obsThFactory["C_phiQ1"] = boost::factory<C_phiQ1*>();
@@ -4010,6 +4011,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["C_Qq38"] = boost::factory<C_Qq38*>();
     obsThFactory["C_Qu8"] = boost::factory<C_Qu8*>();
     obsThFactory["C_Qd8"] = boost::factory<C_Qd8*>();
+    */
    ///////////////////////////////////////////////////////////////////////////////////
     
     
@@ -4039,6 +4041,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["SigmattbarTev"] = boost::factory<sigmattbarTev*>();        
             
             
+    
+    
+    obsThFactory["sigma_Z_pole_bb"] = boost::factory<sigma_Z_pole_bb*>();
+    obsThFactory["a_Z_pole_bb"] = boost::factory<a_Z_pole_bb*>();
+    obsThFactory["sigma_240_bb"] = boost::factory<sigma_240_bb*>();
+    obsThFactory["a_240_bb"] = boost::factory<a_240_bb*>();
+    obsThFactory["sigma_360_bb"] = boost::factory<sigma_360_bb*>();
+    obsThFactory["a_360_bb"] = boost::factory<a_360_bb*>();
+    
+    
+    
+    
     obsThFactory["sigma_250_bb_eLpR"] = boost::factory<sigma_250_bb_eLpR*>();
     obsThFactory["a_250_bb_eLpR"] = boost::factory<a_250_bb_eLpR*>();
     obsThFactory["sigma_250_bb_eRpL"] = boost::factory<sigma_250_bb_eRpL*>();
@@ -4082,6 +4096,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["sigma_ttll_diff_LO"] = boost::factory<sigma_ttll_diff_LO*>();
     
     
+    //Muon Collider
+    
+    obsThFactory["sigma_mumu_VBF_3TeV_tt"] = boost::factory<sigma_mumu_VBF_3TeV_tt*>();
+    obsThFactory["sigma_mumu_VBF_10TeV_tt"] = boost::factory<sigma_mumu_VBF_10TeV_tt*>();
+    obsThFactory["sigma_mumu_VBF_30TeV_tt"] = boost::factory<sigma_mumu_VBF_30TeV_tt*>();
+    
+    
+    
+    
     //OPTIMIZED OBSERVABLES
     //I don't really like this implementation, these constraints should be included in the prior,
     //as we do now (from 2022). Remove this also in the code and check everything is fine
@@ -4107,6 +4130,8 @@ ThObsFactory::ThObsFactory()
    obsThFactory["gRb"] = boost::factory<gRb*>();
 
 
+   
+   
    
    //----- TopQuarkObservables begin -----
    
