@@ -39538,11 +39538,12 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
     }; 
 
     
-    double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double s, const double t, const double u) const
+    double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double s, const double cos) const
     {
-        //  Only valid for f=/=e
         double sumM2, dsigma;
         double topb = 0.3894e+9;
+        
+        double t,u;
         
         double Nf;
         
@@ -39551,6 +39552,10 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         } else {
             Nf = 3.0;
         }
+        
+        // Values of t and u, assuming massless final state fermions
+        t = -0.5 * s * (1.0 - cos);
+        u = -0.5 * s * (1.0 + cos); 
         
         sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * t*t/s/s
                 + (deltaMLL2_f(f, s, t) + deltaMRR2_f(f, s, t)) * u*u/s/s;

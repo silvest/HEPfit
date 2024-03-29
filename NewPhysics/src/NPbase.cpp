@@ -1133,6 +1133,12 @@ double NPbase::N_nu() const
 
 //LEP2 Observables
 
+       
+double NPbase::delta_Dsigma_f(const Particle f, const double s, const double cos) const
+{
+    return 0.0;
+}
+
 double NPbase::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const
 {
     return 0.0;
@@ -1210,6 +1216,21 @@ double NPbase::LEP2Rcharm(const double s) const
 double NPbase::LEP2Rbottom(const double s) const
 {
     return (trueSM.LEP2Rbottom(s));
+}
+
+double NPbase::LEP2dsigmadcosE(const double s, const double cos) const
+{
+    return (trueSM.LEP2dsigmadcosE(s,cos) + delta_Dsigma_f(leptons[ELECTRON], s, cos));
+}
+
+double NPbase::LEP2dsigmadcosMu(const double s, const double cos) const
+{
+    return (trueSM.LEP2dsigmadcosMu(s,cos) + delta_Dsigma_f(leptons[MU], s, cos) );
+}
+
+double NPbase::LEP2dsigmadcosTau(const double s, const double cos) const
+{
+    return (trueSM.LEP2dsigmadcosTau(s,cos) + delta_Dsigma_f(leptons[TAU], s, cos) );
 }
 
 

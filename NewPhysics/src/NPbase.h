@@ -4255,16 +4255,19 @@ public:
     //LEP2 Observables
     
     
+//  Absolute corrections to the differential cross section        
+    virtual double delta_Dsigma_f(const Particle f, const double s, const double cos) const;
+    
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
 //  Valid for f=/=e
-    double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
-    double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
+    virtual double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
+    virtual double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
     
 //  Total cross sections  (full acceptance)
-    double delta_sigmaTot_f(const Particle f, const double s) const;
+    virtual double delta_sigmaTot_f(const Particle f, const double s) const;
     
 //  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
-    double delta_AFB_f(const Particle f, const double s) const;
+    virtual double delta_AFB_f(const Particle f, const double s) const;
       
 //   Extension of SM observable definitions
     virtual double LEP2sigmaMu(const double s) const;
@@ -4280,6 +4283,10 @@ public:
     virtual double LEP2Rcharm(const double s) const;
     virtual double LEP2Rbottom(const double s) const;
     
+    //LEP2 Differential Observables
+    virtual double LEP2dsigmadcosE(const double s, const double cos) const;
+    virtual double LEP2dsigmadcosMu(const double s, const double cos) const;
+    virtual double LEP2dsigmadcosTau(const double s, const double cos) const;
     
     ////////////////////////////////////////////////////////////////////////     
     // EW low-energy observables: Muon g-2
