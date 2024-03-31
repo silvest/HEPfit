@@ -4142,6 +4142,7 @@ ThObsFactory::ThObsFactory()
    
    obsThFactory["sigma_tt_diff_LO"] = boost::factory<sigma_tt_diff_LO*>();
    
+   obsThFactory["sigma_ttz_diff_LO_CMS_190711270"] = boost::factory<sigma_ttz_diff_LO_CMS_190711270*>();
    obsThFactory["sigma_ttz_diff_LO_ATLAS_210312603"] = boost::factory<sigma_ttz_diff_LO_ATLAS_210312603*>();
    
    
