@@ -188,6 +188,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         CeeVLR = zero3333;
         CnuuVLR = zero3322;
         CnudVLR = zero3333;
+        CeuVLR = zero3322;
         CueVLR = zero2233;
         CedVLR = zero3333;
         CdeVLR = zero3333;
