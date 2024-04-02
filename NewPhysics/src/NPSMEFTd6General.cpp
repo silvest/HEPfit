@@ -38951,12 +38951,12 @@ double NPSMEFTd6General::CLL_e() const
 
 double NPSMEFTd6General::CLL_mu() const
 {
-    return (getSMEFTCoeffEW("CllR", 0, 0, 1, 1) + getSMEFTCoeffEW("CllR", 1, 1, 0, 0) + getSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getSMEFTCoeffEW("CllR", 1, 0, 0, 1));
+    return (getSMEFTCoeffEW("CllR", 0, 0, 1, 1) + getSMEFTCoeffEW("CllR", 0, 1, 1, 0));
 }
 
 double NPSMEFTd6General::CLL_tau() const
 {
-    return (getSMEFTCoeffEW("CllR", 0, 0, 2, 2) + getSMEFTCoeffEW("CllR", 2, 2, 0, 0) + getSMEFTCoeffEW("CllR", 0, 2, 2, 0) + getSMEFTCoeffEW("CllR", 2, 0, 0, 2));
+    return (getSMEFTCoeffEW("CllR", 0, 0, 2, 2) + getSMEFTCoeffEW("CllR", 0, 2, 2, 0));
 }
 
 double NPSMEFTd6General::CLL_up() const
@@ -38971,17 +38971,17 @@ double NPSMEFTd6General::CLL_down() const
 
 double NPSMEFTd6General::CLL_charm() const
 {
-    return (getSMEFTCoeffEW("Clq1R", 0, 0, 1, 1) + getSMEFTCoeffEW("Clq1R", 1, 1, 0, 0) - getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1) - getSMEFTCoeffEW("Clq3R", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("Clq1R", 0, 0, 1, 1) - getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1));
 }
 
 double NPSMEFTd6General::CLL_strange() const
 {
-    return (getSMEFTCoeffEW("Clq1R", 0, 0, 1, 1) + getSMEFTCoeffEW("Clq1R", 1, 1, 0, 0) + getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1) + getSMEFTCoeffEW("Clq3R", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("Clq1R", 0, 0, 1, 1) + getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1));
 }
 
 double NPSMEFTd6General::CLL_bottom() const
 {
-    return (getSMEFTCoeffEW("Clq1R", 0, 0, 2, 2) + getSMEFTCoeffEW("Clq1R", 2, 2, 0, 0) + getSMEFTCoeffEW("Clq3R", 0, 0, 2, 2) + getSMEFTCoeffEW("Clq3R", 2, 2, 0, 0));
+    return (getSMEFTCoeffEW("Clq1R", 0, 0, 2, 2) + getSMEFTCoeffEW("Clq3R", 0, 0, 2, 2));
 }
 
 double NPSMEFTd6General::CLR_e() const
@@ -38991,12 +38991,12 @@ double NPSMEFTd6General::CLR_e() const
 
 double NPSMEFTd6General::CLR_mu() const
 {
-    return (getSMEFTCoeffEW("CleR", 0, 0, 1, 1) + getSMEFTCoeffEW("CleR", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("CleR", 0, 0, 1, 1));
 }
 
 double NPSMEFTd6General::CLR_tau() const
 {
-    return (getSMEFTCoeffEW("CleR", 0, 0, 2, 2) + getSMEFTCoeffEW("CleR", 2, 2, 0, 0));
+    return (getSMEFTCoeffEW("CleR", 0, 0, 2, 2));
 }
 
 double NPSMEFTd6General::CLR_up() const
@@ -39011,17 +39011,17 @@ double NPSMEFTd6General::CLR_down() const
 
 double NPSMEFTd6General::CLR_charm() const
 {
-    return (getSMEFTCoeffEW("CluR", 0, 0, 1, 1) + getSMEFTCoeffEW("CluR", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("CluR", 0, 0, 1, 1));
 }
 
 double NPSMEFTd6General::CLR_strange() const
 {
-    return (getSMEFTCoeffEW("CldR", 0, 0, 1, 1) + getSMEFTCoeffEW("CldR", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("CldR", 0, 0, 1, 1));
 }
 
 double NPSMEFTd6General::CLR_bottom() const
 {
-    return (getSMEFTCoeffEW("CldR", 0, 0, 2, 2) + getSMEFTCoeffEW("CldR", 2, 2, 0, 0));
+    return (getSMEFTCoeffEW("CldR", 0, 0, 2, 2) );
 }
 
 double NPSMEFTd6General::CRL_e() const
@@ -39032,37 +39032,37 @@ double NPSMEFTd6General::CRL_e() const
 
 double NPSMEFTd6General::CRL_mu() const
 {
-    return (getSMEFTCoeffEW("CleR", 0, 0, 1, 1) + getSMEFTCoeffEW("CleR", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("CleR", 1, 1, 0, 0));
 }
 
 double NPSMEFTd6General::CRL_tau() const
 {
-    return (getSMEFTCoeffEW("CleR", 0, 0, 2, 2) + getSMEFTCoeffEW("CleR", 2, 2, 0, 0));
+    return (getSMEFTCoeffEW("CleR", 2, 2, 0, 0));
 }
 
 double NPSMEFTd6General::CRL_up() const
 {
-    return (getSMEFTCoeffEW("CqeR", 0, 0, 1, 1));
+    return (getSMEFTCoeffEW("CqeR", 0, 0, 0, 0));
 }
 
 double NPSMEFTd6General::CRL_down() const
 {
-    return (getSMEFTCoeffEW("CqeR", 0, 0, 1, 1));
+    return (getSMEFTCoeffEW("CqeR", 0, 0, 0, 0));
 }
 
 double NPSMEFTd6General::CRL_charm() const
 {
-    return (getSMEFTCoeffEW("CqeR", 0, 0, 1, 1) + getSMEFTCoeffEW("CqeR", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("CqeR", 1, 1, 0, 0));
 }
 
 double NPSMEFTd6General::CRL_strange() const
 {
-    return (getSMEFTCoeffEW("CqeR", 0, 0, 1, 1) + getSMEFTCoeffEW("CqeR", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("CqeR", 1, 1, 0, 0));
 }
 
 double NPSMEFTd6General::CRL_bottom() const
 {
-    return (getSMEFTCoeffEW("CqeR", 0, 0, 2, 2) + getSMEFTCoeffEW("CqeR", 2, 2, 0, 0));
+    return (getSMEFTCoeffEW("CqeR", 2, 2, 0, 0));
 }
 
 double NPSMEFTd6General::CRR_e() const
@@ -39072,12 +39072,12 @@ double NPSMEFTd6General::CRR_e() const
 
 double NPSMEFTd6General::CRR_mu() const
 {
-    return (getSMEFTCoeffEW("CeeR", 0, 0, 1, 1) + getSMEFTCoeffEW("CeeR", 1, 1, 0, 0));
+    return (2.0 * getSMEFTCoeffEW("CeeR", 0, 0, 1, 1));
 }
 
 double NPSMEFTd6General::CRR_tau() const
 {
-    return (getSMEFTCoeffEW("CeeR", 0, 0, 2, 2) + getSMEFTCoeffEW("CeeR", 2, 2, 0, 0));
+    return (2.0 * getSMEFTCoeffEW("CeeR", 0, 0, 2, 2));
 }
 
 double NPSMEFTd6General::CRR_up() const
@@ -39092,17 +39092,17 @@ double NPSMEFTd6General::CRR_down() const
 
 double NPSMEFTd6General::CRR_charm() const
 {
-    return (getSMEFTCoeffEW("CeuR", 0, 0, 1, 1) + getSMEFTCoeffEW("CeuR", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("CeuR", 0, 0, 1, 1));
 }
 
 double NPSMEFTd6General::CRR_strange() const
 {
-    return (getSMEFTCoeffEW("CedR", 0, 0, 1, 1) + getSMEFTCoeffEW("CedR", 1, 1, 0, 0));
+    return (getSMEFTCoeffEW("CedR", 0, 0, 1, 1));
 }
 
 double NPSMEFTd6General::CRR_bottom() const
 {
-    return (getSMEFTCoeffEW("CedR", 0, 0, 2, 2) + getSMEFTCoeffEW("CedR", 2, 2, 0, 0));
+    return (getSMEFTCoeffEW("CedR", 0, 0, 2, 2));
 }
 
 
@@ -39565,7 +39565,7 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
             sumM2 = sumM2 + (deltaMLR2t_e(t) + deltaMRL2t_e(t)) * s*s/t/t;
         }
         
-        dsigma = Nf * 16 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
+        dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
         
         return topb * dsigma;
     };
@@ -39588,7 +39588,7 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * tovers2(cosmin, cosmax)
                 + (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm)) * uovers2(cosmin, cosmax);
         
-        dsigma = Nf * 16 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
+        dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
         
         return topb * dsigma;
     };
@@ -39704,8 +39704,8 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         
         double dCeeVRR1111, dCeeVLL1111; // NP corrections to LEFT operators at low energy 
         
-        dCeeVRR1111 = (getMatching().getCeeVRR(1,1,1,1)).real();
-        dCeeVLL1111 = (getMatching().getCeeVLL(1,1,1,1)).real(); //RGE effects very small
+        dCeeVRR1111 = (getMatching().getCeeVRR(0,0,0,0)).real();
+        dCeeVLL1111 = (getMatching().getCeeVLL(0,0,0,0)).real(); //RGE effects very small
         
         // Modification in terms of the LEFT basis (at low energies)
         deltaCe= (1./GF/sqrt(2.)) * ( dCeeVRR1111 - dCeeVLL1111 );
@@ -39742,15 +39742,15 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
         double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
         
-        dCeuVLL1111 = (getMatching().getCeuVLL(1,1,1,1)).real();
-        dCeuVRR1111 = (getMatching().getCeuVRR(1,1,1,1)).real();
-        dCeuVLR1111 = (getMatching().getCeuVLR(1,1,1,1)).real();
-        dCueVLR1111 = (getMatching().getCueVLR(1,1,1,1)).real(); //RGE effects very small
+        dCeuVLL1111 = (getMatching().getCeuVLL(0,0,0,0)).real();
+        dCeuVRR1111 = (getMatching().getCeuVRR(0,0,0,0)).real();
+        dCeuVLR1111 = (getMatching().getCeuVLR(0,0,0,0)).real();
+        dCueVLR1111 = (getMatching().getCueVLR(0,0,0,0)).real(); //RGE effects very small
         
-        dCedVLL1111 = (getMatching().getCedVLL(1,1,1,1)).real();
-        dCedVRR1111 = (getMatching().getCedVRR(1,1,1,1)).real();
-        dCedVLR1111 = (getMatching().getCedVLR(1,1,1,1)).real();
-        dCdeVLR1111 = (getMatching().getCdeVLR(1,1,1,1)).real(); //RGE effects very small
+        dCedVLL1111 = (getMatching().getCedVLL(0,0,0,0)).real();
+        dCedVRR1111 = (getMatching().getCedVRR(0,0,0,0)).real();
+        dCedVLR1111 = (getMatching().getCedVLR(0,0,0,0)).real();
+        dCdeVLR1111 = (getMatching().getCdeVLR(0,0,0,0)).real(); //RGE effects very small
         
         // Modification in terms of the LEFT basis (at low energies)
         deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
@@ -39771,15 +39771,15 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
         double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
         
-        dCeuVLL1111 = (getMatching().getCeuVLL(1,1,1,1)).real();
-        dCeuVRR1111 = (getMatching().getCeuVRR(1,1,1,1)).real();
-        dCeuVLR1111 = (getMatching().getCeuVLR(1,1,1,1)).real();
-        dCueVLR1111 = (getMatching().getCueVLR(1,1,1,1)).real(); //RGE effects very small
+        dCeuVLL1111 = (getMatching().getCeuVLL(0,0,0,0)).real();
+        dCeuVRR1111 = (getMatching().getCeuVRR(0,0,0,0)).real();
+        dCeuVLR1111 = (getMatching().getCeuVLR(0,0,0,0)).real();
+        dCueVLR1111 = (getMatching().getCueVLR(0,0,0,0)).real(); //RGE effects very small
         
-        dCedVLL1111 = (getMatching().getCedVLL(1,1,1,1)).real();
-        dCedVRR1111 = (getMatching().getCedVRR(1,1,1,1)).real();
-        dCedVLR1111 = (getMatching().getCedVLR(1,1,1,1)).real();
-        dCdeVLR1111 = (getMatching().getCdeVLR(1,1,1,1)).real(); //RGE effects very small
+        dCedVLL1111 = (getMatching().getCedVLL(0,0,0,0)).real();
+        dCedVRR1111 = (getMatching().getCedVRR(0,0,0,0)).real();
+        dCedVLR1111 = (getMatching().getCedVLR(0,0,0,0)).real();
+        dCdeVLR1111 = (getMatching().getCdeVLR(0,0,0,0)).real(); //RGE effects very small
         
         // Modification in terms of the LEFT basis (at low energies)
         deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
@@ -39802,12 +39802,12 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         eLdSM = 2.0*gZvL*gZdL;
                 
         // Scattering is with muon neutrinos -> only (22) interfere
-        deLu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLL(2,2,1,1)).real();
-        deLd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLL(2,2,1,1)).real();
+        deLu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLL(1,1,0,0)).real();
+        deLd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLL(1,1,0,0)).real();
         
         Vud=0.97373; // PDG 2023
         
-        dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(2,2,1,1))/Vud).real();
+        dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(1,1,0,0))/Vud).real();
         
         delta = 2.0*(eLuSM*deLu + eLdSM*deLd) + (trueSM.gLnuN2())*(-dFCC);
         
@@ -39825,12 +39825,12 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         eRdSM = 2.0*gZvL*gZdR;
         
         // Scattering is with muon neutrinos -> only (22) interfere
-        deRu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLR(2,2,1,1)).real();
-        deRd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLR(2,2,1,1)).real();
+        deRu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLR(1,1,0,0)).real();
+        deRd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLR(1,1,0,0)).real();
         
         Vud=0.97373; // PDG 2023
         
-        dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(2,2,1,1))/Vud).real();
+        dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(1,1,0,0))/Vud).real();
         
         delta = 2.0*(eRuSM*deRu + eRdSM*deRd) + (trueSM.gRnuN2())*(-dFCC);
         
@@ -39841,8 +39841,8 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
     {
         double dCnueVLL2211, dCnueVLR2211, delta;
         
-        dCnueVLL2211 = (getMatching().getCnueVLL(2,2,1,1)).real();
-        dCnueVLR2211 = (getMatching().getCnueVLR(2,2,1,1)).real();
+        dCnueVLL2211 = (getMatching().getCnueVLL(1,1,0,0)).real();
+        dCnueVLR2211 = (getMatching().getCnueVLR(1,1,0,0)).real();
 
         // Modification in terms of the LEFT basis (at low energies)        
         delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL2211 + dCnueVLR2211);
@@ -39854,8 +39854,8 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
     {
         double dCnueVLL2211, dCnueVLR2211, delta;
         
-        dCnueVLL2211 = (getMatching().getCnueVLL(2,2,1,1)).real();
-        dCnueVLR2211 = (getMatching().getCnueVLR(2,2,1,1)).real();
+        dCnueVLL2211 = (getMatching().getCnueVLL(1,1,0,0)).real();
+        dCnueVLR2211 = (getMatching().getCnueVLR(1,1,0,0)).real();
 
         // Modification in terms of the LEFT basis (at low energies)        
         delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL2211 - dCnueVLR2211);
