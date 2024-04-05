@@ -10,9 +10,10 @@
 #include "HeffDF2.h"
 #include <chrono>
 
-AmpDB2::AmpDB2(const StandardModel& SM_i, bool flag_fixmub, bool flag_RI)
+AmpDB2::AmpDB2(const StandardModel& SM_i, int BMeson_i, bool flag_fixmub, bool flag_RI)
 : mySM(SM_i), meMStoRI(5, 0.), coeffsMStoRI(3, 0.)
 {
+    BMeson = BMeson_i;
     mySM.initializeBParameter("BBs");
     mySM.initializeBParameter("BBd");
     mySM.initializeBParameter("BBs_subleading");
@@ -88,6 +89,58 @@ gslpp::complex AmpDB2::RBs(orders order)
             return ((*(allcoeff[LO])) * me / HCUT);
         default:
             throw std::runtime_error("RBs::RBs(): order not implemented");
+    }
+}
+
+gslpp::complex AmpDB2::RBd(orders order)
+{
+    mySM.getFlavour().getHDF2().getCoeffBd().getOrder();
+    if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < getHighest(order))
+        throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
+
+    gslpp::vector<gslpp::complex> ** allcoeff_SM = mySM.getFlavour().ComputeCoeffBd(
+            mySM.getBBd().getMu(),
+            mySM.getBBd().getScheme(), true);
+    
+    C_1_SM = ((*(allcoeff_SM[LO]))(0) + (*(allcoeff_SM[NLO]))(0));
+    
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd(
+            mySM.getBBd().getMu(),
+            mySM.getBBd().getScheme());
+
+    gslpp::vector<double> me(mySM.getBBd().getBpars());
+    double MBd = mySM.getMesons(QCD::B_D).getMass();
+    double Mb = mySM.Mrun(mySM.getBBd().getMu(),
+            mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
+            mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+    double Md = mySM.Mrun(mySM.getBBd().getMu(),
+                mySM.getQuarks(QCD::DOWN).getMass_scale(),
+                mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+    double KBd = MBd/(Mb+Md)*MBd/(Mb+Md);
+    double Fbd = mySM.getMesons(QCD::B_D).getDecayconst();
+    me(0) *= 1./3.*MBd*Fbd*Fbd;
+    me(1) *= -5./24.*KBd*MBd*Fbd*Fbd;
+    me(2) *= 1./24.*KBd*MBd*Fbd*Fbd;
+    me(3) *= 1./4.*KBd*MBd*Fbd*Fbd;
+    me(4) *= 1./12.*KBd*MBd*Fbd*Fbd;
+
+    /*std::cout << "low scale :" << std::endl << std::endl;
+    std::cout << "C1_SM :" << C_1_SM << std::endl << std::endl;
+    
+    std::cout << "C1 :" << ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0)) << std::endl;
+    std::cout << "C2 :" << ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1)) << std::endl;
+    std::cout << "C3 :" << ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2)) << std::endl;
+    std::cout << "C4 :" << ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3)) << std::endl;
+    std::cout << "C5 :" << ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4)) << std::endl << std::endl;*/
+
+    switch (order) {
+        case FULLNLO:
+            return (*(allcoeff[LO]) + *(allcoeff[NLO])) * me /
+                    (C_1_SM * me(0));
+        case LO:
+            return ((*(allcoeff[LO])) * me / HCUT);
+        default:
+            throw std::runtime_error("RBd::RBd(): order not implemented");
     }
 }
 
