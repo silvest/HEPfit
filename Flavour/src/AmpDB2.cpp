@@ -205,7 +205,7 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q){
     gslpp::complex M21overme0 = ((*(M21overme0_times_8MB[LO]))(0) + (*(M21overme0_times_8MB[NLO]))(0)) / (8. * MBq);
   
     //calculate DB=1 Wilson coefficients
-    computeWilsonCoeffsDB1bsg(); 
+    computeWilsonCoeffsBuras(); 
     
     //calculate DB=2 coefficients for usage of "c(quark)"
     computeF0();
@@ -383,20 +383,20 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     return;
 }
 
-void AmpDB2::computeWilsonCoeffsDB1bsg(){
+void AmpDB2::computeWilsonCoeffsBuras(){
     //NNLO DB=1 Wilson coefficients
-    gslpp::vector<gslpp::complex> ** WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1);
+    gslpp::vector<gslpp::complex> ** WilsonCoeffsBuras = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1);
     for (int i = 0; i < 8; i++) {
         if (i==6) i=7;
-        cacheC_LO[i] = (*(WilsonCoeffsDB1bsg[LO]))(i);
-        cacheC_NLO[i] = (*(WilsonCoeffsDB1bsg[NLO]))(i);
-        cacheC_NNLO[i] = (*(WilsonCoeffsDB1bsg[NNLO]))(i);
+        cacheC_LO[i] = (*(WilsonCoeffsBuras[LO]))(i);
+        cacheC_NLO[i] = (*(WilsonCoeffsBuras[NLO]))(i);
+        cacheC_NNLO[i] = (*(WilsonCoeffsBuras[NNLO]))(i);
     } 
     
     //LO DB=1 Wilson coefficients for 1/mb corrections
-    WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1_overm);    
-    C_1LO = (*(WilsonCoeffsDB1bsg[LO]))(0);
-    C_2LO = (*(WilsonCoeffsDB1bsg[LO]))(1);
+    WilsonCoeffsBuras = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1_overm);    
+    C_1LO = (*(WilsonCoeffsBuras[LO]))(0);
+    C_2LO = (*(WilsonCoeffsBuras[LO]))(1);
     K_1 = 3. * C_1LO * C_1LO + 2. * C_1LO * C_2LO;
     K_2 = C_2LO * C_2LO;
     return;
@@ -1011,7 +1011,7 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, qu
     } else {
         Gamma21overM21 = Mb2_prefactor * (c_H(q, order) * meoverme0).conjugate();
     }
-    computeWilsonCoeffsDB1bsg(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
+    computeWilsonCoeffsBuras(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
     Gamma21overM21 += Mb2_prefactor_1overm * delta_1overm(q)/me(0);
     Gamma21overM21 *= Gf2 / (24. * M_PI * MBq) / M21overme0;
     return Gamma21overM21;

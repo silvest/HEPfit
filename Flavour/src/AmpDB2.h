@@ -284,7 +284,7 @@ private:
 
     
     //Method to compute the DB=1 Wilson coefficients in the Buras basis to NNLO (arXiv:0401041)
-    void computeWilsonCoeffsDB1bsg();
+    void computeWilsonCoeffsBuras();
     
     //Method to compute the DB=1 Wilson coefficients in the Misiak basis to NNLO (hep-ph/9711280)    
     void computeWilsonCoeffsMisiak();
