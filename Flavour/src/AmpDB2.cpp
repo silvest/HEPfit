@@ -753,8 +753,8 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
     
     //switch matrix elements to RI scheme
     if (flag_RI) {
-        me += -as_4pi_mu2 * meMStoRI * me;
         me_R(0) = 0.5 * me(0) + me(1) + me(2);
+        if (order == FULLNLO) me += -as_4pi_mu2 * meMStoRI * me;
     }
     
     //matrix elements needed for the leading term of Gamma21overM21
@@ -996,14 +996,21 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, qu
     }
     
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_(quark)"    
-    compute_matrixelements(q, NNLO);
+    compute_matrixelements(q, FULLNLO);
     
     /* partial contribution without 1overm
     gslpp::vector<gslpp::complex> Gamma21overM21_partial = Mb2_prefactor * (c_H_partial(q, 0) + c_H_partial(q, 1) * me(1)/me(0) + c_H_partial(q, 2) * me(2)/me(0)).conjugate()
             * Gf2 / (24 * M_PI * MBq) / M21overme0; */
     
    //Gerlach thesis eq. 6.1 divided by M_21
-    gslpp::complex Gamma21overM21 = Mb2_prefactor * (c_H(q, order) * meoverme0).conjugate();
+    gslpp::complex Gamma21overM21 = 0.;
+    if (flag_RI) {
+            Gamma21overM21 = Mb2_prefactor * (c_H(q, LO) * meoverme0).conjugate();
+            //compute_matrixelements(q, LO); //minimal difference
+            Gamma21overM21 += Mb2_prefactor * (c_H(q, NLO) * meoverme0).conjugate();
+    } else {
+        Gamma21overM21 = Mb2_prefactor * (c_H(q, order) * meoverme0).conjugate();
+    }
     computeWilsonCoeffsDB1bsg(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
     Gamma21overM21 += Mb2_prefactor_1overm * delta_1overm(q)/me(0);
     Gamma21overM21 *= Gf2 / (24. * M_PI * MBq) / M21overme0;
@@ -1039,16 +1046,16 @@ gslpp::vector<gslpp::complex> AmpDB2::c_H(quark q, orders order){
         default:
             throw std::runtime_error("AmpDB2::c_H(quark q): invalid quark index: ");
     }
-    if (flag_RI and order==FULLNLO) {
+    if (flag_RI and order==NLO) {
         //LO transformed to the traditional basis
         result.assign(0, -lambda_c*lambda_c * H(cc, LO) - 2. * lambda_c*lambda_u * H(cu, LO) - lambda_u*lambda_u * H(uu, LO));
         result.assign(2, -lambda_c*lambda_c * H_s(cc, LO) - 2. * lambda_c*lambda_u * H_s(cu, LO) - lambda_u*lambda_u * H_s(uu, LO));
         result.assign(0, result(0) - 0.5 * result(2));
         result.assign(1, -result(2));
         result.assign(2, 0.);
-        //change to RI
-        result += as_4pi_mu2 * coeffsMStoRI.transpose() * result;
-        //return to tradBasis + FULLNLO
+        //only NLO change to RI
+        result = as_4pi_mu2 * coeffsMStoRI.transpose() * result;
+        //return to tradBasis + NLO
         result.assign(0, result(0) - 0.5 * result(1) +
             -lambda_c*lambda_c * H(cc, NLO) - 2. * lambda_c*lambda_u * H(cu, NLO) - lambda_u*lambda_u * H(uu, NLO));
         result.assign(2, -result(1) + 
