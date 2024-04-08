@@ -314,6 +314,101 @@ public:
     
     double computeThValue();
 };
- 
+
+class Asl_s_MSbar_RI : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_MSbar_RI(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_MSbar_RI();
+    
+    double computeThValue();
+};
+
+class Asl_s_MSbar_NLO_RI : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_MSbar_NLO_RI(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_MSbar_NLO_RI();
+    
+    double computeThValue();
+};
+
+class Asl_s_PS_RI : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_PS_RI(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_PS_RI();
+    
+    double computeThValue();
+};
+
+class Asl_s_PS_NLO_RI : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_PS_NLO_RI(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_PS_NLO_RI();
+    
+    double computeThValue();
+};
+
+class Asl_s_MSbar_takeall : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_MSbar_takeall(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_MSbar_takeall();
+    
+    double computeThValue();
+};
+
+class Asl_s_PS_takeall : public ThObservable, AmpDB2{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    Asl_s_PS_takeall(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Asl_s_PS_takeall();
+    
+    double computeThValue();
+}; 
 #endif /* ASL_H */
 

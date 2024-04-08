@@ -65,7 +65,9 @@ public:
         pole,
         MSbar,
         PS,
-        only1overmb
+        only1overmb, 
+        MSbar_takeall, 
+        PS_takeall
     }; // mass schemes
     enum quark
     {
@@ -181,21 +183,31 @@ private:
 
     // mathematical constants
 private:
+    //mathematical constants
+    const double M_PI2 = M_PI * M_PI;
+    const double M_PI3 = M_PI2 * M_PI;
+    const double M_PI4 = M_PI2 * M_PI2;
+    const double zeta2 = gslpp_special_functions::zeta(2);
     const double zeta3 = gslpp_special_functions::zeta(3);
+    const double zeta4 = gslpp_special_functions::zeta(4);
+    const double zeta5 = gslpp_special_functions::zeta(5);
     const double log2 = log(2);
+    const double log2_2 = log2 * log2;
+    const double log2_4 = log2_2 * log2_2;
     const double log3 = log(3);
     const double sqrt3 = sqrt(3);
     const double sqrt5 = sqrt(5);
     const double log12sqrt52 = log(0.5 + sqrt5 / 2.);
     const double t_2 = -0.389011713;   // Im(Dilog((3 - i*sqrt(3))/6)
     const double Cl2PI3 = 1.014941606; // Clausen(2, Pi/3)
-
-    double mu_1;       /*matching scale of DB=1 theory for leading order in 1/mb */
-    double mu_1_overm; /*matching scale of DB=1 theory for subleading order in 1/mb */
-    double mu_2;       /*matching scale of DB=2 theory */
-    double mu_b;       /*scale the running MSbar mass of the bottom quark */
-
-    gslpp::vector<double> me = gslpp::vector<double>(5, 0.);        /*DB=2 matrix elements in SUSY basis (arXiv:1907.01025v2) */
+    const double polylog4_12 = 0.517479062; //PolyLog[4, 1/2]
+    
+    double mu_1;        /*matching scale of DB=1 theory for leading order in 1/mb */
+    double mu_1_overm;  /*matching scale of DB=1 theory for subleading order in 1/mb */
+    double mu_2;        /*matching scale of DB=2 theory */
+    double mu_b;        /*scale the running MSbar mass of the bottom quark */
+    
+    gslpp::vector<double> me = gslpp::vector<double>(5, 0.); /*DB=2 matrix elements in SUSY basis (arXiv:1907.01025v2) */
     gslpp::vector<double> meoverme0 = gslpp::vector<double>(3, 0.); /*DB=2 matrix elements me(1),me(2),me(3) */
     gslpp::vector<double> me_R = gslpp::vector<double>(5, 0.);      /*subleading DB=2 matrix elements R_0 to R_3 (Gerlach thesis) and R_4 (hep-ph/0308029v2) */
     gslpp::vector<double> me_Rtilde = gslpp::vector<double>(3, 0.); /*subleading DB=2 matrix elements R_1 to R_3 (Gerlach thesis) */
@@ -231,25 +243,26 @@ private:
     // often used values
     double Gf2;
     double z;
-    double z2;           // z^2
-    double z3;           // z^3
-    double z4;           // z^4
-    double logz;         // log(z)
-    double log1minusz;   // log(1-z)
-    double log1minus4z;  // log(1-4z)
-    double oneminusz2;   //(1 - z)^2
+    double z2; //z^2
+    double z3; //z^3
+    double z4; //z^4
+    double sqrtz; //sqrt(z)
+    double logz; //log(z)
+    double log2z; //log(z^2)
+    double log1minusz; //log(1-z)
+    double log1minus4z; //log(1-4z)
+    double oneminusz2; //(1 - z)^2
     double sqrt1minus4z; //(1-4z)^(1/2)
-    double sigma;        //(1 - sqrt1minus4z)/(1 + sqrt1minus4z)
-    double logsigma;     // log(sigma)
-    double log2sigma;    // log^2(sigma)
-    double x_1;          // mu_1/Mb
-    double x_2;          // mu_2/Mb
-    double logx_1;       // log(x_1)
-    double logx_2;       // log(x_2)
-    double Dilogz;       // Li_2(z)
-    double Dilogsigma;   // Li_2(sigma)
-    double Dilogsigma2;  // Li_2(sigma^2)
-    const double M_PI2 = M_PI * M_PI;
+    double sigma; //(1 - sqrt1minus4z)/(1 + sqrt1minus4z)
+    double logsigma; //log(sigma)
+    double log2sigma; //log^2(sigma)
+    double x_1; //mu_1/Mb
+    double x_2; //mu_2/Mb
+    double logx_1; //log(x_1)
+    double logx_2; //log(x_2)
+    double Dilogz; //Li_2(z)
+    double Dilogsigma; //Li_2(sigma)
+    double Dilogsigma2; //Li_2(sigma^2)
     double as_4pi_mu1; //[alpha_s/(4Pi)](mu_1)
     double as_4pi_mu2; //[alpha_s/(4Pi)](mu_2)
     double as_4pi;     //[alpha_s/(4Pi)](mb(mb))
@@ -274,16 +287,21 @@ private:
 
     // parameters to calculate the bottom quark mass in the PS scheme (hep-ph/9804241)
     double mu_f = 2.;
-    double K = 13.44 - 1.04 * 4.;
-    double a1 = 31. / 3. - 10. / 9. * 4.;
-    double b0 = 11. - 2. * 4. / 3.;
+    double nl = 4.;
+    double a1 = 31./3. - 10./9. * nl;
+    double a2 = (4343./162. + 6.*M_PI2 - M_PI4/4. + 22./3. * zeta3) * 3. * 3. - (1798./81. + 56./3. * zeta3) * 3. * 0.5 * nl
+         - (55./3. - 16. * zeta3) * 4./3. * 0.5 * nl + 400./81. * 0.25 * nl * nl;
+    double b0 = 11. - 2. * nl/3.;
+    double b0_2 = b0 * b0;
+    double b1 = 102. - 38. * nl/3.;
+    
+/**********                 DB=1 Wilson coefficients               ************/
 
-    /**********                 DB=1 Wilson coefficients               ************/
-
-    // Method to compute the DB=1 Wilson coefficients in the Buras basis to NNLO (arXiv:0401041)
-    void computeWilsonCoeffsDB1bsg();
-
-    // Method to compute the DB=1 Wilson coefficients in the Misiak basis to NNLO (hep-ph/9711280)
+    
+    //Method to compute the DB=1 Wilson coefficients in the Buras basis to NNLO (arXiv:0401041)
+    void computeWilsonCoeffsBuras();
+    
+    //Method to compute the DB=1 Wilson coefficients in the Misiak basis to NNLO (hep-ph/9711280)    
     void computeWilsonCoeffsMisiak();
 
     gslpp::complex cacheC[8] = {0., 0., 0., 0., 0., 0., NAN, 0.};      /*FULLNNLO DB=1 Wilson coefficients C_i, i=1-6,8 */
@@ -329,11 +347,12 @@ private:
     int indexD(quarks qq, int k);
 
     /**
-     * @brief Values of DB=2 Wilson coefficients (hep-ph/0308029v2)
-     * @param[in] quark index of the neutral B mesons
-     * @param[in] order the %QCD order of the computation
-     * @detail requires computeCKMandMasses() and "D"
-     */
+    * @brief Values of DB=2 Wilson coefficients
+    * from (hep-ph/0308029v2) transformed to the new basis
+    * @param[in] quark index of the neutral B mesons
+    * @param[in] order the %QCD order for the transformations
+    * @detail requires computeCKMandMasses() and "D"
+    */
     gslpp::vector<gslpp::complex> c(quark q, orders order);
 
     /**
@@ -360,15 +379,13 @@ private:
     gslpp::complex lambda_u_d; /* V_ud* V_ub  */
     gslpp::complex lambda_c_s; /* V_cs* V_cb  */
     gslpp::complex lambda_u_s; /* V_us* V_ub  */
-
-    const double M_PI4 = M_PI2 * M_PI2;
-    bool orderofp[3] = {true, true, true}; /*signals if LO, NLO and NNLO contributions are used for DB=2 coefficients*/
-    gslpp::vector<gslpp::complex> transformation(gslpp::vector<gslpp::complex> result, orders order);
-
-    // Values of DB=2 Wilson coefficients (Gerlach thesis)
-    gslpp::vector<gslpp::complex> c_H(quark q, orders order); // require compute_pp_s and Wilson coefficients in Misiak basis
-    gslpp::complex H(quarks qq, orders order);                /*Values of contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
-    gslpp::complex H_s(quarks qq, orders order);              /*Values of contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
+    
+    gslpp::vector<gslpp::complex> transformation(gslpp::vector< gslpp::complex > result, orders order);
+    
+    //Values of DB=2 Wilson coefficients (Gerlach thesis)
+    gslpp::vector<gslpp::complex> c_H(quark q, orders order); //require compute_pp_s and Wilson coefficients in Misiak basis
+    gslpp::complex H(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_d (Gerlach thesis) */
+    gslpp::complex H_s(quarks qq, orders order); /*Values of contributions to the DB=2 Wilson coefficients for B_s (Gerlach thesis) */
 
     // Values of DB=2 Wilson coefficients (Gerlach thesis) separated for
     // C-12-12 (LO, NLO, NNLO), C-12-36 (LO, NLO), C-36-36 (LO, NLO),C-12-8 (LO, NLO), C-36-8 (LO, NLO), C-8-8 (LO)
@@ -382,11 +399,11 @@ private:
     double p(quarks qq, int i, int j, int n, bool flag_LOz = false);
     double p_s(quarks qq, int i, int j, int n, bool flag_LOz = false);
     double lastInput_compute_pp_s[4] = {NAN, NAN, NAN, NAN};
-
-    // Values of the coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
-    double cache_p[576] = {0.};
-    double cache_ps[576] = {0.};
-    // Values of the coefficient functions in LO in z needed for DB=2 Wilson coefficients (Gerlach thesis)
+    
+    //Values of the coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
+    double cache_p[768] = { 0. };
+    double cache_ps[768] = { 0. };
+    //Values of the coefficient functions in LO in z needed for DB=2 Wilson coefficients (Gerlach thesis)
     bool flag_LOz = true;
     double cache_p_LO[576] = {0.};
     double cache_ps_LO[576] = {0.};
@@ -399,20 +416,27 @@ private:
 
     // A Method to adapt the DB=2 coefficient functions for the MSbar scheme (2106.05979 eq. (33))
     void poletoMSbar_pp_s();
-    // constants from hep-ph/9912391v2  eq. (11)
-    double PoletoMS_as1;
-    double PoletoMS_as2_z0; // 0th order in z
-    double PoletoMS_as2_z1; // 1st order in z
-
-    // A Method to adapt the DB=2 coefficient functions for the PS scheme (analog to 2106.05979 eq. (33))
+    void poletoMSbar_pp_s_takeall();
+    //constants from hep-ph/9912391v2  eq. (11)
+    double PoletoMS_as1;                                
+    double PoletoMS_as2;
+    double PoletoMS_as3;
+    double PoletoMS_as2_z0; //0th order in z
+    double PoletoMS_as2_z1; //1st order in z
+    
+    //A Method to adapt the DB=2 coefficient functions for the PS scheme (analog to 2106.05979 eq. (33))    
     void poletoPS_pp_s();
-    // constants from hep-ph/9804241v2 eq. (21)
-    double PoletoPS_as1;
+    void poletoPS_pp_s_takeall();
+    //constants from hep-ph/9804241v2 eq. (21)
+    double PoletoPS_as1;                
     double PoletoPS_as2;
-
-    /*******************************************************************************
-     *  1/mb corrections of @f$\Gamma_{21}@f$ from Lenz (hep-ph/0612167)            *
-     * ****************************************************************************/
+    double PoletoPS_as3;
+    
+    
+    
+ /*******************************************************************************
+ *  1/mb corrections of @f$\Gamma_{21}@f$ from Lenz (hep-ph/0612167)            * 
+ * ****************************************************************************/
 
     /**
      * @brief Value of 1/mb corrections of @f$\Gamma_{21}@f$ (hep-ph/0612167)

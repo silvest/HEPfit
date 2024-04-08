@@ -1903,6 +1903,7 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../BAT/lib</pElem>
+            <pElem>../LoopTools/lib64</pElem>
             <pElem>../LoopTools/lib</pElem>
             <pElem>../boost/lib</pElem>
           </linkerAddLib>

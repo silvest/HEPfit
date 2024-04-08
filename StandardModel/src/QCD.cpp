@@ -595,7 +595,7 @@ double QCD::NfThresholdCorrections(double mu, double M, double als, int nf, orde
     {
         case FULLNNNLO:
             res += als*als*als/M_PI/M_PI/M_PI*(-564731./124416. + 82043./27648.*gslpp_special_functions::zeta(3) +
-                    2191./576.*lmM + 511./576.*lmM*lmM + lmM*lmM*lmM/216. + ((double) nf - 1.) * (2633./31104. - 67./576.*lmM + lmM*lmM/36.));
+                    2191./576.*lmM + 511./576.*lmM*lmM + lmM*lmM*lmM/216. + ((double) nf - 1.) * (2633./31104. - 281./1728.*lmM));
         case FULLNNLO:
             res += als*als/M_PI/M_PI*(-11./72. + 19./24.*lmM + lmM*lmM/36.);
         case FULLNLO:

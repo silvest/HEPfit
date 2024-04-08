@@ -4267,6 +4267,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Asl_s_only1overmb"] = boost::factory<Asl_s_only1overmb*>();
     obsThFactory["Asl_d_MSbar_NLO_tradBasis"] = boost::factory<Asl_d_MSbar_NLO_tradBasis*>();
     obsThFactory["Asl_s_MSbar_NLO_tradBasis"] = boost::factory<Asl_s_MSbar_NLO_tradBasis*>();
+    obsThFactory["Asl_s_MSbar_RI"] = boost::factory<Asl_s_MSbar_RI*>();
+    obsThFactory["Asl_s_MSbar_NLO_RI"] = boost::factory<Asl_s_MSbar_NLO_RI*>();
+    obsThFactory["Asl_s_PS_RI"] = boost::factory<Asl_s_PS_RI*>();
+    obsThFactory["Asl_s_PS_NLO_RI"] = boost::factory<Asl_s_PS_NLO_RI*>();
+    obsThFactory["Asl_s_MSbar_takeall"] = boost::factory<Asl_s_MSbar_takeall*>();
+    obsThFactory["Asl_s_PS_takeall"] = boost::factory<Asl_s_PS_takeall*>();
     //DeltaGamma
     obsThFactory["DGamma_d_pole"] = boost::factory<DGamma_d_pole*>();
     obsThFactory["DGamma_s_pole"] = boost::factory<DGamma_s_pole*>();
@@ -4288,7 +4294,13 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DGamma_d_NLO_tradBasis"] = boost::factory<DGamma_d_NLO_tradBasis*>();
     obsThFactory["DGamma_s_NLO_tradBasis"] = boost::factory<DGamma_s_NLO_tradBasis*>();
     obsThFactory["DGamma_d_LO_tradBasis"] = boost::factory<DGamma_d_LO_tradBasis*>();  
-    obsThFactory["DGamma_s_LO_tradBasis"] = boost::factory<DGamma_s_LO_tradBasis*>();  
+    obsThFactory["DGamma_s_LO_tradBasis"] = boost::factory<DGamma_s_LO_tradBasis*>(); 
+    obsThFactory["DGamma_s_MSbar_RI"] = boost::factory<DGamma_s_MSbar_RI*>();
+    obsThFactory["DGamma_s_MSbar_NLO_RI"] = boost::factory<DGamma_s_MSbar_NLO_RI*>();
+    obsThFactory["DGamma_s_PS_RI"] = boost::factory<DGamma_s_PS_RI*>();
+    obsThFactory["DGamma_s_PS_NLO_RI"] = boost::factory<DGamma_s_PS_NLO_RI*>();
+    obsThFactory["DGamma_s_MSbar_takeall"] = boost::factory<DGamma_s_MSbar_takeall*>();
+    obsThFactory["DGamma_s_PS_takeall"] = boost::factory<DGamma_s_PS_takeall*>();
     //----- eps'/eps  -----
     obsThFactory["EpsilonP_O_Epsilon_ReA0EXP"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 0);
     obsThFactory["EpsilonP_O_Epsilon_ReA2EXP"] = bind(boost::factory<EpsilonP_O_Epsilon*>(), _1, 1);

@@ -258,7 +258,7 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q){
     gslpp::complex M21overme0 = ((*(M21overme0_times_8MB[LO]))(0) + (*(M21overme0_times_8MB[NLO]))(0)) / (8. * MBq);
   
     //calculate DB=1 Wilson coefficients
-    computeWilsonCoeffsDB1bsg(); 
+    computeWilsonCoeffsBuras(); 
     
     //calculate DB=2 coefficients for usage of "c(quark)"
     computeF0();
@@ -352,8 +352,8 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     as_4pi = mySM.Als(Mb_Mb, FULLNNNLO, true)/(4.*M_PI);
             
     //PS mass of bottom quark: NNLO evaluation from hep-ph/9804241v2 eq. (25)
-    Mb_PS = Mb_Mb * (1. + 16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (K - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2))));
-
+    PoletoMS_as2 = 307./32. + M_PI2/3. + M_PI2/9. * log2 - 1./6. * zeta3 - (71./144. + M_PI2/18.) * nl + 4./3. * M_PI2/8. * sqrtz - z;
+    Mb_PS = Mb_Mb * (1. + 16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (PoletoMS_as2 - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2))));
     //adapt "Mb2_prefactor" to the used mass scheme; Mb, Mc, resummed z always in MSbar 
     //explained in Gerlach thesis chapter 7.0 and arxiv:2205.07907 Results.
     Mb2_prefactor_1overm = Mb_PS * Mb_PS;
@@ -366,9 +366,11 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
             case pole:
                 Mb2_prefactor = Mb_pole * Mb_pole;
                 break;
+            case MSbar_takeall:
             case MSbar:
                 Mb2_prefactor = Mb_mub * Mb_mub;
                 break;
+            case PS_takeall:
             case PS:
                 Mb2_prefactor = Mb_PS * Mb_PS;
                 break;
@@ -398,7 +400,9 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     MB_s = mySM.getMesons(QCD::B_S).getMass();
 
     z2 = z * z;
+    sqrtz = sqrt(z);
     logz = log(z);
+    log2z = logz * logz;
     oneminusz2 = (1. - z) * (1. - z);
     sqrt1minus4z = sqrt(1. - 4. * z);
     
@@ -432,21 +436,20 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     return;
 }
 
-void AmpDB2::computeWilsonCoeffsDB1bsg(){
+void AmpDB2::computeWilsonCoeffsBuras(){
     //NNLO DB=1 Wilson coefficients
-    gslpp::vector<gslpp::complex> ** WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1);
+    gslpp::vector<gslpp::complex> ** WilsonCoeffsBuras = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1);
     for (int i = 0; i < 8; i++) {
         if (i==6) i=7;
-        cacheC[i] = (*(WilsonCoeffsDB1bsg[LO]))(i) + (*(WilsonCoeffsDB1bsg[NLO]))(i) + (*(WilsonCoeffsDB1bsg[NNLO]))(i);
-        cacheC_LO[i] = (*(WilsonCoeffsDB1bsg[LO]))(i);
-        cacheC_NLO[i] = (*(WilsonCoeffsDB1bsg[NLO]))(i);
-        cacheC_NNLO[i] = (*(WilsonCoeffsDB1bsg[NNLO]))(i);
+        cacheC_LO[i] = (*(WilsonCoeffsBuras[LO]))(i);
+        cacheC_NLO[i] = (*(WilsonCoeffsBuras[NLO]))(i);
+        cacheC_NNLO[i] = (*(WilsonCoeffsBuras[NNLO]))(i);
     } 
     
     //LO DB=1 Wilson coefficients for 1/mb corrections
-    WilsonCoeffsDB1bsg = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1_overm);    
-    C_1LO = (*(WilsonCoeffsDB1bsg[LO]))(0);
-    C_2LO = (*(WilsonCoeffsDB1bsg[LO]))(1);
+    WilsonCoeffsBuras = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1_overm);    
+    C_1LO = (*(WilsonCoeffsBuras[LO]))(0);
+    C_2LO = (*(WilsonCoeffsBuras[LO]))(1);
     K_1 = 3. * C_1LO * C_1LO + 2. * C_1LO * C_2LO;
     K_2 = C_2LO * C_2LO;
     return;
@@ -759,8 +762,6 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
     me(3) *=       2. * (KBq + 1./6.) * MBq2 * FBq2;
     me(4) *=  2. / 3. * (KBq + 3./2.) * MBq2 * FBq2;
       
-    //switch matrix elements to RI scheme
-    if (flag_RI) me += -as_4pi_mu2 * meMStoRI * me;
 
     //old parameterization from hep-ph/0612167 eq. 28 (or hep-ph/0308029 eq.26)
     /*
@@ -789,10 +790,6 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
     me_Rtilde(1) = -me_R(2);
     me_Rtilde(2) = me_R(3) + 0.5 * me_R(2);
     
-    //matrix elements needed for the leading term of Gamma21overM21
-    meoverme0(0) = 1.;
-    meoverme0(1) = me(1)/me(0);
-    meoverme0(2) = me(2)/me(0);
     
     //subleading matrix elements that are not independent
     //Gerlach thesis eq. (3.64)
@@ -806,6 +803,17 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
     //arxiv/1907.01025 eq.26
     me_R(1) = Mq/Mb_mu2 * me(3);
     me_Rtilde(0) = Mq/Mb_mu2* me(4);
+    
+    //switch matrix elements to RI scheme
+    if (flag_RI) {
+        me_R(0) = 0.5 * me(0) + me(1) + me(2);
+        if (order == FULLNLO) me += -as_4pi_mu2 * meMStoRI * me;
+    }
+    
+    //matrix elements needed for the leading term of Gamma21overM21
+    meoverme0(0) = 1.;
+    meoverme0(1) = me(1)/me(0);
+    meoverme0(2) = me(2)/me(0);
     return;
 }
 
@@ -839,17 +847,18 @@ gslpp::vector<gslpp::complex> AmpDB2::c(quark q, orders order) {
         result.assign(2, -result(1));
         result.assign(1, 0.);
     } else if (order == NLO){
+        //save NLO contribution from transformation of the tradBasis to RI scheme
+        gslpp::vector< gslpp::complex > RI_NLO = gslpp::vector< gslpp::complex >(3, 0.);
+        if (flag_RI) RI_NLO = as_4pi_mu2 * coeffsMStoRI.transpose() * result;
         double alpha1 = as_4pi_mu2 * 4./3. * (12. * log(mu_2/Mb_pole) + 6.);
         double alpha2 = as_4pi_mu2 * 4./3. * (6. * log(mu_2/Mb_pole) + 13./2.);    
         result.assign(0, -alpha2/2. * result(1));
         result.assign(2, -alpha1 * result(1));
+        if (flag_RI) result += RI_NLO;
         result.assign(1, 0.);
     } else {
         throw std::runtime_error("AmpDB2::c(quark q, orders order): order not implemented"); 
     }
-
-    //switch Wilson coefficients to RI scheme
-    if (flag_RI) result += as_4pi_mu2 * coeffsMStoRI.transpose() * result;
     return result;
 }
 
@@ -1031,19 +1040,31 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, qu
     compute_pp_s();
     
     //switch to another scheme if needed    
-    if (mass_scheme == MSbar) poletoMSbar_pp_s();
-    if (mass_scheme == PS) poletoPS_pp_s();
-
+    if (mass_scheme == MSbar) { poletoMSbar_pp_s();
+    } else if (mass_scheme == PS) { poletoPS_pp_s();
+    } else if (mass_scheme == pole or mass_scheme == only1overmb) {
+    } else if (mass_scheme == MSbar_takeall) { poletoMSbar_pp_s_takeall();
+    } else if (mass_scheme == PS_takeall) { poletoPS_pp_s_takeall();
+    } else { std::cerr << "WARNING: mass_scheme might no be implemented.\n";
+    }
+    
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_(quark)"    
-    compute_matrixelements(q, NNLO);
+    compute_matrixelements(q, FULLNLO);
     
     /* partial contribution without 1overm
     gslpp::vector<gslpp::complex> Gamma21overM21_partial = Mb2_prefactor * (c_H_partial(q, 0) + c_H_partial(q, 1) * me(1)/me(0) + c_H_partial(q, 2) * me(2)/me(0)).conjugate()
             * Gf2 / (24 * M_PI * MBq) / M21overme0; */
     
    //Gerlach thesis eq. 6.1 divided by M_21
-    gslpp::complex Gamma21overM21 = Mb2_prefactor * (c_H(q, order) * meoverme0).conjugate();
-    computeWilsonCoeffsDB1bsg(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
+    gslpp::complex Gamma21overM21 = 0.;
+    if (flag_RI) {
+            Gamma21overM21 = Mb2_prefactor * (c_H(q, LO) * meoverme0).conjugate();
+            //compute_matrixelements(q, LO); //minimal difference
+            Gamma21overM21 += Mb2_prefactor * (c_H(q, NLO) * meoverme0).conjugate();
+    } else {
+        Gamma21overM21 = Mb2_prefactor * (c_H(q, order) * meoverme0).conjugate();
+    }
+    computeWilsonCoeffsBuras(); /*calculate DB=1 Wilson coefficients in the basis for "delta_1overm" */ 
     Gamma21overM21 += Mb2_prefactor_1overm * delta_1overm(q)/me(0);
     Gamma21overM21 *= Gf2 / (24. * M_PI * MBq) / M21overme0;
     return Gamma21overM21;
@@ -1055,7 +1076,6 @@ void AmpDB2::computeWilsonCoeffsMisiak(){
     gslpp::vector<gslpp::complex> ** WilsonCoeffsMisiak = mySM.getFlavour().ComputeCoeffsgamma(mu_1);
     for (int i = 0; i < 8; i++) {
        if (i==6) i=7;
-        cacheC[i] = (*(WilsonCoeffsMisiak[LO]))(i) + (*(WilsonCoeffsMisiak[NLO]))(i) + (*(WilsonCoeffsMisiak[NNLO]))(i);
         cacheC_LO[i] = (*(WilsonCoeffsMisiak[LO]))(i);
         cacheC_NLO[i] = (*(WilsonCoeffsMisiak[NLO]))(i);
         cacheC_NNLO[i] = (*(WilsonCoeffsMisiak[NNLO]))(i);
@@ -1079,11 +1099,27 @@ gslpp::vector<gslpp::complex> AmpDB2::c_H(quark q, orders order){
         default:
             throw std::runtime_error("AmpDB2::c_H(quark q): invalid quark index: ");
     }
+    if (flag_RI and order==NLO) {
+        //LO transformed to the traditional basis
+        result.assign(0, -lambda_c*lambda_c * H(cc, LO) - 2. * lambda_c*lambda_u * H(cu, LO) - lambda_u*lambda_u * H(uu, LO));
+        result.assign(2, -lambda_c*lambda_c * H_s(cc, LO) - 2. * lambda_c*lambda_u * H_s(cu, LO) - lambda_u*lambda_u * H_s(uu, LO));
+        result.assign(0, result(0) - 0.5 * result(2));
+        result.assign(1, -result(2));
+        result.assign(2, 0.);
+        //only NLO change to RI
+        result = as_4pi_mu2 * coeffsMStoRI.transpose() * result;
+        //return to tradBasis + NLO
+        result.assign(0, result(0) - 0.5 * result(1) +
+            -lambda_c*lambda_c * H(cc, NLO) - 2. * lambda_c*lambda_u * H(cu, NLO) - lambda_u*lambda_u * H(uu, NLO));
+        result.assign(2, -result(1) + 
+            -lambda_c*lambda_c * H_s(cc, NLO) - 2. * lambda_c*lambda_u * H_s(cu, NLO) - lambda_u*lambda_u * H_s(uu, NLO));
+        result.assign(1, 0.);
+        return result;
+    }
+    if (flag_RI and order!=LO) throw std::runtime_error("AmpDB2::c_H(quark q, orders order) order for RI not implemented");
+    
     result.assign(0, -lambda_c*lambda_c * H(cc, order) - 2. * lambda_c*lambda_u * H(cu, order) - lambda_u*lambda_u * H(uu, order));
     result.assign(2, -lambda_c*lambda_c * H_s(cc, order) - 2. * lambda_c*lambda_u * H_s(cu, order) - lambda_u*lambda_u * H_s(uu, order));
-    
-    //change to RI
-    if (flag_RI) result += as_4pi_mu2 * coeffsMStoRI.transpose() * result;
     return result;
 }
 
@@ -1091,14 +1127,20 @@ gslpp::vector<gslpp::complex> AmpDB2::c_H(quark q, orders order){
 //Gerlach thesis eq. (6.4)
 gslpp::complex AmpDB2::H(quarks qq, orders order){
     if (order == LO) return H_partial(qq, 1, 8, 1, 8, 0);
+    if (order == NLO) return H_partial(qq, 1, 8, 1, 8, 1);
+    if (order == NNLO) return H_partial(qq, 1, 8, 1, 8, 2);
     if (order == FULLNLO) return H_partial(qq, 1, 8, 1, 8, 0) + H_partial(qq, 1, 8, 1, 8, 1);
     if (order == FULLNNLO) return H_partial(qq, 1, 8, 1, 8, 0) + H_partial(qq, 1, 8, 1, 8, 1) + H_partial(qq, 1, 8, 1, 8, 2);
+    if (order == FULLNNNLO) return H_partial(qq, 1, 8, 1, 8, 0) + H_partial(qq, 1, 8, 1, 8, 1) + H_partial(qq, 1, 8, 1, 8, 2) + H_partial(qq, 1, 8, 1, 8, 3);
     throw std::runtime_error("AmpDB2::H(quarks qq, orders order) order not implemented");
 }
 gslpp::complex AmpDB2::H_s(quarks qq, orders order){
     if (order == LO) return H_s_partial(qq, 1, 8, 1, 8, 0);
+    if (order == NLO) return H_s_partial(qq, 1, 8, 1, 8, 1);
+    if (order == NNLO) return H_s_partial(qq, 1, 8, 1, 8, 2);
     if (order == FULLNLO) return H_s_partial(qq, 1, 8, 1, 8, 0) + H_s_partial(qq, 1, 8, 1, 8, 1);
     if (order == FULLNNLO) return H_s_partial(qq, 1, 8, 1, 8, 0) + H_s_partial(qq, 1, 8, 1, 8, 1) + H_s_partial(qq, 1, 8, 1, 8, 2); 
+    if (order == FULLNNNLO) return H_s_partial(qq, 1, 8, 1, 8, 0) + H_s_partial(qq, 1, 8, 1, 8, 1) + H_s_partial(qq, 1, 8, 1, 8, 2) + H_s_partial(qq, 1, 8, 1, 8, 3);
     throw std::runtime_error("AmpDB2::H_s(quarks qq, orders order) order not implemented");
 }
 
@@ -1190,6 +1232,12 @@ gslpp::complex AmpDB2::H_partial(quarks qq, int i_start, int i_end, int j_start,
                         + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0, flag_LOz);
                 }
             }
+            else if (n==3) {
+                result += as_4pi_mu1 * as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 3)
+                    + as_4pi_mu1 * as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 2)
+                    + as_4pi_mu1 * (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 1)
+                    + (cacheC_NNLO[i-1] * cacheC_NLO[j-1] + cacheC_NLO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0);
+            }
             else {
                 throw(std::runtime_error("AmpDB2::H_partial order not implemented"));
             }
@@ -1225,6 +1273,12 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
                         + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0, flag_LOz);
                 }
             }
+            else if (n==3) {
+                result += as_4pi_mu1 * as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 3)
+                    + as_4pi_mu1 * as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 2)
+                    + as_4pi_mu1 * (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 1)
+                    + (cacheC_NNLO[i-1] * cacheC_NLO[j-1] + cacheC_NLO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0);
+            }
             else {
                 throw(std::runtime_error("AmpDB2::H_s_partial order not implemented"));
             }
@@ -1235,11 +1289,19 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
 
 
 double AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz){
-    if (flag_LOz) return cache_p_LO[index_p(qq, i, j, n)];
+    if (n<0 or n>=768) throw(std::runtime_error("AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
+    if (flag_LOz) {
+        if (n>=576) throw(std::runtime_error("AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
+        return cache_p_LO[index_p(qq, i, j, n)];
+    }
     return cache_p[index_p(qq, i, j, n)];
 }
 double AmpDB2::p_s(quarks qq, int i, int j, int n, bool flag_LOz){
-    if (flag_LOz) return cache_ps_LO[index_p(qq, i, j, n)];
+    if (n<0 or n>=768) throw(std::runtime_error("AmpDB2::p_s(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
+    if (flag_LOz) {
+        if (n>=576) throw(std::runtime_error("AmpDB2::p_s(quarks qq, int i, int j, int n, bool flag_LOz) out of index"));
+        return cache_ps_LO[index_p(qq, i, j, n)];
+    }
     return cache_ps[index_p(qq, i, j, n)];    
 }
 
@@ -1664,9 +1726,6 @@ void AmpDB2::compute_pp_s(){
     
     double L_12 = L_1 * L_1;
     double L_22 = L_2 * L_2;
-
-    double log2z = logz * logz;
-    double sqrtz = sqrt(z);
       
     gslpp::complex log1M1OverSqrtz = log(abs(1. - 1./sqrtz));
     if (1./sqrtz > 1) log1M1OverSqrtz += M_PI * complex::i();
@@ -1865,7 +1924,7 @@ void AmpDB2::compute_pp_s(){
         ((3.*sqrt3*log3 + 30.*L_1*sqrt3 + 10.*sqrt3*(2. + 9.*z))*(M_PI))/2187. + 
         ((-44209. + (10.*complex::i())*sqrt3 - 1728.*L_2 - 163368.*log2 + 40248.*sqrt5 - 63927.*z - 
            1728.*L_2*z + 98604.*log2*z - 5184.*logz*z - 18576.*sqrt5*z - 17496.*L_1*(1. + z) + 
-           37152.*log(1. + sqrt5))*(M_PI2))/8748. + (449.*(M_PI4))/1215. - 
+           37152.*(log12sqrt52 + log2))*(M_PI2))/8748. + (449.*(M_PI4))/1215. - 
         (27529.*z*(M_PI4))/29160.).real();
     cache_ps[index_p(cu, 1, 2, 2)] = (-1336127./2187. - (28733.*L_1)/729. + (44.*L_12)/81. - (2176.*L_2)/243. - (1856.*L_1*L_2)/81. + 
         (208.*L_22)/9. - (416.*Cl2PI3*sqrt3)/243. + ((2.*complex::i())/81.)*log3 * log3*sqrt3 + 
@@ -2072,12 +2131,15 @@ void AmpDB2::compute_pp_s(){
 
 void AmpDB2::poletoMSbar_pp_s(){
     //arxiv:2106.05979 eq. (33)
-    double logmuM = 2. * log(mu_b/Mb);
-    double n_l = 4.;
-    PoletoMS_as1 = 4./3. + logmuM;
-    PoletoMS_as2_z0 = (307./32. + M_PI2/3. + M_PI2/9. * log2 - 1./6. * zeta3 - (71./144. + M_PI2/18.) * n_l + logmuM * (493./72. - n_l * 13./36. + logmuM * (43./24. - n_l/12.)));
+    double log_mub_Mb = 2. * log(mu_b/Mb);
+    PoletoMS_as1 = 4./3. + log_mub_Mb;
+    PoletoMS_as2_z0 = (307./32. + M_PI2/3. + M_PI2/9. * log2 - 1./6. * zeta3 - (71./144. + M_PI2/18.) * nl
+            + log_mub_Mb * (493./72. - nl * 13./36. + log_mub_Mb * (43./24. - nl/12.)));
     PoletoMS_as2_z1 = 4./3. * M_PI2/8. * Mc/Mb - z;
+    //a_s(mu_b) to a_s(mu_1)
+    double beta0 = 23./3.;
     double log_mu1_mub = 2. * log(mu_1/mu_b);
+    double as_running1 = beta0 * log_mu1_mub;
     bool flag_LOz = true;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
         for (int i=1; i<=6; i++){
@@ -2086,12 +2148,12 @@ void AmpDB2::poletoMSbar_pp_s(){
                 if(j==3) j=8;
                 if(i>=3) j=8;
                 cache_p[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p(qq, i, j, 1, flag_LOz)
-                        + (16.* 2. * PoletoMS_as2_z0 + 16.* PoletoMS_as1 * PoletoMS_as1 +
-                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p(qq, i, j, 0, flag_LOz)
+                        + (32. * PoletoMS_as2_z0 + 16.* PoletoMS_as1 * PoletoMS_as1 +
+                           8.* PoletoMS_as1 * as_running1) * p(qq, i, j, 0, flag_LOz)
                         + 16.* 2. * PoletoMS_as2_z1 * p(uu, i, j, 0, flag_LOz);
                 cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 1, flag_LOz)
-                        + (16.* 2. * PoletoMS_as2_z0 + 16.* PoletoMS_as1 * PoletoMS_as1 +
-                           8.* PoletoMS_as1 * 23./3. * log_mu1_mub) * p_s(qq, i, j, 0, flag_LOz)
+                        + (32. * PoletoMS_as2_z0 + 16.* PoletoMS_as1 * PoletoMS_as1 +
+                           8.* PoletoMS_as1 * as_running1) * p_s(qq, i, j, 0, flag_LOz)
                         + 16.* 2. * PoletoMS_as2_z1 * p_s(uu, i, j, 0, flag_LOz);
                 cache_p_LO[index_p(qq, i, j, 2)] = cache_p[index_p(qq, i, j, 2)];
                 cache_ps_LO[index_p(qq, i, j, 2)] = cache_ps[index_p(qq, i, j, 2)];
@@ -2121,6 +2183,9 @@ void AmpDB2::poletoPS_pp_s(){
     PoletoPS_as1 = 4./3. * mu_f / Mb;
     PoletoPS_as2 = 4./3. * mu_f / (Mb * 4.) * (a1 - b0 * (2. * log(mu_f/Mb) - 2.));
     bool flag_LOz = true;
+    double beta0 = 23./3.;
+    double as_running1 = beta0 * log_mu1_Mb; //a_s(Mb) to a_s(mu_1)
+    PoletoMS_as1 = 4./3. + log_mub_Mb;
     for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
         for (int i=1; i<=6; i++){
             //not all terms used for n=2
@@ -2128,13 +2193,14 @@ void AmpDB2::poletoPS_pp_s(){
                 if(j==3) j=8;
                 if(i>=3) j=8;
                 cache_p[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p(qq, i, j, 1, flag_LOz)
-                        + (16.* 2. * PoletoPS_as2 + 16.* PoletoPS_as1 * PoletoPS_as1 * 3. +
-                            8.* PoletoPS_as1 * 23./3. * log_mu1_Mb -
-                            8.* PoletoPS_as1 * 4. * (4./3. + log_mub_Mb)) * p(qq, i, j, 0, flag_LOz);
+                        + (32. * PoletoPS_as2 + 16.* PoletoPS_as1 * PoletoPS_as1 +
+                            8.* PoletoPS_as1 * as_running1 -
+                            8.* PoletoPS_as1 * 4. * (-PoletoPS_as1 + PoletoMS_as1) //internal Mb_PS to Mb(mu_b)
+                            ) * p(qq, i, j, 0, flag_LOz);
                 cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 1, flag_LOz)
-                        + (16.* 2. * PoletoPS_as2 + 16.* PoletoPS_as1 * PoletoPS_as1 * 3. +
-                           8.* PoletoPS_as1 * 23./3. * log_mu1_Mb -
-                           8.* PoletoPS_as1 * 4. * (4./3. + log_mub_Mb)) * p_s(qq, i, j, 0, flag_LOz);
+                        + (32. * PoletoPS_as2 + 16.* PoletoPS_as1 * PoletoPS_as1 +
+                           8.* PoletoPS_as1 * as_running1 -
+                           8.* PoletoPS_as1 * 4. * (-PoletoPS_as1 + PoletoMS_as1)) * p_s(qq, i, j, 0, flag_LOz);
                 cache_p_LO[index_p(qq, i, j, 2)] = cache_p[index_p(qq, i, j, 2)];
                 cache_ps_LO[index_p(qq, i, j, 2)] = cache_ps[index_p(qq, i, j, 2)];
             }            
@@ -2155,6 +2221,151 @@ void AmpDB2::poletoPS_pp_s(){
     return;
 }
 
+
+void AmpDB2::poletoMSbar_pp_s_takeall(){
+    //arxiv:2106.05979 eq. (33)
+    double log_mub_Mb = 2. * log(mu_b/Mb);
+    double log_mub_Mb_2 = log_mub_Mb * log_mub_Mb;
+    double log_mub_Mb_3 = log_mub_Mb_2 * log_mub_Mb;
+    double nl2 = nl * nl;
+    double Dilogsqrtz = gslpp_special_functions::dilog(sqrtz);
+    double Dilogminussqrtz = gslpp_special_functions::dilog(-sqrtz);
+    double oneminussqrtz2 = (1. - sqrtz) * (1. - sqrtz);
+    double log1minussqrtz = log(1. - sqrtz);
+    double log1plussqrtz = log(1. + sqrtz);
+    double sqrtz3 = sqrtz * sqrtz * sqrtz;
+    double log_mub_Mc = 2. * log(mu_b/Mc);
+    PoletoMS_as1 = 4./3. + log_mub_Mb;
+    PoletoMS_as2 = (307./32. + M_PI2/3. + M_PI2/9. * log2 - 1./6. * zeta3 - (71./144. + M_PI2/18.) * nl + log_mub_Mb * (493./72. - nl * 13./36. + log_mub_Mb * (43./24. - nl/12.))) + 4./3. * M_PI2/8. * sqrtz - z;
+    PoletoMS_as3 = (8481925./93312. + (2.*Dilogminussqrtz)/9. + (2.*Dilogsqrtz)/9. - (55.*log2_4)/162. + (652841.*M_PI2)/38880. - (575.*log2*M_PI2)/162. - (22.*log2_2*M_PI2)/81. - (695.*M_PI4)/7776. + (137.*nl)/216. - (M_PI2*nl)/27. +
+            (log_mub_Mb_3*(1591. - 160.*nl + 4.*nl2))/432. + (log_mub_Mb_2*(19315. - 2206.*nl + 52.*nl2))/864. - (220.*polylog4_12)/27. + 22.968067156*sqrtz + (2.*Dilogminussqrtz*sqrtz)/9. - (2.*Dilogsqrtz*sqrtz)/9. - 0.982666666*nl*sqrtz +
+            1.022111111*sqrtz3 + (2.*Dilogminussqrtz*sqrtz3)/9. - (2.*Dilogsqrtz*sqrtz3)/9. + (M_PI2*sqrtz3)/9. + 4.014666667*z - 0.300333333*nl*z - (log_mub_Mc*sqrtz*(3.*log1minussqrtz*logz - 3.*log1plussqrtz*logz -
+            3.*M_PI2 + 24.*sqrtz + 6.*logz*sqrtz + 6.*log2z*sqrtz3 - 12.*log1minussqrtz*logz*sqrtz3 - 12.*log1plussqrtz*logz*sqrtz3 + 4.*M_PI2*sqrtz3 + 9.*log1minussqrtz*logz*z - 9.*log1plussqrtz*logz*z - 9.*M_PI2*z -
+            6.*Dilogminussqrtz*(1. + 4.*sqrtz3 + 3.*z) + Dilogsqrtz*(6. - 24.*sqrtz3 + 18.*z)))/18. + 0.0493333333*zeta2 + (2.*Dilogminussqrtz*zeta2)/9. + (2.*Dilogsqrtz*zeta2)/9. - (log2z*zeta2)/18. - (M_PI2*zeta2)/27. +
+            (log_mub_Mb*(12.*Dilogminussqrtz + 12.*Dilogsqrtz + 118.990000008*sqrtz + 6.*Dilogminussqrtz*sqrtz - 6.*Dilogsqrtz*sqrtz + 3.*M_PI2*sqrtz - 9.624000006*nl*sqrtz + 13.037999994*sqrtz3 - 6.*Dilogminussqrtz*sqrtz3 +
+            6.*Dilogsqrtz*sqrtz3 - 3.*M_PI2*sqrtz3 - 1.206*nl*sqrtz3 - 38.372000004*z + 3.96*nl*z - 3.*logz*(-1. + z)*(log1minussqrtz*(2. - sqrtz + 2.*z) + log1plussqrtz*(2. + sqrtz + 2.*z)) - 12.*Dilogminussqrtz*zeta2 -
+            12.*Dilogsqrtz*zeta2 + 3.*log2z*zeta2 + 2.*M_PI2*zeta2))/18. + (logz*(log1minussqrtz*oneminussqrtz2*(1. + sqrtz + z) + 1.*(sqrtz*(-76.2645000015 + 4.9559999985*nl - 13.544000001*sqrtz + 0.1544999985*z) +
+            log1plussqrtz*(1. + sqrtz + sqrtz3 + zeta2))))/9. + (nl*(-246643. + 288.*log2_4 + 36.*(-967. - 88.*log2 + 16.*log2_2)*M_PI2 + 732.*M_PI4 + 6912.*polylog4_12 - 78084.*zeta3))/23328. + (58.*zeta3)/27. - (1439.*M_PI2*zeta3)/432. +
+            (nl2*(2353. + 936.*M_PI2 + 3024.*zeta3))/23328. + (log_mub_Mb*(177305. + 10656.*(3. + log2)*zeta2 + 4.*nl2*(89. + 72.*zeta2) - 4824.*zeta3 - 2.*nl*(72.*(49. + 4.*log2)*zeta2 + 7.*(1447. + 144.*zeta3))))/2592. + (1975.*zeta5)/216.)/M_PI3;
+    //a_s(mu_b) to a_s(mu_1)
+    double beta0 = 23./3.;
+    double beta1 = 51./8. - 19./24. * 5.;
+    double log_mu1_mub = 2. * log(mu_1/mu_b);
+    double as_running1 = beta0 * log_mu1_mub;
+    double as_running2 = -beta0 * beta0 * log_mu1_mub * log_mu1_mub + beta1 * log_mu1_mub;
+    
+    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
+        for (int i=1; i<=8; i++){
+            if (i==7) i++;
+            for (int j=i; j<=8; j++){
+                if(j==7) j++;
+                if (j<i) continue;
+                cache_p[index_p(qq, i, j, 3)] = 8. * PoletoMS_as1 * p(qq, i, j, 2)
+                        + (32. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
+                            8.* PoletoMS_as1 * as_running1) * p(qq, i, j, 1)
+                        + (128. * (PoletoMS_as3 + PoletoMS_as1 * PoletoMS_as2) +
+                            8.* PoletoMS_as1 * as_running2 + 32.* PoletoMS_as2 * as_running1) * p(qq, i, j, 0);
+                cache_ps[index_p(qq, i, j, 3)] = 8. * PoletoMS_as1 * p_s(qq, i, j, 2)
+                        + (32. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
+                            8.* PoletoMS_as1 * as_running1) * p_s(qq, i, j, 1)
+                        + (128. * (PoletoMS_as3 + PoletoMS_as1 * PoletoMS_as2) +
+                            8.* PoletoMS_as1 * as_running2 + 32.* PoletoMS_as2 * as_running1) * p_s(qq, i, j, 0);
+                if (j>=3 and j<=6) {
+                    cache_p[index_p(qq, i, j, 2)] = 0.;
+                    cache_ps[index_p(qq, i, j, 2)] = 0.;
+                }
+                cache_p[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p(qq, i, j, 1)
+                        + (32. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
+                            8.* PoletoMS_as1 * as_running1) * p(qq, i, j, 0);
+                cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 1)
+                        + (32. * PoletoMS_as2 + 16.* PoletoMS_as1 * PoletoMS_as1 +
+                            8.* PoletoMS_as1 * as_running1) * p_s(qq, i, j, 0);
+                cache_p_LO[index_p(qq, i, j, 2)] = cache_p[index_p(qq, i, j, 2)];
+                cache_ps_LO[index_p(qq, i, j, 2)] = cache_ps[index_p(qq, i, j, 2)];
+
+                cache_p[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p(qq, i, j, 0);
+                cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoMS_as1 * p_s(qq, i, j, 0);
+                cache_p_LO[index_p(qq, i, j, 1)] = cache_p[index_p(qq, i, j, 1)];
+                cache_ps_LO[index_p(qq, i, j, 1)] = cache_ps[index_p(qq, i, j, 1)];
+                cache_p_LO[index_p(qq, i, j, 0)] = cache_p[index_p(qq, i, j, 0)];
+                cache_ps_LO[index_p(qq, i, j, 0)] = cache_ps[index_p(qq, i, j, 0)];
+            }
+        }
+    }
+    return;
+}
+
+void AmpDB2::poletoPS_pp_s_takeall(){
+    //analog to arxiv:2106.05979 eq. (33) for PS mass
+    double log_mu1_Mb = 2. * log(mu_1/Mb);
+    double log_mub_Mb = 2. * log(mu_b/Mb);
+    //hep-ph/9804241v2 eq. (21)
+    double log_muf_Mb = 2. * log(mu_f/Mb);
+    PoletoPS_as1 = 4./3. * mu_f / Mb;
+    double PoletoPS_as1_2 = PoletoPS_as1 * PoletoPS_as1; 
+    PoletoPS_as2 = 4./3. * mu_f / (Mb * 4.) * (a1 - b0 * (log_muf_Mb - 2.));
+    PoletoPS_as3 = 4./3. * mu_f / (Mb * 16.) * (a2 - (2. * a1 * b0 + b1) * (log_muf_Mb - 2.)
+            + b0_2 * (log_muf_Mb * log_muf_Mb - 4. * log_muf_Mb + 8.));
+    PoletoMS_as1 = 4./3. + log_mub_Mb;
+    PoletoMS_as2 = (307./32. + M_PI2/3. + M_PI2/9. * log2 - 1./6. * zeta3 - (71./144. + M_PI2/18.) * nl
+            + log_mub_Mb * (493./72. - nl * 13./36. + log_mub_Mb * (43./24. - nl/12.))) + 4./3. * M_PI2/8. * sqrtz - z;
+    double beta0 = 23./3.;
+    double beta1 = 51./8. - 19./24. * 5.;
+    double as_running1 = beta0 * log_mu1_Mb;
+    double as_running1_mub = beta0 * 2. * log(mu_1/mu_b);
+    double as_running2 = -beta0 * beta0 * log_mu1_Mb * log_mu1_Mb + beta1 * log_mu1_Mb;
+    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
+        for (int i=1; i<=8; i++){
+            if (i==7) i++;
+            for (int j=i; j<=8; j++){
+                if(j==7) j++;
+                if (j<i) continue;
+                cache_p[index_p(qq, i, j, 3)] = 8. * PoletoPS_as1 * p(qq, i, j, 2)
+                        + (32. * PoletoPS_as2 + 16.* PoletoPS_as1_2 +
+                            8.* PoletoPS_as1 * as_running1 -
+                            8.* PoletoPS_as1 * 4. * (-PoletoPS_as1 + PoletoMS_as1)) * p(qq, i, j, 1)
+                        + (128. * (PoletoPS_as3 + PoletoPS_as1 * PoletoPS_as2) -
+                            (-PoletoPS_as1 + PoletoMS_as1) * (128. * (PoletoPS_as1_2 +
+                            PoletoPS_as2) + 32. * PoletoPS_as1 * (as_running1 + as_running1_mub)) -
+                            (-PoletoPS_as2 + PoletoMS_as2) * 128. * PoletoPS_as1 +
+                            (32. * PoletoPS_as1_2 + 64. * PoletoPS_as2) * as_running1 +
+                            8. * PoletoPS_as1 * as_running2) * p(qq, i, j, 0);
+                cache_ps[index_p(qq, i, j, 3)] = 8. * PoletoPS_as1 * p_s(qq, i, j, 2)
+                        + (32. * PoletoPS_as2 + 16.* PoletoPS_as1_2 +
+                           8.* PoletoPS_as1 * as_running1 -
+                           8.* PoletoPS_as1 * 4. * (-PoletoPS_as1 + PoletoMS_as1)) * p_s(qq, i, j, 1)
+                        + (128. * (PoletoPS_as3 + PoletoPS_as1 * PoletoPS_as2) -
+                            (-PoletoPS_as1 + PoletoMS_as1) * (128. * (PoletoPS_as1_2 +
+                            PoletoPS_as2) + 32. * PoletoPS_as1 * (as_running1 + as_running1_mub)) -
+                            (-PoletoPS_as2 + PoletoMS_as2) * 128. * PoletoPS_as1 +
+                            (32. * PoletoPS_as1_2 + 64. * PoletoPS_as2) * as_running1 +
+                            8. * PoletoPS_as1 * as_running2) * p_s(qq, i, j, 0);
+                if (j>=3 and j<=6) {
+                    cache_p[index_p(qq, i, j, 2)] = 0.;
+                    cache_ps[index_p(qq, i, j, 2)] = 0.;
+                }        
+                cache_p[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p(qq, i, j, 1)
+                        + (32. * PoletoPS_as2 + 16.* PoletoPS_as1_2 +
+                            8.* PoletoPS_as1 * as_running1 -
+                            8.* PoletoPS_as1 * 4. * (-PoletoPS_as1 + PoletoMS_as1)) * p(qq, i, j, 0);
+                cache_ps[index_p(qq, i, j, 2)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 1)
+                        + (32. * PoletoPS_as2 + 16.* PoletoPS_as1_2 +
+                           8.* PoletoPS_as1 * as_running1 -
+                           8.* PoletoPS_as1 * 4. * (-PoletoPS_as1 + PoletoMS_as1)) * p_s(qq, i, j, 0);
+                cache_p_LO[index_p(qq, i, j, 2)] = cache_p[index_p(qq, i, j, 2)];
+                cache_ps_LO[index_p(qq, i, j, 2)] = cache_ps[index_p(qq, i, j, 2)];
+
+                cache_p[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p(qq, i, j, 0);
+                cache_ps[index_p(qq, i, j, 1)] += 8. * PoletoPS_as1 * p_s(qq, i, j, 0);
+                cache_p_LO[index_p(qq, i, j, 1)] = cache_p[index_p(qq, i, j, 1)];
+                cache_ps_LO[index_p(qq, i, j, 1)] = cache_ps[index_p(qq, i, j, 1)];
+                cache_p_LO[index_p(qq, i, j, 0)] = cache_p[index_p(qq, i, j, 0)];
+                cache_ps_LO[index_p(qq, i, j, 0)] = cache_ps[index_p(qq, i, j, 0)];
+            }
+        }
+    }
+    return;
+}
 
 
 gslpp::complex AmpDB2::PBd() {
