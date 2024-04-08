@@ -213,7 +213,7 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q){
     computeP();
 
     //calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"
-    compute_matrixelements(q, NLO);
+    compute_matrixelements(q, FULLNLO);
         
     //staying in the old basis: hep-ph/0308029v2: eq. 16 divided by M_21
     /*
@@ -287,7 +287,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     //MSbar charm quark mass Mc(Mc)
     double Mc_Mc = mySM.getQuarks(QCD::CHARM).getMass();
     
-    //MSbar charm quark mass Mb(mu_b)    
+    //MSbar charm quark mass Mc(mu_b)    
     double Mc_mub = mySM.Mrun(mu_b,
         mySM.getQuarks(QCD::CHARM).getMass_scale(),
         mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
@@ -313,11 +313,13 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
             case pole:
                 Mb2_prefactor = Mb_pole * Mb_pole;
                 break;
-            case MSbar_takeall:
+            case MSbar_partialNNLO:
+            case MSbar_partialN3LO:
             case MSbar:
                 Mb2_prefactor = Mb_mub * Mb_mub;
                 break;
-            case PS_takeall:
+            case PS_partialNNLO:
+            case PS_partialN3LO:
             case PS:
                 Mb2_prefactor = Mb_PS * Mb_PS;
                 break;
@@ -742,7 +744,7 @@ void AmpDB2::compute_matrixelements(quark q, orders order){
     //Gerlach thesis eq. (3.64)
     double L_2 = 2. * log(mu_2/Mb_mu2);
     double as1_me0 = 0., as1_me2 = 0.;
-    if (order == NLO or order == NNLO){
+    if (order == FULLNLO){
         as1_me0 = 4. * L_2 + 26./3.;   
         as1_me2 = 8. * L_2 + 8.;
     }
@@ -990,8 +992,14 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, qu
     if (mass_scheme == MSbar) { poletoMSbar_pp_s();
     } else if (mass_scheme == PS) { poletoPS_pp_s();
     } else if (mass_scheme == pole or mass_scheme == only1overmb) {
-    } else if (mass_scheme == MSbar_takeall) { poletoMSbar_pp_s_takeall();
-    } else if (mass_scheme == PS_takeall) { poletoPS_pp_s_takeall();
+    } else if (mass_scheme == MSbar_partialNNLO) {
+        compute_partialNNLO();
+        poletoMSbar_pp_s();
+    } else if (mass_scheme == PS_partialNNLO) {
+        compute_partialNNLO();
+        poletoPS_pp_s();
+    } else if (mass_scheme == MSbar_partialN3LO) { poletoMSbar_pp_s_partialN3LO();
+    } else if (mass_scheme == PS_partialN3LO) { poletoPS_pp_s_partialN3LO();
     } else { std::cerr << "WARNING: mass_scheme might no be implemented.\n";
     }
     
@@ -2169,7 +2177,7 @@ void AmpDB2::poletoPS_pp_s(){
 }
 
 
-void AmpDB2::poletoMSbar_pp_s_takeall(){
+void AmpDB2::poletoMSbar_pp_s_partialN3LO(){
     //arxiv:2106.05979 eq. (33)
     double log_mub_Mb = 2. * log(mu_b/Mb);
     double log_mub_Mb_2 = log_mub_Mb * log_mub_Mb;
@@ -2242,7 +2250,7 @@ void AmpDB2::poletoMSbar_pp_s_takeall(){
     return;
 }
 
-void AmpDB2::poletoPS_pp_s_takeall(){
+void AmpDB2::poletoPS_pp_s_partialN3LO(){
     //analog to arxiv:2106.05979 eq. (33) for PS mass
     double log_mu1_Mb = 2. * log(mu_1/Mb);
     double log_mub_Mb = 2. * log(mu_b/Mb);
@@ -2310,6 +2318,25 @@ void AmpDB2::poletoPS_pp_s_takeall(){
                 cache_ps_LO[index_p(qq, i, j, 0)] = cache_ps[index_p(qq, i, j, 0)];
             }
         }
+    }
+    return;
+}
+
+void AmpDB2::compute_partialNNLO() {
+    for (quarks qq = cc; qq <= uu; qq = quarks(qq + 1)) {
+        for (int i=1; i<=6; i++){
+            //not all terms used for n=2
+            for (int j=i; j<=8; j++){
+                if(j==3) j=8;
+                if(i>=3) j=8;
+                cache_p[index_p(qq, i, j, 2)] = 0.;
+                cache_ps[index_p(qq, i, j, 2)] = 0.;
+            }
+        }
+    }
+    for (int i = 0; i < 8; i++) {
+       if (i==6) i=7;
+        cacheC_NNLO[i] = 0.;
     }
     return;
 }

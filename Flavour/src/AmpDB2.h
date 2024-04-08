@@ -60,7 +60,7 @@ public:
         return M21_Bs(order);
     }
     
-    enum mass_schemes {pole, MSbar, PS, only1overmb, MSbar_takeall, PS_takeall}; //mass schemes
+    enum mass_schemes {pole, MSbar, PS, only1overmb, MSbar_partialNNLO, PS_partialNNLO, MSbar_partialN3LO, PS_partialN3LO}; //mass schemes
     enum quark {d,s};   /*quark index i used for $B_i$*/
     enum quarks {cc, cu, uu};   /*combinations of u- and c- quarks in diagrams */
     
@@ -408,7 +408,7 @@ private:
 
     //A Method to adapt the DB=2 coefficient functions for the MSbar scheme (2106.05979 eq. (33))
     void poletoMSbar_pp_s();
-    void poletoMSbar_pp_s_takeall();
+    void poletoMSbar_pp_s_partialN3LO();
     //constants from hep-ph/9912391v2  eq. (11)
     double PoletoMS_as1;                                
     double PoletoMS_as2;
@@ -418,12 +418,14 @@ private:
     
     //A Method to adapt the DB=2 coefficient functions for the PS scheme (analog to 2106.05979 eq. (33))    
     void poletoPS_pp_s();
-    void poletoPS_pp_s_takeall();
+    void poletoPS_pp_s_partialN3LO();
     //constants from hep-ph/9804241v2 eq. (21)
     double PoletoPS_as1;                
     double PoletoPS_as2;
     double PoletoPS_as3;
-    
+
+    //A Method to discard true NNLO contributions from the DB=1 and DB=2 Wilson coefficients (like with partialN3LO)
+    void compute_partialNNLO();
     
     
  /*******************************************************************************
