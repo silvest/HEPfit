@@ -290,10 +290,13 @@ private:
     void computeWilsonCoeffsMisiak();
     
     gslpp::complex cacheC[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};      /*FULLNNLO DB=1 Wilson coefficients C_i, i=1-6,8 */
-    gslpp::complex cacheC_LO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};   /*LO DB=1 Wilson coefficients C_i, i=1-6,8 */
-    gslpp::complex cacheC_NLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};  /*NLO DB=1 Wilson coefficients C_i, i=1-6,8 */
-    gslpp::complex cacheC_NNLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.}; /*NNLO DB=1 Wilson coefficients C_i, i=1-6,8 */
-    
+    gslpp::complex C_Misiak_LO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};   /*LO DB=1 Wilson coefficients in Misiak basis C_i, i=1-6,8 */
+    gslpp::complex C_Misiak_NLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};  /*NLO DB=1 Wilson coefficients in Misiak basis C_i, i=1-6,8 */
+    gslpp::complex C_Misiak_NNLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.}; /*NNLO DB=1 Wilson coefficients in Misiak basis C_i, i=1-6,8 */
+    gslpp::complex C_Buras_LO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};   /*LO DB=1 Wilson coefficients in Buras basis C_i, i=1-6,8 */
+    gslpp::complex C_Buras_NLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};  /*NLO DB=1 Wilson coefficients in Buras basis C_i, i=1-6,8 */
+    gslpp::complex C_Buras_NNLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.}; /*NNLO DB=1 Wilson coefficients in Buras basis C_i, i=1-6,8 */
+
     
     
  /*******************************************************************************
@@ -460,8 +463,8 @@ private:
     int indexg(quarks qq, int i);
     
     //LO DB=1 Wilson coefficients for 1/mb corrections
-    gslpp::complex C_1LO;
-    gslpp::complex C_2LO;
+    gslpp::complex C1_LO_1overm;
+    gslpp::complex C2_LO_1overm;
     //combinations of LO DB=1 Wilson coefficients
     gslpp::complex K_1; //3*C_1^2 + 2*C_1 * C_2
     gslpp::complex K_2; //C_2^2

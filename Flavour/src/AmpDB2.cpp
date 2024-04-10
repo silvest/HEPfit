@@ -390,17 +390,17 @@ void AmpDB2::computeWilsonCoeffsBuras(){
     gslpp::vector<gslpp::complex> ** WilsonCoeffsBuras = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1);
     for (int i = 0; i < 8; i++) {
         if (i==6) i=7;
-        cacheC_LO[i] = (*(WilsonCoeffsBuras[LO]))(i);
-        cacheC_NLO[i] = (*(WilsonCoeffsBuras[NLO]))(i);
-        cacheC_NNLO[i] = (*(WilsonCoeffsBuras[NNLO]))(i);
+        C_Buras_LO[i] = (*(WilsonCoeffsBuras[LO]))(i);
+        C_Buras_NLO[i] = (*(WilsonCoeffsBuras[NLO]))(i);
+        C_Buras_NNLO[i] = (*(WilsonCoeffsBuras[NNLO]))(i);
     } 
     
     //LO DB=1 Wilson coefficients for 1/mb corrections
-    WilsonCoeffsBuras = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1_overm);    
-    C_1LO = (*(WilsonCoeffsBuras[LO]))(0);
-    C_2LO = (*(WilsonCoeffsBuras[LO]))(1);
-    K_1 = 3. * C_1LO * C_1LO + 2. * C_1LO * C_2LO;
-    K_2 = C_2LO * C_2LO;
+    gslpp::vector<gslpp::complex> ** WilsonCoeffs_1overm = mySM.getFlavour().ComputeCoeffsgamma_Buras(mu_1_overm);    
+    C1_LO_1overm = (*(WilsonCoeffs_1overm[LO]))(0);
+    C2_LO_1overm = (*(WilsonCoeffs_1overm[LO]))(1);
+    K_1 = 3. * C1_LO_1overm * C1_LO_1overm + 2. * C1_LO_1overm * C2_LO_1overm;
+    K_2 = C2_LO_1overm * C2_LO_1overm;
     return;
 }
 
@@ -575,14 +575,14 @@ void AmpDB2::computeD(orders order) {
                 gslpp::complex result = 0.;
                 for (int i = 1; i <= 2; i++) {
                     for (int j = 1; j <= 2; j++) {
-                        result += cacheC_LO[i-1] * cacheC_LO[j-1] * F(qq, k, i, j) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * F0(qq, k, i, j);
+                        result += C_Buras_LO[i-1] * C_Buras_LO[j-1] * F(qq, k, i, j) + (C_Buras_NLO[i-1] * C_Buras_LO[j-1] + C_Buras_LO[i-1] * C_Buras_NLO[j-1]) * F0(qq, k, i, j);
                     }
                 }
-                result += + as_4pi_mu1 * cacheC_LO[2-1] * cacheC_LO[2-1] * P(qq, k, 2, 2)
-                        + 2. * as_4pi_mu1 * cacheC_LO[2-1] * cacheC_LO[8-1] * P(qq, k, 2, 8);
+                result += + as_4pi_mu1 * C_Buras_LO[2-1] * C_Buras_LO[2-1] * P(qq, k, 2, 2)
+                        + 2. * as_4pi_mu1 * C_Buras_LO[2-1] * C_Buras_LO[8-1] * P(qq, k, 2, 8);
                 for (int i = 1; i <= 2; i++) {
                     for (int r = 3; r <= 6; r++) {
-                        result += 2. * cacheC_LO[i-1] * cacheC_LO[r-1] * P(qq, k, i, r);
+                        result += 2. * C_Buras_LO[i-1] * C_Buras_LO[r-1] * P(qq, k, i, r);
                     }                    
                 }
                 cacheD[indexD(qq, k)] = result;
@@ -593,14 +593,14 @@ void AmpDB2::computeD(orders order) {
             gslpp::complex result = 0.;
             for (int i = 1; i <= 2; i++) {
                 for (int j = 1; j <= 2; j++) {
-                    result += cacheC_LO[i-1] * cacheC_LO[j-1] * F(cu, k, i, j) + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * F0(cu, k, i, j);
+                    result += C_Buras_LO[i-1] * C_Buras_LO[j-1] * F(cu, k, i, j) + (C_Buras_NLO[i-1] * C_Buras_LO[j-1] + C_Buras_LO[i-1] * C_Buras_NLO[j-1]) * F0(cu, k, i, j);
                 }
             }
-            result += + as_4pi_mu1 * cacheC_LO[2-1] * cacheC_LO[2-1] * P(cu, k, 2, 2)
-                    + as_4pi_mu1 * cacheC_LO[2-1] * cacheC_LO[8-1] * (P(cc, k, 2, 8) + P(uu, k, 2, 8));
+            result += + as_4pi_mu1 * C_Buras_LO[2-1] * C_Buras_LO[2-1] * P(cu, k, 2, 2)
+                    + as_4pi_mu1 * C_Buras_LO[2-1] * C_Buras_LO[8-1] * (P(cc, k, 2, 8) + P(uu, k, 2, 8));
             for (int i = 1; i <= 2; i++) {
                 for (int r = 3; r <= 6; r++) {
-                    result += cacheC_LO[i-1] * cacheC_LO[r-1] * (P(cc, k, i, r) + P(uu, k, i, r));
+                    result += C_Buras_LO[i-1] * C_Buras_LO[r-1] * (P(cc, k, i, r) + P(uu, k, i, r));
                 }
             }
             cacheD[indexD(cu, k)] = result;
@@ -613,12 +613,12 @@ void AmpDB2::computeD(orders order) {
                 gslpp::complex result = 0.;
                 for (int i = 1; i <= 2; i++) {
                     for (int j = 1; j <= 2; j++) {
-                        result += cacheC_LO[i-1] * cacheC_LO[j-1] * F0(qq, k, i, j);
+                        result += C_Buras_LO[i-1] * C_Buras_LO[j-1] * F0(qq, k, i, j);
                     }
                 }
                 for (int i = 1; i <= 2; i++) {
                     for (int r = 3; r <= 6; r++) {
-                        result += 2. * cacheC_LO[i-1] * cacheC_LO[r-1] * P(qq, k, i, r);
+                        result += 2. * C_Buras_LO[i-1] * C_Buras_LO[r-1] * P(qq, k, i, r);
                     }                    
                 }
                 cacheD[indexD(qq, k)] = result;
@@ -629,12 +629,12 @@ void AmpDB2::computeD(orders order) {
             gslpp::complex result = 0.;
             for (int i = 1; i <= 2; i++) {
                 for (int j = 1; j <= 2; j++) {
-                    result += cacheC_LO[i-1] * cacheC_LO[j-1] * F0(cu, k, i, j);
+                    result += C_Buras_LO[i-1] * C_Buras_LO[j-1] * F0(cu, k, i, j);
                 }
             }
             for (int i = 1; i <= 2; i++) {
                 for (int r = 3; r <= 6; r++) {
-                    result += cacheC_LO[i-1] * cacheC_LO[r-1] * (P(cc, k, i, r) + P(uu, k, i, r));
+                    result += C_Buras_LO[i-1] * C_Buras_LO[r-1] * (P(cc, k, i, r) + P(uu, k, i, r));
                 }
             }
             cacheD[indexD(cu, k)] = result;
@@ -1031,9 +1031,9 @@ void AmpDB2::computeWilsonCoeffsMisiak(){
     gslpp::vector<gslpp::complex> ** WilsonCoeffsMisiak = mySM.getFlavour().ComputeCoeffsgamma(mu_1);
     for (int i = 0; i < 8; i++) {
        if (i==6) i=7;
-        cacheC_LO[i] = (*(WilsonCoeffsMisiak[LO]))(i);
-        cacheC_NLO[i] = (*(WilsonCoeffsMisiak[NLO]))(i);
-        cacheC_NNLO[i] = (*(WilsonCoeffsMisiak[NNLO]))(i);
+        C_Misiak_LO[i] = (*(WilsonCoeffsMisiak[LO]))(i);
+        C_Misiak_NLO[i] = (*(WilsonCoeffsMisiak[NLO]))(i);
+        C_Misiak_NNLO[i] = (*(WilsonCoeffsMisiak[NNLO]))(i);
     }
 }
 
@@ -1168,30 +1168,30 @@ gslpp::complex AmpDB2::H_partial(quarks qq, int i_start, int i_end, int j_start,
             if(j==7) j++;
             if (j<i) continue;
             if (n==0) {
-                result += cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 0);
+                result += C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p(qq, i, j, 0);
             }
             else if (n==1) {
                 if(j==1 or j==2 or j==8){
-                result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0);
+                result += as_4pi_mu1 * C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p(qq, i, j, 1)
+                        + (C_Misiak_NLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NLO[j-1]) * p(qq, i, j, 0);
                 }
                 else if (3<=j and j<=6){
-                result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 1)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 0, flag_LOz);                    
+                result += as_4pi_mu1 * C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p(qq, i, j, 1)
+                        + (C_Misiak_NLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NLO[j-1]) * p(qq, i, j, 0, flag_LOz);                    
                 }
             }
             else if (n==2) {
                 if (j==1 or j==2 or j==8){
-                    result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 2)
-                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 1, flag_LOz)
-                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0, flag_LOz);
+                    result += as_4pi_mu1 * as_4pi_mu1 * C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p(qq, i, j, 2)
+                        + as_4pi_mu1 * (C_Misiak_NLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NLO[j-1]) * p(qq, i, j, 1, flag_LOz)
+                        + (C_Misiak_NNLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_NLO[i-1] * C_Misiak_NLO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NNLO[j-1]) * p(qq, i, j, 0, flag_LOz);
                 }
             }
             else if (n==3) {
-                result += as_4pi_mu1 * as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p(qq, i, j, 3)
-                    + as_4pi_mu1 * as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p(qq, i, j, 2)
-                    + as_4pi_mu1 * (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 1)
-                    + (cacheC_NNLO[i-1] * cacheC_NLO[j-1] + cacheC_NLO[i-1] * cacheC_NNLO[j-1]) * p(qq, i, j, 0);
+                result += as_4pi_mu1 * as_4pi_mu1 * as_4pi_mu1 * C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p(qq, i, j, 3)
+                    + as_4pi_mu1 * as_4pi_mu1 * (C_Misiak_NLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NLO[j-1]) * p(qq, i, j, 2)
+                    + as_4pi_mu1 * (C_Misiak_NNLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_NLO[i-1] * C_Misiak_NLO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NNLO[j-1]) * p(qq, i, j, 1)
+                    + (C_Misiak_NNLO[i-1] * C_Misiak_NLO[j-1] + C_Misiak_NLO[i-1] * C_Misiak_NNLO[j-1]) * p(qq, i, j, 0);
             }
             else {
                 throw(std::runtime_error("AmpDB2::H_partial order not implemented"));
@@ -1209,30 +1209,30 @@ gslpp::complex AmpDB2::H_s_partial(quarks qq, int i_start, int i_end, int j_star
             if(j==7) j++;
             if (j<i) continue;
             if (n==0) {
-                result += cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 0);
+                result += C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p_s(qq, i, j, 0);
             }
             else if (n==1) {
                 if(j==1 or j==2 or j==8){
-                result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0);
+                result += as_4pi_mu1 * C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p_s(qq, i, j, 1)
+                        + (C_Misiak_NLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NLO[j-1]) * p_s(qq, i, j, 0);
                 }
                 else if (3<=j and j<=6){
-                result += as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 1)
-                        + (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 0, flag_LOz);
+                result += as_4pi_mu1 * C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p_s(qq, i, j, 1)
+                        + (C_Misiak_NLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NLO[j-1]) * p_s(qq, i, j, 0, flag_LOz);
                 }
             }
             else if (n==2) {
                 if (j==1 or j==2 or j==8){
-                    result += as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 2)
-                        + as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 1, flag_LOz)
-                        + (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0, flag_LOz);
+                    result += as_4pi_mu1 * as_4pi_mu1 * C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p_s(qq, i, j, 2)
+                        + as_4pi_mu1 * (C_Misiak_NLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NLO[j-1]) * p_s(qq, i, j, 1, flag_LOz)
+                        + (C_Misiak_NNLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_NLO[i-1] * C_Misiak_NLO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NNLO[j-1]) * p_s(qq, i, j, 0, flag_LOz);
                 }
             }
             else if (n==3) {
-                result += as_4pi_mu1 * as_4pi_mu1 * as_4pi_mu1 * cacheC_LO[i-1] * cacheC_LO[j-1] * p_s(qq, i, j, 3)
-                    + as_4pi_mu1 * as_4pi_mu1 * (cacheC_NLO[i-1] * cacheC_LO[j-1] + cacheC_LO[i-1] * cacheC_NLO[j-1]) * p_s(qq, i, j, 2)
-                    + as_4pi_mu1 * (cacheC_NNLO[i-1] * cacheC_LO[j-1] + cacheC_NLO[i-1] * cacheC_NLO[j-1] + cacheC_LO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 1)
-                    + (cacheC_NNLO[i-1] * cacheC_NLO[j-1] + cacheC_NLO[i-1] * cacheC_NNLO[j-1]) * p_s(qq, i, j, 0);
+                result += as_4pi_mu1 * as_4pi_mu1 * as_4pi_mu1 * C_Misiak_LO[i-1] * C_Misiak_LO[j-1] * p_s(qq, i, j, 3)
+                    + as_4pi_mu1 * as_4pi_mu1 * (C_Misiak_NLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NLO[j-1]) * p_s(qq, i, j, 2)
+                    + as_4pi_mu1 * (C_Misiak_NNLO[i-1] * C_Misiak_LO[j-1] + C_Misiak_NLO[i-1] * C_Misiak_NLO[j-1] + C_Misiak_LO[i-1] * C_Misiak_NNLO[j-1]) * p_s(qq, i, j, 1)
+                    + (C_Misiak_NNLO[i-1] * C_Misiak_NLO[j-1] + C_Misiak_NLO[i-1] * C_Misiak_NNLO[j-1]) * p_s(qq, i, j, 0);
             }
             else {
                 throw(std::runtime_error("AmpDB2::H_s_partial order not implemented"));
@@ -2336,7 +2336,7 @@ void AmpDB2::compute_partialNNLO() {
     }
     for (int i = 0; i < 8; i++) {
        if (i==6) i=7;
-        cacheC_NNLO[i] = 0.;
+        C_Misiak_NNLO[i] = 0.;
     }
     return;
 }
