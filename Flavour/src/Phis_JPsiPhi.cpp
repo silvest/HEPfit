@@ -7,8 +7,9 @@
 
 #include "Phis_JPsiPhi.h"
 #include "StandardModel.h"
+#include "AmpDB2.h"
 
 double Phis_JPsiPhi::computeThValue() 
 {
-    return (-remainder((M21_Bs(FULLNLO).arg() - 2. * SM.getCKM().computelamc_s().arg() + 2.*SM.getPhiBs() ),2.*M_PI));
+    return (-remainder((SM.getFlavour().getDB2(1).getM21(FULLNLO).arg() - 2. * SM.getCKM().computelamc_s().arg() + 2.*SM.getPhiBs() ),2.*M_PI));
 }

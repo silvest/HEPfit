@@ -9,10 +9,9 @@
 #define	DMBS_H
 
 #include "ThObservable.h"
-#include "AmpDB2.h"
 
 /**
- * @class DMK
+ * @class DMBs
  * @ingroup Flavour
  * @brief A class for @f$\Delta M_{B_s}@f$, the difference in mass
  * of between the heavy and light mass eigenstates of the neutral
@@ -25,14 +24,14 @@
  * the short distance contribution is dominated by the top loop in the
  * box diagram.
  */
-class DmBs : public ThObservable, AmpDB2 {
+class DmBs : public ThObservable {
 public:
 
     /**
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    DmBs(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
+    DmBs(const StandardModel& SM_i) : ThObservable(SM_i) {};
 
     /**
      *
@@ -57,14 +56,14 @@ public:
  * the short distance contribution is dominated by the top loop in the
  * box diagram.
  */
-class RmBs : public ThObservable, AmpDB2 {
+class RmBs : public ThObservable {
 public:
 
     /**
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    RmBs(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
+    RmBs(const StandardModel& SM_i) : ThObservable(SM_i){};
 
     /**
      *

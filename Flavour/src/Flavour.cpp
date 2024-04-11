@@ -18,6 +18,7 @@
 #include "MVgamma.h"
 #include "MVlnu.h"
 #include "MPlnu.h"
+#include "AmpDB2.h"
 
 Flavour::Flavour(const StandardModel& SM_i)
 : mySM(SM_i)
@@ -81,9 +82,9 @@ HeffDB1& Flavour::getHDB1() const
     return *getPtr<HeffDB1>(HDB1);
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme) const
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme, bool SM) const
 {
-    return getPtr<HeffDF2>(HDF2)->ComputeCoeffBd(mu, scheme);
+    return getPtr<HeffDF2>(HDF2)->ComputeCoeffBd(mu, scheme, SM);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBs(double mu, schemes scheme, bool SM) const
@@ -201,6 +202,11 @@ MVll& Flavour::getMVll(QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_
 //    }
 //    return *MVllMap.at(key);
     return getM<MVll>(MVllMap, meson_i, vector_i, lep_i);
+}
+
+AmpDB2& Flavour::getDB2(int Bmeson_i, bool flag_fixmub, bool flag_RI) const
+{
+    return getM<AmpDB2>(AmpDB2Map, Bmeson_i, flag_fixmub, flag_RI);
 }
 
 MVgamma& Flavour::getMVgamma(QCD::meson meson_i, QCD::meson vector_i) const

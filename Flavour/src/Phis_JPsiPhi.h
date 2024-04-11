@@ -9,7 +9,6 @@
 #define	BETASJPSIPHI_H
 
 #include "ThObservable.h"
-#include "AmpDB2.h"
 
 /**
  * @class Betas_JPsiPhi
@@ -20,14 +19,14 @@
  * @details This class is used to compute the theoretical value of
  * @f$S_{J/\psi\phi}@f$.
  */
-class Phis_JPsiPhi : public ThObservable, AmpDB2 {
+class Phis_JPsiPhi : public ThObservable{
 public:
     
    /**
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    Phis_JPsiPhi(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
+    Phis_JPsiPhi(const StandardModel& SM_i) : ThObservable(SM_i){};
     
     /**
      *

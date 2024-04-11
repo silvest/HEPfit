@@ -7,8 +7,9 @@
 
 #include "C2beta.h"
 #include "StandardModel.h"
+#include "AmpDB2.h"
 
 double C2beta::computeThValue() 
 {
-    return cos(-M21_Bd(FULLNLO).arg() + 2.*SM.getPhiBd());
+    return cos(-SM.getFlavour().getDB2(0).getM21(FULLNLO).arg() + 2.*SM.getPhiBd());
 }

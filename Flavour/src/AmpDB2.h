@@ -60,26 +60,27 @@ public:
         }
     }
 
-    enum mass_schemes
+    enum mass_schemes {pole, MSbar, PS, only1overmb, MSbar_partialNNLO, PS_partialNNLO, MSbar_partialN3LO, PS_partialN3LO}; //mass schemes
+    enum quark {d,s};   /*quark index i used for $B_i$*/
+    enum quarks {cc, cu, uu};   /*combinations of u- and c- quarks in diagrams */
+    
+    /**
+     * @brief The value of @f$\frac{\Gamma_{21},M_{21}}@f$ in the traditional basis
+     * @param[in] order the %QCD order of the computation
+     * @param[in] mass_scheme the scheme for the bottom quark mass
+     * @return @f$\frac{\Gamma_{21},M_{21}}@f$
+     */
+    gslpp::complex getGamma21overM21_tradBasis(orders order)
     {
-        pole,
-        MSbar,
-        PS,
-        only1overmb, 
-        MSbar_takeall, 
-        PS_takeall
-    }; // mass schemes
-    enum quark
-    {
-        d,
-        s
-    }; /*quark index i used for $B_i$*/
-    enum quarks
-    {
-        cc,
-        cu,
-        uu
-    }; /*combinations of u- and c- quarks in diagrams */
+        if (BMeson == 0)
+        {
+            return Gamma21overM21_tradBasis(order, d);
+        }
+        else
+        {
+            return Gamma21overM21_tradBasis(order, s);
+        }
+    }
 
     /**
      * @brief The value of @f$\frac{\Gamma_{21},M_{21}}@f$ from Gerlach (2205.07907 and thesis)
@@ -90,16 +91,6 @@ public:
     gslpp::complex getGamma21overM21(orders order, mass_schemes mass_scheme = MSbar)
     {
         return Gamma21overM21(order, mass_scheme, BMeson);
-    }
-
-    /**
-     * @brief The value of @f$\frac{\Gamma_{21},M_{21}}@f$ in the traditional basis (hep-ph/0308029v2)
-     * @param[in] order the %QCD order of the computation
-     * @return @f$\frac{\Gamma_{21},M_{21}}@f$
-     */
-    gslpp::complex getGamma21overM21_tradBasis(orders order)
-    {
-        return Gamma21overM21_tradBasis(order, BMeson);
     }
 
     gslpp::complex getPB()
@@ -157,7 +148,7 @@ protected:
      * @param[in] BMeson the B meson index (0 for Bd and 1 for Bs)
      * @return @f$\frac{\Gamma_{21},M_{21}}^{bq}@f$
      */
-    gslpp::complex Gamma21overM21_tradBasis(orders order, int BMeson);
+    gslpp::complex Gamma21overM21_tradBasis(orders order, quark q);
 
     /**
      * @brief A method to compute the ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value.
@@ -303,17 +294,22 @@ private:
     
     //Method to compute the DB=1 Wilson coefficients in the Misiak basis to NNLO (hep-ph/9711280)    
     void computeWilsonCoeffsMisiak();
+    
+    gslpp::complex cacheC[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};      /*FULLNNLO DB=1 Wilson coefficients C_i, i=1-6,8 */
+    gslpp::complex C_Misiak_LO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};   /*LO DB=1 Wilson coefficients in Misiak basis C_i, i=1-6,8 */
+    gslpp::complex C_Misiak_NLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};  /*NLO DB=1 Wilson coefficients in Misiak basis C_i, i=1-6,8 */
+    gslpp::complex C_Misiak_NNLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.}; /*NNLO DB=1 Wilson coefficients in Misiak basis C_i, i=1-6,8 */
+    gslpp::complex C_Buras_LO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};   /*LO DB=1 Wilson coefficients in Buras basis C_i, i=1-6,8 */
+    gslpp::complex C_Buras_NLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.};  /*NLO DB=1 Wilson coefficients in Buras basis C_i, i=1-6,8 */
+    gslpp::complex C_Buras_NNLO[8] = { 0., 0., 0., 0., 0., 0., NAN, 0.}; /*NNLO DB=1 Wilson coefficients in Buras basis C_i, i=1-6,8 */
 
-    gslpp::complex cacheC[8] = {0., 0., 0., 0., 0., 0., NAN, 0.};      /*FULLNNLO DB=1 Wilson coefficients C_i, i=1-6,8 */
-    gslpp::complex cacheC_LO[8] = {0., 0., 0., 0., 0., 0., NAN, 0.};   /*LO DB=1 Wilson coefficients C_i, i=1-6,8 */
-    gslpp::complex cacheC_NLO[8] = {0., 0., 0., 0., 0., 0., NAN, 0.};  /*NLO DB=1 Wilson coefficients C_i, i=1-6,8 */
-    gslpp::complex cacheC_NNLO[8] = {0., 0., 0., 0., 0., 0., NAN, 0.}; /*NNLO DB=1 Wilson coefficients C_i, i=1-6,8 */
-
-    /*******************************************************************************
-     *  @f$\Gamma_{21}@f$ in NLO from Ciuchini (hep-ph/0308029v2)                   *
-     * ****************************************************************************/
-
-    // Values of the products of CKM elements
+    
+    
+ /*******************************************************************************
+ *  @f$\Gamma_{21}@f$ in NLO from Ciuchini (hep-ph/0308029v2)                   * 
+ * ****************************************************************************/  
+    
+    //Values of the products of CKM elements
     gslpp::complex VtbVtd;
     gslpp::complex VtbVts;
     gslpp::complex VtbVtd2;
@@ -416,7 +412,7 @@ private:
 
     // A Method to adapt the DB=2 coefficient functions for the MSbar scheme (2106.05979 eq. (33))
     void poletoMSbar_pp_s();
-    void poletoMSbar_pp_s_takeall();
+    void poletoMSbar_pp_s_partialN3LO();
     //constants from hep-ph/9912391v2  eq. (11)
     double PoletoMS_as1;                                
     double PoletoMS_as2;
@@ -426,12 +422,14 @@ private:
     
     //A Method to adapt the DB=2 coefficient functions for the PS scheme (analog to 2106.05979 eq. (33))    
     void poletoPS_pp_s();
-    void poletoPS_pp_s_takeall();
+    void poletoPS_pp_s_partialN3LO();
     //constants from hep-ph/9804241v2 eq. (21)
     double PoletoPS_as1;                
     double PoletoPS_as2;
     double PoletoPS_as3;
-    
+
+    //A Method to discard true NNLO contributions from the DB=1 and DB=2 Wilson coefficients (like with partialN3LO)
+    void compute_partialNNLO();
     
     
  /*******************************************************************************
@@ -464,13 +462,13 @@ private:
 
     // returns position in our array parameterization of the corresponding coefficient function
     int indexg(quarks qq, int i);
-
-    // LO DB=1 Wilson coefficients for 1/mb corrections
-    gslpp::complex C_1LO;
-    gslpp::complex C_2LO;
-    // combinations of LO DB=1 Wilson coefficients
-    gslpp::complex K_1; // 3*C_1^2 + 2*C_1 * C_2
-    gslpp::complex K_2; // C_2^2
+    
+    //LO DB=1 Wilson coefficients for 1/mb corrections
+    gslpp::complex C1_LO_1overm;
+    gslpp::complex C2_LO_1overm;
+    //combinations of LO DB=1 Wilson coefficients
+    gslpp::complex K_1; //3*C_1^2 + 2*C_1 * C_2
+    gslpp::complex K_2; //C_2^2
 };
 
 /**

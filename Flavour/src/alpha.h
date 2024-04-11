@@ -9,7 +9,6 @@
 #define	ALPHA_H
 
 #include "ThObservable.h"
-#include "AmpDB2.h"
 
 /**
 * @class Alpha
@@ -20,7 +19,7 @@
 * @details This class is used to compute the CKM angle @f$\alpha @f$ in degrees,
 * extracted as @f$\pi + 1/2 arg(%AmpDB2) - \gamma @f$.
 */
-class Alpha : public ThObservable, AmpDB2 {
+class Alpha : public ThObservable {
 public:
     /**
     * @brief Constructor.

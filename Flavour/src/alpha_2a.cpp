@@ -7,11 +7,12 @@
 
 #include "alpha_2a.h"
 #include "StandardModel.h"
+#include "AmpDB2.h"
 
 double Alpha_2a::computeThValue() 
 { 
     // alpha is really extracted as pi + 1/2 arg AmpDB2 - gamma 
-    double a_2a = (M_PI + M21_Bd(FULLNLO).arg()/2. - SM.getCKM().computeGamma() - SM.getPhiBd())/M_PI*180.;
+    double a_2a = (M_PI + SM.getFlavour().getDB2(0).getM21(FULLNLO).arg()/2. - SM.getCKM().computeGamma() - SM.getPhiBd())/M_PI*180.;
     if (a_2a < 0.)
         a_2a += 180.;
     else if (a_2a > 180.)

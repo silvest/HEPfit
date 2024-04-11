@@ -19,6 +19,7 @@ class MPll;
 class MVgamma;
 class MVlnu;
 class MPlnu;
+class AmpDB2;
 #include "QCD.h"
 #include <boost/tuple/tuple.hpp>
 #include <memory>
@@ -85,7 +86,7 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B_d \to \mu \mu \f$
      *
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR, bool SM = false) const;
 
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu() const;
 
@@ -196,6 +197,14 @@ public:
      *
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme = NDR) const;
+
+    /**
+     * @brief Returns a reference to the meson dependent object for \f$ \Delta B = 2 \f$ processes.
+     * @param[in] Bmeson_i specifies the meson (0 for B_d, 1 for B_s)
+     * @return returns a pointer to the meson dependent object for \f$ \Delta B = 2 \f$ processes.
+     *
+     */
+    AmpDB2& getDB2(int BMeson_i, bool flag_fixmub = false, bool flag_RI = false) const;
 
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -334,6 +343,7 @@ private:
     mutable std::map<std::vector<int>, std::shared_ptr<MVgamma> > MVgammaMap;
     mutable std::map<std::vector<int>, std::shared_ptr<MPll> > MPllMap;
     mutable std::map<std::vector<int>, std::shared_ptr<MPlnu> > MPlnuMap;
+    mutable std::map<std::vector<int>, std::shared_ptr<AmpDB2> > AmpDB2Map;
     mutable std::map<std::vector<int>, bool> flagUpdateMap;
 
     mutable bool dispersion;

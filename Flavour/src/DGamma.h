@@ -9,9 +9,8 @@
 #ifndef DGAMMA_H
 #define DGAMMA_H
 #include "ThObservable.h"
-#include "AmpDB2.h"
 
-class DGamma_d_pole : public ThObservable, AmpDB2{
+class DGamma_d_pole : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -27,7 +26,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_pole : public ThObservable, AmpDB2{
+class DGamma_s_pole : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -43,7 +42,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_pole_NLO : public ThObservable, AmpDB2{
+class DGamma_s_pole_NLO : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -59,7 +58,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_pole_LO : public ThObservable, AmpDB2{
+class DGamma_s_pole_LO : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -75,7 +74,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_d_MSbar : public ThObservable, AmpDB2{
+class DGamma_d_MSbar : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -91,7 +90,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_MSbar : public ThObservable, AmpDB2{
+class DGamma_s_MSbar : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -107,7 +106,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_MSbar_NLO : public ThObservable, AmpDB2{
+class DGamma_s_MSbar_NLO : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -123,7 +122,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_MSbar_LO : public ThObservable, AmpDB2{
+class DGamma_s_MSbar_LO : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -139,7 +138,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_d_PS : public ThObservable, AmpDB2{
+class DGamma_d_PS : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -155,7 +154,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_PS : public ThObservable, AmpDB2{
+class DGamma_s_PS : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -171,7 +170,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_PS_NLO : public ThObservable, AmpDB2{
+class DGamma_s_PS_NLO : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -187,7 +186,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_PS_LO : public ThObservable, AmpDB2{
+class DGamma_s_PS_LO : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -204,7 +203,7 @@ public:
 };
 
 
-class DGamma_s_pole_fixmub : public ThObservable, AmpDB2{
+class DGamma_s_pole_fixmub : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -220,7 +219,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_MSbar_fixmub : public ThObservable, AmpDB2{
+class DGamma_s_MSbar_fixmub : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -236,7 +235,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_PS_fixmub : public ThObservable, AmpDB2{
+class DGamma_s_PS_fixmub : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -252,7 +251,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_d_only1overmb : public ThObservable, AmpDB2{
+class DGamma_d_only1overmb : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -268,7 +267,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_only1overmb : public ThObservable, AmpDB2{
+class DGamma_s_only1overmb : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -284,7 +283,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_d_NLO_tradBasis : public ThObservable, AmpDB2{
+class DGamma_d_NLO_tradBasis : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -300,7 +299,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_NLO_tradBasis : public ThObservable, AmpDB2{
+class DGamma_s_NLO_tradBasis : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -316,7 +315,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_d_LO_tradBasis : public ThObservable, AmpDB2{
+class DGamma_d_LO_tradBasis : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -332,7 +331,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_LO_tradBasis : public ThObservable, AmpDB2{
+class DGamma_s_LO_tradBasis : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -348,23 +347,7 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_MSbar_RI : public ThObservable, AmpDB2{
-public:
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    DGamma_s_MSbar_RI(const StandardModel& SM_i);
-    
-    /**
-     * @brief Destructor.
-     */
-    virtual ~DGamma_s_MSbar_RI();
-    
-    double computeThValue();
-};
-
-class DGamma_s_MSbar_NLO_RI : public ThObservable, AmpDB2{
+class DGamma_s_MSbar_NLO_RI : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -380,23 +363,23 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_PS_RI : public ThObservable, AmpDB2{
+class DGamma_s_MSbar_NLO_RI_tradBasis : public ThObservable{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    DGamma_s_PS_RI(const StandardModel& SM_i);
+    DGamma_s_MSbar_NLO_RI_tradBasis(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~DGamma_s_PS_RI();
+    virtual ~DGamma_s_MSbar_NLO_RI_tradBasis();
     
     double computeThValue();
 };
 
-class DGamma_s_PS_NLO_RI : public ThObservable, AmpDB2{
+class DGamma_s_PS_NLO_RI : public ThObservable{
 public:
     /**
      * @brief Constructor.
@@ -412,34 +395,82 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_MSbar_takeall : public ThObservable, AmpDB2{
+class DGamma_s_PS_NLO_RI_tradBasis : public ThObservable{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    DGamma_s_MSbar_takeall(const StandardModel& SM_i);
+    DGamma_s_PS_NLO_RI_tradBasis(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~DGamma_s_MSbar_takeall();
+    virtual ~DGamma_s_PS_NLO_RI_tradBasis();
     
     double computeThValue();
 };
 
-class DGamma_s_PS_takeall : public ThObservable, AmpDB2{
+class DGamma_s_MSbar_partialNNLO : public ThObservable{
 public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    DGamma_s_PS_takeall(const StandardModel& SM_i);
+    DGamma_s_MSbar_partialNNLO(const StandardModel& SM_i);
     
     /**
      * @brief Destructor.
      */
-    virtual ~DGamma_s_PS_takeall();
+    virtual ~DGamma_s_MSbar_partialNNLO();
+    
+    double computeThValue();
+};
+
+class DGamma_s_PS_partialNNLO : public ThObservable{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s_PS_partialNNLO(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s_PS_partialNNLO();
+    
+    double computeThValue();
+};
+
+class DGamma_s_MSbar_partialN3LO : public ThObservable{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s_MSbar_partialN3LO(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s_MSbar_partialN3LO();
+    
+    double computeThValue();
+};
+
+class DGamma_s_PS_partialN3LO : public ThObservable{
+public:
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    DGamma_s_PS_partialN3LO(const StandardModel& SM_i);
+    
+    /**
+     * @brief Destructor.
+     */
+    virtual ~DGamma_s_PS_partialN3LO();
     
     double computeThValue();
 };

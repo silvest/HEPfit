@@ -7,8 +7,9 @@
 
 #include "DmBd.h"
 #include "StandardModel.h"
+#include "AmpDB2.h"
  
 double  DmBd::computeThValue() 
 {
-    return(2. * SM.getCBd() * M21_Bd(FULLNLO).abs());
+    return(2. * SM.getCBd() * SM.getFlavour().getDB2(0).getM21(FULLNLO).abs());
 }
