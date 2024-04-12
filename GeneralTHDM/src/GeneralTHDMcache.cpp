@@ -190,6 +190,9 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         CMS13_pp_phi2_gaga(81, 2, 0.), //Added in 2024
         //
+        CMS13_pp_bbphi3_bbtautau(10, 2, 0.), //Added in 2024
+        //
+
         ATLAS13_pp_h_phi3phi3_bbmumu(47, 2, 0.), //Added in 2024
         //
         ATLAS13_gg_h_phi23phi23_mumumumu(110, 2, 0.), //Added in 2024
@@ -206,6 +209,8 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         ATLAS13_pp_phi2_gaga_low(89, 2, 0.), //Added in 2024
         //
+        ATLAS13_pp_ttphi3_ttmumu(37, 2, 0.), //Added in 2024
+        //
 
         ATLAS8_pp_h_phi3phi3_gagagaga(105, 2, 0.), //Added in 2024
         //
@@ -218,6 +223,10 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS8_pp_h_phi3phi3_mumutautau(96, 2, 0.), //Added in 2024
         //
         CMS8_pp_phi2_gaga(257, 2, 0.), //Added in 2024
+        //
+        CMS8_pp_bbphi3_bbtautau(12, 2, 0.), //Added in 2024
+        //
+        CMS8_pp_bbphi3_bbmumu(36, 2, 0.), //Added in 2024
         //
 
         arraybsgamma(1111, 3, 0.),
@@ -1830,8 +1839,8 @@ void GeneralTHDMcache::read(){
             ex45,ex46n1,ex46n2,ex46a,ex47,ex48,ex49,ex49p2,ex50,ex51,ex52m2,ex52m1,ex52,ex52p1,ex52p2,ex53,ex54,ex55,ex56;
     std::stringstream ex57,ex58,ex59,ex60,ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex67p1,ex67p2,ex67p3,ex67p4,ex67p5,ex68,ex69,ex70,ex71,ex72,ex73,ex74,ex75,ex76,ex77,\
             ex78,ex79;//,ex80,ex81,ex82,ex83,ex84,ex85,ex86,ex87,ex88,ex89,ex90,ex91,ex92,ex93,ex94,ex95,ex96,ex97,ex98
-    std::stringstream lowC01,lowC02,lowC03,lowC04,lowC05,lowC06,lowC07;
-    std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07;
+    std::stringstream lowC01,lowC02,lowC03,lowC04,lowC05,lowC06,lowC07,lowC08, lowC09;
+    std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07, lowA08, lowA09;
     std::stringstream lowA801, lowA802;
     std::stringstream lowC801, lowC802, lowC803, lowC804, lowC805, lowC806;
     std::stringstream bsg1;
@@ -2256,6 +2265,12 @@ void GeneralTHDMcache::read(){
     lowC07 << tablepath << "CMS-HIG-18-006_10.dat";               //Added in 2024
     CMS13_pp_h_phi3phi3_tautautautau = readTable(lowC07.str(),12,2);
 
+    lowC08 << tablepath << "CMS-PAS-HIG-20-002_5b.dat";               //Added in 2024
+    CMS13_pp_phi2_gaga = readTable(lowC08.str(),81,2);
+
+    lowC09 << tablepath << "CMS-HIG-17-014_4.dat";               //Added in 2024
+    CMS13_pp_bbphi3_bbtautau = readTable(lowC09.str(),10,2);
+
     lowA01 << tablepath << "ATLAS_CERN-EP-2021-157_9.dat";               //Added in 2024
     ATLAS13_pp_h_phi3phi3_bbmumu = readTable(lowA01.str(),47,2);
 
@@ -2277,6 +2292,12 @@ void GeneralTHDMcache::read(){
     lowA07 << tablepath << "ATLAS_CERN-EP-2017-295_2.dat";               //Added in 2024
     ATLAS13_pp_h_phi23phi23_gagagg = readTable(lowA07.str(),13,2);
 
+    lowA08 << tablepath << "ATLAS-CONF-2023-035_7b.dat";               //Added in 2024
+    ATLAS13_pp_phi2_gaga_low = readTable(lowA08.str(),89,2);
+
+    lowA09 << tablepath << "ATLAS_CERN-EP-2023-070_5a.dat";               //Added in 2024
+    ATLAS13_pp_ttphi3_ttmumu = readTable(lowA09.str(),37,2);
+
     lowA801 << tablepath << "ATLAS_CERN-PH-EP-2015-187_4b.dat";               //Added in 2024
     ATLAS8_pp_h_phi3phi3_gagagaga = readTable(lowA801.str(),105,2);
 
@@ -2295,11 +2316,11 @@ void GeneralTHDMcache::read(){
     lowC804 << tablepath << "CMS-HIG-17-013_4a.dat";               //Added in 2024
     CMS8_pp_phi2_gaga = readTable(lowC804.str(),257,2);
 
-    lowC805 << tablepath << "CMS PAS HIG-20-002_5b.dat";               //Added in 2024
-    CMS13_pp_phi2_gaga = readTable(lowC805.str(),81,2);
+    lowC805 << tablepath << "CMS-HIG-14-033_3.dat";               //Added in 2024
+    CMS8_pp_bbphi3_bbtautau = readTable(lowC805.str(),12,2);
 
-    lowC806 << tablepath << "ATLAS-CONF-2023-035_7b.dat";               //Added in 2024
-    ATLAS13_pp_phi2_gaga_low = readTable(lowC806.str(),89,2);
+    lowC806 << tablepath << "CMS-HIG-15-009_5b.dat";               //Added in 2024
+    CMS8_pp_bbphi3_bbmumu = readTable(lowC806.str(),36,2);
 
     //std::cout<< CMS13_pp_Hpm_taunu<<std::endl;
 
@@ -4897,6 +4918,57 @@ double GeneralTHDMcache::ip_low_pp_phi2_gaga_ATLAS13(double mass){
     }
 }
 
+double GeneralTHDMcache::ip_low_pp_bbphi3_bbtautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_bbphi3_bbtautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_bbphi3_bbtautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_bbphi3_bbtautau,mass);
+        CacheShiftReal(ip_low_pp_bbphi3_bbtautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_bbphi3_bbtautau_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_bbphi3_bbtautau_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_bbphi3_bbtautau_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_bbphi3_bbtautau,mass);
+        CacheShiftReal(ip_low_pp_bbphi3_bbtautau_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_ttphi3_ttmumu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_ttphi3_ttmumu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_ttphi3_ttmumu,mass);
+        CacheShiftReal(ip_low_pp_ttphi3_ttmumu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_bbphi3_bbmumu_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_bbphi3_bbmumu_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_bbphi3_bbmumu_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_bbphi3_bbmumu,mass);
+        CacheShiftReal(ip_low_pp_bbphi3_bbmumu_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 //This seems not to be used by the code. Check if this was only something included of the THDM
 double GeneralTHDMcache::ip_ex_bsgamma(double logtb, double logmHp){
@@ -9105,6 +9177,34 @@ void GeneralTHDMcache::computeLowMass()
     if(mH3 >= 15.0 && mH3 <= 62.5)
     {
         THoEX_pp_h_phi3phi3_mumutautau_CMS8 = (pph8 * GTHDM_BR_h_AA * Br_phi3totautau * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_mumutautau_CMS8(mH3);
+    }
+
+    THoEX_pp_bbphi3_bbtautau_CMS13 = 0.0;
+
+    if(mH3 >= 25.0 && mH3 <= 70.0)
+    {
+        THoEX_pp_bbphi3_bbtautau_CMS13 = (SigmabbF_phi3_13 * Br_phi3totautau) / ip_low_pp_bbphi3_bbtautau_CMS13(mH3);
+    }
+
+    THoEX_pp_bbphi3_bbtautau_CMS8 = 0.0;
+
+    if(mH3 >= 25.0 && mH3 <= 80.0)
+    {
+        THoEX_pp_bbphi3_bbtautau_CMS8 = (SigmabbF_phi3_8 * Br_phi3totautau) / ip_low_pp_bbphi3_bbtautau_CMS8(mH3);
+    }
+
+    THoEX_pp_ttphi3_ttmumu_ATLAS13 = 0.0;
+
+    if(mH3 >= 15.1 && mH3 <= 73.3)
+    {
+        THoEX_pp_ttphi3_ttmumu_ATLAS13 = (SigmattF_phi3_13 * Br_phi3tomumu) / ip_low_pp_ttphi3_ttmumu_ATLAS13(mH3);
+    }
+
+    THoEX_pp_bbphi3_bbmumu_CMS8 = 0.0;
+
+    if(mH3 >= 25.0 && mH3 <= 60.0)
+    {
+        THoEX_pp_bbphi3_bbmumu_CMS8 = (SigmabbF_phi3_8 * Br_phi3tomumu) / ip_low_pp_bbphi3_bbmumu_CMS8(mH3);
     }
 
     /*********************************/

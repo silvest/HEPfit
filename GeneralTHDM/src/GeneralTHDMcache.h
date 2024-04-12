@@ -284,21 +284,22 @@ public:
      * @brief CMS observed @f$95\%@f$ upper cross section (or branching fraction) limits at 13 TeV, depending on the pseudoscalar mass.
      */
     gslpp::matrix<double> CMS13_pp_h_phi3phi3_mumutautau, CMS13_pp_h_phi3phi3_bbtautau, CMS13_pp_h_phi3phi3_bbmumu, CMS13_pp_h_phi23Z_mumull,\
-                          CMS13_pp_h_phi23phi23_mumumumu, CMS13_pp_h_phi3phi3_gagagaga, CMS13_pp_h_phi3phi3_tautautautau, CMS13_pp_phi2_gaga;
-
+                          CMS13_pp_h_phi23phi23_mumumumu, CMS13_pp_h_phi3phi3_gagagaga, CMS13_pp_h_phi3phi3_tautautautau, CMS13_pp_phi2_gaga,\
+                          CMS13_pp_bbphi3_bbtautau;
     //Added in the beginning of 2024 for low mass scenario
     /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section (or branching fraction) limits at 13 TeV, depending on the pseudoscalar mass.
      */
     gslpp::matrix<double> ATLAS13_pp_h_phi3phi3_bbmumu, ATLAS13_gg_h_phi23phi23_mumumumu, ATLAS13_gg_h_phi23Z_mumull, ATLAS13_Vh_h_phi23phi23_bbbb,\
-                          ATLAS13_Zh_h_phi23phi23_bbbb, ATLAS13_pp_h_phi23phi23_bbmumu_old, ATLAS13_pp_h_phi23phi23_gagagg, ATLAS13_pp_phi2_gaga_low;
+                          ATLAS13_Zh_h_phi23phi23_bbbb, ATLAS13_pp_h_phi23phi23_bbmumu_old, ATLAS13_pp_h_phi23phi23_gagagg, ATLAS13_pp_phi2_gaga_low,\
+                          ATLAS13_pp_ttphi3_ttmumu;
 
     //Added in the beginning of 2024 for low mass scenario
     /**
      * @brief ATLAS & CMS observed @f$95\%@f$ upper cross section (or branching fraction) limits at 8 TeV, depending on the pseudoscalar mass.
      */
     gslpp::matrix<double> ATLAS8_pp_h_phi3phi3_gagagaga, ATLAS8_gg_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_bbmumu,\
-                          CMS8_pp_h_phi3phi3_mumutautau, CMS8_pp_phi2_gaga;
+                          CMS8_pp_h_phi3phi3_mumutautau, CMS8_pp_phi2_gaga, CMS8_pp_bbphi3_bbtautau, CMS8_pp_bbphi3_bbmumu;
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -647,6 +648,7 @@ public:
     double ip_low_pp_h_phi3phi3_gagagaga_CMS13(double mass);
     double ip_low_pp_h_phi3phi3_tautautautau_CMS13(double mass);
     double ip_low_pp_phi2_gaga_CMS13(double mass);
+    double ip_low_pp_bbphi3_bbtautau_CMS13(double mass);
 
     double ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(double mass);
     double ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(double mass);
@@ -656,6 +658,7 @@ public:
     double ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old(double mass);
     double ip_low_pp_h_phi23phi23_gagagg_ATLAS13(double mass);
     double ip_low_pp_phi2_gaga_ATLAS13(double mass);
+    double ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass);
 
     double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(double mass);
     double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8(double mass);
@@ -663,6 +666,8 @@ public:
     double ip_low_pp_h_phi3phi3_bbmumu_CMS8(double mass);
     double ip_low_pp_h_phi3phi3_mumutautau_CMS8(double mass);
     double ip_low_pp_phi2_gaga_CMS8(double mass);
+    double ip_low_pp_bbphi3_bbtautau_CMS8(double mass);
+    double ip_low_pp_bbphi3_bbmumu_CMS8(double mass);
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
@@ -2697,6 +2702,7 @@ public:
     double THoEX_pp_h_phi3phi3_gagagaga_CMS13;
     double THoEX_pp_h_phi3phi3_tautautautau_CMS13;
     double THoEX_pp_phi2_gaga_CMS13;
+    double THoEX_pp_bbphi3_bbtautau_CMS13;
 
     double THoEX_pp_h_phi3phi3_bbmumu_ATLAS13;
     double THoEX_gg_h_phi3phi3_mumumumu_ATLAS13;
@@ -2706,6 +2712,7 @@ public:
     double THoEX_pp_h_phi3phi3_bbmumu_ATLAS13_old;
     double THoEX_pp_h_phi3phi3_gagagg_ATLAS13;
     double THoEX_pp_phi2_gaga_ATLAS13_low;
+    double THoEX_pp_ttphi3_ttmumu_ATLAS13;
 
     double THoEX_pp_h_phi3phi3_gagagaga_ATLAS8;
     double THoEX_gg_h_phi3phi3_tautautautau_ATLAS8;
@@ -2713,6 +2720,8 @@ public:
     double THoEX_pp_h_phi3phi3_bbmumu_CMS8;
     double THoEX_pp_h_phi3phi3_mumutautau_CMS8;
     double THoEX_pp_phi2_gaga_CMS8;
+    double THoEX_pp_bbphi3_bbtautau_CMS8;
+    double THoEX_pp_bbphi3_bbmumu_CMS8;
 
     double THoEX_pp_h_phi2Z_mumull_CMS13;
     double THoEX_pp_h_phi2phi2_mumumumu_CMS13;
@@ -3387,6 +3396,7 @@ private:
     mutable double ip_low_pp_h_phi3phi3_gagagaga_CMS13_cache[2][CacheSize];
     mutable double ip_low_pp_h_phi3phi3_tautautautau_CMS13_cache[2][CacheSize];
     mutable double ip_low_pp_phi2_gaga_CMS13_cache[2][CacheSize];
+    mutable double ip_low_pp_bbphi3_bbtautau_CMS13_cache[2][CacheSize];
 
     mutable double ip_low_pp_h_phi3phi3_bbmumu_ATLAS13_cache[2][CacheSize];
     mutable double ip_low_gg_h_phi23phi23_mumumumu_ATLAS13_cache[2][CacheSize];
@@ -3396,6 +3406,7 @@ private:
     mutable double ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old_cache[2][CacheSize];
     mutable double ip_low_pp_h_phi23phi23_gagagg_ATLAS13_cache[2][CacheSize];
     mutable double ip_low_pp_phi2_gaga_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_pp_ttphi3_ttmumu_ATLAS13_cache[2][CacheSize];
 
     mutable double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8_cache[2][CacheSize];
     mutable double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8_cache[2][CacheSize];
@@ -3403,6 +3414,8 @@ private:
     mutable double ip_low_pp_h_phi3phi3_bbmumu_CMS8_cache[2][CacheSize];
     mutable double ip_low_pp_h_phi3phi3_mumutautau_CMS8_cache[2][CacheSize];
     mutable double ip_low_pp_phi2_gaga_CMS8_cache[2][CacheSize];
+    mutable double ip_low_pp_bbphi3_bbtautau_CMS8_cache[2][CacheSize];
+    mutable double ip_low_pp_bbphi3_bbmumu_CMS8_cache[2][CacheSize];
 
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 

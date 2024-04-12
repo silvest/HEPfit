@@ -1,0 +1,15 @@
+# CMS-HIG-14-033, fig. 3
+# observed 95% exclusion limits on sig(pp->bbA)*BR(A->2tau) at 8 TeV
+# mA[GeV] | sig*BR_95% [pb]
+25	35.8
+30	38.7
+35	37.4
+40	31.3
+45	20.3
+50	13.2
+55	10.5
+60	10.6
+65	8.3
+70	7.1
+75	7.9
+80	8.

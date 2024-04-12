@@ -76,6 +76,15 @@ double Hobs_pp_h_phi3phi3_tautautautau_CMS13::computeThValue()
     return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi3phi3_tautautautau_CMS13;
 }
 
+Hobs_pp_bbphi3_bbtautau_CMS13::Hobs_pp_bbphi3_bbtautau_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_bbphi3_bbtautau_CMS13::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_bbphi3_bbtautau_CMS13;
+}
+
 Hobs_pp_h_phi3phi3_tautautautau_CMS8::Hobs_pp_h_phi3phi3_tautautautau_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
@@ -103,6 +112,23 @@ double Hobs_pp_h_phi3phi3_mumutautau_CMS8::computeThValue()
     return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi3phi3_mumutautau_CMS8;
 }
 
+Hobs_pp_bbphi3_bbtautau_CMS8::Hobs_pp_bbphi3_bbtautau_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_bbphi3_bbtautau_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_bbphi3_bbtautau_CMS8;
+}
+
+Hobs_pp_bbphi3_bbmumu_CMS8::Hobs_pp_bbphi3_bbmumu_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_bbphi3_bbmumu_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_bbphi3_bbmumu_CMS8;
+}
 
 /***************************************/
 /* ATLAS Observables with phi_3, i.e A */
@@ -169,6 +195,15 @@ Hobs_pp_h_phi3phi3_gagagg_ATLAS13::Hobs_pp_h_phi3phi3_gagagg_ATLAS13(const Stand
 double Hobs_pp_h_phi3phi3_gagagg_ATLAS13::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi3phi3_gagagg_ATLAS13;
+}
+
+Hobs_pp_ttphi3_ttmumu_ATLAS13::Hobs_pp_ttphi3_ttmumu_ATLAS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_ttphi3_ttmumu_ATLAS13::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_ttphi3_ttmumu_ATLAS13;
 }
 
 Hobs_pp_h_phi3phi3_gagagaga_ATLAS8::Hobs_pp_h_phi3phi3_gagagaga_ATLAS8(const StandardModel& SM_i)
