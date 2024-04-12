@@ -1,0 +1,9 @@
+# CMS-HIG-16-015, fig. 4
+# observed 95% exclusion limits on sig/sigSM(pp->h)*BR(h->AA[->4tau]) at 8 TeV
+# mA[GeV] | sig/sigSM*BR_95%
+5	26.02
+7	0.5
+9	0.23
+11	0.163
+13	0.17
+15	0.27

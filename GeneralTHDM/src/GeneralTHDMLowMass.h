@@ -335,6 +335,118 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+/**
+ * @class Hobs_pp_h_phi3phi3_gagagaga_ATLAS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section  times branching ratio of the process @f$pp \to h_{125}\to AA\to \gamma\gamma\gamma\gamma@f$ at 8 TeV.
+ */
+class Hobs_pp_h_phi3phi3_gagagaga_ATLAS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_h_phi3phi3_gagagaga_ATLAS8 constructor.
+     */
+    Hobs_pp_h_phi3phi3_gagagaga_ATLAS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM, 8 TeV}}_{pp\to h_{125}} \cdot BR^{\text{GTHDM}}(h_{125}\to AA) \cdot BR^{\text{GTHDM}}(A\to \gamma\gamma) \cdot BR^{\text{GTHDM}}(A\to \gamma\gamma)]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_gg_h_phi3phi3_tautautautau_ATLAS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section  times branching ratio of the process @f$gg \to h_{125}\to AA\to \tau\tau\tau\tau@f$ at 8 TeV.
+ */
+class Hobs_gg_h_phi3phi3_tautautautau_ATLAS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_gg_h_phi3phi3_tautautautau_ATLAS8 constructor.
+     */
+    Hobs_gg_h_phi3phi3_tautautautau_ATLAS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM, 8 TeV}}_{gg\to h_{125}} \cdot BR^{\text{GTHDM}}(h_{125}\to AA) \cdot BR^{\text{GTHDM}}(A\to \tau\tau) \cdot BR^{\text{GTHDM}}(A\to \tau\tau)]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_h_phi3phi3_tautautautau_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section  times branching ratio of the process @f$pp \to h_{125}\to AA\to \tau\tau\tau\tau@f$ at 8 TeV.
+ */
+class Hobs_pp_h_phi3phi3_tautautautau_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_h_phi3phi3_tautautautau_CMS8 constructor.
+     */
+    Hobs_pp_h_phi3phi3_tautautautau_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM, 8 TeV}}_{pp\to h_{125}} \cdot BR^{\text{GTHDM}}(h_{125}\to AA) \cdot BR^{\text{GTHDM}}(A\to \tau\tau) \cdot BR^{\text{GTHDM}}(A\to \tau\tau)]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class Hobs_pp_h_phi3phi3_bbmumu_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section  times branching ratio of the process @f$pp \to h_{125}\to AA\to bb\mu\mu@f$ at 8 TeV.
+ */
+class Hobs_pp_h_phi3phi3_bbmumu_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_h_phi3phi3_bbmumu_CMS8 constructor.
+     */
+    Hobs_pp_h_phi3phi3_bbmumu_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM, 8 TeV}}_{pp\to h_{125}} \cdot BR^{\text{GTHDM}}(h_{125}\to AA) \cdot BR^{\text{GTHDM}}(A\to bb) \cdot BR^{\text{GTHDM}}(A\to \mu\mu)]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_h_phi3phi3_mumutautau_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section  times branching ratio of the process @f$pp \to h_{125}\to AA\to \tau\tau\mu\mu@f$ at 8 TeV.
+ */
+class Hobs_pp_h_phi3phi3_mumutautau_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_h_phi3phi3_mumutautau_CMS8 constructor.
+     */
+    Hobs_pp_h_phi3phi3_mumutautau_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM, 8 TeV}}_{pp\to h_{125}} \cdot BR^{\text{GTHDM}}(h_{125}\to AA) \cdot BR^{\text{GTHDM}}(A\to \tau\tau) \cdot BR^{\text{GTHDM}}(A\to \mu\mu)]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
 /*********************************/
 /* Observables with phi_2, i.e H */
 /*********************************/
@@ -509,6 +621,72 @@ public:
 
     /**
      * @return @f$[\sigma^{\text{GTHDM}}_{pp\to h_{125}} \cdot BR^{\text{GTHDM}}(h_{125}\to HH) \cdot BR^{\text{GTHDM}}(H\to \gamma\gamma) \cdot BR^{\text{GTHDM}}(H\to gg)]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_phi2_gaga_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section  times branching ratio of the process @f$pp \to H \to \gamma\gamma @f$.
+ */
+class Hobs_pp_phi2_gaga_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_phi2_gaga_CMS8 constructor.
+     */
+    Hobs_pp_phi2_gaga_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM, 8 TeV}}_{pp\to H} \cdot BR^{\text{GTHDM}}(H\to \gamma\gamma)]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_phi2_gaga_CMS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section  times branching ratio of the process @f$pp \to H \to \gamma\gamma @f$.
+ */
+class Hobs_pp_phi2_gaga_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_phi2_gaga_CMS13 constructor.
+     */
+    Hobs_pp_phi2_gaga_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to H} \cdot BR^{\text{GTHDM}}(H\to \gamma\gamma)]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_phi2_gaga_ATLAS13_low
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section  times branching ratio of the process @f$pp \to H \to \gamma\gamma @f$.
+ */
+class Hobs_pp_phi2_gaga_ATLAS13_low: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_phi2_gaga_ATLAS13_low constructor.
+     */
+    Hobs_pp_phi2_gaga_ATLAS13_low(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to H} \cdot BR^{\text{GTHDM}}(H\to \gamma\gamma)]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
      */
     double computeThValue();
 
