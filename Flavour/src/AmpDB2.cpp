@@ -358,7 +358,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     //explained in Gerlach thesis chapter 7.0 and arxiv:2205.07907 Results.
     Mb2_prefactor_1overm = Mb_PS * Mb_PS;
     if(order == NNLO){
-        Mb = Mb_mub;
+        Mb = Mb_mub;                    //if Mb changes independently of mub it has to be added to currentInput_compute_pp_s
         Mc = Mc_mub;
         z = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);
         this->flag_resumz = true;

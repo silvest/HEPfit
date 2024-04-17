@@ -62,7 +62,7 @@ Asl_d_MSbar::~Asl_d_MSbar() {
 }
 
 double Asl_d_MSbar::computeThValue() {
-    return -SM.getFlavour().getDB2(0).getGamma21overM21(FULLNNLO, SM.getFlavour().getDB2(1).MSbar).imag();
+    return -SM.getFlavour().getDB2(0).getGamma21overM21(FULLNNLO, SM.getFlavour().getDB2(0).MSbar).imag();
 }
 
 Asl_s_MSbar::Asl_s_MSbar(const StandardModel& SM_i)
