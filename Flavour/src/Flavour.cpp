@@ -28,6 +28,10 @@ Flavour::Flavour(const StandardModel& SM_i)
     CLNflag = false;
     BGLflag = false;
     DMflag = false;
+    mySM.initializeBParameter("BBs");
+    mySM.initializeBParameter("BBd");
+    mySM.initializeBParameter("BBs_subleading");
+    mySM.initializeBParameter("BBd_subleading");   
 };
 
 bool Flavour::setFlag(const std::string name, const bool value) 

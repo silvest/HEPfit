@@ -13,11 +13,7 @@
 AmpDB2::AmpDB2(const StandardModel& SM_i, int BMeson_i, bool flag_fixmub, bool flag_RI)
 : mySM(SM_i), meMStoRI(5, 0.), coeffsMStoRI(3, 0.)
 {
-    BMeson = BMeson_i;
-    mySM.initializeBParameter("BBs");
-    mySM.initializeBParameter("BBd");
-    mySM.initializeBParameter("BBs_subleading");
-    mySM.initializeBParameter("BBd_subleading");    
+    BMeson = BMeson_i; 
     this->flag_resumz = true;
     this->flag_fixmub = flag_fixmub;
     this->flag_RI = flag_RI;
@@ -244,13 +240,13 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q){
         case d:
             M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBd(
             mySM.getBBd().getMu(),
-            mySM.getBBd().getScheme());
+            mySM.getBBd().getScheme(), true);
             MBq = MB;
             break;
         case s:
             M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBs(
             mySM.getBBs().getMu(),
-            mySM.getBBs().getScheme());
+            mySM.getBBs().getScheme(), true);
             MBq = MB_s;
             break;
         default: throw std::runtime_error("AmpDB2::Gamma21overM21_tradBasis(orders order, quark q): invalid quark index: ");
@@ -351,16 +347,19 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     as_4pi_mu2 = mySM.Als(mu_2, FULLNNNLO, true)/(4.*M_PI);
     as_4pi = mySM.Als(Mb_Mb, FULLNNNLO, true)/(4.*M_PI);
             
+    //resummed z always in MSbar 
+    z = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);
+    sqrtz = sqrt(z);
+    
     //PS mass of bottom quark: NNLO evaluation from hep-ph/9804241v2 eq. (25)
     PoletoMS_as2 = 307./32. + M_PI2/3. + M_PI2/9. * log2 - 1./6. * zeta3 - (71./144. + M_PI2/18.) * nl + 4./3. * M_PI2/8. * sqrtz - z;
-    Mb_PS = Mb_Mb * (1. + 16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16 * as_4pi * as_4pi * (PoletoMS_as2 - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2))));
-    //adapt "Mb2_prefactor" to the used mass scheme; Mb, Mc, resummed z always in MSbar 
+    Mb_PS = Mb_Mb * (1. + 16./3. * as_4pi * (1. - mu_f/Mb_Mb) + 16. * as_4pi * as_4pi * (PoletoMS_as2 - mu_f/(3. * Mb_Mb) * (a1 - b0 * (2. * log(mu_f/Mb_Mb) - 2.))));
+
+    //adapt "Mb2_prefactor" to the used mass scheme; Mb, Mc, always in MSbar 
     //explained in Gerlach thesis chapter 7.0 and arxiv:2205.07907 Results.
-    Mb2_prefactor_1overm = Mb_PS * Mb_PS;
     if(order == NNLO){
         Mb = Mb_mub;                    //if Mb changes independently of mub it has to be added to currentInput_compute_pp_s
         Mc = Mc_mub;
-        z = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);
         this->flag_resumz = true;
         switch (mass_scheme) {
             case pole:
@@ -383,6 +382,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
                 throw(std::runtime_error("mass_scheme not implemented"));
         }
     }
+    Mb2_prefactor_1overm = Mb2_prefactor;
     
     //adapt to MSbar mass scheme for the traditional basis
     if (order == NLO){
@@ -402,7 +402,6 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme) {
     MB_s = mySM.getMesons(QCD::B_S).getMass();
 
     z2 = z * z;
-    sqrtz = sqrt(z);
     logz = log(z);
     log2z = logz * logz;
     oneminusz2 = (1. - z) * (1. - z);
@@ -1023,14 +1022,14 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, in
         case 0:
             M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBd(
             mySM.getBBd().getMu(),
-            mySM.getBBd().getScheme());
+            mySM.getBBd().getScheme(), true);
             MBq = MB;
             q = d;
             break;
         case 1:
             M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBs(
             mySM.getBBs().getMu(),
-            mySM.getBBs().getScheme());
+            mySM.getBBs().getScheme(), true);
             MBq = MB_s;
             q = s;
             break;
@@ -1324,7 +1323,7 @@ int AmpDB2::index_p(quarks qq, int i, int j, int n){
 void AmpDB2::compute_pp_s(){
     //input didn't change nothing to compute
     double currentInput_compute_pp_s[4] = {z, mu_1, mu_2, mu_b};
-    if (lastInput_compute_pp_s == currentInput_compute_pp_s) return;
+    //if (lastInput_compute_pp_s == currentInput_compute_pp_s) return;
     
     double cache_logz = logz;
     if (!flag_resumz){
