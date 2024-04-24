@@ -301,18 +301,6 @@ double DGamma_s_PS_NLO_RI::computeThValue() {
     return -SM.getFlavour().getDB2(1,false,true).getGamma21overM21(FULLNLO, SM.getFlavour().getDB2(1,false,true).PS).real() * SM.getOptionalParameter("DmBs_ex");
 }
 
-DGamma_s_PS_NLO_RI_tradBasis::DGamma_s_PS_NLO_RI_tradBasis(const StandardModel& SM_i)
-: ThObservable(SM_i) {
-    setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );
-}
-
-DGamma_s_PS_NLO_RI_tradBasis::~DGamma_s_PS_NLO_RI_tradBasis() {
-}
-
-double DGamma_s_PS_NLO_RI_tradBasis::computeThValue() {
-    return -SM.getFlavour().getDB2(1,false, true).getGamma21overM21_tradBasis(FULLNLO).real() * SM.getOptionalParameter("DmBs_ex");
-}
-
 DGamma_s_MSbar_partialNNLO::DGamma_s_MSbar_partialNNLO(const StandardModel& SM_i)
 : ThObservable(SM_i) {
     setParametersForObservable(make_vector<std::string>() << "DmBs_ex" );

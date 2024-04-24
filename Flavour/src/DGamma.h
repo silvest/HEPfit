@@ -395,22 +395,6 @@ public:
     double computeThValue();
 };
 
-class DGamma_s_PS_NLO_RI_tradBasis : public ThObservable{
-public:
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    DGamma_s_PS_NLO_RI_tradBasis(const StandardModel& SM_i);
-    
-    /**
-     * @brief Destructor.
-     */
-    virtual ~DGamma_s_PS_NLO_RI_tradBasis();
-    
-    double computeThValue();
-};
-
 class DGamma_s_MSbar_partialNNLO : public ThObservable{
 public:
     /**

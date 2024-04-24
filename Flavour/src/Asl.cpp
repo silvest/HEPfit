@@ -253,17 +253,6 @@ double Asl_s_PS_NLO_RI::computeThValue() {
     return -SM.getFlavour().getDB2(1,false, true).getGamma21overM21(FULLNLO, SM.getFlavour().getDB2(1,false, true).PS).imag();
 }
 
-Asl_s_PS_NLO_RI_tradBasis::Asl_s_PS_NLO_RI_tradBasis(const StandardModel& SM_i)
-: ThObservable(SM_i) {
-}
-
-Asl_s_PS_NLO_RI_tradBasis::~Asl_s_PS_NLO_RI_tradBasis() {
-}
-
-double Asl_s_PS_NLO_RI_tradBasis::computeThValue() {
-    return -SM.getFlavour().getDB2(1,false, true).getGamma21overM21(FULLNLO).imag();
-}
-
 Asl_s_MSbar_partialNNLO::Asl_s_MSbar_partialNNLO(const StandardModel& SM_i)
 : ThObservable(SM_i) {
 }
