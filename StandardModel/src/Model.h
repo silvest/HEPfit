@@ -231,6 +231,16 @@ public:
     void setModelLinearized(bool linearized = true){
         flagLinearized = linearized;
     }
+    
+    //AG:begin
+    bool isModelNPquadratic() const{
+        return flagNPquadratic;
+    }
+    
+    void setModelNPquadratic(bool NPquadratic = true){
+        flagNPquadratic = NPquadratic;
+    }
+    //AG:end
 
     void setSliced(bool Sliced)
     {
@@ -281,6 +291,7 @@ private:
     bool flagTHDMWmodel;///< A flag identifying the model as a THDMW model
     bool flagGMmodel;///< A flag identifying the model as a GeorgiMachacek model
     bool flagLinearized; ///< A flag to identify models where the NP contribution to Higgs observables is linearized
+    bool flagNPquadratic; //AG:added
     unsigned int missingModelParametersCount = 0;
     std::vector<std::string> missingModelParameters;
 

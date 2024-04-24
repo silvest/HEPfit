@@ -1616,6 +1616,162 @@ public:
     {
         return 1.0;
     }
+        
+    //AG:begin,begin
+    virtual double delta_muggH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muggH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muVBF_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muVBF_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muWH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muWH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muZH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muZH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muVH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muVH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muttH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muttH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_mutH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_mutH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    ///////////////////////////////////////////////////////
+    virtual double  deltaGammaHggRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHggRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHWWRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHWWRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHZZRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHZZRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHgagaRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHgagaRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHZgaRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHZgaRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHbbRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHbbRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHmumuRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHmumuRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHtautauRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHtautauRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHccRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHccRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaTotalRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaTotalRatio2() const 
+    {
+        return 0.0;
+    }
+
+    //AG:end
     
     ///////////////////////HIGGS DECAY WIDTHS/////////////////////////
 

@@ -13632,6 +13632,7 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
     if (name.compare("QuadraticTerms") == 0) {
         FlagQuadraticTerms = value;
         if (value) setModelLinearized(false);
+        if (value) setModelNPquadratic(true);       //AG:added
         res = true;
     } else if (name.compare("RotateCHWCHB") == 0) {
         FlagRotateCHWCHB = value;
@@ -14789,8 +14790,12 @@ gslpp::complex NPSMEFTd6General::AHZga_W(const double tau, const double lambda) 
     return sqrt(trueSM.cW2()) * tmp;
 }
 
-double NPSMEFTd6General::muggH(const double sqrt_s) const                       //AG:modified
-{
+
+/////////////////////////////////////////////////////
+
+double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
     double C1 = 0.0066; //It seems to be independent of energy 
     
     /*
@@ -14825,13 +14830,12 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
     double mu = (1.0 + 2.0 * (tmpt.real() + tmpb.real() + tmpc.real() + tmpHG.real()));*/
     
     //AG:
-    // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
-    double mu = 1.0;
-    
+    // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO    
     if (sqrt_s == 8.0){
         mu += cWsch * ( 
             ( (0.12124142781783014) * getSMEFTCoeffEW("CHbox")
             + (-0.030314752945313873) * getSMEFTCoeffEW("CHD")
+            + (39.31144) * getSMEFTCoeffEW("CHG") //
             + (-0.1224898892210304) * getSMEFTCoeffEW("CuHR", 2,2)
             + (1.1269562159310709) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.060629505890627745) * getSMEFTCoeffEW("CHl3R", 0,0)
@@ -14843,20 +14847,17 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
         mu += cWsch * ( 
             ( (0.121) * getSMEFTCoeffEW("CHbox")
             + (-0.03031) * getSMEFTCoeffEW("CHD")
+            + (39.31144) * getSMEFTCoeffEW("CHG")
             + (-0.12245) * getSMEFTCoeffEW("CuHR", 2,2)
             + (1.127) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.06062) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.06062) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.0606) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
         );
-    };
+    } else 
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muggH_1()");
     //AG:end
-
-    //  Linear contribution from Higgs self-coupling
-    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
+    
     //  Linear contribution from 4 top operators
     //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
     //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
@@ -14865,107 +14866,53 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
             + (getSMEFTCoeffEW("Cquqd1R", 2, 2, 2, 2))*(28.4 + cRGEon * 2.0 * 9.21 * log(0.5 * mHl / Lambda_NP))*1000.
             + (getSMEFTCoeffEW("Cquqd8R", 2, 2, 2, 2))*(5.41 + cRGEon * 2.0 * 1.76 * log(0.5 * mHl / Lambda_NP))*1000.
             );
-
-    if (FlagQuadraticTerms) {
-        /*//Add contributions that are quadratic in the effective coefficients
-        gslpp::complex tmp2 = tmpt + tmpb + tmpc + tmpHG;
-        mu += tmp2.abs2();*/
-        
-        mu += 0;
-
+    
+    //  Linear contribution from Higgs self-coupling
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muggH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muggH_2()");
     }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muggH(const double sqrt_s) const                       //AG:modified
+{
+    double mu = 1.0;
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eggFint + eggFpar;
 
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muggH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muggH_2(sqrt_s);
+    
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
 
     return mu;
 }
 
-double NPSMEFTd6General::muggHH(const double sqrt_s) const
+
+double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const
 {
-    double mu = 1.0;
-    double A1HH = 0.0, A2HH = 0.0, A3HH = 0.0, A4HH = 0.0, A5HH = 0.0;
-    double A6HH = 0.0, A7HH = 0.0, A8HH = 0.0, A9HH = 0.0, A10HH = 0.0;
-    double A11HH = 0.0, A12HH = 0.0, A13HH = 0.0, A14HH = 0.0, A15HH = 0.0;
-    double ct, c2t, c3, cg, c2g;
-
-    if (sqrt_s == 14.0) {
-
-        // From the cut-based analysis. Table IV
-
-        A1HH = 1.70;
-        A2HH = 10.7;
-        A3HH = 0.117;
-        A4HH = 6.11;
-        A5HH = 217.0;
-        A6HH = -7.56;
-        A7HH = -0.819;
-        A8HH = 1.95;
-        A9HH = 10.90;
-        A10HH = 51.6;
-        A11HH = -3.86;
-        A12HH = -12.5;
-        A13HH = 1.46;
-        A14HH = 5.49;
-        A15HH = 58.4;
-
-    } else if (sqrt_s == 100.0) {
-
-        // From the cut-based analysis. Table IV
-
-        A1HH = 1.59;
-        A2HH = 12.8;
-        A3HH = 0.090;
-        A4HH = 5.2;
-        A5HH = 358.0;
-        A6HH = -7.66;
-        A7HH = -0.681;
-        A8HH = 1.83;
-        A9HH = 9.25;
-        A10HH = 51.2;
-        A11HH = -2.61;
-        A12HH = -7.35;
-        A13HH = 1.03;
-        A14HH = 4.65;
-        A15HH = 65.5;
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muggHH()");
-
-    ct = 1.0 - 0.5 * delta_GF + delta_h - v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / sqrt(2.0) / mtpole;
-    c2t = delta_h - 3.0 * v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / 2.0 / sqrt(2.0) / mtpole;
-    c3 = 1.0 + deltaG_hhhRatio();
-    cg = M_PI * getSMEFTCoeffEW("CHG") * v2 / AlsMz;
-    c2g = cg;
-
-    // In the SM the Eq. returns 0.999. Fix that small offset by adding 0.0010    
-    mu = 0.0010 + A1HH * ct * ct * ct * ct +
-            A2HH * c2t * c2t +
-            A3HH * ct * ct * c3 * c3 +
-            A4HH * cg * cg * c3 * c3 +
-            A5HH * c2g * c2g +
-            A6HH * c2t * ct * ct +
-            A7HH * ct * ct * ct * c3 +
-            A8HH * c2t * ct * c3 +
-            A9HH * c2t * cg * c3 +
-            A10HH * c2t * c2g +
-            A11HH * ct * ct * cg * c3 +
-            A12HH * ct * ct * c2g +
-            A13HH * ct * c3 * c3 * cg +
-            A14HH * ct * c3 * c2g +
-            A15HH * cg * c3*c2g;
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
-double NPSMEFTd6General::muVBF(const double sqrt_s) const                       //AG:modified
-{
-    double mu = 1.0;
-
+    double mu = 0.0;
     double C1 = 0.0;
 
     if (sqrt_s == 1.96) {
@@ -14996,13 +14943,6 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const                       
                 - 3.003 * delta_GF)
                 ;
 
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-
-            mu += 0.0;
-
-        }
-
     } else if (sqrt_s == 7.0) {
 
         C1 = 0.0065;
@@ -15030,13 +14970,6 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const                       
                 + 23083.4 * getSMEFTCoeffEW("CHWB")
                 - 3.004 * delta_GF)
                 ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-
-            mu += 0.0;
-
-        }
 
     } else if (sqrt_s == 8.0) {
 
@@ -15088,12 +15021,6 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const                       
 	);
         //AG:end
 
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-
-            mu += 0.0;
-
-        }
     } else if (sqrt_s == 13.0) {
 
         C1 = 0.0064;
@@ -15180,12 +15107,6 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const                       
                 - 3.193 * deltaMwd6()
                 ;
 
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
     } else if (sqrt_s == 27.0) {
 
         // Only Alpha scheme
@@ -15208,12 +15129,6 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const                       
                 - 4.475 * delta_GF
                 - 2.99 * deltaMwd6()
                 ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
 
     } else if (sqrt_s == 100.0) {
 
@@ -15238,22 +15153,1035 @@ double NPSMEFTd6General::muVBF(const double sqrt_s) const                       
                 - 2.949 * deltaMwd6()
                 ;
 
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
     } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muVBF()");
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muVBF_1()");
+    
+    //  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muVBF_2(const double sqrt_s) const
+{
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muVBF_2()");
+    }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muVBF(const double sqrt_s) const                       //AG:modified
+{
+    double mu = 1.0;
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eVBFint + eVBFpar;
 
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muVBF_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muVBF_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    double C1 = 0.0;
+    
+    if (sqrt_s == 1.96) {
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +121231. * getSMEFTCoeffEW("CHbox")
+                + 855498. * getSMEFTCoeffEW("CHW")
+                + 135077. * CDHW
+                + 1554889. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 10415.1 * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-160273. * getSMEFTCoeffEW("CHD")
+                - 284953. * getSMEFTCoeffEW("CHWB")
+                - 3.288 * delta_GF
+                - 2.258 * deltaMwd6())
+                + cWsch * (-30311.6 * getSMEFTCoeffEW("CHD")
+                + 0. * getSMEFTCoeffEW("CHWB")
+                - 2. * delta_GF)
+                ;
+    } else if (sqrt_s == 7.0) {
+
+        C1 = 0.0106;
+
+        mu +=
+                +121215. * getSMEFTCoeffEW("CHbox")
+                + 874536. * getSMEFTCoeffEW("CHW")
+                + 168556. * CDHW
+                + 1688781. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 101677. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-160236. * getSMEFTCoeffEW("CHD")
+                - 284911. * getSMEFTCoeffEW("CHWB")
+                - 3.286 * delta_GF
+                - 2.217 * deltaMwd6())
+                + cWsch * (-30300.4 * getSMEFTCoeffEW("CHD")
+                + 0. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;
+    } else if (sqrt_s == 8.0) {
+
+        C1 = 0.0105;
+
+        /*mu +=
+                +121222. * getSMEFTCoeffEW("CHbox")
+                + 877503. * getSMEFTCoeffEW("CHW")
+                + 174299. * CDHW
+                + 1716018. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 113210. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-160294. * getSMEFTCoeffEW("CHD")
+                - 284954. * getSMEFTCoeffEW("CHWB")
+                - 3.287 * delta_GF
+                - 2.179 * deltaMwd6())
+                + cWsch * (-30310.6 * getSMEFTCoeffEW("CHD")
+                + 0. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;*/
+
+        //AG:begin
+        mu += cWsch * (
+            ( (0.121211) * getSMEFTCoeffEW("CHbox")
+            + (-0.030304941) * getSMEFTCoeffEW("CHD")
+            + (0.87535) * getSMEFTCoeffEW("CHW")
+            + (1.6911) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.13786) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.12128307) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.12128307) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121211) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );
+        //AG:end
+    } else if (sqrt_s == 13.0) {
+
+        C1 = 0.0103;
+
+        /*mu +=
+                +121126. * getSMEFTCoeffEW("CHbox")
+                + 886205. * getSMEFTCoeffEW("CHW")
+                + 193294. * CDHW
+                + 1792005. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 161535. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-160176. * getSMEFTCoeffEW("CHD")
+                - 284823. * getSMEFTCoeffEW("CHWB")
+                - 3.287 * delta_GF
+                - 2.139 * deltaMwd6())
+                + cWsch * (-30285.8 * getSMEFTCoeffEW("CHD")
+                + 0. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;*/
+        // AG:begin
+        mu += cWsch * ( 
+            ( (0.121101) * getSMEFTCoeffEW("CHbox")
+            + (-0.0303067) * getSMEFTCoeffEW("CHD")
+            + (0.88567) * getSMEFTCoeffEW("CHW")
+            + (1.77457) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.211757) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121101) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+        //AG:end
+    } else if (sqrt_s == 14.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0103;
+
+        mu +=
+                +121112. * getSMEFTCoeffEW("CHbox")
+                // +1973653. * getSMEFTCoeffEW("CHq3R",0,0) 
+                + 1804876. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 169913. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                - 160171. * getSMEFTCoeffEW("CHD")
+                + 893242. * getSMEFTCoeffEW("CHW")
+                - 284850. * getSMEFTCoeffEW("CHWB")
+                + 195766. * CDHW
+                - 3.286 * delta_GF
+                - 2.103 * deltaMwd6()
+                ;
+    } else if (sqrt_s == 27.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0101; // From arXiv: 1902.00134
+
+        mu +=
+                +120696. * getSMEFTCoeffEW("CHbox")
+                + 2105646. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 159695. * getSMEFTCoeffEW("CHD")
+                + 900162. * getSMEFTCoeffEW("CHW")
+                - 283257. * getSMEFTCoeffEW("CHWB")
+                + 215592. * CDHW
+                - 3.256 * delta_GF
+                - 2.063 * deltaMwd6()
+                ;
+    } else if (sqrt_s == 100.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0; // N.A. 
+
+        mu +=
+                +121319. * getSMEFTCoeffEW("CHbox")
+                + 2294991. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 159242. * getSMEFTCoeffEW("CHD")
+                + 908130. * getSMEFTCoeffEW("CHW")
+                - 282574. * getSMEFTCoeffEW("CHWB")
+                + 245406. * CDHW
+                - 3.259 * delta_GF
+                - 2.047 * deltaMwd6()
+                ;
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::muWH()");
+    
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muWH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muWH_2()");
+    }
+    
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muWH(const double sqrt_s) const                        //AG:modified
+{
+    double mu = 1.0;
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eWHint + eWHpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muWH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muWH_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    double C1 = 0.0;
+
+    if (sqrt_s == 1.96) {
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +121186. * getSMEFTCoeffEW("CHbox")
+                + 79191.5 * getSMEFTCoeffEW("CHB")
+                + 712325. * getSMEFTCoeffEW("CHW")
+                + 9992.07 * CDHB
+                + 131146. * CDHW
+                - 813859. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 3350.92 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 527754. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 1274.21 * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 67806.5 * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 1130.86 * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1558454. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 9076.74 * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-16406.7 * getSMEFTCoeffEW("CHD")
+                + 189539. * getSMEFTCoeffEW("CHWB")
+                - 2.54 * delta_GF)
+                + cWsch * (+38221.8 * getSMEFTCoeffEW("CHD")
+                + 309296. * getSMEFTCoeffEW("CHWB")
+                - 2. * delta_GF)
+                ;
+    } else if (sqrt_s == 7.0) {
+
+        C1 = 0.0123;
+
+        mu +=
+                +121226. * getSMEFTCoeffEW("CHbox")
+                + 87099.3 * getSMEFTCoeffEW("CHB")
+                + 717825. * getSMEFTCoeffEW("CHW")
+                + 17433.4 * CDHB
+                + 153216. * CDHW
+                - 213136. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 30259.1 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 405194. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 16467.8 * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 127014. * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 12241.3 * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1608269. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 104261. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-15321.2 * getSMEFTCoeffEW("CHD")
+                + 203123. * getSMEFTCoeffEW("CHWB")
+                - 2.506 * delta_GF)
+                + cWsch * (+35707.6 * getSMEFTCoeffEW("CHD")
+                + 315273. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;
+    } else if (sqrt_s == 8.0) {
+
+        C1 = 0.0122;
+
+        /*mu +=
+                +121277. * getSMEFTCoeffEW("CHbox")
+                + 87409.1 * getSMEFTCoeffEW("CHB")
+                + 721014. * getSMEFTCoeffEW("CHW")
+                + 18357.2 * CDHB
+                + 158294. * CDHW
+                - 211101. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 32881.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 409966. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 18389.4 * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 129402. * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 13507. * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1632382. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 115538. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-15333.2 * getSMEFTCoeffEW("CHD")
+                + 204451. * getSMEFTCoeffEW("CHWB")
+                - 2.506 * delta_GF)
+                + cWsch * (+35736.8 * getSMEFTCoeffEW("CHD")
+                + 316485. * getSMEFTCoeffEW("CHWB")
+                - 2. * delta_GF)
+                ;*/
+        
+        // AG: begin
+        mu += cWsch * (
+            ( (0.121219) * getSMEFTCoeffEW("CHbox")
+            + (0.036781) * getSMEFTCoeffEW("CHD")
+            + (0.72711) * getSMEFTCoeffEW("CHW")
+            + (0.081545) * getSMEFTCoeffEW("CHB")
+            + (0.31005) * getSMEFTCoeffEW("CHWB")
+            + (-0.19211) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.082808) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (1.61236) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.158059) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.38108) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0158969) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.1238226) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.02100008) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.12119837) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.12119837) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121219) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );
+        //AG:end
+    } else if (sqrt_s == 13.0) {
+
+        C1 = 0.0119;
+
+        /*mu +=
+                +121234. * getSMEFTCoeffEW("CHbox")
+                + 88512.4 * getSMEFTCoeffEW("CHB")
+                + 728790. * getSMEFTCoeffEW("CHW")
+                + 21680.9 * CDHB
+                + 175494. * CDHW
+                - 196945. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 43331.9 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 422018. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 26503. * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 136921. * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 18730.5 * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1700150. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 162456. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-15274.7 * getSMEFTCoeffEW("CHD")
+                + 207822. * getSMEFTCoeffEW("CHWB")
+                - 2.502 * delta_GF)
+                + cWsch * (+35605.2 * getSMEFTCoeffEW("CHD")
+                + 319361. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;*/
+        // AG: begin
+        mu += cWsch * ( 
+            ( (0.121192) * getSMEFTCoeffEW("CHbox")
+            + (0.03642) * getSMEFTCoeffEW("CHD")
+            + (0.73614) * getSMEFTCoeffEW("CHW")
+            + (0.083281) * getSMEFTCoeffEW("CHB")
+            + (0.31376) * getSMEFTCoeffEW("CHWB")
+            + (-0.14875) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.119254) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (1.68531) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.23596) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.38725) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.024635) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.13405115) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.03097592) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121192) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+        //AG:end
+    } else if (sqrt_s == 14.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0118;
+
+        mu +=
+                +121216. * getSMEFTCoeffEW("CHbox")
+                // -148862. * getSMEFTCoeffEW("CHq1R",0,0) 
+                // +451139. * getSMEFTCoeffEW("CHuR",0,0) 
+                // -157486. * getSMEFTCoeffEW("CHdR",0,0) 
+                // +1879522. * getSMEFTCoeffEW("CHq3R",0,0) 
+                - 192919. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 45027.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 423160. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 27887. * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 137883. * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 19603.3 * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1709121. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 170449. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                - 15263.4 * getSMEFTCoeffEW("CHD")
+                + 88565.4 * getSMEFTCoeffEW("CHB")
+                + 729690. * getSMEFTCoeffEW("CHW")
+                + 208170. * getSMEFTCoeffEW("CHWB")
+                + 22093. * CDHB
+                + 177891. * CDHW
+                - 2.504 * delta_GF
+                ;
+    } else if (sqrt_s == 27.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0116; // From arXiv: 1902.00134
+
+        mu +=
+                +121206. * getSMEFTCoeffEW("CHbox")
+                - 101865. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 468029. * getSMEFTCoeffEW("CHuR", 0, 0)
+                - 173377. * getSMEFTCoeffEW("CHdR", 0, 0)
+                + 2002478. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 15486.3 * getSMEFTCoeffEW("CHD")
+                + 89958. * getSMEFTCoeffEW("CHB")
+                + 735013. * getSMEFTCoeffEW("CHW")
+                + 211026. * getSMEFTCoeffEW("CHWB")
+                + 25604. * CDHB
+                + 196710. * CDHW
+                - 2.505 * delta_GF
+                ;
+    } else if (sqrt_s == 100.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +121269. * getSMEFTCoeffEW("CHbox")
+                + 90.68 * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 484275. * getSMEFTCoeffEW("CHuR", 0, 0)
+                - 197878. * getSMEFTCoeffEW("CHdR", 0, 0)
+                + 2175601. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 14992.4 * getSMEFTCoeffEW("CHD")
+                + 91707.3 * getSMEFTCoeffEW("CHB")
+                + 741805. * getSMEFTCoeffEW("CHW")
+                + 215319. * getSMEFTCoeffEW("CHWB")
+                + 31435.6 * CDHB
+                + 223843. * CDHW
+                - 2.504 * delta_GF
+                ;
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::muZH()");
+    
+    //  Linear contribution from Higgs self-coupling
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muZH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muZH_2()");
+    }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muZH(const double sqrt_s) const                        //AG:modified
+{   
+    double mu = 1.0;
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eZHint + eZHpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muZH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muZH_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    double C1 = 0.0;
+
+    // 4F ccontributions computed using SMEFTsimA
+    if (sqrt_s == 1.96) {
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +423765. * getSMEFTCoeffEW("CHG")
+                - 4152.27 * getSMEFTCoeffEW("CG")
+                + 568696. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.844 * deltaG_hff(quarks[TOP]).real()
+                + 57950.7 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
+                + 572237. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
+                + 68506.5 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
+                + 689368. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
+                + 34359.2 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
+                + 562953. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
+                - 1123.41 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
+                + 15070.6 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
+                + 22531.7 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
+                + 13290.1 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
+                + 152635. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
+                + 137479. * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
+                - 890.245 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
+                + 15388.5 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
+                ;
+    } else if (sqrt_s == 7.0) {
+
+        C1 = 0.0387;
+
+        mu +=
+                +531046. * getSMEFTCoeffEW("CHG")
+                - 85174.4 * getSMEFTCoeffEW("CG")
+                + 810365. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.846 * deltaG_hff(quarks[TOP]).real()
+                + 19387.7 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
+                + 309431. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
+                + 53723.7 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
+                + 633768. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
+                + 19654.7 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
+                + 303278. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
+                - 3442.03 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
+                + 41220. * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
+                + 6827.86 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
+                + 7038.59 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
+                + 116509. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
+                + 74277.5 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
+                - 2514.79 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
+                + 41346.5 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
+                ;
+    } else if (sqrt_s == 8.0) {
+
+        C1 = 0.0378;
+
+        /*mu +=
+                +535133. * getSMEFTCoeffEW("CHG")
+                - 86316.6 * getSMEFTCoeffEW("CG")
+                + 824047. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.846 * deltaG_hff(quarks[TOP]).real()
+                + 18617. * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
+                + 294168. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
+                + 51386.8 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
+                + 603913. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
+                + 18807. * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
+                + 287709. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
+                - 3419.45 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
+                + 39513.7 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
+                + 6838.91 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
+                + 6363.98 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
+                + 110752. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
+                + 70573.7 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
+                - 2659.57 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
+                + 39608.7 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
+                ;*/
+        
+        //AG:begin
+        mu += cWsch * (
+            ( (0.1213) * getSMEFTCoeffEW("CHbox")
+            + (-0.03042977) * getSMEFTCoeffEW("CHD")
+            + (0.0013429) * getSMEFTCoeffEW("CHW")
+            + (0.00034889) * getSMEFTCoeffEW("CHB")
+            + (-0.001046257) * getSMEFTCoeffEW("CHWB")
+            + (-0.0008895) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (6.729e-05) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0006294) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0041079) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00015173) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00062947) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.52771) * getSMEFTCoeffEW("CHG")
+            + (-0.1223697) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.839333) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.08296) * getSMEFTCoeffEW("CG")
+            + (-0.0097958) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.0033868) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.019807) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.2932) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.0007416) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.0055071) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.05702) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.60888) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.0021613) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.030738) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.019568) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.28692) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00036217) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.0053893) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.00285764) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000223758) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.041058) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.0032835) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.007507) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.0064828) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00012226) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.00012461) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.11116) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.070065) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0045917) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0013165) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.0019135) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.0001571758) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.041092) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0032845) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0609562) * getSMEFTCoeffEW("CHl3R", 0,0)                                                  
+            + (-0.0609562) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06105) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );
+        //AG:end
+    } else if (sqrt_s == 13.0) {
+
+        C1 = 0.0351;
+
+        /*mu +=
+                +538046. * getSMEFTCoeffEW("CHG")
+                - 85159.5 * getSMEFTCoeffEW("CG")
+                + 861157. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.846 * deltaG_hff(quarks[TOP]).real()
+                + 13574.9 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
+                + 227043. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
+                + 41257.5 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
+                + 473396. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
+                + 14488.3 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
+                + 221664. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
+                - 3400.07 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
+                + 31615.5 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
+                + 4516.51 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
+                + 4161.27 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
+                + 85356.9 * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
+                + 53893.6 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
+                - 2791.1 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
+                + 30575.2 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
+                ;*/
+                
+        //AG:begin
+        mu += cWsch * ( 
+            ( (0.121253) * getSMEFTCoeffEW("CHbox")
+            + (-0.03041198) * getSMEFTCoeffEW("CHD")
+            + (0.00103446) * getSMEFTCoeffEW("CHW")
+            + (0.00025946) * getSMEFTCoeffEW("CHB")
+            + (-0.000742598) * getSMEFTCoeffEW("CHWB")
+            + (-0.0007786) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.00010096) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00047263) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0041742) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00020702) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00047302) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.53137) * getSMEFTCoeffEW("CHG")
+            + (-0.12237745) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.886486) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.08865) * getSMEFTCoeffEW("CG")
+            + (-0.00742823) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.00251436) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.015413) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.235) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.00096746) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.0061331) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.047955) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.49933) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.0025728) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.035934) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.016092) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.22973) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00040886) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.0060015) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.00245805) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000269443) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.034415) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.0038829) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.0057251) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.0049893) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00013645) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.000135916) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.090545) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.056059) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0053369) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0014659) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.00154141) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.000180838) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.034414) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0038833) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06091) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);      
+        //AG:end 
+        
+        //  Linear contribution from 4 top operators
+        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
+        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
+        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-420. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(68.1 - cRGEon * 2.0 * 2.40 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.75 + cRGEon * 2.0 * 1.84 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(13.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.60 + cRGEon * 2.0 * 1.82 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                );
+    } else if (sqrt_s == 14.0) {
+
+        //  Old (but ok) implementation + Missing 4F
+
+        C1 = 0.0347;
+
+        mu +=
+                +536980. * getSMEFTCoeffEW("CHG")
+                - 83662.2 * getSMEFTCoeffEW("CG")
+                + 864481. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.844 * deltaG_hff(quarks[TOP]).real()
+                ;
+
+        //  Linear contribution from 4 top operators
+        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
+        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
+        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-430. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(72.9 - cRGEon * 2.0 * 2.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.65 + cRGEon * 2.0 * 1.76 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(12.4 + cRGEon * 2.0 * 5.30 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.57 + cRGEon * 2.0 * 1.74 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                );
+    } else if (sqrt_s == 27.0) {
+
+        //  Old (but ok) implementation + Missing 4F
+
+        C1 = 0.0320; // From arXiv: 1902.00134
+
+        mu +=
+                +519682. * getSMEFTCoeffEW("CHG")
+                - 68463.1 * getSMEFTCoeffEW("CG")
+                + 884060. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.849 * deltaG_hff(quarks[TOP]).real()
+                ;
+    } else if (sqrt_s == 100.0) {
+
+        //  Old (but ok) implementation + Missing 4F
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +467438. * getSMEFTCoeffEW("CHG")
+                - 22519. * getSMEFTCoeffEW("CG")
+                + 880378. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.837 * deltaG_hff(quarks[TOP]).real()
+                ;
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::muttH()");
+    
+    //  Linear contribution from Higgs self-coupling
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muttH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muttH_2()");
+    }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muttH(const double sqrt_s) const                       //AG:modified
+{
+    double mu = 1.0;
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += ettHint + ettHpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muttH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muttH_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_mutH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    double C1 = 0.0;
+    
+    // Obtained with MG5 in the 5Flavor-scheme (p p > h t j)
+    if (sqrt_s == 8.0) {
+        C1=0; // to be added
+        mu += cWsch * (
+            ( (0.12122) * getSMEFTCoeffEW("CHbox")
+            + (-0.03034483) * getSMEFTCoeffEW("CHD")
+            + (0.2149) * getSMEFTCoeffEW("CHW")
+            + (-0.07668) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.009001) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.03961) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.043175) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.500813) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.97677) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.1629) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (-0.079828) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.013296) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (-0.1822825) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1822825) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18181) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );
+    } else if (sqrt_s == 13.0) {
+        C1 = 0.0091; 
+        mu += cWsch * (
+            ( (0.12105) * getSMEFTCoeffEW("CHbox")
+            + (-0.03023904) * getSMEFTCoeffEW("CHD")
+            + (0.18919) * getSMEFTCoeffEW("CHW")
+            + (-0.1315) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.017241) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00785) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.033304) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.431706) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.91234) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.15211) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (-0.094318) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.015639) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (-0.18143348) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.18143348) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18158) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );
+
+    } else 
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_mutH_1()");
+    
+    //  Linear contribution from Higgs self-coupling
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_mutH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_mutH_2()");
+    }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::mutH(const double sqrt_s) const                        //AG:added
+{
+    double mu = 1.0;
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    //mu += etHint + etHpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_mutH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_mutH_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_muVH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms) {
+        double sigmaWH_SM = computeSigmaWH(sqrt_s);
+        double sigmaZH_SM = computeSigmaZH(sqrt_s);
+
+        double sigmaWH_1 = delta_muWH_1(sqrt_s) * sigmaWH_SM;
+        double sigmaZH_1 = delta_muZH_1(sqrt_s) * sigmaZH_SM;
+        mu += ((sigmaWH_1 + sigmaZH_1) / (sigmaWH_SM + sigmaZH_SM));
+    }
+
+    return mu;
+}
+double NPSMEFTd6General::delta_muVH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms) {
+        double sigmaWH_SM = computeSigmaWH(sqrt_s);
+        double sigmaZH_SM = computeSigmaZH(sqrt_s);
+
+        double sigmaWH_2 = delta_muWH_2(sqrt_s) * sigmaWH_SM;
+        double sigmaZH_2 = delta_muZH_2(sqrt_s) * sigmaZH_SM;
+        mu += ((sigmaWH_2 + sigmaZH_2) / (sigmaWH_SM + sigmaZH_SM));
+    }
+
+    return mu;
+}
+double NPSMEFTd6General::muVH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    //mu += ;
+    
+    // Linear contribution 
+    mu += delta_muVH_2(sqrt_s);
+
+    // Quadratic contribution 
+    mu += delta_muVH_2(sqrt_s);
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+/////////////////////////////////////////////////////
+
+double NPSMEFTd6General::muggHH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    double A1HH = 0.0, A2HH = 0.0, A3HH = 0.0, A4HH = 0.0, A5HH = 0.0;
+    double A6HH = 0.0, A7HH = 0.0, A8HH = 0.0, A9HH = 0.0, A10HH = 0.0;
+    double A11HH = 0.0, A12HH = 0.0, A13HH = 0.0, A14HH = 0.0, A15HH = 0.0;
+    double ct, c2t, c3, cg, c2g;
+
+    if (sqrt_s == 14.0) {
+
+        // From the cut-based analysis. Table IV
+
+        A1HH = 1.70;
+        A2HH = 10.7;
+        A3HH = 0.117;
+        A4HH = 6.11;
+        A5HH = 217.0;
+        A6HH = -7.56;
+        A7HH = -0.819;
+        A8HH = 1.95;
+        A9HH = 10.90;
+        A10HH = 51.6;
+        A11HH = -3.86;
+        A12HH = -12.5;
+        A13HH = 1.46;
+        A14HH = 5.49;
+        A15HH = 58.4;
+
+    } else if (sqrt_s == 100.0) {
+
+        // From the cut-based analysis. Table IV
+
+        A1HH = 1.59;
+        A2HH = 12.8;
+        A3HH = 0.090;
+        A4HH = 5.2;
+        A5HH = 358.0;
+        A6HH = -7.66;
+        A7HH = -0.681;
+        A8HH = 1.83;
+        A9HH = 9.25;
+        A10HH = 51.2;
+        A11HH = -2.61;
+        A12HH = -7.35;
+        A13HH = 1.03;
+        A14HH = 4.65;
+        A15HH = 65.5;
+
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::muggHH()");
+
+    ct = 1.0 - 0.5 * delta_GF + delta_h - v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / sqrt(2.0) / mtpole;
+    c2t = delta_h - 3.0 * v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / 2.0 / sqrt(2.0) / mtpole;
+    c3 = 1.0 + deltaG_hhhRatio();
+    cg = M_PI * getSMEFTCoeffEW("CHG") * v2 / AlsMz;
+    c2g = cg;
+
+    // In the SM the Eq. returns 0.999. Fix that small offset by adding 0.0010    
+    mu = 0.0010 + A1HH * ct * ct * ct * ct +
+            A2HH * c2t * c2t +
+            A3HH * ct * ct * c3 * c3 +
+            A4HH * cg * cg * c3 * c3 +
+            A5HH * c2g * c2g +
+            A6HH * c2t * ct * ct +
+            A7HH * ct * ct * ct * c3 +
+            A8HH * c2t * ct * c3 +
+            A9HH * c2t * cg * c3 +
+            A10HH * c2t * c2g +
+            A11HH * ct * ct * cg * c3 +
+            A12HH * ct * ct * c2g +
+            A13HH * ct * c3 * c3 * cg +
+            A14HH * ct * c3 * c2g +
+            A15HH * cg * c3*c2g;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
 
@@ -18496,224 +19424,6 @@ double NPSMEFTd6General::muepZBF(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6General::muWH(const double sqrt_s) const                        //AG:modified
-{
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    if (sqrt_s == 1.96) {
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +121231. * getSMEFTCoeffEW("CHbox")
-                + 855498. * getSMEFTCoeffEW("CHW")
-                + 135077. * CDHW
-                + 1554889. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 10415.1 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-160273. * getSMEFTCoeffEW("CHD")
-                - 284953. * getSMEFTCoeffEW("CHWB")
-                - 3.288 * delta_GF
-                - 2.258 * deltaMwd6())
-                + cWsch * (-30311.6 * getSMEFTCoeffEW("CHD")
-                + 0. * getSMEFTCoeffEW("CHWB")
-                - 2. * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 7.0) {
-
-        C1 = 0.0106;
-
-        mu +=
-                +121215. * getSMEFTCoeffEW("CHbox")
-                + 874536. * getSMEFTCoeffEW("CHW")
-                + 168556. * CDHW
-                + 1688781. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 101677. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-160236. * getSMEFTCoeffEW("CHD")
-                - 284911. * getSMEFTCoeffEW("CHWB")
-                - 3.286 * delta_GF
-                - 2.217 * deltaMwd6())
-                + cWsch * (-30300.4 * getSMEFTCoeffEW("CHD")
-                + 0. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 8.0) {
-
-        C1 = 0.0105;
-
-        /*mu +=
-                +121222. * getSMEFTCoeffEW("CHbox")
-                + 877503. * getSMEFTCoeffEW("CHW")
-                + 174299. * CDHW
-                + 1716018. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 113210. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-160294. * getSMEFTCoeffEW("CHD")
-                - 284954. * getSMEFTCoeffEW("CHWB")
-                - 3.287 * delta_GF
-                - 2.179 * deltaMwd6())
-                + cWsch * (-30310.6 * getSMEFTCoeffEW("CHD")
-                + 0. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;*/
-
-        //AG:begin
-        mu += cWsch * (
-            ( (0.121211) * getSMEFTCoeffEW("CHbox")
-            + (-0.030304941) * getSMEFTCoeffEW("CHD")
-            + (0.87535) * getSMEFTCoeffEW("CHW")
-            + (1.6911) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.13786) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (-0.12128307) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.12128307) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.121211) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-        //AG:end
-        
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 13.0) {
-
-        C1 = 0.0103;
-
-        /*mu +=
-                +121126. * getSMEFTCoeffEW("CHbox")
-                + 886205. * getSMEFTCoeffEW("CHW")
-                + 193294. * CDHW
-                + 1792005. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 161535. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-160176. * getSMEFTCoeffEW("CHD")
-                - 284823. * getSMEFTCoeffEW("CHWB")
-                - 3.287 * delta_GF
-                - 2.139 * deltaMwd6())
-                + cWsch * (-30285.8 * getSMEFTCoeffEW("CHD")
-                + 0. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;*/
-        // AG:begin
-        mu += cWsch * ( 
-            ( (0.121101) * getSMEFTCoeffEW("CHbox")
-            + (-0.0303067) * getSMEFTCoeffEW("CHD")
-            + (0.88567) * getSMEFTCoeffEW("CHW")
-            + (1.77457) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.211757) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.121101) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);
-        //AG:end
-        
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 14.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0103;
-
-        mu +=
-                +121112. * getSMEFTCoeffEW("CHbox")
-                // +1973653. * getSMEFTCoeffEW("CHq3R",0,0) 
-                + 1804876. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 169913. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                - 160171. * getSMEFTCoeffEW("CHD")
-                + 893242. * getSMEFTCoeffEW("CHW")
-                - 284850. * getSMEFTCoeffEW("CHWB")
-                + 195766. * CDHW
-                - 3.286 * delta_GF
-                - 2.103 * deltaMwd6()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 27.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0101; // From arXiv: 1902.00134
-
-        mu +=
-                +120696. * getSMEFTCoeffEW("CHbox")
-                + 2105646. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 159695. * getSMEFTCoeffEW("CHD")
-                + 900162. * getSMEFTCoeffEW("CHW")
-                - 283257. * getSMEFTCoeffEW("CHWB")
-                + 215592. * CDHW
-                - 3.256 * delta_GF
-                - 2.063 * deltaMwd6()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 100.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0; // N.A. 
-
-        mu +=
-                +121319. * getSMEFTCoeffEW("CHbox")
-                + 2294991. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 159242. * getSMEFTCoeffEW("CHD")
-                + 908130. * getSMEFTCoeffEW("CHW")
-                - 282574. * getSMEFTCoeffEW("CHWB")
-                + 245406. * CDHW
-                - 3.259 * delta_GF
-                - 2.047 * deltaMwd6()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muWH()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eWHint + eWHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
 double NPSMEFTd6General::muWHpT250(const double sqrt_s) const
 {
     double mu = 1.0;
@@ -18750,284 +19460,6 @@ double NPSMEFTd6General::muWHpT250(const double sqrt_s) const
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eWHint + eWHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
-double NPSMEFTd6General::muZH(const double sqrt_s) const                        //AG:modified
-{   
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    if (sqrt_s == 1.96) {
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +121186. * getSMEFTCoeffEW("CHbox")
-                + 79191.5 * getSMEFTCoeffEW("CHB")
-                + 712325. * getSMEFTCoeffEW("CHW")
-                + 9992.07 * CDHB
-                + 131146. * CDHW
-                - 813859. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 3350.92 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 527754. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 1274.21 * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 67806.5 * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 1130.86 * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1558454. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 9076.74 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-16406.7 * getSMEFTCoeffEW("CHD")
-                + 189539. * getSMEFTCoeffEW("CHWB")
-                - 2.54 * delta_GF)
-                + cWsch * (+38221.8 * getSMEFTCoeffEW("CHD")
-                + 309296. * getSMEFTCoeffEW("CHWB")
-                - 2. * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 7.0) {
-
-        C1 = 0.0123;
-
-        mu +=
-                +121226. * getSMEFTCoeffEW("CHbox")
-                + 87099.3 * getSMEFTCoeffEW("CHB")
-                + 717825. * getSMEFTCoeffEW("CHW")
-                + 17433.4 * CDHB
-                + 153216. * CDHW
-                - 213136. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 30259.1 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 405194. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 16467.8 * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 127014. * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 12241.3 * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1608269. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 104261. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-15321.2 * getSMEFTCoeffEW("CHD")
-                + 203123. * getSMEFTCoeffEW("CHWB")
-                - 2.506 * delta_GF)
-                + cWsch * (+35707.6 * getSMEFTCoeffEW("CHD")
-                + 315273. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 8.0) {
-
-        C1 = 0.0122;
-
-        /*mu +=
-                +121277. * getSMEFTCoeffEW("CHbox")
-                + 87409.1 * getSMEFTCoeffEW("CHB")
-                + 721014. * getSMEFTCoeffEW("CHW")
-                + 18357.2 * CDHB
-                + 158294. * CDHW
-                - 211101. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 32881.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 409966. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 18389.4 * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 129402. * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 13507. * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1632382. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 115538. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-15333.2 * getSMEFTCoeffEW("CHD")
-                + 204451. * getSMEFTCoeffEW("CHWB")
-                - 2.506 * delta_GF)
-                + cWsch * (+35736.8 * getSMEFTCoeffEW("CHD")
-                + 316485. * getSMEFTCoeffEW("CHWB")
-                - 2. * delta_GF)
-                ;*/
-        
-        // AG: begin
-        mu += cWsch * (
-            ( (0.121219) * getSMEFTCoeffEW("CHbox")
-            + (0.036781) * getSMEFTCoeffEW("CHD")
-            + (0.72711) * getSMEFTCoeffEW("CHW")
-            + (0.081545) * getSMEFTCoeffEW("CHB")
-            + (0.31005) * getSMEFTCoeffEW("CHWB")
-            + (-0.19211) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (0.082808) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (1.61236) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.158059) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.38108) * getSMEFTCoeffEW("CHuR", 0,0)
-            + (0.0158969) * getSMEFTCoeffEW("CHuR", 1,1)
-            + (-0.1238226) * getSMEFTCoeffEW("CHdR", 0,0)
-            + (-0.02100008) * getSMEFTCoeffEW("CHdR", 1,1)
-            + (-0.12119837) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.12119837) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.121219) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-        //AG:end
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 13.0) {
-
-        C1 = 0.0119;
-
-        /*mu +=
-                +121234. * getSMEFTCoeffEW("CHbox")
-                + 88512.4 * getSMEFTCoeffEW("CHB")
-                + 728790. * getSMEFTCoeffEW("CHW")
-                + 21680.9 * CDHB
-                + 175494. * CDHW
-                - 196945. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 43331.9 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 422018. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 26503. * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 136921. * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 18730.5 * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1700150. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 162456. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-15274.7 * getSMEFTCoeffEW("CHD")
-                + 207822. * getSMEFTCoeffEW("CHWB")
-                - 2.502 * delta_GF)
-                + cWsch * (+35605.2 * getSMEFTCoeffEW("CHD")
-                + 319361. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;*/
-        // AG: begin
-        mu += cWsch * ( 
-            ( (0.121192) * getSMEFTCoeffEW("CHbox")
-            + (0.03642) * getSMEFTCoeffEW("CHD")
-            + (0.73614) * getSMEFTCoeffEW("CHW")
-            + (0.083281) * getSMEFTCoeffEW("CHB")
-            + (0.31376) * getSMEFTCoeffEW("CHWB")
-            + (-0.14875) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (0.119254) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (1.68531) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.23596) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.38725) * getSMEFTCoeffEW("CHuR", 0,0)
-            + (0.024635) * getSMEFTCoeffEW("CHuR", 1,1)
-            + (-0.13405115) * getSMEFTCoeffEW("CHdR", 0,0)
-            + (-0.03097592) * getSMEFTCoeffEW("CHdR", 1,1)
-            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.121192) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);
-        //AG:end
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 14.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0118;
-
-        mu +=
-                +121216. * getSMEFTCoeffEW("CHbox")
-                // -148862. * getSMEFTCoeffEW("CHq1R",0,0) 
-                // +451139. * getSMEFTCoeffEW("CHuR",0,0) 
-                // -157486. * getSMEFTCoeffEW("CHdR",0,0) 
-                // +1879522. * getSMEFTCoeffEW("CHq3R",0,0) 
-                - 192919. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 45027.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 423160. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 27887. * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 137883. * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 19603.3 * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1709121. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 170449. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                - 15263.4 * getSMEFTCoeffEW("CHD")
-                + 88565.4 * getSMEFTCoeffEW("CHB")
-                + 729690. * getSMEFTCoeffEW("CHW")
-                + 208170. * getSMEFTCoeffEW("CHWB")
-                + 22093. * CDHB
-                + 177891. * CDHW
-                - 2.504 * delta_GF
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 27.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0116; // From arXiv: 1902.00134
-
-        mu +=
-                +121206. * getSMEFTCoeffEW("CHbox")
-                - 101865. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 468029. * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 173377. * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 2002478. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 15486.3 * getSMEFTCoeffEW("CHD")
-                + 89958. * getSMEFTCoeffEW("CHB")
-                + 735013. * getSMEFTCoeffEW("CHW")
-                + 211026. * getSMEFTCoeffEW("CHWB")
-                + 25604. * CDHB
-                + 196710. * CDHW
-                - 2.505 * delta_GF
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 100.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +121269. * getSMEFTCoeffEW("CHbox")
-                + 90.68 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 484275. * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 197878. * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 2175601. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 14992.4 * getSMEFTCoeffEW("CHD")
-                + 91707.3 * getSMEFTCoeffEW("CHB")
-                + 741805. * getSMEFTCoeffEW("CHW")
-                + 215319. * getSMEFTCoeffEW("CHWB")
-                + 31435.6 * CDHB
-                + 223843. * CDHW
-                - 2.504 * delta_GF
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muZH()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eZHint + eZHpar;
 
     //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -20596,19 +21028,6 @@ double NPSMEFTd6General::bPskPol(const double sqrt_s, const double Pol_em, const
     return bPol;
 }
 
-double NPSMEFTd6General::muVH(const double sqrt_s) const
-{
-    double sigmaWH_SM = computeSigmaWH(sqrt_s);
-    double sigmaZH_SM = computeSigmaZH(sqrt_s);
-    double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
-    double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
-    double mu = ((sigmaWH + sigmaZH) / (sigmaWH_SM + sigmaZH_SM));
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
 double NPSMEFTd6General::muVHpT250(const double sqrt_s) const
 {
     //Use MG SM values
@@ -20636,414 +21055,6 @@ double NPSMEFTd6General::muVBFpVH(const double sqrt_s) const
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
 
     return mu;
-}
-
-double NPSMEFTd6General::muttH(const double sqrt_s) const                       //AG:modified
-{
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    // 4F ccontributions computed using SMEFTsimA
-
-    if (sqrt_s == 1.96) {
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +423765. * getSMEFTCoeffEW("CHG")
-                - 4152.27 * getSMEFTCoeffEW("CG")
-                + 568696. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.844 * deltaG_hff(quarks[TOP]).real()
-                + 57950.7 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
-                + 572237. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
-                + 68506.5 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
-                + 689368. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
-                + 34359.2 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
-                + 562953. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
-                - 1123.41 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
-                + 15070.6 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
-                + 22531.7 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
-                + 13290.1 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
-                + 152635. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
-                + 137479. * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
-                - 890.245 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
-                + 15388.5 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 7.0) {
-
-        C1 = 0.0387;
-
-        mu +=
-                +531046. * getSMEFTCoeffEW("CHG")
-                - 85174.4 * getSMEFTCoeffEW("CG")
-                + 810365. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.846 * deltaG_hff(quarks[TOP]).real()
-                + 19387.7 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
-                + 309431. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
-                + 53723.7 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
-                + 633768. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
-                + 19654.7 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
-                + 303278. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
-                - 3442.03 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
-                + 41220. * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
-                + 6827.86 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
-                + 7038.59 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
-                + 116509. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
-                + 74277.5 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
-                - 2514.79 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
-                + 41346.5 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 8.0) {
-
-        C1 = 0.0378;
-
-        /*mu +=
-                +535133. * getSMEFTCoeffEW("CHG")
-                - 86316.6 * getSMEFTCoeffEW("CG")
-                + 824047. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.846 * deltaG_hff(quarks[TOP]).real()
-                + 18617. * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
-                + 294168. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
-                + 51386.8 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
-                + 603913. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
-                + 18807. * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
-                + 287709. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
-                - 3419.45 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
-                + 39513.7 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
-                + 6838.91 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
-                + 6363.98 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
-                + 110752. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
-                + 70573.7 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
-                - 2659.57 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
-                + 39608.7 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;*/
-        
-        //AG:begin
-        mu += cWsch * (
-            ( (0.1213) * getSMEFTCoeffEW("CHbox")
-            + (-0.03042977) * getSMEFTCoeffEW("CHD")
-            + (0.0013429) * getSMEFTCoeffEW("CHW")
-            + (0.00034889) * getSMEFTCoeffEW("CHB")
-            + (-0.001046257) * getSMEFTCoeffEW("CHWB")
-            + (-0.0008895) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (6.729e-05) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (-0.0006294) * getSMEFTCoeffEW("CHq1R", 2,2)
-            + (0.0041079) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.00015173) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.00062947) * getSMEFTCoeffEW("CHq3R", 2,2)
-            + (0.52771) * getSMEFTCoeffEW("CHG")
-            + (-0.1223697) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (-0.839333) * getSMEFTCoeffEW("CuGR", 2,2)
-            + (0.08296) * getSMEFTCoeffEW("CG")
-            + (-0.0097958) * getSMEFTCoeffEW("CuWR", 2,2)
-            + (-0.0033868) * getSMEFTCoeffEW("CuBR", 2,2)
-            + (0.019807) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
-            + (0.2932) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
-            + (-0.0007416) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
-            + (0.0055071) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
-            + (0.05702) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
-            + (0.60888) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
-            + (0.0021613) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
-            + (0.030738) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
-            + (0.019568) * getSMEFTCoeffEW("CuuR",0,0,2,2)
-            + (0.28692) * getSMEFTCoeffEW("CuuR",0,2,2,0)
-            + (0.00036217) * getSMEFTCoeffEW("CuuR",1,1,2,2)
-            + (0.0053893) * getSMEFTCoeffEW("CuuR",1,2,2,1)
-            + (-0.00285764) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
-            + (-0.000223758) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
-            + (0.041058) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
-            + (0.0032835) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
-            + (0.007507) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
-            + (0.0064828) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
-            + (-0.00012226) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
-            + (0.00012461) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.11116) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
-            + (0.070065) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
-            + (0.0045917) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
-            + (0.0013165) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
-            + (-0.0019135) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
-            + (-0.0001571758) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.041092) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
-            + (0.0032845) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
-            + (-0.0609562) * getSMEFTCoeffEW("CHl3R", 0,0)                                                  
-            + (-0.0609562) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.06105) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-        //AG:end
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 13.0) {
-
-        C1 = 0.0351;
-
-        /*mu +=
-                +538046. * getSMEFTCoeffEW("CHG")
-                - 85159.5 * getSMEFTCoeffEW("CG")
-                + 861157. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.846 * deltaG_hff(quarks[TOP]).real()
-                + 13574.9 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
-                + 227043. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
-                + 41257.5 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
-                + 473396. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
-                + 14488.3 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
-                + 221664. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
-                - 3400.07 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
-                + 31615.5 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
-                + 4516.51 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
-                + 4161.27 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
-                + 85356.9 * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
-                + 53893.6 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
-                - 2791.1 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
-                + 30575.2 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;*/
-                
-        //AG:begin
-        mu += cWsch * ( 
-            ( (0.121253) * getSMEFTCoeffEW("CHbox")
-            + (-0.03041198) * getSMEFTCoeffEW("CHD")
-            + (0.00103446) * getSMEFTCoeffEW("CHW")
-            + (0.00025946) * getSMEFTCoeffEW("CHB")
-            + (-0.000742598) * getSMEFTCoeffEW("CHWB")
-            + (-0.0007786) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (0.00010096) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (-0.00047263) * getSMEFTCoeffEW("CHq1R", 2,2)
-            + (0.0041742) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.00020702) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.00047302) * getSMEFTCoeffEW("CHq3R", 2,2)
-            + (0.53137) * getSMEFTCoeffEW("CHG")
-            + (-0.12237745) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (-0.886486) * getSMEFTCoeffEW("CuGR", 2,2)
-            + (0.08865) * getSMEFTCoeffEW("CG")
-            + (-0.00742823) * getSMEFTCoeffEW("CuWR", 2,2)
-            + (-0.00251436) * getSMEFTCoeffEW("CuBR", 2,2)
-            + (0.015413) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
-            + (0.235) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
-            + (-0.00096746) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
-            + (0.0061331) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
-            + (0.047955) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
-            + (0.49933) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
-            + (0.0025728) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
-            + (0.035934) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
-            + (0.016092) * getSMEFTCoeffEW("CuuR",0,0,2,2)
-            + (0.22973) * getSMEFTCoeffEW("CuuR",0,2,2,0)
-            + (0.00040886) * getSMEFTCoeffEW("CuuR",1,1,2,2)
-            + (0.0060015) * getSMEFTCoeffEW("CuuR",1,2,2,1)
-            + (-0.00245805) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
-            + (-0.000269443) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
-            + (0.034415) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
-            + (0.0038829) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
-            + (0.0057251) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
-            + (0.0049893) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
-            + (-0.00013645) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
-            + (0.000135916) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.090545) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
-            + (0.056059) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
-            + (0.0053369) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
-            + (0.0014659) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
-            + (-0.00154141) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
-            + (-0.000180838) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.034414) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
-            + (0.0038833) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
-            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.06091) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);      
-        //AG:end 
-        
-        //  Linear contribution from 4 top operators
-        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-420. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(68.1 - cRGEon * 2.0 * 2.40 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.75 + cRGEon * 2.0 * 1.84 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(13.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.60 + cRGEon * 2.0 * 1.82 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                );
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 14.0) {
-
-        //  Old (but ok) implementation + Missing 4F
-
-        C1 = 0.0347;
-
-        mu +=
-                +536980. * getSMEFTCoeffEW("CHG")
-                - 83662.2 * getSMEFTCoeffEW("CG")
-                + 864481. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.844 * deltaG_hff(quarks[TOP]).real()
-                ;
-
-        //  Linear contribution from 4 top operators
-        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-430. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(72.9 - cRGEon * 2.0 * 2.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.65 + cRGEon * 2.0 * 1.76 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(12.4 + cRGEon * 2.0 * 5.30 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.57 + cRGEon * 2.0 * 1.74 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                );
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 27.0) {
-
-        //  Old (but ok) implementation + Missing 4F
-
-        C1 = 0.0320; // From arXiv: 1902.00134
-
-        mu +=
-                +519682. * getSMEFTCoeffEW("CHG")
-                - 68463.1 * getSMEFTCoeffEW("CG")
-                + 884060. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.849 * deltaG_hff(quarks[TOP]).real()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 100.0) {
-
-        //  Old (but ok) implementation + Missing 4F
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +467438. * getSMEFTCoeffEW("CHG")
-                - 22519. * getSMEFTCoeffEW("CG")
-                + 880378. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.837 * deltaG_hff(quarks[TOP]).real()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muttH()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += ettHint + ettHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
-double NPSMEFTd6General::mutH(const double sqrt_s) const                        //AG:added
-{
-    double mu = 1.0;
-    double C1 = 0.0;
-    // Obtained with MG5 in the 5Flavor-scheme (p p > h t j)
-    if (sqrt_s == 8.0) {
-
-        C1=0; // to be added
-        mu += cWsch * (
-            ( (0.12122) * getSMEFTCoeffEW("CHbox")
-            + (-0.03034483) * getSMEFTCoeffEW("CHD")
-            + (0.2149) * getSMEFTCoeffEW("CHW")
-            + (-0.07668) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (-0.009001) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.03961) * getSMEFTCoeffEW("CHq3R", 2,2)
-            + (-0.043175) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (-0.500813) * getSMEFTCoeffEW("CuWR", 2,2)
-            + (-0.97677) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
-            + (0.1629) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
-            + (-0.079828) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
-            + (0.013296) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
-            + (-0.1822825) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.1822825) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.18181) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 13.0) {
-
-        C1 = 0.0091; 
-        mu += cWsch * (
-            ( (0.12105) * getSMEFTCoeffEW("CHbox")
-            + (-0.03023904) * getSMEFTCoeffEW("CHD")
-            + (0.18919) * getSMEFTCoeffEW("CHW")
-            + (-0.1315) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (-0.017241) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (-0.00785) * getSMEFTCoeffEW("CHq3R", 2,2)
-            + (-0.033304) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (-0.431706) * getSMEFTCoeffEW("CuWR", 2,2)
-            + (-0.91234) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
-            + (0.15211) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
-            + (-0.094318) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
-            + (0.015639) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
-            + (-0.18143348) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.18143348) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.18158) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-     
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    }
-
-    
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += ettHint + ettHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-    
-    return mu;
-    
-    //return STXS12_tH(sqrt_s);
 }
 
 double NPSMEFTd6General::mutHq(const double sqrt_s) const
@@ -22489,22 +22500,25 @@ double NPSMEFTd6General::deltaGammaTotalRatio1noError() const
 
 double NPSMEFTd6General::deltaGammaTotalRatio2() const
 {
-    double deltaGammaRatio;
+    double deltaGammaRatio = 0.0;
 
-    //  The change in the ratio assuming only SM decays
-    deltaGammaRatio = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
-            //            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
-            //            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
-            + trueSM.computeBrHto4f() * deltaGammaH4fRatio2()
-            + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
-            + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
-            + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
-            + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
-            + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
-            + trueSM.computeBrHtobb() * deltaGammaHbbRatio2();
+    if (FlagQuadraticTerms){    
+        //  The change in the ratio assuming only SM decays
+        deltaGammaRatio = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
+                //            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
+                //            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+                + trueSM.computeBrHto4f() * deltaGammaH4fRatio2()
+                + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
+                + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
+                + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
+                + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
+                + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
+                + trueSM.computeBrHtobb() * deltaGammaHbbRatio2();
 
-    //  Add the effect of the invisible and exotic BR and return     
-    return (deltaGammaRatio / (1.0 - BrHinv - BrHexo));
+        //  Add the effect of the invisible and exotic BR and return     
+        deltaGammaRatio = (deltaGammaRatio / (1.0 - BrHinv - BrHexo));
+    }
+    return deltaGammaRatio;
 }
 
 double NPSMEFTd6General::GammaHggRatio() const
@@ -22586,11 +22600,12 @@ double NPSMEFTd6General::deltaGammaHggRatio1() const
 double NPSMEFTd6General::deltaGammaHggRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHggRatio() const
@@ -22659,12 +22674,11 @@ double NPSMEFTd6General::deltaGammaHWWRatio2() const
 {
     double dwidth = 0.0;
 
-    //Contributions that are quadratic in the effective coefficients
-    dwidth = deltaGammaHWW4fRatio2();
-
+    if (FlagQuadraticTerms){
+        dwidth = deltaGammaHWW4fRatio2();
+    }
 
     return dwidth;
-
 }
 
 double NPSMEFTd6General::BrHWWRatio() const
@@ -22723,11 +22737,12 @@ double NPSMEFTd6General::deltaGammaHWlvRatio1() const
 double NPSMEFTd6General::deltaGammaHWlvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWlvRatio() const
@@ -22809,11 +22824,12 @@ double NPSMEFTd6General::deltaGammaHWW2l2vRatio1() const
 double NPSMEFTd6General::deltaGammaHWW2l2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWW2l2vRatio() const
@@ -22890,11 +22906,12 @@ double NPSMEFTd6General::deltaGammaHWjjRatio1() const
 double NPSMEFTd6General::deltaGammaHWjjRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWjjRatio() const
@@ -22975,11 +22992,12 @@ double NPSMEFTd6General::deltaGammaHWW4jRatio1() const
 double NPSMEFTd6General::deltaGammaHWW4jRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWW4jRatio() const
@@ -23057,11 +23075,12 @@ double NPSMEFTd6General::deltaGammaHWffRatio1() const
 double NPSMEFTd6General::deltaGammaHWffRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWffRatio() const
@@ -23168,11 +23187,12 @@ double NPSMEFTd6General::deltaGammaHWW4fRatio1() const
 double NPSMEFTd6General::deltaGammaHWW4fRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWW4fRatio() const
@@ -23239,13 +23259,12 @@ double NPSMEFTd6General::deltaGammaHZZRatio1() const
 double NPSMEFTd6General::deltaGammaHZZRatio2() const
 {
     double dwidth = 0.0;
-
-    //Contributions that are quadratic in the effective coefficients
-    dwidth = deltaGammaHZZ4fRatio2();
-
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
     return dwidth;
-
 }
 
 double NPSMEFTd6General::BrHZZRatio() const
@@ -23305,11 +23324,12 @@ double NPSMEFTd6General::deltaGammaHZllRatio1() const
 double NPSMEFTd6General::deltaGammaHZllRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZllRatio() const
@@ -23391,11 +23411,12 @@ double NPSMEFTd6General::deltaGammaHZeeRatio1() const
 double NPSMEFTd6General::deltaGammaHZeeRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::GammaHZmumuRatio() const
@@ -23452,11 +23473,12 @@ double NPSMEFTd6General::deltaGammaHZmumuRatio1() const
 double NPSMEFTd6General::deltaGammaHZmumuRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::GammaHZZ4lRatio() const
@@ -23522,11 +23544,12 @@ double NPSMEFTd6General::deltaGammaHZZ4lRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4lRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4lRatio() const
@@ -23610,11 +23633,12 @@ double NPSMEFTd6General::deltaGammaHZZ4eRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4eRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4eRatio() const
@@ -23698,10 +23722,12 @@ double NPSMEFTd6General::deltaGammaHZZ2e2muRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ2e2muRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ2e2muRatio() const
@@ -23785,11 +23811,12 @@ double NPSMEFTd6General::deltaGammaHZZ4muRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4muRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4muRatio() const
@@ -23868,11 +23895,12 @@ double NPSMEFTd6General::deltaGammaHZvvRatio1() const
 double NPSMEFTd6General::deltaGammaHZvvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZvvRatio() const
@@ -23956,11 +23984,12 @@ double NPSMEFTd6General::deltaGammaHZZ4vRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4vRatio() const
@@ -24040,11 +24069,12 @@ double NPSMEFTd6General::deltaGammaHZuuRatio1() const
 double NPSMEFTd6General::deltaGammaHZuuRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZuuRatio() const
@@ -24139,11 +24169,12 @@ double NPSMEFTd6General::deltaGammaHZddRatio1() const
 double NPSMEFTd6General::deltaGammaHZddRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZddRatio() const
@@ -24245,11 +24276,12 @@ double NPSMEFTd6General::deltaGammaHZffRatio1() const
 double NPSMEFTd6General::deltaGammaHZffRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZffRatio() const
@@ -24388,11 +24420,12 @@ double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4fRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4fRatio() const
@@ -24561,11 +24594,12 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
 double NPSMEFTd6General::deltaGammaHZgaRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZgaRatio() const
@@ -24852,11 +24886,12 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
 double NPSMEFTd6General::deltaGammaHgagaRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHgagaRatio() const
@@ -24895,13 +24930,18 @@ double NPSMEFTd6General::deltaGammaHffRatio1(const double mf, const double CifH)
 
 double NPSMEFTd6General::deltaGammaHffRatio2(const double mf, const double CifH) const  //AG:added
 {
-    double CiHbox = getSMEFTCoeffEW("CHbox");
-    double CiHD = getSMEFTCoeffEW("CHD");
+    double dwidth = 0.0;
     
-    return (pow(delta_GF,2.0) - delta_GF_2 - CifH*delta_GF*pow(v(),3.0)/pow(2.0,0.5)/mf 
-           + 4.0*pow(CiHbox,2.0)*pow(v(),4.0) - 2.0*CiHbox*CiHD*pow(v(),4.0) + pow(CiHD,2.0)*pow(v(),4.0)/4.0 
-           - 2.0*pow(2.0,0.5)*CifH*CiHbox*pow(v(),5.0)/mf + CifH*CiHD*pow(v(),5.0)/pow(2.0,0.5)/mf 
-           + pow(CifH,2.0)*pow(v(),6.0)/2.0/pow(mf,2.0));
+    if (FlagQuadraticTerms){
+        double CiHbox = getSMEFTCoeffEW("CHbox");
+        double CiHD = getSMEFTCoeffEW("CHD");
+
+        dwidth = (pow(delta_GF,2.0) - delta_GF_2 - CifH*delta_GF*pow(v(),3.0)/pow(2.0,0.5)/mf 
+               + 4.0*pow(CiHbox,2.0)*pow(v(),4.0) - 2.0*CiHbox*CiHD*pow(v(),4.0) + pow(CiHD,2.0)*pow(v(),4.0)/4.0 
+               - 2.0*pow(2.0,0.5)*CifH*CiHbox*pow(v(),5.0)/mf + CifH*CiHD*pow(v(),5.0)/pow(2.0,0.5)/mf 
+               + pow(CifH,2.0)*pow(v(),6.0)/2.0/pow(mf,2.0));
+    }
+    return dwidth;
 }
 
 double NPSMEFTd6General::GammaHmumuRatio() const
@@ -24956,15 +24996,15 @@ double NPSMEFTd6General::deltaGammaHmumuRatio2() const                          
 {
     double dwidth = 0.0;
     
-    //AG:begin
-    //double mf = leptons[MU].getMass();
-    //double CifH = getSMEFTCoeffEW("CeHR", 1,1);
-    //dwidth += deltaGammaHffRatio2(mf, CifH);
-    //AG:end 
-
+    if (FlagQuadraticTerms){    
+        //AG:begin  
+        double mf = leptons[MU].getMass();
+        double CifH = getSMEFTCoeffEW("CeHR", 1,1);
+        dwidth += deltaGammaHffRatio2(mf, CifH);
+        //AG:end 
+    }
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
-
 }
 
 double NPSMEFTd6General::BrHmumuRatio() const
@@ -25045,15 +25085,15 @@ double NPSMEFTd6General::deltaGammaHtautauRatio2() const                        
 {
     double dwidth = 0.0;
     
-    //AG:begin
-    //double mf = leptons[TAU].getMass();
-    //double CifH = getSMEFTCoeffEW("CeHR", 2,2);
-    //dwidth += deltaGammaHffRatio2(mf, CifH);
-    //AG:end
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    if (FlagQuadraticTerms) {
+        //AG:begin
+        double mf = leptons[TAU].getMass();
+        double CifH = getSMEFTCoeffEW("CeHR", 2,2);
+        dwidth += deltaGammaHffRatio2(mf, CifH);
+        //AG:end   
+    }
+     
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHtautauRatio() const
@@ -25149,15 +25189,15 @@ double NPSMEFTd6General::deltaGammaHccRatio2() const                            
 {
     double dwidth = 0.0;
     
-    //AG:begin
-    //double mf = quarks[CHARM].getMass();
-    //double CifH = getSMEFTCoeffEW("CuHR", 1,1);
-    //dwidth += deltaGammaHffRatio2(mf, CifH);
-    //AG:end
-
+    if (FlagQuadraticTerms) {
+        //AG:begin
+        double mf = quarks[CHARM].getMass();
+        double CifH = getSMEFTCoeffEW("CuHR", 1,1);
+        dwidth += deltaGammaHffRatio2(mf, CifH);
+        //AG:end
+    }
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
-
 }
 
 double NPSMEFTd6General::BrHccRatio() const
@@ -25258,15 +25298,14 @@ double NPSMEFTd6General::deltaGammaHbbRatio2() const                            
 {
     double dwidth = 0.0;
 
-    //AG:begin
-    //double mf = leptons[BOTTOM].getMass();
-    //double CifH = getSMEFTCoeffEW("CdHR", 2,2);
-    //dwidth += deltaGammaHffRatio2(mf, CifH);
-    //AG:end
-    
-    //Contributions that are quadratic in the effective coefficients
+    if (FlagQuadraticTerms){
+        //AG:begin
+        double mf = leptons[BOTTOM].getMass();
+        double CifH = getSMEFTCoeffEW("CdHR", 2,2);
+        dwidth += deltaGammaHffRatio2(mf, CifH);
+        //AG:end
+    }
     return ( dwidth);
-
 }
 
 double NPSMEFTd6General::BrHbbRatio() const
@@ -25382,10 +25421,12 @@ double NPSMEFTd6General::deltaGammaH2L2LRatio1() const
 double NPSMEFTd6General::deltaGammaH2L2LRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2L2LRatio() const
@@ -25479,10 +25520,12 @@ double NPSMEFTd6General::deltaGammaH2e2muRatio1() const
 double NPSMEFTd6General::deltaGammaH2e2muRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2e2muRatio() const
@@ -25592,10 +25635,12 @@ double NPSMEFTd6General::deltaGammaH2v2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2v2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2v2vRatio() const
@@ -25714,10 +25759,12 @@ double NPSMEFTd6General::deltaGammaH2L2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2L2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2L2vRatio() const
@@ -25912,10 +25959,12 @@ double NPSMEFTd6General::deltaGammaH2e2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2e2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2e2vRatio() const
@@ -26008,10 +26057,12 @@ double NPSMEFTd6General::deltaGammaH2mu2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2mu2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2mu2vRatio() const
@@ -26124,10 +26175,12 @@ double NPSMEFTd6General::deltaGammaH2u2uRatio1() const
 double NPSMEFTd6General::deltaGammaH2u2uRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2u2uRatio() const
@@ -26245,10 +26298,12 @@ double NPSMEFTd6General::deltaGammaH2d2dRatio1() const
 double NPSMEFTd6General::deltaGammaH2d2dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2d2dRatio() const
@@ -26373,10 +26428,12 @@ double NPSMEFTd6General::deltaGammaH2u2dRatio1() const
 double NPSMEFTd6General::deltaGammaH2u2dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2u2dRatio() const
@@ -26502,10 +26559,12 @@ double NPSMEFTd6General::deltaGammaH2L2uRatio1() const
 double NPSMEFTd6General::deltaGammaH2L2uRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2L2uRatio() const
@@ -26636,10 +26695,12 @@ double NPSMEFTd6General::deltaGammaH2L2dRatio1() const
 double NPSMEFTd6General::deltaGammaH2L2dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2L2dRatio() const
@@ -26759,10 +26820,12 @@ double NPSMEFTd6General::deltaGammaH2v2uRatio1() const
 double NPSMEFTd6General::deltaGammaH2v2uRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2v2uRatio() const
@@ -26887,10 +26950,12 @@ double NPSMEFTd6General::deltaGammaH2v2dRatio1() const
 double NPSMEFTd6General::deltaGammaH2v2dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2v2dRatio() const
@@ -27006,10 +27071,12 @@ double NPSMEFTd6General::deltaGammaH4LRatio1() const
 double NPSMEFTd6General::deltaGammaH4LRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4LRatio() const
@@ -27103,10 +27170,12 @@ double NPSMEFTd6General::deltaGammaH4L2Ratio1() const
 double NPSMEFTd6General::deltaGammaH4L2Ratio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4L2Ratio() const
@@ -27197,10 +27266,12 @@ double NPSMEFTd6General::deltaGammaH4eRatio1() const
 double NPSMEFTd6General::deltaGammaH4eRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4eRatio() const
@@ -27291,10 +27362,12 @@ double NPSMEFTd6General::deltaGammaH4muRatio1() const
 double NPSMEFTd6General::deltaGammaH4muRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4muRatio() const
@@ -27404,10 +27477,12 @@ double NPSMEFTd6General::deltaGammaH4vRatio1() const
 double NPSMEFTd6General::deltaGammaH4vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4vRatio() const
@@ -27522,10 +27597,12 @@ double NPSMEFTd6General::deltaGammaH4uRatio1() const
 double NPSMEFTd6General::deltaGammaH4uRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4uRatio() const
@@ -27645,10 +27722,12 @@ double NPSMEFTd6General::deltaGammaH4dRatio1() const
 double NPSMEFTd6General::deltaGammaH4dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4dRatio() const
@@ -27752,10 +27831,12 @@ double NPSMEFTd6General::deltaGammaHLvvLRatio1() const
 double NPSMEFTd6General::deltaGammaHLvvLRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHLvvLRatio() const
@@ -27846,10 +27927,12 @@ double NPSMEFTd6General::deltaGammaHevmuvRatio1() const
 double NPSMEFTd6General::deltaGammaHevmuvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHevmuvRatio() const
@@ -27953,10 +28036,12 @@ double NPSMEFTd6General::deltaGammaHudduRatio1() const
 double NPSMEFTd6General::deltaGammaHudduRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHudduRatio() const
@@ -28064,10 +28149,12 @@ double NPSMEFTd6General::deltaGammaHLvudRatio1() const
 double NPSMEFTd6General::deltaGammaHLvudRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHLvudRatio() const
@@ -28193,10 +28280,12 @@ double NPSMEFTd6General::deltaGammaH2udRatio1() const
 double NPSMEFTd6General::deltaGammaH2udRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2udRatio() const
@@ -28320,10 +28409,12 @@ double NPSMEFTd6General::deltaGammaH2LvRatio1() const
 double NPSMEFTd6General::deltaGammaH2LvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2LvRatio() const
@@ -28423,10 +28514,12 @@ double NPSMEFTd6General::deltaGammaH2Lv2Ratio1() const
 double NPSMEFTd6General::deltaGammaH2Lv2Ratio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2Lv2Ratio() const
@@ -28522,10 +28615,12 @@ double NPSMEFTd6General::deltaGammaH2evRatio1() const
 double NPSMEFTd6General::deltaGammaH2evRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2evRatio() const
@@ -28621,10 +28716,12 @@ double NPSMEFTd6General::deltaGammaH2muvRatio1() const
 double NPSMEFTd6General::deltaGammaH2muvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2muvRatio() const
@@ -28709,32 +28806,33 @@ double NPSMEFTd6General::deltaGammaH4fRatio1() const
 double NPSMEFTd6General::deltaGammaH4fRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        // SM decay widths (from MG simulations)
+        double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
+        double wH2u2uSM = 0.22500e-05, wH2d2dSM = 0.11906e-04, wH2u2dSM = 0.12361e-04;
+        double wH2L2uSM = 0.45029e-05, wH2L2dSM = 0.85830e-05, wH2v2uSM = 0.93233e-05;
+        double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06, wH4vSM = 0.16884e-05;
+        double wH4uSM = 0.23669e-05, wH4dSM = 0.60254e-05;
+        double wHLvvLSM = 0.58098e-04, wHudduSM = 0.13384e-03, wHLvudSM = 0.39063e-03;
+        double wH2udSM = 0.13711e-03, wH2LvSM = 0.27557e-04;
 
-    // SM decay widths (from MG simulations)
-    double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
-    double wH2u2uSM = 0.22500e-05, wH2d2dSM = 0.11906e-04, wH2u2dSM = 0.12361e-04;
-    double wH2L2uSM = 0.45029e-05, wH2L2dSM = 0.85830e-05, wH2v2uSM = 0.93233e-05;
-    double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06, wH4vSM = 0.16884e-05;
-    double wH4uSM = 0.23669e-05, wH4dSM = 0.60254e-05;
-    double wHLvvLSM = 0.58098e-04, wHudduSM = 0.13384e-03, wHLvudSM = 0.39063e-03;
-    double wH2udSM = 0.13711e-03, wH2LvSM = 0.27557e-04;
+        // Sum
+        double wH4fSM = wH2L2LSM + wH2v2vSM + wH2L2vSM + wH2u2uSM + wH2d2dSM + wH2u2dSM +
+                wH2L2uSM + wH2L2dSM + wH2v2uSM + wH2v2dSM + wH4LSM + wH4vSM + wH4uSM + wH4dSM + wHLvvLSM + wHudduSM +
+                wHLvudSM + wH2udSM + wH2LvSM;
 
-    // Sum
-    double wH4fSM = wH2L2LSM + wH2v2vSM + wH2L2vSM + wH2u2uSM + wH2d2dSM + wH2u2dSM +
-            wH2L2uSM + wH2L2dSM + wH2v2uSM + wH2v2dSM + wH4LSM + wH4vSM + wH4uSM + wH4dSM + wHLvvLSM + wHudduSM +
-            wHLvudSM + wH2udSM + wH2LvSM;
+        //Contributions that are quadratic in the effective coefficients
+        dwidth = (wH2L2LSM * deltaGammaH2L2LRatio2() + wH2v2vSM * deltaGammaH2v2vRatio2() + wH2L2vSM * deltaGammaH2L2vRatio2() +
+                wH2u2uSM * deltaGammaH2u2uRatio2() + wH2d2dSM * deltaGammaH2d2dRatio2() + wH2u2dSM * deltaGammaH2u2dRatio2() +
+                wH2L2uSM * deltaGammaH2L2uRatio2() + wH2L2dSM * deltaGammaH2L2dRatio2() + wH2v2uSM * deltaGammaH2v2uRatio2() +
+                wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4LSM * deltaGammaH4LRatio2() +
+                wH4uSM * deltaGammaH4uRatio2() + wH4dSM * deltaGammaH4dRatio2() +
+                wHLvvLSM * deltaGammaHLvvLRatio2() + wHudduSM * deltaGammaHudduRatio2() + wHLvudSM * deltaGammaHLvudRatio2() +
+                wH2udSM * deltaGammaH2udRatio2() + wH2LvSM * deltaGammaH2LvRatio2()) / wH4fSM;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    dwidth = (wH2L2LSM * deltaGammaH2L2LRatio2() + wH2v2vSM * deltaGammaH2v2vRatio2() + wH2L2vSM * deltaGammaH2L2vRatio2() +
-            wH2u2uSM * deltaGammaH2u2uRatio2() + wH2d2dSM * deltaGammaH2d2dRatio2() + wH2u2dSM * deltaGammaH2u2dRatio2() +
-            wH2L2uSM * deltaGammaH2L2uRatio2() + wH2L2dSM * deltaGammaH2L2dRatio2() + wH2v2uSM * deltaGammaH2v2uRatio2() +
-            wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4LSM * deltaGammaH4LRatio2() +
-            wH4uSM * deltaGammaH4uRatio2() + wH4dSM * deltaGammaH4dRatio2() +
-            wHLvvLSM * deltaGammaHLvvLRatio2() + wHudduSM * deltaGammaHudduRatio2() + wHLvudSM * deltaGammaHLvudRatio2() +
-            wH2udSM * deltaGammaH2udRatio2() + wH2LvSM * deltaGammaH2LvRatio2()) / wH4fSM;
-
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4fRatio() const
@@ -28796,10 +28894,12 @@ double NPSMEFTd6General::deltaGammaH4lRatio1() const
 double NPSMEFTd6General::deltaGammaH4lRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4lRatio() const
@@ -28862,10 +28962,12 @@ double NPSMEFTd6General::deltaGammaH2l2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2l2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2l2vRatio() const
@@ -36631,8 +36733,7 @@ double NPSMEFTd6General::STXS12_ttH_pTH300_450(const double sqrt_s) const       
 
     if (sqrt_s == 13.0) {
 
-        STXSb += 0.0;
-        /*STXSb += cWsch * ( 
+        STXSb += cWsch * ( 
             ( (0.12144) * getSMEFTCoeffEW("CHbox")
             + (-0.0304974) * getSMEFTCoeffEW("CHD")
             + (0.0026863) * getSMEFTCoeffEW("CHW")
@@ -36681,7 +36782,7 @@ double NPSMEFTd6General::STXS12_ttH_pTH300_450(const double sqrt_s) const       
             + (-0.0612235) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0612235) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.061249) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);*/
+	);
                 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
