@@ -2651,7 +2651,8 @@ double muggHbb::computeThValue()
         double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
-        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);      
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);     
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );
     } else {
         return myNPbase->muggHbb(sqrt_s);
     }
