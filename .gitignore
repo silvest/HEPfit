@@ -50,6 +50,12 @@ Analysis/Observables*
 Analysis/*.sh
 Analysis/*.zip
 
+*.txt
+*.log
+*.tex
+MCout.root
+*.orig
+
 #BAT
 BAT-0.9.*/
 BAT_parallel*/
