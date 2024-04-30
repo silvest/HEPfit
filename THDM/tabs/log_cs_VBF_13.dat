@@ -1,6 +1,8 @@
-# LHC Higgs Cross Section Working Group
+# LHC Higgs Cross Section Working Group 
+# https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBSMAt13TeV
 # VBF production cross section at 13 TeV
 # mH[GeV] | log10(sigma/pb)
+10.0    1.050
 20.0	1.011
 30.0	0.968
 40.0	0.925

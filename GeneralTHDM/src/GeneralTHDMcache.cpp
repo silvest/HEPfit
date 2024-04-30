@@ -24,18 +24,18 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         br_ZZ(19961, 2, 0.),
         br_WW(19961, 2, 0.),
         GammaHtot_SM(19961, 2, 0.),
-        log_cs_ggH_8(199, 2, 0.),
-        log_cs_VBF_8(199, 2, 0.),
-        log_cs_WH_8(199, 2, 0.),
-        log_cs_ZH_8(199, 2, 0.),
-        log_cs_ggH_13(199, 2, 0.),
-        log_cs_VBF_13(199, 2, 0.),
-        log_cs_WH_13(199, 2, 0.),
-        log_cs_ZH_13(199, 2, 0.),
-        log_cs_ttH_8(199, 2, 0.),
-        log_cs_ttH_13(199, 2, 0.),
-        log_cs_bbH_8(199, 2, 0.),
-        log_cs_bbH_13(199, 2, 0.),
+        log_cs_ggH_8(200, 2, 0.),
+        log_cs_VBF_8(200, 2, 0.),
+        log_cs_WH_8(200, 2, 0.),
+        log_cs_ZH_8(200, 2, 0.),
+        log_cs_ggH_13(200, 2, 0.),
+        log_cs_VBF_13(200, 2, 0.),
+        log_cs_WH_13(200, 2, 0.),
+        log_cs_ZH_13(200, 2, 0.),
+        log_cs_ttH_8(200, 2, 0.),
+        log_cs_ttH_13(200, 2, 0.),
+        log_cs_bbH_8(200, 2, 0.),
+        log_cs_bbH_13(200, 2, 0.),
         log_cs_ggA_8(199, 2, 0.),
         log_cs_ttA_8(199, 2, 0.),
         log_cs_bbA_8(199, 2, 0.),
@@ -1869,29 +1869,29 @@ void GeneralTHDMcache::read(){
     dw1 << tablepath << "dw1.dat";
     GammaHtot_SM = readTable(dw1.str(),19961,2);
     cs1 << tablepath << "log_cs_ggH_8.dat";
-    log_cs_ggH_8 = readTable(cs1.str(),199,2);
+    log_cs_ggH_8 = readTable(cs1.str(),200,2);
     cs11 << tablepath << "log_cs_ggH_13.dat";
-    log_cs_ggH_13 = readTable(cs11.str(),199,2);
+    log_cs_ggH_13 = readTable(cs11.str(),200,2);
     cs2 << tablepath << "log_cs_VBF_8.dat";
-    log_cs_VBF_8 = readTable(cs2.str(),199,2);
+    log_cs_VBF_8 = readTable(cs2.str(),200,2);
     cs12 << tablepath << "log_cs_VBF_13.dat";
-    log_cs_VBF_13 = readTable(cs12.str(),199,2);
+    log_cs_VBF_13 = readTable(cs12.str(),200,2);
     cs3 << tablepath << "log_cs_WH_8.dat";
-    log_cs_WH_8 = readTable(cs3.str(),199,2);
+    log_cs_WH_8 = readTable(cs3.str(),200,2);
     cs13 << tablepath << "log_cs_WH_13.dat";
-    log_cs_WH_13 = readTable(cs13.str(),199,2);
+    log_cs_WH_13 = readTable(cs13.str(),200,2);
     cs4 << tablepath << "log_cs_ZH_8.dat";
-    log_cs_ZH_8 = readTable(cs4.str(),199,2);
+    log_cs_ZH_8 = readTable(cs4.str(),200,2);
     cs14 << tablepath << "log_cs_ZH_13.dat";
-    log_cs_ZH_13 = readTable(cs14.str(),199,2);
+    log_cs_ZH_13 = readTable(cs14.str(),200,2);
     cs5 << tablepath << "log_cs_ttH_8.dat";
-    log_cs_ttH_8 = readTable(cs5.str(),199,2);
+    log_cs_ttH_8 = readTable(cs5.str(),200,2);
     cs15 << tablepath << "log_cs_ttH_13.dat";
-    log_cs_ttH_13 = readTable(cs15.str(),199,2);
+    log_cs_ttH_13 = readTable(cs15.str(),200,2);
     cs6 << tablepath << "log_cs_bbH_8.dat";
-    log_cs_bbH_8 = readTable(cs6.str(),199,2);
+    log_cs_bbH_8 = readTable(cs6.str(),200,2);
     cs16 << tablepath << "log_cs_bbH_13.dat";
-    log_cs_bbH_13 = readTable(cs16.str(),199,2);
+    log_cs_bbH_13 = readTable(cs16.str(),200,2);
     cs7 << tablepath << "log_cs_ggA_8.dat";
     log_cs_ggA_8 = readTable(cs7.str(),199,2);
     cs17 << tablepath << "log_cs_ggA_13.dat";
@@ -2467,7 +2467,7 @@ double GeneralTHDMcache::ip_cs_ggtoH_8(double mass){
         return ( ip_cs_ggtoH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ggH_8,mass));
         }
         CacheShiftReal(ip_cs_ggtoH_8_cache, NumPar, params, newResult);
@@ -2486,7 +2486,7 @@ double GeneralTHDMcache::ip_cs_ggtoH_13(double mass){
         return ( ip_cs_ggtoH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ggH_13,mass));
         }
         CacheShiftReal(ip_cs_ggtoH_13_cache, NumPar, params, newResult);
@@ -2505,7 +2505,7 @@ double GeneralTHDMcache::ip_cs_VBFtoH_8(double mass){
         return ( ip_cs_VBFtoH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_VBF_8,mass));
         }
         CacheShiftReal(ip_cs_VBFtoH_8_cache, NumPar, params, newResult);
@@ -2524,7 +2524,7 @@ double GeneralTHDMcache::ip_cs_VBFtoH_13(double mass){
         return ( ip_cs_VBFtoH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_VBF_13,mass));
         }
         CacheShiftReal(ip_cs_VBFtoH_13_cache, NumPar, params, newResult);
@@ -2543,7 +2543,7 @@ double GeneralTHDMcache::ip_cs_WtoWH_8(double mass){
         return ( ip_cs_WtoWH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_WH_8,mass));
         }
         CacheShiftReal(ip_cs_WtoWH_8_cache, NumPar, params, newResult);
@@ -2562,7 +2562,7 @@ double GeneralTHDMcache::ip_cs_WtoWH_13(double mass){
         return ( ip_cs_WtoWH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_WH_13,mass));
         }
         CacheShiftReal(ip_cs_WtoWH_13_cache, NumPar, params, newResult);
@@ -2581,7 +2581,7 @@ double GeneralTHDMcache::ip_cs_ZtoZH_8(double mass){
         return ( ip_cs_ZtoZH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ZH_8,mass));
         }
         CacheShiftReal(ip_cs_ZtoZH_8_cache, NumPar, params, newResult);
@@ -2600,7 +2600,7 @@ double GeneralTHDMcache::ip_cs_ZtoZH_13(double mass){
         return ( ip_cs_ZtoZH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ZH_13,mass));
         }
         CacheShiftReal(ip_cs_ZtoZH_13_cache, NumPar, params, newResult);
@@ -2619,7 +2619,7 @@ double GeneralTHDMcache::ip_cs_pptottH_8(double mass){
         return ( ip_cs_pptottH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ttH_8,mass));
         }
         CacheShiftReal(ip_cs_pptottH_8_cache, NumPar, params, newResult);
@@ -2638,7 +2638,7 @@ double GeneralTHDMcache::ip_cs_pptottH_13(double mass){
         return ( ip_cs_pptottH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ttH_13,mass));
         }
         CacheShiftReal(ip_cs_pptottH_13_cache, NumPar, params, newResult);
@@ -2657,7 +2657,7 @@ double GeneralTHDMcache::ip_cs_pptobbH_8(double mass){
         return ( ip_cs_pptobbH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_bbH_8,mass));
         }
         CacheShiftReal(ip_cs_pptobbH_8_cache, NumPar, params, newResult);
@@ -2676,7 +2676,7 @@ double GeneralTHDMcache::ip_cs_pptobbH_13(double mass){
         return ( ip_cs_pptobbH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=2000.) {
+        if (mass>=10. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_bbH_13,mass));
         }
         CacheShiftReal(ip_cs_pptobbH_13_cache, NumPar, params, newResult);
@@ -5972,7 +5972,8 @@ double GeneralTHDMcache::computephi2quantities()
     SigmattF_phi2_13=ip_cs_pptottH_13(m2)*rphi2_QuQuE + ip_cs_pptottA_13(m2)*rphi2_QuQuO;
     SigmaVH_phi2_13=(ip_cs_WtoWH_13(m2)+ip_cs_ZtoZH_13(m2))*rphi2_VV;
 
-
+//    std::cout<< SigmaggF_phi2_13<<std::endl;
+//    std::cout<<SigmaVBF_phi2_13;
     
     /*std::cout << "THoEX_bb_phi2_tautau_ATLAS13 = " << THoEX_bb_phi2_tautau_ATLAS13 << std::endl;
     std::cout << "bb_phi2_tautau_TH13 = " << bb_phi2_tautau_TH13 << std::endl;
