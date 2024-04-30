@@ -32,6 +32,9 @@
 dist
 build
 
+#vscode specific
+.vscode
+
 *~
 */*.dep.inc
 *.tar.gz
@@ -80,6 +83,7 @@ Analysis/Observables/
 *.blg
 *.toc
 *.spl
+*.pdf
 
 #Packaging
 Packaging/HEPfit*
