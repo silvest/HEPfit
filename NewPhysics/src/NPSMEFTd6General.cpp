@@ -13632,6 +13632,7 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
     if (name.compare("QuadraticTerms") == 0) {
         FlagQuadraticTerms = value;
         if (value) setModelLinearized(false);
+        if (value) setModelNPquadratic(true);       //AG:added
         res = true;
     } else if (name.compare("RotateCHWCHB") == 0) {
         FlagRotateCHWCHB = value;
@@ -14789,8 +14790,12 @@ gslpp::complex NPSMEFTd6General::AHZga_W(const double tau, const double lambda) 
     return sqrt(trueSM.cW2()) * tmp;
 }
 
-double NPSMEFTd6General::muggH(const double sqrt_s) const                       //AG:modified
-{
+
+/////////////////////////////////////////////////////
+
+double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
     double C1 = 0.0066; //It seems to be independent of energy 
     
     /*
@@ -14825,13 +14830,12 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
     double mu = (1.0 + 2.0 * (tmpt.real() + tmpb.real() + tmpc.real() + tmpHG.real()));*/
     
     //AG:
-    // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
-    double mu = 1.0;
-    
+    // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO    
     if (sqrt_s == 8.0){
         mu += cWsch * ( 
             ( (0.12124142781783014) * getSMEFTCoeffEW("CHbox")
             + (-0.030314752945313873) * getSMEFTCoeffEW("CHD")
+            + (39.31144) * getSMEFTCoeffEW("CHG") //
             + (-0.1224898892210304) * getSMEFTCoeffEW("CuHR", 2,2)
             + (1.1269562159310709) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.060629505890627745) * getSMEFTCoeffEW("CHl3R", 0,0)
@@ -14843,20 +14847,17 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
         mu += cWsch * ( 
             ( (0.121) * getSMEFTCoeffEW("CHbox")
             + (-0.03031) * getSMEFTCoeffEW("CHD")
+            + (39.31144) * getSMEFTCoeffEW("CHG")
             + (-0.12245) * getSMEFTCoeffEW("CuHR", 2,2)
             + (1.127) * getSMEFTCoeffEW("CuGR", 2,2)*g3_tree
             + (-0.06062) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.06062) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.0606) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
         );
-    };
+    } else 
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muggH_1()");
     //AG:end
-
-    //  Linear contribution from Higgs self-coupling
-    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
+    
     //  Linear contribution from 4 top operators
     //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
     //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
@@ -14865,23 +14866,1424 @@ double NPSMEFTd6General::muggH(const double sqrt_s) const                       
             + (getSMEFTCoeffEW("Cquqd1R", 2, 2, 2, 2))*(28.4 + cRGEon * 2.0 * 9.21 * log(0.5 * mHl / Lambda_NP))*1000.
             + (getSMEFTCoeffEW("Cquqd8R", 2, 2, 2, 2))*(5.41 + cRGEon * 2.0 * 1.76 * log(0.5 * mHl / Lambda_NP))*1000.
             );
-
-    if (FlagQuadraticTerms) {
-        /*//Add contributions that are quadratic in the effective coefficients
-        gslpp::complex tmp2 = tmpt + tmpb + tmpc + tmpHG;
-        mu += tmp2.abs2();*/
-        
-        mu += 0;
-
+    
+    //  Linear contribution from Higgs self-coupling
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muggH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muggH_2()");
     }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muggH(const double sqrt_s) const                       //AG:modified
+{
+    double mu = 1.0;
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eggFint + eggFpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muggH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muggH_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const
+{
+    double mu = 0.0;
+    double C1 = 0.0;
+
+    if (sqrt_s == 1.96) {
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +121321. * getSMEFTCoeffEW("CHbox")
+                + 5770.95 * getSMEFTCoeffEW("CHB")
+                - 51626.2 * getSMEFTCoeffEW("CHW")
+                + 57783.8 * getSMEFTCoeffEW("CHG")
+                + 771.294 * CDHB
+                - 31008.9 * CDHW
+                - 15060.5 * getSMEFTCoeffEW("CHq1R", 0, 0)
+                - 1122.91 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                - 9988.6 * getSMEFTCoeffEW("CHuR", 0, 0)
+                - 629.4 * getSMEFTCoeffEW("CHuR", 1, 1)
+                + 2994.79 * getSMEFTCoeffEW("CHdR", 0, 0)
+                + 467.105 * getSMEFTCoeffEW("CHdR", 1, 1)
+                - 205793. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 16751.6 * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-170868. * getSMEFTCoeffEW("CHD")
+                - 322062. * getSMEFTCoeffEW("CHWB")
+                - 4.567 * delta_GF
+                - 3.498 * deltaMwd6())
+                + cWsch * (-13112. * getSMEFTCoeffEW("CHD")
+                + 21988.3 * getSMEFTCoeffEW("CHWB")
+                - 3.003 * delta_GF)
+                ;
+
+    } else if (sqrt_s == 7.0) {
+
+        C1 = 0.0065;
+
+        mu +=
+                +121090. * getSMEFTCoeffEW("CHbox")
+                - 810.554 * getSMEFTCoeffEW("CHB")
+                - 86724.3 * getSMEFTCoeffEW("CHW")
+                - 155709. * getSMEFTCoeffEW("CHG")
+                - 369.549 * CDHB
+                - 54328.9 * CDHW
+                + 15633.8 * getSMEFTCoeffEW("CHq1R", 0, 0)
+                - 2932.56 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                - 24997.3 * getSMEFTCoeffEW("CHuR", 0, 0)
+                - 2380.75 * getSMEFTCoeffEW("CHuR", 1, 1)
+                + 7157.18 * getSMEFTCoeffEW("CHdR", 0, 0)
+                + 1508.92 * getSMEFTCoeffEW("CHdR", 1, 1)
+                - 355189. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 52211.2 * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-166792. * getSMEFTCoeffEW("CHD")
+                - 316769. * getSMEFTCoeffEW("CHWB")
+                - 4.542 * delta_GF
+                - 3.253 * deltaMwd6())
+                + cWsch * (-11689.4 * getSMEFTCoeffEW("CHD")
+                + 23083.4 * getSMEFTCoeffEW("CHWB")
+                - 3.004 * delta_GF)
+                ;
+
+    } else if (sqrt_s == 8.0) {
+
+        C1 = 0.0065;
+
+        /*mu +=
+                +121100. * getSMEFTCoeffEW("CHbox")
+                - 684.545 * getSMEFTCoeffEW("CHB")
+                - 85129.2 * getSMEFTCoeffEW("CHW")
+                - 136876. * getSMEFTCoeffEW("CHG")
+                - 456.67 * CDHB
+                - 56410.8 * CDHW
+                + 15225.3 * getSMEFTCoeffEW("CHq1R", 0, 0)
+                - 3114.83 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                - 25391.2 * getSMEFTCoeffEW("CHuR", 0, 0)
+                - 2583.43 * getSMEFTCoeffEW("CHuR", 1, 1)
+                + 7410.87 * getSMEFTCoeffEW("CHdR", 0, 0)
+                + 1629.31 * getSMEFTCoeffEW("CHdR", 1, 1)
+                - 363032. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 56263.7 * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-166792. * getSMEFTCoeffEW("CHD")
+                - 317073. * getSMEFTCoeffEW("CHWB")
+                - 4.541 * delta_GF
+                - 3.347 * deltaMwd6())
+                + cWsch * (-11741.3 * getSMEFTCoeffEW("CHD")
+                + 22626.6 *  getSMEFTCoeffEW("CHWB")
+                - 3.003 * delta_GF)
+                ;*/
+        //AG:begin
+        mu += cWsch * ( 
+            ( (0.1212) * getSMEFTCoeffEW("CHbox")
+            + (0.09705) * getSMEFTCoeffEW("CHW")
+            + (0.005368) * getSMEFTCoeffEW("CHB")
+            + (-0.009586) * getSMEFTCoeffEW("CHD")
+            + (0.04278) * getSMEFTCoeffEW("CHWB")
+            + (-0.00204) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.002219) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.17898) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.007077) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.01424) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (9.3e-05) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.005403) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.0004033) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.1818681) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1818681) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18188) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+            + (-0.146) * deltaGwd6()
+            + (-0.0732) * deltaGzd6()
+	);
+        //AG:end
+
+    } else if (sqrt_s == 13.0) {
+
+        C1 = 0.0064;
+
+        /*mu +=
+                +121332. * getSMEFTCoeffEW("CHbox")
+                - 283.27 * getSMEFTCoeffEW("CHB")
+                - 80829.5 * getSMEFTCoeffEW("CHW")
+                - 90637.9 * getSMEFTCoeffEW("CHG")
+                - 769.333 * CDHB
+                - 63886.1 * CDHW
+                + 13466.3 * getSMEFTCoeffEW("CHq1R", 0, 0)
+                - 3912.24 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                - 26789.8 * getSMEFTCoeffEW("CHuR", 0, 0)
+                - 3408.16 * getSMEFTCoeffEW("CHuR", 1, 1)
+                + 8302.17 * getSMEFTCoeffEW("CHdR", 0, 0)
+                + 2107.16 * getSMEFTCoeffEW("CHdR", 1, 1)
+                - 389656. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 72334.1 * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-166707. * getSMEFTCoeffEW("CHD")
+                - 317068. * getSMEFTCoeffEW("CHWB")
+                - 4.532 * delta_GF
+                - 3.247 * deltaMwd6())
+                + cWsch * (-11844.9 * getSMEFTCoeffEW("CHD")
+                + 21545. * getSMEFTCoeffEW("CHWB")
+                - 2.999 * delta_GF)
+                ;*/
+        //AG:begin
+        mu += cWsch * ( 
+            ( (0.1213) * getSMEFTCoeffEW("CHbox")
+            + (-0.05852) * getSMEFTCoeffEW("CHW")
+            + (-0.0034826) * getSMEFTCoeffEW("CHB")
+            + (-0.012075) * getSMEFTCoeffEW("CHD")
+            + (0.013098) * getSMEFTCoeffEW("CHWB")
+            + (0.012076) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.006699) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.3236105) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0730228) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.02151748) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.002749016) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.006742) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0022914) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.1818213) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1818213) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18192) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+            + (-0.107) * deltaGwd6()
+            + (-0.051) * deltaGzd6()
+
+	);
+        //AG:end
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            mu += 0.0;
+        }
+
+    } else if (sqrt_s == 14.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0064;
+
+        mu +=
+                +121214. * getSMEFTCoeffEW("CHbox")
+                // +10009.1 * getSMEFTCoeffEW("CHq1R",0,0) 
+                // -31070.5 * getSMEFTCoeffEW("CHuR",0,0) 
+                // +10788.6 * getSMEFTCoeffEW("CHdR",0,0) 
+                // -472970. * getSMEFTCoeffEW("CHq3R",0,0) 
+                + 13451.5 * getSMEFTCoeffEW("CHq1R", 0, 0)
+                - 4103.42 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                - 27417.3 * getSMEFTCoeffEW("CHuR", 0, 0)
+                - 3604.82 * getSMEFTCoeffEW("CHuR", 1, 1)
+                + 8579.9 * getSMEFTCoeffEW("CHdR", 0, 0)
+                + 2219.75 * getSMEFTCoeffEW("CHdR", 1, 1)
+                - 396964. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 75687.4 * getSMEFTCoeffEW("CHq3R", 1, 1)
+                - 166015. * getSMEFTCoeffEW("CHD")
+                - 239.03 * getSMEFTCoeffEW("CHB")
+                - 81639.9 * getSMEFTCoeffEW("CHW")
+                - 331061. * getSMEFTCoeffEW("CHWB")
+                - 84843. * getSMEFTCoeffEW("CHG")
+                - 842.254 * CDHB
+                - 65370.6 * CDHW
+                - 4.528 * delta_GF
+                - 3.193 * deltaMwd6()
+                ;
+
+    } else if (sqrt_s == 27.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0062; // From arXiv: 1902.00134
+
+        mu +=
+                +120777. * getSMEFTCoeffEW("CHbox")
+                + 6664.27 * getSMEFTCoeffEW("CHq1R", 0, 0)
+                - 34230.7 * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 12917.3 * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 536216. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 163493. * getSMEFTCoeffEW("CHD")
+                + 58.33 * getSMEFTCoeffEW("CHB")
+                - 81360.5 * getSMEFTCoeffEW("CHW")
+                - 313026. * getSMEFTCoeffEW("CHWB")
+                - 16430. * getSMEFTCoeffEW("CHG")
+                - 1314.45 * CDHB
+                - 75884.6 * CDHW
+                - 4.475 * delta_GF
+                - 2.99 * deltaMwd6()
+                ;
+
+    } else if (sqrt_s == 100.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +121714. * getSMEFTCoeffEW("CHbox")
+                - 2261.73 * getSMEFTCoeffEW("CHq1R", 0, 0)
+                - 42045.4 * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 17539.2 * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 674206. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 163344. * getSMEFTCoeffEW("CHD")
+                + 71.488 * getSMEFTCoeffEW("CHB")
+                - 90808.2 * getSMEFTCoeffEW("CHW")
+                - 312544. * getSMEFTCoeffEW("CHWB")
+                - 8165.65 * getSMEFTCoeffEW("CHG")
+                - 2615.48 * CDHB
+                - 96539.6 * CDHW
+                - 4.452 * delta_GF
+                - 2.949 * deltaMwd6()
+                ;
+
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muVBF_1()");
+    
+    //  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muVBF_2(const double sqrt_s) const
+{
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muVBF_2()");
+    }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muVBF(const double sqrt_s) const                       //AG:modified
+{
+    double mu = 1.0;
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eVBFint + eVBFpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muVBF_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muVBF_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    double C1 = 0.0;
+    
+    if (sqrt_s == 1.96) {
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +121231. * getSMEFTCoeffEW("CHbox")
+                + 855498. * getSMEFTCoeffEW("CHW")
+                + 135077. * CDHW
+                + 1554889. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 10415.1 * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-160273. * getSMEFTCoeffEW("CHD")
+                - 284953. * getSMEFTCoeffEW("CHWB")
+                - 3.288 * delta_GF
+                - 2.258 * deltaMwd6())
+                + cWsch * (-30311.6 * getSMEFTCoeffEW("CHD")
+                + 0. * getSMEFTCoeffEW("CHWB")
+                - 2. * delta_GF)
+                ;
+    } else if (sqrt_s == 7.0) {
+
+        C1 = 0.0106;
+
+        mu +=
+                +121215. * getSMEFTCoeffEW("CHbox")
+                + 874536. * getSMEFTCoeffEW("CHW")
+                + 168556. * CDHW
+                + 1688781. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 101677. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-160236. * getSMEFTCoeffEW("CHD")
+                - 284911. * getSMEFTCoeffEW("CHWB")
+                - 3.286 * delta_GF
+                - 2.217 * deltaMwd6())
+                + cWsch * (-30300.4 * getSMEFTCoeffEW("CHD")
+                + 0. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;
+    } else if (sqrt_s == 8.0) {
+
+        C1 = 0.0105;
+
+        /*mu +=
+                +121222. * getSMEFTCoeffEW("CHbox")
+                + 877503. * getSMEFTCoeffEW("CHW")
+                + 174299. * CDHW
+                + 1716018. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 113210. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-160294. * getSMEFTCoeffEW("CHD")
+                - 284954. * getSMEFTCoeffEW("CHWB")
+                - 3.287 * delta_GF
+                - 2.179 * deltaMwd6())
+                + cWsch * (-30310.6 * getSMEFTCoeffEW("CHD")
+                + 0. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;*/
+
+        //AG:begin
+        mu += cWsch * (
+            ( (0.121211) * getSMEFTCoeffEW("CHbox")
+            + (-0.030304941) * getSMEFTCoeffEW("CHD")
+            + (0.87535) * getSMEFTCoeffEW("CHW")
+            + (1.6911) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.13786) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.12128307) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.12128307) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121211) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );
+        //AG:end
+    } else if (sqrt_s == 13.0) {
+
+        C1 = 0.0103;
+
+        /*mu +=
+                +121126. * getSMEFTCoeffEW("CHbox")
+                + 886205. * getSMEFTCoeffEW("CHW")
+                + 193294. * CDHW
+                + 1792005. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 161535. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-160176. * getSMEFTCoeffEW("CHD")
+                - 284823. * getSMEFTCoeffEW("CHWB")
+                - 3.287 * delta_GF
+                - 2.139 * deltaMwd6())
+                + cWsch * (-30285.8 * getSMEFTCoeffEW("CHD")
+                + 0. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;*/
+        // AG:begin
+        mu += cWsch * ( 
+        	( (0.121283) * getSMEFTCoeffEW("CHbox")
+                + (-0.0303129) * getSMEFTCoeffEW("CHD")
+                + (0.88562) * getSMEFTCoeffEW("CHW")
+                + (1.7298) * getSMEFTCoeffEW("CHq3R", 0,0)
+                + (0.19535) * getSMEFTCoeffEW("CHq3R", 1,1)
+                + (-0.121234) * getSMEFTCoeffEW("CHl3R", 0,0)
+                + (-0.121234) * getSMEFTCoeffEW("CHl3R", 1,1)
+                + (0.121283) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);
+        mu += cWsch*( (0.0016) * deltaGwd6() );
+        //AG:end
+    } else if (sqrt_s == 14.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0103;
+
+        mu +=
+                +121112. * getSMEFTCoeffEW("CHbox")
+                // +1973653. * getSMEFTCoeffEW("CHq3R",0,0) 
+                + 1804876. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 169913. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                - 160171. * getSMEFTCoeffEW("CHD")
+                + 893242. * getSMEFTCoeffEW("CHW")
+                - 284850. * getSMEFTCoeffEW("CHWB")
+                + 195766. * CDHW
+                - 3.286 * delta_GF
+                - 2.103 * deltaMwd6()
+                ;
+    } else if (sqrt_s == 27.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0101; // From arXiv: 1902.00134
+
+        mu +=
+                +120696. * getSMEFTCoeffEW("CHbox")
+                + 2105646. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 159695. * getSMEFTCoeffEW("CHD")
+                + 900162. * getSMEFTCoeffEW("CHW")
+                - 283257. * getSMEFTCoeffEW("CHWB")
+                + 215592. * CDHW
+                - 3.256 * delta_GF
+                - 2.063 * deltaMwd6()
+                ;
+    } else if (sqrt_s == 100.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0; // N.A. 
+
+        mu +=
+                +121319. * getSMEFTCoeffEW("CHbox")
+                + 2294991. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 159242. * getSMEFTCoeffEW("CHD")
+                + 908130. * getSMEFTCoeffEW("CHW")
+                - 282574. * getSMEFTCoeffEW("CHWB")
+                + 245406. * CDHW
+                - 3.259 * delta_GF
+                - 2.047 * deltaMwd6()
+                ;
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::muWH()");
+    
+    //  Linear contribution from Higgs self-coupling
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muWH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += cWsch*(
+                (+ (0.014703) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+                + (0.0009196) *pow(getSMEFTCoeffEW("CHD"),2.0)
+                + (0.46) *pow(getSMEFTCoeffEW("CHW"),2.0)
+                + (2.6808) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+                + (0.16559) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+                + (0.0036771) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+                + (0.0036771) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+                + (0.0036771) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+                + (-0.00735169) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+                + (0.107336) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+                + (0.20952) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+                + (0.023682) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+                + (-0.00735169) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+                + (-0.00735169) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+                + (0.0073527) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+                + (-0.0268286) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHW")
+                + (-0.0523729) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+                + (-0.00592073) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+                + (0.00183843) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+                + (0.00183843) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+                + (-0.00183825) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+                + (0.94797) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+                + (0.100674) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+                + (-0.0536603) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+                + (-0.0536603) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+                + (0.053669) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+                + (0.002) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+                + (-0.10475) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+                + (-0.10475) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+                + (0.104756) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+                + (-0.0118402) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+                + (-0.0118402) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+                + (0.0118411) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+                + (-0.00735169) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+                + (-0.00735169) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+                ) * pow(1000000.0,2.0)
+        );
+        mu += cWsch*( (-0.0007) * pow(deltaGwd6(),2.0) );
+
+        mu += cWsch*(
+            + (-0.00019) * deltaGwd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.000155) * deltaGwd6()*getSMEFTCoeffEW("CHD")
+            + (-0.0007) * deltaGwd6()*getSMEFTCoeffEW("CHW")
+            + (-0.0019) * deltaGwd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0003) * deltaGwd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00063) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00063) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00019) * deltaGwd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;            
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muWH_2()");
+    }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muWH(const double sqrt_s) const                        //AG:modified
+{
+    double mu = 1.0;
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eWHint + eWHpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muWH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muWH_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    double C1 = 0.0;
+
+    if (sqrt_s == 1.96) {
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +121186. * getSMEFTCoeffEW("CHbox")
+                + 79191.5 * getSMEFTCoeffEW("CHB")
+                + 712325. * getSMEFTCoeffEW("CHW")
+                + 9992.07 * CDHB
+                + 131146. * CDHW
+                - 813859. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 3350.92 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 527754. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 1274.21 * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 67806.5 * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 1130.86 * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1558454. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 9076.74 * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-16406.7 * getSMEFTCoeffEW("CHD")
+                + 189539. * getSMEFTCoeffEW("CHWB")
+                - 2.54 * delta_GF)
+                + cWsch * (+38221.8 * getSMEFTCoeffEW("CHD")
+                + 309296. * getSMEFTCoeffEW("CHWB")
+                - 2. * delta_GF)
+                ;
+    } else if (sqrt_s == 7.0) {
+
+        C1 = 0.0123;
+
+        mu +=
+                +121226. * getSMEFTCoeffEW("CHbox")
+                + 87099.3 * getSMEFTCoeffEW("CHB")
+                + 717825. * getSMEFTCoeffEW("CHW")
+                + 17433.4 * CDHB
+                + 153216. * CDHW
+                - 213136. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 30259.1 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 405194. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 16467.8 * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 127014. * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 12241.3 * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1608269. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 104261. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-15321.2 * getSMEFTCoeffEW("CHD")
+                + 203123. * getSMEFTCoeffEW("CHWB")
+                - 2.506 * delta_GF)
+                + cWsch * (+35707.6 * getSMEFTCoeffEW("CHD")
+                + 315273. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;
+    } else if (sqrt_s == 8.0) {
+
+        C1 = 0.0122;
+
+        /*mu +=
+                +121277. * getSMEFTCoeffEW("CHbox")
+                + 87409.1 * getSMEFTCoeffEW("CHB")
+                + 721014. * getSMEFTCoeffEW("CHW")
+                + 18357.2 * CDHB
+                + 158294. * CDHW
+                - 211101. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 32881.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 409966. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 18389.4 * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 129402. * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 13507. * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1632382. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 115538. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-15333.2 * getSMEFTCoeffEW("CHD")
+                + 204451. * getSMEFTCoeffEW("CHWB")
+                - 2.506 * delta_GF)
+                + cWsch * (+35736.8 * getSMEFTCoeffEW("CHD")
+                + 316485. * getSMEFTCoeffEW("CHWB")
+                - 2. * delta_GF)
+                ;*/
+        
+        // AG: begin
+        mu += cWsch * (
+            ( (0.121219) * getSMEFTCoeffEW("CHbox")
+            + (0.036781) * getSMEFTCoeffEW("CHD")
+            + (0.72711) * getSMEFTCoeffEW("CHW")
+            + (0.081545) * getSMEFTCoeffEW("CHB")
+            + (0.31005) * getSMEFTCoeffEW("CHWB")
+            + (-0.19211) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.082808) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (1.61236) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.158059) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.38108) * getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0158969) * getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.1238226) * getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.02100008) * getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.12119837) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.12119837) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.121219) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );
+        //AG:end
+    } else if (sqrt_s == 13.0) {
+
+        C1 = 0.0119;
+
+        /*mu +=
+                +121234. * getSMEFTCoeffEW("CHbox")
+                + 88512.4 * getSMEFTCoeffEW("CHB")
+                + 728790. * getSMEFTCoeffEW("CHW")
+                + 21680.9 * CDHB
+                + 175494. * CDHW
+                - 196945. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 43331.9 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 422018. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 26503. * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 136921. * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 18730.5 * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1700150. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 162456. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + cAsch * (-15274.7 * getSMEFTCoeffEW("CHD")
+                + 207822. * getSMEFTCoeffEW("CHWB")
+                - 2.502 * delta_GF)
+                + cWsch * (+35605.2 * getSMEFTCoeffEW("CHD")
+                + 319361. * getSMEFTCoeffEW("CHWB")
+                - 1.999 * delta_GF)
+                ;*/
+        // AG: begin
+        mu += cWsch * (
+                ((0.121184) * getSMEFTCoeffEW("CHbox")
+                + (0.036574) * getSMEFTCoeffEW("CHD")
+                + (0.73619) * getSMEFTCoeffEW("CHW")
+                + (0.082602) * getSMEFTCoeffEW("CHB")
+                + (0.31339) * getSMEFTCoeffEW("CHWB")
+                + (-0.1927) * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + (0.108112) * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + (1.6542) * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + (0.21874) * getSMEFTCoeffEW("CHq3R", 1, 1)
+                + (0.39005) * getSMEFTCoeffEW("CHuR", 0, 0)
+                + (0.023369) * getSMEFTCoeffEW("CHuR", 1, 1)
+                + (-0.1274518) * getSMEFTCoeffEW("CHdR", 0, 0)
+                + (-0.02848691) * getSMEFTCoeffEW("CHdR", 1, 1)
+                + (-0.121233) * getSMEFTCoeffEW("CHl3R", 0, 0)
+                + (-0.121233) * getSMEFTCoeffEW("CHl3R", 1, 1)
+                + (0.121184) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000 
+	);
+        //AG:end
+    } else if (sqrt_s == 14.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0118;
+
+        mu +=
+                +121216. * getSMEFTCoeffEW("CHbox")
+                // -148862. * getSMEFTCoeffEW("CHq1R",0,0) 
+                // +451139. * getSMEFTCoeffEW("CHuR",0,0) 
+                // -157486. * getSMEFTCoeffEW("CHdR",0,0) 
+                // +1879522. * getSMEFTCoeffEW("CHq3R",0,0) 
+                - 192919. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 45027.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
+                + 423160. * getSMEFTCoeffEW("CHuR", 0, 0)
+                + 27887. * getSMEFTCoeffEW("CHuR", 1, 1)
+                - 137883. * getSMEFTCoeffEW("CHdR", 0, 0)
+                - 19603.3 * getSMEFTCoeffEW("CHdR", 1, 1)
+                + 1709121. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                + 170449. * getSMEFTCoeffEW("CHq3R", 1, 1)
+                - 15263.4 * getSMEFTCoeffEW("CHD")
+                + 88565.4 * getSMEFTCoeffEW("CHB")
+                + 729690. * getSMEFTCoeffEW("CHW")
+                + 208170. * getSMEFTCoeffEW("CHWB")
+                + 22093. * CDHB
+                + 177891. * CDHW
+                - 2.504 * delta_GF
+                ;
+    } else if (sqrt_s == 27.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0116; // From arXiv: 1902.00134
+
+        mu +=
+                +121206. * getSMEFTCoeffEW("CHbox")
+                - 101865. * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 468029. * getSMEFTCoeffEW("CHuR", 0, 0)
+                - 173377. * getSMEFTCoeffEW("CHdR", 0, 0)
+                + 2002478. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 15486.3 * getSMEFTCoeffEW("CHD")
+                + 89958. * getSMEFTCoeffEW("CHB")
+                + 735013. * getSMEFTCoeffEW("CHW")
+                + 211026. * getSMEFTCoeffEW("CHWB")
+                + 25604. * CDHB
+                + 196710. * CDHW
+                - 2.505 * delta_GF
+                ;
+    } else if (sqrt_s == 100.0) {
+
+        // Only Alpha scheme
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +121269. * getSMEFTCoeffEW("CHbox")
+                + 90.68 * getSMEFTCoeffEW("CHq1R", 0, 0)
+                + 484275. * getSMEFTCoeffEW("CHuR", 0, 0)
+                - 197878. * getSMEFTCoeffEW("CHdR", 0, 0)
+                + 2175601. * getSMEFTCoeffEW("CHq3R", 0, 0)
+                - 14992.4 * getSMEFTCoeffEW("CHD")
+                + 91707.3 * getSMEFTCoeffEW("CHB")
+                + 741805. * getSMEFTCoeffEW("CHW")
+                + 215319. * getSMEFTCoeffEW("CHWB")
+                + 31435.6 * CDHB
+                + 223843. * CDHW
+                - 2.504 * delta_GF
+                ;
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::muZH()");
+    
+    //  Linear contribution from Higgs self-coupling
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muZH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += cWsch*(
+	(+ (0.014709) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+	+ (0.0001828) *pow(getSMEFTCoeffEW("CHD"),2.0)
+	+ (0.33883) *pow(getSMEFTCoeffEW("CHW"),2.0)
+	+ (0.03517) *pow(getSMEFTCoeffEW("CHB"),2.0)
+	+ (0.06101) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+	+ (2.4309) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+	+ (0.17818) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+	+ (2.4309) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+	+ (0.17818) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+	+ (1.512) *pow(getSMEFTCoeffEW("CHuR", 0,0),2.0)
+	+ (0.051115) *pow(getSMEFTCoeffEW("CHuR", 1,1),2.0)
+	+ (0.9114) *pow(getSMEFTCoeffEW("CHdR", 0,0),2.0)
+	+ (0.12658) *pow(getSMEFTCoeffEW("CHdR", 1,1),2.0)
+	+ (0.0036747) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+	+ (0.0036747) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+	+ (0.0036747) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+	+ (0.0007706) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+	+ (0.089253) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+	+ (0.0100228) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+	+ (0.038007) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+	+ (-0.023331) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.013107) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.20054) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.02653) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.04728) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.0028337) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.0154464) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.00345757) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.00735198) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.00735198) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0073517) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.023824) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHW")
+	+ (-0.0186024) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHB")
+	+ (-0.0163142) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+	+ (-0.0223393) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.00245371) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.0083336) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (-0.00056189) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (-0.0522227) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 0,0)
+	+ (-0.003119027) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 1,1)
+	+ (0.017032) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 0,0)
+	+ (0.0038028) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.00222376) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.00222376) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0022196) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.003359) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+	+ (0.21456) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+	+ (-0.17418) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.042875) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.84884) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.099481) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.0184103) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.0012777) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.00612324) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.00153483) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.0446364) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.0446364) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.044638) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.073521) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+	+ (0.071113) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.0100257) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.006735) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.0069349) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.183946) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.0100203) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.059448) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.0123557) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.0050083) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.0050083) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0050114) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.009927) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.021428) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.29213) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.038981) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.132604) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.0070524) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.0427501) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.008726) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.0190091) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.0190091) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0190052) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-1.1966) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.011703) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (0.011703) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (-0.01167) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.15048) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (-0.0065592) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.0065592) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0065532) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.100277) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.100277) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.100266) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.0132704) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.0132704) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0132638) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.02364103) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.02364103) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.023635) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.001417969) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.001417969) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.00141704) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.0077183) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (0.0077183) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (-0.0077248) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.0017279) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (0.0017279) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (-0.00172848) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.00735198) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.00735198) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0) 
+        );
+            
+        mu += cWsch*( (0.008) * pow(deltaGzd6(),2.0) );
+
+        mu += cWsch*(
+            + (0.00021) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (-0.0015) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.0007) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.0007) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (-0.014) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0024) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0012) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.00084) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00045) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00016) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+         )*1000000;            
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muZH_2()");
+    }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muZH(const double sqrt_s) const                        //AG:modified
+{   
+    double mu = 1.0;
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eZHint + eZHpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muZH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muZH_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    double C1 = 0.0;
+
+    // 4F ccontributions computed using SMEFTsimA
+    if (sqrt_s == 1.96) {
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +423765. * getSMEFTCoeffEW("CHG")
+                - 4152.27 * getSMEFTCoeffEW("CG")
+                + 568696. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.844 * deltaG_hff(quarks[TOP]).real()
+                + 57950.7 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
+                + 572237. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
+                + 68506.5 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
+                + 689368. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
+                + 34359.2 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
+                + 562953. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
+                - 1123.41 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
+                + 15070.6 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
+                + 22531.7 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
+                + 13290.1 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
+                + 152635. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
+                + 137479. * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
+                - 890.245 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
+                + 15388.5 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
+                ;
+    } else if (sqrt_s == 7.0) {
+
+        C1 = 0.0387;
+
+        mu +=
+                +531046. * getSMEFTCoeffEW("CHG")
+                - 85174.4 * getSMEFTCoeffEW("CG")
+                + 810365. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.846 * deltaG_hff(quarks[TOP]).real()
+                + 19387.7 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
+                + 309431. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
+                + 53723.7 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
+                + 633768. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
+                + 19654.7 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
+                + 303278. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
+                - 3442.03 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
+                + 41220. * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
+                + 6827.86 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
+                + 7038.59 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
+                + 116509. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
+                + 74277.5 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
+                - 2514.79 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
+                + 41346.5 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
+                ;
+    } else if (sqrt_s == 8.0) {
+
+        C1 = 0.0378;
+
+        /*mu +=
+                +535133. * getSMEFTCoeffEW("CHG")
+                - 86316.6 * getSMEFTCoeffEW("CG")
+                + 824047. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.846 * deltaG_hff(quarks[TOP]).real()
+                + 18617. * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
+                + 294168. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
+                + 51386.8 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
+                + 603913. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
+                + 18807. * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
+                + 287709. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
+                - 3419.45 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
+                + 39513.7 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
+                + 6838.91 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
+                + 6363.98 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
+                + 110752. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
+                + 70573.7 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
+                - 2659.57 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
+                + 39608.7 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
+                ;*/
+        
+        //AG:begin
+        mu += cWsch * (
+            ( (0.1213) * getSMEFTCoeffEW("CHbox")
+            + (-0.03042977) * getSMEFTCoeffEW("CHD")
+            + (0.0013429) * getSMEFTCoeffEW("CHW")
+            + (0.00034889) * getSMEFTCoeffEW("CHB")
+            + (-0.001046257) * getSMEFTCoeffEW("CHWB")
+            + (-0.0008895) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (6.729e-05) * getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0006294) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0041079) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00015173) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00062947) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.52771) * getSMEFTCoeffEW("CHG")
+            + (-0.1223697) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.839333) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.08296) * getSMEFTCoeffEW("CG")
+            + (-0.0097958) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.0033868) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.019807) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.2932) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.0007416) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.0055071) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.05702) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.60888) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.0021613) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.030738) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.019568) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.28692) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00036217) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.0053893) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.00285764) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000223758) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.041058) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.0032835) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.007507) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.0064828) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00012226) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.00012461) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.11116) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.070065) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0045917) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0013165) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.0019135) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.0001571758) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.041092) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.0032845) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.0609562) * getSMEFTCoeffEW("CHl3R", 0,0)                                                  
+            + (-0.0609562) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.06105) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );
+        //AG:end
+    } else if (sqrt_s == 13.0) {
+
+        C1 = 0.0351;
+
+        /*mu +=
+                +538046. * getSMEFTCoeffEW("CHG")
+                - 85159.5 * getSMEFTCoeffEW("CG")
+                + 861157. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.846 * deltaG_hff(quarks[TOP]).real()
+                + 13574.9 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
+                + 227043. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
+                + 41257.5 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
+                + 473396. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
+                + 14488.3 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
+                + 221664. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
+                - 3400.07 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
+                + 31615.5 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
+                + 4516.51 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
+                + 4161.27 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
+                + 85356.9 * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
+                + 53893.6 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
+                - 2791.1 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
+                + 30575.2 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
+                ;*/
+                
+        //AG:begin
+        mu += cWsch * ( 
+            ( (0.12121) * getSMEFTCoeffEW("CHbox")
+            + (-0.03042744) * getSMEFTCoeffEW("CHD")
+            + (0.001047) * getSMEFTCoeffEW("CHW")
+            + (0.00026451) * getSMEFTCoeffEW("CHB")
+            + (-0.00075726) * getSMEFTCoeffEW("CHWB")
+            + (-0.0007866) * getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0004779) * getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0041559) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00020603) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00047808) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.53368) * getSMEFTCoeffEW("CHG")
+            + (-0.122585689) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.887533) * getSMEFTCoeffEW("CuGR", 2,2)
+            + (0.08762) * getSMEFTCoeffEW("CG")
+            + (-0.00752105) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.0025626) * getSMEFTCoeffEW("CuBR", 2,2)
+            + (0.015813) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
+            + (0.23866) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
+            + (-0.0009533) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
+            + (0.0062474) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
+            + (0.048406) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.5037) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (0.002587) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.036061) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (0.016338) * getSMEFTCoeffEW("CuuR",0,0,2,2)
+            + (0.23349) * getSMEFTCoeffEW("CuuR",0,2,2,0)
+            + (0.00041585) * getSMEFTCoeffEW("CuuR",1,1,2,2)
+            + (0.0061126) * getSMEFTCoeffEW("CuuR",1,2,2,1)
+            + (-0.00245583) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
+            + (-0.000269396) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
+            + (0.034461) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
+            + (0.003882) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
+            + (0.0058827) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
+            + (0.0050841) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
+            + (-0.00013204) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
+            + (0.00013861) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
+            + (0.09143) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
+            + (0.057019) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
+            + (0.0053692) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
+            + (0.0014935) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
+            + (-0.001545363) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
+            + (-0.000181173) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
+            + (0.034487) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
+            + (0.00388) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
+            + (-0.06091715) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.06091715) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.060881) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	);      
+        //AG:end 
+        
+        //  Linear contribution from 4 top operators
+        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
+        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
+        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-420. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(68.1 - cRGEon * 2.0 * 2.40 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.75 + cRGEon * 2.0 * 1.84 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(13.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.60 + cRGEon * 2.0 * 1.82 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                );
+    } else if (sqrt_s == 14.0) {
+
+        //  Old (but ok) implementation + Missing 4F
+
+        C1 = 0.0347;
+
+        mu +=
+                +536980. * getSMEFTCoeffEW("CHG")
+                - 83662.2 * getSMEFTCoeffEW("CG")
+                + 864481. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.844 * deltaG_hff(quarks[TOP]).real()
+                ;
+
+        //  Linear contribution from 4 top operators
+        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
+        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
+        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-430. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(72.9 - cRGEon * 2.0 * 2.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.65 + cRGEon * 2.0 * 1.76 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(12.4 + cRGEon * 2.0 * 5.30 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.57 + cRGEon * 2.0 * 1.74 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
+                );
+    } else if (sqrt_s == 27.0) {
+
+        //  Old (but ok) implementation + Missing 4F
+
+        C1 = 0.0320; // From arXiv: 1902.00134
+
+        mu +=
+                +519682. * getSMEFTCoeffEW("CHG")
+                - 68463.1 * getSMEFTCoeffEW("CG")
+                + 884060. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.849 * deltaG_hff(quarks[TOP]).real()
+                ;
+    } else if (sqrt_s == 100.0) {
+
+        //  Old (but ok) implementation + Missing 4F
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                +467438. * getSMEFTCoeffEW("CHG")
+                - 22519. * getSMEFTCoeffEW("CG")
+                + 880378. * getSMEFTCoeffEW("CuGR", 2, 2)
+                - 2.837 * deltaG_hff(quarks[TOP]).real()
+                ;
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::muttH()");
+    
+    //  Linear contribution from Higgs self-coupling
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_muttH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muttH_2()");
+    }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::muttH(const double sqrt_s) const                       //AG:modified
+{
+    double mu = 1.0;
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += ettHint + ettHpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_muttH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_muttH_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_mutH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    double C1 = 0.0;
+    
+    // Obtained with MG5 in the 5Flavor-scheme (p p > h t j)
+    if (sqrt_s == 8.0) {
+        C1=0; // to be added
+        mu += cWsch * (
+            ( (0.12122) * getSMEFTCoeffEW("CHbox")
+            + (-0.03034483) * getSMEFTCoeffEW("CHD")
+            + (0.2149) * getSMEFTCoeffEW("CHW")
+            + (-0.07668) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.009001) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.03961) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.043175) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.500813) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.97677) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.1629) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (-0.079828) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.013296) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (-0.1822825) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1822825) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18181) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
+        );
+    } else if (sqrt_s == 13.0) {
+        C1 = 0.0091; 
+        mu += cWsch * (
+            ( (0.12116) * getSMEFTCoeffEW("CHbox")
+            + (-0.03031732) * getSMEFTCoeffEW("CHD")
+            + (0.14294) * getSMEFTCoeffEW("CHW")
+            + (-0.1183) * getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.014446) * getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.05131) * getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.020319) * getSMEFTCoeffEW("CuHR", 2,2)
+            + (-0.337708) * getSMEFTCoeffEW("CuWR", 2,2)
+            + (-0.67007) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
+            + (0.11138) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
+            + (-0.068432) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
+            + (0.011428) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
+            + (-0.1818849) * getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.1818849) * getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.18178) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+        );
+
+    } else 
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_mutH_1()");
+    
+    //  Linear contribution from Higgs self-coupling
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::delta_mutH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms)
+    {
+        if (sqrt_s == 8.0) {
+            mu += 0.0 ;
+        } else if (sqrt_s == 13.0) {
+            mu += 0.0 ;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_mutH_2()");
+    }
+    
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    //  mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    
+    return mu;
+}
+double NPSMEFTd6General::mutH(const double sqrt_s) const                        //AG:added
+{
+    double mu = 1.0;
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    //mu += etHint + etHpar;
+
+    // Linear contribution (including the Higgs self-coupling)
+    mu += delta_mutH_1(sqrt_s);
+    
+    // Quadratic contribution (including the Higgs self-coupling)
+    mu += delta_mutH_2(sqrt_s);
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
+double NPSMEFTd6General::delta_muVH_1(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms) {
+        double sigmaWH_SM = computeSigmaWH(sqrt_s);
+        double sigmaZH_SM = computeSigmaZH(sqrt_s);
+
+        double sigmaWH_1 = delta_muWH_1(sqrt_s) * sigmaWH_SM;
+        double sigmaZH_1 = delta_muZH_1(sqrt_s) * sigmaZH_SM;
+        mu += ((sigmaWH_1 + sigmaZH_1) / (sigmaWH_SM + sigmaZH_SM));
+    }
+
+    return mu;
+}
+double NPSMEFTd6General::delta_muVH_2(const double sqrt_s) const
+{   
+    double mu = 0.0;
+    
+    if (FlagQuadraticTerms) {
+        double sigmaWH_SM = computeSigmaWH(sqrt_s);
+        double sigmaZH_SM = computeSigmaZH(sqrt_s);
+
+        double sigmaWH_2 = delta_muWH_2(sqrt_s) * sigmaWH_SM;
+        double sigmaZH_2 = delta_muZH_2(sqrt_s) * sigmaZH_SM;
+        mu += ((sigmaWH_2 + sigmaZH_2) / (sigmaWH_SM + sigmaZH_SM));
+    }
+
+    return mu;
+}
+double NPSMEFTd6General::muVH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    //mu += ;
+    
+    // Linear contribution 
+    mu += delta_muVH_2(sqrt_s);
+
+    // Quadratic contribution 
+    mu += delta_muVH_2(sqrt_s);
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
 
     return mu;
 }
+
+
+/////////////////////////////////////////////////////
 
 double NPSMEFTd6General::muggHH(const double sqrt_s) const
 {
@@ -14956,304 +16358,6 @@ double NPSMEFTd6General::muggHH(const double sqrt_s) const
             A13HH * ct * c3 * c3 * cg +
             A14HH * ct * c3 * c2g +
             A15HH * cg * c3*c2g;
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
-double NPSMEFTd6General::muVBF(const double sqrt_s) const                       //AG:modified
-{
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    if (sqrt_s == 1.96) {
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +121321. * getSMEFTCoeffEW("CHbox")
-                + 5770.95 * getSMEFTCoeffEW("CHB")
-                - 51626.2 * getSMEFTCoeffEW("CHW")
-                + 57783.8 * getSMEFTCoeffEW("CHG")
-                + 771.294 * CDHB
-                - 31008.9 * CDHW
-                - 15060.5 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                - 1122.91 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                - 9988.6 * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 629.4 * getSMEFTCoeffEW("CHuR", 1, 1)
-                + 2994.79 * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 467.105 * getSMEFTCoeffEW("CHdR", 1, 1)
-                - 205793. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 16751.6 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-170868. * getSMEFTCoeffEW("CHD")
-                - 322062. * getSMEFTCoeffEW("CHWB")
-                - 4.567 * delta_GF
-                - 3.498 * deltaMwd6())
-                + cWsch * (-13112. * getSMEFTCoeffEW("CHD")
-                + 21988.3 * getSMEFTCoeffEW("CHWB")
-                - 3.003 * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 7.0) {
-
-        C1 = 0.0065;
-
-        mu +=
-                +121090. * getSMEFTCoeffEW("CHbox")
-                - 810.554 * getSMEFTCoeffEW("CHB")
-                - 86724.3 * getSMEFTCoeffEW("CHW")
-                - 155709. * getSMEFTCoeffEW("CHG")
-                - 369.549 * CDHB
-                - 54328.9 * CDHW
-                + 15633.8 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                - 2932.56 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                - 24997.3 * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 2380.75 * getSMEFTCoeffEW("CHuR", 1, 1)
-                + 7157.18 * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 1508.92 * getSMEFTCoeffEW("CHdR", 1, 1)
-                - 355189. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 52211.2 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-166792. * getSMEFTCoeffEW("CHD")
-                - 316769. * getSMEFTCoeffEW("CHWB")
-                - 4.542 * delta_GF
-                - 3.253 * deltaMwd6())
-                + cWsch * (-11689.4 * getSMEFTCoeffEW("CHD")
-                + 23083.4 * getSMEFTCoeffEW("CHWB")
-                - 3.004 * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 8.0) {
-
-        C1 = 0.0065;
-
-        /*mu +=
-                +121100. * getSMEFTCoeffEW("CHbox")
-                - 684.545 * getSMEFTCoeffEW("CHB")
-                - 85129.2 * getSMEFTCoeffEW("CHW")
-                - 136876. * getSMEFTCoeffEW("CHG")
-                - 456.67 * CDHB
-                - 56410.8 * CDHW
-                + 15225.3 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                - 3114.83 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                - 25391.2 * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 2583.43 * getSMEFTCoeffEW("CHuR", 1, 1)
-                + 7410.87 * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 1629.31 * getSMEFTCoeffEW("CHdR", 1, 1)
-                - 363032. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 56263.7 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-166792. * getSMEFTCoeffEW("CHD")
-                - 317073. * getSMEFTCoeffEW("CHWB")
-                - 4.541 * delta_GF
-                - 3.347 * deltaMwd6())
-                + cWsch * (-11741.3 * getSMEFTCoeffEW("CHD")
-                + 22626.6 *  getSMEFTCoeffEW("CHWB")
-                - 3.003 * delta_GF)
-                ;*/
-        //AG:begin
-        mu += cWsch * ( 
-            ( (0.1212) * getSMEFTCoeffEW("CHbox")
-            + (0.09705) * getSMEFTCoeffEW("CHW")
-            + (0.005368) * getSMEFTCoeffEW("CHB")
-            + (-0.009586) * getSMEFTCoeffEW("CHD")
-            + (0.04278) * getSMEFTCoeffEW("CHWB")
-            + (-0.00204) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (0.002219) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (0.17898) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (-0.007077) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.01424) * getSMEFTCoeffEW("CHuR", 0,0)
-            + (9.3e-05) * getSMEFTCoeffEW("CHuR", 1,1)
-            + (-0.005403) * getSMEFTCoeffEW("CHdR", 0,0)
-            + (-0.0004033) * getSMEFTCoeffEW("CHdR", 1,1)
-            + (-0.1818681) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.1818681) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.18188) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-            + (-0.146) * deltaGwd6()
-            + (-0.0732) * deltaGzd6()
-	);
-        //AG:end
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-
-            mu += 0.0;
-
-        }
-    } else if (sqrt_s == 13.0) {
-
-        C1 = 0.0064;
-
-        /*mu +=
-                +121332. * getSMEFTCoeffEW("CHbox")
-                - 283.27 * getSMEFTCoeffEW("CHB")
-                - 80829.5 * getSMEFTCoeffEW("CHW")
-                - 90637.9 * getSMEFTCoeffEW("CHG")
-                - 769.333 * CDHB
-                - 63886.1 * CDHW
-                + 13466.3 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                - 3912.24 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                - 26789.8 * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 3408.16 * getSMEFTCoeffEW("CHuR", 1, 1)
-                + 8302.17 * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 2107.16 * getSMEFTCoeffEW("CHdR", 1, 1)
-                - 389656. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 72334.1 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-166707. * getSMEFTCoeffEW("CHD")
-                - 317068. * getSMEFTCoeffEW("CHWB")
-                - 4.532 * delta_GF
-                - 3.247 * deltaMwd6())
-                + cWsch * (-11844.9 * getSMEFTCoeffEW("CHD")
-                + 21545. * getSMEFTCoeffEW("CHWB")
-                - 2.999 * delta_GF)
-                ;*/
-        //AG:begin
-        mu += cWsch * ( 
-            ( (0.1212406417550307) * getSMEFTCoeffEW("CHbox")
-            + (0.06142523377274677) * getSMEFTCoeffEW("CHW")
-            + (0.004440347548061384) * getSMEFTCoeffEW("CHB")
-            + (-0.009911432985019508) * getSMEFTCoeffEW("CHD")
-            + (0.037975229200429186) * getSMEFTCoeffEW("CHWB")
-            + (0.0039122818815915126) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (0.0014407251350224736) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (0.04856326738769942) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (-0.022970502178268144) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.004976297514423232) * getSMEFTCoeffEW("CHuR", 0,0)
-            + (-0.0006701158819439234) * getSMEFTCoeffEW("CHuR", 1,1)
-            + (-0.0025856234791106006) * getSMEFTCoeffEW("CHdR", 0,0)
-            + (5.657383535127137e-05) * getSMEFTCoeffEW("CHdR", 1,1)
-            + (-0.18189764914837833) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.18189764914837833) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.1818631973746222) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-            + (-0.107) * deltaGwd6()
-            + (-0.051) * deltaGzd6()
-	);
-        //AG:end
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
-
-    } else if (sqrt_s == 14.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0064;
-
-        mu +=
-                +121214. * getSMEFTCoeffEW("CHbox")
-                // +10009.1 * getSMEFTCoeffEW("CHq1R",0,0) 
-                // -31070.5 * getSMEFTCoeffEW("CHuR",0,0) 
-                // +10788.6 * getSMEFTCoeffEW("CHdR",0,0) 
-                // -472970. * getSMEFTCoeffEW("CHq3R",0,0) 
-                + 13451.5 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                - 4103.42 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                - 27417.3 * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 3604.82 * getSMEFTCoeffEW("CHuR", 1, 1)
-                + 8579.9 * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 2219.75 * getSMEFTCoeffEW("CHdR", 1, 1)
-                - 396964. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 75687.4 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                - 166015. * getSMEFTCoeffEW("CHD")
-                - 239.03 * getSMEFTCoeffEW("CHB")
-                - 81639.9 * getSMEFTCoeffEW("CHW")
-                - 331061. * getSMEFTCoeffEW("CHWB")
-                - 84843. * getSMEFTCoeffEW("CHG")
-                - 842.254 * CDHB
-                - 65370.6 * CDHW
-                - 4.528 * delta_GF
-                - 3.193 * deltaMwd6()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 27.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0062; // From arXiv: 1902.00134
-
-        mu +=
-                +120777. * getSMEFTCoeffEW("CHbox")
-                + 6664.27 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                - 34230.7 * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 12917.3 * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 536216. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 163493. * getSMEFTCoeffEW("CHD")
-                + 58.33 * getSMEFTCoeffEW("CHB")
-                - 81360.5 * getSMEFTCoeffEW("CHW")
-                - 313026. * getSMEFTCoeffEW("CHWB")
-                - 16430. * getSMEFTCoeffEW("CHG")
-                - 1314.45 * CDHB
-                - 75884.6 * CDHW
-                - 4.475 * delta_GF
-                - 2.99 * deltaMwd6()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 100.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +121714. * getSMEFTCoeffEW("CHbox")
-                - 2261.73 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                - 42045.4 * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 17539.2 * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 674206. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 163344. * getSMEFTCoeffEW("CHD")
-                + 71.488 * getSMEFTCoeffEW("CHB")
-                - 90808.2 * getSMEFTCoeffEW("CHW")
-                - 312544. * getSMEFTCoeffEW("CHWB")
-                - 8165.65 * getSMEFTCoeffEW("CHG")
-                - 2615.48 * CDHB
-                - 96539.6 * CDHW
-                - 4.452 * delta_GF
-                - 2.949 * deltaMwd6()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muVBF()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eVBFint + eVBFpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
 
@@ -18496,224 +19600,6 @@ double NPSMEFTd6General::muepZBF(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6General::muWH(const double sqrt_s) const                        //AG:modified
-{
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    if (sqrt_s == 1.96) {
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +121231. * getSMEFTCoeffEW("CHbox")
-                + 855498. * getSMEFTCoeffEW("CHW")
-                + 135077. * CDHW
-                + 1554889. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 10415.1 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-160273. * getSMEFTCoeffEW("CHD")
-                - 284953. * getSMEFTCoeffEW("CHWB")
-                - 3.288 * delta_GF
-                - 2.258 * deltaMwd6())
-                + cWsch * (-30311.6 * getSMEFTCoeffEW("CHD")
-                + 0. * getSMEFTCoeffEW("CHWB")
-                - 2. * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 7.0) {
-
-        C1 = 0.0106;
-
-        mu +=
-                +121215. * getSMEFTCoeffEW("CHbox")
-                + 874536. * getSMEFTCoeffEW("CHW")
-                + 168556. * CDHW
-                + 1688781. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 101677. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-160236. * getSMEFTCoeffEW("CHD")
-                - 284911. * getSMEFTCoeffEW("CHWB")
-                - 3.286 * delta_GF
-                - 2.217 * deltaMwd6())
-                + cWsch * (-30300.4 * getSMEFTCoeffEW("CHD")
-                + 0. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 8.0) {
-
-        C1 = 0.0105;
-
-        /*mu +=
-                +121222. * getSMEFTCoeffEW("CHbox")
-                + 877503. * getSMEFTCoeffEW("CHW")
-                + 174299. * CDHW
-                + 1716018. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 113210. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-160294. * getSMEFTCoeffEW("CHD")
-                - 284954. * getSMEFTCoeffEW("CHWB")
-                - 3.287 * delta_GF
-                - 2.179 * deltaMwd6())
-                + cWsch * (-30310.6 * getSMEFTCoeffEW("CHD")
-                + 0. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;*/
-
-        //AG:begin
-        mu += cWsch * (
-            ( (0.121211) * getSMEFTCoeffEW("CHbox")
-            + (-0.030304941) * getSMEFTCoeffEW("CHD")
-            + (0.87535) * getSMEFTCoeffEW("CHW")
-            + (1.6911) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.13786) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (-0.12128307) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.12128307) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.121211) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-        //AG:end
-        
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 13.0) {
-
-        C1 = 0.0103;
-
-        /*mu +=
-                +121126. * getSMEFTCoeffEW("CHbox")
-                + 886205. * getSMEFTCoeffEW("CHW")
-                + 193294. * CDHW
-                + 1792005. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 161535. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-160176. * getSMEFTCoeffEW("CHD")
-                - 284823. * getSMEFTCoeffEW("CHWB")
-                - 3.287 * delta_GF
-                - 2.139 * deltaMwd6())
-                + cWsch * (-30285.8 * getSMEFTCoeffEW("CHD")
-                + 0. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;*/
-        // AG:begin
-        mu += cWsch * ( 
-            ( (0.121101) * getSMEFTCoeffEW("CHbox")
-            + (-0.0303067) * getSMEFTCoeffEW("CHD")
-            + (0.88567) * getSMEFTCoeffEW("CHW")
-            + (1.77457) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.211757) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.12109603) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.121101) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);
-        //AG:end
-        
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 14.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0103;
-
-        mu +=
-                +121112. * getSMEFTCoeffEW("CHbox")
-                // +1973653. * getSMEFTCoeffEW("CHq3R",0,0) 
-                + 1804876. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 169913. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                - 160171. * getSMEFTCoeffEW("CHD")
-                + 893242. * getSMEFTCoeffEW("CHW")
-                - 284850. * getSMEFTCoeffEW("CHWB")
-                + 195766. * CDHW
-                - 3.286 * delta_GF
-                - 2.103 * deltaMwd6()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 27.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0101; // From arXiv: 1902.00134
-
-        mu +=
-                +120696. * getSMEFTCoeffEW("CHbox")
-                + 2105646. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 159695. * getSMEFTCoeffEW("CHD")
-                + 900162. * getSMEFTCoeffEW("CHW")
-                - 283257. * getSMEFTCoeffEW("CHWB")
-                + 215592. * CDHW
-                - 3.256 * delta_GF
-                - 2.063 * deltaMwd6()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 100.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0; // N.A. 
-
-        mu +=
-                +121319. * getSMEFTCoeffEW("CHbox")
-                + 2294991. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 159242. * getSMEFTCoeffEW("CHD")
-                + 908130. * getSMEFTCoeffEW("CHW")
-                - 282574. * getSMEFTCoeffEW("CHWB")
-                + 245406. * CDHW
-                - 3.259 * delta_GF
-                - 2.047 * deltaMwd6()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muWH()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eWHint + eWHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
 double NPSMEFTd6General::muWHpT250(const double sqrt_s) const
 {
     double mu = 1.0;
@@ -18750,284 +19636,6 @@ double NPSMEFTd6General::muWHpT250(const double sqrt_s) const
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eWHint + eWHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
-double NPSMEFTd6General::muZH(const double sqrt_s) const                        //AG:modified
-{   
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    if (sqrt_s == 1.96) {
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +121186. * getSMEFTCoeffEW("CHbox")
-                + 79191.5 * getSMEFTCoeffEW("CHB")
-                + 712325. * getSMEFTCoeffEW("CHW")
-                + 9992.07 * CDHB
-                + 131146. * CDHW
-                - 813859. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 3350.92 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 527754. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 1274.21 * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 67806.5 * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 1130.86 * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1558454. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 9076.74 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-16406.7 * getSMEFTCoeffEW("CHD")
-                + 189539. * getSMEFTCoeffEW("CHWB")
-                - 2.54 * delta_GF)
-                + cWsch * (+38221.8 * getSMEFTCoeffEW("CHD")
-                + 309296. * getSMEFTCoeffEW("CHWB")
-                - 2. * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 7.0) {
-
-        C1 = 0.0123;
-
-        mu +=
-                +121226. * getSMEFTCoeffEW("CHbox")
-                + 87099.3 * getSMEFTCoeffEW("CHB")
-                + 717825. * getSMEFTCoeffEW("CHW")
-                + 17433.4 * CDHB
-                + 153216. * CDHW
-                - 213136. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 30259.1 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 405194. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 16467.8 * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 127014. * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 12241.3 * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1608269. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 104261. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-15321.2 * getSMEFTCoeffEW("CHD")
-                + 203123. * getSMEFTCoeffEW("CHWB")
-                - 2.506 * delta_GF)
-                + cWsch * (+35707.6 * getSMEFTCoeffEW("CHD")
-                + 315273. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 8.0) {
-
-        C1 = 0.0122;
-
-        /*mu +=
-                +121277. * getSMEFTCoeffEW("CHbox")
-                + 87409.1 * getSMEFTCoeffEW("CHB")
-                + 721014. * getSMEFTCoeffEW("CHW")
-                + 18357.2 * CDHB
-                + 158294. * CDHW
-                - 211101. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 32881.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 409966. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 18389.4 * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 129402. * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 13507. * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1632382. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 115538. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-15333.2 * getSMEFTCoeffEW("CHD")
-                + 204451. * getSMEFTCoeffEW("CHWB")
-                - 2.506 * delta_GF)
-                + cWsch * (+35736.8 * getSMEFTCoeffEW("CHD")
-                + 316485. * getSMEFTCoeffEW("CHWB")
-                - 2. * delta_GF)
-                ;*/
-        
-        // AG: begin
-        mu += cWsch * (
-            ( (0.121219) * getSMEFTCoeffEW("CHbox")
-            + (0.036781) * getSMEFTCoeffEW("CHD")
-            + (0.72711) * getSMEFTCoeffEW("CHW")
-            + (0.081545) * getSMEFTCoeffEW("CHB")
-            + (0.31005) * getSMEFTCoeffEW("CHWB")
-            + (-0.19211) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (0.082808) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (1.61236) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.158059) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.38108) * getSMEFTCoeffEW("CHuR", 0,0)
-            + (0.0158969) * getSMEFTCoeffEW("CHuR", 1,1)
-            + (-0.1238226) * getSMEFTCoeffEW("CHdR", 0,0)
-            + (-0.02100008) * getSMEFTCoeffEW("CHdR", 1,1)
-            + (-0.12119837) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.12119837) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.121219) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-        //AG:end
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 13.0) {
-
-        C1 = 0.0119;
-
-        /*mu +=
-                +121234. * getSMEFTCoeffEW("CHbox")
-                + 88512.4 * getSMEFTCoeffEW("CHB")
-                + 728790. * getSMEFTCoeffEW("CHW")
-                + 21680.9 * CDHB
-                + 175494. * CDHW
-                - 196945. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 43331.9 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 422018. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 26503. * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 136921. * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 18730.5 * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1700150. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 162456. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                + cAsch * (-15274.7 * getSMEFTCoeffEW("CHD")
-                + 207822. * getSMEFTCoeffEW("CHWB")
-                - 2.502 * delta_GF)
-                + cWsch * (+35605.2 * getSMEFTCoeffEW("CHD")
-                + 319361. * getSMEFTCoeffEW("CHWB")
-                - 1.999 * delta_GF)
-                ;*/
-        // AG: begin
-        mu += cWsch * ( 
-            ( (0.121192) * getSMEFTCoeffEW("CHbox")
-            + (0.03642) * getSMEFTCoeffEW("CHD")
-            + (0.73614) * getSMEFTCoeffEW("CHW")
-            + (0.083281) * getSMEFTCoeffEW("CHB")
-            + (0.31376) * getSMEFTCoeffEW("CHWB")
-            + (-0.14875) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (0.119254) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (1.68531) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.23596) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.38725) * getSMEFTCoeffEW("CHuR", 0,0)
-            + (0.024635) * getSMEFTCoeffEW("CHuR", 1,1)
-            + (-0.13405115) * getSMEFTCoeffEW("CHdR", 0,0)
-            + (-0.03097592) * getSMEFTCoeffEW("CHdR", 1,1)
-            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.1211941) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.121192) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);
-        //AG:end
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 14.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0118;
-
-        mu +=
-                +121216. * getSMEFTCoeffEW("CHbox")
-                // -148862. * getSMEFTCoeffEW("CHq1R",0,0) 
-                // +451139. * getSMEFTCoeffEW("CHuR",0,0) 
-                // -157486. * getSMEFTCoeffEW("CHdR",0,0) 
-                // +1879522. * getSMEFTCoeffEW("CHq3R",0,0) 
-                - 192919. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 45027.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 423160. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 27887. * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 137883. * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 19603.3 * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1709121. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 170449. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                - 15263.4 * getSMEFTCoeffEW("CHD")
-                + 88565.4 * getSMEFTCoeffEW("CHB")
-                + 729690. * getSMEFTCoeffEW("CHW")
-                + 208170. * getSMEFTCoeffEW("CHWB")
-                + 22093. * CDHB
-                + 177891. * CDHW
-                - 2.504 * delta_GF
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 27.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0116; // From arXiv: 1902.00134
-
-        mu +=
-                +121206. * getSMEFTCoeffEW("CHbox")
-                - 101865. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 468029. * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 173377. * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 2002478. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 15486.3 * getSMEFTCoeffEW("CHD")
-                + 89958. * getSMEFTCoeffEW("CHB")
-                + 735013. * getSMEFTCoeffEW("CHW")
-                + 211026. * getSMEFTCoeffEW("CHWB")
-                + 25604. * CDHB
-                + 196710. * CDHW
-                - 2.505 * delta_GF
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 100.0) {
-
-        // Only Alpha scheme
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +121269. * getSMEFTCoeffEW("CHbox")
-                + 90.68 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 484275. * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 197878. * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 2175601. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 14992.4 * getSMEFTCoeffEW("CHD")
-                + 91707.3 * getSMEFTCoeffEW("CHB")
-                + 741805. * getSMEFTCoeffEW("CHW")
-                + 215319. * getSMEFTCoeffEW("CHWB")
-                + 31435.6 * CDHB
-                + 223843. * CDHW
-                - 2.504 * delta_GF
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muZH()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eZHint + eZHpar;
 
     //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
@@ -20596,19 +21204,6 @@ double NPSMEFTd6General::bPskPol(const double sqrt_s, const double Pol_em, const
     return bPol;
 }
 
-double NPSMEFTd6General::muVH(const double sqrt_s) const
-{
-    double sigmaWH_SM = computeSigmaWH(sqrt_s);
-    double sigmaZH_SM = computeSigmaZH(sqrt_s);
-    double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
-    double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
-    double mu = ((sigmaWH + sigmaZH) / (sigmaWH_SM + sigmaZH_SM));
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
 double NPSMEFTd6General::muVHpT250(const double sqrt_s) const
 {
     //Use MG SM values
@@ -20636,414 +21231,6 @@ double NPSMEFTd6General::muVBFpVH(const double sqrt_s) const
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
 
     return mu;
-}
-
-double NPSMEFTd6General::muttH(const double sqrt_s) const                       //AG:modified
-{
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    // 4F ccontributions computed using SMEFTsimA
-
-    if (sqrt_s == 1.96) {
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +423765. * getSMEFTCoeffEW("CHG")
-                - 4152.27 * getSMEFTCoeffEW("CG")
-                + 568696. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.844 * deltaG_hff(quarks[TOP]).real()
-                + 57950.7 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
-                + 572237. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
-                + 68506.5 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
-                + 689368. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
-                + 34359.2 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
-                + 562953. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
-                - 1123.41 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
-                + 15070.6 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
-                + 22531.7 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
-                + 13290.1 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
-                + 152635. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
-                + 137479. * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
-                - 890.245 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
-                + 15388.5 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 7.0) {
-
-        C1 = 0.0387;
-
-        mu +=
-                +531046. * getSMEFTCoeffEW("CHG")
-                - 85174.4 * getSMEFTCoeffEW("CG")
-                + 810365. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.846 * deltaG_hff(quarks[TOP]).real()
-                + 19387.7 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
-                + 309431. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
-                + 53723.7 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
-                + 633768. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
-                + 19654.7 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
-                + 303278. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
-                - 3442.03 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
-                + 41220. * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
-                + 6827.86 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
-                + 7038.59 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
-                + 116509. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
-                + 74277.5 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
-                - 2514.79 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
-                + 41346.5 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 8.0) {
-
-        C1 = 0.0378;
-
-        /*mu +=
-                +535133. * getSMEFTCoeffEW("CHG")
-                - 86316.6 * getSMEFTCoeffEW("CG")
-                + 824047. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.846 * deltaG_hff(quarks[TOP]).real()
-                + 18617. * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
-                + 294168. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
-                + 51386.8 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
-                + 603913. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
-                + 18807. * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
-                + 287709. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
-                - 3419.45 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
-                + 39513.7 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
-                + 6838.91 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
-                + 6363.98 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
-                + 110752. * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
-                + 70573.7 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
-                - 2659.57 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
-                + 39608.7 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;*/
-        
-        //AG:begin
-        mu += cWsch * (
-            ( (0.1213) * getSMEFTCoeffEW("CHbox")
-            + (-0.03042977) * getSMEFTCoeffEW("CHD")
-            + (0.0013429) * getSMEFTCoeffEW("CHW")
-            + (0.00034889) * getSMEFTCoeffEW("CHB")
-            + (-0.001046257) * getSMEFTCoeffEW("CHWB")
-            + (-0.0008895) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (6.729e-05) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (-0.0006294) * getSMEFTCoeffEW("CHq1R", 2,2)
-            + (0.0041079) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.00015173) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.00062947) * getSMEFTCoeffEW("CHq3R", 2,2)
-            + (0.52771) * getSMEFTCoeffEW("CHG")
-            + (-0.1223697) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (-0.839333) * getSMEFTCoeffEW("CuGR", 2,2)
-            + (0.08296) * getSMEFTCoeffEW("CG")
-            + (-0.0097958) * getSMEFTCoeffEW("CuWR", 2,2)
-            + (-0.0033868) * getSMEFTCoeffEW("CuBR", 2,2)
-            + (0.019807) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
-            + (0.2932) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
-            + (-0.0007416) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
-            + (0.0055071) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
-            + (0.05702) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
-            + (0.60888) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
-            + (0.0021613) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
-            + (0.030738) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
-            + (0.019568) * getSMEFTCoeffEW("CuuR",0,0,2,2)
-            + (0.28692) * getSMEFTCoeffEW("CuuR",0,2,2,0)
-            + (0.00036217) * getSMEFTCoeffEW("CuuR",1,1,2,2)
-            + (0.0053893) * getSMEFTCoeffEW("CuuR",1,2,2,1)
-            + (-0.00285764) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
-            + (-0.000223758) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
-            + (0.041058) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
-            + (0.0032835) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
-            + (0.007507) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
-            + (0.0064828) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
-            + (-0.00012226) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
-            + (0.00012461) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.11116) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
-            + (0.070065) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
-            + (0.0045917) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
-            + (0.0013165) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
-            + (-0.0019135) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
-            + (-0.0001571758) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.041092) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
-            + (0.0032845) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
-            + (-0.0609562) * getSMEFTCoeffEW("CHl3R", 0,0)                                                  
-            + (-0.0609562) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.06105) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-        //AG:end
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 13.0) {
-
-        C1 = 0.0351;
-
-        /*mu +=
-                +538046. * getSMEFTCoeffEW("CHG")
-                - 85159.5 * getSMEFTCoeffEW("CG")
-                + 861157. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.846 * deltaG_hff(quarks[TOP]).real()
-                + 13574.9 * getSMEFTCoeffEW("Cqq1R", 0, 0, 2, 2)
-                + 227043. * getSMEFTCoeffEW("Cqq1R", 0, 2, 2, 0)
-                + 41257.5 * getSMEFTCoeffEW("Cqq3R", 0, 0, 2, 2)
-                + 473396. * getSMEFTCoeffEW("Cqq3R", 0, 2, 2, 0)
-                + 14488.3 * getSMEFTCoeffEW("CuuR", 0, 0, 2, 2)
-                + 221664. * getSMEFTCoeffEW("CuuR", 0, 2, 2, 0)
-                - 3400.07 * getSMEFTCoeffEW("Cud1R", 2, 2, 0, 0)
-                + 31615.5 * getSMEFTCoeffEW("Cud8R", 2, 2, 0, 0)
-                + 4516.51 * getSMEFTCoeffEW("Cqu1R", 0, 0, 2, 2)
-                + 4161.27 * getSMEFTCoeffEW("Cqu1R", 2, 2, 0, 0)
-                + 85356.9 * getSMEFTCoeffEW("Cqu8R", 0, 0, 2, 2)
-                + 53893.6 * getSMEFTCoeffEW("Cqu8R", 2, 2, 0, 0)
-                - 2791.1 * getSMEFTCoeffEW("Cqd1R", 2, 2, 0, 0)
-                + 30575.2 * getSMEFTCoeffEW("Cqd8R", 2, 2, 0, 0)
-                ;*/
-                
-        //AG:begin
-        mu += cWsch * ( 
-            ( (0.121253) * getSMEFTCoeffEW("CHbox")
-            + (-0.03041198) * getSMEFTCoeffEW("CHD")
-            + (0.00103446) * getSMEFTCoeffEW("CHW")
-            + (0.00025946) * getSMEFTCoeffEW("CHB")
-            + (-0.000742598) * getSMEFTCoeffEW("CHWB")
-            + (-0.0007786) * getSMEFTCoeffEW("CHq1R", 0,0)
-            + (0.00010096) * getSMEFTCoeffEW("CHq1R", 1,1)
-            + (-0.00047263) * getSMEFTCoeffEW("CHq1R", 2,2)
-            + (0.0041742) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (0.00020702) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.00047302) * getSMEFTCoeffEW("CHq3R", 2,2)
-            + (0.53137) * getSMEFTCoeffEW("CHG")
-            + (-0.12237745) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (-0.886486) * getSMEFTCoeffEW("CuGR", 2,2)
-            + (0.08865) * getSMEFTCoeffEW("CG")
-            + (-0.00742823) * getSMEFTCoeffEW("CuWR", 2,2)
-            + (-0.00251436) * getSMEFTCoeffEW("CuBR", 2,2)
-            + (0.015413) * getSMEFTCoeffEW("Cqq1R",0,0,2,2)
-            + (0.235) * getSMEFTCoeffEW("Cqq1R",0,2,2,0)
-            + (-0.00096746) * getSMEFTCoeffEW("Cqq1R",1,1,2,2)
-            + (0.0061331) * getSMEFTCoeffEW("Cqq1R",1,2,2,1)
-            + (0.047955) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
-            + (0.49933) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
-            + (0.0025728) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
-            + (0.035934) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
-            + (0.016092) * getSMEFTCoeffEW("CuuR",0,0,2,2)
-            + (0.22973) * getSMEFTCoeffEW("CuuR",0,2,2,0)
-            + (0.00040886) * getSMEFTCoeffEW("CuuR",1,1,2,2)
-            + (0.0060015) * getSMEFTCoeffEW("CuuR",1,2,2,1)
-            + (-0.00245805) * getSMEFTCoeffEW("Cud1R",2,2,0,0)
-            + (-0.000269443) * getSMEFTCoeffEW("Cud1R",2,2,1,1)
-            + (0.034415) * getSMEFTCoeffEW("Cud8R",2,2,0,0)
-            + (0.0038829) * getSMEFTCoeffEW("Cud8R",2,2,1,1)
-            + (0.0057251) * getSMEFTCoeffEW("Cqu1R",0,0,2,2)
-            + (0.0049893) * getSMEFTCoeffEW("Cqu1R",2,2,0,0)
-            + (-0.00013645) * getSMEFTCoeffEW("Cqu1R",1,1,2,2)
-            + (0.000135916) * getSMEFTCoeffEW("Cqu1R",2,2,1,1)
-            + (0.090545) * getSMEFTCoeffEW("Cqu8R",0,0,2,2)
-            + (0.056059) * getSMEFTCoeffEW("Cqu8R",2,2,0,0)
-            + (0.0053369) * getSMEFTCoeffEW("Cqu8R",1,1,2,2)
-            + (0.0014659) * getSMEFTCoeffEW("Cqu8R",2,2,1,1)
-            + (-0.00154141) * getSMEFTCoeffEW("Cqd1R",2,2,0,0)
-            + (-0.000180838) * getSMEFTCoeffEW("Cqd1R",2,2,1,1)
-            + (0.034414) * getSMEFTCoeffEW("Cqd8R",2,2,0,0)
-            + (0.0038833) * getSMEFTCoeffEW("Cqd8R",2,2,1,1)
-            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.0609162) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.06091) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);      
-        //AG:end 
-        
-        //  Linear contribution from 4 top operators
-        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-420. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(68.1 - cRGEon * 2.0 * 2.40 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.75 + cRGEon * 2.0 * 1.84 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(13.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.60 + cRGEon * 2.0 * 1.82 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                );
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 14.0) {
-
-        //  Old (but ok) implementation + Missing 4F
-
-        C1 = 0.0347;
-
-        mu +=
-                +536980. * getSMEFTCoeffEW("CHG")
-                - 83662.2 * getSMEFTCoeffEW("CG")
-                + 864481. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.844 * deltaG_hff(quarks[TOP]).real()
-                ;
-
-        //  Linear contribution from 4 top operators
-        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-430. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(72.9 - cRGEon * 2.0 * 2.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.65 + cRGEon * 2.0 * 1.76 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(12.4 + cRGEon * 2.0 * 5.30 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.57 + cRGEon * 2.0 * 1.74 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                );
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 27.0) {
-
-        //  Old (but ok) implementation + Missing 4F
-
-        C1 = 0.0320; // From arXiv: 1902.00134
-
-        mu +=
-                +519682. * getSMEFTCoeffEW("CHG")
-                - 68463.1 * getSMEFTCoeffEW("CG")
-                + 884060. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.849 * deltaG_hff(quarks[TOP]).real()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 100.0) {
-
-        //  Old (but ok) implementation + Missing 4F
-
-        C1 = 0.0; // N.A.
-
-        mu +=
-                +467438. * getSMEFTCoeffEW("CHG")
-                - 22519. * getSMEFTCoeffEW("CG")
-                + 880378. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.837 * deltaG_hff(quarks[TOP]).real()
-                ;
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muttH()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += ettHint + ettHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
-double NPSMEFTd6General::mutH(const double sqrt_s) const                        //AG:added
-{
-    double mu = 1.0;
-    double C1 = 0.0;
-    // Obtained with MG5 in the 5Flavor-scheme (p p > h t j)
-    if (sqrt_s == 8.0) {
-
-        C1=0; // to be added
-        mu += cWsch * (
-            ( (0.12122) * getSMEFTCoeffEW("CHbox")
-            + (-0.03034483) * getSMEFTCoeffEW("CHD")
-            + (0.2149) * getSMEFTCoeffEW("CHW")
-            + (-0.07668) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (-0.009001) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (0.03961) * getSMEFTCoeffEW("CHq3R", 2,2)
-            + (-0.043175) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (-0.500813) * getSMEFTCoeffEW("CuWR", 2,2)
-            + (-0.97677) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
-            + (0.1629) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
-            + (-0.079828) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
-            + (0.013296) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
-            + (-0.1822825) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.1822825) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.18181) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    } else if (sqrt_s == 13.0) {
-
-        C1 = 0.0091; 
-        mu += cWsch * (
-            ( (0.12105) * getSMEFTCoeffEW("CHbox")
-            + (-0.03023904) * getSMEFTCoeffEW("CHD")
-            + (0.18919) * getSMEFTCoeffEW("CHW")
-            + (-0.1315) * getSMEFTCoeffEW("CHq3R", 0,0)
-            + (-0.017241) * getSMEFTCoeffEW("CHq3R", 1,1)
-            + (-0.00785) * getSMEFTCoeffEW("CHq3R", 2,2)
-            + (-0.033304) * getSMEFTCoeffEW("CuHR", 2,2)
-            + (-0.431706) * getSMEFTCoeffEW("CuWR", 2,2)
-            + (-0.91234) * getSMEFTCoeffEW("Cqq3R",0,0,2,2)
-            + (0.15211) * getSMEFTCoeffEW("Cqq3R",0,2,2,0)
-            + (-0.094318) * getSMEFTCoeffEW("Cqq3R",1,1,2,2)
-            + (0.015639) * getSMEFTCoeffEW("Cqq3R",1,2,2,1)
-            + (-0.18143348) * getSMEFTCoeffEW("CHl3R", 0,0)
-            + (-0.18143348) * getSMEFTCoeffEW("CHl3R", 1,1)
-            + (0.18158) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000
-        );
-     
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-
-        }
-
-    }
-
-    
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += ettHint + ettHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-    
-    return mu;
-    
-    //return STXS12_tH(sqrt_s);
 }
 
 double NPSMEFTd6General::mutHq(const double sqrt_s) const
@@ -22489,22 +22676,25 @@ double NPSMEFTd6General::deltaGammaTotalRatio1noError() const
 
 double NPSMEFTd6General::deltaGammaTotalRatio2() const
 {
-    double deltaGammaRatio;
+    double deltaGammaRatio = 0.0;
 
-    //  The change in the ratio assuming only SM decays
-    deltaGammaRatio = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
-            //            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
-            //            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
-            + trueSM.computeBrHto4f() * deltaGammaH4fRatio2()
-            + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
-            + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
-            + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
-            + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
-            + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
-            + trueSM.computeBrHtobb() * deltaGammaHbbRatio2();
+    if (FlagQuadraticTerms){    
+        //  The change in the ratio assuming only SM decays
+        deltaGammaRatio = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
+                //            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
+                //            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+                + trueSM.computeBrHto4f() * deltaGammaH4fRatio2()
+                + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
+                + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
+                + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
+                + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
+                + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
+                + trueSM.computeBrHtobb() * deltaGammaHbbRatio2();
 
-    //  Add the effect of the invisible and exotic BR and return     
-    return (deltaGammaRatio / (1.0 - BrHinv - BrHexo));
+        //  Add the effect of the invisible and exotic BR and return     
+        deltaGammaRatio = (deltaGammaRatio / (1.0 - BrHinv - BrHexo));
+    }
+    return deltaGammaRatio;
 }
 
 double NPSMEFTd6General::GammaHggRatio() const
@@ -22586,11 +22776,12 @@ double NPSMEFTd6General::deltaGammaHggRatio1() const
 double NPSMEFTd6General::deltaGammaHggRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHggRatio() const
@@ -22659,12 +22850,11 @@ double NPSMEFTd6General::deltaGammaHWWRatio2() const
 {
     double dwidth = 0.0;
 
-    //Contributions that are quadratic in the effective coefficients
-    dwidth = deltaGammaHWW4fRatio2();
-
+    if (FlagQuadraticTerms){
+        dwidth = deltaGammaHWW4fRatio2();
+    }
 
     return dwidth;
-
 }
 
 double NPSMEFTd6General::BrHWWRatio() const
@@ -22723,11 +22913,12 @@ double NPSMEFTd6General::deltaGammaHWlvRatio1() const
 double NPSMEFTd6General::deltaGammaHWlvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWlvRatio() const
@@ -22809,11 +23000,12 @@ double NPSMEFTd6General::deltaGammaHWW2l2vRatio1() const
 double NPSMEFTd6General::deltaGammaHWW2l2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWW2l2vRatio() const
@@ -22890,11 +23082,12 @@ double NPSMEFTd6General::deltaGammaHWjjRatio1() const
 double NPSMEFTd6General::deltaGammaHWjjRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWjjRatio() const
@@ -22975,11 +23168,12 @@ double NPSMEFTd6General::deltaGammaHWW4jRatio1() const
 double NPSMEFTd6General::deltaGammaHWW4jRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWW4jRatio() const
@@ -23057,11 +23251,12 @@ double NPSMEFTd6General::deltaGammaHWffRatio1() const
 double NPSMEFTd6General::deltaGammaHWffRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWffRatio() const
@@ -23168,11 +23363,12 @@ double NPSMEFTd6General::deltaGammaHWW4fRatio1() const
 double NPSMEFTd6General::deltaGammaHWW4fRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHWW4fRatio() const
@@ -23239,13 +23435,12 @@ double NPSMEFTd6General::deltaGammaHZZRatio1() const
 double NPSMEFTd6General::deltaGammaHZZRatio2() const
 {
     double dwidth = 0.0;
-
-    //Contributions that are quadratic in the effective coefficients
-    dwidth = deltaGammaHZZ4fRatio2();
-
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
     return dwidth;
-
 }
 
 double NPSMEFTd6General::BrHZZRatio() const
@@ -23305,11 +23500,12 @@ double NPSMEFTd6General::deltaGammaHZllRatio1() const
 double NPSMEFTd6General::deltaGammaHZllRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZllRatio() const
@@ -23391,11 +23587,12 @@ double NPSMEFTd6General::deltaGammaHZeeRatio1() const
 double NPSMEFTd6General::deltaGammaHZeeRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::GammaHZmumuRatio() const
@@ -23452,11 +23649,12 @@ double NPSMEFTd6General::deltaGammaHZmumuRatio1() const
 double NPSMEFTd6General::deltaGammaHZmumuRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::GammaHZZ4lRatio() const
@@ -23522,11 +23720,12 @@ double NPSMEFTd6General::deltaGammaHZZ4lRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4lRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4lRatio() const
@@ -23610,11 +23809,12 @@ double NPSMEFTd6General::deltaGammaHZZ4eRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4eRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4eRatio() const
@@ -23698,10 +23898,12 @@ double NPSMEFTd6General::deltaGammaHZZ2e2muRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ2e2muRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ2e2muRatio() const
@@ -23785,11 +23987,12 @@ double NPSMEFTd6General::deltaGammaHZZ4muRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4muRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4muRatio() const
@@ -23868,11 +24071,12 @@ double NPSMEFTd6General::deltaGammaHZvvRatio1() const
 double NPSMEFTd6General::deltaGammaHZvvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZvvRatio() const
@@ -23956,11 +24160,12 @@ double NPSMEFTd6General::deltaGammaHZZ4vRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4vRatio() const
@@ -24040,11 +24245,12 @@ double NPSMEFTd6General::deltaGammaHZuuRatio1() const
 double NPSMEFTd6General::deltaGammaHZuuRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZuuRatio() const
@@ -24139,11 +24345,12 @@ double NPSMEFTd6General::deltaGammaHZddRatio1() const
 double NPSMEFTd6General::deltaGammaHZddRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZddRatio() const
@@ -24245,11 +24452,12 @@ double NPSMEFTd6General::deltaGammaHZffRatio1() const
 double NPSMEFTd6General::deltaGammaHZffRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZffRatio() const
@@ -24388,11 +24596,12 @@ double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const
 double NPSMEFTd6General::deltaGammaHZZ4fRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZZ4fRatio() const
@@ -24561,11 +24770,12 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
 double NPSMEFTd6General::deltaGammaHZgaRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHZgaRatio() const
@@ -24852,11 +25062,12 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
 double NPSMEFTd6General::deltaGammaHgagaRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHgagaRatio() const
@@ -24895,13 +25106,18 @@ double NPSMEFTd6General::deltaGammaHffRatio1(const double mf, const double CifH)
 
 double NPSMEFTd6General::deltaGammaHffRatio2(const double mf, const double CifH) const  //AG:added
 {
-    double CiHbox = getSMEFTCoeffEW("CHbox");
-    double CiHD = getSMEFTCoeffEW("CHD");
+    double dwidth = 0.0;
     
-    return (pow(delta_GF,2.0) - delta_GF_2 - CifH*delta_GF*pow(v(),3.0)/pow(2.0,0.5)/mf 
-           + 4.0*pow(CiHbox,2.0)*pow(v(),4.0) - 2.0*CiHbox*CiHD*pow(v(),4.0) + pow(CiHD,2.0)*pow(v(),4.0)/4.0 
-           - 2.0*pow(2.0,0.5)*CifH*CiHbox*pow(v(),5.0)/mf + CifH*CiHD*pow(v(),5.0)/pow(2.0,0.5)/mf 
-           + pow(CifH,2.0)*pow(v(),6.0)/2.0/pow(mf,2.0));
+    if (FlagQuadraticTerms){
+        double CiHbox = getSMEFTCoeffEW("CHbox");
+        double CiHD = getSMEFTCoeffEW("CHD");
+
+        dwidth = (pow(delta_GF,2.0) - delta_GF_2 - CifH*delta_GF*pow(v(),3.0)/pow(2.0,0.5)/mf 
+               + 4.0*pow(CiHbox,2.0)*pow(v(),4.0) - 2.0*CiHbox*CiHD*pow(v(),4.0) + pow(CiHD,2.0)*pow(v(),4.0)/4.0 
+               - 2.0*pow(2.0,0.5)*CifH*CiHbox*pow(v(),5.0)/mf + CifH*CiHD*pow(v(),5.0)/pow(2.0,0.5)/mf 
+               + pow(CifH,2.0)*pow(v(),6.0)/2.0/pow(mf,2.0));
+    }
+    return dwidth;
 }
 
 double NPSMEFTd6General::GammaHmumuRatio() const
@@ -24956,15 +25172,15 @@ double NPSMEFTd6General::deltaGammaHmumuRatio2() const                          
 {
     double dwidth = 0.0;
     
-    //AG:begin
-    //double mf = leptons[MU].getMass();
-    //double CifH = getSMEFTCoeffEW("CeHR", 1,1);
-    //dwidth += deltaGammaHffRatio2(mf, CifH);
-    //AG:end 
-
+    if (FlagQuadraticTerms){    
+        //AG:begin  
+        double mf = leptons[MU].getMass();
+        double CifH = getSMEFTCoeffEW("CeHR", 1,1);
+        dwidth += deltaGammaHffRatio2(mf, CifH);
+        //AG:end 
+    }
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
-
 }
 
 double NPSMEFTd6General::BrHmumuRatio() const
@@ -25045,15 +25261,15 @@ double NPSMEFTd6General::deltaGammaHtautauRatio2() const                        
 {
     double dwidth = 0.0;
     
-    //AG:begin
-    //double mf = leptons[TAU].getMass();
-    //double CifH = getSMEFTCoeffEW("CeHR", 2,2);
-    //dwidth += deltaGammaHffRatio2(mf, CifH);
-    //AG:end
-
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    if (FlagQuadraticTerms) {
+        //AG:begin
+        double mf = leptons[TAU].getMass();
+        double CifH = getSMEFTCoeffEW("CeHR", 2,2);
+        dwidth += deltaGammaHffRatio2(mf, CifH);
+        //AG:end   
+    }
+     
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHtautauRatio() const
@@ -25149,15 +25365,15 @@ double NPSMEFTd6General::deltaGammaHccRatio2() const                            
 {
     double dwidth = 0.0;
     
-    //AG:begin
-    //double mf = quarks[CHARM].getMass();
-    //double CifH = getSMEFTCoeffEW("CuHR", 1,1);
-    //dwidth += deltaGammaHffRatio2(mf, CifH);
-    //AG:end
-
+    if (FlagQuadraticTerms) {
+        //AG:begin
+        double mf = quarks[CHARM].getMass();
+        double CifH = getSMEFTCoeffEW("CuHR", 1,1);
+        dwidth += deltaGammaHffRatio2(mf, CifH);
+        //AG:end
+    }
     //Contributions that are quadratic in the effective coefficients
     return ( dwidth);
-
 }
 
 double NPSMEFTd6General::BrHccRatio() const
@@ -25258,15 +25474,14 @@ double NPSMEFTd6General::deltaGammaHbbRatio2() const                            
 {
     double dwidth = 0.0;
 
-    //AG:begin
-    //double mf = leptons[BOTTOM].getMass();
-    //double CifH = getSMEFTCoeffEW("CdHR", 2,2);
-    //dwidth += deltaGammaHffRatio2(mf, CifH);
-    //AG:end
-    
-    //Contributions that are quadratic in the effective coefficients
+    if (FlagQuadraticTerms){
+        //AG:begin
+        double mf = leptons[BOTTOM].getMass();
+        double CifH = getSMEFTCoeffEW("CdHR", 2,2);
+        dwidth += deltaGammaHffRatio2(mf, CifH);
+        //AG:end
+    }
     return ( dwidth);
-
 }
 
 double NPSMEFTd6General::BrHbbRatio() const
@@ -25341,21 +25556,21 @@ double NPSMEFTd6General::deltaGammaH2L2LRatio1() const
     // AG: 
     dwidth = cWsch * ( 
 	( (0.12111) * getSMEFTCoeffEW("CHbox")
-	+ (0.00943) * getSMEFTCoeffEW("CHW")
-	+ (-0.07655) * getSMEFTCoeffEW("CHB")
-	+ (0.01013) * getSMEFTCoeffEW("CHD")
-	+ (-0.02229) * getSMEFTCoeffEW("CHWB")
-	+ (0.043321) * getSMEFTCoeffEW("CHl1R", 0,0)
-	+ (0.043345) * getSMEFTCoeffEW("CHl1R", 1,1)
-	+ (0.043602) * getSMEFTCoeffEW("CHl1R", 2,2)
-	+ (-0.1384911) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.1385265) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.043602) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (-0.03487137) * getSMEFTCoeffEW("CHeR", 0,0)
-	+ (-0.03493988) * getSMEFTCoeffEW("CHeR", 1,1)
-	+ (-0.0350703) * getSMEFTCoeffEW("CHeR", 2,2)
-	+ (0.18173) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.797) * deltaGzd6()
+        + (0.00953) * getSMEFTCoeffEW("CHW")
+        + (-0.0764) * getSMEFTCoeffEW("CHB")
+        + (0.01008) * getSMEFTCoeffEW("CHD")
+        + (-0.02236) * getSMEFTCoeffEW("CHWB")
+        + (0.043324) * getSMEFTCoeffEW("CHl1R", 0,0)
+        + (0.043349) * getSMEFTCoeffEW("CHl1R", 1,1)
+        + (0.043607) * getSMEFTCoeffEW("CHl1R", 2,2)
+        + (-0.1385393) * getSMEFTCoeffEW("CHl3R", 0,0)
+        + (-0.1385419) * getSMEFTCoeffEW("CHl3R", 1,1)
+        + (0.043607) * getSMEFTCoeffEW("CHl3R", 2,2)
+        + (-0.03486366) * getSMEFTCoeffEW("CHeR", 0,0)
+        + (-0.03493756) * getSMEFTCoeffEW("CHeR", 1,1)
+        + (-0.03507062) * getSMEFTCoeffEW("CHeR", 2,2)
+        + (0.18171) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.815) * deltaGzd6()
 	);
     
     //  Linear contribution from Higgs self-coupling
@@ -25382,10 +25597,146 @@ double NPSMEFTd6General::deltaGammaH2L2LRatio1() const
 double NPSMEFTd6General::deltaGammaH2L2LRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        
+        dwidth += cWsch*(
+	+ (0.014691) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+	+ (0.18009) *pow(getSMEFTCoeffEW("CHW"),2.0)
+	+ (0.48021) *pow(getSMEFTCoeffEW("CHB"),2.0)
+	+ (0.0159) *pow(getSMEFTCoeffEW("CHD"),2.0)
+	+ (0.1418) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+	+ (0.0020415) *pow(getSMEFTCoeffEW("CHl1R", 0,0),2.0)
+	+ (0.0020419) *pow(getSMEFTCoeffEW("CHl1R", 1,1),2.0)
+	+ (0.0020604) *pow(getSMEFTCoeffEW("CHl1R", 2,2),2.0)
+	+ (0.007781) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+	+ (0.007808) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+	+ (0.0020604) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+	+ (0.0020398) *pow(getSMEFTCoeffEW("CHeR", 0,0),2.0)
+	+ (0.0020412) *pow(getSMEFTCoeffEW("CHeR", 1,1),2.0)
+	+ (0.0020619) *pow(getSMEFTCoeffEW("CHeR", 2,2),2.0)
+	+ (0.011019) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+	+ (0.001152) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+	+ (-0.00926) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+	+ (-0.0024578) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+	+ (-0.002726) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+	+ (0.0052648) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.0052647) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.0052995) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.0094343) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.0094397) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0052995) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.004236321) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.004237771) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.0042564489) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.014702) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.132391) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+	+ (0.044171) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+	+ (-0.2607976) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+	+ (-0.00107) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.001071) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0013914) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (0.0013727) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (0.0013766) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.001152) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.046792) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+	+ (-0.190576) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+	+ (-0.0046147) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.0046248) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.0046253) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (0.004583) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (0.004645) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (-0.0046253) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.0017605) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (0.0017583) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (0.0017491) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (-0.00926) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.003693) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+	+ (0.0046375) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.0046306) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.0046353) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (0.003425) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (0.003419) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0046353) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.0029378) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (0.0029368) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (0.0030038) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.001227) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.0009464) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.0009426) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.0009911) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (0.003648) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (0.003656) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0009911) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.0055397) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (0.0055456) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (0.0055823) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (-0.002726) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.000181) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.000179) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.001181687) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.005088263) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.00017612) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.00014542) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.000140787) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.0052648) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.000183) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.005085178) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.0011831968) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.00017606) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.000145462) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.000140905) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.0052647) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.005124758) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.005119363) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.0041247) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.000141677) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.000141659) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (0.0052995) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.000695) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (-0.005099) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.004239) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (0.0040937) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (0.004119) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (-0.016786442) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.005125) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.0040916) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (0.0042405) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (0.0041174) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (-0.01678974) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.000141677) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.000141659) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (0.0052995) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.000121) * getSMEFTCoeffEW("CHeR", 0,0)*getSMEFTCoeffEW("CHeR", 1,1)
+	+ (0.000121) * getSMEFTCoeffEW("CHeR", 0,0)*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (-0.004236321) * getSMEFTCoeffEW("CHeR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (0.000118) * getSMEFTCoeffEW("CHeR", 1,1)*getSMEFTCoeffEW("CHeR", 2,2)
+	+ (-0.004237771) * getSMEFTCoeffEW("CHeR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	+ (-0.0042564489) * getSMEFTCoeffEW("CHeR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
+        
+        dwidth += cWsch * ( (0.72) * pow(deltaGzd6(), 2.0) );
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch * (
+                +(-0.0982) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
+                + (-0.0146) * deltaGzd6() * getSMEFTCoeffEW("CHW")
+                + (0.0726) * deltaGzd6() * getSMEFTCoeffEW("CHB")
+                + (-0.0063) * deltaGzd6() * getSMEFTCoeffEW("CHD")
+                + (0.0262) * deltaGzd6() * getSMEFTCoeffEW("CHWB")
+                + (-0.0381) * deltaGzd6() * getSMEFTCoeffEW("CHl1R", 0, 0)
+                + (-0.0373) * deltaGzd6() * getSMEFTCoeffEW("CHl1R", 1, 1)
+                + (-0.0384) * deltaGzd6() * getSMEFTCoeffEW("CHl1R", 2, 2)
+                + (0.1078) * deltaGzd6() * getSMEFTCoeffEW("CHl3R", 0, 0)
+                + (0.10943) * deltaGzd6() * getSMEFTCoeffEW("CHl3R", 1, 1)
+                + (-0.0384) * deltaGzd6() * getSMEFTCoeffEW("CHl3R", 2, 2)
+                + (0.03042) * deltaGzd6() * getSMEFTCoeffEW("CHeR", 0, 0)
+                + (0.03003) * deltaGzd6() * getSMEFTCoeffEW("CHeR", 1, 1)
+                + (0.03121) * deltaGzd6() * getSMEFTCoeffEW("CHeR", 2, 2)
+                + (-0.148) * deltaGzd6() * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
+                )*1000000;
 
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2L2LRatio() const
@@ -25479,10 +25830,12 @@ double NPSMEFTd6General::deltaGammaH2e2muRatio1() const
 double NPSMEFTd6General::deltaGammaH2e2muRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2e2muRatio() const
@@ -25553,19 +25906,19 @@ double NPSMEFTd6General::deltaGammaH2v2vRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12134) * getSMEFTCoeffEW("CHbox")
-	+ (-0.0473334) * getSMEFTCoeffEW("CHW")
-	+ (-0.0135867) * getSMEFTCoeffEW("CHB")
-	+ (-0.03034636) * getSMEFTCoeffEW("CHD")
-	+ (-0.0253519) * getSMEFTCoeffEW("CHWB")
-	+ (-0.039647455) * getSMEFTCoeffEW("CHl1R", 0,0)
-	+ (-0.03963745) * getSMEFTCoeffEW("CHl1R", 1,1)
-	+ (-0.03967156) * getSMEFTCoeffEW("CHl1R", 2,2)
-	+ (-0.14238749) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.14220968) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.039683) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (0.18202) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.831) * deltaGzd6()
+	( (0.121319) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0473339) * getSMEFTCoeffEW("CHW")
+	+ (-0.01358688) * getSMEFTCoeffEW("CHB")
+	+ (-0.0303464) * getSMEFTCoeffEW("CHD")
+	+ (-0.0253525) * getSMEFTCoeffEW("CHWB")
+	+ (-0.039647621) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.03965331) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.03967702) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.14240624) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.14220981) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.03968) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.18201) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.825) * deltaGzd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -25592,10 +25945,104 @@ double NPSMEFTd6General::deltaGammaH2v2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2v2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += cWsch*(
+            + (0.014715) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (-0.00492776) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (-0.00157955) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (-0.00091971) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (-0.00059168) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.0010428) *pow(getSMEFTCoeffEW("CHl1R", 0,0),2.0)
+            + (0.0010396) *pow(getSMEFTCoeffEW("CHl1R", 1,1),2.0)
+            + (0.0010413) *pow(getSMEFTCoeffEW("CHl1R", 2,2),2.0)
+            + (0.007271) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.007277) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.0010413) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.011034) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.00573523) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.001647119) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.00735786) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.00307385) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.004812955) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.004812852) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.004808936) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.009915377) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00990658) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.004811) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0147117) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00046464) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.00143336) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.00374267) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (0.0028723) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0028722) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.002873) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0028623) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0028624) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00287322) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00573523) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0022564) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (-0.001287724) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.00082433) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.00082434) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.00082455) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.00082142) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00082156) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000824707) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.001647119) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0024896) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (0.0037252) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0037252) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.003677513) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00153868) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.00153874) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.00153902) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0015333) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00153356) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00153952) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00307385) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0001357) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0001341) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.002721) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0046768) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000131172) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.004812955) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0001394) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0046772) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0027206) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000131214) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.004812852) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.004674) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0046785) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0020839) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.004808936) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.001553) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.004677) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.017264274) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.004686) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.017274024) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.004811) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.7) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.1008) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (0.03623) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.01039) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (0.02495) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.01941) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (0.0363) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.03548) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.03566) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.11278) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.11353) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0354) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.1512) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2v2vRatio() const
@@ -25674,18 +26121,18 @@ double NPSMEFTd6General::deltaGammaH2L2vRatio1() const
     dwidth = cWsch * ( 
 	( (0.1213) * getSMEFTCoeffEW("CHbox")
 	+ (-0.01494) * getSMEFTCoeffEW("CHW")
-	+ (-0.040939) * getSMEFTCoeffEW("CHB")
-	+ (-0.009875) * getSMEFTCoeffEW("CHD")
-	+ (-0.02358) * getSMEFTCoeffEW("CHWB")
+	+ (-0.040852) * getSMEFTCoeffEW("CHB")
+	+ (-0.009936) * getSMEFTCoeffEW("CHD")
+	+ (-0.023597) * getSMEFTCoeffEW("CHWB")
 	+ (0.003651) * getSMEFTCoeffEW("CHl1R", 0,0)
-	+ (0.003863) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (0.003794) * getSMEFTCoeffEW("CHl1R", 1,1)
 	+ (0.003449) * getSMEFTCoeffEW("CHl1R", 2,2)
-	+ (-0.138815) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.137873) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (-0.139236) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.138049) * getSMEFTCoeffEW("CHl3R", 1,1)
 	+ (0.041527) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (-0.0181515) * getSMEFTCoeffEW("CHeR", 0,0)
-	+ (-0.0181754) * getSMEFTCoeffEW("CHeR", 1,1)
-	+ (-0.0180409) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (-0.0181637) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.0181476) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.0180375) * getSMEFTCoeffEW("CHeR", 2,2)
 	+ (0.1819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
 	+ (-0.831) * deltaGzd6()
 	);
@@ -25714,10 +26161,133 @@ double NPSMEFTd6General::deltaGammaH2L2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2L2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += cWsch*(
+            + (0.0147) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.073334) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.070511) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.00727) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.02474) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.0015651) *pow(getSMEFTCoeffEW("CHl1R", 0,0),2.0)
+            + (0.0015665) *pow(getSMEFTCoeffEW("CHl1R", 1,1),2.0)
+            + (0.0015709) *pow(getSMEFTCoeffEW("CHl1R", 2,2),2.0)
+            + (0.00756) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.00754) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.0015709) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.0010729) *pow(getSMEFTCoeffEW("CHeR", 0,0),2.0)
+            + (0.0010725) *pow(getSMEFTCoeffEW("CHeR", 1,1),2.0)
+            + (0.0010717) *pow(getSMEFTCoeffEW("CHeR", 2,2),2.0)
+            + (0.01103) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.0018682) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.0049606) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.0048972) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.0028616) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (0.0004288) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0004278) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0003926) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.00965737) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00965793) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0050567) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00220467) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.00220376) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.00219322) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.014703) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.1491845) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.021695) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.0828173) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (-0.0010147) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.0009678) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.0009749) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0006629) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0006513) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0013712) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.00174) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0017382) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.001721) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.0018682) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0194976) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.075507) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.0006084) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.000613) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0006208) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0026763) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0026821) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0023806) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0049606) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00292) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (0.0014409) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0014413) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.001437) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0035829) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0035822) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0023398) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.00193758) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.00193767) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0019465) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.0012277) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0019702) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0019726) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0019855) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.002644) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.002641) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00015) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.002477) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0024764) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0024663) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.0028616) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0001474) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.0001471) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.00072424) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0004297) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0004288) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0001487) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.0004276) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00072447) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0004278) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.000397) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0003963) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.00113809) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0003926) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00109) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00492) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0022043) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0021427) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.00213396) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.01701421) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0049) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.00214211) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.00220462) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.00213375) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.017004442) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0050567) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00220467) * getSMEFTCoeffEW("CHeR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00220376) * getSMEFTCoeffEW("CHeR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00219322) * getSMEFTCoeffEW("CHeR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.74) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.102) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (0.00348) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.0282) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (0.00716) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.0178) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (-0.00316) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.00347) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.00309) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.107) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.11147) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.03691) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.01632) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0158) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.01655) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.154) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2L2vRatio() const
@@ -25912,10 +26482,12 @@ double NPSMEFTd6General::deltaGammaH2e2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2e2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2e2vRatio() const
@@ -26008,10 +26580,12 @@ double NPSMEFTd6General::deltaGammaH2mu2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2mu2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2mu2vRatio() const
@@ -26083,20 +26657,20 @@ double NPSMEFTd6General::deltaGammaH2u2uRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12121) * getSMEFTCoeffEW("CHbox")
-	+ (0.07464) * getSMEFTCoeffEW("CHW")
-	+ (-0.148952) * getSMEFTCoeffEW("CHB")
-	+ (0.057409) * getSMEFTCoeffEW("CHD")
-	+ (-0.011158) * getSMEFTCoeffEW("CHWB")
-	+ (-0.071578) * getSMEFTCoeffEW("CHq1R", 0,0)
-	+ (-0.071491) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.071579) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.07148) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.030281) * getSMEFTCoeffEW("CHuR", 0,0)
-	+ (0.030184) * getSMEFTCoeffEW("CHuR", 1,1)
-	+ (-0.18175) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.18175) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.18185) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	( (0.121221) * getSMEFTCoeffEW("CHbox")
+	+ (0.0747) * getSMEFTCoeffEW("CHW")
+	+ (-0.148967) * getSMEFTCoeffEW("CHB")
+	+ (0.057368) * getSMEFTCoeffEW("CHD")
+	+ (-0.011196) * getSMEFTCoeffEW("CHWB")
+	+ (-0.071576) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.071476) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.071574) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.071473) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.030282) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.030178) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.181763) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181763) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18186) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
 	+ (-0.801) * deltaGzd6()
 	);
 
@@ -26124,10 +26698,132 @@ double NPSMEFTd6General::deltaGammaH2u2uRatio1() const
 double NPSMEFTd6General::deltaGammaH2u2uRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014716) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.06274) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.09129) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.00513) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.026875) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.002647) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+            + (0.0026461) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+            + (0.002647) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0026461) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.002648) *pow(getSMEFTCoeffEW("CHuR", 0,0),2.0)
+            + (0.0026461) *pow(getSMEFTCoeffEW("CHuR", 1,1),2.0)
+            + (0.011037) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.011037) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.011034) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (0.009076) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.018068) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (0.0032896) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.001344) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.00868253) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.00867303) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0086747) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00867) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0036743) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0036607) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0147042) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0147042) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.014712) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0860094) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.004936) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.0862249) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (-0.0043116) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0041397) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0043074) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00415) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0009706) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0009075) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.009046) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.009046) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.009076) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0086983) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.013604) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.011699) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.01154) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0117092) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.011543) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0032871) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0032289) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.01807) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.01807) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.018068) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0023272) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (-0.00645833) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.00643743) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0064561) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0064367) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00182137) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00184267) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0069681) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0069681) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0069646) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0023122) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0022494) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0023093) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0022472) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00547273) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00542879) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.001348) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.001348) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.001344) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000569) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.005300265) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00057357) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00023902) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.008675) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.008675) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00868253) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00057357) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00529391) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00024275) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0086683) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0086683) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00867303) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000569) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00023907) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0086817) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0086817) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0086747) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00024302) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0086672) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0086672) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.00867) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000101) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.00367303) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00367303) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0036743) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00365915) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00365915) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0036607) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.01099) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0220568) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0220568) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.7) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.0987) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.0818) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.1374) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.0456) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.024) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (0.06193) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.06291) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0627) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0646) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0272) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.02668) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.14658) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.14658) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.1481) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2u2uRatio() const
@@ -26201,24 +26897,24 @@ double NPSMEFTd6General::deltaGammaH2d2dRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12097) * getSMEFTCoeffEW("CHbox")
-	+ (0.037915) * getSMEFTCoeffEW("CHW")
-	+ (-0.106723) * getSMEFTCoeffEW("CHB")
-	+ (0.02954) * getSMEFTCoeffEW("CHD")
-	+ (-0.0189222) * getSMEFTCoeffEW("CHWB")
-	+ (0.043504) * getSMEFTCoeffEW("CHq1R", 0,0)
-	+ (0.043461) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.04813) * getSMEFTCoeffEW("CHq1R", 2,2)
-	+ (0.043504) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.043461) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.04813) * getSMEFTCoeffEW("CHq3R", 2,2)
-	+ (-0.0075978) * getSMEFTCoeffEW("CHdR", 0,0)
-	+ (-0.0075944) * getSMEFTCoeffEW("CHdR", 1,1)
-	+ (-0.0078254) * getSMEFTCoeffEW("CHdR", 2,2)
-	+ (-0.181327) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.181327) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.18146) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.822) * deltaGzd6()
+	( (0.12095) * getSMEFTCoeffEW("CHbox")
+	+ (0.037885) * getSMEFTCoeffEW("CHW")
+	+ (-0.106698) * getSMEFTCoeffEW("CHB")
+	+ (0.029535) * getSMEFTCoeffEW("CHD")
+	+ (-0.0189127) * getSMEFTCoeffEW("CHWB")
+	+ (0.0435) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.043466) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.048137) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.0435) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.043466) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.048137) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (-0.007595) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.0075958) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.0078264) * getSMEFTCoeffEW("CHdR", 2,2)
+	+ (-0.181359) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181359) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18142) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.826) * deltaGzd6()
 	);  
 
     //  Linear contribution from Higgs self-coupling
@@ -26245,10 +26941,162 @@ double NPSMEFTd6General::deltaGammaH2d2dRatio1() const
 double NPSMEFTd6General::deltaGammaH2d2dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014652) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.013992) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.002345) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (-0.00049844) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.0024799) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.0013233) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+            + (0.001324) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+            + (0.0014861) *pow(getSMEFTCoeffEW("CHq1R", 2,2),2.0)
+            + (0.0013233) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.001324) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.0014861) *pow(getSMEFTCoeffEW("CHq3R", 2,2),2.0)
+            + (0.0013225) *pow(getSMEFTCoeffEW("CHdR", 0,0),2.0)
+            + (0.0013239) *pow(getSMEFTCoeffEW("CHdR", 1,1),2.0)
+            + (0.001485) *pow(getSMEFTCoeffEW("CHdR", 2,2),2.0)
+            + (0.010987) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.010987) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.010987) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (0.0046) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.0129346) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.0022905) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (0.0052759) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0052737) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0058395) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0052759) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0052737) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0058395) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.000921702) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.000921711) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.000948092) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.0146752) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0146752) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.014678) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0200055) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (-0.0067433) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.0310973) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (0.0006793) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0006842) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0007669) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0006793) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0006842) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0007669) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.0045821) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0045815) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0046) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.007028) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.017325) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (-0.00504565) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.00504237) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00550773) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.00504565) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00504237) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00550773) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0005692) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0005693) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.0005646) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.012951) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.012951) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0129346) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0023514) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (0.0022438) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0022464) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0022931) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0022438) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0022464) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0022931) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.000551) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00055081) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00072654) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.0035825) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0035825) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0035844) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00212189) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.00212373) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00232565) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.00212189) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00212373) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00232565) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0012709) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0012722) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.0013618) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.0022976) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0022976) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0022905) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00016) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.000192) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0026472) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00015973) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00019157) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.0052765) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0052765) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0052759) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000191) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.00015973) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0026472) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00019165) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00527248) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00527248) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0052737) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00019157) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00019165) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0029704) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00584244) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00584244) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0058395) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00016) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.000192) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.0052765) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0052765) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0052759) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000191) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00527248) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00527248) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0052737) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00584244) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00584244) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0058395) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00092155) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00092155) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000827894) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00092121) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00092121) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000921711) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000949) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.000949) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000948092) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.01105) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.02200835) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.02200835) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.74) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.0955) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.0433) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.09154) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.02254) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.02369) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (-0.0382) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0376) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0424) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0382) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0376) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0424) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.006704) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.006547) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.007081) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.1461) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.1461) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.1433) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2d2dRatio() const
@@ -26328,25 +27176,25 @@ double NPSMEFTd6General::deltaGammaH2u2dRatio1() const
     // AG: 
     dwidth = cWsch * ( 
 	( (0.1212) * getSMEFTCoeffEW("CHbox")
-	+ (0.05796) * getSMEFTCoeffEW("CHW")
-	+ (-0.129289) * getSMEFTCoeffEW("CHB")
-	+ (0.043679) * getSMEFTCoeffEW("CHD")
-	+ (-0.016248) * getSMEFTCoeffEW("CHWB")
-	+ (-0.019005) * getSMEFTCoeffEW("CHq1R", 0,0)
-	+ (-0.019116) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.036603) * getSMEFTCoeffEW("CHq1R", 2,2)
-	+ (0.051352) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.051268) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.036603) * getSMEFTCoeffEW("CHq3R", 2,2)
-	+ (0.014881) * getSMEFTCoeffEW("CHuR", 0,0)
-	+ (0.014854) * getSMEFTCoeffEW("CHuR", 1,1)
-	+ (-0.002819483) * getSMEFTCoeffEW("CHdR", 0,0)
-	+ (-0.00281277) * getSMEFTCoeffEW("CHdR", 1,1)
-	+ (-0.0059455) * getSMEFTCoeffEW("CHdR", 2,2)
-	+ (-0.181831) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.181831) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.18183) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.81) * deltaGzd6()
+	+ (0.057954) * getSMEFTCoeffEW("CHW")
+	+ (-0.12929) * getSMEFTCoeffEW("CHB")
+	+ (0.043672) * getSMEFTCoeffEW("CHD")
+	+ (-0.016284) * getSMEFTCoeffEW("CHWB")
+	+ (-0.019017) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.019103) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.036608) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.051357) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.051276) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.036608) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (0.014886) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.014851) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.002823638) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.002812766) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.00594515) * getSMEFTCoeffEW("CHdR", 2,2)
+	+ (-0.181783) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181783) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18182) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.802) * deltaGzd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -26373,10 +27221,180 @@ double NPSMEFTd6General::deltaGammaH2u2dRatio1() const
 double NPSMEFTd6General::deltaGammaH2u2dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014695) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.039324) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.033113) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.0022317) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.011348) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.00179) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+            + (0.0017897) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+            + (0.00113) *pow(getSMEFTCoeffEW("CHq1R", 2,2),2.0)
+            + (0.00179) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0017897) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.00113) *pow(getSMEFTCoeffEW("CHq3R", 2,2),2.0)
+            + (0.001296) *pow(getSMEFTCoeffEW("CHuR", 0,0),2.0)
+            + (0.0012961) *pow(getSMEFTCoeffEW("CHuR", 1,1),2.0)
+            + (0.00049373) *pow(getSMEFTCoeffEW("CHdR", 0,0),2.0)
+            + (0.00049057) *pow(getSMEFTCoeffEW("CHdR", 1,1),2.0)
+            + (0.0011314) *pow(getSMEFTCoeffEW("CHdR", 2,2),2.0)
+            + (0.011019) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.011019) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.011019) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (0.006886) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.015571) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (0.0016252) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.0019574) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.002309) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0023147) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0044402) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0062245) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0062191) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0044402) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0018054) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0018013) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0003419172) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.000340856) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.000721154) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.0147031) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0147031) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.014698) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0642138) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (-0.000834) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.0573053) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (0.0001529) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0001488) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0021791) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0016906) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0016234) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0021791) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.0001656) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0001627) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0002752) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.0068912) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0068912) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.006886) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.000459) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.033411) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.0019038) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0019508) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0057366) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0068118) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0067877) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0057366) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00111553) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00111376) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.00031123) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00030304) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.0006683) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.015629) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.015629) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.015571) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0027622) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (-0.0017088) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0017166) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0022723) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.003769) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0037624) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0022723) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00107784) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00108799) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.00016963) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0001701) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00046646) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.0052936) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0052936) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0052919) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0021911) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0017537) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0017338) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0021911) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00248676) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00248368) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.00050869) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00050349) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.0011318) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.0019662) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0019662) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0019574) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.000259) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.000154) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0016047) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00015498) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0023037) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0023037) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.002309) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.000154) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0016123) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00015353) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0023125) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0023125) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0023147) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00015503) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00015329) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0022593) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.004436654) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.004436654) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0044402) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000259) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.000156) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00622384) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00622384) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0062245) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000154) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00621958) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00621958) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0062191) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.004436654) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.004436654) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0044402) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00180408) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00180408) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0018054) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00180249) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00180249) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0018013) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00034209) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00034209) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0003419172) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00034101) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00034101) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000340856) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0007216) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0007216) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000721154) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.01104) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0220565) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0220565) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.66) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.0999) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.0604) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.1133) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.0362) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.0245) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (0.01605) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.01555) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0326) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0458) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0465) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0326) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.01307) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.01299) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0025172) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0023751) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.005281) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.14682) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.14682) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.1499) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2u2dRatio() const
@@ -26454,27 +27472,27 @@ double NPSMEFTd6General::deltaGammaH2L2uRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12127) * getSMEFTCoeffEW("CHbox")
-	+ (0.04228) * getSMEFTCoeffEW("CHW")
-	+ (-0.1118) * getSMEFTCoeffEW("CHB")
-	+ (0.03326) * getSMEFTCoeffEW("CHD")
-	+ (-0.01816) * getSMEFTCoeffEW("CHWB")
-	+ (0.021524) * getSMEFTCoeffEW("CHl1R", 0,0)
-	+ (0.021617) * getSMEFTCoeffEW("CHl1R", 1,1)
+	( (0.12136) * getSMEFTCoeffEW("CHbox")
+	+ (0.04252) * getSMEFTCoeffEW("CHW")
+	+ (-0.11176) * getSMEFTCoeffEW("CHB")
+	+ (0.0333) * getSMEFTCoeffEW("CHD")
+	+ (-0.01805) * getSMEFTCoeffEW("CHWB")
+	+ (0.021514) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.021631) * getSMEFTCoeffEW("CHl1R", 1,1)
 	+ (0.021538) * getSMEFTCoeffEW("CHl1R", 2,2)
 	+ (-0.16016) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.1602536) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (-0.1598348) * getSMEFTCoeffEW("CHl3R", 1,1)
 	+ (0.021538) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (-0.01711603) * getSMEFTCoeffEW("CHeR", 0,0)
-	+ (-0.01724043) * getSMEFTCoeffEW("CHeR", 1,1)
-	+ (-0.01726719) * getSMEFTCoeffEW("CHeR", 2,2)
-	+ (-0.035617594) * getSMEFTCoeffEW("CHq1R", 0,0)
-	+ (-0.0354867) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.035613) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.035409) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (-0.01711641) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.01727087) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.01726594) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (-0.03561039) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.03558411) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.035628) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.035464) * getSMEFTCoeffEW("CHq3R", 1,1)
 	+ (0.015096) * getSMEFTCoeffEW("CHuR", 0,0)
-	+ (0.015018) * getSMEFTCoeffEW("CHuR", 1,1)
-	+ (0.1819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (0.014986) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (0.18207) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
 	+ (-0.816) * deltaGzd6()
 	);
 
@@ -26502,10 +27520,195 @@ double NPSMEFTd6General::deltaGammaH2L2uRatio1() const
 double NPSMEFTd6General::deltaGammaH2L2uRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014712) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.11704) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.23808) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.010204) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.06973) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.0010203) *pow(getSMEFTCoeffEW("CHl1R", 0,0),2.0)
+            + (0.0010184) *pow(getSMEFTCoeffEW("CHl1R", 1,1),2.0)
+            + (0.0010188) *pow(getSMEFTCoeffEW("CHl1R", 2,2),2.0)
+            + (0.0094) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.0094) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.0010188) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.0010192) *pow(getSMEFTCoeffEW("CHeR", 0,0),2.0)
+            + (0.0010184) *pow(getSMEFTCoeffEW("CHeR", 1,1),2.0)
+            + (0.0010172) *pow(getSMEFTCoeffEW("CHeR", 2,2),2.0)
+            + (0.0013261) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+            + (0.0013229) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+            + (0.0013261) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0013229) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.0013245) *pow(getSMEFTCoeffEW("CHuR", 0,0),2.0)
+            + (0.0013226) *pow(getSMEFTCoeffEW("CHuR", 1,1),2.0)
+            + (0.011033) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (0.005234) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.013568) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (0.0004184) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.002182) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (0.0026337) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.002631) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0026204) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.01206044) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.01206456) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0026204) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.002118503) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.0021174) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.002109743) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.00433568) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.004327143) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0043399) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0043328) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0018366) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0018281) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.014692) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.143958) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.023022) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.1570976) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (0.0015154) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0015196) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0015219) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.003728) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.003781) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0015219) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0005571) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.0006072) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.0006202) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.0001747) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0001548) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0001772) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0001611) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0005458) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.000531) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.005234) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.028141) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (-0.031371) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (-0.0038795) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.0038758) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.0038654) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.009644) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.009688) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0038654) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0019463) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0019533) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0019535) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.003307) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.003269) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0032933) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0032703) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0007667) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0007652) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.013568) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00144) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (0.0028307) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.002828) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0028158) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.001232) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0012439) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0028158) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0010537) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0010534) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0010662) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.0023745) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0023721) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0023765) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0023712) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00127183) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00127912) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.00406) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0001408) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0001334) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0001475) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.002294) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.002296) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0001475) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0031757) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0031774) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.003167) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.0005142) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0005087) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0005083) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0004994) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0023805) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00237786) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.002182) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0005904659) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00263259) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0026337) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0026362) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.000590148) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.002631) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00261892) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00261892) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0020389) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0026204) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00576) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00261) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0021198) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0021178) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0021066) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.0042491) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0042424) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00424852) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.004239582) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.001799671) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.001792115) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.01938906) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.002607) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0021198) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0021178) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0021066) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.0042503) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0042428) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.004249441) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.004243656) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.001798463) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.001791597) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.01938972) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0026204) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.002118503) * getSMEFTCoeffEW("CHeR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0021174) * getSMEFTCoeffEW("CHeR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.002109743) * getSMEFTCoeffEW("CHeR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00265285) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00433568) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00265126) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.004327143) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0043399) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0043328) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0018366) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0018281) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.75) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.0968) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.0449) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.1028) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.028) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.0219) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (-0.01853) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.01905) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.01862) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.12306) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.12259) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.01862) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.01454) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.015637) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.014707) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.031184) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.027789) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0327) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0315) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.01361) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.01343) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.145) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2L2uRatio() const
@@ -26585,31 +27788,31 @@ double NPSMEFTd6General::deltaGammaH2L2dRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12037) * getSMEFTCoeffEW("CHbox")
-	+ (0.02214) * getSMEFTCoeffEW("CHW")
-	+ (-0.09011) * getSMEFTCoeffEW("CHB")
-	+ (0.01957) * getSMEFTCoeffEW("CHD")
-	+ (-0.0202) * getSMEFTCoeffEW("CHWB")
-	+ (0.021357) * getSMEFTCoeffEW("CHl1R", 0,0)
+	( (0.12067) * getSMEFTCoeffEW("CHbox")
+	+ (0.02221) * getSMEFTCoeffEW("CHW")
+	+ (-0.08987) * getSMEFTCoeffEW("CHB")
+	+ (0.0195) * getSMEFTCoeffEW("CHD")
+	+ (-0.02029) * getSMEFTCoeffEW("CHWB")
+	+ (0.021341) * getSMEFTCoeffEW("CHl1R", 0,0)
 	+ (0.021391) * getSMEFTCoeffEW("CHl1R", 1,1)
-	+ (0.021244) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (0.021248) * getSMEFTCoeffEW("CHl1R", 2,2)
 	+ (-0.1582728) * getSMEFTCoeffEW("CHl3R", 0,0)
 	+ (-0.158513) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.021244) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (-0.01721722) * getSMEFTCoeffEW("CHeR", 0,0)
-	+ (-0.0172564) * getSMEFTCoeffEW("CHeR", 1,1)
-	+ (-0.0171113) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.021248) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.01721521) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.0172416) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.0171251) * getSMEFTCoeffEW("CHeR", 2,2)
 	+ (0.022094) * getSMEFTCoeffEW("CHq1R", 0,0)
 	+ (0.02214) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.02373) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.023737) * getSMEFTCoeffEW("CHq1R", 2,2)
 	+ (0.022094) * getSMEFTCoeffEW("CHq3R", 0,0)
 	+ (0.02214) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.02373) * getSMEFTCoeffEW("CHq3R", 2,2)
-	+ (-0.003856317) * getSMEFTCoeffEW("CHdR", 0,0)
-	+ (-0.003840468) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (0.023737) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (-0.003856346) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.00384488) * getSMEFTCoeffEW("CHdR", 1,1)
 	+ (-0.003870856) * getSMEFTCoeffEW("CHdR", 2,2)
-	+ (0.18049) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.816) * deltaGzd6()
+	+ (0.18095) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.831) * deltaGzd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -26636,10 +27839,223 @@ double NPSMEFTd6General::deltaGammaH2L2dRatio1() const
 double NPSMEFTd6General::deltaGammaH2L2dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014825) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.08465) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.10657) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.007578) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.032649) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.001005) *pow(getSMEFTCoeffEW("CHl1R", 0,0),2.0)
+            + (0.0010092) *pow(getSMEFTCoeffEW("CHl1R", 1,1),2.0)
+            + (0.0010064) *pow(getSMEFTCoeffEW("CHl1R", 2,2),2.0)
+            + (0.009463) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.009375) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.0010064) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.0010054) *pow(getSMEFTCoeffEW("CHeR", 0,0),2.0)
+            + (0.0010055) *pow(getSMEFTCoeffEW("CHeR", 1,1),2.0)
+            + (0.0010051) *pow(getSMEFTCoeffEW("CHeR", 2,2),2.0)
+            + (0.0006784) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+            + (0.000655) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+            + (0.0007329) *pow(getSMEFTCoeffEW("CHq1R", 2,2),2.0)
+            + (0.0006784) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.000655) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.0007329) *pow(getSMEFTCoeffEW("CHq3R", 2,2),2.0)
+            + (0.0006792) *pow(getSMEFTCoeffEW("CHdR", 0,0),2.0)
+            + (0.0006779) *pow(getSMEFTCoeffEW("CHdR", 1,1),2.0)
+            + (0.0007332) *pow(getSMEFTCoeffEW("CHdR", 2,2),2.0)
+            + (0.011121) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (0.002721) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.010906) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.0012719) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.0024549) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (0.0026064) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0026073) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.002596) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.01207611) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.01209367) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.002596) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0020974) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.00209905) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.00208636) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.0026944) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0026923) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0028925) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0026944) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0026923) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0028925) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00047059) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.0004699201) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.014684) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.1563694) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.018562) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.1022427) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (0.0006588) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0006557) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0006715) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.002116) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.002118) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0006715) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0001906) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0001915) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.000173) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.0002293) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0002229) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0002215) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0002293) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0002229) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0002215) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0001371) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.000138) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.0001006) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.002694) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0207025) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.059846) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (-0.00294565) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.00294453) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.00293256) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.007992) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.007978) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00293256) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0013157) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0013112) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.001313) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.0018767) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0018778) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0020349) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0018767) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0018778) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0020349) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0001977) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0001982) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.0001883) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.010907) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000988) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (0.0025211) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0025204) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.002511) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0001134) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0001259) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.002511) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.001268) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0012691) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0012823) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.0008924) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.000892) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0009143) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0008924) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.000892) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0009143) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0003253) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00032566) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00039497) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.0024039) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0003186) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0003249) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0003404) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.002784) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.002786) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0003404) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.002898) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0028961) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0028869) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.0008712) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0008626) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0009395) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0008712) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0008626) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0009395) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00061055) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00060968) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00063252) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.0024548) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.000590513) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0026049) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0026064) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00260457) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.000590967) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0026073) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00259549) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00259549) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0020129) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.002596) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00581) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.002642) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0020996) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.002098) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0020855) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.002638086) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0026360054) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.002830181) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.002638086) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0026360054) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.002830181) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0004606) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00046071) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00046383) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.01942) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.002561) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0020996) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0020983) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0020855) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.002636675) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.002640509) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.002831097) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.002636675) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.002640509) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.002831097) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00046075) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00046077) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00046367) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.01943808) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.002596) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0020974) * getSMEFTCoeffEW("CHeR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00209905) * getSMEFTCoeffEW("CHeR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00208636) * getSMEFTCoeffEW("CHeR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0013588) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0026944) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00135887) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0026923) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00147085) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0028925) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0026944) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0026923) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0028925) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00047059) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0004699201) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.77) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.095) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.0213) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.0747) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.0162) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.023) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (-0.0187) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.01838) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.01821) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.108636) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.114941) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.01821) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0142) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.015339) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.014586) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.01942) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.01967) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.02085) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.01942) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.01967) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.02085) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.003423) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0032534) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.0032839) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.142) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2L2dRatio() const
@@ -26714,24 +28130,24 @@ double NPSMEFTd6General::deltaGammaH2v2uRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12123) * getSMEFTCoeffEW("CHbox")
-	+ (0.01696) * getSMEFTCoeffEW("CHW")
-	+ (-0.074942) * getSMEFTCoeffEW("CHB")
-	+ (0.013411) * getSMEFTCoeffEW("CHD")
-	+ (-0.021117) * getSMEFTCoeffEW("CHWB")
-	+ (-0.01881591) * getSMEFTCoeffEW("CHl1R", 0,0)
-	+ (-0.01873872) * getSMEFTCoeffEW("CHl1R", 1,1)
-	+ (-0.01878697) * getSMEFTCoeffEW("CHl1R", 2,2)
-	+ (-0.161762) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.1612947) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.018958) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (-0.0371485) * getSMEFTCoeffEW("CHq1R", 0,0)
-	+ (-0.037148) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.037288) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.037226) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.01578) * getSMEFTCoeffEW("CHuR", 0,0)
-	+ (0.0157) * getSMEFTCoeffEW("CHuR", 1,1)
-	+ (0.18182) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	( (0.12122) * getSMEFTCoeffEW("CHbox")
+	+ (0.01598) * getSMEFTCoeffEW("CHW")
+	+ (-0.074959) * getSMEFTCoeffEW("CHB")
+	+ (0.013404) * getSMEFTCoeffEW("CHD")
+	+ (-0.021103) * getSMEFTCoeffEW("CHWB")
+	+ (-0.01884082) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.01874224) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.01879955) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.161822) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1613675) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.018957) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.037156) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.0371722) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.037258) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.037209) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.015779) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.015702) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (0.1818) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
 	+ (-0.832) * deltaGzd6()
 	);
 
@@ -26759,10 +28175,157 @@ double NPSMEFTd6General::deltaGammaH2v2uRatio1() const
 double NPSMEFTd6General::deltaGammaH2v2uRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014683) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.029977) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.020534) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.0011316) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.009588) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.00049619) *pow(getSMEFTCoeffEW("CHl1R", 0,0),2.0)
+            + (0.00049702) *pow(getSMEFTCoeffEW("CHl1R", 1,1),2.0)
+            + (0.00049647) *pow(getSMEFTCoeffEW("CHl1R", 2,2),2.0)
+            + (0.00922) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.00919) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.00049647) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.0013928) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+            + (0.0013902) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+            + (0.0013928) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0013902) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.0013945) *pow(getSMEFTCoeffEW("CHuR", 0,0),2.0)
+            + (0.0013955) *pow(getSMEFTCoeffEW("CHuR", 1,1),2.0)
+            + (0.01101) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (0.001982) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.0090937) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.0020315) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.0025573) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.002318106) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.002317968) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.01237941) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.01238009) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0023188) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00451966) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.00451184) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0045183) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0045101) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0019117) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0019033) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0147057) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0561529) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.0005954) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.0455873) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (-0.0010602) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.001113) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.001132) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.001144) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.001023) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0010671) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0023205) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0023067) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00230254) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00228524) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00149435) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00149032) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.001982) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0003054) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.034986) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.0028311) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0028277) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0028398) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.006269) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0062789) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00283266) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0011441) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.00114) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.001135831) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00113128) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0090937) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.000408) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (-0.0009051) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.00090638) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.00090555) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.0007383) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0007345) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.00090609) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00162977) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.001624214) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0016305) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0016236) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00167945) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00168335) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0016461) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0014831) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0014813) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0014901) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.001034) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0010168) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00148265) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.000102) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0021338) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00214234) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0025573) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00132225) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0023183) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.002318106) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.002319) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0013223) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0023188) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0023188) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000997117) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.002317968) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00638) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00233) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0044333) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0044255) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00443452) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0044265) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.001876252) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0018688) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0197481) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0023) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0044334) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0044253) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00443484) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00442866) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.001875899) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00186879) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.01972415) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0023188) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00279155) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00451966) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00278867) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00451184) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0045183) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0045101) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0019117) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0019033) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.757) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.099) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.01511) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.07347) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.01184) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.02039) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (0.01399) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.015557) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.01326) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.13487) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.13114) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.01462) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.03421) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.03301) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0335) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.034) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0134) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.01395) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.148) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2v2uRatio() const
@@ -26839,28 +28402,28 @@ double NPSMEFTd6General::deltaGammaH2v2dRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12127) * getSMEFTCoeffEW("CHbox")
-	+ (-0.005772) * getSMEFTCoeffEW("CHW")
-	+ (-0.055388) * getSMEFTCoeffEW("CHB")
-	+ (-0.000382) * getSMEFTCoeffEW("CHD")
-	+ (-0.0226104) * getSMEFTCoeffEW("CHWB")
-	+ (-0.01872812) * getSMEFTCoeffEW("CHl1R", 0,0)
-	+ (-0.01856964) * getSMEFTCoeffEW("CHl1R", 1,1)
-	+ (-0.01869931) * getSMEFTCoeffEW("CHl1R", 2,2)
-	+ (-0.161666) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.1624423) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.018688) * getSMEFTCoeffEW("CHl3R", 2,2)
+	( (0.12129) * getSMEFTCoeffEW("CHbox")
+	+ (-0.005765) * getSMEFTCoeffEW("CHW")
+	+ (-0.0553328) * getSMEFTCoeffEW("CHB")
+	+ (-0.0003856) * getSMEFTCoeffEW("CHD")
+	+ (-0.0226353) * getSMEFTCoeffEW("CHWB")
+	+ (-0.01872246) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.01856267) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.01867078) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.161664) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1624422) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.01871) * getSMEFTCoeffEW("CHl3R", 2,2)
 	+ (0.023787) * getSMEFTCoeffEW("CHq1R", 0,0)
 	+ (0.023795) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.023425) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.023434) * getSMEFTCoeffEW("CHq1R", 2,2)
 	+ (0.023787) * getSMEFTCoeffEW("CHq3R", 0,0)
 	+ (0.023795) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.023425) * getSMEFTCoeffEW("CHq3R", 2,2)
-	+ (-0.00413514) * getSMEFTCoeffEW("CHdR", 0,0)
-	+ (-0.00412802) * getSMEFTCoeffEW("CHdR", 1,1)
-	+ (-0.0037969) * getSMEFTCoeffEW("CHdR", 2,2)
+	+ (0.023434) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (-0.00413664) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.00413066) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.00380964) * getSMEFTCoeffEW("CHdR", 2,2)
 	+ (0.1819) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.807) * deltaGzd6()
+	+ (-0.826) * deltaGzd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -26887,10 +28450,191 @@ double NPSMEFTd6General::deltaGammaH2v2dRatio1() const
 double NPSMEFTd6General::deltaGammaH2v2dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.01475) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.004384) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (-0.0006489) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (-0.00113902) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.0015868) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.00048923) *pow(getSMEFTCoeffEW("CHl1R", 0,0),2.0)
+            + (0.0004894) *pow(getSMEFTCoeffEW("CHl1R", 1,1),2.0)
+            + (0.00048977) *pow(getSMEFTCoeffEW("CHl1R", 2,2),2.0)
+            + (0.00924) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.009278) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.00048977) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.0007335) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+            + (0.0007336) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+            + (0.0007284) *pow(getSMEFTCoeffEW("CHq1R", 2,2),2.0)
+            + (0.0007335) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0007336) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.0007284) *pow(getSMEFTCoeffEW("CHq3R", 2,2),2.0)
+            + (0.0007359) *pow(getSMEFTCoeffEW("CHdR", 0,0),2.0)
+            + (0.0007354) *pow(getSMEFTCoeffEW("CHdR", 1,1),2.0)
+            + (0.00073) *pow(getSMEFTCoeffEW("CHdR", 2,2),2.0)
+            + (0.01106) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.0006919) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.00671583) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.00372275) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.00273962) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.0022930912) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.002295757) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.002294138) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.01240966) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.012412956) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0022956) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0028811) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0028831) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0028413) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0028811) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0028831) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0028413) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00050295) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.0005030348) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.000462466) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.014712) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00987) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (-0.003878) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.01842346) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (-0.00021) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.000208) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.000208) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0008856) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0009176) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.00021571) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00160087) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.00160191) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00154323) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.00160087) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00160191) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00154323) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00039676) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0003971) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00033274) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.0006919) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0056261) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.0096878) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.0020444) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0020531) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0020521) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0046779) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0046784) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.002059516) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0005872) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.000586691) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00056713) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0005872) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.000586691) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00056713) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.00671583) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0001361) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (-0.00065058) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.000649782) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.00065018) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.00069657) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00069682) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.00065069) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.00041577) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.00041586) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.00037775) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.00041577) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00041586) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.00037775) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00044187) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00044214) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00047114) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.0012559) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.00124975) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0012523) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0014392) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0014379) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00125923) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.000512984) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.000513525) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.000476106) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.000512984) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.000513525) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.000476106) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00056571) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00056548) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.0005314) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.00273962) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00131131) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0022936) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0022930912) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0022951) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00131083) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.002295757) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0022956) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0022956) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0009841401) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.002294138) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00636) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.002308) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0028265) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.00282878) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.002788849) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0028265) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00282878) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.002788849) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00049339) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00049359) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00045796) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.01974979) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.002339) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.002827586) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.002830241) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00279057) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.002827586) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.002830241) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00279057) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00049346) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0004937) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00045793) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.01975021) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0022956) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0014696) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0028811) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0014696) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0028831) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0014591) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0028413) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0028811) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0028831) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0028413) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00050295) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0005030348) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.000462466) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.75) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.101) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.00041) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.048287) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (0.00036) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.02179) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (0.0149079) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0172908) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.017088) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.13395) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.1303) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.01742) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.02056) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0189) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.02124) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.02056) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0189) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.02124) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.003758) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.003796) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.003317) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.152) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2v2dRatio() const
@@ -26964,22 +28708,22 @@ double NPSMEFTd6General::deltaGammaH4LRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12136) * getSMEFTCoeffEW("CHbox")
-	+ (-0.01005) * getSMEFTCoeffEW("CHW")
-	+ (-0.11593) * getSMEFTCoeffEW("CHB")
-	+ (0.01273) * getSMEFTCoeffEW("CHD")
+	( (0.12134) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0103) * getSMEFTCoeffEW("CHW")
+	+ (-0.11604) * getSMEFTCoeffEW("CHB")
+	+ (0.01268) * getSMEFTCoeffEW("CHD")
 	+ (0.01261) * getSMEFTCoeffEW("CHWB")
-	+ (0.041856) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (0.041857) * getSMEFTCoeffEW("CHl1R", 0,0)
 	+ (0.041873) * getSMEFTCoeffEW("CHl1R", 1,1)
-	+ (0.041628) * getSMEFTCoeffEW("CHl1R", 2,2)
-	+ (-0.1401372) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.1399327) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.041628) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (-0.03371821) * getSMEFTCoeffEW("CHeR", 0,0)
-	+ (-0.0338207) * getSMEFTCoeffEW("CHeR", 1,1)
-	+ (-0.03341922) * getSMEFTCoeffEW("CHeR", 2,2)
-	+ (0.18203) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.738) * deltaGzd6()
+	+ (0.041607) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.1401455) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1401933) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.041607) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.03372101) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.0338238) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.03341988) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.18199) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.741) * deltaGzd6()
 	);  
 
     //  Linear contribution from Higgs self-coupling
@@ -27006,10 +28750,135 @@ double NPSMEFTd6General::deltaGammaH4LRatio1() const
 double NPSMEFTd6General::deltaGammaH4LRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014714) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.15495) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.41542) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.016983) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.12035) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.0018392) *pow(getSMEFTCoeffEW("CHl1R", 0,0),2.0)
+            + (0.0018429) *pow(getSMEFTCoeffEW("CHl1R", 1,1),2.0)
+            + (0.0018273) *pow(getSMEFTCoeffEW("CHl1R", 2,2),2.0)
+            + (0.007796) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.007789) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.0018273) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.0018903) *pow(getSMEFTCoeffEW("CHeR", 0,0),2.0)
+            + (0.0018939) *pow(getSMEFTCoeffEW("CHeR", 1,1),2.0)
+            + (0.0018728) *pow(getSMEFTCoeffEW("CHeR", 2,2),2.0)
+            + (0.011032) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.001236) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.014072) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.002148) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (0.001548) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (0.0050712) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.005074) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0050473) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.0096309) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0096384) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0050473) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.004107204) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (-0.0041018682) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (-0.004054257) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.014714) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.11378) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.041377) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.220374) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (-0.001359) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.001361) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.000772) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.00015) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.000772) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0005633) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0005763) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0009145) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.001236) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.036515) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (-0.158913) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (-0.00351) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.003531) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.004109) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.010605) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.010582) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.004109) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.002904) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0029155) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0025168) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.014072) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.006449) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (0.0044927) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0045029) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0046153) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.002944) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.002976) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0046153) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0027333) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0027367) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0027896) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.001536) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0019896) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0019886) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0017711) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.000446) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.000441) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0017711) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0056796) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0056827) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0054722) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.001548) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.001397086) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.005076786) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00028075) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0050712) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.005076755) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.001395393) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00028124) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.005074) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.005049493) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.005049493) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0036579) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00026148) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.0050473) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.000891) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.005056) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0038179) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0041009) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0040482) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.016984847) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.005046) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0041001) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0038194) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.0040482) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.01697742) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00026148) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CHeR", 2,2)
+            + (0.0050473) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.004107204) * getSMEFTCoeffEW("CHeR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0041018682) * getSMEFTCoeffEW("CHeR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.004054257) * getSMEFTCoeffEW("CHeR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.67) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.0901) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.0072) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.0523) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.0031) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.0204) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (-0.0344) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.0343) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.0352) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.10209) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.1005) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0352) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.028177) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.028204) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.028786) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.1348) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4LRatio() const
@@ -27103,10 +28972,12 @@ double NPSMEFTd6General::deltaGammaH4L2Ratio1() const
 double NPSMEFTd6General::deltaGammaH4L2Ratio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4L2Ratio() const
@@ -27197,10 +29068,12 @@ double NPSMEFTd6General::deltaGammaH4eRatio1() const
 double NPSMEFTd6General::deltaGammaH4eRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4eRatio() const
@@ -27291,10 +29164,12 @@ double NPSMEFTd6General::deltaGammaH4muRatio1() const
 double NPSMEFTd6General::deltaGammaH4muRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4muRatio() const
@@ -27365,19 +29240,19 @@ double NPSMEFTd6General::deltaGammaH4vRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.1213) * getSMEFTCoeffEW("CHbox")
-	+ (-0.0448926) * getSMEFTCoeffEW("CHW")
-	+ (-0.01288759) * getSMEFTCoeffEW("CHB")
-	+ (-0.0303024) * getSMEFTCoeffEW("CHD")
-	+ (-0.02405091) * getSMEFTCoeffEW("CHWB")
-	+ (-0.0368755) * getSMEFTCoeffEW("CHl1R", 0,0)
-	+ (-0.03708861) * getSMEFTCoeffEW("CHl1R", 1,1)
-	+ (-0.0369189) * getSMEFTCoeffEW("CHl1R", 2,2)
-	+ (-0.1447392) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.144897) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.037108) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (0.18197) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.7) * deltaGzd6()
+	( (0.12132) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0448947) * getSMEFTCoeffEW("CHW")
+	+ (-0.01288824) * getSMEFTCoeffEW("CHB")
+	+ (-0.0303007) * getSMEFTCoeffEW("CHD")
+	+ (-0.02405184) * getSMEFTCoeffEW("CHWB")
+	+ (-0.03687556) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.03708882) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.03709052) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.1447394) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.144877) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.037099) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.18201) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.705) * deltaGzd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -27404,10 +29279,102 @@ double NPSMEFTd6General::deltaGammaH4vRatio1() const
 double NPSMEFTd6General::deltaGammaH4vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014726) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (-0.00480382) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (-0.00151116) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (-0.00092039) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (-0.000594135) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.0008871) *pow(getSMEFTCoeffEW("CHl1R", 0,0),2.0)
+            + (0.0008922) *pow(getSMEFTCoeffEW("CHl1R", 1,1),2.0)
+            + (0.000888) *pow(getSMEFTCoeffEW("CHl1R", 2,2),2.0)
+            + (0.007436) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.007428) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.000888) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.011046) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.00544326) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.001563085) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.0073519) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.002917112) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.004492723) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.004495401) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.004497299) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (-0.0102118) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.01020412) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0044983) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.014709) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00037571) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.0013626) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.003676079) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (0.0026637) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.002664) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0026642) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0027871) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0027884) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00266319) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00544326) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0021446) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (-0.00125948) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.00076461) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0007646) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.00076468) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0007999) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0008002) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000764423) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.001563085) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0023664) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (-0.000202074) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-0.000202026) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.000202041) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0038785) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0038773) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.00020215) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.003674358) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0014271) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.0014271) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.0014274) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.0014932) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0014938) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.001426273) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.002917112) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0027238) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0044994) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.004492723) * getSMEFTCoeffEW("CHl1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0044991) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0027251) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.004495401) * getSMEFTCoeffEW("CHl1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0044983) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0044983) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.001768826) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.004497299) * getSMEFTCoeffEW("CHl1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00197) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.004519) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.01754772) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00451) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.01756145) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0044983) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.66) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.0835) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (0.031722) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.009061) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (0.02045) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.01684) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (0.029482) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (0.028462) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (0.030133) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.09418) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.09646) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0301) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.1251) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4vRatio() const
@@ -27480,22 +29447,22 @@ double NPSMEFTd6General::deltaGammaH4uRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12114) * getSMEFTCoeffEW("CHbox")
-	+ (0.07155) * getSMEFTCoeffEW("CHW")
-	+ (-0.15453) * getSMEFTCoeffEW("CHB")
+	( (0.12118) * getSMEFTCoeffEW("CHbox")
+	+ (0.07154) * getSMEFTCoeffEW("CHW")
+	+ (-0.154493) * getSMEFTCoeffEW("CHB")
 	+ (0.06099) * getSMEFTCoeffEW("CHD")
-	+ (-0.001607) * getSMEFTCoeffEW("CHWB")
-	+ (-0.46432) * getSMEFTCoeffEW("CHG")
-	+ (-0.070147) * getSMEFTCoeffEW("CHq1R", 0,0)
-	+ (-0.070591) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.070158) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.070598) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.02885) * getSMEFTCoeffEW("CHuR", 0,0)
-	+ (0.028939) * getSMEFTCoeffEW("CHuR", 1,1)
-	+ (-0.181666) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.181666) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.18173) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.779) * deltaGzd6()
+	+ (-0.001621) * getSMEFTCoeffEW("CHWB")
+	+ (-0.46458) * getSMEFTCoeffEW("CHG")
+	+ (-0.070151) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (-0.070597) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.070159) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.070584) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.028845) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.028945) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.181705) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181705) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18178) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.773) * deltaGzd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -27522,10 +29489,143 @@ double NPSMEFTd6General::deltaGammaH4uRatio1() const
 double NPSMEFTd6General::deltaGammaH4uRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014723) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.05967) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.08583) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.005284) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.024458) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (17.441) *pow(getSMEFTCoeffEW("CHG"),2.0)
+            + (0.002695) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+            + (0.0027093) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+            + (0.0026965) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0027074) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.0025407) *pow(getSMEFTCoeffEW("CHuR", 0,0),2.0)
+            + (0.002553) *pow(getSMEFTCoeffEW("CHuR", 1,1),2.0)
+            + (0.01104) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.01104) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.01104) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (0.008706) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.018754) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (0.003716) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.0001986) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.056564) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHG")
+            + (-0.00851468) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0085655) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0085081) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0085634) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0034974) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0035094) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.014696081) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.014696081) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.014695) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0816219) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.00511) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.0808873) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (0.008774) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHG")
+            + (-0.003999) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0042009) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.003996) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.004189) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0007209) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.000785) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.008701) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.008701) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.008706) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.007909) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.013811) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.07569) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHG")
+            + (0.011419) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.011655) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0114147) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0116652) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0030623) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0031141) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.01874) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.01874) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.018754) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0024203) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (-0.006369) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHG")
+            + (-0.0065229) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.006595) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.006513) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0065908) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00178349) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00179882) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0073925) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0073925) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.007378) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.053831) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHG")
+            + (0.0019895) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0020763) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0019874) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0020812) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00515343) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00521536) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0001955) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0001955) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0001986) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.007733) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.007768) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.007704) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.007748) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0032671) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0031513) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.028219) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.028219) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.028292) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00538675) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00022976) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHuR", 0,0)
+            + (0.0085081) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0085081) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00851468) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00542127) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00022419) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0085634) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0085634) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0085655) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00022949) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.00851468) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00851468) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0085081) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00022382) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHuR", 1,1)
+            + (-0.0085655) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0085655) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0085634) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00349993) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00349993) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0034974) * getSMEFTCoeffEW("CHuR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00350917) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00350917) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0035094) * getSMEFTCoeffEW("CHuR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.01099) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.02204873) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.02204873) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.68) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.0933) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.0736) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.1281) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.0475) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.02) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (0.0122) * deltaGzd6()*getSMEFTCoeffEW("CHG")
+            + (0.05898) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.06058) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0604) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0578) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0254) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0252) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.1397) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.1397) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.1399) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4uRatio() const
@@ -27600,25 +29700,25 @@ double NPSMEFTd6General::deltaGammaH4dRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12104) * getSMEFTCoeffEW("CHbox")
-	+ (0.035319) * getSMEFTCoeffEW("CHW")
-	+ (-0.1035952) * getSMEFTCoeffEW("CHB")
-	+ (0.030421) * getSMEFTCoeffEW("CHD")
-	+ (-0.013803) * getSMEFTCoeffEW("CHWB")
-	+ (-0.36169) * getSMEFTCoeffEW("CHG")
-	+ (0.043465) * getSMEFTCoeffEW("CHq1R", 0,0)
-	+ (0.043449) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.044811) * getSMEFTCoeffEW("CHq1R", 2,2)
-	+ (0.043465) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.043449) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.044811) * getSMEFTCoeffEW("CHq3R", 2,2)
-	+ (-0.007293) * getSMEFTCoeffEW("CHdR", 0,0)
-	+ (-0.0072913) * getSMEFTCoeffEW("CHdR", 1,1)
-	+ (-0.0069497) * getSMEFTCoeffEW("CHdR", 2,2)
-	+ (-0.181462) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.181462) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.18159) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.77) * deltaGzd6()
+	( (0.12101) * getSMEFTCoeffEW("CHbox")
+	+ (0.035301) * getSMEFTCoeffEW("CHW")
+	+ (-0.1036126) * getSMEFTCoeffEW("CHB")
+	+ (0.030428) * getSMEFTCoeffEW("CHD")
+	+ (-0.013792) * getSMEFTCoeffEW("CHWB")
+	+ (-0.36157) * getSMEFTCoeffEW("CHG")
+	+ (0.043464) * getSMEFTCoeffEW("CHq1R", 0,0)
+	+ (0.043459) * getSMEFTCoeffEW("CHq1R", 1,1)
+	+ (0.044816) * getSMEFTCoeffEW("CHq1R", 2,2)
+	+ (0.043464) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.043459) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.044816) * getSMEFTCoeffEW("CHq3R", 2,2)
+	+ (-0.0072915) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.0072923) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.00694917) * getSMEFTCoeffEW("CHdR", 2,2)
+	+ (-0.181499) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181499) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18154) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.786) * deltaGzd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -27645,10 +29745,169 @@ double NPSMEFTd6General::deltaGammaH4dRatio1() const
 double NPSMEFTd6General::deltaGammaH4dRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014663) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.012757) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.001286) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (-0.00052975) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.0018933) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (10.635) *pow(getSMEFTCoeffEW("CHG"),2.0)
+            + (0.0013812) *pow(getSMEFTCoeffEW("CHq1R", 0,0),2.0)
+            + (0.0013804) *pow(getSMEFTCoeffEW("CHq1R", 1,1),2.0)
+            + (0.0014343) *pow(getSMEFTCoeffEW("CHq1R", 2,2),2.0)
+            + (0.0013812) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0013804) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.0014343) *pow(getSMEFTCoeffEW("CHq3R", 2,2),2.0)
+            + (0.0012767) *pow(getSMEFTCoeffEW("CHdR", 0,0),2.0)
+            + (0.0012783) *pow(getSMEFTCoeffEW("CHdR", 1,1),2.0)
+            + (0.0013171) *pow(getSMEFTCoeffEW("CHdR", 2,2),2.0)
+            + (0.011) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.011) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.011) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (0.0042683) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.0125738) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.0016726) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.043734) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHG")
+            + (0.0052642) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0052762) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0054406) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0052642) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0052762) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0054406) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.000884882) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (-0.000883694) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.000843951) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.01468531) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.01468531) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.01468) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.01805505) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (-0.0064336) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.02863887) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (-0.003268) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHG")
+            + (0.0004845) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.000485) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0008983) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0004845) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.000485) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0008983) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00010197) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00010131) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (-0.0042711) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0042713) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0042682) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.006856) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.016282) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.013229) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHG")
+            + (-0.0047668) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.00476478) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00533894) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0047668) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00476478) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00533894) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00051711) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00051703) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00050983) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.012561) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.012561) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0125738) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0023965) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (0.0022286) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (0.0022325) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (0.0024145) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (0.0022286) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0022325) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0024145) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.00054611) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.00054673) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00062679) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (-0.0036907) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0036907) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0036904) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0148432) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHG")
+            + (-0.00193883) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.00193998) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00216367) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.00193883) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00193998) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.00216367) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.001208) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0012071) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.001218) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.0016683) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0016679) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.001673) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0036955) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0036986) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0039625) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0036955) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0036986) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0039625) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.0006428) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0006448) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.021874) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.021874) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0218734) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0027621) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.005281107) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.005281107) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0052642) * getSMEFTCoeffEW("CHq1R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0027657) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.005268493) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.005268493) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0052762) * getSMEFTCoeffEW("CHq1R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0028667) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (-0.005440848) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.005440848) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0054406) * getSMEFTCoeffEW("CHq1R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.005281107) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.005281107) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0052642) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.005268493) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.005268493) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0052762) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.005440848) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.005440848) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0054406) * getSMEFTCoeffEW("CHq3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00088499) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00088499) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000884882) * getSMEFTCoeffEW("CHdR", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00088467) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00088467) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000883694) * getSMEFTCoeffEW("CHdR", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00084416) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00084416) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.000843951) * getSMEFTCoeffEW("CHdR", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.01103) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.02201481) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.02201481) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.75) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.0906) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.0398) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.0836) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.0216) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.02187) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (-0.0128) * deltaGzd6()*getSMEFTCoeffEW("CHG")
+            + (-0.0362) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (-0.0371) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0369) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 2,2)
+            + (-0.0362) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0371) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0369) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 2,2)
+            + (0.006371) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.006501) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.006169) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 2,2)
+            + (0.1413) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.1413) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.1361) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4dRatio() const
@@ -27718,14 +29977,14 @@ double NPSMEFTd6General::deltaGammaHLvvLRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12142) * getSMEFTCoeffEW("CHbox")
-	+ (-0.0906604) * getSMEFTCoeffEW("CHW")
-	+ (-0.03033019) * getSMEFTCoeffEW("CHD")
-	+ (-0.136739) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.136686) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.045289) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (0.18213) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.948) * deltaGwd6()
+	( (0.12141) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0905945) * getSMEFTCoeffEW("CHW")
+	+ (-0.03032886) * getSMEFTCoeffEW("CHD")
+	+ (-0.1367504) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1366861) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.045303) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.18211) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.919) * deltaGwd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -27752,10 +30011,49 @@ double NPSMEFTd6General::deltaGammaHLvvLRatio1() const
 double NPSMEFTd6General::deltaGammaHLvvLRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014737) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (-0.0080873) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.0009211) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.006746) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.00673) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.001181) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.011052) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.01099103) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.007355586) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.009228766) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.009234217) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0054912) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.014714) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0027512) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (0.0052117) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0052036) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00578441) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.01099103) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0023085) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0023079) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0013725648) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.003676614) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.01658196) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.01658238) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0054912) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.688) * pow(deltaGwd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.1095) * deltaGwd6()*getSMEFTCoeffEW("CHbox")
+            + (0.08596) * deltaGwd6()*getSMEFTCoeffEW("CHW")
+            + (0.028419) * deltaGwd6()*getSMEFTCoeffEW("CHD")
+            + (0.12977) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.125384) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0435) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.1641) * deltaGwd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHLvvLRatio() const
@@ -27846,10 +30144,12 @@ double NPSMEFTd6General::deltaGammaHevmuvRatio1() const
 double NPSMEFTd6General::deltaGammaHevmuvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHevmuvRatio() const
@@ -27918,15 +30218,15 @@ double NPSMEFTd6General::deltaGammaHudduRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12078) * getSMEFTCoeffEW("CHbox")
-	+ (-0.09038825) * getSMEFTCoeffEW("CHW")
-	+ (-0.03023529) * getSMEFTCoeffEW("CHD")
-	+ (0.069313) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.069519) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (-0.1813519) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.1813519) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.18114) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.941) * deltaGwd6()
+	( (0.12079) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0903745) * getSMEFTCoeffEW("CHW")
+	+ (-0.03023476) * getSMEFTCoeffEW("CHD")
+	+ (0.06934) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.069517) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (-0.1813696) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1813696) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.18117) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.955) * deltaGwd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -27953,10 +30253,60 @@ double NPSMEFTd6General::deltaGammaHudduRatio1() const
 double NPSMEFTd6General::deltaGammaHudduRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014687) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (-0.008077632) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.0009178) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.0018572) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0018574) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.011013) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.011013) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.011013) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.010959679) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.007334116) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (0.0084087) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0084295) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.01466739) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.01466739) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.014653) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.002741) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.008875263) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.008882525) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.010964) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.010964) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.010959679) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.002100955) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.002107679) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0036638) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0036638) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.003668205) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0084038) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.0084038) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0084087) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00843117) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00843117) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0084295) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.02200743) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.02200743) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.85) * pow(deltaGwd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.1163) * deltaGwd6()*getSMEFTCoeffEW("CHbox")
+            + (0.086111) * deltaGwd6()*getSMEFTCoeffEW("CHW")
+            + (0.029355) * deltaGwd6()*getSMEFTCoeffEW("CHD")
+            + (-0.0689) * deltaGwd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0682) * deltaGwd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.17534) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.17534) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.1744) * deltaGwd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHudduRatio() const
@@ -28028,16 +30378,16 @@ double NPSMEFTd6General::deltaGammaHLvudRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12125) * getSMEFTCoeffEW("CHbox")
-	+ (-0.0905402) * getSMEFTCoeffEW("CHW")
-	+ (-0.03028063) * getSMEFTCoeffEW("CHD")
-	+ (-0.1591297) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.15932913) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.022574) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (0.034776) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.034749) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.18185) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.965) * deltaGwd6()
+	( (0.12133) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0905501) * getSMEFTCoeffEW("CHW")
+	+ (-0.03027917) * getSMEFTCoeffEW("CHD")
+	+ (-0.1591054) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.15932529) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.022578) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (0.034785) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.034757) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.18198) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.964) * deltaGwd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -28064,10 +30414,68 @@ double NPSMEFTd6General::deltaGammaHLvudRatio1() const
 double NPSMEFTd6General::deltaGammaHLvudRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014754) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (-0.0080971) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.0009223) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.008885) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.008893) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.0005886) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.00093) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0009298) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.011069) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.01098128) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.007344733) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.01194738) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.01195405) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.002738) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0042166) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0042142) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.014703) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.002745) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (0.0080855) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0080922) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00288826) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00445065) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00444505) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.01098128) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0029893) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0029899) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00068459) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00105334) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0010533816) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.003670687) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.003869) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.003866211) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.01929275) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.003867978) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0038718043) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.01930829) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0003448) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.00034402) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.002738) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0042166) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0042142) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.94) * pow(deltaGwd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.117) * deltaGwd6()*getSMEFTCoeffEW("CHbox")
+            + (0.08693) * deltaGwd6()*getSMEFTCoeffEW("CHW")
+            + (0.02861) * deltaGwd6()*getSMEFTCoeffEW("CHD")
+            + (0.14745) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.14791) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.02192) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.0338) * deltaGwd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0329) * deltaGwd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.1754) * deltaGwd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrHLvudRatio() const
@@ -28147,25 +30555,23 @@ double NPSMEFTd6General::deltaGammaH2udRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12132) * getSMEFTCoeffEW("CHbox")
-	+ (-0.0850823) * getSMEFTCoeffEW("CHW")
-	+ (-0.0045478) * getSMEFTCoeffEW("CHB")
-	+ (-0.02821293) * getSMEFTCoeffEW("CHD")
-	+ (-0.0017074) * getSMEFTCoeffEW("CHWB")
-	+ (-0.059) * getSMEFTCoeffEW("CHG")
-	+ (-4.85e-05) * getSMEFTCoeffEW("CHq1R", 0,0)
-	+ (-6.44e-05) * getSMEFTCoeffEW("CHq1R", 1,1)
-	+ (0.070115) * getSMEFTCoeffEW("CHq3R", 0,0)
-	+ (0.06974) * getSMEFTCoeffEW("CHq3R", 1,1)
-	+ (0.00065931) * getSMEFTCoeffEW("CHuR", 0,0)
-	+ (0.00065707) * getSMEFTCoeffEW("CHuR", 1,1)
-	+ (-0.000256599) * getSMEFTCoeffEW("CHdR", 0,0)
-	+ (-0.000252842) * getSMEFTCoeffEW("CHdR", 1,1)
-	+ (-0.181798) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.181798) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.18196) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	+ (-0.915) * deltaGwd6()
-	+ (-0.0248) * deltaGzd6()
+	( (0.12135) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0851047) * getSMEFTCoeffEW("CHW")
+	+ (-0.0045438) * getSMEFTCoeffEW("CHB")
+	+ (-0.02822615) * getSMEFTCoeffEW("CHD")
+	+ (-0.0017067) * getSMEFTCoeffEW("CHWB")
+	+ (-0.05868) * getSMEFTCoeffEW("CHG")
+	+ (0.070123) * getSMEFTCoeffEW("CHq3R", 0,0)
+	+ (0.069746) * getSMEFTCoeffEW("CHq3R", 1,1)
+	+ (0.0006591) * getSMEFTCoeffEW("CHuR", 0,0)
+	+ (0.00065708) * getSMEFTCoeffEW("CHuR", 1,1)
+	+ (-0.000256626) * getSMEFTCoeffEW("CHdR", 0,0)
+	+ (-0.000252814) * getSMEFTCoeffEW("CHdR", 1,1)
+	+ (-0.181971) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.181971) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.182) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	+ (-0.895) * deltaGwd6()
+	+ (-0.0262) * deltaGzd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -28193,10 +30599,115 @@ double NPSMEFTd6General::deltaGammaH2udRatio1() const
 double NPSMEFTd6General::deltaGammaH2udRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014695) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.000994) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.015278) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.0010088) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.005252) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (11.456) *pow(getSMEFTCoeffEW("CHG"),2.0)
+            + (0.0029759) *pow(getSMEFTCoeffEW("CHq3R", 0,0),2.0)
+            + (0.0029646) *pow(getSMEFTCoeffEW("CHq3R", 1,1),2.0)
+            + (0.011018) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.011018) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.011018) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.01033512) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.00055115) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHB")
+            + (-0.007099838) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.00020639) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.007042) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHG")
+            + (0.0085086) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (0.0084775) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.01470364) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.01470364) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.014725) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0126698) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.0027047) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.01297797) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (-0.0006016) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHG")
+            + (-0.00851159) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00850078) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.010333) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.010333) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.01033512) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00015239) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.0031685) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (-0.00038338) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00038161) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0005526) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0005526) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0005511) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0017583) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHG")
+            + (-0.00188801) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00188114) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.0034285) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0034285) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00342549) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00013828) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00013656) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.000111953) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.0001115399) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.00020662) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00020667) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00020631) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0009234) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0009279) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (0.003528) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.003528) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0035169) * getSMEFTCoeffEW("CHG")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00851568) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00851568) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0085086) * getSMEFTCoeffEW("CHq3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.008478119) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.008478119) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0084775) * getSMEFTCoeffEW("CHq3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0111) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.02206664) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.02206664) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.74) * pow(deltaGwd6(),2.0) + (0.0087) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.1123) * deltaGwd6()*getSMEFTCoeffEW("CHbox")
+            + (0.08154) * deltaGwd6()*getSMEFTCoeffEW("CHW")
+            + (9.3e-05) * deltaGwd6()*getSMEFTCoeffEW("CHB")
+            + (0.028249) * deltaGwd6()*getSMEFTCoeffEW("CHD")
+            + (3.7e-05) * deltaGwd6()*getSMEFTCoeffEW("CHWB")
+            + (-0.0106) * deltaGwd6()*getSMEFTCoeffEW("CHG")
+            + (-9e-06) * deltaGwd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (3e-06) * deltaGwd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.0653) * deltaGwd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.0654) * deltaGwd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (3e-06) * deltaGwd6()*getSMEFTCoeffEW("CHuR", 0,0)
+            + (8.3e-06) * deltaGwd6()*getSMEFTCoeffEW("CHuR", 1,1)
+            + (2.25e-06) * deltaGwd6()*getSMEFTCoeffEW("CHdR", 0,0)
+            + (1.38e-06) * deltaGwd6()*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.16645) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.16645) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.1685) * deltaGwd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0039) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (-0.002882) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.005316) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (-0.0013023) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.001036) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (-0.005) * deltaGzd6()*getSMEFTCoeffEW("CHG")
+            + (5.1e-05) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 0,0)
+            + (9.65e-05) * deltaGzd6()*getSMEFTCoeffEW("CHq1R", 1,1)
+            + (-0.00263) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 0,0)
+            + (-0.00228) * deltaGzd6()*getSMEFTCoeffEW("CHq3R", 1,1)
+            + (-0.0006) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 0,0)
+            + (-0.000582) * deltaGzd6()*getSMEFTCoeffEW("CHuR", 1,1)
+            + (0.0002321) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 0,0)
+            + (0.0002269) * deltaGzd6()*getSMEFTCoeffEW("CHdR", 1,1)
+            + (0.00641) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00641) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0059) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2udRatio() const
@@ -28276,23 +30787,23 @@ double NPSMEFTd6General::deltaGammaH2LvRatio1() const
     
     // AG: 
     dwidth = cWsch * ( 
-	( (0.12111) * getSMEFTCoeffEW("CHbox")
-	+ (-0.0916518) * getSMEFTCoeffEW("CHW")
-	+ (0.000595) * getSMEFTCoeffEW("CHB")
-	+ (-0.033349) * getSMEFTCoeffEW("CHD")
-	+ (-0.0033372) * getSMEFTCoeffEW("CHWB")
-	+ (-0.0001494) * getSMEFTCoeffEW("CHl1R", 0,0)
-	+ (-0.0001494) * getSMEFTCoeffEW("CHl1R", 1,1)
-	+ (-0.0001276) * getSMEFTCoeffEW("CHl1R", 2,2)
-	+ (-0.136036) * getSMEFTCoeffEW("CHl3R", 0,0)
-	+ (-0.1361597) * getSMEFTCoeffEW("CHl3R", 1,1)
-	+ (0.045347) * getSMEFTCoeffEW("CHl3R", 2,2)
-	+ (-0.000816967) * getSMEFTCoeffEW("CHeR", 0,0)
-	+ (-0.000817957) * getSMEFTCoeffEW("CHeR", 1,1)
-	+ (-0.000817935) * getSMEFTCoeffEW("CHeR", 2,2)
-	+ (0.18167) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
+	( (0.12114) * getSMEFTCoeffEW("CHbox")
+	+ (-0.0916348) * getSMEFTCoeffEW("CHW")
+	+ (0.000592) * getSMEFTCoeffEW("CHB")
+	+ (-0.0333329) * getSMEFTCoeffEW("CHD")
+	+ (-0.003342) * getSMEFTCoeffEW("CHWB")
+	+ (-0.00014956) * getSMEFTCoeffEW("CHl1R", 0,0)
+	+ (-0.0001496) * getSMEFTCoeffEW("CHl1R", 1,1)
+	+ (-0.0001277) * getSMEFTCoeffEW("CHl1R", 2,2)
+	+ (-0.1360386) * getSMEFTCoeffEW("CHl3R", 0,0)
+	+ (-0.1361577) * getSMEFTCoeffEW("CHl3R", 1,1)
+	+ (0.045354) * getSMEFTCoeffEW("CHl3R", 2,2)
+	+ (-0.000816964) * getSMEFTCoeffEW("CHeR", 0,0)
+	+ (-0.000817925) * getSMEFTCoeffEW("CHeR", 1,1)
+	+ (-0.000817821) * getSMEFTCoeffEW("CHeR", 2,2)
+	+ (0.1817) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
 	+ (-0.938) * deltaGwd6()
-	+ (-0.038) * deltaGzd6()
+	+ (-0.041) * deltaGzd6()
 	);
 
     //  Linear contribution from Higgs self-coupling
@@ -28320,10 +30831,88 @@ double NPSMEFTd6General::deltaGammaH2LvRatio1() const
 double NPSMEFTd6General::deltaGammaH2LvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        dwidth += cWsch*(
+            + (0.014703) *pow(getSMEFTCoeffEW("CHbox"),2.0)
+            + (0.010735) *pow(getSMEFTCoeffEW("CHW"),2.0)
+            + (0.018974) *pow(getSMEFTCoeffEW("CHB"),2.0)
+            + (0.0013761) *pow(getSMEFTCoeffEW("CHD"),2.0)
+            + (0.007877) *pow(getSMEFTCoeffEW("CHWB"),2.0)
+            + (0.007426) *pow(getSMEFTCoeffEW("CHl3R", 0,0),2.0)
+            + (0.007427) *pow(getSMEFTCoeffEW("CHl3R", 1,1),2.0)
+            + (0.0019336) *pow(getSMEFTCoeffEW("CHl3R", 2,2),2.0)
+            + (0.011029) *pow(getSMEFTCoeffEW("CllR", 0,1,1,0),2.0)
+            + (-0.01111144) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHW")
+            + (-0.007719474) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHD")
+            + (-0.00040589) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHWB")
+            + (-0.00915104) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (-0.00914935) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.0055012) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.014685) * getSMEFTCoeffEW("CHbox")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.037699) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHB")
+            + (0.0042941) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHD")
+            + (-0.0236584) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHWB")
+            + (0.005298) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0052989) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00576922) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.01111144) * getSMEFTCoeffEW("CHW")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00133872) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHD")
+            + (0.023535) * getSMEFTCoeffEW("CHB")*getSMEFTCoeffEW("CHWB")
+            + (0.00032712) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHWB")
+            + (0.00268) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.0026807) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.00134623) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.00403804) * getSMEFTCoeffEW("CHD")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.00038329) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.00038372) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (0.000111398) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.00011135) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.00011094) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.00040588) * getSMEFTCoeffEW("CHWB")*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.005492) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.016504846) * getSMEFTCoeffEW("CHl3R", 0,0)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.00549) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (-0.016487234) * getSMEFTCoeffEW("CHl3R", 1,1)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (0.0055012) * getSMEFTCoeffEW("CHl3R", 2,2)*getSMEFTCoeffEW("CllR", 0,1,1,0)
+	) * pow(1000000.0,2.0);
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
+        dwidth += cWsch*( (0.78) * pow(deltaGwd6(),2.0) + (0.03) * pow(deltaGzd6(),2.0) );
 
+        dwidth += cWsch*(
+            + (-0.113) * deltaGwd6()*getSMEFTCoeffEW("CHbox")
+            + (0.08401) * deltaGwd6()*getSMEFTCoeffEW("CHW")
+            + (0.00021) * deltaGwd6()*getSMEFTCoeffEW("CHB")
+            + (0.02799) * deltaGwd6()*getSMEFTCoeffEW("CHD")
+            + (0.000269) * deltaGwd6()*getSMEFTCoeffEW("CHWB")
+            + (1.29e-05) * deltaGwd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (5.8e-06) * deltaGwd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (1.13e-05) * deltaGwd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.12714) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.12563) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0429) * deltaGwd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (3.154e-05) * deltaGwd6()*getSMEFTCoeffEW("CHeR", 0,0)
+            + (-2.23e-06) * deltaGwd6()*getSMEFTCoeffEW("CHeR", 1,1)
+            + (-2.448e-05) * deltaGwd6()*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.1695) * deltaGwd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+            + (-0.0052) * deltaGzd6()*getSMEFTCoeffEW("CHbox")
+            + (0.000409) * deltaGzd6()*getSMEFTCoeffEW("CHW")
+            + (0.001324) * deltaGzd6()*getSMEFTCoeffEW("CHB")
+            + (0.000337) * deltaGzd6()*getSMEFTCoeffEW("CHD")
+            + (0.00102) * deltaGzd6()*getSMEFTCoeffEW("CHWB")
+            + (-8.5e-05) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 0,0)
+            + (-5.01e-05) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 1,1)
+            + (-0.000104) * deltaGzd6()*getSMEFTCoeffEW("CHl1R", 2,2)
+            + (0.006545) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 0,0)
+            + (0.004527) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 1,1)
+            + (-0.0015) * deltaGzd6()*getSMEFTCoeffEW("CHl3R", 2,2)
+            + (0.0007588) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 0,0)
+            + (0.0007016) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 1,1)
+            + (0.00072326) * deltaGzd6()*getSMEFTCoeffEW("CHeR", 2,2)
+            + (-0.0078) * deltaGzd6()*getSMEFTCoeffEW("CllR", 0,1,1,0)
+         )*1000000;
+    }
+
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2LvRatio() const
@@ -28423,10 +31012,12 @@ double NPSMEFTd6General::deltaGammaH2Lv2Ratio1() const
 double NPSMEFTd6General::deltaGammaH2Lv2Ratio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2Lv2Ratio() const
@@ -28522,10 +31113,12 @@ double NPSMEFTd6General::deltaGammaH2evRatio1() const
 double NPSMEFTd6General::deltaGammaH2evRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2evRatio() const
@@ -28621,10 +31214,12 @@ double NPSMEFTd6General::deltaGammaH2muvRatio1() const
 double NPSMEFTd6General::deltaGammaH2muvRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2muvRatio() const
@@ -28709,32 +31304,33 @@ double NPSMEFTd6General::deltaGammaH4fRatio1() const
 double NPSMEFTd6General::deltaGammaH4fRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        // SM decay widths (from MG simulations)
+        double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
+        double wH2u2uSM = 0.22500e-05, wH2d2dSM = 0.11906e-04, wH2u2dSM = 0.12361e-04;
+        double wH2L2uSM = 0.45029e-05, wH2L2dSM = 0.85830e-05, wH2v2uSM = 0.93233e-05;
+        double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06, wH4vSM = 0.16884e-05;
+        double wH4uSM = 0.23669e-05, wH4dSM = 0.60254e-05;
+        double wHLvvLSM = 0.58098e-04, wHudduSM = 0.13384e-03, wHLvudSM = 0.39063e-03;
+        double wH2udSM = 0.13711e-03, wH2LvSM = 0.27557e-04;
 
-    // SM decay widths (from MG simulations)
-    double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
-    double wH2u2uSM = 0.22500e-05, wH2d2dSM = 0.11906e-04, wH2u2dSM = 0.12361e-04;
-    double wH2L2uSM = 0.45029e-05, wH2L2dSM = 0.85830e-05, wH2v2uSM = 0.93233e-05;
-    double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06, wH4vSM = 0.16884e-05;
-    double wH4uSM = 0.23669e-05, wH4dSM = 0.60254e-05;
-    double wHLvvLSM = 0.58098e-04, wHudduSM = 0.13384e-03, wHLvudSM = 0.39063e-03;
-    double wH2udSM = 0.13711e-03, wH2LvSM = 0.27557e-04;
+        // Sum
+        double wH4fSM = wH2L2LSM + wH2v2vSM + wH2L2vSM + wH2u2uSM + wH2d2dSM + wH2u2dSM +
+                wH2L2uSM + wH2L2dSM + wH2v2uSM + wH2v2dSM + wH4LSM + wH4vSM + wH4uSM + wH4dSM + wHLvvLSM + wHudduSM +
+                wHLvudSM + wH2udSM + wH2LvSM;
 
-    // Sum
-    double wH4fSM = wH2L2LSM + wH2v2vSM + wH2L2vSM + wH2u2uSM + wH2d2dSM + wH2u2dSM +
-            wH2L2uSM + wH2L2dSM + wH2v2uSM + wH2v2dSM + wH4LSM + wH4vSM + wH4uSM + wH4dSM + wHLvvLSM + wHudduSM +
-            wHLvudSM + wH2udSM + wH2LvSM;
+        //Contributions that are quadratic in the effective coefficients
+        dwidth = (wH2L2LSM * deltaGammaH2L2LRatio2() + wH2v2vSM * deltaGammaH2v2vRatio2() + wH2L2vSM * deltaGammaH2L2vRatio2() +
+                wH2u2uSM * deltaGammaH2u2uRatio2() + wH2d2dSM * deltaGammaH2d2dRatio2() + wH2u2dSM * deltaGammaH2u2dRatio2() +
+                wH2L2uSM * deltaGammaH2L2uRatio2() + wH2L2dSM * deltaGammaH2L2dRatio2() + wH2v2uSM * deltaGammaH2v2uRatio2() +
+                wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4LSM * deltaGammaH4LRatio2() +
+                wH4uSM * deltaGammaH4uRatio2() + wH4dSM * deltaGammaH4dRatio2() +
+                wHLvvLSM * deltaGammaHLvvLRatio2() + wHudduSM * deltaGammaHudduRatio2() + wHLvudSM * deltaGammaHLvudRatio2() +
+                wH2udSM * deltaGammaH2udRatio2() + wH2LvSM * deltaGammaH2LvRatio2()) / wH4fSM;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    dwidth = (wH2L2LSM * deltaGammaH2L2LRatio2() + wH2v2vSM * deltaGammaH2v2vRatio2() + wH2L2vSM * deltaGammaH2L2vRatio2() +
-            wH2u2uSM * deltaGammaH2u2uRatio2() + wH2d2dSM * deltaGammaH2d2dRatio2() + wH2u2dSM * deltaGammaH2u2dRatio2() +
-            wH2L2uSM * deltaGammaH2L2uRatio2() + wH2L2dSM * deltaGammaH2L2dRatio2() + wH2v2uSM * deltaGammaH2v2uRatio2() +
-            wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4LSM * deltaGammaH4LRatio2() +
-            wH4uSM * deltaGammaH4uRatio2() + wH4dSM * deltaGammaH4dRatio2() +
-            wHLvvLSM * deltaGammaHLvvLRatio2() + wHudduSM * deltaGammaHudduRatio2() + wHLvudSM * deltaGammaHLvudRatio2() +
-            wH2udSM * deltaGammaH2udRatio2() + wH2LvSM * deltaGammaH2LvRatio2()) / wH4fSM;
-
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4fRatio() const
@@ -28796,10 +31392,12 @@ double NPSMEFTd6General::deltaGammaH4lRatio1() const
 double NPSMEFTd6General::deltaGammaH4lRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH4lRatio() const
@@ -28862,10 +31460,12 @@ double NPSMEFTd6General::deltaGammaH2l2vRatio1() const
 double NPSMEFTd6General::deltaGammaH2l2vRatio2() const
 {
     double dwidth = 0.0;
+    if (FlagQuadraticTerms){
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += 0.0;
+    }
 
-    //Contributions that are quadratic in the effective coefficients
-    return ( dwidth);
-
+    return dwidth;
 }
 
 double NPSMEFTd6General::BrH2l2vRatio() const
@@ -36631,8 +39231,7 @@ double NPSMEFTd6General::STXS12_ttH_pTH300_450(const double sqrt_s) const       
 
     if (sqrt_s == 13.0) {
 
-        STXSb += 0.0;
-        /*STXSb += cWsch * ( 
+        STXSb += cWsch * ( 
             ( (0.12144) * getSMEFTCoeffEW("CHbox")
             + (-0.0304974) * getSMEFTCoeffEW("CHD")
             + (0.0026863) * getSMEFTCoeffEW("CHW")
@@ -36681,7 +39280,7 @@ double NPSMEFTd6General::STXS12_ttH_pTH300_450(const double sqrt_s) const       
             + (-0.0612235) * getSMEFTCoeffEW("CHl3R", 0,0)
             + (-0.0612235) * getSMEFTCoeffEW("CHl3R", 1,1)
             + (0.061249) * getSMEFTCoeffEW("CllR", 0,1,1,0) ) * 1000000 
-	);*/
+	);
                 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients

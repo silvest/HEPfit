@@ -1116,8 +1116,20 @@ muggHgaga::muggHgaga(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muggHgaga::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHgagaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHgagaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );       
     } else {
         return myNPbase->muggHgaga(sqrt_s);
     }
@@ -1144,8 +1156,20 @@ muVBFHgaga::muVBFHgaga(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFHgaga::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+        double muProd1  = myNPbase->delta_muVBF_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muVBF_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHgagaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHgagaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muVBFHgaga(sqrt_s);
     }
@@ -1160,8 +1184,20 @@ muZHgaga::muZHgaga(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muZHgaga::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+        double muProd1  = myNPbase->delta_muZH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muZH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHgagaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHgagaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );         
     } else {
         return myNPbase->muZHgaga(sqrt_s);
     }
@@ -1176,8 +1212,20 @@ muWHgaga::muWHgaga(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muWHgaga::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+        double muProd1  = myNPbase->delta_muWH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muWH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHgagaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHgagaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );    
     } else {
         return myNPbase->muWHgaga(sqrt_s);
     }
@@ -1208,8 +1256,20 @@ muttHgaga::muttHgaga(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muttHgaga::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muttH(sqrt_s)) + (myNPbase->BrHgagaRatio()));
+        double muProd1  = myNPbase->delta_muttH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muttH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHgagaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHgagaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );       
     } else {
         return myNPbase->muttHgaga(sqrt_s);
     }
@@ -1222,10 +1282,21 @@ mutHgaga::mutHgaga(const StandardModel& SM_i, const double sqrt_s_i)    //AG:add
         throw std::runtime_error("mutHgaga called with a class whose parent is not NPbase");
 }
 
-double mutHgaga::computeThValue()                                           //AG:added
+double mutHgaga::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 + (myNPbase->mutH(sqrt_s) -1.)  + (myNPbase->BrHgagaRatio()-1.) );
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1  = myNPbase->delta_mutH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_mutH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHgagaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHgagaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );       
     } else {
         return ((myNPbase->mutH(sqrt_s)) )*(myNPbase->BrHgagaRatio()) ;
     }
@@ -1240,10 +1311,51 @@ muggHpbbH_Hgaga::muggHpbbH_Hgaga(const StandardModel& SM_i, const double sqrt_s_
 
 double muggHpbbH_Hgaga::computeThValue()                                          //AG:added
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHgagaRatio()-1.) );
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHgagaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHgagaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return (myNPbase->muggHgaga(sqrt_s));
+    }
+}
+
+muttHptH_Hgaga::muttHptH_Hgaga(const StandardModel& SM_i, const double sqrt_s_i)//AG:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muttHptH_Hgaga called with a class whose parent is not NPbase");
+}
+
+double muttHptH_Hgaga::computeThValue()                                         //AG:added
+{
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_ttH = 0.499873;
+    double xsSM_tH = 0.0821;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_ttH*(myNPbase->delta_muttH_1(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_1(sqrt_s)) )/(xsSM_ttH+xsSM_tH);  
+        double muProd2 = ( xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ttH+xsSM_tH);  
+        double dGammaR1 = myNPbase->deltaGammaHgagaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHgagaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) ); 
+    } else {
+        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHgagaRatio()) ;
     }
 }
 
@@ -1256,8 +1368,20 @@ muggHZga::muggHZga(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muggHZga::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZgaRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZgaRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2 = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHZgaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZgaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );     
     } else {
         return myNPbase->muggHZga(sqrt_s);
     }
@@ -1288,8 +1412,20 @@ muVBFHZga::muVBFHZga(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFHZga::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHZgaRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHZgaRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = myNPbase->delta_muVBF_1(sqrt_s);
+        double muProd2 = myNPbase->delta_muVBF_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHZgaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZgaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muVBFHZga(sqrt_s);
     }
@@ -1368,8 +1504,20 @@ muggHZZ::muggHZZ(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muggHZZ::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZZRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHZZRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2 = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHZZRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZZRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muggHZZ(sqrt_s);
     }
@@ -1384,8 +1532,20 @@ muVBFHZZ::muVBFHZZ(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFHZZ::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHZZRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHZZRatio()));
+        double muProd1  = myNPbase->delta_muVBF_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muVBF_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHZZRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZZRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muVBFHZZ(sqrt_s);
     }
@@ -1400,8 +1560,20 @@ muZHZZ::muZHZZ(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muZHZZ::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHZZRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHZZRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = myNPbase->delta_muZH_1(sqrt_s);
+        double muProd2 = myNPbase->delta_muZH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHZZRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZZRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );   
     } else {
         return myNPbase->muZHZZ(sqrt_s);
     }
@@ -1416,8 +1588,20 @@ muWHZZ::muWHZZ(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muWHZZ::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHZZRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHZZRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = myNPbase->delta_muWH_1(sqrt_s);
+        double muProd2 = myNPbase->delta_muWH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHZZRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZZRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muWHZZ(sqrt_s);
     }
@@ -1432,10 +1616,26 @@ muVHZZ::muVHZZ(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVHZZ::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHZZRatio()));
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_WH  = 1.21539;
+    double xsSM_ZH  = 0.795910;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHZZRatio()));    
+        double muProd1 = ( xsSM_ZH*(myNPbase->delta_muZH_1(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_1(sqrt_s)) )/(xsSM_ZH+xsSM_WH);     
+        double muProd2 = ( xsSM_ZH*(myNPbase->delta_muZH_2(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_2(sqrt_s)) )/(xsSM_ZH+xsSM_WH);     
+        double dGammaR1 = myNPbase->deltaGammaHZZRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZZRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
-        return myNPbase->muVHZZ(sqrt_s);
+        //return myNPbase->muVHZZ(sqrt_s);
+        return ( xsSM_ZH*(myNPbase->muZH(sqrt_s)) + xsSM_WH*(myNPbase->muWH(sqrt_s)) )/(xsSM_ZH+xsSM_WH) * (myNPbase->BrHZZRatio());
     }
 }
 
@@ -1464,34 +1664,25 @@ muttHptH_HZZ::muttHptH_HZZ(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_HZZ::computeThValue()                                           //AG:added
 {
-    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 
-                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
-                + (myNPbase->BrHZZRatio()-1.));
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_ttH = 0.499873;
+    double xsSM_tH = 0.0821;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( 1.0 + muProd1 + (myNPbase->BrHZZRatio()-1.) );
+        double muProd1 = ( xsSM_ttH*(myNPbase->delta_muttH_1(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_1(sqrt_s)) )/(xsSM_ttH+xsSM_tH);     
+        double muProd2 = ( xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ttH+xsSM_tH);     
+        double dGammaR1 = myNPbase->deltaGammaHZZRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZZRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );       
     } else {
         return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHZZRatio()) ;
-    }
-}
-
-muttHptH_Hgaga::muttHptH_Hgaga(const StandardModel& SM_i, const double sqrt_s_i)//AG:added
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("muttHptH_Hgaga called with a class whose parent is not NPbase");
-}
-
-double muttHptH_Hgaga::computeThValue()                                         //AG:added
-{
-    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 
-                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
-                + (myNPbase->BrHgagaRatio()-1.));
-    } else {
-        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHgagaRatio()) ;
     }
 }
 
@@ -1504,12 +1695,23 @@ muttHptH_Hmumu::muttHptH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muttHptH_Hmumu::computeThValue()                                         //AG:added
 {
-    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 
-                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
-                + (myNPbase->BrHmumuRatio()-1.));
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_ttH = 0.499873;
+    double xsSM_tH = 0.0821;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( 1.0 
+        //        + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
+        //        + (myNPbase->BrHmumuRatio()-1.));
+        double muProd1 = ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH);
+        double muProd2 = ( xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ttH+xsSM_tH);  
+        double dGammaR1 = myNPbase->deltaGammaHmumuRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHmumuRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) ); 
     } else {
         return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHmumuRatio()) ;
     }
@@ -1524,8 +1726,20 @@ muggHpbbH_HZZ::muggHpbbH_HZZ(const StandardModel& SM_i, const double sqrt_s_i)  
 
 double muggHpbbH_HZZ::computeThValue()                                          //AG:added
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHZZRatio()-1.));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHZZRatio()-1.));
+        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHZZRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZZRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return (myNPbase->muggHZZ(sqrt_s));
     }
@@ -1652,8 +1866,20 @@ muggHWW::muggHWW(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muggHWW::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHWWRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHWWRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2 = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHWWRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHWWRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muggHWW(sqrt_s);
     }
@@ -1668,8 +1894,20 @@ muVBFHWW::muVBFHWW(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFHWW::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHWWRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHWWRatio()));
+        double muProd1  = myNPbase->delta_muVBF_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muVBF_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHWWRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHWWRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muVBFHWW(sqrt_s);
     }
@@ -1684,8 +1922,20 @@ muZHWW::muZHWW(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muZHWW::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHWWRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHWWRatio()));
+        double muProd1  = myNPbase->delta_muZH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muZH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHWWRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHWWRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );        
     } else {
         return myNPbase->muZHWW(sqrt_s);
     }
@@ -1700,8 +1950,20 @@ muWHWW::muWHWW(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muWHWW::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHWWRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHWWRatio()));
+        double muProd1  = myNPbase->delta_muWH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muWH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHWWRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHWWRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );    
     } else {
         return myNPbase->muWHWW(sqrt_s);
     }
@@ -1748,12 +2010,22 @@ muttHptH_HWW::muttHptH_HWW(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_HWW::computeThValue()                                           //AG:added
 {
-    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 
-                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
-                + (myNPbase->BrHWWRatio()-1.));
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_ttH = 0.499873;
+    double xsSM_tH = 0.0821;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_ttH*(myNPbase->delta_muttH_1(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_1(sqrt_s)) )/(xsSM_ttH+xsSM_tH);  
+        double muProd2 = ( xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ttH+xsSM_tH);  
+        double dGammaR1 = myNPbase->deltaGammaHWWRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHWWRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );     
     } else {
         return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHWWRatio()) ;
     }
@@ -1768,8 +2040,20 @@ muggHpbbH_HWW::muggHpbbH_HWW(const StandardModel& SM_i, const double sqrt_s_i)  
 
 double muggHpbbH_HWW::computeThValue()                                          //AG:added
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHWWRatio()-1.));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHWWRatio()-1.));
+        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHWWRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHWWRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return (myNPbase->muggHWW(sqrt_s));
     }
@@ -1896,8 +2180,20 @@ muggHmumu::muggHmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muggHmumu::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHmumuRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHmumuRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2 = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHmumuRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHmumuRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muggHmumu(sqrt_s);
     }
@@ -1912,8 +2208,20 @@ muVBFHmumu::muVBFHmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFHmumu::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHmumuRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHmumuRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = myNPbase->delta_muVBF_1(sqrt_s);
+        double muProd2 = myNPbase->delta_muVBF_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHmumuRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHmumuRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );      
     } else {
         return myNPbase->muVBFHmumu(sqrt_s);
     }
@@ -1928,8 +2236,19 @@ muZHmumu::muZHmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muZHmumu::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHmumuRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = myNPbase->delta_muZH_1(sqrt_s);
+        double muProd2 = myNPbase->delta_muZH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHmumuRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHmumuRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muZHmumu(sqrt_s);
     }
@@ -1960,10 +2279,26 @@ muVHmumu::muVHmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVHmumu::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHmumuRatio()));
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_WH  = 1.21539;
+    double xsSM_ZH  = 0.795910;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHmumuRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_ZH*(myNPbase->delta_muZH_1(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_1(sqrt_s)) )/(xsSM_ZH+xsSM_WH);     
+        double muProd2 = ( xsSM_ZH*(myNPbase->delta_muZH_2(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_2(sqrt_s)) )/(xsSM_ZH+xsSM_WH);     
+        double dGammaR1 = myNPbase->deltaGammaHmumuRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHmumuRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
-        return myNPbase->muVHmumu(sqrt_s);
+        //return myNPbase->muVHmumu(sqrt_s);
+        return ( xsSM_ZH*(myNPbase->muZH(sqrt_s)) + xsSM_WH*(myNPbase->muWH(sqrt_s)) )/(xsSM_ZH+xsSM_WH) * (myNPbase->BrHZZRatio());
     }
 }
 
@@ -1992,13 +2327,23 @@ muggHpttHptHpbbH_Hmumu::muggHpttHptHpbbH_Hmumu(const StandardModel& SM_i, const 
 
 double muggHpttHptHpbbH_Hmumu::computeThValue()                                           //AG:added
 {
-    double xsSM_ggHbbH = 44.757;    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    double xsSM_ttH    = 0.4998;    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    double xsSM_tH     = 0.084769;  //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 
-                + (xsSM_ggHbbH*(myNPbase->muggH(sqrt_s)-1.)+xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.)+xsSM_tH*(myNPbase->mutH(sqrt_s)-1.)) / (xsSM_ggHbbH+xsSM_ttH+xsSM_tH) 
-                + (myNPbase->BrHmumuRatio()-1.) );
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_ggHbbH = 44.745;
+    double xsSM_ttH    = 0.4998;
+    double xsSM_tH     = 0.084769;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_1(sqrt_s)) + xsSM_ttH*(myNPbase->delta_muttH_1(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_1(sqrt_s)) )/(xsSM_ggHbbH+xsSM_ttH+xsSM_tH) ;
+        double muProd2 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_2(sqrt_s)) + xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ggHbbH+xsSM_ttH+xsSM_tH) ;
+        double dGammaR1 = myNPbase->deltaGammaHmumuRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHmumuRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return ( (xsSM_ggHbbH*(myNPbase->muggH(sqrt_s))+xsSM_ttH*(myNPbase->muttH(sqrt_s))+xsSM_tH*(myNPbase->mutH(sqrt_s))) / (xsSM_ggHbbH+xsSM_ttH+xsSM_tH)  )*(myNPbase->BrHmumuRatio()) ;
     }
@@ -2013,13 +2358,23 @@ muVBFpVH_Hmumu::muVBFpVH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFpVH_Hmumu::computeThValue()                                          //AG:added
 {
-    double xsSM_VBF = 3.4999;
-    double xsSM_WH  = 1.2157;
-    double xsSM_ZH  = 0.79599;
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 
-                + (xsSM_VBF*(myNPbase->muVBF(sqrt_s)-1.)+xsSM_WH*(myNPbase->muWH(sqrt_s)-1.)+xsSM_ZH*(myNPbase->muZH(sqrt_s)-1.)) / (xsSM_VBF+xsSM_WH+xsSM_ZH) 
-                + (myNPbase->BrHmumuRatio()-1.) );
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_VBF = 3.49948;
+    double xsSM_WH  = 1.21539;
+    double xsSM_ZH  = 0.795910;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_VBF*(myNPbase->delta_muVBF_1(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_1(sqrt_s)) + xsSM_ZH*(myNPbase->delta_muZH_1(sqrt_s)) )/(xsSM_VBF+xsSM_WH+xsSM_ZH);
+        double muProd2 = ( xsSM_VBF*(myNPbase->delta_muVBF_2(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_2(sqrt_s)) + xsSM_ZH*(myNPbase->delta_muZH_2(sqrt_s)) )/(xsSM_VBF+xsSM_WH+xsSM_ZH);
+        double dGammaR1 = myNPbase->deltaGammaHmumuRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHmumuRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return ( (xsSM_VBF*(myNPbase->muVBF(sqrt_s))+xsSM_WH*(myNPbase->muWH(sqrt_s))+xsSM_ZH*(myNPbase->muZH(sqrt_s))) / (xsSM_VBF+xsSM_WH+xsSM_ZH)  )*(myNPbase->BrHmumuRatio()) ;
     }
@@ -2034,8 +2389,20 @@ muggHtautau::muggHtautau(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muggHtautau::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHtautauRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHtautauRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );        
     } else {
         return myNPbase->muggHtautau(sqrt_s);
     }
@@ -2050,8 +2417,20 @@ muVBFHtautau::muVBFHtautau(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFHtautau::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+        double muProd1  = myNPbase->delta_muVBF_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muVBF_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHtautauRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHtautauRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );      
     } else {
         return myNPbase->muVBFHtautau(sqrt_s);
     }
@@ -2083,10 +2462,23 @@ muZHtautau::muZHtautau(const StandardModel& SM_i, const double sqrt_s_i)
         throw std::runtime_error("muZHtautau called with a class whose parent is not NPbase");
 }
 
-double muZHtautau::computeThValue()
+double muZHtautau::computeThValue()                                             //AG:modified
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muVBF(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+        double muProd1  = myNPbase->delta_muZH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muZH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHtautauRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHtautauRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );           
     } else {
         return myNPbase->muZHtautau(sqrt_s);
     }
@@ -2101,8 +2493,32 @@ muWHtautau::muWHtautau(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muWHtautau::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1  = myNPbase->delta_muWH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muWH_2(sqrt_s);    
+        double dGammaR1 = myNPbase->deltaGammaHtautauRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHtautauRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        
+        /*std::cout << "muProd1="<<muProd1<<std::endl;
+        std::cout << "muProd2="<<muProd2<<std::endl;
+        std::cout << "dGammaR1="<<dGammaR1<<std::endl;
+        std::cout << "dGammaR2="<<dGammaR2<<std::endl;
+        std::cout << "dGammaRTot1="<<dGammaRTot1<<std::endl;
+        std::cout << "dGammaRTot2="<<dGammaRTot2<<std::endl; 
+        
+        std::cout<<myNPbase->muWH(sqrt_s)<<std::endl;
+        std::cout<<myNPbase->muWH(sqrt_s)<<std::endl;*/
+        
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+        
     } else {
         return myNPbase->muWHtautau(sqrt_s);
     }
@@ -2117,10 +2533,26 @@ muVHtautau::muVHtautau(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVHtautau::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHtautauRatio()));
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_WH  = 1.21539;
+    double xsSM_ZH  = 0.795910;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHtautauRatio()));    
+        double muProd1 = ( xsSM_ZH*(myNPbase->delta_muZH_1(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_1(sqrt_s)) )/(xsSM_ZH+xsSM_WH);
+        double muProd2 = ( xsSM_ZH*(myNPbase->delta_muZH_2(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_2(sqrt_s)) )/(xsSM_ZH+xsSM_WH);     
+        double dGammaR1 = myNPbase->deltaGammaHtautauRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHtautauRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
-        return myNPbase->muVHtautau(sqrt_s);
+        //return myNPbase->muVHtautau(sqrt_s);
+        return ( xsSM_WH*(myNPbase->muZH(sqrt_s)) + xsSM_WH*(myNPbase->muWH(sqrt_s)) )/(xsSM_ZH+xsSM_WH) * (myNPbase->BrHtautauRatio());
     }
 }
 
@@ -2149,12 +2581,22 @@ muttHptH_Htautau::muttHptH_Htautau(const StandardModel& SM_i, const double sqrt_
 
 double muttHptH_Htautau::computeThValue()                                           //AG:added
 {
-    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 
-                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
-                + (myNPbase->BrHtautauRatio()-1.));
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_ttH = 0.499873;
+    double xsSM_tH  = 0.084769;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_ttH*(myNPbase->delta_muttH_1(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_1(sqrt_s)) )/(xsSM_ttH+xsSM_tH);  
+        double muProd2 = ( xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ttH+xsSM_tH);  
+        double dGammaR1 = myNPbase->deltaGammaHtautauRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHtautauRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );     
     } else {
         return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHtautauRatio()) ;
     }
@@ -2169,8 +2611,20 @@ muggHpbbH_Htautau::muggHpbbH_Htautau(const StandardModel& SM_i, const double sqr
 
 double muggHpbbH_Htautau::computeThValue()                                          //AG:added
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHtautauRatio()-1.));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHtautauRatio()-1.));
+        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHtautauRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHtautauRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return (myNPbase->muggHtautau(sqrt_s));
     }
@@ -2186,7 +2640,19 @@ muggHbb::muggHbb(const StandardModel& SM_i, const double sqrt_s_i)
 double muggHbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHbbRatio()));
+        //return ( -1.0 + (myNPbase->muggH(sqrt_s)) + (myNPbase->BrHbbRatio()));
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);    
+        double dGammaR1 = myNPbase->deltaGammaHbbRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHbbRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);     
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );
     } else {
         return myNPbase->muggHbb(sqrt_s);
     }
@@ -2217,8 +2683,20 @@ muZHbb::muZHbb(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muZHbb::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHbbRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muZH(sqrt_s)) + (myNPbase->BrHbbRatio()));
+        double muProd1  = myNPbase->delta_muZH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muZH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHbbRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHbbRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muZHbb(sqrt_s);
     }
@@ -2233,8 +2711,20 @@ muWHbb::muWHbb(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muWHbb::computeThValue()
 {
-    if ((this->getModel()).isModelLinearized()) {
-        return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHbbRatio()));
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        //return ( -1.0 + (myNPbase->muWH(sqrt_s)) + (myNPbase->BrHbbRatio()));
+        double muProd1  = myNPbase->delta_muWH_1(sqrt_s);
+        double muProd2  = myNPbase->delta_muWH_2(sqrt_s);
+        double dGammaR1 = myNPbase->deltaGammaHbbRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHbbRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         return myNPbase->muWHbb(sqrt_s);
     }
@@ -2281,12 +2771,22 @@ muttHptH_Hbb::muttHptH_Hbb(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_Hbb::computeThValue()                                           //AG:added
 {
-    double xsSM_ttH = 0.4998;      //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    double xsSM_tH = 0.084769;     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 
-                + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
-                + (myNPbase->BrHbbRatio()-1.));
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_ttH = 0.499873;
+    double xsSM_tH  = 0.0821;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_ttH*(myNPbase->delta_muttH_1(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_1(sqrt_s)) )/(xsSM_ttH+xsSM_tH);
+        double muProd2 = ( xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ttH+xsSM_tH);
+        double dGammaR1 = myNPbase->deltaGammaHbbRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHbbRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );   
     } else {
         return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHbbRatio()) ;
     }
@@ -2301,14 +2801,24 @@ muggHpVBFpbbH_Hbb::muggHpVBFpbbH_Hbb(const StandardModel& SM_i, const double sqr
 
 double muggHpVBFpbbH_Hbb::computeThValue()                                      //AG:added
 {
-    double xsSM_ggHbbH = 44.757;   //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    double xsSM_VBF    = 3.4999;   //Ref: https://www.hepdata.net/record/ins2104706 Figure2a
-    if ((this->getModel()).isModelLinearized()) {
-        return ( 1.0 
-                + ( xsSM_ggHbbH*(myNPbase->muggH(sqrt_s)-1.) + xsSM_VBF*(myNPbase->muVBF(sqrt_s)-1.) )/(xsSM_ggHbbH+xsSM_VBF)
-                + (myNPbase->BrHbbRatio()-1.));
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_ggHbbH = 44.745;
+    double xsSM_VBF    = 3.49948;
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_1(sqrt_s)) + xsSM_VBF*(myNPbase->delta_muVBF_1(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF);  
+        double muProd2 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_2(sqrt_s)) + xsSM_VBF*(myNPbase->delta_muVBF_2(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF);  
+        double dGammaR1 = myNPbase->deltaGammaHbbRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHbbRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );   
     } else {
-        return ( xsSM_ggHbbH*(myNPbase->muttH(sqrt_s)) + xsSM_VBF*(myNPbase->mutH(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF) * (myNPbase->BrHbbRatio()) ;
+        return ( xsSM_ggHbbH*(myNPbase->muggH(sqrt_s)) + xsSM_VBF*(myNPbase->muVBF(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF) * (myNPbase->BrHbbRatio()) ;
     }
 }
 
