@@ -188,6 +188,11 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         CMS13_pp_h_phi3phi3_tautautautau(12, 2, 0.), //Added in 2024
         //
+        CMS13_pp_phi2_gaga(81, 2, 0.), //Added in 2024
+        //
+        CMS13_pp_bbphi3_bbtautau(10, 2, 0.), //Added in 2024
+        //
+
         ATLAS13_pp_h_phi3phi3_bbmumu(47, 2, 0.), //Added in 2024
         //
         ATLAS13_gg_h_phi23phi23_mumumumu(110, 2, 0.), //Added in 2024
@@ -202,6 +207,28 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         ATLAS13_pp_h_phi23phi23_gagagg(13, 2, 0.), //Added in 2024
         //
+        ATLAS13_pp_phi2_gaga_low(89, 2, 0.), //Added in 2024
+        //
+        ATLAS13_pp_ttphi3_ttmumu(37, 2, 0.), //Added in 2024
+        //
+
+        ATLAS8_pp_h_phi3phi3_gagagaga(105, 2, 0.), //Added in 2024
+        //
+        ATLAS8_gg_h_phi3phi3_tautautautau(101, 2, 0.), //Added in 2024
+        //
+        CMS8_pp_h_phi3phi3_tautautautau(6, 2, 0.), //Added in 2024
+        //
+        CMS8_pp_h_phi3phi3_bbmumu(76, 2, 0.), //Added in 2024
+        //
+        CMS8_pp_h_phi3phi3_mumutautau(96, 2, 0.), //Added in 2024
+        //
+        CMS8_pp_phi2_gaga(257, 2, 0.), //Added in 2024
+        //
+        CMS8_pp_bbphi3_bbtautau(12, 2, 0.), //Added in 2024
+        //
+        CMS8_pp_bbphi3_bbmumu(36, 2, 0.), //Added in 2024
+        //
+
         arraybsgamma(1111, 3, 0.),
         Rij_GTHDM(3, 3, 0.),
         //The below matrices are not used anywhere, the first ones are the mass matrices and the second ones not sure
@@ -1812,8 +1839,10 @@ void GeneralTHDMcache::read(){
             ex45,ex46n1,ex46n2,ex46a,ex47,ex48,ex49,ex49p2,ex50,ex51,ex52m2,ex52m1,ex52,ex52p1,ex52p2,ex53,ex54,ex55,ex56;
     std::stringstream ex57,ex58,ex59,ex60,ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex67p1,ex67p2,ex67p3,ex67p4,ex67p5,ex68,ex69,ex70,ex71,ex72,ex73,ex74,ex75,ex76,ex77,\
             ex78,ex79;//,ex80,ex81,ex82,ex83,ex84,ex85,ex86,ex87,ex88,ex89,ex90,ex91,ex92,ex93,ex94,ex95,ex96,ex97,ex98
-    std::stringstream low01,lowC02,lowC03,lowC04,lowC05,lowC06,lowC07;
-    std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07;
+    std::stringstream lowC01,lowC02,lowC03,lowC04,lowC05,lowC06,lowC07,lowC08, lowC09;
+    std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07, lowA08, lowA09;
+    std::stringstream lowA801, lowA802;
+    std::stringstream lowC801, lowC802, lowC803, lowC804, lowC805, lowC806;
     std::stringstream bsg1;
 
        std::cout<<"reading tables"<<std::endl;
@@ -2215,8 +2244,8 @@ void GeneralTHDMcache::read(){
     ex79 << tablepath << "190304560.dat";               //Updated in mid 2022
     CMS13_pp_Hpm_taunu = readTable(ex79.str(),585,2);   //Updated in mid 2022
 
-    low01 << tablepath << "CMS-HIG-17-029_4e.dat";               //Added in late 2023
-    CMS13_pp_h_phi3phi3_mumutautau = readTable(low01.str(),48,2);
+    lowC01 << tablepath << "CMS-HIG-17-029_4e.dat";               //Added in late 2023
+    CMS13_pp_h_phi3phi3_mumutautau = readTable(lowC01.str(),48,2);
 
     lowC02 << tablepath << "CMS-HIG-17-024_7d.dat";               //Added in 2024
     CMS13_pp_h_phi3phi3_bbtautau = readTable(lowC02.str(),10,2);
@@ -2235,6 +2264,12 @@ void GeneralTHDMcache::read(){
 
     lowC07 << tablepath << "CMS-HIG-18-006_10.dat";               //Added in 2024
     CMS13_pp_h_phi3phi3_tautautautau = readTable(lowC07.str(),12,2);
+
+    lowC08 << tablepath << "CMS-PAS-HIG-20-002_5b.dat";               //Added in 2024
+    CMS13_pp_phi2_gaga = readTable(lowC08.str(),81,2);
+
+    lowC09 << tablepath << "CMS-HIG-17-014_4.dat";               //Added in 2024
+    CMS13_pp_bbphi3_bbtautau = readTable(lowC09.str(),10,2);
 
     lowA01 << tablepath << "ATLAS_CERN-EP-2021-157_9.dat";               //Added in 2024
     ATLAS13_pp_h_phi3phi3_bbmumu = readTable(lowA01.str(),47,2);
@@ -2256,6 +2291,36 @@ void GeneralTHDMcache::read(){
 
     lowA07 << tablepath << "ATLAS_CERN-EP-2017-295_2.dat";               //Added in 2024
     ATLAS13_pp_h_phi23phi23_gagagg = readTable(lowA07.str(),13,2);
+
+    lowA08 << tablepath << "ATLAS-CONF-2023-035_7b.dat";               //Added in 2024
+    ATLAS13_pp_phi2_gaga_low = readTable(lowA08.str(),89,2);
+
+    lowA09 << tablepath << "ATLAS_CERN-EP-2023-070_5a.dat";               //Added in 2024
+    ATLAS13_pp_ttphi3_ttmumu = readTable(lowA09.str(),37,2);
+
+    lowA801 << tablepath << "ATLAS_CERN-PH-EP-2015-187_4b.dat";               //Added in 2024
+    ATLAS8_pp_h_phi3phi3_gagagaga = readTable(lowA801.str(),105,2);
+
+    lowA802 << tablepath << "ATLAS_CERN-PH-EP-2015-057_6a.dat";               //Added in 2024
+    ATLAS8_gg_h_phi3phi3_tautautautau = readTable(lowA802.str(),101,2);
+
+    lowC801 << tablepath << "CMS-HIG-16-015_4.dat";               //Added in 2024
+    CMS8_pp_h_phi3phi3_tautautautau = readTable(lowC801.str(),6,2);
+
+    lowC802 << tablepath << "CMS-HIG-16-015_5.dat";               //Added in 2024
+    CMS8_pp_h_phi3phi3_bbmumu = readTable(lowC802.str(),76,2);
+
+    lowC803 << tablepath << "CMS-HIG-16-015_6.dat";               //Added in 2024
+    CMS8_pp_h_phi3phi3_mumutautau = readTable(lowC803.str(),96,2);
+
+    lowC804 << tablepath << "CMS-HIG-17-013_4a.dat";               //Added in 2024
+    CMS8_pp_phi2_gaga = readTable(lowC804.str(),257,2);
+
+    lowC805 << tablepath << "CMS-HIG-14-033_3.dat";               //Added in 2024
+    CMS8_pp_bbphi3_bbtautau = readTable(lowC805.str(),12,2);
+
+    lowC806 << tablepath << "CMS-HIG-15-009_5b.dat";               //Added in 2024
+    CMS8_pp_bbphi3_bbmumu = readTable(lowC806.str(),36,2);
 
     //std::cout<< CMS13_pp_Hpm_taunu<<std::endl;
 
@@ -4749,6 +4814,162 @@ double GeneralTHDMcache::ip_low_pp_h_phi23phi23_gagagg_ATLAS13(double mass){
     }
 }
 
+double GeneralTHDMcache::ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_h_phi3phi3_gagagaga_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_h_phi3phi3_gagagaga_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS8_pp_h_phi3phi3_gagagaga,mass);
+        CacheShiftReal(ip_low_pp_h_phi3phi3_gagagaga_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_gg_h_phi3phi3_tautautautau_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_gg_h_phi3phi3_tautautautau_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_gg_h_phi3phi3_tautautautau_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolateNU (ATLAS8_gg_h_phi3phi3_tautautautau,mass);
+        CacheShiftReal(ip_low_gg_h_phi3phi3_tautautautau_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_h_phi3phi3_tautautautau_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_h_phi3phi3_tautautautau_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_h_phi3phi3_tautautautau_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_h_phi3phi3_tautautautau,mass);
+        CacheShiftReal(ip_low_pp_h_phi3phi3_tautautautau_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_h_phi3phi3_bbmumu_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_h_phi3phi3_bbmumu_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_h_phi3phi3_bbmumu_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_h_phi3phi3_bbmumu,mass);
+        CacheShiftReal(ip_low_pp_h_phi3phi3_bbmumu_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_h_phi3phi3_mumutautau_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_h_phi3phi3_mumutautau_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_h_phi3phi3_mumutautau_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_h_phi3phi3_mumutautau,mass);
+        CacheShiftReal(ip_low_pp_h_phi3phi3_mumutautau_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_phi2_gaga_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_phi2_gaga_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_phi2_gaga_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_phi2_gaga,mass);
+        CacheShiftReal(ip_low_pp_phi2_gaga_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_phi2_gaga_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_phi2_gaga_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_phi2_gaga_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_phi2_gaga,mass);
+        CacheShiftReal(ip_low_pp_phi2_gaga_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_phi2_gaga_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_phi2_gaga_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_phi2_gaga_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_phi2_gaga_low,mass);
+        CacheShiftReal(ip_low_pp_phi2_gaga_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_bbphi3_bbtautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_bbphi3_bbtautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_bbphi3_bbtautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_bbphi3_bbtautau,mass);
+        CacheShiftReal(ip_low_pp_bbphi3_bbtautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_bbphi3_bbtautau_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_bbphi3_bbtautau_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_bbphi3_bbtautau_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_bbphi3_bbtautau,mass);
+        CacheShiftReal(ip_low_pp_bbphi3_bbtautau_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_ttphi3_ttmumu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_ttphi3_ttmumu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_ttphi3_ttmumu,mass);
+        CacheShiftReal(ip_low_pp_ttphi3_ttmumu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_bbphi3_bbmumu_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_pp_bbphi3_bbmumu_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_bbphi3_bbmumu_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS8_pp_bbphi3_bbmumu,mass);
+        CacheShiftReal(ip_low_pp_bbphi3_bbmumu_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 //This seems not to be used by the code. Check if this was only something included of the THDM
 double GeneralTHDMcache::ip_ex_bsgamma(double logtb, double logmHp){
     int NumPar = 2;
@@ -5355,6 +5576,8 @@ void GeneralTHDMcache::computeSignalStrengths()
     SigmaVh8 = myGTHDM->computeSigmaWH(8.0)+myGTHDM->computeSigmaZH(8.0);
     //The VBF cross section in the SM at 8 TeV.
     SigmaVBF8 = myGTHDM->computeSigmaVBF(8.0);
+    //The bbH production cross section in the SM at 8 TeV
+    double Sigmabbh8 = ip_cs_pptobbH_8(mHl);
 
     //The ggH cross section in the SM at 13 TeV.
     SigmaggF13 = myGTHDM->computeSigmaggH(13.0);
@@ -5514,6 +5737,11 @@ void GeneralTHDMcache::computeSignalStrengths()
 
     /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF and tth production at 8 TeV*/
     ggF_tth8 = (SigmaggF8*rh_gg + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF8 + Sigmatth8);
+    /*SM cross-section of higgs production at 8 TeV at LHC*/
+    SigSM_pph8 = (SigmaggF8 + SigmaVBF8 + SigmaVh8 + Sigmatth8 + Sigmabbh8);
+    /* pph8 is the ratio of the THDM and SM cross sections for h production at 8 TeV */
+    pph8 = (SigmaggF8*rh_gg+ (SigmaVBF8 + SigmaVh8)*rh_VV + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))) + Sigmabbh8*(rh_QdQdE + rh_QdQdE/(beta(Mb, m1_2)*beta(Mb, m1_2))))/SigSM_pph8;
+
     /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF and tth production at 13 TeV */
     ggF_tth13 = (SigmaggF13*rh_gg + Sigmatth8*(rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))))/(SigmaggF13 + Sigmatth13);
     /*SM cross-section of higgs production at 13 TeV at LHC*/
@@ -8916,6 +9144,69 @@ void GeneralTHDMcache::computeLowMass()
         THoEX_pp_h_phi3phi3_gagagg_ATLAS13 = (pph13 * GTHDM_BR_h_AA * Br_phi3togaga * Br_phi3togg) / ip_low_pp_h_phi23phi23_gagagg_ATLAS13(mH3);
     }
 
+    THoEX_pp_h_phi3phi3_gagagaga_ATLAS8 = 0.0;
+
+    if(mH3 >= 10.0 && mH3 <= 62.0)
+    {
+        THoEX_pp_h_phi3phi3_gagagaga_ATLAS8 = (pph8 * GTHDM_BR_h_AA * Br_phi3togaga * Br_phi3togaga) / ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(mH3);
+    }
+
+    THoEX_gg_h_phi3phi3_tautautautau_ATLAS8 = 0.0;
+
+    if(mH3 >= 3.7 && mH3 <= 50.0)
+    {
+        THoEX_gg_h_phi3phi3_tautautautau_ATLAS8 = (rh_gg * GTHDM_BR_h_AA * Br_phi3totautau * Br_phi3totautau) / ip_low_gg_h_phi3phi3_tautautautau_ATLAS8(mH3);
+    }
+
+    THoEX_pp_h_phi3phi3_tautautautau_CMS8 = 0.0;
+
+    if(mH3 >= 5.0 && mH3 <= 15.0)
+    {
+        THoEX_pp_h_phi3phi3_tautautautau_CMS8 = (pph8 * GTHDM_BR_h_AA * Br_phi3totautau * Br_phi3totautau) / ip_low_pp_h_phi3phi3_tautautautau_CMS8(mH3);
+    }
+
+    THoEX_pp_h_phi3phi3_bbmumu_CMS8 = 0.0;
+
+    if(mH3 >= 25.0 && mH3 <= 62.5)
+    {
+        THoEX_pp_h_phi3phi3_bbmumu_CMS8 = (pph8 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_CMS8(mH3);
+    }
+
+    THoEX_pp_h_phi3phi3_mumutautau_CMS8 = 0.0;
+
+    if(mH3 >= 15.0 && mH3 <= 62.5)
+    {
+        THoEX_pp_h_phi3phi3_mumutautau_CMS8 = (pph8 * GTHDM_BR_h_AA * Br_phi3totautau * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_mumutautau_CMS8(mH3);
+    }
+
+    THoEX_pp_bbphi3_bbtautau_CMS13 = 0.0;
+
+    if(mH3 >= 25.0 && mH3 <= 70.0)
+    {
+        THoEX_pp_bbphi3_bbtautau_CMS13 = (SigmabbF_phi3_13 * Br_phi3totautau) / ip_low_pp_bbphi3_bbtautau_CMS13(mH3);
+    }
+
+    THoEX_pp_bbphi3_bbtautau_CMS8 = 0.0;
+
+    if(mH3 >= 25.0 && mH3 <= 80.0)
+    {
+        THoEX_pp_bbphi3_bbtautau_CMS8 = (SigmabbF_phi3_8 * Br_phi3totautau) / ip_low_pp_bbphi3_bbtautau_CMS8(mH3);
+    }
+
+    THoEX_pp_ttphi3_ttmumu_ATLAS13 = 0.0;
+
+    if(mH3 >= 15.1 && mH3 <= 73.3)
+    {
+        THoEX_pp_ttphi3_ttmumu_ATLAS13 = (SigmattF_phi3_13 * Br_phi3tomumu) / ip_low_pp_ttphi3_ttmumu_ATLAS13(mH3);
+    }
+
+    THoEX_pp_bbphi3_bbmumu_CMS8 = 0.0;
+
+    if(mH3 >= 25.0 && mH3 <= 60.0)
+    {
+        THoEX_pp_bbphi3_bbmumu_CMS8 = (SigmabbF_phi3_8 * Br_phi3tomumu) / ip_low_pp_bbphi3_bbmumu_CMS8(mH3);
+    }
+
     /*********************************/
     /* Observables with phi_2, i.e H */
     /*********************************/
@@ -8975,8 +9266,29 @@ void GeneralTHDMcache::computeLowMass()
     {
         THoEX_pp_h_phi2phi2_gagagg_ATLAS13 = (pph13 * GTHDM_BR_h_HH * Br_phi2togaga * Br_phi2togg) / ip_low_pp_h_phi23phi23_gagagg_ATLAS13(mH2);
     }
-}
 
+    THoEX_pp_phi2_gaga_CMS8 = 0.0;
+
+    if(mH2 >= 80.0 && mH2 <= 110.0)
+    {
+        THoEX_pp_phi2_gaga_CMS8 = (SigmaSumphi2_8 * Br_phi2togaga) / ip_low_pp_phi2_gaga_CMS8(mH2);
+    }
+
+    THoEX_pp_phi2_gaga_CMS13 = 0.0;
+
+    if(mH2 >= 70.0 && mH2 <= 110.0)
+    {
+        THoEX_pp_phi2_gaga_CMS13 = (SigmaSumphi2_13 * Br_phi2togaga) / ip_low_pp_phi2_gaga_CMS13(mH2);
+    }
+
+    THoEX_pp_phi2_gaga_ATLAS13_low = 0.0;
+
+    if(mH2 >= 66.0 && mH2 <= 110.0)
+    {
+        THoEX_pp_phi2_gaga_ATLAS13_low = (SigmaSumphi2_13 * Br_phi2togaga) / ip_low_pp_phi2_gaga_ATLAS13(mH2);
+    }
+
+}
 
 void GeneralTHDMcache::runGeneralTHDMparameters()
 {

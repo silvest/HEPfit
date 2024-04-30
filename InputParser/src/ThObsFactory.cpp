@@ -3978,6 +3978,7 @@ ThObsFactory::ThObsFactory()
     
     
     //Now that the map is defined these lines should be useless. Remove them and check that is fine
+    /*
     obsThFactory["C_phit"] = boost::factory<C_phit*>();
     obsThFactory["C_phiQ3"] = boost::factory<C_phiQ3*>();
     obsThFactory["C_phiQ1"] = boost::factory<C_phiQ1*>();
@@ -4010,6 +4011,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["C_Qq38"] = boost::factory<C_Qq38*>();
     obsThFactory["C_Qu8"] = boost::factory<C_Qu8*>();
     obsThFactory["C_Qd8"] = boost::factory<C_Qd8*>();
+    */
    ///////////////////////////////////////////////////////////////////////////////////
     
     
@@ -4039,6 +4041,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["SigmattbarTev"] = boost::factory<sigmattbarTev*>();        
             
             
+    
+    
+    obsThFactory["sigma_Z_pole_bb"] = boost::factory<sigma_Z_pole_bb*>();
+    obsThFactory["a_Z_pole_bb"] = boost::factory<a_Z_pole_bb*>();
+    obsThFactory["sigma_240_bb"] = boost::factory<sigma_240_bb*>();
+    obsThFactory["a_240_bb"] = boost::factory<a_240_bb*>();
+    obsThFactory["sigma_360_bb"] = boost::factory<sigma_360_bb*>();
+    obsThFactory["a_360_bb"] = boost::factory<a_360_bb*>();
+    
+    
+    
+    
     obsThFactory["sigma_250_bb_eLpR"] = boost::factory<sigma_250_bb_eLpR*>();
     obsThFactory["a_250_bb_eLpR"] = boost::factory<a_250_bb_eLpR*>();
     obsThFactory["sigma_250_bb_eRpL"] = boost::factory<sigma_250_bb_eRpL*>();
@@ -4082,6 +4096,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["sigma_ttll_diff_LO"] = boost::factory<sigma_ttll_diff_LO*>();
     
     
+    //Muon Collider
+    
+    obsThFactory["sigma_mumu_VBF_3TeV_tt"] = boost::factory<sigma_mumu_VBF_3TeV_tt*>();
+    obsThFactory["sigma_mumu_VBF_10TeV_tt"] = boost::factory<sigma_mumu_VBF_10TeV_tt*>();
+    obsThFactory["sigma_mumu_VBF_30TeV_tt"] = boost::factory<sigma_mumu_VBF_30TeV_tt*>();
+    
+    
+    
+    
     //OPTIMIZED OBSERVABLES
     //I don't really like this implementation, these constraints should be included in the prior,
     //as we do now (from 2022). Remove this also in the code and check everything is fine
@@ -4108,6 +4131,8 @@ ThObsFactory::ThObsFactory()
 
 
    
+   
+   
    //----- TopQuarkObservables begin -----
    
    
@@ -4117,6 +4142,7 @@ ThObsFactory::ThObsFactory()
    
    obsThFactory["sigma_tt_diff_LO"] = boost::factory<sigma_tt_diff_LO*>();
    
+   obsThFactory["sigma_ttz_diff_LO_CMS_190711270"] = boost::factory<sigma_ttz_diff_LO_CMS_190711270*>();
    obsThFactory["sigma_ttz_diff_LO_ATLAS_210312603"] = boost::factory<sigma_ttz_diff_LO_ATLAS_210312603*>();
    
    
@@ -5816,6 +5842,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_pp_h_phi3phi3_mumumumu_CMS13"] = boost::factory<Hobs_pp_h_phi3phi3_mumumumu_CMS13*>();
     obsThFactory["Hobs_pp_h_phi3phi3_gagagaga_CMS13"] = boost::factory<Hobs_pp_h_phi3phi3_gagagaga_CMS13*>();
     obsThFactory["Hobs_pp_h_phi3phi3_tautautautau_CMS13"] = boost::factory<Hobs_pp_h_phi3phi3_tautautautau_CMS13*>();
+    obsThFactory["Hobs_pp_bbphi3_bbtautau_CMS13"] = boost::factory<Hobs_pp_bbphi3_bbtautau_CMS13*>();
 
     obsThFactory["Hobs_pp_h_phi3phi3_bbmumu_ATLAS13"] = boost::factory<Hobs_pp_h_phi3phi3_bbmumu_ATLAS13*>();
     obsThFactory["Hobs_gg_h_phi3phi3_mumumumu_ATLAS13"] = boost::factory<Hobs_gg_h_phi3phi3_mumumumu_ATLAS13*>();
@@ -5824,6 +5851,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_Zh_h_phi3phi3_bbbb_ATLAS13"] = boost::factory<Hobs_Zh_h_phi3phi3_bbbb_ATLAS13*>();
     obsThFactory["Hobs_pp_h_phi3phi3_bbmumu_ATLAS13_old"] = boost::factory<Hobs_pp_h_phi3phi3_bbmumu_ATLAS13_old*>();
     obsThFactory["Hobs_pp_h_phi3phi3_gagagg_ATLAS13"] = boost::factory<Hobs_pp_h_phi3phi3_gagagg_ATLAS13*>();
+    obsThFactory["Hobs_pp_ttphi3_ttmumu_ATLAS13"] = boost::factory<Hobs_pp_ttphi3_ttmumu_ATLAS13*>();
 
     obsThFactory["Hobs_pp_h_phi2Z_mumull_CMS13"] = boost::factory<Hobs_pp_h_phi2Z_mumull_CMS13*>();
     obsThFactory["Hobs_pp_h_phi2phi2_mumumumu_CMS13"] = boost::factory<Hobs_pp_h_phi2phi2_mumumumu_CMS13*>();
@@ -5834,6 +5862,17 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_Zh_h_phi2phi2_bbbb_ATLAS13"] = boost::factory<Hobs_Zh_h_phi2phi2_bbbb_ATLAS13*>();
     obsThFactory["Hobs_pp_h_phi2phi2_bbmumu_ATLAS13_old"] = boost::factory<Hobs_pp_h_phi2phi2_bbmumu_ATLAS13_old*>();
     obsThFactory["Hobs_pp_h_phi2phi2_gagagg_ATLAS13"] = boost::factory<Hobs_pp_h_phi2phi2_gagagg_ATLAS13*>();
+
+    obsThFactory["Hobs_pp_h_phi3phi3_gagagaga_ATLAS8"] = boost::factory<Hobs_pp_h_phi3phi3_gagagaga_ATLAS8*>();
+    obsThFactory["Hobs_gg_h_phi3phi3_tautautautau_ATLAS8"] = boost::factory<Hobs_gg_h_phi3phi3_tautautautau_ATLAS8*>();
+    obsThFactory["Hobs_pp_h_phi3phi3_tautautautau_CMS8"] = boost::factory<Hobs_pp_h_phi3phi3_tautautautau_CMS8*>();
+    obsThFactory["Hobs_pp_h_phi3phi3_bbmumu_CMS8"] = boost::factory<Hobs_pp_h_phi3phi3_bbmumu_CMS8*>();
+    obsThFactory["Hobs_pp_h_phi3phi3_mumutautau_CMS8"] = boost::factory<Hobs_pp_h_phi3phi3_mumutautau_CMS8*>();
+    obsThFactory["Hobs_pp_phi2_gaga_CMS8"] = boost::factory<Hobs_pp_phi2_gaga_CMS8*>();
+    obsThFactory["Hobs_pp_phi2_gaga_CMS13"] = boost::factory<Hobs_pp_phi2_gaga_CMS13*>();
+    obsThFactory["Hobs_pp_phi2_gaga_ATLAS13_low"] = boost::factory<Hobs_pp_phi2_gaga_ATLAS13_low*>();
+    obsThFactory["Hobs_pp_bbphi3_bbtautau_CMS8"] = boost::factory<Hobs_pp_bbphi3_bbtautau_CMS8*>();
+    obsThFactory["Hobs_pp_bbphi3_bbmumu_CMS8"] = boost::factory<Hobs_pp_bbphi3_bbmumu_CMS8*>();
 
     obsThFactory["log10_tt_phi2_tt_TH13"] = boost::factory<log10_tt_phi2_tt_TH13*>();
     obsThFactory["log10_tt_phi3_tt_TH13"] = boost::factory<log10_tt_phi3_tt_TH13*>();

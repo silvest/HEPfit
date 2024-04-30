@@ -1616,6 +1616,162 @@ public:
     {
         return 1.0;
     }
+        
+    //AG:begin,begin
+    virtual double delta_muggH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muggH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muVBF_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muVBF_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muWH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muWH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muZH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muZH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muVH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muVH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_muttH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_muttH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    
+    virtual double delta_mutH_1(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    virtual double delta_mutH_2(const double sqrt_s) const 
+    { 
+        return 0.0 ;
+    }
+    ///////////////////////////////////////////////////////
+    virtual double  deltaGammaHggRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHggRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHWWRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHWWRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHZZRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHZZRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHgagaRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHgagaRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHZgaRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHZgaRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHbbRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHbbRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHmumuRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHmumuRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHtautauRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHtautauRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaHccRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaHccRatio2() const 
+    {
+        return 0.0;
+    }
+    
+    virtual double  deltaGammaTotalRatio1() const 
+    {
+        return 0.0;
+    }
+    virtual double  deltaGammaTotalRatio2() const 
+    {
+        return 0.0;
+    }
+
+    //AG:end
     
     ///////////////////////HIGGS DECAY WIDTHS/////////////////////////
 
@@ -4255,16 +4411,19 @@ public:
     //LEP2 Observables
     
     
+//  Absolute corrections to the differential cross section        
+    virtual double delta_Dsigma_f(const Particle f, const double s, const double cos) const;
+    
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
 //  Valid for f=/=e
-    double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
-    double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
+    virtual double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
+    virtual double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
     
 //  Total cross sections  (full acceptance)
-    double delta_sigmaTot_f(const Particle f, const double s) const;
+    virtual double delta_sigmaTot_f(const Particle f, const double s) const;
     
 //  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
-    double delta_AFB_f(const Particle f, const double s) const;
+    virtual double delta_AFB_f(const Particle f, const double s) const;
       
 //   Extension of SM observable definitions
     virtual double LEP2sigmaMu(const double s) const;
@@ -4280,6 +4439,10 @@ public:
     virtual double LEP2Rcharm(const double s) const;
     virtual double LEP2Rbottom(const double s) const;
     
+    //LEP2 Differential Observables
+    virtual double LEP2dsigmadcosE(const double s, const double cos) const;
+    virtual double LEP2dsigmadcosMu(const double s, const double cos) const;
+    virtual double LEP2dsigmadcosTau(const double s, const double cos) const;
     
     ////////////////////////////////////////////////////////////////////////     
     // EW low-energy observables: Muon g-2

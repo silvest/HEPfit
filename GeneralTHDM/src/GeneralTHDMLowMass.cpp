@@ -76,6 +76,59 @@ double Hobs_pp_h_phi3phi3_tautautautau_CMS13::computeThValue()
     return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi3phi3_tautautautau_CMS13;
 }
 
+Hobs_pp_bbphi3_bbtautau_CMS13::Hobs_pp_bbphi3_bbtautau_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_bbphi3_bbtautau_CMS13::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_bbphi3_bbtautau_CMS13;
+}
+
+Hobs_pp_h_phi3phi3_tautautautau_CMS8::Hobs_pp_h_phi3phi3_tautautautau_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_h_phi3phi3_tautautautau_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi3phi3_tautautautau_CMS8;
+}
+
+Hobs_pp_h_phi3phi3_bbmumu_CMS8::Hobs_pp_h_phi3phi3_bbmumu_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_h_phi3phi3_bbmumu_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi3phi3_bbmumu_CMS8;
+}
+
+Hobs_pp_h_phi3phi3_mumutautau_CMS8::Hobs_pp_h_phi3phi3_mumutautau_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_h_phi3phi3_mumutautau_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi3phi3_mumutautau_CMS8;
+}
+
+Hobs_pp_bbphi3_bbtautau_CMS8::Hobs_pp_bbphi3_bbtautau_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_bbphi3_bbtautau_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_bbphi3_bbtautau_CMS8;
+}
+
+Hobs_pp_bbphi3_bbmumu_CMS8::Hobs_pp_bbphi3_bbmumu_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_bbphi3_bbmumu_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_bbphi3_bbmumu_CMS8;
+}
 
 /***************************************/
 /* ATLAS Observables with phi_3, i.e A */
@@ -144,6 +197,34 @@ double Hobs_pp_h_phi3phi3_gagagg_ATLAS13::computeThValue()
     return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi3phi3_gagagg_ATLAS13;
 }
 
+Hobs_pp_ttphi3_ttmumu_ATLAS13::Hobs_pp_ttphi3_ttmumu_ATLAS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_ttphi3_ttmumu_ATLAS13::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_ttphi3_ttmumu_ATLAS13;
+}
+
+Hobs_pp_h_phi3phi3_gagagaga_ATLAS8::Hobs_pp_h_phi3phi3_gagagaga_ATLAS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_h_phi3phi3_gagagaga_ATLAS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi3phi3_gagagaga_ATLAS8;
+}
+
+Hobs_gg_h_phi3phi3_tautautautau_ATLAS8::Hobs_gg_h_phi3phi3_tautautautau_ATLAS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_gg_h_phi3phi3_tautautautau_ATLAS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_gg_h_phi3phi3_tautautautau_ATLAS8;
+}
+
+
 /*************************************/
 /* CMS Observables with phi_2, i.e H */
 /*************************************/
@@ -166,8 +247,26 @@ double Hobs_pp_h_phi2phi2_mumumumu_CMS13::computeThValue()
     return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi2phi2_mumumumu_CMS13;
 }
 
+Hobs_pp_phi2_gaga_CMS13::Hobs_pp_phi2_gaga_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_phi2_gaga_CMS13::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_phi2_gaga_CMS13;
+}
+
+Hobs_pp_phi2_gaga_CMS8::Hobs_pp_phi2_gaga_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_phi2_gaga_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_phi2_gaga_CMS8;
+}
+
 /***************************************/
-/* ATLAS Observables with phi_3, i.e A */
+/* ATLAS Observables with phi_2, i.e H */
 /***************************************/
 
 Hobs_gg_h_phi2phi2_mumumumu_ATLAS13::Hobs_gg_h_phi2phi2_mumumumu_ATLAS13(const StandardModel& SM_i)
@@ -222,4 +321,13 @@ Hobs_pp_h_phi2phi2_gagagg_ATLAS13::Hobs_pp_h_phi2phi2_gagagg_ATLAS13(const Stand
 double Hobs_pp_h_phi2phi2_gagagg_ATLAS13::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->THoEX_pp_h_phi2phi2_gagagg_ATLAS13;
+}
+
+Hobs_pp_phi2_gaga_ATLAS13_low::Hobs_pp_phi2_gaga_ATLAS13_low(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_pp_phi2_gaga_ATLAS13_low::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_pp_phi2_gaga_ATLAS13_low;
 }

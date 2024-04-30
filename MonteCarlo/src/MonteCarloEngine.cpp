@@ -24,6 +24,7 @@
 #include <stdexcept>
 #include <iomanip>
 #include <limits>
+#include <memory>
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
@@ -239,13 +240,13 @@ void MonteCarloEngine::DefineParameters() {
             if (it->geterrf() == 0.) GetParameter(k).SetPrior(new BCGaussianPrior(it->getave(), it->geterrg())); //SetPriorGauss(k, it->getave(), it->geterrg());
             else if (it->geterrg() == 0.) GetParameter(k).SetPriorConstant(); //SetPriorConstant(k);
             else {
-                TF1 combined = TF1(it->getname().c_str(),
-                        "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]",
-                        it->getmin(), it->getmax());
-                combined.SetParameter(0, it->getave());
-                combined.SetParameter(1, it->geterrg());
-                combined.SetParameter(2, it->geterrf());
-                GetParameter(k).SetPrior(new BCTF1Prior(combined)); //SetPrior(k, combined);
+                std::vector<double> pars;
+                pars.push_back(it->getave());
+                pars.push_back(it->geterrg());
+                pars.push_back(it->geterrf());
+                GetParameter(k).SetPrior(new BCTF1Prior(
+                        "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]", pars,
+                        it->getmin(), it->getmax())); //SetPrior(k, combined);
             }
             k++;
         }

@@ -32,6 +32,9 @@
 dist
 build
 
+#vscode specific
+.vscode
+
 *~
 */*.dep.inc
 *.tar.gz
@@ -46,6 +49,12 @@ Analysis/*.pdf
 Analysis/Observables*
 Analysis/*.sh
 Analysis/*.zip
+
+*.txt
+*.log
+*.tex
+MCout.root
+*.orig
 
 #BAT
 BAT-0.9.*/
@@ -80,6 +89,7 @@ Analysis/Observables/
 *.blg
 *.toc
 *.spl
+*.pdf
 
 #Packaging
 Packaging/HEPfit*

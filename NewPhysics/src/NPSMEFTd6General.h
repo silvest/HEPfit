@@ -1578,19 +1578,19 @@ public:
     double uovers2(const double cosmin, const double cosmax) const;
 
 //  Absolute corrections to the differential cross section        
-    double delta_Dsigma_f(const Particle f, const double s, const double t, const double u) const;
+    virtual double delta_Dsigma_f(const Particle f, const double s, const double cos) const;
     
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
 //  Valid for f=/=e
-    double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
+    virtual double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
     
-    double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
+    virtual double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
     
 //  Total cross sections  (full acceptance)
-    double delta_sigmaTot_f(const Particle f, const double s) const;
+    virtual double delta_sigmaTot_f(const Particle f, const double s) const;
     
 //  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
-    double delta_AFB_f(const Particle f, const double s) const;
+    virtual double delta_AFB_f(const Particle f, const double s) const;
     
     
     ////////////////////////////////////////////////////////////////////////     
@@ -2216,6 +2216,29 @@ public:
      * @return @f$\mu_{\mu\mu ttH}@f$
      */
     virtual double mummttH(const double sqrt_s) const;
+    
+    //AG:added, begin
+    virtual double delta_muggH_1(const double sqrt_s) const;    ///<The SMEFT linear correction to the ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs production cross-section in the current model and in the Standard Model.
+    virtual double delta_muggH_2(const double sqrt_s) const;    ///<The SMEFT quadratic correction to the ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs production cross-section in the current model and in the Standard Model.
+    
+    virtual double delta_muVBF_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs production cross-section in the current model and in the Standard Model.
+    virtual double delta_muVBF_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs production cross-section in the current model and in the Standard Model.
+    
+    virtual double delta_muWH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{WH}@f$ between the W-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual double delta_muWH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{WH}@f$ between the W-Higgs associated production cross-section in the current model and in the Standard Model.
+    
+    virtual double delta_muZH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual double delta_muZH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production cross-section in the current model and in the Standard Model.
+    
+    virtual double delta_muVH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{VH}@f$ between the Z-Higgs and W-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual double delta_muVH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{VH}@f$ between the Z-Higgs and W-Higgs associated production cross-section in the current model and in the Standard Model.
+    
+    virtual double delta_muttH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual double delta_muttH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated production cross-section in the current model and in the Standard Model.
+    
+    virtual double delta_mutH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{tH}@f$ between the t-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual double delta_mutH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{tH}@f$ between the t-Higgs associated production cross-section in the current model and in the Standard Model.
+    //AG:end
 
     ////////////HIGGS DECAY WIDTHS AND BRANCHING RATIOS/////////////
     /**
