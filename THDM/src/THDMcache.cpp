@@ -240,6 +240,8 @@ THDMcache::THDMcache(const StandardModel& SM_i)
     mylambda4=new lambda4(SM_i);
     mylambda5=new lambda5(SM_i);
     myRunner=new Runner(SM_i);
+    WFRflag = false;
+    UnitarityTestflag = false;
   read();
 }
 

@@ -69,6 +69,8 @@ NPSMEFT6dtopquark::NPSMEFT6dtopquark()
     ModelParamMap.insert(std::make_pair("C_Qq11", std::cref(C_Qq11)));
     ModelParamMap.insert(std::make_pair("C_Qq31", std::cref(C_Qq31)));
 
+    flag_LHC_WG_Basis = false;
+    flag_Quadratic = false;
 }
 
 

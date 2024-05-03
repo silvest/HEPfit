@@ -34,6 +34,7 @@ THDM::THDM() : StandardModel(), THDMM(*this) {
     ModelParamMap.insert(std::make_pair("Rpeps", std::cref(Rpeps)));
     ModelParamMap.insert(std::make_pair("NLOuniscale", std::cref(NLOuniscale)));
     flag_use_sq_masses=true;
+    flag_wfr = false;
 }
 
 THDM::~THDM(){

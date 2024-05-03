@@ -34,6 +34,9 @@ QCD::QCD()
     computeFBp = false;
     computeBd = false;
     computeBs = false;
+    computemt = false;
+    requireYu = false;
+    requireYd = false;
     Nc = 3.;
     TF = 0.5;
     CF = Nc / 2. - 1. / (2. * Nc);

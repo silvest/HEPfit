@@ -27,6 +27,7 @@ Flavour::Flavour(const StandardModel& SM_i)
     CLNflag = false;
     BGLflag = false;
     DMflag = false;
+    FixedWCbtosflag = false;
 };
 
 bool Flavour::setFlag(const std::string name, const bool value) 

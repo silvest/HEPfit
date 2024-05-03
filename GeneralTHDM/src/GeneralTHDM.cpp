@@ -114,6 +114,9 @@ GeneralTHDM::GeneralTHDM() : NPbase(), GTHDMM(*this) {
     ModelParamMap.insert(std::make_pair("NLOuniscaleGTHDM", std::cref(NLOuniscaleGTHDM)));
     flag_use_sq_masses=true;
     flag_sigma=true;
+    flag_ATHDM = false;
+    flag_CPconservation = false;
+    flag_SM_Higgs = false;
 
 
 }
