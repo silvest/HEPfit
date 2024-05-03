@@ -23,18 +23,18 @@ THDMcache::THDMcache(const StandardModel& SM_i)
         br_ZZ(19961, 2, 0.),
         br_WW(19961, 2, 0.),
         GammaHtot_SM(19961, 2, 0.),
-        log_cs_ggH_8(199, 2, 0.),
-        log_cs_VBF_8(199, 2, 0.),
-        log_cs_WH_8(199, 2, 0.),
-        log_cs_ZH_8(199, 2, 0.),
-        log_cs_ggH_13(199, 2, 0.),
-        log_cs_VBF_13(199, 2, 0.),
-        log_cs_WH_13(199, 2, 0.),
-        log_cs_ZH_13(199, 2, 0.),
-        log_cs_ttH_8(199, 2, 0.),
-        log_cs_ttH_13(199, 2, 0.),
-        log_cs_bbH_8(199, 2, 0.),
-        log_cs_bbH_13(199, 2, 0.),
+        log_cs_ggH_8(200, 2, 0.),
+        log_cs_VBF_8(200, 2, 0.),
+        log_cs_WH_8(200, 2, 0.),
+        log_cs_ZH_8(200, 2, 0.),
+        log_cs_ggH_13(200, 2, 0.),
+        log_cs_VBF_13(200, 2, 0.),
+        log_cs_WH_13(200, 2, 0.),
+        log_cs_ZH_13(200, 2, 0.),
+        log_cs_ttH_8(200, 2, 0.),
+        log_cs_ttH_13(200, 2, 0.),
+        log_cs_bbH_8(200, 2, 0.),
+        log_cs_bbH_13(200, 2, 0.),
         log_cs_ggA_8(199, 2, 0.),
         log_cs_ttA_8(199, 2, 0.),
         log_cs_bbA_8(199, 2, 0.),
@@ -240,6 +240,8 @@ THDMcache::THDMcache(const StandardModel& SM_i)
     mylambda4=new lambda4(SM_i);
     mylambda5=new lambda5(SM_i);
     myRunner=new Runner(SM_i);
+    WFRflag = false;
+    UnitarityTestflag = false;
   read();
 }
 
@@ -1667,29 +1669,29 @@ void THDMcache::read(){
     dw1 << tablepath << "dw1.dat";
     GammaHtot_SM = readTable(dw1.str(),19961,2);
     cs1 << tablepath << "log_cs_ggH_8.dat";
-    log_cs_ggH_8 = readTable(cs1.str(),199,2);
+    log_cs_ggH_8 = readTable(cs1.str(),200,2);
     cs11 << tablepath << "log_cs_ggH_13.dat";
-    log_cs_ggH_13 = readTable(cs11.str(),199,2);
+    log_cs_ggH_13 = readTable(cs11.str(),200,2);
     cs2 << tablepath << "log_cs_VBF_8.dat";
-    log_cs_VBF_8 = readTable(cs2.str(),199,2);
+    log_cs_VBF_8 = readTable(cs2.str(),200,2);
     cs12 << tablepath << "log_cs_VBF_13.dat";
-    log_cs_VBF_13 = readTable(cs12.str(),199,2);
+    log_cs_VBF_13 = readTable(cs12.str(),200,2);
     cs3 << tablepath << "log_cs_WH_8.dat";
-    log_cs_WH_8 = readTable(cs3.str(),199,2);
+    log_cs_WH_8 = readTable(cs3.str(),200,2);
     cs13 << tablepath << "log_cs_WH_13.dat";
-    log_cs_WH_13 = readTable(cs13.str(),199,2);
+    log_cs_WH_13 = readTable(cs13.str(),200,2);
     cs4 << tablepath << "log_cs_ZH_8.dat";
-    log_cs_ZH_8 = readTable(cs4.str(),199,2);
+    log_cs_ZH_8 = readTable(cs4.str(),200,2);
     cs14 << tablepath << "log_cs_ZH_13.dat";
-    log_cs_ZH_13 = readTable(cs14.str(),199,2);
+    log_cs_ZH_13 = readTable(cs14.str(),200,2);
     cs5 << tablepath << "log_cs_ttH_8.dat";
-    log_cs_ttH_8 = readTable(cs5.str(),199,2);
+    log_cs_ttH_8 = readTable(cs5.str(),200,2);
     cs15 << tablepath << "log_cs_ttH_13.dat";
-    log_cs_ttH_13 = readTable(cs15.str(),199,2);
+    log_cs_ttH_13 = readTable(cs15.str(),200,2);
     cs6 << tablepath << "log_cs_bbH_8.dat";
-    log_cs_bbH_8 = readTable(cs6.str(),199,2);
+    log_cs_bbH_8 = readTable(cs6.str(),200,2);
     cs16 << tablepath << "log_cs_bbH_13.dat";
-    log_cs_bbH_13 = readTable(cs16.str(),199,2);
+    log_cs_bbH_13 = readTable(cs16.str(),200,2);
     cs7 << tablepath << "log_cs_ggA_8.dat";
     log_cs_ggA_8 = readTable(cs7.str(),199,2);
     cs17 << tablepath << "log_cs_ggA_13.dat";

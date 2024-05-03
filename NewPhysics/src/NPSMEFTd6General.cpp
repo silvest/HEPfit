@@ -41955,7 +41955,7 @@ double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, const dou
     is2c2 = 1./sW2_tree/cW2_tree;
     
     if (f.is("ELECTRON")) {
-        Aeeff = CLL_e();
+        Aeeff = 2.0 * CLL_e();
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f(leptons[ELECTRON]);
@@ -42052,7 +42052,7 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
     is2c2 = 1./sW2_tree/cW2_tree;
     
     if (f.is("ELECTRON")) {
-        Aeeff = CRR_e();
+        Aeeff = 2.0 * CRR_e();
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f(leptons[ELECTRON]);

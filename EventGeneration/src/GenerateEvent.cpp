@@ -17,7 +17,7 @@ GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
                              /*const bool noMC_i*/)
 : myInputParser(ModelF, ThObsF)
 {
-    outputTerm = 0;
+    outputTerm = false;
     ModelConf = ModelConf_i;
     JobTag = JobTag_i;
     if (OutDirName_i != ""){

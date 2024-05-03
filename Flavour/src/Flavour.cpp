@@ -32,6 +32,7 @@ Flavour::Flavour(const StandardModel& SM_i)
     mySM.initializeBParameter("BBd");
     mySM.initializeBParameter("BBs_subleading");
     mySM.initializeBParameter("BBd_subleading");   
+    FixedWCbtosflag = false;
 };
 
 bool Flavour::setFlag(const std::string name, const bool value) 

@@ -42,6 +42,10 @@ StandardModel::StandardModel()
 : QCD(), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.),
 Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
 {
+    requireCKM = false;
+    requireYe = false;
+    requireYn = false;
+
     FlagWithoutNonUniversalVC = false;
     FlagNoApproximateGammaZ = false;
     FlagMw = "APPROXIMATEFORMULA";
@@ -2511,11 +2515,11 @@ double StandardModel::amuon() const
 //      effects we need to include in the two-loop results the running of aqed at
 //      1-loop up to the scale mum
 //-----------------------------------------------------------------
-//      running of alpha em down to mu mass
+//      running of alpha em down to mu mass (1-loop)
             
-      //aqed = Ale(mum, NLO, true);  // NOT WORKING!!!!
+      aqed = 1.0/ale + 2.0 * log(fermmass[0]/mum)/3.0/M_PI;
       
-      aqed = ale; // TEMPORARY FIX: Use alpha(0)...
+      aqed = 1.0/aqed;
 
 //-----------------------------------------------------------------
 //      two-loop ew bosonic correction(phys.rev.lett. 76,3267 (1996))

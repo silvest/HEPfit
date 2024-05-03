@@ -1,6 +1,8 @@
 # LHC Higgs Cross Section Working Group
+# https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBSMAt8TeV
 # ggH production cross section at 8 TeV
 # mH[GeV] | log10(sigma/pb)
+10.0    3.664
 20.0	3.101
 30.0	2.603
 40.0	2.281

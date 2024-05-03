@@ -15,7 +15,7 @@
 
 InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF), filename(""), rank(0)
 {
-    modelset = 0;
+    modelset = false;
     myModel = NULL;
 }
 
@@ -54,10 +54,14 @@ std::string InputParser::ReadParameters(const std::string filename_i,
     boost::char_separator<char> * sep = new boost::char_separator<char>(" \t");
     do {
         IsEOF = getline(ifile, line).eof();
+	if (IsEOF)
+	  continue;
         lineNo++;
-        if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
+
+        if (!line.empty() && *line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.find_first_not_of(' ') == std::string::npos || line.at(0) == '#')
             continue;
+       
         boost::tokenizer<boost::char_separator<char> > *tok = new boost::tokenizer<boost::char_separator<char> >(line, *sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok->begin();
 
@@ -87,7 +91,6 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             } else {
             ModelParameter tmpMP;
             beg = tmpMP.ParseModelParameter(beg);
-            
             if (checkDuplicateParameter[tmpMP.getname()].get<0>()) {
                 if(rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + tmpMP.getname() + " appears more than once ...!! \n" +
                 "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(checkDuplicateParameter[tmpMP.getname()].get<2>()) +

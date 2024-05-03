@@ -269,7 +269,7 @@ public:
 
 protected:
 
-    bool UpdateError; ///< A boolean set to false if update is successful.
+    bool UpdateError = false; ///< A boolean set to false if update is successful.
 
     /**
      * @brief A method to set the value of a parameter of the model.
@@ -279,19 +279,19 @@ protected:
     virtual void setParameter(const std::string name, const double& value) = 0;
     mutable std::map< std::string, std::reference_wrapper<const double> > ModelParamMap;
 
-    bool isSliced; ///< A boolean set to true if the current istance is a slice of an extended object
+    bool isSliced = false; ///< A boolean set to true if the current istance is a slice of an extended object
 
 private:
     std::string name; ///< The name of the model.
-    bool ModelInitialized; ///< A boolean set to true if the model is successfully initialized.
-    bool flagSUSYmodel;///< A flag identifying the model as a SUSY model
-    bool flagFWCDF2model;///< A flag identifying the model as a FlavourWilsonCoefficient_DF2 model
-    bool flagTHDMmodel;///< A flag identifying the model as a THDM model
-    bool flagGTHDMmodel;///< A flag identifying the model as a GeneralTHDM model
-    bool flagTHDMWmodel;///< A flag identifying the model as a THDMW model
-    bool flagGMmodel;///< A flag identifying the model as a GeorgiMachacek model
-    bool flagLinearized; ///< A flag to identify models where the NP contribution to Higgs observables is linearized
-    bool flagNPquadratic; //AG:added
+    bool ModelInitialized = false; ///< A boolean set to true if the model is successfully initialized.
+    bool flagSUSYmodel = false;///< A flag identifying the model as a SUSY model
+    bool flagFWCDF2model = false;///< A flag identifying the model as a FlavourWilsonCoefficient_DF2 model
+    bool flagTHDMmodel = false;///< A flag identifying the model as a THDM model
+    bool flagGTHDMmodel = false;///< A flag identifying the model as a GeneralTHDM model
+    bool flagTHDMWmodel = false;///< A flag identifying the model as a THDMW model
+    bool flagGMmodel = false;///< A flag identifying the model as a GeorgiMachacek model
+    bool flagLinearized = false; ///< A flag to identify models where the NP contribution to Higgs observables is linearized
+    bool flagNPquadratic = false; //AG:added
     unsigned int missingModelParametersCount = 0;
     std::vector<std::string> missingModelParameters;
 
