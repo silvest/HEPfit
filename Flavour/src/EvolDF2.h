@@ -96,8 +96,8 @@ private:
     double d[3][5][5][5];
     const StandardModel& model;
     unsigned int dim;
-    double alsMZ_cache;
-    double Mz_cache;
+    double alsMZ_cache = 0.;
+    double Mz_cache = 0.;
 };
 
 #endif	/* EVOLDF2_H */
