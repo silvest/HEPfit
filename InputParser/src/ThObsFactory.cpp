@@ -4251,6 +4251,12 @@ ThObsFactory::ThObsFactory()
     // Temporary observable: for testing
     obsThFactory["amuongminus2"] = boost::factory<agminus2muon*>();
     
+    //-----  Lepton decays  -----    
+    // LFU tests in Tau decays
+    obsThFactory["gmuge_TauLFU"] = boost::factory<gmugeTauLFU*>();
+    obsThFactory["gtaugmu_TauLFU"] = boost::factory<gtaugmuTauLFU*>();
+    obsThFactory["gtauge_TauLFU"] = boost::factory<gtaugeTauLFU*>();
+    
     
     //-----  Flavour observables  -----
     //----- DF = 2  -----

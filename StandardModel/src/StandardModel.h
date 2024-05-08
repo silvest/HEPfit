@@ -2030,6 +2030,55 @@ public:
      * @return @f$g_A^{\nu_\mu e}@f$
      */
       virtual double gAnue() const;
+      
+      
+    ////////////////////////////////////////////////////////////////////////     
+    // Lepton decays
+      
+    // Muon decays
+
+    /**
+     * @brief The computation of the muon decay
+     * @details Follows the formulae of PDG
+     * @return @f$\Gamma_\mu @f$
+     */
+      virtual double Gamma_muon() const;
+
+
+    // Tau decays
+
+    /**
+     * @brief The computation of the leptonic tau decays
+     * @details Follows the formulae of PDG for muon, adapted to tau leptons
+     * @return @f$\Gamma(\tau \to l \nu \nu ) @f$
+     */
+      virtual double Gamma_tau_l_nunu(const Particle l) const;
+
+
+    // Lepton Flavor universality tests in Tau decays
+
+    /**
+     * @brief The computation of the LFU ratio @f$g_\mu/ g_e @f$
+     * @details
+     * @return @f$\Gamma(\tau \to \mu \nu \nu ) / \Gamma(\tau \to e \nu \nu ) @f$
+     */
+      virtual double TauLFU_gmuge() const;
+
+
+    /**
+     * @brief The computation of the LFU ratio @f$g_\tau/ g_\mu @f$
+     * @details
+     * @return @f$\Gamma(\tau \to e \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+     */
+      virtual double TauLFU_gtaugmu() const;
+
+
+    /**
+     * @brief The computation of the LFU ratio @f$g_\tau/ g_\mu @f$
+     * @details
+     * @return @f$\Gamma(\tau \to \mu \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+     */
+      virtual double TauLFU_gtauge() const;
 
 
     ////////////////////////////////////////////////////////////////////////

@@ -4526,6 +4526,40 @@ public:
       virtual double gRnuN2() const;
       virtual double gVnue() const;
       virtual double gAnue() const;
+      
+    ////////////////////////////////////////////////////////////////////////     
+    // Lepton decays
+      
+    // Lepton Flavor universality tests in Tau decays
+
+    /**
+     * @brief The computation of the correction to the LFU ratio @f$g_\mu/ g_e @f$
+     * @details
+     * @return @f$\delta \Gamma(\tau \to \mu \nu \nu ) / \Gamma(\tau \to e \nu \nu ) @f$
+     */
+      virtual double delta_TauLFU_gmuge() const;
+
+
+    /**
+     * @brief The computation of the correction to the LFU ratio @f$g_\tau/ g_\mu @f$
+     * @details
+     * @return @f$\delta \Gamma(\tau \to e \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+     */
+      virtual double delta_TauLFU_gtaugmu() const;
+
+
+    /**
+     * @brief The computation of the correction to the LFU ratio @f$g_\tau/ g_\mu @f$
+     * @details
+     * @return @f$\delta \Gamma(\tau \to \mu \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+     */
+      virtual double delta_TauLFU_gtauge() const;
+      
+//   Extension of SM observable definitions
+      virtual double TauLFU_gmuge() const;
+      virtual double TauLFU_gtaugmu() const;
+      virtual double TauLFU_gtauge() const;
+
     
     ///////////Collider observables: LHC dilepton events////////////////////////
     
