@@ -11,6 +11,7 @@
 #include <BAT/BCMath.h>
 #include <BAT/BCGaussianPrior.h>
 #include <BAT/BCTF1Prior.h>
+#include <BAT/BCCombinedPrior.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -237,16 +238,10 @@ void MonteCarloEngine::DefineParameters() {
                 }
             } else
                 DPars[it->getname()] = 0.;
-            if (it->geterrf() == 0.) GetParameter(k).SetPrior(new BCGaussianPrior(it->getave(), it->geterrg())); //SetPriorGauss(k, it->getave(), it->geterrg());
+            if (it->geterrf() == 0.) GetParameter(k).SetPrior(std::make_shared<BCGaussianPrior>(it->getave(), it->geterrg())); //SetPriorGauss(k, it->getave(), it->geterrg());
             else if (it->geterrg() == 0.) GetParameter(k).SetPriorConstant(); //SetPriorConstant(k);
             else {
-                std::vector<double> pars;
-                pars.push_back(it->getave());
-                pars.push_back(it->geterrg());
-                pars.push_back(it->geterrf());
-                GetParameter(k).SetPrior(new BCTF1Prior(
-                        "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]", pars,
-                        it->getmin(), it->getmax())); //SetPrior(k, combined);
+	      GetParameter(k).SetPrior(std::make_shared<BCCombinedPrior>(it->getave(), it->geterrg(), it->geterrf())); //SetPrior(k, combined);
             }
             k++;
         }
