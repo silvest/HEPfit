@@ -12,6 +12,7 @@ class StandardModel;
 #include "ThObservable.h"
 #include "QCD.h"
 #include "OrderScheme.h"
+#include "DGamma.h"
 
 class Mll : public ThObservable {
 public:   
@@ -77,6 +78,7 @@ private:
     gslpp::vector<gslpp::complex> ** allcoeff;
     gslpp::vector<gslpp::complex> ** allcoeffprime;
     gslpp::vector<gslpp::complex> ** allcoeff_noSM;
+    DGamma_s_MSbar dgs;
 
 };
 

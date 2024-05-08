@@ -11,7 +11,6 @@
  
 DmBd::DmBd(const StandardModel& SM_i) : ThObservable(SM_i){
         SM.getFlavour().getDB2(0);
-        std::cout << "DmBd constructor called" << std::endl;
     };
 
 double  DmBd::computeThValue() 

@@ -282,10 +282,6 @@ T& Flavour::getM(std::map<std::vector<int>,std::shared_ptr<T> >& map, Args ... a
     std::vector<int> key({args...});
     if(map.find(key)==map.end()) {
         map.insert(std::make_pair(key,std::make_shared<T>(mySM,args...)));
-        std::cout<<"object ";
-        for (std::vector<int>::const_iterator it = key.begin(); it != key.end(); it++) 
-            std::cout << *it << " ";
-        std::cout << " created " <<std::endl;
     }
     return *map.at(key);
 }
@@ -350,7 +346,6 @@ template<typename T, typename... Args> std::shared_ptr<T>& Flavour::getPtr(std::
 {
     if (x.get() == nullptr){
         x = std::make_shared<T>(mySM, args...);
-        std::cout << "Flavour: pointer created." << std::endl;
     }
     return x;
 }

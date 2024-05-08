@@ -20,13 +20,11 @@ AmpDB2::AmpDB2(const StandardModel &SM_i, int BMeson_i, bool flag_fixmub, bool f
     switch (BMeson)
     {
     case 0:
-        std::cout << "B_d meson B-parameters initialization" << std::endl;
         mySM.initializeBParameter("BBd");
         mySM.initializeBParameter("BBd_subleading");   
         mySM.initializeMeson(QCD::B_D);
         break;
     case 1:
-        std::cout << "B_s meson B-parameters initialization" << std::endl;
         mySM.initializeBParameter("BBs");
         mySM.initializeBParameter("BBs_subleading");
         mySM.initializeMeson(QCD::B_S);

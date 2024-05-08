@@ -6520,6 +6520,5 @@ ThObservable * ThObsFactory::CreateThMethod(const std::string& name, StandardMod
         throw std::runtime_error("ERROR: Wrong observable " + name + " passed to ThObsFactory.\nIf " + name + " is a parameter that is specific to an observable, please list it after the observable in the configuration file.\n");
     ThObservable * myThObs = obsThFactory.at(name)(model);
     if (!myThObs->getParametersForObservable().empty()) model.addParameters(myThObs->getParametersForObservable());
-    std::cout << "Observable " << name << " created." << std::endl;
     return (myThObs);
 }
