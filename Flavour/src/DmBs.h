@@ -31,7 +31,7 @@ public:
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    DmBs(const StandardModel& SM_i) : ThObservable(SM_i) {};
+    DmBs(const StandardModel& SM_i);
 
     /**
      *

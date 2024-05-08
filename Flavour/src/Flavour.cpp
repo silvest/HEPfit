@@ -28,10 +28,6 @@ Flavour::Flavour(const StandardModel& SM_i)
     CLNflag = false;
     BGLflag = false;
     DMflag = false;
-    mySM.initializeBParameter("BBs");
-    mySM.initializeBParameter("BBd");
-    mySM.initializeBParameter("BBs_subleading");
-    mySM.initializeBParameter("BBd_subleading");   
     FixedWCbtosflag = false;
 };
 
@@ -285,7 +281,11 @@ T& Flavour::getM(std::map<std::vector<int>,std::shared_ptr<T> >& map, Args ... a
 {
     std::vector<int> key({args...});
     if(map.find(key)==map.end()) {
-        map.insert(std::make_pair(key,std::shared_ptr<T>(new T(mySM,args...))));
+        map.insert(std::make_pair(key,std::make_shared<T>(mySM,args...)));
+        std::cout<<"object ";
+        for (std::vector<int>::const_iterator it = key.begin(); it != key.end(); it++) 
+            std::cout << *it << " ";
+        std::cout << " created " <<std::endl;
     }
     return *map.at(key);
 }
@@ -348,8 +348,10 @@ bool Flavour::getUpdateFlag(QCD::meson meson_i, QCD::meson meson_j, QCD::lepton 
 
 template<typename T, typename... Args> std::shared_ptr<T>& Flavour::getPtr(std::shared_ptr<T>& x, Args ... args) const
 {
-    if (x.get() == nullptr)
-        x.reset(new T(mySM, args...));
+    if (x.get() == nullptr){
+        x = std::make_shared<T>(mySM, args...);
+        std::cout << "Flavour: pointer created." << std::endl;
+    }
     return x;
 }
 

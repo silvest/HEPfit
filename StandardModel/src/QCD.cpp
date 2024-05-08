@@ -211,12 +211,12 @@ void QCD::initializeBParameter(std::string name_i) const
     }
     if (name_i.compare("BBs_subleading") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(2, name_i)));
-        BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);        
+        BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);      
         return;
     }
     if (name_i.compare("BBd_subleading") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(2, name_i)));
-        BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);        
+        BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);       
         return;
     }    
     if (name_i.compare("BD") == 0) {

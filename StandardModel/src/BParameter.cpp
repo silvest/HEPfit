@@ -60,6 +60,7 @@ void BParameter::ModelParameterMapInsert(std::map< std::string, std::reference_w
     if (name.compare("BBs_subleading") == 0) {
         ModelParamMap.insert(std::make_pair("Rs2", std::cref(bpars(0))));
         ModelParamMap.insert(std::make_pair("Rs3", std::cref(bpars(1))));
+        std::cout << "added Rs3 to ModelParamMap" << std::endl;
         return;
     }
     if (name.compare("BBd_subleading") == 0) {
