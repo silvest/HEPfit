@@ -42461,4 +42461,49 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         
         return delta;    
     }
+    
+    ////////////////////////////////////////////////////////////////////////     
+    // Lepton decays
+      
+    // Lepton Flavor universality tests in Tau decays: 
+
+    double NPSMEFTd6General::delta_TauLFU_gmuge() const
+    {
+        double dCnueVLL3223, dCnueVLL3113, delta;
+        
+        dCnueVLL3223 = (getMatching().getCnueVLL(2,1,1,2)).real();
+        dCnueVLL3113 = (getMatching().getCnueVLR(2,0,0,2)).real();
+
+        // Modification in terms of the LEFT basis (at low energies)        
+        delta = (-1./GF/sqrt(2.)) * (dCnueVLL3223 - dCnueVLL3113);
+        
+        return (trueSM.TauLFU_gmuge())*delta;    
+    }
+
+    double NPSMEFTd6General::delta_TauLFU_gtaugmu() const
+    {
+        double dCnueVLL3113, dCnueVLL2112, delta;
+        
+        dCnueVLL3113 = (getMatching().getCnueVLL(2,0,0,2)).real();
+        dCnueVLL2112 = (getMatching().getCnueVLR(1,0,0,1)).real();
+
+        // Modification in terms of the LEFT basis (at low energies)        
+        delta = (-1./GF/sqrt(2.)) * (dCnueVLL3113 - dCnueVLL2112);
+        
+        return (trueSM.TauLFU_gtaugmu())*delta;   
+    }
+
+
+    double NPSMEFTd6General::delta_TauLFU_gtauge() const
+    {
+        double dCnueVLL3223, dCnueVLL2112, delta;
+        
+        dCnueVLL3223 = (getMatching().getCnueVLL(2,1,1,2)).real();
+        dCnueVLL2112 = (getMatching().getCnueVLR(1,0,0,1)).real();
+
+        // Modification in terms of the LEFT basis (at low energies)        
+        delta = (-1./GF/sqrt(2.)) * (dCnueVLL3223 - dCnueVLL2112);
+        
+        return (trueSM.TauLFU_gtauge())*delta;  
+    }
       

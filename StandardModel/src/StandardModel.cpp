@@ -3099,6 +3099,107 @@ double StandardModel::gAnue() const
     }   
 }
 
+
+
+////////////////////////////////////////////////////////////////////////     
+// Lepton decays
+
+// Muon decay
+
+double StandardModel::Gamma_muon() const
+{
+      double Gamma;
+      double me, mmu, x, Fx, H1x, H2x, H3x, zeta3;
+      double alpha, rEW;
+      double pi2;
+      
+      me = leptons[ELECTRON].getMass();
+      mmu = leptons[MU].getMass();
+      pi2 = M_PI*M_PI;
+      
+      x = me*me/mmu/mmu;
+      Fx = 1. - 8. * x + 8. * x*x*x - x*x*x*x -12. * x*x * log(x);
+      
+      H1x = 25./8. - pi2/2. - (9. + 4. *pi2 + 12. * log(x) )*x + 16. * pi2 * pow(x,3./2.);
+      
+      zeta3 = 1.2020569031595942;
+      
+      H2x= 156815./5184. - 518. * pi2/81. - 895. *zeta3/36. + 67.*pi2*pi2/720. + 53. *pi2*log(2.)/6. - 0.042 - (5./4.) * pi2*sqrt(x);
+      
+      H3x = -15.3;
+      
+      // alpha(m_mu)
+      alpha = 1./ale - log(x)/3./M_PI; // + 1./6./M_PI;
+      alpha = 1./alpha;
+      
+      // Rad. corrections
+      rEW = 1. + H1x * alpha/M_PI + H2x * alpha*alpha/pi2 + H3x * alpha * alpha *alpha/pi2/M_PI;
+
+      // Gamma: PDG formula
+      Gamma = GF*GF*pow(mmu,5)*Fx*rEW/192./pow(M_PI,3);
+                      
+      return Gamma;
+}
+
+
+// Tau decays
+
+// Leptonic decays
+
+double StandardModel::Gamma_tau_l_nunu(const Particle l) const
+{
+      double Gamma;
+      double ml, mtau, x, Fx, H1x, H2x, H3x, zeta3;
+      double alpha, rEW;
+      double pi2;
+      
+      ml = l.getMass();
+      mtau = leptons[TAU].getMass();
+      pi2 = M_PI*M_PI;
+      
+      x = ml*ml/mtau/mtau;
+      Fx = 1. - 8. * x + 8. * x*x*x - x*x*x*x -12. * x*x * log(x);
+      
+      H1x = 25./8. - pi2/2. - (9. + 4. *pi2 + 12. * log(x) )*x + 16. * pi2 * pow(x,3./2.);
+      
+      zeta3 = 1.2020569031595942;
+      
+      H2x= 156815./5184. - 518. * pi2/81. - 895. *zeta3/36. + 67.*pi2*pi2/720. + 53. *pi2*log(2.)/6. - 0.042 - (5./4.) * pi2*sqrt(x);
+      
+      H3x = -15.3;
+      
+      // alpha(m_tau)
+      alpha = 1./133.29; // Improve
+      
+      // Rad. corrections
+      rEW = 1. + H1x * alpha/M_PI + H2x * alpha*alpha/pi2 + H3x * alpha * alpha *alpha/pi2/M_PI;
+
+      // Gamma: PDG formula
+      Gamma = GF*GF*pow(mtau,5)*Fx*rEW/192./pow(M_PI,3);
+                      
+      return Gamma;
+}
+
+
+// Lepton universality tests
+
+double StandardModel::TauLFU_gmuge() const
+{
+      return Gamma_tau_l_nunu(leptons[MU])/Gamma_tau_l_nunu(leptons[ELECTRON]);
+}
+
+double StandardModel::TauLFU_gtaugmu() const
+{
+      return Gamma_tau_l_nunu(leptons[ELECTRON])/Gamma_muon();
+}
+
+double StandardModel::TauLFU_gtauge() const
+{
+      return Gamma_tau_l_nunu(leptons[MU])/Gamma_muon();
+}
+
+
+
 /* BEGIN: REMOVE FROM THE PACKAGE */
 ////////////////////////////////////////////////////////////////////////////////////
 //LEP2 Observables

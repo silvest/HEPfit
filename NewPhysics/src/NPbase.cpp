@@ -1332,3 +1332,39 @@ double NPbase::gAnue() const
 {
     return (trueSM.gAnue() + delta_gAnue());    
 }
+
+////////////////////////////////////////////////////////////////////////     
+// Lepton decays
+      
+// Lepton Flavor universality tests in Tau decays
+
+double NPbase::delta_TauLFU_gmuge() const
+{
+    return 0.;    
+}
+
+double NPbase::delta_TauLFU_gtaugmu() const
+{
+    return 0.;    
+}
+
+double NPbase::delta_TauLFU_gtauge() const
+{
+    return 0.;    
+}
+      
+//   Extension of SM observable definitions
+double NPbase::TauLFU_gmuge() const
+{
+    return (trueSM.TauLFU_gmuge() + delta_TauLFU_gmuge());
+}
+
+double NPbase::TauLFU_gtaugmu() const
+{
+    return (trueSM.TauLFU_gtaugmu() + delta_TauLFU_gtaugmu());    
+}
+
+double NPbase::TauLFU_gtauge() const
+{
+    return (trueSM.TauLFU_gtauge() + delta_TauLFU_gtauge());    
+}
