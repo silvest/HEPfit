@@ -14,6 +14,7 @@ class EvolBsmm;
 #include "ThObservable.h"
 #include "QCD.h"
 #include "OrderScheme.h"
+#include "DGamma.h"
 
 class Bsmumu : public ThObservable {
 public:   
@@ -64,8 +65,22 @@ private:
     double Smumu;
     double phiNP;
     double timeInt;
+    double convertFromSingletoDoubleGF;
     int obs;
+    gslpp::complex C_10;
+    gslpp::complex C_10p;
+    gslpp::complex C_S;
+    gslpp::complex C_Sp;
+    gslpp::complex C_P;
+    gslpp::complex C_Pp;
+
     std::unique_ptr<EvolBsmm> evolbsmm;
+    DGamma_s_MSbar dgs;
+    gslpp::vector<gslpp::complex> ** allcoeffDB1;
+    gslpp::vector<gslpp::complex> ** allcoeff;
+    gslpp::vector<gslpp::complex> ** allcoeffprime;
+    gslpp::vector<gslpp::complex> ** allcoeff_noSM;
+ 
 
 };
 

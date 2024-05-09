@@ -12,23 +12,29 @@
 
 Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
 : ThObservable(SM_i),
-  evolbsmm(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM))
+  evolbsmm(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)), dgs(SM_i)
 {
     lep = lep_i;
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
     SM.initializeMeson(QCD::B_S);
+    std::vector<std::string> pars = dgs.getParametersForObservable();
+    setParametersForObservable(pars);
 };
 
 double Bsmumu::computeThValue()
 {
-    computeObs(FULLNLO, FULLNLO_QED);
     double FBs = SM.getMesons(QCD::B_S).getDecayconst();
     
-    double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; 
- 
+    double Mw = SM.Mw();
+    double GF = SM.getGF();
+    double coupling = GF * GF * Mw * Mw /M_PI /M_PI ; 
+    convertFromSingletoDoubleGF = 2. * M_SQRT2 / GF * SM.getAle() / 4. * M_PI / Mw / Mw; /* Single GF for excluding EW corrections*/
+
+    computeObs(FULLNLO, FULLNLO_QED);
+
     double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta;
-    double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.; // For now. To be explicitly calculated.
+    double ys = dgs.computeThValue()*SM.getMesons(QCD::B_S).getLifetime()/2.; // For now. To be explicitly calculated.
     timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
      
     if (obs == 1) return( PRF * ampSq);
@@ -76,7 +82,9 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
         throw std::runtime_error("Bsmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
+    allcoeff = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
+    allcoeffDB1 = convertFromSingletoDoubleGF * SM.getFlavour().ComputeCoeffBMll(mu, lep); /* Single GF for excluding EW corrections*/
+    allcoeffprime = convertFromSingletoDoubleGF * SM.getFlavour().ComputeCoeffprimeBMll(mu, lep); /* Single GF for excluding EW corrections*/
 
     double alsmu = evolbsmm->alphatilde_s(mu);
     double alemu = evolbsmm->alphatilde_e(mu);
@@ -84,11 +92,11 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     gslpp::matrix<gslpp::complex> Vckm = SM.getVCKM();
     double sw = sqrt( (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ) ;
     
-    gslpp::complex C_10p = 0.;
-    gslpp::complex C_S = 0.;
-    gslpp::complex C_Sp = 0.;
-    gslpp::complex C_P = 0.;
-    gslpp::complex C_Pp = 0.;
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
+    C_S = (*(allcoeffDB1[LO]))(10) + (*(allcoeffDB1[NLO]))(10);
+    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
+    C_P = (*(allcoeffDB1[LO]))(11) + (*(allcoeffDB1[NLO]))(11);
+    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
    
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     
@@ -100,6 +108,10 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                     + (*(allcoeff[NLO_QED11]))(7) + (*(allcoeff[NLO_QED02]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
+            
+            allcoeff_noSM = convertFromSingletoDoubleGF * SM.getFlavour().ComputeCoeffBMll(mu, lep, true); /* Single GF for excluding EW corrections*/
+                
+            C_10 = C10_SM + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
             
             gslpp::complex NPfactor = (Vckm(2,2).conjugate() * Vckm(2,1)) * sw * sw;
 
