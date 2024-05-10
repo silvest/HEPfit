@@ -41545,17 +41545,17 @@ double NPSMEFTd6General::AuxObs_NP30() const
 
 double NPSMEFTd6General::CLL_e() const
 {
-    return (getSMEFTCoeffEW("CllR", 0, 0, 0, 0));
+    return 2.0 * (getSMEFTCoeffEW("CllR", 0, 0, 0, 0));
 }
 
 double NPSMEFTd6General::CLL_mu() const
 {
-    return (getSMEFTCoeffEW("CllR", 0, 0, 1, 1) + getSMEFTCoeffEW("CllR", 0, 1, 1, 0));
+    return 2.0 * (getSMEFTCoeffEW("CllR", 0, 0, 1, 1) + getSMEFTCoeffEW("CllR", 0, 1, 1, 0));
 }
 
 double NPSMEFTd6General::CLL_tau() const
 {
-    return (getSMEFTCoeffEW("CllR", 0, 0, 2, 2) + getSMEFTCoeffEW("CllR", 0, 2, 2, 0));
+    return 2.0 * (getSMEFTCoeffEW("CllR", 0, 0, 2, 2) + getSMEFTCoeffEW("CllR", 0, 2, 2, 0));
 }
 
 double NPSMEFTd6General::CLL_up() const
@@ -41666,17 +41666,17 @@ double NPSMEFTd6General::CRL_bottom() const
 
 double NPSMEFTd6General::CRR_e() const
 {
-    return (getSMEFTCoeffEW("CeeR", 0, 0, 0, 0));
+    return 2.0 * (getSMEFTCoeffEW("CeeR", 0, 0, 0, 0));
 }
 
 double NPSMEFTd6General::CRR_mu() const
 {
-    return (2.0 * getSMEFTCoeffEW("CeeR", 0, 0, 1, 1));
+    return 4.0 * (getSMEFTCoeffEW("CeeR", 0, 0, 1, 1));
 }
 
 double NPSMEFTd6General::CRR_tau() const
 {
-    return (2.0 * getSMEFTCoeffEW("CeeR", 0, 0, 2, 2));
+    return 4.0 * (getSMEFTCoeffEW("CeeR", 0, 0, 2, 2));
 }
 
 double NPSMEFTd6General::CRR_up() const
@@ -42475,7 +42475,7 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         dCnueVLL3113 = (getMatching().getCnueVLR(2,0,0,2)).real();
 
         // Modification in terms of the LEFT basis (at low energies)        
-        delta = (-1./GF/sqrt(2.)) * (dCnueVLL3223 - dCnueVLL3113);
+        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL3223 - dCnueVLL3113);
         
         return (trueSM.TauLFU_gmuge())*delta;    
     }
@@ -42488,7 +42488,7 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         dCnueVLL2112 = (getMatching().getCnueVLR(1,0,0,1)).real();
 
         // Modification in terms of the LEFT basis (at low energies)        
-        delta = (-1./GF/sqrt(2.)) * (dCnueVLL3113 - dCnueVLL2112);
+        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL3113 - dCnueVLL2112);
         
         return (trueSM.TauLFU_gtaugmu())*delta;   
     }
@@ -42502,7 +42502,7 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
         dCnueVLL2112 = (getMatching().getCnueVLR(1,0,0,1)).real();
 
         // Modification in terms of the LEFT basis (at low energies)        
-        delta = (-1./GF/sqrt(2.)) * (dCnueVLL3223 - dCnueVLL2112);
+        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL3223 - dCnueVLL2112);
         
         return (trueSM.TauLFU_gtauge())*delta;  
     }
