@@ -2103,9 +2103,9 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
  * ****************************************************************************/
 double StandardModelMatching::setWCBsmm(int i, double x, orders order) {
 
-    sw = sqrt((M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw));
+    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
 
-    if (swd == sw && xcached == x) {
+    if (sw2d == sw2 && xcached == x) {
         switch (order) {
             case NNLO:
                 return (CWBsmmArrayNNLOqcd[i]);
@@ -2123,24 +2123,24 @@ double StandardModelMatching::setWCBsmm(int i, double x, orders order) {
         }
     }
 
-    swd = sw;
+    sw2d = sw2;
     xcached = x;
 
     switch (order) {
         case NNLO:
-            CWBsmmArrayNNLOqcd[0] = sw * sw * (-Tt(x) + 7987. / 72. + 17. * M_PI * M_PI / 3. + 475. * L / 6. + 17. * L * L);
-            CWBsmmArrayNNLOqcd[1] = sw * sw * (127. / 18. + 4. * M_PI * M_PI / 3. + 46. * L / 3. + 4. * L * L);
-            CWBsmmArrayNNLOqcd[2] = sw * sw * (G1t(x, Muw) - 680. / 243. - 20. * M_PI * M_PI / 81. - 68. * L / 81. - 20. * L * L / 27.);
-            CWBsmmArrayNNLOqcd[3] = sw * sw * (E1t(x, Muw) + 950. / 243. + 10. * M_PI * M_PI / 81. + 124. * L / 27. + 10. * L * L / 27.);
-            CWBsmmArrayNNLOqcd[4] = sw * sw * (-G1t(x, Muw) / 10. + 2. * E0t(x) / 15. + 68. / 243. + 2. * M_PI * M_PI / 81. + 14. * L / 81. + 2. * L * L / 27.);
-            CWBsmmArrayNNLOqcd[5] = sw * sw * (-3. * G1t(x, Muw) / 16. + E0t(x) / 4. + 85. / 162. + 5. * M_PI * M_PI / 108. + 35. * L / 108. + 5. * L * L / 36.);
+            CWBsmmArrayNNLOqcd[0] = sw2 * (-Tt(x) + 7987. / 72. + 17. * M_PI * M_PI / 3. + 475. * L / 6. + 17. * L * L);
+            CWBsmmArrayNNLOqcd[1] = sw2 * (127. / 18. + 4. * M_PI * M_PI / 3. + 46. * L / 3. + 4. * L * L);
+            CWBsmmArrayNNLOqcd[2] = sw2 * (G1t(x, Muw) - 680. / 243. - 20. * M_PI * M_PI / 81. - 68. * L / 81. - 20. * L * L / 27.);
+            CWBsmmArrayNNLOqcd[3] = sw2 * (E1t(x, Muw) + 950. / 243. + 10. * M_PI * M_PI / 81. + 124. * L / 27. + 10. * L * L / 27.);
+            CWBsmmArrayNNLOqcd[4] = sw2 * (-G1t(x, Muw) / 10. + 2. * E0t(x) / 15. + 68. / 243. + 2. * M_PI * M_PI / 81. + 14. * L / 81. + 2. * L * L / 27.);
+            CWBsmmArrayNNLOqcd[5] = sw2 * (-3. * G1t(x, Muw) / 16. + E0t(x) / 4. + 85. / 162. + 5. * M_PI * M_PI / 108. + 35. * L / 108. + 5. * L * L / 36.);
 
         case NLO:
-            CWBsmmArrayNLOqcd[0] = sw * sw * (15. + 6. * L);
-            CWBsmmArrayNLOqcd[3] = sw * sw * (Eet(x) - 2. / 3. + 2. * L / 3.);
+            CWBsmmArrayNLOqcd[0] = sw2 * (15. + 6. * L);
+            CWBsmmArrayNLOqcd[3] = sw2 * (Eet(x) - 2. / 3. + 2. * L / 3.);
 
         case LO:
-            CWBsmmArrayLOqcd[1] = sw * sw * 1.;
+            CWBsmmArrayLOqcd[1] = sw2 * 1.;
 
             break;
         default:
@@ -2169,12 +2169,12 @@ double StandardModelMatching::setWCBsmm(int i, double x, orders order) {
 }
 
 double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed) {
-    sw = sqrt((M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw));
+    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
 
     double mt = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(),
             SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
 
-    if (swe == sw && xcachee == x) {
+    if (sw2e == sw2 && xcachee == x) {
         switch (order_qed) {
             case NLO_QED22:
                 return (CWBsmmArrayNLOewt4[i]);
@@ -2194,7 +2194,7 @@ double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed)
     }
 
 
-    swe = sw;
+    sw2e = sw2;
     xcachee = x;
 
     ///*non-student*/double xz = SM.getMz() * SM.getMz() / Mw / Mw;
@@ -2202,31 +2202,31 @@ double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed)
 
     switch (order_qed) {
         case NLO_QED22:
-            ///*non-student*/CWBsmmArrayNLOewt4[7] = sw * sw * (-x*x/32./sw/sw/sw/sw*(3.+taub2(xht)-Delta_t(Muw,xht))) ;
-            ///*non-student*/CWBsmmArrayNLOewt4[6] = (4. * sw * sw - 1.) * CWBsmmArrayNLOewt4[7];
-            CWBsmmArrayNLOewt4[7] = sw * sw * (1. / (sw * sw)) * Rest(x, Muw);
+            ///*non-student*/CWBsmmArrayNLOewt4[7] = sw2 * (-x*x/32./sw/sw/sw/sw*(3.+taub2(xht)-Delta_t(Muw,xht))) ;
+            ///*non-student*/CWBsmmArrayNLOewt4[6] = (4. * sw2 - 1.) * CWBsmmArrayNLOewt4[7];
+            CWBsmmArrayNLOewt4[7] = sw2 * (1. / (sw2)) * Rest(x, Muw);
             //        std::cout << ">>>>>>> " << Rest(163.5*163.5/80.358/80.358, 80.358) << std::endl;
 
         case NLO_QED21:
-            ///*non-student*/CWBsmmArrayNLOewt2[2] = sw * sw * (1. / sw / sw * (4. / 9. * B1d(x, Muw) + 4. / 27. * B1d_tilde(x, Muw) + 2. / 9. * B1u(x, Muw) +
+            ///*non-student*/CWBsmmArrayNLOewt2[2] = sw2 * (1. / sw2 * (4. / 9. * B1d(x, Muw) + 4. / 27. * B1d_tilde(x, Muw) + 2. / 9. * B1u(x, Muw) +
             //                    2. / 27. * B1u_tilde(x, Muw) - 2. / 9. * C1ew(x) + 320. / 27. * B0b(x) + 160. / 27. * C0b(x)));
-            ///*non-student*/CWBsmmArrayNLOewt2[3] = sw * sw * (16. / 27. * C0b(x) + 1. / sw /sw * (8. / 9. * B1d_tilde(x, Muw) + 4. / 9. * B1u_tilde(x, Muw) -
+            ///*non-student*/CWBsmmArrayNLOewt2[3] = sw2 * (16. / 27. * C0b(x) + 1. / sw /sw * (8. / 9. * B1d_tilde(x, Muw) + 4. / 9. * B1u_tilde(x, Muw) -
             //                    2. / 9. * Gew(x, xz, Muw) - 88. / 9. * B0b(x) - 184. / 27. * C0b(x)));
-            ///*non-student*/CWBsmmArrayNLOewt2[4] = sw * sw * (1. / sw / sw * (-1. / 9. * B1d(x, Muw) - 1. / 27. * B1d_tilde(x, Muw) - 1. / 18. * B1u(x, Muw) -
+            ///*non-student*/CWBsmmArrayNLOewt2[4] = sw2 * (1. / sw2 * (-1. / 9. * B1d(x, Muw) - 1. / 27. * B1d_tilde(x, Muw) - 1. / 18. * B1u(x, Muw) -
             //                    1. / 54. * B1u_tilde(x, Muw) + 1. / 18. * C1ew(x) - 32. / 27. * B0b(x) - 16. / 27. * C0b(x)));
-            ///*non-student*/CWBsmmArrayNLOewt2[5] = sw * sw * (1. / sw / sw * (-2. / 9. * B1d_tilde(x, Muw) - 1. / 9. * B1u_tilde(x, Muw) + 1. / 18. * Gew(x, xz, Muw) +
+            ///*non-student*/CWBsmmArrayNLOewt2[5] = sw2 * (1. / sw2 * (-2. / 9. * B1d_tilde(x, Muw) - 1. / 9. * B1u_tilde(x, Muw) + 1. / 18. * Gew(x, xz, Muw) +
             //                    4. / 3. * B0b(x) + 2. / 3. * C0b(x)));
-            CWBsmmArrayNLOewt2[6] = sw * sw * ((1. - 4. * sw * sw) * C1t(x, Muw) / (sw * sw) - B1t(x, Muw) / (sw * sw)
-                    - D1t(x, Muw) + 1. / (sw * sw) + 524. / 729. - 128. * M_PI * M_PI / 243.
+            CWBsmmArrayNLOewt2[6] = sw2 * ((1. - 4. * sw2) * C1t(x, Muw) / (sw2) - B1t(x, Muw) / (sw2)
+                    - D1t(x, Muw) + 1. / (sw2) + 524. / 729. - 128. * M_PI * M_PI / 243.
                     - 16. * L / 3. - 128. * L * L / 81.);
-            CWBsmmArrayNLOewt2[7] = sw * sw * ((1. / (sw * sw)) * (B1t(x, Muw) - C1t(x, Muw)) - 1. / (sw * sw));
+            CWBsmmArrayNLOewt2[7] = sw2 * ((1. / (sw2)) * (B1t(x, Muw) - C1t(x, Muw)) - 1. / (sw2));
 
         case NLO_QED11:
-            ///*non-student*/CWBsmmArrayNLOew[1] = sw * sw * (-22. / 9. - 4. / 3. * Lz + 1. / 9.);
-            ///*non-student*/CWBsmmArrayNLOew[2] = sw * sw * (-2. / 9. / sw /sw * (2. * B0b(x) + C0b(x)));
-            ///*non-student*/CWBsmmArrayNLOew[4] = sw * sw * (1. / 9. / sw /sw * (B0b(x) + 1. / 2. * C0b(x)));
-            CWBsmmArrayNLOew[6] = sw * sw * (Y0(x) / (sw * sw) + Wt(x) + 4. / 9. - 4. * 2 * log(Muw / mt) / 9.);
-            CWBsmmArrayNLOew[7] = sw * sw * (-Y0(x) / (sw * sw));
+            ///*non-student*/CWBsmmArrayNLOew[1] = sw2 * (-22. / 9. - 4. / 3. * Lz + 1. / 9.);
+            ///*non-student*/CWBsmmArrayNLOew[2] = sw2 * (-2. / 9. / sw /sw * (2. * B0b(x) + C0b(x)));
+            ///*non-student*/CWBsmmArrayNLOew[4] = sw2 * (1. / 9. / sw /sw * (B0b(x) + 1. / 2. * C0b(x)));
+            CWBsmmArrayNLOew[6] = sw2 * (Y0(x) / (sw2) + Wt(x) + 4. / 9. - 4. * 2 * log(Muw / mt) / 9.);
+            CWBsmmArrayNLOew[7] = sw2 * (-Y0(x) / (sw2));
 
             break;
         default:
@@ -2257,9 +2257,9 @@ double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed)
  * ****************************************************************************/
 double StandardModelMatching::setWCBdmm(int i, double x, orders order) {
 
-    sw = sqrt((M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw));
+    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
 
-    if (swb == sw && xcacheb == x) {
+    if (sw2b == sw2 && xcacheb == x) {
         switch (order) {
             case NNLO:
                 return (CWBdmmArrayNNLOqcd[i]);
@@ -2277,24 +2277,24 @@ double StandardModelMatching::setWCBdmm(int i, double x, orders order) {
         }
     }
 
-    swb = sw;
+    sw2b = sw2;
     xcacheb = x;
 
     switch (order) {
         case NNLO:
-            CWBdmmArrayNNLOqcd[0] = sw * sw * (-Tt(x) + 7987. / 72. + 17. * M_PI * M_PI / 3. + 475. * L / 6. + 17. * L * L);
-            CWBdmmArrayNNLOqcd[1] = sw * sw * (127. / 18. + 4. * M_PI * M_PI / 3. + 46. * L / 3. + 4. * L * L);
-            CWBdmmArrayNNLOqcd[2] = sw * sw * (G1t(x, Muw) - 680. / 243. - 20. * M_PI * M_PI / 81. - 68. * L / 81. - 20. * L * L / 27.);
-            CWBdmmArrayNNLOqcd[3] = sw * sw * (E1t(x, Muw) + 950. / 243. + 10. * M_PI * M_PI / 81. + 124. * L / 27. + 10. * L * L / 27.);
-            CWBdmmArrayNNLOqcd[4] = sw * sw * (-G1t(x, Muw) / 10. + 2. * E0t(x) / 15. + 68. / 243. + 2. * M_PI * M_PI / 81. + 14. * L / 81. + 2. * L * L / 27.);
-            CWBdmmArrayNNLOqcd[5] = sw * sw * (-3. * G1t(x, Muw) / 16. + E0t(x) / 4. + 85. / 162. + 5. * M_PI * M_PI / 108. + 35. * L / 108. + 5. * L * L / 36.);
+            CWBdmmArrayNNLOqcd[0] = sw2 * (-Tt(x) + 7987. / 72. + 17. * M_PI * M_PI / 3. + 475. * L / 6. + 17. * L * L);
+            CWBdmmArrayNNLOqcd[1] = sw2 * (127. / 18. + 4. * M_PI * M_PI / 3. + 46. * L / 3. + 4. * L * L);
+            CWBdmmArrayNNLOqcd[2] = sw2 * (G1t(x, Muw) - 680. / 243. - 20. * M_PI * M_PI / 81. - 68. * L / 81. - 20. * L * L / 27.);
+            CWBdmmArrayNNLOqcd[3] = sw2 * (E1t(x, Muw) + 950. / 243. + 10. * M_PI * M_PI / 81. + 124. * L / 27. + 10. * L * L / 27.);
+            CWBdmmArrayNNLOqcd[4] = sw2 * (-G1t(x, Muw) / 10. + 2. * E0t(x) / 15. + 68. / 243. + 2. * M_PI * M_PI / 81. + 14. * L / 81. + 2. * L * L / 27.);
+            CWBdmmArrayNNLOqcd[5] = sw2 * (-3. * G1t(x, Muw) / 16. + E0t(x) / 4. + 85. / 162. + 5. * M_PI * M_PI / 108. + 35. * L / 108. + 5. * L * L / 36.);
 
         case NLO:
-            CWBdmmArrayNLOqcd[0] = sw * sw * (15. + 6. * L);
-            CWBdmmArrayNLOqcd[3] = sw * sw * (Eet(x) - 2. / 3. + 2. * L / 3.);
+            CWBdmmArrayNLOqcd[0] = sw2 * (15. + 6. * L);
+            CWBdmmArrayNLOqcd[3] = sw2 * (Eet(x) - 2. / 3. + 2. * L / 3.);
 
         case LO:
-            CWBdmmArrayLOqcd[1] = sw * sw * 1.;
+            CWBdmmArrayLOqcd[1] = sw2 * 1.;
 
             break;
         default:
@@ -2323,12 +2323,12 @@ double StandardModelMatching::setWCBdmm(int i, double x, orders order) {
 }
 
 double StandardModelMatching::setWCBdmmEW(int i, double x, orders_qed order_qed) {
-    sw = sqrt((M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw));
+    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
 
     double mt = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(),
             SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
 
-    if (swc == sw && xcachec == x) {
+    if (sw2c == sw2 && xcachec == x) {
         switch (order_qed) {
             case NLO_QED22:
                 return (CWBdmmArrayNLOewt4[i]);
@@ -2348,22 +2348,22 @@ double StandardModelMatching::setWCBdmmEW(int i, double x, orders_qed order_qed)
     }
 
 
-    swc = sw;
+    sw2c = sw2;
     xcachec = x;
 
     switch (order_qed) {
         case NLO_QED22:
-            CWBdmmArrayNLOewt4[7] = sw * sw * (1. / (sw * sw)) * Rest(x, Muw);
+            CWBdmmArrayNLOewt4[7] = sw2 * (1. / (sw2)) * Rest(x, Muw);
 
         case NLO_QED21:
-            CWBdmmArrayNLOewt2[6] = sw * sw * ((1. - 4. * sw * sw) * C1t(x, Muw) / (sw * sw) - B1t(x, Muw) / (sw * sw)
-                    - D1t(x, Muw) + 1. / (sw * sw) + 524. / 729. - 128. * M_PI * M_PI / 243.
+            CWBdmmArrayNLOewt2[6] = sw2 * ((1. - 4. * sw2) * C1t(x, Muw) / (sw2) - B1t(x, Muw) / (sw2)
+                    - D1t(x, Muw) + 1. / (sw2) + 524. / 729. - 128. * M_PI * M_PI / 243.
                     - 16. * L / 3. - 128. * L * L / 81.);
-            CWBdmmArrayNLOewt2[7] = sw * sw * ((1. / (sw * sw)) * (B1t(x, Muw) - C1t(x, Muw)) - 1. / (sw * sw));
+            CWBdmmArrayNLOewt2[7] = sw2 * ((1. / (sw2)) * (B1t(x, Muw) - C1t(x, Muw)) - 1. / (sw2));
 
         case NLO_QED11:
-            CWBdmmArrayNLOew[6] = sw * sw * (Y0(x) / (sw * sw) + Wt(x) + 4. / 9. - 4. * 2 * log(Muw / mt) / 9.);
-            CWBdmmArrayNLOew[7] = sw * sw * (-Y0(x) / (sw * sw));
+            CWBdmmArrayNLOew[6] = sw2 * (Y0(x) / (sw2) + Wt(x) + 4. / 9. - 4. * 2 * log(Muw / mt) / 9.);
+            CWBdmmArrayNLOew[7] = sw2 * (-Y0(x) / (sw2));
 
             break;
         default:
@@ -2445,19 +2445,19 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
 }
 
 double StandardModelMatching::setWCbnlepEW(int i, double x) {
-    sw = sqrt((M_PI * Ale) / (sqrt(2) * GF * Mw * Mw));
+    sw2 = (M_PI * Ale) / (sqrt(2) * GF * Mw * Mw);
 
-    if (swb == sw && xcacheb == x) {
+    if (sw2b == sw2 && xcacheb == x) {
         return (CWbnlepArrayNLOew[i]);
     }
 
-    swb = sw;
+    sw2b = sw2;
     xcacheb = x;
 
     CWbnlepArrayNLOew[1] = -35. / 18.;
-    CWbnlepArrayNLOew[2] = 2. / (3. * sw * sw) * (2. * B0b(x) + C0b(x));
+    CWbnlepArrayNLOew[2] = 2. / (3. * sw2) * (2. * B0b(x) + C0b(x));
     CWbnlepArrayNLOew[6] = 2. / 3. * (4. * C0b(x) + D0b(x) - 4. / 9.);
-    CWbnlepArrayNLOew[8] = 2. / 3. * (4. * C0b(x) + D0b(x) - 4. / 9. + (1. / (sw * sw)) *
+    CWbnlepArrayNLOew[8] = 2. / 3. * (4. * C0b(x) + D0b(x) - 4. / 9. + (1. / (sw2)) *
             (10. * B0b(x) - 4. * C0b(x)));
 
     return (CWbnlepArrayNLOew[i]);

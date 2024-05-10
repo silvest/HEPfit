@@ -667,7 +667,7 @@ private:
     WilsonCoefficientNew mcC, mcP, mcM, mcL, mcQ, mcB;
     
     double Mut, Muw, Ale, GF, Mw_tree, Nc, CF, Mt_muw, Mt_mut;
-    double gamma0, J5, BtNDR, Mw, sW2, mu_b;
+    double gamma0, J5, BtNDR, Mw, sW2, mu_b, sw, sw2;
     double L, Lz;
     double alstilde, aletilde;
     

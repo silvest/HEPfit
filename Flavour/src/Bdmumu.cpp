@@ -9,25 +9,37 @@
 #include "StandardModel.h"
 #include "EvolBsmm.h"
 #include "HeffDB1.h"
+#include "NPSMEFTd6GeneralMatching.h"
 
-Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag)
+Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
 : ThObservable(SM_i),
-  evolbdmm(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM))
+  evolbdmm(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)), dgd(SM_i)
 {  
+    lep = lep_i;
+    if(lep == QCD::MU) leptonindex = 1;
+    else if(lep == QCD::ELECTRON) leptonindex = 0;
+    else if(lep == QCD::TAU) leptonindex = 2;
+    else throw std::runtime_error("Bsmumu::Bsmumu(): lepton type not defined. Can be only MU or ELECTRON");
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bdmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
     SM.initializeMeson(QCD::B_D);
+    std::vector<std::string> pars = dgd.getParametersForObservable();
+    setParametersForObservable(pars);
 };
 
 double Bdmumu::computeThValue()
 {   
-    computeObs(FULLNLO, FULLNLO_QED);
     double FBd = SM.getMesons(QCD::B_D).getDecayconst();
     
-    double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; 
+    double Mw = SM.Mw();
+    double GF = SM.getGF();
+    coupling = GF * GF * Mw * Mw /M_PI /M_PI ; 
+
+    computeObs(FULLNLO, FULLNLO_QED);
     
+
     double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_D).computeWidth() * pow(FBd, 2.) * pow(mmu, 2.) * mBd * beta;
-    yd = 0; // For now. To be explicitly calculated.
+    yd = dgd.computeThValue()*SM.getMesons(QCD::B_D).getLifetime()/2.;; // For now. To be explicitly calculated.
     timeInt = (1. + Amumu * yd) / (1. - yd * yd); // Note modification in form due to algorithm
     
     if (obs == 1) return( PRF * ampSq);
@@ -43,8 +55,9 @@ void Bdmumu::computeObs(orders order, orders_qed order_qed)
 {
     double mu = SM.getMub();  
         
-    mmu = SM.getLeptons(StandardModel::MU).getMass();
+    mlep = SM.getLeptons(lep).getMass();
     mBd = SM.getMesons(QCD::B_D).getMass();
+    mW = SM.Mw();
     mb = SM.getQuarks(QCD::BOTTOM).getMass();
     md = SM.getQuarks(QCD::DOWN).getMass();
     chiral = pow(mBd, 2.) / 2. / mmu * mb / (mb + md);
@@ -74,22 +87,34 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
         throw std::runtime_error("Bdmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffdmumu(mu, NDR);
+    allcoeff = SM.getFlavour().ComputeCoeffdmumu(mu, NDR);
     
     double alsmu = evolbdmm->alphatilde_s(mu);
     double alemu = evolbdmm->alphatilde_e(mu);
 //    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
+    gslpp::matrix<gslpp::complex> Vckm = SM.getVCKM();
     
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     
     switch(order_qed) {
         case FULLNLO_QED:
         {
-            gslpp::complex CC = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
+            C_10 = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
                     + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_QED ]))(7) /alsmu
                     + (*(allcoeff[NLO_QED11]))(7) + (*(allcoeff[NLO_QED02]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
+
+            gslpp::complex NPfactor = (Vckm(2,2).conjugate() * Vckm(2,0)) * coupling;
+
+            if(SM.getModelName().compare("NPSMEFTd6U2") == 0 || SM.getModelName().compare("NPSMEFTd6U3") == 0)
+            {
+                C_10 = C_10 + (dynamic_cast<NPSMEFTd6GeneralMatching>(SM.getMatching()).getCdeVLR(0,2,leptonindex,leptonindex) - 
+                    dynamic_cast<NPSMEFTd6GeneralMatching>(SM.getMatching()).getCedVLL(leptonindex,leptonindex,0,2)) / NPfactor; 
+            }
+
+
+
             absP = CC.abs();
             argP = CC.arg();
            

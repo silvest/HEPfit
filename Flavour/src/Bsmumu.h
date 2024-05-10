@@ -66,7 +66,9 @@ private:
     double phiNP;
     double timeInt;
     double convertFromSingletoDoubleGF;
+    double coupling;
     int obs;
+    int leptonindex;
     gslpp::complex C_10;
     gslpp::complex C_10p;
     gslpp::complex C_S;
