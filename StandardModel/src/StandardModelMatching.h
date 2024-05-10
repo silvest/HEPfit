@@ -667,7 +667,7 @@ private:
     WilsonCoefficientNew mcC, mcP, mcM, mcL, mcQ, mcB;
     
     double Mut, Muw, Ale, GF, Mw_tree, Nc, CF, Mt_muw, Mt_mut;
-    double gamma0, J5, BtNDR, Mw, sW2, mu_b, sw, sw2;
+    double gamma0, J5, BtNDR, Mw, sW2, mu_b, sw;
     double L, Lz;
     double alstilde, aletilde;
     
@@ -773,7 +773,7 @@ private:
     double CWBdmmArrayNNLOqcd[8], CWBdmmArrayNLOqcd[8], CWBdmmArrayLOqcd[8];
     double CWBdmmArrayNLOewt4[8], CWBdmmArrayNLOewt2[8], CWBdmmArrayNLOew[8];
     
-    double sw, swa, swb, swc, swd, swe, swf; //sen(theta_W) tree level
+    double sw2, swa, sw2a, swb, sw2b, swc, sw2c, swd, sw2d, swe, sw2e, swf, sw2f; //sen(theta_W) tree level
     double xcachea, xcacheb, xcachec, xcached, xcachee, xcachef; // caching
 
     

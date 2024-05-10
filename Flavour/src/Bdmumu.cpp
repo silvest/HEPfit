@@ -38,7 +38,7 @@ double Bdmumu::computeThValue()
     computeObs(FULLNLO, FULLNLO_QED);
     
 
-    double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_D).computeWidth() * pow(FBd, 2.) * pow(mmu, 2.) * mBd * beta;
+    double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_D).computeWidth() * pow(FBd, 2.) * pow(mlep, 2.) * mBd * beta;
     yd = dgd.computeThValue()*SM.getMesons(QCD::B_D).getLifetime()/2.;; // For now. To be explicitly calculated.
     timeInt = (1. + Amumu * yd) / (1. - yd * yd); // Note modification in form due to algorithm
     
@@ -60,8 +60,8 @@ void Bdmumu::computeObs(orders order, orders_qed order_qed)
     mW = SM.Mw();
     mb = SM.getQuarks(QCD::BOTTOM).getMass();
     md = SM.getQuarks(QCD::DOWN).getMass();
-    chiral = pow(mBd, 2.) / 2. / mmu * mb / (mb + md);
-    beta = sqrt(1. - pow(2. * mmu / mBd, 2.));
+    chiral = pow(mBd, 2.) / 2. / mlep * mb / (mb + md);
+    beta = sqrt(1. - pow(2. * mlep / mBd, 2.));
     computeAmpSq(order, order_qed, mu);
     Amumu = (absP * absP * cos(2. * argP - phiNP) -  absS * absS * cos(2. * argS - phiNP)) / (absP * absP + absS * absS);
     Smumu = (absP * absP * sin(2. * argP - phiNP) -  absS * absS * sin(2. * argS - phiNP)) / (absP * absP + absS * absS);
@@ -109,14 +109,14 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
 
             if(SM.getModelName().compare("NPSMEFTd6U2") == 0 || SM.getModelName().compare("NPSMEFTd6U3") == 0)
             {
-                C_10 = C_10 + (dynamic_cast<NPSMEFTd6GeneralMatching>(SM.getMatching()).getCdeVLR(0,2,leptonindex,leptonindex) - 
-                    dynamic_cast<NPSMEFTd6GeneralMatching>(SM.getMatching()).getCedVLL(leptonindex,leptonindex,0,2)) / NPfactor; 
+                C_10 = C_10 + (dynamic_cast<NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCdeVLR(0,2,leptonindex,leptonindex) - 
+                    dynamic_cast<NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedVLL(leptonindex,leptonindex,0,2)) / NPfactor; 
             }
 
 
 
-            absP = CC.abs();
-            argP = CC.arg();
+            absP = C_10.abs();
+            argP = C_10.arg();
            
             phiNP = 0.;
             

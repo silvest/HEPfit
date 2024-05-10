@@ -93,7 +93,7 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     double alemu = evolbsmm->alphatilde_e(mu);
 //    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
     gslpp::matrix<gslpp::complex> Vckm = SM.getVCKM();
-    double sw2 =  (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ;
+//    double sw2 =  (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ;
     
     C_10p = 0.;
     C_S = 0.;
@@ -116,8 +116,8 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
 
             if(SM.getModelName().compare("NPSMEFTd6U2") == 0 || SM.getModelName().compare("NPSMEFTd6U3") == 0)
             {
-                C_10 = C_10 + (dynamic_cast<NPSMEFTd6GeneralMatching>(SM.getMatching()).getCdeVLR(1,2,leptonindex,leptonindex) - 
-                    dynamic_cast<NPSMEFTd6GeneralMatching>(SM.getMatching()).getCedVLL(leptonindex,leptonindex,0,2)) / NPfactor; 
+                C_10 = C_10 + (dynamic_cast<NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCdeVLR(1,2,leptonindex,leptonindex) - 
+                    dynamic_cast<NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedVLL(leptonindex,leptonindex,0,2)) / NPfactor; 
             }
 
             gslpp::complex CC_P = C_10 + NPfactor * ( /*C10_NP*/ - C_10p + mBs*mBs*mb / ( 2.*mlep*(mb+ms)*mW ) * (C_P - C_Pp) );
