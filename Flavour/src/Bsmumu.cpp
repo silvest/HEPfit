@@ -29,7 +29,7 @@ double Bsmumu::computeThValue()
     double Mw = SM.Mw();
     double GF = SM.getGF();
     double coupling = GF * GF * Mw * Mw /M_PI /M_PI ; 
-    convertFromSingletoDoubleGF = 2. * M_SQRT2 / GF * SM.getAle() / 4. * M_PI / Mw / Mw; /* Single GF for excluding EW corrections*/
+    //convertFromSingletoDoubleGF = 2. * M_SQRT2 / GF * SM.getAle() / 4. * M_PI / Mw / Mw; /* Single GF for excluding EW corrections*/
 
     computeObs(FULLNLO, FULLNLO_QED);
 
@@ -83,8 +83,6 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                                  "order " + out.str() + " not computed");
     }
     allcoeff = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
-    allcoeffDB1 = convertFromSingletoDoubleGF * SM.getFlavour().ComputeCoeffBMll(mu, lep); /* Single GF for excluding EW corrections*/
-    allcoeffprime = convertFromSingletoDoubleGF * SM.getFlavour().ComputeCoeffprimeBMll(mu, lep); /* Single GF for excluding EW corrections*/
 
     double alsmu = evolbsmm->alphatilde_s(mu);
     double alemu = evolbsmm->alphatilde_e(mu);
@@ -92,30 +90,26 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     gslpp::matrix<gslpp::complex> Vckm = SM.getVCKM();
     double sw = sqrt( (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ) ;
     
-    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-    C_S = (*(allcoeffDB1[LO]))(10) + (*(allcoeffDB1[NLO]))(10);
-    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
-    C_P = (*(allcoeffDB1[LO]))(11) + (*(allcoeffDB1[NLO]))(11);
-    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
+    C_10p = 0.;
+    C_S = 0.;
+    C_Sp = 0.;
+    C_P = 0.;
+    C_Pp = 0.;
    
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     
     switch(order_qed) {
         case FULLNLO_QED:
         {
-            gslpp::complex C10_SM = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
+            C10 = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
                     + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_QED ]))(7) /alsmu
                     + (*(allcoeff[NLO_QED11]))(7) + (*(allcoeff[NLO_QED02]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
             
-            allcoeff_noSM = convertFromSingletoDoubleGF * SM.getFlavour().ComputeCoeffBMll(mu, lep, true); /* Single GF for excluding EW corrections*/
-                
-            C_10 = C10_SM + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
-            
             gslpp::complex NPfactor = (Vckm(2,2).conjugate() * Vckm(2,1)) * sw * sw;
 
-            gslpp::complex CC_P = C10_SM + NPfactor * ( /*C10_NP*/ - C_10p + mBs*mBs*mb / ( 2.*mlep*(mb+ms)*mW ) * (C_P - C_Pp) );
+            gslpp::complex CC_P = C10 + NPfactor * ( /*C10_NP*/ - C_10p + mBs*mBs*mb / ( 2.*mlep*(mb+ms)*mW ) * (C_P - C_Pp) );
 
                 
             absP = CC_P.abs(); //contains only SM contributions (P, P', S, S' not added)

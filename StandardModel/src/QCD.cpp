@@ -29,6 +29,7 @@ std::string QCD::QCDvars[NQCDvars] = {
 
 QCD::QCD()
 {
+    setModelName("QCD");
     FlagCsi = true;
     computeFBd = false;
     computeFBp = false;

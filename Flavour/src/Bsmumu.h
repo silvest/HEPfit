@@ -76,10 +76,7 @@ private:
 
     std::unique_ptr<EvolBsmm> evolbsmm;
     DGamma_s_MSbar dgs;
-    gslpp::vector<gslpp::complex> ** allcoeffDB1;
     gslpp::vector<gslpp::complex> ** allcoeff;
-    gslpp::vector<gslpp::complex> ** allcoeffprime;
-    gslpp::vector<gslpp::complex> ** allcoeff_noSM;
  
 
 };

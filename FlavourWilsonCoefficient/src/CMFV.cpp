@@ -9,7 +9,7 @@
 const std::string CMFV::CMFVvars[NCMFVvars] = {"Ftt"};
 
 CMFV::CMFV() : StandardModel(), CMFVM(*this) {   
-
+    SetModelName("CMFV");
     SMM.setObj((StandardModelMatching&) CMFVM.getObj());
     ModelParamMap.insert(std::make_pair("Ftt", std::cref(Ftt)));
 }

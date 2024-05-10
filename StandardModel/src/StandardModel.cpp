@@ -42,6 +42,7 @@ StandardModel::StandardModel()
 : QCD(), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.),
 Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
 {
+    setModelName("StandardModel");
     requireCKM = false;
     requireYe = false;
     requireYn = false;
