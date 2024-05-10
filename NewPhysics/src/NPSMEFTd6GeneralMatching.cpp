@@ -119,6 +119,12 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         VuR = VuR * phi1;
         VdL = VdL * phi2dag;
         VdR = VdR * phi2dag;
+        
+        // Hermitian conjugates
+        VuLd = VuL.hconjugate();
+        VuRd = VuR.hconjugate();
+        VdLd = VdL.hconjugate();
+        VdRd = VdR.hconjugate();
 
         // to implement Manohar's matching formulae we define the couplings
         // in his notation. Namely, in the formulae below, the barred quantities are
