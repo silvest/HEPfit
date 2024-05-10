@@ -3185,7 +3185,25 @@ double StandardModel::Gamma_tau_l_nunu(const Particle l) const
 
 double StandardModel::TauLFU_gmuge() const
 {
-    return sqrt(Gamma_tau_l_nunu(leptons[MU])/Gamma_tau_l_nunu(leptons[ELECTRON]));
+    double g2LFU;
+    
+    double me, mmu, mtau, xe, Fxe, xmu, Fxmu;
+      
+    me = leptons[ELECTRON].getMass();
+    mmu = leptons[MU].getMass();
+    mtau = leptons[TAU].getMass();
+    
+    xe = me*me/mtau/mtau;
+    Fxe = 1. - 8. * xe + 8. * xe*xe*xe - xe*xe*xe*xe -12. * xe*xe * log(xe);     
+      
+    xmu = mmu*mmu/mtau/mtau;
+    Fxmu = 1. - 8. * xmu + 8. * xmu*xmu*xmu - xmu*xmu*xmu*xmu -12. * xmu*xmu * log(xmu); 
+    
+    g2LFU = (Gamma_tau_l_nunu(leptons[MU])/Gamma_tau_l_nunu(leptons[ELECTRON]));
+    
+    g2LFU = g2LFU * (Fxe/Fxmu);
+    
+    return sqrt(g2LFU);
 }
 
 double StandardModel::TauLFU_gtaugmu() const
