@@ -1208,6 +1208,23 @@ private:
 
 
 
+
+class sigma_mumu_VBF_3TeV_ttH : public ThObservable {
+public:   
+
+    sigma_mumu_VBF_3TeV_ttH(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
 class sigma_mumu_VBF_10TeV_tt : public ThObservable {
 public:   
 
@@ -1220,6 +1237,20 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
+
+
+
+class sigma_mumu_VBF_10TeV_ttH : public ThObservable {
+public:   
+
+    sigma_mumu_VBF_10TeV_ttH(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
 
 
 
@@ -1236,7 +1267,17 @@ private:
 };
 
 
+class sigma_mumu_VBF_30TeV_ttH : public ThObservable {
+public:   
 
+    sigma_mumu_VBF_30TeV_ttH(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
 
 //Prospects of Linear Collider at 250 GeV
 //250 bb observables

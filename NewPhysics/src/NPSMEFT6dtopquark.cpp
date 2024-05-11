@@ -4288,6 +4288,46 @@ double sigma_mumu_VBF_3TeV_tt::computeThValue()
 }
 
 
+sigma_mumu_VBF_3TeV_ttH::sigma_mumu_VBF_3TeV_ttH(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_VBF_3TeV_ttH");
+};
+double sigma_mumu_VBF_3TeV_ttH::computeThValue()
+{
+
+    //WRITTEN IN FEMTO BARNS!!!
+    double sigma_mumu_VBF_3TeV_ttH_SM = SM.getOptionalParameter("SM_sigma_mumu_VBF_3TeV_ttH");
+    double sigma_mumu_VBF_3TeV_ttH_madgraph = 0.031;//pb
+    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tphi = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    
+    
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //
+    if(flag_Quadratic){
+        return sigma_mumu_VBF_3TeV_ttH_SM + (0.001*C_phiQm+0.005*C_phiQm*C_phiQm+-0.001*C_phit+0.005*C_phit*C_phit
+                +0.138*C_tW+3.129*C_tW*C_tW+0.014*C_phiQ3+0.026*C_phiQ3*C_phiQ3+-0.004*C_tphi+0.001*C_tphi*C_tphi
+                +-0.120*C_tZ+2.332*C_tZ*C_tZ)
+                *sigma_mumu_VBF_3TeV_ttH_SM/sigma_mumu_VBF_3TeV_ttH_madgraph;
+
+    }
+    else{
+        
+        return  sigma_mumu_VBF_3TeV_ttH_SM + (0.001*C_phiQm+-0.001*C_phit+0.138*C_tW+0.014*C_phiQ3+-0.004*C_tphi+-0.120*C_tZ)
+                *sigma_mumu_VBF_3TeV_ttH_SM/sigma_mumu_VBF_3TeV_ttH_madgraph;
+        
+    }
+    
+    
+}
+
 
 
 sigma_mumu_VBF_10TeV_tt::sigma_mumu_VBF_10TeV_tt(const StandardModel& SM_i)
@@ -4327,6 +4367,53 @@ double sigma_mumu_VBF_10TeV_tt::computeThValue()
 
 
 
+
+
+sigma_mumu_VBF_10TeV_ttH::sigma_mumu_VBF_10TeV_ttH(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_VBF_10TeV_ttH");
+};
+double sigma_mumu_VBF_10TeV_ttH::computeThValue()
+{
+
+    //WRITTEN IN FEMTO BARNS!!!
+    double sigma_mumu_VBF_10TeV_ttH_SM = SM.getOptionalParameter("SM_sigma_mumu_VBF_10TeV_ttH");
+    double sigma_mumu_VBF_10TeV_ttH_madgraph = 0.179932;//pb
+    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tphi = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    
+    
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //
+    if(flag_Quadratic){
+        return sigma_mumu_VBF_10TeV_ttH_SM + (0.020219*C_phiQm+-0.027879*C_phit
+                +0.551162*C_tW+0.068450*C_phiQ3+-0.012363*C_tphi+-0.401485*C_tZ)
+                *sigma_mumu_VBF_10TeV_ttH_SM/sigma_mumu_VBF_10TeV_ttH_madgraph;
+
+    }
+    else{
+        
+        return  sigma_mumu_VBF_10TeV_ttH_SM + (0.020219*C_phiQm+0.162560*C_phiQm*C_phiQm
+                +-0.027879*C_phit+0.155512*C_phit*C_phit+0.551162*C_tW+70.819200*C_tW*C_tW
+                +0.068450*C_phiQ3+0.991230*C_phiQ3*C_phiQ3+-0.012363*C_tphi
+                +0.008227*C_tphi*C_tphi+-0.401485*C_tZ+51.466900*C_tZ*C_tZ)
+                *sigma_mumu_VBF_10TeV_ttH_SM/sigma_mumu_VBF_10TeV_ttH_madgraph;
+        
+    }
+    
+    
+}
+
+
+
+
 sigma_mumu_VBF_30TeV_tt::sigma_mumu_VBF_30TeV_tt(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
@@ -4363,6 +4450,50 @@ double sigma_mumu_VBF_30TeV_tt::computeThValue()
 }
 
 
+
+
+
+sigma_mumu_VBF_30TeV_ttH::sigma_mumu_VBF_30TeV_ttH(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_VBF_30TeV_ttH");
+};
+double sigma_mumu_VBF_30TeV_ttH::computeThValue()
+{
+
+    //WRITTEN IN FEMTO BARNS!!!
+    double sigma_mumu_VBF_30TeV_ttH_SM = SM.getOptionalParameter("SM_sigma_mumu_VBF_30TeV_ttH");
+    double sigma_mumu_VBF_30TeV_ttH_madgraph = 0.493227;//pb
+    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tphi = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    
+    
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //
+    if(flag_Quadratic){
+        return sigma_mumu_VBF_30TeV_ttH_SM + (0.104163*C_phiQm+-0.137693*C_phit
+                +0.519615*C_tW+0.086263*C_phiQ3+-0.021297*C_tphi+-1.452590*C_tZ)
+                *sigma_mumu_VBF_30TeV_ttH_SM/sigma_mumu_VBF_30TeV_ttH_madgraph;
+
+    }
+    else{
+        
+        return  sigma_mumu_VBF_30TeV_ttH_SM + (+0.104163*C_phiQm+2.662680*C_phiQm*C_phiQm
+                +-0.137693*C_phit+2.507270*C_phit*C_phit+0.519615*C_tW+1038.360000*C_tW*C_tW
+                +0.086263*C_phiQ3+17.533500*C_phiQ3*C_phiQ3+-0.021297*C_tphi
+                +0.055945*C_tphi*C_tphi+-1.452590*C_tZ+741.725000*C_tZ*C_tZ)
+                *sigma_mumu_VBF_30TeV_ttH_SM/sigma_mumu_VBF_30TeV_ttH_madgraph;
+        
+    }
+    
+    
+}
 
 
 

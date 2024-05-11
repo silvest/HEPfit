@@ -207,6 +207,7 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         ATLAS13_pp_h_phi23phi23_gagagg(13, 2, 0.), //Added in 2024
         //
+
         ATLAS13_pp_phi2_gaga_low(89, 2, 0.), //Added in 2024
         //
         ATLAS13_pp_ttphi3_ttmumu(37, 2, 0.), //Added in 2024
@@ -229,6 +230,20 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS8_pp_bbphi3_bbmumu(36, 2, 0.), //Added in 2024
         //
 
+        //
+        //Tables of integrals for g-2
+        integral_x2_1mx_G_log(62500, 3, 0.),
+        integral_x2_1px_G_log(62500, 3, 0.),
+        integral_x2_G_log(62500, 3, 0.),
+        integral_x_1mx2_G_log(62500, 3, 0.),
+        integral_x_1mx_1px_G_log(62500, 3, 0.),
+        
+        integral_x2_1mx_G_variable_set_1_log(2000, 2, 0.),
+        integral_x2_G_variable_set_1_log(2000, 2, 0.),
+        integral_x_1mx2_G_variable_set_0_log(2000, 2, 0.),
+        //
+        //
+        //
         arraybsgamma(1111, 3, 0.),
         Rij_GTHDM(3, 3, 0.),
         //The below matrices are not used anywhere, the first ones are the mass matrices and the second ones not sure
@@ -1743,9 +1758,47 @@ double GeneralTHDMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x,
 }
 
 
+//2D interpolation with "y" changing first
+
+double GeneralTHDMcache::interpolate2Dv2(gslpp::matrix<double> arrayTab, double x, double y){
+    int rowN = arrayTab.size_i();
+
+    double xmin = arrayTab(0,0);
+    double xmax = arrayTab(rowN-1,0);
+    double ymin = arrayTab(0,1);
+    double ymax = arrayTab(rowN-1,1);
+    double intervaly = arrayTab(1,1) - arrayTab(0,1);
+    int i = 1;
+    do i++;
+    while (arrayTab(i,0) - arrayTab(i-1,0) == 0 && i < 30000);
+    double intervalx = arrayTab(i,0) - arrayTab(i-1,0);
+    
+    int Nintervalsy = (y - ymin) / intervaly;
+    int Nintervalsx = (x - xmin) / intervalx;
+    if (x < xmin || x > xmax || y < ymin || y > ymax) {
+        std::cout << "Warning: the parameter point lies outside the table" << std::endl;
+        return 0.;
+    } else {
+        
+        double x1 = arrayTab(Nintervalsy + Nintervalsx*i, 0);
+        double x2 = arrayTab(Nintervalsy + (Nintervalsx+1)*i, 0);
+        double y1 = arrayTab(Nintervalsy + Nintervalsx*i, 1);
+        double y2 = arrayTab(Nintervalsy + 1 + Nintervalsx*i, 1);
+        
+        return ((arrayTab(Nintervalsy + Nintervalsx*i, 2) * (x2 - x) * (y2 - y)
+                + arrayTab(Nintervalsy + (Nintervalsx + 1)*i, 2) * (x - x1) * (y2 - y)
+                + arrayTab(Nintervalsy + 1 + Nintervalsx*i, 2) * (x2 - x) * (y - y1)
+                + arrayTab((Nintervalsy + 1) + (Nintervalsx + 1)*i, 2) * (x - x1) * (y - y1))
+               / ((x2 - x1) * (y2 - y1)));
+        
+        
+    }
+}
 
 
-//2D interpolation change starts in y axis
+
+
+//2D interpolation change starts in y axis and triangular data
 
 double GeneralTHDMcache::interpolate2DtriangularData(gslpp::matrix<double> arrayTab, double x, double y){
 
@@ -1843,6 +1896,7 @@ void GeneralTHDMcache::read(){
     std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07, lowA08, lowA09;
     std::stringstream lowA801, lowA802;
     std::stringstream lowC801, lowC802, lowC803, lowC804, lowC805, lowC806;
+    std::stringstream thint01, thint02, thint03, thint04, thint05, thint06, thint07, thint08;
     std::stringstream bsg1;
 
        std::cout<<"reading tables"<<std::endl;
@@ -2322,6 +2376,31 @@ void GeneralTHDMcache::read(){
     lowC806 << tablepath << "CMS-HIG-15-009_5b.dat";               //Added in 2024
     CMS8_pp_bbphi3_bbmumu = readTable(lowC806.str(),36,2);
 
+    
+    thint01 << tablepath << "integral_x2_1mx_G_values_log.dat";
+    integral_x2_1mx_G_log = readTable(thint01.str(),62500,3);
+    
+    thint02 << tablepath << "integral_x2_1px_G_values_log.dat";
+    integral_x2_1px_G_log = readTable(thint02.str(),62500,3);
+    
+    thint03 << tablepath << "integral_x2_G_values_log.dat";
+    integral_x2_G_log = readTable(thint03.str(),62500,3);
+    
+    thint04 << tablepath << "integral_x_1mx2_G_values_log.dat";
+    integral_x_1mx2_G_log = readTable(thint04.str(),62500,3);
+    
+    thint05 << tablepath << "integral_x_1mx_1px_G_values_log.dat";
+    integral_x_1mx_1px_G_log = readTable(thint05.str(),62500,3);
+    
+    thint06 << tablepath << "integral_x2_1mx_G_variable_set_1_values_log.dat";
+    integral_x2_1mx_G_variable_set_1_log = readTable(thint06.str(),2000,2);
+    
+    thint07 << tablepath << "integral_x2_G_variable_set_1_values_log.dat";
+    integral_x2_G_variable_set_1_log = readTable(thint07.str(),2000,2);
+    
+    thint08 << tablepath << "integral_x_1mx2_G_variable_set_0_values_log.dat";
+    integral_x_1mx2_G_variable_set_0_log = readTable(thint08.str(),2000,2);
+    
     //std::cout<< CMS13_pp_Hpm_taunu<<std::endl;
 
     bsg1 << tablepath << "bsgammatable.dat";
@@ -4849,9 +4928,10 @@ double GeneralTHDMcache::ip_low_pp_h_phi3phi3_tautautautau_CMS8(double mass){
     } else {
         double newResult = interpolate (CMS8_pp_h_phi3phi3_tautautautau,mass);
         CacheShiftReal(ip_low_pp_h_phi3phi3_tautautautau_CMS8_cache, NumPar, params, newResult);
-        return newResult;
+                return newResult;
     }
 }
+
 
 double GeneralTHDMcache::ip_low_pp_h_phi3phi3_bbmumu_CMS8(double mass){
     int NumPar = 1;
@@ -4879,6 +4959,7 @@ double GeneralTHDMcache::ip_low_pp_h_phi3phi3_mumutautau_CMS8(double mass){
     }
 }
 
+
 double GeneralTHDMcache::ip_low_pp_phi2_gaga_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -4905,6 +4986,8 @@ double GeneralTHDMcache::ip_low_pp_phi2_gaga_CMS13(double mass){
     }
 }
 
+
+
 double GeneralTHDMcache::ip_low_pp_phi2_gaga_ATLAS13(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -4917,6 +5000,7 @@ double GeneralTHDMcache::ip_low_pp_phi2_gaga_ATLAS13(double mass){
         return newResult;
     }
 }
+
 
 double GeneralTHDMcache::ip_low_pp_bbphi3_bbtautau_CMS13(double mass){
     int NumPar = 1;
@@ -4931,6 +5015,7 @@ double GeneralTHDMcache::ip_low_pp_bbphi3_bbtautau_CMS13(double mass){
     }
 }
 
+
 double GeneralTHDMcache::ip_low_pp_bbphi3_bbtautau_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -4943,6 +5028,9 @@ double GeneralTHDMcache::ip_low_pp_bbphi3_bbtautau_CMS8(double mass){
         return newResult;
     }
 }
+
+
+
 
 double GeneralTHDMcache::ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass){
     int NumPar = 1;
@@ -4957,6 +5045,8 @@ double GeneralTHDMcache::ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass){
     }
 }
 
+
+
 double GeneralTHDMcache::ip_low_pp_bbphi3_bbmumu_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -4969,6 +5059,136 @@ double GeneralTHDMcache::ip_low_pp_bbphi3_bbmumu_CMS8(double mass){
         return newResult;
     }
 }
+
+
+//Interpolation function for the integrals
+
+double GeneralTHDMcache::ip_integral_x2_1mx_G(double wa, double wb){
+    int NumPar = 2;
+    double params[] = {wa, wb};
+    int i = CacheCheckReal(ip_integral_x2_1mx_G_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_integral_x2_1mx_G_cache[NumPar][i] );
+    } else {
+        double log10wa = log10(wa);
+        double log10wb = log10(wb);
+        double newResult = interpolate2Dv2(integral_x2_1mx_G_log,log10wa,log10wb);
+        CacheShiftReal(ip_integral_x2_1mx_G_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double GeneralTHDMcache::ip_integral_x2_1px_G(double wa, double wb){
+    int NumPar = 2;
+    double params[] = {wa, wb};
+    int i = CacheCheckReal(ip_integral_x2_1px_G_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_integral_x2_1px_G_cache[NumPar][i] );
+    } else {
+        double log10wa = log10(wa);
+        double log10wb = log10(wb);
+        double newResult = interpolate2Dv2(integral_x2_1px_G_log,log10wa,log10wb);
+        CacheShiftReal(ip_integral_x2_1px_G_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GeneralTHDMcache::ip_integral_x2_G(double wa, double wb){
+    int NumPar = 2;
+    double params[] = {wa, wb};
+    int i = CacheCheckReal(ip_integral_x2_G_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_integral_x2_G_cache[NumPar][i] );
+    } else {
+        double log10wa = log10(wa);
+        double log10wb = log10(wb);
+        double newResult = interpolate2Dv2(integral_x2_G_log,log10wa,log10wb);
+        CacheShiftReal(ip_integral_x2_G_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_integral_x_1mx2_G(double wa, double wb){
+    int NumPar = 2;
+    double params[] = {wa, wb};
+    int i = CacheCheckReal(ip_integral_x_1mx2_G_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_integral_x_1mx2_G_cache[NumPar][i] );
+    } else {
+        double log10wa = log10(wa);
+        double log10wb = log10(wb);
+        double newResult = interpolate2Dv2(integral_x_1mx2_G_log,log10wa,log10wb);
+        CacheShiftReal(ip_integral_x_1mx2_G_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double GeneralTHDMcache::ip_integral_x_1mx_1px_G(double wa, double wb){
+    int NumPar = 2;
+    double params[] = {wa, wb};
+    int i = CacheCheckReal(ip_integral_x_1mx_1px_G_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_integral_x_1mx_1px_G_cache[NumPar][i] );
+    } else {
+        double log10wa = log10(wa);
+        double log10wb = log10(wb);
+        double newResult = interpolate2Dv2(integral_x_1mx_1px_G_log,log10wa,log10wb);
+        CacheShiftReal(ip_integral_x_1mx_1px_G_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double GeneralTHDMcache::ip_integral_x2_1mx_G_variable_set_1(double wb){
+    int NumPar = 1;
+    double params[] = {wb};
+    int i = CacheCheckReal(ip_integral_x2_1mx_G_variable_set_1_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_integral_x2_1mx_G_variable_set_1_cache[NumPar][i] );
+    } else {
+        double log10wb = log10(wb);
+        double newResult = interpolate(integral_x2_1mx_G_variable_set_1_log,log10wb);
+        CacheShiftReal(ip_integral_x2_1mx_G_variable_set_1_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double GeneralTHDMcache::ip_integral_x2_G_variable_set_1(double wb){
+    int NumPar = 1;
+    double params[] = {wb};
+    int i = CacheCheckReal(ip_integral_x2_G_variable_set_1_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_integral_x2_G_variable_set_1_cache[NumPar][i] );
+    } else {
+        double log10wb = log10(wb);
+        double newResult = interpolate(integral_x2_G_variable_set_1_log,log10wb);
+        CacheShiftReal(ip_integral_x2_G_variable_set_1_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double GeneralTHDMcache::ip_integral_x_1mx2_G_variable_set_0(double wb){
+    int NumPar = 1;
+    double params[] = {wb};
+    int i = CacheCheckReal(ip_integral_x_1mx2_G_variable_set_0_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_integral_x_1mx2_G_variable_set_0_cache[NumPar][i] );
+    } else {
+        double log10wb = log10(wb);
+        double newResult = interpolate(integral_x_1mx2_G_variable_set_0_log,log10wb);
+        CacheShiftReal(ip_integral_x_1mx2_G_variable_set_0_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 
 //This seems not to be used by the code. Check if this was only something included of the THDM
 double GeneralTHDMcache::ip_ex_bsgamma(double logtb, double logmHp){
@@ -4984,6 +5204,9 @@ double GeneralTHDMcache::ip_ex_bsgamma(double logtb, double logmHp){
         return newResult;
     }
 }
+
+
+
 
 // Function needed to calculate some loop functions
 

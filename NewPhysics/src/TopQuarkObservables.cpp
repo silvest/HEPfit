@@ -776,7 +776,6 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
             +-0.012692*ewgc("Cqu1R",0,0,2,2)+-0.019275*ewgc("Cqu1R",1,1,2,2)+-0.015188*ewgc("Cqu1R",2,2,0,0)
             +0.021649*ewgc("Cqu1R",2,2,1,1)+0.001446*ewgc("Cud1R",2,2,0,0)+0.011419*ewgc("Cud1R",2,2,1,1)
             +-0.088095*ewgc("CuuR",0,0,2,2)+-0.031337*ewgc("CuuR",1,1,2,2);
-;
             
             double sigma_pos_bin_mtt_0_500_NP_Corrected = SM_sigma_pos_bin_mtt_0_500*sigma_pos_bin_mtt_0_500_NP/sigma_pos_bin_mtt_0_500_madgraph;
             double sigma_neg_bin_mtt_0_500_NP_Corrected = SM_sigma_neg_bin_mtt_0_500*sigma_neg_bin_mtt_0_500_NP/sigma_neg_bin_mtt_0_500_madgraph;

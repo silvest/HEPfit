@@ -111,6 +111,13 @@ public:
     double interpolate2D (gslpp::matrix<double> arrayTab, double x, double y);
 
     
+    /**
+     * @brief Linearly interpolates a table with two parameter dimensions. In this case the y variable changes first.
+     * @return the interpolated value
+     */
+    double interpolate2Dv2 (gslpp::matrix<double> arrayTab, double x, double y);
+
+    
     
      /**
      * @brief Linearly interpolates a table with two parameter dimensions. In this case the y variable changes first. Furthermore the shape is triangular.
@@ -300,11 +307,22 @@ public:
      */
     gslpp::matrix<double> ATLAS8_pp_h_phi3phi3_gagagaga, ATLAS8_gg_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_bbmumu,\
                           CMS8_pp_h_phi3phi3_mumutautau, CMS8_pp_phi2_gaga, CMS8_pp_bbphi3_bbtautau, CMS8_pp_bbphi3_bbmumu;
+    
+    
+    //Added in the 2024 for g-2 computation
+    gslpp::matrix<double> integral_x2_1mx_G_log, integral_x2_1px_G_log, integral_x2_G_log, integral_x_1mx2_G_log,\
+                          integral_x_1mx_1px_G_log, integral_x2_1mx_G_variable_set_1_log,\
+                          integral_x2_G_variable_set_1_log, integral_x_1mx2_G_variable_set_0_log;
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
      */
     gslpp::matrix<double> arraybsgamma;
+    
+    
+    
+
+    
     
     /**
      * @brief Interpolating function for the SM branching ratio to two top quarks.
@@ -650,6 +668,19 @@ public:
     double ip_low_pp_phi2_gaga_CMS13(double mass);
     double ip_low_pp_bbphi3_bbtautau_CMS13(double mass);
 
+
+    
+    double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(double mass);
+    double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8(double mass);
+    double ip_low_pp_h_phi3phi3_tautautautau_CMS8(double mass);
+    double ip_low_pp_h_phi3phi3_bbmumu_CMS8(double mass);
+    double ip_low_pp_h_phi3phi3_mumutautau_CMS8(double mass);
+    double ip_low_pp_phi2_gaga_CMS8(double mass);
+    double ip_low_pp_bbphi3_bbtautau_CMS8(double mass);
+    double ip_low_pp_bbphi3_bbmumu_CMS8(double mass);
+    
+    
+
     double ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(double mass);
     double ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(double mass);
     double ip_low_gg_h_phi23Z_mumull_ATLAS13(double mass);
@@ -659,16 +690,18 @@ public:
     double ip_low_pp_h_phi23phi23_gagagg_ATLAS13(double mass);
     double ip_low_pp_phi2_gaga_ATLAS13(double mass);
     double ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass);
-
-    double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(double mass);
-    double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8(double mass);
-    double ip_low_pp_h_phi3phi3_tautautautau_CMS8(double mass);
-    double ip_low_pp_h_phi3phi3_bbmumu_CMS8(double mass);
-    double ip_low_pp_h_phi3phi3_mumutautau_CMS8(double mass);
-    double ip_low_pp_phi2_gaga_CMS8(double mass);
-    double ip_low_pp_bbphi3_bbtautau_CMS8(double mass);
-    double ip_low_pp_bbphi3_bbmumu_CMS8(double mass);
-
+    
+    double ip_integral_x2_1mx_G(double wa, double wb);
+    double ip_integral_x2_1px_G(double wa, double wb);
+    double ip_integral_x2_G(double wa, double wb);
+    double ip_integral_x_1mx2_G(double wa, double wb);
+    double ip_integral_x_1mx_1px_G(double wa, double wb);
+    double ip_integral_x2_1mx_G_variable_set_1(double wb);
+    double ip_integral_x2_G_variable_set_1(double wb);
+    double ip_integral_x_1mx2_G_variable_set_0(double wb);
+    
+    
+    
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
      * @return @f$[\sigma_{pp\to phi3^\pm}\cdot BR(H^\pm\to \tau \nu)]_{\text{ATLAS,95\%}}@f$
@@ -3417,6 +3450,19 @@ private:
     mutable double ip_low_pp_bbphi3_bbtautau_CMS8_cache[2][CacheSize];
     mutable double ip_low_pp_bbphi3_bbmumu_CMS8_cache[2][CacheSize];
 
+    
+    mutable double ip_integral_x2_1mx_G_cache[3][CacheSize];
+    mutable double ip_integral_x2_1px_G_cache[3][CacheSize];
+    mutable double ip_integral_x2_G_cache[3][CacheSize];
+    mutable double ip_integral_x_1mx2_G_cache[3][CacheSize];
+    mutable double ip_integral_x_1mx_1px_G_cache[3][CacheSize];
+    
+    mutable double ip_integral_x2_1mx_G_variable_set_1_cache[2][CacheSize];
+    mutable double ip_integral_x2_G_variable_set_1_cache[2][CacheSize];
+    mutable double ip_integral_x_1mx2_G_variable_set_0_cache[2][CacheSize];
+    
+    
+    
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 
     /**
