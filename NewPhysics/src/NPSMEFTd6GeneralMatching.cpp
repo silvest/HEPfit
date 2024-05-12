@@ -943,10 +943,146 @@ gslpp::complex NPSMEFTd6GeneralMatching::getCudduV8LR(int i, int j, int k, int l
     return (CudduV8LR.at(i).at(j).at(k).at(l));
 }
 
+    //dimension 6 four-fermion operators involving two right-handed scalar densities or tensor currents
+    
 
-//dimension 6 four-fermion operators LRRL scalar bilinears
+gslpp::complex NPSMEFTd6GeneralMatching::getCeeSRR(int i, int j, int k, int l) const
+{
+    return (CeeSRR.at(i).at(j).at(k).at(l));
+}
+    
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCeuSRR(int i, int j, int k, int l) const
+{
+    return (CeuSRR.at(i).at(j).at(k).at(l));
+}
+    
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCeuTRR(int i, int j, int k, int l) const
+{
+    return (CeuTRR.at(i).at(j).at(k).at(l));
+}
+    
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCedSRR(int i, int j, int k, int l) const
+{
+    return (CedSRR.at(i).at(j).at(k).at(l));
+}
+    
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCedTRR(int i, int j, int k, int l) const
+{
+    return (CedTRR.at(i).at(j).at(k).at(l));
+}
+    
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCnueduSRR(int i, int j, int k, int l) const
+{
+    return (CnueduSRR.at(i).at(j).at(k).at(l));
+}
+    
  
+gslpp::complex NPSMEFTd6GeneralMatching::getCnueduTRR(int i, int j, int k, int l) const
+{
+    return (CnueduTRR.at(i).at(j).at(k).at(l));
+}
+    
+  
+gslpp::complex NPSMEFTd6GeneralMatching::getCuuS1RR(int i, int j, int k, int l) const
+{
+    return (CuuS1RR.at(i).at(j).at(k).at(l));
+}
+
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCuuS8RR(int i, int j, int k, int l) const
+{
+    return (CuuS8RR.at(i).at(j).at(k).at(l));
+}
+    
+   
+gslpp::complex NPSMEFTd6GeneralMatching::getCudS1RR(int i, int j, int k, int l) const
+{
+    return (CudS1RR.at(i).at(j).at(k).at(l));
+}
+    
+    
+gslpp::complex NPSMEFTd6GeneralMatching::getCudS8RR(int i, int j, int k, int l) const
+{
+    return (CudS8RR.at(i).at(j).at(k).at(l));
+}
+    
+    
+gslpp::complex NPSMEFTd6GeneralMatching::getCddS1RR(int i, int j, int k, int l) const
+{
+    return (CddS1RR.at(i).at(j).at(k).at(l));
+}
+    
+   
+gslpp::complex NPSMEFTd6GeneralMatching::getCddS8RR(int i, int j, int k, int l) const
+{
+    return (CddS8RR.at(i).at(j).at(k).at(l));
+}
+    
+   
+gslpp::complex NPSMEFTd6GeneralMatching::getCudduS1RR(int i, int j, int k, int l) const
+{
+    return (CudduS1RR.at(i).at(j).at(k).at(l));
+}
+    
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCudduS8RR(int i, int j, int k, int l) const
+{
+    return (CudduS8RR.at(i).at(j).at(k).at(l));
+}
+
+
+//dimension 6 four-fermion operators involving a right-handed and a left-handed scalar density, plus hermitian conjugates
+ 
+gslpp::complex NPSMEFTd6GeneralMatching::getCeuSRL(int i, int j, int k, int l) const
+{
+    return (CeuSRL.at(i).at(j).at(k).at(l));
+}
+
+gslpp::complex NPSMEFTd6GeneralMatching::getCedSRL(int i, int j, int k, int l) const
+{
+    return (CedSRL.at(i).at(j).at(k).at(l));
+}
+
+
 gslpp::complex NPSMEFTd6GeneralMatching::getCnueduSRL(int i, int j, int k, int l) const
 {
     return (CnueduSRL.at(i).at(j).at(k).at(l));
 }
+
+
+//Fermion rotation matrices to mass-eigenstate basis
+    
+gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVuL() const
+{
+    return VuL;
+}   
+
+gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVuR() const
+{
+    return VuR;
+}   
+    
+gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVdL() const
+{
+    return VdL;
+}   
+    
+gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVdR() const
+{
+    return VdL;
+}   
+    
+gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVeL() const
+{
+    return VeL;
+}   
+    
+gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVeR() const
+{
+    return VeR;
+}   

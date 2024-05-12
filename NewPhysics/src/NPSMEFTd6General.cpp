@@ -42532,7 +42532,7 @@ double NPSMEFTd6General::delta_TauLFU_gtaugmuPi() const
     dCnueduSRL2211 = etaS*((getMatching().getCnueduSRL(1,1,0,0))/Vud).real();
 
     // Modification in terms of the LEFT basis (at low energies)        
-    delta = (-1./GF/2./sqrt(2.)) * (dCnueduVLL3311 - dCnueduVLL2211 + chitauPi * (dCnueduSRL3311 - dCnueduSRL2211));
+    delta = (-1./GF/2./sqrt(2.)) * (dCnueduVLL3311 - dCnueduVLL2211 + chitauPi * dCnueduSRL3311 - chimuPi * dCnueduSRL2211);
         
     return delta;      
 }
@@ -42562,7 +42562,7 @@ double NPSMEFTd6General::delta_TauLFU_gtaugmuK() const
     dCnueduSRL2221 = etaS*((getMatching().getCnueduSRL(1,1,1,0))/Vus).real();
 
     // Modification in terms of the LEFT basis (at low energies)        
-    delta = (-1./GF/2./sqrt(2.)) * (dCnueduVLL3321 - dCnueduVLL2221 + chitauK * (dCnueduSRL3321 - dCnueduSRL2221));
+    delta = (-1./GF/2./sqrt(2.)) * (dCnueduVLL3321 - dCnueduVLL2221 + chitauK * dCnueduSRL3321 - chimuK * dCnueduSRL2221);
         
     return delta;   
 }

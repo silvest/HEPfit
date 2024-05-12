@@ -2413,8 +2413,90 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
     double X0, cMH, cmt, caS, caS2, caSmt, cda5h, cMZ;
     double RelThError = 0.0; // (Relative) Theoretical uncertainty
     
-    if (s==183.*183.) { 
-        X0 = 0.;
+    if (cos == -0.81) {
+    if (s==189.*189.) {
+        X0 = 1.590;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else if (s==192.*192.) {
+        X0 = 1.539;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else if (s==196.*196.) {
+        X0 = 1.483;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else if (s==200.*200.) {
+        X0 = 1.420;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else if (s==202.*202.) {
+        X0 = 1.401;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else if (s==205.*205.) {
+        X0 = 1.355;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else if (s==207.*207.) {
+        X0 = 1.339;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+          
+          RelThError=0.;
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }  
+    } else if (cos == -0.63) {
+    if (s==189.*189.) { 
+        X0 = 1.816;
         cMH = 0.;
         cmt = 0.;
         caS = 0.;
@@ -2424,8 +2506,1131 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         cMZ = 0.;
   
         RelThError=0.; 
-    } else
+    } else if (s==192.*192.) { 
+        X0 = 1.754;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 1.695;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 1.420;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 1.579;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 1.539;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 1.517;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }     
+    } else if (cos == -0.45) {
+    if (s==189.*189.) { 
+        X0 = 2.162;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 2.091;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 2.000;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 1.885;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 1.836;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 1.786;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 1.745;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }      
+    } else if (cos == -0.27) {
+    if (s==189.*189.) { 
+        X0 = 2.681;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 2.604;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 2.498;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 2.409;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 2.361;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 2.280;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 2.240;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }     
+    } else if (cos == -0.09) {
+    if (s==189.*189.) { 
+        X0 = 3.906;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 3.778;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 3.610;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 3.435;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 3.356;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 3.253;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 3.194;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }    
+    } else if (cos == 0.045) {
+    if (s==189.*189.) { 
+        X0 = 5.372;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 5.205;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 4.999;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 4.770;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 4.669;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 4.479;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 4.380;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }    
+    } else if (cos == 0.135) {
+    if (s==189.*189.) { 
+        X0 = 6.892;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 6.692;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 6.406;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 6.157;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 6.017;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 5.820;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 5.729;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }   
+    } else if (cos == 0.225) {
+    if (s==189.*189.) { 
+        X0 = 9.610;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 9.242;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 8.832;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 8.471;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 8.320;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 8.077;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 7.972;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }
+    } else if (cos == 0.315) {
+    if (s==189.*189.) { 
+        X0 = 13.345;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 12.800;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 12.326;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 11.773;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 11.554;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 11.200;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 11.019;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }
+    } else if (cos == 0.405) {
+    if (s==189.*189.) {
+        X0 = 19.445;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+   
+         RelThError=0.;
+    } else if (s==192.*192.) {
+        X0 = 18.776;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else if (s==196.*196.) {
+        X0 = 18.039;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else if (s==200.*200.) {
+        X0 = 17.262;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+   
+         RelThError=0.;
+    } else if (s==202.*202.) {
+        X0 = 16.891;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else if (s==205.*205.) {
+        X0 = 16.322;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+   
+         RelThError=0.;
+    } else if (s==207.*207.) {
+        X0 = 16.053;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.;
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }
+} else if (cos == 0.495) {
+    if (s==189.*189.) { 
+        X0 = 30.476;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 29.471;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 28.300;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 27.117;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 26.583;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 25.722;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 25.254;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }
+    } else if (cos == 0.585) {
+    if (s==189.*189.) { 
+        X0 = 51.012;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 49.338;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 47.362;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 45.607;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 44.786;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 43.217;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 42.456;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }    
+    } else if (cos == 0.675) {
+    if (s==189.*189.) { 
+        X0 = 95.563;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 92.079;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 88.473;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 85.143;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 83.473;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 80.939;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 79.639;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }   
+    } else if (cos == 0.765) {
+    if (s==189.*189.) { 
+        X0 = 212.390;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 206.087;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 198.250;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 190.786;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 186.904;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 180.878;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 178.042;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }
+    } else if (cos == 0.855) {
+    if (s==189.*189.) { 
+        X0 = 689.989;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==192.*192.) { 
+        X0 = 669.173;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==196.*196.) { 
+        X0 = 642.688;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==200.*200.) { 
+        X0 = 617.718;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==202.*202.) { 
+        X0 = 605.070;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==205.*205.) { 
+        X0 = 586.205;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if (s==207.*207.) { 
+        X0 = 576.688;
+        cMH = 0.;
+        cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else {
+        throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }
+    } else {
+        throw std::runtime_error(" ERROR: wrong LEP2 angle in ApproximateFormulae::LEP2dsigmadcosEApprox()");
+    }
 
     return ((X0 + cMH * LH + cmt * Dt 
             + caS * Das + caS2 * Das * Das
