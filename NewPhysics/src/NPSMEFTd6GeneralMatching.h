@@ -71,7 +71,7 @@ public:
     virtual  std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
     
 
-    //dimension 6 four-fermion operators involving all left-handed fields
+    //dimension 6 four-fermion operators involving all left-handed fields: V
 
     /**
      * @brief Return CnunuVLL
@@ -145,7 +145,7 @@ public:
      */    
     gslpp::complex getCudV8LL(int i, int j, int k, int l) const;
     
-    //dimension 6 four-fermion operators involving all right-handed fields
+    //dimension 6 four-fermion operators involving all right-handed fields: V
     
     /**
      * @brief Return CeeVRR
@@ -189,7 +189,7 @@ public:
      */    
     gslpp::complex getCudV8RR(int i, int j, int k, int l) const;
     
-    //dimension 6 four-fermion operators involving a left-handed vector current and a right-handed vector current
+    //dimension 6 four-fermion operators involving a left-handed vector current and a right-handed vector current: V
 
     /**
      * @brief Return CnueVLR
@@ -304,6 +304,15 @@ public:
      * @return \f$ C_{uddu}^{V8,LR} \f$ 
      */    
     gslpp::complex getCudduV8LR(int i, int j, int k, int l) const;
+    
+    
+    //dimension 6 four-fermion operators LRRL scalar bilinears
+
+    /**
+     * @brief Return CnueduSRL
+     * @return \f$ C_{\nu e d u}^{S,RL} \f$ 
+     */    
+    gslpp::complex getCnueduSRL(int i, int j, int k, int l) const;
 
 protected:
 

@@ -943,3 +943,10 @@ gslpp::complex NPSMEFTd6GeneralMatching::getCudduV8LR(int i, int j, int k, int l
     return (CudduV8LR.at(i).at(j).at(k).at(l));
 }
 
+
+//dimension 6 four-fermion operators LRRL scalar bilinears
+ 
+gslpp::complex NPSMEFTd6GeneralMatching::getCnueduSRL(int i, int j, int k, int l) const
+{
+    return (CnueduSRL.at(i).at(j).at(k).at(l));
+}

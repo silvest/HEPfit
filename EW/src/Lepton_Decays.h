@@ -126,8 +126,8 @@ private:
  * @brief An observable class for the tau LFU ratio @f$g_\mu/g_e@f$
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the tau LFU ratio 
- * @f$\Gamma(\tau \to \mu \nu \nu ) / \Gamma(\tau \to e \nu \nu ) @f$
+ * @details This class is used to compute the tau LFU ratio obtained from
+ * @f$\frac{\tau \to \mu \nu \nu }{Gamma(\tau \to e \nu \nu } @f$
  *
  */
 class gmugeTauLFU : public ThObservable {
@@ -144,7 +144,7 @@ public:
 
     /**
      * @brief The tau LFU ratio @f$g_\mu/g_e@f$
-     * @return @f$\Gamma(\tau \to \mu \nu \nu ) / \Gamma(\tau \to e \nu \nu ) @f$
+     * @return @f$g_\mu/g_e@f$
      */
     double computeThValue();
 
@@ -159,8 +159,8 @@ private:
  * @brief An observable class for the tau LFU ratio @f$g_\tau/g_\mu@f$
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the tau LFU ratio 
- * @f$\Gamma(\tau \to e \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+ * @details This class is used to compute the tau LFU ratio obtained from
+ * @f$\frac{\tau \to e \nu \nu}{\mu \to e \nu \nu } @f$
  *
  */
 class gtaugmuTauLFU : public ThObservable {
@@ -177,7 +177,7 @@ public:
 
     /**
      * @brief The tau LFU ratio @f$g_\tau/g_\mu@f$
-     * @return @f$\Gamma(\tau \to e \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+     * @return @f$g_\tau/g_\mu@f$
      */
     double computeThValue();
 
@@ -192,8 +192,8 @@ private:
  * @brief An observable class for the tau LFU ratio @f$g_\tau/g_e@f$
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the tau LFU ratio 
- * @f$\Gamma(\tau \to \mu \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+ * @details This class is used to compute the tau LFU ratio obtained from
+ * @f$\frac{\tau \to \mu \nu \nu }{ \mu \to e \nu \nu } @f$
  *
  */
 class gtaugeTauLFU : public ThObservable {
@@ -210,7 +210,73 @@ public:
 
     /**
      * @brief The tau LFU ratio @f$g_\tau/g_e@f$
-     * @return @f$\Gamma(\tau \to \mu \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+     * @return @f$g_\tau/g_e@f$
+     */
+    double computeThValue();
+
+private:
+
+};
+
+
+/**
+ * @class gtaugmuPiTauLFU
+ * @ingroup EW
+ * @brief An observable class for the tau LFU ratio @f$\left(g_\tau/ g_\mu\right)_\pi @f$
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the tau LFU ratio obtained from
+ * @f$\frac{\tau \to \pi \nu}{\pi \to \mu \nu } @f$
+ *
+ */
+class gtaugmuPiTauLFU : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gtaugmuPiTauLFU(const StandardModel& SM_i) 
+    : ThObservable(SM_i)  
+    {
+    };
+
+    /**
+     * @brief The tau LFU ratio @f$\left(g_\tau/ g_\mu\right)_\pi @f$
+     * @return @f$\left(g_\tau/ g_\mu\right)_\pi @f$
+     */
+    double computeThValue();
+
+private:
+
+};
+
+
+/**
+ * @class gtaugmuKTauLFU
+ * @ingroup EW
+ * @brief An observable class for the tau LFU ratio @f$\left(g_\tau/ g_\mu\right)_K @f$
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the tau LFU ratio obtained from
+ * @f$\frac{\tau \to K \nu}{K \to \mu \nu } @f$
+ *
+ */
+class gtaugmuKTauLFU : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gtaugmuKTauLFU(const StandardModel& SM_i) 
+    : ThObservable(SM_i)  
+    {
+    };
+
+    /**
+     * @brief The tau LFU ratio @f$\left(g_\tau/ g_\mu\right)_K @f$
+     * @return @f$\left(g_\tau/ g_\mu\right)_K @f$
      */
     double computeThValue();
 

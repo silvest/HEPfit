@@ -1671,7 +1671,7 @@ public:
     /**
      * @brief The computation of the correction to the LFU ratio @f$g_\mu/ g_e @f$
      * @details
-     * @return @f$\delta \Gamma(\tau \to \mu \nu \nu ) / \Gamma(\tau \to e \nu \nu ) @f$
+     * @return @f$\delta g_\mu/ g_e @f$
      */
       virtual double delta_TauLFU_gmuge() const;
 
@@ -1679,17 +1679,32 @@ public:
     /**
      * @brief The computation of the correction to the LFU ratio @f$g_\tau/ g_\mu @f$
      * @details
-     * @return @f$\delta \Gamma(\tau \to e \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+     * @return @f$\delta g_\tau/ g_\mu @f$
      */
       virtual double delta_TauLFU_gtaugmu() const;
 
 
     /**
-     * @brief The computation of the correction to the LFU ratio @f$g_\tau/ g_\mu @f$
+     * @brief The computation of the correction to the LFU ratio @f$g_\tau/ g_e @f$
      * @details
-     * @return @f$\delta \Gamma(\tau \to \mu \nu \nu ) / \Gamma(\mu \to e \nu \nu ) @f$
+     * @return @f$\delta g_\tau/ g_e @f$
      */
       virtual double delta_TauLFU_gtauge() const;
+      
+           
+    /**
+     * @brief The computation of the correction to the LFU ratio @f$\left(g_\tau/ g_\mu\right)_\pi @f$
+     * @details
+     * @return @f$\delta \left(g_\tau/ g_\mu\right)_\pi @f$
+     */
+      virtual double delta_TauLFU_gtaugmuPi() const;
+      
+    /**
+     * @brief The computation of the correction to the LFU ratio @f$\left(g_\tau/ g_\mu\right)_K @f$
+     * @details
+     * @return @f$\delta\left(g_\tau/ g_\mu\right)_K @f$
+     */
+      virtual double delta_TauLFU_gtaugmuK() const;
     
 
     ////////////////////////////////////////////////////////////////////////

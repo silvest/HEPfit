@@ -42126,384 +42126,444 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
 };
 
 //  Some simple functions for cos \theta integrals 
-    double NPSMEFTd6General::tovers2(const double cosmin, const double cosmax) const
-    {        
-        return 0.25 * (cosmax*(1.0-cosmax*(1.0-cosmax/3.0)) - cosmin*(1.0-cosmin*(1.0-cosmin/3.0)));
-    }; 
+double NPSMEFTd6General::tovers2(const double cosmin, const double cosmax) const
+{        
+    return 0.25 * (cosmax*(1.0-cosmax*(1.0-cosmax/3.0)) - cosmin*(1.0-cosmin*(1.0-cosmin/3.0)));
+}; 
     
-    double NPSMEFTd6General::uovers2(const double cosmin, const double cosmax) const
-    {        
-        return 0.25 * (cosmax*(1.0+cosmax*(1.0+cosmax/3.0)) - cosmin*(1.0+cosmin*(1.0+cosmin/3.0)));
-    }; 
+double NPSMEFTd6General::uovers2(const double cosmin, const double cosmax) const
+{        
+    return 0.25 * (cosmax*(1.0+cosmax*(1.0+cosmax/3.0)) - cosmin*(1.0+cosmin*(1.0+cosmin/3.0)));
+}; 
 
     
-    double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double s, const double cos) const
-    {
-        double sumM2, dsigma;
-        double topb = 0.3894e+9;
-        
-        double t,u;
-        
-        double Nf;
-        
-        if (f.is("LEPTON")) {
-            Nf = 1.0;
-        } else {
-            Nf = 3.0;
-        }
-        
-        // Values of t and u, assuming massless final state fermions
-        t = -0.5 * s * (1.0 - cos);
-        u = -0.5 * s * (1.0 + cos); 
-        
-        sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * t*t/s/s
-                + (deltaMLL2_f(f, s, t) + deltaMRR2_f(f, s, t)) * u*u/s/s;
-        
+double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double s, const double cos) const
+{
+    double sumM2, dsigma;
+    double topb = 0.3894e+9;
+    
+    double t,u;
+    
+    double Nf;
+    
+    if (f.is("LEPTON")) {
+        Nf = 1.0;
+    } else {
+        Nf = 3.0;
+    }
+    
+    // Values of t and u, assuming massless final state fermions
+    t = -0.5 * s * (1.0 - cos);
+    u = -0.5 * s * (1.0 + cos); 
+    
+    sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * t*t/s/s
+        + (deltaMLL2_f(f, s, t) + deltaMRR2_f(f, s, t)) * u*u/s/s;
+    
     // Add t-channel contributions for f=e
-        if (f.is("ELECTRON")) {
-            sumM2 = sumM2 + (deltaMLR2t_e(t) + deltaMRL2t_e(t)) * s*s/t/t;
-        }
-        
-        dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
-        
-        return topb * dsigma;
-    };
+    if (f.is("ELECTRON")) {
+        sumM2 = sumM2 + (deltaMLR2t_e(t) + deltaMRL2t_e(t)) * s*s/t/t;
+    }
     
-    double NPSMEFTd6General::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const
-    {
-        //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
-        double sumM2, dsigma;
-        double tdumm = 1.;
-        double topb = 0.3894e+9;
-        
-        double Nf;
-        
-        if (f.is("LEPTON")) {
-            Nf = 1.0;
-        } else {
-            Nf = 3.0;
-        }
-        
-        sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * tovers2(cosmin, cosmax)
-                + (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm)) * uovers2(cosmin, cosmax);
-        
-        dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
-        
-        return topb * dsigma;
-    };
+    dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
     
-    double NPSMEFTd6General::delta_sigma_had(const double s, const double cosmin, const double cosmax) const
-    {
-        double dsigma;
-        
-        dsigma = delta_sigma_f(quarks[UP], s, cosmin, cosmax) + delta_sigma_f(quarks[DOWN], s, cosmin, cosmax)
-                + delta_sigma_f(quarks[CHARM], s, cosmin, cosmax) + delta_sigma_f(quarks[STRANGE], s, cosmin, cosmax) 
-                + delta_sigma_f(quarks[BOTTOM], s, cosmin, cosmax);
-        
-        return dsigma;
-    };
+    return topb * dsigma;
+};
+    
+double NPSMEFTd6General::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const
+{
+    //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
+    double sumM2, dsigma;
+    double tdumm = 1.;
+    double topb = 0.3894e+9;
+    
+    double Nf;
+    
+    if (f.is("LEPTON")) {
+        Nf = 1.0;
+    } else {
+        Nf = 3.0;
+    }
+    
+    sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * tovers2(cosmin, cosmax)
+        + (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm)) * uovers2(cosmin, cosmax);
+    
+    dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
+    
+    return topb * dsigma;
+};
+    
+double NPSMEFTd6General::delta_sigma_had(const double s, const double cosmin, const double cosmax) const
+{
+    double dsigma;
+    
+    dsigma = delta_sigma_f(quarks[UP], s, cosmin, cosmax) + delta_sigma_f(quarks[DOWN], s, cosmin, cosmax)
+        + delta_sigma_f(quarks[CHARM], s, cosmin, cosmax) + delta_sigma_f(quarks[STRANGE], s, cosmin, cosmax) 
+        + delta_sigma_f(quarks[BOTTOM], s, cosmin, cosmax);
+    
+    return dsigma;
+};
     
     
-    double NPSMEFTd6General::delta_sigmaTot_f(const Particle f, const double s) const
-    {   
-        return delta_sigma_f(f, s, -1., 1.);  
-    };
+double NPSMEFTd6General::delta_sigmaTot_f(const Particle f, const double s) const
+{   
+    return delta_sigma_f(f, s, -1., 1.);  
+};
     
-    double NPSMEFTd6General::delta_AFB_f(const Particle f, const double s) const
-    {
-        //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
-        double tdumm = 1.;
-        
-        // Definitions      
-        double Qf, geLSM, gfLSM, geRSM, gfRSM, is2c2, GZ, Mz2s;
+double NPSMEFTd6General::delta_AFB_f(const Particle f, const double s) const
+{
+    //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
+    double tdumm = 1.;
     
-        double MXX2SM, MXY2SM, M2SM;
+    // Definitions      
+    double Qf, geLSM, gfLSM, geRSM, gfRSM, is2c2, GZ, Mz2s;
     
-        double dAFB;
+    double MXX2SM, MXY2SM, M2SM;
+    
+    double dAFB;
     
     // -------------------------------------------
     
-        geLSM = gZlL;
-        geRSM = gZlR;
+    geLSM = gZlL;
+    geRSM = gZlR;
     
-        is2c2 = 1./sW2_tree/cW2_tree;
+    is2c2 = 1./sW2_tree/cW2_tree;
     
-        GZ = trueSM.Gamma_Z();
+    GZ = trueSM.Gamma_Z();
     
-        Mz2s = Mz*Mz - s;
-        
-        if (f.is("MU")) {
-        Qf = leptons[ELECTRON].getCharge();
-        gfLSM = gZlL;
-        gfRSM = gZlR;
-        } else if (f.is("TAU")) {
-        Qf = leptons[ELECTRON].getCharge();
-        gfLSM = gZlL;
-        gfRSM = gZlR;
-        } else if (f.is("UP")) {
-        Qf = quarks[UP].getCharge();
-        gfLSM = gZuL;
-        gfRSM = gZuR;
-        } else if (f.is("CHARM")) {
-        Qf = quarks[UP].getCharge();
-        gfLSM = gZuL;
-        gfRSM = gZuR;
-        } else if (f.is("DOWN")) {
-        Qf = quarks[DOWN].getCharge();
-        gfLSM = gZdL;
-        gfRSM = gZdR;
-        } else if (f.is("STRANGE")) {
-        Qf = quarks[DOWN].getCharge();
-        gfLSM = gZdL;
-        gfRSM = gZdR;
-        } else if (f.is("BOTTOM")) {
-        Qf = quarks[DOWN].getCharge();
-        gfLSM = gZdL;
-        gfRSM = gZdR;
-        } else
-            throw std::runtime_error("NPSMEFTd6::delta_AFB_f(): wrong argument");
+    Mz2s = Mz*Mz - s;
+    
+    if (f.is("MU")) {
+    Qf = leptons[ELECTRON].getCharge();
+    gfLSM = gZlL;
+    gfRSM = gZlR;
+    } else if (f.is("TAU")) {
+    Qf = leptons[ELECTRON].getCharge();
+    gfLSM = gZlL;
+    gfRSM = gZlR;
+    } else if (f.is("UP")) {
+    Qf = quarks[UP].getCharge();
+    gfLSM = gZuL;
+    gfRSM = gZuR;
+    } else if (f.is("CHARM")) {
+    Qf = quarks[UP].getCharge();
+    gfLSM = gZuL;
+    gfRSM = gZuR;
+    } else if (f.is("DOWN")) {
+    Qf = quarks[DOWN].getCharge();
+    gfLSM = gZdL;
+    gfRSM = gZdR;
+    } else if (f.is("STRANGE")) {
+    Qf = quarks[DOWN].getCharge();
+    gfLSM = gZdL;
+    gfRSM = gZdR;
+    } else if (f.is("BOTTOM")) {
+    Qf = quarks[DOWN].getCharge();
+    gfLSM = gZdL;
+    gfRSM = gZdR;
+    } else
+        throw std::runtime_error("NPSMEFTd6::delta_AFB_f(): wrong argument");
     
     // Sum of LL and RR SM amplitudes
-        MXX2SM = 2.0 * Qf*Qf 
-                + ( is2c2*is2c2*(geLSM*geLSM*gfLSM*gfLSM + geRSM*geRSM*gfRSM*gfRSM)*s*s
-                + 2.0*Qf*is2c2*(geLSM*gfLSM + geRSM*gfRSM) * Mz2s * s )/(Mz2s*Mz2s + Mz*Mz*GZ*GZ);
+    MXX2SM = 2.0 * Qf*Qf 
+        + ( is2c2*is2c2*(geLSM*geLSM*gfLSM*gfLSM + geRSM*geRSM*gfRSM*gfRSM)*s*s
+        + 2.0*Qf*is2c2*(geLSM*gfLSM + geRSM*gfRSM) * Mz2s * s )/(Mz2s*Mz2s + Mz*Mz*GZ*GZ);
     
     
     // Sum of LR and RL SM amplitudes
-        MXY2SM = 2.0 * Qf*Qf 
-                + ( is2c2*is2c2*(geLSM*geLSM*gfRSM*gfRSM + geRSM*geRSM*gfLSM*gfLSM)*s*s
-                + 2.0*Qf*is2c2*(geLSM*gfRSM + geRSM*gfLSM) * Mz2s * s )/(Mz2s*Mz2s + Mz*Mz*GZ*GZ);
+    MXY2SM = 2.0 * Qf*Qf 
+        + ( is2c2*is2c2*(geLSM*geLSM*gfRSM*gfRSM + geRSM*geRSM*gfLSM*gfLSM)*s*s
+        + 2.0*Qf*is2c2*(geLSM*gfRSM + geRSM*gfLSM) * Mz2s * s )/(Mz2s*Mz2s + Mz*Mz*GZ*GZ);
     
     // Full SM amplitude
-        M2SM = MXX2SM + MXY2SM;
-        
-    // Asymmetry correction 
-        dAFB= - MXX2SM * (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) 
-                + MXY2SM * (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm)) ; 
+    M2SM = MXX2SM + MXY2SM;
     
-        dAFB = 3.0 * dAFB / 2.0 / M2SM / M2SM;
-        
-        return dAFB;      
-    };
+    // Asymmetry correction 
+    dAFB= - MXX2SM * (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) 
+        + MXY2SM * (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm)) ; 
+    
+    dAFB = 3.0 * dAFB / 2.0 / M2SM / M2SM;
+    
+    return dAFB;      
+};
 
     
 // EW low-energy observables: Muon g-2
 
-    double NPSMEFTd6General::delta_amuon() const
-    {
-        return 0.;
-    }
+double NPSMEFTd6General::delta_amuon() const
+{
+    return 0.;
+}
 
 // EW low-energy observables: Parity violation
 
-    double NPSMEFTd6General::delta_Qwemoller(const double q2, const double y) const
-    {
-        double deltaQ;
-        double deltaCe;
-        
-        double dCeeVRR1111, dCeeVLL1111; // NP corrections to LEFT operators at low energy 
-        
-        dCeeVRR1111 = (getMatching().getCeeVRR(0,0,0,0)).real();
-        dCeeVLL1111 = (getMatching().getCeeVLL(0,0,0,0)).real(); //RGE effects very small
-        
-        // Modification in terms of the LEFT basis (at low energies)
-        deltaCe= (1./GF/sqrt(2.)) * ( dCeeVRR1111 - dCeeVLL1111 );
+double NPSMEFTd6General::delta_Qwemoller(const double q2, const double y) const
+{
+    double deltaQ;
+    double deltaCe;
+    
+    double dCeeVRR1111, dCeeVLL1111; // NP corrections to LEFT operators at low energy 
+    
+    dCeeVRR1111 = (getMatching().getCeeVRR(0,0,0,0)).real();
+    dCeeVLL1111 = (getMatching().getCeeVLL(0,0,0,0)).real(); //RGE effects very small
+    
+    // Modification in terms of the LEFT basis (at low energies)
+    deltaCe= (1./GF/sqrt(2.)) * ( dCeeVRR1111 - dCeeVLL1111 );
 
-        //double dgLe, dgRe, gLe, gRe;
-        
-        //dgLe = deltaGL_f(leptons[ELECTRON]);
-        //dgRe = deltaGR_f(leptons[ELECTRON]);
-        
-        //gLe = gZlL;
-        //gRe = gZlR;
-        
-        //deltaQ = trueSM.Qwemoller(q2,y) * ((dgLe - dgRe)/(gLe - gRe) + (dgLe + dgRe)/(gLe + gRe));
-        
-        //deltaQ += (getSMEFTCoeffEW("CllR", 0, 0, 0, 0) - getSMEFTCoeffEW("CeeR", 0, 0, 0, 0)) * v2; 
-        
-        deltaQ = -2. * deltaCe;
-        
-        return deltaQ;    
-    }
-
-
-    double NPSMEFTd6General::delta_alrmoller(const double q2, const double y) const
-    {
-        return 0.;    
-    }
+    //double dgLe, dgRe, gLe, gRe;
+    
+    //dgLe = deltaGL_f(leptons[ELECTRON]);
+    //dgRe = deltaGR_f(leptons[ELECTRON]);
+    
+    //gLe = gZlL;
+    //gRe = gZlR;
+    
+    //deltaQ = trueSM.Qwemoller(q2,y) * ((dgLe - dgRe)/(gLe - gRe) + (dgLe + dgRe)/(gLe + gRe));
+    
+    //deltaQ += (getSMEFTCoeffEW("CllR", 0, 0, 0, 0) - getSMEFTCoeffEW("CeeR", 0, 0, 0, 0)) * v2; 
+    
+    deltaQ = -2. * deltaCe;
+    
+    return deltaQ;    
+}
 
 
-    double NPSMEFTd6General::delta_Qwp() const
-    {
-        double deltaQ;        
-        double deltaC1u, deltaC1d;
-        
-        double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
-        double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
-        
-        dCeuVLL1111 = (getMatching().getCeuVLL(0,0,0,0)).real();
-        dCeuVRR1111 = (getMatching().getCeuVRR(0,0,0,0)).real();
-        dCeuVLR1111 = (getMatching().getCeuVLR(0,0,0,0)).real();
-        dCueVLR1111 = (getMatching().getCueVLR(0,0,0,0)).real(); //RGE effects very small
-        
-        dCedVLL1111 = (getMatching().getCedVLL(0,0,0,0)).real();
-        dCedVRR1111 = (getMatching().getCedVRR(0,0,0,0)).real();
-        dCedVLR1111 = (getMatching().getCedVLR(0,0,0,0)).real();
-        dCdeVLR1111 = (getMatching().getCdeVLR(0,0,0,0)).real(); //RGE effects very small
-        
-        // Modification in terms of the LEFT basis (at low energies)
-        deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
-        deltaC1d = (1./GF/2./sqrt(2.)) * ( - dCedVLL1111 + dCedVRR1111 - dCedVLR1111 + dCdeVLR1111 );
-        
-        // Proton Z=1, N=0
-        deltaQ = -2. * ( 2.* deltaC1u + deltaC1d );
-        
-        return deltaQ;    
-    }
+double NPSMEFTd6General::delta_alrmoller(const double q2, const double y) const
+{
+    return 0.;    
+}
+
+
+double NPSMEFTd6General::delta_Qwp() const
+{
+    double deltaQ;    
+    double deltaC1u, deltaC1d;
+    
+    double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
+    double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
+    
+    dCeuVLL1111 = (getMatching().getCeuVLL(0,0,0,0)).real();
+    dCeuVRR1111 = (getMatching().getCeuVRR(0,0,0,0)).real();
+    dCeuVLR1111 = (getMatching().getCeuVLR(0,0,0,0)).real();
+    dCueVLR1111 = (getMatching().getCueVLR(0,0,0,0)).real(); //RGE effects very small
+    
+    dCedVLL1111 = (getMatching().getCedVLL(0,0,0,0)).real();
+    dCedVRR1111 = (getMatching().getCedVRR(0,0,0,0)).real();
+    dCedVLR1111 = (getMatching().getCedVLR(0,0,0,0)).real();
+    dCdeVLR1111 = (getMatching().getCdeVLR(0,0,0,0)).real(); //RGE effects very small
+    
+    // Modification in terms of the LEFT basis (at low energies)
+    deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
+    deltaC1d = (1./GF/2./sqrt(2.)) * ( - dCedVLL1111 + dCedVRR1111 - dCedVLR1111 + dCdeVLR1111 );
+    
+    // Proton Z=1, N=0
+    deltaQ = -2. * ( 2.* deltaC1u + deltaC1d );
+    
+    return deltaQ;    
+}
 
       
-    double NPSMEFTd6General::delta_Qwn() const
-    {
-        double deltaQ;        
-        double deltaC1u, deltaC1d;
-        
-        double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
-        double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
-        
-        dCeuVLL1111 = (getMatching().getCeuVLL(0,0,0,0)).real();
-        dCeuVRR1111 = (getMatching().getCeuVRR(0,0,0,0)).real();
-        dCeuVLR1111 = (getMatching().getCeuVLR(0,0,0,0)).real();
-        dCueVLR1111 = (getMatching().getCueVLR(0,0,0,0)).real(); //RGE effects very small
-        
-        dCedVLL1111 = (getMatching().getCedVLL(0,0,0,0)).real();
-        dCedVRR1111 = (getMatching().getCedVRR(0,0,0,0)).real();
-        dCedVLR1111 = (getMatching().getCedVLR(0,0,0,0)).real();
-        dCdeVLR1111 = (getMatching().getCdeVLR(0,0,0,0)).real(); //RGE effects very small
-        
-        // Modification in terms of the LEFT basis (at low energies)
-        deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
-        deltaC1d = (1./GF/2./sqrt(2.)) * ( - dCedVLL1111 + dCedVRR1111 - dCedVLR1111 + dCdeVLR1111 );
+double NPSMEFTd6General::delta_Qwn() const
+{
+    double deltaQ;    
+    double deltaC1u, deltaC1d;
+    
+    double dCeuVLL1111,dCeuVRR1111,dCeuVLR1111,dCueVLR1111; // NP corrections to LEFT operators at low energy
+    double dCedVLL1111,dCedVRR1111,dCedVLR1111,dCdeVLR1111; // NP corrections to LEFT operators at low energy
+    
+    dCeuVLL1111 = (getMatching().getCeuVLL(0,0,0,0)).real();
+    dCeuVRR1111 = (getMatching().getCeuVRR(0,0,0,0)).real();
+    dCeuVLR1111 = (getMatching().getCeuVLR(0,0,0,0)).real();
+    dCueVLR1111 = (getMatching().getCueVLR(0,0,0,0)).real(); //RGE effects very small
+    
+    dCedVLL1111 = (getMatching().getCedVLL(0,0,0,0)).real();
+    dCedVRR1111 = (getMatching().getCedVRR(0,0,0,0)).real();
+    dCedVLR1111 = (getMatching().getCedVLR(0,0,0,0)).real();
+    dCdeVLR1111 = (getMatching().getCdeVLR(0,0,0,0)).real(); //RGE effects very small
+    
+    // Modification in terms of the LEFT basis (at low energies)
+    deltaC1u = (1./GF/2./sqrt(2.)) * ( - dCeuVLL1111 + dCeuVRR1111 - dCeuVLR1111 + dCueVLR1111 );
+    deltaC1d = (1./GF/2./sqrt(2.)) * ( - dCedVLL1111 + dCedVRR1111 - dCedVLR1111 + dCdeVLR1111 );
        
-        // Neutron Z=0, N=1
-        deltaQ = -2. * ( deltaC1u + 2. * deltaC1d );
-        
-        return deltaQ;    
-    }
+    // Neutron Z=0, N=1
+    deltaQ = -2. * ( deltaC1u + 2. * deltaC1d );
     
-    double NPSMEFTd6General::delta_gLnuN2() const
-    {
-        double eLuSM,eLdSM,deLu,deLd;
-        double dFCC,Vud;
-        double delta;
+    return deltaQ;    
+}
+    
+double NPSMEFTd6General::delta_gLnuN2() const
+{
+    double eLuSM,eLdSM,deLu,deLd;
+    double dFCC,Vud;
+    double delta;
         
-        // SM vvqq couplings (up to -4GF/sqrt(2))
-        eLuSM = 2.0*gZvL*gZuL;         
-        eLdSM = 2.0*gZvL*gZdL;
+    // SM vvqq couplings (up to -4GF/sqrt(2))
+    eLuSM = 2.0*gZvL*gZuL;         
+    eLdSM = 2.0*gZvL*gZdL;
                 
-        // Scattering is with muon neutrinos -> only (22) interfere
-        deLu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLL(1,1,0,0)).real();
-        deLd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLL(1,1,0,0)).real();
+    // Scattering is with muon neutrinos -> only (22) interfere
+    deLu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLL(1,1,0,0)).real();
+    deLd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLL(1,1,0,0)).real();
         
-        Vud=0.97373; // PDG 2023
+    Vud=0.97373; // PDG 2023
         
-        dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(1,1,0,0))/Vud).real();
+    dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(1,1,0,0))/Vud).real();
         
-        delta = 2.0*(eLuSM*deLu + eLdSM*deLd) + (trueSM.gLnuN2())*(-dFCC);
+    delta = 2.0*(eLuSM*deLu + eLdSM*deLd) + (trueSM.gLnuN2())*(-dFCC);
         
-        return delta;
-    }
+    return delta;
+}
 
-    double NPSMEFTd6General::delta_gRnuN2() const
-    {
-        double eRuSM,eRdSM,deRu,deRd;
-        double dFCC,Vud;
-        double delta;
+double NPSMEFTd6General::delta_gRnuN2() const
+{
+    double eRuSM,eRdSM,deRu,deRd;
+    double dFCC,Vud;
+    double delta;
         
-        // SM vvqq couplings (up to -4GF/sqrt(2))
-        eRuSM = 2.0*gZvL*gZuR;         
-        eRdSM = 2.0*gZvL*gZdR;
+    // SM vvqq couplings (up to -4GF/sqrt(2))
+    eRuSM = 2.0*gZvL*gZuR;         
+    eRdSM = 2.0*gZvL*gZdR;
         
-        // Scattering is with muon neutrinos -> only (22) interfere
-        deRu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLR(1,1,0,0)).real();
-        deRd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLR(1,1,0,0)).real();
+    // Scattering is with muon neutrinos -> only (22) interfere
+    deRu = (-1./GF/2./sqrt(2.)) * (getMatching().getCnuuVLR(1,1,0,0)).real();
+    deRd = (-1./GF/2./sqrt(2.)) * (getMatching().getCnudVLR(1,1,0,0)).real();
         
-        Vud=0.97373; // PDG 2023
+    Vud=0.97373; // PDG 2023
         
-        dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(1,1,0,0))/Vud).real();
+    dFCC = 2.0 * (-sqrt(2.0)/4/GF) * ((getMatching().getCnueduVLL(1,1,0,0))/Vud).real();
         
-        delta = 2.0*(eRuSM*deRu + eRdSM*deRd) + (trueSM.gRnuN2())*(-dFCC);
+    delta = 2.0*(eRuSM*deRu + eRdSM*deRd) + (trueSM.gRnuN2())*(-dFCC);
         
-        return delta;
-    }
+    return delta;
+}
 
-    double NPSMEFTd6General::delta_gVnue() const
-    {
-        double dCnueVLL2211, dCnueVLR2211, delta;
+double NPSMEFTd6General::delta_gVnue() const
+{
+    double dCnueVLL2211, dCnueVLR2211, delta;
         
-        dCnueVLL2211 = (getMatching().getCnueVLL(1,1,0,0)).real();
-        dCnueVLR2211 = (getMatching().getCnueVLR(1,1,0,0)).real();
+    dCnueVLL2211 = (getMatching().getCnueVLL(1,1,0,0)).real();
+    dCnueVLR2211 = (getMatching().getCnueVLR(1,1,0,0)).real();
 
-        // Modification in terms of the LEFT basis (at low energies)        
-        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL2211 + dCnueVLR2211);
+    // Modification in terms of the LEFT basis (at low energies)        
+    delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL2211 + dCnueVLR2211);
         
-        return delta;    
-    }
+    return delta;    
+}
 
-    double NPSMEFTd6General::delta_gAnue() const
-    {
-        double dCnueVLL2211, dCnueVLR2211, delta;
+double NPSMEFTd6General::delta_gAnue() const
+{
+    double dCnueVLL2211, dCnueVLR2211, delta;
         
-        dCnueVLL2211 = (getMatching().getCnueVLL(1,1,0,0)).real();
-        dCnueVLR2211 = (getMatching().getCnueVLR(1,1,0,0)).real();
+    dCnueVLL2211 = (getMatching().getCnueVLL(1,1,0,0)).real();
+    dCnueVLR2211 = (getMatching().getCnueVLR(1,1,0,0)).real();
 
-        // Modification in terms of the LEFT basis (at low energies)        
-        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL2211 - dCnueVLR2211);
+    // Modification in terms of the LEFT basis (at low energies)        
+    delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL2211 - dCnueVLR2211);
         
-        return delta;    
-    }
+    return delta;    
+}
     
-    ////////////////////////////////////////////////////////////////////////     
-    // Lepton decays
+////////////////////////////////////////////////////////////////////////     
+// Lepton decays
       
-    // Lepton Flavor universality tests in Tau decays: 
+// Lepton Flavor universality tests in Tau decays: 
 
-    double NPSMEFTd6General::delta_TauLFU_gmuge() const
-    {
-        double dCnueVLL3223, dCnueVLL3113, delta;
+double NPSMEFTd6General::delta_TauLFU_gmuge() const
+{
+    double dCnueVLL3223, dCnueVLL3113, delta;
         
-        dCnueVLL3223 = (getMatching().getCnueVLL(2,1,1,2)).real();
-        dCnueVLL3113 = (getMatching().getCnueVLR(2,0,0,2)).real();
+    dCnueVLL3223 = (getMatching().getCnueVLL(2,1,1,2)).real();
+    dCnueVLL3113 = (getMatching().getCnueVLR(2,0,0,2)).real();
 
-        // Modification in terms of the LEFT basis (at low energies)        
-        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL3223 - dCnueVLL3113);
+    // Modification in terms of the LEFT basis (at low energies)        
+    delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL3223 - dCnueVLL3113);
         
-        return (trueSM.TauLFU_gmuge())*delta;    
-    }
+    return (trueSM.TauLFU_gmuge())*delta;    
+}
 
-    double NPSMEFTd6General::delta_TauLFU_gtaugmu() const
-    {
-        double dCnueVLL3113, dCnueVLL2112, delta;
+double NPSMEFTd6General::delta_TauLFU_gtaugmu() const
+{
+    double dCnueVLL3113, dCnueVLL2112, delta;
         
-        dCnueVLL3113 = (getMatching().getCnueVLL(2,0,0,2)).real();
-        dCnueVLL2112 = (getMatching().getCnueVLR(1,0,0,1)).real();
+    dCnueVLL3113 = (getMatching().getCnueVLL(2,0,0,2)).real();
+    dCnueVLL2112 = (getMatching().getCnueVLR(1,0,0,1)).real();
 
-        // Modification in terms of the LEFT basis (at low energies)        
-        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL3113 - dCnueVLL2112);
+    // Modification in terms of the LEFT basis (at low energies)        
+    delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL3113 - dCnueVLL2112);
         
-        return (trueSM.TauLFU_gtaugmu())*delta;   
-    }
+    return (trueSM.TauLFU_gtaugmu())*delta;   
+}
 
 
-    double NPSMEFTd6General::delta_TauLFU_gtauge() const
-    {
-        double dCnueVLL3223, dCnueVLL2112, delta;
+double NPSMEFTd6General::delta_TauLFU_gtauge() const
+{
+    double dCnueVLL3223, dCnueVLL2112, delta;
         
-        dCnueVLL3223 = (getMatching().getCnueVLL(2,1,1,2)).real();
-        dCnueVLL2112 = (getMatching().getCnueVLR(1,0,0,1)).real();
+    dCnueVLL3223 = (getMatching().getCnueVLL(2,1,1,2)).real();
+    dCnueVLL2112 = (getMatching().getCnueVLR(1,0,0,1)).real();
 
-        // Modification in terms of the LEFT basis (at low energies)        
-        delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL3223 - dCnueVLL2112);
+    // Modification in terms of the LEFT basis (at low energies)        
+    delta = (-1./GF/2./sqrt(2.)) * (dCnueVLL3223 - dCnueVLL2112);
         
-        return (trueSM.TauLFU_gtauge())*delta;  
-    }
+    return (trueSM.TauLFU_gtauge())*delta;  
+}
+    
+double NPSMEFTd6General::delta_TauLFU_gtaugmuPi() const
+{
+    // Follow Eqs. A.1, A.2 in 2311.00020 
+    double dCnueduVLL3311, dCnueduVLL2211;
+    double dCnueduSRL3311, dCnueduSRL2211;
+    double Vud, mPi, chitauPi, chimuPi,etaS;
+    double delta;
+    
+    Vud=0.97373; // PDG 2023
+    mPi= 0.13957039; // From PDG 2024 in GeV
+    
+    chitauPi = mPi*mPi/(leptons[TAU].getMass())/(quarks[DOWN].getMass() + quarks[UP].getMass());
+    chimuPi = chitauPi*(leptons[TAU].getMass())/(leptons[MU].getMass());
+    
+    etaS=1.57;
+        
+    // Vector operators
+    dCnueduVLL3311 = ((getMatching().getCnueduVLL(2,2,0,0))/Vud).real();
+    dCnueduVLL2211 = ((getMatching().getCnueduVLL(1,1,0,0))/Vud).real();
+    
+    // Scalar operators
+    dCnueduSRL3311 = etaS*((getMatching().getCnueduSRL(2,2,0,0))/Vud).real();
+    dCnueduSRL2211 = etaS*((getMatching().getCnueduSRL(1,1,0,0))/Vud).real();
+
+    // Modification in terms of the LEFT basis (at low energies)        
+    delta = (-1./GF/2./sqrt(2.)) * (dCnueduVLL3311 - dCnueduVLL2211 + chitauPi * (dCnueduSRL3311 - dCnueduSRL2211));
+        
+    return delta;      
+}
+
+double NPSMEFTd6General::delta_TauLFU_gtaugmuK() const
+{
+    // Follow Eqs. A.1, A.2 in 2311.00020 
+    double dCnueduVLL3321, dCnueduVLL2221;
+    double dCnueduSRL3321, dCnueduSRL2221;
+    double Vus, mK, chitauK, chimuK,etaS;
+    double delta;
+    
+    Vus=0.2243; // PDG 2023
+    mK= 0.493677; // From PDG 2024 in GeV
+    
+    chitauK = mK*mK/(leptons[TAU].getMass())/(quarks[STRANGE].getMass() + quarks[UP].getMass());
+    chimuK = chitauK*(leptons[TAU].getMass())/(leptons[MU].getMass());
+    
+    etaS=1.57;
+        
+    // Vector operators
+    dCnueduVLL3321 = ((getMatching().getCnueduVLL(2,2,1,0))/Vus).real();
+    dCnueduVLL2221 = ((getMatching().getCnueduVLL(1,1,1,0))/Vus).real();
+    
+    // Scalar operators
+    dCnueduSRL3321 = etaS*((getMatching().getCnueduSRL(2,2,1,0))/Vus).real();
+    dCnueduSRL2221 = etaS*((getMatching().getCnueduSRL(1,1,1,0))/Vus).real();
+
+    // Modification in terms of the LEFT basis (at low energies)        
+    delta = (-1./GF/2./sqrt(2.)) * (dCnueduVLL3321 - dCnueduVLL2221 + chitauK * (dCnueduSRL3321 - dCnueduSRL2221));
+        
+    return delta;   
+}
       
