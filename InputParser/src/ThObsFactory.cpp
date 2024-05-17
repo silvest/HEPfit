@@ -4276,8 +4276,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["gtaugmu_TauLFU"] = boost::factory<gtaugmuTauLFU*>();
     obsThFactory["gtauge_TauLFU"] = boost::factory<gtaugeTauLFU*>();
     
-    obsThFactory["gtaugePi_TauLFU"] = boost::factory<gtaugmuPiTauLFU*>();
-    obsThFactory["gtaugeK_TauLFU"] = boost::factory<gtaugmuKTauLFU*>();
+    obsThFactory["gtaugmuPi_TauLFU"] = boost::factory<gtaugmuPiTauLFU*>();
+    obsThFactory["gtaugmuK_TauLFU"] = boost::factory<gtaugmuKTauLFU*>();
     
     
     //-----  Flavour observables  -----
