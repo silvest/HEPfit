@@ -4231,7 +4231,7 @@ ThObsFactory::ThObsFactory()
         }
         
         if (i>0) {
-        for (int j = 11; j < 14; j++) {        
+        for (int j = 10; j < 15; j++) {        
         std::string cosee_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_DiffeeInp[j]));
         obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j]);
         }
@@ -4275,6 +4275,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["gmuge_TauLFU"] = boost::factory<gmugeTauLFU*>();
     obsThFactory["gtaugmu_TauLFU"] = boost::factory<gtaugmuTauLFU*>();
     obsThFactory["gtauge_TauLFU"] = boost::factory<gtaugeTauLFU*>();
+    
+    obsThFactory["gtaugePi_TauLFU"] = boost::factory<gtaugmuPiTauLFU*>();
+    obsThFactory["gtaugeK_TauLFU"] = boost::factory<gtaugmuKTauLFU*>();
     
     
     //-----  Flavour observables  -----

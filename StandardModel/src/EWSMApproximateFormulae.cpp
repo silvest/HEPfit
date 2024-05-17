@@ -2529,7 +2529,7 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
   
         RelThError=0.; 
     } else if (s==200.*200.) { 
-        X0 = 1.420;
+        X0 = 1.623;
         cMH = 0.;
         cmt = 0.;
         caS = 0.;
