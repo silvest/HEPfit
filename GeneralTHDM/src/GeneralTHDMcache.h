@@ -239,10 +239,11 @@ public:
     gslpp::matrix<double> ATLAS13_tt_phi_tt, ATLAS13_bb_phi_tt, ATLAS13_gg_phi_tautau, ATLAS13_bb_phi_tautau, ATLAS13_pp_phi_gaga, ATLAS13_gg_phi_Zga_llga, ATLAS13_gg_phi_Zga_qqga,\
                           ATLAS13_gg_phi_ZZ_llllnunu, ATLAS13_VV_phi_ZZ_llllnunu, ATLAS13_gg_phi_ZZ_qqllnunu, ATLAS13_VV_phi_ZZ_qqllnunu,\
                           ATLAS13_gg_phi_WW_enumunu, ATLAS13_VV_phi_WW_enumunu, ATLAS13_gg_phi_WW_lnuqq, ATLAS13_VV_phi_WW_lnuqq, ATLAS13_pp_phi_VV_qqqq,\
-                          ATLAS13_pp_phi_phi1phi1_bbbb, ATLAS13_pp_phi_phi1phi1_bbgaga, ATLAS13_pp_phi_phi1phi1_bbtautau_1,ATLAS13_pp_phi_phi1phi1_bbtautau_2, ATLAS13_pp_phi_phi1phi1_bbWW, ATLAS13_gg_phi_phi1phi1_gagaWW,\
+                          ATLAS13_pp_phi_phi1phi1_bbbb, ATLAS13_pp_phi_phi1phi1_bbgaga, ATLAS13_pp_phi_phi1phi1_bbtautau_1,ATLAS13_pp_phi_phi1phi1_bbtautau_2,\
+                          ATLAS13_pp_phi_phi1phi1_bbWW, ATLAS13_gg_phi_phi1phi1_gagaWW,\
                           ATLAS13_gg_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_tautaull;
     
-    gslpp::matrix<double> ATLAS13_gg_phii_phijZ_bbZ, ATLAS13_bb_phii_phijZ_bbZ;
+    gslpp::matrix<double> ATLAS13_gg_phii_phijZ_bbZ, ATLAS13_bb_phii_phijZ_bbZ,ATLAS13_gg_phii_phijZ_WWZ;
 
     
     //Added in mid 2022
@@ -260,7 +261,7 @@ public:
     //Needs to be completed
     
     gslpp::matrix<double>   CMS13_pp_phi_phi1phi1_4WOr2W2tauOr4tau, CMS13_pp_phi_phi1phi1_bbWW_qqlnu, CMS13_pp_phi_phi1phi1_bbZZ_lljj,\
-                            CMS13_pp_phi_phi1phi1_bbZZ_llnunu,CMS13_pp_phi_phi1phi1_bbWWorbbtautau;
+                            CMS13_pp_phi_phi1phi1_bbZZ_llnunu,CMS13_pp_phi_phi1phi1_bbWWorbbtautau,CMS13_pp_phi_phi1phi1_bbWWorbbtautau_low_masses;
     
     
     
@@ -627,6 +628,7 @@ public:
     double ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13(double mass);//Included in mid 2022
     double ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13(double mass);//Included in mid 2022
     double ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(double mass);//Included in mid 2022
+    double ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13(double mass);//Included in mid 2024
     
     
     
@@ -654,6 +656,7 @@ public:
     double ip_ex_pp_phii_phijZ_tautaull_2_CMS8(double m2,double m3);
     double ip_ex_gg_phii_phijZ_bbZ_ATLAS13(double m3,double m2);
     double ip_ex_bb_phii_phijZ_bbZ_ATLAS13(double m3,double m2);
+    double ip_ex_gg_phii_phijZ_WWZ_ATLAS13(double m3,double m2);
     
     double ip_ex_pp_Hpm_tb_ATLAS13(double mass);
     double ip_ex_pp_Hpm_tb_CMS13(double mass);
@@ -937,6 +940,40 @@ public:
      */
     double BrSM_htotautau;
     
+    
+    /**
+     * @brief SM branching ratio of @f$h\to W W^*@f$.
+     * @return @f$BR{\text SM}(h\to W W^*)@f$
+     */
+    double BrSM_htoWW;
+    
+    
+    /**
+     * @brief SM branching ratio of @f$h\to Z Z^*@f$.
+     * @return @f$BR{\text SM}(h\to Z Z^*)@f$
+     */
+    double BrSM_htoZZ;
+    
+    
+    /**
+     * @brief SM branching ratio of @f$h\to g g@f$.
+     * @return @f$BR{\text SM}(h\to g g)@f$
+     */
+    double BrSM_htogg;
+    
+    
+    /**
+     * @brief SM branching ratio of @f$h\to Z \gamma@f$.
+     * @return @f$BR{\text SM}(h\to Z \gamma)@f$
+     */
+    double BrSM_htoZga;
+    
+    
+     /**
+     * @brief SM branching ratio of @f$h\to c c @f$.
+     * @return @f$BR{\text SM}(h\to c c )@f$
+     */
+    double BrSM_htocc;
     
     /**
      * @brief Coupling of the SM-Higgs to up quarks.
@@ -1917,6 +1954,23 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b b\bar b)@f$
      */
     double pp_phi3_phi1phi1_bbbb_TH13;
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1)@f$ where the decay channel of the SM-like Higgs
+     * is @f$ phi1phi1\to b\bar b b\bar b@f$. 
+     */
+    double pp_phi2_phi1phi1_with_channel_bbbb_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1)@f$ where the decay channel of the SM-like Higgs
+     * is @f$ phi1phi1\to b\bar b b\bar b@f$. 
+     */
+    double pp_phi3_phi1phi1_with_channel_bbbb_TH13;
+    
+    
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi2\to hh@f$ at the LHC with 13 TeV.
@@ -1941,18 +1995,53 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \gamma\gamma b\bar b)@f$
      */
     double pp_phi3_phi1phi1_bbgaga_TH13;
+    
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1@f$ at the LHC with 13 TeV.
+     * where the decay channel of the SM-like Higgs is @f$ phi1phi1\to b\bar b \gamma\gamma@f$.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \gamma\gamma b\bar b)/(h_SM h_SM \to \gamma\gamma b\bar b)@f$
+     */
+    double pp_phi2_phi1phi1_with_channel_bbgaga_TH13;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b \tau\tau)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1@f$ at the LHC with 13 TeV
+     * where the decay channel of the SM-like Higgs is @f$ phi1phi1\to b\bar b \gamma\gamma@f$.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \gamma\gamma b\bar b)/(h_SM h_SM \to \gamma\gamma b\bar b))@f$
+     */
+    double pp_phi3_phi1phi1_with_channel_bbgaga_TH13;
+    
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to \phi2\to \phi1\phi1 \to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(\phi2\to \phi1\phi1\to \tau\tau b\bar b))@f$. 
      */
     double pp_phi2_phi1phi1_bbtautau_TH13;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to b\bar b \tau\tau)@f$
+     * @brief Cross section times branching ratio for the process @f$pp\to \phi3\to \phi1\phi1 \to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \tau\tau b\bar b))@f$. 
      */
     double pp_phi3_phi1phi1_bbtautau_TH13;
+    
+    
+    
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1@f$ at the LHC with 13 TeV where the decay 
+     * channel of the SM-like Higgs is @f$ phi1phi1\to b\bar b \tau\tau@f$.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to \tau\tau b\bar b)/(h_SM h_SM \to \tau\tau b\bar b))@f$. 
+     */
+    double pp_phi2_phi1phi1_with_channel_bbtautau_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1@f$ at the LHC with 13 TeV where the decay 
+     * channel of the SM-like Higgs is @f$ phi1phi1\to b\bar b \tau\tau@f$.
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1phi1\to \tau\tau b\bar b)/(h_SM h_SM \to \tau\tau b\bar b))@f$. 
+     */
+    double pp_phi3_phi1phi1_with_channel_bbtautau_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1\to b\bar b VV(\ell\ell \nu\nu)@f$ at the LHC with 13 TeV.
@@ -1967,44 +2056,55 @@ public:
     double pp_phi3_phi1phi1_bbVV_TH13;
     
     
-    double pp_phi2_phi1phi1_bbWW_qqlnu_TH13; //to be completed
+    double pp_phi2_phi1phi1_with_channel_bbWW_qqlnu_TH13; //to be completed
     
     
-    double pp_phi3_phi1phi1_bbWW_qqlnu_TH13; //to be completed
+    double pp_phi3_phi1phi1_with_channel_bbWW_qqlnu_TH13; //to be completed
+    
+    double pp_phi2_phi1phi1_bbZZ_TH13; //to be completed
+    double pp_phi3_phi1phi1_bbZZ_TH13; //to be completed
+    
+    //double pp_phi2_phi1phi1_bbZZ_lljj_TH13; //to be completed
+    //double pp_phi3_phi1phi1_bbZZ_lljj_TH13; //to be completed
+    
+    //double pp_phi2_phi1phi1_bbZZ_llnunu_TH13; //to be completed
+    //double pp_phi3_phi1phi1_bbZZ_llnunu_TH13; //to be completed
     
     
-    double pp_phi2_phi1phi1_bbZZ_lljj_TH13; //to be completed
-    double pp_phi3_phi1phi1_bbZZ_lljj_TH13; //to be completed
-    
-    double pp_phi2_phi1phi1_bbZZ_llnunu_TH13; //to be completed
-    double pp_phi3_phi1phi1_bbZZ_llnunu_TH13; //to be completed
-    
-    
-    double pp_phi2_phi1phi1_bbWWorbbtautau_TH13; //to be completed
-    double pp_phi3_phi1phi1_bbWWorbbtautau_TH13; //to be completed
+    double pp_phi2_phi1phi1_with_channel_bbWWorbbtautau_TH13; //to be completed
+    double pp_phi3_phi1phi1_with_channel_bbWWorbbtautau_TH13; //to be completed
     
     
     
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh@f$ at the LHC with 13 TeV where the
+     * SM-like Higgs decays to  @f$hh \to 4W/2W2\tau/4\tau @f$
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi1@f$
+     */
+    double pp_phi2_phi1phi1_with_channel_4WOr2W2tauOr4tau_TH13; 
     
-    double pp_phi2_phi1phi1_4WOr2W2tauOr4tau_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to 4W/2W2\tau/4\tau@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}[H\to hh\to 4W/2W2\tau/4\tau]@f$*/
     
-    
-    double pp_phi3_phi1phi1_4WOr2W2tauOr4tau_TH13; /**< Cross section times branching ratio for the process @f$pp\to H\to hh\to 4W/2W2\tau/4\tau@f$ at the LHC with 13 TeV. This is @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}[H\to hh\to 4W/2W2\tau/4\tau]@f$*/
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1 @f$ at the LHC with 13 TeV where the
+     * SM-like Higgs decays to  @f$hh \to 4W/2W2\tau/4\tau @f$
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi1@f$
+     */
+    double pp_phi3_phi1phi1_with_channel_4WOr2W2tauOr4tau_TH13; 
 
     
     
      /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi2\to phi1phi1 [\to b\bar b WW]@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}[phi2\to phi1phi1[\to b\bar b WW]@f$
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1phi1\to b\bar b WW)/BR(h_SM h_SM \to b\bar b WW)@f$
      */
-    double pp_phi2_phi1phi1_bbWW_TH13;
+    double pp_phi2_phi1phi1_with_channel_bbWW_TH13;
     
     
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi3\to phi1phi1 [\to b\bar b WW]@f$ at the LHC with 13 TeV.
-     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi1[\to b\bar b WW]@f$
+     * @return @f$\sigma^{\text{GTHDM}}_{pp\to phi3}\cdot BR^{\text{GTHDM}}[phi3\to phi1phi1\to b\bar b WW/BR(h_SM h_SM \to b\bar b WW)@f$
      */
-    double pp_phi3_phi1phi1_bbWW_TH13;
+    double pp_phi3_phi1phi1_with_channel_bbWW_TH13;
     
     
     /**
@@ -2268,7 +2368,24 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to  phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar bZ)@f$
      */
     double gg_phi3_phi1Z_bbZ_TH13;
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi1Z@f$ at the LHC with 13 TeV.
+     * The SM Higgs is decaying to @f$h\to b\bar bZ@f$
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to  phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to b\bar bZ)/BR^{\text{SM}}(phi1Z\to b\bar bZ)@f$
+     */
+    double gg_phi2_phi1Z_with_channel_bbZ_TH13;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi1 Z@f$ at the LHC with 13 TeV.
+     * The SM Higgs is decaying to @f$h\to b\bar bZ@f$
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to  phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar bZ)/BR^{\text{SM}}(phi1Z\to b\bar bZ)@f$
+     */
+    double gg_phi3_phi1Z_with_channel_bbZ_TH13;
+    
+    
+    
     /**
      * @brief Cross section times branching ratio for the process @f$bb\to phi2\to phi1Z\to b\bar bZ@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{bb\to  phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to b\bar bZ)@f$
@@ -2280,6 +2397,24 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{bb\to  phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar bZ)@f$
      */
     double bb_phi3_phi1Z_bbZ_TH13;
+    
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$bb\to phi2\to phi1Z\to b\bar bZ@f$ at the LHC with 13 TeV.
+     * The channel used is @f$phi1 \to b\bar b)@f$
+     * @return @f$\sigma^{\text{GTHDM}}_{bb\to  phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi1Z\to b\bar bZ)/ BR^{\text{SM}}(phi1Z\to b\bar bZ)@f$
+     */
+    double bb_phi2_phi1Z_with_channel_bbZ_TH13;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$bb\to phi3\to phi1Z\to b\bar bZ@f$ at the LHC with 13 TeV.
+     * The channel used is @f$phi1 \to b\bar b)@f$
+     * @return @f$\sigma^{\text{GTHDM}}_{bb\to  phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi1Z\to b\bar bZ)/ BR^{\text{SM}}(phi1Z\to b\bar bZ)@f$
+     */
+    double bb_phi3_phi1Z_with_channel_bbZ_TH13;
+    
+    
+    
     
     
     
@@ -2317,6 +2452,12 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2 Z\to b\bar b Z)@f$
      */
     double gg_phi3_phi2Z_bbZ_TH13;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi3\to phi2 Z\to W W Z@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi3}\cdot BR^{\text{GTHDM}}(phi3\to phi2 Z\to W W Z)@f$
+     */
+    double gg_phi3_phi2Z_WWZ_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$bb\to phi3\to phi2 Z\to b\bar b Z@f$ at the LHC with 13 TeV.
@@ -2341,6 +2482,13 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi3 Z\to b\bar b Z)@f$
      */
     double gg_phi2_phi3Z_bbZ_TH13;
+    
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to phi2\to phi3 Z\to W W Z@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi2\to phi3 Z\to W W Z)@f$
+     */
+    double gg_phi2_phi3Z_WWZ_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$bb\to phi2\to phi3 Z\to b\bar b Z@f$ at the LHC with 13 TeV.
@@ -2613,7 +2761,7 @@ public:
     double THoEX_pp_phi2_phi1phi1_bbZZ_lljj_CMS13;         //Included in mid 2022
     double THoEX_pp_phi2_phi1phi1_bbZZ_llnunu_CMS13;         //Included in mid 2022
     
-    double THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13;    //Included in mid 2022
+    double THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13;    //Included in mid 2022 and in mid 2024 (low mass range)
     
     double THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13;
     double THoEX_gg_phi3_phi1phi1_ATLAS8;
@@ -2710,6 +2858,7 @@ public:
     double THoEX_pp_phi3_phi2Z_tautaull_2_CMS8;
     double THoEX_gg_phi3_phi2Z_bbZ_ATLAS13;
     double THoEX_bb_phi3_phi2Z_bbZ_ATLAS13;
+    double THoEX_gg_phi3_phi2Z_WWZ_ATLAS13;
     
     double THoEX_pp_phi2_phi3Z_bbll_1_CMS8;
     double THoEX_pp_phi2_phi3Z_bbll_2_CMS8;
@@ -2717,6 +2866,7 @@ public:
     double THoEX_pp_phi2_phi3Z_tautaull_2_CMS8;
     double THoEX_gg_phi2_phi3Z_bbZ_ATLAS13;
     double THoEX_bb_phi2_phi3Z_bbZ_ATLAS13;
+    double THoEX_gg_phi2_phi3Z_WWZ_ATLAS13;
 
     double THoEX_pp_Hpm_taunu_ATLAS8;
     double THoEX_pp_Hp_taunu_CMS8;
@@ -3387,6 +3537,9 @@ private:
     mutable double ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13_cache[2][CacheSize];
+    
+    
     
     mutable double ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13_cache[2][CacheSize];
@@ -3411,6 +3564,7 @@ private:
     mutable double ip_ex_pp_phii_phijZ_tautaull_2_CMS8_cache[3][CacheSize];
     mutable double ip_ex_gg_phii_phijZ_bbZ_ATLAS13_cache[3][CacheSize];
     mutable double ip_ex_bb_phii_phijZ_bbZ_ATLAS13_cache[3][CacheSize];
+    mutable double ip_ex_gg_phii_phijZ_WWZ_ATLAS13_cache[3][CacheSize];
     
     mutable double ip_ex_pp_Hpm_taunu_ATLAS8_cache[2][CacheSize];
     mutable double ip_ex_pp_Hp_taunu_CMS8_cache[2][CacheSize];

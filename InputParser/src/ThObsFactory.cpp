@@ -5797,7 +5797,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_gg_phi2_phi3Z_bbZ_ATLAS13"] = boost::factory<Hobs_gg_phi2_phi3Z_bbZ_ATLAS13*>();
     obsThFactory["Hobs_bb_phi3_phi2Z_bbZ_ATLAS13"] = boost::factory<Hobs_bb_phi3_phi2Z_bbZ_ATLAS13*>();
     obsThFactory["Hobs_bb_phi2_phi3Z_bbZ_ATLAS13"] = boost::factory<Hobs_bb_phi2_phi3Z_bbZ_ATLAS13*>();
-
+    obsThFactory["Hobs_gg_phi3_phi2Z_WWZ_ATLAS13"] = boost::factory<Hobs_gg_phi3_phi2Z_WWZ_ATLAS13*>();
+    obsThFactory["Hobs_gg_phi2_phi3Z_WWZ_ATLAS13"] = boost::factory<Hobs_gg_phi2_phi3Z_WWZ_ATLAS13*>();
+    
+    
     obsThFactory["Hobs_pp_Hpm_taunu_ATLAS8"] = boost::factory<Hobs_pp_Hpm_taunu_ATLAS8_GTHDM*>();
     obsThFactory["Hobs_pp_Hp_taunu_CMS8"] = boost::factory<Hobs_pp_Hp_taunu_CMS8_GTHDM*>();
     obsThFactory["Hobs_pp_Hpm_taunu_ATLAS13"] = boost::factory<Hobs_pp_Hpm_taunu_ATLAS13_GTHDM*>();
@@ -5927,8 +5930,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_phi3_phi1phi1_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_TH13*>();
     obsThFactory["log10_pp_phi2_phi1phi1_bbgaga_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_bbgaga_TH13*>();
     obsThFactory["log10_pp_phi3_phi1phi1_bbgaga_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_bbgaga_TH13*>();
-    obsThFactory["log10_pp_phi2_phi1phi1_bbtautau_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_bbtautau_TH13*>();
-    obsThFactory["log10_pp_phi3_phi1phi1_bbtautau_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_bbtautau_TH13*>();
+    obsThFactory["log10_pp_phi2_phi1phi1_with_channel_bbtautau_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_with_channel_bbtautau_TH13*>();
+    obsThFactory["log10_pp_phi3_phi1phi1_with_channel_bbtautau_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_with_channel_bbtautau_TH13*>();
     obsThFactory["log10_pp_phi2_phi1phi1_bbVV_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_bbVV_TH13*>();
     obsThFactory["log10_pp_phi3_phi1phi1_bbVV_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_bbVV_TH13*>();
     obsThFactory["log10_gg_phi2_phi1phi1_gagaWW_TH13"] = boost::factory<log10_gg_phi2_phi1phi1_gagaWW_TH13*>();

@@ -2,7 +2,7 @@
 #######: name: Limit 13 TeV on xsec times BR for H+/- to tau-nu
 #######: description: The 95% CL upper limit on the production cross section for the Charged Higgs boson decaying into a tau-nu pair.
 #######: data_file: limit_13TeV.yaml
-#######: keyword reactions: P P --> Scalar --> HIGGS HIGGS --> BQ BQBAR (ZZ --> \ell\ell jj)
+#######: keyword reactions: P P --> Scalar --> HIGGS HIGGS --> BQ BQBAR [ZZ --> \ell\ell jj]
 #######: keyword cmenergies: 13000.0
 #######: SQRT(S) [GeV],13000
 #######: LUMINOSITY [fb$^-1$],35.9

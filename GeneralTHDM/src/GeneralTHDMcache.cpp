@@ -102,16 +102,18 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         ATLAS13_bb_phi_tautau(47, 2, 0.),           //Updated in mid 2022
         //ATLAS13_pp_phi_gaga(251, 2, 0.),          //OLD before mid 2022
         ATLAS13_pp_phi_gaga(285, 2, 0.),            //Updated in mid 2022
-        ATLAS13_gg_phi_Zga_llga(216, 2, 0.),
-        ATLAS13_gg_phi_Zga_qqga(581, 2, 0.),
+        ATLAS13_gg_phi_Zga_llga(1590, 2, 0.),
+        ATLAS13_gg_phi_Zga_qqga(290, 2, 0.),
         //ATLAS13_gg_phi_ZZ_llllnunu(101, 2, 0.),   //OLD before mid 2022
         //ATLAS13_VV_phi_ZZ_llllnunu(101, 2, 0.),   //OLD before mid 2022
         ATLAS13_gg_phi_ZZ_llllnunu(359, 2, 0.),     //Updated in mid 2022
         ATLAS13_VV_phi_ZZ_llllnunu(359, 2, 0.),     //Updated in mid 2022
         ATLAS13_gg_phi_ZZ_qqllnunu(271, 2, 0.),
         ATLAS13_VV_phi_ZZ_qqllnunu(271, 2, 0.),
-        ATLAS13_gg_phi_WW_enumunu(381, 2, 0.),
-        ATLAS13_VV_phi_WW_enumunu(281, 2, 0.),
+        //ATLAS13_gg_phi_WW_enumunu(381, 2, 0.),    //OLD before mid 2024
+        //ATLAS13_VV_phi_WW_enumunu(281, 2, 0.),    //OLD before mid 2024
+        ATLAS13_gg_phi_WW_enumunu(72, 2, 0.),       //Updated in mid 2024
+        ATLAS13_VV_phi_WW_enumunu(72, 2, 0.),       //Updated in mid 2024
         ATLAS13_gg_phi_WW_lnuqq(271, 2, 0.),
         ATLAS13_VV_phi_WW_lnuqq(271, 2, 0.),
         ATLAS13_pp_phi_VV_qqqq(181, 2, 0.),
@@ -124,13 +126,14 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         ATLAS13_pp_phi_phi1phi1_bbtautau_2(41, 2, 0.),  //Updated in mid 2022
         ATLAS13_pp_phi_phi1phi1_bbWW(51, 2, 0.),
         ATLAS13_gg_phi_phi1phi1_gagaWW(25, 2, 0.),
-        ATLAS13_gg_phi_phi1Z_bbZ(181, 2, 0.),
-        ATLAS13_bb_phi_phi1Z_bbZ(181, 2, 0.),
+        ATLAS13_gg_phi_phi1Z_bbZ(45, 2, 0.),
+        ATLAS13_bb_phi_phi1Z_bbZ(45, 2, 0.),
         ATLAS13_bb_phi_phi1Z_tautaull(19, 2, 0.),
         //ATLAS13_gg_phii_phijZ_bbZ(3364, 3, 0.),   //OLD before mid 2022
         //ATLAS13_bb_phii_phijZ_bbZ(3364, 3, 0.),   //OLD before mid 2022
         ATLAS13_gg_phii_phijZ_bbZ(1711, 3, 0.),     //Updated in mid 2022
         ATLAS13_bb_phii_phijZ_bbZ(1711, 3, 0.),     //Updated in mid 2022
+        ATLAS13_gg_phii_phijZ_WWZ(1326, 3, 0.),     //Included in mid 2024
         CMS13_pp_phi2_bb_light(61, 2, 0.),          //Included in mid 2022
         CMS13_pp_phi3_bb_light(61, 2, 0.),          //Included in mid 2022
         CMS13_tt_phi2_tt(31, 2, 0.),               //Included in mid 2022
@@ -139,9 +142,11 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS13_bb_phi_bb(101, 2, 0.),
         //CMS13_gg_phi_tautau(312, 2, 0.),          //OLD before mid 2022
         //CMS13_bb_phi_tautau(312, 2, 0.),          //OLD before mid 2022
-        CMS13_gg_phi_tautau(689, 2, 0.),            //Updated in mid 2022
-        CMS13_bb_phi_tautau(689, 2, 0.),            //Updated in mid 2022
-        CMS13_gg_phi_gaga(901, 2, 0.),
+        //CMS13_gg_phi_tautau(689, 2, 0.),            //Updated in mid 2022
+        //CMS13_bb_phi_tautau(689, 2, 0.),            //Updated in mid 2022
+        CMS13_gg_phi_tautau(172, 2, 0.),            //Updated in mid 2024
+        CMS13_bb_phi_tautau(172, 2, 0.),            //Updated in mid 2024
+        CMS13_gg_phi_gaga(176, 2, 0.),
         CMS13_gg_phi_Zga(366, 2, 0.),
         CMS13_pp_phi_ZZ_llqqnunull(288, 2, 0.),
         CMS13_pp_phi_ZZ_qqnunu(301, 2, 0.),
@@ -150,7 +155,8 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS13_pp_phi_phi1phi1_bbbb_1(95, 2, 0.),
         //CMS13_pp_phi_phi1phi1_bbbb_2(181, 2, 0.),     //OLD before mid 2022
         CMS13_pp_phi_phi1phi1_bbbb_2(41, 2, 0.),        //Updated in mid 2022 
-        CMS13_pp_phi_phi1phi1_bbgaga(66, 2, 0.),
+        //CMS13_pp_phi_phi1phi1_bbgaga(66, 2, 0.),      //OLD before mid 2024
+        CMS13_pp_phi_phi1phi1_bbgaga(74, 2, 0.),        //Updated in mid 2024 
         CMS13_pp_phi_phi1phi1_bbtautau_1(66, 2, 0.),
         CMS13_pp_phi_phi1phi1_bbtautau_2(311, 2, 0.),
         CMS13_pp_phi_phi1phi1_bbVV(65, 2, 0.),
@@ -162,7 +168,8 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS13_pp_phi_phi1phi1_bbWW_qqlnu(55, 2, 0.), //Included in mid 2022 
         CMS13_pp_phi_phi1phi1_bbZZ_lljj(149, 2, 0.), //Included in mid 2022 
         CMS13_pp_phi_phi1phi1_bbZZ_llnunu(151, 2, 0.), //Included in mid 2022 
-        CMS13_pp_phi_phi1phi1_bbWWorbbtautau(75, 2, 0.),
+        CMS13_pp_phi_phi1phi1_bbWWorbbtautau(75, 2, 0.), //Included in mid 2022
+        CMS13_pp_phi_phi1phi1_bbWWorbbtautau_low_masses(65, 2, 0.), //Included in mid 2024
         ATLAS8_pp_Hpm_taunu(83, 2, 0.),
         ATLAS8_pp_Hpm_tb(41, 2, 0.),
         CMS8_pp_Hp_taunu(43, 2, 0.),
@@ -1889,8 +1896,8 @@ void GeneralTHDMcache::read(){
     std::stringstream ex1m6,ex1m5,ex1m4,ex1m3,ex1m2,ex1m1;
     std::stringstream ex1,ex2,ex3,ex4,ex5,ex6,ex7,ex8,ex9,ex10,ex11,ex12,ex13,ex14,ex15,ex16,ex17,ex18,ex19,ex20,ex21,ex22,ex23;
     std::stringstream ex24,ex25,ex26,ex27,ex28m1,ex28,ex29,ex30,ex31,ex32,ex33,ex34,ex35,ex36,ex37,ex38,ex39m4,ex39m3,ex39m2,ex39m1,ex39,ex40,ex41,ex42,ex43,ex43p1,ex43p2,ex44,\
-            ex45,ex46n1,ex46n2,ex46a,ex47,ex48,ex49,ex49p2,ex50,ex51,ex52m2,ex52m1,ex52,ex52p1,ex52p2,ex53,ex54,ex55,ex56;
-    std::stringstream ex57,ex58,ex59,ex60,ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex67p1,ex67p2,ex67p3,ex67p4,ex67p5,ex68,ex69,ex70,ex71,ex72,ex73,ex74,ex75,ex76,ex77,\
+            ex45,ex46n1,ex46n2,ex46a,ex47,ex48,ex49,ex49p2,ex50a,ex50b,ex51,ex52m2,ex52m1,ex52,ex52p1,ex52p2,ex53,ex54,ex55,ex56;
+    std::stringstream ex57,ex58,ex59,ex60,ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex67p1,ex67p2,ex67p3,ex67p4,ex67p5,ex67p6,ex68,ex69,ex70,ex71,ex72,ex73,ex74,ex75,ex76,ex77,\
             ex78,ex79;//,ex80,ex81,ex82,ex83,ex84,ex85,ex86,ex87,ex88,ex89,ex90,ex91,ex92,ex93,ex94,ex95,ex96,ex97,ex98
     std::stringstream lowC01,lowC02,lowC03,lowC04,lowC05,lowC06,lowC07,lowC08, lowC09;
     std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07, lowA08, lowA09;
@@ -2087,10 +2094,19 @@ void GeneralTHDMcache::read(){
     
     
     
-    ex33 << tablepath << "170800212.dat";
-    ATLAS13_gg_phi_Zga_llga = readTable(ex33.str(),216,2);
-    ex34 << tablepath << "180501908.dat";
-    ATLAS13_gg_phi_Zga_qqga = readTable(ex34.str(),581,2);
+    //ex33 << tablepath << "170800212.dat";                           //OLD previous to mid 2024
+    //ATLAS13_gg_phi_Zga_llga = readTable(ex33.str(),216,2);          //OLD previous to mid 2024
+    ex33 << tablepath << "230904364.dat";                           //Updated in mid 2024
+    ATLAS13_gg_phi_Zga_llga = readTable(ex33.str(),1590,2);          //Updated in mid 2024
+    
+    
+    
+    
+    //ex34 << tablepath << "180501908.dat";                           //OLD previous to mid 2024
+    //ATLAS13_gg_phi_Zga_qqga = readTable(ex34.str(),581,2);          //OLD previous to mid 2024
+    ex34 << tablepath << "230411962.dat";                           //Updated in mid 2024
+    ATLAS13_gg_phi_Zga_qqga = readTable(ex34.str(),290,2);          //Updated in mid 2024
+    
     //ex35 << tablepath << "171206386_a.dat";                           //OLD previous to mid 2022
     //ATLAS13_gg_phi_ZZ_llllnunu = readTable(ex35.str(),101,2);         //OLD previous to mid 2022
     //ex36 << tablepath << "171206386_b.dat";                           //OLD previous to mid 2022
@@ -2122,10 +2138,18 @@ void GeneralTHDMcache::read(){
     CMS13_VV_phi_WW = readTable(ex39m1.str(),561,2);            //Included in mid 2022
     
     
-    ex39 << tablepath << "171001123_a.dat";
-    ATLAS13_gg_phi_WW_enumunu = readTable(ex39.str(),381,2);
-    ex40 << tablepath << "171001123_b.dat";
-    ATLAS13_VV_phi_WW_enumunu = readTable(ex40.str(),281,2);
+    //ex39 << tablepath << "171001123_a.dat";                     //OLD previous to mid 2024
+    //ATLAS13_gg_phi_WW_enumunu = readTable(ex39.str(),381,2);    //OLD previous to mid 2024
+    //ex40 << tablepath << "171001123_b.dat";                     //OLD previous to mid 2024
+    //ATLAS13_VV_phi_WW_enumunu = readTable(ex40.str(),281,2);    //OLD previous to mid 2024
+    
+    ex39 << tablepath << "ATLAS_CONF_2022_066_ggF.dat";                     //Updated in mid 2024
+    ATLAS13_gg_phi_WW_enumunu = readTable(ex39.str(),72,2);    //Updated in mid 2024
+    ex40 << tablepath << "ATLAS_CONF_2022_066_VBF.dat";                     //Updated in mid 2024
+    ATLAS13_VV_phi_WW_enumunu = readTable(ex40.str(),72,2);    //Updated in mid 2024
+    
+    
+    
     ex41 << tablepath << "171007235_a.dat";
     ATLAS13_gg_phi_WW_lnuqq = readTable(ex41.str(),271,2);
     ex42 << tablepath << "171007235_b.dat";
@@ -2157,11 +2181,14 @@ void GeneralTHDMcache::read(){
     ATLAS13_pp_phi_phi1phi1_bbWW = readTable(ex46a.str(),51,2);
     ex47 << tablepath << "180708567.dat";
     ATLAS13_gg_phi_phi1phi1_gagaWW = readTable(ex47.str(),25,2);
-    ex48 << tablepath << "171206518_a.dat";
-    ATLAS13_gg_phi_phi1Z_bbZ = readTable(ex48.str(),181,2);
-    ex49 << tablepath << "171206518_b.dat";
-    ATLAS13_bb_phi_phi1Z_bbZ = readTable(ex49.str(),181,2);
-    
+    //ex48 << tablepath << "171206518_a.dat";                       //Superseded
+    //ATLAS13_gg_phi_phi1Z_bbZ = readTable(ex48.str(),181,2);       //Superseded
+    //ex49 << tablepath << "171206518_b.dat";                       //Superseded
+    //ATLAS13_bb_phi_phi1Z_bbZ = readTable(ex49.str(),181,2);       //Superseded
+    ex48 << tablepath << "220700230_ggF.dat";                       //Updated in mid 2024
+    ATLAS13_gg_phi_phi1Z_bbZ = readTable(ex48.str(),45,2);          //Updated in mid 2024
+    ex49 << tablepath << "220700230_bb.dat";                        //Updated in mid 2024
+    ATLAS13_bb_phi_phi1Z_bbZ = readTable(ex49.str(),45,2);          //Updated in mid 2024
     
     ex49p2 << tablepath << "191011634.dat";
     ATLAS13_bb_phi_phi1Z_tautaull = readTable(ex49p2.str(),19,2);
@@ -2171,12 +2198,15 @@ void GeneralTHDMcache::read(){
     
     //ex50 << tablepath << "180401126_a.dat";                       //OLD previous mid 2022
     //ATLAS13_gg_phii_phijZ_bbZ = readTable(ex50.str(),3364,3);     //OLD previous mid 2022
-    ex50 << tablepath << "201105639_ggF.dat";                       //Updated in mid 2022
-    ATLAS13_gg_phii_phijZ_bbZ = readTable(ex50.str(),1711,3);       //Updated in mid 2022
+    ex50a << tablepath << "201105639_ggF_decay_bb.dat";                       //Updated in mid 2022
+    ATLAS13_gg_phii_phijZ_bbZ = readTable(ex50a.str(),1711,3);       //Updated in mid 2022
     //ex51 << tablepath << "180401126_b.dat";                       //OLD previous mid 2022
     //ATLAS13_bb_phii_phijZ_bbZ = readTable(ex51.str(),3364,3);     //OLD previous mid 2022
-    ex51 << tablepath << "201105639_b-ass.dat";                     //Updated in mid 2022
+    ex51 << tablepath << "201105639_bb_decay_bb.dat";               //Updated in mid 2022
     ATLAS13_bb_phii_phijZ_bbZ = readTable(ex51.str(),1711,3);       //Updated in mid 2022
+    
+    ex50b << tablepath << "201105639_ggF_decay_WW.dat";              //Included in mid 2024
+    ATLAS13_gg_phii_phijZ_WWZ = readTable(ex50b.str(),1326,3);       //Included in mid 2024
 
     
     ex52m2 << tablepath << "190806463_7a.dat";                      //Included in mid 2022
@@ -2207,12 +2237,16 @@ void GeneralTHDMcache::read(){
     
     
     //CMS_PAS_HIG_21_001_9b
-    ex54 << tablepath << "CMS_PAS_HIG_21_001_9a.dat";               //Updated in mid 2022
-    CMS13_gg_phi_tautau = readTable(ex54.str(),689,2);              //Updated in mid 2022
-    ex55 << tablepath << "CMS_PAS_HIG_21_001_9b.dat";               //Updated in mid 2022
-    CMS13_bb_phi_tautau = readTable(ex55.str(),689,2);              //Updated in mid 2022
+    //ex54 << tablepath << "CMS_PAS_HIG_21_001_9a.dat";               //Updated in mid 2022
+    //CMS13_gg_phi_tautau = readTable(ex54.str(),689,2);              //Updated in mid 2022
+    //ex55 << tablepath << "CMS_PAS_HIG_21_001_9b.dat";               //Updated in mid 2022
+    //CMS13_bb_phi_tautau = readTable(ex55.str(),689,2);              //Updated in mid 2022
     
     
+    ex54 << tablepath << "220802717_ggF.dat";              //Updated in mid 2024
+    CMS13_gg_phi_tautau = readTable(ex54.str(),172,2);     //Updated in mid 2024
+    ex55 << tablepath << "220802717_bb.dat";               //Updated in mid 2024
+    CMS13_bb_phi_tautau = readTable(ex55.str(),172,2);     //Updated in mid 2024
     
     
     
@@ -2220,8 +2254,11 @@ void GeneralTHDMcache::read(){
     //CMS13_gg_phi_gaga = readTable(ex56.str(),351,2);              //OLD previous to mid 2022
     
     
-    ex56 << tablepath << "180900327.dat";                           //Updated in mid 2022
-    CMS13_gg_phi_gaga = readTable(ex56.str(),901,2);                //Updated in mid 2022
+    //ex56 << tablepath << "180900327.dat";                           //Updated in mid 2022
+    //CMS13_gg_phi_gaga = readTable(ex56.str(),901,2);                //Updated in mid 2022
+    
+    ex56 << tablepath << "240509320.dat";                           //Updated in mid 2024
+    CMS13_gg_phi_gaga = readTable(ex56.str(),176,2);                //Updated in mid 2024
     
     
     ex57 << tablepath << "171203143.dat";
@@ -2243,29 +2280,37 @@ void GeneralTHDMcache::read(){
     ex63 << tablepath << "CMS-PAS-B2G-20-004.dat";                     //Updated in mid 2022
     CMS13_pp_phi_phi1phi1_bbbb_2 = readTable(ex63.str(),41,2);         //Updated in mid 2022
     
-    ex64 << tablepath << "180600408.dat";
-    CMS13_pp_phi_phi1phi1_bbgaga = readTable(ex64.str(),66,2);
+    //ex64 << tablepath << "180600408.dat";                            //OLD previous to mid 2024
+    //CMS13_pp_phi_phi1phi1_bbgaga = readTable(ex64.str(),66,2);       //OLD previous to mid 2024
+    ex64 << tablepath << "231001643.dat";                              //Updated in mid 2024
+    CMS13_pp_phi_phi1phi1_bbgaga = readTable(ex64.str(),74,2);         //Updated in mid 2024
+    
+    
     ex65 << tablepath << "170702909.dat";
     CMS13_pp_phi_phi1phi1_bbtautau_1 = readTable(ex65.str(),66,2);
     ex66 << tablepath << "180801365.dat";
     CMS13_pp_phi_phi1phi1_bbtautau_2 = readTable(ex66.str(),311,2);
     ex67 << tablepath << "170804188.dat";
     CMS13_pp_phi_phi1phi1_bbVV = readTable(ex67.str(),65,2);
-    ex67p1 << tablepath << "220610268.dat";                                     //Included in mid 2022
-    CMS13_pp_phi_phi1phi1_4WOr2W2tauOr4tau = readTable(ex67p1.str(),76,2);      //Included in mid 2022
-    ex67p2 << tablepath << "190404193.dat";                                     //Included in mid 2022
-    CMS13_pp_phi_phi1phi1_bbWW_qqlnu = readTable(ex67p2.str(),55,2);            //Included in mid 2022
+    ex67p1 << tablepath << "220610268.dat";                                         //Included in mid 2022
+    CMS13_pp_phi_phi1phi1_4WOr2W2tauOr4tau = readTable(ex67p1.str(),76,2);          //Included in mid 2022
+    ex67p2 << tablepath << "190404193.dat";                                         //Included in mid 2022
+    CMS13_pp_phi_phi1phi1_bbWW_qqlnu = readTable(ex67p2.str(),55,2);                //Included in mid 2022
     
     
-    ex67p3 << tablepath << "200606391_bblljj.dat";                              //Included in mid 2022
-    CMS13_pp_phi_phi1phi1_bbZZ_lljj = readTable(ex67p3.str(),149,2);            //Included in mid 2022
+    ex67p3 << tablepath << "200606391_bblljj.dat";                                  //Included in mid 2022
+    CMS13_pp_phi_phi1phi1_bbZZ_lljj = readTable(ex67p3.str(),149,2);                //Included in mid 2022
     
-    ex67p4 << tablepath << "200606391_bbllnunu.dat";                            //Included in mid 2022
-    CMS13_pp_phi_phi1phi1_bbZZ_llnunu = readTable(ex67p4.str(),151,2);          //Included in mid 2022
+    ex67p4 << tablepath << "200606391_bbllnunu.dat";                                //Included in mid 2022
+    CMS13_pp_phi_phi1phi1_bbZZ_llnunu = readTable(ex67p4.str(),151,2);              //Included in mid 2022
     
     
-    ex67p5 << tablepath << "211203161.dat";                                     //Included in mid 2022
-    CMS13_pp_phi_phi1phi1_bbWWorbbtautau = readTable(ex67p5.str(),75,2);        //Included in mid 2022
+    ex67p5 << tablepath << "211203161.dat";                                         //Included in mid 2022
+    CMS13_pp_phi_phi1phi1_bbWWorbbtautau = readTable(ex67p5.str(),75,2);            //Included in mid 2022
+    
+    
+    ex67p6 << tablepath << "240309430.dat";                                         //Included in mid 2024
+    CMS13_pp_phi_phi1phi1_bbWWorbbtautau_low_masses = readTable(ex67p6.str(),65,2); //Included in mid 2024
     
     
     ex68 << tablepath << "CMS-PAS-HIG-18-005_a.dat";
@@ -4079,7 +4124,7 @@ double GeneralTHDMcache::ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(double mass){
     if (i>=0) {
         return(ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS13_pp_phi_phi1phi1_bbgaga,mass);
+        double newResult = interpolate(ATLAS13_pp_phi_phi1phi1_bbgaga,mass);
         CacheShiftReal(ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -4093,7 +4138,7 @@ double GeneralTHDMcache::ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(double mass){
     if (i>=0) {
         return(ip_ex_pp_phi_phi1phi1_bbgaga_CMS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS13_pp_phi_phi1phi1_bbgaga,mass);
+        double newResult = interpolate(CMS13_pp_phi_phi1phi1_bbgaga,mass);
         CacheShiftReal(ip_ex_pp_phi_phi1phi1_bbgaga_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -4290,6 +4335,21 @@ double GeneralTHDMcache::ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(double mass)
 }
 
 
+//CMS13_pp_phi_phi1phi1_bbWWorbbtautau_low_masses
+double GeneralTHDMcache::ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_phi_phi1phi1_bbWWorbbtautau_low_masses,mass);
+        CacheShiftReal(ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 
 
 
@@ -4306,6 +4366,13 @@ double GeneralTHDMcache::ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(double mass){
         return newResult;
     }
 }
+
+
+
+
+
+
+
 
 double GeneralTHDMcache::ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(double mass){
     int NumPar = 1;
@@ -4556,6 +4623,10 @@ double GeneralTHDMcache::ip_ex_gg_phii_phijZ_bbZ_ATLAS13(double mj, double mi){
         return ( ip_ex_gg_phii_phijZ_bbZ_ATLAS13_cache[NumPar][i] );
     } else {
         double newResult = interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_bbZ, mj, mi);
+        std::cout<<"\033[1;32m   interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_bbZ, 400, 600) = \033[0m "<< interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_bbZ, 400, 600) <<std::endl;
+        std::cout<<"\033[1;32m   interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_bbZ, 500, 600) = \033[0m "<< interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_bbZ, 500, 600) <<std::endl;
+        std::cout<<"\033[1;32m   interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_bbZ, 600, 500) = \033[0m "<< interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_bbZ, 600, 500) <<std::endl;
+
         CacheShiftReal(ip_ex_gg_phii_phijZ_bbZ_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -4572,6 +4643,23 @@ double GeneralTHDMcache::ip_ex_bb_phii_phijZ_bbZ_ATLAS13(double mj, double mi){
     } else {
         double newResult = interpolate2DtriangularData(ATLAS13_bb_phii_phijZ_bbZ, mj, mi);
         CacheShiftReal(ip_ex_bb_phii_phijZ_bbZ_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+
+double GeneralTHDMcache::ip_ex_gg_phii_phijZ_WWZ_ATLAS13(double mj, double mi){
+    int NumPar = 2;
+    double params[] = {mj, mi};
+
+    int i = CacheCheckReal(ip_ex_gg_phii_phijZ_WWZ_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phii_phijZ_WWZ_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_WWZ, mj, mi);
+        CacheShiftReal(ip_ex_gg_phii_phijZ_WWZ_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -5771,17 +5859,7 @@ void GeneralTHDMcache::computeSignalStrengths()
     yl1R = myGTHDM->getyl1R();
        
  
-    //The Standard Model h branching ratios
-    //Could be made into mass-dependent formulae in the future
-
-    BrSM_htobb = 5.77e-1;
-    BrSM_htotautau = 6.32e-2;
-    BrSM_htogaga = 2.28e-3;
-    double BrSM_htoWW = 2.15e-1;
-    double BrSM_htoZZ = 2.64e-2;
-    double BrSM_htogg = 8.57e-2;
-    double BrSM_htoZga = 1.54e-3;
-    double BrSM_htocc = 2.91e-2;
+    
 
     //The ggH cross section in the SM at 8 TeV
     double SigmaggF8 = myGTHDM->computeSigmaggH(8.0);
@@ -7048,6 +7126,8 @@ double GeneralTHDMcache::computeHeavyHiggs()
     THoEX_pp_phi2_phi3Z_tautaull_2_CMS8=0.0;    
     THoEX_gg_phi3_phi2Z_bbZ_ATLAS13=0.0;
     THoEX_gg_phi2_phi3Z_bbZ_ATLAS13=0.0;  
+    THoEX_gg_phi3_phi2Z_WWZ_ATLAS13=0.0;
+    THoEX_gg_phi2_phi3Z_WWZ_ATLAS13=0.0;  
     THoEX_bb_phi3_phi2Z_bbZ_ATLAS13=0.0;
     THoEX_bb_phi2_phi3Z_bbZ_ATLAS13=0.0;
     
@@ -7069,13 +7149,6 @@ double GeneralTHDMcache::computeHeavyHiggs()
 
     
     
-    //std::cout<<"\033[1;34m tt_phi2_tt_TH13 = \033[0m "<<tt_phi2_tt_TH13<<std::endl;
-    //std::cout<<"\033[1;34m tt_phi3_tt_TH13 = \033[0m "<<tt_phi3_tt_TH13<<std::endl;
-    //std::cout<<"\033[1;34m bb_phi2_tt_TH13 = \033[0m "<<bb_phi2_tt_TH13<<std::endl;
-    //std::cout<<"\033[1;34m bb_phi3_tt_TH13 = \033[0m "<<bb_phi3_tt_TH13<<std::endl;
-    //std::cout<< "\n" <<std::endl;
-    
-    
     
     bb_phi2_bb_TH8=SigmabbF_phi2_8*Br_phi2tobb;
     bb_phi3_bb_TH8=SigmabbF_phi3_8*Br_phi3tobb;
@@ -7087,16 +7160,6 @@ double GeneralTHDMcache::computeHeavyHiggs()
     bb_phi3_bb_TH13=SigmabbF_phi3_13*Br_phi3tobb;
     
     
-    //std::cout<<"\033[1;34m bb_phi2_bb_TH8 = \033[0m "<<bb_phi2_bb_TH8<<std::endl;
-    //std::cout<<"\033[1;34m bb_phi3_bb_TH8 = \033[0m "<<bb_phi3_bb_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi2_bb_TH8 = \033[0m "<<gg_phi2_bb_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_bb_TH8 = \033[0m "<<gg_phi3_bb_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_bb_TH13 = \033[0m "<<pp_phi2_bb_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_bb_TH13 = \033[0m "<<pp_phi3_bb_TH13<<std::endl;
-    //std::cout<<"\033[1;34m bb_phi2_bb_TH13 = \033[0m "<<bb_phi2_bb_TH13<<std::endl;
-    //std::cout<<"\033[1;34m bb_phi3_bb_TH13 = \033[0m "<<bb_phi3_bb_TH13<<std::endl;
-    //std::cout<< "\n" <<std::endl;
-    
     
     gg_phi2_mumu_TH8=SigmaggF_phi2_8*Br_phi2tomumu;
     gg_phi3_mumu_TH8=SigmaggF_phi3_8*Br_phi3tomumu;
@@ -7107,14 +7170,6 @@ double GeneralTHDMcache::computeHeavyHiggs()
     bb_phi2_mumu_TH13=SigmabbF_phi2_13*Br_phi2tomumu;
     bb_phi3_mumu_TH13=SigmabbF_phi3_13*Br_phi3tomumu;
     
-    //std::cout<<"\033[1;33m   SigmaggF_phi2_13= \033[0m "<<  SigmaggF_phi2_13  <<std::endl;
-    //std::cout<<"\033[1;33m   Br_phi2tomumu= \033[0m "<<  Br_phi2tomumu  <<std::endl;
-    
-    //std::cout<<"\033[1;33m   Br_phi2tomumu= \033[0m "<<  Br_phi2tomumu  <<std::endl;
-    
-    
-    //Br_phi2tomumu=BrSM_phi2tomumu*(rphi2_QlQlE + rphi2_QlQlO/(beta(Mmu, m2_2)*beta(Mmu, m2_2)))*Gammaphi2totSM/Gammaphi2tot;
-
     
     
     gg_phi2_tautau_TH8=SigmaggF_phi2_8*Br_phi2totautau;
@@ -7128,20 +7183,6 @@ double GeneralTHDMcache::computeHeavyHiggs()
     
     
     
-    //std::cout<<"\033[1;34m gg_phi2_tautau_TH8 = \033[0m "<<gg_phi2_tautau_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_tautau_TH8 = \033[0m "<<gg_phi3_tautau_TH8<<std::endl;
-    //std::cout<<"\033[1;34m bb_phi2_tautau_TH8 = \033[0m "<<bb_phi2_tautau_TH8<<std::endl;
-    //std::cout<<"\033[1;34m bb_phi3_tautau_TH8 = \033[0m "<<bb_phi3_tautau_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi2_tautau_TH13 = \033[0m "<<gg_phi2_tautau_TH13<<std::endl;
-    //std::cout<<"\033[1;34m Br_phi3totautau = \033[0m "<<Br_phi3totautau<<std::endl;
-    //std::cout<<"\033[1;34m SigmaggF_phi3_13 = \033[0m "<<SigmaggF_phi3_13<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_tautau_TH13 = \033[0m "<<gg_phi3_tautau_TH13<<std::endl;
-    //std::cout<<"\033[1;34m bb_phi2_tautau_TH13 = \033[0m "<<bb_phi2_tautau_TH13<<std::endl;
-    //std::cout<<"\033[1;34m bb_phi3_tautau_TH13 = \033[0m "<<bb_phi3_tautau_TH13<<std::endl;
-    //std::cout<< "\n" <<std::endl;
-    
-    
-    
     gg_phi2_gaga_TH8=SigmaggF_phi2_8*Br_phi2togaga;
     gg_phi3_gaga_TH8=SigmaggF_phi3_8*Br_phi3togaga;
     pp_phi2_gaga_TH13=SigmaSumphi2_13*Br_phi2togaga;
@@ -7150,15 +7191,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
     gg_phi3_gaga_TH13=SigmaggF_phi3_13*Br_phi3togaga;
 
     
-    
-    //std::cout<<"\033[1;34m gg_phi2_gaga_TH8 = \033[0m "<<gg_phi2_gaga_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_gaga_TH8 = \033[0m "<<gg_phi3_gaga_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_gaga_TH13 = \033[0m "<<pp_phi2_gaga_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_gaga_TH13 = \033[0m "<<pp_phi3_gaga_TH13<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi2_gaga_TH13 = \033[0m "<<gg_phi2_gaga_TH13<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_gaga_TH13 = \033[0m "<<gg_phi3_gaga_TH13<<std::endl;
-    //std::cout<< "\n" <<std::endl;
-    
+
     
     pp_phi2_Zga_llga_TH8=SigmaSumphi2_8*Br_phi2toZga*(Br_Ztoee+Br_Ztomumu);
     pp_phi3_Zga_llga_TH8=SigmaSumphi3_8*Br_phi3toZga*(Br_Ztoee+Br_Ztomumu);
@@ -7167,13 +7200,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
     
     
     
-    //std::cout<<"\033[1;34m pp_phi2_Zga_llga_TH8 = \033[0m "<<pp_phi2_Zga_llga_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_Zga_llga_TH8 = \033[0m "<<pp_phi3_Zga_llga_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi2_Zga_TH13 = \033[0m "<<gg_phi2_Zga_TH13<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_Zga_TH13 = \033[0m "<<gg_phi3_Zga_TH13<<std::endl;
-    //std::cout<< "\n" <<std::endl;
-    
-    
+
     
 
     gg_phi2_ZZ_TH8=SigmaggF_phi2_8*Br_phi2toZZ;
@@ -7187,20 +7214,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
     pp_phi2_ZZ_TH13=SigmaSumphi2_13*Br_phi2toZZ;
     pp_phi3_ZZ_TH13=SigmaSumphi3_13*Br_phi3toZZ;
     
-    
-    //std::cout<<"\033[1;34m gg_phi2_ZZ_TH8 = \033[0m "<<gg_phi2_ZZ_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_ZZ_TH8 = \033[0m "<<gg_phi3_ZZ_TH8<<std::endl;
-    //std::cout<<"\033[1;34m VV_phi2_ZZ_TH8 = \033[0m "<<VV_phi2_ZZ_TH8<<std::endl;
-    //std::cout<<"\033[1;34m VV_phi3_ZZ_TH8 = \033[0m "<<VV_phi3_ZZ_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi2_ZZ_TH13 = \033[0m "<<gg_phi2_ZZ_TH13<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_ZZ_TH13 = \033[0m "<<gg_phi3_ZZ_TH13<<std::endl;
-    //std::cout<<"\033[1;34m VV_phi2_ZZ_TH13 = \033[0m "<<VV_phi2_ZZ_TH13<<std::endl;
-    //std::cout<<"\033[1;34m VV_phi3_ZZ_TH13 = \033[0m "<<VV_phi3_ZZ_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_ZZ_TH13 = \033[0m "<<pp_phi2_ZZ_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_ZZ_TH13 = \033[0m "<<pp_phi3_ZZ_TH13<<std::endl;
-    //std::cout<<"\033[1;31m Br_phi3toZZ = \033[0m "<<Br_phi3toZZ<<"\033[1;31m   THIS MUST BE SOLVED \033[0m "<<std::endl;
-    //std::cout<< "\n" <<std::endl;
-    
+
     
 
     gg_phi2_WW_TH8=SigmaggF_phi2_8*Br_phi2toWW;
@@ -7217,22 +7231,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
     pp_phi3_WW_TH13=SigmaSumphi3_13*Br_phi3toWW;
     
     
-    //std::cout<<"\033[1;34m gg_phi2_WW_TH8 = \033[0m "<<gg_phi2_WW_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_WW_TH8 = \033[0m "<<gg_phi3_WW_TH8<<std::endl;
-    //std::cout<<"\033[1;34m VV_phi2_WW_TH8 = \033[0m "<<VV_phi2_WW_TH8<<std::endl;
-    //std::cout<<"\033[1;34m VV_phi3_WW_TH8 = \033[0m "<<VV_phi3_WW_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi2_WW_TH13 = \033[0m "<<gg_phi2_WW_TH13<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_WW_TH13 = \033[0m "<<gg_phi3_WW_TH13<<std::endl;
-    //std::cout<<"\033[1;34m VV_phi2_WW_TH13 = \033[0m "<<VV_phi2_WW_TH13<<std::endl;
-    //std::cout<<"\033[1;34m VV_phi3_WW_TH13 = \033[0m "<<VV_phi3_WW_TH13<<std::endl;
-    //std::cout<<"\033[1;34m ggVV_phi2_WW_lnulnu_TH13 = \033[0m "<<ggVV_phi2_WW_lnulnu_TH13<<std::endl;
-    //std::cout<<"\033[1;34m ggVV_phi3_WW_lnulnu_TH13 = \033[0m "<<ggVV_phi3_WW_lnulnu_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_WW_TH13 = \033[0m "<<pp_phi2_WW_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_WW_TH13 = \033[0m "<<pp_phi3_WW_TH13<<std::endl;
-    //std::cout<<"\033[1;31m Br_phi3toWW = \033[0m "<<Br_phi3toWW<<"\033[1;31m   THIS MUST BE SOLVED \033[0m "<<std::endl;
-    //std::cout<< "\n" <<std::endl;
-    
-    
+
     
 
 
@@ -7248,15 +7247,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
     VV_phi3_VV_TH13=SigmaVBF_phi3_13*(Br_phi3toZZ+Br_phi3toWW);
     
     
-    
-    //std::cout<<"\033[1;34m mu_pp_phi2_VV_TH8 = \033[0m "<<mu_pp_phi2_VV_TH8<<std::endl;
-    //std::cout<<"\033[1;34m mu_pp_phi3_VV_TH8 = \033[0m "<<mu_pp_phi3_VV_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_VV_TH13 = \033[0m "<<pp_phi2_VV_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_VV_TH13 = \033[0m "<<pp_phi3_VV_TH13<<std::endl;
-    //std::cout<<"\033[1;31m rphi3_VV = \033[0m "<<rphi3_VV<<"\033[1;31m   THIS MUST BE SOLVED \033[0m "<<std::endl;
-    //std::cout<<"\033[1;31m Br_phi3toVV = \033[0m "<<(Br_phi3toZZ+Br_phi3toWW)<<"\033[1;31m   THIS MUST BE SOLVED \033[0m "<<std::endl;
-    //std::cout<< "\n" <<std::endl;
-    
+
 
     gg_phi2_phi1phi1_TH8=SigmaggF_phi2_8*Br_phi2tophi1phi1; 
     gg_phi3_phi1phi1_TH8=SigmaggF_phi3_8*Br_phi3tophi1phi1;
@@ -7266,16 +7257,30 @@ double GeneralTHDMcache::computeHeavyHiggs()
     pp_phi3_phi1phi1_bbgaga_TH8=SigmaSumphi3_8*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_gaga*2.0;
     gg_phi2_phi1phi1_bbtautau_TH8=SigmaggF_phi2_8*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_tautau*2.0;
     gg_phi3_phi1phi1_bbtautau_TH8=SigmaggF_phi3_8*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_tautau*2.0;
+    
     pp_phi2_phi1phi1_TH8=SigmaSumphi2_8*Br_phi2tophi1phi1;
     pp_phi3_phi1phi1_TH8=SigmaSumphi3_8*Br_phi3tophi1phi1;
+    
     pp_phi2_phi1phi1_bbbb_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_bb;
     pp_phi3_phi1phi1_bbbb_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_bb;
+    pp_phi2_phi1phi1_with_channel_bbbb_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_bb/(BrSM_htobb*BrSM_htobb);
+    pp_phi3_phi1phi1_with_channel_bbbb_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_bb/(BrSM_htobb*BrSM_htobb);
+    
     pp_phi2_phi1phi1_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1;
     pp_phi3_phi1phi1_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1;
+    
     pp_phi2_phi1phi1_bbgaga_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_gaga*2.0;
     pp_phi3_phi1phi1_bbgaga_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_gaga*2.0;
+    pp_phi2_phi1phi1_with_channel_bbgaga_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_gaga/(BrSM_htobb*BrSM_htogaga);
+    pp_phi3_phi1phi1_with_channel_bbgaga_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_gaga/(BrSM_htobb*BrSM_htogaga);
+    
     pp_phi2_phi1phi1_bbtautau_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_tautau*2.0;
     pp_phi3_phi1phi1_bbtautau_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_tautau*2.0;
+    
+    pp_phi2_phi1phi1_with_channel_bbtautau_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_tautau/(BrSM_htobb*BrSM_htotautau);
+    pp_phi3_phi1phi1_with_channel_bbtautau_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_tautau/(BrSM_htobb*BrSM_htotautau);
+    
+    
     pp_phi2_phi1phi1_bbVV_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*2.0*GTHDM_BR_h_bb*(GTHDM_BR_h_WW*pow(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautoleptons,2)
                                                             +GTHDM_BR_h_ZZ*2.0*Br_Ztoinv*(Br_Ztoee+Br_Ztomumu+Br_Ztotautau*Br_tautoleptons*Br_tautoleptons));
     pp_phi3_phi1phi1_bbVV_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*2.0*GTHDM_BR_h_bb*(GTHDM_BR_h_WW*pow(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautoleptons,2)
@@ -7283,85 +7288,93 @@ double GeneralTHDMcache::computeHeavyHiggs()
     
     
             
-    pp_phi2_phi1phi1_4WOr2W2tauOr4tau_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*(GTHDM_BR_h_WW*GTHDM_BR_h_WW*pow((Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons),4)
+// I'd say that in the paper give values for \phi->HH and assume SM for the other decays so we correct those final dicays but divide by the 
+// BR of the SM (which is what experimentalist have assumed)
+    pp_phi2_phi1phi1_with_channel_4WOr2W2tauOr4tau_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*(GTHDM_BR_h_WW*GTHDM_BR_h_WW*pow((Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons),4)
             +2.0*GTHDM_BR_h_WW*GTHDM_BR_h_tautau*Br_tautohadrons*Br_tautohadrons*(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons)*(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons)
-            +GTHDM_BR_h_tautau*GTHDM_BR_h_tautau*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons);
+            +GTHDM_BR_h_tautau*GTHDM_BR_h_tautau*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons)/
+            (BrSM_htoWW*BrSM_htoWW*pow((Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons),4)
+            +2.0*BrSM_htoWW*BrSM_htotautau*Br_tautohadrons*Br_tautohadrons*(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons)*(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons)
+            +BrSM_htotautau*BrSM_htotautau*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons);
     
-    pp_phi3_phi1phi1_4WOr2W2tauOr4tau_TH13=SigmaSumphi2_13*Br_phi3tophi1phi1*(GTHDM_BR_h_WW*GTHDM_BR_h_WW*pow((Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons),4)
+    pp_phi3_phi1phi1_with_channel_4WOr2W2tauOr4tau_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*(GTHDM_BR_h_WW*GTHDM_BR_h_WW*pow((Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons),4)
             +2.0*GTHDM_BR_h_WW*GTHDM_BR_h_tautau*Br_tautohadrons*Br_tautohadrons*(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons)*(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons)
-            +GTHDM_BR_h_tautau*GTHDM_BR_h_tautau*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons);
+            +GTHDM_BR_h_tautau*GTHDM_BR_h_tautau*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons)/
+            (BrSM_htoWW*BrSM_htoWW*pow((Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons),4)
+            +2.0*BrSM_htoWW*BrSM_htotautau*Br_tautohadrons*Br_tautohadrons*(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons)*(Br_Wtoenu+Br_Wtomunu+Br_Wtotaunu*Br_tautohadrons)
+            +BrSM_htotautau*BrSM_htotautau*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons*Br_tautohadrons);
 
             
     
         
-    pp_phi2_phi1phi1_bbWW_qqlnu_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_WW*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons;
-    pp_phi3_phi1phi1_bbWW_qqlnu_TH13=SigmaSumphi2_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_WW*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons;
+    //pp_phi2_phi1phi1_bbWW_qqlnu_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_WW*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons;
+    //pp_phi3_phi1phi1_bbWW_qqlnu_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_WW*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons;
+    
+    pp_phi2_phi1phi1_with_channel_bbWW_qqlnu_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*(GTHDM_BR_h_bb*GTHDM_BR_h_WW)/(BrSM_htobb*BrSM_htoWW);
+    pp_phi3_phi1phi1_with_channel_bbWW_qqlnu_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*(GTHDM_BR_h_bb*GTHDM_BR_h_WW)/(BrSM_htobb*BrSM_htoWW);
     
     
     
+    pp_phi2_phi1phi1_bbZZ_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ;
+    pp_phi3_phi1phi1_bbZZ_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ;
 
     
-    pp_phi2_phi1phi1_bbZZ_lljj_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ*(Br_Ztoee+Br_Ztomumu)*Br_Ztohadrons;
-    pp_phi3_phi1phi1_bbZZ_lljj_TH13=SigmaSumphi2_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ*(Br_Ztoee+Br_Ztomumu)*Br_Ztohadrons;
+    //pp_phi2_phi1phi1_bbZZ_lljj_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ*(Br_Ztoee+Br_Ztomumu)*Br_Ztohadrons;
+    //pp_phi3_phi1phi1_bbZZ_lljj_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ*(Br_Ztoee+Br_Ztomumu)*Br_Ztohadrons;
 
-    
-    
-    
-    pp_phi2_phi1phi1_bbZZ_llnunu_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ*(Br_Ztoee+Br_Ztomumu)*Br_Ztoinv;
-    pp_phi3_phi1phi1_bbZZ_llnunu_TH13=SigmaSumphi2_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ*(Br_Ztoee+Br_Ztomumu)*Br_Ztoinv;
-
-    
-    
-    
-    pp_phi2_phi1phi1_bbWWorbbtautau_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*2.0*(GTHDM_BR_h_WW*((Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)+2.0*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons)+GTHDM_BR_h_tautau*Br_tautoleptons*Br_tautoleptons);
-    pp_phi3_phi1phi1_bbWWorbbtautau_TH13=SigmaSumphi2_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*2.0*(GTHDM_BR_h_WW*((Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)+2.0*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons)+GTHDM_BR_h_tautau*Br_tautoleptons*Br_tautoleptons);
-    
+    //pp_phi2_phi1phi1_bbZZ_llnunu_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ*(Br_Ztoee+Br_Ztomumu)*Br_Ztoinv;
+    //pp_phi3_phi1phi1_bbZZ_llnunu_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*2.0*GTHDM_BR_h_ZZ*(Br_Ztoee+Br_Ztomumu)*Br_Ztoinv;
 
     
     
     
-    pp_phi2_phi1phi1_bbWW_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*2.0*5.77e-1*2.15e-1; //SM Br of hh assumed
-    pp_phi3_phi1phi1_bbWW_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*2.0*5.77e-1*2.15e-1; //SM Br of hh assumed
+    //pp_phi2_phi1phi1_bbWWorbbtautau_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*
+    //        2.0*GTHDM_BR_h_bb*
+    //        (GTHDM_BR_h_WW*((Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)
+    //        +2.0*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons)
+    //        +GTHDM_BR_h_tautau*Br_tautoleptons*Br_tautoleptons);
+    //pp_phi3_phi1phi1_bbWWorbbtautau_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*
+    //        2.0*GTHDM_BR_h_bb*
+    //        (GTHDM_BR_h_WW*((Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)
+    //        +2.0*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons)
+    //        +GTHDM_BR_h_tautau*Br_tautoleptons*Br_tautoleptons);
+    
+    
+    pp_phi2_phi1phi1_with_channel_bbWWorbbtautau_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*
+            2.0*GTHDM_BR_h_bb*
+            (GTHDM_BR_h_WW*((Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)
+            +2.0*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons)
+            +GTHDM_BR_h_tautau*Br_tautoleptons*Br_tautoleptons)/(
+            2.0*BrSM_htobb*
+            (BrSM_htoWW*((Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)
+            +2.0*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons)
+            +BrSM_htotautau*Br_tautoleptons*Br_tautoleptons)
+            );
+    pp_phi3_phi1phi1_with_channel_bbWWorbbtautau_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*
+            2.0*GTHDM_BR_h_bb*
+            (GTHDM_BR_h_WW*((Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)
+            +2.0*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons)
+            +GTHDM_BR_h_tautau*Br_tautoleptons*Br_tautoleptons)/(
+            2.0*BrSM_htobb*
+            (BrSM_htoWW*((Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)
+            +2.0*(Br_Wtoenu+Br_Wtomunu)*Br_Wtohadrons)
+            +BrSM_htotautau*Br_tautoleptons*Br_tautoleptons)
+            );
+    
+
+    
+    
+    
+    //pp_phi2_phi1phi1_bbWW_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*2.0*5.77e-1*2.15e-1; //SM Br of hh assumed
+    //pp_phi3_phi1phi1_bbWW_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*2.0*5.77e-1*2.15e-1; //SM Br of hh assumed
+    
+    pp_phi2_phi1phi1_with_channel_bbWW_TH13=SigmaSumphi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_WW/(BrSM_htobb*BrSM_htoWW); //SM Br of hh assumed
+    pp_phi3_phi1phi1_with_channel_bbWW_TH13=SigmaSumphi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_bb*GTHDM_BR_h_WW/(BrSM_htobb*BrSM_htoWW); //SM Br of hh assumed
+    
+    
+    
     gg_phi2_phi1phi1_gagaWW_TH13=SigmaggF_phi2_13*Br_phi2tophi1phi1*GTHDM_BR_h_gaga*GTHDM_BR_h_WW*2.0;
     gg_phi3_phi1phi1_gagaWW_TH13=SigmaggF_phi3_13*Br_phi3tophi1phi1*GTHDM_BR_h_gaga*GTHDM_BR_h_WW*2.0;
-
-    
-    
-    //std::cout<<"\033[1;34m gg_phi2_phi1phi1_TH8 = \033[0m "<<gg_phi2_phi1phi1_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_phi1phi1_TH8 = \033[0m "<<gg_phi3_phi1phi1_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_phi1phi1_bbbb_TH8 = \033[0m "<<pp_phi2_phi1phi1_bbbb_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_phi1phi1_bbbb_TH8 = \033[0m "<<pp_phi3_phi1phi1_bbbb_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_phi1phi1_bbgaga_TH8 = \033[0m "<<pp_phi2_phi1phi1_bbgaga_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_phi1phi1_bbgaga_TH8 = \033[0m "<<pp_phi3_phi1phi1_bbgaga_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi2_phi1phi1_bbtautau_TH8 = \033[0m "<<gg_phi2_phi1phi1_bbtautau_TH8<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_phi1phi1_bbtautau_TH8 = \033[0m "<<gg_phi3_phi1phi1_bbtautau_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_phi1phi1_TH8 = \033[0m "<<pp_phi2_phi1phi1_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_phi1phi1_TH8 = \033[0m "<<pp_phi3_phi1phi1_TH8<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_phi1phi1_bbbb_TH13 = \033[0m "<<pp_phi2_phi1phi1_bbbb_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_phi1phi1_bbbb_TH13 = \033[0m "<<pp_phi3_phi1phi1_bbbb_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_phi1phi1_TH13 = \033[0m "<<pp_phi2_phi1phi1_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_phi1phi1_TH13 = \033[0m "<<pp_phi3_phi1phi1_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_phi1phi1_bbgaga_TH13 = \033[0m "<<pp_phi2_phi1phi1_bbgaga_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_phi1phi1_bbgaga_TH13 = \033[0m "<<pp_phi3_phi1phi1_bbgaga_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_phi1phi1_bbtautau_TH13 = \033[0m "<<pp_phi2_phi1phi1_bbtautau_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_phi1phi1_bbtautau_TH13 = \033[0m "<<pp_phi3_phi1phi1_bbtautau_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_phi1phi1_bbVV_TH13 = \033[0m "<<pp_phi2_phi1phi1_bbVV_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_phi1phi1_bbVV_TH13 = \033[0m "<<pp_phi3_phi1phi1_bbVV_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi2_phi1phi1_bbWW_TH13 = \033[0m "<<pp_phi2_phi1phi1_bbWW_TH13<<std::endl;
-    //std::cout<<"\033[1;34m pp_phi3_phi1phi1_bbWW_TH13 = \033[0m "<<pp_phi3_phi1phi1_bbWW_TH13<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi2_phi1phi1_gagaWW_TH13 = \033[0m "<<gg_phi2_phi1phi1_gagaWW_TH13<<std::endl;
-    //std::cout<<"\033[1;34m gg_phi3_phi1phi1_gagaWW_TH13 = \033[0m "<<gg_phi3_phi1phi1_gagaWW_TH13<<std::endl;
-    //std::cout<<"\033[1;31m Br_phi3tophi1phi1 = \033[0m "<<Br_phi3tophi1phi1<<"\033[1;31m   THIS MUST BE SOLVED \033[0m "<<std::endl;
-    //std::cout<< "\n" <<std::endl;
-    
-    
-    
-    
-    //std::cout<<"\033[1;31m gg_phi2_phi1Z_bbZ_TH8 = \033[0m "<<gg_phi2_phi1Z_bbZ_TH8<<"\033[1;31m   THIS MUST BE SOLVED \033[0m "<<std::endl;
-    //std::cout<<"\033[1;31m Br_phi2tophi1Z = \033[0m "<<Br_phi2tophi1Z<<"\033[1;31m   THIS MUST BE SOLVED \033[0m "<<std::endl;
-
-    //std::cout<<"\033[1;31m gg_phi3_phi1Z_bbZ_TH8 = \033[0m "<<gg_phi3_phi1Z_bbZ_TH8<<"\033[1;31m   THIS MUST BE SOLVED \033[0m "<<std::endl;
-    //std::cout<<"\033[1;31m Br_phi3tophi1Z = \033[0m "<<Br_phi3tophi1Z<<"\033[1;31m   THIS MUST BE SOLVED \033[0m "<<std::endl;
 
     
     
@@ -7373,13 +7386,21 @@ double GeneralTHDMcache::computeHeavyHiggs()
     gg_phi3_phi1Z_tautauZ_TH8=SigmaggF_phi3_8*Br_phi3tophi1Z*GTHDM_BR_h_tautau;
     gg_phi2_phi1Z_tautaull_TH8=SigmaggF_phi2_8*Br_phi2tophi1Z*GTHDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu);
     gg_phi3_phi1Z_tautaull_TH8=SigmaggF_phi3_8*Br_phi3tophi1Z*GTHDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu);
+    
     gg_phi2_phi1Z_bbZ_TH13=SigmaggF_phi2_13*Br_phi2tophi1Z*GTHDM_BR_h_bb;
     gg_phi3_phi1Z_bbZ_TH13=SigmaggF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_bb;
+    gg_phi2_phi1Z_with_channel_bbZ_TH13=SigmaggF_phi2_13*Br_phi2tophi1Z*GTHDM_BR_h_bb/BrSM_htobb;
+    gg_phi3_phi1Z_with_channel_bbZ_TH13=SigmaggF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_bb/BrSM_htobb;
+    
     bb_phi2_phi1Z_bbZ_TH13=SigmabbF_phi2_13*Br_phi2tophi1Z*GTHDM_BR_h_bb;
     bb_phi3_phi1Z_bbZ_TH13=SigmabbF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_bb;
-  
-    gg_phi2_phi1Z_tautaull_TH13=SigmaggF_phi2_13*Br_phi2tophi1Z*GTHDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu)*Br_tautohadrons*Br_tautohadrons;
-    gg_phi3_phi1Z_tautaull_TH13=SigmaggF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu)*Br_tautohadrons*Br_tautohadrons;
+    bb_phi2_phi1Z_with_channel_bbZ_TH13=SigmabbF_phi2_13*Br_phi2tophi1Z*GTHDM_BR_h_bb/BrSM_htobb;
+    bb_phi3_phi1Z_with_channel_bbZ_TH13=SigmabbF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_bb/BrSM_htobb;
+    
+    //gg_phi2_phi1Z_tautaull_TH13=SigmaggF_phi2_13*Br_phi2tophi1Z*GTHDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu)*Br_tautohadrons*Br_tautohadrons;
+    //gg_phi3_phi1Z_tautaull_TH13=SigmaggF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu)*Br_tautohadrons*Br_tautohadrons;
+    gg_phi2_phi1Z_tautaull_TH13=SigmaggF_phi2_13*Br_phi2tophi1Z*GTHDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu);
+    gg_phi3_phi1Z_tautaull_TH13=SigmaggF_phi3_13*Br_phi3tophi1Z*GTHDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu);
 
     
     //std::cout<<"\033[1;34m gg_phi2_phi1Z_bbZ_TH8 = \033[0m "<<gg_phi2_phi1Z_bbZ_TH8<<std::endl;
@@ -7409,6 +7430,11 @@ double GeneralTHDMcache::computeHeavyHiggs()
     bb_phi3_phi2Z_bbZ_TH13=SigmabbF_phi3_13*Br_phi3tophi2Z*Br_phi2tobb;
     bb_phi2_phi3Z_bbZ_TH13=SigmabbF_phi2_13*Br_phi2tophi3Z*Br_phi3tobb;
     
+    gg_phi3_phi2Z_WWZ_TH13=SigmaggF_phi3_13*Br_phi3tophi2Z*Br_phi2toWW;
+    gg_phi2_phi3Z_WWZ_TH13=SigmaggF_phi2_13*Br_phi2tophi3Z*Br_phi3toWW;
+    
+    //std::cout<<"\033[1;34m SigmaggF_phi2_13*Br_phi2tophi3Z = \033[0m "<<SigmaggF_phi2_13*Br_phi2tophi3Z<<std::endl;
+    //std::cout<<"\033[1;34m Br_phi3toWW = \033[0m "<<Br_phi3toWW<<std::endl;
     
     //std::cout<<"\033[1;34m pp_phi3_phi2Z_bbll_TH8 = \033[0m "<<pp_phi3_phi2Z_bbll_TH8<<std::endl;
     //std::cout<<"\033[1;34m pp_phi2_phi3Z_bbll_TH8 = \033[0m "<<pp_phi2_phi3Z_bbll_TH8<<std::endl;
@@ -7556,7 +7582,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
         //std::cout<<"\033[1;31m   stop11 \033[0m "<<std::endl;
         
         THoEX_tt_phi2_tt_CMS13=tt_phi2_tt_TH13/ip_ex_tt_phi2_tt_CMS13(m2);
-    //    if(THoEX_tt_phi2_tt_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
+
     }
     if(m3>= 350.0 && m3<650.0) {
                                         
@@ -7939,35 +7965,27 @@ double GeneralTHDMcache::computeHeavyHiggs()
 
     if(m3>= 160.0 && m3<3000.0)  
         {
-                                                                
-        //std::cout<<"\033[1;31m   stop50 \033[0m "<<std::endl;
-        
+
         THoEX_pp_phi3_gaga_ATLAS13=pp_phi3_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(m3);   
-    //    if(THoEX_pp_phi3_gaga_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
+
     }
-    if(m2>= 500.0 && m2<4000.0)     
+    if(m2>= 600.0 && m2<5000.0)     
         {
-                                                                        
-        //std::cout<<"\033[1;31m   stop51 \033[0m "<<std::endl;
-        
+
         THoEX_gg_phi2_gaga_CMS13=gg_phi2_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m2);        
-    //    if(THoEX_gg_phi2_gaga_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
+
     }
-    if(m3>= 500.0 && m3<4000.0) 
+    if(m3>= 600.0 && m3<5000.0) 
         {
-                                                                        
-        //std::cout<<"\033[1;31m   stop52 \033[0m "<<std::endl;
-        
+
         THoEX_gg_phi3_gaga_CMS13=gg_phi3_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(m3);     
-    //    if(THoEX_gg_phi3_gaga_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();    
+   
     }
     if(m2>= 200.0 && m2<1600.0) 
         {
-                                                                                
-        //std::cout<<"\033[1;31m   stop53 \033[0m "<<std::endl;
-        
+
         THoEX_pp_phi2_Zga_llga_ATLAS8=pp_phi2_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(m2);       
-    //    if(THoEX_pp_phi2_Zga_llga_ATLAS8 >5) return std::numeric_limits<double>::quiet_NaN();
+    
     }
         
     if(m3>= 200.0 && m3<1600.0) 
@@ -8469,11 +8487,10 @@ double GeneralTHDMcache::computeHeavyHiggs()
     if(m2>= 260.0 && m2<1000.0)
             {
                                                                                                                                         
-        //std::cout<<"\033[1;31m   stop111 \033[0m "<<std::endl;
         
-             THoEX_gg_phi2_phi1phi1_ATLAS8=gg_phi2_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m2);
-    //         if(THoEX_gg_phi2_phi1phi1_ATLAS8 >5) return std::numeric_limits<double>::quiet_NaN();
-             }   
+        THoEX_gg_phi2_phi1phi1_ATLAS8=gg_phi2_phi1phi1_TH8/ip_ex_gg_phi_phi1phi1_ATLAS8(m2);
+    
+    }   
     if(m3>= 260.0 && m3<1000.0)
             {
                                                                                                                                         
@@ -8551,7 +8568,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop121 \033[0m "<<std::endl;
         
-             THoEX_pp_phi2_phi1phi1_bbbb_ATLAS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m2);
+             THoEX_pp_phi2_phi1phi1_bbbb_ATLAS13=pp_phi2_phi1phi1_with_channel_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbbb_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 250.0 && m3<3000.0)
@@ -8559,7 +8576,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop122 \033[0m "<<std::endl;
         
-             THoEX_pp_phi3_phi1phi1_bbbb_ATLAS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m3);
+             THoEX_pp_phi3_phi1phi1_bbbb_ATLAS13=pp_phi3_phi1phi1_with_channel_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_ATLAS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbbb_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 260.0 && m2<1200.0)
@@ -8583,7 +8600,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop125 \033[0m "<<std::endl;
         
-             THoEX_pp_phi2_phi1phi1_bbbb_2_CMS13=pp_phi2_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m2);
+             THoEX_pp_phi2_phi1phi1_bbbb_2_CMS13=pp_phi2_phi1phi1_with_channel_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbbb_2_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>=1000.0 && m3<3000.0)
@@ -8591,7 +8608,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop126 \033[0m "<<std::endl;
         
-             THoEX_pp_phi3_phi1phi1_bbbb_2_CMS13=pp_phi3_phi1phi1_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m3);
+             THoEX_pp_phi3_phi1phi1_bbbb_2_CMS13=pp_phi3_phi1phi1_with_channel_bbbb_TH13/ip_ex_pp_phi_phi1phi1_bbbb_2_CMS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbbb_2_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m2>= 251.0 && m2<1000.0)
@@ -8599,33 +8616,29 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop127 \033[0m "<<std::endl;
         
-             THoEX_pp_phi2_phi1phi1_bbgaga_ATLAS13=pp_phi2_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m2);
+             THoEX_pp_phi2_phi1phi1_bbgaga_ATLAS13=pp_phi2_phi1phi1_with_channel_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbgaga_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
              }
     if(m3>= 251.0 && m3<1000.0)
             {
-                                                                                                                                                
-        //std::cout<<"\033[1;31m   stop128 \033[0m "<<std::endl;
         
-             THoEX_pp_phi3_phi1phi1_bbgaga_ATLAS13=pp_phi3_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m3);
+             THoEX_pp_phi3_phi1phi1_bbgaga_ATLAS13=pp_phi3_phi1phi1_with_channel_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_ATLAS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbgaga_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
              }
-    if(m2>= 250.0 && m2< 900.0) 
+    //if(m2>= 250.0 && m2< 900.0) //Old limits
+    if(m2>= 260.0 && m2< 1000.0) 
         {
-                                                                                                                                                
-        //std::cout<<"\033[1;31m   stop129 \033[0m "<<std::endl;
+                                                                                                                    
         
         THoEX_pp_phi2_phi1phi1_bbgaga_CMS13=pp_phi2_phi1phi1_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(m2);
-    //     if(THoEX_pp_phi2_phi1phi1_bbgaga_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
+    
         }
-    if(m3>= 250.0 && m3< 900.0) 
+    //if(m3>= 250.0 && m3< 900.0) //Old limits
+    if(m3>= 260.0 && m3< 1000.0) 
         {
-                                                                                                                                                
-        //std::cout<<"\033[1;31m   stop130 \033[0m "<<std::endl;
-        
+
         THoEX_pp_phi3_phi1phi1_bbgaga_CMS13=pp_phi3_phi1phi1_bbgaga_TH13/ip_ex_pp_phi_phi1phi1_bbgaga_CMS13(m3);
-    //    if(THoEX_pp_phi3_phi1phi1_bbgaga_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
-        }
+    }
     /*
     if(m2>= 260.0 && m2<1000.0) 
         {
@@ -8637,14 +8650,14 @@ double GeneralTHDMcache::computeHeavyHiggs()
         THoEX_pp_phi3_phi1phi1_bbtautau_ATLAS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_ATLAS13(m3);
              if(THoEX_pp_phi3_phi1phi1_bbtautau_ATLAS13 >2) return std::numeric_limits<double>::quiet_NaN();
         }
-    */ //OLD We have splitted this one in two parts
+    */ //OLD We have split this one in two parts
     /////////
     if(m2>= 251.0 && m2<1600.0) 
         {
                                                                                                                                                         
         //std::cout<<"\033[1;31m   stop131 \033[0m "<<std::endl;
         
-        THoEX_pp_phi2_phi1phi1_bbtautau_1_ATLAS13=pp_phi2_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_ATLAS13(m2);
+        THoEX_pp_phi2_phi1phi1_bbtautau_1_ATLAS13=pp_phi2_phi1phi1_with_channel_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_ATLAS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbtautau_1_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 251.0 && m3<1600.0) 
@@ -8652,7 +8665,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                         
         //std::cout<<"\033[1;31m   stop132 \033[0m "<<std::endl;
         
-        THoEX_pp_phi3_phi1phi1_bbtautau_1_ATLAS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_ATLAS13(m3);
+        THoEX_pp_phi3_phi1phi1_bbtautau_1_ATLAS13=pp_phi3_phi1phi1_with_channel_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_1_ATLAS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbtautau_1_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m2>= 1000.0 && m2<3000.0) 
@@ -8660,7 +8673,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                         
         //std::cout<<"\033[1;31m   stop133 \033[0m "<<std::endl;
         
-        THoEX_pp_phi2_phi1phi1_bbtautau_2_ATLAS13=pp_phi2_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_ATLAS13(m2);
+        THoEX_pp_phi2_phi1phi1_bbtautau_2_ATLAS13=pp_phi2_phi1phi1_with_channel_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_ATLAS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbtautau_2_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 1000.0 && m3<3000.0) 
@@ -8668,7 +8681,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                         
         //std::cout<<"\033[1;31m   stop134 \033[0m "<<std::endl;
         
-        THoEX_pp_phi3_phi1phi1_bbtautau_2_ATLAS13=pp_phi3_phi1phi1_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_ATLAS13(m3);
+        THoEX_pp_phi3_phi1phi1_bbtautau_2_ATLAS13=pp_phi3_phi1phi1_with_channel_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_ATLAS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbtautau_2_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     /////////
@@ -8693,7 +8706,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                         
         //std::cout<<"\033[1;31m   stop137 \033[0m "<<std::endl;
         
-        THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13=pp_phi2_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m2);
+        THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13=pp_phi2_phi1phi1_with_channel_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbtautau_2_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 900.0 && m3<4000.0) 
@@ -8701,7 +8714,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                         
         //std::cout<<"\033[1;31m   stop138 \033[0m "<<std::endl;
         
-        THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13=pp_phi3_phi1phi1_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m3);
+        THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13=pp_phi3_phi1phi1_with_channel_bbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbtautau_2_CMS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbtautau_2_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m2>= 260.0 && m2< 900.0) 
@@ -8727,7 +8740,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop141 \033[0m "<<std::endl;
         
-        THoEX_pp_phi2_phi1phi1_4WOr2W2tauOr4tau_CMS13=pp_phi2_phi1phi1_4WOr2W2tauOr4tau_TH13/ip_ex_pp_phi_phi1phi1_4WOr2W2tauOr4tau_CMS13(m2);
+        THoEX_pp_phi2_phi1phi1_4WOr2W2tauOr4tau_CMS13=pp_phi2_phi1phi1_with_channel_4WOr2W2tauOr4tau_TH13/ip_ex_pp_phi_phi1phi1_4WOr2W2tauOr4tau_CMS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_4WOr2W2tauOr4tau_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 250.0 && m3< 1000.0) 
@@ -8735,7 +8748,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop142 \033[0m "<<std::endl;
         
-        THoEX_pp_phi3_phi1phi1_4WOr2W2tauOr4tau_CMS13=pp_phi3_phi1phi1_4WOr2W2tauOr4tau_TH13/ip_ex_pp_phi_phi1phi1_4WOr2W2tauOr4tau_CMS13(m3);
+        THoEX_pp_phi3_phi1phi1_4WOr2W2tauOr4tau_CMS13=pp_phi3_phi1phi1_with_channel_4WOr2W2tauOr4tau_TH13/ip_ex_pp_phi_phi1phi1_4WOr2W2tauOr4tau_CMS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_4WOr2W2tauOr4tau_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         } 
     
@@ -8746,7 +8759,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop143 \033[0m "<<std::endl;
         
-        THoEX_pp_phi2_phi1phi1_bbWW_qqlnu_CMS13=pp_phi2_phi1phi1_bbWW_qqlnu_TH13/ip_ex_pp_phi_phi1phi1_bbWW_qqlnu_CMS13(m2);
+        THoEX_pp_phi2_phi1phi1_bbWW_qqlnu_CMS13=pp_phi2_phi1phi1_with_channel_bbWW_qqlnu_TH13/ip_ex_pp_phi_phi1phi1_bbWW_qqlnu_CMS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbWW_qqlnu_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 800.0 && m3< 3500.0) 
@@ -8754,7 +8767,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop144 \033[0m "<<std::endl;
         
-        THoEX_pp_phi3_phi1phi1_bbWW_qqlnu_CMS13=pp_phi3_phi1phi1_bbWW_qqlnu_TH13/ip_ex_pp_phi_phi1phi1_bbWW_qqlnu_CMS13(m3);
+        THoEX_pp_phi3_phi1phi1_bbWW_qqlnu_CMS13=pp_phi3_phi1phi1_with_channel_bbWW_qqlnu_TH13/ip_ex_pp_phi_phi1phi1_bbWW_qqlnu_CMS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbWW_qqlnu_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         } 
     
@@ -8768,7 +8781,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop145 \033[0m "<<std::endl;
         
-        THoEX_pp_phi2_phi1phi1_bbZZ_lljj_CMS13=pp_phi2_phi1phi1_bbZZ_lljj_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13(m2);
+        THoEX_pp_phi2_phi1phi1_bbZZ_lljj_CMS13=pp_phi2_phi1phi1_bbZZ_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbZZ_lljj_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 260.0 && m3< 1000.0) 
@@ -8776,7 +8789,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop146 \033[0m "<<std::endl;
         
-        THoEX_pp_phi3_phi1phi1_bbZZ_lljj_CMS13=pp_phi3_phi1phi1_bbZZ_lljj_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13(m3);
+        THoEX_pp_phi3_phi1phi1_bbZZ_lljj_CMS13=pp_phi3_phi1phi1_bbZZ_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_lljj_CMS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbZZ_lljj_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         } 
     if(m2>= 250.0 && m2< 1000.0) 
@@ -8784,7 +8797,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop147 \033[0m "<<std::endl;
         
-        THoEX_pp_phi2_phi1phi1_bbZZ_llnunu_CMS13=pp_phi2_phi1phi1_bbZZ_llnunu_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13(m2);
+        THoEX_pp_phi2_phi1phi1_bbZZ_llnunu_CMS13=pp_phi2_phi1phi1_bbZZ_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbZZ_llnunu_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 250.0 && m3< 1000.0) 
@@ -8792,30 +8805,38 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                 
         //std::cout<<"\033[1;31m   stop148 \033[0m "<<std::endl;
         
-        THoEX_pp_phi3_phi1phi1_bbZZ_llnunu_CMS13=pp_phi3_phi1phi1_bbZZ_llnunu_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13(m3);
+        THoEX_pp_phi3_phi1phi1_bbZZ_llnunu_CMS13=pp_phi3_phi1phi1_bbZZ_TH13/ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbZZ_llnunu_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
         } 
     
     
     //ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13
-    
-    
-    
+      
     if(m2>= 800.0 && m2< 4500.0) 
         {
-                                                                                                                                                                
-        //std::cout<<"\033[1;31m   stop149 \033[0m "<<std::endl;
         
-        THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13=pp_phi2_phi1phi1_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(m2);
-    //         if(THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
-        }
+        THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13=pp_phi2_phi1phi1_with_channel_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(m2);
+    
+    }
     if(m3>= 800.0 && m3< 4500.0) 
         {
-                                                                                                                                                                
-        //std::cout<<"\033[1;31m   stop150 \033[0m "<<std::endl;
         
-        THoEX_pp_phi3_phi1phi1_bbWWorbbtautau_CMS13=pp_phi3_phi1phi1_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(m3);
-    //         if(THoEX_pp_phi3_phi1phi1_bbWWorbbtautau_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
+        THoEX_pp_phi3_phi1phi1_bbWWorbbtautau_CMS13=pp_phi3_phi1phi1_with_channel_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(m3);
+        } 
+
+    
+    //This will overwrite the previous one when the mass is in this range.
+    //This way we consider this search only once so it's fine
+    if(m2>= 250.0 && m2 < 900.0) 
+        {
+        
+        THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13=pp_phi2_phi1phi1_with_channel_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13(m2);
+    
+    }
+    if(m3>= 250.0 && m3< 900.0) 
+        {
+        
+        THoEX_pp_phi3_phi1phi1_bbWWorbbtautau_CMS13=pp_phi3_phi1phi1_with_channel_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13(m3);
         } 
     
     
@@ -8825,7 +8846,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                         
         //std::cout<<"\033[1;31m   stop151 \033[0m "<<std::endl;
         
-        THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13=pp_phi2_phi1phi1_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m2);
+        THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13=pp_phi2_phi1phi1_with_channel_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m2);
     //         if(THoEX_pp_phi2_phi1phi1_bbWW_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }
     if(m3>= 500.0 && m3< 3000.0) 
@@ -8833,7 +8854,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
                                                                                                                                                                         
         //std::cout<<"\033[1;31m   stop152 \033[0m "<<std::endl;
         
-        THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13=pp_phi3_phi1phi1_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m3);
+        THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13=pp_phi3_phi1phi1_with_channel_bbWW_TH13/ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(m3);
     //         if(THoEX_pp_phi3_phi1phi1_bbWW_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
         }  
     if(m2>= 260.0 && m2< 500.0)  
@@ -8910,43 +8931,40 @@ double GeneralTHDMcache::computeHeavyHiggs()
          }
     if(m3>= 220.0 && m3< 350.0)
         {
+                                                                                                                                                                                 THoEX_gg_phi3_phi1Z_tautaull_CMS8=gg_phi3_phi1Z_tautaull_TH8/ip_ex_gg_phi_phi1Z_tautaull_CMS8(m3);
+    
+    }
+    //if(m2>= 200.0 && m2<2000.0)
+    if(m2>= 220.0 && m2<2000.0)
+    {
                                                                                                                                                                         
-        //std::cout<<"\033[1;31m   stop162 \033[0m "<<std::endl;
+               
+        //THoEX_gg_phi2_phi1Z_bbZ_ATLAS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m2);
+        THoEX_gg_phi2_phi1Z_bbZ_ATLAS13=gg_phi2_phi1Z_with_channel_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m2);
+    
         
-         THoEX_gg_phi3_phi1Z_tautaull_CMS8=gg_phi3_phi1Z_tautaull_TH8/ip_ex_gg_phi_phi1Z_tautaull_CMS8(m3);
-    //     if(THoEX_gg_phi3_phi1Z_tautaull_CMS8 >5) return std::numeric_limits<double>::quiet_NaN();
-         }
-    if(m2>= 200.0 && m2<2000.0)
+    }
+    //if(m3>= 200.0 && m3<2000.0)
+    if(m3>= 220.0 && m3<2000.0)
         {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop163 \033[0m "<<std::endl;
         
-         THoEX_gg_phi2_phi1Z_bbZ_ATLAS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m2);
-    //     if(THoEX_gg_phi2_phi1Z_bbZ_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
-         }
-    if(m3>= 200.0 && m3<2000.0)
-        {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop164 \033[0m "<<std::endl;
+        //THoEX_gg_phi3_phi1Z_bbZ_ATLAS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m3);
+        THoEX_gg_phi3_phi1Z_bbZ_ATLAS13=gg_phi3_phi1Z_with_channel_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m3);
+
         
-         THoEX_gg_phi3_phi1Z_bbZ_ATLAS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_ATLAS13(m3);
-    //     if(THoEX_gg_phi3_phi1Z_bbZ_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
          }
     if(m2>= 220.0 && m2< 800.0)
         {
                                                                                                                                                                         
-        //std::cout<<"\033[1;31m   stop165 \033[0m "<<std::endl;
         
          THoEX_gg_phi2_phi1Z_bbZ_1_CMS13=gg_phi2_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_1_CMS13(m2);
-    //     if(THoEX_gg_phi2_phi1Z_bbZ_1_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
+
          }
     if(m3>= 220.0 && m3< 800.0)
         {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop166 \033[0m "<<std::endl;
-        
+
          THoEX_gg_phi3_phi1Z_bbZ_1_CMS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_1_CMS13(m3);
-    //     if(THoEX_gg_phi3_phi1Z_bbZ_1_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
+
          }
     if(m2>= 800.0 && m2<2000.0)
         {
@@ -8964,27 +8982,24 @@ double GeneralTHDMcache::computeHeavyHiggs()
          THoEX_gg_phi3_phi1Z_bbZ_2_CMS13=gg_phi3_phi1Z_bbZ_TH13/ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(m3);
     //     if(THoEX_gg_phi3_phi1Z_bbZ_2_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
          }
-    if(m2>= 200.0 && m2<2000.0)
+    //if(m2>= 200.0 && m2<2000.0)
+    if(m2>= 220.0 && m2<2000.0)
         {
                                                                                                                                                                         
-        //std::cout<<"\033[1;31m   stop169 \033[0m "<<std::endl;
-        
-         THoEX_bb_phi2_phi1Z_bbZ_ATLAS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m2);
-    //     if(THoEX_bb_phi2_phi1Z_bbZ_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
+        //THoEX_bb_phi2_phi1Z_bbZ_ATLAS13=bb_phi2_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m2);
+        THoEX_bb_phi2_phi1Z_bbZ_ATLAS13=bb_phi2_phi1Z_with_channel_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m2);
+
          }
-    if(m3>= 200.0 && m3<2000.0)
+    //if(m3>= 220.0 && m3<2000.0)
+    if(m3>= 220.0 && m3<2000.0)
         {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop170 \033[0m "<<std::endl;
-        
-         THoEX_bb_phi3_phi1Z_bbZ_ATLAS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m3);
-    //     if(THoEX_bb_phi3_phi1Z_bbZ_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
+
+        //THoEX_bb_phi3_phi1Z_bbZ_ATLAS13=bb_phi3_phi1Z_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m3);
+        THoEX_bb_phi3_phi1Z_bbZ_ATLAS13=bb_phi3_phi1Z_with_channel_bbZ_TH13/ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(m3);
+
          }
     
     //ip_ex_bb_phi_phi1Z_tautaull_ATLAS13
-    
-    
-    
     if(m2>= 220.0 && m2<400.0)
         {
                                                                                                                                                                         
@@ -9057,72 +9072,78 @@ double GeneralTHDMcache::computeHeavyHiggs()
          } //mA=m3, mH=m2
     if(m3>=  50.0 && m3<1000.0 && m2 >=50.0 && m2 <1000.0)
         {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop179 \033[0m "<<std::endl;
+
         
          THoEX_pp_phi3_phi2Z_tautaull_1_CMS8=pp_phi3_phi2Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_1_CMS8(m3,m2);
-    //     if(THoEX_pp_phi3_phi2Z_tautaull_1_CMS8 >5) return std::numeric_limits<double>::quiet_NaN();
-         } //mA=m3, mH=m2
+
+    } //mA=m3, mH=m2
     if(m2>=  50.0 && m2<1000.0 && m3 >=50.0 && m3 <1000.0)
         {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop180 \033[0m "<<std::endl;
+
         
          THoEX_pp_phi2_phi3Z_tautaull_1_CMS8=pp_phi2_phi3Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_1_CMS8(m2,m3);
-    //     if(THoEX_pp_phi2_phi3Z_tautaull_1_CMS8 >5) return std::numeric_limits<double>::quiet_NaN();
-         } //mA=m3, mH=m2
+    
+    } //mA=m3, mH=m2
     if(m3>=  50.0 && m3<1000.0 && m2 >=50.0 && m2 <1000.0)
         {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop181 \033[0m "<<std::endl;
+
         
          THoEX_pp_phi3_phi2Z_tautaull_2_CMS8=pp_phi3_phi2Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_2_CMS8(m2,m3);
-    //     if(THoEX_pp_phi2_phi3Z_tautaull_1_CMS8 >5) return std::numeric_limits<double>::quiet_NaN();
-         } //mA=m2, mH=m3
+    
+    } //mA=m2, mH=m3
     if(m2>=  50.0 && m2<1000.0 && m3 >=50.0 && m3 <1000.0)
         {
                                                                                                                                                                         
-        //std::cout<<"\033[1;31m   stop182 \033[0m "<<std::endl;
-        
+    
          THoEX_pp_phi2_phi3Z_tautaull_2_CMS8=pp_phi2_phi3Z_tautaull_TH8/ip_ex_pp_phii_phijZ_tautaull_2_CMS8(m3,m2);
-    //     if(THoEX_pp_phi2_phi3Z_tautaull_2_CMS8 >5) return std::numeric_limits<double>::quiet_NaN();
-         } //mA=m2, mH=m3
+
+    } 
     if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0 && m2-m3>=100)
         {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop183 \033[0m "<<std::endl;
-        
-        
-         THoEX_gg_phi3_phi2Z_bbZ_ATLAS13=gg_phi3_phi2Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m3,m2);
-    //     if(THoEX_gg_phi3_phi2Z_bbZ_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
-         }
-    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0 && m3-m2>=100)
-        {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop184 \033[0m "<<std::endl;
-        
-        
-        
         
          THoEX_gg_phi2_phi3Z_bbZ_ATLAS13=gg_phi2_phi3Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m2,m3);
-    //     if(THoEX_gg_phi2_phi3Z_bbZ_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
-         }
-    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0 && m2-m3>=100)
-        {
-                                                                                                                                                                        
-        //std::cout<<"\033[1;31m   stop185 \033[0m "<<std::endl;
-        
-         THoEX_bb_phi3_phi2Z_bbZ_ATLAS13=bb_phi3_phi2Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m3,m2);
-    //     if(THoEX_bb_phi3_phi2Z_bbZ_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
-         }
+         //std::cout<<"\033[1;31m   Enters = \033[0m " <<std::endl;
+         //std::cout<<"\033[1;31m   gg_phi3_phi2Z_bbZ_TH13 = \033[0m "<< gg_phi3_phi2Z_bbZ_TH13 <<std::endl;
+         //std::cout<<"\033[1;31m   ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m3,m2) = \033[0m "<< ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m2,m3) <<std::endl;
+
+    }
     if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0 && m3-m2>=100)
         {
                                                                                                                                                                         
-        //std::cout<<"\033[1;31m   stop186 \033[0m "<<std::endl;
         
-         THoEX_bb_phi2_phi3Z_bbZ_ATLAS13=bb_phi2_phi3Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m2,m3);
-    //     if(THoEX_bb_phi2_phi3Z_bbZ_ATLAS13 >5) return std::numeric_limits<double>::quiet_NaN();
-         }
+         THoEX_gg_phi3_phi2Z_bbZ_ATLAS13=gg_phi3_phi2Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m3,m2);
+    }
+    
+    if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0 && m2-m3>=100)
+        {
+        
+        THoEX_bb_phi2_phi3Z_bbZ_ATLAS13=bb_phi2_phi3Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m2,m3);
+    
+    }
+    if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0 && m3-m2>=100)
+        {
+                                                                                                                                                                                
+         THoEX_bb_phi3_phi2Z_bbZ_ATLAS13=bb_phi3_phi2Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m3,m2);
+         
+         
+    }
+    
+    
+    if(m2 >= 300.0 && m2 <800.0 && m3>=200.0 && m3<700.0 && m2-m3>=100)
+        {
+        
+         THoEX_gg_phi2_phi3Z_WWZ_ATLAS13=gg_phi2_phi3Z_WWZ_TH13/ip_ex_gg_phii_phijZ_WWZ_ATLAS13(m2,m3);
+
+    }
+    if(m3 >= 300.0 && m3 <800.0 && m2>=200.0 && m2<700.0 && m3-m2>=100)
+        {
+                                                                                                                                                                        
+        
+         THoEX_gg_phi3_phi2Z_WWZ_ATLAS13=gg_phi3_phi2Z_WWZ_TH13/ip_ex_gg_phii_phijZ_WWZ_ATLAS13(m3,m2);
+    }
+    
+    
+    
     if(mHp>= 180.0 && mHp<1000.0)
         {
               
@@ -9639,6 +9660,24 @@ void GeneralTHDMcache::runGeneralTHDMparameters()
 //////// Here we update and define the values of the constants and parameters!!!!
 double GeneralTHDMcache::updateCache()
 {      
+    
+    
+    //The Standard Model h branching ratios
+    //Could be made into mass-dependent formulae in the future
+    //SEE IF WE CAN UPDATE THESE NUMBERS. THEY MAY BE OLD!!!!!!!!!
+    BrSM_htobb = 5.77e-1;
+    BrSM_htotautau = 6.32e-2;
+    BrSM_htogaga = 2.28e-3;
+    BrSM_htoWW = 2.15e-1;
+    BrSM_htoZZ = 2.64e-2;
+    BrSM_htogg = 8.57e-2;
+    BrSM_htoZga = 1.54e-3;
+    BrSM_htocc = 2.91e-2;
+    
+    
+    
+    
+    
     mHl   = myGTHDM->getMHl();
     m1    = mHl;
     mH1sq = myGTHDM->getmH1sq();
