@@ -4822,6 +4822,9 @@ ThObsFactory::ThObsFactory()
     
     //----- K to muon nu / Pi to muon nu  -----
     obsThFactory["Kmunu_o_Pmunu"] = boost::factory<Kmunu_o_Pmunu*>();
+
+    //----- P to muon nu -----
+    obsThFactory["Pmunu"] = boost::factory<Pmunu*>();
     
     
     //----- tau to K nu / tau to Pi nu  -----
