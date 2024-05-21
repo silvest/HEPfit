@@ -4204,20 +4204,39 @@ ThObsFactory::ThObsFactory()
     const double sqrt_sDiffll[8] = {183., 189., 192., 196., 200., 202., 205., 207.};
     const double cos_Diffll[10] = {-0.9, -0.7, -0.5, -0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9};
     
+    const double cos_DiffeeInp[15] = {-0.8,-0.6,-0.5,-0.3,-0.1,0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9};
+    const double cos_Diffee[15] = {-0.81,-0.63,-0.45,-0.27,-0.09,0.045,0.135,0.225,0.315,0.405,0.495,0.585,0.675,0.765,0.855};
+    
     for (int i = 0; i < 8; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_sDiffll[i]);
         
         for (int j = 0; j < 5; j++) {
         std::string cos_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_Diffll[j]));
+        std::string cosee_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_DiffeeInp[j]));
+        
         obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_m0" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
         obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_m0" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
+        
+        if (i>0) {obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_m0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j]);}
         }
         
         for (int j = 5; j < 10; j++) {
         std::string cos_str = boost::lexical_cast<std::string, double>(10.*cos_Diffll[j]);
+        std::string cosee_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_DiffeeInp[j]));
+        
         obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_0" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
         obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_0" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
+        
+        if (i>0) {obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j]);}
         }
+        
+        if (i>0) {
+        for (int j = 10; j < 15; j++) {        
+        std::string cosee_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_DiffeeInp[j]));
+        obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j]);
+        }
+        }
+    
     }
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
@@ -4256,6 +4275,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["gmuge_TauLFU"] = boost::factory<gmugeTauLFU*>();
     obsThFactory["gtaugmu_TauLFU"] = boost::factory<gtaugmuTauLFU*>();
     obsThFactory["gtauge_TauLFU"] = boost::factory<gtaugeTauLFU*>();
+    
+    obsThFactory["gtaugmuPi_TauLFU"] = boost::factory<gtaugmuPiTauLFU*>();
+    obsThFactory["gtaugmuK_TauLFU"] = boost::factory<gtaugmuKTauLFU*>();
     
     
     //-----  Flavour observables  -----
@@ -5831,7 +5853,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_gg_phi2_phi3Z_bbZ_ATLAS13"] = boost::factory<Hobs_gg_phi2_phi3Z_bbZ_ATLAS13*>();
     obsThFactory["Hobs_bb_phi3_phi2Z_bbZ_ATLAS13"] = boost::factory<Hobs_bb_phi3_phi2Z_bbZ_ATLAS13*>();
     obsThFactory["Hobs_bb_phi2_phi3Z_bbZ_ATLAS13"] = boost::factory<Hobs_bb_phi2_phi3Z_bbZ_ATLAS13*>();
-
+    obsThFactory["Hobs_gg_phi3_phi2Z_WWZ_ATLAS13"] = boost::factory<Hobs_gg_phi3_phi2Z_WWZ_ATLAS13*>();
+    obsThFactory["Hobs_gg_phi2_phi3Z_WWZ_ATLAS13"] = boost::factory<Hobs_gg_phi2_phi3Z_WWZ_ATLAS13*>();
+    
+    
     obsThFactory["Hobs_pp_Hpm_taunu_ATLAS8"] = boost::factory<Hobs_pp_Hpm_taunu_ATLAS8_GTHDM*>();
     obsThFactory["Hobs_pp_Hp_taunu_CMS8"] = boost::factory<Hobs_pp_Hp_taunu_CMS8_GTHDM*>();
     obsThFactory["Hobs_pp_Hpm_taunu_ATLAS13"] = boost::factory<Hobs_pp_Hpm_taunu_ATLAS13_GTHDM*>();
@@ -5961,8 +5986,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_phi3_phi1phi1_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_TH13*>();
     obsThFactory["log10_pp_phi2_phi1phi1_bbgaga_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_bbgaga_TH13*>();
     obsThFactory["log10_pp_phi3_phi1phi1_bbgaga_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_bbgaga_TH13*>();
-    obsThFactory["log10_pp_phi2_phi1phi1_bbtautau_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_bbtautau_TH13*>();
-    obsThFactory["log10_pp_phi3_phi1phi1_bbtautau_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_bbtautau_TH13*>();
+    obsThFactory["log10_pp_phi2_phi1phi1_with_channel_bbtautau_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_with_channel_bbtautau_TH13*>();
+    obsThFactory["log10_pp_phi3_phi1phi1_with_channel_bbtautau_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_with_channel_bbtautau_TH13*>();
     obsThFactory["log10_pp_phi2_phi1phi1_bbVV_TH13"] = boost::factory<log10_pp_phi2_phi1phi1_bbVV_TH13*>();
     obsThFactory["log10_pp_phi3_phi1phi1_bbVV_TH13"] = boost::factory<log10_pp_phi3_phi1phi1_bbVV_TH13*>();
     obsThFactory["log10_gg_phi2_phi1phi1_gagaWW_TH13"] = boost::factory<log10_gg_phi2_phi1phi1_gagaWW_TH13*>();

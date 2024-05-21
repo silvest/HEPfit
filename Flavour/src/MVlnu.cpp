@@ -990,7 +990,7 @@ gslpp::complex MVlnu::HTp(double q2)
 
 gslpp::complex MVlnu::HTpt(double q2)
 {
-    return ((CT + CTp) * lambda_half(MM*MM, MV*MV, q2) * T1(q2)-(CT - CTp)*(MM * MM - MV * MV) * T2(q2)) / (sqrt(2. * q2));
+    return ((CT + CTp) * lambda_half(MM*MM, MV*MV, q2) * T1(q2)-(CT - CTp)*(MM * MM - MV * MV) * T2(q2)) / (2. * sqrt(q2));
 }
 
 gslpp::complex MVlnu::HTm(double q2)
@@ -1000,7 +1000,7 @@ gslpp::complex MVlnu::HTm(double q2)
 
 gslpp::complex MVlnu::HTmt(double q2)
 {
-    return (-(CT + CTp) * lambda_half(MM*MM, MV*MV, q2) * T1(q2)-(CT - CTp)*(MM * MM - MV * MV) * T2(q2)) / (sqrt(2. * q2));
+    return (-(CT + CTp) * lambda_half(MM*MM, MV*MV, q2) * T1(q2)-(CT - CTp)*(MM * MM - MV * MV) * T2(q2)) / (2. * sqrt(q2));
 }
 /*******************************************************************************
  * Generalized angular coefficients  (see 1506.03970)                          *
@@ -1019,7 +1019,7 @@ gslpp::complex MVlnu::G000(double q2)
             4. * Mlep * Mnu / 3. * (HVp(q2).abs2() + HVm(q2).abs2() + HV0(q2).abs2() - HAp(q2).abs2() - HAm(q2).abs2() - HA0(q2).abs2()) +
             4. / 3. * ((Elep * Enu - Mlep * Mnu + lambda_lep2 / (4. * q2)) * HS(q2).abs2()+(Elep * Enu + Mlep * Mnu + lambda_lep2 / (4. * q2)) * HP(q2).abs2()) +
             16. / 9. * (3. * (Elep * Enu + Mlep * Mnu) - lambda_lep2 / (4. * q2))*(HTpt(q2).abs2() + HTmt(q2).abs2() + HT0t(q2).abs2()) +
-            8. / 9. * (3. * (Elep * Enu - Mlep * Mnu) - lambda_lep2 / (4. * q2))*(HTpt(q2).abs2() + HTmt(q2).abs2() + HT0t(q2).abs2()) +
+            8. / 9. * (3. * (Elep * Enu - Mlep * Mnu) - lambda_lep2 / (4. * q2))*(HTp(q2).abs2() + HTm(q2).abs2() + HT0(q2).abs2()) +
             16. / 3. * (Mlep * Enu + Mnu * Elep)*(HVp(q2) * HTpt(q2).conjugate() + HVm(q2) * HTmt(q2).conjugate() + HV0(q2) * HT0t(q2).conjugate()).imag() +
             8. * M_SQRT2 / 3. * (Mlep * Enu - Mnu * Elep)*(HAp(q2) * HTp(q2).conjugate() + HAm(q2) * HTm(q2).conjugate() + HA0(q2) * HT0(q2).conjugate()).imag());
 }

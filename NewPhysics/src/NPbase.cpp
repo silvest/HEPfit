@@ -1352,6 +1352,16 @@ double NPbase::delta_TauLFU_gtauge() const
 {
     return 0.;    
 }
+
+double NPbase::delta_TauLFU_gtaugmuPi() const
+{
+    return 0.;    
+}
+
+double NPbase::delta_TauLFU_gtaugmuK() const
+{
+    return 0.;    
+}
       
 //   Extension of SM observable definitions
 double NPbase::TauLFU_gmuge() const
@@ -1367,4 +1377,14 @@ double NPbase::TauLFU_gtaugmu() const
 double NPbase::TauLFU_gtauge() const
 {
     return (trueSM.TauLFU_gtauge() + delta_TauLFU_gtauge());    
+}
+
+double NPbase::TauLFU_gtaugmuPi() const
+{
+    return (trueSM.TauLFU_gtaugmuPi() + delta_TauLFU_gtaugmuPi());    
+}
+
+double NPbase::TauLFU_gtaugmuK() const
+{
+    return (trueSM.TauLFU_gtaugmuK() + delta_TauLFU_gtaugmuK());    
 }

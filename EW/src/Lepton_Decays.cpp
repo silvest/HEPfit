@@ -40,3 +40,13 @@ double gtaugeTauLFU::computeThValue()
 {    
     return SM.TauLFU_gtauge();
 }
+
+double gtaugmuPiTauLFU::computeThValue()
+{    
+    return SM.TauLFU_gtaugmuPi();
+}
+
+double gtaugmuKTauLFU::computeThValue()
+{    
+    return SM.TauLFU_gtaugmuK();
+}

@@ -3254,6 +3254,21 @@ double StandardModel::TauLFU_gtauge() const
 }
 
 
+double StandardModel::TauLFU_gtaugmuPi() const
+{
+    // 1st approx. 
+    
+    return 1.0;
+}
+
+double StandardModel::TauLFU_gtaugmuK() const
+{
+    // 1st approx. 
+    
+    return 1.0;
+}
+
+
 
 /* BEGIN: REMOVE FROM THE PACKAGE */
 ////////////////////////////////////////////////////////////////////////////////////

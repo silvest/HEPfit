@@ -4411,7 +4411,6 @@ private:
  */
 class Hobs_gg_phi2_phi3Z_bbZ_ATLAS13: public ThObservable {
 public:
-
     /**
      * @brief Hobs_gg_phi2_phi3Z_bbZ_ATLAS13 constructor.
      */
@@ -4432,7 +4431,6 @@ private:
  */
 class Hobs_bb_phi3_phi2Z_bbZ_ATLAS13: public ThObservable {
 public:
-
     /**
      * @brief Hobs_bb_phi3_phi2Z_bbZ_ATLAS13 constructor.
      */
@@ -4480,6 +4478,48 @@ public:
      * @brief Hobs_pp_Hpm_taunu_ATLAS8_GTHDM constructor.
      */
     Hobs_pp_Hpm_taunu_ATLAS8_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+
+/**
+ * @class Hobs_gg_phi2_phi3Z_WWZ_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio 
+ */
+class Hobs_gg_phi2_phi3Z_WWZ_ATLAS13: public ThObservable {
+public:
+    /**
+     * @brief Hobs_gg_phi2_phi3Z_bbZ_ATLAS13 constructor.
+     */
+    Hobs_gg_phi2_phi3Z_WWZ_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_gg_phi3_phi2Z_WWZ_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio 
+ */
+class Hobs_gg_phi3_phi2Z_WWZ_ATLAS13: public ThObservable {
+public:
+    /**
+     * @brief Hobs_gg_phi3_phi2Z_WWZ_ATLAS13 constructor.
+     */
+    Hobs_gg_phi3_phi2Z_WWZ_ATLAS13(const StandardModel& SM_i);
 
     /**
      * @return 
@@ -6210,13 +6250,13 @@ private:
  * @ingroup GeneralTHDM
  * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to \phi_{2}\to \phi_{1}\phi_{1}\to b\bar b \tau \tau@f$ at 13 TeV.
  */
-class log10_pp_phi2_phi1phi1_bbtautau_TH13: public ThObservable {
+class log10_pp_phi2_phi1phi1_with_channel_bbtautau_TH13: public ThObservable {
 public:
 
     /**
      * @brief log10_pp_phi2_phi1phi1_bbtautau_TH13 constructor.
      */
-    log10_pp_phi2_phi1phi1_bbtautau_TH13(const StandardModel& SM_i);
+    log10_pp_phi2_phi1phi1_with_channel_bbtautau_TH13(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to \phi_{2}}\cdot BR^{\text{GTHDM}}(\phi_{2}\to \phi_{1}\phi_{1}\to b\bar b \tau \tau)]@f$
@@ -6231,13 +6271,13 @@ private:
  * @ingroup GeneralTHDM
  * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to \phi_{3}\to \phi_{1}\phi_{1}\to b\bar b \tau \tau@f$ at 13 TeV.
  */
-class log10_pp_phi3_phi1phi1_bbtautau_TH13: public ThObservable {
+class log10_pp_phi3_phi1phi1_with_channel_bbtautau_TH13: public ThObservable {
 public:
 
     /**
      * @brief log10_pp_phi3_phi1phi1_bbtautau_TH13 constructor.
      */
-    log10_pp_phi3_phi1phi1_bbtautau_TH13(const StandardModel& SM_i);
+    log10_pp_phi3_phi1phi1_with_channel_bbtautau_TH13(const StandardModel& SM_i);
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{GTHDM}}_{pp\to \phi_{3}}\cdot BR^{\text{GTHDM}}(\phi_{3}\to \phi_{1}\phi_{1}\to b\bar b \tau \tau)]@f$
