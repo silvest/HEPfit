@@ -48,8 +48,8 @@ double Kmunu_o_Pmunu::computeThValue()
     //double fKofP = 1.1932;
     
     
-    double fKofP = SM.getOptionalParameter("fKofP");
-    double delKl2Pl2em = SM.getOptionalParameter("delKl2Pl2em");
+    double fKofP = SM.getOptionalParameter("fKofP"); // this is the ratio of charged meson decay constants in the SU(2)-symmetric limit 
+    double delKl2Pl2em = SM.getOptionalParameter("delKl2Pl2em"); //this is the non-perturbative EM + strong isospin violation correction to the ratio of decay rates
     
     
     double num = ((*(allcoeff_K_mu_nu[LO]))(0) -(*(allcoeff_K_mu_nu[LO]))(1) + mK * mK / (ms+mu) / mmu * ((*(allcoeff_K_mu_nu[LO]))(2) - (*(allcoeff_K_mu_nu[LO]))(3))).abs2();
