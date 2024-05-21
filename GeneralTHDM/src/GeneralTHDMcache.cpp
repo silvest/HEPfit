@@ -5127,7 +5127,7 @@ double GeneralTHDMcache::ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass){
     if (i>=0) {
         return(ip_low_pp_ttphi3_ttmumu_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS13_pp_ttphi3_ttmumu,mass);
+        double newResult = interpolateNU (ATLAS13_pp_ttphi3_ttmumu,mass);
         CacheShiftReal(ip_low_pp_ttphi3_ttmumu_ATLAS13_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -6757,9 +6757,6 @@ Gammaphi3tot = Gammaphi3tot + Gammaphi3_tt + Gammaphi3_cc + Gammaphi3_bb
     
 double GeneralTHDMcache::computeHpquantities()
 {
-    
-    
-    
     m2_2 = mH2sq;
     m2 = sqrt(m2_2);
     m3_2 = mH3sq;
@@ -6767,11 +6764,16 @@ double GeneralTHDMcache::computeHpquantities()
     
 //    double GF=1/(sqrt(2.0)*vev*vev);
 //    double sW2=1.0-cW2;
+    double Mtau2 = Mtau*Mtau;
+    double Ms2 = Ms*Ms;
+    double Mc2 = Mc*Mc;
     double Mb2 = Mb*Mb;
     double Mt2 = Mt*Mt;
-    double Mtau2=Mtau*Mtau;
-    double MW2 = MW*MW;
-    double Vtb=myGTHDM->getCKM().getV_tb().abs();
+    double r2hot = mHp*mHp/Mt/Mt;
+    double r2bot = Mb*Mb/Mt/Mt;
+    double Vtb = myGTHDM->getCKM().getV_tb().abs();
+    double Vcb = myGTHDM->getCKM().getV_cb().abs();
+    double Vcs = myGTHDM->getCKM().getV_cs().abs();
     
     m2 = sqrt(m2_2);
     m3 = sqrt(m3_2);
@@ -6785,7 +6787,7 @@ double GeneralTHDMcache::computeHpquantities()
   
         /*complex i */
     
-     gslpp::complex i = gslpp::complex::i();
+    gslpp::complex i = gslpp::complex::i();
      
      
     //In order to compute the xsection we use the xsections generated in the table log_cs_ggtoHp_8
@@ -6805,42 +6807,72 @@ double GeneralTHDMcache::computeHpquantities()
     //std::cout<<"\033[1;32m su.abs2() = \033[0m "<<su.abs2()<<std::endl;
     //std::cout<<"\033[1;32m SigmaHp8 = \033[0m "<<SigmaHp8<<std::endl;
     //std::cout<<"\033[1;32m SigmaHpm13 = \033[0m "<<SigmaHpm13<<std::endl;
-   
-             
+
+
     double GammaHptaunu=HSTheta(mHp-Mtau)*(Mtau2*(mHp2-Mtau2)*(mHp2-Mtau2)*sl.abs2())/(8.0*mHp*mHp2*M_PI*vev*vev);
-    
-    
-    
-    double GammaHptb;
+
+    double GammaHpcs = 0.;
+    double GammaHpcb = 0.;
+    double GammaHptb = 0.;
+    double GammaHpHlW = 0.;
+    double GammaHpphi2W = 0.;
+    double GammaHpphi3W = 0.;
     
     if(mHp>=Mt+Mb)
     {
-    GammaHptb=HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
-                        -sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2))
-                      *sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2));
+        GammaHptb = HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
+                    -sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2))
+                    *sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2));
     }
-    else{
-    GammaHptb=0;
+
+    if(mHp>=Mc+Mb)
+    {
+        GammaHpcb = HSTheta(mHp-Mc-Mb)*(Vcb*Vcb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mc2
+                    -sd.abs2()*Mb2*(Mb2-mHp2+Mc2)-su.abs2()*Mc2*(Mb2-mHp2+Mc2))
+                    *sqrt((Mb2*Mb2+(mHp2-Mc2)*(mHp2-Mc2)-2.0*Mb2*(mHp2+Mc2))/(mHp2*mHp2));
     }
-   
+
+    if(mHp>=Mc+Mb)
+    {
+        GammaHpcs = HSTheta(mHp-Mc-Ms)*(Vcs*Vcs/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Ms2*Mc2
+                    -sd.abs2()*Ms2*(Ms2-mHp2+Mc2)-su.abs2()*Mc2*(Ms2-mHp2+Mc2))
+                    *sqrt((Ms2*Ms2+(mHp2-Mc2)*(mHp2-Mc2)-2.0*Ms2*(mHp2+Mc2))/(mHp2*mHp2));
+    }
+
     //decay to phi1 (SM Higgs)
-    double GammaHpHlW=KaellenFunction(1.0,mHl/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,mHl/MW)*KaellenFunction(1.0,mHp/MW,mHl/MW)
-                      *MW2*MW2/mHp*(R21-R31)*(R21-R31)/(2.0*M_PI*vev*vev);
-    
+    if(mHp>=mHl+MW)
+    {
+        GammaHpHlW = KaellenFunction(1.0, mHl*mHl/mHp/mHp, MW*MW/mHp/mHp) *
+                     KaellenFunction(1.0, mHl*mHl/mHp/mHp, MW*MW/mHp/mHp) *
+                     KaellenFunction(1.0, mHl*mHl/mHp/mHp, MW*MW/mHp/mHp) *
+                     mHp*mHp*mHp * (R12*R12 + R13*R13) / (2.0*M_PI*vev*vev);
+    }
+
     //decay to phi2
-    double GammaHpphi2W=KaellenFunction(1.0,m2/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,m2/MW)*KaellenFunction(1.0,mHp/MW,m2/MW)
-                        *MW2*MW2/mHp*(R22-R32)*(R22-R32)/(2.0*M_PI*vev*vev);
-    
+    if(mHp>=m2+MW)
+    {
+        GammaHpphi2W = KaellenFunction(1.0, m2*m2/mHp/mHp, MW*MW/mHp/mHp) *
+                       KaellenFunction(1.0, m2*m2/mHp/mHp, MW*MW/mHp/mHp) *
+                       KaellenFunction(1.0, m2*m2/mHp/mHp, MW*MW/mHp/mHp) *
+                       mHp*mHp*mHp * (R22*R22 + R23*R23) / (2.0*M_PI*vev*vev);
+    }
+
     //decay to phi3
-    double GammaHpphi3W=KaellenFunction(1.0,m3/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,m3/MW)*KaellenFunction(1.0,mHp/MW,m3/MW)
-                        *MW2*MW2/mHp*(R23-R33)*(R23-R33)/(2.0*M_PI*vev*vev);
+    if(mHp>=m3+MW)
+    {
+        GammaHpphi3W = KaellenFunction(1.0, m3*m3/mHp/mHp, MW*MW/mHp/mHp) *
+                       KaellenFunction(1.0, m3*m3/mHp/mHp, MW*MW/mHp/mHp) *
+                       KaellenFunction(1.0, m3*m3/mHp/mHp, MW*MW/mHp/mHp) *
+                       mHp*mHp*mHp * (R32*R32 + R33*R33) / (2.0*M_PI*vev*vev);
+    }
 
 
     GammaHptot = 1.e-10;
     
     //std::cout<<"\033[1;33m GammaHptot = \033[0m "<<GammaHptot<<std::endl;
     
-    GammaHptot= GammaHptot + GammaHptaunu + GammaHptb + GammaHpHlW + GammaHpphi2W + GammaHpphi3W;
+    GammaHptot = GammaHptot + GammaHptaunu + GammaHpcs + GammaHpcb + GammaHptb +
+                 GammaHpHlW + GammaHpphi2W + GammaHpphi3W;
     
     
     //std::cout<<"\033[1;33m GammaHptot = \033[0m "<<GammaHptot<<std::endl;
@@ -6850,11 +6882,12 @@ double GeneralTHDMcache::computeHpquantities()
     //std::cout<<"\033[1;33m GammaHpphi2W = \033[0m "<<GammaHpphi2W<<std::endl;
     //std::cout<<"\033[1;33m GammaHpphi3W = \033[0m "<<GammaHpphi3W<<std::endl;
 
-    
-    
-    
-    Br_Hptotaunu=GammaHptaunu/GammaHptot;
-    Br_Hptotb=GammaHptb/GammaHptot;
+
+    Br_Hptotaunu = GammaHptaunu/GammaHptot;
+    Br_Hptocs    = GammaHpcs/GammaHptot;
+    Br_Hptocb    = GammaHpcb/GammaHptot;
+    Br_Hptotb    = GammaHptb/GammaHptot;
+    Br_Hptophi3W = GammaHpphi3W/GammaHptot;
     
     //HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
     //                    -sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2))
@@ -6872,9 +6905,29 @@ double GeneralTHDMcache::computeHpquantities()
     //std::cout<<"\033[1;31m   GammaHpHlW = \033[0m "<< GammaHpHlW <<std::endl;
     //std::cout<<"\033[1;31m   GammaHpphi2W = \033[0m "<< GammaHpphi2W <<std::endl;
     //std::cout<<"\033[1;31m   GammaHpphi3W = \033[0m "<< GammaHpphi3W <<std::endl;
-  
-     return 0;
+
+    // Hp production from top decay, for light charged scalars
+    // Formula according to Czarnecki and Davidson, hep-ph/9301237
+    double Gammatoptot = 1.42; // PDG 2023
+    double GammatHpb = 0.;
+    double pre_tHpb = myGTHDM->getGF() * Mt2 * Mt * Vtb * Vtb / 4. / sqrt(2.) / M_PI;
+    gslpp::complex aCD = su - sd * Mb / Mt;
+    gslpp::complex bCD = su + sd * Mb / Mt;
+    double aCD2 = (aCD * aCD.conjugate()).real();
+    double bCD2 = (bCD * bCD.conjugate()).real();
+
+    if(Mt>=mHp+Mb)
+    {
+        GammatHpb = pre_tHpb * ((1. - r2hot + r2bot) * (aCD2 + bCD2) / 2. + r2bot * (aCD2 - bCD2)) *
+                    sqrt(1. + r2hot*r2hot + r2bot*r2bot - 2. * (r2hot + r2bot + r2hot*r2bot)) / 2.;
+    }
+
+    Br_ttoHpb = GammatHpb / Gammatoptot;
+
+
+    return 0.;
 }
+
 
 //Higgs direct searches
 
@@ -6900,7 +6953,7 @@ double GeneralTHDMcache::computeHeavyHiggs()
     double Br_Ztomumu=0.03366; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
     double Br_Ztotautau=0.0337; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
     double Br_Ztoinv=0.2; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
-    double Br_Ztohadrons=0.69911; //PDG2022
+//    double Br_Ztohadrons=0.69911; //PDG2022
     double Br_Wtoenu=0.1071; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
     double Br_Wtomunu=0.1063; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
     double Br_Wtotaunu=0.1138; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)

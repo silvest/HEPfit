@@ -1395,8 +1395,12 @@ public:
     double SigmaHp8;
     double SigmaHpm13;
     double Br_Hptotaunu;
+    double Br_Hptocs;
+    double Br_Hptocb;
     double Br_Hptotb;
+    double Br_Hptophi3W;
     double GammaHptot;
+    double Br_ttoHpb;
 
     /**
      * @brief Cross section times branching ratio for the process @f$t\bar t\to phi2\to t\bar t@f$ at the LHC with 13 TeV.
