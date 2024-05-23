@@ -5849,6 +5849,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_pp_bbphi3_bbtautau_CMS8"] = boost::factory<Hobs_pp_bbphi3_bbtautau_CMS8*>();
     obsThFactory["Hobs_pp_bbphi3_bbmumu_CMS8"] = boost::factory<Hobs_pp_bbphi3_bbmumu_CMS8*>();
 
+    obsThFactory["Hobs_t_Hpb_csb_CMS8"] = boost::factory<Hobs_t_Hpb_csb_CMS8*>();
+    obsThFactory["Hobs_t_Hpb_taunub_CMS8"] = boost::factory<Hobs_t_Hpb_taunub_CMS8*>();
+    obsThFactory["Hobs_t_Hpb_cbb_CMS8"] = boost::factory<Hobs_t_Hpb_cbb_CMS8*>();
+    obsThFactory["Hobs_t_Hpb_WAb_Wmumub_CMS13"] = boost::factory<Hobs_t_Hpb_WAb_Wmumub_CMS13*>();
+    obsThFactory["Hobs_t_Hpb_csb_CMS13"] = boost::factory<Hobs_t_Hpb_csb_CMS13*>();
+    obsThFactory["Hobs_t_Hpb_taunub_ATLAS8"] = boost::factory<Hobs_t_Hpb_taunub_ATLAS8*>();
+    obsThFactory["Hobs_t_Hpb_cbb_ATLAS13"] = boost::factory<Hobs_t_Hpb_cbb_ATLAS13*>();
+    obsThFactory["Hobs_t_Hpb_WAb_Wmumub_ATLAS13"] = boost::factory<Hobs_t_Hpb_WAb_Wmumub_ATLAS13*>();
+
     obsThFactory["log10_tt_phi2_tt_TH13"] = boost::factory<log10_tt_phi2_tt_TH13*>();
     obsThFactory["log10_tt_phi3_tt_TH13"] = boost::factory<log10_tt_phi3_tt_TH13*>();
     obsThFactory["log10_bb_phi2_tt_TH13"] = boost::factory<log10_bb_phi2_tt_TH13*>();

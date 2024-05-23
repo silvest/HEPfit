@@ -331,3 +331,80 @@ double Hobs_pp_phi2_gaga_ATLAS13_low::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->THoEX_pp_phi2_gaga_ATLAS13_low;
 }
+
+
+/***************************/
+/* CMS observables with Hp */
+/***************************/
+
+Hobs_t_Hpb_csb_CMS8::Hobs_t_Hpb_csb_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_t_Hpb_csb_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_csb_CMS8;
+}
+
+Hobs_t_Hpb_taunub_CMS8::Hobs_t_Hpb_taunub_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_t_Hpb_taunub_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_taunub_CMS8;
+}
+
+Hobs_t_Hpb_cbb_CMS8::Hobs_t_Hpb_cbb_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_t_Hpb_cbb_CMS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_cbb_CMS8;
+}
+
+Hobs_t_Hpb_WAb_Wmumub_CMS13::Hobs_t_Hpb_WAb_Wmumub_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_t_Hpb_WAb_Wmumub_CMS13::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_WAb_Wmumub_CMS13;
+}
+
+Hobs_t_Hpb_csb_CMS13::Hobs_t_Hpb_csb_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_t_Hpb_csb_CMS13::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_csb_CMS13;
+}
+
+Hobs_t_Hpb_taunub_ATLAS8::Hobs_t_Hpb_taunub_ATLAS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_t_Hpb_taunub_ATLAS8::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_taunub_ATLAS8;
+}
+
+Hobs_t_Hpb_cbb_ATLAS13::Hobs_t_Hpb_cbb_ATLAS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_t_Hpb_cbb_ATLAS13::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_cbb_ATLAS13;
+}
+
+Hobs_t_Hpb_WAb_Wmumub_ATLAS13::Hobs_t_Hpb_WAb_Wmumub_ATLAS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_t_Hpb_WAb_Wmumub_ATLAS13::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_WAb_Wmumub_ATLAS13;
+}

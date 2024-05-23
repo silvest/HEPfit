@@ -309,8 +309,33 @@ public:
     gslpp::matrix<double> ATLAS8_pp_h_phi3phi3_gagagaga, ATLAS8_gg_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_bbmumu,\
                           CMS8_pp_h_phi3phi3_mumutautau, CMS8_pp_phi2_gaga, CMS8_pp_bbphi3_bbtautau, CMS8_pp_bbphi3_bbmumu;
     
+    //Added in 2024 for light charged scalar scenario
+    /**
+     * @brief CMS observed @f$95\%@f$ upper branching fraction limits at 8 TeV, depending on the charged scalar mass.
+     */
+    gslpp::matrix<double> CMS8_t_Hpb_csb, CMS8_t_Hpb_taunub, CMS8_t_Hpb_cbb;
+    /**
+     * @brief CMS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on charged and pseudoscalar masses.
+     */
+    gslpp::matrix<double> CMS13_t_Hpb_WAb_Wmumub;
+    /**
+     * @brief CMS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on the charged scalar mass.
+     */
+    gslpp::matrix<double> CMS13_t_Hpb_csb;
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper branching fraction limits at 8 TeV, depending on the charged scalar mass.
+     */
+    gslpp::matrix<double> ATLAS8_t_Hpb_taunub;
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on the charged scalar mass.
+     */
+    gslpp::matrix<double> ATLAS13_t_Hpb_cbb;
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on charged and pseudoscalar masses.
+     */
+    gslpp::matrix<double> ATLAS13_t_Hpb_WAb_Wmumub;
     
-    //Added in the 2024 for g-2 computation
+    //Added in 2024 for g-2 computation
     gslpp::matrix<double> integral_x2_1mx_G_log, integral_x2_1px_G_log, integral_x2_G_log, integral_x_1mx2_G_log,\
                           integral_x_1mx_1px_G_log, integral_x2_1mx_G_variable_set_1_log,\
                           integral_x2_G_variable_set_1_log, integral_x_1mx2_G_variable_set_0_log;
@@ -661,6 +686,7 @@ public:
     double ip_ex_pp_Hpm_tb_ATLAS13(double mass);
     double ip_ex_pp_Hpm_tb_CMS13(double mass);
 
+
     double ip_low_pp_h_phi3phi3_mumutautau_CMS13(double mass);
     double ip_low_pp_h_phi3phi3_bbtautau_CMS13(double mass);
     double ip_low_pp_h_phi3phi3_bbmumu_CMS13(double mass);
@@ -671,7 +697,6 @@ public:
     double ip_low_pp_phi2_gaga_CMS13(double mass);
     double ip_low_pp_bbphi3_bbtautau_CMS13(double mass);
 
-
     
     double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(double mass);
     double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8(double mass);
@@ -681,8 +706,7 @@ public:
     double ip_low_pp_phi2_gaga_CMS8(double mass);
     double ip_low_pp_bbphi3_bbtautau_CMS8(double mass);
     double ip_low_pp_bbphi3_bbmumu_CMS8(double mass);
-    
-    
+
 
     double ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(double mass);
     double ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(double mass);
@@ -693,7 +717,18 @@ public:
     double ip_low_pp_h_phi23phi23_gagagg_ATLAS13(double mass);
     double ip_low_pp_phi2_gaga_ATLAS13(double mass);
     double ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass);
-    
+
+
+    double ip_low_t_Hpb_csb_CMS8(double mass);
+    double ip_low_t_Hpb_taunub_CMS8(double mass);
+    double ip_low_t_Hpb_cbb_CMS8(double mass);
+    double ip_low_t_Hpb_WAb_Wmumub_CMS13(double mass);
+    double ip_low_t_Hpb_csb_CMS13(double mass);
+    double ip_low_t_Hpb_taunub_ATLAS8(double mass);
+    double ip_low_t_Hpb_cbb_ATLAS13(double mass);
+    double ip_low_t_Hpb_WAb_Wmumub_ATLAS13(double mass);
+
+
     double ip_integral_x2_1mx_G(double wa, double wb);
     double ip_integral_x2_1px_G(double wa, double wb);
     double ip_integral_x2_G(double wa, double wb);
@@ -2920,6 +2955,15 @@ public:
     double THoEX_pp_h_phi2phi2_bbmumu_ATLAS13_old;
     double THoEX_pp_h_phi2phi2_gagagg_ATLAS13;
 
+    double THoEX_t_Hpb_csb_CMS8;
+    double THoEX_t_Hpb_taunub_CMS8;
+    double THoEX_t_Hpb_cbb_CMS8;
+    double THoEX_t_Hpb_WAb_Wmumub_CMS13;
+    double THoEX_t_Hpb_csb_CMS13;
+    double THoEX_t_Hpb_taunub_ATLAS8;
+    double THoEX_t_Hpb_cbb_ATLAS13;
+    double THoEX_t_Hpb_WAb_Wmumub_ATLAS13;
+
     double SigmaSumphi2_8;
     double SigmaggF_phi2_8;
     double SigmabbF_phi2_8;
@@ -3608,7 +3652,15 @@ private:
     mutable double ip_low_pp_bbphi3_bbtautau_CMS8_cache[2][CacheSize];
     mutable double ip_low_pp_bbphi3_bbmumu_CMS8_cache[2][CacheSize];
 
-    
+    mutable double ip_low_t_Hpb_csb_CMS8_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_taunub_CMS8_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_cbb_CMS8_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_WAb_Wmumub_CMS13_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_csb_CMS13_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_taunub_ATLAS8_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_cbb_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_WAb_Wmumub_ATLAS13_cache[2][CacheSize];
+
     mutable double ip_integral_x2_1mx_G_cache[3][CacheSize];
     mutable double ip_integral_x2_1px_G_cache[3][CacheSize];
     mutable double ip_integral_x2_G_cache[3][CacheSize];
