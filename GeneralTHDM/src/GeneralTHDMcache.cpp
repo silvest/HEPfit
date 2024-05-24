@@ -6887,16 +6887,19 @@ double GeneralTHDMcache::computeHpquantities()
     m2 = sqrt(m2_2);
     m3_2 = mH3sq;
     m3 = sqrt(m3_2);
-    
-//    double GF=1/(sqrt(2.0)*vev*vev);
-//    double sW2=1.0-cW2;
+
+    double alsmuc = myGTHDM->Als(myGTHDM->getMuc(), FULLNNNLO, true);
+    // Mbar2Mp does not receive Mc
+    double Mcp = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
+    double Mbp = myGTHDM->Mbar2Mp(Mb, FULLNNLO);
+    double Mtp = myGTHDM->getMtpole();
     double Mtau2 = Mtau*Mtau;
     double Ms2 = Ms*Ms;
-    double Mc2 = Mc*Mc;
-    double Mb2 = Mb*Mb;
-    double Mt2 = Mt*Mt;
-    double r2hot = mHp*mHp/Mt/Mt;
-    double r2bot = Mb*Mb/Mt/Mt;
+    double Mc2 = Mcp*Mcp;
+    double Mb2 = Mbp*Mbp;
+    double Mt2 = Mtp*Mtp;
+    double r2hot = mHp*mHp/Mtp/Mtp;
+    double r2bot = Mbp*Mbp/Mtp/Mtp;
     double Vtb = myGTHDM->getCKM().getV_tb().abs();
     double Vcb = myGTHDM->getCKM().getV_cb().abs();
     double Vcs = myGTHDM->getCKM().getV_cs().abs();
@@ -6911,8 +6914,7 @@ double GeneralTHDMcache::computeHpquantities()
         throw std::runtime_error("Direct Searches are only available in the A2HDM.");
     }
   
-        /*complex i */
-    
+    /*complex i */
     gslpp::complex i = gslpp::complex::i();
      
      
@@ -6923,16 +6925,9 @@ double GeneralTHDMcache::computeHpquantities()
     //quark (and the one included to the top quark)
     SigmaHp8=0.0;
     SigmaHpm13=0.0;
-    
-        //std::cout<<"\033[1;32m SigmaHp8 = \033[0m "<<SigmaHp8<<std::endl;
-        //std::cout<<"\033[1;32m ip_cs_ggtoHp_8(mHp,0.0) = \033[0m "<<ip_cs_ggtoHp_8(mHp,0.0)<<std::endl;
-        //std::cout<<"\033[1;32m su.abs2() = \033[0m "<<su.abs2()<<std::endl;
         
     SigmaHp8=ip_cs_ggtoHp_8(mHp,0.0)*su.abs2();
     SigmaHpm13=ip_cs_ggtoHp_13(mHp,0.0)*su.abs2();
-    //std::cout<<"\033[1;32m su.abs2() = \033[0m "<<su.abs2()<<std::endl;
-    //std::cout<<"\033[1;32m SigmaHp8 = \033[0m "<<SigmaHp8<<std::endl;
-    //std::cout<<"\033[1;32m SigmaHpm13 = \033[0m "<<SigmaHpm13<<std::endl;
 
 
     double GammaHptaunu=HSTheta(mHp-Mtau)*(Mtau2*(mHp2-Mtau2)*(mHp2-Mtau2)*sl.abs2())/(8.0*mHp*mHp2*M_PI*vev*vev);
@@ -6944,23 +6939,23 @@ double GeneralTHDMcache::computeHpquantities()
     double GammaHpphi2W = 0.;
     double GammaHpphi3W = 0.;
     
-    if(mHp>=Mt+Mb)
+    if(mHp>=Mtp+Mbp)
     {
-        GammaHptb = HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
+        GammaHptb = HSTheta(mHp-Mtp-Mbp)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
                     -sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2))
                     *sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2));
     }
 
-    if(mHp>=Mc+Mb)
+    if(mHp>=Mcp+Mbp)
     {
-        GammaHpcb = HSTheta(mHp-Mc-Mb)*(Vcb*Vcb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mc2
+        GammaHpcb = HSTheta(mHp-Mcp-Mbp)*(Vcb*Vcb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mc2
                     -sd.abs2()*Mb2*(Mb2-mHp2+Mc2)-su.abs2()*Mc2*(Mb2-mHp2+Mc2))
                     *sqrt((Mb2*Mb2+(mHp2-Mc2)*(mHp2-Mc2)-2.0*Mb2*(mHp2+Mc2))/(mHp2*mHp2));
     }
 
-    if(mHp>=Mc+Mb)
+    if(mHp>=Mcp+Ms)
     {
-        GammaHpcs = HSTheta(mHp-Mc-Ms)*(Vcs*Vcs/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Ms2*Mc2
+        GammaHpcs = HSTheta(mHp-Mcp-Ms)*(Vcs*Vcs/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Ms2*Mc2
                     -sd.abs2()*Ms2*(Ms2-mHp2+Mc2)-su.abs2()*Mc2*(Ms2-mHp2+Mc2))
                     *sqrt((Ms2*Ms2+(mHp2-Mc2)*(mHp2-Mc2)-2.0*Ms2*(mHp2+Mc2))/(mHp2*mHp2));
     }
@@ -6995,18 +6990,8 @@ double GeneralTHDMcache::computeHpquantities()
 
     GammaHptot = 1.e-10;
     
-    //std::cout<<"\033[1;33m GammaHptot = \033[0m "<<GammaHptot<<std::endl;
-    
     GammaHptot = GammaHptot + GammaHptaunu + GammaHpcs + GammaHpcb + GammaHptb +
                  GammaHpHlW + GammaHpphi2W + GammaHpphi3W;
-    
-    
-    //std::cout<<"\033[1;33m GammaHptot = \033[0m "<<GammaHptot<<std::endl;
-    //std::cout<<"\033[1;33m GammaHptaunu = \033[0m "<<GammaHptaunu<<std::endl;
-    //std::cout<<"\033[1;33m GammaHptb = \033[0m "<<GammaHptb<<std::endl;
-    //std::cout<<"\033[1;33m GammaHpHlW = \033[0m "<<GammaHpHlW<<std::endl;
-    //std::cout<<"\033[1;33m GammaHpphi2W = \033[0m "<<GammaHpphi2W<<std::endl;
-    //std::cout<<"\033[1;33m GammaHpphi3W = \033[0m "<<GammaHpphi3W<<std::endl;
 
 
     Br_Hptotaunu = GammaHptaunu/GammaHptot;
@@ -7018,31 +7003,19 @@ double GeneralTHDMcache::computeHpquantities()
     //HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
     //                    -sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2))
     //                  *sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2))
-    
-    //std::cout<<"\033[1;33m HSTheta(mHp-Mt-Mb) = \033[0m "<< HSTheta(mHp-Mt-Mb) <<std::endl;
-    //std::cout<<"\033[1;33m (Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))  = \033[0m "<< (Vtb*Vtb/(8.0*mHp*M_PI*vev*vev)) <<std::endl;
-    //std::cout<<"\033[1;33m (-4.0*(su*sd).real()*Mb2*Mt2-sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2)) = \033[0m "<< (-4.0*(su*sd).real()*Mb2*Mt2-sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2)) <<std::endl;
-    //std::cout<<"\033[1;33m sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2))   = \033[0m "<< sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2)) <<std::endl;
-    
-    
-    
-    //std::cout<<"\033[1;31m   GammaHptb = \033[0m "<< GammaHptb <<std::endl;
-    //std::cout<<"\033[1;31m   GammaHptaunu = \033[0m "<< GammaHptaunu <<std::endl;
-    //std::cout<<"\033[1;31m   GammaHpHlW = \033[0m "<< GammaHpHlW <<std::endl;
-    //std::cout<<"\033[1;31m   GammaHpphi2W = \033[0m "<< GammaHpphi2W <<std::endl;
-    //std::cout<<"\033[1;31m   GammaHpphi3W = \033[0m "<< GammaHpphi3W <<std::endl;
+
 
     // Hp production from top decay, for light charged scalars
     // Formula according to Czarnecki and Davidson, hep-ph/9301237
     double Gammatoptot = 1.42; // PDG 2023
     double GammatHpb = 0.;
-    double pre_tHpb = myGTHDM->getGF() * Mt2 * Mt * Vtb * Vtb / 4. / sqrt(2.) / M_PI;
-    gslpp::complex aCD = su - sd * Mb / Mt;
-    gslpp::complex bCD = su + sd * Mb / Mt;
+    double pre_tHpb = myGTHDM->getGF() * Mt2 * Mtp * Vtb * Vtb / 4. / sqrt(2.) / M_PI;
+    gslpp::complex aCD = su - sd * Mbp / Mtp;
+    gslpp::complex bCD = su + sd * Mbp / Mtp;
     double aCD2 = (aCD * aCD.conjugate()).real();
     double bCD2 = (bCD * bCD.conjugate()).real();
 
-    if(Mt>=mHp+Mb)
+    if(Mtp>=mHp+Mbp)
     {
         GammatHpb = pre_tHpb * ((1. - r2hot + r2bot) * (aCD2 + bCD2) / 2. + r2bot * (aCD2 - bCD2)) *
                     sqrt(1. + r2hot*r2hot + r2bot*r2bot - 2. * (r2hot + r2bot + r2hot*r2bot)) / 2.;
