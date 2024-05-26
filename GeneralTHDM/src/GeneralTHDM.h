@@ -1331,6 +1331,14 @@ public:
     virtual double muVH(const double sqrt_s) const;
     virtual double muVBFpVH(const double sqrt_s) const;
     virtual double muttH(const double sqrt_s) const;
+    virtual double mutH(const double sqrt_s) const;
+    virtual double mubbH(const double sqrt_s) const;
+    virtual double muttHptH(const double sqrt_s) const;
+    virtual double muggHpVBFpbbH(const double sqrt_s) const;
+    virtual double muggHpttHptHpbbH(const double sqrt_s) const;
+    virtual double muggHpbbH(const double sqrt_s) const;
+    
+    
     virtual double GammaTotal() const;
     virtual double BrHggRatio() const;
     virtual double BrHWWRatio() const;
@@ -1342,26 +1350,59 @@ public:
     virtual double BrHccRatio() const;
     virtual double BrHbbRatio() const;
     virtual double muggHgaga(const double sqrt_s) const;
+    virtual double muggHpbbH_Hgaga(const double sqrt_s) const;
     virtual double muVBFHgaga(const double sqrt_s) const;
     virtual double muVHgaga(const double sqrt_s) const;
+    virtual double muWHgaga(const double sqrt_s) const;
+    virtual double muZHgaga(const double sqrt_s) const;
     virtual double muttHgaga(const double sqrt_s) const;
+    virtual double mutHgaga(const double sqrt_s) const;
+    virtual double muttHptH_Hgaga(const double sqrt_s) const;
+    
+    
+    
     virtual double muggHZZ(const double sqrt_s) const;
+    virtual double muggHpbbH_HZZ(const double sqrt_s) const;
     virtual double muVBFHZZ(const double sqrt_s) const;
     virtual double muVHZZ(const double sqrt_s) const;
+    virtual double muZHZZ(const double sqrt_s) const;
+    virtual double muWHZZ(const double sqrt_s) const;
     virtual double muttHZZ(const double sqrt_s) const;
+    virtual double muttHptH_HZZ(const double sqrt_s) const;
     virtual double muggHWW(const double sqrt_s) const;
+    virtual double muggHpbbH_HWW(const double sqrt_s) const;
     virtual double muVBFHWW(const double sqrt_s) const;
+    virtual double muWHWW(const double sqrt_s) const;
+    virtual double muZHWW(const double sqrt_s) const;
     virtual double muVHWW(const double sqrt_s) const;
     virtual double muttHWW(const double sqrt_s) const;
+    virtual double muttHptH_HWW(const double sqrt_s) const;
     virtual double muggHtautau(const double sqrt_s) const;
+    virtual double muggHpbbH_Htautau(const double sqrt_s) const;
     virtual double muVBFHtautau(const double sqrt_s) const;
+    virtual double muWHtautau(const double sqrt_s) const;
+    virtual double muZHtautau(const double sqrt_s) const;
     virtual double muVHtautau(const double sqrt_s) const;
     virtual double muttHtautau(const double sqrt_s) const;
+    virtual double muttHptH_Htautau(const double sqrt_s) const;
     virtual double muggHbb(const double sqrt_s) const;
+    virtual double muggHpVBFpbbH_Hbb(const double sqrt_s) const;
     virtual double muVBFHbb(const double sqrt_s) const;
+    virtual double muWHbb(const double sqrt_s) const;
+    virtual double muZHbb(const double sqrt_s) const;
     virtual double muVHbb(const double sqrt_s) const;
     virtual double muttHbb(const double sqrt_s) const;
+    virtual double muttHptH_Hbb(const double sqrt_s) const;
+    virtual double muVHcc(const double sqrt_s) const;
     virtual double muppHmumu(const double sqrt_s) const;
+    virtual double muggHmumu(const double sqrt_s) const;
+    virtual double muggHpttHptHpbbH_Hmumu(const double sqrt_s) const;
+    virtual double muVBFHmumu(const double sqrt_s) const;
+    virtual double muVHmumu(const double sqrt_s) const;
+    virtual double muttHptH_Hmumu(const double sqrt_s) const;
+    virtual double muVBFpVH_Hmumu(const double sqrt_s) const;
+    virtual double muggHZga(const double sqrt_s) const;
+    virtual double muVBFHZga(const double sqrt_s) const;
     virtual double muppHZga(const double sqrt_s) const;
     virtual double computeGammaTotalRatio() const;
 
