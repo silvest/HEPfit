@@ -25601,7 +25601,7 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
     double dGammaHgaga_cHB, dGammaHgaga_cHW, dGammaHgaga_cHWB, dGammaHgagaRatio_tree;
     
     //-- Indirect effects from the theory-scheme prefactors:
-    deltaGammaHgaga_Prefactor = (-0.211587*cHD - 0.352136*cHWB - 0.181872*dgf)*pow(1000,2);
+    deltaGammaHgaga_Prefactor = (-0.211587*cHD - 0.352136*cHWB)*pow(1000,2) - 0.181872*dgf;
 
     //-- Indirect effect from Higgs-shift:
     dGammaHgagaRatio_HiggsField = sqrt(2)*(cHbox - cHD/4.)/GF;
