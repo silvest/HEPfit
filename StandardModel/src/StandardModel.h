@@ -2480,10 +2480,26 @@ public:
             throw std::runtime_error("Bad argument in StandardModel::computeSigmattH()");
     }
     
+    /**
+     * @brief The tHq production cross section in the Standard Model.
+     * @details 
+     * For the 13 TeV values we use the official numbers a la CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
+     */ 
+    double computeSigmatHq(const double sqrt_s) const
+    {
+        if (sqrt_s == 13.0) {
+            return 0.07426; // in pb for Mh=125.09 GeV 
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmatHq()");
+    }
+    
+    
     
     /**
      * @brief The bbH production cross section in the Standard Model.
-     * @details 
+     * @details * For the 13 TeV values we use the official numbers a la CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
      * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
      * https://arxiv.org/pdf/2402.09955v1.pdf 
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2491,7 +2507,10 @@ public:
      */
     double computeSigmabbH(const double sqrt_s) const
     {
-        if (sqrt_s == 13.6) {
+        if (sqrt_s == 13.0){
+            return 0.4863; // in pb for Mh=125.09 GeV 
+        }
+        else if (sqrt_s == 13.6) {
             return 0.566; // in pb for Mh=125.09 GeV (NLO+NNLLpart+ybyt matching)
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmabbH()");

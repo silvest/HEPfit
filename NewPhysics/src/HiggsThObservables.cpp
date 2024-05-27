@@ -1298,7 +1298,14 @@ double mutHgaga::computeThValue()
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );       
     } else {
-        return ((myNPbase->mutH(sqrt_s)) )*(myNPbase->BrHgagaRatio()) ;
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmutHgaga = myNPbase->mutHgaga(sqrt_s);
+        if(NPmutHgaga==1.0){
+            return ((myNPbase->mutH(sqrt_s)) )*(myNPbase->BrHgagaRatio());
+        } else{
+            return NPmutHgaga;
+        }
     }
 }
 
@@ -1325,7 +1332,16 @@ double muggHpbbH_Hgaga::computeThValue()                                        
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
-        return (myNPbase->muggHgaga(sqrt_s));
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        //Also, the bbH is missing here, I'll leave it as it was for the 
+        //moment (since bbH is really suppressed).
+        double NPmuggHpbbH_Hgaga = myNPbase->muggHpbbH_Hgaga(sqrt_s);
+        if (NPmuggHpbbH_Hgaga == 1.0){
+            return (myNPbase->muggHgaga(sqrt_s));
+        } else{
+            return NPmuggHpbbH_Hgaga;
+        }
     }
 }
 
@@ -1338,9 +1354,16 @@ muttHptH_Hgaga::muttHptH_Hgaga(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muttHptH_Hgaga::computeThValue()                                         //AG:added
 {
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_ttH = 0.499873;
     double xsSM_tH = 0.0821;
+    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
+
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -1355,7 +1378,14 @@ double muttHptH_Hgaga::computeThValue()                                         
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) ); 
     } else {
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmuttHptH_Hgaga = myNPbase->muttHptH_Hgaga(sqrt_s);
+        if(NPmuttHptH_Hgaga==1.0){
         return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHgagaRatio()) ;
+        } else {
+            return NPmuttHptH_Hgaga;
+        }
     }
 }
 
@@ -1616,9 +1646,15 @@ muVHZZ::muVHZZ(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVHZZ::computeThValue()
 {
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_WH  = 1.21539;
     double xsSM_ZH  = 0.795910;
+    //double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
+    //double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -1635,7 +1671,14 @@ double muVHZZ::computeThValue()
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         //return myNPbase->muVHZZ(sqrt_s);
-        return ( xsSM_ZH*(myNPbase->muZH(sqrt_s)) + xsSM_WH*(myNPbase->muWH(sqrt_s)) )/(xsSM_ZH+xsSM_WH) * (myNPbase->BrHZZRatio());
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmuVHZZ = myNPbase->muVHZZ(sqrt_s);
+        if(NPmuVHZZ==1.0){
+            return ( xsSM_ZH*(myNPbase->muZH(sqrt_s)) + xsSM_WH*(myNPbase->muWH(sqrt_s)) )/(xsSM_ZH+xsSM_WH) * (myNPbase->BrHZZRatio());
+        } else {
+            return NPmuVHZZ;
+        }
     }
 }
 
@@ -1664,9 +1707,15 @@ muttHptH_HZZ::muttHptH_HZZ(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_HZZ::computeThValue()                                           //AG:added
 {
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_ttH = 0.499873;
     double xsSM_tH = 0.0821;
+    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -1682,7 +1731,15 @@ double muttHptH_HZZ::computeThValue()                                           
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );       
     } else {
-        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHZZRatio()) ;
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmuttHptH_HZZ = myNPbase->muttHptH_HZZ(sqrt_s);
+        if(NPmuttHptH_HZZ==1.0){
+            return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHZZRatio()) ;
+        } else {
+            return NPmuttHptH_HZZ;
+        }  
     }
 }
 
@@ -1695,9 +1752,15 @@ muttHptH_Hmumu::muttHptH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muttHptH_Hmumu::computeThValue()                                         //AG:added
 {
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_ttH = 0.499873;
     double xsSM_tH = 0.0821;
+    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //return ( 1.0 
         //        + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
@@ -1713,7 +1776,15 @@ double muttHptH_Hmumu::computeThValue()                                         
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) ); 
     } else {
-        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHmumuRatio()) ;
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmuttHptH_Hmumu = myNPbase->muttHptH_Hmumu(sqrt_s);
+        if(NPmuttHptH_Hmumu==1.0){
+            return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHmumuRatio());
+        } else {
+            return NPmuttHptH_Hmumu;
+        }  
     }
 }
 
@@ -1741,7 +1812,16 @@ double muggHpbbH_HZZ::computeThValue()                                          
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
-        return (myNPbase->muggHZZ(sqrt_s));
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        //Also, the bbH is missing here, I'll leave it as it was for the 
+        //moment (since bbH is really suppressed in the SM).
+        double NPmuggHpbbH_HZZ = myNPbase->muggHpbbH_HZZ(sqrt_s);
+        if (NPmuggHpbbH_HZZ == 1.0){
+            return (myNPbase->muggHZZ(sqrt_s));
+        } else{
+            return NPmuggHpbbH_HZZ;
+        } 
     }
 }
 
@@ -2010,9 +2090,16 @@ muttHptH_HWW::muttHptH_HWW(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_HWW::computeThValue()                                           //AG:added
 {
+    
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_ttH = 0.499873;
     double xsSM_tH = 0.0821;
+    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2027,7 +2114,15 @@ double muttHptH_HWW::computeThValue()                                           
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );     
     } else {
-        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHWWRatio()) ;
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmuttHptH_HWW = myNPbase->muttHptH_HWW(sqrt_s);
+        if(NPmuttHptH_HWW==1.0){
+            return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHWWRatio()) ;
+        } else {
+            return NPmuttHptH_HWW;
+        }   
     }
 }
 
@@ -2055,7 +2150,17 @@ double muggHpbbH_HWW::computeThValue()                                          
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
-        return (myNPbase->muggHWW(sqrt_s));
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        //Also, the bbH is missing here, I'll leave it as it was for the 
+        //moment (since bbH is really suppressed in the SM).
+        double NPmuggHpbbH_HWW = myNPbase->muggHpbbH_HWW(sqrt_s);
+        if (NPmuggHpbbH_HWW == 1.0){
+            return (myNPbase->muggHWW(sqrt_s));
+        } else{
+            return NPmuggHpbbH_HWW;
+        } 
     }
 }
 
@@ -2279,9 +2384,16 @@ muVHmumu::muVHmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVHmumu::computeThValue()
 {
+    
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_WH  = 1.21539;
     double xsSM_ZH  = 0.795910;
+    //double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
+    //double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHmumuRatio()));
         //AG: Most general expression including quadratic corrections. 
@@ -2298,7 +2410,15 @@ double muVHmumu::computeThValue()
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         //return myNPbase->muVHmumu(sqrt_s);
-        return ( xsSM_ZH*(myNPbase->muZH(sqrt_s)) + xsSM_WH*(myNPbase->muWH(sqrt_s)) )/(xsSM_ZH+xsSM_WH) * (myNPbase->BrHZZRatio());
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmuVHmumu = myNPbase->muVHmumu(sqrt_s);
+        if(NPmuVHmumu==1.0){
+            return ( xsSM_ZH*(myNPbase->muZH(sqrt_s)) + xsSM_WH*(myNPbase->muWH(sqrt_s)) )/(xsSM_ZH+xsSM_WH) * (myNPbase->BrHmumuRatio());
+        } else {
+            return NPmuVHmumu;
+        }
+        
     }
 }
 
@@ -2327,10 +2447,25 @@ muggHpttHptHpbbH_Hmumu::muggHpttHptHpbbH_Hmumu(const StandardModel& SM_i, const 
 
 double muggHpttHptHpbbH_Hmumu::computeThValue()                                           //AG:added
 {
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this. Furthermore, the bbH is not included. In the SM this is
+    //very suppressed (and it's probably also the case in the SMEFT) but 
+    //in some NP models it may not be the case.Unfortunately, bbH is not
+    //obtained in the SMEFT, we could just set delta_mubbH to zero in the
+    //SMEFT and add here the general expression.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_ggHbbH = 44.745;
     double xsSM_ttH    = 0.4998;
     double xsSM_tH     = 0.084769;
+    //double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
+    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    //double xsSM_tH = myNPbase->computeSigmatH(sqrt_s);
+    //double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+    
+    
+    
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2345,7 +2480,17 @@ double muggHpttHptHpbbH_Hmumu::computeThValue()                                 
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
-        return ( (xsSM_ggHbbH*(myNPbase->muggH(sqrt_s))+xsSM_ttH*(myNPbase->muttH(sqrt_s))+xsSM_tH*(myNPbase->mutH(sqrt_s))) / (xsSM_ggHbbH+xsSM_ttH+xsSM_tH)  )*(myNPbase->BrHmumuRatio()) ;
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end). Furthermore, the Hbb
+        //is not added in the original formula, fine for the SM (probably also
+        //for the SMEFT) but not for all NP models.
+        double NPmuggHpttHptHpbbH_Hmumu = myNPbase->muggHpttHptHpbbH_Hmumu(sqrt_s);
+        if(NPmuggHpttHptHpbbH_Hmumu==1.0){
+            return ( (xsSM_ggHbbH*(myNPbase->muggH(sqrt_s))+xsSM_ttH*(myNPbase->muttH(sqrt_s))+xsSM_tH*(myNPbase->mutH(sqrt_s))) / (xsSM_ggHbbH+xsSM_ttH+xsSM_tH)  )*(myNPbase->BrHmumuRatio()) ;
+        } else {
+            return NPmuggHpttHptHpbbH_Hmumu;
+        }  
     }
 }
 
@@ -2358,10 +2503,18 @@ muVBFpVH_Hmumu::muVBFpVH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFpVH_Hmumu::computeThValue()                                          //AG:added
 {
+    
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this. 
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_VBF = 3.49948;
     double xsSM_WH  = 1.21539;
     double xsSM_ZH  = 0.795910;
+    //double xsSM_VBF = myNPbase->computeSigmaVBF(sqrt_s);
+    //double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
+    //double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2376,7 +2529,15 @@ double muVBFpVH_Hmumu::computeThValue()                                         
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
-        return ( (xsSM_VBF*(myNPbase->muVBF(sqrt_s))+xsSM_WH*(myNPbase->muWH(sqrt_s))+xsSM_ZH*(myNPbase->muZH(sqrt_s))) / (xsSM_VBF+xsSM_WH+xsSM_ZH)  )*(myNPbase->BrHmumuRatio()) ;
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end).
+        double NPmuVBFpVH_Hmumu = myNPbase->muVBFpVH_Hmumu(sqrt_s);
+        if(NPmuVBFpVH_Hmumu==1.0){
+            return ( (xsSM_VBF*(myNPbase->muVBF(sqrt_s))+xsSM_WH*(myNPbase->muWH(sqrt_s))+xsSM_ZH*(myNPbase->muZH(sqrt_s))) / (xsSM_VBF+xsSM_WH+xsSM_ZH)  )*(myNPbase->BrHmumuRatio()) ;
+        } else {
+            return NPmuVBFpVH_Hmumu;
+        } 
     }
 }
 
@@ -2533,9 +2694,15 @@ muVHtautau::muVHtautau(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVHtautau::computeThValue()
 {
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_WH  = 1.21539;
     double xsSM_ZH  = 0.795910;
+    //double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
+    //double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2552,7 +2719,15 @@ double muVHtautau::computeThValue()
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
         //return myNPbase->muVHtautau(sqrt_s);
-        return ( xsSM_WH*(myNPbase->muZH(sqrt_s)) + xsSM_WH*(myNPbase->muWH(sqrt_s)) )/(xsSM_ZH+xsSM_WH) * (myNPbase->BrHtautauRatio());
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmuVHtautau = myNPbase->muVHtautau(sqrt_s);
+        if(NPmuVHtautau==1.0){
+            return ( xsSM_ZH*(myNPbase->muZH(sqrt_s)) + xsSM_WH*(myNPbase->muWH(sqrt_s)) )/(xsSM_ZH+xsSM_WH) * (myNPbase->BrHtautauRatio());
+        } else {
+            return NPmuVHtautau;
+        }
     }
 }
 
@@ -2581,9 +2756,15 @@ muttHptH_Htautau::muttHptH_Htautau(const StandardModel& SM_i, const double sqrt_
 
 double muttHptH_Htautau::computeThValue()                                           //AG:added
 {
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_ttH = 0.499873;
-    double xsSM_tH  = 0.084769;
+    double xsSM_tH = 0.0821;
+    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2598,7 +2779,16 @@ double muttHptH_Htautau::computeThValue()                                       
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );     
     } else {
-        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHtautauRatio()) ;
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmuttHptH_Htautau = myNPbase->muttHptH_Htautau(sqrt_s);
+        if(NPmuttHptH_Htautau==1.0){
+            return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHtautauRatio()) ;
+        } else {
+            return NPmuttHptH_Htautau;
+        }  
+        
     }
 }
 
@@ -2626,7 +2816,17 @@ double muggHpbbH_Htautau::computeThValue()                                      
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
     } else {
-        return (myNPbase->muggHtautau(sqrt_s));
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        //Also, the bbH is missing here, I'll leave it as it was for the 
+        //moment (since bbH is really suppressed in the SM).
+        double NPmuggHpbbH_Htautau = myNPbase->muggHpbbH_Htautau(sqrt_s);
+        if (NPmuggHpbbH_Htautau == 1.0){
+            return (myNPbase->muggHtautau(sqrt_s));
+        } else{
+            return NPmuggHpbbH_Htautau;
+        } 
     }
 }
 
@@ -2771,9 +2971,15 @@ muttHptH_Hbb::muttHptH_Hbb(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_Hbb::computeThValue()                                           //AG:added
 {
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_ttH = 0.499873;
-    double xsSM_tH  = 0.0821;
+    double xsSM_tH = 0.0821;
+    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2788,7 +2994,16 @@ double muttHptH_Hbb::computeThValue()                                           
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );   
     } else {
-        return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHbbRatio()) ;
+        
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end)
+        double NPmuttHptH_Hbb = myNPbase->muttHptH_Hbb(sqrt_s);
+        if(NPmuttHptH_Hbb==1.0){
+            return ( xsSM_ttH*(myNPbase->muttH(sqrt_s)) + xsSM_tH*(myNPbase->mutH(sqrt_s)) )/(xsSM_ttH+xsSM_tH) * (myNPbase->BrHbbRatio()) ;
+        } else {
+            return NPmuttHptH_Hbb;
+        }   
     }
 }
 
@@ -2801,9 +3016,20 @@ muggHpVBFpbbH_Hbb::muggHpVBFpbbH_Hbb(const StandardModel& SM_i, const double sqr
 
 double muggHpVBFpbbH_Hbb::computeThValue()                                      //AG:added
 {
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this. Furthermore, the bbH is not included. In the SM this is
+    //very suppressed (and it's probably also the case in the SMEFT) but 
+    //in some NP models it may not be the case.Unfortunately, bbH is not
+    //obtained in the SMEFT, we could just set delta_mubbH to zero in the
+    //SMEFT and add here the general expression.
     //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
     double xsSM_ggHbbH = 44.745;
     double xsSM_VBF    = 3.49948;
+    //double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
+    //double xsSM_VBF = myNPbase->computeSigmaVBF(sqrt_s);
+    //double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2818,9 +3044,39 @@ double muggHpVBFpbbH_Hbb::computeThValue()                                      
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
         return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );   
     } else {
-        return ( xsSM_ggHbbH*(myNPbase->muggH(sqrt_s)) + xsSM_VBF*(myNPbase->muVBF(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF) * (myNPbase->BrHbbRatio()) ;
+        
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end). Furthermore, the Hbb
+        //is not added in the original formula, fine for the SM (probably also
+        //for the SMEFT) but not for all NP models.
+        double NPmuggHpVBFpbbH_Hbb = myNPbase->muggHpVBFpbbH_Hbb(sqrt_s);
+        if(NPmuggHpVBFpbbH_Hbb==1.0){
+            return ( xsSM_ggHbbH*(myNPbase->muggH(sqrt_s)) + xsSM_VBF*(myNPbase->muVBF(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF) * (myNPbase->BrHbbRatio()) ;
+        } else {
+            return NPmuggHpVBFpbbH_Hbb;
+        }       
     }
 }
+
+
+
+muVHcc::muVHcc(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muVHbb called with a class whose parent is not NPbase");
+}
+
+double muVHcc::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHccRatio()));
+    } else {
+        return myNPbase->muVHcc(sqrt_s);
+    }
+}
+
 
 muVBFBRinv::muVBFBRinv(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)

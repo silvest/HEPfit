@@ -1381,6 +1381,26 @@ public:
         return 1.0;
     }
     
+    
+    virtual double mutHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
+    
+    virtual double muggHpbbH_Hgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
+    virtual double muttHptH_Hgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    
+    
     /**
      * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into 2 photons in the
@@ -1442,6 +1462,10 @@ public:
     {
         return 1.0;
     }
+    virtual double muggHpbbH_HZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
     virtual double muVBFHZZ(const double sqrt_s) const
     {
         return 1.0;
@@ -1462,7 +1486,10 @@ public:
     {
         return 1.0;
     }
-    
+    virtual double muttHptH_HZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
     virtual double muggHZZ4l(const double sqrt_s) const
     {
         return 1.0;
@@ -1492,6 +1519,10 @@ public:
     {
         return 1.0;
     }
+    virtual double muggHpbbH_HWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
     virtual double muVBFHWW(const double sqrt_s) const
     {
         return 1.0;
@@ -1509,6 +1540,10 @@ public:
         return 1.0;
     }
     virtual double muttHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHptH_HWW(const double sqrt_s) const
     {
         return 1.0;
     }
@@ -1560,7 +1595,23 @@ public:
     {
         return 1.0;
     }
+    virtual double muttHptH_Hmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHpttHptHpbbH_Hmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFpVH_Hmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
     virtual double muggHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHpbbH_Htautau(const double sqrt_s) const
     {
         return 1.0;
     }
@@ -1584,7 +1635,15 @@ public:
     {
         return 1.0;
     }
+    virtual double muttHptH_Htautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
     virtual double muggHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHpVBFpbbH_Hbb(const double sqrt_s) const
     {
         return 1.0;
     }
@@ -1605,6 +1664,14 @@ public:
         return 1.0;
     }
     virtual double muttHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHptH_Hbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHcc(const double sqrt_s) const
     {
         return 1.0;
     }

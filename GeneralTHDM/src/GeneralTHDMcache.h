@@ -218,7 +218,7 @@ public:
     /**
      * @brief CMS observed @f$95\%@f$ upper signal strength limits at 8 TeV, depending on the Higgs mass.
      */
-    gslpp::matrix<double> CMS8_mu_pp_phi_VV;
+    gslpp::matrix<double> CMS8_pp_phi_VV;
 
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
@@ -241,13 +241,14 @@ public:
                           ATLAS13_gg_phi_WW_enumunu, ATLAS13_VV_phi_WW_enumunu, ATLAS13_gg_phi_WW_lnuqq, ATLAS13_VV_phi_WW_lnuqq, ATLAS13_pp_phi_VV_qqqq,\
                           ATLAS13_pp_phi_phi1phi1_bbbb, ATLAS13_pp_phi_phi1phi1_bbgaga, ATLAS13_pp_phi_phi1phi1_bbtautau_1,ATLAS13_pp_phi_phi1phi1_bbtautau_2,\
                           ATLAS13_pp_phi_phi1phi1_bbWW, ATLAS13_gg_phi_phi1phi1_gagaWW,\
-                          ATLAS13_gg_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_tautaull;
-    
-    gslpp::matrix<double> ATLAS13_gg_phii_phijZ_bbZ, ATLAS13_bb_phii_phijZ_bbZ,ATLAS13_gg_phii_phijZ_WWZ;
+                          ATLAS13_gg_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_bbZ;
 
     
     //Added in mid 2022
-    gslpp::matrix<double> CMS13_pp_phi2_bb_light,CMS13_pp_phi3_bb_light,CMS13_tt_phi2_tt,CMS13_tt_phi3_tt;
+    gslpp::matrix<double> CMS13_gg_phi_phi1Z_tautaull,CMS13_pp_phi2_bb_light,CMS13_pp_phi3_bb_light,CMS13_tt_phi2_tt,CMS13_tt_phi3_tt;
+    
+    gslpp::matrix<double> ATLAS13_gg_phii_phijZ_bbZ, ATLAS13_bb_phii_phijZ_bbZ,ATLAS13_gg_phii_phijZ_WWZ;
+
     
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
@@ -625,7 +626,7 @@ public:
     double ip_ex_gg_phi_WW_lnuqq_ATLAS13(double mass);
     double ip_ex_VV_phi_WW_lnuqq_ATLAS13(double mass);
     double ip_ex_pp_phi_WW_lnuqq_CMS13(double mass);
-    double ip_ex_mu_pp_phi_VV_CMS8(double mass);
+    double ip_ex_pp_phi_VV_CMS8(double mass);
     double ip_ex_pp_phi_VV_qqqq_ATLAS13(double mass);
     
     double ip_ex_gg_phi_VV_llqq_ATLAS13(double mass);
@@ -668,7 +669,7 @@ public:
     double ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(double mass);
     double ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(double mass);
     
-    double ip_ex_gg_phi_phi1Z_tautaull_ATLAS13(double mass);
+    double ip_ex_gg_phi_phi1Z_tautaull_CMS13(double mass);
     
     
     double ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(double mass);
@@ -1867,15 +1868,15 @@ public:
 
     /**
      * @brief Signal strength for the process @f$pp\to phi_2\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
-     * @return @f$\mu_H^{\text{GTHDM}}(phi_2\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_2}\cdot BR^{\text{GTHDM}}(phi_3\to VV)] / [\sigma^{\text{SM}}_{pp\to phi3}\cdot BR^{\text{SM}}(phi3\to VV)]@f$
+     * @return @f$(phi_2\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_2}\cdot BR^{\text{GTHDM}}(phi_3\to VV)]@f$
      */
-    double mu_pp_phi2_VV_TH8;
+    double pp_phi2_VV_TH8;
 
     /**
      * @brief Signal strength for the process @f$pp\to phi_3\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
-     * @return @f$\mu_H^{\text{GTHDM}}(phi_3\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_3}\cdot BR^{\text{GTHDM}}(phi_3\to VV)] / [\sigma^{\text{SM}}_{pp\to phi3}\cdot BR^{\text{SM}}(phi3\to VV)]@f$
+     * @return @f$(phi_3\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_3}\cdot BR^{\text{GTHDM}}(phi_3\to VV)] @f$
      */
-    double mu_pp_phi3_VV_TH8;
+    double pp_phi3_VV_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi2\to (WW+ZZ)@f$ at the LHC with 13 TeV.
@@ -2763,9 +2764,9 @@ public:
     double THoEX_VV_phi3_WW_enumunu_ATLAS13;
     double THoEX_ggVV_phi3_WW_lnulnu_CMS13;
 
-    double THoEX_mu_pp_phi2_VV_CMS8;
+    double THoEX_pp_phi2_VV_CMS8;
     double THoEX_pp_phi2_VV_qqqq_ATLAS13;
-    double THoEX_mu_pp_phi3_VV_CMS8;
+    double THoEX_pp_phi3_VV_CMS8;
     double THoEX_pp_phi3_VV_qqqq_ATLAS13;
 
     double THoEX_gg_phi2_VV_llqq_ATLAS13;
@@ -2883,8 +2884,8 @@ public:
     double THoEX_bb_phi2_phi1Z_bbZ_ATLAS13;
     double THoEX_bb_phi3_phi1Z_bbZ_ATLAS13;
     
-    double THoEX_gg_phi2_phi1Z_tautaull_ATLAS13;    //Included in mid 2022
-    double THoEX_gg_phi3_phi1Z_tautaull_ATLAS13;    //Included in mid 2022
+    double THoEX_gg_phi2_phi1Z_tautaull_CMS13;    //Included in mid 2022
+    double THoEX_gg_phi3_phi1Z_tautaull_CMS13;    //Included in mid 2022
     
     double THoEX_bb_phi2_phi1Z_bbZ_1_CMS13;
     double THoEX_bb_phi3_phi1Z_bbZ_1_CMS13;
@@ -3558,7 +3559,7 @@ private:
     mutable double ip_ex_gg_phi_WW_lnuqq_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_VV_phi_WW_lnuqq_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_WW_lnuqq_CMS13_cache[2][CacheSize];
-    mutable double ip_ex_mu_pp_phi_VV_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_VV_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_VV_qqqq_ATLAS13_cache[2][CacheSize];
     
     mutable double ip_ex_gg_phi_VV_llqq_ATLAS13_cache[2][CacheSize];
@@ -3600,7 +3601,7 @@ private:
     mutable double ip_ex_gg_phi_phi1Z_bbZ_2_CMS13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_phi1Z_bbZ_ATLAS13_cache[2][CacheSize];
     
-    mutable double ip_ex_gg_phi_phi1Z_tautaull_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_phi1Z_tautaull_CMS13_cache[2][CacheSize];
     
     
     
