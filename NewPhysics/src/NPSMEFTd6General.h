@@ -1083,18 +1083,17 @@
  *   The default value is FALSE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%RGEciLLA</td>
+ *   <td class="mod_name">%RGEci</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if including log-enhanced 1-loop corrections proportional to the dim-6 Wilson coefficients via renormalization group effects. 
- *   Only valid working exactly inside the Warsaw basis. Logs evaluated at the top mass scale. (NOT ACTIVE YET. PLACEHOLDER.)
- *   The default value is FALSE.</td>
+ *   <td class="mod_desc">This flag is set to TRUE if including the SMEFT RGE effects.
+ *   The default value is TRUE.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%MWinput</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, 
  *   instead of the electromagnetic constant parameter %dAle5Mz. 
- *   The default value is FALSE. This flag must be used together with the flag of the same name in StandardModel</td>
+ *   The default value is FALSE. This flag will override the flag of the same name in StandardModel</td>
  * </tr>
  * 
  * 
@@ -7583,6 +7582,7 @@ private:
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
     bool FlagLoopH3d6Quad; ///< A boolean flag that is true if including quadratic modifications in the SM loops in Higgs observables due to the dim 6 interactions that contribute to the trilinear Higgs coupling.
     bool FlagMWinput; ///< A boolean for the model flag %MWinput. 
+    bool FlagRGEci; ///< A boolean for the model flag %RGEci. 
 
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function

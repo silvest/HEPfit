@@ -345,6 +345,7 @@ NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW()
     FlagLoopHd6 = false;
     FlagLoopH3d6Quad = false;
     FlagMWinput = false;
+    FlagRGEci = true;
     SMEFTBasisFlag = "UP";
     setModelLinearized();
 
@@ -8307,14 +8308,21 @@ bool NPSMEFTd6General::PostUpdate()
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
 
     setSMEFTEvolWC();
+    
+    if (FlagRGEci) {
     //printNonVanishingSMEFTCoeffEW();
     //std::cout << Lambda_NP << " " << muw << " " << SMEFTBasisFlag << std::endl;
     // Do the evolution of the SMEFT Coefficients at linear order first; THIS DOES NOT EVOLVE THE SM PARAMETERS, only computes the corrections to them due to the SMEFT coefficients
-    SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, muw);
+        SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, muw);
     // Evolve the SM parameters with the SM RGEs
-    SMEFTEvolEW.EvolveSMOnly("Numeric",Lambda_NP, muw);
+        SMEFTEvolEW.EvolveSMOnly("Numeric",Lambda_NP, muw);
     //Now everything has been evolved
     //printNonVanishingSMEFTCoeffEW();
+    } else {
+    // Skip RGE by setting the two scales at Lambda_NP for the EFT and to muw for the SM pars
+        SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvolEW.EvolveSMOnly("Numeric",muw, muw);        
+    }
       
     // Renormalization of gauge fields parameters
     delta_ZZ = (cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree * getSMEFTCoeffEW("CHB") + sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
@@ -13648,8 +13656,12 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("MWinput") == 0) {
         FlagMWinput = value;
-        res = NPbase::setFlag(name, value); //We need to fix FlagMWinput also in the StandardModel
+        res = trueSM.setFlag(name, value); //We need to fix FlagMWinput also in the StandardModel
+    //    res = NPbase::setFlag(name, value); //We need to fix FlagMWinput also in the StandardModel
     //    res = true;
+    } else if (name.compare("RGEci") == 0) {    
+        FlagRGEci = value;
+        res = true;    
     } else if (name.compare("LeptonUniversal") == 0) {
         FlagLeptonUniversal = value;
         res = true;
@@ -25362,7 +25374,7 @@ double NPSMEFTd6General::deltaGammaHZgaRatio1() const
     double cHW = getSMEFTCoeffEW("CHW");
     double cHB = getSMEFTCoeffEW("CHB");
     double cHWB = getSMEFTCoeffEW("CHWB");
-    double cW = getSMEFTCoeffEW("CHW");
+    double cW = getSMEFTCoeffEW("CW");
     double cHu33 = getSMEFTCoeffEW("CHuR",2,2);
     double cuH33 = getSMEFTCoeffEW("CuHR",2,2);
     double cdH33 = getSMEFTCoeffEW("CdHR",2,2);
@@ -25565,7 +25577,7 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
     double cHW = getSMEFTCoeffEW("CHW");
     double cHB = getSMEFTCoeffEW("CHB");
     double cHWB = getSMEFTCoeffEW("CHWB");
-    double cW = getSMEFTCoeffEW("CHW");
+    double cW = getSMEFTCoeffEW("CW");
     double dgf = delta_GF;
     double ceH11 = getSMEFTCoeffEW("CeHR",0,0);
     double ceH22 = getSMEFTCoeffEW("CeHR",1,1);
