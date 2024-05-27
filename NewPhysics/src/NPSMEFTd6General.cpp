@@ -13656,8 +13656,9 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("MWinput") == 0) {
         FlagMWinput = value;
-        res = trueSM.setFlag(name, value); //We need to fix FlagMWinput also in the StandardModel
-    //    res = NPbase::setFlag(name, value); //We need to fix FlagMWinput also in the StandardModel
+        //We need to fix FlagMWinput also in the StandardModel
+        res = NPbase::setFlag(name, value);
+        res = trueSM.setFlag(name, value); 
     //    res = true;
     } else if (name.compare("RGEci") == 0) {    
         FlagRGEci = value;
