@@ -2,7 +2,7 @@
 #include "std_make_vector.h"
 
 
-TopQuarkObservables::TopQuarkObservables(const NPSMEFTd6General& NP_i) : myNPSMEFTd6General(NP_i) {};
+TopQuarkObservables::TopQuarkObservables(const NPSMEFTd6General& NP_i) : myNPSMEFTd6General(NP_i) {}
 
 
 //// ALL THE UNITS OF THE WILSON COEFFICIENTS ARE IN TeV^(-2). THIS FACTOR IS CONSIDERED IN THE GETTER 
@@ -24,7 +24,7 @@ FB_asymmetry_Tevatron_tt_diff_mtt_LO::FB_asymmetry_Tevatron_tt_diff_mtt_LO(const
             << "SM_FB_asymmetry_bin_mtt_650_750" << "SM_FB_asymmetry_deno_bin_mtt_650_750");
             
     
-};
+}
 
 
 double FB_asymmetry_Tevatron_tt_diff_mtt_LO::computeThValue()
@@ -270,7 +270,7 @@ sigma_tt_diff_LO::sigma_tt_diff_LO(const StandardModel& SM_i)
             "SM_sigma_tt_bin_2300_3500");
             //"SM_sigma_tt_bin_2300_2600" << "SM_sigma_tt_bin_2600_3000" << "SM_sigma_tt_bin_3000_3500" << "SM_sigma_tt_bin_3500_4000");
     
-};
+}
 
 double sigma_tt_diff_LO::computeThValue()
 {
@@ -716,7 +716,7 @@ charge_asymmetry_tt_diff_mtt_LO::charge_asymmetry_tt_diff_mtt_LO(const StandardM
             << "SM_charge_asymmetry_bin_mtt_1500_3000" << "SM_charge_asymmetry_deno_bin_mtt_1500_3000");
             //"SM_sigma_tt_bin_2300_2600" << "SM_sigma_tt_bin_2600_3000" << "SM_sigma_tt_bin_3000_3500" << "SM_sigma_tt_bin_3500_4000");
     
-};
+}
 
 
 double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
@@ -1048,7 +1048,7 @@ sigma_tta_diff_LO_ATLAS_emu_200706946::sigma_tta_diff_LO_ATLAS_emu_200706946(con
             << "SM_sigma_tta_bin_85_132_ATLAS_emu" << "SM_sigma_tta_bin_132_180_ATLAS_emu" << "SM_sigma_tta_bin_180_300_ATLAS_emu");
 
     
-};
+}
 
 
 double sigma_tta_diff_LO_ATLAS_emu_200706946::computeThValue()
@@ -1445,7 +1445,7 @@ sigma_tta_diff_LO_CMS_semileptonic_210701508::sigma_tta_diff_LO_CMS_semileptonic
             << "SM_sigma_tta_bin_260_320_CMS_semileptonic" << "SM_sigma_tta_bin_320_380_CMS_semileptonic");
 
     
-};
+}
 
 
 double sigma_tta_diff_LO_CMS_semileptonic_210701508::computeThValue()
@@ -1769,7 +1769,7 @@ sigma_tta_diff_LO_CMS_dilepton_220107301::sigma_tta_diff_LO_CMS_dilepton_2201073
             << "SM_sigma_tta_bin_130_200_CMS_dilepton" << "SM_sigma_tta_bin_200_300_CMS_dilepton");
 
     
-};
+}
 
 
 double sigma_tta_diff_LO_CMS_dilepton_220107301::computeThValue()
@@ -2036,7 +2036,7 @@ sigma_ttz_diff_LO_CMS_190711270::sigma_ttz_diff_LO_CMS_190711270(const StandardM
             << "SM_sigma_ttz_bin_250_500_CMS_190711270");
 
     
-};
+}
 
 
 double sigma_ttz_diff_LO_CMS_190711270::computeThValue()
@@ -2180,7 +2180,7 @@ sigma_ttz_diff_LO_ATLAS_210312603::sigma_ttz_diff_LO_ATLAS_210312603(const Stand
             << "SM_sigma_ttz_bin_220_290_ATLAS_210312603" << "SM_sigma_ttz_bin_290_400_ATLAS_210312603");
 
     
-};
+}
 
 
 double sigma_ttz_diff_LO_ATLAS_210312603::computeThValue()
@@ -2423,7 +2423,7 @@ sigma_tb_8_LO::sigma_tb_8_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_tb_8");
-};
+}
 
 double sigma_tb_8_LO::computeThValue()
 {
@@ -2460,7 +2460,7 @@ sigma_tb_13_LO::sigma_tb_13_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_tb_13");
-};
+}
 
 double sigma_tb_13_LO::computeThValue()
 {
@@ -2495,7 +2495,7 @@ sigma_tq_7_LO::sigma_tq_7_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_tq_7");
-};
+}
 
 double sigma_tq_7_LO::computeThValue()
 {
@@ -2527,7 +2527,7 @@ sigma_tq_8_LO::sigma_tq_8_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_tq_8");
-};
+}
 
 double sigma_tq_8_LO::computeThValue()
 {
@@ -2562,7 +2562,7 @@ sigma_tq_13_LO::sigma_tq_13_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_tq_13");
-};
+}
 
 double sigma_tq_13_LO::computeThValue()
 {
@@ -2591,7 +2591,7 @@ sigma_taq_LO_CMS::sigma_taq_LO_CMS(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_taq_CMS");
-};
+}
 
 double sigma_taq_LO_CMS::computeThValue()
 {
@@ -2620,7 +2620,7 @@ sigma_taq_LO_ATLAS::sigma_taq_LO_ATLAS(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_taq_ATLAS");
-};
+}
 
 double sigma_taq_LO_ATLAS::computeThValue()
 {
@@ -2651,7 +2651,7 @@ sigma_tzq_LO::sigma_tzq_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_tzq");
-};
+}
 
 double sigma_tzq_LO::computeThValue()
 {
@@ -2688,7 +2688,7 @@ sigma_tw_7_LO::sigma_tw_7_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_tw_7");
-};
+}
 
 double sigma_tw_7_LO::computeThValue()
 {
@@ -2721,7 +2721,7 @@ sigma_tw_8_LO::sigma_tw_8_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_tw_8");
-};
+}
 
 double sigma_tw_8_LO::computeThValue()
 {
@@ -2756,7 +2756,7 @@ sigma_tw_13_LO::sigma_tw_13_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_tw_13");
-};
+}
 
 double sigma_tw_13_LO::computeThValue()
 {
@@ -2787,7 +2787,7 @@ sigma_ttw_LO::sigma_ttw_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_ttw");
-};
+}
 
 double sigma_ttw_LO::computeThValue()
 {
@@ -2826,7 +2826,7 @@ R_ttw_LO::R_ttw_LO(const StandardModel& SM_i)
 {
     setParametersForObservable(make_vector<std::string>() << "SM_R_ttw" << "SM_sigma_ttw");
 
-};
+}
 
 double R_ttw_LO::computeThValue()
 {
@@ -2893,7 +2893,7 @@ F0_LO::F0_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_F0");
-};
+}
 
 double F0_LO::computeThValue()
 {
@@ -2935,7 +2935,7 @@ FL_LO::FL_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_FL");
-};
+}
 
 double FL_LO::computeThValue()
 {
@@ -2986,7 +2986,7 @@ FR_LO::FR_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_FR");
-};
+}
 
 double FR_LO::computeThValue()
 {
@@ -3035,7 +3035,7 @@ Test_direct::Test_direct(const StandardModel& SM_i)
 { 
 
     setParametersForObservable(make_vector<std::string>() << "Test_direct_in");
-};
+}
 
 double Test_direct::computeThValue()
 {

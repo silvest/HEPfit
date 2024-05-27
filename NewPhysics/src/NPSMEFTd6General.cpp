@@ -332,15 +332,7 @@ NPSMEFTd6General::NPSMEFTd6General()
 NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW()
 {
 
-
-    FlagLeptonUniversal = false;
-    FlagQuarkUniversal = false;
-
     FlagQuadraticTerms = false;
-    FlagRotateCHWCHB = false;
-    FlagPartialQFU = false;
-    FlagFlavU3OfX = false;
-    FlagUnivOfX = false;
     FlagHiggsSM = false;
     FlagLoopHd6 = false;
     FlagLoopH3d6Quad = false;
@@ -8394,7 +8386,7 @@ bool NPSMEFTd6General::PostUpdate()
     //    Yuktau = sqrt(2.) * (leptons[TAU].getMass()) / v();
     //    Yuku = sqrt(2.) * (quarks[UP].getMass()) / v();
     //    Yukc = sqrt(2.) * (quarks[CHARM].getMass()) / v();
-    //    Yukt = sqrt(2.) * mtpole / v();
+    //    Yukt = sqrt(2.) * (quarks[TOP].getMass()) / v();
     //    Yukd = sqrt(2.) * (quarks[DOWN].getMass()) / v();
     //    Yuks = sqrt(2.) * (quarks[STRANGE].getMass()) / v();
     //    Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
@@ -13642,9 +13634,6 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
         if (value) setModelLinearized(false);
         if (value) setModelNPquadratic(true);       //AG:added
         res = true;
-    } else if (name.compare("RotateCHWCHB") == 0) {
-        FlagRotateCHWCHB = value;
-        res = true;
     } else if (name.compare("HiggsSM") == 0) {
         FlagHiggsSM = value;
         res = true;
@@ -13663,12 +13652,6 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value)
     } else if (name.compare("RGEci") == 0) {    
         FlagRGEci = value;
         res = true;    
-    } else if (name.compare("LeptonUniversal") == 0) {
-        FlagLeptonUniversal = value;
-        res = true;
-    } else if (name.compare("QuarkUniversal") == 0) {
-        FlagQuarkUniversal = value;
-        res = true;
     } else
         res = NPbase::setFlag(name, value);
     if (FlagMWinput) {
@@ -14024,7 +14007,7 @@ double NPSMEFTd6General::deltaMh2() const
 double NPSMEFTd6General::deltamt() const
 {
     //  Ref. value used in MG simulations
-    return ( (mtpole - 173.0) / 173.0);
+    return ( ((quarks[TOP].getMass()) - 173.0) / 173.0);
 }
 
 double NPSMEFTd6General::deltamt2() const
@@ -14413,7 +14396,7 @@ double NPSMEFTd6General::deltaG_hgg() const
 
 double NPSMEFTd6General::deltaG_hggRatio() const
 {
-    double m_t = mtpole;
+    double m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
     double tau_t = 4.0 * m_t * m_t / mHl / mHl;
@@ -14483,7 +14466,7 @@ double NPSMEFTd6General::deltaG1_hZA() const
 
 double NPSMEFTd6General::deltaG1_hZARatio() const
 {
-    double m_t = mtpole;
+    double m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
     double m_tau = leptons[TAU].getMass();
@@ -14573,7 +14556,7 @@ double NPSMEFTd6General::deltaG_hAA() const
 
 double NPSMEFTd6General::deltaG_hAARatio() const
 {
-    double m_t = mtpole;
+    double m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
     double m_tau = leptons[TAU].getMass();
@@ -14630,7 +14613,7 @@ gslpp::complex NPSMEFTd6General::deltaG_hff(const Particle p) const
     double mf;
     if (p.is("TOP"))
         //mf = p.getMass(); // m_t(m_t)
-        mf = mtpole; // pole mass
+        mf = quarks[TOP].getMass(); // pole mass
     else
         mf = p.getMass();
     gslpp::complex CfH = CfH_diag(p);
@@ -14812,7 +14795,7 @@ double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const
     double C1 = 0.0066; //It seems to be independent of energy 
     
     /*
-    double m_t = mtpole;
+    double m_t = quarks[TOP].getMass();
     //double m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
@@ -14870,16 +14853,7 @@ double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const
     } else 
         throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muggH_1()");
     //AG:end
-    
-    //  Linear contribution from 4 top operators
-    //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-    //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-    mu += cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(9.91 + cRGEon * 2.0 * 2.76 * log(0.5 * mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(13.2 + cRGEon * 2.0 * 3.68 * log(0.5 * mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cquqd1R", 2, 2, 2, 2))*(28.4 + cRGEon * 2.0 * 9.21 * log(0.5 * mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cquqd8R", 2, 2, 2, 2))*(5.41 + cRGEon * 2.0 * 1.76 * log(0.5 * mHl / Lambda_NP))*1000.
-            );
-    
+        
     //  Linear contribution from Higgs self-coupling
     mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
     
@@ -16170,15 +16144,6 @@ double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const
 	);      
         //AG:end 
         
-        //  Linear contribution from 4 top operators
-        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-420. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(68.1 - cRGEon * 2.0 * 2.40 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.75 + cRGEon * 2.0 * 1.84 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(13.2 + cRGEon * 2.0 * 5.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.60 + cRGEon * 2.0 * 1.82 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                );
     } else if (sqrt_s == 14.0) {
 
         //  Old (but ok) implementation + Missing 4F
@@ -16192,15 +16157,6 @@ double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const
                 - 2.844 * deltaG_hff(quarks[TOP]).real()
                 ;
 
-        //  Linear contribution from 4 top operators
-        //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-        //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-        mu = mu + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-430. - cRGEon * 2.0 * 2.78 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(72.9 - cRGEon * 2.0 * 2.48 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq1R", 2, 2, 2, 2))*(1.65 + cRGEon * 2.0 * 1.76 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("Cqq3R", 2, 2, 2, 2))*(12.4 + cRGEon * 2.0 * 5.30 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                + (getSMEFTCoeffEW("CuuR", 2, 2, 2, 2))*(4.57 + cRGEon * 2.0 * 1.74 * log((mtpole + 0.5 * mHl) / Lambda_NP))*1000.
-                );
     } else if (sqrt_s == 27.0) {
 
         //  Old (but ok) implementation + Missing 4F
@@ -16905,8 +16861,8 @@ double NPSMEFTd6General::muggHH(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::muggHH()");
 
-    ct = 1.0 - 0.5 * delta_GF + delta_h - v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / sqrt(2.0) / mtpole;
-    c2t = delta_h - 3.0 * v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / 2.0 / sqrt(2.0) / mtpole;
+    ct = 1.0 - 0.5 * delta_GF + delta_h - v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / sqrt(2.0) / (quarks[TOP].getMass());
+    c2t = delta_h - 3.0 * v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / 2.0 / sqrt(2.0) / (quarks[TOP].getMass());
     c3 = 1.0 + deltaG_hhhRatio();
     cg = M_PI * getSMEFTCoeffEW("CHG") * v2 / AlsMz;
     c2g = cg;
@@ -23319,15 +23275,6 @@ double NPSMEFTd6General::deltaGammaHggRatio1() const
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
     dwidth = dwidth + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
-    //  Linear contribution from 4 top operators
-    //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-    //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-    dwidth = dwidth + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(6.08 + cRGEon * 2.0 * 2.76 * log(mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(8.11 + cRGEon * 2.0 * 3.68 * log(mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cquqd1R", 2, 2, 2, 2))*(15.7 + cRGEon * 2.0 * 9.21 * log(mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cquqd8R", 2, 2, 2, 2))*(2.98 + cRGEon * 2.0 * 1.76 * log(mHl / Lambda_NP))*1000.
-            );
-
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * (+1.003 * deltaGmu()
             + 2.31 * deltaaSMZ()
@@ -25714,15 +25661,6 @@ double NPSMEFTd6General::deltaGammaHgagaRatio1() const
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
     dwidth = dwidth + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
-    //  Linear contribution from 4 top operators
-    //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-    //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-    dwidth = dwidth + cLHd6 * ((getSMEFTCoeffEW("Cqu1R", 2, 2, 2, 2))*(-1.76 - cRGEon * 2.0 * 0.8 * log(mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cqu8R", 2, 2, 2, 2))*(-2.09 - cRGEon * 2.0 * 1.07 * log(mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cquqd1R", 2, 2, 2, 2))*(-1.30 - cRGEon * 2.0 * 0.78 * log(mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cquqd8R", 2, 2, 2, 2))*(-0.25 - cRGEon * 2.0 * 0.15 * log(mHl / Lambda_NP))*1000.
-            );
-
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * (+2. * deltaa0()
             + 0.27 * deltaaMZ()
@@ -26131,13 +26069,6 @@ double NPSMEFTd6General::deltaGammaHbbRatio1() const                            
     dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
     dwidth = dwidth + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    //  Linear contribution from 4 top operators
-    //  WARNING: The implementation of the log terms below and the use of RGd6SMEFTlogs() 
-    //  may lead to double counting of certain log terms. RGd6SMEFTlogs() disabled for the moment
-    dwidth = dwidth + cLHd6 * ((getSMEFTCoeffEW("Cquqd1R", 2, 2, 2, 2))*(92.5 + cRGEon * 2.0 * 168. * log(mHl / Lambda_NP))*1000.
-            + (getSMEFTCoeffEW("Cquqd8R", 2, 2, 2, 2))*(17.6 + cRGEon * 2.0 * 32.0 * log(mHl / Lambda_NP))*1000.
-            );
 
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * (+1. * deltaGmu()
@@ -32607,7 +32538,7 @@ double NPSMEFTd6General::muttHZbbboost(const double sqrt_s) const
     double BrZbbSM = (trueSM.GammaZ(quarks[BOTTOM])) / trueSM.Gamma_Z();
     double BrZbbrat = BR_Zf(quarks[BOTTOM]) / BrZbbSM;
 
-    //    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-mtpole / v());    
+    //    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-(quarks[TOP].getMass()) / v());    
     //    double dkt = dKappa_t.real();
 
     //    double dgV = deltaGV_f(quarks[TOP]);
@@ -34825,7 +34756,7 @@ double NPSMEFTd6General::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int
 
     double xspb = 0.0;
 
-    double xspbSM;
+    double xspbSM = 0.0;
     // SM values from Table 8 in hep-ex/0409016
     // Sum bin contents into B1=[-1,-0.8], B2=[-0.4,-0.2], B3=[0.4,0.6], B4=[0.8,1]
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
@@ -35209,7 +35140,7 @@ double NPSMEFTd6General::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin)
 
     double xspb = 0.0;
 
-    double xspbSM;
+    double xspbSM = 0.0;
     // SM values from Table 8 in hep-ex/0409016
     // Sum bin contents into B1=[-1,-0.8], B2=[-0.4,-0.2], B3=[0.4,0.6], B4=[0.8,1]
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
@@ -40121,7 +40052,7 @@ double NPSMEFTd6General::kappaZAeff() const
 
 double NPSMEFTd6General::deltayt_HB() const
 {
-    double mf = mtpole;
+    double mf = (quarks[TOP].getMass());
     double ciHB;
 
     ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CuHR", 2, 2) * v2 + delta_h - 0.5 * delta_GF;
@@ -40233,8 +40164,7 @@ double NPSMEFTd6General::cggEff_HB() const
 {
     double ciHB;
 
-    double m_t = mtpole;
-    //doulbe m_t = quarks[TOP].getMass();
+    double m_t = (quarks[TOP].getMass());
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
 
@@ -42472,7 +42402,7 @@ double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) const
     
     return 2.0 * deltaM2.real();
 
-};
+}
 
 
 double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) const
@@ -42560,7 +42490,7 @@ double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) const
     
     return 2.0 * deltaM2.real();
 
-};
+}
 
 
 double NPSMEFTd6General::deltaMLR2t_e(const double t) const
@@ -42708,7 +42638,7 @@ double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, const dou
     
     return 2.0 * deltaM2.real();
 
-};
+}
 
 
 double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const double t) const
@@ -42805,18 +42735,18 @@ double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const dou
     
     return 2.0 * deltaM2.real();
 
-};
+}
 
 //  Some simple functions for cos \theta integrals 
 double NPSMEFTd6General::tovers2(const double cosmin, const double cosmax) const
 {        
     return 0.25 * (cosmax*(1.0-cosmax*(1.0-cosmax/3.0)) - cosmin*(1.0-cosmin*(1.0-cosmin/3.0)));
-}; 
+} 
     
 double NPSMEFTd6General::uovers2(const double cosmin, const double cosmax) const
 {        
     return 0.25 * (cosmax*(1.0+cosmax*(1.0+cosmax/3.0)) - cosmin*(1.0+cosmin*(1.0+cosmin/3.0)));
-}; 
+} 
 
     
 double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double s, const double cos) const
@@ -42883,13 +42813,13 @@ double NPSMEFTd6General::delta_sigma_had(const double s, const double cosmin, co
         + delta_sigma_f(quarks[BOTTOM], s, cosmin, cosmax);
     
     return dsigma;
-};
+}
     
     
 double NPSMEFTd6General::delta_sigmaTot_f(const Particle f, const double s) const
 {   
     return delta_sigma_f(f, s, -1., 1.);  
-};
+}
     
 double NPSMEFTd6General::delta_AFB_f(const Particle f, const double s) const
 {
@@ -42966,7 +42896,7 @@ double NPSMEFTd6General::delta_AFB_f(const Particle f, const double s) const
     dAFB = 3.0 * dAFB / 2.0 / M2SM / M2SM;
     
     return dAFB;      
-};
+}
 
     
 // EW low-energy observables: Muon g-2

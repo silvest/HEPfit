@@ -19392,7 +19392,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
 
     double xspb = 0.0;
 
-    double xspbSM;
+    double xspbSM = 0.0;
     // SM values from Table 8 in hep-ex/0409016
     // Sum bin contents into B1=[-1,-0.8], B2=[-0.4,-0.2], B3=[0.4,0.6], B4=[0.8,1]
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
@@ -19776,7 +19776,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 
     double xspb = 0.0;
 
-    double xspbSM;
+    double xspbSM = 0.0;
     // SM values from Table 8 in hep-ex/0409016
     // Sum bin contents into B1=[-1,-0.8], B2=[-0.4,-0.2], B3=[0.4,0.6], B4=[0.8,1]
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
@@ -23657,7 +23657,7 @@ double NPSMEFTd6::cggEff_HB() const
     double ciHB;
 
     double m_t = mtpole;
-    //doulbe m_t = quarks[TOP].getMass();
+    //double m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
 

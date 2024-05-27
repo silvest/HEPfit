@@ -12,7 +12,7 @@
 eeWW::eeWW(const StandardModel& SM_i)
 : ThObservable(SM_i)
 {
-};
+}
 
 double eeWW::computeThValue()
 {
