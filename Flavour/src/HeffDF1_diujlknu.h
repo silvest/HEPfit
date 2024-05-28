@@ -18,6 +18,7 @@ class EvolDF1_diujlknu;
 #include "gslpp.h"
 #include <sstream>
 #include <memory>
+#include <array>
 
 
 
@@ -63,7 +64,7 @@ public:
 private:
     
     const StandardModel& model;
-    WilsonCoefficient coeffdiujleptonknu;
+    std::vector<WilsonCoefficient> coeffdiujleptonknu;
     std::unique_ptr<EvolDF1_diujlknu> evolDF1;
     
 };
