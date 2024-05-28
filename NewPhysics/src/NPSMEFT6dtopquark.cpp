@@ -200,7 +200,7 @@ Rb_NPSMEFT6dtopquark::Rb_NPSMEFT6dtopquark(const StandardModel& SM_i)
 
     setParametersForObservable(make_vector<std::string>() << "Rb_SM" );
 
-};
+}
 
 double Rb_NPSMEFT6dtopquark::computeThValue()
 {
@@ -239,7 +239,7 @@ AFBLR::AFBLR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "AFBLR_SM" );
-};
+}
 
 double AFBLR::computeThValue()
 {
@@ -291,7 +291,7 @@ sigmattbarTev::sigmattbarTev(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_ttbar_tev" );
-};
+}
 
 double sigmattbarTev::computeThValue()
 {
@@ -336,7 +336,7 @@ sigmaschannelTev::sigmaschannelTev(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigmaschannelTev" );
-};
+}
 
 double sigmaschannelTev::computeThValue()
     {
@@ -389,7 +389,7 @@ FB_asymmetry_Tevatron_tt_diff_mtt_top_basis_LO::FB_asymmetry_Tevatron_tt_diff_mt
             << "SM_FB_asymmetry_bin_mtt_650_750" << "SM_FB_asymmetry_deno_bin_mtt_650_750");
             
     
-};
+}
 
 
 double FB_asymmetry_Tevatron_tt_diff_mtt_top_basis_LO::computeThValue()
@@ -573,7 +573,7 @@ F0::F0(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "F0_SM" );
-};
+}
 
 double F0::computeThValue()
 {
@@ -613,7 +613,7 @@ FL::FL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "FL_SM" );
-};
+}
 
 double FL::computeThValue()
 {
@@ -663,7 +663,7 @@ sigmattbarLHC13::sigmattbarLHC13(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_ttbar_LHC13" );
-};
+}
 
 double sigmattbarLHC13::computeThValue()
 {
@@ -711,7 +711,7 @@ sigmattbarLHC8::sigmattbarLHC8(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_ttbar_LHC8" );
-};
+}
 
 double sigmattbarLHC8::computeThValue()
 {
@@ -758,7 +758,8 @@ sigmattZ::sigmattZ(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_ttZ_inc" );
-};
+}
+
 double sigmattZ::computeThValue()
 {
     double SM_ttZ_inc = SM.getOptionalParameter("SM_ttZ_inc");
@@ -819,7 +820,8 @@ sigmattA::sigmattA(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_ttA_inc" );
-};
+}
+
 double sigmattA::computeThValue()
 {   
     double SM_ttA_inc = SM.getOptionalParameter("SM_ttA_inc");
@@ -871,7 +873,8 @@ sigmattW::sigmattW(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_ttW_inc" );
-};
+}
+
 double sigmattW::computeThValue()
 {
     double SM_ttW_inc = SM.getOptionalParameter("SM_ttW_inc");
@@ -918,7 +921,8 @@ Asymmetry_leptonic_charge_rapidity_ttW::Asymmetry_leptonic_charge_rapidity_ttW(c
     setParametersForObservable(make_vector<std::string>() << "SM_Asymmetry_leptonic_charge_rapidity_ttW"
             << "SM_ttW_inc");
     
-};
+}
+
 double Asymmetry_leptonic_charge_rapidity_ttW::computeThValue()
 {
     double SM_Asymmetry_leptonic_charge_rapidity_ttW = SM.getOptionalParameter("SM_Asymmetry_leptonic_charge_rapidity_ttW");
@@ -970,7 +974,8 @@ sigmatchannel13::sigmatchannel13(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigmatchannel13" );
-};
+}
+
 double sigmatchannel13::computeThValue()
 {
     double SM_sigmatchannel13 = SM.getOptionalParameter("SM_sigmatchannel13");
@@ -1010,7 +1015,8 @@ sigmatchannel8::sigmatchannel8(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigmatchannel8" );
-};
+}
+
 double sigmatchannel8::computeThValue()
     {
     double  SM_sigmatchannel8 = SM.getOptionalParameter("SM_sigmatchannel8");
@@ -1048,7 +1054,8 @@ sigmaschannel8::sigmaschannel8(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigmaschannel8" );
-};
+}
+
 double sigmaschannel8::computeThValue()
 {
     double  SM_sigmaschannel8 = SM.getOptionalParameter("SM_sigmaschannel8");
@@ -1091,7 +1098,8 @@ sigmatW::sigmatW(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_tW_inc" );
-};
+}
+
 double sigmatW::computeThValue()
 {
     double SM_tW_inc = SM.getOptionalParameter("SM_tW_inc");
@@ -1128,7 +1136,8 @@ sigmatW_8TeV::sigmatW_8TeV(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_tW_inc_8TeV" );
-};
+}
+
 double sigmatW_8TeV::computeThValue()
 {
     double  SM_tW_inc_8TeV = SM.getOptionalParameter("SM_tW_inc_8TeV");
@@ -1173,7 +1182,8 @@ sigmatqZ::sigmatqZ(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_tZQ_inc" );
-};
+}
+
 double sigmatqZ::computeThValue()
 {
     double  SM_tZQ_inc = SM.getOptionalParameter("SM_tZQ_inc");
@@ -1232,7 +1242,8 @@ sigmatAq::sigmatAq(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_tAq_inc" );
-};
+}
+
 double sigmatAq::computeThValue()
 {
     double  SM_tAq_inc = SM.getOptionalParameter("SM_tAq_inc");
@@ -1292,7 +1303,8 @@ tH_tchan::tH_tchan(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_tH_tchan_value" );
-};
+}
+
 double tH_tchan::computeThValue()
 {
     double  SM_tH_tchan_value = SM.getOptionalParameter("SM_tH_tchan_value");
@@ -1336,7 +1348,8 @@ sigmattH::sigmattH(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_ttH_inc" );
-};
+}
+
 double sigmattH::computeThValue()
 {
     
@@ -1389,7 +1402,8 @@ ttHSUM::ttHSUM(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_ttH_inc" << "SM_tH_tchan_value" );
-};
+}
+
 double ttHSUM::computeThValue()
 {
     
@@ -1470,7 +1484,8 @@ ttWqEM::ttWqEM(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "ttWqEM_SM" );
-};
+}
+
 double ttWqEM::computeThValue()
 {
     double ttWqEM_SM = SM.getOptionalParameter("ttWqEM_SM");
@@ -1516,7 +1531,8 @@ ttWqSUM::ttWqSUM(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "ttWqEM_SM" << "SM_ttW_inc");
-};
+}
+
 double ttWqSUM::computeThValue()
 {
     double ttWqEM_SM = SM.getOptionalParameter("ttWqEM_SM");
@@ -1607,8 +1623,7 @@ sigma_ttz_diff_NLO_ATLAS_210312603::sigma_ttz_diff_NLO_ATLAS_210312603(const Sta
             << "SM_sigma_ttz_bin_220_290_ATLAS_210312603" << "SM_sigma_ttz_bin_290_400_ATLAS_210312603");
 
     
-};
-
+}
 
 double sigma_ttz_diff_NLO_ATLAS_210312603::computeThValue()
 {
@@ -1873,7 +1888,7 @@ sigma_tta_diff_NLO_ATLAS_emu_200706946::sigma_tta_diff_NLO_ATLAS_emu_200706946(c
             << "SM_sigma_tta_bin_85_132_ATLAS_emu" << "SM_sigma_tta_bin_132_180_ATLAS_emu" << "SM_sigma_tta_bin_180_300_ATLAS_emu");
 
     
-};
+}
 
 double sigma_tta_diff_NLO_ATLAS_emu_200706946::computeThValue()
 {
@@ -2249,8 +2264,7 @@ sigma_tta_diff_NLO_CMS_dilepton_220107301::sigma_tta_diff_NLO_CMS_dilepton_22010
             << "SM_sigma_tta_bin_130_200_CMS_dilepton" << "SM_sigma_tta_bin_200_300_CMS_dilepton");
 
     
-};
-
+}
 
 double sigma_tta_diff_NLO_CMS_dilepton_220107301::computeThValue()
 {
@@ -2545,7 +2559,7 @@ sigma_tt_diff_NLO::sigma_tt_diff_NLO(const StandardModel& SM_i)
             "SM_sigma_tt_bin_2300_3500" << "SM_sigma_tt_bin_2300_2600" << "SM_sigma_tt_bin_2600_3000" << "SM_sigma_tt_bin_3000_3500" <<
             "SM_sigma_tt_bin_3500_4000");
                 
-};
+}
 
 double sigma_tt_diff_NLO::computeThValue()
 {
@@ -3237,7 +3251,8 @@ charge_asymmetry_tt_diff_mtt_NLO::charge_asymmetry_tt_diff_mtt_NLO(const Standar
             << "SM_charge_asymmetry_deno_bin_mtt_1500_2000" << "SM_charge_asymmetry_bin_mtt_2000_2500" << "SM_charge_asymmetry_deno_bin_mtt_2000_2500" 
             << "SM_charge_asymmetry_bin_mtt_2500_3000" << "SM_charge_asymmetry_deno_bin_mtt_2500_3000");
     
-};
+}
+
 double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
 {
     
@@ -3899,7 +3914,7 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
 /*
 Charge_Asymmetry_bin_tt_0_500::Charge_Asymmetry_bin_tt_0_500(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 
 double    Charge_Asymmetry_bin_tt_0_500::computeThValue() 
 { 
@@ -3945,7 +3960,7 @@ else{
 
 Charge_Asymmetry_bin_tt_500_750::Charge_Asymmetry_bin_tt_500_750(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 
 double    Charge_Asymmetry_bin_tt_500_750::computeThValue() 
 { 
@@ -3991,7 +4006,7 @@ else{
 
 Charge_Asymmetry_bin_tt_750_1000::Charge_Asymmetry_bin_tt_750_1000(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 
 double    Charge_Asymmetry_bin_tt_750_1000::computeThValue() 
 { 
@@ -4037,7 +4052,7 @@ else{
 
 Charge_Asymmetry_bin_tt_1000_1500::Charge_Asymmetry_bin_tt_1000_1500(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 
 double    Charge_Asymmetry_bin_tt_1000_1500::computeThValue() 
 { 
@@ -4083,7 +4098,7 @@ else{
 
 Charge_Asymmetry_bin_tt_1500_2000::Charge_Asymmetry_bin_tt_1500_2000(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 
 double    Charge_Asymmetry_bin_tt_1500_2000::computeThValue() 
 { 
@@ -4129,7 +4144,7 @@ else{
 
 Charge_Asymmetry_bin_tt_2000_2500::Charge_Asymmetry_bin_tt_2000_2500(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 
 double    Charge_Asymmetry_bin_tt_2000_2500::computeThValue() 
 { 
@@ -4175,7 +4190,7 @@ else{
 
 Charge_Asymmetry_bin_tt_2500_3000::Charge_Asymmetry_bin_tt_2500_3000(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 
 double    Charge_Asymmetry_bin_tt_2500_3000::computeThValue() 
 { 
@@ -4233,7 +4248,8 @@ sigma_ttll_diff_LO::sigma_ttll_diff_LO(const StandardModel& SM_i)
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_ttll_bin_100_120" << "SM_sigma_ttll_bin_120_140" 
             << "SM_sigma_ttll_bin_140_180" << "SM_sigma_ttll_bin_180_500" );
                 
-};
+}
+
 double sigma_ttll_diff_LO::computeThValue()
 {
     
@@ -4319,7 +4335,7 @@ double sigma_ttll_diff_LO::computeThValue()
 /*
 ttll_bin_100_120::ttll_bin_100_120(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 
 double ttll_bin_100_120::computeThValue()
 {
@@ -4351,7 +4367,7 @@ double ttll_bin_100_120::computeThValue()
 
 ttll_bin_120_140::ttll_bin_120_140(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 double ttll_bin_120_140::computeThValue()
 {
     
@@ -4382,7 +4398,7 @@ double ttll_bin_120_140::computeThValue()
 
 ttll_bin_140_180::ttll_bin_140_180(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 double ttll_bin_140_180::computeThValue()
 {
     
@@ -4414,7 +4430,7 @@ double ttll_bin_140_180::computeThValue()
 
 ttll_bin_180_500::ttll_bin_180_500(const StandardModel& SM_i)
  : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i)) 
-{};
+{}
 double ttll_bin_180_500::computeThValue()
 {
     
@@ -4471,7 +4487,8 @@ sigma_mumu_VBF_3TeV_tt::sigma_mumu_VBF_3TeV_tt(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_VBF_3TeV_tt");
-};
+}
+
 double sigma_mumu_VBF_3TeV_tt::computeThValue()
 {
     //WRITTEN IN PICO BARNS!!!
@@ -4507,7 +4524,8 @@ sigma_mumu_VBF_3TeV_ttH::sigma_mumu_VBF_3TeV_ttH(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_VBF_3TeV_ttH");
-};
+}
+
 double sigma_mumu_VBF_3TeV_ttH::computeThValue()
 {
 
@@ -4549,7 +4567,8 @@ sigma_mumu_VBF_10TeV_tt::sigma_mumu_VBF_10TeV_tt(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_VBF_10TeV_tt");
-};
+}
+
 double sigma_mumu_VBF_10TeV_tt::computeThValue()
 {
     //WRITTEN IN PICO BARNS!!!
@@ -4588,7 +4607,8 @@ sigma_mumu_VBF_10TeV_ttH::sigma_mumu_VBF_10TeV_ttH(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_VBF_10TeV_ttH");
-};
+}
+
 double sigma_mumu_VBF_10TeV_ttH::computeThValue()
 {
 
@@ -4633,7 +4653,8 @@ sigma_mumu_VBF_30TeV_tt::sigma_mumu_VBF_30TeV_tt(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_VBF_30TeV_tt");
-};
+}
+
 double sigma_mumu_VBF_30TeV_tt::computeThValue()
 {
     //WRITTEN IN PICO BARNS!!!
@@ -4672,7 +4693,8 @@ sigma_mumu_VBF_30TeV_ttH::sigma_mumu_VBF_30TeV_ttH(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_VBF_30TeV_ttH");
-};
+}
+
 double sigma_mumu_VBF_30TeV_ttH::computeThValue()
 {
 
@@ -4718,7 +4740,8 @@ double sigma_mumu_VBF_30TeV_ttH::computeThValue()
 
 sigma_250_bb_eP_P30_eM_M80::sigma_250_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_250_bb_eP_P30_eM_M80::computeThValue()
 {
     
@@ -4757,7 +4780,8 @@ double sigma_250_bb_eP_P30_eM_M80::computeThValue()
 
 sigma_250_bb_eP_M30_eM_P80::sigma_250_bb_eP_M30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_250_bb_eP_M30_eM_P80::computeThValue()
 {
     
@@ -4796,7 +4820,8 @@ double sigma_250_bb_eP_M30_eM_P80::computeThValue()
 
 a_250_bb_eP_P30_eM_M80::a_250_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_250_bb_eP_P30_eM_M80::computeThValue()
 {
     
@@ -4838,7 +4863,8 @@ double a_250_bb_eP_P30_eM_M80::computeThValue()
 
 a_250_bb_eP_M30_eM_P80::a_250_bb_eP_M30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_250_bb_eP_M30_eM_P80::computeThValue()
 {
     
@@ -4882,7 +4908,8 @@ double a_250_bb_eP_M30_eM_P80::computeThValue()
 
 sigma_500_bb_eP_P30_eM_M80::sigma_500_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_500_bb_eP_P30_eM_M80::computeThValue()
 {
     
@@ -4922,7 +4949,8 @@ double sigma_500_bb_eP_P30_eM_M80::computeThValue()
 
 sigma_500_bb_eP_M30_eM_P80::sigma_500_bb_eP_M30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_500_bb_eP_M30_eM_P80::computeThValue()
 {
     
@@ -4962,7 +4990,8 @@ double sigma_500_bb_eP_M30_eM_P80::computeThValue()
 
 a_500_bb_eP_P30_eM_M80::a_500_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_500_bb_eP_P30_eM_M80::computeThValue()
 {
     
@@ -5003,7 +5032,8 @@ double a_500_bb_eP_P30_eM_M80::computeThValue()
 
 a_500_bb_eP_M30_eM_P80::a_500_bb_eP_M30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_500_bb_eP_M30_eM_P80::computeThValue()
 {
     
@@ -5043,7 +5073,8 @@ double a_500_bb_eP_M30_eM_P80::computeThValue()
 
 sigma_500_ttH_eP_P30_eM_M80::sigma_500_ttH_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_500_ttH_eP_P30_eM_M80::computeThValue()
 {
     
@@ -5099,7 +5130,8 @@ double sigma_500_ttH_eP_P30_eM_M80::computeThValue()
 
 sigma_500_ttH_eP_M30_eM_P80::sigma_500_ttH_eP_M30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_500_ttH_eP_M30_eM_P80::computeThValue()
 {
     
@@ -5155,7 +5187,8 @@ double sigma_500_ttH_eP_M30_eM_P80::computeThValue()
 
 sigma_1000_bb_eP_P30_eM_M80::sigma_1000_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_1000_bb_eP_P30_eM_M80::computeThValue()
 {
     
@@ -5195,7 +5228,8 @@ double sigma_1000_bb_eP_P30_eM_M80::computeThValue()
 
 sigma_1000_bb_eP_M30_eM_P80::sigma_1000_bb_eP_M30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_1000_bb_eP_M30_eM_P80::computeThValue()
 {
     
@@ -5236,7 +5270,8 @@ double sigma_1000_bb_eP_M30_eM_P80::computeThValue()
 
 a_1000_bb_eP_P30_eM_M80::a_1000_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_1000_bb_eP_P30_eM_M80::computeThValue()
 {
     
@@ -5275,7 +5310,8 @@ double a_1000_bb_eP_P30_eM_M80::computeThValue()
 
 a_1000_bb_eP_M30_eM_P80::a_1000_bb_eP_M30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_1000_bb_eP_M30_eM_P80::computeThValue()
 {
     
@@ -5315,7 +5351,8 @@ double a_1000_bb_eP_M30_eM_P80::computeThValue()
 
 sigma_1000_ttH_eP_P30_eM_M80::sigma_1000_ttH_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_1000_ttH_eP_P30_eM_M80::computeThValue()
 {
     
@@ -5369,7 +5406,8 @@ double sigma_1000_ttH_eP_P30_eM_M80::computeThValue()
 
 sigma_1000_ttH_eP_M30_eM_P80::sigma_1000_ttH_eP_M30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_1000_ttH_eP_M30_eM_P80::computeThValue()
 {
     
@@ -5429,7 +5467,8 @@ double sigma_1000_ttH_eP_M30_eM_P80::computeThValue()
 
 sigma_380_bb_eP_0_eM_P80::sigma_380_bb_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_380_bb_eP_0_eM_P80::computeThValue()
 {
     
@@ -5471,7 +5510,8 @@ double sigma_380_bb_eP_0_eM_P80::computeThValue()
 
 sigma_380_bb_eP_0_eM_M80::sigma_380_bb_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_380_bb_eP_0_eM_M80::computeThValue()
 {
     
@@ -5512,7 +5552,8 @@ double sigma_380_bb_eP_0_eM_M80::computeThValue()
 
 a_380_bb_eP_0_eM_P80::a_380_bb_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_380_bb_eP_0_eM_P80::computeThValue()
 {
     
@@ -5554,7 +5595,8 @@ double a_380_bb_eP_0_eM_P80::computeThValue()
 
 a_380_bb_eP_0_eM_M80::a_380_bb_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_380_bb_eP_0_eM_M80::computeThValue()
 {
     
@@ -5604,7 +5646,8 @@ double a_380_bb_eP_0_eM_M80::computeThValue()
 
 sigma_1400_bb_eP_0_eM_P80::sigma_1400_bb_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_1400_bb_eP_0_eM_P80::computeThValue()
 {
     
@@ -5646,7 +5689,8 @@ double sigma_1400_bb_eP_0_eM_P80::computeThValue()
 
 sigma_1400_bb_eP_0_eM_M80::sigma_1400_bb_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_1400_bb_eP_0_eM_M80::computeThValue()
 {
     
@@ -5690,7 +5734,8 @@ double sigma_1400_bb_eP_0_eM_M80::computeThValue()
 
 a_1400_bb_eP_0_eM_P80::a_1400_bb_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_1400_bb_eP_0_eM_P80::computeThValue()
 {
     
@@ -5732,7 +5777,8 @@ double a_1400_bb_eP_0_eM_P80::computeThValue()
 
 a_1400_bb_eP_0_eM_M80::a_1400_bb_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_1400_bb_eP_0_eM_M80::computeThValue()
 {
     
@@ -5773,7 +5819,8 @@ double a_1400_bb_eP_0_eM_M80::computeThValue()
 
 sigma_1500_ttH_eP_0_eM_M80::sigma_1500_ttH_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_1500_ttH_eP_0_eM_M80::computeThValue()
 {
     
@@ -5829,7 +5876,8 @@ double sigma_1500_ttH_eP_0_eM_M80::computeThValue()
 
 sigma_1500_ttH_eP_0_eM_P80::sigma_1500_ttH_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_1500_ttH_eP_0_eM_P80::computeThValue()
 {
     
@@ -5891,7 +5939,8 @@ double sigma_1500_ttH_eP_0_eM_P80::computeThValue()
 
 sigma_3000_bb_eP_0_eM_P80::sigma_3000_bb_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_3000_bb_eP_0_eM_P80::computeThValue()
 {
     
@@ -5938,7 +5987,8 @@ double sigma_3000_bb_eP_0_eM_P80::computeThValue()
 
 sigma_3000_bb_eP_0_eM_M80::sigma_3000_bb_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_3000_bb_eP_0_eM_M80::computeThValue()
 {
     
@@ -5983,7 +6033,8 @@ double sigma_3000_bb_eP_0_eM_M80::computeThValue()
 
 a_3000_bb_eP_0_eM_P80::a_3000_bb_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_3000_bb_eP_0_eM_P80::computeThValue()
 {
     
@@ -6025,7 +6076,8 @@ double a_3000_bb_eP_0_eM_P80::computeThValue()
 
 a_3000_bb_eP_0_eM_M80::a_3000_bb_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_3000_bb_eP_0_eM_M80::computeThValue()
 {
     
@@ -6067,7 +6119,8 @@ double a_3000_bb_eP_0_eM_M80::computeThValue()
 
 sigma_3000_ttH_eP_0_eM_M80::sigma_3000_ttH_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_3000_ttH_eP_0_eM_M80::computeThValue()
 {
     
@@ -6123,7 +6176,8 @@ double sigma_3000_ttH_eP_0_eM_M80::computeThValue()
 
 sigma_3000_ttH_eP_0_eM_P80::sigma_3000_ttH_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_3000_ttH_eP_0_eM_P80::computeThValue()
 {
     
@@ -6184,7 +6238,8 @@ sigma_240_bb::sigma_240_bb(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_240_bb" );
-};
+}
+
 double sigma_240_bb::computeThValue()
 {
     
@@ -6229,7 +6284,8 @@ a_240_bb::a_240_bb(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_a_240_bb" );
-};
+}
+
 double a_240_bb::computeThValue()
 {
     
@@ -6277,7 +6333,8 @@ sigma_360_bb::sigma_360_bb(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_360_bb" );
-};
+}
+
 double sigma_360_bb::computeThValue()
 {
     
@@ -6321,7 +6378,8 @@ a_360_bb::a_360_bb(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_a_360_bb" );
-};
+}
+
 double a_360_bb::computeThValue()
 {
     
@@ -6368,7 +6426,8 @@ sigma_Z_pole_bb::sigma_Z_pole_bb(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_Z_pole_bb" );
-};
+}
+
 double sigma_Z_pole_bb::computeThValue()
 {
     
@@ -6414,7 +6473,8 @@ sigma_Z_pole_bb_eP_0_eM_P80::sigma_Z_pole_bb_eP_0_eM_P80(const StandardModel& SM
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_Z_pole_bb_eP_0_eM_P80" );
-};
+}
+
 double sigma_Z_pole_bb_eP_0_eM_P80::computeThValue()
 {
     
@@ -6461,7 +6521,8 @@ sigma_Z_pole_bb_eP_0_eM_M80::sigma_Z_pole_bb_eP_0_eM_M80(const StandardModel& SM
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_Z_pole_bb_eP_0_eM_M80" );
-};
+}
+
 double sigma_Z_pole_bb_eP_0_eM_M80::computeThValue()
 {
     
@@ -6507,7 +6568,8 @@ sigma_Z_pole_bb_eP_M30_eM_P80::sigma_Z_pole_bb_eP_M30_eM_P80(const StandardModel
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_Z_pole_bb_eP_M30_eM_P80" );
-};
+}
+
 double sigma_Z_pole_bb_eP_M30_eM_P80::computeThValue()
 {
     
@@ -6553,7 +6615,8 @@ sigma_Z_pole_bb_eP_P30_eM_M80::sigma_Z_pole_bb_eP_P30_eM_M80(const StandardModel
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_sigma_Z_pole_bb_eP_P30_eM_M80" );
-};
+}
+
 double sigma_Z_pole_bb_eP_P30_eM_M80::computeThValue()
 {
     
@@ -6603,7 +6666,8 @@ a_Z_pole_bb::a_Z_pole_bb(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_a_Z_pole_bb" );
-};
+}
+
 double a_Z_pole_bb::computeThValue()
 {
     
@@ -6648,7 +6712,8 @@ a_Z_pole_bb_eP_0_eM_P80::a_Z_pole_bb_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_a_Z_pole_bb_eP_0_eM_P80" );
-};
+}
+
 double a_Z_pole_bb_eP_0_eM_P80::computeThValue()
 {
     
@@ -6691,7 +6756,8 @@ a_Z_pole_bb_eP_0_eM_M80::a_Z_pole_bb_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_a_Z_pole_bb_eP_0_eM_P80" );
-};
+}
+
 double a_Z_pole_bb_eP_0_eM_M80::computeThValue()
 {
     
@@ -6737,7 +6803,8 @@ a_Z_pole_bb_eP_M30_eM_P80::a_Z_pole_bb_eP_M30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_a_Z_pole_bb_eP_M30_eM_P80" );
-};
+}
+
 double a_Z_pole_bb_eP_M30_eM_P80::computeThValue()
 {
     
@@ -6785,7 +6852,8 @@ a_Z_pole_bb_eP_P30_eM_M80::a_Z_pole_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
     setParametersForObservable(make_vector<std::string>() << "SM_a_Z_pole_bb_eP_P30_eM_M80" );
-};
+}
+
 double a_Z_pole_bb_eP_P30_eM_M80::computeThValue()
 {
     
@@ -6840,7 +6908,8 @@ double a_Z_pole_bb_eP_P30_eM_M80::computeThValue()
 
 sigma_250_bb_eLpR::sigma_250_bb_eLpR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_250_bb_eLpR::computeThValue()
 {
     // double sigma_250_bb_eLpR_madgraph = 3290;//fb
@@ -6885,7 +6954,8 @@ double sigma_250_bb_eLpR::computeThValue()
 
 a_250_bb_eLpR::a_250_bb_eLpR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_250_bb_eLpR::computeThValue()
 {
     //double a_250_bb_eLpR_madgraph = 69.6; in percentage
@@ -6925,7 +6995,8 @@ double a_250_bb_eLpR::computeThValue()
 
 sigma_250_bb_eRpL::sigma_250_bb_eRpL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double sigma_250_bb_eRpL::computeThValue()
 {
     //double sigma_250_bb_eRpL_madgraph = 1020;//fb
@@ -6966,7 +7037,8 @@ double sigma_250_bb_eRpL::computeThValue()
 
 a_250_bb_eRpL::a_250_bb_eRpL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
+
 double a_250_bb_eRpL::computeThValue()
 {
     //double a_250_bb_eRpL_madgraph = 35.9; In percentage
@@ -7017,7 +7089,7 @@ double a_250_bb_eRpL::computeThValue()
 
 sigma_500_bb_eLpR::sigma_500_bb_eLpR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double sigma_500_bb_eLpR::computeThValue()
 {
@@ -7058,7 +7130,7 @@ double sigma_500_bb_eLpR::computeThValue()
 
 a_500_bb_eLpR::a_500_bb_eLpR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double a_500_bb_eLpR::computeThValue()
 {
@@ -7099,7 +7171,7 @@ double a_500_bb_eLpR::computeThValue()
 
 sigma_500_bb_eRpL::sigma_500_bb_eRpL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double sigma_500_bb_eRpL::computeThValue()
 {
@@ -7141,7 +7213,7 @@ double sigma_500_bb_eRpL::computeThValue()
 
 a_500_bb_eRpL::a_500_bb_eRpL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double a_500_bb_eRpL::computeThValue()
 {
@@ -7189,7 +7261,7 @@ double a_500_bb_eRpL::computeThValue()
 
 sigma_500_tt_eLpR::sigma_500_tt_eLpR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double sigma_500_tt_eLpR::computeThValue()
 {
@@ -7214,7 +7286,7 @@ double sigma_500_tt_eLpR::computeThValue()
 
 a_500_tt_eLpR::a_500_tt_eLpR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double a_500_tt_eLpR::computeThValue()
 {
@@ -7238,7 +7310,7 @@ double a_500_tt_eLpR::computeThValue()
 
 sigma_500_tt_eRpL::sigma_500_tt_eRpL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double sigma_500_tt_eRpL::computeThValue()
 {
@@ -7264,7 +7336,7 @@ double sigma_500_tt_eRpL::computeThValue()
 
 a_500_tt_eRpL::a_500_tt_eRpL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double a_500_tt_eRpL::computeThValue()
 {
@@ -7291,7 +7363,7 @@ double a_500_tt_eRpL::computeThValue()
 
 pt_500_tt_eLpR::pt_500_tt_eLpR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double pt_500_tt_eLpR::computeThValue()
 {
@@ -7312,7 +7384,7 @@ double pt_500_tt_eLpR::computeThValue()
 
 pt_500_tt_eRpL::pt_500_tt_eRpL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double pt_500_tt_eRpL::computeThValue()
 {
@@ -7342,7 +7414,7 @@ double pt_500_tt_eRpL::computeThValue()
 
 op1::op1(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op1::computeThValue()
 {
@@ -7353,7 +7425,7 @@ double op1::computeThValue()
 
 op2::op2(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op2::computeThValue()
 {
@@ -7374,7 +7446,7 @@ double op2::computeThValue()
 
 op3::op3(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op3::computeThValue()
 {
@@ -7384,7 +7456,7 @@ double op3::computeThValue()
 
 op4::op4(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op4::computeThValue()
 {
@@ -7420,7 +7492,7 @@ double op4::computeThValue()
 
 sigma_1000_bb_eLpR::sigma_1000_bb_eLpR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double sigma_1000_bb_eLpR::computeThValue()
 {
@@ -7461,7 +7533,7 @@ double sigma_1000_bb_eLpR::computeThValue()
 
 a_1000_bb_eLpR::a_1000_bb_eLpR(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double a_1000_bb_eLpR::computeThValue()
 {
@@ -7502,7 +7574,7 @@ double a_1000_bb_eLpR::computeThValue()
 
 sigma_1000_bb_eRpL::sigma_1000_bb_eRpL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double sigma_1000_bb_eRpL::computeThValue()
 {
@@ -7544,7 +7616,7 @@ double sigma_1000_bb_eRpL::computeThValue()
 
 a_1000_bb_eRpL::a_1000_bb_eRpL(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double a_1000_bb_eRpL::computeThValue()
 {
@@ -7595,7 +7667,7 @@ double a_1000_bb_eRpL::computeThValue()
 
 op_1000_1::op_1000_1(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op_1000_1::computeThValue()
 {
@@ -7618,7 +7690,7 @@ double op_1000_1::computeThValue()
 
 op_1000_2::op_1000_2(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op_1000_2::computeThValue()
 {
@@ -7634,7 +7706,7 @@ double op_1000_2::computeThValue()
 
 op_1000_3::op_1000_3(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op_1000_3::computeThValue()
 {
@@ -7645,7 +7717,7 @@ double op_1000_3::computeThValue()
 
 op_1000_4::op_1000_4(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op_1000_4::computeThValue()
 {
@@ -7670,7 +7742,7 @@ double op_1000_4::computeThValue()
 
 op_1000_5::op_1000_5(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op_1000_5::computeThValue()
 {
@@ -7682,7 +7754,7 @@ double op_1000_5::computeThValue()
 
 op_1000_6::op_1000_6(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op_1000_6::computeThValue()
 {
@@ -7695,7 +7767,7 @@ double op_1000_6::computeThValue()
 
 op_1000_7::op_1000_7(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op_1000_7::computeThValue()
 {
@@ -7707,7 +7779,7 @@ double op_1000_7::computeThValue()
 
 op_1000_8::op_1000_8(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double op_1000_8::computeThValue()
 {
@@ -7743,7 +7815,7 @@ double op_1000_8::computeThValue()
 
 gLt::gLt(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double gLt::computeThValue()
 {
@@ -7755,7 +7827,7 @@ double gLt::computeThValue()
 
 gLb::gLb(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double gLb::computeThValue()
 {
@@ -7768,7 +7840,7 @@ double gLb::computeThValue()
 
 gRt::gRt(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double gRt::computeThValue()
 {
@@ -7780,7 +7852,7 @@ double gRt::computeThValue()
 
 gRb::gRb(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{};
+{}
 
 double gRb::computeThValue()
 {

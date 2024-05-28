@@ -782,4 +782,185 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+
+/***********************/
+/* Observables with Hp */
+/***********************/
+
+/**
+ * @class Hobs_t_Hpb_csb_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the branching ratio of the process @f$t\to H^{+} b\to c \bar{s} b@f$.
+ */
+class Hobs_t_Hpb_csb_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_t_Hpb_csb_CMS8 constructor.
+     */
+    Hobs_t_Hpb_csb_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to c \bar{s})]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_t_Hpb_taunub_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the branching ratio of the process @f$t\to H^{+} b\to \tau^{+} \nu_{\tau} b@f$.
+ */
+class Hobs_t_Hpb_taunub_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_t_Hpb_taunub_CMS8 constructor.
+     */
+    Hobs_t_Hpb_taunub_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to \tau^{+} \nu_{\tau})]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_t_Hpb_cbb_CMS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the branching ratio of the process @f$t\to H^{+} b\to c \bar{b} b@f$.
+ */
+class Hobs_t_Hpb_cbb_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_t_Hpb_cbb_CMS8 constructor.
+     */
+    Hobs_t_Hpb_cbb_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to c \bar{b})]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_t_Hpb_WAb_Wmumub_CMS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the branching ratio of the process @f$t\to H^{+} b\to W^{+} A b\to W^{+} \mu^{+} \mu^{-} b@f$.
+ */
+class Hobs_t_Hpb_WAb_Wmumub_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_t_Hpb_WAb_Wmumub_CMS13 constructor.
+     */
+    Hobs_t_Hpb_WAb_Wmumub_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to W^{+} A) \cdot BR^{\text{GTHDM}}(A\to \mu^{+} \mu^{-})]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_t_Hpb_csb_CMS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the branching ratio of the process @f$t\to H^{+} b\to c \bar{s} b@f$.
+ */
+class Hobs_t_Hpb_csb_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_t_Hpb_csb_CMS13 constructor.
+     */
+    Hobs_t_Hpb_csb_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to c \bar{s})]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_t_Hpb_taunub_ATLAS8
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the branching ratio of the process @f$t\to H^{+} b\to \tau^{+} \nu_{\tau} b@f$.
+ */
+class Hobs_t_Hpb_taunub_ATLAS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_t_Hpb_taunub_ATLAS8 constructor.
+     */
+    Hobs_t_Hpb_taunub_ATLAS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to \tau^{+} \nu_{\tau})]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_t_Hpb_cbb_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the branching ratio of the process @f$t\to H^{+} b\to c \bar{b} b@f$.
+ */
+class Hobs_t_Hpb_cbb_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_t_Hpb_cbb_ATLAS13 constructor.
+     */
+    Hobs_t_Hpb_cbb_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to c \bar{b})]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_t_Hpb_WAb_Wmumub_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the branching ratio of the process @f$t\to H^{+} b\to W^{+} A b\to W^{+} \mu^{+} \mu^{-} b@f$.
+ */
+class Hobs_t_Hpb_WAb_Wmumub_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_t_Hpb_WAb_Wmumub_ATLAS13 constructor.
+     */
+    Hobs_t_Hpb_WAb_Wmumub_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to W^{+} A) \cdot BR^{\text{GTHDM}}(A\to \mu^{+} \mu^{-})]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
 #endif /* GENERALTHDMLOWMASS_H */

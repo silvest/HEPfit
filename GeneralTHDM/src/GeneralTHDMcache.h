@@ -218,7 +218,7 @@ public:
     /**
      * @brief CMS observed @f$95\%@f$ upper signal strength limits at 8 TeV, depending on the Higgs mass.
      */
-    gslpp::matrix<double> CMS8_mu_pp_phi_VV;
+    gslpp::matrix<double> CMS8_pp_phi_VV;
 
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
@@ -241,13 +241,14 @@ public:
                           ATLAS13_gg_phi_WW_enumunu, ATLAS13_VV_phi_WW_enumunu, ATLAS13_gg_phi_WW_lnuqq, ATLAS13_VV_phi_WW_lnuqq, ATLAS13_pp_phi_VV_qqqq,\
                           ATLAS13_pp_phi_phi1phi1_bbbb, ATLAS13_pp_phi_phi1phi1_bbgaga, ATLAS13_pp_phi_phi1phi1_bbtautau_1,ATLAS13_pp_phi_phi1phi1_bbtautau_2,\
                           ATLAS13_pp_phi_phi1phi1_bbWW, ATLAS13_gg_phi_phi1phi1_gagaWW,\
-                          ATLAS13_gg_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_tautaull;
-    
-    gslpp::matrix<double> ATLAS13_gg_phii_phijZ_bbZ, ATLAS13_bb_phii_phijZ_bbZ,ATLAS13_gg_phii_phijZ_WWZ;
+                          ATLAS13_gg_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_bbZ;
 
     
     //Added in mid 2022
-    gslpp::matrix<double> CMS13_pp_phi2_bb_light,CMS13_pp_phi3_bb_light,CMS13_tt_phi2_tt,CMS13_tt_phi3_tt;
+    gslpp::matrix<double> CMS13_gg_phi_phi1Z_tautaull,CMS13_pp_phi2_bb_light,CMS13_pp_phi3_bb_light,CMS13_tt_phi2_tt,CMS13_tt_phi3_tt;
+    
+    gslpp::matrix<double> ATLAS13_gg_phii_phijZ_bbZ, ATLAS13_bb_phii_phijZ_bbZ,ATLAS13_gg_phii_phijZ_WWZ;
+
     
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
@@ -309,8 +310,33 @@ public:
     gslpp::matrix<double> ATLAS8_pp_h_phi3phi3_gagagaga, ATLAS8_gg_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_bbmumu,\
                           CMS8_pp_h_phi3phi3_mumutautau, CMS8_pp_phi2_gaga, CMS8_pp_bbphi3_bbtautau, CMS8_pp_bbphi3_bbmumu;
     
+    //Added in 2024 for light charged scalar scenario
+    /**
+     * @brief CMS observed @f$95\%@f$ upper branching fraction limits at 8 TeV, depending on the charged scalar mass.
+     */
+    gslpp::matrix<double> CMS8_t_Hpb_csb, CMS8_t_Hpb_taunub, CMS8_t_Hpb_cbb;
+    /**
+     * @brief CMS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on charged and pseudoscalar masses.
+     */
+    gslpp::matrix<double> CMS13_t_Hpb_WAb_Wmumub;
+    /**
+     * @brief CMS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on the charged scalar mass.
+     */
+    gslpp::matrix<double> CMS13_t_Hpb_csb;
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper branching fraction limits at 8 TeV, depending on the charged scalar mass.
+     */
+    gslpp::matrix<double> ATLAS8_t_Hpb_taunub;
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on the charged scalar mass.
+     */
+    gslpp::matrix<double> ATLAS13_t_Hpb_cbb;
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on charged and pseudoscalar masses.
+     */
+    gslpp::matrix<double> ATLAS13_t_Hpb_WAb_Wmumub;
     
-    //Added in the 2024 for g-2 computation
+    //Added in 2024 for g-2 computation
     gslpp::matrix<double> integral_x2_1mx_G_log, integral_x2_1px_G_log, integral_x2_G_log, integral_x_1mx2_G_log,\
                           integral_x_1mx_1px_G_log, integral_x2_1mx_G_variable_set_1_log,\
                           integral_x2_G_variable_set_1_log, integral_x_1mx2_G_variable_set_0_log;
@@ -600,7 +626,7 @@ public:
     double ip_ex_gg_phi_WW_lnuqq_ATLAS13(double mass);
     double ip_ex_VV_phi_WW_lnuqq_ATLAS13(double mass);
     double ip_ex_pp_phi_WW_lnuqq_CMS13(double mass);
-    double ip_ex_mu_pp_phi_VV_CMS8(double mass);
+    double ip_ex_pp_phi_VV_CMS8(double mass);
     double ip_ex_pp_phi_VV_qqqq_ATLAS13(double mass);
     
     double ip_ex_gg_phi_VV_llqq_ATLAS13(double mass);
@@ -643,7 +669,7 @@ public:
     double ip_ex_gg_phi_phi1Z_bbZ_2_CMS13(double mass);
     double ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(double mass);
     
-    double ip_ex_gg_phi_phi1Z_tautaull_ATLAS13(double mass);
+    double ip_ex_gg_phi_phi1Z_tautaull_CMS13(double mass);
     
     
     double ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(double mass);
@@ -661,6 +687,7 @@ public:
     double ip_ex_pp_Hpm_tb_ATLAS13(double mass);
     double ip_ex_pp_Hpm_tb_CMS13(double mass);
 
+
     double ip_low_pp_h_phi3phi3_mumutautau_CMS13(double mass);
     double ip_low_pp_h_phi3phi3_bbtautau_CMS13(double mass);
     double ip_low_pp_h_phi3phi3_bbmumu_CMS13(double mass);
@@ -671,7 +698,6 @@ public:
     double ip_low_pp_phi2_gaga_CMS13(double mass);
     double ip_low_pp_bbphi3_bbtautau_CMS13(double mass);
 
-
     
     double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(double mass);
     double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8(double mass);
@@ -681,8 +707,7 @@ public:
     double ip_low_pp_phi2_gaga_CMS8(double mass);
     double ip_low_pp_bbphi3_bbtautau_CMS8(double mass);
     double ip_low_pp_bbphi3_bbmumu_CMS8(double mass);
-    
-    
+
 
     double ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(double mass);
     double ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(double mass);
@@ -693,7 +718,18 @@ public:
     double ip_low_pp_h_phi23phi23_gagagg_ATLAS13(double mass);
     double ip_low_pp_phi2_gaga_ATLAS13(double mass);
     double ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass);
-    
+
+
+    double ip_low_t_Hpb_csb_CMS8(double mass);
+    double ip_low_t_Hpb_taunub_CMS8(double mass);
+    double ip_low_t_Hpb_cbb_CMS8(double mass);
+    double ip_low_t_Hpb_WAb_Wmumub_CMS13(double mass);
+    double ip_low_t_Hpb_csb_CMS13(double mass);
+    double ip_low_t_Hpb_taunub_ATLAS8(double mass);
+    double ip_low_t_Hpb_cbb_ATLAS13(double mass);
+    double ip_low_t_Hpb_WAb_Wmumub_ATLAS13(double mass);
+
+
     double ip_integral_x2_1mx_G(double wa, double wb);
     double ip_integral_x2_1px_G(double wa, double wb);
     double ip_integral_x2_G(double wa, double wb);
@@ -1832,15 +1868,15 @@ public:
 
     /**
      * @brief Signal strength for the process @f$pp\to phi_2\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
-     * @return @f$\mu_H^{\text{GTHDM}}(phi_2\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_2}\cdot BR^{\text{GTHDM}}(phi_3\to VV)] / [\sigma^{\text{SM}}_{pp\to phi3}\cdot BR^{\text{SM}}(phi3\to VV)]@f$
+     * @return @f$(phi_2\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_2}\cdot BR^{\text{GTHDM}}(phi_3\to VV)]@f$
      */
-    double mu_pp_phi2_VV_TH8;
+    double pp_phi2_VV_TH8;
 
     /**
      * @brief Signal strength for the process @f$pp\to phi_3\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
-     * @return @f$\mu_H^{\text{GTHDM}}(phi_3\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_3}\cdot BR^{\text{GTHDM}}(phi_3\to VV)] / [\sigma^{\text{SM}}_{pp\to phi3}\cdot BR^{\text{SM}}(phi3\to VV)]@f$
+     * @return @f$(phi_3\to VV)=[\sigma^{\text{GTHDM}}_{pp\to phi_3}\cdot BR^{\text{GTHDM}}(phi_3\to VV)] @f$
      */
-    double mu_pp_phi3_VV_TH8;
+    double pp_phi3_VV_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to phi2\to (WW+ZZ)@f$ at the LHC with 13 TeV.
@@ -2728,9 +2764,9 @@ public:
     double THoEX_VV_phi3_WW_enumunu_ATLAS13;
     double THoEX_ggVV_phi3_WW_lnulnu_CMS13;
 
-    double THoEX_mu_pp_phi2_VV_CMS8;
+    double THoEX_pp_phi2_VV_CMS8;
     double THoEX_pp_phi2_VV_qqqq_ATLAS13;
-    double THoEX_mu_pp_phi3_VV_CMS8;
+    double THoEX_pp_phi3_VV_CMS8;
     double THoEX_pp_phi3_VV_qqqq_ATLAS13;
 
     double THoEX_gg_phi2_VV_llqq_ATLAS13;
@@ -2848,8 +2884,8 @@ public:
     double THoEX_bb_phi2_phi1Z_bbZ_ATLAS13;
     double THoEX_bb_phi3_phi1Z_bbZ_ATLAS13;
     
-    double THoEX_gg_phi2_phi1Z_tautaull_ATLAS13;    //Included in mid 2022
-    double THoEX_gg_phi3_phi1Z_tautaull_ATLAS13;    //Included in mid 2022
+    double THoEX_gg_phi2_phi1Z_tautaull_CMS13;    //Included in mid 2022
+    double THoEX_gg_phi3_phi1Z_tautaull_CMS13;    //Included in mid 2022
     
     double THoEX_bb_phi2_phi1Z_bbZ_1_CMS13;
     double THoEX_bb_phi3_phi1Z_bbZ_1_CMS13;
@@ -2919,6 +2955,15 @@ public:
     double THoEX_Zh_h_phi2phi2_bbbb_ATLAS13;
     double THoEX_pp_h_phi2phi2_bbmumu_ATLAS13_old;
     double THoEX_pp_h_phi2phi2_gagagg_ATLAS13;
+
+    double THoEX_t_Hpb_csb_CMS8;
+    double THoEX_t_Hpb_taunub_CMS8;
+    double THoEX_t_Hpb_cbb_CMS8;
+    double THoEX_t_Hpb_WAb_Wmumub_CMS13;
+    double THoEX_t_Hpb_csb_CMS13;
+    double THoEX_t_Hpb_taunub_ATLAS8;
+    double THoEX_t_Hpb_cbb_ATLAS13;
+    double THoEX_t_Hpb_WAb_Wmumub_ATLAS13;
 
     double SigmaSumphi2_8;
     double SigmaggF_phi2_8;
@@ -3514,7 +3559,7 @@ private:
     mutable double ip_ex_gg_phi_WW_lnuqq_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_VV_phi_WW_lnuqq_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_WW_lnuqq_CMS13_cache[2][CacheSize];
-    mutable double ip_ex_mu_pp_phi_VV_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_VV_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_VV_qqqq_ATLAS13_cache[2][CacheSize];
     
     mutable double ip_ex_gg_phi_VV_llqq_ATLAS13_cache[2][CacheSize];
@@ -3556,7 +3601,7 @@ private:
     mutable double ip_ex_gg_phi_phi1Z_bbZ_2_CMS13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_phi1Z_bbZ_ATLAS13_cache[2][CacheSize];
     
-    mutable double ip_ex_gg_phi_phi1Z_tautaull_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_phi1Z_tautaull_CMS13_cache[2][CacheSize];
     
     
     
@@ -3608,7 +3653,15 @@ private:
     mutable double ip_low_pp_bbphi3_bbtautau_CMS8_cache[2][CacheSize];
     mutable double ip_low_pp_bbphi3_bbmumu_CMS8_cache[2][CacheSize];
 
-    
+    mutable double ip_low_t_Hpb_csb_CMS8_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_taunub_CMS8_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_cbb_CMS8_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_WAb_Wmumub_CMS13_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_csb_CMS13_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_taunub_ATLAS8_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_cbb_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_WAb_Wmumub_ATLAS13_cache[2][CacheSize];
+
     mutable double ip_integral_x2_1mx_G_cache[3][CacheSize];
     mutable double ip_integral_x2_1px_G_cache[3][CacheSize];
     mutable double ip_integral_x2_G_cache[3][CacheSize];

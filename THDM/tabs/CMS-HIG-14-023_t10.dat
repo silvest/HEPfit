@@ -1,0 +1,11 @@
+# CMS-HIG-14-023, tab. 10
+# observed 95% exclusion limits on BR(t -> H+ b)*BR(H+ -> tau nu) at 8 TeV
+# mH+[GeV] | BR*BR_95%
+80	0.0120
+90	0.0092
+100	0.0061
+120	0.0028
+140	0.0017
+150	0.0015
+155	0.0016
+160	0.0015

@@ -510,6 +510,14 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
     return(res);
 }
 
+
+///////////////////////////////////////////////////////////////////////////
+///////////// We define here the higgs signal strengths ///////////////////
+///////////////////////////////////////////////////////////////////////////
+
+//Maybe we should move this to a file called SignalStrenghts to make the code more cleaner
+
+
 double GeneralTHDM::muggH(const double sqrt_s) const
 {
     return getMyGTHDMCache()->rh_gg;
@@ -552,8 +560,52 @@ double GeneralTHDM::muVBFpVH(const double sqrt_s) const
 
 double GeneralTHDM::muttH(const double sqrt_s) const
 {    
-    return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t);
+    //return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t);
+    return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO;
 }
+
+
+double GeneralTHDM::mutH(const double sqrt_s) const
+{    
+    //return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t);
+    return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO;
+}
+
+double GeneralTHDM::mubbH(const double sqrt_s) const
+{    
+    return getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO;
+}
+
+double GeneralTHDM::muttHptH(const double sqrt_s) const
+{    
+    return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO;
+}
+
+double GeneralTHDM::muggHpVBFpbbH(const double sqrt_s) const
+{
+    double xsecggF = computeSigmaggH(sqrt_s);
+    double xsecVBF = computeSigmaVBF(sqrt_s);
+    double xsecbbH = computeSigmabbH(sqrt_s);
+    return (muggH(sqrt_s)*xsecggF + muVBF(sqrt_s)*xsecVBF + mubbH(sqrt_s)*xsecbbH)/(xsecggF+xsecVBF+xsecbbH);
+}
+
+double GeneralTHDM::muggHpbbH(const double sqrt_s) const
+{
+    double xsecggF = computeSigmaggH(sqrt_s);
+    double xsecbbH = computeSigmabbH(sqrt_s);
+    return (muggH(sqrt_s)*xsecggF + mubbH(sqrt_s)*xsecbbH)/(xsecggF+xsecbbH);
+}
+
+double GeneralTHDM::muggHpttHptHpbbH(const double sqrt_s) const
+{
+    double xsecggF = computeSigmaggH(sqrt_s);
+    double xsecttH = computeSigmattH(sqrt_s);
+    double xsectH = computeSigmatHq(sqrt_s);
+    double xsecbbH = computeSigmabbH(sqrt_s);
+    return (muggH(sqrt_s)*xsecggF + muttH(sqrt_s)*xsecttH + mutH(sqrt_s)*xsectH + mubbH(sqrt_s)*xsecbbH)/(xsecggF+xsecttH+xsectH+xsecbbH);
+}
+
+
 
 double GeneralTHDM::computeGammaTotalRatio() const
 {
@@ -592,137 +644,352 @@ double GeneralTHDM::BrHgagaRatio() const
 
 double GeneralTHDM::BrHmumuRatio() const
 {
-    return getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_mu*getMyGTHDMCache()->beta_h_mu) / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_mu*getMyGTHDMCache()->beta_h_mu) / computeGammaTotalRatio();
+    return (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO) / computeGammaTotalRatio();
 }
 
 double GeneralTHDM::BrHtautauRatio() const
 {
-    return getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau) / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau) / computeGammaTotalRatio();
+    return (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO) / computeGammaTotalRatio();
 }
 
 double GeneralTHDM::BrHccRatio() const
 {
-    return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_c*getMyGTHDMCache()->beta_h_c) / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_c*getMyGTHDMCache()->beta_h_c) / computeGammaTotalRatio();
+    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO) / computeGammaTotalRatio();
 }
 
 double GeneralTHDM::BrHbbRatio() const
 {
-    return getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b) / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b) / computeGammaTotalRatio();
+    return (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO) / computeGammaTotalRatio();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 double GeneralTHDM::muggHgaga(const double sqrt_s) const
-{
-    return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+{    
+    //return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    return muggH(sqrt_s)*BrHgagaRatio();
 }
+
+
+double GeneralTHDM::muggHpbbH_Hgaga(const double sqrt_s) const
+{    
+    //return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    return muggHpbbH(sqrt_s)*BrHgagaRatio();
+}
+
 
 double GeneralTHDM::muVBFHgaga(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    return muVBF(sqrt_s)*BrHgagaRatio();
 }
 
 double GeneralTHDM::muVHgaga(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    return muVH(sqrt_s)*BrHgagaRatio();
 }
+
+double GeneralTHDM::muWHgaga(const double sqrt_s) const
+{
+    //return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    return muWH(sqrt_s)*BrHgagaRatio();
+}
+
+double GeneralTHDM::muZHgaga(const double sqrt_s) const
+{
+    //return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    return muZH(sqrt_s)*BrHgagaRatio();
+}
+
+
 
 double GeneralTHDM::muttHgaga(const double sqrt_s) const
 {
-    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    //return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_gaga / computeGammaTotalRatio();
+    return muttH(sqrt_s)*BrHgagaRatio();
 }
+
+
+double GeneralTHDM::mutHgaga(const double sqrt_s) const
+{
+    return mutH(sqrt_s)*BrHgagaRatio();
+}
+
+
+
+double GeneralTHDM::muttHptH_Hgaga(const double sqrt_s) const
+{
+    return muttHptH(sqrt_s)*BrHgagaRatio();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 double GeneralTHDM::muggHZZ(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    return muggH(sqrt_s)*BrHZZRatio();
 }
-
+double GeneralTHDM::muggHpbbH_HZZ(const double sqrt_s) const
+{
+    return muggHpbbH(sqrt_s)*BrHZZRatio(); 
+}
 double GeneralTHDM::muVBFHZZ(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    return muVBF(sqrt_s)*BrHZZRatio();
 }
-
+double GeneralTHDM::muWHZZ(const double sqrt_s) const
+{
+    return muWH(sqrt_s)*BrHZZRatio();
+}
+double GeneralTHDM::muZHZZ(const double sqrt_s) const
+{
+    return muZH(sqrt_s)*BrHZZRatio();
+}
 double GeneralTHDM::muVHZZ(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    return muVH(sqrt_s)*BrHZZRatio();
 }
-
 double GeneralTHDM::muttHZZ(const double sqrt_s) const
 {
-    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    //return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    return muttH(sqrt_s)*BrHZZRatio(); 
 }
+double GeneralTHDM::muttHptH_HZZ(const double sqrt_s) const
+{
+    return muttHptH(sqrt_s)*BrHZZRatio(); 
+}
+
+
+
+
+
 
 double GeneralTHDM::muggHWW(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_gg * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    return muggH(sqrt_s)*BrHWWRatio();
 }
+double GeneralTHDM::muggHpbbH_HWW(const double sqrt_s) const
+{
+    return muggHpbbH(sqrt_s)*BrHWWRatio(); 
+}
+
+
 
 double GeneralTHDM::muVBFHWW(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    return muVBF(sqrt_s)*BrHWWRatio();
+}
+
+double GeneralTHDM::muWHWW(const double sqrt_s) const
+{
+    return muWH(sqrt_s)*BrHWWRatio();
+}
+
+double GeneralTHDM::muZHWW(const double sqrt_s) const
+{
+    return muZH(sqrt_s)*BrHWWRatio();
 }
 
 double GeneralTHDM::muVHWW(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_VV * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    return muVH(sqrt_s)*BrHWWRatio();
 }
 
 double GeneralTHDM::muttHWW(const double sqrt_s) const
 {
-    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    //return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    return muttH(sqrt_s)*BrHWWRatio();
 }
 
-double GeneralTHDM::muggHtautau(const double sqrt_s) const
+double GeneralTHDM::muttHptH_HWW(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_gg * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
+    //return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)) * getMyGTHDMCache()->rh_VV / computeGammaTotalRatio();
+    return muttHptH(sqrt_s)*BrHWWRatio();
 }
 
-double GeneralTHDM::muVBFHtautau(const double sqrt_s) const
-{
-    return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
-}
 
-double GeneralTHDM::muVHtautau(const double sqrt_s) const
-{
-    return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
-}
 
-double GeneralTHDM::muttHtautau(const double sqrt_s) const
-{
-    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))
-            * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
-}
 
 double GeneralTHDM::muggHbb(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_gg * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_gg * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+    return muggH(sqrt_s)*BrHbbRatio();
 }
+
+
+double GeneralTHDM::muggHpVBFpbbH_Hbb(const double sqrt_s) const
+{
+    return muggHpVBFpbbH(sqrt_s)*BrHbbRatio();
+}
+
 
 double GeneralTHDM::muVBFHbb(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+    return muVBF(sqrt_s)*BrHbbRatio(); 
+}
+
+double GeneralTHDM::muWHbb(const double sqrt_s) const
+{
+    return muWH(sqrt_s)*BrHbbRatio(); 
+}
+
+double GeneralTHDM::muZHbb(const double sqrt_s) const
+{
+    return muZH(sqrt_s)*BrHbbRatio(); 
 }
 
 double GeneralTHDM::muVHbb(const double sqrt_s) const
 {
-    return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+    //return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+    return muVH(sqrt_s)*BrHbbRatio(); 
 }
 
 double GeneralTHDM::muttHbb(const double sqrt_s) const
 {
-    return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))
-            * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+    //return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))
+    //        * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+    return muttH(sqrt_s)*BrHbbRatio(); 
+}
+
+double GeneralTHDM::muttHptH_Hbb(const double sqrt_s) const
+{
+    //return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))
+    //        * (getMyGTHDMCache()->rh_QdQdE + getMyGTHDMCache()->rh_QdQdO/(getMyGTHDMCache()->beta_h_b*getMyGTHDMCache()->beta_h_b)) / computeGammaTotalRatio();
+    return muttHptH(sqrt_s)*BrHbbRatio(); 
+}
+
+
+
+double GeneralTHDM::muVHcc(const double sqrt_s) const
+{
+    return muVH(sqrt_s)*BrHccRatio(); 
+}
+
+
+
+double GeneralTHDM::muggHmumu(const double sqrt_s) const
+{
+    return muggH(sqrt_s)*BrHmumuRatio(); 
+}
+
+
+double GeneralTHDM::muggHpttHptHpbbH_Hmumu(const double sqrt_s) const
+{    
+    return muggHpttHptHpbbH(sqrt_s)*BrHmumuRatio(); 
+}
+
+double GeneralTHDM::muVBFHmumu(const double sqrt_s) const
+{
+    return muVBF(sqrt_s)*BrHmumuRatio(); 
+}
+
+double GeneralTHDM::muVHmumu(const double sqrt_s) const
+{
+    return muVH(sqrt_s)*BrHmumuRatio(); 
+}
+
+double GeneralTHDM::muttHptH_Hmumu(const double sqrt_s) const
+{
+    return muttHptH(sqrt_s)*BrHmumuRatio(); 
+}
+
+double GeneralTHDM::muVBFpVH_Hmumu(const double sqrt_s) const
+{
+    return muVBFpVH(sqrt_s)*BrHmumuRatio(); 
+}
+
+double GeneralTHDM::muggHtautau(const double sqrt_s) const
+{
+    //return getMyGTHDMCache()->rh_gg * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
+    return muggH(sqrt_s)*BrHtautauRatio(); 
+}
+
+double GeneralTHDM::muggHpbbH_Htautau(const double sqrt_s) const
+{
+    return muggHpbbH(sqrt_s)*BrHtautauRatio(); 
+}
+
+double GeneralTHDM::muVBFHtautau(const double sqrt_s) const
+{
+    //return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
+    return muVBF(sqrt_s)*BrHtautauRatio(); 
+}
+
+double GeneralTHDM::muWHtautau(const double sqrt_s) const
+{
+    return muWH(sqrt_s)*BrHtautauRatio(); 
+}
+
+double GeneralTHDM::muZHtautau(const double sqrt_s) const
+{
+    return muZH(sqrt_s)*BrHtautauRatio(); 
+}
+
+double GeneralTHDM::muVHtautau(const double sqrt_s) const
+{
+    //return getMyGTHDMCache()->rh_VV * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
+    return muVH(sqrt_s)*BrHtautauRatio(); 
+}
+
+double GeneralTHDM::muttHtautau(const double sqrt_s) const
+{
+    //return (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))
+    //        * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_tau*getMyGTHDMCache()->beta_h_tau)) / computeGammaTotalRatio();
+    return muttH(sqrt_s)*BrHtautauRatio(); 
+}
+
+double GeneralTHDM::muttHptH_Htautau(const double sqrt_s) const
+{
+    return muttHptH(sqrt_s)*BrHtautauRatio(); 
 }
 
 double GeneralTHDM::muppHmumu(const double sqrt_s) const
 {
     if(sqrt_s==8)
     {
-        return (0.872 * getMyGTHDMCache()->rh_gg + 0.122 * getMyGTHDMCache()->rh_VV + 0.006 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)))
-                * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_mu*getMyGTHDMCache()->beta_h_mu)) / computeGammaTotalRatio();
+        //return (0.872 * getMyGTHDMCache()->rh_gg + 0.122 * getMyGTHDMCache()->rh_VV + 0.006 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)))
+        //        * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_mu*getMyGTHDMCache()->beta_h_mu)) / computeGammaTotalRatio();
+        return (0.872 * getMyGTHDMCache()->rh_gg + 0.122 * getMyGTHDMCache()->rh_VV + 0.006 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO))
+                * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO) / computeGammaTotalRatio();
+
     }
     if(sqrt_s==13)
     {
-        return (0.871 * getMyGTHDMCache()->rh_gg + 0.119 * getMyGTHDMCache()->rh_VV + 0.010 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)))
-                * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_mu*getMyGTHDMCache()->beta_h_mu)) / computeGammaTotalRatio();
+        //return (0.871 * getMyGTHDMCache()->rh_gg + 0.119 * getMyGTHDMCache()->rh_VV + 0.010 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t)))
+        //        * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO/(getMyGTHDMCache()->beta_h_mu*getMyGTHDMCache()->beta_h_mu)) / computeGammaTotalRatio();
+        return (0.871 * getMyGTHDMCache()->rh_gg + 0.119 * getMyGTHDMCache()->rh_VV + 0.010 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO))
+                * (getMyGTHDMCache()->rh_QlQlE + getMyGTHDMCache()->rh_QlQlO) / computeGammaTotalRatio();
+
     }
     else
     {
@@ -730,15 +997,29 @@ double GeneralTHDM::muppHmumu(const double sqrt_s) const
     }
 }
 
+double GeneralTHDM::muggHZga(const double sqrt_s) const
+{
+    return muggH(sqrt_s)*BrHZgaRatio(); 
+}
+
+
+double GeneralTHDM::muVBFHZga(const double sqrt_s) const
+{
+    return muVBF(sqrt_s)*BrHZgaRatio(); 
+}
+
+
 double GeneralTHDM::muppHZga(const double sqrt_s) const
 {
     if(sqrt_s==8)
     {
-        return (0.872 * getMyGTHDMCache()->rh_gg + 0.122 * getMyGTHDMCache()->rh_VV + 0.006 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))) * getMyGTHDMCache()->rh_Zga / computeGammaTotalRatio();
+        //return (0.872 * getMyGTHDMCache()->rh_gg + 0.122 * getMyGTHDMCache()->rh_VV + 0.006 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))) * getMyGTHDMCache()->rh_Zga / computeGammaTotalRatio();
+        return (0.872 * getMyGTHDMCache()->rh_gg + 0.122 * getMyGTHDMCache()->rh_VV + 0.006 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO)) * getMyGTHDMCache()->rh_Zga / computeGammaTotalRatio();
     }
     if(sqrt_s==13)
     {
-        return (0.871 * getMyGTHDMCache()->rh_gg + 0.119 * getMyGTHDMCache()->rh_VV + 0.010 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))) * getMyGTHDMCache()->rh_Zga / computeGammaTotalRatio();
+        //return (0.871 * getMyGTHDMCache()->rh_gg + 0.119 * getMyGTHDMCache()->rh_VV + 0.010 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO/(getMyGTHDMCache()->beta_h_t*getMyGTHDMCache()->beta_h_t))) * getMyGTHDMCache()->rh_Zga / computeGammaTotalRatio();
+        return (0.871 * getMyGTHDMCache()->rh_gg + 0.119 * getMyGTHDMCache()->rh_VV + 0.010 * (getMyGTHDMCache()->rh_QuQuE + getMyGTHDMCache()->rh_QuQuO)) * getMyGTHDMCache()->rh_Zga / computeGammaTotalRatio();
     }
     else
     {

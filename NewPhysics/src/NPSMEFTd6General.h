@@ -1026,42 +1026,6 @@
  *   The default value is FALSE; new physics contributions are linearized.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%RotateCHWCHB</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if using {sW2*CHW+cW2*CHB, -cW2*CHW+sW2*CHB}
- *   instead of {CHW, CHB} as floating parameters.
- *   The default value is FALSE.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%PartialQFU</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if using CHq1_11=CHq1_22, 
- *   CHq3_11=CHq3_22, CHU_11=CHU_22, CHD_11=CHD_22, CHud_11=CHud_22.}
- *   Only applies in the Non QFU case. In that case only the (1,1) component is taken into account.
- *   The default value is FALSE.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FlavU3OfX</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if using @f$U(3)^5@f$ flavour symmetry relations
- *   in the coefficients of the operators @f$O_{fH}@f$ and @f$O_{fV}@f$. If TRUE, the operator coefficient is proportional
- *   to the corresponding Yukawa matrix (diagonal), with the proportionality coefficient given by 
- *   the Model parameter corresponding to the coefficient of third family.
- *   (Implemented only for the real and diagonal elements of the @f$O_{fH}@f$ and @f$O_{fV}@f$ operators.)
- *   The default value is FALSE.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FlagUnivOfX</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if using @f$U(3)^5@f$ flavour symmetry relations
- *   in the coefficients of the operators @f$O_{fH}@f$ and @f$O_{fV}@f$ plus they are the same for all fermions. 
- *   If TRUE, all the operator coefficients are proportional
- *   to the corresponding Yukawa matrix (diagonal), with the proportionality coefficient given by 
- *   the Model parameter corresponding to the coefficients of third family for @f$O_{uH}@f$ and @f$O_{uV}@f$, respectively.
- *   (Implemented only for the real and diagonal elements of the @f$O_{fH}@f$ and @f$O_{fV}@f$ operators.)
- *   The default value is FALSE.</td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%HiggsSM</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to TRUE if including dependence on small variations of the SM parameters (dependence is linearized). 
@@ -1083,18 +1047,17 @@
  *   The default value is FALSE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%RGEciLLA</td>
+ *   <td class="mod_name">%RGEci</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if including log-enhanced 1-loop corrections proportional to the dim-6 Wilson coefficients via renormalization group effects. 
- *   Only valid working exactly inside the Warsaw basis. Logs evaluated at the top mass scale. (NOT ACTIVE YET. PLACEHOLDER.)
- *   The default value is FALSE.</td>
+ *   <td class="mod_desc">This flag is set to TRUE if including the SMEFT RGE effects.
+ *   The default value is TRUE.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%MWinput</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, 
  *   instead of the electromagnetic constant parameter %dAle5Mz. 
- *   The default value is FALSE. This flag must be used together with the flag of the same name in StandardModel</td>
+ *   The default value is FALSE. This flag will override the flag of the same name in StandardModel</td>
  * </tr>
  * 
  * 
@@ -1119,7 +1082,7 @@ public:
     
     /**
      * @brief A string array containing the labels of the model parameters in
-     * %NPSMEFTd6General if the model flag FlagRotateCHWCHB=false.
+     * %NPSMEFTd6General.
      */
     static const std::string NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars];
 
@@ -7266,9 +7229,6 @@ protected:
 
     double cLH3d62; ///< Parameter to control the inclusion of modifications of SM loops in Higgs processes due to dim 6 interactions modifying the Higgs trilinear coupling (Quadratic terms).
 
-    double cRGE; ///< Parameter to control the inclusion of log-enhanced contributions via RG effects. If activated then it takes the value multiplying the anomalous dimension: \f$-\log(\Lambda/\mu)/16 \pi^2 \Lambda^2\f$
-    double cRGEon; ///< Another parameter to control the inclusion of log-enhanced contributions via RG effects. It multiplies the logarithmic contribution to some observables, so it takes values 0/1 to deactivate/activate the log terms.
-
     double cAsch, cWsch; ///< Parameters to control the SM EW input scheme: Alpha or MW.
     
 //    double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
@@ -7571,18 +7531,12 @@ protected:
     
 private:
     
-
-    bool FlagLeptonUniversal; ///< A boolean flag that is true if the lepton universality is switched on.
-    bool FlagQuarkUniversal; ///< A boolean flag that is true if the quark universality is switched on.
     bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
-    bool FlagRotateCHWCHB; ///< A boolean flag that is true if we use as parameters CHWHB_gaga and CHWHB_gagaorth instead of CHW and CHB.
-    bool FlagPartialQFU; ///< A boolean flag that is true if assuming partial quark flavour universality between the 1st and 2nd family in the CHF operators.
-    bool FlagFlavU3OfX; ///< A boolean flag that is true if assuming U(3)^5 symmetry in the CfH and CfV operator coefficients.
-    bool FlagUnivOfX; ///< A boolean flag that is true if assuming U(3)^5 symmetry in the CfH and CfV operator coefficients and all proportional to the same coefficient (CuH_33 and CuV_33 respectively).
     bool FlagHiggsSM; ///< A boolean flag that is true if including dependence on small variations of the SM parameters (dependence is linearized). Available only in selected Higgs observables. 
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
     bool FlagLoopH3d6Quad; ///< A boolean flag that is true if including quadratic modifications in the SM loops in Higgs observables due to the dim 6 interactions that contribute to the trilinear Higgs coupling.
     bool FlagMWinput; ///< A boolean for the model flag %MWinput. 
+    bool FlagRGEci; ///< A boolean for the model flag %RGEci. 
 
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function

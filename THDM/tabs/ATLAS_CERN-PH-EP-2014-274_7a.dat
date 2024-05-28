@@ -1,0 +1,12 @@
+# CERN-PH-EP-2014-274, fig. 7a
+# observed 95% exclusion limits on BR(t -> H+ b)*BR(H+ -> tau nu) at 8 TeV
+# mH+[GeV] | BR*BR_95%
+80	0.975E-2
+90	1.31E-2
+100	1.34E-2
+110	0.959E-2
+120	0.593E-2
+130	0.378E-2
+140	0.321E-2
+150	0.266E-2
+160	0.234E-2
