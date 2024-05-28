@@ -593,6 +593,15 @@ public:
     }
 
     /**
+     * @brief A method to set the pole mass of the top quark.
+     * @return the pole mass of the top quark \f$m_t^{pole}\f$
+     */
+    void setMtpole(double mtpole_in)
+    {
+        mtpole = mtpole_in;
+    }
+
+    /**
      * @brief A get method to access the Casimir factor of %QCD.
      * @return the Casimir factor
      */
@@ -622,6 +631,28 @@ public:
     {
         return BParameterMap.at("BBs");
     }
+    
+    /**
+     * @brief For getting the subleading bag parameters
+     * \f$R_2 - R_3\f$ in \f$\Delta b = 2\f$
+     * process in the \f$B_d\f$ meson system.
+     * @return the vector of bag parameters
+     */
+    BParameter getBBd_subleading() const
+    {
+        return BParameterMap.at("BBd_subleading");
+    }  
+    
+    /**
+     * @brief For getting the subleading bag parameters
+     * \f$R_2 - R_3\f$ in \f$\Delta b = 2\f$
+     * process in the \f$B_s\f$ meson system.
+     * @return the vector of bag parameters
+     */
+    BParameter getBBs_subleading() const
+    {
+        return BParameterMap.at("BBs_subleading");
+    }    
 
     /**
      * @brief For getting the bag parameters corresponding

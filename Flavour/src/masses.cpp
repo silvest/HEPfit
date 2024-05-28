@@ -55,6 +55,15 @@ double top_mass::computeThValue()
     return(SM.getQuarks(QCD::TOP).getMass());
 }
 
+mtpole::mtpole(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+}
+
+double mtpole::computeThValue()
+{
+    return(SM.getMtpole());
+}
+
 electron_mass::electron_mass(const StandardModel& SM_i) : ThObservable(SM_i)
 {
 }
