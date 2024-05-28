@@ -1343,7 +1343,7 @@ double QCD::Mofmu2Mbar(const double m, double mu) const
     //First move to the right region by running to m
     
     double mlow = Mrun(m, mu, m);
-    TF1 f("f", this, &QCD::Mofmu2MbarTMP, mlow / 2., 2. * mlow, 2, "QCD", "mofmu2mbara");
+    TF1 f("f", this, &QCD::Mofmu2MbarTMP, mlow / 4., 4. * mlow, 2, "QCD", "mofmu2mbara");
 
     ROOT::Math::WrappedTF1 wf1(f);
     
@@ -1354,11 +1354,11 @@ double QCD::Mofmu2Mbar(const double m, double mu) const
 
     ROOT::Math::BrentRootFinder brf;
 
-    brf.SetFunction(wf1, .7 * mlow, 1.3 * mlow);
+    brf.SetFunction(wf1, .3 * mlow, 3. * mlow);
     if (brf.Solve())
         mlow = brf.Root();
     else
-        throw std::runtime_error("error in QCD::mp2mbar");
+        throw std::runtime_error("error in QCD::Mofmu2Mbar");
 
     return (mlow);
 }

@@ -8437,6 +8437,8 @@ bool NPSMEFTd6General::PostUpdate()
 
     //Go to mass eigenstate basis and update LEFT Wilson coefficients 
     getMatching().updateLEFTGeneralParameters();
+    
+    setMtpole(Mbar2Mp(getQuarks(QCD::TOP).getMass()));
 
     return (true);
 }

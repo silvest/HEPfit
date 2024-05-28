@@ -132,10 +132,10 @@ public:
 /**
  * @class top_mass
  * @ingroup Flavour
- * @brief A class for @f$m_{t}^{\text{pole}}@f$, the pole mass of the top quark
+ * @brief A class for @f$m_{t}(m_{t})@f$, the running mass of the top quark
  * @author HEPfit Collaboration
  * @details This class is used to retrieve the value of
- * @f$m_{t}^{\text{pole}}@f$.
+ * @f$m_{t}(m_{t})@f$.
  */
 class top_mass : public ThObservable {
 public:
@@ -145,6 +145,30 @@ public:
     * @param[in] SM_i a reference to an object of type StandardModel
     */
     top_mass(const StandardModel& SM_i) ;
+
+    /**
+     * 
+     * @return value of @f$m_{t}(m_{t})@f$ 
+     */
+    virtual double computeThValue();
+};
+
+/**
+ * @class mtpole
+ * @ingroup Flavour
+ * @brief A class for @f$m_{t}^{\text{pole}}@f$, the pole mass of the top quark
+ * @author HEPfit Collaboration
+ * @details This class is used to retrieve the value of
+ * @f$m_{t}^{\text{pole}}@f$.
+ */
+class mtpole : public ThObservable {
+public:
+
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
+    mtpole(const StandardModel& SM_i) ;
 
     /**
      * 

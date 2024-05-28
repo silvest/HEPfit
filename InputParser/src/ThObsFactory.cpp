@@ -126,6 +126,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["charm_mass"] = boost::factory<charm_mass*>();
     obsThFactory["bottom_mass"] = boost::factory<bottom_mass*>();
     obsThFactory["top_mass"] = boost::factory<top_mass*>();
+    obsThFactory["mtpole"] = boost::factory<mtpole*>();
     obsThFactory["electron_mass"] = boost::factory<electron_mass*>();
     obsThFactory["muon_mass"] = boost::factory<muon_mass*>();
     obsThFactory["tau_mass"] = boost::factory<tau_mass*>();

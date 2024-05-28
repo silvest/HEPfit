@@ -72,17 +72,17 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
                         MD.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
                 }
 
-        gslpp::vector<double> m2(3);
+        gslpp::vector<double> m(3);
 
-        MU.singularvalue(VuR, VuL, m2);
-        mySMEFT.getQuarks(QCD::UP).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::UP).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(0))));
-        mySMEFT.getQuarks(QCD::CHARM).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::CHARM).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(1))));
-        mySMEFT.getQuarks(QCD::TOP).setMass(mySMEFT.Mbar2Mp(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::TOP).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(2)))));
-
-        MD.singularvalue(VdR, VdL, m2);
-        mySMEFT.getQuarks(QCD::DOWN).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::DOWN).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(0))));
-        mySMEFT.getQuarks(QCD::STRANGE).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::STRANGE).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(1))));
-        mySMEFT.getQuarks(QCD::BOTTOM).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::BOTTOM).getMass_scale(), mySMEFT.getMuw(), sqrt(m2(2))));
+        MU.singularvalue(VuR, VuL, m);
+        mySMEFT.getQuarks(QCD::UP).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::UP).getMass_scale(), mySMEFT.getMuw(), m(0)));
+        mySMEFT.getQuarks(QCD::CHARM).setMass(mySMEFT.Mofmu2Mbar(m(1), mySMEFT.getMuw()));
+        mySMEFT.getQuarks(QCD::TOP).setMass(mySMEFT.Mofmu2Mbar(m(2), mySMEFT.getMuw()));
+        
+        MD.singularvalue(VdR, VdL, m);
+        mySMEFT.getQuarks(QCD::DOWN).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::DOWN).getMass_scale(), mySMEFT.getMuw(), m(0)));
+        mySMEFT.getQuarks(QCD::STRANGE).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::STRANGE).getMass_scale(), mySMEFT.getMuw(), m(1)));
+        mySMEFT.getQuarks(QCD::BOTTOM).setMass(mySMEFT.Mofmu2Mbar(m(2), mySMEFT.getMuw()));
 
         VuLd = VuL.hconjugate();
 

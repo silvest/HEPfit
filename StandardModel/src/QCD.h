@@ -593,6 +593,15 @@ public:
     }
 
     /**
+     * @brief A method to set the pole mass of the top quark.
+     * @return the pole mass of the top quark \f$m_t^{pole}\f$
+     */
+    void setMtpole(double mtpole_in)
+    {
+        mtpole = mtpole_in;
+    }
+
+    /**
      * @brief A get method to access the Casimir factor of %QCD.
      * @return the Casimir factor
      */
