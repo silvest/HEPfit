@@ -2148,6 +2148,17 @@ public:
      */
     virtual const double mutH(const double sqrt_s) const;                             //AG:added
     /**
+     * @brief The ratio @f$\mu_{bbH}@f$ between the bbH
+     *  production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{bbH}@f$
+     */
+    virtual const double mubbH(const double sqrt_s) const
+    {
+        return 1.0;
+    };                             //AG:added
+    
+    /**
      * @brief The ratio @f$\mu_{tHq}@f$ between the t-q-Higgs associated 
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2244,6 +2255,15 @@ public:
     
     virtual const double delta_mutH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{tH}@f$ between the t-Higgs associated production cross-section in the current model and in the Standard Model.
     virtual const double delta_mutH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{tH}@f$ between the t-Higgs associated production cross-section in the current model and in the Standard Model.
+    
+    virtual const double delta_mubbH_1(const double sqrt_s) const
+    {
+        return 0.0;
+    }	///<The SMEFT linear correction to the ratio @f$\mu_{bbH}@f$ between the bbH production cross-section in the current model and in the Standard Model.
+    virtual const double delta_mubbH_2(const double sqrt_s) const
+    {
+        return 0.0;
+    };	///<The SMEFT quadratic correction to the ratio @f$\mu_{bbH}@f$ between the bbH production cross-section in the current model and in the Standard Model.
     //AG:end
 
     ////////////HIGGS DECAY WIDTHS AND BRANCHING RATIOS/////////////

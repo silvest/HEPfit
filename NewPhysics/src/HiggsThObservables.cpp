@@ -1318,11 +1318,14 @@ muggHpbbH_Hgaga::muggHpbbH_Hgaga(const StandardModel& SM_i, const double sqrt_s_
 
 double muggHpbbH_Hgaga::computeThValue()                                          //AG:added
 {
+    double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
+    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
-        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
-        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double muProd1  = (xsSM_ggH*(myNPbase->delta_muggH_1(sqrt_s)) + xsSM_bbH*(myNPbase->delta_mubbH_1(sqrt_s)))/(xsSM_ggH+xsSM_bbH) ;
+        double muProd2  = (xsSM_ggH*(myNPbase->delta_muggH_2(sqrt_s)) + xsSM_bbH*(myNPbase->delta_mubbH_2(sqrt_s)))/(xsSM_ggH+xsSM_bbH) ;
         double dGammaR1 = myNPbase->deltaGammaHgagaRatio1();
         double dGammaR2 = myNPbase->deltaGammaHgagaRatio2();
         
@@ -1354,15 +1357,8 @@ muttHptH_Hgaga::muttHptH_Hgaga(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muttHptH_Hgaga::computeThValue()                                         //AG:added
 {
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_ttH = 0.499873;
-    double xsSM_tH = 0.0821;
-    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
-    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
+    double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
 
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
@@ -1646,15 +1642,8 @@ muVHZZ::muVHZZ(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVHZZ::computeThValue()
 {
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_WH  = 1.21539;
-    double xsSM_ZH  = 0.795910;
-    //double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
-    //double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
+    double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
+    double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -1707,15 +1696,8 @@ muttHptH_HZZ::muttHptH_HZZ(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_HZZ::computeThValue()                                           //AG:added
 {
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_ttH = 0.499873;
-    double xsSM_tH = 0.0821;
-    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
-    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
+    double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -1752,15 +1734,8 @@ muttHptH_Hmumu::muttHptH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muttHptH_Hmumu::computeThValue()                                         //AG:added
 {
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_ttH = 0.499873;
-    double xsSM_tH = 0.0821;
-    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
-    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
+    double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //return ( 1.0 
         //        + ( xsSM_ttH*(myNPbase->muttH(sqrt_s)-1.) + xsSM_tH*(myNPbase->mutH(sqrt_s)-1.) )/(xsSM_ttH+xsSM_tH)
@@ -1797,12 +1772,14 @@ muggHpbbH_HZZ::muggHpbbH_HZZ(const StandardModel& SM_i, const double sqrt_s_i)  
 
 double muggHpbbH_HZZ::computeThValue()                                          //AG:added
 {
+    double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
+    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
-        //return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHZZRatio()-1.));
-        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
-        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double muProd1  = (xsSM_ggH*(myNPbase->delta_muggH_1(sqrt_s)) + xsSM_bbH*(myNPbase->delta_mubbH_1(sqrt_s)))/(xsSM_ggH+xsSM_bbH) ;
+        double muProd2  = (xsSM_ggH*(myNPbase->delta_muggH_2(sqrt_s)) + xsSM_bbH*(myNPbase->delta_mubbH_2(sqrt_s)))/(xsSM_ggH+xsSM_bbH) ;
         double dGammaR1 = myNPbase->deltaGammaHZZRatio1();
         double dGammaR2 = myNPbase->deltaGammaHZZRatio2();
         
@@ -2090,16 +2067,8 @@ muttHptH_HWW::muttHptH_HWW(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_HWW::computeThValue()                                           //AG:added
 {
-    
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_ttH = 0.499873;
-    double xsSM_tH = 0.0821;
-    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
-    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
+    double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2135,12 +2104,14 @@ muggHpbbH_HWW::muggHpbbH_HWW(const StandardModel& SM_i, const double sqrt_s_i)  
 
 double muggHpbbH_HWW::computeThValue()                                          //AG:added
 {
+    double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
+    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
-        //return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHWWRatio()-1.));
-        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
-        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double muProd1  = (xsSM_ggH*(myNPbase->delta_muggH_1(sqrt_s)) + xsSM_bbH*(myNPbase->delta_mubbH_1(sqrt_s)))/(xsSM_ggH+xsSM_bbH) ;
+        double muProd2  = (xsSM_ggH*(myNPbase->delta_muggH_2(sqrt_s)) + xsSM_bbH*(myNPbase->delta_mubbH_2(sqrt_s)))/(xsSM_ggH+xsSM_bbH) ;
         double dGammaR1 = myNPbase->deltaGammaHWWRatio1();
         double dGammaR2 = myNPbase->deltaGammaHWWRatio2();
         
@@ -2384,16 +2355,8 @@ muVHmumu::muVHmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVHmumu::computeThValue()
 {
-    
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_WH  = 1.21539;
-    double xsSM_ZH  = 0.795910;
-    //double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
-    //double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
+    double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
+    double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //return ( -1.0 + (myNPbase->muVH(sqrt_s)) + (myNPbase->BrHmumuRatio()));
         //AG: Most general expression including quadratic corrections. 
@@ -2447,30 +2410,24 @@ muggHpttHptHpbbH_Hmumu::muggHpttHptHpbbH_Hmumu(const StandardModel& SM_i, const 
 
 double muggHpttHptHpbbH_Hmumu::computeThValue()                                           //AG:added
 {
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this. Furthermore, the bbH is not included. In the SM this is
-    //very suppressed (and it's probably also the case in the SMEFT) but 
-    //in some NP models it may not be the case.Unfortunately, bbH is not
-    //obtained in the SMEFT, we could just set delta_mubbH to zero in the
-    //SMEFT and add here the general expression.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_ggHbbH = 44.745;
-    double xsSM_ttH    = 0.4998;
-    double xsSM_tH     = 0.084769;
-    //double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
-    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
-    //double xsSM_tH = myNPbase->computeSigmatH(sqrt_s);
-    //double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
-    
-    
-    
+    double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
+    double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    double xsSM_tH  = myNPbase->computeSigmatHq(sqrt_s);
+    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
-        double muProd1 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_1(sqrt_s)) + xsSM_ttH*(myNPbase->delta_muttH_1(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_1(sqrt_s)) )/(xsSM_ggHbbH+xsSM_ttH+xsSM_tH) ;
-        double muProd2 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_2(sqrt_s)) + xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ggHbbH+xsSM_ttH+xsSM_tH) ;
+        double muProd1 = (xsSM_ggH*(myNPbase->delta_muggH_1(sqrt_s)) 
+                        + xsSM_bbH*(myNPbase->delta_mubbH_1(sqrt_s)) 
+                        + xsSM_ttH*(myNPbase->delta_muttH_1(sqrt_s)) 
+                        + xsSM_tH*(myNPbase->delta_mutH_1(sqrt_s)) )/(xsSM_ggH+xsSM_bbH+xsSM_ttH+xsSM_tH) ;
+        
+        double muProd2 = (xsSM_ggH*(myNPbase->delta_muggH_2(sqrt_s)) 
+                        + xsSM_bbH*(myNPbase->delta_mubbH_2(sqrt_s)) 
+                        + xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) 
+                        + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ggH+xsSM_bbH+xsSM_ttH+xsSM_tH) ;
+        
         double dGammaR1 = myNPbase->deltaGammaHmumuRatio1();
         double dGammaR2 = myNPbase->deltaGammaHmumuRatio2();
         
@@ -2503,23 +2460,18 @@ muVBFpVH_Hmumu::muVBFpVH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVBFpVH_Hmumu::computeThValue()                                          //AG:added
 {
-    
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this. 
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_VBF = 3.49948;
-    double xsSM_WH  = 1.21539;
-    double xsSM_ZH  = 0.795910;
-    //double xsSM_VBF = myNPbase->computeSigmaVBF(sqrt_s);
-    //double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
-    //double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
+    double xsSM_VBF = myNPbase->computeSigmaVBF(sqrt_s);
+    double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
+    double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
-        double muProd1 = ( xsSM_VBF*(myNPbase->delta_muVBF_1(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_1(sqrt_s)) + xsSM_ZH*(myNPbase->delta_muZH_1(sqrt_s)) )/(xsSM_VBF+xsSM_WH+xsSM_ZH);
-        double muProd2 = ( xsSM_VBF*(myNPbase->delta_muVBF_2(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_2(sqrt_s)) + xsSM_ZH*(myNPbase->delta_muZH_2(sqrt_s)) )/(xsSM_VBF+xsSM_WH+xsSM_ZH);
+        double muProd1 = ( xsSM_VBF*(myNPbase->delta_muVBF_1(sqrt_s)) 
+                        + xsSM_WH*(myNPbase->delta_muWH_1(sqrt_s)) 
+                        + xsSM_ZH*(myNPbase->delta_muZH_1(sqrt_s)) )/(xsSM_VBF+xsSM_WH+xsSM_ZH);
+        double muProd2 = ( xsSM_VBF*(myNPbase->delta_muVBF_2(sqrt_s)) 
+                        + xsSM_WH*(myNPbase->delta_muWH_2(sqrt_s)) 
+                        + xsSM_ZH*(myNPbase->delta_muZH_2(sqrt_s)) )/(xsSM_VBF+xsSM_WH+xsSM_ZH);
         double dGammaR1 = myNPbase->deltaGammaHmumuRatio1();
         double dGammaR2 = myNPbase->deltaGammaHmumuRatio2();
         
@@ -2694,15 +2646,8 @@ muVHtautau::muVHtautau(const StandardModel& SM_i, const double sqrt_s_i)
 
 double muVHtautau::computeThValue()
 {
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_WH  = 1.21539;
-    double xsSM_ZH  = 0.795910;
-    //double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
-    //double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
+    double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
+    double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2756,15 +2701,8 @@ muttHptH_Htautau::muttHptH_Htautau(const StandardModel& SM_i, const double sqrt_
 
 double muttHptH_Htautau::computeThValue()                                           //AG:added
 {
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_ttH = 0.499873;
-    double xsSM_tH = 0.0821;
-    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
-    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
+    double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -2801,12 +2739,14 @@ muggHpbbH_Htautau::muggHpbbH_Htautau(const StandardModel& SM_i, const double sqr
 
 double muggHpbbH_Htautau::computeThValue()                                          //AG:added
 {
+    double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
+    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
-        //return ( 1.0 + (myNPbase->muggH(sqrt_s)-1.) + (myNPbase->BrHtautauRatio()-1.));
-        double muProd1  = myNPbase->delta_muggH_1(sqrt_s);
-        double muProd2  = myNPbase->delta_muggH_2(sqrt_s);
+        double muProd1  = (xsSM_ggH*(myNPbase->delta_muggH_1(sqrt_s)) + xsSM_bbH*(myNPbase->delta_mubbH_1(sqrt_s)))/(xsSM_ggH+xsSM_bbH) ;
+        double muProd2  = (xsSM_ggH*(myNPbase->delta_muggH_2(sqrt_s)) + xsSM_bbH*(myNPbase->delta_mubbH_2(sqrt_s)))/(xsSM_ggH+xsSM_bbH) ;
         double dGammaR1 = myNPbase->deltaGammaHtautauRatio1();
         double dGammaR2 = myNPbase->deltaGammaHtautauRatio2();
         
@@ -2971,15 +2911,8 @@ muttHptH_Hbb::muttHptH_Hbb(const StandardModel& SM_i, const double sqrt_s_i)    
 
 double muttHptH_Hbb::computeThValue()                                           //AG:added
 {
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_ttH = 0.499873;
-    double xsSM_tH = 0.0821;
-    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
-    //double xsSM_tH = myNPbase->computeSigmatHq(sqrt_s);
+    double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    double xsSM_tH  = myNPbase->computeSigmatHq(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -3016,25 +2949,20 @@ muggHpVBFpbbH_Hbb::muggHpVBFpbbH_Hbb(const StandardModel& SM_i, const double sqr
 
 double muggHpVBFpbbH_Hbb::computeThValue()                                      //AG:added
 {
-    //VM:Note that these values are valid for 13 TeV, they are not general
-    //We should access the SM function that has all the values (for the 
-    //different energies). The values are slightly different, we should 
-    //check this. Furthermore, the bbH is not included. In the SM this is
-    //very suppressed (and it's probably also the case in the SMEFT) but 
-    //in some NP models it may not be the case.Unfortunately, bbH is not
-    //obtained in the SMEFT, we could just set delta_mubbH to zero in the
-    //SMEFT and add here the general expression.
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
-    double xsSM_ggHbbH = 44.745;
-    double xsSM_VBF    = 3.49948;
-    //double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
-    //double xsSM_VBF = myNPbase->computeSigmaVBF(sqrt_s);
-    //double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+    double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
+    double xsSM_VBF = myNPbase->computeSigmaVBF(sqrt_s);
+    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
-        double muProd1 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_1(sqrt_s)) + xsSM_VBF*(myNPbase->delta_muVBF_1(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF);  
-        double muProd2 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_2(sqrt_s)) + xsSM_VBF*(myNPbase->delta_muVBF_2(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF);  
+        double muProd1 = ( xsSM_ggH*(myNPbase->delta_muggH_1(sqrt_s)) 
+                        + xsSM_VBF*(myNPbase->delta_muVBF_1(sqrt_s)) 
+                        + xsSM_bbH*(myNPbase->delta_mubbH_1(sqrt_s)) )/(xsSM_ggH+xsSM_VBF+xsSM_bbH); 
+        
+        double muProd2 = ( xsSM_ggH*(myNPbase->delta_muggH_2(sqrt_s)) 
+                        + xsSM_VBF*(myNPbase->delta_muVBF_2(sqrt_s)) 
+                        + xsSM_bbH*(myNPbase->delta_mubbH_2(sqrt_s)) )/(xsSM_ggH+xsSM_VBF+xsSM_bbH); 
+        
         double dGammaR1 = myNPbase->deltaGammaHbbRatio1();
         double dGammaR2 = myNPbase->deltaGammaHbbRatio2();
         
