@@ -2444,7 +2444,7 @@ double muggHpttHptHpbbH_Hmumu::computeThValue()                                 
         //for the SMEFT) but not for all NP models.
         double NPmuggHpttHptHpbbH_Hmumu = myNPbase->muggHpttHptHpbbH_Hmumu(sqrt_s);
         if(NPmuggHpttHptHpbbH_Hmumu==1.0){
-            return ( (xsSM_ggHbbH*(myNPbase->muggH(sqrt_s))+xsSM_ttH*(myNPbase->muttH(sqrt_s))+xsSM_tH*(myNPbase->mutH(sqrt_s))) / (xsSM_ggHbbH+xsSM_ttH+xsSM_tH)  )*(myNPbase->BrHmumuRatio()) ;
+            return ( (xsSM_ggH*(myNPbase->muggH(sqrt_s))+xsSM_ttH*(myNPbase->muttH(sqrt_s))+xsSM_tH*(myNPbase->mutH(sqrt_s))) / (xsSM_ggH+xsSM_ttH+xsSM_tH)  )*(myNPbase->BrHmumuRatio()) ;
         } else {
             return NPmuggHpttHptHpbbH_Hmumu;
         }  
@@ -2980,7 +2980,7 @@ double muggHpVBFpbbH_Hbb::computeThValue()                                      
         //for the SMEFT) but not for all NP models.
         double NPmuggHpVBFpbbH_Hbb = myNPbase->muggHpVBFpbbH_Hbb(sqrt_s);
         if(NPmuggHpVBFpbbH_Hbb==1.0){
-            return ( xsSM_ggHbbH*(myNPbase->muggH(sqrt_s)) + xsSM_VBF*(myNPbase->muVBF(sqrt_s)) )/(xsSM_ggHbbH+xsSM_VBF) * (myNPbase->BrHbbRatio()) ;
+            return ( xsSM_ggH*(myNPbase->muggH(sqrt_s)) + xsSM_VBF*(myNPbase->muVBF(sqrt_s)) )/(xsSM_ggH+xsSM_VBF) * (myNPbase->BrHbbRatio()) ;
         } else {
             return NPmuggHpVBFpbbH_Hbb;
         }       
