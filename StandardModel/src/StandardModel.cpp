@@ -600,7 +600,7 @@ bool StandardModel::checkSMparamsForEWPO()
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::ale_OS(const double mu, orders order) const
+const double StandardModel::ale_OS(const double mu, orders order) const
 {
     if (mu < 50.0)
         throw std::runtime_error("out of range in StandardModel::ale_OS()");
@@ -621,7 +621,7 @@ double StandardModel::ale_OS(const double mu, orders order) const
     }
 }
 
-double StandardModel::Beta_s(int nm, unsigned int nf) const
+const double StandardModel::Beta_s(int nm, unsigned int nf) const
 {
     unsigned int nu = nf % 2 == 0 ? nf / 2 : nf / 2;
     unsigned int nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
@@ -649,7 +649,7 @@ double StandardModel::Beta_s(int nm, unsigned int nf) const
     }
 }
 
-double StandardModel::Beta_e(int nm, unsigned int nf) const
+const double StandardModel::Beta_e(int nm, unsigned int nf) const
 {
     unsigned int nu = nf % 2 == 0 ? nf / 2 : nf / 2;
     unsigned int nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
@@ -669,7 +669,7 @@ double StandardModel::Beta_e(int nm, unsigned int nf) const
     }
 }
 
-double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) const
+const double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) const
 {
     switch (order)
     {
@@ -690,7 +690,7 @@ double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) c
     }
 }
 
-double StandardModel::AlsByOrder(double mu, orders order, bool qed_flag, bool Nf_thr) const
+const double StandardModel::AlsByOrder(double mu, orders order, bool qed_flag, bool Nf_thr) const
 {
     int i, nfAls = (int) Nf(Mz), nfmu = Nf_thr ? (int) Nf(mu) : nfAls;
     double als, alstmp, mutmp;
@@ -756,7 +756,7 @@ double StandardModel::AlsByOrder(double mu, orders order, bool qed_flag, bool Nf
     }
 }
 
-double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const
+const double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const
 {
     double nf = Nf(mu), alei = Ale(mu_i, FULLNLO); // CHANGE ME!
     double b00s = Beta_s(00, nf), b00e = Beta_e(00, nf);
@@ -799,7 +799,7 @@ double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders or
     return (als);
 }
 
-double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
+const double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
 {
     int i, nfAle = (int) Nf(Mz), nfmu = Nf_thr ? (int) Nf(mu) : nfAle;
     double ale, aletmp, mutmp, aleMz = alphaMz();
@@ -872,7 +872,7 @@ double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
     }
 }
 
-double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders order) const
+const double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders order) const
 {
     if (fabs(mu - mu_i) < MEPS) return(alei);
 
@@ -895,7 +895,7 @@ double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders or
     }
 }
 
-double StandardModel::DeltaAlphaLepton(const double s) const
+const double StandardModel::DeltaAlphaLepton(const double s) const
 {
     if (s == Mz * Mz)
         if (FlagCacheInStandardModel)
@@ -923,13 +923,13 @@ double StandardModel::DeltaAlphaLepton(const double s) const
     return DeltaAlphaL;
 }
 
-double StandardModel::DeltaAlphaL5q() const
+const double StandardModel::DeltaAlphaL5q() const
 {
     double Mz2 = Mz*Mz;
     return (DeltaAlphaLepton(Mz2) + dAl5hMz);
 }
 
-double StandardModel::DeltaAlphaTop(const double s) const
+const double StandardModel::DeltaAlphaTop(const double s) const
 {
     double DeltaAlpha = 0.0;
     if (flag_order[EW1])
@@ -948,7 +948,7 @@ double StandardModel::DeltaAlphaTop(const double s) const
     return DeltaAlpha;
 }
 
-double StandardModel::DeltaAlpha() const
+const double StandardModel::DeltaAlpha() const
 {
     if (FlagCacheInStandardModel)
         if (useDeltaAlpha_cache)
@@ -960,14 +960,14 @@ double StandardModel::DeltaAlpha() const
     return DeltaAlpha_cache;
 }
 
-double StandardModel::alphaMz() const
+const double StandardModel::alphaMz() const
 {
     return (ale / (1.0 - DeltaAlpha()));
 //    return(1./127.918); // FOR HEFFDF1 TEST: VALUE IN hep-ph/0512066
 //    return(1./127.955); // FOR HEFFDF1 TEST: VALUE IN 2007.04191
 }
 
-double StandardModel::Alstilde5(const double mu) const
+const double StandardModel::Alstilde5(const double mu) const
 {
     double mu_0 = Mz;
     double alphatilde_e = alphaMz()/4./M_PI;
@@ -1011,7 +1011,7 @@ double StandardModel::Alstilde5(const double mu) const
 
 ///////////////////////////////////////////////////////////////////////////
 
-double StandardModel::v() const
+const double StandardModel::v() const
 {
     return ( 1. / sqrt(sqrt(2.) * GF));
 }
@@ -1019,7 +1019,7 @@ double StandardModel::v() const
 
 ///////////////////////////////////////////////////////////////////////////
 
-double StandardModel::Mw_tree() const
+const double StandardModel::Mw_tree() const
 {
     if (FlagMWinput){
         return Mw_inp;
@@ -1027,7 +1027,7 @@ double StandardModel::Mw_tree() const
         return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * ale / sqrt(2.0) / GF / Mz / Mz)));
 }
 
-double StandardModel::s02() const
+const double StandardModel::s02() const
 {
     double tmp = 1.0 - 4.0 * M_PI * alphaMz() / sqrt(2.0) / GF / Mz / Mz;
     if (tmp < 0.0)
@@ -1036,12 +1036,12 @@ double StandardModel::s02() const
     return ( (1.0 - sqrt(tmp)) / 2.0);
 }
 
-double StandardModel::c02() const
+const double StandardModel::c02() const
 {
     return ( 1.0 - s02());
 }
 
-double StandardModel::Mw() const
+const double StandardModel::Mw() const
 {
     /* Debug */
     //std::cout << std::boolalpha
@@ -1090,7 +1090,7 @@ double StandardModel::Mw() const
     return Mw;
 }
 
-double StandardModel::Dalpha5hMz() const
+const double StandardModel::Dalpha5hMz() const
 {
     if (FlagMWinput){
         return (myApproximateFormulae->dAlpha5hMw());
@@ -1098,28 +1098,28 @@ double StandardModel::Dalpha5hMz() const
         return dAle5Mz;
 }
 
-double StandardModel::cW2(double Mw_i) const
+const double StandardModel::cW2(double Mw_i) const
 {
     return ( Mw_i * Mw_i / Mz / Mz);
 }
 
-double StandardModel::cW2() const
+const double StandardModel::cW2() const
 {
     return ( cW2(Mw()));
 //    return (1.0 - 0.2312); // FOR HEFFDF1 TEST
 }
 
-double StandardModel::sW2(double Mw_i) const
+const double StandardModel::sW2(double Mw_i) const
 {
     return ( 1.0 - cW2(Mw_i));
 }
 
-double StandardModel::sW2() const
+const double StandardModel::sW2() const
 {
     return ( 1.0 - cW2());
 }
 
-double StandardModel::DeltaR() const
+const double StandardModel::DeltaR() const
 {
     /* in the experimental/running-width scheme */
     double myMw = Mw();
@@ -1133,7 +1133,7 @@ double StandardModel::DeltaR() const
     }
 }
 
-void StandardModel::ComputeDeltaRho(const double Mw_i,
+void StandardModel::ComputeDeltaRho(double Mw_i,
         double DeltaRho[orders_EW_size]) const
 {
     if (flag_order[EW1])
@@ -1211,7 +1211,7 @@ double StandardModel::Mzbar() const
     return ( Mz - Gz * Gz / 2.0 / Mz);
 }
 
-double StandardModel::MwbarFromMw(const double Mw) const
+const double StandardModel::MwbarFromMw(const double Mw) const
 {
     double AlsMw = Als(Mw, FULLNLO);
     double Gw_SM = 3.0 * GF * pow(Mw, 3.0) / 2.0 / sqrt(2.0) / M_PI
@@ -1220,7 +1220,7 @@ double StandardModel::MwbarFromMw(const double Mw) const
     return ( Mw - Gw_SM * Gw_SM / 2.0 / Mw);
 }
 
-double StandardModel::MwFromMwbar(const double Mwbar) const
+const double StandardModel::MwFromMwbar(const double Mwbar) const
 {
     double AlsMw = Als(Mwbar, FULLNNLO);
     double Gw_SM = 3.0 * GF * pow(Mwbar, 3.0) / 2.0 / sqrt(2.0) / M_PI
@@ -1229,7 +1229,7 @@ double StandardModel::MwFromMwbar(const double Mwbar) const
     return (Mwbar + Gw_SM * Gw_SM / 2.0 / Mwbar);
 }
 
-double StandardModel::DeltaRbar() const
+const double StandardModel::DeltaRbar() const
 {
     double Mwbar_SM = MwbarFromMw(Mw());
     double sW2bar = 1.0 - Mwbar_SM * Mwbar_SM / Mzbar() / Mzbar();
@@ -1241,7 +1241,7 @@ double StandardModel::DeltaRbar() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::rho_GammaW(const Particle fi, const Particle fj) const
+const double StandardModel::rho_GammaW(const Particle fi, const Particle fj) const
 {
     double rhoW = 0.0;
     if (flag_order[EW1])
@@ -1249,7 +1249,7 @@ double StandardModel::rho_GammaW(const Particle fi, const Particle fj) const
     return rhoW;
 }
 
-double StandardModel::GammaW(const Particle fi, const Particle fj) const
+const double StandardModel::GammaW(const Particle fi, const Particle fj) const
 {
     if ((fi.getIndex()) % 2 || (fj.getIndex() + 1) % 2)
         throw std::runtime_error("Error in StandardModel::GammaW()");
@@ -1273,7 +1273,7 @@ double StandardModel::GammaW(const Particle fi, const Particle fj) const
     }
 }
 
-double StandardModel::GammaW() const
+const double StandardModel::GammaW() const
 {
     if (FlagCacheInStandardModel)
         if (useGammaW_cache)
@@ -1290,7 +1290,7 @@ double StandardModel::GammaW() const
 }
 
 
-double StandardModel::BrW(const Particle fi, const Particle fj) const
+const double StandardModel::BrW(const Particle fi, const Particle fj) const
 {
     double GammW = GammaW();
     double GammWij = GammaW(fi, fj);
@@ -1299,7 +1299,7 @@ double StandardModel::BrW(const Particle fi, const Particle fj) const
 }
 
 
-double StandardModel::RWlilj(const Particle li, const Particle lj) const
+const double StandardModel::RWlilj(const Particle li, const Particle lj) const
 {
     double GammWli, GammWlj;
     
@@ -1324,12 +1324,12 @@ double StandardModel::RWlilj(const Particle li, const Particle lj) const
     return GammWli/GammWlj;
 }
 
-double StandardModel::Ruc() const       //AG:added
+const double StandardModel::Ruc() const       //AG:added
 {
     return 0.5 * ( R0_f(quarks[UP]) + R0_f(quarks[CHARM]) );
 }
 
-double StandardModel::RWc() const
+const double StandardModel::RWc() const
 {  
     double GammWcX, GammWhad;
 
@@ -1346,25 +1346,25 @@ double StandardModel::RWc() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::A_f(const Particle f) const
+const double StandardModel::A_f(const Particle f) const
 {
     double Re_kappa = kappaZ_f(f).real();
     double Re_gV_over_gA = 1.0 - 4.0 * fabs(f.getCharge()) * Re_kappa * sW2();
     return ( 2.0 * Re_gV_over_gA / (1.0 + pow(Re_gV_over_gA, 2.0)));
 }
 
-double StandardModel::AFB(const Particle f) const
+const double StandardModel::AFB(const Particle f) const
 {
     return (3.0 / 4.0 * A_f(leptons[ELECTRON]) * A_f(f));
 }
 
-double StandardModel::sin2thetaEff(const Particle f) const
+const double StandardModel::sin2thetaEff(const Particle f) const
 {
     double Re_kappa = kappaZ_f(f).real();
     return ( Re_kappa * sW2());
 }
 
-double StandardModel::GammaZ(const Particle f) const
+const double StandardModel::GammaZ(const Particle f) const
 {
     if (f.is("TOP"))
         return 0.0;
@@ -1412,13 +1412,13 @@ double StandardModel::GammaZ(const Particle f) const
     return Gamma;
 }
 
-double StandardModel::Gamma_inv() const
+const double StandardModel::Gamma_inv() const
 {
     return ( GammaZ(leptons[NEUTRINO_1]) + GammaZ(leptons[NEUTRINO_2])
             + GammaZ(leptons[NEUTRINO_3]));
 }
 
-double StandardModel::Gamma_had() const
+const double StandardModel::Gamma_had() const
 {
     double Gamma_had_tmp = 0.0;
     
@@ -1440,7 +1440,7 @@ double StandardModel::Gamma_had() const
     }
 }
 
-double StandardModel::Gamma_Z() const
+const double StandardModel::Gamma_Z() const
 {
     if (!IsFlagNoApproximateGammaZ()){
             
@@ -1454,7 +1454,7 @@ double StandardModel::Gamma_Z() const
 }
 
 
-double StandardModel::RZlilj(const Particle li, const Particle lj) const
+const double StandardModel::RZlilj(const Particle li, const Particle lj) const
 {
     double GammZli, GammZlj;
     
@@ -1472,7 +1472,7 @@ double StandardModel::RZlilj(const Particle li, const Particle lj) const
 }
 
 
-double StandardModel::sigma0_had() const
+const double StandardModel::sigma0_had() const
 {
     if (!IsFlagNoApproximateGammaZ()){
             
@@ -1486,7 +1486,7 @@ double StandardModel::sigma0_had() const
     }
 }
 
-double StandardModel::R0_f(const Particle f) const
+const double StandardModel::R0_f(const Particle f) const
 {
                 
     if (f.is("ELECTRON")) {
@@ -1557,13 +1557,13 @@ double StandardModel::R0_f(const Particle f) const
     
 }
 
-double StandardModel::R_inv() const
+const double StandardModel::R_inv() const
 {
     return (Gamma_inv() / GammaZ(leptons[ELECTRON]));
 
 }
 
-double StandardModel::N_nu() const
+const double StandardModel::N_nu() const
 {
     double Nnu = 0.0;
     double Gl = 0.0;    
@@ -1584,18 +1584,18 @@ double StandardModel::N_nu() const
 
 ////////////////////////////////////////////////////////////////////////
 
-gslpp::complex StandardModel::gV_f(const Particle f) const
+const gslpp::complex StandardModel::gV_f(const Particle f) const
 {
     return ( gA_f(f)
             *(1.0 - 4.0 * fabs(f.getCharge())*(kappaZ_f(f)) * sW2()));
 }
 
-gslpp::complex StandardModel::gA_f(const Particle f) const
+const gslpp::complex StandardModel::gA_f(const Particle f) const
 {
     return ( sqrt(rhoZ_f(f)) * f.getIsospin());
 }
 
-gslpp::complex StandardModel::rhoZ_f(const Particle f) const
+const gslpp::complex StandardModel::rhoZ_f(const Particle f) const
 {
     if (f.getName().compare("TOP") == 0) return (gslpp::complex(0.0, 0.0, false));
     if (FlagRhoZ.compare("APPROXIMATEFORMULA") == 0)
@@ -1660,7 +1660,7 @@ gslpp::complex StandardModel::rhoZ_f(const Particle f) const
     }
 }
 
-gslpp::complex StandardModel::kappaZ_f(const Particle f) const
+const gslpp::complex StandardModel::kappaZ_f(const Particle f) const
 {
     if (f.is("TOP")) return (gslpp::complex(0.0, 0.0, false));
 
@@ -1746,7 +1746,7 @@ gslpp::complex StandardModel::kappaZ_f(const Particle f) const
     return (gslpp::complex(ReKappaZf, ImKappaZf, false));
 }
 
-gslpp::complex StandardModel::deltaRhoZ_f(const Particle f) const
+const gslpp::complex StandardModel::deltaRhoZ_f(const Particle f) const
 {
     Particle p1 = f, pe = leptons[ELECTRON];
 
@@ -1771,7 +1771,7 @@ gslpp::complex StandardModel::deltaRhoZ_f(const Particle f) const
     return dRho;
 }
 
-gslpp::complex StandardModel::deltaKappaZ_f(const Particle f) const
+const gslpp::complex StandardModel::deltaKappaZ_f(const Particle f) const
 {
     Particle p1 = f, pe = leptons[ELECTRON];
 
@@ -1801,7 +1801,7 @@ gslpp::complex StandardModel::deltaKappaZ_f(const Particle f) const
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::epsilon1() const
+const double StandardModel::epsilon1() const
 {
     double rhoZe = rhoZ_f(leptons[ELECTRON]).real();
     double DeltaRhoPrime = 2.0 * (sqrt(rhoZe) - 1.0);
@@ -1809,7 +1809,7 @@ double StandardModel::epsilon1() const
     return DeltaRhoPrime;
 }
 
-double StandardModel::epsilon2() const
+const double StandardModel::epsilon2() const
 {
     double rhoZe = rhoZ_f(leptons[ELECTRON]).real();
     double sin2thetaEff = kappaZ_f(leptons[ELECTRON]).real() * sW2();
@@ -1821,7 +1821,7 @@ double StandardModel::epsilon2() const
             - 2.0 * s02() * DeltaKappaPrime);
 }
 
-double StandardModel::epsilon3() const
+const double StandardModel::epsilon3() const
 {
     double rhoZe = rhoZ_f(leptons[ELECTRON]).real();
     double sin2thetaEff = kappaZ_f(leptons[ELECTRON]).real() * sW2();
@@ -1831,7 +1831,7 @@ double StandardModel::epsilon3() const
     return ( c02() * DeltaRhoPrime + (c02() - s02()) * DeltaKappaPrime);
 }
 
-double StandardModel::epsilonb() const
+const double StandardModel::epsilonb() const
 {
     /* epsilon_b from g_A^b
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
@@ -1966,7 +1966,7 @@ double StandardModel::resumMw(const double Mw_i, const double DeltaRho[orders_EW
 
 double StandardModel::resumRhoZ(const double DeltaRho[orders_EW_size],
         const double deltaRho_rem[orders_EW_size],
-        const double DeltaRbar_rem, const bool bool_Zbb) const
+        const double DeltaRbar_rem, bool bool_Zbb) const
 {
     if ((FlagRhoZ.compare("APPROXIMATEFORMULA") == 0)
             || (deltaRho_rem[EW1QCD2] != 0.0)
@@ -2442,7 +2442,7 @@ double StandardModel::RVh() const
 
 //    The anomalous magnetic moment of the muon a_mu=(g_mu-2)/2
 
-double StandardModel::amuon() const
+const double StandardModel::amuon() const
 {
       
 //      output
@@ -2672,7 +2672,7 @@ double StandardModel::amuon() const
 
 //      The electron's weak charge
 
-double StandardModel::Qwemoller(const double q2, const double y) const
+const double StandardModel::Qwemoller(const double q2, const double y) const
 {
       //      Weak charge
       double Qwe;
@@ -2770,7 +2770,7 @@ double StandardModel::Qwemoller(const double q2, const double y) const
 
 //     The parity violating asymmetry in Moller scattering
 
-double StandardModel::alrmoller(const double q2, const double y) const
+const double StandardModel::alrmoller(const double q2, const double y) const
 {
       //      functions and inputs
       double alrmoller;
@@ -2788,7 +2788,7 @@ double StandardModel::alrmoller(const double q2, const double y) const
 
 //    The computation of the proton and neutron weak charge: Qwp,Qwn
 
-double StandardModel::Qwp() const
+const double StandardModel::Qwp() const
 {
       //      Definitions
       double qwproton;
@@ -2902,7 +2902,7 @@ double StandardModel::Qwp() const
 }
 
 
-double StandardModel::Qwn() const
+const double StandardModel::Qwn() const
 {
       //      Definitions
       double qwneutron;
@@ -3020,7 +3020,7 @@ double StandardModel::Qwn() const
     // EW low-energy observables: neutrino-scattering
 
 
-double StandardModel::gLnuN2() const
+const double StandardModel::gLnuN2() const
 {    
     // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
     if (!IsFlagNoApproximateGammaZ()){
@@ -3034,7 +3034,7 @@ double StandardModel::gLnuN2() const
 }
 
 
-double StandardModel::gRnuN2() const
+const double StandardModel::gRnuN2() const
 {
     // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
     if (!IsFlagNoApproximateGammaZ()){
@@ -3047,7 +3047,7 @@ double StandardModel::gRnuN2() const
     }   
 }
 
-double StandardModel::ThetaLnuN() const
+const double StandardModel::ThetaLnuN() const
 {
     // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
     if (!IsFlagNoApproximateGammaZ()){
@@ -3061,7 +3061,7 @@ double StandardModel::ThetaLnuN() const
 }
 
 
-double StandardModel::ThetaRnuN() const
+const double StandardModel::ThetaRnuN() const
 {
     // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
     if (!IsFlagNoApproximateGammaZ()){
@@ -3074,7 +3074,7 @@ double StandardModel::ThetaRnuN() const
     }   
 }
 
-double StandardModel::gVnue() const
+const double StandardModel::gVnue() const
 {
     // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
     if (!IsFlagNoApproximateGammaZ()){
@@ -3087,7 +3087,7 @@ double StandardModel::gVnue() const
     }   
 }
 
-double StandardModel::gAnue() const
+const double StandardModel::gAnue() const
 {
     // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
     if (!IsFlagNoApproximateGammaZ()){
@@ -3107,7 +3107,7 @@ double StandardModel::gAnue() const
 
 // Muon decay
 
-double StandardModel::Gamma_muon() const
+const double StandardModel::Gamma_muon() const
 {
     double Gamma;
     double me, mmu, x, Fx, H1x, H2x, H3x, zeta3;
@@ -3147,7 +3147,7 @@ double StandardModel::Gamma_muon() const
 
 // Leptonic decays
 
-double StandardModel::Gamma_tau_l_nunu(const Particle l) const
+const double StandardModel::Gamma_tau_l_nunu(const Particle l) const
 {
     double Gamma;
     double ml, mtau, x, Fx, H1x, H2x, H3x, zeta3;
@@ -3184,7 +3184,7 @@ double StandardModel::Gamma_tau_l_nunu(const Particle l) const
 
 // Lepton universality tests
 
-double StandardModel::TauLFU_gmuge() const
+const double StandardModel::TauLFU_gmuge() const
 {
     double g2LFU;
     
@@ -3207,7 +3207,7 @@ double StandardModel::TauLFU_gmuge() const
     return sqrt(g2LFU);
 }
 
-double StandardModel::TauLFU_gtaugmu() const
+const double StandardModel::TauLFU_gtaugmu() const
 {
     double g2LFU;
     
@@ -3230,7 +3230,7 @@ double StandardModel::TauLFU_gtaugmu() const
     return sqrt(g2LFU);
 }
 
-double StandardModel::TauLFU_gtauge() const
+const double StandardModel::TauLFU_gtauge() const
 {
     double g2LFU;
     
@@ -3254,14 +3254,14 @@ double StandardModel::TauLFU_gtauge() const
 }
 
 
-double StandardModel::TauLFU_gtaugmuPi() const
+const double StandardModel::TauLFU_gtaugmuPi() const
 {
     // 1st approx. 
     
     return 1.0;
 }
 
-double StandardModel::TauLFU_gtaugmuK() const
+const double StandardModel::TauLFU_gtaugmuK() const
 {
     // 1st approx. 
     
@@ -3275,7 +3275,7 @@ double StandardModel::TauLFU_gtaugmuK() const
 //LEP2 Observables
 
 
-double StandardModel::LEP2sigmaMu(const double s) const
+const double StandardModel::LEP2sigmaMu(const double s) const
 {
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
     double relerr = 1.e-8;
@@ -3532,7 +3532,7 @@ double StandardModel::LEP2sigmaMu(const double s) const
 }
 
 
-double StandardModel::LEP2sigmaTau(const double s) const
+const double StandardModel::LEP2sigmaTau(const double s) const
 {
     
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
@@ -3790,7 +3790,7 @@ double StandardModel::LEP2sigmaTau(const double s) const
 }
 
 
-double StandardModel::LEP2sigmaCharm(const double s) const
+const double StandardModel::LEP2sigmaCharm(const double s) const
 {
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
     double relerr = 1.e-8;
@@ -4001,7 +4001,7 @@ double StandardModel::LEP2sigmaCharm(const double s) const
 }
 
 
-double StandardModel::LEP2sigmaBottom(const double s) const
+const double StandardModel::LEP2sigmaBottom(const double s) const
 {
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
     double relerr = 1.e-8;
@@ -4212,7 +4212,7 @@ double StandardModel::LEP2sigmaBottom(const double s) const
 }
 
 
-double StandardModel::LEP2sigmaHadron(const double s) const
+const double StandardModel::LEP2sigmaHadron(const double s) const
 {
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
     double relerr = 1.e-8;
@@ -5344,7 +5344,7 @@ double StandardModel::LEP2sigmaHadron(const double s) const
 }
 
 
-double StandardModel::LEP2AFBbottom(const double s) const
+const double StandardModel::LEP2AFBbottom(const double s) const
 {
 
     bSigmaForAFB = true;
@@ -5755,7 +5755,7 @@ double StandardModel::LEP2AFBbottom(const double s) const
 }
 
 
-double StandardModel::LEP2AFBcharm(const double s) const
+const double StandardModel::LEP2AFBcharm(const double s) const
 {
 
     bSigmaForAFB = true;
@@ -6166,7 +6166,7 @@ double StandardModel::LEP2AFBcharm(const double s) const
 }
 
 
-double StandardModel::LEP2AFBmu(const double s) const
+const double StandardModel::LEP2AFBmu(const double s) const
 {
 
     bSigmaForAFB = true;
@@ -6663,7 +6663,7 @@ double StandardModel::LEP2AFBmu(const double s) const
 }
 
 
-double StandardModel::LEP2AFBtau(const double s) const
+const double StandardModel::LEP2AFBtau(const double s) const
 {
 
     bSigmaForAFB = true;
@@ -7160,7 +7160,7 @@ double StandardModel::LEP2AFBtau(const double s) const
 }
 
 
-double StandardModel::LEP2Rbottom(const double s) const
+const double StandardModel::LEP2Rbottom(const double s) const
 {
 
     double sigma_b = LEP2sigmaBottom(s);
@@ -7172,7 +7172,7 @@ double StandardModel::LEP2Rbottom(const double s) const
 }
 
 
-double StandardModel::LEP2Rcharm(const double s) const
+const double StandardModel::LEP2Rcharm(const double s) const
 {
 
     double sigma_c = LEP2sigmaCharm(s);
@@ -7184,7 +7184,7 @@ double StandardModel::LEP2Rcharm(const double s) const
 }
 
 
-double StandardModel::sigma_NoISR_l(const QCD::lepton l_flavor, const double s) const
+const double StandardModel::sigma_NoISR_l(const QCD::lepton l_flavor, const double s) const
 {
     double ml = getLeptons(l_flavor).getMass();
     double l_charge = getLeptons(l_flavor).getCharge();
@@ -7196,7 +7196,7 @@ double StandardModel::sigma_NoISR_l(const QCD::lepton l_flavor, const double s) 
     return sigma;
 }   
     
-double StandardModel::sigma_NoISR_q(const QCD::quark q_flavor, const double s) const
+const double StandardModel::sigma_NoISR_q(const QCD::quark q_flavor, const double s) const
 {
     double mq = m_q(q_flavor, sqrt(s));
     double q_charge = getQuarks(q_flavor).getCharge();
@@ -7211,7 +7211,7 @@ double StandardModel::sigma_NoISR_q(const QCD::quark q_flavor, const double s) c
     return sigma;
 }      
     
-double StandardModel::AFB_NoISR_l(const QCD::lepton l_flavor, const double s) const
+const double StandardModel::AFB_NoISR_l(const QCD::lepton l_flavor, const double s) const
 {
     double ml = getLeptons(l_flavor).getMass();
     double AFB = myTwoFermionsLEP2->AFB_l(l_flavor, ml, s, Mw(), Gamma_Z(), flagLEP2[Weak]);
@@ -7219,7 +7219,7 @@ double StandardModel::AFB_NoISR_l(const QCD::lepton l_flavor, const double s) co
     return AFB;
 }
     
-double StandardModel::AFB_NoISR_q(const QCD::quark q_flavor, const  double s) const
+const double StandardModel::AFB_NoISR_q(const QCD::quark q_flavor, const  double s) const
 {
     double mq = m_q(q_flavor, sqrt(s));
     double AFB = myTwoFermionsLEP2->AFB_q(q_flavor, mq, s, Mw(), Gamma_Z(), flagLEP2[Weak]);
@@ -7230,7 +7230,7 @@ double StandardModel::AFB_NoISR_q(const QCD::quark q_flavor, const  double s) co
     return AFB;
 }
     
-double StandardModel::Integrand_sigmaWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const
+const double StandardModel::Integrand_sigmaWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const
 {
     double sprime = (1.0 - x)*s;
     double ml = getLeptons(l_flavor).getMass();
@@ -7245,152 +7245,152 @@ double StandardModel::Integrand_sigmaWithISR_l(double x, const QCD::lepton l_fla
     return ( H*sigma );
 }   
     
-double StandardModel::getIntegrand_sigmaWithISR_mu130(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu136(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu161(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu172(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu183(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu189(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu192(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu196(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu200(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu202(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu205(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_mu207(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_mu207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(MU), s));
 }
     
 
-double StandardModel::getIntegrand_sigmaWithISR_tau130(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }    
 
-double StandardModel::getIntegrand_sigmaWithISR_tau136(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau161(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau172(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau183(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau189(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau192(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau196(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau200(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau202(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau205(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_tau207(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_tau207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_sigmaWithISR_l(x, QCD::lepton(TAU), s));
 }
     
-double StandardModel::Integrand_sigmaWithISR_q(double x, const QCD::quark q_flavor, const  double s) const
+const double StandardModel::Integrand_sigmaWithISR_q(double x, const QCD::quark q_flavor, const  double s) const
 {
     double sprime = (1.0 - x)*s;
     double mq = m_q(q_flavor, sqrt(s));
@@ -7414,85 +7414,85 @@ double StandardModel::Integrand_sigmaWithISR_q(double x, const QCD::quark q_flav
 //up
 
 
-double StandardModel::getIntegrand_sigmaWithISR_up130(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }    
 
-double StandardModel::getIntegrand_sigmaWithISR_up133(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up136(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up161(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up167(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up172(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up183(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up189(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up192(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up196(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up200(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up202(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up205(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_up207(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_up207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(UP), s));
@@ -7501,86 +7501,86 @@ double StandardModel::getIntegrand_sigmaWithISR_up207(double x) const
 
 //down
 
-double StandardModel::getIntegrand_sigmaWithISR_down130(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }    
 
-double StandardModel::getIntegrand_sigmaWithISR_down133(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
 
-double StandardModel::getIntegrand_sigmaWithISR_down136(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down161(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down167(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down172(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down183(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down189(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down192(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down196(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down200(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down202(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down205(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_down207(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_down207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(DOWN), s));
@@ -7590,85 +7590,85 @@ double StandardModel::getIntegrand_sigmaWithISR_down207(double x) const
 //charm
 
 
-double StandardModel::getIntegrand_sigmaWithISR_charm130(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }    
 
-double StandardModel::getIntegrand_sigmaWithISR_charm133(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }    
 
-double StandardModel::getIntegrand_sigmaWithISR_charm136(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm161(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm167(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm172(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm183(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm189(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm192(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm196(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm200(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm202(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm205(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_charm207(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_charm207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(CHARM), s));
@@ -7678,85 +7678,85 @@ double StandardModel::getIntegrand_sigmaWithISR_charm207(double x) const
 //strange
 
 
-double StandardModel::getIntegrand_sigmaWithISR_strange130(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }    
 
-double StandardModel::getIntegrand_sigmaWithISR_strange133(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange136(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange161(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange167(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange172(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange183(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange189(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange192(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange196(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange200(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange202(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange205(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_strange207(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_strange207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(STRANGE), s));
@@ -7766,85 +7766,85 @@ double StandardModel::getIntegrand_sigmaWithISR_strange207(double x) const
 //bottom
 
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom130(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }    
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom133(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }    
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom136(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom161(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom167(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom172(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom183(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom189(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom192(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom196(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom200(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom202(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom205(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_sigmaWithISR_bottom207(double x) const
+const double StandardModel::getIntegrand_sigmaWithISR_bottom207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_sigmaWithISR_q(x, QCD::quark(BOTTOM), s));
@@ -7854,79 +7854,79 @@ double StandardModel::getIntegrand_sigmaWithISR_bottom207(double x) const
 
 
 
-double StandardModel::Integrand_dsigmaBox_l(double cosTheta, const QCD::lepton l_flavor, const double s) const
+const double StandardModel::Integrand_dsigmaBox_l(double cosTheta, const QCD::lepton l_flavor, const double s) const
 {
     double ml = getLeptons(l_flavor).getMass();
     return ( myTwoFermionsLEP2->dsigma_l_box(l_flavor, ml, s, cosTheta, Mw(), Gamma_Z()) );
 }       
     
-double StandardModel::getIntegrand_dsigmaBox_mu130(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu136(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu161(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu172(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu183(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu189(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu192(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu196(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu200(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu202(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu205(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_mu207(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_mu207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(MU), s));
@@ -7936,73 +7936,73 @@ double StandardModel::getIntegrand_dsigmaBox_mu207(double x) const
 
 
 
-double StandardModel::getIntegrand_dsigmaBox_tau130(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau136(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau161(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau172(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau183(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau189(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau192(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau196(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau200(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau202(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau205(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_tau207(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_tau207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_dsigmaBox_l(x, QCD::lepton(TAU), s));
@@ -8013,7 +8013,7 @@ double StandardModel::getIntegrand_dsigmaBox_tau207(double x) const
 
 
 
-double StandardModel::Integrand_dsigmaBox_q(double cosTheta, const QCD::quark q_flavor, const  double s) const
+const double StandardModel::Integrand_dsigmaBox_q(double cosTheta, const QCD::quark q_flavor, const  double s) const
 {
     double mq = m_q(q_flavor, sqrt(s)); 
     return ( myTwoFermionsLEP2->dsigma_q_box(q_flavor, mq, s, cosTheta, Mw(), Gamma_Z()) );
@@ -8025,85 +8025,85 @@ double StandardModel::Integrand_dsigmaBox_q(double cosTheta, const QCD::quark q_
 //up
 
 
-double StandardModel::getIntegrand_dsigmaBox_up130(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }    
 
-double StandardModel::getIntegrand_dsigmaBox_up133(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up136(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up161(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up167(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up172(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up183(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up189(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up192(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up196(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up200(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up202(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up205(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_up207(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_up207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(UP), s));
@@ -8112,85 +8112,85 @@ double StandardModel::getIntegrand_dsigmaBox_up207(double x) const
 
 //down
 
-double StandardModel::getIntegrand_dsigmaBox_down130(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }    
 
-double StandardModel::getIntegrand_dsigmaBox_down133(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down136(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down161(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down167(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down172(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down183(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down189(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down192(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down196(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down200(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down202(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down205(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_down207(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_down207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(DOWN), s));
@@ -8200,85 +8200,85 @@ double StandardModel::getIntegrand_dsigmaBox_down207(double x) const
 //charm
 
 
-double StandardModel::getIntegrand_dsigmaBox_charm130(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }    
 
-double StandardModel::getIntegrand_dsigmaBox_charm133(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }    
 
-double StandardModel::getIntegrand_dsigmaBox_charm136(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm161(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm167(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm172(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm183(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm189(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm192(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm196(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm200(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm202(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm205(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_charm207(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_charm207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(CHARM), s));
@@ -8288,31 +8288,31 @@ double StandardModel::getIntegrand_dsigmaBox_charm207(double x) const
 //strange
 
 
-double StandardModel::getIntegrand_dsigmaBox_strange130(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }    
 
-double StandardModel::getIntegrand_dsigmaBox_strange133(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange136(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange161(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange167(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
@@ -8320,55 +8320,55 @@ double StandardModel::getIntegrand_dsigmaBox_strange167(double x) const
 
 
 
-double StandardModel::getIntegrand_dsigmaBox_strange172(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange183(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange189(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange192(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange196(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange200(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange202(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange205(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_strange207(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_strange207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(STRANGE), s));
@@ -8378,85 +8378,85 @@ double StandardModel::getIntegrand_dsigmaBox_strange207(double x) const
 //bottom
 
 
-double StandardModel::getIntegrand_dsigmaBox_bottom130(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }    
 
-double StandardModel::getIntegrand_dsigmaBox_bottom133(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }    
 
-double StandardModel::getIntegrand_dsigmaBox_bottom136(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom161(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom167(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom172(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom183(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom189(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom192(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom196(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom200(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom202(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom205(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_dsigmaBox_bottom207(double x) const
+const double StandardModel::getIntegrand_dsigmaBox_bottom207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_dsigmaBox_q(x, QCD::quark(BOTTOM), s));
@@ -8474,7 +8474,7 @@ double StandardModel::getIntegrand_dsigmaBox_bottom207(double x) const
 
 
     
-double StandardModel::Integrand_AFBnumeratorWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const
+const double StandardModel::Integrand_AFBnumeratorWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const
 {
     double sprime = (1.0 - x)*s;
     double Ncf = 1.0;
@@ -8486,146 +8486,146 @@ double StandardModel::Integrand_AFBnumeratorWithISR_l(double x, const QCD::lepto
 }
     
     
-    double StandardModel::getIntegrand_AFBnumeratorWithISR_mu130(double x) const
+    const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu136(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu161(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu172(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu183(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu189(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu192(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu196(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu200(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu202(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu205(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_mu207(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_mu207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(MU), s));
 }
     
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau130(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau130(double x) const
 {
     double s = 130. * 130.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }    
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau136(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau136(double x) const
 {
     double s = 136. * 136.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau161(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau161(double x) const
 {
     double s = 161. * 161.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau172(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau183(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau189(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau192(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau196(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau200(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau202(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau205(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_tau207(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_tau207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_AFBnumeratorWithISR_l(x, QCD::lepton(TAU), s));
@@ -8633,7 +8633,7 @@ double StandardModel::getIntegrand_AFBnumeratorWithISR_tau207(double x) const
 
     
     
-double StandardModel::Integrand_AFBnumeratorWithISR_q(double x, const QCD::quark q_flavor, const  double s) const
+const double StandardModel::Integrand_AFBnumeratorWithISR_q(double x, const QCD::quark q_flavor, const  double s) const
 {
     double sprime = (1.0 - x)*s;
     double Ncf = 3.0;
@@ -8648,67 +8648,67 @@ double StandardModel::Integrand_AFBnumeratorWithISR_q(double x, const QCD::quark
 }
 
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm133(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }    
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm167(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm172(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm183(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm189(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm192(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm196(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm200(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm202(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm205(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_charm207(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_charm207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(CHARM), s));
@@ -8717,67 +8717,67 @@ double StandardModel::getIntegrand_AFBnumeratorWithISR_charm207(double x) const
     
 
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom133(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom133(double x) const
 {
     double s = 133. * 133.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }    
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom167(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom167(double x) const
 {
     double s = 167. * 167.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom172(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom172(double x) const
 {
     double s = 172. * 172.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom183(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom183(double x) const
 {
     double s = 183. * 183.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom189(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom189(double x) const
 {
     double s = 189. * 189.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom192(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom192(double x) const
 {
     double s = 192. * 192.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom196(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom196(double x) const
 {
     double s = 196. * 196.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom200(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom200(double x) const
 {
     double s = 200. * 200.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom202(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom202(double x) const
 {
     double s = 202. * 202.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom205(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom205(double x) const
 {
     double s = 205. * 205.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
 
-double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom207(double x) const
+const double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom207(double x) const
 {
     double s = 207. * 207.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
@@ -8787,7 +8787,7 @@ double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom207(double x) const
 
 //  LEP2 differential observables
 
-double StandardModel::LEP2dsigmadcosE(const double s, const double cos) const
+const double StandardModel::LEP2dsigmadcosE(const double s, const double cos) const
 {
     // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
     if (!IsFlagNoApproximateGammaZ()){
@@ -8800,7 +8800,7 @@ double StandardModel::LEP2dsigmadcosE(const double s, const double cos) const
     }
 }
 
-double StandardModel::LEP2dsigmadcosMu(const double s, const double cos) const
+const double StandardModel::LEP2dsigmadcosMu(double s, double cos) const
 {
     // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
     if (!IsFlagNoApproximateGammaZ()){
@@ -8813,7 +8813,7 @@ double StandardModel::LEP2dsigmadcosMu(const double s, const double cos) const
     }
 }
 
-double StandardModel::LEP2dsigmadcosTau(const double s, const double cos) const
+const double StandardModel::LEP2dsigmadcosTau(double s, double cos) const
 {
     // Use same flag as other Z pole observables for the moment to decide whether to use approx formulae
     if (!IsFlagNoApproximateGammaZ()){

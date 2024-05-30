@@ -125,7 +125,7 @@ public:
      * @return the sum of the SM prediction for \f$\varepsilon_1\f$
      * and the new physics contribution \f$\delta\,\varepsilon_1\f$
      */
-    double epsilon1() const;
+    const double epsilon1() const;
 
     /**
      * @brief The parameter \f$\varepsilon_2\f$.
@@ -133,21 +133,21 @@ public:
      * and the new physics contribution \f$\delta\,\varepsilon_2\f$
 
      */
-    double epsilon2() const;
+    const double epsilon2() const;
 
     /**
      * @brief The parameter \f$\varepsilon_3\f$.
      * @return the sum of the SM prediction for \f$\varepsilon_3\f$
      * and the new physics contribution \f$\delta\,\varepsilon_3\f$
      */
-    double epsilon3() const;
+    const double epsilon3() const;
 
     /**
      * @brief The parameter \f$\varepsilon_b\f$.
      * @return the sum of the SM prediction for \f$\varepsilon_b\f$
      * and the new physics contribution \f$\delta\,\varepsilon_b\f$
      */
-    double epsilonb() const;
+    const double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -168,14 +168,14 @@ public:
      * @f]
      * @return @f$M_W@f$ in GeV
      */
-    virtual double Mw() const;
+    virtual const double Mw() const;
 
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * 
      * @warning This function is not available.
      */
-    virtual double GammaW() const;
+    virtual const double GammaW() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -203,7 +203,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\delta g_V^f@f$
      */
-    virtual double deltaGV_f(const Particle f) const;
+    virtual const double deltaGV_f(const Particle f) const;
 
     /**
      * @brief @copybrief NPbase::deltaGA_f()
@@ -220,7 +220,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\delta g_A^f@f$
      */
-    virtual double deltaGA_f(const Particle f) const;
+    virtual const double deltaGA_f(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////

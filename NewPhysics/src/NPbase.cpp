@@ -53,7 +53,7 @@ int NPbase::OutputOrder() const {
     return 1;       //Overwritten in NPSMEFTd6
 }                           
 
-double NPbase::alphaMz() const
+const double NPbase::alphaMz() const
 {
     /*AG:begin
     // FlagMWinput flag to be implemented in NPbase, especially for alphaMz and Mw!
@@ -73,7 +73,7 @@ double NPbase::alphaMz() const
     return myAlphaMz;
 }
 
-double NPbase::Mw() const
+const double NPbase::Mw() const
 {
     double myMw = trueSM.Mw();
 
@@ -92,7 +92,7 @@ double NPbase::Mw() const
     return myMw;
 }
 
-double NPbase::GammaW(const Particle fi, const Particle fj) const
+const double NPbase::GammaW(const Particle fi, const Particle fj) const
 {
     double Gamma_Wij = trueSM.GammaW(fi, fj);
 
@@ -111,7 +111,7 @@ double NPbase::GammaW(const Particle fi, const Particle fj) const
     return Gamma_Wij;
 }
 
-double NPbase::GammaW() const
+const double NPbase::GammaW() const
 {
     double Gamma_W = trueSM.GammaW();
 
@@ -130,7 +130,7 @@ double NPbase::GammaW() const
     return Gamma_W;
 }
 
-double NPbase::BrW(const Particle fi, const Particle fj) const
+const double NPbase::BrW(const Particle fi, const Particle fj) const
 {
     double GammW = GammaW();
     double GammWij = GammaW(fi, fj);
@@ -139,7 +139,7 @@ double NPbase::BrW(const Particle fi, const Particle fj) const
 }
 
 
-double NPbase::RWlilj(const Particle li, const Particle lj) const
+const double NPbase::RWlilj(const Particle li, const Particle lj) const
 {
     double GammWli, GammWlj;
     
@@ -164,7 +164,7 @@ double NPbase::RWlilj(const Particle li, const Particle lj) const
     return GammWli/GammWlj;
 }
 
-double NPbase::RWc() const
+const double NPbase::RWc() const
 {  
     double GammWcX, GammWhad;
     
@@ -183,7 +183,7 @@ double NPbase::RWc() const
     return GammWcX/GammWhad;
 }
 
-double NPbase::deltaGV_f(const Particle f) const
+const double NPbase::deltaGV_f(const Particle f) const
 {
     if (f.is("TOP")) return 0.;
 
@@ -200,13 +200,13 @@ double NPbase::deltaGV_f(const Particle f) const
             + 4.0 * cW2SM * sW2SM * DeltaGF()));
 }
 
-gslpp::complex NPbase::gV_f(const Particle f) const
+const gslpp::complex NPbase::gV_f(const Particle f) const
 {
     //AG: deltaGV_f_2(f) added below.
     return ( trueSM.gV_f(f) + deltaGV_f(f) + deltaGV_f_2(f) );
 }
 
-double NPbase::deltaGA_f(const Particle f) const
+const double NPbase::deltaGA_f(const Particle f) const
 {
     if (f.is("TOP")) return 0.;
     /* SM values */
@@ -216,24 +216,24 @@ double NPbase::deltaGA_f(const Particle f) const
     return ( gASM * (alpha * obliqueT() - DeltaGF()) / 2.0);
 }
 
-gslpp::complex NPbase::gA_f(const Particle f) const
+const gslpp::complex NPbase::gA_f(const Particle f) const
 {
     //AG: deltaGA_f_2(f) added below
     return ( trueSM.gA_f(f) + deltaGA_f(f) + deltaGA_f_2(f) );
 }
 
-gslpp::complex NPbase::rhoZ_f(const Particle f) const
+const gslpp::complex NPbase::rhoZ_f(const Particle f) const
 {
     return ( gA_f(f) * gA_f(f) / f.getIsospin() / f.getIsospin());
 
 }
 
-gslpp::complex NPbase::kappaZ_f(const Particle f) const
+const gslpp::complex NPbase::kappaZ_f(const Particle f) const
 {
     return ( (1.0 - gV_f(f) / gA_f(f)) / (4.0 * fabs(f.getCharge()) * sW2()));
 }
 
-double NPbase::deltaGamma_Zf_2(const Particle f) const            
+const double NPbase::deltaGamma_Zf_2(const Particle f) const            
 {   
     //AG:added
     double DeltaGamma_Zf_2=0.0;
@@ -266,7 +266,7 @@ double NPbase::deltaGamma_Zf_2(const Particle f) const
     return DeltaGamma_Zf_2;
 }
 
-double NPbase::deltaGamma_Zf(const Particle f) const
+const double NPbase::deltaGamma_Zf(const Particle f) const
 {
     double deltaGamma_Zf = 0.;
     bool nonZeroNP = false;
@@ -302,7 +302,7 @@ double NPbase::deltaGamma_Zf(const Particle f) const
     return deltaGamma_Zf;
 }
 
-double NPbase::Gamma_Zf(const Particle f) const                   //AG:modified
+const double NPbase::Gamma_Zf(const Particle f) const                   //AG:modified
 {
     //AG:begin
     if(OutputOrder()==0){ return (trueSM.GammaZ(f) ); }
@@ -315,7 +315,7 @@ double NPbase::Gamma_Zf(const Particle f) const                   //AG:modified
         return (trueSM.GammaZ(f) + deltaGamma_Zf(f) + deltaGamma_Zf_2(f));
 }
 
-double NPbase::deltaGamma_Z_2() const                             
+const double NPbase::deltaGamma_Z_2() const                             
 {
     //AG:added
     double deltaGamma_Z_2 = 0.;
@@ -340,7 +340,7 @@ double NPbase::deltaGamma_Z_2() const
     return deltaGamma_Z_2;
 }
 
-double NPbase::deltaGamma_Z() const
+const double NPbase::deltaGamma_Z() const
 {
     double deltaGamma_Z = 0.;
     bool nonZeroNP = false;
@@ -382,7 +382,7 @@ double NPbase::deltaGamma_Z() const
     return deltaGamma_Z;
 }
 
-double NPbase::Gamma_Z() const                                    //AG:modified
+const double NPbase::Gamma_Z() const                                    //AG:modified
 {
     //AG:begin
     if(OutputOrder()==0){ return (trueSM.Gamma_Z() ); }
@@ -395,7 +395,7 @@ double NPbase::Gamma_Z() const                                    //AG:modified
         return (trueSM.Gamma_Z() + deltaGamma_Z() + deltaGamma_Z_2());
 }
 
-double NPbase::deltaRuc_2() const                                 
+const double NPbase::deltaRuc_2() const                                 
 {
     //AG:added
     double DeltaRuc_2 = 0.0;
@@ -411,7 +411,7 @@ double NPbase::deltaRuc_2() const
     return DeltaRuc_2;
 }
 
-double NPbase::deltaRuc() const                                   
+const double NPbase::deltaRuc() const                                   
 {
     //AG:added
     double DeltaRuc = 0.0;
@@ -427,7 +427,7 @@ double NPbase::deltaRuc() const
     return DeltaRuc;
 }
 
-double NPbase::Ruc() const                                        
+const double NPbase::Ruc() const                                        
 {
     //AG:added
     if(OutputOrder()==0){ return (trueSM.Ruc() ); }
@@ -438,7 +438,7 @@ double NPbase::Ruc() const
         return ( trueSM.Ruc() + deltaRuc() + deltaRuc_2() );
 }
 
-double NPbase::RZlilj(const Particle li, const Particle lj) const
+const double NPbase::RZlilj(const Particle li, const Particle lj) const
 {
     double GammZli, GammZlj;
     
@@ -455,7 +455,7 @@ double NPbase::RZlilj(const Particle li, const Particle lj) const
     return GammZli/GammZlj;
 }
 
-double NPbase::deltaGamma_Zhad_2() const                          
+const double NPbase::deltaGamma_Zhad_2() const                          
 {
     //AG:added
     double DeltaGamma_Zhad_2 = 0.;
@@ -476,7 +476,7 @@ double NPbase::deltaGamma_Zhad_2() const
     return DeltaGamma_Zhad_2;
 }
 
-double NPbase::deltaGamma_Zhad() const
+const double NPbase::deltaGamma_Zhad() const
 {
     double deltaGamma_Zhad = 0.;
     bool nonZeroNP = false;
@@ -512,13 +512,13 @@ double NPbase::deltaGamma_Zhad() const
     return deltaGamma_Zhad;
 }
 
-double NPbase::Gamma_had() const                   
+const double NPbase::Gamma_had() const                   
 {
     //AG: deltaGamma_Zhad_2() added below
     return (trueSM.Gamma_had() + deltaGamma_Zhad() + deltaGamma_Zhad_2());
 }
 
-double NPbase::BR_Zf(const Particle f) const
+const double NPbase::BR_Zf(const Particle f) const
 {
     double delGammaZTot = deltaGamma_Z();
     double delGammaZf = deltaGamma_Zf(f);
@@ -529,7 +529,7 @@ double NPbase::BR_Zf(const Particle f) const
     return (GammaZfSM/GammaZTotSM + delGammaZf/GammaZTotSM - GammaZfSM * delGammaZTot /GammaZTotSM/GammaZTotSM);
 }
 
-double NPbase::deltaSigmaHadron_2() const                         
+const double NPbase::deltaSigmaHadron_2() const                         
 {
     //AG:added
     double sigma_had_2 = 0.;
@@ -585,7 +585,7 @@ double NPbase::deltaSigmaHadron_2() const
     return sigma_had_2;
 }
 
-double NPbase::deltaSigmaHadron() const
+const double NPbase::deltaSigmaHadron() const
 {
     double sigma_had = 0.;
     bool nonZeroNP = false;
@@ -632,7 +632,7 @@ double NPbase::deltaSigmaHadron() const
     return sigma_had;
 }
 
-double NPbase::sigma0_had() const                                 //AG:modified
+const double NPbase::sigma0_had() const                                 //AG:modified
 {
     //AG:begin    
     if(OutputOrder()==0){ return (trueSM.sigma0_had() ); }
@@ -645,7 +645,7 @@ double NPbase::sigma0_had() const                                 //AG:modified
         return (trueSM.sigma0_had() + deltaSigmaHadron() + deltaSigmaHadron_2());
 }
 
-double NPbase::deltaSin2thetaEff_e_2() const                      
+const double NPbase::deltaSin2thetaEff_e_2() const                      
 {
     //AG:added
     double sin2_theta_eff_2=0.0;
@@ -668,7 +668,7 @@ double NPbase::deltaSin2thetaEff_e_2() const
     return sin2_theta_eff_2;
 }
 
-double NPbase::deltaSin2thetaEff_e() const
+const double NPbase::deltaSin2thetaEff_e() const
 {
     double sin2_theta_eff = 0.;
     double delGVf = deltaGV_f(leptons[ELECTRON]);
@@ -683,7 +683,7 @@ double NPbase::deltaSin2thetaEff_e() const
     return sin2_theta_eff;
 }
 
-double NPbase::deltaSin2thetaEff_mu_2() const                     
+const double NPbase::deltaSin2thetaEff_mu_2() const                     
 {
     //AG:added
     double sin2_theta_eff_2=0.0;
@@ -706,7 +706,7 @@ double NPbase::deltaSin2thetaEff_mu_2() const
     return sin2_theta_eff_2;
 }
 
-double NPbase::deltaSin2thetaEff_mu() const
+const double NPbase::deltaSin2thetaEff_mu() const
 {
     double sin2_theta_eff = 0.;
     double delGVf = deltaGV_f(leptons[MU]);
@@ -721,7 +721,7 @@ double NPbase::deltaSin2thetaEff_mu() const
     return sin2_theta_eff;
 }
 
-double NPbase::sin2thetaEff(const Particle f) const               //AG:modified
+const double NPbase::sin2thetaEff(const Particle f) const               //AG:modified
 {    
     if (f.is("ELECTRON")){
         //AG:begin
@@ -749,7 +749,7 @@ double NPbase::sin2thetaEff(const Particle f) const               //AG:modified
         return (trueSM.sin2thetaEff(f));
 }
 
-double NPbase::deltaA_f_2(const Particle f) const                 
+const double NPbase::deltaA_f_2(const Particle f) const                 
 {     
     //AG:added
     double dA_2 = 0.0;
@@ -777,7 +777,7 @@ double NPbase::deltaA_f_2(const Particle f) const
     return dA_2;
 }
 
-double NPbase::deltaA_f(const Particle f) const
+const double NPbase::deltaA_f(const Particle f) const
 {
     double dAf = 0.;
     double delGVf = deltaGV_f(f);
@@ -794,7 +794,7 @@ double NPbase::deltaA_f(const Particle f) const
     return dAf;
 }
 
-double NPbase::A_f(const Particle f) const                        //AG:modified
+const double NPbase::A_f(const Particle f) const                        //AG:modified
 {    
     //AG:begin
     if(OutputOrder()==0){ return (trueSM.A_f(f) ); }
@@ -807,7 +807,7 @@ double NPbase::A_f(const Particle f) const                        //AG:modified
         return (trueSM.A_f(f) + deltaA_f(f) + deltaA_f_2(f));
 }
 
-double NPbase::deltaAFB_2(const Particle f) const                 
+const double NPbase::deltaAFB_2(const Particle f) const                 
 {
     //AG:added
     double dAFB_2=0.0;
@@ -856,7 +856,7 @@ double NPbase::deltaAFB_2(const Particle f) const
     return dAFB_2;
 }
 
-double NPbase::deltaAFB(const Particle f) const
+const double NPbase::deltaAFB(const Particle f) const
 {
     double dAFB = 0.;
     double delGVf = deltaGV_f(f);
@@ -891,7 +891,7 @@ double NPbase::deltaAFB(const Particle f) const
     return dAFB;
 }
 
-double NPbase::AFB(const Particle f) const                        //AG:modified
+const double NPbase::AFB(const Particle f) const                        //AG:modified
 {
     //AG: begin
     if(OutputOrder()==0){ return (trueSM.AFB(f) ); }
@@ -904,7 +904,7 @@ double NPbase::AFB(const Particle f) const                        //AG:modified
         return (trueSM.AFB(f) + deltaAFB(f) + deltaAFB_2(f));
 }
 
-double NPbase::deltaR0_f_2(const Particle f) const                
+const double NPbase::deltaR0_f_2(const Particle f) const                
 {
     //AG:added
     double dR0_f_2 = 0.;
@@ -960,7 +960,7 @@ double NPbase::deltaR0_f_2(const Particle f) const
     return dR0_f_2;
 }
 
-double NPbase::deltaR0_f(const Particle f) const
+const double NPbase::deltaR0_f(const Particle f) const
 {
     double dR0_f = 0., delGVl = 0., delGAl = 0., deltaGl = 0., Gl = 0.;
     bool nonZeroNP = false;
@@ -1011,7 +1011,7 @@ double NPbase::deltaR0_f(const Particle f) const
     return dR0_f;
 }
 
-double NPbase::R0_f(const Particle f) const                       //AG:modified
+const double NPbase::R0_f(const Particle f) const                       //AG:modified
 {
     //AG:begin
     if(OutputOrder()==0){ return (trueSM.R0_f(f) ); }
@@ -1024,7 +1024,7 @@ double NPbase::R0_f(const Particle f) const                       //AG:modified
         return (trueSM.R0_f(f) + deltaR0_f(f) + deltaR0_f_2(f));
 }
 
-double NPbase::deltaR_inv() const
+const double NPbase::deltaR_inv() const
 {
     double dR_inv = 0., delGVe = 0., delGAe = 0., deltaGe = 0., Ge = 0.;
     bool nonZeroNP = false;
@@ -1068,13 +1068,13 @@ double NPbase::deltaR_inv() const
     return dR_inv;
 }
 
-double NPbase::R_inv() const
+const double NPbase::R_inv() const
 {
     return ( trueSM.R_inv() + deltaR_inv() );
 }
 
 
-double NPbase::deltaN_nu() const
+const double NPbase::deltaN_nu() const
 {   
     double dNnu = 0.0;
     double dGl1, dGl2, dGl3, dGl, dGinv;
@@ -1124,7 +1124,7 @@ double NPbase::deltaN_nu() const
     return dNnu;
 }
 
-double NPbase::N_nu() const
+const double NPbase::N_nu() const
 {
     return ( trueSM.N_nu() + deltaN_nu() );
 }
@@ -1134,101 +1134,101 @@ double NPbase::N_nu() const
 //LEP2 Observables
 
        
-double NPbase::delta_Dsigma_f(const Particle f, const double s, const double cos) const
+const double NPbase::delta_Dsigma_f(const Particle f, const double s, const double cos) const
 {
     return 0.0;
 }
 
-double NPbase::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const
+const double NPbase::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const
 {
     return 0.0;
 }
 
-double NPbase::delta_sigma_had(const double s, const double cosmin, const double cosmax) const
+const double NPbase::delta_sigma_had(const double s, const double cosmin, const double cosmax) const
 {
     return 0.0;
 }
     
 //  Total cross sections  (full acceptance)
-double NPbase::delta_sigmaTot_f(const Particle f, const double s) const
+const double NPbase::delta_sigmaTot_f(const Particle f, const double s) const
 {
     return 0.0;
 }
     
 //  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
-double NPbase::delta_AFB_f(const Particle f, const double s) const
+const double NPbase::delta_AFB_f(const Particle f, const double s) const
 {
     return 0.0;
 }
 
 
 //   Extension of SM observable definitions
-double NPbase::LEP2sigmaMu(const double s) const
+const double NPbase::LEP2sigmaMu(const double s) const
 {
     return (trueSM.LEP2sigmaMu(s) + delta_sigmaTot_f(leptons[MU], s));
 }
 
-double NPbase::LEP2sigmaTau(const double s) const
+const double NPbase::LEP2sigmaTau(const double s) const
 {
     return (trueSM.LEP2sigmaTau(s) + delta_sigmaTot_f(leptons[TAU], s));
 }
 
-double NPbase::LEP2sigmaHadron(const double s) const
+const double NPbase::LEP2sigmaHadron(const double s) const
 {
     return (trueSM.LEP2sigmaHadron(s) + delta_sigma_had(s, -1.0, 1.0));
 }
 
-double NPbase::LEP2sigmaCharm(const double s) const
+const double NPbase::LEP2sigmaCharm(const double s) const
 {
     return (trueSM.LEP2sigmaCharm(s) + delta_sigmaTot_f(quarks[CHARM], s));
 }
 
-double NPbase::LEP2sigmaBottom(const double s) const
+const double NPbase::LEP2sigmaBottom(const double s) const
 {
     return (trueSM.LEP2sigmaBottom(s) + delta_sigmaTot_f(quarks[BOTTOM], s));
 }
     
-double NPbase::LEP2AFBmu(const double s) const
+const double NPbase::LEP2AFBmu(const double s) const
 {
     return (trueSM.LEP2AFBmu(s) + delta_AFB_f(leptons[MU], s));
 }
 
-double NPbase::LEP2AFBtau(const double s) const
+const double NPbase::LEP2AFBtau(const double s) const
 {
     return (trueSM.LEP2AFBtau(s) + delta_AFB_f(leptons[TAU], s));
 }
 
-double NPbase::LEP2AFBcharm(const double s) const
+const double NPbase::LEP2AFBcharm(const double s) const
 {
     return (trueSM.LEP2AFBcharm(s) + delta_AFB_f(quarks[CHARM], s));
 }
 
-double NPbase::LEP2AFBbottom(const double s) const
+const double NPbase::LEP2AFBbottom(const double s) const
 {
     return (trueSM.LEP2AFBbottom(s) + delta_AFB_f(quarks[BOTTOM], s));
 }
 
-double NPbase::LEP2Rcharm(const double s) const
+const double NPbase::LEP2Rcharm(const double s) const
 {
     return (trueSM.LEP2Rcharm(s));
 }
 
-double NPbase::LEP2Rbottom(const double s) const
+const double NPbase::LEP2Rbottom(const double s) const
 {
     return (trueSM.LEP2Rbottom(s));
 }
 
-double NPbase::LEP2dsigmadcosE(const double s, const double cos) const
+const double NPbase::LEP2dsigmadcosE(const double s, const double cos) const
 {
     return (trueSM.LEP2dsigmadcosE(s,cos) + delta_Dsigma_f(leptons[ELECTRON], s, cos));
 }
 
-double NPbase::LEP2dsigmadcosMu(const double s, const double cos) const
+const double NPbase::LEP2dsigmadcosMu(const double s, const double cos) const
 {
     return (trueSM.LEP2dsigmadcosMu(s,cos) + delta_Dsigma_f(leptons[MU], s, cos) );
 }
 
-double NPbase::LEP2dsigmadcosTau(const double s, const double cos) const
+const double NPbase::LEP2dsigmadcosTau(const double s, const double cos) const
 {
     return (trueSM.LEP2dsigmadcosTau(s,cos) + delta_Dsigma_f(leptons[TAU], s, cos) );
 }
@@ -1236,99 +1236,99 @@ double NPbase::LEP2dsigmadcosTau(const double s, const double cos) const
 
 // EW low-energy observables: Muon g-2
 
-double NPbase::delta_amuon() const
+const double NPbase::delta_amuon() const
 {
     return 0.;
 }
 
 // EW low-energy observables: Parity violation
 
-double NPbase::delta_Qwemoller(const double q2, const double y) const
+const double NPbase::delta_Qwemoller(const double q2, const double y) const
 {
     return 0.;    
 }
 
 
-double NPbase::delta_alrmoller(const double q2, const double y) const
+const double NPbase::delta_alrmoller(const double q2, const double y) const
 {
     return 0.;    
 }
 
 
-double NPbase::delta_Qwp() const
+const double NPbase::delta_Qwp() const
 {
     return 0.;    
 }
 
       
-double NPbase::delta_Qwn() const
+const double NPbase::delta_Qwn() const
 {
     return 0.;    
 }
 
-double NPbase::delta_gLnuN2() const
+const double NPbase::delta_gLnuN2() const
 {
     return 0.;    
 }
 
-double NPbase::delta_gRnuN2() const
+const double NPbase::delta_gRnuN2() const
 {
     return 0.;    
 }
 
-double NPbase::delta_gVnue() const
+const double NPbase::delta_gVnue() const
 {
     return 0.;    
 }
 
-double NPbase::delta_gAnue() const
+const double NPbase::delta_gAnue() const
 {
     return 0.;    
 }
       
 
 //   Extension of SM observable definitions
-double NPbase::amuon() const
+const double NPbase::amuon() const
 {
     return (trueSM.amuon() + delta_amuon());
 }
 
-double NPbase::Qwemoller(const double q2, const double y) const
+const double NPbase::Qwemoller(const double q2, const double y) const
 {
     return (trueSM.Qwemoller(q2,y) + delta_Qwemoller(q2,y));    
 }
 
-double NPbase::alrmoller(const double q2, const double y) const
+const double NPbase::alrmoller(const double q2, const double y) const
 {
     return (trueSM.alrmoller(q2,y) + delta_alrmoller(q2,y));      
 }
 
-double NPbase::Qwp() const
+const double NPbase::Qwp() const
 {
     return (trueSM.Qwp() + delta_Qwp());     
 }
 
-double NPbase::Qwn() const
+const double NPbase::Qwn() const
 {
     return (trueSM.Qwn() + delta_Qwn());    
 }
 
-double NPbase::gLnuN2() const
+const double NPbase::gLnuN2() const
 {
     return (trueSM.gLnuN2() + delta_gLnuN2());    
 }
 
-double NPbase::gRnuN2() const
+const double NPbase::gRnuN2() const
 {
     return (trueSM.gRnuN2() + delta_gRnuN2());    
 }
 
-double NPbase::gVnue() const
+const double NPbase::gVnue() const
 {
     return (trueSM.gVnue() + delta_gVnue());    
 }
 
-double NPbase::gAnue() const
+const double NPbase::gAnue() const
 {
     return (trueSM.gAnue() + delta_gAnue());    
 }
@@ -1338,53 +1338,53 @@ double NPbase::gAnue() const
       
 // Lepton Flavor universality tests in Tau decays
 
-double NPbase::delta_TauLFU_gmuge() const
+const double NPbase::delta_TauLFU_gmuge() const
 {
     return 0.;    
 }
 
-double NPbase::delta_TauLFU_gtaugmu() const
+const double NPbase::delta_TauLFU_gtaugmu() const
 {
     return 0.;    
 }
 
-double NPbase::delta_TauLFU_gtauge() const
+const double NPbase::delta_TauLFU_gtauge() const
 {
     return 0.;    
 }
 
-double NPbase::delta_TauLFU_gtaugmuPi() const
+const double NPbase::delta_TauLFU_gtaugmuPi() const
 {
     return 0.;    
 }
 
-double NPbase::delta_TauLFU_gtaugmuK() const
+const double NPbase::delta_TauLFU_gtaugmuK() const
 {
     return 0.;    
 }
       
 //   Extension of SM observable definitions
-double NPbase::TauLFU_gmuge() const
+const double NPbase::TauLFU_gmuge() const
 {
     return (trueSM.TauLFU_gmuge() + delta_TauLFU_gmuge());
 }
 
-double NPbase::TauLFU_gtaugmu() const
+const double NPbase::TauLFU_gtaugmu() const
 {
     return (trueSM.TauLFU_gtaugmu() + delta_TauLFU_gtaugmu());    
 }
 
-double NPbase::TauLFU_gtauge() const
+const double NPbase::TauLFU_gtauge() const
 {
     return (trueSM.TauLFU_gtauge() + delta_TauLFU_gtauge());    
 }
 
-double NPbase::TauLFU_gtaugmuPi() const
+const double NPbase::TauLFU_gtaugmuPi() const
 {
     return (trueSM.TauLFU_gtaugmuPi() + delta_TauLFU_gtaugmuPi());    
 }
 
-double NPbase::TauLFU_gtaugmuK() const
+const double NPbase::TauLFU_gtaugmuK() const
 {
     return (trueSM.TauLFU_gtaugmuK() + delta_TauLFU_gtaugmuK());    
 }

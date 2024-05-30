@@ -82,7 +82,7 @@ bool NPZbbbarLinearized::CheckParameters(const std::map<std::string, double>& DP
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPZbbbarLinearized::deltaGV_f(const Particle f) const
+const double NPZbbbarLinearized::deltaGV_f(const Particle f) const
 {
     if (f.is("BOTTOM"))
         return myDeltaGVb;
@@ -90,7 +90,7 @@ double NPZbbbarLinearized::deltaGV_f(const Particle f) const
         return 0.0;
 }
 
-double NPZbbbarLinearized::deltaGA_f(const Particle f) const
+const double NPZbbbarLinearized::deltaGA_f(const Particle f) const
 {
     if (f.is("BOTTOM"))
         return myDeltaGAb;

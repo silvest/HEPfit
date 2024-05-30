@@ -84,7 +84,7 @@ QCD::QCD()
     realorder = LO;
 }
 
-std::string QCD::orderToString(const orders order) const
+const std::string QCD::orderToString(const orders order) const
 {
     switch (order) {
         case LO:
@@ -415,7 +415,7 @@ bool QCD::CheckFlags() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double QCD::Thresholds(const int i) const
+const double QCD::Thresholds(const int i) const
 {
     if (!(mut > mub && mub > muc))
         throw std::runtime_error("inverted thresholds in QCD::Thresholds()!");
@@ -429,7 +429,7 @@ double QCD::Thresholds(const int i) const
     }
 }
 
-double QCD::AboveTh(const double mu) const
+const double QCD::AboveTh(const double mu) const
 {
     int i;
     for (i = 4; i >= 0; i--)
@@ -438,7 +438,7 @@ double QCD::AboveTh(const double mu) const
     throw std::runtime_error("Error in QCD::AboveTh()");
 }
 
-double QCD::BelowTh(const double mu) const
+const double QCD::BelowTh(const double mu) const
 {
     int i;
     for (i = 0; i < 5; i++)
@@ -447,7 +447,7 @@ double QCD::BelowTh(const double mu) const
     throw std::runtime_error("Error in QCD::BelowTh()");
 }
 
-double QCD::Nf(const double mu) const
+const double QCD::Nf(const double mu) const
 {
     int i;
     for (i = 1; i < 5; i++)
@@ -475,17 +475,17 @@ void QCD::CacheShift(int cache[][CacheSize], int n) const
 
 ////////////////////////////////////////////////////////////////////////
 
-double QCD::Beta0(const double nf) const
+const double QCD::Beta0(const double nf) const
 {
     return ( (11. * CA - 4. * TF * nf) / 3. );
 }
 
-double QCD::Beta1(const double nf) const
+const double QCD::Beta1(const double nf) const
 {
     return ( 34./3. * CA * CA - ( 20./3. * CA + 4. * CF )* TF * nf);
 }
 
-double QCD::Beta2(const double nf) const
+const double QCD::Beta2(const double nf) const
 {
     return ( 2857./54. * CA * CA * CA - (1415./27. * CA * CA + 205./9. * CF * CA -
             2. * CF * CF) * TF * nf +
@@ -493,7 +493,7 @@ double QCD::Beta2(const double nf) const
 }
 
 // Czakon, hep-ph/0411261, eq. (14)
-double QCD::Beta3(const double nf) const
+const double QCD::Beta3(const double nf) const
 {
     return ( CA * CF * TF * TF * nf * nf * (17152./243. + 448./9. * zeta3) +
             CA * CF * CF * TF * nf * (-4204./27. + 352./9. * zeta3) +
@@ -507,7 +507,7 @@ double QCD::Beta3(const double nf) const
             -704./9. + 512./3. * zeta3) + dAdA_NA * (-80./9. + 704./3. * zeta3) );
 }
 
-double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
+const double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
         const orders order) const
 {
     double nf = Nf(mu_i);
@@ -545,13 +545,13 @@ double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
     }
 }
 
-double QCD::Als4(const double mu) const
+const double QCD::Als4(const double mu) const
 {
     double v = 1. - Beta0(4.) * AlsM / 2. / M_PI * log(MAls / mu);
     return (AlsM / v * (1. - Beta1(4.) / Beta0(4.) * AlsM / 4. / M_PI * log(v) / v));
 }
 
-double QCD::AlsWithLambda(const double mu, const double logLambda,
+const double QCD::AlsWithLambda(const double mu, const double logLambda,
         const orders order) const
 {
     double nf = Nf(mu);
@@ -587,12 +587,12 @@ double QCD::AlsWithLambda(const double mu, const double logLambda,
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::AlsWithLambda().");
 }
 
-double QCD::AlsWithLambda(const double mu, const orders order) const
+const double QCD::AlsWithLambda(const double mu, const orders order) const
 {
     return AlsWithLambda(mu, logLambda(Nf(mu), order), order);
 }
 
-double QCD::NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const
+const double QCD::NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const
 {
     double lmM = 2.*log(mu/M), res = 0.;
     switch(order)
@@ -612,7 +612,7 @@ double QCD::NfThresholdCorrections(double mu, double M, double als, int nf, orde
     return(res);
 }
 
-orders QCD::FullOrder(orders order) const
+const orders QCD::FullOrder(orders order) const
 {
     switch(order)
     {
@@ -629,7 +629,7 @@ orders QCD::FullOrder(orders order) const
     }
 }
 
-double QCD::MassOfNf(int nf) const
+const double QCD::MassOfNf(int nf) const
 {
     switch(nf)
     {
@@ -646,7 +646,7 @@ double QCD::MassOfNf(int nf) const
     }
 }
 
-double QCD::Als(const double mu, const orders order, bool Nf_thr) const
+const double QCD::Als(const double mu, const orders order, bool Nf_thr) const
 {
     switch (order)
     {
@@ -667,7 +667,7 @@ double QCD::Als(const double mu, const orders order, bool Nf_thr) const
     }
 }
 
-double QCD::AlsByOrder(const double mu, const orders order, bool Nf_thr) const
+const double QCD::AlsByOrder(const double mu, const orders order, bool Nf_thr) const
 {
     int i, nfAls = (int) Nf(MAls), nfmu = Nf_thr ? (int) Nf(mu) : nfAls;
     double als, alstmp, mutmp;
@@ -730,7 +730,7 @@ double QCD::AlsByOrder(const double mu, const orders order, bool Nf_thr) const
     }
 }
 
-double QCD::AlsOLD(const double mu, const orders order) const
+const double QCD::AlsOLD(const double mu, const orders order) const
 {
     int i;
     for (i = 0; i < CacheSize; ++i)
@@ -815,30 +815,30 @@ double QCD::AlsOLD(const double mu, const orders order) const
     return als;
 }
 
-double QCD::ZeroNf6NLO(double *logLambda6, double *logLambda5_in) const
+const double QCD::ZeroNf6NLO(double *logLambda6, double *logLambda5_in) const
 {
     return ( AlsWithLambda(mut + 1.e-10, *logLambda6, FULLNLO)
             - AlsWithLambda(mut - 1.e-10, *logLambda5_in, FULLNLO));
 }
 
-double QCD::ZeroNf5(double *logLambda5, double *order) const
+const double QCD::ZeroNf5(double *logLambda5, double *order) const
 {
     return ( AlsWithLambda(MAls, *logLambda5, (orders) * order) - AlsM);
 }
 
-double QCD::ZeroNf4NLO(double *logLambda4, double *logLambda5_in) const
+const double QCD::ZeroNf4NLO(double *logLambda4, double *logLambda5_in) const
 {
     return ( AlsWithLambda(mub - 1.e-10, *logLambda4, FULLNLO)
             - AlsWithLambda(mub + 1.e-10, *logLambda5_in, FULLNLO));
 }
 
-double QCD::ZeroNf3NLO(double *logLambda3, double *logLambda4_in) const
+const double QCD::ZeroNf3NLO(double *logLambda3, double *logLambda4_in) const
 {
     return ( AlsWithLambda(muc - 1.e-10, *logLambda3, FULLNLO)
             - AlsWithLambda(muc + 1.e-10, *logLambda4_in, FULLNLO));
 }
 
-double QCD::logLambda5(orders order) const
+const double QCD::logLambda5(orders order) const
 {
     if (order == NLO) order = FULLNLO;
     if (order == NNLO) order = FULLNNLO;
@@ -874,7 +874,7 @@ double QCD::logLambda5(orders order) const
     return ( logLambda5_cache[3][0]);
 }
 
-double QCD::logLambdaNLO(const double nfNEW, const double nfORG,
+const double QCD::logLambdaNLO(const double nfNEW, const double nfORG,
         const double logLambdaORG) const
 {
     for (int i = 0; i < CacheSize; ++i)
@@ -923,7 +923,7 @@ double QCD::logLambdaNLO(const double nfNEW, const double nfORG,
     return ( logLambdaNLO_cache[8][0]);
 }
 
-double QCD::logLambda(const double muMatching, const double mf,
+const double QCD::logLambda(const double muMatching, const double mf,
         const double nfNEW, const double nfORG,
         const double logLambdaORG, orders order) const
 {
@@ -986,7 +986,7 @@ double QCD::logLambda(const double muMatching, const double mf,
     return logLambdaNEW;
 }
 
-double QCD::logLambda(const double nf, orders order) const
+const double QCD::logLambda(const double nf, orders order) const
 {
     if (order == NLO) order = FULLNLO;
     if (order == NNLO) order = FULLNNLO;
@@ -1017,24 +1017,24 @@ double QCD::logLambda(const double nf, orders order) const
 
 ////////////////////////////////////////////////////////////////////////
 
-double QCD::Gamma0(const double nf) const
+const double QCD::Gamma0(const double nf) const
 {
     return ( 6. * CF);
 }
 
-double QCD::Gamma1(const double nf) const
+const double QCD::Gamma1(const double nf) const
 {
     return ( CF * (3. * CF + 97. / 3. * Nc - 10. / 3. * nf));
 }
 
-double QCD::Gamma2(const double nf) const
+const double QCD::Gamma2(const double nf) const
 {
     return ( 129. * CF * CF * CF - 129. / 2. * CF * CF * Nc + 11413. / 54. * CF * Nc * Nc
             + CF * CF * nf * (-46. + 48. * zeta3) + CF * Nc * nf * (-556. / 27. - 48. * zeta3)
             - 70. / 27. * CF * nf * nf);
 }
 
-double QCD::threCorrForMass(const double nf_f, const double nf_i) const
+const double QCD::threCorrForMass(const double nf_f, const double nf_i) const
 {
     if (fabs(nf_f - nf_i) != 1.)
         throw std::runtime_error("Error in QCD::threCorrForMass()");
@@ -1076,12 +1076,12 @@ double QCD::threCorrForMass(const double nf_f, const double nf_i) const
     }
 }
 
-double QCD::Mrun(const double mu, const double m, const orders order) const
+const double QCD::Mrun(const double mu, const double m, const orders order) const
 {
     return Mrun(mu, m, m, order);
 }
 
-double QCD::Mrun(const double mu_f, const double mu_i, const double m,
+const double QCD::Mrun(const double mu_f, const double mu_i, const double m,
         const orders order) const
 {
     // Note: When the scale evolves across a flavour threshold, the definitions
@@ -1174,7 +1174,7 @@ double QCD::Mrun(const double mu_f, const double mu_i, const double m,
     return mrun;
 }
 
-double QCD::MrunTMP(const double mu_f, const double mu_i, const double m,
+const double QCD::MrunTMP(const double mu_f, const double mu_i, const double m,
         const orders order) const
 {
     double nf = Nf(mu_f);
@@ -1211,7 +1211,7 @@ double QCD::MrunTMP(const double mu_f, const double mu_i, const double m,
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::MrunTMP()");
 }
 
-double QCD::Mrun4(const double mu_f, const double mu_i, const double m) const
+const double QCD::Mrun4(const double mu_f, const double mu_i, const double m) const
 {
     double nf = 4.;
 
@@ -1233,7 +1233,7 @@ double QCD::Mrun4(const double mu_f, const double mu_i, const double m) const
 
 ////////////////////////////////////////////////////////////////////////
 
-double QCD::Mbar2Mp(const double mbar, const orders order) const
+const double QCD::Mbar2Mp(const double mbar, const orders order) const
 {
     // LO contribution
     double MpLO = mbar;
@@ -1275,14 +1275,14 @@ double QCD::Mbar2Mp(const double mbar, const orders order) const
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mbar2Mp().");
 }
 
-double QCD::Mp2MbarTMP(double *mu, double *params) const
+const double QCD::Mp2MbarTMP(double *mu, double *params) const
 {
     double mp = params[0];
     orders order = (orders) params[1];
     return (mp - Mbar2Mp(*mu, order));
 }
 
-double QCD::Mp2Mbar(const double mp, const orders order) const
+const double QCD::Mp2Mbar(const double mp, const orders order) const
 {
     if (order == NLO || order == NNLO)
         throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mp2Mbar().");
@@ -1320,24 +1320,24 @@ double QCD::Mp2Mbar(const double mp, const orders order) const
     return (mp2mbar_cache[4][0]);
 }
 
-double QCD::MS2DRqmass(const double MSbar) const
+const double QCD::MS2DRqmass(const double MSbar) const
 {
     return (MSbar / (1. + Als(MSbar, FULLNLO) / 4. / M_PI * CF));
 }
 
-double QCD::MS2DRqmass(const double MSscale, const double MSbar) const
+const double QCD::MS2DRqmass(const double MSscale, const double MSbar) const
 {
     return (MSbar / (1. + Als(MSscale, FULLNLO) / 4. / M_PI * CF));
 }
 
-double QCD::Mofmu2MbarTMP(double *mu, double *params) const
+const double QCD::Mofmu2MbarTMP(double *mu, double *params) const
 {
     double mofmu = params[0];
     double muI = params[1];
     return (*mu - Mrun(*mu, muI, mofmu));
 }
 
-double QCD::Mofmu2Mbar(const double m, double mu) const
+const double QCD::Mofmu2Mbar(const double m, double mu) const
 {
 
     //First move to the right region by running to m

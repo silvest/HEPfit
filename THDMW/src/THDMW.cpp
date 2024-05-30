@@ -257,208 +257,208 @@ bool THDMW::setFlagStr(const std::string name, const std::string value)
     return(res);
 }
 
-double THDMW::muggH(const double sqrt_s) const
+const double THDMW::muggH(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_gg;
 }
 
-double THDMW::muVBF(const double sqrt_s) const
+const double THDMW::muVBF(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV;
 }
 
-double THDMW::mueeWBF(const double sqrt_s) const
+const double THDMW::mueeWBF(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV;
 }
 
-double THDMW::muWH(const double sqrt_s) const
+const double THDMW::muWH(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV;
 }
 
-double THDMW::muZH(const double sqrt_s) const
+const double THDMW::muZH(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV;
 }
 
-double THDMW::mueeZH(const double sqrt_s) const
+const double THDMW::mueeZH(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV;
 }
 
-double THDMW::muVH(const double sqrt_s) const
+const double THDMW::muVH(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV;
 }
 
-double THDMW::muVBFpVH(const double sqrt_s) const
+const double THDMW::muVBFpVH(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV;
 }
 
-double THDMW::muttH(const double sqrt_s) const
+const double THDMW::muttH(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_QuQu;
 }
 
-double THDMW::computeGammaTotalRatio() const
+const double THDMW::computeGammaTotalRatio() const
 {
     return getMyTHDMWCache()->sumModBRs;
 }
 
-double THDMW::GammaTotal() const
+const double THDMW::GammaTotal() const
 {
     return getMyTHDMWCache()->Gamma_h;
 }
 
-double THDMW::BrHggRatio() const
+const double THDMW::BrHggRatio() const
 {
     return getMyTHDMWCache()->rh_gg / computeGammaTotalRatio();
 }
 
-double THDMW::BrHWWRatio() const
+const double THDMW::BrHWWRatio() const
 {
     return getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::BrHZZRatio() const
+const double THDMW::BrHZZRatio() const
 {
     return getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::BrHZgaRatio() const
+const double THDMW::BrHZgaRatio() const
 {
     return getMyTHDMWCache()->rh_Zga / computeGammaTotalRatio();
 }
 
-double THDMW::BrHgagaRatio() const
+const double THDMW::BrHgagaRatio() const
 {
     //std::cout<<"rh_gaga="<< getMyTHDMWCache()->rh_gaga /computeGammaTotalRatio() << std::endl;
     return getMyTHDMWCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double THDMW::BrHmumuRatio() const
+const double THDMW::BrHmumuRatio() const
 {
     return getMyTHDMWCache()->rh_ll / computeGammaTotalRatio();
 }
 
-double THDMW::BrHtautauRatio() const
+const double THDMW::BrHtautauRatio() const
 {
     return getMyTHDMWCache()->rh_ll / computeGammaTotalRatio();
 }
 
-double THDMW::BrHccRatio() const
+const double THDMW::BrHccRatio() const
 {
     return getMyTHDMWCache()->rh_QuQu / computeGammaTotalRatio();
 }
 
-double THDMW::BrHbbRatio() const
+const double THDMW::BrHbbRatio() const
 {
     return getMyTHDMWCache()->rh_QdQd / computeGammaTotalRatio();
 }
 
-double THDMW::muggHgaga(const double sqrt_s) const
+const double THDMW::muggHgaga(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_gg * getMyTHDMWCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double THDMW::muVBFHgaga(const double sqrt_s) const
+const double THDMW::muVBFHgaga(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double THDMW::muVHgaga(const double sqrt_s) const
+const double THDMW::muVHgaga(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double THDMW::muttHgaga(const double sqrt_s) const
+const double THDMW::muttHgaga(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_QuQu * getMyTHDMWCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double THDMW::muggHZZ(const double sqrt_s) const
+const double THDMW::muggHZZ(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_gg * getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::muVBFHZZ(const double sqrt_s) const
+const double THDMW::muVBFHZZ(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::muVHZZ(const double sqrt_s) const
+const double THDMW::muVHZZ(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::muttHZZ(const double sqrt_s) const
+const double THDMW::muttHZZ(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_QuQu * getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::muggHWW(const double sqrt_s) const
+const double THDMW::muggHWW(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_gg * getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::muVBFHWW(const double sqrt_s) const
+const double THDMW::muVBFHWW(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::muVHWW(const double sqrt_s) const
+const double THDMW::muVHWW(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::muttHWW(const double sqrt_s) const
+const double THDMW::muttHWW(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_QuQu * getMyTHDMWCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double THDMW::muggHtautau(const double sqrt_s) const
+const double THDMW::muggHtautau(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_gg * getMyTHDMWCache()->rh_ll / computeGammaTotalRatio();
 }
 
-double THDMW::muVBFHtautau(const double sqrt_s) const
+const double THDMW::muVBFHtautau(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_ll / computeGammaTotalRatio();
 }
 
-double THDMW::muVHtautau(const double sqrt_s) const
+const double THDMW::muVHtautau(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_ll / computeGammaTotalRatio();
 }
 
-double THDMW::muttHtautau(const double sqrt_s) const
+const double THDMW::muttHtautau(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_QuQu * getMyTHDMWCache()->rh_ll / computeGammaTotalRatio();
 }
 
-double THDMW::muggHbb(const double sqrt_s) const
+const double THDMW::muggHbb(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_gg * getMyTHDMWCache()->rh_QdQd / computeGammaTotalRatio();
 }
 
-double THDMW::muVBFHbb(const double sqrt_s) const
+const double THDMW::muVBFHbb(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_QdQd / computeGammaTotalRatio();
 }
 
-double THDMW::muVHbb(const double sqrt_s) const
+const double THDMW::muVHbb(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_VV * getMyTHDMWCache()->rh_QdQd / computeGammaTotalRatio();
 }
 
-double THDMW::muttHbb(const double sqrt_s) const
+const double THDMW::muttHbb(const double sqrt_s) const
 {
     return getMyTHDMWCache()->rh_QuQu * getMyTHDMWCache()->rh_QdQd / computeGammaTotalRatio();
 }
 
-double THDMW::muppHmumu(const double sqrt_s) const
+const double THDMW::muppHmumu(const double sqrt_s) const
 {
     if(sqrt_s==8)
     {
@@ -474,7 +474,7 @@ double THDMW::muppHmumu(const double sqrt_s) const
     }
 }
 
-double THDMW::muppHZga(const double sqrt_s) const
+const double THDMW::muppHZga(const double sqrt_s) const
 {
     if(sqrt_s==8)
     {
@@ -490,7 +490,7 @@ double THDMW::muppHZga(const double sqrt_s) const
     }
 }
 
-double THDMW::Mw() const{
+const double THDMW::Mw() const{
     double MZ = StandardModel::Mz;
     return ( MZ / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * StandardModel::ale / (sqrt(2.0) * StandardModel::GF * MZ* MZ))));
 }

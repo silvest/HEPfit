@@ -173,27 +173,27 @@ bool SigmaBR::CheckParameters(const std::map<std::string, double>& DPars)
     return (NPbase::CheckParameters(DPars));
 }
 
-double SigmaBR::muggH(const double sqrt_s) const
+const double SigmaBR::muggH(const double sqrt_s) const
 {    
     return ggh;
 }
 
-double SigmaBR::muVBF(const double sqrt_s) const
+const double SigmaBR::muVBF(const double sqrt_s) const
 {
     return vbf;
 }
 
-double SigmaBR::muWH(const double sqrt_s) const
+const double SigmaBR::muWH(const double sqrt_s) const
 {
     return wh;
 }
 
-double SigmaBR::muZH(const double sqrt_s) const
+const double SigmaBR::muZH(const double sqrt_s) const
 {
     return zh;
 }
 
-double SigmaBR::muVH(const double sqrt_s) const
+const double SigmaBR::muVH(const double sqrt_s) const
 {
     double sigmaWH_SM = computeSigmaWH(sqrt_s);
     double sigmaZH_SM = computeSigmaZH(sqrt_s);
@@ -204,7 +204,7 @@ double SigmaBR::muVH(const double sqrt_s) const
     return mu;
 }
 
-double SigmaBR::muVBFpVH(const double sqrt_s) const
+const double SigmaBR::muVBFpVH(const double sqrt_s) const
 {
     double sigmaWH_SM = computeSigmaWH(sqrt_s);
     double sigmaZH_SM = computeSigmaZH(sqrt_s);
@@ -217,12 +217,12 @@ double SigmaBR::muVBFpVH(const double sqrt_s) const
     return mu;
 }
 
-double SigmaBR::muttH(const double sqrt_s) const
+const double SigmaBR::muttH(const double sqrt_s) const
 {
     return tth;
 }
 
-double SigmaBR::muggHpttH(const double sqrt_s) const
+const double SigmaBR::muggHpttH(const double sqrt_s) const
 {
     double sigmaggH_SM = computeSigmaggH(sqrt_s);
     double sigmattH_SM = computeSigmattH(sqrt_s);
@@ -234,7 +234,7 @@ double SigmaBR::muggHpttH(const double sqrt_s) const
     return mu;
 } 
 
-double SigmaBR::mueeZH(const double sqrt_s) const
+const double SigmaBR::mueeZH(const double sqrt_s) const
 {
     
     if (sqrt_s == 0.240) {
@@ -280,13 +280,13 @@ double SigmaBR::mueeZH(const double sqrt_s) const
 
 }
 
-double SigmaBR::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double SigmaBR::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return mueeZH(sqrt_s);
 }
 
 
-double SigmaBR::mueeHvv(const double sqrt_s) const
+const double SigmaBR::mueeHvv(const double sqrt_s) const
 {
     if (sqrt_s == 0.240) {
         
@@ -330,12 +330,12 @@ double SigmaBR::mueeHvv(const double sqrt_s) const
     return 1.0;
 }
 
-double SigmaBR::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double SigmaBR::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return mueeHvv(sqrt_s);
 }
 
-double SigmaBR::mueeZBF(const double sqrt_s) const
+const double SigmaBR::mueeZBF(const double sqrt_s) const
 {
     if (sqrt_s == 0.240) {
         
@@ -379,12 +379,12 @@ double SigmaBR::mueeZBF(const double sqrt_s) const
     return 1.0;
 }
 
-double SigmaBR::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double SigmaBR::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return mueeZBF(sqrt_s);
 }
 
-double SigmaBR::mueettH(const double sqrt_s) const
+const double SigmaBR::mueettH(const double sqrt_s) const
 {
     if (sqrt_s == 0.500) {
         
@@ -408,362 +408,362 @@ double SigmaBR::mueettH(const double sqrt_s) const
     return 1.0;
 }
 
-double SigmaBR::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double SigmaBR::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return mueettH(sqrt_s);
 }
 
-double SigmaBR::BrHggRatio() const
+const double SigmaBR::BrHggRatio() const
 {
     return brhggratio;
 }
 
-double SigmaBR::BrHWWRatio() const
+const double SigmaBR::BrHWWRatio() const
 {
     return brhwwratio;
 }
 
-double SigmaBR::BrHWW2l2vRatio() const
+const double SigmaBR::BrHWW2l2vRatio() const
 {
     return BrHWWRatio();
 }
 
-double SigmaBR::BrHZZRatio() const
+const double SigmaBR::BrHZZRatio() const
 {
     return brhzzratio;
 }
 
-double SigmaBR::BrHZZ4lRatio() const
+const double SigmaBR::BrHZZ4lRatio() const
 {
     return BrHZZRatio();
 }
 
-double SigmaBR::BrHZZ4eRatio() const
+const double SigmaBR::BrHZZ4eRatio() const
 {
     return BrHZZRatio();
 }
 
-double SigmaBR::BrHZZ2e2muRatio() const
+const double SigmaBR::BrHZZ2e2muRatio() const
 {
     return BrHZZRatio();
 }
 
-double SigmaBR::BrHZZ4muRatio() const
+const double SigmaBR::BrHZZ4muRatio() const
 {
     return BrHZZRatio();
 }
 
-double SigmaBR::BrHZgaRatio() const
+const double SigmaBR::BrHZgaRatio() const
 {
     return brhzgaratio;
 }
 
-double SigmaBR::BrHZgallRatio() const
+const double SigmaBR::BrHZgallRatio() const
 {
     return BrHZgaRatio();
 }
 
-double SigmaBR::BrHZgaeeRatio() const
+const double SigmaBR::BrHZgaeeRatio() const
 {
     return BrHZgaRatio();
 }
 
-double SigmaBR::BrHZgamumuRatio() const
+const double SigmaBR::BrHZgamumuRatio() const
 {
     return BrHZgaRatio();
 }
 
-double SigmaBR::BrHgagaRatio() const
+const double SigmaBR::BrHgagaRatio() const
 {
     return brhgagaratio;
 }
 
-double SigmaBR::BrHtautauRatio() const
+const double SigmaBR::BrHtautauRatio() const
 {
     return brhtautauratio;
 }
 
-double SigmaBR::BrHmumuRatio() const
+const double SigmaBR::BrHmumuRatio() const
 {
     return brhmumuratio;
 }
 
-double SigmaBR::BrHccRatio() const
+const double SigmaBR::BrHccRatio() const
 {
     return brhccratio;
 }
 
-double SigmaBR::BrHbbRatio() const
+const double SigmaBR::BrHbbRatio() const
 {
     return brhbbratio;
 }
 
-double SigmaBR::muggHgaga(const double sqrt_s) const
+const double SigmaBR::muggHgaga(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHgagaRatio();
 }
     
-double SigmaBR::muVBFHgaga(const double sqrt_s) const
+const double SigmaBR::muVBFHgaga(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muZHgaga(const double sqrt_s) const
+const double SigmaBR::muZHgaga(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muWHgaga(const double sqrt_s) const
+const double SigmaBR::muWHgaga(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muVHgaga(const double sqrt_s) const
+const double SigmaBR::muVHgaga(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muttHgaga(const double sqrt_s) const
+const double SigmaBR::muttHgaga(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muggHZga(const double sqrt_s) const
+const double SigmaBR::muggHZga(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muVBFHZga(const double sqrt_s) const
+const double SigmaBR::muVBFHZga(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muZHZga(const double sqrt_s) const
+const double SigmaBR::muZHZga(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muWHZga(const double sqrt_s) const
+const double SigmaBR::muWHZga(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muVHZga(const double sqrt_s) const
+const double SigmaBR::muVHZga(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muttHZga(const double sqrt_s) const
+const double SigmaBR::muttHZga(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muggHZZ(const double sqrt_s) const
+const double SigmaBR::muggHZZ(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muVBFHZZ(const double sqrt_s) const
+const double SigmaBR::muVBFHZZ(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muZHZZ(const double sqrt_s) const
+const double SigmaBR::muZHZZ(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muWHZZ(const double sqrt_s) const
+const double SigmaBR::muWHZZ(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muVHZZ(const double sqrt_s) const
+const double SigmaBR::muVHZZ(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muttHZZ(const double sqrt_s) const
+const double SigmaBR::muttHZZ(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muggHZZ4l(const double sqrt_s) const
+const double SigmaBR::muggHZZ4l(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muVBFHZZ4l(const double sqrt_s) const
+const double SigmaBR::muVBFHZZ4l(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muZHZZ4l(const double sqrt_s) const
+const double SigmaBR::muZHZZ4l(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muWHZZ4l(const double sqrt_s) const
+const double SigmaBR::muWHZZ4l(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muVHZZ4l(const double sqrt_s) const
+const double SigmaBR::muVHZZ4l(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muttHZZ4l(const double sqrt_s) const
+const double SigmaBR::muttHZZ4l(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muggHWW(const double sqrt_s) const
+const double SigmaBR::muggHWW(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muVBFHWW(const double sqrt_s) const
+const double SigmaBR::muVBFHWW(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muZHWW(const double sqrt_s) const
+const double SigmaBR::muZHWW(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muWHWW(const double sqrt_s) const
+const double SigmaBR::muWHWW(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muVHWW(const double sqrt_s) const
+const double SigmaBR::muVHWW(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muttHWW(const double sqrt_s) const
+const double SigmaBR::muttHWW(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muggHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muggHWW2l2v(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muVBFHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muVBFHWW2l2v(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muZHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muZHWW2l2v(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muWHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muWHWW2l2v(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muVHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muVHWW2l2v(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muttHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muttHWW2l2v(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muggHmumu(const double sqrt_s) const
+const double SigmaBR::muggHmumu(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muVBFHmumu(const double sqrt_s) const
+const double SigmaBR::muVBFHmumu(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muZHmumu(const double sqrt_s) const
+const double SigmaBR::muZHmumu(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muWHmumu(const double sqrt_s) const
+const double SigmaBR::muWHmumu(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muVHmumu(const double sqrt_s) const
+const double SigmaBR::muVHmumu(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muttHmumu(const double sqrt_s) const
+const double SigmaBR::muttHmumu(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muggHtautau(const double sqrt_s) const
+const double SigmaBR::muggHtautau(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muVBFHtautau(const double sqrt_s) const
+const double SigmaBR::muVBFHtautau(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muZHtautau(const double sqrt_s) const
+const double SigmaBR::muZHtautau(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muWHtautau(const double sqrt_s) const
+const double SigmaBR::muWHtautau(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muVHtautau(const double sqrt_s) const
+const double SigmaBR::muVHtautau(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muttHtautau(const double sqrt_s) const
+const double SigmaBR::muttHtautau(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muggHbb(const double sqrt_s) const
+const double SigmaBR::muggHbb(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muVBFHbb(const double sqrt_s) const
+const double SigmaBR::muVBFHbb(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muZHbb(const double sqrt_s) const
+const double SigmaBR::muZHbb(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muWHbb(const double sqrt_s) const
+const double SigmaBR::muWHbb(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muVHbb(const double sqrt_s) const
+const double SigmaBR::muVHbb(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muttHbb(const double sqrt_s) const
+const double SigmaBR::muttHbb(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHbbRatio();
 }
@@ -774,302 +774,302 @@ double SigmaBR::muttHbb(const double sqrt_s) const
 //-----------------------------------------------------------------------------------------
 //////////////////////////////////////////////////////////////////////////////////////////// 
 
-double SigmaBR::muTHUggHgaga(const double sqrt_s) const
+const double SigmaBR::muTHUggHgaga(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHgagaRatio();
 }
    
-double SigmaBR::muTHUVBFHgaga(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHgaga(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muTHUZHgaga(const double sqrt_s) const
+const double SigmaBR::muTHUZHgaga(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muTHUWHgaga(const double sqrt_s) const
+const double SigmaBR::muTHUWHgaga(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muTHUVHgaga(const double sqrt_s) const
+const double SigmaBR::muTHUVHgaga(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muTHUttHgaga(const double sqrt_s) const
+const double SigmaBR::muTHUttHgaga(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHgagaRatio();
 }
 
-double SigmaBR::muTHUggHZga(const double sqrt_s) const
+const double SigmaBR::muTHUggHZga(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muTHUVBFHZga(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHZga(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muTHUZHZga(const double sqrt_s) const
+const double SigmaBR::muTHUZHZga(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muTHUWHZga(const double sqrt_s) const
+const double SigmaBR::muTHUWHZga(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muTHUVHZga(const double sqrt_s) const
+const double SigmaBR::muTHUVHZga(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muTHUttHZga(const double sqrt_s) const
+const double SigmaBR::muTHUttHZga(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHZgaRatio();
 }
 
-double SigmaBR::muTHUggHZZ(const double sqrt_s) const
+const double SigmaBR::muTHUggHZZ(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muTHUVBFHZZ(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHZZ(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muTHUZHZZ(const double sqrt_s) const
+const double SigmaBR::muTHUZHZZ(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muTHUWHZZ(const double sqrt_s) const
+const double SigmaBR::muTHUWHZZ(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muTHUVHZZ(const double sqrt_s) const
+const double SigmaBR::muTHUVHZZ(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muTHUttHZZ(const double sqrt_s) const
+const double SigmaBR::muTHUttHZZ(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHZZRatio();
 }
 
-double SigmaBR::muTHUggHZZ4l(const double sqrt_s) const
+const double SigmaBR::muTHUggHZZ4l(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muTHUVBFHZZ4l(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHZZ4l(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muTHUZHZZ4l(const double sqrt_s) const
+const double SigmaBR::muTHUZHZZ4l(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muTHUWHZZ4l(const double sqrt_s) const
+const double SigmaBR::muTHUWHZZ4l(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muTHUVHZZ4l(const double sqrt_s) const
+const double SigmaBR::muTHUVHZZ4l(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muTHUttHZZ4l(const double sqrt_s) const
+const double SigmaBR::muTHUttHZZ4l(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHZZ4lRatio();
 }
 
-double SigmaBR::muTHUggHWW(const double sqrt_s) const
+const double SigmaBR::muTHUggHWW(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muTHUVBFHWW(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHWW(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muTHUZHWW(const double sqrt_s) const
+const double SigmaBR::muTHUZHWW(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muTHUWHWW(const double sqrt_s) const
+const double SigmaBR::muTHUWHWW(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muTHUVHWW(const double sqrt_s) const
+const double SigmaBR::muTHUVHWW(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muTHUttHWW(const double sqrt_s) const
+const double SigmaBR::muTHUttHWW(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHWWRatio();
 }
 
-double SigmaBR::muTHUggHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muTHUggHWW2l2v(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muTHUVBFHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHWW2l2v(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muTHUZHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muTHUZHWW2l2v(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muTHUWHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muTHUWHWW2l2v(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muTHUVHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muTHUVHWW2l2v(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muTHUttHWW2l2v(const double sqrt_s) const
+const double SigmaBR::muTHUttHWW2l2v(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHWW2l2vRatio();
 }
 
-double SigmaBR::muTHUggHmumu(const double sqrt_s) const
+const double SigmaBR::muTHUggHmumu(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muTHUVBFHmumu(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHmumu(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muTHUZHmumu(const double sqrt_s) const
+const double SigmaBR::muTHUZHmumu(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muTHUWHmumu(const double sqrt_s) const
+const double SigmaBR::muTHUWHmumu(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muTHUVHmumu(const double sqrt_s) const
+const double SigmaBR::muTHUVHmumu(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muTHUttHmumu(const double sqrt_s) const
+const double SigmaBR::muTHUttHmumu(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHmumuRatio();
 }
 
-double SigmaBR::muTHUggHtautau(const double sqrt_s) const
+const double SigmaBR::muTHUggHtautau(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muTHUVBFHtautau(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHtautau(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muTHUZHtautau(const double sqrt_s) const
+const double SigmaBR::muTHUZHtautau(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muTHUWHtautau(const double sqrt_s) const
+const double SigmaBR::muTHUWHtautau(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muTHUVHtautau(const double sqrt_s) const
+const double SigmaBR::muTHUVHtautau(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muTHUttHtautau(const double sqrt_s) const
+const double SigmaBR::muTHUttHtautau(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHtautauRatio();
 }
 
-double SigmaBR::muTHUggHbb(const double sqrt_s) const
+const double SigmaBR::muTHUggHbb(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muTHUVBFHbb(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHbb(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muTHUZHbb(const double sqrt_s) const
+const double SigmaBR::muTHUZHbb(const double sqrt_s) const
 {
     return muZH(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muTHUWHbb(const double sqrt_s) const
+const double SigmaBR::muTHUWHbb(const double sqrt_s) const
 {
     return muWH(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muTHUVHbb(const double sqrt_s) const
+const double SigmaBR::muTHUVHbb(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muTHUttHbb(const double sqrt_s) const
+const double SigmaBR::muTHUttHbb(const double sqrt_s) const
 {
     return muttH(sqrt_s)*BrHbbRatio();
 }
 
-double SigmaBR::muTHUVBFBRinv(const double sqrt_s) const
+const double SigmaBR::muTHUVBFBRinv(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*Br_H_inv();
 }
 
-double SigmaBR::muTHUVBFHinv(const double sqrt_s) const
+const double SigmaBR::muTHUVBFHinv(const double sqrt_s) const
 {
     return muVBF(sqrt_s)*BrHtoinvRatio();
 }
 
-double SigmaBR::muTHUVHBRinv(const double sqrt_s) const
+const double SigmaBR::muTHUVHBRinv(const double sqrt_s) const
 {
     return muVH(sqrt_s)*Br_H_inv();
 }
 
-double SigmaBR::muTHUVHinv(const double sqrt_s) const
+const double SigmaBR::muTHUVHinv(const double sqrt_s) const
 {
     return muVH(sqrt_s)*BrHtoinvRatio();
 }
 
-double SigmaBR::muTHUggHZZ4mu(const double sqrt_s) const
+const double SigmaBR::muTHUggHZZ4mu(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHZZ4muRatio();
 }
 
-double SigmaBR::muTHUggHZgamumu(const double sqrt_s) const
+const double SigmaBR::muTHUggHZgamumu(const double sqrt_s) const
 {
     return muggH(sqrt_s)*BrHZgamumuRatio();
 }

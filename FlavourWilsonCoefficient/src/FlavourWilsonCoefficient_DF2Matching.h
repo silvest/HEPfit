@@ -34,28 +34,28 @@ public:
      * @brief \f$ \Delta B = 2 \f$, \f$ B_{d} \f$ 
      * @return return the vector of SM Wilson coefficients (SM + NP)
      */
-    virtual  std::vector<WilsonCoefficient>& CMdbd2() ;
+    virtual std::vector<WilsonCoefficient>& CMdbd2() ;
     
     /**
      * 
      * @brief \f$ \Delta B = 2 \f$, \f$ B_{s} \f$ 
      * @return return the vector of SM Wilson coefficients (SM + NP)
      */
-    virtual   std::vector<WilsonCoefficient>& CMdbs2() ;
+    virtual std::vector<WilsonCoefficient>& CMdbs2() ;
 
     /**
      * 
      * @brief \f$ \Delta C = 2 \f$,
      * @return return the vector of SM Wilson coefficients (SM + NP)
      */
-    virtual   std::vector<WilsonCoefficient>& CMdd2() ;
+    virtual std::vector<WilsonCoefficient>& CMdd2() ;
     
     /**
      * 
      * @brief \f$ \Delta S = 2 \f$ 
      * @return return the vector of SM Wilson coefficients (SM + NP)
      */
-    virtual   std::vector<WilsonCoefficient>& CMdk2() ;
+    virtual std::vector<WilsonCoefficient>& CMdk2() ;
        
 protected:
     std::vector<WilsonCoefficient> vmcdbd2, vmcdbs2, vmcdc2, vmcds2;

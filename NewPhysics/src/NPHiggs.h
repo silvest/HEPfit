@@ -175,7 +175,7 @@ public:
      * See @cite Barbieri:2007bh.
      * @return \f$S\f$
      */
-    virtual double obliqueS() const;
+    virtual const double obliqueS() const;
 
     /**
      * @brief The oblique parameter \f$T\f$.
@@ -188,13 +188,13 @@ public:
      * See @cite Barbieri:2007bh.
      * @return \f$T\f$
      */
-    virtual double obliqueT() const;
+    virtual const double obliqueT() const;
 
     /**
      * @brief The oblique parameter \f$U\f$.
      * @return \f$U=0\f$
      */
-    virtual double obliqueU() const;
+    virtual const double obliqueU() const;
 
 
     ////////////////////////////////////////////////////////////////////////    

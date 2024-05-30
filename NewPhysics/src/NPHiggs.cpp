@@ -63,7 +63,7 @@ bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars)
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPHiggs::obliqueS() const
+const double NPHiggs::obliqueS() const
 {
     double Lambda;
     if (LambdaNP_in != 0.0)
@@ -76,7 +76,7 @@ double NPHiggs::obliqueS() const
     return ( 1.0 / 12.0 / M_PI * (1.0 - a * a) * log(Lambda * Lambda / mHl / mHl));
 }
 
-double NPHiggs::obliqueT() const
+const double NPHiggs::obliqueT() const
 {
     double Lambda;
     double cW2_SM = trueSM.cW2(); /* This has to be the SM value. */
@@ -90,7 +90,7 @@ double NPHiggs::obliqueT() const
     return ( -3.0 / 16.0 / M_PI / cW2_SM * (1.0 - a * a) * log(Lambda * Lambda / mHl / mHl));
 }
 
-double NPHiggs::obliqueU() const
+const double NPHiggs::obliqueU() const
 {
     return 0.0;
 }

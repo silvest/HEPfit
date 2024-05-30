@@ -57,7 +57,7 @@ RealWeakEFTLFVMatching::~RealWeakEFTLFVMatching()
 std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbsmm()
 {
     vmcbsmm.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMbsmm().begin(); it != StandardModelMatching::CMbsmm().end(); it++ ) vmcbsmm.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMbsmm().begin(); it != StandardModelMatching::CMbsmm().end(); it++ ) vmcbsmm.push_back(*it);
 
     switch (mcbsmm.getScheme()) {
         case NDR:
@@ -91,7 +91,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbsmm()
 std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbdmm()
 {
     vmcbdmm.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMbdmm().begin(); it != StandardModelMatching::CMbdmm().end(); it++ ) vmcbdmm.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMbdmm().begin(); it != StandardModelMatching::CMbdmm().end(); it++ ) vmcbdmm.push_back(*it);
 
     switch (mcbdmm.getScheme()) {
         case NDR:
@@ -125,7 +125,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbdmm()
 std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbsg()
 {
     vmcbsg.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMbsg().begin(); it != StandardModelMatching::CMbsg().end(); it++ ) vmcbsg.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMbsg().begin(); it != StandardModelMatching::CMbsg().end(); it++ ) vmcbsg.push_back(*it);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -160,7 +160,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbsg()
 std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMprimebsg()
 {
     vmcprimebsg.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMprimebsg().begin(); it != StandardModelMatching::CMprimebsg().end(); it++ ) vmcprimebsg.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMprimebsg().begin(); it != StandardModelMatching::CMprimebsg().end(); it++ ) vmcprimebsg.push_back(*it);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:
@@ -195,7 +195,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMprimebsg()
 std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMBMll(QCD::lepton lepton)
 {
     vmcBMll.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMBMll(lepton).begin(); it != StandardModelMatching::CMBMll(lepton).end(); it++ ) vmcBMll.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMBMll(lepton).begin(); it != StandardModelMatching::CMBMll(lepton).end(); it++ ) vmcBMll.push_back(*it);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -245,7 +245,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMBMll(QCD::lepton lepto
 std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMprimeBMll(QCD::lepton lepton)
 {
     vmcprimeBMll.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMprimeBMll(lepton).begin(); it != StandardModelMatching::CMprimeBMll(lepton).end(); it++ ) vmcprimeBMll.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMprimeBMll(lepton).begin(); it != StandardModelMatching::CMprimeBMll(lepton).end(); it++ ) vmcprimeBMll.push_back(*it);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:

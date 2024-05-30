@@ -216,14 +216,14 @@ public:
     /**
      * @return GeneralTHDM Wilson coefficients for \f$ B_s \to \bar{B_s}\f$ according to @cite Geng:1988bq, @cite Deschamps:2009rh
      */
-    virtual  std::vector<WilsonCoefficient>& CMdbs2();
-//    virtual  std::vector<WilsonCoefficient>& CMdbsp2();
+    virtual std::vector<WilsonCoefficient>& CMdbs2();
+//    virtual std::vector<WilsonCoefficient>& CMdbsp2();
 
     /**
      * 
      * @return GeneralTHDM Wilson coefficients for \f$ \bar{d}_i u_j \bar{\nu} \ell_k \f$ operators in the JMS basis ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
      */
-    virtual  std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
+    virtual std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
     
     
     virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
@@ -341,7 +341,7 @@ public:
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return GeneralTHDM Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMbsg() ;
+    virtual std::vector<WilsonCoefficient>& CMbsg() ;
     
     /**
      * 

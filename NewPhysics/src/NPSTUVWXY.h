@@ -164,7 +164,7 @@ public:
      * @brief The oblique parameter \f$\hat{S}\f$.
      * @return the value of \f$\displaystyle\hat{S}\f$
      */
-    virtual double obliqueShat() const
+    virtual const double obliqueShat() const
     {
         return myObliqueShat;
     }
@@ -173,7 +173,7 @@ public:
      * @brief The oblique parameter \f$\hat{T}\f$.
      * @return the value of \f$\displaystyle\hat{T}\f$
      */
-    virtual double obliqueThat() const
+    virtual const double obliqueThat() const
     {
         return myObliqueThat;
     }
@@ -182,7 +182,7 @@ public:
      * @brief The oblique parameter \f$\hat{U}\f$.
      * @return the value of \f$\displaystyle\hat{U}\f$
      */
-    virtual double obliqueUhat() const
+    virtual const double obliqueUhat() const
     {
         return myObliqueUhat;
     }
@@ -191,7 +191,7 @@ public:
      * @brief The oblique parameter \f$V\f$.
      * @return the value of \f$V\f$
      */
-    virtual double obliqueV() const
+    virtual const double obliqueV() const
     {
         return myObliqueV;
     }
@@ -200,7 +200,7 @@ public:
      * @brief The oblique parameter \f$W\f$.
      * @return the value of \f$W\f$
      */
-    virtual double obliqueW() const
+    virtual const double obliqueW() const
     {
         return myObliqueW;
     }
@@ -209,7 +209,7 @@ public:
      * @brief The oblique parameter \f$X\f$.
      * @return the value of \f$X\f$
      */
-    virtual double obliqueX() const
+    virtual const double obliqueX() const
     {
         return myObliqueX;
     }
@@ -218,7 +218,7 @@ public:
      * @brief The oblique parameter \f$Y\f$.
      * @return the value of \f$Y\f$
      */
-    virtual double obliqueY() const
+    virtual const double obliqueY() const
     {
         return myObliqueY;
     }
@@ -230,27 +230,27 @@ public:
      * @brief @copybrief NPSTU::epsilon1()
      * @copydetails NPSTU::epsilon1()
      */
-    double epsilon1() const;
+    const double epsilon1() const;
 
     /**
      * @brief @copybrief NPSTU::epsilon2()
      * @copydetails NPSTU::epsilon2()
 
      */
-    double epsilon2() const;
+    const double epsilon2() const;
 
     /**
      * @brief @copybrief NPSTU::epsilon3()
      * @copydetails NPSTU::epsilon3()
 
      */
-    double epsilon3() const;
+    const double epsilon3() const;
 
     /**
      * @brief @copybrief NPSTU::epsilonb()
      * @copydetails NPSTU::epsilonb()
      */
-    double epsilonb() const;
+    const double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////     
@@ -260,19 +260,19 @@ public:
      * @brief The combination of extended oblique parameters, \f$S'\f$.
      * @return the value of \f$S'\f$
      */
-    virtual double obliqueS() const;
+    virtual const double obliqueS() const;
 
     /**
      * @brief The combination of extended oblique parameters, \f$T'\f$.
      * @return the value of \f$T'\f$
      */
-    virtual double obliqueT() const;
+    virtual const double obliqueT() const;
 
     /**
      * @brief The combination of extended oblique parameters, \f$U'\f$.
      * @return the value of \f$U'\f$
      */
-    virtual double obliqueU() const;
+    virtual const double obliqueU() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -294,21 +294,21 @@ public:
      * See @cite Ciuchini:2013pca and references therein.
      * @return @f$\Gamma_W@f$ in GeV
      */
-    virtual double GammaW() const;
+    virtual const double GammaW() const;
     
     
     
-    virtual double LEP2sigmaMu(const double s) const;
-    virtual double LEP2sigmaTau(const double s) const;
-    virtual double LEP2sigmaHadron(const double s) const;
-    virtual double LEP2sigmaCharm(const double s) const;
-    virtual double LEP2sigmaBottom(const double s) const;
-    virtual double LEP2AFBmu(const double s) const;
-    virtual double LEP2AFBtau(const double s) const;
-    virtual double LEP2AFBbottom(const double s) const;
-    virtual double LEP2AFBcharm(const double s) const;
-    virtual double LEP2Rbottom(const double s) const;
-    virtual double LEP2Rcharm(const double s) const;
+    virtual const double LEP2sigmaMu(const double s) const;
+    virtual const double LEP2sigmaTau(const double s) const;
+    virtual const double LEP2sigmaHadron(const double s) const;
+    virtual const double LEP2sigmaCharm(const double s) const;
+    virtual const double LEP2sigmaBottom(const double s) const;
+    virtual const double LEP2AFBmu(const double s) const;
+    virtual const double LEP2AFBtau(const double s) const;
+    virtual const double LEP2AFBbottom(const double s) const;
+    virtual const double LEP2AFBcharm(const double s) const;
+    virtual const double LEP2Rbottom(const double s) const;
+    virtual const double LEP2Rcharm(const double s) const;
 
 
     ////////////////////////////////////////////////////////////////////////

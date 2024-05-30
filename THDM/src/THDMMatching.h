@@ -28,12 +28,12 @@ public:
     /**
      * @return THDM Wilson coefficients for \f$ B_s \to \bar{B_s}\f$ according to @cite Geng:1988bq, @cite Deschamps:2009rh
      */
-    virtual  std::vector<WilsonCoefficient>& CMdbs2();
+    virtual std::vector<WilsonCoefficient>& CMdbs2();
 
     /**
      * @return THDM Wilson coefficient for \f$ B \to \tau \nu \f$ from @cite Hou:1992sy
      */
-    virtual  std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
+    virtual std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
     
     /** 
      * 
@@ -41,7 +41,7 @@ public:
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return THDM Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMbsg() ;
+    virtual std::vector<WilsonCoefficient>& CMbsg() ;
     
     /** 
      * 
@@ -49,7 +49,7 @@ public:
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMprimebsg() ;
+    virtual std::vector<WilsonCoefficient>& CMprimebsg() ;
     
     /**
      * 

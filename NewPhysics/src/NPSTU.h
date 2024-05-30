@@ -112,7 +112,7 @@ public:
      * @brief @copybrief NPbase::obliqueS()
      * @copydetails NPbase::obliqueS()
      */
-    virtual double obliqueS() const
+    virtual const double obliqueS() const
     {
         return myObliqueS;
     }
@@ -121,7 +121,7 @@ public:
      * @brief @copybrief NPbase::obliqueT()
      * @copydetails NPbase::obliqueT()
      */
-    virtual double obliqueT() const
+    virtual const double obliqueT() const
     {
         return myObliqueT;
     }
@@ -130,7 +130,7 @@ public:
      * @brief @copybrief NPbase::obliqueU()
      * @copydetails NPbase::obliqueU()
      */
-    virtual double obliqueU() const
+    virtual const double obliqueU() const
     {
         return myObliqueU;
     }
@@ -143,27 +143,27 @@ public:
      * @return the value of the @f$\varepsilon_1@f$ parameter
      * (SM plus new physics contributions)
      */
-    double epsilon1() const;
+    const double epsilon1() const;
 
     /**
      * @brief The parameter \f$\varepsilon_2\f$.
      * @return the value of the @f$\varepsilon_2@f$ parameter
      * (SM plus new physics contributions)
      */
-    double epsilon2() const;
+    const double epsilon2() const;
 
     /**
      * @brief The parameter \f$\varepsilon_3\f$.
      * @return the value of the @f$\varepsilon_3@f$ parameter
      *  (SM plus new physics contributions)
      */
-    double epsilon3() const;
+    const double epsilon3() const;
 
     /**
      * @brief The parameter \f$\varepsilon_b\f$.
      * @return the SM value of the @f$\varepsilon_b@f$ parameter
      */
-    double epsilonb() const;
+    const double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////

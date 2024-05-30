@@ -50,7 +50,7 @@ public:
     /**
      * @return THDMW Wilson coefficients for \f$ B_s \to \bar{B_s}\f$ according to @cite Cheng:2015lsa 
      */
-    virtual  std::vector<WilsonCoefficient>& CMdbs2();
+    virtual std::vector<WilsonCoefficient>& CMdbs2();
 
     
 

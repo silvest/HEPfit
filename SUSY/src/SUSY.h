@@ -146,7 +146,7 @@ public:
      * @brief Gets the gluino mass.
      * @return The gluino mass.
      */
-    double getM3() const
+    const double getM3() const
     {
         return m3;
     }
@@ -155,7 +155,7 @@ public:
      * @brief Gets the charged-Higgs mass at tree-level.
      * @return The charged-Higgs mass at tree-level.
      */
-    double getMHptree() const
+    const double getMHptree() const
     {
         return mHptree;
     }
@@ -173,7 +173,7 @@ public:
      * @brief Gets @f$\tan\beta@f$.
      * @return @f$\tan\beta@f$.
      */
-    double getTanb() const
+    const double getTanb() const
     {
         return tanb;
     }
@@ -182,7 +182,7 @@ public:
      * @brief Gets the scale of the input parameters.
      * @return The scale of the input parameters.
      */
-    double getQ_SUSY() const
+    const double getQ_SUSY() const
     {
         return Q_SUSY;
     }
@@ -205,7 +205,7 @@ public:
      * @brief Gets @f$\sin\beta@f$.
      * @return @f$\sin\beta@f$.
      */
-    double getSinb() const
+    const double getSinb() const
     {
         return sinb;
     }
@@ -214,7 +214,7 @@ public:
      * @brief Gets @f$\cos\beta@f$.
      * @return @f$\cos\beta@f$.
      */
-    double getCosb() const
+    const double getCosb() const
     {
         return cosb;
     }
@@ -232,7 +232,7 @@ public:
      * @brief Gets the light Higgs mass.
      * @return The light Higgs mass.
      */
-    virtual double getMHl() const
+    virtual const double getMHl() const
     {
         return mh[0];
     }
@@ -241,7 +241,7 @@ public:
      * @brief Gets the heavy Higgs mass.
      * @return The heavy Higgs mass.
      */
-    double getMHh() const
+    const double getMHh() const
     {
         return mh[1];
     }
@@ -250,7 +250,7 @@ public:
      * @brief Gets the pseudo-scalar Higgs mass.
      * @return The pseudo-scalar Higgs mass. 
      */
-    double getMHa() const
+    const double getMHa() const
     {
         return mh[2];
     }
@@ -259,7 +259,7 @@ public:
      * @brief Gets the charged Higgs mass.
      * @return The charged Higgs mass.
      */
-    double getMHp() const
+    const double getMHp() const
     {
         return mh[3];
     }
@@ -272,7 +272,7 @@ public:
      * @brief Gets the gluino mass obtained from FHGetPara().
      * @return The gluino mass obtained from FHGetPara().
      */
-    double getMGl() const;
+    const double getMGl() const;
 
     
     ///////////////////////////////////////////////////////////////////////////
@@ -536,7 +536,7 @@ public:
      * @brief The W boson mass.
      * @return @f$M_W@f$.
      */
-    virtual double Mw() const;
+    virtual const double Mw() const;
 
     /**
      * @brief The W boson mass in the @f$\Delta\rho@f$ approximation.

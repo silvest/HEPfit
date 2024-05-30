@@ -61,71 +61,19 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
 
         // For operators with quark indices we need to switch to the mass eigenstate basis; leptons are already in the mass eigenstate basis since we do not have any lepton flavour violation
 
-        // Let us first define the full mass matrices, including the effect of dimension six operators
-
-        for (int i = 0; i < 3; i++)
-                for (int j = 0; j < 3; j++)
-                {
-                        MU.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
-                        MU.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
-                        MD.assignre(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
-                        MD.assignim(i, j, vTosq2 * (mySMEFT.getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - mySMEFT.getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
-                }
-
-        gslpp::vector<double> m(3);
-
-        MU.singularvalue(VuR, VuL, m);
-        mySMEFT.getQuarks(QCD::UP).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::UP).getMass_scale(), mySMEFT.getMuw(), m(0)));
-        mySMEFT.getQuarks(QCD::CHARM).setMass(mySMEFT.Mofmu2Mbar(m(1), mySMEFT.getMuw()));
-        mySMEFT.getQuarks(QCD::TOP).setMass(mySMEFT.Mofmu2Mbar(m(2), mySMEFT.getMuw()));
+        VuL = mySMEFT.getVuL();
+        VdL = mySMEFT.getVdL();
+        VeL = mySMEFT.getVeL();
+        VuLd = mySMEFT.getVuLd();
+        VdLd = mySMEFT.getVdLd();
+        VeLd = mySMEFT.getVeLd();
+        VuR = mySMEFT.getVuR();
+        VdR = mySMEFT.getVdR();
+        VeR = mySMEFT.getVeR();
+        VuRd = mySMEFT.getVuRd();
+        VdRd = mySMEFT.getVdRd();
+        VeRd = mySMEFT.getVeRd();
         
-        MD.singularvalue(VdR, VdL, m);
-        mySMEFT.getQuarks(QCD::DOWN).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::DOWN).getMass_scale(), mySMEFT.getMuw(), m(0)));
-        mySMEFT.getQuarks(QCD::STRANGE).setMass(mySMEFT.Mrun(mySMEFT.getQuarks(QCD::STRANGE).getMass_scale(), mySMEFT.getMuw(), m(1)));
-        mySMEFT.getQuarks(QCD::BOTTOM).setMass(mySMEFT.Mofmu2Mbar(m(2), mySMEFT.getMuw()));
-
-        VuLd = VuL.hconjugate();
-
-        // Computing the CKM
-        gslpp::matrix<complex> CKMUnphys = VuLd * VdL;
-
-        // std::cout << "CKM unphys = " << CKMUnphys << std::endl;
-
-        mySMEFT.getCKM().computeCKM(CKMUnphys(0, 1).abs(), CKMUnphys(1, 2).abs(), CKMUnphys(0, 2).abs(),
-                                    (-CKMUnphys(0, 0) * CKMUnphys(0, 2).conjugate() / (CKMUnphys(1, 0) * CKMUnphys(1, 2).conjugate())).arg());
-
-        // std::cout << "computed CKM = " << mySMEFT.getCKM().getCKM() << std::endl;
-
-        double a11 = remainder(CKMUnphys(0, 0).arg() - mySMEFT.getCKM().getV_ud().arg(), 2. * M_PI);
-        double a12 = remainder(CKMUnphys(0, 1).arg() - mySMEFT.getCKM().getV_us().arg(), 2. * M_PI);
-        double a13 = remainder(CKMUnphys(0, 2).arg() - mySMEFT.getCKM().getV_ub().arg(), 2. * M_PI);
-
-        //    double a23 = (gslpp::complex(CKMUnphys(1, 0) / CKM(1, 0))).arg() - a11 + a13;
-        //    double a33 = (gslpp::complex(CKMUnphys(2, 0) / CKM(2, 0))).arg() - a11 + a13;
-        double a23 = remainder(CKMUnphys(1, 0).arg() - mySMEFT.getCKM().getV_cd().arg(), 2. * M_PI) - a11 + a13;
-        double a33 = remainder(CKMUnphys(2, 0).arg() - mySMEFT.getCKM().getV_td().arg(), 2. * M_PI) - a11 + a13;
-
-        gslpp::matrix<gslpp::complex> phi1(3, 3, 0.);
-        phi1.assign(0, 0, 1.);
-        phi1.assign(1, 1, gslpp::complex(1., a23 - a13, true));
-        phi1.assign(2, 2, gslpp::complex(1., a33 - a13, true));
-
-        gslpp::matrix<gslpp::complex> phi2dag(3, 3, 0.);
-        phi2dag.assign(0, 0, gslpp::complex(1., -a11, true));
-        phi2dag.assign(1, 1, gslpp::complex(1., -a12, true));
-        phi2dag.assign(2, 2, gslpp::complex(1., -a13, true));
-
-        VuL = VuL * phi1;
-        VuR = VuR * phi1;
-        VdL = VdL * phi2dag;
-        VdR = VdR * phi2dag;
-        
-        // Hermitian conjugates
-        VuLd = VuL.hconjugate();
-        VuRd = VuR.hconjugate();
-        VdLd = VdL.hconjugate();
-        VdRd = VdR.hconjugate();
-
         // to implement Manohar's matching formulae we define the couplings
         // in his notation. Namely, in the formulae below, the barred quantities are
         // tree level in the theory scheme.
@@ -525,7 +473,7 @@ NPSMEFTd6GeneralMatching::~NPSMEFTd6GeneralMatching()
 
 // Matching to the Delta F=2 Hamiltonian in the SUSY Basis, checked using 1512.02830
 
-std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdk2()
+std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMdk2()
 {
 
         vmck2.clear();
@@ -776,62 +724,62 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdiujleptonknu(int i,
 
 //dimension 6 four-fermion operators involving all left-handed fields
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnunuVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnunuVLL(int i, int j, int k, int l) const
 {
     return (CnunuVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCeeVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeeVLL(int i, int j, int k, int l) const
 {
     return (CeeVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnueVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnueVLL(int i, int j, int k, int l) const
 {
     return (CnueVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnuuVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnuuVLL(int i, int j, int k, int l) const
 {
     return (CnuuVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnudVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnudVLL(int i, int j, int k, int l) const
 {
     return (CnudVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCeuVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeuVLL(int i, int j, int k, int l) const
 {
     return (CeuVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCedVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCedVLL(int i, int j, int k, int l) const
 {
     return (CedVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnueduVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnueduVLL(int i, int j, int k, int l) const
 {
     return (CnueduVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCuuVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCuuVLL(int i, int j, int k, int l) const
 {
     return (CuuVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCddVLL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCddVLL(int i, int j, int k, int l) const
 {
     return (CddVLL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCudV1LL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudV1LL(int i, int j, int k, int l) const
 {
     return (CudV1LL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCudV8LL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudV8LL(int i, int j, int k, int l) const
 {
     return (CudV8LL.at(i).at(j).at(k).at(l));
 }
@@ -840,37 +788,37 @@ gslpp::complex NPSMEFTd6GeneralMatching::getCudV8LL(int i, int j, int k, int l) 
 
 //dimension 6 four-fermion operators involving all right-handed fields
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCeeVRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeeVRR(int i, int j, int k, int l) const
 {
     return (CeeVRR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCeuVRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeuVRR(int i, int j, int k, int l) const
 {
     return (CeuVRR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCedVRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCedVRR(int i, int j, int k, int l) const
 {
     return (CedVRR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCuuVRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCuuVRR(int i, int j, int k, int l) const
 {
     return (CuuVRR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCddVRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCddVRR(int i, int j, int k, int l) const
 {
     return (CddVRR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCudV1RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudV1RR(int i, int j, int k, int l) const
 {
     return (CudV1RR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCudV8RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudV8RR(int i, int j, int k, int l) const
 {
     return (CudV8RR.at(i).at(j).at(k).at(l));
 }
@@ -879,98 +827,98 @@ gslpp::complex NPSMEFTd6GeneralMatching::getCudV8RR(int i, int j, int k, int l) 
 
 //dimension 6 four-fermion operators involving a left-handed vector current and a right-handed vector current
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnueVLR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnueVLR(int i, int j, int k, int l) const
 {
     return (CnueVLR.at(i).at(j).at(k).at(l));
 }
 
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCeeVLR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeeVLR(int i, int j, int k, int l) const
 {
     return (CeeVLR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnuuVLR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnuuVLR(int i, int j, int k, int l) const
 {
     return (CnuuVLR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnudVLR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnudVLR(int i, int j, int k, int l) const
 {
     return (CnudVLR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCeuVLR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeuVLR(int i, int j, int k, int l) const
 {
     return (CeuVLR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCedVLR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCedVLR(int i, int j, int k, int l) const
 {
     return (CedVLR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCueVLR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCueVLR(int i, int j, int k, int l) const
 {
     return (CueVLR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCdeVLR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCdeVLR(int i, int j, int k, int l) const
 {
     return (CdeVLR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnueduVLR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnueduVLR(int i, int j, int k, int l) const
 {
     return (CnueduVLR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCuuV1LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCuuV1LR(int i, int j, int k, int l) const
 {
     return (CuuV1LR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCuuV8LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCuuV8LR(int i, int j, int k, int l) const
 {
     return (CuuV8LR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCudV1LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudV1LR(int i, int j, int k, int l) const
 {
     return (CudV1LR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCudV8LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudV8LR(int i, int j, int k, int l) const
 {
     return (CudV8LR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCduV1LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCduV1LR(int i, int j, int k, int l) const
 {
     return (CduV1LR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCduV8LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCduV8LR(int i, int j, int k, int l) const
 {
     return (CduV8LR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCddV1LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCddV1LR(int i, int j, int k, int l) const
 {
     return (CddV1LR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCddV8LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCddV8LR(int i, int j, int k, int l) const
 {
     return (CddV8LR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCudduV1LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudduV1LR(int i, int j, int k, int l) const
 {
     return (CudduV1LR.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCudduV8LR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudduV8LR(int i, int j, int k, int l) const
 {
     return (CudduV8LR.at(i).at(j).at(k).at(l));
 }
@@ -978,91 +926,91 @@ gslpp::complex NPSMEFTd6GeneralMatching::getCudduV8LR(int i, int j, int k, int l
     //dimension 6 four-fermion operators involving two right-handed scalar densities or tensor currents
     
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCeeSRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeeSRR(int i, int j, int k, int l) const
 {
     return (CeeSRR.at(i).at(j).at(k).at(l));
 }
     
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCeuSRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeuSRR(int i, int j, int k, int l) const
 {
     return (CeuSRR.at(i).at(j).at(k).at(l));
 }
     
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCeuTRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeuTRR(int i, int j, int k, int l) const
 {
     return (CeuTRR.at(i).at(j).at(k).at(l));
 }
     
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCedSRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCedSRR(int i, int j, int k, int l) const
 {
     return (CedSRR.at(i).at(j).at(k).at(l));
 }
     
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCedTRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCedTRR(int i, int j, int k, int l) const
 {
     return (CedTRR.at(i).at(j).at(k).at(l));
 }
     
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnueduSRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnueduSRR(int i, int j, int k, int l) const
 {
     return (CnueduSRR.at(i).at(j).at(k).at(l));
 }
     
  
-gslpp::complex NPSMEFTd6GeneralMatching::getCnueduTRR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnueduTRR(int i, int j, int k, int l) const
 {
     return (CnueduTRR.at(i).at(j).at(k).at(l));
 }
     
   
-gslpp::complex NPSMEFTd6GeneralMatching::getCuuS1RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCuuS1RR(int i, int j, int k, int l) const
 {
     return (CuuS1RR.at(i).at(j).at(k).at(l));
 }
 
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCuuS8RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCuuS8RR(int i, int j, int k, int l) const
 {
     return (CuuS8RR.at(i).at(j).at(k).at(l));
 }
     
    
-gslpp::complex NPSMEFTd6GeneralMatching::getCudS1RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudS1RR(int i, int j, int k, int l) const
 {
     return (CudS1RR.at(i).at(j).at(k).at(l));
 }
     
     
-gslpp::complex NPSMEFTd6GeneralMatching::getCudS8RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudS8RR(int i, int j, int k, int l) const
 {
     return (CudS8RR.at(i).at(j).at(k).at(l));
 }
     
     
-gslpp::complex NPSMEFTd6GeneralMatching::getCddS1RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCddS1RR(int i, int j, int k, int l) const
 {
     return (CddS1RR.at(i).at(j).at(k).at(l));
 }
     
    
-gslpp::complex NPSMEFTd6GeneralMatching::getCddS8RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCddS8RR(int i, int j, int k, int l) const
 {
     return (CddS8RR.at(i).at(j).at(k).at(l));
 }
     
    
-gslpp::complex NPSMEFTd6GeneralMatching::getCudduS1RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudduS1RR(int i, int j, int k, int l) const
 {
     return (CudduS1RR.at(i).at(j).at(k).at(l));
 }
     
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCudduS8RR(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCudduS8RR(int i, int j, int k, int l) const
 {
     return (CudduS8RR.at(i).at(j).at(k).at(l));
 }
@@ -1070,18 +1018,18 @@ gslpp::complex NPSMEFTd6GeneralMatching::getCudduS8RR(int i, int j, int k, int l
 
 //dimension 6 four-fermion operators involving a right-handed and a left-handed scalar density, plus hermitian conjugates
  
-gslpp::complex NPSMEFTd6GeneralMatching::getCeuSRL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCeuSRL(int i, int j, int k, int l) const
 {
     return (CeuSRL.at(i).at(j).at(k).at(l));
 }
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCedSRL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCedSRL(int i, int j, int k, int l) const
 {
     return (CedSRL.at(i).at(j).at(k).at(l));
 }
 
 
-gslpp::complex NPSMEFTd6GeneralMatching::getCnueduSRL(int i, int j, int k, int l) const
+const gslpp::complex NPSMEFTd6GeneralMatching::getCnueduSRL(int i, int j, int k, int l) const
 {
     return (CnueduSRL.at(i).at(j).at(k).at(l));
 }
@@ -1089,32 +1037,32 @@ gslpp::complex NPSMEFTd6GeneralMatching::getCnueduSRL(int i, int j, int k, int l
 
 //Fermion rotation matrices to mass-eigenstate basis
     
-gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVuL() const
+const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVuL() const
 {
     return VuL;
 }   
 
-gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVuR() const
+const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVuR() const
 {
     return VuR;
 }   
     
-gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVdL() const
+const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVdL() const
 {
     return VdL;
 }   
     
-gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVdR() const
+const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVdR() const
 {
     return VdL;
 }   
     
-gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVeL() const
+const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVeL() const
 {
     return VeL;
 }   
     
-gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVeR() const
+const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVeR() const
 {
     return VeR;
 }   

@@ -86,8 +86,8 @@ HeffDB1::~HeffDB1()
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes scheme) 
 {
     
-     std::vector<WilsonCoefficient>& mcb = model.getMatching().CMbnlep( 0);
-     std::vector<WilsonCoefficient>& mcbCC = model.getMatching().CMbnlepCC( 0);
+     const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMbnlep( 0);
+     const std::vector<WilsonCoefficient>& mcbCC = model.getMatching().CMbnlepCC( 0);
     
     coeffnlep00qcd.setMu(mu); //inizializes to zero the coefficients
     coeffnlep00CC.setMu(mu);

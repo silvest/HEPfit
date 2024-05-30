@@ -386,7 +386,7 @@ double SUSY::v2() const
     return (v() * sinb);
 }
 
-double SUSY::getMGl() const
+const double SUSY::getMGl() const
 {
 /* BEGIN: REMOVE FROM THE PACKAGE */
 #if FEYNHIGGS
@@ -399,7 +399,7 @@ double SUSY::getMGl() const
 
 ///////////////////////////////////////////////////////////////////////////
 
-double SUSY::Mw() const
+const double SUSY::Mw() const
 {
     return StandardModel::Mw();
     //return myEWSUSY->Mw_MSSM();

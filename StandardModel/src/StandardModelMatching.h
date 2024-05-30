@@ -41,28 +41,28 @@ public:
      * @brief \f$ \Delta B = 2 \f$, \f$ B_{d} \f$ 
      * @return return the vector of SM Wilson coefficients
      */
-    virtual  std::vector<WilsonCoefficient>& CMdbd2() ;
+    virtual std::vector<WilsonCoefficient>& CMdbd2();
     
     /**
      * 
      * @brief \f$ \Delta B = 2 \f$, \f$ B_{s} \f$ 
      * @return return the vector of SM Wilson coefficients
      */
-    virtual   std::vector<WilsonCoefficient>& CMdbs2() ;
+    virtual std::vector<WilsonCoefficient>& CMdbs2() ;
 
     /**
      * 
      * @brief \f$ \Delta C = 2 \f$,
      * @return return the vector of SM Wilson coefficients
      */
-    virtual   std::vector<WilsonCoefficient>& CMdd2() ;
+    virtual std::vector<WilsonCoefficient>& CMdd2() ;
     
     /**
      * 
      * @brief \f$\Delta S = 2@f$ \f$ 
      * @return return the vector of SM Wilson coefficients
      */
-    virtual   std::vector<WilsonCoefficient>& CMdk2() ;
+    virtual std::vector<WilsonCoefficient>& CMdk2() ;
         
     /**
      * 
@@ -71,7 +71,7 @@ public:
      * @param[in] a a=0 deltaS=0 deltaC=0;  a=1 deltaS=1 deltaC=0;
      * @return Wilson coefficients Buras base for non-leptonic @f$B@f$ decays 
      */
-    virtual   std::vector<WilsonCoefficient>& CMbnlep( int a) ;
+    virtual std::vector<WilsonCoefficient>& CMbnlep( int a) ;
     
     /**
      * 
@@ -79,7 +79,7 @@ public:
      * @param[in] a a=0 deltaS=0 deltaC=0;  a=1 1,0 ;  a=2 0,1 ; a=3 1,1
      * @return Wilson coefficients, Buras basis, for non-leptonic @f$B@f$ decays 
      */
-    virtual   std::vector<WilsonCoefficient>& CMbnlepCC( int a) ;
+    virtual std::vector<WilsonCoefficient>& CMbnlepCC( int a) ;
     
     /** 
      * 
@@ -87,7 +87,7 @@ public:
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMbsg() ;
+    virtual std::vector<WilsonCoefficient>& CMbsg() ;
     
     /** 
      * 
@@ -95,7 +95,7 @@ public:
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMprimebsg() ;
+    virtual std::vector<WilsonCoefficient>& CMprimebsg() ;
     
     /** 
      * 
@@ -103,14 +103,14 @@ public:
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l^{-} \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton) ;
+    virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton) ;
     /** 
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l^{-} \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton) ;
+    virtual std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton) ;
     
     /** 
      * 
@@ -119,7 +119,7 @@ public:
      * @brief hep/ph 9512380  
      * @return Wilson coefficients Buras base for \f$ K \rightarrow \pi \pi \f$ decays
      */
-    virtual  std::vector<WilsonCoefficient>& CMK() ;
+    virtual std::vector<WilsonCoefficient>& CMK() ;
     
     /** 
      * 
@@ -128,63 +128,63 @@ public:
      * @brief hep/ph 9512380 
      * @return Wilson coefficients Buras base for \f$ B \rightarrow \pi \pi \f$ decays
      */
-    virtual  std::vector<WilsonCoefficient>& CMKCC() ;
+    virtual std::vector<WilsonCoefficient>& CMKCC() ;
     
     /**
      * 
      * @brief current-current oerators, Misiak basis
      * @return Wilson coefficients for \f$ D^{0} \rightarrow \pi \pi , K K \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMd1() ;
+    virtual  std::vector<WilsonCoefficient>& CMd1() ;
     
     /**
      * 
      * @brief current-current oerators, Buras basis
      * @return Wilson coefficients for \f$ D^{0} \rightarrow \pi \pi , K K \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMd1Buras() ;
+    virtual  std::vector<WilsonCoefficient>& CMd1Buras() ;
     
     /**
      * 
      * @return Wilson coefficients for \f$ K_{L} \rightarrow \pi \nu \nu \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMkpnn() ;
+    virtual std::vector<WilsonCoefficient>& CMkpnn() ;
     /**
      * 
      * @return Wilson coefficient for \f$ K^{+} \rightarrow \mu \mu \f$, short distance top contribution
      */
-    virtual  std::vector<WilsonCoefficient>& CMkmm() ;
+    virtual std::vector<WilsonCoefficient>& CMkmm() ;
     
     /**
      * @brief Wilson coefficient for \f$ B_{s} \rightarrow \mu \mu \f$
      * @return Wilson coefficient for \f$ B_{s} \rightarrow \mu \mu \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMbsmm() ;
+    virtual std::vector<WilsonCoefficient>& CMbsmm() ;
     
     /**
      * @brief Wilson coefficient for \f$ B_{d} \rightarrow \mu \mu \f$
      * @return Wilson coefficient for \f$ B_{d} \rightarrow \mu \mu \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMbdmm() ;
+    virtual  std::vector<WilsonCoefficient>& CMbdmm() ;
         
     /**
      * 
      * @return Wilson coefficients for \f$ \bar{d}_i u_j \bar{\nu} \ell_k \f$ operators in the JMS basis ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
      */
-    virtual  std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
+    virtual std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
     
     
     /**
      * 
      * @return Wilson coefficients for \f$ B_{s} \rightarrow X_{s} \nu \nu \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMBXsnn() ;
+    virtual std::vector<WilsonCoefficient>& CMBXsnn() ;
     
     /**
      * 
      * @return Wilson coefficients for \f$ B_{d} \rightarrow X_{d} \nu \nu \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMBXdnn() ;
+    virtual  std::vector<WilsonCoefficient>& CMBXdnn() ;
     
      /**
      * 
@@ -196,23 +196,23 @@ public:
      * 
      * @return Wilson coefficients for \f$ \ell_i \to \ell_j\ell_j\ell_j\f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMDLi3j(int li_lj) ;
+    virtual std::vector<WilsonCoefficient>& CMDLi3j(int li_lj) ;
 
      /**
      * 
      * @return Wilson coefficients for \f$ \mu \to e\f$ conversion in nuclei
      */
-    virtual  std::vector<WilsonCoefficient>& CMmueconv() ;
+    virtual std::vector<WilsonCoefficient>& CMmueconv() ;
 
      /**
      * 
      * @return Wilson coefficients for \f$ (g-2)_\mu \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMgminus2mu() ;
+    virtual std::vector<WilsonCoefficient>& CMgminus2mu() ;
 
-    double x_c(const double mu, const orders order = FULLNNLO) const;
-    double x_t(const double mu, const orders order = FULLNNLO) const;
-    double mt2omh2(const double mu, const orders order = FULLNNLO) const;
+    const double x_c(const double mu, const orders order = FULLNNLO) const;
+    const double x_t(const double mu, const orders order = FULLNNLO) const;
+    const double mt2omh2(const double mu, const orders order = FULLNNLO) const;
     
     /**
      * 
@@ -220,7 +220,7 @@ public:
      * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double A0t(double x)const;
+    const double A0t(double x) const;
     
     /**
      * 
@@ -228,7 +228,7 @@ public:
      * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double B0t(double x)const;
+    const double B0t(double x) const;
     
     /**
      * 
@@ -236,7 +236,7 @@ public:
      * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C0t(double x)const;
+    const double C0t(double x) const;
     
     /**
      * 
@@ -244,7 +244,7 @@ public:
      * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double D0t(double x)const;
+    const double D0t(double x) const;
     
     /**
      * 
@@ -252,7 +252,7 @@ public:
      * in the non-effective Misiak basis, Bobeth et al @cite Bobeth:1999mk 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double F0t(double x)const;
+    const double F0t(double x) const;
     
     /**
      * 
@@ -260,7 +260,7 @@ public:
      * in the Misiak basis, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double E0t(double x)const;
+    const double E0t(double x) const;
     
     /**
      * 
@@ -269,7 +269,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double A1t(double x, double mu) const;
+    const double A1t(double x, double mu) const;
     
     /**
      * 
@@ -278,7 +278,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double B1t(double x, double mu)const;
+    const double B1t(double x, double mu) const;
     
     /**
      * 
@@ -287,7 +287,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double C1t(double x, double mu)const;
+    const double C1t(double x, double mu) const;
     
     /**
      * 
@@ -296,7 +296,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double D1t(double x, double mu)const;
+    const double D1t(double x, double mu) const;
     
     /**
      * 
@@ -305,7 +305,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double F1t(double x, double mu) const;
+    const double F1t(double x, double mu) const;
     
     /**
      * 
@@ -314,7 +314,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double E1t(double x, double mu) const;
+    const double E1t(double x, double mu) const;
     
     /**
      * 
@@ -323,7 +323,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double G1t(double x, double mu) const;
+    const double G1t(double x, double mu) const;
     
      /**
      * 
@@ -331,7 +331,7 @@ public:
      * @f$C_7@f$ at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C7c_3L_at_mW(double x) const;
+    const double C7c_3L_at_mW(double x) const;
     
      /**
      * 
@@ -339,7 +339,7 @@ public:
      * C7 at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C7t_3L_at_mt(double x) const;
+    const double C7t_3L_at_mt(double x) const;
     
      /**
      * 
@@ -348,7 +348,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double C7t_3L_func(double x, double mu) const;
+    const double C7t_3L_func(double x, double mu) const;
     
      /**
      * 
@@ -356,7 +356,7 @@ public:
      * C8 at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C8c_3L_at_mW(double x) const;
+    const double C8c_3L_at_mW(double x) const;
     
      /**
      * 
@@ -364,7 +364,7 @@ public:
      * C8 at NNLO, see Misiak and Steinhauser @cite Misiak:2004ew
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C8t_3L_at_mt(double x) const;
+    const double C8t_3L_at_mt(double x) const;
     
      /**
      * 
@@ -373,7 +373,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double C8t_3L_func(double x, double mu) const;
+    const double C8t_3L_func(double x, double mu) const;
 
     /**
      * 
@@ -381,7 +381,7 @@ public:
      * in the non-effective Misiak basis, Misiak and Urban @cite Bobeth:1999mk
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double Tt(double x) const;
+    const double Tt(double x) const;
     
     /**
      * 
@@ -389,7 +389,7 @@ public:
      * in the non-effective Misiak basis, Misiak and Urban @cite Huber:2005ig
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double Wt(double x) const;
+    const double Wt(double x) const;
     
     /**
      * 
@@ -397,7 +397,7 @@ public:
      * in the non-effective Misiak basis, Misiak and Urban @cite Huber:2005ig
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double Eet(double x) const;
+    const double Eet(double x) const;
     
     /**
      * 
@@ -406,7 +406,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double Rest(double x, double mu) const;
+    const double Rest(double x, double mu) const;
 
     /**
      * 
@@ -422,7 +422,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @return 0th order loop function for the top contribution to @f$K_L \to \mu \mu@f$ decays
      */
-    double Y0(double x)const;
+    const double Y0(double x) const;
     
     /**
      * @brief the NLO order in QCD loop function for the top contribution to @f$K_L \to \mu \mu@f$ decays
@@ -430,7 +430,7 @@ public:
      * @param[in] mu the matching scale of the Wilson coefficients
      * @return first order in QCD loop function for the top contribution to @f$K_L \to \mu \mu@f$ decays
      */
-    double Y1(double x, double mu)const;
+    const double Y1(double x, double mu) const;
     
     /**
      * 
@@ -438,7 +438,7 @@ public:
      * in the effective Misiak basis, LO term, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C7LOeff(double x)const;
+    const double C7LOeff(double x) const;
     
     /**
      * 
@@ -446,7 +446,7 @@ public:
      * in the effective Misiak basis, NLO term, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C7NLOeff(double x)const;
+    const double C7NLOeff(double x) const;
     
     /**
      * 
@@ -454,7 +454,7 @@ public:
      * in the effective Misiak basis, LO term, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C8LOeff(double x)const;
+    const double C8LOeff(double x) const;
     
     /**
      * 
@@ -462,7 +462,7 @@ public:
      * in the effective Misiak basis, LO term, Chetyrkin et al @cite Chetyrkin:1996vx 
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C8NLOeff(double x)const;
+    const double C8NLOeff(double x) const;
 
     /**
      * 
@@ -470,7 +470,7 @@ public:
      * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double B0b(double x)const;
+    const double B0b(double x) const;
     
     /**
      * 
@@ -478,7 +478,7 @@ public:
      * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C0b(double x)const;
+    const double C0b(double x) const;
     
     /**
      * 
@@ -486,7 +486,7 @@ public:
      * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double D0b(double x)const;
+    const double D0b(double x) const;
     
     /**
      * 
@@ -494,7 +494,7 @@ public:
      * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double D0b_tilde(double x)const;
+    const double D0b_tilde(double x) const;
     
     /**
      * 
@@ -502,7 +502,7 @@ public:
      * Buras et al, @cite Buchalla:1995vs
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double E0b(double x)const;
+    const double E0b(double x) const;
     
     /**
      * 
@@ -511,7 +511,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double B1d(double x, double mu)const;
+    const double B1d(double x, double mu) const;
     
     /**
      * 
@@ -520,7 +520,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double B1d_tilde(double x, double mu)const;
+    const double B1d_tilde(double x, double mu) const;
     
     /**
      * 
@@ -529,7 +529,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double B1u(double x, double mu)const;
+    const double B1u(double x, double mu) const;
     
     /**
      * 
@@ -538,7 +538,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double B1u_tilde(double x, double mu)const;
+    const double B1u_tilde(double x, double mu) const;
     
     /**
      * 
@@ -546,7 +546,7 @@ public:
      * Buras, Gambino, Haisch, @cite Buras:1999st
      * @param[in] x the square of the ratio between top mass and W mass
      */
-    double C1ew(double x)const;
+    const double C1ew(double x) const;
     
     /**
      * 
@@ -555,7 +555,7 @@ public:
      * @param[in] xt the square of the ratio between top mass and W mass
      * @param[in] xz the square of the ratio between Z mass and W mass
      */
-    double Zew(double xt, double xz)const;
+    const double Zew(double xt, double xz) const;
         
     /**
      * 
@@ -565,7 +565,7 @@ public:
      * @param[in] xz the square of the ratio between Z mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double Gew(double xt, double xz, double mu)const;
+    const double Gew(double xt, double xz, double mu) const;
     
     /**
      * 
@@ -575,7 +575,7 @@ public:
      * @param[in] xz the square of the ratio between Z mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
-    double Hew(double xt, double xz, double mu)const;
+    const double Hew(double xt, double xz, double mu) const;
     
     /**
      *  
@@ -604,7 +604,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @return 0th order loop function for the top contribution to K -> pi nu nu decays
      */
-    double X0t(double x)const;
+    const double X0t(double x) const;
     
     /**
      *
@@ -612,7 +612,7 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @return first order in QCD loop function for the top contribution to K -> pi nu nu decays
      */
-    double X1t(double x)const;
+    const double X1t(double x) const;
     
     /**
      *
@@ -623,7 +623,7 @@ public:
      * @return two loop EW loop function for the top contribution to K -> pi nu nu decays
      * in the limit of small theta_W
      */
-    double Xewt(double x, double a, double mu)const;
+    const double Xewt(double x, double a, double mu) const;
 
     /**
      *
@@ -631,9 +631,9 @@ public:
      * @return
      */
 
-    double S1(double x) const;
+    const double S1(double x) const;
 
-    virtual double S0(double, double) const;
+    virtual const double S0(double, double) const;
 
     /*
      * Wilson coefficients Misiak basis
@@ -642,7 +642,7 @@ public:
      */
     virtual std::vector<WilsonCoefficientNew>& CMDF1(std::string blocks, unsigned int nops);
 
-    double getMt_mut() const {
+    const double getMt_mut() const {
         return Mt_mut;
     }
      
@@ -656,10 +656,10 @@ protected:
     
 private:    
     const StandardModel & SM; ///< An object of the %StandardModel class.
-    double S0(double) const;
-    double S0p(double x) const;
-    double S11(double x) const;
-    double S18(double x) const;
+    const double S0(double) const;
+    const double S0p(double x) const;
+    const double S11(double x) const;
+    const double S18(double x) const;
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
     WilsonCoefficient mcbsg, mcprimebsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm, mculeptonnu;
@@ -750,7 +750,7 @@ private:
      * @param z
      * @return two loop EW loop functions for K-> P nu nu, @cite Brod:2010hi 
      */
-    double phi1(double z) const;
+    const double phi1(double z) const;
     
     /**
      * 
@@ -758,7 +758,7 @@ private:
      * @param y
      * @return two loop EW loop functions for K-> P nu nu, @cite Brod:2010hi 
      */
-    double phi2 (double x, double y) const;
+    const double phi2 (double x, double y) const;
     
     double CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];
     double CWprimebsgArrayLO[8], CWprimebsgArrayNLO[8];
@@ -782,7 +782,7 @@ private:
      * @param z
      * @return two loop EW loop functions, @cite Buras:1999st 
      */
-    double phi_z(double z) const;
+    const double phi_z(double z) const;
     
     /**
      * 
@@ -790,7 +790,7 @@ private:
      * @param y
      * @return two loop EW loop functions, @cite Buras:1999st 
      */
-    double phi_xy (double x, double y) const;
+    const double phi_xy (double x, double y) const;
     
     /**
      * 

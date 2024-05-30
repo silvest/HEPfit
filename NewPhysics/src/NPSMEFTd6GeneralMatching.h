@@ -68,7 +68,7 @@ public:
      * 
      * @return Wilson coefficients for \f$ \bar{d}_i u_j \bar{\nu} \ell_k \f$ operators in the JMS basis ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
      */
-    virtual  std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
+    virtual std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
     
 
     //dimension 6 four-fermion operators involving all left-handed fields
@@ -77,73 +77,73 @@ public:
      * @brief Return CnunuVLL
      * @return \f$ C_{\nu \nu}^{V,LL} \f$ 
      */    
-    gslpp::complex getCnunuVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCnunuVLL(int i, int j, int k, int l) const;
 
     /**
      * @brief Return CeeVLL
      * @return \f$ C_{ee}^{V,LL} \f$ 
      */    
-    gslpp::complex getCeeVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCeeVLL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CnueVLL
      * @return \f$ C_{\nu e}^{V,LL} \f$ 
      */    
-    gslpp::complex getCnueVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCnueVLL(int i, int j, int k, int l) const;
 
     /**
      * @brief Return CnuuVLL
      * @return \f$ C_{\nu u}^{V,LL} \f$ 
      */    
-    gslpp::complex getCnuuVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCnuuVLL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CnudVLL
      * @return \f$ C_{\nu d}^{V,LL} \f$ 
      */    
-    gslpp::complex getCnudVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCnudVLL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CeuVLL
      * @return \f$ C_{eu}^{V,LL} \f$ 
      */    
-    gslpp::complex getCeuVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCeuVLL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CedVLL
      * @return \f$ C_{ed}^{V,LL} \f$ 
      */    
-    gslpp::complex getCedVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCedVLL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CnueduVLL
      * @return \f$ C_{\nu e d u}^{V,LL} \f$ 
      */    
-    gslpp::complex getCnueduVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCnueduVLL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CuuVLL
      * @return \f$ C_{uu}^{V,LL} \f$ 
      */    
-    gslpp::complex getCuuVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCuuVLL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CddVLL
      * @return \f$ C_{dd}^{V,LL} \f$ 
      */    
-    gslpp::complex getCddVLL(int i, int j, int k, int l) const;
+    const gslpp::complex getCddVLL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudV1LL
      * @return \f$ C_{ud}^{V1,LL} \f$ 
      */    
-    gslpp::complex getCudV1LL(int i, int j, int k, int l) const;
+    const gslpp::complex getCudV1LL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudV8LL
      * @return \f$ C_{ud}^{V8,LL} \f$ 
      */    
-    gslpp::complex getCudV8LL(int i, int j, int k, int l) const;
+    const gslpp::complex getCudV8LL(int i, int j, int k, int l) const;
     
     //dimension 6 four-fermion operators involving all right-handed fields
     
@@ -151,43 +151,43 @@ public:
      * @brief Return CeeVRR
      * @return \f$ C_{ee}^{V,RR} \f$ 
      */    
-    gslpp::complex getCeeVRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCeeVRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CeuVRR
      * @return \f$ C_{eu}^{V,RR} \f$ 
      */    
-    gslpp::complex getCeuVRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCeuVRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CedVRR
      * @return \f$ C_{ed}^{V,RR} \f$ 
      */    
-    gslpp::complex getCedVRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCedVRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CuuVRR
      * @return \f$ C_{uu}^{V,RR} \f$ 
      */    
-    gslpp::complex getCuuVRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCuuVRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CddVRR
      * @return \f$ C_{dd}^{V,RR} \f$ 
      */    
-    gslpp::complex getCddVRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCddVRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudV1RR
      * @return \f$ C_{ud}^{V1,RR} \f$ 
      */    
-    gslpp::complex getCudV1RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCudV1RR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudV8RR
      * @return \f$ C_{ud}^{V8,RR} \f$ 
      */    
-    gslpp::complex getCudV8RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCudV8RR(int i, int j, int k, int l) const;
     
     //dimension 6 four-fermion operators involving a left-handed vector current and a right-handed vector current
 
@@ -195,115 +195,115 @@ public:
      * @brief Return CnueVLR
      * @return \f$ C_{\nu e}^{V,LR} \f$ 
      */    
-    gslpp::complex getCnueVLR(int i, int j, int k, int l) const;
+    const gslpp::complex getCnueVLR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CeeVLR
      * @return \f$ C_{e e}^{V,LR} \f$ 
      */    
-    gslpp::complex getCeeVLR(int i, int j, int k, int l) const;
+    const gslpp::complex getCeeVLR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CnuuVLR
      * @return \f$ C_{\nu u}^{V,LR} \f$ 
      */    
-    gslpp::complex getCnuuVLR(int i, int j, int k, int l) const;
+    const gslpp::complex getCnuuVLR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CnudVLR
      * @return \f$ C_{\nu d}^{V,LR} \f$ 
      */    
-    gslpp::complex getCnudVLR(int i, int j, int k, int l) const;
+    const gslpp::complex getCnudVLR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CeuVLR
      * @return \f$ C_{eu}^{V,LR} \f$ 
      */    
-    gslpp::complex getCeuVLR(int i, int j, int k, int l) const;
+    const gslpp::complex getCeuVLR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CedVLR
      * @return \f$ C_{ed}^{V,LR} \f$ 
      */    
-    gslpp::complex getCedVLR(int i, int j, int k, int l) const;
+    const gslpp::complex getCedVLR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CueVLR
      * @return \f$ C_{ue}^{V,LR} \f$ 
      */    
-    gslpp::complex getCueVLR(int i, int j, int k, int l) const;
+    const gslpp::complex getCueVLR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CdeVLR
      * @return \f$ C_{de}^{V,LR} \f$ 
      */    
-    gslpp::complex getCdeVLR(int i, int j, int k, int l) const;
+    const gslpp::complex getCdeVLR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CnueduVLR
      * @return \f$ C_{\nu e d u}^{V,LR} \f$ 
      */    
-    gslpp::complex getCnueduVLR(int i, int j, int k, int l) const;
+    const gslpp::complex getCnueduVLR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CuuV1LR
      * @return \f$ C_{uu}^{V1,LR} \f$ 
      */    
-    gslpp::complex getCuuV1LR(int i, int j, int k, int l) const;
+    const gslpp::complex getCuuV1LR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CuuV8LR
      * @return \f$ C_{uu}^{V8,LR} \f$ 
      */    
-    gslpp::complex getCuuV8LR(int i, int j, int k, int l) const;
+    const gslpp::complex getCuuV8LR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudV1LR
      * @return \f$ C_{ud}^{V1,LR} \f$ 
      */    
-    gslpp::complex getCudV1LR(int i, int j, int k, int l) const; 
+    const gslpp::complex getCudV1LR(int i, int j, int k, int l) const; 
     
     /**
      * @brief Return CudV8LR
      * @return \f$ C_{ud}^{V8,LR} \f$ 
      */    
-    gslpp::complex getCudV8LR(int i, int j, int k, int l) const;
+    const gslpp::complex getCudV8LR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CduV1LR
      * @return \f$ C_{du}^{V1,LR} \f$ 
      */    
-    gslpp::complex getCduV1LR(int i, int j, int k, int l) const;
+    const gslpp::complex getCduV1LR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CduV8LR
      * @return \f$ C_{du}^{V8,LR} \f$ 
      */    
-    gslpp::complex getCduV8LR(int i, int j, int k, int l) const;
+    const gslpp::complex getCduV8LR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CddV1LR
      * @return \f$ C_{dd}^{V1,LR} \f$ 
      */    
-    gslpp::complex getCddV1LR(int i, int j, int k, int l) const;
+    const gslpp::complex getCddV1LR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CddV8LR
      * @return \f$ C_{dd}^{V8,LR} \f$ 
      */    
-    gslpp::complex getCddV8LR(int i, int j, int k, int l) const;
+    const gslpp::complex getCddV8LR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudduV1LR
      * @return \f$ C_{\uddu}^{V1,LR} \f$ 
      */    
-    gslpp::complex getCudduV1LR(int i, int j, int k, int l) const;
+    const gslpp::complex getCudduV1LR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudduV8LR
      * @return \f$ C_{uddu}^{V8,LR} \f$ 
      */    
-    gslpp::complex getCudduV8LR(int i, int j, int k, int l) const;
+    const gslpp::complex getCudduV8LR(int i, int j, int k, int l) const;
     
     
     //dimension 6 four-fermion operators involving two right-handed scalar densities or tensor currents
@@ -312,91 +312,91 @@ public:
      * @brief Return CeeSRR
      * @return \f$ C_{ee}^{S,RR} \f$ 
      */    
-    gslpp::complex getCeeSRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCeeSRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CeuSRR
      * @return \f$ C_{eu}^{S,RR} \f$ 
      */    
-    gslpp::complex getCeuSRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCeuSRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CeuTRR
      * @return \f$ C_{eu}^{T,RR} \f$ 
      */    
-    gslpp::complex getCeuTRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCeuTRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CedSRR
      * @return \f$ C_{ed}^{S,RR} \f$ 
      */    
-    gslpp::complex getCedSRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCedSRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CedTRR
      * @return \f$ C_{ed}^{T,RR} \f$ 
      */    
-    gslpp::complex getCedTRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCedTRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CnueduSRR
      * @return \f$ C_{\nu e d u}^{S,RR} \f$ 
      */    
-    gslpp::complex getCnueduSRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCnueduSRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CnueduTRR
      * @return \f$ C_{\nu e d u}^{T,RR} \f$ 
      */    
-    gslpp::complex getCnueduTRR(int i, int j, int k, int l) const;
+    const gslpp::complex getCnueduTRR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CuuS1RR
      * @return \f$ C_{uu}^{S1,RR} \f$ 
      */    
-    gslpp::complex getCuuS1RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCuuS1RR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CuuS8RR
      * @return \f$ C_{uu}^{S8,RR} \f$ 
      */    
-    gslpp::complex getCuuS8RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCuuS8RR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudS1RR
      * @return \f$ C_{ud}^{S1,RR} \f$ 
      */    
-    gslpp::complex getCudS1RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCudS1RR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudS8RR
      * @return \f$ C_{ud}^{S8,RR} \f$ 
      */    
-    gslpp::complex getCudS8RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCudS8RR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CddS1RR
      * @return \f$ C_{dd}^{S1,RR} \f$ 
      */    
-    gslpp::complex getCddS1RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCddS1RR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CddS8RR
      * @return \f$ C_{dd}^{S8,RR} \f$ 
      */    
-    gslpp::complex getCddS8RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCddS8RR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudduS1RR
      * @return \f$ C_{uddu}^{S1,RR} \f$ 
      */    
-    gslpp::complex getCudduS1RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCudduS1RR(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CudduS8RR
      * @return \f$ C_{uddu}^{S8,RR} \f$ 
      */    
-    gslpp::complex getCudduS8RR(int i, int j, int k, int l) const;
+    const gslpp::complex getCudduS8RR(int i, int j, int k, int l) const;
 
     
     //dimension 6 four-fermion operators involving a right-handed and a left-handed scalar density, plus hermitian conjugates
@@ -405,19 +405,19 @@ public:
      * @brief Return CeuSRL
      * @return \f$ C_{e u}^{S,RL} \f$ 
      */    
-    gslpp::complex getCeuSRL(int i, int j, int k, int l) const;
+    const gslpp::complex getCeuSRL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CedSRL
      * @return \f$ C_{e d}^{S,RL} \f$ 
      */    
-    gslpp::complex getCedSRL(int i, int j, int k, int l) const;
+    const gslpp::complex getCedSRL(int i, int j, int k, int l) const;
     
     /**
      * @brief Return CnueduSRL
      * @return \f$ C_{\nu e d u}^{S,RL} \f$ 
      */    
-    gslpp::complex getCnueduSRL(int i, int j, int k, int l) const;
+    const gslpp::complex getCnueduSRL(int i, int j, int k, int l) const;
     
  
     //Fermion rotation matrices to mass-eigenstate basis
@@ -426,37 +426,37 @@ public:
      * @brief Return VuL
      * @return \f$ V^{u}_L \f$ 
      */    
-    gslpp::matrix<gslpp::complex> getVuL() const;
+    const gslpp::matrix<gslpp::complex> getVuL() const;
     
     /**
      * @brief Return VuR
      * @return \f$ V^{u}_R \f$ 
      */    
-    gslpp::matrix<gslpp::complex> getVuR() const;
+    const gslpp::matrix<gslpp::complex> getVuR() const;
     
     /**
      * @brief Return VdL
      * @return \f$ V^{d}_L \f$ 
      */    
-    gslpp::matrix<gslpp::complex> getVdL() const;
+    const gslpp::matrix<gslpp::complex> getVdL() const;
     
     /**
      * @brief Return VdR
      * @return \f$ V^{d}_R \f$ 
      */    
-    gslpp::matrix<gslpp::complex> getVdR() const;
+    const gslpp::matrix<gslpp::complex> getVdR() const;
     
     /**
      * @brief Return VeL
      * @return \f$ V^{e}_L \f$ 
      */    
-    gslpp::matrix<gslpp::complex> getVeL() const;
+    const gslpp::matrix<gslpp::complex> getVeL() const;
     
     /**
      * @brief Return VeR
      * @return \f$ V^{e}_R \f$ 
      */    
-    gslpp::matrix<gslpp::complex> getVeR() const;
+    const gslpp::matrix<gslpp::complex> getVeR() const;
 
 protected:
 
