@@ -8510,6 +8510,8 @@ bool NPSMEFTd6General::PostUpdate() {
 
     // update LEFT Wilson coefficients 
     getMatching().updateLEFTGeneralParameters();
+    
+    setMtpole(Mbar2Mp(getQuarks(QCD::TOP).getMass()));
 
     setMtpole(Mbar2Mp(quarks[TOP].getMass()));
 
