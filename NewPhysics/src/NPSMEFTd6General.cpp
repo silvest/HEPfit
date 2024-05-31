@@ -3008,7 +3008,6 @@ void NPSMEFTd6General::ChangeToEvolutorsBasisPureSM() {
     mmu_LEW = leptons[MU].getMass();
     mtau_LEW = leptons[TAU].getMass();
 
-
     mu_LEW = Mrun(muw, quarks[UP].getMass_scale(), quarks[UP].getMass());
     mc_LEW = Mrun(muw, quarks[CHARM].getMass());
     mt_LEW = Mrun(muw, quarks[TOP].getMass());
@@ -8294,14 +8293,15 @@ bool NPSMEFTd6General::PostUpdate() {
     double Mu_LEW[3] = {mu_LEW, mc_LEW, mt_LEW};
     double Md_LEW[3] = {md_LEW, ms_LEW, mb_LEW};
     double Me_LEW[3] = {me_LEW, mmu_LEW, mtau_LEW};
+    
+    if (FlagRGEci) {
 
-    SMEFTEvolEW.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+        SMEFTEvolEW.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
 
-    setSMEFTEvolWC();
+        setSMEFTEvolWC();
 
-    if (FlagRGEci) {
         //printNonVanishingSMEFTCoeffEW();
         //std::cout << Lambda_NP << " " << muw << " " << SMEFTBasisFlag << std::endl;
         // Do the evolution of the SMEFT Coefficients at linear order first; THIS DOES NOT EVOLVE THE SM PARAMETERS, only computes the corrections to them due to the SMEFT coefficients
@@ -8311,7 +8311,14 @@ bool NPSMEFTd6General::PostUpdate() {
         //Now everything has been evolved
         //printNonVanishingSMEFTCoeffEW();
     } else {
+        
         // Skip RGE by setting the two scales at Lambda_NP for the EFT and to muw for the SM pars
+        SMEFTEvolEW.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+
+        setSMEFTEvolWC();
+        
         SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
         SMEFTEvolEW.EvolveSMOnly("Numeric", muw, muw);
     }
@@ -8386,7 +8393,7 @@ bool NPSMEFTd6General::PostUpdate() {
     //    Yuktau = sqrt(2.) * (leptons[TAU].getMass()) / v();
     //    Yuku = sqrt(2.) * (quarks[UP].getMass()) / v();
     //    Yukc = sqrt(2.) * (quarks[CHARM].getMass()) / v();
-    //    Yukt = sqrt(2.) * (quarks[TOP].getMass()) / v();
+    //    Yukt = sqrt(2.) * mtpole / v();
     //    Yukd = sqrt(2.) * (quarks[DOWN].getMass()) / v();
     //    Yuks = sqrt(2.) * (quarks[STRANGE].getMass()) / v();
     //    Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
@@ -14061,7 +14068,7 @@ const double NPSMEFTd6General::deltaMh2() const {
 
 const double NPSMEFTd6General::deltamt() const {
     //  Ref. value used in MG simulations
-    return ( ((quarks[TOP].getMass()) - 173.0) / 173.0);
+    return ( (mtpole - 173.0) / 173.0);
 }
 
 const double NPSMEFTd6General::deltamt2() const {
@@ -14409,7 +14416,7 @@ const double NPSMEFTd6General::deltaG_hgg() const {
 }
 
 const double NPSMEFTd6General::deltaG_hggRatio() const {
-    double m_t = quarks[TOP].getMass();
+    double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
     double tau_t = 4.0 * m_t * m_t / mHl / mHl;
@@ -14471,7 +14478,7 @@ const double NPSMEFTd6General::deltaG1_hZA() const {
 }
 
 const double NPSMEFTd6General::deltaG1_hZARatio() const {
-    double m_t = quarks[TOP].getMass();
+    double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
     double m_tau = leptons[TAU].getMass();
@@ -14558,7 +14565,7 @@ const double NPSMEFTd6General::deltaG_hAA() const {
 }
 
 const double NPSMEFTd6General::deltaG_hAARatio() const {
-    double m_t = quarks[TOP].getMass();
+    double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
     double m_tau = leptons[TAU].getMass();
@@ -14614,7 +14621,7 @@ gslpp::complex NPSMEFTd6General::deltaG_hff(const Particle p) const {
     double mf;
     if (p.is("TOP"))
         //mf = p.getMass(); // m_t(m_t)
-        mf = quarks[TOP].getMass(); // pole mass
+        mf = mtpole; // pole mass
     else
         mf = p.getMass();
     gslpp::complex CfH = CfH_diag(p);
@@ -14775,7 +14782,7 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
     double C1 = 0.0066; //It seems to be independent of energy 
 
     /*
-    double m_t = quarks[TOP].getMass();
+    double m_t = mtpole;
     //double m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
@@ -16827,8 +16834,8 @@ const double NPSMEFTd6General::muggHH(const double sqrt_s) const {
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::muggHH()");
 
-    ct = 1.0 - 0.5 * delta_GF + delta_h - v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / sqrt(2.0) / (quarks[TOP].getMass());
-    c2t = delta_h - 3.0 * v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / 2.0 / sqrt(2.0) / (quarks[TOP].getMass());
+    ct = 1.0 - 0.5 * delta_GF + delta_h - v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / sqrt(2.0) / mtpole;
+    c2t = delta_h - 3.0 * v() * getSMEFTCoeffEW("CuHR", 2, 2) * v2 / 2.0 / sqrt(2.0) / mtpole;
     c3 = 1.0 + deltaG_hhhRatio();
     cg = M_PI * getSMEFTCoeffEW("CHG") * v2 / AlsMz;
     c2g = cg;
@@ -32207,7 +32214,7 @@ const double NPSMEFTd6General::muttHZbbboost(const double sqrt_s) const {
     double BrZbbSM = (trueSM.GammaZ(quarks[BOTTOM])) / trueSM.Gamma_Z();
     double BrZbbrat = BR_Zf(quarks[BOTTOM]) / BrZbbSM;
 
-    //    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-(quarks[TOP].getMass()) / v());    
+    //    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-mtpole / v());    
     //    double dkt = dKappa_t.real();
 
     //    double dgV = deltaGV_f(quarks[TOP]);
@@ -39506,7 +39513,7 @@ const double NPSMEFTd6General::kappaZAeff() const {
 /////////////Basic interactions of the so-called Higgs basis////////////////
 
 const double NPSMEFTd6General::deltayt_HB() const {
-    double mf = (quarks[TOP].getMass());
+    double mf = mtpole;
     double ciHB;
 
     ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CuHR", 2, 2) * v2 + delta_h - 0.5 * delta_GF;
@@ -39607,7 +39614,7 @@ const double NPSMEFTd6General::cgg_HB() const {
 const double NPSMEFTd6General::cggEff_HB() const {
     double ciHB;
 
-    double m_t = (quarks[TOP].getMass());
+    double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
 
