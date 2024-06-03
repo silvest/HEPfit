@@ -4187,13 +4187,16 @@ ThObsFactory::ThObsFactory()
    
    
    //----- TopQuarkObservables begin -----
-   
-   
+
    obsThFactory["FB_asymmetry_Tevatron_tt_diff_mtt_LO"] = boost::factory<FB_asymmetry_Tevatron_tt_diff_mtt_LO*>();
    
    obsThFactory["charge_asymmetry_tt_diff_mtt_LO"] = boost::factory<charge_asymmetry_tt_diff_mtt_LO*>();
    
-   obsThFactory["sigma_tt_diff_LO"] = boost::factory<sigma_tt_diff_LO*>();
+   obsThFactory["sigma_tt_diff_mtt_CMS_LO"] = boost::factory<sigma_tt_diff_mtt_CMS_LO*>();
+   obsThFactory["sigma_norm_tt_diff_mtt_ATLAS_LO"] = boost::factory<sigma_norm_tt_diff_mtt_ATLAS_LO*>();
+   obsThFactory["sigma_tt_13_LO"] = boost::factory<sigma_tt_13_LO*>();
+   obsThFactory["R_tt_8_o_7_LO"] = boost::factory<R_tt_8_o_7_LO*>();
+   obsThFactory["R_tt_13_o_8_LO"] = boost::factory<R_tt_13_o_8_LO*>();
    
    obsThFactory["sigma_ttz_diff_LO_CMS_190711270"] = boost::factory<sigma_ttz_diff_LO_CMS_190711270*>();
    obsThFactory["sigma_ttz_diff_LO_ATLAS_210312603"] = boost::factory<sigma_ttz_diff_LO_ATLAS_210312603*>();

@@ -112,17 +112,18 @@ private:
 
     
     /**
-    * @class sigma_ttbar_diff
+    * @class sigma_tt_diff_mtt_CMS_LO
     * @ingroup TopQuarkObservables 
-    * @brief Test Observable
+    * @brief Differential cross section of pp->ttbar w.r.t. the invariant mass
+         * of the ttbar pair with the binning of 2108.02803
     */
-    class sigma_tt_diff_LO: public ThObservable {
+    class sigma_tt_diff_mtt_CMS_LO: public ThObservable {
     public:
 
     /**
      * @brief FL constructor.
      */
-    sigma_tt_diff_LO(const StandardModel& SM_i);
+    sigma_tt_diff_mtt_CMS_LO(const StandardModel& SM_i);
 
     /**
      * @return The value of Test_direct
@@ -160,6 +161,190 @@ private:
     
     
     
+    
+    
+        /**
+    * @class sigma_norm_tt_diff_mtt_ATLAS_LO
+    * @ingroup TopQuarkObservables 
+    * @brief Differential cross section of pp->ttbar w.r.t. the invariant mass
+         * of the ttbar pair normalised by the inclusive cross section with the binning
+         * of 1908.07305
+    */
+    class sigma_norm_tt_diff_mtt_ATLAS_LO: public ThObservable {
+    public:
+
+    /**
+     * @brief FL constructor.
+     */
+    sigma_norm_tt_diff_mtt_ATLAS_LO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+    
+    
+    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
+    }
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const TopQuarkObservables mytopobs;
+
+    };
+    
+    
+    
+    /**
+    * @class ttbar production of top quarks, sigma_tt_13_LO
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_tt_13_LO: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tt_13_LO constructor.
+     */
+    sigma_tt_13_LO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+    
+    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
+    }
+
+    private:
+        
+        const TopQuarkObservables mytopobs;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class R_tt_8_o_7_LO
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class R_tt_8_o_7_LO: public ThObservable {
+    public:
+
+    /**
+     * @brief R_tt_8_o_7_LO constructor.
+     */
+    R_tt_8_o_7_LO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+    
+    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
+    }
+
+    private:
+        
+        const TopQuarkObservables mytopobs;
+
+    };
+    
+    
+    
+    /**
+    * @class R_tt_13_o_8_LO
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class R_tt_13_o_8_LO: public ThObservable {
+    public:
+
+    /**
+     * @brief R_tt_13_o_8_LO constructor.
+     */
+    R_tt_13_o_8_LO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+    
+    
+    //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
+    }
+
+    private:
+        
+        const TopQuarkObservables mytopobs;
+
+    };
     
     
     
