@@ -941,8 +941,19 @@ public:
     void CacheShift(double cache[][5], int n) const;
     void CacheShift(int cache[][5], int n) const;
 
+    /**
+     * @brief A getter for the QCDsuccess flag.
+     * @return the value of the QCDsuccess flag
+     */
+    bool isQCDsuccess() const
+    {
+        return QCDsuccess;
+    }
+
 
 protected:
+
+    mutable bool QCDsuccess=true; // A flag to check if the current calculation is successful
 
     /**
      * @brief A method to set the value of a parameter of %QCD.

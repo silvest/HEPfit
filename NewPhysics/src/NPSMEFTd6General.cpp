@@ -8382,7 +8382,7 @@ bool NPSMEFTd6General::PostUpdate() {
     double Mu_LEW[3] = {mu_LEW, mc_LEW, mt_LEW};
     double Md_LEW[3] = {md_LEW, ms_LEW, mb_LEW};
     double Me_LEW[3] = {me_LEW, mmu_LEW, mtau_LEW};
-        
+    
     if (FlagRGEci) {
 
         SMEFTEvolEW.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
@@ -8411,7 +8411,7 @@ bool NPSMEFTd6General::PostUpdate() {
         SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
         SMEFTEvolEW.EvolveSMOnly("Numeric", muw, muw);
     }
-    
+
     // Renormalization of gauge fields parameters
     delta_ZZ = (cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree * getSMEFTCoeffEW("CHB") + sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
     delta_AA = (sW2_tree * getSMEFTCoeffEW("CHW") + cW2_tree * getSMEFTCoeffEW("CHB") - sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
@@ -8558,20 +8558,26 @@ bool NPSMEFTd6General::PostUpdate() {
     //std::cout<<"MDQ=|"<<MDQ(1,0)<<","<<MDQ(1,1)<<","<<MDQ(1,2)<<"|"<<std::endl;
     //std::cout<<"    |"<<MDQ(2,0)<<","<<MDQ(2,1)<<","<<MDQ(2,2)<<"|"<<std::endl;
     //std::cout<<"  "<<std::endl;
-    
+
     MUQ.singularvalue(VuR, VuL, m);
-    //std::cout<<"mu(SVD)=("<<m(0)<<","<<m(1)<<","<<m(2)<<")"<<std::endl;
+    if(m(2) < 50.0) {
+        std::cout << "Warning: top quark mass is too low, m(2) = " << m(2) << std::endl;
+        return false;
+    }
     quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(), getMuw(), m(0)));
     quarks[CHARM].setMass(Mofmu2Mbar(m(1), getMuw()));
     quarks[TOP].setMass(Mofmu2Mbar(m(2), getMuw()));
     setMtpole(Mbar2Mp(quarks[TOP].getMass()));
 
     MDQ.singularvalue(VdR, VdL, m);
-    //std::cout<<"md(SVD)=("<<m(0)<<","<<m(1)<<","<<m(2)<<")"<<std::endl;
+    if(m(2) < 2.5) {
+        std::cout << "Warning: bottom quark mass is too low, m(2) = " << m(2) << std::endl;
+        return false;
+    }
     quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(), getMuw(), m(0)));
     quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(), getMuw(), m(1)));
     quarks[BOTTOM].setMass(Mofmu2Mbar(m(2), getMuw()));
-    
+
     VuLd = VuL.hconjugate();
 
     // Computing the CKM

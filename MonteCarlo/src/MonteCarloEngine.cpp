@@ -341,7 +341,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
         if(!(it->isPrediction())) logprob += it->computeWeight();
     }
-    if (!std::isfinite(logprob)) {
+    if (!std::isfinite(logprob) || !Mod->isQCDsuccess()) {
         NumOfDiscardedEvents++;
 #ifdef _MCDEBUG
 //        std::cout << "Event discarded since logprob evaluated to: " << logprob << std::endl ;
