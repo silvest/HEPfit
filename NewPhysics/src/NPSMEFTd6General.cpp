@@ -2996,11 +2996,17 @@ bool NPSMEFTd6General::PreUpdate() {
 
 void NPSMEFTd6General::ChangeToEvolutorsBasisPureSM() {
     //In this function we switch from the SM parameters used in the SM class to those needed for the evolutor using the SM expressions
+    //(Parameters at the EW scale)
 
-    //Here we have included the expressions for the alpha scheme, we should also add those for the Mw scheme
-    g1_LEW = sqrt(2 * sqrt(2) * GF * (Mz * Mz - sqrt(Mz * Mz * (Mz * Mz - (2 * sqrt(2) * M_PI * trueSM.alphaMz()) / GF))));
-    g2_LEW = sqrt(2 * sqrt(2) * GF * (Mz * Mz + sqrt(Mz * Mz * (Mz * Mz - (2 * sqrt(2) * M_PI * trueSM.alphaMz()) / GF))));
+    //Here we have included the expressions for the alpha and Mw schemes, enabling or the other depending on the corresponding flag
+    g1_LEW = cAsch * ( sqrt(2 * sqrt(2) * GF * (Mz * Mz - sqrt(Mz * Mz * (Mz * Mz - (2 * sqrt(2) * M_PI * trueSM.alphaMz()) / GF)))) ) 
+            + cWsch * sqrt( 4. * sqrt(2.) * GF * ( Mz * Mz - Mw_inp * Mw_inp ) );
+    
+    g2_LEW = cAsch * ( sqrt(2 * sqrt(2) * GF * (Mz * Mz + sqrt(Mz * Mz * (Mz * Mz - (2 * sqrt(2) * M_PI * trueSM.alphaMz()) / GF)))) )
+            + cWsch * sqrt( 4. * sqrt(2.) * GF * Mw_inp * Mw_inp );
+    
     g3_LEW = sqrt(4 * M_PI * AlsMz);
+    
     mH2_LEW = mHl*mHl;
     lambdaH_LEW = (GF * mHl * mHl) / sqrt(2);
 
@@ -3024,6 +3030,88 @@ void NPSMEFTd6General::ChangeToEvolutorsBasisPureSM() {
     dCKM_LEW = aux_CKM.getdelta();
 
 }
+
+void NPSMEFTd6General::ChangeToEvolutorsBasisSMEFTtoSM() {
+    //In this function we switch from the SM parameters used in the SM class to those needed for the evolutor using as first approximation
+    // the SMEFT expressions with the coefficients evaluated at the UV scale. This gives a better approximation of the model parameters
+    // in the SM model as the physical ones (e.g. mtpole as the pole mass.)
+    //(Parameters at the EW scale)
+    double d_A,d_h,d_MZ,d_MW,d_GF,d_v;
+       
+    // Renormalization of fields
+    d_A = -2.0 * sW_tree * cW_tree * CHWB_LNP * v2/ LambdaNP2;    
+    d_h = (-CHD_LNP / 4.0 + CHbox_LNP) * v2/ LambdaNP2;
+
+    //  NP corrections to Z and W mass Lagrangian parameters
+    d_MZ = (sW_tree * cW_tree * CHWB_LNP + 0.25 * CHD_LNP + (3.0 / 8.0) * CH_LNP / lambdaH_tree) * v2/ LambdaNP2;
+    d_MW = (3.0 / 8.0) * (CH_LNP / lambdaH_tree) * v2/ LambdaNP2;
+
+    //  NP correction to Fermi constant, as extracted from muon decay
+    d_GF = (CHl3_11r_LNP + CHl3_22r_LNP - Cll_1221r_LNP) * v2/ LambdaNP2;
+
+    //  NP correction to the vev, as extracted from GF
+    d_v = 0.5 * d_GF;
+    
+    //Here we have included the expressions for the alpha and Mw schemes, enabling or the other depending on the corresponding flag
+    g1_LEW = cAsch * ( sqrt(2 * sqrt(2) * GF * (Mz * Mz - sqrt(Mz * Mz * (Mz * Mz - (2 * sqrt(2) * M_PI * trueSM.alphaMz()) / GF)))) * ( 1.0 - 0.5 * d_A - 0.5 * sW2_tree*(d_GF-2.0*(d_MW-d_MZ) - d_A)/(sW2_tree - cW2_tree) ) ) 
+            + cWsch * sqrt( 4. * sqrt(2.) * GF * ( Mz * Mz - Mw_inp * Mw_inp )) * ( 1.0 -0.5 * d_GF +(d_MW-d_MZ)/sW2_tree);
+    
+    g2_LEW = cAsch * ( sqrt(2 * sqrt(2) * GF * (Mz * Mz + sqrt(Mz * Mz * (Mz * Mz - (2 * sqrt(2) * M_PI * trueSM.alphaMz()) / GF)))) * ( 1.0 - 0.5 * d_A + 0.5 * cW2_tree*(d_GF-2.0*(d_MW-d_MZ) - d_A)/(sW2_tree - cW2_tree) ) )
+            + cWsch * sqrt( 4. * sqrt(2.) * GF * Mw_inp * Mw_inp ) * ( 1.0 -0.5 * d_GF);
+    
+    g3_LEW = sqrt(4 * M_PI * AlsMz);
+    
+    //Rewrite lambdaH_LEW expression so that the correction that appears when computing the vev is exactly like v*(1+d_v)
+    mH2_LEW = mHl*mHl * ( 1.0 - 2.0 * ( d_h + d_MW ) + 3.0 * CH_LNP * v2* v2 / mHl/mHl/ LambdaNP2 );  
+    lambdaH_LEW = ((GF * mH2_LEW) / sqrt(2)) * pow(1/(1.0 + d_v)/(1.0 - d_MW), 2.0); // ((GF * mHl * mHl) / sqrt(2)) * (1.0 - 2.0 * d_h - d_GF + 3.0 * CH_LNP * v2* v2 / mHl/mHl/ LambdaNP2);
+
+    me_LEW = leptons[ELECTRON].getMass();
+    mmu_LEW = leptons[MU].getMass();
+    mtau_LEW = leptons[TAU].getMass();
+
+    mu_LEW = Mrun(muw, quarks[UP].getMass_scale(), quarks[UP].getMass());
+    mc_LEW = Mrun(muw, quarks[CHARM].getMass());
+    mt_LEW = Mrun(muw, quarks[TOP].getMass());
+    
+    md_LEW = Mrun(muw, quarks[DOWN].getMass_scale(), quarks[DOWN].getMass());
+    ms_LEW = Mrun(muw, quarks[STRANGE].getMass_scale(), quarks[STRANGE].getMass());
+    mb_LEW = Mrun(muw, quarks[BOTTOM].getMass());
+    
+    //std::cout<<"mt="<<mtpole<<", mb="<<quarks[BOTTOM].getMass()<<""<<std::endl;
+    //std::cout<<"vevSM="<<sqrt(mH2_LEW/lambdaH_LEW/2.0)<<std::endl;
+    //std::cout<<"me=("<<me_LEW<<","<<mmu_LEW<<","<<mtau_LEW<<")"<<std::endl;
+    //std::cout<<"mu=("<<mu_LEW<<","<<mc_LEW<<","<<mt_LEW<<")"<<std::endl;
+    //std::cout<<"md=("<<md_LEW<<","<<ms_LEW<<","<<mb_LEW<<")"<<std::endl;
+    
+    // Add the unphysical ( 1.0 - d_MW ) in a way that the effect cancels exactly when computing the SM expressions of the Yukawas, 
+    // with one coming from the vev obtained from mH2_LEW, lambdaH_LEW. Otherwise the effect from the vev will affect the CfH contributions
+    me_LEW = (me_LEW + 0.5 * v() * CeH_11r_LNP * v2 /sqrt(2.0)/ LambdaNP2) * ( 1.0 - d_MW ); //me_LEW * ( 1.0 - d_MW ) + 0.5 * v() * CeH_11r_LNP * v2 /sqrt(2.0)/ LambdaNP2;
+    mmu_LEW = (mmu_LEW + 0.5 * v() * CeH_22r_LNP * v2 /sqrt(2.0)/ LambdaNP2) * ( 1.0 - d_MW ); //mmu_LEW * ( 1.0 - d_MW ) + 0.5 * v() * CeH_22r_LNP * v2 /sqrt(2.0)/ LambdaNP2;
+    mtau_LEW = (mtau_LEW + 0.5 * v() * CeH_33r_LNP * v2 /sqrt(2.0)/ LambdaNP2) * ( 1.0 - d_MW ); //mtau_LEW * ( 1.0 - d_MW ) + 0.5 * v() * CeH_33r_LNP * v2 /sqrt(2.0)/ LambdaNP2;
+    
+    mu_LEW = (mu_LEW + 0.5 * v() * CuH_11r_LNP * v2 /sqrt(2.0)/ LambdaNP2) * ( 1.0 - d_MW ); //mu_LEW * ( 1.0 - d_MW ) + 0.5 * v() * CuH_11r_LNP * v2 /sqrt(2.0)/ LambdaNP2;
+    mc_LEW = (mc_LEW + 0.5 * v() * CuH_22r_LNP * v2 /sqrt(2.0)/ LambdaNP2) * ( 1.0 - d_MW ); //mc_LEW * ( 1.0 - d_MW ) + 0.5 * v() * CuH_22r_LNP * v2 /sqrt(2.0)/ LambdaNP2;
+    mt_LEW = (mt_LEW + 0.5 * v() * CuH_33r_LNP * v2 /sqrt(2.0)/ LambdaNP2) * ( 1.0 - d_MW ); //mt_LEW * ( 1.0 - d_MW ) + 0.5 * v() * CuH_33r_LNP * v2 /sqrt(2.0)/ LambdaNP2;
+    
+    md_LEW = (md_LEW + 0.5 * v() * CdH_11r_LNP * v2 /sqrt(2.0)/ LambdaNP2) * ( 1.0 - d_MW ); //md_LEW * ( 1.0 - d_MW ) + 0.5 * v() * CdH_11r_LNP * v2 /sqrt(2.0)/ LambdaNP2;
+    ms_LEW = (ms_LEW + 0.5 * v() * CdH_22r_LNP * v2 /sqrt(2.0)/ LambdaNP2) * ( 1.0 - d_MW ); //ms_LEW * ( 1.0 - d_MW ) + 0.5 * v() * CdH_22r_LNP * v2 /sqrt(2.0)/ LambdaNP2;
+    mb_LEW = (mb_LEW + 0.5 * v() * CdH_33r_LNP * v2 /sqrt(2.0)/ LambdaNP2) * ( 1.0 - d_MW ); //mb_LEW * ( 1.0 - d_MW ) + 0.5 * v() * CdH_33r_LNP * v2 /sqrt(2.0)/ LambdaNP2;
+    
+    //std::cout<<"me+NP=("<<me_LEW<<","<<mmu_LEW<<","<<mtau_LEW<<")"<<std::endl;
+    //std::cout<<"mu+NP=("<<mu_LEW<<","<<mc_LEW<<","<<mt_LEW<<")"<<std::endl;
+    //std::cout<<"md+NP=("<<md_LEW<<","<<ms_LEW<<","<<mb_LEW<<")"<<std::endl;
+    //std::cout<<"-------------------------------------------------------"<<std::endl;
+
+    // This part uncorrected
+    CKM aux_CKM;
+    aux_CKM.computeCKMwithWolfenstein(lambda, A, rhob, etab);
+    s12CKM_LEW = aux_CKM.gets12();
+    s13CKM_LEW = aux_CKM.gets13();
+    s23CKM_LEW = aux_CKM.gets23();
+    dCKM_LEW = aux_CKM.getdelta();
+
+}
+
 
 void NPSMEFTd6General::setSMEFTEvolWC() {
 
@@ -8290,10 +8378,11 @@ bool NPSMEFTd6General::PostUpdate() {
     //2) Post-update operations involving dimension-6 operators
 
     ChangeToEvolutorsBasisPureSM();
+    //ChangeToEvolutorsBasisSMEFTtoSM();
     double Mu_LEW[3] = {mu_LEW, mc_LEW, mt_LEW};
     double Md_LEW[3] = {md_LEW, ms_LEW, mb_LEW};
     double Me_LEW[3] = {me_LEW, mmu_LEW, mtau_LEW};
-    
+        
     if (FlagRGEci) {
 
         SMEFTEvolEW.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
@@ -8322,7 +8411,7 @@ bool NPSMEFTd6General::PostUpdate() {
         SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
         SMEFTEvolEW.EvolveSMOnly("Numeric", muw, muw);
     }
-
+    
     // Renormalization of gauge fields parameters
     delta_ZZ = (cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree * getSMEFTCoeffEW("CHB") + sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
     delta_AA = (sW2_tree * getSMEFTCoeffEW("CHW") + cW2_tree * getSMEFTCoeffEW("CHB") - sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
@@ -8460,18 +8549,29 @@ bool NPSMEFTd6General::PostUpdate() {
         }
 
     gslpp::vector<double> m(3);
-
+    
+    //std::cout<<"    |"<<MUQ(0,0)<<","<<MUQ(0,1)<<","<<MUQ(0,2)<<"|"<<std::endl;
+    //std::cout<<"MUQ=|"<<MUQ(1,0)<<","<<MUQ(1,1)<<","<<MUQ(1,2)<<"|"<<std::endl;
+    //std::cout<<"    |"<<MUQ(2,0)<<","<<MUQ(2,1)<<","<<MUQ(2,2)<<"|"<<std::endl;
+    //std::cout<<"  "<<std::endl;
+    //std::cout<<"    |"<<MDQ(0,0)<<","<<MDQ(0,1)<<","<<MDQ(0,2)<<"|"<<std::endl;
+    //std::cout<<"MDQ=|"<<MDQ(1,0)<<","<<MDQ(1,1)<<","<<MDQ(1,2)<<"|"<<std::endl;
+    //std::cout<<"    |"<<MDQ(2,0)<<","<<MDQ(2,1)<<","<<MDQ(2,2)<<"|"<<std::endl;
+    //std::cout<<"  "<<std::endl;
+    
     MUQ.singularvalue(VuR, VuL, m);
+    //std::cout<<"mu(SVD)=("<<m(0)<<","<<m(1)<<","<<m(2)<<")"<<std::endl;
     quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(), getMuw(), m(0)));
     quarks[CHARM].setMass(Mofmu2Mbar(m(1), getMuw()));
     quarks[TOP].setMass(Mofmu2Mbar(m(2), getMuw()));
     setMtpole(Mbar2Mp(quarks[TOP].getMass()));
 
     MDQ.singularvalue(VdR, VdL, m);
+    //std::cout<<"md(SVD)=("<<m(0)<<","<<m(1)<<","<<m(2)<<")"<<std::endl;
     quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(), getMuw(), m(0)));
     quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(), getMuw(), m(1)));
     quarks[BOTTOM].setMass(Mofmu2Mbar(m(2), getMuw()));
-
+    
     VuLd = VuL.hconjugate();
 
     // Computing the CKM
