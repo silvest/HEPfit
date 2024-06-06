@@ -2142,6 +2142,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["STXS12_qqHqq_mjj60_120_Nj2_ZZ"]              = bind(boost::factory<STXS12_qqHqq_mjj60_120_Nj2*>() , _1, sqrt_s_LHC13, 7);
     obsThFactory["STXS12_VHlep_ZZ"]                            = bind(boost::factory<STXS12_VHlep*>()               , _1, sqrt_s_LHC13, 7);
     obsThFactory["STXS12_ttH_ZZ"]                              = bind(boost::factory<STXS12_ttH*>()                 , _1, sqrt_s_LHC13, 7);
+    obsThFactory["STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2_ZZ"]  = bind(boost::factory<STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2*>(), _1, sqrt_s_LHC13, 7);
     
     obsThFactory["STXS12_ggH_mjj0_350_pTH0_120_Nj2_gaga"]       = bind(boost::factory<STXS12_ggH_mjj0_350_pTH0_120_Nj2*>()       , _1, sqrt_s_LHC13, 2); 
     obsThFactory["STXS12_ggH_mjj350_Inf_pTH0_200_Nj2_gaga"]     = bind(boost::factory<STXS12_ggH_mjj350_Inf_pTH0_200_Nj2*>()     , _1, sqrt_s_LHC13, 2);     

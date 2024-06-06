@@ -1319,7 +1319,7 @@ muggHpbbH_Hgaga::muggHpbbH_Hgaga(const StandardModel& SM_i, const double sqrt_s_
 double muggHpbbH_Hgaga::computeThValue()                                          //AG:added
 {
     double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
-    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+    double xsSM_bbH = 0;//myNPbase->computeSigmabbH(sqrt_s);
 
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
@@ -1773,7 +1773,7 @@ muggHpbbH_HZZ::muggHpbbH_HZZ(const StandardModel& SM_i, const double sqrt_s_i)  
 double muggHpbbH_HZZ::computeThValue()                                          //AG:added
 {
     double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
-    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+    double xsSM_bbH = 0;//myNPbase->computeSigmabbH(sqrt_s);
 
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
@@ -1791,7 +1791,7 @@ double muggHpbbH_HZZ::computeThValue()                                          
     } else {
         //VM: Just in case someone wants to add directly the production*decay 
         //(which is the observable we fit at the end)
-        //Also, the bbH is missing here, I'll leave it as it was for the 
+        //Also, the bbH is missing here,muggHpbbH_Hgaga I'll leave it as it was for the 
         //moment (since bbH is really suppressed in the SM).
         double NPmuggHpbbH_HZZ = myNPbase->muggHpbbH_HZZ(sqrt_s);
         if (NPmuggHpbbH_HZZ == 1.0){
@@ -2105,7 +2105,7 @@ muggHpbbH_HWW::muggHpbbH_HWW(const StandardModel& SM_i, const double sqrt_s_i)  
 double muggHpbbH_HWW::computeThValue()                                          //AG:added
 {
     double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
-    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+    double xsSM_bbH = 0;//myNPbase->computeSigmabbH(sqrt_s);
 
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
@@ -2413,7 +2413,7 @@ double muggHpttHptHpbbH_Hmumu::computeThValue()                                 
     double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
     double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
     double xsSM_tH  = myNPbase->computeSigmatHq(sqrt_s);
-    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+    double xsSM_bbH = 0;//myNPbase->computeSigmabbH(sqrt_s);
 
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
@@ -2740,7 +2740,7 @@ muggHpbbH_Htautau::muggHpbbH_Htautau(const StandardModel& SM_i, const double sqr
 double muggHpbbH_Htautau::computeThValue()                                          //AG:added
 {
     double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
-    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+    double xsSM_bbH = 0;//myNPbase->computeSigmabbH(sqrt_s);
 
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
@@ -2951,7 +2951,7 @@ double muggHpVBFpbbH_Hbb::computeThValue()                                      
 {
     double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
     double xsSM_VBF = myNPbase->computeSigmaVBF(sqrt_s);
-    double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+    double xsSM_bbH = 0; //myNPbase->computeSigmabbH(sqrt_s);
     if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
         //AG: Most general expression including quadratic corrections. 
         //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
@@ -7272,11 +7272,9 @@ double STXS12_ggH_mjj0_350_pTH0_120_Nj2::computeThValue()                       
 {
     //-- Production:
     double weight = 1.0; //If normalized to the SM
-    //Since adding bins, include partial weigths of SM_predictions 
-    //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
-    double muProd   = (myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s) + myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s))  ;
-    double muProd1  = muProd-2.0;
-    double muProd2  = 0.0;
+    double muProd   = 0; //NEDS TO BE ADDED
+    double muProd1  = 0; //NEDS TO BE ADDED
+    double muProd2  = 0; //NEDS TO BE ADDED
 
     //-- Decay:
     double BrHXXRatio   = 1.0;
@@ -7329,12 +7327,9 @@ double STXS12_ggH_mjj350_Inf_pTH0_200_Nj2::computeThValue()                     
 {
     //-- Production:
     double weight = 1.0; //If normalized to the SM
-    //Since adding bins, include partial weigths of SM_predictions 
-    //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
-    double muProd   = myNPbase->STXS12_ggH_mjj350_700_pTH0_200_Nj2(sqrt_s)  
-                    + myNPbase->STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(sqrt_s);
-    double muProd1  = muProd -2.0;
-    double muProd2  = 0.0;
+    double muProd   = 0; //NEDS TO BE ADDED
+    double muProd1  = 0; //NEDS TO BE ADDED
+    double muProd2  = 0; //NEDS TO BE ADDED
 
     //-- Decay:
     double BrHXXRatio   = 1.0;
@@ -7342,7 +7337,7 @@ double STXS12_ggH_mjj350_Inf_pTH0_200_Nj2::computeThValue()                     
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = 0.92375; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        weight = 0.87753; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -7376,6 +7371,53 @@ double STXS12_ggH_mjj350_Inf_pTH0_200_Nj2::computeThValue()                     
     
 }
 
+double STXS12_ggHpttH::computeThValue()                               //AG:added
+{
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    double muProd   = 0; //NEDS TO BE ADDED
+    double muProd1  = 0; //NEDS TO BE ADDED
+    double muProd2  = 0; //NEDS TO BE ADDED
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = 0.87753; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 2){
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 3){
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 4){
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else {
+        throw std::runtime_error("STXS12_ggHpttH called with invalid argument for final state in fstate_i");
+    } 
+
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );
+    } else {
+        return weight*(muProd)*(BrHXXRatio);
+    }
+    
+}
 
 // -----------------------------------------------------------------------------
 
@@ -7776,6 +7818,14 @@ double STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2::computeThValue()
         dBrHXXRatio2 = 0.0;
     } else if (fstate == 5){
         BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
     } else {
