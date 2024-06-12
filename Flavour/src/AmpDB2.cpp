@@ -256,28 +256,26 @@ gslpp::complex AmpDB2::M21_Bs(orders order)
 gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q)
 {
     computeCKMandMasses(NLO);
+   // calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"
+    compute_matrixelements(q, FULLNLO);
 
     // calculate M_21_q / <O_1>
-    gslpp::vector<gslpp::complex> **M21overme0_times_8MB;
+    gslpp::complex M21overme0_times_8MB;
     double MBq;
     switch (q)
     {
     case d:
-        M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBd(
-            mySM.getBBd().getMu(),
-            mySM.getBBd().getScheme(), true);
+        M21overme0_times_8MB = M21_Bd(FULLNLO) * HCUT / me(0); 
         MBq = MB;
         break;
     case s:
-        M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBs(
-            mySM.getBBs().getMu(),
-            mySM.getBBs().getScheme(), true);
+        M21overme0_times_8MB = M21_Bs(FULLNLO) * HCUT / me(0); 
         MBq = MB_s;
         break;
     default:
         throw std::runtime_error("AmpDB2::Gamma21overM21_tradBasis(orders order, quark q): invalid quark index: ");
     }
-    gslpp::complex M21overme0 = ((*(M21overme0_times_8MB[LO]))(0) + (*(M21overme0_times_8MB[NLO]))(0)) / (8. * MBq);
+    gslpp::complex M21overme0 = M21overme0_times_8MB / (8. * MBq);
 
     // calculate DB=1 Wilson coefficients
     computeWilsonCoeffsBuras();
@@ -286,9 +284,6 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q)
     computeF0();
     computeF1();
     computeP();
-
-    // calculate DB=2 matrix elements for usage of "me" and "delta_1overm_tradBasis(quark)"
-    compute_matrixelements(q, FULLNLO);
 
     // staying in the old basis: hep-ph/0308029v2: eq. 16 divided by M_21
     /*
@@ -1088,29 +1083,29 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, in
     computeCKMandMasses(NNLO, mass_scheme);
 
     // calculate M_21_q / <O_1>
-    gslpp::vector<gslpp::complex> **M21overme0_times_8MB;
+    gslpp::complex M21overme0_times_8MB;
     double MBq;
     quark q;
     switch (BMeson)
     {
     case 0:
-        M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBd(
-            mySM.getBBd().getMu(),
-            mySM.getBBd().getScheme(), true);
-        MBq = MB;
         q = d;
+        // calculate DB=2 matrix elements for usage of "me" and "delta_1overm_(quark)"
+        compute_matrixelements(q, FULLNLO);
+        M21overme0_times_8MB = M21_Bd(FULLNLO) * HCUT / me(0);
+        MBq = MB;
         break;
     case 1:
-        M21overme0_times_8MB = mySM.getFlavour().ComputeCoeffBs(
-            mySM.getBBs().getMu(),
-            mySM.getBBs().getScheme(), true);
-        MBq = MB_s;
         q = s;
+        // calculate DB=2 matrix elements for usage of "me" and "delta_1overm_(quark)"
+        compute_matrixelements(q, FULLNLO);
+        M21overme0_times_8MB = M21_Bs(FULLNLO) * HCUT / me(0);
+        MBq = MB_s;
         break;
     default:
         throw std::runtime_error("AmpDB2::Gamma21overM21(orders order, int BMeson): invalid B meson index: ");
     }
-    gslpp::complex M21overme0 = ((*(M21overme0_times_8MB[LO]))(0) + (*(M21overme0_times_8MB[NLO]))(0)) / (8. * MBq);
+    gslpp::complex M21overme0 = M21overme0_times_8MB / (8. * MBq);
 
     // calculate DB=1 Wilson coefficients
     computeWilsonCoeffsMisiak();
@@ -1152,9 +1147,6 @@ gslpp::complex AmpDB2::Gamma21overM21(orders order, mass_schemes mass_scheme, in
     {
         std::cerr << "WARNING: mass_scheme might no be implemented.\n";
     }
-
-    // calculate DB=2 matrix elements for usage of "me" and "delta_1overm_(quark)"
-    compute_matrixelements(q, FULLNLO);
 
     /* partial contribution without 1overm
     gslpp::vector<gslpp::complex> Gamma21overM21_partial = Mb2_prefactor * (c_H_partial(q, 0) + c_H_partial(q, 1) * me(1)/me(0) + c_H_partial(q, 2) * me(2)/me(0)).conjugate()
