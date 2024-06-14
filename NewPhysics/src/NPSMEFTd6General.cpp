@@ -8528,9 +8528,75 @@ bool NPSMEFTd6General::PostUpdate() {
 
     xBZ_tree = -g1_tree / pow((g1_tree * g1_tree + g2_tree * g2_tree), 0.5); // -sbar of Manohar
     delta_xBZ = g2_tree * (g1_tree * delta_g2 - g2_tree * delta_g1 - g2_tree * g2_tree * getSMEFTCoeffEW("CHWB") * v2) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 1.5);
-    //AG:end
+
     ////////////////////////////////////////////////////////////////////////////
 
+    delta_ale_2 = -sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2 * (2.0 * (getSMEFTCoeffEW("CHW") + getSMEFTCoeffEW("CHB")) * v2 + 0.5 * getSMEFTCoeffEW("CHD") * v2 + 3.0 * delta_GF);
+
+    delta_Mz2_2 = cAsch * ((0.5 * getSMEFTCoeffEW("CHD") + 3.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2 * delta_GF
+            + 0.5 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * (4.0 * (getSMEFTCoeffEW("CHW") + getSMEFTCoeffEW("CHB")) + 3.0 * getSMEFTCoeffEW("CHD")) * v2 * v2
+            + (1.0 + 4.0 * sW2_tree * cW2_tree) * getSMEFTCoeffEW("CHWB") * getSMEFTCoeffEW("CHWB") * v2 * v2
+            )
+            + cWsch * (delta_GF * (getSMEFTCoeffEW("CHD") / 2.0 + 2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2
+            + (1.0 + 2.0 * cW2_tree - 4.0 * cW2_tree * cW2_tree) * getSMEFTCoeffEW("CHWB") * getSMEFTCoeffEW("CHWB") * v2 * v2
+            + sW_tree * cW_tree * (2.0 * (getSMEFTCoeffEW("CHB") + getSMEFTCoeffEW("CHW")) + getSMEFTCoeffEW("CHD")) * getSMEFTCoeffEW("CHWB") * v2 * v2
+            + 0.5 * (1.0 - 2.0 * cW2_tree) * cW_tree / sW_tree * getSMEFTCoeffEW("CHWB") * getSMEFTCoeffEW("CHD") * v2 * v2
+            );
+
+//    if (hatCis()) {
+//        delta_GF_2 = (5.0 * pow((CHL3hat - cW2_tree / sW2_tree * CiHD / 4.0 - cW_tree / sW_tree * CiHWB), 2.0)
+//                - 4.0 * (CHL3hat - cW2_tree / sW2_tree * CiHD / 4.0 - cW_tree / sW_tree * CiHWB)*(CLLhat)
+//                + pow(CLLhat, 2.0)
+//                ) * v2_over_LambdaNP2*v2_over_LambdaNP2;
+//    } else {
+        delta_GF_2 = (
+                pow(getSMEFTCoeffEW("CHl3R", 0, 0), 2.0) + pow(getSMEFTCoeffEW("CHl3R", 1, 1), 2.0) 
+                + 3.0 * getSMEFTCoeffEW("CHl3R", 0, 0) * getSMEFTCoeffEW("CHl3R", 1, 1)
+                - (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))*(2.0*getSMEFTCoeffEW("CllR", 0, 1, 1, 0))
+                + 0.25 * pow((2.0*getSMEFTCoeffEW("CllR", 0, 1, 1, 0)),2.0)
+                ) * v2*v2;
+    //}
+
+    delta_g1_2 = cAsch * (g1_tree * (+4.0 * pow(-1 + 2.0 * sW2_tree, 2.0) * (cW2_tree * delta_ale_2 - sW2_tree * (delta_Mz2_2 + delta_GF_2))
+            + (-3.0 + 12.0 * sW2_tree - 19.0 * sW2_tree * sW2_tree + 10.0 * sW2_tree * sW2_tree * sW2_tree) * delta_ale * delta_ale
+            + sW2_tree * sW2_tree * (-7.0 + 10.0 * sW2_tree) * (delta_Mz2 * delta_Mz2 + delta_GF * delta_GF)
+            + 2.0 * sW2_tree * (3.0 - 5.0 * sW2_tree + 2.0 * sW2_tree * sW2_tree) * (delta_ale * delta_Mz2 + delta_ale * delta_GF)
+            + 2.0 * sW2_tree * (-2.0 + sW2_tree + 2.0 * sW2_tree * sW2_tree) * delta_Mz2 * delta_GF
+            ) / 8.0 / pow(-1 + 2.0 * sW2_tree, 3.0))
+            + cWsch * (g1_tree * (-delta_Mz2_2 / 2.0 / sW2_tree - delta_GF_2 / 2.0
+            - (1.0 - 4.0 * sW2_tree) * delta_Mz2 * delta_Mz2 / 8.0 / sW2_tree / sW2_tree
+            + 3.0 * delta_GF * delta_GF / 8.0
+            + delta_Mz2 * delta_GF / 4.0 / sW2_tree));
+
+    delta_g2_2 = cAsch * (g2_tree * (+4.0 * pow(-1 + 2.0 * sW2_tree, 2.0) * (-sW2_tree * delta_ale_2 + cW2_tree * (delta_Mz2_2 + delta_GF_2))
+            + sW2_tree * (4.0 - 11.0 * sW2_tree + 10.0 * sW2_tree * sW2_tree) * delta_ale * delta_ale
+            + cW2_tree * cW2_tree * (-3.0 + 10.0 * sW2_tree) * (delta_Mz2 * delta_Mz2 + delta_GF * delta_GF)
+            + 2.0 * sW2_tree * (-1.0 - sW2_tree + 2.0 * sW2_tree * sW2_tree) * (delta_ale * delta_Mz2 + delta_ale * delta_GF)
+            + 2.0 * (-1.0 + 6.0 * sW2_tree - 7.0 * sW2_tree * sW2_tree + 2.0 * sW2_tree * sW2_tree * sW2_tree) * delta_Mz2 * delta_GF
+            )
+            ) / 8.0 / pow(-1 + 2.0 * sW2_tree, 3.0)
+            + cWsch * (g2_tree * (-delta_GF_2 / 2.0 + 3.0 * delta_GF * delta_GF / 8.0));
+
+    delta_xWZ_2 = (-3.0 * g1_tree * g1_tree * g2_tree * delta_g2 * delta_g2
+            - 2.0 * g1_tree * (g1_tree * g1_tree - 2.0 * g2_tree * g2_tree) * delta_g1 * delta_g2
+            + g2_tree * (2.0 * g1_tree * g1_tree - g2_tree * g2_tree) * delta_g1 * delta_g1
+            + 2.0 * g1_tree * (g1_tree * g1_tree + g2_tree * g2_tree) * (g1_tree * delta_g2_2 - g2_tree * delta_g1_2)
+            + 6.0 * g1_tree * g1_tree * g2_tree * (-g1_tree * delta_g2 + g2_tree * delta_g1) * getSMEFTCoeffEW("CHWB") * v2
+            + g2_tree * (-pow(g1_tree, 4.0) + 3.0 * g1_tree * g1_tree * g2_tree * g2_tree + pow(g2_tree, 4.0)) * getSMEFTCoeffEW("CHWB") * getSMEFTCoeffEW("CHWB") * v2 * v2
+            + 2.0 * pow(g1_tree, 3.0)*(g1_tree * g1_tree + g2_tree * g2_tree) * (getSMEFTCoeffEW("CHWB") * (getSMEFTCoeffEW("CHW") + getSMEFTCoeffEW("CHB")) * v2 * v2 + delta_GF * getSMEFTCoeffEW("CHWB") * v2)
+            ) / 2.0 / pow(g1_tree * g1_tree + g2_tree*g2_tree, 2.5);
+
+    delta_xBZ_2 = (+3.0 * g1_tree * g2_tree * g2_tree * delta_g1 * delta_g1
+            - 2.0 * g2_tree * (2.0 * g1_tree * g1_tree - g2_tree * g2_tree) * delta_g1 * delta_g2
+            + g1_tree * (g1_tree * g1_tree - 2.0 * g2_tree * g2_tree) * delta_g2 * delta_g2
+            + 2.0 * g2_tree * (g1_tree * g1_tree + g2_tree * g2_tree) * (g1_tree * delta_g2_2 - g2_tree * delta_g1_2)
+            + 6.0 * g1_tree * g2_tree * g2_tree * (-g1_tree * delta_g2 + g2_tree * delta_g1) * getSMEFTCoeffEW("CHWB") * v2
+            + g1_tree * (-pow(g1_tree, 4.0) - 3.0 * g1_tree * g1_tree * g2_tree * g2_tree + pow(g2_tree, 4.0)) * getSMEFTCoeffEW("CHWB") * getSMEFTCoeffEW("CHWB") * v2 * v2
+            - 2.0 * pow(g2_tree, 3.0) * (g1_tree * g1_tree + g2_tree * g2_tree) * (getSMEFTCoeffEW("CHWB") * (getSMEFTCoeffEW("CHW") + getSMEFTCoeffEW("CHB")) * v2 * v2 + delta_GF * getSMEFTCoeffEW("CHWB") * v2)
+            ) / 2.0 / pow(g1_tree * g1_tree + g2_tree*g2_tree, 2.5);
+    //AG:end
+    ////////////////////////////////////////////////////////////////////////////
+    
     //  Dim 6 SMEFT matching
 
     //Go to mass eigenstate basis first; this is done here since we need to reassign quark masses and the CKM matrix
@@ -13871,6 +13937,14 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
     return (res);
 }
 
+int NPSMEFTd6General::OutputOrder() const //AG:added
+{
+    // 0 SM
+    // 1 Linear
+    // 2 Linear + Quadratic
+    // 3 Quadratic
+    return -1;
+}
 ////////////////////////////////////////////////////////////////////////
 
 
@@ -14260,7 +14334,52 @@ const double NPSMEFTd6General::deltaMw2() const {
 ////////////////////////////////////////////////////////////////////////
 
 const double NPSMEFTd6General::alphaMz() const {
-    return (aleMz * (1.0 + 2.0 * delta_e + delta_A));
+    //return (aleMz * (1.0 + 2.0 * delta_e + delta_A));
+    
+    //AG:begin
+    double g1 = g1_tree;
+    double dg1L = delta_g1;
+    double g2 = g2_tree;
+    double dg2L = delta_g2;
+    double G = g1 * g1 + g2*g2;
+
+    // dalphaMz equivalent to "2.0 * delta_e + delta_A"
+    //double dalphaMz = 2.0*( g1*g1*g1*dg2L + g2*g2*g2*dg1L)/g1/g2/G - 2.0*g1*g2/G*CiHWB*v2_over_LambdaNP2;
+
+    double dalphaMz_2 = 0.0;
+    if (FlagQuadraticTerms and FlagMWinput) {
+        double dg1Q = delta_g1_2;
+        double dg2Q = delta_g2_2;
+
+        dalphaMz_2 = 2.0 / G * (g1 * g1 / g2 * dg2Q + g2 * g2 / g1 * dg1Q)
+                + g1 * g1 * (g1 * g1 - 3.0 * g2 * g2) / g2 / g2 / G / G * dg2L * dg2L 
+                + g2 * g2 * (g2 * g2 - 3.0 * g1 * g1) / g1 / g1 / G / G * dg1L * dg1L
+                + 2.0 / G / G * (
+                    g1 * (g2 * g2 - 3.0 * g1 * g1) * dg2L 
+                    + g2 * (g1 * g1 - 3.0 * g2 * g2) * dg1L
+                ) * getSMEFTCoeffEW("CHWB") * v2
+                + 8.0 * g1 * g2 / G / G * dg1L * dg2L
+                - 2.0 * g1 * g2 / G / G * (
+                    -2.0 * g1 * g2 * getSMEFTCoeffEW("CHWB") * v2 
+                    + G * (getSMEFTCoeffEW("CHW") + getSMEFTCoeffEW("CHB")) * v2 + G * delta_GF
+                ) * getSMEFTCoeffEW("CHWB")*v2;
+    }
+
+    if (OutputOrder() == 0) {
+        return (aleMz);
+    }
+    else if (OutputOrder() == 1) {
+        return (aleMz * (1.0 + 2.0 * delta_e + delta_A));
+    }
+    else if (OutputOrder() == 2) {
+        return (aleMz * (1.0 + 2.0 * delta_e + delta_A + dalphaMz_2));
+    }
+    else if (OutputOrder() == 3) {
+        return (aleMz * (dalphaMz_2));
+    } else {
+        return (aleMz * (1.0 + 2.0 * delta_e + delta_A + dalphaMz_2));
+    }
+    //AG:end
 }
 
 const double NPSMEFTd6General::Mw() const {
@@ -14269,7 +14388,24 @@ const double NPSMEFTd6General::Mw() const {
     //            + cW2_tree * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2
     //            + 2.0 * sW2_tree * delta_GF));
 
-    return (trueSM.Mw() + Mw_tree * (delta_e - 0.5 * delta_sW2 + delta_v));
+    //return (trueSM.Mw() + Mw_tree * (delta_e - 0.5 * delta_sW2 + delta_v));
+    
+    //AG:begin
+    if (OutputOrder() == 0) {
+        return (trueSM.Mw());
+    }
+    else if (OutputOrder() == 1) {
+        return (trueSM.Mw() + Mw_tree * deltaMwd6());
+    }
+    else if (OutputOrder() == 2) {
+        return (trueSM.Mw() + Mw_tree * deltaMwd6() + Mw_tree * deltaMwd6_2());
+    }
+    else if (OutputOrder() == 3) {
+        return ( Mw_tree * deltaMwd6_2());
+    } else {
+        return (trueSM.Mw() + Mw_tree * (delta_e - 0.5 * delta_sW2 + delta_v) + Mw_tree * deltaMwd6_2());
+    }
+    //AG:end
 }
 
 const double NPSMEFTd6General::deltaMwd6() const {
@@ -14319,7 +14455,23 @@ const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle 
 }
 
 const double NPSMEFTd6General::GammaW(const Particle fi, const Particle fj) const {
-    return ( trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj));
+    //return ( trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj));
+    //AG:begin
+    if (OutputOrder() == 0) {
+        return (trueSM.GammaW(fi, fj));
+    }
+    else if (OutputOrder() == 1) {
+        return (trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj));
+    }
+    else if (OutputOrder() == 2) {
+        return (trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj) + deltaGamma_Wff_2(fi, fj));
+    }
+    else if (OutputOrder() == 3) {
+        return (deltaGamma_Wff_2(fi, fj));
+    } else {
+        return ( trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj) + deltaGamma_Wff_2(fi, fj));
+    }
+    //AG:end
 }
 
 const double NPSMEFTd6General::deltaGamma_W() const {
@@ -14361,11 +14513,31 @@ const double NPSMEFTd6General::deltaGzd62() const {
 }
 
 const double NPSMEFTd6General::deltaGV_f(const Particle p) const {
-    return (deltaGL_f(p) + deltaGR_f(p));
+    //return (deltaGL_f(p) + deltaGR_f(p));
+    //AG:begin
+    if (OutputOrder() == 0 || OutputOrder() == 3) {
+        return (0.0);
+    }
+    else if (OutputOrder() == 1 || OutputOrder() == 2) {
+        return (deltaGL_f(p) + deltaGR_f(p));
+    } else {
+        return (deltaGL_f(p) + deltaGR_f(p));
+    }
+    //AG:end
 }
 
 const double NPSMEFTd6General::deltaGA_f(const Particle p) const {
-    return (deltaGL_f(p) - deltaGR_f(p));
+    //return (deltaGL_f(p) - deltaGR_f(p));
+    //AG:begin
+    if (OutputOrder() == 0 || OutputOrder() == 3) {
+        return (0.0);
+    }
+    if (OutputOrder() == 1 || OutputOrder() == 2) {
+        return (deltaGL_f(p) - deltaGR_f(p));
+    } else {        
+        return (deltaGL_f(p) - deltaGR_f(p));
+    }
+    //AG:end
 }
 
 const double NPSMEFTd6General::deltaGL_f(const Particle p) const {
@@ -14399,13 +14571,44 @@ const double NPSMEFTd6General::deltaGR_f(const Particle p) const {
 }
 
 const double NPSMEFTd6General::BrW(const Particle fi, const Particle fj) const {
+//    double GammW0 = trueSM.GammaW();
+//    double dGammW = deltaGamma_W();
+//
+//    double GammWij0 = trueSM.GammaW(fi, fj);
+//    double dGammWij = deltaGamma_Wff(fi, fj);
+//
+//    return GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0;
+    
     double GammW0 = trueSM.GammaW();
     double dGammW = deltaGamma_W();
 
     double GammWij0 = trueSM.GammaW(fi, fj);
     double dGammWij = deltaGamma_Wff(fi, fj);
 
-    return GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0;
+    //AG:begin
+    double BrW_2 = 0.0;
+    if (FlagQuadraticTerms) {
+        double dGammW2 = deltaGamma_W_2();
+        double dGammWij2 = deltaGamma_Wff_2(fi, fj);
+        BrW_2 = GammWij0 / GammW0 * (dGammWij2 / GammWij0 - dGammW2 / GammW0
+                + pow(dGammW, 2.0) / pow(GammW0, 2.0) + dGammWij * dGammW / GammWij0 / GammW0);
+    }
+
+    if (OutputOrder() == 0) {
+        return (GammWij0 / GammW0);
+    }
+    else if (OutputOrder() == 1) {
+        return (GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0);
+    }
+    else if (OutputOrder() == 2) {
+        return (GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0 + BrW_2);
+    }
+    else if (OutputOrder() == 3) {
+        return (BrW_2);
+    } else{
+        return (GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0 + BrW_2);
+    }
+    //AG:end
 }
 
 const double NPSMEFTd6General::RWlilj(const Particle li, const Particle lj) const {
@@ -14467,7 +14670,39 @@ const double NPSMEFTd6General::RWc() const {
             + deltaGamma_Wff(quarks[UP], quarks[DOWN])
             + deltaGamma_Wff(quarks[UP], quarks[BOTTOM]);
 
-    return GammWcX0 / GammWhad0 + dGammWcX / GammWhad0 - GammWcX0 * dGammWhad / GammWhad0 / GammWhad0;
+    //return GammWcX0 / GammWhad0 + dGammWcX / GammWhad0 - GammWcX0 * dGammWhad / GammWhad0 / GammWhad0;
+    
+    //AG:begin
+    double RWc_2 = 0.0;
+    if (FlagQuadraticTerms) {
+        double dGammWcX2 = deltaGamma_Wff_2(quarks[CHARM], quarks[STRANGE])
+                + deltaGamma_Wff_2(quarks[CHARM], quarks[DOWN])
+                + deltaGamma_Wff_2(quarks[CHARM], quarks[BOTTOM]);
+        double dGammWhad2 = dGammWcX2
+                + deltaGamma_Wff_2(quarks[UP], quarks[STRANGE])
+                + deltaGamma_Wff_2(quarks[UP], quarks[DOWN])
+                + deltaGamma_Wff_2(quarks[UP], quarks[BOTTOM]);
+
+        RWc_2 = dGammWcX2 / GammWhad0 - GammWcX0 * dGammWhad2 / pow(GammWhad0, 2.0)
+                + GammWcX0 * pow(dGammWhad, 2.0) / pow(GammWhad0, 3.0)
+                - dGammWcX * dGammWhad / pow(GammWhad0, 2.0);
+    }
+
+    if (OutputOrder() == 0) {
+        return (GammWcX0 / GammWhad0);
+    }
+    else if (OutputOrder() == 1) {
+        return (GammWcX0 / GammWhad0 + dGammWcX / GammWhad0 - GammWcX0 * dGammWhad / GammWhad0 / GammWhad0);
+    }
+    else if (OutputOrder() == 2) {
+        return (GammWcX0 / GammWhad0 + dGammWcX / GammWhad0 - GammWcX0 * dGammWhad / GammWhad0 / GammWhad0 + RWc_2);
+    }
+    else if (OutputOrder() == 3) {
+        return (RWc_2);
+    } else {
+        return (GammWcX0 / GammWhad0 + dGammWcX / GammWhad0 - GammWcX0 * dGammWhad / GammWhad0 / GammWhad0 + RWc_2);
+    }
+    //AG:end
 }
 
 const double NPSMEFTd6General::RZlilj(const Particle li, const Particle lj) const {
@@ -14491,6 +14726,187 @@ const double NPSMEFTd6General::RZlilj(const Particle li, const Particle lj) cons
     return GammZli0 / GammZlj0 + dGammZli / GammZlj0 - GammZli0 * dGammZlj / GammZlj0 / GammZlj0;
 }
 
+//AG:begin
+const double NPSMEFTd6General::deltaGV_f_2(const Particle p) const {
+    //AG:added
+    double deltaGVf2 = 0.0;
+
+    if (!FlagQuadraticTerms or p.is("TOP")) return 0.;
+
+    if (FlagQuadraticTerms)
+        deltaGVf2 = (deltaGL_f_2(p) + deltaGR_f_2(p));
+
+    return deltaGVf2;
+}
+
+const double NPSMEFTd6General::deltaGA_f_2(const Particle p) const {
+    //AG:added
+    double deltaGAf2 = 0.0;
+
+    if (!FlagQuadraticTerms or p.is("TOP")) return 0.;
+
+    if (FlagQuadraticTerms)
+        deltaGAf2 = (deltaGL_f_2(p) - deltaGR_f_2(p));
+
+    return deltaGAf2;
+}
+
+const double NPSMEFTd6General::deltaGL_f_2(const Particle p) const {
+    //AG:added
+    if (!FlagQuadraticTerms)
+        return 0;
+    if (p.is("TOP")) {
+        return 0.0;
+    }
+
+    double I3p = p.getIsospin();
+    double Qp = p.getCharge();
+    double CHF1;
+    double CHF3;
+    //hat:begin
+//    if (hatCis()) {
+//        if (p.is("LEPTON")) {
+//            CHF1 = CHL1hat - CiHD / 4.0;
+//            CHF3 = CHL3hat - cW2_tree / sW2_tree * CiHD / 4.0 - cW_tree / sW_tree*CiHWB;
+//        }
+//        if (p.is("QUARK")) {
+//            CHF1 = CHQ1hat + CiHD / 12.0;
+//            CHF3 = CHQ3hat - cW2_tree / sW2_tree * CiHD / 4.0 - cW_tree / sW_tree*CiHWB;
+//        }
+//    } else {
+        CHF1 = CHF1_diag(p);
+        CHF3 = CHF3_diag(p);
+    //}
+    //hat:end
+
+    double NPindirect = (-(I3p - Qp) * (g1_tree * delta_xBZ_2 + delta_g1 * delta_xBZ + xBZ_tree * delta_g1_2)
+            + I3p * (g2_tree * delta_xWZ_2 + delta_g2 * delta_xWZ + xWZ_tree * delta_g2_2)
+            ) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 0.5);
+
+    double NPdirect = 0.5 * (CHF1 - 2.0 * I3p * CHF3) * v2 * (+(xBZ_tree * delta_g1 + g1_tree * delta_xBZ)
+            - (xWZ_tree * delta_g2 + g2_tree * delta_xWZ)
+            + delta_GF * (g1_tree * xBZ_tree - g2_tree * xWZ_tree)
+            ) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 0.5);
+
+    //std::cout << "  deltaGL_f_2 = " << NPindirect << " , " << NPdirect << " , " << NPindirect+NPdirect << std::endl;
+    return NPindirect + NPdirect;
+}
+
+const double NPSMEFTd6General::deltaGR_f_2(const Particle p) const {
+    //AG:added
+    if (!FlagQuadraticTerms)
+        return 0;
+
+    if (p.is("TOP")) {
+        return 0.0;
+    }
+    double Qp = p.getCharge();
+    double CHf;
+    //hat:begin
+//    if (hatCis()) {
+//        if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3")) {
+//            CHf = 0.0;
+//        }
+//        if (p.is("ELECTRON") || p.is("MU") || p.is("TAU")) {
+//            CHf = CHehat - CiHD / 2.0;
+//        }
+//        if (p.is("UP") || p.is("CHARM")) {
+//            CHf = CHuhat + CiHD / 3.0;
+//        }
+//        if (p.is("DOWN") || p.is("STRANGE") || p.is("BOTTOM")) {
+//            CHf = CHdhat - CiHD / 6.0;
+//        }
+//    } else {
+        CHf = CHf_diag(p);
+    //}
+    //hat:end
+
+    double NPindirect = Qp * (g1_tree * delta_xBZ_2 + delta_g1 * delta_xBZ + xBZ_tree * delta_g1_2) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 0.5);
+
+    double NPdirect = 0.5 * CHf * v2 * (+(xBZ_tree * delta_g1 + g1_tree * delta_xBZ)
+            - (xWZ_tree * delta_g2 + g2_tree * delta_xWZ)
+            + delta_GF * (g1_tree * xBZ_tree - g2_tree * xWZ_tree)
+            ) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 0.5);
+
+    //std::cout << "  deltaGR_f_2 = " << NPindirect  << " , " << NPdirect << " , " << NPindirect+NPdirect << std::endl;
+    return (NPindirect + NPdirect);
+}
+
+const double NPSMEFTd6General::deltaMwd6_2() const {
+    //AG:added
+    if (!FlagQuadraticTerms)
+        return 0;
+
+    double deltaMw_2 = delta_g2_2 / g2_tree + delta_GF_2 / 2.0 + delta_g2 * delta_GF / 2.0 / g2_tree - pow(delta_GF, 2.0) / 8.0;
+    return deltaMw_2;
+}
+
+const double NPSMEFTd6General::deltaGamma_Wff_2(const Particle fi, const Particle fj) const {
+    //AG:added   (NOTE: To be added cHud contribution)
+    if (!FlagQuadraticTerms)
+        return 0;
+
+    double G0 = GF * pow(Mz*cW_tree, 3.0) / 6.0 / sqrt(2.0) / M_PI;
+    double deltaGamma_Wij_2;
+    double GammaW_tree;
+    double CHF3ij;
+
+    if (fj.getIndex() - fi.getIndex() == 1)
+//        if (hatCis()) {
+//            if (fi.is("LEPTON")) {
+//                CHF3ij = CHL3hat - cW2_tree / sW2_tree * CiHD / 4.0 - cW_tree / sW_tree*CiHWB;
+//            }
+//            if (fi.is("QUARK")) {
+//                CHF3ij = CHQ3hat - cW2_tree / sW2_tree * CiHD / 4.0 - cW_tree / sW_tree*CiHWB;
+//            }
+//        } else
+            CHF3ij = CHF3_diag(fi);
+    else
+        CHF3ij = 0.;
+
+    if (fi.is("QUARK")) {
+        GammaW_tree = Nc * G0;
+    } else {
+        GammaW_tree = G0;
+    }
+
+    deltaGamma_Wij_2 = GammaW_tree * (pow(delta_GF, 2.0) + 3.0 * pow(deltaMwd6(), 2.0) + pow(CHF3ij * v2, 2.0)
+            - 3.0 * deltaMwd6() * delta_GF - 2.0 * delta_GF * CHF3ij * v2 + 6.0 * deltaMwd6() * CHF3ij * v2
+            - delta_GF_2 + 3.0 * deltaMwd6_2());
+
+    return deltaGamma_Wij_2;
+}
+
+const double NPSMEFTd6General::deltaGamma_W_2() const {
+    //double G0 = GF * pow(Mz*cW_tree, 3.0) / 6.0 / sqrt(2.0) / M_PI;
+    //double DeltaGammaW2_indirect;
+    //double DeltaGammaW2_direct;
+
+    //DeltaGammaW2_indirect = (3.0 + 2.0 * Nc) * G0 * ( 
+    //        pow(delta_GF,2.0) + 3.0*pow(deltaMwd6_Test(),2.0) - 3.0*deltaMwd6_Test()*delta_GF 
+    //        - delta_GF_2 + 3.0*deltaMwd6_2() );
+
+    //DeltaGammaW2_direct =  G0 * ( pow(CiHL3_11,2.0) + pow(CiHL3_22,2.0) + pow(CiHL3_33,2.0) 
+    //        + Nc*(pow(CiHQ3_11,2.0) + pow(CiHQ3_22,2.0)) ) * pow(v2_over_LambdaNP2,2.0)
+    //        + G0 * (-2.0*delta_GF+6.0*deltaMwd6_Test()) * (CiHL3_11 + CiHL3_22 + CiHL3_33 + Nc*(CiHQ3_11 + CiHQ3_22)) * v2_over_LambdaNP2;
+
+    //return DeltaGammaW2_indirect + DeltaGammaW2_direct;
+
+    //AG:added
+    if (!FlagQuadraticTerms)
+        return 0;
+
+    double deltaGammaWLep2 = deltaGamma_Wff_2(leptons[NEUTRINO_1], leptons[ELECTRON])
+            + deltaGamma_Wff_2(leptons[NEUTRINO_2], leptons[MU])
+            + deltaGamma_Wff_2(leptons[NEUTRINO_3], leptons[TAU]);
+
+    double deltaGammaWHad2 = deltaGamma_Wff_2(quarks[UP], quarks[DOWN])
+            + deltaGamma_Wff_2(quarks[CHARM], quarks[STRANGE]);
+
+    return deltaGammaWLep2 + deltaGammaWHad2;
+}
+
+//AG:end
 
 
 ////////////////////////////////////////////////////////////////////////

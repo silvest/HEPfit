@@ -1484,7 +1484,86 @@ public:
      */
     virtual const double  RZlilj(const Particle li, const Particle lj) const;
 
+    //AG:begin
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
+     * @details
+     * \f[
+     * \Delta g_{V,f}^{(2)} = \Delta g_{L,f}^{(2)} + \Delta g_{R,f}^{(2)}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$\Delta g_{V,f}^{(2)}@f$
+     */
+    virtual const double deltaGV_f_2(const Particle p) const; //AG:added
 
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the neutral-current vector coupling @f$g_A^f@f$.
+     * @details
+     * \f[
+     * \Delta g_{A,f}^{(2)} = \Delta g_{L,f}^{(2)} - \Delta g_{R,f}^{(2)}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$\Delta g_{A,f}^{(2)}@f$
+     */
+    virtual const double deltaGA_f_2(const Particle p) const; //AG:added        
+
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the left-handed coupling @f$g_L^f@f$.
+     * @details
+     * \f$\newcommand{\nc}{\newcommand}\f$
+     * \f$\nc{\vt}{\widetilde{v}}\f$
+     * \f$\nc{\xWZb}{\mathbb{\bar{X}}_{(WZ)}}\f$
+     * \f$\nc{\xBZb}{\mathbb{\bar{X}}_{(BZ)}}\f$
+     * \f$\nc{\xWZt}{\mathbb{\widetilde{X}}_{(WZ)}}\f$
+     * \f$\nc{\xBZt}{\mathbb{\widetilde{X}}_{(BZ)}}\f$
+     * \f$\nc{\xWZL}{\Delta \mathbb{X}_{WZ}^{(1)}}\f$
+     * \f$\nc{\xBZL}{\Delta \mathbb{X}_{BZ}^{(1)}}\f$
+     * \f$\nc{\xWZQ}{\Delta \mathbb{X}_{WZ}^{(2)}}\f$
+     * \f$\nc{\xBZQ}{\Delta \mathbb{X}_{BZ}^{(2)}}\f$
+     * \f$\nc{\gwt}{\widetilde{g}_W}\f$
+     * \f$\nc{\gbt}{\widetilde{g}_1}\f$
+     * \f$\nc{\gbL}{\Delta g_1^{(1)}}\f$
+     * \f$\nc{\gwL}{\Delta g_W^{(1)}}\f$
+     * \f$\nc{\gbQ}{\Delta g_1^{(2)}}\f$
+     * \f$\nc{\gwQ}{\Delta g_W^{(2)}}\f$
+     * \f{eqnarray*}{
+     * \Delta g_L^{(2)} &=& \frac{1}{\sqrt{\gbt^2+\gwt^2}} \left[ (Q-I_3) ~\left(\gbt ~\xBZQ + \gbL \xBZL + \xBZt \gbQ \right) 
+     * + I_3 ~\left(\gwt \xWZQ + \gwL \xWZL + \xWZt \gwQ \right) \right] \\
+     * &+& \frac{(\hat{C}_{Hf1} - 2I_3\hat{C}_{Hf3}) \vt^2}{2} ~\frac{\xBZt \gbL + \gbt \xBZL  - \xWZt \gwL - \gwt \xWZL }{\sqrt{\gbt^2+\gwt^2}}
+     * \f}
+     * @param[in] f a lepton or quark
+     * @return @f$\Delta g_{L,f}^{(2)}@f$
+     */
+    const double deltaGL_f_2(const Particle p) const; //AG:added
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the right-handed coupling @f$g_R^f@f$.
+     * @details
+     * \f[
+     * \Delta g_R^{(2)} = \frac{Q}{\sqrt{\gbt^2+\gwt^2}} \left( \gbt \xBZQ + \gbL \xBZL + \xBZt \gbQ \right) 
+     * + \frac{\hat{C}_{Hf} \vt^2}{2} ~\frac{\xBZt \gbL + \gbt \xBZL  - \xWZt \gwL - \gwt \xWZL }{\sqrt{\gbt^2+\gwt^2}}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$\Delta g_{R,f}^{(2)}@f$
+     */
+    const double deltaGR_f_2(const Particle p) const; //AG:added
+    
+    /**
+     * @brief The relative \f$\mathcal{O}(\Lambda^{-4})\f$ NP corrections to the mass of the @f$W@f$ boson, @f$\Delta M_W^{(2)}@f$.
+     * @details
+     * \f$\nc{\dGf}{\delta_{G_F}}\f$
+     * \f[
+     * \Delta M_W^{(2)} =  \frac{\gwQ}{\gwt} + \frac{\dGf^{(2)}}{2} + \frac{\gwL \dGf^{(1)}}{2\gwt} - \frac{(\dGf^{(1)})^2}{8}
+     * \f]
+     * @return @f$\Delta M_W^{(2)}@f$
+     */
+    virtual const double deltaMwd6_2() const; //AG:added
+
+    virtual const double deltaGamma_Wff_2(const Particle fi, const Particle fj) const; //AG:added        
+        
+    virtual const double deltaGamma_W_2() const; //AG:added 
+    //AG: end
+    
     ////////////////////////////////////////////////////////////////////////
     
     // LEP2 definitions for 2 to 2 fermion processes
@@ -6847,6 +6926,12 @@ public:
         return VuRd;
     }
    
+    //AG:begin
+    virtual int OutputOrder() const; ///<Type of contributions to be included in the EWPOs. Takes a numerica values depending on the choice.
+    //bool hatCis() const; ///<If True, explicitly defines the 8 'hat' coefficients in the EWPOs (Z-couplings, dGf, W-width)              
+    //bool flagCHWpCHB() const; ///< If True, uses the coefficient CHWpCHW instead of the sum CiHW+CiHB.
+    //AG:end
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 
