@@ -1,4 +1,4 @@
-
+//AG: SMEFTquadratic2
 /* 
  * File:   NPSMEFTd6General.h
  * Author: miralles

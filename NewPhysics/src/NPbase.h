@@ -1,3 +1,4 @@
+//AG: SMEFTquadratic2
 /*
  * Copyright (C) 2013 HEPfit Collaboration
  *

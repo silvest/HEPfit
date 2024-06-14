@@ -1,22 +1,4 @@
-//AG: The following functions were defined:
-// virtual double deltaGV_f_2(const Particle f) const;
-// virtual double deltaGA_f_2(const Particle f) const;
-// virtual double deltaGamma_Zf_Test(const Particle f) const;
-// virtual double deltaGamma_Zf_2(const Particle f) const;
-// virtual double deltaGamma_Z_Test() const;
-// virtual double deltaGamma_Z_2() const;
-// virtual double deltaGamma_Zhad_Test() const;
-// virtual double deltaGamma_Zhad_2() const;
-// virtual double deltaSigmaHadron_Test() const;
-// virtual double deltaSigmaHadron_2() const;
-// virtual double deltaSin2thetaEff_e_2() const;
-// virtual double deltaSin2thetaEff_mu_2() const;
-// virtual double deltaA_f_2(const Particle f) const;
-// virtual double deltaAFB_Test(const Particle f) const;
-// virtual double deltaAFB_2(const Particle f) const;
-// virtual double deltaR0_f_Test(const Particle f) const;
-// virtual double deltaR0_f_2(const Particle f) const;
-
+//AG: SMEFTquadratic2
 /*
  * Copyright (C) 2013 HEPfit Collaboration
  *

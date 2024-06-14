@@ -1,3 +1,5 @@
+//AG:NPSMEFTd6General SMEFTquadratic2
+
 /*
  * Copyright (C) 2014 HEPfit Collaboration
  *
