@@ -259,6 +259,239 @@ double FB_asymmetry_Tevatron_tt_diff_mtt_LO::computeThValue()
 
 ////// ttbar differential cross section ///////////////////////////////////
 
+
+//binning of CMS 1811.06625
+sigma_tt_diff_mtt_LO_CMS_181106625::sigma_tt_diff_mtt_LO_CMS_181106625(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tt_bin_mtt_300_380_CMS_181106625"
+            << "SM_sigma_tt_bin_mtt_380_470_CMS_181106625" << "SM_sigma_tt_bin_mtt_470_620_CMS_181106625"
+            << "SM_sigma_tt_bin_mtt_620_820_CMS_181106625" << "SM_sigma_tt_bin_mtt_820_1100_CMS_181106625"
+            << "SM_sigma_tt_bin_mtt_1100_1500_CMS_181106625" << "SM_sigma_tt_bin_mtt_1500_2500_CMS_181106625");
+            
+    
+}
+
+double sigma_tt_diff_mtt_LO_CMS_181106625::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+    
+   
+    
+    if(b_min == 300 && b_max == 380){
+        
+        double SM_sigma_tt_bin_300_380 = SM.getOptionalParameter("SM_sigma_tt_bin_mtt_300_380_CMS_181106625");
+        double sigma_tt_bin_300_380_madgraph = 54.003200;//pb
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            double total = SM_sigma_tt_bin_300_380 + (+-1.080720*ewgc("CG")+0.015822*ewgc("Cqd1R",2,2,0,0)
+            +0.027498*ewgc("Cqd1R",2,2,1,1)+0.239796*ewgc("Cqd8R",2,2,0,0)+0.073740*ewgc("Cqd8R",2,2,1,1)
+            +0.089304*ewgc("Cqq1R",0,0,2,2)+1.256970*ewgc("Cqq1R",0,2,2,0)+0.033486*ewgc("Cqq1R",1,1,2,2)
+            +0.108318*ewgc("Cqq1R",1,2,2,1)+0.230184*ewgc("Cqq3R",0,0,2,2)+2.777490*ewgc("Cqq3R",0,2,2,0)
+            +0.067932*ewgc("Cqq3R",1,1,2,2)+0.457110*ewgc("Cqq3R",1,2,2,1)+0.071850*ewgc("Cqu1R",0,0,2,2)
+            +0.029322*ewgc("Cqu1R",1,1,2,2)+0.080706*ewgc("Cqu1R",2,2,0,0)+0.034674*ewgc("Cqu1R",2,2,1,1)
+            +0.535692*ewgc("Cqu8R",0,0,2,2)+0.091128*ewgc("Cqu8R",1,1,2,2)+0.347364*ewgc("Cqu8R",2,2,0,0)
+            +0.057720*ewgc("Cqu8R",2,2,1,1)+0.014940*ewgc("Cud1R",2,2,0,0)+0.030534*ewgc("Cud1R",2,2,1,1)
+            +0.241590*ewgc("Cud8R",2,2,0,0)+0.076716*ewgc("Cud8R",2,2,1,1)+-18.341500*ewgc("CuGR",2,2)
+            +0.081258*ewgc("CuuR",0,0,2,2)+1.238740*ewgc("CuuR",0,2,2,0)+0.036636*ewgc("CuuR",1,1,2,2)
+            +0.108228*ewgc("CuuR",1,2,2,1)
+                    )*(SM_sigma_tt_bin_300_380/sigma_tt_bin_300_380_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+            
+        }
+        
+    } else if(b_min == 380 && b_max == 470){
+        
+        double SM_sigma_tt_bin_380_470 = SM.getOptionalParameter("SM_sigma_tt_bin_mtt_380_470_CMS_181106625");
+        double sigma_tt_bin_380_470_madgraph = 173.423000;//pb
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            double total = SM_sigma_tt_bin_380_470 + (+-8.359080*ewgc("CG")+-0.042078*ewgc("Cqd1R",2,2,0,0)+0.004590*ewgc("Cqd1R",2,2,1,1)
+            +0.649842*ewgc("Cqd8R",2,2,0,0)+0.144468*ewgc("Cqd8R",2,2,1,1)+0.260772*ewgc("Cqq1R",0,0,2,2)+4.262270*ewgc("Cqq1R",0,2,2,0)
+            +-0.029244*ewgc("Cqq1R",1,1,2,2)+0.230286*ewgc("Cqq1R",1,2,2,1)+0.780282*ewgc("Cqq3R",0,0,2,2)+9.255620*ewgc("Cqq3R",0,2,2,0)
+            +0.084678*ewgc("Cqq3R",1,1,2,2)+1.257790*ewgc("Cqq3R",1,2,2,1)+0.071382*ewgc("Cqu1R",0,0,2,2)+0.007008*ewgc("Cqu1R",1,1,2,2)
+            +0.097896*ewgc("Cqu1R",2,2,0,0)+0.018918*ewgc("Cqu1R",2,2,1,1)+1.653840*ewgc("Cqu8R",0,0,2,2)+0.194502*ewgc("Cqu8R",1,1,2,2)
+            +1.000630*ewgc("Cqu8R",2,2,0,0)+0.057138*ewgc("Cqu8R",2,2,1,1)+-0.038910*ewgc("Cud1R",2,2,0,0)+0.004434*ewgc("Cud1R",2,2,1,1)
+            +0.648138*ewgc("Cud8R",2,2,0,0)+0.144918*ewgc("Cud8R",2,2,1,1)+-51.556900*ewgc("CuGR",2,2)+0.308838*ewgc("CuuR",0,0,2,2)
+            +4.176160*ewgc("CuuR",0,2,2,0)+0.030888*ewgc("CuuR",1,1,2,2)+0.226812*ewgc("CuuR",1,2,2,1)
+                    )*(SM_sigma_tt_bin_380_470/sigma_tt_bin_380_470_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 470 && b_max == 620){
+        
+        double SM_sigma_tt_bin_470_620 = SM.getOptionalParameter("SM_sigma_tt_bin_mtt_470_620_CMS_181106625");
+        double sigma_tt_bin_470_620_madgraph = 152.893000;//pb
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            double total = SM_sigma_tt_bin_470_620 + (+-12.015500*ewgc("CG")+-0.014436*ewgc("Cqd1R",2,2,0,0)+-0.010944*ewgc("Cqd1R",2,2,1,1)
+            +0.738569*ewgc("Cqd8R",2,2,0,0)+0.127001*ewgc("Cqd8R",2,2,1,1)+0.294306*ewgc("Cqq1R",0,0,2,2)+4.783330*ewgc("Cqq1R",0,2,2,0)
+            +-0.041070*ewgc("Cqq1R",1,1,2,2)+0.199307*ewgc("Cqq1R",1,2,2,1)+1.030540*ewgc("Cqq3R",0,0,2,2)+10.384200*ewgc("Cqq3R",0,2,2,0)
+            +0.084312*ewgc("Cqq3R",1,1,2,2)+1.174270*ewgc("Cqq3R",1,2,2,1)+0.134514*ewgc("Cqu1R",0,0,2,2)+-0.007254*ewgc("Cqu1R",1,1,2,2)
+            +0.095286*ewgc("Cqu1R",2,2,0,0)+0.000101*ewgc("Cqu1R",2,2,1,1)+1.890170*ewgc("Cqu8R",0,0,2,2)+0.177748*ewgc("Cqu8R",1,1,2,2)
+            +1.147850*ewgc("Cqu8R",2,2,0,0)+0.048700*ewgc("Cqu8R",2,2,1,1)+-0.042132*ewgc("Cud1R",2,2,0,0)+-0.013392*ewgc("Cud1R",2,2,1,1)
+            +0.739715*ewgc("Cud8R",2,2,0,0)+0.126949*ewgc("Cud8R",2,2,1,1)+-42.458000*ewgc("CuGR",2,2)+0.326724*ewgc("CuuR",0,0,2,2)
+            +4.680410*ewgc("CuuR",0,2,2,0)+0.007338*ewgc("CuuR",1,1,2,2)+0.194285*ewgc("CuuR",1,2,2,1)
+                    )*(SM_sigma_tt_bin_470_620/sigma_tt_bin_470_620_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 620 && b_max == 820){
+        
+        double SM_sigma_tt_bin_620_820 = SM.getOptionalParameter("SM_sigma_tt_bin_mtt_620_820_CMS_181106625");
+        double sigma_tt_bin_620_820_madgraph = 66.954300;//pb
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            double total = SM_sigma_tt_bin_620_820 + (+-6.708550*ewgc("CG")+-0.017060*ewgc("Cqd1R",2,2,0,0)+0.003028*ewgc("Cqd1R",2,2,1,1)
+            +0.511089*ewgc("Cqd8R",2,2,0,0)+0.076736*ewgc("Cqd8R",2,2,1,1)+0.224652*ewgc("Cqq1R",0,0,2,2)+3.446780*ewgc("Cqq1R",0,2,2,0)
+            +-0.023712*ewgc("Cqq1R",1,1,2,2)+0.115517*ewgc("Cqq1R",1,2,2,1)+0.804056*ewgc("Cqq3R",0,0,2,2)+7.363740*ewgc("Cqq3R",0,2,2,0)
+            +0.059872*ewgc("Cqq3R",1,1,2,2)+0.658982*ewgc("Cqq3R",1,2,2,1)+0.068678*ewgc("Cqu1R",0,0,2,2)+0.006047*ewgc("Cqu1R",1,1,2,2)
+            +0.049867*ewgc("Cqu1R",2,2,0,0)+0.005234*ewgc("Cqu1R",2,2,1,1)+1.331380*ewgc("Cqu8R",0,0,2,2)+0.102676*ewgc("Cqu8R",1,1,2,2)
+            +0.823487*ewgc("Cqu8R",2,2,0,0)+0.029953*ewgc("Cqu8R",2,2,1,1)+-0.042581*ewgc("Cud1R",2,2,0,0)+-0.001945*ewgc("Cud1R",2,2,1,1)
+            +0.511913*ewgc("Cud8R",2,2,0,0)+0.077032*ewgc("Cud8R",2,2,1,1)+-18.574200*ewgc("CuGR",2,2)+0.262504*ewgc("CuuR",0,0,2,2)
+            +3.359280*ewgc("CuuR",0,2,2,0)+0.010662*ewgc("CuuR",1,1,2,2)+0.112864*ewgc("CuuR",1,2,2,1)
+                    )*(SM_sigma_tt_bin_620_820/sigma_tt_bin_620_820_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 820 && b_max == 1100){
+        
+        double SM_sigma_tt_bin_820_1100 = SM.getOptionalParameter("SM_sigma_tt_bin_mtt_820_1100_CMS_181106625");
+        double sigma_tt_bin_820_1100_madgraph = 24.163600;//pb
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            double total = SM_sigma_tt_bin_820_1100 + (-2.802570*ewgc("CG")+-0.006901*ewgc("Cqd1R",2,2,0,0)+0.000237*ewgc("Cqd1R",2,2,1,1)
+            +0.333880*ewgc("Cqd8R",2,2,0,0)+0.037791*ewgc("Cqd8R",2,2,1,1)+0.161210*ewgc("Cqq1R",0,0,2,2)+2.286240*ewgc("Cqq1R",0,2,2,0)
+            +-0.012073*ewgc("Cqq1R",1,1,2,2)+0.059007*ewgc("Cqq1R",1,2,2,1)+0.566288*ewgc("Cqq3R",0,0,2,2)+4.802780*ewgc("Cqq3R",0,2,2,0)
+            +0.033808*ewgc("Cqq3R",1,1,2,2)+0.333648*ewgc("Cqq3R",1,2,2,1)+0.042755*ewgc("Cqu1R",0,0,2,2)+0.002326*ewgc("Cqu1R",1,1,2,2)
+            +0.035514*ewgc("Cqu1R",2,2,0,0)+0.001443*ewgc("Cqu1R",2,2,1,1)+0.875141*ewgc("Cqu8R",0,0,2,2)+0.051098*ewgc("Cqu8R",1,1,2,2)
+            +0.542868*ewgc("Cqu8R",2,2,0,0)+0.013234*ewgc("Cqu8R",2,2,1,1)+-0.023700*ewgc("Cud1R",2,2,0,0)+-0.001051*ewgc("Cud1R",2,2,1,1)
+            +0.332700*ewgc("Cud8R",2,2,0,0)+0.037501*ewgc("Cud8R",2,2,1,1)-6.912790*ewgc("CuGR",2,2)+0.178817*ewgc("CuuR",0,0,2,2)
+            +2.227770*ewgc("CuuR",0,2,2,0)+0.006347*ewgc("CuuR",1,1,2,2)+0.057377*ewgc("CuuR",1,2,2,1)
+                    )*(SM_sigma_tt_bin_820_1100/sigma_tt_bin_820_1100_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 1100 && b_max == 1500){
+        
+        double SM_sigma_tt_bin_1100_1500 = SM.getOptionalParameter("SM_sigma_tt_bin_mtt_1100_1500_CMS_181106625");
+        double sigma_tt_bin_1100_1500_madgraph = 6.983800;//pb
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            double total = SM_sigma_tt_bin_1100_1500 + (+-0.863200*ewgc("CG")+-0.004510*ewgc("Cqd1R",2,2,0,0)+0.000022*ewgc("Cqd1R",2,2,1,1)
+            +0.191513*ewgc("Cqd8R",2,2,0,0)+0.016414*ewgc("Cqd8R",2,2,1,1)+0.103366*ewgc("Cqq1R",0,0,2,2)+1.351660*ewgc("Cqq1R",0,2,2,0)
+            +-0.005690*ewgc("Cqq1R",1,1,2,2)+0.026285*ewgc("Cqq1R",1,2,2,1)+0.355618*ewgc("Cqq3R",0,0,2,2)+2.795780*ewgc("Cqq3R",0,2,2,0)
+            +0.014960*ewgc("Cqq3R",1,1,2,2)+0.147160*ewgc("Cqq3R",1,2,2,1)+0.024812*ewgc("Cqu1R",0,0,2,2)+0.001067*ewgc("Cqu1R",1,1,2,2)
+            +0.017626*ewgc("Cqu1R",2,2,0,0)+0.000632*ewgc("Cqu1R",2,2,1,1)+0.509667*ewgc("Cqu8R",0,0,2,2)+0.022537*ewgc("Cqu8R",1,1,2,2)
+            +0.318022*ewgc("Cqu8R",2,2,0,0)+0.006561*ewgc("Cqu8R",2,2,1,1)+-0.016528*ewgc("Cud1R",2,2,0,0)+-0.001045*ewgc("Cud1R",2,2,1,1)
+            +0.191209*ewgc("Cud8R",2,2,0,0)+0.016353*ewgc("Cud8R",2,2,1,1)+-2.105990*ewgc("CuGR",2,2)+0.112485*ewgc("CuuR",0,0,2,2)
+            +1.312690*ewgc("CuuR",0,2,2,0)+0.002397*ewgc("CuuR",1,1,2,2)+0.025537*ewgc("CuuR",1,2,2,1)
+                    )*(SM_sigma_tt_bin_1100_1500/sigma_tt_bin_1100_1500_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 1500 && b_max == 2500){
+        
+        double SM_sigma_tt_bin_1500_2500 = SM.getOptionalParameter("SM_sigma_tt_bin_mtt_1500_2500_CMS_181106625");
+        double sigma_tt_bin_1500_2500_madgraph = 1.821290;//pb
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            double total = SM_sigma_tt_bin_1500_2500 + (+-0.231926*ewgc("CG")+-0.003089*ewgc("Cqd1R",2,2,0,0)+-0.000047*ewgc("Cqd1R",2,2,1,1)
+            +0.130652*ewgc("Cqd8R",2,2,0,0)+0.007679*ewgc("Cqd8R",2,2,1,1)+0.078637*ewgc("Cqq1R",0,0,2,2)+0.983935*ewgc("Cqq1R",0,2,2,0)
+            +-0.002654*ewgc("Cqq1R",1,1,2,2)+0.014376*ewgc("Cqq1R",1,2,2,1)+0.252179*ewgc("Cqq3R",0,0,2,2)+1.968040*ewgc("Cqq3R",0,2,2,0)
+            +0.007838*ewgc("Cqq3R",1,1,2,2)+0.071898*ewgc("Cqq3R",1,2,2,1)+0.017883*ewgc("Cqu1R",0,0,2,2)+0.000657*ewgc("Cqu1R",1,1,2,2)
+            +0.011678*ewgc("Cqu1R",2,2,0,0)+0.000359*ewgc("Cqu1R",2,2,1,1)+0.363022*ewgc("Cqu8R",0,0,2,2)+0.011088*ewgc("Cqu8R",1,1,2,2)
+            +0.232613*ewgc("Cqu8R",2,2,0,0)+0.003450*ewgc("Cqu8R",2,2,1,1)+-0.011469*ewgc("Cud1R",2,2,0,0)+-0.000549*ewgc("Cud1R",2,2,1,1)
+            +0.130711*ewgc("Cud8R",2,2,0,0)+0.007725*ewgc("Cud8R",2,2,1,1)+-0.607749*ewgc("CuGR",2,2)+0.081595*ewgc("CuuR",0,0,2,2)
+            +0.955959*ewgc("CuuR",0,2,2,0)+0.001335*ewgc("CuuR",1,1,2,2)+0.014025*ewgc("CuuR",1,2,2,1)
+                    )*(SM_sigma_tt_bin_1500_2500/sigma_tt_bin_1500_2500_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } 
+    
+}
+
+
+
+
+
+
 //binning of CMS 2108.02803
 sigma_tt_diff_mtt_CMS_LO::sigma_tt_diff_mtt_CMS_LO(const StandardModel& SM_i)
 : ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
@@ -3185,6 +3418,321 @@ double sigma_ttz_diff_LO_ATLAS_210312603::computeThValue()
 
 
 
+sigma_ttz_diff_LO_ATLAS_231204450::sigma_ttz_diff_LO_ATLAS_231204450(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_ttz_bin_0_60_ATLAS_231204450" << "SM_sigma_ttz_bin_60_100_ATLAS_231204450"
+            << "SM_sigma_ttz_bin_100_140_ATLAS_231204450" << "SM_sigma_ttz_bin_140_180_ATLAS_231204450" << "SM_sigma_ttz_bin_180_230_ATLAS_231204450"
+            << "SM_sigma_ttz_bin_230_280_ATLAS_231204450" << "SM_sigma_ttz_bin_280_350_ATLAS_231204450" << "SM_sigma_ttz_bin_350_1000_ATLAS_231204450");
+
+    
+}
+
+
+double sigma_ttz_diff_LO_ATLAS_231204450::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+   
+    if(b_min == 0 && b_max == 60){
+        
+        double SM_sigma_ttz_bin_0_60 = SM.getOptionalParameter("SM_sigma_ttz_bin_0_60_ATLAS_231204450");
+        double sigma_ttz_bin_0_60_madgraph = 0.127174; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            double total = SM_sigma_ttz_bin_0_60 + (+-0.021934*ewgc("CG")+-0.011795*ewgc("CHq1R",2,2)
+            +0.011666*ewgc("CHq3R",2,2)+0.006189*ewgc("CHuR",2,2)+0.002304*ewgc("Cqd8R",2,2,0,0)
+            +0.000241*ewgc("Cqd8R",2,2,1,1)+0.017168*ewgc("Cqq1R",0,2,2,0)+0.000433*ewgc("Cqq1R",1,2,2,1)
+            +0.087805*ewgc("Cqq3R",0,2,2,0)+0.009151*ewgc("Cqq3R",1,2,2,1)+0.011486*ewgc("Cqu8R",0,0,2,2)
+            +0.001023*ewgc("Cqu8R",1,1,2,2)+0.002106*ewgc("Cqu8R",2,2,0,0)+-0.000002*ewgc("Cqu8R",2,2,1,1)
+            +-0.000289*ewgc("CuBR",2,2)+0.001302*ewgc("Cud8R",2,2,0,0)+0.000116*ewgc("Cud8R",2,2,1,1)
+            +-0.037524*ewgc("CuGR",2,2)+0.004779*ewgc("CuuR",0,2,2,0)+0.000086*ewgc("CuuR",1,2,2,1)
+            +-0.000247*ewgc("CuWR",2,2)
+            +0.000577*ewgc("CHD")+-0.007807*ewgc("CHl3R",0,0)+-0.007807*ewgc("CHl3R",1,1)+0.004690*ewgc("CHWB")
+            +0.007677*ewgc("CllR",0,1,1,0)+-0.000092*ewgc("Cqd1R",2,2,0,0)+-0.000094*ewgc("Cqd1R",2,2,1,1)
+            +-0.001974*ewgc("Cqq1R",0,0,2,2)+-0.000549*ewgc("Cqq1R",1,1,2,2)+0.008083*ewgc("Cqq3R",0,0,2,2)
+            +0.000640*ewgc("Cqq3R",1,1,2,2)+-0.000030*ewgc("Cqu1R",0,0,2,2)+-0.000129*ewgc("Cqu1R",1,1,2,2)
+            +0.000094*ewgc("Cqu1R",2,2,0,0)+-0.000192*ewgc("Cud1R",2,2,0,0)+-0.000078*ewgc("Cud1R",2,2,1,1)
+            +0.000339*ewgc("CuuR",0,0,2,2))
+                    *(SM_sigma_ttz_bin_0_60/sigma_ttz_bin_0_60_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+        }
+        
+    } else if(b_min == 60 && b_max == 100){
+        
+        double SM_sigma_ttz_bin_60_100 = SM.getOptionalParameter("SM_sigma_ttz_bin_60_100_ATLAS_231204450");
+        double sigma_ttz_bin_60_100_madgraph = 0.131287; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            double total = SM_sigma_ttz_bin_60_100 + (+-0.027680*ewgc("CG")+-0.013016*ewgc("CHq1R",2,2)
+            +0.013157*ewgc("CHq3R",2,2)+0.007747*ewgc("CHuR",2,2)+0.002620*ewgc("Cqd8R",2,2,0,0)
+            +0.000380*ewgc("Cqd8R",2,2,1,1)+0.018507*ewgc("Cqq1R",0,2,2,0)+0.000573*ewgc("Cqq1R",1,2,2,1)
+            +0.084073*ewgc("Cqq3R",0,2,2,0)+0.008402*ewgc("Cqq3R",1,2,2,1)+0.010907*ewgc("Cqu8R",0,0,2,2)
+            +0.001021*ewgc("Cqu8R",1,1,2,2)+0.002662*ewgc("Cqu8R",2,2,0,0)+0.000145*ewgc("Cqu8R",2,2,1,1)
+            +-0.000059*ewgc("CuBR",2,2)+0.001529*ewgc("Cud8R",2,2,0,0)+0.000263*ewgc("Cud8R",2,2,1,1)
+            +-0.040409*ewgc("CuGR",2,2)+0.006251*ewgc("CuuR",0,2,2,0)+0.000249*ewgc("CuuR",1,2,2,1)
+            +-0.000289*ewgc("CuWR",2,2)
+            +0.000262*ewgc("CHD")+-0.007922*ewgc("CHl3R",0,0)+-0.007922*ewgc("CHl3R",1,1)
+            +0.000082*ewgc("CHW")+0.004519*ewgc("CHWB")+0.008054*ewgc("CllR",0,1,1,0)
+            +-0.000051*ewgc("Cqd1R",2,2,0,0)+0.000055*ewgc("Cqd1R",2,2,1,1)+-0.001905*ewgc("Cqq1R",0,0,2,2)
+            +-0.000372*ewgc("Cqq1R",1,1,2,2)+0.007480*ewgc("Cqq3R",0,0,2,2)+0.000691*ewgc("Cqq3R",1,1,2,2)
+            +-0.000060*ewgc("Cqu1R",0,0,2,2)+0.000030*ewgc("Cqu1R",1,1,2,2)+0.000193*ewgc("Cqu1R",2,2,0,0)
+            +0.000077*ewgc("Cqu1R",2,2,1,1)+-0.000077*ewgc("Cud1R",2,2,0,0)+0.000063*ewgc("Cud1R",2,2,1,1)
+            +0.000561*ewgc("CuuR",0,0,2,2)+0.000089*ewgc("CuuR",1,1,2,2))
+                    *(SM_sigma_ttz_bin_60_100/sigma_ttz_bin_60_100_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 100 && b_max == 140){
+        
+        double SM_sigma_ttz_bin_100_140 = SM.getOptionalParameter("SM_sigma_ttz_bin_100_140_ATLAS_231204450");
+        double sigma_ttz_bin_100_140_madgraph = 0.106891; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            double total = SM_sigma_ttz_bin_100_140 + (+-0.027409*ewgc("CG")+-0.011223*ewgc("CHq1R",2,2)
+            +0.011239*ewgc("CHq3R",2,2)+0.007180*ewgc("CHuR",2,2)+0.002215*ewgc("Cqd8R",2,2,0,0)
+            +0.000267*ewgc("Cqd8R",2,2,1,1)+0.015523*ewgc("Cqq1R",0,2,2,0)+0.000417*ewgc("Cqq1R",1,2,2,1)
+            +0.064904*ewgc("Cqq3R",0,2,2,0)+0.005949*ewgc("Cqq3R",1,2,2,1)+0.008353*ewgc("Cqu8R",0,0,2,2)
+            +0.000678*ewgc("Cqu8R",1,1,2,2)+0.002497*ewgc("Cqu8R",2,2,0,0)+0.000075*ewgc("Cqu8R",2,2,1,1)
+            +0.000008*ewgc("CuBR",2,2)+0.001307*ewgc("Cud8R",2,2,0,0)+0.000171*ewgc("Cud8R",2,2,1,1)
+            -0.034466*ewgc("CuGR",2,2)+0.006148*ewgc("CuuR",0,2,2,0)+0.000180*ewgc("CuuR",1,2,2,1)
+            +-0.000467*ewgc("CuWR",2,2)
+            +-0.000192*ewgc("CHD")+-0.006497*ewgc("CHl3R",0,0)+-0.006497*ewgc("CHl3R",1,1)
+            +0.000025*ewgc("CHW")+0.003234*ewgc("CHWB")+0.006517*ewgc("CllR",0,1,1,0)
+            +-0.000091*ewgc("Cqd1R",2,2,0,0)+0.000008*ewgc("Cqd1R",2,2,1,1)+-0.001327*ewgc("Cqq1R",0,0,2,2)
+            +-0.000321*ewgc("Cqq1R",1,1,2,2)+0.006050*ewgc("Cqq3R",0,0,2,2)+0.000473*ewgc("Cqq3R",1,1,2,2)
+            +0.000067*ewgc("Cqu1R",0,0,2,2)+-0.000014*ewgc("Cqu1R",1,1,2,2)+0.000157*ewgc("Cqu1R",2,2,0,0)
+            +0.000014*ewgc("Cqu1R",2,2,1,1)+-0.000087*ewgc("Cud1R",2,2,0,0)+0.000004*ewgc("Cud1R",2,2,1,1)
+            +0.000476*ewgc("CuuR",0,0,2,2)+0.000028*ewgc("CuuR",1,1,2,2))
+                    *(SM_sigma_ttz_bin_100_140/sigma_ttz_bin_100_140_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 140 && b_max == 180){
+        
+        double SM_sigma_ttz_bin_140_180 = SM.getOptionalParameter("SM_sigma_ttz_bin_140_180_ATLAS_231204450");
+        double sigma_ttz_bin_140_180_madgraph = 0.076251; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            double total = SM_sigma_ttz_bin_140_180 + (+-0.023096*ewgc("CG")+-0.008249*ewgc("CHq1R",2,2)
+            +0.008298*ewgc("CHq3R",2,2)+0.005563*ewgc("CHuR",2,2)+0.001755*ewgc("Cqd8R",2,2,0,0)
+            +0.000205*ewgc("Cqd8R",2,2,1,1)+0.011891*ewgc("Cqq1R",0,2,2,0)+0.000314*ewgc("Cqq1R",1,2,2,1)
+            +0.046442*ewgc("Cqq3R",0,2,2,0)+0.003888*ewgc("Cqq3R",1,2,2,1)+0.005906*ewgc("Cqu8R",0,0,2,2)
+            +0.000446*ewgc("Cqu8R",1,1,2,2)+0.002075*ewgc("Cqu8R",2,2,0,0)+0.000079*ewgc("Cqu8R",2,2,1,1)
+            +0.000070*ewgc("CuBR",2,2)+0.001065*ewgc("Cud8R",2,2,0,0)+0.000137*ewgc("Cud8R",2,2,1,1)
+            +-0.025432*ewgc("CuGR",2,2)+0.005331*ewgc("CuuR",0,2,2,0)+0.000174*ewgc("CuuR",1,2,2,1)
+            +-0.000417*ewgc("CuWR",2,2)
+            +-0.000310*ewgc("CHD")+-0.004620*ewgc("CHl3R",0,0)+-0.004620*ewgc("CHl3R",1,1)+0.000023*ewgc("CHW")
+            +0.002128*ewgc("CHWB")+0.004681*ewgc("CllR",0,1,1,0)+-0.000035*ewgc("Cqd1R",2,2,0,0)
+            +0.000012*ewgc("Cqd1R",2,2,1,1)+-0.000730*ewgc("Cqq1R",0,0,2,2)+-0.000201*ewgc("Cqq1R",1,1,2,2)
+            +0.004458*ewgc("Cqq3R",0,0,2,2)+0.000321*ewgc("Cqq3R",1,1,2,2)+0.000069*ewgc("Cqu1R",0,0,2,2)
+            +0.000006*ewgc("Cqu1R",1,1,2,2)+0.000130*ewgc("Cqu1R",2,2,0,0)+0.000029*ewgc("Cqu1R",2,2,1,1)
+            +-0.000038*ewgc("Cud1R",2,2,0,0)+0.000018*ewgc("Cud1R",2,2,1,1)+0.000376*ewgc("CuuR",0,0,2,2)
+            +0.000038*ewgc("CuuR",1,1,2,2))
+                    *(SM_sigma_ttz_bin_140_180/sigma_ttz_bin_140_180_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 180 && b_max == 230){
+        
+        double SM_sigma_ttz_bin_180_230 = SM.getOptionalParameter("SM_sigma_ttz_bin_180_230_ATLAS_231204450");
+        double sigma_ttz_bin_180_230_madgraph = 0.061424; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            double total = SM_sigma_ttz_bin_180_230 + ( +-0.021559*ewgc("CG")+-0.006782*ewgc("CHq1R",2,2)
+            +0.006767*ewgc("CHq3R",2,2)+0.004725*ewgc("CHuR",2,2)+0.001582*ewgc("Cqd8R",2,2,0,0)
+            +0.000159*ewgc("Cqd8R",2,2,1,1)+0.010831*ewgc("Cqq1R",0,2,2,0)+0.000242*ewgc("Cqq1R",1,2,2,1)
+            +0.039427*ewgc("Cqq3R",0,2,2,0)+0.002990*ewgc("Cqq3R",1,2,2,1)+0.005006*ewgc("Cqu8R",0,0,2,2)
+            +0.000329*ewgc("Cqu8R",1,1,2,2)+0.002008*ewgc("Cqu8R",2,2,0,0)+0.000054*ewgc("Cqu8R",2,2,1,1)
+            +0.000065*ewgc("CuBR",2,2)+0.000959*ewgc("Cud8R",2,2,0,0)+0.000107*ewgc("Cud8R",2,2,1,1)
+            +-0.021340*ewgc("CuGR",2,2)+0.005369*ewgc("CuuR",0,2,2,0)+0.000130*ewgc("CuuR",1,2,2,1)
+            +-0.000388*ewgc("CuWR",2,2)
+            +-0.000403*ewgc("CHD")+-0.003740*ewgc("CHl3R",0,0)+-0.003740*ewgc("CHl3R",1,1)+0.000012*ewgc("CHW")
+            +0.001550*ewgc("CHWB")+0.003740*ewgc("CllR",0,1,1,0)+-0.000027*ewgc("Cqd1R",2,2,0,0)
+            +-0.000002*ewgc("Cqd1R",2,2,1,1)+-0.000533*ewgc("Cqq1R",0,0,2,2)+-0.000157*ewgc("Cqq1R",1,1,2,2)
+            +0.003812*ewgc("Cqq3R",0,0,2,2)+0.000251*ewgc("Cqq3R",1,1,2,2)+0.000127*ewgc("Cqu1R",0,0,2,2)
+            +-0.000004*ewgc("Cqu1R",1,1,2,2)+0.000135*ewgc("Cqu1R",2,2,0,0)+0.000011*ewgc("Cqu1R",2,2,1,1)
+            +-0.000067*ewgc("Cud1R",2,2,0,0)+-0.000003*ewgc("Cud1R",2,2,1,1)+0.000420*ewgc("CuuR",0,0,2,2)
+            +0.000013*ewgc("CuuR",1,1,2,2))
+                    *(SM_sigma_ttz_bin_180_230/sigma_ttz_bin_180_230_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 230 && b_max == 280){
+        
+        double SM_sigma_ttz_bin_230_280 = SM.getOptionalParameter("SM_sigma_ttz_bin_230_280_ATLAS_231204450");
+        double sigma_ttz_bin_230_280_madgraph = 0.036489; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            double total = SM_sigma_ttz_bin_230_280 + ( +-0.014603*ewgc("CG")+-0.004048*ewgc("CHq1R",2,2)
+            +0.004054*ewgc("CHq3R",2,2)+0.002909*ewgc("CHuR",2,2)+0.001116*ewgc("Cqd8R",2,2,0,0)
+            +0.000112*ewgc("Cqd8R",2,2,1,1)+0.007664*ewgc("Cqq1R",0,2,2,0)+0.000171*ewgc("Cqq1R",1,2,2,1)
+            +0.026023*ewgc("Cqq3R",0,2,2,0)+0.001787*ewgc("Cqq3R",1,2,2,1)+0.003296*ewgc("Cqu8R",0,0,2,2)
+            +0.000204*ewgc("Cqu8R",1,1,2,2)+0.001490*ewgc("Cqu8R",2,2,0,0)+0.000045*ewgc("Cqu8R",2,2,1,1)
+            +0.000044*ewgc("CuBR",2,2)+0.000700*ewgc("Cud8R",2,2,0,0)+0.000078*ewgc("Cud8R",2,2,1,1)
+            +-0.013239*ewgc("CuGR",2,2)+0.004109*ewgc("CuuR",0,2,2,0)+0.000100*ewgc("CuuR",1,2,2,1)
+            +-0.000270*ewgc("CuWR",2,2)
+            +-0.000293*ewgc("CHD")+-0.002210*ewgc("CHl3R",0,0)+-0.002210*ewgc("CHl3R",1,1)
+            +0.000023*ewgc("CHW")+0.000870*ewgc("CHWB")+0.002232*ewgc("CllR",0,1,1,0)
+            +-0.000029*ewgc("Cqd1R",2,2,0,0)+0.000008*ewgc("Cqd1R",2,2,1,1)+-0.000197*ewgc("Cqq1R",0,0,2,2)
+            +-0.000086*ewgc("Cqq1R",1,1,2,2)+0.002618*ewgc("Cqq3R",0,0,2,2)+0.000159*ewgc("Cqq3R",1,1,2,2)
+            +0.000100*ewgc("Cqu1R",0,0,2,2)+0.000005*ewgc("Cqu1R",1,1,2,2)+0.000102*ewgc("Cqu1R",2,2,0,0)
+            +0.000014*ewgc("Cqu1R",2,2,1,1)+-0.000045*ewgc("Cud1R",2,2,0,0)+0.000005*ewgc("Cud1R",2,2,1,1)
+            +0.000336*ewgc("CuuR",0,0,2,2)+0.000017*ewgc("CuuR",1,1,2,2))
+                    *(SM_sigma_ttz_bin_230_280/sigma_ttz_bin_230_280_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 280 && b_max == 350){
+        
+        double SM_sigma_ttz_bin_280_350 = SM.getOptionalParameter("SM_sigma_ttz_bin_280_350_ATLAS_231204450");
+        double sigma_ttz_bin_280_350_madgraph = 0.027390; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            double total = SM_sigma_ttz_bin_280_350 + (-0.012486*ewgc("CG")+-0.003025*ewgc("CHq1R",2,2)
+            +0.003026*ewgc("CHq3R",2,2)+0.002208*ewgc("CHuR",2,2)+0.001030*ewgc("Cqd8R",2,2,0,0)
+            +0.000085*ewgc("Cqd8R",2,2,1,1)+0.007220*ewgc("Cqq1R",0,2,2,0)+0.000133*ewgc("Cqq1R",1,2,2,1)
+            +0.022915*ewgc("Cqq3R",0,2,2,0)+0.001400*ewgc("Cqq3R",1,2,2,1)+0.002949*ewgc("Cqu8R",0,0,2,2)
+            +0.000152*ewgc("Cqu8R",1,1,2,2)+0.001441*ewgc("Cqu8R",2,2,0,0)+0.000028*ewgc("Cqu8R",2,2,1,1)
+            +0.000023*ewgc("CuBR",2,2)+0.000662*ewgc("Cud8R",2,2,0,0)+0.000056*ewgc("Cud8R",2,2,1,1)
+            +-0.010474*ewgc("CuGR",2,2)+0.004120*ewgc("CuuR",0,2,2,0)+0.000080*ewgc("CuuR",1,2,2,1)
+            +-0.000219*ewgc("CuWR",2,2) 
+            +-0.000243*ewgc("CHD")+-0.001670*ewgc("CHl3R",0,0)+-0.001670*ewgc("CHl3R",1,1)+0.000010*ewgc("CHW")
+            +0.000626*ewgc("CHWB")+0.001667*ewgc("CllR",0,1,1,0)+-0.000035*ewgc("Cqd1R",2,2,0,0)
+            +-0.000006*ewgc("Cqd1R",2,2,1,1)+-0.000058*ewgc("Cqq1R",0,0,2,2)+-0.000080*ewgc("Cqq1R",1,1,2,2)
+            +0.002386*ewgc("Cqq3R",0,0,2,2)+0.000110*ewgc("Cqq3R",1,1,2,2)+0.000104*ewgc("Cqu1R",0,0,2,2)
+            +-0.000005*ewgc("Cqu1R",1,1,2,2)+0.000086*ewgc("Cqu1R",2,2,0,0)+0.000001*ewgc("Cqu1R",2,2,1,1)
+            +-0.000052*ewgc("Cud1R",2,2,0,0)+-0.000007*ewgc("Cud1R",2,2,1,1)+0.000324*ewgc("CuuR",0,0,2,2)
+            +0.000004*ewgc("CuuR",1,1,2,2))
+                    *(SM_sigma_ttz_bin_280_350/sigma_ttz_bin_280_350_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    } else if(b_min == 350 && b_max == 1000){
+        
+        double SM_sigma_ttz_bin_350_1000 = SM.getOptionalParameter("SM_sigma_ttz_bin_350_1000_ATLAS_231204450");
+        double sigma_ttz_bin_350_1000_madgraph = 0.027540; //pb
+        
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+                    
+            double total = SM_sigma_ttz_bin_350_1000 + (-0.016044*ewgc("CG")+-0.002948*ewgc("CHq1R",2,2)
+            +0.002943*ewgc("CHq3R",2,2)+0.002203*ewgc("CHuR",2,2)+0.001890*ewgc("Cqd8R",2,2,0,0)
+            +0.000122*ewgc("Cqd8R",2,2,1,1)+0.013680*ewgc("Cqq1R",0,2,2,0)+0.000221*ewgc("Cqq1R",1,2,2,1)
+            +0.038385*ewgc("Cqq3R",0,2,2,0)+0.001838*ewgc("Cqq3R",1,2,2,1)+0.005142*ewgc("Cqu8R",0,0,2,2)
+            +0.000202*ewgc("Cqu8R",1,1,2,2)+0.002906*ewgc("Cqu8R",2,2,0,0)+0.000047*ewgc("Cqu8R",2,2,1,1)
+            +-0.000016*ewgc("CuBR",2,2)+0.001290*ewgc("Cud8R",2,2,0,0)+0.000086*ewgc("Cud8R",2,2,1,1)
+            +-0.012966*ewgc("CuGR",2,2)+0.008817*ewgc("CuuR",0,2,2,0)+0.000142*ewgc("CuuR",1,2,2,1)
+            +-0.000262*ewgc("CuWR",2,2)
+            +-0.000266*ewgc("CHD")+-0.001691*ewgc("CHl3R",0,0)+-0.001691*ewgc("CHl3R",1,1)+0.000018*ewgc("CHW")
+            +0.000610*ewgc("CHWB")+0.001686*ewgc("CllR",0,1,1,0)+-0.000064*ewgc("Cqd1R",2,2,0,0)
+            +-0.000007*ewgc("Cqd1R",2,2,1,1)+0.000124*ewgc("Cqq1R",0,0,2,2)+-0.000097*ewgc("Cqq1R",1,1,2,2)
+            +0.004104*ewgc("Cqq3R",0,0,2,2)+0.000163*ewgc("Cqq3R",1,1,2,2)+0.000228*ewgc("Cqu1R",0,0,2,2)
+            +-0.000002*ewgc("Cqu1R",1,1,2,2)+0.000200*ewgc("Cqu1R",2,2,0,0)+0.000000*ewgc("Cqu1R",2,2,1,1)
+            +-0.000105*ewgc("Cud1R",2,2,0,0)+-0.000011*ewgc("Cud1R",2,2,1,1)+0.000717*ewgc("CuuR",0,0,2,2)
+            +0.000011*ewgc("CuuR",1,1,2,2))
+                    *(SM_sigma_ttz_bin_350_1000/sigma_ttz_bin_350_1000_madgraph);
+            
+            if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+            
+            return total;
+            
+        }
+        
+    }
+    
+    
+
+}
+
+
+
+
 //// s-channel 8 TeV ////
 
 sigma_tb_8_LO::sigma_tb_8_LO(const StandardModel& SM_i)
@@ -3220,11 +3768,6 @@ double sigma_tb_8_LO::computeThValue()
     }
 
 }
-
-
-
-
-
 
 
 //// s-channel 13 TeV ////

@@ -4193,6 +4193,7 @@ ThObsFactory::ThObsFactory()
    
    obsThFactory["charge_asymmetry_tt_diff_mtt_LO"] = boost::factory<charge_asymmetry_tt_diff_mtt_LO*>();
    
+   obsThFactory["sigma_tt_diff_mtt_LO_CMS_181106625"] = boost::factory<sigma_tt_diff_mtt_LO_CMS_181106625*>();
    obsThFactory["sigma_tt_diff_mtt_CMS_LO"] = boost::factory<sigma_tt_diff_mtt_CMS_LO*>();
    obsThFactory["sigma_norm_tt_diff_mtt_ATLAS_LO"] = boost::factory<sigma_norm_tt_diff_mtt_ATLAS_LO*>();
    obsThFactory["sigma_tt_13_LO"] = boost::factory<sigma_tt_13_LO*>();
@@ -4201,6 +4202,7 @@ ThObsFactory::ThObsFactory()
    
    obsThFactory["sigma_ttz_diff_LO_CMS_190711270"] = boost::factory<sigma_ttz_diff_LO_CMS_190711270*>();
    obsThFactory["sigma_ttz_diff_LO_ATLAS_210312603"] = boost::factory<sigma_ttz_diff_LO_ATLAS_210312603*>();
+   obsThFactory["sigma_ttz_diff_LO_ATLAS_231204450"] = boost::factory<sigma_ttz_diff_LO_ATLAS_231204450*>();
    
    
    obsThFactory["sigma_tta_diff_LO_ATLAS_emu"] = boost::factory<sigma_tta_diff_LO_ATLAS_emu_200706946*>();
