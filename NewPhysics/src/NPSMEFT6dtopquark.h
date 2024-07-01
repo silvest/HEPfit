@@ -954,6 +954,43 @@ private:
 };
 
 
+
+
+// ttH differential cross section for different bins
+
+/**
+    * @class sigma_ttH_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_ttH_diff_NLO_ATLAS_220700092: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_ttH_diff_NLO constructor.
+     */
+    sigma_ttH_diff_NLO_ATLAS_220700092(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+        
+        
+    };
+    
+    
+
+
+
 class ttWqEM : public ThObservable {
 public:   
 
@@ -1012,6 +1049,36 @@ private:
         
     };
 
+
+    
+    /**
+    * @class sigma_ttz_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_ttz_diff_NLO_ATLAS_231204450: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_ttz_diff_NLO constructor.
+     */
+    sigma_ttz_diff_NLO_ATLAS_231204450(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+        
+        
+    };
 
 
 
@@ -1209,10 +1276,10 @@ private:
 
 
 
-class sigma_mumu_VBF_3TeV_ttH : public ThObservable {
+class sigma_mumu_3TeV_ttH : public ThObservable {
 public:   
 
-    sigma_mumu_VBF_3TeV_ttH(const StandardModel& SM_i);
+    sigma_mumu_3TeV_ttH(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -1222,6 +1289,17 @@ private:
 };
 
 
+class sigma_mumu_3TeV_bb : public ThObservable {
+public:   
+
+    sigma_mumu_3TeV_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
 
 
 
@@ -1240,10 +1318,23 @@ private:
 
 
 
-class sigma_mumu_VBF_10TeV_ttH : public ThObservable {
+class sigma_mumu_10TeV_ttH : public ThObservable {
 public:   
 
-    sigma_mumu_VBF_10TeV_ttH(const StandardModel& SM_i);
+    sigma_mumu_10TeV_ttH(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class sigma_mumu_10TeV_bb : public ThObservable {
+public:   
+
+    sigma_mumu_10TeV_bb(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -1267,10 +1358,10 @@ private:
 };
 
 
-class sigma_mumu_VBF_30TeV_ttH : public ThObservable {
+class sigma_mumu_30TeV_ttH : public ThObservable {
 public:   
 
-    sigma_mumu_VBF_30TeV_ttH(const StandardModel& SM_i);
+    sigma_mumu_30TeV_ttH(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -1278,6 +1369,22 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
+
+
+
+class sigma_mumu_30TeV_bb : public ThObservable {
+public:   
+
+    sigma_mumu_30TeV_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
 
 //Prospects of Linear Collider at 250 GeV
 //250 bb observables
@@ -2449,6 +2556,65 @@ private:
 };
 
 
+
+class op_eigen_ttll_1 : public ThObservable {
+public:   
+
+    op_eigen_ttll_1(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class op_eigen_ttll_2 : public ThObservable {
+public:   
+
+    op_eigen_ttll_2(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class op_eigen_ttll_3 : public ThObservable {
+public:   
+
+    op_eigen_ttll_3(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class op_eigen_ttll_4 : public ThObservable {
+public:   
+
+    op_eigen_ttll_4(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+        
 // Relation with other basis
 
 class gLt : public ThObservable {

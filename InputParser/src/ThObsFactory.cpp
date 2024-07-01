@@ -4094,8 +4094,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["SigmattbarLHC8"] = boost::factory<sigmattbarLHC8*>();
     obsThFactory["SigmattbarTev"] = boost::factory<sigmattbarTev*>();        
             
-            
-    
+
     
     obsThFactory["sigma_Z_pole_bb"] = boost::factory<sigma_Z_pole_bb*>();
     obsThFactory["a_Z_pole_bb"] = boost::factory<a_Z_pole_bb*>();
@@ -4105,8 +4104,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["a_360_bb"] = boost::factory<a_360_bb*>();
     
     
-    
-    
+
     obsThFactory["sigma_250_bb_eLpR"] = boost::factory<sigma_250_bb_eLpR*>();
     obsThFactory["a_250_bb_eLpR"] = boost::factory<a_250_bb_eLpR*>();
     obsThFactory["sigma_250_bb_eRpL"] = boost::factory<sigma_250_bb_eRpL*>();
@@ -4128,13 +4126,19 @@ ThObsFactory::ThObsFactory()
     obsThFactory["a_1000_bb_eRpL"] = boost::factory<a_1000_bb_eRpL*>();   
   
     
-    //SM ttZ bins
+    //ttZ bins
     
     obsThFactory["sigma_ttz_diff_NLO_ATLAS_210312603"] = boost::factory<sigma_ttz_diff_NLO_ATLAS_210312603*>();    
+    obsThFactory["sigma_ttz_diff_NLO_ATLAS_231204450"] = boost::factory<sigma_ttz_diff_NLO_ATLAS_231204450*>();    
+    
     
     //ttA bins
     
     obsThFactory["sigma_tta_diff_NLO_ATLAS_emu"] = boost::factory<sigma_tta_diff_NLO_ATLAS_emu_200706946*>();    
+
+    //ttH bins
+    
+    obsThFactory["sigma_ttH_diff_NLO_ATLAS_220700092"] = boost::factory<sigma_ttH_diff_NLO_ATLAS_220700092*>();    
 
     //ttbar bins
     
@@ -4178,6 +4182,14 @@ ThObsFactory::ThObsFactory()
     obsThFactory["op_1000_7"] = boost::factory<op_1000_7*>();
     obsThFactory["op_1000_8"] = boost::factory<op_1000_8*>();
 
+    //Some auxiliary observables defining combinations of WC
+    
+    obsThFactory["op_eigen_ttll_1"] = boost::factory<op_eigen_ttll_1*>();
+    obsThFactory["op_eigen_ttll_2"] = boost::factory<op_eigen_ttll_2*>();
+    obsThFactory["op_eigen_ttll_3"] = boost::factory<op_eigen_ttll_3*>();
+    obsThFactory["op_eigen_ttll_4"] = boost::factory<op_eigen_ttll_4*>();
+    
+    
    obsThFactory["gLt"] = boost::factory<gLt*>();
    obsThFactory["gLb"] = boost::factory<gLb*>();
    obsThFactory["gRt"] = boost::factory<gRt*>();
