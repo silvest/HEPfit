@@ -5416,14 +5416,14 @@ double sigma_mumu_30TeV_ttH::computeThValue()
 sigma_mumu_30TeV_bb::sigma_mumu_30TeV_bb(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_10TeV_bb");
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_mumu_30TeV_bb");
 }
 
 double sigma_mumu_30TeV_bb::computeThValue()
 {
 
     //WRITTEN IN FEMTO BARNS!!!
-    double sigma_mumu_30TeV_bb_SM = SM.getOptionalParameter("SM_sigma_mumu_30TeV_bbz");
+    double sigma_mumu_30TeV_bb_SM = SM.getOptionalParameter("SM_sigma_mumu_30TeV_bb");
     double sigma_mumu_VBF_30TeV_bb_madgraph = 6.613620;//fb
     double sigma_mumu_sch_30TeV_bb_madgraph = 0.101433;//fb
     double sigma_mumu_30TeV_bb_madgraph = sigma_mumu_VBF_30TeV_bb_madgraph + sigma_mumu_sch_30TeV_bb_madgraph;//fb
