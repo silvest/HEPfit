@@ -4229,8 +4229,42 @@ ThObsFactory::ThObsFactory()
     obsThFactory["sigma_mumu_30TeV_bb"] = boost::factory<sigma_mumu_30TeV_bb*>();
     
     
+    //Optimal Observables
     
-    //OPTIMIZED OBSERVABLES
+    obsThFactory["opt_obs_ilc_500_M30_P80"] = boost::factory<opt_obs_ilc_500_M30_P80*>();
+    obsThFactory["opt_obs_ilc_500_P30_M80"] = boost::factory<opt_obs_ilc_500_P30_M80*>();
+    obsThFactory["opt_obs_ilc_1000_M30_P80"] = boost::factory<opt_obs_ilc_1000_M30_P80*>();
+    obsThFactory["opt_obs_ilc_1000_P30_M80"] = boost::factory<opt_obs_ilc_1000_P30_M80*>();
+    
+    
+    obsThFactory["opt_obs_clic_380_0_M80"] = boost::factory<opt_obs_clic_380_0_M80*>();
+    obsThFactory["opt_obs_clic_380_0_P80"] = boost::factory<opt_obs_clic_380_0_P80*>();
+    obsThFactory["opt_obs_clic_1500_0_M80"] = boost::factory<opt_obs_clic_1500_0_M80*>();
+    obsThFactory["opt_obs_clic_1500_0_P80"] = boost::factory<opt_obs_clic_1500_0_P80*>();
+    obsThFactory["opt_obs_clic_3000_0_M80"] = boost::factory<opt_obs_clic_3000_0_M80*>();
+    obsThFactory["opt_obs_clic_3000_0_P80"] = boost::factory<opt_obs_clic_3000_0_P80*>();
+    
+    
+    obsThFactory["opt_obs_fcc_350"] = boost::factory<opt_obs_fcc_350*>();
+    obsThFactory["opt_obs_fcc_365"] = boost::factory<opt_obs_fcc_365*>();
+    
+    
+    obsThFactory["opt_obs_cepc_350"] = boost::factory<opt_obs_cepc_350*>();
+    obsThFactory["opt_obs_cepc_360"] = boost::factory<opt_obs_cepc_360*>();
+    
+    
+    obsThFactory["opt_obs_muon_3TeV"] = boost::factory<opt_obs_muon_3TeV*>();
+    obsThFactory["opt_obs_muon_10TeV"] = boost::factory<opt_obs_muon_10TeV*>();
+    obsThFactory["opt_obs_muon_30TeV"] = boost::factory<opt_obs_muon_30TeV*>();
+    
+    
+    
+    
+    //obsThFactory["opt_obs_ilc_500_1000"] = boost::factory<opt_obs_ilc_500_1000*>();
+    //obsThFactory["test_cov"] = boost::factory<test_cov*>();
+    
+    
+    //OPTIMIZED OBSERVABLES OLD!!!!!
     //I don't really like this implementation, these constraints should be included in the prior,
     //as we do now (from 2022). Remove this also in the code and check everything is fine
     obsThFactory["op1"] = boost::factory<op1*>();

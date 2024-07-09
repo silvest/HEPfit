@@ -2146,6 +2146,643 @@ private:
 
 
 
+    /**
+    * @class opt_obs_ilc_500_M30_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * -30% and 80% at 500GeV and assuming
+     * a luminosity of 4iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_ilc_500_M30_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_500_M30_P80 constructor.
+     */
+    opt_obs_ilc_500_M30_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_500_M30_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_500_P30_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * 30% and -80% at 500GeV and assuming
+     * a luminosity of 4iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_ilc_500_P30_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_500_P30_M80 constructor.
+     */
+    opt_obs_ilc_500_P30_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_500_P30_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_1000_M30_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * -30% and 80% at 500GeV and assuming
+     * a luminosity of 8iab and an 
+     * efficiency*acceptance of 6%
+    */
+    class opt_obs_ilc_1000_M30_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_1000_M30_P80 constructor.
+     */
+    opt_obs_ilc_1000_M30_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_1000_M30_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_1000_P30_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * 30% and -80% at 1000GeV and assuming
+     * a luminosity of 8iab and an 
+     * efficiency*acceptance of 6%
+    */
+    class opt_obs_ilc_1000_P30_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_1000_P30_M80 constructor.
+     */
+    opt_obs_ilc_1000_P30_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_1000_P30_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_clic_380_0_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and -80% at 380GeV and assuming
+     * a luminosity of 1iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_clic_380_0_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_380_0_M80 constructor.
+     */
+    opt_obs_clic_380_0_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_380_0_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /**
+    * @class opt_obs_clic_380_0_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and +80% at 380GeV and assuming
+     * a luminosity of 1iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_clic_380_0_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_380_0_P80 constructor.
+     */
+    opt_obs_clic_380_0_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_380_0_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_clic_1500_0_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and -80% at 1500GeV and assuming
+     * a luminosity of 2.5iab and an 
+     * efficiency*acceptance of 6%
+    */
+    class opt_obs_clic_1500_0_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_1500_0_M80 constructor.
+     */
+    opt_obs_clic_1500_0_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_1500_0_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /**
+    * @class opt_obs_clic_1500_0_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and +80% at 1500GeV and assuming
+     * a luminosity of 2.5iab and an 
+     * efficiency*acceptance of 6%
+    */
+    class opt_obs_clic_1500_0_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_1500_0_P80 constructor.
+     */
+    opt_obs_clic_1500_0_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_1500_0_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_clic_3000_0_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and -80% at 3000GeV and assuming
+     * a luminosity of 5iab and an 
+     * efficiency*acceptance of 5%
+    */
+    class opt_obs_clic_3000_0_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_3000_0_M80 constructor.
+     */
+    opt_obs_clic_3000_0_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_3000_0_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /**
+    * @class opt_obs_clic_3000_0_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and +80% at 3000GeV and assuming
+     * a luminosity of 5iab and an 
+     * efficiency*acceptance of 5%
+    */
+    class opt_obs_clic_3000_0_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_3000_0_P80 constructor.
+     */
+    opt_obs_clic_3000_0_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_3000_0_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_fcc_350
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for FCCee
+     * at 350GeV and assuming
+     * a luminosity of 0.2iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_fcc_350: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_fcc_350 constructor.
+     */
+    opt_obs_fcc_350(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_fcc_350
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+
+
+    
+    /**
+    * @class opt_obs_fcc_365
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for FCCee
+     * at 350GeV and assuming
+     * a luminosity of 1.5iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_fcc_365: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_fcc_365 constructor.
+     */
+    opt_obs_fcc_365(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_fcc_365
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_cepc_350
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CEPC
+     * at 350GeV and assuming
+     * a luminosity of 0.2iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_cepc_350: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_cepc_350 constructor.
+     */
+    opt_obs_cepc_350(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_cepc_350
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_cepc_360
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CEPC
+     * at 360GeV and assuming
+     * a luminosity of 1iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_cepc_360: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_cepc_360 constructor.
+     */
+    opt_obs_cepc_360(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_cepc_360
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+        
+    /**
+    * @class opt_obs_muon_3TeV
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for a
+     * Muon Collider at 3TeV and assuming
+     * a luminosity of 1iab and an 
+     * efficiency*acceptance of 5%
+    */
+    class opt_obs_muon_3TeV: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_muon_3TeV constructor.
+     */
+    opt_obs_muon_3TeV(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_muon_3TeV
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_muon_10TeV
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for a
+     * Muon Collider at 10TeV and assuming
+     * a luminosity of 10iab and an 
+     * efficiency*acceptance of 2.5%
+    */
+    class opt_obs_muon_10TeV: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_muon_10TeV constructor.
+     */
+    opt_obs_muon_10TeV(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_muon_10TeV
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_muon_30TeV
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for a
+     * Muon Collider at 30TeV and assuming
+     * a luminosity of 90iab and an 
+     * efficiency*acceptance of 1.%
+    */
+    class opt_obs_muon_30TeV: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_muon_30TeV constructor.
+     */
+    opt_obs_muon_30TeV(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_muon_30TeV
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /*
+    class opt_obs_ilc_500_1000: public ThObservable {
+    public:
+    opt_obs_ilc_500_1000(const StandardModel& SM_i);
+    double computeThValue();
+    private:
+        double b_min = 0.;
+        double b_max = 0.;
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+    };
+    
+    class test_cov: public ThObservable {
+    public:
+    test_cov(const StandardModel& SM_i);
+    double computeThValue();
+    private:
+        double b_min = 0.;
+        double b_max = 0.;
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+    };
+    */
+    
+    
+    
+    
+        
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////// OLD //////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////        
+//////////////////////////////////////////////////////////////////////////////////////////////////////        
+        
 //250 bb observables OLD
 
 
