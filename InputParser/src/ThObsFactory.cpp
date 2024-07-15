@@ -6080,6 +6080,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_pp_bbphi3_bbtautau_CMS8"] = boost::factory<Hobs_pp_bbphi3_bbtautau_CMS8*>();
     obsThFactory["Hobs_pp_bbphi3_bbmumu_CMS8"] = boost::factory<Hobs_pp_bbphi3_bbmumu_CMS8*>();
 
+    obsThFactory["Hobs_Gamma_h"] = boost::factory<Hobs_Gamma_h*>();
+
     obsThFactory["Hobs_t_Hpb_csb_CMS8"] = boost::factory<Hobs_t_Hpb_csb_CMS8*>();
     obsThFactory["Hobs_t_Hpb_taunub_CMS8"] = boost::factory<Hobs_t_Hpb_taunub_CMS8*>();
     obsThFactory["Hobs_t_Hpb_cbb_CMS8"] = boost::factory<Hobs_t_Hpb_cbb_CMS8*>();

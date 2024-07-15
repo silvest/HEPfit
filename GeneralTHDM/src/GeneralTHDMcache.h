@@ -194,12 +194,12 @@ public:
     /**
      * @brief Production cross section ratio tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
      */
-    gslpp::matrix<double> csrH_top_8, csrH_bottom_8, csrA_top_8, csrA_bottom_8;
+    gslpp::matrix<double> csrH_top_charm_8, csrH_bottom_8, csrA_top_charm_8, csrA_bottom_8;
 
     /**
      * @brief Production cross section ratio tables at 13 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
      */
-    gslpp::matrix<double> csrH_top_13, csrH_bottom_13, csrA_top_13, csrA_bottom_13;
+    gslpp::matrix<double> csrH_top_charm_13, csrH_bottom_13, csrA_top_charm_13, csrA_bottom_13;
 
     
     
@@ -523,13 +523,13 @@ public:
      * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the top-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_t(gg\to phi3)/\sigma(gg\to phi3)@f$
      */
-    double ip_csr_ggH_t_8(double mass);
+    double ip_csr_ggH_tc_8(double mass);
 
     /**
      * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the top-loop and the total contribution at 13 TeV.
      * @return @f$\sigma_t(gg\to phi3)/\sigma(gg\to phi3)@f$
      */
-    double ip_csr_ggH_t_13(double mass);
+    double ip_csr_ggH_tc_13(double mass);
 
     /**
      * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the bottom-loop and the total contribution at 8 TeV.
@@ -544,16 +544,16 @@ public:
     double ip_csr_ggH_b_13(double mass);
 
     /**
-     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the top-loop and the total contribution at 8 TeV.
+     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the charm and top-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_t(gg\to A)/\sigma(gg\to A)@f$
      */
-    double ip_csr_ggA_t_8(double mass);
+    double ip_csr_ggA_tc_8(double mass);
 
     /**
-     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the top-loop and the total contribution at 13 TeV.
+     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the charm and top-loop and the total contribution at 13 TeV.
      * @return @f$\sigma_t(gg\to A)/\sigma(gg\to A)@f$
      */
-    double ip_csr_ggA_t_13(double mass);
+    double ip_csr_ggA_tc_13(double mass);
 
     /**
      * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the bottom-loop and the total contribution at 8 TeV.
@@ -1363,6 +1363,12 @@ public:
      * @return @f$BR^{\text{GTHDM}}(h\to c\bar c)@f$
      */
     double GTHDM_BR_h_cc;
+
+    /**
+     * @brief @f$h@f$ branching ratio to @f$HpHm@f$ bosons in the %GTHDM.
+     * @return @f$BR^{\text{GTHDM}}(h\to HpHm)@f$
+     */
+    double GTHDM_BR_h_HpHm;
 
     /**
      * @brief @f$h@f$ branching ratio to two @f$H@f$ bosons in the %GTHDM.
@@ -3493,12 +3499,12 @@ private:
     mutable double ip_cs_pptobbA_13_cache[2][CacheSize];
     mutable double ip_cs_ggtoHp_8_cache[3][CacheSize];
     mutable double ip_cs_ggtoHp_13_cache[3][CacheSize];
-    mutable double ip_csr_ggH_t_8_cache[2][CacheSize];
-    mutable double ip_csr_ggH_t_13_cache[2][CacheSize];
+    mutable double ip_csr_ggH_tc_8_cache[2][CacheSize];
+    mutable double ip_csr_ggH_tc_13_cache[2][CacheSize];
     mutable double ip_csr_ggH_b_8_cache[2][CacheSize];
     mutable double ip_csr_ggH_b_13_cache[2][CacheSize];
-    mutable double ip_csr_ggA_t_8_cache[2][CacheSize];
-    mutable double ip_csr_ggA_t_13_cache[2][CacheSize];
+    mutable double ip_csr_ggA_tc_8_cache[2][CacheSize];
+    mutable double ip_csr_ggA_tc_13_cache[2][CacheSize];
     mutable double ip_csr_ggA_b_8_cache[2][CacheSize];
     mutable double ip_csr_ggA_b_13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_bb_ATLAS13_cache[2][CacheSize];

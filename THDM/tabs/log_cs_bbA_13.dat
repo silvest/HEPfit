@@ -1,6 +1,7 @@
 # MadGraph 5.2.2.2
 # bbbar associated A production cross section at 13 TeV
 # mA[GeV] | log10(sigma/pb)
+10.0    2.081
 20.0	1.722
 30.0	1.401
 40.0	1.140

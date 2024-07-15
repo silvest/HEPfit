@@ -12,15 +12,15 @@
 #include <string>
 
 GMcache::GMcache(const StandardModel& SM_i)
-    : br_aa(19961, 2, 0.),
-    br_tt(19961, 2, 0.),
-    br_bb(19961, 2, 0.),
-    br_tautau(19961, 2, 0.),
-    br_cc(19961, 2, 0.),
-    br_mumu(19961, 2, 0.),
-    br_ZZ(19961, 2, 0.),
-    br_WW(19961, 2, 0.),
-    GammaHtot_SM(19961, 2, 0.),
+    : br_aa(19981, 2, 0.),
+    br_tt(19981, 2, 0.),
+    br_bb(19981, 2, 0.),
+    br_tautau(19981, 2, 0.),
+    br_cc(19981, 2, 0.),
+    br_mumu(19981, 2, 0.),
+    br_ZZ(19981, 2, 0.),
+    br_WW(19981, 2, 0.),
+    GammaHtot_SM(19981, 2, 0.),
     log_cs_ggH_8(200, 2, 0.),
     log_cs_VBF_8(200, 2, 0.),
     log_cs_WH_8(200, 2, 0.),
@@ -33,12 +33,12 @@ GMcache::GMcache(const StandardModel& SM_i)
     log_cs_ttH_13(200, 2, 0.),
     log_cs_bbH_8(200, 2, 0.),
     log_cs_bbH_13(200, 2, 0.),
-    log_cs_ggA_8(199, 2, 0.),
-    log_cs_ttA_8(199, 2, 0.),
-    log_cs_bbA_8(199, 2, 0.),
-    log_cs_ggA_13(199, 2, 0.),
-    log_cs_ttA_13(199, 2, 0.),
-    log_cs_bbA_13(199, 2, 0.),
+    log_cs_ggA_8(200, 2, 0.),
+    log_cs_ttA_8(200, 2, 0.),
+    log_cs_bbA_8(200, 2, 0.),
+    log_cs_ggA_13(200, 2, 0.),
+    log_cs_ttA_13(200, 2, 0.),
+    log_cs_bbA_13(200, 2, 0.),
     log_cs_ggHp_8(744, 3, 0.),
     log_cs_ggHp_13(1104, 3, 0.),
     log_cs_ppH5ppH5mm_8(18, 2, 0.),
@@ -242,23 +242,23 @@ void GMcache::read(){
     std::string tablepath=path.str();
 
     br1 << tablepath << "br1.dat"; /*This first matrix dummy will be deleted on Scientific Linux.*/
-    readTable(br_aa, br1.str(),19961,2);
+    readTable(br_aa, br1.str(),19981,2);
     br1a << tablepath << "br1.dat";
-    readTable(br_tt, br1a.str(),19961,2);
+    readTable(br_tt, br1a.str(),19981,2);
     br2 << tablepath << "br2.dat";
-    readTable(br_bb, br2.str(),19961,2);
+    readTable(br_bb, br2.str(),19981,2);
     br3 << tablepath << "br3.dat";
-    readTable(br_tautau, br3.str(),19961,2); 
+    readTable(br_tautau, br3.str(),19981,2); 
     br4 << tablepath << "br4.dat";
-    readTable(br_cc, br4.str(),19961,2);
+    readTable(br_cc, br4.str(),19981,2);
     br5 << tablepath << "br5.dat";
-    readTable(br_mumu, br5.str(),19961,2);
+    readTable(br_mumu, br5.str(),19981,2);
     br6 << tablepath << "br6.dat";
-    readTable(br_ZZ, br6.str(),19961,2);
+    readTable(br_ZZ, br6.str(),19981,2);
     br7 << tablepath << "br7.dat";
-    readTable(br_WW, br7.str(),19961,2);
+    readTable(br_WW, br7.str(),19981,2);
     dw1 << tablepath << "dw1.dat";
-    readTable(GammaHtot_SM, dw1.str(),19961,2);
+    readTable(GammaHtot_SM, dw1.str(),19981,2);
     cs1 << tablepath << "log_cs_ggH_8.dat";
     readTable(log_cs_ggH_8, cs1.str(),200,2);
     cs11 << tablepath << "log_cs_ggH_13.dat";
@@ -284,17 +284,17 @@ void GMcache::read(){
     cs16 << tablepath << "log_cs_bbH_13.dat";
     readTable(log_cs_bbH_13, cs16.str(),200,2);
     cs7 << tablepath << "log_cs_ggA_8.dat";
-    readTable(log_cs_ggA_8, cs7.str(),199,2);
+    readTable(log_cs_ggA_8, cs7.str(),200,2);
     cs17 << tablepath << "log_cs_ggA_13.dat";
-    readTable(log_cs_ggA_13, cs17.str(),199,2);
+    readTable(log_cs_ggA_13, cs17.str(),200,2);
     cs8 << tablepath << "log_cs_ttA_8.dat";
-    readTable(log_cs_ttA_8, cs8.str(),199,2);
+    readTable(log_cs_ttA_8, cs8.str(),200,2);
     cs18 << tablepath << "log_cs_ttA_13.dat";
-    readTable(log_cs_ttA_13, cs18.str(),199,2);
+    readTable(log_cs_ttA_13, cs18.str(),200,2);
     cs9 << tablepath << "log_cs_bbA_8.dat";
-    readTable(log_cs_bbA_8, cs9.str(),199,2);
+    readTable(log_cs_bbA_8, cs9.str(),200,2);
     cs19 << tablepath << "log_cs_bbA_13.dat";
-    readTable(log_cs_bbA_13, cs19.str(),199,2);
+    readTable(log_cs_bbA_13, cs19.str(),200,2);
     cs20 << tablepath << "log_cs_ggHp_8.dat";
     readTable(log_cs_ggHp_8, cs20.str(),744,3);
     cs21 << tablepath << "log_cs_ggHp_13.dat";

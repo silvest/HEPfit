@@ -408,3 +408,17 @@ double Hobs_t_Hpb_WAb_Wmumub_ATLAS13::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_WAb_Wmumub_ATLAS13;
 }
+
+
+
+
+
+
+Hobs_Gamma_h::Hobs_Gamma_h(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_Gamma_h::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->Gamma_h;
+}
