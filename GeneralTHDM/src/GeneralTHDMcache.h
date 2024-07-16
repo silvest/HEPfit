@@ -336,6 +336,15 @@ public:
      */
     gslpp::matrix<double> ATLAS13_t_Hpb_WAb_Wmumub;
     
+    /**
+     * @brief OPAL observed @f$95\%@f$ upper branching fraction limits for @f$\sqrt{s} = 91 - 209@f$ GeV, depending on the charged masses.
+     */
+    gslpp::matrix<double> OPAL209_HpHm_taunutaunu, OPAL209_HpHm_qqtaunu, OPAL209_HpHm_qqqq;
+    /**
+     * @brief OPAL observed @f$95\%@f$ upper branching fraction limits for @f$\sqrt{s} = 130 - 172@f$ GeV, depending on the charged masses.
+     */
+    gslpp::matrix<double> OPAL172_HpHm_taunutaunu, OPAL172_HpHm_qqtaunu, OPAL172_HpHm_qqqq;
+
     //Added in 2024 for g-2 computation
     gslpp::matrix<double> integral_x2_1mx_G_log, integral_x2_1px_G_log, integral_x2_G_log, integral_x_1mx2_G_log,\
                           integral_x_1mx_1px_G_log, integral_x2_1mx_G_variable_set_1_log,\
@@ -729,6 +738,12 @@ public:
     double ip_low_t_Hpb_cbb_ATLAS13(double mass);
     double ip_low_t_Hpb_WAb_Wmumub_ATLAS13(double mass);
 
+    double ip_low_HpHm_taunutaunu_OPAL209(double mass);
+    double ip_low_HpHm_qqtaunu_OPAL209(double mass);
+    double ip_low_HpHm_qqqq_OPAL209(double mass);
+    double ip_low_HpHm_taunutaunu_OPAL172(double mass);
+    double ip_low_HpHm_qqtaunu_OPAL172(double mass);
+    double ip_low_HpHm_qqqq_OPAL172(double mass);
 
     double ip_integral_x2_1mx_G(double wa, double wb);
     double ip_integral_x2_1px_G(double wa, double wb);
@@ -2971,6 +2986,13 @@ public:
     double THoEX_t_Hpb_cbb_ATLAS13;
     double THoEX_t_Hpb_WAb_Wmumub_ATLAS13;
 
+    double THoEX_HpHm_taunutaunu_OPAL209;
+    double THoEX_HpHm_qqtaunu_OPAL209;
+    double THoEX_HpHm_qqqq_OPAL209;
+    double THoEX_HpHm_taunutaunu_OPAL172;
+    double THoEX_HpHm_qqtaunu_OPAL172;
+    double THoEX_HpHm_qqqq_OPAL172;
+
     double SigmaSumphi2_8;
     double SigmaggF_phi2_8;
     double SigmabbF_phi2_8;
@@ -3667,6 +3689,13 @@ private:
     mutable double ip_low_t_Hpb_taunub_ATLAS8_cache[2][CacheSize];
     mutable double ip_low_t_Hpb_cbb_ATLAS13_cache[2][CacheSize];
     mutable double ip_low_t_Hpb_WAb_Wmumub_ATLAS13_cache[2][CacheSize];
+
+    mutable double ip_low_HpHm_taunutaunu_OPAL209_cache[2][CacheSize];
+    mutable double ip_low_HpHm_qqtaunu_OPAL209_cache[2][CacheSize];
+    mutable double ip_low_HpHm_qqqq_OPAL209_cache[2][CacheSize];
+    mutable double ip_low_HpHm_taunutaunu_OPAL172_cache[2][CacheSize];
+    mutable double ip_low_HpHm_qqtaunu_OPAL172_cache[2][CacheSize];
+    mutable double ip_low_HpHm_qqqq_OPAL172_cache[2][CacheSize];
 
     mutable double ip_integral_x2_1mx_G_cache[3][CacheSize];
     mutable double ip_integral_x2_1px_G_cache[3][CacheSize];
