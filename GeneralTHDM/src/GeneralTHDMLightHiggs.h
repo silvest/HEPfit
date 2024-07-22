@@ -13,24 +13,45 @@
 class GeneralTHDM;
 class GeneralTHDMcache;
 
+/**
+ * @class Gamma_h_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Total @f$h@f$ decay rate in the %GeneralTHDM.
+ */
+class Gamma_h_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief Gamma_h_GTHDM constructor.
+     */
+    Gamma_h_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\Gamma_{h,\text{GTHDM}}@f$ in units of GeV
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
 /////// IMPORTANT!!!
 /////// So far these branching ratios don't seem to be used since we use the signal strenghts as observables
 /////// It seems that the code could be optimised and at least use this definitions when computing the signal
 /////// strengths, which is done in the GeneralTHDM.cpp. We'll leave it as it is for the moment though.
 
-
 /**
- * @class GTHDM_BR_h_bb
+ * @class BR_h_bb_GTHDM
  * @ingroup GTHDM
  * @brief %GTHDM branching ratio of @f$h\to b \bar b@f$.
  */
-class GTHDM_BR_h_bb : public ThObservable {
+class BR_h_bb_GTHDM : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    GTHDM_BR_h_bb(const StandardModel& SM_i);
+    BR_h_bb_GTHDM(const StandardModel& SM_i);
     
     /**
      * @return @return @f$BR{\text GTHDM}(h\to b \bar b)@f$
@@ -41,17 +62,17 @@ private:
 };
 
 /**
- * @class GTHDM_BR_h_gaga
+ * @class BR_h_gaga_GTHDM
  * @ingroup GTHDM
  * @brief %GTHDM branching ratio of @f$h\to \gamma \gamma@f$.
  */
-class GTHDM_BR_h_gaga : public ThObservable {
+class BR_h_gaga_GTHDM : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    GTHDM_BR_h_gaga(const StandardModel& SM_i);
+    BR_h_gaga_GTHDM(const StandardModel& SM_i);
     
     /**
      * @return @f$BR{\text GTHDM}(h\to \gamma \gamma)@f$
@@ -62,17 +83,17 @@ private:
 };
 
 /**
- * @class GTHDM_BR_h_tautau
+ * @class BR_h_tautau_GTHDM
  * @ingroup GTHDM
  * @brief %GTHDM branching ratio of @f$h\to \tau \tau@f$.
  */
-class GTHDM_BR_h_tautau : public ThObservable {
+class BR_h_tautau_GTHDM : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    GTHDM_BR_h_tautau(const StandardModel& SM_i);
+    BR_h_tautau_GTHDM(const StandardModel& SM_i);
     
     /**
      * @return @f$BR{\text GTHDM}(h\to \tau \tau)@f$

@@ -243,12 +243,10 @@ public:
                           ATLAS13_pp_phi_phi1phi1_bbWW, ATLAS13_gg_phi_phi1phi1_gagaWW,\
                           ATLAS13_gg_phi_phi1Z_bbZ, ATLAS13_bb_phi_phi1Z_bbZ;
 
+    gslpp::matrix<double> ATLAS13_gg_phii_phijZ_bbZ, ATLAS13_bb_phii_phijZ_bbZ,ATLAS13_gg_phii_phijZ_WWZ;
     
     //Added in mid 2022
     gslpp::matrix<double> CMS13_gg_phi_phi1Z_tautaull,CMS13_pp_phi2_bb_light,CMS13_pp_phi3_bb_light,CMS13_tt_phi2_tt,CMS13_tt_phi3_tt;
-    
-    gslpp::matrix<double> ATLAS13_gg_phii_phijZ_bbZ, ATLAS13_bb_phii_phijZ_bbZ,ATLAS13_gg_phii_phijZ_WWZ;
-
     
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
@@ -960,10 +958,10 @@ public:
 
         
     void computeSignalStrengths();
-    double computephi2quantities();
-    double computephi3quantities();
-    double computeHpquantities();
-    double computeHeavyHiggs();
+    void computephi2quantities();
+    void computephi3quantities();
+    void computeHpquantities();
+    void computeHeavyHiggs();
     void computeLowMass();
     
     ////////////////////////////////////////////////////////////////////////////
@@ -1332,11 +1330,17 @@ public:
     double sumModBRs;
 
     /**
-     * @brief Total h decay rate in the GTHDM.
+     * @brief Total @f$h@f$ decay rate in the %GTHDM.
      * @return @f$\Gamma_h@f$
      */
     double Gamma_h;
-    
+
+    /**
+     * @brief @f$h \to \text{invisible}@f$ decay rate in the %GTHDM.
+     * @return @f$\Gamma_{h,\text{inv}}@f$
+     */
+    double Gamma_h_inv;
+
     /**
      * @brief @f$h@f$ branching ratio to two @f$b@f$ quarks in the %GTHDM.
      * @return @f$BR^{\text{GTHDM}}(h\to b \bar b)@f$

@@ -11,35 +11,46 @@
 
 
 
-GTHDM_BR_h_bb::GTHDM_BR_h_bb(const StandardModel& SM_i)
+Gamma_h_GTHDM::Gamma_h_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double GTHDM_BR_h_bb::computeThValue()
+double Gamma_h_GTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->Gamma_h;
+}
+
+
+BR_h_bb_GTHDM::BR_h_bb_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double BR_h_bb_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->GTHDM_BR_h_bb;
 }
-GTHDM_BR_h_gaga::GTHDM_BR_h_gaga(const StandardModel& SM_i)
+
+
+BR_h_gaga_GTHDM::BR_h_gaga_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-
-
-double GTHDM_BR_h_gaga::computeThValue()
+double BR_h_gaga_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->GTHDM_BR_h_gaga;
 }
 
 
-
-GTHDM_BR_h_tautau::GTHDM_BR_h_tautau(const StandardModel& SM_i)
+BR_h_tautau_GTHDM::BR_h_tautau_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double GTHDM_BR_h_tautau::computeThValue()
+double BR_h_tautau_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->GTHDM_BR_h_tautau;
 }
+
+
 
 GTHDM_ggF_tth_htobb8::GTHDM_ggF_tth_htobb8(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))

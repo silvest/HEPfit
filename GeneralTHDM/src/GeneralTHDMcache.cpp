@@ -130,12 +130,12 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         ATLAS13_gg_phi_phi1phi1_gagaWW(25, 2, 0.),
         ATLAS13_gg_phi_phi1Z_bbZ(45, 2, 0.),
         ATLAS13_bb_phi_phi1Z_bbZ(45, 2, 0.),
-        CMS13_gg_phi_phi1Z_tautaull(19, 2, 0.),
         //ATLAS13_gg_phii_phijZ_bbZ(3364, 3, 0.),   //OLD before mid 2022
         //ATLAS13_bb_phii_phijZ_bbZ(3364, 3, 0.),   //OLD before mid 2022
         ATLAS13_gg_phii_phijZ_bbZ(1711, 3, 0.),     //Updated in mid 2022
         ATLAS13_bb_phii_phijZ_bbZ(1711, 3, 0.),     //Updated in mid 2022
         ATLAS13_gg_phii_phijZ_WWZ(1326, 3, 0.),     //Included in mid 2024
+        CMS13_gg_phi_phi1Z_tautaull(19, 2, 0.),
         CMS13_pp_phi2_bb_light(61, 2, 0.),          //Included in mid 2022
         CMS13_pp_phi3_bb_light(61, 2, 0.),          //Included in mid 2022
         CMS13_tt_phi2_tt(31, 2, 0.),               //Included in mid 2022
@@ -6323,11 +6323,11 @@ void GeneralTHDMcache::computeSignalStrengths()
     //double Gamma_htocc     = BrSM_htocc * (rh_QuQuE + rh_QuQuO/(beta(Mc, m1_2)*beta(Mc, m1_2))) * Gamma_h_exp;
     double Gamma_htocc     = BrSM_htocc * (rh_QuQuE + rh_QuQuO) * Gamma_h_exp;
 
-    Gamma_h = (Gamma_htobb + Gamma_htoWW + Gamma_htoZZ + Gamma_htotautau + Gamma_htogaga +
-               Gamma_htogg + Gamma_htoZga + Gamma_htocc + Gamma_hHpHm + Gamma_hHH + Gamma_hAA +
-               Gamma_hHZ + Gamma_hAZ);
+    Gamma_h_inv = Gamma_hHpHm + Gamma_hHH + Gamma_hAA + Gamma_hHZ + Gamma_hAZ;
 
-   
+    Gamma_h = (Gamma_htobb + Gamma_htoWW + Gamma_htoZZ + Gamma_htotautau + Gamma_htogaga +
+               Gamma_htogg + Gamma_htoZga + Gamma_htocc + Gamma_h_inv);
+
     GTHDM_BR_h_bb = Gamma_htobb / Gamma_h;
     GTHDM_BR_h_WW = Gamma_htoWW / Gamma_h;
     GTHDM_BR_h_ZZ = Gamma_htoZZ / Gamma_h;
@@ -6342,15 +6342,11 @@ void GeneralTHDMcache::computeSignalStrengths()
     GTHDM_BR_h_AZ = Gamma_hAZ / Gamma_h;
 
     sumModBRs = Gamma_h / Gamma_h_exp;
-    
-   
-
-
 }
 
     
 
-double GeneralTHDMcache::computephi2quantities()
+void GeneralTHDMcache::computephi2quantities()
 {
     
     m2_2 = mH2sq;
@@ -6710,14 +6706,11 @@ Gammaphi2tot= Gammaphi2tot + Gammaphi2_tt+Gammaphi2_cc
     
     //std::cout<<"\033[1;30m   Gammaphi2_phi3Z =\033[0m "<< Gammaphi2_phi3Z <<std::endl;
     //std::cout<<"\033[1;30m   Gammaphi2_HpW =\033[0m "<< Gammaphi2_HpW <<std::endl;
-    
-    
- return 0.;  
 }
 
 
     
-double GeneralTHDMcache::computephi3quantities()
+void GeneralTHDMcache::computephi3quantities()
 {
     
   
@@ -7008,15 +7001,10 @@ Gammaphi3tot = Gammaphi3tot + Gammaphi3_tt + Gammaphi3_cc + Gammaphi3_bb
     
     
     //std::cout<<"\033[1;34m   BrSM_phi3totautau =\033[0m "<< BrSM_phi3totautau <<std::endl;
-
-   
- return 0.;
-
-
 }
 
     
-double GeneralTHDMcache::computeHpquantities()
+void GeneralTHDMcache::computeHpquantities()
 {
     m2_2 = mH2sq;
     m2 = sqrt(m2_2);
@@ -7157,15 +7145,12 @@ double GeneralTHDMcache::computeHpquantities()
     }
 
     Br_ttoHpb = GammatHpb / Gammatoptot;
-
-
-    return 0.;
 }
 
 
 //Higgs direct searches
 
-double GeneralTHDMcache::computeHeavyHiggs()
+void GeneralTHDMcache::computeHeavyHiggs()
 {
     
     m2_2 = mH2sq;
@@ -9559,7 +9544,6 @@ double GeneralTHDMcache::computeHeavyHiggs()
         THoEX_pp_Hpm_tb_CMS13=pp_Hpm_tb_TH13/ip_ex_pp_Hpm_tb_CMS13(mHp);
     //    if(THoEX_pp_Hpm_tb_CMS13 >5) return std::numeric_limits<double>::quiet_NaN();
          }
-    return 0.;
 }
 
 void GeneralTHDMcache::computeLowMass()

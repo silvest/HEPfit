@@ -1096,33 +1096,31 @@ private:
 };
 
 
+/*************************/
+/* Invisible decay rates */
+/*************************/
+
 /**
- * @class Hobs_t_Hpb_WAb_Wmumub_ATLAS13
+ * @class BR_h_inv_GTHDM
  * @ingroup GeneralTHDM
- * @brief Ratio of the prediction and ATLAS upper limit for the branching ratio of the process @f$t\to H^{+} b\to W^{+} A b\to W^{+} \mu^{+} \mu^{-} b@f$.
+ * @brief Ratio of the %GeneralTHDM prediction and the combined ATLAS (7+8+13 TeV) upper limit for the branching ratio of @f$h \to \text{invisible}@f$ decays.
  */
-class Hobs_Gamma_h: public ThObservable {
+class BR_h_inv_GTHDM: public ThObservable {
 public:
 
     /**
-     * @brief Hobs_t_Hpb_WAb_Wmumub_ATLAS13 constructor.
+     * @brief BR_h_inv_GTHDM constructor.
      */
-    Hobs_Gamma_h(const StandardModel& SM_i);
+    BR_h_inv_GTHDM(const StandardModel& SM_i);
 
     /**
-     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to W^{+} A) \cdot BR^{\text{GTHDM}}(A\to \mu^{+} \mu^{-})]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     * @return @f$[BR^{\text{GTHDM}}(h \to \text{invisible})]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
      */
     double computeThValue();
 
 private:
     const GeneralTHDM& myGTHDM;
 };
-
-
-
-
-
-
 
 
 #endif /* GENERALTHDMLOWMASS_H */

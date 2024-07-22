@@ -334,7 +334,7 @@ double Hobs_pp_phi2_gaga_ATLAS13_low::computeThValue()
 
 
 /***************************/
-/* CMS observables with Hp */
+/* LHC observables with Hp */
 /***************************/
 
 Hobs_t_Hpb_csb_CMS8::Hobs_t_Hpb_csb_CMS8(const StandardModel& SM_i)
@@ -409,6 +409,11 @@ double Hobs_t_Hpb_WAb_Wmumub_ATLAS13::computeThValue()
     return myGTHDM.getMyGTHDMCache()->THoEX_t_Hpb_WAb_Wmumub_ATLAS13;
 }
 
+
+/****************************/
+/* OPAL observables with Hp */
+/****************************/
+
 Hobs_HpHm_taunutaunu_OPAL209::Hobs_HpHm_taunutaunu_OPAL209(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
@@ -464,11 +469,18 @@ double Hobs_HpHm_qqqq_OPAL172::computeThValue()
 }
 
 
-Hobs_Gamma_h::Hobs_Gamma_h(const StandardModel& SM_i)
+/*************************/
+/* Invisible decay rates */
+/*************************/
+
+BR_h_inv_GTHDM::BR_h_inv_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double Hobs_Gamma_h::computeThValue()
+double BR_h_inv_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->Gamma_h;
+    double BR_h_inv_theo  = myGTHDM.getMyGTHDMCache()->Gamma_h_inv / myGTHDM.getMyGTHDMCache()->Gamma_h;
+    double BR_h_inv_ATLAS = 0.107; // Combined ATLAS (7+8+13 TeV) upper limit at 95% CL, from 2301.10731
+
+    return BR_h_inv_theo / BR_h_inv_ATLAS;
 }
