@@ -6035,23 +6035,18 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
        
 void GeneralTHDMcache::computeSignalStrengths()
 {
-    
     m2_2 = mH2sq;
     m2 = sqrt(m2_2);
     m3_2 = mH3sq;
     m3 = sqrt(m3_2);
 
-
-    double sW2=1.0-cW2;
-
-      //FLAG to select only the model in which all the couplings are the same (by families)
-
+    //FLAG to select only the model in which all the couplings are the same (by families)
     if (!myGTHDM->getATHDMflag())
     {
         throw std::runtime_error("Signal strengths are only available in the A2HDM.");
     }
   
-        /*complex i */
+    /*complex i */
     gslpp::complex i = gslpp::complex::i();
      
     Mt=myGTHDM->getQuarks(QCD::TOP).getMass();
@@ -6063,16 +6058,14 @@ void GeneralTHDMcache::computeSignalStrengths()
     Mu=myGTHDM->getQuarks(QCD::UP).getMass();
     Md=myGTHDM->getQuarks(QCD::DOWN).getMass();
     Me=myGTHDM->getLeptons(StandardModel::ELECTRON).getMass();
-    MW=MWGTHDM(myGTHDM->Mw_tree());
-    cW2=cW2GTHDM(myGTHDM->c02());
 
-    
+
 //    std::cout<< "ale = " << ale << std::endl;
 //    MZ=myGTHDM->getMz();
 
     
     //The 125 GeV is always defined as the one of m_1, so we don't use the mass ordering. 
-   // For the SM_Higgs flag it does not matter
+    // For the SM_Higgs flag it does not matter
   
     double m1_2 = mH1sq;
     double m1 = mHl;
@@ -6348,14 +6341,10 @@ void GeneralTHDMcache::computeSignalStrengths()
 
 void GeneralTHDMcache::computephi2quantities()
 {
-    
     m2_2 = mH2sq;
     m2 = sqrt(m2_2);
     m3_2 = mH3sq;
     m3 = sqrt(m3_2);
-      
-    double GF=1/(sqrt(2.0)*vev*vev);
-    double sW2=1.0-cW2;
 
     //FLAG to select only the model in which all the couplings are the same (by families)
     if (!myGTHDM->getATHDMflag())
@@ -6365,7 +6354,7 @@ void GeneralTHDMcache::computephi2quantities()
   
     /*complex i */
      gslpp::complex i = gslpp::complex::i();
- 
+
 
     //fermionic couplings for phi2
     
@@ -6712,29 +6701,21 @@ Gammaphi2tot= Gammaphi2tot + Gammaphi2_tt+Gammaphi2_cc
     
 void GeneralTHDMcache::computephi3quantities()
 {
-    
-  
     m2_2 = mH2sq;
     m2 = sqrt(m2_2);
     m3_2 = mH3sq;
     m3 = sqrt(m3_2);
-    
-    
-    double GF=1/(sqrt(2.0)*vev*vev);
-    double sW2=1.0-cW2;
 
-      //FLAG to select only the model in which all the couplings are the same (by families)
-    
+    //FLAG to select only the model in which all the couplings are the same (by families)
     if (!myGTHDM->getATHDMflag())
     {
         throw std::runtime_error("Direct Searches are only aviable in the A2HDM.");
     }
   
-        /*complex i */
-    
-     gslpp::complex i = gslpp::complex::i();
+    /*complex i */
+    gslpp::complex i = gslpp::complex::i();
 
-     //fermionic couplings for phi3
+    //fermionic couplings for phi3
     
     yu3 = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1) - i*Rij_GTHDM(2,2))*su.conjugate();
     yd3 = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1) + i*Rij_GTHDM(2,2))*sd;
@@ -6743,7 +6724,7 @@ void GeneralTHDMcache::computephi3quantities()
     yu3R = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1))*su.real();
     yd3R = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1))*sd.real();
     yl3R = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1))*sl.real();
-   
+
     
     
     //These cross sections ratios are necessary for rphi3_gg
@@ -7003,7 +6984,7 @@ Gammaphi3tot = Gammaphi3tot + Gammaphi3_tt + Gammaphi3_cc + Gammaphi3_bb
     //std::cout<<"\033[1;34m   BrSM_phi3totautau =\033[0m "<< BrSM_phi3totautau <<std::endl;
 }
 
-    
+
 void GeneralTHDMcache::computeHpquantities()
 {
     m2_2 = mH2sq;
@@ -7132,7 +7113,7 @@ void GeneralTHDMcache::computeHpquantities()
     // Formula according to Czarnecki and Davidson, hep-ph/9301237
     double Gammatoptot = 1.42; // PDG 2023
     double GammatHpb = 0.;
-    double pre_tHpb = myGTHDM->getGF() * Mt2 * Mtp * Vtb * Vtb / 4. / sqrt(2.) / M_PI;
+    double pre_tHpb = GF * Mt2 * Mtp * Vtb * Vtb / 4. / sqrt(2.) / M_PI;
     gslpp::complex aCD = su - sd * Mbp / Mtp;
     gslpp::complex bCD = su + sd * Mbp / Mtp;
     double aCD2 = (aCD * aCD.conjugate()).real();
@@ -7145,6 +7126,34 @@ void GeneralTHDMcache::computeHpquantities()
     }
 
     Br_ttoHpb = GammatHpb / Gammatoptot;
+}
+
+
+void GeneralTHDMcache::computeWZquantities()
+{
+    double MZ2 = MZ * MZ;
+    double MW2 = MW * MW;
+    double preZ = GF * MZ * MZ2 / 24. / sqrt(2.) / M_PI;
+    double preW = GF * MW * MW2 / 24. / sqrt(2.) / M_PI;
+
+    double gZAH_2   = R22 * R22; // CP conserving case; needs to be generalised for CPV analyses
+    double gZHpHm_2 = (sW2 - cW2) * (sW2 - cW2);
+    double gWHpH_2  = R22 * R22; // CP conserving case; needs to be generalised for CPV analyses
+    double gWHpA_2  = R33 * R33; // CP conserving case; needs to be generalised for CPV analyses
+
+    double func_ZAH   = 1. + (mH3sq - mH2sq) * (mH3sq - mH2sq) / MZ2 / MZ2 - 2. * (mH3sq + mH2sq) / MZ2;
+    double func_ZHpHm = 1. - 4. * mHp2 / MZ2;
+    double func_WHpH  = 1. + (mHp2  - mH2sq) * (mHp2  - mH2sq) / MW2 / MW2 - 2. * (mHp2  + mH2sq) / MW2;
+    double func_WHpA  = 1. + (mHp2  - mH3sq) * (mHp2  - mH3sq) / MW2 / MW2 - 2. * (mHp2  + mH3sq) / MW2;
+
+    double Gamma_ZAH   = HSTheta(MZ-mH3-mH2) * preZ * gZAH_2   * sqrt(std::fabs(func_ZAH))   * func_ZAH;
+    double Gamma_ZHpHm = HSTheta(MZ-2.*mHp)  * preZ * gZHpHm_2 * sqrt(std::fabs(func_ZHpHm)) * func_ZHpHm;
+    double Gamma_WHpH  = HSTheta(MZ-mHp-mH2) * preW * gWHpH_2  * sqrt(std::fabs(func_WHpH))  * func_WHpH;
+    double Gamma_WHpA  = HSTheta(MZ-mHp-mH3) * preW * gWHpA_2  * sqrt(std::fabs(func_WHpA))  * func_WHpA;
+
+    Gamma_Z_inv = myGTHDM->Gamma_inv() + Gamma_ZAH + Gamma_ZHpHm;
+
+    Gamma_W_inv = Gamma_WHpH + Gamma_WHpA;
 }
 
 
@@ -10464,13 +10473,18 @@ double GeneralTHDMcache::updateCache()
 
     //if (yu1R*yu1R >4. ||  yd1R*yd1R >4. ||  yl1R*yl1R >4.) 
          //       return std::numeric_limits<double>::quiet_NaN();
-  
-        
+
+
     Q_GTHDM=myGTHDM->getQ_GTHDM();
     Ale=myGTHDM->getAle();
     Als=myGTHDM->getAlsMz();
-    
-    
+    MZ=myGTHDM->getMz();
+    MW=MWGTHDM(myGTHDM->Mw_tree());
+    cW2=cW2GTHDM(myGTHDM->c02());
+    sW2=1.0-cW2;
+    GF=1.0/(sqrt(2.0)*vev*vev);
+
+
 //    std::cout<<"\033[1;33m  Ale= \033[0m "<< Ale <<std::endl;
 
 //    Mt=myTHDM->getQuarks(QCD::TOP).getMass();
@@ -10482,7 +10496,6 @@ double GeneralTHDMcache::updateCache()
 //    Mu=myTHDM->getQuarks(QCD::UP).getMass();
 //    Md=myTHDM->getQuarks(QCD::DOWN).getMass();
 //    Me=myTHDM->getLeptons(StandardModel::ELECTRON).getMass();
-    MZ=myGTHDM->getMz();
 //    modelflag=myTHDM->getModelTypeflag();
 //    WFRflag=myTHDM->getWFRflag();
 
@@ -10491,8 +10504,9 @@ double GeneralTHDMcache::updateCache()
     computephi2quantities();
     computephi3quantities();
     computeHpquantities();
+    computeWZquantities();
     computeHeavyHiggs();
     computeLowMass();
-    
+
     return mH1sq;
 }

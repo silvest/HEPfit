@@ -484,3 +484,21 @@ double BR_h_inv_GTHDM::computeThValue()
 
     return BR_h_inv_theo / BR_h_inv_ATLAS;
 }
+
+Gamma_Z_inv_GTHDM::Gamma_Z_inv_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Gamma_Z_inv_GTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->Gamma_Z_inv;
+}
+
+Gamma_W_inv_GTHDM::Gamma_W_inv_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Gamma_W_inv_GTHDM::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->Gamma_W_inv;
+}

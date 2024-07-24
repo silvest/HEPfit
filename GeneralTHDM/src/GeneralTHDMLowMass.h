@@ -1122,5 +1122,49 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+/**
+ * @class Gamma_Z_inv_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief @f$Z \to \text{invisible}@f$ decay rate in the %GeneralTHDM.
+ */
+class Gamma_Z_inv_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief Gamma_Z_inv_GTHDM constructor.
+     */
+    Gamma_Z_inv_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\Gamma^{\text{SM}}(Z \to \text{invisible}) + \Gamma^{\text{GTHDM}}(Z \to A H) + \Gamma^{\text{GTHDM}}(Z \to H^+ H^-)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Gamma_W_inv_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief @f$W \to \text{invisible}@f$ decay rate in the %GeneralTHDM.
+ */
+class Gamma_W_inv_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief Gamma_W_inv_GTHDM constructor.
+     */
+    Gamma_W_inv_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\Gamma^{\text{GTHDM}}(W^\pm \to H^\pm H) + \Gamma^{\text{GTHDM}}(W^\pm \to H^\pm A)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
 
 #endif /* GENERALTHDMLOWMASS_H */

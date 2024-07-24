@@ -961,6 +961,7 @@ public:
     void computephi2quantities();
     void computephi3quantities();
     void computeHpquantities();
+    void computeWZquantities();
     void computeHeavyHiggs();
     void computeLowMass();
     
@@ -1340,6 +1341,18 @@ public:
      * @return @f$\Gamma_{h,\text{inv}}@f$
      */
     double Gamma_h_inv;
+
+    /**
+     * @brief @f$Z \to \text{invisible}@f$ decay rate in the %GTHDM.
+     * @return @f$\Gamma_{Z,\text{inv}}@f$
+     */
+    double Gamma_Z_inv;
+
+    /**
+     * @brief @f$W \to \text{invisible}@f$ decay rate in the %GTHDM.
+     * @return @f$\Gamma_{W,\text{inv}}@f$
+     */
+    double Gamma_W_inv;
 
     /**
      * @brief @f$h@f$ branching ratio to two @f$b@f$ quarks in the %GTHDM.
@@ -3381,7 +3394,9 @@ private:
 //    double mHh2;
 //    double mA2;
     double MW;
+    double GF;
     double cW2;
+    double sW2;
     double Ale;
     double Als;
     double Mt;
