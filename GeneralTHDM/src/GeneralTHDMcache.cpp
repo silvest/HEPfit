@@ -6035,53 +6035,23 @@ double GeneralTHDMcache::KaellenFunction(const double a2, const double b2, const
        
 void GeneralTHDMcache::computeSignalStrengths()
 {
-    m2_2 = mH2sq;
-    m2 = sqrt(m2_2);
-    m3_2 = mH3sq;
-    m3 = sqrt(m3_2);
-
     //FLAG to select only the model in which all the couplings are the same (by families)
     if (!myGTHDM->getATHDMflag())
     {
         throw std::runtime_error("Signal strengths are only available in the A2HDM.");
     }
-  
+
     /*complex i */
     gslpp::complex i = gslpp::complex::i();
-     
-    Mt=myGTHDM->getQuarks(QCD::TOP).getMass();
-    Mb=myGTHDM->getQuarks(QCD::BOTTOM).getMass(); 
-    Mtau=myGTHDM->getLeptons(StandardModel::TAU).getMass();
-    Mc=myGTHDM->getQuarks(QCD::CHARM).getMass();
-    Ms=myGTHDM->getQuarks(QCD::STRANGE).getMass();
-    Mmu=myGTHDM->getLeptons(StandardModel::MU).getMass();
-    Mu=myGTHDM->getQuarks(QCD::UP).getMass();
-    Md=myGTHDM->getQuarks(QCD::DOWN).getMass();
-    Me=myGTHDM->getLeptons(StandardModel::ELECTRON).getMass();
 
-
-//    std::cout<< "ale = " << ale << std::endl;
-//    MZ=myGTHDM->getMz();
-
-    
-    //The 125 GeV is always defined as the one of m_1, so we don't use the mass ordering. 
-    // For the SM_Higgs flag it does not matter
-  
-    double m1_2 = mH1sq;
-    double m1 = mHl;
-  
     //fermionic couplings for phi1
-    
     yu1 = myGTHDM->getyu1();
     yd1 = myGTHDM->getyd1();
     yl1 = myGTHDM->getyl1();
-    
+
     yu1R = myGTHDM->getyu1R();
     yd1R = myGTHDM->getyd1R();
     yl1R = myGTHDM->getyl1R();
-       
- 
-    
 
     //The ggH cross section in the SM at 8 TeV
     double SigmaggF8 = myGTHDM->computeSigmaggH(8.0);
@@ -6341,28 +6311,15 @@ void GeneralTHDMcache::computeSignalStrengths()
 
 void GeneralTHDMcache::computephi2quantities()
 {
-    m2_2 = mH2sq;
-    m2 = sqrt(m2_2);
-    m3_2 = mH3sq;
-    m3 = sqrt(m3_2);
-
     //FLAG to select only the model in which all the couplings are the same (by families)
     if (!myGTHDM->getATHDMflag())
     {
         throw std::runtime_error("Direct Searches are only aviable in the A2HDM.");
     }
-  
+
     /*complex i */
      gslpp::complex i = gslpp::complex::i();
 
-
-    //fermionic couplings for phi2
-    
-    //gslpp::complex yu2 = 0.0;//Are defined already in the cache
-    //gslpp::complex yd2 = 0.0;
-    //gslpp::complex yl2 = 0.0;
-    
-    
     //Here we define the couplings to the fermions for the mass states
     yu2 = Rij_GTHDM(1,0) + (Rij_GTHDM(1,1) - i*Rij_GTHDM(1,2))*su.conjugate();
     yd2 = Rij_GTHDM(1,0) + (Rij_GTHDM(1,1) + i*Rij_GTHDM(1,2))*sd;
@@ -6701,32 +6658,24 @@ Gammaphi2tot= Gammaphi2tot + Gammaphi2_tt+Gammaphi2_cc
     
 void GeneralTHDMcache::computephi3quantities()
 {
-    m2_2 = mH2sq;
-    m2 = sqrt(m2_2);
-    m3_2 = mH3sq;
-    m3 = sqrt(m3_2);
-
     //FLAG to select only the model in which all the couplings are the same (by families)
     if (!myGTHDM->getATHDMflag())
     {
         throw std::runtime_error("Direct Searches are only aviable in the A2HDM.");
     }
-  
+
     /*complex i */
     gslpp::complex i = gslpp::complex::i();
 
     //fermionic couplings for phi3
-    
     yu3 = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1) - i*Rij_GTHDM(2,2))*su.conjugate();
     yd3 = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1) + i*Rij_GTHDM(2,2))*sd;
     yl3 = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1) + i*Rij_GTHDM(2,2))*sl;
-    
+
     yu3R = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1))*su.real();
     yd3R = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1))*sd.real();
     yl3R = Rij_GTHDM(2,0) + (Rij_GTHDM(2,1))*sl.real();
 
-    
-    
     //These cross sections ratios are necessary for rphi3_gg
     //At 8 TeV
     
@@ -6987,11 +6936,16 @@ Gammaphi3tot = Gammaphi3tot + Gammaphi3_tt + Gammaphi3_cc + Gammaphi3_bb
 
 void GeneralTHDMcache::computeHpquantities()
 {
-    m2_2 = mH2sq;
-    m2 = sqrt(m2_2);
-    m3_2 = mH3sq;
-    m3 = sqrt(m3_2);
+    //FLAG to select only the model in which all the couplings are the same (by families)
+    if (!myGTHDM->getATHDMflag())
+    {
+        throw std::runtime_error("Direct Searches are only available in the A2HDM.");
+    }
 
+    /*complex i */
+    gslpp::complex i = gslpp::complex::i();
+
+    // Pole masses and CKM matrix elements relevant for Hp quantities
     double alsmuc = myGTHDM->Als(myGTHDM->getMuc(), FULLNNNLO, true);
     // Mbar2Mp does not receive Mc
     double Mcp = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
@@ -7007,21 +6961,7 @@ void GeneralTHDMcache::computeHpquantities()
     double Vtb = myGTHDM->getCKM().getV_tb().abs();
     double Vcb = myGTHDM->getCKM().getV_cb().abs();
     double Vcs = myGTHDM->getCKM().getV_cs().abs();
-    
-    m2 = sqrt(m2_2);
-    m3 = sqrt(m3_2);
 
-      //FLAG to select only the model in which all the couplings are the same (by families)
-    
-    if (!myGTHDM->getATHDMflag())
-    {
-        throw std::runtime_error("Direct Searches are only available in the A2HDM.");
-    }
-  
-    /*complex i */
-    gslpp::complex i = gslpp::complex::i();
-     
-     
     //In order to compute the xsection we use the xsections generated in the table log_cs_ggtoHp_8
     //such a table is generated for the type II mode, basically we take the value for tanb=1 and
     //then we rescale with the coupling of the top-quark, there should be a residual dependence on 
@@ -7148,8 +7088,8 @@ void GeneralTHDMcache::computeWZquantities()
 
     double Gamma_ZAH   = HSTheta(MZ-mH3-mH2) * preZ * gZAH_2   * sqrt(std::fabs(func_ZAH))   * func_ZAH;
     double Gamma_ZHpHm = HSTheta(MZ-2.*mHp)  * preZ * gZHpHm_2 * sqrt(std::fabs(func_ZHpHm)) * func_ZHpHm;
-    double Gamma_WHpH  = HSTheta(MZ-mHp-mH2) * preW * gWHpH_2  * sqrt(std::fabs(func_WHpH))  * func_WHpH;
-    double Gamma_WHpA  = HSTheta(MZ-mHp-mH3) * preW * gWHpA_2  * sqrt(std::fabs(func_WHpA))  * func_WHpA;
+    double Gamma_WHpH  = HSTheta(MW-mHp-mH2) * preW * gWHpH_2  * sqrt(std::fabs(func_WHpH))  * func_WHpH;
+    double Gamma_WHpA  = HSTheta(MW-mHp-mH3) * preW * gWHpA_2  * sqrt(std::fabs(func_WHpA))  * func_WHpA;
 
     Gamma_Z_inv = myGTHDM->Gamma_inv() + Gamma_ZAH + Gamma_ZHpHm;
 
@@ -7161,19 +7101,12 @@ void GeneralTHDMcache::computeWZquantities()
 
 void GeneralTHDMcache::computeHeavyHiggs()
 {
-    
-    m2_2 = mH2sq;
-    m2 = sqrt(m2_2);
-    m3_2 = mH3sq;
-    m3 = sqrt(m3_2);
-    
-    
     //FLAG to select only the model in which all the couplings are the same (by families)
     if (!myGTHDM->getATHDMflag())
     {
         throw std::runtime_error("Direct Searches are only aviable in the A2HDM.");
     }
-  
+
     /*complex i */
     gslpp::complex i = gslpp::complex::i();
 
@@ -9557,8 +9490,6 @@ void GeneralTHDMcache::computeHeavyHiggs()
 
 void GeneralTHDMcache::computeLowMass()
 {
-    BrSM_Ztoll = 6.73e-2;
-
     /*********************************/
     /* Observables with phi_3, i.e A */
     /*********************************/
@@ -10021,11 +9952,11 @@ double GeneralTHDMcache::updateCache()
     BrSM_htogg = 8.57e-2;
     BrSM_htoZga = 1.54e-3;
     BrSM_htocc = 2.91e-2;
-    
-    
-    
-    
-    
+
+    //The Standard Model Z to ll branching ratio
+    BrSM_Ztoll = 6.73e-2;
+
+
     mHl   = myGTHDM->getMHl();
     m1    = mHl;
     mH1sq = myGTHDM->getmH1sq();
@@ -10037,10 +9968,17 @@ double GeneralTHDMcache::updateCache()
     mHp   = sqrt(mHp2);
     vev   = myGTHDM->v();
 
+    m1_2 = mH1sq;
+    m2_2 = mH2sq;
+    m3_2 = mH3sq;
+
+    if (m1_2 < 0. || m2_2 < 0. || m3_2 < 0.)
+        return std::numeric_limits<double>::quiet_NaN();
+
+
     cosa1=myGTHDM->getcosalpha1();
     sina1=myGTHDM->getsinalpha1();
     tana1=myGTHDM->gettanalpha1();
-
     
     cosa2=myGTHDM->getcosalpha2();
     sina2=myGTHDM->getsinalpha2();
@@ -10321,155 +10259,6 @@ double GeneralTHDMcache::updateCache()
     su = myGTHDM->getNu_11();
     sd = myGTHDM->getNd_11();
     sl = myGTHDM->getNl_11();
-    
-  /*  std::cout << "su = " << su << std::endl;
-   std::cout << "yu1R_GTHDM = " << myGTHDM->getyu1() << std::endl;
-    std::cout << "cosa1 = " << cosa1 << std::endl;
-    std::cout << "sina1 = " << sina1 << std::endl;*/
-
-    
-    
-        
-    //If to always set 1 as the SM Higgs and 3 as the heaviest
-    /*This loop is different as the previous. Before it was ordered by mass. Now we 
-    want 1 as the SM Higgs and 3 as the heaviest*/
-   /* if(mH1sq == mHl*mHl)
-    {
-         m1_2 = mH1sq;
-          
-         R11 = R11_GTHDM;
-         R12 = R12_GTHDM;
-         R13 = R13_GTHDM;
-         
-        if(mH2sq<mH3sq)
-        {   
-            m2_2 = mH2sq;
-            m3_2 = mH3sq;
-            R21 = R21_GTHDM;
-            R22 = R22_GTHDM;
-            R23 = R23_GTHDM;
-            R31 = R31_GTHDM;
-            R32 = R32_GTHDM;
-            R33 = R33_GTHDM;
-        }
-         else if(mH3sq<mH2sq)
-        {   
-            m2_2 = mH3sq;
-            m3_2 = mH2sq;
-            R21 = R31_GTHDM;
-            R22 = R32_GTHDM;
-            R23 = R33_GTHDM;
-            R31 = R21_GTHDM;
-            R32 = R22_GTHDM;
-            R33 = R23_GTHDM;
-        }
-    }
-    else if(mH2sq == mHl*mHl )
-    {
-         m1_2 = mH2sq;
-         R11 = R21_GTHDM;
-         R12 = R22_GTHDM;
-         R13 = R23_GTHDM;
-         
-         if(mH1sq<mH3sq)
-        {   
-            m2_2 = mH1sq;
-            m3_2 = mH3sq;
-            R21 = R11_GTHDM;
-            R22 = R12_GTHDM;
-            R23 = R13_GTHDM;
-            R31 = R31_GTHDM;
-            R32 = R32_GTHDM;
-            R33 = R33_GTHDM;
-
-        }
-         else if(mH3sq<mH1sq)
-        {   
-            m2_2 = mH3sq;
-            m3_2 = mH1sq;
-            R21 = R31_GTHDM;
-            R22 = R32_GTHDM;
-            R23 = R33_GTHDM;
-            R31 = R11_GTHDM;
-            R32 = R12_GTHDM;
-            R33 = R13_GTHDM;
-        }
-  
-    }
-    else if(mH3sq == mHl*mHl )
-    {
-         m1_2 = mH3sq;
-
-         R11 = R31_GTHDM;
-         R12 = R32_GTHDM;
-         R13 = R33_GTHDM;
-         
-          if(mH1sq<mH2sq)
-        {   
-            m2_2 = mH1sq;
-            m3_2 = mH2sq;
-            R21 = R11_GTHDM;
-            R22 = R12_GTHDM;
-            R23 = R13_GTHDM;
-            R31 = R21_GTHDM;
-            R32 = R22_GTHDM;
-            R33 = R23_GTHDM;
-
-        }
-         else if(mH2sq<mH1sq)
-        {   
-            m2_2 = mH2sq;
-            m3_2 = mH1sq;
-            R21 = R21_GTHDM;
-            R22 = R22_GTHDM;
-            R23 = R23_GTHDM;
-            R31 = R11_GTHDM;
-            R32 = R12_GTHDM;
-            R33 = R13_GTHDM;
-        }
-         
-    }
-    
-      if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
-                return std::numeric_limits<double>::quiet_NaN();
-     
-     */
-    
-    
-    
-    m1_2=mH1sq;
-    
-    
-    
-   /* COMMENTED ON 08/01/2019- TEST
-    *  if(mH2sq<=mH3sq)
-    {   
-        
-            m2_2 = mH2sq;
-            m3_2 = mH3sq;
-            R21 = R21_GTHDM;
-            R22 = R22_GTHDM;
-            R23 = R23_GTHDM;
-            R31 = R31_GTHDM;
-            R32 = R32_GTHDM;
-            R33 = R33_GTHDM;
-        }
-         else
-        {   
-            m2_2 = mH3sq;
-            m3_2 = mH2sq;
-            R21 = R31_GTHDM;
-            R22 = R32_GTHDM;
-            R23 = R33_GTHDM;THoEX_gg_phi3_bb_CMS8
-            R31 = R21_GTHDM;
-            R32 = R22_GTHDM;
-            R33 = R23_GTHDM;
-        }
-    */
-    if (m1_2 < 0 || m2_2 < 0 || m3_2 < 0) 
-                return std::numeric_limits<double>::quiet_NaN();
-    
-    
 
     //if (yu1R*yu1R >4. ||  yd1R*yd1R >4. ||  yl1R*yl1R >4.) 
          //       return std::numeric_limits<double>::quiet_NaN();
@@ -10484,20 +10273,16 @@ double GeneralTHDMcache::updateCache()
     sW2=1.0-cW2;
     GF=1.0/(sqrt(2.0)*vev*vev);
 
+    Mt   = myGTHDM->getQuarks(QCD::TOP).getMass();
+    Mb   = myGTHDM->getQuarks(QCD::BOTTOM).getMass();
+    Mc   = myGTHDM->getQuarks(QCD::CHARM).getMass();
+    Ms   = myGTHDM->getQuarks(QCD::STRANGE).getMass();
+    Mu   = myGTHDM->getQuarks(QCD::UP).getMass();
+    Md   = myGTHDM->getQuarks(QCD::DOWN).getMass();
+    Mtau = myGTHDM->getLeptons(StandardModel::TAU).getMass();
+    Mmu  = myGTHDM->getLeptons(StandardModel::MU).getMass();
+    Me   = myGTHDM->getLeptons(StandardModel::ELECTRON).getMass();
 
-//    std::cout<<"\033[1;33m  Ale= \033[0m "<< Ale <<std::endl;
-
-//    Mt=myTHDM->getQuarks(QCD::TOP).getMass();
-//    Mb=myTHDM->getQuarks(QCD::BOTTOM).getMass();   
-//    Mtau=myTHDM->getLeptons(StandardModel::TAU).getMass();
-//    Mc=myTHDM->getQuarks(QCD::CHARM).getMass();
-//    Ms=myTHDM->getQuarks(QCD::STRANGE).getMass();
-//    Mmu=myTHDM->getLeptons(StandardModel::MU).getMass();
-//    Mu=myTHDM->getQuarks(QCD::UP).getMass();
-//    Md=myTHDM->getQuarks(QCD::DOWN).getMass();
-//    Me=myTHDM->getLeptons(StandardModel::ELECTRON).getMass();
-//    modelflag=myTHDM->getModelTypeflag();
-//    WFRflag=myTHDM->getWFRflag();
 
     runGeneralTHDMparameters();
     computeSignalStrengths();

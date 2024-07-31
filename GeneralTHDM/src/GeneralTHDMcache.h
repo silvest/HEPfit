@@ -1024,7 +1024,13 @@ public:
      * @return @f$BR{\text SM}(h\to c c )@f$
      */
     double BrSM_htocc;
-    
+
+    /**
+     * @brief @f$Z@f$ branching ratio to @f$l@f$ @f$l@f$ in the SM.
+     * @return @f$BR(Z\to ll)@f$
+     */
+    double BrSM_Ztoll;
+
     /**
      * @brief Coupling of the SM-Higgs to up quarks.
      * @return @y_{u1}@f$
@@ -1425,12 +1431,6 @@ public:
      * @return @f$BR^{\text{GTHDM}}(h\to AZ)@f$
      */
     double GTHDM_BR_h_AZ;
-
-    /**
-     * @brief @f$Z@f$ branching ratio to @f$l@f$ @f$l@f$ in the SM.
-     * @return @f$BR(Z\to ll)@f$
-     */
-    double BrSM_Ztoll;
 
     //Higgs direct searches
 
