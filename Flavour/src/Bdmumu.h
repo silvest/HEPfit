@@ -77,7 +77,6 @@ private:
     gslpp::complex C_Pp;
 
     std::unique_ptr<EvolBsmm> evolbdmm;
-    DGamma_d_MSbar dgd;
     gslpp::vector<gslpp::complex>** allcoeff;
 };
 

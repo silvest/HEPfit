@@ -13,7 +13,7 @@
 
 Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
 : ThObservable(SM_i),
-  evolbsmm(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)), dgs(SM_i)
+  evolbsmm(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM))
 {
     lep = lep_i;
     if(lep == QCD::MU) leptonindex = 1;
@@ -23,8 +23,6 @@ Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
     SM.initializeMeson(QCD::B_S);
-    std::vector<std::string> pars = dgs.getParametersForObservable();
-    setParametersForObservable(pars);
 };
 
 double Bsmumu::computeThValue()
@@ -39,7 +37,7 @@ double Bsmumu::computeThValue()
     computeObs(FULLNLO, FULLNLO_QED);
 
     double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta;
-    double ys = dgs.computeThValue()*SM.getMesons(QCD::B_S).getLifetime()/2.; // For now. To be explicitly calculated.
+    double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.; // Using the experimental number here
     timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
      
     if (obs == 1) return( PRF * ampSq);
