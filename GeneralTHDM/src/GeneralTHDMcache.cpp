@@ -9968,6 +9968,9 @@ double GeneralTHDMcache::updateCache()
     mHp   = sqrt(mHp2);
     vev   = myGTHDM->v();
 
+    m2 = mH2;
+    m3 = mH3;
+
     m1_2 = mH1sq;
     m2_2 = mH2sq;
     m3_2 = mH3sq;
