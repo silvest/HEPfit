@@ -4702,6 +4702,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["RKst_BdKstll"] = bind(boost::factory<R_MVll*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, StandardModel::ELECTRON);
     obsThFactory["RKstL_BdKstll"] = bind(boost::factory<RL_MVll*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, StandardModel::ELECTRON);
     obsThFactory["RKstT_BdKstll"] = bind(boost::factory<RT_MVll*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, StandardModel::ELECTRON);
+    obsThFactory["RKstp_BpKstpll"] = bind(boost::factory<R_MVll*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU, StandardModel::ELECTRON);
     obsThFactory["R6_BdKstll"] = bind(boost::factory<R_6*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, StandardModel::ELECTRON);
     obsThFactory["ACP_BdKstmu"] = bind(boost::factory<ACP_MVll*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["P3CP_BdKstmu"] = bind(boost::factory<P3CP*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
