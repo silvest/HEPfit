@@ -515,7 +515,7 @@ double BR_MVgamma::computeBR_MVgamma(QCD::meson meson, QCD::meson vector)
         case StandardModel::RHO:
         case StandardModel::RHO_P:
         case StandardModel::OMEGA:
-            arg = SM.getFlavour().getDB2(0).getM21(FULLNLO).arg();
+            //arg = SM.getFlavour().getDB2(0).getM21(FULLNLO).arg();
             t_int = 1.;
             break;
         case StandardModel::PHI:

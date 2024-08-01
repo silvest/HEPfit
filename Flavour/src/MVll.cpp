@@ -225,7 +225,7 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
             << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
             << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23" << "DeltaC9"
+            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23" << "DeltaC9" << "DeltaC10"
             << "re_beta_0_0" << "re_beta_0_1" << "re_beta_0_2" << "re_beta_0_3" << "re_beta_0_4" << "re_beta_0_5" << "re_beta_0_6"
             << "im_beta_0_0" << "im_beta_0_1" << "im_beta_0_2" << "im_beta_0_3" << "im_beta_0_4" << "im_beta_0_5" << "im_beta_0_6"
             << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
@@ -237,7 +237,7 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
             << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
             << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23" << "DeltaC9"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23" << "DeltaC9" << "DeltaC10"
             << "re_beta_0_0" << "re_beta_0_1" << "re_beta_0_2" << "re_beta_0_3" << "re_beta_0_4" << "re_beta_0_5" << "re_beta_0_6"
             << "im_beta_0_0" << "im_beta_0_1" << "im_beta_0_2" << "im_beta_0_3" << "im_beta_0_4" << "im_beta_0_5" << "im_beta_0_6"
             << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
@@ -411,6 +411,7 @@ void MVll::updateParameters()
         beta_2[6] = gslpp::complex(mySM.getOptionalParameter("re_beta_2_6"), mySM.getOptionalParameter("im_beta_2_6"), false);
         
         DeltaC9 = mySM.getOptionalParameter("DeltaC9");
+        DeltaC10 = mySM.getOptionalParameter("DeltaC10");
     } else if (dispersion) {
         h_0[0] = gslpp::complex(mySM.getOptionalParameter("r1_1"));
         h_0[1] = gslpp::complex(mySM.getOptionalParameter("r1_2"));
@@ -493,7 +494,10 @@ void MVll::updateParameters()
     C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
     C_8Lh = (*(allcoeffh[LO]))(7);
     
-    if (zExpansion) C_9 += DeltaC9;
+    if (zExpansion) {
+        C_9 += DeltaC9;
+        C_10 += DeltaC10;
+    }
 
     checkCache();
 

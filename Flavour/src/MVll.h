@@ -841,6 +841,7 @@ private:
     double onemrho_4_2;
     double onemrho_5_2;
     double DeltaC9;
+    double DeltaC10;
     double MMpMV;/**< Cache variable */
     double MMpMV2;/**< Cache variable */
     double MMmMV;/**< Cache variable */
