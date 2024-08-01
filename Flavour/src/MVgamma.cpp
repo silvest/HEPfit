@@ -13,7 +13,6 @@
 #include "F_1.h"
 #include "F_2.h"
 #include "AmpDB2.h"
-#include "DGamma.h"
 #include <boost/bind/bind.hpp>
 #include <limits>
 #include <gsl/gsl_sf_zeta.h>
@@ -524,7 +523,7 @@ double BR_MVgamma::computeBR_MVgamma(QCD::meson meson, QCD::meson vector)
             /* For correctly defined polarization the numerator should be H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar(). Switched to keep consistency with K*ll.*/
             /* See discussion around eq.53 in hep-ph/0510104*/
             ADG = 2.*(exp(gslpp::complex::i()*arg)*(HVp.conjugate()*HVm_bar + HVm.conjugate()*HVp_bar)).real() / (HVp.abs2() + HVm.abs2() + HVp_bar.abs2() + HVm_bar.abs2());
-            ys = DGamma_s_MSbar(SM).computeThValue()*SM.getMesons(QCD::B_S).getLifetime()/2.;
+            ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
             t_int = (1. - ADG * ys)/(1. - ys*ys);
             break;
         default:

@@ -10,7 +10,7 @@
 #include "HeffDB1.h"
 
 Mll::Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton lep_i)
-: ThObservable(SM_i), dgs(SM_i)
+: ThObservable(SM_i)
 {
     meson = meson_i;
     lep = lep_i;
@@ -18,9 +18,11 @@ Mll::Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
     SM.initializeMeson(meson);
     FixedWCbtos = SM.getFlavour().getFlagFixedWCbtos();
-    std::vector<std::string> pars = dgs.getParametersForObservable();
-    if (FixedWCbtos) pars.push_back("C10_SM");
-    setParametersForObservable(pars);
+    if (FixedWCbtos){
+        std::vector<std::string> pars;
+        pars.push_back("C10_SM");
+        setParametersForObservable(pars);
+    }
 };
 
 double Mll::computeThValue()
@@ -55,7 +57,7 @@ void Mll::computeObs(orders order, orders_qed order_qed)
     if (meson == QCD::B_S) {
         ms = SM.getQuarks(QCD::STRANGE).getMass();
         CKM_factor = SM.getCKM().computelamt_s();
-        ys = dgs.computeThValue()*SM.getMesons(QCD::B_S).getLifetime()/2.;
+        ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
     } else if (meson == QCD::B_D) {
         ms = SM.getQuarks(QCD::DOWN).getMass();
         CKM_factor = SM.getCKM().computelamt_d();
