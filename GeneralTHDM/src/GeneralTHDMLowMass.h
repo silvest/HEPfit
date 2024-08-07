@@ -964,20 +964,42 @@ private:
 };
 
 /**
- * @class Hobs_HpHm_taunutaunu_OPAL209
+ * @class Hobs_HpHm_taunutaunu_LEP209
  * @ingroup GeneralTHDM
- * @brief Ratio of the prediction and OPAL upper limit for the branching ratios associated with the process @f$e^{+} e^{-}\to H^{+} H^{-} \to \tau^{+} \nu_{\tau} \tau^{-} \bar\nu_{\tau}@f$.
+ * @brief Ratio of the prediction and combined LEP upper limit for the cross-section times branching ratios associated with the process @f$e^{+} e^{-}\to H^{+} H^{-} \to \tau^{+} \nu_{\tau} \tau^{-} \bar\nu_{\tau}@f$.
  */
-class Hobs_HpHm_taunutaunu_OPAL209: public ThObservable {
+class Hobs_HpHm_taunutaunu_LEP209: public ThObservable {
 public:
 
     /**
-     * @brief Hobs_HpHm_taunutaunu_OPAL209 constructor.
+     * @brief Hobs_HpHm_taunutaunu_LEP209 constructor.
      */
-    Hobs_HpHm_taunutaunu_OPAL209(const StandardModel& SM_i);
+    Hobs_HpHm_taunutaunu_LEP209(const StandardModel& SM_i);
 
     /**
-     * @return @f$[BR^{\text{GTHDM}}(H^{+} \to \tau^{+} \nu_{\tau}) \cdot BR^{\text{GTHDM}}(H^{-} \to \tau^{-} \bar\nu_{\tau})]_{\frac{\text{theo}}{\text{OPAL,95\%}}}@f$
+     * @return @f$[\sigma^{\text GTHDM}_{209}(e^+ e^- \to H^+ H^-) \cdot BR^{\text{GTHDM}}(H^{+} \to \tau^{+} \nu_{\tau}) \cdot BR^{\text{GTHDM}}(H^{-} \to \tau^{-} \bar\nu_{\tau})]_{\frac{\text{theo}}{\text{LEP,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_HpHm_qqqq_LEP209
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and combined LEP upper limit for the cross-section times branching ratios associated with the process @f$e^{+} e^{-}\to H^{+} H^{-} \to q \bar{q} q \bar{q}@f$.
+ */
+class Hobs_HpHm_qqqq_LEP209: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_HpHm_qqqq_LEP209 constructor.
+     */
+    Hobs_HpHm_qqqq_LEP209(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text GTHDM}_{209}(e^+ e^- \to H^+ H^-) \cdot BR^{\text{GTHDM}}(H^{+} \to q \bar{q}) \cdot BR^{\text{GTHDM}}(H^{-} \to q \bar{q})]_{\frac{\text{theo}}{\text{LEP,95\%}}}@f$
      */
     double computeThValue();
 
@@ -1008,50 +1030,6 @@ private:
 };
 
 /**
- * @class Hobs_HpHm_qqqq_OPAL209
- * @ingroup GeneralTHDM
- * @brief Ratio of the prediction and OPAL upper limit for the branching ratios associated with the process @f$e^{+} e^{-}\to H^{+} H^{-} \to q \bar{q} q \bar{q}@f$.
- */
-class Hobs_HpHm_qqqq_OPAL209: public ThObservable {
-public:
-
-    /**
-     * @brief Hobs_HpHm_qqqq_OPAL209 constructor.
-     */
-    Hobs_HpHm_qqqq_OPAL209(const StandardModel& SM_i);
-
-    /**
-     * @return @f$[BR^{\text{GTHDM}}(H^{+} \to q \bar{q}) \cdot BR^{\text{GTHDM}}(H^{-} \to q \bar{q})]_{\frac{\text{theo}}{\text{OPAL,95\%}}}@f$
-     */
-    double computeThValue();
-
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class Hobs_HpHm_taunutaunu_OPAL172
- * @ingroup GeneralTHDM
- * @brief Ratio of the prediction and OPAL upper limit for the branching ratios associated with the process @f$e^{+} e^{-}\to H^{+} H^{-} \to \tau^{+} \nu_{\tau} \tau^{-} \bar\nu_{\tau}@f$.
- */
-class Hobs_HpHm_taunutaunu_OPAL172: public ThObservable {
-public:
-
-    /**
-     * @brief Hobs_HpHm_taunutaunu_OPAL172 constructor.
-     */
-    Hobs_HpHm_taunutaunu_OPAL172(const StandardModel& SM_i);
-
-    /**
-     * @return @f$[BR^{\text{GTHDM}}(H^{+} \to \tau^{+} \nu_{\tau}) \cdot BR^{\text{GTHDM}}(H^{-} \to \tau^{-} \bar\nu_{\tau})]_{\frac{\text{theo}}{\text{OPAL,95\%}}}@f$
-     */
-    double computeThValue();
-
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
  * @class Hobs_HpHm_qqtaunu_OPAL172
  * @ingroup GeneralTHDM
  * @brief Ratio of the prediction and OPAL upper limit for the branching ratios associated with the process @f$e^{+} e^{-}\to H^{+} H^{-} \to q \bar{q} \tau^{-} \bar\nu_{\tau}@f$.
@@ -1066,28 +1044,6 @@ public:
 
     /**
      * @return @f$[2 \cdot BR^{\text{GTHDM}}(H^{+} \to q \bar{q}) \cdot BR^{\text{GTHDM}}(H^{-} \to \tau^{-} \bar\nu_{\tau})]_{\frac{\text{theo}}{\text{OPAL,95\%}}}@f$
-     */
-    double computeThValue();
-
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class Hobs_HpHm_qqqq_OPAL172
- * @ingroup GeneralTHDM
- * @brief Ratio of the prediction and OPAL upper limit for the branching ratios associated with the process @f$e^{+} e^{-}\to H^{+} H^{-} \to q \bar{q} q \bar{q}@f$.
- */
-class Hobs_HpHm_qqqq_OPAL172: public ThObservable {
-public:
-
-    /**
-     * @brief Hobs_HpHm_qqqq_OPAL172 constructor.
-     */
-    Hobs_HpHm_qqqq_OPAL172(const StandardModel& SM_i);
-
-    /**
-     * @return @f$[BR^{\text{GTHDM}}(H^{+} \to q \bar{q}) \cdot BR^{\text{GTHDM}}(H^{-} \to q \bar{q})]_{\frac{\text{theo}}{\text{OPAL,95\%}}}@f$
      */
     double computeThValue();
 

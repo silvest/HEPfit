@@ -410,17 +410,26 @@ double Hobs_t_Hpb_WAb_Wmumub_ATLAS13::computeThValue()
 }
 
 
-/****************************/
-/* OPAL observables with Hp */
-/****************************/
+/***************************/
+/* LEP observables with Hp */
+/***************************/
 
-Hobs_HpHm_taunutaunu_OPAL209::Hobs_HpHm_taunutaunu_OPAL209(const StandardModel& SM_i)
+Hobs_HpHm_taunutaunu_LEP209::Hobs_HpHm_taunutaunu_LEP209(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
 
-double Hobs_HpHm_taunutaunu_OPAL209::computeThValue()
+double Hobs_HpHm_taunutaunu_LEP209::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_taunutaunu_OPAL209;
+    return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_taunutaunu_LEP209;
+}
+
+Hobs_HpHm_qqqq_LEP209::Hobs_HpHm_qqqq_LEP209(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_HpHm_qqqq_LEP209::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_qqqq_LEP209;
 }
 
 Hobs_HpHm_qqtaunu_OPAL209::Hobs_HpHm_qqtaunu_OPAL209(const StandardModel& SM_i)
@@ -432,24 +441,6 @@ double Hobs_HpHm_qqtaunu_OPAL209::computeThValue()
     return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_qqtaunu_OPAL209;
 }
 
-Hobs_HpHm_qqqq_OPAL209::Hobs_HpHm_qqqq_OPAL209(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double Hobs_HpHm_qqqq_OPAL209::computeThValue()
-{
-    return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_qqqq_OPAL209;
-}
-
-Hobs_HpHm_taunutaunu_OPAL172::Hobs_HpHm_taunutaunu_OPAL172(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double Hobs_HpHm_taunutaunu_OPAL172::computeThValue()
-{
-    return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_taunutaunu_OPAL172;
-}
-
 Hobs_HpHm_qqtaunu_OPAL172::Hobs_HpHm_qqtaunu_OPAL172(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
@@ -457,15 +448,6 @@ Hobs_HpHm_qqtaunu_OPAL172::Hobs_HpHm_qqtaunu_OPAL172(const StandardModel& SM_i)
 double Hobs_HpHm_qqtaunu_OPAL172::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_qqtaunu_OPAL172;
-}
-
-Hobs_HpHm_qqqq_OPAL172::Hobs_HpHm_qqqq_OPAL172(const StandardModel& SM_i)
-: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double Hobs_HpHm_qqqq_OPAL172::computeThValue()
-{
-    return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_qqqq_OPAL172;
 }
 
 

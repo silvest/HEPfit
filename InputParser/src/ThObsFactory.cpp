@@ -6071,12 +6071,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_t_Hpb_cbb_ATLAS13"] = boost::factory<Hobs_t_Hpb_cbb_ATLAS13*>();
     obsThFactory["Hobs_t_Hpb_WAb_Wmumub_ATLAS13"] = boost::factory<Hobs_t_Hpb_WAb_Wmumub_ATLAS13*>();
 
-    obsThFactory["Hobs_HpHm_taunutaunu_OPAL209"] = boost::factory<Hobs_HpHm_taunutaunu_OPAL209*>();
+    obsThFactory["Hobs_HpHm_taunutaunu_LEP209"] = boost::factory<Hobs_HpHm_taunutaunu_LEP209*>();
+    obsThFactory["Hobs_HpHm_qqqq_LEP209"] = boost::factory<Hobs_HpHm_qqqq_LEP209*>();
     obsThFactory["Hobs_HpHm_qqtaunu_OPAL209"] = boost::factory<Hobs_HpHm_qqtaunu_OPAL209*>();
-    obsThFactory["Hobs_HpHm_qqqq_OPAL209"] = boost::factory<Hobs_HpHm_qqqq_OPAL209*>();
-    obsThFactory["Hobs_HpHm_taunutaunu_OPAL172"] = boost::factory<Hobs_HpHm_taunutaunu_OPAL172*>();
     obsThFactory["Hobs_HpHm_qqtaunu_OPAL172"] = boost::factory<Hobs_HpHm_qqtaunu_OPAL172*>();
-    obsThFactory["Hobs_HpHm_qqqq_OPAL172"] = boost::factory<Hobs_HpHm_qqqq_OPAL172*>();
 
     obsThFactory["log10_tt_phi2_tt_TH13"] = boost::factory<log10_tt_phi2_tt_TH13*>();
     obsThFactory["log10_tt_phi3_tt_TH13"] = boost::factory<log10_tt_phi3_tt_TH13*>();

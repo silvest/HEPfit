@@ -247,12 +247,10 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         ATLAS13_t_Hpb_cbb(11, 2, 0.),        //Added in 2024
         ATLAS13_t_Hpb_WAb_Wmumub(31, 2, 0.), //Added in 2024
         //
-        OPAL209_HpHm_taunutaunu(87, 2, 0.),  //Added in 2024
+        LEP209_HpHm_taunutaunu(105, 2, 0.),  //Added in 2024
+        LEP209_HpHm_qqqq(105, 2, 0.),        //Added in 2024
         OPAL209_HpHm_qqtaunu(87, 2, 0.),     //Added in 2024
-        OPAL209_HpHm_qqqq(87, 2, 0.),        //Added in 2024
-        OPAL172_HpHm_taunutaunu(41, 2, 0.),  //Added in 2024
         OPAL172_HpHm_qqtaunu(41, 2, 0.),     //Added in 2024
-        OPAL172_HpHm_qqqq(41, 2, 0.),        //Added in 2024
         //
         //Tables of integrals for g-2
         integral_x2_1mx_G_log(62500, 3, 0.),
@@ -1921,7 +1919,7 @@ void GeneralTHDMcache::read(){
     std::stringstream lowC801, lowC802, lowC803, lowC804, lowC805, lowC806;
     std::stringstream lowHpC801, lowHpC802, lowHpC803, lowHpC1301, lowHpC1302;
     std::stringstream lowHpA801, lowHpA1301, lowHpA1302;
-    std::stringstream lowHp209a, lowHp209b, lowHp209c, lowHp172a, lowHp172b, lowHp172c;
+    std::stringstream lowHp209a, lowHp209b, lowHp209c, lowHp172a;
     std::stringstream thint01, thint02, thint03, thint04, thint05, thint06, thint07, thint08;
     std::stringstream bsg1;
 
@@ -2464,24 +2462,17 @@ void GeneralTHDMcache::read(){
     lowHpA1302 << tablepath << "ATLAS_CERN-EP-2023-070_5b.dat";    //Added in 2024
     ATLAS13_t_Hpb_WAb_Wmumub = readTable(lowHpA1302.str(),31,2);
 
-    lowHp209a << tablepath << "LEP_CERN-PH-EP-2008-016_7a.dat";    //Added in 2024
-    OPAL209_HpHm_taunutaunu = readTable(lowHp209a.str(),87,2);
+    lowHp209a << tablepath << "LEP_CERN-PH-EP-2012-369_4a.dat";    //Added in 2024
+    LEP209_HpHm_taunutaunu = readTable(lowHp209a.str(),105,2);
 
-    lowHp209b << tablepath << "LEP_CERN-PH-EP-2008-016_7b.dat";    //Added in 2024
-    OPAL209_HpHm_qqtaunu = readTable(lowHp209b.str(),87,2);
+    lowHp209b << tablepath << "LEP_CERN-PH-EP-2012-369_4d.dat";    //Added in 2024
+    LEP209_HpHm_qqqq = readTable(lowHp209b.str(),105,2);
 
-    lowHp209c << tablepath << "LEP_CERN-PH-EP-2008-016_7c.dat";    //Added in 2024
-    OPAL209_HpHm_qqqq = readTable(lowHp209c.str(),87,2);
+    lowHp209c << tablepath << "LEP_CERN-PH-EP-2008-016_7b.dat";    //Added in 2024
+    OPAL209_HpHm_qqtaunu = readTable(lowHp209c.str(),87,2);
 
-    lowHp172a << tablepath << "LEP_CERN-PPE-97-168_3b_tntn.dat";   //Added in 2024
-    OPAL172_HpHm_taunutaunu = readTable(lowHp172a.str(),41,2);
-
-    lowHp172b << tablepath << "LEP_CERN-PPE-97-168_3b_tnqq.dat";   //Added in 2024
-    OPAL172_HpHm_qqtaunu = readTable(lowHp172b.str(),41,2);
-
-    lowHp172c << tablepath << "LEP_CERN-PPE-97-168_3b_qqqq.dat";   //Added in 2024
-    OPAL172_HpHm_qqqq = readTable(lowHp172c.str(),41,2);
-
+    lowHp172a << tablepath << "LEP_CERN-PPE-97-168_3b_tnqq.dat";   //Added in 2024
+    OPAL172_HpHm_qqtaunu = readTable(lowHp172a.str(),41,2);
 
     thint01 << tablepath << "integral_x2_1mx_G_values_log.dat";
     integral_x2_1mx_G_log = readTable(thint01.str(),62500,3);
@@ -5299,15 +5290,28 @@ double GeneralTHDMcache::ip_low_t_Hpb_WAb_Wmumub_ATLAS13(double mass){
     }
 }
 
-double GeneralTHDMcache::ip_low_HpHm_taunutaunu_OPAL209(double mass){
+double GeneralTHDMcache::ip_low_HpHm_taunutaunu_LEP209(double mass){
     int NumPar = 1;
     double params[] = {mass};
-    int i = CacheCheckReal(ip_low_HpHm_taunutaunu_OPAL209_cache, NumPar, params);
+    int i = CacheCheckReal(ip_low_HpHm_taunutaunu_LEP209_cache, NumPar, params);
     if (i>=0) {
-        return(ip_low_HpHm_taunutaunu_OPAL209_cache[NumPar][i] );
+        return(ip_low_HpHm_taunutaunu_LEP209_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (OPAL209_HpHm_taunutaunu,mass);
-        CacheShiftReal(ip_low_HpHm_taunutaunu_OPAL209_cache, NumPar, params, newResult);
+        double newResult = interpolate (LEP209_HpHm_taunutaunu,mass);
+        CacheShiftReal(ip_low_HpHm_taunutaunu_LEP209_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_HpHm_qqqq_LEP209(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_HpHm_qqqq_LEP209_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_HpHm_qqqq_LEP209_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (LEP209_HpHm_qqqq,mass);
+        CacheShiftReal(ip_low_HpHm_qqqq_LEP209_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -5325,32 +5329,6 @@ double GeneralTHDMcache::ip_low_HpHm_qqtaunu_OPAL209(double mass){
     }
 }
 
-double GeneralTHDMcache::ip_low_HpHm_qqqq_OPAL209(double mass){
-    int NumPar = 1;
-    double params[] = {mass};
-    int i = CacheCheckReal(ip_low_HpHm_qqqq_OPAL209_cache, NumPar, params);
-    if (i>=0) {
-        return(ip_low_HpHm_qqqq_OPAL209_cache[NumPar][i] );
-    } else {
-        double newResult = interpolate (OPAL209_HpHm_qqqq,mass);
-        CacheShiftReal(ip_low_HpHm_qqqq_OPAL209_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-double GeneralTHDMcache::ip_low_HpHm_taunutaunu_OPAL172(double mass){
-    int NumPar = 1;
-    double params[] = {mass};
-    int i = CacheCheckReal(ip_low_HpHm_taunutaunu_OPAL172_cache, NumPar, params);
-    if (i>=0) {
-        return(ip_low_HpHm_taunutaunu_OPAL172_cache[NumPar][i] );
-    } else {
-        double newResult = interpolate (OPAL172_HpHm_taunutaunu,mass);
-        CacheShiftReal(ip_low_HpHm_taunutaunu_OPAL172_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
 double GeneralTHDMcache::ip_low_HpHm_qqtaunu_OPAL172(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -5360,19 +5338,6 @@ double GeneralTHDMcache::ip_low_HpHm_qqtaunu_OPAL172(double mass){
     } else {
         double newResult = interpolate (OPAL172_HpHm_qqtaunu,mass);
         CacheShiftReal(ip_low_HpHm_qqtaunu_OPAL172_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-double GeneralTHDMcache::ip_low_HpHm_qqqq_OPAL172(double mass){
-    int NumPar = 1;
-    double params[] = {mass};
-    int i = CacheCheckReal(ip_low_HpHm_qqqq_OPAL172_cache, NumPar, params);
-    if (i>=0) {
-        return(ip_low_HpHm_qqqq_OPAL172_cache[NumPar][i] );
-    } else {
-        double newResult = interpolate (OPAL172_HpHm_qqqq,mass);
-        CacheShiftReal(ip_low_HpHm_qqqq_OPAL172_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -5974,6 +5939,24 @@ gslpp::complex GeneralTHDMcache::A_H_Hp(const double mHp2, const double mH, cons
         return newResult;
     }
 }
+
+
+double GeneralTHDMcache::Sigma_HpHm_LEP209(const double mass2) const
+{
+    double s_LEP     = 209. * 209.;
+    double one_MZ2_s = 1. - MZ*MZ / s_LEP;
+
+    double cWsW   = sqrt(cW2) * sqrt(sW2);
+    double ahat_e = -1. / 4. / cWsW;
+    double vhat_e = (-1. + 4. * sW2) / 4. / cWsW;
+    double vhat_H = (-1. + 2. * sW2) / 2. / cWsW;
+    double beta_H = sqrt(std::fabs(1. - 4. * mass2 / s_LEP));
+
+    return (2. * GF*GF * MW*MW*MW*MW * sW2*sW2 * (1. + 2. * vhat_e * vhat_H / one_MZ2_s +
+           (ahat_e*ahat_e + vhat_e*vhat_e) * vhat_H*vhat_H / one_MZ2_s / one_MZ2_s) *
+            beta_H*beta_H*beta_H / (3. * M_PI * s_LEP));
+};
+
 
 int GeneralTHDMcache::HSTheta (const double x) const{
     if(x<0) return 0.0;
@@ -9783,9 +9766,17 @@ void GeneralTHDMcache::computeLowMass()
         THoEX_t_Hpb_WAb_Wmumub_ATLAS13 = (Br_ttoHpb * Br_Hptophi3W * Br_phi3tomumu) / ip_low_t_Hpb_WAb_Wmumub_ATLAS13(mH3);
     }
 
-    if(mHp >= 50.0 && mHp <= 93.0)
+    // GeV^-2 -> pb
+    double GeV2pb = 0.389379e9;
+
+    if(mHp >= 43.0 && mHp <= 95.0)
     {
-        THoEX_HpHm_taunutaunu_OPAL209 = (Br_Hptotaunu * Br_Hptotaunu) / ip_low_HpHm_taunutaunu_OPAL209(mHp);
+        THoEX_HpHm_taunutaunu_LEP209 = (GeV2pb * Sigma_HpHm_LEP209(mHp2) * Br_Hptotaunu * Br_Hptotaunu) / ip_low_HpHm_taunutaunu_LEP209(mHp);
+    }
+
+    if(mHp >= 43.0 && mHp <= 95.0)
+    {
+        THoEX_HpHm_qqqq_LEP209 = (GeV2pb * Sigma_HpHm_LEP209(mHp2) * (Br_Hptocs + Br_Hptocb) * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqqq_LEP209(mHp);
     }
 
     if(mHp >= 50.0 && mHp <= 93.0)
@@ -9793,24 +9784,9 @@ void GeneralTHDMcache::computeLowMass()
         THoEX_HpHm_qqtaunu_OPAL209 = (2.0 * Br_Hptotaunu * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqtaunu_OPAL209(mHp);
     }
 
-    if(mHp >= 50.0 && mHp <= 93.0)
-    {
-        THoEX_HpHm_qqqq_OPAL209 = ((Br_Hptocs + Br_Hptocb) * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqqq_OPAL209(mHp);
-    }
-
-    if(mHp >= 40.0 && mHp < 50.0)
-    {
-        THoEX_HpHm_taunutaunu_OPAL172 = (Br_Hptotaunu * Br_Hptotaunu) / ip_low_HpHm_taunutaunu_OPAL172(mHp);
-    }
-
     if(mHp >= 40.0 && mHp < 50.0)
     {
         THoEX_HpHm_qqtaunu_OPAL172 = (2.0 * Br_Hptotaunu * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqtaunu_OPAL172(mHp);
-    }
-
-    if(mHp >= 40.0 && mHp < 50.0)
-    {
-        THoEX_HpHm_qqqq_OPAL172 = ((Br_Hptocs + Br_Hptocb) * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqqq_OPAL172(mHp);
     }
 }
 
