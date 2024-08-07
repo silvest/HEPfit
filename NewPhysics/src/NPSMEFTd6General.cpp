@@ -8548,7 +8548,7 @@ bool NPSMEFTd6General::PostUpdate() {
             MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
         }
 
-    gslpp::vector<double> m(3);
+    gslpp::vector<double> mmu(3), mmd(3);
     
     //std::cout<<"    |"<<MUQ(0,0)<<","<<MUQ(0,1)<<","<<MUQ(0,2)<<"|"<<std::endl;
     //std::cout<<"MUQ=|"<<MUQ(1,0)<<","<<MUQ(1,1)<<","<<MUQ(1,2)<<"|"<<std::endl;
@@ -8559,24 +8559,26 @@ bool NPSMEFTd6General::PostUpdate() {
     //std::cout<<"    |"<<MDQ(2,0)<<","<<MDQ(2,1)<<","<<MDQ(2,2)<<"|"<<std::endl;
     //std::cout<<"  "<<std::endl;
 
-    MUQ.singularvalue(VuR, VuL, m);
-    if(m(2) < 50.0) {
+    MUQ.singularvalue(VuR, VuL, mmu);
+    if(mmu(2) < 50.0) {
         std::cout << "Warning: top quark mass is too low, m(2) = " << m(2) << std::endl;
         return false;
     }
-    quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(), getMuw(), m(0)));
-    quarks[CHARM].setMass(Mofmu2Mbar(m(1), getMuw()));
-    quarks[TOP].setMass(Mofmu2Mbar(m(2), getMuw()));
-    setMtpole(Mbar2Mp(quarks[TOP].getMass()));
 
-    MDQ.singularvalue(VdR, VdL, m);
-    if(m(2) < 2.5) {
+    MDQ.singularvalue(VdR, VdL, mmd);
+    if(mmd(2) < 2.5) {
         std::cout << "Warning: bottom quark mass is too low, m(2) = " << m(2) << std::endl;
         return false;
     }
-    quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(), getMuw(), m(0)));
-    quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(), getMuw(), m(1)));
-    quarks[BOTTOM].setMass(Mofmu2Mbar(m(2), getMuw()));
+
+    //do heavy quarks first to get the thresholds right
+    quarks[TOP].setMass(Mofmu2Mbar(mmu(2), getMuw()));
+    setMtpole(Mbar2Mp(quarks[TOP].getMass()));
+    quarks[BOTTOM].setMass(Mofmu2Mbar(mmd(2), getMuw()));
+    quarks[CHARM].setMass(Mofmu2Mbar(mmu(1), getMuw()));
+    quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(), getMuw(), mmd(1)));
+    quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(), getMuw(), mmd(0)));
+    quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(), getMuw(), mmu(0)));
 
     VuLd = VuL.hconjugate();
 
