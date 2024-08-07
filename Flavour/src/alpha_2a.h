@@ -26,7 +26,7 @@ public:
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    Alpha_2a(const StandardModel& SM_i) : ThObservable(SM_i) {};
+    Alpha_2a(const StandardModel& SM_i);
 
     /**
      * @return The CKM angle @f$\alpha @f$ in degrees

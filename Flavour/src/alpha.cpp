@@ -10,7 +10,8 @@
 #include "AmpDB2.h"
 
 Alpha::Alpha(const StandardModel& SM_i) : ThObservable(SM_i)
-{}
+{        SM.getFlavour().getDB2(0);
+}
 
 double Alpha::computeThValue() 
 {

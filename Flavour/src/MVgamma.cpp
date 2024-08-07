@@ -27,6 +27,8 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     dispersion = false;
     FixedWCbtos = false;
     mJ2 = 3.096*3.096;
+    SM.getFlavour().getDB2(0);
+    SM.getFlavour().getDB2(1);
     
     w_GSL = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -515,7 +517,7 @@ double BR_MVgamma::computeBR_MVgamma(QCD::meson meson, QCD::meson vector)
         case StandardModel::RHO:
         case StandardModel::RHO_P:
         case StandardModel::OMEGA:
-            //arg = SM.getFlavour().getDB2(0).getM21(FULLNLO).arg();
+            arg = SM.getFlavour().getDB2(0).getM21(FULLNLO).arg();
             t_int = 1.;
             break;
         case StandardModel::PHI:

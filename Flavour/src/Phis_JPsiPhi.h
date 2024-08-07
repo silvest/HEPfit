@@ -26,7 +26,7 @@ public:
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    Phis_JPsiPhi(const StandardModel& SM_i) : ThObservable(SM_i){};
+    Phis_JPsiPhi(const StandardModel& SM_i);
     
     /**
      *

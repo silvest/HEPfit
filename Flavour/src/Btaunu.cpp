@@ -15,7 +15,6 @@ Btaunu::Btaunu(const StandardModel& SM_i, QCD::meson meson_i)
     SM.initializeMeson(meson);
 };
 
-
 double Btaunu::computeThValue()
 {
     gslpp::vector<gslpp::complex> ** allcoeff;

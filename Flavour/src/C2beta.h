@@ -26,7 +26,7 @@ public:
      * @param[in] SM_i
      */
     
-    C2beta(const StandardModel& SM_i) : ThObservable(SM_i) {};
+    C2beta(const StandardModel& SM_i);
     
     /**
      *

@@ -36,17 +36,11 @@ gslpp::vector<gslpp::complex>** HeffDF1_diujlknu::ComputeCoeffdiujleptonknu(int 
 
     //Hard-coding the Sirlin factor for the moment, Mauro's student can implement the full calculation. 
     //Since it includes the QED running, it should be applied to the SM only. The NP instead will be run using the QED and QCD anomalous dimensions
-    
-    double Sew;
-    if(i==2)
-        Sew = 1.0066;
-    else
-        Sew = 1.0232;
 
     orders ordDF1 = coeffdiujleptonknu[index].getOrder();
     for (unsigned int i = 0; i < mcu.size(); i++) {
         if(i==0)
-            coeffdiujleptonknu[index].setCoeff(*mcu[0].getCoeff(LO)*Sew, orders(LO));
+            coeffdiujleptonknu[index].setCoeff(*mcu[0].getCoeff(LO), orders(LO));
         else
         for (int j = LO; j <= ordDF1; j++) {
             for (int k = LO; k <= j; k++) {

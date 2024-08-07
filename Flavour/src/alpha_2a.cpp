@@ -9,6 +9,10 @@
 #include "StandardModel.h"
 #include "AmpDB2.h"
 
+Alpha_2a::Alpha_2a(const StandardModel& SM_i) : ThObservable(SM_i) {
+            SM.getFlavour().getDB2(0);
+}
+
 double Alpha_2a::computeThValue() 
 { 
     // alpha is really extracted as pi + 1/2 arg AmpDB2 - gamma 
