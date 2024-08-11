@@ -18,7 +18,6 @@
 #include "FlavourObservables.h"
 #include "NPSMEFT6dtopquark.h"
 #include "TopQuarkObservables.h"
-#include "NPBR_kpnunu.h"
 #include "MtMSbar.h"
 #include "alpha_s.h"
 #include "LeptonFlavourObservables.h"
@@ -4554,9 +4553,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["EpsilonP_O_Epsilon_y10"] = bind(boost::factory<WC_epspOeps*>(), _1, 9, 1.3);
     obsThFactory["BR_Kppnunu"] = boost::factory<BR_Kppnunu*>();
     obsThFactory["BR_Kp0nunu"] = boost::factory<BR_Kp0nunu*>();
-    //Same but with NP
-    obsThFactory["NPBR_kppnunu"] = boost::factory<NPBR_kppnunu*>();
-    obsThFactory["NPBR_kp0nunu"] = boost::factory<NPBR_kp0nunu*>();
     
     /* END: REMOVE FROM THE PACKAGE */
     //----- CKM  -----
