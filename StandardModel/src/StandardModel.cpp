@@ -1119,13 +1119,13 @@ const double StandardModel::sW2() const
     return ( 1.0 - cW2());
 }
 
-double StandardModel::sW2_MSbar_Approx() const 
+const double StandardModel::sW2_MSbar_Approx() const 
 {
     //double rho_t= 3. * getGF() * getMtpole() * getMtpole() / (8. * sqrt(2.) * M_PI * M_PI ); 
     return ( sW2()*1.0351 ); //PDG 22 electroweak review eq. (10.19)
 }
  
-double StandardModel::sW2_ND() const 
+const double StandardModel::sW2_ND() const 
 {
     double d = 1. / 3. * (1. / sW2_MSbar_Approx() - 8. / 3.) * 
                ( (1 + getAlsMz()/M_PI)*log(getMtpole()/getMz()) - 15.*getAlsMz()/(8.*M_PI) ); 
