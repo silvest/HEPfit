@@ -22,7 +22,7 @@ public:
 *　@brief The number of the model parameters in %NPSMEFT6dtopquarkVars. 
 */
 //static const int NNPSMEFT6dtopquarkVars = 104;
-static const int NNPSMEFT6dtopquarkVars = 35;
+static const int NNPSMEFT6dtopquarkVars = 35 + 7;
   
 
 /*
@@ -181,6 +181,30 @@ static const int NNPSMEFT6dtopquarkVars = 35;
     }
     double getNPSMEFT6dtopquark_C_Qq31() const {
         return C_Qq31;
+    }
+    
+    
+    
+    double getNPSMEFT6dtopquark_C_phiG() const {
+        return C_phiG;
+    }
+    double getNPSMEFT6dtopquark_C_phiGtil() const {
+        return C_phiGtil;
+    }
+    double getNPSMEFT6dtopquark_C_phiW() const {
+        return C_phiW;
+    }
+    double getNPSMEFT6dtopquark_C_phiWtil() const {
+        return C_phiWtil;
+    }
+    double getNPSMEFT6dtopquark_C_tphiIm() const {
+        return C_tphiIm;
+    }
+    double getNPSMEFT6dtopquark_C_tGIm() const {
+        return C_tGIm;
+    }
+    double getNPSMEFT6dtopquark_C_tWIm() const {
+        return C_tWIm;
     }
 
     
@@ -492,42 +516,51 @@ static const int NNPSMEFT6dtopquarkVars = 35;
     
     
     
-    double C_phit; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_phiQ3; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_phiQ1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_phiQm; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_tW; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_tZ; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_tB; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_tphi; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_phib; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_bW; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_bB; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_bZ; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_phitb; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_tG; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_ed; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_eq; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_ld; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_lqP; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_eu; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_lu; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_lqM; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_tu8; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_td8; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_Qq18; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_tq8; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_Qq38; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_Qu8; //< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_Qd8; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phit = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phiQ3 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phiQ1 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phiQm = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tW = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tZ = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tB = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tphi = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phib = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_bW = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_bB = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_bZ = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phitb = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tG = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_ed = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_eq = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_ld = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_lqP = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_eu = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_lu = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_lqM = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tu8 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_td8 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qq18 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tq8 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qq38 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qu8 = 0; //< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qd8 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     
-    double C_Qd1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_Qu1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_td1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_tu1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_tq1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_Qq11; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
-    double C_Qq31; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qd1 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qu1 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_td1 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tu1 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tq1 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qq11 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_Qq31 = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    
+    
+    double C_phiG = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phiGtil = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phiW = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_phiWtil = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tphiIm = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tGIm = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tWIm = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     
     
     /*
@@ -2750,32 +2783,417 @@ private:
     };
     
     
+
+    
     
     /*
-    class opt_obs_ilc_500_1000: public ThObservable {
-    public:
-    opt_obs_ilc_500_1000(const StandardModel& SM_i);
-    double computeThValue();
-    private:
-        double b_min = 0.;
-        double b_max = 0.;
-        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-    };
-    
-    class test_cov: public ThObservable {
-    public:
-    test_cov(const StandardModel& SM_i);
-    double computeThValue();
-    private:
-        double b_min = 0.;
-        double b_max = 0.;
-        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-    };
+    * @class b4_ttH_LO
+    * @ingroup TopQuarkObservables 
+    * @brief b4 observable for ttH
     */
+    class b4_ttH_LO: public ThObservable {
+    public:
+
+    /**
+     * @brief b4_ttH_LO constructor.
+     */
+    b4_ttH_LO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of b4_ttH_LO
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
     
     
     
     
+    
+    /*
+    * @class Asymmetry_Dazi_ord_ttH
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the variation
+     * of the azimuthal angle of the 
+     * top pairs in the tth process
+     * ordered by the pseudorapidty
+    */
+    class Asymmetry_Dazi_ord_ttH: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_Dazi_ord_ttH constructor.
+     */
+    Asymmetry_Dazi_ord_ttH(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_Dazi_ord_ttH
+     */
+    double computeThValue();
+    
+    private:
+
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_Dazi_ord_ttH
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the variation
+     * of the azimuthal angle of the 
+     * final electron pairs in the 
+     * tth process ordered by the 
+     * pseudorapidty
+    */
+    class Asymmetry_Dazi_ord_ttH_ee: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_Dazi_ord_ttH_ee constructor.
+     */
+    Asymmetry_Dazi_ord_ttH_ee(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_Dazi_ord_ttH_ee
+     */
+    double computeThValue();
+    
+    private:
+
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /*
+    * @class sigma_ttH_diff_LO_mtth
+    * @ingroup TopQuarkObservables 
+    * @brief ttH differential cross
+     * section w.r.t. the invariant
+     * mass of tth
+    */
+    class sigma_ttH_diff_LO_mtth: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_ttH_diff_LO_mtth constructor.
+     */
+    sigma_ttH_diff_LO_mtth(const StandardModel& SM_i);
+
+    /**
+     * @return The value of sigma_ttH_diff_LO_mtth
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_trip_prod_pt_pe_pp_ttH
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the triple product
+     * p_t\cdot(p_{e^-}\times p_{e^+})
+     * in the tth process 
+    */
+    class Asymmetry_trip_prod_pt_pe_pp_ttH: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_trip_prod_pt_pe_pp_ttH constructor.
+     */
+    Asymmetry_trip_prod_pt_pe_pp_ttH(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_trip_prod_pt_pe_pp_ttH
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_sign_trip_prod_pe_pp_ttH
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the scalar product
+     * p_{e^-}\cdot p_{e^+} in the tth process 
+     * scaled by the sign of the triple product
+     * p_t\cdot(p_{e^-}\times p_{e^+})
+    */
+    class Asymmetry_sign_trip_prod_pe_pp_ttH: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_sign_trip_prod_pe_pp_ttH constructor.
+     */
+    Asymmetry_sign_trip_prod_pe_pp_ttH(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_sign_trip_prod_pe_pp_ttH
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_cos_je_tHj
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the cosine of the 
+     * polarisation angle defined with respect
+     * to the axis "je" in the thj process.
+    */
+    class Asymmetry_cos_je_tHj: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_cos_je_tHj constructor.
+     */
+    Asymmetry_cos_je_tHj(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_cos_je_tHj
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_cos_se_tHj
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the cosine of the 
+     * polarisation angle defined with respect
+     * to the axis "se" in the thj process.
+    */
+    class Asymmetry_cos_se_tHj: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_cos_se_tHj constructor.
+     */
+    Asymmetry_cos_se_tHj(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_cos_se_tHj
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_cos_ye_tHj
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the cosine of the 
+     * polarisation angle defined with respect
+     * to the axis "ye" in the thj process.
+    */
+    class Asymmetry_cos_ye_tHj: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_cos_ye_tHj constructor.
+     */
+    Asymmetry_cos_ye_tHj(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_cos_ye_tHj
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_trip_prod_ph_pt_pj_tHj
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the triple product
+     * ph\cross(pt\cdot pj) in the thj process.
+    */
+    class Asymmetry_trip_prod_ph_pt_pj_tHj: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_trip_prod_ph_pt_pj_tHj constructor.
+     */
+    Asymmetry_trip_prod_ph_pt_pj_tHj(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_trip_prod_ph_pt_pj_tHj
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    /*
+    * @class sigma_tHj_diff_LO_Del_R_th
+    * @ingroup TopQuarkObservables 
+    * @brief Differential cross section
+     * with respect to the \Delta R(th)
+     *  in the thj process.
+    */
+    class sigma_tHj_diff_LO_Del_R_th: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tHj_diff_LO_Del_R_th constructor.
+     */
+    sigma_tHj_diff_LO_Del_R_th(const StandardModel& SM_i);
+
+    /**
+     * @return The value of sigma_tHj_diff_LO_Del_R_th
+     */
+    double computeThValue();
+    
+    private:
+        
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /*
+    * @class sigma_tHj_diff_LO_mth
+    * @ingroup TopQuarkObservables 
+    * @brief Differential cross section
+     * with respect to the invariant
+     * mass of the Higgs and top
+     *  in the thj process.
+    */
+    class sigma_tHj_diff_LO_mth: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tHj_diff_LO_mth constructor.
+     */
+    sigma_tHj_diff_LO_mth(const StandardModel& SM_i);
+
+    /**
+     * @return The value of sigma_tHj_diff_LO_mth
+     */
+    double computeThValue();
+    
+    private:
+        
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+
+    
+    
+    /*
+    * @class sigma_tHj_diff_LO_trip_prod_z_pt_pj
+    * @ingroup TopQuarkObservables 
+    * @brief Differential cross section with
+     * respect to the triple product of the 
+     * 3-momenta of the proton beam the 
+     * top-quark and the jet in the thj process.
+    */
+    class sigma_tHj_diff_LO_trip_prod_z_pt_pj: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tHj_diff_LO_trip_prod_z_pt_pj constructor.
+     */
+    sigma_tHj_diff_LO_trip_prod_z_pt_pj(const StandardModel& SM_i);
+
+    /**
+     * @return The value of sigma_tHj_diff_LO_trip_prod_z_pt_pj
+     */
+    double computeThValue();
+    
+    private:
+        
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
         
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////

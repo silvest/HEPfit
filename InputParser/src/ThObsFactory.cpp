@@ -4258,6 +4258,29 @@ ThObsFactory::ThObsFactory()
     obsThFactory["opt_obs_muon_30TeV"] = boost::factory<opt_obs_muon_30TeV*>();
     
     
+    //Observables for CP-violation at tth and thj (prospects and proposed asymmetries)
+    
+    obsThFactory["Asymmetry_Dazi_ord_ttH"] = boost::factory<Asymmetry_Dazi_ord_ttH*>();
+    obsThFactory["Asymmetry_Dazi_ord_ttH_ee"] = boost::factory<Asymmetry_Dazi_ord_ttH_ee*>();
+    obsThFactory["Asymmetry_trip_prod_pt_pe_pp_ttH"] = boost::factory<Asymmetry_trip_prod_pt_pe_pp_ttH*>();
+    obsThFactory["Asymmetry_sign_trip_prod_pe_pp_ttH"] = boost::factory<Asymmetry_sign_trip_prod_pe_pp_ttH*>();
+    
+    obsThFactory["sigma_ttH_diff_LO_mtth"] = boost::factory<sigma_ttH_diff_LO_mtth*>();
+    obsThFactory["b4_ttH_LO"] = boost::factory<b4_ttH_LO*>();
+    
+    
+    
+    
+    obsThFactory["Asymmetry_cos_je_tHj"] = boost::factory<Asymmetry_cos_je_tHj*>();
+    obsThFactory["Asymmetry_cos_se_tHj"] = boost::factory<Asymmetry_cos_se_tHj*>();
+    obsThFactory["Asymmetry_cos_ye_tHj"] = boost::factory<Asymmetry_cos_ye_tHj*>();
+    obsThFactory["Asymmetry_trip_prod_ph_pt_pj_tHj"] = boost::factory<Asymmetry_trip_prod_ph_pt_pj_tHj*>();
+    
+    obsThFactory["sigma_tHj_diff_LO_Del_R_th"] = boost::factory<sigma_tHj_diff_LO_Del_R_th*>();
+    obsThFactory["sigma_tHj_diff_LO_mth"] = boost::factory<sigma_tHj_diff_LO_mth*>();
+    obsThFactory["sigma_tHj_diff_LO_trip_prod_z_pt_pj"] = boost::factory<sigma_tHj_diff_LO_trip_prod_z_pt_pj*>();
+    
+    
     
     
     //obsThFactory["opt_obs_ilc_500_1000"] = boost::factory<opt_obs_ilc_500_1000*>();
@@ -4317,17 +4340,17 @@ ThObsFactory::ThObsFactory()
    obsThFactory["sigma_ttz_diff_LO_ATLAS_210312603"] = boost::factory<sigma_ttz_diff_LO_ATLAS_210312603*>();
    obsThFactory["sigma_ttz_diff_LO_ATLAS_231204450"] = boost::factory<sigma_ttz_diff_LO_ATLAS_231204450*>();
    
-   
    obsThFactory["sigma_tta_diff_LO_ATLAS_emu"] = boost::factory<sigma_tta_diff_LO_ATLAS_emu_200706946*>();
    obsThFactory["sigma_tta_diff_LO_CMS_dilepton"] = boost::factory<sigma_tta_diff_LO_CMS_dilepton_220107301*>();
    obsThFactory["sigma_tta_diff_LO_CMS_semileptonic"] = boost::factory<sigma_tta_diff_LO_CMS_semileptonic_210701508*>();
-   
-   
    
    obsThFactory["F0_LO"] = boost::factory<F0_LO*>();
    obsThFactory["FL_LO"] = boost::factory<FL_LO*>();
    obsThFactory["FR_LO"] = boost::factory<FL_LO*>();
    
+   obsThFactory["sigma_tttt_13_LO"] = boost::factory<sigma_tttt_13_LO*>();
+   obsThFactory["sigma_ttbb_13_LO_dilepton"] = boost::factory<sigma_ttbb_13_LO_dilepton*>();
+   obsThFactory["sigma_ttbb_13_LO_lepjet"] = boost::factory<sigma_ttbb_13_LO_lepjet*>();
    
    obsThFactory["sigma_taq_LO_CMS"] = boost::factory<sigma_taq_LO_CMS*>();
    obsThFactory["sigma_taq_LO_ATLAS"] = boost::factory<sigma_taq_LO_ATLAS*>();

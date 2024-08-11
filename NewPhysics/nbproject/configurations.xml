@@ -8,7 +8,6 @@
       <itemPath>src/HiggsChiral.h</itemPath>
       <itemPath>src/HiggsKigen.h</itemPath>
       <itemPath>src/HiggsThObservables.h</itemPath>
-      <itemPath>src/NPBR_kpnunu.h</itemPath>
       <itemPath>src/NPEpsilons.h</itemPath>
       <itemPath>src/NPEpsilons_pureNP.h</itemPath>
       <itemPath>src/NPHiggs.h</itemPath>
@@ -43,7 +42,6 @@
       <itemPath>src/HiggsChiral.cpp</itemPath>
       <itemPath>src/HiggsKigen.cpp</itemPath>
       <itemPath>src/HiggsThObservables.cpp</itemPath>
-      <itemPath>src/NPBR_kpnunu.cpp</itemPath>
       <itemPath>src/NPEpsilons.cpp</itemPath>
       <itemPath>src/NPEpsilons_pureNP.cpp</itemPath>
       <itemPath>src/NPHiggs.cpp</itemPath>
@@ -152,10 +150,6 @@
       <item path="src/HiggsThObservables.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPBR_kpnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPBR_kpnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -307,10 +301,6 @@
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPBR_kpnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPBR_kpnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
@@ -449,10 +439,6 @@
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPBR_kpnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPBR_kpnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
@@ -581,10 +567,6 @@
       <item path="src/HiggsThObservables.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPBR_kpnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPBR_kpnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>

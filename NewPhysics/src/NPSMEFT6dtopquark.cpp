@@ -23,6 +23,9 @@ const std::string NPSMEFT6dtopquark::NPSMEFT6dtopquarkVars[NNPSMEFT6dtopquarkVar
         "C_lu","C_lqM","C_tu8","C_td8", "C_Qq18","C_tq8",
         "C_Qq38","C_Qu8","C_Qd8","C_Qd1","C_Qu1","C_td1",
         "C_tu1","C_tq1","C_Qq11","C_Qq31"
+        //Operators for CPV study in tth and thj
+        ,"C_phiG","C_phiGtil","C_phiW","C_phiWtil",
+        "C_tphiIm","C_tGIm","C_tWIm"
         };
 
 
@@ -68,7 +71,16 @@ NPSMEFT6dtopquark::NPSMEFT6dtopquark()
     ModelParamMap.insert(std::make_pair("C_tq1", std::cref(C_tq1)));
     ModelParamMap.insert(std::make_pair("C_Qq11", std::cref(C_Qq11)));
     ModelParamMap.insert(std::make_pair("C_Qq31", std::cref(C_Qq31)));
+    
+    ModelParamMap.insert(std::make_pair("C_phiG", std::cref(C_phiG)));
+    ModelParamMap.insert(std::make_pair("C_phiGtil", std::cref(C_phiGtil)));
+    ModelParamMap.insert(std::make_pair("C_phiW", std::cref(C_phiW)));
+    ModelParamMap.insert(std::make_pair("C_phiWtil", std::cref(C_phiWtil)));
+    ModelParamMap.insert(std::make_pair("C_tphiIm", std::cref(C_tphiIm)));
+    ModelParamMap.insert(std::make_pair("C_tGIm", std::cref(C_tGIm)));
+    ModelParamMap.insert(std::make_pair("C_tWIm", std::cref(C_tWIm)));
 
+    
     flag_LHC_WG_Basis = false;
     flag_Quadratic = false;
 }
@@ -147,6 +159,24 @@ void NPSMEFT6dtopquark::setParameter(const std::string name, const double& value
         C_Qq11 = value;
     else if (name.compare("C_Qq31") == 0)
         C_Qq31 = value;
+    
+    
+
+    
+    else if (name.compare("C_phiG") == 0)
+        C_phiG = value;
+    else if (name.compare("C_phiGtil") == 0)
+        C_phiGtil = value;
+    else if (name.compare("C_phiW") == 0)
+        C_phiW = value;
+    else if (name.compare("C_phiWtil") == 0)
+        C_phiWtil = value;
+    else if (name.compare("C_tphiIm") == 0)
+        C_tphiIm = value;
+    else if (name.compare("C_tGIm") == 0)
+        C_tGIm = value;
+    else if (name.compare("C_tWIm") == 0)
+        C_tWIm = value;
     
     else
         NPbase::setParameter(name, value);
@@ -1552,6 +1582,7 @@ double sigma_ttH_diff_NLO_ATLAS_220700092::computeThValue()
             }
         }
         else{
+            throw std::runtime_error("sigma_ttH_diff_NLO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
             
         }
         
@@ -1582,6 +1613,7 @@ double sigma_ttH_diff_NLO_ATLAS_220700092::computeThValue()
         }
     
         else{
+            throw std::runtime_error("sigma_ttH_diff_NLO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 120 && b_max == 200){
@@ -1611,6 +1643,7 @@ double sigma_ttH_diff_NLO_ATLAS_220700092::computeThValue()
         }
     
         else{
+            throw std::runtime_error("sigma_ttH_diff_NLO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 200 && b_max == 300){
@@ -1640,6 +1673,7 @@ double sigma_ttH_diff_NLO_ATLAS_220700092::computeThValue()
         }
    
         else{
+            throw std::runtime_error("sigma_ttH_diff_NLO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 300 && b_max == 450){
@@ -1668,6 +1702,7 @@ double sigma_ttH_diff_NLO_ATLAS_220700092::computeThValue()
         }
     
         else{
+            throw std::runtime_error("sigma_ttH_diff_NLO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 450){
@@ -1695,9 +1730,10 @@ double sigma_ttH_diff_NLO_ATLAS_220700092::computeThValue()
             }
         }
         else{
+            throw std::runtime_error("sigma_ttH_diff_NLO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
-    } else throw std::runtime_error("wrong bin choice in sigma_ttH_diff_LO_ATLAS_231204450");
+    } else throw std::runtime_error("wrong bin choice in sigma_ttH_diff_NLO_ATLAS_231204450");
    
 }
 
@@ -2148,7 +2184,7 @@ double sigma_ttz_diff_NLO_ATLAS_231204450::computeThValue()
             }
         }
         else{
-            
+            throw std::runtime_error("sigma_ttz_diff_LO_ATLAS_231204450 is only available in the LHC top-quark WC basis");            
         }
         
     } else if(b_min == 60 && b_max == 100){
@@ -2169,6 +2205,7 @@ double sigma_ttz_diff_NLO_ATLAS_231204450::computeThValue()
         }
     
         else{
+            throw std::runtime_error("sigma_ttz_diff_LO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 100 && b_max == 140){
@@ -2189,6 +2226,7 @@ double sigma_ttz_diff_NLO_ATLAS_231204450::computeThValue()
         }
     
         else{
+            throw std::runtime_error("sigma_ttz_diff_LO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 140 && b_max == 180){
@@ -2209,6 +2247,7 @@ double sigma_ttz_diff_NLO_ATLAS_231204450::computeThValue()
         }
    
         else{
+            throw std::runtime_error("sigma_ttz_diff_LO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 180 && b_max == 230){
@@ -2227,6 +2266,7 @@ double sigma_ttz_diff_NLO_ATLAS_231204450::computeThValue()
         }
     
         else{
+            throw std::runtime_error("sigma_ttz_diff_LO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 230 && b_max == 280){
@@ -2245,6 +2285,7 @@ double sigma_ttz_diff_NLO_ATLAS_231204450::computeThValue()
             }
         }
         else{
+            throw std::runtime_error("sigma_ttz_diff_LO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 280 && b_max == 350){
@@ -2272,6 +2313,7 @@ double sigma_ttz_diff_NLO_ATLAS_231204450::computeThValue()
             }
         }
         else{
+            throw std::runtime_error("sigma_ttz_diff_LO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     } else if(b_min == 350 && b_max == 1000){
@@ -2299,6 +2341,7 @@ double sigma_ttz_diff_NLO_ATLAS_231204450::computeThValue()
             }
         }
         else{
+            throw std::runtime_error("sigma_ttz_diff_LO_ATLAS_231204450 is only available in the LHC top-quark WC basis");
         }
         
     }
@@ -10196,184 +10239,2203 @@ double opt_obs_muon_30TeV::computeThValue()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////// Observables for CP-violation at tth and thj (prospects and proposed asymmetries) ////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-opt_obs_ilc_500_1000::opt_obs_ilc_500_1000(const StandardModel& SM_i)
-: ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+
+
+
+b4_ttH_LO::b4_ttH_LO(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+
+    setParametersForObservable(make_vector<std::string>() << "SM_b4_ttH_LO_bin_m1_m0p5" << "SM_b4_ttH_LO_bin_m0p5_0"
+            << "SM_b4_ttH_LO_bin_0_0p5" << "SM_b4_ttH_LO_bin_0p5_1");
+    
 }
 
-double opt_obs_ilc_500_1000::computeThValue()
+double b4_ttH_LO::computeThValue()
 {
     
     b_min = getBinMin();
     b_max = getBinMax();
     
-    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-    //['ClqA', 'CeqA', 'CpqA', 'ClqV', 'CeqV', 'CpqV', 'CuZR', 'CuAR', 'CuZI', 'CuAI']
-    //['cpQM','cpt','ctW','ctZ','ctWI','ctZI','cQlM1','cQe1','ctl1','cte1']
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
-    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
-    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
-    double CI_tW = 0.;
-    double CI_tZ = 0.;
-    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
-    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
-    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
-    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    //double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    //double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    
+   
+    if(b_min == -1 && b_max == -0.5){
+        
+        double SM_b4_tth_bin_m1_m0p5 = SM.getOptionalParameter("SM_b4_ttH_LO_bin_m1_m0p5");
+        double b4_tth_bin_m1_m0p5_madgraph_LO = 1.0632053747005017;//pb
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_b4_tth_bin_m1_m0p5 + (0.)*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_b4_tth_bin_m1_m0p5 + (0.)*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                total =  SM_b4_tth_bin_m1_m0p5 + (0.9099876415629798*cHG + -0.0010300606606064*cHGtil + -0.0072774365119454*ctGIm + 
+                        -1.1208249512813937*ctGRe + 0.0001306763659588*ctHIm + -0.1310184227297144*ctHRe + 
+                        0.8720158431990803*cHG*cHG + 0.8387148042401372*cHGtil*cHGtil + 0.978724230188362*ctGIm*ctGIm + 
+                        0.9978382139004488*ctGRe*ctGRe + 0.0055891499983618*ctHIm*ctHIm + 0.0046734764265094*ctHRe*ctHRe + 
+                        -0.004353109781129*cHG*cHGtil + -0.0059424753457291*cHG*ctGIm + -0.0001031669131571*cHG*ctHIm + 
+                        -0.0808290830781629*cHG*ctHRe + -0.8622884150085206*cHGtil*ctGIm + -0.0085612044843103*cHGtil*ctGRe + 
+                        0.0893168984995095*cHGtil*ctHIm + -0.0007889628027357*cHGtil*ctHRe + 0.0044373833815463*ctGIm*ctGRe + 
+                        -0.0398407363498014*ctGIm*ctHIm + 0.0001267839505427*ctGIm*ctHRe + -0.0003431226109376*ctGRe*ctHIm + 
+                        0.0759842998525177*ctGRe*ctHRe)*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_b4_tth_bin_m1_m0p5 + (0.9099876415629798*cHG + 
+                        -1.1208249512813937*ctGRe + -0.1310184227297144*ctHRe
+                        )*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    } else if(b_min == -0.5 && b_max == 0.){
+        
+        double SM_b4_tth_bin_m0p5_0 = SM.getOptionalParameter("SM_b4_ttH_LO_bin_m0p5_0");
+        double b4_tth_bin_m0p5_0_madgraph_LO = 1.932424901417113;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_b4_tth_bin_m0p5_0 + (0.)*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_b4_tth_bin_m0p5_0 + (0.)*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                total =  SM_b4_tth_bin_m0p5_0 + (2.564414022112631*cHG + -0.0058418320499841*cHGtil + -0.0014131708015416*ctGIm +
+                        -2.7816281236042366*ctGRe + 0.0006977531934252*ctHIm + -0.2344736662557363*ctHRe + 
+                        2.034123418248873*cHG*cHG + 1.9614091942645784*cHGtil*cHGtil + 2.537841408134752*ctGIm*ctGIm +
+                        2.5485993923339545*ctGRe*ctGRe + 0.0039918053343983*ctHIm*ctHIm + 0.0077800493696298*ctHRe*ctHRe +
+                        -0.0071569239960523*cHG*cHGtil + 0.0145336259449214*cHG*ctGIm + -4.978015231518844e-05*cHG*ctHIm +
+                        -0.2068188648732378*cHG*ctHRe + -1.4549114499408065*cHGtil*ctGIm + -0.026659343007864*cHGtil*ctGRe +
+                        0.1064186672197977*cHGtil*ctHIm + -0.002336704675229*cHGtil*ctHRe + -0.0026918504123321*ctGIm*ctGRe +
+                        0.0026133954963231*ctGIm*ctHIm + -0.0008204230232737*ctGIm*ctHRe + 4.366654352272459e-06*ctGRe*ctHIm +
+                        0.1771923049354946*ctGRe*ctHRe)*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_b4_tth_bin_m0p5_0 + (2.564414022112631*cHG + 
+                        -2.7816281236042366*ctGRe -0.2344736662557363*ctHRe
+                        )*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    } else if(b_min == 0. && b_max == 0.5){
+        
+        double SM_b4_tth_bin_0_0p5 = SM.getOptionalParameter("SM_b4_ttH_LO_bin_0_0p5");
+        double b4_tth_bin_0_0p5_madgraph_LO = 2.48186478266304;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_b4_tth_bin_0_0p5 + (0.)*(SM_b4_tth_bin_0_0p5/b4_tth_bin_0_0p5_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total = SM_b4_tth_bin_0_0p5 + (0.)*(SM_b4_tth_bin_0_0p5/b4_tth_bin_0_0p5_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                total = SM_b4_tth_bin_0_0p5 + (3.2093661829551725*cHG + 0.0040473508076501*cHGtil + -0.0214235574051536*ctGIm +
+                        -3.501689241803734*ctGRe + -0.0002818808467928*ctHIm + -0.3031442522037286*ctHRe + 
+                        2.508805472264246*cHG*cHG + 2.437233908719825*cHGtil*cHGtil + 3.185084454088097*ctGIm*ctGIm +
+                        3.162491041136484*ctGRe*ctGRe + 0.0036151188826364*ctHIm*ctHIm + 0.0100045472229009*ctHRe*ctHRe +
+                        0.0053996492403103*cHG*cHGtil + -0.0236162521426582*cHG*ctGIm + -0.001177880066321*cHG*ctHIm +
+                        -0.2508174145511634*cHG*ctHRe + -1.712920295286303*cHGtil*ctGIm + 0.0148464169032713*cHGtil*ctGRe +
+                        0.1255660004129038*cHGtil*ctHIm + 0.0014699068562402*cHGtil*ctHRe + -0.0113505890042336*ctGIm*ctGRe +
+                        0.0159020808765088*ctGIm*ctHIm + -0.0004755818091291*ctGIm*ctHRe + -0.000673228149598*ctGRe*ctHIm +
+                        0.2243402305478286*ctGRe*ctHRe)*(SM_b4_tth_bin_0_0p5/b4_tth_bin_0_0p5_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total = SM_b4_tth_bin_0_0p5 + (3.2093661829551725*cHG +
+                        -3.501689241803734*ctGRe + -0.3031442522037286*ctHRe
+                        )*(SM_b4_tth_bin_0_0p5/b4_tth_bin_0_0p5_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    } else if(b_min == 0.5 && b_max == 1.){
+        
+        double SM_b4_tth_bin_0p5_1 = SM.getOptionalParameter("SM_b4_ttH_LO_bin_0p5_1");
+        double b4_tth_bin_0p5_1_madgraph_LO = 4.587536187686661;//pb
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_b4_tth_bin_0p5_1 + (0.)*(SM_b4_tth_bin_0p5_1/b4_tth_bin_0p5_1_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total = SM_b4_tth_bin_0p5_1 + (0.)*(SM_b4_tth_bin_0p5_1/b4_tth_bin_0p5_1_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                total = SM_b4_tth_bin_0p5_1 + (3.862512212641887*cHG + 0.002563831698582*cHGtil + 0.0383509219233417*ctGIm +
+                        -4.967994348065772*ctGRe + -0.0006966357644115*ctHIm + -0.554551144413014*ctHRe +
+                        2.348002610832081*cHG*cHG + 2.3093065858055475*cHGtil*cHGtil + 3.19949168833002*ctGIm*ctGIm +
+                        3.4280269207530245*ctGRe*ctGRe + 0.0044544775571535*ctHIm*ctHIm + 0.0167739173900622*ctHRe*ctHRe +
+                        0.0072252855175872*cHG*cHGtil + 0.03975689764912*cHG*ctGIm + 0.0014716333628268*cHG*ctHIm +
+                        -0.2420802478163346*cHG*ctHRe + -1.898959594407268*cHGtil*ctGIm + 0.014375573266062*cHGtil*ctGRe +
+                        0.188418633982538*cHGtil*ctHIm + 0.0007511425222509*cHGtil*ctHRe + 0.0037375122760155*ctGIm*ctGRe +
+                        0.0081175256170974*ctGIm*ctHIm + 0.0007985463884474*ctGIm*ctHRe + 9.220570277163054e-05*ctGRe*ctHIm +
+                        0.3707695293252685*ctGRe*ctHRe)*(SM_b4_tth_bin_0p5_1/b4_tth_bin_0p5_1_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total = SM_b4_tth_bin_0p5_1 + (3.862512212641887*cHG +
+                        -4.967994348065772*ctGRe + -0.554551144413014*ctHRe
+                        )*(SM_b4_tth_bin_0p5_1/b4_tth_bin_0p5_1_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct binning for b4_tth_LO. \n");
+    }    
+    
+}
+
+
+
+
+
+Asymmetry_Dazi_ord_ttH::Asymmetry_Dazi_ord_ttH(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+//    setParametersForObservable(make_vector<std::string>() << "SM_Asymmetry_Dazi_ord_ttH");
+    
+}
+
+double Asymmetry_Dazi_ord_ttH::computeThValue()
+{
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    //double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    //double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    //double SM_Asymmetry_Dazi_ord = SM.getOptionalParameter("SM_Asymmetry_Dazi_ord");
+    
+    double Dazi_ord_neg_Mad = 0.801238412607049;
+    double Dazi_ord_pos_Mad = 0.8006171719284476;
+    
+    if(flag_LHC_WG_Basis){
+        if(flag_Quadratic){
+             
+
+    
+            double Dazi_ord_neg_NP = 0.;
+            double Dazi_ord_pos_NP = 0.;
+    
+    
+            //double num = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) - (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+            //double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
     
             
+            //We set the SM difference to zero
+            double num = (Dazi_ord_pos_NP) - (Dazi_ord_neg_NP);
+            double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+    
+            double total = num/deno;
+            return total;
+
+        }
+        else{
+
+            
+    
+            double Dazi_ord_neg_NP = 0.;
+            double Dazi_ord_pos_NP = 0.;
+    
+    
+            //double num = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) - (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+            //double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (Dazi_ord_pos_NP) - (Dazi_ord_neg_NP);
+            double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+    
+            double total = num/deno;
+            return total;
                 
-    if(b_min == 1 && b_max == 1){
-        
-        double opt_obs_combined_1 = 1391.5255989705297*C_phiQm + 573.7950700749154*C_phit + -14517.933246025317*C_tW + 
-        -751.4595444742572*C_tZ + 0.0010764359110577283*CI_tW + -0.011059973923624566*CI_tZ + 102292.68069924772*C_lqM +
-        -45838.042731319416*C_eq + 29540.549887168105*C_lu + -14549.711876963653*C_eu;
-
-        return opt_obs_combined_1;
-        
-        
-    } else if(b_min == 2 && b_max == 2){
-        
-        double opt_obs_combined_2 = 573.7950700749155*C_phiQm + 1395.037572738327*C_phit + -992.3457394776335*C_tW + 
-        -12671.554554944189*C_tZ + -0.0071539732901879675*CI_tW + -0.0038184627657081678*CI_tZ + 25660.215883782417*C_lqM +
-        -18968.871452678228*C_eq + 70882.88453279744*C_lu + -82489.11707572806*C_eu;
-
-        
-        return opt_obs_combined_2;
-
-        
-    } else if(b_min == 3 && b_max == 3){
-        
-        double opt_obs_combined_3 = -14517.933246025317*C_phiQm + -992.3457394776351*C_phit + 3080835.1006697803*C_tW +
-        -2599574.4868277945*C_tZ + -0.34905994152365294*CI_tW + 0.3078365342861906*CI_tZ + -3773093.297138416*C_lqM + 
-        -2487822.964353588*C_eq + -3062432.693329856*C_lu + -3488335.80190976*C_eu;
-
-
-        return opt_obs_combined_3;
-
-    } else if(b_min == 4 && b_max == 4){
-        
-        double opt_obs_combined_4 = -751.4595444742545*C_phiQm + -12671.554554944189*C_phit + -2599574.486827795*C_tW +
-        2389389.5260423473*C_tZ + 0.30783653429145263*CI_tW + -0.2714815439126985*CI_tZ + 2412921.42237727*C_lqM + 
-        2686201.613590235*C_eq + 1959496.9850559959*C_lu + 3766003.639620981*C_eu;
-
-        
-        return opt_obs_combined_4;
-
-        
-    } else if(b_min == 5 && b_max == 5){
-
-        double opt_obs_combined_5 = 0.0010764359110577281*C_phiQm + -0.007153973290187967*C_phit + -0.34905994152365294*C_tW +
-        0.30783653429145263*C_tZ + 169448.72741816318*CI_tW + -143013.43590791247*CI_tZ + 0.08895076052044273*C_lqM + 
-        0.090029910910841*C_eq + -0.07096783994132166*C_lu + 0.1815908837135518*C_eu;
-
-        
-        return opt_obs_combined_5;
-
-        
-    } else if(b_min == 6 && b_max == 6){
-   
-        
-        double opt_obs_combined_6 = -0.011059973923624566*C_phiQm + -0.0038184627657081686*C_phit + 0.3078365342861906*C_tW + 
-                -0.2714815439126985*C_tZ + -143013.43590791244*CI_tW + 131141.81592169488*CI_tZ + -0.15624890002613714*C_lqM +
-                -0.6493830078456378*C_eq + 0.13463832059178618*C_lu + 0.41018292377579796*C_eu;
-
-        
-        return opt_obs_combined_6;
-
-        
-    } else if(b_min == 7 && b_max == 7){
-        
-        
-        double opt_obs_combined_7 = 102292.68069924772*C_phiQm + 25660.21588378241*C_phit + -3773093.297138416*C_tW +
-        2412921.42237727*C_tZ + 0.08895076052044272*CI_tW + -0.15624890002613712*CI_tZ + 16947445.92256761*C_lqM + 
-        534228.2318964514*C_eq + 4621140.979515392*C_lu + 1957656.0036125968*C_eu;
-
-        
-        return opt_obs_combined_7;
-
-        
-    } else if(b_min == 8 && b_max == 8){
-        
-        double opt_obs_combined_8 = -45838.04273131941*C_phiQm + -18968.871452678228*C_phit + -2487822.964353588*C_tW +
-        2686201.613590235*C_tZ + 0.09002991091084099*CI_tW + -0.649383007845638*CI_tZ + 534228.2318964516*C_lqM + 
-        8669054.582346777*C_eq + 1201225.7954363627*C_lu + 3794058.486672549*C_eu;
-
-        
-        return opt_obs_combined_8;
-
-        
-    } else if(b_min == 9 && b_max == 9){
-        
-        double opt_obs_combined_9 = 29540.54988716811*C_phiQm + 70882.88453279746*C_phit + -3062432.693329856*C_tW +
-        1959496.9850559954*C_tZ + -0.07096783994132166*CI_tW + 0.13463832059178618*CI_tZ + 4621140.979515392*C_lqM +
-        1201225.7954363627*C_eq + 11672793.792105068*C_lu + 635058.0624202123*C_eu;
-
-        
-        return opt_obs_combined_9;
-
-        
-    } else if(b_min == 10 && b_max == 10){
-
-        double opt_obs_combined_10 = -14549.71187696365*C_phiQm + -82489.11707572808*C_phit + -3488335.80190976*C_tW +
-        3766003.639620981*C_tZ + 0.1815908837135518*CI_tW + 0.4101829237757979*CI_tZ + 1957656.003612597*C_lqM +
-        3794058.4866725504*C_eq + 635058.0624202123*C_lu + 15965045.198172804*C_eu;
-
-        
-        return opt_obs_combined_10;
-
-        
-    } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        }
     }
+    else{
+        if(flag_Quadratic){
 
+
+    
+            double Dazi_ord_neg_NP = 0.8409727694620143*cHG + 0.0239522015720341*cHGtil + -0.0727650821867264*ctGIm +
+            -0.9799092492967638*ctGRe + -0.0001997762114054*ctHIm + -0.0974440045456804*ctHRe + 
+            0.6180724642963468*cHG*cHG + 0.6006262262731293*cHGtil*cHGtil + 0.7856367509999758*ctGIm*ctGIm + 
+            0.8059252000635281*ctGRe*ctGRe + 0.0013971374760735*ctHIm*ctHIm + 0.0031357544756005*ctHRe*ctHRe + 
+            0.0157290488652358*cHG*cHGtil + -0.0033975293377011*cHG*ctGIm + 0.0006005292045924*cHG*ctHIm + 
+            -0.0620994359176081*cHG*ctHRe + -0.4707346806682253*cHGtil*ctGIm + -0.0258435683811506*cHGtil*ctGRe + 
+            0.0402500484934529*cHGtil*ctHIm + -0.0011440632677678*cHGtil*ctHRe + 0.019267926306919*ctGIm*ctGRe + 
+            -0.0011549478510061*ctGIm*ctHIm + 0.0043931390740712*ctGIm*ctHRe + -0.0039137945238467*ctGRe*ctHIm + 
+            0.0672010069425599*ctGRe*ctHRe;
+            double Dazi_ord_pos_NP = 0.8374738455079025*cHG + -0.0239936937535997*cHGtil + 0.0740756986650311*ctGIm +
+            -0.9887206311418384*ctGRe + 0.0001758920621755*ctHIm + -0.0972083127336606*ctHRe + 
+            0.6174051274758854*cHG*cHG + 0.6004298228556054*cHGtil*cHGtil + 0.7898133160599512*ctGIm*ctGIm + 
+            0.8070470898415529*ctGRe*ctGRe + 0.0014116885168558*ctHIm*ctHIm + 0.003107440402129*ctHRe*ctHRe + 
+            -0.0155516480557833*cHG*cHGtil + 0.00733235897668*cHG*ctGIm + -0.000578124797484*cHG*ctHIm + 
+            -0.0620909954882131*cHG*ctHRe + -0.4727237329541328*cHGtil*ctGIm + 0.0248890286688689*cHGtil*ctGRe + 
+            0.0408622177561639*cHGtil*ctHIm + 0.0010001226021191*cHGtil*ctHRe + -0.0202015021970715*ctGIm*ctGRe + 
+            -0.0009467910567448*ctGIm*ctHIm + -0.0044521278787526*ctGIm*ctHRe + 0.0037674177682461*ctGRe*ctHIm + 
+            0.0677935966148256*ctGRe*ctHRe;
+    
+    
+            //double num = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) - (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+            //double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (Dazi_ord_pos_NP) - (Dazi_ord_neg_NP);
+            double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+        else{
+
+            
+    
+            double Dazi_ord_neg_NP = 0.8409727694620143*cHG + 0.0239522015720341*cHGtil + -0.0727650821867264*ctGIm +
+            -0.9799092492967638*ctGRe + -0.0001997762114054*ctHIm + -0.0974440045456804*ctHRe;
+            double Dazi_ord_pos_NP = 0.8374738455079025*cHG + -0.0239936937535997*cHGtil + 0.0740756986650311*ctGIm +
+            -0.9887206311418384*ctGRe + 0.0001758920621755*ctHIm + -0.0972083127336606*ctHRe;
+    
+    
+            //double num = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) - (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+            //double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (Dazi_ord_pos_NP) - (Dazi_ord_neg_NP);
+            double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
+    
+            
+            
+            double total = num/deno;
+            return total;
+            
+        }
+    }  
 }
 
 
-
-test_cov::test_cov(const StandardModel& SM_i)
-: ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+Asymmetry_Dazi_ord_ttH_ee::Asymmetry_Dazi_ord_ttH_ee(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+
+//    setParametersForObservable(make_vector<std::string>() << "SM_Asymmetry_Dazi_ord_ttH_ee");
+    
 }
 
-double test_cov::computeThValue()
+double Asymmetry_Dazi_ord_ttH_ee::computeThValue()
+{
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    //double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    //double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    //double SM_Asymmetry_Dazi_ord = SM.getOptionalParameter("SM_Asymmetry_Dazi_ord");
+    
+    double Dazi_ord_ee_neg_Mad = 0.8006766500797665;
+    double Dazi_ord_ee_pos_Mad = 0.8011790447500986;
+    
+    if(flag_LHC_WG_Basis){
+        if(flag_Quadratic){
+             
+
+    
+            double Dazi_ord_ee_neg_NP = 0.;
+            double Dazi_ord_ee_pos_NP = 0.;
+    
+    
+            //double num = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+            //double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+            
+            
+            //We set the SM difference to zero
+            double num = (Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_NP);
+            double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+    
+            double total = num/deno;
+            return total;
+
+        }
+        else{
+
+
+    
+            double Dazi_ord_ee_neg_NP = 0.;
+            double Dazi_ord_ee_pos_NP = 0.;
+    
+    
+            //double num = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+            //double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+            
+            
+            //We set the SM difference to zero
+            double num = (Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_NP);
+            double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+    
+            double total = num/deno;
+            return total;
+                
+        }
+    }
+    else{
+        if(flag_Quadratic){
+
+
+    
+            double Dazi_ord_ee_neg_NP = 0.8404288553887629*cHG + 0.0208422647737813*cHGtil + -0.0550100485100096*ctGIm +
+            -0.9837800350478916*ctGRe + 0.0016550964830614*ctHIm + -0.0975509276270819*ctHRe +
+            0.6176131445418394*cHG*cHG + 0.6001348092040816*cHGtil*cHGtil + 0.786572959445111*ctGIm*ctGIm +
+            0.8061191534220461*ctGRe*ctGRe + 0.0014229288104827*ctHIm*ctHIm + 0.003148645069418*ctHRe*ctHRe +
+            0.0040914045299683*cHG*cHGtil + -0.0219899064314808*cHG*ctGIm + -0.0003736312654786*cHG*ctHIm + 
+            -0.061822929264468*cHG*ctHRe + -0.4730595292823339*cHGtil*ctGIm + 0.0067909859506482*cHGtil*ctGRe +
+            0.0404155989650598*cHGtil*ctHIm + -0.0006071631925375*cHGtil*ctHRe + 0.0067907908337478*ctGIm*ctGRe +
+            -0.0012276151256363*ctGIm*ctHIm + 0.0042570184763379*ctGIm*ctHRe + -0.0026512985824996*ctGRe*ctHIm +
+            0.0673226914661984*ctGRe*ctHRe;
+            double Dazi_ord_ee_pos_NP = 0.8380178751491306*cHG + -0.0208837569582036*cHGtil + 0.0563206662942763*ctGIm +
+            -0.9848518070293188*ctGRe + -0.0016789806583868*ctHIm + -0.0971016023261651*ctHRe +
+            0.617864532298124*cHG*cHG + 0.6009213226223193*cHGtil*cHGtil + 0.7888786774699257*ctGIm*ctGIm +
+            0.8068547437271135*ctGRe*ctGRe + 0.0013859002513235*ctHIm*ctHIm + 0.0030945566295231*ctHRe*ctHRe + 
+            -0.0039140034663799*cHG*cHGtil + 0.0259247403583757*cHG*ctGIm + 0.0003960357139343*cHG*ctHIm + 
+            -0.0623674908935729*cHG*ctHRe + -0.4703992585666175*cHGtil*ctGIm + -0.0077455265899209*cHGtil*ctGRe +
+            0.0406966990783182*cHGtil*ctHIm + 0.0004632224275368*cHGtil*ctHRe + -0.0077243666834214*ctGIm*ctGRe + 
+            -0.0008741250260713*ctGIm*ctHIm + -0.0043160072941473*ctGIm*ctHRe + 0.0025049217993331*ctGRe*ctHIm +
+            0.0676719742864739*ctGRe*ctHRe;
+    
+    
+            //double num = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+            //double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+            
+            
+            //We set the SM difference to zero
+            double num = (Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_NP);
+            double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+        else{
+
+            
+    
+            double Dazi_ord_ee_neg_NP = 0.8404288553887629*cHG + 0.0208422647737813*cHGtil + -0.0550100485100096*ctGIm +
+            -0.9837800350478916*ctGRe + 0.0016550964830614*ctHIm + -0.0975509276270819*ctHRe;
+            double Dazi_ord_ee_pos_NP = 0.8380178751491306*cHG + -0.0208837569582036*cHGtil + 0.0563206662942763*ctGIm +
+            -0.9848518070293188*ctGRe + -0.0016789806583868*ctHIm + -0.0971016023261651*ctHRe;
+    
+    
+            //double num = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+            //double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+            
+            
+            //We set the SM difference to zero
+            double num = (Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_NP);
+            double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
+            
+            
+            
+            double total = num/deno;
+            return total;
+            
+        }
+    }
+}
+
+
+sigma_ttH_diff_LO_mtth::sigma_ttH_diff_LO_mtth(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_ttH_diff_LO_mtth_bin_450_655" << "SM_sigma_ttH_diff_LO_mtth_bin_655_860"
+            << "SM_sigma_ttH_diff_LO_mtth_bin_860_1270" << "SM_sigma_ttH_diff_LO_mtth_bin_1270_2500");
+
+    
+}
+
+double sigma_ttH_diff_LO_mtth::computeThValue()
 {
     
     b_min = getBinMin();
     b_max = getBinMax();
-
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
-
-    if(b_min == 1 && b_max == 1){
-        
-        double test_cov_1 = 1600.*C_phiQm + 400.*C_phit;
-
-        return test_cov_1;
+    
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    //double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    //double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
    
-    } else if(b_min == 2 && b_max == 2){
+    if(b_min == 450 && b_max == 655){
         
-        double test_cov_2 = 400.*C_phiQm + 2500.*C_phit;
-        return test_cov_2;
+        double SM_ttH_bin_450_655 = SM.getOptionalParameter("SM_sigma_ttH_diff_LO_mtth_bin_450_655");
+        double ttH_bin_450_655_madgraph_LO = 0.0085968515036142;//pb/GeV 
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_ttH_bin_450_655 + (0.)*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_ttH_bin_450_655 + (0.)*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                total =  SM_ttH_bin_450_655 + (0.0045181955745771*cHG + 2.092434682771094e-06*cHGtil + 3.35721352610896e-06*ctGIm +
+                        -0.0073319817382764*ctGRe + 2.178950715664429e-06*ctHIm + -0.0010488957886131*ctHRe + 
+                        0.001129479117399*cHG*cHG + 0.0012542998928326*cHGtil*cHGtil + 0.0027597465911086*ctGIm*ctGIm + 
+                        0.0031944543434764*ctGRe*ctGRe + 5.658099728467203e-06*ctHIm*ctHIm + 3.208560834544569e-05*ctHRe*ctHRe + 
+                        5.753962177779126e-05*cHG*cHGtil + 2.8298667156714807e-05*cHG*ctGIm + 3.5475454384648053e-06*cHG*ctHIm + 
+                        -0.0002322100406697*cHG*ctHRe + -0.0013688338065862*cHGtil*ctGIm + -7.438424425927569e-05*cHGtil*ctGRe + 
+                        0.0003213688692185*cHGtil*ctHIm + -4.67918246424609e-07*cHGtil*ctHRe + 9.308637288288346e-05*ctGIm*ctGRe + 
+                        -1.0905995485980285e-05*ctGIm*ctHIm + 9.160715861988856e-07*ctGIm*ctHRe + 4.508771085515173e-07*ctGRe*ctHIm + 
+                        0.0006295005037564*ctGRe*ctHRe)*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_ttH_bin_450_655 + (0.0045181955745771*cHG +
+                        -0.0073319817382764*ctGRe + -0.0010488957886131*ctHRe
+                        )*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    } else if(b_min == 655 && b_max == 860){
+        
+        double SM_ttH_bin_655_860 = SM.getOptionalParameter("SM_sigma_ttH_diff_LO_mtth_bin_655_860");
+        double ttH_bin_655_860_madgraph_LO = 0.0089470371846531;//pb/GeV
+        double total;
  
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                total =  SM_ttH_bin_655_860 + (0.)*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_ttH_bin_655_860 + (0.)*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                total =  SM_ttH_bin_655_860 + (0.0068342312470782*cHG + 6.516776100529143e-06*cHGtil + 1.7655998727092448e-05*ctGIm +
+                        -0.0096851624939012*ctGRe + -8.016268841642971e-07*ctHIm + -0.0010829961514144*ctHRe +
+                        0.0032625736708071*cHG*cHG + 0.0034043208850053*cHGtil*cHGtil + 0.0056434013751323*ctGIm*ctGIm +
+                        0.0061425691862662*ctGRe*ctGRe + 1.34073766868692e-05*ctHIm*ctHIm + 3.306703774944704e-05*ctHRe*ctHRe +
+                        -2.364760048584498e-05*cHG*cHGtil + -1.4463105183893285e-05*cHG*ctGIm + -1.0233814119407383e-05*cHG*ctHIm +
+                        -0.0003562114438536*cHG*ctHRe + -0.003378026398263*cHGtil*ctGIm + 8.076642084585417e-05*cHGtil*ctGRe +
+                        0.0004541628998359*cHGtil*ctHIm + 5.62908023971076e-07*cHGtil*ctHRe + -7.617018209962787e-05*ctGIm*ctGRe +
+                        -3.316085847073677e-05*ctGIm*ctHIm + -2.770873236021253e-06*ctGIm*ctHRe + 1.7917779605858275e-06*ctGRe*ctHIm +
+                        0.000739929641391*ctGRe*ctHRe)*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_ttH_bin_655_860 + (0.0068342312470782*cHG +
+                        -0.0096851624939012*ctGRe + -0.0010829961514144*ctHRe
+                        )*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+    
+    } else if(b_min == 860 && b_max == 1270){
+        
+        double SM_ttH_bin_860_1270 = SM.getOptionalParameter("SM_sigma_ttH_diff_LO_mtth_bin_860_1270");
+        double ttH_bin_860_1270_madgraph_LO = 0.0026949395920587;//pb/GeV
+        double total;
+ 
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                total =  SM_ttH_bin_860_1270 + (0.)*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_ttH_bin_860_1270 + (0.)*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                total =  SM_ttH_bin_860_1270 + (0.0035482569627141*cHG + -8.220476758191708e-07*cHGtil + 1.2052119047978316e-05*ctGIm +
+                        -0.0041580771412648*ctGRe + -1.45859601326237e-06*ctHIm + -0.0003266623947329*ctHRe +
+                        0.0031788183581889*cHG*cHG + 0.0030970512164488*cHGtil*cHGtil + 0.0038709717867162*ctGIm*ctGIm +
+                        0.0040041851524892*ctGRe*ctGRe + 7.55327927619287e-06*ctHIm*ctHIm + 1.044536285490516e-05*ctHRe*ctHRe +
+                        -6.845532348889237e-06*cHG*cHGtil + -3.0658735341057295e-05*cHG*ctGIm + 4.037792277630792e-06*cHG*ctHIm +
+                        -0.000253969240318*cHG*ctHRe + -0.0025610325162679*cHGtil*ctGIm + -4.903421501601487e-06*cHGtil*ctGRe +
+                        0.0001789011931272*cHGtil*ctHIm + 1.4482656857522924e-06*cHGtil*ctHRe + -1.5487075151731095e-06*ctGIm*ctGRe +
+                        -1.6017969617732204e-05*ctGIm*ctHIm + 1.1205379927686776e-06*ctGIm*ctHRe + -1.8151564085000028e-06*ctGRe*ctHIm +
+                        0.0002528327953381*ctGRe*ctHRe)*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_ttH_bin_860_1270 + (0.0035482569627141*cHG +
+                        -0.0041580771412648*ctGRe + -0.0003266623947329*ctHRe
+                        )*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+    
+    } else if(b_min == 1270 && b_max == 2500){
+        
+        double SM_ttH_bin_1270_2500 = SM.getOptionalParameter("SM_sigma_ttH_diff_LO_mtth_bin_1270_2500");
+        double ttH_bin_1270_2500_madgraph_LO = 0.0002602108651872;//pb/GeV
+        double total;
+ 
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                total =  SM_ttH_bin_1270_2500 + (0.)*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_ttH_bin_1270_2500 + (0.)*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                total =  SM_ttH_bin_1270_2500 + (0.0010427269178651*cHG + -9.856161004434538e-07*cHGtil + 4.622973593784718e-06*ctGIm +
+                        -0.0007284069850997*ctGRe + 2.406669648430393e-07*ctHIm + -3.129120993544568e-05*ctHRe + 
+                        0.0011892767595462*cHG*cHG + 0.0011046291764241*cHGtil*cHGtil + 0.0011424484585363*ctGIm*ctGIm + 
+                        0.0010765623784725*ctGRe*ctGRe + 1.175058315219801e-06*ctHIm*ctHIm + 1.2422431746160378e-06*ctHRe*ctHRe + 
+                        -3.889698786486935e-06*cHG*cHGtil + 1.663871428932151e-05*cHG*ctGIm + -8.764646223761842e-07*cHG*ctHIm + 
+                        -0.0001115383166857*cHG*ctHRe + -0.0006835996252276*cHGtil*ctGIm + 2.6865465597297744e-06*cHGtil*ctGRe +
+                        1.839047460509835e-05*cHGtil*ctHIm + -9.444369397582044e-07*cHGtil*ctHRe + -3.7867570888689487e-06*ctGIm*ctGRe +
+                        4.67918943547474e-06*ctGIm*ctHIm + -3.3779355185015254e-08*ctGIm*ctHRe + -1.4688339893080404e-08*ctGRe*ctHIm + 
+                        2.912940987744028e-05*ctGRe*ctHRe)*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total =  SM_ttH_bin_1270_2500 + (0.0010427269178651*cHG +
+                        -0.0007284069850997*ctGRe + -3.129120993544568e-05*ctHRe
+                        )*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+    
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct test_cov, it goes from 1 to 2 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct binning for sigma_ttH_diff_LO_mtth. \n");
     }
+
 }
- 
-*/
+    
+    
+    
+    
+    
+
+
+Asymmetry_trip_prod_pt_pe_pp_ttH::Asymmetry_trip_prod_pt_pe_pp_ttH(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+//    setParametersForObservable(make_vector<std::string>() << "SM_Asymmetry_trip_prod_pt_pe_pp_ttH");
+    
+}
+
+double Asymmetry_trip_prod_pt_pe_pp_ttH::computeThValue()
+{
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    //double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    //double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    //double SM_Asymmetry_Dazi_ord = SM.getOptionalParameter("SM_Asymmetry_Dazi_ord");
+    
+    double trip_prod_neg_Mad = 2.5127944405346114;
+    double trip_prod_pos_Mad = 2.520483758548904;
+    
+    if(flag_LHC_WG_Basis){
+        if(flag_Quadratic){
+             
+
+    
+            double trip_prod_neg_NP = 0.;
+            double trip_prod_pos_NP = 0.;
+    
+    
+            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
+            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+            
+            
+            //We set the SM difference to zero
+            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
+            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            double total = num/deno;
+            return total;
+
+        }
+        else{
+
+
+    
+            double trip_prod_neg_NP = 0.;
+            double trip_prod_pos_NP = 0.;
+    
+    
+            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
+            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+            
+            
+            //We set the SM difference to zero
+            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
+            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            double total = num/deno;
+            return total;
+                
+        }
+    }
+    else{
+        if(flag_Quadratic){
+
+
+    
+            double trip_prod_neg_NP = 2.640095238800265*cHG + -0.291215708923054*cHGtil + 0.3672351161865572*ctGIm +
+            -3.086551544820942*ctGRe + 0.0093896874318005*ctHIm + -0.3056973190252862*ctHRe + 
+            1.9427189051331344*cHG*cHG + 1.8882545891916165*cHGtil*cHGtil + 2.4690858861122726*ctGIm*ctGIm + 
+            2.537500931980412*ctGRe*ctGRe + 0.0043927180734477*ctHIm*ctHIm + 0.0098582545882171*ctHRe*ctHRe + 
+            -0.0611273430332702*cHG*cHGtil + -0.1562901590147846*cHG*ctGIm + -0.0332829035749282*cHG*ctHIm + 
+            -0.1922967483887002*cHG*ctHRe + -1.4936120158370252*cHGtil*ctGIm + 0.2195689708810037*cHGtil*ctGRe + 
+            0.1284110619808202*cHGtil*ctHIm + 0.0435618768488701*cHGtil*ctHRe + 0.0180277458513596*ctGIm*ctGRe + 
+            -0.0037356858757553*ctGIm*ctHIm + -0.0251806671367735*ctGIm*ctHRe + -0.0129283651774673*ctGRe*ctHIm + 
+            0.2122410869542897*ctGRe*ctHRe;
+            double trip_prod_pos_NP = 2.6338438330285854*cHG + 0.2910853340659681*cHGtil + -0.3631167628767298*ctGIm +
+            -3.0994782998687884*ctGRe + -0.0094647329097138*ctHIm + -0.3059123320650544*ctHRe + 
+            1.9393429281112249*cHG*cHG + 1.885649429622108*cHGtil*cHGtil + 2.481454198064708*ctGIm*ctGIm + 
+            2.53094531180251*ctGRe*ctGRe + 0.004432787368872*ctHIm*ctHIm + 0.0097582508519799*ctHRe*ctHRe +
+            0.0616850233108645*cHG*cHGtil + 0.1686557442326578*cHG*ctGIm + 0.0333533207345481*cHG*ctHIm + 
+            -0.1980141552978979*cHG*ctHRe + -1.4707955683599927*cHGtil*ctGIm + -0.2225681716920635*cHGtil*ctGRe + 
+            0.1264439339654254*cHGtil*ctHIm + -0.0440141389916522*cHGtil*ctHRe + -0.020961743091158*ctGIm*ctGRe + 
+            -0.0028677842945724*ctGIm*ctHIm + 0.0249953324058435*ctGIm*ctHRe + 0.0124684222616443*ctGRe*ctHIm +
+            0.2119156676645677*ctGRe*ctHRe;
+    
+    
+            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
+            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+            
+            
+            //We set the SM difference to zero
+            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
+            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+        else{
+
+            
+    
+            double trip_prod_neg_NP = 2.640095238800265*cHG + -0.291215708923054*cHGtil + 0.3672351161865572*ctGIm +
+            -3.086551544820942*ctGRe + 0.0093896874318005*ctHIm + -0.3056973190252862*ctHRe;
+            double trip_prod_pos_NP = 2.6338438330285854*cHG + 0.2910853340659681*cHGtil + -0.3631167628767298*ctGIm +
+            -3.0994782998687884*ctGRe + -0.0094647329097138*ctHIm + -0.3059123320650544*ctHRe;
+    
+    
+            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
+            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+            
+            
+            //We set the SM difference to zero
+            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
+            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+            
+
+            
+            double total = num/deno;
+            return total;
+            
+        }
+    }
+    
+}
+
+
+
+
+
+
+Asymmetry_sign_trip_prod_pe_pp_ttH::Asymmetry_sign_trip_prod_pe_pp_ttH(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+//    setParametersForObservable(make_vector<std::string>() << "SM_Asymmetry_sign_trip_prod_pe_pp_ttH");
+    
+}
+
+double Asymmetry_sign_trip_prod_pe_pp_ttH::computeThValue()
+{
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    //double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    //double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    //double SM_Asymmetry_Dazi_ord = SM.getOptionalParameter("SM_Asymmetry_Dazi_ord");
+    
+    double sign_trip_prod_pe_pp_neg_Mad = 2.5199987657363723;
+    double sign_trip_prod_pe_pp_pos_Mad = 2.512378708453129;
+    
+    
+    if(flag_LHC_WG_Basis){
+        if(flag_Quadratic){
+             
+            
+            double sign_trip_prod_pe_pp_neg_NP = 0.;
+            double sign_trip_prod_pe_pp_pos_NP = 0.;
+    
+            
+            //double num = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+            //double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+            
+            //We set the SM difference to zero
+            double num = (sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_NP);
+            double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+
+            
+            double total = num/deno;
+            return total;
+
+        }
+        else{
+
+            
+            double sign_trip_prod_pe_pp_neg_NP = 0.;
+            double sign_trip_prod_pe_pp_pos_NP = 0.;
+    
+    
+            //double num = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+            //double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+            
+            //We set the SM difference to zero
+            double num = (sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_NP);
+            double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+
+            
+            double total = num/deno;
+            return total;
+                
+        }
+    }
+    else{
+        if(flag_Quadratic){
+            
+            
+            
+    
+            double sign_trip_prod_pe_pp_neg_NP = 2.642738924499983*cHG + 0.1857689223794195*cHGtil + -0.2201130894378797*ctGIm +
+            -3.102254615722175*ctGRe + -0.0059790531590874*ctHIm + -0.3068222235539151*ctHRe + 
+            1.9435604714282413*cHG*cHG + 1.8868728373520192*cHGtil*cHGtil + 2.478247938966319*ctGIm*ctGIm +
+            2.537205740034305*ctGRe*ctGRe + 0.0044286022433849*ctHIm*ctHIm + 0.0099118164384982*ctHRe*ctHRe + 
+            0.0508984896879067*cHG*cHGtil + 0.1476151527744092*cHG*ctGIm + 0.0299484591443408*cHG*ctHIm + 
+            -0.1959685579715413*cHG*ctHRe + -1.4761384971318905*cHGtil*ctGIm + -0.1713637905247774*cHGtil*ctGRe + 
+            0.1279944459298787*cHGtil*ctHIm + -0.0292542423455988*cHGtil*ctHRe + -0.0261746428921166*ctGIm*ctGRe + 
+            -0.0032607955481276*ctGIm*ctHIm + 0.0140985825882586*ctGIm*ctHRe + 0.0074007867049598*ctGRe*ctHIm + 
+            0.2117097917766713*ctGRe*ctHRe;
+            double sign_trip_prod_pe_pp_pos_NP = 2.6302563644690693*cHG + -0.1858992739054133*cHGtil + 0.2242305128220224*ctGIm + 
+            -3.0823789676020823*ctGRe + 0.0059040188959551*ctHIm + -0.30469602871212*ctHRe + 
+            1.9378066509643757*cHG*cHG + 1.8863558247613867*cHGtil*cHGtil + 2.471174759435246*ctGIm*ctGIm + 
+            2.5300965069630696*ctGRe*ctGRe + 0.0043955843171613*ctHIm*ctHIm + 0.0097017575150373*ctHRe*ctHRe + 
+            -0.0503411686164696*cHG*cHGtil + -0.1352535186964854*cHG*ctGIm + -0.0298780736340808*cHG*ctHIm + 
+            -0.1941871296364016*cHG*ctHRe + -1.4878249507037815*cHGtil*ctGIm + 0.1683650160418539*cHGtil*ctGRe + 
+            0.1268273709363991*cHGtil*ctHIm + 0.0288020394197951*cHGtil*ctHRe + 0.0232417256197431*ctGIm*ctGRe + 
+            -0.0033420150171774*ctGIm*ctHIm + -0.0142839014035242*ctGIm*ctHRe + -0.0078606428282776*ctGRe*ctHIm + 
+            0.2123883426407318*ctGRe*ctHRe;
+            
+    
+            //double num = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+            //double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+            
+            //We set the SM difference to zero
+            double num = (sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_NP);
+            double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+
+            double total = num/deno;
+            return total;
+            
+        }
+        else{
+
+            
+    
+            double sign_trip_prod_pe_pp_neg_NP = 2.642738924499983*cHG + 0.1857689223794195*cHGtil + -0.2201130894378797*ctGIm +
+            -3.102254615722175*ctGRe + -0.0059790531590874*ctHIm + -0.3068222235539151*ctHRe;
+            double sign_trip_prod_pe_pp_pos_NP = 2.6302563644690693*cHG + -0.1858992739054133*cHGtil + 0.2242305128220224*ctGIm + 
+            -3.0823789676020823*ctGRe + 0.0059040188959551*ctHIm + -0.30469602871212*ctHRe;
+    
+    
+            //double num = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+            //double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+            
+            //We set the SM difference to zero
+            double num = (sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_NP);
+            double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
+
+            
+            double total = num/deno;
+            return total;
+            
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+Asymmetry_cos_je_tHj::Asymmetry_cos_je_tHj(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+//    setParametersForObservable(make_vector<std::string>() << "SM_Asymmetry_cos_je_tHj");
+
+}
+
+double Asymmetry_cos_je_tHj::computeThValue()
+{
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    //double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    //double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    //double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    //double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    //double SM_Asymmetry_cos_je_tHj = SM.getOptionalParameter("SM_Asymmetry_cos_je_tHj");
+    
+    double cos_je_neg_Mad = 1.802755193194093;
+    double cos_je_pos_Mad = 4.185564082240573;
+    
+    if(flag_LHC_WG_Basis){
+        if(flag_Quadratic){
+             
+
+    
+            double cos_je_neg_NP = 0.;
+            double cos_je_pos_NP = 0.;
+    
+    
+            double num = (cos_je_pos_Mad + cos_je_pos_NP) - (cos_je_neg_Mad + cos_je_neg_NP);
+            double deno = (cos_je_pos_Mad + cos_je_pos_NP) + (cos_je_neg_Mad + cos_je_neg_NP);
+    
+            
+            double total = num/deno;
+            return total;
+
+        }
+        else{
+
+            
+    
+            double cos_je_neg_NP = 0.;
+            double cos_je_pos_NP = 0.;
+    
+    
+            double num = (cos_je_pos_Mad + cos_je_pos_NP) - (cos_je_neg_Mad + cos_je_neg_NP);
+            double deno = (cos_je_pos_Mad + cos_je_pos_NP) + (cos_je_neg_Mad + cos_je_neg_NP);
+
+    
+            double total = num/deno;
+            return total;
+                
+        }
+    }
+    else{
+        if(flag_Quadratic){
+
+
+    
+            double cos_je_neg_NP = 0.3648966515528267*cHW + 0.001727621412455*cHWtil + 0.0002137853404453*ctHIm + 
+            -0.0682956856995048*ctHRe + -0.0030877434371623*ctWIm + -1.329003891718189*ctWRe + 
+            0.1866736021132992*cHW*cHW + 0.1452346608094477*cHWtil*cHWtil + 0.0116273887361596*ctHIm*ctHIm + 
+            0.0231503175651335*ctHRe*ctHRe + 3.83451885101712*ctWIm*ctWIm + 3.8332542149381097*ctWRe*ctWRe + 
+            -0.0007900978367795*cHW*cHWtil + 1.0544889795918722e-05*cHW*ctHIm + -0.0327623256577681*cHW*ctHRe +
+            0.0007437915907154*cHW*ctWIm + -0.6726490763976125*cHW*ctWRe + -0.0049881868923777*cHWtil*ctHIm + 
+            -0.0005470517961899*cHWtil*ctHRe + -0.4769755806909019*cHWtil*ctWIm + -0.0006823264112964*cHWtil*ctWRe + 
+            0.0002621344978575*ctHIm*ctHRe + 0.0748309927213606*ctHIm*ctWIm + -0.0018785485471096*ctHIm*ctWRe +
+            -0.0018820801261675*ctHRe*ctWIm + 0.1058363336301706*ctHRe*ctWRe + -0.0047330354036098*ctWIm*ctWRe;
+            double cos_je_pos_NP = 0.5847019499353336*cHW + -0.0007184422927661*cHWtil + -0.0003465092977812*ctHIm +
+            -0.0887773510001904*ctHRe + 0.0062306067229668*ctWIm + -0.9345195813265864*ctWRe + 
+            0.427307590720827*cHW*cHW + 0.3073774610006161*cHWtil*cHWtil + 0.0090770914570092*ctHIm*ctHIm + 
+            0.0430639890806705*ctHRe*ctHRe + 1.5822244524211948*ctWIm*ctWIm + 1.583096674934071*ctWRe*ctWRe + 
+            0.0005480173007809*cHW*cHWtil + 4.277811723747693e-05*cHW*ctHIm + -0.0874650266649605*cHW*ctHRe + 
+            -0.0024641068137472*cHW*ctWIm + -0.6056247049583481*cHW*ctWRe + -0.0108252574635077*cHWtil*ctHIm + 
+            0.0006241202527166*cHWtil*ctHRe + -0.4081977848482742*cHWtil*ctWIm + 0.0020255764722883*cHWtil*ctWRe + 
+            -0.0001016003457396*ctHIm*ctHRe + 0.0744221969307464*ctHIm*ctWIm + 0.0015065993293668*ctHIm*ctWRe + 
+            -0.0001967249821085*ctHRe*ctWIm + 0.1432442378938073*ctHRe*ctWRe + -0.0018638514243001*ctWIm*ctWRe;
+            
+            
+            
+            double num = (cos_je_pos_Mad + cos_je_pos_NP) - (cos_je_neg_Mad + cos_je_neg_NP);
+            double deno = (cos_je_pos_Mad + cos_je_pos_NP) + (cos_je_neg_Mad + cos_je_neg_NP);
+    
+            
+            double total = num/deno;
+            return total;
+            
+        }
+        else{
+    
+            double cos_je_neg_NP = 0.3648966515528267*cHW + 0.001727621412455*cHWtil + 0.0002137853404453*ctHIm + 
+            -0.0682956856995048*ctHRe + -0.0030877434371623*ctWIm + -1.329003891718189*ctWRe;
+            double cos_je_pos_NP = 0.5847019499353336*cHW + -0.0007184422927661*cHWtil + -0.0003465092977812*ctHIm +
+            -0.0887773510001904*ctHRe + 0.0062306067229668*ctWIm + -0.9345195813265864*ctWRe;
+    
+    
+            double num = (cos_je_pos_Mad + cos_je_pos_NP) - (cos_je_neg_Mad + cos_je_neg_NP);
+            double deno = (cos_je_pos_Mad + cos_je_pos_NP) + (cos_je_neg_Mad + cos_je_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+    }  
+}
+
+
+
+
+
+Asymmetry_cos_se_tHj::Asymmetry_cos_se_tHj(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+//    setParametersForObservable(make_vector<std::string>() << "SM_Asymmetry_cos_se_tHj");
+
+}
+
+double Asymmetry_cos_se_tHj::computeThValue()
+{
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    //double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    //double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    //double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    //double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    //double SM_Asymmetry_cos_se_tHj = SM.getOptionalParameter("SM_Asymmetry_cos_se_tHj");
+    
+    double cos_se_neg_Mad = 2.990807050970236;
+    double cos_se_pos_Mad = 2.9975122244644314;
+    
+    if(flag_LHC_WG_Basis){
+        if(flag_Quadratic){
+             
+
+    
+            double cos_se_neg_NP = 0.;
+            double cos_se_pos_NP = 0.;
+    
+    
+            //double num = (cos_se_pos_Mad + cos_se_pos_NP) - (cos_se_neg_Mad + cos_se_neg_NP);
+            //double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (cos_se_pos_NP) - (cos_se_neg_NP);
+            double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
+    
+            double total = num/deno;
+            return total;
+
+        }
+        else{
+
+            
+    
+            double cos_se_neg_NP = 0.;
+            double cos_se_pos_NP = 0.;
+    
+    
+            //double num = (cos_se_pos_Mad + cos_se_pos_NP) - (cos_se_neg_Mad + cos_se_neg_NP);
+            //double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (cos_se_pos_NP) - (cos_se_neg_NP);
+            double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
+    
+            double total = num/deno;
+            return total;
+                
+        }
+    }
+    else{
+        if(flag_Quadratic){
+
+
+    
+            double cos_se_neg_NP = 0.4728914373547805*cHW + 0.0118407416464167*cHWtil + -0.0033338074845438*ctHIm +
+            -0.0804656940482105*ctHRe + -0.689834314040347*ctWIm + -1.132189187920139*ctWRe + 
+            0.3068652120228926*cHW*cHW + 0.225623165775055*cHWtil*cHWtil + 0.0104250772428093*ctHIm*ctHIm + 
+            0.0338402455559234*ctHRe*ctHRe + 2.71088765118971*ctWIm*ctWIm + 2.7161130000666813*ctWRe*ctWRe + 
+            -0.0055312276935633*cHW*cHWtil + 0.0096577534668971*cHW*ctHIm + -0.0594580614259007*cHW*ctHRe + 
+            -0.1979153488691058*cHW*ctWIm + -0.6372052845724958*cHW*ctWRe + -0.0078440619072392*cHWtil*ctHIm +
+            -0.0031289075947225*cHWtil*ctHRe + -0.4433548116003082*cHWtil*ctWIm + 0.2461428388687654*cHWtil*ctWRe + 
+            -0.0067462516967434*ctHIm*ctHRe + 0.0758507838776238*ctHIm*ctWIm + -0.008892021283742*ctHIm*ctWRe + 
+            -0.0085734101641831*ctHRe*ctWIm + 0.1236903103660209*ctHRe*ctWRe + -0.0123076830730909*ctWIm*ctWRe;
+            double cos_se_pos_NP = 0.4767071641321322*cHW + -0.0108315625270247*cHWtil + 0.0032010835270088*ctHIm + 
+            -0.0766073426520603*ctHRe + 0.6929771773260096*ctWIm + -1.131334285096125*ctWRe + 
+            0.3071159808107537*cHW*cHW + 0.2269889560350069*cHWtil*cHWtil + 0.0102794029503121*ctHIm*ctHIm + 
+            0.0323740610901135*ctHRe*ctHRe + 2.705855652237456*ctWIm*ctWIm + 2.7002378898037698*ctWRe*ctWRe +
+            0.0052891474393248*cHW*cHWtil + -0.00960443047912*cHW*ctHIm + -0.0607692401807437*cHW*ctHRe + 
+            0.1961950351073473*cHW*ctWIm + -0.6410678813860773*cHW*ctWRe + -0.0079693317308205*cHWtil*ctHIm + 
+            0.0032059760035094*cHWtil*ctHRe + -0.4418189733437092*cHWtil*ctWIm + -0.2447995889997185*cHWtil*ctWRe + 
+            0.006906785245703*ctHIm*ctHRe + 0.0734022421909097*ctHIm*ctWIm + 0.0085200721419787*ctHIm*ctWRe + 
+            0.0064946056775615*ctHRe*ctWIm + 0.1253901576970864*ctHRe*ctWRe + 0.0057108033786834*ctWIm*ctWRe;
+    
+    
+            //double num = (cos_se_pos_Mad + cos_se_pos_NP) - (cos_se_neg_Mad + cos_se_neg_NP);
+            //double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (cos_se_pos_NP) - (cos_se_neg_NP);
+            double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+        else{
+
+            
+    
+            double cos_se_neg_NP = 0.4728914373547805*cHW + 0.0118407416464167*cHWtil + -0.0033338074845438*ctHIm +
+            -0.0804656940482105*ctHRe + -0.689834314040347*ctWIm + -1.132189187920139*ctWRe;
+            double cos_se_pos_NP = 0.4767071641321322*cHW + -0.0108315625270247*cHWtil + 0.0032010835270088*ctHIm + 
+            -0.0766073426520603*ctHRe + 0.6929771773260096*ctWIm + -1.131334285096125*ctWRe;
+    
+    
+            //double num = (cos_se_pos_Mad + cos_se_pos_NP) - (cos_se_neg_Mad + cos_se_neg_NP);
+            //double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (cos_se_pos_NP) - (cos_se_neg_NP);
+            double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+    }  
+}
+
+
+
+
+
+Asymmetry_cos_ye_tHj::Asymmetry_cos_ye_tHj(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+//    setParametersForObservable(make_vector<std::string>() << "SM_Asymmetry_cos_ye_tHj");
+
+}
+
+double Asymmetry_cos_ye_tHj::computeThValue()
+{
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    //double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    //double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    //double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    //double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    //double SM_Asymmetry_cos_ye_tHj = SM.getOptionalParameter("SM_Asymmetry_cos_ye_tHj");
+    
+    double cos_ye_neg_Mad = 2.9854504039888377;
+    double cos_ye_pos_Mad = 3.002868871445828;
+    
+    if(flag_LHC_WG_Basis){
+        if(flag_Quadratic){
+             
+
+    
+            double cos_ye_neg_NP = 0.;
+            double cos_ye_pos_NP = 0.;
+    
+    
+            //double num = (cos_ye_pos_Mad + cos_ye_pos_NP) - (cos_ye_neg_Mad + cos_ye_neg_NP);
+            //double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (cos_ye_pos_NP) - (cos_ye_neg_NP);
+            double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
+    
+            double total = num/deno;
+            return total;
+
+        }
+        else{
+
+            
+    
+            double cos_ye_neg_NP = 0.;
+            double cos_ye_pos_NP = 0.;
+    
+    
+            //double num = (cos_ye_pos_Mad + cos_ye_pos_NP) - (cos_ye_neg_Mad + cos_ye_neg_NP);
+            //double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (cos_ye_pos_NP) - (cos_ye_neg_NP);
+            double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
+    
+            double total = num/deno;
+            return total;
+                
+        }
+    }
+    else{
+        if(flag_Quadratic){
+
+
+    
+            double cos_ye_neg_NP = 0.4728811316749511*cHW + -0.0743571487036044*cHWtil + 0.0134093106580527*ctHIm +
+            -0.0788765537664126*ctHRe + -0.5965260044476208*ctWIm + -1.133879975967292*ctWRe + 
+            0.3066300756612584*cHW*cHW + 0.2265944646346798*cHWtil*cHWtil + 0.0105197938347638*ctHIm*ctHIm +
+            0.0348166658751635*ctHRe*ctHRe + 2.7103779842736944*ctWIm*ctWIm + 2.7128731828613617*ctWRe*ctWRe + 
+            0.0067989490892239*cHW*cHWtil + 0.0062514079134364*cHW*ctHIm + -0.0596622342861595*cHW*ctHRe + 
+            -0.6504445487426931*cHW*ctWIm + -0.6408303732204232*cHW*ctWRe + -0.0077879672123913*cHWtil*ctHIm + 
+            -0.0045140089094199*cHWtil*ctHRe + -0.4445489789604543*cHWtil*ctWIm + 0.4626096180508141*cHWtil*ctWRe +
+            -0.005594974377675*ctHIm*ctHRe + 0.0768049243145821*ctHIm*ctWIm + -0.0251294260739384*ctHIm*ctWRe +
+            0.0703429679105624*ctHRe*ctWIm + 0.1273317894395585*ctHRe*ctWRe + -0.0157222879603941*ctWIm*ctWRe;
+            double cos_ye_pos_NP = 0.476717469811962*cHW + 0.0753663278229962*cHWtil + -0.0135420346155876*ctHIm + 
+            -0.078196482933858*ctHRe + 0.599668867733271*ctWIm + -1.1296434970927198*ctWRe + 
+            0.307351117172388*cHW*cHW + 0.2260176571753823*cHWtil*cHWtil + 0.0101846863583576*ctHIm*ctHIm +
+            0.0313976407708736*ctHRe*ctHRe + 2.706365319141492*ctWIm*ctWIm + 2.703477707011085*ctWRe*ctWRe + 
+            -0.0070410294141127*cHW*cHWtil + -0.0061980849317276*cHW*ctHIm + -0.0605650927340252*cHW*ctHRe +
+            0.6487242343490647*cHW*ctWIm + -0.6374431506853131*cHW*ctWRe + -0.0080254293734157*cHWtil*ctHIm + 
+            0.004591077351006*cHWtil*ctHRe + -0.4406240019648604*cHWtil*ctWIm + -0.4612663681943691*cHWtil*ctWRe + 
+            0.0057555079260233*ctHIm*ctHRe + 0.0724481406951879*ctHIm*ctWIm + 0.0247574767566629*ctHIm*ctWRe + 
+            -0.0724217725511453*ctHRe*ctWIm + 0.1217486012314901*ctHRe*ctWRe + 0.009125406250685*ctWIm*ctWRe;
+    
+    
+            //double num = (cos_ye_pos_Mad + cos_ye_pos_NP) - (cos_ye_neg_Mad + cos_ye_neg_NP);
+            //double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (cos_ye_pos_NP) - (cos_ye_neg_NP);
+            double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+        else{
+
+            
+    
+            double cos_ye_neg_NP = 0.4728811316749511*cHW + -0.0743571487036044*cHWtil + 0.0134093106580527*ctHIm +
+            -0.0788765537664126*ctHRe + -0.5965260044476208*ctWIm + -1.133879975967292*ctWRe;
+            double cos_ye_pos_NP = 0.476717469811962*cHW + 0.0753663278229962*cHWtil + -0.0135420346155876*ctHIm + 
+            -0.078196482933858*ctHRe + 0.599668867733271*ctWIm + -1.1296434970927198*ctWRe;
+    
+    
+            //double num = (cos_ye_pos_Mad + cos_ye_pos_NP) - (cos_ye_neg_Mad + cos_ye_neg_NP);
+            //double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (cos_ye_pos_NP) - (cos_ye_neg_NP);
+            double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+    }  
+}
+
+
+
+
+
+Asymmetry_trip_prod_ph_pt_pj_tHj::Asymmetry_trip_prod_ph_pt_pj_tHj(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+//    setParametersForObservable(make_vector<std::string>() << "SM_Asymmetry_trip_prod_ph_pt_pj_tHj");
+
+}
+
+double Asymmetry_trip_prod_ph_pt_pj_tHj::computeThValue()
+{
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    //double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    //double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    //double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    //double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    //double SM_Asymmetry_cos_ye_tHj = SM.getOptionalParameter("SM_Asymmetry_cos_ye_tHj");
+    
+    double trip_prod_neg_Mad = 2.997424819968232;
+    double trip_prod_pos_Mad = 2.990894455466435;
+    
+    if(flag_LHC_WG_Basis){
+        if(flag_Quadratic){
+             
+
+    
+            double trip_prod_neg_NP = 0.;
+            double trip_prod_pos_NP = 0.;
+    
+    
+            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
+            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
+            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            double total = num/deno;
+            return total;
+
+        }
+        else{
+
+            double trip_prod_neg_NP = 0.;
+            double trip_prod_pos_NP = 0.;
+    
+    
+            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
+            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
+            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            double total = num/deno;
+            return total;
+                
+        }
+    }
+    else{
+        if(flag_Quadratic){
+
+            
+            double trip_prod_neg_NP = 0.4731751789769144*cHW + -0.2062173155393779*cHWtil + -0.0210420414673162*ctHIm + 
+            -0.0784772415015998*ctHRe + 0.0035049087021471*ctWIm + -1.1126408682479452*ctWRe + 
+            0.3062680149098*cHW*cHW + 0.2256041264624489*cHWtil*cHWtil + 0.0103033595638413*ctHIm*ctHIm + 
+            0.0327718453878561*ctHRe*ctHRe + 2.706594862259218*ctWIm*ctWIm + 2.705927327451248*ctWRe*ctWRe +
+            0.0580361245603444*cHW*cHWtil + -0.0028341721569468*cHW*ctHIm + -0.0603326748771091*cHW*ctHRe + 
+            -0.0341451929677045*cHW*ctWIm + -0.6366438156186173*cHW*ctWRe + -0.0075429332474376*cHWtil*ctHIm + 
+            -0.0255348605499368*cHWtil*ctHRe + -0.4407813603683847*cHWtil*ctWIm + 0.0116076094967981*cHWtil*ctWRe + 
+            -0.0001820004036614*ctHIm*ctHRe + 0.0756006805298208*ctHIm*ctWIm + 0.0513525574146963*ctHIm*ctWRe + 
+            -0.0407550906968653*ctHRe*ctWIm + 0.1280372222916361*ctHRe*ctWRe + 0.013498171229231*ctWIm*ctWRe;
+            double trip_prod_pos_NP = 0.4764234225099984*cHW + 0.20722649465877*cHWtil + 0.0209093175097812*ctHIm + 
+            -0.078595795198671*ctHRe + -0.000362045416562*ctWIm + -1.150882604826262*ctWRe +
+            0.3077131779238463*cHW*cHW + 0.2270079953476132*cHWtil*cHWtil + 0.0104011206292801*ctHIm*ctHIm + 
+            0.0334424612581808*ctHRe*ctHRe + 2.710148441129685*ctWIm*ctWIm + 2.710423562420865*ctWRe*ctWRe + 
+            -0.0582782715491244*cHW*cHWtil + 0.0028875063300902*cHW*ctHIm + -0.0599189477103146*cHW*ctHRe + 
+            0.0324241655935762*cHW*ctWIm + -0.6418354389210809*cHW*ctWRe + -0.0082755885390069*cHWtil*ctHIm +
+            0.0256119540036406*cHWtil*ctHRe + -0.4445427933974889*cHWtil*ctWIm + -0.0102638339471822*cHWtil*ctWRe + 
+            0.0003425431837288*ctHIm*ctHRe + 0.0736905682201566*ctHIm*ctWIm + -0.0517246077639719*ctHIm*ctWRe + 
+            0.038675770013493*ctHRe*ctWIm + 0.1210837943540063*ctHRe*ctWRe + -0.0200958660055103*ctWIm*ctWRe;
+    
+    
+            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
+            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
+            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+        else{
+
+            double trip_prod_neg_NP = 0.4731751789769144*cHW + -0.2062173155393779*cHWtil + -0.0210420414673162*ctHIm + 
+            -0.0784772415015998*ctHRe + 0.0035049087021471*ctWIm + -1.1126408682479452*ctWRe;
+            double trip_prod_pos_NP = 0.4764234225099984*cHW + 0.20722649465877*cHWtil + 0.0209093175097812*ctHIm + 
+            -0.078595795198671*ctHRe + -0.000362045416562*ctWIm + -1.150882604826262*ctWRe;
+    
+    
+            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
+            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            
+            //We set the SM difference to zero
+            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
+            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
+    
+            double total = num/deno;
+            return total;
+            
+        }
+    }  
+}
+
+
+
+
+
+
+
+
+sigma_tHj_diff_LO_Del_R_th::sigma_tHj_diff_LO_Del_R_th(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tHj_diff_LO_Del_R_th_bin_0_pi" 
+            << "SM_sigma_tHj_diff_LO_Del_R_th_bin_pi_8");
+    
+}
+
+double sigma_tHj_diff_LO_Del_R_th::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    //double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    //double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    //double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    //double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    
+   
+    if(b_min == 0 && b_max == 3.14){
+        
+        double SM_Del_R_th_tHj_bin_0_pi = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_Del_R_th_bin_0_pi");
+        double Del_R_th_tHj_bin_0_pi_madgraph = 0.5198924690483601;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_Del_R_th_tHj_bin_0_pi + (0.)*(SM_Del_R_th_tHj_bin_0_pi/Del_R_th_tHj_bin_0_pi_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total = SM_Del_R_th_tHj_bin_0_pi + (0.)*(SM_Del_R_th_tHj_bin_0_pi/Del_R_th_tHj_bin_0_pi_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                total = SM_Del_R_th_tHj_bin_0_pi + (0.220246481678596*cHW + 0.0001485728632859*cHWtil + 0.0001008891760229*ctHIm +
+                        -0.0600527834531858*ctHRe + 0.0004390818255602*ctWIm + -0.526439687822913*ctWRe + 
+                        0.0878777287723505*cHW*cHW + 0.0537182291189895*cHWtil*cHWtil + 0.00257295232299*ctHIm*ctHIm + 
+                        0.0100192193344844*ctHRe*ctHRe + 0.8714545891772361*ctWIm*ctWIm + 0.8683513697290252*ctWRe*ctWRe + 
+                        1.1954223612303805e-05*cHW*cHWtil + -0.0001657857250467*cHW*ctHIm + -0.024684972339762*cHW*ctHRe + 
+                        1.755473359284221e-05*cHW*ctWIm + -0.2590069019348239*cHW*ctWRe + -0.0030608640639377*cHWtil*ctHIm + 
+                        0.0001448608174933*cHWtil*ctHRe + -0.1377822969273901*cHWtil*ctWIm + -0.0002095049296119*cHWtil*ctWRe + 
+                        0.0001531599176172*ctHIm*ctHRe + 0.0233551969992832*ctHIm*ctWIm + 0.0001221412647315*ctHIm*ctWRe + 
+                        -0.0004981550659563*ctHRe*ctWIm + 0.0464732517727849*ctHRe*ctWRe + -0.0017079266931867*ctWIm*ctWRe
+                        )*(SM_Del_R_th_tHj_bin_0_pi/Del_R_th_tHj_bin_0_pi_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                total = SM_Del_R_th_tHj_bin_0_pi + (0.220246481678596*cHW + 
+                        -0.0600527834531858*ctHRe + -0.526439687822913*ctWRe
+                        )*(SM_Del_R_th_tHj_bin_0_pi/Del_R_th_tHj_bin_0_pi_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    } else if(b_min == 3.14 && b_max == 8.){
+        
+        double SM_Del_R_th_tHj_bin_pi_8 = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_Del_R_th_bin_pi_8");
+        double Del_R_th_tHj_bin_pi_8_madgraph = 0.9286855031587032;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_Del_R_th_tHj_bin_pi_8 + (0.)*(SM_Del_R_th_tHj_bin_pi_8/Del_R_th_tHj_bin_pi_8_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_Del_R_th_tHj_bin_pi_8 + (0.)*(SM_Del_R_th_tHj_bin_pi_8/Del_R_th_tHj_bin_pi_8_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                
+                total = SM_Del_R_th_tHj_bin_pi_8 + (0.0897896143595042*cHW + 2.0137369438635863e-05*cHWtil + -0.0001184136133698*ctHIm +
+                        0.0022046467428809*ctHRe + 0.000143163526555*ctWIm + -0.2092845561240396*ctWRe + 
+                        0.0844443789341863*cHW*cHW + 0.0623462174258319*cHWtil*cHWtil + 0.0026189688979234*ctHIm*ctHIm + 
+                        0.0072496081836699*ctHRe*ctHRe + 0.6634699666908053*ctWIm*ctWIm + 0.6652835432621799*ctWRe*ctWRe + 
+                        8.08782734279534e-06*cHW*cHWtil + 9.311417809410028e-05*cHW*ctHIm + -0.0106075370870455*cHW*ctHRe + 
+                        -0.0003069951264093*cHW*ctWIm + -0.1574825552102092*cHW*ctWRe + -0.0015264174728027*cHWtil*ctHIm + 
+                        -8.004726796563944e-05*cHWtil*ctHRe + -0.0987965665599762*cHWtil*ctWIm + 0.0001784457437636*cHWtil*ctWRe + 
+                        -4.8553041115131374e-05*ctHIm*ctHRe + 0.0183802012849704*ctHIm*ctWIm + -0.0001651313443605*ctHIm*ctWRe + 
+                        9.2546382412656e-05*ctHRe*ctWIm + 0.0280427583650578*ctHRe*ctWRe + 0.0003215575263969*ctWIm*ctWRe
+                        )*(SM_Del_R_th_tHj_bin_pi_8/Del_R_th_tHj_bin_pi_8_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_Del_R_th_tHj_bin_pi_8 + (0.0897896143595042*cHW +
+                        0.0022046467428809*ctHRe + -0.2092845561240396*ctWRe
+                        )*(SM_Del_R_th_tHj_bin_pi_8/Del_R_th_tHj_bin_pi_8_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct binning for sigma_tHj_diff_LO_Del_R_th. \n");
+    }    
+    
+}
+
+
+
+
+
+
+
+
+
+sigma_tHj_diff_LO_mth::sigma_tHj_diff_LO_mth(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tHj_diff_LO_mth_bin_200_340" 
+            << "SM_sigma_tHj_diff_LO_mth_bin_340_424" << "SM_sigma_tHj_diff_LO_mth_bin_424_620"
+            << "SM_sigma_tHj_diff_LO_mth_bin_620_1600" );
+    
+}
+
+double sigma_tHj_diff_LO_mth::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    //double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    //double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    //double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    //double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    
+   
+    if(b_min == 200 && b_max == 340){
+        
+        double SM_sigma_tHj_diff_LO_mth_bin_200_340 = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_mth_bin_200_340");
+        double sigma_tHj_diff_LO_mth_bin_200_340_madgraph = 4.8312389333236;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_200_340 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_200_340/sigma_tHj_diff_LO_mth_bin_200_340_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_200_340 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_200_340/sigma_tHj_diff_LO_mth_bin_200_340_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_200_340 + (2.044625422571*cHW + -0.0019697321068240514*cHWtil + -0.0002770594241113811*ctHIm +
+                        -0.9319723301799*ctHRe + -0.00476895114764897*ctWIm + -4.0956850184244*ctWRe + 
+                        0.2928532476119*cHW*cHW + 0.09546992012006428*cHWtil*cHWtil + 0.01454612189076554*ctHIm*ctHIm + 
+                        0.1209362969154*ctHRe*ctHRe + 2.7343139034392*ctWIm*ctWIm + 2.6995685969779997*ctWRe*ctWRe + 
+                        -0.005934498577654642*cHW*cHWtil + -0.0018803268831102064*cHW*ctHIm + -0.2194966254055*cHW*ctHRe + 
+                        0.003760700951024876*cHW*ctWIm + -1.2677935653004*cHW*ctWRe + -0.02264745989419263*cHWtil*ctHIm + 
+                        -0.000901401797751721*cHWtil*ctHRe + -0.5172919603443*cHWtil*ctWIm + 0.0005135710164916318*cHWtil*ctWRe + 
+                        0.001622458841596397*ctHIm*ctHRe + 0.1287365371493*ctHIm*ctWIm + -0.005794226903136551*ctHIm*ctWRe + 
+                        -0.0036847586393026423*ctHRe*ctWIm + 0.37264722012039997*ctHRe*ctWRe + 0.00219928660555313*ctWIm*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_mth_bin_200_340/sigma_tHj_diff_LO_mth_bin_200_340_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_200_340 + (2.044625422571*cHW +
+                        -0.9319723301799*ctHRe + -4.0956850184244*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_mth_bin_200_340/sigma_tHj_diff_LO_mth_bin_200_340_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    } else if(b_min == 340 && b_max == 424){
+        
+        double SM_sigma_tHj_diff_LO_mth_bin_340_424 = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_mth_bin_340_424");
+        double sigma_tHj_diff_LO_mth_bin_340_424_madgraph = 15.7487145559461;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_340_424 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_340_424/sigma_tHj_diff_LO_mth_bin_340_424_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_340_424 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_340_424/sigma_tHj_diff_LO_mth_bin_340_424_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_340_424 + (4.9981313432903995*cHW + -0.00433369039049003*cHWtil + 0.00039224905580559366*ctHIm +
+                        -1.0434688823926*ctHRe + 0.003958581262702987*ctWIm + -11.327199630097*ctWRe + 
+                        1.3719672914796999*cHW*cHW + 0.6464375218769001*cHWtil*cHWtil + 0.06497929284932091*ctHIm*ctHIm + 
+                        0.2766726496071*ctHRe*ctHRe + 10.297289637753002*ctWIm*ctWIm + 10.2481785950402*ctWRe*ctWRe + 
+                        -0.015556904787081122*cHW*cHWtil + 0.00012779846093879946*cHW*ctHIm + -0.5974518855705999*cHW*ctHRe + 
+                        0.01289784306163222*cHW*ctWIm + -4.6693468708844*cHW*ctWRe + -0.07474505546859601*cHWtil*ctHIm + 
+                        -0.0017800266970389987*cHWtil*ctHRe + -2.2400298269615*cHWtil*ctWIm + -0.018183520573615563*cHWtil*ctWRe + 
+                        -0.0003375385250080826*ctHIm*ctHRe + 0.5066845255559*ctHIm*ctWIm + 0.02001141484961333*ctHIm*ctWRe +
+                        0.02423769252751784*ctHRe*ctWIm + 1.0459736936309*ctHRe*ctWRe + 0.0640694541759329*ctWIm*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_mth_bin_340_424/sigma_tHj_diff_LO_mth_bin_340_424_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_340_424 + (4.9981313432903995*cHW +
+                        -1.0434688823926*ctHRe + -11.327199630097*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_mth_bin_340_424/sigma_tHj_diff_LO_mth_bin_340_424_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        
+        
+    }  else if(b_min == 424 && b_max == 620){
+        
+        double SM_sigma_tHj_diff_LO_mth_bin_424_620 = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_mth_bin_424_620");
+        double sigma_tHj_diff_LO_mth_bin_424_620_madgraph = 10.9357549691572;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_424_620 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_424_620/sigma_tHj_diff_LO_mth_bin_424_620_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_424_620 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_424_620/sigma_tHj_diff_LO_mth_bin_424_620_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_424_620 + (1.5666660066113*cHW + 0.009873964296414073*cHWtil + -0.003017092917417808*ctHIm +
+                        0.08256721872489103*ctHRe + -0.008516060692950744*ctWIm + -4.136280835257099*ctWRe + 
+                        1.0890377895256*cHW*cHW + 0.7007065924062*cHWtil*cHWtil + 0.0390975212028466*ctHIm*ctHIm + 
+                        0.09289750818528009*ctHRe*ctHRe + 7.2496001463796*ctWIm*ctWIm + 7.2836843498583*ctWRe*ctWRe +
+                        0.009983943811839311*cHW*cHWtil + -0.0012669630490372552*cHW*ctHIm + -0.1910815830423*cHW*ctHRe +
+                        -0.0110446887577412*cHW*ctWIm + -2.7163356332474002*cHW*ctWRe + -0.02914841005248382*cHWtil*ctHIm + 
+                        -0.0011939154296200202*cHWtil*ctHRe + -1.6033076535583*cHWtil*ctWIm + -0.003923502799203852*cHWtil*ctWRe +
+                        0.0007781238255122336*ctHIm*ctHRe + 0.2845742436244*ctHIm*ctWIm + -0.006589865014594622*ctHIm*ctWRe + 
+                        -0.014562482561483663*ctHRe*ctWIm + 0.4522172735994*ctHRe*ctWRe + -0.03856803764934983*ctWIm*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_mth_bin_424_620/sigma_tHj_diff_LO_mth_bin_424_620_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_424_620 + (1.5666660066113*cHW +
+                        0.08256721872489103*ctHRe -4.136280835257099*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_mth_bin_424_620/sigma_tHj_diff_LO_mth_bin_424_620_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        
+        
+    }  else if(b_min == 620 && b_max == 1600){
+        
+        double SM_sigma_tHj_diff_LO_mth_bin_620_1600 = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_mth_bin_620_1600");
+        double sigma_tHj_diff_LO_mth_bin_620_1600_madgraph = 2.0062389761137;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_620_1600 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_620_1600/sigma_tHj_diff_LO_mth_bin_620_1600_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_620_1600 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_620_1600/sigma_tHj_diff_LO_mth_bin_620_1600_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_620_1600 + (0.1111424096413*cHW + -0.0014860638211933177*cHWtil + 0.0003135970091938667*ctHIm +
+                        0.02440742106196714*ctHRe + 0.0029584200534060745*ctWIm + -0.3390724228498*ctWRe + 
+                        0.29202717282470003*cHW*cHW + 0.2430289940472*cHWtil*cHWtil + 0.005608877718665806*ctHIm*ctHIm + 
+                        0.008411593347051882*ctHRe*ctHRe + 2.6193177426385*ctWIm*ctWIm + 2.6275190748015*ctWRe*ctWRe + 
+                        0.0003166402726267892*cHW*cHWtil + 0.0003708859349638161*cHW*ctHIm + -0.010811319724541921*cHW*ctHRe + 
+                        -0.004126259538358132*cHW*ctWIm + -0.4598013457796*cHW*ctWRe + -0.0019298379837962567*cHWtil*ctHIm +
+                        0.0005878696857919419*cHWtil*ctHRe + -0.3198592839751*cHWtil*ctWIm + 0.0026820414812528397*cHWtil*ctWRe +
+                        -8.366197674275488e-05*ctHIm*ctHRe + 0.045894456459680266*ctHIm*ctWIm + -0.0014537499925816463*ctHIm*ctWRe + 
+                        -0.0007806602952328085*ctHRe*ctWIm + 0.05445691902987437*ctHRe*ctWRe + -0.0006867750649745359*ctWIm*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_mth_bin_620_1600/sigma_tHj_diff_LO_mth_bin_620_1600_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_mth_bin_620_1600 + (0.1111424096413*cHW +
+                        0.02440742106196714*ctHRe + -0.3390724228498*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_mth_bin_620_1600/sigma_tHj_diff_LO_mth_bin_620_1600_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct binning for sigma_tHj_diff_LO_mth. \n");
+    }    
+    
+}
+
+
+
+
+
+
+
+
+sigma_tHj_diff_LO_trip_prod_z_pt_pj::sigma_tHj_diff_LO_trip_prod_z_pt_pj(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1" 
+            << "SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0" << "SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1"
+            << "SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1" );
+    
+}
+
+double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    //double cHG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiG();
+    //double cHGtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiGtil();
+    double cHW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiW();
+    double cHWtil = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiWtil();
+    double ctHRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
+    //double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    //double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    
+    
+    
+   
+    if(b_min == -1 && b_max == -0.1){
+        
+        double SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1 = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1");
+        double sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1_madgraph = 0.8264858170834004;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1 + (0.3646362275869991*cHW + -0.0166895627470372*cHWtil + 
+                        0.0256209852360194*ctHIm + -0.128543600482164*ctHRe + -0.0939877611285754*ctWIm + -0.7936049243097774*ctWRe +
+                        0.1278696411053465*cHW*cHW + 0.0731620368677026*cHWtil*cHWtil + 0.0041888307920575*ctHIm*ctHIm + 
+                        0.0193907320385548*ctHRe*ctHRe + 1.0675602775250457*ctWIm*ctWIm + 1.0687772237286093*ctWRe*ctWRe + 
+                        -0.0782150127334121*cHW*cHWtil + 0.0025943196337468*cHW*ctHIm + -0.0496091674851035*cHW*ctHRe + 
+                        0.0254989881300741*cHW*ctWIm + -0.334101544416724*cHW*ctWRe + -0.0039346191573913*cHWtil*ctHIm + 
+                        0.0282265393923323*cHWtil*ctHRe + -0.2033655508825295*cHWtil*ctWIm + -0.0165254794118828*cHWtil*ctWRe + 
+                        -2.621088637231366e-05*ctHIm*ctHRe + 0.0231618106640849*ctHIm*ctWIm + -0.0427921919641906*ctHIm*ctWRe + 
+                        0.0307631048922972*ctHRe*ctWIm + 0.0632664748372589*ctHRe*ctWRe + -0.0083383017737166*ctWIm*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1 + (0.3646362275869991*cHW + -0.0166895627470372*cHWtil + 
+                        0.0256209852360194*ctHIm + -0.128543600482164*ctHRe + -0.0939877611285754*ctWIm + -0.7936049243097774*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    } else if(b_min == -0.1 && b_max == 0){
+        
+        double SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0 = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0");
+        double sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0_madgraph = 22.45084375748576;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0 + (1.442341421722291*cHW + 4.019977713678601*cHWtil + 
+                        0.153196279604299*ctHIm + 0.3625647084148817*ctHRe + 0.7530568161311931*ctWIm + -4.19557216302995*ctWRe +
+                        1.908492498127476*cHW*cHW + 1.614134281181288*cHWtil*cHWtil + 0.0669586130040683*ctHIm*ctHIm + 
+                        0.1603252933722704*ctHRe*ctHRe + 17.50734966952049*ctWIm*ctWIm + 17.514736467909568*ctWRe*ctWRe + 
+                        -0.3525825156328727*cHW*cHWtil + 0.0197738212419989*cHW*ctHIm + -0.1592811472687367*cHW*ctHRe + 
+                        0.2387483055297098*cHW*ctWIm + -3.380438409950413*cHW*ctWRe + -0.0451921162715584*cHWtil*ctHIm +
+                        0.2065480016189984*cHWtil*ctHRe + -2.6391380244958267*cHWtil*ctWIm + -0.0237387770588975*cHWtil*ctWRe +
+                        0.0011320829420689*ctHIm*ctHRe + 0.5343061646884646*ctHIm*ctWIm + -0.4926921646822787*ctHIm*ctWRe +
+                        0.4285201539717223*ctHRe*ctWIm + 0.6738494834458951*ctHRe*ctWRe + -0.1121784940758641*ctWIm*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0 + (1.442341421722291*cHW + 4.019977713678601*cHWtil + 
+                        0.153196279604299*ctHIm + 0.3625647084148817*ctHRe + 0.7530568161311931*ctWIm + -4.19557216302995*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        
+        
+    }  else if(b_min == 0 && b_max == 0.1){
+        
+        double SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1 = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1");
+        double sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1_madgraph = 22.534252619573525;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1 + (1.473504604282017*cHW + -3.9759593578800665*cHWtil +
+                        -0.1574375509821199*ctHIm + 0.3831143236353689*ctHRe + -0.6988322279880105*ctWIm + -4.175337801382581*ctWRe +
+                        1.920195946765777*cHW*cHW + 1.604637203954196*cHWtil*cHWtil + 0.0641534545419859*ctHIm*ctHIm + 
+                        0.1565135244341224*ctHRe*ctHRe + 17.428569162642475*ctWIm*ctWIm + 17.46609058059385*ctWRe*ctWRe +
+                        0.3551360188717259*cHW*cHWtil + -0.015651082292107*cHW*ctHIm + -0.146335080030712*cHW*ctHRe + 
+                        -0.2747404294361077*cHW*ctWIm + -3.394518055348159*cHW*ctWRe + -0.0430494668268945*cHWtil*ctHIm + 
+                        -0.2027440689736365*cHWtil*ctHRe + -2.603236269869225*cHWtil*ctWIm + 0.0682574309145335*cHWtil*ctWRe +
+                        0.0009754633482168*ctHIm*ctHRe + 0.5455637449209495*ctHIm*ctWIm + 0.4770873023247127*ctHIm*ctWRe + 
+                        -0.441382381279638*ctHRe*ctWIm + 0.7163879472097825*ctHRe*ctWRe + 0.0441737265426905*ctWIm*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1 + (1.473504604282017*cHW + -3.9759593578800665*cHWtil +
+                        -0.1574375509821199*ctHIm + 0.3831143236353689*ctHRe + -0.6988322279880105*ctWIm + -4.175337801382581*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+    }  else if(b_min == 0.1 && b_max == 1){
+        
+        double SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1 = SM.getOptionalParameter("SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1");
+        double sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1_madgraph = 0.8288582248370959;
+        double total;
+        
+        if(flag_LHC_WG_Basis){
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+                
+            }
+        }
+        else{
+            if(flag_Quadratic){
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1 + (0.3664904378118876*cHW + 0.0129199443509313*cHWtil + 
+                        -0.0252972039241013*ctHIm + -0.1288352216337421*ctHRe + 0.091454877214733*ctWIm + -0.7913200499790009*ctWRe +
+                        0.1289218570571187*cHW*cHW + 0.0720990445685774*cHWtil*cHWtil + 0.0042481396953987*ctHIm*ctHIm + 
+                        0.018976406699871*ctHRe*ctHRe + 1.069274633793857*ctWIm*ctWIm + 1.062631870741071*ctWRe*ctWRe +
+                        0.0776623121682901*cHW*cHWtil + -0.0029931540061552*cHW*ctHIm + -0.0500193309817597*cHW*ctHRe + 
+                        -0.0234113227498942*cHW*ctWIm + -0.3334286909771868*cHW*ctWRe + -0.0038311889777161*cHWtil*ctHIm +
+                        -0.0285635670320629*cHWtil*ctHRe + -0.1976737308512463*cHWtil*ctWIm + 0.013071461654528*cHWtil*ctWRe + 
+                        -2.959037628247512e-05*ctHIm*ctHRe + 0.022689293687742*ctHIm*ctWIm + 0.0441127888606079*ctHIm*ctWRe +
+                        -0.0316437501216862*ctHRe*ctWIm + 0.0590186720983172*ctHRe*ctWRe + 0.0085645224919978*ctWIm*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+
+            }
+            else{
+                
+                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1 + (0.3664904378118876*cHW + 0.0129199443509313*cHWtil + 
+                        -0.0252972039241013*ctHIm + -0.1288352216337421*ctHRe + 0.091454877214733*ctWIm + -0.7913200499790009*ctWRe
+                        )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1_madgraph);
+                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                return total;
+            }
+        }
+        
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct binning for sigma_tHj_diff_LO_mthj. \n");
+    }    
+    
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
