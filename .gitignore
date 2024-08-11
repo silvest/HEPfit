@@ -25,8 +25,11 @@
 */nbproject/*
 !*/nbproject/configurations.xml
 !*/nbproject/project.xml
-*/dist
-*/build
+*/dist/*
+*/build/*
+build/*
+dist/*
+.vscode/*
 
 
 *~
