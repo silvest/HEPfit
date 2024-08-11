@@ -899,7 +899,7 @@ const double StandardModelMatching::phi1(double z) const {
     return (0.);
 }
 
-double StandardModelMatching::phi2(double x, double y) const{
+const double StandardModelMatching::phi2(double x, double y) const{
     
     double l2 = (1. - x - y) * (1. - x - y) - 4. * x * y;
     
