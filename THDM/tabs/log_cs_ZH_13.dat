@@ -1,6 +1,8 @@
 # LHC Higgs Cross Section Working Group
+# https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBSMAt13TeV
 # Z associated H production cross section at 13 TeV
 # mH[GeV] | log10(sigma/pb)
+10.0    2.027
 20.0	1.666
 30.0	1.392
 40.0	1.164

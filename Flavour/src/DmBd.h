@@ -9,7 +9,6 @@
 #define	DMBD_H
 
 #include "ThObservable.h"
-#include "AmpDB2.h"
 
 /**
  * @class DmBd
@@ -25,14 +24,14 @@
  * the short distance contribution is dominated by the top loop in the
  * box diagram.
  */
-class DmBd : public ThObservable, AmpDB2 {
+class DmBd : public ThObservable {
 public:
     
     /**
     * @brief Constructor.
     * @param[in] SM_i a reference to an object of type StandardModel
     */
-    DmBd(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
+    DmBd(const StandardModel& SM_i);
     
     /**
      *

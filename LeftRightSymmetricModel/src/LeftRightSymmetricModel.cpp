@@ -46,6 +46,8 @@ U(5, 5, 0.), LRSMM(*this)
     ModelParamMap.insert(std::make_pair("phiR5_LRSM", std::cref(phiR5_LRSM)));
     ModelParamMap.insert(std::make_pair("phiR6_LRSM", std::cref(phiR6_LRSM)));
     ModelParamMap.insert(std::make_pair("Q_LRSM", std::cref(Q_LRSM)));
+    flagLeftRightSymmetricModel = false;
+    flag_CPV = false;
 }
 
 LeftRightSymmetricModel::~LeftRightSymmetricModel(){

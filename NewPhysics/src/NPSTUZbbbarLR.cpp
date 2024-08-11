@@ -44,7 +44,7 @@ bool NPSTUZbbbarLR::CheckParameters(const std::map<std::string, double>& DPars)
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSTUZbbbarLR::deltaGV_f(const Particle f) const
+const double NPSTUZbbbarLR::deltaGV_f(const Particle f) const
 {
     if (f.is("BOTTOM")) {
         double DeltaGVb = myDeltaGLb + myDeltaGRb;
@@ -53,7 +53,7 @@ double NPSTUZbbbarLR::deltaGV_f(const Particle f) const
         return NPSTU::deltaGV_f(f);
 }
 
-double NPSTUZbbbarLR::deltaGA_f(const Particle f) const
+const double NPSTUZbbbarLR::deltaGA_f(const Particle f) const
 {
     if (f.is("BOTTOM")) {
         double DeltaGAb = myDeltaGLb - myDeltaGRb;

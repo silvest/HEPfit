@@ -27,6 +27,8 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     dispersion = false;
     FixedWCbtos = false;
     mJ2 = 3.096*3.096;
+    SM.getFlavour().getDB2(0);
+    SM.getFlavour().getDB2(1);
     
     w_GSL = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -489,7 +491,7 @@ gslpp::complex MVgamma::H_V_p_bar()
 
 
 BR_MVgamma::BR_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
-: ThObservable(SM_i), myAmpDB2(*(new AmpDB2(SM_i)))
+: ThObservable(SM_i)
 {
     meson = meson_i;
     vectorM = vector_i;
@@ -515,11 +517,11 @@ double BR_MVgamma::computeBR_MVgamma(QCD::meson meson, QCD::meson vector)
         case StandardModel::RHO:
         case StandardModel::RHO_P:
         case StandardModel::OMEGA:
-            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
+            arg = SM.getFlavour().getDB2(0).getM21(FULLNLO).arg();
             t_int = 1.;
             break;
         case StandardModel::PHI:
-            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
+            arg = SM.getFlavour().getDB2(1).getM21(FULLNLO).arg();
             /* For correctly defined polarization the numerator should be H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar(). Switched to keep consistency with K*ll.*/
             /* See discussion around eq.53 in hep-ph/0510104*/
             ADG = 2.*(exp(gslpp::complex::i()*arg)*(HVp.conjugate()*HVm_bar + HVm.conjugate()*HVp_bar)).real() / (HVp.abs2() + HVm.abs2() + HVp_bar.abs2() + HVm_bar.abs2());
@@ -656,7 +658,7 @@ double C_MVgamma::computeThValue()
 }
 
 S_MVgamma::S_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) 
-: ThObservable(SM_i), myAmpDB2(*(new AmpDB2(SM_i)))
+: ThObservable(SM_i)
 {
     meson = meson_i;
     vectorM = vector_i;
@@ -676,10 +678,10 @@ double S_MVgamma::computeThValue()
     switch (vectorM) {
         case StandardModel::K_star:
         case StandardModel::RHO:
-            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
+            arg = SM.getFlavour().getDB2(0).getM21(FULLNLO).arg();
             break;
         case StandardModel::PHI:
-            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
+            arg = SM.getFlavour().getDB2(1).getM21(FULLNLO).arg();
             break;
         default:
             std::stringstream out;
@@ -693,7 +695,7 @@ double S_MVgamma::computeThValue()
 }
 
 ADG_MVgamma::ADG_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) 
-: ThObservable(SM_i), myAmpDB2(*(new AmpDB2(SM_i)))
+: ThObservable(SM_i)
 {
     meson = meson_i;
     vectorM = vector_i;
@@ -712,10 +714,10 @@ double ADG_MVgamma::computeThValue()
     
     switch (vectorM) {
         case StandardModel::K_star:
-            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
+            arg = SM.getFlavour().getDB2(0).getM21(FULLNLO).arg();
             break;
         case StandardModel::PHI:
-            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
+            arg = SM.getFlavour().getDB2(1).getM21(FULLNLO).arg();
             break;
         default:
             std::stringstream out;

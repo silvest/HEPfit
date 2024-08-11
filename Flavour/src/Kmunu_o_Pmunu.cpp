@@ -27,9 +27,9 @@ Kmunu_o_Pmunu::Kmunu_o_Pmunu(const StandardModel& SM_i)
 
 double Kmunu_o_Pmunu::computeThValue()
 {
-    //The WC are written in the LEFT basis of arxiv:1709.04486 the expressions can be found in arxiv:1706.00410 and arxiv:1605.07114 in a similar basis
-    gslpp::vector<gslpp::complex> ** allcoeff_K_mu_nu = SM.getFlavour().ComputeCoeffdiujlknu(1,0,1,2.);
-    gslpp::vector<gslpp::complex> ** allcoeff_P_mu_nu = SM.getFlavour().ComputeCoeffdiujlknu(0,0,1,2.);
+    //The WC are written in the LEFT basis of arxiv:1709.04486 the expressions can be found in arxiv:1706.00410 and arxiv:1605.07114
+    gslpp::vector<gslpp::complex> ** allcoeff_K_mu_nu = SM.getFlavour().ComputeCoeffdiujlknu(1,0,1,SM.getQuarks(QCD::UP).getMass_scale());
+    gslpp::vector<gslpp::complex> ** allcoeff_P_mu_nu = SM.getFlavour().ComputeCoeffdiujlknu(0,0,1,SM.getQuarks(QCD::UP).getMass_scale());
 
 
     double mK = SM.getMesons(QCD::K_P).getMass();
@@ -48,8 +48,8 @@ double Kmunu_o_Pmunu::computeThValue()
     //double fKofP = 1.1932;
     
     
-    double fKofP = SM.getOptionalParameter("fKofP");
-    double delKl2Pl2em = SM.getOptionalParameter("delKl2Pl2em");
+    double fKofP = SM.getOptionalParameter("fKofP"); // this is the ratio of charged meson decay constants in the SU(2)-symmetric limit 
+    double delKl2Pl2em = SM.getOptionalParameter("delKl2Pl2em"); //this is the non-perturbative EM + strong isospin violation correction to the ratio of decay rates
     
     
     double num = ((*(allcoeff_K_mu_nu[LO]))(0) -(*(allcoeff_K_mu_nu[LO]))(1) + mK * mK / (ms+mu) / mmu * ((*(allcoeff_K_mu_nu[LO]))(2) - (*(allcoeff_K_mu_nu[LO]))(3))).abs2();

@@ -12,7 +12,9 @@ class StandardModel;
 class EvolBsmm;
 #include <memory>
 #include "ThObservable.h"
+#include "QCD.h"
 #include "OrderScheme.h"
+#include "DGamma.h"
 
 class Bdmumu : public ThObservable {
 public:
@@ -20,7 +22,7 @@ public:
      * constructor
      * @param Flavour
      */
-    Bdmumu(const StandardModel& SM_i, int obsFlag);
+    Bdmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i=QCD::MU);
     
     /**
      *
@@ -46,9 +48,11 @@ protected:
     
 private:
     
+    QCD::lepton lep; /**< Final leptons type. */
     double beta;
     double mBd;
-    double mmu;
+    double mW;
+    double mlep;
     double mb;
     double md;
     double chiral;
@@ -62,9 +66,18 @@ private:
     double phiNP;
     double timeInt;
     double yd;
+    double coupling;
     int obs;
+    int leptonindex;
+    gslpp::complex C_10;
+    gslpp::complex C_10p;
+    gslpp::complex C_S;
+    gslpp::complex C_Sp;
+    gslpp::complex C_P;
+    gslpp::complex C_Pp;
+
     std::unique_ptr<EvolBsmm> evolbdmm;
-    
+    gslpp::vector<gslpp::complex>** allcoeff;
 };
 
 #endif	/* BDMUMU_H */

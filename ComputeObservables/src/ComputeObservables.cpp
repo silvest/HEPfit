@@ -41,11 +41,12 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     if (!Mod->Init(DP)) {
         if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
             std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
-            for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+            std::vector<std::string> missingParameters = myInputParser.getModel()->getmissingModelParameters(); // Store the result in a variable to avoid dangling pointer warning
+            for (std::vector<std::string>::iterator it = missingParameters.begin(); it != missingParameters.end(); it++) {
                 std::cout << "ModelParameter\t" << *it << std::endl;
             }
             std::cout << std::endl;
-            myInputParser.getModel()->getmissingModelParameters().clear();
+            missingParameters.clear();
         }
         throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
     }
@@ -80,7 +81,8 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     if (!Mod->Init(DPars_i)) {
         if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
             std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
-            for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+            std::vector<std::string> missingParameters = myInputParser.getModel()->getmissingModelParameters(); // Store the result in a variable to avoid dangling pointer warning
+             for (std::vector<std::string>::iterator it = missingParameters.begin(); it != missingParameters.end(); it++) {
                 std::cout << "ModelParameter\t" << *it << std::endl;
             }
             std::cout << std::endl;

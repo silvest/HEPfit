@@ -62,7 +62,7 @@ bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars)
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSTUVWXY::epsilon1() const
+const double NPSTUVWXY::epsilon1() const
 {
     double c2 = trueSM.cW2();
     double s2 = trueSM.sW2();
@@ -72,7 +72,7 @@ double NPSTUVWXY::epsilon1() const
     return eps1;
 }
 
-double NPSTUVWXY::epsilon2() const
+const double NPSTUVWXY::epsilon2() const
 {
     double c2 = trueSM.cW2();
     double s2 = trueSM.sW2();
@@ -81,7 +81,7 @@ double NPSTUVWXY::epsilon2() const
     return eps2;
 }
 
-double NPSTUVWXY::epsilon3() const
+const double NPSTUVWXY::epsilon3() const
 {
     double c2 = trueSM.cW2();
     double s2 = trueSM.sW2();
@@ -90,7 +90,7 @@ double NPSTUVWXY::epsilon3() const
     return eps3;
 }
 
-double NPSTUVWXY::epsilonb() const
+const double NPSTUVWXY::epsilonb() const
 {
     double epsb = trueSM.epsilonb();
     return epsb;
@@ -99,7 +99,7 @@ double NPSTUVWXY::epsilonb() const
 
 ////////////////////////////////////////////////////////////////////////     
 
-double NPSTUVWXY::obliqueS() const
+const double NPSTUVWXY::obliqueS() const
 {
     double sW2_SM = trueSM.sW2();
     double sW_SM = sqrt(sW2_SM);
@@ -108,7 +108,7 @@ double NPSTUVWXY::obliqueS() const
             * 4.0 * sW2_SM / alphaMz());
 }
 
-double NPSTUVWXY::obliqueT() const
+const double NPSTUVWXY::obliqueT() const
 {
     double sW2_SM = trueSM.sW2();
     double sW_SM = sqrt(sW2_SM);
@@ -118,7 +118,7 @@ double NPSTUVWXY::obliqueT() const
             - sW2_SM / cW2_SM * myObliqueY) / alphaMz());
 }
 
-double NPSTUVWXY::obliqueU() const
+const double NPSTUVWXY::obliqueU() const
 {
     double sW2_SM = trueSM.sW2();
     double sW_SM = sqrt(sW2_SM);
@@ -130,7 +130,7 @@ double NPSTUVWXY::obliqueU() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSTUVWXY::GammaW() const
+const double NPSTUVWXY::GammaW() const
 {
     double Gamma_W = trueSM.GammaW();
 
@@ -149,7 +149,7 @@ double NPSTUVWXY::GammaW() const
 }
 
 
-double NPSTUVWXY::LEP2sigmaMu(const double s) const
+const double NPSTUVWXY::LEP2sigmaMu(const double s) const
 {
    double sigma_mu;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -161,7 +161,7 @@ double NPSTUVWXY::LEP2sigmaMu(const double s) const
    return sigma_mu;
 }
 
-double NPSTUVWXY::LEP2sigmaTau(const double s) const
+const double NPSTUVWXY::LEP2sigmaTau(const double s) const
 {
    double sigma_tau;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -173,7 +173,7 @@ double NPSTUVWXY::LEP2sigmaTau(const double s) const
    return sigma_tau;
 }
 
-double NPSTUVWXY::LEP2sigmaHadron(const double s) const
+const double NPSTUVWXY::LEP2sigmaHadron(const double s) const
 {
    double sigma_had;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -189,7 +189,7 @@ double NPSTUVWXY::LEP2sigmaHadron(const double s) const
    return sigma_had;
 }
 
-double NPSTUVWXY::LEP2sigmaCharm(const double s) const
+const double NPSTUVWXY::LEP2sigmaCharm(const double s) const
 {
    double sigma_charm;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -201,7 +201,7 @@ double NPSTUVWXY::LEP2sigmaCharm(const double s) const
    return sigma_charm;
 }
 
-double NPSTUVWXY::LEP2sigmaBottom(const double s) const
+const double NPSTUVWXY::LEP2sigmaBottom(const double s) const
 {
    double sigma_bottom;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -213,7 +213,7 @@ double NPSTUVWXY::LEP2sigmaBottom(const double s) const
    return sigma_bottom;
 }
 
-double NPSTUVWXY::LEP2AFBmu(const double s) const
+const double NPSTUVWXY::LEP2AFBmu(const double s) const
 {
    double AFB_mu;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -225,7 +225,7 @@ double NPSTUVWXY::LEP2AFBmu(const double s) const
    return AFB_mu;
 }
 
-double NPSTUVWXY::LEP2AFBtau(const double s) const
+const double NPSTUVWXY::LEP2AFBtau(const double s) const
 {
    double AFB_tau;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -237,7 +237,7 @@ double NPSTUVWXY::LEP2AFBtau(const double s) const
    return AFB_tau;
 }
 
-double NPSTUVWXY::LEP2AFBcharm(const double s) const
+const double NPSTUVWXY::LEP2AFBcharm(const double s) const
 {
    double AFB_charm;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -249,7 +249,7 @@ double NPSTUVWXY::LEP2AFBcharm(const double s) const
    return AFB_charm;
 }
 
-double NPSTUVWXY::LEP2AFBbottom(const double s) const
+const double NPSTUVWXY::LEP2AFBbottom(const double s) const
 {
    double AFB_bottom;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -262,7 +262,7 @@ double NPSTUVWXY::LEP2AFBbottom(const double s) const
 }
 
 
-double NPSTUVWXY::LEP2Rcharm(const double s) const
+const double NPSTUVWXY::LEP2Rcharm(const double s) const
 {
    double R_charm;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
@@ -274,7 +274,7 @@ double NPSTUVWXY::LEP2Rcharm(const double s) const
    return R_charm;
 }
 
-double NPSTUVWXY::LEP2Rbottom(const double s) const
+const double NPSTUVWXY::LEP2Rbottom(const double s) const
 {
    double R_bottom;
    double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),

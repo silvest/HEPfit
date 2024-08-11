@@ -39,6 +39,8 @@ double Btaunu::computeThValue()
     double fact = 1.; /*factor introduced to scale the decay constant from that of the neutral B to the charged B.*/
     //double fact = 0.989;
     
-    return 1. / (64. * M_PI) * mtau * mtau * pow(fact * SM.getMesons(meson).getDecayconst(), 2.) * mB * pow(1. - mtau * mtau / mB / mB, 2.) / SM.getMesons(meson).computeWidth() * ((*(allcoeff[LO]))(0) 
-               + mB * mB / mb / mtau * ((*(allcoeff[LO]))(1) + (*(allcoeff[LO]))(2))).abs2(); // PLEASE NOTE THE DECAY CONST
+    return 1. / (64. * M_PI) * mtau * mtau * pow(fact * SM.getMesons(meson).getDecayconst(), 2.) * mB * (1. - mtau * mtau / mB / mB) *  (1. - mtau * mtau / mB / mB) / SM.getMesons(meson).computeWidth() * ((*(allcoeff[LO]))(0) 
+            -(*(allcoeff[LO]))(1) + mB * mB / (mb+mlight) / mtau * ((*(allcoeff[LO]))(2) - (*(allcoeff[LO]))(3))).abs2(); // PLEASE NOTE THE DECAY CONST
+    
+
 }

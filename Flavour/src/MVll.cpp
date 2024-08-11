@@ -43,8 +43,13 @@ T_cache(5, 0.)
     meson = meson_i;
     vectorM = vector_i;
     dispersion = false;
+    zExpansion = false;
     FixedWCbtos = false;
-    mJ2 = 3.096 * 3.096;
+    mJpsi = 3.0969;
+    mJ2 = mJpsi * mJpsi;
+    mPsi2S = 3.6861;
+    mPsi2S2 = mPsi2S * mPsi2S;
+    mD2 = 1.8648 * 1.8648;
 
     I0_updated = 0;
     I1_updated = 0;
@@ -150,6 +155,7 @@ MVll::~MVll()
 std::vector<std::string> MVll::initializeMVllParameters()
 {
     dispersion = mySM.getFlavour().getFlagUseDispersionRelation();
+    zExpansion = mySM.getFlavour().getFlagUsezExpansion();
     FixedWCbtos = mySM.getFlavour().getFlagFixedWCbtos();
     
 #if NFPOLARBASIS_MVLL
@@ -213,6 +219,33 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
     }
 
+    if (zExpansion) {
+        mvllParameters.clear();
+        if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
+            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23" << "DeltaC9" << "DeltaC10"
+            << "re_beta_0_0" << "re_beta_0_1" << "re_beta_0_2" << "re_beta_0_3" << "re_beta_0_4" << "re_beta_0_5" << "re_beta_0_6"
+            << "im_beta_0_0" << "im_beta_0_1" << "im_beta_0_2" << "im_beta_0_3" << "im_beta_0_4" << "im_beta_0_5" << "im_beta_0_6"
+            << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
+            << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
+            << "re_beta_2_0" << "re_beta_2_1" << "re_beta_2_2" << "re_beta_2_3" << "re_beta_2_4" << "re_beta_2_5" << "re_beta_2_6"
+            << "im_beta_2_0" << "im_beta_2_1" << "im_beta_2_2" << "im_beta_2_3" << "im_beta_2_4" << "im_beta_2_5" << "im_beta_2_6"
+            << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg";
+        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23" << "DeltaC9" << "DeltaC10"
+            << "re_beta_0_0" << "re_beta_0_1" << "re_beta_0_2" << "re_beta_0_3" << "re_beta_0_4" << "re_beta_0_5" << "re_beta_0_6"
+            << "im_beta_0_0" << "im_beta_0_1" << "im_beta_0_2" << "im_beta_0_3" << "im_beta_0_4" << "im_beta_0_5" << "im_beta_0_6"
+            << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
+            << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
+            << "re_beta_2_0" << "re_beta_2_1" << "re_beta_2_2" << "re_beta_2_3" << "re_beta_2_4" << "re_beta_2_5" << "re_beta_2_6"
+            << "im_beta_2_0" << "im_beta_2_1" << "im_beta_2_2" << "im_beta_2_3" << "im_beta_2_4" << "im_beta_2_5" << "im_beta_2_6";
+    }
+
     if (FixedWCbtos) mvllParameters.insert(mvllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
     
     mySM.initializeMeson(meson);
@@ -224,7 +257,7 @@ void MVll::updateParameters()
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) return;
 
-
+    
     GF = mySM.getGF();
     ale = mySM.getAle();
     Mlep = mySM.getLeptons(lep).getMass();
@@ -352,7 +385,49 @@ void MVll::updateParameters()
             throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
     }
 
-    if (!dispersion) {
+    if (zExpansion) {
+        beta_0[0] = gslpp::complex(mySM.getOptionalParameter("re_beta_0_0"), mySM.getOptionalParameter("im_beta_0_0"), false);
+        beta_0[1] = gslpp::complex(mySM.getOptionalParameter("re_beta_0_1"), mySM.getOptionalParameter("im_beta_0_1"), false);
+        beta_0[2] = gslpp::complex(mySM.getOptionalParameter("re_beta_0_2"), mySM.getOptionalParameter("im_beta_0_2"), false);
+        beta_0[3] = gslpp::complex(mySM.getOptionalParameter("re_beta_0_3"), mySM.getOptionalParameter("im_beta_0_3"), false);
+        beta_0[4] = gslpp::complex(mySM.getOptionalParameter("re_beta_0_4"), mySM.getOptionalParameter("im_beta_0_4"), false);
+        beta_0[5] = gslpp::complex(mySM.getOptionalParameter("re_beta_0_5"), mySM.getOptionalParameter("im_beta_0_5"), false);
+        beta_0[6] = gslpp::complex(mySM.getOptionalParameter("re_beta_0_6"), mySM.getOptionalParameter("im_beta_0_6"), false);
+        
+        beta_1[0] = gslpp::complex(mySM.getOptionalParameter("re_beta_1_0"), mySM.getOptionalParameter("im_beta_1_0"), false);
+        beta_1[1] = gslpp::complex(mySM.getOptionalParameter("re_beta_1_1"), mySM.getOptionalParameter("im_beta_1_1"), false);
+        beta_1[2] = gslpp::complex(mySM.getOptionalParameter("re_beta_1_2"), mySM.getOptionalParameter("im_beta_1_2"), false);
+        beta_1[3] = gslpp::complex(mySM.getOptionalParameter("re_beta_1_3"), mySM.getOptionalParameter("im_beta_1_3"), false);
+        beta_1[4] = gslpp::complex(mySM.getOptionalParameter("re_beta_1_4"), mySM.getOptionalParameter("im_beta_1_4"), false);
+        beta_1[5] = gslpp::complex(mySM.getOptionalParameter("re_beta_1_5"), mySM.getOptionalParameter("im_beta_1_5"), false);
+        beta_1[6] = gslpp::complex(mySM.getOptionalParameter("re_beta_1_6"), mySM.getOptionalParameter("im_beta_1_6"), false);
+        
+        beta_2[0] = gslpp::complex(mySM.getOptionalParameter("re_beta_2_0"), mySM.getOptionalParameter("im_beta_2_0"), false);
+        beta_2[1] = gslpp::complex(mySM.getOptionalParameter("re_beta_2_1"), mySM.getOptionalParameter("im_beta_2_1"), false);
+        beta_2[2] = gslpp::complex(mySM.getOptionalParameter("re_beta_2_2"), mySM.getOptionalParameter("im_beta_2_2"), false);
+        beta_2[3] = gslpp::complex(mySM.getOptionalParameter("re_beta_2_3"), mySM.getOptionalParameter("im_beta_2_3"), false);
+        beta_2[4] = gslpp::complex(mySM.getOptionalParameter("re_beta_2_4"), mySM.getOptionalParameter("im_beta_2_4"), false);
+        beta_2[5] = gslpp::complex(mySM.getOptionalParameter("re_beta_2_5"), mySM.getOptionalParameter("im_beta_2_5"), false);
+        beta_2[6] = gslpp::complex(mySM.getOptionalParameter("re_beta_2_6"), mySM.getOptionalParameter("im_beta_2_6"), false);
+        
+        DeltaC9 = mySM.getOptionalParameter("DeltaC9");
+        DeltaC10 = mySM.getOptionalParameter("DeltaC10");
+    } else if (dispersion) {
+        h_0[0] = gslpp::complex(mySM.getOptionalParameter("r1_1"));
+        h_0[1] = gslpp::complex(mySM.getOptionalParameter("r1_2"));
+        h_0[2] = gslpp::complex(mySM.getOptionalParameter("r1_3"));
+
+        h_1[0] = gslpp::complex(mySM.getOptionalParameter("r2_1"));
+        h_1[1] = gslpp::complex(mySM.getOptionalParameter("r2_2"));
+        h_1[2] = gslpp::complex(mySM.getOptionalParameter("r2_3"));
+
+        h_2[0] = gslpp::complex(mySM.getOptionalParameter("deltaC9_1"));
+        h_2[1] = gslpp::complex(mySM.getOptionalParameter("deltaC9_2"));
+        h_2[2] = gslpp::complex(mySM.getOptionalParameter("deltaC9_3"));
+        exp_Phase[0] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_1"));
+        exp_Phase[1] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_2"));
+        exp_Phase[2] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_3"));
+    } else {
 #if NFPOLARBASIS_MVLL
         h_0[0] = gslpp::complex(mySM.getOptionalParameter("absh_0"), mySM.getOptionalParameter("argh_0"), true);
         h_0[1] = gslpp::complex(mySM.getOptionalParameter("absh_p"), mySM.getOptionalParameter("argh_p"), true);
@@ -378,21 +453,6 @@ void MVll::updateParameters()
         h_2[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_2"), mySM.getOptionalParameter("imh_p_2"), false);
         h_2[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_2"), mySM.getOptionalParameter("imh_m_2"), false);
 #endif
-    } else {
-        h_0[0] = gslpp::complex(mySM.getOptionalParameter("r1_1"));
-        h_0[1] = gslpp::complex(mySM.getOptionalParameter("r1_2"));
-        h_0[2] = gslpp::complex(mySM.getOptionalParameter("r1_3"));
-
-        h_1[0] = gslpp::complex(mySM.getOptionalParameter("r2_1"));
-        h_1[1] = gslpp::complex(mySM.getOptionalParameter("r2_2"));
-        h_1[2] = gslpp::complex(mySM.getOptionalParameter("r2_3"));
-
-        h_2[0] = gslpp::complex(mySM.getOptionalParameter("deltaC9_1"));
-        h_2[1] = gslpp::complex(mySM.getOptionalParameter("deltaC9_2"));
-        h_2[2] = gslpp::complex(mySM.getOptionalParameter("deltaC9_3"));
-        exp_Phase[0] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_1"));
-        exp_Phase[1] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_2"));
-        exp_Phase[2] = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_3"));
     }
 
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
@@ -433,6 +493,11 @@ void MVll::updateParameters()
     C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
     C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
     C_8Lh = (*(allcoeffh[LO]))(7);
+    
+    if (zExpansion) {
+        C_9 += DeltaC9;
+        C_10 += DeltaC10;
+    }
 
     checkCache();
 
@@ -440,6 +505,24 @@ void MVll::updateParameters()
     t_m = pow(MM - MV, 2.);
     t_0 = t_p * (1. - sqrt(1. - t_m / t_p)); /*Modify it for Lattice*/
     z_0 = (sqrt(t_p) - sqrt(t_p - t_0)) / (sqrt(t_p) + sqrt(t_p - t_0));
+    s_p = 4. * mD2;
+    // s_0 = 4.;
+    s_0 = s_p - sqrt(s_p * (s_p - mPsi2S2));
+    Q2 = - Mb*Mb;
+    chiOPE = 0.000181;
+    twoalphaBtoKst = 2.276;
+    rho_0 = 0.7977;
+    rho_1 = -0.8298;
+    rho_2 = 0.8372;
+    rho_3 = -0.8396;
+    rho_4 = 0.8406;
+    rho_5 = -0.8412;
+    onemrho_0_2 = 1. - rho_0*rho_0;
+    onemrho_1_2 = 1. - rho_1*rho_1;
+    onemrho_2_2 = 1. - rho_2*rho_2;
+    onemrho_3_2 = 1. - rho_3*rho_3;
+    onemrho_4_2 = 1. - rho_4*rho_4;
+    onemrho_5_2 = 1. - rho_5*rho_5;
     MMpMV = MM + MV;
     MMpMV2 = MMpMV * MMpMV;
     MMmMV = MM - MV;
@@ -800,35 +883,82 @@ void MVll::checkCache()
         Ycache(0) = Mb;
         Ycache(1) = Mc;
     }
-
-    if (h_0[0] == h0Ccache[0] && h_1[0] == h0Ccache[1] && h_2[0] == h0Ccache[2] && SU3_breaking == h0Ccache[3]) {
-        h0_updated = 1;
+    
+    if (zExpansion) {
+        if (beta_0[0] == beta0Ccache[0] && beta_0[1] == beta0Ccache[1] && beta_0[2] == beta0Ccache[2] && beta_0[3] == beta0Ccache[3]
+                 && beta_0[4] == beta0Ccache[4] && beta_0[5] == beta0Ccache[5] && beta_0[6] == beta0Ccache[6] && SU3_breaking == beta0Ccache[7]) {
+            h0_updated = 1;
+        } else {
+            h0_updated = 0;
+            beta0Ccache[0] = beta_0[0];
+            beta0Ccache[1] = beta_0[1];
+            beta0Ccache[2] = beta_0[2];
+            beta0Ccache[3] = beta_0[3];
+            beta0Ccache[4] = beta_0[4];
+            beta0Ccache[5] = beta_0[5];
+            beta0Ccache[6] = beta_0[6];
+            beta0Ccache[7] = SU3_breaking;
+        }
+        
+        if (beta_1[0] == beta1Ccache[0] && beta_1[1] == beta1Ccache[1] && beta_1[2] == beta1Ccache[2] && beta_1[3] == beta1Ccache[3]
+                 && beta_1[4] == beta1Ccache[4] && beta_1[5] == beta1Ccache[5] && beta_1[6] == beta1Ccache[6] && SU3_breaking == beta1Ccache[7]) {
+            h1_updated = 1;
+        } else {
+            h1_updated = 0;
+            beta1Ccache[0] = beta_1[0];
+            beta1Ccache[1] = beta_1[1];
+            beta1Ccache[2] = beta_1[2];
+            beta1Ccache[3] = beta_1[3];
+            beta1Ccache[4] = beta_1[4];
+            beta1Ccache[5] = beta_1[5];
+            beta1Ccache[6] = beta_1[6];
+            beta1Ccache[7] = SU3_breaking;
+        }
+        
+        if (beta_2[0] == beta2Ccache[0] && beta_2[1] == beta2Ccache[1] && beta_2[2] == beta2Ccache[2] && beta_2[3] == beta2Ccache[3]
+                 && beta_2[4] == beta2Ccache[4] && beta_2[5] == beta2Ccache[5] && beta_2[6] == beta2Ccache[6] && SU3_breaking == beta2Ccache[7]) {
+            h2_updated = 1;
+        } else {
+            h2_updated = 0;
+            beta2Ccache[0] = beta_2[0];
+            beta2Ccache[1] = beta_2[1];
+            beta2Ccache[2] = beta_2[2];
+            beta2Ccache[3] = beta_2[3];
+            beta2Ccache[4] = beta_2[4];
+            beta2Ccache[5] = beta_2[5];
+            beta2Ccache[6] = beta_2[6];
+            beta2Ccache[7] = SU3_breaking;
+        }        
     } else {
-        h0_updated = 0;
-        h0Ccache[0] = h_0[0];
-        h0Ccache[1] = h_1[0];
-        h0Ccache[2] = h_2[0];
-        h0Ccache[3] = SU3_breaking;
-    }
+        if (h_0[0] == h0Ccache[0] && h_1[0] == h0Ccache[1] && h_2[0] == h0Ccache[2] && SU3_breaking == h0Ccache[3]) {
+            h0_updated = 1;
+        } else {
+            h0_updated = 0;
+            h0Ccache[0] = h_0[0];
+            h0Ccache[1] = h_1[0];
+            h0Ccache[2] = h_2[0];
+            h0Ccache[3] = SU3_breaking;
+        }
 
-    if (h_0[1] == h1Ccache[0] && h_1[1] == h1Ccache[1] && h_2[1] == h1Ccache[2] && SU3_breaking == h1Ccache[3]) {
-        h1_updated = 1;
-    } else {
-        h1_updated = 0;
-        h1Ccache[0] = h_0[1];
-        h1Ccache[1] = h_1[1];
-        h1Ccache[2] = h_2[1];
-        h1Ccache[3] = SU3_breaking;
-    }
+        if (h_0[1] == h1Ccache[0] && h_1[1] == h1Ccache[1] && h_2[1] == h1Ccache[2] && SU3_breaking == h1Ccache[3]) {
+            h1_updated = 1;
+        } else {
+            h1_updated = 0;
+            h1Ccache[0] = h_0[1];
+            h1Ccache[1] = h_1[1];
+            h1Ccache[2] = h_2[1];
+            h1Ccache[3] = SU3_breaking;
+        }
 
-    if (h_0[2] == h2Ccache[0] && h_1[2] == h2Ccache[1] && h_2[2] == h2Ccache[2] && SU3_breaking == h2Ccache[3]) {
-        h2_updated = 1;
-    } else {
-        h2_updated = 0;
-        h2Ccache[0] = h_0[2];
-        h2Ccache[1] = h_1[2];
-        h2Ccache[2] = h_2[2];
-        h2Ccache[3] = SU3_breaking;
+        if (h_0[2] == h2Ccache[0] && h_1[2] == h2Ccache[1] && h_2[2] == h2Ccache[2] && SU3_breaking == h2Ccache[3]) {
+            h2_updated = 1;
+        } else {
+            h2_updated = 0;
+            h2Ccache[0] = h_0[2];
+            h2Ccache[1] = h_1[2];
+            h2Ccache[2] = h_2[2];
+            h2Ccache[3] = SU3_breaking;
+        }
     }
 
     if (MM == H_V0cache(0) && Mb == H_V0cache(1)) {
@@ -1046,90 +1176,98 @@ gslpp::complex MVll::C_Seidel(double q2)
 
 gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate, bool spline)
 {
-#if COMPUTECP && SPLINE
-    if (spline && !conjugate) return gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
-    else if (spline && conjugate) return gsl_spline_eval(spline_Re_deltaC7_QCDF_conj, q2, acc_Re_deltaC7_QCDF_conj);
-#elif SPLINE
-    if (spline) return gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
-#endif
+    if (zExpansion)
+        return 0.;
+    else {
+    #if COMPUTECP && SPLINE
+        if (spline && !conjugate) return gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
+        else if (spline && conjugate) return gsl_spline_eval(spline_Re_deltaC7_QCDF_conj, q2, acc_Re_deltaC7_QCDF_conj);
+    #elif SPLINE
+        if (spline) return gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
+    #endif
 
-    double muh = mu_b / mb_pole;
-    double z = mc_pole * mc_pole / mb_pole / mb_pole;
-    double sh = q2 / mb_pole / mb_pole;
-    double sh2 = sh*sh;
+        double muh = mu_b / mb_pole;
+        double z = mc_pole * mc_pole / mb_pole / mb_pole;
+        double sh = q2 / mb_pole / mb_pole;
+        double sh2 = sh*sh;
 
-#if FULLNLOQCDF_MVLL    
-    gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
-    gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-#endif    
-    gslpp::complex F_17 = myF_1->F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_17im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_27 = myF_2->F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_27im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_87 = F87_0 + F87_1 * sh + F87_2 * sh2 + F87_3 * sh * sh2 - 8. / 9. * log(sh) * (sh + sh2 + sh * sh2);
+    #if FULLNLOQCDF_MVLL    
+        gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+        gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+        gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    #endif    
+        gslpp::complex F_17 = myF_1->F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_17im(muh, z, sh, 20); /*arXiv:0810.4077*/
+        gslpp::complex F_27 = myF_2->F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_27im(muh, z, sh, 20); /*arXiv:0810.4077*/
+        gslpp::complex F_87 = F87_0 + F87_1 * sh + F87_2 * sh2 + F87_3 * sh * sh2 - 8. / 9. * log(sh) * (sh + sh2 + sh * sh2);
 
-    if (!conjugate) {
-        gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
-        gslpp::complex delta_t = C_8 * F_87 + delta;
-#if FULLNLOQCDF_MVLL        
-        gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
-#else
-        return -alpha_s_mub / (4. * M_PI) * delta_t;
-#endif        
-    } else {
-        gslpp::complex delta = C_1.conjugate() * F_17 + C_2.conjugate() * F_27;
-        gslpp::complex delta_t = C_8.conjugate() * F_87 + delta;
-#if FULLNLOQCDF_MVLL
-        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
-#else
-        return -alpha_s_mub / (4. * M_PI) * delta_t;
-#endif        
+        if (!conjugate) {
+            gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
+            gslpp::complex delta_t = C_8 * F_87 + delta;
+    #if FULLNLOQCDF_MVLL        
+            gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
+            return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+    #else
+            return -alpha_s_mub / (4. * M_PI) * delta_t;
+    #endif        
+        } else {
+            gslpp::complex delta = C_1.conjugate() * F_17 + C_2.conjugate() * F_27;
+            gslpp::complex delta_t = C_8.conjugate() * F_87 + delta;
+    #if FULLNLOQCDF_MVLL
+            gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
+            return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+    #else
+            return -alpha_s_mub / (4. * M_PI) * delta_t;
+    #endif        
+        }
     }
 }
 
 gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate, bool spline)
 {
-#if COMPUTECP && SPLINE
-    if (spline && !conjugate) return gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
-    else if (spline && conjugate) return gsl_spline_eval(spline_Re_deltaC9_QCDF_conj, q2, acc_Re_deltaC9_QCDF_conj);
-#elif SPLINE
-    if (spline) return gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
-#endif
+    if (zExpansion)
+        return 0.;
+    else {
+    #if COMPUTECP && SPLINE
+        if (spline && !conjugate) return gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
+        else if (spline && conjugate) return gsl_spline_eval(spline_Re_deltaC9_QCDF_conj, q2, acc_Re_deltaC9_QCDF_conj);
+    #elif SPLINE
+        if (spline) return gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
+    #endif
 
-    double muh = mu_b / mb_pole;
-    double z = mc_pole * mc_pole / mb_pole / mb_pole;
-    double sh = q2 / mb_pole / mb_pole;
-    double sh2 = sh*sh;
+        double muh = mu_b / mb_pole;
+        double z = mc_pole * mc_pole / mb_pole / mb_pole;
+        double sh = q2 / mb_pole / mb_pole;
+        double sh2 = sh*sh;
 
-#if FULLNLOQCDF_MVLL    
-    gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
-    gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
-    gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-#endif    
-    gslpp::complex F_19 = myF_1->F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_19im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_29 = myF_2->F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_29im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_89 = (F89_0 + F89_1 * sh + F89_2 * sh2 + F89_3 * sh * sh2 + 16. / 9. * log(sh) * (1. + sh + sh2 + sh * sh2));
+    #if FULLNLOQCDF_MVLL    
+        gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+        gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
+        gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+        gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    #endif    
+        gslpp::complex F_19 = myF_1->F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_19im(muh, z, sh, 20); /*arXiv:0810.4077*/
+        gslpp::complex F_29 = myF_2->F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_29im(muh, z, sh, 20); /*arXiv:0810.4077*/
+        gslpp::complex F_89 = (F89_0 + F89_1 * sh + F89_2 * sh2 + F89_3 * sh * sh2 + 16. / 9. * log(sh) * (1. + sh + sh2 + sh * sh2));
 
-    if (!conjugate) {
-        gslpp::complex delta = C_1 * F_19 + C_2 * F_29;
-        gslpp::complex delta_t = C_8 * F_89 + delta;
-#if FULLNLOQCDF_MVLL
-        gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
-#else        
-        return -alpha_s_mub / (4. * M_PI) * delta_t;
-#endif        
-    } else {
-        gslpp::complex delta = C_1.conjugate() * F_19 + C_2.conjugate() * F_29;
-        gslpp::complex delta_t = C_8.conjugate() * F_89 + delta;
-#if FULLNLOQCDF_MVLL        
-        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_19 + C_2.conjugate() * Fu_29;
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
-#else        
-        return -alpha_s_mub / (4. * M_PI) * delta_t;
-#endif        
+        if (!conjugate) {
+            gslpp::complex delta = C_1 * F_19 + C_2 * F_29;
+            gslpp::complex delta_t = C_8 * F_89 + delta;
+    #if FULLNLOQCDF_MVLL
+            gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
+            return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+    #else        
+            return -alpha_s_mub / (4. * M_PI) * delta_t;
+    #endif        
+        } else {
+            gslpp::complex delta = C_1.conjugate() * F_19 + C_2.conjugate() * F_29;
+            gslpp::complex delta_t = C_8.conjugate() * F_89 + delta;
+    #if FULLNLOQCDF_MVLL        
+            gslpp::complex delta_u = delta + C_1.conjugate() * Fu_19 + C_2.conjugate() * Fu_29;
+            return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+    #else        
+            return -alpha_s_mub / (4. * M_PI) * delta_t;
+    #endif        
+        }
     }
 }
 
@@ -1533,36 +1671,45 @@ void MVll::spline_QCDF_func()
 
 gslpp::complex MVll::T_minus(double q2, bool conjugate)
 {
-#if COMPUTECP && SPLINE 
-    if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
-    else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp_conj, q2, acc_Re_T_perp_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp_conj, q2, acc_Im_T_perp_conj));
-#elif SPLINE
-    return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
-#endif     
+    if (zExpansion)
+        return 0.;
+    else {
+    #if COMPUTECP && SPLINE 
+        if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
+        else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp_conj, q2, acc_Re_T_perp_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp_conj, q2, acc_Im_T_perp_conj));
+    #elif SPLINE
+        return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
+    #endif     
 
-#if COMPUTECP  && !SPLINE
-    if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
-    else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res_conj->GetParams())));
-#elif !SPLINE
-    return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
-#endif    
+    #if COMPUTECP  && !SPLINE
+        if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
+        else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res_conj->GetParams())));
+    #elif !SPLINE
+        return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
+    #endif   
+    }
+ 
 }
 
 gslpp::complex MVll::T_0(double q2, bool conjugate)
 {
-#if COMPUTECP && SPLINE
-    if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
-    else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para_conj, q2, acc_Re_T_para_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para_conj, q2, acc_Im_T_para_conj));
-#elif SPLINE
-    return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
-#endif
+    if (zExpansion)
+        return 0.;
+    else {
+    #if COMPUTECP && SPLINE
+        if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+        else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para_conj, q2, acc_Re_T_para_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para_conj, q2, acc_Im_T_para_conj));
+    #elif SPLINE
+        return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+    #endif
 
-#if COMPUTECP && !SPLINE
-    if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res->GetParams())));
-    else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res_conj->GetParams())));
-#elif !SPLINE
-    return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res->GetParams())));
-#endif
+    #if COMPUTECP && !SPLINE
+        if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res->GetParams())));
+        else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res_conj->GetParams())));
+    #elif !SPLINE
+        return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_para_res->GetParams())));
+    #endif
+    }
 }
 
 /*******************************************************************************
@@ -1586,7 +1733,10 @@ gslpp::complex MVll::H_0(double q2)
 
 gslpp::complex MVll::Y(double q2)
 {
-    return -half * H_0(q2) * H_0_WC + H(q2, mc_pole*mc_pole, mu_b2) * H_c_WC - half * H(q2, mb_pole*mb_pole, mu_b2) * H_b_WC;
+    if (zExpansion)
+        return 0.;
+    else
+        return -half * H_0(q2) * H_0_WC + H(q2, mc_pole*mc_pole, mu_b2) * H_c_WC - half * H(q2, mb_pole*mb_pole, mu_b2) * H_b_WC;
 }
 
 gslpp::complex MVll::funct_g(double q2)
@@ -1599,18 +1749,174 @@ gslpp::complex MVll::funct_g(double q2)
 
 gslpp::complex MVll::DeltaC9_KD(double q2, int com)
 {
-    return ((h_0[com] * (1. - 1. / q2) + h_2[com] / q2) / (1. + h_1[com] * (1. - q2) / mJ2) - (3. * (-0.267) + 1.117) * funct_g(q2))*exp_Phase[com];
+        return ((h_0[com] * (1. - 1. / q2) + h_2[com] / q2) / (1. + h_1[com] * (1. - q2) / mJ2) - (3. * (-0.267) + 1.117) * funct_g(q2))*exp_Phase[com];
     /* C_1 = -0.267 and C_2 = 1.117 in KMPW */
+}
+
+gslpp::complex MVll::zh(double q2)
+{
+    return ( sqrt(s_p - q2) - sqrt(s_p - s_0)) / (sqrt(s_p - q2) + sqrt(s_p - s_0));
+}
+
+gslpp::complex MVll::P(double q2)
+{
+    gslpp::complex facmj2 = ( zh(q2) - zh(mJ2) ) / ( 1. - zh(q2)*zh(mJ2).conjugate() );
+    if(fabs(q2 - mJ2)< 1.e-5) facmj2 = 1/(4.*(mJ2 - s_p));
+    gslpp::complex facmPsi2S2 = ( zh(q2) - zh(mPsi2S2) ) / ( 1. - zh(q2)*zh(mPsi2S2).conjugate() );
+    if(fabs(q2 - mPsi2S2)< 1.e-5) facmPsi2S2 = 1/(4.*(mPsi2S2 - s_p));
+    // at the pole it returns directly the residue, i.e. Lim_{q2->mres2} P(q2)/(q2-mres2)
+    return facmj2*facmPsi2S2;
+}
+
+gslpp::complex MVll::Phi_1(double q2)
+{
+    return zh(q2)*1. - rho_0*1;
+}
+
+gslpp::complex MVll::Phi_1_st(double q2)
+{
+    return 1. - rho_0*zh(q2)*1.;
+}
+
+gslpp::complex MVll::Phi_2(double q2)
+{
+    return zh(q2)*Phi_1(q2) - rho_1*Phi_1_st(q2);
+}
+
+gslpp::complex MVll::Phi_2_st(double q2)
+{
+    return Phi_1_st(q2) - rho_1*zh(q2)*Phi_1(q2);
+}
+
+gslpp::complex MVll::Phi_3(double q2)
+{
+    return zh(q2)*Phi_2(q2) - rho_2*Phi_2_st(q2);
+}
+
+gslpp::complex MVll::Phi_3_st(double q2)
+{
+    return Phi_2_st(q2) - rho_2*zh(q2)*Phi_2(q2);
+}
+
+gslpp::complex MVll::Phi_4(double q2)
+{
+    return zh(q2)*Phi_3(q2) - rho_3*Phi_3_st(q2);
+}
+
+gslpp::complex MVll::Phi_4_st(double q2)
+{
+    return Phi_3_st(q2) - rho_3*zh(q2)*Phi_3(q2);
+}
+
+gslpp::complex MVll::Phi_5(double q2)
+{
+    return zh(q2)*Phi_4(q2) - rho_4*Phi_4_st(q2);
+}
+
+gslpp::complex MVll::Phi_5_st(double q2)
+{
+    return Phi_4_st(q2) - rho_4*zh(q2)*Phi_4(q2);
+}
+
+gslpp::complex MVll::Phi_6(double q2)
+{
+    return zh(q2)*Phi_5(q2) - rho_5*Phi_5_st(q2);
+}
+
+gslpp::complex MVll::Phi_6_st(double q2)
+{
+    return Phi_5_st(q2) - rho_5*zh(q2)*Phi_5(q2);
+}
+
+gslpp::complex MVll::p0()
+{
+    return 1. / sqrt(twoalphaBtoKst);
+}
+
+gslpp::complex MVll::p1(double q2)
+{
+    return Phi_1(q2) / sqrt(twoalphaBtoKst * onemrho_0_2);
+}
+
+gslpp::complex MVll::p2(double q2)
+{
+    return Phi_2(q2) / sqrt(twoalphaBtoKst * onemrho_0_2 * onemrho_1_2);
+}
+
+gslpp::complex MVll::p3(double q2)
+{
+    return Phi_3(q2) / sqrt(twoalphaBtoKst * onemrho_0_2 * onemrho_1_2 * onemrho_2_2);
+}
+
+gslpp::complex MVll::p4(double q2)
+{
+    return Phi_4(q2) / sqrt(twoalphaBtoKst * onemrho_0_2 * onemrho_1_2 * onemrho_2_2 * onemrho_3_2);
+}
+
+gslpp::complex MVll::p5(double q2)
+{
+    return Phi_5(q2) / sqrt(twoalphaBtoKst * onemrho_0_2 * onemrho_1_2 * onemrho_2_2 * onemrho_3_2 * onemrho_4_2);
+}
+
+gslpp::complex MVll::p6(double q2)
+{
+    return Phi_6(q2) / sqrt(twoalphaBtoKst * onemrho_0_2 * onemrho_1_2 * onemrho_2_2 * onemrho_3_2 * onemrho_4_2 * onemrho_5_2);
+}
+
+gslpp::complex MVll::phi_1(double q2)
+{
+    return - sqrt( 2.*sqrt((4.*mD2-Q2)*(4.*mD2-s_0)) + 8.*mD2 - Q2 - s_0 ) / ( 2.*sqrt((4.*mD2-Q2)*(4.*mD2-s_0)) + 8.*mD2 + Q2*(zh(q2)-1.) - s_0*(zh(q2)+1.) ) ;
+}
+
+gslpp::complex MVll::phi_2(double q2)
+{
+    gslpp::complex zhm1_2 = (zh(q2)-1.)*(zh(q2)-1.);
+    gslpp::complex zhp1_2 = (zh(q2)+1.)*(zh(q2)+1.);
+    
+    return sqrt( MM4*zhm1_2*zhm1_2 - 2.*MM2*zhm1_2*(-16.*mD2*zh(q2) + MV2*zhm1_2 + s_0*zhp1_2) + (16.*mD2*zh(q2) + MV2*zhm1_2 - s_0*zhp1_2)*(16.*mD2*zh(q2) + MV2*zhm1_2 - s_0*zhp1_2) );
+}
+
+gslpp::complex MVll::phi_3(double q2)
+{
+    return sqrt( 8.*mD2 + 4.*sqrt(4.*mD2*mD2 - mD2*s_0) - s_0 ) / ( -8.*mD2 - 4.*sqrt(4.*mD2*mD2 - mD2*s_0) + s_0*(zh(q2)+1.) ) ;
+}
+
+gslpp::complex MVll::phi_4(double q2)
+{
+    return 1. / sqrt( s_0*(zh(q2)+1.)*(zh(q2)+1.) - 16.*mD2*zh(q2) ) ;
+}
+
+gslpp::complex MVll::DeltaC9_zExpansion(double q2, int tran)
+{
+    gslpp::complex z = zh(q2);
+    
+    gslpp::complex invpref = 4.*M_PI*sqrt(2.*(4.*mD2-s_0)/3./chiOPE)*sqrt(1+zh(q2)) * P(q2);
+    
+    if (tran == 0) {
+        invpref *= MM4 * pow(1.-zh(q2),4.5) * phi_1(q2)*phi_1(q2)*phi_1(q2) * sqrt(phi_2(q2)) * phi_3(q2)*phi_3(q2) * phi_4(q2)*phi_4(q2);
+        
+        return 1./invpref * (beta_0[0] + beta_0[1]*z + beta_0[2]*z*z + beta_0[3]*z*z*z + beta_0[4]*z*z*z*z + beta_0[5]*z*z*z*z*z + beta_0[6]*z*z*z*z*z*z);
+    } else if (tran == 1) { // parallel
+        invpref *= MM2*MM * pow(1.-zh(q2),3.5) * phi_1(q2)*phi_1(q2)*phi_1(q2) * sqrt(phi_2(q2)) * phi_3(q2)*phi_3(q2)*phi_3(q2);
+        
+        return 1./invpref * (beta_1[0] + beta_1[1]*z + beta_1[2]*z*z + beta_1[3]*z*z*z + beta_1[4]*z*z*z*z + beta_1[5]*z*z*z*z*z + beta_1[6]*z*z*z*z*z*z);
+    } else {                // perpendicular
+        invpref *= MM2*MM * pow(1.-zh(q2),3.5) * phi_1(q2)*phi_1(q2)*phi_1(q2) * sqrt(phi_2(q2)) * phi_3(q2)*phi_3(q2)*phi_3(q2);
+        
+        return 1./invpref * (beta_2[0] + beta_2[1]*z + beta_2[2]*z*z + beta_2[3]*z*z*z + beta_2[4]*z*z*z*z + beta_2[5]*z*z*z*z*z + beta_2[6]*z*z*z*z*z*z);
+    }
 }
 
 gslpp::complex MVll::h_lambda(int hel, double q2)
 {
-    if (!dispersion) {
-        if (h_pole == true) return SU3_breaking * (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
-        else if (hel == 1) return SU3_breaking * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2 + (twoMboMM * h_0[2] * T_p(q2) + h_1[2] * q2 / MM2 * V_p(q2)) / sixteenM_PI2);
-        else if (hel == 2) return SU3_breaking * (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2)) / sixteenM_PI2 + h_2[2] * q2 * q2;
-        else return SU3_breaking * ((h_0[hel] + h_1[hel] * q2) * sqrt(q2) + (twoMboMM * h_0[2] * T_0t(q2) + h_1[2] * q2 * V_0t(q2) / MM2) / sixteenM_PI2);
-    } else {
+    if (zExpansion) {
+        if (hel == 0) 
+            return DeltaC9_zExpansion(q2, 0) * MM / sqrt(q2);
+        else if (hel == 1) 
+            return (DeltaC9_zExpansion(q2, 1) - DeltaC9_zExpansion(q2, 2)) / sqrt(2.);
+        else
+            return (DeltaC9_zExpansion(q2, 1) + DeltaC9_zExpansion(q2, 2)) / sqrt(2.);
+    } else if (dispersion) {
         if (hel == 0) return SU3_breaking * (-sqrt(q2) / (MM2 * 16. * M_PI * M_PI) * ((MMpMV2 * (MM2mMV2 - q2) * A_1(q2) * DeltaC9_KD(q2, 1) - lambda(q2) * A_2(q2) * DeltaC9_KD(q2, 2)) / (4. * MV * MM * MMpMV)));
         else if (hel == 1) {
             if (q2 == 0.) return SU3_breaking * (-1. / (MM2 * 16. * M_PI * M_PI) * (
@@ -1623,7 +1929,39 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
                     + sqrt(lambda(0.)) / (2. * MM * MMpMV) * V(0.) * ((-h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2)) * exp_Phase[1]));
             else return SU3_breaking * (-q2 / (MM2 * 16. * M_PI * M_PI) * ((MMpMV * A_1(q2)) / (2. * MM) * DeltaC9_KD(q2, 1) + sqrt(lambda(q2)) / (2. * MM * MMpMV) * V(q2) * DeltaC9_KD(q2, 0)));
         }
+    } else {
+        if (h_pole == true) return SU3_breaking * (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
+        else if (hel == 1) return SU3_breaking * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2 + (twoMboMM * h_0[2] * T_p(q2) + h_1[2] * q2 / MM2 * V_p(q2)) / sixteenM_PI2);
+        else if (hel == 2) return SU3_breaking * (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2)) / sixteenM_PI2 + h_2[2] * q2 * q2;
+        else return SU3_breaking * ((h_0[hel] + h_1[hel] * q2) * sqrt(q2) + (twoMboMM * h_0[2] * T_0t(q2) + h_1[2] * q2 * V_0t(q2) / MM2) / sixteenM_PI2);
     }
+}
+
+double MVll::Delta_C9_zExp(int hel)
+{
+    if (hel == 0) 
+            return beta_0[3].real()*(-26.55265491727846*a_0A12)/a_0A12/a_0A12 +
+                    beta_0[2].real()*(-60.539167428104925*a_0A12)/a_0A12/a_0A12 + 
+                    beta_0[1].real()*(-138.02728217972742*a_0A12)/a_0A12/a_0A12 + 
+                    beta_0[0].real()*(-314.6975988486678*a_0A12)/a_0A12/a_0A12;
+        else if (hel == 1) 
+            return (63.24357991272575*a_0A1 - 293.67248647811704*a_0V + 66.1650673421469*a_1A1 - 46.966706577539846*a_1V)*(beta_1[0].real() - beta_2[0].real())/
+                    (1.*a_0A1 - 0.7098414384537659*a_0V)/(1.*a_0A1 - 0.7098414384537659*a_0V) + 
+                   (-119.89709952961475*a_0A1 - 24.007514603707598*a_0V + 29.020190982985117*a_1A1 - 20.59973411156516*a_1V)*(beta_1[1].real() - beta_2[1].real())/
+                    (1.*a_0A1 - 0.7098414384537659*a_0V)/(1.*a_0A1 - 0.7098414384537659*a_0V) + 
+                   (-117.34075946812884*a_0A1 + 35.43498229234759*a_0V + 12.728340172828181*a_1A1 - 9.035103297409211*a_1V)*(beta_1[2].real() - beta_2[2].real())/
+                    (1.*a_0A1 - 0.7098414384537659*a_0V)/(1.*a_0A1 - 0.7098414384537659*a_0V) + 
+                   (-79.86709064819027*a_0A1 + 35.702158475408076*a_0V + 5.582687021261181*a_1A1 - 3.962822585609206*a_1V)*(beta_1[3].real() - beta_2[3].real())/
+                    (1.*a_0A1 - 0.7098414384537659*a_0V)/(1.*a_0A1 - 0.7098414384537659*a_0V);
+        else
+            return (63.24357991272575*a_0A1 + 293.67248647811704*a_0V + 66.1650673421469*a_1A1 + 46.966706577539846*a_1V)*(beta_1[0].real() + beta_2[0].real())/
+                    (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V) + 
+                   (-119.89709952961475*a_0A1 + 24.007514603707598*a_0V + 29.020190982985117*a_1A1 + 20.59973411156516*a_1V)*(beta_1[1].real() + beta_2[1].real())/
+                    (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V) + 
+                   (-117.34075946812884*a_0A1 - 35.43498229234759*a_0V + 12.728340172828181*a_1A1 + 9.035103297409211*a_1V)*(beta_1[2].real() + beta_2[2].real())/
+                    (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V) + 
+                   (-79.86709064819027*a_0A1 - 35.702158475408076*a_0V + 5.582687021261181*a_1A1 + 3.962822585609206*a_1V)*(beta_1[3].real() - beta_2[3].real())/
+                    (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V);
 }
 
 gslpp::complex MVll::H_V_0(double q2, bool bar)
@@ -1673,6 +2011,30 @@ gslpp::complex MVll::H_P(double q2, bool bar)
 {
     if (!bar) return gslpp::complex::i() * NN * (MboMW * (C_P - etaV * pow(-1, angmomV) * C_Pp) + twoMlepMb / q2 * (C_10 * (1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p * (etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
     return gslpp::complex::i() * NN_conjugate * (MboMW * (C_P.conjugate() - etaV * pow(-1, angmomV) * C_Pp.conjugate()) + twoMlepMb / q2 * (C_10.conjugate()*(1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p.conjugate()*(etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
+}
+
+gslpp::complex MVll::AmpMVpsi_zExpansion(double mpsi, int tran)
+{
+    updateParameters();
+    
+    // amplitude at charmonium resonance, i.e. q2 = mJ2 or mPsi2S2
+    double q2 = mpsi*mpsi;
+    double fpsi = 0.;
+    // decay constant of the charmonium state estimated from EXP decay width in e+ e-
+    if(fabs(mpsi - mJpsi) <1.e-5){
+        double Gammaepm  = 5.971/100.*(92.6*1e-6);
+        fpsi = sqrt(Gammaepm*(3.*sqrt(q2))/(4.*M_PI*ale*ale)/(4./9.));
+    }
+    else if(fabs(mpsi - mPsi2S)< 1.e-5){
+        double Gammaepm = 7.93/1000.*(294.*1e-6);
+        fpsi = sqrt(Gammaepm*(3.*sqrt(q2))/(4.*M_PI*ale*ale)/(4./9.));
+    }
+    else{
+        return 0.;
+    }
+    gslpp::complex Norm = GF*lambda_t.conjugate()*sqrt(sqrt(lambda(q2))/(2.*M_PI*MM))*MM*MM/sqrt(q2)/fpsi;
+    if(tran == 0) Norm *= MM/sqrt(q2);
+    return Norm*DeltaC9_zExpansion(q2,tran);
 }
 
 /*******************************************************************************

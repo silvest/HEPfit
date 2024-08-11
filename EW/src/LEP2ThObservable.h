@@ -21,7 +21,7 @@
 /**
  * @class LEP2ThObservable
  * @ingroup EW 
- * @brief A class for the LEP-II observables. 
+ * @brief A class for the LEP2 inclusive observables. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details  
@@ -29,7 +29,7 @@
 class LEP2ThObservable : public ThObservable  {
 public:
 
-    // Radiative Corrections for the LEP-II observables
+    // Radiative Corrections for the LEP2 observables
 //    enum LEP2RCs {Weak=0, WeakBox, ISR, QEDFSR, QCDFSR, NUMofLEP2RCs};
         
     /**
@@ -46,6 +46,37 @@ public:
 
     const LEP2test myTEST;
     const double sqrt_s, s;
+    
+    
+private:   
+      
+};
+
+
+/**
+ * @class LEP2ThDiffObservable
+ * @ingroup EW 
+ * @brief A class for the LEP2 differential observables. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
+class LEP2ThDiffObservable : public ThObservable  {
+public:
+        
+    /**
+     * @brief LEP2ThDiffObservable constructor
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
+     * @param[in] cos_i the polar angle of the final state particle wrt e^-
+     */
+    LEP2ThDiffObservable(const StandardModel& SM_i, const double sqrt_s_i, const double cos_i) 
+            : ThObservable(SM_i),sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), cos(cos_i)
+    {
+    }
+
+    const LEP2test myTEST;
+    const double sqrt_s, s, cos;
     
     
 private:   

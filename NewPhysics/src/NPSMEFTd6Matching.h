@@ -35,17 +35,17 @@ public:
     
     void updateNPSMEFTd6Parameters();
     
-    std::vector<WilsonCoefficient>& CMbsg();
+    std::vector<WilsonCoefficient>& CMbsg() ;
     
-    std::vector<WilsonCoefficient>& CMbsmm();
+    std::vector<WilsonCoefficient>& CMbsmm() ;
     
     std::vector<WilsonCoefficient>& CMbdmm();
     
-    std::vector<WilsonCoefficient>& CMprimebsg();
+    std::vector<WilsonCoefficient>& CMprimebsg() ;
     
-    std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
+    std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton) ;
     
-    std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton);
+    std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton) ;
 
 private:
     const NPSMEFTd6 & myNPSMEFTd6;

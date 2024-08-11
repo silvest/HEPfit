@@ -47,7 +47,7 @@ public:
      * @brief The ratio of the absolute value of the $B_d$ mixing amplitude over the Standard Model value
      * @return @f$\vert (M_{12}^{bd})_\mathrm{full}/(M_{12}^{bd})_\mathrm{SM}\vert@f$
      */
-    double getCBd() const
+    const double getCBd() const
     {
         return CBd;
     }
@@ -56,7 +56,7 @@ public:
      * @brief The ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value
      * @return @f$\vert (M_{12}^{bs})_\mathrm{full}/(M_{12}^{bs})_\mathrm{SM}\vert@f$
      */
-    double getCBs() const
+    const double getCBs() const
     {
         return CBs;
     }
@@ -65,7 +65,7 @@ public:
      * @brief The ratio of the real part of the $K$ mixing amplitude over the Standard Model value
      * @return @f$(\mathrm{Re} M_{12}^{sd})_\mathrm{full}/(\mathrm{Re} M_{12}^{sd})_\mathrm{SM}\vert@f$
      */
-    double getCDMK() const
+    const double getCDMK() const
     {
         return CDMK;
     }
@@ -74,7 +74,7 @@ public:
      * @brief The ratio of the imaginary part of the $K$ mixing amplitude over the Standard Model value
      * @return @f$(\mathrm{Im} M_{12}^{sd})_\mathrm{full}/(\mathrm{Im} M_{12}^{sd})_\mathrm{SM}\vert@f$
      */
-    double getCepsK() const
+    const double getCepsK() const
     {
         return CepsK;
     }
@@ -83,7 +83,7 @@ public:
      * @brief Half the relative phase of the $B_s$ mixing amplitude w.r.t. the Standard Model one
      * @return @f$ 1/2 (\mathrm{arg}((M_{12}^{bs})_\mathrm{full})-\mathrm{arg}((M_{12}^{bs})_\mathrm{SM}))\vert@f$
      */
-    double getPhiBs() const
+    const double getPhiBs() const
     {
         return PhiBs;
     }
@@ -92,7 +92,7 @@ public:
      * @brief Half the relative phase of the $B_d$ mixing amplitude w.r.t. the Standard Model one
      * @return @f$ 1/2 (\mathrm{arg}((M_{12}^{bd})_\mathrm{full})-\mathrm{arg}((M_{12}^{bd})_\mathrm{SM}))\vert@f$
      */
-    double getPhiBd() const
+    const double getPhiBd() const
     {
         return phiBd;
     }

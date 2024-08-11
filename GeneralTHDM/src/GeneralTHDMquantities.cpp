@@ -52,62 +52,6 @@ double mH3_2::computeThValue()
     return myGTHDM.getMyGTHDMCache()->mH3sq;
 }
 
-
-
-
-
-mHlight_GTHDM::mHlight_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i)
-//, myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double mHlight_GTHDM::computeThValue()
-{
-//    if(myGTHDM.getMyGTHDMCache()->mHlight_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mHlight_2);
-        return 0.0;
-}
-
-mHmedium_GTHDM::mHmedium_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i)
-//, myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double mHmedium_GTHDM::computeThValue()
-{
-//    if(myGTHDM.getMyGTHDMCache()->mHmedium_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mHmedium_2);
-        return 0.0;
-}
-
-mHheavy_GTHDM::mHheavy_GTHDM(const StandardModel& SM_i)
-: ThObservable(SM_i)
-//, myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-{}
-
-double mHheavy_GTHDM::computeThValue()
-{
-//    if(myGTHDM.getMyGTHDMCache()->mHheavy_2 < 0.)
-//        return std::numeric_limits<double>::quiet_NaN();
-//    else
-//        return sqrt(myGTHDM.getMyGTHDMCache()->mHheavy_2);
-        return 0.0;
-}
-
-//We have the map, there is no need of this
-//mHp_GTHDM::mHp_GTHDM(const StandardModel& SM_i)
-//: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
-//{}
-//
-//double mHp_GTHDM::computeThValue()
-//{
-//    return sqrt(myGTHDM.getmHp2());
-//}
-
 mH3mmH2_GTHDM::mH3mmH2_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}
@@ -299,7 +243,7 @@ R11_GTHDM::R11_GTHDM(const StandardModel& SM_i)
 
 double R11_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->R11_GTHDM;
+    return myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,0);
 }
 
 
@@ -309,7 +253,7 @@ R12_GTHDM::R12_GTHDM(const StandardModel& SM_i)
 
 double R12_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->R12_GTHDM;
+    return myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,1);
 }
 
 
@@ -319,7 +263,7 @@ R13_GTHDM::R13_GTHDM(const StandardModel& SM_i)
 
 double R13_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->R13_GTHDM;
+    return myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,2);
 }
 
 
@@ -329,7 +273,7 @@ R21_GTHDM::R21_GTHDM(const StandardModel& SM_i)
 
 double R21_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->R21_GTHDM;
+    return myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,0);
 }
 
 
@@ -339,7 +283,7 @@ R22_GTHDM::R22_GTHDM(const StandardModel& SM_i)
 
 double R22_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->R22_GTHDM;
+    return myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,1);
 }
 
 
@@ -349,7 +293,7 @@ R23_GTHDM::R23_GTHDM(const StandardModel& SM_i)
 
 double R23_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->R23_GTHDM;
+    return myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,2);
 }
 
 
@@ -359,7 +303,7 @@ R31_GTHDM::R31_GTHDM(const StandardModel& SM_i)
 
 double R31_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->R31_GTHDM;
+    return myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,0);
 }
 
 
@@ -369,7 +313,7 @@ R32_GTHDM::R32_GTHDM(const StandardModel& SM_i)
 
 double R32_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->R32_GTHDM;
+    return myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,1);
 }
 
 
@@ -379,7 +323,7 @@ R33_GTHDM::R33_GTHDM(const StandardModel& SM_i)
 
 double R33_GTHDM::computeThValue()
 {
-    return myGTHDM.getMyGTHDMCache()->R33_GTHDM;
+    return myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,2);
 }
 
 

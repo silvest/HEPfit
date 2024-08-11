@@ -31,6 +31,12 @@ build/*
 dist/*
 .vscode/*
 
+#CMake specific
+dist
+build
+
+#vscode specific
+.vscode
 
 *~
 */*.dep.inc
@@ -46,6 +52,12 @@ Analysis/*.pdf
 Analysis/Observables*
 Analysis/*.sh
 Analysis/*.zip
+
+*.txt
+*.log
+*.tex
+MCout.root
+*.orig
 
 #BAT
 BAT-0.9.*/
@@ -80,9 +92,11 @@ Analysis/Observables/
 *.blg
 *.toc
 *.spl
+*.pdf
 
 #Packaging
 Packaging/HEPfit*
 
 #ZFitter
 ZFitter*
+/BAT

@@ -35,10 +35,14 @@ HeffDF2::HeffDF2(const StandardModel& SM)
 HeffDF2::~HeffDF2() 
 {}
 
-gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme, bool SM) 
 {
+    std::vector<WilsonCoefficient> mc;
 
-    std::vector<WilsonCoefficient> mc = model.getMatching().CMdbd2();
+    if (SM)
+        mc = model.getMatching().StandardModelMatching::CMdbd2();
+    else
+    mc = model.getMatching().CMdbd2();
     
     coeffbd.setMu(mu);
     

@@ -49,22 +49,22 @@ bool NPEpsilons_pureNP::CheckParameters(const std::map<std::string, double>& DPa
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEpsilons_pureNP::epsilon1() const
+const double  NPEpsilons_pureNP::epsilon1() const
 {
     return (trueSM.epsilon1() + deltaEps_1);
 }
 
-double NPEpsilons_pureNP::epsilon2() const
+const double  NPEpsilons_pureNP::epsilon2() const
 {
     return (trueSM.epsilon2() + deltaEps_2);
 }
 
-double NPEpsilons_pureNP::epsilon3() const
+const double  NPEpsilons_pureNP::epsilon3() const
 {
     return (trueSM.epsilon3() + deltaEps_3);
 }
 
-double NPEpsilons_pureNP::epsilonb() const
+const double  NPEpsilons_pureNP::epsilonb() const
 {
     return (trueSM.epsilonb() + deltaEps_b);
 }
@@ -72,7 +72,7 @@ double NPEpsilons_pureNP::epsilonb() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEpsilons_pureNP::Mw() const
+const double  NPEpsilons_pureNP::Mw() const
 {
     double Mw_SM = trueSM.Mw();
     double sW2_SM = trueSM.sW2();
@@ -82,7 +82,7 @@ double NPEpsilons_pureNP::Mw() const
             + 2.0 * s02() * deltaEps_3) / (cW2_SM - sW2_SM) / 2.0));
 }
 
-double NPEpsilons_pureNP::GammaW() const
+const double  NPEpsilons_pureNP::GammaW() const
 {
     throw std::runtime_error("NPEpsilons_pureNP::GammaW() is not available.");
 }
@@ -90,7 +90,7 @@ double NPEpsilons_pureNP::GammaW() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEpsilons_pureNP::deltaGV_f(const Particle f) const
+const double  NPEpsilons_pureNP::deltaGV_f(const Particle f) const
 {
     if (f.is("TOP")) return 0.0;
 
@@ -109,7 +109,7 @@ double NPEpsilons_pureNP::deltaGV_f(const Particle f) const
             / (c02() - s02()));
 }
 
-double NPEpsilons_pureNP::deltaGA_f(const Particle f) const
+const double  NPEpsilons_pureNP::deltaGA_f(const Particle f) const
 {
     if (f.is("TOP")) return 0.0;
 

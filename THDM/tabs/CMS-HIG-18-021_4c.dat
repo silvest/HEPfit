@@ -1,0 +1,11 @@
+# CMS-HIG-18-021, fig. 4c
+# observed 95% exclusion limits on BR(t -> H+ b)*BR(H+ -> c s) at 13 TeV
+# mH+[GeV] | BR*BR_95%
+80	1.68E-2
+90	0.6E-2
+100	0.25E-2
+120	0.25E-2
+140	0.28E-2
+150	0.26E-2
+155	0.28E-2
+160	0.29E-2

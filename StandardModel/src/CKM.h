@@ -56,7 +56,7 @@ public:
      * @brief A member for returning the CKM matrix.
      * @return the CKM matrix
      */
-    gslpp::matrix<gslpp::complex> getCKM() const 
+    const gslpp::matrix<gslpp::complex> getCKM() const 
     {
         return V;
     }
@@ -67,7 +67,7 @@ public:
      * @brief A member for returning the value of the Wolfenstein parameter @f$ \bar{\rho} @f$
      * @return the value of @f$ \bar{\rho} @f$
      */
-    double getRhoBar() const 
+    const double getRhoBar() const 
     {
         return Rho;
     }
@@ -76,7 +76,7 @@ public:
      * @brief A member for returning the value of the Wolfenstein parameter @f$ \bar{\eta} @f$
      * @return the value of @f$ \bar{\eta} @f$
      */
-    double getEtaBar() const
+    const double getEtaBar() const
     {
         return Eta;
     }
@@ -85,7 +85,7 @@ public:
      * @brief A member for returning the value of the Wolfenstein parameter @f$ \lambda @f$
      * @return the value of @f$ \lambda @f$
      */
-    double getLambda() const
+    const double getLambda() const
     {
         return Lambda;
     }
@@ -94,7 +94,7 @@ public:
      * @brief A member for returning the value of the Wolfenstein parameter @f$ A @f$
      * @return the value of @f$ A @f$
      */
-    double getA() const
+    const double getA() const
     {
         return A;
     }
@@ -103,7 +103,7 @@ public:
      * @brief A member for returning the value of the Wolfenstein parameter @f$ \rho @f$
      * @return the value of @f$ \rho @f$
      */
-    double getRho() const
+    const double getRho() const
     {
         return (s13 * cos(delta) / s12 / s23);
     }
@@ -112,7 +112,7 @@ public:
      * @brief A member for returning the value of the Wolfenstein parameter @f$ \eta @f$
      * @return the value of @f$ \eta @f$
      */
-    double getEta() const
+    const double getEta() const
     {
         return (s13 * sin(delta) / s12 / s23);
     }
@@ -123,7 +123,7 @@ public:
      * @brief A member for returning the value of the sine of the CKM parameter @f$ \theta_{12} @f$
      * @return the value of @f$ \sin\theta_{12} @f$
      */
-    double gets12() const
+    const double gets12() const
     {
         return s12;
     }
@@ -132,7 +132,7 @@ public:
      * @brief A member for returning the value of the sine of the CKM parameter @f$ \theta_{13} @f$
      * @return the value of @f$ \sin\theta_{13} @f$
      */
-    double gets13() const
+    const double gets13() const
     {
         return s13;
     }
@@ -141,7 +141,7 @@ public:
      * @brief A member for returning the value of the sine of the CKM parameter @f$ \theta_{23} @f$
      * @return the value of @f$ \sin\theta_{23} @f$
      */
-    double gets23() const
+    const double gets23() const
     {
         return s23;
     }
@@ -150,7 +150,7 @@ public:
      * @brief A member for returning the value of the cosine of the CKM parameter @f$ \theta_{12} @f$
      * @return the value of @f$ \cos\theta_{12} @f$
      */
-    double getc12() const
+    const double getc12() const
     {
         return c12;
     }
@@ -159,7 +159,7 @@ public:
      * @brief A member for returning the value of the cosine of the CKM parameter @f$ \theta_{23} @f$
      * @return the value of @f$ \cos\theta_{23} @f$
      */
-    double getc23() const
+    const double getc23() const
     {
         return c23;
     }
@@ -168,7 +168,7 @@ public:
      * @brief A member for returning the value of the cosine of the CKM parameter @f$ \theta_{13} @f$
      * @return the value of @f$ \cos\theta_{13} @f$
      */
-    double getc13() const
+    const double getc13() const
     {
         return c13;
     }
@@ -177,7 +177,7 @@ public:
      * @brief A member for returning the value of the CKM parameter @f$ \delta @f$
      * @return the value of @f$ \delta @f$
      */
-    double getdelta() const
+    const double getdelta() const
     {
         return delta;
     }
@@ -188,7 +188,7 @@ public:
      * @brief A member for returning the value of the Jarlskog determinant
      * @return the value of @f$ J @f$
      */
-    double getJcp() const
+    const double getJcp() const
     {
         return Eta * pow(A * pow(Lambda, 3), 2);
     }
@@ -199,7 +199,7 @@ public:
      * @brief A member for returning the value of the CKM element @f$ V_{ud} @f$
      * @return the value of @f$ V_{ud} @f$
      */
-    gslpp::complex getV_ud() const
+    const gslpp::complex getV_ud() const
     {
         return V(0, 0);
     }
@@ -208,7 +208,7 @@ public:
      * @brief A member for returning the value of the CKM element @f$ V_{us} @f$
      * @return the value of @f$ V_{us} @f$
      */
-    gslpp::complex getV_us() const
+    const gslpp::complex getV_us() const
     {
         return V(0, 1);
     }
@@ -217,7 +217,7 @@ public:
      * @brief A member for returning the value of the CKM element @f$ V_{ub} @f$
      * @return the value of @f$ V_{ub} @f$
      */
-    gslpp::complex getV_ub() const
+    const gslpp::complex getV_ub() const
     {
         return V(0, 2);
     }
@@ -226,7 +226,7 @@ public:
      * @brief A member for returning the value of the CKM element @f$ V_{cd} @f$
      * @return the value of @f$ V_{cd} @f$
      */
-    gslpp::complex getV_cd() const
+    const gslpp::complex getV_cd() const
     {
         return V(1, 0);
     }
@@ -235,7 +235,7 @@ public:
      * @brief A member for returning the value of the CKM element @f$ V_{cs} @f$
      * @return the value of @f$ V_{cs} @f$
      */
-    gslpp::complex getV_cs() const
+    const gslpp::complex getV_cs() const
     {
         return V(1, 1);
     }
@@ -244,7 +244,7 @@ public:
      * @brief A member for returning the value of the CKM element @f$ V_{cb} @f$
      * @return the value of @f$ V_{cb} @f$
      */
-    gslpp::complex getV_cb() const
+    const gslpp::complex getV_cb() const
     {
         return V(1, 2);
     }
@@ -253,7 +253,7 @@ public:
      * @brief A member for returning the value of the CKM element @f$ V_{td} @f$
      * @return the value of @f$ V_{td} @f$
      */
-    gslpp::complex getV_td() const
+    const gslpp::complex getV_td() const
     {
         return V(2, 0);
     }
@@ -262,7 +262,7 @@ public:
      * @brief A member for returning the value of the CKM element @f$ V_{ts} @f$
      * @return the value of @f$ V_{ts} @f$
      */
-    gslpp::complex getV_ts() const
+    const gslpp::complex getV_ts() const
     {
         return V(2, 1);
     }
@@ -271,7 +271,7 @@ public:
      * @brief A member for returning the value of the CKM element @f$ V_{tb} @f$
      * @return the value of @f$ V_{tb} @f$
      */
-    gslpp::complex getV_tb() const
+    const gslpp::complex getV_tb() const
     {
         return V(2, 2);
     }
@@ -280,97 +280,97 @@ public:
      * @brief The %CKM angle @f$\beta@f$.
      * @return @f$\beta@f$ in radians
      */
-    double computeBeta() const;
+    const double computeBeta() const;
 
     /**
      * @brief The %CKM angle @f$\gamma@f$.
      * @return @f$\gamma@f$ in radians
      */
-    double computeGamma() const;
+    const double computeGamma() const;
 
     /**
      * @brief The %CKM angle @f$\alpha@f$.
      * @return @f$\alpha@f$ in radians
      */
-    double computeAlpha() const;
+    const double computeAlpha() const;
 
     /**
      * @brief The %CKM angle @f$\beta_s@f$.
      * @return @f$\beta_s@f$ in radians
      */
-    double computeBetas() const;
+    const double computeBetas() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{td} V_{ts}^*@f$.
      * @return @f$V_{td} V_{ts}^*@f$
      */
-    gslpp::complex computelamt() const;
+    const gslpp::complex computelamt() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{cd} V_{cs}^*@f$.
      * @return @f$V_{cd} V_{cs}^*@f$
      */
-    gslpp::complex computelamc() const;
+    const gslpp::complex computelamc() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{ud} V_{us}^*@f$.
      * @return @f$V_{ud} V_{us}^*@f$
      */
-    gslpp::complex computelamu() const;
+    const gslpp::complex computelamu() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{td} V_{tb}^*@f$.
      * @return @f$V_{td} V_{tb}^*@f$
      */
-    gslpp::complex computelamt_d() const;
+    const gslpp::complex computelamt_d() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{cd} V_{cb}^*@f$.
      * @return @f$V_{cd} V_{cb}^*@f$
      */
-    gslpp::complex computelamc_d() const;
+    const gslpp::complex computelamc_d() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{ud} V_{ub}^*@f$.
      * @return @f$V_{ud} V_{ub}^*@f$
      */
-    gslpp::complex computelamu_d() const;
+    const gslpp::complex computelamu_d() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{ts} V_{tb}^*@f$.
      * @return @f$V_{ts} V_{tb}^*@f$
      */
-    gslpp::complex computelamt_s() const;
+    const gslpp::complex computelamt_s() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{cs} V_{cb}^*@f$.
      * @return @f$V_{cs} V_{cb}^*@f$
      */
-    gslpp::complex computelamc_s() const;
+    const gslpp::complex computelamc_s() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{us} V_{ub}^*@f$.
      * @return @f$V_{us} V_{ub}^*@f$
      */
-    gslpp::complex computelamu_s() const;
+    const gslpp::complex computelamu_s() const;
 
     /**
      * @brief @f$R_t=|(V_{td} V_{tb}^*)/(V_{cd}V_{cb}^*)|@f$.
      * @return @f$R_t@f$
      */
-    double computeRt() const;
+    const double computeRt() const;
 
     /**
      * @brief @f$R_{ts}=|(V_{ts}V_{tb}^*)/(V_{cs}V_{cb}^*)|@f$.
      * @return @f$R_{ts}@f$
      */
-    double computeRts() const;
+    const double computeRts() const;
 
     /**
      * @brief @f$R_b=|(V_{ud}V_{ub}^*)/(V_{ud}V_{ub}^*)|@f$.
      * @return @f$R_b@f$
      */
-    double computeRb() const;
+    const double computeRb() const;
     
 private:
     void computeCKMfromAngles();

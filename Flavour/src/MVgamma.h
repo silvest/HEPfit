@@ -11,7 +11,6 @@
 class StandardModel;
 class F_1;
 class F_2;
-class AmpDB2;
 #include "ThObservable.h"
 #include <gsl/gsl_integration.h>
 #include <memory>
@@ -434,7 +433,6 @@ public:
 private:
     QCD::meson meson; /**< Initial meson type. */
     QCD::meson vectorM; /**< Final vector meson type. */
-    AmpDB2& myAmpDB2;
     double arg;
     double ADG; /**< @f$A_{\Delta\Gamma}@f$ */
     double ys; /** @f$\frac{\Delta\Gamma}{\Gamma}@f$ */
@@ -673,7 +671,6 @@ public:
 private:
     QCD::meson meson; /**< Initial meson type. */
     QCD::meson vectorM; /**< Final vector meson type. */
-    AmpDB2& myAmpDB2;
     double arg;
 };
 
@@ -710,7 +707,6 @@ public:
 private:
     QCD::meson meson; /**< Initial meson type. */
     QCD::meson vectorM; /**< Final vector meson type. */
-    AmpDB2& myAmpDB2;
     double arg;
 };
 

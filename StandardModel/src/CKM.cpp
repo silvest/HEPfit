@@ -117,86 +117,86 @@ void CKM::computeCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v, b
 }
 
 
-double CKM::computeBeta() const
+const double CKM::computeBeta() const
 {
     return (-V(1, 0)*V(1, 2).conjugate()/(V(2, 0)*V(2, 2).conjugate())).arg();
 }
 
-double CKM::computeGamma() const
+const double CKM::computeGamma() const
 {
     return (-V(0, 0)*V(0, 2).conjugate()/(V(1, 0)*V(1, 2).conjugate())).arg();
 }
 
-double CKM::computeAlpha() const 
+const double CKM::computeAlpha() const 
 {
     return (-V(2, 0)*V(2, 2).conjugate()/(V(0, 0)*V(0, 2).conjugate())).arg();
 }
 
-double CKM::computeBetas() const 
+const double CKM::computeBetas() const 
 {
     return (-V(2, 1)*V(2, 2).conjugate()/(V(1, 1)*V(1, 2).conjugate())).arg();
 }
 
 // Lambda_q
 
-gslpp::complex CKM::computelamt() const
+const gslpp::complex CKM::computelamt() const
 {
     return V(2, 0)*V(2, 1).conjugate();
 }
 
-gslpp::complex CKM::computelamc() const 
+const gslpp::complex CKM::computelamc() const 
 {
     return V(1, 0)*V(1, 1).conjugate();
 }
 
-gslpp::complex CKM::computelamu() const
+const gslpp::complex CKM::computelamu() const
 {
     return V(0, 0)*V(0, 1).conjugate();
 }
 
 
-gslpp::complex CKM::computelamt_d() const 
+const gslpp::complex CKM::computelamt_d() const 
 {
     return V(2, 0)*V(2, 2).conjugate();
 }
 
-gslpp::complex CKM::computelamc_d() const 
+const gslpp::complex CKM::computelamc_d() const 
 {
     return V(1, 0)*V(1, 2).conjugate();
 }
 
-gslpp::complex CKM::computelamu_d() const 
+const gslpp::complex CKM::computelamu_d() const 
 {
     return V(0, 0)*V(0, 2).conjugate();
 }
 
 
-gslpp::complex CKM::computelamt_s() const 
+const gslpp::complex CKM::computelamt_s() const 
 {
     return V(2, 1)*V(2, 2).conjugate();
 }
 
-gslpp::complex CKM::computelamc_s() const 
+const gslpp::complex CKM::computelamc_s() const 
 {
     return V(1, 1)*V(1, 2).conjugate();
 }
 
-gslpp::complex CKM::computelamu_s() const
+const gslpp::complex CKM::computelamu_s() const
 {
     return V(0, 1)*V(0, 2).conjugate();
 }
 
 // Sides
-double CKM::computeRt() const
+const double CKM::computeRt() const
 {
     return (V(2, 0)*V(2, 2).conjugate()/(V(1, 0)*V(1, 2).conjugate())).abs();
 }
-double CKM::computeRts() const
+const double CKM::computeRts() const
 {
     return (V(2, 1)*V(2, 2).conjugate()/(V(1, 1)*V(1, 2).conjugate())).abs();
 }
 
-double CKM::computeRb() const
+const double CKM::computeRb() const
 {
     return (V(0, 0)*V(0, 2).conjugate()/(V(1, 0)*V(1, 2).conjugate())).abs();
 }

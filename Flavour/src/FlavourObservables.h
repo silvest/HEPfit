@@ -25,6 +25,10 @@
 #include "Phis_JPsiPhi.h"
 #include "Mll.h"
 #include "Btaunu.h"
+#include "Dleptonnu.h"
+#include "Kmunu_o_Pmunu.h"
+#include "Pmunu.h"
+#include "tauKnu_o_tauPnu.h"
 #include "bsgamma.h"
 #include "M12D.h"
 #include "ArgD.h"
@@ -45,6 +49,8 @@
 #include "Bsmumu.h"
 #include "BR_Kppnunu.h"
 #include "BR_Kp0nunu.h"
+#include "Asl.h"
+#include "DGamma.h"
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

@@ -163,28 +163,28 @@ public:
      * @return the SM value (FlagEpsilon1SM=true) or the SM plus new physics
      * value (FlagEpsilon1SM=false) of \f$\varepsilon_1\f$
      */
-    virtual double epsilon1() const;
+    virtual const double epsilon1() const;
 
     /**
      * @brief The parameter \f$\varepsilon_2\f$.
      * @return the SM value (FlagEpsilon2SM=true) or the SM plus new physics
      * value (FlagEpsilon2SM=false) of \f$\varepsilon_2\f$
      */
-    virtual double epsilon2() const;
+    virtual const double epsilon2() const;
 
     /**
      * @brief The parameter \f$\varepsilon_3\f$.
      * @return the SM value (FlagEpsilon3SM=true) or the SM plus new physics
      * value (FlagEpsilon3SM=false) of \f$\varepsilon_3\f$
      */
-    virtual double epsilon3() const;
+    virtual const double epsilon3() const;
 
     /**
      * @brief The parameter \f$\varepsilon_b\f$.
      * @return the SM value (FlagEpsilonbSM=true) or the SM plus new physics
      * value (FlagEpsilonbSM=false) of \f$\varepsilon_b\f$
      */
-    virtual double epsilonb() const;
+    virtual const double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////     
@@ -195,33 +195,33 @@ public:
      * EWNPEpsilons::Mw_NPEpsilons().
      * @return @f$M_W@f$ in GeV
      */
-    virtual double Mw() const;
+    virtual const double Mw() const;
 
     /** 
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * 
      * @warning This function is not available.
      */
-    virtual double GammaW() const;
+    virtual const double GammaW() const;
 
     /** 
      * @brief @copybrief StandardModel::Gamma_Z()
      * @return @f$\Gamma_Z@f$ in GeV
      */
-    virtual double Gamma_Z() const;
+    virtual const double Gamma_Z() const;
 
     /** 
      * @brief @copybrief StandardModel::sigma0_had()
      * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$
      */
-    virtual double sigma0_had() const;
+    virtual const double sigma0_had() const;
 
     /** 
      * @brief @copybrief StandardModel::sin2thetaEff()
      * @param[in] f a lepton or quark
      * @return @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
      */
-    virtual double sin2thetaEff(const Particle p) const;
+    virtual const double sin2thetaEff(const Particle p) const;
 
     /** 
      * @brief The left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -229,7 +229,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\mathcal{A}_f@f$
      */
-    virtual double A_f(const Particle p) const;
+    virtual const double A_f(const Particle p) const;
 
     /** 
      * @brief The forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -237,7 +237,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$A^f_{FB}@f$
      */
-    virtual double AFB(const Particle p) const;
+    virtual const double AFB(const Particle p) const;
 
     /** 
      * @brief The ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
@@ -245,7 +245,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$R_f^0@f$
      */
-    virtual double R0_f(const Particle p) const;
+    virtual const double R0_f(const Particle p) const;
 
     /**
      * @brief The \f$W\f$ boson mass @f$M_W@f$. 
@@ -274,7 +274,7 @@ public:
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
      * @return @f$M_W@f$ in GeV
      */
-    double Mw_eps(const double eps1, const double eps2, const double eps3) const;
+    const double Mw_eps(const double eps1, const double eps2, const double eps3) const;
 
     /**
      * @brief The effective neutral-current coupling @f$\rho_Z^f@f$.
@@ -296,14 +296,14 @@ public:
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
      * @return @f$\rho_Z^f@f$
      */
-    gslpp::complex rhoZ_f_eps(const Particle f, const double eps1, const double epsb = 0.) const;
+    const gslpp::complex rhoZ_f_eps(const Particle f, const double eps1, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief NPbase::rhoZ_f()
      * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
      * @copydetails NPbase::rhoZ_f()
      */
-    virtual gslpp::complex rhoZ_f(const Particle f) const;
+    virtual const gslpp::complex rhoZ_f(const Particle f) const;
 
     /**
      * @brief The effective neutral-current coupling @f$\kappa_Z^f@f$. 
@@ -327,7 +327,7 @@ public:
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
      * @return @f$\kappa_Z^f@f$
      */
-    gslpp::complex kappaZ_f_eps(const Particle f, const double eps1, const double eps3, const double epsb = 0.) const;
+    const gslpp::complex kappaZ_f_eps(const Particle f, const double eps1, const double eps3, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief NPbase::kappaZ_f()
@@ -335,7 +335,7 @@ public:
      * @param[in] f a lepton or quark
      * @copydetails NPbase::kappaZ_f()
      */
-    virtual gslpp::complex kappaZ_f(const Particle f) const;
+    virtual const gslpp::complex kappaZ_f(const Particle f) const;
 
     /**
      * @brief The effective neutral-current vector coupling @f$g_V^f@f$.
@@ -353,14 +353,14 @@ public:
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
      * @return @f$g_V^f@f$
      */
-    gslpp::complex gV_f_eps(const Particle f, const double eps1, const double eps3, const double epsb = 0.) const;
+    const gslpp::complex gV_f_eps(const Particle f, const double eps1, const double eps3, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief NPbase::gV_f()
      * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
      * @copydetails NPbase::gV_f()
      */
-    virtual gslpp::complex gV_f(const Particle f) const;
+    virtual const gslpp::complex gV_f(const Particle f) const;
 
     /**
      * @brief The effective neutral-current axial-vector coupling @f$g_A^f@f$. 
@@ -376,7 +376,7 @@ public:
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
      * @return @f$g_A^f@f$
      */
-    gslpp::complex gA_f_eps(const Particle f, const double eps1, const double epsb = 0.) const;
+    const gslpp::complex gA_f_eps(const Particle f, const double eps1, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief NPbase::gA_f()
@@ -384,7 +384,7 @@ public:
      * @param[in] f a lepton or quark
      * @copydetails NPbase::gA_f()
      */
-    virtual gslpp::complex gA_f(const Particle f) const;
+    virtual const gslpp::complex gA_f(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////   
@@ -428,7 +428,7 @@ private:
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
      * @return @f$\Delta r_W@f$
      */
-    double Delta_rW(const double eps1, const double eps2, const double eps3) const;
+    const double Delta_rW(const double eps1, const double eps2, const double eps3) const;
 
     /**
      * @brief The auxiliary function @f$\Delta\kappa'@f$.
@@ -443,7 +443,7 @@ private:
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
      * @return @f$\Delta\kappa'@f$
      */
-    double Delta_kappaPrime(const double eps1, const double eps3) const;
+    const double Delta_kappaPrime(const double eps1, const double eps3) const;
 
 
 };

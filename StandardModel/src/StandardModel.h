@@ -614,7 +614,7 @@ public:
      */
     virtual bool PostUpdate();
     
-    int getIterationNo() const
+    const int getIterationNo() const
     {
         return iterationNo;
     }
@@ -663,7 +663,7 @@ public:
      * @attention The flag FlagWithoutNonUniversalVC is applicable only for
      * the models StandardModel and NPEpsilons.
      */
-    bool IsFlagWithoutNonUniversalVC() const
+    const bool IsFlagWithoutNonUniversalVC() const
     {
         return FlagWithoutNonUniversalVC;
     }
@@ -676,7 +676,7 @@ public:
      * defined with the function EWSMApproximateFormulae::X_full_2_loop() is NOT
      * employed
      */
-    bool IsFlagNoApproximateGammaZ() const
+    const bool IsFlagNoApproximateGammaZ() const
     {
         return FlagNoApproximateGammaZ;
     }
@@ -691,7 +691,7 @@ public:
      * @details See @ref StandardModelFlags for detail.
      * @return
      */
-    std::string getFlagMw() const
+    const std::string getFlagMw() const
     {
         return FlagMw;
     }
@@ -701,7 +701,7 @@ public:
      * @details See @ref StandardModelFlags for detail.
      * @return
      */
-    std::string getFlagRhoZ() const
+    const std::string getFlagRhoZ() const
     {
         return FlagRhoZ;
     }
@@ -711,7 +711,7 @@ public:
      * @details See @ref StandardModelFlags for detail.
      * @return
      */
-    std::string getFlagKappaZ() const
+    const std::string getFlagKappaZ() const
     {
         return FlagKappaZ;
     }
@@ -741,7 +741,7 @@ public:
      * @param[in] p name of a lepton
      * @return an object of the lepton specified by name
      */
-    Particle getLeptons(const QCD::lepton p) const
+    const Particle& getLeptons(const QCD::lepton p) const
     {
         return leptons[p];
     }
@@ -750,7 +750,7 @@ public:
      * @brief A get method to access the mass of the \f$Z\f$ boson \f$M_Z\f$.
      * @return the @f$Z@f$-boson mass @f$M_Z@f$
      */
-    double getMz() const
+    const double getMz() const
     {
         return Mz;
     }
@@ -759,7 +759,7 @@ public:
      * @brief A get method to access the input value of the mass of the \f$W\f$ boson \f$M_W\f$.
      * @return the @f$W@f$-boson mass @f$M_W@f$
      */
-    double getMw() const
+    const double getMw() const
     {
         return Mw_inp;
     }
@@ -768,7 +768,7 @@ public:
      * @brief A get method to access the value of \f$\alpha_s(M_Z)\f$.
      * @return the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$
      */
-    double getAlsMz() const
+    const double getAlsMz() const
     {
         return AlsMz;
     }
@@ -777,7 +777,7 @@ public:
      * @brief A get method to retrieve the Fermi constant @f$G_\mu@f$.
      * @return @f$G_\mu@f$ in @f${\rm GeV}^{-2}@f$
      */
-    double getGF() const
+    const double getGF() const
     {
         return GF;
     }
@@ -786,7 +786,7 @@ public:
      * @brief A get method to retrieve the fine-structure constant @f$\alpha@f$.
      * @return @f$\alpha@f$
      */
-    double getAle() const
+    const double getAle() const
     {
         return ale;
     }
@@ -797,7 +797,7 @@ public:
      * @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$.
      * @return @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$
      */
-    double getDAle5Mz() const
+    const double getDAle5Mz() const
     {
         return dAle5Mz;
     }
@@ -806,7 +806,7 @@ public:
      * @brief A get method to retrieve the Higgs mass @f$m_h@f$.
      * @return @f$m_h@f$ in GeV
      */
-    virtual double getMHl() const
+    virtual const double getMHl() const
     {
         return mHl;
     }
@@ -816,7 +816,7 @@ public:
      * denoted as @f$\delta\,M_W@f$.
      * @return @f$\delta\,M_W@f$ in GeV
      */
-    double getDelMw() const
+    const double getDelMw() const
     {
         return delMw;
     }
@@ -827,7 +827,7 @@ public:
      * @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$.
      * @return @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$
      */
-    double getDelSin2th_l() const
+    const double getDelSin2th_l() const
     {
         return delSin2th_l;
     }
@@ -838,7 +838,7 @@ public:
      * @f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$.
      * @return @f$\delta\sin^2\theta_{\rm eff}^{q\not = b,t}@f$
      */
-    double getDelSin2th_q() const
+    const double getDelSin2th_q() const
     {
         return delSin2th_q;
     }
@@ -849,7 +849,7 @@ public:
      * @f$\delta\sin^2\theta_{\rm eff}^{b}@f$.
      * @return @f$\delta\sin^2\theta_{\rm eff}^{b}@f$
      */
-    double getDelSin2th_b() const
+    const double getDelSin2th_b() const
     {
         return delSin2th_b;
     }
@@ -859,7 +859,7 @@ public:
      * @f$\Gamma_Z@f$, denoted as @f$\delta\,\Gamma_Z@f$.
      * @return @f$\delta\,\Gamma_Z@f$ in GeV 
      */
-    double getDelGammaZ() const
+    const double getDelGammaZ() const
     {
         return delGammaZ;
     }
@@ -869,7 +869,7 @@ public:
      * @f$\sigma_{Hadron}^0@f$, denoted as @f$\delta\,\sigma_{Hadron}^0@f$.
      * @return @f$\delta\,\sigma_{Hadron}^0@f$ in nb 
      */
-    double getDelSigma0H() const
+    const double getDelSigma0H() const
     {
         return delsigma0H;
     }
@@ -879,7 +879,7 @@ public:
      * @f$R_l^0@f$, denoted as @f$\delta\,R_l^0@f$.
      * @return @f$\delta\,R_l^0@f$ 
      */
-    double getDelR0l() const
+    const double getDelR0l() const
     {
         return delR0l;
     }
@@ -889,7 +889,7 @@ public:
      * @f$R_c^0@f$, denoted as @f$\delta\,R_c^0@f$.
      * @return @f$\delta\,R_c^0@f$ 
      */
-    double getDelR0c() const
+    const double getDelR0c() const
     {
         return delR0c;
     }
@@ -899,7 +899,7 @@ public:
      * @f$R_b^0@f$, denoted as @f$\delta\,R_b^0@f$.
      * @return @f$\delta\,R_b^0@f$ 
      */
-    double getDelR0b() const
+    const double getDelR0b() const
     {
         return delR0b;
     }
@@ -908,16 +908,16 @@ public:
      * @brief A get method to retrieve the %CKM matrix. 
      * @return the %CKM matrix
      */
-    gslpp::matrix<gslpp::complex> getVCKM() const // why don't we return a const reference?
+    const gslpp::matrix<gslpp::complex> getVCKM() const
     {
         return myCKM.getCKM();
     }
 
     /**
      * @brief A get method to retrieve the member object of type CKM.
-     * @return the object of type CKM
+     * @return a reference to the object of type CKM
      */
-    CKM getCKM() const
+    const CKM& getCKM() const
     {
         return myCKM;
     }
@@ -926,7 +926,7 @@ public:
      * @brief A get method to retrieve the object of the %PMNS matrix.
      * @return the %PMNS matrix
      */
-    gslpp::matrix<gslpp::complex> getUPMNS() const
+    const gslpp::matrix<gslpp::complex> getUPMNS() const
     {
         return myPMNS.getPMNS();
     }
@@ -936,7 +936,7 @@ public:
      * @f$Y_u@f$.
      * @return @f$Y_u@f$
      */
-    gslpp::matrix<gslpp::complex> getYu() const
+    const gslpp::matrix<gslpp::complex>& getYu() const
     {
         return Yu;
     }
@@ -946,7 +946,7 @@ public:
      * @f$Y_d@f$.
      * @return @f$Y_d@f$
      */
-    gslpp::matrix<gslpp::complex> getYd() const
+    const gslpp::matrix<gslpp::complex>& getYd() const
     {
         return Yd;
     }
@@ -956,7 +956,7 @@ public:
      * @f$Y_\nu@f$.
      * @return @f$Y_\nu@f$
      */
-    gslpp::matrix<gslpp::complex> getYn() const
+    const gslpp::matrix<gslpp::complex>& getYn() const
     {
         return Yn;
     }
@@ -966,7 +966,7 @@ public:
      * @f$Y_e@f$.
      * @return @f$Y_e@f$
      */
-    gslpp::matrix<gslpp::complex> getYe() const
+    const gslpp::matrix<gslpp::complex>& getYe() const
     {
         return Ye;
     }
@@ -976,12 +976,12 @@ public:
      * the weak scale.
      * @return @f$\mu_W@f$ in GeV
      */
-    double getMuw() const
+    const double getMuw() const
     {
         return muw;
     }
 
-    virtual StandardModel getTrueSM() const
+    virtual const StandardModel& getTrueSM() const
     {
         throw std::runtime_error("StandardModel::getTrueSM() must be overridden by the NP extension.");
     }
@@ -1081,7 +1081,7 @@ public:
      * @attention This function is applicable to the scale where the three charged
      * leptons and the five quarks, not the top quark, run in the loops.
      */
-    double ale_OS(const double mu, orders order = FULLNLO) const;
+    const double ale_OS(const double mu, orders order = FULLNLO) const;
 
     /**
      * @brief QCD beta function coefficients including QED corrections - eq. (36) hep-ph/0512066
@@ -1089,7 +1089,7 @@ public:
      * @param nf number of active flavor
      * @return coefficient of the QCD beta function
      */
-    double Beta_s(int nm, unsigned int nf) const;
+    const double Beta_s(int nm, unsigned int nf) const;
     
     /**
      * @brief QED beta function coefficients - eq. (36) hep-ph/0512066
@@ -1097,7 +1097,7 @@ public:
      * @param nf number of active flavor
      * @return coefficient of the QED beta function
      */
-    double Beta_e(int nm, unsigned int nf) const;
+    const double Beta_e(int nm, unsigned int nf) const;
 
     /**
      * @brief The running QCD coupling @f$\alpha(\mu)@f$ in the @f$\overline{MS}@f$ scheme including QED corrections.
@@ -1113,8 +1113,8 @@ public:
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Woverloaded-virtual"
 #endif
-    double Als(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
-    double AlsByOrder(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
+    const double Als(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
+    const double AlsByOrder(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
@@ -1128,7 +1128,7 @@ public:
      * @return @f$\alpha_e(\mu)@f$ in the @f$\overline{MS}@f$ scheme
      *
      */
-    double Ale(double mu, orders order, bool Nf_thr = true) const;
+    const double Ale(double mu, orders order, bool Nf_thr = true) const;
 
     /**
      * @brief Leptonic contribution to the electromagnetic coupling @f$\alpha@f$,
@@ -1136,7 +1136,7 @@ public:
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{lept}}(s)@f$
      */
-    double DeltaAlphaLepton(const double s) const;
+    const double DeltaAlphaLepton(const double s) const;
 
     /**
      * @brief The sum of the leptonic and the five-flavour hadronic corrections
@@ -1150,7 +1150,7 @@ public:
      * @f]
      * @return @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      */
-    double DeltaAlphaL5q() const;
+    const double DeltaAlphaL5q() const;
 
     /**
      * @brief Top-quark contribution to the electromagnetic coupling @f$\alpha@f$,
@@ -1158,7 +1158,7 @@ public:
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}(s)@f$
      */
-    double DeltaAlphaTop(const double s) const;
+    const double DeltaAlphaTop(const double s) const;
 
     /**
      * @brief The total corrections to the electromagnetic coupling @f$\alpha@f$
@@ -1172,7 +1172,7 @@ public:
      * @f]
      * @return @f$\Delta\alpha(M_Z^2)@f$
      */
-    double DeltaAlpha() const;
+    const double DeltaAlpha() const;
 
     /**
      * @brief The electromagnetic coupling at the @f$Z@f$-mass scale, 
@@ -1183,7 +1183,7 @@ public:
      * @f]
      * @return @f$\alpha(M_Z^2)@f$
      */
-    virtual double alphaMz() const;
+    virtual const double alphaMz() const;
 
     /**
      * @brief The value of \f$\frac{\alpha_s^{\mathrm{FULLNLO}}}{4\pi}\f$ at any scale \f$\mu\f$ with the number of flavours
@@ -1191,32 +1191,32 @@ public:
      * @param[in] mu the scale at which \f$\alpha_s\f$ has to be computed
      * @return \f$\alpha_s^{\mathrm{FULLNLO}}(\mu)\f$ with \f$n_f = 4\5\f$
      */
-    double Alstilde5(const double mu) const;
+    const double Alstilde5(const double mu) const;
     
     /**
      * @brief A virtual implementation for the RealWeakEFTCC class
      */
-    virtual double getCCC1() const { return 0.; };
+    virtual const double getCCC1() const { return 0.; };
     
     /**
      * @brief A virtual implementation for the RealWeakEFTCC class
      */
-    virtual double getCCC2() const { return 0.; };
+    virtual const double getCCC2() const { return 0.; };
     
     /**
      * @brief A virtual implementation for the RealWeakEFTCC class
      */
-    virtual double getCCC3() const { return 0.; };
+    virtual const double getCCC3() const { return 0.; };
     
     /**
      * @brief A virtual implementation for the RealWeakEFTCC class
      */
-    virtual double getCCC4() const { return 0.; };
+    virtual const double getCCC4() const { return 0.; };
     
     /**
      * @brief A virtual implementation for the RealWeakEFTCC class
      */
-    virtual double getCCC5() const { return 0.; };
+    virtual const double getCCC5() const { return 0.; };
 
 
 
@@ -1231,7 +1231,7 @@ public:
      * where @f$G_\mu@f$ is the Fermi constant, measured through muon decays.
      * @return @f$v@f$ in GeV
      */
-    double v() const;
+    const double v() const;
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1241,7 +1241,7 @@ public:
      * @brief The tree-level mass of the @f$W@f$ boson, @f$M_W^{\mathrm{tree}}@f$.
      * @return @f$M_W^{\mathrm{tree}}@f$ in GeV.
      */
-    double Mw_tree() const;
+    const double Mw_tree() const;
 
     /**
      * @brief The square of the sine of the weak mixing angle @f$s_0^2@f$ defined
@@ -1258,7 +1258,7 @@ public:
      * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
      * @return @f$s_0^2@f$
      */
-    double s02() const;
+    const double s02() const;
 
     /**
      * @brief The square of the cosine of the weak mixing angle @f$c_0^2@f$ defined
@@ -1272,7 +1272,7 @@ public:
      * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
      * @return @f$s_0^2@f$
      */
-    double c02() const;
+    const double c02() const;
 
     /**
      * @brief The SM prediction for the @f$W@f$-boson mass in the on-shell scheme,
@@ -1300,7 +1300,7 @@ public:
      * of StandardModel is set to true, the caching method implemented in the
      * current class is employed.
      */
-    virtual double Mw() const;
+    virtual const double Mw() const;
     
     
     /**
@@ -1311,7 +1311,7 @@ public:
      * or it is computed from Mw (MWinput=true)
      * @return @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$
      */
-    virtual double Dalpha5hMz() const;
+    virtual const double Dalpha5hMz() const;
 
     /**
      * @brief The square of the cosine of the weak mixing angle
@@ -1322,8 +1322,8 @@ public:
      * @f]
      * @return @f$c_W^2@f$
      */
-    virtual double cW2(const double Mw_i) const;
-    virtual double cW2() const;
+    virtual const double cW2(const double Mw_i) const;
+    virtual const double cW2() const;
 
     /**
      * @brief The square of the sine of the weak mixing angle
@@ -1334,8 +1334,8 @@ public:
      * @f]
      * @return @f$s_W^2@f$
      */
-    virtual double sW2(const double Mw_i) const;
-    double sW2() const;
+    virtual const double sW2(const double Mw_i) const;
+    const double sW2() const;
     
       /**
      * @brief The (approximated formula for the) square of the sine of the weak mixing angle
@@ -1343,7 +1343,7 @@ public:
      * 
      * @return @f$\hat{s}_{W}^2@f$
      */
-     double sW2_MSbar_Approx() const;
+     const double sW2_MSbar_Approx() const;
 
     /**
      * @brief The square of the sine of the weak mixing angle
@@ -1351,7 +1351,7 @@ public:
      * 
      * @return @f$\hat{s}_{ND}^2@f$
      */
-     double sW2_ND() const;
+     const double sW2_ND() const;
 
 
      
@@ -1376,8 +1376,8 @@ public:
      * (instead of the experimental/running-widthr scheme)
      * is defined in DeltaRbar_SM().
      */
-    virtual double DeltaR() const;
-
+    virtual const double DeltaR() const;
+    
     /**
      * @brief A method to collect @f$\Delta\rho@f$ computed via subclasses.
      * @details This function collects @f$\Delta\rho@f$
@@ -1454,7 +1454,7 @@ public:
      * @param[in] Mw the @f$W@f$-boson mass in the experimental/running-width scheme
      * @return @f$\overline{M}_W@f$ in GeV
      */
-    double MwbarFromMw(const double Mw) const;
+    const double MwbarFromMw(const double Mw) const;
 
     /**
      * @brief A method to convert the @f$W@f$-boson mass
@@ -1479,7 +1479,7 @@ public:
      * @param[in] Mwbar the @f$W@f$-boson mass in the complex-pole/fixed-width scheme
      * @return @f$M_W@f$ in GeV
      */
-    double MwFromMwbar(const double Mwbar) const;
+    const double MwFromMwbar(const double Mwbar) const;
 
     /**
      * @brief The SM prediction for @f$\Delta \overline{r}@f$ derived from
@@ -1498,7 +1498,7 @@ public:
      * @sa DeltaR_SM(), defining the corresponding quantity in the
      * experimental/running-width scheme.
      */
-    virtual double DeltaRbar() const;
+    virtual const double DeltaRbar() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1512,7 +1512,7 @@ public:
      *
      * @sa EWSMOneLoopEW::rho_GammaW()
      */
-    virtual double rho_GammaW(const Particle fi, const Particle fj) const;
+    virtual const double rho_GammaW(const Particle fi, const Particle fj) const;
 
     /**
      * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
@@ -1540,33 +1540,33 @@ public:
      * @sa rho_GammaW_l_SM()
      * @attention Fermion masses are neglected.
      */
-    virtual double GammaW(const Particle fi, const Particle fj) const;
+    virtual const double GammaW(const Particle fi, const Particle fj) const;
 
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
      */
-    virtual double GammaW() const;
+    virtual const double GammaW() const;
     
     /**
      * @brief The branching ratio of the @f$W@f$ boson decaying into a SM fermion pair, @f$Br(W\to f_i f_j)@f$.
      * @return @f$Br(W\to f_i f_j)@f$ in GeV
      */
-    virtual double BrW(const Particle fi, const Particle fj) const;
+    virtual const double BrW(const Particle fi, const Particle fj) const;
     
     /**
      * @brief The lepton universality ratio @f$R_{W,l_i/l_j)=\Gamma(W\to l_i \nu_i)/\Gamma(W\to l_j \nu_j)@f$.
      * @return @f$R_{W,l_i/l_j)@f$ in GeV
      */
-    virtual double RWlilj(const Particle li, const Particle lj) const;
+    virtual const double RWlilj(const Particle li, const Particle lj) const;
     
-    virtual double Ruc() const;     //AG:added
+    virtual const double Ruc() const;     //AG:added
     
     /**
      * @brief The ratio @f$R_{W,c)=\Gamma(W\to c + X)/\Gamma(W\to had)@f$.
      * @return @f$R_{W,c)@f$ in GeV
      */
-    virtual double RWc() const;
+    virtual const double RWc() const;
 
     ////////////////////////////////////////////////////////////////////////     
     // EWPO at Z-pole
@@ -1589,14 +1589,14 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\mathcal{A}_\ell@f$
      */
-    virtual double A_f(const Particle f) const;
+    virtual const double A_f(const Particle f) const;
 
     /**
      *
      * @param[in] f a lepton or quark
      * @return
      */
-    virtual double AFB(const Particle f) const;
+    virtual const double AFB(const Particle f) const;
 
     /**
      * @brief The effective weak mixing angle @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
@@ -1617,7 +1617,7 @@ public:
      *
      * @attention @f$\ell@f$ stands for both a neutrino and a charged lepton. 
      */
-    virtual double sin2thetaEff(const Particle f) const;
+    virtual const double sin2thetaEff(const Particle f) const;
 
     /**
      * @brief The @f$Z\to \ell\bar{\ell}@f$ partial decay width, @f$\Gamma_\ell@f$.
@@ -1644,7 +1644,7 @@ public:
      *
      * @attention @f$\ell@f$ stands for both a neutrino and a charged lepton. 
      */
-    virtual double GammaZ(const Particle f) const;
+    virtual const double GammaZ(const Particle f) const;
 
     /**
      * @brief The invisible partial decay width of the @f$Z@f$ boson,
@@ -1656,7 +1656,7 @@ public:
      * where @f$\Gamma_{\nu}@f$ is the partial width for @f$Z\to\nu\bar{\nu}@f$.
      * @return @f$\Gamma_{\mathrm{inv}}@f$ in GeV
      */
-    virtual double Gamma_inv() const;
+    virtual const double Gamma_inv() const;
 
     /**
      * @brief The hadronic decay width of the @f$Z@f$ boson, @f$\Gamma_{h}@f$.
@@ -1672,7 +1672,7 @@ public:
      * @f]
      * @return @f$\Gamma_{h}@f$ in GeV
      */
-    virtual double Gamma_had() const;
+    virtual const double Gamma_had() const;
 
     /**
      * @brief The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$.
@@ -1687,13 +1687,13 @@ public:
      * @f]
      * @return @f$\Gamma_Z@f$ in GeV
      */
-    virtual double Gamma_Z() const;
+    virtual const double Gamma_Z() const;
     
     /**
      * @brief The lepton universality ratio @f$R_{Z,l_i/l_j)=\Gamma(Z\to l_i^+ l_i^-)/\Gamma(Z\to l_j^+ l_j^-)@f$.
      * @return @f$R_{Z,l_i/l_j)@f$ in GeV
      */
-    virtual double RZlilj(const Particle li, const Particle lj) const;
+    virtual const double RZlilj(const Particle li, const Particle lj) const;
 
     /**
      * @brief The hadronic cross section for @f$e^+e^- \to Z \to \mathrm{hadrons}@f$
@@ -1708,7 +1708,7 @@ public:
      * @f]
      * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$
      */
-    virtual double sigma0_had() const;
+    virtual const double sigma0_had() const;
 
     /**
      * @brief @copybrief Rlepton::computeThValue()
@@ -1724,7 +1724,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$R_\ell^0 @f$
      */
-    virtual double R0_f(const Particle f) const;
+    virtual const double R0_f(const Particle f) const;
     
     /**
      * @brief @copybrief Rinv::computeThValue()
@@ -1734,7 +1734,7 @@ public:
      * @f],
      * @return @f$R_{inv} @f$
      */
-    virtual double R_inv() const;
+    virtual const double R_inv() const;
     
     /**
      * @brief @copybrief Nneutrinos::computeThValue()
@@ -1745,7 +1745,7 @@ public:
      * @f]
      * @return @f$N_{\nu} @f$
      */
-    virtual double N_nu() const;
+    virtual const double N_nu() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1760,7 +1760,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$g_{V,\,\mathrm{SM}}^l@f$
      */
-    virtual gslpp::complex gV_f(const Particle f) const;
+    virtual const gslpp::complex gV_f(const Particle f) const;
 
     /**
      * @brief The effective leptonic neutral-current axial-vector coupling @f$g_A^l@f$ in the SM.
@@ -1771,7 +1771,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$g_{A,\,\mathrm{SM}}^l@f$
      */
-    virtual gslpp::complex gA_f(const Particle f) const;
+    virtual const gslpp::complex gA_f(const Particle f) const;
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\rho_Z^l@f$ in the SM.
@@ -1788,7 +1788,7 @@ public:
      * of StandardModel is set to true, the caching method implemented in the
      * current class is employed.
      */
-    virtual gslpp::complex rhoZ_f(const Particle f) const;
+    virtual const gslpp::complex rhoZ_f(const Particle f) const;
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$ in the SM.
@@ -1817,7 +1817,7 @@ public:
      * of StandardModel is set to true, the caching method implemented in the
      * current class is employed.
      */
-    virtual gslpp::complex kappaZ_f(const Particle f) const;
+    virtual const gslpp::complex kappaZ_f(const Particle f) const;
 
     /**
      * @brief Flavour non-universal vertex corrections to @f$\rho_Z^l@f$,
@@ -1839,7 +1839,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\Delta\rho_Z^l@f$
      */
-    virtual gslpp::complex deltaRhoZ_f(const Particle f) const;
+    virtual const gslpp::complex deltaRhoZ_f(const Particle f) const;
 
     /**
      * @brief Flavour non-universal vertex corrections to @f$\kappa_Z^l@f$,
@@ -1865,7 +1865,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\Delta\kappa_Z^l@f$
      */
-    virtual gslpp::complex deltaKappaZ_f(const Particle f) const;
+    virtual const gslpp::complex deltaKappaZ_f(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1882,7 +1882,7 @@ public:
      * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
      * @return @f$\varepsilon_{1,\mathrm{SM}}@f$
      */
-    virtual double epsilon1() const;
+    virtual const double epsilon1() const;
 
     /**
      * @brief The SM contribution to the epsilon parameter @f$\varepsilon_2@f$.
@@ -1904,7 +1904,7 @@ public:
      * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
      * @return @f$\varepsilon_{2,\mathrm{SM}}@f$
      */
-    virtual double epsilon2() const;
+    virtual const double epsilon2() const;
 
     /**
      * @brief The SM contribution to the epsilon parameter @f$\varepsilon_3@f$.
@@ -1923,7 +1923,7 @@ public:
      * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
      * @return @f$\varepsilon_{3,\mathrm{SM}}@f$
      */
-    virtual double epsilon3() const;
+    virtual const double epsilon3() const;
 
     /**
      * @brief The SM contribution to the epsilon parameter @f$\varepsilon_b@f$.
@@ -1942,7 +1942,175 @@ public:
      * and @cite Ciuchini:2013pca for the flavour non-universal vertex corrections. 
      * @return @f$\varepsilon_{b,\mathrm{SM}}@f$
      */
-    virtual double epsilonb() const;
+    virtual const double epsilonb() const;
+    
+    
+    ////////////////////////////////////////////////////////////////////////     
+    // EW low-energy observables: Parity violation
+    
+
+    /**
+     * @brief The computation of the anomalous magnetic moment of the muon @f$a_\mu=(g_\mu-2)/2@f$
+     * @details
+     * @return @f$a_\mu=(g_\mu-2)/2@f$
+     */
+      virtual const double amuon() const;
+
+    /**
+     * @brief The computation of the electron's weak charge
+     * @details
+     * @param[in] q2 the @f$Q^2@f$ at which the weak charge is measured
+     * @param[in] y
+     * @return @f$Q_{w}(e)@f$
+     */
+      virtual const double Qwemoller(const double q2, const double y) const;
+
+
+    /**
+     * @brief The computation of the parity violating asymmetry in Moller scattering
+     * @details
+     * @param[in] q2 the @f$Q^2@f$ of the process
+     * @param[in] y
+     * @return @f$A_{LR}@f$
+     */
+      virtual const double alrmoller(const double q2, const double y) const;
+
+
+    /**
+     * @brief The computation of the proton weak charge: Qwp
+     * @details
+     * Follows J.Erler,A.Kurylov,M.J.Ramsey-Musolf hep-ph/0302149.
+     * @return @f$Q_{W}(p)@f$
+     */
+      virtual const double Qwp() const;
+
+      
+    /**
+     * @brief The computation of the neutron weak charge: Qwn
+     * @details
+     * Follows J.Erler,A.Kurylov,M.J.Ramsey-Musolf hep-ph/0302149.
+     * @return @f$Q_{W}(n)@f$
+     */
+      virtual const double Qwn() const;
+      
+    ////////////////////////////////////////////////////////////////////////     
+    // EW low-energy observables: neutrino-scattering
+      
+    /**
+     * @brief The effective neutrino nucleon LH coupling: gLnuN2
+     * @details
+     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * @return @f$g_L^2(\nu N)@f$
+     */
+      virtual const double gLnuN2() const;
+  
+      
+    /**
+     * @brief The effective neutrino nucleon RH coupling: gRnuN2
+     * @details
+     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * @return @f$g_R^2(\nu N)@f$
+     */
+      virtual const double gRnuN2() const;
+      
+
+    /**
+     * @brief The effective neutrino nucleon LH parameter: ThetaLnuN
+     * @details
+     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * @return @f$\theta_L(\nu N)@f$
+     */
+      virtual const double ThetaLnuN() const;
+  
+      
+    /**
+     * @brief The effective neutrino nucleon RH parameter: ThetaRnuN
+     * @details
+     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * @return @f$\theta_R(\nu N)@f$
+     */
+      virtual const double ThetaRnuN() const;
+      
+      
+    /**
+     * @brief The effective (muon) neutrino-electron vector coupling: gVnue
+     * @details
+     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * @return @f$g_V^{\nu_\mu e}@f$
+     */
+      virtual const double gVnue() const;
+      
+      
+    /**
+     * @brief The effective (muon) neutrino-electron axial-vector coupling: gAnue
+     * @details
+     * Follows the corresponding semianalytical expression in EWSMApproximateFormulae.
+     * @return @f$g_A^{\nu_\mu e}@f$
+     */
+      virtual const double gAnue() const;
+      
+      
+    ////////////////////////////////////////////////////////////////////////     
+    // Lepton decays
+      
+    // Muon decays
+
+    /**
+     * @brief The computation of the muon decay
+     * @details Follows the formulae of PDG
+     * @return @f$\Gamma_\mu @f$
+     */
+      virtual const double Gamma_muon() const;
+
+
+    // Tau decays
+
+    /**
+     * @brief The computation of the leptonic tau decays
+     * @details Follows the formulae of PDG for muon, adapted to tau leptons
+     * @return @f$\Gamma(\tau \to l \nu \nu ) @f$
+     */
+      virtual const double Gamma_tau_l_nunu(const Particle l) const;
+
+
+    // Lepton Flavor universality tests in Tau decays
+
+    /**
+     * @brief The computation of the LFU ratio @f$g_\mu/ g_e @f$
+     * @details
+     * @return @f$g_\mu/ g_e @f$
+     */
+      virtual const double TauLFU_gmuge() const;
+
+
+    /**
+     * @brief The computation of the LFU ratio @f$g_\tau/ g_\mu @f$
+     * @details
+     * @return @f$g_\tau/ g_\mu @f$
+     */
+      virtual const double TauLFU_gtaugmu() const;
+
+
+    /**
+     * @brief The computation of the LFU ratio @f$g_\tau/ g_e @f$
+     * @details
+     * @return @f$g_\tau/ g_e @f$
+     */
+      virtual const double TauLFU_gtauge() const;
+      
+    /**
+     * @brief The computation of the LFU ratio @f$\left(g_\tau/ g_\mu\right)_\pi @f$
+     * @details
+     * @return @f$\left(g_\tau/ g_\mu\right)_\pi @f$
+     */
+      virtual const double TauLFU_gtaugmuPi() const;
+      
+    /**
+     * @brief The computation of the LFU ratio @f$\left(g_\tau/ g_\mu\right)_K @f$
+     * @details
+     * @return @f$\left(g_\tau/ g_\mu\right)_K @f$
+     */
+      virtual const double TauLFU_gtaugmuK() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1984,19 +2152,23 @@ public:
      * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return ggH cross section in pb
      */
-    double computeSigmaggH(const double sqrt_s) const
+    const double computeSigmaggH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return 16.83; // in pb for Mh=125.1 GeV
         } else if (sqrt_s == 8.0) {
             return 21.40; // in pb for Mh=125.1 GeV
         } else if (sqrt_s == 13.0) {
-            return 48.61; // in pb for Mh=125.09 GeV            
+            return 48.61; // in pb for Mh=125.09 GeV   
+        } else if (sqrt_s == 13.6) {
+            return 52.17; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 14.0) {
             return 54.72; // in pb for Mh=125.09 GeV     
         } else if (sqrt_s == 27.0) {
@@ -2013,17 +2185,22 @@ public:
      * @brief The square of the top-quark contribution to the ggH cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{tt}@f$ in pb
      */
-    double computeSigmaggH_tt(const double sqrt_s) const
+    const double computeSigmaggH_tt(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return 16.69; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 8.0) {
             return 21.20; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 13.0) {
-            return 47.94; // in pb for Mh=125.09 GeV            
+            return 47.94; // in pb for Mh=125.09 GeV             
+        } else if (sqrt_s == 13.6) {
+            return 51.534; // in pb for Mh=125.09 GeV (interpolation between 13 and 14 TeV)
         } else if (sqrt_s == 14.0) {
             return 53.93; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2038,17 +2215,22 @@ public:
      * @brief The square of the bottom-quark contribution to the ggH cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{bb}@f$ in pb
      */
-    double computeSigmaggH_bb(const double sqrt_s) const
+    const double computeSigmaggH_bb(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return 0.04; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 8.0) {
             return 0.05; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 13.0) {
-            return 0.10; // in pb for Mh=125.09 GeV             
+            return 0.10; // in pb for Mh=125.09 GeV      
+        } else if (sqrt_s == 13.6) {
+            return 0.106; // in pb for Mh=125.09 GeV (interpolation between 13 and 14 TeV) 
         } else if (sqrt_s == 14.0) {
             return 0.11; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2063,10 +2245,13 @@ public:
      * @brief The top-bottom interference contribution to the ggH cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{tb}@f$ in pb
      */
-    double computeSigmaggH_tb(const double sqrt_s) const
+    const double computeSigmaggH_tb(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return -0.66; // in pb for Mh=125.09 GeV 
@@ -2074,6 +2259,8 @@ public:
             return -0.82; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 13.0) {
             return -1.73; // in pb for Mh=125.09 GeV 
+        } else if (sqrt_s == 13.6) {
+            return -1.844; // in pb for Mh=125.09 GeV (interpolation between 13 and 14 TeV)  
         } else if (sqrt_s == 14.0) {
             return -1.92; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 27.0) {
@@ -2090,19 +2277,23 @@ public:
      * For the 7, 8, 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return VBF cross section in pb
      */
-    double computeSigmaVBF(const double sqrt_s) const
+    const double computeSigmaVBF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return 1.241; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 8.0) {
             return 1.601; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 13.0) {
-            return 3.766; // in pb for Mh=125.09 GeV            
+            return 3.766; // in pb for Mh=125.09 GeV 
+        } else if (sqrt_s == 13.6) {
+            return 4.075; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 14.0) {
             return 4.260; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2120,17 +2311,22 @@ public:
      * cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return W fusion contribution @f$\sigma_{WF}@f$ to cross section in pb
      */
-    double computeSigmaWF(const double sqrt_s) const
+    const double computeSigmaWF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return 0.946; // in pb for Mh=125 GeV
         } else if (sqrt_s == 8.0) {
             return 1.220; // in pb for Mh=125 GeV
         } else if (sqrt_s == 13.0) {
-            return 2.882; // in pb for Mh=125 GeV            
+            return 2.882; // in pb for Mh=125 GeV      
+        } else if (sqrt_s == 13.6) {
+            return 3.1088; // in pb for Mh=125 GeV (interpolation between 13 and 14 TeV)
         } else if (sqrt_s == 14.0) {
             return 3.260; // in pb for Mh=125 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2148,10 +2344,13 @@ public:
      * cross section in the Standard Model.
      * @details The values have been obtained from:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG2KAPPA
+     * For 13.6 TeV we follow what is done in some cases in the LHC Higgs WG note: 
+     * arXiv: 2402.09955 [hep-ph] V1 
+     * and use linear interpolation between the values at 13 and 14 TeV
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return W fusion contribution @f$\sigma_{ZF}@f$ to cross section in pb
      */
-    double computeSigmaZF(const double sqrt_s) const
+    const double computeSigmaZF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return 0.333; // in pb for Mh=125 GeV
@@ -2159,6 +2358,8 @@ public:
             return 0.432; // in pb for Mh=125 GeV
         } else if (sqrt_s == 13.0) {
             return 1.049; // in pb for Mh=125 GeV
+        } else if (sqrt_s == 13.6) {
+            return 1.1342; // in pb for Mh=125 GeV (interpolation between 13 and 14 TeV)
         } else if (sqrt_s == 14.0) {
             return 1.191; // in pb for Mh=125 GeV
         } else if (sqrt_s == 27.0) {
@@ -2178,7 +2379,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return Z W interference fusion contribution @f$\sigma_{ZWF}@f$ to cross section in pb
      */
-    double computeSigmaZWF(const double sqrt_s) const
+    const double computeSigmaZWF(const double sqrt_s) const
     {
         return 0.;
     }
@@ -2189,12 +2390,14 @@ public:
      * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return WH production cross section in pb
      */
-    double computeSigmaWH(const double sqrt_s) const
+    const double computeSigmaWH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return 0.577; // in pb for Mh=125.1 GeV
@@ -2203,7 +2406,9 @@ public:
             return 0.7027; // in pb for Mh=125.1 GeV
             //return 0.6931; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 1.358; // in pb for Mh=125.09 GeV            
+            return 1.358; // in pb for Mh=125.09 GeV   
+        } else if (sqrt_s == 13.6) {
+            return 1.453; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 14.0) {
             return 1.498; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2222,12 +2427,14 @@ public:
      * For the 13, 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return ZH production cross section in pb
      */
-    double computeSigmaZH(const double sqrt_s) const
+    const double computeSigmaZH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return 0.3341; // in pb for Mh=125.1 GeV
@@ -2236,7 +2443,9 @@ public:
             return 0.4142; // in pb for Mh=125.1 GeV
             //return 0.4091; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 0.880; // in pb for Mh=125.09 GeV            
+            return 0.880; // in pb for Mh=125.09 GeV   
+        } else if (sqrt_s == 13.6) {
+            return 0.9422; // in pb for Mh=125.09 GeV
         } else if (sqrt_s == 14.0) {
             return 0.981; // in pb for Mh=125.09 GeV   
         } else if (sqrt_s == 27.0) {
@@ -2258,12 +2467,14 @@ public:
      * For the 14 and 27 TeV values we use the updated numbers wrt the CERN Report 4 2016 from 
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHXSWG1HELHCXsecs
      * https://twiki.cern.ch/twiki/pub/LHCPhysics/LHCHXSWG1HELHCXsecs/hlhehiggs.pdf
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return ttH production cross section in pb
      */
-    double computeSigmattH(const double sqrt_s) const
+    const double computeSigmattH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
             return 0.0861; // in pb for Mh=125.1 GeV
@@ -2272,7 +2483,9 @@ public:
             return 0.129; // in pb for Mh=125.1 GeV
             //return 0.1274; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 0.5060; // in pb for Mh=125.1 GeV            
+            return 0.5060; // in pb for Mh=125.1 GeV 
+        } else if (sqrt_s == 13.6) {
+            return 0.5688; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 14.0) {
             return 0.6128; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
@@ -2284,6 +2497,42 @@ public:
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmattH()");
     }
+    
+    /**
+     * @brief The tHq production cross section in the Standard Model.
+     * @details 
+     * For the 13 TeV values we use the official numbers a la CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
+     */ 
+    const double computeSigmatHq(const double sqrt_s) const
+    {
+        if (sqrt_s == 13.0) {
+            return 0.07426; // in pb for Mh=125.09 GeV 
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmatHq()");
+    }
+    
+    
+    
+    /**
+     * @brief The bbH production cross section in the Standard Model.
+     * @details * For the 13 TeV values we use the official numbers a la CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
+     * For 13.6 TeV we follow the LHC Higgs WG note: arXiv: 2402.09955 [hep-ph] V1:
+     * https://arxiv.org/pdf/2402.09955v1.pdf 
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return bbH production cross section in pb
+     */
+    const double computeSigmabbH(const double sqrt_s) const
+    {
+        if (sqrt_s == 13.0){
+            return 0.4863; // in pb for Mh=125.09 GeV 
+        }
+        else if (sqrt_s == 13.6) {
+            return 0.566; // in pb for Mh=125.09 GeV (NLO+NNLLpart+ybyt matching)
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmabbH()");
+    }
 
     /**
      * @brief The Br@f$(H\to gg)@f$ in the Standard Model.
@@ -2291,7 +2540,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to gg)@f$
      */
-    double computeBrHtogg() const
+    const double computeBrHtogg() const
     {
         return 8.179e-2; // Mh=125.1 GeV
     }
@@ -2302,7 +2551,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to WW)@f$ in the Standard Model
      */
-    double computeBrHtoWW() const
+    const double computeBrHtoWW() const
     {
         //return 2.23e-1; // Mh=125.5 GeV
         return 2.154e-1; // Mh=125.1 GeV
@@ -2314,7 +2563,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to ZZ)@f$ in the Standard Model
      */
-    double computeBrHtoZZ() const
+    const double computeBrHtoZZ() const
     {
         return 2.643e-2; // Mh=125.1 GeV
         //return 2.79e-2; // Mh=125.6 GeV
@@ -2326,7 +2575,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to Z\gamma)@f$ in the Standard Model
      */
-    double computeBrHtoZga() const
+    const double computeBrHtoZga() const
     {
         return 1.541e-3; // Mh=125.1 GeV
         //return 1.59e-3; // Mh=125.6 GeV
@@ -2338,7 +2587,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to\gamma\gamma)@f$ in the Standard Model
      */
-    double computeBrHtogaga() const
+    const double computeBrHtogaga() const
     {
         return 2.27e-3; // Mh=125.1 GeV
     }
@@ -2349,7 +2598,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to \mu\mu)@f$ in the Standard Model
      */
-    double computeBrHtomumu() const
+    const double computeBrHtomumu() const
     {
         return 2.17e-4; // Mh=125.1 GeV
     }
@@ -2360,7 +2609,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to \tau\tau)@f$ in the Standard Model
      */
-    double computeBrHtotautau() const
+    const double computeBrHtotautau() const
     {
         return 6.256e-2; // Mh=125.1 GeV
         //return 6.22e-2; // Mh=125.6 GeV
@@ -2372,7 +2621,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to cc)@f$ in the Standard Model
      */
-    double computeBrHtocc() const
+    const double computeBrHtocc() const
     {
         return 2.883e-2; // Mh=125.1 GeV
         //return 2.86e-2; // Mh=125.6 GeV
@@ -2384,7 +2633,7 @@ public:
      * http://cdsweb.cern.ch/record/2629412/files/ATLAS-CONF-2018-031.pdf
      * @return Br@f$(H\to ss)@f$ in the Standard Model
      */
-    double computeBrHtoss() const
+    const double computeBrHtoss() const
     {
         return 4.0e-4;
     }
@@ -2395,7 +2644,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to bb)@f$ in the Standard Model
      */
-    double computeBrHtobb() const
+    const double computeBrHtobb() const
     {
         return 5.807e-1; // Mh=125.1 GeV
         //return 5.67e-1; // Mh=125.6 GeV
@@ -2408,7 +2657,7 @@ public:
      * @details 
      * @return Br@f$(H\to 4\nu)@f$ in the Standard Model
      */
-    double computeBrHto4v() const
+    const double computeBrHto4v() const
     {
         return 1.06e-3;
     }
@@ -2419,7 +2668,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to e \nu \mu \nu)@f$ in the Standard Model
      */
-    double computeBrHtoevmuv() const
+    const double computeBrHtoevmuv() const
     {
         return 2.539e-03; // Mh=125.1 GeV
     }     
@@ -2430,7 +2679,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to l^+ l^- \nu \nu)@f$ @f$l=e,\mu@f$ in the Standard Model
      */
-    double computeBrHtollvv2() const
+    const double computeBrHtollvv2() const
     {
         return 1.063e-02; // Mh=125.1 GeV
     }   
@@ -2441,7 +2690,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to l^+ l^- \nu \nu)@f$ @f$l=e,\mu,\tau@f$ in the Standard Model
      */
-    double computeBrHtollvv3() const
+    const double computeBrHtollvv3() const
     {
         return 2.356e-02; // Mh=125.1 GeV
     }
@@ -2452,7 +2701,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to 4l)@f$ @f$l=e,\muu@f$ in the Standard Model
      */
-    double computeBrHto4l2() const
+    const double computeBrHto4l2() const
     {
         return 1.252e-04; // Mh=125.1 GeV
     } 
@@ -2463,7 +2712,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to 4l)@f$ @f$l=e,\mu,\tau@f$ in the Standard Model
      */
-    double computeBrHto4l3() const
+    const double computeBrHto4l3() const
     {
         return 2.771e-04; // Mh=125.1 GeV
     }    
@@ -2474,7 +2723,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to 4q)@f$ in the Standard Model
      */
-    double computeBrHto4q() const
+    const double computeBrHto4q() const
     {
         return 1.098e-01; // Mh=125.1 GeV
     }    
@@ -2485,7 +2734,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to 4f)@f$ in the Standard Model
      */
-    double computeBrHto4f() const
+    const double computeBrHto4f() const
     {
         return 2.406e-01; // Mh=125.1 GeV
     }
@@ -2496,7 +2745,7 @@ public:
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return @f$\Gamma_h@f$ in GeV in the Standard Model
      */
-    double computeGammaHTotal() const
+    const double computeGammaHTotal() const
     {
         return 4.101e-3; // Mh=125.1 GeV
         //return 4.15e-3; // Mh=125.6 GeV
@@ -2507,7 +2756,7 @@ public:
      * @details Currently it returns the value of tab 39 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to gg@f$ (top loop contribution squared) in keV
      */
-    double computeGammaHgg_tt() const
+    const double computeGammaHgg_tt() const
     {
         return 380.8; // in keV for Mh=125 GeV
         //return 389.6; // in keV for Mh=126 GeV
@@ -2518,7 +2767,7 @@ public:
      * @details Currently it returns the value of tab 39 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to gg@f$ (bottom loop contribution squared) in keV
      */
-    double computeGammaHgg_bb() const
+    const double computeGammaHgg_bb() const
     {
         return 3.96; // in keV for Mh=125 GeV
         //return 3.95; // in keV for Mh=126 GeV
@@ -2529,7 +2778,7 @@ public:
      * @details Currently it returns the value of tab 39 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to gg@f$ (top-bottom interference contribution) in keV
      */
-    double computeGammaHgg_tb() const
+    const double computeGammaHgg_tb() const
     {
         return -42.1; // in keV for Mh=125 GeV
         //return -42.7; // in keV for Mh=126 GeV
@@ -2540,7 +2789,7 @@ public:
      * @details Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to Z\gamma@f$ (top loop contribution squared) in eV
      */
-    double computeGammaHZga_tt() const
+    const double computeGammaHZga_tt() const
     {
         return 21.74; // in eV for Mh=125 GeV
         //return 23.51; // in eV for Mh=126 GeV
@@ -2551,7 +2800,7 @@ public:
      * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to Z\gamma@f$ (W loop contribution squared) in eV
      */
-    double computeGammaHZga_WW() const
+    const double computeGammaHZga_WW() const
     {
         return 7005.6; // in eV for Mh=125 GeV
         //return 7648.4; // in eV for Mh=126 GeV
@@ -2562,7 +2811,7 @@ public:
      * @details Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to Z\gamma@f$ (top W loop interference) in eV
      */
-    double computeGammaHZga_tW() const
+    const double computeGammaHZga_tW() const
     {
         return -780.4; // in eV for Mh=125 GeV
         //return -848.1; // in eV for Mh=126 GeV
@@ -2573,7 +2822,7 @@ public:
      * @details Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to\gamma\gamma@f$ (top loop contribution squared) in eV
      */
-    double computeGammaHgaga_tt() const
+    const double computeGammaHgaga_tt() const
     {
         return 662.84; // in eV for Mh=125 GeV
         //return 680.39; // in eV for Mh=126 GeV
@@ -2584,7 +2833,7 @@ public:
      * @details Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to\gamma\gamma@f$ (W loop contribution squared) in eV
      */
-    double computeGammaHgaga_WW() const
+    const double computeGammaHgaga_WW() const
     {
         return 14731.86; // in eV for Mh=125 GeV
         //return 15221.98; // in eV for Mh=126 GeV
@@ -2595,7 +2844,7 @@ public:
      * @details Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to\gamma\gamma@f$ (top W loop interference) in eV
      */
-    double computeGammaHgaga_tW() const
+    const double computeGammaHgaga_tW() const
     {
         return -6249.93; // in eV for Mh=125 GeV
         //return -6436.35; // in eV for Mh=126 GeV
@@ -2605,7 +2854,7 @@ public:
      * @brief The ratio of the absolute value of the $B_d$ mixing amplitude over the Standard Model value.
      * @return @f$\vert (M_{12}^{bd})_\mathrm{full}/(M_{12}^{bd})_\mathrm{SM}\vert@f$
      */
-    virtual double getCBd() const
+    virtual const double getCBd() const
     {
         return 1.;
     }
@@ -2614,7 +2863,7 @@ public:
      * @brief The ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value.
      * @return @f$\vert (M_{12}^{bs})_\mathrm{full}/(M_{12}^{bs})_\mathrm{SM}\vert@f$
      */
-    virtual double getCBs() const
+    virtual const double getCBs() const
     {
         return 1.;
     }
@@ -2623,7 +2872,7 @@ public:
      * @brief The ratio of the real part of the $K$ mixing amplitude over the Standard Model value.
      * @return @f$(\mathrm{Re} M_{12}^{sd})_\mathrm{full}/(\mathrm{Re} M_{12}^{sd})_\mathrm{SM}\vert@f$
      */
-    virtual double getCDMK() const
+    virtual const double getCDMK() const
     {
         return 1.;
     }
@@ -2632,7 +2881,7 @@ public:
      * @brief The ratio of the imaginary part of the $K$ mixing amplitude over the Standard Model value.
      * @return @f$(\mathrm{Im} M_{12}^{sd})_\mathrm{full}/(\mathrm{Im} M_{12}^{sd})_\mathrm{SM}\vert@f$
      */
-    virtual double getCepsK() const
+    virtual const double getCepsK() const
     {
         return 1.;
     }
@@ -2641,7 +2890,7 @@ public:
      * @brief Half the relative phase of the $B_s$ mixing amplitude w.r.t. the Standard Model one
      * @return @f$ 1/2 (\mathrm{arg}((M_{12}^{bs})_\mathrm{full})-\mathrm{arg}((M_{12}^{bs})_\mathrm{SM}))\vert@f$
      */
-    virtual double getPhiBs() const
+    virtual const double getPhiBs() const
     {
         return 0.;
     }
@@ -2650,27 +2899,33 @@ public:
      * @brief Half the relative phase of the $B_d$ mixing amplitude w.r.t. the Standard Model one.
      * @return @f$1/2 (\mathrm{arg}((M_{12}^{bd})_\mathrm{full})-\mathrm{arg}((M_{12}^{bd})_\mathrm{SM}))\vert@f$
      */
-    virtual double getPhiBd() const
+    virtual const double getPhiBd() const
     {
         return 0.;
     }
     
 /* BEGIN: REMOVE FROM THE PACKAGE */
     ////////////////////////////////////////////////////////////////////////
-    //LEP2 Observables
+    //LEP2 Inclusive Observables
     
-    virtual double LEP2sigmaMu(const double s) const;
-    virtual double LEP2sigmaTau(const double s) const;
-    virtual double LEP2sigmaHadron(const double s) const;
-    virtual double LEP2sigmaCharm(const double s) const;
-    virtual double LEP2sigmaBottom(const double s) const;
+    virtual const double LEP2sigmaMu(const double s) const;
+    virtual const double LEP2sigmaTau(const double s) const;
+    virtual const double LEP2sigmaHadron(const double s) const;
+    virtual const double LEP2sigmaCharm(const double s) const;
+    virtual const double LEP2sigmaBottom(const double s) const;
     
-    virtual double LEP2AFBmu(const double s) const;
-    virtual double LEP2AFBtau(const double s) const;
-    virtual double LEP2AFBcharm(const double s) const;
-    virtual double LEP2AFBbottom(const double s) const;
-    virtual double LEP2Rcharm(const double s) const;
-    virtual double LEP2Rbottom(const double s) const;
+    virtual const double LEP2AFBmu(const double s) const;
+    virtual const double LEP2AFBtau(const double s) const;
+    virtual const double LEP2AFBcharm(const double s) const;
+    virtual const double LEP2AFBbottom(const double s) const;
+    virtual const double LEP2Rcharm(const double s) const;
+    virtual const double LEP2Rbottom(const double s) const;
+    
+    //LEP2 Differential Observables
+    virtual const double LEP2dsigmadcosE(const double s, const double cos) const;
+    virtual const double LEP2dsigmadcosMu(const double s, const double cos) const;
+    virtual const double LEP2dsigmadcosTau(const double s, const double cos) const;
+    
 /* END: REMOVE FROM THE PACKAGE */
     
 bool setFlagSigmaForAFB(const bool flagSigmaForAFB_i)
@@ -2691,7 +2946,7 @@ bool setFlagSigmaForR(const bool flagSigmaForR_i)
      * @param mu the scale at which the running mass is returned
      * @return @f$ m_q^\overline{\mathrm{MS}}(\mu)@f$
      */
-virtual double getmq(const QCD::quark q, const double mu) const
+virtual const double getmq(const QCD::quark q, const double mu) const
 {
     return m_q(q, mu, FULLNLO);
 }
@@ -3017,282 +3272,282 @@ protected:
     
     
     
-    double sigma_NoISR_l(const QCD::lepton l_flavor, const double s) const;
-    double sigma_NoISR_q(const QCD::quark q_flavor, const  double s) const;
-    double AFB_NoISR_l(const QCD::lepton l_flavor, const  double s) const;
-    double AFB_NoISR_q(const QCD::quark q_flavor, const  double s) const;
+    const double sigma_NoISR_l(const QCD::lepton l_flavor, const double s) const;
+    const double sigma_NoISR_q(const QCD::quark q_flavor, const  double s) const;
+    const double AFB_NoISR_l(const QCD::lepton l_flavor, const  double s) const;
+    const double AFB_NoISR_q(const QCD::quark q_flavor, const  double s) const;
     
-    double Integrand_sigmaWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const;
+    const double Integrand_sigmaWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const;
     
-    double getIntegrand_sigmaWithISR_mu130(double x) const; 
-    double getIntegrand_sigmaWithISR_mu136(double x) const; 
-    double getIntegrand_sigmaWithISR_mu161(double x) const; 
-    double getIntegrand_sigmaWithISR_mu172(double x) const; 
-    double getIntegrand_sigmaWithISR_mu183(double x) const; 
-    double getIntegrand_sigmaWithISR_mu189(double x) const; 
-    double getIntegrand_sigmaWithISR_mu192(double x) const; 
-    double getIntegrand_sigmaWithISR_mu196(double x) const; 
-    double getIntegrand_sigmaWithISR_mu200(double x) const; 
-    double getIntegrand_sigmaWithISR_mu202(double x) const; 
-    double getIntegrand_sigmaWithISR_mu205(double x) const; 
-    double getIntegrand_sigmaWithISR_mu207(double x) const;
+    const double getIntegrand_sigmaWithISR_mu130(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu136(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu161(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu172(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu183(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu189(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu192(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu196(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu200(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu202(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu205(double x) const; 
+    const double getIntegrand_sigmaWithISR_mu207(double x) const;
     
     
-    double getIntegrand_sigmaWithISR_tau130(double x) const; 
-    double getIntegrand_sigmaWithISR_tau136(double x) const; 
-    double getIntegrand_sigmaWithISR_tau161(double x) const; 
-    double getIntegrand_sigmaWithISR_tau172(double x) const; 
-    double getIntegrand_sigmaWithISR_tau183(double x) const; 
-    double getIntegrand_sigmaWithISR_tau189(double x) const; 
-    double getIntegrand_sigmaWithISR_tau192(double x) const; 
-    double getIntegrand_sigmaWithISR_tau196(double x) const; 
-    double getIntegrand_sigmaWithISR_tau200(double x) const; 
-    double getIntegrand_sigmaWithISR_tau202(double x) const; 
-    double getIntegrand_sigmaWithISR_tau205(double x) const; 
-    double getIntegrand_sigmaWithISR_tau207(double x) const;
+    const double getIntegrand_sigmaWithISR_tau130(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau136(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau161(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau172(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau183(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau189(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau192(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau196(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau200(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau202(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau205(double x) const; 
+    const double getIntegrand_sigmaWithISR_tau207(double x) const;
 
     
-    double Integrand_sigmaWithISR_q(double x, const QCD::quark q_flavor, const  double s) const;
+    const double Integrand_sigmaWithISR_q(double x, const QCD::quark q_flavor, const  double s) const;
     
-    double getIntegrand_sigmaWithISR_up130(double x) const; 
-    double getIntegrand_sigmaWithISR_up133(double x) const; 
-    double getIntegrand_sigmaWithISR_up136(double x) const; 
-    double getIntegrand_sigmaWithISR_up161(double x) const;
-    double getIntegrand_sigmaWithISR_up167(double x) const; 
-    double getIntegrand_sigmaWithISR_up172(double x) const; 
-    double getIntegrand_sigmaWithISR_up183(double x) const; 
-    double getIntegrand_sigmaWithISR_up189(double x) const; 
-    double getIntegrand_sigmaWithISR_up192(double x) const; 
-    double getIntegrand_sigmaWithISR_up196(double x) const; 
-    double getIntegrand_sigmaWithISR_up200(double x) const; 
-    double getIntegrand_sigmaWithISR_up202(double x) const; 
-    double getIntegrand_sigmaWithISR_up205(double x) const; 
-    double getIntegrand_sigmaWithISR_up207(double x) const;
+    const double getIntegrand_sigmaWithISR_up130(double x) const; 
+    const double getIntegrand_sigmaWithISR_up133(double x) const; 
+    const double getIntegrand_sigmaWithISR_up136(double x) const; 
+    const double getIntegrand_sigmaWithISR_up161(double x) const;
+    const double getIntegrand_sigmaWithISR_up167(double x) const; 
+    const double getIntegrand_sigmaWithISR_up172(double x) const; 
+    const double getIntegrand_sigmaWithISR_up183(double x) const; 
+    const double getIntegrand_sigmaWithISR_up189(double x) const; 
+    const double getIntegrand_sigmaWithISR_up192(double x) const; 
+    const double getIntegrand_sigmaWithISR_up196(double x) const; 
+    const double getIntegrand_sigmaWithISR_up200(double x) const; 
+    const double getIntegrand_sigmaWithISR_up202(double x) const; 
+    const double getIntegrand_sigmaWithISR_up205(double x) const; 
+    const double getIntegrand_sigmaWithISR_up207(double x) const;
     
-    double getIntegrand_sigmaWithISR_down130(double x) const; 
-    double getIntegrand_sigmaWithISR_down133(double x) const;
-    double getIntegrand_sigmaWithISR_down136(double x) const; 
-    double getIntegrand_sigmaWithISR_down161(double x) const; 
-    double getIntegrand_sigmaWithISR_down167(double x) const; 
-    double getIntegrand_sigmaWithISR_down172(double x) const; 
-    double getIntegrand_sigmaWithISR_down183(double x) const; 
-    double getIntegrand_sigmaWithISR_down189(double x) const; 
-    double getIntegrand_sigmaWithISR_down192(double x) const; 
-    double getIntegrand_sigmaWithISR_down196(double x) const; 
-    double getIntegrand_sigmaWithISR_down200(double x) const; 
-    double getIntegrand_sigmaWithISR_down202(double x) const; 
-    double getIntegrand_sigmaWithISR_down205(double x) const; 
-    double getIntegrand_sigmaWithISR_down207(double x) const;
+    const double getIntegrand_sigmaWithISR_down130(double x) const; 
+    const double getIntegrand_sigmaWithISR_down133(double x) const;
+    const double getIntegrand_sigmaWithISR_down136(double x) const; 
+    const double getIntegrand_sigmaWithISR_down161(double x) const; 
+    const double getIntegrand_sigmaWithISR_down167(double x) const; 
+    const double getIntegrand_sigmaWithISR_down172(double x) const; 
+    const double getIntegrand_sigmaWithISR_down183(double x) const; 
+    const double getIntegrand_sigmaWithISR_down189(double x) const; 
+    const double getIntegrand_sigmaWithISR_down192(double x) const; 
+    const double getIntegrand_sigmaWithISR_down196(double x) const; 
+    const double getIntegrand_sigmaWithISR_down200(double x) const; 
+    const double getIntegrand_sigmaWithISR_down202(double x) const; 
+    const double getIntegrand_sigmaWithISR_down205(double x) const; 
+    const double getIntegrand_sigmaWithISR_down207(double x) const;
     
-    double getIntegrand_sigmaWithISR_charm130(double x) const; 
-    double getIntegrand_sigmaWithISR_charm133(double x) const; 
-    double getIntegrand_sigmaWithISR_charm136(double x) const; 
-    double getIntegrand_sigmaWithISR_charm161(double x) const; 
-    double getIntegrand_sigmaWithISR_charm167(double x) const; 
-    double getIntegrand_sigmaWithISR_charm172(double x) const; 
-    double getIntegrand_sigmaWithISR_charm183(double x) const; 
-    double getIntegrand_sigmaWithISR_charm189(double x) const; 
-    double getIntegrand_sigmaWithISR_charm192(double x) const; 
-    double getIntegrand_sigmaWithISR_charm196(double x) const; 
-    double getIntegrand_sigmaWithISR_charm200(double x) const; 
-    double getIntegrand_sigmaWithISR_charm202(double x) const; 
-    double getIntegrand_sigmaWithISR_charm205(double x) const; 
-    double getIntegrand_sigmaWithISR_charm207(double x) const;
+    const double getIntegrand_sigmaWithISR_charm130(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm133(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm136(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm161(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm167(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm172(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm183(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm189(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm192(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm196(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm200(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm202(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm205(double x) const; 
+    const double getIntegrand_sigmaWithISR_charm207(double x) const;
     
-    double getIntegrand_sigmaWithISR_strange130(double x) const; 
-    double getIntegrand_sigmaWithISR_strange133(double x) const;
-    double getIntegrand_sigmaWithISR_strange136(double x) const; 
-    double getIntegrand_sigmaWithISR_strange161(double x) const; 
-    double getIntegrand_sigmaWithISR_strange167(double x) const; 
-    double getIntegrand_sigmaWithISR_strange172(double x) const; 
-    double getIntegrand_sigmaWithISR_strange183(double x) const; 
-    double getIntegrand_sigmaWithISR_strange189(double x) const; 
-    double getIntegrand_sigmaWithISR_strange192(double x) const; 
-    double getIntegrand_sigmaWithISR_strange196(double x) const; 
-    double getIntegrand_sigmaWithISR_strange200(double x) const; 
-    double getIntegrand_sigmaWithISR_strange202(double x) const; 
-    double getIntegrand_sigmaWithISR_strange205(double x) const; 
-    double getIntegrand_sigmaWithISR_strange207(double x) const;
+    const double getIntegrand_sigmaWithISR_strange130(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange133(double x) const;
+    const double getIntegrand_sigmaWithISR_strange136(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange161(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange167(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange172(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange183(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange189(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange192(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange196(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange200(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange202(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange205(double x) const; 
+    const double getIntegrand_sigmaWithISR_strange207(double x) const;
     
-    double getIntegrand_sigmaWithISR_bottom130(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom133(double x) const;
-    double getIntegrand_sigmaWithISR_bottom136(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom161(double x) const;  
-    double getIntegrand_sigmaWithISR_bottom167(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom172(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom183(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom189(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom192(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom196(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom200(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom202(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom205(double x) const; 
-    double getIntegrand_sigmaWithISR_bottom207(double x) const;
+    const double getIntegrand_sigmaWithISR_bottom130(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom133(double x) const;
+    const double getIntegrand_sigmaWithISR_bottom136(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom161(double x) const;  
+    const double getIntegrand_sigmaWithISR_bottom167(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom172(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom183(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom189(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom192(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom196(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom200(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom202(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom205(double x) const; 
+    const double getIntegrand_sigmaWithISR_bottom207(double x) const;
     
-    double Integrand_dsigmaBox_l(double cosTheta, const QCD::lepton l_flavor, const  double s) const;
+    const double Integrand_dsigmaBox_l(double cosTheta, const QCD::lepton l_flavor, const  double s) const;
     
-    double getIntegrand_dsigmaBox_mu130(double x) const; 
-    double getIntegrand_dsigmaBox_mu133(double x) const;
-    double getIntegrand_dsigmaBox_mu136(double x) const; 
-    double getIntegrand_dsigmaBox_mu161(double x) const; 
-    double getIntegrand_dsigmaBox_mu167(double x) const; 
-    double getIntegrand_dsigmaBox_mu172(double x) const; 
-    double getIntegrand_dsigmaBox_mu183(double x) const; 
-    double getIntegrand_dsigmaBox_mu189(double x) const; 
-    double getIntegrand_dsigmaBox_mu192(double x) const; 
-    double getIntegrand_dsigmaBox_mu196(double x) const; 
-    double getIntegrand_dsigmaBox_mu200(double x) const; 
-    double getIntegrand_dsigmaBox_mu202(double x) const; 
-    double getIntegrand_dsigmaBox_mu205(double x) const; 
-    double getIntegrand_dsigmaBox_mu207(double x) const;
+    const double getIntegrand_dsigmaBox_mu130(double x) const; 
+    const double getIntegrand_dsigmaBox_mu133(double x) const;
+    const double getIntegrand_dsigmaBox_mu136(double x) const; 
+    const double getIntegrand_dsigmaBox_mu161(double x) const; 
+    const double getIntegrand_dsigmaBox_mu167(double x) const; 
+    const double getIntegrand_dsigmaBox_mu172(double x) const; 
+    const double getIntegrand_dsigmaBox_mu183(double x) const; 
+    const double getIntegrand_dsigmaBox_mu189(double x) const; 
+    const double getIntegrand_dsigmaBox_mu192(double x) const; 
+    const double getIntegrand_dsigmaBox_mu196(double x) const; 
+    const double getIntegrand_dsigmaBox_mu200(double x) const; 
+    const double getIntegrand_dsigmaBox_mu202(double x) const; 
+    const double getIntegrand_dsigmaBox_mu205(double x) const; 
+    const double getIntegrand_dsigmaBox_mu207(double x) const;
     
-    double getIntegrand_dsigmaBox_tau130(double x) const; 
-    double getIntegrand_dsigmaBox_tau133(double x) const; 
-    double getIntegrand_dsigmaBox_tau136(double x) const; 
-    double getIntegrand_dsigmaBox_tau161(double x) const;
-    double getIntegrand_dsigmaBox_tau167(double x) const; 
-    double getIntegrand_dsigmaBox_tau172(double x) const; 
-    double getIntegrand_dsigmaBox_tau183(double x) const; 
-    double getIntegrand_dsigmaBox_tau189(double x) const; 
-    double getIntegrand_dsigmaBox_tau192(double x) const; 
-    double getIntegrand_dsigmaBox_tau196(double x) const; 
-    double getIntegrand_dsigmaBox_tau200(double x) const; 
-    double getIntegrand_dsigmaBox_tau202(double x) const; 
-    double getIntegrand_dsigmaBox_tau205(double x) const; 
-    double getIntegrand_dsigmaBox_tau207(double x) const;
-    
-    
-    double Integrand_dsigmaBox_q(double cosTheta, const QCD::quark q_flavor, const  double s) const;
-    
-    double getIntegrand_dsigmaBox_up130(double x) const; 
-    double getIntegrand_dsigmaBox_up133(double x) const;  
-    double getIntegrand_dsigmaBox_up136(double x) const; 
-    double getIntegrand_dsigmaBox_up161(double x) const;
-    double getIntegrand_dsigmaBox_up167(double x) const; 
-    double getIntegrand_dsigmaBox_up172(double x) const; 
-    double getIntegrand_dsigmaBox_up183(double x) const; 
-    double getIntegrand_dsigmaBox_up189(double x) const; 
-    double getIntegrand_dsigmaBox_up192(double x) const; 
-    double getIntegrand_dsigmaBox_up196(double x) const; 
-    double getIntegrand_dsigmaBox_up200(double x) const; 
-    double getIntegrand_dsigmaBox_up202(double x) const; 
-    double getIntegrand_dsigmaBox_up205(double x) const; 
-    double getIntegrand_dsigmaBox_up207(double x) const;
-    
-    double getIntegrand_dsigmaBox_down130(double x) const; 
-    double getIntegrand_dsigmaBox_down133(double x) const;
-    double getIntegrand_dsigmaBox_down136(double x) const; 
-    double getIntegrand_dsigmaBox_down161(double x) const; 
-    double getIntegrand_dsigmaBox_down167(double x) const; 
-    double getIntegrand_dsigmaBox_down172(double x) const; 
-    double getIntegrand_dsigmaBox_down183(double x) const; 
-    double getIntegrand_dsigmaBox_down189(double x) const; 
-    double getIntegrand_dsigmaBox_down192(double x) const; 
-    double getIntegrand_dsigmaBox_down196(double x) const; 
-    double getIntegrand_dsigmaBox_down200(double x) const; 
-    double getIntegrand_dsigmaBox_down202(double x) const; 
-    double getIntegrand_dsigmaBox_down205(double x) const; 
-    double getIntegrand_dsigmaBox_down207(double x) const;
-    
-    double getIntegrand_dsigmaBox_charm130(double x) const; 
-    double getIntegrand_dsigmaBox_charm133(double x) const;  
-    double getIntegrand_dsigmaBox_charm136(double x) const; 
-    double getIntegrand_dsigmaBox_charm161(double x) const;
-    double getIntegrand_dsigmaBox_charm167(double x) const; 
-    double getIntegrand_dsigmaBox_charm172(double x) const; 
-    double getIntegrand_dsigmaBox_charm183(double x) const; 
-    double getIntegrand_dsigmaBox_charm189(double x) const; 
-    double getIntegrand_dsigmaBox_charm192(double x) const; 
-    double getIntegrand_dsigmaBox_charm196(double x) const; 
-    double getIntegrand_dsigmaBox_charm200(double x) const; 
-    double getIntegrand_dsigmaBox_charm202(double x) const; 
-    double getIntegrand_dsigmaBox_charm205(double x) const; 
-    double getIntegrand_dsigmaBox_charm207(double x) const;
-    
-    double getIntegrand_dsigmaBox_strange130(double x) const; 
-    double getIntegrand_dsigmaBox_strange133(double x) const; 
-    double getIntegrand_dsigmaBox_strange136(double x) const; 
-    double getIntegrand_dsigmaBox_strange161(double x) const;
-    double getIntegrand_dsigmaBox_strange167(double x) const;  
-    double getIntegrand_dsigmaBox_strange172(double x) const; 
-    double getIntegrand_dsigmaBox_strange183(double x) const; 
-    double getIntegrand_dsigmaBox_strange189(double x) const; 
-    double getIntegrand_dsigmaBox_strange192(double x) const; 
-    double getIntegrand_dsigmaBox_strange196(double x) const; 
-    double getIntegrand_dsigmaBox_strange200(double x) const; 
-    double getIntegrand_dsigmaBox_strange202(double x) const; 
-    double getIntegrand_dsigmaBox_strange205(double x) const; 
-    double getIntegrand_dsigmaBox_strange207(double x) const;
-    
-    double getIntegrand_dsigmaBox_bottom130(double x) const; 
-    double getIntegrand_dsigmaBox_bottom133(double x) const;  
-    double getIntegrand_dsigmaBox_bottom136(double x) const; 
-    double getIntegrand_dsigmaBox_bottom161(double x) const; 
-    double getIntegrand_dsigmaBox_bottom167(double x) const; 
-    double getIntegrand_dsigmaBox_bottom172(double x) const; 
-    double getIntegrand_dsigmaBox_bottom183(double x) const; 
-    double getIntegrand_dsigmaBox_bottom189(double x) const; 
-    double getIntegrand_dsigmaBox_bottom192(double x) const; 
-    double getIntegrand_dsigmaBox_bottom196(double x) const; 
-    double getIntegrand_dsigmaBox_bottom200(double x) const; 
-    double getIntegrand_dsigmaBox_bottom202(double x) const; 
-    double getIntegrand_dsigmaBox_bottom205(double x) const; 
-    double getIntegrand_dsigmaBox_bottom207(double x) const;    
+    const double getIntegrand_dsigmaBox_tau130(double x) const; 
+    const double getIntegrand_dsigmaBox_tau133(double x) const; 
+    const double getIntegrand_dsigmaBox_tau136(double x) const; 
+    const double getIntegrand_dsigmaBox_tau161(double x) const;
+    const double getIntegrand_dsigmaBox_tau167(double x) const; 
+    const double getIntegrand_dsigmaBox_tau172(double x) const; 
+    const double getIntegrand_dsigmaBox_tau183(double x) const; 
+    const double getIntegrand_dsigmaBox_tau189(double x) const; 
+    const double getIntegrand_dsigmaBox_tau192(double x) const; 
+    const double getIntegrand_dsigmaBox_tau196(double x) const; 
+    const double getIntegrand_dsigmaBox_tau200(double x) const; 
+    const double getIntegrand_dsigmaBox_tau202(double x) const; 
+    const double getIntegrand_dsigmaBox_tau205(double x) const; 
+    const double getIntegrand_dsigmaBox_tau207(double x) const;
     
     
-    double Integrand_AFBnumeratorWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const;
+    const double Integrand_dsigmaBox_q(double cosTheta, const QCD::quark q_flavor, const  double s) const;
     
-    double getIntegrand_AFBnumeratorWithISR_mu130(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu136(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu161(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu172(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu183(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu189(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu192(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu196(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu200(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu202(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu205(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_mu207(double x) const;
+    const double getIntegrand_dsigmaBox_up130(double x) const; 
+    const double getIntegrand_dsigmaBox_up133(double x) const;  
+    const double getIntegrand_dsigmaBox_up136(double x) const; 
+    const double getIntegrand_dsigmaBox_up161(double x) const;
+    const double getIntegrand_dsigmaBox_up167(double x) const; 
+    const double getIntegrand_dsigmaBox_up172(double x) const; 
+    const double getIntegrand_dsigmaBox_up183(double x) const; 
+    const double getIntegrand_dsigmaBox_up189(double x) const; 
+    const double getIntegrand_dsigmaBox_up192(double x) const; 
+    const double getIntegrand_dsigmaBox_up196(double x) const; 
+    const double getIntegrand_dsigmaBox_up200(double x) const; 
+    const double getIntegrand_dsigmaBox_up202(double x) const; 
+    const double getIntegrand_dsigmaBox_up205(double x) const; 
+    const double getIntegrand_dsigmaBox_up207(double x) const;
     
-    double getIntegrand_AFBnumeratorWithISR_tau130(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau136(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau161(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau172(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau183(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau189(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau192(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau196(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau200(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau202(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau205(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_tau207(double x) const;
+    const double getIntegrand_dsigmaBox_down130(double x) const; 
+    const double getIntegrand_dsigmaBox_down133(double x) const;
+    const double getIntegrand_dsigmaBox_down136(double x) const; 
+    const double getIntegrand_dsigmaBox_down161(double x) const; 
+    const double getIntegrand_dsigmaBox_down167(double x) const; 
+    const double getIntegrand_dsigmaBox_down172(double x) const; 
+    const double getIntegrand_dsigmaBox_down183(double x) const; 
+    const double getIntegrand_dsigmaBox_down189(double x) const; 
+    const double getIntegrand_dsigmaBox_down192(double x) const; 
+    const double getIntegrand_dsigmaBox_down196(double x) const; 
+    const double getIntegrand_dsigmaBox_down200(double x) const; 
+    const double getIntegrand_dsigmaBox_down202(double x) const; 
+    const double getIntegrand_dsigmaBox_down205(double x) const; 
+    const double getIntegrand_dsigmaBox_down207(double x) const;
     
-    double Integrand_AFBnumeratorWithISR_q(double x, const QCD::quark q_flavor, const  double s) const;
+    const double getIntegrand_dsigmaBox_charm130(double x) const; 
+    const double getIntegrand_dsigmaBox_charm133(double x) const;  
+    const double getIntegrand_dsigmaBox_charm136(double x) const; 
+    const double getIntegrand_dsigmaBox_charm161(double x) const;
+    const double getIntegrand_dsigmaBox_charm167(double x) const; 
+    const double getIntegrand_dsigmaBox_charm172(double x) const; 
+    const double getIntegrand_dsigmaBox_charm183(double x) const; 
+    const double getIntegrand_dsigmaBox_charm189(double x) const; 
+    const double getIntegrand_dsigmaBox_charm192(double x) const; 
+    const double getIntegrand_dsigmaBox_charm196(double x) const; 
+    const double getIntegrand_dsigmaBox_charm200(double x) const; 
+    const double getIntegrand_dsigmaBox_charm202(double x) const; 
+    const double getIntegrand_dsigmaBox_charm205(double x) const; 
+    const double getIntegrand_dsigmaBox_charm207(double x) const;
     
-    double getIntegrand_AFBnumeratorWithISR_charm133(double x) const;  
-    double getIntegrand_AFBnumeratorWithISR_charm167(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_charm172(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_charm183(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_charm189(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_charm192(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_charm196(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_charm200(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_charm202(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_charm205(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_charm207(double x) const;
+    const double getIntegrand_dsigmaBox_strange130(double x) const; 
+    const double getIntegrand_dsigmaBox_strange133(double x) const; 
+    const double getIntegrand_dsigmaBox_strange136(double x) const; 
+    const double getIntegrand_dsigmaBox_strange161(double x) const;
+    const double getIntegrand_dsigmaBox_strange167(double x) const;  
+    const double getIntegrand_dsigmaBox_strange172(double x) const; 
+    const double getIntegrand_dsigmaBox_strange183(double x) const; 
+    const double getIntegrand_dsigmaBox_strange189(double x) const; 
+    const double getIntegrand_dsigmaBox_strange192(double x) const; 
+    const double getIntegrand_dsigmaBox_strange196(double x) const; 
+    const double getIntegrand_dsigmaBox_strange200(double x) const; 
+    const double getIntegrand_dsigmaBox_strange202(double x) const; 
+    const double getIntegrand_dsigmaBox_strange205(double x) const; 
+    const double getIntegrand_dsigmaBox_strange207(double x) const;
+    
+    const double getIntegrand_dsigmaBox_bottom130(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom133(double x) const;  
+    const double getIntegrand_dsigmaBox_bottom136(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom161(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom167(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom172(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom183(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom189(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom192(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom196(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom200(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom202(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom205(double x) const; 
+    const double getIntegrand_dsigmaBox_bottom207(double x) const;    
+    
+    
+    const double Integrand_AFBnumeratorWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const;
+    
+    const double getIntegrand_AFBnumeratorWithISR_mu130(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu136(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu161(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu172(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu183(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu189(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu192(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu196(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu200(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu202(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu205(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_mu207(double x) const;
+    
+    const double getIntegrand_AFBnumeratorWithISR_tau130(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau136(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau161(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau172(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau183(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau189(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau192(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau196(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau200(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau202(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau205(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_tau207(double x) const;
+    
+    const double Integrand_AFBnumeratorWithISR_q(double x, const QCD::quark q_flavor, const  double s) const;
+    
+    const double getIntegrand_AFBnumeratorWithISR_charm133(double x) const;  
+    const double getIntegrand_AFBnumeratorWithISR_charm167(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_charm172(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_charm183(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_charm189(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_charm192(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_charm196(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_charm200(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_charm202(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_charm205(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_charm207(double x) const;
 
-    double getIntegrand_AFBnumeratorWithISR_bottom133(double x) const;  
-    double getIntegrand_AFBnumeratorWithISR_bottom167(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_bottom172(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_bottom183(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_bottom189(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_bottom192(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_bottom196(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_bottom200(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_bottom202(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_bottom205(double x) const; 
-    double getIntegrand_AFBnumeratorWithISR_bottom207(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom133(double x) const;  
+    const double getIntegrand_AFBnumeratorWithISR_bottom167(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom172(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom183(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom189(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom192(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom196(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom200(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom202(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom205(double x) const; 
+    const double getIntegrand_AFBnumeratorWithISR_bottom207(double x) const; 
     
     /* END: REMOVE FROM THE PACKAGE */
     ////////////////////////////////////////////////////////////////////////    
@@ -3354,8 +3609,8 @@ private:
     
     int iterationNo;
     
-    double AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const;
-    double AleWithInit(double mu, double alsi, double mu_i, orders order) const;
+    const double AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const;
+    const double AleWithInit(double mu, double alsi, double mu_i, orders order) const;
     static const int CacheSize = 5; ///< Defines the depth of the cache.
     mutable double als_cache[11][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double ale_cache[10][CacheSize]; ///< Cache for \f$\alpha_e\f$.

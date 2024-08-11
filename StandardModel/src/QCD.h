@@ -374,7 +374,7 @@ public:
      * @param[in] order an object of the enum type "orders"
      * @return the string of the given "order"
      */
-    std::string orderToString(const orders order) const;
+    const std::string orderToString(const orders order) const;
 
     ////////////////////////////////////////////////////////////////////////
     // Parameters
@@ -447,7 +447,7 @@ public:
      * @param[in] name the name of the parameter
      * @return a double that is the value of the parameter
      */
-    double getOptionalParameter(std::string name) const
+    const double getOptionalParameter(std::string name) const
     {
         return optionalParameters.at(name);
     }
@@ -504,7 +504,7 @@ public:
      * @brief A get method to access the number of colours \f$N_c\f$.
      * @return the number of colours
      */
-    double getNc() const
+    const double getNc() const
     {
         return Nc;
     }
@@ -523,7 +523,7 @@ public:
      * @param[in] m the name of a meson
      * @return the object of the meson specified in the argument
      */
-    Meson getMesons(const QCD::meson m) const
+    const Meson& getMesons(const QCD::meson m) const
     {
         return mesonsMap.at(m);
     }
@@ -533,7 +533,7 @@ public:
      * @param[in] q the name of a quark
      * @return the object of the quark found in the argument
      */
-    Particle getQuarks(const QCD::quark q) const
+    const Particle& getQuarks(const QCD::quark q) const
     {
         return quarks[q];
     }
@@ -542,7 +542,7 @@ public:
      * @brief A get method to access the value of \f$\alpha_s(M_{\alpha_s})\f$.
      * @return the strong coupling constant at @f$M_{\alpha_s}@f$, @f$\alpha_s(M_{\alpha_s})@f$
      */
-    double getAlsM() const
+    const double getAlsM() const
     {
         return AlsM;
     }
@@ -551,7 +551,7 @@ public:
      * @brief A get method to access the mass scale \f$M_{\alpha_s}\f$ at which the strong coupling constant measurement is provided.
      * @return the mass scale in GeV @f$M_{\alpha_s}@f$ at which the strong coupling constant measurement is provided
      */
-    double getMAls() const
+    const double getMAls() const
     {
         return MAls;
     }
@@ -560,7 +560,7 @@ public:
      * @brief A get method to access the threshold between six- and five-flavour theory in GeV.
      * @return the threshold \f$\mu_t\f$
      */
-    double getMut() const
+    const double getMut() const
     {
         return mut;
     }
@@ -569,7 +569,7 @@ public:
      * @brief A get method to access the threshold between five- and four-flavour theory in GeV.
      * @return the threshold \f$\mu_b\f$
      */
-    double getMub() const
+    const double getMub() const
     {
         return mub;
     }
@@ -578,7 +578,7 @@ public:
      * @brief A get method to access the threshold between four- and three-flavour theory in GeV.
      * @return the threshold \f$\mu_c\f$
      */
-    double getMuc() const
+    const double getMuc() const
     {
         return muc;
     }
@@ -587,16 +587,25 @@ public:
      * @brief A get method to access the pole mass of the top quark.
      * @return the pole mass of the top quark \f$m_t^{pole}\f$
      */
-    double getMtpole() const
+    const double getMtpole() const
     {
         return mtpole;
+    }
+
+    /**
+     * @brief A method to set the pole mass of the top quark.
+     * @return the pole mass of the top quark \f$m_t^{pole}\f$
+     */
+    void setMtpole(double mtpole_in)
+    {
+        mtpole = mtpole_in;
     }
 
     /**
      * @brief A get method to access the Casimir factor of %QCD.
      * @return the Casimir factor
      */
-    double getCF() const
+    const double getCF() const
     {
         return CF;
     }
@@ -607,7 +616,7 @@ public:
      * process in the \f$B_d\f$ meson system.
      * @return the vector of bag parameters
      */
-    BParameter getBBd() const
+    const BParameter& getBBd() const
     {
         return BParameterMap.at("BBd");
     }
@@ -618,10 +627,32 @@ public:
      * process in the \f$B_s\f$ meson system.
      * @return the vector of bag parameters
      */
-    BParameter getBBs() const
+    const BParameter& getBBs() const
     {
         return BParameterMap.at("BBs");
     }
+    
+    /**
+     * @brief For getting the subleading bag parameters
+     * \f$R_2 - R_3\f$ in \f$\Delta b = 2\f$
+     * process in the \f$B_d\f$ meson system.
+     * @return the vector of bag parameters
+     */
+    const BParameter& getBBd_subleading() const
+    {
+        return BParameterMap.at("BBd_subleading");
+    }  
+    
+    /**
+     * @brief For getting the subleading bag parameters
+     * \f$R_2 - R_3\f$ in \f$\Delta b = 2\f$
+     * process in the \f$B_s\f$ meson system.
+     * @return the vector of bag parameters
+     */
+    const BParameter& getBBs_subleading() const
+    {
+        return BParameterMap.at("BBs_subleading");
+    }    
 
     /**
      * @brief For getting the bag parameters corresponding
@@ -629,7 +660,7 @@ public:
      * process in the \f$D^0\f$ meson system.
      * @return the vector of bag parameters
      */
-    BParameter getBD() const
+    const BParameter& getBD() const
     {
         return BParameterMap.at("BD");
     }
@@ -640,7 +671,7 @@ public:
      * process in the \f$K^0\f$ meson system.
      * @return the vector of bag parameters
      */
-    BParameter getBK() const
+    const BParameter& getBK() const
     {
         return BParameterMap.at("BK");
     }
@@ -648,7 +679,7 @@ public:
     /**
      * @return
      */
-    BParameter getBKd1() const
+    const BParameter& getBKd1() const
     {
         return BParameterMap.at("BKd1");
     }
@@ -656,7 +687,7 @@ public:
     /**
      * @return
      */
-    BParameter getBKd3() const
+    const BParameter& getBKd3() const
     {
         return BParameterMap.at("BKd3");
     }
@@ -670,7 +701,7 @@ public:
      * @return the threshold scale: 1.0E10 (i = 0), \f$\mu_t\f$ (i = 1),
      * \f$\mu_b\f$ (i = 2), \f$\mu_c\f$ (i = 3) and 0. (default)
      */
-    double Thresholds(const int i) const;
+    const double Thresholds(const int i) const;
 
     /**
      * @brief The active flavour threshold above the scale \f$\mu\f$
@@ -678,7 +709,7 @@ public:
      * @param[in] mu a scale \f$\mu\f$ in GeV
      * @return the higher active flavour threshold
      */
-    double AboveTh(const double mu) const;
+    const double AboveTh(const double mu) const;
 
     /**
      * @brief The active flavour threshold below the scale \f$\mu\f$
@@ -686,14 +717,14 @@ public:
      * @param[in] mu a scale \f$\mu\f$ in GeV
      * @return the lower active flavour threshold
      */
-    double BelowTh(const double mu) const;
+    const double BelowTh(const double mu) const;
 
     /**
      * @brief The number of active flavour at scale @f$\mu@f$.
      * @param[in] mu a scale @f$\mu@f$ in GeV
      * @return active N_f
      */
-    double Nf(const double mu) const;
+    const double Nf(const double mu) const;
 
     /**
      * @brief Threshold corrections in matching \f$\alpha_s(n_f+1)\f$ with \f$\alpha_s(n_f)\f$
@@ -705,14 +736,14 @@ public:
      * @param[in] order order of the expansion in  \f$\alpha_s\f$
      * @return Threshold correction (without the leading term equal to 1)
      */
-    double NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const;
+    const double NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const;
 
     /**
      * @brief Return the FULLORDER enum corresponding to order
      * @param[in] order of the expansion in \f$\alpha_s\f$
      * @return the FULLORDER enum corresponding to order
      */
-    orders FullOrder(orders order) const;
+    const orders FullOrder(orders order) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -721,28 +752,28 @@ public:
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return @f$\beta_0(n_f)@f$
      */
-    double Beta0(const double nf) const;
+    const double Beta0(const double nf) const;
 
     /**
      * @brief The \f$\beta_1(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return @f$\beta_1(n_f)@f$
      */
-    double Beta1(const double nf) const;
+    const double Beta1(const double nf) const;
 
     /**
      * @brief The \f$\beta_2(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return @f$\beta_2(n_f)@f$
      */
-    double Beta2(const double nf) const;
+    const double Beta2(const double nf) const;
 
     /**
      * @brief The \f$\beta_3(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return @f$\beta_3(n_f)@f$
      */
-    double Beta3(const double nf) const;
+    const double Beta3(const double nf) const;
 
     /**
      * @brief Computes the running strong coupling @f$\alpha_s(\mu)@f$ from @f$\alpha_s(\mu_i)@f$
@@ -755,7 +786,7 @@ public:
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    double AlsWithInit(const double mu, const double alsi, const double mu_i,
+    const double AlsWithInit(const double mu, const double alsi, const double mu_i,
             const orders order) const;
 
     /**
@@ -766,7 +797,7 @@ public:
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    double AlsWithLambda(const double mu, const orders order) const;
+    const double AlsWithLambda(const double mu, const orders order) const;
 
     /**
      * @brief Computes the running strong coupling @f$\alpha_s(\mu)@f$ in the
@@ -780,9 +811,9 @@ public:
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    double AlsOLD(const double mu, const orders order = FULLNLO) const;
-    virtual double Als(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
-    virtual double AlsByOrder(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
+    const double AlsOLD(const double mu, const orders order = FULLNLO) const;
+    virtual const double Als(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
+    virtual const double AlsByOrder(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
 
     /**
      * @brief Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV.
@@ -790,7 +821,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV
      */
-    double logLambda(const double nf, orders order) const;
+    const double logLambda(const double nf, orders order) const;
 
     /**
      * @brief The value of \f$\alpha_s^{\mathrm{FULLNLO}}\f$ at any scale \f$\mu\f$ with the number of flavours
@@ -800,7 +831,7 @@ public:
      *
      * @attention Temporary function waiting for the implementation of NNLO exact.
      */
-    double Als4(const double mu) const;
+    const double Als4(const double mu) const;
 
     /**
      * @brief The running of a mass with the number of flavours \f$n_f = 4\f$.
@@ -811,7 +842,7 @@ public:
      *
      * @attention Temporary function waiting for the implementation of NNLO exact.
      */
-    double Mrun4(const double mu_f, const double mu_i, const double m) const;
+    const double Mrun4(const double mu_f, const double mu_i, const double m) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -820,21 +851,21 @@ public:
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return the @f$\gamma_0@f$ coefficient.
      */
-    double Gamma0(const double nf) const;
+    const double Gamma0(const double nf) const;
 
     /**
      * @brief The @f$\gamma_1@f$ coefficient used to compute the running of a mass.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return the @f$\gamma_1@f$ coefficient
      */
-    double Gamma1(const double nf) const;
+    const double Gamma1(const double nf) const;
 
     /**
      * @brief The @f$\gamma_2@f$ coefficient used to compute the running of a mass.
      * @param[in] nf The number of active flavours \f$n_f\f$
      * @return the @f$\gamma_2@f$ coefficient
      */
-    double Gamma2(const double nf) const;
+    const double Gamma2(const double nf) const;
 
     /**
      * @brief Computes a running quark mass @f$m(\mu)@f$ from @f$m(m)@f$.
@@ -843,7 +874,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the running quark mass @f$m(\mu)@f$ in GeV
      */
-    double Mrun(const double mu, const double m, const orders order = FULLNNLO) const;
+    const double Mrun(const double mu, const double m, const orders order = FULLNNLO) const;
 
     /**
      * @brief Runs a quark mass from @f$\mu_i@f$ to @f$\mu_f@f$.
@@ -853,7 +884,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the running quark mass @f$m(\mu_f)@f$ in GeV
      */
-    double Mrun(const double mu_f, const double mu_i, const double m,
+    const double Mrun(const double mu_f, const double mu_i, const double m,
             const orders order = FULLNNLO) const;
 
     ////////////////////////////////////////////////////////////////////////
@@ -866,7 +897,7 @@ public:
      *
      * @attention Can only be used for conversion of mass of the top and bottom quarks.
      */
-    double Mbar2Mp(const double mbar, const orders order = FULLNNLO) const;
+    const double Mbar2Mp(const double mbar, const orders order = FULLNNLO) const;
 
     /**
      * @brief Converts a quark pole mass to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$.
@@ -874,7 +905,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      */
-    double Mp2Mbar(const double mp, const orders order = FULLNNLO) const;
+    const double Mp2Mbar(const double mp, const orders order = FULLNNLO) const;
 
     /**
      * @brief Converts a quark running mass at an arbitrary scale to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$.
@@ -882,7 +913,7 @@ public:
      * @param[in] mu the scale @f$\mu@f$ in GeV
      * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      */
-    double Mofmu2Mbar(const double m, const double mu) const;
+    const double Mofmu2Mbar(const double m, const double mu) const;
 
     /**
      * @brief Converts a quark mass from the @f$\overline{\mathrm{MS}}@f$ scheme to
@@ -891,7 +922,7 @@ public:
      * @param[in] MSbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      * @return the @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$ in GeV
      */
-    double MS2DRqmass(const double MSscale, const double MSbar) const;
+    const double MS2DRqmass(const double MSscale, const double MSbar) const;
 
     /**
      * @brief Converts a quark mass from the @f$\overline{\mathrm{MS}}@f$ scheme to
@@ -899,7 +930,7 @@ public:
      * @param[in] MSbar The @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      * @return The @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$ in GeV
      */
-    double MS2DRqmass(const double MSbar) const;
+    const double MS2DRqmass(const double MSbar) const;
 
     ////////////////////////////////////////////////////////////////////////
     /**
@@ -910,8 +941,19 @@ public:
     void CacheShift(double cache[][5], int n) const;
     void CacheShift(int cache[][5], int n) const;
 
+    /**
+     * @brief A getter for the QCDsuccess flag.
+     * @return the value of the QCDsuccess flag
+     */
+    bool isQCDsuccess() const
+    {
+        return QCDsuccess;
+    }
+
 
 protected:
+
+    mutable bool QCDsuccess=true; // A flag to check if the current calculation is successful
 
     /**
      * @brief A method to set the value of a parameter of %QCD.
@@ -925,7 +967,7 @@ protected:
      * @param[in] Nf the number of active flavour
      * @return MSbar \f$m_q(m_q)\f$
      */
-    double MassOfNf(int nf) const;
+    const double MassOfNf(int nf) const;
     
     bool computemt; ///< Switch for computing the \f$\overline{\mathrm{MS}}\f$ mass of the top quark.
     bool requireYu; ///< Switch for generating the Yukawa couplings to the up-type quarks.
@@ -972,7 +1014,7 @@ private:
      * @param[in] order the %QCD order at which \f$\alpha_s\f$ is required
      * @return \f$\alpha_s(\mu)\f$ for the specified order
      */
-    double AlsWithLambda(const double mu, const double logLambda, const orders order) const;
+    const double AlsWithLambda(const double mu, const double logLambda, const orders order) const;
 
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{\mathrm{FULLNLO}}\f$ across the six-five
@@ -982,7 +1024,7 @@ private:
      * @return the difference \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_t+\epsilon)\f$ - \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_t-\epsilon)\f$
      * with \f$\epsilon = 10^{-10}\f$
      */
-    double ZeroNf6NLO(double *logLambda6, double *logLambda5_in) const;
+    const double ZeroNf6NLO(double *logLambda6, double *logLambda5_in) const;
 
     /**
      * @brief A member for calculating the difference in \f$\alpha_s\f$ using
@@ -991,7 +1033,7 @@ private:
      * @param[in] order the %QCD order of the calculation
      * @return AlsWithLambda(\f$M_{\alpha_s}\f$, *logLambda5, *order) - \f$\alpha_s(M_{\alpha_s})\f$
      */
-    double ZeroNf5(double *logLambda5, double *order) const;
+    const double ZeroNf5(double *logLambda5, double *order) const;
 
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{\mathrm{FULLNLO}}\f$ across the four-five
@@ -1001,7 +1043,7 @@ private:
      * @return the difference \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_b-\epsilon)\f$ - \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_b+\epsilon)\f$
      * with \f$\epsilon = 10^{-10}\f$
      */
-    double ZeroNf4NLO(double *logLambda4, double *logLambda5_in) const;
+    const double ZeroNf4NLO(double *logLambda4, double *logLambda5_in) const;
 
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{\mathrm{FULLNLO}}\f$ across the three-four
@@ -1011,14 +1053,14 @@ private:
      * @return the difference \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_c-\epsilon)\f$ - \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_c+\epsilon)\f$
      * with \f$\epsilon = 10^{-10}\f$
      */
-    double ZeroNf3NLO(double *logLambda3, double *logLambda4_in) const;
+    const double ZeroNf3NLO(double *logLambda3, double *logLambda4_in) const;
 
     /**
      * @brief \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = 5\f$.
      * @param[in] order the %QCD order of the computation
      * @return \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      */
-    double logLambda5(orders order) const;
+    const double logLambda5(orders order) const;
 
     /**
      * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNLO.
@@ -1027,7 +1069,7 @@ private:
      * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = n_{f}^{\mathrm{ORG}}\f$
      * @return \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = n_{f}^{\mathrm{NEW}}\f$
      */
-    double logLambdaNLO(const double nfNEW, const double nfORG, const double logLambdaORG) const;
+    const double logLambdaNLO(const double nfNEW, const double nfORG, const double logLambdaORG) const;
 
     /**
      * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNNLO.
@@ -1039,7 +1081,7 @@ private:
      * @param[in] order the %QCD order of the calculation
      * @return \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = n_{f}^{\mathrm{NEW}}\f$
      */
-    double logLambda(const double muMatching, const double mf,
+    const double logLambda(const double muMatching, const double mf,
             const double nfNEW, const double nfORG,
             const double logLambdaORG, orders order) const;
 
@@ -1049,7 +1091,7 @@ private:
      * @param[in] nf_i the number of flavours \f$n_i\f$ before crossing the threshold
      * @return the threshold correction factor
      */
-    double threCorrForMass(const double nf_f, const double nf_i) const;
+    const double threCorrForMass(const double nf_f, const double nf_i) const;
 
     /**
      * @brief A function to calculate the running of the mass between flavour thresholds.
@@ -1059,7 +1101,7 @@ private:
      * @param[in] order the %QCD order at which the running is being calculated
      * @return the mass run from \f$\mu_i\f$ to \f$\mu_f\f$
      */
-    double MrunTMP(const double mu_f, const double mu_i, const double m, const orders order) const;
+    const double MrunTMP(const double mu_f, const double mu_i, const double m, const orders order) const;
 
     /**
      * @brief The member used for finding the numerical solution to the pole mass from the \f$\overline{\rm MS}\f$
@@ -1068,7 +1110,7 @@ private:
      * @param[in] params a pointer to a vector containing the pole mass and the %QCD order of the computation
      * @return the difference in the pole mass and the pole mass as computed from the \f$\overline{\rm MS}\f$ mass
      */
-    double Mp2MbarTMP(double *mu, double *params) const;
+    const double Mp2MbarTMP(double *mu, double *params) const;
     
     /**
      * @brief The member used for finding the numerical solution to the \f$\overline{\rm MS}\f$ mass from \f$m(\mu_i)\f$
@@ -1077,7 +1119,7 @@ private:
      * @param[in] params a pointer to a vector containing \f$m(\mu_i)\f$ and \f$\mu_i\f$
      * @return the difference of  mass and  \f$m(\mu)\f$ and \f$\mu\f$
      */
-    double Mofmu2MbarTMP(double *mu, double *params) const;
+    const double Mofmu2MbarTMP(double *mu, double *params) const;
 };
 
 #endif	/* QCD_H */

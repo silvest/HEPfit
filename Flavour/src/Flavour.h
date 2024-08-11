@@ -4,7 +4,7 @@
  *
  * For the licensing terms see doc/COPYING.
  */
-
+ 
 #ifndef FLAVOUR_H
 #define FLAVOUR_H
 
@@ -19,6 +19,7 @@ class MPll;
 class MVgamma;
 class MVlnu;
 class MPlnu;
+class AmpDB2;
 #include "QCD.h"
 #include <boost/tuple/tuple.hpp>
 #include <memory>
@@ -85,7 +86,7 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B_d \to \mu \mu \f$
      *
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR, bool SM = false) const;
 
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu() const;
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunuC() const;
@@ -162,6 +163,15 @@ public:
     gslpp::vector<gslpp::complex>** ComputeCoeffprimesgamma(double mu, schemes scheme = NDR) const;
 
     /**
+     * @brief Computes the Wilson coefficient for the process \f$ b \to s \gamma \f$.
+     * @param[in] mu the lower matching scale for the process
+     * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated
+     * @return returns the Wilson coefficients in the Buras basis for the process \f$ b \to s \gamma \f$
+     *
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma_Buras(double mu, bool noSM = false, schemes scheme = NDR) const;
+    
+    /**
      * @brief Computes the Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
      * @param[in] mu the lower matching scale for the process
      * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated
@@ -171,6 +181,15 @@ public:
     gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, QCD::lepton lepton, bool noSM = false, schemes scheme = NDR) const;
 
     /**
+     * @brief Computes the Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
+     * @param[in] mu the lower matching scale for the process
+     * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated
+     * @return returns the Wilson coefficients in the Buras basis for the process \f$ B \to V/P \ell^+ \ell^- \f$
+     *
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll_Buras(double mu, QCD::lepton lepton, bool noSM = false, schemes scheme = NDR) const;
+
+    /**
      * @brief Computes the chirality flipped Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
      * @param[in] mu the lower matching scale for the process
      * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated
@@ -178,6 +197,14 @@ public:
      *
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme = NDR) const;
+
+    /**
+     * @brief Returns a reference to the meson dependent object for \f$ \Delta B = 2 \f$ processes.
+     * @param[in] Bmeson_i specifies the meson (0 for B_d, 1 for B_s)
+     * @return returns a pointer to the meson dependent object for \f$ \Delta B = 2 \f$ processes.
+     *
+     */
+    AmpDB2& getDB2(int BMeson_i, bool flag_fixmub = false, bool flag_RI = false) const;
 
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -258,8 +285,20 @@ public:
         return (this->dispersion = dispersion);
     }
 
+    bool setFlagUsezExpansion(bool zExpansion) {
+        return (this->zExpansion = zExpansion);
+    }
+
     bool setFlagCLN(bool CLNflag) {
         return (this->CLNflag = CLNflag);
+    }
+    
+    bool setFlagBGL(bool BGLflag) {
+        return (this->BGLflag = BGLflag);
+    }
+    
+    bool setFlagDM(bool DMflag) {
+        return (this->DMflag = DMflag);
     }
 
     bool setFlagFixedWCbtos(bool FixedWCbtosflag) {
@@ -270,8 +309,20 @@ public:
         return dispersion;
     }
 
+    bool getFlagUsezExpansion() const {
+        return zExpansion;
+    }
+
     bool getFlagCLN() const {
         return CLNflag;
+    }
+    
+    bool getFlagBGL() const {
+        return BGLflag;
+    }
+    
+    bool getFlagDM() const {
+        return DMflag;
     }
 
     bool getFlagFixedWCbtos() const {
@@ -291,10 +342,14 @@ private:
     mutable std::map<std::vector<int>, std::shared_ptr<MVgamma> > MVgammaMap;
     mutable std::map<std::vector<int>, std::shared_ptr<MPll> > MPllMap;
     mutable std::map<std::vector<int>, std::shared_ptr<MPlnu> > MPlnuMap;
+    mutable std::map<std::vector<int>, std::shared_ptr<AmpDB2> > AmpDB2Map;
     mutable std::map<std::vector<int>, bool> flagUpdateMap;
 
     mutable bool dispersion;
+    mutable bool zExpansion;
     mutable bool CLNflag;
+    mutable bool BGLflag;
+    mutable bool DMflag;
     mutable bool FixedWCbtosflag;
 };
 

@@ -9,7 +9,6 @@
 #define C2BETA_H
 
 #include "ThObservable.h"
-#include "AmpDB2.h"
 
 /**
  * @class C2beta
@@ -20,14 +19,14 @@
  * @details This class is used to compute the theoretical value of
  * @f$cos2\beta@f$.
  */
-class C2beta: public ThObservable, AmpDB2 {
+class C2beta: public ThObservable {
 public:
     /**
      * @brief Constructor. 
      * @param[in] SM_i
      */
     
-    C2beta(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
+    C2beta(const StandardModel& SM_i);
     
     /**
      *

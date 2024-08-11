@@ -1,0 +1,10 @@
+# CERN-EP-2020-067, Fig 10
+# observed 95% exclusion limits on sig(pp->Zh)*BR(h->AA[->bbbb]), also applicable for h->ss[->bbbb]
+# mA[GeV] | sig(pp->Vh)*BR_95% [pb]
+15.0	1.15
+17.5	0.97
+20.0	0.72
+22.5	0.87
+25.0	1.02
+27.5	1.41
+30.0	2.2

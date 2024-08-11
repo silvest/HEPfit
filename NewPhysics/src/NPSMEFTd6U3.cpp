@@ -19,7 +19,7 @@ const std::string NPSMEFTd6U3::NPSMEFTd6U3Vars[NNPSMEFTd6U3Vars] = {
 NPSMEFTd6U3::NPSMEFTd6U3()
 : NPSMEFTd6General()
 {
-    
+    setModelName("NPSMEFTd6U3");
    
     ModelParamMap.insert(std::make_pair("CG_LNP", std::cref(CG_LNP)));
     ModelParamMap.insert(std::make_pair("CW_LNP", std::cref(CW_LNP)));

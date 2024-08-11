@@ -23,13 +23,16 @@ MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i,
     meson = meson_i;
     vectorM = vector_i;
     CLNflag = false;
+    BGLflag = false;
+    DMflag = false;
     btocNPpmflag = false;
+    NPanalysis = false;
     
     w_J = gsl_integration_cquad_workspace_alloc (100); 
     
-    checkcache_int_tau = 0;
-    checkcache_int_mu = 0;
-    checkcache_int_el = 0;
+    checkcache_int_tau = false;
+    checkcache_int_mu = false;
+    checkcache_int_el = false;
     
     double max_double = std::numeric_limits<double>::max();
     
@@ -60,6 +63,87 @@ MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i,
     aF12_cache = max_double;
     aF21_cache = max_double;
     aF22_cache = max_double;
+    
+    af_1_cache = max_double;
+    ag_1_cache = max_double;
+    aF1_1_cache = max_double;
+    aF2_1_cache = max_double;
+    af_2_cache = max_double;
+    ag_2_cache = max_double;
+    aF1_2_cache = max_double;
+    aF2_2_cache = max_double;
+    af_3_cache = max_double;
+    ag_3_cache = max_double;
+    aF1_3_cache = max_double;
+    aF2_3_cache = max_double;
+    af_4_cache = max_double;
+    ag_4_cache = max_double;
+    aF1_4_cache = max_double;
+    aF2_4_cache = max_double;
+    af_5_cache = max_double;
+    ag_5_cache = max_double;
+    aF1_5_cache = max_double;
+    aF2_5_cache = max_double;
+    af_6_cache = max_double;
+    ag_6_cache = max_double;
+    aF1_6_cache = max_double;
+    aF2_6_cache = max_double;
+    af_7_cache = max_double;
+    ag_7_cache = max_double;
+    aF1_7_cache = max_double;
+    aF2_7_cache = max_double;
+    af_8_cache = max_double;
+    ag_8_cache = max_double;
+    aF1_8_cache = max_double;
+    aF2_8_cache = max_double;
+    af_9_cache = max_double;
+    ag_9_cache = max_double;
+    aF1_9_cache = max_double;
+    aF2_9_cache = max_double;
+    af_10_cache = max_double;
+    ag_10_cache = max_double;
+    aF1_10_cache = max_double;
+    aF2_10_cache = max_double;
+    bf_1_cache = max_double;
+    bg_1_cache = max_double;
+    bF1_1_cache = max_double;
+    bF2_1_cache = max_double;
+    bf_2_cache = max_double;
+    bg_2_cache = max_double;
+    bF1_2_cache = max_double;
+    bF2_2_cache = max_double;
+    bf_3_cache = max_double;
+    bg_3_cache = max_double;
+    bF1_3_cache = max_double;
+    bF2_3_cache = max_double;
+    bf_4_cache = max_double;
+    bg_4_cache = max_double;
+    bF1_4_cache = max_double;
+    bF2_4_cache = max_double;
+    bf_5_cache = max_double;
+    bg_5_cache = max_double;
+    bF1_5_cache = max_double;
+    bF2_5_cache = max_double;
+    bf_6_cache = max_double;
+    bg_6_cache = max_double;
+    bF1_6_cache = max_double;
+    bF2_6_cache = max_double;
+    bf_7_cache = max_double;
+    bg_7_cache = max_double;
+    bF1_7_cache = max_double;
+    bF2_7_cache = max_double;
+    bf_8_cache = max_double;
+    bg_8_cache = max_double;
+    bF1_8_cache = max_double;
+    bF2_8_cache = max_double;
+    bf_9_cache = max_double;
+    bg_9_cache = max_double;
+    bF1_9_cache = max_double;
+    bF2_9_cache = max_double;
+    bf_10_cache = max_double;
+    bg_10_cache = max_double;
+    bF1_10_cache = max_double;
+    bF2_10_cache = max_double;
 
     CS_cache = max_double;
     CSp_cache = max_double;
@@ -79,29 +163,59 @@ MVlnu::~MVlnu() {
 std::vector<std::string> MVlnu::initializeMVlnuParameters()
 {
     CLNflag = mySM.getFlavour().getFlagCLN();
+    BGLflag = mySM.getFlavour().getFlagBGL();
+    DMflag = mySM.getFlavour().getFlagDM();
     btocNPpmflag = (mySM.getModelName().compare("RealWeakEFTCCPM") == 0);
-    NPanalysis = (mySM.getModelName().compare("RealWeakEFTCCPM") == 0 || mySM.getModelName().compare("RealWeakEFTCC") == 0);
-
-    if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
-        << "af0" << "af1" << "af2" << "ag0" << "ag1" << "ag2"
-        << "aF11" << "aF12" << "aF21" << "aF22"
-        << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
-        << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
-        << "mBcstP1" << "mBcstP2" << "mBcstP3"
-        << "chiTV" << "chiTA" << "chiTP" << "nI";
-    else {
-        std::stringstream out;
-        out << vectorM;
-        throw std::runtime_error("MVlnu: vector " + out.str() + " not implemented");
-    }
-
+    NPanalysis = (mySM.getModelName().compare("RealWeakEFTCCPM") == 0 || mySM.getModelName().compare("RealWeakEFTCC") == 0);   
+    
+    if (CLNflag + BGLflag + DMflag != true) throw std::runtime_error("MVlnu: Set only one among CLNflag, BGLflag, DMflag to true");
+    else mvlnuParameters = make_vector<std::string>();
     if (CLNflag) {
         mvlnuParameters.clear();
         if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
             << "hA1w1" << "rho2" << "R1w1" << "R2w1"
             << "N_A" << "N_1" << "N_2" << "j_A" << "j_0" << "j_1" << "j_2"
             << "k_A" << "k_0" << "k_1" << "k_2" << "l_A";
-    }    
+    } 
+    else if (BGLflag) {
+        mvlnuParameters.clear();
+        if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
+            << "af0" << "af1" << "af2" << "ag0" << "ag1" << "ag2"
+            << "aF11" << "aF12" << "aF21" << "aF22"
+            << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
+            << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
+            << "mBcstP1" << "mBcstP2" << "mBcstP3"
+            << "chiTV" << "chiTA" << "chiTP" << "nI";
+    }
+    else if (DMflag){
+        mvlnuParameters.clear();
+        if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>() 
+            << "af_1" << "ag_1" << "aF1_1" << "aF2_1"
+            << "af_2" << "ag_2" << "aF1_2" << "aF2_2"
+            << "af_3" << "ag_3" << "aF1_3" << "aF2_3"
+            << "af_4" << "ag_4" << "aF1_4" << "aF2_4"
+            << "af_5" << "ag_5" << "aF1_5" << "aF2_5"
+            << "af_6" << "ag_6" << "aF1_6" << "aF2_6"
+            << "af_7" << "ag_7" << "aF1_7" << "aF2_7"
+            << "af_8" << "ag_8" << "aF1_8" << "aF2_8"
+            << "af_9" << "ag_9" << "aF1_9" << "aF2_9"
+            << "af_10" << "ag_10" << "aF1_10" << "aF2_10"
+            << "bf_1" << "bg_1" << "bF1_1" << "bF2_1"
+            << "bf_2" << "bg_2" << "bF1_2" << "bF2_2"
+            << "bf_3" << "bg_3" << "bF1_3" << "bF2_3"
+            << "bf_4" << "bg_4" << "bF1_4" << "bF2_4"
+            << "bf_5" << "bg_5" << "bF1_5" << "bF2_5"
+            << "bf_6" << "bg_6" << "bF1_6" << "bF2_6"
+            << "bf_7" << "bg_7" << "bF1_7" << "bF2_7"
+            << "bf_8" << "bg_8" << "bF1_8" << "bF2_8"
+            << "bf_9" << "bg_9" << "bF1_9" << "bF2_9"
+            << "bf_10" << "bg_10" << "bF1_10" << "bF2_10";
+    }
+    else {
+        std::stringstream out;
+        out << vectorM;
+        throw std::runtime_error("MVlnu: vector " + out.str() + " not implemented");
+    }
 
     mySM.initializeMeson(meson);
     mySM.initializeMeson(vectorM);
@@ -194,48 +308,8 @@ void MVlnu::updateParameters()
                 k_1 = mySM.getOptionalParameter("k_1");
                 k_2 = mySM.getOptionalParameter("k_2");
                 l_A = mySM.getOptionalParameter("l_A");
-                af0 = 0.;
-                af1 = 0.;
-                af2 = 0.;
-                ag0 = 0.;
-                ag1 = 0.;
-                ag2 = 0.;
-                aF11 = 0.;
-                aF12 = 0.;
-                aF21 = 0.;
-                aF22 = 0.;
-                mBcstV1 = 0.;
-                mBcstV2 = 0.;
-                mBcstV3 = 0.;
-                mBcstV4 = 0.;
-                mBcstA1 = 0.;
-                mBcstA2 = 0.;
-                mBcstA3 = 0.;
-                mBcstA4 = 0.;
-                mBcstP1 = 0.;
-                mBcstP2 = 0.;
-                mBcstP3 = 0.;
-                chiTV = 0.;
-                chiTA = 0.;
-                chiTP = 0.;
-                nI = 0.;
-            } else {
-                hA1w1 = 0.;
-                rho2 = 0.;
-                R1w1 = 0.;
-                R2w1 = 0.;
-                N_A = 0.;
-                N_1 = 0.;
-                N_2 = 0.;
-                j_A = 0.;
-                j_0 = 0.;
-                j_1 = 0.;
-                j_2 = 0.;
-                k_A = 0.;
-                k_0 = 0.;
-                k_1 = 0.;
-                k_2 = 0.;
-                l_A = 0.;
+            } 
+            else if (BGLflag) {
                 af0 = mySM.getOptionalParameter("af0");
                 af1 = mySM.getOptionalParameter("af1");
                 af2 = mySM.getOptionalParameter("af2");
@@ -261,59 +335,160 @@ void MVlnu::updateParameters()
                 chiTA = mySM.getOptionalParameter("chiTA");
                 chiTP = mySM.getOptionalParameter("chiTP");
                 nI = mySM.getOptionalParameter("nI");
+                
+                zV1 = sqrt((MM+MV)*(MM+MV)-mBcstV1*mBcstV1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zV1 /= (sqrt((MM+MV)*(MM+MV)-mBcstV1*mBcstV1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+                zV2 = sqrt((MM+MV)*(MM+MV)-mBcstV2*mBcstV2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zV2 /= (sqrt((MM+MV)*(MM+MV)-mBcstV2*mBcstV2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+                zV3 = sqrt((MM+MV)*(MM+MV)-mBcstV3*mBcstV3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zV3 /= (sqrt((MM+MV)*(MM+MV)-mBcstV3*mBcstV3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+                zV4 = sqrt((MM+MV)*(MM+MV)-mBcstV4*mBcstV4)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zV4 /= (sqrt((MM+MV)*(MM+MV)-mBcstV4*mBcstV4)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+
+                zA1 = sqrt((MM+MV)*(MM+MV)-mBcstA1*mBcstA1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zA1 /= (sqrt((MM+MV)*(MM+MV)-mBcstA1*mBcstA1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+                zA2 = sqrt((MM+MV)*(MM+MV)-mBcstA2*mBcstA2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zA2 /= (sqrt((MM+MV)*(MM+MV)-mBcstA2*mBcstA2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+                zA3 = sqrt((MM+MV)*(MM+MV)-mBcstA3*mBcstA3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zA3 /= (sqrt((MM+MV)*(MM+MV)-mBcstA3*mBcstA3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+                zA4 = sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zA4 /= (sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+
+                zP1 = sqrt((MM+MV)*(MM+MV)-mBcstP1*mBcstP1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zP1 /= (sqrt((MM+MV)*(MM+MV)-mBcstP1*mBcstP1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+                zP2 = sqrt((MM+MV)*(MM+MV)-mBcstP2*mBcstP2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zP2 /= (sqrt((MM+MV)*(MM+MV)-mBcstP2*mBcstP2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+                zP3 = sqrt((MM+MV)*(MM+MV)-mBcstP3*mBcstP3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+                zP3 /= (sqrt((MM+MV)*(MM+MV)-mBcstP3*mBcstP3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
             }
+            else if (DMflag) {
+                af_1 = mySM.getOptionalParameter("af_1");
+                ag_1 = mySM.getOptionalParameter("ag_1");
+                aF1_1 = mySM.getOptionalParameter("aF1_1");
+                aF2_1 = mySM.getOptionalParameter("aF2_1");
+                af_2 = mySM.getOptionalParameter("af_2");
+                ag_2 = mySM.getOptionalParameter("ag_2");
+                aF1_2 = mySM.getOptionalParameter("aF1_2");
+                aF2_2 = mySM.getOptionalParameter("aF2_2");
+                af_3 = mySM.getOptionalParameter("af_3");
+                ag_3 = mySM.getOptionalParameter("ag_3");
+                aF1_3 = mySM.getOptionalParameter("aF1_3");
+                aF2_3 = mySM.getOptionalParameter("aF2_3");
+                af_4 = mySM.getOptionalParameter("af_4");
+                ag_4 = mySM.getOptionalParameter("ag_4");
+                aF1_4 = mySM.getOptionalParameter("aF1_4");
+                aF2_4 = mySM.getOptionalParameter("aF2_4");
+                af_5 = mySM.getOptionalParameter("af_5");
+                ag_5 = mySM.getOptionalParameter("ag_5");
+                aF1_5 = mySM.getOptionalParameter("aF1_5");
+                aF2_5 = mySM.getOptionalParameter("aF2_5");
+                af_6 = mySM.getOptionalParameter("af_6");
+                ag_6 = mySM.getOptionalParameter("ag_6");
+                aF1_6 = mySM.getOptionalParameter("aF1_6");
+                aF2_6 = mySM.getOptionalParameter("aF2_6");
+                af_7 = mySM.getOptionalParameter("af_7");
+                ag_7 = mySM.getOptionalParameter("ag_7");
+                aF1_7 = mySM.getOptionalParameter("aF1_7");
+                aF2_7 = mySM.getOptionalParameter("aF2_7");
+                af_8 = mySM.getOptionalParameter("af_8");
+                ag_8 = mySM.getOptionalParameter("ag_8");
+                aF1_8 = mySM.getOptionalParameter("aF1_8");
+                aF2_8 = mySM.getOptionalParameter("aF2_8");
+                af_9 = mySM.getOptionalParameter("af_9");
+                ag_9 = mySM.getOptionalParameter("ag_9");
+                aF1_9 = mySM.getOptionalParameter("aF1_9");
+                aF2_9 = mySM.getOptionalParameter("aF2_9");
+                af_10 = mySM.getOptionalParameter("af_10");
+                ag_10 = mySM.getOptionalParameter("ag_10");
+                aF1_10 = mySM.getOptionalParameter("aF1_10");
+                aF2_10 = mySM.getOptionalParameter("aF2_10");
+                bf_1 = mySM.getOptionalParameter("bf_1");
+                bg_1 = mySM.getOptionalParameter("bg_1");
+                bF1_1 = mySM.getOptionalParameter("bF1_1");
+                bF2_1 = mySM.getOptionalParameter("bF2_1");
+                bf_2 = mySM.getOptionalParameter("bf_2");
+                bg_2 = mySM.getOptionalParameter("bg_2");
+                bF1_2 = mySM.getOptionalParameter("bF1_2");
+                bF2_2 = mySM.getOptionalParameter("bF2_2");
+                bf_3 = mySM.getOptionalParameter("bf_3");
+                bg_3 = mySM.getOptionalParameter("bg_3");
+                bF1_3 = mySM.getOptionalParameter("bF1_3");
+                bF2_3 = mySM.getOptionalParameter("bF2_3");
+                bf_4 = mySM.getOptionalParameter("bf_4");
+                bg_4 = mySM.getOptionalParameter("bg_4");
+                bF1_4 = mySM.getOptionalParameter("bF1_4");
+                bF2_4 = mySM.getOptionalParameter("bF2_4");
+                bf_5 = mySM.getOptionalParameter("bf_5");
+                bg_5 = mySM.getOptionalParameter("bg_5");
+                bF1_5 = mySM.getOptionalParameter("bF1_5");
+                bF2_5 = mySM.getOptionalParameter("bF2_5");
+                bf_6 = mySM.getOptionalParameter("bf_6");
+                bg_6 = mySM.getOptionalParameter("bg_6");
+                bF1_6 = mySM.getOptionalParameter("bF1_6");
+                bF2_6 = mySM.getOptionalParameter("bF2_6");
+                bf_7 = mySM.getOptionalParameter("bf_7");
+                bg_7 = mySM.getOptionalParameter("bg_7");
+                bF1_7 = mySM.getOptionalParameter("bF1_7");
+                bF2_7 = mySM.getOptionalParameter("bF2_7");
+                bf_8 = mySM.getOptionalParameter("bf_8");
+                bg_8 = mySM.getOptionalParameter("bg_8");
+                bF1_8 = mySM.getOptionalParameter("bF1_8");
+                bF2_8 = mySM.getOptionalParameter("bF2_8");
+                bf_9 = mySM.getOptionalParameter("bf_9");
+                bg_9 = mySM.getOptionalParameter("bg_9");
+                bF1_9 = mySM.getOptionalParameter("bF1_9");
+                bF2_9 = mySM.getOptionalParameter("bF2_9");
+                bf_10 = mySM.getOptionalParameter("bf_10");
+                bg_10 = mySM.getOptionalParameter("bg_10");
+                bF1_10 = mySM.getOptionalParameter("bF1_10");
+                bF2_10 = mySM.getOptionalParameter("bF2_10");
+            }
+        else{};
             break;
         default:
             std::stringstream out;
             out << vectorM;
             throw std::runtime_error("MVlnu: vector " + out.str() + " not implemented");
     }
-    
-    zV1 = sqrt((MM+MV)*(MM+MV)-mBcstV1*mBcstV1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zV1 /= (sqrt((MM+MV)*(MM+MV)-mBcstV1*mBcstV1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zV2 = sqrt((MM+MV)*(MM+MV)-mBcstV2*mBcstV2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zV2 /= (sqrt((MM+MV)*(MM+MV)-mBcstV2*mBcstV2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zV3 = sqrt((MM+MV)*(MM+MV)-mBcstV3*mBcstV3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zV3 /= (sqrt((MM+MV)*(MM+MV)-mBcstV3*mBcstV3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zV4 = sqrt((MM+MV)*(MM+MV)-mBcstV4*mBcstV4)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zV4 /= (sqrt((MM+MV)*(MM+MV)-mBcstV4*mBcstV4)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-
-    zA1 = sqrt((MM+MV)*(MM+MV)-mBcstA1*mBcstA1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zA1 /= (sqrt((MM+MV)*(MM+MV)-mBcstA1*mBcstA1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zA2 = sqrt((MM+MV)*(MM+MV)-mBcstA2*mBcstA2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zA2 /= (sqrt((MM+MV)*(MM+MV)-mBcstA2*mBcstA2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zA3 = sqrt((MM+MV)*(MM+MV)-mBcstA3*mBcstA3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zA3 /= (sqrt((MM+MV)*(MM+MV)-mBcstA3*mBcstA3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zA4 = sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zA4 /= (sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    
-    zP1 = sqrt((MM+MV)*(MM+MV)-mBcstP1*mBcstP1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zP1 /= (sqrt((MM+MV)*(MM+MV)-mBcstP1*mBcstP1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zP2 = sqrt((MM+MV)*(MM+MV)-mBcstP2*mBcstP2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zP2 /= (sqrt((MM+MV)*(MM+MV)-mBcstP2*mBcstP2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
-    zP3 = sqrt((MM+MV)*(MM+MV)-mBcstP3*mBcstP3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
-    zP3 /= (sqrt((MM+MV)*(MM+MV)-mBcstP3*mBcstP3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
 
     if ((hA1w1 != hA1w1_cache) || (rho2 != rho2_cache) || (R1w1 != R1w1_cache) || (R2w1 != R2w1_cache)
-            || (N_A != N_A_cache) || (N_1 != N_1_cache) || (N_2 != N_2_cache)
+            || (N_A != N_A_cache) || (N_1 != N_1_cache) || (N_2 != N_2_cache) || (l_A != l_A_cache)
             || (j_A != j_A_cache) || (j_0 != j_0_cache) || (j_1 != j_1_cache) || (j_2 != j_2_cache)
             || (k_A != k_A_cache) || (k_0 != k_0_cache) || (k_1 != k_1_cache) || (k_2 != k_2_cache)
-            || (l_A != l_A_cache)
-            || (af0 != af0_cache) || (af1 != af1_cache) || (af2 != af2_cache)
+            || (af0 != af0_cache) || (af1 != af1_cache) || (af2 != af2_cache) 
             || (ag0 != ag0_cache) || (ag1 != af1_cache) || (ag2 != af2_cache)
-            || (aF11 != aF11_cache) || (aF12 != aF12_cache)
-            || (aF21 != aF21_cache) || (aF22 != aF22_cache)
+            || (aF11 != aF11_cache) || (aF12 != aF12_cache) || (aF21 != aF21_cache) || (aF22 != aF22_cache)
+            || (af_1 != af_1_cache) || (ag_1 != ag_1_cache) || (aF1_1 != aF1_1_cache) || (aF2_1 != aF2_1_cache)
+            || (af_2 != af_2_cache) || (ag_2 != ag_2_cache) || (aF1_2 != aF1_2_cache) || (aF2_2 != aF2_2_cache)
+            || (af_3 != af_3_cache) || (ag_3 != ag_3_cache) || (aF1_3 != aF1_3_cache) || (aF2_3 != aF2_3_cache)
+            || (af_4 != af_4_cache) || (ag_4 != ag_4_cache) || (aF1_4 != aF1_4_cache) || (aF2_4 != aF2_4_cache)
+            || (af_5 != af_5_cache) || (ag_5 != ag_5_cache) || (aF1_5 != aF1_5_cache) || (aF2_5 != aF2_5_cache)
+            || (af_6 != af_6_cache) || (ag_6 != ag_6_cache) || (aF1_6 != aF1_6_cache) || (aF2_6 != aF2_6_cache)
+            || (af_7 != af_7_cache) || (ag_7 != ag_7_cache) || (aF1_7 != aF1_7_cache) || (aF2_7 != aF2_7_cache)
+            || (af_8 != af_8_cache) || (ag_8 != ag_8_cache) || (aF1_8 != aF1_8_cache) || (aF2_8 != aF2_8_cache)
+            || (af_9 != af_9_cache) || (ag_9 != ag_9_cache) || (aF1_9 != aF1_9_cache) || (aF2_9 != aF2_9_cache)
+            || (af_10 != af_10_cache) || (ag_10 != ag_10_cache) || (aF1_10 != aF1_10_cache) || (aF2_10 != aF2_10_cache)
+            || (bf_1 != bf_1_cache) || (bg_1 != bg_1_cache) || (bF1_1 != bF1_1_cache) || (bF2_1 != bF2_1_cache)
+            || (bf_2 != bf_2_cache) || (bg_2 != bg_2_cache) || (bF1_2 != bF1_2_cache) || (bF2_2 != bF2_2_cache)
+            || (bf_3 != bf_3_cache) || (bg_3 != bg_3_cache) || (bF1_3 != bF1_3_cache) || (bF2_3 != bF2_3_cache)
+            || (bf_4 != bf_4_cache) || (bg_4 != bg_4_cache) || (bF1_4 != bF1_4_cache) || (bF2_4 != bF2_4_cache)
+            || (bf_5 != bf_5_cache) || (bg_5 != bg_5_cache) || (bF1_5 != bF1_5_cache) || (bF2_5 != bF2_5_cache)
+            || (bf_6 != bf_6_cache) || (bg_6 != bg_6_cache) || (bF1_6 != bF1_6_cache) || (bF2_6 != bF2_6_cache)
+            || (bf_7 != bf_7_cache) || (bg_7 != bg_7_cache) || (bF1_7 != bF1_7_cache) || (bF2_7 != bF2_7_cache)
+            || (bf_8 != bf_8_cache) || (bg_8 != bg_8_cache) || (bF1_8 != bF1_8_cache) || (bF2_8 != bF2_8_cache)
+            || (bf_9 != bf_9_cache) || (bg_9 != bg_9_cache) || (bF1_9 != bF1_9_cache) || (bF2_9 != bF2_9_cache)
+            || (bf_10 != bf_10_cache) || (bg_10 != bg_10_cache) || (bF1_10 != bF1_10_cache) || (bF2_10 != bF2_10_cache)
             || (CS != CS_cache) || (CSp != CSp_cache)
             || (CP != CP_cache) || (CPp != CPp_cache)
             || (CV != CV_cache) || (CVp != CVp_cache)
             || (CA != CA_cache) || (CAp != CAp_cache)
             || (CT != CT_cache) || (CTp != CTp_cache)) {
-        checkcache_int_tau = 0;
-        checkcache_int_mu = 0;
-        checkcache_int_el = 0;
+        checkcache_int_tau = false;
+        checkcache_int_mu = false;
+        checkcache_int_el = false;
     }
     
-    if ((checkcache_int_tau == 0) || (checkcache_int_mu == 0) || (checkcache_int_el == 0)) {
+    if (!checkcache_int_tau || !checkcache_int_mu || !checkcache_int_el) {
         if (lep == StandardModel::TAU) {
             cached_intJ1s_tau = integrateJ(1, q2min, q2max);
             cached_intJ1c_tau = integrateJ(2, q2min, q2max);
@@ -334,7 +509,7 @@ void MVlnu::updateParameters()
             cached_intJ7_tau = integrateJ(10,q2min,q2max);
             cached_intJ8_tau = integrateJ(11,q2min,q2max);
              */
-            checkcache_int_tau = 1;
+            checkcache_int_tau = true;
         }
         if (lep == StandardModel::MU) {
             cached_intJ1s_mu = integrateJ(1, q2min, q2max);
@@ -356,7 +531,7 @@ void MVlnu::updateParameters()
             cached_intJ7_mu = integrateJ(10,q2min,q2max);
             cached_intJ8_mu = integrateJ(11,q2min,q2max);
              */
-            checkcache_int_mu = 1;
+            checkcache_int_mu = true;
         }
         if (lep == StandardModel::ELECTRON) {
             cached_intJ1s_el = integrateJ(1, q2min, q2max);
@@ -378,38 +553,123 @@ void MVlnu::updateParameters()
             cached_intJ7_el = integrateJ(10,q2min,q2max);
             cached_intJ8_el = integrateJ(11,q2min,q2max);
              */
-            checkcache_int_el = 1;
+            checkcache_int_el = true;
         }
     }
-
-    hA1w1_cache = hA1w1;
-    rho2_cache = rho2;
-    R1w1_cache = R1w1;
-    R2w1_cache = R2w1;
-    N_A_cache = N_A;
-    N_1_cache =N_1;
-    N_2_cache = N_2;
-    j_A_cache= j_A;
-    j_0_cache = j_0;
-    j_1_cache = j_1;
-    j_2_cache = j_2;
-    k_A_cache = k_A;
-    k_0_cache = k_0;
-    k_1_cache = k_1;
-    k_2_cache = k_2;
-    l_A_cache = l_A;
-
-    af0_cache = af0;
-    af1_cache = af1;
-    af2_cache = af2;
-    ag0_cache = ag0;
-    ag1_cache = ag1;
-    ag2_cache = ag2;
-    aF11_cache = aF11;
-    aF12_cache = aF12;
-    aF21_cache = aF21;
-    aF22_cache = aF22;
-
+    if (CLNflag) {
+        hA1w1_cache = hA1w1;
+        rho2_cache = rho2;
+        R1w1_cache = R1w1;
+        R2w1_cache = R2w1;
+        N_A_cache = N_A;
+        N_1_cache =N_1;
+        N_2_cache = N_2;
+        j_A_cache= j_A;
+        j_0_cache = j_0;
+        j_1_cache = j_1;
+        j_2_cache = j_2;
+        k_A_cache = k_A;
+        k_0_cache = k_0;
+        k_1_cache = k_1;
+        k_2_cache = k_2;
+        l_A_cache = l_A;
+    }
+    else if (BGLflag){
+        af0_cache = af0;
+        af1_cache = af1;
+        af2_cache = af2;
+        ag0_cache = ag0;
+        ag1_cache = ag1;
+        ag2_cache = ag2;
+        aF11_cache = aF11;
+        aF12_cache = aF12;
+        aF21_cache = aF21;
+        aF22_cache = aF22;
+    }
+    else if (DMflag){
+        af_1_cache = af_1;
+        ag_1_cache = ag_1;
+        aF1_1_cache = aF1_1;
+        aF2_1_cache = aF2_1;
+        af_2_cache = af_2;
+        ag_2_cache = ag_2;
+        aF1_2_cache = aF1_2;
+        aF2_2_cache = aF2_2;
+        af_3_cache = af_3;
+        ag_3_cache = ag_3;
+        aF1_3_cache = aF1_3;
+        aF2_3_cache = aF2_3;
+        af_4_cache = af_4;
+        ag_4_cache = ag_4;
+        aF1_4_cache = aF1_4;
+        aF2_4_cache = aF2_4;
+        af_5_cache = af_5;
+        ag_5_cache = ag_5;
+        aF1_5_cache = aF1_5;
+        aF2_5_cache = aF2_5;
+        af_6_cache = af_6;
+        ag_6_cache = ag_6;
+        aF1_6_cache = aF1_6;
+        aF2_6_cache = aF2_6;
+        af_7_cache = af_7;
+        ag_7_cache = ag_7;
+        aF1_7_cache = aF1_7;
+        aF2_7_cache = aF2_7;
+        af_8_cache = af_8;
+        ag_8_cache = ag_8;
+        aF1_8_cache = aF1_8;
+        aF2_8_cache = aF2_8;
+        af_9_cache = af_9;
+        ag_9_cache = ag_9;
+        aF1_9_cache = aF1_9;
+        aF2_9_cache = aF2_9;
+        af_10_cache = af_10;
+        ag_10_cache = ag_10;
+        aF1_10_cache = aF1_10;
+        aF2_10_cache = aF2_10;
+        bf_1_cache = bf_1;
+        bg_1_cache = bg_1;
+        bF1_1_cache = bF1_1;
+        bF2_1_cache = bF2_1;
+        bf_2_cache = bf_2;
+        bg_2_cache = bg_2;
+        bF1_2_cache = bF1_2;
+        bF2_2_cache = bF2_2;
+        bf_3_cache = bf_3;
+        bg_3_cache = bg_3;
+        bF1_3_cache = bF1_3;
+        bF2_3_cache = bF2_3;
+        bf_4_cache = bf_4;
+        bg_4_cache = bg_4;
+        bF1_4_cache = bF1_4;
+        bF2_4_cache = bF2_4;
+        bf_5_cache = bf_5;
+        bg_5_cache = bg_5;
+        bF1_5_cache = bF1_5;
+        bF2_5_cache = bF2_5;
+        bf_6_cache = bf_6;
+        bg_6_cache = bg_6;
+        bF1_6_cache = bF1_6;
+        bF2_6_cache = bF2_6;
+        bf_7_cache = bf_7;
+        bg_7_cache = bg_7;
+        bF1_7_cache = bF1_7;
+        bF2_7_cache = bF2_7;
+        bf_8_cache = bf_8;
+        bg_8_cache = bg_8;
+        bF1_8_cache = bF1_8;
+        bF2_8_cache = bF2_8;
+        bf_9_cache = bf_9;
+        bg_9_cache = bg_9;
+        bF1_9_cache = bF1_9;
+        bF2_9_cache = bF2_9;
+        bf_10_cache = bf_10;
+        bg_10_cache = bg_10;
+        bF1_10_cache = bF1_10;
+        bF2_10_cache = bF2_10;
+    }
+    else{};
+    
     CS_cache = CS;
     CSp_cache = CSp;
     CP_cache = CP;
@@ -521,7 +781,23 @@ double MVlnu::hA1(double q2)
     double w = w0 - q2 / (2. * MM * MV);
     double z = (sqrt(w + 1.) - M_SQRT2) / (sqrt(w + 1.) + M_SQRT2);
     if (CLNflag) return hA1w1 * N_A * (1. - j_A * 8. * rho2 * z + k_A * (53. * rho2 - 15.) * z * z - l_A * (231. * rho2 - 91.) * z * z * z);
-    else return f_BGL(q2) / sqrt(MM * MV) / (1. + w);
+    else if (BGLflag)  return(f_BGL(q2) / sqrt(MM * MV) / (1. + w));
+    else if (DMflag) {
+        double w = w0 - q2 / (2. * MM * MV);
+        double f_fac = 0.;
+        if (w<1.05) {f_fac = af_1 + bf_1 * w;}
+        else if (w<1.10) {f_fac = af_2 + bf_2 * w;}
+        else if (w<1.15) {f_fac = af_3 + bf_3 * w;}
+        else if (w<1.20) {f_fac = af_4 + bf_4 * w;}
+        else if (w<1.25) {f_fac = af_5 + bf_5 * w;}
+        else if (w<1.30) {f_fac = af_6 + bf_6 * w;}
+        else if (w<1.35) {f_fac = af_7 + bf_7 * w;}
+        else if (w<1.40) {f_fac = af_8 + bf_8 * w;}
+        else if (w<1.45) {f_fac = af_9 + bf_9 * w;}
+        else {f_fac = af_10 + bf_10 * w;}
+        return f_fac / sqrt(MM * MV) / (1. + w);
+    }
+    else return 0.;
 }
 
 double MVlnu::R1(double q2)
@@ -551,27 +827,86 @@ double MVlnu::R0(double q2)
 double MVlnu::V(double q2)
 {
     if (CLNflag) return R1(q2) / RV * hA1(q2);
-    else return (MM + MV) * g_BGL(q2) / 2.;
+    else if (BGLflag)  return (MM + MV) * g_BGL(q2) / 2.;
+    else if (DMflag) {
+        double w = w0 - q2 / (2. * MM * MV);
+        double g_fac = 0.;
+        if (w<1.05) {g_fac = ag_1 + bg_1 * w;}
+        else if (w<1.10) {g_fac = ag_2 + bg_2 * w;}
+        else if (w<1.15) {g_fac = ag_3 + bg_3 * w;}
+        else if (w<1.20) {g_fac = ag_4 + bg_4 * w;}
+        else if (w<1.25) {g_fac = ag_5 + bg_5 * w;}
+        else if (w<1.30) {g_fac = ag_6 + bg_6 * w;}
+        else if (w<1.35) {g_fac = ag_7 + bg_7 * w;}
+        else if (w<1.40) {g_fac = ag_8 + bg_8 * w;}
+        else if (w<1.45) {g_fac = ag_9 + bg_9 * w;}
+        else {g_fac = ag_10 + bg_10 * w;}
+        return (MM + MV) * g_fac / 2.;
+    }
+    else return 0.;
 }
 
 double MVlnu::A0(double q2)
 {
     double w = w0 - q2 / (2. * MM * MV);
-    if (CLNflag) return R0(q2) / RV * hA1(q2);
-    else return F2_BGL(q2) / RV / (1. + w);
+    // A0 = RV * P1 = R0 * A1
+    if (CLNflag) return R0(q2) * (w + 1.) * RV / 2. * hA1(q2);
+    // F2 = P1 / (RV / 2.)
+    else if (BGLflag) return F2_BGL(q2) / 2.;
+    else if (DMflag) {
+        double w = w0 - q2 / (2. * MM * MV);
+        double F2_fac = 0.;
+        if (w<1.05) {F2_fac = aF2_1 + bF2_1 * w;} 
+        else if (w<1.10) {F2_fac = aF2_2 + bF2_2 * w;} 
+        else if (w<1.15) {F2_fac = aF2_3 + bF2_3 * w;} 
+        else if (w<1.20) {F2_fac = aF2_4 + bF2_4 * w;} 
+        else if (w<1.25) {F2_fac = aF2_5 + bF2_5 * w;} 
+        else if (w<1.30) {F2_fac = aF2_6 + bF2_6 * w;} 
+        else if (w<1.35) {F2_fac = aF2_7 + bF2_7 * w;} 
+        else if (w<1.40) {F2_fac = aF2_8 + bF2_8 * w;} 
+        else if (w<1.45) {F2_fac = aF2_9 + bF2_9 * w;} 
+        else {F2_fac = aF2_10 + bF2_10 * w;} 
+        return F2_fac / 2.;
+    }
+    else return 0.;
 }
 
 double MVlnu::A1(double q2)
 {
+    /* form factor in 1:1 with hA1 */
     double w = w0 - q2 / (2. * MM * MV);
-    return (w + 1.)*RV / 2. * hA1(q2);
+    return (w + 1.) * RV / 2. * hA1(q2);
 }
 
 double MVlnu::A2(double q2)
 {
     double w = w0 - q2 / (2. * MM * MV);
     if (CLNflag) return R2(q2) / RV * hA1(q2);
-    else return (MM + MV) / 2. / (w * w - 1.) / MM / MV * ((w - MV_o_MM) * f_BGL(q2) - F1_BGL(q2) / MM);
+    else if (BGLflag) return (MM + MV) / 2. / (w * w - 1.) / MM / MV * ((w - MV_o_MM) * f_BGL(q2) - F1_BGL(q2) / MM);
+    else if (DMflag) {
+        double w = w0 - q2 / (2. * MM * MV);
+        double f_fac = 0.;
+        double F1_fac = 0.;
+        if (w<1.05) {f_fac = af_1 + bf_1 * w; F1_fac = aF1_1 + bF1_1 * w;}
+        else if (w<1.10) {f_fac = af_2 + bf_2 * w; F1_fac = aF1_2 + bF1_2 * w;}
+        else if (w<1.15) {f_fac = af_3 + bf_3 * w; F1_fac = aF1_3 + bF1_3 * w;}
+        else if (w<1.20) {f_fac = af_4 + bf_4 * w; F1_fac = aF1_4 + bF1_4 * w;}
+        else if (w<1.25) {f_fac = af_5 + bf_5 * w; F1_fac = aF1_5 + bF1_5 * w;}
+        else if (w<1.30) {f_fac = af_6 + bf_6 * w; F1_fac = aF1_6 + bF1_6 * w;}
+        else if (w<1.35) {f_fac = af_7 + bf_7 * w; F1_fac = aF1_7 + bF1_7 * w;}
+        else if (w<1.40) {f_fac = af_8 + bf_8 * w; F1_fac = aF1_8 + bF1_8 * w;}
+        else if (w<1.45) {f_fac = af_9 + bf_9 * w; F1_fac = aF1_9 + bF1_9 * w;}
+        else {f_fac = af_10 + bf_10 * w; F1_fac = aF1_10 + bF1_10 * w;}
+        return (MM + MV) / 2. / (w * w - 1.) / MM / MV * ((w - MV_o_MM) * f_fac - F1_fac / MM);
+    }
+    else return 0.;
+}
+
+double MVlnu::A12(double q2)
+{
+    return (A1(q2)*(MM + MV)*(MM + MV)*(MM * MM - MV * MV - q2) -
+            A2(q2)*(MM * MM * MM * MM + (MV * MV - q2)*(MV * MV - q2) -
+            2. * MM * MM * (MV * MV + q2))) / (16. * MM * MV * MV * (MM + MV));
 }
 
 double MVlnu::T1(double q2)
@@ -584,13 +919,6 @@ double MVlnu::T2(double q2)
 {
     double delta_T2 = 0.;
     return (Mb - Mc) / (MM - MV) * A1(q2)*(1. + delta_T2);
-}
-
-double MVlnu::A12(double q2)
-{
-    return (A1(q2)*(MM + MV)*(MM + MV)*(MM * MM - MV * MV - q2) -
-            A2(q2)*(MM * MM * MM * MM + (MV * MV - q2)*(MV * MV - q2) -
-            2. * MM * MM * (MV * MV + q2))) / (16. * MM * MV * MV * (MM + MV));
 }
 
 double MVlnu::T23(double q2)
@@ -662,7 +990,7 @@ gslpp::complex MVlnu::HTp(double q2)
 
 gslpp::complex MVlnu::HTpt(double q2)
 {
-    return ((CT + CTp) * lambda_half(MM*MM, MV*MV, q2) * T1(q2)-(CT - CTp)*(MM * MM - MV * MV) * T2(q2)) / (sqrt(2. * q2));
+    return ((CT + CTp) * lambda_half(MM*MM, MV*MV, q2) * T1(q2)-(CT - CTp)*(MM * MM - MV * MV) * T2(q2)) / (2. * sqrt(q2));
 }
 
 gslpp::complex MVlnu::HTm(double q2)
@@ -672,7 +1000,7 @@ gslpp::complex MVlnu::HTm(double q2)
 
 gslpp::complex MVlnu::HTmt(double q2)
 {
-    return (-(CT + CTp) * lambda_half(MM*MM, MV*MV, q2) * T1(q2)-(CT - CTp)*(MM * MM - MV * MV) * T2(q2)) / (sqrt(2. * q2));
+    return (-(CT + CTp) * lambda_half(MM*MM, MV*MV, q2) * T1(q2)-(CT - CTp)*(MM * MM - MV * MV) * T2(q2)) / (2. * sqrt(q2));
 }
 /*******************************************************************************
  * Generalized angular coefficients  (see 1506.03970)                          *
@@ -691,7 +1019,7 @@ gslpp::complex MVlnu::G000(double q2)
             4. * Mlep * Mnu / 3. * (HVp(q2).abs2() + HVm(q2).abs2() + HV0(q2).abs2() - HAp(q2).abs2() - HAm(q2).abs2() - HA0(q2).abs2()) +
             4. / 3. * ((Elep * Enu - Mlep * Mnu + lambda_lep2 / (4. * q2)) * HS(q2).abs2()+(Elep * Enu + Mlep * Mnu + lambda_lep2 / (4. * q2)) * HP(q2).abs2()) +
             16. / 9. * (3. * (Elep * Enu + Mlep * Mnu) - lambda_lep2 / (4. * q2))*(HTpt(q2).abs2() + HTmt(q2).abs2() + HT0t(q2).abs2()) +
-            8. / 9. * (3. * (Elep * Enu - Mlep * Mnu) - lambda_lep2 / (4. * q2))*(HTpt(q2).abs2() + HTmt(q2).abs2() + HT0t(q2).abs2()) +
+            8. / 9. * (3. * (Elep * Enu - Mlep * Mnu) - lambda_lep2 / (4. * q2))*(HTp(q2).abs2() + HTm(q2).abs2() + HT0(q2).abs2()) +
             16. / 3. * (Mlep * Enu + Mnu * Elep)*(HVp(q2) * HTpt(q2).conjugate() + HVm(q2) * HTmt(q2).conjugate() + HV0(q2) * HT0t(q2).conjugate()).imag() +
             8. * M_SQRT2 / 3. * (Mlep * Enu - Mnu * Elep)*(HAp(q2) * HTp(q2).conjugate() + HAm(q2) * HTm(q2).conjugate() + HA0(q2) * HT0(q2).conjugate()).imag());
 }
@@ -888,45 +1216,45 @@ double MVlnu::integrateJ(int i, double q2_min, double q2_max)
 
     switch (i) {
         case 1:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_el;
             FJ = convertToGslFunction(bind(&MVlnu::J1s, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
             break;
         case 2:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_el;
             FJ = convertToGslFunction(bind(&MVlnu::J1c, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
             break;
         case 3:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_el;
             FJ = convertToGslFunction(bind(&MVlnu::J2s, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
             break;
         case 4:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_el;
             FJ = convertToGslFunction(bind(&MVlnu::J2c, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
             break;
         case 5:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_el;
             FJ = convertToGslFunction(bind(&MVlnu::J3, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
@@ -934,62 +1262,62 @@ double MVlnu::integrateJ(int i, double q2_min, double q2_max)
             return J_res;
             break;
         case 6:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ4_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ4_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ4_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ4_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ4_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ4_el;
             FJ = convertToGslFunction(bind(&MVlnu::J4, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
             break;
         case 7:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ5_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ5_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ5_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ5_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ5_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ5_el;
             FJ = convertToGslFunction(bind(&MVlnu::J5, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
             break;
         case 8:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_el;
             FJ = convertToGslFunction(bind(&MVlnu::J6s, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
             break;
         case 9:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_mu;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_mu;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_el;
             FJ = convertToGslFunction(bind(&MVlnu::J6c, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             return J_res;
             break;
         case 10:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ7_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ7_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ7_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ7_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ7_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ7_el;
             FJ = convertToGslFunction(bind(&MVlnu::J7, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
             break;
         case 11:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ8_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ8_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ8_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ8_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ8_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ8_el;
             FJ = convertToGslFunction(bind(&MVlnu::J8, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
             return J_res;
             break;
         case 12:
-            if (lep == StandardModel::TAU) if ((checkcache_int_tau == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_tau;
-            if (lep == StandardModel::MU) if ((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_mu;
-            if (lep == StandardModel::ELECTRON) if ((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_el;
+            if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_tau;
+            if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_mu;
+            if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_el;
             FJ = convertToGslFunction(bind(&MVlnu::J9, &(*this), _1));
             if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
             gsl_set_error_handler(old_handler);
@@ -1221,7 +1549,8 @@ double MVlnu::get_R1(double w)
     double q2 = (2. * MM * MV)*(w0 - w);
 
     if (CLNflag) return R1(q2);
-    else return V(q2) * RV / hA1(q2);
+    else if (BGLflag) return V(q2) * RV / hA1(q2);
+    return 0.;
 }
 
 double MVlnu::get_R2(double w)
@@ -1230,7 +1559,8 @@ double MVlnu::get_R2(double w)
     double q2 = (2. * MM * MV)*(w0 - w);
 
     if (CLNflag) return R2(q2);
-    else return A2(q2) * RV / hA1(q2);
+    else if (BGLflag) return A2(q2) * RV / hA1(q2);
+    return 0.;
 }
 
 double MVlnu::get_R0(double w)
@@ -1239,7 +1569,8 @@ double MVlnu::get_R0(double w)
     double q2 = (2. * MM * MV)*(w0 - w);
 
     if (CLNflag) return R0(q2);
-    else return A0(q2) * RV / hA1(q2);
+    else if (BGLflag) return A0(q2) / A1(q2);
+    return 0.;
 }
 
 

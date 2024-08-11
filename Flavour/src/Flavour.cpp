@@ -17,12 +17,17 @@
 #include "MVgamma.h"
 #include "MVlnu.h"
 #include "MPlnu.h"
+#include "AmpDB2.h"
 
 Flavour::Flavour(const StandardModel& SM_i)
 : mySM(SM_i)
 {
     dispersion = false;
+    zExpansion = false;
     CLNflag = false;
+    BGLflag = false;
+    DMflag = false;
+    FixedWCbtosflag = false;
 };
 
 bool Flavour::setFlag(const std::string name, const bool value) 
@@ -31,8 +36,17 @@ bool Flavour::setFlag(const std::string name, const bool value)
     if (name.compare("UseDispersionRelation") == 0) {
         setFlagUseDispersionRelation(value);
         return true;
+    } else if (name.compare("UsezExpansion") == 0) {
+        setFlagUsezExpansion(value);
+        return true;
     } else if (name.compare("CLNflag") == 0) {
         setFlagCLN(value);
+        return true;
+    } else if (name.compare("BGLflag") == 0) {
+        setFlagBGL(value);
+        return true;
+    } else if (name.compare("DMflag") == 0) {
+        setFlagDM(value);
         return true;
     } else if (name.compare("FixedWCbtos") == 0) {
         setFlagFixedWCbtos(value);
@@ -62,9 +76,9 @@ HeffDB1& Flavour::getHDB1() const
     return *getPtr<HeffDB1>(HDB1);
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme) const
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme, bool SM) const
 {
-    return getPtr<HeffDF2>(HDF2)->ComputeCoeffBd(mu, scheme);
+    return getPtr<HeffDF2>(HDF2)->ComputeCoeffBd(mu, scheme, SM);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBs(double mu, schemes scheme, bool SM) const
@@ -145,6 +159,11 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsgamma(double mu, bool noSM
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffsgamma(mu, noSM, scheme);
 }
 
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsgamma_Buras(double mu, bool noSM, schemes scheme) const
+{
+    return getPtr<HeffDB1>(HDB1)->ComputeCoeffsgamma_Buras(mu, noSM, scheme);
+}
+
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimesgamma(double mu, schemes scheme) const
 {
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffprimesgamma(mu, scheme);
@@ -153,6 +172,11 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimesgamma(double mu, sche
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBMll(double mu, QCD::lepton lepton, bool noSM, schemes scheme) const
 {
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffBMll(mu, lepton, noSM, scheme);
+}
+
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBMll_Buras(double mu, QCD::lepton lepton, bool noSM, schemes scheme) const
+{
+    return getPtr<HeffDB1>(HDB1)->ComputeCoeffBMll_Buras(mu, lepton, noSM, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme) const
@@ -177,6 +201,11 @@ MVll& Flavour::getMVll(QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_
 //    }
 //    return *MVllMap.at(key);
     return getM<MVll>(MVllMap, meson_i, vector_i, lep_i);
+}
+
+AmpDB2& Flavour::getDB2(int Bmeson_i, bool flag_fixmub, bool flag_RI) const
+{
+    return getM<AmpDB2>(AmpDB2Map, Bmeson_i, flag_fixmub, flag_RI);
 }
 
 MVgamma& Flavour::getMVgamma(QCD::meson meson_i, QCD::meson vector_i) const
@@ -250,7 +279,7 @@ T& Flavour::getM(std::map<std::vector<int>,std::shared_ptr<T> >& map, Args ... a
 {
     std::vector<int> key({args...});
     if(map.find(key)==map.end()) {
-        map.insert(std::make_pair(key,std::shared_ptr<T>(new T(mySM,args...))));
+        map.insert(std::make_pair(key,std::make_shared<T>(mySM,args...)));
     }
     return *map.at(key);
 }
@@ -313,8 +342,9 @@ bool Flavour::getUpdateFlag(QCD::meson meson_i, QCD::meson meson_j, QCD::lepton 
 
 template<typename T, typename... Args> std::shared_ptr<T>& Flavour::getPtr(std::shared_ptr<T>& x, Args ... args) const
 {
-    if (x.get() == nullptr)
-        x.reset(new T(mySM, args...));
+    if (x.get() == nullptr){
+        x = std::make_shared<T>(mySM, args...);
+    }
     return x;
 }
 

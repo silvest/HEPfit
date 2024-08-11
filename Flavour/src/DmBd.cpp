@@ -7,8 +7,13 @@
 
 #include "DmBd.h"
 #include "StandardModel.h"
+#include "AmpDB2.h"
  
+DmBd::DmBd(const StandardModel& SM_i) : ThObservable(SM_i){
+        SM.getFlavour().getDB2(0);
+    };
+
 double  DmBd::computeThValue() 
 {
-    return(2. * SM.getCBd() * AmpBd(FULLNLO).abs());
+    return(2. * SM.getCBd() * SM.getFlavour().getDB2(0).getM21(FULLNLO).abs());
 }

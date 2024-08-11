@@ -21,8 +21,10 @@ public:
 /**
 *　@brief The number of the model parameters in %NPSMEFT6dtopquarkVars. 
 */
-static const int NNPSMEFT6dtopquarkVars = 104;
-   
+//static const int NNPSMEFT6dtopquarkVars = 104;
+static const int NNPSMEFT6dtopquarkVars = 35;
+  
+
 /*
 @brief A string array containing the labels of the model parameters in NPSMEFT6dtopquark 
 */
@@ -183,6 +185,16 @@ static const int NNPSMEFT6dtopquarkVars = 104;
 
     
     
+    double getNPSMEFT6dtopquark_flag_Quadratic() const {
+        return flag_Quadratic;
+    }
+ 
+    double getNPSMEFT6dtopquark_flag_LHC_WG_Basis() const {
+        return flag_LHC_WG_Basis;
+    }
+    
+    
+    /*
     
     
     
@@ -437,13 +449,7 @@ static const int NNPSMEFT6dtopquarkVars = 104;
         return SM_tH_tchan_value;
     }
       
-    double getNPSMEFT6dtopquark_flag_Quadratic() const {
-        return flag_Quadratic;
-    }
- 
-    double getNPSMEFT6dtopquark_flag_LHC_WG_Basis() const {
-        return flag_LHC_WG_Basis;
-    }
+    
     
     double getNPSMEFT6dtopquark_SM_ttbar_LHC13_value() const{
         return SM_ttbar_LHC13;
@@ -475,6 +481,7 @@ static const int NNPSMEFT6dtopquarkVars = 104;
     double getNPSMEFT6dtopquark_ttWqEM_SM() const{
         return ttWqEM_SM;
     }
+    */
 
 
 
@@ -482,6 +489,9 @@ static const int NNPSMEFT6dtopquarkVars = 104;
     protected:
     virtual void setParameter(const std::string name, const double& value);
 
+    
+    
+    
     double C_phit; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double C_phiQ3; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double C_phiQ1; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
@@ -520,7 +530,7 @@ static const int NNPSMEFT6dtopquarkVars = 104;
     double C_Qq31; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     
     
-    
+    /*
     double SM_tAq_inc; ///< The SM value for tgammaq
     double SM_ttZ_bin_0_40; ///< The SM value for the differential cross section ttZ in the bin from 0 to 40 GeV.
     double SM_ttZ_bin_40_70; ///< The SM value for the differential cross section ttZ in the bin from 40 to 70 GeV.
@@ -605,7 +615,8 @@ static const int NNPSMEFT6dtopquarkVars = 104;
     double AFBLR_SM;
     
     double ttWqEM_SM;
-        
+    */
+    
     virtual bool setFlag(const std::string, const bool);
 
         
@@ -615,825 +626,6 @@ private:
     bool flag_LHC_WG_Basis;
     bool flag_Quadratic;
 };
-
-
-/**
- * @class C_phit
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_phit: public ThObservable {
-public:
-
-    /**
-     * @brief C_phit constructor.
-     */
-    C_phit(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_phit
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_phiQ3
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phiQ3
- */
-class C_phiQ3: public ThObservable {
-public:
-
-    /**
-     * @brief C_phiQ3 constructor.
-     */
-    C_phiQ3(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_phiQ3
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_phiQ1
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phiQ1
- */
-class C_phiQ1: public ThObservable {
-public:
-
-    /**
-     * @brief C_phiQ1 constructor.
-     */
-    C_phiQ1(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_phiQ1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_phiQm
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_phiQm: public ThObservable {
-public:
-
-    /**
-     * @brief C_phit constructor.
-     */
-    C_phiQm(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_phiQm
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_tW
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_tW
- */
-class C_tW: public ThObservable {
-public:
-
-    /**
-     * @brief C_phit constructor.
-     */
-    C_tW(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_tW
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_tZ
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_tZ: public ThObservable {
-public:
-
-    /**
-     * @brief C_tZ constructor.
-     */
-    C_tZ(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_tB
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_tB
- */
-class C_tB: public ThObservable {
-public:
-
-    /**
-     * @brief C_tB constructor.
-     */
-    C_tB(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_tphi
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_tphi
- */
-class C_tphi: public ThObservable {
-public:
-
-    /**
-     * @brief C_phit constructor.
-     */
-    C_tphi(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_tphi
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-/**
- * @class C_phib
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_phib: public ThObservable {
-public:
-
-    /**
-     * @brief C_phib constructor.
-     */
-    C_phib(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_phib
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_bW
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_bW
- */
-class C_bW: public ThObservable {
-public:
-
-    /**
-     * @brief C_bW constructor.
-     */
-    C_bW(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_bW
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_bB
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_bB
- */
-class C_bB: public ThObservable {
-public:
-
-    /**
-     * @brief C_bB constructor.
-     */
-    C_bB(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_bB
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-/**
- * @class C_bZ
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_bZ
- */
-class C_bZ: public ThObservable {
-public:
-
-    /**
-     * @brief C_bZ constructor.
-     */
-    C_bZ(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_bZ
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_tG
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_tG
- */
-class C_tG: public ThObservable {
-public:
-
-    /**
-     * @brief C_tG constructor.
-     */
-    C_tG(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_tG
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_phitb
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phitb
- */
-class C_phitb: public ThObservable {
-public:
-
-    /**
-     * @brief C_phitb constructor.
-     */
-    C_phitb(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_ed
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_ed
- */
-class C_ed: public ThObservable {
-public:
-
-    /**
-     * @brief C_ed constructor.
-     */
-    C_ed(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_eq
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_eq
- */
-class C_eq: public ThObservable {
-public:
-
-    /**
-     * @brief C_eq constructor.
-     */
-    C_eq(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_ld
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_ld
- */
-class C_ld: public ThObservable {
-public:
-
-    /**
-     * @brief C_ld constructor.
-     */
-    C_ld(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_lqP
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_lqP
- */
-class C_lqP: public ThObservable {
-public:
-
-    /**
-     * @brief C_lqP constructor.
-     */
-    C_lqP(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_eu
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_eu
- */
-class C_eu: public ThObservable {
-public:
-
-    /**
-     * @brief C_eu constructor.
-     */
-    C_eu(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_lu
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_lu
- */
-class C_lu: public ThObservable {
-public:
-
-    /**
-     * @brief C_lu constructor.
-     */
-    C_lu(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_lqM
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_lqM
- */
-class C_lqM: public ThObservable {
-public:
-
-    /**
-     * @brief C_lqP constructor.
-     */
-    C_lqM(const StandardModel& SM_i);
-
-    /**
-     * @return The value of mH1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-/**
- * @class C_tu8
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_tu8
- */
-class C_tu8: public ThObservable {
-public:
-
-    /**
-     * @brief C_tu8 constructor.
-     */
-    C_tu8(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_tu8
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-/**
- * @class C_td8
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_td8: public ThObservable {
-public:
-
-    /**
-     * @brief C_td8 constructor.
-     */
-    C_td8(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_td8
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-/**
- * @class C_Qq18
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_Qq18: public ThObservable {
-public:
-
-    /**
-     * @brief C_Qq18 constructor.
-     */
-    C_Qq18(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_Qq18
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-/**
- * @class C_tq8
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_tq8: public ThObservable {
-public:
-
-    /**
-     * @brief C_tq8 constructor.
-     */
-    C_tq8(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_tq8
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-/**
- * @class C_Qq38
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_Qq38: public ThObservable {
-public:
-
-    /**
-     * @brief C_Qq38 constructor.
-     */
-    C_Qq38(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_Qq38
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-/**
- * @class C_Qu8
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_Qu8: public ThObservable {
-public:
-
-    /**
-     * @brief C_Qu8 constructor.
-     */
-    C_Qu8(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_Qu8
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-/**
- * @class C_Qd8
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_phit
- */
-class C_Qd8: public ThObservable {
-public:
-
-    /**
-     * @brief C_Qd8 constructor.
-     */
-    C_Qd8(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_Qd8
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-
-
-
-
-/**
- * @class C_Qd1
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_Qd1
- */
-class C_Qd1: public ThObservable {
-public:
-
-    /**
-     * @brief C_Qd1 constructor.
-     */
-    C_Qd1(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_Qd1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-/**
- * @class C_Qu1
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_Qu1
- */
-class C_Qu1: public ThObservable {
-public:
-
-    /**
-     * @brief C_Qu1 constructor.
-     */
-    C_Qu1(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_Qu1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-/**
- * @class C_td1
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_td1
- */
-class C_td1: public ThObservable {
-public:
-
-    /**
-     * @brief C_td1 constructor.
-     */
-    C_td1(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_td1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-/**
- * @class C_tu1
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_tu1
- */
-class C_tu1: public ThObservable {
-public:
-
-    /**
-     * @brief C_tu1 constructor.
-     */
-    C_tu1(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_tu1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-/**
- * @class C_tq1
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_tq1
- */
-class C_tq1: public ThObservable {
-public:
-
-    /**
-     * @brief C_tq1 constructor.
-     */
-    C_tq1(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_tq1
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-/**
- * @class C_Qq11
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_Qq11
- */
-class C_Qq11: public ThObservable {
-public:
-
-    /**
-     * @brief C_Qq11 constructor.
-     */
-    C_Qq11(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_Qq11
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-/**
- * @class C_Qq31
- * @ingroup NPSMEFT6dtopquark 
- * @brief Wilson coefficient C_Qq31
- */
-class C_Qq31: public ThObservable {
-public:
-
-    /**
-     * @brief C_Qq31 constructor.
-     */
-    C_Qq31(const StandardModel& SM_i);
-
-    /**
-     * @return The value of C_Qq31
-     */
-    double computeThValue();
-
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-
-
 
 
 
@@ -1496,6 +688,27 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
+
+
+
+
+
+class FB_asymmetry_Tevatron_tt_diff_mtt_top_basis_LO : public ThObservable {
+public:   
+
+    FB_asymmetry_Tevatron_tt_diff_mtt_top_basis_LO(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    
+    double b_min = 0.;
+    double b_max = 0.;
+        
+        
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
 
 
 
@@ -1741,6 +954,43 @@ private:
 };
 
 
+
+
+// ttH differential cross section for different bins
+
+/**
+    * @class sigma_ttH_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_ttH_diff_NLO_ATLAS_220700092: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_ttH_diff_NLO constructor.
+     */
+    sigma_ttH_diff_NLO_ATLAS_220700092(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+        
+        
+    };
+    
+    
+
+
+
 class ttWqEM : public ThObservable {
 public:   
 
@@ -1765,500 +1015,256 @@ private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
+
+
+
 // ttZ differential cross section for different bins
 
+/**
+    * @class sigma_ttz_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_ttz_diff_NLO_ATLAS_210312603: public ThObservable {
+    public:
 
+    /**
+     * @brief sigma_ttz_diff_LO constructor.
+     */
+    sigma_ttz_diff_NLO_ATLAS_210312603(const StandardModel& SM_i);
 
-class ttZ_bin_0_40 : public ThObservable {
-public:   
-
-    ttZ_bin_0_40(const StandardModel& SM_i);
-    
-   
+    /**
+     * @return The value of Test_direct
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+        
+        
+    };
 
 
-class ttZ_bin_40_70 : public ThObservable {
-public:   
-
-    ttZ_bin_40_70(const StandardModel& SM_i);
     
-   
+    /**
+    * @class sigma_ttz_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_ttz_diff_NLO_ATLAS_231204450: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_ttz_diff_NLO constructor.
+     */
+    sigma_ttz_diff_NLO_ATLAS_231204450(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
 
-
-
-class ttZ_bin_70_110 : public ThObservable {
-public:   
-
-    ttZ_bin_70_110(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-class ttZ_bin_110_160 : public ThObservable {
-public:   
-
-    ttZ_bin_110_160(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttZ_bin_160_220 : public ThObservable {
-public:   
-
-    ttZ_bin_160_220(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttZ_bin_220_290 : public ThObservable {
-public:   
-
-    ttZ_bin_220_290(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-class ttZ_bin_290_400 : public ThObservable {
-public:   
-
-    ttZ_bin_290_400(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+        
+        
+    };
 
 
 
 
 // ttA differential cross section for different bins
 
-
-class ttA_bin_20_25 : public ThObservable {
-public:   
-
-    ttA_bin_20_25(const StandardModel& SM_i);
     
-   
+/**
+    * @class sigma_tta_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_tta_diff_NLO_ATLAS_emu_200706946: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tta_diff_NLO_ATLAS_emu_200706946 constructor.
+     */
+    sigma_tta_diff_NLO_ATLAS_emu_200706946(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_25_30 : public ThObservable {
-public:   
-
-    ttA_bin_25_30(const StandardModel& SM_i);
     
-   
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /**
+    * @class sigma_tta_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_tta_diff_NLO_CMS_dilepton_220107301: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tta_diff_NLO_CMS_dilepton_220107301 constructor.
+     */
+    sigma_tta_diff_NLO_CMS_dilepton_220107301(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-class ttA_bin_30_35 : public ThObservable {
-public:   
-
-    ttA_bin_30_35(const StandardModel& SM_i);
     
-   
-    double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
 
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 
-class ttA_bin_35_40 : public ThObservable {
-public:   
-
-    ttA_bin_35_40(const StandardModel& SM_i);
+    };
     
-   
-    double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_40_47 : public ThObservable {
-public:   
-
-    ttA_bin_40_47(const StandardModel& SM_i);
     
-   
-    double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-class ttA_bin_47_55 : public ThObservable {
-public:   
-
-    ttA_bin_47_55(const StandardModel& SM_i);
     
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_55_70 : public ThObservable {
-public:   
-
-    ttA_bin_55_70(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_70_85 : public ThObservable {
-public:   
-
-    ttA_bin_70_85(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_85_132 : public ThObservable {
-public:   
-
-    ttA_bin_85_132(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_132_180 : public ThObservable {
-public:   
-
-    ttA_bin_132_180(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttA_bin_180_300 : public ThObservable {
-public:   
-
-    ttA_bin_180_300(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
 
 // tt differential cross section for different bins
 
 
-
-class tt_bin_250_400 : public ThObservable {
-public:   
-
-    tt_bin_250_400(const StandardModel& SM_i);
     
-   
+    /**
+    * @class sigma_ttbar_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_tt_diff_NLO: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tt_diff_NLO constructor.
+     */
+    sigma_tt_diff_NLO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
     double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
 
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 
-class tt_bin_400_480 : public ThObservable {
-public:   
-
-    tt_bin_400_480(const StandardModel& SM_i);
+    };
     
-   
-    double computeThValue();
     
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_480_560 : public ThObservable {
-public:   
-
-    tt_bin_480_560(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_560_640 : public ThObservable {
-public:   
-
-    tt_bin_560_640(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_640_720 : public ThObservable {
-public:   
-
-    tt_bin_640_720(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_720_800 : public ThObservable {
-public:   
-
-    tt_bin_720_800(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_800_900 : public ThObservable {
-public:   
-
-    tt_bin_800_900(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_900_1000 : public ThObservable {
-public:   
-
-    tt_bin_900_1000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1000_1150 : public ThObservable {
-public:   
-
-    tt_bin_1000_1150(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1150_1300 : public ThObservable {
-public:   
-
-    tt_bin_1150_1300(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1300_1500 : public ThObservable {
-public:   
-
-    tt_bin_1300_1500(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1500_1700 : public ThObservable {
-public:   
-
-    tt_bin_1500_1700(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_1700_2000 : public ThObservable {
-public:   
-
-    tt_bin_1700_2000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_2000_2300 : public ThObservable {
-public:   
-
-    tt_bin_2000_2300(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_2300_2600 : public ThObservable {
-public:   
-
-    tt_bin_2300_2600(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_2600_3000 : public ThObservable {
-public:   
-
-    tt_bin_2600_3000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_3000_3500 : public ThObservable {
-public:   
-
-    tt_bin_3000_3500(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class tt_bin_3500_4000 : public ThObservable {
-public:   
-
-    tt_bin_3500_4000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
 
 
 
 
 // Charge Asymmetry ttbar for different bins
 
+/**
+    * @class charge_asymmetry_tt_diff_mtt_LO
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class charge_asymmetry_tt_diff_mtt_NLO: public ThObservable {
+    public:
 
+    /**
+     * @brief charge_asymmetry_tt_diff_mtt_LO constructor.
+     */
+    charge_asymmetry_tt_diff_mtt_NLO(const StandardModel& SM_i);
 
-class Charge_Asymmetry_bin_tt_0_500 : public ThObservable {
+    /**
+     * @return The value of charge_asymmetry_tt_diff_mtt_LO
+     */
+    double computeThValue();
+    
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+// ttll
+
+    /**
+    * @class sigma_ttll_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_ttll_diff_LO: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tt_diff_NLO constructor.
+     */
+    sigma_ttll_diff_LO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+//Prospects of muon collider
+  
+    
+class sigma_mumu_VBF_3TeV_tt : public ThObservable {
 public:   
 
-    Charge_Asymmetry_bin_tt_0_500(const StandardModel& SM_i);
+    sigma_mumu_VBF_3TeV_tt(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -2270,12 +1276,37 @@ private:
 
 
 
-
-
-class Charge_Asymmetry_bin_tt_500_750 : public ThObservable {
+class sigma_mumu_3TeV_ttH : public ThObservable {
 public:   
 
-    Charge_Asymmetry_bin_tt_500_750(const StandardModel& SM_i);
+    sigma_mumu_3TeV_ttH(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class sigma_mumu_3TeV_bb : public ThObservable {
+public:   
+
+    sigma_mumu_3TeV_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class sigma_mumu_VBF_10TeV_tt : public ThObservable {
+public:   
+
+    sigma_mumu_VBF_10TeV_tt(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -2287,12 +1318,23 @@ private:
 
 
 
-
-
-class Charge_Asymmetry_bin_tt_750_1000 : public ThObservable {
+class sigma_mumu_10TeV_ttH : public ThObservable {
 public:   
 
-    Charge_Asymmetry_bin_tt_750_1000(const StandardModel& SM_i);
+    sigma_mumu_10TeV_ttH(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class sigma_mumu_10TeV_bb : public ThObservable {
+public:   
+
+    sigma_mumu_10TeV_bb(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -2303,13 +1345,23 @@ private:
 
 
 
-
-
-
-class Charge_Asymmetry_bin_tt_1000_1500 : public ThObservable {
+class sigma_mumu_VBF_30TeV_tt : public ThObservable {
 public:   
 
-    Charge_Asymmetry_bin_tt_1000_1500(const StandardModel& SM_i);
+    sigma_mumu_VBF_30TeV_tt(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+class sigma_mumu_30TeV_ttH : public ThObservable {
+public:   
+
+    sigma_mumu_30TeV_ttH(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -2320,13 +1372,10 @@ private:
 
 
 
-
-
-
-class Charge_Asymmetry_bin_tt_1500_2000 : public ThObservable {
+class sigma_mumu_30TeV_bb : public ThObservable {
 public:   
 
-    Charge_Asymmetry_bin_tt_1500_2000(const StandardModel& SM_i);
+    sigma_mumu_30TeV_bb(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -2334,97 +1383,6 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
-
-
-
-
-
-
-class Charge_Asymmetry_bin_tt_2000_2500 : public ThObservable {
-public:   
-
-    Charge_Asymmetry_bin_tt_2000_2500(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-
-class Charge_Asymmetry_bin_tt_2500_3000 : public ThObservable {
-public:   
-
-    Charge_Asymmetry_bin_tt_2500_3000(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-
-
-
-class ttll_bin_100_120 : public ThObservable {
-public:   
-
-    ttll_bin_100_120(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttll_bin_120_140 : public ThObservable {
-public:   
-
-    ttll_bin_120_140(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttll_bin_140_180 : public ThObservable {
-public:   
-
-    ttll_bin_140_180(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
-class ttll_bin_180_500 : public ThObservable {
-public:   
-
-    ttll_bin_180_500(const StandardModel& SM_i);
-    
-   
-    double computeThValue();
-    
-private:
-    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
-};
-
-
 
 
 
@@ -3188,6 +2146,643 @@ private:
 
 
 
+    /**
+    * @class opt_obs_ilc_500_M30_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * -30% and 80% at 500GeV and assuming
+     * a luminosity of 4iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_ilc_500_M30_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_500_M30_P80 constructor.
+     */
+    opt_obs_ilc_500_M30_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_500_M30_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_500_P30_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * 30% and -80% at 500GeV and assuming
+     * a luminosity of 4iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_ilc_500_P30_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_500_P30_M80 constructor.
+     */
+    opt_obs_ilc_500_P30_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_500_P30_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_1000_M30_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * -30% and 80% at 500GeV and assuming
+     * a luminosity of 8iab and an 
+     * efficiency*acceptance of 6%
+    */
+    class opt_obs_ilc_1000_M30_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_1000_M30_P80 constructor.
+     */
+    opt_obs_ilc_1000_M30_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_1000_M30_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_1000_P30_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * 30% and -80% at 1000GeV and assuming
+     * a luminosity of 8iab and an 
+     * efficiency*acceptance of 6%
+    */
+    class opt_obs_ilc_1000_P30_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_1000_P30_M80 constructor.
+     */
+    opt_obs_ilc_1000_P30_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_1000_P30_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_clic_380_0_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and -80% at 380GeV and assuming
+     * a luminosity of 1iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_clic_380_0_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_380_0_M80 constructor.
+     */
+    opt_obs_clic_380_0_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_380_0_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /**
+    * @class opt_obs_clic_380_0_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and +80% at 380GeV and assuming
+     * a luminosity of 1iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_clic_380_0_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_380_0_P80 constructor.
+     */
+    opt_obs_clic_380_0_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_380_0_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_clic_1500_0_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and -80% at 1500GeV and assuming
+     * a luminosity of 2.5iab and an 
+     * efficiency*acceptance of 6%
+    */
+    class opt_obs_clic_1500_0_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_1500_0_M80 constructor.
+     */
+    opt_obs_clic_1500_0_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_1500_0_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /**
+    * @class opt_obs_clic_1500_0_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and +80% at 1500GeV and assuming
+     * a luminosity of 2.5iab and an 
+     * efficiency*acceptance of 6%
+    */
+    class opt_obs_clic_1500_0_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_1500_0_P80 constructor.
+     */
+    opt_obs_clic_1500_0_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_1500_0_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_clic_3000_0_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and -80% at 3000GeV and assuming
+     * a luminosity of 5iab and an 
+     * efficiency*acceptance of 5%
+    */
+    class opt_obs_clic_3000_0_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_3000_0_M80 constructor.
+     */
+    opt_obs_clic_3000_0_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_3000_0_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /**
+    * @class opt_obs_clic_3000_0_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CLIC
+     * with polarisation for the (e+, e-)
+     * 0% and +80% at 3000GeV and assuming
+     * a luminosity of 5iab and an 
+     * efficiency*acceptance of 5%
+    */
+    class opt_obs_clic_3000_0_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_clic_3000_0_P80 constructor.
+     */
+    opt_obs_clic_3000_0_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_clic_3000_0_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_fcc_350
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for FCCee
+     * at 350GeV and assuming
+     * a luminosity of 0.2iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_fcc_350: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_fcc_350 constructor.
+     */
+    opt_obs_fcc_350(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_fcc_350
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+
+
+    
+    /**
+    * @class opt_obs_fcc_365
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for FCCee
+     * at 350GeV and assuming
+     * a luminosity of 1.5iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_fcc_365: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_fcc_365 constructor.
+     */
+    opt_obs_fcc_365(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_fcc_365
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_cepc_350
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CEPC
+     * at 350GeV and assuming
+     * a luminosity of 0.2iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_cepc_350: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_cepc_350 constructor.
+     */
+    opt_obs_cepc_350(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_cepc_350
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_cepc_360
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for CEPC
+     * at 360GeV and assuming
+     * a luminosity of 1iab and an 
+     * efficiency*acceptance of 10%
+    */
+    class opt_obs_cepc_360: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_cepc_360 constructor.
+     */
+    opt_obs_cepc_360(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_cepc_360
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+        
+    /**
+    * @class opt_obs_muon_3TeV
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for a
+     * Muon Collider at 3TeV and assuming
+     * a luminosity of 1iab and an 
+     * efficiency*acceptance of 5%
+    */
+    class opt_obs_muon_3TeV: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_muon_3TeV constructor.
+     */
+    opt_obs_muon_3TeV(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_muon_3TeV
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_muon_10TeV
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for a
+     * Muon Collider at 10TeV and assuming
+     * a luminosity of 10iab and an 
+     * efficiency*acceptance of 2.5%
+    */
+    class opt_obs_muon_10TeV: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_muon_10TeV constructor.
+     */
+    opt_obs_muon_10TeV(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_muon_10TeV
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_muon_30TeV
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for a
+     * Muon Collider at 30TeV and assuming
+     * a luminosity of 90iab and an 
+     * efficiency*acceptance of 1.%
+    */
+    class opt_obs_muon_30TeV: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_muon_30TeV constructor.
+     */
+    opt_obs_muon_30TeV(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_muon_30TeV
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /*
+    class opt_obs_ilc_500_1000: public ThObservable {
+    public:
+    opt_obs_ilc_500_1000(const StandardModel& SM_i);
+    double computeThValue();
+    private:
+        double b_min = 0.;
+        double b_max = 0.;
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+    };
+    
+    class test_cov: public ThObservable {
+    public:
+    test_cov(const StandardModel& SM_i);
+    double computeThValue();
+    private:
+        double b_min = 0.;
+        double b_max = 0.;
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+    };
+    */
+    
+    
+    
+    
+        
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////// OLD //////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////        
+//////////////////////////////////////////////////////////////////////////////////////////////////////        
+        
 //250 bb observables OLD
 
 
@@ -3598,6 +3193,65 @@ private:
 };
 
 
+
+class op_eigen_ttll_1 : public ThObservable {
+public:   
+
+    op_eigen_ttll_1(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class op_eigen_ttll_2 : public ThObservable {
+public:   
+
+    op_eigen_ttll_2(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class op_eigen_ttll_3 : public ThObservable {
+public:   
+
+    op_eigen_ttll_3(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class op_eigen_ttll_4 : public ThObservable {
+public:   
+
+    op_eigen_ttll_4(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+        
 // Relation with other basis
 
 class gLt : public ThObservable {

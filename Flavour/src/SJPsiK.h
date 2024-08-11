@@ -9,7 +9,6 @@
 #define	SJPSIK_H
 
 #include "ThObservable.h"
-#include "AmpDB2.h"
 
 /**
  * @class SJPsiK
@@ -20,7 +19,7 @@
  * @details This class is used to compute the theoretical value of
  * @f$S_{J/\psi K}@f$.
  */
-class SJPsiK : public ThObservable, AmpDB2 {
+class SJPsiK : public ThObservable {
 public:
     
     /**
@@ -28,7 +27,7 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      */
     
-    SJPsiK(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
+    SJPsiK(const StandardModel& SM_i);
     
     /**
      *

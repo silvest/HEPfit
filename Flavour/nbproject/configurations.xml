@@ -9,6 +9,7 @@
       <itemPath>src/AmpDK2.h</itemPath>
       <itemPath>src/AmpDS1.h</itemPath>
       <itemPath>src/ArgD.h</itemPath>
+      <itemPath>src/Asl.h</itemPath>
       <itemPath>src/BBd.h</itemPath>
       <itemPath>src/BR_Bdnunu.h</itemPath>
       <itemPath>src/BR_Bsnunu.h</itemPath>
@@ -25,6 +26,7 @@
       <itemPath>src/CPenguinBox.h</itemPath>
       <itemPath>src/CPenguinBoxMu.h</itemPath>
       <itemPath>src/Charm_Kpnunu.h</itemPath>
+      <itemPath>src/DGamma.h</itemPath>
       <itemPath>src/Dleptonnu.h</itemPath>
       <itemPath>src/DmBd.h</itemPath>
       <itemPath>src/DmBs.h</itemPath>
@@ -70,6 +72,7 @@
       <itemPath>src/MVlnuObservables.h</itemPath>
       <itemPath>src/Mll.h</itemPath>
       <itemPath>src/Phis_JPsiPhi.h</itemPath>
+      <itemPath>src/Pmunu.h</itemPath>
       <itemPath>src/SJPsiK.h</itemPath>
       <itemPath>src/VCKM.h</itemPath>
       <itemPath>src/WilsonCoefficientObservables.h</itemPath>
@@ -78,6 +81,7 @@
       <itemPath>src/bsgamma.h</itemPath>
       <itemPath>src/gamma.h</itemPath>
       <itemPath>src/hpl.h</itemPath>
+      <itemPath>src/masses.h</itemPath>
       <itemPath>src/tauKnu_o_tauPnu.h</itemPath>
       <itemPath>src/xi.h</itemPath>
     </logicalFolder>
@@ -92,6 +96,7 @@
       <itemPath>src/AmpDD2.cpp</itemPath>
       <itemPath>src/AmpDK2.cpp</itemPath>
       <itemPath>src/AmpDS1.cpp</itemPath>
+      <itemPath>src/Asl.cpp</itemPath>
       <itemPath>src/BBd.cpp</itemPath>
       <itemPath>src/BR_Bdnunu.cpp</itemPath>
       <itemPath>src/BR_Bsnunu.cpp</itemPath>
@@ -108,6 +113,7 @@
       <itemPath>src/CPenguinBox.cpp</itemPath>
       <itemPath>src/CPenguinBoxMu.cpp</itemPath>
       <itemPath>src/Charm_Kpnunu.cpp</itemPath>
+      <itemPath>src/DGamma.cpp</itemPath>
       <itemPath>src/Dleptonnu.cpp</itemPath>
       <itemPath>src/DmBd.cpp</itemPath>
       <itemPath>src/DmBs.cpp</itemPath>
@@ -150,6 +156,7 @@
       <itemPath>src/MVlnuObservables.cpp</itemPath>
       <itemPath>src/Mll.cpp</itemPath>
       <itemPath>src/Phis_JPsiPhi.cpp</itemPath>
+      <itemPath>src/Pmunu.cpp</itemPath>
       <itemPath>src/SJPsiK.cpp</itemPath>
       <itemPath>src/VCKM.cpp</itemPath>
       <itemPath>src/WilsonCoefficientObservables.cpp</itemPath>
@@ -157,6 +164,7 @@
       <itemPath>src/alpha_2a.cpp</itemPath>
       <itemPath>src/bsgamma.cpp</itemPath>
       <itemPath>src/gamma.cpp</itemPath>
+      <itemPath>src/masses.cpp</itemPath>
       <itemPath>src/tauKnu_o_tauPnu.cpp</itemPath>
       <itemPath>src/xi.cpp</itemPath>
     </logicalFolder>
@@ -199,6 +207,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
             <pElem>../boost</pElem>
             <pElem>src</pElem>
           </incDir>
@@ -230,6 +239,10 @@
       <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Asl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Asl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -294,6 +307,10 @@
       <item path="src/Charm_Kpnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Charm_Kpnunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/DGamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/DGamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Dleptonnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -467,6 +484,10 @@
       </item>
       <item path="src/Phis_JPsiPhi.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Pmunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Pmunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
@@ -505,6 +526,10 @@
       </item>
       <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/masses.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/masses.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/tauKnu_o_tauPnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tauKnu_o_tauPnu.h" ex="false" tool="3" flavor2="0">
@@ -528,6 +553,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
             <pElem>../boost</pElem>
             <pElem>src</pElem>
           </incDir>
@@ -555,6 +581,10 @@
       <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Asl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Asl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -619,6 +649,10 @@
       <item path="src/Charm_Kpnunu.cpp" ex="false" tool="1" flavor2="8">
       </item>
       <item path="src/Charm_Kpnunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/DGamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/DGamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Dleptonnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -792,6 +826,10 @@
       </item>
       <item path="src/Phis_JPsiPhi.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Pmunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Pmunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
@@ -830,6 +868,10 @@
       </item>
       <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/masses.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/masses.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/tauKnu_o_tauPnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tauKnu_o_tauPnu.h" ex="false" tool="3" flavor2="0">
@@ -854,6 +896,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
             <pElem>../boost</pElem>
             <pElem>src</pElem>
           </incDir>
@@ -881,6 +924,10 @@
       <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Asl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Asl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -945,6 +992,10 @@
       <item path="src/Charm_Kpnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Charm_Kpnunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/DGamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/DGamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Dleptonnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1118,6 +1169,10 @@
       </item>
       <item path="src/Phis_JPsiPhi.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Pmunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Pmunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
@@ -1151,6 +1206,10 @@
       </item>
       <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/masses.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/masses.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/tauKnu_o_tauPnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tauKnu_o_tauPnu.h" ex="false" tool="3" flavor2="0">
@@ -1174,6 +1233,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
             <pElem>../boost</pElem>
             <pElem>src</pElem>
           </incDir>
@@ -1206,6 +1266,10 @@
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Asl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Asl.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/BBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BBd.h" ex="false" tool="3" flavor2="0">
@@ -1269,6 +1333,10 @@
       <item path="src/Charm_Kpnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Charm_Kpnunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/DGamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/DGamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Dleptonnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1442,6 +1510,10 @@
       </item>
       <item path="src/Phis_JPsiPhi.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Pmunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Pmunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SJPsiK.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
@@ -1479,6 +1551,10 @@
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/masses.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/masses.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/tauKnu_o_tauPnu.cpp" ex="false" tool="1" flavor2="0">
       </item>

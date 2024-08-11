@@ -90,22 +90,22 @@ bool NPEpsilons::setFlag(const std::string name, const bool value)
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEpsilons::epsilon1() const
+const double NPEpsilons::epsilon1() const
 {
     return myEpsilon_1;
 }
 
-double NPEpsilons::epsilon2() const
+const double NPEpsilons::epsilon2() const
 {
     return myEpsilon_2;
 }
 
-double NPEpsilons::epsilon3() const
+const double NPEpsilons::epsilon3() const
 {
     return myEpsilon_3;
 }
 
-double NPEpsilons::epsilonb() const
+const double NPEpsilons::epsilonb() const
 {
     return myEpsilon_b;
 }
@@ -113,7 +113,7 @@ double NPEpsilons::epsilonb() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEpsilons::Mw_eps(const double eps1, const double eps2, const double eps3) const
+const double NPEpsilons::Mw_eps(const double eps1, const double eps2, const double eps3) const
 {
     double Delta_r = 1.0 - (1.0 - DeltaAlpha())*(1.0 - Delta_rW(eps1, eps2, eps3));
 
@@ -124,42 +124,42 @@ double NPEpsilons::Mw_eps(const double eps1, const double eps2, const double eps
     return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp / (1.0 - Delta_r))));
 }
 
-double NPEpsilons::Mw() const
+const double NPEpsilons::Mw() const
 {
     return (Mw_eps(myEpsilon_1, myEpsilon_2, myEpsilon_3));
 }
 
-double NPEpsilons::GammaW() const
+const double NPEpsilons::GammaW() const
 {
     throw std::runtime_error("NPEpsilons::GammaW() is not available.");
 }
 
-double NPEpsilons::Gamma_Z() const
+const double NPEpsilons::Gamma_Z() const
 {
     return (StandardModel::Gamma_Z());
 }
 
-double NPEpsilons::sigma0_had() const
+const double NPEpsilons::sigma0_had() const
 {
     return (StandardModel::sigma0_had());
 }
 
-double NPEpsilons::sin2thetaEff(const Particle p) const
+const double NPEpsilons::sin2thetaEff(const Particle p) const
 {
     return (StandardModel::sin2thetaEff(p));
 }
 
-double NPEpsilons::A_f(const Particle p) const
+const double NPEpsilons::A_f(const Particle p) const
 {
     return (StandardModel::A_f(p));
 }
 
-double NPEpsilons::AFB(const Particle p) const
+const double NPEpsilons::AFB(const Particle p) const
 {
     return (StandardModel::AFB(p));
 }
 
-double NPEpsilons::R0_f(const Particle p) const
+const double NPEpsilons::R0_f(const Particle p) const
 {
     return (StandardModel::R0_f(p));
 }
@@ -167,7 +167,7 @@ double NPEpsilons::R0_f(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
-gslpp::complex NPEpsilons::rhoZ_f_eps(const Particle p, const double eps1, const double epsb) const
+const gslpp::complex NPEpsilons::rhoZ_f_eps(const Particle p, const double eps1, const double epsb) const
 {
     double gAe = gA_f_eps(leptons[ELECTRON], eps1).real();
     double rhoZ_e = 4. * gAe*gAe;
@@ -182,7 +182,7 @@ gslpp::complex NPEpsilons::rhoZ_f_eps(const Particle p, const double eps1, const
         return ( (rhoZ_e + deltaRhoZ_f(p).real()) * bfact);
 }
 
-gslpp::complex NPEpsilons::rhoZ_f(const Particle p) const
+const gslpp::complex NPEpsilons::rhoZ_f(const Particle p) const
 {
     if (p.is("TOP"))
         return gslpp::complex(0.0, 0.0, false);
@@ -192,7 +192,7 @@ gslpp::complex NPEpsilons::rhoZ_f(const Particle p) const
         return rhoZ_f_eps(p, myEpsilon_1);
 }
 
-gslpp::complex NPEpsilons::gV_f_eps(const Particle p, const double eps1,
+const gslpp::complex NPEpsilons::gV_f_eps(const Particle p, const double eps1,
         const double eps3, double epsb) const
 {
     double I3f = p.getIsospin();
@@ -209,7 +209,7 @@ gslpp::complex NPEpsilons::gV_f_eps(const Particle p, const double eps1,
             * (1.0 - 4.0 * fabs(Qf) * kappaZ_f_eps(p, eps1, eps3) * sW2()));
 }
 
-gslpp::complex NPEpsilons::gA_f_eps(const Particle p, const double eps1, const double epsb) const
+const gslpp::complex NPEpsilons::gA_f_eps(const Particle p, const double eps1, const double epsb) const
 {
     double I3f = p.getIsospin();
 
@@ -223,7 +223,7 @@ gslpp::complex NPEpsilons::gA_f_eps(const Particle p, const double eps1, const d
         return ( gslpp::complex(sqrt(rhoZ_f_eps(p, eps1).real()) * I3f, 0.0, false));
 }
 
-gslpp::complex NPEpsilons::kappaZ_f_eps(const Particle p,
+const gslpp::complex NPEpsilons::kappaZ_f_eps(const Particle p,
         const double eps1, const double eps3, const double epsb) const
 {
     double kappaZ_e = (1.0 - (gV_f_eps(leptons[ELECTRON], eps1, eps3)
@@ -239,7 +239,7 @@ gslpp::complex NPEpsilons::kappaZ_f_eps(const Particle p,
         return ( (kappaZ_e + deltaKappaZ_f(p).real()) / bfact);
 }
 
-gslpp::complex NPEpsilons::kappaZ_f(const Particle p) const
+const gslpp::complex NPEpsilons::kappaZ_f(const Particle p) const
 {
     if (p.is("TOP"))
         return gslpp::complex(0.0, 0.0, false);
@@ -249,7 +249,7 @@ gslpp::complex NPEpsilons::kappaZ_f(const Particle p) const
         return (kappaZ_f_eps(p, myEpsilon_1, myEpsilon_3));
 }
 
-gslpp::complex NPEpsilons::gV_f(const Particle p) const
+const gslpp::complex NPEpsilons::gV_f(const Particle p) const
 {
     if (p.is("TOP"))
         return gslpp::complex(0.0, 0.0, false);
@@ -259,7 +259,7 @@ gslpp::complex NPEpsilons::gV_f(const Particle p) const
         return (gV_f_eps(p, myEpsilon_1, myEpsilon_3));
 }
 
-gslpp::complex NPEpsilons::gA_f(const Particle p) const
+const gslpp::complex NPEpsilons::gA_f(const Particle p) const
 {
     if (p.is("TOP"))
         return gslpp::complex(0.0, 0.0, false);
@@ -271,13 +271,13 @@ gslpp::complex NPEpsilons::gA_f(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEpsilons::Delta_rW(const double eps1, const double eps2, const double eps3) const
+const double NPEpsilons::Delta_rW(const double eps1, const double eps2, const double eps3) const
 {
     return ( (c02() - s02()) / s02()
             *(eps2 - c02() * eps1 + 2.0 * s02() * Delta_kappaPrime(eps1, eps3)));
 }
 
-double NPEpsilons::Delta_kappaPrime(const double eps1, const double eps3) const
+const double NPEpsilons::Delta_kappaPrime(const double eps1, const double eps3) const
 {
     return ( (eps3 - c02() * eps1) / (c02() - s02()));
 }

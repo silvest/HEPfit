@@ -6,6 +6,7 @@
  */
 
 #include <StandardModelMatching.h>
+#include <algorithm>
 #include "GeorgiMachacek.h"
 #include "GMcache.h"
 
@@ -139,207 +140,207 @@ bool GeorgiMachacek::setFlag(const std::string name, const bool value)
     return(res);
 }
 
-double GeorgiMachacek::muggH(const double sqrt_s) const
+const double GeorgiMachacek::muggH(const double sqrt_s) const
 {
     return getMyGMCache()->rh_gg;
 }
 
-double GeorgiMachacek::muVBF(const double sqrt_s) const
+const double GeorgiMachacek::muVBF(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV;
 }
 
-double GeorgiMachacek::mueeWBF(const double sqrt_s) const
+const double GeorgiMachacek::mueeWBF(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV;
 }
 
-double GeorgiMachacek::muWH(const double sqrt_s) const
+const double GeorgiMachacek::muWH(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV;
 }
 
-double GeorgiMachacek::muZH(const double sqrt_s) const
+const double GeorgiMachacek::muZH(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV;
 }
 
-double GeorgiMachacek::mueeZH(const double sqrt_s) const
+const double GeorgiMachacek::mueeZH(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV;
 }
 
-double GeorgiMachacek::muVH(const double sqrt_s) const
+const double GeorgiMachacek::muVH(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV;
 }
 
-double GeorgiMachacek::muVBFpVH(const double sqrt_s) const
+const double GeorgiMachacek::muVBFpVH(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV;
 }
 
-double GeorgiMachacek::muttH(const double sqrt_s) const
+const double GeorgiMachacek::muttH(const double sqrt_s) const
 {
     return getMyGMCache()->rh_ff;
 }
 
-double GeorgiMachacek::computeGammaTotalRatio() const
+const double GeorgiMachacek::computeGammaTotalRatio() const
 {
     return getMyGMCache()->sumModBRs;
 }
 
-double GeorgiMachacek::GammaTotal() const
+const double GeorgiMachacek::GammaTotal() const
 {
     return getMyGMCache()->Gamma_h;
 }
 
-double GeorgiMachacek::BrHggRatio() const
+const double GeorgiMachacek::BrHggRatio() const
 {
     return getMyGMCache()->rh_gg / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::BrHWWRatio() const
+const double GeorgiMachacek::BrHWWRatio() const
 {
     return getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::BrHZZRatio() const
+const double GeorgiMachacek::BrHZZRatio() const
 {
     return getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::BrHZgaRatio() const
+const double GeorgiMachacek::BrHZgaRatio() const
 {
     return getMyGMCache()->rh_Zga / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::BrHgagaRatio() const
+const double GeorgiMachacek::BrHgagaRatio() const
 {
     return getMyGMCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::BrHmumuRatio() const
+const double GeorgiMachacek::BrHmumuRatio() const
 {
     return getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::BrHtautauRatio() const
+const double GeorgiMachacek::BrHtautauRatio() const
 {
     return getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::BrHccRatio() const
+const double GeorgiMachacek::BrHccRatio() const
 {
     return getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::BrHbbRatio() const
+const double GeorgiMachacek::BrHbbRatio() const
 {
     return getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muggHgaga(const double sqrt_s) const
+const double GeorgiMachacek::muggHgaga(const double sqrt_s) const
 {
     return getMyGMCache()->rh_gg * getMyGMCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVBFHgaga(const double sqrt_s) const
+const double GeorgiMachacek::muVBFHgaga(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVHgaga(const double sqrt_s) const
+const double GeorgiMachacek::muVHgaga(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muttHgaga(const double sqrt_s) const
+const double GeorgiMachacek::muttHgaga(const double sqrt_s) const
 {
     return getMyGMCache()->rh_ff * getMyGMCache()->rh_gaga / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muggHZZ(const double sqrt_s) const
+const double GeorgiMachacek::muggHZZ(const double sqrt_s) const
 {
     return getMyGMCache()->rh_gg * getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVBFHZZ(const double sqrt_s) const
+const double GeorgiMachacek::muVBFHZZ(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVHZZ(const double sqrt_s) const
+const double GeorgiMachacek::muVHZZ(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muttHZZ(const double sqrt_s) const
+const double GeorgiMachacek::muttHZZ(const double sqrt_s) const
 {
     return getMyGMCache()->rh_ff * getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muggHWW(const double sqrt_s) const
+const double GeorgiMachacek::muggHWW(const double sqrt_s) const
 {
     return getMyGMCache()->rh_gg * getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVBFHWW(const double sqrt_s) const
+const double GeorgiMachacek::muVBFHWW(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVHWW(const double sqrt_s) const
+const double GeorgiMachacek::muVHWW(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muttHWW(const double sqrt_s) const
+const double GeorgiMachacek::muttHWW(const double sqrt_s) const
 {
     return getMyGMCache()->rh_ff * getMyGMCache()->rh_VV / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muggHtautau(const double sqrt_s) const
+const double GeorgiMachacek::muggHtautau(const double sqrt_s) const
 {
     return getMyGMCache()->rh_gg * getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVBFHtautau(const double sqrt_s) const
+const double GeorgiMachacek::muVBFHtautau(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVHtautau(const double sqrt_s) const
+const double GeorgiMachacek::muVHtautau(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muttHtautau(const double sqrt_s) const
+const double GeorgiMachacek::muttHtautau(const double sqrt_s) const
 {
     return getMyGMCache()->rh_ff * getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muggHbb(const double sqrt_s) const
+const double GeorgiMachacek::muggHbb(const double sqrt_s) const
 {
     return getMyGMCache()->rh_gg * getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVBFHbb(const double sqrt_s) const
+const double GeorgiMachacek::muVBFHbb(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muVHbb(const double sqrt_s) const
+const double GeorgiMachacek::muVHbb(const double sqrt_s) const
 {
     return getMyGMCache()->rh_VV * getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muttHbb(const double sqrt_s) const
+const double GeorgiMachacek::muttHbb(const double sqrt_s) const
 {
     return getMyGMCache()->rh_ff * getMyGMCache()->rh_ff / computeGammaTotalRatio();
 }
 
-double GeorgiMachacek::muppHmumu(const double sqrt_s) const
+const double GeorgiMachacek::muppHmumu(const double sqrt_s) const
 {
     if(sqrt_s==8)
     {
@@ -355,7 +356,7 @@ double GeorgiMachacek::muppHmumu(const double sqrt_s) const
     }
 }
 
-double GeorgiMachacek::muppHZga(const double sqrt_s) const
+const double GeorgiMachacek::muppHZga(const double sqrt_s) const
 {
     if(sqrt_s==8)
     {
@@ -372,7 +373,7 @@ double GeorgiMachacek::muppHZga(const double sqrt_s) const
 }
 
 
-double GeorgiMachacek::Mw() const{
+const double GeorgiMachacek::Mw() const{
     double MZ = StandardModel::Mz;
     return ( MZ / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * StandardModel::ale / (sqrt(2.0) * StandardModel::GF * MZ* MZ))));
 }

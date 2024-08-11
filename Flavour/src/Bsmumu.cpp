@@ -9,12 +9,17 @@
 #include "StandardModel.h"
 #include "EvolBsmm.h"
 #include "HeffDB1.h"
+#include "NPSMEFTd6GeneralMatching.h"
 
 Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
 : ThObservable(SM_i),
   evolbsmm(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM))
 {
     lep = lep_i;
+    if(lep == QCD::MU) leptonindex = 1;
+    else if(lep == QCD::ELECTRON) leptonindex = 0;
+    else if(lep == QCD::TAU) leptonindex = 2;
+    else throw std::runtime_error("Bsmumu::Bsmumu(): lepton type not defined. Can be only MU or ELECTRON");
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
     SM.initializeMeson(QCD::B_S);
@@ -22,13 +27,17 @@ Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
 
 double Bsmumu::computeThValue()
 {
-    computeObs(FULLNLO, FULLNLO_QED);
     double FBs = SM.getMesons(QCD::B_S).getDecayconst();
     
-    double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; 
- 
+    double Mw = SM.Mw();
+    double GF = SM.getGF();
+    coupling = GF * GF * Mw * Mw /M_PI /M_PI ; 
+    //convertFromSingletoDoubleGF = 2. * M_SQRT2 / GF * SM.getAle() / 4. * M_PI / Mw / Mw; /* Single GF for excluding EW corrections*/
+
+    computeObs(FULLNLO, FULLNLO_QED);
+
     double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta;
-    double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.; // For now. To be explicitly calculated.
+    double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.; // Using the experimental number here
     timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
      
     if (obs == 1) return( PRF * ampSq);
@@ -76,34 +85,40 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
         throw std::runtime_error("Bsmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
+    allcoeff = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
 
     double alsmu = evolbsmm->alphatilde_s(mu);
     double alemu = evolbsmm->alphatilde_e(mu);
 //    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
     gslpp::matrix<gslpp::complex> Vckm = SM.getVCKM();
-    double sw = sqrt( (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ) ;
+//    double sw2 =  (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ;
     
-    gslpp::complex C_10p = 0.;
-    gslpp::complex C_S = 0.;
-    gslpp::complex C_Sp = 0.;
-    gslpp::complex C_P = 0.;
-    gslpp::complex C_Pp = 0.;
+    C_10p = 0.;
+    C_S = 0.;
+    C_Sp = 0.;
+    C_P = 0.;
+    C_Pp = 0.;
    
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     
     switch(order_qed) {
         case FULLNLO_QED:
         {
-            gslpp::complex C10_SM = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
+            C_10 = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
                     + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_QED ]))(7) /alsmu
                     + (*(allcoeff[NLO_QED11]))(7) + (*(allcoeff[NLO_QED02]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
             
-            gslpp::complex NPfactor = (Vckm(2,2).conjugate() * Vckm(2,1)) * sw * sw;
+            gslpp::complex NPfactor = (Vckm(2,2).conjugate() * Vckm(2,1)) * coupling;
 
-            gslpp::complex CC_P = C10_SM + NPfactor * ( /*C10_NP*/ - C_10p + mBs*mBs*mb / ( 2.*mlep*(mb+ms)*mW ) * (C_P - C_Pp) );
+            if(SM.getModelName().compare("NPSMEFTd6U2") == 0 || SM.getModelName().compare("NPSMEFTd6U3") == 0)
+            {
+                C_10 = C_10 + (dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCdeVLR(1,2,leptonindex,leptonindex) - 
+                    dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedVLL(leptonindex,leptonindex,0,2)) / NPfactor; 
+            }
+
+            gslpp::complex CC_P = C_10 + NPfactor * ( /*C10_NP*/ - C_10p + mBs*mBs*mb / ( 2.*mlep*(mb+ms)*mW ) * (C_P - C_Pp) );
 
                 
             absP = CC_P.abs(); //contains only SM contributions (P, P', S, S' not added)

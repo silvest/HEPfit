@@ -77,7 +77,7 @@ NPSMEFTd6Matching::~NPSMEFTd6Matching()
 std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMbsmm()
 {
     vmcbsmm.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMbsmm().begin(); it != StandardModelMatching::CMbsmm().end(); it++ ) vmcbsmm.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMbsmm().begin(); it != StandardModelMatching::CMbsmm().end(); it++ ) vmcbsmm.push_back(*it);
 
     switch (mcbsmm.getScheme()) {
         case NDR:
@@ -111,7 +111,7 @@ std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMbsmm()
 std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMbdmm()
 {
     vmcbdmm.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMbdmm().begin(); it != StandardModelMatching::CMbdmm().end(); it++ ) vmcbdmm.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMbdmm().begin(); it != StandardModelMatching::CMbdmm().end(); it++ ) vmcbdmm.push_back(*it);
 
     switch (mcbdmm.getScheme()) {
         case NDR:
@@ -145,7 +145,7 @@ std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMbdmm()
 std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMbsg()
 {
     vmcbsg.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMbsg().begin(); it != StandardModelMatching::CMbsg().end(); it++ ) vmcbsg.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMbsg().begin(); it != StandardModelMatching::CMbsg().end(); it++ ) vmcbsg.push_back(*it);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -180,7 +180,7 @@ std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMbsg()
 std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMprimebsg()
 {
     vmcprimebsg.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMprimebsg().begin(); it != StandardModelMatching::CMprimebsg().end(); it++ ) vmcprimebsg.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMprimebsg().begin(); it != StandardModelMatching::CMprimebsg().end(); it++ ) vmcprimebsg.push_back(*it);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:
@@ -215,7 +215,7 @@ std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMprimebsg()
 std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMBMll(QCD::lepton lepton)
 {
     vmcBMll.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMBMll(lepton).begin(); it != StandardModelMatching::CMBMll(lepton).end(); it++ ) vmcBMll.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMBMll(lepton).begin(); it != StandardModelMatching::CMBMll(lepton).end(); it++ ) vmcBMll.push_back(*it);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -265,7 +265,7 @@ std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMBMll(QCD::lepton lepton)
 std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMprimeBMll(QCD::lepton lepton)
 {
     vmcprimeBMll.clear();
-    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMprimeBMll(lepton).begin(); it != StandardModelMatching::CMprimeBMll(lepton).end(); it++ ) vmcprimeBMll.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMprimeBMll(lepton).begin(); it != StandardModelMatching::CMprimeBMll(lepton).end(); it++ ) vmcprimeBMll.push_back(*it);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:

@@ -91,7 +91,8 @@ void MonteCarlo::TestRun(int rank) {
         if (!myInputParser.getModel()->Init(DP)) {
             if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
                 std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
-                for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+                std::vector<std::string> missingParameters = myInputParser.getModel()->getmissingModelParameters(); // Store the result in a variable to avoid dangling pointer warning 
+                for (std::vector<std::string>::iterator it = missingParameters.begin(); it != missingParameters.end(); it++) {
                     std::cout << "ModelParameter\t" << *it << std::endl;
                 }
                 std::cout << std::endl;
@@ -167,7 +168,8 @@ void MonteCarlo::Run(const int rank) {
         if (!myInputParser.getModel()->Init(DP)) {
             if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
                 if (rank == 0) std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
-                for (std::vector<std::string>::iterator it = myInputParser.getModel()->getmissingModelParameters().begin(); it != myInputParser.getModel()->getmissingModelParameters().end(); it++) {
+                std::vector<std::string> missingParameters = myInputParser.getModel()->getmissingModelParameters(); // Store the result in a variable to avoid dangling pointer warning
+                for (std::vector<std::string>::iterator it = missingParameters.begin(); it != missingParameters.end(); it++) {
                     if (rank == 0) std::cout << "ModelParameter\t" << *it << std::endl;
                 }
                 std::cout << std::endl;
@@ -484,7 +486,8 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
     bool IsEOF = false;
     do {
         IsEOF = getline(ifile, line).eof();
-        if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
+        if(IsEOF) continue;
+        if (!line.empty() && *line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.at(0) == '#')
             continue;
         boost::char_separator<char> sep(" \t");

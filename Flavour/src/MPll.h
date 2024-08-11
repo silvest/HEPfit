@@ -302,8 +302,8 @@ private:
     std::vector<std::string> mpllParameters;/**< The string of mandatory MPll parameters */
     std::unique_ptr<F_1> myF_1;
     std::unique_ptr<F_2> myF_2;
-    bool dispersion;
-    bool FixedWCbtos;
+    bool dispersion = false;
+    bool FixedWCbtos = false;
     double mJ2;
     
     double GF;            /**<Fermi constant */

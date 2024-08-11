@@ -11,6 +11,7 @@
 #include <BAT/BCMath.h>
 #include <BAT/BCGaussianPrior.h>
 #include <BAT/BCTF1Prior.h>
+#include <BAT/BCCombinedPrior.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -24,6 +25,7 @@
 #include <stdexcept>
 #include <iomanip>
 #include <limits>
+#include <memory>
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
@@ -236,16 +238,10 @@ void MonteCarloEngine::DefineParameters() {
                 }
             } else
                 DPars[it->getname()] = 0.;
-            if (it->geterrf() == 0.) GetParameter(k).SetPrior(new BCGaussianPrior(it->getave(), it->geterrg())); //SetPriorGauss(k, it->getave(), it->geterrg());
+            if (it->geterrf() == 0.) GetParameter(k).SetPrior(std::make_shared<BCGaussianPrior>(it->getave(), it->geterrg())); //SetPriorGauss(k, it->getave(), it->geterrg());
             else if (it->geterrg() == 0.) GetParameter(k).SetPriorConstant(); //SetPriorConstant(k);
             else {
-                TF1 combined = TF1(it->getname().c_str(),
-                        "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]",
-                        it->getmin(), it->getmax());
-                combined.SetParameter(0, it->getave());
-                combined.SetParameter(1, it->geterrg());
-                combined.SetParameter(2, it->geterrf());
-                GetParameter(k).SetPrior(new BCTF1Prior(combined)); //SetPrior(k, combined);
+	      GetParameter(k).SetPrior(std::make_shared<BCCombinedPrior>(it->getave(), it->geterrg(), it->geterrf())); //SetPrior(k, combined);
             }
             k++;
         }
@@ -345,7 +341,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
         if(!(it->isPrediction())) logprob += it->computeWeight();
     }
-    if (!std::isfinite(logprob)) {
+    if (!std::isfinite(logprob) || !Mod->isQCDsuccess()) {
         NumOfDiscardedEvents++;
 #ifdef _MCDEBUG
 //        std::cout << "Event discarded since logprob evaluated to: " << logprob << std::endl ;
@@ -1163,7 +1159,8 @@ std::string MonteCarloEngine::computeStatistics() {
             int size = it1->getObs().size();
             CorrelationMap[it1->getName()]->MakePrincipals();
             //CorrelationMap[it1->getName()]->Print();
-            TMatrixD * corr = const_cast<TMatrixD*>(CorrelationMap[it1->getName()]->GetCovarianceMatrix()); // This returns the normalized correlation matrix.
+            TMatrixD * corr = const_cast<TMatrixD*>(CorrelationMap[it1->getName()]->GetCovarianceMatrix()); // This returns the normalized correlation matrix, i.e. the correlation matrix
+            TVectorD * mean = const_cast<TVectorD*>(CorrelationMap[it1->getName()]->GetMeanValues()); // This returns the vector of mean values.
             TVectorD * sigma = const_cast<TVectorD*>(CorrelationMap[it1->getName()]->GetSigmas()); // This returns the vector of standard deviations.
             *corr *= (double)size; // Get rid of the normalization which is just the size of the matrix.
             gslpp::matrix<double> inverseCovariance(size, size);
@@ -1174,7 +1171,7 @@ std::string MonteCarloEngine::computeStatistics() {
                 }
             }
             bool SingularCovariance = inverseCovariance.isSingular();
-            if (!SingularCovariance) inverseCovariance = inverseCovariance.inverse(); // This is just produces inverse covariance, the name is misleading.
+            if (!SingularCovariance) inverseCovariance = inverseCovariance.inverse(); // Invert to finally produce the inverse covariance (the name is misleading).
             StatsLog << "\nThe correlation matrix for " << it1->getName() << " is given by the " << size << "x"<< size << " matrix:\n" << std::endl;
 
             for (int i = 0; i < size + 1; i++) {
@@ -1193,7 +1190,21 @@ std::string MonteCarloEngine::computeStatistics() {
                     else StatsLog << std::setprecision(5) << std::setw(12) << (*corr)(i, j - 1);
                 }
             StatsLog << std::endl;
+            }            
+            StatsLog << std::endl;
+            
+            StatsLog << " The corresponding means and sqrt(V) in a list:\n" << std::endl;
+            for (int i = 0; i < size + 1; i++) {
+                if (i == 0) StatsLog << std::setw(4) << "Mean" << "|";
+                else StatsLog << std::setprecision(5) << std::setw(12) << (*mean)(i - 1);
             }
+            StatsLog << std::endl;
+            for (int i = 0; i < size + 1; i++) {
+                if (i == 0) StatsLog << std::setw(4) << "sqrt(V)" << "|";
+                else StatsLog << std::setprecision(5) << std::setw(12) << (*sigma)(i - 1);
+            }
+            StatsLog << std::endl;
+            
             StatsLog << std::endl;
             if (!SingularCovariance) {
                 StatsLog << " The inverse of the square root of the diagonal elements of the inverse covariance matrix are:\n" << std::endl;
@@ -1223,6 +1234,37 @@ std::string MonteCarloEngine::computeStatistics() {
             }
             StatsLog << "\\hline" << std::endl;
 
+            
+            TMatrixD * EigVec = const_cast<TMatrixD*>(CorrelationMap[it1->getName()]->GetEigenVectors()); // This returns a matrix with the eigenvectors of the PCA.
+            TVectorD * EigVal = const_cast<TVectorD*>(CorrelationMap[it1->getName()]->GetEigenValues()); // This returns the vector of eigenvalues.
+
+            StatsLog << "\nThe matrix of the PCA eigenvectors (columns) for " << it1->getName() << " is given by the " << size << "x"<< size << " matrix:\n" << std::endl;
+
+            for (int i = 0; i < size + 1; i++) {
+                if (i == 0) StatsLog << std::setw(4) << "" << " | ";
+                else StatsLog << std::setw(6) << i << std::setw(6) << "     |";
+            }
+            StatsLog << std::endl;
+            for (int i = 0; i < size + 1; i++) {
+                if (i == 0) StatsLog << std::setw(8) << "--------";
+                else StatsLog << std::setw(12) << "------------";
+            }
+            StatsLog << std::endl;
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size + 1; j++) {
+                    if (j == 0) StatsLog << std::setw(4) << i+1 << " |";
+                    else StatsLog << std::setprecision(5) << std::setw(12) << (*EigVec)(i, j - 1);
+                }
+            StatsLog << std::endl;
+            }
+            StatsLog << std::endl;
+            
+            StatsLog << " The corresponding PCA eigenvalues are:\n" << std::endl;
+            for (int i = 0; i < size + 1; i++) {
+                if (i == 0) StatsLog << std::setw(4) << "Eigenvalues" << "|";
+                else StatsLog << std::setprecision(5) << std::setw(12) << (*EigVal)(i - 1);
+            }
+            StatsLog << std::endl;
         }
     }
 

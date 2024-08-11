@@ -49,14 +49,14 @@ bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSTU::epsilon1() const
+const double NPSTU::epsilon1() const
 {
     double That = alphaMz() * obliqueT();
 
     return ( trueSM.epsilon1() + That);
 }
 
-double NPSTU::epsilon2() const
+const double NPSTU::epsilon2() const
 {
     double sW2_SM = trueSM.sW2(); /* This has to be the SM value. */
     double Uhat = -alphaMz() / (4.0 * sW2_SM) * obliqueU();
@@ -64,7 +64,7 @@ double NPSTU::epsilon2() const
     return ( trueSM.epsilon2() + Uhat);
 }
 
-double NPSTU::epsilon3() const
+const double NPSTU::epsilon3() const
 {
     double sW2_SM = trueSM.sW2(); /* This has to be the SM value. */
     double Shat = alphaMz() / (4.0 * sW2_SM) * obliqueS();
@@ -72,7 +72,7 @@ double NPSTU::epsilon3() const
     return ( trueSM.epsilon3() + Shat);
 }
 
-double NPSTU::epsilonb() const
+const double NPSTU::epsilonb() const
 {
     return trueSM.epsilonb();
 }

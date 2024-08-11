@@ -458,6 +458,43 @@ public:
     gslpp::complex h_lambda(int hel, double q2);
     
     /**
+     * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+     * @param hel helicity
+     * @return \f$h_{hel}(q^2)\f$
+     */
+    double Delta_C9_zExp(int hel);
+    
+    /**
+    * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+    * @return \f$ Delta_C9_zExp \f$
+    */
+    double getDelta_C9_zExp_0()
+    {
+        updateParameters();
+        return Delta_C9_zExp(0);
+    };
+    
+    /**
+    * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+    * @return \f$ Delta_C9_zExp \f$
+    */
+    double getDelta_C9_zExp_p()
+    {
+        updateParameters();
+        return Delta_C9_zExp(1);
+    };
+    
+    /**
+    * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+    * @return \f$ Delta_C9_zExp \f$
+    */
+    double getDelta_C9_zExp_m()
+    {
+        updateParameters();
+        return Delta_C9_zExp(2);
+    };
+    
+    /**
     * @brief The helicity amplitude \f$ H_V^0 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_V^0 \f$
@@ -512,6 +549,14 @@ public:
     * @return \f$ H_P \f$
     */
     gslpp::complex H_P(double q2, bool bar);
+    
+    /**
+    * @brief Polarization amplitudes for M to V psi, Eq. B.16 of arXiv:2206.03797.
+    * @param[in] mass of the charmonium resonance \f$m_{\psi}\f$
+    * @param[in] tran transversity
+    * @return \f$ A_{0,||,\perp} \f$
+    */
+    gslpp::complex AmpMVpsi_zExpansion(double mpsi, int tran);
     
     gslpp::complex getQCDf_1(double q2)
     {
@@ -731,8 +776,11 @@ private:
     std::unique_ptr<F_1> myF_1;
     std::unique_ptr<F_2> myF_2;
     bool dispersion;
+    bool zExpansion;
     bool FixedWCbtos;
-    double mJ2;
+    double mJpsi, mJ2;
+    double mPsi2S, mPsi2S2;
+    double mD2;
     gslpp::complex exp_Phase[3];
     
     double GF;            /**<Fermi constant */
@@ -767,10 +815,33 @@ private:
     gslpp::complex h_2[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex SU3_breaking;
     
+    gslpp::complex beta_0[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex beta_1[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex beta_2[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    
     double t_p;/**< Cache variable */
     double t_m;/**< Cache variable */
     double t_0;/**< Cache variable */
     double z_0;/**< Cache variable */
+    double s_p;
+    double s_0;
+    double Q2;
+    double chiOPE;
+    double twoalphaBtoKst;
+    double rho_0;
+    double rho_1;
+    double rho_2;
+    double rho_3;
+    double rho_4;
+    double rho_5;
+    double onemrho_0_2;
+    double onemrho_1_2;
+    double onemrho_2_2;
+    double onemrho_3_2;
+    double onemrho_4_2;
+    double onemrho_5_2;
+    double DeltaC9;
+    double DeltaC10;
     double MMpMV;/**< Cache variable */
     double MMpMV2;/**< Cache variable */
     double MMmMV;/**< Cache variable */
@@ -1144,6 +1215,10 @@ private:
     gslpp::complex h1Ccache[4];/**< Cache variable */
     gslpp::complex h2Ccache[4];/**< Cache variable */
     
+    gslpp::complex beta0Ccache[8];/**< Cache variable */
+    gslpp::complex beta1Ccache[8];/**< Cache variable */
+    gslpp::complex beta2Ccache[8];/**< Cache variable */
+    
     unsigned int h0_updated;/**< Cache variable */
     unsigned int h1_updated;/**< Cache variable */
     unsigned int h2_updated;/**< Cache variable */
@@ -1356,6 +1431,188 @@ private:
     gslpp::complex funct_g(double q2);
     
     gslpp::complex DeltaC9_KD(double q2, int com);
+    
+    /**
+    * @brief The expansion parameter \f$ \hat{z} \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ zh \f$
+    */
+    gslpp::complex zh(double q2);
+    
+    /**
+    * @brief The Blaschke factor \f$ \mathcal{P} \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ P \f$
+    */
+    gslpp::complex P(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_1 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_1 \f$
+    */
+    gslpp::complex Phi_1(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_1^* \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_1^* \f$
+    */
+    gslpp::complex Phi_1_st(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_2 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_2 \f$
+    */
+    gslpp::complex Phi_2(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_2^* \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_2^* \f$
+    */
+    gslpp::complex Phi_2_st(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_3 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_3 \f$
+    */
+    gslpp::complex Phi_3(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_3^* \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_3^* \f$
+    */
+    gslpp::complex Phi_3_st(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_4 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_4 \f$
+    */
+    gslpp::complex Phi_4(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_4^* \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_4^* \f$
+    */
+    gslpp::complex Phi_4_st(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_5 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_5 \f$
+    */
+    gslpp::complex Phi_5(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_5^* \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_5^* \f$
+    */
+    gslpp::complex Phi_5_st(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_6 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_6 \f$
+    */
+    gslpp::complex Phi_6(double q2);
+    
+    /**
+    * @brief The recursive function \f$ Phi_6^* \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Phi_6^* \f$
+    */
+    gslpp::complex Phi_6_st(double q2);
+    
+    /**
+    * @brief The 0th normalized Szego polynomial \f$ p_0 \f$ from arXiv:2206.03797.
+    * @return \f$ p0 \f$
+    */
+    gslpp::complex p0();
+    
+    /**
+    * @brief The 1st normalized Szego polynomial \f$ p_1 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ p1 \f$
+    */
+    gslpp::complex p1(double q2);
+    
+    /**
+    * @brief The 2nd normalized Szego polynomial \f$ p_2 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ p2 \f$
+    */
+    gslpp::complex p2(double q2);
+    
+    /**
+    * @brief The 3rd normalized Szego polynomial \f$ p_3 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ p3 \f$
+    */
+    gslpp::complex p3(double q2);
+    
+    /**
+    * @brief The 4th normalized Szego polynomial \f$ p_4 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ p4 \f$
+    */
+    gslpp::complex p4(double q2);
+    
+    /**
+    * @brief The 5th normalized Szego polynomial \f$ p_5 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ p5 \f$
+    */
+    gslpp::complex p5(double q2);
+    
+    /**
+    * @brief The 6th normalized Szego polynomial \f$ p_6 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ p6 \f$
+    */
+    gslpp::complex p6(double q2);
+    
+    /**
+    * @brief The outer function \f$ phi_1 \f$ from arXiv:2011.09813.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ phi_1 \f$
+    */
+    gslpp::complex phi_1(double q2);
+    
+    /**
+    * @brief The outer function \f$ phi_2 \f$ from arXiv:2011.09813.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ phi_2 \f$
+    */
+    gslpp::complex phi_2(double q2);
+    
+    /**
+    * @brief The outer function \f$ phi_3 \f$ from arXiv:2011.09813.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ phi_3 \f$
+    */
+    gslpp::complex phi_3(double q2);
+    
+    /**
+    * @brief The outer function \f$ phi_4 \f$ from arXiv:2011.09813.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ phi_4 \f$
+    */
+    gslpp::complex phi_4(double q2);
+        
+    /**
+    * @brief The correction to \f$ C_9 \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] tran transversity
+    * @return \f$ \Delta C_9 \f$
+    */
+    gslpp::complex DeltaC9_zExpansion(double q2, int tran);
         
     /**
     * @brief The square of the 3-momentum of the recoiling meson in the M rest frame, \f$ k^2 \f$ .

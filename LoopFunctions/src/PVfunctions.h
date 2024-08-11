@@ -9,7 +9,7 @@
 #define	PVFUNCTIONS_H
 
 // set in case where LoopTools library is employed.
-//#define USE_LOOPTOOLS
+// #define USE_LOOPTOOLS
 
 #include "gslpp.h"
 #include "Polylogarithms.h"
@@ -53,7 +53,7 @@ public:
      * minus sign is added to the one-point and three-point functions or not
      */
     PVfunctions(const bool bExtraMinusSign);
-
+    
     /**
      * @brief @f$A_0(m^2)@f$.
      * @details The scalar one-point function @f$A_0(m^2)@f$ is defined as
@@ -270,6 +270,18 @@ public:
      */
     gslpp::complex C0(const double p2, 
                const double m02, const double m12, const double m22) const;
+
+    /**
+     * @brief @f$C_{0}(p_1^2,p_2^2,(p_1+p_2)^2; m_0^2, m_1^2, m_2^2)@f$.
+     * @details @f[ Passarino-Veltman function C0(p_1^2,p_2^2,(p_1+p_2)^2; m_0^2, m_1^2, m_2^2) as defined in LoopTools.@f]
+     * When bExtraMinusSign=true is passed to the constructor, an extra overall
+     * minus sign is added to the above definition. 
+     * @param[in] p12,p22,p1p22 momentum squared, @f$p_1^2@f$,@f$p_2^2@f$,@f$(p_1+p_2)^2@f$
+     * @param[in] m02, m12, m22 mass squared, @f$m_0^2@f$, @f$m_1^2@f$ and @f$m_2^2@f$
+     * @return @f$C_{0}(p_1^2,p_2^2,(p_1+p_2)^2; m_0^2, m_1^2, m_2^2)@f$
+     */
+    gslpp::complex C0(const double p1, const double p2, const double p1p22, 
+                  const double m02, const double m12, const double m22) const;  //AG:added
 
     /**
      * @brief @f$C_{11}(m_1^2, m_2^2, m_3^2)@f$.

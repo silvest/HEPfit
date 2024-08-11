@@ -24,7 +24,7 @@ class CMFVMatching : public StandardModelMatching {
 public:
     CMFVMatching(const CMFV & CMFV_i);
     
-    double S0(double, double) const;
+    const double S0(double, double) const;
     
 private:
     const CMFV & myCMFV;

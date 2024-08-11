@@ -2771,6 +2771,35 @@ private:
 };
 
 /**
+ * @class mutHgaga
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class mutHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mutHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                           //AG:added
+
+/**
  * @class muggHZga
  * @ingroup NewPhysics
  * @brief 
@@ -2799,6 +2828,34 @@ private:
     const double sqrt_s;
 };
 
+/**
+ * @class muggHpbbH_Hgaga
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muggHpbbH_Hgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muggHpbbH_Hgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                    //AG:added
 
 
 /**
@@ -3147,6 +3204,123 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s;
 };
+
+/**
+ * @class muttHptH_HZZ
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHptH_HZZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHptH_HZZ(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                       //AG:added
+
+/**
+ * @class muttHptH_Hgaga
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHptH_Hgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHptH_Hgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                     //AG:added
+
+/**
+ * @class muttHptH_Hmumu
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHptH_Hmumu : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHptH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                     //AG:added
+
+/**
+ * @class muggHpbbH_HZZ
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muggHpbbH_HZZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muggHpbbH_HZZ(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                      //AG:added
+
 
 
 /**
@@ -3529,6 +3703,64 @@ private:
     const double sqrt_s;
 };
 
+/**
+ * @class muttHptH_HWW
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHptH_HWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHptH_HWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                       //AG:added
+
+/**
+ * @class muggHpbbH_HWW
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muggHpbbH_HWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muggHpbbH_HWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                      //AG:added
+
 
 /**
  * @class muggHWW2l2v
@@ -3910,6 +4142,65 @@ private:
 };
 
 /**
+ * @class muggHpttHptHpbbH_Hmumu
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muggHpttHptHpbbH_Hmumu : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muggHpttHptHpbbH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};             //AG:added
+
+/**
+ * @class muVBFpVH_Hmumu
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muVBFpVH_Hmumu : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muVBFpVH_Hmumu(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                     //AG:added
+
+
+/**
  * @class muggHtautau
  * @ingroup NewPhysics
  * @brief 
@@ -4115,6 +4406,65 @@ private:
 };
 
 /**
+ * @class muttHptH_Htautau
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHptH_Htautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHptH_Htautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                   //AG:added
+
+/**
+ * @class muggHpbbH_Htautau
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muggHpbbH_Htautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muggHpbbH_Htautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                  //AG:added
+
+
+/**
  * @class muggHbb
  * @ingroup NewPhysics
  * @brief 
@@ -4286,6 +4636,96 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s;
 };
+
+/**
+ * @class muttHptH_Hbb
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muttHptH_Hbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHptH_Hbb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                        //AG:added
+
+/**
+ * @class muggHpVBFpbbH_Hbb
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muggHpVBFpbbH_Hbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muggHpVBFpbbH_Hbb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};                  //AG:added
+
+
+
+/**
+ * @class muVHcc
+ * @ingroup NewPhysics
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muVHcc : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muVHcc(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
 
 
 /**
@@ -4540,6 +4980,576 @@ private:
     const double sqrt_s;
 };
 
+
+//AG:begin
+/**
+ * @class ggHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ggHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ggHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ggH) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(ggH) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ggHZZ
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(ZZ)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ggHZZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ggHZZ(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ggH) Br(ZZ)@f$.
+     * @return @f$\sigma(ggH) Br(ZZ)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ggHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ggHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ggHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ggH) Br(WW)@f$.
+     * @return @f$\sigma(ggH) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ggHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ggHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ggHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ggH) Br(\tau\tau)@f$.
+     * @return @f$\sigma(ggH) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+//--------------------------------------------------
+
+/**
+ * @class VBFHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(VBF) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class VBFHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    VBFHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(VBF) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(VBF) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class VBFHZZ
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(VBF) Br(ZZ)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class VBFHZZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    VBFHZZ(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(VBF) Br(ZZ)@f$.
+     * @return @f$\sigma(VBF) Br(ZZ)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class VBFHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(VBF) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class VBFHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    VBFHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(VBF) Br(WW)@f$.
+     * @return @f$\sigma(VBF) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class VBFHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(VBF) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class VBFHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    VBFHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(VBF) Br(\tau\tau)@f$.
+     * @return @f$\sigma(VBF) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+//--------------------------------------------------
+
+/**
+ * @class WHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(WH) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class WHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    WHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(WH) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(WH) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class WHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(WH) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class WHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    WHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(WH) Br(WW)@f$.
+     * @return @f$\sigma(WH) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ggHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ggH) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class WHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    WHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(WH) Br(\tau\tau)@f$.
+     * @return @f$\sigma(WH) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class WHbb
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(WH) Br(bb)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class WHbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    WHbb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(WH) Br(bb)@f$.
+     * @return @f$\sigma(WH) Br(bb)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+//--------------------------------------------------
+
+/**
+ * @class ZHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ZH) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ZHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ZHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ZH) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(ZH) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ZHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ZH) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ZHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ZHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ZH) Br(WW)@f$.
+     * @return @f$\sigma(ZH) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ZHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ZH) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ZHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ZHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ZH) Br(\tau\tau)@f$.
+     * @return @f$\sigma(ZH) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ZHbb
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ZH) Br(bb)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ZHbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ZHbb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ZH) Br(bb)@f$.
+     * @return @f$\sigma(ZH) Br(bb)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+//--------------------------------------------------
+
+/**
+ * @class ttHgaga
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ttH) Br(\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ttHgaga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ttHgaga(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH) Br(\gamma\gamma)@f$.
+     * @return @f$\sigma(ttH) Br(\gamma\gamma)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ttHWW
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ttH) Br(WW)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ttHWW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ttHWW(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH) Br(WW)@f$.
+     * @return @f$\sigma(ttH) Br(WW)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ttHtautau
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ttH) Br(\tau\tau)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ttHtautau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ttHtautau(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH) Br(\tau\tau)@f$.
+     * @return @f$\sigma(ttH) Br(\tau\tau)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class ttHbb
+ * @ingroup NewPhysics
+ * @brief A class for computing the value of @f$\sigma(ttH) Br(bb)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class ttHbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    ttHbb(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH) Br(bb)@f$.
+     * @return @f$\sigma(ttH) Br(bb)@f$.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+//AG:end
 
 /**
  * @class UpperLimit_ppHZgammaA
@@ -10932,6 +11942,95 @@ private:
 
 
 /**
+ * @class STXS12_ggH_mjj0_350_pTH0_120_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_ggH_mjj0_350_pTH0_120_Nj2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_ggH_mjj0_350_pTH0_120_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};   //AG:added
+
+/**
+ * @class STXS12_ggH_mjj350_Inf_pTH0_200_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_ggH_mjj350_Inf_pTH0_200_Nj2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_ggH_mjj350_Inf_pTH0_200_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+}; //AG:added
+
+
+/**
+ * @class STXS12_ggHpttH
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_ggHpttH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_ggHpttH(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+}; //AG:added
+
+
+/**
  * @class STXS12_ggHll_pTV0_75
  * @ingroup NewPhysics
  * @brief A class for computing the STXS bin @f$ @f$.
@@ -11081,6 +12180,7 @@ private:
 };
 
 
+
 /**
  * @class STXS12_qqHqq_Nj0
  * @ingroup NewPhysics
@@ -11109,7 +12209,6 @@ private:
     const double sqrt_s;
     unsigned int fstate;
 };
-
 
 /**
  * @class STXS12_qqHqq_Nj1
@@ -11140,7 +12239,6 @@ private:
     unsigned int fstate;
 };
 
-
 /**
  * @class STXS12_qqHqq_mjj0_60_Nj2
  * @ingroup NewPhysics
@@ -11169,8 +12267,6 @@ private:
     const double sqrt_s;
     unsigned int fstate;
 };
-
-
 
 /**
  * @class STXS12_qqHqq_mjj60_120_Nj2
@@ -11201,8 +12297,6 @@ private:
     unsigned int fstate;
 };
 
-
-
 /**
  * @class STXS12_qqHqq_mjj120_350_Nj2
  * @ingroup NewPhysics
@@ -11231,8 +12325,6 @@ private:
     const double sqrt_s;
     unsigned int fstate;
 };
-
-
 
 /**
  * @class STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2
@@ -11263,7 +12355,63 @@ private:
     unsigned int fstate;
 };
 
+/**
+ * @class STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2 : public ThObservable {
+public:
 
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};      //AG:added
+
+/**
+ * @class STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};      //AG:added
 
 /**
  * @class STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2
@@ -11294,7 +12442,6 @@ private:
     unsigned int fstate;
 };
 
-
 /**
  * @class STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2
  * @ingroup NewPhysics
@@ -11323,8 +12470,6 @@ private:
     const double sqrt_s;
     unsigned int fstate;
 };
-
-
 
 /**
  * @class STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2
@@ -11355,7 +12500,6 @@ private:
     unsigned int fstate;
 };
 
-
 /**
  * @class STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2
  * @ingroup NewPhysics
@@ -11384,6 +12528,181 @@ private:
     const double sqrt_s;
     unsigned int fstate;
 };
+
+/**
+ * @class STXS12_qqHqq_mjj350_700_pTH0_200_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHqq_mjj350_700_pTH0_200_Nj2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHqq_mjj350_700_pTH0_200_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};      //AG:added
+
+/**
+ * @class STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};      //AG:added
+
+/**
+ * @class STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};      //AG:added
+
+/**
+ * @class STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};      //AG:added
+
+/**
+ * @class STXS12_qqHqq_mjj1000_Inf_pTH0_200_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHqq_mjj1000_Inf_pTH0_200_Nj2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHqq_mjj1000_Inf_pTH0_200_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};      //AG:added
+
+/**
+ * @class STXS12_qqHqq_mjj350_Inf_Nj2
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHqq_mjj350_Inf_Nj2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHqq_mjj350_Inf_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};      //AG:added
+
 
 
 /**
@@ -11415,7 +12734,6 @@ private:
     unsigned int fstate;
 };
 
-
 /**
  * @class STXS12_qqHlv_pTV75_150
  * @ingroup NewPhysics
@@ -11444,8 +12762,6 @@ private:
     const double sqrt_s;
     unsigned int fstate;
 };
-
-
 
 /**
  * @class STXS12_qqHlv_pTV150_250_Nj0
@@ -11476,7 +12792,6 @@ private:
     unsigned int fstate;
 };
 
-
 /**
  * @class STXS12_qqHlv_pTV150_250_Nj1
  * @ingroup NewPhysics
@@ -11506,8 +12821,6 @@ private:
     unsigned int fstate;
 };
 
-
-
 /**
  * @class STXS12_qqHlv_pTV250_Inf
  * @ingroup NewPhysics
@@ -11536,6 +12849,123 @@ private:
     const double sqrt_s;
     unsigned int fstate;
 };
+
+/**
+ * @class STXS12_qqHlv_pTV250_Inf
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHlv_pTV0_150 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHlv_pTV0_150(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};              //AG:added
+
+/**
+ * @class STXS12_qqHlv_pTV250_400
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHlv_pTV250_400 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHlv_pTV250_400(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};            //AG:added
+
+/**
+ * @class STXS12_qqHlv_pTV400_Inf
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHlv_pTV400_Inf : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHlv_pTV400_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};            //AG:added
+
+/**
+ * @class STXS12_qqHlv_pTV150_Inf
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHlv_pTV150_Inf : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHlv_pTV150_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};            //AG:added
+
 
 
 /**
@@ -11567,7 +12997,6 @@ private:
     unsigned int fstate;
 };
 
-
 /**
  * @class STXS12_qqHll_pTV75_150
  * @ingroup NewPhysics
@@ -11597,6 +13026,34 @@ private:
     unsigned int fstate;
 };
 
+/**
+ * @class STXS12_qqHll_pTV0_150
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHll_pTV0_150 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHll_pTV0_150(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};              //AG:added
 
 /**
  * @class STXS12_qqHll_pTV150_250_Nj0
@@ -11627,8 +13084,6 @@ private:
     unsigned int fstate;
 };
 
-
-
 /**
  * @class STXS12_qqHll_pTV150_250_Nj1
  * @ingroup NewPhysics
@@ -11658,8 +13113,6 @@ private:
     unsigned int fstate;
 };
 
-
-
 /**
  * @class STXS12_qqHll_pTV250_Inf
  * @ingroup NewPhysics
@@ -11688,6 +13141,123 @@ private:
     const double sqrt_s;
     unsigned int fstate;
 };
+
+/**
+ * @class STXS12_qqHll_pTV250_400
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHll_pTV250_400 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHll_pTV250_400(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};            //AG:added
+
+/**
+ * @class STXS12_qqHll_pTV400_Inf
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHll_pTV400_Inf : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHll_pTV400_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};            //AG:added
+
+/**
+ * @class STXS12_qqHll_pTV150_Inf
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_qqHll_pTV150_Inf : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_qqHll_pTV150_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};            //AG:added
+
+
+/**
+ * @class STXS12_VHlep
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_VHlep : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_VHlep(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};            //AG:added
 
 
 
@@ -11720,8 +13290,6 @@ private:
     unsigned int fstate;
 };
 
-
-
 /**
  * @class STXS12_ttH_pTH60_120
  * @ingroup NewPhysics
@@ -11751,7 +13319,34 @@ private:
     unsigned int fstate;
 };
 
+/**
+ * @class STXS12_ttH_pTH0_120
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_ttH_pTH0_120 : public ThObservable {
+public:
 
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_ttH_pTH0_120(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};
 
 /**
  * @class STXS12_ttH_pTH120_200
@@ -11782,8 +13377,6 @@ private:
     unsigned int fstate;
 };
 
-
-
 /**
  * @class STXS12_ttH_pTH200_300
  * @ingroup NewPhysics
@@ -11813,8 +13406,6 @@ private:
     unsigned int fstate;
 };
 
-
-
 /**
  * @class STXS12_ttH_pTH300_Inf
  * @ingroup NewPhysics
@@ -11843,6 +13434,122 @@ private:
     const double sqrt_s;
     unsigned int fstate;
 };
+
+/**
+ * @class STXS12_ttH_pTH300_450
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_ttH_pTH300_450 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_ttH_pTH300_450(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};              //AG:added
+
+/**
+ * @class STXS12_ttH_pTH450_Inf
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_ttH_pTH450_Inf : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_ttH_pTH450_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};              //AG:added
+
+/**
+ * @class STXS12_ttH_pTH300_Inf_add
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_ttH_pTH300_Inf_add : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_ttH_pTH300_Inf_add(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};              //AG:added
+
+/**
+ * @class STXS12_ttH
+ * @ingroup NewPhysics
+ * @brief A class for computing the STXS bin @f$ @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the STXS bin @f$ @f$.
+ */
+class STXS12_ttH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    STXS12_ttH(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i);
+
+    /**
+     * @brief A method to compute the value of the STXS bin in the current model.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+    unsigned int fstate;
+};              //AG:added
 
 
 

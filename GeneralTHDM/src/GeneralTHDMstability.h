@@ -56,9 +56,9 @@ public:
 private:
     const GeneralTHDM& myGTHDM;
     
+    gslpp::vector<double> vecMinus1, vecStability;
     gslpp::matrix<double> LambmatE;
     gslpp::matrix<gslpp::complex> Lambeigvec;
-    gslpp::vector<double> vecMinus1, vecStability;
     gslpp::vector<gslpp::complex> Lambeigval;
 
 };

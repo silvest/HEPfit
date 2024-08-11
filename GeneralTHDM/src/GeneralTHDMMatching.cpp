@@ -35,75 +35,95 @@ void GeneralTHDMMatching::updateGTHDMParameters() {
 //Maybe it's worth to define this at the cache, then we'd need to define one for each scalar
 
 double GeneralTHDMMatching::F1oneloopgm2(const double ratio_sq) {
+    
+    
+    double final_result;
+    
+    
+    if(ratio_sq>0.25){
+        final_result = (ratio_sq*(-2 + 3*ratio_sq) - 2*(-1 + ratio_sq)*sqrt(-1 + 4*ratio_sq)*
+            (M_PI/2 - atan(sqrt(-1 + 4*ratio_sq))) - 2*(-1 + ratio_sq)*sqrt(-1 + 4*ratio_sq)*
+            atan((-1 + 2*ratio_sq)/sqrt(-1 + 4*ratio_sq)) + (-1 + 3*ratio_sq)*log(ratio_sq))
+            /(2.*ratio_sq*ratio_sq*ratio_sq);
+    }
+    else if(ratio_sq==0.25){
+        final_result=-10 + 4*log(16);
+    }
+    else if(0.001<ratio_sq and ratio_sq<0.25){
+        
+        double arccoth_ratio = 0.5 * log(((-1 + 2*ratio_sq)/sqrt(1 - 4*ratio_sq) + 1.0) / ((-1 + 2*ratio_sq)/sqrt(1 - 4*ratio_sq) - 1.0));
+        //ArcCoth((-1 + 2*ratio_sq)/sqrt(1 - 4*ratio_sq))
+        final_result = (2*arccoth_ratio + 2*sqrt(1 - 
+        4*ratio_sq)*(ratio_sq*(-2 + 3*ratio_sq) - log(ratio_sq)) + 
+        ratio_sq*(10*atanh((1 + sqrt(1 - 4*ratio_sq) - pow(ratio_sq,2))/(2 + 
+        (-2 + ratio_sq)*ratio_sq)) + log((1 + sqrt(1 - 4*ratio_sq) - 
+        2*ratio_sq)/8.) + 6*sqrt(1 - 4*ratio_sq)*log(ratio_sq) + 
+        ratio_sq*log((16*pow(ratio_sq,8))/pow(1 + sqrt(1 - 4*ratio_sq) - 2*(2 
+        + sqrt(1 - 4*ratio_sq) - ratio_sq)*ratio_sq,4)) + 2*log(1 + sqrt(1 - 
+        4*ratio_sq) + 2*ratio_sq*(-2 - sqrt(1 - 4*ratio_sq) + 
+        ratio_sq))))/(4.*sqrt(1 - 4*ratio_sq)*pow(ratio_sq,3));
+    }
+    else{
+        final_result = (-7.0 / 6.0 - log(ratio_sq)) + 0.25*ratio_sq*(-13 - 12*log(ratio_sq));
+    }
 
-
-    //gslpp::complex rsqc=ratio_sq;//We need the functions to be evaluated in the complex space so we define the ratio to be complex
-    //gslpp::complex exact_result;
-
-    double approx_result;
-
-    //The exact expression has numerical problems for very small values of the ratio, better not to use it
-    //if(ratio_sq==0.25){
-    //    exact_result=-10 + 4*log(16);
-    //}
-    //else{
-    //    exact_result=(-2*sqrt(1 - 4*rsqc)*rsqc + 3*sqrt(1 - 4*rsqc)*pow(rsqc,2) + 
-    // 4*rsqc*(-1 + 2*rsqc)*arctanh(1/sqrt(1 - 4*rsqc)) + 
-    // 4*rsqc*(-1 + 2*rsqc)*arctanh((-1 + 2*rsqc)/sqrt(1 - 4*rsqc)) + 
-    // 3*rsqc*log(1 - sqrt(1 - 4*rsqc)) - 3*rsqc*log(1 + sqrt(1 - 4*rsqc)) - 
-    // log((1 + sqrt(1 - 4*rsqc))/(1 - sqrt(1 - 4*rsqc))) - 
-    // 3*rsqc*log(1 - sqrt(1 - 4*rsqc) - 2*rsqc) + 
-    // 3*rsqc*log(1 + sqrt(1 - 4*rsqc) - 2*rsqc) - sqrt(1 - 4*rsqc)*log(rsqc) + 
-    // 3*sqrt(1 - 4*rsqc)*rsqc*log(rsqc))/(2.*sqrt(1 - 4*rsqc)*pow(rsqc,3));
-    //}
-
-    approx_result = (-7.0 / 6.0 - log(ratio_sq));
-
-    return approx_result;
+    return final_result;
 }
 
 double GeneralTHDMMatching::F2oneloopgm2(const double ratio_sq) {
 
+    double final_result;
+    
+    
+    if(ratio_sq>0.25){
+        final_result = ((-2 + 6*ratio_sq)*(M_PI/2 - atan(sqrt(-1 + 4*ratio_sq))) + (-2 + 
+        6*ratio_sq)*atan((-1 + 2*ratio_sq)/sqrt(-1 + 4*ratio_sq)) + sqrt(-1 
+        + 4*ratio_sq)*(-(ratio_sq*(2 + ratio_sq)) + (-1 + 
+        ratio_sq)*log(ratio_sq)))/(2.*pow(ratio_sq,3)*sqrt(-1 + 4*ratio_sq));
+    }
+    else if(ratio_sq==0.25){
+        final_result= -34 + 24*log(4);
+    }
+    else if(0.001<ratio_sq and ratio_sq<0.25){
+        
+        final_result = -0.5*(ratio_sq*(2 + ratio_sq) - (-1 + ratio_sq)*log(ratio_sq) + 
+        (3*ratio_sq*log((2*ratio_sq)/(1 + sqrt(1 - 4*ratio_sq) - 2*ratio_sq)) 
+        + log((-2*ratio_sq)/(-1 + sqrt(1 - 4*ratio_sq) + 2*ratio_sq)))/sqrt(1 
+        - 4*ratio_sq))/pow(ratio_sq,3);
+    }
+    else{
+        final_result = ((11 + 6*log(ratio_sq))/6. + (ratio_sq*(89 + 60*log(ratio_sq)))/12.);
+    }
 
-    //gslpp::complex rsqc=ratio_sq;//We need the functions to be evaluated in the complex space so we define the ratio to be complex
-    //gslpp::complex exact_result;
-
-    double approx_result;
-
-    //The exact expression has numerical problems for very small values of the ratio, better not to use it
-    //if(ratio_sq==0.25){
-    //    exact_result=-34 + 24*log(4);
-    //}
-    //else{
-    //    
-    //    exact_result=((-2 + 6*rsqc)*arccot(sqrt(-1 + 4*rsqc)) + 
-    //    (-2 + 6*rsqc)*arctan((-1 + 2*rsqc)/sqrt(-1 + 4*rsqc)) + 
-    //    sqrt(-1 + 4*rsqc)*(-(rsqc*(2 + rsqc)) + (-1 + rsqc)*log(rsqc)))/(2.*pow(rsqc,3)*sqrt(-1 + 4*rsqc));
-    //}
-
-    approx_result = (11.0 / 6.0 + log(ratio_sq));
-
-    return approx_result;
+    return final_result;
 }
 
 double GeneralTHDMMatching::F3oneloopgm2(const double ratio_sq) {
 
+    
+    
+    double final_result;
+    
+    
+    if(ratio_sq>1.){
+       throw std::runtime_error("The implemented F3oneloopgm2 only works for values of the ratio"
+                " below one. Add a table interpolation if you need higher values"
+               );
+    }
+    else if(ratio_sq==1.){
+        final_result= -0.5;
+    }
+    else if(0.001<ratio_sq and ratio_sq<1.){
+        
+        final_result = ((-2 + ratio_sq)*ratio_sq + 2*(-1 + ratio_sq)*log(1 - ratio_sq))/(2.*ratio_sq*ratio_sq*ratio_sq);
+    }
+    else{
+        final_result = (-(1/6) - ratio_sq/12);
+    }
+        
+        
 
-    //gslpp::complex exact_result;
-    double approx_result;
-
-    //gslpp::complex rsqc=ratio_sq;//We need the functions to be evaluated in the complex space so we define the ratio to be complex
-
-    //For our range of masses the expansion is really good so we keep only it
-    //exact_result = ((-2 + rsqc)*rsqc + 2*(-1 + rsqc)*log(1 - rsqc))/(2.*pow(rsqc,3));
-
-    approx_result = -1 / 6. - ratio_sq / 12.;
-
-    //std::cout<<"\033[1;31m exact_result = \033[0m "<< exact_result <<std::endl;
-    //std::cout<<"\033[1;31m approx_result = \033[0m "<< approx_result <<"\n"<<std::endl;
-
-
-    return approx_result;
+    return final_result;
 }
 
 double GeneralTHDMMatching::gminus2muLO() {
@@ -121,9 +141,16 @@ double GeneralTHDMMatching::gminus2muLO() {
     double GF = myGTHDM.getGF();
     double mMU = myGTHDM.getLeptons(StandardModel::MU).getMass();
 
+    
+    //std::cout<<"\033[1;31m F3oneloopgm2(2.) = \033[0m "<< F3oneloopgm2(2.) << std::endl;
+    //std::cout<<"\033[1;31m F3oneloopgm2(0.250000001) = \033[0m "<< F3oneloopgm2(0.250000001) << std::endl;
+    //std::cout<<"\033[1;31m F3oneloopgm2(0.25) = \033[0m "<< F3oneloopgm2(0.25) << std::endl;
+    //std::cout<<"\033[1;31m F3oneloopgm2(0.249999999) = \033[0m "<< F3oneloopgm2(0.249999999) << std::endl;
+    //std::cout<<"\033[1;31m F3oneloopgm2(0.00100000000000001) = \033[0m "<< F3oneloopgm2(0.00100000000000001) << std::endl;
+    //std::cout<<"\033[1;31m F3oneloopgm2(0.001) = \033[0m "<< F3oneloopgm2(0.001) << std::endl;
 
-
-
+    
+    
     /*Mass of the physical scalars*/
     double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq;
     double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2sq;
@@ -446,6 +473,7 @@ double GeneralTHDMMatching::F3twoloopgm2(const double ratio_sq) {
     return (final_result);
 }
 
+/*
 double GeneralTHDMMatching::F4twoloopgm2(const double ratio_sq) {
 
     gslpp::complex rsqc = ratio_sq; //We need the functions to be evaluated in the complex space so we define the ratio to be complex
@@ -493,16 +521,28 @@ double GeneralTHDMMatching::F5twoloopgm2(const double ratio_sq) {
     //std::cout<<"\033[1;31m final_result = \033[0m "<< final_result <<std::endl;
     return (final_result);
 }
+*/
+
 
 double GeneralTHDMMatching::gminus2muNLO() {
 
     updateGTHDMParameters();
 
-    if (!myGTHDM.getSMHiggs()) {
-        //throw std::runtime_error("The NLO computation of g-2 is only implemented for SM Higgs since the coupling of charged scalars to neutral scalars is included only for that case.");
-        throw std::runtime_error("The NLO computation of g-2 for the heavy higgs scenario must be reviewed although in principle is implemented");
+//    if (!myGTHDM.getSMHiggs()) {
+//        //throw std::runtime_error("The NLO computation of g-2 is only implemented for SM Higgs since the coupling of charged scalars to neutral scalars is included only for that case.");
+//        throw std::runtime_error("The NLO computation of g-2 for the heavy higgs scenario must be reviewed although in principle is implemented");
+//
+//    }
 
-    }
+    //myGTHDM.getMyGTHDMCache()->mH1sq;
+    
+
+    
+//    std::cout<<"\033[1;31m ip_integral_x_1mx2_G_variable_set_0(0.000004) = \033[0m "<< myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx2_G_variable_set_0(0.0000041) << std::endl;
+//    std::cout<<"\033[1;31m ip_integral_x_1mx2_G_variable_set_0(1.) = \033[0m "<< myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx2_G_variable_set_0(1.) << std::endl;
+//    std::cout<<"\033[1;31m ip_integral_x_1mx2_G_variable_set_0(500.) = \033[0m "<< myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx2_G_variable_set_0(500.) << std::endl;
+//    std::cout<<"\033[1;31m ip_integral_x_1mx2_G_variable_set_0(40000) = \033[0m "<< myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx2_G_variable_set_0(40000.) << std::endl;
+
 
 
 
@@ -514,7 +554,7 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double Nc = 3.;
     double Qu = 2 / 3;
     double Qd = -1 / 3;
-    double Ql = -1;
+//    double Ql = -1;
 
     //SM masses
     double mMU = myGTHDM.getLeptons(StandardModel::MU).getMass();
@@ -561,36 +601,21 @@ double GeneralTHDMMatching::gminus2muNLO() {
     gslpp::complex sl = myGTHDM.getMyGTHDMCache()->sl;
 
     //GTHDM masses
-    double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq;
+    double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq; //NOTE THAT mH1 MUST BE THE SM HIGGS BOSON MASS
     double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2sq;
     double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3sq;
     double mHp2 = myGTHDM.getMyGTHDMCache()->mHp2;
 
     //GTHDM Rotation Couplings
-    double R11 = myGTHDM.getMyGTHDMCache()->R11;
-    double R12 = myGTHDM.getMyGTHDMCache()->R12;
-    double R13 = myGTHDM.getMyGTHDMCache()->R13;
-    double R21 = myGTHDM.getMyGTHDMCache()->R21;
-    double R22 = myGTHDM.getMyGTHDMCache()->R22;
-    double R23 = myGTHDM.getMyGTHDMCache()->R23;
-    double R31 = myGTHDM.getMyGTHDMCache()->R31;
-    double R32 = myGTHDM.getMyGTHDMCache()->R32;
-    double R33 = myGTHDM.getMyGTHDMCache()->R33;
-
-    double Rh1;
-    double RH1;
-    double RA1;
-
-
-    if (!myGTHDM.getSMHiggs()) {
-        RH1 = R11;
-        Rh1 = R21;
-        RA1 = R31;
-    } else {
-        Rh1 = R11;
-        RH1 = R21;
-        RA1 = R31;
-    }
+    double R11 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,0);
+    double R12 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,1);
+    double R13 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,2);
+    double R21 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,0);
+    double R22 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,1);
+    double R23 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,2);
+    double R31 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,0);
+    double R32 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,1);
+    double R33 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,2);
 
     //GTHDM lambda couplings
     double lambda3 = myGTHDM.getlambda3();
@@ -602,17 +627,9 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double lambdaHpH;
     double lambdaHpA;
 
+    lambdaHph = R11 * lambda3 + R12 * Relambda7 - R13*Imlambda7;
+    lambdaHpH = R21 * lambda3 + R22 * Relambda7 - R23*Imlambda7;
     lambdaHpA = R31 * lambda3 + R32 * Relambda7 - R33*Imlambda7;
-
-    if (!myGTHDM.getSMHiggs()) {
-        lambdaHpH = R11 * lambda3 + R12 * Relambda7 - R13*Imlambda7;
-        lambdaHph = R21 * lambda3 + R22 * Relambda7 - R23*Imlambda7;
-    } else {
-        lambdaHph = R11 * lambda3 + R12 * Relambda7 - R13*Imlambda7;
-        lambdaHpH = R21 * lambda3 + R22 * Relambda7 - R23*Imlambda7;
-    }
-
-
 
     //top-quark ratios square
     double rsqt_h = mt * mt / mH1_2;
@@ -625,15 +642,29 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double rsqb_H = mb * mb / mH2_2;
     double rsqb_A = mb * mb / mH3_2;
     double rsqb_Hp = mb * mb / mHp2;
+    double rsqb_W = mb * mb / (Mw * Mw);
+//    double rsqb_Hp = mb * mb / mHp2;
     //tau-lepton ratios square
     double rsqtau_h = mTAU * mTAU / mH1_2;
     double rsqtau_H = mTAU * mTAU / mH2_2;
     double rsqtau_A = mTAU * mTAU / mH3_2;
     double rsqtau_Hp = mTAU * mTAU / mHp2;
+    double rsqtau_W = mTAU * mTAU / (Mw * Mw);
+    
     //charged-higgs ratios square
     double rsqHp_h = mHp2 / mH1_2;
     double rsqHp_H = mHp2 / mH2_2;
     double rsqHp_A = mHp2 / mH3_2;
+    double rsqHp_W = mHp2 / (Mw*Mw);
+    
+    //neutral scalars ratios square
+    double rsqh_Hp = mH1_2 / mHp2;
+    double rsqH_Hp = mH2_2 / mHp2;
+    double rsqA_Hp = mH3_2 / mHp2;
+    double rsqh_W = mH1_2 / (Mw * Mw);
+    double rsqH_W = mH2_2 / (Mw * Mw);
+    double rsqA_W = mH3_2 / (Mw * Mw);
+    
     //W-boson ratios square
     double rsqW_h = Mw * Mw / mH1_2;
     double rsqW_H = Mw * Mw / mH2_2;
@@ -641,7 +672,54 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double rsqW_Hp = Mw * Mw / mHp2;
 
 
+    //Let's define here the integrals
+    double intgl_x2_1mx_G_rsq_tHp_bHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G(rsqt_Hp,rsqb_Hp);
+    double intgl_x2_1mx_G_rsq_tW_bW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G(rsqt_W,rsqb_W);
+    
+    double intgl_x2_1px_G_rsq_tHp_bHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1px_G(rsqt_Hp,rsqb_Hp);
+    double intgl_x2_1px_G_rsq_tW_bW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1px_G(rsqt_W,rsqb_W);
+    
+    double intgl_x_1mx2_G_rsq_tHp_bHp = myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx2_G(rsqt_Hp,rsqb_Hp);
+    double intgl_x_1mx2_G_rsq_tW_bW = myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx2_G(rsqt_W,rsqb_W);
+    
+    double intgl_x_1mx_1px_G_rsq_tHp_bHp = myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx_1px_G(rsqt_Hp,rsqb_Hp);
+    double intgl_x_1mx_1px_G_rsq_tW_bW = myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx_1px_G(rsqt_W,rsqb_W);
+    
+    double intgl_x_1mx2_G_variable_set_0_rsq_tauHp = myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx2_G_variable_set_0(rsqtau_Hp);
+    double intgl_x_1mx2_G_variable_set_0_rsq_tauW = myGTHDM.getMyGTHDMCache()->ip_integral_x_1mx2_G_variable_set_0(rsqtau_W);
 
+    
+    double intgl_x2_1mx_G_rsq_WHp_hHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G(rsqW_Hp,rsqh_Hp);
+    double intgl_x2_1mx_G_variable_set_1_rsq_hW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G_variable_set_1(rsqh_W);
+    double intgl_x2_G_rsq_WHp_hHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_G(rsqW_Hp,rsqh_Hp);
+    double intgl_x2_G_variable_set_1_rsq_hW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_G_variable_set_1(rsqh_W);
+    
+    double intgl_x2_1mx_G_rsq_HpW_hW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G(rsqHp_W,rsqh_W);
+    double intgl_x2_1mx_G_variable_set_1_rsq_hHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G_variable_set_1(rsqh_Hp);
+
+
+    
+    double intgl_x2_1mx_G_rsq_WHp_HHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G(rsqW_Hp,rsqH_Hp);
+    double intgl_x2_1mx_G_variable_set_1_rsq_HW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G_variable_set_1(rsqH_W);    
+    double intgl_x2_G_rsq_WHp_HHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_G(rsqW_Hp,rsqH_Hp);
+    double intgl_x2_G_variable_set_1_rsq_HW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_G_variable_set_1(rsqH_W);
+    
+    double intgl_x2_1mx_G_rsq_HpW_HW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G(rsqHp_W,rsqH_W);
+    double intgl_x2_1mx_G_variable_set_1_rsq_HHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G_variable_set_1(rsqH_Hp);
+
+    
+    
+    double intgl_x2_1mx_G_rsq_WHp_AHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G(rsqW_Hp,rsqA_Hp);
+    double intgl_x2_1mx_G_variable_set_1_rsq_AW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G_variable_set_1(rsqA_W);    
+    double intgl_x2_G_rsq_WHp_AHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_G(rsqW_Hp,rsqA_Hp);
+    double intgl_x2_G_variable_set_1_rsq_AW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_G_variable_set_1(rsqA_W);
+
+    double intgl_x2_1mx_G_rsq_HpW_AW = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G(rsqHp_W,rsqA_W);
+    double intgl_x2_1mx_G_variable_set_1_rsq_AHp = myGTHDM.getMyGTHDMCache()->ip_integral_x2_1mx_G_variable_set_1(rsqA_Hp);
+
+    
+    
+    
     //Computation a1
     double a1_const = (Ale * mMU * mMU / (4 * M_PI * M_PI * M_PI * vev * vev));
     double a1_SM;
@@ -695,26 +773,76 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double a3_total;
 
     a3_SM = a3_const * F3twoloopgm2(rsqW_h);
-    a3_h = a3_const * yl1R * Rh1 * F3twoloopgm2(rsqW_h);
-    a3_H = a3_const * yl2R * RH1 * F3twoloopgm2(rsqW_H);
-    a3_A = a3_const * yl3R * RA1 * F3twoloopgm2(rsqW_A);
+    a3_h = a3_const * yl1R * R11 * F3twoloopgm2(rsqW_h);
+    a3_H = a3_const * yl2R * R21 * F3twoloopgm2(rsqW_H);
+    a3_A = a3_const * yl3R * R31 * F3twoloopgm2(rsqW_A);
 
     a3_total = -a3_SM + a3_h + a3_H + a3_A;
 
     //Computation a4
-    double a4_const = (Ale * mMU * mMU * Nc * Vtb2 / (32 * M_PI * M_PI * M_PI * vev * vev * sW2 * (mHp2 - Mw * Mw)));
-    double a4_Hp_t;
-    double a4_Hp_b;
+    double a4_const = (Ale * mMU * mMU / (32 * M_PI * M_PI * M_PI * vev * vev * sW2 * (mHp2 - Mw * Mw)));
+    double a4_Hp_tb;
+    double a4_Hp_tt;
+    double a4_Hp_bb;
+    double a4_Hp_bt;
+    double a4_Hp_tau;
     double a4_total;
+    
+    a4_Hp_tb = a4_const * Nc * Vtb2 * (Qu * (sd * (sl.conjugate())).real()*mb*mb)*(intgl_x2_1mx_G_rsq_tHp_bHp - intgl_x2_1mx_G_rsq_tW_bW) ;
+    a4_Hp_tt = a4_const * Nc * Vtb2 * (Qu * (su * (sl.conjugate())).real()*mt*mt)*(intgl_x2_1px_G_rsq_tHp_bHp - intgl_x2_1px_G_rsq_tW_bW) ;
+    
+    a4_Hp_bb = a4_const * Nc * Vtb2 * (Qd * (sd * (sl.conjugate())).real()*mb*mb)*(intgl_x_1mx2_G_rsq_tHp_bHp - intgl_x_1mx2_G_rsq_tW_bW) ;
+    a4_Hp_bt = a4_const * Nc * Vtb2 * (Qd * (su * (sl.conjugate())).real()*mt*mt)*(intgl_x_1mx_1px_G_rsq_tHp_bHp - intgl_x_1mx_1px_G_rsq_tW_bW) ;
+    
+    a4_Hp_tau = a4_const * (-1 * (sl * (sl.conjugate())).real()*mTAU*mTAU)*(intgl_x_1mx2_G_variable_set_0_rsq_tauHp - intgl_x_1mx2_G_variable_set_0_rsq_tauW) ;
 
-    a4_Hp_t = a4_const * ((su * (sl.conjugate())).real()) * mt * mt * (F4twoloopgm2(rsqt_Hp) - F4twoloopgm2(rsqt_W));
-    a4_Hp_t = a4_const * ((sd * (sl.conjugate())).real()) * mb * mb * (F5twoloopgm2(rsqt_Hp) - F5twoloopgm2(rsqt_W));
+    a4_total = a4_Hp_tb + a4_Hp_tt + a4_Hp_bb + a4_Hp_bt + a4_Hp_tau;
+    
 
-    a4_total = a4_Hp_t + a4_Hp_b;
+    
+    //Computation a5
+    gslpp::complex img_i = gslpp::complex::i();
+    double a5_const = (Ale * mMU * mMU / (64 * M_PI * M_PI * M_PI * vev * vev * sW2 * (mHp2 - Mw * Mw)));
+    double a5_h;
+    double a5_H;
+    double a5_A;
+    double a5_total;
+    
+    a5_h = a5_const*(sl.conjugate()*R11*(R12 - img_i*R13)).real()*((mHp2+Mw*Mw-mH1_2)*(intgl_x2_1mx_G_rsq_WHp_hHp -
+            intgl_x2_1mx_G_variable_set_1_rsq_hW) - 4*Mw*Mw*(intgl_x2_G_rsq_WHp_hHp - intgl_x2_G_variable_set_1_rsq_hW) );
+    
+    a5_H = a5_const*(sl.conjugate()*R21*(R22 - img_i*R23)).real()*((mHp2+Mw*Mw-mH2_2)*(intgl_x2_1mx_G_rsq_WHp_HHp -
+            intgl_x2_1mx_G_variable_set_1_rsq_HW) - 4*Mw*Mw*(intgl_x2_G_rsq_WHp_HHp - intgl_x2_G_variable_set_1_rsq_HW) );
+    
+    a5_A = a5_const*(sl.conjugate()*R31*(R32 - img_i*R33)).real()*((mHp2+Mw*Mw-mH3_2)*(intgl_x2_1mx_G_rsq_WHp_AHp -
+            intgl_x2_1mx_G_variable_set_1_rsq_AW) - 4*Mw*Mw*(intgl_x2_G_rsq_WHp_AHp - intgl_x2_G_variable_set_1_rsq_AW) );
+    
+    a5_total = a5_h + a5_H + a5_A;
+    
+    
+    
 
-
-
-    double gminus2muNLO = a1_total + a2_total + a3_total + a4_total;
+    //Computation a6
+    double a6_const = (Ale * mMU * mMU / (64 * M_PI * M_PI * M_PI * sW2 * (mHp2 - Mw * Mw)));
+    double a6_h;
+    double a6_H;
+    double a6_A;
+    double a6_total;
+    //lambdaHph
+    
+    a6_h = a6_const * (sl.conjugate()*(R12 - img_i*R13)).real() * lambdaHph * 
+            (- intgl_x2_1mx_G_variable_set_1_rsq_hHp + intgl_x2_1mx_G_rsq_HpW_hW);
+    
+    a6_H = a6_const * (sl.conjugate()*(R22 - img_i*R23)).real() * lambdaHpH * 
+            (- intgl_x2_1mx_G_variable_set_1_rsq_HHp + intgl_x2_1mx_G_rsq_HpW_HW);
+    
+    a6_A = a6_const * (sl.conjugate()*(R32 - img_i*R33)).real() * lambdaHpA * 
+            (- intgl_x2_1mx_G_variable_set_1_rsq_AHp + intgl_x2_1mx_G_rsq_HpW_AW);
+    
+    a6_total = a6_h + a6_H + a6_A;
+            
+            
+    double gminus2muNLO = a1_total + a2_total + a3_total + a4_total + a5_total + a6_total;
 
     return (gminus2muNLO);
 }
@@ -1115,15 +1243,15 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton) 
     double Relambda7 = myGTHDM.getMyGTHDMCache()->Relambda7;
     double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3;
 
-    double R11 = myGTHDM.getMyGTHDMCache()->R11_GTHDM;
-    double R12 = myGTHDM.getMyGTHDMCache()->R12_GTHDM;
-    double R13 = myGTHDM.getMyGTHDMCache()->R13_GTHDM;
-    double R21 = myGTHDM.getMyGTHDMCache()->R21_GTHDM;
-    double R22 = myGTHDM.getMyGTHDMCache()->R22_GTHDM;
-    double R23 = myGTHDM.getMyGTHDMCache()->R23_GTHDM;
-    double R31 = myGTHDM.getMyGTHDMCache()->R31_GTHDM;
-    double R32 = myGTHDM.getMyGTHDMCache()->R32_GTHDM;
-    double R33 = myGTHDM.getMyGTHDMCache()->R33_GTHDM;
+    double R11 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,0);
+    double R12 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,1);
+    double R13 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(0,2);
+    double R21 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,0);
+    double R22 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,1);
+    double R23 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(1,2);
+    double R31 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,0);
+    double R32 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,1);
+    double R33 = myGTHDM.getMyGTHDMCache()->Rij_GTHDM(2,2);
 
     gslpp::complex sl = myGTHDM.getNl_11();
     gslpp::complex su = myGTHDM.getNu_11();
@@ -1143,43 +1271,21 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton) 
 
     //Yukawa couplings. Eq. (19)
 
-    gslpp::complex yl1 = 0.0;
-    gslpp::complex yl2 = 0.0;
+    gslpp::complex yl1 = R11 + (R12 + i * R13) * sl;
+    gslpp::complex yl2 = R21 + (R22 + i * R23) * sl;
     gslpp::complex yl3 = R31 + (R32 + i * R33) * sl;
-
-    if (myGTHDM.getSMHiggs()) {
-        yl1 = R11 + (R12 + i * R13) * sl;
-        yl2 = R21 + (R22 + i * R23) * sl;
-    } else {
-        yl2 = R11 + (R12 + i * R13) * sl;
-        yl1 = R21 + (R22 + i * R23) * sl;
-    }
-
 
     gslpp::complex CSboxU = CSboxBll(xt, xHp, su, sd, sl);
     gslpp::complex CPboxU = CPboxBll(xt, xHp, su, sd, sl);
     gslpp::complex CPZU = CPZUBll(xt, xHp, sW2, su, sd);
 
-    gslpp::complex CSphi1U = 0.0;
-    gslpp::complex CSphi2U = 0.0;
+    gslpp::complex CSphi1U = yl1.real() * CphiU(xHp, xt, vev, xphi1, mu, R11, R12, R13, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
+    gslpp::complex CSphi2U = yl2.real() * CphiU(xHp, xt, vev, xphi2, mu, R21, R22, R23, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
     gslpp::complex CSphi3U = yl3.real() * CphiU(xHp, xt, vev, xphi3, mu, R31, R32, R33, mH3_2, lambda3, Relambda7, Imlambda7, su, sd);
 
-    gslpp::complex CPphi1U = 0.0;
-    gslpp::complex CPphi2U = 0.0;
+    gslpp::complex CPphi1U = i * yl1.imag() * CphiU(xHp, xt, vev, xphi1, mu, R11, R12, R13, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
+    gslpp::complex CPphi2U = i * yl2.imag() * CphiU(xHp, xt, vev, xphi2, mu, R21, R22, R23, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
     gslpp::complex CPphi3U = i * yl3.imag() * CphiU(xHp, xt, vev, xphi3, mu, R31, R32, R33, mH3_2, lambda3, Relambda7, Imlambda7, su, sd);
-
-
-    if (myGTHDM.getSMHiggs()) {
-        CSphi1U = yl1.real() * CphiU(xHp, xt, vev, xphi1, mu, R11, R12, R13, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CSphi2U = yl2.real() * CphiU(xHp, xt, vev, xphi2, mu, R21, R22, R23, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CPphi1U = i * yl1.imag() * CphiU(xHp, xt, vev, xphi1, mu, R11, R12, R13, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CPphi2U = i * yl2.imag() * CphiU(xHp, xt, vev, xphi2, mu, R21, R22, R23, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
-    } else {
-        CSphi1U = yl1.real() * CphiU(xHp, xt, vev, xphi1, mu, R21, R22, R23, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CSphi2U = yl2.real() * CphiU(xHp, xt, vev, xphi2, mu, R11, R12, R13, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CPphi1U = i * yl1.imag() * CphiU(xHp, xt, vev, xphi1, mu, R21, R22, R23, mH1_2, lambda3, Relambda7, Imlambda7, su, sd);
-        CPphi2U = i * yl2.imag() * CphiU(xHp, xt, vev, xphi2, mu, R11, R12, R13, mH2_2, lambda3, Relambda7, Imlambda7, su, sd);
-    }
 
 
     //Total 2HDM Wilson coefficients CS and CP PART. Eq. (31)-(33) without SM part

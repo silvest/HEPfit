@@ -3719,7 +3719,7 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::CHF1_diag(const Particle F) const
+const double NPSMEFTd6::CHF1_diag(const Particle F) const
 {
     if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
         return CiHL1_11;
@@ -3737,7 +3737,7 @@ double NPSMEFTd6::CHF1_diag(const Particle F) const
         throw std::runtime_error("NPSMEFTd6::CHF1_diag(): wrong argument");
 }
 
-double NPSMEFTd6::CHF3_diag(const Particle F) const
+const double NPSMEFTd6::CHF3_diag(const Particle F) const
 {
     if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
         return CiHL3_11;
@@ -3755,7 +3755,7 @@ double NPSMEFTd6::CHF3_diag(const Particle F) const
         throw std::runtime_error("NPSMEFTd6::CHF3_diag(): wrong argument");
 }
 
-double NPSMEFTd6::CHf_diag(const Particle f) const
+const double NPSMEFTd6::CHf_diag(const Particle f) const
 {
     if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
         return 0.0;
@@ -3903,7 +3903,7 @@ gslpp::complex NPSMEFTd6::CfB_diag(const Particle f) const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::DeltaGF() const
+const double NPSMEFTd6::DeltaGF() const
 {
     //AG:added,hat
     if (hatCis()) {
@@ -3913,151 +3913,151 @@ double NPSMEFTd6::DeltaGF() const
         return ((CiHL3_11 + CiHL3_22 - 0.5 * (CiLL_1221 + CiLL_2112)) * v2_over_LambdaNP2);
 }
 
-double NPSMEFTd6::obliqueS() const
+const double NPSMEFTd6::obliqueS() const
 {
     return (4.0 * sW_tree * cW_tree * CiHWB / aleMz * v2_over_LambdaNP2);
 }
 
-double NPSMEFTd6::obliqueT() const
+const double NPSMEFTd6::obliqueT() const
 {
     return (-CiHD / 2.0 / aleMz * v2_over_LambdaNP2);
 }
 
-double NPSMEFTd6::obliqueU() const
+const double NPSMEFTd6::obliqueU() const
 {
     return 0.0;
 }
 
-double NPSMEFTd6::obliqueW() const
+const double NPSMEFTd6::obliqueW() const
 {
     return (-g2_tree * g2_tree * (C2W + 0.5 * C2WS) * v2_over_LambdaNP2 / 2.0);
 }
 
-double NPSMEFTd6::obliqueY() const
+const double NPSMEFTd6::obliqueY() const
 {
     return (-g2_tree * g2_tree * (C2B + 0.5 * C2BS) * v2_over_LambdaNP2 / 2.0);
 }
 
 /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
 
-double NPSMEFTd6::deltaMz() const
+const double NPSMEFTd6::deltaMz() const
 {
     //  Ref. value used in MG simulations
     return ( (Mz - 91.1879) / 91.1879);
 }
 
-double NPSMEFTd6::deltaMz2() const
+const double NPSMEFTd6::deltaMz2() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltaMh() const
+const double NPSMEFTd6::deltaMh() const
 {
     //  Ref. value used in MG simulations
     return ( (mHl - 125.1) / 125.1);
 }
 
-double NPSMEFTd6::deltaMh2() const
+const double NPSMEFTd6::deltaMh2() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltamt() const
+const double NPSMEFTd6::deltamt() const
 {
     //  Ref. value used in MG simulations
     return ( (mtpole - 173.0) / 173.0);
 }
 
-double NPSMEFTd6::deltamt2() const
+const double NPSMEFTd6::deltamt2() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltamb() const
+const double NPSMEFTd6::deltamb() const
 {
     //  Ref. value used in MG simulations
     return ( ((quarks[BOTTOM].getMass()) - 4.18) / 4.18);
 }
 
-double NPSMEFTd6::deltamb2() const
+const double NPSMEFTd6::deltamb2() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltamc() const
+const double NPSMEFTd6::deltamc() const
 {
     //  Ref. value used in MG simulations
     return ( ((quarks[CHARM].getMass()) - 1.275) / 1.275);
 }
 
-double NPSMEFTd6::deltamc2() const
+const double NPSMEFTd6::deltamc2() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltamtau() const
+const double NPSMEFTd6::deltamtau() const
 {
     //  Ref. value used in MG simulations
     return ( ((leptons[TAU].getMass()) - 1.77682) / 1.77682);
 }
 
-double NPSMEFTd6::deltamtau2() const
+const double NPSMEFTd6::deltamtau2() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltaGmu() const
+const double NPSMEFTd6::deltaGmu() const
 {
     //  Ref. value used in MG simulations
     return ( (GF - 1.16637 / 100000.0) / (1.16637 / 100000.0));
 }
 
-double NPSMEFTd6::deltaGmu2() const
+const double NPSMEFTd6::deltaGmu2() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltaaMZ() const
+const double NPSMEFTd6::deltaaMZ() const
 {
     //  Ref. value used in MG simulations
     return ( (aleMz - 0.007754633699856456) / 0.007754633699856456);
 }
 
-double NPSMEFTd6::deltaaMZ2() const
+const double NPSMEFTd6::deltaaMZ2() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltaa0() const
+const double NPSMEFTd6::deltaa0() const
 {
     //  Ref. value used in MG simulations
     return ( (aleMz - 0.0072973525664) / 0.0072973525664);
 }
 
-double NPSMEFTd6::deltaa02() const
+const double NPSMEFTd6::deltaa02() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltaaSMZ() const
+const double NPSMEFTd6::deltaaSMZ() const
 {
     //  Ref. value used in MG simulations
     return ( (AlsMz - 0.1180) / 0.1180);
 }
 
-double NPSMEFTd6::deltaaSMZ2() const
+const double NPSMEFTd6::deltaaSMZ2() const
 {
     return ( 0.0);
 }
 
-double NPSMEFTd6::deltaMw() const
+const double NPSMEFTd6::deltaMw() const
 {
     //  Ref. value used in MG simulations
     //  (Value chosen to produce the same tree level SM pars as in the Alpha scheme with the input pars above)
     return ( (Mw_inp - 79.96717329554225) / 79.96717329554225);
 }
 
-double NPSMEFTd6::deltaMw2() const
+const double NPSMEFTd6::deltaMw2() const
 {
     return ( 0.0);
 }
@@ -4065,7 +4065,7 @@ double NPSMEFTd6::deltaMw2() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::alphaMz() const //AG:modified
+const double NPSMEFTd6::alphaMz() const //AG:modified
 {
     //AG:begin
     double g1 = g1_tree;
@@ -4106,7 +4106,7 @@ double NPSMEFTd6::alphaMz() const //AG:modified
         return (aleMz * (1.0 + 2.0 * delta_e + delta_A + dalphaMz_2));
 }
 
-double NPSMEFTd6::Mw() const //AG:modified
+const double NPSMEFTd6::Mw() const //AG:modified
 {
     //    return (trueSM.Mw() - Mw_tree / 4.0 / (cW2_tree - sW2_tree)
     //            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
@@ -4131,7 +4131,7 @@ double NPSMEFTd6::Mw() const //AG:modified
         return (trueSM.Mw() + Mw_tree * (delta_e - 0.5 * delta_sW2 + delta_v) + Mw_tree * deltaMwd6_2());
 }
 
-double NPSMEFTd6::deltaMwd6() const
+const double NPSMEFTd6::deltaMwd6() const
 {
     //    return (- 1.0 / 4.0 / (cW2_tree - sW2_tree)
     //            *(4.0 * sW_tree * cW_tree * CiHWB * v2_over_LambdaNP2
@@ -4141,14 +4141,14 @@ double NPSMEFTd6::deltaMwd6() const
     return (delta_e - 0.5 * delta_sW2 + delta_v);
 }
 
-double NPSMEFTd6::deltaMwd62() const
+const double NPSMEFTd6::deltaMwd62() const
 {
     double dMW = 0.0;
 
     return (dMW * dMW);
 }
 
-double NPSMEFTd6::deltaMwd6_2() const
+const double NPSMEFTd6::deltaMwd6_2() const
 {
     //AG:added
     if (!FlagQuadraticTerms)
@@ -4158,7 +4158,7 @@ double NPSMEFTd6::deltaMwd6_2() const
     return deltaMw_2;
 }
 
-double NPSMEFTd6::deltaGamma_Wff_2(const Particle fi, const Particle fj) const
+const double NPSMEFTd6::deltaGamma_Wff_2(const Particle fi, const Particle fj) const
 {
     //AG:added   (NOTE: To be added cHud contribution)
     if (!FlagQuadraticTerms)
@@ -4195,7 +4195,7 @@ double NPSMEFTd6::deltaGamma_Wff_2(const Particle fi, const Particle fj) const
     return deltaGamma_Wij_2;
 }
 
-double NPSMEFTd6::deltaGamma_Wff(const Particle fi, const Particle fj) const
+const double NPSMEFTd6::deltaGamma_Wff(const Particle fi, const Particle fj) const
 {
     double G0 = GF * pow(Mz*cW_tree, 3.0) / 6.0 / sqrt(2.0) / M_PI;
     double deltaGamma_Wij;
@@ -4227,7 +4227,7 @@ double NPSMEFTd6::deltaGamma_Wff(const Particle fi, const Particle fj) const
     return deltaGamma_Wij;
 }
 
-double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const //AG:modified
+const double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const //AG:modified
 {
     //AG:begin
     if (OutputOrder() == 0) {
@@ -4247,7 +4247,7 @@ double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const //AG:modifi
         return ( trueSM.GammaW(fi, fj) + deltaGamma_Wff(fi, fj) + deltaGamma_Wff_2(fi, fj));
 }
 
-double NPSMEFTd6::deltaGamma_W_2() const
+const double NPSMEFTd6::deltaGamma_W_2() const
 {
     //double G0 = GF * pow(Mz*cW_tree, 3.0) / 6.0 / sqrt(2.0) / M_PI;
     //double DeltaGammaW2_indirect;
@@ -4277,7 +4277,7 @@ double NPSMEFTd6::deltaGamma_W_2() const
     return deltaGammaWLep2 + deltaGammaWHad2;
 }
 
-double NPSMEFTd6::deltaGamma_W() const
+const double NPSMEFTd6::deltaGamma_W() const
 {
     double G0 = GF * pow(Mz*cW_tree, 3.0) / 6.0 / sqrt(2.0) / M_PI;
     double GammaW_tree = (3.0 + 2.0 * Nc) * G0;
@@ -4292,7 +4292,7 @@ double NPSMEFTd6::deltaGamma_W() const
             + 2.0 * G0 * (CiHL3_11 + CiHL3_22 + CiHL3_33 + Nc * (CiHQ3_11 + CiHQ3_22)) * v2_over_LambdaNP2);
 }
 
-double NPSMEFTd6::GammaW() const //AG:modified
+const double NPSMEFTd6::GammaW() const //AG:modified
 {
     //AG:begin
     if (OutputOrder() == 0) {
@@ -4312,31 +4312,31 @@ double NPSMEFTd6::GammaW() const //AG:modified
         return ( trueSM.GammaW() + deltaGamma_W() + deltaGamma_W_2());
 }
 
-double NPSMEFTd6::deltaGwd6() const
+const double NPSMEFTd6::deltaGwd6() const
 {
     return ( deltaGamma_W() / trueSM.GammaW());
 }
 
-double NPSMEFTd6::deltaGwd62() const
+const double NPSMEFTd6::deltaGwd62() const
 {
     double dWW = 0.0;
 
     return (dWW * dWW);
 }
 
-double NPSMEFTd6::deltaGzd6() const
+const double NPSMEFTd6::deltaGzd6() const
 {
     return ( deltaGamma_Z() / trueSM.Gamma_Z());
 }
 
-double NPSMEFTd6::deltaGzd62() const
+const double NPSMEFTd6::deltaGzd62() const
 {
     double dWZ = 0.0;
 
     return (dWZ * dWZ);
 }
 
-double NPSMEFTd6::deltaGV_f(const Particle p) const //AG:modified
+const double NPSMEFTd6::deltaGV_f(const Particle p) const //AG:modified
 {
     //AG:begin
     if (OutputOrder() == 0 || OutputOrder() == 3) {
@@ -4349,7 +4349,7 @@ double NPSMEFTd6::deltaGV_f(const Particle p) const //AG:modified
         return (deltaGL_f(p) + deltaGR_f(p));
 }
 
-double NPSMEFTd6::deltaGV_f_2(const Particle p) const
+const double NPSMEFTd6::deltaGV_f_2(const Particle p) const
 {
     //AG:added
     double deltaGVf2 = 0.0;
@@ -4362,7 +4362,7 @@ double NPSMEFTd6::deltaGV_f_2(const Particle p) const
     return deltaGVf2;
 }
 
-double NPSMEFTd6::deltaGA_f(const Particle p) const //AG:modified
+const double NPSMEFTd6::deltaGA_f(const Particle p) const //AG:modified
 {
     //AG:begin
     if (OutputOrder() == 0 || OutputOrder() == 3) {
@@ -4375,7 +4375,7 @@ double NPSMEFTd6::deltaGA_f(const Particle p) const //AG:modified
         return (deltaGL_f(p) - deltaGR_f(p));
 }
 
-double NPSMEFTd6::deltaGA_f_2(const Particle p) const
+const double NPSMEFTd6::deltaGA_f_2(const Particle p) const
 {
     //AG:added
     double deltaGAf2 = 0.0;
@@ -4388,7 +4388,7 @@ double NPSMEFTd6::deltaGA_f_2(const Particle p) const
     return deltaGAf2;
 }
 
-double NPSMEFTd6::deltaGL_f(const Particle p) const
+const double NPSMEFTd6::deltaGL_f(const Particle p) const
 {
     double I3p = p.getIsospin(), Qp = p.getCharge();
     double CHF1 = CHF1_diag(p);
@@ -4405,7 +4405,7 @@ double NPSMEFTd6::deltaGL_f(const Particle p) const
     return (NPindirect + NPdirect);
 }
 
-double NPSMEFTd6::deltaGL_f_2(const Particle p) const
+const double NPSMEFTd6::deltaGL_f_2(const Particle p) const
 {
     //AG:added
     if (!FlagQuadraticTerms)
@@ -4447,7 +4447,7 @@ double NPSMEFTd6::deltaGL_f_2(const Particle p) const
     return NPindirect + NPdirect;
 }
 
-double NPSMEFTd6::deltaGR_f(const Particle p) const
+const double NPSMEFTd6::deltaGR_f(const Particle p) const
 {
     double Qp = p.getCharge();
     double CHf = CHf_diag(p);
@@ -4462,7 +4462,7 @@ double NPSMEFTd6::deltaGR_f(const Particle p) const
     return (NPindirect + NPdirect);
 }
 
-double NPSMEFTd6::deltaGR_f_2(const Particle p) const
+const double NPSMEFTd6::deltaGR_f_2(const Particle p) const
 {
     //AG:added
     if (!FlagQuadraticTerms)
@@ -4503,7 +4503,7 @@ double NPSMEFTd6::deltaGR_f_2(const Particle p) const
     return (NPindirect + NPdirect);
 }
 
-double NPSMEFTd6::BrW(const Particle fi, const Particle fj) const //AG:modified
+const double NPSMEFTd6::BrW(const Particle fi, const Particle fj) const //AG:modified
 {
     double GammW0 = trueSM.GammaW();
     double dGammW = deltaGamma_W();
@@ -4537,7 +4537,7 @@ double NPSMEFTd6::BrW(const Particle fi, const Particle fj) const //AG:modified
         return (GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0 + BrW_2);
 }
 
-double NPSMEFTd6::RWlilj(const Particle li, const Particle lj) const
+const double NPSMEFTd6::RWlilj(const Particle li, const Particle lj) const
 {
     double GammWli0, GammWlj0;
     double dGammWli, dGammWlj;
@@ -4571,7 +4571,7 @@ double NPSMEFTd6::RWlilj(const Particle li, const Particle lj) const
     return GammWli0 / GammWlj0 + dGammWli / GammWlj0 - GammWli0 * dGammWlj / GammWlj0 / GammWlj0;
 }
 
-double NPSMEFTd6::RWc() const //AG:modified
+const double NPSMEFTd6::RWc() const //AG:modified
 {
     double GammWcX0, GammWhad0;
     double dGammWcX, dGammWhad;
@@ -4631,7 +4631,7 @@ double NPSMEFTd6::RWc() const //AG:modified
         return (GammWcX0 / GammWhad0 + dGammWcX / GammWhad0 - GammWcX0 * dGammWhad / GammWhad0 / GammWhad0 + RWc_2);
 }
 
-double NPSMEFTd6::RZlilj(const Particle li, const Particle lj) const
+const double NPSMEFTd6::RZlilj(const Particle li, const Particle lj) const
 {
     double GammZli0, GammZlj0;
     double dGammZli, dGammZlj;
@@ -4679,12 +4679,12 @@ gslpp::complex NPSMEFTd6::deltaGR_Wff(const Particle pbar, const Particle p) con
     return (0.5 * CHud * v2_over_LambdaNP2);
 }
 
-double NPSMEFTd6::deltaG_hgg() const
+const double NPSMEFTd6::deltaG_hgg() const
 {
     return (CiHG * v2_over_LambdaNP2 / v());
 }
 
-double NPSMEFTd6::deltaG_hggRatio() const
+const double NPSMEFTd6::deltaG_hggRatio() const
 {
     double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
@@ -4706,17 +4706,17 @@ double NPSMEFTd6::deltaG_hggRatio() const
     return dg.real();
 }
 
-double NPSMEFTd6::deltaG1_hWW() const
+const double NPSMEFTd6::deltaG1_hWW() const
 {
     return ((2.0 * CiHW - 0.5 * eeMz * CiDHW / sW_tree) * v2_over_LambdaNP2 / v());
 }
 
-double NPSMEFTd6::deltaG2_hWW() const
+const double NPSMEFTd6::deltaG2_hWW() const
 {
     return ( -0.5 * eeMz * (CiDHW / sW_tree) * v2_over_LambdaNP2 / v());
 }
 
-double NPSMEFTd6::deltaG3_hWW() const
+const double NPSMEFTd6::deltaG3_hWW() const
 {
     double NPindirect;
 
@@ -4730,17 +4730,17 @@ double NPSMEFTd6::deltaG3_hWW() const
     return NPindirect;
 }
 
-double NPSMEFTd6::deltaG1_hZZ() const
+const double NPSMEFTd6::deltaG1_hZZ() const
 {
     return ( (delta_ZZ - 0.25 * eeMz * (CiDHB / cW_tree + CiDHW / sW_tree) * v2_over_LambdaNP2) / v());
 }
 
-double NPSMEFTd6::deltaG2_hZZ() const
+const double NPSMEFTd6::deltaG2_hZZ() const
 {
     return ( -0.5 * eeMz * (CiDHB / cW_tree + CiDHW / sW_tree) * v2_over_LambdaNP2 / v());
 }
 
-double NPSMEFTd6::deltaG3_hZZ() const
+const double NPSMEFTd6::deltaG3_hZZ() const
 {
     //    double NPindirect = Mz * Mz / v() * (-0.5 * CiHD * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF);
     double NPindirect = Mz * Mz / v() * (delta_Z + delta_h + 0.5 * delta_GF + 2.0 * delta_e - (1.0 - sW2_tree / cW2_tree) * delta_sW2);
@@ -4749,12 +4749,12 @@ double NPSMEFTd6::deltaG3_hZZ() const
     return (NPindirect + NPdirect);
 }
 
-double NPSMEFTd6::deltaG1_hZA() const
+const double NPSMEFTd6::deltaG1_hZA() const
 {
     return ( (delta_AZ + 0.25 * eeMz * (CiDHB / sW_tree - CiDHW / cW_tree) * v2_over_LambdaNP2) / v());
 }
 
-double NPSMEFTd6::deltaG1_hZARatio() const
+const double NPSMEFTd6::deltaG1_hZARatio() const
 {
     double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
@@ -4834,17 +4834,17 @@ double NPSMEFTd6::deltaG1_hZARatio() const
     return dg.real();
 }
 
-double NPSMEFTd6::deltaG2_hZA() const
+const double NPSMEFTd6::deltaG2_hZA() const
 {
     return ( 0.5 * eeMz * (CiDHB / sW_tree - CiDHW / cW_tree) * v2_over_LambdaNP2 / v());
 }
 
-double NPSMEFTd6::deltaG_hAA() const
+const double NPSMEFTd6::deltaG_hAA() const
 {
     return (delta_AA / v());
 }
 
-double NPSMEFTd6::deltaG_hAARatio() const
+const double NPSMEFTd6::deltaG_hAARatio() const
 {
     double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
@@ -4911,7 +4911,7 @@ gslpp::complex NPSMEFTd6::deltaG_hff(const Particle p) const
             + CfH * v2_over_LambdaNP2 / sqrt(2.0));
 }
 
-double NPSMEFTd6::deltaG_hhhRatio() const
+const double NPSMEFTd6::deltaG_hhhRatio() const
 {
     double dg;
 
@@ -4938,7 +4938,7 @@ gslpp::complex NPSMEFTd6::deltaGR_Wffh(const Particle pbar, const Particle p) co
     return (sqrt(2.0) * Mz * cW_tree / v() / v() * CHud * v2_over_LambdaNP2);
 }
 
-double NPSMEFTd6::deltaGL_Zffh(const Particle p) const
+const double NPSMEFTd6::deltaGL_Zffh(const Particle p) const
 {
     double I3p = p.getIsospin();
     double CHF1 = CHF1_diag(p);
@@ -4946,7 +4946,7 @@ double NPSMEFTd6::deltaGL_Zffh(const Particle p) const
     return (-2.0 * Mz / v() / v() * (CHF1 - 2.0 * I3p * CHF3) * v2_over_LambdaNP2);
 }
 
-double NPSMEFTd6::deltaGR_Zffh(const Particle p) const
+const double NPSMEFTd6::deltaGR_Zffh(const Particle p) const
 {
     double CHf = CHf_diag(p);
     return (-2.0 * Mz / v() / v() * CHf * v2_over_LambdaNP2);
@@ -4994,7 +4994,7 @@ gslpp::complex NPSMEFTd6::deltaG_Aff(const Particle p) const
     return 0.;
 }
 
-double NPSMEFTd6::deltag3G() const
+const double NPSMEFTd6::deltag3G() const
 {
     /* Set to 0. for the moment */
 
@@ -5076,7 +5076,7 @@ gslpp::complex NPSMEFTd6::AHZga_W(const double tau, const double lambda) const
     return sqrt(trueSM.cW2()) * tmp;
 }
 
-double NPSMEFTd6::muggH(const double sqrt_s) const
+const double NPSMEFTd6::muggH(const double sqrt_s) const
 {
 
     double C1 = 0.0066; //It seems to be independent of energy 
@@ -5141,7 +5141,7 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muggHH(const double sqrt_s) const
+const double NPSMEFTd6::muggHH(const double sqrt_s) const
 {
     double mu = 1.0;
     double A1HH = 0.0, A2HH = 0.0, A3HH = 0.0, A4HH = 0.0, A5HH = 0.0;
@@ -5220,7 +5220,7 @@ double NPSMEFTd6::muggHH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muVBF(const double sqrt_s) const
+const double NPSMEFTd6::muVBF(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -5474,7 +5474,7 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
+const double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -5523,7 +5523,7 @@ double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mueeWBF(const double sqrt_s) const
+const double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 {
 
     //  Only Alpha scheme
@@ -5817,7 +5817,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     //  Pure WBF, hence only initiated by LH fermions. No difference between polarizations at the linear level.
@@ -5826,7 +5826,7 @@ double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const dou
     return mueeWBF(sqrt_s);
 }
 
-double NPSMEFTd6::mueeHvv(const double sqrt_s) const
+const double NPSMEFTd6::mueeHvv(const double sqrt_s) const
 {
 
     //  Only Alpha scheme
@@ -6163,7 +6163,7 @@ double NPSMEFTd6::mueeHvv(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     //  Only Alpha scheme
@@ -7194,7 +7194,7 @@ double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, const dou
     return mu;
 }
 
-double NPSMEFTd6::mueeZBF(const double sqrt_s) const
+const double NPSMEFTd6::mueeZBF(const double sqrt_s) const
 {
 
     //  Only Alpha scheme
@@ -7510,7 +7510,7 @@ double NPSMEFTd6::mueeZBF(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     //  Only Alpha scheme
@@ -8498,7 +8498,7 @@ double NPSMEFTd6::mueeZBFPol(const double sqrt_s, const double Pol_em, const dou
     return mu;
 }
 
-double NPSMEFTd6::muepWBF(const double sqrt_s) const
+const double NPSMEFTd6::muepWBF(const double sqrt_s) const
 {
 
     //  Only Alpha scheme
@@ -8592,7 +8592,7 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muepZBF(const double sqrt_s) const
+const double NPSMEFTd6::muepZBF(const double sqrt_s) const
 {
 
     //  Only Alpha scheme
@@ -8710,7 +8710,7 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muWH(const double sqrt_s) const
+const double NPSMEFTd6::muWH(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -8903,7 +8903,7 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muWHpT250(const double sqrt_s) const
+const double NPSMEFTd6::muWHpT250(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -8950,7 +8950,7 @@ double NPSMEFTd6::muWHpT250(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muZH(const double sqrt_s) const
+const double NPSMEFTd6::muZH(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -9188,7 +9188,7 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muZHpT250(const double sqrt_s) const
+const double NPSMEFTd6::muZHpT250(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -9242,7 +9242,7 @@ double NPSMEFTd6::muZHpT250(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mueeZH(const double sqrt_s) const
+const double NPSMEFTd6::mueeZH(const double sqrt_s) const
 {
 
     // Only Alpha scheme
@@ -9557,7 +9557,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mueeZllH(const double sqrt_s) const
+const double NPSMEFTd6::mueeZllH(const double sqrt_s) const
 {
 
     //  The signal strength eeZH
@@ -9577,7 +9577,7 @@ double NPSMEFTd6::mueeZllH(const double sqrt_s) const
     return mu + deltaBRratio;
 }
 
-double NPSMEFTd6::mueeZqqH(const double sqrt_s) const
+const double NPSMEFTd6::mueeZqqH(const double sqrt_s) const
 {
 
     //  The signal strength eeZH
@@ -9602,7 +9602,7 @@ double NPSMEFTd6::mueeZqqH(const double sqrt_s) const
     return mu + deltaBRratio;
 }
 
-double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     // Only Alpha scheme
@@ -10589,7 +10589,7 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
     return mu;
 }
 
-double NPSMEFTd6::mueeZllHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::mueeZllHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     //  The signal strength eeZH
@@ -10609,7 +10609,7 @@ double NPSMEFTd6::mueeZllHPol(const double sqrt_s, const double Pol_em, const do
     return mu + deltaBRratio;
 }
 
-double NPSMEFTd6::mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     //  The signal strength eeZH
@@ -10634,7 +10634,7 @@ double NPSMEFTd6::mueeZqqHPol(const double sqrt_s, const double Pol_em, const do
     return mu + deltaBRratio;
 }
 
-double NPSMEFTd6::aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     // Expression missing CLL contributions!
@@ -10717,7 +10717,7 @@ double NPSMEFTd6::aPskPol(const double sqrt_s, const double Pol_em, const double
     return aPol;
 }
 
-double NPSMEFTd6::bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double bL, bR, bPol;
     double sM = sqrt_s * sqrt_s;
@@ -10745,7 +10745,7 @@ double NPSMEFTd6::bPskPol(const double sqrt_s, const double Pol_em, const double
     return bPol;
 }
 
-double NPSMEFTd6::muVH(const double sqrt_s) const
+const double NPSMEFTd6::muVH(const double sqrt_s) const
 {
     double sigmaWH_SM = computeSigmaWH(sqrt_s);
     double sigmaZH_SM = computeSigmaZH(sqrt_s);
@@ -10758,7 +10758,7 @@ double NPSMEFTd6::muVH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muVHpT250(const double sqrt_s) const
+const double NPSMEFTd6::muVHpT250(const double sqrt_s) const
 {
     //Use MG SM values
     double sigmaWH_SM = 0.26944e-01;
@@ -10772,7 +10772,7 @@ double NPSMEFTd6::muVHpT250(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muVBFpVH(const double sqrt_s) const
+const double NPSMEFTd6::muVBFpVH(const double sqrt_s) const
 {
     double sigmaWH_SM = computeSigmaWH(sqrt_s);
     double sigmaZH_SM = computeSigmaZH(sqrt_s);
@@ -10787,7 +10787,7 @@ double NPSMEFTd6::muVBFpVH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muttH(const double sqrt_s) const
+const double NPSMEFTd6::muttH(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -11068,7 +11068,7 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mutHq(const double sqrt_s) const
+const double NPSMEFTd6::mutHq(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -11162,7 +11162,7 @@ double NPSMEFTd6::mutHq(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::muggHpttH(const double sqrt_s) const
+const double NPSMEFTd6::muggHpttH(const double sqrt_s) const
 {
     double sigmaggH_SM = computeSigmaggH(sqrt_s);
     double sigmattH_SM = computeSigmattH(sqrt_s);
@@ -11176,7 +11176,7 @@ double NPSMEFTd6::muggHpttH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mueettH(const double sqrt_s) const
+const double NPSMEFTd6::mueettH(const double sqrt_s) const
 {
 
     // Only Alpha scheme
@@ -11376,7 +11376,7 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     // Only Alpha scheme
@@ -12035,7 +12035,7 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
     return mu;
 }
 
-double NPSMEFTd6::mummH(const double sqrt_s) const
+const double NPSMEFTd6::mummH(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -12053,7 +12053,7 @@ double NPSMEFTd6::mummH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mummHNWA(const double sqrt_s) const
+const double NPSMEFTd6::mummHNWA(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -12073,7 +12073,7 @@ double NPSMEFTd6::mummHNWA(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mummZH(const double sqrt_s) const
+const double NPSMEFTd6::mummZH(const double sqrt_s) const
 {
 
     // Only Alpha scheme
@@ -12158,7 +12158,7 @@ double NPSMEFTd6::mummZH(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mummHvv(const double sqrt_s) const
+const double NPSMEFTd6::mummHvv(const double sqrt_s) const
 {
 
     //  Only Alpha scheme
@@ -12249,7 +12249,7 @@ double NPSMEFTd6::mummHvv(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mummHmm(const double sqrt_s) const
+const double NPSMEFTd6::mummHmm(const double sqrt_s) const
 {
 
     //  Only Alpha scheme
@@ -12335,7 +12335,7 @@ double NPSMEFTd6::mummHmm(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mummttH(const double sqrt_s) const
+const double NPSMEFTd6::mummttH(const double sqrt_s) const
 {
 
     // Only Alpha scheme
@@ -12435,7 +12435,7 @@ double NPSMEFTd6::mummttH(const double sqrt_s) const
 
 ////////////HIGGS DECAY WIDTHS AND BRANCHING RATIOS/////////////
 
-double NPSMEFTd6::computeGammaTotalRatio() const
+const double NPSMEFTd6::computeGammaTotalRatio() const
 {
     double width = 1.0;
 
@@ -12452,7 +12452,7 @@ double NPSMEFTd6::computeGammaTotalRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaTotalRatio1() const
+const double NPSMEFTd6::deltaGammaTotalRatio1() const
 {
     double deltaGammaRatio;
 
@@ -12475,7 +12475,7 @@ double NPSMEFTd6::deltaGammaTotalRatio1() const
     return deltaGammaRatio;
 }
 
-double NPSMEFTd6::deltaGammaTotalRatio1noError() const
+const double NPSMEFTd6::deltaGammaTotalRatio1noError() const
 {
     double deltaGammaRatio;
 
@@ -12500,7 +12500,7 @@ double NPSMEFTd6::deltaGammaTotalRatio1noError() const
     return deltaGammaRatio;
 }
 
-double NPSMEFTd6::deltaGammaTotalRatio2() const
+const double NPSMEFTd6::deltaGammaTotalRatio2() const
 {
     double deltaGammaRatio;
 
@@ -12520,7 +12520,7 @@ double NPSMEFTd6::deltaGammaTotalRatio2() const
     return (deltaGammaRatio / (1.0 - BrHinv - BrHexo));
 }
 
-double NPSMEFTd6::GammaHggRatio() const
+const double NPSMEFTd6::GammaHggRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -12536,7 +12536,7 @@ double NPSMEFTd6::GammaHggRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHggRatio1() const
+const double NPSMEFTd6::deltaGammaHggRatio1() const
 {
     double dwidth = 0.0;
 
@@ -12580,7 +12580,7 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHggRatio2() const
+const double NPSMEFTd6::deltaGammaHggRatio2() const
 {
     double dwidth = 0.0;
 
@@ -12590,7 +12590,7 @@ double NPSMEFTd6::deltaGammaHggRatio2() const
 
 }
 
-double NPSMEFTd6::BrHggRatio() const
+const double NPSMEFTd6::BrHggRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -12616,7 +12616,7 @@ double NPSMEFTd6::BrHggRatio() const
 
 }
 
-double NPSMEFTd6::GammaHWWRatio() const
+const double NPSMEFTd6::GammaHWWRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -12632,7 +12632,7 @@ double NPSMEFTd6::GammaHWWRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHWWRatio1() const
+const double NPSMEFTd6::deltaGammaHWWRatio1() const
 {
     double dwidth = 0.0;
 
@@ -12652,7 +12652,7 @@ double NPSMEFTd6::deltaGammaHWWRatio1() const
 
 }
 
-double NPSMEFTd6::deltaGammaHWWRatio2() const
+const double NPSMEFTd6::deltaGammaHWWRatio2() const
 {
     double dwidth = 0.0;
 
@@ -12664,14 +12664,14 @@ double NPSMEFTd6::deltaGammaHWWRatio2() const
 
 }
 
-double NPSMEFTd6::BrHWWRatio() const
+const double NPSMEFTd6::BrHWWRatio() const
 {
 
     return BrHWW4fRatio();
 
 }
 
-double NPSMEFTd6::GammaHWW4fRatio() const
+const double NPSMEFTd6::GammaHWW4fRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -12687,7 +12687,7 @@ double NPSMEFTd6::GammaHWW4fRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHWW4fRatio1() const
+const double NPSMEFTd6::deltaGammaHWW4fRatio1() const
 {
     double dwidth = 0.0;
 
@@ -12731,7 +12731,7 @@ double NPSMEFTd6::deltaGammaHWW4fRatio1() const
 
 }
 
-double NPSMEFTd6::deltaGammaHWW4fRatio2() const
+const double NPSMEFTd6::deltaGammaHWW4fRatio2() const
 {
     double dwidth = 0.0;
 
@@ -12741,7 +12741,7 @@ double NPSMEFTd6::deltaGammaHWW4fRatio2() const
 
 }
 
-double NPSMEFTd6::BrHWW4fRatio() const
+const double NPSMEFTd6::BrHWW4fRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -12766,7 +12766,7 @@ double NPSMEFTd6::BrHWW4fRatio() const
     return Br;
 }
 
-double NPSMEFTd6::GammaHZZRatio() const
+const double NPSMEFTd6::GammaHZZRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -12782,7 +12782,7 @@ double NPSMEFTd6::GammaHZZRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHZZRatio1() const
+const double NPSMEFTd6::deltaGammaHZZRatio1() const
 {
     double dwidth = 0.0;
 
@@ -12802,7 +12802,7 @@ double NPSMEFTd6::deltaGammaHZZRatio1() const
 
 }
 
-double NPSMEFTd6::deltaGammaHZZRatio2() const
+const double NPSMEFTd6::deltaGammaHZZRatio2() const
 {
     double dwidth = 0.0;
 
@@ -12814,12 +12814,12 @@ double NPSMEFTd6::deltaGammaHZZRatio2() const
 
 }
 
-double NPSMEFTd6::BrHZZRatio() const
+const double NPSMEFTd6::BrHZZRatio() const
 {
     return BrHZZ4fRatio();
 }
 
-double NPSMEFTd6::GammaHZZ4fRatio() const
+const double NPSMEFTd6::GammaHZZ4fRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -12835,7 +12835,7 @@ double NPSMEFTd6::GammaHZZ4fRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHZZ4fRatio1() const
+const double NPSMEFTd6::deltaGammaHZZ4fRatio1() const
 {
     double dwidth = 0.0;
 
@@ -12895,7 +12895,7 @@ double NPSMEFTd6::deltaGammaHZZ4fRatio1() const
 
 }
 
-double NPSMEFTd6::deltaGammaHZZ4fRatio2() const
+const double NPSMEFTd6::deltaGammaHZZ4fRatio2() const
 {
     double dwidth = 0.0;
 
@@ -12905,7 +12905,7 @@ double NPSMEFTd6::deltaGammaHZZ4fRatio2() const
 
 }
 
-double NPSMEFTd6::BrHZZ4fRatio() const
+const double NPSMEFTd6::BrHZZ4fRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -12930,14 +12930,14 @@ double NPSMEFTd6::BrHZZ4fRatio() const
     return Br;
 }
 
-double NPSMEFTd6::BrHVVRatio() const
+const double NPSMEFTd6::BrHVVRatio() const
 {
     double BrZZSM = trueSM.computeBrHtoZZ(), BrWWSM = trueSM.computeBrHtoWW();
 
     return (BrZZSM * BrHZZRatio() + BrWWSM * BrHWWRatio()) / (BrZZSM + BrWWSM);
 }
 
-double NPSMEFTd6::GammaHZgaRatio() const
+const double NPSMEFTd6::GammaHZgaRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -12953,7 +12953,7 @@ double NPSMEFTd6::GammaHZgaRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHZgaRatio1() const
+const double NPSMEFTd6::deltaGammaHZgaRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13012,7 +13012,7 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHZgaRatio2() const
+const double NPSMEFTd6::deltaGammaHZgaRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13022,7 +13022,7 @@ double NPSMEFTd6::deltaGammaHZgaRatio2() const
 
 }
 
-double NPSMEFTd6::BrHZgaRatio() const
+const double NPSMEFTd6::BrHZgaRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13048,7 +13048,7 @@ double NPSMEFTd6::BrHZgaRatio() const
 
 }
 
-double NPSMEFTd6::BrHZgallRatio() const
+const double NPSMEFTd6::BrHZgallRatio() const
 {
     double deltaBRratio;
 
@@ -13063,7 +13063,7 @@ double NPSMEFTd6::BrHZgallRatio() const
     return ( BrHZgaRatio() + deltaBRratio);
 }
 
-double NPSMEFTd6::BrHZgaeeRatio() const
+const double NPSMEFTd6::BrHZgaeeRatio() const
 {
     double deltaBRratio;
 
@@ -13074,7 +13074,7 @@ double NPSMEFTd6::BrHZgaeeRatio() const
     return ( BrHZgaRatio() + deltaBRratio);
 }
 
-double NPSMEFTd6::BrHZgamumuRatio() const
+const double NPSMEFTd6::BrHZgamumuRatio() const
 {
     double deltaBRratio;
 
@@ -13085,7 +13085,7 @@ double NPSMEFTd6::BrHZgamumuRatio() const
     return ( BrHZgaRatio() + deltaBRratio);
 }
 
-double NPSMEFTd6::GammaHgagaRatio() const
+const double NPSMEFTd6::GammaHgagaRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -13101,7 +13101,7 @@ double NPSMEFTd6::GammaHgagaRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHgagaRatio1() const
+const double NPSMEFTd6::deltaGammaHgagaRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13160,7 +13160,7 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHgagaRatio2() const
+const double NPSMEFTd6::deltaGammaHgagaRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13170,7 +13170,7 @@ double NPSMEFTd6::deltaGammaHgagaRatio2() const
 
 }
 
-double NPSMEFTd6::BrHgagaRatio() const
+const double NPSMEFTd6::BrHgagaRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13196,7 +13196,7 @@ double NPSMEFTd6::BrHgagaRatio() const
 
 }
 
-double NPSMEFTd6::GammaHmumuRatio() const
+const double NPSMEFTd6::GammaHmumuRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -13212,7 +13212,7 @@ double NPSMEFTd6::GammaHmumuRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHmumuRatio1() const
+const double NPSMEFTd6::deltaGammaHmumuRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13238,7 +13238,7 @@ double NPSMEFTd6::deltaGammaHmumuRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHmumuRatio2() const
+const double NPSMEFTd6::deltaGammaHmumuRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13248,7 +13248,7 @@ double NPSMEFTd6::deltaGammaHmumuRatio2() const
 
 }
 
-double NPSMEFTd6::BrHmumuRatio() const
+const double NPSMEFTd6::BrHmumuRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13274,7 +13274,7 @@ double NPSMEFTd6::BrHmumuRatio() const
 
 }
 
-double NPSMEFTd6::GammaHtautauRatio() const
+const double NPSMEFTd6::GammaHtautauRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -13290,7 +13290,7 @@ double NPSMEFTd6::GammaHtautauRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHtautauRatio1() const
+const double NPSMEFTd6::deltaGammaHtautauRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13317,7 +13317,7 @@ double NPSMEFTd6::deltaGammaHtautauRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHtautauRatio2() const
+const double NPSMEFTd6::deltaGammaHtautauRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13327,7 +13327,7 @@ double NPSMEFTd6::deltaGammaHtautauRatio2() const
 
 }
 
-double NPSMEFTd6::BrHtautauRatio() const
+const double NPSMEFTd6::BrHtautauRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13353,7 +13353,7 @@ double NPSMEFTd6::BrHtautauRatio() const
 
 }
 
-double NPSMEFTd6::GammaHccRatio() const
+const double NPSMEFTd6::GammaHccRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -13369,7 +13369,7 @@ double NPSMEFTd6::GammaHccRatio() const
 
 }
 
-double NPSMEFTd6::deltaGammaHccRatio1() const
+const double NPSMEFTd6::deltaGammaHccRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13409,7 +13409,7 @@ double NPSMEFTd6::deltaGammaHccRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHccRatio2() const
+const double NPSMEFTd6::deltaGammaHccRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13419,7 +13419,7 @@ double NPSMEFTd6::deltaGammaHccRatio2() const
 
 }
 
-double NPSMEFTd6::BrHccRatio() const
+const double NPSMEFTd6::BrHccRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13445,7 +13445,7 @@ double NPSMEFTd6::BrHccRatio() const
 
 }
 
-double NPSMEFTd6::GammaHbbRatio() const
+const double NPSMEFTd6::GammaHbbRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
     double width = 1.0;
@@ -13460,7 +13460,7 @@ double NPSMEFTd6::GammaHbbRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHbbRatio1() const
+const double NPSMEFTd6::deltaGammaHbbRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13507,7 +13507,7 @@ double NPSMEFTd6::deltaGammaHbbRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHbbRatio2() const
+const double NPSMEFTd6::deltaGammaHbbRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13517,7 +13517,7 @@ double NPSMEFTd6::deltaGammaHbbRatio2() const
 
 }
 
-double NPSMEFTd6::BrHbbRatio() const
+const double NPSMEFTd6::BrHbbRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13543,7 +13543,7 @@ double NPSMEFTd6::BrHbbRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2L2LRatio() const
+const double NPSMEFTd6::GammaH2L2LRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2L2LRatio1
     double width = 1.0;
@@ -13558,7 +13558,7 @@ double NPSMEFTd6::GammaH2L2LRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2L2LRatio1() const
+const double NPSMEFTd6::deltaGammaH2L2LRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13607,7 +13607,7 @@ double NPSMEFTd6::deltaGammaH2L2LRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2L2LRatio2() const
+const double NPSMEFTd6::deltaGammaH2L2LRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13616,7 +13616,7 @@ double NPSMEFTd6::deltaGammaH2L2LRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2L2LRatio() const
+const double NPSMEFTd6::BrH2L2LRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13642,7 +13642,7 @@ double NPSMEFTd6::BrH2L2LRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2e2muRatio() const
+const double NPSMEFTd6::GammaH2e2muRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2e2muRatio1
     double width = 1.0;
@@ -13657,7 +13657,7 @@ double NPSMEFTd6::GammaH2e2muRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2e2muRatio1() const
+const double NPSMEFTd6::deltaGammaH2e2muRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13704,7 +13704,7 @@ double NPSMEFTd6::deltaGammaH2e2muRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2e2muRatio2() const
+const double NPSMEFTd6::deltaGammaH2e2muRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13713,7 +13713,7 @@ double NPSMEFTd6::deltaGammaH2e2muRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2e2muRatio() const
+const double NPSMEFTd6::BrH2e2muRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13739,7 +13739,7 @@ double NPSMEFTd6::BrH2e2muRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2v2vRatio() const
+const double NPSMEFTd6::GammaH2v2vRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2v2vRatio1
     double width = 1.0;
@@ -13754,7 +13754,7 @@ double NPSMEFTd6::GammaH2v2vRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2v2vRatio1() const
+const double NPSMEFTd6::deltaGammaH2v2vRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13800,7 +13800,7 @@ double NPSMEFTd6::deltaGammaH2v2vRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2v2vRatio2() const
+const double NPSMEFTd6::deltaGammaH2v2vRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13809,7 +13809,7 @@ double NPSMEFTd6::deltaGammaH2v2vRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2v2vRatio() const
+const double NPSMEFTd6::BrH2v2vRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13835,7 +13835,7 @@ double NPSMEFTd6::BrH2v2vRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2L2vRatio() const
+const double NPSMEFTd6::GammaH2L2vRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2L2vRatio1
     double width = 1.0;
@@ -13850,7 +13850,7 @@ double NPSMEFTd6::GammaH2L2vRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2L2vRatio1() const
+const double NPSMEFTd6::deltaGammaH2L2vRatio1() const
 {
     double dwidth = 0.0;
 
@@ -13902,7 +13902,7 @@ double NPSMEFTd6::deltaGammaH2L2vRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2L2vRatio2() const
+const double NPSMEFTd6::deltaGammaH2L2vRatio2() const
 {
     double dwidth = 0.0;
 
@@ -13911,7 +13911,7 @@ double NPSMEFTd6::deltaGammaH2L2vRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2L2vRatio() const
+const double NPSMEFTd6::BrH2L2vRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -13937,7 +13937,7 @@ double NPSMEFTd6::BrH2L2vRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2L2v2Ratio() const
+const double NPSMEFTd6::GammaH2L2v2Ratio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2L2v2Ratio1
     double width = 1.0;
@@ -13952,7 +13952,7 @@ double NPSMEFTd6::GammaH2L2v2Ratio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2L2v2Ratio1() const
+const double NPSMEFTd6::deltaGammaH2L2v2Ratio1() const
 {
     double dwidth = 0.0;
 
@@ -14003,7 +14003,7 @@ double NPSMEFTd6::deltaGammaH2L2v2Ratio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2L2v2Ratio2() const
+const double NPSMEFTd6::deltaGammaH2L2v2Ratio2() const
 {
     double dwidth = 0.0;
 
@@ -14012,7 +14012,7 @@ double NPSMEFTd6::deltaGammaH2L2v2Ratio2() const
 
 }
 
-double NPSMEFTd6::BrH2L2v2Ratio() const
+const double NPSMEFTd6::BrH2L2v2Ratio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14038,7 +14038,7 @@ double NPSMEFTd6::BrH2L2v2Ratio() const
 
 }
 
-double NPSMEFTd6::GammaH2e2vRatio() const
+const double NPSMEFTd6::GammaH2e2vRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2e2vRatio1
     double width = 1.0;
@@ -14053,7 +14053,7 @@ double NPSMEFTd6::GammaH2e2vRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2e2vRatio1() const
+const double NPSMEFTd6::deltaGammaH2e2vRatio1() const
 {
     double dwidth = 0.0;
 
@@ -14100,7 +14100,7 @@ double NPSMEFTd6::deltaGammaH2e2vRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2e2vRatio2() const
+const double NPSMEFTd6::deltaGammaH2e2vRatio2() const
 {
     double dwidth = 0.0;
 
@@ -14109,7 +14109,7 @@ double NPSMEFTd6::deltaGammaH2e2vRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2e2vRatio() const
+const double NPSMEFTd6::BrH2e2vRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14135,7 +14135,7 @@ double NPSMEFTd6::BrH2e2vRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2mu2vRatio() const
+const double NPSMEFTd6::GammaH2mu2vRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2mu2vRatio1
     double width = 1.0;
@@ -14150,7 +14150,7 @@ double NPSMEFTd6::GammaH2mu2vRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2mu2vRatio1() const
+const double NPSMEFTd6::deltaGammaH2mu2vRatio1() const
 {
     double dwidth = 0.0;
 
@@ -14196,7 +14196,7 @@ double NPSMEFTd6::deltaGammaH2mu2vRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2mu2vRatio2() const
+const double NPSMEFTd6::deltaGammaH2mu2vRatio2() const
 {
     double dwidth = 0.0;
 
@@ -14205,7 +14205,7 @@ double NPSMEFTd6::deltaGammaH2mu2vRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2mu2vRatio() const
+const double NPSMEFTd6::BrH2mu2vRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14231,7 +14231,7 @@ double NPSMEFTd6::BrH2mu2vRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2u2uRatio() const
+const double NPSMEFTd6::GammaH2u2uRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2u2uRatio1
     double width = 1.0;
@@ -14246,7 +14246,7 @@ double NPSMEFTd6::GammaH2u2uRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2u2uRatio1() const
+const double NPSMEFTd6::deltaGammaH2u2uRatio1() const
 {
     double dwidth = 0.0;
 
@@ -14293,7 +14293,7 @@ double NPSMEFTd6::deltaGammaH2u2uRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2u2uRatio2() const
+const double NPSMEFTd6::deltaGammaH2u2uRatio2() const
 {
     double dwidth = 0.0;
 
@@ -14302,7 +14302,7 @@ double NPSMEFTd6::deltaGammaH2u2uRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2u2uRatio() const
+const double NPSMEFTd6::BrH2u2uRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14328,7 +14328,7 @@ double NPSMEFTd6::BrH2u2uRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2d2dRatio() const
+const double NPSMEFTd6::GammaH2d2dRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2d2dRatio1
     double width = 1.0;
@@ -14343,7 +14343,7 @@ double NPSMEFTd6::GammaH2d2dRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2d2dRatio1() const
+const double NPSMEFTd6::deltaGammaH2d2dRatio1() const
 {
     double dwidth = 0.0;
 
@@ -14392,7 +14392,7 @@ double NPSMEFTd6::deltaGammaH2d2dRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2d2dRatio2() const
+const double NPSMEFTd6::deltaGammaH2d2dRatio2() const
 {
     double dwidth = 0.0;
 
@@ -14401,7 +14401,7 @@ double NPSMEFTd6::deltaGammaH2d2dRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2d2dRatio() const
+const double NPSMEFTd6::BrH2d2dRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14427,7 +14427,7 @@ double NPSMEFTd6::BrH2d2dRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2u2dRatio() const
+const double NPSMEFTd6::GammaH2u2dRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2u2dRatio1
     double width = 1.0;
@@ -14442,7 +14442,7 @@ double NPSMEFTd6::GammaH2u2dRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2u2dRatio1() const
+const double NPSMEFTd6::deltaGammaH2u2dRatio1() const
 {
     double dwidth = 0.0;
 
@@ -14496,7 +14496,7 @@ double NPSMEFTd6::deltaGammaH2u2dRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2u2dRatio2() const
+const double NPSMEFTd6::deltaGammaH2u2dRatio2() const
 {
     double dwidth = 0.0;
 
@@ -14505,7 +14505,7 @@ double NPSMEFTd6::deltaGammaH2u2dRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2u2dRatio() const
+const double NPSMEFTd6::BrH2u2dRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14531,7 +14531,7 @@ double NPSMEFTd6::BrH2u2dRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2L2uRatio() const
+const double NPSMEFTd6::GammaH2L2uRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2L2uRatio1
     double width = 1.0;
@@ -14546,7 +14546,7 @@ double NPSMEFTd6::GammaH2L2uRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2L2uRatio1() const
+const double NPSMEFTd6::deltaGammaH2L2uRatio1() const
 {
     double dwidth = 0.0;
 
@@ -14599,7 +14599,7 @@ double NPSMEFTd6::deltaGammaH2L2uRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2L2uRatio2() const
+const double NPSMEFTd6::deltaGammaH2L2uRatio2() const
 {
     double dwidth = 0.0;
 
@@ -14608,7 +14608,7 @@ double NPSMEFTd6::deltaGammaH2L2uRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2L2uRatio() const
+const double NPSMEFTd6::BrH2L2uRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14634,7 +14634,7 @@ double NPSMEFTd6::BrH2L2uRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2L2dRatio() const
+const double NPSMEFTd6::GammaH2L2dRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2L2dRatio1
     double width = 1.0;
@@ -14649,7 +14649,7 @@ double NPSMEFTd6::GammaH2L2dRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2L2dRatio1() const
+const double NPSMEFTd6::deltaGammaH2L2dRatio1() const
 {
     double dwidth = 0.0;
 
@@ -14704,7 +14704,7 @@ double NPSMEFTd6::deltaGammaH2L2dRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2L2dRatio2() const
+const double NPSMEFTd6::deltaGammaH2L2dRatio2() const
 {
     double dwidth = 0.0;
 
@@ -14713,7 +14713,7 @@ double NPSMEFTd6::deltaGammaH2L2dRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2L2dRatio() const
+const double NPSMEFTd6::BrH2L2dRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14739,7 +14739,7 @@ double NPSMEFTd6::BrH2L2dRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2v2uRatio() const
+const double NPSMEFTd6::GammaH2v2uRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2v2uRatio1
     double width = 1.0;
@@ -14754,7 +14754,7 @@ double NPSMEFTd6::GammaH2v2uRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2v2uRatio1() const
+const double NPSMEFTd6::deltaGammaH2v2uRatio1() const
 {
     double dwidth = 0.0;
 
@@ -14804,7 +14804,7 @@ double NPSMEFTd6::deltaGammaH2v2uRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2v2uRatio2() const
+const double NPSMEFTd6::deltaGammaH2v2uRatio2() const
 {
     double dwidth = 0.0;
 
@@ -14813,7 +14813,7 @@ double NPSMEFTd6::deltaGammaH2v2uRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2v2uRatio() const
+const double NPSMEFTd6::BrH2v2uRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14839,7 +14839,7 @@ double NPSMEFTd6::BrH2v2uRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2v2dRatio() const
+const double NPSMEFTd6::GammaH2v2dRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2v2dRatio1
     double width = 1.0;
@@ -14854,7 +14854,7 @@ double NPSMEFTd6::GammaH2v2dRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2v2dRatio1() const
+const double NPSMEFTd6::deltaGammaH2v2dRatio1() const
 {
     double dwidth = 0.0;
 
@@ -14906,7 +14906,7 @@ double NPSMEFTd6::deltaGammaH2v2dRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2v2dRatio2() const
+const double NPSMEFTd6::deltaGammaH2v2dRatio2() const
 {
     double dwidth = 0.0;
 
@@ -14915,7 +14915,7 @@ double NPSMEFTd6::deltaGammaH2v2dRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2v2dRatio() const
+const double NPSMEFTd6::BrH2v2dRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -14941,7 +14941,7 @@ double NPSMEFTd6::BrH2v2dRatio() const
 
 }
 
-double NPSMEFTd6::GammaH4LRatio() const
+const double NPSMEFTd6::GammaH4LRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4LRatio1
     double width = 1.0;
@@ -14956,7 +14956,7 @@ double NPSMEFTd6::GammaH4LRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH4LRatio1() const
+const double NPSMEFTd6::deltaGammaH4LRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15005,7 +15005,7 @@ double NPSMEFTd6::deltaGammaH4LRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH4LRatio2() const
+const double NPSMEFTd6::deltaGammaH4LRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15014,7 +15014,7 @@ double NPSMEFTd6::deltaGammaH4LRatio2() const
 
 }
 
-double NPSMEFTd6::BrH4LRatio() const
+const double NPSMEFTd6::BrH4LRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15040,7 +15040,7 @@ double NPSMEFTd6::BrH4LRatio() const
 
 }
 
-double NPSMEFTd6::GammaH4L2Ratio() const
+const double NPSMEFTd6::GammaH4L2Ratio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4L2Ratio1
     double width = 1.0;
@@ -15055,7 +15055,7 @@ double NPSMEFTd6::GammaH4L2Ratio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH4L2Ratio1() const
+const double NPSMEFTd6::deltaGammaH4L2Ratio1() const
 {
     double dwidth = 0.0;
 
@@ -15102,7 +15102,7 @@ double NPSMEFTd6::deltaGammaH4L2Ratio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH4L2Ratio2() const
+const double NPSMEFTd6::deltaGammaH4L2Ratio2() const
 {
     double dwidth = 0.0;
 
@@ -15111,7 +15111,7 @@ double NPSMEFTd6::deltaGammaH4L2Ratio2() const
 
 }
 
-double NPSMEFTd6::BrH4L2Ratio() const
+const double NPSMEFTd6::BrH4L2Ratio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15137,7 +15137,7 @@ double NPSMEFTd6::BrH4L2Ratio() const
 
 }
 
-double NPSMEFTd6::GammaH4eRatio() const
+const double NPSMEFTd6::GammaH4eRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4eRatio1
     double width = 1.0;
@@ -15152,7 +15152,7 @@ double NPSMEFTd6::GammaH4eRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH4eRatio1() const
+const double NPSMEFTd6::deltaGammaH4eRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15196,7 +15196,7 @@ double NPSMEFTd6::deltaGammaH4eRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH4eRatio2() const
+const double NPSMEFTd6::deltaGammaH4eRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15205,7 +15205,7 @@ double NPSMEFTd6::deltaGammaH4eRatio2() const
 
 }
 
-double NPSMEFTd6::BrH4eRatio() const
+const double NPSMEFTd6::BrH4eRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15231,7 +15231,7 @@ double NPSMEFTd6::BrH4eRatio() const
 
 }
 
-double NPSMEFTd6::GammaH4muRatio() const
+const double NPSMEFTd6::GammaH4muRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4muRatio1
     double width = 1.0;
@@ -15246,7 +15246,7 @@ double NPSMEFTd6::GammaH4muRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH4muRatio1() const
+const double NPSMEFTd6::deltaGammaH4muRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15290,7 +15290,7 @@ double NPSMEFTd6::deltaGammaH4muRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH4muRatio2() const
+const double NPSMEFTd6::deltaGammaH4muRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15299,7 +15299,7 @@ double NPSMEFTd6::deltaGammaH4muRatio2() const
 
 }
 
-double NPSMEFTd6::BrH4muRatio() const
+const double NPSMEFTd6::BrH4muRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15325,7 +15325,7 @@ double NPSMEFTd6::BrH4muRatio() const
 
 }
 
-double NPSMEFTd6::GammaH4vRatio() const
+const double NPSMEFTd6::GammaH4vRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4vRatio1
     double width = 1.0;
@@ -15340,7 +15340,7 @@ double NPSMEFTd6::GammaH4vRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH4vRatio1() const
+const double NPSMEFTd6::deltaGammaH4vRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15386,7 +15386,7 @@ double NPSMEFTd6::deltaGammaH4vRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH4vRatio2() const
+const double NPSMEFTd6::deltaGammaH4vRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15395,7 +15395,7 @@ double NPSMEFTd6::deltaGammaH4vRatio2() const
 
 }
 
-double NPSMEFTd6::BrH4vRatio() const
+const double NPSMEFTd6::BrH4vRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15421,7 +15421,7 @@ double NPSMEFTd6::BrH4vRatio() const
 
 }
 
-double NPSMEFTd6::GammaH4uRatio() const
+const double NPSMEFTd6::GammaH4uRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4uRatio1
     double width = 1.0;
@@ -15436,7 +15436,7 @@ double NPSMEFTd6::GammaH4uRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH4uRatio1() const
+const double NPSMEFTd6::deltaGammaH4uRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15484,7 +15484,7 @@ double NPSMEFTd6::deltaGammaH4uRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH4uRatio2() const
+const double NPSMEFTd6::deltaGammaH4uRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15493,7 +15493,7 @@ double NPSMEFTd6::deltaGammaH4uRatio2() const
 
 }
 
-double NPSMEFTd6::BrH4uRatio() const
+const double NPSMEFTd6::BrH4uRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15519,7 +15519,7 @@ double NPSMEFTd6::BrH4uRatio() const
 
 }
 
-double NPSMEFTd6::GammaH4dRatio() const
+const double NPSMEFTd6::GammaH4dRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4dRatio1
     double width = 1.0;
@@ -15534,7 +15534,7 @@ double NPSMEFTd6::GammaH4dRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH4dRatio1() const
+const double NPSMEFTd6::deltaGammaH4dRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15584,7 +15584,7 @@ double NPSMEFTd6::deltaGammaH4dRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH4dRatio2() const
+const double NPSMEFTd6::deltaGammaH4dRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15593,7 +15593,7 @@ double NPSMEFTd6::deltaGammaH4dRatio2() const
 
 }
 
-double NPSMEFTd6::BrH4dRatio() const
+const double NPSMEFTd6::BrH4dRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15619,7 +15619,7 @@ double NPSMEFTd6::BrH4dRatio() const
 
 }
 
-double NPSMEFTd6::GammaHLvvLRatio() const
+const double NPSMEFTd6::GammaHLvvLRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHLvvLRatio1
     double width = 1.0;
@@ -15634,7 +15634,7 @@ double NPSMEFTd6::GammaHLvvLRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHLvvLRatio1() const
+const double NPSMEFTd6::deltaGammaHLvvLRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15679,7 +15679,7 @@ double NPSMEFTd6::deltaGammaHLvvLRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHLvvLRatio2() const
+const double NPSMEFTd6::deltaGammaHLvvLRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15688,7 +15688,7 @@ double NPSMEFTd6::deltaGammaHLvvLRatio2() const
 
 }
 
-double NPSMEFTd6::BrHLvvLRatio() const
+const double NPSMEFTd6::BrHLvvLRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15714,7 +15714,7 @@ double NPSMEFTd6::BrHLvvLRatio() const
 
 }
 
-double NPSMEFTd6::GammaHevmuvRatio() const
+const double NPSMEFTd6::GammaHevmuvRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHevmuvRatio1
     double width = 1.0;
@@ -15729,7 +15729,7 @@ double NPSMEFTd6::GammaHevmuvRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHevmuvRatio1() const
+const double NPSMEFTd6::deltaGammaHevmuvRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15773,7 +15773,7 @@ double NPSMEFTd6::deltaGammaHevmuvRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHevmuvRatio2() const
+const double NPSMEFTd6::deltaGammaHevmuvRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15782,7 +15782,7 @@ double NPSMEFTd6::deltaGammaHevmuvRatio2() const
 
 }
 
-double NPSMEFTd6::BrHevmuvRatio() const
+const double NPSMEFTd6::BrHevmuvRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15808,7 +15808,7 @@ double NPSMEFTd6::BrHevmuvRatio() const
 
 }
 
-double NPSMEFTd6::GammaHudduRatio() const
+const double NPSMEFTd6::GammaHudduRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHudduRatio1
     double width = 1.0;
@@ -15823,7 +15823,7 @@ double NPSMEFTd6::GammaHudduRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHudduRatio1() const
+const double NPSMEFTd6::deltaGammaHudduRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15867,7 +15867,7 @@ double NPSMEFTd6::deltaGammaHudduRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHudduRatio2() const
+const double NPSMEFTd6::deltaGammaHudduRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15876,7 +15876,7 @@ double NPSMEFTd6::deltaGammaHudduRatio2() const
 
 }
 
-double NPSMEFTd6::BrHudduRatio() const
+const double NPSMEFTd6::BrHudduRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15902,7 +15902,7 @@ double NPSMEFTd6::BrHudduRatio() const
 
 }
 
-double NPSMEFTd6::GammaHLvudRatio() const
+const double NPSMEFTd6::GammaHLvudRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHLvudRatio1
     double width = 1.0;
@@ -15917,7 +15917,7 @@ double NPSMEFTd6::GammaHLvudRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHLvudRatio1() const
+const double NPSMEFTd6::deltaGammaHLvudRatio1() const
 {
     double dwidth = 0.0;
 
@@ -15964,7 +15964,7 @@ double NPSMEFTd6::deltaGammaHLvudRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHLvudRatio2() const
+const double NPSMEFTd6::deltaGammaHLvudRatio2() const
 {
     double dwidth = 0.0;
 
@@ -15973,7 +15973,7 @@ double NPSMEFTd6::deltaGammaHLvudRatio2() const
 
 }
 
-double NPSMEFTd6::BrHLvudRatio() const
+const double NPSMEFTd6::BrHLvudRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -15999,7 +15999,7 @@ double NPSMEFTd6::BrHLvudRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2udRatio() const
+const double NPSMEFTd6::GammaH2udRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2udRatio1
     double width = 1.0;
@@ -16014,7 +16014,7 @@ double NPSMEFTd6::GammaH2udRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2udRatio1() const
+const double NPSMEFTd6::deltaGammaH2udRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16070,7 +16070,7 @@ double NPSMEFTd6::deltaGammaH2udRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2udRatio2() const
+const double NPSMEFTd6::deltaGammaH2udRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16079,7 +16079,7 @@ double NPSMEFTd6::deltaGammaH2udRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2udRatio() const
+const double NPSMEFTd6::BrH2udRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16105,7 +16105,7 @@ double NPSMEFTd6::BrH2udRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2LvRatio() const
+const double NPSMEFTd6::GammaH2LvRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2LvRatio1
     double width = 1.0;
@@ -16120,7 +16120,7 @@ double NPSMEFTd6::GammaH2LvRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2LvRatio1() const
+const double NPSMEFTd6::deltaGammaH2LvRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16176,7 +16176,7 @@ double NPSMEFTd6::deltaGammaH2LvRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2LvRatio2() const
+const double NPSMEFTd6::deltaGammaH2LvRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16185,7 +16185,7 @@ double NPSMEFTd6::deltaGammaH2LvRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2LvRatio() const
+const double NPSMEFTd6::BrH2LvRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16211,7 +16211,7 @@ double NPSMEFTd6::BrH2LvRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2Lv2Ratio() const
+const double NPSMEFTd6::GammaH2Lv2Ratio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2Lv2Ratio1
     double width = 1.0;
@@ -16226,7 +16226,7 @@ double NPSMEFTd6::GammaH2Lv2Ratio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2Lv2Ratio1() const
+const double NPSMEFTd6::deltaGammaH2Lv2Ratio1() const
 {
     double dwidth = 0.0;
 
@@ -16279,7 +16279,7 @@ double NPSMEFTd6::deltaGammaH2Lv2Ratio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2Lv2Ratio2() const
+const double NPSMEFTd6::deltaGammaH2Lv2Ratio2() const
 {
     double dwidth = 0.0;
 
@@ -16288,7 +16288,7 @@ double NPSMEFTd6::deltaGammaH2Lv2Ratio2() const
 
 }
 
-double NPSMEFTd6::BrH2Lv2Ratio() const
+const double NPSMEFTd6::BrH2Lv2Ratio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16314,7 +16314,7 @@ double NPSMEFTd6::BrH2Lv2Ratio() const
 
 }
 
-double NPSMEFTd6::GammaH2evRatio() const
+const double NPSMEFTd6::GammaH2evRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2evRatio1
     double width = 1.0;
@@ -16329,7 +16329,7 @@ double NPSMEFTd6::GammaH2evRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2evRatio1() const
+const double NPSMEFTd6::deltaGammaH2evRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16378,7 +16378,7 @@ double NPSMEFTd6::deltaGammaH2evRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2evRatio2() const
+const double NPSMEFTd6::deltaGammaH2evRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16387,7 +16387,7 @@ double NPSMEFTd6::deltaGammaH2evRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2evRatio() const
+const double NPSMEFTd6::BrH2evRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16413,7 +16413,7 @@ double NPSMEFTd6::BrH2evRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2muvRatio() const
+const double NPSMEFTd6::GammaH2muvRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2muvRatio1
     double width = 1.0;
@@ -16428,7 +16428,7 @@ double NPSMEFTd6::GammaH2muvRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2muvRatio1() const
+const double NPSMEFTd6::deltaGammaH2muvRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16477,7 +16477,7 @@ double NPSMEFTd6::deltaGammaH2muvRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2muvRatio2() const
+const double NPSMEFTd6::deltaGammaH2muvRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16486,7 +16486,7 @@ double NPSMEFTd6::deltaGammaH2muvRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2muvRatio() const
+const double NPSMEFTd6::BrH2muvRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16512,7 +16512,7 @@ double NPSMEFTd6::BrH2muvRatio() const
 
 }
 
-double NPSMEFTd6::GammaH4fRatio() const
+const double NPSMEFTd6::GammaH4fRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4fRatio1
     double width = 1.0;
@@ -16527,7 +16527,7 @@ double NPSMEFTd6::GammaH4fRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH4fRatio1() const
+const double NPSMEFTd6::deltaGammaH4fRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16556,7 +16556,7 @@ double NPSMEFTd6::deltaGammaH4fRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH4fRatio2() const
+const double NPSMEFTd6::deltaGammaH4fRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16587,7 +16587,7 @@ double NPSMEFTd6::deltaGammaH4fRatio2() const
 
 }
 
-double NPSMEFTd6::BrH4fRatio() const
+const double NPSMEFTd6::BrH4fRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16613,7 +16613,7 @@ double NPSMEFTd6::BrH4fRatio() const
 
 }
 
-double NPSMEFTd6::GammaH4lRatio() const
+const double NPSMEFTd6::GammaH4lRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4lRatio1
     double width = 1.0;
@@ -16628,7 +16628,7 @@ double NPSMEFTd6::GammaH4lRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH4lRatio1() const
+const double NPSMEFTd6::deltaGammaH4lRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16643,7 +16643,7 @@ double NPSMEFTd6::deltaGammaH4lRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH4lRatio2() const
+const double NPSMEFTd6::deltaGammaH4lRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16652,7 +16652,7 @@ double NPSMEFTd6::deltaGammaH4lRatio2() const
 
 }
 
-double NPSMEFTd6::BrH4lRatio() const
+const double NPSMEFTd6::BrH4lRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16678,7 +16678,7 @@ double NPSMEFTd6::BrH4lRatio() const
 
 }
 
-double NPSMEFTd6::GammaH2l2vRatio() const
+const double NPSMEFTd6::GammaH2l2vRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH2l2vRatio1
     double width = 1.0;
@@ -16693,7 +16693,7 @@ double NPSMEFTd6::GammaH2l2vRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaH2l2vRatio1() const
+const double NPSMEFTd6::deltaGammaH2l2vRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16709,7 +16709,7 @@ double NPSMEFTd6::deltaGammaH2l2vRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaH2l2vRatio2() const
+const double NPSMEFTd6::deltaGammaH2l2vRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16718,7 +16718,7 @@ double NPSMEFTd6::deltaGammaH2l2vRatio2() const
 
 }
 
-double NPSMEFTd6::BrH2l2vRatio() const
+const double NPSMEFTd6::BrH2l2vRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16746,7 +16746,7 @@ double NPSMEFTd6::BrH2l2vRatio() const
 
 ///////////////////////OTHER DEDICATED (SEMI-)LEPTONIC 4 FERMION DECAYS/////////////////////////
 
-double NPSMEFTd6::GammaHlljjRatio() const
+const double NPSMEFTd6::GammaHlljjRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHlljjRatio1
     double width = 1.0;
@@ -16761,7 +16761,7 @@ double NPSMEFTd6::GammaHlljjRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHlljjRatio1() const
+const double NPSMEFTd6::deltaGammaHlljjRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16816,7 +16816,7 @@ double NPSMEFTd6::deltaGammaHlljjRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHlljjRatio2() const
+const double NPSMEFTd6::deltaGammaHlljjRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16825,7 +16825,7 @@ double NPSMEFTd6::deltaGammaHlljjRatio2() const
 
 }
 
-double NPSMEFTd6::BrHlljjRatio() const
+const double NPSMEFTd6::BrHlljjRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16851,7 +16851,7 @@ double NPSMEFTd6::BrHlljjRatio() const
 
 }
 
-double NPSMEFTd6::GammaHlvjjRatio() const
+const double NPSMEFTd6::GammaHlvjjRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHlvjjRatio1
     double width = 1.0;
@@ -16866,7 +16866,7 @@ double NPSMEFTd6::GammaHlvjjRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHlvjjRatio1() const
+const double NPSMEFTd6::deltaGammaHlvjjRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16912,7 +16912,7 @@ double NPSMEFTd6::deltaGammaHlvjjRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHlvjjRatio2() const
+const double NPSMEFTd6::deltaGammaHlvjjRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16921,7 +16921,7 @@ double NPSMEFTd6::deltaGammaHlvjjRatio2() const
 
 }
 
-double NPSMEFTd6::BrHlvjjRatio() const
+const double NPSMEFTd6::BrHlvjjRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -16947,7 +16947,7 @@ double NPSMEFTd6::BrHlvjjRatio() const
 
 }
 
-double NPSMEFTd6::GammaHlv_lvorjjRatio() const
+const double NPSMEFTd6::GammaHlv_lvorjjRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHlv_lvorjjRatio1
     double width = 1.0;
@@ -16962,7 +16962,7 @@ double NPSMEFTd6::GammaHlv_lvorjjRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHlv_lvorjjRatio1() const
+const double NPSMEFTd6::deltaGammaHlv_lvorjjRatio1() const
 {
     double dwidth = 0.0;
 
@@ -16979,7 +16979,7 @@ double NPSMEFTd6::deltaGammaHlv_lvorjjRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHlv_lvorjjRatio2() const
+const double NPSMEFTd6::deltaGammaHlv_lvorjjRatio2() const
 {
     double dwidth = 0.0;
 
@@ -16988,7 +16988,7 @@ double NPSMEFTd6::deltaGammaHlv_lvorjjRatio2() const
 
 }
 
-double NPSMEFTd6::BrHlv_lvorjjRatio() const
+const double NPSMEFTd6::BrHlv_lvorjjRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -17014,7 +17014,7 @@ double NPSMEFTd6::BrHlv_lvorjjRatio() const
 
 }
 
-double NPSMEFTd6::GammaHll_vvorjjRatio() const
+const double NPSMEFTd6::GammaHll_vvorjjRatio() const
 {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHll_vvorjjRatio1
     double width = 1.0;
@@ -17029,7 +17029,7 @@ double NPSMEFTd6::GammaHll_vvorjjRatio() const
     return width;
 }
 
-double NPSMEFTd6::deltaGammaHll_vvorjjRatio1() const
+const double NPSMEFTd6::deltaGammaHll_vvorjjRatio1() const
 {
     double dwidth = 0.0;
 
@@ -17045,7 +17045,7 @@ double NPSMEFTd6::deltaGammaHll_vvorjjRatio1() const
     return dwidth;
 }
 
-double NPSMEFTd6::deltaGammaHll_vvorjjRatio2() const
+const double NPSMEFTd6::deltaGammaHll_vvorjjRatio2() const
 {
     double dwidth = 0.0;
 
@@ -17054,7 +17054,7 @@ double NPSMEFTd6::deltaGammaHll_vvorjjRatio2() const
 
 }
 
-double NPSMEFTd6::BrHll_vvorjjRatio() const
+const double NPSMEFTd6::BrHll_vvorjjRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
@@ -17082,14 +17082,14 @@ double NPSMEFTd6::BrHll_vvorjjRatio() const
 
 ///////////////////////OTHER HIGGS BRANCHING RATIOS///////////////////////// 
 
-double NPSMEFTd6::Br_H_exo() const
+const double NPSMEFTd6::Br_H_exo() const
 {
     if (BrHexo < 0) return std::numeric_limits<double>::quiet_NaN();
 
     return BrHexo;
 }
 
-double NPSMEFTd6::Br_H_inv() const
+const double NPSMEFTd6::Br_H_inv() const
 {
     //  Contributions from both modifications in H->4v and the extra invisible decays
     double BR4v;
@@ -17103,7 +17103,7 @@ double NPSMEFTd6::Br_H_inv() const
     return BR4v + BrHinv;
 }
 
-double NPSMEFTd6::Br_H_inv_NP() const
+const double NPSMEFTd6::Br_H_inv_NP() const
 {
 
     //  Check BrHinv to make sure is positive
@@ -17112,7 +17112,7 @@ double NPSMEFTd6::Br_H_inv_NP() const
     return BrHinv;
 }
 
-double NPSMEFTd6::BrHvisRatio() const
+const double NPSMEFTd6::BrHvisRatio() const
 {
     double Br = 1.0;
     double dvis1 = 0.0, dvis2 = 0.0, delta2SM;
@@ -17159,7 +17159,7 @@ double NPSMEFTd6::BrHvisRatio() const
     return Br;
 }
 
-double NPSMEFTd6::BrHtoinvRatio() const
+const double NPSMEFTd6::BrHtoinvRatio() const
 {
     return (Br_H_inv() / (trueSM.computeBrHto4v()));
 }
@@ -17167,7 +17167,7 @@ double NPSMEFTd6::BrHtoinvRatio() const
 
 ///////////////////////SPECIAL OBSERVABLES/////////////////////////
 
-double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
+const double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
 {
     /* Ratios of BR with the SM*/
     double BrHbbrat = BrHbbRatio();
@@ -17222,325 +17222,325 @@ double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
 
 }
 
-double NPSMEFTd6::muggHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muggHgaga(const double sqrt_s) const
 {
     return muggH(sqrt_s) * BrHgagaRatio();
 
 }
 
-double NPSMEFTd6::muVBFHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muVBFHgaga(const double sqrt_s) const
 {
     return muVBF(sqrt_s) * BrHgagaRatio();
 
 }
 
-double NPSMEFTd6::muZHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muZHgaga(const double sqrt_s) const
 {
     return muZH(sqrt_s) * BrHgagaRatio();
 
 }
 
-double NPSMEFTd6::muWHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muWHgaga(const double sqrt_s) const
 {
     return muWH(sqrt_s) * BrHgagaRatio();
 
 }
 
-double NPSMEFTd6::muVHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muVHgaga(const double sqrt_s) const
 {
     return muVH(sqrt_s) * BrHgagaRatio();
 
 }
 
-double NPSMEFTd6::muttHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muttHgaga(const double sqrt_s) const
 {
     return muttH(sqrt_s) * BrHgagaRatio();
 
 }
 
-double NPSMEFTd6::muggHZga(const double sqrt_s) const
+const double NPSMEFTd6::muggHZga(const double sqrt_s) const
 {
     return muggH(sqrt_s) * BrHZgaRatio();
 
 }
 
-double NPSMEFTd6::muVBFHZga(const double sqrt_s) const
+const double NPSMEFTd6::muVBFHZga(const double sqrt_s) const
 {
     return muVBF(sqrt_s) * BrHZgaRatio();
 
 }
 
-double NPSMEFTd6::muZHZga(const double sqrt_s) const
+const double NPSMEFTd6::muZHZga(const double sqrt_s) const
 {
     return muZH(sqrt_s) * BrHZgaRatio();
 
 }
 
-double NPSMEFTd6::muWHZga(const double sqrt_s) const
+const double NPSMEFTd6::muWHZga(const double sqrt_s) const
 {
     return muWH(sqrt_s) * BrHZgaRatio();
 
 }
 
-double NPSMEFTd6::muVHZga(const double sqrt_s) const
+const double NPSMEFTd6::muVHZga(const double sqrt_s) const
 {
     return muVH(sqrt_s) * BrHZgaRatio();
 
 }
 
-double NPSMEFTd6::muttHZga(const double sqrt_s) const
+const double NPSMEFTd6::muttHZga(const double sqrt_s) const
 {
     return muttH(sqrt_s) * BrHZgaRatio();
 
 }
 
-double NPSMEFTd6::muggHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muggHZZ(const double sqrt_s) const
 {
     return muggH(sqrt_s) * BrHZZRatio();
 
 }
 
-double NPSMEFTd6::muVBFHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muVBFHZZ(const double sqrt_s) const
 {
     return muVBF(sqrt_s) * BrHZZRatio();
 
 }
 
-double NPSMEFTd6::muZHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muZHZZ(const double sqrt_s) const
 {
     return muZH(sqrt_s) * BrHZZRatio();
 
 }
 
-double NPSMEFTd6::muWHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muWHZZ(const double sqrt_s) const
 {
     return muWH(sqrt_s) * BrHZZRatio();
 
 }
 
-double NPSMEFTd6::muVHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muVHZZ(const double sqrt_s) const
 {
     return muVH(sqrt_s) * BrHZZRatio();
 
 }
 
-double NPSMEFTd6::muttHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muttHZZ(const double sqrt_s) const
 {
     return muttH(sqrt_s) * BrHZZRatio();
 
 }
 
-double NPSMEFTd6::muggHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muggHZZ4l(const double sqrt_s) const
 {
     return muggH(sqrt_s) * BrH4lRatio();
 
 }
 
-double NPSMEFTd6::muVBFHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muVBFHZZ4l(const double sqrt_s) const
 {
     return muVBF(sqrt_s) * BrH4lRatio();
 
 }
 
-double NPSMEFTd6::muZHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muZHZZ4l(const double sqrt_s) const
 {
     return muZH(sqrt_s) * BrH4lRatio();
 
 }
 
-double NPSMEFTd6::muWHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muWHZZ4l(const double sqrt_s) const
 {
     return muWH(sqrt_s) * BrH4lRatio();
 
 }
 
-double NPSMEFTd6::muVHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muVHZZ4l(const double sqrt_s) const
 {
     return muVH(sqrt_s) * BrH4lRatio();
 
 }
 
-double NPSMEFTd6::muttHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muttHZZ4l(const double sqrt_s) const
 {
     return muttH(sqrt_s) * BrH4lRatio();
 
 }
 
-double NPSMEFTd6::muggHWW(const double sqrt_s) const
+const double NPSMEFTd6::muggHWW(const double sqrt_s) const
 {
     return muggH(sqrt_s) * BrHWWRatio();
 
 }
 
-double NPSMEFTd6::muVBFHWW(const double sqrt_s) const
+const double NPSMEFTd6::muVBFHWW(const double sqrt_s) const
 {
     return muVBF(sqrt_s) * BrHWWRatio();
 
 }
 
-double NPSMEFTd6::muZHWW(const double sqrt_s) const
+const double NPSMEFTd6::muZHWW(const double sqrt_s) const
 {
     return muZH(sqrt_s) * BrHWWRatio();
 
 }
 
-double NPSMEFTd6::muWHWW(const double sqrt_s) const
+const double NPSMEFTd6::muWHWW(const double sqrt_s) const
 {
     return muWH(sqrt_s) * BrHWWRatio();
 
 }
 
-double NPSMEFTd6::muVHWW(const double sqrt_s) const
+const double NPSMEFTd6::muVHWW(const double sqrt_s) const
 {
     return muVH(sqrt_s) * BrHWWRatio();
 
 }
 
-double NPSMEFTd6::muttHWW(const double sqrt_s) const
+const double NPSMEFTd6::muttHWW(const double sqrt_s) const
 {
     return muttH(sqrt_s) * BrHWWRatio();
 
 }
 
-double NPSMEFTd6::muggHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muggHWW2l2v(const double sqrt_s) const
 {
     return muggH(sqrt_s) * BrH2l2vRatio();
 
 }
 
-double NPSMEFTd6::muVBFHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muVBFHWW2l2v(const double sqrt_s) const
 {
     return muVBF(sqrt_s) * BrH2l2vRatio();
 
 }
 
-double NPSMEFTd6::muZHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muZHWW2l2v(const double sqrt_s) const
 {
     return muZH(sqrt_s) * BrH2l2vRatio();
 
 }
 
-double NPSMEFTd6::muWHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muWHWW2l2v(const double sqrt_s) const
 {
     return muWH(sqrt_s) * BrH2l2vRatio();
 
 }
 
-double NPSMEFTd6::muVHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muVHWW2l2v(const double sqrt_s) const
 {
     return muVH(sqrt_s) * BrH2l2vRatio();
 
 }
 
-double NPSMEFTd6::muttHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muttHWW2l2v(const double sqrt_s) const
 {
     return muttH(sqrt_s) * BrH2l2vRatio();
 
 }
 
-double NPSMEFTd6::muggHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muggHmumu(const double sqrt_s) const
 {
     return muggH(sqrt_s) * BrHmumuRatio();
 
 }
 
-double NPSMEFTd6::muVBFHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muVBFHmumu(const double sqrt_s) const
 {
     return muVBF(sqrt_s) * BrHmumuRatio();
 
 }
 
-double NPSMEFTd6::muZHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muZHmumu(const double sqrt_s) const
 {
     return muZH(sqrt_s) * BrHmumuRatio();
 
 }
 
-double NPSMEFTd6::muWHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muWHmumu(const double sqrt_s) const
 {
     return muWH(sqrt_s) * BrHmumuRatio();
 
 }
 
-double NPSMEFTd6::muVHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muVHmumu(const double sqrt_s) const
 {
     return muVH(sqrt_s) * BrHmumuRatio();
 
 }
 
-double NPSMEFTd6::muttHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muttHmumu(const double sqrt_s) const
 {
     return muttH(sqrt_s) * BrHmumuRatio();
 
 }
 
-double NPSMEFTd6::muggHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muggHtautau(const double sqrt_s) const
 {
     return muggH(sqrt_s) * BrHtautauRatio();
 
 }
 
-double NPSMEFTd6::muVBFHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muVBFHtautau(const double sqrt_s) const
 {
     return muVBF(sqrt_s) * BrHtautauRatio();
 
 }
 
-double NPSMEFTd6::muZHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muZHtautau(const double sqrt_s) const
 {
     return muZH(sqrt_s) * BrHtautauRatio();
 
 }
 
-double NPSMEFTd6::muWHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muWHtautau(const double sqrt_s) const
 {
     return muWH(sqrt_s) * BrHtautauRatio();
 
 }
 
-double NPSMEFTd6::muVHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muVHtautau(const double sqrt_s) const
 {
     return muVH(sqrt_s) * BrHtautauRatio();
 
 }
 
-double NPSMEFTd6::muttHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muttHtautau(const double sqrt_s) const
 {
     return muttH(sqrt_s) * BrHtautauRatio();
 
 }
 
-double NPSMEFTd6::muggHbb(const double sqrt_s) const
+const double NPSMEFTd6::muggHbb(const double sqrt_s) const
 {
     return muggH(sqrt_s) * BrHbbRatio();
 
 }
 
-double NPSMEFTd6::muVBFHbb(const double sqrt_s) const
+const double NPSMEFTd6::muVBFHbb(const double sqrt_s) const
 {
     return muVBF(sqrt_s) * BrHbbRatio();
 
 }
 
-double NPSMEFTd6::muZHbb(const double sqrt_s) const
+const double NPSMEFTd6::muZHbb(const double sqrt_s) const
 {
     return muZH(sqrt_s) * BrHbbRatio();
 
 }
 
-double NPSMEFTd6::muWHbb(const double sqrt_s) const
+const double NPSMEFTd6::muWHbb(const double sqrt_s) const
 {
     return muWH(sqrt_s) * BrHbbRatio();
 
 }
 
-double NPSMEFTd6::muVHbb(const double sqrt_s) const
+const double NPSMEFTd6::muVHbb(const double sqrt_s) const
 {
     return muVH(sqrt_s) * BrHbbRatio();
 
 }
 
-double NPSMEFTd6::muttHbb(const double sqrt_s) const
+const double NPSMEFTd6::muttHbb(const double sqrt_s) const
 {
     return muttH(sqrt_s) * BrHbbRatio();
 
@@ -17552,7 +17552,7 @@ double NPSMEFTd6::muttHbb(const double sqrt_s) const
 //-----------------------------------------------------------------------------------------
 //////////////////////////////////////////////////////////////////////////////////////////// 
 
-double NPSMEFTd6::muTHUggHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHgaga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrHgagaRatio() * (1.0 + eggFHgaga) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHgagaint + eHgagapar));
@@ -17561,7 +17561,7 @@ double NPSMEFTd6::muTHUggHgaga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHgaga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrHgagaRatio() * (1.0 + eVBFHgaga) * (1.0 + eHwidth) / (1.0 + eVBFint + eVBFpar) / (1.0 + eHgagaint + eHgagapar));
@@ -17570,7 +17570,7 @@ double NPSMEFTd6::muTHUVBFHgaga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUZHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUZHgaga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muZH(sqrt_s) * BrHgagaRatio() * (1.0 + eZHgaga) * (1.0 + eHwidth) / (1.0 + eZHint + eZHpar) / (1.0 + eHgagaint + eHgagapar));
@@ -17579,7 +17579,7 @@ double NPSMEFTd6::muTHUZHgaga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUWHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUWHgaga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muWH(sqrt_s) * BrHgagaRatio() * (1.0 + eWHgaga) * (1.0 + eHwidth) / (1.0 + eWHint + eWHpar) / (1.0 + eHgagaint + eHgagapar));
@@ -17588,7 +17588,7 @@ double NPSMEFTd6::muTHUWHgaga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHgaga(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -17606,7 +17606,7 @@ double NPSMEFTd6::muTHUVHgaga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUttHgaga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUttHgaga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muttH(sqrt_s) * BrHgagaRatio() * (1.0 + ettHgaga) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHgagaint + eHgagapar));
@@ -17615,7 +17615,7 @@ double NPSMEFTd6::muTHUttHgaga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHZga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHZga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrHZgaRatio() * (1.0 + eggFHZga) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHZgaint + eHZgapar));
@@ -17624,7 +17624,7 @@ double NPSMEFTd6::muTHUggHZga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFHZga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHZga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrHZgaRatio() * (1.0 + eVBFHZga) * (1.0 + eHwidth) / (1.0 + eVBFint + eVBFpar) / (1.0 + eHZgaint + eHZgapar));
@@ -17633,7 +17633,7 @@ double NPSMEFTd6::muTHUVBFHZga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUZHZga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUZHZga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muZH(sqrt_s) * BrHZgaRatio() * (1.0 + eZHZga) * (1.0 + eHwidth) / (1.0 + eZHint + eZHpar) / (1.0 + eHZgaint + eHZgapar));
@@ -17642,7 +17642,7 @@ double NPSMEFTd6::muTHUZHZga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUWHZga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUWHZga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muWH(sqrt_s) * BrHZgaRatio() * (1.0 + eWHZga) * (1.0 + eHwidth) / (1.0 + eWHint + eWHpar) / (1.0 + eHZgaint + eHZgapar));
@@ -17651,7 +17651,7 @@ double NPSMEFTd6::muTHUWHZga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHZga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHZga(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -17669,7 +17669,7 @@ double NPSMEFTd6::muTHUVHZga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUttHZga(const double sqrt_s) const
+const double NPSMEFTd6::muTHUttHZga(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muttH(sqrt_s) * BrHZgaRatio() * (1.0 + ettHZga) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHZgaint + eHZgapar));
@@ -17678,7 +17678,7 @@ double NPSMEFTd6::muTHUttHZga(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHZZ(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrHZZRatio() * (1.0 + eggFHZZ) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHZZint + eHZZpar));
@@ -17687,7 +17687,7 @@ double NPSMEFTd6::muTHUggHZZ(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHZZ(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrHZZRatio() * (1.0 + eVBFHZZ) * (1.0 + eHwidth) / (1.0 + eVBFint + eVBFpar) / (1.0 + eHZZint + eHZZpar));
@@ -17696,7 +17696,7 @@ double NPSMEFTd6::muTHUVBFHZZ(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUZHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muTHUZHZZ(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muZH(sqrt_s) * BrHZZRatio() * (1.0 + eZHZZ) * (1.0 + eHwidth) / (1.0 + eZHint + eZHpar) / (1.0 + eHZZint + eHZZpar));
@@ -17705,7 +17705,7 @@ double NPSMEFTd6::muTHUZHZZ(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUWHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muTHUWHZZ(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muWH(sqrt_s) * BrHZZRatio() * (1.0 + eWHZZ) * (1.0 + eHwidth) / (1.0 + eWHint + eWHpar) / (1.0 + eHZZint + eHZZpar));
@@ -17714,7 +17714,7 @@ double NPSMEFTd6::muTHUWHZZ(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHZZ(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -17732,7 +17732,7 @@ double NPSMEFTd6::muTHUVHZZ(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUttHZZ(const double sqrt_s) const
+const double NPSMEFTd6::muTHUttHZZ(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muttH(sqrt_s) * BrHZZRatio() * (1.0 + ettHZZ) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHZZint + eHZZpar));
@@ -17741,7 +17741,7 @@ double NPSMEFTd6::muTHUttHZZ(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHZZ4l(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrH4lRatio() * (1.0 + eggFHZZ) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHZZint + eHZZpar));
@@ -17750,7 +17750,7 @@ double NPSMEFTd6::muTHUggHZZ4l(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHZZ4l(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrH4lRatio() * (1.0 + eVBFHZZ) * (1.0 + eHwidth) / (1.0 + eVBFint + eVBFpar) / (1.0 + eHZZint + eHZZpar));
@@ -17759,7 +17759,7 @@ double NPSMEFTd6::muTHUVBFHZZ4l(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUZHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muTHUZHZZ4l(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muZH(sqrt_s) * BrH4lRatio() * (1.0 + eZHZZ) * (1.0 + eHwidth) / (1.0 + eZHint + eZHpar) / (1.0 + eHZZint + eHZZpar));
@@ -17768,7 +17768,7 @@ double NPSMEFTd6::muTHUZHZZ4l(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUWHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muTHUWHZZ4l(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muWH(sqrt_s) * BrH4lRatio() * (1.0 + eWHZZ) * (1.0 + eHwidth) / (1.0 + eWHint + eWHpar) / (1.0 + eHZZint + eHZZpar));
@@ -17777,7 +17777,7 @@ double NPSMEFTd6::muTHUWHZZ4l(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHZZ4l(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -17795,7 +17795,7 @@ double NPSMEFTd6::muTHUVHZZ4l(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUttHZZ4l(const double sqrt_s) const
+const double NPSMEFTd6::muTHUttHZZ4l(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muttH(sqrt_s) * BrH4lRatio() * (1.0 + ettHZZ) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHZZint + eHZZpar));
@@ -17804,7 +17804,7 @@ double NPSMEFTd6::muTHUttHZZ4l(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHWW(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHWW(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrHWWRatio() * (1.0 + eggFHWW) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHWWint + eHWWpar));
@@ -17813,7 +17813,7 @@ double NPSMEFTd6::muTHUggHWW(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFHWW(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHWW(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrHWWRatio() * (1.0 + eVBFHWW) * (1.0 + eHwidth) / (1.0 + eVBFint + eVBFpar) / (1.0 + eHWWint + eHWWpar));
@@ -17822,7 +17822,7 @@ double NPSMEFTd6::muTHUVBFHWW(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUZHWW(const double sqrt_s) const
+const double NPSMEFTd6::muTHUZHWW(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muZH(sqrt_s) * BrHWWRatio() * (1.0 + eZHWW) * (1.0 + eHwidth) / (1.0 + eZHint + eZHpar) / (1.0 + eHWWint + eHWWpar));
@@ -17831,7 +17831,7 @@ double NPSMEFTd6::muTHUZHWW(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUWHWW(const double sqrt_s) const
+const double NPSMEFTd6::muTHUWHWW(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muWH(sqrt_s) * BrHWWRatio() * (1.0 + eWHWW) * (1.0 + eHwidth) / (1.0 + eWHint + eWHpar) / (1.0 + eHWWint + eHWWpar));
@@ -17840,7 +17840,7 @@ double NPSMEFTd6::muTHUWHWW(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHWW(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHWW(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -17858,7 +17858,7 @@ double NPSMEFTd6::muTHUVHWW(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUttHWW(const double sqrt_s) const
+const double NPSMEFTd6::muTHUttHWW(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muttH(sqrt_s) * BrHWWRatio() * (1.0 + ettHWW) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHWWint + eHWWpar));
@@ -17867,7 +17867,7 @@ double NPSMEFTd6::muTHUttHWW(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHWW2l2v(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrH2l2vRatio() * (1.0 + eggFHWW) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHWWint + eHWWpar));
@@ -17876,7 +17876,7 @@ double NPSMEFTd6::muTHUggHWW2l2v(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHWW2l2v(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrH2l2vRatio() * (1.0 + eVBFHWW) * (1.0 + eHwidth) / (1.0 + eVBFint + eVBFpar) / (1.0 + eHWWint + eHWWpar));
@@ -17885,7 +17885,7 @@ double NPSMEFTd6::muTHUVBFHWW2l2v(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUZHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muTHUZHWW2l2v(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muZH(sqrt_s) * BrH2l2vRatio() * (1.0 + eZHWW) * (1.0 + eHwidth) / (1.0 + eZHint + eZHpar) / (1.0 + eHWWint + eHWWpar));
@@ -17894,7 +17894,7 @@ double NPSMEFTd6::muTHUZHWW2l2v(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUWHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muTHUWHWW2l2v(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muWH(sqrt_s) * BrH2l2vRatio() * (1.0 + eWHWW) * (1.0 + eHwidth) / (1.0 + eWHint + eWHpar) / (1.0 + eHWWint + eHWWpar));
@@ -17903,7 +17903,7 @@ double NPSMEFTd6::muTHUWHWW2l2v(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHWW2l2v(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -17921,7 +17921,7 @@ double NPSMEFTd6::muTHUVHWW2l2v(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUttHWW2l2v(const double sqrt_s) const
+const double NPSMEFTd6::muTHUttHWW2l2v(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muttH(sqrt_s) * BrH2l2vRatio() * (1.0 + ettHWW) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHWWint + eHWWpar));
@@ -17930,7 +17930,7 @@ double NPSMEFTd6::muTHUttHWW2l2v(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHmumu(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrHmumuRatio() * (1.0 + eggFHmumu) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHmumuint + eHmumupar));
@@ -17939,7 +17939,7 @@ double NPSMEFTd6::muTHUggHmumu(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHmumu(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrHmumuRatio() * (1.0 + eVBFHmumu) * (1.0 + eHwidth) / (1.0 + eVBFint + eVBFpar) / (1.0 + eHmumuint + eHmumupar));
@@ -17948,7 +17948,7 @@ double NPSMEFTd6::muTHUVBFHmumu(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUZHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muTHUZHmumu(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muZH(sqrt_s) * BrHmumuRatio() * (1.0 + eZHmumu) * (1.0 + eHwidth) / (1.0 + eZHint + eZHpar) / (1.0 + eHmumuint + eHmumupar));
@@ -17957,7 +17957,7 @@ double NPSMEFTd6::muTHUZHmumu(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUWHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muTHUWHmumu(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muWH(sqrt_s) * BrHmumuRatio() * (1.0 + eWHmumu) * (1.0 + eHwidth) / (1.0 + eWHint + eWHpar) / (1.0 + eHmumuint + eHmumupar));
@@ -17966,7 +17966,7 @@ double NPSMEFTd6::muTHUWHmumu(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHmumu(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -17984,7 +17984,7 @@ double NPSMEFTd6::muTHUVHmumu(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUttHmumu(const double sqrt_s) const
+const double NPSMEFTd6::muTHUttHmumu(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muttH(sqrt_s) * BrHmumuRatio() * (1.0 + ettHmumu) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHmumuint + eHmumupar));
@@ -17993,7 +17993,7 @@ double NPSMEFTd6::muTHUttHmumu(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHtautau(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrHtautauRatio() * (1.0 + eggFHtautau) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHtautauint + eHtautaupar));
@@ -18002,7 +18002,7 @@ double NPSMEFTd6::muTHUggHtautau(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHtautau(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrHtautauRatio() * (1.0 + eVBFHtautau) * (1.0 + eHwidth) / (1.0 + eVBFint + eVBFpar) / (1.0 + eHtautauint + eHtautaupar));
@@ -18011,7 +18011,7 @@ double NPSMEFTd6::muTHUVBFHtautau(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUZHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muTHUZHtautau(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muZH(sqrt_s) * BrHtautauRatio() * (1.0 + eZHtautau) * (1.0 + eHwidth) / (1.0 + eZHint + eZHpar) / (1.0 + eHtautauint + eHtautaupar));
@@ -18020,7 +18020,7 @@ double NPSMEFTd6::muTHUZHtautau(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUWHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muTHUWHtautau(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muWH(sqrt_s) * BrHtautauRatio() * (1.0 + eWHtautau) * (1.0 + eHwidth) / (1.0 + eWHint + eWHpar) / (1.0 + eHtautauint + eHtautaupar));
@@ -18029,7 +18029,7 @@ double NPSMEFTd6::muTHUWHtautau(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHtautau(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -18047,7 +18047,7 @@ double NPSMEFTd6::muTHUVHtautau(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUttHtautau(const double sqrt_s) const
+const double NPSMEFTd6::muTHUttHtautau(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muttH(sqrt_s) * BrHtautauRatio() * (1.0 + ettHtautau) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHtautauint + eHtautaupar));
@@ -18056,7 +18056,7 @@ double NPSMEFTd6::muTHUttHtautau(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHbb(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHbb(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrHbbRatio() * (1.0 + eggFHbb) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHbbint + eHbbpar));
@@ -18065,7 +18065,7 @@ double NPSMEFTd6::muTHUggHbb(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFHbb(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHbb(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrHbbRatio() * (1.0 + eVBFHbb) * (1.0 + eHwidth) / (1.0 + eVBFint + eVBFpar) / (1.0 + eHbbint + eHbbpar));
@@ -18074,7 +18074,7 @@ double NPSMEFTd6::muTHUVBFHbb(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUZHbb(const double sqrt_s) const
+const double NPSMEFTd6::muTHUZHbb(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muZH(sqrt_s) * BrHbbRatio() * (1.0 + eZHbb) * (1.0 + eHwidth) / (1.0 + eZHint + eZHpar) / (1.0 + eHbbint + eHbbpar));
@@ -18083,7 +18083,7 @@ double NPSMEFTd6::muTHUZHbb(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUWHbb(const double sqrt_s) const
+const double NPSMEFTd6::muTHUWHbb(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muWH(sqrt_s) * BrHbbRatio() * (1.0 + eWHbb) * (1.0 + eHwidth) / (1.0 + eWHint + eWHpar) / (1.0 + eHbbint + eHbbpar));
@@ -18092,7 +18092,7 @@ double NPSMEFTd6::muTHUWHbb(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHbb(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHbb(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -18110,7 +18110,7 @@ double NPSMEFTd6::muTHUVHbb(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUttHbb(const double sqrt_s) const
+const double NPSMEFTd6::muTHUttHbb(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muttH(sqrt_s) * BrHbbRatio() * (1.0 + ettHbb) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHbbint + eHbbpar));
@@ -18119,12 +18119,12 @@ double NPSMEFTd6::muTHUttHbb(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVBFBRinv(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFBRinv(const double sqrt_s) const
 {
     return ( muVBF(sqrt_s) * Br_H_inv() * (1.0 + eVBFHinv) / (1.0 + eVBFint + eVBFpar));
 }
 
-double NPSMEFTd6::muTHUVBFHinv(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVBFHinv(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muVBF(sqrt_s) * BrHtoinvRatio() * (1.0 + eVBFHinv) / (1.0 + eVBFint + eVBFpar));
@@ -18133,7 +18133,7 @@ double NPSMEFTd6::muTHUVBFHinv(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUVHBRinv(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHBRinv(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -18145,7 +18145,7 @@ double NPSMEFTd6::muTHUVHBRinv(const double sqrt_s) const
     return ( muVH(sqrt_s) * Br_H_inv() * (1.0 + eVHinv) / (1.0 + eVHtot));
 }
 
-double NPSMEFTd6::muTHUVHinv(const double sqrt_s) const
+const double NPSMEFTd6::muTHUVHinv(const double sqrt_s) const
 {
     //  Theory uncertainty in VH production, from the WH and ZH ones
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
@@ -18161,7 +18161,7 @@ double NPSMEFTd6::muTHUVHinv(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHZZ4mu(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHZZ4mu(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrH4muRatio() * (1.0 + eggFHZZ) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHZZint + eHZZpar));
@@ -18170,7 +18170,7 @@ double NPSMEFTd6::muTHUggHZZ4mu(const double sqrt_s) const
     }
 }
 
-double NPSMEFTd6::muTHUggHZgamumu(const double sqrt_s) const
+const double NPSMEFTd6::muTHUggHZgamumu(const double sqrt_s) const
 {
     if (FlagQuadraticTerms) {
         return ( muggH(sqrt_s) * BrHZgamumuRatio() * (1.0 + eggFHZga) * (1.0 + eHwidth) / (1.0 + eggFint + eggFpar) / (1.0 + eHZgaint + eHZgapar));
@@ -18182,7 +18182,7 @@ double NPSMEFTd6::muTHUggHZgamumu(const double sqrt_s) const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::deltag1ZNP() const
+const double NPSMEFTd6::deltag1ZNP() const
 {
     double NPdirect, NPindirect;
 
@@ -18200,14 +18200,14 @@ double NPSMEFTd6::deltag1ZNP() const
     return NPdirect + NPindirect + dg1Z;
 }
 
-double NPSMEFTd6::deltaKZNP() const
+const double NPSMEFTd6::deltaKZNP() const
 {
     // Obtain from the other aTGC  
 
     return ( deltag1ZNP() - (sW2_tree / cW2_tree) * (deltaKgammaNP() - deltag1gaNP()));
 }
 
-double NPSMEFTd6::deltag1gaNP() const
+const double NPSMEFTd6::deltag1gaNP() const
 {
     double NPindirect;
 
@@ -18216,7 +18216,7 @@ double NPSMEFTd6::deltag1gaNP() const
     return NPindirect;
 }
 
-double NPSMEFTd6::deltaKgammaNP() const
+const double NPSMEFTd6::deltaKgammaNP() const
 {
     double NPdirect, NPindirect;
 
@@ -18231,7 +18231,7 @@ double NPSMEFTd6::deltaKgammaNP() const
     return NPdirect + NPindirect + dKappaga;
 }
 
-double NPSMEFTd6::lambdaZNP() const
+const double NPSMEFTd6::lambdaZNP() const
 {
     double NPdirect;
 
@@ -18243,7 +18243,7 @@ double NPSMEFTd6::lambdaZNP() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::deltag1ZNPEff() const
+const double NPSMEFTd6::deltag1ZNPEff() const
 {
     /* From arXiv:1708.09079 [hep-ph]. In our case, delta_e=0 since it is taken as inputs and its effects propagated
      * everywhere else */
@@ -18256,7 +18256,7 @@ double NPSMEFTd6::deltag1ZNPEff() const
     return dgEff + deltag1ZNP();
 }
 
-double NPSMEFTd6::deltaKgammaNPEff() const
+const double NPSMEFTd6::deltaKgammaNPEff() const
 {
     /* From arXiv:1708.09079 [hep-ph]. In our case, delta_e=0 since it is taken as inputs and its effects propagated
      * everywhere else */
@@ -18270,7 +18270,7 @@ double NPSMEFTd6::deltaKgammaNPEff() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
+const double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
 {
 
     //  Returns cross section in pb
@@ -18834,7 +18834,7 @@ double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const
     return xspb;
 }
 
-double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
+const double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
 {
 
     //  Returns cross section in pb
@@ -19374,17 +19374,17 @@ double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) const
     return xspb;
 }
 
-double NPSMEFTd6::deltaxseeWWtotLEP2(const double sqrt_s) const
+const double NPSMEFTd6::deltaxseeWWtotLEP2(const double sqrt_s) const
 {
     return ( deltaxseeWW4fLEP2(sqrt_s, 0) + deltaxseeWW4fLEP2(sqrt_s, 10) + deltaxseeWW4fLEP2(sqrt_s, 11));
 }
 
-double NPSMEFTd6::xseeWWtotLEP2(const double sqrt_s) const
+const double NPSMEFTd6::xseeWWtotLEP2(const double sqrt_s) const
 {
     return ( xseeWW4fLEP2(sqrt_s, 0) + xseeWW4fLEP2(sqrt_s, 10) + xseeWW4fLEP2(sqrt_s, 11));
 }
 
-double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
+const double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 {
 
     //  Returns differential cross section in pb  
@@ -19392,7 +19392,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
 
     double xspb = 0.0;
 
-    double xspbSM;
+    double xspbSM = 0.0;
     // SM values from Table 8 in hep-ex/0409016
     // Sum bin contents into B1=[-1,-0.8], B2=[-0.4,-0.2], B3=[0.4,0.6], B4=[0.8,1]
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
@@ -19768,7 +19768,7 @@ double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) c
     return xspb;
 }
 
-double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
+const double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 {
 
     //  Returns differential cross section in pb  
@@ -19776,7 +19776,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 
     double xspb = 0.0;
 
-    double xspbSM;
+    double xspbSM = 0.0;
     // SM values from Table 8 in hep-ex/0409016
     // Sum bin contents into B1=[-1,-0.8], B2=[-0.4,-0.2], B3=[0.4,0.6], B4=[0.8,1]
     double xslvjjSM183[4] = {0.74, 1.20, 2.86, 5.47};
@@ -20162,7 +20162,7 @@ double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
+const double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 {
     double sqrt_sGeV = 1000. * sqrt_s;
     double s = sqrt_sGeV * sqrt_sGeV;
@@ -20461,7 +20461,7 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     return dxsdcos;
 }
 
-double NPSMEFTd6::dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const
+const double NPSMEFTd6::dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const
 {
     double xsWWbin; /**< Gsl integral variable */
     double errWW; /**< Gsl integral variable */
@@ -20506,12 +20506,12 @@ double NPSMEFTd6::dxseeWWdcosBin(const double sqrt_s, const double cos1, const d
     return xsWWbin * BRlv * BRjj;
 }
 
-double NPSMEFTd6::xseeWW(const double sqrt_s) const
+const double NPSMEFTd6::xseeWW(const double sqrt_s) const
 {
     return dxseeWWdcosBin(sqrt_s, -1.0, 1.0);
 }
 
-double NPSMEFTd6::mueeWW(const double sqrt_s) const
+const double NPSMEFTd6::mueeWW(const double sqrt_s) const
 {
     double mu = 1.0;
 
@@ -20667,7 +20667,7 @@ double NPSMEFTd6::mueeWW(const double sqrt_s) const
     return mu;
 }
 
-double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
 
@@ -21169,7 +21169,7 @@ double NPSMEFTd6::mueeWWPol(const double sqrt_s, const double Pol_em, const doub
 
 //----- High Energy diboson observables at hadron colliders
 
-double NPSMEFTd6::ppZHprobe(const double sqrt_s) const
+const double NPSMEFTd6::ppZHprobe(const double sqrt_s) const
 {
 
     double gpZ = 0.0;
@@ -21205,7 +21205,7 @@ double NPSMEFTd6::ppZHprobe(const double sqrt_s) const
 
 }
 
-double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double pTV2) const
+const double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double pTV2) const
 {
     double mu = 1.0;
 
@@ -21310,7 +21310,7 @@ double NPSMEFTd6::mupTVppWZ(const double sqrt_s, const double pTV1, const double
 
 //----- Stage 0
 
-double NPSMEFTd6::STXS0_qqH(const double sqrt_s) const
+const double NPSMEFTd6::STXS0_qqH(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -21374,7 +21374,7 @@ double NPSMEFTd6::STXS0_qqH(const double sqrt_s) const
 // NOTE: Not our own calculations. From https://twiki.cern.ch/twiki/bin/view/LHCPhysics/STXStoEFT  for HEL calculations
 // From Table 3 in ATL-PHYS-PUB-2019-042 for Warsaw basis calculations
 
-double NPSMEFTd6::STXS_ggH_VBFtopo_j3v(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH_VBFtopo_j3v(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21386,7 +21386,7 @@ double NPSMEFTd6::STXS_ggH_VBFtopo_j3v(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH_VBFtopo_j3(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH_VBFtopo_j3(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21398,7 +21398,7 @@ double NPSMEFTd6::STXS_ggH_VBFtopo_j3(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH0j(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH0j(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21413,7 +21413,7 @@ double NPSMEFTd6::STXS_ggH0j(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH1j_pTH_0_60(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH1j_pTH_0_60(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21428,7 +21428,7 @@ double NPSMEFTd6::STXS_ggH1j_pTH_0_60(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH1j_pTH_60_120(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH1j_pTH_60_120(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21443,7 +21443,7 @@ double NPSMEFTd6::STXS_ggH1j_pTH_60_120(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH1j_pTH_120_200(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH1j_pTH_120_200(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21458,7 +21458,7 @@ double NPSMEFTd6::STXS_ggH1j_pTH_120_200(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH1j_pTH_200(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH1j_pTH_200(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21473,7 +21473,7 @@ double NPSMEFTd6::STXS_ggH1j_pTH_200(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH2j_pTH_0_200(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH2j_pTH_0_200(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21485,7 +21485,7 @@ double NPSMEFTd6::STXS_ggH2j_pTH_0_200(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH2j_pTH_0_60(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH2j_pTH_0_60(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21497,7 +21497,7 @@ double NPSMEFTd6::STXS_ggH2j_pTH_0_60(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH2j_pTH_60_120(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH2j_pTH_60_120(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21509,7 +21509,7 @@ double NPSMEFTd6::STXS_ggH2j_pTH_60_120(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH2j_pTH_120_200(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH2j_pTH_120_200(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21521,7 +21521,7 @@ double NPSMEFTd6::STXS_ggH2j_pTH_120_200(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ggH2j_pTH_200(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ggH2j_pTH_200(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21536,13 +21536,13 @@ double NPSMEFTd6::STXS_ggH2j_pTH_200(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const
 {
 
     return STXS_qqHqq_Rest(sqrt_s);
 }
 
-double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21554,7 +21554,7 @@ double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21566,7 +21566,7 @@ double NPSMEFTd6::STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHqq_nonVHtopo(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHqq_nonVHtopo(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21587,7 +21587,7 @@ double NPSMEFTd6::STXS_qqHqq_nonVHtopo(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHqq_VHtopo(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHqq_VHtopo(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21608,7 +21608,7 @@ double NPSMEFTd6::STXS_qqHqq_VHtopo(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHqq_Rest(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHqq_Rest(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21620,7 +21620,7 @@ double NPSMEFTd6::STXS_qqHqq_Rest(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHqq_pTj_200(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHqq_pTj_200(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21641,7 +21641,7 @@ double NPSMEFTd6::STXS_qqHqq_pTj_200(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHlv_pTV_0_250(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHlv_pTV_0_250(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21658,7 +21658,7 @@ double NPSMEFTd6::STXS_qqHlv_pTV_0_250(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHlv_pTV_0_150(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHlv_pTV_0_150(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21670,7 +21670,7 @@ double NPSMEFTd6::STXS_qqHlv_pTV_0_150(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21682,7 +21682,7 @@ double NPSMEFTd6::STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21694,7 +21694,7 @@ double NPSMEFTd6::STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHlv_pTV_250(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHlv_pTV_250(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21714,7 +21714,7 @@ double NPSMEFTd6::STXS_qqHlv_pTV_250(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHll_pTV_0_150(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHll_pTV_0_150(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21738,7 +21738,7 @@ double NPSMEFTd6::STXS_qqHll_pTV_0_150(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHll_pTV_150_250(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHll_pTV_150_250(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21758,7 +21758,7 @@ double NPSMEFTd6::STXS_qqHll_pTV_150_250(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21772,7 +21772,7 @@ double NPSMEFTd6::STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21786,7 +21786,7 @@ double NPSMEFTd6::STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_qqHll_pTV_250(const double sqrt_s) const
+const double NPSMEFTd6::STXS_qqHll_pTV_250(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21810,7 +21810,7 @@ double NPSMEFTd6::STXS_qqHll_pTV_250(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ttHtH(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ttHtH(const double sqrt_s) const
 {
 
     // Warsaw parameterization
@@ -21841,7 +21841,7 @@ double NPSMEFTd6::STXS_ttHtH(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const
+const double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21853,7 +21853,7 @@ double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const
+const double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21865,7 +21865,7 @@ double NPSMEFTd6::STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_WHqqHqq_VH2j(const double sqrt_s) const
+const double NPSMEFTd6::STXS_WHqqHqq_VH2j(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21877,7 +21877,7 @@ double NPSMEFTd6::STXS_WHqqHqq_VH2j(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_WHqqHqq_Rest(const double sqrt_s) const
+const double NPSMEFTd6::STXS_WHqqHqq_Rest(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21889,7 +21889,7 @@ double NPSMEFTd6::STXS_WHqqHqq_Rest(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_WHqqHqq_pTj1_200(const double sqrt_s) const
+const double NPSMEFTd6::STXS_WHqqHqq_pTj1_200(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21901,7 +21901,7 @@ double NPSMEFTd6::STXS_WHqqHqq_pTj1_200(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21914,7 +21914,7 @@ double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21927,7 +21927,7 @@ double NPSMEFTd6::STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ZHqqHqq_VH2j(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ZHqqHqq_VH2j(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21940,7 +21940,7 @@ double NPSMEFTd6::STXS_ZHqqHqq_VH2j(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ZHqqHqq_Rest(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ZHqqHqq_Rest(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21953,7 +21953,7 @@ double NPSMEFTd6::STXS_ZHqqHqq_Rest(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const
+const double NPSMEFTd6::STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const
 {
 
     // HEL parameterization
@@ -21972,7 +21972,7 @@ double NPSMEFTd6::STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const
 // From Appendix A in ATLAS-CONF-2020-053 
 // Warsaw basis calculations in {GF,MW,MZ} scheme, assuming U(3)^5 symmetry
 
-double NPSMEFTd6::STXS12_BrH4lRatio() const
+const double NPSMEFTd6::STXS12_BrH4lRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiTotR1 = 0.0;
@@ -21996,7 +21996,7 @@ double NPSMEFTd6::STXS12_BrH4lRatio() const
     return Br;
 }
 
-double NPSMEFTd6::STXS12_BrHevmuvRatio() const
+const double NPSMEFTd6::STXS12_BrHevmuvRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiTotR1 = 0.0;
@@ -22018,7 +22018,7 @@ double NPSMEFTd6::STXS12_BrHevmuvRatio() const
     return Br;
 }
 
-double NPSMEFTd6::STXS12_BrHgagaRatio() const
+const double NPSMEFTd6::STXS12_BrHgagaRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiTotR1 = 0.0;
@@ -22043,7 +22043,7 @@ double NPSMEFTd6::STXS12_BrHgagaRatio() const
     return Br;
 }
 
-double NPSMEFTd6::STXS12_BrHbbRatio() const
+const double NPSMEFTd6::STXS12_BrHbbRatio() const
 {
     double Br = 1.0;
     double dGHiR1 = 0.0, dGHiTotR1 = 0.0;
@@ -22066,7 +22066,7 @@ double NPSMEFTd6::STXS12_BrHbbRatio() const
     return Br;
 }
 
-double NPSMEFTd6::STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22091,7 +22091,7 @@ double NPSMEFTd6::STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_pTH300_450_Nj01(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_pTH300_450_Nj01(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22116,7 +22116,7 @@ double NPSMEFTd6::STXS12_ggH_pTH300_450_Nj01(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_pTH450_650_Nj01(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_pTH450_650_Nj01(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22141,7 +22141,7 @@ double NPSMEFTd6::STXS12_ggH_pTH450_650_Nj01(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22166,7 +22166,7 @@ double NPSMEFTd6::STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22191,7 +22191,7 @@ double NPSMEFTd6::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22216,7 +22216,7 @@ double NPSMEFTd6::STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22241,7 +22241,7 @@ double NPSMEFTd6::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22266,7 +22266,7 @@ double NPSMEFTd6::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22291,7 +22291,7 @@ double NPSMEFTd6::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22316,7 +22316,7 @@ double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22341,7 +22341,7 @@ double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22366,7 +22366,7 @@ double NPSMEFTd6::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22391,7 +22391,7 @@ double NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const double sqrt
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22416,7 +22416,7 @@ double NPSMEFTd6::STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const double sq
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22441,7 +22441,7 @@ double NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const double sqrt
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22466,7 +22466,7 @@ double NPSMEFTd6::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sq
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggHll_pTV0_75(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggHll_pTV0_75(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22502,7 +22502,7 @@ double NPSMEFTd6::STXS12_ggHll_pTV0_75(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggHll_pTV75_150(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggHll_pTV75_150(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22538,7 +22538,7 @@ double NPSMEFTd6::STXS12_ggHll_pTV75_150(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj0(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj0(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22573,7 +22573,7 @@ double NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj1(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj1(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22608,7 +22608,7 @@ double NPSMEFTd6::STXS12_ggHll_pTV150_250_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ggHll_pTV250_Inf(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ggHll_pTV250_Inf(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22642,7 +22642,7 @@ double NPSMEFTd6::STXS12_ggHll_pTV250_Inf(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_Nj0(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_Nj0(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22675,7 +22675,7 @@ double NPSMEFTd6::STXS12_qqHqq_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_Nj1(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_Nj1(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22707,7 +22707,7 @@ double NPSMEFTd6::STXS12_qqHqq_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22740,7 +22740,7 @@ double NPSMEFTd6::STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22772,7 +22772,7 @@ double NPSMEFTd6::STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22804,7 +22804,7 @@ double NPSMEFTd6::STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22836,7 +22836,7 @@ double NPSMEFTd6::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) co
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22869,7 +22869,7 @@ double NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sq
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22901,7 +22901,7 @@ double NPSMEFTd6::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const double 
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22933,7 +22933,7 @@ double NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const double sq
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22965,7 +22965,7 @@ double NPSMEFTd6::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double 
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHlv_pTV0_75(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHlv_pTV0_75(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -22993,7 +22993,7 @@ double NPSMEFTd6::STXS12_qqHlv_pTV0_75(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHlv_pTV75_150(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHlv_pTV75_150(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23021,7 +23021,7 @@ double NPSMEFTd6::STXS12_qqHlv_pTV75_150(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23049,7 +23049,7 @@ double NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23077,7 +23077,7 @@ double NPSMEFTd6::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23105,7 +23105,7 @@ double NPSMEFTd6::STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHll_pTV0_75(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHll_pTV0_75(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23138,7 +23138,7 @@ double NPSMEFTd6::STXS12_qqHll_pTV0_75(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHll_pTV75_150(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHll_pTV75_150(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23171,7 +23171,7 @@ double NPSMEFTd6::STXS12_qqHll_pTV75_150(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23204,7 +23204,7 @@ double NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23237,7 +23237,7 @@ double NPSMEFTd6::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_qqHll_pTV250_Inf(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_qqHll_pTV250_Inf(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23270,7 +23270,7 @@ double NPSMEFTd6::STXS12_qqHll_pTV250_Inf(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ttH_pTH0_60(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ttH_pTH0_60(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23307,7 +23307,7 @@ double NPSMEFTd6::STXS12_ttH_pTH0_60(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ttH_pTH60_120(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ttH_pTH60_120(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23344,7 +23344,7 @@ double NPSMEFTd6::STXS12_ttH_pTH60_120(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ttH_pTH120_200(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ttH_pTH120_200(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23381,7 +23381,7 @@ double NPSMEFTd6::STXS12_ttH_pTH120_200(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ttH_pTH200_300(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ttH_pTH200_300(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23419,7 +23419,7 @@ double NPSMEFTd6::STXS12_ttH_pTH200_300(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_ttH_pTH300_Inf(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_ttH_pTH300_Inf(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23460,7 +23460,7 @@ double NPSMEFTd6::STXS12_ttH_pTH300_Inf(const double sqrt_s) const
     return STXSb;
 }
 
-double NPSMEFTd6::STXS12_tH(const double sqrt_s) const
+const double NPSMEFTd6::STXS12_tH(const double sqrt_s) const
 {
 
     double STXSb = 1.0;
@@ -23494,47 +23494,47 @@ double NPSMEFTd6::STXS12_tH(const double sqrt_s) const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::kappamueff() const
+const double NPSMEFTd6::kappamueff() const
 {
     return sqrt(GammaHmumuRatio());
 }
 
-double NPSMEFTd6::kappataueff() const
+const double NPSMEFTd6::kappataueff() const
 {
     return sqrt(GammaHtautauRatio());
 }
 
-double NPSMEFTd6::kappaceff() const
+const double NPSMEFTd6::kappaceff() const
 {
     return sqrt(GammaHccRatio());
 }
 
-double NPSMEFTd6::kappabeff() const
+const double NPSMEFTd6::kappabeff() const
 {
     return sqrt(GammaHbbRatio());
 }
 
-double NPSMEFTd6::kappaGeff() const
+const double NPSMEFTd6::kappaGeff() const
 {
     return sqrt(GammaHggRatio());
 }
 
-double NPSMEFTd6::kappaZeff() const
+const double NPSMEFTd6::kappaZeff() const
 {
     return sqrt(GammaHZZRatio());
 }
 
-double NPSMEFTd6::kappaWeff() const
+const double NPSMEFTd6::kappaWeff() const
 {
     return sqrt(GammaHWWRatio());
 }
 
-double NPSMEFTd6::kappaAeff() const
+const double NPSMEFTd6::kappaAeff() const
 {
     return sqrt(GammaHgagaRatio());
 }
 
-double NPSMEFTd6::kappaZAeff() const
+const double NPSMEFTd6::kappaZAeff() const
 {
     return sqrt(GammaHZgaRatio());
 }
@@ -23542,7 +23542,7 @@ double NPSMEFTd6::kappaZAeff() const
 
 /////////////Basic interactions of the so-called Higgs basis////////////////
 
-double NPSMEFTd6::deltayt_HB() const
+const double NPSMEFTd6::deltayt_HB() const
 {
     double mf = mtpole;
     double ciHB;
@@ -23552,7 +23552,7 @@ double NPSMEFTd6::deltayt_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::deltayb_HB() const
+const double NPSMEFTd6::deltayb_HB() const
 {
     double mf = (quarks[BOTTOM].getMass());
     double ciHB;
@@ -23562,7 +23562,7 @@ double NPSMEFTd6::deltayb_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::deltaytau_HB() const
+const double NPSMEFTd6::deltaytau_HB() const
 {
     double mf = (leptons[TAU].getMass());
     double ciHB;
@@ -23572,7 +23572,7 @@ double NPSMEFTd6::deltaytau_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::deltayc_HB() const
+const double NPSMEFTd6::deltayc_HB() const
 {
     double mf = (quarks[CHARM].getMass());
     double ciHB;
@@ -23582,7 +23582,7 @@ double NPSMEFTd6::deltayc_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::deltaymu_HB() const
+const double NPSMEFTd6::deltaymu_HB() const
 {
     double mf = (leptons[MU].getMass());
     double ciHB;
@@ -23592,7 +23592,7 @@ double NPSMEFTd6::deltaymu_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::deltacZ_HB() const
+const double NPSMEFTd6::deltacZ_HB() const
 {
     double ciHB;
 
@@ -23601,7 +23601,7 @@ double NPSMEFTd6::deltacZ_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::cZBox_HB() const
+const double NPSMEFTd6::cZBox_HB() const
 {
     double ciHB;
 
@@ -23612,7 +23612,7 @@ double NPSMEFTd6::cZBox_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::cZZ_HB() const
+const double NPSMEFTd6::cZZ_HB() const
 {
     double ciHB;
 
@@ -23623,7 +23623,7 @@ double NPSMEFTd6::cZZ_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::cZga_HB() const
+const double NPSMEFTd6::cZga_HB() const
 {
     double ciHB;
 
@@ -23634,7 +23634,7 @@ double NPSMEFTd6::cZga_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::cgaga_HB() const
+const double NPSMEFTd6::cgaga_HB() const
 {
     double ciHB;
 
@@ -23643,7 +23643,7 @@ double NPSMEFTd6::cgaga_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::cgg_HB() const
+const double NPSMEFTd6::cgg_HB() const
 {
     double ciHB;
 
@@ -23652,12 +23652,12 @@ double NPSMEFTd6::cgg_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::cggEff_HB() const
+const double NPSMEFTd6::cggEff_HB() const
 {
     double ciHB;
 
     double m_t = mtpole;
-    //doulbe m_t = quarks[TOP].getMass();
+    //double m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
 
@@ -23670,7 +23670,7 @@ double NPSMEFTd6::cggEff_HB() const
     return ciHB;
 }
 
-double NPSMEFTd6::lambz_HB() const
+const double NPSMEFTd6::lambz_HB() const
 {
     double ciHB;
 
@@ -23681,120 +23681,120 @@ double NPSMEFTd6::lambz_HB() const
 
 /////////////Combinations of Warsaw basis coefficients constrained by EWPO////////////////
 
-double NPSMEFTd6::CEWHL111() const
+const double NPSMEFTd6::CEWHL111() const
 {
     return CiHL1_11 + (1.0 / 4.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHL122() const
+const double NPSMEFTd6::CEWHL122() const
 {
     return CiHL1_22 + (1.0 / 4.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHL133() const
+const double NPSMEFTd6::CEWHL133() const
 {
     return CiHL1_33 + (1.0 / 4.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHL311() const
+const double NPSMEFTd6::CEWHL311() const
 {
     return CiHL3_11 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
 }
 
-double NPSMEFTd6::CEWHL322() const
+const double NPSMEFTd6::CEWHL322() const
 {
     return CiHL3_22 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
 }
 
-double NPSMEFTd6::CEWHL333() const
+const double NPSMEFTd6::CEWHL333() const
 {
     return CiHL3_33 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
 }
 
-double NPSMEFTd6::CEWHQ111() const
+const double NPSMEFTd6::CEWHQ111() const
 {
     return CiHQ1_11 - (1.0 / 12.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHQ122() const
+const double NPSMEFTd6::CEWHQ122() const
 {
     return CiHQ1_22 - (1.0 / 12.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHQ133() const
+const double NPSMEFTd6::CEWHQ133() const
 {
     return CiHQ1_33 - (1.0 / 12.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHQ311() const
+const double NPSMEFTd6::CEWHQ311() const
 {
     return CiHQ3_11 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
 }
 
-double NPSMEFTd6::CEWHQ322() const
+const double NPSMEFTd6::CEWHQ322() const
 {
     return CiHQ3_22 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
 }
 
-double NPSMEFTd6::CEWHQ333() const
+const double NPSMEFTd6::CEWHQ333() const
 {
     return CiHQ3_33 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
 }
 
-double NPSMEFTd6::CEWHQd33() const
+const double NPSMEFTd6::CEWHQd33() const
 {
     return 0.5 * ((CiHQ1_33 - (1.0 / 12.0) * CiHD) +
             (CiHQ3_33 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD));
 }
 
-double NPSMEFTd6::CEWHe11() const
+const double NPSMEFTd6::CEWHe11() const
 {
     return CiHe_11 + (1.0 / 2.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHe22() const
+const double NPSMEFTd6::CEWHe22() const
 {
     return CiHe_22 + (1.0 / 2.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHe33() const
+const double NPSMEFTd6::CEWHe33() const
 {
     return CiHe_33 + (1.0 / 2.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHu11() const
+const double NPSMEFTd6::CEWHu11() const
 {
     return CiHu_11 - (1.0 / 3.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHu22() const
+const double NPSMEFTd6::CEWHu22() const
 {
     return CiHu_22 - (1.0 / 3.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHu33() const
+const double NPSMEFTd6::CEWHu33() const
 {
     return CiHu_33 - (1.0 / 3.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHd11() const
+const double NPSMEFTd6::CEWHd11() const
 {
     return CiHd_11 + (1.0 / 6.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHd22() const
+const double NPSMEFTd6::CEWHd22() const
 {
     return CiHd_22 + (1.0 / 6.0) * CiHD;
 }
 
-double NPSMEFTd6::CEWHd33() const
+const double NPSMEFTd6::CEWHd33() const
 {
     return CiHd_33 + (1.0 / 6.0) * CiHD;
 }
 
 ////////////////////////////Auxiliary observables//////////////////////////////
 
-double NPSMEFTd6::AuxObs_NP1() const
+const double NPSMEFTd6::AuxObs_NP1() const
 {
     // To be used for some temporary observable
 
@@ -23821,7 +23821,7 @@ double NPSMEFTd6::AuxObs_NP1() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP2() const
+const double NPSMEFTd6::AuxObs_NP2() const
 {
     // To be used for some temporary observable
 
@@ -23849,7 +23849,7 @@ double NPSMEFTd6::AuxObs_NP2() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP3() const
+const double NPSMEFTd6::AuxObs_NP3() const
 {
     // To be used for some temporary observable
 
@@ -23877,7 +23877,7 @@ double NPSMEFTd6::AuxObs_NP3() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP4() const
+const double NPSMEFTd6::AuxObs_NP4() const
 {
     // WH distribution at 14 TeV: From 1704.01953 + hvqq terms
 
@@ -23941,7 +23941,7 @@ double NPSMEFTd6::AuxObs_NP4() const
     return sqrt(dchi2);
 }
 
-double NPSMEFTd6::AuxObs_NP5() const
+const double NPSMEFTd6::AuxObs_NP5() const
 {
     // ZH distribution at 14 TeV: From 1704.01953 + hvqq terms
 
@@ -24012,7 +24012,7 @@ double NPSMEFTd6::AuxObs_NP5() const
     return sqrt(dchi2);
 }
 
-double NPSMEFTd6::AuxObs_NP6() const
+const double NPSMEFTd6::AuxObs_NP6() const
 {
     // To be used for some temporary observable
 
@@ -24280,7 +24280,7 @@ double NPSMEFTd6::AuxObs_NP6() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP7() const
+const double NPSMEFTd6::AuxObs_NP7() const
 {
     // To be used for some temporary observable
 
@@ -24313,7 +24313,7 @@ double NPSMEFTd6::AuxObs_NP7() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP8() const
+const double NPSMEFTd6::AuxObs_NP8() const
 {
     // To be used for some temporary observable
 
@@ -24333,7 +24333,7 @@ double NPSMEFTd6::AuxObs_NP8() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP9() const
+const double NPSMEFTd6::AuxObs_NP9() const
 {
     // To be used for some temporary observable
 
@@ -24395,7 +24395,7 @@ double NPSMEFTd6::AuxObs_NP9() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP10() const
+const double NPSMEFTd6::AuxObs_NP10() const
 {
     // CLIC STWY using difermion production at all energies: 380 and 1500 GeV
     double Spar, Tpar, Wpar, Ypar, Spar2, Tpar2, Wpar2, Ypar2;
@@ -24426,7 +24426,7 @@ double NPSMEFTd6::AuxObs_NP10() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP11() const
+const double NPSMEFTd6::AuxObs_NP11() const
 {
     // CLIC STWY using difermion production at all energies: 380 GeV
     double Spar, Tpar, Wpar, Ypar, Spar2, Tpar2, Wpar2, Ypar2;
@@ -24457,7 +24457,7 @@ double NPSMEFTd6::AuxObs_NP11() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP12() const
+const double NPSMEFTd6::AuxObs_NP12() const
 {
     // CLIC dim6 Top fit 1500 GeV: only for SVF operators
     double CHqminus, CHt;
@@ -24473,7 +24473,7 @@ double NPSMEFTd6::AuxObs_NP12() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP13() const
+const double NPSMEFTd6::AuxObs_NP13() const
 {
     // CLIC dim6 Top fit 3000 GeV: only for SVF operators
     double CHqminus, CHt;
@@ -24489,7 +24489,7 @@ double NPSMEFTd6::AuxObs_NP13() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP14() const
+const double NPSMEFTd6::AuxObs_NP14() const
 {
     // Test chi2 for HH production at 100 TeV: only the first two bins in 1704.01953 are included,
     // with the same coefficients (including ratios of cross sections in each bin) its table 4.  The EFT parameterization of Higgs decays are not included.
@@ -24601,7 +24601,7 @@ double NPSMEFTd6::AuxObs_NP14() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP15() const
+const double NPSMEFTd6::AuxObs_NP15() const
 {
     // diBoson study from arXiv: 2003.07862: LO version
     // Only WW and WZ distributions
@@ -24820,7 +24820,7 @@ double NPSMEFTd6::AuxObs_NP15() const
     return sqrt(chi2WW + chi2WZ);
 }
 
-double NPSMEFTd6::AuxObs_NP16() const
+const double NPSMEFTd6::AuxObs_NP16() const
 {
     // diBoson study from arXiv: 2003.07862: NLO version
     // Only WW and WZ distributions
@@ -25039,7 +25039,7 @@ double NPSMEFTd6::AuxObs_NP16() const
     return sqrt(chi2WW + chi2WZ);
 }
 
-double NPSMEFTd6::AuxObs_NP17() const
+const double NPSMEFTd6::AuxObs_NP17() const
 {
     // To be used for some temporary observable
 
@@ -25059,7 +25059,7 @@ double NPSMEFTd6::AuxObs_NP17() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP18() const
+const double NPSMEFTd6::AuxObs_NP18() const
 {
     // To be used for some temporary observable
 
@@ -25079,7 +25079,7 @@ double NPSMEFTd6::AuxObs_NP18() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP19() const
+const double NPSMEFTd6::AuxObs_NP19() const
 {
     // To be used for some temporary observable
 
@@ -25107,7 +25107,7 @@ double NPSMEFTd6::AuxObs_NP19() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP20() const
+const double NPSMEFTd6::AuxObs_NP20() const
 {
     // To be used for some temporary observable
 
@@ -25137,7 +25137,7 @@ double NPSMEFTd6::AuxObs_NP20() const
     return sqrt(Chi2Tot);
 }
 
-double NPSMEFTd6::AuxObs_NP21() const
+const double NPSMEFTd6::AuxObs_NP21() const
 {
     // To be used for some temporary observable
 
@@ -25182,7 +25182,7 @@ double NPSMEFTd6::AuxObs_NP21() const
 
 }
 
-double NPSMEFTd6::AuxObs_NP22() const
+const double NPSMEFTd6::AuxObs_NP22() const
 {
     // To be used for some temporary observable
 
@@ -25236,7 +25236,7 @@ double NPSMEFTd6::AuxObs_NP22() const
 
 }
 
-double NPSMEFTd6::AuxObs_NP23() const
+const double NPSMEFTd6::AuxObs_NP23() const
 {
     // LHC FB asymmetry in Drell Yan. We use the results in Eq. (4.11) from
     // arXiv: 2103.12074 [hep-ph] to construct the linear SMEFT chi square
@@ -25272,49 +25272,49 @@ double NPSMEFTd6::AuxObs_NP23() const
 
 }
 
-double NPSMEFTd6::AuxObs_NP24() const
+const double NPSMEFTd6::AuxObs_NP24() const
 {
     // To be used for some temporary observable
     return 0.0;
 
 }
 
-double NPSMEFTd6::AuxObs_NP25() const
+const double NPSMEFTd6::AuxObs_NP25() const
 {
     // To be used for some temporary observable
     return 0.0;
 
 }
 
-double NPSMEFTd6::AuxObs_NP26() const
+const double NPSMEFTd6::AuxObs_NP26() const
 {
     // To be used for some temporary observable
     return 0.0;
 
 }
 
-double NPSMEFTd6::AuxObs_NP27() const
+const double NPSMEFTd6::AuxObs_NP27() const
 {
     // To be used for some temporary observable
     return 0.0;
 
 }
 
-double NPSMEFTd6::AuxObs_NP28() const
+const double NPSMEFTd6::AuxObs_NP28() const
 {
     // To be used for some temporary observable
     return 0.0;
 
 }
 
-double NPSMEFTd6::AuxObs_NP29() const
+const double NPSMEFTd6::AuxObs_NP29() const
 {
     // To be used for some temporary observable
     return 0.0;
 
 }
 
-double NPSMEFTd6::AuxObs_NP30() const
+const double NPSMEFTd6::AuxObs_NP30() const
 {
     // To be used for some temporary observable
     return 0.0;
@@ -25323,142 +25323,142 @@ double NPSMEFTd6::AuxObs_NP30() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::CLL_mu() const
+const double NPSMEFTd6::CLL_mu() const
 {
     return (CLL_1122 + CLL_2211 + CiLL_1221 + CiLL_2112);
 }
 
-double NPSMEFTd6::CLL_tau() const
+const double NPSMEFTd6::CLL_tau() const
 {
     return (CLL_1133 + CLL_3311 + CLL_1331 + CLL_3113);
 }
 
-double NPSMEFTd6::CLL_up() const
+const double NPSMEFTd6::CLL_up() const
 {
     return (CLQ1_1111 - CLQ3_1111);
 }
 
-double NPSMEFTd6::CLL_down() const
+const double NPSMEFTd6::CLL_down() const
 {
     return (CLQ1_1111 + CLQ3_1111);
 }
 
-double NPSMEFTd6::CLL_charm() const
+const double NPSMEFTd6::CLL_charm() const
 {
     return (CLQ1_1122 + CLQ1_2211 - CLQ3_1122 - CLQ3_2211);
 }
 
-double NPSMEFTd6::CLL_strange() const
+const double NPSMEFTd6::CLL_strange() const
 {
     return (CLQ1_1122 + CLQ1_2211 + CLQ3_1122 + CLQ3_2211);
 }
 
-double NPSMEFTd6::CLL_bottom() const
+const double NPSMEFTd6::CLL_bottom() const
 {
     return (CLQ1_1133 + CLQ1_3311 + CLQ3_1133 + CLQ3_3311);
 }
 
-double NPSMEFTd6::CLR_mu() const
+const double NPSMEFTd6::CLR_mu() const
 {
     return (CLe_1122 + CLe_2211);
 }
 
-double NPSMEFTd6::CLR_tau() const
+const double NPSMEFTd6::CLR_tau() const
 {
     return (CLe_1133 + CLe_3311);
 }
 
-double NPSMEFTd6::CLR_up() const
+const double NPSMEFTd6::CLR_up() const
 {
     return (CLu_1111);
 }
 
-double NPSMEFTd6::CLR_down() const
+const double NPSMEFTd6::CLR_down() const
 {
     return (CLd_1111);
 }
 
-double NPSMEFTd6::CLR_charm() const
+const double NPSMEFTd6::CLR_charm() const
 {
     return (CLu_1122 + CLu_2211);
 }
 
-double NPSMEFTd6::CLR_strange() const
+const double NPSMEFTd6::CLR_strange() const
 {
     return (CLd_1122 + CLd_2211);
 }
 
-double NPSMEFTd6::CLR_bottom() const
+const double NPSMEFTd6::CLR_bottom() const
 {
     return (CLd_1133 + CLd_3311);
 }
 
-double NPSMEFTd6::CRL_mu() const
+const double NPSMEFTd6::CRL_mu() const
 {
     return (CLe_1122 + CLe_2211);
 }
 
-double NPSMEFTd6::CRL_tau() const
+const double NPSMEFTd6::CRL_tau() const
 {
     return (CLe_1133 + CLe_3311);
 }
 
-double NPSMEFTd6::CRL_up() const
+const double NPSMEFTd6::CRL_up() const
 {
     return (CQe_1111);
 }
 
-double NPSMEFTd6::CRL_down() const
+const double NPSMEFTd6::CRL_down() const
 {
     return (CQe_1111);
 }
 
-double NPSMEFTd6::CRL_charm() const
+const double NPSMEFTd6::CRL_charm() const
 {
     return (CQe_1122 + CQe_2211);
 }
 
-double NPSMEFTd6::CRL_strange() const
+const double NPSMEFTd6::CRL_strange() const
 {
     return (CQe_1122 + CQe_2211);
 }
 
-double NPSMEFTd6::CRL_bottom() const
+const double NPSMEFTd6::CRL_bottom() const
 {
     return (CQe_1133 + CQe_3311);
 }
 
-double NPSMEFTd6::CRR_mu() const
+const double NPSMEFTd6::CRR_mu() const
 {
     return (Cee_1122 + Cee_2211);
 }
 
-double NPSMEFTd6::CRR_tau() const
+const double NPSMEFTd6::CRR_tau() const
 {
     return (Cee_1133 + Cee_3311);
 }
 
-double NPSMEFTd6::CRR_up() const
+const double NPSMEFTd6::CRR_up() const
 {
     return (Ceu_1111);
 }
 
-double NPSMEFTd6::CRR_down() const
+const double NPSMEFTd6::CRR_down() const
 {
     return (Ced_1111);
 }
 
-double NPSMEFTd6::CRR_charm() const
+const double NPSMEFTd6::CRR_charm() const
 {
     return (Ceu_1122 + Ceu_2211);
 }
 
-double NPSMEFTd6::CRR_strange() const
+const double NPSMEFTd6::CRR_strange() const
 {
     return (Ced_1122 + Ced_2211);
 }
 
-double NPSMEFTd6::CRR_bottom() const
+const double NPSMEFTd6::CRR_bottom() const
 {
     return (Ced_1133 + Ced_3311);
 }

@@ -342,7 +342,7 @@ public:
      * @brief A getter for @f$\log_{10}(\tan \beta)@f$
      * @return @f$\log_{10}(\tan \beta)@f$
      */
-    double getTHDMW_logtb() const {
+    const double getTHDMW_logtb() const {
         return THDMW_logtb;
     }
 
@@ -350,7 +350,7 @@ public:
      * @brief A getter for @f$\tan \beta@f$
      * @return @f$\tan \beta@f$
      */
-    double getTHDMW_tanb() const {
+    const double getTHDMW_tanb() const {
         return THDMW_tanb;
     }
 
@@ -358,7 +358,7 @@ public:
      * @brief A getter for @f$\sin \beta@f$
      * @return @f$\sin \beta@f$
      */
-    double getTHDMW_sinb() const {
+    const double getTHDMW_sinb() const {
         return THDMW_sinb;
     }
 
@@ -366,7 +366,7 @@ public:
      * @brief A getter for @f$\cos \beta@f$
      * @return @f$\cos \beta@f$
      */
-    double getTHDMW_cosb() const {
+    const double getTHDMW_cosb() const {
         return THDMW_cosb;
     }
 
@@ -374,7 +374,7 @@ public:
      * @brief A getter for @f$\beta-\alpha@f$
      * @return @f$\beta-\alpha@f$
      */
-    double getTHDMW_bma() const {
+    const double getTHDMW_bma() const {
         return THDMW_bma;
     }
 
@@ -382,7 +382,7 @@ public:
      * @brief A getter for @f$\sin(\beta-\alpha)@f$
      * @return @f$\sin(\beta-\alpha)@f$
      */
-    double getTHDMW_sin_ba() const {
+    const double getTHDMW_sin_ba() const {
         return THDMW_sin_ba;
     }
 
@@ -390,7 +390,7 @@ public:
      * @brief A getter for @f$\cos \alpha@f$
      * @return @f$\cos \alpha@f$
      */
-    double getTHDMW_cosa() const{
+    const double getTHDMW_cosa() const{
         return cos(atan(pow(10.,THDMW_logtb))-THDMW_bma);
     }
 
@@ -398,7 +398,7 @@ public:
      * @brief A getter for @f$\sin \alpha@f$
      * @return @f$\sin \alpha@f$
      */
-    double getTHDMW_sina() const{
+    const double getTHDMW_sina() const{
         return sin(atan(pow(10.,THDMW_logtb))-THDMW_bma);
     }
 
@@ -406,7 +406,7 @@ public:
      * @brief A getter for @f$\lambda_1@f$
      * @return @f$\lambda_1@f$
      */
-    double getTHDMW_lambda1() const {
+    const double getTHDMW_lambda1() const {
         return THDMW_lambda1;
     }
 
@@ -414,7 +414,7 @@ public:
      * @brief A getter for @f$\lambda_2@f$
      * @return @f$\lambda_2@f$
      */
-    double getTHDMW_lambda2() const {
+    const double getTHDMW_lambda2() const {
         if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
@@ -427,7 +427,7 @@ public:
      * @brief A getter for @f$\lambda_3@f$
      * @return @f$\lambda_3@f$
      */
-    double getTHDMW_lambda3() const {
+    const double getTHDMW_lambda3() const {
         if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
@@ -440,7 +440,7 @@ public:
      * @brief A getter for @f$\lambda_4@f$
      * @return @f$\lambda_4@f$
      */
-    double getTHDMW_lambda4() const {
+    const double getTHDMW_lambda4() const {
         if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
@@ -453,7 +453,7 @@ public:
      * @brief A getter for @f$\lambda_5@f$
      * @return @f$\lambda_5@f$
      */
-    double getTHDMW_lambda5() const {
+    const double getTHDMW_lambda5() const {
         if (flag_modelTHDMW == "custodial1") {
             return THDMW_lambda4;
         }
@@ -469,7 +469,7 @@ public:
      * @brief A getter for @f$m_S^2@f$
      * @return @f$m_S^2@f$
      */
-    double getTHDMW_mS2() const {
+    const double getTHDMW_mS2() const {
         return THDMW_mS2;
     }
 
@@ -477,7 +477,7 @@ public:
      * @brief A getter for @f$\mu_1@f$
      * @return @f$\mu_1@f$
      */
-    double getTHDMW_mu1() const {
+    const double getTHDMW_mu1() const {
         return THDMW_mu1;
     }
 
@@ -485,7 +485,7 @@ public:
      * @brief A getter for @f$\mu_2@f$
      * @return @f$\mu_2@f$
      */
-    double getTHDMW_mu2() const {
+    const double getTHDMW_mu2() const {
         if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return THDMW_mu1;
         }
@@ -498,14 +498,14 @@ public:
      * @brief A getter for @f$\mu_3@f$
      * @return @f$\mu_3@f$
      */
-    double getTHDMW_mu3() const {
+    const double getTHDMW_mu3() const {
         return THDMW_mu3;
     }
     /**
      * @brief A getter for @f$\mu_4@f$
      * @return @f$\mu_4@f$
      */
-    double getTHDMW_mu4() const {
+    const double getTHDMW_mu4() const {
         return THDMW_mu4;
     }
 
@@ -513,7 +513,7 @@ public:
      * @brief A getter for @f$\mu_5@f$
      * @return @f$\mu_5@f$
      */
-    double getTHDMW_mu5() const {
+    const double getTHDMW_mu5() const {
         if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return THDMW_mu4;
         }
@@ -526,7 +526,7 @@ public:
      * @brief A getter for @f$\mu_6@f$
      * @return @f$\mu_6@f$
      */
-    double getTHDMW_mu6() const {
+    const double getTHDMW_mu6() const {
         if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return 2.0*THDMW_mu1;
         }
@@ -539,7 +539,7 @@ public:
      * @brief A getter for @f$\nu_1@f$
      * @return @f$\nu_1@f$
      */
-    double getTHDMW_nu1() const {
+    const double getTHDMW_nu1() const {
         return THDMW_nu1;
     }
 
@@ -547,7 +547,7 @@ public:
      * @brief A getter for @f$\nu_2@f$
      * @return @f$\nu_2@f$
      */
-    double getTHDMW_nu2() const {
+    const double getTHDMW_nu2() const {
         return THDMW_nu2;
     }
 
@@ -555,7 +555,7 @@ public:
      * @brief A getter for @f$\nu_3@f$
      * @return @f$\nu_3@f$
      */
-    double getTHDMW_nu3() const {
+    const double getTHDMW_nu3() const {
         if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return 0.5*THDMW_nu2;
         }
@@ -567,7 +567,7 @@ public:
      * @brief A getter for @f$\nu_4@f$
      * @return @f$\nu_4@f$
      */
-    double getTHDMW_nu4() const {
+    const double getTHDMW_nu4() const {
         return THDMW_nu4;
     }
 
@@ -575,7 +575,7 @@ public:
      * @brief A getter for @f$\nu_5@f$
      * @return @f$\nu_5@f$
      */
-    double getTHDMW_nu5() const {
+    const double getTHDMW_nu5() const {
         if (flag_modelTHDMW == "custodial1" || flag_modelTHDMW == "custodialMW") {
             return THDMW_nu4;
         }
@@ -588,7 +588,7 @@ public:
      * @brief A getter for @f$\omega_1@f$
      * @return @f$\omega_1@f$
      */
-    double getTHDMW_omega1() const {
+    const double getTHDMW_omega1() const {
         if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
@@ -601,7 +601,7 @@ public:
      * @brief A getter for @f$\omega_2@f$
      * @return @f$\omega_2@f$
      */
-    double getTHDMW_omega2() const {
+    const double getTHDMW_omega2() const {
         if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
@@ -614,7 +614,7 @@ public:
      * @brief A getter for @f$\omega_3@f$
      * @return @f$\omega_3@f$
      */
-    double getTHDMW_omega3() const {
+    const double getTHDMW_omega3() const {
         if (flag_modelTHDMW == "custodial1") {
             return 0.5*THDMW_omega2;
         }
@@ -630,7 +630,7 @@ public:
      * @brief A getter for @f$\omega_4@f$
      * @return @f$\omega_4@f$
      */
-    double getTHDMW_omega4() const {
+    const double getTHDMW_omega4() const {
         if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
@@ -643,7 +643,7 @@ public:
      * @brief A getter for  @f$\omega_5@f$
      * @return @f$\omega_5@f$
      */
-    double getTHDMW_omega5() const {
+    const double getTHDMW_omega5() const {
         if (flag_modelTHDMW == "custodial1") {
             return THDMW_omega4;
         }
@@ -659,7 +659,7 @@ public:
      * @brief A getter for  @f$\kappa_1@f$
      * @return @f$\kappa_1@f$
      */
-    double getTHDMW_kappa1() const {
+    const double getTHDMW_kappa1() const {
         if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
@@ -672,7 +672,7 @@ public:
      * @brief A getter for @f$\kappa_2@f$
      * @return @f$\kappa_2@f$
      */
-    double getTHDMW_kappa2() const {
+    const double getTHDMW_kappa2() const {
         if (flag_modelTHDMW == "ManoharWise" || flag_modelTHDMW == "custodialMW") {
             return 0.0;
         }
@@ -685,7 +685,7 @@ public:
      * @brief A getter for @f$\kappa_3@f$ 
      * @return @f$\kappa_3@f$
      */
-    double getTHDMW_kappa3() const {
+    const double getTHDMW_kappa3() const {
         if (flag_modelTHDMW == "custodial1") {
             return THDMW_kappa2;
         }
@@ -701,7 +701,7 @@ public:
      * @brief A getter for @f$\eta_U@f$
      * @return @f$\eta_U@f$
      */
-    double getTHDMW_etaU() const {
+    const double getTHDMW_etaU() const {
         return THDMW_etaU;
     }
 
@@ -709,7 +709,7 @@ public:
      * @brief A getter for @f$\eta_D@f$
      * @return @f$\eta_D@f$
      */
-    double getTHDMW_etaD() const {
+    const double getTHDMW_etaD() const {
         return THDMW_etaD;
     }
     
@@ -718,7 +718,7 @@ public:
      * @brief A getter for @f$\eta_U@f$
      * @return @f$\eta_U@f$
      */
-    double getTHDMW_rho_b() const {
+    const double getTHDMW_rho_b() const {
         return THDMW_rho_b;
     }
 
@@ -726,7 +726,7 @@ public:
      * @brief A getter for @f$\eta_D@f$
      * @return @f$\eta_D@f$
      */
-    double getTHDMW_S_b() const {
+    const double getTHDMW_S_b() const {
         return THDMW_S_b;
     }
     
@@ -736,7 +736,7 @@ public:
      * @brief A getter for the %THDMW scale
      * @return %THDMW scale
      */
-    double getQ_THDMW() const {
+    const double getQ_THDMW() const {
         return Q_THDMW;
     }
 
@@ -744,7 +744,7 @@ public:
      * @brief A getter for the minimal R' value
      * @return Minimal R' value
      */
-    double getRpepsTHDMW() const {
+    const double getRpepsTHDMW() const {
         return RpepsTHDMW;
     }
 
@@ -752,57 +752,57 @@ public:
      * @brief A getter for the minimal NLO unitarity check scale
      * @return Minimal NLO unitarity check scale
      */
-    double getNLOuniscaleTHDMW() const {
+    const double getNLOuniscaleTHDMW() const {
         return NLOuniscaleTHDMW;
     }
 
-    virtual double muggH(const double sqrt_s) const;
-    virtual double muVBF(const double sqrt_s) const;
-    virtual double mueeWBF(const double sqrt_s) const;
-    virtual double muWH(const double sqrt_s) const;
-    virtual double muZH(const double sqrt_s) const;
-    virtual double mueeZH(const double sqrt_s) const;
-    virtual double muVH(const double sqrt_s) const;
-    virtual double muVBFpVH(const double sqrt_s) const;
-    virtual double muttH(const double sqrt_s) const;
-    virtual double GammaTotal() const;
-    virtual double BrHggRatio() const;
-    virtual double BrHWWRatio() const;
-    virtual double BrHZZRatio() const;
-    virtual double BrHZgaRatio() const;
-    virtual double BrHgagaRatio() const;
-    virtual double BrHmumuRatio() const;
-    virtual double BrHtautauRatio() const;
-    virtual double BrHccRatio() const;
-    virtual double BrHbbRatio() const;
-    virtual double muggHgaga(const double sqrt_s) const;
-    virtual double muVBFHgaga(const double sqrt_s) const;
-    virtual double muVHgaga(const double sqrt_s) const;
-    virtual double muttHgaga(const double sqrt_s) const;
-    virtual double muggHZZ(const double sqrt_s) const;
-    virtual double muVBFHZZ(const double sqrt_s) const;
-    virtual double muVHZZ(const double sqrt_s) const;
-    virtual double muttHZZ(const double sqrt_s) const;
-    virtual double muggHWW(const double sqrt_s) const;
-    virtual double muVBFHWW(const double sqrt_s) const;
-    virtual double muVHWW(const double sqrt_s) const;
-    virtual double muttHWW(const double sqrt_s) const;
-    virtual double muggHtautau(const double sqrt_s) const;
-    virtual double muVBFHtautau(const double sqrt_s) const;
-    virtual double muVHtautau(const double sqrt_s) const;
-    virtual double muttHtautau(const double sqrt_s) const;
-    virtual double muggHbb(const double sqrt_s) const;
-    virtual double muVBFHbb(const double sqrt_s) const;
-    virtual double muVHbb(const double sqrt_s) const;
-    virtual double muttHbb(const double sqrt_s) const;
-    virtual double muppHmumu(const double sqrt_s) const;
-    virtual double muppHZga(const double sqrt_s) const;
-    virtual double computeGammaTotalRatio() const;
+    virtual const double muggH(const double sqrt_s) const;
+    virtual const double muVBF(const double sqrt_s) const;
+    virtual const double mueeWBF(const double sqrt_s) const;
+    virtual const double muWH(const double sqrt_s) const;
+    virtual const double muZH(const double sqrt_s) const;
+    virtual const double mueeZH(const double sqrt_s) const;
+    virtual const double muVH(const double sqrt_s) const;
+    virtual const double muVBFpVH(const double sqrt_s) const;
+    virtual const double muttH(const double sqrt_s) const;
+    virtual const double GammaTotal() const;
+    virtual const double BrHggRatio() const;
+    virtual const double BrHWWRatio() const;
+    virtual const double BrHZZRatio() const;
+    virtual const double BrHZgaRatio() const;
+    virtual const double BrHgagaRatio() const;
+    virtual const double BrHmumuRatio() const;
+    virtual const double BrHtautauRatio() const;
+    virtual const double BrHccRatio() const;
+    virtual const double BrHbbRatio() const;
+    virtual const double muggHgaga(const double sqrt_s) const;
+    virtual const double muVBFHgaga(const double sqrt_s) const;
+    virtual const double muVHgaga(const double sqrt_s) const;
+    virtual const double muttHgaga(const double sqrt_s) const;
+    virtual const double muggHZZ(const double sqrt_s) const;
+    virtual const double muVBFHZZ(const double sqrt_s) const;
+    virtual const double muVHZZ(const double sqrt_s) const;
+    virtual const double muttHZZ(const double sqrt_s) const;
+    virtual const double muggHWW(const double sqrt_s) const;
+    virtual const double muVBFHWW(const double sqrt_s) const;
+    virtual const double muVHWW(const double sqrt_s) const;
+    virtual const double muttHWW(const double sqrt_s) const;
+    virtual const double muggHtautau(const double sqrt_s) const;
+    virtual const double muVBFHtautau(const double sqrt_s) const;
+    virtual const double muVHtautau(const double sqrt_s) const;
+    virtual const double muttHtautau(const double sqrt_s) const;
+    virtual const double muggHbb(const double sqrt_s) const;
+    virtual const double muVBFHbb(const double sqrt_s) const;
+    virtual const double muVHbb(const double sqrt_s) const;
+    virtual const double muttHbb(const double sqrt_s) const;
+    virtual const double muppHmumu(const double sqrt_s) const;
+    virtual const double muppHZga(const double sqrt_s) const;
+    virtual const double computeGammaTotalRatio() const;
 
     /*
      * @brief Method overriding the NPbase Mw with the tree-level W mass
      */
-    virtual double Mw() const;
+    virtual const double Mw() const;
 
 protected:
 

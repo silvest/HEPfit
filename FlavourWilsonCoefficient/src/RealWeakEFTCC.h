@@ -129,7 +129,7 @@ public:
      *
      * @return \f$ C_S\f$ or \f$C_{S}^{L}\f$
      */
-    double getCCC1() const {
+    const double getCCC1() const {
         return C1;
     }
     
@@ -137,7 +137,7 @@ public:
      *
      * @return \f$ C_P\f$ or \f$C_{S}^{R}\f$
      */
-    double getCCC2() const {
+    const double getCCC2() const {
         return C2;
     }
     
@@ -145,7 +145,7 @@ public:
      *
      * @return \f$ C_V\f$ or \f$C_{V}^{L}\f$
      */
-    double getCCC3() const {
+    const double getCCC3() const {
         return C3;
     }
     
@@ -153,7 +153,7 @@ public:
      *
      * @return \f$ C_A\f$ or or \f$C_{V}^{R}$\f
      */
-    double getCCC4() const {
+    const double getCCC4() const {
         return C4;
     }
     
@@ -161,7 +161,7 @@ public:
      *
      * @return \f$ C_T\f$
      */
-    double getC5() const {
+    const double getC5() const {
         return C5;
     }
     
