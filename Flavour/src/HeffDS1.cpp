@@ -14,7 +14,7 @@
 HeffDS1::HeffDS1(const StandardModel & SM)
 : model(SM),
 coeffds1(10, NDR, NLO, NLO_QED11), coeffds1cc(10, NDR, NLO, NLO_QED11),
-coeffds1pnunu(1, NDR, NLO, NLO_QED11), coeffds1mumu(1, NDR, NLO), coeffds1pnunuC(1,NDR,NNLO,NLO_QED11),
+coeffds1pnunu(2, NDR, NLO, NLO_QED11), coeffds1mumu(1, NDR, NLO), coeffds1pnunuC(1,NDR,NNLO,NLO_QED11),
 u(new EvolDF1nlep(10, NDR, NLO, NLO_QED11, SM)), uM(new EvolDB1Mll(13, NDR, NLO, SM)), uKpnunu(new Charm_Kpnunu(SM)),
 DS1ccLO(10, 0.),DS1ccLO_QED(10, 0.),DS1ccNLO(10, 0.),DS1ccNLO_QED(10, 0.)
 {
@@ -194,16 +194,18 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1PPz(double muc, schemes 
 gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1pnunu()
 {
     const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMkpnn();
-    
+    coeffds1pnunu.resetCoefficient();
     orders ordDF1 = coeffds1pnunu.getOrder();
     orders_qed ordDF1_ew = coeffds1pnunu.getOrder_qed();
 
     for (unsigned int i = 0; i < mcb.size(); i++) {
         for (int j = LO; j <= ordDF1; j++) {
-            coeffds1pnunu.setCoeff(*mcb[i].getCoeff(orders(j)), orders(j));  
+            coeffds1pnunu.setCoeff(*coeffds1pnunu.getCoeff(orders(j))
+                    + *mcb[i].getCoeff(orders(j)), orders(j));  
         }
         for (int j = LO_QED; j <= ordDF1_ew; j++) {  
-            coeffds1pnunu.setCoeff(*mcb[i].getCoeff(orders_qed(j)), orders_qed(j));
+            coeffds1pnunu.setCoeff(*coeffds1pnunu.getCoeff(orders_qed(j))
+                    + *mcb[i].getCoeff(orders_qed(j)), orders_qed(j));
         }
     }
 
@@ -213,15 +215,18 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1pnunu()
 gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1pnunuC()
 {
     const std::vector<WilsonCoefficient>& mcbC = uKpnunu->EVOCkpnn();
+    coeffds1pnunuC.resetCoefficient();
     orders ordDF1 = coeffds1pnunuC.getOrder();
     orders_qed ordDF1_ew = coeffds1pnunuC.getOrder_qed();
 
     for (unsigned int i = 0; i < mcbC.size(); i++) {
         for (int j = LO; j <= ordDF1; j++) {
-            coeffds1pnunuC.setCoeff(*mcbC[i].getCoeff(orders(j)), orders(j));  
+            coeffds1pnunuC.setCoeff(*coeffds1pnunuC.getCoeff(orders(j))
+                    + *mcbC[i].getCoeff(orders(j)), orders(j));  
         }
         for (int j = LO_QED; j <= ordDF1_ew; j++) {            
-            coeffds1pnunuC.setCoeff(*mcbC[i].getCoeff(orders_qed(j)), orders_qed(j));
+            coeffds1pnunuC.setCoeff(*coeffds1pnunuC.getCoeff(orders_qed(j))
+                    + *mcbC[i].getCoeff(orders_qed(j)), orders_qed(j));
         }
     }
 

@@ -78,7 +78,7 @@ public:
 private :
     const StandardModel& model;
     
-    WilsonCoefficient coeffds1, coeffds1cc, coeffds1pnunu,coeffds1pnunuC, coeffds1mumu;
+    WilsonCoefficient coeffds1, coeffds1cc, coeffds1pnunu, coeffds1pnunuC, coeffds1mumu;
     std::unique_ptr<EvolDF1nlep> u;
     std::unique_ptr<EvolDB1Mll> uM;
     std::unique_ptr<Charm_Kpnunu> uKpnunu;

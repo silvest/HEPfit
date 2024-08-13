@@ -43,28 +43,41 @@ double BR_Kp0nunu::BRKp0nunu(orders order, orders_qed order_qed)
         throw std::runtime_error("BRKppnunu::computeThValue(): requires cofficient of "
                                  " qed order " + out2.str() + " not computed");
     }
+    gslpp::complex c0_Xi;
+    double br = 0.;
     switch(order_qed) {
-        case NLO_QED11:{
-            gslpp::complex c0_Xi =(  (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0) + (*(c0_lamt_Xt[NLO_QED11]))(0) +
+        case NLO_QED11:
+            c0_Xi =(  (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0) + (*(c0_lamt_Xt[NLO_QED11]))(0) +
                                      (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + (*(c0_lamc_Xc[LO_QED]))(0) + (*(c0_lamc_Xc[NLO_QED11]))(0) + LongDistance() );
-            return ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
-        }
+            br = ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+            c0_Xi =(  (*(c0_lamt_Xt[LO]))(1) + (*(c0_lamt_Xt[NLO]))(1) + (*(c0_lamt_Xt[NLO_QED11]))(1) );
+            br += ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+            return br;
         case LO_QED:{
             switch(order) {
                 case NNLO:{
-                    gslpp::complex c0_Xi = (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  +
+                    c0_Xi = (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  +
                                            (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + LongDistance()  ;
-            return ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+                    br = ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+                    c0_Xi = (*(c0_lamt_Xt[LO]))(1) + (*(c0_lamt_Xt[NLO]))(1)  ;
+                    br += ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+                return br;
                 }
                 case NLO:{
-                    gslpp::complex c0_Xi = (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  +
+                    c0_Xi = (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  +
                                            (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + LongDistance()  ;
-            return ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+                    br = ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+                    c0_Xi = (*(c0_lamt_Xt[LO]))(1) + (*(c0_lamt_Xt[NLO]))(1)  ;
+                    br += ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+            return br;
                 }
                 case LO:{
-                    gslpp::complex c0_Xi = (*(c0_lamt_Xt[LO]))(0) +
+                    c0_Xi = (*(c0_lamt_Xt[LO]))(0) +
                                            (*(c0_lamc_Xc[LO]))(0) + LongDistance()  ;
-            return ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+                    br = ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+                    c0_Xi = (*(c0_lamt_Xt[LO]))(1) ;
+                    br += ( 0.5*(c0_Xi - c0_Xi.conjugate()*(1-eps)/(1+eps)).abs2() / (1+((1-eps)/(1+eps)).abs2()) );
+            return br;
                 }
                 default:
                     std::stringstream out;

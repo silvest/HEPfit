@@ -69,6 +69,12 @@ public:
      * @return Wilson coefficients for \f$ \bar{d}_i u_j \bar{\nu} \ell_k \f$ operators in the JMS basis ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
      */
     virtual std::vector<WilsonCoefficient>& CMdiujleptonknu(int i, int j, int k) ;
+
+    /**
+     * 
+     * @return Wilson coefficients for \f$ K_{L} \rightarrow \pi \nu \nu \f$
+     */
+    virtual std::vector<WilsonCoefficient>& CMkpnn();
     
 
     //dimension 6 four-fermion operators involving all left-handed fields
@@ -560,7 +566,7 @@ private:
     double v2;
     double v;
     gslpp::matrix<gslpp::complex> VuL, VuLd, VuR, VuRd, VdL, VdLd, VdR, VdRd, VeL, VeLd, VeR, VeRd, MU, MD;
-    WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2, mculeptonnu;
+    WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2, mculeptonnu, mckpnn;
     //TRandom3 myrnd;
 
 };

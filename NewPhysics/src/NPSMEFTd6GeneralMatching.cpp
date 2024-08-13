@@ -12,8 +12,28 @@
 #define NOLEPTONFLAVOURVIOLATION
 
 NPSMEFTd6GeneralMatching::NPSMEFTd6GeneralMatching(const NPSMEFTd6General &NPSMEFTd6General_i) : StandardModelMatching(NPSMEFTd6General_i),
-                                                                                                 mySMEFT(NPSMEFTd6General_i), VuL(gslpp::matrix<complex>::Id(3)), VuR(gslpp::matrix<complex>::Id(3)), VdL(gslpp::matrix<complex>::Id(3)), VdR(gslpp::matrix<complex>::Id(3)), VeL(gslpp::matrix<complex>::Id(3)), VeR(gslpp::matrix<complex>::Id(3)), VuLd(gslpp::matrix<complex>::Id(3)), VuRd(gslpp::matrix<complex>::Id(3)), VdLd(gslpp::matrix<complex>::Id(3)), VdRd(gslpp::matrix<complex>::Id(3)), VeLd(gslpp::matrix<complex>::Id(3)), VeRd(gslpp::matrix<complex>::Id(3)), MU(3, 0.), MD(3, 0.),
-                                                                                                 mcd2(5, NDR, NLO), mcd1(10, NDR, NLO), mcbd(5, NDR, NLO), mcbs(5, NDR, NLO), mck2(5, NDR, NLO), mculeptonnu(5, NDR, LO)
+                                                                                                 mySMEFT(NPSMEFTd6General_i), 
+                                                                                                 VuL(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VuR(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VdL(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VdR(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VeL(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VeR(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VuLd(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VuRd(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VdLd(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VdRd(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VeLd(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 VeRd(gslpp::matrix<complex>::Id(3)), 
+                                                                                                 MU(3, 0.), 
+                                                                                                 MD(3, 0.),
+                                                                                                 mcd2(5, NDR, NLO), 
+                                                                                                 mcd1(10, NDR, NLO), 
+                                                                                                 mcbd(5, NDR, NLO), 
+                                                                                                 mcbs(5, NDR, NLO), 
+                                                                                                 mck2(5, NDR, NLO), 
+                                                                                                 mculeptonnu(5, NDR, LO), 
+                                                                                                 mckpnn(2, NDR, NLO, NLO_QED11)
 {
 }
 
@@ -717,6 +737,40 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdiujleptonknu(int i,
         return (vmculeptonnu);
 }
 
+std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMkpnn() {
+        
+    vmckpnn = StandardModelMatching::CMkpnn();
+
+    mckpnn.setMu(mySMEFT.getMuw());
+ 
+    switch (mckpnn.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+        // assume lepton universality for now
+            mckpnn.setCoeff(0, -(CnudVLL.at(0).at(0).at(1).at(0) + CnudVLL.at(1).at(1).at(1).at(0) + CnudVLL.at(2).at(2).at(1).at(0)), LO);
+            mckpnn.setCoeff(1, -(CnudVLR.at(0).at(0).at(1).at(0) + CnudVLR.at(1).at(1).at(1).at(0) + CnudVLR.at(2).at(2).at(1).at(0)), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mckpnn.getOrder();
+            throw std::runtime_error("NPSMEFTd6GeneralMatching::CMkpnn(): order " + out.str() + " not implemented"); 
+    }
+
+    switch (mckpnn.getOrder_qed()) {
+        case NLO_QED11:
+        case LO_QED:
+            break; 
+        default:
+            std::stringstream out;
+            out << mckpnn.getOrder_qed();
+            throw std::runtime_error("NPSMEFTd6GeneralMatching::CMkpnn(): qed order " + out.str() + " not implemented"); 
+    }
+
+    vmckpnn.push_back(mckpnn);
+    return (vmckpnn);
+
+}
 
 /*******************************************************************************
  * Methods to get the NP contribution to the LEFT basis [1709.04486]          *

@@ -49,21 +49,26 @@ double BR_Kppnunu::BRKppnunu(orders order, orders_qed order_qed)
             //std::cout << "Pc: " << ( (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + (*(c0_lamc_Xc[LO_QED]))(0) + (*(c0_lamc_Xc[NLO_QED11]))(0)).real() / (4. * mySM.getGF() / sqrt(2.) * mySM.alphaMz() / 2. / M_PI / mySM.sW2_ND()) / pow(mySM.getCKM().getLambda(),4.) / mySM.getCKM().computelamc().real()  << std::endl;
             //std::cout << "deltaPC: " << LongDistance().real() / (4. * mySM.getGF() / sqrt(2.) * mySM.alphaMz() / 2. / M_PI / mySM.sW2_ND()) / pow(mySM.getCKM().getLambda(),4.) / mySM.getCKM().computelamc().real() << std::endl;
             //std::cout << "Xt: " << ( ((*(c0_lamt_Xt[LO]))).imag() + ((*(c0_lamt_Xt[NLO]))).imag() + ((*(c0_lamt_Xt[NLO_QED11]))).imag() ) / (4. * mySM.getGF() / sqrt(2.) * mySM.alphaMz() / 2. / M_PI / mySM.sW2_ND())  / mySM.getCKM().computelamt().imag() << std::endl;
-            return ( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0) + (*(c0_lamt_Xt[NLO_QED11]))(0) + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + (*(c0_lamc_Xc[LO_QED]))(0) + (*(c0_lamc_Xc[NLO_QED11]))(0) + LongDistance()  ).abs2();
+            return (( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0) + (*(c0_lamt_Xt[NLO_QED11]))(0) + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + (*(c0_lamc_Xc[LO_QED]))(0) + (*(c0_lamc_Xc[NLO_QED11]))(0) + LongDistance()  ).abs2()
+            + ( (*(c0_lamt_Xt[LO]))(1) + (*(c0_lamt_Xt[NLO]))(1) + (*(c0_lamt_Xt[NLO_QED11]))(1)).abs2() );
             break;
         case LO_QED:
-            return( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + (*(c0_lamc_Xc[LO_QED]))(0) + LongDistance()  ).abs2()  ;
+            return(( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + (*(c0_lamc_Xc[LO_QED]))(0) + LongDistance()  ).abs2() 
+            + ( (*(c0_lamt_Xt[LO]))(1) + (*(c0_lamt_Xt[NLO]))(1)  ).abs2())  ;
             break;
         case NO_QED:
             switch(order) {
                 case NNLO:
-                    ( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + LongDistance()  ).abs2()  ;
+                    return (( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0) + (*(c0_lamc_Xc[NNLO]))(0) + LongDistance()  ).abs2() 
+                    + ( (*(c0_lamt_Xt[LO]))(1) + (*(c0_lamt_Xt[NLO]))(1)  ).abs2());
                     break;
                 case NLO:
-                    return ( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0)  + (*(c0_lamc_Xc[LO_QED]))(0) + LongDistance()  ).abs2()    ;
+                    return (( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamt_Xt[NLO]))(0)  + (*(c0_lamc_Xc[LO]))(0) + (*(c0_lamc_Xc[NLO]))(0)  + (*(c0_lamc_Xc[LO_QED]))(0) + LongDistance()  ).abs2()   
+                    + ( (*(c0_lamt_Xt[LO]))(1) + (*(c0_lamt_Xt[NLO]))(1) ).abs2() );
                     break;
                 case LO:
-                    return ( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamc_Xc[LO]))(0) + LongDistance()  ).abs2()   ;
+                    return (( (*(c0_lamt_Xt[LO]))(0) + (*(c0_lamc_Xc[LO]))(0) + LongDistance()  ).abs2()   
+                    + ( (*(c0_lamt_Xt[LO]))(1) ).abs2() );
                     break;
                 default:
                     std::stringstream out;

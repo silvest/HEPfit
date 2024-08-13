@@ -29,7 +29,7 @@ mcbnlep(10, NDR, NLO, NLO_QED11),
 mcbnlepCC(10, NDR, NLO),
 mcd1(10, NDR, NLO),
 mcd1Buras(10, NDR, NLO),
-mckpnn(1, NDR, NLO, NLO_QED11),
+mckpnn(2, NDR, NLO, NLO_QED11),
 mckmm(1, NDR, NLO),
 mcbsnn(1, NDR, NLO),
 mcbdnn(1, NDR, NLO),
@@ -1977,7 +1977,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int a) {
     return (vmcbnlepCC);
 }
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() {
+std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() {
     
     double co = 4. * GF / sqrt(2.) * SM.alphaMz() / 2. / M_PI / SM.sW2_ND() ; //SM prefactor as in eq. (1.1) of arXiv:1009.0947
     
