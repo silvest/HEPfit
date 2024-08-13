@@ -748,8 +748,8 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMkpnn() {
         case NLO:
         case LO:
         // assume lepton universality for now
-            mckpnn.setCoeff(0, -(CnudVLL.at(0).at(0).at(1).at(0) + CnudVLL.at(1).at(1).at(1).at(0) + CnudVLL.at(2).at(2).at(1).at(0)), LO);
-            mckpnn.setCoeff(1, -(CnudVLR.at(0).at(0).at(1).at(0) + CnudVLR.at(1).at(1).at(1).at(0) + CnudVLR.at(2).at(2).at(1).at(0)), LO);
+            mckpnn.setCoeff(0, -(CnudVLL.at(0).at(0).at(1).at(0) + CnudVLL.at(1).at(1).at(1).at(0) + CnudVLL.at(2).at(2).at(1).at(0))/3., LO);
+            mckpnn.setCoeff(1, -(CnudVLR.at(0).at(0).at(1).at(0) + CnudVLR.at(1).at(1).at(1).at(0) + CnudVLR.at(2).at(2).at(1).at(0))/3., LO);
             break;
         default:
             std::stringstream out;
