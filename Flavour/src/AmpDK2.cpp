@@ -61,9 +61,9 @@ gslpp::complex AmpDK2::AmpDK(orders order)
 #endif
     switch(order) {
         case FULLNLO:
-           return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me);
+           return(((*(allcoeff[LO]) + *(allcoeff[NLO])) * me) / HCUT * 1.e3); // ns^-1
         case LO:
-            return((*(allcoeff[LO])) * me);
+            return(((*(allcoeff[LO])) * me) / HCUT * 1.e3); // ns^-1
         default:
             throw std::runtime_error("AmpDK2::AmpDK(): order not implemented"); 
     }
@@ -98,9 +98,9 @@ gslpp::complex AmpDK2::AmpDMKNP(orders order)
 
     switch(order) {
         case FULLNLO:
-            return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me);
+            return(((*(allcoeff[LO]) + *(allcoeff[NLO])) * me) / HCUT * 1.e3); // ns^-1
         case LO:
-            return((*(allcoeff[LO])) * me);
+            return(((*(allcoeff[LO])) * me) / HCUT * 1.e3); // ns^-1
         default:
             throw "AmpDM2::AmpDMKNP(): order not implemented";
     }

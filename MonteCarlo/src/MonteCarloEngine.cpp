@@ -35,6 +35,7 @@ MonteCarloEngine::MonteCarloEngine(
         std::vector<CorrelatedGaussianParameters>& CGP_i)
 : BCModel(""), ModPars(ModPars_i), CGP(CGP_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
   CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0) {
+    SetMultivariateCovarianceUpdateLambda(0.5);
     obval = NULL;
     obweight = NULL;
     Mod = NULL;
