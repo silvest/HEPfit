@@ -511,11 +511,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.SetNIterationsPreRunCheck(atoi((*beg).c_str()));
             else
                 throw std::runtime_error("\nERROR: NIterationsUpdateMax in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
-        } else if (beg->compare("NIterationsPreRunMultivariate") == 0) {
+        } else if (beg->compare("NIterationsPreRunFactorized") == 0) {
             ++beg;
-            if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.SetNIterationsPreRunMultivariate(atoi((*beg).c_str()));
+            if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.SetNIterationsPreRunFactorized(atoi((*beg).c_str()));
             else
-                throw std::runtime_error("\nERROR: NIterationsPrerunMultivariate in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
+                throw std::runtime_error("\nERROR: NIterationsPrerunFactorized in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
         } else if (beg->compare("Seed") == 0) {
             ++beg;
             if (!isdigit(beg->at(0))) throw std::runtime_error("\nERROR: Seed in the MonteCarlo configuration file: " + MCMCConf + " can only be a number.\n");
