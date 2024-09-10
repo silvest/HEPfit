@@ -1760,12 +1760,12 @@ private:
 
 
 
-//1400 bb observables
+//1500 bb observables
 
-class sigma_1400_bb_eP_0_eM_P80 : public ThObservable {
+class sigma_1500_bb_eP_0_eM_P80 : public ThObservable {
 public:   
 
-    sigma_1400_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    sigma_1500_bb_eP_0_eM_P80(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -1777,10 +1777,10 @@ private:
 
 
 
-class sigma_1400_bb_eP_0_eM_M80 : public ThObservable {
+class sigma_1500_bb_eP_0_eM_M80 : public ThObservable {
 public:   
 
-    sigma_1400_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    sigma_1500_bb_eP_0_eM_M80(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -1793,10 +1793,10 @@ private:
 
 
 
-class a_1400_bb_eP_0_eM_P80 : public ThObservable {
+class a_1500_bb_eP_0_eM_P80 : public ThObservable {
 public:   
 
-    a_1400_bb_eP_0_eM_P80(const StandardModel& SM_i);
+    a_1500_bb_eP_0_eM_P80(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -1808,10 +1808,10 @@ private:
 
 
 
-class a_1400_bb_eP_0_eM_M80 : public ThObservable {
+class a_1500_bb_eP_0_eM_M80 : public ThObservable {
 public:   
 
-    a_1400_bb_eP_0_eM_M80(const StandardModel& SM_i);
+    a_1500_bb_eP_0_eM_M80(const StandardModel& SM_i);
     
    
     double computeThValue();

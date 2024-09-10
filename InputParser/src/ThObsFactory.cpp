@@ -4196,11 +4196,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["a_380_bb_eP_0_eM_P80"] = boost::factory<a_380_bb_eP_0_eM_P80*>();
     obsThFactory["a_380_bb_eP_0_eM_M80"] = boost::factory<a_380_bb_eP_0_eM_M80*>();
 
-    //CLIC 1400 GeV
-    obsThFactory["sigma_1400_bb_eP_0_eM_P80"] = boost::factory<sigma_1400_bb_eP_0_eM_P80*>();
-    obsThFactory["sigma_1400_bb_eP_0_eM_M80"] = boost::factory<sigma_1400_bb_eP_0_eM_M80*>();
-    obsThFactory["a_1400_bb_eP_0_eM_P80"] = boost::factory<a_1400_bb_eP_0_eM_P80*>();
-    obsThFactory["a_1400_bb_eP_0_eM_M80"] = boost::factory<a_1400_bb_eP_0_eM_M80*>();
+    //CLIC 1500 GeV
+    obsThFactory["sigma_1500_bb_eP_0_eM_P80"] = boost::factory<sigma_1500_bb_eP_0_eM_P80*>();
+    obsThFactory["sigma_1500_bb_eP_0_eM_M80"] = boost::factory<sigma_1500_bb_eP_0_eM_M80*>();
+    obsThFactory["a_1500_bb_eP_0_eM_P80"] = boost::factory<a_1500_bb_eP_0_eM_P80*>();
+    obsThFactory["a_1500_bb_eP_0_eM_M80"] = boost::factory<a_1500_bb_eP_0_eM_M80*>();
     obsThFactory["sigma_1500_ttH_eP_0_eM_M80"] = boost::factory<sigma_1500_ttH_eP_0_eM_M80*>();
     obsThFactory["sigma_1500_ttH_eP_0_eM_P80"] = boost::factory<sigma_1500_ttH_eP_0_eM_P80*>();
 

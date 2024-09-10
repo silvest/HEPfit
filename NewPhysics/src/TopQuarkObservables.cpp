@@ -88,8 +88,13 @@ double FB_asymmetry_Tevatron_tt_diff_mtt_LO::computeThValue()
             double NP_FB_asymmetry_num_bin_mtt_350_450 = sigma_pos_bin_mtt_350_450_NP_Corrected - sigma_neg_bin_mtt_350_450_NP_Corrected;
             double NP_FB_asymmetry_deno_bin_mtt_350_450 = sigma_pos_bin_mtt_350_450_NP_Corrected + sigma_neg_bin_mtt_350_450_NP_Corrected;;
             
-            return  SM_FB_asymmetry_bin_mtt_350_450*(1+(NP_FB_asymmetry_num_bin_mtt_350_450-NP_FB_asymmetry_deno_bin_mtt_350_450)/SM_FB_asymmetry_deno_bin_mtt_350_450);            
-        
+            //return  SM_FB_asymmetry_bin_mtt_350_450*(1+(NP_FB_asymmetry_num_bin_mtt_350_450-NP_FB_asymmetry_deno_bin_mtt_350_450)/SM_FB_asymmetry_deno_bin_mtt_350_450);            
+
+            return SM_FB_asymmetry_bin_mtt_350_450 + (NP_FB_asymmetry_num_bin_mtt_350_450
+                    - SM_FB_asymmetry_bin_mtt_350_450*NP_FB_asymmetry_deno_bin_mtt_350_450
+                    )/SM_FB_asymmetry_deno_bin_mtt_350_450;
+            
+            
         }
         
     } else if(b_min == 450 && b_max == 550){
@@ -139,8 +144,14 @@ double FB_asymmetry_Tevatron_tt_diff_mtt_LO::computeThValue()
             double NP_FB_asymmetry_num_bin_mtt_450_550 = sigma_pos_bin_mtt_450_550_NP_Corrected - sigma_neg_bin_mtt_450_550_NP_Corrected;
             double NP_FB_asymmetry_deno_bin_mtt_450_550 = sigma_pos_bin_mtt_450_550_NP_Corrected + sigma_neg_bin_mtt_450_550_NP_Corrected;;
             
-            return  SM_FB_asymmetry_bin_mtt_450_550*(1+(NP_FB_asymmetry_num_bin_mtt_450_550-NP_FB_asymmetry_deno_bin_mtt_450_550)/SM_FB_asymmetry_deno_bin_mtt_450_550);            
+            //return  SM_FB_asymmetry_bin_mtt_450_550*(1+(NP_FB_asymmetry_num_bin_mtt_450_550-NP_FB_asymmetry_deno_bin_mtt_450_550)/SM_FB_asymmetry_deno_bin_mtt_450_550);            
         
+            
+            return SM_FB_asymmetry_bin_mtt_450_550 + (NP_FB_asymmetry_num_bin_mtt_450_550
+                    - SM_FB_asymmetry_bin_mtt_450_550*NP_FB_asymmetry_deno_bin_mtt_450_550
+                    )/SM_FB_asymmetry_deno_bin_mtt_450_550;
+            
+            
         }
         
     } else if(b_min == 550 && b_max == 650){
@@ -190,8 +201,12 @@ double FB_asymmetry_Tevatron_tt_diff_mtt_LO::computeThValue()
             double NP_FB_asymmetry_num_bin_mtt_550_650 = sigma_pos_bin_mtt_550_650_NP_Corrected - sigma_neg_bin_mtt_550_650_NP_Corrected;
             double NP_FB_asymmetry_deno_bin_mtt_550_650 = sigma_pos_bin_mtt_550_650_NP_Corrected + sigma_neg_bin_mtt_550_650_NP_Corrected;;
             
-            return  SM_FB_asymmetry_bin_mtt_550_650*(1+(NP_FB_asymmetry_num_bin_mtt_550_650-NP_FB_asymmetry_deno_bin_mtt_550_650)/SM_FB_asymmetry_deno_bin_mtt_550_650);            
-        
+            //return  SM_FB_asymmetry_bin_mtt_550_650*(1+(NP_FB_asymmetry_num_bin_mtt_550_650-NP_FB_asymmetry_deno_bin_mtt_550_650)/SM_FB_asymmetry_deno_bin_mtt_550_650);            
+            
+            return SM_FB_asymmetry_bin_mtt_550_650 + (NP_FB_asymmetry_num_bin_mtt_550_650
+                    - SM_FB_asymmetry_bin_mtt_550_650*NP_FB_asymmetry_deno_bin_mtt_550_650
+                    )/SM_FB_asymmetry_deno_bin_mtt_550_650;
+            
         }
         
     } else if(b_min == 650 && b_max == 750){
@@ -241,8 +256,13 @@ double FB_asymmetry_Tevatron_tt_diff_mtt_LO::computeThValue()
             double NP_FB_asymmetry_num_bin_mtt_650_750 = sigma_pos_bin_mtt_650_750_NP_Corrected - sigma_neg_bin_mtt_650_750_NP_Corrected;
             double NP_FB_asymmetry_deno_bin_mtt_650_750 = sigma_pos_bin_mtt_650_750_NP_Corrected + sigma_neg_bin_mtt_650_750_NP_Corrected;;
             
-            return  SM_FB_asymmetry_bin_mtt_650_750*(1+(NP_FB_asymmetry_num_bin_mtt_650_750-NP_FB_asymmetry_deno_bin_mtt_650_750)/SM_FB_asymmetry_deno_bin_mtt_650_750);            
+            //return  SM_FB_asymmetry_bin_mtt_650_750*(1+(NP_FB_asymmetry_num_bin_mtt_650_750-NP_FB_asymmetry_deno_bin_mtt_650_750)/SM_FB_asymmetry_deno_bin_mtt_650_750);            
         
+            return SM_FB_asymmetry_bin_mtt_650_750 + (NP_FB_asymmetry_num_bin_mtt_650_750
+                    - SM_FB_asymmetry_bin_mtt_650_750*NP_FB_asymmetry_deno_bin_mtt_650_750
+                    )/SM_FB_asymmetry_deno_bin_mtt_650_750;
+            
+            
         }
         
     } else {
@@ -1623,8 +1643,12 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_0_500 = sigma_pos_bin_mtt_0_500_NP_Corrected - sigma_neg_bin_mtt_0_500_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_0_500 = sigma_pos_bin_mtt_0_500_NP_Corrected + sigma_neg_bin_mtt_0_500_NP_Corrected;;
             
-            return  SM_charge_asymmetry_bin_mtt_0_500*(1+(NP_charge_asymmetry_num_bin_mtt_0_500-NP_charge_asymmetry_deno_bin_mtt_0_500)/SM_charge_asymmetry_deno_bin_mtt_0_500);            
+            //return  SM_charge_asymmetry_bin_mtt_0_500*(1+(NP_charge_asymmetry_num_bin_mtt_0_500-NP_charge_asymmetry_deno_bin_mtt_0_500)/SM_charge_asymmetry_deno_bin_mtt_0_500);            
         
+            return SM_charge_asymmetry_bin_mtt_0_500 + (NP_charge_asymmetry_num_bin_mtt_0_500
+                    - SM_charge_asymmetry_bin_mtt_0_500*NP_charge_asymmetry_deno_bin_mtt_0_500
+                    )/SM_charge_asymmetry_deno_bin_mtt_0_500;
+            
         }
         
     } else if(b_min == 500 && b_max == 750){
@@ -1679,8 +1703,11 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_500_750 = sigma_pos_bin_mtt_500_750_NP_Corrected - sigma_neg_bin_mtt_500_750_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_500_750 = sigma_pos_bin_mtt_500_750_NP_Corrected + sigma_neg_bin_mtt_500_750_NP_Corrected;;
             
-            return  SM_charge_asymmetry_bin_mtt_500_750*(1+(NP_charge_asymmetry_num_bin_mtt_500_750-NP_charge_asymmetry_deno_bin_mtt_500_750)/SM_charge_asymmetry_deno_bin_mtt_500_750);            
-        
+            //return  SM_charge_asymmetry_bin_mtt_500_750*(1+(NP_charge_asymmetry_num_bin_mtt_500_750-NP_charge_asymmetry_deno_bin_mtt_500_750)/SM_charge_asymmetry_deno_bin_mtt_500_750);            
+            
+            return SM_charge_asymmetry_bin_mtt_500_750 + (NP_charge_asymmetry_num_bin_mtt_500_750
+                    - SM_charge_asymmetry_bin_mtt_500_750*NP_charge_asymmetry_deno_bin_mtt_500_750
+                    )/SM_charge_asymmetry_deno_bin_mtt_500_750;
             
             
             
@@ -1740,9 +1767,11 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_750_1000 = sigma_pos_bin_mtt_750_1000_NP_Corrected - sigma_neg_bin_mtt_750_1000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_750_1000 = sigma_pos_bin_mtt_750_1000_NP_Corrected + sigma_neg_bin_mtt_750_1000_NP_Corrected;;
             
-            return  SM_charge_asymmetry_bin_mtt_750_1000*(1+(NP_charge_asymmetry_num_bin_mtt_750_1000-NP_charge_asymmetry_deno_bin_mtt_750_1000)/SM_charge_asymmetry_deno_bin_mtt_750_1000);            
+            //return  SM_charge_asymmetry_bin_mtt_750_1000*(1+(NP_charge_asymmetry_num_bin_mtt_750_1000-NP_charge_asymmetry_deno_bin_mtt_750_1000)/SM_charge_asymmetry_deno_bin_mtt_750_1000);            
         
-            
+            return SM_charge_asymmetry_bin_mtt_750_1000 + (NP_charge_asymmetry_num_bin_mtt_750_1000
+                    - SM_charge_asymmetry_bin_mtt_750_1000*NP_charge_asymmetry_deno_bin_mtt_750_1000
+                    )/SM_charge_asymmetry_deno_bin_mtt_750_1000;
             
             
             
@@ -1800,9 +1829,11 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_1000_1500 = sigma_pos_bin_mtt_1000_1500_NP_Corrected - sigma_neg_bin_mtt_1000_1500_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_1000_1500 = sigma_pos_bin_mtt_1000_1500_NP_Corrected + sigma_neg_bin_mtt_1000_1500_NP_Corrected;;
             
-            return  SM_charge_asymmetry_bin_mtt_1000_1500*(1+(NP_charge_asymmetry_num_bin_mtt_1000_1500-NP_charge_asymmetry_deno_bin_mtt_1000_1500)/SM_charge_asymmetry_deno_bin_mtt_1000_1500);            
+            //return  SM_charge_asymmetry_bin_mtt_1000_1500*(1+(NP_charge_asymmetry_num_bin_mtt_1000_1500-NP_charge_asymmetry_deno_bin_mtt_1000_1500)/SM_charge_asymmetry_deno_bin_mtt_1000_1500);            
         
-            
+            return SM_charge_asymmetry_bin_mtt_1000_1500 + (NP_charge_asymmetry_num_bin_mtt_1000_1500
+                    - SM_charge_asymmetry_bin_mtt_1000_1500*NP_charge_asymmetry_deno_bin_mtt_1000_1500
+                    )/SM_charge_asymmetry_deno_bin_mtt_1000_1500;
             
             
             
@@ -1862,8 +1893,12 @@ double charge_asymmetry_tt_diff_mtt_LO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_1500_3000 = sigma_pos_bin_mtt_1500_3000_NP_Corrected - sigma_neg_bin_mtt_1500_3000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_1500_3000 = sigma_pos_bin_mtt_1500_3000_NP_Corrected + sigma_neg_bin_mtt_1500_3000_NP_Corrected;;
             
-            return  SM_charge_asymmetry_bin_mtt_1500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_3000-NP_charge_asymmetry_deno_bin_mtt_1500_3000)/SM_charge_asymmetry_deno_bin_mtt_1500_3000);            
-            //return 0.;
+            //return  SM_charge_asymmetry_bin_mtt_1500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_3000-NP_charge_asymmetry_deno_bin_mtt_1500_3000)/SM_charge_asymmetry_deno_bin_mtt_1500_3000);            
+            
+            
+            return SM_charge_asymmetry_bin_mtt_1500_3000 + (NP_charge_asymmetry_num_bin_mtt_1500_3000
+                    - SM_charge_asymmetry_bin_mtt_1500_3000*NP_charge_asymmetry_deno_bin_mtt_1500_3000
+                    )/SM_charge_asymmetry_deno_bin_mtt_1500_3000;
 
         }
         

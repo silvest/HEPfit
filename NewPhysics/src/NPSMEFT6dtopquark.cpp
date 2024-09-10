@@ -3852,8 +3852,12 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_0_500 = sigma_pos_bin_mtt_0_500_NP_Corrected - sigma_neg_bin_mtt_0_500_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_0_500 = sigma_pos_bin_mtt_0_500_NP_Corrected + sigma_neg_bin_mtt_0_500_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_0_500*(1+(NP_charge_asymmetry_num_bin_mtt_0_500-NP_charge_asymmetry_deno_bin_mtt_0_500)/SM_charge_asymmetry_deno_bin_mtt_0_500);            
-        
+            //return  SM_charge_asymmetry_bin_mtt_0_500*(1+(NP_charge_asymmetry_num_bin_mtt_0_500-NP_charge_asymmetry_deno_bin_mtt_0_500)/SM_charge_asymmetry_deno_bin_mtt_0_500);            
+            
+            
+            return SM_charge_asymmetry_bin_mtt_0_500 + (NP_charge_asymmetry_num_bin_mtt_0_500
+                    - SM_charge_asymmetry_bin_mtt_0_500*NP_charge_asymmetry_deno_bin_mtt_0_500
+                    )/SM_charge_asymmetry_deno_bin_mtt_0_500;
             
         }
         else{
@@ -3872,8 +3876,14 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_0_500 = sigma_pos_bin_mtt_0_500_NP_Corrected - sigma_neg_bin_mtt_0_500_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_0_500 = sigma_pos_bin_mtt_0_500_NP_Corrected + sigma_neg_bin_mtt_0_500_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_0_500*(1+(NP_charge_asymmetry_num_bin_mtt_0_500-NP_charge_asymmetry_deno_bin_mtt_0_500)/SM_charge_asymmetry_deno_bin_mtt_0_500);            
+            //return  SM_charge_asymmetry_bin_mtt_0_500*(1+(NP_charge_asymmetry_num_bin_mtt_0_500-NP_charge_asymmetry_deno_bin_mtt_0_500)/SM_charge_asymmetry_deno_bin_mtt_0_500);            
         
+            
+            return SM_charge_asymmetry_bin_mtt_0_500 + (NP_charge_asymmetry_num_bin_mtt_0_500
+                    - SM_charge_asymmetry_bin_mtt_0_500*NP_charge_asymmetry_deno_bin_mtt_0_500
+                    )/SM_charge_asymmetry_deno_bin_mtt_0_500;
+            
+            
         }
         
     } else if(b_min == 500 && b_max == 750){
@@ -3900,9 +3910,7 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             617.3*C_Qq31*C_Qq31 + 141.47*C_Qq18*C_Qq18 + 76.31*C_Qq38*C_Qq38 + 751.03*C_Qu1*C_Qu1 + 118.22*C_Qu8*C_Qu8 + 276.88*C_td1*C_td1 +
             24.92*C_td8*C_td8 + 1237.5*C_tq1*C_tq1 + 200.26*C_tq8*C_tq8 + 359.71*C_tu1*C_tu1 + 52.72*C_tu8*C_tu8;
             
-            
-            
-            
+
             
             double sigma_pos_bin_mtt_500_750_NP_lin = 28985.27*C_tG + 32.74*C_Qd1 + 382.94*C_Qd8 + -108.77*C_Qq11 + -48.35*C_Qq31 + 1456.01*C_Qq18 +
             341.82*C_Qq38 + 115.28*C_Qu1 + 464.61*C_Qu8 + -46.51*C_td1 + 563.4*C_td8 + 103.98*C_tq1 + 886.74*C_tq8 + -18.49*C_tu1 + 904.87*C_tu8;
@@ -3921,8 +3929,12 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_500_750 = sigma_pos_bin_mtt_500_750_NP_Corrected - sigma_neg_bin_mtt_500_750_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_500_750 = sigma_pos_bin_mtt_500_750_NP_Corrected + sigma_neg_bin_mtt_500_750_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_500_750*(1+(NP_charge_asymmetry_num_bin_mtt_500_750-NP_charge_asymmetry_deno_bin_mtt_500_750)/SM_charge_asymmetry_deno_bin_mtt_500_750);            
+            //return  SM_charge_asymmetry_bin_mtt_500_750*(1+(NP_charge_asymmetry_num_bin_mtt_500_750-NP_charge_asymmetry_deno_bin_mtt_500_750)/SM_charge_asymmetry_deno_bin_mtt_500_750);            
         
+            
+            return SM_charge_asymmetry_bin_mtt_500_750 + (NP_charge_asymmetry_num_bin_mtt_500_750
+                    - SM_charge_asymmetry_bin_mtt_500_750*NP_charge_asymmetry_deno_bin_mtt_500_750
+                    )/SM_charge_asymmetry_deno_bin_mtt_500_750;
             
             
         }
@@ -3941,9 +3953,12 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_500_750 = sigma_pos_bin_mtt_500_750_NP_Corrected - sigma_neg_bin_mtt_500_750_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_500_750 = sigma_pos_bin_mtt_500_750_NP_Corrected + sigma_neg_bin_mtt_500_750_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_500_750*(1+(NP_charge_asymmetry_num_bin_mtt_500_750-NP_charge_asymmetry_deno_bin_mtt_500_750)/SM_charge_asymmetry_deno_bin_mtt_500_750);            
+            //return  SM_charge_asymmetry_bin_mtt_500_750*(1+(NP_charge_asymmetry_num_bin_mtt_500_750-NP_charge_asymmetry_deno_bin_mtt_500_750)/SM_charge_asymmetry_deno_bin_mtt_500_750);            
         
             
+            return SM_charge_asymmetry_bin_mtt_500_750 + (NP_charge_asymmetry_num_bin_mtt_500_750
+                    - SM_charge_asymmetry_bin_mtt_500_750*NP_charge_asymmetry_deno_bin_mtt_500_750
+                    )/SM_charge_asymmetry_deno_bin_mtt_500_750;
             
             
             
@@ -3992,9 +4007,11 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_750_1000 = sigma_pos_bin_mtt_750_1000_NP_Corrected - sigma_neg_bin_mtt_750_1000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_750_1000 = sigma_pos_bin_mtt_750_1000_NP_Corrected + sigma_neg_bin_mtt_750_1000_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_750_1000*(1+(NP_charge_asymmetry_num_bin_mtt_750_1000-NP_charge_asymmetry_deno_bin_mtt_750_1000)/SM_charge_asymmetry_deno_bin_mtt_750_1000);            
+            //return  SM_charge_asymmetry_bin_mtt_750_1000*(1+(NP_charge_asymmetry_num_bin_mtt_750_1000-NP_charge_asymmetry_deno_bin_mtt_750_1000)/SM_charge_asymmetry_deno_bin_mtt_750_1000);            
         
-            
+            return SM_charge_asymmetry_bin_mtt_750_1000 + (NP_charge_asymmetry_num_bin_mtt_750_1000
+                    - SM_charge_asymmetry_bin_mtt_750_1000*NP_charge_asymmetry_deno_bin_mtt_750_1000
+                    )/SM_charge_asymmetry_deno_bin_mtt_750_1000;
             
         }
         else{
@@ -4012,9 +4029,11 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_750_1000 = sigma_pos_bin_mtt_750_1000_NP_Corrected - sigma_neg_bin_mtt_750_1000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_750_1000 = sigma_pos_bin_mtt_750_1000_NP_Corrected + sigma_neg_bin_mtt_750_1000_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_750_1000*(1+(NP_charge_asymmetry_num_bin_mtt_750_1000-NP_charge_asymmetry_deno_bin_mtt_750_1000)/SM_charge_asymmetry_deno_bin_mtt_750_1000);            
+            //return  SM_charge_asymmetry_bin_mtt_750_1000*(1+(NP_charge_asymmetry_num_bin_mtt_750_1000-NP_charge_asymmetry_deno_bin_mtt_750_1000)/SM_charge_asymmetry_deno_bin_mtt_750_1000);            
         
-            
+            return SM_charge_asymmetry_bin_mtt_750_1000 + (NP_charge_asymmetry_num_bin_mtt_750_1000
+                    - SM_charge_asymmetry_bin_mtt_750_1000*NP_charge_asymmetry_deno_bin_mtt_750_1000
+                    )/SM_charge_asymmetry_deno_bin_mtt_750_1000;
             
             
             
@@ -4063,8 +4082,11 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_1000_1500 = sigma_pos_bin_mtt_1000_1500_NP_Corrected - sigma_neg_bin_mtt_1000_1500_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_1000_1500 = sigma_pos_bin_mtt_1000_1500_NP_Corrected + sigma_neg_bin_mtt_1000_1500_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_1000_1500*(1+(NP_charge_asymmetry_num_bin_mtt_1000_1500-NP_charge_asymmetry_deno_bin_mtt_1000_1500)/SM_charge_asymmetry_deno_bin_mtt_1000_1500);            
+            //return  SM_charge_asymmetry_bin_mtt_1000_1500*(1+(NP_charge_asymmetry_num_bin_mtt_1000_1500-NP_charge_asymmetry_deno_bin_mtt_1000_1500)/SM_charge_asymmetry_deno_bin_mtt_1000_1500);            
         
+            return SM_charge_asymmetry_bin_mtt_1000_1500 + (NP_charge_asymmetry_num_bin_mtt_1000_1500
+                    - SM_charge_asymmetry_bin_mtt_1000_1500*NP_charge_asymmetry_deno_bin_mtt_1000_1500
+                    )/SM_charge_asymmetry_deno_bin_mtt_1000_1500;
             
             
         }
@@ -4084,9 +4106,11 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_1000_1500 = sigma_pos_bin_mtt_1000_1500_NP_Corrected - sigma_neg_bin_mtt_1000_1500_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_1000_1500 = sigma_pos_bin_mtt_1000_1500_NP_Corrected + sigma_neg_bin_mtt_1000_1500_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_1000_1500*(1+(NP_charge_asymmetry_num_bin_mtt_1000_1500-NP_charge_asymmetry_deno_bin_mtt_1000_1500)/SM_charge_asymmetry_deno_bin_mtt_1000_1500);            
-        
+            //return  SM_charge_asymmetry_bin_mtt_1000_1500*(1+(NP_charge_asymmetry_num_bin_mtt_1000_1500-NP_charge_asymmetry_deno_bin_mtt_1000_1500)/SM_charge_asymmetry_deno_bin_mtt_1000_1500);            
             
+            return SM_charge_asymmetry_bin_mtt_1000_1500 + (NP_charge_asymmetry_num_bin_mtt_1000_1500
+                    - SM_charge_asymmetry_bin_mtt_1000_1500*NP_charge_asymmetry_deno_bin_mtt_1000_1500
+                    )/SM_charge_asymmetry_deno_bin_mtt_1000_1500;
             
             
             
@@ -4131,8 +4155,12 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_1500_3000 = sigma_pos_bin_mtt_1500_3000_NP_Corrected - sigma_neg_bin_mtt_1500_3000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_1500_3000 = sigma_pos_bin_mtt_1500_3000_NP_Corrected + sigma_neg_bin_mtt_1500_3000_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_1500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_3000-NP_charge_asymmetry_deno_bin_mtt_1500_3000)/SM_charge_asymmetry_deno_bin_mtt_1500_3000);            
-
+            //return  SM_charge_asymmetry_bin_mtt_1500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_3000-NP_charge_asymmetry_deno_bin_mtt_1500_3000)/SM_charge_asymmetry_deno_bin_mtt_1500_3000);            
+            
+            return SM_charge_asymmetry_bin_mtt_1500_3000 + (NP_charge_asymmetry_num_bin_mtt_1500_3000
+                    - SM_charge_asymmetry_bin_mtt_1500_3000*NP_charge_asymmetry_deno_bin_mtt_1500_3000
+                    )/SM_charge_asymmetry_deno_bin_mtt_1500_3000;
+            
             
         }
         else{
@@ -4150,15 +4178,17 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_1500_3000 = sigma_pos_bin_mtt_1500_3000_NP_Corrected - sigma_neg_bin_mtt_1500_3000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_1500_3000 = sigma_pos_bin_mtt_1500_3000_NP_Corrected + sigma_neg_bin_mtt_1500_3000_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_1500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_3000-NP_charge_asymmetry_deno_bin_mtt_1500_3000)/SM_charge_asymmetry_deno_bin_mtt_1500_3000);            
+            //return  SM_charge_asymmetry_bin_mtt_1500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_3000-NP_charge_asymmetry_deno_bin_mtt_1500_3000)/SM_charge_asymmetry_deno_bin_mtt_1500_3000);            
 
+            return SM_charge_asymmetry_bin_mtt_1500_3000 + (NP_charge_asymmetry_num_bin_mtt_1500_3000
+                    - SM_charge_asymmetry_bin_mtt_1500_3000*NP_charge_asymmetry_deno_bin_mtt_1500_3000
+                    )/SM_charge_asymmetry_deno_bin_mtt_1500_3000;
+            
         }
         
     }     else if(b_min == 1500 && b_max == 2000){
         
-        ////////////////////////////////
-        //NEEDS TO BE UPDATED!!!!!!!!!//
-        ////////////////////////////////
+
         
         double SM_charge_asymmetry_bin_mtt_1500_2000 = SM.getOptionalParameter("SM_charge_asymmetry_bin_mtt_1500_2000");
         double SM_charge_asymmetry_deno_bin_mtt_1500_2000 = SM.getOptionalParameter("SM_charge_asymmetry_deno_bin_mtt_1500_2000");
@@ -4210,8 +4240,11 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_1500_2000 = sigma_pos_bin_mtt_1500_2000_NP_Corrected - sigma_neg_bin_mtt_1500_2000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_1500_2000 = sigma_pos_bin_mtt_1500_2000_NP_Corrected + sigma_neg_bin_mtt_1500_2000_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_1500_2000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_2000-NP_charge_asymmetry_deno_bin_mtt_1500_2000)/SM_charge_asymmetry_deno_bin_mtt_1500_2000);            
+            //return  SM_charge_asymmetry_bin_mtt_1500_2000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_2000-NP_charge_asymmetry_deno_bin_mtt_1500_2000)/SM_charge_asymmetry_deno_bin_mtt_1500_2000);            
 
+            return SM_charge_asymmetry_bin_mtt_1500_2000 + (NP_charge_asymmetry_num_bin_mtt_1500_2000
+                    - SM_charge_asymmetry_bin_mtt_1500_2000*NP_charge_asymmetry_deno_bin_mtt_1500_2000
+                    )/SM_charge_asymmetry_deno_bin_mtt_1500_2000;
             
         }
         else{
@@ -4229,8 +4262,12 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_1500_2000 = sigma_pos_bin_mtt_1500_2000_NP_Corrected - sigma_neg_bin_mtt_1500_2000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_1500_2000 = sigma_pos_bin_mtt_1500_2000_NP_Corrected + sigma_neg_bin_mtt_1500_2000_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_1500_2000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_2000-NP_charge_asymmetry_deno_bin_mtt_1500_2000)/SM_charge_asymmetry_deno_bin_mtt_1500_2000);            
-
+            //return  SM_charge_asymmetry_bin_mtt_1500_2000*(1+(NP_charge_asymmetry_num_bin_mtt_1500_2000-NP_charge_asymmetry_deno_bin_mtt_1500_2000)/SM_charge_asymmetry_deno_bin_mtt_1500_2000);            
+            
+            return SM_charge_asymmetry_bin_mtt_1500_2000 + (NP_charge_asymmetry_num_bin_mtt_1500_2000
+                    - SM_charge_asymmetry_bin_mtt_1500_2000*NP_charge_asymmetry_deno_bin_mtt_1500_2000
+                    )/SM_charge_asymmetry_deno_bin_mtt_1500_2000;
+            
         }
         
     }     else if(b_min == 2000 && b_max == 2500){
@@ -4279,8 +4316,11 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_2000_2500 = sigma_pos_bin_mtt_2000_2500_NP_Corrected - sigma_neg_bin_mtt_2000_2500_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_2000_2500 = sigma_pos_bin_mtt_2000_2500_NP_Corrected + sigma_neg_bin_mtt_2000_2500_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_2000_2500*(1+(NP_charge_asymmetry_num_bin_mtt_2000_2500-NP_charge_asymmetry_deno_bin_mtt_2000_2500)/SM_charge_asymmetry_deno_bin_mtt_2000_2500);            
-
+            //return  SM_charge_asymmetry_bin_mtt_2000_2500*(1+(NP_charge_asymmetry_num_bin_mtt_2000_2500-NP_charge_asymmetry_deno_bin_mtt_2000_2500)/SM_charge_asymmetry_deno_bin_mtt_2000_2500);            
+            
+            return SM_charge_asymmetry_bin_mtt_2000_2500 + (NP_charge_asymmetry_num_bin_mtt_2000_2500
+                    - SM_charge_asymmetry_bin_mtt_2000_2500*NP_charge_asymmetry_deno_bin_mtt_2000_2500
+                    )/SM_charge_asymmetry_deno_bin_mtt_2000_2500;
             
         }
         else{
@@ -4299,8 +4339,14 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_2000_2500 = sigma_pos_bin_mtt_2000_2500_NP_Corrected - sigma_neg_bin_mtt_2000_2500_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_2000_2500 = sigma_pos_bin_mtt_2000_2500_NP_Corrected + sigma_neg_bin_mtt_2000_2500_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_2000_2500*(1+(NP_charge_asymmetry_num_bin_mtt_2000_2500-NP_charge_asymmetry_deno_bin_mtt_2000_2500)/SM_charge_asymmetry_deno_bin_mtt_2000_2500);            
-
+            //return  SM_charge_asymmetry_bin_mtt_2000_2500*(1+(NP_charge_asymmetry_num_bin_mtt_2000_2500-NP_charge_asymmetry_deno_bin_mtt_2000_2500)/SM_charge_asymmetry_deno_bin_mtt_2000_2500);            
+            
+            return SM_charge_asymmetry_bin_mtt_2000_2500 + (NP_charge_asymmetry_num_bin_mtt_2000_2500
+                    - SM_charge_asymmetry_bin_mtt_2000_2500*NP_charge_asymmetry_deno_bin_mtt_2000_2500
+                    )/SM_charge_asymmetry_deno_bin_mtt_2000_2500;
+            
+            
+            
         }
         
     }     else if(b_min == 2500 && b_max == 3000){
@@ -4357,8 +4403,12 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_2500_3000 = sigma_pos_bin_mtt_2500_3000_NP_Corrected - sigma_neg_bin_mtt_2500_3000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_2500_3000 = sigma_pos_bin_mtt_2500_3000_NP_Corrected + sigma_neg_bin_mtt_2500_3000_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_2500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_2500_3000-NP_charge_asymmetry_deno_bin_mtt_2500_3000)/SM_charge_asymmetry_deno_bin_mtt_2500_3000);            
-
+            //return  SM_charge_asymmetry_bin_mtt_2500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_2500_3000-NP_charge_asymmetry_deno_bin_mtt_2500_3000)/SM_charge_asymmetry_deno_bin_mtt_2500_3000);            
+            
+            return SM_charge_asymmetry_bin_mtt_2500_3000 + (NP_charge_asymmetry_num_bin_mtt_2500_3000
+                    - SM_charge_asymmetry_bin_mtt_2500_3000*NP_charge_asymmetry_deno_bin_mtt_2500_3000
+                    )/SM_charge_asymmetry_deno_bin_mtt_2500_3000;
+            
             
         }
         else{
@@ -4377,8 +4427,14 @@ double charge_asymmetry_tt_diff_mtt_NLO::computeThValue()
             double NP_charge_asymmetry_num_bin_mtt_2500_3000 = sigma_pos_bin_mtt_2500_3000_NP_Corrected - sigma_neg_bin_mtt_2500_3000_NP_Corrected;
             double NP_charge_asymmetry_deno_bin_mtt_2500_3000 = sigma_pos_bin_mtt_2500_3000_NP_Corrected + sigma_neg_bin_mtt_2500_3000_NP_Corrected;
             
-            return  SM_charge_asymmetry_bin_mtt_2500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_2500_3000-NP_charge_asymmetry_deno_bin_mtt_2500_3000)/SM_charge_asymmetry_deno_bin_mtt_2500_3000);            
-
+            //return  SM_charge_asymmetry_bin_mtt_2500_3000*(1+(NP_charge_asymmetry_num_bin_mtt_2500_3000-NP_charge_asymmetry_deno_bin_mtt_2500_3000)/SM_charge_asymmetry_deno_bin_mtt_2500_3000);            
+            
+            
+            return SM_charge_asymmetry_bin_mtt_2500_3000 + (NP_charge_asymmetry_num_bin_mtt_2500_3000
+                    - SM_charge_asymmetry_bin_mtt_2500_3000*NP_charge_asymmetry_deno_bin_mtt_2500_3000
+                    )/SM_charge_asymmetry_deno_bin_mtt_2500_3000;
+            
+            
         }
     }
 
@@ -5535,34 +5591,47 @@ double sigma_250_bb_eP_P30_eM_M80::computeThValue()
  
     
     //double sigma_250_bb_eP_P30_eM_M80_Madgraph = 3291;//fb
+    double sigma_250_bb_eP_P30_eM_M80_Madgraph = 3424.2;//fb
+    
     double sigma_250_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_sigma_250_bb_eP_P30_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
-    //
+    
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+9.3*((C_phiQm+C_phiQ3)/0.998)+9.3*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+114.5*C_lqP+20.6*C_ld+2.9*C_ed)*sigma_250_bb_eP_P30_eM_M80/100;
-
-            }
-            else{
-                return  (100+9.3*((C_phiQm+C_phiQ3)/0.998)+9.3*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+114.5*C_lqP+20.6*C_ld+2.9*C_ed)*sigma_250_bb_eP_P30_eM_M80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    if(flag_Quadratic){
+        return  sigma_250_bb_eP_P30_eM_M80 +(91.34*ceb + 66.8377*ceb*ceb + -61.31*ceQ + 66.7895*ceQ*ceQ + 
+                51.316*cHb + 7.8376*cHb*cHb + 331.972*cHQ1 + 7.56*cHQ1*cHQ1 + 331.972*cHQ3 + 7.56*cHQ3*cHQ3 +
+                678.772*clb + 1130.7153*clb*clb + 3852.8*clq1 + 1131.0753*clq1*clq1 + 3852.8*clq3 + 
+                1131.0753*clq3*clq3
+                )*sigma_250_bb_eP_P30_eM_M80/sigma_250_bb_eP_P30_eM_M80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+9.3*(C_phiQ1/0.998)+9.3*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+114.5*C_lqP+20.6*C_ld+2.9*C_ed)*sigma_250_bb_eP_P30_eM_M80/100;
-            }
-            else{
-                return  (100+9.3*(C_phiQ1/0.998)+9.3*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+114.5*C_lqP+20.6*C_ld+2.9*C_ed)*sigma_250_bb_eP_P30_eM_M80/100;
-            }
+        return  sigma_250_bb_eP_P30_eM_M80 +(91.34*ceb + -61.31*ceQ + 51.316*cHb + 
+                331.972*cHQ1 + 331.972*cHQ3 + 678.772*clb + 3852.8*clq1 + 3852.8*clq3
+                )*sigma_250_bb_eP_P30_eM_M80/sigma_250_bb_eP_P30_eM_M80_Madgraph;
     }
 }
 
@@ -5578,36 +5647,52 @@ double sigma_250_bb_eP_M30_eM_P80::computeThValue()
 {
     
     //double sigma_250_bb_eP_M30_eM_P80_Madgraph = 1018;//fb
+    double sigma_250_bb_eP_M30_eM_P80_Madgraph = 949.58;//fb
+    
     double sigma_250_bb_eP_M30_eM_P80 = SM.getOptionalParameter("SM_sigma_250_bb_eP_M30_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+9.2*((C_phiQm+C_phiQ3)/0.998)+9.2*(C_phiQ3/0.998)-10.7*(C_phib/0.998)+22*C_lqP+4.1*C_ld+158*C_ed)*sigma_250_bb_eP_M30_eM_P80/100;
-
-            }
-            else{
-                return  (100+9.2*((C_phiQm+C_phiQ3)/0.998)+9.2*(C_phiQ3/0.998)-10.7*(C_phib/0.998)+22*C_lqP+4.1*C_ld+158*C_ed)*sigma_250_bb_eP_M30_eM_P80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_250_bb_eP_M30_eM_P80 +(1526.061*ceb + 1132.0629*ceb*ceb + -1026.08*ceQ + 
+                1131.8329*ceQ*ceQ + -100.866*cHb + 5.7706*cHb*cHb + 89.832*cHQ1 + 5.7788*cHQ1*cHQ1 +
+                89.832*cHQ3 + 5.7788*cHQ3*cHQ3 + 40.66*clb + 67.68*clb*clb + 230.568*clq1 + 
+                67.7153*clq1*clq1 + 230.568*clq3 + 67.7153*clq3*clq3
+                )*sigma_250_bb_eP_M30_eM_P80/sigma_250_bb_eP_M30_eM_P80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+9.2*(C_phiQ1/0.998)+9.2*(C_phiQ3/0.998)-10.7*(C_phib/0.998)+22*C_lqP+4.1*C_ld+158*C_ed)*sigma_250_bb_eP_M30_eM_P80/100;
-            }
-            else{
-                return  (100+9.2*(C_phiQ1/0.998)+9.2*(C_phiQ3/0.998)-10.7*(C_phib/0.998)+22*C_lqP+4.1*C_ld+158*C_ed)*sigma_250_bb_eP_M30_eM_P80/100;
-            }
+        return  sigma_250_bb_eP_M30_eM_P80 +(1526.061*ceb + -1026.08*ceQ + -100.866*cHb + 
+                89.832*cHQ1 + 89.832*cHQ3 + 40.66*clb + 230.568*clq1 + 230.568*clq3
+                )*sigma_250_bb_eP_M30_eM_P80/sigma_250_bb_eP_M30_eM_P80_Madgraph;
     }
 }
+
 
 
 
@@ -5620,39 +5705,53 @@ a_250_bb_eP_P30_eM_M80::a_250_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 double a_250_bb_eP_P30_eM_M80::computeThValue()
 {
     
-    //double a_250_bb_eP_P30_eM_M80 = 69.8;//in percentage
-    double a_250_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_a_250_bb_eP_P30_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
-    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //double a_250_bb_eP_P30_eM_M80 = 69.8;//in percentage//OLD
+    //double a_250_bb_eP_P30_eM_M80 = 0.7038
     
-    //We divide by 100 because the values introduced are in percentage
+    double asym_SM = SM.getOptionalParameter("SM_a_250_bb_eP_P30_eM_M80");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
     
     
-    if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_250_bb_eP_P30_eM_M80+(0.3*((C_phiQm+C_phiQ3)/0.998)+0.3*(C_phiQ3/0.998)-2.4*(C_phib/0.998)+12.9*C_lqP-17.4*C_ld+0.1*C_ed)/100;
 
-            }
-            else{
-                return  a_250_bb_eP_P30_eM_M80+(0.3*((C_phiQm+C_phiQ3)/0.998)+0.3*(C_phiQ3/0.998)-2.4*(C_phib/0.998)+12.9*C_lqP-17.4*C_ld+0.1*C_ed)/100;
-            }
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_250_bb_eP_P30_eM_M80+(0.3*(C_phiQ1/0.998)+0.3*(C_phiQ3/0.998)-2.4*(C_phib/0.998)+12.9*C_lqP-17.4*C_ld+0.1*C_ed)/100;
-            }
-            else{
-                return  a_250_bb_eP_P30_eM_M80+(0.3*(C_phiQ1/0.998)+0.3*(C_phiQ3/0.998)-2.4*(C_phib/0.998)+12.9*C_lqP-17.4*C_ld+0.1*C_ed)/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 2917.1787;
+    double NP_pos = 81.1444*ceb + -6.1462*ceQ + -0.9202*cHb + 289.6031*cHQ1 + 289.6031*cHQ3 + 89.2599*clb + 3373.1925*clq1 + 3373.1925*clq3;
+    
+    double SM_neg = 507.0213;
+    double NP_neg = 10.1956*ceb + -55.1638*ceQ + 52.2362*cHb + 42.3689*cHQ1 + 42.3689*cHQ3 + 589.5121*clb + 479.6075*clq1 + 479.6075*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+    
 }
 
 
@@ -5667,38 +5766,52 @@ a_250_bb_eP_M30_eM_P80::a_250_bb_eP_M30_eM_P80(const StandardModel& SM_i)
 double a_250_bb_eP_M30_eM_P80::computeThValue()
 {
     
-    // double a_250_bb_eP_M30_eM_P80 = 36.5;// In percentage
-    double a_250_bb_eP_M30_eM_P80 = SM.getOptionalParameter("SM_a_250_bb_eP_M30_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
-    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
-    
-    
-    
-    if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_250_bb_eP_M30_eM_P80+(-7.6*((C_phiQm+C_phiQ3)/0.998)-7.6*(C_phiQ3/0.998)-4.7*(C_phib/0.998)+7.8*C_lqP-4.1*C_ld+30*C_ed)/100;
+    // double a_250_bb_eP_M30_eM_P80 = 36.5;// In percentage //OLD
+    // double a_250_bb_eP_M30_eM_P80 = 0.36826
+    double asym_SM = SM.getOptionalParameter("SM_a_250_bb_eP_M30_eM_P80");
 
-            }
-            else{
-                return  a_250_bb_eP_M30_eM_P80+(-7.6*((C_phiQm+C_phiQ3)/0.998)-7.6*(C_phiQ3/0.998)-4.7*(C_phib/0.998)+7.8*C_lqP-4.1*C_ld+30*C_ed)/100;
-            }
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_250_bb_eP_M30_eM_P80+(-7.6*(C_phiQ1/0.998)-7.6*(C_phiQ3/0.998)-4.7*(C_phib/0.998)+7.8*C_lqP-4.1*C_ld+30*C_ed)/100;
-            }
-            else{
-                return  a_250_bb_eP_M30_eM_P80+(-7.6*(C_phiQ1/0.998)-7.6*(C_phiQ3/0.998)-4.7*(C_phib/0.998)+7.8*C_lqP-4.1*C_ld+30*C_ed)/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos =  649.6362;
+    double NP_pos = 1336.7206*ceb + -123.8939*ceQ + -89.5699*cHb + 25.1274*cHQ1 + 25.1274*cHQ3 + 7.1719*clb + 201.8444*clq1 + 201.8444*clq3;
+    
+    double SM_neg = 299.9438;
+    double NP_neg = 189.3404*ceb + -902.1861*ceQ + -11.2961*cHb + 64.7046*cHQ1 + 64.7046*cHQ3 + 33.4881*clb + 28.7236*clq1 + 28.7236*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -5716,35 +5829,46 @@ double sigma_500_bb_eP_P30_eM_M80::computeThValue()
 {
     
     //double sigma_500_bb_eP_P30_eM_M80 = 718.5;//fb
+    double sigma_500_bb_eP_P30_eM_M80_Madgraph = 743.86;//fb
+    
     double sigma_500_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_sigma_500_bb_eP_P30_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+8.9*((C_phiQm+C_phiQ3)/0.998)+8.9*(C_phiQ3/0.998)+1.6*(C_phib/0.998)+487*C_lqP+102*C_ld+13*C_ed)*sigma_500_bb_eP_P30_eM_M80/100;
-
-            }
-            else{
-                return  (100+8.9*((C_phiQm+C_phiQ3)/0.998)+8.9*(C_phiQ3/0.998)+1.6*(C_phib/0.998)+487*C_lqP+102*C_ld+13*C_ed)*sigma_500_bb_eP_P30_eM_M80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    if(flag_Quadratic){
+        return  sigma_500_bb_eP_P30_eM_M80 +(89.054*ceb + 270.9682*ceb*ceb + -47.964*ceQ + 
+                270.8141*ceQ*ceQ + 12.484*cHb + 1.56*cHb*cHb + 68.968*cHQ1 + 1.5247*cHQ1*cHQ1 +
+                68.968*cHQ3 + 1.5247*cHQ3*cHQ3 + 725.4*clb + 4530.5811*clb*clb + 3575.3236*clq1 +
+                4531.2214*clq1*clq1 + 3575.3236*clq3 + 4531.2214*clq3*clq3
+                )*sigma_500_bb_eP_P30_eM_M80/sigma_500_bb_eP_P30_eM_M80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+8.9*(C_phiQ1/0.998)+8.9*(C_phiQ3/0.998)+1.6*(C_phib/0.998)+487*C_lqP+102*C_ld+13*C_ed)*sigma_500_bb_eP_P30_eM_M80/100;
-            }
-            else{
-                return  (100+8.9*(C_phiQ1/0.998)+8.9*(C_phiQ3/0.998)+1.6*(C_phib/0.998)+487*C_lqP+102*C_ld+13*C_ed)*sigma_500_bb_eP_P30_eM_M80/100;
-            }
+        return  sigma_500_bb_eP_P30_eM_M80 +(89.054*ceb + -47.964*ceQ + 12.484*cHb + 
+                68.968*cHQ1 + 68.968*cHQ3 + 725.4*clb + 3575.3236*clq1 + 3575.3236*clq3
+                )*sigma_500_bb_eP_P30_eM_M80/sigma_500_bb_eP_P30_eM_M80_Madgraph;
     }
 }
 
@@ -5760,35 +5884,49 @@ double sigma_500_bb_eP_M30_eM_P80::computeThValue()
 {
     
     //double sigma_500_bb_eP_M30_eM_P80 = 216.1;//fb
+    double sigma_500_bb_eP_M30_eM_P80_Madgraph = 201.825;//fb
+    
     double sigma_500_bb_eP_M30_eM_P80 = SM.getOptionalParameter("SM_sigma_500_bb_eP_M30_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+7.9*((C_phiQm+C_phiQ3)/0.998)+7.9*(C_phiQ3/0.998)-11*(C_phib/0.998)+97*C_lqP+20*C_ld+721*C_ed)*sigma_500_bb_eP_M30_eM_P80/100;
-
-            }
-            else{
-                return  (100+7.9*((C_phiQm+C_phiQ3)/0.998)+7.9*(C_phiQ3/0.998)-11*(C_phib/0.998)+97*C_lqP+20*C_ld+721*C_ed)*sigma_500_bb_eP_M30_eM_P80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_500_bb_eP_M30_eM_P80 +(1488.424*ceb + 4531.4317*ceb*ceb + -803.144*ceQ + 
+                4530.6906*ceQ*ceQ + -21.9908*cHb + 1.1384*cHb*cHb + 16.403*cHQ1 + 1.1397*cHQ1*cHQ1 + 
+                16.403*cHQ3 + 1.1397*cHQ3*cHQ3 + 43.4182*clb + 270.9813*clb*clb + 213.9166*clq1 + 
+                271.0719*clq1*clq1 + 213.9166*clq3 + 271.0719*clq3*clq3
+                )*sigma_500_bb_eP_M30_eM_P80/sigma_500_bb_eP_M30_eM_P80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+7.9*(C_phiQ1/0.998)+7.9*(C_phiQ3/0.998)-11*(C_phib/0.998)+97*C_lqP+20*C_ld+721*C_ed)*sigma_500_bb_eP_M30_eM_P80/100;
-            }
-            else{
-                return  (100+7.9*(C_phiQ1/0.998)+7.9*(C_phiQ3/0.998)-11*(C_phib/0.998)+97*C_lqP+20*C_ld+721*C_ed)*sigma_500_bb_eP_M30_eM_P80/100;
-            }
+        return  sigma_500_bb_eP_M30_eM_P80 +(1488.424*ceb + -803.144*ceQ + -21.9908*cHb + 
+                16.403*cHQ1 + 16.403*cHQ3 + 43.4182*clb + 213.9166*clq1 + 213.9166*clq3
+                )*sigma_500_bb_eP_M30_eM_P80/sigma_500_bb_eP_M30_eM_P80_Madgraph;
     }
 }
 
@@ -5804,37 +5942,53 @@ double a_500_bb_eP_P30_eM_M80::computeThValue()
 {
     
     //double a_500_bb_eP_P30_eM_M80 = 68.4; // in percentage 
-    double a_500_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_a_500_bb_eP_P30_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    //double a_500_bb_eP_P30_eM_M80 = 0.69352
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_500_bb_eP_P30_eM_M80");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_500_bb_eP_P30_eM_M80+(0.45*((C_phiQm+C_phiQ3)/0.998)+0.45*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+1.1*C_lqP-2.9*C_ld+0.46*C_ed)/100;
-
-            }
-            else{
-                return  a_500_bb_eP_P30_eM_M80+(0.45*((C_phiQm+C_phiQ3)/0.998)+0.45*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+1.1*C_lqP-2.9*C_ld+0.46*C_ed)/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_500_bb_eP_P30_eM_M80+(0.45*(C_phiQ1/0.998)+0.45*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+1.1*C_lqP-2.9*C_ld+0.46*C_ed)/100;
-            }
-            else{
-                return  a_500_bb_eP_P30_eM_M80+(0.45*(C_phiQ1/0.998)+0.45*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+1.1*C_lqP-2.9*C_ld+0.46*C_ed)/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 629.8709;
+    double NP_pos = 78.2693*ceb + -5.7245*ceQ + 0.6528*cHb + 59.1902*cHQ1 + 
+    59.1902*cHQ3 + 85.8688*clb + 3133.4382*clq1 + 3133.4382*clq3;
+    
+    double SM_neg = 113.9891;
+    double NP_neg = 10.7847*ceb + -42.2395*ceQ + 11.8312*cHb + 9.7778*cHQ1 + 
+    9.7778*cHQ3 + 639.5312*clb + 441.8854*clq1 + 441.8854*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -5849,36 +6003,53 @@ double a_500_bb_eP_M30_eM_P80::computeThValue()
 {
     
     //double a_500_bb_eP_M30_eM_P80 = 46.9; // in percentage 
-    double a_500_bb_eP_M30_eM_P80 = SM.getOptionalParameter("SM_a_500_bb_eP_M30_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    // double a_500_bb_eP_M30_eM_P80 = 0.47686
+    double asym_SM = SM.getOptionalParameter("SM_a_500_bb_eP_M30_eM_P80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_500_bb_eP_M30_eM_P80+(-6.9*((C_phiQm+C_phiQ3)/0.998)-6.9*(C_phiQ3/0.998)-3.7*(C_phib/0.998)+6.7*C_lqP-5*C_ld+0.48*C_ed)/100;
-
-            }
-            else{
-                return  a_500_bb_eP_M30_eM_P80+(-6.9*((C_phiQm+C_phiQ3)/0.998)-6.9*(C_phiQ3/0.998)-3.7*(C_phib/0.998)+6.7*C_lqP-5*C_ld+0.48*C_ed)/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_500_bb_eP_M30_eM_P80+(-6.9*(C_phiQ1/0.998)-6.9*(C_phiQ3/0.998)-3.7*(C_phib/0.998)+6.7*C_lqP-5*C_ld+0.48*C_ed)/100;
-            }
-            else{
-                return  a_500_bb_eP_M30_eM_P80+(-6.9*(C_phiQ1/0.998)-6.9*(C_phiQ3/0.998)-3.7*(C_phib/0.998)+6.7*C_lqP-5*C_ld+0.48*C_ed)/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos =  149.0336;
+    double NP_pos = 1300.4371*ceb + -102.5159*ceQ + -19.9600*cHb + 
+    5.0558*cHQ1 + 5.0558*cHQ3 + 5.3046*clb + 187.8792*clq1 + 187.8792*clq3;
+    
+    double SM_neg = 52.7914;
+    double NP_neg = 187.9869*ceb + -700.6281*ceQ + -2.0308*cHb + 
+    11.3472*cHQ1 + 11.3472*cHQ3 + 38.1136*clb + 26.0374*clq1 + 26.0374*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -6032,39 +6203,46 @@ double sigma_1000_bb_eP_P30_eM_M80::computeThValue()
 {
     
     //double sigma_1000_bb_eP_P30_eM_M80 = 173.9;//fb
+    double sigma_1000_bb_eP_P30_eM_M80_Madgraph = 180.148;//fb
+    
     double sigma_1000_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_sigma_1000_bb_eP_P30_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+8.8*((C_phiQm+C_phiQ3)/0.998)+8.8*(C_phiQ3/0.998)+1.7*(C_phib/0.998)+
-                        1974*C_lqP+428*C_ld+54*C_ed)*sigma_1000_bb_eP_P30_eM_M80/100;
-
-            }
-            else{
-                return  (100+8.8*((C_phiQm+C_phiQ3)/0.998)+8.8*(C_phiQ3/0.998)+1.7*(C_phib/0.998)+
-                        1974*C_lqP+428*C_ld+54*C_ed)*sigma_1000_bb_eP_P30_eM_M80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    if(flag_Quadratic){
+        return  sigma_1000_bb_eP_P30_eM_M80 +(88.518*ceb + 1084.6219*ceb*ceb + -45.1278*ceQ +
+                1084.3773*ceQ*ceQ + 3.0804*cHb + 0.3708*cHb*cHb + 16.508*cHQ1 + 0.3588*cHQ1*cHQ1 +
+                16.508*cHQ3 + 0.3588*cHQ3*cHQ3 + 735.946*clb + 18126.6812*clb*clb + 3514.67*clq1 +
+                18127.8318*clq1*clq1 + 3514.67*clq3 + 18127.8318*clq3*clq3
+                )*sigma_1000_bb_eP_P30_eM_M80/sigma_1000_bb_eP_P30_eM_M80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+8.8*(C_phiQ1/0.998)+8.8*(C_phiQ3/0.998)+1.7*(C_phib/0.998)+
-                        1974*C_lqP+428*C_ld+54*C_ed)*sigma_1000_bb_eP_P30_eM_M80/100;
-            }
-            else{
-                return  (100+8.8*(C_phiQ1/0.998)+8.8*(C_phiQ3/0.998)+1.7*(C_phib/0.998)+
-                        1974*C_lqP+428*C_ld+54*C_ed)*sigma_1000_bb_eP_P30_eM_M80/100;
-            }
+        return  sigma_1000_bb_eP_P30_eM_M80 +(88.518*ceb + -45.1278*ceQ + 3.0804*cHb + 
+                16.508*cHQ1 + 16.508*cHQ3 + 735.946*clb + 3514.67*clq1 + 3514.67*clq3
+                )*sigma_1000_bb_eP_P30_eM_M80/sigma_1000_bb_eP_P30_eM_M80_Madgraph;
     }
 }
 
@@ -6080,36 +6258,49 @@ double sigma_1000_bb_eP_M30_eM_P80::computeThValue()
 {
     
     //double sigma_1000_bb_eP_M30_eM_P80 = 52.2;//fb
+    double sigma_1000_bb_eP_M30_eM_P80_Madgraph = 48.719;//fb
+    
     double sigma_1000_bb_eP_M30_eM_P80 = SM.getOptionalParameter("SM_sigma_1000_bb_eP_M30_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+7.5*((C_phiQm+C_phiQ3)/0.998)+7.5*(C_phiQ3/0.998)-11*(C_phib/0.998)+398*C_lqP+89*C_ld+2975*C_ed)*sigma_1000_bb_eP_M30_eM_P80/100;
-
-            }
-            else{
-                return  (100+7.5*((C_phiQm+C_phiQ3)/0.998)+7.5*(C_phiQ3/0.998)-11*(C_phib/0.998)+398*C_lqP+89*C_ld+2975*C_ed)*sigma_1000_bb_eP_M30_eM_P80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_1000_bb_eP_M30_eM_P80 +(1480.272*ceb + 18127.8882*ceb*ceb + -753.812*ceQ +
+                18126.6577*ceQ*ceQ + -5.3244*cHb + 0.2682*cHb*cHb + 3.8*cHQ1 + 0.2674*cHQ1*cHQ1 +
+                3.8*cHQ3 + 0.2674*cHQ3*cHQ3 + 44.0332*clb + 1084.456*clb*clb + 213.9166*clq1 + 
+                451.1966*clq1*clq1 + 210.21*clq3 + 1084.6901*clq3*clq3
+                )*sigma_1000_bb_eP_M30_eM_P80/sigma_1000_bb_eP_M30_eM_P80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+7.5*(C_phiQ1/0.998)+7.5*(C_phiQ3/0.998)-11*(C_phib/0.998)+398*C_lqP+89*C_ld+2975*C_ed)*sigma_1000_bb_eP_M30_eM_P80/100;
-            }
-            else{
-                return  (100+7.5*(C_phiQ1/0.998)+7.5*(C_phiQ3/0.998)-11*(C_phib/0.998)+398*C_lqP+89*C_ld+2975*C_ed)*sigma_1000_bb_eP_M30_eM_P80/100;
-            }
+        return  sigma_1000_bb_eP_M30_eM_P80 +(1480.272*ceb + -753.812*ceQ + -5.3244*cHb +
+                3.8*cHQ1 + 3.8*cHQ3 + 44.0332*clb + 213.9166*clq1 + 210.21*clq3
+                )*sigma_1000_bb_eP_M30_eM_P80/sigma_1000_bb_eP_M30_eM_P80_Madgraph;
     }
 }
 
@@ -6124,37 +6315,54 @@ a_1000_bb_eP_P30_eM_M80::a_1000_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 double a_1000_bb_eP_P30_eM_M80::computeThValue()
 {
     
-    //double a_1000_bb_eP_P30_eM_M80 = 67.5 ;//in percentage
-    double a_1000_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_a_1000_bb_eP_P30_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    //double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
-    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //double a_1000_bb_eP_P30_eM_M80 = 67.5 ;//in percentage OLD
+    //double a_1000_bb_eP_P30_eM_M80 = 0.6873
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_1000_bb_eP_P30_eM_M80");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
     
     
-    if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_1000_bb_eP_P30_eM_M80+(0.48*((C_phiQm+C_phiQ3)/0.998)+0.48*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+0.06*C_ld+0.08*C_ed)/100;
 
-            }
-            else{
-                return  a_1000_bb_eP_P30_eM_M80+(0.48*((C_phiQm+C_phiQ3)/0.998)+0.48*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+0.06*C_ld+0.08*C_ed)/100;
-            }
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_1000_bb_eP_P30_eM_M80+(0.48*(C_phiQ1/0.998)+0.48*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+0.06*C_ld+0.08*C_ed)/100;
-            }
-            else{
-                return  a_1000_bb_eP_P30_eM_M80+(0.48*(C_phiQ1/0.998)+0.48*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+0.06*C_ld+0.08*C_ed)/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 151.98186;
+    double NP_pos = 77.08833*ceb + -4.81075*ceQ + 0.24021*cHb + 14.33980*cHQ1 + 
+    14.33980*cHQ3 + 86.15264*clb + 3077.62694*clq1 + 3077.62694*clq3;
+    
+    double SM_neg = 28.16614;
+    double NP_neg = 11.42967*ceb + -40.31705*ceQ + 2.84019*cHb + 2.16820*cHQ1 + 
+    2.16820*cHQ3 + 649.79336*clb + 437.04306*clq1 + 437.04306*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -6167,38 +6375,54 @@ a_1000_bb_eP_M30_eM_P80::a_1000_bb_eP_M30_eM_P80(const StandardModel& SM_i)
 double a_1000_bb_eP_M30_eM_P80::computeThValue()
 {
     
-    // double a_1000_bb_eP_M30_eM_P80 = 49.5;//in percentage
-    double a_1000_bb_eP_M30_eM_P80 = SM.getOptionalParameter("SM_a_1000_bb_eP_M30_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    //double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    // double a_1000_bb_eP_M30_eM_P80 = 49.5;//in percentage OLD
+    // double a_1000_bb_eP_M30_eM_P80 = 0.49428
+    double asym_SM = SM.getOptionalParameter("SM_a_1000_bb_eP_M30_eM_P80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_1000_bb_eP_M30_eM_P80+(-6.6*((C_phiQm+C_phiQ3)/0.998)-6.6*(C_phiQ3/0.998)-3.5*(C_phib/0.998)+0.22*C_lqP-0.23*C_ld)/100;
-
-            }
-            else{
-                return  a_1000_bb_eP_M30_eM_P80+(-6.6*((C_phiQm+C_phiQ3)/0.998)-6.6*(C_phiQ3/0.998)-3.5*(C_phib/0.998)+0.22*C_lqP-0.23*C_ld)/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_1000_bb_eP_M30_eM_P80+(-6.6*(C_phiQ1/0.998)-6.6*(C_phiQ3/0.998)-3.5*(C_phib/0.998)+0.22*C_lqP-0.23*C_ld)/100;
-            }
-            else{
-                return  a_1000_bb_eP_M30_eM_P80+(-6.6*(C_phiQ1/0.998)-6.6*(C_phiQ3/0.998)-3.5*(C_phib/0.998)+0.22*C_lqP-0.23*C_ld)/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 36.39991;
+    double NP_pos = 1287.44260*ceb + -77.12024*ceQ + -4.75187*cHb + 
+    1.19735*cHQ1 + 1.19735*cHQ3 + 5.85840*clb + 187.87917*clq1 + 183.07434*clq3;
+    
+    double SM_neg = 12.31909;
+    double NP_neg = 192.82940*ceb + -676.69176*ceQ + -0.57253*cHb + 
+    2.60263*cHQ1 + 2.60263*cHQ3 + 38.17480*clb + 26.03743*clq1 + 27.13566*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -6333,36 +6557,50 @@ double sigma_380_bb_eP_0_eM_P80::computeThValue()
 {
     
     //double sigma_380_bb_eP_0_eM_P80 = 348;//fb
+    double sigma_380_bb_eP_0_eM_P80_Madgraph = 330.45;//fb
+    
     double sigma_380_bb_eP_0_eM_P80 = SM.getOptionalParameter("SM_sigma_380_bb_eP_0_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+8.3*((C_phiQm+C_phiQ3)/0.998)+8.3*(C_phiQ3/0.998)-9.1*(C_phib/0.998)+87.1*C_lqP+18.7*C_ld+347.1*C_ed)*sigma_380_bb_eP_0_eM_P80/100;
-
-            }
-            else{
-                return  (100+8.3*((C_phiQm+C_phiQ3)/0.998)+8.3*(C_phiQ3/0.998)-9.1*(C_phib/0.998)+87.1*C_lqP+18.7*C_ld+347.1*C_ed)*sigma_380_bb_eP_0_eM_P80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_380_bb_eP_0_eM_P80 +(1151.4114*ceb + 2013.0309*ceb*ceb + 
+                -656.354*ceQ + 2012.7518*ceQ*ceQ + -29.273*cHb + 1.7434*cHb*cHb +
+                28.4148*cHQ1 + 1.7574*cHQ1*cHQ1 + 28.4148*cHQ3 + 1.7574*cHQ3*cHQ3 +
+                61.1278*clb + 223.5679*clb*clb + 310.908*clq1 + 223.6499*clq1*clq1 +
+                310.908*clq3 + 223.6499*clq3*clq3
+                )*sigma_380_bb_eP_0_eM_P80/sigma_380_bb_eP_0_eM_P80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+8.3*(C_phiQ1/0.998)+8.3*(C_phiQ3/0.998)-9.1*(C_phib/0.998)+87.1*C_lqP+18.7*C_ld+347.1*C_ed)*sigma_380_bb_eP_0_eM_P80/100;
-            }
-            else{
-                return  (100+8.3*(C_phiQ1/0.998)+8.3*(C_phiQ3/0.998)-9.1*(C_phib/0.998)+87.1*C_lqP+18.7*C_ld+347.1*C_ed)*sigma_380_bb_eP_0_eM_P80/100;
-            }
+        return  sigma_380_bb_eP_0_eM_P80 +(1151.4114*ceb + -656.354*ceQ + -29.273*cHb +
+                28.4148*cHQ1 + 28.4148*cHQ3 + 61.1278*clb + 310.908*clq1 + 310.908*clq3
+                )*sigma_380_bb_eP_0_eM_P80/sigma_380_bb_eP_0_eM_P80_Madgraph;
     }
 }
 
@@ -6378,37 +6616,50 @@ sigma_380_bb_eP_0_eM_M80::sigma_380_bb_eP_0_eM_M80(const StandardModel& SM_i)
 double sigma_380_bb_eP_0_eM_M80::computeThValue()
 {
     
-    //double sigma_380_bb_eP_0_eM_M80 = 998;//fb
+    //double sigma_380_bb_eP_0_eM_M80 = 998;//fb OLD
+    double sigma_380_bb_eP_0_eM_M80_Madgraph = 1034.28;//fb
+    
     double sigma_380_bb_eP_0_eM_M80 = SM.getOptionalParameter("SM_sigma_380_bb_eP_0_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+9*((C_phiQm+C_phiQ3)/0.998)+9*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+274*C_lqP+57*C_ld+13*C_ed)*sigma_380_bb_eP_0_eM_M80/100;
-
-            }
-            else{
-                return  (100+9*((C_phiQm+C_phiQ3)/0.998)+9*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+274*C_lqP+57*C_ld+13*C_ed)*sigma_380_bb_eP_0_eM_M80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_380_bb_eP_0_eM_M80 +(127.954*ceb + 223.4694*ceb*ceb + -72.84*ceQ + 
+                223.3082*ceQ*ceQ + 15.09*cHb + 2.3165*cHb*cHb + 96.824*cHQ1 + 2.2047*cHQ1*cHQ1 + 
+                96.824*cHQ3 + 2.2047*cHQ3*cHQ3 + 550.04*clb + 2012.1106*clb*clb + 2798.244*clq1 +
+                2012.8322*clq1*clq1 + 2798.244*clq3 + 2012.8322*clq3*clq3
+                )*sigma_380_bb_eP_0_eM_M80/sigma_380_bb_eP_0_eM_M80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+9*(C_phiQ1/0.998)+9*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+274*C_lqP+57*C_ld+13*C_ed)*sigma_380_bb_eP_0_eM_M80/100;
-            }
-            else{
-                return  (100+9*(C_phiQ1/0.998)+9*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+274*C_lqP+57*C_ld+13*C_ed)*sigma_380_bb_eP_0_eM_M80/100;
-            }
+        return  sigma_380_bb_eP_0_eM_M80 +(127.954*ceb + -72.84*ceQ + 15.09*cHb +
+                96.824*cHQ1 + 96.824*cHQ3 + 550.04*clb + 2798.244*clq1 + 2798.244*clq3
+                )*sigma_380_bb_eP_0_eM_M80/sigma_380_bb_eP_0_eM_M80_Madgraph;
     }
 }
 
@@ -6423,38 +6674,54 @@ a_380_bb_eP_0_eM_P80::a_380_bb_eP_0_eM_P80(const StandardModel& SM_i)
 double a_380_bb_eP_0_eM_P80::computeThValue()
 {
     
-    //double a_380_bb_eP_0_eM_P80 = 47.9;//in percentage
-    double a_380_bb_eP_0_eM_P80 = SM.getOptionalParameter("SM_a_380_bb_eP_0_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    //double a_380_bb_eP_0_eM_P80 = 47.9;//in percentage OLD
+    // double a_380_bb_eP_0_eM_P80 = 0.48654
+    double asym_SM = SM.getOptionalParameter("SM_a_380_bb_eP_0_eM_P80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_380_bb_eP_0_eM_P80+(-6.1*((C_phiQm+C_phiQ3)/0.998)-6.1*(C_phiQ3/0.998)-3.4*(C_phib/0.998)+12.2*C_lqP-8.4*C_ld+2.8*C_ed)/100;
-
-            }
-            else{
-                return  a_380_bb_eP_0_eM_P80+(-6.1*((C_phiQm+C_phiQ3)/0.998)-6.1*(C_phiQ3/0.998)-3.4*(C_phib/0.998)+12.2*C_lqP-8.4*C_ld+2.8*C_ed)/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_380_bb_eP_0_eM_P80+(-6.1*(C_phiQ1/0.998)-6.1*(C_phiQ3/0.998)-3.4*(C_phib/0.998)+12.2*C_lqP-8.4*C_ld+2.8*C_ed)/100;
-            }
-            else{
-                return  a_380_bb_eP_0_eM_P80+(-6.1*(C_phiQ1/0.998)-6.1*(C_phiQ3/0.998)-3.4*(C_phib/0.998)+12.2*C_lqP-8.4*C_ld+2.8*C_ed)/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 245.6135715;
+    double NP_pos = 1006.1668132*ceb + -82.0819923*ceQ + -27.0470725*cHb + 
+    10.9831380*cHQ1 + 10.9831380*cHQ3 + 7.7659007*clb + 272.5095266*clq1 + 272.5095266*clq3;
+    
+    double SM_neg = 84.8364285;
+    double NP_neg = 145.2445868*ceb + -574.2720077*ceQ + -2.2259275*cHb + 
+    17.4316620*cHQ1 + 17.4316620*cHQ3 + 53.3618992*clb + 38.3984734*clq1 + 38.3984734*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -6469,136 +6736,178 @@ a_380_bb_eP_0_eM_M80::a_380_bb_eP_0_eM_M80(const StandardModel& SM_i)
 double a_380_bb_eP_0_eM_M80::computeThValue()
 {
     
-    //double a_380_bb_eP_0_eM_M80 = 67.93;//in percentage
-    double a_380_bb_eP_0_eM_M80 = SM.getOptionalParameter("SM_a_380_bb_eP_0_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    //double a_380_bb_eP_0_eM_M80 = 67.93;//in percentage OLD
+    // double a_380_bb_eP_0_eM_P80 = 0.6929;
+    double asym_SM = SM.getOptionalParameter("SM_a_380_bb_eP_0_eM_M80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 875.4663060;
+    double NP_pos = 113.9170800*ceb + -8.0975402*ceQ + -0.3958228*cHb + 83.1980184*cHQ1 + 
+    83.1980184*cHQ3 + 69.3365063*clb + 2449.3218223*clq1 + 2449.3218223*clq3;
+    
+    double SM_neg = 158.8136940;
+    double NP_neg = 14.0369200*ceb + -64.7424600*ceQ + 15.4858227*cHb + 13.6259818*cHQ1 + 
+    13.6259818*cHQ3 + 480.7034933*clb + 348.9221777*clq1 + 348.9221777*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+
+}
+
+
+
+
+
+
+
+/////// Prospects of Linear Colders at 1500 GeV //////////////////////////////////////////////////////////
+
+
+sigma_1500_bb_eP_0_eM_P80::sigma_1500_bb_eP_0_eM_P80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_1500_bb_eP_0_eM_P80");
+}
+
+double sigma_1500_bb_eP_0_eM_P80::computeThValue()
+{
+    
+    //double sigma_1400_bb_eP_0_eM_P80 = 23.77;//fb OLD
+    double sigma_1500_bb_eP_0_eM_P80_Madgraph = 19.6502;//fb
+    
+    double sigma_1500_bb_eP_0_eM_P80 = SM.getOptionalParameter("SM_sigma_1500_bb_eP_0_eM_P80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_380_bb_eP_0_eM_M80+(0.34*((C_phiQm+C_phiQ3)/0.998)+0.34*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+12*C_lqP-9.4*C_ld+0.5*C_ed)/100;
-
-            }
-            else{
-                return  a_380_bb_eP_0_eM_M80+(0.34*((C_phiQm+C_phiQ3)/0.998)+0.34*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+12*C_lqP-9.4*C_ld+0.5*C_ed)/100;            
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_380_bb_eP_0_eM_M80+(0.34*(C_phiQ1/0.998)+0.34*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+12*C_lqP-9.4*C_ld+0.5*C_ed)/100;            
-            }
-            else{
-                return  a_380_bb_eP_0_eM_M80+(0.34*(C_phiQ1/0.998)+0.34*(C_phiQ3/0.998)-2.6*(C_phib/0.998)+12*C_lqP-9.4*C_ld+0.5*C_ed)/100;            
-            }
+    
+    
+    if(flag_Quadratic){
+        return  sigma_1500_bb_eP_0_eM_P80 +(1137.42*ceb + 31376.2821*ceb*ceb + -572.12*ceQ + 
+                31374.4586*ceQ*ceQ + -1.75*cHb + 0.0995*cHb*cHb + 1.5643*cHQ1 + 0.1006*cHQ1*cHQ1 + 
+                1.5643*cHQ3 + 0.1006*cHQ3*cHQ3 + 63.178*clb + 3486.0762*clb*clb + 299.348*clq1 + 
+                3486.3786*clq1*clq1 + 299.348*clq3 + 3486.3786*clq3*clq3
+                )*sigma_1500_bb_eP_0_eM_P80/sigma_1500_bb_eP_0_eM_P80_Madgraph;
     }
-
+    else{
+        return  sigma_1500_bb_eP_0_eM_P80 +(1137.42*ceb + -572.12*ceQ + -1.75*cHb + 
+                1.5643*cHQ1 + 1.5643*cHQ3 + 63.178*clb + 299.348*clq1 + 299.348*clq3
+                )*sigma_1500_bb_eP_0_eM_P80/sigma_1500_bb_eP_0_eM_P80_Madgraph;
+    }
 }
 
 
 
 
-
-
-
-/////// Prospects of Linear Colders at 1400 GeV //////////////////////////////////////////////////////////
-
-
-sigma_1400_bb_eP_0_eM_P80::sigma_1400_bb_eP_0_eM_P80(const StandardModel& SM_i)
+sigma_1500_bb_eP_0_eM_M80::sigma_1500_bb_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    setParametersForObservable(make_vector<std::string>() << "SM_sigma_1400_bb_eP_0_eM_P80");
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_1500_bb_eP_0_eM_M80");
 }
 
-double sigma_1400_bb_eP_0_eM_P80::computeThValue()
-{
-    
-    //double sigma_1400_bb_eP_0_eM_P80 = 23.77;//fb
-    double sigma_1400_bb_eP_0_eM_P80 = SM.getOptionalParameter("SM_sigma_1400_bb_eP_0_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
-    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
-    
-
-    
-    if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+7.7*((C_phiQm+C_phiQ3)/0.998)+7.7*(C_phiQ3/0.998)-9.2*(C_phib/0.998)+1235*C_lqP+277*C_ld+4990*C_ed)*sigma_1400_bb_eP_0_eM_P80/100;
-
-            }
-            else{
-                return  (100+7.7*((C_phiQm+C_phiQ3)/0.998)+7.7*(C_phiQ3/0.998)-9.2*(C_phib/0.998)+1235*C_lqP+277*C_ld+4990*C_ed)*sigma_1400_bb_eP_0_eM_P80/100;
-            }
-    }
-    
-    else{
-            if(flag_Quadratic){
-                return  (100+7.7*(C_phiQ1/0.998)+7.7*(C_phiQ3/0.998)-9.2*(C_phib/0.998)+1235*C_lqP+277*C_ld+4990*C_ed)*sigma_1400_bb_eP_0_eM_P80/100;
-            }
-            else{
-                return  (100+7.7*(C_phiQ1/0.998)+7.7*(C_phiQ3/0.998)-9.2*(C_phib/0.998)+1235*C_lqP+277*C_ld+4990*C_ed)*sigma_1400_bb_eP_0_eM_P80/100;
-            }
-    }
-}
-
-
-
-
-sigma_1400_bb_eP_0_eM_M80::sigma_1400_bb_eP_0_eM_M80(const StandardModel& SM_i)
-: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
-{
-    setParametersForObservable(make_vector<std::string>() << "SM_sigma_1400_bb_eP_0_eM_M80");
-}
-
-double sigma_1400_bb_eP_0_eM_M80::computeThValue()
+double sigma_1500_bb_eP_0_eM_M80::computeThValue()
 {
     
     //double sigma_1400_bb_eP_0_eM_M80 = 68.85;//fb
-    double sigma_1400_bb_eP_0_eM_M80 = SM.getOptionalParameter("SM_sigma_1400_bb_eP_0_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double sigma_1500_bb_eP_0_eM_M80_Madgraph = 61.893;//fb
+    
+    double sigma_1500_bb_eP_0_eM_M80 = SM.getOptionalParameter("SM_sigma_1500_bb_eP_0_eM_M80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-        
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+8.7*((C_phiQm+C_phiQ3)/0.998)+8.7*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+3843*C_lqP+846*C_ld+182.5*C_ed)*sigma_1400_bb_eP_0_eM_M80/100;
-
-            }
-            else{
-                return  (100+8.7*((C_phiQm+C_phiQ3)/0.998)+8.7*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+3843*C_lqP+846*C_ld+182.5*C_ed)*sigma_1400_bb_eP_0_eM_M80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_1500_bb_eP_0_eM_M80 +(126.338*ceb + 3486.2941*ceb*ceb + -63.672*ceQ +
+                3486.0176*ceQ*ceQ + 0.9598*cHb + 0.1316*cHb*cHb + 5.6478*cHQ1 + 0.1342*cHQ1*cHQ1 +
+                5.6478*cHQ3 + 0.1342*cHQ3*cHQ3 + 568.5*clb + 31374.0435*clb*clb + 2695.22*clq1 + 
+                31376.2553*clq1*clq1 + 2695.22*clq3 + 31376.2553*clq3*clq3
+                )*sigma_1500_bb_eP_0_eM_M80/sigma_1500_bb_eP_0_eM_M80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+8.7*(C_phiQ1/0.998)+8.7*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+3843*C_lqP+846*C_ld+182.5*C_ed)*sigma_1400_bb_eP_0_eM_M80/100;
-            }
-            else{
-                return  (100+8.7*(C_phiQ1/0.998)+8.7*(C_phiQ3/0.998)+1.5*(C_phib/0.998)+3843*C_lqP+846*C_ld+182.5*C_ed)*sigma_1400_bb_eP_0_eM_M80/100;
-            }
+        return  sigma_1500_bb_eP_0_eM_M80 +(126.338*ceb + -63.672*ceQ + 0.9598*cHb + 
+                5.6478*cHQ1 + 5.6478*cHQ3 + 568.5*clb + 2695.22*clq1 + 2695.22*clq3
+                )*sigma_1500_bb_eP_0_eM_M80/sigma_1500_bb_eP_0_eM_M80_Madgraph;
     }
 }
 
@@ -6608,92 +6917,125 @@ double sigma_1400_bb_eP_0_eM_M80::computeThValue()
 
 
 
-a_1400_bb_eP_0_eM_P80::a_1400_bb_eP_0_eM_P80(const StandardModel& SM_i)
+a_1500_bb_eP_0_eM_P80::a_1500_bb_eP_0_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    setParametersForObservable(make_vector<std::string>() << "SM_a_1400_bb_eP_0_eM_P80");
+    setParametersForObservable(make_vector<std::string>() << "SM_a_1500_bb_eP_0_eM_P80");
 }
 
-double a_1400_bb_eP_0_eM_P80::computeThValue()
+double a_1500_bb_eP_0_eM_P80::computeThValue()
 {
     
     //double a_1400_bb_eP_0_eM_P80 = 51.8; //in percentage
-    double a_1400_bb_eP_0_eM_P80 = SM.getOptionalParameter("SM_a_1400_bb_eP_0_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    //double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    //double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    //double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    //double a_1500_bb_eP_0_eM_P80 = 0.5283
+    double asym_SM = SM.getOptionalParameter("SM_a_1500_bb_eP_0_eM_P80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_1400_bb_eP_0_eM_P80+(-5.6*((C_phiQm+C_phiQ3)/0.998)-5.6*(C_phiQ3/0.998)-3.1*(C_phib/0.998))/100;
-
-            }
-            else{
-                return  a_1400_bb_eP_0_eM_P80+(-5.6*((C_phiQm+C_phiQ3)/0.998)-5.6*(C_phiQ3/0.998)-3.1*(C_phib/0.998))/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_1400_bb_eP_0_eM_P80+(-5.6*(C_phiQ1/0.998)-5.6*(C_phiQ3/0.998)-3.1*(C_phib/0.998))/100;
-            }
-            else{
-                return  a_1400_bb_eP_0_eM_P80+(-5.6*(C_phiQ1/0.998)-5.6*(C_phiQ3/0.998)-3.1*(C_phib/0.998))/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 15.0157003;
+    double NP_pos = 996.0566886*ceb + -70.8619634*ceQ + -1.6207960*cHb + 
+    0.6387019*cHQ1 + 0.6387019*cHQ3 + 7.8897679*clb + 261.3672417*clq1 + 261.3672417*clq3;
+    
+    double SM_neg = 4.6344997;
+    double NP_neg = 141.3633100*ceb + -501.2580366*ceQ + -0.1292040*cHb + 
+    0.9256181*cHQ1 + 0.9256181*cHQ3 + 55.2882321*clb + 37.9807583*clq1 + 37.9807583*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
 
 
-a_1400_bb_eP_0_eM_M80::a_1400_bb_eP_0_eM_M80(const StandardModel& SM_i)
+a_1500_bb_eP_0_eM_M80::a_1500_bb_eP_0_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    setParametersForObservable(make_vector<std::string>() << "SM_a_1400_bb_eP_0_eM_M80");
+    setParametersForObservable(make_vector<std::string>() << "SM_a_1500_bb_eP_0_eM_M80");
 }
 
-double a_1400_bb_eP_0_eM_M80::computeThValue()
+double a_1500_bb_eP_0_eM_M80::computeThValue()
 {
     
-    // double a_1400_bb_eP_0_eM_M80 = 67.4;// in percentage
-    double a_1400_bb_eP_0_eM_M80 = SM.getOptionalParameter("SM_a_1400_bb_eP_0_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    //double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    //double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    //double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    // double a_1400_bb_eP_0_eM_M80 = 67.4;// in percentage OLD
+    // double a_1500_bb_eP_0_eM_M80 = 0.68746;
+    double asym_SM = SM.getOptionalParameter("SM_a_1500_bb_eP_0_eM_M80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_1400_bb_eP_0_eM_M80+(0.4*((C_phiQm+C_phiQ3)/0.998)+0.4*(C_phiQ3/0.998)-2.7*(C_phib/0.998))/100;
-
-            }
-            else{
-                return  a_1400_bb_eP_0_eM_M80+(0.4*((C_phiQm+C_phiQ3)/0.998)+0.4*(C_phiQ3/0.998)-2.7*(C_phib/0.998))/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_1400_bb_eP_0_eM_M80+(0.4*(C_phiQ1/0.998)+0.4*(C_phiQ3/0.998)-2.7*(C_phib/0.998))/100;
-            }
-            else{
-                return  a_1400_bb_eP_0_eM_M80+(0.4*(C_phiQ1/0.998)+0.4*(C_phiQ3/0.998)-2.7*(C_phib/0.998))/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 52.2209809;
+    double NP_pos = 110.9946828*ceb + -8.3707272*ceQ + -0.0152505*cHb + 
+    4.8653457*cHQ1 + 4.8653457*cHQ3 + 94.5528562*clb + 2355.0420720*clq1 + 2355.0420720*clq3;
+    
+    double SM_neg = 9.6720191;
+    double NP_neg = 15.3433172*ceb + -55.3012728*ceQ + 0.9750505*cHb + 
+    0.7824543*cHQ1 + 0.7824543*cHQ3 + 473.9471406*clb + 340.1779276*clq1 + 340.1779276*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -6835,41 +7177,47 @@ double sigma_3000_bb_eP_0_eM_P80::computeThValue()
 {
     
     //double sigma_3000_bb_eP_0_eM_P80 = 5.158;//fb
+    double sigma_3000_bb_eP_0_eM_P80_Madgraph = 4.8944;//fb
+    
     double sigma_3000_bb_eP_0_eM_P80 = SM.getOptionalParameter("SM_sigma_3000_bb_eP_0_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    //double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
-    //double C_tphi = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
-    //double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
-    //double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+7.6*((C_phiQm+C_phiQ3)/0.998)+7.6*(C_phiQ3/0.998)-9.3*(C_phib/0.998)+5684*C_lqP+1273*C_ld+25000*C_ed)*sigma_3000_bb_eP_0_eM_P80/100;
-
-            }
-            else{
-                return  (100+7.6*((C_phiQm+C_phiQ3)/0.998)+7.6*(C_phiQ3/0.998)-9.3*(C_phib/0.998)+5684*C_lqP+1273*C_ld+25000*C_ed)*sigma_3000_bb_eP_0_eM_P80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_3000_bb_eP_0_eM_P80 +(1136.42*ceb + 125508.2066*ceb*ceb + -564.16*ceQ +
+                125499.7478*ceQ*ceQ + -0.436*cHb + 0.0249*cHb*cHb + 0.388*cHQ1 + 0.0252*cHQ1*cHQ1 +
+                0.388*cHQ3 + 0.0252*cHQ3*cHQ3 + 63.736*clb + 13944.4584*clb*clb + 298.824*clq1 +
+                13945.3384*clq1*clq1 + 298.824*clq3 + 13945.3384*clq3*clq3
+                )*sigma_3000_bb_eP_0_eM_P80/sigma_3000_bb_eP_0_eM_P80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+7.6*(C_phiQ1/0.998)+7.6*(C_phiQ3/0.998)-9.3*(C_phib/0.998)+5684*C_lqP+1273*C_ld+25000*C_ed)*sigma_3000_bb_eP_0_eM_P80/100;
-            }
-            else{
-                return  (100+7.6*(C_phiQ1/0.998)+7.6*(C_phiQ3/0.998)-9.3*(C_phib/0.998)+5684*C_lqP+1273*C_ld+25000*C_ed)*sigma_3000_bb_eP_0_eM_P80/100;
-            }
+        return  sigma_3000_bb_eP_0_eM_P80 +(1136.42*ceb + -564.16*ceQ + -0.436*cHb +
+                0.388*cHQ1 + 0.388*cHQ3 + 63.736*clb + 298.824*clq1 + 298.824*clq3
+                )*sigma_3000_bb_eP_0_eM_P80/sigma_3000_bb_eP_0_eM_P80_Madgraph;
     }
 }
 
@@ -6886,39 +7234,49 @@ double sigma_3000_bb_eP_0_eM_M80::computeThValue()
 {
     
     //double sigma_3000_bb_eP_0_eM_M80 = 14.92;//fb
+    double sigma_3000_bb_eP_0_eM_M80_Madgraph = 15.4199;//fb
+    
     double sigma_3000_bb_eP_0_eM_M80 = SM.getOptionalParameter("SM_sigma_3000_bb_eP_0_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    //double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
-    //double C_tphi = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
-    //double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
-    //double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
-
     
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  (100+8.8*((C_phiQm+C_phiQ3)/0.998)+8.8*(C_phiQ3/0.998)+1.6*(C_phib/0.998)+17193*C_lqP+4002*C_ld+858*C_ed)*sigma_3000_bb_eP_0_eM_M80/100;
-
-            }
-            else{
-                return  (100+8.8*((C_phiQm+C_phiQ3)/0.998)+8.8*(C_phiQ3/0.998)+1.6*(C_phib/0.998)+17193*C_lqP+4002*C_ld+858*C_ed)*sigma_3000_bb_eP_0_eM_M80/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_3000_bb_eP_0_eM_M80 +(126.272*ceb + 13945.2636*ceb*ceb + -62.706*ceQ + 
+                13944.3236*ceQ*ceQ + 0.2395*cHb + 0.0333*cHb*cHb + 1.4052*cHQ1 + 0.0336*cHQ1*cHQ1 +
+                1.4052*cHQ3 + 0.0336*cHQ3*cHQ3 + 572.94*clb + 125500.3648*clb*clb + 2690.64*clq1 + 
+                125507.2472*clq1*clq1 + 2690.64*clq3 + 125507.2472*clq3*clq3
+                )*sigma_3000_bb_eP_0_eM_M80/sigma_3000_bb_eP_0_eM_M80_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  (100+8.8*(C_phiQ1/0.998)+8.8*(C_phiQ3/0.998)+1.6*(C_phib/0.998)+17193*C_lqP+4002*C_ld+858*C_ed)*sigma_3000_bb_eP_0_eM_M80/100;
-            }
-            else{
-                return  (100+8.8*(C_phiQ1/0.998)+8.8*(C_phiQ3/0.998)+1.6*(C_phib/0.998)+17193*C_lqP+4002*C_ld+858*C_ed)*sigma_3000_bb_eP_0_eM_M80/100;
-            }
+        return  sigma_3000_bb_eP_0_eM_M80 +(126.272*ceb + -62.706*ceQ + 0.2395*cHb + 
+                1.4052*cHQ1 + 1.4052*cHQ3 + 572.94*clb + 2690.64*clq1 + 2690.64*clq3
+                )*sigma_3000_bb_eP_0_eM_M80/sigma_3000_bb_eP_0_eM_M80_Madgraph;
     }
 }
 
@@ -6934,38 +7292,54 @@ a_3000_bb_eP_0_eM_P80::a_3000_bb_eP_0_eM_P80(const StandardModel& SM_i)
 double a_3000_bb_eP_0_eM_P80::computeThValue()
 {
     
-    //double a_3000_bb_eP_0_eM_P80 = 52.8; //in percentage
-    double a_3000_bb_eP_0_eM_P80 = SM.getOptionalParameter("SM_a_3000_bb_eP_0_eM_P80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    //double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    //double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    //double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    //double a_3000_bb_eP_0_eM_P80 = 52.8; //in percentage OLD
+    //double a_3000_bb_eP_0_eM_P80 = 0.53118;
+    double asym_SM = SM.getOptionalParameter("SM_a_3000_bb_eP_0_eM_P80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_3000_bb_eP_0_eM_P80+(-5.5*((C_phiQm+C_phiQ3)/0.998)-5.5*(C_phiQ3/0.998)-3.1*(C_phib/0.998))/100;
-
-            }
-            else{
-                return  a_3000_bb_eP_0_eM_P80+(-5.5*((C_phiQm+C_phiQ3)/0.998)-5.5*(C_phiQ3/0.998)-3.1*(C_phib/0.998))/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_3000_bb_eP_0_eM_P80+(-5.5*(C_phiQ1/0.998)-5.5*(C_phiQ3/0.998)-3.1*(C_phib/0.998))/100;
-            }
-            else{
-                return  a_3000_bb_eP_0_eM_P80+(-5.5*(C_phiQ1/0.998)-5.5*(C_phiQ3/0.998)-3.1*(C_phib/0.998))/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 3.7471037;
+    double NP_pos = 931.9530409*ceb + 7.9854048*ceQ + -0.4033776*cHb + 0.1647738*cHQ1 +
+    0.1647738*cHQ3 + 7.9010564*clb + 262.4199070*clq1 + 262.4199070*clq3;
+    
+    double SM_neg = 1.1472963;
+    double NP_neg = 204.4669803*ceb + -572.1454049*ceQ + -0.0326344*cHb + 0.2232302*cHQ1 +
+    0.2232302*cHQ3 + 55.8349439*clb + 36.4040942*clq1 + 36.4040942*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -6981,36 +7355,53 @@ double a_3000_bb_eP_0_eM_M80::computeThValue()
 {
     
     // double a_3000_bb_eP_0_eM_M80 = 67.6;// in percentage
-    double a_3000_bb_eP_0_eM_M80 = SM.getOptionalParameter("SM_a_3000_bb_eP_0_eM_M80");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    //double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    //double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    //double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    // double a_3000_bb_eP_0_eM_M80 = 0.68582;
+    double asym_SM = SM.getOptionalParameter("SM_a_3000_bb_eP_0_eM_M80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_3000_bb_eP_0_eM_M80+(0.42*((C_phiQm+C_phiQ3)/0.998)+0.42*(C_phiQ3/0.998)-2.8*(C_phib/0.998))/100;
-
-            }
-            else{
-                return  a_3000_bb_eP_0_eM_M80+(0.42*((C_phiQm+C_phiQ3)/0.998)+0.42*(C_phiQ3/0.998)-2.8*(C_phib/0.998))/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_3000_bb_eP_0_eM_M80+(0.42*(C_phiQ1/0.998)+0.42*(C_phiQ3/0.998)-2.8*(C_phib/0.998))/100;
-            }
-            else{
-                return  a_3000_bb_eP_0_eM_M80+(0.42*(C_phiQ1/0.998)+0.42*(C_phiQ3/0.998)-2.8*(C_phib/0.998))/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 12.9975879;
+    double NP_pos = 111.0489210*ceb + -14.4162828*ceQ + -0.0100958*cHb + 1.2080351*cHQ1 + 
+    1.2080351*cHQ3 + 167.1403272*clb + 2294.6886074*clq1 + 2294.6886074*clq3;
+    
+    double SM_neg = 2.4223121;
+    double NP_neg = 15.2230773*ceb + -48.2897121*ceQ + 0.2495958*cHb + 0.1971449*cHQ1 + 
+    0.1971449*cHQ3 + 405.7996696*clb + 395.9513926*clq1 + 395.9513926*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -7149,36 +7540,47 @@ sigma_240_bb::sigma_240_bb(const StandardModel& SM_i)
 double sigma_240_bb::computeThValue()
 {
     
-    //double sigma_240_bb_Madgraph = 1921;//fb
+    //double sigma_240_bb_Madgraph = 1921;//fb OLD
+    double sigma_240_bb_Madgraph = 1948.64;//fb
     double sigma_240_bb = SM.getOptionalParameter("SM_sigma_240_bb");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  sigma_240_bb/100*(100+9.3*((C_phiQm+C_phiQ3)/0.998)+9.3*(C_phiQ3/0.998)-1.4*(C_phib/0.998)+85*C_lqP+15*C_ld+36*C_ed);
-
-            }
-            else{
-                return  sigma_240_bb/100*(100+9.3*((C_phiQm+C_phiQ3)/0.998)+9.3*(C_phiQ3/0.998)-1.4*(C_phib/0.998)+85*C_lqP+15*C_ld+36*C_ed);
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_240_bb +(654.3*ceb + 445.4682*ceb*ceb + -450.448*ceQ + 445.1694*ceQ*ceQ + 
+                -22.284*cHb + 6.1388*cHb*cHb + 189.356*cHQ1 + 6.0824*cHQ1*cHQ1 + 189.356*cHQ3 + 
+                6.0824*cHQ3*cHQ3 + 287.594*clb + 445.3588*clb*clb + 1661.668*clq1 + 
+                445.4776*clq1*clq1 + 1661.668*clq3 + 445.4776*clq3*clq3
+                )*sigma_240_bb/sigma_240_bb_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  sigma_240_bb/100*(100+9.3*(C_phiQ1/0.998)+9.3*(C_phiQ3/0.998)-1.4*(C_phib/0.998)+85*C_lqP+15*C_ld+36*C_ed);
-            }
-            else{
-                return  sigma_240_bb/100*(100+9.3*(C_phiQ1/0.998)+9.3*(C_phiQ3/0.998)-1.4*(C_phib/0.998)+85*C_lqP+15*C_ld+36*C_ed);
-            }
+        return  sigma_240_bb +(654.3*ceb + -450.448*ceQ + -22.284*cHb + 189.356*cHQ1 + 
+                189.356*cHQ3 + 287.594*clb + 1661.668*clq1 + 1661.668*clq3
+                )*sigma_240_bb/sigma_240_bb_Madgraph;
     }
 }
 
@@ -7195,38 +7597,54 @@ a_240_bb::a_240_bb(const StandardModel& SM_i)
 double a_240_bb::computeThValue()
 {
     
-    //double a_240_bb = 58.4;//in percentage
-    double a_240_bb = SM.getOptionalParameter("SM_a_240_bb");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    //double a_240_bb = 58.4;//in percentage OLD
+    // double a_240_bb = 0.62636;
+    double asym_SM = SM.getOptionalParameter("SM_a_240_bb");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
-
     
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_240_bb + (-1.5*((C_phiQm+C_phiQ3)/0.998)-1.5*(C_phiQ3/0.998)-2.3*(C_phib/0.998)+14*C_lqP-14*C_ld+3*C_ed)/100;
-
-            }
-            else{
-                return  a_240_bb + (-1.5*((C_phiQm+C_phiQ3)/0.998)-1.5*(C_phiQ3/0.998)-2.3*(C_phib/0.998)+14*C_lqP-14*C_ld+3*C_ed)/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_240_bb + (-1.5*(C_phiQ1/0.998)-1.5*(C_phiQ3/0.998)-2.3*(C_phib/0.998)+14*C_lqP-14*C_ld+3*C_ed)/100;
-            }
-            else{
-                return  a_240_bb + (-1.5*(C_phiQ1/0.998)-1.5*(C_phiQ3/0.998)-2.3*(C_phib/0.998)+14*C_lqP-14*C_ld+3*C_ed)/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 1584.5950752;
+    double NP_pos = 573.7625397*ceb + -55.6448403*ceQ + -39.0855201*cHb + 141.2653044*cHQ1 +
+    141.2653044*cHQ3 + 34.2530098*clb + 1452.6897692*clq1 + 1452.6897692*clq3;
+    
+    double SM_neg = 364.0449248;
+    double NP_neg = 80.5374604*ceb + -394.8031597*ceQ + 16.8015205*cHb + 48.0906956*cHQ1 + 
+    48.0906956*cHQ3 + 253.3409900*clb + 208.9782308*clq1 + 208.9782308*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -7245,35 +7663,47 @@ double sigma_360_bb::computeThValue()
 {
     
     //double sigma_360_bb_Madgraph = 757.8;//fb
+    double sigma_360_bb_Madgraph = 767.33;//fb
     double sigma_360_bb = SM.getOptionalParameter("SM_sigma_360_bb");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
-
     
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  sigma_360_bb/100*(100+8.9*((C_phiQm+C_phiQ3)/0.998)+8.9*(C_phiQ3/0.998)-1.3*(C_phib/0.998)+202*C_lqP+41*C_ld+87*C_ed);
-
-            }
-            else{
-                return  sigma_360_bb/100*(100+8.9*((C_phiQm+C_phiQ3)/0.998)+8.9*(C_phiQ3/0.998)-1.3*(C_phib/0.998)+202*C_lqP+41*C_ld+87*C_ed);
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
+    if(flag_Quadratic){
+        return  sigma_360_bb +(640.698*ceb + 1003.5376*ceb*ceb + -370.464*ceQ + 
+                1003.1506*ceQ*ceQ + -8.02*cHb + 2.2212*cHb*cHb + 70.676*cHQ1 + 
+                2.2282*cHQ1*cHQ1 + 70.676*cHQ3 + 2.2282*cHQ3*cHQ3 + 304.324*clb + 
+                1003.1153*clb*clb + 1561.9484*clq1 + 1003.4786*clq1*clq1 + 
+                1561.9484*clq3 + 1003.4786*clq3*clq3
+                )*sigma_360_bb/sigma_360_bb_Madgraph;
+    }
     else{
-            if(flag_Quadratic){
-                return  sigma_360_bb/100*(100+8.9*(C_phiQ1/0.998)+8.9*(C_phiQ3/0.998)-1.3*(C_phib/0.998)+202*C_lqP+41*C_ld+87*C_ed);
-            }
-            else{
-                return  sigma_360_bb/100*(100+8.9*(C_phiQ1/0.998)+8.9*(C_phiQ3/0.998)-1.3*(C_phib/0.998)+202*C_lqP+41*C_ld+87*C_ed);
-            }
+        return  sigma_360_bb +(640.698*ceb + -370.464*ceQ + -8.02*cHb + 70.676*cHQ1 + 
+                70.676*cHQ3 + 304.324*clb + 1561.9484*clq1 + 1561.9484*clq3
+                )*sigma_360_bb/sigma_360_bb_Madgraph;
     }
 }
 
@@ -7290,36 +7720,53 @@ double a_360_bb::computeThValue()
 {
     
     // double a_360_bb = 62.9;// in percentage
-    double a_360_bb = SM.getOptionalParameter("SM_a_360_bb");
-    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
-    double C_phiQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
-    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
-    double C_phib = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
-    double C_ed = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
-    double C_ld = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
-    double C_lqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    // double a_360_bb = 0.64086;
+    double asym_SM = SM.getOptionalParameter("SM_a_360_bb");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
     bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
-    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
-
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
     
+    
+    double cHQ1;
     if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                return  a_360_bb + (-1.3*((C_phiQm+C_phiQ3)/0.998)-1.3*(C_phiQ3/0.998)-2.4*(C_phib/0.998)+19*C_lqP-11*C_ld+2.3*C_ed)/100;
-
-            }
-            else{
-                return  a_360_bb + (-1.3*((C_phiQm+C_phiQ3)/0.998)-1.3*(C_phiQ3/0.998)-2.4*(C_phib/0.998)+19*C_lqP-11*C_ld+2.3*C_ed)/100;
-            }
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
-    else{
-            if(flag_Quadratic){
-                return  a_360_bb + (-1.3*(C_phiQ1/0.998)-1.3*(C_phiQ3/0.998)-2.4*(C_phib/0.998)+19*C_lqP-11*C_ld+2.3*C_ed)/100;
-            }
-            else{
-                return  a_360_bb + (-1.3*(C_phiQ1/0.998)-1.3*(C_phiQ3/0.998)-2.4*(C_phib/0.998)+19*C_lqP-11*C_ld+2.3*C_ed)/100;
-            }
-    }
+    
+    //We provide these values at linear order
+    double SM_pos = 629.5405519;
+    double NP_pos = 559.5420937*ceb + -46.1775177*ceQ + -15.0147661*cHb + 54.0983184*cHQ1 +
+    54.0983184*cHQ3 + 36.8141818*clb + 1367.8373494*clq1 + 1367.8373494*clq3;
+    
+    double SM_neg = 137.7894481;
+    double NP_neg = 81.1559063*ceb + -324.2864823*ceQ + 6.9947662*cHb + 16.5776817*cHQ1 + 
+    16.5776817*cHQ3 + 267.5098183*clb + 194.1110506*clq1 + 194.1110506*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
 }
 
 
@@ -10276,6 +10723,34 @@ double b4_ttH_LO::computeThValue()
     //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
     //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
+        
+    
+    
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+//        ctWRe = -ctWRe;
+//        ctWIm = -ctWIm;
+        ctGRe = -ctGRe;
+        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
     
     
    
@@ -10285,22 +10760,9 @@ double b4_ttH_LO::computeThValue()
         double b4_tth_bin_m1_m0p5_madgraph_LO = 1.0632053747005017;//pb
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_b4_tth_bin_m1_m0p5 + (0.)*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
 
-            }
-            else{
-                total =  SM_b4_tth_bin_m1_m0p5 + (0.)*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        
+        if(flag_Quadratic){
                 total =  SM_b4_tth_bin_m1_m0p5 + (0.9099876415629798*cHG + -0.0010300606606064*cHGtil + -0.0072774365119454*ctGIm + 
                         -1.1208249512813937*ctGRe + 0.0001306763659588*ctHIm + -0.1310184227297144*ctHRe + 
                         0.8720158431990803*cHG*cHG + 0.8387148042401372*cHGtil*cHGtil + 0.978724230188362*ctGIm*ctGIm + 
@@ -10313,38 +10775,23 @@ double b4_ttH_LO::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 total =  SM_b4_tth_bin_m1_m0p5 + (0.9099876415629798*cHG + 
                         -1.1208249512813937*ctGRe + -0.1310184227297144*ctHRe
                         )*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
         }
-        
+       
     } else if(b_min == -0.5 && b_max == 0.){
         
         double SM_b4_tth_bin_m0p5_0 = SM.getOptionalParameter("SM_b4_ttH_LO_bin_m0p5_0");
         double b4_tth_bin_m0p5_0_madgraph_LO = 1.932424901417113;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_b4_tth_bin_m0p5_0 + (0.)*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
 
-            }
-            else{
-                total =  SM_b4_tth_bin_m0p5_0 + (0.)*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        if(flag_Quadratic){
                 total =  SM_b4_tth_bin_m0p5_0 + (2.564414022112631*cHG + -0.0058418320499841*cHGtil + -0.0014131708015416*ctGIm +
                         -2.7816281236042366*ctGRe + 0.0006977531934252*ctHIm + -0.2344736662557363*ctHRe + 
                         2.034123418248873*cHG*cHG + 1.9614091942645784*cHGtil*cHGtil + 2.537841408134752*ctGIm*ctGIm +
@@ -10357,37 +10804,22 @@ double b4_ttH_LO::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 total =  SM_b4_tth_bin_m0p5_0 + (2.564414022112631*cHG + 
                         -2.7816281236042366*ctGRe -0.2344736662557363*ctHRe
                         )*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
         }
-        
+
     } else if(b_min == 0. && b_max == 0.5){
         
         double SM_b4_tth_bin_0_0p5 = SM.getOptionalParameter("SM_b4_ttH_LO_bin_0_0p5");
         double b4_tth_bin_0_0p5_madgraph_LO = 2.48186478266304;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_b4_tth_bin_0_0p5 + (0.)*(SM_b4_tth_bin_0_0p5/b4_tth_bin_0_0p5_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
 
-            }
-            else{
-                total = SM_b4_tth_bin_0_0p5 + (0.)*(SM_b4_tth_bin_0_0p5/b4_tth_bin_0_0p5_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
             if(flag_Quadratic){
                 total = SM_b4_tth_bin_0_0p5 + (3.2093661829551725*cHG + 0.0040473508076501*cHGtil + -0.0214235574051536*ctGIm +
                         -3.501689241803734*ctGRe + -0.0002818808467928*ctHIm + -0.3031442522037286*ctHRe + 
@@ -10409,29 +10841,14 @@ double b4_ttH_LO::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
             }
-        }
-        
+
     } else if(b_min == 0.5 && b_max == 1.){
         
         double SM_b4_tth_bin_0p5_1 = SM.getOptionalParameter("SM_b4_ttH_LO_bin_0p5_1");
         double b4_tth_bin_0p5_1_madgraph_LO = 4.587536187686661;//pb
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_b4_tth_bin_0p5_1 + (0.)*(SM_b4_tth_bin_0p5_1/b4_tth_bin_0p5_1_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
 
-            }
-            else{
-                total = SM_b4_tth_bin_0p5_1 + (0.)*(SM_b4_tth_bin_0p5_1/b4_tth_bin_0p5_1_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
             if(flag_Quadratic){
                 total = SM_b4_tth_bin_0p5_1 + (3.862512212641887*cHG + 0.002563831698582*cHGtil + 0.0383509219233417*ctGIm +
                         -4.967994348065772*ctGRe + -0.0006966357644115*ctHIm + -0.554551144413014*ctHRe +
@@ -10453,8 +10870,7 @@ double b4_ttH_LO::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
             }
-        }
-        
+
     } else{
         throw std::runtime_error("\nERROR: Please specify a correct binning for b4_tth_LO. \n");
     }    
@@ -10492,58 +10908,45 @@ double Asymmetry_Dazi_ord_ttH::computeThValue()
     //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+//        ctWRe = -ctWRe;
+//        ctWIm = -ctWIm;
+        ctGRe = -ctGRe;
+        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
+    
+    
+    
+    
     //double SM_Asymmetry_Dazi_ord = SM.getOptionalParameter("SM_Asymmetry_Dazi_ord");
     
     double Dazi_ord_neg_Mad = 0.801238412607049;
     double Dazi_ord_pos_Mad = 0.8006171719284476;
     
-    if(flag_LHC_WG_Basis){
-        if(flag_Quadratic){
-             
-
-    
-            double Dazi_ord_neg_NP = 0.;
-            double Dazi_ord_pos_NP = 0.;
-    
-    
-            //double num = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) - (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
-            //double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
-    
-            
-            //We set the SM difference to zero
-            double num = (Dazi_ord_pos_NP) - (Dazi_ord_neg_NP);
-            double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
-    
-            double total = num/deno;
-            return total;
-
-        }
-        else{
-
-            
-    
-            double Dazi_ord_neg_NP = 0.;
-            double Dazi_ord_pos_NP = 0.;
-    
-    
-            //double num = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) - (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
-            //double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
-    
-            
-            //We set the SM difference to zero
-            double num = (Dazi_ord_pos_NP) - (Dazi_ord_neg_NP);
-            double deno = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) + (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
-    
-            double total = num/deno;
-            return total;
-                
-        }
-    }
-    else{
-        if(flag_Quadratic){
 
 
-    
+    if(flag_Quadratic){
+
             double Dazi_ord_neg_NP = 0.8409727694620143*cHG + 0.0239522015720341*cHGtil + -0.0727650821867264*ctGIm +
             -0.9799092492967638*ctGRe + -0.0001997762114054*ctHIm + -0.0974440045456804*ctHRe + 
             0.6180724642963468*cHG*cHG + 0.6006262262731293*cHGtil*cHGtil + 0.7856367509999758*ctGIm*ctGIm + 
@@ -10575,8 +10978,8 @@ double Asymmetry_Dazi_ord_ttH::computeThValue()
             double total = num/deno;
             return total;
             
-        }
-        else{
+    }
+    else{
 
             
     
@@ -10599,8 +11002,8 @@ double Asymmetry_Dazi_ord_ttH::computeThValue()
             double total = num/deno;
             return total;
             
-        }
-    }  
+    }
+
 }
 
 
@@ -10631,58 +11034,47 @@ double Asymmetry_Dazi_ord_ttH_ee::computeThValue()
     //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+    
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+//        ctWRe = -ctWRe;
+//        ctWIm = -ctWIm;
+        ctGRe = -ctGRe;
+        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
+    
+    
+    
+    
+    
     //double SM_Asymmetry_Dazi_ord = SM.getOptionalParameter("SM_Asymmetry_Dazi_ord");
     
     double Dazi_ord_ee_neg_Mad = 0.8006766500797665;
     double Dazi_ord_ee_pos_Mad = 0.8011790447500986;
     
-    if(flag_LHC_WG_Basis){
-        if(flag_Quadratic){
-             
 
-    
-            double Dazi_ord_ee_neg_NP = 0.;
-            double Dazi_ord_ee_pos_NP = 0.;
-    
-    
-            //double num = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
-            //double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
-            
-            
-            //We set the SM difference to zero
-            double num = (Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_NP);
-            double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
-    
-            double total = num/deno;
-            return total;
+    if(flag_Quadratic){
 
-        }
-        else{
-
-
-    
-            double Dazi_ord_ee_neg_NP = 0.;
-            double Dazi_ord_ee_pos_NP = 0.;
-    
-    
-            //double num = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
-            //double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
-            
-            
-            //We set the SM difference to zero
-            double num = (Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_NP);
-            double deno = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) + (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
-    
-            double total = num/deno;
-            return total;
-                
-        }
-    }
-    else{
-        if(flag_Quadratic){
-
-
-    
+        
             double Dazi_ord_ee_neg_NP = 0.8404288553887629*cHG + 0.0208422647737813*cHGtil + -0.0550100485100096*ctGIm +
             -0.9837800350478916*ctGRe + 0.0016550964830614*ctHIm + -0.0975509276270819*ctHRe +
             0.6176131445418394*cHG*cHG + 0.6001348092040816*cHGtil*cHGtil + 0.786572959445111*ctGIm*ctGIm +
@@ -10737,8 +11129,7 @@ double Asymmetry_Dazi_ord_ttH_ee::computeThValue()
             
             double total = num/deno;
             return total;
-            
-        }
+
     }
 }
 
@@ -10776,6 +11167,35 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
     //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+    
+    
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+//        ctWRe = -ctWRe;
+//        ctWIm = -ctWIm;
+        ctGRe = -ctGRe;
+        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
+    
    
     if(b_min == 450 && b_max == 655){
         
@@ -10783,22 +11203,8 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
         double ttH_bin_450_655_madgraph_LO = 0.0085968515036142;//pb/GeV 
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_ttH_bin_450_655 + (0.)*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                total =  SM_ttH_bin_450_655 + (0.)*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        
+        if(flag_Quadratic){
                 total =  SM_ttH_bin_450_655 + (0.0045181955745771*cHG + 2.092434682771094e-06*cHGtil + 3.35721352610896e-06*ctGIm +
                         -0.0073319817382764*ctGRe + 2.178950715664429e-06*ctHIm + -0.0010488957886131*ctHRe + 
                         0.001129479117399*cHG*cHG + 0.0012542998928326*cHGtil*cHGtil + 0.0027597465911086*ctGIm*ctGIm + 
@@ -10811,14 +11217,14 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 total =  SM_ttH_bin_450_655 + (0.0045181955745771*cHG +
                         -0.0073319817382764*ctGRe + -0.0010488957886131*ctHRe
                         )*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
+        
         }
         
     } else if(b_min == 655 && b_max == 860){
@@ -10827,21 +11233,8 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
         double ttH_bin_655_860_madgraph_LO = 0.0089470371846531;//pb/GeV
         double total;
  
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                total =  SM_ttH_bin_655_860 + (0.)*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
 
-            }
-            else{
-                total =  SM_ttH_bin_655_860 + (0.)*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        if(flag_Quadratic){
                 total =  SM_ttH_bin_655_860 + (0.0068342312470782*cHG + 6.516776100529143e-06*cHGtil + 1.7655998727092448e-05*ctGIm +
                         -0.0096851624939012*ctGRe + -8.016268841642971e-07*ctHIm + -0.0010829961514144*ctHRe +
                         0.0032625736708071*cHG*cHG + 0.0034043208850053*cHGtil*cHGtil + 0.0056434013751323*ctGIm*ctGIm +
@@ -10854,14 +11247,14 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 total =  SM_ttH_bin_655_860 + (0.0068342312470782*cHG +
                         -0.0096851624939012*ctGRe + -0.0010829961514144*ctHRe
                         )*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
+        
         }
     
     } else if(b_min == 860 && b_max == 1270){
@@ -10870,21 +11263,8 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
         double ttH_bin_860_1270_madgraph_LO = 0.0026949395920587;//pb/GeV
         double total;
  
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                total =  SM_ttH_bin_860_1270 + (0.)*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
 
-            }
-            else{
-                total =  SM_ttH_bin_860_1270 + (0.)*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        if(flag_Quadratic){
                 total =  SM_ttH_bin_860_1270 + (0.0035482569627141*cHG + -8.220476758191708e-07*cHGtil + 1.2052119047978316e-05*ctGIm +
                         -0.0041580771412648*ctGRe + -1.45859601326237e-06*ctHIm + -0.0003266623947329*ctHRe +
                         0.0031788183581889*cHG*cHG + 0.0030970512164488*cHGtil*cHGtil + 0.0038709717867162*ctGIm*ctGIm +
@@ -10904,7 +11284,6 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
                         )*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
         }
     
     } else if(b_min == 1270 && b_max == 2500){
@@ -10913,21 +11292,8 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
         double ttH_bin_1270_2500_madgraph_LO = 0.0002602108651872;//pb/GeV
         double total;
  
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                total =  SM_ttH_bin_1270_2500 + (0.)*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
 
-            }
-            else{
-                total =  SM_ttH_bin_1270_2500 + (0.)*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        if(flag_Quadratic){
                 total =  SM_ttH_bin_1270_2500 + (0.0010427269178651*cHG + -9.856161004434538e-07*cHGtil + 4.622973593784718e-06*ctGIm +
                         -0.0007284069850997*ctGRe + 2.406669648430393e-07*ctHIm + -3.129120993544568e-05*ctHRe + 
                         0.0011892767595462*cHG*cHG + 0.0011046291764241*cHGtil*cHGtil + 0.0011424484585363*ctGIm*ctGIm + 
@@ -10940,14 +11306,14 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 total =  SM_ttH_bin_1270_2500 + (0.0010427269178651*cHG +
                         -0.0007284069850997*ctGRe + -3.129120993544568e-05*ctHRe
                         )*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
+        
         }
     
     } else{
@@ -10989,55 +11355,42 @@ double Asymmetry_trip_prod_pt_pe_pp_ttH::computeThValue()
     //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+        //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+//        ctWRe = -ctWRe;
+//        ctWIm = -ctWIm;
+        ctGRe = -ctGRe;
+        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
+    
+    
     //double SM_Asymmetry_Dazi_ord = SM.getOptionalParameter("SM_Asymmetry_Dazi_ord");
     
     double trip_prod_neg_Mad = 2.5127944405346114;
     double trip_prod_pos_Mad = 2.520483758548904;
     
-    if(flag_LHC_WG_Basis){
-        if(flag_Quadratic){
-             
-
-    
-            double trip_prod_neg_NP = 0.;
-            double trip_prod_pos_NP = 0.;
-    
-    
-            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
-            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
-            
-            
-            //We set the SM difference to zero
-            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
-            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
-    
-            double total = num/deno;
-            return total;
-
-        }
-        else{
 
 
-    
-            double trip_prod_neg_NP = 0.;
-            double trip_prod_pos_NP = 0.;
-    
-    
-            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
-            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
-            
-            
-            //We set the SM difference to zero
-            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
-            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
-    
-            double total = num/deno;
-            return total;
-                
-        }
-    }
-    else{
-        if(flag_Quadratic){
+    if(flag_Quadratic){
 
 
     
@@ -11072,8 +11425,8 @@ double Asymmetry_trip_prod_pt_pe_pp_ttH::computeThValue()
             double total = num/deno;
             return total;
             
-        }
-        else{
+    }
+    else{
 
             
     
@@ -11096,7 +11449,6 @@ double Asymmetry_trip_prod_pt_pe_pp_ttH::computeThValue()
             double total = num/deno;
             return total;
             
-        }
     }
     
 }
@@ -11133,54 +11485,42 @@ double Asymmetry_sign_trip_prod_pe_pp_ttH::computeThValue()
     //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+//        ctWRe = -ctWRe;
+//        ctWIm = -ctWIm;
+        ctGRe = -ctGRe;
+        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
+    
+    
     //double SM_Asymmetry_Dazi_ord = SM.getOptionalParameter("SM_Asymmetry_Dazi_ord");
     
     double sign_trip_prod_pe_pp_neg_Mad = 2.5199987657363723;
     double sign_trip_prod_pe_pp_pos_Mad = 2.512378708453129;
     
     
-    if(flag_LHC_WG_Basis){
-        if(flag_Quadratic){
-             
-            
-            double sign_trip_prod_pe_pp_neg_NP = 0.;
-            double sign_trip_prod_pe_pp_pos_NP = 0.;
-    
-            
-            //double num = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
-            //double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
-            
-            //We set the SM difference to zero
-            double num = (sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_NP);
-            double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
 
-            
-            double total = num/deno;
-            return total;
-
-        }
-        else{
-
-            
-            double sign_trip_prod_pe_pp_neg_NP = 0.;
-            double sign_trip_prod_pe_pp_pos_NP = 0.;
-    
-    
-            //double num = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
-            //double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
-            
-            //We set the SM difference to zero
-            double num = (sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_NP);
-            double deno = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) + (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
-
-            
-            double total = num/deno;
-            return total;
-                
-        }
-    }
-    else{
-        if(flag_Quadratic){
+    if(flag_Quadratic){
             
             
             
@@ -11237,7 +11577,6 @@ double Asymmetry_sign_trip_prod_pe_pp_ttH::computeThValue()
             double total = num/deno;
             return total;
             
-        }
     }
     
 }
@@ -11278,47 +11617,41 @@ double Asymmetry_cos_je_tHj::computeThValue()
     double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+    
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
+//        ctGRe = -ctGRe;
+//        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
+    
     //double SM_Asymmetry_cos_je_tHj = SM.getOptionalParameter("SM_Asymmetry_cos_je_tHj");
     
     double cos_je_neg_Mad = 1.802755193194093;
     double cos_je_pos_Mad = 4.185564082240573;
     
-    if(flag_LHC_WG_Basis){
-        if(flag_Quadratic){
-             
 
-    
-            double cos_je_neg_NP = 0.;
-            double cos_je_pos_NP = 0.;
-    
-    
-            double num = (cos_je_pos_Mad + cos_je_pos_NP) - (cos_je_neg_Mad + cos_je_neg_NP);
-            double deno = (cos_je_pos_Mad + cos_je_pos_NP) + (cos_je_neg_Mad + cos_je_neg_NP);
-    
-            
-            double total = num/deno;
-            return total;
-
-        }
-        else{
-
-            
-    
-            double cos_je_neg_NP = 0.;
-            double cos_je_pos_NP = 0.;
-    
-    
-            double num = (cos_je_pos_Mad + cos_je_pos_NP) - (cos_je_neg_Mad + cos_je_neg_NP);
-            double deno = (cos_je_pos_Mad + cos_je_pos_NP) + (cos_je_neg_Mad + cos_je_neg_NP);
-
-    
-            double total = num/deno;
-            return total;
-                
-        }
-    }
-    else{
-        if(flag_Quadratic){
+    if(flag_Quadratic){
 
 
     
@@ -11350,8 +11683,8 @@ double Asymmetry_cos_je_tHj::computeThValue()
             double total = num/deno;
             return total;
             
-        }
-        else{
+    }
+    else{
     
             double cos_je_neg_NP = 0.3648966515528267*cHW + 0.001727621412455*cHWtil + 0.0002137853404453*ctHIm + 
             -0.0682956856995048*ctHRe + -0.0030877434371623*ctWIm + -1.329003891718189*ctWRe;
@@ -11365,7 +11698,7 @@ double Asymmetry_cos_je_tHj::computeThValue()
             double total = num/deno;
             return total;
             
-        }
+    
     }  
 }
 
@@ -11400,55 +11733,40 @@ double Asymmetry_cos_se_tHj::computeThValue()
     double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+        //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
+//        ctGRe = -ctGRe;
+//        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
+    
     //double SM_Asymmetry_cos_se_tHj = SM.getOptionalParameter("SM_Asymmetry_cos_se_tHj");
     
     double cos_se_neg_Mad = 2.990807050970236;
     double cos_se_pos_Mad = 2.9975122244644314;
     
-    if(flag_LHC_WG_Basis){
-        if(flag_Quadratic){
-             
 
-    
-            double cos_se_neg_NP = 0.;
-            double cos_se_pos_NP = 0.;
-    
-    
-            //double num = (cos_se_pos_Mad + cos_se_pos_NP) - (cos_se_neg_Mad + cos_se_neg_NP);
-            //double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
-    
-            
-            //We set the SM difference to zero
-            double num = (cos_se_pos_NP) - (cos_se_neg_NP);
-            double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
-    
-            double total = num/deno;
-            return total;
-
-        }
-        else{
-
-            
-    
-            double cos_se_neg_NP = 0.;
-            double cos_se_pos_NP = 0.;
-    
-    
-            //double num = (cos_se_pos_Mad + cos_se_pos_NP) - (cos_se_neg_Mad + cos_se_neg_NP);
-            //double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
-    
-            
-            //We set the SM difference to zero
-            double num = (cos_se_pos_NP) - (cos_se_neg_NP);
-            double deno = (cos_se_pos_Mad + cos_se_pos_NP) + (cos_se_neg_Mad + cos_se_neg_NP);
-    
-            double total = num/deno;
-            return total;
-                
-        }
-    }
-    else{
-        if(flag_Quadratic){
+    if(flag_Quadratic){
 
 
     
@@ -11483,8 +11801,8 @@ double Asymmetry_cos_se_tHj::computeThValue()
             double total = num/deno;
             return total;
             
-        }
-        else{
+    }
+    else{
 
             
     
@@ -11505,7 +11823,6 @@ double Asymmetry_cos_se_tHj::computeThValue()
             double total = num/deno;
             return total;
             
-        }
     }  
 }
 
@@ -11540,55 +11857,39 @@ double Asymmetry_cos_ye_tHj::computeThValue()
     double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
+//        ctGRe = -ctGRe;
+//        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
     //double SM_Asymmetry_cos_ye_tHj = SM.getOptionalParameter("SM_Asymmetry_cos_ye_tHj");
     
     double cos_ye_neg_Mad = 2.9854504039888377;
     double cos_ye_pos_Mad = 3.002868871445828;
     
-    if(flag_LHC_WG_Basis){
-        if(flag_Quadratic){
-             
 
-    
-            double cos_ye_neg_NP = 0.;
-            double cos_ye_pos_NP = 0.;
-    
-    
-            //double num = (cos_ye_pos_Mad + cos_ye_pos_NP) - (cos_ye_neg_Mad + cos_ye_neg_NP);
-            //double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
-    
-            
-            //We set the SM difference to zero
-            double num = (cos_ye_pos_NP) - (cos_ye_neg_NP);
-            double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
-    
-            double total = num/deno;
-            return total;
-
-        }
-        else{
-
-            
-    
-            double cos_ye_neg_NP = 0.;
-            double cos_ye_pos_NP = 0.;
-    
-    
-            //double num = (cos_ye_pos_Mad + cos_ye_pos_NP) - (cos_ye_neg_Mad + cos_ye_neg_NP);
-            //double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
-    
-            
-            //We set the SM difference to zero
-            double num = (cos_ye_pos_NP) - (cos_ye_neg_NP);
-            double deno = (cos_ye_pos_Mad + cos_ye_pos_NP) + (cos_ye_neg_Mad + cos_ye_neg_NP);
-    
-            double total = num/deno;
-            return total;
-                
-        }
-    }
-    else{
-        if(flag_Quadratic){
+    if(flag_Quadratic){
 
 
     
@@ -11623,8 +11924,8 @@ double Asymmetry_cos_ye_tHj::computeThValue()
             double total = num/deno;
             return total;
             
-        }
-        else{
+    }
+    else{
 
             
     
@@ -11645,7 +11946,6 @@ double Asymmetry_cos_ye_tHj::computeThValue()
             double total = num/deno;
             return total;
             
-        }
     }  
 }
 
@@ -11680,53 +11980,41 @@ double Asymmetry_trip_prod_ph_pt_pj_tHj::computeThValue()
     double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
+//        ctGRe = -ctGRe;
+//        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
+    
+    
     //double SM_Asymmetry_cos_ye_tHj = SM.getOptionalParameter("SM_Asymmetry_cos_ye_tHj");
     
     double trip_prod_neg_Mad = 2.997424819968232;
     double trip_prod_pos_Mad = 2.990894455466435;
     
-    if(flag_LHC_WG_Basis){
-        if(flag_Quadratic){
-             
 
-    
-            double trip_prod_neg_NP = 0.;
-            double trip_prod_pos_NP = 0.;
-    
-    
-            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
-            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
-    
-            
-            //We set the SM difference to zero
-            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
-            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
-    
-            double total = num/deno;
-            return total;
-
-        }
-        else{
-
-            double trip_prod_neg_NP = 0.;
-            double trip_prod_pos_NP = 0.;
-    
-    
-            //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
-            //double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
-    
-            
-            //We set the SM difference to zero
-            double num = (trip_prod_pos_NP) - (trip_prod_neg_NP);
-            double deno = (trip_prod_pos_Mad + trip_prod_pos_NP) + (trip_prod_neg_Mad + trip_prod_neg_NP);
-    
-            double total = num/deno;
-            return total;
-                
-        }
-    }
-    else{
-        if(flag_Quadratic){
+    if(flag_Quadratic){
 
             
             double trip_prod_neg_NP = 0.4731751789769144*cHW + -0.2062173155393779*cHWtil + -0.0210420414673162*ctHIm + 
@@ -11780,7 +12068,6 @@ double Asymmetry_trip_prod_ph_pt_pj_tHj::computeThValue()
             double total = num/deno;
             return total;
             
-        }
     }  
 }
 
@@ -11823,6 +12110,33 @@ double sigma_tHj_diff_LO_Del_R_th::computeThValue()
     double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+        
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
+//        ctGRe = -ctGRe;
+//        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
     
    
     if(b_min == 0 && b_max == 3.14){
@@ -11831,22 +12145,8 @@ double sigma_tHj_diff_LO_Del_R_th::computeThValue()
         double Del_R_th_tHj_bin_0_pi_madgraph = 0.5198924690483601;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_Del_R_th_tHj_bin_0_pi + (0.)*(SM_Del_R_th_tHj_bin_0_pi/Del_R_th_tHj_bin_0_pi_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                total = SM_Del_R_th_tHj_bin_0_pi + (0.)*(SM_Del_R_th_tHj_bin_0_pi/Del_R_th_tHj_bin_0_pi_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        
+        if(flag_Quadratic){
                 total = SM_Del_R_th_tHj_bin_0_pi + (0.220246481678596*cHW + 0.0001485728632859*cHWtil + 0.0001008891760229*ctHIm +
                         -0.0600527834531858*ctHRe + 0.0004390818255602*ctWIm + -0.526439687822913*ctWRe + 
                         0.0878777287723505*cHW*cHW + 0.0537182291189895*cHWtil*cHWtil + 0.00257295232299*ctHIm*ctHIm + 
@@ -11860,14 +12160,14 @@ double sigma_tHj_diff_LO_Del_R_th::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 total = SM_Del_R_th_tHj_bin_0_pi + (0.220246481678596*cHW + 
                         -0.0600527834531858*ctHRe + -0.526439687822913*ctWRe
                         )*(SM_Del_R_th_tHj_bin_0_pi/Del_R_th_tHj_bin_0_pi_madgraph);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
+
         }
         
     } else if(b_min == 3.14 && b_max == 8.){
@@ -11876,23 +12176,8 @@ double sigma_tHj_diff_LO_Del_R_th::computeThValue()
         double Del_R_th_tHj_bin_pi_8_madgraph = 0.9286855031587032;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_Del_R_th_tHj_bin_pi_8 + (0.)*(SM_Del_R_th_tHj_bin_pi_8/Del_R_th_tHj_bin_pi_8_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                
-                total = SM_Del_R_th_tHj_bin_pi_8 + (0.)*(SM_Del_R_th_tHj_bin_pi_8/Del_R_th_tHj_bin_pi_8_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        
+        if(flag_Quadratic){
                 
                 total = SM_Del_R_th_tHj_bin_pi_8 + (0.0897896143595042*cHW + 2.0137369438635863e-05*cHWtil + -0.0001184136133698*ctHIm +
                         0.0022046467428809*ctHRe + 0.000143163526555*ctWIm + -0.2092845561240396*ctWRe + 
@@ -11907,15 +12192,14 @@ double sigma_tHj_diff_LO_Del_R_th::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 
                 total = SM_Del_R_th_tHj_bin_pi_8 + (0.0897896143595042*cHW +
                         0.0022046467428809*ctHRe + -0.2092845561240396*ctWRe
                         )*(SM_Del_R_th_tHj_bin_pi_8/Del_R_th_tHj_bin_pi_8_madgraph);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
         }
         
     } else{
@@ -11966,6 +12250,33 @@ double sigma_tHj_diff_LO_mth::computeThValue()
     
     
     
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
+//        ctGRe = -ctGRe;
+//        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
+    
+    
    
     if(b_min == 200 && b_max == 340){
         
@@ -11973,24 +12284,8 @@ double sigma_tHj_diff_LO_mth::computeThValue()
         double sigma_tHj_diff_LO_mth_bin_200_340_madgraph = 4.8312389333236;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_sigma_tHj_diff_LO_mth_bin_200_340 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_200_340/sigma_tHj_diff_LO_mth_bin_200_340_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                
-                total = SM_sigma_tHj_diff_LO_mth_bin_200_340 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_200_340/sigma_tHj_diff_LO_mth_bin_200_340_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-                
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        
+        if(flag_Quadratic){
                 
                 total = SM_sigma_tHj_diff_LO_mth_bin_200_340 + (2.044625422571*cHW + -0.0019697321068240514*cHWtil + -0.0002770594241113811*ctHIm +
                         -0.9319723301799*ctHRe + -0.00476895114764897*ctWIm + -4.0956850184244*ctWRe + 
@@ -12005,15 +12300,15 @@ double sigma_tHj_diff_LO_mth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 
                 total = SM_sigma_tHj_diff_LO_mth_bin_200_340 + (2.044625422571*cHW +
                         -0.9319723301799*ctHRe + -4.0956850184244*ctWRe
                         )*(SM_sigma_tHj_diff_LO_mth_bin_200_340/sigma_tHj_diff_LO_mth_bin_200_340_madgraph);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
+        
         }
         
     } else if(b_min == 340 && b_max == 424){
@@ -12022,24 +12317,8 @@ double sigma_tHj_diff_LO_mth::computeThValue()
         double sigma_tHj_diff_LO_mth_bin_340_424_madgraph = 15.7487145559461;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_sigma_tHj_diff_LO_mth_bin_340_424 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_340_424/sigma_tHj_diff_LO_mth_bin_340_424_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                
-                total = SM_sigma_tHj_diff_LO_mth_bin_340_424 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_340_424/sigma_tHj_diff_LO_mth_bin_340_424_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-                
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        
+        if(flag_Quadratic){
                 
                 total = SM_sigma_tHj_diff_LO_mth_bin_340_424 + (4.9981313432903995*cHW + -0.00433369039049003*cHWtil + 0.00039224905580559366*ctHIm +
                         -1.0434688823926*ctHRe + 0.003958581262702987*ctWIm + -11.327199630097*ctWRe + 
@@ -12054,8 +12333,8 @@ double sigma_tHj_diff_LO_mth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 
                 total = SM_sigma_tHj_diff_LO_mth_bin_340_424 + (4.9981313432903995*cHW +
                         -1.0434688823926*ctHRe + -11.327199630097*ctWRe
@@ -12063,7 +12342,7 @@ double sigma_tHj_diff_LO_mth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
                 
-            }
+        
         }
         
         
@@ -12073,24 +12352,8 @@ double sigma_tHj_diff_LO_mth::computeThValue()
         double sigma_tHj_diff_LO_mth_bin_424_620_madgraph = 10.9357549691572;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_sigma_tHj_diff_LO_mth_bin_424_620 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_424_620/sigma_tHj_diff_LO_mth_bin_424_620_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                
-                total = SM_sigma_tHj_diff_LO_mth_bin_424_620 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_424_620/sigma_tHj_diff_LO_mth_bin_424_620_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-                
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        
+        if(flag_Quadratic){
                 
                 total = SM_sigma_tHj_diff_LO_mth_bin_424_620 + (1.5666660066113*cHW + 0.009873964296414073*cHWtil + -0.003017092917417808*ctHIm +
                         0.08256721872489103*ctHRe + -0.008516060692950744*ctWIm + -4.136280835257099*ctWRe + 
@@ -12105,8 +12368,8 @@ double sigma_tHj_diff_LO_mth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 
                 total = SM_sigma_tHj_diff_LO_mth_bin_424_620 + (1.5666660066113*cHW +
                         0.08256721872489103*ctHRe -4.136280835257099*ctWRe
@@ -12114,7 +12377,6 @@ double sigma_tHj_diff_LO_mth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
                 
-            }
         }
         
         
@@ -12124,24 +12386,8 @@ double sigma_tHj_diff_LO_mth::computeThValue()
         double sigma_tHj_diff_LO_mth_bin_620_1600_madgraph = 2.0062389761137;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_sigma_tHj_diff_LO_mth_bin_620_1600 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_620_1600/sigma_tHj_diff_LO_mth_bin_620_1600_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                
-                total = SM_sigma_tHj_diff_LO_mth_bin_620_1600 + (0.)*(SM_sigma_tHj_diff_LO_mth_bin_620_1600/sigma_tHj_diff_LO_mth_bin_620_1600_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-                
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        
+        if(flag_Quadratic){
                 
                 total = SM_sigma_tHj_diff_LO_mth_bin_620_1600 + (0.1111424096413*cHW + -0.0014860638211933177*cHWtil + 0.0003135970091938667*ctHIm +
                         0.02440742106196714*ctHRe + 0.0029584200534060745*ctWIm + -0.3390724228498*ctWRe + 
@@ -12156,8 +12402,8 @@ double sigma_tHj_diff_LO_mth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 
                 total = SM_sigma_tHj_diff_LO_mth_bin_620_1600 + (0.1111424096413*cHW +
                         0.02440742106196714*ctHRe + -0.3390724228498*ctWRe
@@ -12165,7 +12411,6 @@ double sigma_tHj_diff_LO_mth::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
                 
-            }
         }
         
         
@@ -12215,6 +12460,31 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
     double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
     
     
+    //Expressions are written in the basis of SMEFTsim
+    //let's change to the basis of dim6top (same as
+    //SMEFT@NLO except for the gs on CtG). These
+    //models define the covariance derivative 
+    //with a different convention
+    
+    if(flag_LHC_WG_Basis){
+//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+//        sw2 = 0.22305;
+//        cw2 = 1 - sw2;
+//        tw2 = sw2/cw2;
+//        sw  = sqrt(sw2);
+//        tw  = sqrt(tw2);
+//        ctBRe = ctZRe/sw - ctWRe/tw;
+//        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
+//        ctGRe = -ctGRe;
+//        ctGIm = -ctGIm;
+    }
+//    else{
+//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+//    }
     
    
     if(b_min == -1 && b_max == -0.1){
@@ -12223,24 +12493,7 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
         double sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1_madgraph = 0.8264858170834004;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                
-                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-                
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        if(flag_Quadratic){
                 
                 total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1 + (0.3646362275869991*cHW + -0.0166895627470372*cHWtil + 
                         0.0256209852360194*ctHIm + -0.128543600482164*ctHRe + -0.0939877611285754*ctWIm + -0.7936049243097774*ctWRe +
@@ -12255,15 +12508,15 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 
                 total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1 + (0.3646362275869991*cHW + -0.0166895627470372*cHWtil + 
                         0.0256209852360194*ctHIm + -0.128543600482164*ctHRe + -0.0939877611285754*ctWIm + -0.7936049243097774*ctWRe
                         )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m1_m0p1_madgraph);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
+        
         }
         
     } else if(b_min == -0.1 && b_max == 0){
@@ -12272,24 +12525,7 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
         double sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0_madgraph = 22.45084375748576;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                
-                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-                
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        if(flag_Quadratic){
                 
                 total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0 + (1.442341421722291*cHW + 4.019977713678601*cHWtil + 
                         0.153196279604299*ctHIm + 0.3625647084148817*ctHRe + 0.7530568161311931*ctWIm + -4.19557216302995*ctWRe +
@@ -12304,8 +12540,8 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
-            }
-            else{
+        }
+        else{
                 
                 total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_m0p1_0 + (1.442341421722291*cHW + 4.019977713678601*cHWtil + 
                         0.153196279604299*ctHIm + 0.3625647084148817*ctHRe + 0.7530568161311931*ctWIm + -4.19557216302995*ctWRe
@@ -12313,7 +12549,6 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
                 
-            }
         }
         
         
@@ -12323,24 +12558,7 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
         double sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1_madgraph = 22.534252619573525;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                
-                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-                
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        if(flag_Quadratic){
                 
                 total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1 + (1.473504604282017*cHW + -3.9759593578800665*cHWtil +
                         -0.1574375509821199*ctHIm + 0.3831143236353689*ctHRe + -0.6988322279880105*ctWIm + -4.175337801382581*ctWRe +
@@ -12363,7 +12581,6 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
                         )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0_0p1_madgraph);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
         }
         
     }  else if(b_min == 0.1 && b_max == 1){
@@ -12372,24 +12589,7 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
         double sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1_madgraph = 0.8288582248370959;
         double total;
         
-        if(flag_LHC_WG_Basis){
-            if(flag_Quadratic){
-                
-                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-
-            }
-            else{
-                
-                total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1 + (0.)*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1_madgraph);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
-                return total;
-                
-            }
-        }
-        else{
-            if(flag_Quadratic){
+        if(flag_Quadratic){
                 
                 total = SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1 + (0.3664904378118876*cHW + 0.0129199443509313*cHWtil + 
                         -0.0252972039241013*ctHIm + -0.1288352216337421*ctHRe + 0.091454877214733*ctWIm + -0.7913200499790009*ctWRe +
@@ -12412,7 +12612,6 @@ double sigma_tHj_diff_LO_trip_prod_z_pt_pj::computeThValue()
                         )*(SM_sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1/sigma_tHj_diff_LO_trip_prod_z_pt_pj_bin_0p1_1_madgraph);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
-            }
         }
         
         
