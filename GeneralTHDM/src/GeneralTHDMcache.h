@@ -91,7 +91,7 @@ public:
      * @brief Fills all required arrays with the values read from the tables.
      */
     void read();
-    
+
     /**
      * @brief Linearly interpolates a table with one parameter dimension.
      * @return the interpolated value
@@ -110,20 +110,23 @@ public:
      */
     double interpolate2D (gslpp::matrix<double> arrayTab, double x, double y);
 
-    
     /**
      * @brief Linearly interpolates a table with two parameter dimensions. In this case the y variable changes first.
      * @return the interpolated value
      */
     double interpolate2Dv2 (gslpp::matrix<double> arrayTab, double x, double y);
 
-    
-    
-     /**
+    /**
      * @brief Linearly interpolates a table with two parameter dimensions. In this case the y variable changes first. Furthermore the shape is triangular.
      * @return the interpolated value
      */
     double interpolate2DtriangularData (gslpp::matrix<double> arrayTab, double x, double y);
+
+    /**
+     * @brief Linearly interpolates a table with two parameter dimensions, where the number of rows with the same x or y may vary, but the steps between values are fixed.
+     * @return the interpolated value
+     */
+    double interpolate2Dsteps (gslpp::matrix<double> arrayTab, double x, double y, double dx, double dy);
 
     
     
@@ -307,7 +310,18 @@ public:
      */
     gslpp::matrix<double> ATLAS8_pp_h_phi3phi3_gagagaga, ATLAS8_gg_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_tautautautau, CMS8_pp_h_phi3phi3_bbmumu,\
                           CMS8_pp_h_phi3phi3_mumutautau, CMS8_pp_phi2_gaga, CMS8_pp_bbphi3_bbtautau, CMS8_pp_bbphi3_bbmumu;
-    
+
+    //Added in late 2024 for light CP-even and CP-odd scalar scenarios
+    /**
+     * @brief LEP observed @f$95\%@f$ upper branching fraction limits for @f$\sqrt{s} = 88 - 209@f$ GeV, depending on the scalar mass.
+     */
+    gslpp::matrix<double> LEP209_phi2Z_gagaZ;
+
+    /**
+     * @brief LEP observed @f$95\%@f$ upper cross-section times branching fraction limits for @f$\sqrt{s} = 91 - 209@f$ GeV, depending on the scalar mass.
+     */
+    gslpp::matrix<double> LEP209_phi2Z_bbZ, LEP209_phi2Z_tautauZ, LEP209_phiEphi3_bbbb, LEP209_phiEphi3_tautautautau;
+
     //Added in 2024 for light charged scalar scenario
     /**
      * @brief CMS observed @f$95\%@f$ upper branching fraction limits at 8 TeV, depending on the charged scalar mass.
@@ -588,18 +602,14 @@ public:
     double ip_ex_pp_phi_bb_CMS13(double mass);    
     double ip_ex_pp_phi2_bb_light_CMS13(double mass);    
     double ip_ex_pp_phi3_bb_light_CMS13(double mass);  
-    
-    
-    
+
     double ip_ex_gg_phi_mumu_CMS8(double mass);
     double ip_ex_bb_phi_mumu_CMS8(double mass);
     double ip_ex_gg_phi_mumu_CMS13(double mass);
     double ip_ex_bb_phi_mumu_CMS13(double mass);
     double ip_ex_bb_phi_mumu_ATLAS13(double mass);
     double ip_ex_gg_phi_mumu_ATLAS13(double mass);
-    
-    
-    
+
     double ip_ex_bb_phi_bb_CMS13(double mass);
     double ip_ex_gg_phi_tautau_ATLAS8(double mass);
     double ip_ex_gg_phi_tautau_CMS8(double mass);
@@ -667,9 +677,7 @@ public:
     double ip_ex_pp_phi_phi1phi1_bbZZ_llnunu_CMS13(double mass);//Included in mid 2022
     double ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_CMS13(double mass);//Included in mid 2022
     double ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13(double mass);//Included in mid 2024
-    
-    
-    
+
     double ip_ex_pp_phi_phi1phi1_bbWW_ATLAS13(double mass);
     double ip_ex_gg_phi_phi1phi1_gagaWW_ATLAS13(double mass);
     double ip_ex_gg_phi_phi1Z_bbZ_ATLAS8(double mass);
@@ -682,11 +690,9 @@ public:
     double ip_ex_bb_phi_phi1Z_bbZ_ATLAS13(double mass);
     
     double ip_ex_gg_phi_phi1Z_tautaull_CMS13(double mass);
-    
-    
+
     double ip_ex_bb_phi_phi1Z_bbZ_1_CMS13(double mass);
     double ip_ex_bb_phi_phi1Z_bbZ_2_CMS13(double mass);
-    
 
     double ip_ex_pp_phii_phijZ_bbll_1_CMS8(double m2,double m3);
     double ip_ex_pp_phii_phijZ_bbll_2_CMS8(double m2,double m3);
@@ -699,7 +705,6 @@ public:
     double ip_ex_pp_Hpm_tb_ATLAS13(double mass);
     double ip_ex_pp_Hpm_tb_CMS13(double mass);
 
-
     double ip_low_pp_h_phi3phi3_mumutautau_CMS13(double mass);
     double ip_low_pp_h_phi3phi3_bbtautau_CMS13(double mass);
     double ip_low_pp_h_phi3phi3_bbmumu_CMS13(double mass);
@@ -710,7 +715,6 @@ public:
     double ip_low_pp_phi2_gaga_CMS13(double mass);
     double ip_low_pp_bbphi3_bbtautau_CMS13(double mass);
 
-    
     double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(double mass);
     double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8(double mass);
     double ip_low_pp_h_phi3phi3_tautautautau_CMS8(double mass);
@@ -719,7 +723,6 @@ public:
     double ip_low_pp_phi2_gaga_CMS8(double mass);
     double ip_low_pp_bbphi3_bbtautau_CMS8(double mass);
     double ip_low_pp_bbphi3_bbmumu_CMS8(double mass);
-
 
     double ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(double mass);
     double ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(double mass);
@@ -731,6 +734,11 @@ public:
     double ip_low_pp_phi2_gaga_ATLAS13(double mass);
     double ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass);
 
+    double ip_low_phi2Z_gagaZ_LEP209(double mass);
+    double ip_low_phi2Z_bbZ_LEP209(double mass);
+    double ip_low_phi2Z_tautauZ_LEP209(double mass);
+    double ip_low_phiEphi3_bbbb_LEP209(double mi, double mj, double di, double dj);
+    double ip_low_phiEphi3_tautautautau_LEP209(double mi, double mj, double di, double dj);
 
     double ip_low_t_Hpb_csb_CMS8(double mass);
     double ip_low_t_Hpb_taunub_CMS8(double mass);
@@ -3003,6 +3011,14 @@ public:
     double THoEX_pp_h_phi2phi2_bbmumu_ATLAS13_old;
     double THoEX_pp_h_phi2phi2_gagagg_ATLAS13;
 
+    double THoEX_phi2Z_gagaZ_LEP209;
+    double THoEX_phi2Z_bbZ_LEP209;
+    double THoEX_phi2Z_tautauZ_LEP209;
+    double THoEX_phi2phi3_bbbb_LEP209;
+    double THoEX_phi2phi3_tautautautau_LEP209;
+    double THoEX_phi1phi3_bbbb_LEP209;
+    double THoEX_phi1phi3_tautautautau_LEP209;
+
     double THoEX_t_Hpb_csb_CMS8;
     double THoEX_t_Hpb_taunub_CMS8;
     double THoEX_t_Hpb_cbb_CMS8;
@@ -3706,6 +3722,12 @@ private:
     mutable double ip_low_pp_phi2_gaga_CMS8_cache[2][CacheSize];
     mutable double ip_low_pp_bbphi3_bbtautau_CMS8_cache[2][CacheSize];
     mutable double ip_low_pp_bbphi3_bbmumu_CMS8_cache[2][CacheSize];
+
+    mutable double ip_low_phi2Z_gagaZ_LEP209_cache[2][CacheSize];
+    mutable double ip_low_phi2Z_bbZ_LEP209_cache[2][CacheSize];
+    mutable double ip_low_phi2Z_tautauZ_LEP209_cache[2][CacheSize];
+    mutable double ip_low_phiEphi3_bbbb_LEP209_cache[3][CacheSize];
+    mutable double ip_low_phiEphi3_tautautautau_LEP209_cache[3][CacheSize];
 
     mutable double ip_low_t_Hpb_csb_CMS8_cache[2][CacheSize];
     mutable double ip_low_t_Hpb_taunub_CMS8_cache[2][CacheSize];

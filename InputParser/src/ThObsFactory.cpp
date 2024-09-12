@@ -6088,6 +6088,14 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_pp_bbphi3_bbtautau_CMS8"] = boost::factory<Hobs_pp_bbphi3_bbtautau_CMS8*>();
     obsThFactory["Hobs_pp_bbphi3_bbmumu_CMS8"] = boost::factory<Hobs_pp_bbphi3_bbmumu_CMS8*>();
 
+    obsThFactory["Hobs_phi2Z_gagaZ_LEP209"] = boost::factory<Hobs_phi2Z_gagaZ_LEP209*>();
+    obsThFactory["Hobs_phi2Z_bbZ_LEP209"] = boost::factory<Hobs_phi2Z_bbZ_LEP209*>();
+    obsThFactory["Hobs_phi2Z_tautauZ_LEP209"] = boost::factory<Hobs_phi2Z_tautauZ_LEP209*>();
+    obsThFactory["Hobs_phi2phi3_bbbb_LEP209"] = boost::factory<Hobs_phi2phi3_bbbb_LEP209*>();
+    obsThFactory["Hobs_phi2phi3_tautautautau_LEP209"] = boost::factory<Hobs_phi2phi3_tautautautau_LEP209*>();
+    obsThFactory["Hobs_phi1phi3_bbbb_LEP209"] = boost::factory<Hobs_phi1phi3_bbbb_LEP209*>();
+    obsThFactory["Hobs_phi1phi3_tautautautau_LEP209"] = boost::factory<Hobs_phi1phi3_tautautautau_LEP209*>();
+
     obsThFactory["Hobs_t_Hpb_csb_CMS8"] = boost::factory<Hobs_t_Hpb_csb_CMS8*>();
     obsThFactory["Hobs_t_Hpb_taunub_CMS8"] = boost::factory<Hobs_t_Hpb_taunub_CMS8*>();
     obsThFactory["Hobs_t_Hpb_cbb_CMS8"] = boost::factory<Hobs_t_Hpb_cbb_CMS8*>();
