@@ -782,6 +782,165 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+/**
+ * @class Hobs_phi2Z_gagaZ_LEP209
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and combined LEP upper limit for the branching ratio associated with the process @f$e^{+} e^{-}\to H Z \to \gamma \gamma Z@f$.
+ */
+class Hobs_phi2Z_gagaZ_LEP209: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_phi2Z_gagaZ_LEP209 constructor.
+     */
+    Hobs_phi2Z_gagaZ_LEP209(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(H^{+} \to \gamma \gamma)]_{\frac{\text{theo}}{\text{LEP,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_phi2Z_bbZ_LEP209
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and combined LEP upper limit for ratio of the GTHDM over a reference cross-section times the branching ratio associated with the process @f$e^{+} e^{-}\to H Z \to b \bar{b} Z@f$.
+ */
+class Hobs_phi2Z_bbZ_LEP209: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_phi2Z_bbZ_LEP209 constructor.
+     */
+    Hobs_phi2Z_bbZ_LEP209(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[g^2_{ZZH} \cdot BR^{\text{GTHDM}}(H \to b \bar{b})]_{\frac{\text{theo}}{\text{LEP,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_phi2Z_tautauZ_LEP209
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and combined LEP upper limit for ratio of the GTHDM over a reference cross-section times the branching ratio associated with the process @f$e^{+} e^{-}\to H Z \to b \bar{b} Z@f$.
+ */
+class Hobs_phi2Z_tautauZ_LEP209: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_phi2Z_tautauZ_LEP209 constructor.
+     */
+    Hobs_phi2Z_tautauZ_LEP209(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[g^2_{ZZH} \cdot BR^{\text{GTHDM}}(H \to \tau^{+} \tau^{-})]_{\frac{\text{theo}}{\text{LEP,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**********************************/
+/* Observables with phi_i + phi_j */
+/**********************************/
+
+/**
+ * @class Hobs_phi2phi3_bbbb_LEP209
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and combined LEP upper limit for ratio of the GTHDM over a reference cross-section times the branching ratio associated with the process @f$e^{+} e^{-}\to H A \to b \bar{b} b \bar{b}@f$.
+ */
+class Hobs_phi2phi3_bbbb_LEP209: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_phi2phi3_bbbb_LEP209 constructor.
+     */
+    Hobs_phi2phi3_bbbb_LEP209(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[g^2_{ZAH} \cdot BR^{\text{GTHDM}}(H \to b \bar{b}) \cdot BR^{\text{GTHDM}}(A \to b \bar{b})]_{\frac{\text{theo}}{\text{LEP,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_phi2phi3_tautautautau_LEP209
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and combined LEP upper limit for ratio of the GTHDM over a reference cross-section times the branching ratio associated with the process @f$e^{+} e^{-}\to H A \to \tau^{+} \tau^{-} \tau^{+} \tau^{-}@f$.
+ */
+class Hobs_phi2phi3_tautautautau_LEP209: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_phi2phi3_tautautautau_LEP209 constructor.
+     */
+    Hobs_phi2phi3_tautautautau_LEP209(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[g^2_{ZAH} \cdot BR^{\text{GTHDM}}(H \to \tau^{+} \tau^{-}) \cdot BR^{\text{GTHDM}}(A \to \tau^{+} \tau^{-})]_{\frac{\text{theo}}{\text{LEP,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_phi1phi3_bbbb_LEP209
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and combined LEP upper limit for ratio of the GTHDM over a reference cross-section times the branching ratio associated with the process @f$e^{+} e^{-}\to h_{125} A \to b \bar{b} b \bar{b}@f$.
+ */
+class Hobs_phi1phi3_bbbb_LEP209: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_phi1phi3_bbbb_LEP209 constructor.
+     */
+    Hobs_phi1phi3_bbbb_LEP209(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[g^2_{ZAh} \cdot BR^{\text{GTHDM}}(h_{125} \to b \bar{b}) \cdot BR^{\text{GTHDM}}(A \to b \bar{b})]_{\frac{\text{theo}}{\text{LEP,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_phi1phi3_tautautautau_LEP209
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and combined LEP upper limit for ratio of the GTHDM over a reference cross-section times the branching ratio associated with the process @f$e^{+} e^{-}\to h_{125} A \to \tau^{+} \tau^{-} \tau^{+} \tau^{-}@f$.
+ */
+class Hobs_phi1phi3_tautautautau_LEP209: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_phi1phi3_tautautautau_LEP209 constructor.
+     */
+    Hobs_phi1phi3_tautautautau_LEP209(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[g^2_{ZAh} \cdot BR^{\text{GTHDM}}(h_{125} \to \tau^{+} \tau^{-}) \cdot BR^{\text{GTHDM}}(A \to \tau^{+} \tau^{-})]_{\frac{\text{theo}}{\text{LEP,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
 
 /***********************/
 /* Observables with Hp */
