@@ -9682,7 +9682,7 @@ void GeneralTHDMcache::computeLowMass()
 
     THoEX_gg_h_phi3Z_mumull_ATLAS13 = 0.0;
 
-    if(mH3 >= 15 && mH3 <= 30.0)
+    if(mH3 >= 15.0 && mH3 <= 30.0)
     {
         //The experimental values are in fb whereas the theoretical value is calculated in pb.
         THoEX_gg_h_phi3Z_mumull_ATLAS13 = (1.0e3) * ((SigmaggF13 * rh_gg) * GTHDM_BR_h_AZ * Br_phi3tomumu * BrSM_Ztoll) / ip_low_gg_h_phi23Z_mumull_ATLAS13(mH3);
@@ -9805,7 +9805,9 @@ void GeneralTHDMcache::computeLowMass()
         THoEX_gg_h_phi2phi2_mumumumu_ATLAS13 = (1.0e3) * ((SigmaggF13 * rh_gg) * GTHDM_BR_h_HH * Br_phi2tomumu * Br_phi2tomumu) / ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(mH2);
     }
 
-    if(mH2 >= 15 && mH2 <= 30.0)
+    THoEX_gg_h_phi2Z_mumull_ATLAS13 = 0.;
+
+    if(mH2 >= 15.0 && mH2 <= 30.0)
     {
         //The experimental values are in fb whereas the theoretical value is calculated in pb.
         THoEX_gg_h_phi2Z_mumull_ATLAS13 = (1.0e3) * ((SigmaggF13 * rh_gg) * GTHDM_BR_h_HZ * Br_phi2tomumu * BrSM_Ztoll) / ip_low_gg_h_phi23Z_mumull_ATLAS13(mH2);
@@ -9860,15 +9862,21 @@ void GeneralTHDMcache::computeLowMass()
         THoEX_pp_phi2_gaga_ATLAS13_low = (SigmaSumphi2_13 * Br_phi2togaga) / ip_low_pp_phi2_gaga_ATLAS13(mH2);
     }
 
+    THoEX_phi2Z_gagaZ_LEP209 = 0.0;
+
     if(mH2 >= 20.0 && mH2 <= 116.0)
     {
         THoEX_phi2Z_gagaZ_LEP209 = (Br_phi2togaga) / ip_low_phi2Z_gagaZ_LEP209(mH2);
     }
 
+    THoEX_phi2Z_bbZ_LEP209 = 0.0;
+
     if(mH2 >= 12.0 && mH2 <= 120.0)
     {
         THoEX_phi2Z_bbZ_LEP209 = (rphi2_VV * Br_phi2tobb) / ip_low_phi2Z_bbZ_LEP209(mH2);
     }
+
+    THoEX_phi2Z_tautauZ_LEP209 = 0.0;
 
     if(mH2 >= 4.0 && mH2 <= 120.0)
     {
@@ -9880,6 +9888,9 @@ void GeneralTHDMcache::computeLowMass()
     /**********************************/
 
     // To generalise for CPV analyses, also the Z-h-H combination has to be considered with the LEP data below
+
+    THoEX_phi2phi3_bbbb_LEP209 = 0.0;
+    THoEX_phi2phi3_tautautautau_LEP209 = 0.0;
 
     if(mH2 <= mH3)
     {
@@ -9898,10 +9909,14 @@ void GeneralTHDMcache::computeLowMass()
             THoEX_phi2phi3_tautautautau_LEP209 = (R11*R11 * Br_phi2totautau * Br_phi3totautau) / ip_low_phiEphi3_tautautautau_LEP209(mH2,mH3,5.,5.);
     }
 
+    THoEX_phi1phi3_bbbb_LEP209 = 0.0;
+
     if(mH3 >= 10.0 && mHl+mH3 <= 205.0)
     {
         THoEX_phi1phi3_bbbb_LEP209 = (R12*R12 * GTHDM_BR_h_bb * Br_phi3tobb) / ip_low_phiEphi3_bbbb_LEP209(mHl,mH3,5.,5.);
     }
+
+    THoEX_phi1phi3_tautautautau_LEP209 = 0.0;
 
     if(mH3 >=  5.0 && mHl+mH3 <= 205.0)
     {
@@ -9912,40 +9927,56 @@ void GeneralTHDMcache::computeLowMass()
     /* Observables with Hp */
     /***********************/
 
+    THoEX_t_Hpb_csb_CMS8 = 0.0;
+
     if(mHp >= 90.0 && mHp <= 160.0)
     {
         THoEX_t_Hpb_csb_CMS8 = (Br_ttoHpb * Br_Hptocs) / ip_low_t_Hpb_csb_CMS8(mHp);
     }
+
+    THoEX_t_Hpb_taunub_CMS8 = 0.0;
 
     if(mHp >= 80.0 && mHp <= 160.0)
     {
         THoEX_t_Hpb_taunub_CMS8 = (Br_ttoHpb * Br_Hptotaunu) / ip_low_t_Hpb_taunub_CMS8(mHp);
     }
 
+    THoEX_t_Hpb_cbb_CMS8 = 0.0;
+
     if(mHp >= 90.0 && mHp <= 150.0)
     {
         THoEX_t_Hpb_cbb_CMS8 = (Br_ttoHpb * Br_Hptocb) / ip_low_t_Hpb_cbb_CMS8(mHp);
     }
-    
+
+    THoEX_t_Hpb_WAb_Wmumub_CMS13 = 0.0;
+
     if(mH3 >= 15.0 && mH3 <= 75.0 && mHp >= (mH3+85.0) && mHp <= 160.)
     {
         THoEX_t_Hpb_WAb_Wmumub_CMS13 = (Br_ttoHpb * Br_Hptophi3W * Br_phi3tomumu) / ip_low_t_Hpb_WAb_Wmumub_CMS13(mH3);
     }
+
+    THoEX_t_Hpb_csb_CMS13 = 0.0;
 
     if(mHp >= 80.0 && mHp <= 160.0)
     {
         THoEX_t_Hpb_csb_CMS13 = (Br_ttoHpb * Br_Hptocs) / ip_low_t_Hpb_csb_CMS13(mHp);
     }
 
+    THoEX_t_Hpb_taunub_ATLAS8 = 0.0;
+
     if(mHp >= 80.0 && mHp <= 160.0)
     {
         THoEX_t_Hpb_taunub_ATLAS8 = (Br_ttoHpb * Br_Hptotaunu) / ip_low_t_Hpb_taunub_ATLAS8(mHp);
     }
 
+    THoEX_t_Hpb_cbb_ATLAS13 = 0.0;
+
     if(mHp >= 90.0 && mHp <= 150.0)
     {
         THoEX_t_Hpb_cbb_ATLAS13 = (Br_ttoHpb * Br_Hptocb) / ip_low_t_Hpb_cbb_ATLAS13(mHp);
     }
+
+    THoEX_t_Hpb_WAb_Wmumub_ATLAS13 = 0.0;
 
     if(mH3 >= 15.1 && mH3 <= 70.2 && mHp >= 120.0 && mHp <= 160.0)
     {
@@ -9955,20 +9986,28 @@ void GeneralTHDMcache::computeLowMass()
     // GeV^-2 -> pb
     double GeV2pb = 0.389379e9;
 
+    THoEX_HpHm_taunutaunu_LEP209 = 0.0;
+
     if(mHp >= 43.0 && mHp <= 95.0)
     {
         THoEX_HpHm_taunutaunu_LEP209 = (GeV2pb * Sigma_HpHm_LEP209(mHp2) * Br_Hptotaunu * Br_Hptotaunu) / ip_low_HpHm_taunutaunu_LEP209(mHp);
     }
+
+    THoEX_HpHm_qqqq_LEP209 = 0.0;
 
     if(mHp >= 43.0 && mHp <= 95.0)
     {
         THoEX_HpHm_qqqq_LEP209 = (GeV2pb * Sigma_HpHm_LEP209(mHp2) * (Br_Hptocs + Br_Hptocb) * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqqq_LEP209(mHp);
     }
 
+    THoEX_HpHm_qqtaunu_OPAL209 = 0.0;
+
     if(mHp >= 50.0 && mHp <= 93.0)
     {
         THoEX_HpHm_qqtaunu_OPAL209 = (2.0 * Br_Hptotaunu * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqtaunu_OPAL209(mHp);
     }
+
+    THoEX_HpHm_qqtaunu_OPAL172 = 0.0;
 
     if(mHp >= 40.0 && mHp < 50.0)
     {
