@@ -11,6 +11,7 @@
 #include <sstream>
 #include <string>
 
+
 //#include <boost/stacktrace.hpp>
 
 //#include "log_cs_ggH_13.h"
@@ -1768,7 +1769,7 @@ double GeneralTHDMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x,
     int Nintervalsx = (x-xmin)/intervalx;
     int Nintervalsy = (y-ymin)/intervaly;
     if(x<xmin||x>xmax||y<ymin||y>ymax){
-        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        std::cout<<"warning: the parameter point lies outside the table on interpolate2D"<<std::endl;
         return 0.;
     }
     else{
@@ -1802,7 +1803,7 @@ double GeneralTHDMcache::interpolate2Dv2(gslpp::matrix<double> arrayTab, double 
     int Nintervalsy = (y - ymin) / intervaly;
     int Nintervalsx = (x - xmin) / intervalx;
     if (x < xmin || x > xmax || y < ymin || y > ymax) {
-        std::cout << "Warning: the parameter point lies outside the table" << std::endl;
+        std::cout << "Warning: the parameter point lies outside the table on interpolate2Dv2" << std::endl;
         return 0.;
     } else {
         
@@ -1839,7 +1840,7 @@ double GeneralTHDMcache::interpolate2DtriangularData(gslpp::matrix<double> array
     int Nintervalsx = (x-xmin)/intervalx;
     int Nintervalsy = (y-ymin)/intervaly;
     if(x<xmin||x>xmax||y<ymin||y>ymax){
-        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        std::cout<<"warning: the parameter point lies outside the table on interpolate2DtriangularData"<<std::endl;
         return 0.;
     }
     else{
@@ -4745,7 +4746,7 @@ double GeneralTHDMcache::ip_ex_gg_phii_phijZ_bbZ_ATLAS13(double mj, double mi){
     int i = CacheCheckReal(ip_ex_gg_phii_phijZ_bbZ_ATLAS13_cache, NumPar, params);
     if (i>=0) {
         return ( ip_ex_gg_phii_phijZ_bbZ_ATLAS13_cache[NumPar][i] );
-    } else {
+    } else { 
         double newResult = interpolate2DtriangularData(ATLAS13_gg_phii_phijZ_bbZ, mj, mi);
         
         CacheShiftReal(ip_ex_gg_phii_phijZ_bbZ_ATLAS13_cache, NumPar, params, newResult);
@@ -9156,13 +9157,13 @@ void GeneralTHDMcache::computeHeavyHiggs()
     
     //This will overwrite the previous one when the mass is in this range.
     //This way we consider this search only once so it's fine
-    if(m2>= 250.0 && m2 < 900.0) 
+    if(m2>= 250.0 && m2 < 899.0) 
         {
         
         THoEX_pp_phi2_phi1phi1_bbWWorbbtautau_CMS13=pp_phi2_phi1phi1_with_channel_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13(m2);
     
     }
-    if(m3>= 250.0 && m3< 900.0) 
+    if(m3>= 250.0 && m3< 899.0) 
         {
         
         THoEX_pp_phi3_phi1phi1_bbWWorbbtautau_CMS13=pp_phi3_phi1phi1_with_channel_bbWWorbbtautau_TH13/ip_ex_pp_phi_phi1phi1_bbWWorbbtautau_low_masses_CMS13(m3);
@@ -9430,7 +9431,7 @@ void GeneralTHDMcache::computeHeavyHiggs()
     if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0 && m2-m3>=100)
         {
         
-         THoEX_gg_phi2_phi3Z_bbZ_ATLAS13=gg_phi2_phi3Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m2,m3);
+         THoEX_gg_phi2_phi3Z_bbZ_ATLAS13=gg_phi2_phi3Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m3,m2);
          //std::cout<<"\033[1;31m   Enters = \033[0m " <<std::endl;
          //std::cout<<"\033[1;31m   gg_phi3_phi2Z_bbZ_TH13 = \033[0m "<< gg_phi3_phi2Z_bbZ_TH13 <<std::endl;
          //std::cout<<"\033[1;31m   ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m3,m2) = \033[0m "<< ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m2,m3) <<std::endl;
@@ -9440,19 +9441,19 @@ void GeneralTHDMcache::computeHeavyHiggs()
         {
                                                                                                                                                                         
         
-         THoEX_gg_phi3_phi2Z_bbZ_ATLAS13=gg_phi3_phi2Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m3,m2);
+        THoEX_gg_phi3_phi2Z_bbZ_ATLAS13=gg_phi3_phi2Z_bbZ_TH13/ip_ex_gg_phii_phijZ_bbZ_ATLAS13(m2,m3);
     }
     
     if(m2 >= 230.0 && m2 <800.0 && m3>=130.0 && m3<700.0 && m2-m3>=100)
         {
         
-        THoEX_bb_phi2_phi3Z_bbZ_ATLAS13=bb_phi2_phi3Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m2,m3);
+        THoEX_bb_phi2_phi3Z_bbZ_ATLAS13=bb_phi2_phi3Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m3,m2);
     
     }
     if(m3 >= 230.0 && m3 <800.0 && m2>=130.0 && m2<700.0 && m3-m2>=100)
         {
                                                                                                                                                                                 
-         THoEX_bb_phi3_phi2Z_bbZ_ATLAS13=bb_phi3_phi2Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m3,m2);
+        THoEX_bb_phi3_phi2Z_bbZ_ATLAS13=bb_phi3_phi2Z_bbZ_TH13/ip_ex_bb_phii_phijZ_bbZ_ATLAS13(m2,m3);
          
          
     }
@@ -9461,14 +9462,14 @@ void GeneralTHDMcache::computeHeavyHiggs()
     if(m2 >= 300.0 && m2 <800.0 && m3>=200.0 && m3<700.0 && m2-m3>=100)
         {
         
-         THoEX_gg_phi2_phi3Z_WWZ_ATLAS13=gg_phi2_phi3Z_WWZ_TH13/ip_ex_gg_phii_phijZ_WWZ_ATLAS13(m2,m3);
+        THoEX_gg_phi2_phi3Z_WWZ_ATLAS13=gg_phi2_phi3Z_WWZ_TH13/ip_ex_gg_phii_phijZ_WWZ_ATLAS13(m3,m2);
 
     }
     if(m3 >= 300.0 && m3 <800.0 && m2>=200.0 && m2<700.0 && m3-m2>=100)
         {
                                                                                                                                                                         
         
-         THoEX_gg_phi3_phi2Z_WWZ_ATLAS13=gg_phi3_phi2Z_WWZ_TH13/ip_ex_gg_phii_phijZ_WWZ_ATLAS13(m3,m2);
+        THoEX_gg_phi3_phi2Z_WWZ_ATLAS13=gg_phi3_phi2Z_WWZ_TH13/ip_ex_gg_phii_phijZ_WWZ_ATLAS13(m2,m3);
     }
     
     

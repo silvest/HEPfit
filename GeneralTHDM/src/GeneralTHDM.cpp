@@ -179,6 +179,7 @@ bool GeneralTHDM::PostUpdate()
 {
     if(!NPbase::PostUpdate()) return (false);
 
+    gsl_set_error_handler(custom_gsl_error_handler);
     myGTHDMcache->updateCache();
 
     return (true);

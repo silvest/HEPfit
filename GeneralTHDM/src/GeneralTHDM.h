@@ -11,7 +11,7 @@
 #include "StandardModel.h"
 #include "GeneralTHDMMatching.h"
 #include "NPbase.h"
-
+#include <gsl/gsl_errno.h>
 
 
 class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
@@ -507,6 +507,14 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool PostUpdate();
+    
+    
+    //Function to debug the gsl errors
+    static void custom_gsl_error_handler(const char *reason, const char *file, int line, int gsl_errno) {
+    printf("GSL Error: %s\nFile: %s\nLine: %d\nError code: %d\n", reason, file, line, gsl_errno);
+    // Optionally print a stack trace or additional debug info
+    }
+    
     
     /**
      * @brief A method to check if all the mandatory parameters for %GeneralTHDM
