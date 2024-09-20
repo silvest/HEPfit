@@ -1291,6 +1291,63 @@ private:
     };
     
     
+    
+// Entanglement
+
+    /**
+    * @class entang_D_threshold
+    * @ingroup TopQuarkObservables 
+    * @brief entang_D_threshold
+    */
+    class entang_D_threshold: public ThObservable {
+    public:
+
+    /**
+     * @brief entang_D_threshold constructor.
+     */
+    entang_D_threshold(const StandardModel& SM_i);
+
+    /**
+     * @return The value of entang_D_threshold
+     */
+    double computeThValue();
+    
+
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    /**
+    * @class entang_Dn_boosted
+    * @ingroup TopQuarkObservables 
+    * @brief entang_D_threshold
+    */
+    class entang_Dn_boosted: public ThObservable {
+    public:
+
+    /**
+     * @brief entang_Dn_boosted constructor.
+     */
+    entang_Dn_boosted(const StandardModel& SM_i);
+
+    /**
+     * @return The value of entang_Dn_boosted
+     */
+    double computeThValue();
+    
+
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
 //Prospects of muon collider
   
     

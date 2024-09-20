@@ -4922,6 +4922,117 @@ double sigma_ttll_diff_LO::computeThValue()
 }
 
 
+entang_D_threshold::entang_D_threshold(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_entang_D_threshold");
+}
+
+double entang_D_threshold::computeThValue()
+{
+    
+    double entang_D_threshold_SM = SM.getOptionalParameter("SM_entang_D_threshold");
+    double entang_D_threshold_madgraph =  -0.467;//This is actually the best SM prediction
+    
+    double C_tG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    double C_Qd8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qd8();
+    double C_Qd1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qd1();
+    double C_Qu1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qu1();
+    double C_Qu8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qu8();
+    double C_td1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_td1();
+    double C_td8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_td8();
+    double C_tq1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tq1();
+    double C_tq8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tq8();
+    double C_tu1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tu1();
+    double C_tu8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tu8();
+    double C_Qq11 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq11();
+    double C_Qq31 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq31();
+    double C_Qq18 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq18();
+    double C_Qq38 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq38();
+
+    
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //
+    if(flag_Quadratic){
+        return entang_D_threshold_SM + (-0.12093*C_tG + 0.03404*C_tG*C_tG + -0.00346*C_Qd1 + 
+                0.00164*C_Qd1*C_Qd1 + 0.00294*C_Qd8 + 0.00114*C_Qd8*C_Qd8 + 0.00121*C_Qq11 + 
+                0.00156*C_Qq11*C_Qq11 + -0.00095*C_Qq31 + -0.00044*C_Qq31*C_Qq31 + 0.00534*C_Qq18 + 
+                -0.00074*C_Qq18*C_Qq18 + -0.00153*C_Qq38 + 9e-05*C_Qq38*C_Qq38 + -0.00014*C_Qu1 + 
+                0.00041*C_Qu1*C_Qu1 + -0.00156*C_Qu8 + 0.00031*C_Qu8*C_Qu8 + -0.00217*C_td1 + 
+                -0.00186*C_td1*C_td1 + 0.00669*C_td8 + 0.00143*C_td8*C_td8 + -7e-05*C_tq1 + 
+                0.00019*C_tq1*C_tq1 + 0.00393*C_tq8 + 0.00042*C_tq8*C_tq8 + -0.00413*C_tu1 + 
+                -0.00234*C_tu1*C_tu1 + 0.0036*C_tu8 + -0.00157*C_tu8*C_tu8)
+                *entang_D_threshold_SM/entang_D_threshold_madgraph;
+
+    }
+    else{
+        
+        return  entang_D_threshold_SM + (-0.12093*C_tG + -0.00346*C_Qd1 + 0.00294*C_Qd8 + 
+                0.00121*C_Qq11 + -0.00095*C_Qq31 + 0.00534*C_Qq18 + -0.00153*C_Qq38 + 
+                -0.00014*C_Qu1 + -0.00156*C_Qu8 + -0.00217*C_td1 + 0.00669*C_td8 + 
+                -7e-05*C_tq1 + 0.00393*C_tq8 + -0.00413*C_tu1 + 0.0036*C_tu8)
+                *entang_D_threshold_SM/entang_D_threshold_madgraph;
+        
+    }
+}
+
+
+
+entang_Dn_boosted::entang_Dn_boosted(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_entang_Dn_boosted");
+}
+
+double entang_Dn_boosted::computeThValue()
+{
+    
+    double entang_Dn_boosted_SM = SM.getOptionalParameter("SM_entang_Dn_boosted");
+    double entang_Dn_boosted_madgraph =  -0.5873;//This is actually the best SM prediction
+    
+    double C_tG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    double C_Qd8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qd8();
+    double C_Qd1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qd1();
+    double C_Qu1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qu1();
+    double C_Qu8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qu8();
+    double C_td1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_td1();
+    double C_td8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_td8();
+    double C_tq1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tq1();
+    double C_tq8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tq8();
+    double C_tu1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tu1();
+    double C_tu8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tu8();
+    double C_Qq11 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq11();
+    double C_Qq31 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq31();
+    double C_Qq18 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq18();
+    double C_Qq38 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq38();
+
+    
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    //
+    if(flag_Quadratic){
+        return entang_Dn_boosted_SM + (-0.00324*C_tG + 0.11502*C_tG*C_tG + -0.0019*C_Qd1 + 
+                0.01701*C_Qd1*C_Qd1 + -0.02474*C_Qd8 + 0.00494*C_Qd8*C_Qd8 + 0.01159*C_Qq11 + 
+                0.03676*C_Qq11*C_Qq11 + -0.00447*C_Qq31 + 0.04024*C_Qq31*C_Qq31 + -0.02589*C_Qq18 + 
+                0.01057*C_Qq18*C_Qq18 + -0.01194*C_Qq38 + 0.00976*C_Qq38*C_Qq38 + 0.00041*C_Qu1 + 
+                0.03365*C_Qu1*C_Qu1 + -0.01233*C_Qu8 + 0.00434*C_Qu8*C_Qu8 + -0.0068*C_td1 + 
+                0.01915*C_td1*C_td1 + -0.02005*C_td8 + 0.01168*C_td8*C_td8 + 0.00458*C_tq1 + 
+                0.0354*C_tq1*C_tq1 + -0.02202*C_tq8 + 0.01814*C_tq8*C_tq8 + 0.00614*C_tu1 + 
+                0.0362*C_tu1*C_tu1 + -0.00861*C_tu8 + 0.01378*C_tu8*C_tu8)
+                *entang_Dn_boosted_SM/entang_Dn_boosted_madgraph;
+
+    }
+    else{
+        
+        return  entang_Dn_boosted_SM + (-0.00324*C_tG + -0.0019*C_Qd1 + -0.02474*C_Qd8 + 
+                0.01159*C_Qq11 + -0.00447*C_Qq31 + -0.02589*C_Qq18 + -0.01194*C_Qq38 + 
+                0.00041*C_Qu1 + -0.01233*C_Qu8 + -0.0068*C_td1 + -0.02005*C_td8 + 
+                0.00458*C_tq1 + -0.02202*C_tq8 + 0.00614*C_tu1 + -0.00861*C_tu8)
+                *entang_Dn_boosted_SM/entang_Dn_boosted_madgraph;
+        
+    }
+}
+
+
 
 /*
 ttll_bin_100_120::ttll_bin_100_120(const StandardModel& SM_i)

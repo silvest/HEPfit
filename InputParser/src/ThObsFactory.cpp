@@ -4153,6 +4153,10 @@ ThObsFactory::ThObsFactory()
     
     obsThFactory["sigma_ttll_diff_LO"] = boost::factory<sigma_ttll_diff_LO*>();
     
+    //tt entanglement
+    obsThFactory["entang_D_threshold"] = boost::factory<entang_D_threshold*>();
+    obsThFactory["entang_Dn_boosted"] = boost::factory<entang_Dn_boosted*>();
+    
     
     //ILC OBSERVABLES 
     
