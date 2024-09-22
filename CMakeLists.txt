@@ -67,9 +67,9 @@ unset(TMP_DIR)
 if(BAT_INSTALL_DIR)
   set(BAT_INSTALL_DIR ${BAT_INSTALL_DIR} 
       CACHE PATH "BAT installation directory" FORCE)
-else()
-  set(BAT_INSTALL_DIR /usr/local 
-      CACHE PATH "BAT installation directory")
+#else()
+ # set(BAT_INSTALL_DIR /usr/local 
+  #    CACHE PATH "BAT installation directory")
 endif()
 if(NOT IS_ABSOLUTE ${BAT_INSTALL_DIR})
    set(BAT_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/${BAT_INSTALL_DIR}
