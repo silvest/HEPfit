@@ -18,6 +18,9 @@
 #   -DINTEL_FORTRAN:BOOL=<ON or OFF>
 #--------------------------------------------------------------------
 cmake_minimum_required(VERSION 3.5)
+if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+  cmake_policy(SET CMP0135 NEW)
+endif()
 
 if(DEBUG_MODE)
   set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -300,7 +303,7 @@ else(IBAT AND LBAT)
   if(NOT BAT_INSTALL)
     unset(IBAT CACHE)
     unset(LBAT CACHE)
-    message(FATAL_ERROR "BAT could not be found in ${BAT_INSTALL_DIR}. Please supply the correct path to BAT with the option ${RedBold}-DBAT_INSTALL_DIR=<BAT installation path>${ColReset}. Alternatively, setting the option ${RedBold}-DBAT_INSTALL=ON${ColReset}, I'll download and install BAT at the default location /usr/local/, where you can specify a custom installatation location with ${RedBold}-DBAT_INSTALL_DIR=<BAT custom installation path>${ColReset}.")  
+    message(FATAL_ERROR "BAT could not be found. Please supply the correct path to BAT with the option ${RedBold}-DBAT_INSTALL_DIR=<BAT installation path>${ColReset}. Alternatively, setting the option ${RedBold}-DBAT_INSTALL=ON${ColReset}, I'll download and install BAT at the default location /usr/local/, where you can specify a custom installatation location with ${RedBold}-DBAT_INSTALL_DIR=<BAT custom installation path>${ColReset}.")  
   endif()
 endif(IBAT AND LBAT)
 
