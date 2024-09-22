@@ -40,6 +40,7 @@ if(CMAKE_LINK_GROUP_USING_RESCAN_SUPPORTED)
   )
 else()
   target_link_libraries(analysis ${target_lib_list})
+  target_link_options(analysis PRIVATE LINKER:-no_warn_duplicate_libraries)
 endif()
 
 target_link_libraries(analysis boost_program_options)
