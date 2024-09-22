@@ -17,6 +17,43 @@ The HEPfit library can be used:
 
 The Markov Chain Monte Carlo is based on the [BAT (Bayesian Analysis Toolkit) library](https://www.mppmu.mpg.de/bat/).
 
+Installation (for developers):
+--------
+- Public libraries
+  - [gsl](https://www.gnu.org/software/gsl/)
+  - [ROOT](https://root.cern/install/)
+  - [boost](https://www.boost.io/doc/user-guide/getting-started.html)
+  - [OpenMPI](https://docs.open-mpi.org/en/v5.0.x/installing-open-mpi/quickstart.html)
+- Developer Libraries
+  - [RGESolver](https://github.com/silvest/RGESolver)
+    ```{sh}
+    git clone git@github.com:silvest/RGESolver.git
+    cd RGESolver
+    mkdir build
+    cd build
+    cmake .. -DCMAKE_INSTALL_PREFIX=<PATH>
+    make -j
+    make install
+    ```
+  - [bat_MPI](https://github.com/silvest/bat_MPI)
+    ```{sh}
+    git clone git@github.com:silvest/bat_MPI.git
+    cd bat_MPI
+    ./configure CXX=mpic++ --prefix=<PATH>
+    make -j
+    make install
+    ```
+- HEPfit (using CMake)
+  ```{sh}
+  git clone git@github.com:silvest/HEPfit.git
+  cd HEPfit
+  mkdir build
+  cd build
+  cmake .. -DBAT_INSTALL=OFF
+  ```
+For install options for ```bat_MPI```, ```RGESolver```, and ```HEPfit``` look at the top of the CMakeLists.txt file in the root directory
+
+
 Authors:
 --------
 See doc/CREDITS file for list of contributors to HEPfit.
