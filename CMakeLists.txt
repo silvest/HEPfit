@@ -67,9 +67,9 @@ unset(TMP_DIR)
 if(BAT_INSTALL_DIR)
   set(BAT_INSTALL_DIR ${BAT_INSTALL_DIR} 
       CACHE PATH "BAT installation directory" FORCE)
-else()
-  set(BAT_INSTALL_DIR /usr/local 
-      CACHE PATH "BAT installation directory")
+#else()
+ # set(BAT_INSTALL_DIR /usr/local 
+  #    CACHE PATH "BAT installation directory")
 endif()
 if(NOT IS_ABSOLUTE ${BAT_INSTALL_DIR})
    set(BAT_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/${BAT_INSTALL_DIR}
@@ -275,12 +275,13 @@ endif(MPICXX)
 
 if(NOT NOMCMC)
 
-message(STATUS "Looking for BAT in ${BAT_INSTALL_DIR}")
-find_path(IBAT "BCModel.h" PATHS ${BAT_INSTALL_DIR}/include/BAT NO_DEFAULT_PATH)
-find_library(LBAT BAT PATHS ${BAT_INSTALL_DIR} NO_DEFAULT_PATH PATH_SUFFIXES lib lib32 lib64)
+message(STATUS "Looking for BAT in ${BAT_INSTALL_DIR} or in paths defined by ENV")
+find_path(IBAT "BCModel.h" PATHS ENV CPATH ${BAT_INSTALL_DIR}/include PATH_SUFFIXES BAT)
+find_library(LBAT BAT PATHS ENV LD_LIBRARY_PATH ${BAT_INSTALL_DIR} PATH_SUFFIXES lib lib32 lib64)
 if(IBAT AND LBAT)
   string(REGEX REPLACE "/BAT$" "" BAT_INCLUDE_PATH ${IBAT})
   string(REGEX REPLACE "/libBAT.*$" "" BAT_LIB_PATH ${LBAT})
+  string(REPLACE "/BAT" "" BAT_INSTALL_DIR ${IBAT})
   message(STATUS "Found BAT headers in ${BAT_INCLUDE_PATH} and libs in ${BAT_LIB_PATH}")
   if(BAT_INSTALL)
     if(MPIBAT)
@@ -554,7 +555,7 @@ endif(DEBUG_MODE)
 
 ##############################
 
-set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM THDMW GeneralTHDM GeorgiMachacek LeftRightSymmetricModel StandardModel LoopFunctions SUSYMassInsertion MFV pMSSM gslpp)
+set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM THDMW GeneralTHDM GeorgiMachacek LeftRightSymmetricModel StandardModel LoopFunctions SUSYMassInsertion MFV pMSSM)
 
 if(NOT NOMCMC)
   set(PROJECTLIST MonteCarlo ${PROJECTLIST})
