@@ -32,6 +32,7 @@ include_directories(${FH_INC})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../GeorgiMachacek/src)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../boost/)
 include_directories(${BOOST_INC})
+include_directories(${RGESOLVER_INC_DIR})
 
 file(GLOB srcs "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 add_library(InputParser ${LIBTYPE} ${srcs})

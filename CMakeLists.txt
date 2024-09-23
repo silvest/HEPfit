@@ -433,6 +433,7 @@ else()
   execute_process(COMMAND ${RGESOLVER_CONFIG} --cflags
                   OUTPUT_VARIABLE RGESOLVER_CFLAGS
                   OUTPUT_STRIP_TRAILING_WHITESPACE)
+  string(REGEX REPLACE "^-I" "" RGESOLVER_INC_DIR ${RGESOLVER_CFLAGS})
   message(STATUS "RGESOLVER cflags: ${RGESOLVER_CFLAGS}")
   execute_process(COMMAND ${RGESOLVER_CONFIG} --libs
                   OUTPUT_VARIABLE RGESOLVER_LIBS
