@@ -27,7 +27,7 @@ Installation (for developers):
 - Developer Libraries
   - [RGESolver](https://github.com/silvest/RGESolver)
     ```{sh}
-    git clone git@github.com:silvest/RGESolver.git
+    git clone git@github.com:silvest/RGESolver.git --recursive
     cd RGESolver
     mkdir build
     cd build
@@ -45,7 +45,7 @@ Installation (for developers):
     ```
 - HEPfit (using CMake)
   ```{sh}
-  git clone git@github.com:silvest/HEPfit.git
+  git clone git@github.com:silvest/HEPfit.git --recursive
   cd HEPfit
   mkdir build
   cd build
