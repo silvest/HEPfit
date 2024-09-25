@@ -4135,7 +4135,11 @@ ThObsFactory::ThObsFactory()
     //ttA bins
     
     obsThFactory["sigma_tta_diff_NLO_ATLAS_emu"] = boost::factory<sigma_tta_diff_NLO_ATLAS_emu_200706946*>();    
+    obsThFactory["sigma_tta_diff_NLO_CMS_dilepton_220107301"] = boost::factory<sigma_tta_diff_NLO_CMS_dilepton_220107301*>();    
+    
 
+    
+    
     //ttH bins
     
     obsThFactory["sigma_ttH_diff_NLO_ATLAS_220700092"] = boost::factory<sigma_ttH_diff_NLO_ATLAS_220700092*>();    

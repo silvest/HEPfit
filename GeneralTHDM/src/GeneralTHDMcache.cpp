@@ -233,7 +233,7 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         CMS8_pp_h_phi3phi3_mumutautau(96, 2, 0.), //Added in 2024
         //
-        CMS8_pp_phi2_gaga(257, 2, 0.), //Added in 2024
+        CMS8_pp_phi2_gaga(300, 2, 0.), //Added in 2024
         //
         CMS8_pp_bbphi3_bbtautau(12, 2, 0.), //Added in 2024
         //
@@ -1956,6 +1956,9 @@ double GeneralTHDMcache::interpolate2Dsteps(gslpp::matrix<double> arrayTab, doub
 
 
 
+
+
+
 void GeneralTHDMcache::read(){
   std::stringstream br1,br2,br3,br4,br5,br6,br7;
     std::stringstream dw1;
@@ -2488,7 +2491,7 @@ void GeneralTHDMcache::read(){
     CMS8_pp_h_phi3phi3_mumutautau = readTable(lowC803.str(),96,2);
 
     lowC804 << tablepath << "CMS-HIG-17-013_4a.dat";               //Added in 2024
-    CMS8_pp_phi2_gaga = readTable(lowC804.str(),257,2);
+    CMS8_pp_phi2_gaga = readTable(lowC804.str(),300,2);
 
     lowC805 << tablepath << "CMS-HIG-14-033_3.dat";               //Added in 2024
     CMS8_pp_bbphi3_bbtautau = readTable(lowC805.str(),12,2);
@@ -5175,7 +5178,7 @@ double GeneralTHDMcache::ip_low_pp_phi2_gaga_CMS8(double mass){
     if (i>=0) {
         return(ip_low_pp_phi2_gaga_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS8_pp_phi2_gaga,mass);
+        double newResult = interpolate(CMS8_pp_phi2_gaga,mass);
         CacheShiftReal(ip_low_pp_phi2_gaga_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -5305,7 +5308,11 @@ double GeneralTHDMcache::ip_low_phiEphi3_bbbb_LEP209(double mi, double mj, doubl
     if (i>=0) {
         return ( ip_low_phiEphi3_bbbb_LEP209_cache[NumPar][i] );
     } else {
-        double newResult = interpolate2Dsteps (LEP209_phiEphi3_bbbb, mi, mj, di, dj);
+        double newResult = interpolate2Dsteps(LEP209_phiEphi3_bbbb, mi, mj, di, dj);
+        std::cout<<"\033[1;36m   interpolate2Dsteps("<<mi<<", "<< mj<<")= \033[0m "<<  interpolate2Dsteps(LEP209_phiEphi3_bbbb, mi, mj, di, dj)  <<std::endl;
+        
+        //std::cout<<"\033[1;36m   triangData("<<mi<<", "<< mj<<")= \033[0m "<<  interpolate2DtriangularData(LEP209_phiEphi3_bbbb, mi, mj)  <<std::endl;
+        
         CacheShiftReal(ip_low_phiEphi3_bbbb_LEP209_cache, NumPar, params, newResult);
         return newResult;
     }
