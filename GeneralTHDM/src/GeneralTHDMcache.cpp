@@ -106,7 +106,7 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //ATLAS13_pp_phi_gaga(251, 2, 0.),          //OLD before mid 2022
         ATLAS13_pp_phi_gaga(285, 2, 0.),            //Updated in mid 2022
         ATLAS13_gg_phi_Zga_llga(1590, 2, 0.),
-        ATLAS13_gg_phi_Zga_qqga(290, 2, 0.),
+        ATLAS13_gg_phi_Zga_qqga(291, 2, 0.),
         //ATLAS13_gg_phi_ZZ_llllnunu(101, 2, 0.),   //OLD before mid 2022
         //ATLAS13_VV_phi_ZZ_llllnunu(101, 2, 0.),   //OLD before mid 2022
         ATLAS13_gg_phi_ZZ_llllnunu(359, 2, 0.),     //Updated in mid 2022
@@ -242,7 +242,7 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         LEP209_phi2Z_gagaZ(49, 2, 0.),            //Added in 2024
         LEP209_phi2Z_bbZ(217, 2, 0.),             //Added in 2024
         LEP209_phi2Z_tautauZ(233, 2, 0.),         //Added in 2024
-        LEP209_phiEphi3_bbbb(291, 3, 0.),         //Added in 2024
+        LEP209_phiEphi3_bbbb(324, 3, 0.),         //Added in 2024
         LEP209_phiEphi3_tautautautau(365, 3, 0.), //Added in 2024
         //
         CMS8_t_Hpb_csb(7, 2, 0.),                 //Added in 2024
@@ -1692,12 +1692,18 @@ double GeneralTHDMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
     int Nintervals = (x-xmin)/interval;
        
     if(x<xmin){
-        std::cout<<"warning: your table parameter value is smaller than the minimum allowed value"<<std::endl;
+        std::cout<<"warning: your table parameter value is smaller than the minimum allowed value for m = "<<x<<"\n while xmin = "<<xmin<<std::endl;
+        //std::cout<<"\033[1;36m   warning: your table parameter value is smaller than the minimum allowed value for m =  \033[0m "<<  x  <<std::endl;
+        //std::cout<<"\033[1;36m   while min =  \033[0m "<<  xmin  <<std::endl;
         //std::cout << boost::stacktrace::stacktrace() << std::endl;
+        
+        
         return 0.;
     }
     else if(x>xmax){
-        std::cout<<"warning: your table parameter value is greater than the maximum allowed value"<<std::endl;
+        std::cout<<"warning: your table parameter value is greater than the maximum allowed value for m = "<<x<<"\n while xmax = "<<xmax<<std::endl;
+        //std::cout<<"\033[1;36m   warning: your table parameter value is greater than the maximum allowed value for m =  \033[0m "<<  x  <<std::endl;
+        //std::cout<<"\033[1;36m   while max =  \033[0m "<<  xmax  <<std::endl;
         //std::cout << boost::stacktrace::stacktrace() << std::endl;
         return 0.;
     }
@@ -2183,7 +2189,7 @@ void GeneralTHDMcache::read(){
     //ex34 << tablepath << "180501908.dat";                           //OLD previous to mid 2024
     //ATLAS13_gg_phi_Zga_qqga = readTable(ex34.str(),581,2);          //OLD previous to mid 2024
     ex34 << tablepath << "230411962.dat";                           //Updated in mid 2024
-    ATLAS13_gg_phi_Zga_qqga = readTable(ex34.str(),290,2);          //Updated in mid 2024
+    ATLAS13_gg_phi_Zga_qqga = readTable(ex34.str(),291,2);          //Updated in mid 2024
     
     //ex35 << tablepath << "171206386_a.dat";                           //OLD previous to mid 2022
     //ATLAS13_gg_phi_ZZ_llllnunu = readTable(ex35.str(),101,2);         //OLD previous to mid 2022
@@ -2509,7 +2515,7 @@ void GeneralTHDMcache::read(){
     LEP209_phi2Z_tautauZ = readTable(low209c.str(),233,2);
 
     low209d << tablepath << "LEP_CERN-PH-EP-2006-001_t18.dat";     //Added in 2024
-    LEP209_phiEphi3_bbbb = readTable(low209d.str(),291,3);
+    LEP209_phiEphi3_bbbb = readTable(low209d.str(),324,3);
 
     low209e << tablepath << "LEP_CERN-PH-EP-2006-001_t19.dat";     //Added in 2024
     LEP209_phiEphi3_tautautautau = readTable(low209e.str(),365,3);
@@ -5309,9 +5315,8 @@ double GeneralTHDMcache::ip_low_phiEphi3_bbbb_LEP209(double mi, double mj, doubl
         return ( ip_low_phiEphi3_bbbb_LEP209_cache[NumPar][i] );
     } else {
         double newResult = interpolate2Dsteps(LEP209_phiEphi3_bbbb, mi, mj, di, dj);
-        std::cout<<"\033[1;36m   interpolate2Dsteps("<<mi<<", "<< mj<<")= \033[0m "<<  interpolate2Dsteps(LEP209_phiEphi3_bbbb, mi, mj, di, dj)  <<std::endl;
+        //std::cout<<"\033[1;36m   interpolate2Dsteps("<<mi<<", "<< mj<<")= \033[0m "<<  interpolate2Dsteps(LEP209_phiEphi3_bbbb, mi, mj, di, dj)  <<std::endl;
         
-        //std::cout<<"\033[1;36m   triangData("<<mi<<", "<< mj<<")= \033[0m "<<  interpolate2DtriangularData(LEP209_phiEphi3_bbbb, mi, mj)  <<std::endl;
         
         CacheShiftReal(ip_low_phiEphi3_bbbb_LEP209_cache, NumPar, params, newResult);
         return newResult;
