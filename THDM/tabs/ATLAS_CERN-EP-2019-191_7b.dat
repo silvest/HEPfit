@@ -1,0 +1,25 @@
+# CERN-EP-2019-191, fig. 7b
+# fig. 1b from Auxiliary material at https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-04/
+# observed 95% exclusion limits on sig(pp -> H+ H-)*BR(H+ -> tau nu)*BR(H- -> tau nu) at 13 TeV
+# stau interpreted as charged Higgs
+# massless neutralino values interpreted as search for H+ -> tau + inv
+# mH+[GeV] | sig[pb]*BR*BR_95%
+80.0     0.9700
+100.0    1.1000
+120.0    0.2900
+140.0    0.1000
+160.0    0.0510
+180.0    0.0240
+200.0    0.0140
+220.0    0.0110
+240.0    0.0092
+260.0    0.0059
+280.0    0.0058
+300.0    0.0041
+320.0    0.0039
+340.0    0.0028
+360.0    0.0026
+380.0    0.0025
+400.0    0.0027
+420.0    0.0023
+440.0    0.0019

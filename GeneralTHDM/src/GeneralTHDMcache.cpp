@@ -259,6 +259,11 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         OPAL209_HpHm_qqtaunu(87, 2, 0.),          //Added in 2024
         OPAL172_HpHm_qqtaunu(41, 2, 0.),          //Added in 2024
         //
+        ATLAS13_pp_HpHm_taunutaunu(19, 2, 0.),    //Added in 2024
+        ATLAS13_pp_HpHm_munumunu(11, 2, 0.),      //Added in 2024
+        CMS13_pp_HpHm_taunutaunu(16, 2, 0.),      //Added in 2024
+        CMS13_pp_HpHm_munumunu(22, 2, 0.),        //Added in 2024
+        //
         //Tables of integrals for g-2
         integral_x2_1mx_G_log(62500, 3, 0.),
         integral_x2_1px_G_log(62500, 3, 0.),
@@ -1987,6 +1992,7 @@ void GeneralTHDMcache::read(){
     std::stringstream lowHpC801, lowHpC802, lowHpC803, lowHpC1301, lowHpC1302;
     std::stringstream lowHpA801, lowHpA1301, lowHpA1302;
     std::stringstream lowHp209a, lowHp209b, lowHp209c, lowHp172a;
+    std::stringstream susyHpA01, susyHpA02, susyHpC01, susyHpC02;
     std::stringstream thint01, thint02, thint03, thint04, thint05, thint06, thint07, thint08;
     std::stringstream bsg1;
 
@@ -2555,6 +2561,18 @@ void GeneralTHDMcache::read(){
 
     lowHp172a << tablepath << "LEP_CERN-PPE-97-168_3b_tnqq.dat";   //Added in 2024
     OPAL172_HpHm_qqtaunu = readTable(lowHp172a.str(),41,2);
+
+    susyHpA01 << tablepath << "ATLAS_CERN-EP-2019-191_7b.dat";     //Added in 2024
+    ATLAS13_pp_HpHm_taunutaunu = readTable(susyHpA01.str(),19,2);
+
+    susyHpA02 << tablepath << "ATLAS_CERN-EP-2022-132_6a.dat";     //Added in 2024
+    ATLAS13_pp_HpHm_munumunu = readTable(susyHpA02.str(),11,2);
+
+    susyHpC01 << tablepath << "CMS-SUS-21-001_5a.dat";             //Added in 2024
+    CMS13_pp_HpHm_taunutaunu = readTable(susyHpC01.str(),16,2);
+
+    susyHpC02 << tablepath << "CMS-SUS-21-008_16a.dat";            //Added in 2024
+    CMS13_pp_HpHm_munumunu = readTable(susyHpC02.str(),22,2);
 
     thint01 << tablepath << "integral_x2_1mx_G_values_log.dat";
     integral_x2_1mx_G_log = readTable(thint01.str(),62500,3);
@@ -5492,6 +5510,90 @@ double GeneralTHDMcache::ip_low_HpHm_qqtaunu_OPAL172(double mass){
     }
 }
 
+double GeneralTHDMcache::ip_susy_pp_HpHm_taunutaunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_susy_pp_HpHm_taunutaunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_susy_pp_HpHm_taunutaunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_HpHm_taunutaunu,mass);
+        CacheShiftReal(ip_susy_pp_HpHm_taunutaunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_susy_pp_HpHm_taunutaunu_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_susy_pp_HpHm_taunutaunu_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_susy_pp_HpHm_taunutaunu_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolateNU (CMS13_pp_HpHm_taunutaunu,mass);
+        CacheShiftReal(ip_susy_pp_HpHm_taunutaunu_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_susy_pp_HpHm_munumunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_susy_pp_HpHm_munumunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_susy_pp_HpHm_munumunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolateNU (ATLAS13_pp_HpHm_munumunu,mass);
+        CacheShiftReal(ip_susy_pp_HpHm_munumunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_susy_pp_HpHm_munumunu_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_susy_pp_HpHm_munumunu_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_susy_pp_HpHm_munumunu_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolateNU (CMS13_pp_HpHm_munumunu,mass);
+        CacheShiftReal(ip_susy_pp_HpHm_munumunu_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_susy_HpHm_munumunu_LEP208(double mass){
+    // data from lepsusy.web.cern.ch/lepsusy/www/sleptons_summer04/slep_final.html
+    // taking mid-value from each coloured range
+
+    double sigxBRxBR;
+
+    if(mass >= 45. && mass <= 65.)
+        sigxBRxBR = 0.025;
+    else if(mass > 65.  && mass <= 76.)
+        sigxBRxBR = 0.035;
+    else if(mass > 76.  && mass <= 86.)
+        sigxBRxBR = 0.025;
+    else if(mass > 86.  && mass <= 89.)
+        sigxBRxBR = 0.035;
+    else if(mass > 89.  && mass <= 96.)
+        sigxBRxBR = 0.025;
+    else if(mass > 96.  && mass <= 97.)
+        sigxBRxBR = 0.015;
+    else if(mass > 97.  && mass <= 98.)
+        sigxBRxBR = 0.025;
+    else if(mass > 98.  && mass <= 99.)
+        sigxBRxBR = 0.015;
+    else if(mass > 99.  && mass <= 101.)
+        sigxBRxBR = 0.025;
+    else if(mass > 101. && mass <= 102.)
+        sigxBRxBR = 0.035;
+    else
+        sigxBRxBR = 1.e-10;
+
+    return sigxBRxBR;
+}
+
 
 //Interpolation function for the integrals
 
@@ -6091,9 +6193,9 @@ gslpp::complex GeneralTHDMcache::A_H_Hp(const double mHp2, const double mH, cons
 }
 
 
-double GeneralTHDMcache::Sigma_HpHm_LEP209(const double mass2) const
+double GeneralTHDMcache::Sigma_HpHm_LEP(const double mass2, const double sqrts) const
 {
-    double s_LEP     = 209. * 209.;
+    double s_LEP     = sqrts * sqrts;
     double one_MZ2_s = 1. - MZ*MZ / s_LEP;
 
     double cWsW   = sqrt(cW2) * sqrt(sW2);
@@ -7084,6 +7186,7 @@ void GeneralTHDMcache::computeHpquantities()
     double Mcp = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
     double Mbp = myGTHDM->Mbar2Mp(Mb, FULLNNLO);
     double Mtp = myGTHDM->getMtpole();
+    double Mmu2  = Mmu*Mmu;
     double Mtau2 = Mtau*Mtau;
     double Ms2 = Ms*Ms;
     double Mc2 = Mcp*Mcp;
@@ -7107,7 +7210,8 @@ void GeneralTHDMcache::computeHpquantities()
     SigmaHpm13=ip_cs_ggtoHp_13(mHp,0.0)*su.abs2();
 
 
-    double GammaHptaunu=HSTheta(mHp-Mtau)*(Mtau2*(mHp2-Mtau2)*(mHp2-Mtau2)*sl.abs2())/(8.0*mHp*mHp2*M_PI*vev*vev);
+    double GammaHpmunu  = HSTheta(mHp-Mmu)  * (Mmu2  * (mHp2-Mmu2)  * (mHp2-Mmu2)  * sl.abs2()) / (8.0*mHp*mHp2*M_PI*vev*vev);
+    double GammaHptaunu = HSTheta(mHp-Mtau) * (Mtau2 * (mHp2-Mtau2) * (mHp2-Mtau2) * sl.abs2()) / (8.0*mHp*mHp2*M_PI*vev*vev);
 
     double GammaHpcs = 0.;
     double GammaHpcb = 0.;
@@ -7166,11 +7270,13 @@ void GeneralTHDMcache::computeHpquantities()
 
 
     GammaHptot = 1.e-10;
-    
-    GammaHptot = GammaHptot + GammaHptaunu + GammaHpcs + GammaHpcb + GammaHptb +
+
+    GammaHptot = GammaHptot + GammaHpmunu  + GammaHptaunu +
+                 GammaHpcs  + GammaHpcb    + GammaHptb    +
                  GammaHpHlW + GammaHpphi2W + GammaHpphi3W;
 
 
+    Br_Hptomunu  = GammaHpmunu/GammaHptot;
     Br_Hptotaunu = GammaHptaunu/GammaHptot;
     Br_Hptocs    = GammaHpcs/GammaHptot;
     Br_Hptocb    = GammaHpcb/GammaHptot;
@@ -9817,7 +9923,7 @@ void GeneralTHDMcache::computeLowMass()
         THoEX_gg_h_phi2phi2_mumumumu_ATLAS13 = (1.0e3) * ((SigmaggF13 * rh_gg) * GTHDM_BR_h_HH * Br_phi2tomumu * Br_phi2tomumu) / ip_low_gg_h_phi23phi23_mumumumu_ATLAS13(mH2);
     }
 
-    THoEX_gg_h_phi2Z_mumull_ATLAS13 = 0.;
+    THoEX_gg_h_phi2Z_mumull_ATLAS13 = 0.0;
 
     if(mH2 >= 15.0 && mH2 <= 30.0)
     {
@@ -10002,14 +10108,14 @@ void GeneralTHDMcache::computeLowMass()
 
     if(mHp >= 43.0 && mHp <= 95.0)
     {
-        THoEX_HpHm_taunutaunu_LEP209 = (GeV2pb * Sigma_HpHm_LEP209(mHp2) * Br_Hptotaunu * Br_Hptotaunu) / ip_low_HpHm_taunutaunu_LEP209(mHp);
+        THoEX_HpHm_taunutaunu_LEP209 = (GeV2pb * Sigma_HpHm_LEP(mHp2,209.) * Br_Hptotaunu * Br_Hptotaunu) / ip_low_HpHm_taunutaunu_LEP209(mHp);
     }
 
     THoEX_HpHm_qqqq_LEP209 = 0.0;
 
     if(mHp >= 43.0 && mHp <= 95.0)
     {
-        THoEX_HpHm_qqqq_LEP209 = (GeV2pb * Sigma_HpHm_LEP209(mHp2) * (Br_Hptocs + Br_Hptocb) * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqqq_LEP209(mHp);
+        THoEX_HpHm_qqqq_LEP209 = (GeV2pb * Sigma_HpHm_LEP(mHp2,209.) * (Br_Hptocs + Br_Hptocb) * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqqq_LEP209(mHp);
     }
 
     THoEX_HpHm_qqtaunu_OPAL209 = 0.0;
@@ -10024,6 +10130,21 @@ void GeneralTHDMcache::computeLowMass()
     if(mHp >= 40.0 && mHp < 50.0)
     {
         THoEX_HpHm_qqtaunu_OPAL172 = (2.0 * Br_Hptotaunu * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqtaunu_OPAL172(mHp);
+    }
+
+    THoEX_pp_HpHm_taunutaunu_ATLAS13 = 0.0;
+
+    THoEX_pp_HpHm_taunutaunu_CMS13 = 0.0;
+
+    THoEX_pp_HpHm_munumunu_ATLAS13 = 0.0;
+
+    THoEX_pp_HpHm_munumunu_CMS13 = 0.0;
+
+    THoEX_HpHm_munumunu_LEP208 = 0.0;
+
+    if(mHp >= 45.0 && mHp <= 102.0)
+    {
+        THoEX_HpHm_munumunu_LEP208 = (GeV2pb * Sigma_HpHm_LEP(mHp2,208.) * Br_Hptomunu * Br_Hptomunu) / ip_susy_HpHm_munumunu_LEP208(mHp);
     }
 }
 

@@ -1,0 +1,28 @@
+# CMS-SUS-21-008, fig. 16a
+# data at https://www.hepdata.net/record/ins2755433
+# observed 95% exclusion limits on sig(pp -> H+ H-)*BR(H+ -> ell nu)*BR(H- -> ell nu) at 13 TeV
+# slepton interpreted as charged Higgs
+# near-massless neutralino values interpreted as search for H+ -> ell + inv
+# mH+[GeV] | sig[pb]*BR*BR_95%
+100.0     336.31e-3
+125.0     23.343e-3
+150.0     7.2109e-3
+175.0     3.3354e-3
+200.0     2.1936e-3
+225.0     1.7015e-3
+250.0     1.4428e-3
+275.0     1.2053e-3
+300.0     1.0211e-3
+325.0    0.86039e-3
+350.0    0.73408e-3
+375.0    0.62211e-3
+400.0    0.54967e-3
+425.0    0.48724e-3
+450.0    0.44307e-3
+500.0    0.36976e-3
+550.0    0.33502e-3
+600.0    0.30092e-3
+650.0    0.27125e-3
+700.0    0.25215e-3
+750.0    0.23359e-3
+800.0    0.23001e-3

@@ -363,6 +363,11 @@ public:
      */
     gslpp::matrix<double> OPAL172_HpHm_qqtaunu;
 
+    /**
+     * @brief SUSY observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on charged scalar mass.
+     */
+    gslpp::matrix<double> ATLAS13_pp_HpHm_taunutaunu, ATLAS13_pp_HpHm_munumunu, CMS13_pp_HpHm_taunutaunu, CMS13_pp_HpHm_munumunu;
+
     //Added in 2024 for g-2 computation
     gslpp::matrix<double> integral_x2_1mx_G_log, integral_x2_1px_G_log, integral_x2_G_log, integral_x_1mx2_G_log,\
                           integral_x_1mx_1px_G_log, integral_x2_1mx_G_variable_set_1_log,\
@@ -754,6 +759,12 @@ public:
     double ip_low_HpHm_qqqq_LEP209(double mass);
     double ip_low_HpHm_qqtaunu_OPAL209(double mass);
     double ip_low_HpHm_qqtaunu_OPAL172(double mass);
+
+    double ip_susy_pp_HpHm_taunutaunu_ATLAS13(double mass);
+    double ip_susy_pp_HpHm_taunutaunu_CMS13(double mass);
+    double ip_susy_pp_HpHm_munumunu_ATLAS13(double mass);
+    double ip_susy_pp_HpHm_munumunu_CMS13(double mass);
+    double ip_susy_HpHm_munumunu_LEP208(double mass);
 
     double ip_integral_x2_1mx_G(double wa, double wb);
     double ip_integral_x2_1px_G(double wa, double wb);
@@ -1336,11 +1347,12 @@ public:
     double SigmaVBF8;
 
     /**
-     * @brief Cross section for charged-Higgs pair production at 209 GeV at LEP, from hep-ph/9602250
+     * @brief Cross section for charged-Higgs pair production at LEP, from hep-ph/9602250
      * @param[in] Mass square of charged Higgs @f$M_{H^+}^2@f$
-     * @return @f$\sigma^{\text GTHDM}_{209}(e^+ e^- \to H^+ H^-)@f$
+     * @param[in] Centre-of-mass energy @f$\sqrt{s}@f$
+     * @return @f$\sigma^{\text GTHDM}(e^+ e^- \to H^+ H^-)@f$
      */
-    double Sigma_HpHm_LEP209(const double mass2) const;
+    double Sigma_HpHm_LEP(const double mass2, const double sqrts) const;
 
     /**
      * @brief Ratio of GTHDM and SM cross sections for VBF and Vh production of h.
@@ -1486,6 +1498,7 @@ public:
 
     double SigmaHp8;
     double SigmaHpm13;
+    double Br_Hptomunu;
     double Br_Hptotaunu;
     double Br_Hptocs;
     double Br_Hptocb;
@@ -3034,6 +3047,12 @@ public:
     double THoEX_HpHm_qqtaunu_OPAL209;
     double THoEX_HpHm_qqtaunu_OPAL172;
 
+    double THoEX_pp_HpHm_taunutaunu_ATLAS13;
+    double THoEX_pp_HpHm_taunutaunu_CMS13;
+    double THoEX_pp_HpHm_munumunu_ATLAS13;
+    double THoEX_pp_HpHm_munumunu_CMS13;
+    double THoEX_HpHm_munumunu_LEP208;
+
     double SigmaSumphi2_8;
     double SigmaggF_phi2_8;
     double SigmabbF_phi2_8;
@@ -3743,6 +3762,12 @@ private:
     mutable double ip_low_HpHm_qqqq_LEP209_cache[2][CacheSize];
     mutable double ip_low_HpHm_qqtaunu_OPAL209_cache[2][CacheSize];
     mutable double ip_low_HpHm_qqtaunu_OPAL172_cache[2][CacheSize];
+
+    mutable double ip_susy_pp_HpHm_taunutaunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_susy_pp_HpHm_taunutaunu_CMS13_cache[2][CacheSize];
+    mutable double ip_susy_pp_HpHm_munumunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_susy_pp_HpHm_munumunu_CMS13_cache[2][CacheSize];
+    mutable double ip_susy_HpHm_munumunu_LEP208_cache[2][CacheSize];
 
     mutable double ip_integral_x2_1mx_G_cache[3][CacheSize];
     mutable double ip_integral_x2_1px_G_cache[3][CacheSize];

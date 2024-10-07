@@ -1,0 +1,17 @@
+# CERN-EP-2022-132, fig. 6a
+# fig. 4 from Auxiliary material at https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2019-02/
+# observed 95% exclusion limits on sig(pp -> H+ H-)*BR(H+ -> ell nu)*BR(H- -> ell nu) at 13 TeV
+# slepton interpreted as charged Higgs
+# massless neutralino values interpreted as search for H+ -> ell + inv
+# mH+[GeV] | sig[pb]*BR*BR_95%
+90.0    127.3e-3
+100.0    57.1e-3
+125.0    33.6e-3
+150.0    17.9e-3
+175.0    10.4e-3
+200.0    11.9e-3
+225.0     9.0e-3
+250.0     8.2e-3
+275.0    10.3e-3
+300.0     9.7e-3
+350.0    13.0e-3

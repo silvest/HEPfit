@@ -19,6 +19,7 @@
 #include "GeneralTHDMLightHiggs.h"
 #include "GeneralTHDMSTU.h"
 #include "GeneralTHDMLowMass.h"
+#include "GeneralTHDMSusyObs.h"
 
 
 

@@ -1,0 +1,22 @@
+# CMS-SUS-21-001, fig. 5a
+# data at https://www.hepdata.net/record/ins2106478
+# observed 95% exclusion limits on sig(pp -> H+ H-)*BR(H+ -> tau nu)*BR(H- -> tau nu) at 13 TeV
+# stau interpreted as charged Higgs
+# near-massless neutralino values interpreted as search for H+ -> tau + inv
+# mH+[GeV] | sig[pb]*BR*BR_95%
+90.0     6.551700e-01
+100.0    4.007800e-01
+125.0    9.740100e-02
+150.0    4.300300e-02
+175.0    1.703600e-02
+200.0    1.115100e-02
+225.0    7.965500e-03
+250.0    5.057200e-03
+275.0    4.066600e-03
+300.0    3.318000e-03
+325.0    2.651200e-03
+350.0    2.507000e-03
+375.0    2.090100e-03
+400.0    1.977100e-03
+450.0    1.615600e-03
+500.0    1.422400e-03
