@@ -303,7 +303,7 @@ public:
      */
     gslpp::matrix<double> ATLAS13_pp_h_phi3phi3_bbmumu, ATLAS13_gg_h_phi23phi23_mumumumu, ATLAS13_gg_h_phi23Z_mumull, ATLAS13_Vh_h_phi23phi23_bbbb,\
                           ATLAS13_Zh_h_phi23phi23_bbbb, ATLAS13_pp_h_phi23phi23_bbmumu_old, ATLAS13_pp_h_phi23phi23_gagagg, ATLAS13_pp_phi2_gaga_low,\
-                          ATLAS13_pp_ttphi3_ttmumu;
+                          ATLAS13_pp_ttphi3_ttmumu, ATLAS13_gg_phi3_tautau_low;
 
     //Added in the beginning of 2024 for low mass scenario
     /**
@@ -744,6 +744,7 @@ public:
     double ip_low_pp_h_phi23phi23_gagagg_ATLAS13(double mass);
     double ip_low_pp_phi2_gaga_ATLAS13(double mass);
     double ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass);
+    double ip_low_gg_phi3_tautau_ATLAS13(double mass);
 
     double ip_low_phi2Z_gagaZ_LEP209(double mass);
     double ip_low_phi2Z_bbZ_LEP209(double mass);
@@ -3012,6 +3013,7 @@ public:
     double THoEX_pp_h_phi3phi3_gagagg_ATLAS13;
     double THoEX_pp_phi2_gaga_ATLAS13_low;
     double THoEX_pp_ttphi3_ttmumu_ATLAS13;
+    double THoEX_gg_phi3_tautau_ATLAS13_low;
 
     double THoEX_pp_h_phi3phi3_gagagaga_ATLAS8;
     double THoEX_gg_h_phi3phi3_tautautautau_ATLAS8;
@@ -3740,6 +3742,7 @@ private:
     mutable double ip_low_pp_h_phi23phi23_gagagg_ATLAS13_cache[2][CacheSize];
     mutable double ip_low_pp_phi2_gaga_ATLAS13_cache[2][CacheSize];
     mutable double ip_low_pp_ttphi3_ttmumu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_gg_phi3_tautau_ATLAS13_cache[2][CacheSize];
 
     mutable double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8_cache[2][CacheSize];
     mutable double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8_cache[2][CacheSize];

@@ -355,9 +355,32 @@ public:
 
 private:
     const GeneralTHDM& myGTHDM;
-}
+};
 
-;/**
+/**
+ * @class Hobs_gg_phi3_tautau_ATLAS13_low
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section  times branching ratio of the process @f$gg \to A\to \tau\tau@f$.
+ */
+class Hobs_gg_phi3_tautau_ATLAS13_low: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_gg_phi3_tautau_ATLAS13_low constructor.
+     */
+    Hobs_gg_phi3_tautau_ATLAS13_low(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{gg\to A} \cdot BR^{\text{GTHDM}}(A\to \tau\tau)]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
  * @class Hobs_pp_ttphi3_ttmumu_ATLAS13
  * @ingroup GeneralTHDM
  * @brief Ratio of the prediction and ATLAS upper limit for the cross section  times branching ratio of the process @f$pp \to ttA \to tt\mu\mu@f$.

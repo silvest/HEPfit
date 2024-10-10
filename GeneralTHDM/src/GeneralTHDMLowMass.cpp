@@ -207,6 +207,15 @@ double Hobs_pp_ttphi3_ttmumu_ATLAS13::computeThValue()
     return myGTHDM.getMyGTHDMCache()->THoEX_pp_ttphi3_ttmumu_ATLAS13;
 }
 
+Hobs_gg_phi3_tautau_ATLAS13_low::Hobs_gg_phi3_tautau_ATLAS13_low(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_gg_phi3_tautau_ATLAS13_low::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_gg_phi3_tautau_ATLAS13_low;
+}
+
 Hobs_pp_h_phi3phi3_gagagaga_ATLAS8::Hobs_pp_h_phi3phi3_gagagaga_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
 {}

@@ -266,6 +266,8 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS13_pp_HpHm_taunutaunu(16, 2, 0.),      //Added in 2024
         CMS13_pp_HpHm_munumunu(22, 2, 0.),        //Added in 2024
         //
+        ATLAS13_gg_phi3_tautau_low(12, 2, 0.),           //Added in 2024
+        //
         //Tables of integrals for g-2
         integral_x2_1mx_G_log(62500, 3, 0.),
         integral_x2_1px_G_log(62500, 3, 0.),
@@ -1987,7 +1989,7 @@ void GeneralTHDMcache::read(){
     std::stringstream ex57,ex58,ex59,ex60,ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex67p1,ex67p2,ex67p3,ex67p4,ex67p5,ex67p6,ex68,ex69,ex70,ex71,ex72,ex73,ex74,ex75,ex76,ex77,\
             ex78,ex79;//,ex80,ex81,ex82,ex83,ex84,ex85,ex86,ex87,ex88,ex89,ex90,ex91,ex92,ex93,ex94,ex95,ex96,ex97,ex98
     std::stringstream lowC01,lowC02,lowC03,lowC04,lowC05,lowC06,lowC07,lowC08, lowC09;
-    std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07, lowA08, lowA09;
+    std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07, lowA08, lowA09, lowA10;
     std::stringstream lowA801, lowA802;
     std::stringstream lowC801, lowC802, lowC803, lowC804, lowC805, lowC806;
     std::stringstream low209a, low209b, low209c, low209d, low209e;
@@ -2492,6 +2494,9 @@ void GeneralTHDMcache::read(){
 
     lowA09 << tablepath << "ATLAS_CERN-EP-2023-070_5a.dat";               //Added in 2024
     ATLAS13_pp_ttphi3_ttmumu = readTable(lowA09.str(),37,2);
+    
+    lowA10 << tablepath << "ATLAS_CERN-EP-2024-235_7.dat";               //Added in 2024
+    ATLAS13_gg_phi3_tautau_low = readTable(lowA10.str(),12,2);
 
     lowA801 << tablepath << "ATLAS_CERN-PH-EP-2015-187_4b.dat";               //Added in 2024
     ATLAS8_pp_h_phi3phi3_gagagaga = readTable(lowA801.str(),105,2);
@@ -3271,7 +3276,7 @@ double GeneralTHDMcache::ip_csr_HpHm_pp_13_NLO(double mass){
     if (i>=0) {
         return ( ip_csr_HpHm_pp_13_NLO_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (csrHpHm_pp_13_NLO,mass);
+        double newResult = interpolateNU (csrHpHm_pp_13_NLO,mass);
         CacheShiftReal(ip_csr_HpHm_pp_13_NLO_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -5165,6 +5170,19 @@ double GeneralTHDMcache::ip_low_pp_h_phi23phi23_gagagg_ATLAS13(double mass){
     }
 }
 
+double GeneralTHDMcache::ip_low_gg_phi3_tautau_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+    int i = CacheCheckReal(ip_low_gg_phi3_tautau_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_gg_phi3_tautau_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolateNU (ATLAS13_gg_phi3_tautau_low,mass);
+        CacheShiftReal(ip_low_gg_phi3_tautau_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 double GeneralTHDMcache::ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -5229,6 +5247,7 @@ double GeneralTHDMcache::ip_low_pp_h_phi3phi3_mumutautau_CMS8(double mass){
         return newResult;
     }
 }
+
 
 double GeneralTHDMcache::ip_low_pp_phi2_gaga_CMS8(double mass){
     int NumPar = 1;
@@ -9869,6 +9888,13 @@ void GeneralTHDMcache::computeLowMass()
         THoEX_pp_h_phi3phi3_gagagg_ATLAS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3togaga * Br_phi3togg) / ip_low_pp_h_phi23phi23_gagagg_ATLAS13(mH3);
     }
 
+    THoEX_gg_phi3_tautau_ATLAS13_low = 0.0;
+
+    if(mH3 >= 20.0 && mH3 <= 90.0)
+    {
+        THoEX_gg_phi3_tautau_ATLAS13_low = (SigmaggF_phi3_13 * Br_phi3totautau) / ip_low_gg_phi3_tautau_ATLAS13(mH3);
+    }
+
     THoEX_pp_h_phi3phi3_gagagaga_ATLAS8 = 0.0;
 
     if(mH3 >= 10.0 && mH3 <= 62.0)
@@ -10174,8 +10200,6 @@ void GeneralTHDMcache::computeLowMass()
         //One can try with LO cross-section too.
         THoEX_pp_HpHm_taunutaunu_ATLAS13 = (ip_csr_HpHm_pp_13_NLO(mHp) * Br_Hptotaunu * Br_Hptotaunu) / ip_susy_pp_HpHm_taunutaunu_ATLAS13(mHp);
     }
-    
-    std::cout<< ip_csr_HpHm_pp_13_NLO(mHp) << "," << Br_Hptotaunu  << "," << ip_susy_pp_HpHm_taunutaunu_ATLAS13(mHp);
 
     THoEX_pp_HpHm_taunutaunu_CMS13 = 0.0;
 
