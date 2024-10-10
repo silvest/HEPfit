@@ -259,6 +259,8 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         OPAL209_HpHm_qqtaunu(87, 2, 0.),          //Added in 2024
         OPAL172_HpHm_qqtaunu(41, 2, 0.),          //Added in 2024
         //
+        csrHpHm_pp_13_LO(12, 2, 0.),
+        csrHpHm_pp_13_NLO(31, 2, 0.),
         ATLAS13_pp_HpHm_taunutaunu(19, 2, 0.),    //Added in 2024
         ATLAS13_pp_HpHm_munumunu(11, 2, 0.),      //Added in 2024
         CMS13_pp_HpHm_taunutaunu(16, 2, 0.),      //Added in 2024
@@ -1992,7 +1994,7 @@ void GeneralTHDMcache::read(){
     std::stringstream lowHpC801, lowHpC802, lowHpC803, lowHpC1301, lowHpC1302;
     std::stringstream lowHpA801, lowHpA1301, lowHpA1302;
     std::stringstream lowHp209a, lowHp209b, lowHp209c, lowHp172a;
-    std::stringstream susyHpA01, susyHpA02, susyHpC01, susyHpC02;
+    std::stringstream csrslepLO, csrslepNLO, susyHpA01, susyHpA02, susyHpC01, susyHpC02;
     std::stringstream thint01, thint02, thint03, thint04, thint05, thint06, thint07, thint08;
     std::stringstream bsg1;
 
@@ -2075,6 +2077,10 @@ void GeneralTHDMcache::read(){
     csrA_bottom_8 = readTable(csr4.str(),200,2);
     csr14 << tablepath << "csrA_bottom_13.dat";
     csrA_bottom_13 = readTable(csr14.str(),200,2);
+    csrslepLO << tablepath << "csrHpHm_pp_slepton_13_LO.dat";
+    csrHpHm_pp_13_LO = readTable(csrslepLO.str(),12,2);
+    csrslepNLO << tablepath << "csrHpHm_pp_slepton_13_NLONLL.dat";
+    csrHpHm_pp_13_NLO = readTable(csrslepNLO.str(),31,2);
 
     
     ex1m6<< tablepath << "150801437_9b.dat";                //Included in mid 2022
@@ -3241,6 +3247,35 @@ double GeneralTHDMcache::ip_csr_ggA_b_13(double mass){
     }
 }
 
+
+double GeneralTHDMcache::ip_csr_HpHm_pp_13_LO(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_csr_HpHm_pp_13_LO_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_csr_HpHm_pp_13_LO_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (csrHpHm_pp_13_LO,mass);
+        CacheShiftReal(ip_csr_HpHm_pp_13_LO_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+double GeneralTHDMcache::ip_csr_HpHm_pp_13_NLO(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_csr_HpHm_pp_13_NLO_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_csr_HpHm_pp_13_NLO_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (csrHpHm_pp_13_NLO,mass);
+        CacheShiftReal(ip_csr_HpHm_pp_13_NLO_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 
 //ATLAS13_bb_phi_bb
@@ -10134,11 +10169,37 @@ void GeneralTHDMcache::computeLowMass()
 
     THoEX_pp_HpHm_taunutaunu_ATLAS13 = 0.0;
 
+    if(mHp >= 80.0 && mHp < 440.0)
+    {
+        //One can try with LO cross-section too.
+        THoEX_pp_HpHm_taunutaunu_ATLAS13 = (ip_csr_HpHm_pp_13_NLO(mHp) * Br_Hptotaunu * Br_Hptotaunu) / ip_susy_pp_HpHm_taunutaunu_ATLAS13(mHp);
+    }
+    
+    std::cout<< ip_csr_HpHm_pp_13_NLO(mHp) << "," << Br_Hptotaunu  << "," << ip_susy_pp_HpHm_taunutaunu_ATLAS13(mHp);
+
     THoEX_pp_HpHm_taunutaunu_CMS13 = 0.0;
+
+    if(mHp >= 90.0 && mHp < 500.0)
+    {
+        //One can try with LO cross-section too.
+        THoEX_pp_HpHm_taunutaunu_CMS13 = (ip_csr_HpHm_pp_13_NLO(mHp) * Br_Hptotaunu * Br_Hptotaunu) / ip_susy_pp_HpHm_taunutaunu_CMS13(mHp);
+    }
 
     THoEX_pp_HpHm_munumunu_ATLAS13 = 0.0;
 
+    if(mHp >= 90.0 && mHp < 350.0)
+    {
+        //One can try with LO cross-section too.
+        THoEX_pp_HpHm_munumunu_ATLAS13 = (ip_csr_HpHm_pp_13_NLO(mHp) * Br_Hptomunu * Br_Hptomunu) / ip_susy_pp_HpHm_munumunu_ATLAS13(mHp);
+    }
+
     THoEX_pp_HpHm_munumunu_CMS13 = 0.0;
+
+    if(mHp >= 100.0 && mHp < 800.0)
+    {
+        //One can try with LO cross-section too.
+        THoEX_pp_HpHm_munumunu_CMS13 = (ip_csr_HpHm_pp_13_NLO(mHp) * Br_Hptomunu * Br_Hptomunu) / ip_susy_pp_HpHm_munumunu_CMS13(mHp);
+    }
 
     THoEX_HpHm_munumunu_LEP208 = 0.0;
 

@@ -368,6 +368,11 @@ public:
      */
     gslpp::matrix<double> ATLAS13_pp_HpHm_taunutaunu, ATLAS13_pp_HpHm_munumunu, CMS13_pp_HpHm_taunutaunu, CMS13_pp_HpHm_munumunu;
 
+    /**
+     * @brief charged higgs pair production cross-sections at 13 TeV, depending on charged scalar mass (taken from slepton pair production through Drell-Yan).
+     */
+    gslpp::matrix<double> csrHpHm_pp_13_LO, csrHpHm_pp_13_NLO;
+
     //Added in 2024 for g-2 computation
     gslpp::matrix<double> integral_x2_1mx_G_log, integral_x2_1px_G_log, integral_x2_G_log, integral_x_1mx2_G_log,\
                           integral_x_1mx_1px_G_log, integral_x2_1mx_G_variable_set_1_log,\
@@ -760,6 +765,8 @@ public:
     double ip_low_HpHm_qqtaunu_OPAL209(double mass);
     double ip_low_HpHm_qqtaunu_OPAL172(double mass);
 
+    double ip_csr_HpHm_pp_13_LO(double mass);
+    double ip_csr_HpHm_pp_13_NLO(double mass);
     double ip_susy_pp_HpHm_taunutaunu_ATLAS13(double mass);
     double ip_susy_pp_HpHm_taunutaunu_CMS13(double mass);
     double ip_susy_pp_HpHm_munumunu_ATLAS13(double mass);
@@ -3763,6 +3770,8 @@ private:
     mutable double ip_low_HpHm_qqtaunu_OPAL209_cache[2][CacheSize];
     mutable double ip_low_HpHm_qqtaunu_OPAL172_cache[2][CacheSize];
 
+    mutable double ip_csr_HpHm_pp_13_LO_cache[2][CacheSize];
+    mutable double ip_csr_HpHm_pp_13_NLO_cache[2][CacheSize];
     mutable double ip_susy_pp_HpHm_taunutaunu_ATLAS13_cache[2][CacheSize];
     mutable double ip_susy_pp_HpHm_taunutaunu_CMS13_cache[2][CacheSize];
     mutable double ip_susy_pp_HpHm_munumunu_ATLAS13_cache[2][CacheSize];
