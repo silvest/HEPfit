@@ -9772,21 +9772,21 @@ void GeneralTHDMcache::computeLowMass()
 
     if(mH3 >= 15.0 && mH3 <= 62.0)
     {
-        THoEX_pp_h_phi3phi3_mumutautau_CMS13 = (pph13 * GTHDM_BR_h_AA * Br_phi3tomumu * Br_phi3totautau) / ip_low_pp_h_phi3phi3_mumutautau_CMS13(mH3);
+        THoEX_pp_h_phi3phi3_mumutautau_CMS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3tomumu * Br_phi3totautau) / ip_low_pp_h_phi3phi3_mumutautau_CMS13(mH3);
     }
 
     THoEX_pp_h_phi3phi3_bbtautau_CMS13 = 0.0;
 
     if(mH3 >= 15.0 && mH3 <= 60.0)
     {
-        THoEX_pp_h_phi3phi3_bbtautau_CMS13 = (pph13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3totautau) / ip_low_pp_h_phi3phi3_bbtautau_CMS13(mH3);
+        THoEX_pp_h_phi3phi3_bbtautau_CMS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3totautau) / ip_low_pp_h_phi3phi3_bbtautau_CMS13(mH3);
     }
 
     THoEX_pp_h_phi3phi3_bbmumu_CMS13 = 0.0;
 
     if(mH3 >= 20.0 && mH3 <= 62.5)
     {
-        THoEX_pp_h_phi3phi3_bbmumu_CMS13 = (pph13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_CMS13(mH3);
+        THoEX_pp_h_phi3phi3_bbmumu_CMS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_CMS13(mH3);
     }
 
     THoEX_pp_h_phi3Z_mumull_CMS13 = 0.0;
@@ -9822,7 +9822,7 @@ void GeneralTHDMcache::computeLowMass()
 
     if(mH3 >= 16.0 && mH3 <= 62.0)
     {
-        THoEX_pp_h_phi3phi3_bbmumu_ATLAS13 = (GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(mH3);
+        THoEX_pp_h_phi3phi3_bbmumu_ATLAS13 = (2.0 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_ATLAS13(mH3);
     }
 
     THoEX_gg_h_phi3phi3_mumumumu_ATLAS13 = 0.0;
@@ -9859,14 +9859,14 @@ void GeneralTHDMcache::computeLowMass()
 
     if(mH3 >= 20.0 && mH3 <= 60.0)
     {
-        THoEX_pp_h_phi3phi3_bbmumu_ATLAS13_old = (ggF_VBF_Vh13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old(mH3);
+        THoEX_pp_h_phi3phi3_bbmumu_ATLAS13_old = (2.0 * ggF_VBF_Vh13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old(mH3);
     }
 
     THoEX_pp_h_phi3phi3_gagagg_ATLAS13 = 0.0;
 
     if((mH3 >= 20.0 && mH3 <= 24.999)||(mH3 >= 25.0 && mH3 <= 34.999)||(mH3 >= 35.0 && mH3 <= 44.999)||(mH3 >= 45.0 && mH3 <= 54.999)||(mH3 >= 55.0 && mH3 <= 60.0))
     {
-        THoEX_pp_h_phi3phi3_gagagg_ATLAS13 = (pph13 * GTHDM_BR_h_AA * Br_phi3togaga * Br_phi3togg) / ip_low_pp_h_phi23phi23_gagagg_ATLAS13(mH3);
+        THoEX_pp_h_phi3phi3_gagagg_ATLAS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3togaga * Br_phi3togg) / ip_low_pp_h_phi23phi23_gagagg_ATLAS13(mH3);
     }
 
     THoEX_pp_h_phi3phi3_gagagaga_ATLAS8 = 0.0;
@@ -9894,14 +9894,14 @@ void GeneralTHDMcache::computeLowMass()
 
     if(mH3 >= 25.0 && mH3 <= 62.5)
     {
-        THoEX_pp_h_phi3phi3_bbmumu_CMS8 = (pph8 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_CMS8(mH3);
+        THoEX_pp_h_phi3phi3_bbmumu_CMS8 = (2.0 * pph8 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_CMS8(mH3);
     }
 
     THoEX_pp_h_phi3phi3_mumutautau_CMS8 = 0.0;
 
     if(mH3 >= 15.0 && mH3 <= 62.5)
     {
-        THoEX_pp_h_phi3phi3_mumutautau_CMS8 = (pph8 * GTHDM_BR_h_AA * Br_phi3totautau * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_mumutautau_CMS8(mH3);
+        THoEX_pp_h_phi3phi3_mumutautau_CMS8 = (2.0 * pph8 * GTHDM_BR_h_AA * Br_phi3totautau * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_mumutautau_CMS8(mH3);
     }
 
     THoEX_pp_bbphi3_bbtautau_CMS13 = 0.0;
@@ -9984,14 +9984,14 @@ void GeneralTHDMcache::computeLowMass()
 
     if(mH2 >= 20.0 && mH2 <= 60.0)
     {
-        THoEX_pp_h_phi2phi2_bbmumu_ATLAS13_old = (ggF_VBF_Vh13 * GTHDM_BR_h_AA * Br_phi2tobb * Br_phi2tomumu) / ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old(mH2);
+        THoEX_pp_h_phi2phi2_bbmumu_ATLAS13_old = (2.0 * ggF_VBF_Vh13 * GTHDM_BR_h_AA * Br_phi2tobb * Br_phi2tomumu) / ip_low_pp_h_phi23phi23_bbmumu_ATLAS13_old(mH2);
     }
 
     THoEX_pp_h_phi2phi2_gagagg_ATLAS13 = 0.0;
 
     if((mH2 >= 20.0 && mH2 <= 24.999)||(mH2 >= 25.0 && mH2 <= 34.999)||(mH2 >= 35.0 && mH2 <= 44.999)||(mH2 >= 45.0 && mH2 <= 54.999)||(mH2 >= 55.0 && mH2 <= 60.0))
     {
-        THoEX_pp_h_phi2phi2_gagagg_ATLAS13 = (pph13 * GTHDM_BR_h_HH * Br_phi2togaga * Br_phi2togg) / ip_low_pp_h_phi23phi23_gagagg_ATLAS13(mH2);
+        THoEX_pp_h_phi2phi2_gagagg_ATLAS13 = (2.0 * pph13 * GTHDM_BR_h_HH * Br_phi2togaga * Br_phi2togg) / ip_low_pp_h_phi23phi23_gagagg_ATLAS13(mH2);
     }
 
     THoEX_pp_phi2_gaga_CMS8 = 0.0;
