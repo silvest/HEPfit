@@ -1,0 +1,11 @@
+# CERN-EP-2024-164, fig. 10a
+# observed 95% exclusion limits on sig/sigSM(pp->h)*BR(h->AA[->bbtautau]).
+# mA[GeV] | sig/sigSM*BR_95%
+12.0	0.0262
+15.5	0.0378
+20.0	0.0411
+25.0	0.0293
+30.0	0.0236
+40.0	0.0284
+50.0	0.0241
+60.0	0.0373
