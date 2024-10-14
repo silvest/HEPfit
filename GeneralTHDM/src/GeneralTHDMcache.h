@@ -303,7 +303,7 @@ public:
      */
     gslpp::matrix<double> ATLAS13_pp_h_phi3phi3_bbmumu, ATLAS13_gg_h_phi23phi23_mumumumu, ATLAS13_gg_h_phi23Z_mumull, ATLAS13_Vh_h_phi23phi23_bbbb,\
                           ATLAS13_Zh_h_phi23phi23_bbbb, ATLAS13_pp_h_phi23phi23_bbmumu_old, ATLAS13_pp_h_phi23phi23_gagagg, ATLAS13_pp_phi2_gaga_low,\
-                          ATLAS13_pp_ttphi3_ttmumu, ATLAS13_gg_phi3_tautau_low;
+                          ATLAS13_pp_ttphi3_ttmumu, ATLAS13_gg_phi3_tautau_low, ATLAS13_pp_h_phi3phi3_gagagaga, ATLAS13_pp_h_phi3phi3_bbtautau;
 
     //Added in the beginning of 2024 for low mass scenario
     /**
@@ -348,6 +348,10 @@ public:
      * @brief ATLAS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on charged and pseudoscalar masses.
      */
     gslpp::matrix<double> ATLAS13_t_Hpb_WAb_Wmumub;
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on the charged scalar mass.
+     */
+    gslpp::matrix<double> ATLAS13_t_Hpb_csb;
 
     /**
      * @brief LEP observed @f$95\%@f$ upper cross-section times branching fraction limits for @f$\sqrt{s} = 183 - 209@f$ GeV, depending on the charged masses.
@@ -745,6 +749,8 @@ public:
     double ip_low_pp_phi2_gaga_ATLAS13(double mass);
     double ip_low_pp_ttphi3_ttmumu_ATLAS13(double mass);
     double ip_low_gg_phi3_tautau_ATLAS13(double mass);
+    double ip_low_pp_h_phi3phi3_gagagaga_ATLAS13(double mass);
+    double ip_low_pp_h_phi3phi3_bbtautau_ATLAS13(double mass);
 
     double ip_low_phi2Z_gagaZ_LEP209(double mass);
     double ip_low_phi2Z_bbZ_LEP209(double mass);
@@ -760,6 +766,7 @@ public:
     double ip_low_t_Hpb_taunub_ATLAS8(double mass);
     double ip_low_t_Hpb_cbb_ATLAS13(double mass);
     double ip_low_t_Hpb_WAb_Wmumub_ATLAS13(double mass);
+    double ip_low_t_Hpb_csb_ATLAS13(double mass);
 
     double ip_low_HpHm_taunutaunu_LEP209(double mass);
     double ip_low_HpHm_qqqq_LEP209(double mass);
@@ -3014,6 +3021,8 @@ public:
     double THoEX_pp_phi2_gaga_ATLAS13_low;
     double THoEX_pp_ttphi3_ttmumu_ATLAS13;
     double THoEX_gg_phi3_tautau_ATLAS13_low;
+    double THoEX_pp_h_phi3phi3_gagagaga_ATLAS13;
+    double THoEX_pp_h_phi3phi3_bbtautau_ATLAS13;
 
     double THoEX_pp_h_phi3phi3_gagagaga_ATLAS8;
     double THoEX_gg_h_phi3phi3_tautautautau_ATLAS8;
@@ -3050,6 +3059,7 @@ public:
     double THoEX_t_Hpb_taunub_ATLAS8;
     double THoEX_t_Hpb_cbb_ATLAS13;
     double THoEX_t_Hpb_WAb_Wmumub_ATLAS13;
+    double THoEX_t_Hpb_csb_ATLAS13;
 
     double THoEX_HpHm_taunutaunu_LEP209;
     double THoEX_HpHm_qqqq_LEP209;
@@ -3743,6 +3753,8 @@ private:
     mutable double ip_low_pp_phi2_gaga_ATLAS13_cache[2][CacheSize];
     mutable double ip_low_pp_ttphi3_ttmumu_ATLAS13_cache[2][CacheSize];
     mutable double ip_low_gg_phi3_tautau_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi3phi3_gagagaga_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_pp_h_phi3phi3_bbtautau_ATLAS13_cache[2][CacheSize];
 
     mutable double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8_cache[2][CacheSize];
     mutable double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8_cache[2][CacheSize];
@@ -3767,6 +3779,7 @@ private:
     mutable double ip_low_t_Hpb_taunub_ATLAS8_cache[2][CacheSize];
     mutable double ip_low_t_Hpb_cbb_ATLAS13_cache[2][CacheSize];
     mutable double ip_low_t_Hpb_WAb_Wmumub_ATLAS13_cache[2][CacheSize];
+    mutable double ip_low_t_Hpb_csb_ATLAS13_cache[2][CacheSize];
 
     mutable double ip_low_HpHm_taunutaunu_LEP209_cache[2][CacheSize];
     mutable double ip_low_HpHm_qqqq_LEP209_cache[2][CacheSize];

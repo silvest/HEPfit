@@ -379,6 +379,49 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+/**
+ * @class Hobs_pp_h_phi3phi3_gagagaga_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section  times branching ratio of the process @f$pp \to h_{125}\to AA\to \gamma\gamma\gamma\gamma@f$.
+ */
+class Hobs_pp_h_phi3phi3_gagagaga_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_h_phi3phi3_gagagaga_ATLAS13 constructor.
+     */
+    Hobs_pp_h_phi3phi3_gagagaga_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to h_{125}} \cdot BR^{\text{GTHDM}}(h_{125}\to AA) \cdot BR^{\text{GTHDM}}(A\to \gamma\gamma) \cdot BR^{\text{GTHDM}}(A\to \gamma\gamma)]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_h_phi3phi3_bbtautau_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section  times branching ratio of the process @f$pp \to h_{125}\to AA\to bb\tau\tau@f$.
+ */
+class Hobs_pp_h_phi3phi3_bbtautau_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_h_phi3phi3_bbtautau_ATLAS13 constructor.
+     */
+    Hobs_pp_h_phi3phi3_bbtautau_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to h_{125}} \cdot BR^{\text{GTHDM}}(h_{125}\to AA) \cdot BR^{\text{GTHDM}}(A\to bb) \cdot BR^{\text{GTHDM}}(A\to \tau\tau)]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
 
 /**
  * @class Hobs_pp_ttphi3_ttmumu_ATLAS13
@@ -1138,6 +1181,28 @@ public:
 
     /**
      * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to W^{+} A) \cdot BR^{\text{GTHDM}}(A\to \mu^{+} \mu^{-})]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_t_Hpb_csb_ATLAS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the branching ratio of the process @f$t\to H^{+} b\to c \bar{s} b@f$.
+ */
+class Hobs_t_Hpb_csb_ATLAS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_t_Hpb_csb_ATLAS13 constructor.
+     */
+    Hobs_t_Hpb_csb_ATLAS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[BR^{\text{GTHDM}}(t\to H^{+} b) \cdot BR^{\text{GTHDM}}(H^{+}\to c \bar{s})]_{\frac{\text{theo}}{\text{ATLAS,95\%}}}@f$
      */
     double computeThValue();
 
