@@ -186,9 +186,11 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         CMS13_pp_h_phi3phi3_mumutautau(48, 2, 0.), //Added in late 2023
         //
-        CMS13_pp_h_phi3phi3_bbtautau(10, 2, 0.), //Added in 2024
+    //  CMS13_pp_h_phi3phi3_bbtautau(10, 2, 0.), //from 1805.10191
+        CMS13_pp_h_phi3phi3_bbtautau(11, 2, 0.), //Added in 2024
         //
-         CMS13_pp_h_phi3phi3_bbmumu(86, 2, 0.), //Added in 2024
+    //  CMS13_pp_h_phi3phi3_bbmumu(86, 2, 0.), //from 1812.06359
+        CMS13_pp_h_phi3phi3_bbmumu(95, 2, 0.), //Added in 2024
         //
         CMS13_pp_h_phi23Z_mumull(352, 2, 0.), //Added in 2024
         //
@@ -201,6 +203,12 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         CMS13_pp_phi2_gaga(81, 2, 0.), //Added in 2024
         //
         CMS13_pp_bbphi3_bbtautau(10, 2, 0.), //Added in 2024
+        //
+        CMS13_pp_ttphi3_ttmumu(220, 2, 0.), //Added in 2024
+        //
+        CMS13_pp_ttphi3_tttautau(18, 2, 0.), //Added in 2024
+        //
+        CMS13_Vh_h_phi3phi3_bbbb(10, 2, 0.), //Added in 2024
         //
 
         ATLAS13_pp_h_phi3phi3_bbmumu(47, 2, 0.), //Added in 2024
@@ -1994,7 +2002,7 @@ void GeneralTHDMcache::read(){
             ex45,ex46n1,ex46n2,ex46a,ex47,ex48,ex49,ex49p2,ex50a,ex50b,ex51,ex52m2,ex52m1,ex52,ex52p1,ex52p2,ex53,ex54,ex55,ex56;
     std::stringstream ex57,ex58,ex59,ex60,ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex67p1,ex67p2,ex67p3,ex67p4,ex67p5,ex67p6,ex68,ex69,ex70,ex71,ex72,ex73,ex74,ex75,ex76,ex77,\
             ex78,ex79;//,ex80,ex81,ex82,ex83,ex84,ex85,ex86,ex87,ex88,ex89,ex90,ex91,ex92,ex93,ex94,ex95,ex96,ex97,ex98
-    std::stringstream lowC01,lowC02,lowC03,lowC04,lowC05,lowC06,lowC07,lowC08, lowC09;
+    std::stringstream lowC01,lowC02,lowC03,lowC04,lowC05,lowC06,lowC07,lowC08, lowC09, lowC10, lowC11, lowC12;
     std::stringstream lowA01, lowA02, lowA03, lowA04, lowA05, lowA06, lowA07, lowA08, lowA09, lowA10, lowA11, lowA12;
     std::stringstream lowA801, lowA802;
     std::stringstream lowC801, lowC802, lowC803, lowC804, lowC805, lowC806;
@@ -2450,11 +2458,17 @@ void GeneralTHDMcache::read(){
     lowC01 << tablepath << "CMS-HIG-17-029_4e.dat";               //Added in late 2023
     CMS13_pp_h_phi3phi3_mumutautau = readTable(lowC01.str(),48,2);
 
-    lowC02 << tablepath << "CMS-HIG-17-024_7d.dat";               //Added in 2024
-    CMS13_pp_h_phi3phi3_bbtautau = readTable(lowC02.str(),10,2);
+//  lowC02 << tablepath << "CMS-HIG-17-024_7d.dat";               //Added in 2024
+//  CMS13_pp_h_phi3phi3_bbtautau = readTable(lowC02.str(),10,2);
 
-    lowC03 << tablepath << "CMS-HIG-18-011_5b.dat";               //Added in 2024
-    CMS13_pp_h_phi3phi3_bbmumu = readTable(lowC03.str(),86,2);
+    lowC02 << tablepath << "CMS-HIG-22-007_11d.dat";               //Added in 2024
+    CMS13_pp_h_phi3phi3_bbtautau = readTable(lowC02.str(),11,2);
+
+//  lowC03 << tablepath << "CMS-HIG-18-011_5b.dat";               //Added in 2024
+//  CMS13_pp_h_phi3phi3_bbmumu = readTable(lowC03.str(),86,2);
+
+    lowC03 << tablepath << "CMS-HIG-22-007_10.dat";               //Added in 2024
+    CMS13_pp_h_phi3phi3_bbmumu = readTable(lowC03.str(),95,2);
 
     lowC04 << tablepath << "CMS-HIG-19-007_4a.dat";               //Added in 2024
     CMS13_pp_h_phi23Z_mumull = readTable(lowC04.str(),352,2);
@@ -2473,6 +2487,15 @@ void GeneralTHDMcache::read(){
 
     lowC09 << tablepath << "CMS-HIG-17-014_4.dat";               //Added in 2024
     CMS13_pp_bbphi3_bbtautau = readTable(lowC09.str(),10,2);
+
+    lowC10 << tablepath << "CMS-EXO-21-018_14d.dat";               //Added in 2024
+    CMS13_pp_ttphi3_ttmumu = readTable(lowC10.str(),220,2);
+
+    lowC11 << tablepath << "CMS-EXO-21-018_14f.dat";               //Added in 2024
+    CMS13_pp_ttphi3_tttautau = readTable(lowC11.str(),18,2);
+
+    lowC12 << tablepath << "CMS-HIG-18-026_3c.dat";               //Added in 2024
+    CMS13_Vh_h_phi3phi3_bbbb = readTable(lowC12.str(),10,2);
 
     lowA01 << tablepath << "ATLAS_CERN-EP-2021-157_9.dat";               //Added in 2024
     ATLAS13_pp_h_phi3phi3_bbmumu = readTable(lowA01.str(),47,2);
@@ -5018,7 +5041,7 @@ double GeneralTHDMcache::ip_low_pp_h_phi3phi3_bbtautau_CMS13(double mass){
     if (i>=0) {
         return(ip_low_pp_h_phi3phi3_bbtautau_CMS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS13_pp_h_phi3phi3_bbtautau,mass);
+        double newResult = interpolateNU (CMS13_pp_h_phi3phi3_bbtautau,mass);
         CacheShiftReal(ip_low_pp_h_phi3phi3_bbtautau_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -5090,6 +5113,48 @@ double GeneralTHDMcache::ip_low_pp_h_phi3phi3_tautautautau_CMS13(double mass){
     } else {
         double newResult = interpolate (CMS13_pp_h_phi3phi3_tautautautau,mass);
         CacheShiftReal(ip_low_pp_h_phi3phi3_tautautautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_ttphi3_ttmumu_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_low_pp_ttphi3_ttmumu_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_ttphi3_ttmumu_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolateNU (CMS13_pp_ttphi3_ttmumu,mass);
+        CacheShiftReal(ip_low_pp_ttphi3_ttmumu_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_pp_ttphi3_tttautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_low_pp_ttphi3_tttautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_pp_ttphi3_tttautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolateNU (CMS13_pp_ttphi3_tttautau,mass);
+        CacheShiftReal(ip_low_pp_ttphi3_tttautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_Vh_h_phi3phi3_bbbb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_low_Vh_h_phi3phi3_bbbb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_low_Vh_h_phi3phi3_bbbb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_Vh_h_phi3phi3_bbbb,mass);
+        CacheShiftReal(ip_low_Vh_h_phi3phi3_bbbb_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -6612,7 +6677,7 @@ void GeneralTHDMcache::computeSignalStrengths()
     /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF and Vh production */
     VBF_Vh = rh_VV;
 
-    /* ggF_VBF_Vh8 is the ratio of the GTHDM and SM cross sections for ggF + VBF + Vh production at 13 TeV */
+    /* ggF_VBF_Vh13 is the ratio of the GTHDM and SM cross sections for ggF + VBF + Vh production at 13 TeV */
     ggF_VBF_Vh13 = (SigmaggF13 * rh_gg + SigmaVBFVh13 * rh_VV)/(SigmaggF13 + SigmaVBFVh13);
 
     double Gamma_h_exp = myGTHDM->computeGammaHTotal();
@@ -9846,18 +9911,32 @@ void GeneralTHDMcache::computeLowMass()
         THoEX_pp_h_phi3phi3_mumutautau_CMS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3tomumu * Br_phi3totautau) / ip_low_pp_h_phi3phi3_mumutautau_CMS13(mH3);
     }
 
+//  THoEX_pp_h_phi3phi3_bbtautau_CMS13 = 0.0;
+//
+//  if(mH3 >= 15.0 && mH3 <= 60.0)
+//  {
+//     THoEX_pp_h_phi3phi3_bbtautau_CMS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3totautau) / ip_low_pp_h_phi3phi3_bbtautau_CMS13(mH3);
+//  }
+
     THoEX_pp_h_phi3phi3_bbtautau_CMS13 = 0.0;
 
-    if(mH3 >= 15.0 && mH3 <= 60.0)
+    if(mH3 >= 12.0 && mH3 <= 60.0)
     {
-        THoEX_pp_h_phi3phi3_bbtautau_CMS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3totautau) / ip_low_pp_h_phi3phi3_bbtautau_CMS13(mH3);
+        THoEX_pp_h_phi3phi3_bbtautau_CMS13 = (2.0 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3totautau) / ip_low_pp_h_phi3phi3_bbtautau_CMS13(mH3);
     }
+
+//  THoEX_pp_h_phi3phi3_bbmumu_CMS13 = 0.0;
+//
+//  if(mH3 >= 20.0 && mH3 <= 62.5)
+//  {
+//      THoEX_pp_h_phi3phi3_bbmumu_CMS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_CMS13(mH3);
+//  }
 
     THoEX_pp_h_phi3phi3_bbmumu_CMS13 = 0.0;
 
-    if(mH3 >= 20.0 && mH3 <= 62.5)
+    if(mH3 >= 15.0 && mH3 <= 62.0)
     {
-        THoEX_pp_h_phi3phi3_bbmumu_CMS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_CMS13(mH3);
+        THoEX_pp_h_phi3phi3_bbmumu_CMS13 = (2.0 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tomumu) / ip_low_pp_h_phi3phi3_bbmumu_CMS13(mH3);
     }
 
     THoEX_pp_h_phi3Z_mumull_CMS13 = 0.0;
@@ -9887,6 +9966,27 @@ void GeneralTHDMcache::computeLowMass()
     if(mH3 >= 4.0 && mH3 <= 15.0)
     {
         THoEX_pp_h_phi3phi3_tautautautau_CMS13 = (pph13 * GTHDM_BR_h_AA * Br_phi3totautau * Br_phi3totautau) / ip_low_pp_h_phi3phi3_tautautautau_CMS13(mH3);
+    }
+
+    THoEX_pp_ttphi3_ttmumu_CMS13 = 0.0;
+
+    if(mH3 >= 15.0 && mH3 <= 350.0)
+    {
+        THoEX_pp_ttphi3_ttmumu_CMS13 = (SigmattF_phi3_13 * Br_phi3tomumu) / ip_low_pp_ttphi3_ttmumu_CMS13(mH3);
+    }
+
+    THoEX_pp_ttphi3_tttautau_CMS13 = 0.0;
+
+    if(mH3 >= 15.0 && mH3 <= 350.0)
+    {
+        THoEX_pp_ttphi3_tttautau_CMS13 = (SigmattF_phi3_13 * Br_phi3totautau) / ip_low_pp_ttphi3_tttautau_CMS13(mH3);
+    }
+
+    THoEX_Vh_h_phi3phi3_bbbb_CMS13 = 0.0;
+
+    if(mH3 >= 15.0 && mH3 <= 60.0)
+    {
+        THoEX_Vh_h_phi3phi3_bbbb_CMS13 = (rh_VV * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3tobb) / ip_low_Vh_h_phi3phi3_bbbb_CMS13(mH3);
     }
 
     THoEX_pp_h_phi3phi3_bbmumu_ATLAS13 = 0.0;
@@ -10021,7 +10121,7 @@ void GeneralTHDMcache::computeLowMass()
 
     if(mH3 >= 12.0 && mH3 <= 60.0)
     {
-        THoEX_pp_h_phi3phi3_bbtautau_ATLAS13 = (GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3totautau) / ip_low_pp_h_phi3phi3_bbtautau_ATLAS13(mH3);
+        THoEX_pp_h_phi3phi3_bbtautau_ATLAS13 = (2.0 * pph13 * GTHDM_BR_h_AA * Br_phi3tobb * Br_phi3totautau) / ip_low_pp_h_phi3phi3_bbtautau_ATLAS13(mH3);
     }
 
     /*********************************/

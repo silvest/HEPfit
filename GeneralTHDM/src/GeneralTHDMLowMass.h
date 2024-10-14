@@ -204,6 +204,72 @@ private:
 };
 
 /**
+ * @class Hobs_pp_ttphi3_ttmumu_CMS13
+ * @ingroup GeneralTHDM
+ * @brief CMS upper limit for the cross section  times branching ratio of the process @f$pp \to ttA \to tt\mu\mu bb@f$ at 13 TeV.
+ */
+class Hobs_pp_ttphi3_ttmumu_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_ttphi3_ttmumu_CMS13 constructor.
+     */
+    Hobs_pp_ttphi3_ttmumu_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to ttA} \cdot BR^{\text{GTHDM}}(A\to \mu\mu)]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_pp_ttphi3_tttautau_CMS13
+ * @ingroup GeneralTHDM
+ * @brief CMS upper limit for the cross section  times branching ratio of the process @f$pp \to ttA \to tt\tau\tau bb@f$ at 13 TeV.
+ */
+class Hobs_pp_ttphi3_tttautau_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_ttphi3_tttautau_CMS13 constructor.
+     */
+    Hobs_pp_ttphi3_tttautau_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM}}_{pp\to ttA} \cdot BR^{\text{GTHDM}}(A\to \tau\tau)]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class Hobs_Vh_h_phi3phi3_bbbb_CMS13
+ * @ingroup GeneralTHDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section  times branching ratio of the process @f$pp \to Vh \to AA \to bbbb bb@f$ at 13 TeV.
+ */
+class Hobs_Vh_h_phi3phi3_bbbb_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_Vh_h_phi3phi3_bbbb_CMS13 constructor.
+     */
+    Hobs_Vh_h_phi3phi3_bbbb_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{GTHDM/SM}}_{pp\to Vh} \cdot BR^{\text{GTHDM}}(h\to AA) \cdot BR^{\text{GTHDM}}(A\to bb) \cdot BR^{\text{GTHDM}}(A\to bb)]_{\frac{\text{theo}}{\text{CMS,95\%}}}@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
  * @class Hobs_pp_h_phi3phi3_bbmumu_ATLAS13
  * @ingroup GeneralTHDM
  * @brief Ratio of the prediction and ATLAS upper limit for the branching ratio of the process @f$h_{125}\to AA\to bb\mu\mu@f$.

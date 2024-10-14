@@ -1,6 +1,6 @@
 # CMS-EXO-21-018, fig. 14f
 # observed 95% exclusion limits on sig(pp->ttA)*BR(A->tautau).
-# mA[GeV] | sig*BR_95%
+# mA[GeV] | sig[pb]*BR_95%
 15	2.5675
 20	0.97942
 25	0.31237

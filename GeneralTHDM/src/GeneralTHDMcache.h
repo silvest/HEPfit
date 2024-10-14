@@ -296,7 +296,7 @@ public:
      */
     gslpp::matrix<double> CMS13_pp_h_phi3phi3_mumutautau, CMS13_pp_h_phi3phi3_bbtautau, CMS13_pp_h_phi3phi3_bbmumu, CMS13_pp_h_phi23Z_mumull,\
                           CMS13_pp_h_phi23phi23_mumumumu, CMS13_pp_h_phi3phi3_gagagaga, CMS13_pp_h_phi3phi3_tautautautau, CMS13_pp_phi2_gaga,\
-                          CMS13_pp_bbphi3_bbtautau;
+                          CMS13_pp_bbphi3_bbtautau, CMS13_pp_ttphi3_ttmumu, CMS13_pp_ttphi3_tttautau, CMS13_Vh_h_phi3phi3_bbbb;
     //Added in the beginning of 2024 for low mass scenario
     /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section (or branching fraction) limits at 13 TeV, depending on the pseudoscalar mass.
@@ -729,6 +729,9 @@ public:
     double ip_low_pp_h_phi3phi3_tautautautau_CMS13(double mass);
     double ip_low_pp_phi2_gaga_CMS13(double mass);
     double ip_low_pp_bbphi3_bbtautau_CMS13(double mass);
+    double ip_low_pp_ttphi3_ttmumu_CMS13(double mass);
+    double ip_low_pp_ttphi3_tttautau_CMS13(double mass);
+    double ip_low_Vh_h_phi3phi3_bbbb_CMS13(double mass);
 
     double ip_low_pp_h_phi3phi3_gagagaga_ATLAS8(double mass);
     double ip_low_gg_h_phi3phi3_tautautautau_ATLAS8(double mass);
@@ -1625,16 +1628,8 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_3}\cdot BR^{\text{GTHDM}}(phi_3\to \mu\mu)@f$
      */
     double bb_phi3_mumu_TH8;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
+        
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to phi_2 \to \mu\mu@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{GTHDM}}_{gg\to phi2}\cdot BR^{\text{GTHDM}}(phi_2\to \mu\mu)@f$
@@ -1661,22 +1656,6 @@ public:
      * @return @f$\sigma^{\text{GTHDM}}_{b\bar b\to phi_3}\cdot BR^{\text{GTHDM}}(phi_3\to \mu\mu)@f$
      */
     double bb_phi3_mumu_TH13;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     /**
@@ -3010,6 +2989,9 @@ public:
     double THoEX_pp_h_phi3phi3_tautautautau_CMS13;
     double THoEX_pp_phi2_gaga_CMS13;
     double THoEX_pp_bbphi3_bbtautau_CMS13;
+    double THoEX_pp_ttphi3_ttmumu_CMS13;
+    double THoEX_pp_ttphi3_tttautau_CMS13;
+    double THoEX_Vh_h_phi3phi3_bbbb_CMS13;
 
     double THoEX_pp_h_phi3phi3_bbmumu_ATLAS13;
     double THoEX_gg_h_phi3phi3_mumumumu_ATLAS13;
@@ -3742,6 +3724,9 @@ private:
     mutable double ip_low_pp_h_phi3phi3_tautautautau_CMS13_cache[2][CacheSize];
     mutable double ip_low_pp_phi2_gaga_CMS13_cache[2][CacheSize];
     mutable double ip_low_pp_bbphi3_bbtautau_CMS13_cache[2][CacheSize];
+    mutable double ip_low_pp_ttphi3_ttmumu_CMS13_cache[2][CacheSize];
+    mutable double ip_low_pp_ttphi3_tttautau_CMS13_cache[2][CacheSize];
+    mutable double ip_low_Vh_h_phi3phi3_bbbb_CMS13_cache[2][CacheSize];
 
     mutable double ip_low_pp_h_phi3phi3_bbmumu_ATLAS13_cache[2][CacheSize];
     mutable double ip_low_gg_h_phi23phi23_mumumumu_ATLAS13_cache[2][CacheSize];
