@@ -621,3 +621,14 @@ double Gamma_W_inv_GTHDM::computeThValue()
 {
     return myGTHDM.getMyGTHDMCache()->Gamma_W_inv;
 }
+
+Gamma_top_GTHDM::Gamma_top_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Gamma_top_GTHDM::computeThValue()
+{
+    double Gamma_top_bW_SM = 1.35; // (in GeV) at NLO from 2409.04179
+    double Gammatoptot = 1.42; //PDG
+    return Gamma_top_bW_SM + Gammatoptot * (myGTHDM.getMyGTHDMCache()->Br_ttoHpb);
+}

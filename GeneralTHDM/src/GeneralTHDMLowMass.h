@@ -1435,5 +1435,27 @@ private:
     const GeneralTHDM& myGTHDM;
 };
 
+/**
+ * @class Gamma_top_GTHDM
+ * @ingroup GeneralTHDM
+ * @brief Total decay width of top in the %GeneralTHDM.
+ */
+class Gamma_top_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief Gamma_top_GTHDM constructor.
+     */
+    Gamma_top_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\Gamma^{\text{GTHDM}}(t \to H^+ b) + \Gamma^{\text{SM}}(t \to W^+ b)@f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
 
 #endif /* GENERALTHDMLOWMASS_H */

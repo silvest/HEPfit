@@ -5710,6 +5710,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BR_h_inv_GTHDM"] = boost::factory<BR_h_inv_GTHDM*>();
     obsThFactory["Gamma_Z_inv_GTHDM"] = boost::factory<Gamma_Z_inv_GTHDM*>();
     obsThFactory["Gamma_W_inv_GTHDM"] = boost::factory<Gamma_W_inv_GTHDM*>();
+    obsThFactory["Gamma_top_GTHDM"] = boost::factory<Gamma_top_GTHDM*>();
 
     obsThFactory["R11_GTHDM"]= boost::factory<R11_GTHDM*>();
     obsThFactory["R12_GTHDM"]= boost::factory<R12_GTHDM*>();
