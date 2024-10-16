@@ -25,7 +25,7 @@ const std::string NPSMEFT6dtopquark::NPSMEFT6dtopquarkVars[NNPSMEFT6dtopquarkVar
         "C_tu1","C_tq1","C_Qq11","C_Qq31"
         //Operators for CPV study in tth and thj
         ,"C_phiG","C_phiGtil","C_phiW","C_phiWtil",
-        "C_tphiIm","C_tGIm","C_tWIm"
+        "C_tphiIm","C_tGIm","C_tWIm","C_tBIm","C_tZIm"
         };
 
 
@@ -79,6 +79,8 @@ NPSMEFT6dtopquark::NPSMEFT6dtopquark()
     ModelParamMap.insert(std::make_pair("C_tphiIm", std::cref(C_tphiIm)));
     ModelParamMap.insert(std::make_pair("C_tGIm", std::cref(C_tGIm)));
     ModelParamMap.insert(std::make_pair("C_tWIm", std::cref(C_tWIm)));
+    ModelParamMap.insert(std::make_pair("C_tBIm", std::cref(C_tBIm)));
+    ModelParamMap.insert(std::make_pair("C_tZIm", std::cref(C_tZIm)));
 
     
     flag_LHC_WG_Basis = false;
@@ -177,6 +179,10 @@ void NPSMEFT6dtopquark::setParameter(const std::string name, const double& value
         C_tGIm = value;
     else if (name.compare("C_tWIm") == 0)
         C_tWIm = value;
+    else if (name.compare("C_tBIm") == 0)
+        C_tBIm = value;
+    else if (name.compare("C_tZIm") == 0)
+        C_tZIm = value;
     
     else
         NPbase::setParameter(name, value);
@@ -10831,8 +10837,10 @@ double b4_ttH_LO::computeThValue()
     double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
     double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
     double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
-    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
-    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    double ctBRe = 0.;
+    double ctBIm = 0.;
     
         
     
@@ -10844,24 +10852,24 @@ double b4_ttH_LO::computeThValue()
     //with a different convention
     
     if(flag_LHC_WG_Basis){
-//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
-//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
-//        sw2 = 0.22305;
-//        cw2 = 1 - sw2;
-//        tw2 = sw2/cw2;
-//        sw  = sqrt(sw2);
-//        tw  = sqrt(tw2);
-//        ctBRe = ctZRe/sw - ctWRe/tw;
-//        ctBIm = ctZIm/sw - ctWIm/tw;
-//        ctWRe = -ctWRe;
-//        ctWIm = -ctWIm;
+        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+        double sw2 = 0.22305;
+        double cw2 = 1 - sw2;
+        double tw2 = sw2/cw2;
+        double sw  = sqrt(sw2);
+        double tw  = sqrt(tw2);
+        ctBRe = ctZRe/sw - ctWRe/tw;
+        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
         ctGRe = -ctGRe;
         ctGIm = -ctGIm;
     }
-//    else{
-//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
-//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
-//    }
+    else{
+        ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+        ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+    }
     
     
    
@@ -10874,15 +10882,31 @@ double b4_ttH_LO::computeThValue()
 
         
         if(flag_Quadratic){
-                total =  SM_b4_tth_bin_m1_m0p5 + (0.9099876415629798*cHG + -0.0010300606606064*cHGtil + -0.0072774365119454*ctGIm + 
-                        -1.1208249512813937*ctGRe + 0.0001306763659588*ctHIm + -0.1310184227297144*ctHRe + 
-                        0.8720158431990803*cHG*cHG + 0.8387148042401372*cHGtil*cHGtil + 0.978724230188362*ctGIm*ctGIm + 
-                        0.9978382139004488*ctGRe*ctGRe + 0.0055891499983618*ctHIm*ctHIm + 0.0046734764265094*ctHRe*ctHRe + 
-                        -0.004353109781129*cHG*cHGtil + -0.0059424753457291*cHG*ctGIm + -0.0001031669131571*cHG*ctHIm + 
-                        -0.0808290830781629*cHG*ctHRe + -0.8622884150085206*cHGtil*ctGIm + -0.0085612044843103*cHGtil*ctGRe + 
-                        0.0893168984995095*cHGtil*ctHIm + -0.0007889628027357*cHGtil*ctHRe + 0.0044373833815463*ctGIm*ctGRe + 
-                        -0.0398407363498014*ctGIm*ctHIm + 0.0001267839505427*ctGIm*ctHRe + -0.0003431226109376*ctGRe*ctHIm + 
-                        0.0759842998525177*ctGRe*ctHRe)*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
+                total =  SM_b4_tth_bin_m1_m0p5 + (
+                        0.910009531724715 * cHG + -0.0010318009149136 * cHGtil
+                    + -0.0067981802286535 * ctGIm + -1.118548376749951 * ctGRe
+                    + 0.0001145055069108 * ctHIm + -0.1309188173876159 * ctHRe
+                    + -0.0020499059754391 * ctWIm + -0.0013815505152491 * ctWRe
+                    + 0.8719616200347676 * cHG * cHG + 0.8386370679735822 * cHGtil * cHGtil
+                    + 0.9774807816545604 * ctGIm * ctGIm + 0.99600530493426 * ctGRe * ctGRe
+                    + 0.0055871762794901 * ctHIm * ctHIm + 0.0046644155584449 * ctHRe * ctHRe
+                    + 0.1513855248714063 * ctWIm * ctWIm + 0.0223113988052159 * ctWRe * ctWRe
+                    + -0.004353109781129 * cHG * cHGtil + -0.0059424753457291 * cHG * ctGIm
+                    + -1.1589183159553875 * cHG * ctGRe + -0.0001031669131571 * cHG * ctHIm
+                    + -0.0808290830781629 * cHG * ctHRe + 0.0023298372266031 * cHG * ctWIm
+                    + 0.0007355367034189 * cHG * ctWRe + -0.8622884150085206 * cHGtil * ctGIm
+                    + -0.0085612044843103 * cHGtil * ctGRe + 0.0893168984995095 * cHGtil * ctHIm
+                    + -0.0007889628027357 * cHGtil * ctHRe + -0.0049693652224635 * cHGtil * ctWIm
+                    + -0.003888785938789 * cHGtil * ctWRe + 0.0044373833815463 * ctGIm * ctGRe
+                    + -0.0398407363498014 * ctGIm * ctHIm + 0.0001267839505427 * ctGIm * ctHRe
+                    + 0.0068555328240843 * ctGIm * ctWIm + -0.0045838333288629 * ctGIm * ctWRe
+                    + -0.0003431226109376 * ctGRe * ctHIm + 0.0759842998525177 * ctGRe * ctHRe
+                    + 0.0412398880264256 * ctGRe * ctWIm + 0.0037903964632825 * ctGRe * ctWRe
+                    + -0.0001532894777914 * ctHIm * ctHRe + -0.0002395101986699 * ctHIm * ctWIm
+                    + -0.0003104171792067 * ctHIm * ctWRe + 0.0001367863317469 * ctHRe * ctWIm
+                    + -0.0008153939464238 * ctHRe * ctWRe + -0.0022824930758392 * ctWIm * ctWRe
+                        -0.0007691736987786996 * ctBRe + 0.002162289681735499 * ctBRe * ctBRe+ -0.00010516033086452325 * ctBIm + 0.0005771520876739905 * ctBIm * ctBIm
+                        )*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
@@ -10890,6 +10914,7 @@ double b4_ttH_LO::computeThValue()
         else{
                 total =  SM_b4_tth_bin_m1_m0p5 + (0.9099876415629798*cHG + 
                         -1.1208249512813937*ctGRe + -0.1310184227297144*ctHRe
+                        -0.0007691736987786996 * ctBRe -0.0013815505152491303 * ctWRe
                         )*(SM_b4_tth_bin_m1_m0p5/b4_tth_bin_m1_m0p5_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
@@ -10903,15 +10928,30 @@ double b4_ttH_LO::computeThValue()
         
 
         if(flag_Quadratic){
-                total =  SM_b4_tth_bin_m0p5_0 + (2.564414022112631*cHG + -0.0058418320499841*cHGtil + -0.0014131708015416*ctGIm +
-                        -2.7816281236042366*ctGRe + 0.0006977531934252*ctHIm + -0.2344736662557363*ctHRe + 
-                        2.034123418248873*cHG*cHG + 1.9614091942645784*cHGtil*cHGtil + 2.537841408134752*ctGIm*ctGIm +
-                        2.5485993923339545*ctGRe*ctGRe + 0.0039918053343983*ctHIm*ctHIm + 0.0077800493696298*ctHRe*ctHRe +
-                        -0.0071569239960523*cHG*cHGtil + 0.0145336259449214*cHG*ctGIm + -4.978015231518844e-05*cHG*ctHIm +
-                        -0.2068188648732378*cHG*ctHRe + -1.4549114499408065*cHGtil*ctGIm + -0.026659343007864*cHGtil*ctGRe +
-                        0.1064186672197977*cHGtil*ctHIm + -0.002336704675229*cHGtil*ctHRe + -0.0026918504123321*ctGIm*ctGRe +
-                        0.0026133954963231*ctGIm*ctHIm + -0.0008204230232737*ctGIm*ctHRe + 4.366654352272459e-06*ctGRe*ctHIm +
-                        0.1771923049354946*ctGRe*ctHRe)*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
+                total =  SM_b4_tth_bin_m0p5_0 + (2.564246291660702 * cHG + -0.005823342315884 * cHGtil
+                    + -0.0016743198961839 * ctGIm + -2.778424493033977 * ctGRe
+                    + 0.0007195133202335 * ctHIm + -0.2344245527833774 * ctHRe
+                    + -0.0064220762451969 * ctWIm + -0.001215693713534 * ctWRe
+                    + 2.034099761021467 * cHG * cHG + 1.9612673310063 * cHGtil * cHGtil
+                    + 2.5341046159273257 * ctGIm * ctGIm + 2.544939547558986 * ctGRe * ctGRe
+                    + 0.0039923939634707 * ctHIm * ctHIm + 0.0077910494317363 * ctHRe * ctHRe
+                    + 0.4588069842581513 * ctWIm * ctWIm + 0.065854083346678 * ctWRe * ctWRe
+                    + -0.0071569239960523 * cHG * cHGtil + 0.0145336259449214 * cHG * ctGIm
+                    + -2.277554920224764 * cHG * ctGRe + -4.978015231518844e-05 * cHG * ctHIm
+                    + -0.2068188648732378 * cHG * ctHRe + -0.0040071191552686 * cHG * ctWIm
+                    + 0.0002867576099352 * cHG * ctWRe + -1.4549114499408065 * cHGtil * ctGIm
+                    + -0.026659343007864 * cHGtil * ctGRe + 0.1064186672197977 * cHGtil * ctHIm
+                    + -0.002336704675229 * cHGtil * ctHRe + 0.0024569029783631 * cHGtil * ctWIm
+                    + -0.0026429889231636 * cHGtil * ctWRe + -0.0026918504123321 * ctGIm * ctGRe
+                    + 0.0026133954963231 * ctGIm * ctHIm + -0.0008204230232737 * ctGIm * ctHRe
+                    + -0.0313376168904284 * ctGIm * ctWIm + 0.0058758543148654 * ctGIm * ctWRe
+                    + 4.366654352272459e-06 * ctGRe * ctHIm + 0.1771923049354946 * ctGRe * ctHRe
+                    + 0.0063163081295789 * ctGRe * ctWIm + -0.0038756154471681 * ctGRe * ctWRe
+                    + -1.0308033893416904e-05 * ctHIm * ctHRe + -0.0012053193562682 * ctHIm * ctWIm
+                    + -8.001925082197133e-05 * ctHIm * ctWRe + 0.0002104946911641 * ctHRe * ctWIm
+                    + -0.0013179836923686 * ctHRe * ctWRe + 0.0093561728027508 * ctWIm * ctWRe
+                        -0.00331238196421145 * ctBRe + 0.008086112326838674 * ctBRe * ctBRe+ 0.00015893289734032756 * ctBIm + 0.003681537592577791 * ctBIm * ctBIm
+                        )*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
@@ -10919,6 +10959,7 @@ double b4_ttH_LO::computeThValue()
         else{
                 total =  SM_b4_tth_bin_m0p5_0 + (2.564414022112631*cHG + 
                         -2.7816281236042366*ctGRe -0.2344736662557363*ctHRe
+                        -0.00331238196421145 * ctBRe -0.0012156937135340828 * ctWRe
                         )*(SM_b4_tth_bin_m0p5_0/b4_tth_bin_m0p5_0_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
@@ -10932,15 +10973,30 @@ double b4_ttH_LO::computeThValue()
         
 
             if(flag_Quadratic){
-                total = SM_b4_tth_bin_0_0p5 + (3.2093661829551725*cHG + 0.0040473508076501*cHGtil + -0.0214235574051536*ctGIm +
-                        -3.501689241803734*ctGRe + -0.0002818808467928*ctHIm + -0.3031442522037286*ctHRe + 
-                        2.508805472264246*cHG*cHG + 2.437233908719825*cHGtil*cHGtil + 3.185084454088097*ctGIm*ctGIm +
-                        3.162491041136484*ctGRe*ctGRe + 0.0036151188826364*ctHIm*ctHIm + 0.0100045472229009*ctHRe*ctHRe +
-                        0.0053996492403103*cHG*cHGtil + -0.0236162521426582*cHG*ctGIm + -0.001177880066321*cHG*ctHIm +
-                        -0.2508174145511634*cHG*ctHRe + -1.712920295286303*cHGtil*ctGIm + 0.0148464169032713*cHGtil*ctGRe +
-                        0.1255660004129038*cHGtil*ctHIm + 0.0014699068562402*cHGtil*ctHRe + -0.0113505890042336*ctGIm*ctGRe +
-                        0.0159020808765088*ctGIm*ctHIm + -0.0004755818091291*ctGIm*ctHRe + -0.000673228149598*ctGRe*ctHIm +
-                        0.2243402305478286*ctGRe*ctHRe)*(SM_b4_tth_bin_0_0p5/b4_tth_bin_0_0p5_madgraph_LO);
+                total = SM_b4_tth_bin_0_0p5 + (3.2093136673424736 * cHG + 0.004029159850137 * cHGtil
+                    + -0.0213738731216522 * ctGIm + -3.504682622127001 * ctGRe
+                    + -0.0002875376687773 * ctHIm + -0.3032103265837639 * ctHRe
+                    + 0.0095376518003493 * ctWIm + -0.0058800129619509 * ctWRe
+                    + 2.508732816346594 * cHG * cHG + 2.437345459874909 * cHGtil * cHGtil
+                    + 3.1881280812208166 * ctGIm * ctGIm + 3.165825489942664 * ctGRe * ctGRe
+                    + 0.0036148729182692 * ctHIm * ctHIm + 0.0099998321780285 * ctHRe * ctHRe
+                    + 0.458074038263705 * ctWIm * ctWIm + 0.0758786285553478 * ctWRe * ctWRe
+                    + 0.0053996492403103 * cHG * cHGtil + -0.0236162521426582 * cHG * ctGIm
+                    + -2.7111214421094987 * cHG * ctGRe + -0.001177880066321 * cHG * ctHIm
+                    + -0.2508174145511634 * cHG * ctHRe + 0.0027312222369129 * cHG * ctWIm
+                    + -0.0005506402375662 * cHG * ctWRe + -1.712920295286303 * cHGtil * ctGIm
+                    + 0.0148464169032713 * cHGtil * ctGRe + 0.1255660004129038 * cHGtil * ctHIm
+                    + 0.0014699068562402 * cHGtil * ctHRe + 0.0055682588248907 * cHGtil * ctWIm
+                    + -0.0006447342027894 * cHGtil * ctWRe + -0.0113505890042336 * ctGIm * ctGRe
+                    + 0.0159020808765088 * ctGIm * ctHIm + -0.0004755818091291 * ctGIm * ctHRe
+                    + 0.025203510325142 * ctGIm * ctWIm + -0.0009750172709239 * ctGIm * ctWRe
+                    + -0.000673228149598 * ctGRe * ctHIm + 0.2243402305478286 * ctGRe * ctHRe
+                    + -0.0176639654745808 * ctGRe * ctWIm + -0.0002779594299604 * ctGRe * ctWRe
+                    + -3.642230847214099e-05 * ctHIm * ctHRe + -0.0017585157882703 * ctHIm * ctWIm
+                    + 0.0004703647702423 * ctHIm * ctWRe + -0.000285286634482 * ctHRe * ctWIm
+                    + -0.0026938458799784 * ctHRe * ctWRe + -0.0017642667261674 * ctWIm * ctWRe
+                        -0.005253102367525533 * ctBRe + 0.012034842573137972 * ctBRe * ctBRe+ -0.00011904416973186616 * ctBIm + 0.005659950685029516 * ctBIm * ctBIm
+                        )*(SM_b4_tth_bin_0_0p5/b4_tth_bin_0_0p5_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
@@ -10948,6 +11004,7 @@ double b4_ttH_LO::computeThValue()
             else{
                 total = SM_b4_tth_bin_0_0p5 + (3.2093661829551725*cHG +
                         -3.501689241803734*ctGRe + -0.3031442522037286*ctHRe
+                        -0.005253102367525533 * ctBRe - 0.005880012961950926 * ctWRe
                         )*(SM_b4_tth_bin_0_0p5/b4_tth_bin_0_0p5_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
@@ -10961,15 +11018,30 @@ double b4_ttH_LO::computeThValue()
         
 
             if(flag_Quadratic){
-                total = SM_b4_tth_bin_0p5_1 + (3.862512212641887*cHG + 0.002563831698582*cHGtil + 0.0383509219233417*ctGIm +
-                        -4.967994348065772*ctGRe + -0.0006966357644115*ctHIm + -0.554551144413014*ctHRe +
-                        2.348002610832081*cHG*cHG + 2.3093065858055475*cHGtil*cHGtil + 3.19949168833002*ctGIm*ctGIm +
-                        3.4280269207530245*ctGRe*ctGRe + 0.0044544775571535*ctHIm*ctHIm + 0.0167739173900622*ctHRe*ctHRe +
-                        0.0072252855175872*cHG*cHGtil + 0.03975689764912*cHG*ctGIm + 0.0014716333628268*cHG*ctHIm +
-                        -0.2420802478163346*cHG*ctHRe + -1.898959594407268*cHGtil*ctGIm + 0.014375573266062*cHGtil*ctGRe +
-                        0.188418633982538*cHGtil*ctHIm + 0.0007511425222509*cHGtil*ctHRe + 0.0037375122760155*ctGIm*ctGRe +
-                        0.0081175256170974*ctGIm*ctHIm + 0.0007985463884474*ctGIm*ctHRe + 9.220570277163054e-05*ctGRe*ctHIm +
-                        0.3707695293252685*ctGRe*ctHRe)*(SM_b4_tth_bin_0p5_1/b4_tth_bin_0p5_1_madgraph_LO);
+                total = SM_b4_tth_bin_0p5_1 + (3.8624206533859455 * cHG + 0.0025652805438462 * cHGtil
+                    + 0.0380812173024499 * ctGIm + -4.967609706819283 * ctGRe
+                    + -0.0006965496592073 * ctHIm + -0.5544826010765769 * ctHRe
+                    + 0.0006073357310019 * ctWIm + -0.0256463227849223 * ctWRe
+                    + 2.347939739733353 * cHG * cHG + 2.3092071630867377 * cHGtil * cHGtil
+                    + 3.199130314657721 * ctGIm * ctGIm + 3.427832512642536 * ctGRe * ctGRe
+                    + 0.004453926977181 * ctHIm * ctHIm + 0.0167718441092212 * ctHRe * ctHRe
+                    + 0.159767945592875 * ctWIm * ctWIm + 0.059120496919097 * ctWRe * ctWRe
+                    + 0.0072252855175872 * cHG * cHGtil + 0.03975689764912 * cHG * ctGIm
+                    + -3.1711629756704776 * cHG * ctGRe + 0.0014716333628268 * cHG * ctHIm
+                    + -0.2420802478163346 * cHG * ctHRe + 0.0018271931377158 * cHG * ctWIm
+                    + -0.0002326603969194 * cHG * ctWRe + -1.898959594407268 * cHGtil * ctGIm
+                    + 0.014375573266062 * cHGtil * ctGRe + 0.188418633982538 * cHGtil * ctHIm
+                    + 0.0007511425222509 * cHGtil * ctHRe + -0.0014741276289671 * cHGtil * ctWIm
+                    + 0.007150320736038 * cHGtil * ctWRe + 0.0037375122760155 * ctGIm * ctGRe
+                    + 0.0081175256170974 * ctGIm * ctHIm + 0.0007985463884474 * ctGIm * ctHRe
+                    + -0.0001131618468446 * ctGIm * ctWIm + 0.0008483977113818 * ctGIm * ctWRe
+                    + 9.220570277163054e-05 * ctGRe * ctHIm + 0.3707695293252685 * ctGRe * ctHRe
+                    + -0.0295125287850878 * ctGRe * ctWIm + 0.0053821483274255 * ctGRe * ctWRe
+                    + 0.0001626805165413 * ctHIm * ctHRe + -0.0008105961019141 * ctHIm * ctWIm
+                    + 0.0001035970931805 * ctHIm * ctWRe + 6.611959525185118e-06 * ctHRe * ctWIm
+                    + 0.0003098374575341 * ctHRe * ctWRe + -0.0025092774493894 * ctWIm * ctWRe
+                        -0.009187820270389016 * ctBRe + 0.016843223885503147 * ctBRe * ctBRe+ 5.500801554077228e-05 * ctBIm + 0.005015742054571379 * ctBIm * ctBIm
+                        )*(SM_b4_tth_bin_0p5_1/b4_tth_bin_0p5_1_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
@@ -10977,6 +11049,7 @@ double b4_ttH_LO::computeThValue()
             else{
                 total = SM_b4_tth_bin_0p5_1 + (3.862512212641887*cHG +
                         -4.967994348065772*ctGRe + -0.554551144413014*ctHRe
+                        -0.009187820270389016 * ctBRe -0.02564632278492235 * ctWRe
                         )*(SM_b4_tth_bin_0p5_1/b4_tth_bin_0p5_1_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
@@ -11015,9 +11088,10 @@ double Asymmetry_Dazi_ord_ttH::computeThValue()
     double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
     double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
     double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
-    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
-    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
-    
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    double ctBRe = 0.;
+    double ctBIm = 0.;
     
     //Expressions are written in the basis of SMEFTsim
     //let's change to the basis of dim6top (same as
@@ -11026,24 +11100,24 @@ double Asymmetry_Dazi_ord_ttH::computeThValue()
     //with a different convention
     
     if(flag_LHC_WG_Basis){
-//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
-//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
-//        sw2 = 0.22305;
-//        cw2 = 1 - sw2;
-//        tw2 = sw2/cw2;
-//        sw  = sqrt(sw2);
-//        tw  = sqrt(tw2);
-//        ctBRe = ctZRe/sw - ctWRe/tw;
-//        ctBIm = ctZIm/sw - ctWIm/tw;
-//        ctWRe = -ctWRe;
-//        ctWIm = -ctWIm;
+        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+        double sw2 = 0.22305;
+        double cw2 = 1 - sw2;
+        double tw2 = sw2/cw2;
+        double sw  = sqrt(sw2);
+        double tw  = sqrt(tw2);
+        ctBRe = ctZRe/sw - ctWRe/tw;
+        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
         ctGRe = -ctGRe;
         ctGIm = -ctGIm;
     }
-//    else{
-//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
-//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
-//    }
+    else{
+        ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+        ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+    }
     
     
     
@@ -11058,24 +11132,54 @@ double Asymmetry_Dazi_ord_ttH::computeThValue()
 
     if(flag_Quadratic){
 
-            double Dazi_ord_neg_NP = 0.8409727694620143*cHG + 0.0239522015720341*cHGtil + -0.0727650821867264*ctGIm +
-            -0.9799092492967638*ctGRe + -0.0001997762114054*ctHIm + -0.0974440045456804*ctHRe + 
-            0.6180724642963468*cHG*cHG + 0.6006262262731293*cHGtil*cHGtil + 0.7856367509999758*ctGIm*ctGIm + 
-            0.8059252000635281*ctGRe*ctGRe + 0.0013971374760735*ctHIm*ctHIm + 0.0031357544756005*ctHRe*ctHRe + 
-            0.0157290488652358*cHG*cHGtil + -0.0033975293377011*cHG*ctGIm + 0.0006005292045924*cHG*ctHIm + 
-            -0.0620994359176081*cHG*ctHRe + -0.4707346806682253*cHGtil*ctGIm + -0.0258435683811506*cHGtil*ctGRe + 
-            0.0402500484934529*cHGtil*ctHIm + -0.0011440632677678*cHGtil*ctHRe + 0.019267926306919*ctGIm*ctGRe + 
-            -0.0011549478510061*ctGIm*ctHIm + 0.0043931390740712*ctGIm*ctHRe + -0.0039137945238467*ctGRe*ctHIm + 
-            0.0672010069425599*ctGRe*ctHRe;
-            double Dazi_ord_pos_NP = 0.8374738455079025*cHG + -0.0239936937535997*cHGtil + 0.0740756986650311*ctGIm +
-            -0.9887206311418384*ctGRe + 0.0001758920621755*ctHIm + -0.0972083127336606*ctHRe + 
-            0.6174051274758854*cHG*cHG + 0.6004298228556054*cHGtil*cHGtil + 0.7898133160599512*ctGIm*ctGIm + 
-            0.8070470898415529*ctGRe*ctGRe + 0.0014116885168558*ctHIm*ctHIm + 0.003107440402129*ctHRe*ctHRe + 
-            -0.0155516480557833*cHG*cHGtil + 0.00733235897668*cHG*ctGIm + -0.000578124797484*cHG*ctHIm + 
-            -0.0620909954882131*cHG*ctHRe + -0.4727237329541328*cHGtil*ctGIm + 0.0248890286688689*cHGtil*ctGRe + 
-            0.0408622177561639*cHGtil*ctHIm + 0.0010001226021191*cHGtil*ctHRe + -0.0202015021970715*ctGIm*ctGRe + 
-            -0.0009467910567448*ctGIm*ctHIm + -0.0044521278787526*ctGIm*ctHRe + 0.0037674177682461*ctGRe*ctHIm + 
-            0.0677935966148256*ctGRe*ctHRe;
+            double Dazi_ord_neg_NP = 0.8409726917581889 * cHG + 0.0239521993589093 * cHGtil
+                + -0.0727650754320362 * ctGIm + -0.9799091583330292 * ctGRe
+                + -0.0001997761653249 * ctHIm + -0.0974439820691808 * ctHRe
+                + 0.0040841173511341 * ctWIm + -0.0026346877927101 * ctWRe
+                + 0.6180724071879639 * cHG * cHG + 0.6006261707767361 * cHGtil * cHGtil
+                + 0.7856366780703115 * ctGIm * ctGIm + 0.8059251252505129 * ctGRe * ctGRe
+                + 0.0013971371538088 * ctHIm * ctHIm + 0.0031357537523052 * ctHRe * ctHRe
+                + 0.0977883829166236 * ctWIm * ctWIm + 0.0177777400561392 * ctWRe * ctWRe
+                + 0.0157290488652358 * cHG * cHGtil + -0.0033975293377011 * cHG * ctGIm
+                + -0.7471772164696022 * cHG * ctGRe + 0.0006005292045924 * cHG * ctHIm
+                + -0.0620994359176081 * cHG * ctHRe + 0.0014581468930783 * cHG * ctWIm
+                + -5.417222834249148e-05 * cHG * ctWRe + -0.4707346806682253 * cHGtil * ctGIm
+                + -0.0258435683811506 * cHGtil * ctGRe + 0.0402500484934529 * cHGtil * ctHIm
+                + -0.0011440632677678 * cHGtil * ctHRe + 0.0003948705556123 * cHGtil * ctWIm
+                + -3.223394386769663e-05 * cHGtil * ctWRe + 0.019267926306919 * ctGIm * ctGRe
+                + -0.0011549478510061 * ctGIm * ctHIm + 0.0043931390740712 * ctGIm * ctHRe
+                + -0.0026955097559458 * ctGIm * ctWIm + -2.6134787065639213e-05 * ctGIm * ctWRe
+                + -0.0039137945238467 * ctGRe * ctHIm + 0.0672010069425599 * ctGRe * ctHRe
+                + -0.0042875376558723 * ctGRe * ctWIm + 0.0009131837278532 * ctGRe * ctWRe
+                + -1.0463403882919558e-06 * ctHIm * ctHRe + -0.0003603290153253 * ctHIm * ctWIm
+                + 0.0002103912520551 * ctHIm * ctWRe + -3.3601141254107565e-05 * ctHRe * ctWIm
+                + -0.0003184009878738 * ctHRe * ctWRe + 9.336705314867688e-05 * ctWIm * ctWRe
+            -0.0013981083710685738 * ctBRe + 0.0031128276299091096 * ctBRe * ctBRe+ -6.751260631875089e-05 * ctBIm + 0.0011880155398607123 * ctBIm * ctBIm
+            ;
+            double Dazi_ord_pos_NP = 0.8374737681273691 * cHG + -0.0239936915366412 * cHGtil
+                + 0.0740756917886777 * ctGIm + -0.9887205393601546 * ctGRe
+                + 0.0001758920216041 * ctHIm + -0.0972082903115259 * ctHRe
+                + -0.0038178577929426 * ctWIm + -0.0027960955347098 * ctWRe
+                + 0.6174050704291627 * cHG * cHG + 0.6004297673773595 * cHGtil * cHGtil
+                + 0.7898132427425815 * ctGIm * ctGIm + 0.8070470149243939 * ctGRe * ctGRe
+                + 0.0014116881912348 * ctHIm * ctHIm + 0.0031074396853647 * ctHRe * ctHRe
+                + 0.0976538671279632 * ctWIm * ctWIm + 0.0177390091018495 * ctWRe * ctWRe
+                + -0.0155516480557833 * cHG * cHGtil + 0.00733235897668 * cHG * ctGIm
+                + -0.7355705059116835 * cHG * ctGRe + -0.000578124797484 * cHG * ctHIm
+                + -0.0620909954882131 * cHG * ctHRe + -0.0009997175215992 * cHG * ctWIm
+                + 9.219615703674744e-05 * cHG * ctWRe + -0.4727237329541328 * cHGtil * ctGIm
+                + 0.0248890286688689 * cHGtil * ctGRe + 0.0408622177561639 * cHGtil * ctHIm
+                + 0.0010001226021191 * cHGtil * ctHRe + -0.0001432347113879 * cHGtil * ctWIm
+                + 2.80668204017398e-05 * cHGtil * ctWRe + -0.0202015021970715 * ctGIm * ctGRe
+                + -0.0009467910567448 * ctGIm * ctHIm + -0.0044521278787526 * ctGIm * ctHRe
+                + 0.0027922955345794 * ctGIm * ctWIm + 0.0002115650012277 * ctGIm * ctWRe
+                + 0.0037674177682461 * ctGRe * ctHIm + 0.0677935966148256 * ctGRe * ctHRe
+                + 0.0043479597737826 * ctGRe * ctWIm + -0.0001145085088655 * ctGRe * ctWRe
+                + -4.895422227624291e-06 * ctHIm * ctHRe + -0.0002782677303533 * ctHIm * ctWIm
+                + -0.0001811936976982 * ctHIm * ctWRe + 4.451757689860614e-05 * ctHRe * ctWIm
+                + -0.0004004144226487 * ctHRe * ctWRe + 0.0003520788300325 * ctWIm * ctWRe
+            -0.001549419314305453 * ctBRe + 0.0031134638609745385 * ctBRe * ctBRe+ 6.587933630411436e-05 * ctBIm + 0.0011885295925029155 * ctBIm * ctBIm
+            ;
     
     
             //double num = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) - (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
@@ -11093,11 +11197,17 @@ double Asymmetry_Dazi_ord_ttH::computeThValue()
     else{
 
             
-    
+            
             double Dazi_ord_neg_NP = 0.8409727694620143*cHG + 0.0239522015720341*cHGtil + -0.0727650821867264*ctGIm +
-            -0.9799092492967638*ctGRe + -0.0001997762114054*ctHIm + -0.0974440045456804*ctHRe;
+            -0.9799092492967638*ctGRe + -0.0001997762114054*ctHIm + -0.0974440045456804*ctHRe
+            -0.0013981083710685738 * ctBRe+ -6.751260631875089e-05 * ctBIm
+            -0.0026346877927101164 * ctWRe+ 0.004084117351134148 * ctWIm
+            ;
             double Dazi_ord_pos_NP = 0.8374738455079025*cHG + -0.0239936937535997*cHGtil + 0.0740756986650311*ctGIm +
-            -0.9887206311418384*ctGRe + 0.0001758920621755*ctHIm + -0.0972083127336606*ctHRe;
+            -0.9887206311418384*ctGRe + 0.0001758920621755*ctHIm + -0.0972083127336606*ctHRe
+            -0.001549419314305453 * ctBRe+ 6.587933630411436e-05 * ctBIm
+            -0.0027960955347098027 * ctWRe+ -0.003817857792942636 * ctWIm
+            ;
     
     
             //double num = (Dazi_ord_pos_Mad + Dazi_ord_pos_NP) - (Dazi_ord_neg_Mad + Dazi_ord_neg_NP);
@@ -11141,9 +11251,10 @@ double Asymmetry_Dazi_ord_ttH_ee::computeThValue()
     double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
     double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
     double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
-    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
-    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
-    
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    double ctBRe = 0.;
+    double ctBIm = 0.;
     
     
     //Expressions are written in the basis of SMEFTsim
@@ -11153,24 +11264,24 @@ double Asymmetry_Dazi_ord_ttH_ee::computeThValue()
     //with a different convention
     
     if(flag_LHC_WG_Basis){
-//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
-//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
-//        sw2 = 0.22305;
-//        cw2 = 1 - sw2;
-//        tw2 = sw2/cw2;
-//        sw  = sqrt(sw2);
-//        tw  = sqrt(tw2);
-//        ctBRe = ctZRe/sw - ctWRe/tw;
-//        ctBIm = ctZIm/sw - ctWIm/tw;
-//        ctWRe = -ctWRe;
-//        ctWIm = -ctWIm;
+        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+        double sw2 = 0.22305;
+        double cw2 = 1 - sw2;
+        double tw2 = sw2/cw2;
+        double sw  = sqrt(sw2);
+        double tw  = sqrt(tw2);
+        ctBRe = ctZRe/sw - ctWRe/tw;
+        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
         ctGRe = -ctGRe;
         ctGIm = -ctGIm;
     }
-//    else{
-//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
-//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
-//    }
+    else{
+        ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+        ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+    }
     
     
     
@@ -11186,24 +11297,54 @@ double Asymmetry_Dazi_ord_ttH_ee::computeThValue()
     if(flag_Quadratic){
 
         
-            double Dazi_ord_ee_neg_NP = 0.8404288553887629*cHG + 0.0208422647737813*cHGtil + -0.0550100485100096*ctGIm +
-            -0.9837800350478916*ctGRe + 0.0016550964830614*ctHIm + -0.0975509276270819*ctHRe +
-            0.6176131445418394*cHG*cHG + 0.6001348092040816*cHGtil*cHGtil + 0.786572959445111*ctGIm*ctGIm +
-            0.8061191534220461*ctGRe*ctGRe + 0.0014229288104827*ctHIm*ctHIm + 0.003148645069418*ctHRe*ctHRe +
-            0.0040914045299683*cHG*cHGtil + -0.0219899064314808*cHG*ctGIm + -0.0003736312654786*cHG*ctHIm + 
-            -0.061822929264468*cHG*ctHRe + -0.4730595292823339*cHGtil*ctGIm + 0.0067909859506482*cHGtil*ctGRe +
-            0.0404155989650598*cHGtil*ctHIm + -0.0006071631925375*cHGtil*ctHRe + 0.0067907908337478*ctGIm*ctGRe +
-            -0.0012276151256363*ctGIm*ctHIm + 0.0042570184763379*ctGIm*ctHRe + -0.0026512985824996*ctGRe*ctHIm +
-            0.0673226914661984*ctGRe*ctHRe;
-            double Dazi_ord_ee_pos_NP = 0.8380178751491306*cHG + -0.0208837569582036*cHGtil + 0.0563206662942763*ctGIm +
-            -0.9848518070293188*ctGRe + -0.0016789806583868*ctHIm + -0.0971016023261651*ctHRe +
-            0.617864532298124*cHG*cHG + 0.6009213226223193*cHGtil*cHGtil + 0.7888786774699257*ctGIm*ctGIm +
-            0.8068547437271135*ctGRe*ctGRe + 0.0013859002513235*ctHIm*ctHIm + 0.0030945566295231*ctHRe*ctHRe + 
-            -0.0039140034663799*cHG*cHGtil + 0.0259247403583757*cHG*ctGIm + 0.0003960357139343*cHG*ctHIm + 
-            -0.0623674908935729*cHG*ctHRe + -0.4703992585666175*cHGtil*ctGIm + -0.0077455265899209*cHGtil*ctGRe +
-            0.0406966990783182*cHGtil*ctHIm + 0.0004632224275368*cHGtil*ctHRe + -0.0077243666834214*ctGIm*ctGRe + 
-            -0.0008741250260713*ctGIm*ctHIm + -0.0043160072941473*ctGIm*ctHRe + 0.0025049217993331*ctGRe*ctHIm +
-            0.0676719742864739*ctGRe*ctHRe;
+            double Dazi_ord_ee_neg_NP = 0.8404287198682079 * cHG + 0.0208422614129312 * cHGtil
+                + -0.0550089310565959 * ctGIm + -0.983778963439606 * ctGRe
+                + 0.0016550942929671 * ctHIm + -0.0975507985435286 * ctHRe
+                + 0.0239873280104936 * ctWIm + -0.0026831297740093 * ctWRe
+                + 0.6176130449506895 * cHG * cHG + 0.6001347124313424 * cHGtil * cHGtil
+                + 0.7865719489740035 * ctGIm * ctGIm + 0.80611827533555 * ctGRe * ctGRe
+                + 0.0014229577967017 * ctHIm * ctHIm + 0.0031487266504941 * ctHRe * ctHRe
+                + 0.0977314966404424 * ctWIm * ctWIm + 0.0177935600401541 * ctWRe * ctWRe
+                + 0.0040914045299683 * cHG * cHGtil + -0.0219899064314808 * cHG * ctGIm
+                + -0.7388365912386904 * cHG * ctGRe + -0.0003736312654786 * cHG * ctHIm
+                + -0.061822929264468 * cHG * ctHRe + 4.755266873937569e-05 * cHG * ctWIm
+                + 0.0004908479318843 * cHG * ctWRe + -0.4730595292823339 * cHGtil * ctGIm
+                + 0.0067909859506482 * cHGtil * ctGRe + 0.0404155989650598 * cHGtil * ctHIm
+                + -0.0006071631925375 * cHGtil * ctHRe + 0.000410970632705 * cHGtil * ctWIm
+                + -0.0010873287770317 * cHGtil * ctWRe + 0.0067907908337478 * ctGIm * ctGRe
+                + -0.0012276151256363 * ctGIm * ctHIm + 0.0042570184763379 * ctGIm * ctHRe
+                + -0.0077141578106353 * ctGIm * ctWIm + -0.0004329878738224 * ctGIm * ctWRe
+                + -0.0026512985824996 * ctGRe * ctHIm + 0.0673226914661984 * ctGRe * ctHRe
+                + 0.0058230088343248 * ctGRe * ctWIm + -5.741735732788912e-05 * ctGRe * ctWRe
+                + -0.0001332105072905 * ctHIm * ctHRe + -0.0003511364464264 * ctHIm * ctWIm
+                + 0.000125880399987 * ctHIm * ctWRe + -0.0004405570611716 * ctHRe * ctWIm
+                + -0.0004815913190063 * ctHRe * ctWRe + -0.000362755095259 * ctWIm * ctWRe
+            -0.0016684521282414322 * ctBRe + 0.0031109123237574587 * ctBRe * ctBRe+ -4.204517990341605e-05 * ctBIm + 0.0011882036111250938 * ctBIm * ctBIm
+            ;
+            double Dazi_ord_ee_pos_NP = 0.8380177400173502 * cHG + -0.0208837535906631 * cHGtil
+                + 0.0563195474132376 * ctGIm + -0.9848507342535776 * ctGRe
+                + -0.0016789784366879 * ctHIm + -0.0971014738371782 * ctHRe
+                + -0.0237210684368537 * ctWIm + -0.0027476538685015 * ctWRe
+                + 0.6178644326664374 * cHG * cHG + 0.6009212257227535 * cHGtil * cHGtil
+                + 0.7888779718388894 * ctGIm * ctGIm + 0.8068538648393566 * ctGRe * ctGRe
+                + 0.0013858675483419 * ctHIm * ctHIm + 0.0030944667871758 * ctHRe * ctHRe
+                + 0.097710764743593 * ctWIm * ctWIm + 0.0177231911784963 * ctWRe * ctWRe
+                + -0.0039140034663799 * cHG * cHGtil + 0.0259247403583757 * cHG * ctGIm
+                + -0.7439138030158363 * cHG * ctGRe + 0.0003960357139343 * cHG * ctHIm
+                + -0.0623674908935729 * cHG * ctHRe + 0.0004108770005809 * cHG * ctWIm
+                + -0.0004528240008638 * cHG * ctWRe + -0.4703992585666175 * cHGtil * ctGIm
+                + -0.0077455265899209 * cHGtil * ctGRe + 0.0406966990783182 * cHGtil * ctHIm
+                + 0.0004632224275368 * cHGtil * ctHRe + -0.0001593347843943 * cHGtil * ctWIm
+                + 0.0010831616538765 * cHGtil * ctWRe + -0.0077243666834214 * ctGIm * ctGRe
+                + -0.0008741250260713 * ctGIm * ctHIm + -0.0043160072941473 * ctGIm * ctHRe
+                + 0.0078109435808307 * ctGIm * ctWIm + 0.0006184181227847 * ctGIm * ctWRe
+                + 0.0025049217993331 * ctGRe * ctHIm + 0.0676719742864739 * ctGRe * ctHRe
+                + -0.0057625867117164 * ctGRe * ctWIm + 0.0008560926014874 * ctGRe * ctWRe
+                + 0.0001272687320934 * ctHIm * ctHRe + -0.0002874604068827 * ctHIm * ctWIm
+                + -9.668285932849868e-05 * ctHIm * ctWRe + 0.0004514735017376 * ctHRe * ctWIm
+                + -0.0002372243269866 * ctHRe * ctWRe + 0.0008082013407264 * ctWIm * ctWRe
+            -0.0012790754463039983 * ctBRe + 0.003115378933016111 * ctBRe * ctBRe+ 4.0411909950716085e-05 * ctBIm + 0.0011883414318798607 * ctBIm * ctBIm
+            ;
     
     
             //double num = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
@@ -11223,9 +11364,15 @@ double Asymmetry_Dazi_ord_ttH_ee::computeThValue()
             
     
             double Dazi_ord_ee_neg_NP = 0.8404288553887629*cHG + 0.0208422647737813*cHGtil + -0.0550100485100096*ctGIm +
-            -0.9837800350478916*ctGRe + 0.0016550964830614*ctHIm + -0.0975509276270819*ctHRe;
+            -0.9837800350478916*ctGRe + 0.0016550964830614*ctHIm + -0.0975509276270819*ctHRe
+            -0.0016684521282414322 * ctBRe+ -4.204517990341605e-05 * ctBIm
+            -0.002683129774009377 * ctWRe+ 0.02398732801049369 * ctWIm
+            ;
             double Dazi_ord_ee_pos_NP = 0.8380178751491306*cHG + -0.0208837569582036*cHGtil + 0.0563206662942763*ctGIm +
-            -0.9848518070293188*ctGRe + -0.0016789806583868*ctHIm + -0.0971016023261651*ctHRe;
+            -0.9848518070293188*ctGRe + -0.0016789806583868*ctHIm + -0.0971016023261651*ctHRe
+            -0.0012790754463039983 * ctBRe+ 4.0411909950716085e-05 * ctBIm
+            -0.002747653868501579 * ctWRe+ -0.023721068436853746 * ctWIm
+            ;
     
     
             //double num = (Dazi_ord_ee_pos_Mad + Dazi_ord_ee_pos_NP) - (Dazi_ord_ee_neg_Mad + Dazi_ord_ee_neg_NP);
@@ -11274,9 +11421,10 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
     double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
     double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
     double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
-    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
-    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
-    
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    double ctBRe = 0.;
+    double ctBIm = 0.;
     
     
     
@@ -11287,24 +11435,24 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
     //with a different convention
     
     if(flag_LHC_WG_Basis){
-//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
-//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
-//        sw2 = 0.22305;
-//        cw2 = 1 - sw2;
-//        tw2 = sw2/cw2;
-//        sw  = sqrt(sw2);
-//        tw  = sqrt(tw2);
-//        ctBRe = ctZRe/sw - ctWRe/tw;
-//        ctBIm = ctZIm/sw - ctWIm/tw;
-//        ctWRe = -ctWRe;
-//        ctWIm = -ctWIm;
+        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+        double sw2 = 0.22305;
+        double cw2 = 1 - sw2;
+        double tw2 = sw2/cw2;
+        double sw  = sqrt(sw2);
+        double tw  = sqrt(tw2);
+        ctBRe = ctZRe/sw - ctWRe/tw;
+        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
         ctGRe = -ctGRe;
         ctGIm = -ctGIm;
     }
-//    else{
-//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
-//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
-//    }
+    else{
+        ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+        ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+    }
     
     
    
@@ -11316,15 +11464,30 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
         
         
         if(flag_Quadratic){
-                total =  SM_ttH_bin_450_655 + (0.0045181955745771*cHG + 2.092434682771094e-06*cHGtil + 3.35721352610896e-06*ctGIm +
-                        -0.0073319817382764*ctGRe + 2.178950715664429e-06*ctHIm + -0.0010488957886131*ctHRe + 
-                        0.001129479117399*cHG*cHG + 0.0012542998928326*cHGtil*cHGtil + 0.0027597465911086*ctGIm*ctGIm + 
-                        0.0031944543434764*ctGRe*ctGRe + 5.658099728467203e-06*ctHIm*ctHIm + 3.208560834544569e-05*ctHRe*ctHRe + 
-                        5.753962177779126e-05*cHG*cHGtil + 2.8298667156714807e-05*cHG*ctGIm + 3.5475454384648053e-06*cHG*ctHIm + 
-                        -0.0002322100406697*cHG*ctHRe + -0.0013688338065862*cHGtil*ctGIm + -7.438424425927569e-05*cHGtil*ctGRe + 
-                        0.0003213688692185*cHGtil*ctHIm + -4.67918246424609e-07*cHGtil*ctHRe + 9.308637288288346e-05*ctGIm*ctGRe + 
-                        -1.0905995485980285e-05*ctGIm*ctHIm + 9.160715861988856e-07*ctGIm*ctHRe + 4.508771085515173e-07*ctGRe*ctHIm + 
-                        0.0006295005037564*ctGRe*ctHRe)*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
+                total =  SM_ttH_bin_450_655 + (0.0045181955745771 * cHG + 2.092434682771094e-06 * cHGtil
+                    + 3.35721352610896e-06 * ctGIm + -0.0073319817382764 * ctGRe
+                    + 2.178950715664429e-06 * ctHIm + -0.0010488957886131 * ctHRe
+                    + -6.397754803461053e-06 * ctWIm + -3.0007469619147686e-05 * ctWRe
+                    + 0.001129479117399 * cHG * cHG + 0.0012542998928326 * cHGtil * cHGtil
+                    + 0.0027597465911086 * ctGIm * ctGIm + 0.0031944543434764 * ctGRe * ctGRe
+                    + 5.658099728467203e-06 * ctHIm * ctHIm + 3.208560834544569e-05 * ctHRe * ctHRe
+                    + 3.1330082486985544e-05 * ctWIm * ctWIm + 3.6107605324769976e-05 * ctWRe * ctWRe
+                    + 5.753962177779126e-05 * cHG * cHGtil + 2.8298667156714807e-05 * cHG * ctGIm
+                    + -0.0029193903114386 * cHG * ctGRe + 3.5475454384648053e-06 * cHG * ctHIm
+                    + -0.0002322100406697 * cHG * ctHRe + -4.0326775995974525e-08 * cHG * ctWIm
+                    + 9.549539522979432e-06 * cHG * ctWRe + -0.0013688338065862 * cHGtil * ctGIm
+                    + -7.438424425927569e-05 * cHGtil * ctGRe + 0.0003213688692185 * cHGtil * ctHIm
+                    + -4.67918246424609e-07 * cHGtil * ctHRe + -3.209779568677406e-06 * cHGtil * ctWIm
+                    + -1.756648507190347e-05 * cHGtil * ctWRe + 9.308637288288346e-05 * ctGIm * ctGRe
+                    + -1.0905995485980285e-05 * ctGIm * ctHIm + 9.160715861988856e-07 * ctGIm * ctHRe
+                    + 4.055744317929544e-06 * ctGIm * ctWIm + 4.462759282716777e-06 * ctGIm * ctWRe
+                    + 4.508771085515173e-07 * ctGRe * ctHIm + 0.0006295005037564 * ctGRe * ctHRe
+                    + 1.8551257867788214e-05 * ctGRe * ctWIm + 9.718015508280995e-07 * ctGRe * ctWRe
+                    + -2.1921421677216978e-07 * ctHIm * ctHRe + 4.255271382203052e-07 * ctHIm * ctWIm
+                    + -5.998001470667131e-07 * ctHIm * ctWRe + 1.6381698403344913e-07 * ctHRe * ctWIm
+                    + 2.2094272996431297e-06 * ctHRe * ctWRe + -4.901345972218524e-10 * ctWIm * ctWRe
+                    -8.307825152903403e-06 * ctBRe + 1.1261681936616807e-05 * ctBRe * ctBRe + 9.963448805855313e-07 * ctBIm * ctBIm
+                    )*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
@@ -11332,6 +11495,7 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
         else{
                 total =  SM_ttH_bin_450_655 + (0.0045181955745771*cHG +
                         -0.0073319817382764*ctGRe + -0.0010488957886131*ctHRe
+                        -8.307825152903403e-06 * ctBRe-3.0007469619147686e-05 * ctWRe
                         )*(SM_ttH_bin_450_655/ttH_bin_450_655_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
@@ -11346,22 +11510,38 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
  
 
         if(flag_Quadratic){
-                total =  SM_ttH_bin_655_860 + (0.0068342312470782*cHG + 6.516776100529143e-06*cHGtil + 1.7655998727092448e-05*ctGIm +
-                        -0.0096851624939012*ctGRe + -8.016268841642971e-07*ctHIm + -0.0010829961514144*ctHRe +
-                        0.0032625736708071*cHG*cHG + 0.0034043208850053*cHGtil*cHGtil + 0.0056434013751323*ctGIm*ctGIm +
-                        0.0061425691862662*ctGRe*ctGRe + 1.34073766868692e-05*ctHIm*ctHIm + 3.306703774944704e-05*ctHRe*ctHRe +
-                        -2.364760048584498e-05*cHG*cHGtil + -1.4463105183893285e-05*cHG*ctGIm + -1.0233814119407383e-05*cHG*ctHIm +
-                        -0.0003562114438536*cHG*ctHRe + -0.003378026398263*cHGtil*ctGIm + 8.076642084585417e-05*cHGtil*ctGRe +
-                        0.0004541628998359*cHGtil*ctHIm + 5.62908023971076e-07*cHGtil*ctHRe + -7.617018209962787e-05*ctGIm*ctGRe +
-                        -3.316085847073677e-05*ctGIm*ctHIm + -2.770873236021253e-06*ctGIm*ctHRe + 1.7917779605858275e-06*ctGRe*ctHIm +
-                        0.000739929641391*ctGRe*ctHRe)*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
-                //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+                total =  SM_ttH_bin_655_860 + (0.0068342312470782 * cHG + 6.516776100529143e-06 * cHGtil
+                    + 1.7655998727092448e-05 * ctGIm + -0.0096851624939012 * ctGRe
+                    + -8.016268841642971e-07 * ctHIm + -0.0010829961514144 * ctHRe
+                    + 4.5660108292516766e-06 * ctWIm + -3.266069476552669e-05 * ctWRe
+                    + 0.0032625736708071 * cHG * cHG + 0.0034043208850053 * cHGtil * cHGtil
+                    + 0.0056434013751323 * ctGIm * ctGIm + 0.0061425691862662 * ctGRe * ctGRe
+                    + 1.34073766868692e-05 * ctHIm * ctHIm + 3.306703774944704e-05 * ctHRe * ctHRe
+                    + 0.0001699478599239 * ctWIm * ctWIm + 7.677430471397795e-05 * ctWRe * ctWRe
+                    + -2.364760048584498e-05 * cHG * cHGtil + -1.4463105183893285e-05 * cHG * ctGIm
+                    + -0.005825556907969 * cHG * ctGRe + -1.0233814119407383e-05 * cHG * ctHIm
+                    + -0.0003562114438536 * cHG * ctHRe + 4.041138353352847e-06 * cHG * ctWIm
+                    + 2.0052515994350983e-06 * cHG * ctWRe + -0.003378026398263 * cHGtil * ctGIm
+                    + 8.076642084585417e-05 * cHGtil * ctGRe + 0.0004541628998359 * cHGtil * ctHIm
+                    + 5.62908023971076e-07 * cHGtil * ctHRe + 6.153746747686317e-06 * cHGtil * ctWIm
+                    + 4.800465880375193e-06 * cHGtil * ctWRe + -7.617018209962787e-05 * ctGIm * ctGRe
+                    + -3.316085847073677e-05 * ctGIm * ctHIm + -2.770873236021253e-06 * ctGIm * ctHRe
+                    + -7.011545265733163e-06 * ctGIm * ctWIm + -1.1505958574542414e-05 * ctGIm * ctWRe
+                    + 1.7917779605858275e-06 * ctGRe * ctHIm + 0.000739929641391 * ctGRe * ctHRe
+                    + -3.541643525756911e-05 * ctGRe * ctWIm + -1.0605493261818856e-05 * ctGRe * ctWRe
+                    + -1.2537585183551948e-07 * ctHIm * ctHRe + -1.5696577463876328e-06 * ctHIm * ctWIm
+                    + 3.765760764606885e-07 * ctHIm * ctWRe + 3.604191362999165e-07 * ctHRe * ctWIm
+                    + -2.1530467315235542e-06 * ctHRe * ctWRe + 4.389160141851645e-06 * ctWIm * ctWRe
+                    -1.5467073895367167e-05 * ctBRe + 2.201484616365379e-05 * ctBRe * ctBRe+ 4.364785857635667e-06 * ctBIm * ctBIm
+                    )*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
+                        //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
         }
         else{
                 total =  SM_ttH_bin_655_860 + (0.0068342312470782*cHG +
                         -0.0096851624939012*ctGRe + -0.0010829961514144*ctHRe
+                        -1.5467073895367167e-05 * ctBRe -3.266069476552669e-05 * ctWRe
                         )*(SM_ttH_bin_655_860/ttH_bin_655_860_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
@@ -11376,15 +11556,30 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
  
 
         if(flag_Quadratic){
-                total =  SM_ttH_bin_860_1270 + (0.0035482569627141*cHG + -8.220476758191708e-07*cHGtil + 1.2052119047978316e-05*ctGIm +
-                        -0.0041580771412648*ctGRe + -1.45859601326237e-06*ctHIm + -0.0003266623947329*ctHRe +
-                        0.0031788183581889*cHG*cHG + 0.0030970512164488*cHGtil*cHGtil + 0.0038709717867162*ctGIm*ctGIm +
-                        0.0040041851524892*ctGRe*ctGRe + 7.55327927619287e-06*ctHIm*ctHIm + 1.044536285490516e-05*ctHRe*ctHRe +
-                        -6.845532348889237e-06*cHG*cHGtil + -3.0658735341057295e-05*cHG*ctGIm + 4.037792277630792e-06*cHG*ctHIm +
-                        -0.000253969240318*cHG*ctHRe + -0.0025610325162679*cHGtil*ctGIm + -4.903421501601487e-06*cHGtil*ctGRe +
-                        0.0001789011931272*cHGtil*ctHIm + 1.4482656857522924e-06*cHGtil*ctHRe + -1.5487075151731095e-06*ctGIm*ctGRe +
-                        -1.6017969617732204e-05*ctGIm*ctHIm + 1.1205379927686776e-06*ctGIm*ctHRe + -1.8151564085000028e-06*ctGRe*ctHIm +
-                        0.0002528327953381*ctGRe*ctHRe)*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
+                total =  SM_ttH_bin_860_1270 + (0.0035482569627141 * cHG + -8.220476758191708e-07 * cHGtil
+                    + 1.2052119047978316e-05 * ctGIm + -0.0041580771412648 * ctGRe
+                    + -1.45859601326237e-06 * ctHIm + -0.0003266623947329 * ctHRe
+                    + 7.515840323157885e-07 * ctWIm + -1.1085493448650952e-05 * ctWRe
+                    + 0.0031788183581889 * cHG * cHG + 0.0030970512164488 * cHGtil * cHGtil
+                    + 0.0038709717867162 * ctGIm * ctGIm + 0.0040041851524892 * ctGRe * ctGRe
+                    + 7.55327927619287e-06 * ctHIm * ctHIm + 1.044536285490516e-05 * ctHRe * ctHRe
+                    + 0.0003022025414976 * ctWIm * ctWIm + 7.053103081616774e-05 * ctWRe * ctWRe
+                    + -6.845532348889237e-06 * cHG * cHGtil + -3.0658735341057295e-05 * cHG * ctGIm
+                    + -0.0038039141269859 * cHG * ctGRe + 4.037792277630792e-06 * cHG * ctHIm
+                    + -0.000253969240318 * cHG * ctHRe + 5.585076583089488e-06 * cHG * ctWIm
+                    + -8.115494553287108e-07 * cHG * ctWRe + -0.0025610325162679 * cHGtil * ctGIm
+                    + -4.903421501601487e-06 * cHGtil * ctGRe + 0.0001789011931272 * cHGtil * ctHIm
+                    + 1.4482656857522924e-06 * cHGtil * ctHRe + 2.1733719725858247e-06 * cHGtil * ctWIm
+                    + 8.391042189262454e-06 * cHGtil * ctWRe + -1.5487075151731095e-06 * ctGIm * ctGRe
+                    + -1.6017969617732204e-05 * ctGIm * ctHIm + 1.1205379927686776e-06 * ctGIm * ctHRe
+                    + 1.9900791938254336e-06 * ctGIm * ctWIm + -5.365572614642063e-06 * ctGIm * ctWRe
+                    + -1.8151564085000028e-06 * ctGRe * ctHIm + 0.0002528327953381 * ctGRe * ctHRe
+                    + -4.974839844277338e-06 * ctGRe * ctWIm + 9.916092663458942e-06 * ctGRe * ctWRe
+                    + 1.123734370417351e-07 * ctHIm * ctHRe + -1.931109460764816e-06 * ctHIm * ctWIm
+                    + 1.5128957953081112e-07 * ctHIm * ctWRe + -1.3678888535800165e-07 * ctHRe * ctWIm
+                    + -2.746731171583885e-06 * ctHRe * ctWRe + 6.285203592998334e-07 * ctWIm * ctWRe
+                    -7.332564342765746e-06 * ctBRe + 1.488317517997495e-05 * ctBRe * ctBRe + 5.322544053956713e-06 * ctBIm * ctBIm
+                    )*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
@@ -11392,6 +11587,7 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
             else{
                 total =  SM_ttH_bin_860_1270 + (0.0035482569627141*cHG +
                         -0.0041580771412648*ctGRe + -0.0003266623947329*ctHRe
+                        -7.332564342765746e-06 * ctBRe-1.1085493448650952e-05 * ctWRe
                         )*(SM_ttH_bin_860_1270/ttH_bin_860_1270_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
@@ -11405,15 +11601,30 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
  
 
         if(flag_Quadratic){
-                total =  SM_ttH_bin_1270_2500 + (0.0010427269178651*cHG + -9.856161004434538e-07*cHGtil + 4.622973593784718e-06*ctGIm +
-                        -0.0007284069850997*ctGRe + 2.406669648430393e-07*ctHIm + -3.129120993544568e-05*ctHRe + 
-                        0.0011892767595462*cHG*cHG + 0.0011046291764241*cHGtil*cHGtil + 0.0011424484585363*ctGIm*ctGIm + 
-                        0.0010765623784725*ctGRe*ctGRe + 1.175058315219801e-06*ctHIm*ctHIm + 1.2422431746160378e-06*ctHRe*ctHRe + 
-                        -3.889698786486935e-06*cHG*cHGtil + 1.663871428932151e-05*cHG*ctGIm + -8.764646223761842e-07*cHG*ctHIm + 
-                        -0.0001115383166857*cHG*ctHRe + -0.0006835996252276*cHGtil*ctGIm + 2.6865465597297744e-06*cHGtil*ctGRe +
-                        1.839047460509835e-05*cHGtil*ctHIm + -9.444369397582044e-07*cHGtil*ctHRe + -3.7867570888689487e-06*ctGIm*ctGRe +
-                        4.67918943547474e-06*ctGIm*ctHIm + -3.3779355185015254e-08*ctGIm*ctHRe + -1.4688339893080404e-08*ctGRe*ctHIm + 
-                        2.912940987744028e-05*ctGRe*ctHRe)*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
+                total =  SM_ttH_bin_1270_2500 + (0.0010427269178651 * cHG + -9.856161004434538e-07 * cHGtil
+                    + 4.622973593784718e-06 * ctGIm + -0.0007284069850997 * ctGRe
+                    + 2.406669648430393e-07 * ctHIm + -3.129120993544568e-05 * ctHRe
+                    + 1.558576659940747e-06 * ctWIm + -5.950496569095965e-08 * ctWRe
+                    + 0.0011892767595462 * cHG * cHG + 0.0011046291764241 * cHGtil * cHGtil
+                    + 0.0011424484585363 * ctGIm * ctGIm + 0.0010765623784725 * ctGRe * ctGRe
+                    + 1.175058315219801e-06 * ctHIm * ctHIm + 1.2422431746160378e-06 * ctHRe * ctHRe
+                    + 0.0002574437383637 * ctWIm * ctWIm + 3.634533253690786e-05 * ctWRe * ctWRe
+                    + -3.889698786486935e-06 * cHG * cHGtil + 1.663871428932151e-05 * cHG * ctGIm
+                    + -0.0009516653801491 * cHG * ctGRe + -8.764646223761842e-07 * cHG * ctHIm
+                    + -0.0001115383166857 * cHG * ctHRe + -2.849926045572032e-06 * cHG * ctWIm
+                    + -3.1134703074364467e-06 * cHG * ctWRe + -0.0006835996252276 * cHGtil * ctGIm
+                    + 2.6865465597297744e-06 * cHGtil * ctGRe + 1.839047460509835e-05 * cHGtil * ctHIm
+                    + -9.444369397582044e-07 * cHGtil * ctHRe + -4.2031651278482206e-06 * cHGtil * ctWIm
+                    + -1.902334553772218e-06 * cHGtil * ctWRe + -3.7867570888689487e-06 * ctGIm * ctGRe
+                    + 4.67918943547474e-06 * ctGIm * ctHIm + -3.3779355185015254e-08 * ctGIm * ctHRe
+                    + -9.90107948205884e-06 * ctGIm * ctWIm + 3.2439146454010803e-06 * ctGIm * ctWRe
+                    + -1.4688339893080404e-08 * ctGRe * ctHIm + 2.912940987744028e-05 * ctGRe * ctHRe
+                    + -2.044738314961812e-06 * ctGRe * ctWIm + 1.1890602603092937e-06 * ctGRe * ctWRe
+                    + 8.774074439221735e-09 * ctHIm * ctHRe + -6.938904354794587e-07 * ctHIm * ctWIm
+                    + 9.554777502529532e-08 * ctHIm * ctWRe + -3.3366971401629874e-08 * ctHRe * ctWIm
+                    + -9.04292431679249e-07 * ctHRe * ctWRe + -1.1428837119814367e-06 * ctWIm * ctWRe
+                    -1.1656806445381473e-06 * ctBRe + 4.4686841467467264e-06 * ctBRe * ctBRe+ 2.6432943491666583e-06 * ctBIm * ctBIm
+                        )*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
 
@@ -11421,6 +11632,7 @@ double sigma_ttH_diff_LO_mtth::computeThValue()
         else{
                 total =  SM_ttH_bin_1270_2500 + (0.0010427269178651*cHG +
                         -0.0007284069850997*ctGRe + -3.129120993544568e-05*ctHRe
+                        -1.1656806445381473e-06 * ctBRe -5.9504965690959644e-08 * ctWRe
                         )*(SM_ttH_bin_1270_2500/ttH_bin_1270_2500_madgraph_LO);
                 //if (total < 0) return std::numeric_limits<double>::quiet_NaN();
                 return total;
@@ -11462,8 +11674,10 @@ double Asymmetry_trip_prod_pt_pe_pp_ttH::computeThValue()
     double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
     double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
     double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
-    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
-    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    double ctBRe = 0.;
+    double ctBIm = 0.;
     
     
         //Expressions are written in the basis of SMEFTsim
@@ -11473,24 +11687,24 @@ double Asymmetry_trip_prod_pt_pe_pp_ttH::computeThValue()
     //with a different convention
     
     if(flag_LHC_WG_Basis){
-//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
-//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
-//        sw2 = 0.22305;
-//        cw2 = 1 - sw2;
-//        tw2 = sw2/cw2;
-//        sw  = sqrt(sw2);
-//        tw  = sqrt(tw2);
-//        ctBRe = ctZRe/sw - ctWRe/tw;
-//        ctBIm = ctZIm/sw - ctWIm/tw;
-//        ctWRe = -ctWRe;
-//        ctWIm = -ctWIm;
+        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+        double sw2 = 0.22305;
+        double cw2 = 1 - sw2;
+        double tw2 = sw2/cw2;
+        double sw  = sqrt(sw2);
+        double tw  = sqrt(tw2);
+        ctBRe = ctZRe/sw - ctWRe/tw;
+        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
         ctGRe = -ctGRe;
         ctGIm = -ctGIm;
     }
-//    else{
-//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
-//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
-//    }
+    else{
+        ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+        ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+    }
     
     
     
@@ -11505,24 +11719,54 @@ double Asymmetry_trip_prod_pt_pe_pp_ttH::computeThValue()
 
 
     
-            double trip_prod_neg_NP = 2.640095238800265*cHG + -0.291215708923054*cHGtil + 0.3672351161865572*ctGIm +
-            -3.086551544820942*ctGRe + 0.0093896874318005*ctHIm + -0.3056973190252862*ctHRe + 
-            1.9427189051331344*cHG*cHG + 1.8882545891916165*cHGtil*cHGtil + 2.4690858861122726*ctGIm*ctGIm + 
-            2.537500931980412*ctGRe*ctGRe + 0.0043927180734477*ctHIm*ctHIm + 0.0098582545882171*ctHRe*ctHRe + 
-            -0.0611273430332702*cHG*cHGtil + -0.1562901590147846*cHG*ctGIm + -0.0332829035749282*cHG*ctHIm + 
-            -0.1922967483887002*cHG*ctHRe + -1.4936120158370252*cHGtil*ctGIm + 0.2195689708810037*cHGtil*ctGRe + 
-            0.1284110619808202*cHGtil*ctHIm + 0.0435618768488701*cHGtil*ctHRe + 0.0180277458513596*ctGIm*ctGRe + 
-            -0.0037356858757553*ctGIm*ctHIm + -0.0251806671367735*ctGIm*ctHRe + -0.0129283651774673*ctGRe*ctHIm + 
-            0.2122410869542897*ctGRe*ctHRe;
-            double trip_prod_pos_NP = 2.6338438330285854*cHG + 0.2910853340659681*cHGtil + -0.3631167628767298*ctGIm +
-            -3.0994782998687884*ctGRe + -0.0094647329097138*ctHIm + -0.3059123320650544*ctHRe + 
-            1.9393429281112249*cHG*cHG + 1.885649429622108*cHGtil*cHGtil + 2.481454198064708*ctGIm*ctGIm + 
-            2.53094531180251*ctGRe*ctGRe + 0.004432787368872*ctHIm*ctHIm + 0.0097582508519799*ctHRe*ctHRe +
-            0.0616850233108645*cHG*cHGtil + 0.1686557442326578*cHG*ctGIm + 0.0333533207345481*cHG*ctHIm + 
-            -0.1980141552978979*cHG*ctHRe + -1.4707955683599927*cHGtil*ctGIm + -0.2225681716920635*cHGtil*ctGRe + 
-            0.1264439339654254*cHGtil*ctHIm + -0.0440141389916522*cHGtil*ctHRe + -0.020961743091158*ctGIm*ctGRe + 
-            -0.0028677842945724*ctGIm*ctHIm + 0.0249953324058435*ctGIm*ctHRe + 0.0124684222616443*ctGRe*ctHIm +
-            0.2119156676645677*ctGRe*ctHRe;
+            double trip_prod_neg_NP = 2.640183516559485 * cHG + -0.291135613883015 * cHGtil
+                + 0.3678572986205774 * ctGIm + -3.087690836545025 * ctGRe
+                + 0.0094009278222139 * ctHIm + -0.3056879017920962 * ctHRe
+                + 0.0028779039125397 * ctWIm + -0.0090384597387344 * ctWRe
+                + 1.9428373183076488 * cHG * cHG + 1.8884134166653317 * cHGtil * cHGtil
+                + 2.470902330930285 * ctGIm * ctGIm + 2.5390721751356464 * ctGRe * ctGRe
+                + 0.004393313833058 * ctHIm * ctHIm + 0.0098526634558913 * ctHRe * ctHRe
+                + 0.3066205731868689 * ctWIm * ctWIm + 0.0560668334542675 * ctWRe * ctWRe
+                + -0.0611273430332702 * cHG * cHGtil + -0.1562901590147846 * cHG * ctGIm
+                + -2.3280072653525665 * cHG * ctGRe + -0.0332829035749282 * cHG * ctHIm
+                + -0.1922967483887002 * cHG * ctHRe + 0.001261653307765 * cHG * ctWIm
+                + -0.0028384867252228 * cHG * ctWRe + -1.4936120158370252 * cHGtil * ctGIm
+                + 0.2195689708810037 * cHGtil * ctGRe + 0.1284110619808202 * cHGtil * ctHIm
+                + 0.0435618768488701 * cHGtil * ctHRe + -0.0005958003085194 * cHGtil * ctWIm
+                + 0.0010590191160643 * cHGtil * ctWRe + 0.0180277458513596 * ctGIm * ctGRe
+                + -0.0037356858757553 * ctGIm * ctHIm + -0.0251806671367735 * ctGIm * ctHRe
+                + 0.0145409140622336 * ctGIm * ctWIm + 0.0006672516568214 * ctGIm * ctWRe
+                + -0.0129283651774673 * ctGRe * ctHIm + 0.2122410869542897 * ctGRe * ctHRe
+                + 0.0148165894863743 * ctGRe * ctWIm + -0.0048128893054671 * ctGRe * ctWRe
+                + -0.0003906827817827 * ctHIm * ctHRe + -0.0012818830236245 * ctHIm * ctWIm
+                + 0.0001845529183801 * ctHIm * ctWRe + -0.0001007080896056 * ctHRe * ctWIm
+                + -0.0016692696078997 * ctHRe * ctWRe + 0.0110862621259655 * ctWIm * ctWRe
+            -0.004354637597045269 * ctBRe + 0.009775150516485295 * ctBRe * ctBRe+ -0.00028492026513413093 * ctBIm + 0.0037313612606456603 * ctBIm * ctBIm
+            ;
+            double trip_prod_pos_NP = 2.6328115532520737 * cHG + 0.2910052623622711 * cHGtil
+                + -0.363739875902877 * ctGIm + -3.096941761896972 * ctGRe
+                + -0.0094759620726647 * ctHIm + -0.305830247123692 * ctHRe
+                + -0.0020413671276346 * ctWIm + -0.0080240264123283 * ctWRe
+                + 1.938529650870392 * cHG * cHG + 1.884815095098858 * cHGtil * cHGtil
+                + 2.4785195653397807 * ctGIm * ctGIm + 2.5282292515897424 * ctGRe * ctGRe
+                + 0.0044308712361479 * ctHIm * ctHIm + 0.0097609071828327 * ctHRe * ctHRe
+                + 0.3074217267298444 * ctWIm * ctWIm + 0.0555200231929575 * ctWRe * ctWRe
+                + 0.0616850233108645 * cHG * cHGtil + 0.1686557442326578 * cHG * ctGIm
+                + -2.3329631336855035 * cHG * ctGRe + 0.0333533207345481 * cHG * ctHIm
+                + -0.1980141552978979 * cHG * ctHRe + 0.0001794692513655 * cHG * ctWIm
+                + 0.0029579718310278 * cHG * ctWRe + -1.4707955683599927 * cHGtil * ctGIm
+                + -0.2225681716920635 * cHGtil * ctGRe + 0.1264439339654254 * cHGtil * ctHIm
+                + -0.0440141389916522 * cHGtil * ctHRe + 0.0013869829103071 * cHGtil * ctWIm
+                + -0.0010721150335592 * cHGtil * ctWRe + -0.020961743091158 * ctGIm * ctGRe
+                + -0.0028677842945724 * ctGIm * ctHIm + 0.0249953324058435 * ctGIm * ctHRe
+                + -0.0142367301713332 * ctGIm * ctWIm + -8.440301745165969e-05 * ctGIm * ctWRe
+                + 0.0124684222616443 * ctGRe * ctHIm + 0.2119156676645677 * ctGRe * ctHRe
+                + -0.0146267046439642 * ctGRe * ctWIm + 0.0073226429336149 * ctGRe * ctWRe
+                + 0.0003720140582797 * ctHIm * ctHRe + -0.0007259142884621 * ctHIm * ctWIm
+                + -9.280611641033528e-05 * ctHIm * ctWRe + 0.0001350325322032 * ctHRe * ctWIm
+                + -0.0005892796643464 * ctHRe * ctWRe + -0.0096859099971627 * ctWIm * ctWRe
+            -0.004906596203596264 * ctBRe + 0.009788072415787982 * ctBRe * ctBRe+ 0.0002797884743307305 * ctBIm + 0.0037358256356170294 * ctBIm * ctBIm
+            ;
     
     
             //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
@@ -11542,9 +11786,15 @@ double Asymmetry_trip_prod_pt_pe_pp_ttH::computeThValue()
             
     
             double trip_prod_neg_NP = 2.640095238800265*cHG + -0.291215708923054*cHGtil + 0.3672351161865572*ctGIm +
-            -3.086551544820942*ctGRe + 0.0093896874318005*ctHIm + -0.3056973190252862*ctHRe;
+            -3.086551544820942*ctGRe + 0.0093896874318005*ctHIm + -0.3056973190252862*ctHRe
+            -0.004354637597045269 * ctBRe+ -0.00028492026513413093 * ctBIm
+            -0.009038459738734433 * ctWRe+ 0.002877903912539781 * ctWIm
+            ;
             double trip_prod_pos_NP = 2.6338438330285854*cHG + 0.2910853340659681*cHGtil + -0.3631167628767298*ctGIm +
-            -3.0994782998687884*ctGRe + -0.0094647329097138*ctHIm + -0.3059123320650544*ctHRe;
+            -3.0994782998687884*ctGRe + -0.0094647329097138*ctHIm + -0.3059123320650544*ctHRe
+            -0.004906596203596264 * ctBRe+ 0.0002797884743307305 * ctBIm
+            -0.008024026412328383 * ctWRe+ -0.0020413671276346412 * ctWIm
+            ;
     
     
             //double num = (trip_prod_pos_Mad + trip_prod_pos_NP) - (trip_prod_neg_Mad + trip_prod_neg_NP);
@@ -11592,9 +11842,10 @@ double Asymmetry_sign_trip_prod_pe_pp_ttH::computeThValue()
     double ctHIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphiIm();
     double ctGRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
     double ctGIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tGIm();
-    //double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
-    //double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
-    
+    double ctWRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double ctWIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tWIm();
+    double ctBRe = 0.;
+    double ctBIm = 0.;
     
     //Expressions are written in the basis of SMEFTsim
     //let's change to the basis of dim6top (same as
@@ -11603,24 +11854,24 @@ double Asymmetry_sign_trip_prod_pe_pp_ttH::computeThValue()
     //with a different convention
     
     if(flag_LHC_WG_Basis){
-//        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
-//        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
-//        sw2 = 0.22305;
-//        cw2 = 1 - sw2;
-//        tw2 = sw2/cw2;
-//        sw  = sqrt(sw2);
-//        tw  = sqrt(tw2);
-//        ctBRe = ctZRe/sw - ctWRe/tw;
-//        ctBIm = ctZIm/sw - ctWIm/tw;
-//        ctWRe = -ctWRe;
-//        ctWIm = -ctWIm;
+        double ctZRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+        double ctZIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZIm();
+        double sw2 = 0.22305;
+        double cw2 = 1 - sw2;
+        double tw2 = sw2/cw2;
+        double sw  = sqrt(sw2);
+        double tw  = sqrt(tw2);
+        ctBRe = ctZRe/sw - ctWRe/tw;
+        ctBIm = ctZIm/sw - ctWIm/tw;
+        ctWRe = -ctWRe;
+        ctWIm = -ctWIm;
         ctGRe = -ctGRe;
         ctGIm = -ctGIm;
     }
-//    else{
-//        double ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
-//        double ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
-//    }
+    else{
+        ctBRe = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tB();
+        ctBIm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tBIm();
+    }
     
     
     
@@ -11636,24 +11887,54 @@ double Asymmetry_sign_trip_prod_pe_pp_ttH::computeThValue()
             
             
     
-            double sign_trip_prod_pe_pp_neg_NP = 2.642738924499983*cHG + 0.1857689223794195*cHGtil + -0.2201130894378797*ctGIm +
-            -3.102254615722175*ctGRe + -0.0059790531590874*ctHIm + -0.3068222235539151*ctHRe + 
-            1.9435604714282413*cHG*cHG + 1.8868728373520192*cHGtil*cHGtil + 2.478247938966319*ctGIm*ctGIm +
-            2.537205740034305*ctGRe*ctGRe + 0.0044286022433849*ctHIm*ctHIm + 0.0099118164384982*ctHRe*ctHRe + 
-            0.0508984896879067*cHG*cHGtil + 0.1476151527744092*cHG*ctGIm + 0.0299484591443408*cHG*ctHIm + 
-            -0.1959685579715413*cHG*ctHRe + -1.4761384971318905*cHGtil*ctGIm + -0.1713637905247774*cHGtil*ctGRe + 
-            0.1279944459298787*cHGtil*ctHIm + -0.0292542423455988*cHGtil*ctHRe + -0.0261746428921166*ctGIm*ctGRe + 
-            -0.0032607955481276*ctGIm*ctHIm + 0.0140985825882586*ctGIm*ctHRe + 0.0074007867049598*ctGRe*ctHIm + 
-            0.2117097917766713*ctGRe*ctHRe;
-            double sign_trip_prod_pe_pp_pos_NP = 2.6302563644690693*cHG + -0.1858992739054133*cHGtil + 0.2242305128220224*ctGIm + 
-            -3.0823789676020823*ctGRe + 0.0059040188959551*ctHIm + -0.30469602871212*ctHRe + 
-            1.9378066509643757*cHG*cHG + 1.8863558247613867*cHGtil*cHGtil + 2.471174759435246*ctGIm*ctGIm + 
-            2.5300965069630696*ctGRe*ctGRe + 0.0043955843171613*ctHIm*ctHIm + 0.0097017575150373*ctHRe*ctHRe + 
-            -0.0503411686164696*cHG*cHGtil + -0.1352535186964854*cHG*ctGIm + -0.0298780736340808*cHG*ctHIm + 
-            -0.1941871296364016*cHG*ctHRe + -1.4878249507037815*cHGtil*ctGIm + 0.1683650160418539*cHGtil*ctGRe + 
-            0.1268273709363991*cHGtil*ctHIm + 0.0288020394197951*cHGtil*ctHRe + 0.0232417256197431*ctGIm*ctGRe + 
-            -0.0033420150171774*ctGIm*ctHIm + -0.0142839014035242*ctGIm*ctHRe + -0.0078606428282776*ctGRe*ctHIm + 
-            0.2123883426407318*ctGRe*ctHRe;
+            double sign_trip_prod_pe_pp_neg_NP = 2.642738820737528 * cHG + 0.1857689148975252 * cHGtil
+                + -0.2201130538105204 * ctGIm + -3.1022541249960875 * ctGRe
+                + -0.0059790521485915 * ctHIm + -0.3068221716991218 * ctHRe
+                + -0.0015026106634554 * ctWIm + -0.0083629306863192 * ctWRe
+                + 1.943560394107679 * cHG * cHG + 1.8868727613590808 * cHGtil * cHGtil
+                + 2.4782475378888056 * ctGIm * ctGIm + 2.537205329210237 * ctGRe * ctGRe
+                + 0.0044286014949246 * ctHIm * ctHIm + 0.0099118147633419 * ctHRe * ctHRe
+                + 0.3067008919750776 * ctWIm * ctWIm + 0.0556639803507113 * ctWRe * ctWRe
+                + 0.0508984896879067 * cHG * cHGtil + 0.1476151527744092 * cHG * ctGIm
+                + -2.340190729813459 * cHG * ctGRe + 0.0299484591443408 * cHG * ctHIm
+                + -0.1959685579715413 * cHG * ctHRe + -0.0009799542926578 * cHG * ctWIm
+                + 0.0013594420154272 * cHG * ctWRe + -1.4761384971318905 * cHGtil * ctGIm
+                + -0.1713637905247774 * cHGtil * ctGRe + 0.1279944459298787 * cHGtil * ctHIm
+                + -0.0292542423455988 * cHGtil * ctHRe + 0.0008465992940455 * cHGtil * ctWIm
+                + 0.0003448470109748 * cHGtil * ctWRe + -0.0261746428921166 * ctGIm * ctGRe
+                + -0.0032607955481276 * ctGIm * ctHIm + 0.0140985825882586 * ctGIm * ctHRe
+                + -0.0085553818589635 * ctGIm * ctWIm + -0.0012864686136748 * ctGIm * ctWRe
+                + 0.0074007867049598 * ctGRe * ctHIm + 0.2117097917766713 * ctGRe * ctHRe
+                + -0.0207629155173062 * ctGRe * ctWIm + 0.0067564123668787 * ctGRe * ctWRe
+                + 6.818562664689942e-05 * ctHIm * ctHRe + -0.0007987813897161 * ctHIm * ctWIm
+                + 4.501543383594875e-05 * ctHIm * ctWRe + 0.0002535284543679 * ctHRe * ctWIm
+                + -0.0008213347686312 * ctHRe * ctWRe + -0.0081842768917958 * ctWIm * ctWRe
+            -0.004607323137037447 * ctBRe + 0.009777333000546243 * ctBRe * ctBRe+ 0.00016620851227672206 * ctBIm + 0.003731326965602036 * ctBIm * ctBIm
+            ;
+            double sign_trip_prod_pe_pp_pos_NP = 2.630256251912717 * cHG + -0.185899266418269 * cHGtil
+                + 0.2242304765282196 * ctGIm + -3.082378464959626 * ctGRe
+                + 0.0059040178981408 * ctHIm + -0.3046959772166663 * ctHRe
+                + 0.002339089715825 * ctWIm + -0.0086983779187188 * ctWRe
+                + 1.937806573270836 * cHG * cHG + 1.886355750337498 * cHGtil * cHGtil
+                + 2.471174359351984 * ctGIm * ctGIm + 2.5300960959070182 * ctGRe * ctGRe
+                + 0.0043955835742812 * ctHIm * ctHIm + 0.0097017558753822 * ctHRe * ctHRe
+                + 0.307299030584504 * ctWIm * ctWIm + 0.0559151752699298 * ctWRe * ctWRe
+                + -0.0503411686164696 * cHG * cHGtil + -0.1352535186964854 * cHG * ctGIm
+                + -2.317996993087569 * cHG * ctGRe + -0.0298780736340808 * cHG * ctHIm
+                + -0.1941871296364016 * cHG * ctHRe + 0.0024201523602079 * cHG * ctWIm
+                + -0.0012399863287341 * cHG * ctWRe + -1.4878249507037815 * cHGtil * ctGIm
+                + 0.1683650160418539 * cHGtil * ctGRe + 0.1268273709363991 * cHGtil * ctHIm
+                + 0.0288020394197951 * cHGtil * ctHRe + -5.606197840776873e-05 * cHGtil * ctWIm
+                + -0.0003579384133383 * cHGtil * ctWRe + 0.0232417256197431 * ctGIm * ctGRe
+                + -0.0033420150171774 * ctGIm * ctHIm + -0.0142839014035242 * ctGIm * ctHRe
+                + 0.0088594432873936 * ctGIm * ctWIm + 0.00186901482171 * ctGIm * ctWRe
+                + -0.0078606428282776 * ctGRe * ctHIm + 0.2123883426407318 * ctGRe * ctHRe
+                + 0.0209527371632488 * ctGRe * ctWIm + -0.004247300263279 * ctGRe * ctWRe
+                + -8.685221915353248e-05 * ctHIm * ctHRe + -0.001207429352545 * ctHIm * ctWIm
+                + 4.671135156023021e-05 * ctHIm * ctWRe + -0.000219233464493 * ctHRe * ctWIm
+                + -0.0014368897467772 * ctHRe * ctWRe + 0.0095836863532764 * ctWIm * ctWRe
+            -0.0046526081687880555 * ctBRe + 0.0097831385708423 * ctBRe * ctBRe+ -0.00017133958134900318 * ctBIm + 0.0037348097496134464 * ctBIm * ctBIm
+            ;
             
     
             //double num = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);
@@ -11672,9 +11953,15 @@ double Asymmetry_sign_trip_prod_pe_pp_ttH::computeThValue()
             
     
             double sign_trip_prod_pe_pp_neg_NP = 2.642738924499983*cHG + 0.1857689223794195*cHGtil + -0.2201130894378797*ctGIm +
-            -3.102254615722175*ctGRe + -0.0059790531590874*ctHIm + -0.3068222235539151*ctHRe;
+            -3.102254615722175*ctGRe + -0.0059790531590874*ctHIm + -0.3068222235539151*ctHRe
+            -0.004607323137037447 * ctBRe+ 0.00016620851227672206 * ctBIm
+            -0.008362930686319298 * ctWRe+ -0.0015026106634554587 * ctWIm
+            ;
             double sign_trip_prod_pe_pp_pos_NP = 2.6302563644690693*cHG + -0.1858992739054133*cHGtil + 0.2242305128220224*ctGIm + 
-            -3.0823789676020823*ctGRe + 0.0059040188959551*ctHIm + -0.30469602871212*ctHRe;
+            -3.0823789676020823*ctGRe + 0.0059040188959551*ctHIm + -0.30469602871212*ctHRe
+            -0.0046526081687880555 * ctBRe+ -0.00017133958134900318 * ctBIm
+            -0.008698377918718886 * ctWRe+ 0.002339089715825096 * ctWIm
+            ;
     
     
             //double num = (sign_trip_prod_pe_pp_pos_Mad + sign_trip_prod_pe_pp_pos_NP) - (sign_trip_prod_pe_pp_neg_Mad + sign_trip_prod_pe_pp_neg_NP);

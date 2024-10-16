@@ -380,7 +380,8 @@ public:
     //Added in 2024 for g-2 computation
     gslpp::matrix<double> integral_x2_1mx_G_log, integral_x2_1px_G_log, integral_x2_G_log, integral_x_1mx2_G_log,\
                           integral_x_1mx_1px_G_log, integral_x2_1mx_G_variable_set_1_log,\
-                          integral_x2_G_variable_set_1_log, integral_x_1mx2_G_variable_set_0_log;
+                          integral_x2_G_variable_set_1_log, integral_x_1mx2_G_variable_set_0_log,\
+                          integral_perturb_ATHDM_values_log;
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -793,6 +794,7 @@ public:
     double ip_integral_x2_G_variable_set_1(double wb);
     double ip_integral_x_1mx2_G_variable_set_0(double wb);
     
+    double ip_integral_perturb_ATHDM(double ratio);
     
     
     /**
@@ -3789,6 +3791,8 @@ private:
     mutable double ip_integral_x2_1mx_G_variable_set_1_cache[2][CacheSize];
     mutable double ip_integral_x2_G_variable_set_1_cache[2][CacheSize];
     mutable double ip_integral_x_1mx2_G_variable_set_0_cache[2][CacheSize];
+    
+    mutable double ip_integral_perturb_ATHDM_cache[2][CacheSize];
     
     
     

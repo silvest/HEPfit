@@ -61,6 +61,17 @@ public:
     gslpp::vector<double> getSeigen00();
     
     
+    /**
+     * @brief Computes the relative correction of the vertex hHpHm (so NLO/LO contribution to that vertex)
+     */
+    double RelCorrhHpHm();
+    
+    /**
+     * @brief Computes the relative correction of the vertex HHpHm (so NLO/LO contribution to that vertex)
+     */
+    double RelCorrHHpHm();
+    
+    
 private:
     const GeneralTHDM& myGTHDM;
     
@@ -310,6 +321,49 @@ public:
 private:
     const GeneralTHDM& myGTHDM;
 };
+
+
+
+class perturbativity1_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief perturbativity1_GTHDM constructor.
+     */
+    perturbativity1_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    unitarity_GTHDM myunitarity_GTHDM;
+};
+
+
+
+
+class perturbativity2_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief perturbativity2_GTHDM constructor.
+     */
+    perturbativity2_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+
+private:
+    unitarity_GTHDM myunitarity_GTHDM;
+};
+
+
+
+
 
 #endif /* GENERALTHDMUNITARITY_H */
 

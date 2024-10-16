@@ -143,6 +143,66 @@ gslpp::vector<double> unitarity_GTHDM::getSeigen00()
 }
 
 
+
+double unitarity_GTHDM::RelCorrhHpHm()
+{
+    //ONLY VALID IN THE CP-conserving LIMIT!!!
+    
+    double mH1sq = myGTHDM.getmH1sq();
+    //double mH2sq = myGTHDM.getmH2sq();
+    double mHpsq = myGTHDM.getmHp2();
+    double vev   = myGTHDM.v();
+    
+    double rsqH1_Hp=mH1sq/mHpsq;
+    
+    double Zrat = myGTHDM.getMyGTHDMCache()->ip_integral_perturb_ATHDM(rsqH1_Hp);
+    
+    double lambda3 = myGTHDM.getlambda3();
+    double Relambda7 = myGTHDM.getRelambda7();
+    double cosalpha = myGTHDM.getcosalpha1();
+    double sinalpha = myGTHDM.getsinalpha1();
+
+    double lambdahHpHm = lambda3*cosalpha+Relambda7*sinalpha;
+    
+    
+
+
+    return (Zrat*vev*vev*lambdahHpHm*lambdahHpHm)/(16*M_PI*mHpsq);
+}
+
+
+
+double unitarity_GTHDM::RelCorrHHpHm()
+{
+    //ONLY VALID IN THE CP-conserving LIMIT!!!
+    
+    double mH2sq = myGTHDM.getmH2sq();
+    //double mH2sq = myGTHDM.getmH2sq();
+    double mHpsq = myGTHDM.getmHp2();
+    double vev   = myGTHDM.v();
+    
+    double rsqH2_Hp=mH2sq/mHpsq;
+    
+    double Zrat = myGTHDM.getMyGTHDMCache()->ip_integral_perturb_ATHDM(rsqH2_Hp);
+    
+    double lambda3 = myGTHDM.getlambda3();
+    double Relambda7 = myGTHDM.getRelambda7();
+    double cosalpha = myGTHDM.getcosalpha1();
+    double sinalpha = myGTHDM.getsinalpha1();
+
+    double lambdaHHpHm = -lambda3*sinalpha+Relambda7*cosalpha;
+    
+    
+
+
+    return (Zrat*vev*vev*lambdaHHpHm*lambdaHHpHm)/(16*M_PI*mHpsq);
+}
+
+
+
+
+
+
 unitarity1_GTHDM::unitarity1_GTHDM(const StandardModel& SM_i)
 : ThObservable(SM_i), myunitarity_GTHDM(SM_i)
 {}
@@ -263,3 +323,29 @@ double unitarity4_GTHDM::computeThValue()
     double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4;
     return (lambda3-lambda4);
 }
+
+
+
+perturbativity1_GTHDM::perturbativity1_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myunitarity_GTHDM(SM_i)
+{}
+
+double perturbativity1_GTHDM::computeThValue()
+{
+    return myunitarity_GTHDM.RelCorrhHpHm();
+}
+
+
+perturbativity2_GTHDM::perturbativity2_GTHDM(const StandardModel& SM_i)
+: ThObservable(SM_i), myunitarity_GTHDM(SM_i)
+{}
+
+double perturbativity2_GTHDM::computeThValue()
+{
+    return myunitarity_GTHDM.RelCorrHHpHm();
+}
+
+
+
+
+

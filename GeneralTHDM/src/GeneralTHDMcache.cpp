@@ -292,6 +292,7 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         integral_x2_1mx_G_variable_set_1_log(2000, 2, 0.),
         integral_x2_G_variable_set_1_log(2000, 2, 0.),
         integral_x_1mx2_G_variable_set_0_log(2000, 2, 0.),
+        integral_perturb_ATHDM_values_log(2000, 2, 0.),
         //
         //
         //
@@ -2010,8 +2011,8 @@ void GeneralTHDMcache::read(){
     std::stringstream lowHpC801, lowHpC802, lowHpC803, lowHpC1301, lowHpC1302;
     std::stringstream lowHpA801, lowHpA1301, lowHpA1302, lowHpA1303;
     std::stringstream lowHp209a, lowHp209b, lowHp209c, lowHp172a;
+    std::stringstream thint01, thint02, thint03, thint04, thint05, thint06, thint07, thint08, thint09;
     std::stringstream csrslepLO, csrslepNLO, susyHpA01, susyHpA02, susyHpC01, susyHpC02;
-    std::stringstream thint01, thint02, thint03, thint04, thint05, thint06, thint07, thint08;
     std::stringstream bsg1;
 
        std::cout<<"reading tables"<<std::endl;
@@ -2646,6 +2647,10 @@ void GeneralTHDMcache::read(){
     
     thint08 << tablepath << "integral_x_1mx2_G_variable_set_0_values_log.dat";
     integral_x_1mx2_G_variable_set_0_log = readTable(thint08.str(),2000,2);
+    
+    
+    thint09 << tablepath << "integral_perturb_ATHDM_values_log.dat";
+    integral_perturb_ATHDM_values_log = readTable(thint09.str(),2000,2);
     
     //std::cout<< CMS13_pp_Hpm_taunu<<std::endl;
 
@@ -5890,6 +5895,22 @@ double GeneralTHDMcache::ip_integral_x_1mx2_G_variable_set_0(double wb){
         double log10wb = log10(wb);
         double newResult = interpolate(integral_x_1mx2_G_variable_set_0_log,log10wb);
         CacheShiftReal(ip_integral_x_1mx2_G_variable_set_0_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GeneralTHDMcache::ip_integral_perturb_ATHDM(double ratio){
+    int NumPar = 1;
+    double params[] = {ratio};
+    int i = CacheCheckReal(ip_integral_perturb_ATHDM_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_integral_perturb_ATHDM_cache[NumPar][i] );
+    } else {
+        double log10ratio = log10(ratio);
+        double newResult = interpolate(integral_perturb_ATHDM_values_log,log10ratio);
+        CacheShiftReal(ip_integral_perturb_ATHDM_cache, NumPar, params, newResult);
         return newResult;
     }
 }

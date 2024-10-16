@@ -22,7 +22,7 @@ public:
 *　@brief The number of the model parameters in %NPSMEFT6dtopquarkVars. 
 */
 //static const int NNPSMEFT6dtopquarkVars = 104;
-static const int NNPSMEFT6dtopquarkVars = 35 + 7;
+static const int NNPSMEFT6dtopquarkVars = 35 + 9;
   
 
 /*
@@ -206,7 +206,15 @@ static const int NNPSMEFT6dtopquarkVars = 35 + 7;
     double getNPSMEFT6dtopquark_C_tWIm() const {
         return C_tWIm;
     }
-
+    
+    double getNPSMEFT6dtopquark_C_tZIm() const {
+        return C_tZIm;
+    }
+    
+    
+    double getNPSMEFT6dtopquark_C_tBIm() const {
+        return C_tBIm;
+    }
     
     
     double getNPSMEFT6dtopquark_flag_Quadratic() const {
@@ -561,6 +569,8 @@ static const int NNPSMEFT6dtopquarkVars = 35 + 7;
     double C_tphiIm = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double C_tGIm = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double C_tWIm = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tZIm = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double C_tBIm = 0; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     
     
     /*

@@ -5755,6 +5755,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitarity10_GTHDM"] = boost::factory<unitarity10_GTHDM*>();
     obsThFactory["unitarity11_GTHDM"] = boost::factory<unitarity11_GTHDM*>();
     obsThFactory["unitarity12_GTHDM"] = boost::factory<unitarity12_GTHDM*>();
+    
+    obsThFactory["perturbativity1_GTHDM"] = boost::factory<perturbativity1_GTHDM*>();
+    obsThFactory["perturbativity2_GTHDM"] = boost::factory<perturbativity2_GTHDM*>();
 
     obsThFactory["bounded_from_below_GTHDM"] = boost::factory<bounded_from_below_GTHDM*>();
 
