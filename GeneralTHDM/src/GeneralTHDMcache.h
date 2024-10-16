@@ -1523,6 +1523,7 @@ public:
     double Br_Hptotb;
     double Br_Hptophi3W;
     double GammaHptot;
+    double Gammatoptot;
     double Br_ttoHpb;
 
     /**

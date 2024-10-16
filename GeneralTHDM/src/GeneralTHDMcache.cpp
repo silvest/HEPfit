@@ -7461,7 +7461,7 @@ void GeneralTHDMcache::computeHpquantities()
 
     // Hp production from top decay, for light charged scalars
     // Formula according to Czarnecki and Davidson, hep-ph/9301237
-    double Gammatoptot = 1.42; // PDG 2023
+    //double Gammatoptot = 1.42; // PDG 2023
     double GammatHpb = 0.;
     double pre_tHpb = GF * Mt2 * Mtp * Vtb * Vtb / 4. / sqrt(2.) / M_PI;
     gslpp::complex aCD = su - sd * Mbp / Mtp;
@@ -7474,6 +7474,10 @@ void GeneralTHDMcache::computeHpquantities()
         GammatHpb = pre_tHpb * ((1. - r2hot + r2bot) * (aCD2 + bCD2) / 2. + r2bot * (aCD2 - bCD2)) *
                     sqrt(1. + r2hot*r2hot + r2bot*r2bot - 2. * (r2hot + r2bot + r2hot*r2bot)) / 2.;
     }
+
+    double GammatWb = 1.35; // (in GeV) at NLO-QCD from 2409.04179
+
+    Gammatoptot = GammatWb + GammatHpb;
 
     Br_ttoHpb = GammatHpb / Gammatoptot;
 }
