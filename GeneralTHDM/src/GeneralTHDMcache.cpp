@@ -10213,7 +10213,7 @@ void GeneralTHDMcache::computeLowMass()
 
     THoEX_pp_phi2_gaga_CMS8 = 0.0;
 
-    if(mH2 >= 80.0 && mH2 <= 110.0)
+    if(mH2 >= 80.0 && mH2 <= 109.9)
     {
         THoEX_pp_phi2_gaga_CMS8 = (SigmaSumphi2_8 * Br_phi2togaga) / ip_low_pp_phi2_gaga_CMS8(mH2);
     }
