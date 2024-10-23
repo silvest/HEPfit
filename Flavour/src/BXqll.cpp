@@ -56,14 +56,14 @@ void BXqll::updateParameters()
     Ms = mySM.getQuarks(QCD::STRANGE).getMass();
     MW = mySM.Mw();
     abslambdat_over_Vcb = mySM.getCKM().computelamt_s().abs()/mySM.getCKM().getV_cb().abs();
-    alsmu = mySM.Als(mu_b, FULLNNNLO, true);
-    alsmuc = mySM.Als(mu_c, FULLNNNLO, true);
+    alsmu = mySM.Als(mu_b, FULLNNNLO, true, true);
+    alsmuc = mySM.Als(mu_c, FULLNNNLO, true, true);
     ale = mySM.Ale(mu_b, FULLNLO);
     alstilde = alsmu / 4. / M_PI;
     aletilde = ale / 4. / M_PI;
     kappa = ale / alsmu;
     Mtau = mySM.getLeptons(QCD::TAU).getMass(); // pole mass?
-    Mb_pole = mySM.Mbar2Mp(Mb, FULLNNLO);
+    Mb_pole = mySM.Mbar2Mp(Mb, QCD::BOTTOM, FULLNNLO);
     //Mc_pole = mySM.Mbar2Mp(Mc, FULLNNLO); //*** Mbar2Mp does not receive Mc ***/
     Mc_pole = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
     muh = mu_b/Mb_pole; // log(muh) uses the pole mass as stated in hep-ph/9910220
@@ -82,7 +82,7 @@ void BXqll::updateParameters()
     phi00 = 1. + (lambda_1 - 9. * lambda_2) / 2. / Mb_pole / Mb_pole;
     phi00_2 = phi00 * phi00;
     phi20 = phi2 + 2. * mySM.Beta0(5) * phi1 * log(muh);
-    phi01 = 12. / 23. * (1. - alsmu / mySM.Als(mySM.getMuw(), FULLNNNLO, true));
+    phi01 = 12. / 23. * (1. - alsmu / mySM.Als(mySM.getMuw(), FULLNNNLO, true, true));
     
     phinv00 = 1. / phi00;
     phinv10 = alstilde * (- phi1 / phi00_2);
@@ -1632,10 +1632,10 @@ double BXqll::Phi_u(orders_qed ord_qed)
     switch(ord_qed)
     {
         case LO_QED:
-            return (kappa * (12. / 23. * (1. - alsmu / mySM.Als(mySM.getMuw(), FULLNNNLO, true))));
+            return (kappa * (12. / 23. * (1. - alsmu / mySM.Als(mySM.getMuw(), FULLNNNLO, true, true))));
         case FULLNLO_QED:
             return (Phi_u(FULLNNLO) +
-                    kappa * (12. / 23. * (1. - alsmu / mySM.Als(mySM.getMuw(), FULLNNNLO, true))));
+                    kappa * (12. / 23. * (1. - alsmu / mySM.Als(mySM.getMuw(), FULLNNNLO, true, true))));
         default:
             throw std::runtime_error("BXqll::Phi_u(): order not implemented.");
      }
@@ -1879,8 +1879,8 @@ void BXqll::Test_WC_DF1()
     std::cout << "lambda_1 = " << lambda_1 << std::endl;
     std::cout << "lambda_2 = " << lambda_2 << std::endl;
     std::cout << "Phi_u    = " << Phi_u(FULLNLO_QED) << std::endl;
-    std::cout << "alsMuw   = " << mySM.Als(muw, FULLNNNLO, true) << std::endl;
-    std::cout << "eta      = " << mySM.Als(muw, FULLNNNLO, true) / alsmu << std::endl;
+    std::cout << "alsMuw   = " << mySM.Als(muw, FULLNNNLO, true, true) << std::endl;
+    std::cout << "eta      = " << mySM.Als(muw, FULLNNNLO, true, true) / alsmu << std::endl;
     
 //    std::cout << std::endl;
 //    std::cout << "H_T(0.05) = " << getH("T", 0.05) << std::endl;

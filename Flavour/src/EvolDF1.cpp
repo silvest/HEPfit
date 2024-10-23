@@ -1473,8 +1473,8 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
     //    alsM = model.Als(M) / 4. / M_PI;
     //    double alsmu = model.Als(mu) / 4. / M_PI;
     b0 = model.Beta_s(00, nf);
-    alsM = model.Als(M, FULLNNNLO, order_qed == QED0 ? false : true);
-    eta = alsM / model.Als(mu, FULLNNNLO, order_qed == QED0 ? false : true);
+    alsM = model.Als(M, FULLNNNLO, true, order_qed == QED0 ? false : true);
+    eta = alsM / model.Als(mu, FULLNNNLO, true, order_qed == QED0 ? false : true);
     //    eta = alsM / model.Als(mu);
     omega = 2. * b0 * alsM / 4. / M_PI;
 
@@ -1526,7 +1526,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
     {
         b0e = model.Beta_e(00, nf);
         b5 = model.Beta_e(01, nf) / 2. / b0 / b0e - model.Beta_s(10, nf) / 2. / b0 / b0;
-        lambda = b0e * model.Ale(M, FULLNLO) / b0 / model.Als(M, FULLNNNLO, true); // WARNING: CHANGE ME!!!
+        lambda = b0e * model.Ale(M, FULLNLO) / b0 / model.Als(M, FULLNNNLO, true, true); // WARNING: CHANGE ME!!!
 
         for (itr = vM3vi[nnf].begin(); itr != vM3vi[nnf].end(); ++itr)
         {

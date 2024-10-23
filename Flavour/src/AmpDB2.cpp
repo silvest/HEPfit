@@ -101,7 +101,7 @@ gslpp::complex AmpDB2::RBs(orders order)
         return (*(allcoeff[LO]) + *(allcoeff[NLO])) * me /
                (C_1_SM * me(0));
     case LO:
-        return ((*(allcoeff[LO])) * me / HCUT);
+        return ((*(allcoeff[LO])) * me /(*(allcoeff_SM[LO]))(0) * me(0));
     default:
         throw std::runtime_error("RBs::RBs(): order not implemented");
     }
@@ -154,7 +154,7 @@ gslpp::complex AmpDB2::RBd(orders order)
         return (*(allcoeff[LO]) + *(allcoeff[NLO])) * me /
                (C_1_SM * me(0));
     case LO:
-        return ((*(allcoeff[LO])) * me / HCUT);
+        return ((*(allcoeff[LO])) * me / ((*(allcoeff_SM[LO]))(0) * me(0)));
     default:
         throw std::runtime_error("RBd::RBd(): order not implemented");
     }
@@ -298,7 +298,7 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q)
     {
     case FULLNLO:
         computeD(FULLNLO);
-        Gamma21overM21 = Mb2_prefactor * (c(q, LO) * meoverme0) + Mb2_prefactor_1overm * -delta_1overm(q) / me(0);
+        Gamma21overM21 = Mb2_prefactor * (c(q, LO) * meoverme0) + Mb2_prefactor_1overm * (-delta_1overm(q)) / me(0);
         computeD(LO);
         Gamma21overM21 += Mb2_prefactor * (c(q, NLO) * meoverme0);
         Gamma21overM21 *= -Gf2 / (24. * M_PI * MBq) / M21overme0;
@@ -306,7 +306,7 @@ gslpp::complex AmpDB2::Gamma21overM21_tradBasis(orders order, quark q)
     case LO:
         computeD(LO);
         Gamma21overM21 = -Gf2 / (24. * M_PI * MBq) / M21overme0 *
-                         (Mb2_prefactor * (c(q, LO) * meoverme0) + Mb2_prefactor_1overm * -delta_1overm(q) / me(0));
+                         (Mb2_prefactor * (c(q, LO) * meoverme0) + Mb2_prefactor_1overm * (-delta_1overm(q)) / me(0));
         break;
     default:
         throw std::runtime_error("AmpDB2::Gamma21overM21_tradBasis(orders order, quark q): order not implemented");
@@ -319,21 +319,21 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme)
     if (order != NLO and order != NNLO)
         throw(std::runtime_error("computeCKMandMasses() order not present"));
 
-    VtbVtd = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_td();
-    VtbVts = mySM.getCKM().getV_tb().conjugate() * mySM.getCKM().getV_ts();
+    VtbVtd = mySM.getCKM().computelamt_d();
+    VtbVts = mySM.getCKM().computelamt_s();
     VtbVtd2 = VtbVtd * VtbVtd;
     VtbVts2 = VtbVts * VtbVts;
-    VcbVcd = mySM.getCKM().getV_cb().conjugate() * mySM.getCKM().getV_cd();
-    VcbVcs = mySM.getCKM().getV_cb().conjugate() * mySM.getCKM().getV_cs();
+    VcbVcd = mySM.getCKM().computelamc_d();
+    VcbVcs = mySM.getCKM().computelamc_s();
     VcbVcd2 = VcbVcd * VcbVcd;
     VcbVcs2 = VcbVcs * VcbVcs;
     lambda_c_d = VcbVcd.conjugate();
-    lambda_u_d = mySM.getCKM().getV_ud().conjugate() * mySM.getCKM().getV_ub();
+    lambda_u_d = mySM.getCKM().computelamu_d().conjugate();
     lambda_c_s = VcbVcs.conjugate();
-    lambda_u_s = mySM.getCKM().getV_us().conjugate() * mySM.getCKM().getV_ub();
+    lambda_u_s = mySM.getCKM().computelamu_s().conjugate();
 
     // pole mass of bottom quark
-    Mb_pole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
+    Mb_pole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM);
 
     // DB=1 matching scales (arxiv: 2205.07907 Results. or Gerlach thesis eq. 7.7) varied by "getMub()" or fixed to 4.2
     mu_1 = mySM.getMub();
@@ -364,9 +364,9 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme)
                               mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
 
     // strong coupling constant divided by 4*Pi
-    as_4pi_mu1 = mySM.Als(mu_1, FULLNNNLO, true) / (4. * M_PI);
-    as_4pi_mu2 = mySM.Als(mu_2, FULLNNNLO, true) / (4. * M_PI);
-    as_4pi = mySM.Als(Mb_Mb, FULLNNNLO, true) / (4. * M_PI);
+    as_4pi_mu1 = mySM.Als(mu_1, FULLNNNLO, true, true) / (4. * M_PI);
+    as_4pi_mu2 = mySM.Als(mu_2, FULLNNNLO, true, true) / (4. * M_PI);
+    as_4pi = mySM.Als(Mb_Mb, FULLNNNLO, true, true) / (4. * M_PI);
 
     // resummed z always in MSbar
     z = Mc_mub * Mc_mub / (Mb_mub * Mb_mub);
@@ -2588,7 +2588,7 @@ void AmpDB2::compute_partialNNLO()
 
 gslpp::complex AmpDB2::PBd()
 {
-    double mbpole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
+    double mbpole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM);
     double Mw = mySM.Mw();
     double kappa = -2. * M_PI * mbpole * mbpole /
                    (3. * Mw * Mw * mySM.getFlavour().getHDF2().getUDF2().etabS0(mySM.getBBd().getMu()));
@@ -2613,7 +2613,8 @@ gslpp::complex AmpDB2::PBd()
 
 gslpp::complex AmpDB2::PBs()
 {
-    double mbpole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
+    double mbpole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM);
+
     double Mw = mySM.Mw();
     double kappa = -2. * M_PI * mbpole * mbpole /
                    (3. * Mw * Mw * mySM.getFlavour().getHDF2().getUDF2().etabS0(mySM.getBBs().getMu()));

@@ -34,8 +34,8 @@ gslpp::vector<gslpp::complex> HeffDF1::LowScaleCoeff(qcd_orders order_qcd, qed_o
         throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): order not computed at the high scale.");
 
     M = model.getMuw();
-    alsM = model.Als(M, FULLNNNLO, order_qed == QED0 ? false : true);
-    eta = alsM / model.Als(mu, FULLNNNLO, order_qed == QED0 ? false : true);
+    alsM = model.Als(M, FULLNNNLO, true, order_qed == QED0 ? false : true);
+    eta = alsM / model.Als(mu, FULLNNNLO, true, order_qed == QED0 ? false : true);
     alsM /= 4. * M_PI; // AlsM tilde
     if (order_qed != QED0)
     {

@@ -1099,25 +1099,27 @@ public:
      */
     const double Beta_e(int nm, unsigned int nf) const;
 
+    //make the QCD implementation of Als available here
+    using QCD::Als;
+
     /**
      * @brief The running QCD coupling @f$\alpha(\mu)@f$ in the @f$\overline{MS}@f$ scheme including QED corrections.
      * @details See @cite Huber:2005ig
      * @param[in] mu renormalization scale @f$\mu@f$ in GeV.
      * @param[in] order order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
+     * @param[in] Nf_thr true: @f$n_f@f$ = Nf(mu), false: @f$n_f@f$ = Nf(AlsM)  
      * @param[in] qed_flag include @f$\alpha_e@f$ corrections to the requested order in @f$\alpha_s@f$. The @f$\alpha_s\alpha_e@f$ term is included if NNNLO is requested. Default: false 
-     * @param[in] Nf_thr true (default): @f$n_f@f$ = Nf(mu), false: @f$n_f@f$ = Nf(AlsM)  
      * @return @f$\alpha(\mu)@f$ in the @f$\overline{MS}@f$ scheme
      *
      */
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Woverloaded-virtual"
-#endif
-    const double Als(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
-    const double AlsByOrder(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
+
+    const double Als(const double mu, const orders order, const bool Nf_thr, const bool qed_flag) const 
+    {
+        if (qed_flag && order == FULLNNNLO)
+            return AlsE(mu, order, Nf_thr);
+
+        return Als(mu, order, Nf_thr);
+    }
 
     /**
      * @brief The running electromagnetic coupling @f$\alpha_e(\mu)@f$ in the @f$\overline{MS}@f$ scheme.
@@ -3609,7 +3611,10 @@ private:
     
     int iterationNo;
     
-    const double AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const;
+    const double AlsE(double mu, orders order, bool Nf_thr) const;
+    const double AlsEByOrder(double mu, orders order, bool Nf_thr) const;
+
+    const double AlsEWithInit(double mu, double alsi, double mu_i, const int nf_i, orders order) const;
     const double AleWithInit(double mu, double alsi, double mu_i, orders order) const;
     static const int CacheSize = 5; ///< Defines the depth of the cache.
     mutable double als_cache[11][CacheSize]; ///< Cache for \f$\alpha_s\f$.

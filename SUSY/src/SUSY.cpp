@@ -300,7 +300,7 @@ void SUSY::computeYukawas()
     Yn = gslpp::matrix<gslpp::complex>::Id(3);
 
     /* Convert the top-quark pole mass to the MSbar mass */
-    double mtbar = Mp2Mbar(mtpole, FULLNLO);
+    double mtbar = Mp2Mbar(mtpole, QCD::TOP, FULLNLO);
 
     double Q_SUSY_temp = Q_SUSY;
     if( Q_SUSY == -1 || Q_SUSY == 0) Q_SUSY = sqrt( sqrt(msQhat2(2,2).abs() * msUhat2(2,2).abs() ) );

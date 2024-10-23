@@ -115,7 +115,7 @@ void StandardModelMatching::updateSMParameters() {
             SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
     Mt_mut = SM.Mrun(Mut, SM.getQuarks(QCD::TOP).getMass_scale(),
             SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
-    alstilde = SM.Als(Muw, FULLNNNLO, true) / 4. / M_PI; //  SM.Alstilde5(Muw) WHICH ONE TO USE?
+    alstilde = SM.Als(Muw, FULLNNNLO, true, true) / 4. / M_PI; //  SM.Alstilde5(Muw) WHICH ONE TO USE?
     aletilde = SM.Ale(Muw, FULLNLO) / 4. / M_PI; // Ale / 4. / M_PI; // WHERE IS ale(mu)?
     GF = SM.getGF();
     Mw_tree = SM.Mw_tree();

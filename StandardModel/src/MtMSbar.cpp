@@ -9,5 +9,5 @@
 
 double MtMSbar::computeThValue() 
 {
-    return SM.Mp2Mbar(SM.getMtpole());
+    return SM.Mp2Mbar(SM.getMtpole(), QCD::TOP);
 }

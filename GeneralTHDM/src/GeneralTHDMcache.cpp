@@ -7373,10 +7373,10 @@ void GeneralTHDMcache::computeHpquantities()
     gslpp::complex i = gslpp::complex::i();
 
     // Pole masses and CKM matrix elements relevant for Hp quantities
-    double alsmuc = myGTHDM->Als(myGTHDM->getMuc(), FULLNNNLO, true);
+    double alsmuc = myGTHDM->Als(myGTHDM->getMuc(), FULLNNNLO, true, true);
     // Mbar2Mp does not receive Mc
     double Mcp = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
-    double Mbp = myGTHDM->Mbar2Mp(Mb, FULLNNLO);
+    double Mbp = myGTHDM->Mbar2Mp(Mb, QCD::BOTTOM, FULLNNLO);
     double Mtp = myGTHDM->getMtpole();
     double Mmu2  = Mmu*Mmu;
     double Mtau2 = Mtau*Mtau;

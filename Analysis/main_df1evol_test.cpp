@@ -55,10 +55,10 @@ int main(void) {
     std::cout << "MW: " << myMW <<  std::endl;
     std::cout << "sW2: " << mySM.sW2() <<  std::endl;
     std::cout << "1/alphaMz: " << 1./mySM.alphaMz() <<  std::endl;
-    std::cout << "Als5: " << mySM.Als(mub,FULLNNNLO, true) <<  std::endl;
+    std::cout << "Als5: " << mySM.Als(mub,FULLNNNLO, true, true) <<  std::endl;
 //    std::cout << "Als5: " << mySM.Als(mub,FULLNNNLO) <<  std::endl;
     std::cout << "Alstilde5*4*pi: " <<mySM.Alstilde5(mub) * 4. * M_PI  <<  std::endl;
-    std::cout << "Als120: " << mySM.Als(muW,FULLNNNLO, true) <<  std::endl;
+    std::cout << "Als120: " << mySM.Als(muW,FULLNNNLO, true, true) <<  std::endl;
     std::cout << "Alstilde120*4*pi: " << mySM.Alstilde5(muW) * 4. * M_PI  <<  std::endl;
     std::cout << "Ale5: " << mySM.Ale(mub,FULLNLO) <<  std::endl;
     std::cout << "Ale120: " << mySM.Ale(muW,FULLNLO) <<  std::endl;
@@ -77,7 +77,7 @@ int main(void) {
 
     std::cout << "Ale5_smm: " << HDB1.getUBsmm().alphatilde_e(mub) * 4. * M_PI <<  std::endl;    
     std::cout << "Ale120_smm: "  << HDB1.getUBsmm().alphatilde_e(muW) * 4. * M_PI <<  std::endl;
-    std::cout << "eta: " << mySM.Als(muW,FULLNNNLO, true)/mySM.Als(mub,FULLNNNLO, true) << std::endl;
+    std::cout << "eta: " << mySM.Als(muW, FULLNNNLO, true, true)/mySM.Als(mub, FULLNNNLO, true, true) << std::endl;
     std::cout << "x_t: " << mySM.getMatching().x_t(muW) << std::endl;
 
     std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
@@ -89,8 +89,8 @@ int main(void) {
     gslpp::matrix<gslpp::complex> myVCKM(mySM.getVCKM());
 //    double sw = sqrt( (M_PI * mySM.getAle() ) / ( sqrt(2.) * mySM.getGF() * mySM.Mw() * mySM.Mw() ) );
     double sw = sqrt(mySM.sW2());
-    double as5 =  mySM.Als(mub,FULLNNNLO, true) / 4. / M_PI;
-    double ae5 = mySM.Ale(mub,FULLNLO) / 4. / M_PI;
+    double as5 =  mySM.Als(mub, FULLNNNLO, true, true) / 4. / M_PI;
+    double ae5 = mySM.Ale(mub,FULLNLO, true, true) / 4. / M_PI;
     double k5 = ae5/as5;
 //    double as120 =  mySM.Als(muW,FULLNNNLO, true) / 4. / M_PI;
 //    double ae120 = mySM.Ale(muW,FULLNLO) / 4. / M_PI;

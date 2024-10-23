@@ -8573,7 +8573,7 @@ bool NPSMEFTd6General::PostUpdate() {
 
     //do heavy quarks first to get the thresholds right
     quarks[TOP].setMass(Mofmu2Mbar(mmu(2), getMuw()));
-    setMtpole(Mbar2Mp(quarks[TOP].getMass()));
+    setMtpole(Mbar2Mp(quarks[TOP].getMass(), QCD::TOP));
     quarks[BOTTOM].setMass(Mofmu2Mbar(mmd(2), getMuw()));
     quarks[CHARM].setMass(Mofmu2Mbar(mmu(1), getMuw()));
     quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(), getMuw(), mmd(1)));
@@ -8625,8 +8625,6 @@ bool NPSMEFTd6General::PostUpdate() {
 
     // update LEFT Wilson coefficients 
     getMatching().updateLEFTGeneralParameters();
-
-    setMtpole(Mbar2Mp(quarks[TOP].getMass()));
 
     return (true);
 }

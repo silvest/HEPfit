@@ -125,7 +125,7 @@
  * The strong coupling constant @f$\alpha_s@f$ at an arbitrary scale can be
  * computed with the member functions:
  *
- * @li AlsWithInit(const double mu, const double alsi, const double mu_i, const orders order),
+ * @li AlsWithInit(const double mu, const double alsi, const double mu_i, const int nf, const orders order),
  * @li AlsWithLambda(const double mu, const orders order),
  *
  * where another function
@@ -782,11 +782,12 @@ public:
      * @param[in] mu a scale @f$\mu@f$ in GeV
      * @param[in] alsi the initial value for the coupling at the scale given below
      * @param[in] mu_i the initial scale @f$\mu_i@f$ in GeV
+     * @param[in] nf the number of active flavours @f$n_f@f$
      * @param[in] order LO, NLO or FULLNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    const double AlsWithInit(const double mu, const double alsi, const double mu_i,
+    const double AlsWithInit(const double mu, const double alsi, const double mu_i, const int nf,
             const orders order) const;
 
     /**
@@ -812,8 +813,23 @@ public:
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
     const double AlsOLD(const double mu, const orders order = FULLNLO) const;
-    virtual const double Als(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
-    virtual const double AlsByOrder(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
+    const double Als(const double mu, const orders order = FULLNLO, const bool Nf_thr = true) const;
+
+    /**
+     * @brief Computes the running strong coupling @f$\alpha_s(\mu)@f$ with @f$N_f@f$ active flavours in the
+     * @f$\overline{\mathrm{MS}}@f$ scheme. In the cases of LO, NLO and FULLNLO,
+     * the coupling is computed with AlsWithInit(). On the other hand, in the
+     * cases of NNLO and FULLNNLO, the coupling is computed with AlsWithLambda().
+     * @param[in] mu the scale @f$\mu@f$ in GeV
+     * @param[in] Nf_in number of active flavours
+     * @param[in] order order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
+     * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
+     * @f$\overline{\mathrm{MS}}@f$ scheme with @f$N_f@f$ active flavours
+     */
+    const double Als(const double mu, const int Nf_in, const orders order = FULLNLO) const;
+
+    const double AlsByOrder(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
+    const double AlsByOrder(const double mu, const int Nf_in, const orders order = FULLNLO) const;
 
     /**
      * @brief Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV.
@@ -892,20 +908,22 @@ public:
     /**
      * @brief Converts the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass.
      * @param[in] mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     * @param[in] q the quark for which the conversion is done
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the pole mass in GeV
      *
      * @attention Can only be used for conversion of mass of the top and bottom quarks.
      */
-    const double Mbar2Mp(const double mbar, const orders order = FULLNNLO) const;
+    const double Mbar2Mp(const double mbar, const quark q, const orders order = FULLNNLO) const;
 
     /**
      * @brief Converts a quark pole mass to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$.
      * @param[in] mp the pole mass of the bottom or top quark in GeV
+     * @param[in] q the quark for which the conversion is done
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      */
-    const double Mp2Mbar(const double mp, const orders order = FULLNNLO) const;
+    const double Mp2Mbar(const double mp, const quark q, orders order = FULLNNLO) const;
 
     /**
      * @brief Converts a quark running mass at an arbitrary scale to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$.
@@ -972,6 +990,8 @@ protected:
     bool computemt; ///< Switch for computing the \f$\overline{\mathrm{MS}}\f$ mass of the top quark.
     bool requireYu; ///< Switch for generating the Yukawa couplings to the up-type quarks.
     bool requireYd; ///< Switch for generating the Yukawa couplings to the down-type quarks.
+    bool FlagMtPole; ///< A flag to determine whether the pole mass of the top quark is used as input.
+    bool FlagMpole2MbarNumeric; ///< A flag to determine whether the pole mass to \f$\over \mathrm{MS}\f$ mass conversion is done numerically.
 
     // model parameters
     double AlsM; ///< The strong coupling constant at the mass scale MAls, \f$\alpha_s(M_{\alpha_s})\f$.
@@ -999,13 +1019,37 @@ private:
     mutable double logLambda5_cache[4][CacheSize];
     mutable double logLambdaNLO_cache[9][CacheSize];
     mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.
-    mutable double mp2mbar_cache[5][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
+    mutable double mp2mbar_cache[6][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
     bool unknownParameterWarning; ///< A flag to stop the unknown parameter warning after the first time.
     std::map<std::string, double> optionalParameters; ///< A map for containing the list and values of the parameters that are used only by a specific set of observables.
     std::vector<std::string> unknownParameters; ///< A vector  for containing the names of the parameters that are not being used but specified in the configuration file.
     mutable std::map<const QCD::meson, Meson> mesonsMap;///< The map of defined mesons.
     bool FlagCsi; ///< A flag to determine whether \f$B_{B_s}\f$ and \f$B_{B_s}/B_{B_d}\f$ or \f$F_{B_s}\sqrt{B_{B_s}}\f$ (false) and \f$\xi \equiv F_{B_s}\sqrt{B_{B_s}}/(F_{B_d}\sqrt{B_{B_d}})\f$ (default, true) are used as inputs.
     mutable orders realorder;
+
+    /**
+     * @brief Converts the top pole mass to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m_t(m_t)@f$ using eq. (16) of hep-ph/0004189.
+     * @param[in] mp the pole mass of top quark in GeV
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
+     * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m_t(m_t)@f$ in GeV
+     */
+    const double Mp2Mbar_pole(const double mp, const orders order = FULLNNLO) const;
+
+    /**
+     * @brief Converts the bottom pole mass to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m_t(m_t)@f$ by iteration.
+     * @param[in] mp the pole mass of bottom quark in GeV
+     * @param[in] q the quark for which the conversion is done (bottom or charm)
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
+     * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m_t(m_t)@f$ in GeV
+     */
+    const double Mp2Mbar_bar(const double mp, const quark q, const orders order = FULLNNLO) const;
+
+    /**
+     * @brief A method to compute the correction due to light quarks to the conversion between pole and \f$\overline{\mathrm{MS}}\f$ mass.
+     * @param[in] x a mass ratio
+     * return the correction @f$\Delta (x)@f$ computed with the approximate formula by Chetyrkin et al. (hep-ph/0004189)
+     */
+    double DeltaMass(double x) const;
 
     /**
      * @brief The strong coupling constant computed with using \f$\Lambda_{\rm QCD}\f$.

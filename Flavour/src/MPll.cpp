@@ -138,8 +138,8 @@ void MPll::updateParameters()
     MP = mySM.getMesons(pseudoscalar).getMass();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass();
-    mb_pole = mySM.Mbar2Mp(Mb); /* Conversion to pole mass*/
-    mc_pole = mySM.Mbar2Mp(Mc,FULLNLO); /* Conversion to pole mass*/
+    mb_pole = mySM.Mbar2Mp(Mb,QCD::BOTTOM); /* Conversion to pole mass*/
+    mc_pole = mySM.Mbar2Mp(Mc,QCD::CHARM); /* Conversion to pole mass*/
     Ms = mySM.getQuarks(QCD::STRANGE).getMass();
     MW = mySM.Mw();
     lambda_t = mySM.getCKM().computelamt_s();

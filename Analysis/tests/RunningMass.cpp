@@ -28,9 +28,9 @@ void test1() {
     qcd.setParameter("mub", 4.21);
     qcd.setParameter("muc", 1.3);
 
-    std::cout << qcd.Mp2Mbar(173.34 + 0.76) << std::endl;
-    std::cout << qcd.Mp2Mbar(173.34) << std::endl;
-    std::cout << qcd.Mp2Mbar(173.34 - 0.76) << std::endl;
+    std::cout << qcd.Mp2Mbar(173.34 + 0.76, QCD::TOP) << std::endl;
+    std::cout << qcd.Mp2Mbar(173.34, QCD::TOP) << std::endl;
+    std::cout << qcd.Mp2Mbar(173.34 - 0.76, QCD::TOP) << std::endl;
 }
 
 void test2() {
