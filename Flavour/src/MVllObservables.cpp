@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014 HEPfit Collaboration
  *
  *
@@ -16,17 +16,17 @@
 
 
 
-P_1::P_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+P_1::P_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_1::computeThValue() 
+double P_1::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -35,138 +35,138 @@ double P_1::computeThValue()
 }
 
 /*Returns experimental value, defined according to 1510.04239.*/
-P_2::P_2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_2::P_2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_2::computeThValue() 
-{   
+double P_2::computeThValue()
+{
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     double P_2_theory = SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(7,q_min,q_max)/(8.*SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(3,q_min,q_max));
-    
+
     return -P_2_theory;
 }
 
 
-P_3::P_3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_3::P_3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, defined according to 1510.04239.*/
-double P_3::computeThValue() 
-{   
+double P_3::computeThValue()
+{
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     double P_3_theory = -SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(11,q_min,q_max)/(4.*SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(3,q_min,q_max));
-    
+
     return -P_3_theory;
 }
 
 
-P_4Prime::P_4Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_4Prime::P_4Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, defined according to 1510.04239.*/
-double P_4Prime::computeThValue() 
-{   
+double P_4Prime::computeThValue()
+{
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     double P_4p_theory = SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(5,q_min,q_max)/sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(2,q_min,q_max)*SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(3,q_min,q_max));
-    
+
     return -1./2.*P_4p_theory;
 }
 
 
-P_5Prime::P_5Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_5Prime::P_5Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_5Prime::computeThValue() 
-{   
+double P_5Prime::computeThValue()
+{
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     return SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(6,q_min,q_max)/(2.*sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(2,q_min,q_max)*SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(3,q_min,q_max)));
 }
 
 
-P_6Prime::P_6Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_6Prime::P_6Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_6Prime::computeThValue() 
+double P_6Prime::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     return -SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(9,q_min,q_max)/(2.*sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(2,q_min,q_max)*SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(3,q_min,q_max)));
 }
 
 
-P_8Prime::P_8Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_8Prime::P_8Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, defined according to 1510.04239.*/
-double P_8Prime::computeThValue() 
+double P_8Prime::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     double P_8p_theory = -SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(10,q_min,q_max)/(sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(2,q_min,q_max)*SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(3,q_min,q_max)));
-    
+
     return -1./2.*P_8p_theory;
 }
 
 
-GammaPrime::GammaPrime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+GammaPrime::GammaPrime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
@@ -175,7 +175,7 @@ double GammaPrime::computeGammaPrime(double qmin, double qmax, QCD::lepton lep)
     double q_min = qmin;
     double q_max = qmax;
     QCD::lepton lep_i = lep;
-    
+
     return ((3.*SM.getFlavour().getMVll(meson, vectorM, lep_i).integrateSigma(0,q_min,q_max) - SM.getFlavour().getMVll(meson, vectorM, lep_i).integrateSigma(2,q_min,q_max)) + 2.*(3.*SM.getFlavour().getMVll(meson, vectorM, lep_i).integrateSigma(1,q_min,q_max) - SM.getFlavour().getMVll(meson, vectorM, lep_i).integrateSigma(3,q_min,q_max)))/4.;
 }
 
@@ -188,17 +188,17 @@ double GammaPrime::computeThValue()
 }
 
 
-A_FB::A_FB(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+A_FB::A_FB(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double A_FB::computeThValue() 
+double A_FB::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -207,23 +207,23 @@ double A_FB::computeThValue()
 }
 
 
-BR_MVll::BR_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
-{  
+BR_MVll::BR_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double BR_MVll::computeThValue() 
+double BR_MVll::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
-    
+
     switch(vectorM){
             case StandardModel::K_star:
             case StandardModel::K_star_P:
@@ -240,120 +240,123 @@ double BR_MVll::computeThValue()
 }
 
 
-R_MVll::R_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_1) 
-{  
+R_MVll::R_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2)
+: GammaPrime(SM_i, meson_i, vector_i, lep_1)
+{
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep1).initializeMVllParameters());
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep2).initializeMVllParameters());
 }
 
-double R_MVll::computeThValue() 
+double R_MVll::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
-    return computeGammaPrime(q_min, q_max, lep1) / computeGammaPrime(q_min, q_max, lep2);
+
+    if (vectorM == StandardModel::PHI)
+        return computeGammaPrime(q_min, q_max, lep2) / computeGammaPrime(q_min, q_max, lep1);
+    else
+        return computeGammaPrime(q_min, q_max, lep1) / computeGammaPrime(q_min, q_max, lep2);
 }
 
 
-RL_MVll::RL_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2) 
-: F_L(SM_i, meson_i, vector_i, lep_1) 
-{  
+RL_MVll::RL_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2)
+: F_L(SM_i, meson_i, vector_i, lep_1)
+{
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep1).initializeMVllParameters());
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep2).initializeMVllParameters());
 }
 
-double RL_MVll::computeThValue() 
+double RL_MVll::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     return (computeGammaPrime(q_min, q_max, lep1) * computeFL(q_min, q_max, lep1)) / (computeGammaPrime(q_min, q_max, lep2) * computeFL(q_min, q_max, lep2));
 }
 
 
-RT_MVll::RT_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2) 
-: F_L(SM_i, meson_i, vector_i, lep_1) 
-{  
+RT_MVll::RT_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2)
+: F_L(SM_i, meson_i, vector_i, lep_1)
+{
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep1).initializeMVllParameters());
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep2).initializeMVllParameters());
 }
 
-double RT_MVll::computeThValue() 
+double RT_MVll::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     return (computeGammaPrime(q_min, q_max, lep1) * (1 - computeFL(q_min, q_max, lep1))) / (computeGammaPrime(q_min, q_max, lep2) * ( 1 - computeFL(q_min, q_max, lep2)));
 }
 
 
-R_6::R_6(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2) 
-: ThObservable(SM_i) 
-{  
+R_6::R_6(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2)
+: ThObservable(SM_i)
+{
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep1).initializeMVllParameters());
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep2).initializeMVllParameters());
 }
 
-double R_6::computeThValue() 
+double R_6::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     return SM.getFlavour().getMVll(meson, vectorM, lep1).integrateSigma(7,q_min,q_max) / SM.getFlavour().getMVll(meson, vectorM, lep2).integrateSigma(7,q_min,q_max);
 }
 
 
-ACP_MVll::ACP_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+ACP_MVll::ACP_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double ACP_MVll::computeThValue() 
+double ACP_MVll::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-          
+
     return (3.*SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(0,q_min,q_max) - SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(2,q_min,q_max) + 2. * ( 3.*SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(1,q_min,q_max) - SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(3,q_min,q_max) ) )/(4.*computeGammaPrime(q_min, q_max, lep));
 }
 
 
-P3CP::P3CP(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P3CP::P3CP(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P3CP::computeThValue() 
+double P3CP::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -362,87 +365,87 @@ double P3CP::computeThValue()
 }
 
 
-F_L::F_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+F_L::F_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double F_L::computeFL(double qmin, double qmax, QCD::lepton lep) 
+double F_L::computeFL(double qmin, double qmax, QCD::lepton lep)
 {
     double q_min = qmin;
     double q_max = qmax;
     QCD::lepton lep_i = lep;
-    
+
     double sigma0 = SM.getFlavour().getMVll(meson, vectorM, lep_i).integrateSigma(0,q_min,q_max);
     double sigma2 = SM.getFlavour().getMVll(meson, vectorM, lep_i).integrateSigma(2,q_min,q_max);
-    
+
     return (3.*sigma0 - sigma2) / (4. * computeGammaPrime(q_min, q_max, lep_i)) ;
 }
 
-double F_L::computeThValue() 
+double F_L::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-    
+
     return computeFL(q_min, q_max, lep);
 }
 
 
-M_1Prime::M_1Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+M_1Prime::M_1Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double M_1Prime::computeThValue() 
+double M_1Prime::computeThValue()
 {
     double q_min = getBinMin();
-    
+
     return ( SM.getFlavour().getMVll(meson, vectorM, lep).H_V_p(q_min, 0).abs2() + SM.getFlavour().getMVll(meson, vectorM, lep).H_V_m(q_min, 0).abs2() - SM.getFlavour().getMVll(meson, vectorM, lep).H_A_p(q_min, 0).abs2() - SM.getFlavour().getMVll(meson, vectorM, lep).H_A_m(q_min, 0).abs2() )/
             ( 2.*( SM.getFlavour().getMVll(meson, vectorM, lep).H_V_p(q_min, 0).abs2() + SM.getFlavour().getMVll(meson, vectorM, lep).H_V_m(q_min, 0).abs2() + SM.getFlavour().getMVll(meson, vectorM, lep).H_A_p(q_min, 0).abs2() + SM.getFlavour().getMVll(meson, vectorM, lep).H_A_m(q_min, 0).abs2() ) );
 }
 
 
-M_2Prime::M_2Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+M_2Prime::M_2Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double M_2Prime::computeThValue() 
+double M_2Prime::computeThValue()
 {
     double q_min = getBinMin();
-    
+
     return ( q_min/(2.*SM.getFlavour().getMVll(meson, vectorM, lep).getMlep()*SM.getFlavour().getMVll(meson, vectorM, lep).getMlep())*( SM.getFlavour().getMVll(meson, vectorM, lep).H_P(q_min, 0).abs2() + SM.getFlavour().getMVll(meson, vectorM, lep).beta(q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).beta(q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).H_S(q_min, 0).abs2() ) + SM.getFlavour().getMVll(meson, vectorM, lep).H_V_0(q_min, 0).abs2() - SM.getFlavour().getMVll(meson, vectorM, lep).H_A_0(q_min, 0).abs2() )/
-            ( SM.getFlavour().getMVll(meson, vectorM, lep).H_V_0(q_min, 0).abs2() + SM.getFlavour().getMVll(meson, vectorM, lep).H_A_0(q_min, 0).abs2() );  
+            ( SM.getFlavour().getMVll(meson, vectorM, lep).H_V_0(q_min, 0).abs2() + SM.getFlavour().getMVll(meson, vectorM, lep).H_A_0(q_min, 0).abs2() );
 }
 
 
-S_3::S_3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+S_3::S_3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 
-double S_3::computeThValue() 
+double S_3::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -451,18 +454,18 @@ double S_3::computeThValue()
 }
 
 
-S_4::S_4(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+S_4::S_4(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, due to difference in \theta_l and \phi definitions*/
-double S_4::computeThValue() 
+double S_4::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -471,18 +474,18 @@ double S_4::computeThValue()
 }
 
 
-S_5::S_5(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+S_5::S_5(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 
-double S_5::computeThValue() 
+double S_5::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -491,18 +494,18 @@ double S_5::computeThValue()
 }
 
 
-S_7::S_7(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+S_7::S_7(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, due to difference in \theta_l and \phi definitions*/
-double S_7::computeThValue() 
+double S_7::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -511,18 +514,18 @@ double S_7::computeThValue()
 }
 
 
-S_8::S_8(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+S_8::S_8(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 
-double S_8::computeThValue() 
+double S_8::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -531,18 +534,18 @@ double S_8::computeThValue()
 }
 
 
-S_9::S_9(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+S_9::S_9(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, due to difference in \theta_l and \phi definitions*/
-double S_9::computeThValue() 
+double S_9::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -551,18 +554,18 @@ double S_9::computeThValue()
 }
 
 
-A_5::A_5(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+A_5::A_5(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 
-double A_5::computeThValue() 
+double A_5::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -571,18 +574,18 @@ double A_5::computeThValue()
 }
 
 
-A_6::A_6(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+A_6::A_6(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, due to difference in \theta_l and \phi definitions*/
-double A_6::computeThValue() 
+double A_6::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -591,18 +594,18 @@ double A_6::computeThValue()
 }
 
 
-A_6c::A_6c(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+A_6c::A_6c(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 
-double A_6c::computeThValue() 
+double A_6c::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -611,18 +614,18 @@ double A_6c::computeThValue()
 }
 
 
-A_8::A_8(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+A_8::A_8(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 
-double A_8::computeThValue() 
+double A_8::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -631,18 +634,18 @@ double A_8::computeThValue()
 }
 
 
-A_9::A_9(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+A_9::A_9(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 
-double A_9::computeThValue() 
+double A_9::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -650,124 +653,124 @@ double A_9::computeThValue()
     return SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(11,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
 }
 
-V0::V0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+V0::V0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
-   
+
    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double V0::computeThValue() 
+double V0::computeThValue()
 {
    return SM.getFlavour().getMVll(meson, vectorM, lep).getV0(getBinMin());
 }
 
-Vp::Vp(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Vp::Vp(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
-   
+
    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Vp::computeThValue() 
+double Vp::computeThValue()
 {
    return SM.getFlavour().getMVll(meson, vectorM, lep).getVp(getBinMin());
 }
 
-Vm::Vm(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Vm::Vm(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
-   
+
    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Vm::computeThValue() 
+double Vm::computeThValue()
 {
    return SM.getFlavour().getMVll(meson, vectorM, lep).getVm(getBinMin());
 }
 
-T0::T0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+T0::T0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
-   
+
    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double T0::computeThValue() 
+double T0::computeThValue()
 {
    return SM.getFlavour().getMVll(meson, vectorM, lep).getT0(getBinMin());
 }
 
-Tp::Tp(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Tp::Tp(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
-   
+
    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Tp::computeThValue() 
+double Tp::computeThValue()
 {
    return SM.getFlavour().getMVll(meson, vectorM, lep).getTp(getBinMin());
 }
 
-Tm::Tm(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Tm::Tm(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
-   
+
    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Tm::computeThValue() 
+double Tm::computeThValue()
 {
    return SM.getFlavour().getMVll(meson, vectorM, lep).getTm(getBinMin());
 }
 
-S::S(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+S::S(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
-   
+
    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double S::computeThValue() 
+double S::computeThValue()
 {
    return SM.getFlavour().getMVll(meson, vectorM, lep).getS(getBinMin());
 }
 
 
-gtilde_1::gtilde_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i) 
-: ThObservable(SM_i) 
+gtilde_1::gtilde_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double gtilde_1::computeThValue() 
+double gtilde_1::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -779,18 +782,18 @@ double gtilde_1::computeThValue()
 }
 
 
-gtilde_2::gtilde_2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i) 
-: ThObservable(SM_i) 
+gtilde_2::gtilde_2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double gtilde_2::computeThValue() 
+double gtilde_2::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -802,21 +805,21 @@ double gtilde_2::computeThValue()
 }
 
 
-gtilde_3::gtilde_3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i) 
-: ThObservable(SM_i) 
+gtilde_3::gtilde_3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double gtilde_3::computeThValue() 
+double gtilde_3::computeThValue()
 {
     double q_min = getBinMin();
-    
+
     if (typ == 1) return (SM.getFlavour().getMVll(meson, vectorM, lep).getgtilde_3_re(q_min));
     else if (typ == 2) return (SM.getFlavour().getMVll(meson, vectorM, lep).getgtilde_3_im(q_min));
     else if (typ == 3) return ((SM.getFlavour().getMVll(meson, vectorM, lep).getgtilde_3_re(q_min) + gslpp::complex::i() * SM.getFlavour().getMVll(meson, vectorM, lep).getgtilde_3_im(q_min)).abs());
@@ -824,18 +827,18 @@ double gtilde_3::computeThValue()
     else throw std::runtime_error("MVllObservables::gtilde_3: incorrect type");
 }
 
-h_0::h_0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i) 
-: ThObservable(SM_i) 
+h_0::h_0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double h_0::computeThValue() 
+double h_0::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -847,18 +850,18 @@ double h_0::computeThValue()
 }
 
 
-h_p::h_p(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i) 
-: ThObservable(SM_i) 
+h_p::h_p(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double h_p::computeThValue() 
+double h_p::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -870,18 +873,18 @@ double h_p::computeThValue()
 }
 
 
-h_m::h_m(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i) 
-: ThObservable(SM_i) 
+h_m::h_m(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double h_m::computeThValue() 
+double h_m::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -896,17 +899,17 @@ double h_m::computeThValue()
 FUNCTIONAL
 ***********************************************************************************************************************************/
 
-P_1f::P_1f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+P_1f::P_1f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_1f::computeThValue() 
+double P_1f::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -914,132 +917,132 @@ double P_1f::computeThValue()
 }
 
 
-P_2f::P_2f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_2f::P_2f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, defined according to 1510.04239.*/
-double P_2f::computeThValue() 
-{   
+double P_2f::computeThValue()
+{
     double q_min = getBinMin();
-    
+
     double P_2f_theory = SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(7,q_min)/(8.*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min));
-    
+
     return -P_2f_theory;
 }
 
 
-P_3f::P_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_3f::P_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, defined according to 1510.04239.*/
-double P_3f::computeThValue() 
-{   
+double P_3f::computeThValue()
+{
     double q_min = getBinMin();
-    
+
     double P_3f_theory = -SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(11,q_min)/(4.*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min));
-    
+
     return -P_3f_theory;
 }
 
 
-P_4Primef::P_4Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_4Primef::P_4Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, defined according to 1510.04239.*/
-double P_4Primef::computeThValue() 
-{   
+double P_4Primef::computeThValue()
+{
     double q_min = getBinMin();
-    
+
     double P_4pf_theory = SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(5,q_min)/sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(2,q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min));
-    
+
     return -1./2.*P_4pf_theory;
 }
 
 
-P_5Primef::P_5Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_5Primef::P_5Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_5Primef::computeThValue() 
-{   
+double P_5Primef::computeThValue()
+{
     double q_min = getBinMin();
-    
+
     return SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(6,q_min)/(2.*sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(2,q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min)));
 }
 
 
-P_6Primef::P_6Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_6Primef::P_6Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_6Primef::computeThValue() 
+double P_6Primef::computeThValue()
 {
     double q_min = getBinMin();
-    
+
     return -SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(9,q_min)/(2.*sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(2,q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min)));
 }
 
 /*Returns experimental value, defined according to 1510.04239.*/
-P_8Primef::P_8Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_8Primef::P_8Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_8Primef::computeThValue() 
+double P_8Primef::computeThValue()
 {
     double q_min = getBinMin();
-    
+
     double P_8pf_theory = -SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(10,q_min)/(sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(2,q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min)));
-    
+
     return -1./2.*P_8pf_theory;
 }
 
 
-GammaPrimef::GammaPrimef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+GammaPrimef::GammaPrimef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
@@ -1047,7 +1050,7 @@ double GammaPrimef::computeGammaPrimef(double qmin, QCD::lepton lep)
 {
     double q_min = qmin;
     QCD::lepton lep_i = lep;
-    
+
     return ((3.*SM.getFlavour().getMVll(meson, vectorM, lep_i).getSigma(0,q_min) - SM.getFlavour().getMVll(meson, vectorM, lep_i).getSigma(2,q_min)) + 2.*(3.*SM.getFlavour().getMVll(meson, vectorM, lep_i).getSigma(1,q_min) - SM.getFlavour().getMVll(meson, vectorM, lep_i).getSigma(3,q_min)))/4.;
 }
 
@@ -1059,64 +1062,64 @@ double GammaPrimef::computeThValue()
 }
 
 
-A_FBf::A_FBf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+A_FBf::A_FBf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double A_FBf::computeThValue() 
+double A_FBf::computeThValue()
 {
     double q_min = getBinMin();
 
     return -3. * SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(7,q_min) / 4. / computeGammaPrimef(q_min, lep);
 }
 
-F_Lf::F_Lf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+F_Lf::F_Lf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double F_Lf::computeFLf(double qmin, QCD::lepton lep) 
+double F_Lf::computeFLf(double qmin, QCD::lepton lep)
 {
     double q_min = qmin;
     QCD::lepton lep_i = lep;
-    
+
     double sigma0 = SM.getFlavour().getMVll(meson, vectorM, lep_i).getSigma(0,q_min);
     double sigma2 = SM.getFlavour().getMVll(meson, vectorM, lep_i).getSigma(2,q_min);
-    
+
     return (3.*sigma0 - sigma2) / (4. * computeGammaPrimef(q_min, lep_i)) ;
 }
 
 
-double F_Lf::computeThValue() 
+double F_Lf::computeThValue()
 {
     double q_min = getBinMin();
-    
+
     return computeFLf(q_min, lep);
 }
 
-S_3f::S_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+S_3f::S_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 
-double S_3f::computeThValue() 
+double S_3f::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -1124,18 +1127,18 @@ double S_3f::computeThValue()
 }
 
 
-S_4f::S_4f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+S_4f::S_4f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, due to difference in \theta_l and \phi definitions*/
-double S_4f::computeThValue() 
+double S_4f::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -1143,18 +1146,18 @@ double S_4f::computeThValue()
 }
 
 
-S_5f::S_5f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+S_5f::S_5f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 
-double S_5f::computeThValue() 
+double S_5f::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -1162,18 +1165,18 @@ double S_5f::computeThValue()
 }
 
 
-S_7f::S_7f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+S_7f::S_7f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, due to difference in \theta_l and \phi definitions*/
-double S_7f::computeThValue() 
+double S_7f::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -1181,17 +1184,17 @@ double S_7f::computeThValue()
 }
 
 
-S_8f::S_8f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+S_8f::S_8f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double S_8f::computeThValue() 
+double S_8f::computeThValue()
 {
     double q_min = getBinMin();
 
@@ -1199,75 +1202,75 @@ double S_8f::computeThValue()
 }
 
 
-S_9f::S_9f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+S_9f::S_9f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
 /*Returns experimental value, due to difference in \theta_l and \phi definitions*/
-double S_9f::computeThValue() 
+double S_9f::computeThValue()
 {
     double q_min = getBinMin();
 
     return -SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(11,q_min) / computeGammaPrimef(q_min, lep);
 }
 
-BRf_MVll::BRf_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
-{  
+BRf_MVll::BRf_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double BRf_MVll::computeThValue() 
+double BRf_MVll::computeThValue()
 {
     double q_min = getBinMin();
-    
+
     return computeGammaPrimef(q_min, lep)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth();
 }
 
-P_relationf::P_relationf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_relationf::P_relationf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_relationf::computeThValue() 
-{   
+double P_relationf::computeThValue()
+{
     double q_min = getBinMin();
     double P1 = SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(4,q_min)/(2.* SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min));
     double P2 = SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(7,q_min)/(8.*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min));
     double P4p = SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(5,q_min)/sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(2,q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min));
     double P5p = SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(6,q_min)/(2.*sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(2,q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min)));
     double beta = sqrt(1. - 4.*SM.getLeptons(lep).getMass()*SM.getLeptons(lep).getMass()/q_min/q_min);
-    
+
     return 1./2.*(P4p*P5p + 1./beta *sqrt(std::abs((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p)))) - P2;
 }
 
-P_relation_exactf::P_relation_exactf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
-{  
+P_relation_exactf::P_relation_exactf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double P_relation_exactf::computeThValue() 
-{   
+double P_relation_exactf::computeThValue()
+{
     double q_min = getBinMin();
     double P1 = SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(4,q_min)/(2.* SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min));
     double P2 = SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(7,q_min)/(8.*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min));
@@ -1276,13 +1279,13 @@ double P_relation_exactf::computeThValue()
     double P5p = SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(6,q_min)/(2.*sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(2,q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min)));
     double P6p = -SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(9,q_min)/(2.*sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(2,q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min)));
     double P8p = -SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(10,q_min)/(sqrt(-SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(2,q_min)*SM.getFlavour().getMVll(meson, vectorM, lep).getSigma(3,q_min)));
-    
+
     double beta = sqrt(1. - 4.*SM.getLeptons(lep).getMass()*SM.getLeptons(lep).getMass()/q_min/q_min);
-    
+
     /* k1 and k2 not fully implemented. arXiv:1402.6855*/
     double k1 = 1.;
     double k2 = 1.;
-    
+
     double delta_1 = P6p*P8p;
     double delta_2 = -1. + k1*k1*k2*k2 + (1. - k1*k2)*(P4p*P4p + beta*beta*P5p*P5p) - 4.*k1*k1*P3*P3 + beta*beta*P6p*P8p*(2.*P4p*P5p + P6p*P8p) + k1*(beta*beta*P6p*(4.*P3*P5p - k2*P6p) - P8p*(4.*P3*P4p + k2*P8p));
     double delta_3 = (1. - k1)*P4p*P4p + beta*beta*((-1. + k1)*P5p*P5p - k1*P6p*P6p) + k1*P8p*P8p;
@@ -1291,17 +1294,17 @@ double P_relation_exactf::computeThValue()
     return 1./2./k1*((P4p*P5p + delta_1) + 1./beta *sqrt(std::abs((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p) + delta_2 + delta_3*P1 + delta_4*P1*P1))) - P2;
 }
 
-QCDfC9_1f::QCDfC9_1f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+QCDfC9_1f::QCDfC9_1f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double QCDfC9_1f::computeThValue() 
+double QCDfC9_1f::computeThValue()
 {
     double q2 = getBinMin();
     double cutoff = getBinMax();
@@ -1309,17 +1312,17 @@ double QCDfC9_1f::computeThValue()
     return SM.getFlavour().getMVll(meson, vectorM, lep).getQCDfC9_1(q2, cutoff);
 }
 
-QCDfC9_2f::QCDfC9_2f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+QCDfC9_2f::QCDfC9_2f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double QCDfC9_2f::computeThValue() 
+double QCDfC9_2f::computeThValue()
 {
     double q2 = getBinMin();
     double cutoff = getBinMax();
@@ -1327,17 +1330,17 @@ double QCDfC9_2f::computeThValue()
     return SM.getFlavour().getMVll(meson, vectorM, lep).getQCDfC9_2(q2, cutoff);
 }
 
-QCDfC9_3f::QCDfC9_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+QCDfC9_3f::QCDfC9_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double QCDfC9_3f::computeThValue() 
+double QCDfC9_3f::computeThValue()
 {
     double q2 = getBinMin();
     double cutoff = getBinMax();
@@ -1345,68 +1348,68 @@ double QCDfC9_3f::computeThValue()
     return SM.getFlavour().getMVll(meson, vectorM, lep).getQCDfC9_3(q2, cutoff);
 }
 
-QCDfC9p_1f::QCDfC9p_1f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+QCDfC9p_1f::QCDfC9p_1f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double QCDfC9p_1f::computeThValue() 
+double QCDfC9p_1f::computeThValue()
 {
     double cutoff = getBinMin();
 
     return SM.getFlavour().getMVll(meson, vectorM, lep).getQCDfC9p_1(cutoff);
 }
 
-QCDfC9p_2f::QCDfC9p_2f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+QCDfC9p_2f::QCDfC9p_2f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double QCDfC9p_2f::computeThValue() 
+double QCDfC9p_2f::computeThValue()
 {
     double cutoff = getBinMin();
 
     return SM.getFlavour().getMVll(meson, vectorM, lep).getQCDfC9p_2(cutoff);
 }
 
-QCDfC9p_3f::QCDfC9p_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+QCDfC9p_3f::QCDfC9p_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double QCDfC9p_3f::computeThValue() 
+double QCDfC9p_3f::computeThValue()
 {
     double cutoff = getBinMin();
 
     return SM.getFlavour().getMVll(meson, vectorM, lep).getQCDfC9p_3(cutoff);
 }
 
-BR_MVpsi::BR_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+BR_MVpsi::BR_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double BR_MVpsi::computeThValue() 
+double BR_MVpsi::computeThValue()
 {
     double q2 = getBinMin();
     double A2_0 = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).abs2();
@@ -1415,40 +1418,40 @@ double BR_MVpsi::computeThValue()
     return 2.*(A2_0+A2_par+A2_perp)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth();
 }
 
-BR_MVpsi_ratio::BR_MVpsi_ratio(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+BR_MVpsi_ratio::BR_MVpsi_ratio(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double BR_MVpsi_ratio::computeThValue() 
+double BR_MVpsi_ratio::computeThValue()
 {
     double A2_0_JPSI = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(3.0969,0).abs2();
     double A2_par_JPSI = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(3.0969,1).abs2();
     double A2_perp_JPSI = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(3.0969,2).abs2();
-    
+
     double A2_0_PSI2S = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(3.6861,0).abs2();
     double A2_par_PSI2S = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(3.6861,1).abs2();
     double A2_perp_PSI2S = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(3.6861,2).abs2();
-    
+
     return (A2_0_PSI2S+A2_par_PSI2S+A2_perp_PSI2S)/(A2_0_JPSI+A2_par_JPSI+A2_perp_JPSI);
 }
 
-Abs2Ampar_MVpsi::Abs2Ampar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Abs2Ampar_MVpsi::Abs2Ampar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Abs2Ampar_MVpsi::computeThValue() 
+double Abs2Ampar_MVpsi::computeThValue()
 {
     double q2 = getBinMin();
     double A2_0 = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).abs2();
@@ -1457,33 +1460,33 @@ double Abs2Ampar_MVpsi::computeThValue()
     return A2_par/(A2_0+A2_par+A2_perp);
 }
 
-ArgAmpar_MVpsi::ArgAmpar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+ArgAmpar_MVpsi::ArgAmpar_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double ArgAmpar_MVpsi::computeThValue() 
+double ArgAmpar_MVpsi::computeThValue()
 {
     double q2 = getBinMin();
     return (SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,1)/SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0)).arg();
 }
 
-Abs2Amperp_MVpsi::Abs2Amperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Abs2Amperp_MVpsi::Abs2Amperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Abs2Amperp_MVpsi::computeThValue() 
+double Abs2Amperp_MVpsi::computeThValue()
 {
     double q2 = getBinMin();
     double A2_0 = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).abs2();
@@ -1492,33 +1495,33 @@ double Abs2Amperp_MVpsi::computeThValue()
     return A2_perp/(A2_0+A2_par+A2_perp);
 }
 
-ArgAmperp_MVpsi::ArgAmperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+ArgAmperp_MVpsi::ArgAmperp_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double ArgAmperp_MVpsi::computeThValue() 
+double ArgAmperp_MVpsi::computeThValue()
 {
     double q2 = getBinMin();
     return (SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,2)/SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0)).arg();
 }
 
-Abs2Ampzero_MVpsi::Abs2Ampzero_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Abs2Ampzero_MVpsi::Abs2Ampzero_MVpsi(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Abs2Ampzero_MVpsi::computeThValue() 
+double Abs2Ampzero_MVpsi::computeThValue()
 {
     double q2 = getBinMin();
     double A2_0 = SM.getFlavour().getMVll(meson, vectorM, lep).AmpMVpsi_zExpansion(q2,0).abs2();
@@ -1527,47 +1530,47 @@ double Abs2Ampzero_MVpsi::computeThValue()
     return A2_0/(A2_0+A2_par+A2_perp);
 }
 
-Delta_C9_zExp_0::Delta_C9_zExp_0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Delta_C9_zExp_0::Delta_C9_zExp_0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Delta_C9_zExp_0::computeThValue() 
+double Delta_C9_zExp_0::computeThValue()
 {
     return SM.getFlavour().getMVll(meson, vectorM, lep).getDelta_C9_zExp_0();
 }
 
-Delta_C9_zExp_p::Delta_C9_zExp_p(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Delta_C9_zExp_p::Delta_C9_zExp_p(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Delta_C9_zExp_p::computeThValue() 
+double Delta_C9_zExp_p::computeThValue()
 {
     return SM.getFlavour().getMVll(meson, vectorM, lep).getDelta_C9_zExp_p();
 }
 
-Delta_C9_zExp_m::Delta_C9_zExp_m(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
-: ThObservable(SM_i) 
+Delta_C9_zExp_m::Delta_C9_zExp_m(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
 {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    
+
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
 }
 
-double Delta_C9_zExp_m::computeThValue() 
+double Delta_C9_zExp_m::computeThValue()
 {
     return SM.getFlavour().getMVll(meson, vectorM, lep).getDelta_C9_zExp_m();
 }
