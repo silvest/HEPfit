@@ -27,7 +27,7 @@ Installation (for developers):
 - Developer Libraries
   - [RGESolver](https://github.com/silvest/RGESolver)
     ```{sh}
-    git clone git@github.com:silvest/RGESolver.git --recursive
+    git clone https://github.com/silvest/RGESolver.git --recursive
     cd RGESolver
     mkdir build
     cd build
@@ -37,7 +37,7 @@ Installation (for developers):
     ```
   - [bat_MPI](https://github.com/silvest/bat_MPI)
     ```{sh}
-    git clone git@github.com:silvest/bat_MPI.git
+    git clone https://github.com/silvest/bat_MPI.git
     cd bat_MPI
     ./configure CXX=mpic++ --prefix=<PATH>
     make -j
@@ -45,7 +45,7 @@ Installation (for developers):
     ```
 - HEPfit (using CMake)
   ```{sh}
-  git clone git@github.com:silvest/HEPfit.git --recursive
+  git clone https://github.com/silvest/HEPfit.git --recursive
   cd HEPfit
   mkdir build
   cd build
