@@ -2743,9 +2743,6 @@ double sigma_tta_diff_NLO_ATLAS_emu_200706946::computeThValue()
 
 
 
-
-
-
 //REAL NLO
 sigma_tta_diff_NLO_CMS_dilepton_220107301::sigma_tta_diff_NLO_CMS_dilepton_220107301(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
@@ -5349,6 +5346,65 @@ double sigma_mumu_3TeV_bb::computeThValue()
 
 
 
+a_3TeV_mumu_bb::a_3TeV_mumu_bb(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_3TeV_mumu_bb");
+}
+
+double a_3TeV_mumu_bb::computeThValue()
+{
+    
+    //double a_250_bb_eP_P30_eM_M80 = 69.8;//in percentage//OLD
+    //double a_250_bb_eP_P30_eM_M80 = 0.7038
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_3TeV_mumu_bb");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 8.3563;
+    double NP_pos = 543.0139*ceb + -198.5954*ceQ + -0.2080*cHb + 0.6883*cHQ1 + 0.6883*cHQ3 + -106.3333*clb + 1296.7195*clq1 + 1296.7195*clq3;
+    
+    double SM_neg = 1.7989;
+    double NP_neg = 91.8085*ceb + -120.4171*ceQ + 0.1100*cHb + 0.2088*cHQ1 + 0.2088*cHQ3 + 419.7807*clb + 200.8504*clq1 + 200.8504*clq3;    
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+    
+}
+
+
 
 sigma_mumu_VBF_10TeV_tt::sigma_mumu_VBF_10TeV_tt(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
@@ -5521,6 +5577,67 @@ double sigma_mumu_10TeV_bb::computeThValue()
 
 
 
+a_10TeV_mumu_bb::a_10TeV_mumu_bb(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_10TeV_mumu_bb");
+}
+
+double a_10TeV_mumu_bb::computeThValue()
+{
+    
+    //double a_250_bb_eP_P30_eM_M80 = 69.8;//in percentage//OLD
+    //double a_250_bb_eP_P30_eM_M80 = 0.7038
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_10TeV_mumu_bb");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 0.7513;
+    double NP_pos = 473.5391*ceb + -198.5954*ceQ + -0.0188*cHb + 0.0618*cHQ1 + 
+    0.0618*cHQ3 + -1354.2705*clb + 1296.7195*clq1 + 1226.6425*clq3;    
+    
+    double SM_neg = 0.1617;
+    double NP_neg = 94.9606*ceb + -120.4171*ceQ + 0.0099*cHb + 0.0188*cHQ1 + 
+    0.0188*cHQ3 + 1622.0219*clb + 200.8504*clq1 + 201.8824*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+    
+}
+
+
 
 
 
@@ -5690,6 +5807,64 @@ double sigma_mumu_30TeV_bb::computeThValue()
 }
 
 
+
+a_30TeV_mumu_bb::a_30TeV_mumu_bb(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_30TeV_mumu_bb");
+}
+
+double a_30TeV_mumu_bb::computeThValue()
+{
+    
+    //double a_250_bb_eP_P30_eM_M80 = 69.8;//in percentage//OLD
+    //double a_250_bb_eP_P30_eM_M80 = 0.7038
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_30TeV_mumu_bb");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 0.0834;
+    double NP_pos = -1522.0036*ceb + -13407.0537*ceQ + -0.0021*cHb + 0.0068*cHQ1 + 0.0068*cHQ3 + -15468.3957*clb + -380.9551*clq1 + -380.9551*clq3;    
+    
+    double SM_neg = 0.0180;
+    double NP_neg = 2145.9985*ceb + 13632.0573*ceQ + 0.0011*cHb + 0.0021*cHQ1 + 0.0021*cHQ3 + 16273.8973*clb + 1877.9604*clq1 + 1877.9604*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+    
+}
 
 
 

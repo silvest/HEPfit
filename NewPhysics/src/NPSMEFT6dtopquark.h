@@ -1403,6 +1403,22 @@ private:
 
 
 
+class a_3TeV_mumu_bb : public ThObservable {
+public:   
+
+    a_3TeV_mumu_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
+
 class sigma_mumu_VBF_10TeV_tt : public ThObservable {
 public:   
 
@@ -1435,6 +1451,20 @@ class sigma_mumu_10TeV_bb : public ThObservable {
 public:   
 
     sigma_mumu_10TeV_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+class a_10TeV_mumu_bb : public ThObservable {
+public:   
+
+    a_10TeV_mumu_bb(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -1483,6 +1513,21 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
+
+
+
+class a_30TeV_mumu_bb : public ThObservable {
+public:   
+
+    a_30TeV_mumu_bb(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
 
 
 

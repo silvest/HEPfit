@@ -37139,6 +37139,8 @@ const double NPSMEFTd6General::STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) c
     return STXSb;
 }
 
+
+//VM: How was this obtained without parton shower???
 const double NPSMEFTd6General::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const //AG:modified
 {
     double STXSb = 1.0;
@@ -37176,6 +37178,216 @@ const double NPSMEFTd6General::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const
     return STXSb;
 }
 
+
+
+
+const double NPSMEFTd6General::STXS12_ggH_pTH10_200_Nj0(const double sqrt_s) const 
+{
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    double STXSb = 1.0;
+    
+    if (sqrt_s == 13.0) {
+
+        
+        
+        STXSb += cWsch * (
+                (0.) * 1000000
+                );
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_pTH10_200_Nj0()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+
+
+
+
+
+
+const double NPSMEFTd6General::STXS12_ggH_pTH200_300(const double sqrt_s) const 
+{
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    double STXSb = 1.0;
+    
+    if (sqrt_s == 13.0) {
+
+        
+        
+        STXSb += cWsch * (
+                (0.) * 1000000
+                );
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_pTH200_300()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+
+
+
+
+const double NPSMEFTd6General::STXS12_ggH_pTH300_450(const double sqrt_s) const 
+{
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    double STXSb = 1.0;
+    
+    if (sqrt_s == 13.0) {
+
+        
+        
+        STXSb += cWsch * (
+                (0.) * 1000000
+                );
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_pTH300_450()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+
+
+
+
+const double NPSMEFTd6General::STXS12_ggH_pTH450_Inf(const double sqrt_s) const 
+{
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    double STXSb = 1.0;
+    
+    if (sqrt_s == 13.0) {
+
+        
+        
+        STXSb += cWsch * (
+                (0.) * 1000000
+                );
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_pTH450_Inf()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+
+
+
+
+const double NPSMEFTd6General::STXS12_ggH_pTH450_650(const double sqrt_s) const 
+{
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    double STXSb = 1.0;
+    
+    if (sqrt_s == 13.0) {
+
+        
+        
+        STXSb += cWsch * (
+                (0.) * 1000000
+                );
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_pTH450_650()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+
+
+
+
+const double NPSMEFTd6General::STXS12_ggH_pTH650_Inf(const double sqrt_s) const 
+{
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    double STXSb = 1.0;
+    
+    if (sqrt_s == 13.0) {
+
+        
+        
+        STXSb += cWsch * (
+                (0.) * 1000000
+                );
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_pTH650_Inf()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+
+
+
+
+
 const double NPSMEFTd6General::STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const {
 
     // To be fixed together with the UFO file when going beyond U(2)
@@ -37200,6 +37412,43 @@ const double NPSMEFTd6General::STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) con
 
     return STXSb;
 }
+
+
+
+
+const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj1(const double sqrt_s) const 
+{
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    double STXSb = 1.0;
+    
+    if (sqrt_s == 13.0) {
+
+        
+        
+        STXSb += cWsch * (
+                (0.) * 1000000
+                );
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_pTH200_300()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+
+
+
 
 const double NPSMEFTd6General::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const //AG:modified
 {
@@ -37763,6 +38012,81 @@ const double NPSMEFTd6General::STXS12_ggHll_pTV250_Inf(const double sqrt_s) cons
 
     return STXSb;
 }
+
+
+
+
+
+const double NPSMEFTd6General::STXS12_qqHqq_VH_veto_Nj01(const double sqrt_s) const 
+{
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    double STXSb = 1.0;
+    
+    if (sqrt_s == 13.0) {
+
+        
+        
+        STXSb += cWsch * (
+                (0.) * 1000000
+                );
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHqq_VH_veto_Nj01()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+
+
+
+
+
+
+const double NPSMEFTd6General::STXS12_qqHqq_VH_had_Nj2(const double sqrt_s) const 
+{
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    double STXSb = 1.0;
+    
+    if (sqrt_s == 13.0) {
+
+        
+        
+        STXSb += cWsch * (
+                (0.) * 1000000
+                );
+
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+            STXSb += 0.0;
+
+        }
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHqq_VH_veto_Nj01()");
+
+    if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return STXSb;
+}
+
+
+
+
+
 
 const double NPSMEFTd6General::STXS12_qqHqq_Nj0(const double sqrt_s) const {
     // To be fixed together with the UFO file when going beyond U(2)
