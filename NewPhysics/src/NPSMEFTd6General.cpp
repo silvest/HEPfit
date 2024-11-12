@@ -8571,24 +8571,14 @@ bool NPSMEFTd6General::PostUpdate() {
         return false;
     }
 
-    std::cout << "mu(0) = " << mmu(0) << ", mu(1) = " << mmu(1) << ", mu(2) = " << mmu(2) << std::endl;
-    std::cout << "md(0) = " << mmd(0) << ", md(1) = " << mmd(1) << ", md(2) = " << mmd(2) << std::endl;
-
     //do heavy quarks first to get the thresholds right
     quarks[TOP].setMass(Mofmu2Mbar(mmu(2), getMuw(), QCD::TOP));
-    std::cout << "mtbar = " << quarks[TOP].getMass() << std::endl;
     setMtpole(Mbar2Mp(quarks[TOP].getMass(), QCD::TOP));
-    std::cout << "mtpole = " << getMtpole() << std::endl;
     quarks[BOTTOM].setMass(Mofmu2Mbar(mmd(2), getMuw(), QCD::BOTTOM));
-    std::cout << "mbbar = " << quarks[BOTTOM].getMass() << std::endl;
     quarks[CHARM].setMass(Mofmu2Mbar(mmu(1), getMuw(), QCD::CHARM));
-    std::cout << "mcbar = " << quarks[CHARM].getMass() << std::endl;
     quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(), getMuw(), mmd(1), QCD::STRANGE));
-    std::cout << "msbar = " << quarks[STRANGE].getMass() << std::endl;
     quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(), getMuw(), mmd(0), QCD::DOWN));
-    std::cout << "mdbar = " << quarks[DOWN].getMass() << std::endl;
     quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(), getMuw(), mmu(0), QCD::UP));
-    std::cout << "mubar = " << quarks[UP].getMass() << std::endl;
 
     VuLd = VuL.hconjugate();
 
