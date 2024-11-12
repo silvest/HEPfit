@@ -100,7 +100,7 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbsg()
     
     double Mut = myTHDM.getMut();
     double mt = myTHDM.Mrun(Mut, myTHDM.getQuarks(QCD::TOP).getMass_scale(), 
-                        myTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+                        myTHDM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
     double mHp=myTHDM.getmHp();
     
     double tanb = myTHDM.gettanb();

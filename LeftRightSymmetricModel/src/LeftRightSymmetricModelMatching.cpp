@@ -29,7 +29,7 @@ void LeftRightSymmetricModelMatching::updateLeftRightSymmetricModelParameters()
     Mut = myLeftRightSymmetricModel.getMut();
     mW = myLeftRightSymmetricModel.Mw();
     mtop = myLeftRightSymmetricModel.Mrun(Mut, myLeftRightSymmetricModel.getQuarks(QCD::TOP).getMass_scale(),
-                        myLeftRightSymmetricModel.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+                        myLeftRightSymmetricModel.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
     mbottom = myLeftRightSymmetricModel.getQuarks(QCD::BOTTOM).getMass();
     vev = myLeftRightSymmetricModel.v();
     gW = sqrt(8.0*myLeftRightSymmetricModel.getGF() / sqrt(2.0)) * mW;

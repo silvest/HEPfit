@@ -14,7 +14,7 @@
 HeffDS1::HeffDS1(const StandardModel & SM)
 : model(SM),
 coeffds1(10, NDR, NLO, NLO_QED11), coeffds1cc(10, NDR, NLO, NLO_QED11),
-coeffds1pnunu(2, NDR, NLO, NLO_QED11), coeffds1mumu(1, NDR, NLO), coeffds1pnunuC(1,NDR,NNLO,NLO_QED11),
+coeffds1pnunu(2, NDR, NLO, NLO_QED11), coeffds1pnunuC(1,NDR,NNLO,NLO_QED11), coeffds1mumu(1, NDR, NLO),
 u(new EvolDF1nlep(10, NDR, NLO, NLO_QED11, SM)), uM(new EvolDB1Mll(13, NDR, NLO, SM)), uKpnunu(new Charm_Kpnunu(SM)),
 DS1ccLO(10, 0.),DS1ccLO_QED(10, 0.),DS1ccNLO(10, 0.),DS1ccNLO_QED(10, 0.)
 {
@@ -252,7 +252,7 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1mumu()
 
 void HeffDS1::CharmMatch()
 {
-    double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+    double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), QCD::CHARM, FULLNNLO);
     double alphaSmuC = model.Als(model.getMuc());
     double logmc2OmuC2 = log(mc * mc / model.getMuc() / model.getMuc());
 

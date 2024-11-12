@@ -156,7 +156,7 @@ std::vector<WilsonCoefficient>& THDMWMatching::CMdbs2() {
     double xt = x_t(Mut);//ratio mass of the top square at the scale of its mass over mass of the W square. Why not Mw scale???
     double xc= x_c(Muc);
     double mb =myTHDMW.Mrun(Mub, myTHDMW.getQuarks(QCD::BOTTOM).getMass_scale(),
-                              myTHDMW.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                              myTHDMW.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     double mSp2=myTHDMW.getMyTHDMWCache()->mSpsq;
     double MW=myTHDMW.Mw();
     double xb=pow(mb,2)/(MW*MW);

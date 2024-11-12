@@ -887,20 +887,22 @@ public:
      * @brief Computes a running quark mass @f$m(\mu)@f$ from @f$m(m)@f$.
      * @param[in] mu a scale @f$\mu@f$ in GeV
      * @param[in] m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     * @param[in] q the quark for which the running mass is computed
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the running quark mass @f$m(\mu)@f$ in GeV
      */
-    const double Mrun(const double mu, const double m, const orders order = FULLNNLO) const;
+    const double Mrun(const double mu, const double m, const quark q, const orders order = FULLNNLO) const;
 
     /**
      * @brief Runs a quark mass from @f$\mu_i@f$ to @f$\mu_f@f$.
      * @param[in] mu_f a scale @f$\mu_f@f$ in GeV
      * @param[in] mu_i a scale @f$\mu_i@f$ in GeV
      * @param[in] m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(\mu_i)@f$ in GeV
+     * @param[in] q the quark for which the running mass is computed
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the running quark mass @f$m(\mu_f)@f$ in GeV
      */
-    const double Mrun(const double mu_f, const double mu_i, const double m,
+    const double Mrun(const double mu_f, const double mu_i, const double m, const quark q,
             const orders order = FULLNNLO) const;
 
     ////////////////////////////////////////////////////////////////////////
@@ -929,9 +931,10 @@ public:
      * @brief Converts a quark running mass at an arbitrary scale to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$.
      * @param[in] m the running mass at the scale @f$\mu@f$ in GeV
      * @param[in] mu the scale @f$\mu@f$ in GeV
+     * @param[in] q the quark for which the conversion is done
      * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      */
-    const double Mofmu2Mbar(const double m, const double mu) const;
+    const double Mofmu2Mbar(const double m, const double mu, const quark q) const;
 
     /**
      * @brief Converts a quark mass from the @f$\overline{\mathrm{MS}}@f$ scheme to
@@ -1142,10 +1145,11 @@ private:
      * @param[in] mu_f the final scale \f$\mu_f\f$ to which the mass if run
      * @param[in] mu_i the initial scale \f$\mu_i\f$ from which the mass if run
      * @param[in] m the mass at the scale \f$\mu_i\f$
+     * @param[in] nf the number of active flavours
      * @param[in] order the %QCD order at which the running is being calculated
-     * @return the mass run from \f$\mu_i\f$ to \f$\mu_f\f$
+     * @return the mass evolved from \f$\mu_i\f$ to \f$\mu_f\f$
      */
-    const double MrunTMP(const double mu_f, const double mu_i, const double m, const orders order) const;
+    const double MrunTMP(const double mu_f, const double mu_i, const double m, const int nf, const orders order) const;
 
     /**
      * @brief The member used for finding the numerical solution to the pole mass from the \f$\overline{\rm MS}\f$

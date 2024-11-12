@@ -332,8 +332,9 @@ NPSMEFTd6General::NPSMEFTd6General()
 NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW(), 
         VuL(gslpp::matrix<complex>::Id(3)), VuR(gslpp::matrix<complex>::Id(3)), 
         VdL(gslpp::matrix<complex>::Id(3)), VdR(gslpp::matrix<complex>::Id(3)), 
-        VeL(gslpp::matrix<complex>::Id(3)), VeR(gslpp::matrix<complex>::Id(3)), 
+        VeL(gslpp::matrix<complex>::Id(3)), 
         VuLd(gslpp::matrix<complex>::Id(3)), VuRd(gslpp::matrix<complex>::Id(3)), 
+        VeR(gslpp::matrix<complex>::Id(3)), 
         VdLd(gslpp::matrix<complex>::Id(3)), VdRd(gslpp::matrix<complex>::Id(3)), 
         VeLd(gslpp::matrix<complex>::Id(3)), VeRd(gslpp::matrix<complex>::Id(3)), 
         MUQ(3, 0.), MDQ(3, 0.) {
@@ -3014,13 +3015,13 @@ void NPSMEFTd6General::ChangeToEvolutorsBasisPureSM() {
     mmu_LEW = leptons[MU].getMass();
     mtau_LEW = leptons[TAU].getMass();
 
-    mu_LEW = Mrun(muw, quarks[UP].getMass_scale(), quarks[UP].getMass());
-    mc_LEW = Mrun(muw, quarks[CHARM].getMass());
-    mt_LEW = Mrun(muw, quarks[TOP].getMass());
+    mu_LEW = Mrun(muw, quarks[UP].getMass_scale(), quarks[UP].getMass(), QCD::UP);
+    mc_LEW = Mrun(muw, quarks[CHARM].getMass(), QCD::CHARM);
+    mt_LEW = Mrun(muw, quarks[TOP].getMass(), QCD::TOP);
 
-    md_LEW = Mrun(muw, quarks[DOWN].getMass_scale(), quarks[DOWN].getMass());
-    ms_LEW = Mrun(muw, quarks[STRANGE].getMass_scale(), quarks[STRANGE].getMass());
-    mb_LEW = Mrun(muw, quarks[BOTTOM].getMass());
+    md_LEW = Mrun(muw, quarks[DOWN].getMass_scale(), quarks[DOWN].getMass(), QCD::DOWN);
+    ms_LEW = Mrun(muw, quarks[STRANGE].getMass_scale(), quarks[STRANGE].getMass(), QCD::STRANGE);
+    mb_LEW = Mrun(muw, quarks[BOTTOM].getMass(), QCD::BOTTOM);
 
     CKM aux_CKM;
     aux_CKM.computeCKMwithWolfenstein(lambda, A, rhob, etab);
@@ -3069,14 +3070,28 @@ void NPSMEFTd6General::ChangeToEvolutorsBasisSMEFTtoSM() {
     mmu_LEW = leptons[MU].getMass();
     mtau_LEW = leptons[TAU].getMass();
 
-    mu_LEW = Mrun(muw, quarks[UP].getMass_scale(), quarks[UP].getMass());
-    mc_LEW = Mrun(muw, quarks[CHARM].getMass());
-    mt_LEW = Mrun(muw, quarks[TOP].getMass());
+    std::cout << "mu = " << quarks[UP].getMass() << std::endl;
+    std::cout << "mc = " << quarks[CHARM].getMass() << std::endl;
+    std::cout << "mt = " << quarks[TOP].getMass() << std::endl;
+    std::cout << "md = " << quarks[DOWN].getMass() << std::endl;
+    std::cout << "ms = " << quarks[STRANGE].getMass() << std::endl;
+    std::cout << "mb = " << quarks[BOTTOM].getMass() << std::endl;
+
+    mu_LEW = Mrun(muw, quarks[UP].getMass_scale(), quarks[UP].getMass(), QCD::UP);
+    mc_LEW = Mrun(muw, quarks[CHARM].getMass(), QCD::CHARM);
+    mt_LEW = Mrun(muw, quarks[TOP].getMass(), QCD::TOP);
     
-    md_LEW = Mrun(muw, quarks[DOWN].getMass_scale(), quarks[DOWN].getMass());
-    ms_LEW = Mrun(muw, quarks[STRANGE].getMass_scale(), quarks[STRANGE].getMass());
-    mb_LEW = Mrun(muw, quarks[BOTTOM].getMass());
+    md_LEW = Mrun(muw, quarks[DOWN].getMass_scale(), quarks[DOWN].getMass(), QCD::DOWN);
+    ms_LEW = Mrun(muw, quarks[STRANGE].getMass_scale(), quarks[STRANGE].getMass(), QCD::STRANGE);
+    mb_LEW = Mrun(muw, quarks[BOTTOM].getMass(), QCD::BOTTOM);
     
+    std::cout << "mu_LEW = " << mu_LEW << std::endl;
+    std::cout << "mc_LEW = " << mc_LEW << std::endl;
+    std::cout << "mt_LEW = " << mt_LEW << std::endl;
+    std::cout << "md_LEW = " << md_LEW << std::endl;
+    std::cout << "ms_LEW = " << ms_LEW << std::endl;
+    std::cout << "mb_LEW = " << mb_LEW << std::endl;
+
     //std::cout<<"mt="<<mtpole<<", mb="<<quarks[BOTTOM].getMass()<<""<<std::endl;
     //std::cout<<"vevSM="<<sqrt(mH2_LEW/lambdaH_LEW/2.0)<<std::endl;
     //std::cout<<"me=("<<me_LEW<<","<<mmu_LEW<<","<<mtau_LEW<<")"<<std::endl;
@@ -8536,7 +8551,6 @@ bool NPSMEFTd6General::PostUpdate() {
     double vT = v();
     double delta_vT = getDelta_v();
     double vTosq2 = vT / sqrt(2.);
-    double v2oLam2 = v2 / LambdaNP2;
 
     // Let us first define the full mass matrices, including the effect of dimension six operators
 
@@ -8571,14 +8585,24 @@ bool NPSMEFTd6General::PostUpdate() {
         return false;
     }
 
+    std::cout << "mu(0) = " << mmu(0) << ", mu(1) = " << mmu(1) << ", mu(2) = " << mmu(2) << std::endl;
+    std::cout << "md(0) = " << mmd(0) << ", md(1) = " << mmd(1) << ", md(2) = " << mmd(2) << std::endl;
+
     //do heavy quarks first to get the thresholds right
-    quarks[TOP].setMass(Mofmu2Mbar(mmu(2), getMuw()));
+    quarks[TOP].setMass(Mofmu2Mbar(mmu(2), getMuw(), QCD::TOP));
+    std::cout << "mtbar = " << quarks[TOP].getMass() << std::endl;
     setMtpole(Mbar2Mp(quarks[TOP].getMass(), QCD::TOP));
-    quarks[BOTTOM].setMass(Mofmu2Mbar(mmd(2), getMuw()));
-    quarks[CHARM].setMass(Mofmu2Mbar(mmu(1), getMuw()));
-    quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(), getMuw(), mmd(1)));
-    quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(), getMuw(), mmd(0)));
-    quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(), getMuw(), mmu(0)));
+    std::cout << "mtpole = " << getMtpole() << std::endl;
+    quarks[BOTTOM].setMass(Mofmu2Mbar(mmd(2), getMuw(), QCD::BOTTOM));
+    std::cout << "mbbar = " << quarks[BOTTOM].getMass() << std::endl;
+    quarks[CHARM].setMass(Mofmu2Mbar(mmu(1), getMuw(), QCD::CHARM));
+    std::cout << "mcbar = " << quarks[CHARM].getMass() << std::endl;
+    quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(), getMuw(), mmd(1), QCD::STRANGE));
+    std::cout << "msbar = " << quarks[STRANGE].getMass() << std::endl;
+    quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(), getMuw(), mmd(0), QCD::DOWN));
+    std::cout << "mdbar = " << quarks[DOWN].getMass() << std::endl;
+    quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(), getMuw(), mmu(0), QCD::UP));
+    std::cout << "mubar = " << quarks[UP].getMass() << std::endl;
 
     VuLd = VuL.hconjugate();
 

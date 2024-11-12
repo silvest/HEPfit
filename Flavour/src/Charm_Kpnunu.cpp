@@ -21,7 +21,7 @@ Charm_Kpnunu::Charm_Kpnunu(const StandardModel& model_i)
     etab=model.Als(model.getMuw()) / model.Als(model.getMub());
     etacb=model.Als(model.getMub()) / model.Als(model.getMuc());
     etac=model.Als(model.getMuc()) / model.Als(model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass_scale(),
-        model.getQuarks(QCD::CHARM).getMass(), FULLNNLO));
+        model.getQuarks(QCD::CHARM).getMass(), QCD::CHARM, FULLNNLO));
     kc= pow(etac, 24. / 25.);
     xc_mc_qed=sqrt(2.) * model.sW2_ND() * model.getGF() / M_PI / model.alphaMz() * mc_mc * mc_mc ;
     L = log(model.getMuc() * model.getMuc() / mc_mc / mc_mc);
@@ -168,7 +168,7 @@ gslpp::vector<double> Charm_Kpnunu::ThresholdCp(orders order)
 
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
-            model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+            model.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     double Lb = log(mub * mub / Mb / Mb);
     
     switch (order) {
@@ -323,7 +323,7 @@ gslpp::vector<double> Charm_Kpnunu::ThresholdCb(orders order)
 
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
-            model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+            model.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     double Lb = log(mub * mub / Mb / Mb);
     
     switch (order) {

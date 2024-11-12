@@ -134,7 +134,7 @@ double CPenguinBox::BmatchP(orders order)
 
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
-            model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+            model.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     eta = model.Als(model.getMuw()) / mub;
 
     switch (order) {
@@ -215,7 +215,7 @@ double CPenguinBox::BmatchB(orders order)
 
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
-            model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+            model.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     eta = model.Als(model.getMuw()) / mub;
 
     switch (order) {
@@ -248,7 +248,7 @@ double CPenguinBox::Cmatch(orders order)
     double Muc = model.getMuc();
     double Muw = model.getMuw();
     double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass_scale(),
-            model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+            model.getQuarks(QCD::CHARM).getMass(), QCD::CHARM, FULLNNLO);
     double l = log(Muc * Muc / mc / mc);
     double A = model.Als(Muc, FULLNNLO);
 

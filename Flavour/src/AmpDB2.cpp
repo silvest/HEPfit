@@ -74,10 +74,10 @@ gslpp::complex AmpDB2::RBs(orders order)
     double MBs = mySM.getMesons(QCD::B_S).getMass();
     double Mb = mySM.Mrun(mySM.getBBs().getMu(),
                           mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
-                          mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                          mySM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     double Ms = mySM.Mrun(mySM.getBBs().getMu(),
                           mySM.getQuarks(QCD::STRANGE).getMass_scale(),
-                          mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+                          mySM.getQuarks(QCD::STRANGE).getMass(), QCD::STRANGE,FULLNNLO);
     double KBs = MBs / (Mb + Ms) * MBs / (Mb + Ms);
     double Fbs = mySM.getMesons(QCD::B_S).getDecayconst();
     me(0) *= 1. / 3. * MBs * Fbs * Fbs;
@@ -127,10 +127,10 @@ gslpp::complex AmpDB2::RBd(orders order)
     double MBd = mySM.getMesons(QCD::B_D).getMass();
     double Mb = mySM.Mrun(mySM.getBBd().getMu(),
                           mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
-                          mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                          mySM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     double Md = mySM.Mrun(mySM.getBBd().getMu(),
                           mySM.getQuarks(QCD::DOWN).getMass_scale(),
-                          mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+                          mySM.getQuarks(QCD::DOWN).getMass(), QCD::DOWN, FULLNNLO);
     double KBd = MBd / (Mb + Md) * MBd / (Mb + Md);
     double Fbd = mySM.getMesons(QCD::B_D).getDecayconst();
     me(0) *= 1. / 3. * MBd * Fbd * Fbd;
@@ -173,10 +173,10 @@ gslpp::complex AmpDB2::M21_Bd(orders order)
     double MBd = mySM.getMesons(QCD::B_D).getMass();
     double Mb = mySM.Mrun(mySM.getBBd().getMu(),
                           mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
-                          mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                          mySM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     double Md = mySM.Mrun(mySM.getBBd().getMu(),
                           mySM.getQuarks(QCD::DOWN).getMass_scale(),
-                          mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+                          mySM.getQuarks(QCD::DOWN).getMass(), QCD::DOWN, FULLNNLO);
     double KBd = MBd / (Mb + Md) * MBd / (Mb + Md);
     double Fb = mySM.getMesons(QCD::B_D).getDecayconst();
     me(0) *= 1. / 3. * MBd * Fb * Fb;
@@ -220,10 +220,10 @@ gslpp::complex AmpDB2::M21_Bs(orders order)
     double MBs = mySM.getMesons(QCD::B_S).getMass();
     double Mb = mySM.Mrun(mySM.getBBs().getMu(),
                           mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
-                          mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                          mySM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     double Ms = mySM.Mrun(mySM.getBBs().getMu(),
                           mySM.getQuarks(QCD::STRANGE).getMass_scale(),
-                          mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+                          mySM.getQuarks(QCD::STRANGE).getMass(), QCD::STRANGE, FULLNNLO);
     double KBs = MBs / (Mb + Ms) * MBs / (Mb + Ms);
     double Fbs = mySM.getMesons(QCD::B_S).getDecayconst();
 
@@ -353,7 +353,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme)
     // MSbar bottom quark mass Mb(mu_b)
     double Mb_mub = mySM.Mrun(mu_b,
                               mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
-                              mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                              mySM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
 
     // MSbar charm quark mass Mc(Mc)
     double Mc_Mc = mySM.getQuarks(QCD::CHARM).getMass();
@@ -361,7 +361,7 @@ void AmpDB2::computeCKMandMasses(orders order, mass_schemes mass_scheme)
     // MSbar charm quark mass Mc(mu_b)
     double Mc_mub = mySM.Mrun(mu_b,
                               mySM.getQuarks(QCD::CHARM).getMass_scale(),
-                              mySM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+                              mySM.getQuarks(QCD::CHARM).getMass(), QCD::CHARM, FULLNNLO);
 
     // strong coupling constant divided by 4*Pi
     as_4pi_mu1 = mySM.Als(mu_1, FULLNNNLO, true, true) / (4. * M_PI);
@@ -776,7 +776,7 @@ void AmpDB2::compute_matrixelements(quark q, orders order)
     double Mq;
     double Mb_mu2 = mySM.Mrun(mu_2,
                               mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
-                              mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                              mySM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     double MBq2;
     double KBq;
     double FBq2;
@@ -786,7 +786,7 @@ void AmpDB2::compute_matrixelements(quark q, orders order)
         me = mySM.getBBd().getBpars();
         Mq = mySM.Mrun(mu_2,
                        mySM.getQuarks(QCD::DOWN).getMass_scale(),
-                       mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+                       mySM.getQuarks(QCD::DOWN).getMass(), QCD::DOWN, FULLNNLO);
         MBq2 = MB * MB;
         FBq2 = mySM.getMesons(QCD::B_D).getDecayconst() * mySM.getMesons(QCD::B_D).getDecayconst();
         break;
@@ -794,7 +794,7 @@ void AmpDB2::compute_matrixelements(quark q, orders order)
         me = mySM.getBBs().getBpars();
         Mq = mySM.Mrun(mu_2,
                        mySM.getQuarks(QCD::STRANGE).getMass_scale(),
-                       mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+                       mySM.getQuarks(QCD::STRANGE).getMass(), QCD::STRANGE, FULLNNLO);
         MBq2 = MB_s * MB_s;
         FBq2 = mySM.getMesons(QCD::B_S).getDecayconst() * mySM.getMesons(QCD::B_S).getDecayconst();
         break;

@@ -52,9 +52,9 @@ double Rb0THDMW::computeThValue()
     double MZ = myTHDMW.getMz();
     double mu=MZ;
     double mtMZ = myTHDMW.Mrun(mu, myTHDMW.getQuarks(QCD::TOP).getMass_scale(),
-                              myTHDMW.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+                              myTHDMW.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
     double mbMZ = myTHDMW.Mrun(mu, myTHDMW.getQuarks(QCD::BOTTOM).getMass_scale(),
-                              myTHDMW.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                              myTHDMW.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     double x=pow(mtMZ,2)/mSpsq;
     
     //std::cout<<"orders_EW_size="<< SM.orders_EW_size << std::endl;

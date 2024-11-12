@@ -65,9 +65,9 @@ double Rb0GTHDM::computeThValue()
     
     double mu = MW;
     double mtMZ = myGTHDM.Mrun(mu, myGTHDM.getQuarks(QCD::TOP).getMass_scale(),
-                              myGTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);   
+                              myGTHDM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);   
     double mbMZ = myGTHDM.Mrun(mu, myGTHDM.getQuarks(QCD::BOTTOM).getMass_scale(),
-                              myGTHDM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                              myGTHDM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
    /* std::cout << "mtMZ = " << mtMZ << std::endl;
     std::cout << "mbMZ = " << mbMZ << std::endl;
     std::cout << "GF = " << GF << std::endl;

@@ -189,9 +189,9 @@ void MVgamma::updateParameters()
     fperp = SM.getMesons(vectorM).getDecayconst_p();
     
     double ms_over_mb = SM.Mrun(mu_b, SM.getQuarks(QCD::STRANGE).getMass_scale(), 
-                        SM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO)
+                        SM.getQuarks(QCD::STRANGE).getMass(), QCD::STRANGE, FULLNNLO)
                        /SM.Mrun(mu_b, SM.getQuarks(QCD::BOTTOM).getMass_scale(), 
-                        SM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                        SM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     
     if (!dispersion) {
 #if NFPOLARBASIS_MVGAMMA

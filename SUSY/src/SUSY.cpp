@@ -309,11 +309,11 @@ void SUSY::computeYukawas()
         /* Run the quark masses to scale Q */
         if (i != 2)
             mu_Q[i] = Mrun(Q_SUSY, getQuarks((quark)(UP + 2 * i)).getMass_scale(),
-                           getQuarks((quark)(UP + 2 * i)).getMass(), FULLNLO);
+                           getQuarks((quark)(UP + 2 * i)).getMass(), (quark)(UP + 2 * i),FULLNLO);
         else
-            mu_Q[i] = Mrun(Q_SUSY, mtbar, FULLNLO);
+            mu_Q[i] = Mrun(Q_SUSY, mtbar, QCD::TOP, FULLNLO);
         md_Q[i] = Mrun(Q_SUSY, getQuarks((quark)(DOWN + 2 * i)).getMass_scale(),
-                       getQuarks((quark)(DOWN + 2 * i)).getMass(), FULLNLO);
+                       getQuarks((quark)(DOWN + 2 * i)).getMass(), (quark)(DOWN + 2 * i), FULLNLO);
         me_Q[i] = getLeptons((lepton)(ELECTRON + 2 * i)).getMass();
         mn_Q[i] = getLeptons((lepton)(NEUTRINO_1 + 2 * i)).getMass();
 

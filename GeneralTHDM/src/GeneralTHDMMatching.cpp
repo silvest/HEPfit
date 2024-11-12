@@ -1212,7 +1212,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton) 
     double mHp2 = myGTHDM.getmHp2();
     double MW = myGTHDM.Mw();
     double Mt_muw = myGTHDM.Mrun(Muw, myGTHDM.getQuarks(QCD::TOP).getMass_scale(),
-            myGTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            myGTHDM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
     /*double mt_mt = myGTHDM.Mrun(Mut, myGTHDM.getQuarks(QCD::TOP).getMass_scale(), 
                         myGTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);*/
     double mb = myGTHDM.getQuarks(QCD::BOTTOM).getMass();
@@ -1409,7 +1409,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbsg() {
 
     double Mut = myGTHDM.getMut();
     double mt = myGTHDM.Mrun(Mut, myGTHDM.getQuarks(QCD::TOP).getMass_scale(),
-            myGTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            myGTHDM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
     double mHp = myGTHDM.getmHp();
 
     gslpp::complex sigmau = myGTHDM.getNu_11();

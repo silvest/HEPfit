@@ -50,7 +50,7 @@ double EWSMcache::mf(const Particle f, const double mu, const orders order) cons
 {
     if (f.is("TOP"))
         return SM.getMtpole(); // the pole mass
-    else if (f.is("QUARK") && !FlagDebug) {
+    else if (f.is("BOTTOM") && !FlagDebug) {
         /* These codes are slow and not effective. */
         //if (mu == SM.getMz()) {
         //    if (FlagCacheInEWSMcache && order == FULLNNLO)
@@ -59,7 +59,15 @@ double EWSMcache::mf(const Particle f, const double mu, const orders order) cons
         //    mf_atMz_cache[f.getIndex()] = SM.Mrun(mu, f.getMass_scale(), f.getMass(), order);
         //    return mf_atMz_cache[f.getIndex()];
         //}
-        return SM.Mrun(mu, f.getMass_scale(), f.getMass(), order);
+        return SM.Mrun(mu, f.getMass_scale(), f.getMass(), QCD::BOTTOM, order);
+    } else if (f.is("CHARM") && !FlagDebug) {
+        return SM.Mrun(mu, f.getMass_scale(), f.getMass(), QCD::CHARM, order);
+    } else if (f.is("STRANGE") && !FlagDebug) {
+        return SM.Mrun(mu, f.getMass_scale(), f.getMass(), QCD::STRANGE, order);
+    } else if (f.is("UP") && !FlagDebug) {
+        return SM.Mrun(mu, f.getMass_scale(), f.getMass(), QCD::UP, order);
+    } else if (f.is("DOWN") && !FlagDebug) {
+        return SM.Mrun(mu, f.getMass_scale(), f.getMass(), QCD::DOWN, order);    
     } else
         return f.getMass();
 }

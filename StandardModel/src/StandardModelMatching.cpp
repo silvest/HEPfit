@@ -112,9 +112,9 @@ void StandardModelMatching::updateSMParameters() {
     Muw = SM.getMuw();
     Ale = SM.getAle();
     Mt_muw = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
     Mt_mut = SM.Mrun(Mut, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
     alstilde = SM.Als(Muw, FULLNNNLO, true, true) / 4. / M_PI; //  SM.Alstilde5(Muw) WHICH ONE TO USE?
     aletilde = SM.Ale(Muw, FULLNLO) / 4. / M_PI; // Ale / 4. / M_PI; // WHERE IS ale(mu)?
     GF = SM.getGF();
@@ -140,7 +140,7 @@ void StandardModelMatching::updateSMParameters() {
 
 const double StandardModelMatching::x_c(const double mu, const orders order) const {
     double mc = SM.Mrun(mu, SM.getQuarks(QCD::CHARM).getMass_scale(),
-            SM.getQuarks(QCD::CHARM).getMass(), order);
+            SM.getQuarks(QCD::CHARM).getMass(), QCD::CHARM, order);
     return mc * mc / Mw / Mw;
 }
 
@@ -153,7 +153,7 @@ const double StandardModelMatching::x_t(const double mu, const orders order) con
         mt = Mt_muw;
     else
         mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), order);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, order);
 
     //msbar mass here?
     return mt * mt / Mw / Mw;
@@ -161,7 +161,7 @@ const double StandardModelMatching::x_t(const double mu, const orders order) con
 
 const double StandardModelMatching::mt2omh2(const double mu, const orders order) const {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), order);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, order);
     return (mt / SM.getMHl())*(mt / SM.getMHl());
 }
 
@@ -276,7 +276,7 @@ const double StandardModelMatching::A1t(double x, double mu) const {
     double xm4 = xm3 * (1. - x);
     double xm5 = xm4 * (1. - x);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     return ((32. * x4 + 244. * x3 - 160. * x2 + 16. * x) / 9. / xm4 * gslpp_special_functions::dilog(1. - 1. / x) +
             (-774. * x4 - 2826. * x3 + 1994. * x2 - 130. * x + 8.) / 81. / xm5 * log(x) +
@@ -290,7 +290,7 @@ const double StandardModelMatching::B1t(double x, double mu) const {
     double xm2 = pow(1. - x, 2);
     double xm3 = pow(1. - x, 3);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     return (-2. * x) / xm2 * gslpp_special_functions::dilog(1. - 1. / x) + (-x2 + 17. * x) / (3. * xm3) * log(x) + (13. * x + 3.) / (3. * xm2) +
             ((2. * x2 + 2. * x) / xm3 * log(x) + (4. * x) / xm2) * 2. * log(mu / mt);
@@ -304,7 +304,7 @@ const double StandardModelMatching::C1t(double x, double mu) const {
     double xm2 = pow(1. - x, 2);
     double xm3 = pow(1. - x, 3);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     return (-x3 - 4. * x) / xm2 * gslpp_special_functions::dilog(1. - 1. / x) + (3. * x3 + 14. * x2 + 23 * x) / (3. * xm3) * log(x) +
             (4. * x3 + 7. * x2 + 29. * x) / (3. * xm2) + ((8. * x2 + 2. * x) / xm3 * log(x) + (x3 + x2 + 8. * x) / xm2) * 2. * log(mu / mt);
@@ -320,7 +320,7 @@ const double StandardModelMatching::D1t(double x, double mu) const {
     double xm4 = pow(1. - x, 4);
     double xm5 = pow(1. - x, 5);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     return (380. * x4 - 1352. * x3 + 1656. * x2 - 784. * x + 256.) / (81. * xm4) * gslpp_special_functions::dilog(1. - 1. / x) +
             (304. * x4 + 1716. * x3 - 4644. * x2 + 2768. * x - 720.) / (81. * xm5) * log(x) +
@@ -336,7 +336,7 @@ const double StandardModelMatching::F1t(double x, double mu) const {
     double xm4 = pow(1. - x, 4);
     double xm5 = pow(1. - x, 5);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     return ((4. * x4 - 40. * x3 - 41. * x2 - x) / 3. / xm4 * gslpp_special_functions::dilog(1. - 1. / x) +
             (-144. * x4 + 3177. * x3 + 3661. * x2 + 250. * x - 32.) / 108. / xm5 * log(x)
@@ -353,7 +353,7 @@ const double StandardModelMatching::E1t(double x, double mu) const
     double xm4 = pow(1. - x, 4);
     double xm5 = pow(1. - x, 5);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
 
     return (515. * x4 - 614. * x3 - 81. * x2 - 190. * x + 40.) / (54. * xm4) * gslpp_special_functions::dilog(1. - 1. / x) +
@@ -372,7 +372,7 @@ const double StandardModelMatching::G1t(double x, double mu) const
     double xm4 = pow(1. - x, 4);
 
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     return (10. * x4 - 100. * x3 + 30. * x2 + 160. * x - 40.) / (27. * xm4) * gslpp_special_functions::dilog(1. - 1. / x) +
             (30. * x3 - 42. * x2 - 332. * x + 68.) / (81. * xm4) * log(x) +
@@ -405,7 +405,7 @@ const double StandardModelMatching::C7t_3L_func(double x, double mu) const
     double xm1to6 = xm1to5 * (x - 1.);
 
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     return ( 2. * log(mu / mt) * (gslpp_special_functions::dilog(1. - 1. / x) * (-592. * x5 - 22. * x4 + 12814. * x3 - 6376. * x2 + 512. * x) / 27. / xm1to5
             + log(x) * (-26838. * x5 + 25938. * x4 + 627367. * x3 - 331956. * x2 + 16989. * x - 460.) / 729. / xm1to6
@@ -440,7 +440,7 @@ const double StandardModelMatching::C8t_3L_func(double x, double mu) const
     double xm1to6 = xm1to5 * (x - 1.);
 
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     return ( 2. * log(mu / mt) * (gslpp_special_functions::dilog(1. - 1. / x) * (-148. * x5 + 1052. * x4 - 4811. * x3 - 3520. * x2 - 61. * x) / 18. / xm1to5
             + log(x) * (-15984. * x5 + 152379. * x4 - 1358060. * x3 - 1201653. * x2 - 74190. * x + 9188.) / 1944. / xm1to6
@@ -478,7 +478,7 @@ const double StandardModelMatching::Eet(double x) const {
 
 const double StandardModelMatching::Rest(double x, double mu) const
  {
-    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     return (-37.01364013973161 + 7.870950908767437 * mt -
             0.0015295355176062242 * mt * mt + 2.41071411865951 * Mw -
@@ -2174,7 +2174,7 @@ double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed)
     sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
 
     double mt = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     if (sw2e == sw2 && xcachee == x) {
         switch (order_qed) {
@@ -2328,7 +2328,7 @@ double StandardModelMatching::setWCBdmmEW(int i, double x, orders_qed order_qed)
     sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
 
     double mt = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(),
-            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+            SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
 
     if (sw2c == sw2 && xcachec == x) {
         switch (order_qed) {

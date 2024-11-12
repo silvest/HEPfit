@@ -3078,11 +3078,11 @@ protected:
             case QCD::DOWN:
             case QCD::STRANGE:
                 return Mrun(mu, getQuarks(q).getMass_scale(), 
-                                         getQuarks(q).getMass(), order);
+                                         getQuarks(q).getMass(), q, order);
             case QCD::CHARM:
             case QCD::BOTTOM:
             case QCD::TOP:
-                return Mrun(mu, getQuarks(q).getMass(), order);
+                return Mrun(mu, getQuarks(q).getMass(), q, order);
             default:
                 throw std::runtime_error("Error in StandardModel::m_q()"); 
         }

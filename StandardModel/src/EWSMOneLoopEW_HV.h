@@ -52,12 +52,15 @@ public:
     {
         switch (q) {
             case QCD::UP:
+                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), SM.getQuarks(q).getMass(), QCD::UP, order);
             case QCD::DOWN:
+                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), SM.getQuarks(q).getMass(), QCD::DOWN, order);
             case QCD::STRANGE:
-                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), SM.getQuarks(q).getMass(), order);
+                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), SM.getQuarks(q).getMass(), QCD::STRANGE, order);
             case QCD::CHARM:
+                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), SM.getQuarks(q).getMass(), QCD::CHARM, order);
             case QCD::BOTTOM:
-                return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
+                return SM.Mrun(mu, SM.getQuarks(q).getMass(), QCD::BOTTOM, order);
             case QCD::TOP:
                 return SM.getMtpole(); // the pole mass
             default:

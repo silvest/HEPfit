@@ -39,10 +39,10 @@ gslpp::complex AmpDK2::AmpDK(orders order)
     double MK = mySM.getMesons(QCD::K_0).getMass();
     double Ms = mySM.Mrun(mySM.getBK().getMu(),
                 mySM.getQuarks(QCD::STRANGE).getMass_scale(),
-                mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+                mySM.getQuarks(QCD::STRANGE).getMass(), QCD::STRANGE, FULLNNLO);
     double Md = mySM.Mrun(mySM.getBK().getMu(),
                 mySM.getQuarks(QCD::DOWN).getMass_scale(),
-                mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+                mySM.getQuarks(QCD::DOWN).getMass(), QCD::DOWN, FULLNNLO);
     double KK = MK/(Ms+Md)*MK/(Ms+Md);
     double FK = mySM.getMesons(QCD::K_0).getDecayconst();
     double mm = MK*FK*FK;
@@ -82,10 +82,10 @@ gslpp::complex AmpDK2::AmpDMKNP(orders order)
     double MK = mySM.getMesons(QCD::K_0).getMass();
     double Ms = mySM.Mrun(mySM.getBK().getMu(),
                 mySM.getQuarks(QCD::STRANGE).getMass_scale(),
-                mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+                mySM.getQuarks(QCD::STRANGE).getMass(), QCD::STRANGE, FULLNNLO);
     double Md = mySM.Mrun(mySM.getBK().getMu(),
                 mySM.getQuarks(QCD::DOWN).getMass_scale(),
-                mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+                mySM.getQuarks(QCD::DOWN).getMass(), QCD::DOWN, FULLNNLO);
     double KK = MK/(Ms+Md)*MK/(Ms+Md);
     double FK = mySM.getMesons(QCD::K_0).getDecayconst();
     double mm = MK*FK*FK;
