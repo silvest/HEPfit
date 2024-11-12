@@ -17,7 +17,7 @@
 #   -DLOOPTOOLS_DIR:PATH=<LoopTools directory>
 #   -DINTEL_FORTRAN:BOOL=<ON or OFF>
 #--------------------------------------------------------------------
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
   cmake_policy(SET CMP0135 NEW)
 endif()
