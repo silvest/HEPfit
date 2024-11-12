@@ -3070,13 +3070,6 @@ void NPSMEFTd6General::ChangeToEvolutorsBasisSMEFTtoSM() {
     mmu_LEW = leptons[MU].getMass();
     mtau_LEW = leptons[TAU].getMass();
 
-    std::cout << "mu = " << quarks[UP].getMass() << std::endl;
-    std::cout << "mc = " << quarks[CHARM].getMass() << std::endl;
-    std::cout << "mt = " << quarks[TOP].getMass() << std::endl;
-    std::cout << "md = " << quarks[DOWN].getMass() << std::endl;
-    std::cout << "ms = " << quarks[STRANGE].getMass() << std::endl;
-    std::cout << "mb = " << quarks[BOTTOM].getMass() << std::endl;
-
     mu_LEW = Mrun(muw, quarks[UP].getMass_scale(), quarks[UP].getMass(), QCD::UP);
     mc_LEW = Mrun(muw, quarks[CHARM].getMass(), QCD::CHARM);
     mt_LEW = Mrun(muw, quarks[TOP].getMass(), QCD::TOP);
@@ -3085,13 +3078,6 @@ void NPSMEFTd6General::ChangeToEvolutorsBasisSMEFTtoSM() {
     ms_LEW = Mrun(muw, quarks[STRANGE].getMass_scale(), quarks[STRANGE].getMass(), QCD::STRANGE);
     mb_LEW = Mrun(muw, quarks[BOTTOM].getMass(), QCD::BOTTOM);
     
-    std::cout << "mu_LEW = " << mu_LEW << std::endl;
-    std::cout << "mc_LEW = " << mc_LEW << std::endl;
-    std::cout << "mt_LEW = " << mt_LEW << std::endl;
-    std::cout << "md_LEW = " << md_LEW << std::endl;
-    std::cout << "ms_LEW = " << ms_LEW << std::endl;
-    std::cout << "mb_LEW = " << mb_LEW << std::endl;
-
     //std::cout<<"mt="<<mtpole<<", mb="<<quarks[BOTTOM].getMass()<<""<<std::endl;
     //std::cout<<"vevSM="<<sqrt(mH2_LEW/lambdaH_LEW/2.0)<<std::endl;
     //std::cout<<"me=("<<me_LEW<<","<<mmu_LEW<<","<<mtau_LEW<<")"<<std::endl;
