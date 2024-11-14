@@ -7,6 +7,7 @@
 
 #include "THDM.h"
 #include "THDMcache.h"
+#include <algorithm>
 
 std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma",/*"mHh1","mA1","mHp1",*/"mHh2","mA2","mHp2","m12_2",
                                                "BDtaunu_SM","BDtaunu_A","BDtaunu_B","BDstartaunu_SM","BDstartaunu_A","BDstartaunu_B",

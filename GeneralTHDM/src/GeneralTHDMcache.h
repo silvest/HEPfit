@@ -3780,7 +3780,6 @@ private:
     mutable double ip_susy_pp_HpHm_taunutaunu_CMS13_cache[2][CacheSize];
     mutable double ip_susy_pp_HpHm_munumunu_ATLAS13_cache[2][CacheSize];
     mutable double ip_susy_pp_HpHm_munumunu_CMS13_cache[2][CacheSize];
-    mutable double ip_susy_HpHm_munumunu_LEP208_cache[2][CacheSize];
 
     mutable double ip_integral_x2_1mx_G_cache[3][CacheSize];
     mutable double ip_integral_x2_1px_G_cache[3][CacheSize];

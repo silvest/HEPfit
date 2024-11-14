@@ -50,7 +50,6 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         double vT = v;
         double delta_vT = mySMEFT.getDelta_v();
         double vTosq2 = vT / sqrt(2.);
-        double v2oLam2 = v2 / LambdaNP2;
 
         //    CG = mySMEFT.getSMEFTCoeffEW("CG")*LambdaNP2;
         //    CW = mySMEFT.getSMEFTCoeffEW("CW")*LambdaNP2;

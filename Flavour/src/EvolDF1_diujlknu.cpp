@@ -69,7 +69,6 @@ EvolDF1_diujlknu::~EvolDF1_diujlknu() {
 gslpp::matrix<double> EvolDF1_diujlknu::AnomalousDimension(orders order, unsigned int nf) const
 {
     gslpp::matrix<double> ad(dim, dim, 0.);
-    double Nc = model.getNc();
             switch (order) {
                 case LO:
                     ad(2, 2) = -4.;
@@ -90,7 +89,6 @@ gslpp::matrix<double> EvolDF1_diujlknu::AnomalousDimension(orders order, unsigne
 gslpp::matrix<double> EvolDF1_diujlknu::AnomalousDimension(orders_qed order_qed, unsigned int nf) const
 {
     gslpp::matrix<double> ad(dim, dim, 0.);
-    double Nc = model.getNc();
             switch (order_qed) {
                 case LO_QED:
                     ad(0, 0) = -2.;

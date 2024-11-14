@@ -330,13 +330,12 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
 NPSMEFTd6General::NPSMEFTd6General()
 :
 NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW(), 
-        VuL(gslpp::matrix<complex>::Id(3)), VuR(gslpp::matrix<complex>::Id(3)), 
-        VdL(gslpp::matrix<complex>::Id(3)), VdR(gslpp::matrix<complex>::Id(3)), 
-        VeL(gslpp::matrix<complex>::Id(3)), 
-        VuLd(gslpp::matrix<complex>::Id(3)), VuRd(gslpp::matrix<complex>::Id(3)), 
-        VeR(gslpp::matrix<complex>::Id(3)), 
-        VdLd(gslpp::matrix<complex>::Id(3)), VdRd(gslpp::matrix<complex>::Id(3)), 
-        VeLd(gslpp::matrix<complex>::Id(3)), VeRd(gslpp::matrix<complex>::Id(3)), 
+        VuL(gslpp::matrix<complex>::Id(3)), VuLd(gslpp::matrix<complex>::Id(3)), 
+        VuR(gslpp::matrix<complex>::Id(3)), VuRd(gslpp::matrix<complex>::Id(3)), 
+        VdL(gslpp::matrix<complex>::Id(3)), VdLd(gslpp::matrix<complex>::Id(3)), 
+        VdR(gslpp::matrix<complex>::Id(3)), VdRd(gslpp::matrix<complex>::Id(3)), 
+        VeL(gslpp::matrix<complex>::Id(3)), VeLd(gslpp::matrix<complex>::Id(3)), 
+        VeR(gslpp::matrix<complex>::Id(3)), VeRd(gslpp::matrix<complex>::Id(3)), 
         MUQ(3, 0.), MDQ(3, 0.) {
 
     FlagQuadraticTerms = false;

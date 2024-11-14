@@ -8,6 +8,7 @@
 #include "GeneralTHDM.h"
 #include "GeneralTHDMcache.h"
 #include "GeneralTHDMSTU.h"
+#include <algorithm>
 
 
 std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", 

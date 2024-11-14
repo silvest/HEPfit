@@ -65,7 +65,7 @@ private:
     double Smumu;
     double phiNP;
     double timeInt;
-    double convertFromSingletoDoubleGF;
+//    double convertFromSingletoDoubleGF;
     double coupling;
     int obs;
     int leptonindex;

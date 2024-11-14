@@ -40,7 +40,7 @@ const double StandardModel::Mw_error = 0.00001; /* 0.01 MeV */
 
 StandardModel::StandardModel()
 : QCD(), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.),
-Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
+SMM(*this), SMFlavour(*this), Ye(3, 3, 0.)
 {
     setModelName("StandardModel");
     requireCKM = false;
@@ -2781,7 +2781,7 @@ const double StandardModel::Qwp() const
       //      Definitions
       double qwproton;
 
-      double MwSM,alfapi,asMw,dkappa5h,s2MSbar0,deltae,deltaep,boxpww,boxpzz,boxpaz,boxnww,boxnzz,boxnaz;
+      double MwSM,alfapi,asMw,dkappa5h,s2MSbar0,deltae,deltaep,boxpww,boxpzz,boxpaz;
       //      I choose as lambda m_rho (pdg rho(770)) --> caz=3/2
       const double lambda=775.49e-3;
       const double caz=1.5;
@@ -2864,20 +2864,14 @@ const double StandardModel::Qwp() const
       //      -----
       
       boxpww=alfams*(2.0+5.0*(1.0-asMw/M_PI))/(4.0*M_PI*s2MSbar);
-      
-      boxnww=alfams*(-2.0+4.0*(1.0-asMw/M_PI))/(4.0*M_PI*s2MSbar);
-      
+       
       //      pure zz and az boxes from prd 17 3055 app.a
       
       boxpzz=alfams*(9.0/4.0-14.0*s2MSbar+38.0*s2MSbar*s2MSbar-40.0*s2MSbar*s2MSbar*s2MSbar)*(1.0-AlsMz/M_PI)/(4.0*M_PI*s2MSbar*c2MSbar);
       
-      boxnzz=alfams*(9.0/4.0-13.0*s2MSbar+34.0*s2MSbar*s2MSbar-32.0*s2MSbar*s2MSbar*s2MSbar)*(1.0-AlsMz/M_PI)/(4.0*M_PI*s2MSbar*c2MSbar);
-      
       boxpaz=5.0*alfams*(1.0-4.0*s2MSbar)*(2.0*log(Mz/lambda)+caz)/(2.0*M_PI);
       
       //      i assumme the same caz as in the proton enters for the neutron
-      boxnaz=alfams*(4.0-16.0*s2MSbar)*(2.0*log(Mz/lambda)+caz)/(2.0*M_PI);
-      
       //      -----------------------------------------------------------------
       
       //      weak charges
@@ -2895,7 +2889,7 @@ const double StandardModel::Qwn() const
       //      Definitions
       double qwneutron;
 
-      double MwSM,alfapi,asMw,dkappa5h,s2MSbar0,deltae,deltaep,boxpww,boxpzz,boxpaz,boxnww,boxnzz,boxnaz;
+      double MwSM,alfapi,asMw,dkappa5h,s2MSbar0,deltae,deltaep,boxnww,boxnzz,boxnaz;
       //      I choose as lambda m_rho (pdg rho(770)) --> caz=3/2
       const double lambda=775.49e-3;
       const double caz=1.5;
@@ -2977,17 +2971,11 @@ const double StandardModel::Qwn() const
       //      boxes
       //      -----
       
-      boxpww=alfams*(2.0+5.0*(1.0-asMw/M_PI))/(4.0*M_PI*s2MSbar);
-      
       boxnww=alfams*(-2.0+4.0*(1.0-asMw/M_PI))/(4.0*M_PI*s2MSbar);
       
       //      pure zz and az boxes from prd 17 3055 app.a
       
-      boxpzz=alfams*(9.0/4.0-14.0*s2MSbar+38.0*s2MSbar*s2MSbar-40.0*s2MSbar*s2MSbar*s2MSbar)*(1.0-AlsMz/M_PI)/(4.0*M_PI*s2MSbar*c2MSbar);
-      
       boxnzz=alfams*(9.0/4.0-13.0*s2MSbar+34.0*s2MSbar*s2MSbar-32.0*s2MSbar*s2MSbar*s2MSbar)*(1.0-AlsMz/M_PI)/(4.0*M_PI*s2MSbar*c2MSbar);
-      
-      boxpaz=5.0*alfams*(1.0-4.0*s2MSbar)*(2.0*log(Mz/lambda)+caz)/(2.0*M_PI);
       
       //      i assumme the same caz as in the proton enters for the neutron
       boxnaz=alfams*(4.0-16.0*s2MSbar)*(2.0*log(Mz/lambda)+caz)/(2.0*M_PI);

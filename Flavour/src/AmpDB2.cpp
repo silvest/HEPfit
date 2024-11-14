@@ -1457,7 +1457,7 @@ int AmpDB2::index_p(quarks qq, int i, int j, int n)
 void AmpDB2::compute_pp_s()
 {
     // input didn't change nothing to compute
-    double currentInput_compute_pp_s[4] = {z, mu_1, mu_2, mu_b};
+    // double currentInput_compute_pp_s[4] = {z, mu_1, mu_2, mu_b}; // Removed unused variable
     // if (lastInput_compute_pp_s == currentInput_compute_pp_s) return;
 
     double cache_logz = logz;
