@@ -2314,10 +2314,10 @@ void AmpDB2::compute_pp_s()
     }
 
     logz = cache_logz;
-    lastInput_compute_pp_s[0] = z;
-    lastInput_compute_pp_s[1] = mu_1;
-    lastInput_compute_pp_s[2] = mu_2;
-    lastInput_compute_pp_s[3] = mu_b;
+    //lastInput_compute_pp_s[0] = z;
+    //lastInput_compute_pp_s[1] = mu_1;
+    //lastInput_compute_pp_s[2] = mu_2;
+    //lastInput_compute_pp_s[3] = mu_b;
     return;
 }
 

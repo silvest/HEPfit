@@ -22,3 +22,21 @@ double  RmBs::computeThValue()
 {
     return SM.getFlavour().getDB2(1).getRB(FULLNLO).abs()-1.;
 }
+
+CBs::CBs(const StandardModel& SM_i) : ThObservable(SM_i){
+        SM.getFlavour().getDB2(1);
+    };
+
+double  CBs::computeThValue()
+{
+    return SM.getCBs();
+}
+
+PhiBs::PhiBs(const StandardModel& SM_i) : ThObservable(SM_i){
+        SM.getFlavour().getDB2(1);
+    };
+
+double  PhiBs::computeThValue()
+{
+    return SM.getPhiBs();
+}

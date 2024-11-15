@@ -394,7 +394,7 @@ private:
     // Values of the coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
     double p(quarks qq, int i, int j, int n, bool flag_LOz = false);
     double p_s(quarks qq, int i, int j, int n, bool flag_LOz = false);
-    double lastInput_compute_pp_s[4] = {NAN, NAN, NAN, NAN};
+    //double lastInput_compute_pp_s[4] = {NAN, NAN, NAN, NAN};
     
     //Values of the coefficient functions needed for DB=2 Wilson coefficients (Gerlach thesis)
     double cache_p[768] = { 0. };

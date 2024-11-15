@@ -15,7 +15,7 @@
  * @ingroup Flavour
  * @brief A class for @f$\Delta M_{B_s}@f$, the difference in mass
  * of between the heavy and light mass eigenstates of the neutral
- * @f$B_d@f$ system.
+ * @f$B_s@f$ system.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
@@ -47,7 +47,7 @@ public:
  * @ingroup Flavour
  * @brief A class for @f$R(\Delta M_{B_s})@f$, the ratio of the total difference in mass
  * of between the heavy and light mass eigenstates of the neutral
- * @f$B_d@f$ system, over the SM difference.
+ * @f$B_s@f$ system, over the SM difference.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
@@ -69,6 +69,34 @@ public:
      *
      * @return theoretical value of @f$R (\Delta M_{B_s})@f$
      */
+
+    double computeThValue();
+};
+
+/**
+ * @class CBs
+ * @ingroup Flavour
+ * @brief Model parameter CBs from the NP model NPDF2
+ * @detail The ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value
+ */
+class CBs : public ThObservable {
+public:
+
+    CBs(const StandardModel& SM_i);
+
+    double computeThValue();
+};
+
+/**
+ * @class PhiBs
+ * @ingroup Flavour
+ * @brief Model parameter PhiBs from the NP model NPDF2
+ * @detail Half the relative phase of the $B_s$ mixing amplitude w.r.t. the Standard Model one
+ */
+class PhiBs : public ThObservable {
+public:
+
+    PhiBs(const StandardModel& SM_i);
 
     double computeThValue();
 };

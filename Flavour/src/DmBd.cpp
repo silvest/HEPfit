@@ -17,3 +17,26 @@ double  DmBd::computeThValue()
 {
     return(2. * SM.getCBd() * SM.getFlavour().getDB2(0).getM21(FULLNLO).abs());
 }
+
+double  RmBd::computeThValue()
+{
+    return SM.getFlavour().getDB2(0).getRB(FULLNLO).abs()-1.;
+}
+
+CBd::CBd(const StandardModel& SM_i) : ThObservable(SM_i){
+        SM.getFlavour().getDB2(0);
+    };
+
+double  CBd::computeThValue() 
+{
+    return SM.getCBd();
+}
+
+PhiBd::PhiBd(const StandardModel& SM_i) : ThObservable(SM_i){
+        SM.getFlavour().getDB2(0);
+    };
+
+double  PhiBd::computeThValue() 
+{
+    return SM.getPhiBd();
+}
