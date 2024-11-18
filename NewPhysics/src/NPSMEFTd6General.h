@@ -1138,6 +1138,14 @@ public:
     virtual bool setFlag(const std::string name, const bool value);
 
     /**
+     * @brief A method to set a flag of %NPSMEFTd6General.
+     * @param[in] name name of a model flag
+     * @param[in] value the value to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool setFlagStr(const std::string name, const std::string value);
+
+    /**
      * @brief A method to get the Matching object for this model.
      * @return The matching object for this model
      */
@@ -6657,14 +6665,6 @@ public:
 
     const RGESolver& getSMEFTEvol() const {
         return SMEFTEvolEW;
-    }
-
-    std::string getSMEFTBasisFlag() const {
-        return SMEFTBasisFlag;
-    }
-
-    void setSMEFTBasisFlag(std::string SMEFTBasisFlag) {
-        this->SMEFTBasisFlag = SMEFTBasisFlag;
     }
 
     gslpp::matrix<gslpp::complex> getYd() const {

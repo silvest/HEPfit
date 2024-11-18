@@ -13868,6 +13868,16 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
     return (res);
 }
 
+bool NPSMEFTd6General::setFlagStr(const std::string name, const std::string value)
+{
+    if (name.compare("SMEFTBasisFlag") == 0) {
+        SMEFTBasisFlag = value;
+        return true;
+    } else
+        return NPbase::setFlagStr(name, value);
+    return false;
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 
