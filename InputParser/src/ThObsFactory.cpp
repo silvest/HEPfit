@@ -6168,6 +6168,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_HpHm_qqqq_LEP209"] = boost::factory<Hobs_HpHm_qqqq_LEP209*>();
     obsThFactory["Hobs_HpHm_qqtaunu_OPAL209"] = boost::factory<Hobs_HpHm_qqtaunu_OPAL209*>();
     obsThFactory["Hobs_HpHm_qqtaunu_OPAL172"] = boost::factory<Hobs_HpHm_qqtaunu_OPAL172*>();
+    obsThFactory["Hobs_HpHm_AWstAWst_bbbb_OPAL209"] = boost::factory<Hobs_HpHm_AWstAWst_bbbb_OPAL209*>();
+    obsThFactory["Hobs_HpHm_taunuAWst_taunubb_OPAL209"] = boost::factory<Hobs_HpHm_taunuAWst_taunubb_OPAL209*>();
 
     obsThFactory["Hobs_pp_HpHm_taunutaunu_ATLAS13"] = boost::factory<Hobs_pp_HpHm_taunutaunu_ATLAS13*>();
     obsThFactory["Hobs_pp_HpHm_taunutaunu_CMS13"] = boost::factory<Hobs_pp_HpHm_taunutaunu_CMS13*>();

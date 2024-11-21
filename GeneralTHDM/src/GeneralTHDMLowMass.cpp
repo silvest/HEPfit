@@ -587,6 +587,24 @@ double Hobs_HpHm_qqtaunu_OPAL172::computeThValue()
     return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_qqtaunu_OPAL172;
 }
 
+Hobs_HpHm_AWstAWst_bbbb_OPAL209::Hobs_HpHm_AWstAWst_bbbb_OPAL209(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_HpHm_AWstAWst_bbbb_OPAL209::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_AWstAWst_bbbb_OPAL209;
+}
+
+Hobs_HpHm_taunuAWst_taunubb_OPAL209::Hobs_HpHm_taunuAWst_taunubb_OPAL209(const StandardModel& SM_i)
+: ThObservable(SM_i),myGTHDM(static_cast<const GeneralTHDM&> (SM_i))
+{}
+
+double Hobs_HpHm_taunuAWst_taunubb_OPAL209::computeThValue()
+{
+    return myGTHDM.getMyGTHDMCache()->THoEX_HpHm_taunuAWst_taunubb_OPAL209;
+}
+
 
 /*************************/
 /* Invisible decay rates */

@@ -303,7 +303,7 @@ public:
      */
     gslpp::matrix<double> ATLAS13_pp_h_phi3phi3_bbmumu, ATLAS13_gg_h_phi23phi23_mumumumu, ATLAS13_gg_h_phi23Z_mumull, ATLAS13_Vh_h_phi23phi23_bbbb,\
                           ATLAS13_Zh_h_phi23phi23_bbbb, ATLAS13_pp_h_phi23phi23_bbmumu_old, ATLAS13_pp_h_phi23phi23_gagagg, ATLAS13_pp_phi2_gaga_low,\
-                          ATLAS13_pp_ttphi3_ttmumu, ATLAS13_gg_phi3_tautau_low, ATLAS13_pp_h_phi3phi3_gagagaga, ATLAS13_pp_h_phi3phi3_bbtautau;
+                          ATLAS13_pp_ttphi3_ttmumu, ATLAS13_pp_h_phi3phi3_gagagaga, ATLAS13_pp_h_phi3phi3_bbtautau, ATLAS13_gg_phi3_tautau_low;
 
     //Added in the beginning of 2024 for low mass scenario
     /**
@@ -366,6 +366,10 @@ public:
      * @brief OPAL observed @f$95\%@f$ upper branching fraction limits for @f$\sqrt{s} = 130 - 172@f$ GeV, depending on the charged masses.
      */
     gslpp::matrix<double> OPAL172_HpHm_qqtaunu;
+    /**
+     * @brief OPAL observed @f$95\%@f$ upper branching fraction limits for @f$\sqrt{s} = 189 - 209@f$ GeV, depending on the charged and pseudoscalar masses.
+     */
+    gslpp::matrix<double> OPAL209_HpHm_AWstAWst_bbbb, OPAL209_HpHm_taunuAWst_taunubb;
 
     /**
      * @brief SUSY observed @f$95\%@f$ upper branching fraction limits at 13 TeV, depending on charged scalar mass.
@@ -382,6 +386,9 @@ public:
                           integral_x_1mx_1px_G_log, integral_x2_1mx_G_variable_set_1_log,\
                           integral_x2_G_variable_set_1_log, integral_x_1mx2_G_variable_set_0_log,\
                           integral_perturb_ATHDM_values_log;
+
+    //Added in 2024 for Gamma(H+ -> A W*) computation
+    gslpp::matrix<double> integral_Hp_A_Wstar;
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -776,6 +783,8 @@ public:
     double ip_low_HpHm_qqqq_LEP209(double mass);
     double ip_low_HpHm_qqtaunu_OPAL209(double mass);
     double ip_low_HpHm_qqtaunu_OPAL172(double mass);
+    double ip_low_HpHm_AWstAWst_bbbb_OPAL209(double mi, double mj, double di, double dj);
+    double ip_low_HpHm_taunuAWst_taunubb_OPAL209(double mi, double mj, double di, double dj);
 
     double ip_csr_HpHm_pp_13_LO(double mass);
     double ip_csr_HpHm_pp_13_NLO(double mass);
@@ -793,10 +802,11 @@ public:
     double ip_integral_x2_1mx_G_variable_set_1(double wb);
     double ip_integral_x2_G_variable_set_1(double wb);
     double ip_integral_x_1mx2_G_variable_set_0(double wb);
-    
+
     double ip_integral_perturb_ATHDM(double ratio);
-    
-    
+
+    double ip_integral_Hp_A_Wstar(double mi, double mj, double di, double dj);
+
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
      * @return @f$[\sigma_{pp\to phi3^\pm}\cdot BR(H^\pm\to \tau \nu)]_{\text{ATLAS,95\%}}@f$
@@ -1524,6 +1534,7 @@ public:
     double Br_Hptocb;
     double Br_Hptotb;
     double Br_Hptophi3W;
+    double Br_Hptophi3Wst;
     double GammaHptot;
     double Gammatoptot;
     double Br_ttoHpb;
@@ -3050,6 +3061,8 @@ public:
     double THoEX_HpHm_qqqq_LEP209;
     double THoEX_HpHm_qqtaunu_OPAL209;
     double THoEX_HpHm_qqtaunu_OPAL172;
+    double THoEX_HpHm_AWstAWst_bbbb_OPAL209;
+    double THoEX_HpHm_taunuAWst_taunubb_OPAL209;
 
     double THoEX_pp_HpHm_taunutaunu_ATLAS13;
     double THoEX_pp_HpHm_taunutaunu_CMS13;
@@ -3773,6 +3786,8 @@ private:
     mutable double ip_low_HpHm_qqqq_LEP209_cache[2][CacheSize];
     mutable double ip_low_HpHm_qqtaunu_OPAL209_cache[2][CacheSize];
     mutable double ip_low_HpHm_qqtaunu_OPAL172_cache[2][CacheSize];
+    mutable double ip_low_HpHm_AWstAWst_bbbb_OPAL209_cache[3][CacheSize];
+    mutable double ip_low_HpHm_taunuAWst_taunubb_OPAL209_cache[3][CacheSize];
 
     mutable double ip_csr_HpHm_pp_13_LO_cache[2][CacheSize];
     mutable double ip_csr_HpHm_pp_13_NLO_cache[2][CacheSize];
@@ -3793,7 +3808,7 @@ private:
     
     mutable double ip_integral_perturb_ATHDM_cache[2][CacheSize];
     
-    
+    mutable double ip_integral_Hp_A_Wstar_cache[3][CacheSize];
     
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 

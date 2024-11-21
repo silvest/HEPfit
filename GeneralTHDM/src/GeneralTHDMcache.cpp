@@ -210,7 +210,6 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         CMS13_Vh_h_phi3phi3_bbbb(10, 2, 0.), //Added in 2024
         //
-
         ATLAS13_pp_h_phi3phi3_bbmumu(47, 2, 0.), //Added in 2024
         //
         ATLAS13_gg_h_phi23phi23_mumumumu(110, 2, 0.), //Added in 2024
@@ -225,7 +224,6 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //
         ATLAS13_pp_h_phi23phi23_gagagg(13, 2, 0.), //Added in 2024
         //
-
         ATLAS13_pp_phi2_gaga_low(89, 2, 0.), //Added in 2024
         //
         ATLAS13_pp_ttphi3_ttmumu(37, 2, 0.), //Added in 2024
@@ -233,8 +231,9 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         ATLAS13_pp_h_phi3phi3_gagagaga(53, 2, 0.), //Added in 2024
         // 
         ATLAS13_pp_h_phi3phi3_bbtautau(8, 2, 0.), //Added in 2024
-
-        
+        //
+        ATLAS13_gg_phi3_tautau_low(12, 2, 0.),     //Added in 2024
+        //
         ATLAS8_pp_h_phi3phi3_gagagaga(105, 2, 0.), //Added in 2024
         //
         ATLAS8_gg_h_phi3phi3_tautautautau(101, 2, 0.), //Added in 2024
@@ -267,21 +266,21 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         ATLAS13_t_Hpb_WAb_Wmumub(31, 2, 0.),      //Added in 2024
         ATLAS13_t_Hpb_csb(12, 2, 0.),             //Added in 2024
         //
-
-        LEP209_HpHm_taunutaunu(105, 2, 0.),       //Added in 2024
-        LEP209_HpHm_qqqq(105, 2, 0.),             //Added in 2024
-        OPAL209_HpHm_qqtaunu(87, 2, 0.),          //Added in 2024
-        OPAL172_HpHm_qqtaunu(41, 2, 0.),          //Added in 2024
         //
-        csrHpHm_pp_13_LO(12, 2, 0.),
-        csrHpHm_pp_13_NLO(31, 2, 0.),
+        LEP209_HpHm_taunutaunu(105, 2, 0.),          //Added in 2024
+        LEP209_HpHm_qqqq(105, 2, 0.),                //Added in 2024
+        OPAL209_HpHm_qqtaunu(87, 2, 0.),             //Added in 2024
+        OPAL172_HpHm_qqtaunu(41, 2, 0.),             //Added in 2024
+        OPAL209_HpHm_AWstAWst_bbbb(2835, 3, 0.),     //Added in 2024
+        OPAL209_HpHm_taunuAWst_taunubb(2835, 3, 0.), //Added in 2024
+        //
         ATLAS13_pp_HpHm_taunutaunu(19, 2, 0.),    //Added in 2024
         ATLAS13_pp_HpHm_munumunu(11, 2, 0.),      //Added in 2024
         CMS13_pp_HpHm_taunutaunu(16, 2, 0.),      //Added in 2024
         CMS13_pp_HpHm_munumunu(22, 2, 0.),        //Added in 2024
         //
-        ATLAS13_gg_phi3_tautau_low(12, 2, 0.),           //Added in 2024
-        //
+        csrHpHm_pp_13_LO(12, 2, 0.),
+        csrHpHm_pp_13_NLO(31, 2, 0.),
         //Tables of integrals for g-2
         integral_x2_1mx_G_log(62500, 3, 0.),
         integral_x2_1px_G_log(62500, 3, 0.),
@@ -294,6 +293,7 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         integral_x_1mx2_G_variable_set_0_log(2000, 2, 0.),
         integral_perturb_ATHDM_values_log(2000, 2, 0.),
         //
+        integral_Hp_A_Wstar(2835, 3, 0.),
         //
         //
         arraybsgamma(1111, 3, 0.),
@@ -2010,8 +2010,8 @@ void GeneralTHDMcache::read(){
     std::stringstream low209a, low209b, low209c, low209d, low209e;
     std::stringstream lowHpC801, lowHpC802, lowHpC803, lowHpC1301, lowHpC1302;
     std::stringstream lowHpA801, lowHpA1301, lowHpA1302, lowHpA1303;
-    std::stringstream lowHp209a, lowHp209b, lowHp209c, lowHp172a;
-    std::stringstream thint01, thint02, thint03, thint04, thint05, thint06, thint07, thint08, thint09;
+    std::stringstream lowHp209a, lowHp209b, lowHp209c, lowHp172a, lowHp209d, lowHp209e;
+    std::stringstream thint01, thint02, thint03, thint04, thint05, thint06, thint07, thint08, thint09, thint10;
     std::stringstream csrslepLO, csrslepNLO, susyHpA01, susyHpA02, susyHpC01, susyHpC02;
     std::stringstream bsg1;
 
@@ -2612,6 +2612,12 @@ void GeneralTHDMcache::read(){
     lowHp172a << tablepath << "LEP_CERN-PPE-97-168_3b_tnqq.dat";   //Added in 2024
     OPAL172_HpHm_qqtaunu = readTable(lowHp172a.str(),41,2);
 
+    lowHp209d << tablepath << "LEP_CERN-PH-EP-2008-016_10a.dat";   //Added in 2024
+    OPAL209_HpHm_AWstAWst_bbbb = readTable(lowHp209d.str(),2835,3);
+
+    lowHp209e << tablepath << "LEP_CERN-PH-EP-2008-016_10b.dat";   //Added in 2024
+    OPAL209_HpHm_taunuAWst_taunubb = readTable(lowHp209e.str(),2835,3);
+
     susyHpA01 << tablepath << "ATLAS_CERN-EP-2019-191_7b.dat";     //Added in 2024
     ATLAS13_pp_HpHm_taunutaunu = readTable(susyHpA01.str(),19,2);
 
@@ -2626,32 +2632,34 @@ void GeneralTHDMcache::read(){
 
     thint01 << tablepath << "integral_x2_1mx_G_values_log.dat";
     integral_x2_1mx_G_log = readTable(thint01.str(),62500,3);
-    
+
     thint02 << tablepath << "integral_x2_1px_G_values_log.dat";
     integral_x2_1px_G_log = readTable(thint02.str(),62500,3);
-    
+
     thint03 << tablepath << "integral_x2_G_values_log.dat";
     integral_x2_G_log = readTable(thint03.str(),62500,3);
-    
+
     thint04 << tablepath << "integral_x_1mx2_G_values_log.dat";
     integral_x_1mx2_G_log = readTable(thint04.str(),62500,3);
-    
+
     thint05 << tablepath << "integral_x_1mx_1px_G_values_log.dat";
     integral_x_1mx_1px_G_log = readTable(thint05.str(),62500,3);
-    
+
     thint06 << tablepath << "integral_x2_1mx_G_variable_set_1_values_log.dat";
     integral_x2_1mx_G_variable_set_1_log = readTable(thint06.str(),2000,2);
-    
+
     thint07 << tablepath << "integral_x2_G_variable_set_1_values_log.dat";
     integral_x2_G_variable_set_1_log = readTable(thint07.str(),2000,2);
-    
+
     thint08 << tablepath << "integral_x_1mx2_G_variable_set_0_values_log.dat";
     integral_x_1mx2_G_variable_set_0_log = readTable(thint08.str(),2000,2);
-    
-    
+
     thint09 << tablepath << "integral_perturb_ATHDM_values_log.dat";
     integral_perturb_ATHDM_values_log = readTable(thint09.str(),2000,2);
-    
+
+    thint10 << tablepath << "integral_Hp_A_Wstar.dat";
+    integral_Hp_A_Wstar = readTable(thint10.str(),2835,3);
+
     //std::cout<< CMS13_pp_Hpm_taunu<<std::endl;
 
     bsg1 << tablepath << "bsgammatable.dat";
@@ -5498,9 +5506,6 @@ double GeneralTHDMcache::ip_low_phiEphi3_bbbb_LEP209(double mi, double mj, doubl
         return ( ip_low_phiEphi3_bbbb_LEP209_cache[NumPar][i] );
     } else {
         double newResult = interpolate2Dsteps(LEP209_phiEphi3_bbbb, mi, mj, di, dj);
-        //std::cout<<"\033[1;36m   interpolate2Dsteps("<<mi<<", "<< mj<<")= \033[0m "<<  interpolate2Dsteps(LEP209_phiEphi3_bbbb, mi, mj, di, dj)  <<std::endl;
-        
-        
         CacheShiftReal(ip_low_phiEphi3_bbbb_LEP209_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -5684,6 +5689,32 @@ double GeneralTHDMcache::ip_low_HpHm_qqtaunu_OPAL172(double mass){
     } else {
         double newResult = interpolate (OPAL172_HpHm_qqtaunu,mass);
         CacheShiftReal(ip_low_HpHm_qqtaunu_OPAL172_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_HpHm_AWstAWst_bbbb_OPAL209(double mi, double mj, double di, double dj){
+    int NumPar = 2;
+    double params[] = {mi, mj};
+    int i = CacheCheckReal(ip_low_HpHm_AWstAWst_bbbb_OPAL209_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_low_HpHm_AWstAWst_bbbb_OPAL209_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate2Dsteps (OPAL209_HpHm_AWstAWst_bbbb, mi, mj, di, dj);
+        CacheShiftReal(ip_low_HpHm_AWstAWst_bbbb_OPAL209_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GeneralTHDMcache::ip_low_HpHm_taunuAWst_taunubb_OPAL209(double mi, double mj, double di, double dj){
+    int NumPar = 2;
+    double params[] = {mi, mj};
+    int i = CacheCheckReal(ip_low_HpHm_taunuAWst_taunubb_OPAL209_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_low_HpHm_taunuAWst_taunubb_OPAL209_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate2Dsteps (OPAL209_HpHm_taunuAWst_taunubb, mi, mj, di, dj);
+        CacheShiftReal(ip_low_HpHm_taunuAWst_taunubb_OPAL209_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -5900,7 +5931,6 @@ double GeneralTHDMcache::ip_integral_x_1mx2_G_variable_set_0(double wb){
 }
 
 
-
 double GeneralTHDMcache::ip_integral_perturb_ATHDM(double ratio){
     int NumPar = 1;
     double params[] = {ratio};
@@ -5916,6 +5946,18 @@ double GeneralTHDMcache::ip_integral_perturb_ATHDM(double ratio){
 }
 
 
+double GeneralTHDMcache::ip_integral_Hp_A_Wstar(double mi, double mj, double di, double dj){
+    int NumPar = 2;
+    double params[] = {mi, mj};
+    int i = CacheCheckReal(ip_integral_Hp_A_Wstar_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_integral_Hp_A_Wstar_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate2Dsteps (integral_Hp_A_Wstar, mi, mj, di, dj);
+        CacheShiftReal(ip_integral_Hp_A_Wstar_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 
 //This seems not to be used by the code. Check if this was only something included of the THDM
@@ -7411,6 +7453,7 @@ void GeneralTHDMcache::computeHpquantities()
     double GammaHpHlW = 0.;
     double GammaHpphi2W = 0.;
     double GammaHpphi3W = 0.;
+    double GammaHpphi3Wst = 0.;
     
     if(mHp>=Mtp+Mbp)
     {
@@ -7460,20 +7503,25 @@ void GeneralTHDMcache::computeHpquantities()
                        mHp*mHp*mHp * (R32*R32 + R33*R33) / (2.0*M_PI*vev*vev);
     }
 
+    //decay to phi3 + Wstar
+    //computed for LEP interval of Hp and phi3 masses
+    if(mHp >= 40.0 && mHp <= 93.0 && mH3 >= 12.0 && mH3 <= (mHp - 3.))
+        GammaHpphi3Wst = ip_integral_Hp_A_Wstar(mHp,mH3,1.,1.);
 
     GammaHptot = 1.e-10;
 
     GammaHptot = GammaHptot + GammaHpmunu  + GammaHptaunu +
                  GammaHpcs  + GammaHpcb    + GammaHptb    +
-                 GammaHpHlW + GammaHpphi2W + GammaHpphi3W;
+                 GammaHpHlW + GammaHpphi2W + GammaHpphi3W + GammaHpphi3Wst;
 
 
-    Br_Hptomunu  = GammaHpmunu/GammaHptot;
-    Br_Hptotaunu = GammaHptaunu/GammaHptot;
-    Br_Hptocs    = GammaHpcs/GammaHptot;
-    Br_Hptocb    = GammaHpcb/GammaHptot;
-    Br_Hptotb    = GammaHptb/GammaHptot;
-    Br_Hptophi3W = GammaHpphi3W/GammaHptot;
+    Br_Hptomunu    = GammaHpmunu/GammaHptot;
+    Br_Hptotaunu   = GammaHptaunu/GammaHptot;
+    Br_Hptocs      = GammaHpcs/GammaHptot;
+    Br_Hptocb      = GammaHpcb/GammaHptot;
+    Br_Hptotb      = GammaHptb/GammaHptot;
+    Br_Hptophi3W   = GammaHpphi3W/GammaHptot;
+    Br_Hptophi3Wst = GammaHpphi3Wst/GammaHptot;
     
     //HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev*vev))*3.0*(-4.0*(su*sd).real()*Mb2*Mt2
     //                    -sd.abs2()*Mb2*(Mb2-mHp2+Mt2)-su.abs2()*Mt2*(Mb2-mHp2+Mt2))
@@ -10389,6 +10437,16 @@ void GeneralTHDMcache::computeLowMass()
     if(mHp >= 40.0 && mHp < 50.0)
     {
         THoEX_HpHm_qqtaunu_OPAL172 = (2.0 * Br_Hptotaunu * (Br_Hptocs + Br_Hptocb)) / ip_low_HpHm_qqtaunu_OPAL172(mHp);
+    }
+
+    THoEX_HpHm_AWstAWst_bbbb_OPAL209 = 0.0;
+    THoEX_HpHm_taunuAWst_taunubb_OPAL209 = 0.0;
+
+    if(mHp >= 40.0 && mHp <= 93.0 && mH3 >= 12.0 && mH3 <= (mHp - 3.))
+    {
+        THoEX_HpHm_AWstAWst_bbbb_OPAL209 = (Br_Hptophi3Wst * Br_Hptophi3Wst * Br_phi3tobb * Br_phi3tobb) / ip_low_HpHm_AWstAWst_bbbb_OPAL209(mHp,mH3,1.,1.);
+
+        THoEX_HpHm_taunuAWst_taunubb_OPAL209 = (4.0 * Br_Hptotaunu * Br_Hptophi3Wst * Br_phi3tobb) / ip_low_HpHm_taunuAWst_taunubb_OPAL209(mHp,mH3,1.,1.);
     }
 
     THoEX_pp_HpHm_taunutaunu_ATLAS13 = 0.0;
