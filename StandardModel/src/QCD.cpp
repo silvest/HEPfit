@@ -1367,10 +1367,11 @@ const double QCD::Mrun(const double mu_f, const double mu_i, const double m, con
     {
         if ((mu_f == mrun_cache[0][i]) && (mu_i == mrun_cache[1][i]) &&
             (m == mrun_cache[2][i]) && ((double)order == mrun_cache[3][i]) &&
-            (AlsM == mrun_cache[4][i]) && (MAls == mrun_cache[5][i]) &&
-            (mut == mrun_cache[6][i]) && (mub == mrun_cache[7][i]) &&
-            (muc == mrun_cache[8][i]))
-            return mrun_cache[9][i];
+            ((double)q == mrun_cache[4][i]) && 
+            (AlsM == mrun_cache[5][i]) && (MAls == mrun_cache[6][i]) &&
+            (mut == mrun_cache[7][i]) && (mub == mrun_cache[8][i]) &&
+            (muc == mrun_cache[9][i]))
+            return mrun_cache[10][i];
     }
 
     double nfi = Nf(mu_i), nff = Nf(mu_f);
@@ -1389,38 +1390,38 @@ const double QCD::Mrun(const double mu_f, const double mu_i, const double m, con
 
     double mu_threshold, mu_threshold2, mu_threshold3, mrun;
     if (nff == nfi)
-        mrun = MrunTMP(mu_f, mu_i, m, round(nfi), order);
+        mrun = MrunTMP(mu_f, mu_i, m, lround(nfi), order);
     else if (nff > nfi)
     {
         if (order == NLO || order == NNLO)
             throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mrun(mu_f,mu_i,m,q,order)");
         mu_threshold = AboveTh(mu_i);
-        mrun = MrunTMP(mu_threshold - MEPS, mu_i, m, round(nfi), order);
+        mrun = MrunTMP(mu_threshold - MEPS, mu_i, m, lround(nfi), order);
         if (order == FULLNNLO)
             mrun *= threCorrForMass(nfi + 1., nfi); // threshold corrections
         if (nff == nfi + 1.)
         {
-            mrun = MrunTMP(mu_f, mu_threshold + MEPS, mrun, round(nff), order);
+            mrun = MrunTMP(mu_f, mu_threshold + MEPS, mrun, lround(nff), order);
         }
         else if (nff == nfi + 2.)
         {
             mu_threshold2 = BelowTh(mu_f);
-            mrun = MrunTMP(mu_threshold2 - MEPS, mu_threshold + MEPS, mrun, round(nfi) + 1, order);
+            mrun = MrunTMP(mu_threshold2 - MEPS, mu_threshold + MEPS, mrun, lround(nfi) + 1, order);
             if (order == FULLNNLO)
                 mrun *= threCorrForMass(nff, nfi + 1.); // threshold corrections
-            mrun = MrunTMP(mu_f, mu_threshold2 + MEPS, mrun, round (nff), order);
+            mrun = MrunTMP(mu_f, mu_threshold2 + MEPS, mrun, lround(nff), order);
         }
         else if (nff == nfi + 3.)
         {
             mu_threshold2 = AboveTh(mu_threshold);
-            mrun = MrunTMP(mu_threshold2 - MEPS, mu_threshold + MEPS, mrun, round(nfi) + 1, order);
+            mrun = MrunTMP(mu_threshold2 - MEPS, mu_threshold + MEPS, mrun, lround(nfi) + 1, order);
             if (order == FULLNNLO)
                 mrun *= threCorrForMass(nfi + 2., nfi + 1.); // threshold corrections
             mu_threshold3 = BelowTh(mu_f);
-            mrun = MrunTMP(mu_threshold3 - MEPS, mu_threshold2 + MEPS, mrun, round(nff) - 1, order);
+            mrun = MrunTMP(mu_threshold3 - MEPS, mu_threshold2 + MEPS, mrun, lround(nff) - 1, order);
             if (order == FULLNNLO)
                 mrun *= threCorrForMass(nff, nfi + 2.); // threshold corrections
-            mrun = MrunTMP(mu_f, mu_threshold3 + MEPS, mrun, round(nff), order);
+            mrun = MrunTMP(mu_f, mu_threshold3 + MEPS, mrun, lround(nff), order);
         }
         else
         {
@@ -1434,18 +1435,18 @@ const double QCD::Mrun(const double mu_f, const double mu_i, const double m, con
         if (order == NLO || order == NNLO)
             throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mrun(mu_f,mu_i,m,order)");
         mu_threshold = BelowTh(mu_i);
-        mrun = MrunTMP(mu_threshold + MEPS, mu_i, m, round(nfi), order);
+        mrun = MrunTMP(mu_threshold + MEPS, mu_i, m, lround(nfi), order);
         if (order == FULLNNLO)
             mrun *= threCorrForMass(nfi - 1., nfi); // threshold corrections
         if (nff == nfi - 1.)
-            mrun = MrunTMP(mu_f, mu_threshold - MEPS, mrun, round(nff), order);
+            mrun = MrunTMP(mu_f, mu_threshold - MEPS, mrun, lround(nff), order);
         else if (nff == nfi - 2.)
         {
             mu_threshold2 = AboveTh(mu_f);
-            mrun = MrunTMP(mu_threshold2 + MEPS, mu_threshold - MEPS, mrun, round(nfi) - 1, order);
+            mrun = MrunTMP(mu_threshold2 + MEPS, mu_threshold - MEPS, mrun, lround(nfi) - 1, order);
             if (order == FULLNNLO)
                 mrun *= threCorrForMass(nff, nfi - 1.); // threshold corrections
-            mrun = MrunTMP(mu_f, mu_threshold2 - MEPS, mrun, round(nff), order);
+            mrun = MrunTMP(mu_f, mu_threshold2 - MEPS, mrun, lround(nff), order);
         }
         else
         {
@@ -1470,17 +1471,18 @@ const double QCD::Mrun(const double mu_f, const double mu_i, const double m, con
         mrun = 0.;
     }
 
-    CacheShift(mrun_cache, 10);
+    CacheShift(mrun_cache, 11);
     mrun_cache[0][0] = mu_f;
     mrun_cache[1][0] = mu_i;
     mrun_cache[2][0] = m;
     mrun_cache[3][0] = (double)order;
-    mrun_cache[4][0] = AlsM;
-    mrun_cache[5][0] = MAls;
-    mrun_cache[6][0] = mut;
-    mrun_cache[7][0] = mub;
-    mrun_cache[8][0] = muc;
-    mrun_cache[9][0] = mrun;
+    mrun_cache[4][0] = (double)q;
+    mrun_cache[5][0] = AlsM;
+    mrun_cache[6][0] = MAls;
+    mrun_cache[7][0] = mut;
+    mrun_cache[8][0] = mub;
+    mrun_cache[9][0] = muc;
+    mrun_cache[10][0] = mrun;
 
     return mrun;
 }
@@ -1736,16 +1738,33 @@ const double QCD::Mofmu2MbarTMP(double *mu, double *params) const
 const double QCD::Mofmu2Mbar(const double m, const double mu, const quark q) const
 {
 
-    // First move to the right region by running to m
+    // First move to the right region by running to the corresponding threshold
 
-    double mlow = Mrun(m, mu, m, q);
-    TF1 f("f", this, &QCD::Mofmu2MbarTMP, mlow / 4., 4. * mlow, 3, "QCD", "mofmu2mbara");
+    double mutmp=0.;
+    switch (q)
+    {
+    case TOP:
+        mutmp = mut;
+        break;
+    case BOTTOM:
+        mutmp = mub;
+        break;
+    case CHARM:
+        mutmp = muc;
+        break;
+    default:
+        QCDsuccess = false;
+        std::cout << "Error in QCD::Mofmu2Mbar()! QCDsuccess set to false" << std::endl;
+        break;
+    }
+    double mlow = Mrun(mutmp, mu, m, q);
+    TF1 f("f", this, &QCD::Mofmu2MbarTMP, mlow / 2., 2. * mlow, 3, "QCD", "mofmu2mbara");
 
     ROOT::Math::WrappedTF1 wf1(f);
 
     double params[3];
     params[0] = mlow;
-    params[1] = m;
+    params[1] = mutmp;
     params[2] = (double)q;
     wf1.SetParameters(params);
 

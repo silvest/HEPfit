@@ -1021,7 +1021,7 @@ private:
     mutable double als_cache[9][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double logLambda5_cache[4][CacheSize];
     mutable double logLambdaNLO_cache[9][CacheSize];
-    mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.
+    mutable double mrun_cache[11][CacheSize]; ///< Cache for running quark mass.
     mutable double mp2mbar_cache[6][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
     bool unknownParameterWarning; ///< A flag to stop the unknown parameter warning after the first time.
     std::map<std::string, double> optionalParameters; ///< A map for containing the list and values of the parameters that are used only by a specific set of observables.
