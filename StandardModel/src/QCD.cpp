@@ -1738,19 +1738,19 @@ const double QCD::Mofmu2MbarTMP(double *mu, double *params) const
 const double QCD::Mofmu2Mbar(const double m, const double mu, const quark q) const
 {
 
-    // First move to the right region by running to the corresponding threshold
+    // First move to the right region
 
     double mutmp=0.;
     switch (q)
     {
     case TOP:
-        mutmp = mut;
+        mutmp = 165.;
         break;
     case BOTTOM:
-        mutmp = mub;
+        mutmp = 4.2;
         break;
     case CHARM:
-        mutmp = muc;
+        mutmp = 2.;
         break;
     default:
         QCDsuccess = false;
