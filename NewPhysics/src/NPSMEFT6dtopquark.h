@@ -672,6 +672,28 @@ private:
 
 
 
+
+//Observables from Tevatron
+
+class FB_asymmetry_Tevatron_tt_diff_mtt_NPSMEFT6dtopquark : public ThObservable {
+public:   
+
+    FB_asymmetry_Tevatron_tt_diff_mtt_NPSMEFT6dtopquark(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+        
+    double b_min = 0.;
+    double b_max = 0.;
+    
+    
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
 //Observables from LEP
 
 class Rb_NPSMEFT6dtopquark : public ThObservable {
@@ -682,7 +704,7 @@ public:
    
     double computeThValue();
     
-private:
+private:        
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
 
@@ -1196,6 +1218,40 @@ private:
     
     
     
+    /**
+    * @class sigma_tta_diff
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class sigma_tta_diff_NLO_ATLAS_240309452: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tta_diff_NLO_ATLAS_240309452 constructor.
+     */
+    sigma_tta_diff_NLO_ATLAS_240309452(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Test_direct
+     */
+    double computeThValue();
+    
+    
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
     
 
 // tt differential cross section for different bins
@@ -1535,6 +1591,20 @@ private:
 //250 bb observables
 
 
+class sigma_250_bb_eP_M30_eM_M80 : public ThObservable {
+public:   
+
+    sigma_250_bb_eP_M30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
 class sigma_250_bb_eP_P30_eM_M80 : public ThObservable {
 public:   
 
@@ -1561,8 +1631,35 @@ public:
 private:
     const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 };
+
+
+
+class sigma_250_bb_eP_P30_eM_P80 : public ThObservable {
+public:   
+
+    sigma_250_bb_eP_P30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
         
       
+
+
+class a_250_bb_eP_M30_eM_M80 : public ThObservable {
+public:   
+
+    a_250_bb_eP_M30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
 
 
 
@@ -1596,9 +1693,37 @@ private:
 
 
 
+class a_250_bb_eP_P30_eM_P80 : public ThObservable {
+public:   
+
+    a_250_bb_eP_P30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
+
+
+
+
 
 //500 bb observables
-     
+   
+
+class sigma_500_bb_eP_M30_eM_M80 : public ThObservable {
+public:   
+
+    sigma_500_bb_eP_M30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
 
 class sigma_500_bb_eP_P30_eM_M80 : public ThObservable {
 public:   
@@ -1613,13 +1738,23 @@ private:
 }; 
 
 
-
-
-
 class sigma_500_bb_eP_M30_eM_P80 : public ThObservable {
 public:   
 
     sigma_500_bb_eP_M30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+class sigma_500_bb_eP_P30_eM_P80 : public ThObservable {
+public:   
+
+    sigma_500_bb_eP_P30_eM_P80(const StandardModel& SM_i);
     
    
     double computeThValue();
@@ -1632,7 +1767,17 @@ private:
         
 
 
+class a_500_bb_eP_M30_eM_M80 : public ThObservable {
+public:   
 
+    a_500_bb_eP_M30_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
 
 
 class a_500_bb_eP_P30_eM_M80 : public ThObservable {
@@ -1664,6 +1809,17 @@ private:
 };
 
 
+class a_500_bb_eP_P30_eM_P80 : public ThObservable {
+public:   
+
+    a_500_bb_eP_P30_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+};
 
 
 
@@ -1708,7 +1864,133 @@ private:
 
 
 //1000 bb observables
-     
+
+
+class a_1000_bb_eP_M20_eM_M80 : public ThObservable {
+public:   
+
+    a_1000_bb_eP_M20_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+class a_1000_bb_eP_M20_eM_P80 : public ThObservable {
+public:   
+
+    a_1000_bb_eP_M20_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+class a_1000_bb_eP_P20_eM_M80 : public ThObservable {
+public:   
+
+    a_1000_bb_eP_P20_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+class a_1000_bb_eP_P20_eM_P80 : public ThObservable {
+public:   
+
+    a_1000_bb_eP_P20_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+
+
+
+
+class sigma_1000_bb_eP_M20_eM_M80 : public ThObservable {
+public:   
+
+    sigma_1000_bb_eP_M20_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+class sigma_1000_bb_eP_M20_eM_P80 : public ThObservable {
+public:   
+
+    sigma_1000_bb_eP_M20_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+class sigma_1000_bb_eP_P20_eM_M80 : public ThObservable {
+public:   
+
+    sigma_1000_bb_eP_P20_eM_M80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+class sigma_1000_bb_eP_P20_eM_P80 : public ThObservable {
+public:   
+
+    sigma_1000_bb_eP_P20_eM_P80(const StandardModel& SM_i);
+    
+   
+    double computeThValue();
+    
+private:
+    const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+}; 
+
+
+
+
+
+
+
+
+
+
+
 
 class sigma_1000_bb_eP_P30_eM_M80 : public ThObservable {
 public:   
@@ -2288,6 +2570,37 @@ private:
 
 
 
+    
+    /**
+    * @class opt_obs_ilc_500_M30_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * -30% and -80% at 500GeV 
+    */
+    class opt_obs_ilc_500_M30_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_500_M30_M80 constructor.
+     */
+    opt_obs_ilc_500_M30_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_500_M30_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
 
 
 
@@ -2296,9 +2609,7 @@ private:
     * @ingroup TopQuarkObservables 
     * @brief Optimal observables for ILC
      * with polarisation for the (e+, e-)
-     * -30% and 80% at 500GeV and assuming
-     * a luminosity of 4iab and an 
-     * efficiency*acceptance of 10%
+     * -30% and 80% at 500GeV 
     */
     class opt_obs_ilc_500_M30_P80: public ThObservable {
     public:
@@ -2332,9 +2643,7 @@ private:
     * @ingroup TopQuarkObservables 
     * @brief Optimal observables for ILC
      * with polarisation for the (e+, e-)
-     * 30% and -80% at 500GeV and assuming
-     * a luminosity of 4iab and an 
-     * efficiency*acceptance of 10%
+     * 30% and -80% at 500GeV 
     */
     class opt_obs_ilc_500_P30_M80: public ThObservable {
     public:
@@ -2346,6 +2655,40 @@ private:
 
     /**
      * @return The value of opt_obs_ilc_500_P30_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_500_P30_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * 30% and +80% at 500GeV
+    */
+    class opt_obs_ilc_500_P30_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_500_P30_P80 constructor.
+     */
+    opt_obs_ilc_500_P30_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_500_P30_P80
      */
     double computeThValue();
     
@@ -2396,6 +2739,143 @@ private:
         const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 
     };
+    
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_1000_M20_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * -20% and -80% at 1000GeV 
+    */
+    class opt_obs_ilc_1000_M20_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_1000_M20_M80 constructor.
+     */
+    opt_obs_ilc_1000_M20_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_1000_M20_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_1000_M20_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * -20% and 80% at 1000GeV 
+    */
+    class opt_obs_ilc_1000_M20_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_1000_M20_P80 constructor.
+     */
+    opt_obs_ilc_1000_M20_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_1000_M20_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_1000_P20_M80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * 20% and -80% at 1000GeV 
+    */
+    class opt_obs_ilc_1000_P20_M80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_1000_P20_M80 constructor.
+     */
+    opt_obs_ilc_1000_P20_M80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_1000_P20_M80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /**
+    * @class opt_obs_ilc_1000_P20_P80
+    * @ingroup TopQuarkObservables 
+    * @brief Optimal observables for ILC
+     * with polarisation for the (e+, e-)
+     * 20% and 80% at 1000GeV 
+    */
+    class opt_obs_ilc_1000_P20_P80: public ThObservable {
+    public:
+
+    /**
+     * @brief opt_obs_ilc_1000_P20_P80 constructor.
+     */
+    opt_obs_ilc_1000_P20_P80(const StandardModel& SM_i);
+
+    /**
+     * @return The value of opt_obs_ilc_1000_P20_P80
+     */
+    double computeThValue();
+    
+
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
     
     
     

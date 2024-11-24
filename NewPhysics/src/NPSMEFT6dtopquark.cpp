@@ -226,6 +226,238 @@ bool NPSMEFT6dtopquark::setFlag(const std::string name, const bool value)
 
 
 
+////// ttbar Forward Backward asymmetry at Tevatron ///////////////////////////////////
+
+
+FB_asymmetry_Tevatron_tt_diff_mtt_NPSMEFT6dtopquark::FB_asymmetry_Tevatron_tt_diff_mtt_NPSMEFT6dtopquark(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+    setParametersForObservable(make_vector<std::string>() 
+            << "SM_FB_asymmetry_bin_mtt_350_450" << "SM_FB_asymmetry_deno_bin_mtt_350_450"
+            << "SM_FB_asymmetry_bin_mtt_450_550" << "SM_FB_asymmetry_deno_bin_mtt_450_550"
+            << "SM_FB_asymmetry_bin_mtt_550_650" << "SM_FB_asymmetry_deno_bin_mtt_550_650"
+            << "SM_FB_asymmetry_bin_mtt_650_750" << "SM_FB_asymmetry_deno_bin_mtt_650_750");
+            
+    
+}
+
+
+double FB_asymmetry_Tevatron_tt_diff_mtt_NPSMEFT6dtopquark::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    bool   flag_Quadratic= false; //Needs to be properly defined
+        
+    
+    
+    
+    double C_tG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    double C_Qd8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qd8();
+    double C_Qd1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qd1();
+    double C_Qu1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qu1();
+    double C_Qu8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qu8();
+    double C_td1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_td1();
+    double C_td8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_td8();
+    double C_tq1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tq1();
+    double C_tq8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tq8();
+    double C_tu1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tu1();
+    double C_tu8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tu8();
+    double C_Qq11 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq11();
+    double C_Qq31 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq31();
+    double C_Qq18 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq18();
+    double C_Qq38 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq38();
+    
+    
+    
+    if(b_min == 350 && b_max == 450){
+        
+        
+        double SM_FB_asymmetry_bin_mtt_350_450 = SM.getOptionalParameter("SM_FB_asymmetry_bin_mtt_350_450");
+        double SM_FB_asymmetry_deno_bin_mtt_350_450 = SM.getOptionalParameter("SM_FB_asymmetry_deno_bin_mtt_350_450");
+        double SM_FB_asymmetry_num_bin_mtt_350_450 = SM_FB_asymmetry_bin_mtt_350_450*SM_FB_asymmetry_deno_bin_mtt_350_450;
+        
+        double SM_sigma_pos_bin_mtt_350_450 =0.5*(SM_FB_asymmetry_num_bin_mtt_350_450+SM_FB_asymmetry_deno_bin_mtt_350_450);
+        double SM_sigma_neg_bin_mtt_350_450 =0.5*(SM_FB_asymmetry_deno_bin_mtt_350_450-SM_FB_asymmetry_num_bin_mtt_350_450);
+
+                
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            
+            
+            double sigma_pos_bin_mtt_350_450_madgraph = 1.708900;
+            double sigma_pos_bin_mtt_350_450_NP = 0.014331*C_Qq11+0.020387*C_Qq31+0.057020*C_Qq38+
+            0.008985*C_Qu1+0.075826*C_Qu8+-0.005241*C_td1+0.013312*C_td8+0.011673*C_tq1+0.075137*C_tu8+
+            -0.000215*C_Qd1+0.015275*C_Qd8+0.089885*C_Qq18+0.461893*C_tG+0.088284*C_tq8+0.011721*C_tu1;
+            double sigma_neg_bin_mtt_350_450_madgraph = 1.711870;
+            double sigma_neg_bin_mtt_350_450_NP = 0.015137*C_Qq11+0.020418*C_Qq31+0.061615*C_Qq38+
+            0.005954*C_Qu1+0.072189*C_Qu8+0.002100*C_td1+0.015387*C_td8+0.011721*C_tq1+0.072523*C_tu8+
+            -0.000797*C_Qd1+0.013454*C_Qd8+0.088964*C_Qq18+0.457535*C_tG+0.090719*C_tq8+0.008783*C_tu1;
+            
+            double sigma_pos_bin_mtt_350_450_NP_Corrected = SM_sigma_pos_bin_mtt_350_450*sigma_pos_bin_mtt_350_450_NP/sigma_pos_bin_mtt_350_450_madgraph;
+            double sigma_neg_bin_mtt_350_450_NP_Corrected = SM_sigma_neg_bin_mtt_350_450*sigma_neg_bin_mtt_350_450_NP/sigma_neg_bin_mtt_350_450_madgraph;
+            
+            double NP_FB_asymmetry_num_bin_mtt_350_450 = sigma_pos_bin_mtt_350_450_NP_Corrected - sigma_neg_bin_mtt_350_450_NP_Corrected;
+            double NP_FB_asymmetry_deno_bin_mtt_350_450 = sigma_pos_bin_mtt_350_450_NP_Corrected + sigma_neg_bin_mtt_350_450_NP_Corrected;;
+            
+            //return  SM_FB_asymmetry_bin_mtt_350_450*(1+(NP_FB_asymmetry_num_bin_mtt_350_450-NP_FB_asymmetry_deno_bin_mtt_350_450)/SM_FB_asymmetry_deno_bin_mtt_350_450);            
+
+            return SM_FB_asymmetry_bin_mtt_350_450 + (NP_FB_asymmetry_num_bin_mtt_350_450
+                    - SM_FB_asymmetry_bin_mtt_350_450*NP_FB_asymmetry_deno_bin_mtt_350_450
+                    )/SM_FB_asymmetry_deno_bin_mtt_350_450;
+            
+            
+        }
+        
+    } else if(b_min == 450 && b_max == 550){
+        
+        
+        double SM_FB_asymmetry_bin_mtt_450_550 = SM.getOptionalParameter("SM_FB_asymmetry_bin_mtt_450_550");
+        double SM_FB_asymmetry_deno_bin_mtt_450_550 = SM.getOptionalParameter("SM_FB_asymmetry_deno_bin_mtt_450_550");
+        double SM_FB_asymmetry_num_bin_mtt_450_550 = SM_FB_asymmetry_bin_mtt_450_550*SM_FB_asymmetry_deno_bin_mtt_450_550;
+        
+        double SM_sigma_pos_bin_mtt_450_550 =0.5*(SM_FB_asymmetry_num_bin_mtt_450_550+SM_FB_asymmetry_deno_bin_mtt_450_550);
+        double SM_sigma_neg_bin_mtt_450_550 =0.5*(SM_FB_asymmetry_deno_bin_mtt_450_550-SM_FB_asymmetry_num_bin_mtt_450_550);
+
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            
+            
+            double sigma_pos_bin_mtt_450_550_madgraph = 0.700156;
+            double sigma_pos_bin_mtt_450_550_NP = 0.000293*C_Qd1+0.006654*C_Qd8+0.056437*C_Qq18+
+            0.202154*C_tG+0.057218*C_tq8+0.005943*C_tu1+0.012571*C_Qq11+0.014036*C_Qq31+0.041744*C_Qq38+
+            0.004409*C_Qu1+0.048109*C_Qu8+-0.000686*C_td1+0.007816*C_td8+0.005690*C_tq1+0.048751*C_tu8;
+            double sigma_neg_bin_mtt_450_550_madgraph = 0.697721;
+            double sigma_neg_bin_mtt_450_550_NP = +-0.000320*C_Qd1+0.008928*C_Qd8+0.056860*C_Qq18+
+            0.200120*C_tG+0.055877*C_tq8+0.008468*C_tu1+0.010415*C_Qq11+0.015990*C_Qq31+0.039785*C_Qq38+
+            0.004021*C_Qu1+0.049076*C_Qu8+0.000080*C_td1+0.007790*C_td8+0.007160*C_tq1+0.048573*C_tu8;
+            
+            double sigma_pos_bin_mtt_450_550_NP_Corrected = SM_sigma_pos_bin_mtt_450_550*sigma_pos_bin_mtt_450_550_NP/sigma_pos_bin_mtt_450_550_madgraph;
+            double sigma_neg_bin_mtt_450_550_NP_Corrected = SM_sigma_neg_bin_mtt_450_550*sigma_neg_bin_mtt_450_550_NP/sigma_neg_bin_mtt_450_550_madgraph;
+            
+            double NP_FB_asymmetry_num_bin_mtt_450_550 = sigma_pos_bin_mtt_450_550_NP_Corrected - sigma_neg_bin_mtt_450_550_NP_Corrected;
+            double NP_FB_asymmetry_deno_bin_mtt_450_550 = sigma_pos_bin_mtt_450_550_NP_Corrected + sigma_neg_bin_mtt_450_550_NP_Corrected;;
+            
+            //return  SM_FB_asymmetry_bin_mtt_450_550*(1+(NP_FB_asymmetry_num_bin_mtt_450_550-NP_FB_asymmetry_deno_bin_mtt_450_550)/SM_FB_asymmetry_deno_bin_mtt_450_550);            
+        
+            
+            return SM_FB_asymmetry_bin_mtt_450_550 + (NP_FB_asymmetry_num_bin_mtt_450_550
+                    - SM_FB_asymmetry_bin_mtt_450_550*NP_FB_asymmetry_deno_bin_mtt_450_550
+                    )/SM_FB_asymmetry_deno_bin_mtt_450_550;
+            
+            
+        }
+        
+    } else if(b_min == 550 && b_max == 650){
+        
+        
+        double SM_FB_asymmetry_bin_mtt_550_650 = SM.getOptionalParameter("SM_FB_asymmetry_bin_mtt_550_650");
+        double SM_FB_asymmetry_deno_bin_mtt_550_650 = SM.getOptionalParameter("SM_FB_asymmetry_deno_bin_mtt_550_650");
+        double SM_FB_asymmetry_num_bin_mtt_550_650 = SM_FB_asymmetry_bin_mtt_550_650*SM_FB_asymmetry_deno_bin_mtt_550_650;
+        
+        double SM_sigma_pos_bin_mtt_550_650 =0.5*(SM_FB_asymmetry_num_bin_mtt_550_650+SM_FB_asymmetry_deno_bin_mtt_550_650);
+        double SM_sigma_neg_bin_mtt_550_650 =0.5*(SM_FB_asymmetry_deno_bin_mtt_550_650-SM_FB_asymmetry_num_bin_mtt_550_650);
+
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            
+            
+            double sigma_pos_bin_mtt_550_650_madgraph = 0.225585;
+            double sigma_pos_bin_mtt_550_650_NP = 0.005195*C_Qq11+0.007938*C_Qq31+0.020820*C_Qq38+
+            0.001724*C_Qu1+0.024030*C_Qu8+-0.000224*C_td1+0.003242*C_td8+0.002375*C_tq1+0.023554*C_tu8+
+            0.000035*C_Qd1+0.003262*C_Qd8+0.026734*C_Qq18+0.068150*C_tG+0.027216*C_tq8+0.003859*C_tu1;
+            double sigma_neg_bin_mtt_550_650_madgraph = 0.226014;
+            double sigma_neg_bin_mtt_550_650_NP = 0.007480*C_Qq11+0.008103*C_Qq31+0.020939*C_Qq38+
+            0.001998*C_Qu1+0.023779*C_Qu8+-0.000302*C_td1+0.003158*C_td8+0.002697*C_tq1+0.024310*C_tu8+
+            -0.000427*C_Qd1+0.003031*C_Qd8+0.027516*C_Qq18+0.069044*C_tG+0.026921*C_tq8+0.003865*C_tu1;
+            
+            double sigma_pos_bin_mtt_550_650_NP_Corrected = SM_sigma_pos_bin_mtt_550_650*sigma_pos_bin_mtt_550_650_NP/sigma_pos_bin_mtt_550_650_madgraph;
+            double sigma_neg_bin_mtt_550_650_NP_Corrected = SM_sigma_neg_bin_mtt_550_650*sigma_neg_bin_mtt_550_650_NP/sigma_neg_bin_mtt_550_650_madgraph;
+            
+            double NP_FB_asymmetry_num_bin_mtt_550_650 = sigma_pos_bin_mtt_550_650_NP_Corrected - sigma_neg_bin_mtt_550_650_NP_Corrected;
+            double NP_FB_asymmetry_deno_bin_mtt_550_650 = sigma_pos_bin_mtt_550_650_NP_Corrected + sigma_neg_bin_mtt_550_650_NP_Corrected;;
+            
+            //return  SM_FB_asymmetry_bin_mtt_550_650*(1+(NP_FB_asymmetry_num_bin_mtt_550_650-NP_FB_asymmetry_deno_bin_mtt_550_650)/SM_FB_asymmetry_deno_bin_mtt_550_650);            
+            
+            return SM_FB_asymmetry_bin_mtt_550_650 + (NP_FB_asymmetry_num_bin_mtt_550_650
+                    - SM_FB_asymmetry_bin_mtt_550_650*NP_FB_asymmetry_deno_bin_mtt_550_650
+                    )/SM_FB_asymmetry_deno_bin_mtt_550_650;
+            
+        }
+        
+    } else if(b_min == 650 && b_max == 750){
+        
+        
+        double SM_FB_asymmetry_bin_mtt_650_750 = SM.getOptionalParameter("SM_FB_asymmetry_bin_mtt_650_750");
+        double SM_FB_asymmetry_deno_bin_mtt_650_750 = SM.getOptionalParameter("SM_FB_asymmetry_deno_bin_mtt_650_750");
+        double SM_FB_asymmetry_num_bin_mtt_650_750 = SM_FB_asymmetry_bin_mtt_650_750*SM_FB_asymmetry_deno_bin_mtt_650_750;
+        
+        double SM_sigma_pos_bin_mtt_650_750 =0.5*(SM_FB_asymmetry_num_bin_mtt_650_750+SM_FB_asymmetry_deno_bin_mtt_650_750);
+        double SM_sigma_neg_bin_mtt_650_750 =0.5*(SM_FB_asymmetry_deno_bin_mtt_650_750-SM_FB_asymmetry_num_bin_mtt_650_750);
+
+        
+        if(flag_Quadratic){
+        
+            return  0.;
+            
+        }
+        else{
+            
+            
+            
+            double sigma_pos_bin_mtt_650_750_madgraph = 0.104697;
+            double sigma_pos_bin_mtt_650_750_NP = +-0.000060*C_Qd1+0.001870*C_Qd8+0.020042*C_Qq18+
+            0.033534*C_tG+0.020162*C_tq8+0.002968*C_tu1+0.005506*C_Qq11+0.006207*C_Qq31+0.016592*C_Qq38+
+            0.001106*C_Qu1+0.018423*C_Qu8+-0.000255*C_td1+0.001826*C_td8+0.001752*C_tq1+0.018350*C_tu8;
+            double sigma_neg_bin_mtt_650_750_madgraph = 0.104541;
+            double sigma_neg_bin_mtt_650_750_NP = -0.000081*C_Qd1+0.001783*C_Qd8+0.020151*C_Qq18+
+            0.033203*C_tG+0.020170*C_tq8+0.003204*C_tu1+0.005148*C_Qq11+0.006367*C_Qq31+0.016418*C_Qq38+
+            0.001303*C_Qu1+0.018244*C_Qu8+-0.000097*C_td1+0.001814*C_td8+0.001599*C_tq1+0.018284*C_tu8;
+            
+            double sigma_pos_bin_mtt_650_750_NP_Corrected = SM_sigma_pos_bin_mtt_650_750*sigma_pos_bin_mtt_650_750_NP/sigma_pos_bin_mtt_650_750_madgraph;
+            double sigma_neg_bin_mtt_650_750_NP_Corrected = SM_sigma_neg_bin_mtt_650_750*sigma_neg_bin_mtt_650_750_NP/sigma_neg_bin_mtt_650_750_madgraph;
+            
+            double NP_FB_asymmetry_num_bin_mtt_650_750 = sigma_pos_bin_mtt_650_750_NP_Corrected - sigma_neg_bin_mtt_650_750_NP_Corrected;
+            double NP_FB_asymmetry_deno_bin_mtt_650_750 = sigma_pos_bin_mtt_650_750_NP_Corrected + sigma_neg_bin_mtt_650_750_NP_Corrected;;
+            
+            //return  SM_FB_asymmetry_bin_mtt_650_750*(1+(NP_FB_asymmetry_num_bin_mtt_650_750-NP_FB_asymmetry_deno_bin_mtt_650_750)/SM_FB_asymmetry_deno_bin_mtt_650_750);            
+        
+            return SM_FB_asymmetry_bin_mtt_650_750 + (NP_FB_asymmetry_num_bin_mtt_650_750
+                    - SM_FB_asymmetry_bin_mtt_650_750*NP_FB_asymmetry_deno_bin_mtt_650_750
+                    )/SM_FB_asymmetry_deno_bin_mtt_650_750;
+            
+            
+        }
+        
+    } else {
+        throw std::runtime_error("\nERROR: Please specify a correct binning range for FB_asymmetry_Tevatron_tt_diff_mtt_LO.\n");
+    }
+    
+    
+}
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////// Observables from LEP ////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3022,6 +3254,329 @@ double sigma_tta_diff_NLO_CMS_dilepton_220107301::computeThValue()
 
 }
 
+
+
+
+
+
+
+
+
+
+sigma_tta_diff_NLO_ATLAS_240309452::sigma_tta_diff_NLO_ATLAS_240309452(const StandardModel& SM_i)
+: ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_tta_bin_20_40_ATLAS_240309452" 
+            << "SM_sigma_tta_bin_40_60_ATLAS_240309452" << "SM_sigma_tta_bin_60_75_ATLAS_240309452" 
+            << "SM_sigma_tta_bin_75_95_ATLAS_240309452" << "SM_sigma_tta_bin_95_115_ATLAS_240309452" 
+            << "SM_sigma_tta_bin_115_135_ATLAS_240309452" << "SM_sigma_tta_bin_135_160_ATLAS_240309452"
+            << "SM_sigma_tta_bin_160_200_ATLAS_240309452" << "SM_sigma_tta_bin_200_260_ATLAS_240309452"
+             << "SM_sigma_tta_bin_260_500_ATLAS_240309452");
+
+    
+}
+
+double sigma_tta_diff_NLO_ATLAS_240309452::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    
+    
+    double C_phiQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tG = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tG();
+    
+    double C_tphi = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tphi();
+    
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    
+    
+    
+    double C_Qd8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qd8();
+    
+    double C_Qq18 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq18();
+    double C_Qq38 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qq38();
+    
+    double C_Qu8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_Qu8();
+    
+    double C_td8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_td8();
+    
+    double C_tq8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tq8();
+    
+    double C_tu8 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tu8();
+    
+    
+
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    
+    
+
+    if(b_min == 20 && b_max == 40){
+        
+        double SM_sigma_tta_bin_20_40 = SM.getOptionalParameter("SM_sigma_tta_bin_20_40_ATLAS_240309452");
+        double sigma_tta_bin_20_40_madgraph = 1177.4069; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return SM_sigma_tta_bin_20_40 +(-3.6263*C_phiQ3 + 0.0339*C_phiQ3*C_phiQ3 + -3.6643*C_phiQm +
+                    0.0227*C_phiQm*C_phiQm + -3.5919*C_phit + -0.0384*C_phit*C_phit + 12.2447*C_Qd8 + 
+                    0.7109*C_Qd8*C_Qd8 + 32.9687*C_Qq18 + 11.2487*C_Qq18*C_Qq18 + 12.8705*C_Qq38 + 
+                    10.4471*C_Qq38*C_Qq38 + 32.3790*C_Qu8 + 9.3811*C_Qu8*C_Qu8 + 9.7399*C_td8 + 
+                    2.1104*C_td8*C_td8 + 334.4265*C_tG + 61.2791*C_tG*C_tG + -3.3893*C_tphi + 
+                    -0.3108*C_tphi*C_tphi + 36.1056*C_tq8 + 10.0010*C_tq8*C_tq8 + 23.6950*C_tu8 + 
+                    9.0848*C_tu8*C_tu8 + 34.7636*C_tW + 29.3066*C_tW*C_tW + -31.0740*C_tZ + 29.0832*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_20_40/sigma_tta_bin_20_40_madgraph);
+            
+        }
+        else{
+            
+            
+            
+            return SM_sigma_tta_bin_20_40 +(-3.6263*C_phiQ3 + -3.6643*C_phiQm + -3.5919*C_phit + 12.2447*C_Qd8 +
+                    32.9687*C_Qq18 + 12.8705*C_Qq38 + 32.3790*C_Qu8 + 9.7399*C_td8 + 334.4265*C_tG + 
+                    -3.3893*C_tphi + 36.1056*C_tq8 + 23.6950*C_tu8 + 34.7636*C_tW + -31.0740*C_tZ)
+                    *(SM_sigma_tta_bin_20_40/sigma_tta_bin_20_40_madgraph);
+        }
+    } else if(b_min == 40 && b_max == 60){
+        
+    
+        double SM_sigma_tta_bin_40_60 = SM.getOptionalParameter("SM_sigma_tta_bin_40_60_ATLAS_240309452");
+        double sigma_tta_bin_40_60_madgraph = 529.8128; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return  SM_sigma_tta_bin_40_60 +(-1.2328*C_phiQ3 + 1.1934*C_phiQ3*C_phiQ3 + -1.4786*C_phiQm + 1.1073*C_phiQm*C_phiQm +
+                    -1.0026*C_phit + 1.4763*C_phit*C_phit + 2.9225*C_Qd8 + 3.3985*C_Qd8*C_Qd8 + 12.2580*C_Qq18 + 5.8612*C_Qq18*C_Qq18 + 
+                    3.7126*C_Qq38 + 5.8362*C_Qq38*C_Qq38 + 14.1556*C_Qu8 + 4.1339*C_Qu8*C_Qu8 + 7.2970*C_td8 + 2.3002*C_td8*C_td8 +
+                    147.2638*C_tG + 28.7812*C_tG*C_tG + -0.6709*C_tphi + 1.0703*C_tphi*C_tphi + 16.0890*C_tq8 + 7.2375*C_tq8*C_tq8 +
+                    10.6510*C_tu8 + 4.9574*C_tu8*C_tu8 + 22.6910*C_tW + 41.7841*C_tW*C_tW + -24.1873*C_tZ + 28.9994*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_40_60/sigma_tta_bin_40_60_madgraph);;
+            
+        }
+        else{
+            
+            return SM_sigma_tta_bin_40_60 +(-1.2328*C_phiQ3 + -1.4786*C_phiQm + -1.0026*C_phit + 2.9225*C_Qd8 +
+                    12.2580*C_Qq18 + 3.7126*C_Qq38 + 14.1556*C_Qu8 + 7.2970*C_td8 + 147.2638*C_tG + 
+                    -0.6709*C_tphi + 16.0890*C_tq8 + 10.6510*C_tu8 + 22.6910*C_tW + -24.1873*C_tZ)
+                    *(SM_sigma_tta_bin_40_60/sigma_tta_bin_40_60_madgraph);
+            
+        }
+    } else if(b_min == 60 && b_max == 75){
+        
+    
+        double SM_sigma_tta_bin_60_75 = SM.getOptionalParameter("SM_sigma_tta_bin_60_75_ATLAS_240309452");
+        double sigma_tta_bin_60_75_madgraph = 241.6828; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return  SM_sigma_tta_bin_60_75 +(-0.4801*C_phiQ3 + -0.3292*C_phiQ3*C_phiQ3 + -0.5938*C_phiQm + -0.4390*C_phiQm*C_phiQm + 
+                    -0.6264*C_phit + -0.3886*C_phit*C_phit + 1.2599*C_Qd8 + 0.6517*C_Qd8*C_Qd8 + 6.0605*C_Qq18 + 2.1080*C_Qq18*C_Qq18 +
+                    1.7701*C_Qq38 + 2.6314*C_Qq38*C_Qq38 + 4.2427*C_Qu8 + 2.7795*C_Qu8*C_Qu8 + 1.8165*C_td8 + 0.8025*C_td8*C_td8 + 
+                    67.5221*C_tG + 14.7931*C_tG*C_tG + -0.6729*C_tphi + -0.4015*C_tphi*C_tphi + 7.7025*C_tq8 + 2.6132*C_tq8*C_tq8 +
+                    5.9503*C_tu8 + 1.4553*C_tu8*C_tu8 + 16.0354*C_tW + 30.1549*C_tW*C_tW + -15.4837*C_tZ + 21.8673*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_60_75/sigma_tta_bin_60_75_madgraph);;
+            
+        }
+        else{
+            
+            return SM_sigma_tta_bin_60_75 +(-0.4801*C_phiQ3 + -0.5938*C_phiQm + -0.6264*C_phit + 1.2599*C_Qd8 + 
+                    6.0605*C_Qq18 + 1.7701*C_Qq38 + 4.2427*C_Qu8 + 1.8165*C_td8 + 67.5221*C_tG + 
+                    -0.6729*C_tphi + 7.7025*C_tq8 + 5.9503*C_tu8 + 16.0354*C_tW + -15.4837*C_tZ)
+                    *(SM_sigma_tta_bin_60_75/sigma_tta_bin_60_75_madgraph);
+            
+        }
+    } else if(b_min == 75 && b_max == 95){
+        
+    
+        double SM_sigma_tta_bin_75_95 = SM.getOptionalParameter("SM_sigma_tta_bin_75_95_ATLAS_240309452");
+        double sigma_tta_bin_75_95_madgraph = 215.0879; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return  SM_sigma_tta_bin_75_95 +(-0.6245*C_phiQ3 + -0.1479*C_phiQ3*C_phiQ3 + -0.3324*C_phiQm + 0.0034*C_phiQm*C_phiQm + 
+                    -0.4829*C_phit + 0.0294*C_phit*C_phit + 1.6329*C_Qd8 + 0.6331*C_Qd8*C_Qd8 + 4.9233*C_Qq18 + 2.8120*C_Qq18*C_Qq18 +
+                    1.1708*C_Qq38 + 3.2268*C_Qq38*C_Qq38 + 7.2407*C_Qu8 + 2.9187*C_Qu8*C_Qu8 + 3.1319*C_td8 + 1.2359*C_td8*C_td8 + 
+                    58.3993*C_tG + 12.7909*C_tG*C_tG + -0.1904*C_tphi + -0.2576*C_tphi*C_tphi + 7.2798*C_tq8 + 2.6504*C_tq8*C_tq8 + 
+                    3.4404*C_tu8 + 1.8945*C_tu8*C_tu8 + 16.1736*C_tW + 40.0102*C_tW*C_tW + -14.0892*C_tZ + 30.0366*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_75_95/sigma_tta_bin_75_95_madgraph);;
+            
+        }
+        else{
+            
+            return SM_sigma_tta_bin_75_95 +(-0.6245*C_phiQ3 + -0.3324*C_phiQm + -0.4829*C_phit + 1.6329*C_Qd8 +
+                    4.9233*C_Qq18 + 1.1708*C_Qq38 + 7.2407*C_Qu8 + 3.1319*C_td8 + 58.3993*C_tG + 
+                    -0.1904*C_tphi + 7.2798*C_tq8 + 3.4404*C_tu8 + 16.1736*C_tW + -14.0892*C_tZ)
+                    *(SM_sigma_tta_bin_75_95/sigma_tta_bin_75_95_madgraph);
+            
+        }
+    } else if(b_min == 95 && b_max == 115){
+        
+    
+        double SM_sigma_tta_bin_95_115 = SM.getOptionalParameter("SM_sigma_tta_bin_95_115_ATLAS_240309452");
+        double sigma_tta_bin_95_115_madgraph = 142.5465; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return  SM_sigma_tta_bin_95_115 +(-0.0100*C_phiQ3 + 0.9150*C_phiQ3*C_phiQ3 + -0.1497*C_phiQm + 0.8027*C_phiQm*C_phiQm + 
+                    -0.0423*C_phit + 0.8970*C_phit*C_phit + 0.4354*C_Qd8 + 0.2846*C_Qd8*C_Qd8 + 3.0706*C_Qq18 + 1.7216*C_Qq18*C_Qq18 +
+                    1.3968*C_Qq38 + 2.1580*C_Qq38*C_Qq38 + 3.0244*C_Qu8 + 1.2824*C_Qu8*C_Qu8 + 2.0654*C_td8 + 1.0597*C_td8*C_td8 + 
+                    37.9456*C_tG + 8.6076*C_tG*C_tG + -0.3500*C_tphi + 0.6733*C_tphi*C_tphi + 3.6589*C_tq8 + 2.0057*C_tq8*C_tq8 + 
+                    2.9744*C_tu8 + 1.0258*C_tu8*C_tu8 + 13.8124*C_tW + 37.1495*C_tW*C_tW + -10.7876*C_tZ + 28.5651*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_95_115/sigma_tta_bin_95_115_madgraph);;
+            
+        }
+        else{
+            
+            return SM_sigma_tta_bin_95_115 +(-0.0100*C_phiQ3 + -0.1497*C_phiQm + -0.0423*C_phit + 0.4354*C_Qd8 +
+                    3.0706*C_Qq18 + 1.3968*C_Qq38 + 3.0244*C_Qu8 + 2.0654*C_td8 + 37.9456*C_tG + 
+                    -0.3500*C_tphi + 3.6589*C_tq8 + 2.9744*C_tu8 + 13.8124*C_tW + -10.7876*C_tZ)
+                    *(SM_sigma_tta_bin_95_115/sigma_tta_bin_95_115_madgraph);
+            
+        }
+    } else if(b_min == 115 && b_max == 135){
+        
+    
+        double SM_sigma_tta_bin_115_135 = SM.getOptionalParameter("SM_sigma_tta_bin_115_135_ATLAS_240309452");
+        double sigma_tta_bin_115_135_madgraph = 100.2376; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return  SM_sigma_tta_bin_115_135 +(0.0982*C_phiQ3 + -0.0192*C_phiQ3*C_phiQ3 + 0.2759*C_phiQm + -0.0991*C_phiQm*C_phiQm + 
+                    0.2592*C_phit + -0.0754*C_phit*C_phit + 0.3715*C_Qd8 + 0.4373*C_Qd8*C_Qd8 + 2.3608*C_Qq18 + 1.2985*C_Qq18*C_Qq18 +
+                    0.2884*C_Qq38 + 1.0401*C_Qq38*C_Qq38 + 2.8584*C_Qu8 + 1.2571*C_Qu8*C_Qu8 + 1.0173*C_td8 + 0.6677*C_td8*C_td8 +
+                    26.8228*C_tG + 6.2131*C_tG*C_tG + 0.2409*C_tphi + -0.0626*C_tphi*C_tphi + 3.0877*C_tq8 + 1.5817*C_tq8*C_tq8 + 
+                    1.2391*C_tu8 + 1.0078*C_tu8*C_tu8 + 10.1158*C_tW + 33.9812*C_tW*C_tW + -8.8975*C_tZ + 26.5316*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_115_135/sigma_tta_bin_115_135_madgraph);;
+            
+        }
+        else{
+            
+            return SM_sigma_tta_bin_115_135 +(0.0982*C_phiQ3 + 0.2759*C_phiQm + 0.2592*C_phit + 0.3715*C_Qd8 +
+                    2.3608*C_Qq18 + 0.2884*C_Qq38 + 2.8584*C_Qu8 + 1.0173*C_td8 + 26.8228*C_tG + 
+                    0.2409*C_tphi + 3.0877*C_tq8 + 1.2391*C_tu8 + 10.1158*C_tW + -8.8975*C_tZ)
+                    *(SM_sigma_tta_bin_115_135/sigma_tta_bin_115_135_madgraph);
+            
+        }
+    } else if(b_min == 135 && b_max == 160){
+        
+    
+        double SM_sigma_tta_bin_135_160 = SM.getOptionalParameter("SM_sigma_tta_bin_135_160_ATLAS_240309452");
+        double sigma_tta_bin_135_160_madgraph = 86.8255; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return  SM_sigma_tta_bin_135_160 +(0.0443*C_phiQ3 + -0.1031*C_phiQ3*C_phiQ3 + 0.0548*C_phiQm + -0.0336*C_phiQm*C_phiQm + 
+                    0.1104*C_phit + -0.1402*C_phit*C_phit + 0.4663*C_Qd8 + 0.0807*C_Qd8*C_Qd8 + 1.9391*C_Qq18 + 1.3985*C_Qq18*C_Qq18 +
+                    0.1629*C_Qq38 + 0.9372*C_Qq38*C_Qq38 + 1.8818*C_Qu8 + 0.8036*C_Qu8*C_Qu8 + 0.8608*C_td8 + 0.2294*C_td8*C_td8 + 
+                    22.6273*C_tG + 5.4599*C_tG*C_tG + 0.0082*C_tphi + -0.0811*C_tphi*C_tphi + 2.5293*C_tq8 + 0.9628*C_tq8*C_tq8 +
+                    1.3016*C_tu8 + 0.6664*C_tu8*C_tu8 + 7.8119*C_tW + 39.2686*C_tW*C_tW + -7.0002*C_tZ + 30.1223*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_135_160/sigma_tta_bin_135_160_madgraph);;
+            
+        }
+        else{
+            
+            return SM_sigma_tta_bin_135_160 +( 0.0443*C_phiQ3 + 0.0548*C_phiQm + 0.1104*C_phit + 0.4663*C_Qd8 +
+                    1.9391*C_Qq18 + 0.1629*C_Qq38 + 1.8818*C_Qu8 + 0.8608*C_td8 + 22.6273*C_tG + 
+                    0.0082*C_tphi + 2.5293*C_tq8 + 1.3016*C_tu8 + 7.8119*C_tW + -7.0002*C_tZ)
+                    *(SM_sigma_tta_bin_135_160/sigma_tta_bin_135_160_madgraph);
+            
+        }
+    } else if(b_min == 160 && b_max == 200){
+        
+    
+        double SM_sigma_tta_bin_160_200 = SM.getOptionalParameter("SM_sigma_tta_bin_160_200_ATLAS_240309452");
+        double sigma_tta_bin_160_200_madgraph = 85.9152; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return  SM_sigma_tta_bin_160_200 +(-0.1847*C_phiQ3 + -0.2516*C_phiQ3*C_phiQ3 + -0.1580*C_phiQm + -0.2331*C_phiQm*C_phiQm +
+                    -0.1703*C_phit + -0.2045*C_phit*C_phit + 0.5987*C_Qd8 + 0.3884*C_Qd8*C_Qd8 + 2.2115*C_Qq18 + 1.5935*C_Qq18*C_Qq18 +
+                    0.3104*C_Qq38 + 1.1680*C_Qq38*C_Qq38 + 2.4475*C_Qu8 + 1.0485*C_Qu8*C_Qu8 + 1.3963*C_td8 + 0.4938*C_td8*C_td8 +
+                    21.9619*C_tG + 5.7199*C_tG*C_tG + -0.1752*C_tphi + -0.2107*C_tphi*C_tphi + 2.7676*C_tq8 + 1.1408*C_tq8*C_tq8 +
+                    1.8702*C_tu8 + 0.9288*C_tu8*C_tu8 + 7.9401*C_tW + 52.7680*C_tW*C_tW + -8.1942*C_tZ + 40.4677*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_160_200/sigma_tta_bin_160_200_madgraph);;
+            
+        }
+        else{
+            
+            return SM_sigma_tta_bin_160_200 +(-0.1847*C_phiQ3 + -0.1580*C_phiQm + -0.1703*C_phit + 0.5987*C_Qd8 + 
+                    2.2115*C_Qq18 + 0.3104*C_Qq38 + 2.4475*C_Qu8 + 1.3963*C_td8 + 21.9619*C_tG + 
+                    -0.1752*C_tphi + 2.7676*C_tq8 + 1.8702*C_tu8 + 7.9401*C_tW + -8.1942*C_tZ)
+                    *(SM_sigma_tta_bin_160_200/sigma_tta_bin_160_200_madgraph);
+            
+        }
+    } else if(b_min == 200 && b_max == 260){
+        
+    
+        double SM_sigma_tta_bin_200_260 = SM.getOptionalParameter("SM_sigma_tta_bin_200_260_ATLAS_240309452");
+        double sigma_tta_bin_200_260_madgraph = 64.3789; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return  SM_sigma_tta_bin_200_260 +(-0.0159*C_phiQ3 + -0.1659*C_phiQ3*C_phiQ3 + -0.0580*C_phiQm + -0.1858*C_phiQm*C_phiQm + 
+                    0.0549*C_phit + -0.2053*C_phit*C_phit + 0.3169*C_Qd8 + -0.0456*C_Qd8*C_Qd8 + 1.6921*C_Qq18 + 1.3495*C_Qq18*C_Qq18 +
+                    0.0659*C_Qq38 + 1.1830*C_Qq38*C_Qq38 + 1.7007*C_Qu8 + 0.9087*C_Qu8*C_Qu8 + 0.8325*C_td8 + 0.5036*C_td8*C_td8 + 
+                    16.9626*C_tG + 5.1974*C_tG*C_tG + -0.0888*C_tphi + -0.1738*C_tphi*C_tphi + 2.1195*C_tq8 + 1.2096*C_tq8*C_tq8 + 
+                    0.9658*C_tu8 + 0.7172*C_tu8*C_tu8 + 4.8947*C_tW + 58.4204*C_tW*C_tW + -4.1328*C_tZ + 44.9640*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_200_260/sigma_tta_bin_200_260_madgraph);;
+            
+        }
+        else{
+            
+            return SM_sigma_tta_bin_200_260 +(-0.0159*C_phiQ3 + -0.0580*C_phiQm + 0.0549*C_phit + 0.3169*C_Qd8 
+                    + 1.6921*C_Qq18 + 0.0659*C_Qq38 + 1.7007*C_Qu8 + 0.8325*C_td8 + 16.9626*C_tG + 
+                    -0.0888*C_tphi + 2.1195*C_tq8 + 0.9658*C_tu8 + 4.8947*C_tW + -4.1328*C_tZ)
+                    *(SM_sigma_tta_bin_200_260/sigma_tta_bin_200_260_madgraph);
+            
+        }
+    } else if(b_min == 260 && b_max == 500){
+        
+    
+        double SM_sigma_tta_bin_260_500 = SM.getOptionalParameter("SM_sigma_tta_bin_260_500_ATLAS_240309452");
+        double sigma_tta_bin_260_500_madgraph = 54.6387; //fb
+        
+        
+        if(flag_Quadratic){
+        
+            return  SM_sigma_tta_bin_260_500 +(-0.1799*C_phiQ3 + 0.0335*C_phiQ3*C_phiQ3 + -0.1870*C_phiQm + 0.0253*C_phiQm*C_phiQm + 
+                    -0.1714*C_phit + 0.0470*C_phit*C_phit + 0.2100*C_Qd8 + 0.3024*C_Qd8*C_Qd8 + 1.7935*C_Qq18 + 2.2280*C_Qq18*C_Qq18 +
+                    0.2762*C_Qq38 + 1.9609*C_Qq38*C_Qq38 + 1.6440*C_Qu8 + 1.5191*C_Qu8*C_Qu8 + 0.8866*C_td8 + 0.7711*C_td8*C_td8 + 
+                    14.2313*C_tG + 5.8237*C_tG*C_tG + -0.1895*C_tphi + 0.0588*C_tphi*C_tphi + 2.1582*C_tq8 + 1.9149*C_tq8*C_tq8 + 
+                    1.1636*C_tu8 + 1.2606*C_tu8*C_tu8 + 2.4841*C_tW + 93.5780*C_tW*C_tW + -1.0919*C_tZ + 72.0953*C_tZ*C_tZ)
+                    *(SM_sigma_tta_bin_260_500/sigma_tta_bin_260_500_madgraph);;
+            
+        }
+        else{
+            
+            return SM_sigma_tta_bin_260_500 +(-0.1799*C_phiQ3 + -0.1870*C_phiQm + -0.1714*C_phit + 0.2100*C_Qd8 +
+                    1.7935*C_Qq18 + 0.2762*C_Qq38 + 1.6440*C_Qu8 + 0.8866*C_td8 + 14.2313*C_tG + 
+                    -0.1895*C_tphi + 2.1582*C_tq8 + 1.1636*C_tu8 + 2.4841*C_tW + -1.0919*C_tZ)
+                    *(SM_sigma_tta_bin_260_500/sigma_tta_bin_260_500_madgraph);
+            
+        }
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct binning range for sigma_tta_diff_LO_CMS_dilepton.\n");
+    }
+
+}
 
 
 
@@ -5872,20 +6427,20 @@ double a_30TeV_mumu_bb::computeThValue()
 
 
 
-sigma_250_bb_eP_P30_eM_M80::sigma_250_bb_eP_P30_eM_M80(const StandardModel& SM_i)
+
+sigma_250_bb_eP_M30_eM_M80::sigma_250_bb_eP_M30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    setParametersForObservable(make_vector<std::string>() << "SM_sigma_250_bb_eP_P30_eM_M80");
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_250_bb_eP_M30_eM_M80");
 }
 
-double sigma_250_bb_eP_P30_eM_M80::computeThValue()
+double sigma_250_bb_eP_M30_eM_M80::computeThValue()
 {
- 
     
-    //double sigma_250_bb_eP_P30_eM_M80_Madgraph = 3291;//fb
-    double sigma_250_bb_eP_P30_eM_M80_Madgraph = 3424.2;//fb
+
+    double sigma_250_bb_eP_M30_eM_M80_Madgraph = 1902.69;//fb
     
-    double sigma_250_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_sigma_250_bb_eP_P30_eM_M80");
+    double sigma_250_bb_eP_M30_eM_M80 = SM.getOptionalParameter("SM_sigma_250_bb_eP_M30_eM_M80");
     
     double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
     double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
@@ -5913,19 +6468,26 @@ double sigma_250_bb_eP_P30_eM_M80::computeThValue()
         cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
     }
     
+    
+    
     if(flag_Quadratic){
-        return  sigma_250_bb_eP_P30_eM_M80 +(91.34*ceb + 66.8377*ceb*ceb + -61.31*ceQ + 66.7895*ceQ*ceQ + 
-                51.316*cHb + 7.8376*cHb*cHb + 331.972*cHQ1 + 7.56*cHQ1*cHQ1 + 331.972*cHQ3 + 7.56*cHQ3*cHQ3 +
-                678.772*clb + 1130.7153*clb*clb + 3852.8*clq1 + 1131.0753*clq1*clq1 + 3852.8*clq3 + 
-                1131.0753*clq3*clq3
-                )*sigma_250_bb_eP_P30_eM_M80/sigma_250_bb_eP_P30_eM_M80_Madgraph;
+        return  sigma_250_bb_eP_M30_eM_M80 +(169.682*ceb + 125.2929*ceb*ceb + -113.88*ceQ + 
+                125.2565*ceQ*ceQ + 19.548*cHb + 4.5671*cHb*cHb + 184.36*cHQ1 + 4.4895*cHQ1*cHQ1 + 
+                184.36*cHQ3 + 4.4895*cHQ3*cHQ3 + 365.492*clb + 608.953*clb*clb + 2074.5568*clq1 + 
+                609.1449*clq1*clq1 + 2074.5568*clq3 + 609.1449*clq3*clq3
+                )*sigma_250_bb_eP_M30_eM_M80/sigma_250_bb_eP_M30_eM_M80_Madgraph;
     }
     else{
-        return  sigma_250_bb_eP_P30_eM_M80 +(91.34*ceb + -61.31*ceQ + 51.316*cHb + 
-                331.972*cHQ1 + 331.972*cHQ3 + 678.772*clb + 3852.8*clq1 + 3852.8*clq3
-                )*sigma_250_bb_eP_P30_eM_M80/sigma_250_bb_eP_P30_eM_M80_Madgraph;
+        return  sigma_250_bb_eP_M30_eM_M80 +(169.682*ceb + -113.88*ceQ + 19.548*cHb + 
+                184.36*cHQ1 + 184.36*cHQ3 + 365.492*clb + 2074.5568*clq1 + 2074.5568*clq3
+                )*sigma_250_bb_eP_M30_eM_M80/sigma_250_bb_eP_M30_eM_M80_Madgraph;
     }
 }
+
+
+
+
+
 
 
 
@@ -5987,20 +6549,141 @@ double sigma_250_bb_eP_M30_eM_P80::computeThValue()
 
 
 
-
-a_250_bb_eP_P30_eM_M80::a_250_bb_eP_P30_eM_M80(const StandardModel& SM_i)
+sigma_250_bb_eP_P30_eM_M80::sigma_250_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    setParametersForObservable(make_vector<std::string>() << "SM_a_250_bb_eP_P30_eM_M80");
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_250_bb_eP_P30_eM_M80");
 }
 
-double a_250_bb_eP_P30_eM_M80::computeThValue()
+double sigma_250_bb_eP_P30_eM_M80::computeThValue()
+{
+ 
+    
+    //double sigma_250_bb_eP_P30_eM_M80_Madgraph = 3291;//fb
+    double sigma_250_bb_eP_P30_eM_M80_Madgraph = 3424.2;//fb
+    
+    double sigma_250_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_sigma_250_bb_eP_P30_eM_M80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    if(flag_Quadratic){
+        return  sigma_250_bb_eP_P30_eM_M80 +(91.34*ceb + 66.8377*ceb*ceb + -61.31*ceQ + 66.7895*ceQ*ceQ + 
+                51.316*cHb + 7.8376*cHb*cHb + 331.972*cHQ1 + 7.56*cHQ1*cHQ1 + 331.972*cHQ3 + 7.56*cHQ3*cHQ3 +
+                678.772*clb + 1130.7153*clb*clb + 3852.8*clq1 + 1131.0753*clq1*clq1 + 3852.8*clq3 + 
+                1131.0753*clq3*clq3
+                )*sigma_250_bb_eP_P30_eM_M80/sigma_250_bb_eP_P30_eM_M80_Madgraph;
+    }
+    else{
+        return  sigma_250_bb_eP_P30_eM_M80 +(91.34*ceb + -61.31*ceQ + 51.316*cHb + 
+                331.972*cHQ1 + 331.972*cHQ3 + 678.772*clb + 3852.8*clq1 + 3852.8*clq3
+                )*sigma_250_bb_eP_P30_eM_M80/sigma_250_bb_eP_P30_eM_M80_Madgraph;
+    }
+}
+
+
+
+
+
+sigma_250_bb_eP_P30_eM_P80::sigma_250_bb_eP_P30_eM_P80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_250_bb_eP_P30_eM_P80");
+}
+
+double sigma_250_bb_eP_P30_eM_P80::computeThValue()
 {
     
-    //double a_250_bb_eP_P30_eM_M80 = 69.8;//in percentage//OLD
-    //double a_250_bb_eP_P30_eM_M80 = 0.7038
+
+    double sigma_250_bb_eP_P30_eM_P80_Madgraph = 777.95;//fb
     
-    double asym_SM = SM.getOptionalParameter("SM_a_250_bb_eP_P30_eM_M80");
+    double sigma_250_bb_eP_P30_eM_P80 = SM.getOptionalParameter("SM_sigma_250_bb_eP_P30_eM_P80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    
+    if(flag_Quadratic){
+        return  sigma_250_bb_eP_P30_eM_P80 +(821.734*ceb + 609.4859*ceb*ceb + -552.428*ceQ + 
+                609.2824*ceQ*ceQ + -49.746*cHb + 3.6365*cHb*cHb + 74.238*cHQ1 + 3.6459*cHQ1*cHQ1 +
+                74.238*cHQ3 + 3.6459*cHQ3*cHQ3 + 75.452*clb + 125.6447*clb*clb + 428.1096*clq1 + 
+                125.6898*clq1*clq1 + 428.1096*clq3 + 125.6898*clq3*clq3
+                )*sigma_250_bb_eP_P30_eM_P80/sigma_250_bb_eP_P30_eM_P80_Madgraph;
+    }
+    else{
+        return  sigma_250_bb_eP_P30_eM_P80 +(821.734*ceb + -552.428*ceQ + -49.746*cHb + 
+                74.238*cHQ1 + 74.238*cHQ3 + 75.452*clb + 428.1096*clq1 + 428.1096*clq3
+                )*sigma_250_bb_eP_P30_eM_P80/sigma_250_bb_eP_P30_eM_P80_Madgraph;
+    }
+}
+
+
+
+
+
+
+
+
+a_250_bb_eP_M30_eM_M80::a_250_bb_eP_M30_eM_M80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_250_bb_eP_M30_eM_M80");
+    
+}
+
+double a_250_bb_eP_M30_eM_M80::computeThValue()
+{
+    
+    // double a_250_bb_eP_M30_eM_M80 = 0.69292
+    double asym_SM = SM.getOptionalParameter("SM_a_250_bb_eP_M30_eM_M80");
+
     double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
     double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
@@ -6029,11 +6712,13 @@ double a_250_bb_eP_P30_eM_M80::computeThValue()
     
     
     //We provide these values at linear order
-    double SM_pos = 2917.1787;
-    double NP_pos = 81.1444*ceb + -6.1462*ceQ + -0.9202*cHb + 289.6031*cHQ1 + 289.6031*cHQ3 + 89.2599*clb + 3373.1925*clq1 + 3373.1925*clq3;
+    double SM_pos = 1610.5510;
+    double NP_pos = 147.5905*ceb + -14.4829*ceQ + -5.7728*cHb + 153.9797*cHQ1 +
+    153.9797*cHQ3 + 44.9577*clb + 1815.7625*clq1 + 1815.7625*clq3;
     
-    double SM_neg = 507.0213;
-    double NP_neg = 10.1956*ceb + -55.1638*ceQ + 52.2362*cHb + 42.3689*cHQ1 + 42.3689*cHQ3 + 589.5121*clb + 479.6075*clq1 + 479.6075*clq3;
+    double SM_neg = 292.1390;
+    double NP_neg = 22.0915*ceb + -99.3971*ceQ + 25.3208*cHb + 30.3803*cHQ1 +
+    30.3803*cHQ3 + 320.5343*clb + 258.7943*clq1 + 258.7943*clq3;
     
     double NP_num  = NP_pos-NP_neg;
     double NP_deno = NP_pos+NP_pos;
@@ -6043,8 +6728,13 @@ double a_250_bb_eP_P30_eM_M80::computeThValue()
     
     
     return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
-    
 }
+
+
+
+
+
+
 
 
 
@@ -6108,22 +6798,147 @@ double a_250_bb_eP_M30_eM_P80::computeThValue()
 
 
 
+a_250_bb_eP_P30_eM_M80::a_250_bb_eP_P30_eM_M80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_250_bb_eP_P30_eM_M80");
+}
+
+double a_250_bb_eP_P30_eM_M80::computeThValue()
+{
+    
+    //double a_250_bb_eP_P30_eM_M80 = 69.8;//in percentage//OLD
+    //double a_250_bb_eP_P30_eM_M80 = 0.7038
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_250_bb_eP_P30_eM_M80");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 2917.1787;
+    double NP_pos = 81.1444*ceb + -6.1462*ceQ + -0.9202*cHb + 289.6031*cHQ1 + 289.6031*cHQ3 + 89.2599*clb + 3373.1925*clq1 + 3373.1925*clq3;
+    
+    double SM_neg = 507.0213;
+    double NP_neg = 10.1956*ceb + -55.1638*ceQ + 52.2362*cHb + 42.3689*cHQ1 + 42.3689*cHQ3 + 589.5121*clb + 479.6075*clq1 + 479.6075*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+    
+}
+
+
+
+
+a_250_bb_eP_P30_eM_P80::a_250_bb_eP_P30_eM_P80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_250_bb_eP_P30_eM_P80");
+    
+}
+
+double a_250_bb_eP_P30_eM_P80::computeThValue()
+{
+    
+    // double a_250_bb_eP_P30_eM_P80 = 0.48564 
+    double asym_SM = SM.getOptionalParameter("SM_a_250_bb_eP_P30_eM_P80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 577.8768;
+    double NP_pos = 720.5272*ceb + -70.4976*ceQ + -47.8308*cHb + 
+    37.3405*cHQ1 + 37.3405*cHQ3 + 9.5122*clb + 376.0983*clq1 + 376.0983*clq3;
+    
+    double SM_neg = 200.0732;
+    double NP_neg = 101.2068*ceb + -481.9304*ceQ + -1.9152*cHb + 
+    36.8975*cHQ1 + 36.8975*cHQ3 + 65.9398*clb + 52.0113*clq1 + 52.0113*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+}
+
+
+
+
+
+
 /////// Prospects of e+e- Colliders at 500 GeV //////////////////////////////////////////////////////////
 
 
-sigma_500_bb_eP_P30_eM_M80::sigma_500_bb_eP_P30_eM_M80(const StandardModel& SM_i)
+sigma_500_bb_eP_M30_eM_M80::sigma_500_bb_eP_M30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    setParametersForObservable(make_vector<std::string>() << "SM_sigma_500_bb_eP_P30_eM_M80");
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_500_bb_eP_M30_eM_M80");
 }
 
-double sigma_500_bb_eP_P30_eM_M80::computeThValue()
+double sigma_500_bb_eP_M30_eM_M80::computeThValue()
 {
     
-    //double sigma_500_bb_eP_P30_eM_M80 = 718.5;//fb
-    double sigma_500_bb_eP_P30_eM_M80_Madgraph = 743.86;//fb
+
+    double sigma_500_bb_eP_M30_eM_M80_Madgraph = 413.01;//fb
     
-    double sigma_500_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_sigma_500_bb_eP_P30_eM_M80");
+    double sigma_500_bb_eP_M30_eM_M80 = SM.getOptionalParameter("SM_sigma_500_bb_eP_M30_eM_M80");
     
     double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
     double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
@@ -6151,18 +6966,20 @@ double sigma_500_bb_eP_P30_eM_M80::computeThValue()
     }
     
     if(flag_Quadratic){
-        return  sigma_500_bb_eP_P30_eM_M80 +(89.054*ceb + 270.9682*ceb*ceb + -47.964*ceQ + 
-                270.8141*ceQ*ceQ + 12.484*cHb + 1.56*cHb*cHb + 68.968*cHQ1 + 1.5247*cHQ1*cHQ1 +
-                68.968*cHQ3 + 1.5247*cHQ3*cHQ3 + 725.4*clb + 4530.5811*clb*clb + 3575.3236*clq1 +
-                4531.2214*clq1*clq1 + 3575.3236*clq3 + 4531.2214*clq3*clq3
-                )*sigma_500_bb_eP_P30_eM_M80/sigma_500_bb_eP_P30_eM_M80_Madgraph;
+        return  sigma_500_bb_eP_M30_eM_M80 +(165.3448*ceb + 503.4372*ceb*ceb + -89.1808*ceQ + 
+                503.1713*ceQ*ceQ + 4.9118*cHb + 0.9093*cHb*cHb + 38.088*cHQ1 + 0.9103*cHQ1*cHQ1 + 
+                38.088*cHQ3 + 0.9103*cHQ3*cHQ3 + 390.696*clb + 2439.4*clb*clb + 1925.1396*clq1 + 
+                2439.9085*clq1*clq1 + 1925.1396*clq3 + 2439.9085*clq3*clq3
+                )*sigma_500_bb_eP_M30_eM_M80/sigma_500_bb_eP_M30_eM_M80_Madgraph;
     }
     else{
-        return  sigma_500_bb_eP_P30_eM_M80 +(89.054*ceb + -47.964*ceQ + 12.484*cHb + 
-                68.968*cHQ1 + 68.968*cHQ3 + 725.4*clb + 3575.3236*clq1 + 3575.3236*clq3
-                )*sigma_500_bb_eP_P30_eM_M80/sigma_500_bb_eP_P30_eM_M80_Madgraph;
+        return  sigma_500_bb_eP_M30_eM_M80 +(165.3448*ceb + -89.1808*ceQ + 4.9118*cHb + 
+                38.088*cHQ1 + 38.088*cHQ3 + 390.696*clb + 1925.1396*clq1 + 1925.1396*clq3
+                )*sigma_500_bb_eP_M30_eM_M80/sigma_500_bb_eP_M30_eM_M80_Madgraph;
     }
 }
+
+
 
 
 
@@ -6222,6 +7039,249 @@ double sigma_500_bb_eP_M30_eM_P80::computeThValue()
     }
 }
 
+
+
+
+
+
+
+sigma_500_bb_eP_P30_eM_M80::sigma_500_bb_eP_P30_eM_M80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_500_bb_eP_P30_eM_M80");
+}
+
+double sigma_500_bb_eP_P30_eM_M80::computeThValue()
+{
+    
+    //double sigma_500_bb_eP_P30_eM_M80 = 718.5;//fb
+    double sigma_500_bb_eP_P30_eM_M80_Madgraph = 743.86;//fb
+    
+    double sigma_500_bb_eP_P30_eM_M80 = SM.getOptionalParameter("SM_sigma_500_bb_eP_P30_eM_M80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    if(flag_Quadratic){
+        return  sigma_500_bb_eP_P30_eM_M80 +(89.054*ceb + 270.9682*ceb*ceb + -47.964*ceQ + 
+                270.8141*ceQ*ceQ + 12.484*cHb + 1.56*cHb*cHb + 68.968*cHQ1 + 1.5247*cHQ1*cHQ1 +
+                68.968*cHQ3 + 1.5247*cHQ3*cHQ3 + 725.4*clb + 4530.5811*clb*clb + 3575.3236*clq1 +
+                4531.2214*clq1*clq1 + 3575.3236*clq3 + 4531.2214*clq3*clq3
+                )*sigma_500_bb_eP_P30_eM_M80/sigma_500_bb_eP_P30_eM_M80_Madgraph;
+    }
+    else{
+        return  sigma_500_bb_eP_P30_eM_M80 +(89.054*ceb + -47.964*ceQ + 12.484*cHb + 
+                68.968*cHQ1 + 68.968*cHQ3 + 725.4*clb + 3575.3236*clq1 + 3575.3236*clq3
+                )*sigma_500_bb_eP_P30_eM_M80/sigma_500_bb_eP_P30_eM_M80_Madgraph;
+    }
+}
+
+
+
+
+
+
+
+sigma_500_bb_eP_P30_eM_P80::sigma_500_bb_eP_P30_eM_P80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_500_bb_eP_P30_eM_P80");
+}
+
+double sigma_500_bb_eP_P30_eM_P80::computeThValue()
+{
+    
+
+    double sigma_500_bb_eP_P30_eM_P80_Madgraph = 166.608;//fb
+    
+    double sigma_500_bb_eP_P30_eM_P80 = SM.getOptionalParameter("SM_sigma_500_bb_eP_P30_eM_P80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    if(flag_Quadratic){
+        return  sigma_500_bb_eP_P30_eM_P80 +(801.364*ceb + 2440.1294*ceb*ceb + 
+                -432.48*ceQ + 2439.5459*ceQ*ceQ + -10.7542*cHb + 0.7463*cHb*cHb + 
+                14.2124*cHQ1 + 0.7428*cHQ1*cHQ1 + 14.2124*cHQ3 + 0.7428*cHQ3*cHQ3 +
+                80.6244*clb + 503.3597*clb*clb + 397.259*clq1 + 503.481*clq1*clq1 +
+                397.259*clq3 + 503.481*clq3*clq3
+                )*sigma_500_bb_eP_P30_eM_P80/sigma_500_bb_eP_P30_eM_P80_Madgraph;
+    }
+    else{
+        return  sigma_500_bb_eP_P30_eM_P80 +(801.364*ceb + -432.48*ceQ + -10.7542*cHb + 
+                14.2124*cHQ1 + 14.2124*cHQ3 + 80.6244*clb + 397.259*clq1 + 397.259*clq3
+                )*sigma_500_bb_eP_P30_eM_P80/sigma_500_bb_eP_P30_eM_P80_Madgraph;
+    }
+}
+
+
+
+
+
+a_500_bb_eP_M30_eM_M80::a_500_bb_eP_M30_eM_M80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_500_bb_eP_M30_eM_M80");
+}
+
+double a_500_bb_eP_M30_eM_M80::computeThValue()
+{
+    
+    
+    //double a_500_bb_eP_M30_eM_M80 = 0.68064
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_500_bb_eP_M30_eM_M80");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 347.0606;
+    double NP_pos = 144.2529*ceb + -9.4157*ceQ + -1.5618*cHb + 31.9791*cHQ1 +
+    31.9791*cHQ3 + 46.5714*clb + 1686.8523*clq1 + 1686.8523*clq3;
+    
+    double SM_neg = 65.9494;
+    double NP_neg = 21.0919*ceb + -79.7651*ceQ + 6.4736*cHb + 6.1089*cHQ1 + 
+    6.1089*cHQ3 + 344.1246*clb + 238.2873*clq1 + 238.2873*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+}
+
+
+
+
+a_500_bb_eP_M30_eM_P80::a_500_bb_eP_M30_eM_P80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_500_bb_eP_M30_eM_P80");
+}
+
+double a_500_bb_eP_M30_eM_P80::computeThValue()
+{
+    
+    //double a_500_bb_eP_M30_eM_P80 = 46.9; // in percentage 
+    // double a_500_bb_eP_M30_eM_P80 = 0.47686
+    double asym_SM = SM.getOptionalParameter("SM_a_500_bb_eP_M30_eM_P80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos =  149.0336;
+    double NP_pos = 1300.4371*ceb + -102.5159*ceQ + -19.9600*cHb + 
+    5.0558*cHQ1 + 5.0558*cHQ3 + 5.3046*clb + 187.8792*clq1 + 187.8792*clq3;
+    
+    double SM_neg = 52.7914;
+    double NP_neg = 187.9869*ceb + -700.6281*ceQ + -2.0308*cHb + 
+    11.3472*cHQ1 + 11.3472*cHQ3 + 38.1136*clb + 26.0374*clq1 + 26.0374*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+}
 
 
 a_500_bb_eP_P30_eM_M80::a_500_bb_eP_P30_eM_M80(const StandardModel& SM_i)
@@ -6285,19 +7345,24 @@ double a_500_bb_eP_P30_eM_M80::computeThValue()
 
 
 
-a_500_bb_eP_M30_eM_P80::a_500_bb_eP_M30_eM_P80(const StandardModel& SM_i)
+
+
+
+
+
+a_500_bb_eP_P30_eM_P80::a_500_bb_eP_P30_eM_P80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    setParametersForObservable(make_vector<std::string>() << "SM_a_500_bb_eP_M30_eM_P80");
+    setParametersForObservable(make_vector<std::string>() << "SM_a_500_bb_eP_P30_eM_P80");
 }
 
-double a_500_bb_eP_M30_eM_P80::computeThValue()
+double a_500_bb_eP_P30_eM_P80::computeThValue()
 {
     
-    //double a_500_bb_eP_M30_eM_P80 = 46.9; // in percentage 
-    // double a_500_bb_eP_M30_eM_P80 = 0.47686
-    double asym_SM = SM.getOptionalParameter("SM_a_500_bb_eP_M30_eM_P80");
-
+    
+    //double a_500_bb_eP_P30_eM_P80 = 0.55026
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_500_bb_eP_P30_eM_P80");
     double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
     double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
     double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
@@ -6326,13 +7391,13 @@ double a_500_bb_eP_M30_eM_P80::computeThValue()
     
     
     //We provide these values at linear order
-    double SM_pos =  149.0336;
-    double NP_pos = 1300.4371*ceb + -102.5159*ceQ + -19.9600*cHb + 
-    5.0558*cHQ1 + 5.0558*cHQ3 + 5.3046*clb + 187.8792*clq1 + 187.8792*clq3;
+    double SM_pos = 129.1429;
+    double NP_pos = 700.9852*ceb + -53.4024*ceQ + -10.7908*cHb + 
+    7.2791*cHQ1 + 7.2791*cHQ3 + 9.2642*clb + 346.8097*clq1 + 346.8097*clq3;
     
-    double SM_neg = 52.7914;
-    double NP_neg = 187.9869*ceb + -700.6281*ceQ + -2.0308*cHb + 
-    11.3472*cHQ1 + 11.3472*cHQ3 + 38.1136*clb + 26.0374*clq1 + 26.0374*clq3;
+    double SM_neg = 37.4651;
+    double NP_neg = 100.3788*ceb + -379.0776*ceQ + 0.0366*cHb + 
+    6.9333*cHQ1 + 6.9333*cHQ3 + 71.3602*clb + 50.4493*clq1 + 50.4493*clq3;
     
     double NP_num  = NP_pos-NP_neg;
     double NP_deno = NP_pos+NP_pos;
@@ -6485,6 +7550,7 @@ double sigma_500_ttH_eP_M30_eM_P80::computeThValue()
 /////// Prospects of e+e- Colliders at 1000 GeV //////////////////////////////////////////////////////////
 
 
+
 sigma_1000_bb_eP_P30_eM_M80::sigma_1000_bb_eP_P30_eM_M80(const StandardModel& SM_i)
 : ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
@@ -6595,6 +7661,496 @@ double sigma_1000_bb_eP_M30_eM_P80::computeThValue()
                 )*sigma_1000_bb_eP_M30_eM_P80/sigma_1000_bb_eP_M30_eM_P80_Madgraph;
     }
 }
+
+
+
+
+
+
+a_1000_bb_eP_M20_eM_M80::a_1000_bb_eP_M20_eM_M80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_1000_bb_eP_M20_eM_M80");
+}
+
+double a_1000_bb_eP_M20_eM_M80::computeThValue()
+{
+    
+
+    //double a_1000_bb_eP_M20_eM_M80 = 0.68274
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_1000_bb_eP_M20_eM_M80");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 95.38443;
+    double NP_pos = 133.41633*ceb + -8.99238*ceQ + -0.37146*cHb + 8.83380*cHQ1 +
+    8.83380*cHQ3 + 53.93455*clb + 1898.03403*clq1 + 1898.03403*clq3;
+    
+    double SM_neg = 17.98357;
+    double NP_neg = 18.32967*ceb + -68.35362*ceQ + 1.90766*cHb + 1.50920*cHQ1 +
+    1.50920*cHQ3 + 398.93545*clb + 264.55597*clq1 + 264.55597*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+}
+
+
+
+a_1000_bb_eP_M20_eM_P80::a_1000_bb_eP_M20_eM_P80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_1000_bb_eP_M20_eM_P80");
+}
+
+double a_1000_bb_eP_M20_eM_P80::computeThValue()
+{
+    
+    // double a_1000_bb_eP_M20_eM_P80 = 0.50804
+    double asym_SM = SM.getOptionalParameter("SM_a_1000_bb_eP_M20_eM_P80");
+
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 35.67269;
+    double NP_pos = 1187.77272*ceb + -68.28617*ceQ + -4.38749*cHb + 
+    1.32403*cHQ1 + 1.32403*cHQ3 + 6.99540*clb + 210.14683*clq1 + 210.14683*clq3;
+    
+    double SM_neg = 11.63731;
+    double NP_neg = 178.66128*ceb + -627.56583*ceQ + -0.48285*cHb + 
+    2.39583*cHQ1 + 2.39583*cHQ3 + 43.33340*clb + 30.07837*clq1 + 30.07837*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+}
+
+
+
+
+a_1000_bb_eP_P20_eM_M80::a_1000_bb_eP_P20_eM_M80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_1000_bb_eP_P20_eM_M80");
+}
+
+double a_1000_bb_eP_P20_eM_M80::computeThValue()
+{
+    
+
+    //double a_1000_bb_eP_P20_eM_M80 = 0.6857
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_1000_bb_eP_P20_eM_M80");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 140.57052;
+    double NP_pos = 88.00200*ceb + -6.84170*ceQ + 0.11383*cHb + 13.20309*cHQ1 +
+    13.20309*cHQ3 + 85.26107*clb + 2833.42810*clq1 + 2833.42810*clq3;
+    
+    double SM_neg = 26.20948;
+    double NP_neg = 13.18960*ceb + -44.73970*ceQ + 2.66737*cHb + 2.07251*cHQ1 +
+    2.07251*cHQ3 + 594.09093*clb + 410.82990*clq1 + 410.82990*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+}
+
+
+
+
+
+
+
+
+
+a_1000_bb_eP_P20_eM_P80::a_1000_bb_eP_P20_eM_P80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_a_1000_bb_eP_P20_eM_P80");
+}
+
+double a_1000_bb_eP_P20_eM_P80::computeThValue()
+{
+    
+
+    //double a_1000_bb_eP_P20_eM_P80 = 0.55008
+    
+    double asym_SM = SM.getOptionalParameter("SM_a_1000_bb_eP_P20_eM_P80");
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    //We provide these values at linear order
+    double SM_pos = 32.29824;
+    double NP_pos = 792.24276*ceb + -54.64439*ceQ + -3.01977*cHb + 
+    1.63100*cHQ1 + 1.63100*cHQ3 + 8.83698*clb + 315.89886*clq1 + 315.89886*clq3;
+    
+    double SM_neg = 9.37476;
+    double NP_neg = 118.63724*ceb + -409.34961*ceQ + -0.03449*cHb + 
+    1.78022*cHQ1 + 1.78022*cHQ3 + 66.67342*clb + 44.49374*clq1 + 44.49374*clq3;
+    
+    double NP_num  = NP_pos-NP_neg;
+    double NP_deno = NP_pos+NP_pos;
+    
+    //double SM_num  = SM_pos-SM_neg;
+    double SM_deno = SM_pos+SM_neg;
+    
+    
+    return asym_SM + (NP_num - asym_SM*NP_deno)/SM_deno;
+}
+
+
+
+
+
+sigma_1000_bb_eP_M20_eM_M80::sigma_1000_bb_eP_M20_eM_M80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_1000_bb_eP_M20_eM_M80");
+}
+
+double sigma_1000_bb_eP_M20_eM_M80::computeThValue()
+{
+    
+    
+    double sigma_1000_bb_eP_M20_eM_M80_Madgraph = 113.368;//fb
+    
+    double sigma_1000_bb_eP_M20_eM_M80 = SM.getOptionalParameter("SM_sigma_1000_bb_eP_M20_eM_M80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    
+    if(flag_Quadratic){
+        return  sigma_1000_bb_eP_M20_eM_M80 +(151.746*ceb + 1859.3494*ceb*ceb + 
+                -77.346*ceQ + 1859.0294*ceQ*ceQ + 1.5362*cHb + 0.2349*cHb*cHb + 
+                10.343*cHQ1 + 0.2354*cHQ1*cHQ1 + 10.343*cHQ3 + 0.2354*cHQ3*cHQ3 + 
+                452.87*clb + 11154.9024*clb*clb + 2162.59*clq1 + 11156.0247*clq1*clq1 + 
+                2162.59*clq3 + 11156.0247*clq3*clq3
+                )*sigma_1000_bb_eP_M20_eM_M80/sigma_1000_bb_eP_M20_eM_M80_Madgraph;
+    }
+    else{
+        return  sigma_1000_bb_eP_M20_eM_M80 +(151.746*ceb + -77.346*ceQ + 1.5362*cHb + 
+                10.343*cHQ1 + 10.343*cHQ3 + 452.87*clb + 2162.59*clq1 + 2162.59*clq3
+                )*sigma_1000_bb_eP_M20_eM_M80/sigma_1000_bb_eP_M20_eM_M80_Madgraph;
+    }
+}
+
+
+sigma_1000_bb_eP_M20_eM_P80::sigma_1000_bb_eP_M20_eM_P80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_1000_bb_eP_M20_eM_P80");
+}
+
+double sigma_1000_bb_eP_M20_eM_P80::computeThValue()
+{
+    
+    
+    double sigma_1000_bb_eP_M20_eM_P80_Madgraph = 47.31;//fb
+    
+    double sigma_1000_bb_eP_M20_eM_P80 = SM.getOptionalParameter("SM_sigma_1000_bb_eP_M20_eM_P80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    
+    if(flag_Quadratic){
+        return  sigma_1000_bb_eP_M20_eM_P80 +(1366.434*ceb + 16733.3329*ceb*ceb + 
+                -695.852*ceQ + 16732.3694*ceQ*ceQ + -4.8703*cHb + 0.2519*cHb*cHb +
+                3.7199*cHQ1 + 0.2543*cHQ1*cHQ1 + 3.7199*cHQ3 + 0.2543*cHQ3*cHQ3 + 
+                50.3288*clb + 1239.392*clb*clb + 240.2252*clq1 + 1239.6402*clq1*clq1 + 
+                240.2252*clq3 + 1239.6402*clq3*clq3
+                )*sigma_1000_bb_eP_M20_eM_P80/sigma_1000_bb_eP_M20_eM_P80_Madgraph;
+    }
+    else{
+        return  sigma_1000_bb_eP_M20_eM_P80 +(1366.434*ceb + -695.852*ceQ + -4.8703*cHb + 
+                3.7199*cHQ1 + 3.7199*cHQ3 + 50.3288*clb + 240.2252*clq1 + 240.2252*clq3
+                )*sigma_1000_bb_eP_M20_eM_P80/sigma_1000_bb_eP_M20_eM_P80_Madgraph;
+    }
+}
+
+
+
+sigma_1000_bb_eP_P20_eM_M80::sigma_1000_bb_eP_P20_eM_M80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_1000_bb_eP_P20_eM_M80");
+}
+
+double sigma_1000_bb_eP_P20_eM_M80::computeThValue()
+{
+    
+    
+    double sigma_1000_bb_eP_P20_eM_M80_Madgraph = 166.78;//fb
+    
+    double sigma_1000_bb_eP_P20_eM_M80 = SM.getOptionalParameter("SM_sigma_1000_bb_eP_P20_eM_M80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    if(flag_Quadratic){
+        return  sigma_1000_bb_eP_P20_eM_M80 +(101.1916*ceb + 1239.5508*ceb*ceb + 
+                -51.5814*ceQ + 1239.3309*ceQ*ceQ + 2.7812*cHb + 0.3471*cHb*cHb + 
+                15.2756*cHQ1 + 0.3485*cHQ1*cHQ1 + 15.2756*cHQ3 + 0.3485*cHQ3*cHQ3 + 
+                679.352*clb + 16732.4235*clb*clb + 3244.258*clq1 + 16733.3306*clq1*clq1 + 
+                3244.258*clq3 + 16733.3306*clq3*clq3
+                )*sigma_1000_bb_eP_P20_eM_M80/sigma_1000_bb_eP_P20_eM_M80_Madgraph;
+    }
+    else{
+        return  sigma_1000_bb_eP_P20_eM_M80 +(101.1916*ceb + -51.5814*ceQ + 2.7812*cHb +
+                15.2756*cHQ1 + 15.2756*cHQ3 + 679.352*clb + 3244.258*clq1 + 3244.258*clq3
+                )*sigma_1000_bb_eP_P20_eM_M80/sigma_1000_bb_eP_P20_eM_M80_Madgraph;
+    }
+}
+
+
+
+
+
+sigma_1000_bb_eP_P20_eM_P80::sigma_1000_bb_eP_P20_eM_P80(const StandardModel& SM_i)
+: ThObservable(SM_i),myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "SM_sigma_1000_bb_eP_P20_eM_P80");
+}
+
+double sigma_1000_bb_eP_P20_eM_P80::computeThValue()
+{
+    
+    
+    double sigma_1000_bb_eP_P20_eM_P80_Madgraph = 41.673;//fb
+    
+    double sigma_1000_bb_eP_P20_eM_P80 = SM.getOptionalParameter("SM_sigma_1000_bb_eP_P20_eM_P80");
+    
+    double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
+    double cHb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phib();
+    double ceb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ed();
+    double ceQ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double clb = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_ld();
+    double clqP = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqP();
+    double clqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double clq1 = (clqP + clqM)/2.0;
+    double clq3 = (clqP - clqM)/2.0;
+    
+    
+
+    
+    bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    
+    double cHQ1;
+    if(flag_LHC_WG_Basis){
+        double cHQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+        cHQ1 = cHQ3 + cHQm;
+    }
+    else{
+        cHQ1 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ1();
+    }
+    
+    
+    
+    if(flag_Quadratic){
+        return  sigma_1000_bb_eP_P20_eM_P80 +(910.88*ceb + 11155.5824*ceb*ceb + 
+                -463.994*ceQ + 11154.8965*ceQ*ceQ + -3.0543*cHb + 0.1928*cHb*cHb + 
+                3.4112*cHQ1 + 0.1919*cHQ1*cHQ1 + 3.4112*cHQ3 + 0.1919*cHQ3*cHQ3 + 
+                75.5104*clb + 1859.1527*clb*clb + 360.3926*clq1 + 1859.3867*clq1*clq1 +
+                360.3926*clq3 + 1859.3867*clq3*clq3
+                )*sigma_1000_bb_eP_P20_eM_P80/sigma_1000_bb_eP_P20_eM_P80_Madgraph;
+    }
+    else{
+        return  sigma_1000_bb_eP_P20_eM_P80 +( 910.88*ceb + -463.994*ceQ + -3.0543*cHb + 
+                3.4112*cHQ1 + 3.4112*cHQ3 + 75.5104*clb + 360.3926*clq1 + 360.3926*clq3
+                )*sigma_1000_bb_eP_P20_eM_P80/sigma_1000_bb_eP_P20_eM_P80_Madgraph;
+    }
+}
+
 
 
 
@@ -7029,7 +8585,7 @@ double a_380_bb_eP_0_eM_M80::computeThValue()
 {
     
     //double a_380_bb_eP_0_eM_M80 = 67.93;//in percentage OLD
-    // double a_380_bb_eP_0_eM_P80 = 0.6929;
+    // double a_380_bb_eP_0_eM_M80 = 0.6929;
     double asym_SM = SM.getOptionalParameter("SM_a_380_bb_eP_0_eM_M80");
 
     double cHQ3 = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQ3();
@@ -8543,17 +10099,22 @@ double a_Z_pole_bb_eP_P30_eM_M80::computeThValue()
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-opt_obs_ilc_500_M30_P80::opt_obs_ilc_500_M30_P80(const StandardModel& SM_i)
+
+
+opt_obs_ilc_500_M30_M80::opt_obs_ilc_500_M30_M80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_500_M30_M80" << "eff_ilc_500_M30_M80");               
 }
 
-double opt_obs_ilc_500_M30_P80::computeThValue()
+double opt_obs_ilc_500_M30_M80::computeThValue()
 {
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_500_M30_M80");
+    double eff = SM.getOptionalParameter("eff_ilc_500_M30_M80");
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -8579,92 +10140,276 @@ double opt_obs_ilc_500_M30_P80::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_ilc_500_M30_P80_1 = 294.6560701927736*C_phiQm + 171.17339579152352*C_phit + 14229.690547821023*C_tW +
-        -15665.13802418413*C_tZ + 0.00372992390156334*CI_tW + -0.00320726933035694*CI_tZ + -1111.0398102216163*C_lqM + 
-        -19589.92667384607*C_eq + -1845.608788264218*C_lu + -12747.422292580504*C_eu;
+        double opt_obs_ilc_500_M30_M80_1 = 1.6388108355063156*C_phiQm + 0.6087828462366077*C_phit
+ + -61.890724618292566*C_tW + 39.75505329432949*C_tZ
+ + -4.5375385353076815e-07*CI_tW + 3.358614712277795e-07*CI_tZ
+ + 94.4094725375339*C_lqM + 5.68112958507642*C_eq
+ + 44.714498905389284*C_lu + 13.081461570106693*C_eu;
 
-        return opt_obs_ilc_500_M30_P80_1;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_ilc_500_M30_P80_2 = 171.17339579152355*C_phiQm + 474.1560979488673*C_phit + 18836.781415209403*C_tW +
-        -20800.55713616647*C_tZ + -0.00372992390156334*CI_tW + 0.00320726933027859*CI_tZ + -2497.9271734435483*C_lqM + 
-        -13490.70082433306*C_eq + -1235.575470888101*C_lu + -30894.14415352892*C_eu;
+        double opt_obs_ilc_500_M30_M80_2 = 0.6087828462366078*C_phiQm + 1.2003646209917191*C_phit
+ + -49.54909693163696*C_tW + 31.517839093491197*C_tZ
+ + 4.5375385353076815e-07*CI_tW + -3.3586147107303444e-07*CI_tZ
+ + 40.131540147129115*C_lqM + 7.859649201693296*C_eq
+ + 70.14369540821401*C_lu + 5.295931344571681*C_eu;
         
-        return opt_obs_ilc_500_M30_P80_2;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_ilc_500_M30_P80_3 = 14229.690547821016*C_phiQm + 18836.781415209403*C_phit + 1009381.360616434*C_tW +
-        -1111613.2860736728*C_tZ + 1.4169102831514382e-12*CI_tW + -1.2495755000240981e-12*CI_tZ + -111227.26552435663*C_lqM +
-        -1011629.7975010789*C_eq + -98681.10765038825*C_lu + -1283828.8040962482*C_eu;
+        double opt_obs_ilc_500_M30_M80_3 = -61.89072461829256*C_phiQm + -49.54909693163696*C_phit
+ + 3149.8689674659568*C_tW + -2023.5923066087373*C_tZ
+ + 0.0*CI_tW + 1.215405407765529e-15*CI_tZ
+ + -3722.6183854350847*C_lqM + -393.1825271022163*C_eq
+ + -3176.6897996411835*C_lu + -538.5779626257699*C_eu;
 
-        return opt_obs_ilc_500_M30_P80_3;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_ilc_500_M30_P80_4 = -15665.138024184134*C_phiQm + -20800.557136166473*C_phit + -1111613.2860736728*C_tW +
-        1224884.3137228284*C_tZ + -1.2495755000240983e-12*CI_tW + 1.1020026806408533e-12*CI_tZ + 123203.9683622922*C_lqM +
-        1114540.9849423845*C_eq + 108354.47523365202*C_lu + 1416970.6083708322*C_eu;
+        double opt_obs_ilc_500_M30_M80_4 = 39.755053294329485*C_phiQm + 31.51783909349119*C_phit
+ + -2023.5923066087369*C_tW + 1305.854298764936*C_tZ
+ + 0.0*CI_tW + -1.0718680202974305e-15*CI_tZ
+ + 2394.940694108159*C_lqM + 256.8258832653644*C_eq
+ + 2034.7150265358978*C_lu + 358.58651289404975*C_eu;
         
-        return opt_obs_ilc_500_M30_P80_4;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
 
-        double opt_obs_ilc_500_M30_P80_5 = 0.00372992390156334*C_phiQm + -0.00372992390156334*C_phit + 1.4169102831514382e-12*C_tW +
-                -1.2495755000240981e-12*C_tZ + 20398.87036726188*CI_tW + -22495.119909411696*CI_tZ + 0.0007938459551059769*C_lqM +
-                0.12054656887710122*C_eq + -0.0007633998955467782*C_lu + -0.12874291880341213*C_eu;
+        double opt_obs_ilc_500_M30_M80_5 = -4.5375385353076815e-07*C_phiQm + 4.5375385353076815e-07*C_phit
+ + 0.0*C_tW + 0.0*C_tZ
+ + 63.98323788950894*CI_tW + -41.20002299823266*CI_tZ
+ + 4.571586963749346e-06*C_lqM + -5.776155790041091e-07*C_eq
+ + -4.571586993537247e-06*C_lu + 5.776155818381808e-07*C_eu;
         
-        return opt_obs_ilc_500_M30_P80_5;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
-        double opt_obs_ilc_500_M30_P80_6 = -0.003207269330356941*C_phiQm + 0.003207269330278591*C_phit + -1.2495755000240983e-12*C_tW + 
-        1.1020026806408533e-12*C_tZ + -22495.1199094117*CI_tW + 24810.555332297652*CI_tZ + 0.016727149285448467*C_lqM + 
-        -0.27869883610835017*C_eq + -0.01707552014276061*C_lu + 0.2859272105363786*C_eu;
+        double opt_obs_ilc_500_M30_M80_6 = 3.358614712277794e-07*C_phiQm + -3.3586147107303444e-07*C_phit
+ + 1.215405407765529e-15*C_tW + -1.0718680202974305e-15*C_tZ
+ + -41.20002299823267*CI_tW + 26.535300137348194*CI_tZ
+ + 0.0001276573399437371*C_lqM + -1.0890583782044935e-06*C_eq
+ + -0.00012765733992174254*C_lu + 1.0890583764385416e-06*C_eu;
         
-        return opt_obs_ilc_500_M30_P80_6;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
-        double opt_obs_ilc_500_M30_P80_7 = -1111.0398102216163*C_phiQm + -2497.9271734435483*C_phit + -111227.26552435663*C_tW +
-        123203.9683622922*C_tZ + 0.0007938459551059769*CI_tW + 0.016727149285448467*CI_tZ + 18150.823453092682*C_lqM +
-        89774.86679534834*C_eq + 9322.308654047287*C_lu + 165958.07729984383*C_eu;
+        double opt_obs_ilc_500_M30_M80_7 = 94.40947253753392*C_phiQm + 40.131540147129115*C_phit
+ + -3722.6183854350847*C_tW + 2394.940694108159*C_tZ
+ + 4.571586963749346e-06*CI_tW + 0.0001276573399437371*CI_tZ
+ + 5478.8820315893045*C_lqM + 372.2141194997444*C_eq
+ + 2861.7256424690518*C_lu + 765.2784244327142*C_eu;
         
-        return opt_obs_ilc_500_M30_P80_7;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_ilc_500_M30_P80_8 = -19589.92667384607*C_phiQm + -13490.700824333058*C_phit + -1011629.7975010789*C_tW +
-        1114540.9849423845*C_tZ + 0.12054656887710122*CI_tW + -0.27869883610835017*CI_tZ + 89774.86679534834*C_lqM + 
-        1320531.5099814667*C_eq + 125394.7951576002*C_lu + 981839.5368001526*C_eu;
+        double opt_obs_ilc_500_M30_M80_8 = 5.68112958507642*C_phiQm + 7.859649201693296*C_phit
+ + -393.1825271022163*C_tW + 256.8258832653644*C_tZ
+ + -5.776155790041091e-07*CI_tW + -1.0890583782044931e-06*CI_tZ
+ + 372.2141194997444*C_lqM + 70.84796056092617*C_eq
+ + 480.31785699418907*C_lu + 58.56415794507859*C_eu;
         
-        return opt_obs_ilc_500_M30_P80_8;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_ilc_500_M30_P80_9 = -1845.6087882642175*C_phiQm + -1235.5754708881013*C_phit + -98681.10765038824*C_tW + 
-        108354.47523365199*C_tZ + -0.0007633998955467782*CI_tW + -0.01707552014276061*CI_tZ + 9322.308654047287*C_lqM + 
-        125394.79515760022*C_eq + 15595.578326187493*C_lu + 94606.70558894295*C_eu;
+        double opt_obs_ilc_500_M30_M80_9 = 44.71449890538929*C_phiQm + 70.14369540821401*C_phit
+ + -3176.6897996411835*C_tW + 2034.7150265358976*C_tZ
+ + -4.571586993537247e-06*CI_tW + -0.00012765733992174254*CI_tZ
+ + 2861.7256424690518*C_lqM + 480.3178569941891*C_eq
+ + 4192.860190165782*C_lu + 415.8196899853501*C_eu;
         
-        return opt_obs_ilc_500_M30_P80_9;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_ilc_500_M30_P80_10 = -12747.422292580502*C_phiQm + -30894.14415352892*C_phit + -1283828.8040962482*C_tW +
-        1416970.6083708322*C_tZ + -0.12874291880341213*CI_tW + 0.28592721053637865*CI_tZ + 165958.07729984386*C_lqM + 
-        981839.5368001527*C_eq + 94606.70558894295*C_lu + 2028999.4152815118*C_eu;
+        double opt_obs_ilc_500_M30_M80_10 = 13.081461570106692*C_phiQm + 5.295931344571679*C_phit
+ + -538.57796262577*C_tW + 358.58651289404986*C_tZ
+ + 5.776155818381807e-07*CI_tW + 1.0890583764385414e-06*CI_tZ
+ + 765.278424432714*C_lqM + 58.56415794507859*C_eq
+ + 415.81968998535007*C_lu + 144.48630803103853*C_eu;
         
-        return opt_obs_ilc_500_M30_P80_10;
+        return lumi*eff*opt_obs_ilc_500_M30_M80_10;
+
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_M80, it goes from 1 to 10 in consecutive pairs.\n");
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+opt_obs_ilc_500_M30_P80::opt_obs_ilc_500_M30_P80(const StandardModel& SM_i)
+: ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_500_M30_P80" << "eff_ilc_500_M30_P80");               
+}
+
+double opt_obs_ilc_500_M30_P80::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_500_M30_P80");
+    double eff = SM.getOptionalParameter("eff_ilc_500_M30_P80");
+    
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    //['ClqA', 'CeqA', 'CpqA', 'ClqV', 'CeqV', 'CpqV', 'CuZR', 'CuAR', 'CuZI', 'CuAI']
+    //['cpQM','cpt','ctW','ctZ','ctWI','ctZI','cQlM1','cQe1','ctl1','cte1']
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    double CI_tW = 0.;
+    double CI_tZ = 0.;
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+    
+    
+
+
+        
+    
+    
+    if(b_min == 1 && b_max == 1){
+        
+        double opt_obs_ilc_500_M30_P80_1 = 1.473280350963868*C_phiQm + 0.8558669789576177*C_phit
+ + 71.14845273910511*C_tW + -78.32569012092065*C_tZ
+ + 1.86496195078167e-05*CI_tW + -1.60363466517847e-05*CI_tZ
+ + -5.555199051108081*C_lqM + -97.94963336923034*C_eq
+ + -9.22804394132109*C_lu + -63.73711146290252*C_eu;
+
+        return lumi*eff*opt_obs_ilc_500_M30_P80_1;
+        
+        
+    } else if(b_min == 2 && b_max == 2){
+        
+        double opt_obs_ilc_500_M30_P80_2 = 0.8558669789576178*C_phiQm + 2.3707804897443365*C_phit
+ + 94.18390707604702*C_tW + -104.00278568083235*C_tZ
+ + -1.86496195078167e-05*CI_tW + 1.603634665139295e-05*CI_tZ
+ + -12.489635867217741*C_lqM + -67.4535041216653*C_eq
+ + -6.177877354440506*C_lu + -154.4707207676446*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_M30_P80_2;
+
+        
+    } else if(b_min == 3 && b_max == 3){
+        
+        double opt_obs_ilc_500_M30_P80_3 = 71.14845273910508*C_phiQm + 94.18390707604702*C_phit
+ + 5046.90680308217*C_tW + -5558.066430368364*C_tZ
+ + 7.084551415757191e-15*CI_tW + -6.247877500120491e-15*CI_tZ
+ + -556.1363276217832*C_lqM + -5058.148987505395*C_eq
+ + -493.40553825194127*C_lu + -6419.144020481242*C_eu;
+
+        return lumi*eff*opt_obs_ilc_500_M30_P80_3;
+
+    } else if(b_min == 4 && b_max == 4){
+        
+        double opt_obs_ilc_500_M30_P80_4 = -78.32569012092067*C_phiQm + -104.00278568083236*C_phit
+ + -5558.066430368364*C_tW + 6124.4215686141415*C_tZ
+ + -6.247877500120492e-15*CI_tW + 5.510013403204266e-15*CI_tZ
+ + 616.019841811461*C_lqM + 5572.704924711923*C_eq
+ + 541.77237616826*C_lu + 7084.853041854161*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_M30_P80_4;
+
+        
+    } else if(b_min == 5 && b_max == 5){
+
+        double opt_obs_ilc_500_M30_P80_5 = 1.86496195078167e-05*C_phiQm + -1.86496195078167e-05*C_phit
+ + 7.084551415757191e-15*C_tW + -6.247877500120491e-15*C_tZ
+ + 101.9943518363094*CI_tW + -112.47559954705848*CI_tZ
+ + 3.9692297755298845e-06*C_lqM + 0.0006027328443855061*C_eq
+ + -3.816999477733891e-06*C_lu + -0.0006437145940170607*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_M30_P80_5;
+
+        
+    } else if(b_min == 6 && b_max == 6){
+        
+        double opt_obs_ilc_500_M30_P80_6 = -1.6036346651784704e-05*C_phiQm + 1.6036346651392955e-05*C_phit
+ + -6.247877500120492e-15*C_tW + 5.510013403204266e-15*C_tZ
+ + -112.4755995470585*CI_tW + 124.05277666148825*CI_tZ
+ + 8.363574642724233e-05*C_lqM + -0.001393494180541751*C_eq
+ + -8.537760071380305e-05*C_lu + 0.001429636052681893*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_M30_P80_6;
+
+        
+    } else if(b_min == 7 && b_max == 7){
+        
+        double opt_obs_ilc_500_M30_P80_7 = -5.555199051108081*C_phiQm + -12.489635867217741*C_phit
+ + -556.1363276217832*C_tW + 616.019841811461*C_tZ
+ + 3.9692297755298845e-06*CI_tW + 8.363574642724234e-05*CI_tZ
+ + 90.7541172654634*C_lqM + 448.8743339767417*C_eq
+ + 46.61154327023644*C_lu + 829.7903864992192*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_M30_P80_7;
+
+        
+    } else if(b_min == 8 && b_max == 8){
+        
+        double opt_obs_ilc_500_M30_P80_8 = -97.94963336923034*C_phiQm + -67.45350412166529*C_phit
+ + -5058.148987505395*C_tW + 5572.704924711923*C_tZ
+ + 0.0006027328443855061*CI_tW + -0.001393494180541751*CI_tZ
+ + 448.8743339767417*C_lqM + 6602.657549907333*C_eq
+ + 626.973975788001*C_lu + 4909.197684000763*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_M30_P80_8;
+
+        
+    } else if(b_min == 9 && b_max == 9){
+        
+        double opt_obs_ilc_500_M30_P80_9 = -9.228043941321088*C_phiQm + -6.177877354440507*C_phit
+ + -493.40553825194115*C_tW + 541.7723761682599*C_tZ
+ + -3.816999477733891e-06*CI_tW + -8.537760071380305e-05*CI_tZ
+ + 46.61154327023644*C_lqM + 626.9739757880011*C_eq
+ + 77.97789163093746*C_lu + 473.03352794471476*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_M30_P80_9;
+
+        
+    } else if(b_min == 10 && b_max == 10){
+        
+        
+        double opt_obs_ilc_500_M30_P80_10 = -63.73711146290251*C_phiQm + -154.4707207676446*C_phit
+ + -6419.144020481242*C_tW + 7084.853041854161*C_tZ
+ + -0.0006437145940170606*CI_tW + 0.0014296360526818933*CI_tZ
+ + 829.7903864992193*C_lqM + 4909.197684000764*C_eq
+ + 473.03352794471476*C_lu + 10144.997076407559*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_M30_P80_10;
 
         
     } else{
@@ -8688,7 +10433,7 @@ double opt_obs_ilc_500_M30_P80::computeThValue()
 opt_obs_ilc_500_P30_M80::opt_obs_ilc_500_P30_M80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_500_P30_M80" << "eff_ilc_500_P30_M80");               
 }
 
 double opt_obs_ilc_500_P30_M80::computeThValue()
@@ -8696,6 +10441,9 @@ double opt_obs_ilc_500_P30_M80::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_500_P30_M80");
+    double eff = SM.getOptionalParameter("eff_ilc_500_P30_M80");
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -8714,107 +10462,735 @@ double opt_obs_ilc_500_P30_M80::computeThValue()
     double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
     
     
-
-
-    
-
-        
-    
-        
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_ilc_500_P30_M80_1 = 703.7350204423321*C_phiQm + 337.6997705822166*C_phit + -24038.357894809993*C_tW +
-        14343.51246227738*C_tZ + -0.003827580031797993*CI_tW + 0.003327116051836008*CI_tZ + 39062.65541482123*C_lqM +
-        748.9157371128568*C_eq + 19841.850571431274*C_lu + 1610.0470839894817*C_eu;
+        double opt_obs_ilc_500_P30_M80_1 = 3.5186751022116605*C_phiQm + 1.6884988529110831*C_phit
+ + -120.19178947404997*C_tW + 71.7175623113869*C_tZ
+ + -1.9137900158989966e-05*CI_tW + 1.663558025918004e-05*CI_tZ
+ + 195.31327707410614*C_lqM + 3.744578685564284*C_eq
+ + 99.20925285715637*C_lu + 8.050235419947409*C_eu;
 
-        return opt_obs_ilc_500_P30_M80_1;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_ilc_500_P30_M80_2 = 337.6997705822166*C_phiQm + 524.4185453317663*C_phit + -20141.951714332663*C_tW +
-        11990.198549233664*C_tZ + -0.003665423198066202*CI_tW + 0.0032809757723088083*CI_tZ + 19285.616954846562*C_lqM +
-        976.2848623106105*C_eq + 29325.138047768683*C_lu + 803.8304870624078*C_eu;
+        double opt_obs_ilc_500_P30_M80_2 = 1.6884988529110831*C_phiQm + 2.622092726658831*C_phit
+ + -100.70975857166331*C_tW + 59.950992746168325*C_tZ
+ + -1.832711599033101e-05*CI_tW + 1.640487886154404e-05*CI_tZ
+ + 96.42808477423281*C_lqM + 4.881424311553053*C_eq
+ + 146.62569023884342*C_lu + 4.019152435312039*C_eu;
         
-        return opt_obs_ilc_500_P30_M80_2;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_ilc_500_P30_M80_3 = -24038.357894809997*C_phiQm + -20141.951714332663*C_phit + 1043257.6256178217*C_tW + 
-        -621080.9076077202*C_tZ + -0.34905994153575454*CI_tW + 0.30783653430250724*CI_tZ + -1347804.4382497193*C_lqM + 
-        -40975.1214998804*C_eq + -1148620.0292692867*C_lu + -56302.66753808915*C_eu;
+        double opt_obs_ilc_500_P30_M80_3 = -120.19178947404998*C_phiQm + -100.70975857166331*C_phit
+ + 5216.288128089109*C_tW + -3105.404538038601*C_tZ
+ + -0.0017452997076787726*CI_tW + 0.0015391826715125362*CI_tZ
+ + -6739.022191248597*C_lqM + -204.87560749940198*C_eq
+ + -5743.100146346434*C_lu + -281.5133376904457*C_eu;
 
-        return opt_obs_ilc_500_P30_M80_3;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_ilc_500_P30_M80_4 = 14343.512462277376*C_phiQm + 11990.198549233664*C_phit + -621080.9076077202*C_tW +
-                370760.078767735*C_tZ + 0.30783653430208235*CI_tW + -0.2714815439270193*CI_tZ + 804469.1976087822*C_lqM +
-                24725.021312052966*C_eq + 684617.1078226374*C_lu + 34500.31633361782*C_eu;
+        double opt_obs_ilc_500_P30_M80_4 = 71.71756231138689*C_phiQm + 59.950992746168325*C_phit
+ + -3105.404538038601*C_tW + 1853.800393838675*C_tZ
+ + 0.0015391826715104118*CI_tW + -0.0013574077196350964*CI_tZ
+ + 4022.3459880439113*C_lqM + 123.62510656026484*C_eq
+ + 3423.085539113187*C_lu + 172.5015816680891*C_eu;
         
-        return opt_obs_ilc_500_P30_M80_4;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
         
 
-        double opt_obs_ilc_500_P30_M80_5 = -0.003827580031797993*C_phiQm + -0.003665423198066202*C_phit + -0.34905994153575454*C_tW +
-        0.30783653430208235*C_tZ + 21232.626909135655*CI_tW + -12668.468352224989*CI_tZ + 0.0825698702728631*C_lqM + 
-        0.000531226257185395*C_eq + -0.08256987027431995*C_lu + -0.0005331025977975707*C_eu;
+        double opt_obs_ilc_500_P30_M80_5 = -1.9137900158989966e-05*C_phiQm + -1.832711599033101e-05*C_phit
+ + -0.0017452997076787726*C_tW + 0.0015391826715104118*C_tZ
+ + 106.16313454567828*CI_tW + -63.34234176112494*CI_tZ
+ + 0.0004128493513643155*C_lqM + 2.6561312859269752e-06*C_eq
+ + -0.0004128493513715997*C_lu + -2.6655129889878537e-06*C_eu;
         
-        return opt_obs_ilc_500_P30_M80_5;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
-        double opt_obs_ilc_500_P30_M80_6 = 0.003327116051836007*C_phiQm + 0.0032809757723088074*C_phit + 0.30783653430250724*C_tW +
-        -0.2714815439270193*C_tZ + -12668.468352224985*CI_tW + 7557.474262174736*CI_tZ + -0.06056397238136667*C_lqM + 
-        -0.0037281937686168484*C_eq + 0.060563972379805334*C_lu + 0.003738744348243136*C_eu;
+        double opt_obs_ilc_500_P30_M80_6 = 1.6635580259180036e-05*C_phiQm + 1.6404878861544037e-05*C_phit
+ + 0.0015391826715125362*C_tW + -0.0013574077196350964*C_tZ
+ + -63.34234176112493*CI_tW + 37.78737131087368*CI_tZ
+ + -0.00030281986190683336*C_lqM + -1.864096884308424e-05*C_eq
+ + 0.00030281986189902667*C_lu + 1.869372174121568e-05*C_eu;
         
-        return opt_obs_ilc_500_P30_M80_6;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
-        double opt_obs_ilc_500_P30_M80_7 = 39062.65541482123*C_phiQm + 19285.616954846562*C_phit + -1347804.438249719*C_tW +
-        804469.1976087822*C_tZ + 0.08256987027286311*CI_tW + -0.06056397238136668*CI_tZ + 2169477.606269675*C_lqM + 
-        42957.40498161847*C_eq + 1131117.1099025211*C_lu + 89615.80837041467*C_eu;
+        double opt_obs_ilc_500_P30_M80_7 = 195.31327707410614*C_phiQm + 96.42808477423281*C_phit
+ + -6739.022191248596*C_tW + 4022.3459880439113*C_tZ
+ + 0.00041284935136431554*CI_tW + -0.0003028198619068334*CI_tZ
+ + 10847.388031348375*C_lqM + 214.78702490809235*C_eq
+ + 5655.585549512605*C_lu + 448.0790418520734*C_eu;
         
-        return opt_obs_ilc_500_P30_M80_7;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_ilc_500_P30_M80_8 = 748.9157371128568*C_phiQm + 976.2848623106107*C_phit + -40975.1214998804*C_tW +
-        24725.02131205298*C_tZ + 0.0005312262571853951*CI_tW + -0.0037281937686168484*CI_tZ + 42957.40498161847*C_lqM +
-        2376.3937181887895*C_eq + 55026.67359132021*C_lu + 1992.9556548768162*C_eu;
+        double opt_obs_ilc_500_P30_M80_8 = 3.744578685564284*C_phiQm + 4.881424311553054*C_phit
+ + -204.87560749940198*C_tW + 123.6251065602649*C_tZ
+ + 2.6561312859269757e-06*CI_tW + -1.864096884308424e-05*CI_tZ
+ + 214.78702490809235*C_lqM + 11.881968590943949*C_eq
+ + 275.13336795660103*C_lu + 9.96477827438408*C_eu;
         
-        return opt_obs_ilc_500_P30_M80_8;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_ilc_500_P30_M80_9 = 19841.850571431274*C_phiQm + 29325.138047768683*C_phit + -1148620.0292692867*C_tW +
-        684617.1078226374*C_tZ + -0.08256987027431995*CI_tW + 0.06056397237980535*CI_tZ + 1131117.1099025211*C_lqM + 
-        55026.67359132021*C_eq + 1642718.1956109526*C_lu + 48280.479849454*C_eu;
+        double opt_obs_ilc_500_P30_M80_9 = 99.20925285715637*C_phiQm + 146.62569023884342*C_phit
+ + -5743.100146346434*C_tW + 3423.085539113187*C_tZ
+ + -0.0004128493513715997*CI_tW + 0.0003028198618990267*CI_tZ
+ + 5655.585549512606*C_lqM + 275.13336795660103*C_eq
+ + 8213.590978054763*C_lu + 241.40239924727*C_eu;
         
-        return opt_obs_ilc_500_P30_M80_9;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_ilc_500_P30_M80_10 = 1610.0470839894817*C_phiQm + 803.8304870624077*C_phit + -56302.66753808915*C_tW +
-        34500.31633361782*C_tZ + -0.0005331025977975707*CI_tW + 0.003738744348243136*CI_tZ + 89615.80837041467*C_lqM + 
-        1992.9556548768164*C_eq + 48280.47984945401*C_lu + 5029.913792498948*C_eu;
+        double opt_obs_ilc_500_P30_M80_10 = 8.050235419947409*C_phiQm + 4.019152435312038*C_phit
+ + -281.5133376904457*C_tW + 172.5015816680891*C_tZ
+ + -2.6655129889878537e-06*CI_tW + 1.869372174121568e-05*CI_tZ
+ + 448.0790418520734*C_lqM + 9.964778274384082*C_eq
+ + 241.40239924727004*C_lu + 25.14956896249474*C_eu;
         
-        return opt_obs_ilc_500_P30_M80_10;
+        return lumi*eff*opt_obs_ilc_500_P30_M80_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_P30_M80, it goes from 1 to 10 in consecutive pairs.\n");
+    }
+
+}
+
+
+
+
+
+
+opt_obs_ilc_500_P30_P80::opt_obs_ilc_500_P30_P80(const StandardModel& SM_i)
+: ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_500_P30_P80" << "eff_ilc_500_P30_P80");               
+}
+
+double opt_obs_ilc_500_P30_P80::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_500_P30_P80");
+    double eff = SM.getOptionalParameter("eff_ilc_500_P30_P80");
+    
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    //['ClqA', 'CeqA', 'CpqA', 'ClqV', 'CeqV', 'CpqV', 'CuZR', 'CuAR', 'CuZI', 'CuAI']
+    //['cpQM','cpt','ctW','ctZ','ctWI','ctZI','cQlM1','cQe1','ctl1','cte1']
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    double CI_tW = 0.;
+    double CI_tZ = 0.;
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+        
+    
+    
+    if(b_min == 1 && b_max == 1){
+        
+        double opt_obs_ilc_500_P30_P80_1 = 0.4733668460101026*C_phiQm + 0.005756343626120958*C_phit
+ + 22.762006896207158*C_tW + -23.17958375877933*C_tZ
+ + -3.925645983740149e-06*CI_tW + 4.946022417778193e-06*CI_tZ
+ + -2.3638086699094676*C_lqM + -32.13085739637971*C_eq
+ + -9.774645391519162*C_lu + -11.495703966221601*C_eu;
+
+        return lumi*eff*opt_obs_ilc_500_P30_P80_1;
+        
+        
+    } else if(b_min == 2 && b_max == 2){
+        
+        double opt_obs_ilc_500_P30_P80_2 = 0.0057563436261209855*C_phiQm + 0.8601413576896537*C_phit
+ + 36.89957118648607*C_tW + -37.956826882338994*C_tZ
+ + 4.0130915566293896e-06*CI_tW + -1.7311533488048075e-06*CI_tZ
+ + -14.962958794240743*C_lqM + -17.408009480232202*C_eq
+ + -4.337439418110696*C_lu + -58.43192804314783*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_P30_P80_2;
+
+        
+    } else if(b_min == 3 && b_max == 3){
+        
+        double opt_obs_ilc_500_P30_P80_3 = 22.762006896207158*C_phiQm + 36.89957118648607*C_phit
+ + 3048.89891247043*C_tW + -3085.8057697355357*C_tZ
+ + 0.0*CI_tW + -1.2882803255075677e-15*CI_tZ
+ + -961.9281659113891*C_lqM + -2511.601189704324*C_eq
+ + -842.9794543770362*C_lu + -3255.219637505407*C_eu;
+
+        return lumi*eff*opt_obs_ilc_500_P30_P80_3;
+
+    } else if(b_min == 4 && b_max == 4){
+        
+        double opt_obs_ilc_500_P30_P80_4 = -23.17958375877933*C_phiQm + -37.956826882339*C_phit
+ + -3085.8057697355357*C_tW + 3127.708096860304*C_tZ
+ + -4.397918814979122e-05*CI_tW + 3.7457640266459524e-05*CI_tZ
+ + 968.9409490551667*C_lqM + 2545.550545973207*C_eq
+ + 842.1533257191585*C_lu + 3320.0348961155846*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_P30_P80_4;
+
+        
+    } else if(b_min == 5 && b_max == 5){
+
+        double opt_obs_ilc_500_P30_P80_5 = -3.92564598374015e-06*C_phiQm + 4.0130915566293896e-06*C_phit
+ + 0.0*C_tW + -4.3979188149791225e-05*C_tZ
+ + 61.425393657016826*CI_tW + -62.27247793767658*CI_tZ
+ + 5.2319165417257535e-06*C_lqM + -5.82493810743151e-06*C_eq
+ + -5.242656511477227e-06*C_lu + 5.82493810743151e-06*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_P30_P80_5;
+
+        
+    } else if(b_min == 6 && b_max == 6){
+        
+        double opt_obs_ilc_500_P30_P80_6 = 4.946022417778193e-06*C_phiQm + -1.7311533488048075e-06*C_phit
+ + -1.2882803255075677e-15*C_tW + 3.745764026645953e-05*C_tZ
+ + -62.27247793767658*CI_tW + 63.17102901190249*CI_tZ
+ + -2.2809564712517208e-05*C_lqM + 5.2646698065230034e-05*C_eq
+ + 2.281903630943624e-05*C_lu + -5.2646698065230034e-05*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_P30_P80_6;
+
+        
+    } else if(b_min == 7 && b_max == 7){
+        
+        double opt_obs_ilc_500_P30_P80_7 = -2.363808669909469*C_phiQm + -14.962958794240743*C_phit
+ + -961.928165911389*C_tW + 968.9409490551666*C_tZ
+ + 5.2319165417257535e-06*CI_tW + -2.280956471251721e-05*CI_tZ
+ + 421.3332324199011*C_lqM + 627.1073242906411*C_eq
+ + 218.57294795931676*C_lu + 1179.5572262441685*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_P30_P80_7;
+
+        
+    } else if(b_min == 8 && b_max == 8){
+        
+        double opt_obs_ilc_500_P30_P80_8 = -32.13085739637971*C_phiQm + -17.408009480232195*C_phit
+ + -2511.601189704324*C_tW + 2545.5505459732067*C_tZ
+ + -5.82493810743151e-06*CI_tW + 5.2646698065230034e-05*CI_tZ
+ + 627.107324290641*C_lqM + 2712.675104725252*C_eq
+ + 856.9108996593474*C_lu + 2059.0064893056597*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_P30_P80_8;
+
+        
+    } else if(b_min == 9 && b_max == 9){
+        
+        double opt_obs_ilc_500_P30_P80_9 = -9.774645391519162*C_phiQm + -4.337439418110695*C_phit
+ + -842.9794543770362*C_tW + 842.1533257191585*C_tZ
+ + -5.242656511477227e-06*CI_tW + 2.281903630943624e-05*CI_tZ
+ + 218.5729479593168*C_lqM + 856.9108996593474*C_eq
+ + 350.4964024241973*C_lu + 669.1274417171611*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_P30_P80_9;
+
+        
+    } else if(b_min == 10 && b_max == 10){
+        
+        
+        double opt_obs_ilc_500_P30_P80_10 = -11.495703966221598*C_phiQm + -58.43192804314782*C_phit
+ + -3255.219637505407*C_tW + 3320.034896115584*C_tZ
+ + 5.82493810743151e-06*CI_tW + -5.2646698065230034e-05*CI_tZ
+ + 1179.5572262441688*C_lqM + 2059.006489305659*C_eq
+ + 669.1274417171611*C_lu + 4396.112489563018*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_500_P30_P80_10;
+
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_P30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+    }
+
+}
+
+
+
+
+
+
+opt_obs_ilc_1000_M20_M80::opt_obs_ilc_1000_M20_M80(const StandardModel& SM_i)
+: ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_1000_M20_M80" << "eff_ilc_1000_M20_M80");               
+}
+
+double opt_obs_ilc_1000_M20_M80::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_1000_M20_P80");
+    double eff = SM.getOptionalParameter("eff_ilc_1000_M20_P80");
+    
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    //['ClqA', 'CeqA', 'CpqA', 'ClqV', 'CeqV', 'CpqV', 'CuZR', 'CuAR', 'CuZI', 'CuAI']
+    //['cpQM','cpt','ctW','ctZ','ctWI','ctZI','cQlM1','cQe1','ctl1','cte1']
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    double CI_tW = 0.;
+    double CI_tZ = 0.;
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+        
+    
+    
+    if(b_min == 1 && b_max == 1){
+        
+        double opt_obs_ilc_1000_M20_M80_1 = 0.6860255612551367*C_phiQm + 0.06288087439962653*C_phit
+ + -23.41498140175173*C_tW + 14.942617472141432*C_tZ
+ + -1.5850460242713856e-07*CI_tW + 6.819953588639327e-08*CI_tZ
+ + 156.16560963066826*C_lqM + 2.902415391808151*C_eq
+ + 29.946100561240897*C_lu + 18.079647292882644*C_eu;
+
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_1;
+        
+        
+    } else if(b_min == 2 && b_max == 2){
+        
+        double opt_obs_ilc_1000_M20_M80_2 = 0.06288087439962661*C_phiQm + 0.4592130249379536*C_phit
+ + -16.747559833106205*C_tW + 10.546031168151007*C_tZ
+ + 1.4171817091957683e-07*CI_tW + -1.0506971653627906e-07*CI_tZ
+ + 21.413271565666292*C_lqM + 8.3541457325761*C_eq
+ + 104.95434479416713*C_lu + 2.420719478427417*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_2;
+
+        
+    } else if(b_min == 3 && b_max == 3){
+        
+        double opt_obs_ilc_1000_M20_M80_3 = -23.414981401751735*C_phiQm + -16.747559833106205*C_phit
+ + 1463.9138521156908*C_tW + -931.7561776504119*C_tZ
+ + 0.0*CI_tW + -3.379419914274885e-15*CI_tZ
+ + -5583.078766211686*C_lqM + -388.27174840632733*C_eq
+ + -4357.824116447796*C_lu + -691.5044987503966*C_eu;
+
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_3;
+
+    } else if(b_min == 4 && b_max == 4){
+        
+        double opt_obs_ilc_1000_M20_M80_4 = 14.942617472141432*C_phiQm + 10.546031168151007*C_phit
+ + -931.7561776504119*C_tW + 594.8517664330902*C_tZ
+ + 4.663994735490485e-15*CI_tW + -1.482830675412827e-15*CI_tZ
+ + 3564.5522743690162*C_lqM + 249.86136660430208*C_eq
+ + 2764.720983522906*C_lu + 458.659745221885*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_4;
+
+        
+    } else if(b_min == 5 && b_max == 5){
+
+        double opt_obs_ilc_1000_M20_M80_5 = -1.5850460242713856e-07*C_phiQm + 1.4171817091957683e-07*C_phit
+ + 0.0*C_tW + 4.663994735490485e-15*C_tZ
+ + 182.80996244705983*CI_tW + -116.77066944091251*CI_tZ
+ + -0.002957143824068356*C_lqM + 2.2117614580499612e-05*C_eq
+ + 0.002957143824114569*C_lu + 2.3275677716787556e-05*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_5;
+
+        
+    } else if(b_min == 6 && b_max == 6){
+        
+        double opt_obs_ilc_1000_M20_M80_6 = 6.819953588639328e-08*C_phiQm + -1.0506971653627905e-07*C_phit
+ + -3.379419914274885e-15*C_tW + -1.4828306754128266e-15*C_tZ
+ + -116.77066944091251*CI_tW + 74.62198395131131*CI_tZ
+ + -0.0001915373055074597*C_lqM + -1.2459929722146745e-05*C_eq
+ + 0.00019162955762175153*C_lu + -1.4330068098814526e-05*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_6;
+
+        
+    } else if(b_min == 7 && b_max == 7){
+        
+        double opt_obs_ilc_1000_M20_M80_7 = 156.16560963066826*C_phiQm + 21.413271565666307*C_phit
+ + -5583.078766211686*C_tW + 3564.552274369016*C_tZ
+ + -0.002957143824068356*CI_tW + -0.00019153730550745948*CI_tZ
+ + 35714.55119597334*C_lqM + 849.3374780265794*C_eq
+ + 8426.06923900336*C_lu + 4137.744662499108*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_7;
+
+        
+    } else if(b_min == 8 && b_max == 8){
+        
+        double opt_obs_ilc_1000_M20_M80_8 = 2.902415391808149*C_phiQm + 8.3541457325761*C_phit
+ + -388.2717484063273*C_tW + 249.86136660430202*C_tZ
+ + 2.211761458049961e-05*CI_tW + -1.2459929722146745e-05*CI_tZ
+ + 849.3374780265793*C_lqM + 227.18844157301316*C_eq
+ + 1960.0742786114297*C_lu + 101.7852406606287*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_8;
+
+        
+    } else if(b_min == 9 && b_max == 9){
+        
+        double opt_obs_ilc_1000_M20_M80_9 = 29.94610056124089*C_phiQm + 104.95434479416713*C_phit
+ + -4357.824116447795*C_tW + 2764.720983522905*C_tZ
+ + 0.0029571438241145693*CI_tW + 0.00019162955762175174*CI_tZ
+ + 8426.069239003356*C_lqM + 1960.0742786114301*C_eq
+ + 24522.349727420136*C_lu + 1163.0189013968397*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_9;
+
+        
+    } else if(b_min == 10 && b_max == 10){
+        
+        
+        double opt_obs_ilc_1000_M20_M80_10 = 18.079647292882644*C_phiQm + 2.4207194784274177*C_phit
+ + -691.5044987503966*C_tW + 458.659745221885*C_tZ
+ + 2.3275677716787556e-05*CI_tW + -1.4330068098814524e-05*CI_tZ
+ + 4137.744662499108*C_lqM + 101.78524066062869*C_eq
+ + 1163.0189013968397*C_lu + 707.7057375048124*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_M80_10;
+
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_1000_M20_M80, it goes from 1 to 10 in consecutive pairs.\n");
+    }
+
+}
+
+
+
+
+
+
+opt_obs_ilc_1000_M20_P80::opt_obs_ilc_1000_M20_P80(const StandardModel& SM_i)
+: ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_1000_M20_P80" << "eff_ilc_1000_M20_P80");               
+}
+
+double opt_obs_ilc_1000_M20_P80::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_1000_M20_P80");
+    double eff = SM.getOptionalParameter("eff_ilc_1000_M20_P80");
+    
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    //['ClqA', 'CeqA', 'CpqA', 'ClqV', 'CeqV', 'CpqV', 'CuZR', 'CuAR', 'CuZI', 'CuAI']
+    //['cpQM','cpt','ctW','ctZ','ctWI','ctZI','cQlM1','cQe1','ctl1','cte1']
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    double CI_tW = 0.;
+    double CI_tZ = 0.;
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+        
+    
+    
+    if(b_min == 1 && b_max == 1){
+        
+        double opt_obs_ilc_1000_M20_P80_1 = 0.38815750859537757*C_phiQm + 0.017725299710632858*C_phit
+ + 16.917847736363274*C_tW + -18.334092520201246*C_tZ
+ + -5.236205865034183e-06*CI_tW + 4.4702132972494e-06*CI_tZ
+ + -1.8604178070130581*C_lqM + -101.16393351009786*C_eq
+ + -12.47548388369432*C_lu + -18.739068237217694*C_eu;
+
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_1;
+        
+        
+    } else if(b_min == 2 && b_max == 2){
+        
+        double opt_obs_ilc_1000_M20_P80_2 = 0.017725299710632803*C_phiQm + 0.7629996081368549*C_phit
+ + 27.644347768486423*C_tW + -30.142537021454572*C_tZ
+ + -5.508611194859263e-06*CI_tW + 4.748558754616871e-06*CI_tZ
+ + -18.87698560535277*C_lqM + -26.03270566173262*C_eq
+ + -3.079437486950912*C_lu + -198.19718964853132*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_2;
+
+        
+    } else if(b_min == 3 && b_max == 3){
+        
+        double opt_obs_ilc_1000_M20_P80_3 = 16.917847736363274*C_phiQm + 27.644347768486423*C_phit
+ + 1955.2076088573008*C_tW + -2120.609705874259*C_tZ
+ + -2.7751319746930538e-14*CI_tW + 2.447393434958441e-14*CI_tZ
+ + -819.3657072312832*C_lqM + -5250.318815369343*C_eq
+ + -695.5831807727862*C_lu + -7846.641091336725*C_eu;
+
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_3;
+
+    } else if(b_min == 4 && b_max == 4){
+        
+        double opt_obs_ilc_1000_M20_P80_4 = -18.33409252020125*C_phiQm + -30.142537021454576*C_phit
+ + -2120.609705874259*C_tW + 2300.7201369929126*C_tZ
+ + 1.810046696739932e-14*CI_tW + 2.0485689567875043e-07*CI_tZ
+ + 896.1078376764397*C_lqM + 5699.131446787922*C_eq
+ + 748.8847000776334*C_lu + 8544.776506684268*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_4;
+
+        
+    } else if(b_min == 5 && b_max == 5){
+
+        double opt_obs_ilc_1000_M20_P80_5 = -5.236205865034183e-06*C_phiQm + -5.508611194859263e-06*C_phit
+ + -2.7751319746930538e-14*C_tW + 1.810046696739932e-14*C_tZ
+ + 241.39470069314348*CI_tW + -262.4673637876004*CI_tZ
+ + -1.9190774479269234e-06*C_lqM + 0.0022836962741094964*C_eq
+ + 7.61776900034376e-05*C_lu + 0.0021438044514300618*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_5;
+
+        
+    } else if(b_min == 6 && b_max == 6){
+        
+        double opt_obs_ilc_1000_M20_P80_6 = 4.4702132972494e-06*C_phiQm + 4.748558754616871e-06*C_phit
+ + 2.447393434958441e-14*C_tW + 2.0485689567875046e-07*C_tZ
+ + -262.46736378760033*CI_tW + 285.4211030820254*CI_tZ
+ + 0.00019157677869885328*C_lqM + -0.0018807003184547518*C_eq
+ + 0.0003749395117035614*C_lu + -0.0014934101986907253*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_6;
+
+        
+    } else if(b_min == 7 && b_max == 7){
+        
+        double opt_obs_ilc_1000_M20_P80_7 = -1.860417807013059*C_phiQm + -18.876985605352772*C_phit
+ + -819.3657072312831*C_tW + 896.1078376764397*C_tZ
+ + -1.9190774479269217e-06*CI_tW + 0.0001915767786988533*CI_tZ
+ + 700.5228232572056*C_lqM + 1272.9465621157246*C_eq
+ + 154.7348659814437*C_lu + 4993.080386550328*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_7;
+
+        
+    } else if(b_min == 8 && b_max == 8){
+        
+        double opt_obs_ilc_1000_M20_P80_8 = -101.16393351009786*C_phiQm + -26.03270566173262*C_phit
+ + -5250.318815369343*C_tW + 5699.131446787922*C_tZ
+ + 0.0022836962741094964*CI_tW + -0.0018807003184547516*CI_tZ
+ + 1272.9465621157246*C_lqM + 27263.454945510202*C_eq
+ + 3359.6641265001895*C_lu + 10471.605923028983*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_8;
+
+        
+    } else if(b_min == 9 && b_max == 9){
+        
+        double opt_obs_ilc_1000_M20_P80_9 = -12.47548388369432*C_phiQm + -3.079437486950913*C_phit
+ + -695.5831807727862*C_tW + 748.8847000776334*C_tZ
+ + 7.617769000343759e-05*CI_tW + 0.0003749395117035614*CI_tZ
+ + 154.73486598144376*C_lqM + 3359.6641265001895*C_eq
+ + 603.2690567268976*C_lu + 1473.2800933050007*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_9;
+
+        
+    } else if(b_min == 10 && b_max == 10){
+        
+        
+        double opt_obs_ilc_1000_M20_P80_10 = -18.73906823721768*C_phiQm + -198.19718964853132*C_phit
+ + -7846.641091336726*C_tW + 8544.776506684268*C_tZ
+ + 0.0021438044514300618*CI_tW + -0.0014934101986907253*CI_tZ
+ + 4993.080386550328*C_lqM + 10471.605923028983*C_eq
+ + 1473.2800933050007*C_lu + 52250.58196060555*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_M20_P80_10;
+
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_1000_M20_P80, it goes from 1 to 10 in consecutive pairs.\n");
+    }
+
+}
+
+
+
+
+
+opt_obs_ilc_1000_P20_M80::opt_obs_ilc_1000_P20_M80(const StandardModel& SM_i)
+: ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_1000_P20_M80" << "eff_ilc_1000_P20_M80");               
+}
+
+double opt_obs_ilc_1000_P20_M80::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_1000_P20_M80");
+    double eff = SM.getOptionalParameter("eff_ilc_1000_P20_M80");
+    
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    //['ClqA', 'CeqA', 'CpqA', 'ClqV', 'CeqV', 'CpqV', 'CuZR', 'CuAR', 'CuZI', 'CuAI']
+    //['cpQM','cpt','ctW','ctZ','ctWI','ctZI','cQlM1','cQe1','ctl1','cte1']
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    double CI_tW = 0.;
+    double CI_tZ = 0.;
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+        
+    
+    
+    if(b_min == 1 && b_max == 1){
+        
+        double opt_obs_ilc_1000_P20_M80_1 = 1.09540877542705*C_phiQm + 0.18862148058577427*C_phit
+ + -35.860481188499*C_tW + 21.837694350089254*C_tZ
+ + -3.8556927569159297e-07*CI_tW + -4.208355006267873e-05*CI_tZ
+ + 247.35940816466837*C_lqM + 2.361489532060558*C_eq
+ + 53.608109714112345*C_lu + 12.958176063415348*C_eu;
+
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_1;
+        
+        
+    } else if(b_min == 2 && b_max == 2){
+        
+        double opt_obs_ilc_1000_P20_M80_2 = 0.18862148058577427*C_phiQm + 0.7311115129696788*C_phit
+ + -26.932680566372618*C_tW + 16.32311969002878*C_tZ
+ + 2.4581259926028614e-07*CI_tW + -4.248116619643736e-05*CI_tZ
+ + 47.431814339684934*C_lqM + 5.919016723447084*C_eq
+ + 166.141524013229*C_lu + 2.7626531851219776*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_2;
+
+        
+    } else if(b_min == 3 && b_max == 3){
+        
+        double opt_obs_ilc_1000_P20_M80_3 = -35.860481188499*C_phiQm + -26.932680566372618*C_phit
+ + 2044.5059429291803*C_tW + -1241.3701949747465*C_tZ
+ + 0.0*CI_tW + 0.0*CI_tZ
+ + -8252.314633901886*C_lqM + -253.2486053570436*C_eq
+ + -6429.266922940911*C_lu + -453.90775475959526*C_eu;
+
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_3;
+
+    } else if(b_min == 4 && b_max == 4){
+        
+        double opt_obs_ilc_1000_P20_M80_4 = 21.837694350089254*C_phiQm + 16.32311969002878*C_phit
+ + -1241.3701949747465*C_tW + 755.3703536746532*C_tZ
+ + 0.0*CI_tW + 1.1273319498160023e-15*CI_tZ
+ + 5026.268211757163*C_lqM + 155.28617443744682*C_eq
+ + 3905.8535280221327*C_lu + 285.6331744755713*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_4;
+
+        
+    } else if(b_min == 5 && b_max == 5){
+
+        double opt_obs_ilc_1000_P20_M80_5 = -3.8556927569159297e-07*C_phiQm + 2.4581259926028614e-07*C_phit
+ + 0.0*C_tW + 0.0*C_tZ
+ + 255.6325928253371*CI_tW + -155.71018707273277*CI_tZ
+ + -1.0234999869608925e-05*C_lqM + -0.0007765274107141076*C_eq
+ + 1.0234999958369636e-05*C_lu + -0.0007757483322086861*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_5;
+
+        
+    } else if(b_min == 6 && b_max == 6){
+        
+        double opt_obs_ilc_1000_P20_M80_6 = -4.208355006267874e-05*C_phiQm + -4.2481166196437365e-05*C_phit
+ + 0.0*C_tW + 1.1273319498160023e-15*C_tZ
+ + -155.71018707273274*CI_tW + 94.85691448041831*CI_tZ
+ + 8.383098582487106e-06*C_lqM + 0.0014309239557751135*C_eq
+ + -7.905455998246563e-06*C_lu + 0.001429619036931999*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_6;
+
+        
+    } else if(b_min == 7 && b_max == 7){
+        
+        double opt_obs_ilc_1000_P20_M80_7 = 247.3594081646683*C_phiQm + 47.43181433968492*C_phit
+ + -8252.314633901886*C_tW + 5026.268211757162*C_tZ
+ + -1.0234999869608927e-05*CI_tW + 8.383098582487104e-06*CI_tZ
+ + 55908.33771830471*C_lqM + 590.3421847455065*C_eq
+ + 13192.129236062276*C_lu + 2929.598534938029*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_7;
+
+        
+    } else if(b_min == 8 && b_max == 8){
+        
+        double opt_obs_ilc_1000_P20_M80_8 = 2.3614895320605584*C_phiQm + 5.9190167234470845*C_phit
+ + -253.24860535704366*C_tW + 155.28617443744682*C_tZ
+ + -0.0007765274107141076*CI_tW + 0.0014309239557751135*CI_tZ
+ + 590.3421847455065*C_lqM + 70.13333227786778*C_eq
+ + 1353.3567213303177*C_lu + 31.820356432446374*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_8;
+
+        
+    } else if(b_min == 9 && b_max == 9){
+        
+        double opt_obs_ilc_1000_P20_M80_9 = 53.608109714112324*C_phiQm + 166.141524013229*C_phit
+ + -6429.266922940911*C_tW + 3905.853528022133*C_tZ
+ + 1.0234999958369636e-05*CI_tW + -7.905455998246563e-06*CI_tZ
+ + 13192.12923606227*C_lqM + 1353.3567213303177*C_eq
+ + 37920.70357525274*C_lu + 818.0937122149071*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_9;
+
+        
+    } else if(b_min == 10 && b_max == 10){
+        
+        
+        double opt_obs_ilc_1000_P20_M80_10 = 12.958176063415348*C_phiQm + 2.7626531851219776*C_phit
+ + -453.9077547595953*C_tW + 285.63317447557125*C_tZ
+ + -0.0007757483322086861*CI_tW + 0.0014296190369319987*CI_tZ
+ + 2929.598534938029*C_lqM + 31.820356432446374*C_eq
+ + 818.0937122149071*C_lu + 227.3111085740191*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_M80_10;
+
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_1000_P20_M80, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -8825,6 +11201,155 @@ double opt_obs_ilc_500_P30_M80::computeThValue()
 
 
 
+opt_obs_ilc_1000_P20_P80::opt_obs_ilc_1000_P20_P80(const StandardModel& SM_i)
+: ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
+{
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_1000_P20_P80" << "eff_ilc_1000_P20_P80");               
+}
+
+double opt_obs_ilc_1000_P20_P80::computeThValue()
+{
+    
+    b_min = getBinMin();
+    b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_1000_P20_P80");
+    double eff = SM.getOptionalParameter("eff_ilc_1000_P20_P80");
+    
+    //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
+    //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
+    
+    //['ClqA', 'CeqA', 'CpqA', 'ClqV', 'CeqV', 'CpqV', 'CuZR', 'CuAR', 'CuZI', 'CuAI']
+    //['cpQM','cpt','ctW','ctZ','ctWI','ctZI','cQlM1','cQe1','ctl1','cte1']
+    double C_phiQm = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phiQm();
+    double C_phit = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_phit();
+    double C_tW = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tW();
+    double C_tZ = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_tZ();
+    double CI_tW = 0.;
+    double CI_tZ = 0.;
+    double C_lqM = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lqM();
+    double C_eq = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eq();
+    double C_lu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_lu();
+    double C_eu = myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_C_eu();
+        
+    
+    
+    if(b_min == 1 && b_max == 1){
+        
+        double opt_obs_ilc_1000_P20_P80_1 = 0.2133873547953592*C_phiQm + -0.08204510089055535*C_phit
+ + 7.609915207933011*C_tW + -7.823409130970538*C_tZ
+ + 4.73627890037032e-05*CI_tW + -4.1803568806235226e-05*CI_tZ
+ + 2.3473006572698276*C_lqM + -51.76068979603156*C_eq
+ + -13.874493035865026*C_lu + 5.112067117457322*C_eu;
+
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_1;
+        
+        
+    } else if(b_min == 2 && b_max == 2){
+        
+        double opt_obs_ilc_1000_P20_P80_2 = -0.08204510089055536*C_phiQm + 0.4362606739526286*C_phit
+ + 15.456186935555392*C_tW + -16.12746803190067*C_tZ
+ + 3.9251341347755306e-05*CI_tW + -3.4610178296704273e-05*CI_tZ
+ + -22.833811820556413*C_lqM + -5.071716399604718*C_eq
+ + -0.3002445465021264*C_lu + -111.67142836604901*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_2;
+
+        
+    } else if(b_min == 3 && b_max == 3){
+        
+        double opt_obs_ilc_1000_P20_P80_3 = 7.609915207933011*C_phiQm + 15.456186935555394*C_phit
+ + 1400.4489833258497*C_tW + -1439.379070377874*C_tZ
+ + 1.7858100018417536e-14*CI_tW + -1.7115801162713176e-14*CI_tZ
+ + -1172.8478580194842*C_lqM + -3278.2485728256843*C_eq
+ + -976.7877661608331*C_lu + -5056.925263873175*C_eu;
+
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_3;
+
+    } else if(b_min == 4 && b_max == 4){
+        
+        double opt_obs_ilc_1000_P20_P80_4 = -7.823409130970539*C_phiQm + -16.12746803190067*C_phit
+ + -1439.379070377874*C_tW + 1480.4727992282471*C_tZ
+ + -1.8170017133778093e-14*CI_tW + 1.4306312182279883e-06*CI_tZ
+ + 1206.3380574246942*C_lqM + 3370.8570331613587*C_eq
+ + 989.4288463610189*C_lu + 5242.634125639532*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_4;
+
+        
+    } else if(b_min == 5 && b_max == 5){
+
+        double opt_obs_ilc_1000_P20_P80_5 = 4.7362789003703204e-05*C_phiQm + 3.925134134775531e-05*C_phit
+ + 1.7858100018417536e-14*C_tW + -1.8170017133778096e-14*C_tZ
+ + 172.85250585026296*CI_tW + -178.17406927719543*CI_tZ
+ + -1.378805527384992e-05*C_lqM + -0.0007729415946775807*C_eq
+ + -3.858758917118177e-06*C_lu + 0.00028074072062016453*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_5;
+
+        
+    } else if(b_min == 6 && b_max == 6){
+        
+        double opt_obs_ilc_1000_P20_P80_6 = -4.180356880623523e-05*C_phiQm + -3.4610178296704273e-05*C_phit
+ + -1.7115801162713176e-14*C_tW + 1.4306312182279883e-06*C_tZ
+ + -178.17406927719543*CI_tW + 183.75237985496273*CI_tZ
+ + 3.359556558028491e-06*C_lqM + 0.0006354777989346247*C_eq
+ + -9.060090807748995e-05*C_lu + -0.0002014050417294052*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_6;
+
+        
+    } else if(b_min == 7 && b_max == 7){
+        
+        double opt_obs_ilc_1000_P20_P80_7 = 2.347300657269825*C_phiQm + -22.833811820556413*C_phit
+ + -1172.8478580194842*C_tW + 1206.3380574246942*C_tZ
+ + -1.3788055273849919e-05*CI_tW + 3.359556558028491e-06*CI_tZ
+ + 1905.1342195184993*C_lqM + 1571.9428762098114*C_eq
+ + 429.0079598942002*C_lu + 6315.299860874898*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_7;
+
+        
+    } else if(b_min == 8 && b_max == 8){
+        
+        double opt_obs_ilc_1000_P20_P80_8 = -51.76068979603156*C_phiQm + -5.071716399604718*C_phit
+ + -3278.2485728256847*C_tW + 3370.8570331613587*C_tZ
+ + -0.0007729415946775806*CI_tW + 0.0006354777989346247*CI_tZ
+ + 1571.9428762098114*C_lqM + 15001.898179534715*C_eq
+ + 4029.175309281545*C_lu + 5888.744683321876*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_8;
+
+        
+    } else if(b_min == 9 && b_max == 9){
+        
+        double opt_obs_ilc_1000_P20_P80_9 = -13.874493035865024*C_phiQm + -0.3002445465021264*C_phit
+ + -976.7877661608333*C_tW + 989.428846361019*C_tZ
+ + -3.858758917118177e-06*CI_tW + -9.060090807748996e-05*CI_tZ
+ + 429.00795989420044*C_lqM + 4029.175309281545*C_eq
+ + 1566.5073741320496*C_lu + 1861.67840204391*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_9;
+
+        
+    } else if(b_min == 10 && b_max == 10){
+        
+        
+        double opt_obs_ilc_1000_P20_P80_10 = 5.112067117457315*C_phiQm + -111.67142836604903*C_phit
+ + -5056.925263873175*C_tW + 5242.634125639533*C_tZ
+ + 0.0002807407206201645*CI_tW + -0.00020140504172940518*CI_tZ
+ + 6315.299860874898*C_lqM + 5888.744683321876*C_eq
+ + 1861.67840204391*C_lu + 30612.688463381062*C_eu;
+        
+        return lumi*eff*opt_obs_ilc_1000_P20_P80_10;
+
+        
+    } else{
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_1000_P20_P80, it goes from 1 to 10 in consecutive pairs.\n");
+    }
+
+}
+
 
 
 
@@ -8833,7 +11358,7 @@ double opt_obs_ilc_500_P30_M80::computeThValue()
 opt_obs_ilc_1000_M30_P80::opt_obs_ilc_1000_M30_P80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_1000_M30_P80" << "eff_ilc_1000_M30_P80");               
 }
 
 double opt_obs_ilc_1000_M30_P80::computeThValue()
@@ -8841,6 +11366,9 @@ double opt_obs_ilc_1000_M30_P80::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_1000_M30_P80");
+    double eff = SM.getOptionalParameter("eff_ilc_1000_M30_P80");
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -8862,96 +11390,116 @@ double opt_obs_ilc_1000_M30_P80::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_ilc_1000_M30_P80_1 = 105.42522216003508*C_phiQm + 11.840259213648054*C_phit + 4641.733472700694*C_tW + 
-        -5078.879386069701*C_tZ + 0.000469013919586127*CI_tW + -0.010537194794292402*CI_tZ + -532.5117463404025*C_lqM + 
-        -27507.443520418856*C_eq + -2759.099200814757*C_lu + -6165.479213078839*C_eu;
+        double opt_obs_ilc_1000_M30_P80_1 = 0.43927175900014614*C_phiQm + 0.04933441339020023*C_phit
+ + 19.34055613625289*C_tW + -21.161997441957084*C_tZ
+ + 1.954224664942196e-06*CI_tW + -4.3904978309551674e-05*CI_tZ
+ + -2.2187989430850106*C_lqM + -114.61434800174523*C_eq
+ + -11.496246670061486*C_lu + -25.68949672116183*C_eu;
 
-        return opt_obs_ilc_1000_M30_P80_1;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_ilc_1000_M30_P80_2 = 11.840259213648054*C_phiQm + 204.3517044456242*C_phit + 7385.24529261911*C_tW +
-        -8118.850019280427*C_tZ + -0.0006244187224328177*CI_tW + -0.009565034602782336*CI_tZ + -4114.33863038623*C_lqM +
-        -7709.390332463027*C_eq + -769.4393734510807*C_lu + -53019.57329735106*C_eu;
+        double opt_obs_ilc_1000_M30_P80_2 = 0.04933441339020023*C_phiQm + 0.8514654351901008*C_phit
+ + 30.771855385912957*C_tW + -33.82854174700178*C_tZ
+ + -2.6017446768034072e-06*CI_tW + -3.98543108449264e-05*CI_tZ
+ + -17.14307762660929*C_lqM + -32.12245971859595*C_eq
+ + -3.205997389379503*C_lu + -220.91488873896276*C_eu;
         
-        return opt_obs_ilc_1000_M30_P80_2;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_ilc_1000_M30_P80_3 = 4641.733472700694*C_phiQm + 7385.245292619111*C_phit + 502868.3784382554*C_tW +
-        -550503.1416705291*C_tZ + 1.0684677306794041e-11*CI_tW + -1.2937431132329376e-11*CI_tZ + -173628.83083025695*C_lqM +
-        -1382220.154894691*C_eq + -147992.91404921442*C_lu + -2053134.0610153296*C_eu;
+        double opt_obs_ilc_1000_M30_P80_3 = 19.34055613625289*C_phiQm + 30.77185538591296*C_phit
+ + 2095.2849101593974*C_tW + -2293.7630902938713*C_tZ
+ + 4.45194887783085e-14*CI_tW + -5.3905963051372404e-14*CI_tZ
+ + -723.4534617927372*C_lqM + -5759.250645394546*C_eq
+ + -616.6371418717267*C_lu + -8554.72525423054*C_eu;
 
-        return opt_obs_ilc_1000_M30_P80_3;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_ilc_1000_M30_P80_4 = -5078.879386069701*C_phiQm + -8118.850019280427*C_phit + -550503.141670529*C_tW + 
-        602836.9937256796*C_tZ + -9.422834421483496e-12*CI_tW + 1.1539301345032789e-11*CI_tZ + 191998.41788640813*C_lqM + 
-        1514704.2889307062*C_eq + 161092.96133416507*C_lu + 2255255.971840066*C_eu;
+        double opt_obs_ilc_1000_M30_P80_4 = -21.161997441957084*C_phiQm + -33.82854174700178*C_phit
+ + -2293.763090293871*C_tW + 2511.8208071903314*C_tZ
+ + -3.926181008951456e-14*CI_tW + 4.8080422270969955e-14*CI_tZ
+ + 799.9934078600339*C_lqM + 6311.267870544609*C_eq
+ + 671.2206722256877*C_lu + 9396.899882666941*C_eu;
         
-        return opt_obs_ilc_1000_M30_P80_4;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
         
-        double opt_obs_ilc_1000_M30_P80_5 = 0.000469013919586127*C_phiQm + -0.0006244187224328177*C_phit + 1.0684677306794041e-11*C_tW +
-        -9.422834421483497e-12*C_tZ + 62094.82141514342*CI_tW + -68137.96314124836*CI_tZ + 0.004763824040104778*C_lqM +
-        -0.20106586930413492*C_eq + 0.0060245938342736345*C_lu + 0.1406428915194113*C_eu;
+        double opt_obs_ilc_1000_M30_P80_5 = 1.954224664942196e-06*C_phiQm + -2.6017446768034072e-06*C_phit
+ + 4.45194887783085e-14*C_tW + -3.926181008951457e-14*C_tZ
+ + 258.7284225630976*CI_tW + -283.9081797552015*CI_tZ
+ + 1.984926683376991e-05*C_lqM + -0.0008377744554338955*C_eq
+ + 2.5102474309473477e-05*C_lu + 0.0005860120479975471*C_eu;
         
-        return opt_obs_ilc_1000_M30_P80_5;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
-        double opt_obs_ilc_1000_M30_P80_6 = -0.0105371947942924*C_phiQm + -0.009565034602782336*C_phit + -1.2937431132329376e-11*C_tW +
-        1.153930134503279e-11*C_tZ + -68137.96314124836*CI_tW + 74776.87786577131*CI_tZ + 0.01347306493882694*C_lqM +
-        -0.21853707246764922*C_eq + -0.028558893348555783*C_lu + 0.2720954371539416*C_eu;
+        double opt_obs_ilc_1000_M30_P80_6 = -4.390497830955167e-05*C_phiQm + -3.98543108449264e-05*C_phit
+ + -5.3905963051372404e-14*C_tW + 4.808042227096996e-14*C_tZ
+ + -283.9081797552015*CI_tW + 311.5703244407138*CI_tZ
+ + 5.6137770578445584e-05*C_lqM + -0.0009105711352818717*C_eq
+ + -0.00011899538895231577*C_lu + 0.0011337309881414232*C_eu;
         
-        return opt_obs_ilc_1000_M30_P80_6;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
                 
-        double opt_obs_ilc_1000_M30_P80_7 = -532.511746340403*C_phiQm + -4114.33863038623*C_phit + -173628.83083025695*C_tW +
-                191998.41788640816*C_tZ + 0.004763824040104778*CI_tW + 0.013473064938826943*CI_tZ + 123582.39257724084*C_lqM +
-                276694.33338739106*C_eq + 27187.246413908168*C_lu + 1080805.6603810748*C_eu;
+        double opt_obs_ilc_1000_M30_P80_7 = -2.2187989430850124*C_phiQm + -17.14307762660929*C_phit
+ + -723.4534617927372*C_tW + 799.993407860034*C_tZ
+ + 1.984926683376991e-05*CI_tW + 5.61377705784456e-05*CI_tZ
+ + 514.9266357385035*C_lqM + 1152.8930557807962*C_eq
+ + 113.28019339128403*C_lu + 4503.356918254478*C_eu;
         
-        return opt_obs_ilc_1000_M30_P80_7;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_ilc_1000_M30_P80_8 = -27507.443520418856*C_phiQm + -7709.390332463027*C_phit + -1382220.154894691*C_tW +
-        1514704.2889307062*C_tZ + -0.20106586930413492*CI_tW + -0.21853707246764922*CI_tZ + 276694.333387391*C_lqM +
-        7334172.075920781*C_eq + 735014.3649180642*C_lu + 2804780.5234423866*C_eu;
+        double opt_obs_ilc_1000_M30_P80_8 = -114.61434800174523*C_phiQm + -32.12245971859595*C_phit
+ + -5759.250645394545*C_tW + 6311.267870544609*C_tZ
+ + -0.0008377744554338955*CI_tW + -0.0009105711352818717*CI_tZ
+ + 1152.8930557807957*C_lqM + 30559.050316336587*C_eq
+ + 3062.5598538252675*C_lu + 11686.585514343278*C_eu;
         
-        return opt_obs_ilc_1000_M30_P80_8;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_ilc_1000_M30_P80_9 = -2759.0992008147573*C_phiQm + -769.4393734510804*C_phit + -147992.9140492144*C_tW +
-        161092.96133416507*C_tZ + 0.0060245938342736345*CI_tW + -0.028558893348555783*CI_tZ + 27187.246413908182*C_lqM + 
-        735014.3649180642*C_eq + 107525.82302718167*C_lu + 318876.54440066434*C_eu;
+        double opt_obs_ilc_1000_M30_P80_9 = -11.496246670061488*C_phiQm + -3.205997389379502*C_phit
+ + -616.6371418717266*C_tW + 671.2206722256878*C_tZ
+ + 2.5102474309473477e-05*CI_tW + -0.00011899538895231577*CI_tZ
+ + 113.28019339128409*C_lqM + 3062.5598538252675*C_eq
+ + 448.02426261325695*C_lu + 1328.6522683361013*C_eu;
         
-        return opt_obs_ilc_1000_M30_P80_9;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_ilc_1000_M30_P80_10 = -6165.479213078843*C_phiQm + -53019.57329735107*C_phit + -2053134.0610153296*C_tW + 
-        2255255.971840066*C_tZ + 0.1406428915194113*CI_tW + 0.2720954371539416*CI_tZ + 1080805.6603810748*C_lqM + 
-        2804780.5234423876*C_eq + 318876.5444006644*C_lu + 13891943.054183282*C_eu;
+        double opt_obs_ilc_1000_M30_P80_10 = -25.689496721161845*C_phiQm + -220.9148887389628*C_phit
+ + -8554.72525423054*C_tW + 9396.899882666941*C_tZ
+ + 0.0005860120479975471*CI_tW + 0.0011337309881414232*CI_tZ
+ + 4503.356918254478*C_lqM + 11686.585514343282*C_eq
+ + 1328.6522683361018*C_lu + 57883.096059097006*C_eu;
         
-        return opt_obs_ilc_1000_M30_P80_10;
+        return lumi*eff*opt_obs_ilc_1000_M30_P80_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_1000_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -8964,7 +11512,7 @@ double opt_obs_ilc_1000_M30_P80::computeThValue()
 opt_obs_ilc_1000_P30_M80::opt_obs_ilc_1000_P30_M80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_ilc_1000_P30_M80" << "eff_ilc_1000_P30_M80");                  
 }
 
 double opt_obs_ilc_1000_P30_M80::computeThValue()
@@ -8972,6 +11520,9 @@ double opt_obs_ilc_1000_P30_M80::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_ilc_1000_P30_M80");
+    double eff = SM.getOptionalParameter("eff_ilc_1000_P30_M80");
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -8992,106 +11543,126 @@ double opt_obs_ilc_1000_P30_M80::computeThValue()
                 
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_ilc_1000_P30_M80_1 = 287.70928617538885*C_phiQm + 53.08164448752721*C_phit + -9350.999371737034*C_tW + 
-        5649.0454035021985*C_tZ + 0.0007050781217062545*CI_tW + -0.0006426258508112327*CI_tZ + 64873.576840988506*C_lqM + 
-        510.41172583265904*C_eq + 14303.407304815802*C_lu + 2753.14254470621*C_eu;
+        double opt_obs_ilc_1000_P30_M80_1 = 1.1987886923974536*C_phiQm + 0.22117351869803004*C_phit
+ + -38.96249738223764*C_tW + 23.53768918125916*C_tZ
+ + 2.937825507109394e-06*CI_tW + -2.67760771171347e-06*CI_tZ
+ + 270.30657017078545*C_lqM + 2.126715524302746*C_eq
+ + 59.59753043673251*C_lu + 11.47142726960921*C_eu;
 
-        return opt_obs_ilc_1000_P30_M80_1;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_ilc_1000_P30_M80_2 = 53.08164448752725*C_phiQm + 192.11122501206953*C_phit + -7072.420732973486*C_tW +
-        4257.654051269043*C_tZ + 0.0008657925318743928*CI_tW + -0.0007416732655132312*CI_tZ + 12986.864732765625*C_lqM + 
-        1254.934841807249*C_eq + 43562.76132936794*C_lu + 620.7698880895141*C_eu;
+        double opt_obs_ilc_1000_P30_M80_2 = 0.2211735186980302*C_phiQm + 0.8004634375502897*C_phit
+ + -29.46841972072286*C_tW + 17.74022521362101*C_tZ
+ + 3.60746888280997e-06*CI_tW + -3.0903052729717966e-06*CI_tZ
+ + 54.11193638652344*C_lqM + 5.228895174196872*C_eq
+ + 181.51150553903307*C_lu + 2.5865412003729755*C_eu;
 
         
-        return opt_obs_ilc_1000_P30_M80_2;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_ilc_1000_P30_M80_3 = -9350.999371737033*C_phiQm + -7072.420732973485*C_phit + 525327.7359972689*C_tW +
-        -316377.1514758724*C_tZ + 0.0*CI_tW + -2.1296274266798926e-12*CI_tZ + -2140432.7625340833*C_lqM + -52997.89045793775*C_eq 
-        + -1667138.6423609662*C_lu + -95070.26926009275*C_eu;
+        double opt_obs_ilc_1000_P30_M80_3 = -38.962497382237636*C_phiQm + -29.468419720722856*C_phit
+ + 2188.8655666552872*C_tW + -1318.2381311494682*C_tZ
+ + 0.0*CI_tW + -8.873447611166219e-15*CI_tZ
+ + -8918.469843892013*C_lqM + -220.82454357474063*C_eq
+ + -6946.411009837359*C_lu + -396.1261219170531*C_eu;
 
 
-        return opt_obs_ilc_1000_P30_M80_3;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_ilc_1000_P30_M80_4 = 5649.045403502197*C_phiQm + 4257.654051269041*C_phit + -316377.1514758723*C_tW +
-        190908.13982610404*C_tZ + 4.268740944347223e-14*CI_tW + 1.6794816376327332e-12*CI_tZ + 1293249.8385197874*C_lqM +
-        32231.318405090962*C_eq + 1005432.4406655411*C_lu + 59276.743076464656*C_eu;
+        double opt_obs_ilc_1000_P30_M80_4 = 23.537689181259154*C_phiQm + 17.740225213621002*C_phit
+ + -1318.238131149468*C_tW + 795.4505826087668*C_tZ
+ + 1.7786420601446763e-16*CI_tW + 6.997840156803055e-15*CI_tZ
+ + 5388.540993832447*C_lqM + 134.29716002121233*C_eq
+ + 4189.301836106421*C_lu + 246.9864294852694*C_eu;
 
         
-        return opt_obs_ilc_1000_P30_M80_4;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
 
-        double opt_obs_ilc_1000_P30_M80_5 = 0.0007050781217062544*C_phiQm + 0.0008657925318743928*C_phit + 0.0*C_tW + 
-        4.2687409443472236e-14*C_tZ + 65722.40872662222*CI_tW + -39711.88450502744*CI_tZ + 0.0008232202523688654*C_lqM +
-        0.17001798508068927*C_eq + 0.006340836394271413*C_lu + 0.1702240135953502*C_eu;
+        double opt_obs_ilc_1000_P30_M80_5 = 2.9378255071093934e-06*C_phiQm + 3.60746888280997e-06*C_phit
+ + 0.0*C_tW + 1.7786420601446766e-16*C_tZ
+ + 273.84336969425925*CI_tW + -165.46618543761434*CI_tZ
+ + 3.4300843848702727e-06*C_lqM + 0.0007084082711695386*C_eq
+ + 2.6420151642797557e-05*C_lu + 0.0007092667233139591*C_eu;
 
         
-        return opt_obs_ilc_1000_P30_M80_5;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
-        double opt_obs_ilc_1000_P30_M80_6 = -0.0006426258508112328*C_phiQm + -0.0007416732655132313*C_phit + -2.1296274266798926e-12*C_tW +
-        1.6794816376327334e-12*C_tZ + -39711.88450502744*CI_tW + 23996.908461451196*CI_tZ + -0.12588514186904587*C_lqM + 
-        -0.14841890550102163*C_eq + 0.11970876170329722*C_lu + -0.1515784682627654*C_eu;
+        double opt_obs_ilc_1000_P30_M80_6 = -2.6776077117134704e-06*C_phiQm + -3.090305272971797e-06*C_phit
+ + -8.873447611166219e-15*C_tW + 6.997840156803056e-15*C_tZ
+ + -165.46618543761434*CI_tW + 99.98711858937997*CI_tZ
+ + -0.0005245214244543577*C_lqM + -0.0006184121062542568*C_eq
+ + 0.0004987865070970718*C_lu + -0.0006315769510948558*C_eu;
 
         
-        return opt_obs_ilc_1000_P30_M80_6;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_ilc_1000_P30_M80_7 = 64873.576840988506*C_phiQm + 12986.864732765625*C_phit + -2140432.7625340833*C_tW +
-                1293249.8385197872*C_tZ + 0.0008232202523688651*CI_tW + -0.12588514186904587*CI_tZ + 14636235.100267598*C_lqM +
-                124801.62673209384*C_eq + 3453514.314544916*C_lu + 621276.4575612639*C_eu;
+        double opt_obs_ilc_1000_P30_M80_7 = 270.30657017078545*C_phiQm + 54.11193638652344*C_phit
+ + -8918.469843892013*C_tW + 5388.5409938324465*C_tZ
+ + 3.4300843848702714e-06*CI_tW + -0.0005245214244543577*CI_tZ
+ + 60984.31291778166*C_lqM + 520.006778050391*C_eq
+ + 14389.642977270483*C_lu + 2588.651906505266*C_eu;
 
         
-        return opt_obs_ilc_1000_P30_M80_7;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_ilc_1000_P30_M80_8 = 510.41172583265904*C_phiQm + 1254.934841807249*C_phit + -52997.89045793775*C_tW +
-        32231.318405090973*C_tZ + 0.17001798508068927*CI_tW + -0.14841890550102163*CI_tZ + 124801.62673209384*C_lqM + 
-        11974.602726340305*C_eq + 285789.96176937834*C_lu + 5445.470775132942*C_eu;
+        double opt_obs_ilc_1000_P30_M80_8 = 2.126715524302746*C_phiQm + 5.228895174196872*C_phit
+ + -220.82454357474063*C_tW + 134.2971600212124*C_tZ
+ + 0.0007084082711695386*CI_tW + -0.0006184121062542568*CI_tZ
+ + 520.006778050391*C_lqM + 49.89417802641793*C_eq
+ + 1190.7915073724098*C_lu + 22.68946156305393*C_eu;
 
         
-        return opt_obs_ilc_1000_P30_M80_8;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_ilc_1000_P30_M80_9 = 14303.407304815808*C_phiQm + 43562.76132936794*C_phit + -1667138.6423609664*C_tW + 
-        1005432.440665541*C_tZ + 0.006340836394271413*CI_tW + 0.11970876170329725*CI_tZ + 3453514.314544916*C_lqM + 
-        285789.96176937834*C_eq + 9906954.195140745*C_lu + 173294.33258115107*C_eu;
+        double opt_obs_ilc_1000_P30_M80_9 = 59.597530436732534*C_phiQm + 181.51150553903307*C_phit
+ + -6946.41100983736*C_tW + 4189.3018361064205*C_tZ
+ + 2.6420151642797557e-05*CI_tW + 0.0004987865070970719*CI_tZ
+ + 14389.642977270483*C_lqM + 1190.7915073724098*C_eq
+ + 41278.975813086436*C_lu + 722.0597190881294*C_eu;
 
         
-        return opt_obs_ilc_1000_P30_M80_9;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_ilc_1000_P30_M80_10 = 2753.14254470621*C_phiQm + 620.7698880895141*C_phit + -95070.26926009274*C_tW + 
-        59276.743076464656*C_tZ + 0.17022401359535017*CI_tW + -0.15157846826276536*CI_tZ + 621276.4575612639*C_lqM +
-        5445.470775132945*C_eq + 173294.33258115107*C_lu + 39072.814915512165*C_eu;
+        double opt_obs_ilc_1000_P30_M80_10 = 11.47142726960921*C_phiQm + 2.5865412003729755*C_phit
+ + -396.12612191705307*C_tW + 246.9864294852694*C_tZ
+ + 0.000709266723313959*CI_tW + -0.0006315769510948557*CI_tZ
+ + 2588.651906505266*C_lqM + 22.68946156305394*C_eq
+ + 722.0597190881294*C_lu + 162.8033954813007*C_eu;
 
         
-        return opt_obs_ilc_1000_P30_M80_10;
+        return lumi*eff*opt_obs_ilc_1000_P30_M80_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_1000_P30_M80, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -9107,7 +11678,7 @@ double opt_obs_ilc_1000_P30_M80::computeThValue()
 opt_obs_clic_380_0_M80::opt_obs_clic_380_0_M80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_clic_380_0_M80" << "eff_clic_380_0_M80");                             
 }
 
 double opt_obs_clic_380_0_M80::computeThValue()
@@ -9115,6 +11686,9 @@ double opt_obs_clic_380_0_M80::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_clic_380_0_M80");
+    double eff = SM.getOptionalParameter("eff_clic_380_0_M80");
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -9137,106 +11711,125 @@ double opt_obs_clic_380_0_M80::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_clic_380_0_M80_1 = 120.06172006894961*C_phiQm + 95.2632888430088*C_phit + -4531.097439816143*C_tW +
-        2746.650879228213*C_tZ + -7.5508976406331545e-06*CI_tW + 5.205314949107366e-06*CI_tZ + 3887.0437638560256*C_lqM +
-        225.32582425304838*C_eq + 3176.483985430456*C_lu + 283.96321215486154*C_eu;
+        double opt_obs_clic_380_0_M80_1 = 2.4012344013789924*C_phiQm + 1.905265776860176*C_phit
+ + -90.62194879632287*C_tW + 54.933017584564254*C_tZ
+ + -1.510179528126631e-07*CI_tW + 1.0410629898214733e-07*CI_tZ
+ + 77.74087527712051*C_lqM + 4.506516485060968*C_eq
+ + 63.52967970860912*C_lu + 5.67926424309723*C_eu;
 
-        return opt_obs_clic_380_0_M80_1;
+        return lumi*eff*opt_obs_clic_380_0_M80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_clic_380_0_M80_2 = 95.26328884300882*C_phiQm + 106.87735835180644*C_phit + -4248.106156364066*C_tW + 
-        2570.7915961230597*C_tZ + 7.5508976406331545e-06*CI_tW + -5.205314955622947e-06*CI_tZ + 3136.1323092914117*C_lqM + 
-        237.9815924737406*C_eq + 3483.615309120046*C_lu + 227.2648437481147*C_eu;
+        double opt_obs_clic_380_0_M80_2 = 1.9052657768601764*C_phiQm + 2.1375471670361286*C_phit
+ + -84.96212312728132*C_tW + 51.415831922461194*C_tZ
+ + 1.510179528126631e-07*CI_tW + -1.0410629911245894e-07*CI_tZ
+ + 62.72264618582824*C_lqM + 4.759631849474812*C_eq
+ + 69.67230618240092*C_lu + 4.545296874962294*C_eu;
 
         
-        return opt_obs_clic_380_0_M80_2;
+        return lumi*eff*opt_obs_clic_380_0_M80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_clic_380_0_M80_3 = -4531.097439816143*C_phiQm + -4248.106156364067*C_phit + 185424.43152664352*C_tW + 
-        -112311.10993750101*C_tZ + 5.868859160982288e-14*CI_tW + 3.0838984313719717e-15*CI_tZ + -147922.47117539652*C_lqM +
-        -9900.718550475545*C_eq + -140131.4122483683*C_lu + -10931.967523505049*C_eu;
+        double opt_obs_clic_380_0_M80_3 = -90.62194879632287*C_phiQm + -84.96212312728133*C_phit
+ + 3708.4886305328705*C_tW + -2246.22219875002*C_tZ
+ + 1.1737718321964578e-15*CI_tW + 6.167796862743943e-17*CI_tZ
+ + -2958.4494235079305*C_lqM + -198.0143710095109*C_eq
+ + -2802.628244967366*C_lu + -218.63935047010096*C_eu;
 
 
-        return opt_obs_clic_380_0_M80_3;
+        return lumi*eff*opt_obs_clic_380_0_M80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_clic_380_0_M80_4 = 2746.6508792282134*C_phiQm + 2570.791596123061*C_phit + -112311.10993750104*C_tW +
-        68300.60588377816*C_tZ + 2.976352933354212e-14*CI_tW + -7.765292220023054e-15*CI_tZ + 89767.71297930252*C_lqM + 
-        6115.6285795988615*C_eq + 84957.97314196368*C_lu + 6793.152990991544*C_eu;
+        double opt_obs_clic_380_0_M80_4 = 54.93301758456427*C_phiQm + 51.41583192246122*C_phit
+ + -2246.2221987500207*C_tW + 1366.012117675563*C_tZ
+ + 5.952705866708424e-16*CI_tW + -1.553058444004611e-16*CI_tZ
+ + 1795.3542595860504*C_lqM + 122.31257159197723*C_eq
+ + 1699.1594628392736*C_lu + 135.86305981983088*C_eu;
 
         
-        return opt_obs_clic_380_0_M80_4;
+        return lumi*eff*opt_obs_clic_380_0_M80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
 
-        double opt_obs_clic_380_0_M80_5 = -7.5508976406331545e-06*C_phiQm + 7.5508976406331545e-06*C_phit + 5.868859160982288e-14*C_tW +
-        2.976352933354212e-14*C_tZ + 728.8990374708957*CI_tW + -442.6894519187048*CI_tZ + -4.27288412714939e-05*C_lqM +
-        -0.0034040158223476212*C_eq + 4.272884137762084e-05*C_lu + 0.0034040158223944666*C_eu;
+        double opt_obs_clic_380_0_M80_5 = -1.510179528126631e-07*C_phiQm + 1.510179528126631e-07*C_phit
+ + 1.1737718321964578e-15*C_tW + 5.952705866708425e-16*C_tZ
+ + 14.577980749417915*CI_tW + -8.853789038374096*CI_tZ
+ + -8.54576825429878e-07*C_lqM + -6.808031644695242e-05*C_eq
+ + 8.545768275524168e-07*C_lu + 6.808031644788933e-05*C_eu;
 
         
-        return opt_obs_clic_380_0_M80_5;
+        return lumi*eff*opt_obs_clic_380_0_M80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
-        double opt_obs_clic_380_0_M80_6 = 5.2053149491073655e-06*C_phiQm + -5.205314955622945e-06*C_phit + 3.0838984313719693e-15*C_tW +
-        -7.765292220023055e-15*C_tZ + -442.6894519187048*CI_tW + 268.92042587211745*CI_tZ + 0.0034385600971542484*C_lqM +
-        0.0023038331153317306*C_eq + -0.0034385600972478424*C_lu + -0.0023038331153730435*C_eu;
+        double opt_obs_clic_380_0_M80_6 = 1.0410629898214732e-07*C_phiQm + -1.0410629911245892e-07*C_phit
+ + 6.167796862743938e-17*C_tW + -1.5530584440046111e-16*C_tZ
+ + -8.853789038374096*CI_tW + 5.378408517442349*CI_tZ
+ + 6.877120194308497e-05*C_lqM + 4.607666230663461e-05*C_eq
+ + -6.877120194495685e-05*C_lu + -4.6076662307460866e-05*C_eu;
 
         
-        return opt_obs_clic_380_0_M80_6;
+        return lumi*eff*opt_obs_clic_380_0_M80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_clic_380_0_M80_7 = 3887.0437638560256*C_phiQm + 3136.1323092914117*C_phit + -147922.4711753965*C_tW +
-        89767.71297930252*C_tZ + -4.272884127149391e-05*CI_tW + 0.0034385600971542484*CI_tZ + 126019.057924026*C_lqM + 
-        7494.131176290688*C_eq + 104514.79567984765*C_lu + 9282.860109381021*C_eu;
+        double opt_obs_clic_380_0_M80_7 = 77.74087527712051*C_phiQm + 62.72264618582823*C_phit
+ + -2958.44942350793*C_tW + 1795.3542595860506*C_tZ
+ + -8.545768254298782e-07*CI_tW + 6.877120194308497e-05*CI_tZ
+ + 2520.38115848052*C_lqM + 149.88262352581376*C_eq;
 
         
-        return opt_obs_clic_380_0_M80_7;
+        return lumi*eff*opt_obs_clic_380_0_M80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_clic_380_0_M80_8 = 225.32582425304838*C_phiQm + 237.9815924737406*C_phit + -9900.718550475545*C_tW +
-        6115.6285795988615*C_tZ + -0.0034040158223476217*CI_tW + 0.0023038331153317306*CI_tZ + 7494.131176290688*C_lqM +
-        649.7792339415311*C_eq + 7869.951209694929*C_lu + 634.851526968183*C_eu;
+        double opt_obs_clic_380_0_M80_8 = 4.506516485060968*C_phiQm + 4.759631849474812*C_phit
+ + -198.0143710095109*C_tW + 122.31257159197723*C_tZ
+ + -6.808031644695244e-05*CI_tW + 4.607666230663461e-05*CI_tZ
+ + 149.88262352581376*C_lqM + 12.995584678830621*C_eq
+ + 157.39902419389858*C_lu + 12.69703053936366*C_eu;
 
         
-        return opt_obs_clic_380_0_M80_8;
+        return lumi*eff*opt_obs_clic_380_0_M80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_clic_380_0_M80_9 = 3176.4839854304564*C_phiQm + 3483.6153091200467*C_phit + -140131.4122483683*C_tW +
-        84957.97314196365*C_tZ + 4.272884137762084e-05*CI_tW + -0.0034385600972478415*CI_tZ + 104514.79567984765*C_lqM +
-        7869.9512096949275*C_eq + 113822.92771403659*C_lu + 7722.553693118384*C_eu;
+        double opt_obs_clic_380_0_M80_9 = 63.52967970860913*C_phiQm + 69.67230618240093*C_phit
+ + -2802.628244967366*C_tW + 1699.1594628392731*C_tZ
+ + 8.545768275524168e-07*CI_tW + -6.877120194495683e-05*CI_tZ
+ + 2090.295913596953*C_lqM + 157.39902419389855*C_eq
+ + 2276.4585542807317*C_lu + 154.45107386236768*C_eu;
 
         
-        return opt_obs_clic_380_0_M80_9;
+        return lumi*eff*opt_obs_clic_380_0_M80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_clic_380_0_M80_10 = 283.96321215486154*C_phiQm + 227.26484374811474*C_phit + -10931.967523505047*C_tW +
-        6793.152990991544*C_tZ + 0.0034040158223944666*CI_tW + -0.0023038331153730435*CI_tZ + 9282.860109381021*C_lqM + 
-        634.851526968183*C_eq + 7722.553693118384*C_lu + 842.1651193697572*C_eu;
+        double opt_obs_clic_380_0_M80_10 = 5.679264243097231*C_phiQm + 4.545296874962295*C_phit
+ + -218.63935047010094*C_tW + 135.86305981983088*C_tZ
+ + 6.808031644788933e-05*CI_tW + -4.6076662307460866e-05*CI_tZ
+ + 185.6572021876204*C_lqM + 12.69703053936366*C_eq
+ + 154.45107386236768*C_lu + 16.843302387395145*C_eu;
 
         
-        return opt_obs_clic_380_0_M80_10;
+        return lumi*eff*opt_obs_clic_380_0_M80_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_clic_380_0_M80, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -9248,7 +11841,7 @@ double opt_obs_clic_380_0_M80::computeThValue()
 opt_obs_clic_380_0_P80::opt_obs_clic_380_0_P80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_clic_380_0_P80" << "eff_clic_380_0_P80");             
 }
 
 double opt_obs_clic_380_0_P80::computeThValue()
@@ -9256,6 +11849,11 @@ double opt_obs_clic_380_0_P80::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    
+    double lumi = SM.getOptionalParameter("lumi_clic_380_0_P80");
+    double eff = SM.getOptionalParameter("eff_clic_380_0_P80");
+    
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -9277,106 +11875,126 @@ double opt_obs_clic_380_0_P80::computeThValue()
                 
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_clic_380_0_P80_1 = 51.70880870690521*C_phiQm + 43.391394221023006*C_phit + 2834.446701832541*C_tW +
-        -3043.586197350111*C_tZ + -4.391761012568342e-05*CI_tW + 0.00012306411980123828*CI_tZ + -301.00167175335065*C_lqM +
-        -2153.5898712612825*C_eq + -349.2189447873243*C_lu + -1917.289343637158*C_eu;
+        double opt_obs_clic_380_0_P80_1 = 1.0341761741381041*C_phiQm + 0.8678278844204601*C_phit
+ + 56.68893403665082*C_tW + -60.871723947002224*C_tZ
+ + -8.783522025136684e-07*CI_tW + 2.4612823960247657e-06*CI_tZ
+ + -6.020033435067013*C_lqM + -43.071797425225654*C_eq
+ + -6.984378895746486*C_lu + -38.34578687274316*C_eu;
 
-        return opt_obs_clic_380_0_P80_1;
+        return lumi*eff*opt_obs_clic_380_0_P80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_clic_380_0_P80_2 = 43.391394221023006*C_phiQm + 64.00020118784929*C_phit + 3162.361784154446*C_tW +
-        -3402.4198921240077*C_tZ + 4.3917610131019776e-05*CI_tW + -0.00012306411980803484*CI_tZ + -398.7085036033487*C_lqM +
-        -1973.6857716635918*C_eq + -314.4492043775353*C_lu + -2599.298045159239*C_eu;
+        double opt_obs_clic_380_0_P80_2 = 0.8678278844204601*C_phiQm + 1.2800040237569856*C_phit
+ + 63.24723568308892*C_tW + -68.04839784248016*C_tZ
+ + 8.783522026203955e-07*CI_tW + -2.461282396160697e-06*CI_tZ
+ + -7.974170072066974*C_lqM + -39.473715433271835*C_eq
+ + -6.2889840875507055*C_lu + -51.985960903184775*C_eu;
 
         
-        return opt_obs_clic_380_0_P80_2;
+        return lumi*eff*opt_obs_clic_380_0_P80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_clic_380_0_P80_3 = 2834.446701832541*C_phiQm + 3162.361784154446*C_phit + 181888.42121312206*C_tW + 
-        -194916.9973452313*C_tZ + 3.5789560776347355e-13*CI_tW + -1.2590690307536883e-13*CI_tZ + -22266.262562990887*C_lqM + 
-        -124621.34959710251*C_eq + -21307.002952501392*C_lu + -135010.17155622953*C_eu;
+        double opt_obs_clic_380_0_P80_3 = 56.68893403665082*C_phiQm + 63.24723568308892*C_phit
+ + 3637.768424262441*C_tW + -3898.3399469046262*C_tZ
+ + 7.157912155269471e-15*CI_tW + -2.5181380615073766e-15*CI_tZ
+ + -445.3252512598177*C_lqM + -2492.4269919420503*C_eq
+ + -426.14005905002784*C_lu + -2700.2034311245907*C_eu;
 
 
-        return opt_obs_clic_380_0_P80_3;
+        return lumi*eff*opt_obs_clic_380_0_P80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_clic_380_0_P80_4 = -3043.5861973501105*C_phiQm + -3402.419892124007*C_phit + -194916.9973452313*C_tW + 
-        209087.98975226647*C_tZ + -3.156287228241343e-13*CI_tW + 0.0019548085985633813*CI_tZ + 23798.922188395663*C_lqM + 
-        133690.9535919116*C_eq + 22712.152438465484*C_lu + 145016.90643685442*C_eu;
+        double opt_obs_clic_380_0_P80_4 = -60.87172394700221*C_phiQm + -68.04839784248014*C_phit
+ + -3898.339946904626*C_tW + 4181.759795045329*C_tZ
+ + -6.312574456482685e-15*CI_tW + 3.909617197126763e-05*CI_tZ
+ + 475.9784437679133*C_lqM + 2673.819071838232*C_eq
+ + 454.24304876930967*C_lu + 2900.3381287370885*C_eu;
 
         
-        return opt_obs_clic_380_0_P80_4;
+        return lumi*eff*opt_obs_clic_380_0_P80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
 
-        double opt_obs_clic_380_0_P80_5 = -4.391761012568341e-05*C_phiQm + 4.391761013101977e-05*C_phit + 3.5789560776347355e-13*C_tW +
-        -3.1562872282413433e-13*C_tZ + 711.7457997973509*CI_tW + -763.4326238932159*CI_tZ + -9.265820516516693e-05*C_lqM + 
-        0.9787447550334801*C_eq + 9.265820524672187e-05*C_lu + -0.9787447550334801*C_eu;
+        double opt_obs_clic_380_0_P80_5 = -8.783522025136682e-07*C_phiQm + 8.783522026203954e-07*C_phit
+ + 7.157912155269471e-15*C_tW + -6.312574456482686e-15*C_tZ
+ + 14.234915995947016*CI_tW + -15.268652477864318*CI_tZ
+ + -1.8531641033033386e-06*C_lqM + 0.019574895100669603*C_eq
+ + 1.8531641049344373e-06*C_lu + -0.019574895100669603*C_eu;
 
         
-        return opt_obs_clic_380_0_P80_5;
+        return lumi*eff*opt_obs_clic_380_0_P80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
-        double opt_obs_clic_380_0_P80_6 = 0.0001230641198012383*C_phiQm + -0.00012306411980803484*C_phit + -1.2590690307536878e-13*C_tW +
-        0.0019548085985633813*C_tZ + -763.432623893216*CI_tW + 819.0637671399041*CI_tZ + -0.00034688738558396416*C_lqM + 
-        -0.8631804035168524*C_eq + 0.00034688738552398013*C_lu + 0.863180403516764*C_eu;
+        double opt_obs_clic_380_0_P80_6 = 2.461282396024766e-06*C_phiQm + -2.461282396160697e-06*C_phit
+ + -2.518138061507376e-15*C_tW + 3.909617197126763e-05*C_tZ
+ + -15.26865247786432*CI_tW + 16.381275342798084*CI_tZ
+ + -6.937747711679283e-06*C_lqM + -0.01726360807033705*C_eq
+ + 6.937747710479603e-06*C_lu + 0.01726360807033528*C_eu;
 
         
-        return opt_obs_clic_380_0_P80_6;
+        return lumi*eff*opt_obs_clic_380_0_P80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_clic_380_0_P80_7 = -301.00167175335065*C_phiQm + -398.7085036033487*C_phit + -22266.262562990883*C_tW + 
-        23798.922188395663*C_tZ + -9.265820516516693e-05*CI_tW + -0.00034688738558396416*CI_tZ + 3287.2124939229566*C_lqM +
-        14285.437299285068*C_eq + 2723.0338893609924*C_lu + 17063.779110907857*C_eu;
+        double opt_obs_clic_380_0_P80_7 = -6.020033435067013*C_phiQm + -7.974170072066974*C_phit
+ + -445.32525125981766*C_tW + 475.9784437679133*C_tZ
+ + -1.8531641033033386e-06*CI_tW + -6.937747711679283e-06*CI_tZ
+ + 65.74424987845913*C_lqM + 285.70874598570134*C_eq
+ + 54.46067778721985*C_lu + 341.2755822181571*C_eu;
 
         
-        return opt_obs_clic_380_0_P80_7;
+        return lumi*eff*opt_obs_clic_380_0_P80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_clic_380_0_P80_8 = -2153.5898712612825*C_phiQm + -1973.6857716635918*C_phit + -124621.34959710251*C_tW +
-        133690.9535919116*C_tZ + 0.9787447550334801*CI_tW + -0.8631804035168524*CI_tZ + 14285.437299285068*C_lqM + 
-        91686.49934033924*C_eq + 15330.854156197196*C_lu + 86578.70293926288*C_eu;
+        double opt_obs_clic_380_0_P80_8 = -43.071797425225654*C_phiQm + -39.473715433271835*C_phit
+ + -2492.4269919420503*C_tW + 2673.819071838232*C_tZ
+ + 0.019574895100669603*CI_tW + -0.01726360807033705*CI_tZ
+ + 285.70874598570134*C_lqM + 1833.7299868067848*C_eq
+ + 306.6170831239439*C_lu + 1731.5740587852574*C_eu;
 
         
-        return opt_obs_clic_380_0_P80_8;
+        return lumi*eff*opt_obs_clic_380_0_P80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_clic_380_0_P80_9 = -349.2189447873243*C_phiQm + -314.4492043775353*C_phit + -21307.00295250139*C_tW + 
-        22712.152438465488*C_tZ + 9.265820524672187e-05*CI_tW + 0.0003468873855239801*CI_tZ + 2723.0338893609924*C_lqM + 
-        15330.8541561972*C_eq + 3064.3299374815383*C_lu + 14502.36174529573*C_eu;
+        double opt_obs_clic_380_0_P80_9 = -6.984378895746486*C_phiQm + -6.2889840875507055*C_phit
+ + -426.1400590500278*C_tW + 454.2430487693097*C_tZ
+ + 1.8531641049344373e-06*CI_tW + 6.937747710479601e-06*CI_tZ
+ + 54.46067778721985*C_lqM + 306.617083123944*C_eq
+ + 61.28659874963077*C_lu + 290.0472349059146*C_eu;
 
         
-        return opt_obs_clic_380_0_P80_9;
+        return lumi*eff*opt_obs_clic_380_0_P80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_clic_380_0_P80_10 = -1917.2893436371585*C_phiQm + -2599.2980451592393*C_phit + -135010.1715562295*C_tW +
-        145016.90643685445*C_tZ + -0.9787447550334801*CI_tW + 0.863180403516764*CI_tZ + 17063.77911090786*C_lqM + 
-        86578.70293926288*C_eq + 14502.36174529573*C_lu + 107540.18631514069*C_eu;
+        double opt_obs_clic_380_0_P80_10 = -38.34578687274317*C_phiQm + -51.98596090318478*C_phit
+ + -2700.20343112459*C_tW + 2900.338128737089*C_tZ
+ + -0.019574895100669603*CI_tW + 0.01726360807033528*CI_tZ
+ + 341.2755822181572*C_lqM + 1731.5740587852576*C_eq
+ + 290.0472349059146*C_lu + 2150.8037263028136*C_eu;
 
         
-        return opt_obs_clic_380_0_P80_10;
+        return lumi*eff*opt_obs_clic_380_0_P80_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_clic_380_0_P80, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -9394,7 +12012,7 @@ double opt_obs_clic_380_0_P80::computeThValue()
 opt_obs_clic_1500_0_M80::opt_obs_clic_1500_0_M80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_clic_1500_0_M80" << "eff_clic_1500_0_M80");             
 }
 
 double opt_obs_clic_1500_0_M80::computeThValue()
@@ -9402,6 +12020,11 @@ double opt_obs_clic_1500_0_M80::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    
+    double lumi = SM.getOptionalParameter("lumi_clic_1500_0_M80");
+    double eff = SM.getOptionalParameter("eff_clic_1500_0_M80");
+    
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -9423,106 +12046,126 @@ double opt_obs_clic_1500_0_M80::computeThValue()
      
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_clic_1500_0_M80_1 = 31.12063858107434*C_phiQm + 2.7421104006461796*C_phit + -1024.0302869889765*C_tW +
-        637.3700244453707*C_tZ + 7.364957964753117e-05*CI_tW + -0.0001085007417083351*CI_tZ + 15891.195417376424*C_lqM +
-        157.82358235354474*C_eq + 2480.1874168907243*C_lu + 1244.5920912514935*C_eu;
+        double opt_obs_clic_1500_0_M80_1 = 0.41494184774765785*C_phiQm + 0.03656147200861573*C_phit
+ + -13.65373715985302*C_tW + 8.498266992604943*C_tZ
+ + 9.819943953004157e-07*CI_tW + -1.4466765561111347e-06*CI_tZ
+ + 211.882605565019*C_lqM + 2.1043144313805966*C_eq
+ + 33.06916555854299*C_lu + 16.59456121668658*C_eu;
 
-        return opt_obs_clic_1500_0_M80_1;
+        return lumi*eff*opt_obs_clic_1500_0_M80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_clic_1500_0_M80_2 = 2.742110400646181*C_phiQm + 20.641713203727154*C_phit + -743.1200003721563*C_tW +
-        458.5209885090854*C_tZ + -7.908451545286053e-05*CI_tW + 0.00011425348995032762*CI_tZ + 1869.6444914683732*C_lqM + 
-        548.891056179847*C_eq + 10593.496307025944*C_lu + 165.22005892785472*C_eu;
+        double opt_obs_clic_1500_0_M80_2 = 0.036561472008615745*C_phiQm + 0.27522284271636205*C_phit
+ + -9.90826667162875*C_tW + 6.113613180121138*C_tZ
+ + -1.0544602060381405e-06*CI_tW + 1.5233798660043683e-06*CI_tZ
+ + 24.92859321957831*C_lqM + 7.318547415731294*C_eq
+ + 141.24661742701258*C_lu + 2.202934119038063*C_eu;
 
         
-        return opt_obs_clic_1500_0_M80_2;
+        return lumi*eff*opt_obs_clic_1500_0_M80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_clic_1500_0_M80_3 = -1024.0302869889765*C_phiQm + -743.1200003721561*C_phit + 73755.29215107777*C_tW +
-        -45773.14530099911*C_tZ + 0.0*CI_tW + -4.594825322040414e-14*CI_tZ + -539296.2182531899*C_lqM + 
-        -23880.177407024526*C_eq + -415726.082360777*C_lu + -45085.99591263971*C_eu;
+        double opt_obs_clic_1500_0_M80_3 = -13.65373715985302*C_phiQm + -9.908266671628748*C_phit
+ + 983.4038953477036*C_tW + -610.3086040133214*C_tZ
+ + 0.0*CI_tW + -6.126433762720552e-16*CI_tZ
+ + -7190.616243375866*C_lqM + -318.4023654269937*C_eq
+ + -5543.014431477027*C_lu + -601.1466121685295*C_eu;
 
 
-        return opt_obs_clic_1500_0_M80_3;
+        return lumi*eff*opt_obs_clic_1500_0_M80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_clic_1500_0_M80_4 = 637.3700244453707*C_phiQm + 458.5209885090854*C_phit + -45773.14530099912*C_tW +
-        28465.303989686647*C_tZ + -0.04814519430101995*CI_tW + 0.05255254678998386*CI_tZ + 335746.8985883687*C_lqM + 
-        14958.26227554876*C_eq + 257638.48613886553*C_lu + 29099.398077650552*C_eu;
+        double opt_obs_clic_1500_0_M80_4 = 8.498266992604943*C_phiQm + 6.113613180121138*C_phit
+ + -610.3086040133215*C_tW + 379.5373865291553*C_tZ
+ + -0.0006419359240135993*CI_tW + 0.0007007006238664515*CI_tZ
+ + 4476.625314511583*C_lqM + 199.44349700731678*C_eq
+ + 3435.179815184874*C_lu + 387.99197436867405*C_eu;
 
         
-        return opt_obs_clic_1500_0_M80_4;
+        return lumi*eff*opt_obs_clic_1500_0_M80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
 
-        double opt_obs_clic_1500_0_M80_5 = 7.364957964753117e-05*C_phiQm + -7.908451545286052e-05*C_phit + 0.0*C_tW +
-                -0.04814519430101995*C_tZ + 19008.274674772616*CI_tW + -11835.45499158777*CI_tZ + -0.00029406362418746843*C_lqM +
-                -7.163726313323339e-05*C_eq + 0.00029406358020750157*C_lu + 2.179122730367771e-05*C_eu;
+        double opt_obs_clic_1500_0_M80_5 = 9.819943953004157e-07*C_phiQm + -1.0544602060381403e-06*C_phit
+ + 0.0*C_tW + -0.0006419359240135993*C_tZ
+ + 253.44366233030155*CI_tW + -157.80606655450362*CI_tZ
+ + -3.920848322499579e-06*C_lqM + -9.55163508443112e-07*C_eq
+ + 3.920847736100021e-06*C_lu + 2.9054969738236944e-07*C_eu;
 
         
-        return opt_obs_clic_1500_0_M80_5;
+        return lumi*eff*opt_obs_clic_1500_0_M80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
-        double opt_obs_clic_1500_0_M80_6 = -0.00010850074170833508*C_phiQm + 0.0001142534899503276*C_phit + -4.594825322040414e-14*C_tW +
-                0.05255254678998386*C_tZ + -11835.454991587769*CI_tW + 7371.377598155155*CI_tZ + 0.0004281938600630599*C_lqM +
-                0.0036668271030572833*C_eq + -0.00023652865231596967*C_lu + 0.003557445959349077*C_eu;
+        double opt_obs_clic_1500_0_M80_6 = -1.4466765561111345e-06*C_phiQm + 1.523379866004368e-06*C_phit
+ + -6.126433762720552e-16*C_tW + 0.0007007006238664515*C_tZ
+ + -157.8060665545036*CI_tW + 98.28503464206874*CI_tZ
+ + 5.709251467507465e-06*C_lqM + 4.889102804076378e-05*C_eq
+ + -3.153715364212929e-06*C_lu + 4.7432612791321025e-05*C_eu;
 
         
-        return opt_obs_clic_1500_0_M80_6;
+        return lumi*eff*opt_obs_clic_1500_0_M80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_clic_1500_0_M80_7 = 15891.195417376424*C_phiQm + 1869.6444914683727*C_phit + -539296.21825319*C_tW + 
-        335746.89858836884*C_tZ + -0.0002940636241874685*CI_tW + 0.00042819386006305983*CI_tZ + 8130717.072135359*C_lqM + 
-        99180.82888669874*C_eq + 1505142.331818687*C_lu + 636639.0710039717*C_eu;
+        double opt_obs_clic_1500_0_M80_7 = 211.882605565019*C_phiQm + 24.928593219578303*C_phit
+ + -7190.616243375867*C_tW + 4476.625314511584*C_tZ
+ + -3.9208483224995796e-06*CI_tW + 5.709251467507464e-06*CI_tZ
+ + 108409.56096180479*C_lqM + 1322.4110518226498*C_eq
+ + 20068.56442424916*C_lu + 8488.520946719624*C_eu;
 
         
-        return opt_obs_clic_1500_0_M80_7;
+        return lumi*eff*opt_obs_clic_1500_0_M80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_clic_1500_0_M80_8 = 157.82358235354477*C_phiQm + 548.8910561798472*C_phit + -23880.177407024526*C_tW +
-        14958.262275548761*C_tZ + -7.163726313323339e-05*CI_tW + 0.003666827103057283*CI_tZ + 99180.82888669877*C_lqM +
-        21984.626775303317*C_eq + 284480.2378745365*C_lu + 7574.281435746222*C_eu;
+        double opt_obs_clic_1500_0_M80_8 = 2.104314431380597*C_phiQm + 7.318547415731295*C_phit
+ + -318.4023654269937*C_tW + 199.4434970073168*C_tZ
+ + -9.55163508443112e-07*CI_tW + 4.889102804076377e-05*CI_tZ
+ + 1322.4110518226503*C_lqM + 293.12835700404423*C_eq
+ + 3793.0698383271533*C_lu + 100.99041914328296*C_eu;
 
         
-        return opt_obs_clic_1500_0_M80_8;
+        return lumi*eff*opt_obs_clic_1500_0_M80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_clic_1500_0_M80_9 = 2480.187416890722*C_phiQm + 10593.496307025945*C_phit + -415726.082360777*C_tW + 
-        257638.48613886558*C_tZ + 0.00029406358020750157*CI_tW + -0.00023652865231596972*CI_tZ + 1505142.331818687*C_lqM +
-        284480.2378745365*C_eq + 5493199.27393549*C_lu + 149343.25853702475*C_eu;
+        double opt_obs_clic_1500_0_M80_9 = 33.06916555854296*C_phiQm + 141.2466174270126*C_phit
+ + -5543.014431477027*C_tW + 3435.1798151848743*C_tZ
+ + 3.920847736100021e-06*CI_tW + -3.1537153642129295e-06*CI_tZ
+ + 20068.56442424916*C_lqM + 3793.069838327153*C_eq
+ + 73242.65698580653*C_lu + 1991.2434471603299*C_eu;
 
         
-        return opt_obs_clic_1500_0_M80_9;
+        return lumi*eff*opt_obs_clic_1500_0_M80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_clic_1500_0_M80_10 = 1244.5920912514935*C_phiQm + 165.22005892785478*C_phit + -45085.99591263971*C_tW +
-        29099.39807765056*C_tZ + 2.179122730367771e-05*CI_tW + 0.003557445959349077*CI_tZ + 636639.0710039717*C_lqM +
-        7574.2814357462175*C_eq + 149343.25853702473*C_lu + 74895.4184596441*C_eu;
+        double opt_obs_clic_1500_0_M80_10 = 16.59456121668658*C_phiQm + 2.202934119038064*C_phit
+ + -601.1466121685295*C_tW + 387.9919743686741*C_tZ
+ + 2.9054969738236944e-07*CI_tW + 4.7432612791321025e-05*CI_tZ
+ + 8488.520946719624*C_lqM + 100.9904191432829*C_eq
+ + 1991.2434471603297*C_lu + 998.6055794619215*C_eu;
 
         
-        return opt_obs_clic_1500_0_M80_10;
+        return lumi*eff*opt_obs_clic_1500_0_M80_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_clic_1500_0_M80, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -9534,7 +12177,7 @@ double opt_obs_clic_1500_0_M80::computeThValue()
 opt_obs_clic_1500_0_P80::opt_obs_clic_1500_0_P80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_clic_1500_0_P80" << "eff_clic_1500_0_P80");              
 }
 
 double opt_obs_clic_1500_0_P80::computeThValue()
@@ -9542,6 +12185,10 @@ double opt_obs_clic_1500_0_P80::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_clic_1500_0_P80");
+    double eff = SM.getOptionalParameter("eff_clic_1500_0_P80");
+    
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -9562,106 +12209,126 @@ double opt_obs_clic_1500_0_P80::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_clic_1500_0_P80_1 = 10.324152259880053*C_phiQm + -2.3632297417128263*C_phit + 406.14410474279185*C_tW + 
-        -429.5878353921362*C_tZ + 0.00037562400243159493*CI_tW + -0.000331196099810688*CI_tZ + 63.709934150712485*C_lqM + 
-        -5882.3541020404755*C_eq + -1084.3230339186837*C_lu + 127.45208998762632*C_eu;
+        double opt_obs_clic_1500_0_P80_1 = 0.13765536346506738*C_phiQm + -0.03150972988950435*C_phit
+ + 5.415254729903891*C_tW + -5.727837805228482*C_tZ
+ + 5.008320032421266e-06*CI_tW + -4.41594799747584e-06*CI_tZ
+ + 0.8494657886761665*C_lqM + -78.43138802720634*C_eq
+ + -14.457640452249116*C_lu + 1.6993611998350175*C_eu;
 
-        return opt_obs_clic_1500_0_P80_1;
+        return lumi*eff*opt_obs_clic_1500_0_P80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_clic_1500_0_P80_2 = -2.3632297417128267*C_phiQm + 21.071567120575637*C_phit + 742.8411426803223*C_tW + 
-        -794.0197955393104*C_tZ + 0.00020567093911625755*CI_tW + -0.00018077920189547305*CI_tZ + -1703.5297340713864*C_lqM +
-        -578.0899414837762*C_eq + -74.84050011834675*C_lu + -12239.02416481111*C_eu;
+        double opt_obs_clic_1500_0_P80_2 = -0.03150972988950436*C_phiQm + 0.2809542282743418*C_phit
+ + 9.904548569070963*C_tW + -10.586930607190805*C_tZ
+ + 2.7422791882167675e-06*CI_tW + -2.4103893586063074e-06*CI_tZ
+ + -22.713729787618487*C_lqM + -7.7078658864503495*C_eq
+ + -0.99787333491129*C_lu + -163.18698886414813*C_eu;
 
         
-        return opt_obs_clic_1500_0_P80_2;
+        return lumi*eff*opt_obs_clic_1500_0_P80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_clic_1500_0_P80_3 = 406.14410474279185*C_phiQm + 742.8411426803224*C_phit + 70313.1088969851*C_tW + 
-        -74488.19848495278*C_tZ + 0.0*CI_tW + 0.0*CI_tZ + -77981.85686446886*C_lqM + 
-        -323152.377912647*C_eq + -65642.66617221899*C_lu + -503261.5954005125*C_eu;
+        double opt_obs_clic_1500_0_P80_3 = 5.415254729903891*C_phiQm + 9.904548569070965*C_phit
+ + 937.5081186264679*C_tW + -993.1759797993705*C_tZ
+ + 0.0*CI_tW + 0.0*CI_tZ
+ + -1039.7580915262515*C_lqM + -4308.6983721686265*C_eq
+ + -875.2355489629199*C_lu + -6710.154605340167*C_eu;
 
 
-        return opt_obs_clic_1500_0_P80_3;
+        return lumi*eff*opt_obs_clic_1500_0_P80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_clic_1500_0_P80_4 = -429.5878353921362*C_phiQm + -794.0197955393104*C_phit + -74488.1984849528*C_tW +
-        78939.47017326867*C_tZ + 0.007914915562626992*CI_tW + -0.006980177001516685*CI_tZ + 83035.0271376886*C_lqM + 
-        342435.05973673315*C_eq + 68718.10897920038*C_lu + 536282.3678452166*C_eu;
+        double opt_obs_clic_1500_0_P80_4 = -5.727837805228482*C_phiQm + -10.586930607190805*C_phit
+ + -993.1759797993707*C_tW + 1052.5262689769156*C_tZ
+ + 0.00010553220750169323*CI_tW + -9.306902668688913e-05*CI_tZ
+ + 1107.1336951691812*C_lqM + 4565.800796489775*C_eq
+ + 916.241453056005*C_lu + 7150.431571269555*C_eu;
 
         
-        return opt_obs_clic_1500_0_P80_4;
+        return lumi*eff*opt_obs_clic_1500_0_P80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
 
-        double opt_obs_clic_1500_0_P80_5 = 0.00037562400243159493*C_phiQm + 0.00020567093911625752*C_phit + 0.0*C_tW +
-        0.007914915562626992*C_tZ + 17914.37042788748*CI_tW + -19026.144896041755*CI_tZ + -0.189935256562231*C_lqM + 
-        -1.833636482736485*C_eq + -0.2062567018093176*C_lu + 1.531555800575504*C_eu;
+        double opt_obs_clic_1500_0_P80_5 = 5.008320032421266e-06*C_phiQm + 2.742279188216767e-06*C_phit
+ + 0.0*C_tW + 0.00010553220750169322*C_tZ
+ + 238.85827237183304*CI_tW + -253.6819319472234*CI_tZ
+ + -0.0025324700874964135*C_lqM + -0.024448486436486467*C_eq
+ + -0.002750089357457568*C_lu + 0.020420744007673384*C_eu;
 
         
-        return opt_obs_clic_1500_0_P80_5;
+        return lumi*eff*opt_obs_clic_1500_0_P80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
-        double opt_obs_clic_1500_0_P80_6 = -0.000331196099810688*C_phiQm + -0.00018077920189547305*C_phit + 0.0*C_tW +
-        -0.006980177001516685*C_tZ + -19026.144896041755*CI_tW + 20212.82258856906*CI_tZ + 0.16993407615940898*C_lqM +
-        2.022969994282077*C_eq + 0.18518552826764542*C_lu + -1.7175337540956581*C_eu;
+        double opt_obs_clic_1500_0_P80_6 = -4.41594799747584e-06*C_phiQm + -2.4103893586063074e-06*C_phit
+ + 0.0*C_tW + -9.306902668688913e-05*C_tZ
+ + -253.6819319472234*CI_tW + 269.5043011809208*CI_tZ
+ + 0.002265787682125453*C_lqM + 0.02697293325709436*C_eq
+ + 0.002469140376901939*C_lu + -0.022900450054608775*C_eu;
 
         
-        return opt_obs_clic_1500_0_P80_6;
+        return lumi*eff*opt_obs_clic_1500_0_P80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_clic_1500_0_P80_7 = 63.709934150712485*C_phiQm + -1703.5297340713864*C_phit + -77981.85686446886*C_tW +
-                83035.0271376886*C_tZ + -0.189935256562231*CI_tW + 0.16993407615940898*CI_tZ + 212872.2267979043*C_lqM + 
-                205828.52297198414*C_eq + 36244.05167183088*C_lu + 1023888.839952884*C_eu;
+        double opt_obs_clic_1500_0_P80_7 = 0.8494657886761665*C_phiQm + -22.713729787618487*C_phit
+ + -1039.7580915262515*C_tW + 1107.1336951691812*C_tZ
+ + -0.0025324700874964135*CI_tW + 0.002265787682125453*CI_tZ
+ + 2838.2963573053908*C_lqM + 2744.380306293122*C_eq
+ + 483.2540222910784*C_lu + 13651.851199371788*C_eu;
 
         
-        return opt_obs_clic_1500_0_P80_7;
+        return lumi*eff*opt_obs_clic_1500_0_P80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_clic_1500_0_P80_8 = -5882.354102040475*C_phiQm + -578.0899414837762*C_phit + -323152.377912647*C_tW + 
-        342435.05973673315*C_tZ + -1.833636482736485*CI_tW + 2.022969994282077*CI_tZ + 205828.5229719841*C_lqM + 
-        3627324.961963116*C_eq + 666720.940201298*C_lu + 1093292.9381986153*C_eu;
+        double opt_obs_clic_1500_0_P80_8 = -78.43138802720632*C_phiQm + -7.7078658864503495*C_phit
+ + -4308.6983721686265*C_tW + 4565.800796489775*C_tZ
+ + -0.024448486436486467*CI_tW + 0.02697293325709436*CI_tZ
+ + 2744.380306293121*C_lqM + 48364.33282617488*C_eq
+ + 8889.612536017306*C_lu + 14577.239175981536*C_eu;
 
         
-        return opt_obs_clic_1500_0_P80_8;
+        return lumi*eff*opt_obs_clic_1500_0_P80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_clic_1500_0_P80_9 = -1084.3230339186837*C_phiQm + -74.84050011834668*C_phit + -65642.666172219*C_tW +
-        68718.10897920038*C_tZ + -0.2062567018093176*CI_tW + 0.18518552826764542*CI_tZ + 36244.05167183088*C_lqM + 
-        666720.940201298*C_eq + 181853.97135222206*C_lu + 250387.6796774339*C_eu;
+        double opt_obs_clic_1500_0_P80_9 = -14.457640452249116*C_phiQm + -0.9978733349112892*C_phit
+ + -875.23554896292*C_tW + 916.2414530560051*C_tZ
+ + -0.002750089357457568*CI_tW + 0.002469140376901939*CI_tZ
+ + 483.2540222910784*C_lqM + 8889.612536017306*C_eq
+ + 2424.7196180296273*C_lu + 3338.5023956991186*C_eu;
 
         
-        return opt_obs_clic_1500_0_P80_9;
+        return lumi*eff*opt_obs_clic_1500_0_P80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_clic_1500_0_P80_10 = 127.45208998762578*C_phiQm + -12239.02416481111*C_phit + -503261.5954005125*C_tW +
-        536282.3678452166*C_tZ + 1.5315558005755041*CI_tW + -1.7175337540956583*CI_tZ + 1023888.839952884*C_lqM + 
-        1093292.9381986158*C_eq + 250387.67967743386*C_lu + 7344666.326903202*C_eu;
+        double opt_obs_clic_1500_0_P80_10 = 1.6993611998350104*C_phiQm + -163.18698886414813*C_phit
+ + -6710.154605340167*C_tW + 7150.431571269555*C_tZ
+ + 0.020420744007673387*CI_tW + -0.02290045005460878*CI_tZ
+ + 13651.851199371788*C_lqM + 14577.239175981544*C_eq
+ + 3338.502395699118*C_lu + 97928.88435870936*C_eu;
 
         
-        return opt_obs_clic_1500_0_P80_10;
+        return lumi*eff*opt_obs_clic_1500_0_P80_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_clic_1500_0_P80, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -9675,7 +12342,7 @@ double opt_obs_clic_1500_0_P80::computeThValue()
 opt_obs_clic_3000_0_M80::opt_obs_clic_3000_0_M80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_clic_3000_0_M80" << "eff_clic_3000_0_M80");               
 }
 
 double opt_obs_clic_3000_0_M80::computeThValue()
@@ -9683,6 +12350,11 @@ double opt_obs_clic_3000_0_M80::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    
+    double lumi = SM.getOptionalParameter("lumi_clic_3000_0_M80");
+    double eff = SM.getOptionalParameter("eff_clic_3000_0_M80");
+    
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -9704,106 +12376,126 @@ double opt_obs_clic_3000_0_M80::computeThValue()
                 
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_clic_3000_0_M80_1 = 13.33209452567144*C_phiQm + 0.7650331497664996*C_phit + -435.24051911518615*C_tW +
-        271.23834932892424*C_tZ + -5.987092590534795e-05*CI_tW + 0.00014481971235062957*CI_tZ + 27255.04878737972*C_lqM +
-        212.3000918910858*C_eq + 3431.011120061543*C_lu + 2139.655877769451*C_eu;
+        double opt_obs_clic_3000_0_M80_1 = 0.10665675620537152*C_phiQm + 0.006120265198131997*C_phit
+ + -3.481924152921489*C_tW + 2.169906794631394*C_tZ
+ + -4.789674072427836e-07*CI_tW + 1.1585576988050365e-06*CI_tZ
+ + 218.04039029903777*C_lqM + 1.6984007351286863*C_eq
+ + 27.448088960492342*C_lu + 17.117247022155606*C_eu;
 
-        return opt_obs_clic_3000_0_M80_1;
+        return lumi*eff*opt_obs_clic_3000_0_M80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_clic_3000_0_M80_2 = 0.7650331497664996*C_phiQm + 8.829423563145856*C_phit + -313.33564879840924*C_tW +
-        193.5060611255018*C_tZ + -5.850824664450302e-05*CI_tW + 0.00014383022510616573*CI_tZ + 2363.4679955479055*C_lqM +
-        923.138101589398*C_eq + 18122.00501346492*C_lu + 222.60658384890635*C_eu;
+        double opt_obs_clic_3000_0_M80_2 = 0.006120265198131997*C_phiQm + 0.07063538850516685*C_phit
+ + -2.506685190387274*C_tW + 1.5480484890040143*C_tZ
+ + -4.680659731560242e-07*CI_tW + 1.150641800849326e-06*CI_tZ
+ + 18.907743964383243*C_lqM + 7.385104812715184*C_eq
+ + 144.97604010771937*C_lu + 1.7808526707912509*C_eu;
 
         
-        return opt_obs_clic_3000_0_M80_2;
+        return lumi*eff*opt_obs_clic_3000_0_M80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_clic_3000_0_M80_3 = -435.24051911518615*C_phiQm + -313.33564879840935*C_phit + 58230.41161808021*C_tW + 
-        -36223.641669057135*C_tZ + 0.0*CI_tW + 3.791966058780664e-13*CI_tZ + -918481.7275131049*C_lqM + 
-        -39641.91455156641*C_eq + -704099.075122462*C_lu + -77409.31179989775*C_eu;
+        double opt_obs_clic_3000_0_M80_3 = -3.481924152921489*C_phiQm + -2.506685190387275*C_phit
+ + 465.8432929446417*C_tW + -289.7891333524571*C_tZ
+ + 0.0*CI_tW + 3.033572847024531e-15*CI_tZ
+ + -7347.8538201048395*C_lqM + -317.1353164125313*C_eq
+ + -5632.792600979696*C_lu + -619.274494399182*C_eu;
 
 
-        return opt_obs_clic_3000_0_M80_3;
+        return lumi*eff*opt_obs_clic_3000_0_M80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_clic_3000_0_M80_4 = 271.23834932892424*C_phiQm + 193.5060611255018*C_phit + -36223.641669057135*C_tW + 
-        22557.94002761878*C_tZ + -0.0026109153267802137*CI_tW + 0.004293317694509817*CI_tZ + 572515.2188201552*C_lqM + 
-        24845.105426953396*C_eq + 436791.0716497224*C_lu + 50046.702515102355*C_eu;
+        double opt_obs_clic_3000_0_M80_4 = 2.169906794631394*C_phiQm + 1.5480484890040143*C_phit
+ + -289.7891333524571*C_tW + 180.46352022095024*C_tZ
+ + -2.088732261424171e-05*CI_tW + 3.434654155607854e-05*CI_tZ
+ + 4580.121750561242*C_lqM + 198.76084341562716*C_eq
+ + 3494.3285731977794*C_lu + 400.3736201208188*C_eu;
 
         
-        return opt_obs_clic_3000_0_M80_4;
+        return lumi*eff*opt_obs_clic_3000_0_M80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
    
-        double opt_obs_clic_3000_0_M80_5 = -5.987092590534795e-05*C_phiQm + -5.8508246644503015e-05*C_phit + 0.0*C_tW +
-                -0.0026109153267802137*C_tZ + 34478.129510645915*CI_tW + -21492.16351340807*CI_tZ + -0.00012184259388579023*C_lqM +
-                -1.5632883355394622*C_eq + 0.00012184252152651603*C_lu + -0.4247644648500183*C_eu;
+        double opt_obs_clic_3000_0_M80_5 = -4.789674072427836e-07*C_phiQm + -4.6806597315602414e-07*C_phit
+ + 0.0*C_tW + -2.088732261424171e-05*C_tZ
+ + 275.8250360851673*CI_tW + -171.93730810726458*CI_tZ
+ + -9.747407510863218e-07*C_lqM + -0.012506306684315698*C_eq
+ + 9.747401722121282e-07*C_lu + -0.0033981157188001463*C_eu;
 
         
-        return opt_obs_clic_3000_0_M80_5;
+        return lumi*eff*opt_obs_clic_3000_0_M80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
-        double opt_obs_clic_3000_0_M80_6 = 0.00014481971235062957*C_phiQm + 0.00014383022510616573*C_phit + 3.7919660587806645e-13*C_tW +
-        0.004293317694509817*C_tZ + -21492.16351340807*CI_tW + 13400.713582816245*CI_tZ + 0.20340108259782821*C_lqM + 
-        1.3558620760665916*C_eq + -0.20336133056940076*C_lu + 0.39780212635407974*C_eu;
+        double opt_obs_clic_3000_0_M80_6 = 1.1585576988050365e-06*C_phiQm + 1.150641800849326e-06*C_phit
+ + 3.0335728470245314e-15*C_tW + 3.434654155607854e-05*C_tZ
+ + -171.93730810726458*CI_tW + 107.20570866252996*CI_tZ
+ + 0.0016272086607826257*C_lqM + 0.010846896608532733*C_eq
+ + -0.001626890644555206*C_lu + 0.003182417010832638*C_eu;
 
         
-        return opt_obs_clic_3000_0_M80_6;
+        return lumi*eff*opt_obs_clic_3000_0_M80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_clic_3000_0_M80_7 = 27255.04878737972*C_phiQm + 2363.4679955479073*C_phit + -918481.7275131049*C_tW +
-        572515.2188201552*C_tZ + -0.00012184259388579023*CI_tW + 0.20340108259782821*CI_tZ + 55829270.97276969*C_lqM + 
-        560366.9722323284*C_eq + 8642066.509479936*C_lu + 4379793.809672568*C_eu;
+        double opt_obs_clic_3000_0_M80_7 = 218.04039029903777*C_phiQm + 18.907743964383258*C_phit
+ + -7347.8538201048395*C_tW + 4580.121750561242*C_tZ
+ + -9.747407510863218e-07*CI_tW + 0.0016272086607826257*CI_tZ
+ + 446634.16778215754*C_lqM + 4482.935777858627*C_eq
+ + 69136.5320758395*C_lu + 35038.35047738055*C_eu;
 
         
-        return opt_obs_clic_3000_0_M80_7;
+        return lumi*eff*opt_obs_clic_3000_0_M80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_clic_3000_0_M80_8 = 212.3000918910858*C_phiQm + 923.1381015893983*C_phit + -39641.91455156641*C_tW +
-        24845.105426953396*C_tZ + -1.5632883355394622*CI_tW + 1.3558620760665916*CI_tZ + 560366.9722323281*C_lqM + 
-        147363.0415081791*C_eq + 1909898.1033139483*C_lu + 40493.25226816356*C_eu;
+        double opt_obs_clic_3000_0_M80_8 = 1.6984007351286863*C_phiQm + 7.385104812715186*C_phit
+ + -317.1353164125313*C_tW + 198.76084341562716*C_tZ
+ + -0.012506306684315698*CI_tW + 0.010846896608532733*CI_tZ
+ + 4482.935777858625*C_lqM + 1178.9043320654328*C_eq
+ + 15279.184826511586*C_lu + 323.94601814530847*C_eu;
 
         
-        return opt_obs_clic_3000_0_M80_8;
+        return lumi*eff*opt_obs_clic_3000_0_M80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_clic_3000_0_M80_9 = 3431.011120061544*C_phiQm + 18122.00501346492*C_phit + -704099.075122462*C_tW + 
-        436791.0716497225*C_tZ + 0.00012184252152651603*CI_tW + -0.20336133056940076*CI_tZ + 8642066.509479936*C_lqM + 
-        1909898.1033139483*C_eq + 37591887.49912789*C_lu + 909359.6620604414*C_eu;
+        double opt_obs_clic_3000_0_M80_9 = 27.44808896049235*C_phiQm + 144.97604010771937*C_phit
+ + -5632.792600979696*C_tW + 3494.3285731977803*C_tZ
+ + 9.747401722121282e-07*CI_tW + -0.001626890644555206*CI_tZ
+ + 69136.5320758395*C_lqM + 15279.184826511586*C_eq
+ + 300735.0999930231*C_lu + 7274.877296483532*C_eu;
 
         
-        return opt_obs_clic_3000_0_M80_9;
+        return lumi*eff*opt_obs_clic_3000_0_M80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_clic_3000_0_M80_10 = 2139.655877769451*C_phiQm + 222.6065838489064*C_phit + -77409.31179989775*C_tW +
-        50046.702515102355*C_tZ + -0.42476446485001823*CI_tW + 0.39780212635407963*CI_tZ + 4379793.809672568*C_lqM + 
-        40493.25226816353*C_eq + 909359.6620604414*C_lu + 521209.38026594126*C_eu;
+        double opt_obs_clic_3000_0_M80_10 = 17.117247022155606*C_phiQm + 1.7808526707912513*C_phit
+ + -619.274494399182*C_tW + 400.3736201208188*C_tZ
+ + -0.003398115718800146*CI_tW + 0.003182417010832637*CI_tZ
+ + 35038.35047738055*C_lqM + 323.94601814530824*C_eq
+ + 7274.877296483532*C_lu + 4169.67504212753*C_eu;
 
         
-        return opt_obs_clic_3000_0_M80_10;
+        return lumi*eff*opt_obs_clic_3000_0_M80_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_clic_3000_0_M80, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -9815,7 +12507,7 @@ double opt_obs_clic_3000_0_M80::computeThValue()
 opt_obs_clic_3000_0_P80::opt_obs_clic_3000_0_P80(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_clic_3000_0_P80" << "eff_clic_3000_0_P80");               
 }
 
 double opt_obs_clic_3000_0_P80::computeThValue()
@@ -9823,6 +12515,9 @@ double opt_obs_clic_3000_0_P80::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_clic_3000_0_P80");
+    double eff = SM.getOptionalParameter("eff_clic_3000_0_P80");
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -9843,107 +12538,127 @@ double opt_obs_clic_3000_0_P80::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_clic_3000_0_P80_1 = 4.446944604643506*C_phiQm + -1.2737733376528138*C_phit + 169.35228823053473*C_tW +
-        -178.99347199410184*C_tZ + 0.0009483598855491711*CI_tW + -0.0009439996975536522*CI_tZ + 205.3660019306782*C_lqM + 
-        -10053.926621674762*C_eq + -1866.7251468533882*C_lu + 819.883160078021*C_eu;
+        double opt_obs_clic_3000_0_P80_1 = 0.03557555683714805*C_phiQm + -0.01019018670122251*C_phit
+ + 1.3548183058442778*C_tW + -1.4319477759528147*C_tZ
+ + 7.586879084393368e-06*CI_tW + -7.551997580429217e-06*CI_tZ
+ + 1.6429280154454258*C_lqM + -80.4314129733981*C_eq
+ + -14.933801174827105*C_lu + 6.559065280624168*C_eu;
 
-        return opt_obs_clic_3000_0_P80_1;
+        return lumi*eff*opt_obs_clic_3000_0_P80_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_clic_3000_0_P80_2 = -1.2737733376528135*C_phiQm + 9.10651506389007*C_phit + 315.85078142276797*C_tW + 
-        -337.5146957935326*C_tZ + -0.001005619862686988*CI_tW + 0.0007771365423647145*CI_tZ + -2927.322735108886*C_lqM + 
-        -388.9034104606459*C_eq + -25.593292677867254*C_lu + -21097.929481094943*C_eu;
+        double opt_obs_clic_3000_0_P80_2 = -0.010190186701222508*C_phiQm + 0.07285212051112055*C_phit
+ + 2.5268062513821437*C_tW + -2.700117566348261*C_tZ
+ + -8.044958901495904e-06*CI_tW + 6.217092338917716e-06*CI_tZ
+ + -23.418581880871088*C_lqM + -3.1112272836851673*C_eq
+ + -0.20474634142293802*C_lu + -168.78343584875955*C_eu;
 
         
-        return opt_obs_clic_3000_0_P80_2;
+        return lumi*eff*opt_obs_clic_3000_0_P80_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_clic_3000_0_P80_3 = 169.35228823053473*C_phiQm + 315.85078142276797*C_phit + 55203.830940742715*C_tW +
-        -58511.82191467863*C_tZ + -2.802118246727928e-12*CI_tW + 0.02323628543976618*CI_tZ + -132621.619163514*C_lqM +
-        -542943.1730603992*C_eq + -111897.99224192847*C_lu + -858256.6544938588*C_eu;
+        double opt_obs_clic_3000_0_P80_3 = 1.3548183058442778*C_phiQm + 2.5268062513821437*C_phit
+ + 441.6306475259417*C_tW + -468.094575317429*C_tZ
+ + -2.2416945973823423e-14*CI_tW + 0.00018589028351812944*CI_tZ
+ + -1060.972953308112*C_lqM + -4343.545384483194*C_eq
+ + -895.1839379354278*C_lu + -6866.053235950871*C_eu;
 
 
-        return opt_obs_clic_3000_0_P80_3;
+        return lumi*eff*opt_obs_clic_3000_0_P80_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_clic_3000_0_P80_4 = -178.9934719941018*C_phiQm + -337.5146957935326*C_phit + -58511.82191467863*C_tW +
-        62037.42338709465*C_tZ + 3.2839332805157223e-12*CI_tW + -0.021994267021532243*CI_tZ + 141197.4313051291*C_lqM +
-        575023.9819777732*C_eq + 117014.48887697808*C_lu + 914208.5277612262*C_eu;
+        double opt_obs_clic_3000_0_P80_4 = -1.4319477759528145*C_phiQm + -2.700117566348261*C_phit
+ + -468.094575317429*C_tW + 496.2993870967572*C_tZ
+ + 2.627146624412578e-14*CI_tW + -0.00017595413617225793*CI_tZ
+ + 1129.5794504410328*C_lqM + 4600.191855822186*C_eq
+ + 936.1159110158246*C_lu + 7313.668222089809*C_eu;
 
         
-        return opt_obs_clic_3000_0_P80_4;
+        return lumi*eff*opt_obs_clic_3000_0_P80_4;
 
         
     } else if(b_min == 5 && b_max == 5){
 
-        double opt_obs_clic_3000_0_P80_5 = 0.0009483598855491711*C_phiQm + -0.0010056198626869882*C_phit + -2.802118246727928e-12*C_tW +
-        3.2839332805157227e-12*C_tZ + 32456.364737252115*CI_tW + -34454.05414217405*CI_tZ + -0.312762209761779*C_lqM + 
-        0.06734780684055314*C_eq + 0.30163338511227783*C_lu + 0.0660931814456744*C_eu;
+        double opt_obs_clic_3000_0_P80_5 = 7.586879084393368e-06*C_phiQm + -8.044958901495906e-06*C_phit
+ + -2.2416945973823423e-14*C_tW + 2.6271466244125783e-14*C_tZ
+ + 259.6509178980169*CI_tW + -275.6324331373924*CI_tZ
+ + -0.002502097678094232*C_lqM + 0.0005387824547244251*C_eq
+ + 0.0024130670808982227*C_lu + 0.0005287454515653952*C_eu;
 
         
-        return opt_obs_clic_3000_0_P80_5;
+        return lumi*eff*opt_obs_clic_3000_0_P80_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
 
-        double opt_obs_clic_3000_0_P80_6 = -0.0009439996975536522*C_phiQm + 0.0007771365423647145*C_phit + 0.02323628543976618*C_tW +
-                -0.021994267021532243*C_tZ + -34454.05414217405*CI_tW + 36584.5782396574*CI_tZ + 0.297432983220678*C_lqM + 
-                -0.17735134461972168*C_eq + -0.2871476995252777*C_lu + 0.06005919392173864*C_eu;
+        double opt_obs_clic_3000_0_P80_6 = -7.551997580429217e-06*C_phiQm + 6.217092338917716e-06*C_phit
+ + 0.00018589028351812944*C_tW + -0.00017595413617225793*C_tZ
+ + -275.6324331373924*CI_tW + 292.6766259172592*CI_tZ
+ + 0.0023794638657654243*C_lqM + -0.0014188107569577735*C_eq
+ + -0.0022971815962022214*C_lu + 0.00048047355137390913*C_eu;
 
         
-        return opt_obs_clic_3000_0_P80_6;
+        return lumi*eff*opt_obs_clic_3000_0_P80_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_clic_3000_0_P80_7 = 205.3660019306782*C_phiQm + -2927.322735108886*C_phit + -132621.619163514*C_tW +
-        141197.43130512908*C_tZ + -0.312762209761779*CI_tW + 0.29743298322067807*CI_tZ + 1463822.0109661226*C_lqM +
-        1192812.079575729*C_eq + 203163.65024147605*C_lu + 7004146.6500166375*C_eu;
+        double opt_obs_clic_3000_0_P80_7 = 1.6429280154454258*C_phiQm + -23.418581880871088*C_phit
+ + -1060.972953308112*C_tW + 1129.5794504410326*C_tZ
+ + -0.002502097678094232*CI_tW + 0.0023794638657654247*CI_tZ
+ + 11710.576087728981*C_lqM + 9542.496636605832*C_eq
+ + 1625.3092019318083*C_lu + 56033.1732001331*C_eu;
 
         
-        return opt_obs_clic_3000_0_P80_7;
+        return lumi*eff*opt_obs_clic_3000_0_P80_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_clic_3000_0_P80_8 = -10053.92662167476*C_phiQm + -388.9034104606459*C_phit + -542943.1730603994*C_tW +
-        575023.9819777732*C_tZ + 0.06734780684055314*CI_tW + -0.17735134461972168*CI_tZ + 1192812.079575729*C_lqM + 
-        24620799.15984237*C_eq + 4550390.718178482*C_lu + 6084403.912741649*C_eu;
+        double opt_obs_clic_3000_0_P80_8 = -80.43141297339808*C_phiQm + -3.1112272836851673*C_phit
+ + -4343.5453844831945*C_tW + 4600.191855822186*C_tZ
+ + 0.0005387824547244251*CI_tW + -0.0014188107569577735*CI_tZ
+ + 9542.496636605832*C_lqM + 196966.39327873895*C_eq
+ + 36403.12574542785*C_lu + 48675.23130193319*C_eu;
 
         
-        return opt_obs_clic_3000_0_P80_8;
+        return lumi*eff*opt_obs_clic_3000_0_P80_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_clic_3000_0_P80_9 = -1866.7251468533882*C_phiQm + -25.593292677867474*C_phit + -111897.99224192848*C_tW +
-        117014.48887697808*C_tZ + 0.30163338511227783*CI_tW + -0.2871476995252777*CI_tZ + 203163.65024147605*C_lqM + 
-        4550390.718178482*C_eq + 1264317.1316208492*C_lu + 1499893.1996932656*C_eu;
+        double opt_obs_clic_3000_0_P80_9 = -14.933801174827105*C_phiQm + -0.2047463414229398*C_phit
+ + -895.1839379354279*C_tW + 936.1159110158246*C_tZ
+ + 0.0024130670808982227*CI_tW + -0.0022971815962022214*CI_tZ
+ + 1625.3092019318083*C_lqM + 36403.12574542785*C_eq
+ + 10114.537052966794*C_lu + 11999.145597546125*C_eu;
 
         
-        return opt_obs_clic_3000_0_P80_9;
+        return lumi*eff*opt_obs_clic_3000_0_P80_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_clic_3000_0_P80_10 = 819.883160078021*C_phiQm + -21097.929481094943*C_phit + -858256.6544938588*C_tW +
-        914208.527761226*C_tZ + 0.0660931814456744*CI_tW + 0.060059193921738634*CI_tZ + 7004146.6500166375*C_lqM + 
-        6084403.912741651*C_eq + 1499893.1996932656*C_lu + 50520957.64782371*C_eu;
+        double opt_obs_clic_3000_0_P80_10 = 6.559065280624168*C_phiQm + -168.78343584875955*C_phit
+ + -6866.053235950871*C_tW + 7313.668222089808*C_tZ
+ + 0.0005287454515653952*CI_tW + 0.0004804735513739091*CI_tZ
+ + 56033.1732001331*C_lqM + 48675.23130193321*C_eq
+ + 11999.145597546125*C_lu + 404167.6611825897*C_eu;
 
         
-        return opt_obs_clic_3000_0_P80_10;
+        return lumi*eff*opt_obs_clic_3000_0_P80_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_clic_3000_0_P80, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -9956,7 +12671,7 @@ double opt_obs_clic_3000_0_P80::computeThValue()
 opt_obs_fcc_350::opt_obs_fcc_350(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_fcc_350" << "eff_fcc_350");               
 }
 
 double opt_obs_fcc_350::computeThValue()
@@ -9964,6 +12679,9 @@ double opt_obs_fcc_350::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_fcc_350");
+    double eff = SM.getOptionalParameter("eff_fcc_350");
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -9987,107 +12705,127 @@ double opt_obs_fcc_350::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_fcc_350_1 = 2.8022555543302747*C_phiQm + 2.2862455547633984*C_phit + -243.7152710659895*C_tW + 
-        185.77061288808295*C_tZ + -1.2603670935933347e-05*CI_tW + 1.7568571810556528e-05*CI_tZ + 123.69575811398958*C_lqM +
-        58.62173811035868*C_eq + 115.1810431681608*C_lu + 64.07939854659914*C_eu;
+        double opt_obs_fcc_350_1 = 0.14011277771651373*C_phiQm + 0.11431227773816992*C_phit
+ + -12.185763553299475*C_tW + 9.288530644404148*C_tZ
+ + -6.301835467966674e-07*CI_tW + 8.784285905278263e-07*CI_tZ
+ + 6.184787905699479*C_lqM + 2.931086905517934*C_eq
+ + 5.75905215840804*C_lu + 3.2039699273299567*C_eu;
 
-        return opt_obs_fcc_350_1;
+        return lumi*eff*opt_obs_fcc_350_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_fcc_350_2 = 2.286245554763398*C_phiQm + 2.734791448405562*C_phit + -234.10817664369057*C_tW +
-        177.59774565370438*C_tZ + -7.934498459597419e-06*CI_tW + 1.369871152239484e-05*CI_tZ + 111.90877054823093*C_lqM + 
-        60.349928195042295*C_eq + 119.25393324330403*C_lu + 55.541093596974235*C_eu;
+        double opt_obs_fcc_350_2 = 0.1143122777381699*C_phiQm + 0.1367395724202781*C_phit
+ + -11.705408832184528*C_tW + 8.87988728268522*C_tZ
+ + -3.9672492297987094e-07*CI_tW + 6.84935576119742e-07*CI_tZ
+ + 5.595438527411547*C_lqM + 3.017496409752115*C_eq
+ + 5.962696662165202*C_lu + 2.7770546798487117*C_eu;
 
         
-        return opt_obs_fcc_350_2;
+        return lumi*eff*opt_obs_fcc_350_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_fcc_350_3 = -243.71527106598955*C_phiQm + -234.10817664369057*C_phit + 32666.06526599127*C_tW +
-        -26146.447915728804*C_tZ + 3.7728380320600426e-14*CI_tW + -2.988835982817868e-14*CI_tZ + -14720.786601958518*C_lqM +
-        -9614.00593733913*C_eq + -14599.34787100872*C_lu + -9757.876416038373*C_eu;
+        double opt_obs_fcc_350_3 = -12.185763553299477*C_phiQm + -11.705408832184528*C_phit
+ + 1633.3032632995635*C_tW + -1307.3223957864402*C_tZ
+ + 1.8864190160300214e-15*CI_tW + -1.4944179914089339e-15*CI_tZ
+ + -736.0393300979259*C_lqM + -480.70029686695653*C_eq
+ + -729.967393550436*C_lu + -487.8938208019186*C_eu;
 
 
-        return opt_obs_fcc_350_3;
+        return lumi*eff*opt_obs_fcc_350_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_fcc_350_4 = 185.77061288808295*C_phiQm + 177.59774565370435*C_phit + -26146.447915728804*C_tW +
-        21079.92052698569*C_tZ + 0.0030488078991438424*CI_tW + -0.002687490338372975*CI_tZ + 11673.350892899642*C_lqM +
-        7843.804189601153*C_eq + 11572.451455293438*C_lu + 7968.932512016856*C_eu;
+        double opt_obs_fcc_350_4 = 9.288530644404148*C_phiQm + 8.879887282685218*C_phit
+ + -1307.3223957864402*C_tW + 1053.9960263492844*C_tZ
+ + 0.0001524403949571921*CI_tW + -0.00013437451691864874*CI_tZ
+ + 583.6675446449821*C_lqM + 392.19020948005766*C_eq
+ + 578.6225727646719*C_lu + 398.4466256008428*C_eu;
 
         
-        return opt_obs_fcc_350_4;
+        return lumi*eff*opt_obs_fcc_350_4;
 
         
     } else if(b_min == 5 && b_max == 5){
                 
-        double opt_obs_fcc_350_5 = -1.2603670935933348e-05*C_phiQm + -7.93449845959742e-06*C_phit + 3.7728380320600426e-14*C_tW + 
-                0.0030488078991438424*C_tZ + 17.452246496003767*CI_tW + -13.97236690869202*CI_tZ + 0.0008390345269969445*C_lqM +
-                2.1248636693224748e-06*C_eq + -0.0008390345270263706*C_lu + -2.1248636669104993e-06*C_eu;
+        double opt_obs_fcc_350_5 = -6.301835467966675e-07*C_phiQm + -3.96724922979871e-07*C_phit
+ + 1.8864190160300214e-15*C_tW + 0.0001524403949571921*C_tZ
+ + 0.8726123248001882*CI_tW + -0.698618345434601*CI_tZ
+ + 4.1951726349847224e-05*C_lqM + 1.0624318346612374e-07*C_eq
+ + -4.195172635131853e-05*C_lu + -1.0624318334552496e-07*C_eu;
 
         
-        return opt_obs_fcc_350_5;
+        return lumi*eff*opt_obs_fcc_350_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
 
-        double opt_obs_fcc_350_6 = 1.7568571810556528e-05*C_phiQm + 1.3698711522394841e-05*C_phit + -2.988835982817868e-14*C_tW +
-        -0.002687490338372975*C_tZ + -13.972366908692017*CI_tW + 11.202306044262091*CI_tZ + 0.014167215093093828*C_lqM + 
-        0.000138045182805787*C_eq + 0.015814517803478405*C_lu + 0.00015787902549585473*C_eu;
+        double opt_obs_fcc_350_6 = 8.784285905278264e-07*C_phiQm + 6.849355761197421e-07*C_phit
+ + -1.4944179914089339e-15*C_tW + -0.00013437451691864874*C_tZ
+ + -0.6986183454346009*CI_tW + 0.5601153022131046*CI_tZ
+ + 0.0007083607546546914*C_lqM + 6.902259140289349e-06*C_eq
+ + 0.0007907258901739203*C_lu + 7.893951274792737e-06*C_eu;
 
         
-        return opt_obs_fcc_350_6;
+        return lumi*eff*opt_obs_fcc_350_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_fcc_350_7 = 123.69575811398958*C_phiQm + 111.90877054823092*C_phit + -14720.786601958518*C_tW + 
-        11673.350892899643*C_tZ + 0.0008390345269969445*CI_tW + 0.014167215093093825*CI_tZ + 6842.147021676676*C_lqM + 
-        4162.450299585191*C_eq + 6650.782281970471*C_lu + 4290.700965121957*C_eu;
+        double opt_obs_fcc_350_7 = 6.184787905699479*C_phiQm + 5.595438527411546*C_phit
+ + -736.0393300979259*C_tW + 583.6675446449822*C_tZ
+ + 4.1951726349847224e-05*CI_tW + 0.0007083607546546913*CI_tZ
+ + 342.1073510838338*C_lqM + 208.12251497925953*C_eq
+ + 332.53911409852356*C_lu + 214.53504825609784*C_eu;
 
         
-        return opt_obs_fcc_350_7;
+        return lumi*eff*opt_obs_fcc_350_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_fcc_350_8 = 58.62173811035869*C_phiQm + 60.349928195042295*C_phit + -9614.005937339132*C_tW + 
-        7843.804189601153*C_tZ + 2.1248636693224748e-06*CI_tW + 0.000138045182805787*CI_tZ + 4162.450299585191*C_lqM + 
-        3020.8265822529092*C_eq + 4194.54806653376*C_lu + 3006.6205854083405*C_eu;
+        double opt_obs_fcc_350_8 = 2.9310869055179345*C_phiQm + 3.017496409752115*C_phit
+ + -480.7002968669566*C_tW + 392.19020948005766*C_tZ
+ + 1.0624318346612374e-07*CI_tW + 6.902259140289349e-06*CI_tZ
+ + 208.12251497925953*C_lqM + 151.04132911264546*C_eq
+ + 209.727403326688*C_lu + 150.33102927041702*C_eu;
 
         
-        return opt_obs_fcc_350_8;
+        return lumi*eff*opt_obs_fcc_350_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_fcc_350_9 = 115.1810431681608*C_phiQm + 119.25393324330402*C_phit + -14599.34787100872*C_tW + 
-        11572.451455293438*C_tZ + -0.0008390345270263706*CI_tW + 0.01581451780347841*CI_tZ + 6650.782281970471*C_lqM + 
-        4194.54806653376*C_eq + 6740.766553656866*C_lu + 4177.436545127564*C_eu;
+        double opt_obs_fcc_350_9 = 5.75905215840804*C_phiQm + 5.962696662165201*C_phit
+ + -729.967393550436*C_tW + 578.6225727646719*C_tZ
+ + -4.195172635131853e-05*CI_tW + 0.0007907258901739204*CI_tZ
+ + 332.53911409852356*C_lqM + 209.727403326688*C_eq
+ + 337.03832768284326*C_lu + 208.87182725637823*C_eu;
 
         
-        return opt_obs_fcc_350_9;
+        return lumi*eff*opt_obs_fcc_350_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_fcc_350_10 = 64.07939854659914*C_phiQm + 55.541093596974235*C_phit + -9757.87641603837*C_tW +
-        7968.932512016856*C_tZ + -2.124863666910499e-06*CI_tW + 0.00015787902549585473*CI_tZ + 4290.700965121957*C_lqM +
-        3006.6205854083405*C_eq + 4177.436545127564*C_lu + 3128.4056362008637*C_eu;
+        double opt_obs_fcc_350_10 = 3.203969927329957*C_phiQm + 2.7770546798487117*C_phit
+ + -487.89382080191854*C_tW + 398.4466256008428*C_tZ
+ + -1.0624318334552494e-07*CI_tW + 7.893951274792737e-06*CI_tZ
+ + 214.53504825609784*C_lqM + 150.33102927041702*C_eq
+ + 208.87182725637823*C_lu + 156.42028181004318*C_eu;
 
         
-        return opt_obs_fcc_350_10;
+        return lumi*eff*opt_obs_fcc_350_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_fcc_350, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -10101,7 +12839,7 @@ double opt_obs_fcc_350::computeThValue()
 opt_obs_fcc_365::opt_obs_fcc_365(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_fcc_365" << "eff_fcc_365");               
 }
 
 double opt_obs_fcc_365::computeThValue()
@@ -10109,6 +12847,9 @@ double opt_obs_fcc_365::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    double lumi = SM.getOptionalParameter("lumi_fcc_365");
+    double eff = SM.getOptionalParameter("eff_fcc_365");
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -10131,107 +12872,127 @@ double opt_obs_fcc_365::computeThValue()
             
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_fcc_365_1 = 46.441517493331745*C_phiQm + 20.624953046633284*C_phit + -3387.430155303794*C_tW + 
-        2596.9141688616664*C_tZ + -4.665122821329005e-05*CI_tW + 0.0001192121919485472*CI_tZ + 1982.2952493223747*C_lqM +
-        766.2226620337559*C_eq + 1516.4969375246874*C_lu + 1065.1302905505906*C_eu;
+        double opt_obs_fcc_365_1 = 0.3096101166222116*C_phiQm + 0.1374996869775552*C_phit
+ + -22.582867702025293*C_tW + 17.312761125744444*C_tZ
+ + -3.1100818808860036e-07*CI_tW + 7.94747946323648e-07*CI_tZ
+ + 13.215301662149164*C_lqM + 5.108151080225039*C_eq
+ + 10.109979583497916*C_lu + 7.100868603670604*C_eu;
 
-        return opt_obs_fcc_365_1;
+        return lumi*eff*opt_obs_fcc_365_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_fcc_365_2 = 20.624953046633284*C_phiQm + 43.24772047237046*C_phit + -2908.253645029216*C_tW + 
-        2189.148120961237*C_tZ + -4.489247470181468e-05*CI_tW + -8.449251326264375e-05*CI_tZ + 1341.6135442922716*C_lqM +
-        865.8824666015558*C_eq + 1746.5557933975322*C_lu + 600.2388718453263*C_eu;
+        double opt_obs_fcc_365_2 = 0.1374996869775552*C_phiQm + 0.28831813648246973*C_phit
+ + -19.388357633528106*C_tW + 14.594320806408248*C_tZ
+ + -2.992831646787645e-07*CI_tW + -5.632834217509583e-07*CI_tZ
+ + 8.94409029528181*C_lqM + 5.772549777343706*C_eq
+ + 11.64370528931688*C_lu + 4.001592478968842*C_eu;
 
         
-        return opt_obs_fcc_365_2;
+        return lumi*eff*opt_obs_fcc_365_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_fcc_365_3 = -3387.430155303794*C_phiQm + -2908.253645029216*C_phit + 445340.03738847986*C_tW + 
-        -356673.65097102046*C_tZ + 0.0*CI_tW + 8.152109442329767e-14*CI_tZ + -214761.6738931479*C_lqM + 
-        -135849.8803356514*C_eq + -208169.08364696172*C_lu + -143738.40762532342*C_eu;
+        double opt_obs_fcc_365_3 = -22.582867702025293*C_phiQm + -19.388357633528106*C_phit
+ + 2968.9335825898656*C_tW + -2377.824339806803*C_tZ
+ + 0.0*CI_tW + 5.434739628219844e-16*CI_tZ
+ + -1431.744492620986*C_lqM + -905.6658689043426*C_eq
+ + -1387.793890979745*C_lu + -958.2560508354894*C_eu;
 
 
-        return opt_obs_fcc_365_3;
+        return lumi*eff*opt_obs_fcc_365_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_fcc_365_4 = 2596.9141688616664*C_phiQm + 2189.1481209612375*C_phit + -356673.65097102046*C_tW +
-        287674.5020951868*C_tZ + -0.0024088442955056467*CI_tW + 0.013283238026841464*CI_tZ + 170461.32073469972*C_lqM +
-        110776.47157158115*C_eq + 164979.24731718065*C_lu + 117635.21631340936*C_eu;
+        double opt_obs_fcc_365_4 = 17.312761125744444*C_phiQm + 14.59432080640825*C_phit
+ + -2377.824339806803*C_tW + 1917.8300139679118*C_tZ
+ + -1.6058961970037645e-05*CI_tW + 8.85549201789431e-05*CI_tZ
+ + 1136.4088048979982*C_lqM + 738.5098104772077*C_eq
+ + 1099.8616487812044*C_lu + 784.2347754227291*C_eu;
 
         
-        return opt_obs_fcc_365_4;
+        return lumi*eff*opt_obs_fcc_365_4;
 
         
     } else if(b_min == 5 && b_max == 5){
 
-        double opt_obs_fcc_365_5 = -4.6651228213290047e-05*C_phiQm + -4.489247470181468e-05*C_phit + 0.0*C_tW +
-        -0.0024088442955056467*C_tZ + 974.1065707613919*CI_tW + -780.5192174402707*CI_tZ + 0.00041108851931552303*C_lqM +
-        -2.0234867969548123e-05*C_eq + -0.00041108851931552303*C_lu + 2.0234867969548123e-05*C_eu;
+        double opt_obs_fcc_365_5 = -3.110081880886003e-07*C_phiQm + -2.992831646787645e-07*C_phit
+ + 0.0*C_tW + -1.6058961970037645e-05*C_tZ
+ + 6.494043805075946*CI_tW + -5.203461449601805*CI_tZ
+ + 2.7405901287701535e-06*C_lqM + -1.348991197969875e-07*C_eq
+ + -2.7405901287701535e-06*C_lu + 1.348991197969875e-07*C_eu;
 
         
-        return opt_obs_fcc_365_5;
+        return lumi*eff*opt_obs_fcc_365_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
     
-        double opt_obs_fcc_365_6 = 0.00011921219194854718*C_phiQm + -8.449251326264373e-05*C_phit + 8.152109442329767e-14*C_tW + 
-                0.013283238026841462*C_tZ + -780.5192174402707*CI_tW + 626.3387279648246*CI_tZ + 0.4086526586575521*C_lqM + 
-                0.0004405357572136601*C_eq + 0.3724051439498168*C_lu + -0.0004414882946849678*C_eu;
+        double opt_obs_fcc_365_6 = 7.947479463236479e-07*C_phiQm + -5.632834217509582e-07*C_phit
+ + 5.434739628219844e-16*C_tW + 8.855492017894309e-05*C_tZ
+ + -5.203461449601805*CI_tW + 4.175591519765497*CI_tZ
+ + 0.002724351057717014*C_lqM + 2.9369050480910674e-06*C_eq
+ + 0.002482700959665445*C_lu + -2.9432552978997855e-06*C_eu;
 
         
-        return opt_obs_fcc_365_6;
+        return lumi*eff*opt_obs_fcc_365_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_fcc_365_7 = 1982.295249322375*C_phiQm + 1341.6135442922716*C_phit + -214761.67389314793*C_tW + 
-        170461.32073469972*C_tZ + 0.00041108851931552303*CI_tW + 0.40865265865755207*CI_tZ + 109900.64954328067*C_lqM +
-        61521.03348572243*C_eq + 98510.1813109523*C_lu + 69132.93153513281*C_eu;
+        double opt_obs_fcc_365_7 = 13.215301662149166*C_phiQm + 8.94409029528181*C_phit
+ + -1431.7444926209862*C_tW + 1136.4088048979982*C_tZ
+ + 2.7405901287701535e-06*CI_tW + 0.0027243510577170138*CI_tZ
+ + 732.6709969552045*C_lqM + 410.14022323814953*C_eq
+ + 656.7345420730154*C_lu + 460.8862102342187*C_eu;
 
         
-        return opt_obs_fcc_365_7;
+        return lumi*eff*opt_obs_fcc_365_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_fcc_365_8 = 766.2226620337558*C_phiQm + 865.8824666015558*C_phit + -135849.8803356514*C_tW + 
-        110776.47157158113*C_tZ + -2.0234867969548123e-05*CI_tW + 0.0004405357572136602*CI_tZ + 61521.03348572243*C_lqM +
-        45476.89130050368*C_eq + 63512.753663563235*C_lu + 44543.44568850024*C_eu;
+        double opt_obs_fcc_365_8 = 5.1081510802250385*C_phiQm + 5.772549777343706*C_phit
+ + -905.6658689043426*C_tW + 738.5098104772076*C_tZ
+ + -1.348991197969875e-07*CI_tW + 2.9369050480910678e-06*CI_tZ
+ + 410.14022323814953*C_lqM + 303.1792753366912*C_eq
+ + 423.41835775708824*C_lu + 296.9563045900016*C_eu;
 
         
-        return opt_obs_fcc_365_8;
+        return lumi*eff*opt_obs_fcc_365_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_fcc_365_9 = 1516.4969375246874*C_phiQm + 1746.5557933975324*C_phit + -208169.08364696172*C_tW +
-        164979.24731718062*C_tZ + -0.00041108851931552303*CI_tW + 0.3724051439498168*CI_tZ + 98510.1813109523*C_lqM +
-        63512.753663563235*C_eq + 104013.04476095183*C_lu + 62389.09402377207*C_eu;
+        double opt_obs_fcc_365_9 = 10.109979583497916*C_phiQm + 11.643705289316882*C_phit
+ + -1387.793890979745*C_tW + 1099.8616487812042*C_tZ
+ + -2.7405901287701535e-06*CI_tW + 0.002482700959665445*CI_tZ
+ + 656.7345420730154*C_lqM + 423.41835775708824*C_eq
+ + 693.4202984063455*C_lu + 415.9272934918138*C_eu;
 
         
-        return opt_obs_fcc_365_9;
+        return lumi*eff*opt_obs_fcc_365_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_fcc_365_10 = 1065.1302905505906*C_phiQm + 600.2388718453265*C_phit + -143738.40762532342*C_tW + 
-        117635.21631340936*C_tZ + 2.0234867969548123e-05*CI_tW + -0.0004414882946849678*CI_tZ + 69132.93153513281*C_lqM +
-        44543.44568850024*C_eq + 62389.094023772064*C_lu + 51801.19938798102*C_eu;
+        double opt_obs_fcc_365_10 = 7.100868603670604*C_phiQm + 4.001592478968843*C_phit
+ + -958.2560508354894*C_tW + 784.2347754227291*C_tZ
+ + 1.348991197969875e-07*CI_tW + -2.9432552978997855e-06*CI_tZ
+ + 460.88621023421877*C_lqM + 296.9563045900016*C_eq
+ + 415.92729349181377*C_lu + 345.34132925320677*C_eu;
 
         
-        return opt_obs_fcc_365_10;
+        return lumi*eff*opt_obs_fcc_365_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_fcc_365, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -10248,7 +13009,7 @@ double opt_obs_fcc_365::computeThValue()
 opt_obs_cepc_350::opt_obs_cepc_350(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_cepc_350" << "eff_cepc_350" );               
 }
 
 double opt_obs_cepc_350::computeThValue()
@@ -10256,6 +13017,11 @@ double opt_obs_cepc_350::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    
+    double lumi = SM.getOptionalParameter("lumi_cepc_350");
+    double eff = SM.getOptionalParameter("eff_cepc_350");
+    
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -10279,106 +13045,116 @@ double opt_obs_cepc_350::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_cepc_350_1 = 2.8022555543302747*C_phiQm + 2.2862455547633984*C_phit + -243.7152710659895*C_tW +
-        185.77061288808295*C_tZ + -1.2603670935933347e-05*CI_tW + 1.7568571810556528e-05*CI_tZ + 123.69575811398958*C_lqM +
-        58.62173811035868*C_eq + 115.1810431681608*C_lu + 64.07939854659914*C_eu;
+        double opt_obs_cepc_350_1 = 0.14011277771651373*C_phiQm + 0.11431227773816992*C_phit + 
+        -12.185763553299475*C_tW + 9.288530644404148*C_tZ + -6.301835467966674e-07*CI_tW + 
+        8.784285905278263e-07*CI_tZ + 6.184787905699479*C_lqM + 2.931086905517934*C_eq + 
+        5.75905215840804*C_lu + 3.2039699273299567*C_eu;
 
-        return opt_obs_cepc_350_1;
+        return lumi*eff*opt_obs_cepc_350_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_cepc_350_2 = 2.286245554763398*C_phiQm + 2.734791448405562*C_phit + -234.10817664369057*C_tW + 
-        177.59774565370438*C_tZ + -7.934498459597419e-06*CI_tW + 1.369871152239484e-05*CI_tZ + 111.90877054823093*C_lqM +
-        60.349928195042295*C_eq + 119.25393324330403*C_lu + 55.541093596974235*C_eu;
+        double opt_obs_cepc_350_2 = 0.1143122777381699*C_phiQm + 0.1367395724202781*C_phit + 
+        -11.705408832184528*C_tW + 8.87988728268522*C_tZ + -3.9672492297987094e-07*CI_tW + 
+        6.84935576119742e-07*CI_tZ + 5.595438527411547*C_lqM + 3.017496409752115*C_eq + 
+        5.962696662165202*C_lu + 2.7770546798487117*C_eu;
 
         
-        return opt_obs_cepc_350_2;
+        return lumi*eff*opt_obs_cepc_350_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_cepc_350_3 = -243.71527106598955*C_phiQm + -234.10817664369057*C_phit + 32666.06526599127*C_tW + 
-        -26146.447915728804*C_tZ + 3.7728380320600426e-14*CI_tW + -2.988835982817868e-14*CI_tZ + -14720.786601958518*C_lqM + 
-        -9614.00593733913*C_eq + -14599.34787100872*C_lu + -9757.876416038373*C_eu;
+        double opt_obs_cepc_350_3 = -12.185763553299477*C_phiQm + -11.705408832184528*C_phit + 
+        1633.3032632995635*C_tW + -1307.3223957864402*C_tZ + 1.8864190160300214e-15*CI_tW + 
+        -1.4944179914089339e-15*CI_tZ + -736.0393300979259*C_lqM + -480.70029686695653*C_eq + 
+        -729.967393550436*C_lu + -487.8938208019186*C_eu;
 
 
-        return opt_obs_cepc_350_3;
+        return lumi*eff*opt_obs_cepc_350_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_cepc_350_4 = 185.77061288808295*C_phiQm + 177.59774565370435*C_phit + -26146.447915728804*C_tW + 
-        21079.92052698569*C_tZ + 0.0030488078991438424*CI_tW + -0.002687490338372975*CI_tZ + 11673.350892899642*C_lqM +
-        7843.804189601153*C_eq + 11572.451455293438*C_lu + 7968.932512016856*C_eu;
+        double opt_obs_cepc_350_4 = 9.288530644404148*C_phiQm + 8.879887282685218*C_phit + 
+        -1307.3223957864402*C_tW + 1053.9960263492844*C_tZ + 0.0001524403949571921*CI_tW +
+        -0.00013437451691864874*CI_tZ + 583.6675446449821*C_lqM + 392.19020948005766*C_eq +
+        578.6225727646719*C_lu + 398.4466256008428*C_eu;
 
         
-        return opt_obs_cepc_350_4;
+        return lumi*eff*opt_obs_cepc_350_4;
 
         
     } else if(b_min == 5 && b_max == 5){
                 
-        double opt_obs_cepc_350_5 = -1.2603670935933348e-05*C_phiQm + -7.93449845959742e-06*C_phit + 3.7728380320600426e-14*C_tW +
-        0.0030488078991438424*C_tZ + 17.452246496003767*CI_tW + -13.97236690869202*CI_tZ + 0.0008390345269969445*C_lqM + 
-        2.1248636693224748e-06*C_eq + -0.0008390345270263706*C_lu + -2.1248636669104993e-06*C_eu;
+        double opt_obs_cepc_350_5 = -6.301835467966675e-07*C_phiQm + -3.96724922979871e-07*C_phit + 
+        1.8864190160300214e-15*C_tW + 0.0001524403949571921*C_tZ + 0.8726123248001882*CI_tW + 
+        -0.698618345434601*CI_tZ + 4.1951726349847224e-05*C_lqM + 1.0624318346612374e-07*C_eq + 
+        -4.195172635131853e-05*C_lu + -1.0624318334552496e-07*C_eu;
 
         
-        return opt_obs_cepc_350_5;
+        return lumi*eff*opt_obs_cepc_350_5;
 
         
     } else if(b_min == 6 && b_max == 6){
 
-        double opt_obs_cepc_350_6 = 1.7568571810556528e-05*C_phiQm + 1.3698711522394841e-05*C_phit + -2.988835982817868e-14*C_tW + 
-                -0.002687490338372975*C_tZ + -13.972366908692017*CI_tW + 11.202306044262091*CI_tZ + 0.014167215093093828*C_lqM +
-                0.000138045182805787*C_eq + 0.015814517803478405*C_lu + 0.00015787902549585473*C_eu;
+        double opt_obs_cepc_350_6 = 8.784285905278264e-07*C_phiQm + 6.849355761197421e-07*C_phit +
+        -1.4944179914089339e-15*C_tW + -0.00013437451691864874*C_tZ + -0.6986183454346009*CI_tW + 
+        0.5601153022131046*CI_tZ + 0.0007083607546546914*C_lqM + 6.902259140289349e-06*C_eq + 
+        0.0007907258901739203*C_lu + 7.893951274792737e-06*C_eu;
 
         
-        return opt_obs_cepc_350_6;
+        return lumi*eff*opt_obs_cepc_350_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_cepc_350_7 = 123.69575811398958*C_phiQm + 111.90877054823092*C_phit + -14720.786601958518*C_tW +
-        11673.350892899643*C_tZ + 0.0008390345269969445*CI_tW + 0.014167215093093825*CI_tZ + 6842.147021676676*C_lqM +
-        4162.450299585191*C_eq + 6650.782281970471*C_lu + 4290.700965121957*C_eu;
+        double opt_obs_cepc_350_7 = 6.184787905699479*C_phiQm + 5.595438527411546*C_phit + 
+        -736.0393300979259*C_tW + 583.6675446449822*C_tZ + 4.1951726349847224e-05*CI_tW + 
+        0.0007083607546546913*CI_tZ + 342.1073510838338*C_lqM + 208.12251497925953*C_eq + 
+        332.53911409852356*C_lu + 214.53504825609784*C_eu;
 
         
-        return opt_obs_cepc_350_7;
+        return lumi*eff*opt_obs_cepc_350_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_cepc_350_8 = 58.62173811035869*C_phiQm + 60.349928195042295*C_phit + -9614.005937339132*C_tW + 
-        7843.804189601153*C_tZ + 2.1248636693224748e-06*CI_tW + 0.000138045182805787*CI_tZ + 4162.450299585191*C_lqM +
-        3020.8265822529092*C_eq + 4194.54806653376*C_lu + 3006.6205854083405*C_eu;
+        double opt_obs_cepc_350_8 = 2.9310869055179345*C_phiQm + 3.017496409752115*C_phit + 
+        -480.7002968669566*C_tW + 392.19020948005766*C_tZ + 1.0624318346612374e-07*CI_tW + 
+        6.902259140289349e-06*CI_tZ + 208.12251497925953*C_lqM + 151.04132911264546*C_eq + 
+        209.727403326688*C_lu + 150.33102927041702*C_eu;
 
         
-        return opt_obs_cepc_350_8;
+        return lumi*eff*opt_obs_cepc_350_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_cepc_350_9 = 115.1810431681608*C_phiQm + 119.25393324330402*C_phit + -14599.34787100872*C_tW + 
-        11572.451455293438*C_tZ + -0.0008390345270263706*CI_tW + 0.01581451780347841*CI_tZ + 6650.782281970471*C_lqM + 
-        4194.54806653376*C_eq + 6740.766553656866*C_lu + 4177.436545127564*C_eu;
+        double opt_obs_cepc_350_9 = 5.75905215840804*C_phiQm + 5.962696662165201*C_phit + 
+        -729.967393550436*C_tW + 578.6225727646719*C_tZ + -4.195172635131853e-05*CI_tW + 
+        0.0007907258901739204*CI_tZ + 332.53911409852356*C_lqM + 209.727403326688*C_eq + 
+        337.03832768284326*C_lu + 208.87182725637823*C_eu;
 
         
-        return opt_obs_cepc_350_9;
+        return lumi*eff*opt_obs_cepc_350_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_cepc_350_10 = 64.07939854659914*C_phiQm + 55.541093596974235*C_phit + -9757.87641603837*C_tW + 
-        7968.932512016856*C_tZ + -2.124863666910499e-06*CI_tW + 0.00015787902549585473*CI_tZ + 4290.700965121957*C_lqM +
-        3006.6205854083405*C_eq + 4177.436545127564*C_lu + 3128.4056362008637*C_eu;
+        double opt_obs_cepc_350_10 = 3.203969927329957*C_phiQm + 2.7770546798487117*C_phit + 
+        -487.89382080191854*C_tW + 398.4466256008428*C_tZ + -1.0624318334552494e-07*CI_tW + 
+        7.893951274792737e-06*CI_tZ + 214.53504825609784*C_lqM + 150.33102927041702*C_eq + 
+        208.87182725637823*C_lu + 156.42028181004318*C_eu;
 
         
-        return opt_obs_cepc_350_10;
+        return lumi*eff*opt_obs_cepc_350_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_cepc_350, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -10393,7 +13169,7 @@ double opt_obs_cepc_350::computeThValue()
 opt_obs_cepc_360::opt_obs_cepc_360(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_cepc_360" << "eff_cepc_360" );              
 }
 
 double opt_obs_cepc_360::computeThValue()
@@ -10401,6 +13177,11 @@ double opt_obs_cepc_360::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    
+    double lumi = SM.getOptionalParameter("lumi_cepc_360");
+    double eff = SM.getOptionalParameter("eff_cepc_360");
+    
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -10422,108 +13203,118 @@ double opt_obs_cepc_360::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_cepc_360_1 = 26.13241621954116*C_phiQm + 14.26733201447283*C_phit + -2006.4010398417633*C_tW +
-        1535.4456154006607*C_tZ + 0.00022233893311168813*CI_tW + -0.00021734335194538697*CI_tZ + 1122.0847604453927*C_lqM +
-        463.11827882863133*C_eq + 914.1898861570013*C_lu + 596.4710688938102*C_eu;
+        double opt_obs_cepc_360_1 = 0.2613241621954116*C_phiQm + 0.1426733201447283*C_phit +
+        -20.064010398417633*C_tW + 15.354456154006607*C_tZ + 2.2233893311168813e-06*CI_tW +
+        -2.17343351945387e-06*CI_tZ + 11.220847604453926*C_lqM + 4.6311827882863135*C_eq + 
+        9.141898861570013*C_lu + 5.964710688938101*C_eu;
 
-        return opt_obs_cepc_360_1;
+        return lumi*eff*opt_obs_cepc_360_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_cepc_360_2 = 14.267332014472828*C_phiQm + 24.63791974661928*C_phit + -1785.939561371129*C_tW +
-        1347.865270882295*C_tZ + 0.00022321190489044257*CI_tW + -0.00020736169422038727*CI_tZ + 835.5437781487353*C_lqM +
-        506.8584956663598*C_eq + 1015.8229783498601*C_lu + 388.6657692490702*C_eu;
+        double opt_obs_cepc_360_2 = 0.14267332014472828*C_phiQm + 0.2463791974661928*C_phit + 
+        -17.85939561371129*C_tW + 13.478652708822949*C_tZ + 2.2321190489044256e-06*CI_tW + 
+        -2.0736169422038726e-06*CI_tZ + 8.355437781487353*C_lqM + 5.068584956663598*C_eq + 
+        10.158229783498602*C_lu + 3.886657692490702*C_eu;
 
         
-        return opt_obs_cepc_360_2;
+        return lumi*eff*opt_obs_cepc_360_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_cepc_360_3 = -2006.401039841763*C_phiQm + -1785.9395613711285*C_phit + 265323.0661535539*C_tW +
-        -212457.61558284747*C_tZ + 3.9195595110845995e-13*CI_tW + -3.481369316155128e-13*CI_tZ + -125131.27887303644*C_lqM +
-        -79973.49591134494*C_eq + -122181.2197269644*C_lu + -83491.82338644935*C_eu;
+        double opt_obs_cepc_360_3 = -20.06401039841763*C_phiQm + -17.859395613711285*C_phit +
+        2653.2306615355387*C_tW + -2124.576155828475*C_tZ + 3.9195595110845996e-15*CI_tW + 
+        -3.481369316155128e-15*CI_tZ + -1251.3127887303644*C_lqM + -799.7349591134495*C_eq + 
+        -1221.812197269644*C_lu + -834.9182338644936*C_eu;
 
 
-        return opt_obs_cepc_360_3;
+        return lumi*eff*opt_obs_cepc_360_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_cepc_360_4 = 1535.445615400661*C_phiQm + 1347.865270882295*C_phit + -212457.61558284747*C_tW +
-        171336.46136694375*C_tZ + -4.2083644579048586e-06*CI_tW + 0.0012931486456754066*CI_tZ + 99290.35403701065*C_lqM +
-        65224.47902353307*C_eq + 96837.86440723969*C_lu + 68283.83138416786*C_eu;
+        double opt_obs_cepc_360_4 = 15.35445615400661*C_phiQm + 13.478652708822949*C_phit + 
+        -2124.576155828475*C_tW + 1713.3646136694374*C_tZ + -4.2083644579048585e-08*CI_tW + 
+        1.2931486456754067e-05*CI_tZ + 992.9035403701065*C_lqM + 652.2447902353307*C_eq + 
+        968.3786440723969*C_lu + 682.8383138416785*C_eu;
 
         
-        return opt_obs_cepc_360_4;
+        return lumi*eff*opt_obs_cepc_360_4;
 
         
     } else if(b_min == 5 && b_max == 5){
                 
 
-        double opt_obs_cepc_360_5 = 0.00022233893311168813*C_phiQm + 0.0002232119048904426*C_phit + 3.9195595110845995e-13*C_tW +
-                 -4.208364457904858e-06*C_tZ + 432.0076095510152*CI_tW + -346.0690520569436*CI_tZ + -0.0017745027352550902*C_lqM +
-                 0.004609720390592396*C_eq + 0.0017745027346969065*C_lu + -0.004609720390592396*C_eu;
+        double opt_obs_cepc_360_5 = 2.2233893311168813e-06*C_phiQm + 2.232119048904426e-06*C_phit +
+        3.9195595110845996e-15*C_tW + -4.208364457904858e-08*C_tZ + 4.320076095510152*CI_tW + 
+        -3.4606905205694356*CI_tZ + -1.7745027352550902e-05*C_lqM + 4.609720390592397e-05*C_eq + 
+        1.7745027346969064e-05*C_lu + -4.609720390592397e-05*C_eu;
 
         
-        return opt_obs_cepc_360_5;
+        return lumi*eff*opt_obs_cepc_360_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
 
-        double opt_obs_cepc_360_6 = -0.00021734335194538697*C_phiQm + -0.00020736169422038727*C_phit + -3.481369316155128e-13*C_tW +
-        0.0012931486456754064*C_tZ + -346.0690520569435*CI_tW + 277.63522906532813*CI_tZ + -0.0022137317576642755*C_lqM + 
-        -0.003473687864018645*C_eq + 0.0015433020527597981*C_lu + 0.004733950692169586*C_eu;
+        double opt_obs_cepc_360_6 = -2.17343351945387e-06*C_phiQm + -2.0736169422038726e-06*C_phit +
+        -3.4813693161551284e-15*C_tW + 1.2931486456754065e-05*C_tZ + -3.460690520569435*CI_tW + 
+        2.7763522906532816*CI_tZ + -2.2137317576642757e-05*C_lqM + -3.473687864018645e-05*C_eq +
+        1.5433020527597982e-05*C_lu + 4.7339506921695865e-05*C_eu;
 
         
-        return opt_obs_cepc_360_6;
+        return lumi*eff*opt_obs_cepc_360_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_cepc_360_7 = 1122.0847604453927*C_phiQm + 835.543778148735*C_phit + -125131.27887303644*C_tW + 
-        99290.35403701063*C_tZ + -0.0017745027352550902*CI_tW + -0.002213731757664275*CI_tZ + 62048.00958800838*C_lqM +
-        35686.968429972294*C_eq + 57103.277245221216*C_lu + 38994.61374063771*C_eu;
+        double opt_obs_cepc_360_7 = 11.220847604453926*C_phiQm + 8.35543778148735*C_phit + 
+        -1251.3127887303644*C_tW + 992.9035403701064*C_tZ + -1.7745027352550902e-05*CI_tW + 
+        -2.2137317576642753e-05*CI_tZ + 620.4800958800838*C_lqM + 356.8696842997229*C_eq +
+        571.0327724522122*C_lu + 389.9461374063771*C_eu;
 
         
-        return opt_obs_cepc_360_7;
+        return lumi*eff*opt_obs_cepc_360_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_cepc_360_8 = 463.11827882863145*C_phiQm + 506.85849566635983*C_phit + -79973.49591134494*C_tW +
-        65224.47902353307*C_tZ + 0.004609720390592396*CI_tW + -0.003473687864018645*CI_tZ + 35686.96842997229*C_lqM +
-        26213.125655995*C_eq + 36540.212184660326*C_lu + 25820.2217005985*C_eu;
+        double opt_obs_cepc_360_8 = 4.631182788286314*C_phiQm + 5.0685849566635985*C_phit + 
+        -799.7349591134495*C_tW + 652.2447902353307*C_tZ + 4.609720390592397e-05*CI_tW + 
+        -3.473687864018645e-05*CI_tZ + 356.86968429972285*C_lqM + 262.13125655995003*C_eq + 
+        365.4021218466032*C_lu + 258.202217005985*C_eu;
 
         
-        return opt_obs_cepc_360_8;
+        return lumi*eff*opt_obs_cepc_360_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_cepc_360_9 = 914.1898861570015*C_phiQm + 1015.8229783498604*C_phit + -122181.2197269644*C_tW +
-        96837.86440723967*C_tZ + 0.0017745027346969065*CI_tW + 0.0015433020527597981*CI_tZ + 57103.2772452212*C_lqM +
-        36540.212184660326*C_eq + 59471.45421768979*C_lu + 36067.311623081034*C_eu;
+        double opt_obs_cepc_360_9 = 9.141898861570015*C_phiQm + 10.158229783498603*C_phit + 
+        -1221.812197269644*C_tW + 968.3786440723967*C_tZ + 1.7745027346969064e-05*CI_tW + 
+        1.5433020527597982e-05*CI_tZ + 571.032772452212*C_lqM + 365.4021218466032*C_eq + 
+        594.7145421768979*C_lu + 360.67311623081036*C_eu;
 
         
-        return opt_obs_cepc_360_9;
+        return lumi*eff*opt_obs_cepc_360_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_cepc_360_10 = 596.4710688938102*C_phiQm + 388.66576924907025*C_phit + -83491.82338644935*C_tW + 
-        68283.83138416786*C_tZ + -0.004609720390592396*CI_tW + 0.004733950692169586*CI_tZ + 38994.61374063772*C_lqM +
-        25820.221700598508*C_eq + 36067.311623081034*C_lu + 28969.742514483063*C_eu;
+        double opt_obs_cepc_360_10 = 5.964710688938101*C_phiQm + 3.8866576924907026*C_phit + 
+        -834.9182338644936*C_tW + 682.8383138416785*C_tZ + -4.609720390592397e-05*CI_tW +
+        4.7339506921695865e-05*CI_tZ + 389.94613740637715*C_lqM + 258.20221700598506*C_eq +
+        360.67311623081036*C_lu + 289.6974251448306*C_eu;
 
         
-        return opt_obs_cepc_360_10;
+        return lumi*eff*opt_obs_cepc_360_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_cepc_360, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -10549,14 +13340,19 @@ double opt_obs_cepc_360::computeThValue()
 opt_obs_muon_3TeV::opt_obs_muon_3TeV(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_muon_3TeV" << "eff_muon_3TeV");             
 }
+
 
 double opt_obs_muon_3TeV::computeThValue()
 {
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    
+    double lumi = SM.getOptionalParameter("lumi_muon_3TeV");
+    double eff = SM.getOptionalParameter("eff_muon_3TeV");  
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -10578,108 +13374,128 @@ double opt_obs_muon_3TeV::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_muon_3TeV_1 = 2.1926086139850622*C_phiQm + -1.4074274333115584*C_phit + -70.46304292265808*C_tW +
-        56.2009569843152*C_tZ + -0.0003988519129181568*CI_tW + 0.00035183965763689747*CI_tZ + 4074.09382383738*C_lqM + 
-        -430.23941101528857*C_eq + -592.0153344125008*C_lu + 2581.543013545208*C_eu;
+        double opt_obs_muon_3TeV_1 = 0.04385217227970124*C_phiQm + -0.028148548666231166*C_phit
+ + -1.4092608584531616*C_tW + 1.124019139686304*C_tZ
+ + -7.977038258363135e-06*CI_tW + 7.036793152737949e-06*CI_tZ
+ + 81.4818764767476*C_lqM + -8.604788220305771*C_eq
+ + -11.840306688250017*C_lu + 51.63086027090416*C_eu;
 
-        return opt_obs_muon_3TeV_1;
+        return lumi*eff*opt_obs_muon_3TeV_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_muon_3TeV_2 = -1.4074274333115584*C_phiQm + 2.095198367243301*C_phit + -13.900750647807344*C_tW +
-        7.557963609116822*C_tZ + -0.00028169892996909206*CI_tW + 0.00024830324540313375*CI_tZ + -1788.7801919321284*C_lqM +
-        1217.833577684566*C_eq + 2729.6849843759724*C_lu + -1736.9494597112225*C_eu;
+        double opt_obs_muon_3TeV_2 = -0.028148548666231166*C_phiQm + 0.04190396734486602*C_phit
+ + -0.2780150129561469*C_tW + 0.15115927218233643*C_tZ
+ + -5.633978599381841e-06*CI_tW + 4.966064908062675e-06*CI_tZ
+ + -35.77560383864257*C_lqM + 24.35667155369132*C_eq
+ + 54.59369968751945*C_lu + -34.73898919422445*C_eu;
 
         
-        return opt_obs_muon_3TeV_2;
+        return lumi*eff*opt_obs_muon_3TeV_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_muon_3TeV_3 = -70.46304292265808*C_phiQm + -13.900750647807348*C_phit + 22059.121096045725*C_tW +
-        -17771.114090686497*C_tZ + 0.008631054528470374*CI_tW + -0.007611741128741252*CI_tZ + -223989.5917861405*C_lqM +
-        -92209.20450031747*C_eq + -175852.55337427388*C_lu + -168228.95142861948*C_eu;
+        double opt_obs_muon_3TeV_3 = -1.4092608584531616*C_phiQm + -0.27801501295614695*C_phit
+ + 441.18242192091446*C_tW + -355.4222818137299*C_tZ
+ + 0.0001726210905694075*CI_tW + -0.00015223482257482505*CI_tZ
+ + -4479.79183572281*C_lqM + -1844.1840900063494*C_eq
+ + -3517.0510674854777*C_lu + -3364.5790285723892*C_eu;
 
 
-        return opt_obs_muon_3TeV_3;
+        return lumi*eff*opt_obs_muon_3TeV_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_muon_3TeV_4 = 56.20095698431521*C_phiQm + 7.5579636091168165*C_phit + -17771.114090686493*C_tW +
-        14360.93645513771*C_tZ + -0.007523880233704981*CI_tW + 0.006813963094029745*CI_tZ + 179539.69471987433*C_lqM +
-        74555.37113570496*C_eq + 138583.36703095643*C_lu + 140434.7159543594*C_eu;
+        double opt_obs_muon_3TeV_4 = 1.1240191396863042*C_phiQm + 0.15115927218233632*C_phit
+ + -355.42228181372985*C_tW + 287.2187291027542*C_tZ
+ + -0.00015047760467409963*CI_tW + 0.0001362792618805949*CI_tZ
+ + 3590.793894397487*C_lqM + 1491.1074227140994*C_eq
+ + 2771.6673406191285*C_lu + 2808.6943190871875*C_eu;
 
         
-        return opt_obs_muon_3TeV_4;
+        return lumi*eff*opt_obs_muon_3TeV_4;
 
         
     } else if(b_min == 5 && b_max == 5){
 
         
-        double opt_obs_muon_3TeV_5 = -0.0003988519129181568*C_phiQm + -0.00028169892996909206*C_phit + 0.008631054528470374*C_tW +
-                -0.007523880233704981*C_tZ + 13008.576010111252*CI_tW + -10500.363963350232*CI_tZ + 0.07549689545881148*C_lqM +
-                0.1727179907969235*C_eq + -0.007947051657999015*C_lu + 0.15743135932767535*C_eu;
+        double opt_obs_muon_3TeV_5 = -7.977038258363135e-06*C_phiQm + -5.633978599381841e-06*C_phit
+ + 0.0001726210905694075*C_tW + -0.00015047760467409963*C_tZ
+ + 260.17152020222505*CI_tW + -210.00727926700463*CI_tZ
+ + 0.0015099379091762296*C_lqM + 0.0034543598159384697*C_eq
+ + -0.0001589410331599803*C_lu + 0.0031486271865535068*C_eu;
 
         
-        return opt_obs_muon_3TeV_5;
+        return lumi*eff*opt_obs_muon_3TeV_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
 
-        double opt_obs_muon_3TeV_6 = 0.0003518396576368974*C_phiQm + 0.0002483032454031337*C_phit + -0.007611741128741252*C_tW +
-        0.006813963094029745*C_tZ + -10500.363963350232*CI_tW + 8492.368877542167*CI_tZ + -0.022911673778739195*C_lqM + 
-        -0.2523100569593181*C_eq + -0.012432004688654557*C_lu + -0.04443308770058488*C_eu;
+        double opt_obs_muon_3TeV_6 = 7.0367931527379485e-06*C_phiQm + 4.9660649080626745e-06*C_phit
+ + -0.00015223482257482505*C_tW + 0.0001362792618805949*C_tZ
+ + -210.00727926700463*CI_tW + 169.84737755084333*CI_tZ
+ + -0.00045823347557478393*C_lqM + -0.005046201139186361*C_eq
+ + -0.00024864009377309113*C_lu + -0.0008886617540116975*C_eu;
 
         
-        return opt_obs_muon_3TeV_6;
+        return lumi*eff*opt_obs_muon_3TeV_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_muon_3TeV_7 = 4074.09382383738*C_phiQm + -1788.7801919321287*C_phit + -223989.5917861405*C_tW +
-        179539.69471987433*C_tZ + 0.07549689545881148*CI_tW + -0.022911673778739195*CI_tZ + 9001050.329036802*C_lqM +
-        830888.6694958837*C_eq + 1361722.4704769105*C_lu + 5690201.987162056*C_eu;
+        double opt_obs_muon_3TeV_7 = 81.4818764767476*C_phiQm + -35.775603838642574*C_phit
+ + -4479.79183572281*C_tW + 3590.793894397487*C_tZ
+ + 0.0015099379091762296*CI_tW + -0.00045823347557478393*CI_tZ
+ + 180021.00658073605*C_lqM + 16617.773389917675*C_eq
+ + 27234.44940953821*C_lu + 113804.03974324113*C_eu;
 
         
-        return opt_obs_muon_3TeV_7;
+        return lumi*eff*opt_obs_muon_3TeV_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_muon_3TeV_8 = -430.2394110152886*C_phiQm + 1217.833577684566*C_phit + -92209.20450031746*C_tW +
-        74555.37113570496*C_tZ + 0.1727179907969235*CI_tW + -0.252310056959318*CI_tZ + 830888.6694958837*C_lqM + 
-        1942317.8821259215*C_eq + 2921476.5494311466*C_lu + 511388.24633751647*C_eu;
+        double opt_obs_muon_3TeV_8 = -8.604788220305773*C_phiQm + 24.35667155369132*C_phit
+ + -1844.1840900063492*C_tW + 1491.1074227140994*C_tZ
+ + 0.0034543598159384697*CI_tW + -0.0050462011391863605*CI_tZ
+ + 16617.773389917675*C_lqM + 38846.35764251843*C_eq
+ + 58429.53098862293*C_lu + 10227.76492675033*C_eu;
 
         
-        return opt_obs_muon_3TeV_8;
+        return lumi*eff*opt_obs_muon_3TeV_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_muon_3TeV_9 = -592.015334412501*C_phiQm + 2729.6849843759724*C_phit + -175852.55337427388*C_tW + 
-        138583.3670309564*C_tZ + -0.007947051657999016*CI_tW + -0.012432004688654552*CI_tZ + 1361722.4704769105*C_lqM +
-        2921476.549431147*C_eq + 6604367.478830232*C_lu + 1210320.8214390327*C_eu;
+        double opt_obs_muon_3TeV_9 = -11.84030668825002*C_phiQm + 54.59369968751945*C_phit
+ + -3517.0510674854777*C_tW + 2771.667340619128*C_tZ
+ + -0.00015894103315998033*CI_tW + -0.000248640093773091*CI_tZ
+ + 27234.44940953821*C_lqM + 58429.53098862294*C_eq
+ + 132087.34957660464*C_lu + 24206.416428780652*C_eu;
 
         
-        return opt_obs_muon_3TeV_9;
+        return lumi*eff*opt_obs_muon_3TeV_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_muon_3TeV_10 = 2581.543013545208*C_phiQm + -1736.9494597112225*C_phit + -168228.95142861948*C_tW +
-        140434.7159543594*C_tZ + 0.15743135932767532*CI_tW + -0.044433087700584864*CI_tZ + 5690201.987162056*C_lqM +
-        511388.24633751647*C_eq + 1210320.821439033*C_lu + 5397719.3129890915*C_eu;
+        double opt_obs_muon_3TeV_10 = 51.63086027090416*C_phiQm + -34.73898919422445*C_phit
+ + -3364.5790285723892*C_tW + 2808.694319087188*C_tZ
+ + 0.0031486271865535063*CI_tW + -0.0008886617540116973*CI_tZ
+ + 113804.03974324113*C_lqM + 10227.76492675033*C_eq
+ + 24206.416428780656*C_lu + 107954.38625978182*C_eu;
 
         
-        return opt_obs_muon_3TeV_10;
+        return lumi*eff*opt_obs_muon_3TeV_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_muon_3TeV, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -10695,7 +13511,7 @@ double opt_obs_muon_3TeV::computeThValue()
 opt_obs_muon_10TeV::opt_obs_muon_10TeV(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_muon_10TeV" << "eff_muon_10TeV");             
 }
 
 double opt_obs_muon_10TeV::computeThValue()
@@ -10703,6 +13519,10 @@ double opt_obs_muon_10TeV::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    
+    double lumi = SM.getOptionalParameter("lumi_muon_10TeV");
+    double eff = SM.getOptionalParameter("eff_muon_10TeV");  
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -10723,108 +13543,128 @@ double opt_obs_muon_10TeV::computeThValue()
     
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_muon_10TeV_1 = 1.002397866351082*C_phiQm + -0.6488790695232587*C_phit + -31.985348638352527*C_tW +
-        25.520069416977005*C_tZ + -7.81629422586054e-06*CI_tW + 7.010687891355382e-06*CI_tZ + 20640.399424976065*C_lqM +
-        -2269.665459954311*C_eq + -3161.3238087852833*C_lu + 13091.862959002867*C_eu;
+        double opt_obs_muon_10TeV_1 = 0.004009591465404328*C_phiQm + -0.0025955162780930347*C_phit
+ + -0.1279413945534101*C_tW + 0.10208027766790802*C_tZ
+ + -3.126517690344216e-08*CI_tW + 2.8042751565421526e-08*CI_tZ
+ + 82.56159769990425*C_lqM + -9.078661839817244*C_eq
+ + -12.645295235141134*C_lu + 52.36745183601147*C_eu;
 
-        return opt_obs_muon_10TeV_1;
+        return lumi*eff*opt_obs_muon_10TeV_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_muon_10TeV_2 = -0.6488790695232587*C_phiQm + 0.9605629292266105*C_phit + -6.196628913070049*C_tW +
-        3.3336480137162785*C_tZ + 3.507966609591442e-06*CI_tW + -1.2825340971784981e-05*CI_tZ + -9218.876585000098*C_lqM +
-        6188.958198190175*C_eq + 13874.105400811119*C_lu + -8903.665144518378*C_eu;
+        double opt_obs_muon_10TeV_2 = -0.0025955162780930347*C_phiQm + 0.003842251716906442*C_phit
+ + -0.024786515652280197*C_tW + 0.013334592054865113*C_tZ
+ + 1.4031866438365768e-08*CI_tW + -5.130136388713993e-08*CI_tZ
+ + -36.87550634000039*C_lqM + 24.7558327927607*C_eq
+ + 55.49642160324448*C_lu + -35.61466057807351*C_eu;
 
         
-        return opt_obs_muon_10TeV_2;
+        return lumi*eff*opt_obs_muon_10TeV_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_muon_10TeV_3 = -31.985348638352527*C_phiQm + -6.196628913070051*C_phit + 70814.56191405375*C_tW +
-        -57149.14980089627*C_tZ + 8.132561980218314e-12*CI_tW + 0.0007409451805473504*CI_tZ + -1126697.9674144657*C_lqM +
-        -460835.0792438451*C_eq + -883810.692828949*C_lu + -847801.1967529372*C_eu;
+        double opt_obs_muon_10TeV_3 = -0.1279413945534101*C_phiQm + -0.024786515652280204*C_phit
+ + 283.25824765621496*C_tW + -228.5965992035851*C_tZ
+ + 3.253024792087326e-14*CI_tW + 2.9637807221894017e-06*CI_tZ
+ + -4506.791869657863*C_lqM + -1843.3403169753803*C_eq
+ + -3535.242771315796*C_lu + -3391.2047870117485*C_eu;
 
 
-        return opt_obs_muon_10TeV_3;
+        return lumi*eff*opt_obs_muon_10TeV_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_muon_10TeV_4 = 25.520069416977005*C_phiQm + 3.33364801371628*C_phit + -57149.14980089627*C_tW +
-        46218.6142472897*C_tZ + -7.172119733866127e-12*CI_tW + -0.000472606857801337*CI_tZ + 903231.0645899748*C_lqM +
-        372551.0380681826*C_eq + 696400.7764702414*C_lu + 707893.1031537006*C_eu;
+        double opt_obs_muon_10TeV_4 =  0.10208027766790802*C_phiQm + 0.013334592054865119*C_phit
+ + -228.5965992035851*C_tW + 184.8744569891588*C_tZ
+ + -2.8688478935464505e-14*CI_tW + -1.890427431205348e-06*CI_tZ
+ + 3612.9242583598993*C_lqM + 1490.2041522727304*C_eq
+ + 2785.6031058809654*C_lu + 2831.5724126148025*C_eu;
 
         
-        return opt_obs_muon_10TeV_4;
+        return lumi*eff*opt_obs_muon_10TeV_4;
 
         
     } else if(b_min == 5 && b_max == 5){
                 
 
-        double opt_obs_muon_10TeV_5 = -7.81629422586054e-06*C_phiQm + 3.5079666095914425e-06*C_phit + 8.132561980218314e-12*C_tW +
-        -7.172119733866127e-12*C_tZ + 66645.60003450589*CI_tW + -53796.21583796007*CI_tZ + 0.4654303323596065*C_lqM +
-        0.262347391941236*C_eq + -0.19337463247747125*C_lu + 0.4683423920107114*C_eu;
+        double opt_obs_muon_10TeV_5 = -3.126517690344216e-08*C_phiQm + 1.403186643836577e-08*C_phit
+ + 3.253024792087326e-14*C_tW + -2.8688478935464505e-14*C_tZ
+ + 266.58240013802356*CI_tW + -215.1848633518403*CI_tZ
+ + 0.001861721329438426*C_lqM + 0.001049389567764944*C_eq
+ + -0.000773498529909885*C_lu + 0.0018733695680428456*C_eu;
 
         
-        return opt_obs_muon_10TeV_5;
+        return lumi*eff*opt_obs_muon_10TeV_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
 
-        double opt_obs_muon_10TeV_6 = 7.010687891355381e-06*C_phiQm + -1.2825340971784981e-05*C_phit + 0.0007409451805473505*C_tW +
-                -0.00047260685780133705*C_tZ + -53796.215837960066*CI_tW + 43509.21938109098*CI_tZ + -0.5660426605863261*C_lqM +
-                -0.46285418568402326*C_eq + -0.16327956453559603*C_lu + -0.4687500922905484*C_eu;
+        double opt_obs_muon_10TeV_6 = 2.8042751565421523e-08*C_phiQm + -5.130136388713993e-08*C_phit
+ + 2.963780722189402e-06*C_tW + -1.8904274312053481e-06*C_tZ
+ + -215.18486335184028*CI_tW + 174.03687752436392*CI_tZ
+ + -0.0022641706423453044*C_lqM + -0.001851416742736093*C_eq
+ + -0.0006531182581423842*C_lu + -0.0018750003691621938*C_eu;
 
         
-        return opt_obs_muon_10TeV_6;
+        return lumi*eff*opt_obs_muon_10TeV_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
         
-        double opt_obs_muon_10TeV_7 = 20640.399424976065*C_phiQm + -9218.8765850001*C_phit + -1126697.9674144657*C_tW +
-        903231.0645899748*C_tZ + 0.46543033235960657*CI_tW + -0.5660426605863261*CI_tZ + 504414790.858779*C_lqM +
-        43733884.22607342*C_eq + 71586043.36692125*C_lu + 318765092.5164014*C_eu;
+        double opt_obs_muon_10TeV_7 = 82.56159769990425*C_phiQm + -36.8755063400004*C_phit
+ + -4506.791869657863*C_tW + 3612.9242583598993*C_tZ
+ + 0.0018617213294384262*CI_tW + -0.0022641706423453044*CI_tZ
+ + 2017659.163435116*C_lqM + 174935.5369042937*C_eq
+ + 286344.173467685*C_lu + 1275060.3700656057*C_eu;
 
         
-        return opt_obs_muon_10TeV_7;
+        return lumi*eff*opt_obs_muon_10TeV_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_muon_10TeV_8 = -2269.665459954311*C_phiQm + 6188.958198190175*C_phit + -460835.0792438451*C_tW +
-        372551.03806818265*C_tZ + 0.262347391941236*CI_tW + -0.46285418568402326*CI_tZ + 43733884.22607342*C_lqM +
-        108231060.03319082*C_eq + 162909338.90806666*C_lu + 26397901.958354276*C_eu;
+        double opt_obs_muon_10TeV_8 = -9.078661839817244*C_phiQm + 24.7558327927607*C_phit
+ + -1843.3403169753803*C_tW + 1490.2041522727307*C_tZ
+ + 0.001049389567764944*CI_tW + -0.001851416742736093*CI_tZ
+ + 174935.5369042937*C_lqM + 432924.2401327633*C_eq
+ + 651637.3556322666*C_lu + 105591.6078334171*C_eu;
 
         
-        return opt_obs_muon_10TeV_8;
+        return lumi*eff*opt_obs_muon_10TeV_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_muon_10TeV_9 = -3161.323808785283*C_phiQm + 13874.105400811117*C_phit + -883810.692828949*C_tW +
-        696400.7764702413*C_tZ + -0.19337463247747128*CI_tW + -0.16327956453559608*CI_tZ + 71586043.36692125*C_lqM + 
-        162909338.90806666*C_eq + 370332751.79009056*C_lu + 65041869.809645616*C_eu;
+        double opt_obs_muon_10TeV_9 = -12.64529523514113*C_phiQm + 55.49642160324447*C_phit
+ + -3535.242771315796*C_tW + 2785.603105880965*C_tZ
+ + -0.0007734985299098851*CI_tW + -0.0006531182581423844*CI_tZ
+ + 286344.173467685*C_lqM + 651637.3556322666*C_eq
+ + 1481331.0071603623*C_lu + 260167.47923858245*C_eu;
 
         
-        return opt_obs_muon_10TeV_9;
+        return lumi*eff*opt_obs_muon_10TeV_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_muon_10TeV_10 = 13091.862959002869*C_phiQm + -8903.66514451838*C_phit + -847801.1967529372*C_tW +
-        707893.1031537007*C_tZ + 0.4683423920107114*CI_tW + -0.4687500922905484*CI_tZ + 318765092.5164014*C_lqM + 
-        26397901.958354283*C_eq + 65041869.80964561*C_lu + 303194400.5010366*C_eu;
+        double opt_obs_muon_10TeV_10 = 52.367451836011476*C_phiQm + -35.61466057807352*C_phit
+ + -3391.2047870117485*C_tW + 2831.572412614803*C_tZ
+ + 0.0018733695680428456*CI_tW + -0.0018750003691621938*CI_tZ
+ + 1275060.3700656057*C_lqM + 105591.60783341713*C_eq
+ + 260167.47923858243*C_lu + 1212777.6020041464*C_eu;
 
         
-        return opt_obs_muon_10TeV_10;
+        return lumi*eff*opt_obs_muon_10TeV_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_muon_10TeV, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }
@@ -10840,7 +13680,7 @@ double opt_obs_muon_10TeV::computeThValue()
 opt_obs_muon_30TeV::opt_obs_muon_30TeV(const StandardModel& SM_i)
 : ThObservable(SM_i), myNPSMEFT6dtopquark(static_cast<const NPSMEFT6dtopquark&> (SM_i))
 {
-    //setParametersForObservable(make_vector<std::string>() << "lumi_eff" );               
+    setParametersForObservable(make_vector<std::string>() << "lumi_muon_30TeV" << "eff_muon_30TeV");             
 }
 
 double opt_obs_muon_30TeV::computeThValue()
@@ -10848,6 +13688,10 @@ double opt_obs_muon_30TeV::computeThValue()
     
     b_min = getBinMin();
     b_max = getBinMax();
+    
+    
+    double lumi = SM.getOptionalParameter("lumi_muon_30TeV");
+    double eff = SM.getOptionalParameter("eff_muon_30TeV");  
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();
@@ -10868,107 +13712,127 @@ double opt_obs_muon_30TeV::computeThValue()
        
     if(b_min == 1 && b_max == 1){
         
-        double opt_obs_muon_30TeV_1 = 0.40151308771574895*C_phiQm + -0.26010221697703106*C_phit + -12.805477456312714*C_tW +
-        10.217506282535803*C_tZ + -1.0635244029315625e-06*CI_tW + 3.4694216744756105e-05*CI_tZ + 74393.4074046864*C_lqM + 
-        -8209.441978970846*C_eq + -11446.556752743989*C_lu + 47189.94625125499*C_eu;
+        double opt_obs_muon_30TeV_1 = 0.0004461256530174988*C_phiQm + -0.00028900246330781226*C_phit
+ + -0.014228308284791904*C_tW + 0.011352784758373114*C_tZ
+ + -1.1816937810350695e-09*CI_tW + 3.854912971639567e-08*CI_tZ
+ + 82.65934156076267*C_lqM + -9.121602198856497*C_eq
+ + -12.718396391937766*C_lu + 52.433273612505545*C_eu;
 
-        return opt_obs_muon_30TeV_1;
+        return lumi*eff*opt_obs_muon_30TeV_1;
         
         
     } else if(b_min == 2 && b_max == 2){
         
-        double opt_obs_muon_30TeV_2 = -0.26010221697703106*C_phiQm + 0.3848498526142235*C_phit + -2.4751138447022263*C_tW +
-        1.3297812764198127*C_tZ + 4.5365820621014766e-07*CI_tW + -3.47375528953948e-05*CI_tZ + -33277.9930171984*C_lqM +
-        22312.489348536048*C_eq + 50019.96712253086*C_lu + -32123.066994720124*C_eu;
+        double opt_obs_muon_30TeV_2 = -0.00028900246330781226*C_phiQm + 0.0004276109473491372*C_phit
+ + -0.002750126494113585*C_tW + 0.0014775347515775697*C_tZ
+ + 5.040646735668308e-10*CI_tW + -3.859728099488311e-08*CI_tZ
+ + -36.97554779688711*C_lqM + 24.79165483170672*C_eq
+ + 55.57774124725651*C_lu + -35.69229666080014*C_eu;
 
         
-        return opt_obs_muon_30TeV_2;
+        return lumi*eff*opt_obs_muon_30TeV_2;
 
         
     } else if(b_min == 3 && b_max == 3){
         
-        double opt_obs_muon_30TeV_3 = -12.805477456312715*C_phiQm + -2.4751138447022285*C_phit + 242274.49450434453*C_tW +
-        -195572.6440403822*C_tZ + 2.8673569043656325e-12*CI_tW + 0.0018945307561876303*CI_tZ + -4058295.903064035*C_lqM + 
-        -1659091.3075937035*C_eq + -3183292.2651806544*C_lu + -3053950.6970441816*C_eu;
+        double opt_obs_muon_30TeV_3 = -0.014228308284791906*C_phiQm + -0.002750126494113587*C_phit
+ + 269.19388278260504*C_tW + -217.3029378226469*C_tZ
+ + 3.185952115961814e-15*CI_tW + 2.1050341735418113e-06*CI_tZ
+ + -4509.21767007115*C_lqM + -1843.434786215226*C_eq
+ + -3536.991405756283*C_lu + -3393.278552271313*C_eu;
 
 
-        return opt_obs_muon_30TeV_3;
+        return lumi*eff*opt_obs_muon_30TeV_3;
 
     } else if(b_min == 4 && b_max == 4){
         
-        double opt_obs_muon_30TeV_4 = 10.217506282535805*C_phiQm + 1.3297812764198116*C_phit + -195572.6440403822*C_tW +
-        158186.0841588889*C_tZ + -2.528726751528057e-12*CI_tW + -0.001630684574408139*CI_tZ + 3253409.8919901075*C_lqM +
-        1341231.3090822194*C_eq + 2508243.683985288*C_lu + 2550012.361248306*C_eu;
+        double opt_obs_muon_30TeV_4 = 0.011352784758373115*C_phiQm + 0.0014775347515775684*C_phit
+ + -217.3029378226469*C_tW + 175.76231573209878*C_tZ
+ + -2.80969639058673e-15*CI_tW + -1.8118717493423767e-06*CI_tZ
+ + 3614.8998799890082*C_lqM + 1490.257010091355*C_eq
+ + 2786.9374266503196*C_lu + 2833.3470680536734*C_eu;
 
         
-        return opt_obs_muon_30TeV_4;
+        return lumi*eff*opt_obs_muon_30TeV_4;
 
         
     } else if(b_min == 5 && b_max == 5){
                 
 
-        double opt_obs_muon_30TeV_5 = -1.0635244029315625e-06*C_phiQm + 4.5365820621014766e-07*C_phit + 2.8673569043656325e-12*C_tW +
-        -2.5287267515280567e-12*C_tZ + 240448.74801675533*CI_tW + -194090.85153119208*CI_tZ + 1.398061219032399*C_lqM + 
-        -0.06013194731633488*C_eq + 0.6065075511577139*C_lu + 0.05971845292983731*C_eu;
+        double opt_obs_muon_30TeV_5 = -1.1816937810350695e-09*C_phiQm + 5.040646735668308e-10*C_phit
+ + 3.185952115961814e-15*C_tW + -2.8096963905867296e-15*C_tZ
+ + 267.1652755741726*CI_tW + -215.65650170132454*CI_tZ
+ + 0.0015534013544804435*C_lqM + -6.681327479592764e-05*C_eq
+ + 0.0006738972790641265*C_lu + 6.635383658870812e-05*C_eu;
 
         
-        return opt_obs_muon_30TeV_5;
+        return lumi*eff*opt_obs_muon_30TeV_5;
 
         
     } else if(b_min == 6 && b_max == 6){
         
 
-        double opt_obs_muon_30TeV_6 = 3.469421674475611e-05*C_phiQm + -3.47375528953948e-05*C_phit + 0.0018945307561876303*C_tW +
-        -0.0016306845744081388*C_tZ + -194090.8515311921*CI_tW + 156977.35151813025*CI_tZ + 10.025386437874092*C_lqM +
-        -0.5141613286355672*C_eq + 13.096649356461025*C_lu + -0.4621771005044505*C_eu;
+        double opt_obs_muon_30TeV_6 = 3.854912971639568e-08*C_phiQm + -3.859728099488311e-08*C_phit
+ + 2.1050341735418113e-06*C_tW + -1.8118717493423765e-06*C_tZ
+ + -215.65650170132457*CI_tW + 174.41927946458918*CI_tZ
+ + 0.011139318264304546*C_lqM + -0.0005712903651506302*C_eq
+ + 0.014551832618290027*C_lu + -0.0005135301116716116*C_eu;
 
         
-        return opt_obs_muon_30TeV_6;
+        return lumi*eff*opt_obs_muon_30TeV_6;
 
         
     } else if(b_min == 7 && b_max == 7){
         
-        double opt_obs_muon_30TeV_7 = 74393.4074046864*C_phiQm + -33277.9930171984*C_phit + -4058295.903064035*C_tW +
-                3253409.8919901075*C_tZ + 1.398061219032399*CI_tW + 10.025386437874092*CI_tZ + 16355187053.558142*C_lqM + 
-                1409942884.0831823*C_eq + 2307644763.6810093*C_lu + 10335517838.274128*C_eu;
+        double opt_obs_muon_30TeV_7 = 82.65934156076267*C_phiQm + -36.97554779688711*C_phit
+ + -4509.21767007115*C_tW + 3614.8998799890082*C_tZ
+ + 0.0015534013544804435*CI_tW + 0.011139318264304546*CI_tZ
+ + 18172430.059509046*C_lqM + 1566603.2045368692*C_eq
+ + 2564049.7374233436*C_lu + 11483908.709193476*C_eu;
 
         
-        return opt_obs_muon_30TeV_7;
+        return lumi*eff*opt_obs_muon_30TeV_7;
 
         
     } else if(b_min == 8 && b_max == 8){
         
-        double opt_obs_muon_30TeV_8 = -8209.441978970846*C_phiQm + 22312.489348536048*C_phit + -1659091.3075937037*C_tW +
-        1341231.3090822191*C_tZ + -0.06013194731633488*CI_tW + -0.5141613286355672*CI_tZ + 1409942884.0831823*C_lqM +
-        3507653080.5622907*C_eq + 5280007286.107178*C_lu + 849514839.0755*C_eu;
+        double opt_obs_muon_30TeV_8 = -9.121602198856497*C_phiQm + 24.79165483170672*C_phit
+ + -1843.4347862152263*C_tW + 1490.2570100913547*C_tZ
+ + -6.681327479592764e-05*CI_tW + -0.0005712903651506302*CI_tZ
+ + 1566603.2045368692*C_lqM + 3897392.3117358787*C_eq
+ + 5866674.762341308*C_lu + 943905.3767505556*C_eu;
 
         
-        return opt_obs_muon_30TeV_8;
+        return lumi*eff*opt_obs_muon_30TeV_8;
 
         
     } else if(b_min == 9 && b_max == 9){
         
-        double opt_obs_muon_30TeV_9 = -11446.556752743989*C_phiQm + 50019.967122530856*C_phit + -3183292.265180654*C_tW + 
-        2508243.6839852873*C_tZ + 0.6065075511577139*CI_tW + 13.096649356461025*CI_tZ + 2307644763.6810102*C_lqM + 
-        5280007286.107178*C_eq + 12008694447.207853*C_lu + 2100981598.8904145*C_eu;
+        double opt_obs_muon_30TeV_9 = -12.718396391937766*C_phiQm + 55.577741247256505*C_phit
+ + -3536.9914057562823*C_tW + 2786.937426650319*C_tZ
+ + 0.0006738972790641266*CI_tW + 0.014551832618290027*CI_tZ
+ + 2564049.7374233445*C_lqM + 5866674.762341308*C_eq
+ + 13342993.830230948*C_lu + 2334423.9987671273*C_eu;
 
         
-        return opt_obs_muon_30TeV_9;
+        return lumi*eff*opt_obs_muon_30TeV_9;
 
         
     } else if(b_min == 10 && b_max == 10){
         
         
-        double opt_obs_muon_30TeV_10 = 47189.94625125499*C_phiQm + -32123.066994720124*C_phit + -3053950.697044182*C_tW + 
-        2550012.3612483055*C_tZ + 0.059718452929837296*CI_tW + -0.4621771005044504*CI_tZ + 10335517838.274128*C_lqM +
-        849514839.0755002*C_eq + 2100981598.8904145*C_lu + 9833036553.371826*C_eu;
+        double opt_obs_muon_30TeV_10 = 52.433273612505545*C_phiQm + -35.69229666080014*C_phit
+ + -3393.2785522713134*C_tW + 2833.347068053673*C_tZ
+ + 6.63538365887081e-05*CI_tW + -0.0005135301116716115*CI_tZ
+ + 11483908.709193476*C_lqM + 943905.3767505558*C_eq
+ + 2334423.9987671273*C_lu + 10925596.17041314*C_eu;
 
         
-        return opt_obs_muon_30TeV_10;
+        return lumi*eff*opt_obs_muon_30TeV_10;
 
         
     } else{
-        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_ilc_500_M30_P80, it goes from 1 to 10 in consecutive pairs.\n");
+        throw std::runtime_error("\nERROR: Please specify a correct opt_obs_muon_30TeV, it goes from 1 to 10 in consecutive pairs.\n");
     }
 
 }

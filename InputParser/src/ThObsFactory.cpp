@@ -4095,8 +4095,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["C_Qd8"] = boost::factory<C_Qd8*>();
     */
    ///////////////////////////////////////////////////////////////////////////////////
-
-
+    
+    obsThFactory["FB_asymmetry_Tevatron_tt_diff_mtt_NPSMEFT6dtopquark"] = boost::factory<FB_asymmetry_Tevatron_tt_diff_mtt_NPSMEFT6dtopquark*>();
+    
     obsThFactory["Rb_NPSMEFT6dtopquark"] = boost::factory<Rb_NPSMEFT6dtopquark*>();
     obsThFactory["AFBLR"] = boost::factory<AFBLR*>();
     obsThFactory["SigmattZ"] = boost::factory<sigmattZ*>();
@@ -4161,6 +4162,11 @@ ThObsFactory::ThObsFactory()
 
 
     //ttA bins
+    
+    obsThFactory["sigma_tta_diff_NLO_ATLAS_emu"] = boost::factory<sigma_tta_diff_NLO_ATLAS_emu_200706946*>();    
+    obsThFactory["sigma_tta_diff_NLO_CMS_dilepton_220107301"] = boost::factory<sigma_tta_diff_NLO_CMS_dilepton_220107301*>();    
+    obsThFactory["sigma_tta_diff_NLO_ATLAS_240309452"] = boost::factory<sigma_tta_diff_NLO_ATLAS_240309452*>();    
+    
 
     obsThFactory["sigma_tta_diff_NLO_ATLAS_emu"] = boost::factory<sigma_tta_diff_NLO_ATLAS_emu_200706946*>();
     obsThFactory["sigma_tta_diff_NLO_CMS_dilepton_220107301"] = boost::factory<sigma_tta_diff_NLO_CMS_dilepton_220107301*>();
@@ -4198,24 +4204,46 @@ ThObsFactory::ThObsFactory()
     obsThFactory["a_Z_pole_bb_eP_P30_eM_M80"] = boost::factory<a_Z_pole_bb_eP_P30_eM_M80*>();
     obsThFactory["a_Z_pole_bb_eP_M30_eM_P80"] = boost::factory<a_Z_pole_bb_eP_M30_eM_P80*>();
 
-
-    //ILC 250 GeV
-    obsThFactory["sigma_250_bb_eP_P30_eM_M80"] = boost::factory<sigma_250_bb_eP_P30_eM_M80*>();
+    //ILC 250 GeV 
+    
+    obsThFactory["sigma_250_bb_eP_M30_eM_M80"] = boost::factory<sigma_250_bb_eP_M30_eM_M80*>();
     obsThFactory["sigma_250_bb_eP_M30_eM_P80"] = boost::factory<sigma_250_bb_eP_M30_eM_P80*>();
-    obsThFactory["a_250_bb_eP_P30_eM_M80"] = boost::factory<a_250_bb_eP_P30_eM_M80*>();
+    obsThFactory["sigma_250_bb_eP_P30_eM_M80"] = boost::factory<sigma_250_bb_eP_P30_eM_M80*>();
+    obsThFactory["sigma_250_bb_eP_P30_eM_P80"] = boost::factory<sigma_250_bb_eP_P30_eM_P80*>();
+    obsThFactory["a_250_bb_eP_M30_eM_M80"] = boost::factory<a_250_bb_eP_M30_eM_M80*>();
     obsThFactory["a_250_bb_eP_M30_eM_P80"] = boost::factory<a_250_bb_eP_M30_eM_P80*>();
+    obsThFactory["a_250_bb_eP_P30_eM_M80"] = boost::factory<a_250_bb_eP_P30_eM_M80*>();
+    obsThFactory["a_250_bb_eP_P30_eM_P80"] = boost::factory<a_250_bb_eP_P30_eM_P80*>();
+        
 
-
+    
     //ILC 500 GeV
+    
+    obsThFactory["sigma_500_bb_eP_M30_eM_M80"] = boost::factory<sigma_500_bb_eP_M30_eM_M80*>();
+    obsThFactory["sigma_500_bb_eP_M30_eM_P80"] = boost::factory<sigma_500_bb_eP_M30_eM_P80*>();    
     obsThFactory["sigma_500_bb_eP_P30_eM_M80"] = boost::factory<sigma_500_bb_eP_P30_eM_M80*>();
-    obsThFactory["sigma_500_bb_eP_M30_eM_P80"] = boost::factory<sigma_500_bb_eP_M30_eM_P80*>();
-    obsThFactory["a_500_bb_eP_P30_eM_M80"] = boost::factory<a_500_bb_eP_P30_eM_M80*>();
+    obsThFactory["sigma_500_bb_eP_P30_eM_P80"] = boost::factory<sigma_500_bb_eP_P30_eM_P80*>();
+    obsThFactory["a_500_bb_eP_M30_eM_M80"] = boost::factory<a_500_bb_eP_M30_eM_M80*>();
     obsThFactory["a_500_bb_eP_M30_eM_P80"] = boost::factory<a_500_bb_eP_M30_eM_P80*>();
+    obsThFactory["a_500_bb_eP_P30_eM_M80"] = boost::factory<a_500_bb_eP_P30_eM_M80*>();
+    obsThFactory["a_500_bb_eP_P30_eM_P80"] = boost::factory<a_500_bb_eP_P30_eM_P80*>();
     obsThFactory["sigma_500_ttH_eP_P30_eM_M80"] = boost::factory<sigma_500_ttH_eP_P30_eM_M80*>();
     obsThFactory["sigma_500_ttH_eP_M30_eM_P80"] = boost::factory<sigma_500_ttH_eP_M30_eM_P80*>();
 
 
-    //ILC 1000 GeV
+    
+    //ILC 1000 GeV 
+    
+    obsThFactory["sigma_1000_bb_eP_M20_eM_M80"] = boost::factory<sigma_1000_bb_eP_M20_eM_M80*>();
+    obsThFactory["sigma_1000_bb_eP_M20_eM_P80"] = boost::factory<sigma_1000_bb_eP_M20_eM_P80*>();
+    obsThFactory["sigma_1000_bb_eP_P20_eM_M80"] = boost::factory<sigma_1000_bb_eP_P20_eM_M80*>();
+    obsThFactory["sigma_1000_bb_eP_P20_eM_P80"] = boost::factory<sigma_1000_bb_eP_P20_eM_P80*>();
+    obsThFactory["a_1000_bb_eP_M20_eM_M80"] = boost::factory<a_1000_bb_eP_M20_eM_M80*>();
+    obsThFactory["a_1000_bb_eP_M20_eM_P80"] = boost::factory<a_1000_bb_eP_M20_eM_P80*>();
+    obsThFactory["a_1000_bb_eP_P20_eM_M80"] = boost::factory<a_1000_bb_eP_P20_eM_M80*>();
+    obsThFactory["a_1000_bb_eP_P20_eM_P80"] = boost::factory<a_1000_bb_eP_P20_eM_P80*>();
+    
+    
     obsThFactory["sigma_1000_bb_eP_P30_eM_M80"] = boost::factory<sigma_1000_bb_eP_P30_eM_M80*>();
     obsThFactory["sigma_1000_bb_eP_M30_eM_P80"] = boost::factory<sigma_1000_bb_eP_M30_eM_P80*>();
     obsThFactory["a_1000_bb_eP_P30_eM_M80"] = boost::factory<a_1000_bb_eP_P30_eM_M80*>();
@@ -4269,13 +4297,21 @@ ThObsFactory::ThObsFactory()
 
 
     //Optimal Observables
-
+    
+    obsThFactory["opt_obs_ilc_500_M30_M80"] = boost::factory<opt_obs_ilc_500_M30_M80*>();
     obsThFactory["opt_obs_ilc_500_M30_P80"] = boost::factory<opt_obs_ilc_500_M30_P80*>();
     obsThFactory["opt_obs_ilc_500_P30_M80"] = boost::factory<opt_obs_ilc_500_P30_M80*>();
+    obsThFactory["opt_obs_ilc_500_P30_P80"] = boost::factory<opt_obs_ilc_500_P30_P80*>();
+    
     obsThFactory["opt_obs_ilc_1000_M30_P80"] = boost::factory<opt_obs_ilc_1000_M30_P80*>();
     obsThFactory["opt_obs_ilc_1000_P30_M80"] = boost::factory<opt_obs_ilc_1000_P30_M80*>();
-
-
+    
+    obsThFactory["opt_obs_ilc_1000_M20_M80"] = boost::factory<opt_obs_ilc_1000_M20_M80*>();
+    obsThFactory["opt_obs_ilc_1000_M20_P80"] = boost::factory<opt_obs_ilc_1000_M20_P80*>();
+    obsThFactory["opt_obs_ilc_1000_P20_M80"] = boost::factory<opt_obs_ilc_1000_P20_M80*>();
+    obsThFactory["opt_obs_ilc_1000_P20_P80"] = boost::factory<opt_obs_ilc_1000_P20_P80*>();
+    
+    
     obsThFactory["opt_obs_clic_380_0_M80"] = boost::factory<opt_obs_clic_380_0_M80*>();
     obsThFactory["opt_obs_clic_380_0_P80"] = boost::factory<opt_obs_clic_380_0_P80*>();
     obsThFactory["opt_obs_clic_1500_0_M80"] = boost::factory<opt_obs_clic_1500_0_M80*>();
