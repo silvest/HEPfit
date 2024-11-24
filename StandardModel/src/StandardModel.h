@@ -2145,6 +2145,241 @@ public:
 
     ////////////////////////////////////////////////////////////////////////        
     // Several Higgs-related quantities used in Higgs coupling analysis
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief Loop function entering in the calculation of the effective @f$Hgg@f$ and @f$H\gamma\gamma@f$ couplings.
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the particle in the loop.
+     * @return @f$f(\tau)@f$
+     */
+    gslpp::complex f_triangle(const double tau) const;
+    /**
+     * @brief Loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the particle in the loop.
+     * @return @f$g(\tau)@f$
+     */
+    gslpp::complex g_triangle(const double tau) const;
+    /**
+     * @brief Loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, @f$\lambda=4 M^2/m_Z^2@f$, with @f$M@f$ the mass of the particle in the loop.
+     * @return @f$I_1(\tau,\lambda)@f$
+     */
+    gslpp::complex I_triangle_1(const double tau, const double lambda) const;
+    /**
+     * @brief Loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, @f$\lambda=4 M^2/m_Z^2@f$, with @f$M@f$ the mass of the particle in the loop.
+     * @return @f$I_2(\tau,\lambda)@f$
+     */
+    gslpp::complex I_triangle_2(const double tau, const double lambda) const;
+    /**
+     * @brief Fermionic loop function entering in the calculation of the effective @f$Hgg@f$ and @f$H\gamma\gamma@f$ couplings.
+     * @details
+     * @f$A^H_f(\tau)=2\tau [1+(1-\tau)f(\tau)]@f$
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the fermion in the loop.
+     * @return @f$A^H_f(\tau)@f$
+     */
+    gslpp::complex AH_f(const double tau) const;
+
+    /**
+     * @brief W loop function entering in the calculation of the effective @f$H\gamma\gamma@f$ coupling.
+     * @details
+     * @f$A^H_W(\tau)=-[2+3\tau + 3\tau*(2-\tau) f(\tau)]@f$
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the fermion in the loop.
+     * @return @f$A^H_W(\tau)@f$
+     */
+    gslpp::complex AH_W(const double tau) const;
+
+    /**
+     * @brief Fermionic loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @details
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, @f$\lambda=4 M^2/m_Z^2@f$, with @f$M@f$ the mass of the fermion in the loop.
+     * @return @f$A^{HZ\gamma}_f(\tau,\lambda)@f$
+     */
+    gslpp::complex AHZga_f(const double tau, const double lambda) const;
+
+    /**
+     * @brief W loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @details
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, @f$\lambda=4 M^2/m_Z^2@f$, with @f$M@f$ the mass of the fermion in the loop.
+     * @return @f$A^{HZ\gamma}_W(\tau,\lambda)@f$
+     */
+    gslpp::complex AHZga_W(const double tau, const double lambda) const;
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The @f$\sigma(e^+ e^- \to Z H)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From https://arxiv.org/pdf/hep-ph/9605437
+     * @return @f$\sigma(e^+ e^- \to Z H)@f$ in the Standard Model
+     */
+    virtual const double SigmaeeZH(const double sqrt_s, const double Pe, const double Pp) const;
+    
+    /**
+     * @brief The @f$\sigma(e^+ e^- \to \nu \bar{\nu} H)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From https://arxiv.org/pdf/hep-ph/9605437
+     * @return @f$\sigma(e^+ e^- \to \nu \bar{\nu} H)@f$ in the Standard Model
+     */
+    virtual const double SigmaeeHvv(const double sqrt_s, const double Pe, const double Pp) const;
+    
+    /**
+     * @brief The @f$\sigma(e^+ e^- \to e^+ e^- H)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From https://arxiv.org/pdf/hep-ph/9605437
+     * @return @f$\sigma(e^+ e^- \to e^+ e^- H)@f$ in the Standard Model
+     */
+    virtual const double SigmaeeHee(const double sqrt_s, const double Pe, const double Pp) const;
+
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The @f$\Gamma(H\to gg)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to gg)@f$
+     */
+    virtual const double GammaHtogg() const;
+
+    /**
+     * @brief The @f$\Gamma(H\to Z Z^*)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to Z Z^*)@f$
+     */
+    virtual const double GammaHtoZZstar() const;
+ 
+    /**
+     * @brief The @f$\Gamma(H\to W W^*)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to W W^*)@f$
+     */
+    virtual const double GammaHtoWWstar() const;
+
+    /**
+     * @brief The @f$\Gamma(H\to Z \gamma)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to Z \gamma)@f$
+     */
+    virtual const double GammaHtoZga() const;
+
+    /**
+     * @brief The @f$\Gamma(H\to \gamma \gamma)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to \gamma \gamma)@f$
+     */
+    virtual const double GammaHtogaga() const;
+    
+    /**
+     * @brief The @f$\Gamma(H\to \mu^+ \mu^-)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to \mu^+ \mu^-)@f$
+     */
+    virtual const double GammaHtomumu() const;
+
+    /**
+     * @brief The @f$\Gamma(H\to \tau^+ \tau^-)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to \tau^+ \tau^-)@f$
+     */
+    virtual const double GammaHtotautau() const;
+
+    /**
+     * @brief The @f$\Gamma(H\to c \bar{c})@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to c \bar{c})@f$
+     */
+    virtual const double GammaHtocc() const;
+    
+    /**
+     * @brief The @f$\Gamma(H\to s \bar{s})@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to s \bar{s})@f$
+     */
+    virtual const double GammaHtoss() const;
+
+    /**
+     * @brief The @f$\Gamma(H\to b \bar{b})@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return @f$\Gamma(H\to b \bar{b})@f$
+     */
+    virtual const double GammaHtobb() const;    
+    
+    /**
+     * @brief The total Higgs width @f$\Gamma(H)@f$ in the Standard Model.
+     * @details At the same level of the individual contributions
+     * @return @f$\Gamma(H)@f$
+     */
+    virtual const double GammaHTot() const;
+    
+    ////////////////////////////////////////////////////////////////////////
+   
+    /**
+     * @brief The Br@f$\(H\to gg)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to gg)@f$
+     */
+    virtual const double BrHtogg() const;
+
+    /**
+     * @brief The Br@f$(H\to Z Z^*)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to Z Z^*)@f$
+     */
+    virtual const double BrHtoZZstar() const;
+ 
+    /**
+     * @brief The Br@f$(H\to W W^*)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to W W^*)@f$
+     */
+    virtual const double BrHtoWWstar() const;
+
+    /**
+     * @brief The Br@f$(H\to Z \gamma)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to Z \gamma)@f$
+     */
+    virtual const double BrHtoZga() const;
+
+    /**
+     * @brief The Br@f$(H\to \gamma \gamma)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to \gamma \gamma)@f$
+     */
+    virtual const double BrHtogaga() const;
+    
+    /**
+     * @brief The Br@f$(H\to \mu^+ \mu^-)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to \mu^+ \mu^-)@f$
+     */
+    virtual const double BrHtomumu() const;
+
+    /**
+     * @brief The Br@f$(H\to \tau^+ \tau^-)@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to \tau^+ \tau^-)@f$
+     */
+    virtual const double BrHtotautau() const;
+
+    /**
+     * @brief The Br@f$(H\to c \bar{c})@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to c \bar{c})@f$
+     */
+    virtual const double BrHtocc() const;
+    
+    /**
+     * @brief The Br@f$(H\to s \bar{s})@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to s \bar{s})@f$
+     */
+    virtual const double BrHtoss() const;
+
+    /**
+     * @brief The Br@f$(H\to b \bar{b})@f$ in the Standard Model.
+     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @return Br@f$(H\to b \bar{b})@f$
+     */
+    virtual const double BrHtobb() const;  
+
+    ////////////////////////////////////////////////////////////////////////    
 
     /**
      * @brief The ggH cross section in the Standard Model.

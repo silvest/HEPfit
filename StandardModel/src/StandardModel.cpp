@@ -3245,6 +3245,391 @@ const double StandardModel::TauLFU_gtaugmuK() const
 }
 
 
+////////////////////////////////////////////////////////////////////////     
+// Higgs processes
+////////////////////////////////////////////////////////////////////////
+
+//  Integrals
+
+gslpp::complex StandardModel::f_triangle(const double tau) const {
+    gslpp::complex tmp;
+    if (tau >= 1.0) {
+        tmp = asin(1.0 / sqrt(tau));
+        return (tmp * tmp);
+    } else {
+        tmp = log((1.0 + sqrt(1.0 - tau)) / (1.0 - sqrt(1.0 - tau))) - M_PI * gslpp::complex::i();
+        return (-0.25 * tmp * tmp);
+    }
+}
+
+gslpp::complex StandardModel::g_triangle(const double tau) const {
+    gslpp::complex tmp;
+    if (tau >= 1.0) {
+        tmp = sqrt(tau - 1.0) * asin(1.0 / sqrt(tau));
+        return tmp;
+    } else {
+        tmp = sqrt(1.0 - tau) * (log((1.0 + sqrt(1.0 - tau)) / (1.0 - sqrt(1.0 - tau))) - M_PI * gslpp::complex::i());
+        return 0.5 * tmp;
+    }
+}
+
+gslpp::complex StandardModel::I_triangle_1(const double tau, const double lambda) const {
+    gslpp::complex tmp;
+
+    tmp = (tau * lambda * (f_triangle(tau) - f_triangle(lambda)) + 2.0 * tau * (g_triangle(tau) - g_triangle(lambda))) / (tau - lambda);
+
+    tmp = tau * lambda * (1.0 + tmp) / (2.0 * (tau - lambda));
+
+    return tmp;
+}
+
+gslpp::complex StandardModel::I_triangle_2(const double tau, const double lambda) const {
+    gslpp::complex tmp;
+
+    tmp = -0.5 * tau * lambda * (f_triangle(tau) - f_triangle(lambda)) / (tau - lambda);
+
+    return tmp;
+}
+
+gslpp::complex StandardModel::AH_f(const double tau) const {
+    return (2.0 * tau * (1.0 + (1.0 - tau) * f_triangle(tau)));
+}
+
+gslpp::complex StandardModel::AH_W(const double tau) const {
+    return -(2.0 + 3.0 * tau + 3.0 * tau * (2.0 - tau) * f_triangle(tau));
+}
+
+gslpp::complex StandardModel::AHZga_f(const double tau, const double lambda) const {
+    return I_triangle_1(tau, lambda) - I_triangle_2(tau, lambda);
+}
+
+gslpp::complex StandardModel::AHZga_W(const double tau, const double lambda) const {
+    gslpp::complex tmp;
+
+    double tan2w = sW2() / cW2();
+
+    tmp = 4.0 * (3.0 - tan2w) * I_triangle_2(tau, lambda);
+
+    tmp = tmp + ((1.0 + 2.0 / tau) * tan2w - (5.0 + 2.0 / tau)) * I_triangle_1(tau, lambda);
+
+    return sqrt(cW2()) * tmp;
+}
+
+////////////////////////////////////////////////////////////////////////
+
+const double StandardModel::SigmaeeZH(const double sqrt_s, const double Pe, const double Pp) const
+{   
+    double xsLH, xsRH;
+    double gL,gR,lam,fact;
+    double s = sqrt_s*sqrt_s;
+    
+    // From https://arxiv.org/pdf/hep-ph/9605437
+    
+    gL = -0.5 + sW2();
+    
+    gR = sW2();
+    
+    lam = (1.0-(mHl+Mz)*(mHl+Mz)/s)*(1.0-(mHl-Mz)*(mHl-Mz)/s);
+    
+    fact = (pow(GF*Mz*Mz,2.0)/96.0/M_PI/s) * sqrt(lam)*( lam + 12.0*Mz*Mz/s )/( 1.0 - Mz*Mz/s )/( 1.0 - Mz*Mz/s );
+            
+    xsLH = 32.0 * gL * gL * fact;
+    xsRH = 32.0 * gR * gR * fact;
+
+    return 0.25*( (1.0 - Pe)*(1.0 + Pp)*xsLH + (1.0 + Pe)*(1.0 - Pp)*xsRH );
+}
+
+const double StandardModel::SigmaeeHvv(const double sqrt_s, const double Pe, const double Pp) const
+{   
+    double xsLH=1.0, xsRH=0.0;
+
+    return 0.25*( (1.0 - Pe)*(1.0 + Pp)*xsLH + (1.0 + Pe)*(1.0 - Pp)*xsRH ); 
+}
+
+const double StandardModel::SigmaeeHee(const double sqrt_s, const double Pe, const double Pp) const
+{   
+    double xsLH=0.0, xsRH=0.0;
+
+    return 0.25*( (1.0 - Pe)*(1.0 + Pp)*xsLH + (1.0 + Pe)*(1.0 - Pp)*xsRH ); 
+}
+
+////////////////////////////////////////////////////////////////////////
+// Higgs decay widths
+////////////////////////////////////////////////////////////////////////
+
+const double StandardModel::GammaHtogg() const
+{   
+    double gamma;
+    double tau_t = 4.0 * pow(quarks[TOP].getMass(),2)/mHl/mHl; 
+    double tau_b = 4.0 * pow(quarks[BOTTOM].getMass(),2)/mHl/mHl; 
+    double tau_c = 4.0 * pow(quarks[CHARM].getMass(),2)/mHl/mHl; 
+    double tau_s = 4.0 * pow(quarks[STRANGE].getMass(),2)/mHl/mHl; 
+    
+    gamma = AlsMz*AlsMz * (4.0 * GF /sqrt(2.0)) * (mHl*mHl*mHl /64.0/pow(M_PI,3.0)) * 
+            ( AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c) + AH_f(tau_s) ).abs2()/4.0;
+    
+    return gamma;
+}
+
+const double StandardModel::GammaHtoZZstar() const
+{
+    double x=Mz/mHl;
+    double fx;
+    double g2 = 4.0 * sqrt(2.0) * GF * pow(Mw(),2);
+    double gamma;
+    
+    fx = -fabs(1.0-x*x)*( 47.0*x*x/2.0 - 13.0/2.0 +1.0/x/x ) + 
+            3.0*( 1.0 - 6.0*x*x + 4.0*x*x*x*x )*fabs(log(x)) + 
+            3.0*( 1.0 - 8.0*x*x + 20.0*x*x*x*x )*acos(( 3.0*x*x - 1.0 )/2.0/x/x/x)/sqrt( 4.0*x*x- 1.0);
+    
+    gamma = g2*g2 * mHl * fx * ( 7.0 - 40.0*sW2()/3.0 + 160.0 *sW2()*sW2()/9.0 ) / cW2() / cW2() / 2048.0 / pow(M_PI,3.0);
+    
+    return gamma;
+}
+    
+const double StandardModel::GammaHtoWWstar() const
+{
+    double x=Mw()/mHl;
+    double fx;
+    double g2 = 4.0 * sqrt(2.0) * GF * pow(Mw(),2);
+    double gamma;
+    
+    fx = -fabs(1.0-x*x)*( 47.0*x*x/2.0 - 13.0/2.0 +1.0/x/x ) + 
+            3.0*( 1.0 - 6.0*x*x + 4.0*x*x*x*x )*fabs(log(x)) + 
+            3.0*( 1.0 - 8.0*x*x + 20.0*x*x*x*x )*acos(( 3.0*x*x - 1.0 )/2.0/x/x/x)/sqrt( 4.0*x*x- 1.0);
+    
+    gamma = 3.0 * g2*g2 * mHl * fx / 512.0 / pow(M_PI,3.0);
+    
+    return gamma;
+}
+
+const double StandardModel::GammaHtoZga() const
+{       
+    double gamma;
+    
+    double m_t = mtpole;
+    double m_b = quarks[BOTTOM].getMass();
+    double m_c = quarks[CHARM].getMass();
+    double m_s = quarks[STRANGE].getMass();
+    double m_tau = leptons[TAU].getMass();
+    double m_mu = leptons[MU].getMass();
+
+    double M_w_2 = pow(Mw(),2.0);
+
+    double Qt = quarks[TOP].getCharge();
+    double Qb = quarks[BOTTOM].getCharge();
+    double Qc = quarks[CHARM].getCharge();
+    double Qs = quarks[STRANGE].getCharge();
+    double Qtau = leptons[TAU].getCharge();
+    double Qmu = leptons[MU].getCharge();
+
+    double tau_t = 4.0 * m_t * m_t / mHl / mHl;
+    double tau_b = 4.0 * m_b * m_b / mHl / mHl;
+    double tau_c = 4.0 * m_c * m_c / mHl / mHl;
+    double tau_s = 4.0 * m_s * m_s / mHl / mHl;
+    double tau_tau = 4.0 * m_tau * m_tau / mHl / mHl;
+    double tau_mu = 4.0 * m_mu * m_mu / mHl / mHl;
+    double tau_W = 4.0 * M_w_2 / mHl / mHl;
+
+    double lambda_t = 4.0 * m_t * m_t / Mz / Mz;
+    double lambda_b = 4.0 * m_b * m_b / Mz / Mz;
+    double lambda_c = 4.0 * m_c * m_c / Mz / Mz;
+    double lambda_s = 4.0 * m_s * m_s / Mz / Mz;
+    double lambda_tau = 4.0 * m_tau * m_tau / Mz / Mz;
+    double lambda_mu = 4.0 * m_mu * m_mu / Mz / Mz;
+    double lambda_W = 4.0 * M_w_2 / Mz / Mz;
+
+    double sc = sqrt(sW2()*cW2());   
+    double vSMt = (2.0 * (quarks[TOP].getIsospin()) - 4.0 * Qt * sW2())/sc;
+    double vSMb = (2.0 * (quarks[BOTTOM].getIsospin()) - 4.0 * Qb * sW2())/sc;
+    double vSMc = (2.0 * (quarks[CHARM].getIsospin()) - 4.0 * Qc * sW2())/sc;
+    double vSMs = (2.0 * (quarks[STRANGE].getIsospin()) - 4.0 * Qs * sW2())/sc;
+    double vSMtau = (2.0 * (leptons[TAU].getIsospin()) - 4.0 * Qtau * sW2())/sc;
+    double vSMmu = (2.0 * (leptons[MU].getIsospin()) - 4.0 * Qmu * sW2())/sc;
+    
+    gslpp::complex MSM;
+
+    MSM = (ale/4.0/M_PI) * ((3.0 * vSMt * Qt * AHZga_f(tau_t, lambda_t) +
+            3.0 * vSMb * Qb * AHZga_f(tau_b, lambda_b) +
+            3.0 * vSMc * Qc * AHZga_f(tau_c, lambda_c) +
+            3.0 * vSMs * Qs * AHZga_f(tau_s, lambda_s) +
+            vSMtau * Qtau * AHZga_f(tau_tau, lambda_tau) +
+            vSMmu * Qmu * AHZga_f(tau_mu, lambda_mu)) +
+            AHZga_W(tau_W, lambda_W)/sqrt(sW2()));
+
+    gamma = (4.0*sqrt(2)*GF) * (MSM.abs2()) * pow(mHl*(1.0-Mz*Mz/mHl/mHl),3.0)/32.0/M_PI;
+
+    return gamma;
+}
+
+const double StandardModel::GammaHtogaga() const
+{   
+    double gamma;
+    
+    double m_t = mtpole;
+    double m_b = quarks[BOTTOM].getMass();
+    double m_c = quarks[CHARM].getMass();
+    double m_s = quarks[STRANGE].getMass();
+    double m_tau = leptons[TAU].getMass();
+    double m_mu = leptons[MU].getMass();
+
+    double M_w_2 = pow(Mw(),2.0);
+
+    double Qt = quarks[TOP].getCharge();
+    double Qb = quarks[BOTTOM].getCharge();
+    double Qc = quarks[CHARM].getCharge();
+    double Qs = quarks[STRANGE].getCharge();
+    double Qtau = leptons[TAU].getCharge();
+    double Qmu = leptons[MU].getCharge();
+
+    double tau_t = 4.0 * m_t * m_t / mHl / mHl;
+    double tau_b = 4.0 * m_b * m_b / mHl / mHl;
+    double tau_c = 4.0 * m_c * m_c / mHl / mHl;
+    double tau_s = 4.0 * m_s * m_s / mHl / mHl;
+    double tau_tau = 4.0 * m_tau * m_tau / mHl / mHl;
+    double tau_mu = 4.0 * m_mu * m_mu / mHl / mHl;
+    double tau_W = 4.0 * M_w_2 / mHl / mHl;
+
+    gslpp::complex MSM;
+
+    MSM = ale * (3.0 * Qt * Qt * AH_f(tau_t) +
+            3.0 * Qb * Qb * AH_f(tau_b) +
+            3.0 * Qc * Qc * AH_f(tau_c) +
+            3.0 * Qs * Qs * AH_f(tau_s) +
+            Qtau * Qtau * AH_f(tau_tau) +
+            Qmu * Qmu * AH_f(tau_mu) +
+            AH_W(tau_W));
+
+    gamma = (4.0*GF/sqrt(2)) * (MSM.abs2()) * pow(mHl,3.0)/512.0/pow(M_PI,3);
+
+    return gamma;
+}
+    
+const double StandardModel::GammaHtomumu() const
+{   
+    double mf=leptons[MU].getMass();
+    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double Nc=1.0;
+    double gamma;
+    
+    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta;
+    
+    return gamma;
+}
+
+const double StandardModel::GammaHtotautau() const
+{   
+    double mf=leptons[TAU].getMass();
+    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double Nc=1.0;
+    double gamma;
+    
+    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta;
+    
+    return gamma;
+}
+
+const double StandardModel::GammaHtocc() const
+{   
+    double mf=quarks[CHARM].getMass();
+    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double Nc=3.0;
+    double gamma;
+    
+    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta;
+    
+    return gamma;
+}
+    
+const double StandardModel::GammaHtoss() const
+{   
+    double mf=quarks[STRANGE].getMass();
+    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double Nc=3.0;
+    double gamma;
+    
+    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta;
+    
+    return gamma;
+}
+
+const double StandardModel::GammaHtobb() const
+{   
+    double mf=quarks[BOTTOM].getMass();
+    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double Nc=3.0;
+    double gamma;
+    
+    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta;
+    
+    return gamma;
+}
+
+const double StandardModel::GammaHTot() const
+{   
+    double gamma;
+    
+    gamma = GammaHtobb() + GammaHtocc() + GammaHtoss() + 
+            GammaHtotautau() + GammaHtomumu() + 
+            GammaHtoZZstar() + GammaHtoWWstar() +
+            GammaHtogg() + GammaHtogaga() + GammaHtoZga();
+    
+    return gamma;
+}
+
+////////////////////////////////////////////////////////////////////////
+// Higgs branching ratios
+////////////////////////////////////////////////////////////////////////
+
+const double StandardModel::BrHtogg() const
+{       
+    return GammaHtogg()/GammaHTot();
+}
+
+const double StandardModel::BrHtoZZstar() const
+{       
+    return GammaHtoZZstar()/GammaHTot();
+}
+
+const double StandardModel::BrHtoWWstar() const
+{       
+    return GammaHtoWWstar()/GammaHTot();
+}
+
+const double StandardModel::BrHtoZga() const
+{       
+    return GammaHtoZga()/GammaHTot();
+}
+
+const double StandardModel::BrHtogaga() const
+{       
+    return GammaHtogaga()/GammaHTot();
+}    
+
+const double StandardModel::BrHtomumu() const
+{       
+    return GammaHtomumu()/GammaHTot();
+}
+
+const double StandardModel::BrHtotautau() const
+{       
+    return GammaHtotautau()/GammaHTot();
+}
+
+const double StandardModel::BrHtocc() const
+{       
+    return GammaHtocc()/GammaHTot();
+}   
+
+const double StandardModel::BrHtoss() const
+{       
+    return GammaHtoss()/GammaHTot();
+}
+
+const double StandardModel::BrHtobb() const
+{       
+    return GammaHtobb()/GammaHTot();
+}
 
 /* BEGIN: REMOVE FROM THE PACKAGE */
 ////////////////////////////////////////////////////////////////////////////////////
