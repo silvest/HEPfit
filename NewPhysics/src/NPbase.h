@@ -4613,16 +4613,29 @@ public:
 //  Total cross sections  (full acceptance)
     virtual const double delta_sigmaTot_f(const Particle f, const double s) const;
     
-//  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
+//  Forward-Backward asymmetry (full acceptance). Valid for f!=e
     virtual const double delta_AFB_f(const Particle f, const double s) const;
+ 
+//  Expressions for f=e
+
+//  SM cross section integrated in [cos \theta_{min},cos \theta_{max}] 
+    virtual const double sigmaSM_ee(const double s, const double cosmin, const double cosmax) const;
+//  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
+    virtual const double delta_sigma_ee(const double s, const double cosmin, const double cosmax) const;
+//  Absolute corrections to the total cross section 
+    virtual const double delta_sigmaTot_ee(const double s) const;
+//  Absolute corrections to the FB asymmetry 
+    virtual const double delta_AFB_ee(const double s) const;
       
 //   Extension of SM observable definitions
+    virtual const double LEP2sigmaE(const double s) const;
     virtual const double LEP2sigmaMu(const double s) const;
     virtual const double LEP2sigmaTau(const double s) const;
     virtual const double LEP2sigmaHadron(const double s) const;
     virtual const double LEP2sigmaCharm(const double s) const;
     virtual const double LEP2sigmaBottom(const double s) const;
-    
+
+    virtual const double LEP2AFBe(const double s) const;
     virtual const double LEP2AFBmu(const double s) const;
     virtual const double LEP2AFBtau(const double s) const;
     virtual const double LEP2AFBcharm(const double s) const;

@@ -3635,6 +3635,10 @@ const double StandardModel::BrHtobb() const
 ////////////////////////////////////////////////////////////////////////////////////
 //LEP2 Observables
 
+const double StandardModel::LEP2sigmaE(const double s) const
+{
+    return 0.;
+}
 
 const double StandardModel::LEP2sigmaMu(const double s) const
 {
@@ -6526,6 +6530,10 @@ const double StandardModel::LEP2AFBcharm(const double s) const
 
 }
 
+const double StandardModel::LEP2AFBe(const double s) const
+{
+    return 0.;
+}
 
 const double StandardModel::LEP2AFBmu(const double s) const
 {

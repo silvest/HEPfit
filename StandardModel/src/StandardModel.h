@@ -3153,13 +3153,15 @@ public:
 /* BEGIN: REMOVE FROM THE PACKAGE */
     ////////////////////////////////////////////////////////////////////////
     //LEP2 Inclusive Observables
-    
+
+    virtual const double LEP2sigmaE(const double s) const;    
     virtual const double LEP2sigmaMu(const double s) const;
     virtual const double LEP2sigmaTau(const double s) const;
     virtual const double LEP2sigmaHadron(const double s) const;
     virtual const double LEP2sigmaCharm(const double s) const;
     virtual const double LEP2sigmaBottom(const double s) const;
-    
+ 
+    virtual const double LEP2AFBe(const double s) const;
     virtual const double LEP2AFBmu(const double s) const;
     virtual const double LEP2AFBtau(const double s) const;
     virtual const double LEP2AFBcharm(const double s) const;

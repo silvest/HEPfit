@@ -1155,14 +1155,40 @@ const double NPbase::delta_sigmaTot_f(const Particle f, const double s) const
     return 0.0;
 }
     
-//  Forward-Backward asymmetry (full acceptance). Valid for f!=e !
+//  Forward-Backward asymmetry (full acceptance). Valid for f!=e
 const double NPbase::delta_AFB_f(const Particle f, const double s) const
 {
     return 0.0;
 }
 
+//  Expressions for f=e
+
+const double NPbase::sigmaSM_ee(const double s, const double cosmin, const double cosmax) const
+{
+    return 0.0;
+}
+
+const double NPbase::delta_sigma_ee(const double s, const double cosmin, const double cosmax) const
+{
+    return 0.0;
+}
+
+const double NPbase::delta_sigmaTot_ee(const double s) const
+{
+    return 0.0;
+}
+
+const double NPbase::delta_AFB_ee(const double s) const
+{
+    return 0.0;
+}
 
 //   Extension of SM observable definitions
+const double NPbase::LEP2sigmaE(const double s) const
+{
+    return (trueSM.LEP2sigmaE(s) + delta_sigmaTot_ee(s));
+}
+
 const double NPbase::LEP2sigmaMu(const double s) const
 {
     return (trueSM.LEP2sigmaMu(s) + delta_sigmaTot_f(leptons[MU], s));
@@ -1186,6 +1212,11 @@ const double NPbase::LEP2sigmaCharm(const double s) const
 const double NPbase::LEP2sigmaBottom(const double s) const
 {
     return (trueSM.LEP2sigmaBottom(s) + delta_sigmaTot_f(quarks[BOTTOM], s));
+}
+
+const double NPbase::LEP2AFBe(const double s) const
+{
+    return (trueSM.LEP2AFBe(s) + delta_AFB_ee(s));
 }
     
 const double NPbase::LEP2AFBmu(const double s) const
