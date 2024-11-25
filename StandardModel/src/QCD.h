@@ -539,6 +539,16 @@ public:
     }
 
     /**
+     * @brief A set method to change the mass of a quark.
+     * @param[in] q the quark for which the mass is being set
+     * @param[in] mass the mass of the quark in GeV
+     */
+    void setQuarkMass(const quark q, const double mass)
+    {
+        quarks[q].setMass(mass);
+    }
+
+    /**
      * @brief A get method to access the value of \f$\alpha_s(M_{\alpha_s})\f$.
      * @return the strong coupling constant at @f$M_{\alpha_s}@f$, @f$\alpha_s(M_{\alpha_s})@f$
      */

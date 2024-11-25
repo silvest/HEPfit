@@ -1503,13 +1503,13 @@ const double QCD::MrunTMP(const double mu_f, const double mu_i, const double m, 
     double af = Als(mu_f, nf, orderForAls) / (4. * M_PI);
 
     // LO contribution
-    double b0 = Beta0(nf), g0 = Gamma0(nf);
+    double b0 = Beta0((double) nf), g0 = Gamma0((double) nf);
     double mLO = m * pow(af / ai, g0 / (2. * b0));
     if (order == LO)
         return mLO;
 
     // NLO contribution
-    double b1 = Beta1(nf), g1 = Gamma1(nf);
+    double b1 = Beta1((double) nf), g1 = Gamma1((double) nf);
     double A1 = g1 / (2. * b0) - b1 * g0 / (2. * b0 * b0);
     double mNLO = mLO * A1 * (af - ai);
     if (order == NLO)
@@ -1518,7 +1518,7 @@ const double QCD::MrunTMP(const double mu_f, const double mu_i, const double m, 
         return (mLO + mNLO);
 
     // NNLO contribution: Chetyrkin, hep-ph/9703278v1  eq. (15)
-    double b2 = Beta2(nf), g2 = Gamma2(nf);
+    double b2 = Beta2((double) nf), g2 = Gamma2((double) nf);
     double A2 = b1 * b1 * g0 / (2. * b0 * b0 * b0) - b2 * g0 / (2. * b0 * b0) - b1 * g1 / (2. * b0 * b0) + g2 / (2. * b0);
     double mNNLO = mLO * (A1 * A1 / 2. * (af - ai) * (af - ai) + A2 / 2. * (af * af - ai * ai));
     if (order == NNLO)

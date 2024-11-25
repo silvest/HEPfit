@@ -8572,12 +8572,19 @@ bool NPSMEFTd6General::PostUpdate() {
 
     //do heavy quarks first to get the thresholds right
     quarks[TOP].setMass(Mofmu2Mbar(mmu(2), getMuw(), QCD::TOP));
+    trueSM.setQuarkMass(TOP,Mofmu2Mbar(mmu(2), getMuw(), QCD::TOP));
     setMtpole(Mbar2Mp(quarks[TOP].getMass(), QCD::TOP));
+    trueSM.setMtpole(Mbar2Mp(quarks[TOP].getMass(), QCD::TOP));
     quarks[BOTTOM].setMass(Mofmu2Mbar(mmd(2), getMuw(), QCD::BOTTOM));
+    trueSM.setQuarkMass(BOTTOM,Mofmu2Mbar(mmd(2), getMuw(), QCD::BOTTOM));
     quarks[CHARM].setMass(Mofmu2Mbar(mmu(1), getMuw(), QCD::CHARM));
+    trueSM.setQuarkMass(CHARM,Mofmu2Mbar(mmu(1), getMuw(), QCD::CHARM));
     quarks[STRANGE].setMass(Mrun(quarks[STRANGE].getMass_scale(), getMuw(), mmd(1), QCD::STRANGE));
+    trueSM.setQuarkMass(STRANGE,Mrun(quarks[STRANGE].getMass_scale(), getMuw(), mmd(1), QCD::STRANGE));
     quarks[DOWN].setMass(Mrun(quarks[DOWN].getMass_scale(), getMuw(), mmd(0), QCD::DOWN));
+    trueSM.setQuarkMass(DOWN,Mrun(quarks[DOWN].getMass_scale(), getMuw(), mmd(0), QCD::DOWN));
     quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(), getMuw(), mmu(0), QCD::UP));
+    trueSM.setQuarkMass(UP,Mrun(quarks[UP].getMass_scale(), getMuw(), mmu(0), QCD::UP));
 
     VuLd = VuL.hconjugate();
 
@@ -8588,6 +8595,7 @@ bool NPSMEFTd6General::PostUpdate() {
 
     myCKM.computeCKM(CKMUnphys(0, 1).abs(), CKMUnphys(1, 2).abs(), CKMUnphys(0, 2).abs(),
             (-CKMUnphys(0, 0) * CKMUnphys(0, 2).conjugate() / (CKMUnphys(1, 0) * CKMUnphys(1, 2).conjugate())).arg());
+    trueSM.setCKM(myCKM);
 
     // std::cout << "computed CKM = " << getCKM().getCKM() << std::endl;
 

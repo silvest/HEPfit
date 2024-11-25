@@ -923,6 +923,15 @@ public:
     }
 
     /**
+     * @brief A set method to change the CKM matrix.
+     * @param[in] CKMMatrix a reference to the new CKM matrix
+     */
+    void setCKM(const CKM& CKMMatrix)
+    {
+        myCKM = CKMMatrix;
+    }
+
+    /**
      * @brief A get method to retrieve the object of the %PMNS matrix.
      * @return the %PMNS matrix
      */
