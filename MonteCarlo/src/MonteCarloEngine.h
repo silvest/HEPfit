@@ -436,8 +436,17 @@ private:
      * @param[in] rms the rms value
      * @return the number of digits of precision
      */
-    int getPrecision(double value, double rms);
+    int getPrecision(double value, double rms, int rmsPrecision = 2);
     
+    /**
+     * @brief A get method to format the numbers in the Statistics file.
+     * @param[in] value the mean value
+     * @param[in] rms the rms value
+     * @param[in] rmsPrecision the precision of the rms value
+     * @return a string containing the formatted number
+     */
+    std::string goodFormat(double value, double rms, int rmsPrecision = 2);
+
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     const std::vector<CorrelatedGaussianParameters>& CGP; ///< A vector of correlated Gaussian parameters.
     boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.
@@ -486,7 +495,7 @@ private:
     int rIdx;
     unsigned int nBins1D; ///< The number of bins in a 1D histogram.
     unsigned int nBins2D; ///< The number of bins in a 2D histogram.
-    unsigned int significants; /// < The number of significant digits in the Statistics File.
+    int significants; /// < The number of significant digits in the Statistics File.
     TColor * HEPfit_green; /// < The colour green for HEPfit.
     TColor * HEPfit_red; /// < The colour red for HEPfit.
     unsigned int histogramBufferSize; /// < The size of the buffer used for the histograms.

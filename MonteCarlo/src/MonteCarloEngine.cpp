@@ -26,6 +26,7 @@
 #include <iomanip>
 #include <limits>
 #include <memory>
+#include <sstream>
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
@@ -1029,12 +1030,38 @@ void MonteCarloEngine::PrintCorrelationMatrixToLaTeX(const std::string filename)
     out.close();
 }
 
-int MonteCarloEngine::getPrecision(double value, double rms) {
+int MonteCarloEngine::getPrecision(double value, double rms, int rmsPrecision) {
     if (value == 0.0) // otherwise it will return 'nan' due to the log10() of zero
         return 0.0;
 
-    if (significants == 0) return 2 + ceil(log10(fabs(value)))-ceil(log10(rms));   
+    if (significants == 0) return rmsPrecision + ceil(log10(fabs(value)))-ceil(log10(rms));   
     else return significants;
+}
+
+std::string MonteCarloEngine::goodFormat(double value, double rms, int rmsPrecision) {
+    
+    std::ostringstream out;
+    // We want to give value with significant digits up to the precision of the rms. This requires 
+    // a bit of manipulation if value is smaller than rms.
+    int precision = getPrecision(value, rms, rmsPrecision);
+    if (precision > 0)  
+        out.precision(precision);
+    else if (precision == 0)
+    {
+        double factor=pow(10,-ceil(log10(fabs(value))));
+        value=round(value*factor)/factor;
+        out.precision(1);
+    }
+    else
+    {
+        value = 0.;
+        if(ceil(log10(rms))<=0)
+            out << std::fixed << std::setprecision(ceil(log10(rms))+rmsPrecision);
+        else
+            out.precision(1);
+    }
+    out << value; 
+    return out.str();
 }
 
 std::string MonteCarloEngine::computeStatistics() {
@@ -1042,7 +1069,7 @@ std::string MonteCarloEngine::computeStatistics() {
     std::vector<double> mode(GetBestFitParameters());
     if (mode.size() == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
     std::streamsize ss_prec = std::cout.precision();
-    unsigned int rmsPrecision = 2;
+    int rmsPrecision = 2;
     if (significants > 0) rmsPrecision = significants;
     std::ostringstream StatsLog;
     int i = 0;
@@ -1069,11 +1096,10 @@ std::string MonteCarloEngine::computeStatistics() {
         
         if (bch1d.GetHistogram()->Integral() > 0.0) {
             double rms = bch1d.GetHistogram()->GetRMS();
-            StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(getPrecision(bch1d.GetHistogram()->GetMean(),rms))
-                    << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(rmsPrecision)
+            StatsLog << "      Mean +- sqrt(V):                " << goodFormat(bch1d.GetHistogram()->GetMean(),rms,rmsPrecision)
+                    << " +- " << std::setprecision(rmsPrecision)
                     << rms << std::endl
-
-                    << "      (Marginalized) mode:            " << std::setprecision(getPrecision(bch1d.GetLocalMode(0),rms)) << bch1d.GetLocalMode(0) << std::endl;
+                    << "      (Marginalized) mode:            " << goodFormat(bch1d.GetLocalMode(0),rms) << std::endl;
             std::vector<double> intervals;
             intervals.push_back(0.682689492137);
             intervals.push_back(0.954499736104);
@@ -1088,8 +1114,8 @@ std::string MonteCarloEngine::computeStatistics() {
                     double interval_mode = v[i].intervals[j].mode;
                     double interval_heignt = v[i].intervals[j].relative_height;
                     double interval_relative_mass = v[i].intervals[j].relative_mass;
-                    StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
-                            << ") corresponding to " << (interval_xmin + interval_xmax)/2. << " +- " << (-interval_xmin + interval_xmax)/2./(i+1) << " (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
+                    StatsLog << "       (" << goodFormat(interval_xmin, rms) << ", " << goodFormat(interval_xmax, rms) 
+                            << ") corresponding to " <<  goodFormat((interval_xmin + interval_xmax)/2.,rms) << " +- " << goodFormat((-interval_xmin + interval_xmax)/2./(i+1),rms) << " (local mode at " << goodFormat(interval_mode, rms) << " with rel. height "
                             << std::setprecision(getPrecision(interval_heignt, ss_prec)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, ss_prec)) << interval_relative_mass << ")"
                             << std::endl;
                     StatsLog << std::endl;
@@ -1125,11 +1151,10 @@ std::string MonteCarloEngine::computeStatistics() {
             BCH1D bch1d = Histo1D[it2->getName()];
             if (bch1d.GetHistogram()->Integral() > 0.0) {
                 double rms = bch1d.GetHistogram()->GetRMS();
-                StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(getPrecision(bch1d.GetHistogram()->GetMean(), rms))
-                        << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(rmsPrecision)
+                StatsLog << "      Mean +- sqrt(V):                " << goodFormat(bch1d.GetHistogram()->GetMean(), rms)
+                        << " +- " << std::setprecision(rmsPrecision)
                         << rms << std::endl
-
-                        << "      (Marginalized) mode:            " << std::setprecision(getPrecision(bch1d.GetLocalMode(0), rms)) << bch1d.GetLocalMode(0) << std::endl;
+                        << "      (Marginalized) mode:            " << goodFormat(bch1d.GetLocalMode(0), rms)  << std::endl;
 
                 std::vector<double> intervals;
                 intervals.push_back(0.682689492137);
@@ -1145,8 +1170,8 @@ std::string MonteCarloEngine::computeStatistics() {
                         double interval_mode = v[i].intervals[j].mode;
                         double interval_heignt = v[i].intervals[j].relative_height;
                         double interval_relative_mass = v[i].intervals[j].relative_mass;
-                        StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
-                                << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
+                        StatsLog << "       (" <<goodFormat(interval_xmin, rms) << ", " << goodFormat(interval_xmax, rms)
+                                << ") (local mode at " << goodFormat(interval_mode, rms) << " with rel. height "
                                 << std::setprecision(getPrecision(interval_heignt, ss_prec)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, ss_prec)) << interval_relative_mass << ")"
                                 << std::endl;
                         StatsLog << std::endl;
