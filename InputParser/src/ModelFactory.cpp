@@ -15,6 +15,7 @@
 #include "NPZbbbarLinearized.h"
 #include "NPSMEFTd6.h"
 #include "NPSMEFTd6General.h"
+#include "NPSMEFTd6U2qU1le.h"
 #include "NPSMEFTd6U2.h"
 #include "NPSMEFTd6U3.h"
 
@@ -59,6 +60,7 @@ ModelFactory::ModelFactory()
     modelFactory["NPZbbbarLinearizedLR"] = bind(boost::factory<NPZbbbarLinearized*>(), true);
     modelFactory["NPSMEFTd6"] = bind(boost::factory<NPSMEFTd6*>(), false, false);
     modelFactory["NPSMEFTd6General"] = boost::factory<NPSMEFTd6General*>();
+    modelFactory["NPSMEFTd6U2qU1le"] = boost::factory<NPSMEFTd6U2qU1le*>();
     modelFactory["NPSMEFTd6U2"] = boost::factory<NPSMEFTd6U2*>();
     modelFactory["NPSMEFTd6U3"] = boost::factory<NPSMEFTd6U3*>();
     
