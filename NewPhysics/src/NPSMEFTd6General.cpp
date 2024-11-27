@@ -8328,8 +8328,6 @@ bool NPSMEFTd6General::PostUpdate() {
 
     //    std::cout<<"\033[1;31m Mw_inp = \033[0m "<< Mw_inp << std::endl;
 
-    if (!NPbase::PostUpdate()) return (false);
-
     LambdaNP2 = Lambda_NP * Lambda_NP;
     LambdaNPm2 = 1. / LambdaNP2;
 
@@ -8452,63 +8450,6 @@ bool NPSMEFTd6General::PostUpdate() {
 
     delta_UgCC = (delta_e - 0.5 * delta_sW2);
 
-
-    //  NP corrections to Total Higgs width
-    dGammaHTotR1 = deltaGammaTotalRatio1();
-
-    if (FlagQuadraticTerms) {
-        dGammaHTotR2 = deltaGammaTotalRatio2();
-    } else {
-        dGammaHTotR2 = 0.0;
-    }
-
-    //  Total: to be used in BR functions to check positivity
-    GammaHTotR = 1.0 + dGammaHTotR1 + dGammaHTotR2;
-
-    // The total theory error in the H width: set to 0.0 for the moment
-    eHwidth = deltaGammaTotalRatio1() - deltaGammaTotalRatio1noError();
-
-
-    //The call to this method should be dropped once we have correctly implemented the matching
-    //getWCFromEvolutor();
-
-
-
-    UevL = 1.0; // Neglect PMNS effects in high-pT observables 
-    VudL = 1.0; // Neglect CKM effects in high-pT observables 
-
-    //    Yuke = sqrt(2.) * (leptons[ELECTRON].getMass()) / v();
-    //    Yukmu = sqrt(2.) * (leptons[MU].getMass()) / v();
-    //    Yuktau = sqrt(2.) * (leptons[TAU].getMass()) / v();
-    //    Yuku = sqrt(2.) * (quarks[UP].getMass()) / v();
-    //    Yukc = sqrt(2.) * (quarks[CHARM].getMass()) / v();
-    //    Yukt = sqrt(2.) * mtpole / v();
-    //    Yukd = sqrt(2.) * (quarks[DOWN].getMass()) / v();
-    //    Yuks = sqrt(2.) * (quarks[STRANGE].getMass()) / v();
-    //    Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
-
-
-    //  Dimension-6 coefficients used in the STXS parameterization: to be discussed with AJL
-    //    aiG = 16.0 * M_PI * M_PI * getSMEFTCoeffEW("CHG") * Mw_tree * Mw_tree / g3_tree / g3_tree / LambdaNP2;
-    //    ai3G = getSMEFTCoeffEW("CG") * Mw_tree * Mw_tree / g3_tree / g3_tree / g3_tree / LambdaNP2;
-    //    ai2G = 0.0; // Add
-    //    aiT = 2.0 * getSMEFTCoeffEW("CHD") * v2;
-    //    aiH = -2.0 * getSMEFTCoeffEW("CHbox") * v2;
-    //    aiWW = 0.0; // Add
-    //    aiB = 0.0; // Add
-    //    aiHW = CDHW * Mw_tree * Mw_tree / 2.0 / g2_tree / LambdaNP2;
-    //    aiHB = CDHB * Mw_tree * Mw_tree / 2.0 / g1_tree / LambdaNP2;
-    //    aiA =getSMEFTCoeffEW("CHB") * Mw_tree * Mw_tree / g1_tree / g1_tree / LambdaNP2;
-    //    aiHQ = getSMEFTCoeffEW("CHq1R",0,0) * v2; // Valid only for flavour universal NP
-    //    aipHQ = getSMEFTCoeffEW("CHq3R",0,0) * v2; // Valid only for flavour universal NP
-    //    aiHL = getSMEFTCoeffEW("CHl1R",0,0) * v2; // Valid only for flavour universal NP
-    //    aipHL = getSMEFTCoeffEW("CHl3R",0,0) * v2; // Valid only for flavour universal NP. From HEL Lagrangian. Not in original note
-    //    aiHu = getSMEFTCoeffEW("CHuR",0,0) * v2; // Valid only for flavour universal NP
-    //    aiHd = getSMEFTCoeffEW("CHdR",0,0) * v2; // Valid only for flavour universal NP
-    //    aiHe = getSMEFTCoeffEW("CHeR",0,0) * v2; // Valid only for flavour universal NP
-    //    aiu = -getSMEFTCoeffEW("CuHR",2,2) * v2 / Yukt;
-    //    aiuG = getSMEFTCoeffEW("CuGR",2,2) * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / getSMEFTCoeffEW("YuR",2,2) / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
-
     ////////////////////////////////////////////////////////////////////////////
     //AG:begin
     delta_ale = -2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2;
@@ -8528,8 +8469,6 @@ bool NPSMEFTd6General::PostUpdate() {
     delta_xBZ = g2_tree * (g1_tree * delta_g2 - g2_tree * delta_g1 - g2_tree * g2_tree * getSMEFTCoeffEW("CHWB") * v2) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 1.5);
     //AG:end
     ////////////////////////////////////////////////////////////////////////////
-
-    //  Dim 6 SMEFT matching
 
     //Go to mass eigenstate basis first; this is done here since we need to reassign quark masses and the CKM matrix
 
@@ -8628,6 +8567,74 @@ bool NPSMEFTd6General::PostUpdate() {
     VuRd = VuR.hconjugate();
     VdLd = VdL.hconjugate();
     VdRd = VdR.hconjugate();
+
+
+    // do the NPbase PostUpdate without recomputing the top mass and the CKM matrix
+    computemt=false;
+    trueSM.setComputemt(false);
+    requireCKM=false;
+    trueSM.setRequireCKM(false);
+
+    if (!NPbase::PostUpdate()) return (false);
+    if (!trueSM.PostUpdate()) return (false);
+
+    //  NP corrections to Total Higgs width
+    dGammaHTotR1 = deltaGammaTotalRatio1();
+
+    if (FlagQuadraticTerms) {
+        dGammaHTotR2 = deltaGammaTotalRatio2();
+    } else {
+        dGammaHTotR2 = 0.0;
+    }
+
+    //  Total: to be used in BR functions to check positivity
+    GammaHTotR = 1.0 + dGammaHTotR1 + dGammaHTotR2;
+
+    // The total theory error in the H width: set to 0.0 for the moment
+    eHwidth = deltaGammaTotalRatio1() - deltaGammaTotalRatio1noError();
+
+
+    //The call to this method should be dropped once we have correctly implemented the matching
+    //getWCFromEvolutor();
+
+
+
+    UevL = 1.0; // Neglect PMNS effects in high-pT observables 
+    VudL = 1.0; // Neglect CKM effects in high-pT observables 
+
+    //    Yuke = sqrt(2.) * (leptons[ELECTRON].getMass()) / v();
+    //    Yukmu = sqrt(2.) * (leptons[MU].getMass()) / v();
+    //    Yuktau = sqrt(2.) * (leptons[TAU].getMass()) / v();
+    //    Yuku = sqrt(2.) * (quarks[UP].getMass()) / v();
+    //    Yukc = sqrt(2.) * (quarks[CHARM].getMass()) / v();
+    //    Yukt = sqrt(2.) * mtpole / v();
+    //    Yukd = sqrt(2.) * (quarks[DOWN].getMass()) / v();
+    //    Yuks = sqrt(2.) * (quarks[STRANGE].getMass()) / v();
+    //    Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
+
+
+    //  Dimension-6 coefficients used in the STXS parameterization: to be discussed with AJL
+    //    aiG = 16.0 * M_PI * M_PI * getSMEFTCoeffEW("CHG") * Mw_tree * Mw_tree / g3_tree / g3_tree / LambdaNP2;
+    //    ai3G = getSMEFTCoeffEW("CG") * Mw_tree * Mw_tree / g3_tree / g3_tree / g3_tree / LambdaNP2;
+    //    ai2G = 0.0; // Add
+    //    aiT = 2.0 * getSMEFTCoeffEW("CHD") * v2;
+    //    aiH = -2.0 * getSMEFTCoeffEW("CHbox") * v2;
+    //    aiWW = 0.0; // Add
+    //    aiB = 0.0; // Add
+    //    aiHW = CDHW * Mw_tree * Mw_tree / 2.0 / g2_tree / LambdaNP2;
+    //    aiHB = CDHB * Mw_tree * Mw_tree / 2.0 / g1_tree / LambdaNP2;
+    //    aiA =getSMEFTCoeffEW("CHB") * Mw_tree * Mw_tree / g1_tree / g1_tree / LambdaNP2;
+    //    aiHQ = getSMEFTCoeffEW("CHq1R",0,0) * v2; // Valid only for flavour universal NP
+    //    aipHQ = getSMEFTCoeffEW("CHq3R",0,0) * v2; // Valid only for flavour universal NP
+    //    aiHL = getSMEFTCoeffEW("CHl1R",0,0) * v2; // Valid only for flavour universal NP
+    //    aipHL = getSMEFTCoeffEW("CHl3R",0,0) * v2; // Valid only for flavour universal NP. From HEL Lagrangian. Not in original note
+    //    aiHu = getSMEFTCoeffEW("CHuR",0,0) * v2; // Valid only for flavour universal NP
+    //    aiHd = getSMEFTCoeffEW("CHdR",0,0) * v2; // Valid only for flavour universal NP
+    //    aiHe = getSMEFTCoeffEW("CHeR",0,0) * v2; // Valid only for flavour universal NP
+    //    aiu = -getSMEFTCoeffEW("CuHR",2,2) * v2 / Yukt;
+    //    aiuG = getSMEFTCoeffEW("CuGR",2,2) * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / getSMEFTCoeffEW("YuR",2,2) / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
+
+    //  Dim 6 SMEFT matching
 
 
     // update LEFT Wilson coefficients 

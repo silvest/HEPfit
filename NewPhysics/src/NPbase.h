@@ -72,6 +72,12 @@ public:
     NPbase();
 
     /**
+     * @brief The preupdate method for %NPbase.
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool PreUpdate();
+
+    /**
      * @brief The update method for %NPbase.
      * @return a boolean that is true if the execution is successful
      */

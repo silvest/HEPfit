@@ -922,14 +922,7 @@ public:
         return myCKM;
     }
 
-    /**
-     * @brief A set method to change the CKM matrix.
-     * @param[in] CKMMatrix a reference to the new CKM matrix
-     */
-    void setCKM(const CKM& CKMMatrix)
-    {
-        myCKM = CKMMatrix;
-    }
+    
 
     /**
      * @brief A get method to retrieve the object of the %PMNS matrix.
@@ -3160,8 +3153,8 @@ public:
     virtual const double LEP2sigmaHadron(const double s) const;
     virtual const double LEP2sigmaCharm(const double s) const;
     virtual const double LEP2sigmaBottom(const double s) const;
- 
-    virtual const double LEP2AFBe(const double s) const;
+
+    virtual const double LEP2AFBe(const double s) const; 
     virtual const double LEP2AFBmu(const double s) const;
     virtual const double LEP2AFBtau(const double s) const;
     virtual const double LEP2AFBcharm(const double s) const;
@@ -3198,6 +3191,26 @@ virtual const double getmq(const QCD::quark q, const double mu) const
 {
     return m_q(q, mu, FULLNLO);
 }
+
+    /**
+     * @brief A set method to change the value of requireCKM.
+     * @param[in] requireCKM the new value for requireCKM
+     */
+    void setRequireCKM(bool requireCKM)
+    {
+        this->requireCKM = requireCKM;
+    }
+
+    /**
+     * @brief A set method to change the CKM matrix.
+     * @param[in] CKMMatrix a reference to the new CKM matrix
+     */
+    void setCKM(const CKM& CKMMatrix)
+    {
+        myCKM = CKMMatrix;
+    }
+
+
     ////////////////////////////////////////////////////////////////////////
 protected:
 

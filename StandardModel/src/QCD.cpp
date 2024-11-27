@@ -1649,7 +1649,8 @@ const double QCD::Mp2Mbar_bar(const double mp, const quark q, const orders order
 
     ROOT::Math::BrentRootFinder brf;
 
-    brf.SetFunction(wf1, .5 * mp, 2 * mp);
+    brf.SetNpx(5);
+    brf.SetFunction(wf1, .5 * mp, 2. * mp);
     if (brf.Solve())
     {
         CacheShift(mp2mbar_cache, 6);
@@ -1769,7 +1770,7 @@ const double QCD::Mofmu2Mbar(const double m, const double mu, const quark q) con
     wf1.SetParameters(params);
 
     ROOT::Math::BrentRootFinder brf;
-
+    brf.SetNpx(5);
     brf.SetFunction(wf1, .3 * mlow, 3. * mlow);
     if (brf.Solve())
         mlow = brf.Root();

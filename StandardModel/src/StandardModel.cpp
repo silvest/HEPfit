@@ -233,6 +233,7 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars)
 
     if (UpdateError) return (false);
 
+    if (isSliced) return (true);
     if (!PostUpdate()) return (false);
 
     return (true);
@@ -242,8 +243,9 @@ bool StandardModel::PostUpdate()
 {
     if (!QCD::PostUpdate()) return (false);
 
-    /* Set the CKM and PMNS matrices */
-    computeCKM();
+    /* Set the CKM and PMNS matrices if not already set in the derived classes */
+    if(requireCKM)
+        computeCKM();
     
     /* Compute the 5-quark contribution to the running of alpha*/
     dAl5hMz = Dalpha5hMz();   

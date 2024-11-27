@@ -981,6 +981,14 @@ public:
         return QCDsuccess;
     }
 
+    /**
+     * @brief A set method to change the value of computemt.
+     * @param[in] computemt the new value for computemt
+     */
+    void setComputemt(bool computemt)
+    {
+        this->computemt = computemt;
+    }
 
 protected:
 
