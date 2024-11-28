@@ -3560,7 +3560,7 @@ const double StandardModel::GammaHtocc() const
     //      alfa_s(MH)
     asMH = Als(mHl, FULLNLO);
     
-    mf = mf0 * ( 1.0 - (asMH/2.0/M_PI) * log(mf0/mHl) );
+    mf = Mrun(mHl, mf0, mf0, CHARM, FULLNLO);
     
     beta=1.0-4.0*mf*mf/mHl/mHl;
     
@@ -3586,7 +3586,7 @@ const double StandardModel::GammaHtoss() const
     //      alfa_s(MH)
     asMH = Als(mHl, FULLNLO);
     
-    mf = mf0 * ( 1.0 - (asMH/2.0/M_PI) * log(mf0/mHl) );
+    mf = Mrun(mHl, 2.0, mf0, STRANGE, FULLNLO);
     
     beta=1.0-4.0*mf*mf/mHl/mHl;
     
@@ -3612,7 +3612,7 @@ const double StandardModel::GammaHtobb() const
     //      alfa_s(MH)
     asMH = Als(mHl, FULLNLO);
     
-    mf = mf0 * ( 1.0 - (asMH/2.0/M_PI) * log(mf0/mHl) );
+    mf = Mrun(mHl, mf0, mf0, BOTTOM, FULLNLO);
     
     beta=1.0-4.0*mf*mf/mHl/mHl;
     

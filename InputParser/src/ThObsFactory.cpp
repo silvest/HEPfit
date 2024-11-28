@@ -177,6 +177,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Ruc"] = boost::factory<Ruc*>();
     obsThFactory["Rcharm"] = boost::factory<Rcharm*>();
     obsThFactory["Rbottom"] = boost::factory<Rbottom*>();
+    //----- Higgs observables: Decay widths 
+    obsThFactory["GammaHtobb"] = boost::factory<Htobb*>();
+    obsThFactory["GammaHtocc"] = boost::factory<Htocc*>();
+    obsThFactory["GammaHtoss"] = boost::factory<Htoss*>();
+    obsThFactory["GammaHtotautau"] = boost::factory<Htotautau*>();
+    obsThFactory["GammaHtomumu"] = boost::factory<Htomumu*>();
+    obsThFactory["GammaHtoWW"] = boost::factory<HtoWW*>();
+    obsThFactory["GammaHtoZZ"] = boost::factory<HtoZZ*>();
+    obsThFactory["GammaHtogaga"] = boost::factory<Htogaga*>();
+    obsThFactory["GammaHtoZga"] = boost::factory<HtoZga*>();
+    obsThFactory["GammaHtogg"] = boost::factory<Htogg*>();
+    obsThFactory["GammaH"] = boost::factory<Hwidth*>();    
     //-----  Triple gauge coupling observables  -----
     obsThFactory["deltag1Z"] = boost::factory<deltag1Z*>();
     obsThFactory["deltaKgamma"] = boost::factory<deltaKgamma*>();

@@ -53,6 +53,8 @@
 #include "LE_NuScatt.h"
 #include "LE_ParityViolation.h"
 #include "Lepton_Decays.h"
+// Higgs observables
+#include "Hdecays.h"
 /* BEGIN: REMOVE FROM THE PACKAGE */
 #include "LEP2sigmaElectron.h"
 #include "LEP2sigmaHadron.h"
