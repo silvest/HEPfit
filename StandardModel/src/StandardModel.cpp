@@ -3366,9 +3366,27 @@ const double StandardModel::GammaHtogg() const
     double tau_b = 4.0 * pow(quarks[BOTTOM].getMass(),2)/mHl/mHl; 
     double tau_c = 4.0 * pow(quarks[CHARM].getMass(),2)/mHl/mHl; 
     double tau_s = 4.0 * pow(quarks[STRANGE].getMass(),2)/mHl/mHl; 
+    double asMH,LH,Lt,nl,h0,h1,h2, h3,G0;
     
-    gamma = AlsMz*AlsMz * (4.0 * GF /sqrt(2.0)) * (mHl*mHl*mHl /64.0/pow(M_PI,3.0)) * 
+    //      alfa_s(MH)
+    asMH = Als(mHl, FULLNLO);
+    
+    // NLO corrections ( See https://arxiv.org/pdf/0708.0916 and its REf. [25])
+    // I only keep up to h3 in expr. (4), and use pole mass in tau factors for the moment
+    nl = 5;
+    LH = 0.; //  log(mu^2/MH^2) evaluated at mu=MH
+    Lt = 2.0*log(mHl/(quarks[TOP].getMass()));
+    
+    h0 = (95./4.) + (11./2.)*LH + nl*(-7./6. - LH/3.);
+    h1 = 5803./540. + 77.*LH/30. -14.*Lt/15. + nl * (-29./60. - 7. * LH / 45.);
+    h2 = 1029839./189000. + 16973.*LH/12600. - 1543.*Lt/1575. + nl * ( - 89533./378000 - 1543.*LH/18900. );
+    h3 = 9075763./2976750. + 1243*LH/1575. - 452.*Lt/575. + nl * ( - 3763./28350. -226. * LH / 4725. );
+    G0 = GF * pow(mHl,3.0)/(36.*M_PI*sqrt(2.));
+    
+    gamma = asMH*asMH * (4.0 * GF /sqrt(2.0)) * (mHl*mHl*mHl /64.0/pow(M_PI,3.0)) * 
             ( AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c) + AH_f(tau_s) ).abs2()/4.0;
+    
+    gamma = gamma + G0 * (asMH/M_PI) * (asMH/M_PI) * (asMH/M_PI) * (h0 + h1/tau_t + h2/tau_t/tau_t + h3/tau_t/tau_t/tau_t );
     
     return gamma;
 }
@@ -3377,14 +3395,14 @@ const double StandardModel::GammaHtoZZstar() const
 {
     double x=Mz/mHl;
     double fx;
-    double g2 = 4.0 * sqrt(2.0) * GF * pow(Mw(),2);
+    double g2 = 4.0 * sqrt(2.0) * GF * Mz * Mz;
     double gamma;
     
     fx = -fabs(1.0-x*x)*( 47.0*x*x/2.0 - 13.0/2.0 +1.0/x/x ) + 
             3.0*( 1.0 - 6.0*x*x + 4.0*x*x*x*x )*fabs(log(x)) + 
             3.0*( 1.0 - 8.0*x*x + 20.0*x*x*x*x )*acos(( 3.0*x*x - 1.0 )/2.0/x/x/x)/sqrt( 4.0*x*x- 1.0);
     
-    gamma = g2*g2 * mHl * fx * ( 7.0 - 40.0*sW2()/3.0 + 160.0 *sW2()*sW2()/9.0 ) / cW2() / cW2() / 2048.0 / pow(M_PI,3.0);
+    gamma = g2*g2 * mHl * fx * ( 7.0 - 40.0*sW2()/3.0 + 160.0 *sW2()*sW2()/9.0 ) / 2048.0 / pow(M_PI,3.0);
     
     return gamma;
 }
@@ -3533,36 +3551,78 @@ const double StandardModel::GammaHtotautau() const
 
 const double StandardModel::GammaHtocc() const
 {   
-    double mf=quarks[CHARM].getMass();
-    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double mf0=quarks[CHARM].getMass(), mf;
+    double beta;
     double Nc=3.0;
     double gamma;
+    double asMH,DeltaQCD,Deltamt,NF;
     
-    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta;
+    //      alfa_s(MH)
+    asMH = Als(mHl, FULLNLO);
+    
+    mf = mf0 * ( 1.0 - (asMH/2.0/M_PI) * log(mf0/mHl) );
+    
+    beta=1.0-4.0*mf*mf/mHl/mHl;
+    
+    NF=5;
+    
+    DeltaQCD = 1 + (asMH/M_PI) * ( 17.0/3.0 + (asMH/M_PI) * ( (35.94 - 1.36*NF) + (164.14 - 25.77*NF + 0.26*NF*NF)*(asMH/M_PI) ) );
+    
+    Deltamt = (asMH/M_PI) * (asMH/M_PI) * ( 1.57 + (4.0/3.0)*log(mHl/mtpole) + (4.0/9.0) * log(mf/mHl) * log(mf/mHl) );
+    
+    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta * (DeltaQCD + Deltamt);
     
     return gamma;
 }
     
 const double StandardModel::GammaHtoss() const
 {   
-    double mf=quarks[STRANGE].getMass();
-    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double mf0=quarks[STRANGE].getMass(), mf;
+    double beta;
     double Nc=3.0;
     double gamma;
+    double asMH,DeltaQCD,Deltamt,NF;
     
-    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta;
+    //      alfa_s(MH)
+    asMH = Als(mHl, FULLNLO);
+    
+    mf = mf0 * ( 1.0 - (asMH/2.0/M_PI) * log(mf0/mHl) );
+    
+    beta=1.0-4.0*mf*mf/mHl/mHl;
+    
+    NF=5;
+    
+    DeltaQCD = 1 + (asMH/M_PI) * ( 17.0/3.0 + (asMH/M_PI) * ( (35.94 - 1.36*NF) + (164.14 - 25.77*NF + 0.26*NF*NF)*(asMH/M_PI) ) );
+    
+    Deltamt = (asMH/M_PI) * (asMH/M_PI) * ( 1.57 + (4.0/3.0)*log(mHl/mtpole) + (4.0/9.0) * log(mf/mHl) * log(mf/mHl) );
+    
+    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta * (DeltaQCD + Deltamt);
     
     return gamma;
 }
 
 const double StandardModel::GammaHtobb() const
 {   
-    double mf=quarks[BOTTOM].getMass();
-    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double mf0=quarks[BOTTOM].getMass(), mf;
+    double beta;
     double Nc=3.0;
     double gamma;
+    double asMH,DeltaQCD,Deltamt,NF;
     
-    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta;
+    //      alfa_s(MH)
+    asMH = Als(mHl, FULLNLO);
+    
+    mf = mf0 * ( 1.0 - (asMH/2.0/M_PI) * log(mf0/mHl) );
+    
+    beta=1.0-4.0*mf*mf/mHl/mHl;
+    
+    NF=5;
+    
+    DeltaQCD = 1 + (asMH/M_PI) * ( 17.0/3.0 + (asMH/M_PI) * ( (35.94 - 1.36*NF) + (164.14 - 25.77*NF + 0.26*NF*NF)*(asMH/M_PI) ) );
+    
+    Deltamt = (asMH/M_PI) * (asMH/M_PI) * ( 1.57 + (4.0/3.0)*log(mHl/mtpole) + (4.0/9.0) * log(mf/mHl) * log(mf/mHl) );
+    
+    gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta * (DeltaQCD + Deltamt);
     
     return gamma;
 }
