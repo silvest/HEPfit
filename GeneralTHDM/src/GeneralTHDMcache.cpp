@@ -6523,6 +6523,15 @@ void GeneralTHDMcache::computeSignalStrengths()
     yu1R = myGTHDM->getyu1R();
     yd1R = myGTHDM->getyd1R();
     yl1R = myGTHDM->getyl1R();
+    
+    
+    //std::cout<<"\033[1;30m yu1 = \033[0m "<< yu1 <<std::endl;
+    //std::cout<<"\033[1;30m yd1 = \033[0m "<< yd1 <<std::endl;
+    //std::cout<<"\033[1;30m yl1 = \033[0m "<< yl1 <<std::endl;
+    
+    //std::cout<<"\033[1;30m yu1R = \033[0m "<< yu1R <<std::endl;
+    //std::cout<<"\033[1;30m yd1R = \033[0m "<< yd1R <<std::endl;
+    //std::cout<<"\033[1;30m yl1R = \033[0m "<< yl1R <<std::endl;
 
     //The ggH cross section in the SM at 8 TeV
     double SigmaggF8 = myGTHDM->computeSigmaggH(8.0);

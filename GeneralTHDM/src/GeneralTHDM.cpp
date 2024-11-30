@@ -145,6 +145,20 @@ bool GeneralTHDM::Update(const std::map<std::string, double>& DPars)
     if(!NPbase::Update(DPars)) return (false);
 
     
+    
+    
+
+    return (true);
+}
+
+
+
+bool GeneralTHDM::PostUpdate()
+{
+    trueSM.setComputemt(true);
+    if(!NPbase::PostUpdate()) return (false);
+
+    
     if(flag_CPconservation){
         mu2=mHp2-lambda3/(2*v()*v());
         
@@ -170,16 +184,7 @@ bool GeneralTHDM::Update(const std::map<std::string, double>& DPars)
         throw std::runtime_error("\033[1;31m The CP-Violating GeneralTHDM is still not implemented, please use the CP-conserving model \033[0m ");
     }
     
-
-    return (true);
-}
-
-
-
-bool GeneralTHDM::PostUpdate()
-{
-    if(!NPbase::PostUpdate()) return (false);
-
+    
     gsl_set_error_handler(custom_gsl_error_handler);
     myGTHDMcache->updateCache();
 

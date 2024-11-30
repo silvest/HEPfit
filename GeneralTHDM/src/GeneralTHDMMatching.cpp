@@ -137,7 +137,6 @@ double GeneralTHDMMatching::gminus2muLO() {
 
 
 
-    double pi = M_PI;
     double GF = myGTHDM.getGF();
     double mMU = myGTHDM.getLeptons(StandardModel::MU).getMass();
 
@@ -211,12 +210,11 @@ double GeneralTHDMMatching::gminus2muLO() {
     part_h = rmu_h * (yl1.real() * yl1.real() * F1oneloopgm2(rmu_h) + yl1.imag() * yl1.imag() * F2oneloopgm2(rmu_h));
     part_H = rmu_H * (yl2.real() * yl2.real() * F1oneloopgm2(rmu_H) + yl2.imag() * yl2.imag() * F2oneloopgm2(rmu_H));
     part_A = rmu_A * (yl3.real() * yl3.real() * F1oneloopgm2(rmu_A) + yl3.imag() * yl3.imag() * F2oneloopgm2(rmu_A));
-    ;
     part_Hp = rmu_Hp * sl.abs2() * F3oneloopgm2(rmu_Hp);
 
 
     // We're interested only in the NP contribution so we need to remove the SM part
-    gminus2muLO = GF * mMU * mMU / (4.0 * pi * pi * sqrt(2.0)) * (-part_hSM + part_h + part_H + part_A + part_Hp);
+    gminus2muLO = GF * mMU * mMU / (4.0 * M_PI * M_PI * sqrt(2.0)) * (-part_hSM + part_h + part_H + part_A + part_Hp);
 
     return (gminus2muLO);
 }
@@ -552,8 +550,8 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double sW2 = myGTHDM.sW2();
     double Vtb2 = (myGTHDM.getVCKM()(2, 2)).abs2();
     double Nc = 3.;
-    double Qu = 2 / 3;
-    double Qd = -1 / 3;
+    double Qu = 2./3.;
+    double Qd = -1./3.;
 //    double Ql = -1;
 
     //SM masses
@@ -596,9 +594,43 @@ double GeneralTHDMMatching::gminus2muNLO() {
     double yl3R = yl3.real();
     double yl3I = yl3.imag();
 
+    
+    
+//    std::cout<<"\033[1;31m yu1R = \033[0m "<< yu1R <<std::endl;
+//    std::cout<<"\033[1;31m yu2R = \033[0m "<< yu2R <<std::endl;
+//    std::cout<<"\033[1;31m yu3R = \033[0m "<< yu3R <<std::endl;
+    
+//    std::cout<<"\033[1;31m yd1R = \033[0m "<< yd1R <<std::endl;
+//    std::cout<<"\033[1;31m yd2R = \033[0m "<< yd2R <<std::endl;
+//    std::cout<<"\033[1;31m yd3R = \033[0m "<< yd3R <<std::endl;
+    
+//    std::cout<<"\033[1;31m yl1R = \033[0m "<< yl1R <<std::endl;
+//    std::cout<<"\033[1;31m yl2R = \033[0m "<< yl2R <<std::endl;
+//    std::cout<<"\033[1;31m yl3R = \033[0m "<< yl3R <<std::endl;
+    
+    
+//    std::cout<<"\033[1;31m yu1I = \033[0m "<< yu1I <<std::endl;
+//    std::cout<<"\033[1;31m yu2I = \033[0m "<< yu2I <<std::endl;
+//    std::cout<<"\033[1;31m yu3I = \033[0m "<< yu3I <<std::endl;
+   
+//    std::cout<<"\033[1;31m yd1I = \033[0m "<< yd1I <<std::endl;
+//    std::cout<<"\033[1;31m yd2I = \033[0m "<< yd2I <<std::endl;
+//    std::cout<<"\033[1;31m yd3I = \033[0m "<< yd3I <<std::endl;
+    
+//    std::cout<<"\033[1;31m yl1I = \033[0m "<< yl1I <<std::endl;
+//    std::cout<<"\033[1;31m yl2I = \033[0m "<< yl2I <<std::endl;
+//    std::cout<<"\033[1;31m yl3I = \033[0m "<< yl3I <<std::endl;
+    
     gslpp::complex su = myGTHDM.getMyGTHDMCache()->su;
     gslpp::complex sd = myGTHDM.getMyGTHDMCache()->sd;
     gslpp::complex sl = myGTHDM.getMyGTHDMCache()->sl;
+    
+    
+//    std::cout<<"\033[1;31m su = \033[0m "<< su <<std::endl;
+//    std::cout<<"\033[1;31m sd = \033[0m "<< sd <<std::endl;
+//    std::cout<<"\033[1;31m sl = \033[0m "<< sl <<std::endl;
+    
+
 
     //GTHDM masses
     double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq; //NOTE THAT mH1 MUST BE THE SM HIGGS BOSON MASS
@@ -631,6 +663,15 @@ double GeneralTHDMMatching::gminus2muNLO() {
     lambdaHpH = R21 * lambda3 + R22 * Relambda7 - R23*Imlambda7;
     lambdaHpA = R31 * lambda3 + R32 * Relambda7 - R33*Imlambda7;
 
+    
+    //std::cout<<"\033[1;31m lambdaHph = \033[0m "<< lambdaHph <<std::endl;
+    //std::cout<<"\033[1;31m lambdaHpH = \033[0m "<< lambdaHpH <<std::endl;
+    //std::cout<<"\033[1;31m lambdaHpA = \033[0m "<< lambdaHpA <<std::endl;
+    
+    
+    
+//    std::cout<<"\033[1;30m Mw = \033[0m "<< Mw <<std::endl;
+    
     //top-quark ratios square
     double rsqt_h = mt * mt / mH1_2;
     double rsqt_H = mt * mt / mH2_2;
@@ -731,22 +772,39 @@ double GeneralTHDMMatching::gminus2muNLO() {
 
     a1_SM = a1_const * (Nc * Qu * Qu * F1twoloopgm2(rsqt_h) + Nc * Qd * Qd * F1twoloopgm2(rsqb_h) + F1twoloopgm2(rsqtau_h));
 
-    a1_h = a1_const * (Nc * Qu * Qu * (yu1R * yu1R * F1twoloopgm2(rsqt_h) + yu1I * yu1I * F1tildetwoloopgm2(rsqt_h))
-            + Nc * Qd * Qd * (yd1R * yd1R * F1twoloopgm2(rsqb_h) + yd1I * yd1I * F1tildetwoloopgm2(rsqb_h))
+    a1_h = a1_const * (Nc * Qu * Qu * (yu1R * yl1R * F1twoloopgm2(rsqt_h) + yu1I * yl1I * F1tildetwoloopgm2(rsqt_h))
+            + Nc * Qd * Qd * (yd1R * yl1R * F1twoloopgm2(rsqb_h) + yd1I * yl1I * F1tildetwoloopgm2(rsqb_h))
             +(yl1R * yl1R * F1twoloopgm2(rsqtau_h) + yl1I * yl1I * F1tildetwoloopgm2(rsqtau_h)));
 
-    a1_H = a1_const * (Nc * Qu * Qu * (yu2R * yu2R * F1twoloopgm2(rsqt_H) + yu2I * yu2I * F1tildetwoloopgm2(rsqt_H))
-            + Nc * Qd * Qd * (yd2R * yd2R * F1twoloopgm2(rsqb_H) + yd2I * yd2I * F1tildetwoloopgm2(rsqb_H))
+    a1_H = a1_const * (Nc * Qu * Qu * (yu2R * yl2R * F1twoloopgm2(rsqt_H) + yu2I * yl2I * F1tildetwoloopgm2(rsqt_H))
+            + Nc * Qd * Qd * (yd2R * yl2R * F1twoloopgm2(rsqb_H) + yd2I * yl2I * F1tildetwoloopgm2(rsqb_H))
             +(yl2R * yl2R * F1twoloopgm2(rsqtau_H) + yl2I * yl2I * F1tildetwoloopgm2(rsqtau_H)));
 
-    a1_A = a1_const * (Nc * Qu * Qu * (yu3R * yu3R * F1twoloopgm2(rsqt_A) + yu3I * yu3I * F1tildetwoloopgm2(rsqt_A))
-            + Nc * Qd * Qd * (yd3R * yd3R * F1twoloopgm2(rsqb_A) + yd3I * yd3I * F1tildetwoloopgm2(rsqb_A))
+    a1_A = a1_const * (Nc * Qu * Qu * (yu3R * yl3R * F1twoloopgm2(rsqt_A) + yu3I * yl3I * F1tildetwoloopgm2(rsqt_A))
+            + Nc * Qd * Qd * (yd3R * yl3R * F1twoloopgm2(rsqb_A) + yd3I * yl3I * F1tildetwoloopgm2(rsqb_A))
             +(yl3R * yl3R * F1twoloopgm2(rsqtau_A) + yl3I * yl3I * F1tildetwoloopgm2(rsqtau_A)));
 
     a1_total = -a1_SM + a1_h + a1_H + a1_A;
 
-
-
+    
+    
+//    std::cout<<"\033[1;34m Nc * Qu * Qu = \033[0m "<< Nc * Qu * Qu <<std::endl;
+    
+    
+//    std::cout<<"\033[1;34m Nc * Qu * Qu * (yu2R * yu2R * F1twoloopgm2(rsqt_H)) = \033[0m "<< Nc * Qu * Qu * (yu2R * yu2R * F1twoloopgm2(rsqt_H)) <<std::endl;
+    
+    
+//    std::cout<<"\033[1;34m F1twoloopgm2(rsqt_H) = \033[0m "<< F1twoloopgm2(rsqt_H) <<std::endl;
+//    std::cout<<"\033[1;34m F1twoloopgm2(rsqb_H) = \033[0m "<< F1twoloopgm2(rsqb_H) <<std::endl;
+//    std::cout<<"\033[1;34m F1twoloopgm2(rsqtau_H) = \033[0m "<< F1twoloopgm2(rsqtau_H) <<std::endl;
+    
+    
+//    std::cout<<"\033[1;33m a1_SM = \033[0m "<< a1_SM <<std::endl;
+//    std::cout<<"\033[1;33m a1_h = \033[0m "<< a1_h <<std::endl;
+//    std::cout<<"\033[1;33m a1_H = \033[0m "<< a1_H <<std::endl;
+//    std::cout<<"\033[1;33m a1_A = \033[0m "<< a1_A <<std::endl;
+    
+    
     //Computation a2
     double a2_const = (Ale * mMU * mMU / (8 * M_PI * M_PI * M_PI));
     double a2_SM = 0.; //The SM contribution for this part is zero
@@ -844,6 +902,15 @@ double GeneralTHDMMatching::gminus2muNLO() {
             
     double gminus2muNLO = a1_total + a2_total + a3_total + a4_total + a5_total + a6_total;
 
+    
+//    std::cout<<"\033[1;32m a1_total = \033[0m "<< a1_total <<std::endl;
+//    std::cout<<"\033[1;32m a2_total = \033[0m "<< a2_total <<std::endl;
+//    std::cout<<"\033[1;32m a3_total = \033[0m "<< a3_total <<std::endl;
+//    std::cout<<"\033[1;32m a4_total = \033[0m "<< a4_total <<std::endl;
+//    std::cout<<"\033[1;32m a5_total = \033[0m "<< a5_total <<std::endl;
+//    std::cout<<"\033[1;32m a6_total = \033[0m "<< a6_total <<std::endl;
+    
+    
     return (gminus2muNLO);
 }
 
@@ -865,8 +932,9 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMgminus2mu() {
     double gminus2muNLOvalue = gminus2muNLO();
     //gminus2muNLOvalue=0.; //For the moment we set the NLO contribution to zero
 
-    /* std::cout << " gminus2muLOvalue =  " << gminus2muLOvalue << std::endl;
-     std::cout << " gminus2muNLOvalue =  " << gminus2muNLOvalue << std::endl;*/
+//    std::cout<<"\033[1;33m gminus2muLOvalue = \033[0m "<< gminus2muLOvalue << std::endl;
+//    std::cout<<"\033[1;33m gminus2muNLOvalue = \033[0m "<< gminus2muNLOvalue << std::endl;
+
 
 
 

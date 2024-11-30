@@ -16,6 +16,8 @@ double GeneralTHDMgminus2_mu::computeThValue()
 {
 
     gslpp::vector<gslpp::complex> ** allcoeff_gminus2mu = SM.getMyLeptonFlavour()->ComputeCoeffgminus2mu();
-
-    return ((*(allcoeff_gminus2mu[NLO]))(0)+(*(allcoeff_gminus2mu[NLO]))(1)).abs();
+    
+    //Temporary implementation. This returns directly the coefficients that are 
+    //evaluated to the \Delta a_\mu contributions from 1502.04199
+    return ((*(allcoeff_gminus2mu[NLO]))(0)+(*(allcoeff_gminus2mu[NLO]))(1)).real();
 }
