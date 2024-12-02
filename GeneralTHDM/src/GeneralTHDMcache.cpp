@@ -1967,6 +1967,9 @@ double GeneralTHDMcache::interpolate2Dsteps(gslpp::matrix<double> arrayTab, doub
         }
     }
 
+    if(row.size() == 3)
+        interpol = 4;
+
     switch(interpol)
     {
         case 0:
@@ -1978,6 +1981,10 @@ double GeneralTHDMcache::interpolate2Dsteps(gslpp::matrix<double> arrayTab, doub
         case 3:
             aux.push_back(arrayTab(row[0],2) + (arrayTab(row[1],2)-arrayTab(row[0],2)) * (y-arrayTab(row[0],1)) / dy);
             aux.push_back(arrayTab(row[2],2) + (arrayTab(row[3],2)-arrayTab(row[2],2)) * (y-arrayTab(row[2],1)) / dy);
+            return (aux[0] + (aux[1]-aux[0]) * (x-arrayTab(row[0],0)) / dx);
+        case 4:
+            aux.push_back(arrayTab(row[0],2) + (arrayTab(row[1],2)-arrayTab(row[0],2)) * (y-arrayTab(row[0],1)) / dy);
+            aux.push_back(arrayTab(row[1],2) + (arrayTab(row[2],2)-arrayTab(row[1],2)) * (y-arrayTab(row[0],1)) / dy);
             return (aux[0] + (aux[1]-aux[0]) * (x-arrayTab(row[0],0)) / dx);
         default:
             throw std::runtime_error("Review applicability of the mass ranges provided to GeneralTHDMcache::interpolate2Dsteps");
