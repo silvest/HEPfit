@@ -48,6 +48,11 @@
  *   <td class="mod_desc"></td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%cs</td>
+ *   <td class="mod_symb">@f$c_s@f$</td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%ctau</td>
  *   <td class="mod_symb">@f$c_\tau@f$</td>
  *   <td class="mod_desc"></td>
@@ -104,7 +109,7 @@
 class HiggsChiral : public NPbase {
 public:
 
-    static const int NHChiralvars = 17; ///< The number of the model parameters.
+    static const int NHChiralvars = 18; ///< The number of the model parameters.
 
     /**
      * @brief A string array containing the labels of the model parameters in %HiggsKvKf.
@@ -173,6 +178,16 @@ public:
     {
         return cc;
     }
+    
+    /**
+     * @brief a getter for the EFT coeff @f$c_s@f$
+     * @return @f$c_s@f$
+     */
+    double getcs() const
+    {
+        return cs;
+    }
+
 
     /**
      * @brief a getter for the EFT coeff @f$c_\tau@f$
@@ -635,6 +650,11 @@ public:
      */
     virtual const double Gammacc() const;
     /**
+     * @brief The decay width @f$(H\to s \bar{s})@f$ in the current model.
+     * @return @f$\Gamma(H\to s \bar{s})@f$
+     */
+    virtual const double Gammass() const;
+    /**
      * @brief The decay width @f$(H\to b \bar{b})@f$ in the current model.
      * @return @f$\Gamma(H\to c \bar{c})@f$
      */
@@ -716,6 +736,12 @@ public:
      * @return Br@f$(H\to c\bar{c})@f$/Br@f$(H\to c\bar{c})_{\mathrm{SM}}@f$
      */
     virtual const double BrHccRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to s\bar{s})@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to s\bar{s})@f$/Br@f$(H\to s\bar{s})_{\mathrm{SM}}@f$
+     */
+    virtual const double BrHssRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to b\bar{b})@f$ in the current model
      * and in the Standard Model.
@@ -2130,6 +2156,12 @@ public:
     virtual const double kappaceff() const;
     
     /**
+     * @brief The effective coupling @f$\kappa_{s,eff}=\sqrt{\Gamma_{Hss}/\Gamma_{Hss}^{SM}}@f$.
+     * @return @f$\kappa_{s,eff}@f$
+     */
+    virtual const double kappaseff() const;
+    
+    /**
      * @brief The effective coupling @f$\kappa_{b,eff}=\sqrt{\Gamma_{Hbb}/\Gamma_{Hbb}^{SM}}@f$.
      * @return @f$\kappa_{b,eff}@f$
      */
@@ -2216,6 +2248,12 @@ protected:
      * @return the ratio of the @f$Hcc@f$ coupling in the current model and in the SM
      */
     virtual const double computecc() const;
+    
+    /**
+     * @brief A method to compute the ratio of the @f$Hss@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$Hss@f$ coupling in the current model and in the SM
+     */
+    virtual const double computecs() const;
 
     /**
      * @brief A method to compute the ratio of the @f$Htt@f$ coupling in the current model and in the SM.
@@ -2239,7 +2277,8 @@ private:
     double cv; ///< 
     double ct; ///< 
     double cb; ///< 
-    double cc; ///< 
+    double cc; ///<
+    double cs; ///<
     double ctau; ///< 
     double cmu; ///< 
     double cg; ///< 

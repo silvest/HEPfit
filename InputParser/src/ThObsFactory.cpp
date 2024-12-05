@@ -3178,6 +3178,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeHvvmumu3000_m80_0"] = bind(boost::factory<mueeHvvmumuPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
     // ZH
+    // H -> bb
     obsThFactory["mueeZHbb240"] = bind(boost::factory<mueeZHbb*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHbb250"] = bind(boost::factory<mueeZHbb*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHbb350"] = bind(boost::factory<mueeZHbb*>(), _1, sqrt_s_leptcoll_350);
@@ -3231,6 +3232,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHbb3000_p80_0"] = bind(boost::factory<mueeZHbbPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueeZHbb3000_m80_0"] = bind(boost::factory<mueeZHbbPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
+    // H -> cc
     obsThFactory["mueeZHcc240"] = bind(boost::factory<mueeZHcc*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHcc250"] = bind(boost::factory<mueeZHcc*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHcc350"] = bind(boost::factory<mueeZHcc*>(), _1, sqrt_s_leptcoll_350);
@@ -3284,6 +3286,61 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHcc3000_p80_0"] = bind(boost::factory<mueeZHccPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueeZHcc3000_m80_0"] = bind(boost::factory<mueeZHccPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
+    // H -> ss
+    obsThFactory["mueeZHss240"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_240);
+    obsThFactory["mueeZHss250"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_250);
+    obsThFactory["mueeZHss350"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_350);
+    obsThFactory["mueeZHss365"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_365);
+    obsThFactory["mueeZHss380"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_380);
+    obsThFactory["mueeZHss500"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_500);
+    obsThFactory["mueeZHss1000"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_1000);
+    obsThFactory["mueeZHss1400"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_1400);
+    obsThFactory["mueeZHss1500"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_1500);
+    obsThFactory["mueeZHss3000"] = bind(boost::factory<mueeZHss*>(), _1, sqrt_s_leptcoll_3000);
+    //
+    obsThFactory["mueeZHss250_p80_m30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_250, pol_80, -pol_30);
+    obsThFactory["mueeZHss250_m80_p30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_250, -pol_80, pol_30);
+    obsThFactory["mueeZHss250_p80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_250, pol_80, pol_0);
+    obsThFactory["mueeZHss250_m80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_250, -pol_80, pol_0);
+    //
+    obsThFactory["mueeZHss350_p80_m30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_350, pol_80, -pol_30);
+    obsThFactory["mueeZHss350_m80_p30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_350, -pol_80, pol_30);
+    obsThFactory["mueeZHss350_p80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_350, pol_80, pol_0);
+    obsThFactory["mueeZHss350_m80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_350, -pol_80, pol_0);
+    //
+    obsThFactory["mueeZHss380_p80_m30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_380, pol_80, -pol_30);
+    obsThFactory["mueeZHss380_m80_p30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_380, -pol_80, pol_30);
+    obsThFactory["mueeZHss380_p80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_380, pol_80, pol_0);
+    obsThFactory["mueeZHss380_m80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_380, -pol_80, pol_0);
+    //
+    obsThFactory["mueeZHss500_p80_m30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_500, pol_80, -pol_30);
+    obsThFactory["mueeZHss500_m80_p30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_500, -pol_80, pol_30);
+    obsThFactory["mueeZHss500_p80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_500, pol_80, pol_0);
+    obsThFactory["mueeZHss500_m80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_500, -pol_80, pol_0);
+    //
+    obsThFactory["mueeZHss1000_p80_m30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1000, pol_80, -pol_30);
+    obsThFactory["mueeZHss1000_m80_p30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1000, -pol_80, pol_30);
+    obsThFactory["mueeZHss1000_p80_m20"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1000, pol_80, -pol_20);
+    obsThFactory["mueeZHss1000_m80_p20"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1000, -pol_80, pol_20);
+    obsThFactory["mueeZHss1000_p80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1000, pol_80, pol_0);
+    obsThFactory["mueeZHss1000_m80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1000, -pol_80, pol_0);
+    //
+    obsThFactory["mueeZHss1400_p80_m30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1400, pol_80, -pol_30);
+    obsThFactory["mueeZHss1400_m80_p30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1400, -pol_80, pol_30);
+    obsThFactory["mueeZHss1400_p80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1400, pol_80, pol_0);
+    obsThFactory["mueeZHss1400_m80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1400, -pol_80, pol_0);
+    //
+    obsThFactory["mueeZHss1500_p80_m30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1500, pol_80, -pol_30);
+    obsThFactory["mueeZHss1500_m80_p30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1500, -pol_80, pol_30);
+    obsThFactory["mueeZHss1500_p80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1500, pol_80, pol_0);
+    obsThFactory["mueeZHss1500_m80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_1500, -pol_80, pol_0);
+    //
+    obsThFactory["mueeZHss3000_p80_m30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, -pol_30);
+    obsThFactory["mueeZHss3000_m80_p30"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_30);
+    obsThFactory["mueeZHss3000_p80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
+    obsThFactory["mueeZHss3000_m80_0"] = bind(boost::factory<mueeZHssPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
+    //
+    // H -> gg
     obsThFactory["mueeZHgg240"] = bind(boost::factory<mueeZHgg*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHgg250"] = bind(boost::factory<mueeZHgg*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHgg350"] = bind(boost::factory<mueeZHgg*>(), _1, sqrt_s_leptcoll_350);
@@ -3337,6 +3394,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHgg3000_p80_0"] = bind(boost::factory<mueeZHggPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueeZHgg3000_m80_0"] = bind(boost::factory<mueeZHggPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
+    // H -> WW
     obsThFactory["mueeZHWW240"] = bind(boost::factory<mueeZHWW*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHWW250"] = bind(boost::factory<mueeZHWW*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHWW350"] = bind(boost::factory<mueeZHWW*>(), _1, sqrt_s_leptcoll_350);
@@ -3390,6 +3448,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHWW3000_p80_0"] = bind(boost::factory<mueeZHWWPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueeZHWW3000_m80_0"] = bind(boost::factory<mueeZHWWPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
+    // H -> tau tau
     obsThFactory["mueeZHtautau240"] = bind(boost::factory<mueeZHtautau*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHtautau250"] = bind(boost::factory<mueeZHtautau*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHtautau350"] = bind(boost::factory<mueeZHtautau*>(), _1, sqrt_s_leptcoll_350);
@@ -3443,6 +3502,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHtautau3000_p80_0"] = bind(boost::factory<mueeZHtautauPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueeZHtautau3000_m80_0"] = bind(boost::factory<mueeZHtautauPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
+    // H -> ZZ
     obsThFactory["mueeZHZZ240"] = bind(boost::factory<mueeZHZZ*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHZZ250"] = bind(boost::factory<mueeZHZZ*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHZZ350"] = bind(boost::factory<mueeZHZZ*>(), _1, sqrt_s_leptcoll_350);
@@ -3496,6 +3556,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHZZ3000_p80_0"] = bind(boost::factory<mueeZHZZPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueeZHZZ3000_m80_0"] = bind(boost::factory<mueeZHZZPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
+    // H -> Z ga
     obsThFactory["mueeZHZga240"] = bind(boost::factory<mueeZHZga*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHZga250"] = bind(boost::factory<mueeZHZga*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHZga350"] = bind(boost::factory<mueeZHZga*>(), _1, sqrt_s_leptcoll_350);
@@ -3549,6 +3610,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHZga3000_p80_0"] = bind(boost::factory<mueeZHZgaPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueeZHZga3000_m80_0"] = bind(boost::factory<mueeZHZgaPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
+    // H -> ga ga
     obsThFactory["mueeZHgaga240"] = bind(boost::factory<mueeZHgaga*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHgaga250"] = bind(boost::factory<mueeZHgaga*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHgaga350"] = bind(boost::factory<mueeZHgaga*>(), _1, sqrt_s_leptcoll_350);
@@ -3602,6 +3664,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHgaga3000_p80_0"] = bind(boost::factory<mueeZHgagaPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueeZHgaga3000_m80_0"] = bind(boost::factory<mueeZHgagaPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
+    // H -> mu mu
     obsThFactory["mueeZHmumu240"] = bind(boost::factory<mueeZHmumu*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHmumu250"] = bind(boost::factory<mueeZHmumu*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHmumu350"] = bind(boost::factory<mueeZHmumu*>(), _1, sqrt_s_leptcoll_350);
@@ -3655,6 +3718,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHmumu3000_p80_0"] = bind(boost::factory<mueeZHmumuPol*>(), _1, sqrt_s_leptcoll_3000, pol_80, pol_0);
     obsThFactory["mueeZHmumu3000_m80_0"] = bind(boost::factory<mueeZHmumuPol*>(), _1, sqrt_s_leptcoll_3000, -pol_80, pol_0);
     //
+    // H -> inv
     obsThFactory["mueeZHinv240"] = bind(boost::factory<mueeZHinv*>(), _1, sqrt_s_leptcoll_240);
     obsThFactory["mueeZHinv250"] = bind(boost::factory<mueeZHinv*>(), _1, sqrt_s_leptcoll_250);
     obsThFactory["mueeZHinv350"] = bind(boost::factory<mueeZHinv*>(), _1, sqrt_s_leptcoll_350);

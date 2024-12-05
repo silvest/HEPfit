@@ -3708,6 +3708,22 @@ double mueeZHcc::computeThValue()
     }
 }
 
+mueeZHss::mueeZHss(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mueeZHss called with a class whose parent is not NPbase");
+}
+
+double mueeZHss::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHssRatio()) - 1.0);
+    } else {
+        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHssRatio());
+    }
+}
+
 mueeZHgg::mueeZHgg(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
@@ -3728,7 +3744,7 @@ mueeZHWW::mueeZHWW(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeZHcc called with a class whose parent is not NPbase");
+        throw std::runtime_error("mueeZHWW called with a class whose parent is not NPbase");
 }
 
 double mueeZHWW::computeThValue()
@@ -3884,6 +3900,22 @@ double mueeZHccPol::computeThValue()
     }
 }
 
+mueeZHssPol::mueeZHssPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mueeZHssPol called with a class whose parent is not NPbase");
+}
+
+double mueeZHssPol::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mueeZHPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHssRatio()) - 1.0);
+    } else {
+        return (myNPbase->mueeZHPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHssRatio());
+    }
+}
+
 mueeZHggPol::mueeZHggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
@@ -3904,7 +3936,7 @@ mueeZHWWPol::mueeZHWWPol(const StandardModel& SM_i, const double sqrt_s_i, const
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeZHccPol called with a class whose parent is not NPbase");
+        throw std::runtime_error("mueeZHWWPol called with a class whose parent is not NPbase");
 }
 
 double mueeZHWWPol::computeThValue()

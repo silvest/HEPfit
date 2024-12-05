@@ -3109,8 +3109,33 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to c\bar{c})@f$/Br@f$(H\to c\bar{c})_{\mathrm{SM}}@f$
      */
-    virtual const double BrHccRatio() const;
-
+    virtual const double BrHccRatio() const;    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to ss)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to ss)@f$/@f$\Gamma(H\to ss)_{\mathrm{SM}}@f$
+     */
+    const double  GammaHssRatio() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ss)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to ss)@f$/@f$\Gamma(H\to ss)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaHssRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ss)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to ss)@f$/@f$\Gamma(H\to ss)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaHssRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to s\bar{s})@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to s\bar{s})@f$/Br@f$(H\to s\bar{s})_{\mathrm{SM}}@f$
+     */
+    virtual const double BrHssRatio() const;
     /**
      * @brief The ratio of the @f$\Gamma(H\to bb)@f$ in the current model
      * and in the Standard Model.
@@ -6052,6 +6077,12 @@ public:
      * @return @f$\kappa_{c,eff}@f$
      */
     virtual const double kappaceff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{s,eff}=\sqrt{\Gamma_{Hss}/\Gamma_{Hss}^{SM}}@f$.
+     * @return @f$\kappa_{s,eff}@f$
+     */
+    virtual const double kappaseff() const;
 
     /**
      * @brief The effective coupling @f$\kappa_{b,eff}=\sqrt{\Gamma_{Hbb}/\Gamma_{Hbb}^{SM}}@f$.
@@ -6138,6 +6169,19 @@ public:
      * @return @f$\delta y_c@f$
      */
     virtual const double deltayc_HB() const;
+    
+
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_s@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @return @f$\delta y_s@f$
+     */
+    virtual const double deltays_HB() const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
@@ -7330,6 +7374,8 @@ protected:
     double eHtautaupar = 0.; ///< Parametric relative theoretical error in \f$H \to \tau^+ \tau^-\f$.
     double eHccint = 0.; ///< Intrinsic relative theoretical error in \f$H \to c\bar{c}\f$.
     double eHccpar = 0.; ///< Parametric relative theoretical error in \f$H \to c\bar{c}\f$.
+    double eHssint = 0.; ///< Intrinsic relative theoretical error in \f$H \to s\bar{s}\f$.
+    double eHsspar = 0.; ///< Parametric relative theoretical error in \f$H \to s\bar{s}\f$.
     double eHbbint = 0.; ///< Intrinsic relative theoretical error in \f$H \to b\bar{b}\f$.
     double eHbbpar = 0.; ///< Parametric relative theoretical error in \f$H \to b\bar{b}\f$.
 

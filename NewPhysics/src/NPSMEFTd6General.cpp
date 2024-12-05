@@ -14549,19 +14549,23 @@ const double NPSMEFTd6General::deltaG_hggRatio() const {
     double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
+    double m_s = quarks[STRANGE].getMass();
     double tau_t = 4.0 * m_t * m_t / mHl / mHl;
     double tau_b = 4.0 * m_b * m_b / mHl / mHl;
     double tau_c = 4.0 * m_c * m_c / mHl / mHl;
+    double tau_s = 4.0 * m_s * m_s / mHl / mHl;
     double aSPiv = AlsMz / 16.0 / M_PI / v();
     gslpp::complex gSM, dg;
     gslpp::complex dKappa_t = cLHd6 * deltaG_hff(quarks[TOP]) / (-m_t / v());
     gslpp::complex dKappa_b = cLHd6 * deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
     gslpp::complex dKappa_c = cLHd6 * deltaG_hff(quarks[CHARM]) / (-m_c / v());
+    gslpp::complex dKappa_s = cLHd6 * deltaG_hff(quarks[STRANGE]) / (-m_s / v());
+    
     double deltaloc = deltaG_hgg();
 
     gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c));
 
-    dg = deltaloc / gSM + (aSPiv / gSM) * (dKappa_t * AH_f(tau_t) + dKappa_b * AH_f(tau_b) + dKappa_c * AH_f(tau_c));
+    dg = deltaloc / gSM + (aSPiv / gSM) * (dKappa_t * AH_f(tau_t) + dKappa_b * AH_f(tau_b) + dKappa_c * AH_f(tau_c) + dKappa_s * AH_f(tau_s));
 
     return dg.real();
 }
@@ -14611,6 +14615,7 @@ const double NPSMEFTd6General::deltaG1_hZARatio() const {
     double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
+    double m_s = quarks[STRANGE].getMass();
     double m_tau = leptons[TAU].getMass();
     double m_mu = leptons[MU].getMass();
 
@@ -14619,12 +14624,14 @@ const double NPSMEFTd6General::deltaG1_hZARatio() const {
     double Qt = quarks[TOP].getCharge();
     double Qb = quarks[BOTTOM].getCharge();
     double Qc = quarks[CHARM].getCharge();
+    double Qs = quarks[STRANGE].getCharge();
     double Qtau = leptons[TAU].getCharge();
     double Qmu = leptons[MU].getCharge();
 
     double tau_t = 4.0 * m_t * m_t / mHl / mHl;
     double tau_b = 4.0 * m_b * m_b / mHl / mHl;
     double tau_c = 4.0 * m_c * m_c / mHl / mHl;
+    double tau_s = 4.0 * m_s * m_s / mHl / mHl;
     double tau_tau = 4.0 * m_tau * m_tau / mHl / mHl;
     double tau_mu = 4.0 * m_mu * m_mu / mHl / mHl;
     double tau_W = 4.0 * M_w_2 / mHl / mHl;
@@ -14632,6 +14639,7 @@ const double NPSMEFTd6General::deltaG1_hZARatio() const {
     double lambda_t = 4.0 * m_t * m_t / Mz / Mz;
     double lambda_b = 4.0 * m_b * m_b / Mz / Mz;
     double lambda_c = 4.0 * m_c * m_c / Mz / Mz;
+    double lambda_s = 4.0 * m_s * m_s / Mz / Mz;
     double lambda_tau = 4.0 * m_tau * m_tau / Mz / Mz;
     double lambda_mu = 4.0 * m_mu * m_mu / Mz / Mz;
     double lambda_W = 4.0 * M_w_2 / Mz / Mz;
@@ -14643,6 +14651,7 @@ const double NPSMEFTd6General::deltaG1_hZARatio() const {
     gslpp::complex dKappa_t = cLHd6 * deltaG_hff(quarks[TOP]) / (-m_t / v());
     gslpp::complex dKappa_b = cLHd6 * deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
     gslpp::complex dKappa_c = cLHd6 * deltaG_hff(quarks[CHARM]) / (-m_c / v());
+    gslpp::complex dKappa_s = cLHd6 * deltaG_hff(quarks[STRANGE]) / (-m_s / v());
     gslpp::complex dKappa_tau = cLHd6 * deltaG_hff(leptons[TAU]) / (-m_tau / v());
     gslpp::complex dKappa_mu = cLHd6 * deltaG_hff(leptons[MU]) / (-m_mu / v());
     double dKappa_W = cLHd6 * (0.5 * v() / M_w_2) * deltaG3_hWW();
@@ -14651,12 +14660,14 @@ const double NPSMEFTd6General::deltaG1_hZARatio() const {
     double vSMt = 2.0 * (quarks[TOP].getIsospin()) - 4.0 * Qt * sW2_tree;
     double vSMb = 2.0 * (quarks[BOTTOM].getIsospin()) - 4.0 * Qb * sW2_tree;
     double vSMc = 2.0 * (quarks[CHARM].getIsospin()) - 4.0 * Qc * sW2_tree;
+    double vSMs = 2.0 * (quarks[STRANGE].getIsospin()) - 4.0 * Qs * sW2_tree;
     double vSMtau = 2.0 * (leptons[TAU].getIsospin()) - 4.0 * Qtau * sW2_tree;
     double vSMmu = 2.0 * (leptons[MU].getIsospin()) - 4.0 * Qmu * sW2_tree;
 
     double dvSMt = cLHd6 * 2.0 * deltaGV_f(quarks[TOP]);
     double dvSMb = cLHd6 * 2.0 * deltaGV_f(quarks[BOTTOM]);
     double dvSMc = cLHd6 * 2.0 * deltaGV_f(quarks[CHARM]);
+    double dvSMs = cLHd6 * 2.0 * deltaGV_f(quarks[STRANGE]);
     double dvSMtau = cLHd6 * 2.0 * deltaGV_f(leptons[TAU]);
     double dvSMmu = cLHd6 * 2.0 * deltaGV_f(leptons[MU]);
 
@@ -14665,6 +14676,7 @@ const double NPSMEFTd6General::deltaG1_hZARatio() const {
     gSM = -aPiv * ((3.0 * vSMt * Qt * AHZga_f(tau_t, lambda_t) +
             3.0 * vSMb * Qb * AHZga_f(tau_b, lambda_b) +
             3.0 * vSMc * Qc * AHZga_f(tau_c, lambda_c) +
+            3.0 * vSMs * Qs * AHZga_f(tau_s, lambda_s) +
             vSMtau * Qtau * AHZga_f(tau_tau, lambda_tau) +
             vSMmu * Qmu * AHZga_f(tau_mu, lambda_mu)) / cW_tree +
             AHZga_W(tau_W, lambda_W));
@@ -14673,12 +14685,14 @@ const double NPSMEFTd6General::deltaG1_hZARatio() const {
             (3.0 * vSMt * dKappa_t * Qt * AHZga_f(tau_t, lambda_t) +
             3.0 * vSMb * dKappa_b * Qb * AHZga_f(tau_b, lambda_b) +
             3.0 * vSMc * dKappa_c * Qc * AHZga_f(tau_c, lambda_c) +
+            3.0 * vSMs * dKappa_s * Qs * AHZga_f(tau_s, lambda_s) +
             dKappa_tau * vSMtau * Qtau * AHZga_f(tau_tau, lambda_tau) +
             dKappa_mu * vSMmu * Qmu * AHZga_f(tau_mu, lambda_mu)) / cW_tree +
             dKappa_W * AHZga_W(tau_W, lambda_W) +
             (3.0 * dvSMt * Qt * AHZga_f(tau_t, lambda_t) +
             3.0 * dvSMb * Qb * AHZga_f(tau_b, lambda_b) +
             3.0 * dvSMc * Qc * AHZga_f(tau_c, lambda_c) +
+            3.0 * dvSMs * Qs * AHZga_f(tau_s, lambda_s) +
             dvSMtau * Qtau * AHZga_f(tau_tau, lambda_tau) +
             dvSMmu * Qmu * AHZga_f(tau_mu, lambda_mu)) / cW_tree
             );
@@ -14698,6 +14712,7 @@ const double NPSMEFTd6General::deltaG_hAARatio() const {
     double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
+    double m_s = quarks[STRANGE].getMass();
     double m_tau = leptons[TAU].getMass();
     double m_mu = leptons[MU].getMass();
 
@@ -14706,12 +14721,14 @@ const double NPSMEFTd6General::deltaG_hAARatio() const {
     double Qt = quarks[TOP].getCharge();
     double Qb = quarks[BOTTOM].getCharge();
     double Qc = quarks[CHARM].getCharge();
+    double Qs = quarks[STRANGE].getCharge();
     double Qtau = leptons[TAU].getCharge();
     double Qmu = leptons[MU].getCharge();
 
     double tau_t = 4.0 * m_t * m_t / mHl / mHl;
     double tau_b = 4.0 * m_b * m_b / mHl / mHl;
     double tau_c = 4.0 * m_c * m_c / mHl / mHl;
+    double tau_s = 4.0 * m_s * m_s / mHl / mHl;
     double tau_tau = 4.0 * m_tau * m_tau / mHl / mHl;
     double tau_mu = 4.0 * m_mu * m_mu / mHl / mHl;
     double tau_W = 4.0 * M_w_2 / mHl / mHl;
@@ -14721,6 +14738,7 @@ const double NPSMEFTd6General::deltaG_hAARatio() const {
     gslpp::complex dKappa_t = cLHd6 * deltaG_hff(quarks[TOP]) / (-m_t / v());
     gslpp::complex dKappa_b = cLHd6 * deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
     gslpp::complex dKappa_c = cLHd6 * deltaG_hff(quarks[CHARM]) / (-m_c / v());
+    gslpp::complex dKappa_s = cLHd6 * deltaG_hff(quarks[STRANGE]) / (-m_s / v());
     gslpp::complex dKappa_tau = cLHd6 * deltaG_hff(leptons[TAU]) / (-m_tau / v());
     gslpp::complex dKappa_mu = cLHd6 * deltaG_hff(leptons[MU]) / (-m_mu / v());
     double dKappa_W = cLHd6 * (0.5 * v() / M_w_2) * deltaG3_hWW();
@@ -14730,6 +14748,7 @@ const double NPSMEFTd6General::deltaG_hAARatio() const {
     gSM = aPiv * (3.0 * Qt * Qt * AH_f(tau_t) +
             3.0 * Qb * Qb * AH_f(tau_b) +
             3.0 * Qc * Qc * AH_f(tau_c) +
+            3.0 * Qs * Qs * AH_f(tau_s) +
             Qtau * Qtau * AH_f(tau_tau) +
             Qmu * Qmu * AH_f(tau_mu) +
             AH_W(tau_W));
@@ -14738,6 +14757,7 @@ const double NPSMEFTd6General::deltaG_hAARatio() const {
             3.0 * Qt * Qt * dKappa_t * AH_f(tau_t) +
             3.0 * Qb * Qb * dKappa_b * AH_f(tau_b) +
             3.0 * Qc * Qc * dKappa_c * AH_f(tau_c) +
+            3.0 * Qs * Qs * dKappa_s * AH_f(tau_s) +
             dKappa_tau * Qtau * Qtau * AH_f(tau_tau) +
             dKappa_mu * Qmu * Qmu * AH_f(tau_mu) +
             dKappa_W * AH_W(tau_W)
@@ -23174,6 +23194,7 @@ const double NPSMEFTd6General::deltaGammaTotalRatio1() const {
             + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio1()
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio1()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio1()
+            + trueSM.computeBrHtoss() * deltaGammaHssRatio1()
             + trueSM.computeBrHtobb() * deltaGammaHbbRatio1());
 
     //  Add the effect of the invisible and exotic BR. Include also here the
@@ -23207,6 +23228,7 @@ const double NPSMEFTd6General::deltaGammaTotalRatio1noError() const {
             + trueSM.computeBrHtomumu() * (deltaGammaHmumuRatio1() - eHmumuint - eHmumupar)
             + trueSM.computeBrHtotautau() * (deltaGammaHtautauRatio1() - eHtautauint - eHtautaupar)
             + trueSM.computeBrHtocc() * (deltaGammaHccRatio1() - eHccint - eHccpar)
+            + trueSM.computeBrHtoss() * (deltaGammaHssRatio1() - eHssint - eHsspar)
             + trueSM.computeBrHtobb() * (deltaGammaHbbRatio1() - eHbbint - eHbbpar));
 
     //  Add the effect of the invisible and exotic BR. Include also here the
@@ -23230,6 +23252,7 @@ const double NPSMEFTd6General::deltaGammaTotalRatio2() const {
                 + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
                 + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
                 + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
+                + trueSM.computeBrHtoss() * deltaGammaHssRatio2()
                 + trueSM.computeBrHtobb() * deltaGammaHbbRatio2();
 
         //  Add the effect of the invisible and exotic BR and return     
@@ -25931,6 +25954,106 @@ const double NPSMEFTd6General::BrHccRatio() const {
     return Br;
 
 }
+
+
+const double NPSMEFTd6General::GammaHssRatio() const {
+    // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
+
+    width += deltaGammaHssRatio1();
+
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        width += deltaGammaHssRatio2();
+    }
+
+    return width;
+
+}
+
+const double NPSMEFTd6General::deltaGammaHssRatio1() const
+{
+    double dwidth = 0.0;
+
+    double C1 = 0.0;
+
+    //if (FlagLoopHd6) {
+
+    //    dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+    //            - 16421890. * getSMEFTCoeffEW("CuHR", 1, 1)
+    //            - 992.159 * getSMEFTCoeffEW("CuHR", 2, 2)
+    //            - 30312.1 * getSMEFTCoeffEW("CHD")
+    //            - 60624.1 * delta_GF / v() / v());
+
+    //} else {
+
+        /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
+                - 16556668. * getSMEFTCoeffEW("CuHR", 1, 1)
+                - 30312.1 * getSMEFTCoeffEW("CHD")
+                - 60624.1 * delta_GF / v() / v());*/
+
+    //    double mf = quarks[STRANGE].getMass();
+    //    double CifH = getSMEFTCoeffEW("CdHR", 1, 1);
+    //    dwidth = deltaGammaHffRatio1(mf, CifH);
+
+    //}
+    
+        double mf = quarks[STRANGE].getMass();
+        double CifH = getSMEFTCoeffEW("CdHR", 1, 1);
+        dwidth = deltaGammaHffRatio1(mf, CifH);
+
+    //  Linear contribution from Higgs self-coupling
+    dwidth = dwidth + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    dwidth = dwidth + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+
+    // Add modifications due to small variations of the SM parameters. Not here    
+    dwidth += cHSM * (0.);
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHssint + eHsspar; // Defined but still not included as part of the model free parameters!
+
+    return dwidth;
+}
+
+const double NPSMEFTd6General::deltaGammaHssRatio2() const
+{
+    double dwidth = 0.0;
+
+    if (FlagQuadraticTerms) {
+        double mf = quarks[STRANGE].getMass();
+        double CifH = getSMEFTCoeffEW("CdHR", 1, 1);
+        dwidth += deltaGammaHffRatio2(mf, CifH);
+    }
+    //Contributions that are quadratic in the effective coefficients
+    return ( dwidth);
+}
+
+const double NPSMEFTd6General::BrHssRatio() const {
+    double Br = 1.0;
+    double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
+
+    dGHiR1 = deltaGammaHssRatio1();
+
+    Br += dGHiR1 - dGammaHTotR1;
+
+    if (FlagQuadraticTerms) {
+
+        dGHiR2 = deltaGammaHssRatio2();
+
+        //Add contributions that are quadratic in the effective coefficients
+        Br += -dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1, 2.0);
+    }
+
+    GHiR += dGHiR1 + dGHiR2;
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
+
+    return Br;
+
+}
+
 
 const double NPSMEFTd6General::GammaHbbRatio() const {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
@@ -32247,6 +32370,7 @@ const double NPSMEFTd6General::BrHvisRatio() const {
             + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio1()
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio1()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio1()
+            + trueSM.computeBrHtoss() * deltaGammaHssRatio1()
             + trueSM.computeBrHtobb() * deltaGammaHbbRatio1()
             + BrHexo);
 
@@ -32263,6 +32387,7 @@ const double NPSMEFTd6General::BrHvisRatio() const {
                 + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
                 + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
                 + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
+                + trueSM.computeBrHtoss() * deltaGammaHssRatio2()
                 + trueSM.computeBrHtobb() * deltaGammaHbbRatio2();
 
         dvis2 = delta2SM + (BrHexo)*(BrHexo + delta2SM);
@@ -39887,6 +40012,10 @@ const double NPSMEFTd6General::kappaceff() const {
     return sqrt(GammaHccRatio());
 }
 
+const double NPSMEFTd6General::kappaseff() const {
+    return sqrt(GammaHssRatio());
+}
+
 const double NPSMEFTd6General::kappabeff() const {
     return sqrt(GammaHbbRatio());
 }
@@ -39946,6 +40075,15 @@ const double NPSMEFTd6General::deltayc_HB() const {
     double ciHB;
 
     ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CuHR", 1, 1) * v2 + delta_h - 0.5 * delta_GF;
+
+    return ciHB;
+}
+
+const double NPSMEFTd6General::deltays_HB() const {
+    double mf = (quarks[STRANGE].getMass());
+    double ciHB;
+
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CdHR", 1, 1) * v2 + delta_h - 0.5 * delta_GF;
 
     return ciHB;
 }

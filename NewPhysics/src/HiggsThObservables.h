@@ -5941,6 +5941,37 @@ private:
     const double sqrt_s;
 };
 
+/**
+ * @class mueeZHss
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to ss}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to ss}@f$ between the 
+ * @f$e^+e^- \to ZH, H \to ss@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mueeZHss : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mueeZHss(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to ss}@f$ in the current model.
+     * @return @f$\mu_{e^+e^- \to ZH, H \to ss}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
 
 /**
  * @class mueeZHgg
@@ -6289,6 +6320,39 @@ public:
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to cc}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, H \to cc}@f$
+     */
+    double computeThValue();
+    
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s, Pol_em, Pol_ep;
+};
+
+/**
+ * @class mueeZHssPol
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to ss}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to ss}@f$ between the 
+ * @f$e^+e^- \to ZH, H \to ss@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mueeZHssPol : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
+     */
+    mueeZHssPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to ss}@f$ in the current model.
+     * @return @f$\mu_{e^+e^- \to ZH, H \to ss}@f$
      */
     double computeThValue();
     

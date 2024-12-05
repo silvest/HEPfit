@@ -15,7 +15,7 @@ const std::string HiggsKigen::HKvKfgenvars[NHKvKfgenvars] = {
     "eepWBFint","eepWBFpar","eepZBFint","eepZBFpar",
     "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
     "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
-    "eHccint","eHccpar","eHbbint","eHbbpar",
+    "eHccint","eHccpar","eHssint","eHsspar","eHbbint","eHbbpar",
     "eggFHgaga","eggFHZga","eggFHZZ","eggFHWW","eggFHtautau","eggFHbb","eggFHmumu",   
     "eVBFHgaga","eVBFHZga","eVBFHZZ","eVBFHWW","eVBFHtautau","eVBFHbb","eVBFHmumu",   
     "eWHgaga","eWHZga","eWHZZ","eWHWW","eWHtautau","eWHbb","eWHmumu",    
@@ -86,6 +86,8 @@ HiggsKigen::HiggsKigen()
     ModelParamMap.insert(std::make_pair("eHtautaupar", std::cref(eHtautaupar)));
     ModelParamMap.insert(std::make_pair("eHccint", std::cref(eHccint)));
     ModelParamMap.insert(std::make_pair("eHccpar", std::cref(eHccpar)));
+    ModelParamMap.insert(std::make_pair("eHssint", std::cref(eHssint)));
+    ModelParamMap.insert(std::make_pair("eHsspar", std::cref(eHsspar)));
     ModelParamMap.insert(std::make_pair("eHbbint", std::cref(eHbbint)));
     ModelParamMap.insert(std::make_pair("eHbbpar", std::cref(eHbbpar)));    
     ModelParamMap.insert(std::make_pair("eggFHgaga", std::cref(eggFHgaga)));
@@ -342,7 +344,11 @@ void HiggsKigen::setParameter(const std::string name, const double& value)
         eHccint = value;
     } else if (name.compare("eHccpar") == 0) {
         eHccpar = value;
-    } else if (name.compare("eHbbint") == 0) {
+    } else if (name.compare("eHssint") == 0) {
+        eHssint = value;
+    } else if (name.compare("eHsspar") == 0) {
+        eHsspar = value;
+    }else if (name.compare("eHbbint") == 0) {
         eHbbint = value;
     } else if (name.compare("eHbbpar") == 0) {
         eHbbpar = value;   
@@ -905,6 +911,13 @@ const double HiggsKigen::BrHccRatio() const
     double Br = 1.0;
     Br = (computeKc() * computeKc() / GammaHTotR);
     return (Br * (1.0 + eHccint + eHccpar));
+}
+
+const double HiggsKigen::BrHssRatio() const
+{
+    double Br = 1.0;
+    Br = (computeKs() * computeKs() / GammaHTotR);
+    return (Br * (1.0 + eHssint + eHsspar));
 }
 
 const double HiggsKigen::BrHbbRatio() const
@@ -1889,6 +1902,7 @@ const double HiggsKigen::computeGammaTotalSMRatio() const
             + computeKmu() * computeKmu() * (1.0 + eHmumuint + eHmumupar) * trueSM.computeBrHtomumu()
             + computeKtau() * computeKtau() * (1.0 + eHtautauint + eHtautaupar) * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * (1.0 + eHccint + eHccpar) * trueSM.computeBrHtocc()
+            + computeKs() * computeKs() * (1.0 + eHssint + eHsspar) * trueSM.computeBrHtoss()
             + computeKb() * computeKb() * (1.0 + eHbbint + eHbbpar) * trueSM.computeBrHtobb())
             / (trueSM.computeBrHtogg()
             + trueSM.computeBrHtoWW()
@@ -1898,6 +1912,7 @@ const double HiggsKigen::computeGammaTotalSMRatio() const
             + trueSM.computeBrHtomumu()
             + trueSM.computeBrHtotautau()
             + trueSM.computeBrHtocc()
+            + trueSM.computeBrHtoss()
             + trueSM.computeBrHtobb()));
         
     return GammaRatioSMmodes;
@@ -1916,6 +1931,7 @@ const double HiggsKigen::computeGammaTotalSMnoErrorRatio() const
             + computeKmu() * computeKmu() * trueSM.computeBrHtomumu()
             + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * trueSM.computeBrHtocc()
+            + computeKs() * computeKs() * trueSM.computeBrHtoss()
             + computeKb() * computeKb() * trueSM.computeBrHtobb())
             / (trueSM.computeBrHtogg()
             + trueSM.computeBrHtoWW()
@@ -1925,6 +1941,7 @@ const double HiggsKigen::computeGammaTotalSMnoErrorRatio() const
             + trueSM.computeBrHtomumu()
             + trueSM.computeBrHtotautau()
             + trueSM.computeBrHtocc()
+            + trueSM.computeBrHtoss()
             + trueSM.computeBrHtobb()));
         
     return GammaRatioSMmodes;
@@ -2037,18 +2054,22 @@ const double HiggsKigen::computeKgLoop() const
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
     double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
     double Mc=trueSM.getQuarks(QCD::CHARM).getMass();
+    double Ms=trueSM.getQuarks(QCD::STRANGE).getMass();
     double TAUt=4.0*Mt*Mt/(mHl*mHl);
     double TAUb=4.0*Mb*Mb/(mHl*mHl);
     double TAUc=4.0*Mc*Mc/(mHl*mHl);
+    double TAUs=4.0*Ms*Ms/(mHl*mHl);
     double KgEff;
 
     KgEff = ( ( Kt * 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
                      +Kb * 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) 
-                     +Kc * 0.5*TAUc*(1.0+(1.0-TAUc)*f_func(TAUc)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
+                     +Kc * 0.5*TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))
+                     +Ks * 0.5*TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
 
     KgEff = KgEff / ( ( 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
                      + 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb))
-                     + 0.5*TAUc*(1.0+(1.0-TAUc)*f_func(TAUc)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
+                     + 0.5*TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))
+                     + 0.5*TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
 
     return (sqrt(KgEff));
 }
@@ -2058,6 +2079,7 @@ const double HiggsKigen::computeKZgaLoop() const
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
     double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
     double Mc=trueSM.getQuarks(QCD::CHARM).getMass();
+    double Ms=trueSM.getQuarks(QCD::STRANGE).getMass();
     double Mtau=trueSM.getLeptons(StandardModel::TAU).getMass();
     double Mmu=trueSM.getLeptons(StandardModel::MU).getMass();
     double MW=trueSM.Mw_tree();
@@ -2066,12 +2088,14 @@ const double HiggsKigen::computeKZgaLoop() const
     double TAUt=4.0*Mt*Mt/(mHl*mHl);
     double TAUb=4.0*Mb*Mb/(mHl*mHl);
     double TAUc=4.0*Mc*Mc/(mHl*mHl);
+    double TAUs=4.0*Ms*Ms/(mHl*mHl);
     double TAUtau=4.0*Mtau*Mtau/(mHl*mHl);
     double TAUmu=4.0*Mmu*Mmu/(mHl*mHl);
     double TAUw=4.0*MW*MW/(mHl*mHl);
     double LAMt=4.0*Mt*Mt/(Mz*Mz);
     double LAMb=4.0*Mb*Mb/(Mz*Mz);
     double LAMc=4.0*Mc*Mc/(Mz*Mz);
+    double LAMs=4.0*Ms*Ms/(Mz*Mz);
     double LAMtau=4.0*Mtau*Mtau/(Mz*Mz);
     double LAMmu=4.0*Mmu*Mmu/(Mz*Mz);
     double LAMw=4.0*MW*MW/(Mz*Mz);
@@ -2079,7 +2103,8 @@ const double HiggsKigen::computeKZgaLoop() const
 
     KZgaEff = ((-Kt * 4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUt,LAMt)-Int2(TAUt,LAMt)) * (1.0-AlsMz/M_PI)
                       +Kb * 2.0*(-0.5+2.0/3.0*sW2)*(Int1(TAUb,LAMb)-Int2(TAUb,LAMb))
-                      -Kc * 4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc))            
+                      -Kc * 4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc))   
+                      +Ks * 2.0*(-0.5+2.0/3.0*sW2)*(Int1(TAUs,LAMs)-Int2(TAUs,LAMs))
                       +Ktau * 2.0*(-0.5+2.0*sW2)*(Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau))
                       +Kmu * 2.0*(-0.5+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)) )/sqrt(sW2*cW2)
                      -Kw * sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
@@ -2088,6 +2113,7 @@ const double HiggsKigen::computeKZgaLoop() const
     KZgaEff = KZgaEff / ((-4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUt,LAMt)-Int2(TAUt,LAMt)) * (1.0-AlsMz/M_PI)
                       + 2.0*(-0.5+2.0/3.0*sW2)*(Int1(TAUb,LAMb)-Int2(TAUb,LAMb))
                       - 4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc))
+                      + 2.0*(-0.5+2.0/3.0*sW2)*(Int1(TAUs,LAMs)-Int2(TAUs,LAMs))
                       + 2.0*(-0.5+2.0*sW2)*(Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau))
                       + 2.0*(-0.5+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)) )/sqrt(sW2*cW2)
                       - sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
@@ -2101,12 +2127,14 @@ const double HiggsKigen::computeKgagaLoop() const
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
     double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
     double Mc=trueSM.getQuarks(QCD::CHARM).getMass();
+    double Ms=trueSM.getQuarks(QCD::STRANGE).getMass();
     double Mtau=trueSM.getLeptons(StandardModel::TAU).getMass();
     double Mmu=trueSM.getLeptons(StandardModel::MU).getMass();
     double MW=trueSM.Mw_tree();
     double TAUt=4.0*Mt*Mt/(mHl*mHl);
     double TAUb=4.0*Mb*Mb/(mHl*mHl);
     double TAUc=4.0*Mc*Mc/(mHl*mHl);
+    double TAUs=4.0*Ms*Ms/(mHl*mHl);
     double TAUtau=4.0*Mtau*Mtau/(mHl*mHl);
     double TAUmu=4.0*Mmu*Mmu/(mHl*mHl);
     double TAUw=4.0*MW*MW/(mHl*mHl);
@@ -2115,6 +2143,7 @@ const double HiggsKigen::computeKgagaLoop() const
     KgagaEff = ( Kt * (8./3.)*TAUt*(1.+(1.-TAUt)*f_func(TAUt)) * (1.0-AlsMz/M_PI)
                      +Kb * (2./3.)*TAUb*(1.+(1.-TAUb)*f_func(TAUb))
                      +Kc * (8./3.)*TAUc*(1.+(1.-TAUc)*f_func(TAUc))
+                     +Ks * (2./3.)*TAUs*(1.+(1.-TAUs)*f_func(TAUs))
                      +Ktau * 2.0*TAUtau*(1.+(1.-TAUtau)*f_func(TAUtau))
                      +Kmu * 2.0*TAUmu*(1.+(1.-TAUmu)*f_func(TAUmu))
                      -Kw * (2.0+3.0*TAUw+3.0*TAUw*(2.0-TAUw)*f_func(TAUw)) ).abs2();
@@ -2122,6 +2151,7 @@ const double HiggsKigen::computeKgagaLoop() const
     KgagaEff = KgagaEff / ( (8./3.)*TAUt*(1.+(1.-TAUt)*f_func(TAUt)) * (1.0-AlsMz/M_PI)
                      + (2./3.)*TAUb*(1.+(1.-TAUb)*f_func(TAUb))
                      + (8./3.)*TAUc*(1.+(1.-TAUc)*f_func(TAUc))
+                     + (2./3.)*TAUs*(1.+(1.-TAUs)*f_func(TAUs))
                      + 2.0*TAUtau*(1.+(1.-TAUtau)*f_func(TAUtau))
                      + 2.0*TAUmu*(1.+(1.-TAUmu)*f_func(TAUmu))
                      - (2.0+3.0*TAUw+3.0*TAUw*(2.0-TAUw)*f_func(TAUw)) ).abs2();

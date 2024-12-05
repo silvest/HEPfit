@@ -2002,6 +2002,16 @@ public:
     {
         return 1.0;
     }
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to s\bar{s})@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to s\bar{s})@f$/Br@f$(H\to s\bar{s})_{\mathrm{SM}}@f$
+     */
+    virtual const double BrHssRatio() const
+    {
+        return 1.0;
+    }
 
     /**
      * @brief The ratio of the Br@f$(H\to b\bar{b})@f$ in the current model

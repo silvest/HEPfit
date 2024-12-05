@@ -198,7 +198,7 @@
 class HiggsKigen : public NPbase {
 public:
 
-    static const int NHKvKfgenvars = 92; ///< The number of the model parameters in %HiggsKigen: 17 modelpars + 38 + 37 th. err. pars.
+    static const int NHKvKfgenvars = 94; ///< The number of the model parameters in %HiggsKigen: 17 modelpars + 39 + 38 th. err. pars.
 
     /**
      * @brief A string array containing the labels of the model parameters in %HiggsKigen.
@@ -1437,6 +1437,12 @@ public:
      */
     virtual const double BrHccRatio() const;
     /**
+     * @brief The ratio of the Br@f$(H\to s\bar{s})@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to s\bar{s})@f$/Br@f$(H\to s\bar{s})_{\mathrm{SM}}@f$
+     */
+    virtual const double BrHssRatio() const;
+    /**
      * @brief The ratio of the Br@f$(H\to b\bar{b})@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
@@ -2554,6 +2560,8 @@ private:
     double eHtautaupar; ///< Parametric relative theoretical error in \f$H \to \tau^+ \tau^-\f$.
     double eHccint; ///< Intrinsic relative theoretical error in \f$H \to c\bar{c}\f$.
     double eHccpar; ///< Parametric relative theoretical error in \f$H \to c\bar{c}\f$.
+    double eHssint; ///< Intrinsic relative theoretical error in \f$H \to s\bar{s}\f$.
+    double eHsspar; ///< Parametric relative theoretical error in \f$H \to s\bar{s}\f$.
     double eHbbint; ///< Intrinsic relative theoretical error in \f$H \to b\bar{b}\f$.
     double eHbbpar; ///< Parametric relative theoretical error in \f$H \to b\bar{b}\f$.
     
