@@ -130,7 +130,6 @@ bool QCD::Init(const std::map<std::string, double> &DPars)
 bool QCD::PreUpdate()
 {
     computemt = false;
-    QCDsuccess = true;
     return (true);
 }
 
@@ -1395,7 +1394,7 @@ const double QCD::Mrun(const double mu_f, const double mu_i, const double m, con
     {
         if (order == NLO || order == NNLO)
             throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mrun(mu_f,mu_i,m,q,order)");
-        mu_threshold = AboveTh(mu_i);
+        mu_threshold = Nf(mu_i) < nfi ? Thresholds(6-lround(nfi)): AboveTh(mu_i) ;
         mrun = MrunTMP(mu_threshold - MEPS, mu_i, m, lround(nfi), order);
         if (order == FULLNNLO)
             mrun *= threCorrForMass(nfi + 1., nfi); // threshold corrections
@@ -1442,7 +1441,7 @@ const double QCD::Mrun(const double mu_f, const double mu_i, const double m, con
             mrun = MrunTMP(mu_f, mu_threshold - MEPS, mrun, lround(nff), order);
         else if (nff == nfi - 2.)
         {
-            mu_threshold2 = AboveTh(mu_f);
+            mu_threshold2 = Nf(mu_f) < nff ? Thresholds(6-lround(nff)) : AboveTh(mu_f);
             mrun = MrunTMP(mu_threshold2 + MEPS, mu_threshold - MEPS, mrun, lround(nfi) - 1, order);
             if (order == FULLNNLO)
                 mrun *= threCorrForMass(nff, nfi - 1.); // threshold corrections
@@ -1745,13 +1744,13 @@ const double QCD::Mofmu2Mbar(const double m, const double mu, const quark q) con
     switch (q)
     {
     case TOP:
-        mutmp = 165.;
+        mutmp = mut;
         break;
     case BOTTOM:
-        mutmp = 4.2;
+        mutmp = mub;
         break;
     case CHARM:
-        mutmp = 2.;
+        mutmp = muc;
         break;
     default:
         QCDsuccess = false;
@@ -1771,7 +1770,7 @@ const double QCD::Mofmu2Mbar(const double m, const double mu, const quark q) con
 
     ROOT::Math::BrentRootFinder brf;
     brf.SetNpx(5);
-    brf.SetFunction(wf1, .3 * mlow, 3. * mlow);
+    brf.SetFunction(wf1, .5 * mlow, 2. * mlow);
     if (brf.Solve())
         mlow = brf.Root();
     else

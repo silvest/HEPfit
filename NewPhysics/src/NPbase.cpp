@@ -33,22 +33,10 @@ NPbase::NPbase()
     trueSM.setSliced(true);
 }
 
-bool NPbase::PreUpdate()
-{
-    if (!trueSM.PreUpdate()) return (false);
-    return StandardModel::PreUpdate();
-}
-
 bool NPbase::Update(const std::map<std::string, double>& DPars)
 {
     if (!trueSM.Update(DPars)) return (false);
     return StandardModel::Update(DPars);
-}
-
-bool NPbase::PostUpdate()
-{
-    if (!trueSM.PostUpdate()) return (false);
-    return StandardModel::PostUpdate();
 }
 
 int NPbase::OutputOrder() const {

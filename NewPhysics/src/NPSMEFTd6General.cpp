@@ -2996,7 +2996,7 @@ bool NPSMEFTd6General::PreUpdate() {
 
 void NPSMEFTd6General::ChangeToEvolutorsBasisPureSM() {
     //In this function we switch from the SM parameters used in the SM class to those needed for the evolutor using the SM expressions
-    //(Parameters at the EW scale)
+    //(Parameters at the EW scale, which we take to be muw ~ Mz)
 
     //Here we have included the expressions for the alpha and Mw schemes, enabling or the other depending on the corresponding flag
     g1_LEW = cAsch * ( sqrt(2 * sqrt(2) * GF * (Mz * Mz - sqrt(Mz * Mz * (Mz * Mz - (2 * sqrt(2) * M_PI * trueSM.alphaMz()) / GF)))) ) 
@@ -8335,7 +8335,6 @@ bool NPSMEFTd6General::PostUpdate() {
 
     v2 = v() * v();
     v2_over_LambdaNP2 = v2 / LambdaNP2;
-
 
     // SM parameters using tree-level relations, depending on the input scheme
     aleMz = trueSM.alphaMz();

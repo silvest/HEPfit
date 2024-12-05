@@ -233,7 +233,6 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars)
 
     if (UpdateError) return (false);
 
-    if (isSliced) return (true);
     if (!PostUpdate()) return (false);
 
     return (true);
