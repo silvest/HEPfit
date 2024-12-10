@@ -934,26 +934,6 @@ public:
     }
 
     /**
-     * @brief A get method to retrieve the Yukawa matrix of the up-type quarks, 
-     * @f$Y_u@f$.
-     * @return @f$Y_u@f$
-     */
-    const gslpp::matrix<gslpp::complex>& getYu() const
-    {
-        return Yu;
-    }
-
-    /**
-     * @brief A get method to retrieve the Yukawa matrix of the down-type quarks,
-     * @f$Y_d@f$.
-     * @return @f$Y_d@f$
-     */
-    const gslpp::matrix<gslpp::complex>& getYd() const
-    {
-        return Yd;
-    }
-
-    /**
      * @brief A get method to retrieve the Yukawa matrix of the neutrinos,
      * @f$Y_\nu@f$.
      * @return @f$Y_\nu@f$
@@ -961,16 +941,6 @@ public:
     const gslpp::matrix<gslpp::complex>& getYn() const
     {
         return Yn;
-    }
-
-    /**
-     * @brief A get method to retrieve the Yukawa matrix of the charged leptons,
-     * @f$Y_e@f$.
-     * @return @f$Y_e@f$
-     */
-    const gslpp::matrix<gslpp::complex>& getYe() const
-    {
-        return Ye;
     }
 
     /**
@@ -3208,6 +3178,66 @@ virtual const double getmq(const QCD::quark q, const double mu) const
     void setCKM(const CKM& CKMMatrix)
     {
         myCKM = CKMMatrix;
+    }
+
+    /**
+     * @brief A get method to retrieve the Yukawa matrix of the up-type quarks, 
+     * @f$Y_u@f$.
+     * @return @f$Y_u@f$
+     */
+    const gslpp::matrix<gslpp::complex>& getYu() const
+    {
+        return Yu;
+    }
+
+    /**
+     * @brief A set method to set the Yukawa matrix of the up-type quarks, 
+     * @f$Y_u@f$.
+     * @param[in] Yu the Yukawa matrix to be set
+     */
+    void setYu(const gslpp::matrix<gslpp::complex>& Yu)
+    {
+        this->Yu = Yu;
+    }
+
+    /**
+     * @brief A get method to retrieve the Yukawa matrix of the down-type quarks,
+     * @f$Y_d@f$.
+     * @return @f$Y_d@f$
+     */
+    const gslpp::matrix<gslpp::complex>& getYd() const
+    {
+        return Yd;
+    }
+
+    /**
+     * @brief A set method to set the Yukawa matrix of the down-type quarks,
+     * @f$Y_d@f$.
+     * @param[in] Yd the Yukawa matrix to be set
+     */
+    void setYd(const gslpp::matrix<gslpp::complex>& Yd)
+    {
+        this->Yd = Yd;
+    }
+
+    /**
+     * @brief A get method to retrieve the Yukawa matrix of the charged leptons,
+     * @f$Y_e@f$.
+     * @return @f$Y_e@f$
+     */
+    const gslpp::matrix<gslpp::complex>& getYe() const
+    {
+        return Ye;
+    }
+
+    /**
+     * @brief A set method to set the Yukawa matrix of the charged leptons,
+     * @f$Y_e@f$.
+     * @param[in] Ye the Yukawa matrix to be set
+     */
+    void setYe(const gslpp::matrix<gslpp::complex>& Ye)
+    {
+        this->Ye = Ye;
     }
 
 

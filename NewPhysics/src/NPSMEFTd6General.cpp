@@ -8475,14 +8475,14 @@ bool NPSMEFTd6General::PostUpdate() {
     double delta_vT = getDelta_v();
     double vTosq2 = vT / sqrt(2.);
 
-    // Let us first define the full mass matrices, including the effect of dimension six operators
+    // Let us first define the full mass matrices, including the effect of dimension six operators in both running and matching
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
-            MUQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
-            MUQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
-            MDQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
-            MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
+            MUQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) + getSMEFTCoeffEW("dYuR", i, j) - getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
+            MUQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) + getSMEFTCoeffEW("dYuI", i, j) - getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
+            MDQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) + getSMEFTCoeffEW("dYdR", i, j) - getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
+            MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) + getSMEFTCoeffEW("dYdI", i, j) - getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
         }
 
     gslpp::vector<double> mmu(3), mmd(3);
@@ -8576,6 +8576,9 @@ bool NPSMEFTd6General::PostUpdate() {
 
     if (!NPbase::PostUpdate()) return (false);
     if (!trueSM.PostUpdate()) return (false);
+    trueSM.setYu(Yu);
+    trueSM.setYd(Yd);
+    trueSM.setYe(Ye);
 
     //  NP corrections to Total Higgs width
     dGammaHTotR1 = deltaGammaTotalRatio1();
@@ -8640,6 +8643,20 @@ bool NPSMEFTd6General::PostUpdate() {
     getMatching().updateLEFTGeneralParameters();
 
     return (true);
+}
+
+void NPSMEFTd6General::computeYukawas() {
+
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++) {
+            Yu.assignre(i,j,getSMEFTCoeffEW("YuR", i, j) + getSMEFTCoeffEW("dYuR", i, j));
+            Yu.assignim(i,j,getSMEFTCoeffEW("YuI", i, j) + getSMEFTCoeffEW("dYuI", i, j));
+            Yd.assignre(i,j,getSMEFTCoeffEW("YdR", i, j) + getSMEFTCoeffEW("dYdR", i, j));
+            Yd.assignim(i,j,getSMEFTCoeffEW("YdI", i, j) + getSMEFTCoeffEW("dYdI", i, j));
+            Ye.assignre(i,j,getSMEFTCoeffEW("YeR", i, j) + getSMEFTCoeffEW("dYeR", i, j));
+            Ye.assignim(i,j,getSMEFTCoeffEW("YeI", i, j) + getSMEFTCoeffEW("dYeI", i, j));
+        }
+        
 }
 
 void NPSMEFTd6General::setParameter(const std::string name, const double& value) {
