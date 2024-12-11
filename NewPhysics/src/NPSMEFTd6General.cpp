@@ -8645,19 +8645,17 @@ bool NPSMEFTd6General::PostUpdate() {
     return (true);
 }
 
-void NPSMEFTd6General::computeYukawas() {
-
-    for (int i = 0; i < 3; i++)
-        for (int j = 0; j < 3; j++) {
-            Yu.assignre(i,j,getSMEFTCoeffEW("YuR", i, j) + getSMEFTCoeffEW("dYuR", i, j));
-            Yu.assignim(i,j,getSMEFTCoeffEW("YuI", i, j) + getSMEFTCoeffEW("dYuI", i, j));
-            Yd.assignre(i,j,getSMEFTCoeffEW("YdR", i, j) + getSMEFTCoeffEW("dYdR", i, j));
-            Yd.assignim(i,j,getSMEFTCoeffEW("YdI", i, j) + getSMEFTCoeffEW("dYdI", i, j));
-            Ye.assignre(i,j,getSMEFTCoeffEW("YeR", i, j) + getSMEFTCoeffEW("dYeR", i, j));
-            Ye.assignim(i,j,getSMEFTCoeffEW("YeI", i, j) + getSMEFTCoeffEW("dYeI", i, j));
-        }
-        
-}
+// void NPSMEFTd6General::computeYukawas() {
+//     for (int i = 0; i < 3; i++)
+//         for (int j = 0; j < 3; j++) {
+//             Yu.assignre(i,j,getSMEFTCoeffEW("YuR", i, j) + getSMEFTCoeffEW("dYuR", i, j));
+//             Yu.assignim(i,j,getSMEFTCoeffEW("YuI", i, j) + getSMEFTCoeffEW("dYuI", i, j));
+//             Yd.assignre(i,j,getSMEFTCoeffEW("YdR", i, j) + getSMEFTCoeffEW("dYdR", i, j));
+//             Yd.assignim(i,j,getSMEFTCoeffEW("YdI", i, j) + getSMEFTCoeffEW("dYdI", i, j));
+//             Ye.assignre(i,j,getSMEFTCoeffEW("YeR", i, j) + getSMEFTCoeffEW("dYeR", i, j));
+//             Ye.assignim(i,j,getSMEFTCoeffEW("YeI", i, j) + getSMEFTCoeffEW("dYeI", i, j));
+//         }
+// }
 
 void NPSMEFTd6General::setParameter(const std::string name, const double& value) {
 

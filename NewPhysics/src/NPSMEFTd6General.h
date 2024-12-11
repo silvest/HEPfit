@@ -6988,16 +6988,9 @@ protected:
      */
 //    void getWCFromEvolutor();
     
-    /**
-     * @brief The method to compute the %Yukawas matrices, overriden from the StandardModel class to include the SMEFT corrections due to the RG evolution
-     */
-    virtual void computeYukawas();
-    
-    
     mutable Matching<NPSMEFTd6GeneralMatching, NPSMEFTd6General> NPSMEFTd6GM;
 
     std::string SMEFTBasisFlag;
-
 
     //For the SM parameters used in the evolutor we start at the EW scale
     double g1_LEW = 0;
