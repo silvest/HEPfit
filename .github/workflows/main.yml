@@ -5,6 +5,7 @@ on:
       - master
 jobs:
   deploy:
+    runs-on: ubuntu-latest
     steps:
       - name: GetCode
         uses: actions/checkout@v3
