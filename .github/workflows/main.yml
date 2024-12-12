@@ -4,12 +4,15 @@ on:
     branch:
       - master
 jobs:
-  - name: Doxygenize
-  uses: actions/checkout@v3
-  # You may pin to the exact commit or the version.
-  # uses: langroodi/doxygenize@542946a13bc9021f5ba07c8751e6ab3d84bca154
-  uses: langroodi/doxygenize@v1.7.0
-  with:
-    # Doxygen configuration file path
-    doxygenconf: ./Doxygen/Doxyfile-master
+  deploy:
+    steps:
+      - name: GetCode
+        uses: actions/checkout@v3
+      - name: Doxygenize
+        # You may pin to the exact commit or the version.
+        # uses: langroodi/doxygenize@542946a13bc9021f5ba07c8751e6ab3d84bca154
+        uses: langroodi/doxygenize@v1.7.0
+        with:
+          # Doxygen configuration file path
+          doxygenconf: ./Doxygen/Doxyfile-master
           
