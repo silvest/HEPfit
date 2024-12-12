@@ -1,0 +1,27 @@
+var class_heff_d_f2 =
+[
+    [ "HeffDF2", "dc/da2/class_heff_d_f2.html#ab985e2c504620d7aab2f5538b0596f93", null ],
+    [ "~HeffDF2", "dc/da2/class_heff_d_f2.html#aaefc77553fd04cb9a3b5667aa46b4d4c", null ],
+    [ "AnomalousDimension", "dc/da2/class_heff_d_f2.html#a45a35827bbc32f62d51dd4a003f98544", null ],
+    [ "ChangeScheme", "dc/da2/class_heff_d_f2.html#a5bb8173e938e1638b1ce07de21d7b146", null ],
+    [ "ComputeCoeffBd", "dc/da2/class_heff_d_f2.html#ab09267f40b721fd71a1a42632c5ac232", null ],
+    [ "ComputeCoeffBs", "dc/da2/class_heff_d_f2.html#a2de18d706ecc0a7dc348c19ccc94e389", null ],
+    [ "ComputeCoeffdd", "dc/da2/class_heff_d_f2.html#ab106fce0a0b226c259f0913c1bda0e9f", null ],
+    [ "ComputeCoeffK", "dc/da2/class_heff_d_f2.html#af64cc6bd30b8c723e81189327129633a", null ],
+    [ "ComputeCoeffmK", "dc/da2/class_heff_d_f2.html#ade44317e191906b1b08120ac4ed0afef", null ],
+    [ "getCoeffBd", "dc/da2/class_heff_d_f2.html#affd4f8c212442fe1606bc7cb09bddbc0", null ],
+    [ "getCoeffBs", "dc/da2/class_heff_d_f2.html#a5b266adfb8083a9db4a5db0a08df0115", null ],
+    [ "getCoeffDD", "dc/da2/class_heff_d_f2.html#ab29d82d3749854a5ed878653e072f61c", null ],
+    [ "getCoeffK", "dc/da2/class_heff_d_f2.html#ad0f05728c0042e9eae358cf34899298e", null ],
+    [ "getCoeffmK", "dc/da2/class_heff_d_f2.html#aa7455d7f6567248d86365c06742065b1", null ],
+    [ "getUDF2", "dc/da2/class_heff_d_f2.html#a05655588ee183defbdac9839f1997809", null ],
+    [ "S0tt", "dc/da2/class_heff_d_f2.html#ac6f15092ccb1d122af1bc17bd9b2d5e9", null ],
+    [ "coeffbd", "dc/da2/class_heff_d_f2.html#a7dae386363e7ec77747316bf4fb7d157", null ],
+    [ "coeffbs", "dc/da2/class_heff_d_f2.html#abe4729d1b4d21864e3273c0caf6e7275", null ],
+    [ "coeffDd", "dc/da2/class_heff_d_f2.html#aae2bc323db1b4245b546fe6727030323", null ],
+    [ "coeffk", "dc/da2/class_heff_d_f2.html#af36a8667d0c8ab2ad6716b5072bdc7ef", null ],
+    [ "coeffmk", "dc/da2/class_heff_d_f2.html#ab48f032b0a4d0ff853ae4514081f0be4", null ],
+    [ "drNDRLRI", "dc/da2/class_heff_d_f2.html#ae1894cebfc225cfbaf42e6ecaa4713cd", null ],
+    [ "evolDF2", "dc/da2/class_heff_d_f2.html#a02b3db5e44eb81e6414fbff38d87fae2", null ],
+    [ "model", "dc/da2/class_heff_d_f2.html#ab9f09c2aefa76ab384d8c7fa61438e10", null ]
+];
