@@ -1,4 +1,8 @@
 name: Doxygenize
+on:
+  push:
+    branch:
+      - master
 # uses: actions/checkout@v3
 # You may pin to the exact commit or the version.
 # uses: langroodi/doxygenize@542946a13bc9021f5ba07c8751e6ab3d84bca154
