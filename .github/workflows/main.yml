@@ -1,19 +1,9 @@
-              - name: Doxygenize
-                uses: actions/checkout@v3
-                # You may pin to the exact commit or the version.
-                # uses: langroodi/doxygenize@542946a13bc9021f5ba07c8751e6ab3d84bca154
-                uses: langroodi/doxygenize@v1.7.0
-                with:
-                  # Doxygen configuration file path
-                  doxygenconf: ./Doxygen/Doxyfile-master
-                  # Generated HTML documents output folder
-                  htmloutput: # default is ./docs/
-                  # GitHub Pages branch name
-                  ghpagesbranch: # default is gh-pages
-                  # GitHub Pages directory path
-                  ghpagesdir: # default is ./
-                  # Toggle dark mode CSS
-                  darkmode: # optional
-                  # Custom Doxygen pages header HTML file URL
-                  customheader: # optional, default is 
+name: Doxygenize
+uses: actions/checkout@v3
+# You may pin to the exact commit or the version.
+# uses: langroodi/doxygenize@542946a13bc9021f5ba07c8751e6ab3d84bca154
+uses: langroodi/doxygenize@v1.7.0
+with:
+  # Doxygen configuration file path
+  doxygenconf: ./Doxygen/Doxyfile-master
           
