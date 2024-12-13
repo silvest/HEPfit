@@ -146,7 +146,97 @@ $(document).ready(function(){initNavTree('dc/d90/class_t_h_d_m_w.html','../../')
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,98,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A base class for \(Z_2\) symmetric Two-Higgs-Doublet-Manohar-Wise models. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>We use the parametrization of Li/Valencia (see eq. (1) in 1703.03445 <b>[Cheng:2017tbn]</b> ).</p>
+<p ><a class="anchor" id="THDMWParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of THDMW are summarized below.</p>
+<table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">logtb </td><td class="mod_symb">\(\log_{10} \tan \beta\) </td><td class="mod_desc">The decadic logarithm of the tangent of the mixing angle \(\beta \equiv \arctan \frac{v_2}{v_1}\).  </td></tr>
+<tr>
+<td class="mod_name">bma </td><td class="mod_symb">\(\beta - \alpha\) </td><td class="mod_desc">The difference of the mixing angles \(\beta\) and \(\alpha\).  </td></tr>
+<tr>
+<td class="mod_name">THDMW_lambda1 </td><td class="mod_symb">\(\lambda_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_lambda2 </td><td class="mod_symb">\(\lambda_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_lambda3 </td><td class="mod_symb">\(\lambda_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_lambda4 </td><td class="mod_symb">\(\lambda_{4}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{4}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_lambda5 </td><td class="mod_symb">\(\lambda_{5}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{5}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_mS2 </td><td class="mod_symb">\(m_{S}^{2}\) </td><td class="mod_desc">The mass parameter for the colour scalars. Note that this is not, in general, the physical mass because it gets contributions from the vev   </td></tr>
+<tr>
+<td class="mod_name">THDMW_mu1 </td><td class="mod_symb">\(\mu_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_mu2 </td><td class="mod_symb">\(\mu_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_mu3 </td><td class="mod_symb">\(\mu_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_mu4 </td><td class="mod_symb">\(\mu_{4}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{4}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_mu5 </td><td class="mod_symb">\(\mu_{5}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{5}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_mu6 </td><td class="mod_symb">\(\mu_{6}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{6}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_nu1 </td><td class="mod_symb">\(nu_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_nu2 </td><td class="mod_symb">\(nu_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_nu3 </td><td class="mod_symb">\(nu_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_nu4 </td><td class="mod_symb">\(nu_{4}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{4}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_nu5 </td><td class="mod_symb">\(nu_{5}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{5}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_omega1 </td><td class="mod_symb">\(\omega_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_omega2 </td><td class="mod_symb">\(\omega_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_omega3 </td><td class="mod_symb">\(\omega_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_omega4 </td><td class="mod_symb">\(\omega_{4}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{4}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_omega5 </td><td class="mod_symb">\(\omega_{5}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{5}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_kappa1 </td><td class="mod_symb">\(\kappa_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\kappa_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_kappa2 </td><td class="mod_symb">\(\kappa_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\kappa_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_kappa3 </td><td class="mod_symb">\(\kappa_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\kappa_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
+<tr>
+<td class="mod_name">THDMW_etaU </td><td class="mod_symb">\(\eta_{U}^{\text{THDMW}}\) </td><td class="mod_desc">The up-type Yukawa proportionality factor for the colour scalars   </td></tr>
+<tr>
+<td class="mod_name">THDMW_etaD </td><td class="mod_symb">\(\eta_{D}^{\text{THDMW}}\) </td><td class="mod_desc">The down-type Yukawa proportionality factor for the colour scalars   </td></tr>
+<tr>
+<td class="mod_name">THDMW_rho_b </td><td class="mod_symb">\(\rho_{b}^{SM}\) </td><td class="mod_desc">The radiative parameter \(\rho_{b}\) which corrects the \(Zq\bar{q}\) couplings. This is, the parameter \(\rho_{b}\) of arxiv:0509008   </td></tr>
+<tr>
+<td class="mod_name">THDMW_S_b </td><td class="mod_symb">\(S_{b}\) </td><td class="mod_desc">The sum of the \(Zq\bar{q}\) couplings for the up, down and charm quarks including the QED corrections. Look at arxiv:1002.1071 for more details   </td></tr>
+<tr>
+<td class="mod_name">Q_THDMW </td><td class="mod_symb">\(Q_{\text{THDMW}}\) </td><td class="mod_desc">The <a class="el" href="../../d0/d52/class_t_h_d_m.html" title="A base class for  symmetric Two-Higgs-Doublet models.">THDM</a> scale.  </td></tr>
+<tr>
+<td class="mod_name">RpepsTHDMW </td><td class="mod_symb">\(\varepsilon_{\text{R&#39;}}^{\text{THDMW}}\) </td><td class="mod_desc">Minimal value for which the R' perturbativity criterion should be applied for the unitarity bounds.  </td></tr>
+<tr>
+<td class="mod_name">NLOuniscaleTHDMW </td><td class="mod_symb">\(Q_{\text{min}}^{\text{NLOuni}}\) </td><td class="mod_desc">Minimal scale at which the NLO unitarity conditions are checked.  </td></tr>
+</table>
+<p ><a class="anchor" id="THDMWFlags"></a></p><h3>Model flags</h3>
+<table class="model">
+<tr>
+<th>Label </th><th>Value </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">modelTypeflag </td><td class="mod_valu">custodial1 / custodial2 / ManoharWise / custodialMW  </td><td class="mod_desc">This flag determines the type of model we are using.   </td></tr>
+<tr>
+<td class="mod_name">RGEorder </td><td class="mod_valu">LO / approxNLO  </td><td class="mod_desc">This flag determines the order in perturbation theory of the renormalization group equations.  </td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/dfb/_t_h_d_m_w_8h_source.html#l00233">233</a> of file <a class="el" href="../../d7/dfb/_t_h_d_m_w_8h_source.html">THDMW.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af6e54f03c552a4babb3a95d77d1eed56"><td class="memItemLeft" align="right" valign="top">virtual const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d90/class_t_h_d_m_w.html#af6e54f03c552a4babb3a95d77d1eed56">BrHbbRatio</a> () const</td></tr>
@@ -3699,97 +3789,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a83f641ad01d1965b44a555cfd868166c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for quarks.  <a href="../../dd/dfa/class_q_c_d.html#a83f641ad01d1965b44a555cfd868166c">More...</a><br /></td></tr>
 <tr class="separator:a83f641ad01d1965b44a555cfd868166c inherit pub_types_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A base class for \(Z_2\) symmetric Two-Higgs-Doublet-Manohar-Wise models. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>We use the parametrization of Li/Valencia (see eq. (1) in 1703.03445 <b>[Cheng:2017tbn]</b> ).</p>
-<p ><a class="anchor" id="THDMWParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of THDMW are summarized below.</p>
-<table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">logtb </td><td class="mod_symb">\(\log_{10} \tan \beta\) </td><td class="mod_desc">The decadic logarithm of the tangent of the mixing angle \(\beta \equiv \arctan \frac{v_2}{v_1}\).  </td></tr>
-<tr>
-<td class="mod_name">bma </td><td class="mod_symb">\(\beta - \alpha\) </td><td class="mod_desc">The difference of the mixing angles \(\beta\) and \(\alpha\).  </td></tr>
-<tr>
-<td class="mod_name">THDMW_lambda1 </td><td class="mod_symb">\(\lambda_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_lambda2 </td><td class="mod_symb">\(\lambda_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_lambda3 </td><td class="mod_symb">\(\lambda_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_lambda4 </td><td class="mod_symb">\(\lambda_{4}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{4}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_lambda5 </td><td class="mod_symb">\(\lambda_{5}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\lambda_{5}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_mS2 </td><td class="mod_symb">\(m_{S}^{2}\) </td><td class="mod_desc">The mass parameter for the colour scalars. Note that this is not, in general, the physical mass because it gets contributions from the vev   </td></tr>
-<tr>
-<td class="mod_name">THDMW_mu1 </td><td class="mod_symb">\(\mu_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_mu2 </td><td class="mod_symb">\(\mu_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_mu3 </td><td class="mod_symb">\(\mu_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_mu4 </td><td class="mod_symb">\(\mu_{4}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{4}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_mu5 </td><td class="mod_symb">\(\mu_{5}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{5}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_mu6 </td><td class="mod_symb">\(\mu_{6}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\mu_{6}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_nu1 </td><td class="mod_symb">\(nu_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_nu2 </td><td class="mod_symb">\(nu_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_nu3 </td><td class="mod_symb">\(nu_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_nu4 </td><td class="mod_symb">\(nu_{4}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{4}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_nu5 </td><td class="mod_symb">\(nu_{5}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(nu_{5}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_omega1 </td><td class="mod_symb">\(\omega_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_omega2 </td><td class="mod_symb">\(\omega_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_omega3 </td><td class="mod_symb">\(\omega_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_omega4 </td><td class="mod_symb">\(\omega_{4}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{4}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_omega5 </td><td class="mod_symb">\(\omega_{5}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\omega_{5}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_kappa1 </td><td class="mod_symb">\(\kappa_{1}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\kappa_{1}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_kappa2 </td><td class="mod_symb">\(\kappa_{2}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\kappa_{2}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_kappa3 </td><td class="mod_symb">\(\kappa_{3}^{\text{THDMW}}\) </td><td class="mod_desc">The potential parameter \(\kappa_{3}\) using the notation of <b>[Cheng:2016tlc]</b> (arxiv:1606.01298)   </td></tr>
-<tr>
-<td class="mod_name">THDMW_etaU </td><td class="mod_symb">\(\eta_{U}^{\text{THDMW}}\) </td><td class="mod_desc">The up-type Yukawa proportionality factor for the colour scalars   </td></tr>
-<tr>
-<td class="mod_name">THDMW_etaD </td><td class="mod_symb">\(\eta_{D}^{\text{THDMW}}\) </td><td class="mod_desc">The down-type Yukawa proportionality factor for the colour scalars   </td></tr>
-<tr>
-<td class="mod_name">THDMW_rho_b </td><td class="mod_symb">\(\rho_{b}^{SM}\) </td><td class="mod_desc">The radiative parameter \(\rho_{b}\) which corrects the \(Zq\bar{q}\) couplings. This is, the parameter \(\rho_{b}\) of arxiv:0509008   </td></tr>
-<tr>
-<td class="mod_name">THDMW_S_b </td><td class="mod_symb">\(S_{b}\) </td><td class="mod_desc">The sum of the \(Zq\bar{q}\) couplings for the up, down and charm quarks including the QED corrections. Look at arxiv:1002.1071 for more details   </td></tr>
-<tr>
-<td class="mod_name">Q_THDMW </td><td class="mod_symb">\(Q_{\text{THDMW}}\) </td><td class="mod_desc">The <a class="el" href="../../d0/d52/class_t_h_d_m.html" title="A base class for  symmetric Two-Higgs-Doublet models.">THDM</a> scale.  </td></tr>
-<tr>
-<td class="mod_name">RpepsTHDMW </td><td class="mod_symb">\(\varepsilon_{\text{R&#39;}}^{\text{THDMW}}\) </td><td class="mod_desc">Minimal value for which the R' perturbativity criterion should be applied for the unitarity bounds.  </td></tr>
-<tr>
-<td class="mod_name">NLOuniscaleTHDMW </td><td class="mod_symb">\(Q_{\text{min}}^{\text{NLOuni}}\) </td><td class="mod_desc">Minimal scale at which the NLO unitarity conditions are checked.  </td></tr>
-</table>
-<p ><a class="anchor" id="THDMWFlags"></a></p><h3>Model flags</h3>
-<table class="model">
-<tr>
-<th>Label </th><th>Value </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">modelTypeflag </td><td class="mod_valu">custodial1 / custodial2 / ManoharWise / custodialMW  </td><td class="mod_desc">This flag determines the type of model we are using.   </td></tr>
-<tr>
-<td class="mod_name">RGEorder </td><td class="mod_valu">LO / approxNLO  </td><td class="mod_desc">This flag determines the order in perturbation theory of the renormalization group equations.  </td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/dfb/_t_h_d_m_w_8h_source.html#l00233">233</a> of file <a class="el" href="../../d7/dfb/_t_h_d_m_w_8h_source.html">THDMW.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a31e7168d5cdde7fc755883271870dc0b" name="a31e7168d5cdde7fc755883271870dc0b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31e7168d5cdde7fc755883271870dc0b">&#9670;&nbsp;</a></span>THDMW()</h2>
 

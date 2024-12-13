@@ -129,7 +129,23 @@ $(document).ready(function(){initNavTree('d9/dbd/class_e_w_s_m_three_loop_e_w2_q
  <a href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d4/d5b/_e_w_s_m_three_loop_e_w2_q_c_d_8h_source.html">EWSMThreeLoopEW2QCD.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for \(O(\alpha^2\alpha_s)\) three-loop corrections to the EW precision observables. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class handles three-loop mixed EW-QCD contributions of \(O(\alpha^2\alpha_s)\) to the following quantities, which are relevant to the EW precision observables:</p>
+<ul>
+<li>\(\Delta\alpha_{\mathrm{lept}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#a0fc393bbcdf1247f3ca4e29494d0f852" title="Leptonic contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_l()</a>), </li>
+<li>\(\Delta\alpha_{\mathrm{top}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#a64718e119bb497b63bb57cc1a4391d12" title="Top-quark contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_t()</a>), </li>
+<li>\(\Delta\rho\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#a19a718bba51957b0007e10ed6deb394d" title="Leading three-loop contribution of  to , denoted as .">DeltaRho()</a>), </li>
+<li>\(\Delta r_{\mathrm{rem}}\)&#160;&#160; (with <a class="el" href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#a484fb409aca5950fdb56a24edff5dafc" title="Remainder contribution of  to , denoted as .">DeltaR_rem()</a>), </li>
+<li>\(\delta\rho_{\mathrm{rem}}^{f}\)&#160;&#160; (with deltaRho_rem_l() and deltaRho_rem_q()), </li>
+<li>\(\delta\kappa_{\mathrm{rem}}^{f}\)&#160;&#160; (with deltaKappa_rem_l() and deltaKappa_rem_q()),</li>
+</ul>
+<p>where only \(\Delta\rho\) is non-zero in the current class. See also the description of EWSM class for their definitions. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d5b/_e_w_s_m_three_loop_e_w2_q_c_d_8h_source.html#l00034">34</a> of file <a class="el" href="../../d4/d5b/_e_w_s_m_three_loop_e_w2_q_c_d_8h_source.html">EWSMThreeLoopEW2QCD.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0fc393bbcdf1247f3ca4e29494d0f852"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#a0fc393bbcdf1247f3ca4e29494d0f852">DeltaAlpha_l</a> (const double <a class="el" href="../../d0/d4a/classs.html">s</a>) const</td></tr>
@@ -160,23 +176,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:af38deb8da528486836f85a73b9c7bdc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to an object of type <a class="el" href="../../dc/df3/class_e_w_s_mcache.html" title="A class for cache variables used in computing radiative corrections to the EW precision observables.">EWSMcache</a>.  <a href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#af38deb8da528486836f85a73b9c7bdc2">More...</a><br /></td></tr>
 <tr class="separator:af38deb8da528486836f85a73b9c7bdc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for \(O(\alpha^2\alpha_s)\) three-loop corrections to the EW precision observables. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class handles three-loop mixed EW-QCD contributions of \(O(\alpha^2\alpha_s)\) to the following quantities, which are relevant to the EW precision observables:</p>
-<ul>
-<li>\(\Delta\alpha_{\mathrm{lept}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#a0fc393bbcdf1247f3ca4e29494d0f852" title="Leptonic contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_l()</a>), </li>
-<li>\(\Delta\alpha_{\mathrm{top}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#a64718e119bb497b63bb57cc1a4391d12" title="Top-quark contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_t()</a>), </li>
-<li>\(\Delta\rho\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#a19a718bba51957b0007e10ed6deb394d" title="Leading three-loop contribution of  to , denoted as .">DeltaRho()</a>), </li>
-<li>\(\Delta r_{\mathrm{rem}}\)&#160;&#160; (with <a class="el" href="../../d9/dbd/class_e_w_s_m_three_loop_e_w2_q_c_d.html#a484fb409aca5950fdb56a24edff5dafc" title="Remainder contribution of  to , denoted as .">DeltaR_rem()</a>), </li>
-<li>\(\delta\rho_{\mathrm{rem}}^{f}\)&#160;&#160; (with deltaRho_rem_l() and deltaRho_rem_q()), </li>
-<li>\(\delta\kappa_{\mathrm{rem}}^{f}\)&#160;&#160; (with deltaKappa_rem_l() and deltaKappa_rem_q()),</li>
-</ul>
-<p>where only \(\Delta\rho\) is non-zero in the current class. See also the description of EWSM class for their definitions. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/d5b/_e_w_s_m_three_loop_e_w2_q_c_d_8h_source.html#l00034">34</a> of file <a class="el" href="../../d4/d5b/_e_w_s_m_three_loop_e_w2_q_c_d_8h_source.html">EWSMThreeLoopEW2QCD.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a30637ef4af2132f90ba7a79b956db202" name="a30637ef4af2132f90ba7a79b956db202"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a30637ef4af2132f90ba7a79b956db202">&#9670;&nbsp;</a></span>EWSMThreeLoopEW2QCD()</h2>
 

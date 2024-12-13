@@ -128,7 +128,16 @@ $(document).ready(function(){initNavTree('da/df7/class_e_w_s_u_s_y.html','../../
  <a href="../../da/df7/class_e_w_s_u_s_y.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../db/dcf/_e_w_s_u_s_y_8h_source.html">EWSUSY.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for SUSY contributions to the EW precision observables. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class is used for the calculations of SUSY contributions to the EW precision observables, where Rosiek's notation is adopted internally. The conversions from Rosiek's notation to SLHA one are implemented in <a class="el" href="../../da/df7/class_e_w_s_u_s_y.html#ae012b20f91bc700643bbc2b66e73ffef" title="Sets parameters in Rosiek&#39;s notation.">EWSUSY::SetRosiekParameters()</a>, which is called from <a class="el" href="../../dc/d6f/class_s_u_s_y.html#aca9b9a6e124dbf130416745e59869aa6">SUSY::PostUpdate()</a>. </p><dl class="section user"><dt>References</dt><dd><a href="http://inspirehep.net/record/363948?ln=en">Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</a>; <br  />
+<a href="http://inspirehep.net/record/344599?ln=en">Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</a>; <br  />
+<a href="http://inspirehep.net/record/401937?ln=en">Rosiek, hep-ph/9511250</a>, where an updated version is available at author's webpage. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../db/dcf/_e_w_s_u_s_y_8h_source.html#l00036">36</a> of file <a class="el" href="../../db/dcf/_e_w_s_u_s_y_8h_source.html">EWSUSY.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:adb1d4b9784c81b0f08221acb7bbf80f0"><td class="memItemLeft" align="right" valign="top">gslpp::complex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/df7/class_e_w_s_u_s_y.html#adb1d4b9784c81b0f08221acb7bbf80f0">delta_v</a> (const double mu, const <a class="el" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3">QCD::lepton</a> M, const <a class="el" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3">QCD::lepton</a> J, const double Mw_i) const</td></tr>
@@ -190,16 +199,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a26bdff5e69b5e9301f9123d3fec0cb0d"><td class="memItemLeft" align="right" valign="top">gslpp::complex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/df7/class_e_w_s_u_s_y.html#a26bdff5e69b5e9301f9123d3fec0cb0d">v</a> (const double mu, const <a class="el" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3">QCD::lepton</a> M, const <a class="el" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3">QCD::lepton</a> J, const double Mw_i) const</td></tr>
 <tr class="separator:a26bdff5e69b5e9301f9123d3fec0cb0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for SUSY contributions to the EW precision observables. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class is used for the calculations of SUSY contributions to the EW precision observables, where Rosiek's notation is adopted internally. The conversions from Rosiek's notation to SLHA one are implemented in <a class="el" href="../../da/df7/class_e_w_s_u_s_y.html#ae012b20f91bc700643bbc2b66e73ffef" title="Sets parameters in Rosiek&#39;s notation.">EWSUSY::SetRosiekParameters()</a>, which is called from <a class="el" href="../../dc/d6f/class_s_u_s_y.html#aca9b9a6e124dbf130416745e59869aa6">SUSY::PostUpdate()</a>. </p><dl class="section user"><dt>References</dt><dd><a href="http://inspirehep.net/record/363948?ln=en">Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</a>; <br  />
-<a href="http://inspirehep.net/record/344599?ln=en">Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</a>; <br  />
-<a href="http://inspirehep.net/record/401937?ln=en">Rosiek, hep-ph/9511250</a>, where an updated version is available at author's webpage. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../db/dcf/_e_w_s_u_s_y_8h_source.html#l00036">36</a> of file <a class="el" href="../../db/dcf/_e_w_s_u_s_y_8h_source.html">EWSUSY.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2df110e08f88ba64deafad83efb7b2d5" name="a2df110e08f88ba64deafad83efb7b2d5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2df110e08f88ba64deafad83efb7b2d5">&#9670;&nbsp;</a></span>EWSUSY()</h2>
 

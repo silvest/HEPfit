@@ -160,7 +160,124 @@ $(document).ready(function(){initNavTree('dd/dfa/class_q_c_d.html','../../'); in
 <area href="../../d0/d52/class_t_h_d_m.html" title="A base class for  symmetric Two-Higgs-Doublet models." alt="THDM" shape="rect" coords="195,840,380,864"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for parameters related to QCD, hadrons and quarks. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class that assigns and updates parameters related to and derived from QCD. A complete list of parameters in the QCD class can be found below. This class includes, but is not limited to, the running of the strong coupling constant (Full NNLO), running of the quark masses and conversions between pole mass and \(\overline{\mathrm{MS}}\) mass. All hadronization parameters like the bag parameters for the mesons and their decay constants are assigned and updated by this class.</p>
+<p ><a class="anchor" id="QCDInitialization"></a></p><h3>Initialization</h3>
+<p >The constructor <a class="el" href="../../dd/dfa/class_q_c_d.html#a7dbe637096851ad4b7cffd1c89a255e3" title="Constructor.">QCD()</a> sets the charge and isospin of the quarks. It also sets the mass scale of the light quarks UP, DOWN and STRANGE to 2 GeV. The cache is initialized too along with the computation of \(\zeta(2)\) and \(\zeta(3)\).</p>
+<p >The initializations and updates of the model parameters and flags are explained below.</p>
+<p ><a class="anchor" id="QCDParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of QCD are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">AlsM </td><td class="mod_symb">\(\alpha_s(M_{\alpha_s})\) </td><td class="mod_desc">The strong coupling constant at the scale \(M_{\alpha_s}\).  </td></tr>
+<tr>
+<td class="mod_name">MAls </td><td class="mod_symb">\(M_{\alpha_s}\) </td><td class="mod_desc">The mass scale in GeV at which the strong coupling constant measurement is provided. Must be in the 5 flavour energy range.  </td></tr>
+<tr>
+<td class="mod_name">mup </td><td class="mod_symb">\(m_{u}(2\,\mathrm{GeV})\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) mass of the up quark at 2 GeV, \(m_u(2\,\mathrm{GeV})\), in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mdown </td><td class="mod_symb">\(m_{d}(2\,\mathrm{GeV})\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) mass of the down quark at 2 GeV, \(m_d(2\,\mathrm{GeV})\), in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mcharm </td><td class="mod_symb">\(m_{c}(m_c)\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) scale-invariant mass of the charm quark, \(m_c(m_c)\), in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mstrange </td><td class="mod_symb">\(m_{s}(2\,\mathrm{GeV})\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) mass of the strange quark at 2 GeV , \(m_s(2\,\mathrm{GeV})\), in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mtop </td><td class="mod_symb">\(m_{t}\) </td><td class="mod_desc">The pole mass of the top quark in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mbottom </td><td class="mod_symb">\(m_{b}(m_b)\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) scale-invariant mass of the bottom quark, \(m_b(m_b)\), in GeV.  </td></tr>
+<tr>
+<td class="mod_name">muc </td><td class="mod_symb">\(\mu_c\) </td><td class="mod_desc">The threshold between three- and four-flavour theory in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mub </td><td class="mod_symb">\(\mu_b\) </td><td class="mod_desc">The threshold between four- and five-flavour theory in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mut </td><td class="mod_symb">\(\mu_t\) </td><td class="mod_desc">The threshold between five- and six-flavour theory in GeV.  </td></tr>
+</table>
+<dl class="section attention"><dt>Attention</dt><dd>The parameters AlsM and MAls are not used in <a class="el" href="../../dc/dd5/class_standard_model.html" title="A model class for the Standard Model.">StandardModel</a> and the model classes inherited from it.</dd></dl>
+<p>The set of the model parameters are initialized and updated with the methods <a class="el" href="../../dd/dfa/class_q_c_d.html#a8a8f6e0ee9627d06cddd3ec176d5f52c" title="Initializes the QCD parameters found in the argument.">Init()</a> and <a class="el" href="../../dd/dfa/class_q_c_d.html#ad639968ab401f309ba1bdd0551116dc8" title="The update method for QCD.">Update()</a>, respectively, where the former calls the latter. In <a class="el" href="../../dd/dfa/class_q_c_d.html#ad639968ab401f309ba1bdd0551116dc8" title="The update method for QCD.">Update()</a>, the methods <a class="el" href="../../dd/dfa/class_q_c_d.html#a6a5dbd770d6ab41896991faf9765acbf" title="The pre-update method for QCD.">PreUpdate()</a> and <a class="el" href="../../dd/dfa/class_q_c_d.html#a320ac2a9392556d85003590528186017" title="The post-update method for QCD.">PostUpdate()</a> are called to run all the procedures that are need to be executed before and after the model parameters are updated. The \(\overline{\mathrm{MS}}\) mass for the top quark is computed and the scale set in <a class="el" href="../../dd/dfa/class_q_c_d.html#a320ac2a9392556d85003590528186017" title="The post-update method for QCD.">PostUpdate()</a> with the updated parameters. Inside the <a class="el" href="../../dd/dfa/class_q_c_d.html#ad639968ab401f309ba1bdd0551116dc8" title="The update method for QCD.">Update()</a> method, the individual model parameter is assigned with the protected member function <a class="el" href="../../dd/dfa/class_q_c_d.html#a9cdc2363085bbb5bf2e68d4c337cd532" title="A method to set the value of a parameter of QCD.">setParameter()</a>.</p>
+<h3>Computation of the strong coupling constant \(\alpha_s\): </h3>
+<p >The strong coupling constant \(\alpha_s\) at an arbitrary scale can be computed with the member functions:</p>
+<ul>
+<li>AlsWithInit(const double mu, const double alsi, const double mu_i, const int nf, const orders order), </li>
+<li>AlsWithLambda(const double mu, const orders order),</li>
+</ul>
+<p>where another function</p>
+<ul>
+<li>Als(const double mu, const orders order = FULLNLO)</li>
+</ul>
+<p>calls AlsWithInit() for order=LO/FULLNLO(NLO), and AlsWithLambda() for order=FULLNNLO(NNLO).</p>
+<p >The function AlsWithInit() computes \(\alpha_s(\mu)\) with a given initial value \(\alpha_s(\mu_i)\): </p><p class="formulaDsp">
+\[ \alpha_s(\mu)=\frac{\alpha_s(\mu_i)}{v(\mu)},\qquad \alpha_s(\mu)=\frac{\alpha_s(\mu_i)}{v(\mu)} \left[1-\frac{\beta_1}{\beta_0}\frac{\alpha_s(\mu_i)}{4\pi} \frac{\ln v(\mu)}{v(\mu)}\right], \]
+</p>
+<p> at LO and FULLNLO (NLO) respectively, where </p><p class="formulaDsp">
+\[ v(\mu) = 1- \beta_0\frac{\alpha_s(\mu_i)}{2\pi}\ln\frac{\mu_i}{\mu}, \]
+</p>
+<p> and the one-loop and two-loop beta functions are given by </p><p class="formulaDsp">
+\[ \beta_0 = \frac{11N_c-2N_f}{3},\qquad \beta_1 = \frac{34}{3}N_c^2-\frac{10}{3}N_cN_f-2C_FN_f. \]
+</p>
+<p >The function AlsWithLambda() computes \(\alpha_s(\mu)\) with the use of \(\Lambda_{\rm QCD}\), where the value of \(\Lambda_{\rm QCD}\) for \(N_f=5\) is derived from \(\alpha_s(M_{\alpha_s})\) by solving the equation (see e.g., <b>[Chetyrkin:1997sg]</b>, which follows the convention in <b>[Buras:1977qg]</b> for \(\ln(\mu^2/\Lambda^2)\)): </p><p class="formulaDsp">
+\[ \frac{\alpha_s(\mu)}{4\pi}=\frac{1}{\beta_0L}-\frac{\beta_1\ln L}{\beta_0^3L^2}+ \frac{1}{\left(\beta_0L\right)^3}\left[\frac{\beta_1^2}{\beta_0^2}\left(\ln^2L-\ln L-1\right)+ \frac{\beta_2}{\beta_0}\right]+O\left(\frac{\ln^3L}{L^4}\right), \]
+</p>
+<p> where \(L\equiv\ln(\mu^2/\Lambda^2)\), and the three-loop beta function is given by </p><p class="formulaDsp">
+\[ \beta_2 = \frac{2857}{54}N_c^3+C_F^2N_f-\frac{205}{18}C_FN_cN_f -\frac{1415}{54}N_c^2N_f+\frac{11}{9}C_FN_f^2 + \frac{79}{54}N_cN_f^2. \]
+</p>
+<p> For \(N_f &lt; 5\), \(\Lambda_{QCD}\) can be obtained by solving the following matching condition at \(\mu\) <b>[Chetyrkin:1997sg]</b> <b>[Chetyrkin:2000yt]</b> : </p><p class="formulaDsp">
+\begin{eqnarray} \beta_0^{&#39;}\ln\frac{\Lambda^{&#39;2}}{\Lambda^2} &amp;=&amp; (\beta_0^{&#39;}-\beta_0)L+\left(\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}- \frac{\beta_1}{\beta_0}\right)\ln L-\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}\ln\frac{\beta_0^{&#39;}}{\beta_0} - C_1 \\ &amp;&amp;+ \frac{1}{\beta_0L}\left[\frac{\beta_1}{\beta_0}\left(\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}-\frac{\beta_1}{\beta_0} \right)\ln L + \frac{\beta_1^{&#39;2}}{\beta_0^{&#39;2}}-\frac{\beta_1^2}{\beta_0^2}-\frac{\beta_2^{&#39;2}}{\beta_0^{&#39;2}} +\frac{\beta_2^2}{\beta_0^2}+\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}C_1-C_1^2-C_2\right]+ O\left(\frac{\ln^2L}{L^2}\right), \end{eqnarray}
+</p>
+<p> where the primed (unprimed) quantities refer to those pertaining to \(N_f-1\) \((N_f)\). The terms \(C_1\) and \(C_2\) are given by </p><p class="formulaDsp">
+\[ C_1 = \frac{2}{3}\ln\frac{\mu^2}{\mu_f^2},\qquad C_2 = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2}-\frac{19}{24}\ln\frac{\mu^2}{\mu_f^2}+\frac{11}{72}\right). \]
+</p>
+<p> where \(\mu_f=m_f(\mu_f)\) denotes the \(\overline{\mathrm{MS}}\) invariant mass of the \(N_f\)-th flavour. Moreover, the matching condition at a flavour threshold is given by </p><p class="formulaDsp">
+\[ \alpha_s^{(N_f-1)}(\mu) = (\zeta_g^f)^2\alpha_s^{(N_f)}(\mu), \]
+</p>
+<p> where </p><p class="formulaDsp">
+\[ (\zeta_g^f)^2 = 1+\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\left(-\frac{1}{6}\ln\frac{\mu^2}{\mu_f^2}\right)+ \left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2} - \frac{19}{24}\ln\frac{\mu^2}{\mu_f^2} + \frac{11}{72}\right) + O\left(\left(\frac{\alpha_s}{\pi} \right)^3\right). \]
+</p>
+<p >For the top quark mass, the pole mass \(m_t\) is used as an input instead of the \(\overline{\mathrm{MS}}\) invariant mass. Then the \(\overline{\mathrm{MS}}\) invariant mass is computed from the pole mass with the computed value of \(\alpha_s^{(6)}(m_t)\), which in turn is computed from \(\alpha_s^{(5)}(M_Z)\). Hence, the matching condition from \(N_f = 6\) to \(N_f = 5\) has to be free from the \(\overline{\mathrm{MS}}\) invariant mass of the top quark. In this case we use the following matching condition </p><p class="formulaDsp">
+\[ \alpha_s^{(6)}(\mu_t) = \frac{1}{(\zeta_g^{OS,t})^2}\alpha_s^{(5)}(\mu_t), \]
+</p>
+<p> where </p><p class="formulaDsp">
+\[ \frac{1}{(\zeta_g^{OS,t})^2} = 1+\frac{\alpha_s^{(5)}(\mu)}{\pi}\left(\frac{1}{6}\ln\frac{\mu^2}{m_t^2}\right)+ \left(\frac{\alpha_s^{(5)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{m_t^2} + \frac{19}{24}\ln\frac{\mu^2}{m_t^2} + \frac{7}{24}\right) + O\left(\left(\frac{\alpha_s}{\pi}\right)^3\right). \]
+</p>
+<p> Besides, \(\Lambda_{QCD}\) for \(N_f=6\) is derived from that for \(N_f=5\) with the relation: </p><p class="formulaDsp">
+\begin{eqnarray} \beta_0\ln\frac{\Lambda^{2}}{\Lambda^{&#39;2}} &amp;=&amp; (\beta_0-\beta_0^{&#39;})L^{&#39;}+\left(\frac{\beta_1}{\beta_0}- \frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}\right)\ln L^{&#39;}-\frac{\beta_1}{\beta_0}\ln\frac{\beta_0}{\beta_0^{&#39;}}-C_1^{&#39;} \\ &amp;&amp; + \frac{1}{\beta_0^{&#39;}L^{&#39;}}\left[\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}\left(\frac{\beta_1}{\beta_0}-\frac{\beta_1^{&#39;}} {\beta_0^{&#39;}}\right)\ln L^{&#39;}+\frac{\beta_1^{2}}{\beta_0^{2}}-\frac{\beta_1^{&#39;2}}{\beta_0^{&#39;2}}- \frac{\beta_2^{2}}{\beta_0^{2}}+\frac{\beta_2^{&#39;2}}{\beta_0^{&#39;2}}+\frac{\beta_1}{\beta_0}C_1^{&#39;}-C_1^{&#39;2}- C_2^{&#39;}\right]+O\left(\frac{\ln^2L}{L^2}\right), \end{eqnarray}
+</p>
+<p> where </p><p class="formulaDsp">
+\[ C_1^{&#39;} = -\frac{2}{3}\ln\frac{\mu^2}{m_t^2},\qquad C_2^{&#39;} = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{m_t^2}+\frac{19}{24}\ln\frac{\mu^2}{m_t^2}+\frac{7}{24}\right). \]
+</p>
+<h3>Computation of the running of the quark masses: </h3>
+<p >In the \(\overline{\mathrm{MS}}\) scheme the quark mass at a scale \(\mu\) is given by (see e.g., <b>[Chetyrkin:1997dh]</b>) </p><p class="formulaDsp">
+\[ m_q(\mu) = m_q(\mu_0)\left[\frac{\alpha_s(\mu)}{\alpha_s(\mu_0)}\right]^{\frac{\gamma^{(0)}_m}{2\beta_0}} \left\{1+A_1\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}+\frac{A_1^2}{2}\left(\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi} \right)^2+\frac{A_2}{2}\left[\left(\frac{\alpha_s(\mu)}{4\pi}\right)^2-\left(\frac{\alpha_s(\mu_0)}{4\pi} \right)^2\right]\right\}, \]
+</p>
+<p> where </p><p class="formulaDsp">
+\[ A_1 = \frac{\gamma^{(1)}_m}{2\beta_0} - \frac{\beta_1\gamma^{(0)}_m}{2\beta_0^2},\qquad A_2 = \frac{\beta_1^2\gamma^{(0)}_m}{2\beta_0^3}-\frac{\beta_2\gamma^{(0)}_m}{2\beta_0^2}- \frac{\beta_1\gamma^{(1)}_m}{2\beta_0^2}+\frac{\gamma^{(2)}_m}{2\beta_0}, \]
+</p>
+<p> and </p><p class="formulaDsp">
+\[ \gamma_m^{(0)} = 6C_F,\qquad \gamma_m^{(1)} = C_F\left(3C_F+\frac{97}{3}N_c-\frac{10}{3}N_f\right),\\ \gamma_m^{(2)} = 129C_F^3-\frac{129}{2}C_F^2N_c+\frac{11413}{54}C_FN_c^2+C_F^2N_f(-46+48\zeta(3))+ C_FN_CN_f\left(-\frac{556}{27}-48\zeta(3)\right)-\frac{70}{27}C_FN_f^2, \]
+</p>
+<p> in the \(\overline{\mathrm{MS}}\) scheme. The threshold conditions are given by <b>[Chetyrkin:2000yt]</b> </p><p class="formulaDsp">
+\[ m_q^{(N_f-1)}(\mu)=\zeta_m^f\, m_q^{(N_f)}(\mu),\qquad m_q^{(N_f)}(\mu)=\frac{1}{\zeta_m^f}\, m_q^{(N_f-1)}(\mu), \]
+</p>
+<p> where </p><p class="formulaDsp">
+\[ \zeta^f_m=1+\left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{12}\ln^2\frac{\mu^2}{\mu_f^2} -\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}+\frac{89}{432}\right),\\ \frac{1}{\zeta^f_m}=1+\left(\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\right)^2\left(-\frac{1}{12}\ln^2\frac{\mu^2} {\mu_f^2}+\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}-\frac{89}{432}\right), \]
+</p>
+<p> with \(\mu_f=m_f(\mu_f)\).</p>
+<h3>Pole mass vs. \( \overline{\mathrm{MS}} \) scale invariant mass:</h3>
+<p >The pole mass \(M_q\) of a heavy quark is related to the \(\overline{\mathrm{MS}}\) scale invariant mass \(m_q(m_q)\) as <b>[Chetyrkin:2000yt]</b> </p><p class="formulaDsp">
+\[ m_q(m_q)=M_q\left\{1-\frac{4}{3}\frac{\alpha_s(M_q)}{\pi}+\left[-\frac{2251}{268}-2\zeta(2) -\frac{2}{3}\zeta(2)\ln2+\frac{\zeta(3)}{6}+\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right) -\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{M_i}{M_q}\right)\right]\left(\frac{\alpha_s(M_q)}{\pi} \right)^2\right\}, \]
+</p>
+<p> where \(n_l\) is the number of the light quarks, and \(\Delta(x)\) is given by </p><p class="formulaDsp">
+\[ \Delta(x)=\frac{\pi^2}{8}x-0.597x^2+0.230x^3+O\left(x^4\right). \]
+</p>
+<p> It should be noted that the above formula requires the light quark pole masses which are not well defined. The pole mass in terms of the \(\overline{\mathrm{MS}}\) mass is given by </p><p class="formulaDsp">
+\[ M_q=m_q(m_q)\left\{1+\frac{4}{3}\frac{\alpha_s(m_q)}{\pi}+\left[\frac{307}{32}+2\zeta(2) +\frac{2}{3}\zeta(2)\ln2-\frac{\zeta(3)}{6}-\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right) +\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{m_i}{m_q}\right)\right]\left(\frac{\alpha_s(m_q)}{\pi} \right)^2\right\} \]
+</p>
+<p> To get the pole mass of the light quarks we solve the above equation numerically and derive it from the corresponding \(\overline{\mathrm{MS}}\) mass. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d68/_q_c_d_8h_source.html#l00304">304</a> of file <a class="el" href="../../d4/d68/_q_c_d_8h_source.html">QCD.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:ac8b0ab59ae9d238b1ee9d67525ee92d3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3">lepton</a> { <a class="el" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3a3c9c3283d397e094db9c664aa534e351">NEUTRINO_1</a>
@@ -679,124 +796,7 @@ Static Private Attributes</h2></td></tr>
 <tr class="memdesc:a097725c063c3816990c7a0b6977142c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the depth of the cache.  <a href="../../dd/dfa/class_q_c_d.html#a097725c063c3816990c7a0b6977142c0">More...</a><br /></td></tr>
 <tr class="separator:a097725c063c3816990c7a0b6977142c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for parameters related to QCD, hadrons and quarks. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class that assigns and updates parameters related to and derived from QCD. A complete list of parameters in the QCD class can be found below. This class includes, but is not limited to, the running of the strong coupling constant (Full NNLO), running of the quark masses and conversions between pole mass and \(\overline{\mathrm{MS}}\) mass. All hadronization parameters like the bag parameters for the mesons and their decay constants are assigned and updated by this class.</p>
-<p ><a class="anchor" id="QCDInitialization"></a></p><h3>Initialization</h3>
-<p >The constructor <a class="el" href="../../dd/dfa/class_q_c_d.html#a7dbe637096851ad4b7cffd1c89a255e3" title="Constructor.">QCD()</a> sets the charge and isospin of the quarks. It also sets the mass scale of the light quarks UP, DOWN and STRANGE to 2 GeV. The cache is initialized too along with the computation of \(\zeta(2)\) and \(\zeta(3)\).</p>
-<p >The initializations and updates of the model parameters and flags are explained below.</p>
-<p ><a class="anchor" id="QCDParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of QCD are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">AlsM </td><td class="mod_symb">\(\alpha_s(M_{\alpha_s})\) </td><td class="mod_desc">The strong coupling constant at the scale \(M_{\alpha_s}\).  </td></tr>
-<tr>
-<td class="mod_name">MAls </td><td class="mod_symb">\(M_{\alpha_s}\) </td><td class="mod_desc">The mass scale in GeV at which the strong coupling constant measurement is provided. Must be in the 5 flavour energy range.  </td></tr>
-<tr>
-<td class="mod_name">mup </td><td class="mod_symb">\(m_{u}(2\,\mathrm{GeV})\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) mass of the up quark at 2 GeV, \(m_u(2\,\mathrm{GeV})\), in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mdown </td><td class="mod_symb">\(m_{d}(2\,\mathrm{GeV})\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) mass of the down quark at 2 GeV, \(m_d(2\,\mathrm{GeV})\), in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mcharm </td><td class="mod_symb">\(m_{c}(m_c)\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) scale-invariant mass of the charm quark, \(m_c(m_c)\), in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mstrange </td><td class="mod_symb">\(m_{s}(2\,\mathrm{GeV})\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) mass of the strange quark at 2 GeV , \(m_s(2\,\mathrm{GeV})\), in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mtop </td><td class="mod_symb">\(m_{t}\) </td><td class="mod_desc">The pole mass of the top quark in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mbottom </td><td class="mod_symb">\(m_{b}(m_b)\) </td><td class="mod_desc">The \(\overline{\mathrm{MS}}\) scale-invariant mass of the bottom quark, \(m_b(m_b)\), in GeV.  </td></tr>
-<tr>
-<td class="mod_name">muc </td><td class="mod_symb">\(\mu_c\) </td><td class="mod_desc">The threshold between three- and four-flavour theory in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mub </td><td class="mod_symb">\(\mu_b\) </td><td class="mod_desc">The threshold between four- and five-flavour theory in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mut </td><td class="mod_symb">\(\mu_t\) </td><td class="mod_desc">The threshold between five- and six-flavour theory in GeV.  </td></tr>
-</table>
-<dl class="section attention"><dt>Attention</dt><dd>The parameters AlsM and MAls are not used in <a class="el" href="../../dc/dd5/class_standard_model.html" title="A model class for the Standard Model.">StandardModel</a> and the model classes inherited from it.</dd></dl>
-<p>The set of the model parameters are initialized and updated with the methods <a class="el" href="../../dd/dfa/class_q_c_d.html#a8a8f6e0ee9627d06cddd3ec176d5f52c" title="Initializes the QCD parameters found in the argument.">Init()</a> and <a class="el" href="../../dd/dfa/class_q_c_d.html#ad639968ab401f309ba1bdd0551116dc8" title="The update method for QCD.">Update()</a>, respectively, where the former calls the latter. In <a class="el" href="../../dd/dfa/class_q_c_d.html#ad639968ab401f309ba1bdd0551116dc8" title="The update method for QCD.">Update()</a>, the methods <a class="el" href="../../dd/dfa/class_q_c_d.html#a6a5dbd770d6ab41896991faf9765acbf" title="The pre-update method for QCD.">PreUpdate()</a> and <a class="el" href="../../dd/dfa/class_q_c_d.html#a320ac2a9392556d85003590528186017" title="The post-update method for QCD.">PostUpdate()</a> are called to run all the procedures that are need to be executed before and after the model parameters are updated. The \(\overline{\mathrm{MS}}\) mass for the top quark is computed and the scale set in <a class="el" href="../../dd/dfa/class_q_c_d.html#a320ac2a9392556d85003590528186017" title="The post-update method for QCD.">PostUpdate()</a> with the updated parameters. Inside the <a class="el" href="../../dd/dfa/class_q_c_d.html#ad639968ab401f309ba1bdd0551116dc8" title="The update method for QCD.">Update()</a> method, the individual model parameter is assigned with the protected member function <a class="el" href="../../dd/dfa/class_q_c_d.html#a9cdc2363085bbb5bf2e68d4c337cd532" title="A method to set the value of a parameter of QCD.">setParameter()</a>.</p>
-<h3>Computation of the strong coupling constant \(\alpha_s\): </h3>
-<p >The strong coupling constant \(\alpha_s\) at an arbitrary scale can be computed with the member functions:</p>
-<ul>
-<li>AlsWithInit(const double mu, const double alsi, const double mu_i, const int nf, const orders order), </li>
-<li>AlsWithLambda(const double mu, const orders order),</li>
-</ul>
-<p>where another function</p>
-<ul>
-<li>Als(const double mu, const orders order = FULLNLO)</li>
-</ul>
-<p>calls AlsWithInit() for order=LO/FULLNLO(NLO), and AlsWithLambda() for order=FULLNNLO(NNLO).</p>
-<p >The function AlsWithInit() computes \(\alpha_s(\mu)\) with a given initial value \(\alpha_s(\mu_i)\): </p><p class="formulaDsp">
-\[ \alpha_s(\mu)=\frac{\alpha_s(\mu_i)}{v(\mu)},\qquad \alpha_s(\mu)=\frac{\alpha_s(\mu_i)}{v(\mu)} \left[1-\frac{\beta_1}{\beta_0}\frac{\alpha_s(\mu_i)}{4\pi} \frac{\ln v(\mu)}{v(\mu)}\right], \]
-</p>
-<p> at LO and FULLNLO (NLO) respectively, where </p><p class="formulaDsp">
-\[ v(\mu) = 1- \beta_0\frac{\alpha_s(\mu_i)}{2\pi}\ln\frac{\mu_i}{\mu}, \]
-</p>
-<p> and the one-loop and two-loop beta functions are given by </p><p class="formulaDsp">
-\[ \beta_0 = \frac{11N_c-2N_f}{3},\qquad \beta_1 = \frac{34}{3}N_c^2-\frac{10}{3}N_cN_f-2C_FN_f. \]
-</p>
-<p >The function AlsWithLambda() computes \(\alpha_s(\mu)\) with the use of \(\Lambda_{\rm QCD}\), where the value of \(\Lambda_{\rm QCD}\) for \(N_f=5\) is derived from \(\alpha_s(M_{\alpha_s})\) by solving the equation (see e.g., <b>[Chetyrkin:1997sg]</b>, which follows the convention in <b>[Buras:1977qg]</b> for \(\ln(\mu^2/\Lambda^2)\)): </p><p class="formulaDsp">
-\[ \frac{\alpha_s(\mu)}{4\pi}=\frac{1}{\beta_0L}-\frac{\beta_1\ln L}{\beta_0^3L^2}+ \frac{1}{\left(\beta_0L\right)^3}\left[\frac{\beta_1^2}{\beta_0^2}\left(\ln^2L-\ln L-1\right)+ \frac{\beta_2}{\beta_0}\right]+O\left(\frac{\ln^3L}{L^4}\right), \]
-</p>
-<p> where \(L\equiv\ln(\mu^2/\Lambda^2)\), and the three-loop beta function is given by </p><p class="formulaDsp">
-\[ \beta_2 = \frac{2857}{54}N_c^3+C_F^2N_f-\frac{205}{18}C_FN_cN_f -\frac{1415}{54}N_c^2N_f+\frac{11}{9}C_FN_f^2 + \frac{79}{54}N_cN_f^2. \]
-</p>
-<p> For \(N_f &lt; 5\), \(\Lambda_{QCD}\) can be obtained by solving the following matching condition at \(\mu\) <b>[Chetyrkin:1997sg]</b> <b>[Chetyrkin:2000yt]</b> : </p><p class="formulaDsp">
-\begin{eqnarray} \beta_0^{&#39;}\ln\frac{\Lambda^{&#39;2}}{\Lambda^2} &amp;=&amp; (\beta_0^{&#39;}-\beta_0)L+\left(\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}- \frac{\beta_1}{\beta_0}\right)\ln L-\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}\ln\frac{\beta_0^{&#39;}}{\beta_0} - C_1 \\ &amp;&amp;+ \frac{1}{\beta_0L}\left[\frac{\beta_1}{\beta_0}\left(\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}-\frac{\beta_1}{\beta_0} \right)\ln L + \frac{\beta_1^{&#39;2}}{\beta_0^{&#39;2}}-\frac{\beta_1^2}{\beta_0^2}-\frac{\beta_2^{&#39;2}}{\beta_0^{&#39;2}} +\frac{\beta_2^2}{\beta_0^2}+\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}C_1-C_1^2-C_2\right]+ O\left(\frac{\ln^2L}{L^2}\right), \end{eqnarray}
-</p>
-<p> where the primed (unprimed) quantities refer to those pertaining to \(N_f-1\) \((N_f)\). The terms \(C_1\) and \(C_2\) are given by </p><p class="formulaDsp">
-\[ C_1 = \frac{2}{3}\ln\frac{\mu^2}{\mu_f^2},\qquad C_2 = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2}-\frac{19}{24}\ln\frac{\mu^2}{\mu_f^2}+\frac{11}{72}\right). \]
-</p>
-<p> where \(\mu_f=m_f(\mu_f)\) denotes the \(\overline{\mathrm{MS}}\) invariant mass of the \(N_f\)-th flavour. Moreover, the matching condition at a flavour threshold is given by </p><p class="formulaDsp">
-\[ \alpha_s^{(N_f-1)}(\mu) = (\zeta_g^f)^2\alpha_s^{(N_f)}(\mu), \]
-</p>
-<p> where </p><p class="formulaDsp">
-\[ (\zeta_g^f)^2 = 1+\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\left(-\frac{1}{6}\ln\frac{\mu^2}{\mu_f^2}\right)+ \left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2} - \frac{19}{24}\ln\frac{\mu^2}{\mu_f^2} + \frac{11}{72}\right) + O\left(\left(\frac{\alpha_s}{\pi} \right)^3\right). \]
-</p>
-<p >For the top quark mass, the pole mass \(m_t\) is used as an input instead of the \(\overline{\mathrm{MS}}\) invariant mass. Then the \(\overline{\mathrm{MS}}\) invariant mass is computed from the pole mass with the computed value of \(\alpha_s^{(6)}(m_t)\), which in turn is computed from \(\alpha_s^{(5)}(M_Z)\). Hence, the matching condition from \(N_f = 6\) to \(N_f = 5\) has to be free from the \(\overline{\mathrm{MS}}\) invariant mass of the top quark. In this case we use the following matching condition </p><p class="formulaDsp">
-\[ \alpha_s^{(6)}(\mu_t) = \frac{1}{(\zeta_g^{OS,t})^2}\alpha_s^{(5)}(\mu_t), \]
-</p>
-<p> where </p><p class="formulaDsp">
-\[ \frac{1}{(\zeta_g^{OS,t})^2} = 1+\frac{\alpha_s^{(5)}(\mu)}{\pi}\left(\frac{1}{6}\ln\frac{\mu^2}{m_t^2}\right)+ \left(\frac{\alpha_s^{(5)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{m_t^2} + \frac{19}{24}\ln\frac{\mu^2}{m_t^2} + \frac{7}{24}\right) + O\left(\left(\frac{\alpha_s}{\pi}\right)^3\right). \]
-</p>
-<p> Besides, \(\Lambda_{QCD}\) for \(N_f=6\) is derived from that for \(N_f=5\) with the relation: </p><p class="formulaDsp">
-\begin{eqnarray} \beta_0\ln\frac{\Lambda^{2}}{\Lambda^{&#39;2}} &amp;=&amp; (\beta_0-\beta_0^{&#39;})L^{&#39;}+\left(\frac{\beta_1}{\beta_0}- \frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}\right)\ln L^{&#39;}-\frac{\beta_1}{\beta_0}\ln\frac{\beta_0}{\beta_0^{&#39;}}-C_1^{&#39;} \\ &amp;&amp; + \frac{1}{\beta_0^{&#39;}L^{&#39;}}\left[\frac{\beta_1^{&#39;}}{\beta_0^{&#39;}}\left(\frac{\beta_1}{\beta_0}-\frac{\beta_1^{&#39;}} {\beta_0^{&#39;}}\right)\ln L^{&#39;}+\frac{\beta_1^{2}}{\beta_0^{2}}-\frac{\beta_1^{&#39;2}}{\beta_0^{&#39;2}}- \frac{\beta_2^{2}}{\beta_0^{2}}+\frac{\beta_2^{&#39;2}}{\beta_0^{&#39;2}}+\frac{\beta_1}{\beta_0}C_1^{&#39;}-C_1^{&#39;2}- C_2^{&#39;}\right]+O\left(\frac{\ln^2L}{L^2}\right), \end{eqnarray}
-</p>
-<p> where </p><p class="formulaDsp">
-\[ C_1^{&#39;} = -\frac{2}{3}\ln\frac{\mu^2}{m_t^2},\qquad C_2^{&#39;} = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{m_t^2}+\frac{19}{24}\ln\frac{\mu^2}{m_t^2}+\frac{7}{24}\right). \]
-</p>
-<h3>Computation of the running of the quark masses: </h3>
-<p >In the \(\overline{\mathrm{MS}}\) scheme the quark mass at a scale \(\mu\) is given by (see e.g., <b>[Chetyrkin:1997dh]</b>) </p><p class="formulaDsp">
-\[ m_q(\mu) = m_q(\mu_0)\left[\frac{\alpha_s(\mu)}{\alpha_s(\mu_0)}\right]^{\frac{\gamma^{(0)}_m}{2\beta_0}} \left\{1+A_1\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}+\frac{A_1^2}{2}\left(\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi} \right)^2+\frac{A_2}{2}\left[\left(\frac{\alpha_s(\mu)}{4\pi}\right)^2-\left(\frac{\alpha_s(\mu_0)}{4\pi} \right)^2\right]\right\}, \]
-</p>
-<p> where </p><p class="formulaDsp">
-\[ A_1 = \frac{\gamma^{(1)}_m}{2\beta_0} - \frac{\beta_1\gamma^{(0)}_m}{2\beta_0^2},\qquad A_2 = \frac{\beta_1^2\gamma^{(0)}_m}{2\beta_0^3}-\frac{\beta_2\gamma^{(0)}_m}{2\beta_0^2}- \frac{\beta_1\gamma^{(1)}_m}{2\beta_0^2}+\frac{\gamma^{(2)}_m}{2\beta_0}, \]
-</p>
-<p> and </p><p class="formulaDsp">
-\[ \gamma_m^{(0)} = 6C_F,\qquad \gamma_m^{(1)} = C_F\left(3C_F+\frac{97}{3}N_c-\frac{10}{3}N_f\right),\\ \gamma_m^{(2)} = 129C_F^3-\frac{129}{2}C_F^2N_c+\frac{11413}{54}C_FN_c^2+C_F^2N_f(-46+48\zeta(3))+ C_FN_CN_f\left(-\frac{556}{27}-48\zeta(3)\right)-\frac{70}{27}C_FN_f^2, \]
-</p>
-<p> in the \(\overline{\mathrm{MS}}\) scheme. The threshold conditions are given by <b>[Chetyrkin:2000yt]</b> </p><p class="formulaDsp">
-\[ m_q^{(N_f-1)}(\mu)=\zeta_m^f\, m_q^{(N_f)}(\mu),\qquad m_q^{(N_f)}(\mu)=\frac{1}{\zeta_m^f}\, m_q^{(N_f-1)}(\mu), \]
-</p>
-<p> where </p><p class="formulaDsp">
-\[ \zeta^f_m=1+\left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{12}\ln^2\frac{\mu^2}{\mu_f^2} -\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}+\frac{89}{432}\right),\\ \frac{1}{\zeta^f_m}=1+\left(\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\right)^2\left(-\frac{1}{12}\ln^2\frac{\mu^2} {\mu_f^2}+\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}-\frac{89}{432}\right), \]
-</p>
-<p> with \(\mu_f=m_f(\mu_f)\).</p>
-<h3>Pole mass vs. \( \overline{\mathrm{MS}} \) scale invariant mass:</h3>
-<p >The pole mass \(M_q\) of a heavy quark is related to the \(\overline{\mathrm{MS}}\) scale invariant mass \(m_q(m_q)\) as <b>[Chetyrkin:2000yt]</b> </p><p class="formulaDsp">
-\[ m_q(m_q)=M_q\left\{1-\frac{4}{3}\frac{\alpha_s(M_q)}{\pi}+\left[-\frac{2251}{268}-2\zeta(2) -\frac{2}{3}\zeta(2)\ln2+\frac{\zeta(3)}{6}+\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right) -\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{M_i}{M_q}\right)\right]\left(\frac{\alpha_s(M_q)}{\pi} \right)^2\right\}, \]
-</p>
-<p> where \(n_l\) is the number of the light quarks, and \(\Delta(x)\) is given by </p><p class="formulaDsp">
-\[ \Delta(x)=\frac{\pi^2}{8}x-0.597x^2+0.230x^3+O\left(x^4\right). \]
-</p>
-<p> It should be noted that the above formula requires the light quark pole masses which are not well defined. The pole mass in terms of the \(\overline{\mathrm{MS}}\) mass is given by </p><p class="formulaDsp">
-\[ M_q=m_q(m_q)\left\{1+\frac{4}{3}\frac{\alpha_s(m_q)}{\pi}+\left[\frac{307}{32}+2\zeta(2) +\frac{2}{3}\zeta(2)\ln2-\frac{\zeta(3)}{6}-\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right) +\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{m_i}{m_q}\right)\right]\left(\frac{\alpha_s(m_q)}{\pi} \right)^2\right\} \]
-</p>
-<p> To get the pole mass of the light quarks we solve the above equation numerically and derive it from the corresponding \(\overline{\mathrm{MS}}\) mass. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/d68/_q_c_d_8h_source.html#l00304">304</a> of file <a class="el" href="../../d4/d68/_q_c_d_8h_source.html">QCD.h</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="ac8b0ab59ae9d238b1ee9d67525ee92d3" name="ac8b0ab59ae9d238b1ee9d67525ee92d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac8b0ab59ae9d238b1ee9d67525ee92d3">&#9670;&nbsp;</a></span>lepton</h2>
 

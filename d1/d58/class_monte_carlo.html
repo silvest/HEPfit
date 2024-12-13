@@ -130,7 +130,14 @@ $(document).ready(function(){initNavTree('d1/d58/class_monte_carlo.html','../../
  <a href="../../d1/d58/class_monte_carlo.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d2/d66/_monte_carlo_8h_source.html">MonteCarlo.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for Monte Carlo. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class is responsible for the MCMC runs using the MCMCEngine class together with input parameters from the <a class="el" href="../../d1/df4/class_input_parser.html" title="A class for reading input parameters and output directives.">InputParser</a> class. The Monte Carlo mode is the default run mode if the &ndash;noMC flag is not specified. The settings for the Monte Carlo run can be fixed in in the format specified in the MonteCarlo.conf file, the name of this configuration file should be specified as the second argument to the executable. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d66/_monte_carlo_8h_source.html#l00035">35</a> of file <a class="el" href="../../d2/d66/_monte_carlo_8h_source.html">MonteCarlo.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab814dc650b93f24c43a0497c4a72f549"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/class_monte_carlo.html#ab814dc650b93f24c43a0497c4a72f549">addCustomObservableType</a> (const std::string name, boost::function&lt; <a class="el" href="../../d9/dba/class_observable.html">Observable</a> *() &gt; funct)</td></tr>
@@ -237,14 +244,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a798fba601f49e0a17e46d373fbe0819e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for printing the overview parameter plots.  <a href="../../d1/d58/class_monte_carlo.html#a798fba601f49e0a17e46d373fbe0819e">More...</a><br /></td></tr>
 <tr class="separator:a798fba601f49e0a17e46d373fbe0819e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for Monte Carlo. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class is responsible for the MCMC runs using the MCMCEngine class together with input parameters from the <a class="el" href="../../d1/df4/class_input_parser.html" title="A class for reading input parameters and output directives.">InputParser</a> class. The Monte Carlo mode is the default run mode if the &ndash;noMC flag is not specified. The settings for the Monte Carlo run can be fixed in in the format specified in the MonteCarlo.conf file, the name of this configuration file should be specified as the second argument to the executable. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d66/_monte_carlo_8h_source.html#l00035">35</a> of file <a class="el" href="../../d2/d66/_monte_carlo_8h_source.html">MonteCarlo.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a07e9d4871d66553aaf3f1b47fe9ef140" name="a07e9d4871d66553aaf3f1b47fe9ef140"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a07e9d4871d66553aaf3f1b47fe9ef140">&#9670;&nbsp;</a></span>MonteCarlo()</h2>
 

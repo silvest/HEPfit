@@ -129,7 +129,15 @@ $(document).ready(function(){initNavTree('d4/d7b/class_p_vfunctions.html','../..
  <a href="../../d4/d7b/class_p_vfunctions.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d3/d6b/_p_vfunctions_8h_source.html">PVfunctions.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for Passarino-Veltman functions. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class handles the so-called Passarino-Veltman (PV) functions, which appear in one-loop amplitudes. The definitions of the two-point and four-point functions used in the current class are identical to those in <a href="http://www.feynarts.de/looptools/" target="blank">LoopTools</a> library <b>[Hahn:1998yk]</b>. The one-point and three-point functions are identical to those in <a href="http://www.feynarts.de/looptools/" target="blank">LoopTools</a> library when bExtraMinusSign is set to false. On the other hand, when bExtraMinusSign is set to true, an extra minus sign is added to them in order to match their definitions to those in <b>[Bardin:1999ak]</b>. If the preprocessor macro USE_LOOPTOOLS is defined in <a class="el" href="../../d3/d6b/_p_vfunctions_8h.html">PVfunctions.h</a> or Makefile, the functions in LoopTools library, called via LoopToolsWrapper class, are employed instead of those defined in the current class.</p>
+<p >See, e.g., <b>[tHooft:1978xw]</b>, <b>[Passarino:1978jh]</b>, <b>[VeltBook]</b>, <b>[Denner:1991kt]</b> and <b>[Bardin:1999ak]</b> </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d6b/_p_vfunctions_8h_source.html#l00044">44</a> of file <a class="el" href="../../d3/d6b/_p_vfunctions_8h_source.html">PVfunctions.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aae55b79120d7348d0ffd736753124ec9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d7b/class_p_vfunctions.html#aae55b79120d7348d0ffd736753124ec9">A0</a> (const double mu2, const double m2) const</td></tr>
@@ -199,15 +207,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ac7524d44615b1e8c7e4480759c88ca5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">An object of type <a class="el" href="../../d8/db3/class_polylogarithms.html" title="A class for the polylogarithms.">Polylogarithms</a>.  <a href="../../d4/d7b/class_p_vfunctions.html#ac7524d44615b1e8c7e4480759c88ca5d">More...</a><br /></td></tr>
 <tr class="separator:ac7524d44615b1e8c7e4480759c88ca5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for Passarino-Veltman functions. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class handles the so-called Passarino-Veltman (PV) functions, which appear in one-loop amplitudes. The definitions of the two-point and four-point functions used in the current class are identical to those in <a href="http://www.feynarts.de/looptools/" target="blank">LoopTools</a> library <b>[Hahn:1998yk]</b>. The one-point and three-point functions are identical to those in <a href="http://www.feynarts.de/looptools/" target="blank">LoopTools</a> library when bExtraMinusSign is set to false. On the other hand, when bExtraMinusSign is set to true, an extra minus sign is added to them in order to match their definitions to those in <b>[Bardin:1999ak]</b>. If the preprocessor macro USE_LOOPTOOLS is defined in <a class="el" href="../../d3/d6b/_p_vfunctions_8h.html">PVfunctions.h</a> or Makefile, the functions in LoopTools library, called via LoopToolsWrapper class, are employed instead of those defined in the current class.</p>
-<p >See, e.g., <b>[tHooft:1978xw]</b>, <b>[Passarino:1978jh]</b>, <b>[VeltBook]</b>, <b>[Denner:1991kt]</b> and <b>[Bardin:1999ak]</b> </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6b/_p_vfunctions_8h_source.html#l00044">44</a> of file <a class="el" href="../../d3/d6b/_p_vfunctions_8h_source.html">PVfunctions.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7c6c163d0692761251d279cdc875bd77" name="a7c6c163d0692761251d279cdc875bd77"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7c6c163d0692761251d279cdc875bd77">&#9670;&nbsp;</a></span>PVfunctions()</h2>
 

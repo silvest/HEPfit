@@ -129,7 +129,59 @@ $(document).ready(function(){initNavTree('dd/d75/class_b_parameter.html','../../
  <a href="../../dd/d75/class_b_parameter.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d1/da1/_b_parameter_8h_source.html">BParameter.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for the bag parameters. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This is the class for defining bag parameters, which depend on a specified scale and scheme.</p>
+<p ><a class="anchor" id="BParameterParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of BParameter are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">BBs1 - BBs5 </td><td class="mod_symb">\(B^1_{B_s} - B^5_{B_s}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_5 \) in \( \Delta b = 2 \) processes in \( B_s \).  </td></tr>
+<tr>
+<td class="mod_name">FBsSqrtBBs1 - FBsSqrtBBs5 </td><td class="mod_symb">\(f_{B_s}\sqrt{B^1_{B_s}} - f_{B_s}\sqrt{B^5_{B_s}}\) </td><td class="mod_desc">The decay constant times the square root of the bag parameter for \( O_1 - O_5 \) in \( \Delta b = 2 \) processes in \( B_s \).  </td></tr>
+<tr>
+<td class="mod_name">BBsscale </td><td class="mod_symb">\(\mu_{B_{s}}\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( B_s \) system.  </td></tr>
+<tr>
+<td class="mod_name">BBsscheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( B_s \) system.  </td></tr>
+<tr>
+<td class="mod_name">BBsoBBd </td><td class="mod_symb">\(B^1_{B_s}/B^1_{B_d}\) </td><td class="mod_desc">The ratio \( B^1_{B_s}/B^1_{B_d} \) necessary to compute \( B^1_{B_d} \).  </td></tr>
+<tr>
+<td class="mod_name">BBd2 - BBd5 </td><td class="mod_symb">\(B^2_{B_d} - B^5_{B_d}\) </td><td class="mod_desc">The bag parameter for \( O_2 - O_5 \) in \( \Delta b = 2 \) processes in \( B_d \).  </td></tr>
+<tr>
+<td class="mod_name">csi </td><td class="mod_symb">\(\frac{f_{B_s}\sqrt{B^1_{B_s}}}{f_{B_d}\sqrt{B^1_{B_d}}}\) </td><td class="mod_desc">The ratio \( \frac{f_{B_s}\sqrt{B^1_{B_s}}}{f_{B_d}\sqrt{B^1_{B_d}}} \) necessary to compute \( f_{B_d}\sqrt{B^1_{B_d}} \).  </td></tr>
+<tr>
+<td class="mod_name">FBdSqrtBBd2 - FBdSqrtBBd5 </td><td class="mod_symb">\(f_{B_d}\sqrt{B^2_{B_d}} - f_{B_d}\sqrt{B^5_{B_d}}\) </td><td class="mod_desc">The decay constant times the square root of the bag parameter for \( O_2 - O_5 \) in \( \Delta b = 2 \) processes in \( B_d \).  </td></tr>
+<tr>
+<td class="mod_name">BBdscale </td><td class="mod_symb">\(\mu_{B_{d}}\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( B_d \) system.  </td></tr>
+<tr>
+<td class="mod_name">BBdscheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( B_d \) system.  </td></tr>
+<tr>
+<td class="mod_name">BK1 - BK5 </td><td class="mod_symb">\(B^1_{K} - B^5_{K}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_5\) in \( \Delta s = 2 \) processes in \( K^0 \).  </td></tr>
+<tr>
+<td class="mod_name">BKscale </td><td class="mod_symb">\(\mu_K\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( K^0 \) system.  </td></tr>
+<tr>
+<td class="mod_name">BKscheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( K^0 \) system.  </td></tr>
+<tr>
+<td class="mod_name">BD1 - BD5 </td><td class="mod_symb">\(B^1_{D} - B^5_{D}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_5\) in \( \Delta c = 2 \) processes in \( D^0 \).  </td></tr>
+<tr>
+<td class="mod_name">BDscale </td><td class="mod_symb">\(\mu_D\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( D_0 \) system.  </td></tr>
+<tr>
+<td class="mod_name">BDscheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( D_0 \) system.  </td></tr>
+<tr>
+<td class="mod_name">BK(1/2)1 - BK(1/2)10 </td><td class="mod_symb">\(B^1_{K(1/2)} - B^{10}_{K(1/2)}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_{10}\) in \( K_L \) decay in 2 pion with 0 isospin change.  </td></tr>
+<tr>
+<td class="mod_name">BK(3/2)1 - BK(3/2)10 </td><td class="mod_symb">\(B^1_{K(3/2)} - B^{10}_{K(3/2)}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_{10}\) in \( K_L \) decay in 2 pion with double isospin change.  </td></tr>
+<tr>
+<td class="mod_name">BKd_scale </td><td class="mod_symb">\(\mu_{K_L}\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( K_L \) system.  </td></tr>
+<tr>
+<td class="mod_name">BKd_scheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( K_L \) system.  </td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/da1/_b_parameter_8h_source.html#l00151">151</a> of file <a class="el" href="../../d1/da1/_b_parameter_8h_source.html">BParameter.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae5933051945dd2e1f5fa77279e9e12ff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d75/class_b_parameter.html#ae5933051945dd2e1f5fa77279e9e12ff">BParameter</a> (int n)</td></tr>
@@ -262,59 +314,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a1a3be5ddea57c1d934b6090328effcec"><td class="mdescLeft">&#160;</td><td class="mdescRight">The scheme in which the bag parameters are defined.  <a href="../../dd/d75/class_b_parameter.html#a1a3be5ddea57c1d934b6090328effcec">More...</a><br /></td></tr>
 <tr class="separator:a1a3be5ddea57c1d934b6090328effcec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for the bag parameters. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This is the class for defining bag parameters, which depend on a specified scale and scheme.</p>
-<p ><a class="anchor" id="BParameterParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of BParameter are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">BBs1 - BBs5 </td><td class="mod_symb">\(B^1_{B_s} - B^5_{B_s}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_5 \) in \( \Delta b = 2 \) processes in \( B_s \).  </td></tr>
-<tr>
-<td class="mod_name">FBsSqrtBBs1 - FBsSqrtBBs5 </td><td class="mod_symb">\(f_{B_s}\sqrt{B^1_{B_s}} - f_{B_s}\sqrt{B^5_{B_s}}\) </td><td class="mod_desc">The decay constant times the square root of the bag parameter for \( O_1 - O_5 \) in \( \Delta b = 2 \) processes in \( B_s \).  </td></tr>
-<tr>
-<td class="mod_name">BBsscale </td><td class="mod_symb">\(\mu_{B_{s}}\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( B_s \) system.  </td></tr>
-<tr>
-<td class="mod_name">BBsscheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( B_s \) system.  </td></tr>
-<tr>
-<td class="mod_name">BBsoBBd </td><td class="mod_symb">\(B^1_{B_s}/B^1_{B_d}\) </td><td class="mod_desc">The ratio \( B^1_{B_s}/B^1_{B_d} \) necessary to compute \( B^1_{B_d} \).  </td></tr>
-<tr>
-<td class="mod_name">BBd2 - BBd5 </td><td class="mod_symb">\(B^2_{B_d} - B^5_{B_d}\) </td><td class="mod_desc">The bag parameter for \( O_2 - O_5 \) in \( \Delta b = 2 \) processes in \( B_d \).  </td></tr>
-<tr>
-<td class="mod_name">csi </td><td class="mod_symb">\(\frac{f_{B_s}\sqrt{B^1_{B_s}}}{f_{B_d}\sqrt{B^1_{B_d}}}\) </td><td class="mod_desc">The ratio \( \frac{f_{B_s}\sqrt{B^1_{B_s}}}{f_{B_d}\sqrt{B^1_{B_d}}} \) necessary to compute \( f_{B_d}\sqrt{B^1_{B_d}} \).  </td></tr>
-<tr>
-<td class="mod_name">FBdSqrtBBd2 - FBdSqrtBBd5 </td><td class="mod_symb">\(f_{B_d}\sqrt{B^2_{B_d}} - f_{B_d}\sqrt{B^5_{B_d}}\) </td><td class="mod_desc">The decay constant times the square root of the bag parameter for \( O_2 - O_5 \) in \( \Delta b = 2 \) processes in \( B_d \).  </td></tr>
-<tr>
-<td class="mod_name">BBdscale </td><td class="mod_symb">\(\mu_{B_{d}}\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( B_d \) system.  </td></tr>
-<tr>
-<td class="mod_name">BBdscheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( B_d \) system.  </td></tr>
-<tr>
-<td class="mod_name">BK1 - BK5 </td><td class="mod_symb">\(B^1_{K} - B^5_{K}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_5\) in \( \Delta s = 2 \) processes in \( K^0 \).  </td></tr>
-<tr>
-<td class="mod_name">BKscale </td><td class="mod_symb">\(\mu_K\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( K^0 \) system.  </td></tr>
-<tr>
-<td class="mod_name">BKscheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( K^0 \) system.  </td></tr>
-<tr>
-<td class="mod_name">BD1 - BD5 </td><td class="mod_symb">\(B^1_{D} - B^5_{D}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_5\) in \( \Delta c = 2 \) processes in \( D^0 \).  </td></tr>
-<tr>
-<td class="mod_name">BDscale </td><td class="mod_symb">\(\mu_D\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( D_0 \) system.  </td></tr>
-<tr>
-<td class="mod_name">BDscheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( D_0 \) system.  </td></tr>
-<tr>
-<td class="mod_name">BK(1/2)1 - BK(1/2)10 </td><td class="mod_symb">\(B^1_{K(1/2)} - B^{10}_{K(1/2)}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_{10}\) in \( K_L \) decay in 2 pion with 0 isospin change.  </td></tr>
-<tr>
-<td class="mod_name">BK(3/2)1 - BK(3/2)10 </td><td class="mod_symb">\(B^1_{K(3/2)} - B^{10}_{K(3/2)}\) </td><td class="mod_desc">The bag parameter for \( O_1 - O_{10}\) in \( K_L \) decay in 2 pion with double isospin change.  </td></tr>
-<tr>
-<td class="mod_name">BKd_scale </td><td class="mod_symb">\(\mu_{K_L}\) </td><td class="mod_desc">The scale at which the bag parameters are specified for the \( K_L \) system.  </td></tr>
-<tr>
-<td class="mod_name">BKd_scheme </td><td class="mod_symb">\(\) </td><td class="mod_desc">The scheme in which the bag parameters are specified for the \( K_L \) system.  </td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="../../d1/da1/_b_parameter_8h_source.html#l00151">151</a> of file <a class="el" href="../../d1/da1/_b_parameter_8h_source.html">BParameter.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae5933051945dd2e1f5fa77279e9e12ff" name="ae5933051945dd2e1f5fa77279e9e12ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5933051945dd2e1f5fa77279e9e12ff">&#9670;&nbsp;</a></span>BParameter() <span class="overload">[1/2]</span></h2>
 

@@ -160,7 +160,169 @@ $(document).ready(function(){initNavTree('dc/dd5/class_standard_model.html','../
 <area href="../../d0/d52/class_t_h_d_m.html" title="A base class for  symmetric Two-Higgs-Doublet models." alt="THDM" shape="rect" coords="195,840,380,864"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A model class for the Standard Model. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing parameters and functions associated with the Standard Model. This class is inherited from the <a class="el" href="../../dd/dfa/class_q_c_d.html" title="A class for parameters related to QCD, hadrons and quarks.">QCD</a> class, which defines parameters related to QCD.</p>
+<p ><a class="anchor" id="StandardModelInitialization"></a></p><h3>Initialization</h3>
+<p >The constructor <a class="el" href="../../dc/dd5/class_standard_model.html#a3e259254b66d4905ac0e1b921af697d0" title="The default constructor.">StandardModel()</a> initializes some of the model flags to their default values. After creating an instance of the current class, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>, which allocates memory to the pointers defined in the current class. These pointers are then used in computing EW precision and flavour observables, respectively. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
+<p >The initializations and updates of the model parameters and flags are explained below.</p>
+<p ><a class="anchor" id="StandardModelParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of StandardModel are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">Mz </td><td class="mod_symb">\(M_Z\) </td><td class="mod_desc">The mass of the \(Z\) boson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">Mw_inp </td><td class="mod_symb">\(M_W\) </td><td class="mod_desc">The mass of the \(W\) boson in GeV. Only used if the flag MWinput is TRUE.  </td></tr>
+<tr>
+<td class="mod_name">AlsMz </td><td class="mod_symb">\(\alpha_s(M_Z)\) </td><td class="mod_desc">The strong coupling constant at the Z-boson mass.  </td></tr>
+<tr>
+<td class="mod_name">GF </td><td class="mod_symb">\(G_\mu\) </td><td class="mod_desc">The Fermi constant in \({\rm GeV}^{-2}\), measured through muon decays.  </td></tr>
+<tr>
+<td class="mod_name">ale </td><td class="mod_symb">\(\alpha\) </td><td class="mod_desc">The fine-structure constant.  </td></tr>
+<tr>
+<td class="mod_name">dAle5Mz </td><td class="mod_symb">\(\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)\) </td><td class="mod_desc">The five-flavour hadronic contribution to the electromagnetic coupling.  </td></tr>
+<tr>
+<td class="mod_name">mHl </td><td class="mod_symb">\(m_h\) </td><td class="mod_desc">The Higgs mass in GeV.  </td></tr>
+<tr>
+<td class="mod_name">delMw </td><td class="mod_symb">\(\delta\,M_W\) </td><td class="mod_desc">The theoretical uncertainty in \(M_W\) in GeV, which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a7efaa3fd2678f1f58083635bde39ed01" title="The -boson mass with the full two-loop EW corrections.">EWSMApproximateFormulae::Mw()</a> is employed for \(M_W\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">Mw</a>.  </td></tr>
+<tr>
+<td class="mod_name">delSin2th_l </td><td class="mod_symb">\(\delta\sin^2\theta_{\rm eff}^{\rm lept}\) </td><td class="mod_desc">The theoretical uncertainty in \(\sin^2\theta_{\rm eff}^{\rm lept}\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#aed554235b1f1adba4625b8aa360f3715" title="with the full two-loop EW corrections.">EWSMApproximateFormulae::sin2thetaEff_l()</a> is employed for \(\sin^2\theta_{\rm eff}^{\rm lept}\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">KappaZ</a>.  </td></tr>
+<tr>
+<td class="mod_name">delSin2th_q </td><td class="mod_symb">\(\delta\sin^2\theta_{\rm eff}^{q\not = b,t}\) </td><td class="mod_desc">The theoretical uncertainty in \(\sin^2\theta_{\rm eff}^{q\not = b,t}\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#ae673d4e5f0c8084e1647c64c2307f6c4" title="with the full two-loop EW corrections (bosonic two-loop EW corrections are missing for ).">EWSMApproximateFormulae::sin2thetaEff_q()</a> is employed for \(\sin^2\theta_{\rm eff}^{q\not = b,t}\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">KappaZ</a>.  </td></tr>
+<tr>
+<td class="mod_name">delSin2th_b </td><td class="mod_symb">\(\delta\sin^2\theta_{\rm eff}^{b}\) </td><td class="mod_desc">The theoretical uncertainty in \(\sin^2\theta_{\rm eff}^{b}\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#ae651f612f70ba9526ccca369cb49cfaa" title="with the full two-loop EW corrections.">EWSMApproximateFormulae::sin2thetaEff_b()</a> is employed for \(\sin^2\theta_{\rm eff}^{b}\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">KappaZ</a>.  </td></tr>
+<tr>
+<td class="mod_name">delGammaZ </td><td class="mod_symb">\(\delta\,\Gamma_Z\) </td><td class="mod_desc">The theoretical uncertainty in \(\Gamma_Z\) in GeV, which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(\Gamma_Z\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">NoApproximateGammaZ</a>.  </td></tr>
+<tr>
+<td class="mod_name">delsigma0H </td><td class="mod_symb">\(\delta\,\sigma_{Hadron}^0\) </td><td class="mod_desc">The theoretical uncertainty in \(\sigma_{Hadron}^0\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(\sigma_{Hadron}^0\).  </td></tr>
+<tr>
+<td class="mod_name">delR0l </td><td class="mod_symb">\(\delta\,R_l^0\) </td><td class="mod_desc">The theoretical uncertainty in \(R_l^0\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(R_l^0\).  </td></tr>
+<tr>
+<td class="mod_name">delR0c </td><td class="mod_symb">\(\delta\,R_c^0\) </td><td class="mod_desc">The theoretical uncertainty in \(R_c^0\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(R_c^0\).  </td></tr>
+<tr>
+<td class="mod_name">delR0b </td><td class="mod_symb">\(\delta\,R_b^0\) </td><td class="mod_desc">The theoretical uncertainty in \(R_b^0\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(R_b^0\).  </td></tr>
+<tr>
+<td class="mod_name">mneutrino_1 </td><td class="mod_symb">\(m_{\nu_1}\) </td><td class="mod_desc">The mass of the first-generation neutrino in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mneutrino_2 </td><td class="mod_symb">\(m_{\nu_2}\) </td><td class="mod_desc">The mass of the second-generation neutrino in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mneutrino_3 </td><td class="mod_symb">\(m_{\nu_3}\) </td><td class="mod_desc">The mass of the third-generation neutrino in GeV.  </td></tr>
+<tr>
+<td class="mod_name">melectron </td><td class="mod_symb">\(m_e\) </td><td class="mod_desc">The electron mass in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mmu </td><td class="mod_symb">\(m_\mu\) </td><td class="mod_desc">The muon mass in GeV.  </td></tr>
+<tr>
+<td class="mod_name">mtau </td><td class="mod_symb">\(m_\tau\) </td><td class="mod_desc">The tau mass in GeV.  </td></tr>
+<tr>
+<td class="mod_name">lambda </td><td class="mod_symb">\(\lambda\) </td><td class="mod_desc">The CKM parameter \(\lambda\) in the Wolfenstein parameterization.  </td></tr>
+<tr>
+<td class="mod_name">A </td><td class="mod_symb">\(A\) </td><td class="mod_desc">The CKM parameter \(A\) in the Wolfenstein parameterization.  </td></tr>
+<tr>
+<td class="mod_name">rhob </td><td class="mod_symb">\(\bar{\rho}\) </td><td class="mod_desc">The CKM parameter \(\bar{\rho}\) in the Wolfenstein parameterization.  </td></tr>
+<tr>
+<td class="mod_name">etab </td><td class="mod_symb">\(\bar{\eta}\) </td><td class="mod_desc">The CKM parameter \(\bar{\eta}\) in the Wolfenstein parameterization.  </td></tr>
+<tr>
+<td class="mod_name">muw </td><td class="mod_symb">\(\mu_W\) </td><td class="mod_desc">A matching scale around the weak scale in GeV.  </td></tr>
+</table>
+<p >The set of the model parameters are initialized and updated with the methods <a class="el" href="../../dc/dd5/class_standard_model.html#a52ba65b54859053ab41ca9430d7b56ef" title="A method to initialize the model parameters.">Init()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#af191d013f4ab4fe78806c4f73bb226bc" title="The update method for StandardModel.">Update()</a>, respectively, where the former calls the latter actually. In <a class="el" href="../../dc/dd5/class_standard_model.html#af191d013f4ab4fe78806c4f73bb226bc" title="The update method for StandardModel.">Update()</a>, the methods <a class="el" href="../../dc/dd5/class_standard_model.html#a1ac34dfd0ccb2e02be66e1ad5d848ea6" title="The pre-update method for StandardModel.">PreUpdate()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#ad3f85c83108fddcca06d247fbcc35fa6" title="The post-update method for StandardModel.">PostUpdate()</a> are called to run all the procedures that are need to be executed before and after the model parameters are updated. The CKM and PMNS matrices and the Yukawa matrices are recomputed in <a class="el" href="../../dc/dd5/class_standard_model.html#ad3f85c83108fddcca06d247fbcc35fa6" title="The post-update method for StandardModel.">PostUpdate()</a> with the updated parameters. Inside the <a class="el" href="../../dc/dd5/class_standard_model.html#af191d013f4ab4fe78806c4f73bb226bc" title="The update method for StandardModel.">Update()</a> method, the individual model parameter is assigned with the protected member function <a class="el" href="../../dc/dd5/class_standard_model.html#ad968f6005fb550935952c1de845c6637" title="A method to set the value of a parameter of StandardModel.">setParameter()</a>.</p>
+<p >The parameters delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b represent theoretical uncertainties in the \(W\)-boson mass, the leptonic and quark effective weak mixing angles at the \(Z\)-boson mass scale, the total decay width of the \(Z\) boson, the hadronic cross section at the peak, and the ratios \(R_l^0\), \(R_c^0\) and \(R_b^0\), respectively, originating from missing higher-order corrections. The contributions from these parameters are incorporated into their two-loop approximate formulae: <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a7efaa3fd2678f1f58083635bde39ed01" title="The -boson mass with the full two-loop EW corrections.">EWSMApproximateFormulae::Mw()</a>, <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#aed554235b1f1adba4625b8aa360f3715" title="with the full two-loop EW corrections.">EWSMApproximateFormulae::sin2thetaEff_l()</a>, <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#ae673d4e5f0c8084e1647c64c2307f6c4" title="with the full two-loop EW corrections (bosonic two-loop EW corrections are missing for ).">EWSMApproximateFormulae::sin2thetaEff_q()</a>, <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#ae651f612f70ba9526ccca369cb49cfaa" title="with the full two-loop EW corrections.">EWSMApproximateFormulae::sin2thetaEff_b()</a>, <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("GammaZ"), <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("sigmaHadron"), <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("R0_lepton"), <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("R0_charm") and <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("R0_bottom"). Therefore, the parameters are applicable only when the corresponding approximate formulae are employed. See also the model flags below.</p>
+<p ><a class="anchor" id="StandardModelFlags"></a></p><h3>Model flags</h3>
+<p >The flags of StandardModel are summarized below, where the values of the boolean flags (TRUE or FALSE) are case insensitive, while those of the other flags are case sensitive. The default values of the flags are indicated in bold:</p>
+<table class="model">
+<tr>
+<th>Label </th><th>Value </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">Wolfenstein </td><td class="mod_valu"><b>TRUE</b>&#160;/&#160;FALSE </td><td class="mod_desc">This flag controls the way the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is parameterized. If set to TRUE, the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is computed starting from the Wolfenstein parameters. If set to FALSE, the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is computed starting from \(\vert V_{us} \vert\), \(\vert V_{cb} \vert\), \(\vert V_{ub} \vert\) and \(\gamma\). The default value is TRUE.  </td></tr>
+<tr>
+<td class="mod_name">UseVud </td><td class="mod_valu"><b>FALSE</b>&#160;/&#160;TRUE </td><td class="mod_desc">This flag controls the way the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is parameterized. If set to FALSE, with Wolfenstein FALSE, the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is computed starting from \(\vert V_{us} \vert\), \(\vert V_{cb} \vert\), \(\vert V_{ub} \vert\) and \(\gamma\). If set to TRUE, with Wolfenstein FALSE, the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is computed starting from \(\vert V_{ud} \vert\), \(\vert V_{cb} \vert\), \(\vert V_{ub} \vert\) and \(\gamma\). If Wolfenstein is set to TRUE, this flag has no effect. The default value is FALSE.  </td></tr>
+<tr>
+<td class="mod_name">FixMuwMut </td><td class="mod_valu"><b>FALSE</b>&#160;/&#160;TRUE </td><td class="mod_desc">This flag controls the way the weak matching scale and the top quark decoupling scale are varied. If set to FALSE, the \(\mu_W\) parameter is introduced to float the matching scale independently of the top decoupling scale \(\mu_t\). If set to TRUE, the \(\mu_t\) parameter is fixed to \(\mu_W / M_W * \m_t\) Notice that in this case the \(\mu_t\) parameter defined in <a class="el" href="../../dd/dfa/class_q_c_d.html" title="A class for parameters related to QCD, hadrons and quarks.">QCD</a> becomes irrelevant, therefore it is advisable to fix it to a constant in the configuration file The default value is FALSE.  </td></tr>
+<tr>
+<td class="mod_name">CacheInStandardModel </td><td class="mod_valu"><b>TRUE</b>&#160;/&#160;FALSE </td><td class="mod_desc">This flag controls the use of the cashing method implemented in EWSM class. The default value is TRUE.  </td></tr>
+<tr>
+<td class="mod_name">CacheInEWSMcache </td><td class="mod_valu"><b>TRUE</b>&#160;/&#160;FALSE </td><td class="mod_desc">This flag controls the use of the cashing method implemented in <a class="el" href="../../dc/df3/class_e_w_s_mcache.html" title="A class for cache variables used in computing radiative corrections to the EW precision observables.">EWSMcache</a> class. The default value is TRUE.  </td></tr>
+<tr>
+<td class="mod_name">WithoutNonUniversalVC </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag controls if flavour non-universal vertex corrections are not added to the epsilon parameterization for the EW precision observables. The default value is FALSE; the non-universal corrections are taken into account.  </td></tr>
+<tr>
+<td class="mod_name">NoApproximateGammaZ </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to true if the two-loop approximate formulae of the partial and total decay widths of the \(Z\) boson defined with the function <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> are NOT employed. The default value is FALSE.  </td></tr>
+<tr>
+<td class="mod_name">Mw </td><td class="mod_valu">NORESUM / OMSI / INTERMEDIATE / OMSII / <b>APPROXIMATEFORMULA</b> </td><td class="mod_desc">This flag controls the formula used in computing the \(W\)-boson mass. The default flag is APPROXIMATEFORMULA. See EWSM::Mw_SM(), EWSM::resumMw() and <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a7efaa3fd2678f1f58083635bde39ed01" title="The -boson mass with the full two-loop EW corrections.">EWSMApproximateFormulae::Mw()</a> for detail.  </td></tr>
+<tr>
+<td class="mod_name">RhoZ </td><td class="mod_valu"><b>NORESUM</b> / OMSI / INTERMEDIATE / OMSII </td><td class="mod_desc">This flag controls the formula used in computing the \(Zf\bar{f}\) couplings \(\rho_Z^f\). The default flag is NORESUM. See EWSM::rhoZ_l_SM(), EWSM::rhoZ_q_SM() and EWSM::resumRhoZ() for detail.  </td></tr>
+<tr>
+<td class="mod_name">KappaZ </td><td class="mod_valu">NORESUM / OMSI / INTERMEDIATE / OMSII / <b>APPROXIMATEFORMULA</b> </td><td class="mod_desc">This flag controls the formula used in computing the \(Zf\bar{f}\) couplings \(\kappa_Z^f\). The default flag is APPROXIMATEFORMULA. See EWSM::kappaZ_l_SM(), EWSM::kappaZ_q_SM() and EWSM::resumKappaZ() for detail.  </td></tr>
+<tr>
+<td class="mod_name">MWinput </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, instead of the electromagnetic constant parameter dAle5Mz. The default value is FALSE.  </td></tr>
+<tr>
+<td class="mod_name">SMAux </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This auxiliary flag is used for testing new options. The default value is FALSE.  </td></tr>
+</table>
+<p >These flags can be set via the method <a class="el" href="../../dc/dd5/class_standard_model.html#a93a9ea641aee81a24ca592a94c29cc26" title="A method to set a flag of StandardModel.">setFlag()</a> or <a class="el" href="../../dc/dd5/class_standard_model.html#a58cbefa45be612ee442a0db9d2ee6f68" title="A method to set a flag of StandardModel.">setFlagStr()</a>, where the former is applicable for the boolean flags, while the latter is for the other flags. The method <a class="el" href="../../dc/dd5/class_standard_model.html#a453860c0b648f2d6ac83100a6fcb8591" title="A method to check the sanity of the set of model flags.">CheckFlags()</a> is responsible for checking whether the flags are sane. The public member functions <a class="el" href="../../dc/dd5/class_standard_model.html#a8951f2878afcce55efec2f381f29516f" title="A method to retrieve the model flag WithoutNonUniversalVC.">IsFlagWithoutNonUniversalVC()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#a18fe3dd5e96bd95a9be4b160b42332c8" title="A method to retrieve the model flag NoApproximateGammaZ.">IsFlagNoApproximateGammaZ()</a> <a class="el" href="../../dc/dd5/class_standard_model.html#a440ee41b51d1135af64bb8d7e2a6fcbd" title="A method to retrieve the model flag Mw.">getFlagMw()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#a61e63ad58386a0b066e4680dd60c06a9" title="A method to retrieve the model flag RhoZ.">getFlagRhoZ()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#a71370401222909283952669a69d1c227" title="A method to retrieve the model flag KappaZ.">getFlagKappaZ()</a> are used to retrieve the values of each flag.</p>
+<p >The first two flags CacheInStandardModel and CacheInEWSMcache for the cashing methods in EWSM and <a class="el" href="../../dc/df3/class_e_w_s_mcache.html" title="A class for cache variables used in computing radiative corrections to the EW precision observables.">EWSMcache</a> classes are relevant to the computations of the electroweak precision observables. Those caches are effective when the \(W\)-boson mass, the decay widths of the \(Z\) boson and the \(Zf\bar{f}\) effective couplings \(\kappa_Z^f\) are calculated without using their two-loop approximate formulae.</p>
+<h3>Notation</h3>
+<p >The on-mass-shell renormalization scheme <b>[Sirlin:1980nh]</b>, <b>[Marciano:1980pb]</b>, <b>[Bardin:1980fe]</b>, <b>[Bardin:1981sv]</b> is adopted for UV divergences, and the weak mixing angle is defined in terms of the physical masses of the gauge bosons: </p><p class="formulaDsp">
+\[ s_W^2 \equiv \sin^2\theta_W = 1 - \frac{M_W^2}{M_Z^2}\,, \]
+</p>
+<p> and \(c_W^2=1-s_W^2\).</p>
+<p >The Fermi constant \(G_\mu\) in \(\mu\) decay is taken as an input quantity instead of the \(W\)-boson mass, since the latter has not been measured very precisely compared to the former. The relation between \(G_\mu\) and \(M_W\) is written as </p><p class="formulaDsp">
+\[ G_\mu = \frac{\pi\,\alpha}{\sqrt{2} s_W^2 M_W^2} (1+\Delta r)\,, \]
+</p>
+<p> where \(\Delta r\) represents radiative corrections. From this relation, the \(W\)-boson mass is calculated as </p><p class="formulaDsp">
+\[ M_W^2 = \frac{M_Z^2}{2} \left( 1+\sqrt{1-\frac{4\pi\alpha}{\sqrt{2}G_\mu M_Z^2}\,(1+\Delta r)}\ \right). \]
+</p>
+<p >The interaction between the \(Z\) boson and the neutral current can be written in terms of the effective \(Zf\bar{f}\) couplings \(g_{V}^f\) and \(g_{A}^f\), of \(g_{R}^f\) and \(g_{L}^f\), or of \(\rho_Z^f\) and \(\kappa_Z^f\): </p><p class="formulaDsp">
+\begin{eqnarray} \mathcal{L} &amp;=&amp; \frac{e}{2 s_W c_W}\, Z_\mu \sum_f \bar{f} \left( g_{V}^f\gamma_\mu - g_{A}^f \gamma_\mu\gamma_5 \right)\, f\,, \\ &amp;=&amp; \frac{e}{2s_W c_W}\, Z_\mu \sum_f \bar{f} \left[ g_{R}^f \gamma_\mu (1 + \gamma_5) + g_{L}^f \gamma_\mu (1 - \gamma_5) \right]\, f\,, \\ &amp;=&amp; \frac{e}{2 s_W c_W}\sqrt{\rho_Z^f}\, Z_\mu \sum_f \bar{f} \left[( I_3^f - 2Q_f\kappa_Z^f s_W^2)\gamma^\mu - I_3^f\gamma^\mu\gamma_5\right]\,f\,, \end{eqnarray}
+</p>
+<p> where \(\rho_Z^f\) and \(\kappa_Z^f\) are related to \(g_{V}^f\) and \(g_{A}^f\) as the relations: </p><p class="formulaDsp">
+\begin{eqnarray} g_V^f &amp;=&amp; \sqrt{\rho_Z^f} I_3^f (1 - 4|Q_f|\kappa_Z^fs_W^2) = \sqrt{\rho_Z^f} (I_3^f - 2Q_f\kappa_Z^fs_W^2)\,, \qquad g_A^f &amp;=&amp; \sqrt{\rho_Z^f} I_3^f\,, \end{eqnarray}
+</p>
+<p> and </p><p class="formulaDsp">
+\begin{eqnarray} \rho_Z^f &amp;=&amp; \left( \frac{g_A^f}{I_3^f} \right)^2, \qquad \kappa_Z^f &amp;=&amp; \frac{1}{4|Q_f|s_W^2} \left( 1 - \frac{g_V^{f}}{g_A^{f}}\right). \end{eqnarray}
+</p>
+<h3>Important member functions</h3>
+<p >The current class handles the following quantities:</p>
+<ul>
+<li>\(\Delta\alpha_{\mathrm{lept}}(s)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#af73fa5bc88be8b30d3b41eb7c81f2c8a" title="Leptonic contribution to the electromagnetic coupling , denoted as .">DeltaAlphaLepton()</a>), </li>
+<li>\(\Delta\alpha^{\ell+5q}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#ad08a6daf84562649b8654e51acbb8583" title="The sum of the leptonic and the five-flavour hadronic corrections to the electromagnetic coupling  at...">DeltaAlphaL5q()</a>), </li>
+<li>\(\Delta\alpha_{\mathrm{top}}(s)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#a5d61cdb2d154433372b50cc5b79216d5" title="Top-quark contribution to the electromagnetic coupling , denoted as .">DeltaAlphaTop()</a>), </li>
+<li>\(\Delta\alpha(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#ad75e2562bae29aa1466ee6c64f28f5d9" title="The total corrections to the electromagnetic coupling  at the -mass scale, denoted as .">DeltaAlpha()</a>), </li>
+<li>\(\alpha(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#ad5e9dbfd5ff2cff9bcf1bf24069a20d5" title="The electromagnetic coupling at the -mass scale, .">alphaMz()</a>),</li>
+</ul>
+<ul>
+<li>\(M_W\)&#160;&#160; (with Mw_SM()), </li>
+<li>\(\Delta r\)&#160;&#160; (with DeltaR_SM()), </li>
+<li>\(c_W^2\) and \(s_W^2\)&#160;&#160; (with cW2_SM() and sW2_SM()), </li>
+<li>\(\Gamma_W\)&#160;&#160; (with GammaW_SM()),</li>
+</ul>
+<ul>
+<li>\(\rho_Z^f\)&#160;&#160; (with rhoZ_l() and rhoZ_q()), </li>
+<li>\(\kappa_Z^f\)&#160;&#160; (with kappaZ_l() and kappaZ_q()), </li>
+<li>\(g_V^f\)&#160;&#160; (with gVl() and gVq()), </li>
+<li>\(g_A^f\)&#160;&#160; (with gAl() and gAq()),</li>
+</ul>
+<ul>
+<li>\(\varepsilon_{1,2,3,b}\)&#160;&#160; (with epsilon1_SM(), epsilon2_SM(), epsilon3_SM() and epsilonb_SM()).</li>
+</ul>
+<p>Moreover, the functions <a class="el" href="../../dc/dd5/class_standard_model.html#aa21bf3499a12602bbcb427a035c4c251" title="The -boson mass  in the complex-pole/fixed-width scheme.">Mzbar()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#af27a28c2eed3611a74efd36e00c17fbd" title="A method to convert the -boson mass in the experimental/running-width scheme to that in the complex-p...">MwbarFromMw()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#a3374e22e32e5e247094befb5b9a716f6" title="A method to convert the -boson mass in the complex-pole/fixed-width scheme to that in the experimenta...">MwFromMwbar()</a> and DeltaRbar_SM() can be used for the quantities in the complex-pole/fixed-width scheme.</p>
+<h3>Schemes</h3>
+<p >The formulae used for the \(W\)-boson mass \(M_W\) and the effective couplings \(\rho_Z^f\) and \(\kappa_Z^f\) are controlled with the model flags <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">Mw</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">RhoZ</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">KappaZ</a> of <a class="el" href="../../dc/dd5/class_standard_model.html" title="A model class for the Standard Model.">StandardModel</a>. For each flag, the available schemes are as follows:</p>
+<ul>
+<li>NORESUM:&#160;&#160; No resummation is considered; </li>
+<li>OMSI:&#160;&#160; the so-called OMS-I scheme is adopted; </li>
+<li>INTERMEDIATE:&#160;&#160; an intermediate scheme between OMS-I and OMS-II is adopted; </li>
+<li>OMSII:&#160;&#160; the so-called OMS-II scheme is adopted; </li>
+<li>APPROXIMATEFORMULA:&#160;&#160; the approximate two-loop formula given in <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html" title="A class for approximate formulae of the EW precision observables.">EWSMApproximateFormulae</a> class is employed.</li>
+</ul>
+<p>The scheme APPROXIMATEFORMULA provides the most accurate SM predictions for \(M_W\) and \(\kappa_Z^f\), while the approximate two-loop formula is not available for \(\rho_Z^f\).</p>
+<p >See <a class="el" href="../../dc/dd5/class_standard_model.html#af9faf5aa04829809754a95cc27547cb1" title="A method to compute the -boson mass from  and .">resumMw()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#ac2d4e24e1b81a3c32794b251f8de55b2" title="A method to compute the real part of the effective coupling  from ,  and .">resumRhoZ()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#a8ed601ad6c0d42937e174fb87b7c3a8a" title="A method to compute the real part of the effetvive coupling  from ,  and .">resumKappaZ()</a> for details on the other schemes.</p>
+<h3>Caches</h3>
+<p >This class contains caching methods for the following functions: <a class="el" href="../../dc/dd5/class_standard_model.html#af73fa5bc88be8b30d3b41eb7c81f2c8a" title="Leptonic contribution to the electromagnetic coupling , denoted as .">DeltaAlphaLepton()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#ad75e2562bae29aa1466ee6c64f28f5d9" title="The total corrections to the electromagnetic coupling  at the -mass scale, denoted as .">DeltaAlpha()</a>, Mw_SM(), GammaW_SM(), rhoZ_l_SM(), rhoZ_q_SM(), kappaZ_l_SM() and kappaZ_q_SM(), to improve the performance of the Monte Carlo run. The caching methods are implemented with the function checkSMparams().</p>
+<p >The use of the caching methods can be controlled with the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">CacheInStandardModel</a> of <a class="el" href="../../dc/dd5/class_standard_model.html" title="A model class for the Standard Model.">StandardModel</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/d0a/_standard_model_8h_source.html#l00509">509</a> of file <a class="el" href="../../d6/d0a/_standard_model_8h_source.html">StandardModel.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a53c6498edc5c7e2d2a2b465adf93f935"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dd5/class_standard_model.html#a53c6498edc5c7e2d2a2b465adf93f935">LEP2RCs</a> { <a class="el" href="../../dc/dd5/class_standard_model.html#a53c6498edc5c7e2d2a2b465adf93f935a0faef8f31736dfbb08121aee547eac90">Weak</a> = 0
@@ -2094,169 +2256,7 @@ Static Private Attributes</h2></td></tr>
 <tr class="memdesc:adccfb710308426839019c3c0259eed7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the depth of the cache.  <a href="../../dc/dd5/class_standard_model.html#adccfb710308426839019c3c0259eed7d">More...</a><br /></td></tr>
 <tr class="separator:adccfb710308426839019c3c0259eed7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A model class for the Standard Model. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing parameters and functions associated with the Standard Model. This class is inherited from the <a class="el" href="../../dd/dfa/class_q_c_d.html" title="A class for parameters related to QCD, hadrons and quarks.">QCD</a> class, which defines parameters related to QCD.</p>
-<p ><a class="anchor" id="StandardModelInitialization"></a></p><h3>Initialization</h3>
-<p >The constructor <a class="el" href="../../dc/dd5/class_standard_model.html#a3e259254b66d4905ac0e1b921af697d0" title="The default constructor.">StandardModel()</a> initializes some of the model flags to their default values. After creating an instance of the current class, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>, which allocates memory to the pointers defined in the current class. These pointers are then used in computing EW precision and flavour observables, respectively. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
-<p >The initializations and updates of the model parameters and flags are explained below.</p>
-<p ><a class="anchor" id="StandardModelParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of StandardModel are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">Mz </td><td class="mod_symb">\(M_Z\) </td><td class="mod_desc">The mass of the \(Z\) boson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">Mw_inp </td><td class="mod_symb">\(M_W\) </td><td class="mod_desc">The mass of the \(W\) boson in GeV. Only used if the flag MWinput is TRUE.  </td></tr>
-<tr>
-<td class="mod_name">AlsMz </td><td class="mod_symb">\(\alpha_s(M_Z)\) </td><td class="mod_desc">The strong coupling constant at the Z-boson mass.  </td></tr>
-<tr>
-<td class="mod_name">GF </td><td class="mod_symb">\(G_\mu\) </td><td class="mod_desc">The Fermi constant in \({\rm GeV}^{-2}\), measured through muon decays.  </td></tr>
-<tr>
-<td class="mod_name">ale </td><td class="mod_symb">\(\alpha\) </td><td class="mod_desc">The fine-structure constant.  </td></tr>
-<tr>
-<td class="mod_name">dAle5Mz </td><td class="mod_symb">\(\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)\) </td><td class="mod_desc">The five-flavour hadronic contribution to the electromagnetic coupling.  </td></tr>
-<tr>
-<td class="mod_name">mHl </td><td class="mod_symb">\(m_h\) </td><td class="mod_desc">The Higgs mass in GeV.  </td></tr>
-<tr>
-<td class="mod_name">delMw </td><td class="mod_symb">\(\delta\,M_W\) </td><td class="mod_desc">The theoretical uncertainty in \(M_W\) in GeV, which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a7efaa3fd2678f1f58083635bde39ed01" title="The -boson mass with the full two-loop EW corrections.">EWSMApproximateFormulae::Mw()</a> is employed for \(M_W\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">Mw</a>.  </td></tr>
-<tr>
-<td class="mod_name">delSin2th_l </td><td class="mod_symb">\(\delta\sin^2\theta_{\rm eff}^{\rm lept}\) </td><td class="mod_desc">The theoretical uncertainty in \(\sin^2\theta_{\rm eff}^{\rm lept}\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#aed554235b1f1adba4625b8aa360f3715" title="with the full two-loop EW corrections.">EWSMApproximateFormulae::sin2thetaEff_l()</a> is employed for \(\sin^2\theta_{\rm eff}^{\rm lept}\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">KappaZ</a>.  </td></tr>
-<tr>
-<td class="mod_name">delSin2th_q </td><td class="mod_symb">\(\delta\sin^2\theta_{\rm eff}^{q\not = b,t}\) </td><td class="mod_desc">The theoretical uncertainty in \(\sin^2\theta_{\rm eff}^{q\not = b,t}\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#ae673d4e5f0c8084e1647c64c2307f6c4" title="with the full two-loop EW corrections (bosonic two-loop EW corrections are missing for ).">EWSMApproximateFormulae::sin2thetaEff_q()</a> is employed for \(\sin^2\theta_{\rm eff}^{q\not = b,t}\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">KappaZ</a>.  </td></tr>
-<tr>
-<td class="mod_name">delSin2th_b </td><td class="mod_symb">\(\delta\sin^2\theta_{\rm eff}^{b}\) </td><td class="mod_desc">The theoretical uncertainty in \(\sin^2\theta_{\rm eff}^{b}\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#ae651f612f70ba9526ccca369cb49cfaa" title="with the full two-loop EW corrections.">EWSMApproximateFormulae::sin2thetaEff_b()</a> is employed for \(\sin^2\theta_{\rm eff}^{b}\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">KappaZ</a>.  </td></tr>
-<tr>
-<td class="mod_name">delGammaZ </td><td class="mod_symb">\(\delta\,\Gamma_Z\) </td><td class="mod_desc">The theoretical uncertainty in \(\Gamma_Z\) in GeV, which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(\Gamma_Z\). See also the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">NoApproximateGammaZ</a>.  </td></tr>
-<tr>
-<td class="mod_name">delsigma0H </td><td class="mod_symb">\(\delta\,\sigma_{Hadron}^0\) </td><td class="mod_desc">The theoretical uncertainty in \(\sigma_{Hadron}^0\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(\sigma_{Hadron}^0\).  </td></tr>
-<tr>
-<td class="mod_name">delR0l </td><td class="mod_symb">\(\delta\,R_l^0\) </td><td class="mod_desc">The theoretical uncertainty in \(R_l^0\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(R_l^0\).  </td></tr>
-<tr>
-<td class="mod_name">delR0c </td><td class="mod_symb">\(\delta\,R_c^0\) </td><td class="mod_desc">The theoretical uncertainty in \(R_c^0\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(R_c^0\).  </td></tr>
-<tr>
-<td class="mod_name">delR0b </td><td class="mod_symb">\(\delta\,R_b^0\) </td><td class="mod_desc">The theoretical uncertainty in \(R_b^0\), which is applicable only when <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> is employed for \(R_b^0\).  </td></tr>
-<tr>
-<td class="mod_name">mneutrino_1 </td><td class="mod_symb">\(m_{\nu_1}\) </td><td class="mod_desc">The mass of the first-generation neutrino in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mneutrino_2 </td><td class="mod_symb">\(m_{\nu_2}\) </td><td class="mod_desc">The mass of the second-generation neutrino in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mneutrino_3 </td><td class="mod_symb">\(m_{\nu_3}\) </td><td class="mod_desc">The mass of the third-generation neutrino in GeV.  </td></tr>
-<tr>
-<td class="mod_name">melectron </td><td class="mod_symb">\(m_e\) </td><td class="mod_desc">The electron mass in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mmu </td><td class="mod_symb">\(m_\mu\) </td><td class="mod_desc">The muon mass in GeV.  </td></tr>
-<tr>
-<td class="mod_name">mtau </td><td class="mod_symb">\(m_\tau\) </td><td class="mod_desc">The tau mass in GeV.  </td></tr>
-<tr>
-<td class="mod_name">lambda </td><td class="mod_symb">\(\lambda\) </td><td class="mod_desc">The CKM parameter \(\lambda\) in the Wolfenstein parameterization.  </td></tr>
-<tr>
-<td class="mod_name">A </td><td class="mod_symb">\(A\) </td><td class="mod_desc">The CKM parameter \(A\) in the Wolfenstein parameterization.  </td></tr>
-<tr>
-<td class="mod_name">rhob </td><td class="mod_symb">\(\bar{\rho}\) </td><td class="mod_desc">The CKM parameter \(\bar{\rho}\) in the Wolfenstein parameterization.  </td></tr>
-<tr>
-<td class="mod_name">etab </td><td class="mod_symb">\(\bar{\eta}\) </td><td class="mod_desc">The CKM parameter \(\bar{\eta}\) in the Wolfenstein parameterization.  </td></tr>
-<tr>
-<td class="mod_name">muw </td><td class="mod_symb">\(\mu_W\) </td><td class="mod_desc">A matching scale around the weak scale in GeV.  </td></tr>
-</table>
-<p >The set of the model parameters are initialized and updated with the methods <a class="el" href="../../dc/dd5/class_standard_model.html#a52ba65b54859053ab41ca9430d7b56ef" title="A method to initialize the model parameters.">Init()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#af191d013f4ab4fe78806c4f73bb226bc" title="The update method for StandardModel.">Update()</a>, respectively, where the former calls the latter actually. In <a class="el" href="../../dc/dd5/class_standard_model.html#af191d013f4ab4fe78806c4f73bb226bc" title="The update method for StandardModel.">Update()</a>, the methods <a class="el" href="../../dc/dd5/class_standard_model.html#a1ac34dfd0ccb2e02be66e1ad5d848ea6" title="The pre-update method for StandardModel.">PreUpdate()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#ad3f85c83108fddcca06d247fbcc35fa6" title="The post-update method for StandardModel.">PostUpdate()</a> are called to run all the procedures that are need to be executed before and after the model parameters are updated. The CKM and PMNS matrices and the Yukawa matrices are recomputed in <a class="el" href="../../dc/dd5/class_standard_model.html#ad3f85c83108fddcca06d247fbcc35fa6" title="The post-update method for StandardModel.">PostUpdate()</a> with the updated parameters. Inside the <a class="el" href="../../dc/dd5/class_standard_model.html#af191d013f4ab4fe78806c4f73bb226bc" title="The update method for StandardModel.">Update()</a> method, the individual model parameter is assigned with the protected member function <a class="el" href="../../dc/dd5/class_standard_model.html#ad968f6005fb550935952c1de845c6637" title="A method to set the value of a parameter of StandardModel.">setParameter()</a>.</p>
-<p >The parameters delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b represent theoretical uncertainties in the \(W\)-boson mass, the leptonic and quark effective weak mixing angles at the \(Z\)-boson mass scale, the total decay width of the \(Z\) boson, the hadronic cross section at the peak, and the ratios \(R_l^0\), \(R_c^0\) and \(R_b^0\), respectively, originating from missing higher-order corrections. The contributions from these parameters are incorporated into their two-loop approximate formulae: <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a7efaa3fd2678f1f58083635bde39ed01" title="The -boson mass with the full two-loop EW corrections.">EWSMApproximateFormulae::Mw()</a>, <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#aed554235b1f1adba4625b8aa360f3715" title="with the full two-loop EW corrections.">EWSMApproximateFormulae::sin2thetaEff_l()</a>, <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#ae673d4e5f0c8084e1647c64c2307f6c4" title="with the full two-loop EW corrections (bosonic two-loop EW corrections are missing for ).">EWSMApproximateFormulae::sin2thetaEff_q()</a>, <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#ae651f612f70ba9526ccca369cb49cfaa" title="with the full two-loop EW corrections.">EWSMApproximateFormulae::sin2thetaEff_b()</a>, <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("GammaZ"), <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("sigmaHadron"), <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("R0_lepton"), <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("R0_charm") and <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop</a>("R0_bottom"). Therefore, the parameters are applicable only when the corresponding approximate formulae are employed. See also the model flags below.</p>
-<p ><a class="anchor" id="StandardModelFlags"></a></p><h3>Model flags</h3>
-<p >The flags of StandardModel are summarized below, where the values of the boolean flags (TRUE or FALSE) are case insensitive, while those of the other flags are case sensitive. The default values of the flags are indicated in bold:</p>
-<table class="model">
-<tr>
-<th>Label </th><th>Value </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">Wolfenstein </td><td class="mod_valu"><b>TRUE</b>&#160;/&#160;FALSE </td><td class="mod_desc">This flag controls the way the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is parameterized. If set to TRUE, the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is computed starting from the Wolfenstein parameters. If set to FALSE, the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is computed starting from \(\vert V_{us} \vert\), \(\vert V_{cb} \vert\), \(\vert V_{ub} \vert\) and \(\gamma\). The default value is TRUE.  </td></tr>
-<tr>
-<td class="mod_name">UseVud </td><td class="mod_valu"><b>FALSE</b>&#160;/&#160;TRUE </td><td class="mod_desc">This flag controls the way the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is parameterized. If set to FALSE, with Wolfenstein FALSE, the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is computed starting from \(\vert V_{us} \vert\), \(\vert V_{cb} \vert\), \(\vert V_{ub} \vert\) and \(\gamma\). If set to TRUE, with Wolfenstein FALSE, the <a class="el" href="../../d9/db9/class_c_k_m.html" title="A class for the CKM matrix elements.">CKM</a> matrix is computed starting from \(\vert V_{ud} \vert\), \(\vert V_{cb} \vert\), \(\vert V_{ub} \vert\) and \(\gamma\). If Wolfenstein is set to TRUE, this flag has no effect. The default value is FALSE.  </td></tr>
-<tr>
-<td class="mod_name">FixMuwMut </td><td class="mod_valu"><b>FALSE</b>&#160;/&#160;TRUE </td><td class="mod_desc">This flag controls the way the weak matching scale and the top quark decoupling scale are varied. If set to FALSE, the \(\mu_W\) parameter is introduced to float the matching scale independently of the top decoupling scale \(\mu_t\). If set to TRUE, the \(\mu_t\) parameter is fixed to \(\mu_W / M_W * \m_t\) Notice that in this case the \(\mu_t\) parameter defined in <a class="el" href="../../dd/dfa/class_q_c_d.html" title="A class for parameters related to QCD, hadrons and quarks.">QCD</a> becomes irrelevant, therefore it is advisable to fix it to a constant in the configuration file The default value is FALSE.  </td></tr>
-<tr>
-<td class="mod_name">CacheInStandardModel </td><td class="mod_valu"><b>TRUE</b>&#160;/&#160;FALSE </td><td class="mod_desc">This flag controls the use of the cashing method implemented in EWSM class. The default value is TRUE.  </td></tr>
-<tr>
-<td class="mod_name">CacheInEWSMcache </td><td class="mod_valu"><b>TRUE</b>&#160;/&#160;FALSE </td><td class="mod_desc">This flag controls the use of the cashing method implemented in <a class="el" href="../../dc/df3/class_e_w_s_mcache.html" title="A class for cache variables used in computing radiative corrections to the EW precision observables.">EWSMcache</a> class. The default value is TRUE.  </td></tr>
-<tr>
-<td class="mod_name">WithoutNonUniversalVC </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag controls if flavour non-universal vertex corrections are not added to the epsilon parameterization for the EW precision observables. The default value is FALSE; the non-universal corrections are taken into account.  </td></tr>
-<tr>
-<td class="mod_name">NoApproximateGammaZ </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to true if the two-loop approximate formulae of the partial and total decay widths of the \(Z\) boson defined with the function <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a58140650b162f24f39382b1af835c63b" title=", , , , , , , , , , , or .">EWSMApproximateFormulae::X_full_2_loop()</a> are NOT employed. The default value is FALSE.  </td></tr>
-<tr>
-<td class="mod_name">Mw </td><td class="mod_valu">NORESUM / OMSI / INTERMEDIATE / OMSII / <b>APPROXIMATEFORMULA</b> </td><td class="mod_desc">This flag controls the formula used in computing the \(W\)-boson mass. The default flag is APPROXIMATEFORMULA. See EWSM::Mw_SM(), EWSM::resumMw() and <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html#a7efaa3fd2678f1f58083635bde39ed01" title="The -boson mass with the full two-loop EW corrections.">EWSMApproximateFormulae::Mw()</a> for detail.  </td></tr>
-<tr>
-<td class="mod_name">RhoZ </td><td class="mod_valu"><b>NORESUM</b> / OMSI / INTERMEDIATE / OMSII </td><td class="mod_desc">This flag controls the formula used in computing the \(Zf\bar{f}\) couplings \(\rho_Z^f\). The default flag is NORESUM. See EWSM::rhoZ_l_SM(), EWSM::rhoZ_q_SM() and EWSM::resumRhoZ() for detail.  </td></tr>
-<tr>
-<td class="mod_name">KappaZ </td><td class="mod_valu">NORESUM / OMSI / INTERMEDIATE / OMSII / <b>APPROXIMATEFORMULA</b> </td><td class="mod_desc">This flag controls the formula used in computing the \(Zf\bar{f}\) couplings \(\kappa_Z^f\). The default flag is APPROXIMATEFORMULA. See EWSM::kappaZ_l_SM(), EWSM::kappaZ_q_SM() and EWSM::resumKappaZ() for detail.  </td></tr>
-<tr>
-<td class="mod_name">MWinput </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, instead of the electromagnetic constant parameter dAle5Mz. The default value is FALSE.  </td></tr>
-<tr>
-<td class="mod_name">SMAux </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This auxiliary flag is used for testing new options. The default value is FALSE.  </td></tr>
-</table>
-<p >These flags can be set via the method <a class="el" href="../../dc/dd5/class_standard_model.html#a93a9ea641aee81a24ca592a94c29cc26" title="A method to set a flag of StandardModel.">setFlag()</a> or <a class="el" href="../../dc/dd5/class_standard_model.html#a58cbefa45be612ee442a0db9d2ee6f68" title="A method to set a flag of StandardModel.">setFlagStr()</a>, where the former is applicable for the boolean flags, while the latter is for the other flags. The method <a class="el" href="../../dc/dd5/class_standard_model.html#a453860c0b648f2d6ac83100a6fcb8591" title="A method to check the sanity of the set of model flags.">CheckFlags()</a> is responsible for checking whether the flags are sane. The public member functions <a class="el" href="../../dc/dd5/class_standard_model.html#a8951f2878afcce55efec2f381f29516f" title="A method to retrieve the model flag WithoutNonUniversalVC.">IsFlagWithoutNonUniversalVC()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#a18fe3dd5e96bd95a9be4b160b42332c8" title="A method to retrieve the model flag NoApproximateGammaZ.">IsFlagNoApproximateGammaZ()</a> <a class="el" href="../../dc/dd5/class_standard_model.html#a440ee41b51d1135af64bb8d7e2a6fcbd" title="A method to retrieve the model flag Mw.">getFlagMw()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#a61e63ad58386a0b066e4680dd60c06a9" title="A method to retrieve the model flag RhoZ.">getFlagRhoZ()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#a71370401222909283952669a69d1c227" title="A method to retrieve the model flag KappaZ.">getFlagKappaZ()</a> are used to retrieve the values of each flag.</p>
-<p >The first two flags CacheInStandardModel and CacheInEWSMcache for the cashing methods in EWSM and <a class="el" href="../../dc/df3/class_e_w_s_mcache.html" title="A class for cache variables used in computing radiative corrections to the EW precision observables.">EWSMcache</a> classes are relevant to the computations of the electroweak precision observables. Those caches are effective when the \(W\)-boson mass, the decay widths of the \(Z\) boson and the \(Zf\bar{f}\) effective couplings \(\kappa_Z^f\) are calculated without using their two-loop approximate formulae.</p>
-<h3>Notation</h3>
-<p >The on-mass-shell renormalization scheme <b>[Sirlin:1980nh]</b>, <b>[Marciano:1980pb]</b>, <b>[Bardin:1980fe]</b>, <b>[Bardin:1981sv]</b> is adopted for UV divergences, and the weak mixing angle is defined in terms of the physical masses of the gauge bosons: </p><p class="formulaDsp">
-\[ s_W^2 \equiv \sin^2\theta_W = 1 - \frac{M_W^2}{M_Z^2}\,, \]
-</p>
-<p> and \(c_W^2=1-s_W^2\).</p>
-<p >The Fermi constant \(G_\mu\) in \(\mu\) decay is taken as an input quantity instead of the \(W\)-boson mass, since the latter has not been measured very precisely compared to the former. The relation between \(G_\mu\) and \(M_W\) is written as </p><p class="formulaDsp">
-\[ G_\mu = \frac{\pi\,\alpha}{\sqrt{2} s_W^2 M_W^2} (1+\Delta r)\,, \]
-</p>
-<p> where \(\Delta r\) represents radiative corrections. From this relation, the \(W\)-boson mass is calculated as </p><p class="formulaDsp">
-\[ M_W^2 = \frac{M_Z^2}{2} \left( 1+\sqrt{1-\frac{4\pi\alpha}{\sqrt{2}G_\mu M_Z^2}\,(1+\Delta r)}\ \right). \]
-</p>
-<p >The interaction between the \(Z\) boson and the neutral current can be written in terms of the effective \(Zf\bar{f}\) couplings \(g_{V}^f\) and \(g_{A}^f\), of \(g_{R}^f\) and \(g_{L}^f\), or of \(\rho_Z^f\) and \(\kappa_Z^f\): </p><p class="formulaDsp">
-\begin{eqnarray} \mathcal{L} &amp;=&amp; \frac{e}{2 s_W c_W}\, Z_\mu \sum_f \bar{f} \left( g_{V}^f\gamma_\mu - g_{A}^f \gamma_\mu\gamma_5 \right)\, f\,, \\ &amp;=&amp; \frac{e}{2s_W c_W}\, Z_\mu \sum_f \bar{f} \left[ g_{R}^f \gamma_\mu (1 + \gamma_5) + g_{L}^f \gamma_\mu (1 - \gamma_5) \right]\, f\,, \\ &amp;=&amp; \frac{e}{2 s_W c_W}\sqrt{\rho_Z^f}\, Z_\mu \sum_f \bar{f} \left[( I_3^f - 2Q_f\kappa_Z^f s_W^2)\gamma^\mu - I_3^f\gamma^\mu\gamma_5\right]\,f\,, \end{eqnarray}
-</p>
-<p> where \(\rho_Z^f\) and \(\kappa_Z^f\) are related to \(g_{V}^f\) and \(g_{A}^f\) as the relations: </p><p class="formulaDsp">
-\begin{eqnarray} g_V^f &amp;=&amp; \sqrt{\rho_Z^f} I_3^f (1 - 4|Q_f|\kappa_Z^fs_W^2) = \sqrt{\rho_Z^f} (I_3^f - 2Q_f\kappa_Z^fs_W^2)\,, \qquad g_A^f &amp;=&amp; \sqrt{\rho_Z^f} I_3^f\,, \end{eqnarray}
-</p>
-<p> and </p><p class="formulaDsp">
-\begin{eqnarray} \rho_Z^f &amp;=&amp; \left( \frac{g_A^f}{I_3^f} \right)^2, \qquad \kappa_Z^f &amp;=&amp; \frac{1}{4|Q_f|s_W^2} \left( 1 - \frac{g_V^{f}}{g_A^{f}}\right). \end{eqnarray}
-</p>
-<h3>Important member functions</h3>
-<p >The current class handles the following quantities:</p>
-<ul>
-<li>\(\Delta\alpha_{\mathrm{lept}}(s)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#af73fa5bc88be8b30d3b41eb7c81f2c8a" title="Leptonic contribution to the electromagnetic coupling , denoted as .">DeltaAlphaLepton()</a>), </li>
-<li>\(\Delta\alpha^{\ell+5q}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#ad08a6daf84562649b8654e51acbb8583" title="The sum of the leptonic and the five-flavour hadronic corrections to the electromagnetic coupling  at...">DeltaAlphaL5q()</a>), </li>
-<li>\(\Delta\alpha_{\mathrm{top}}(s)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#a5d61cdb2d154433372b50cc5b79216d5" title="Top-quark contribution to the electromagnetic coupling , denoted as .">DeltaAlphaTop()</a>), </li>
-<li>\(\Delta\alpha(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#ad75e2562bae29aa1466ee6c64f28f5d9" title="The total corrections to the electromagnetic coupling  at the -mass scale, denoted as .">DeltaAlpha()</a>), </li>
-<li>\(\alpha(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../dc/dd5/class_standard_model.html#ad5e9dbfd5ff2cff9bcf1bf24069a20d5" title="The electromagnetic coupling at the -mass scale, .">alphaMz()</a>),</li>
-</ul>
-<ul>
-<li>\(M_W\)&#160;&#160; (with Mw_SM()), </li>
-<li>\(\Delta r\)&#160;&#160; (with DeltaR_SM()), </li>
-<li>\(c_W^2\) and \(s_W^2\)&#160;&#160; (with cW2_SM() and sW2_SM()), </li>
-<li>\(\Gamma_W\)&#160;&#160; (with GammaW_SM()),</li>
-</ul>
-<ul>
-<li>\(\rho_Z^f\)&#160;&#160; (with rhoZ_l() and rhoZ_q()), </li>
-<li>\(\kappa_Z^f\)&#160;&#160; (with kappaZ_l() and kappaZ_q()), </li>
-<li>\(g_V^f\)&#160;&#160; (with gVl() and gVq()), </li>
-<li>\(g_A^f\)&#160;&#160; (with gAl() and gAq()),</li>
-</ul>
-<ul>
-<li>\(\varepsilon_{1,2,3,b}\)&#160;&#160; (with epsilon1_SM(), epsilon2_SM(), epsilon3_SM() and epsilonb_SM()).</li>
-</ul>
-<p>Moreover, the functions <a class="el" href="../../dc/dd5/class_standard_model.html#aa21bf3499a12602bbcb427a035c4c251" title="The -boson mass  in the complex-pole/fixed-width scheme.">Mzbar()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#af27a28c2eed3611a74efd36e00c17fbd" title="A method to convert the -boson mass in the experimental/running-width scheme to that in the complex-p...">MwbarFromMw()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#a3374e22e32e5e247094befb5b9a716f6" title="A method to convert the -boson mass in the complex-pole/fixed-width scheme to that in the experimenta...">MwFromMwbar()</a> and DeltaRbar_SM() can be used for the quantities in the complex-pole/fixed-width scheme.</p>
-<h3>Schemes</h3>
-<p >The formulae used for the \(W\)-boson mass \(M_W\) and the effective couplings \(\rho_Z^f\) and \(\kappa_Z^f\) are controlled with the model flags <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">Mw</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">RhoZ</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">KappaZ</a> of <a class="el" href="../../dc/dd5/class_standard_model.html" title="A model class for the Standard Model.">StandardModel</a>. For each flag, the available schemes are as follows:</p>
-<ul>
-<li>NORESUM:&#160;&#160; No resummation is considered; </li>
-<li>OMSI:&#160;&#160; the so-called OMS-I scheme is adopted; </li>
-<li>INTERMEDIATE:&#160;&#160; an intermediate scheme between OMS-I and OMS-II is adopted; </li>
-<li>OMSII:&#160;&#160; the so-called OMS-II scheme is adopted; </li>
-<li>APPROXIMATEFORMULA:&#160;&#160; the approximate two-loop formula given in <a class="el" href="../../d5/dde/class_e_w_s_m_approximate_formulae.html" title="A class for approximate formulae of the EW precision observables.">EWSMApproximateFormulae</a> class is employed.</li>
-</ul>
-<p>The scheme APPROXIMATEFORMULA provides the most accurate SM predictions for \(M_W\) and \(\kappa_Z^f\), while the approximate two-loop formula is not available for \(\rho_Z^f\).</p>
-<p >See <a class="el" href="../../dc/dd5/class_standard_model.html#af9faf5aa04829809754a95cc27547cb1" title="A method to compute the -boson mass from  and .">resumMw()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#ac2d4e24e1b81a3c32794b251f8de55b2" title="A method to compute the real part of the effective coupling  from ,  and .">resumRhoZ()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#a8ed601ad6c0d42937e174fb87b7c3a8a" title="A method to compute the real part of the effetvive coupling  from ,  and .">resumKappaZ()</a> for details on the other schemes.</p>
-<h3>Caches</h3>
-<p >This class contains caching methods for the following functions: <a class="el" href="../../dc/dd5/class_standard_model.html#af73fa5bc88be8b30d3b41eb7c81f2c8a" title="Leptonic contribution to the electromagnetic coupling , denoted as .">DeltaAlphaLepton()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#ad75e2562bae29aa1466ee6c64f28f5d9" title="The total corrections to the electromagnetic coupling  at the -mass scale, denoted as .">DeltaAlpha()</a>, Mw_SM(), GammaW_SM(), rhoZ_l_SM(), rhoZ_q_SM(), kappaZ_l_SM() and kappaZ_q_SM(), to improve the performance of the Monte Carlo run. The caching methods are implemented with the function checkSMparams().</p>
-<p >The use of the caching methods can be controlled with the model flag <a class="el" href="../../dc/dd5/class_standard_model.html#StandardModelFlags">CacheInStandardModel</a> of <a class="el" href="../../dc/dd5/class_standard_model.html" title="A model class for the Standard Model.">StandardModel</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d0a/_standard_model_8h_source.html#l00509">509</a> of file <a class="el" href="../../d6/d0a/_standard_model_8h_source.html">StandardModel.h</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a53c6498edc5c7e2d2a2b465adf93f935" name="a53c6498edc5c7e2d2a2b465adf93f935"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a53c6498edc5c7e2d2a2b465adf93f935">&#9670;&nbsp;</a></span>LEP2RCs</h2>
 

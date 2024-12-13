@@ -146,7 +146,48 @@ $(document).ready(function(){initNavTree('db/d2b/class_georgi_machacek.html','..
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,109,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A base class for the <a class="el" href="../../db/d2b/class_georgi_machacek.html" title="A base class for the GeorgiMachacek model.">GeorgiMachacek</a> model. </p>
+<p >A base class for the Georgi-Machacek model.</p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>The Georgi-Machacek model extends the Standard <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> by two scalar triplets. Among the implemented theoretical constraints are positivity of the scalar potential and the unitarity conditions. As experimental constraints, Higgs signal strengths and direct searches for neutral, singly and doubly charged scalars are available.</p>
+<p ><a class="anchor" id="GeorgiMachacekParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of GeorgiMachacek are summarized below.</p>
+<table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th><p class="starttd">Description </p>
+<p class="endtd"></p>
+</th></tr>
+<tr>
+<td class="mod_name">vDelta </td><td class="mod_symb">\( v_{\Delta} \) </td><td class="mod_desc">The vacuum expectation value of the electroweak-triplet   </td></tr>
+<tr>
+<td class="mod_name">alpha </td><td class="mod_symb">\( \alpha \) </td><td class="mod_desc">Rotation angle which diagonalizes the singlet subspace   </td></tr>
+<tr>
+<td class="mod_name">mHh or mHhsq </td><td class="mod_symb">\(m_{H_1}\) </td><td class="mod_desc">The mass of the "non-125 GeV" CP-even Higgs state. mHhsq (not mHh) used when flag use_sq_masses is set to true  </td></tr>
+<tr>
+<td class="mod_name">mA or mAsq </td><td class="mod_symb">\(m_{H_3}\) </td><td class="mod_desc">The mass of the triplet Higgs states. mAsq (not mA) used when flag use_sq_masses is set to true  </td></tr>
+<tr>
+<td class="mod_name">mH5 or mH5sq </td><td class="mod_symb">\(m_{H_5}\) </td><td class="mod_desc">The mass of the quintet Higgs states. mH5sq (not mH5) used when flag use_sq_masses is set to true  </td></tr>
+<tr>
+<td class="mod_name">Mu1 </td><td class="mod_symb">\(\mu_{1}\) </td><td class="mod_desc">The \(\mu_{1}\) potential parameter according to arxiv:1511.00865 <b>[Chiang:2015amq]</b>   </td></tr>
+<tr>
+<td class="mod_name">Mu2 </td><td class="mod_symb">\(\mu_{2}\) </td><td class="mod_desc">The \(\mu_{2}\) potential parameter according to arxiv:1511.00865 <b>[Chiang:2015amq]</b>   </td></tr>
+<tr>
+<td class="mod_name">Q_GM </td><td class="mod_symb">\(Q_{\text{GM}}\) </td><td class="mod_desc">The GM scale.  </td></tr>
+</table>
+<p ><a class="anchor" id="GeorgiMachacekFlags"></a></p><h3>Model flags</h3>
+<table class="model">
+<tr>
+<th>Label </th><th>Value </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">use_sq_masses </td><td class="mod_valu">true/false </td><td class="mod_desc">This flag switched the parameters from mHh, mA, mH5 to mHhsq, mAsq, mH5sq when set to true.   </td></tr>
+</table>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d3e/_georgi_machacek_8h_source.html#l00120">120</a> of file <a class="el" href="../../d7/d3e/_georgi_machacek_8h_source.html">GeorgiMachacek.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:acffe1791f62479370935ab6d5953967f"><td class="memItemLeft" align="right" valign="top">virtual const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d2b/class_georgi_machacek.html#acffe1791f62479370935ab6d5953967f">BrHbbRatio</a> () const</td></tr>
@@ -3555,48 +3596,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a83f641ad01d1965b44a555cfd868166c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for quarks.  <a href="../../dd/dfa/class_q_c_d.html#a83f641ad01d1965b44a555cfd868166c">More...</a><br /></td></tr>
 <tr class="separator:a83f641ad01d1965b44a555cfd868166c inherit pub_types_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A base class for the <a class="el" href="../../db/d2b/class_georgi_machacek.html" title="A base class for the GeorgiMachacek model.">GeorgiMachacek</a> model. </p>
-<p >A base class for the Georgi-Machacek model.</p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>The Georgi-Machacek model extends the Standard <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> by two scalar triplets. Among the implemented theoretical constraints are positivity of the scalar potential and the unitarity conditions. As experimental constraints, Higgs signal strengths and direct searches for neutral, singly and doubly charged scalars are available.</p>
-<p ><a class="anchor" id="GeorgiMachacekParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of GeorgiMachacek are summarized below.</p>
-<table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th><p class="starttd">Description </p>
-<p class="endtd"></p>
-</th></tr>
-<tr>
-<td class="mod_name">vDelta </td><td class="mod_symb">\( v_{\Delta} \) </td><td class="mod_desc">The vacuum expectation value of the electroweak-triplet   </td></tr>
-<tr>
-<td class="mod_name">alpha </td><td class="mod_symb">\( \alpha \) </td><td class="mod_desc">Rotation angle which diagonalizes the singlet subspace   </td></tr>
-<tr>
-<td class="mod_name">mHh or mHhsq </td><td class="mod_symb">\(m_{H_1}\) </td><td class="mod_desc">The mass of the "non-125 GeV" CP-even Higgs state. mHhsq (not mHh) used when flag use_sq_masses is set to true  </td></tr>
-<tr>
-<td class="mod_name">mA or mAsq </td><td class="mod_symb">\(m_{H_3}\) </td><td class="mod_desc">The mass of the triplet Higgs states. mAsq (not mA) used when flag use_sq_masses is set to true  </td></tr>
-<tr>
-<td class="mod_name">mH5 or mH5sq </td><td class="mod_symb">\(m_{H_5}\) </td><td class="mod_desc">The mass of the quintet Higgs states. mH5sq (not mH5) used when flag use_sq_masses is set to true  </td></tr>
-<tr>
-<td class="mod_name">Mu1 </td><td class="mod_symb">\(\mu_{1}\) </td><td class="mod_desc">The \(\mu_{1}\) potential parameter according to arxiv:1511.00865 <b>[Chiang:2015amq]</b>   </td></tr>
-<tr>
-<td class="mod_name">Mu2 </td><td class="mod_symb">\(\mu_{2}\) </td><td class="mod_desc">The \(\mu_{2}\) potential parameter according to arxiv:1511.00865 <b>[Chiang:2015amq]</b>   </td></tr>
-<tr>
-<td class="mod_name">Q_GM </td><td class="mod_symb">\(Q_{\text{GM}}\) </td><td class="mod_desc">The GM scale.  </td></tr>
-</table>
-<p ><a class="anchor" id="GeorgiMachacekFlags"></a></p><h3>Model flags</h3>
-<table class="model">
-<tr>
-<th>Label </th><th>Value </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">use_sq_masses </td><td class="mod_valu">true/false </td><td class="mod_desc">This flag switched the parameters from mHh, mA, mH5 to mHhsq, mAsq, mH5sq when set to true.   </td></tr>
-</table>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d3e/_georgi_machacek_8h_source.html#l00120">120</a> of file <a class="el" href="../../d7/d3e/_georgi_machacek_8h_source.html">GeorgiMachacek.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a09eb5a36f95c5ce5e6f5c142434ffed4" name="a09eb5a36f95c5ce5e6f5c142434ffed4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a09eb5a36f95c5ce5e6f5c142434ffed4">&#9670;&nbsp;</a></span>GeorgiMachacek()</h2>
 

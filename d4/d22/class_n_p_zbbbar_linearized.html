@@ -145,7 +145,51 @@ $(document).ready(function(){initNavTree('d4/d22/class_n_p_zbbbar_linearized.htm
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,130,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A model class for new physics in the form of contributions to the \(Zb\bar{b}\) couplings. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the necessary functions to work with new physics contributions to electroweak precision observables, in the form of contributions to the neutral current couplings of the bottom quark: </p><p class="formulaDsp">
+\[ \mathcal{L} = \frac{e}{2 s_W c_W}\, Z_\mu\, \bar{b} \left[ \big(g_{V,\mathrm{SM}}^b + \delta g_V^b\big) \gamma_\mu - \big(g_{A,\mathrm{SM}}^b + \delta g_A^b\big) \gamma_\mu\gamma_5 \right] b\,. \]
+</p>
+<p> Equivalently, the shifts in the left-handed and right-handed couplings are defined as </p><p class="formulaDsp">
+\[ \mathcal{L} = \frac{e}{2s_W c_W}\, Z_\mu\, \bar{b} \left[ \big(g_{R,\mathrm{SM}}^b+\delta g_R^b\big) \gamma_\mu (1 + \gamma_5) + \big(g_{L,\mathrm{SM}}^b+\delta g_L^b\big) \gamma_\mu (1 - \gamma_5) \right] b \]
+</p>
+<p> with </p><p class="formulaDsp">
+\[ \delta g_R^b = \frac{\delta g_V^b - \delta g_A^b}{2}\,,\qquad \delta g_L^b = \frac{\delta g_V^b + \delta g_A^b}{2}\,. \]
+</p>
+<p ><a class="anchor" id="NPZbbbarLinearizedInitialization"></a></p><h3>Initialization</h3>
+<p >The constructor <a class="el" href="../../d4/d22/class_n_p_zbbbar_linearized.html#af6d93939307b2fd98b1e2d86bee6f388" title="Constructor.">NPZbbbarLinearized()</a> initializes the model flags explained below to their default values. After creating an instance of the current class, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. This pointer is then used in computing the fermionic neutral-current couplings in the presence of new physics contribution to \(Zb\bar{b}\). In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
+<p ><a class="anchor" id="NPZbbbarLinearizedParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of NPZbbbarLinearized are summarized below:</p>
+<table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">deltaGVb </td><td class="mod_symb">\(\delta g_{V}^b\) </td><td class="mod_desc">New physics contribution to \(g_{V}^b\).  </td></tr>
+<tr>
+<td class="mod_name">deltaGAb </td><td class="mod_symb">\(\delta g_{A}^b\) </td><td class="mod_desc">New physics contribution to \(g_{A}^b\).  </td></tr>
+</table>
+<p >which are applicable when the instance of the current class is created with the constructor <a class="el" href="../../d4/d22/class_n_p_zbbbar_linearized.html#af6d93939307b2fd98b1e2d86bee6f388" title="Constructor.">NPZbbbarLinearized()</a> or <a class="el" href="../../d4/d22/class_n_p_zbbbar_linearized.html" title="A model class for new physics in the form of contributions to the  couplings.">NPZbbbarLinearized(false)</a>. Alternatively, when using <a class="el" href="../../d4/d22/class_n_p_zbbbar_linearized.html" title="A model class for new physics in the form of contributions to the  couplings.">NPZbbbarLinearized(true)</a>, which corresponds to the use of the model name "NPZbbbarLinearizedLR" instead of "NPZbbbarLinearized" in InputParser::ModelFactory(), the following parameters have to be used as inputs:</p>
+<table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">deltaGLb </td><td class="mod_symb">\(\delta g_{L}^b\) </td><td class="mod_desc">New physics contribution to \(g_{L}^b\).  </td></tr>
+<tr>
+<td class="mod_name">deltaGRb </td><td class="mod_symb">\(\delta g_{R}^b\) </td><td class="mod_desc">New physics contribution to \(g_{R}^b\).  </td></tr>
+</table>
+<p ><a class="anchor" id="NPZbbbarLinearizedFlags"></a></p><h3>Model Flags</h3>
+<p >There is no model flag in the current class.</p>
+<p ><a class="anchor" id="NPZbbbarLinearizedFunctions"></a></p><h3>Important member functions</h3>
+<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
+<ul>
+<li>\(\delta g_V^f\)&#160;&#160;(with deltaGVf()), </li>
+<li>\(\delta g_A^f\)&#160;&#160;(with deltaGAf()). </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="../../de/dc7/_n_p_zbbbar_linearized_8h_source.html#l00127">127</a> of file <a class="el" href="../../de/dc7/_n_p_zbbbar_linearized_8h_source.html">NPZbbbarLinearized.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abd692eea7f9f09961ec77d08d66ad153"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d22/class_n_p_zbbbar_linearized.html#abd692eea7f9f09961ec77d08d66ad153">CheckParameters</a> (const std::map&lt; std::string, double &gt; &amp;<a class="el" href="../../d2/d34/non_minimal_8cpp.html#a6e20bd060f27ea753274b52da14c0423">DPars</a>)</td></tr>
@@ -3511,51 +3555,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:ab8f934941f91e2b741307d751e28bde7 inherit pro_attribs_class_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">A boolean set to false if update is successful.  <a href="../../d0/de3/class_model.html#ab8f934941f91e2b741307d751e28bde7">More...</a><br /></td></tr>
 <tr class="separator:ab8f934941f91e2b741307d751e28bde7 inherit pro_attribs_class_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A model class for new physics in the form of contributions to the \(Zb\bar{b}\) couplings. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the necessary functions to work with new physics contributions to electroweak precision observables, in the form of contributions to the neutral current couplings of the bottom quark: </p><p class="formulaDsp">
-\[ \mathcal{L} = \frac{e}{2 s_W c_W}\, Z_\mu\, \bar{b} \left[ \big(g_{V,\mathrm{SM}}^b + \delta g_V^b\big) \gamma_\mu - \big(g_{A,\mathrm{SM}}^b + \delta g_A^b\big) \gamma_\mu\gamma_5 \right] b\,. \]
-</p>
-<p> Equivalently, the shifts in the left-handed and right-handed couplings are defined as </p><p class="formulaDsp">
-\[ \mathcal{L} = \frac{e}{2s_W c_W}\, Z_\mu\, \bar{b} \left[ \big(g_{R,\mathrm{SM}}^b+\delta g_R^b\big) \gamma_\mu (1 + \gamma_5) + \big(g_{L,\mathrm{SM}}^b+\delta g_L^b\big) \gamma_\mu (1 - \gamma_5) \right] b \]
-</p>
-<p> with </p><p class="formulaDsp">
-\[ \delta g_R^b = \frac{\delta g_V^b - \delta g_A^b}{2}\,,\qquad \delta g_L^b = \frac{\delta g_V^b + \delta g_A^b}{2}\,. \]
-</p>
-<p ><a class="anchor" id="NPZbbbarLinearizedInitialization"></a></p><h3>Initialization</h3>
-<p >The constructor <a class="el" href="../../d4/d22/class_n_p_zbbbar_linearized.html#af6d93939307b2fd98b1e2d86bee6f388" title="Constructor.">NPZbbbarLinearized()</a> initializes the model flags explained below to their default values. After creating an instance of the current class, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. This pointer is then used in computing the fermionic neutral-current couplings in the presence of new physics contribution to \(Zb\bar{b}\). In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
-<p ><a class="anchor" id="NPZbbbarLinearizedParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of NPZbbbarLinearized are summarized below:</p>
-<table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">deltaGVb </td><td class="mod_symb">\(\delta g_{V}^b\) </td><td class="mod_desc">New physics contribution to \(g_{V}^b\).  </td></tr>
-<tr>
-<td class="mod_name">deltaGAb </td><td class="mod_symb">\(\delta g_{A}^b\) </td><td class="mod_desc">New physics contribution to \(g_{A}^b\).  </td></tr>
-</table>
-<p >which are applicable when the instance of the current class is created with the constructor <a class="el" href="../../d4/d22/class_n_p_zbbbar_linearized.html#af6d93939307b2fd98b1e2d86bee6f388" title="Constructor.">NPZbbbarLinearized()</a> or <a class="el" href="../../d4/d22/class_n_p_zbbbar_linearized.html" title="A model class for new physics in the form of contributions to the  couplings.">NPZbbbarLinearized(false)</a>. Alternatively, when using <a class="el" href="../../d4/d22/class_n_p_zbbbar_linearized.html" title="A model class for new physics in the form of contributions to the  couplings.">NPZbbbarLinearized(true)</a>, which corresponds to the use of the model name "NPZbbbarLinearizedLR" instead of "NPZbbbarLinearized" in InputParser::ModelFactory(), the following parameters have to be used as inputs:</p>
-<table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">deltaGLb </td><td class="mod_symb">\(\delta g_{L}^b\) </td><td class="mod_desc">New physics contribution to \(g_{L}^b\).  </td></tr>
-<tr>
-<td class="mod_name">deltaGRb </td><td class="mod_symb">\(\delta g_{R}^b\) </td><td class="mod_desc">New physics contribution to \(g_{R}^b\).  </td></tr>
-</table>
-<p ><a class="anchor" id="NPZbbbarLinearizedFlags"></a></p><h3>Model Flags</h3>
-<p >There is no model flag in the current class.</p>
-<p ><a class="anchor" id="NPZbbbarLinearizedFunctions"></a></p><h3>Important member functions</h3>
-<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
-<ul>
-<li>\(\delta g_V^f\)&#160;&#160;(with deltaGVf()), </li>
-<li>\(\delta g_A^f\)&#160;&#160;(with deltaGAf()). </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="../../de/dc7/_n_p_zbbbar_linearized_8h_source.html#l00127">127</a> of file <a class="el" href="../../de/dc7/_n_p_zbbbar_linearized_8h_source.html">NPZbbbarLinearized.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af6d93939307b2fd98b1e2d86bee6f388" name="af6d93939307b2fd98b1e2d86bee6f388"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6d93939307b2fd98b1e2d86bee6f388">&#9670;&nbsp;</a></span>NPZbbbarLinearized()</h2>
 

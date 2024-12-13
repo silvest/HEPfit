@@ -146,7 +146,38 @@ $(document).ready(function(){initNavTree('d9/dad/class_n_p_s_t_u.html','../../')
 <area href="../../d4/dac/class_n_p_s_t_u_zbbbar_l_r.html" title="A model class for new physics in the form of oblique and -vertex corrections." alt="NPSTUZbbbarLR" shape="rect" coords="0,280,109,304"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A model class for new physics in the form of contributions to the oblique parameters \(S,~T\) and \(U\). </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the necessary functions to compute new physics contributions to the electroweak precision observables with the Peskin-Takeuchi oblique parameters <b>[Peskin:1990zt]</b>, <b>[Peskin:1991sw]</b>.</p>
+<p ><a class="anchor" id="NPSTUInitialization"></a></p><h3>Initialization</h3>
+<p >After creating an instance of the current class with the constructor <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a702fd01775c9439dfc6921808e3c0737" title="The default constructor.">NPSTU()</a>, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
+<p ><a class="anchor" id="NPSTUParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of NPSTU are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">obliqueS  </td><td class="mod_symb">\(S \) </td><td class="mod_desc">The oblique parameter \(S\).  </td></tr>
+<tr>
+<td class="mod_name">obliqueT  </td><td class="mod_symb">\(T \) </td><td class="mod_desc">The oblique parameter \(T\).  </td></tr>
+<tr>
+<td class="mod_name">obliqueU  </td><td class="mod_symb">\(U \) </td><td class="mod_desc">The oblique parameter \(U\).  </td></tr>
+</table>
+<p ><a class="anchor" id="NPSTUFlags"></a></p><h3>Model flags</h3>
+<p >There is no model flag in the current class.</p>
+<p ><a class="anchor" id="NPSTUFunctions"></a></p><h3>Important member functions</h3>
+<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
+<ul>
+<li>\(S\), \(T\) and \(U\)&#160;&#160; (with <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a2dbae9d9de490448665e97c5102232a1" title="The oblique parameter .">obliqueS()</a>, <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a67128964cb88d05256f33ba9c86c3925" title="The oblique parameter .">obliqueT()</a> and <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#acc48943d3610e6126ee0e357685872be" title="The oblique parameter .">obliqueU()</a>),</li>
+</ul>
+<p>In addition, the functions for the epsilon parameters are also provided:</p>
+<ul>
+<li>\(\varepsilon_1\), \(\varepsilon_2\), \(\varepsilon_3\) and \(\varepsilon_b\)&#160;&#160; (with <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a65bab16edd3e0dfb89c7ab4ecfe3502e" title="The parameter .">epsilon1()</a>, <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a162957137929ebb47a51e98e22903b0a" title="The parameter .">epsilon2()</a>, <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#aa8297bc54e612ef1569b2fc0a0844310" title="The parameter .">epsilon3()</a> and <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a247d68d877f088af0b29638aefeeaaa7" title="The parameter .">epsilonb()</a>). </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d33/_n_p_s_t_u_8h_source.html#l00085">85</a> of file <a class="el" href="../../d2/d33/_n_p_s_t_u_8h_source.html">NPSTU.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae34751a2bd0edbaddb06119f26106cf0"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/class_n_p_s_t_u.html#ae34751a2bd0edbaddb06119f26106cf0">CheckParameters</a> (const std::map&lt; std::string, double &gt; &amp;<a class="el" href="../../d2/d34/non_minimal_8cpp.html#a6e20bd060f27ea753274b52da14c0423">DPars</a>)</td></tr>
@@ -3503,38 +3534,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a83f641ad01d1965b44a555cfd868166c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for quarks.  <a href="../../dd/dfa/class_q_c_d.html#a83f641ad01d1965b44a555cfd868166c">More...</a><br /></td></tr>
 <tr class="separator:a83f641ad01d1965b44a555cfd868166c inherit pub_types_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A model class for new physics in the form of contributions to the oblique parameters \(S,~T\) and \(U\). </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the necessary functions to compute new physics contributions to the electroweak precision observables with the Peskin-Takeuchi oblique parameters <b>[Peskin:1990zt]</b>, <b>[Peskin:1991sw]</b>.</p>
-<p ><a class="anchor" id="NPSTUInitialization"></a></p><h3>Initialization</h3>
-<p >After creating an instance of the current class with the constructor <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a702fd01775c9439dfc6921808e3c0737" title="The default constructor.">NPSTU()</a>, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
-<p ><a class="anchor" id="NPSTUParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of NPSTU are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">obliqueS  </td><td class="mod_symb">\(S \) </td><td class="mod_desc">The oblique parameter \(S\).  </td></tr>
-<tr>
-<td class="mod_name">obliqueT  </td><td class="mod_symb">\(T \) </td><td class="mod_desc">The oblique parameter \(T\).  </td></tr>
-<tr>
-<td class="mod_name">obliqueU  </td><td class="mod_symb">\(U \) </td><td class="mod_desc">The oblique parameter \(U\).  </td></tr>
-</table>
-<p ><a class="anchor" id="NPSTUFlags"></a></p><h3>Model flags</h3>
-<p >There is no model flag in the current class.</p>
-<p ><a class="anchor" id="NPSTUFunctions"></a></p><h3>Important member functions</h3>
-<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
-<ul>
-<li>\(S\), \(T\) and \(U\)&#160;&#160; (with <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a2dbae9d9de490448665e97c5102232a1" title="The oblique parameter .">obliqueS()</a>, <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a67128964cb88d05256f33ba9c86c3925" title="The oblique parameter .">obliqueT()</a> and <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#acc48943d3610e6126ee0e357685872be" title="The oblique parameter .">obliqueU()</a>),</li>
-</ul>
-<p>In addition, the functions for the epsilon parameters are also provided:</p>
-<ul>
-<li>\(\varepsilon_1\), \(\varepsilon_2\), \(\varepsilon_3\) and \(\varepsilon_b\)&#160;&#160; (with <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a65bab16edd3e0dfb89c7ab4ecfe3502e" title="The parameter .">epsilon1()</a>, <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a162957137929ebb47a51e98e22903b0a" title="The parameter .">epsilon2()</a>, <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#aa8297bc54e612ef1569b2fc0a0844310" title="The parameter .">epsilon3()</a> and <a class="el" href="../../d9/dad/class_n_p_s_t_u.html#a247d68d877f088af0b29638aefeeaaa7" title="The parameter .">epsilonb()</a>). </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d33/_n_p_s_t_u_8h_source.html#l00085">85</a> of file <a class="el" href="../../d2/d33/_n_p_s_t_u_8h_source.html">NPSTU.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a702fd01775c9439dfc6921808e3c0737" name="a702fd01775c9439dfc6921808e3c0737"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a702fd01775c9439dfc6921808e3c0737">&#9670;&nbsp;</a></span>NPSTU()</h2>
 

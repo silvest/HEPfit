@@ -141,7 +141,25 @@ $(document).ready(function(){initNavTree('d1/d88/class_epsilon_p___o___epsilon__
 <area href="../../db/db5/class_amp_d_k2.html" title="A class for calculating the amplitudes contributing to  and ." alt="AmpDK2" shape="rect" coords="318,0,467,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for \(|\epsilon&#39;_K/\epsilon_K|\) that parametrizes direct CPV in the Kaon sector. In this implementation, both \(|\epsilon&#39;_K|\) and \(|\epsilon_K|\) are computed using their theoretical expression. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class is used to compute the theoretical value of \(|\epsilon&#39;_K/\epsilon_K|\), using theory for numerator and denominator. This parameter gets contributions both from the SM and many NP models.</p>
+<p ><a class="anchor" id="EpsilonP_O_Epsilon_THParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of EpsilonP_O_Epsilon_TH are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">ReA0_Kd </td><td class="mod_symb">\({\cal Re}(A_0(K\to\pi\pi))\) </td><td class="mod_desc">The experimental value of the real part of the amplitude for \(K^0\to\pi\pi\) with \(\Delta I=0\).  </td></tr>
+<tr>
+<td class="mod_name">ReA2_Kd </td><td class="mod_symb">\({\cal Re}(A_2(K\to\pi\pi))\) </td><td class="mod_desc">the experimental value of the real part of the amplitude for \(K^0\to\pi\pi\) with \(\Delta I=2\).  </td></tr>
+<tr>
+<td class="mod_name">Omega_eta_etap </td><td class="mod_symb">\(\Omega_{\eta/\eta&#39;}\) </td><td class="mod_desc">The isospin breaking contribution in \(K^0\to\pi\pi\).  </td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/dd2/_epsilon_p___o___epsilon___t_h_8h_source.html#l00059">59</a> of file <a class="el" href="../../d6/dd2/_epsilon_p___o___epsilon___t_h_8h_source.html">EpsilonP_O_Epsilon_TH.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9fdcc56e162de054b36e32f1b037d1b0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d88/class_epsilon_p___o___epsilon___t_h.html#a9fdcc56e162de054b36e32f1b037d1b0">computeThValue</a> ()</td></tr>
@@ -228,25 +246,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:af32b43337304cf1bf6dd3ad182e1187c inherit pub_methods_class_amp_d_k2"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the NP part of the amplitude for kaon oscillations  <a href="../../db/db5/class_amp_d_k2.html#af32b43337304cf1bf6dd3ad182e1187c">More...</a><br /></td></tr>
 <tr class="separator:af32b43337304cf1bf6dd3ad182e1187c inherit pub_methods_class_amp_d_k2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for \(|\epsilon&#39;_K/\epsilon_K|\) that parametrizes direct CPV in the Kaon sector. In this implementation, both \(|\epsilon&#39;_K|\) and \(|\epsilon_K|\) are computed using their theoretical expression. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class is used to compute the theoretical value of \(|\epsilon&#39;_K/\epsilon_K|\), using theory for numerator and denominator. This parameter gets contributions both from the SM and many NP models.</p>
-<p ><a class="anchor" id="EpsilonP_O_Epsilon_THParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of EpsilonP_O_Epsilon_TH are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">ReA0_Kd </td><td class="mod_symb">\({\cal Re}(A_0(K\to\pi\pi))\) </td><td class="mod_desc">The experimental value of the real part of the amplitude for \(K^0\to\pi\pi\) with \(\Delta I=0\).  </td></tr>
-<tr>
-<td class="mod_name">ReA2_Kd </td><td class="mod_symb">\({\cal Re}(A_2(K\to\pi\pi))\) </td><td class="mod_desc">the experimental value of the real part of the amplitude for \(K^0\to\pi\pi\) with \(\Delta I=2\).  </td></tr>
-<tr>
-<td class="mod_name">Omega_eta_etap </td><td class="mod_symb">\(\Omega_{\eta/\eta&#39;}\) </td><td class="mod_desc">The isospin breaking contribution in \(K^0\to\pi\pi\).  </td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="../../d6/dd2/_epsilon_p___o___epsilon___t_h_8h_source.html#l00059">59</a> of file <a class="el" href="../../d6/dd2/_epsilon_p___o___epsilon___t_h_8h_source.html">EpsilonP_O_Epsilon_TH.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a098e3c6ec8c56417a130c293340c87a7" name="a098e3c6ec8c56417a130c293340c87a7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a098e3c6ec8c56417a130c293340c87a7">&#9670;&nbsp;</a></span>EpsilonP_O_Epsilon_TH()</h2>
 

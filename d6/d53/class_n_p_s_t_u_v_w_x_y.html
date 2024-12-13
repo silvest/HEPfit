@@ -145,7 +145,53 @@ $(document).ready(function(){initNavTree('d6/d53/class_n_p_s_t_u_v_w_x_y.html','
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,98,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A model class for new physics in the form of contributions to the extended oblique parameters \(\hat{S},~\hat{T},~\hat{U},~V,~W,~X\) and \(Y\). </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the necessary functions to compute new physics contributions to the electroweak precision observables and so forth, with the extended set of oblique parameters \(\hat{S},~\hat{T},~\hat{U},~V,~W,~X\) and \(Y\) <b>[Barbieri:2004qk]</b>.</p>
+<p >The hatted parameters are related to the original Peskin-Takeuchi parameters <b>[Peskin:1990zt]</b>, <b>[Peskin:1991sw]</b> through the relations: </p><p class="formulaDsp">
+\[ \widehat{S} = \frac{\alpha}{4s_W^2}\,S\,,\qquad \widehat{T} = \alpha\,T\,,\qquad \widehat{U} = -\frac{\alpha}{4s_W^2}\,U\,. \]
+</p>
+<p> Moreover, the following combinations of the parameters are relevant to the electroweak precision observables: </p><p class="formulaDsp">
+\begin{eqnarray} \frac{\alpha}{4s_W^2}\, S&#39; &amp;=&amp; \widehat{S} - W + \frac{X}{s_Wc_W} - Y\,, \\ \alpha\,T&#39; &amp;=&amp; \widehat{T} - W + \frac{2s_W}{c_W}\,X - \frac{s_W^2}{c_W^2}\,Y\,, \\ \frac{\alpha}{4s_W^2}\, U&#39; &amp;=&amp; - \widehat{U} + V + W - \frac{2s_W}{c_W}\,X\,. \end{eqnarray}
+</p>
+<p ><a class="anchor" id="NPSTUVWXYInitialization"></a></p><h3>Initialization</h3>
+<p >After creating an instance of the current class with the constructor <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a6bd75a01850e5e9f8bb8a6c66410874e" title="The default constructor.">NPSTUVWXY()</a>, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
+<p ><a class="anchor" id="NPSTUVWXYParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of NPSTUVWXY are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">obliqueShat  </td><td class="mod_symb">\(\hat{S}\) </td><td class="mod_desc">The oblique parameter \(\hat{S}\).  </td></tr>
+<tr>
+<td class="mod_name">obliqueThat  </td><td class="mod_symb">\(\hat{T} \) </td><td class="mod_desc">The oblique parameter \(\hat{T}\).  </td></tr>
+<tr>
+<td class="mod_name">obliqueUhat  </td><td class="mod_symb">\(\hat{U}\) </td><td class="mod_desc">The oblique parameter \(\hat{U}\).  </td></tr>
+<tr>
+<td class="mod_name">obliqueV  </td><td class="mod_symb">\(V\) </td><td class="mod_desc">The oblique parameter \(V\).  </td></tr>
+<tr>
+<td class="mod_name">obliqueW  </td><td class="mod_symb">\(W\) </td><td class="mod_desc">The oblique parameter \(W\).  </td></tr>
+<tr>
+<td class="mod_name">obliqueX  </td><td class="mod_symb">\(X\) </td><td class="mod_desc">The oblique parameter \(X\).  </td></tr>
+<tr>
+<td class="mod_name">obliqueY  </td><td class="mod_symb">\(Y\) </td><td class="mod_desc">The oblique parameter \(Y\).  </td></tr>
+</table>
+<p ><a class="anchor" id="NPSTUVWXYFlags"></a></p><h3>Model flags</h3>
+<p >There is no model flag in the current class.</p>
+<p ><a class="anchor" id="NPSTUVWXYFunctions"></a></p><h3>Important member functions</h3>
+<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
+<ul>
+<li>\(S&#39;\), \(T&#39;\) and \(U&#39;\)&#160;&#160; (with <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a073a3f40de908939bd824a9d04b42e29" title="The combination of extended oblique parameters, .">obliqueS()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#af05a0a2056221465f4136d1528078fc3" title="The combination of extended oblique parameters, .">obliqueT()</a> and <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a04df956c134d75a18775071aa0fa494c" title="The combination of extended oblique parameters, .">obliqueU()</a>).</li>
+</ul>
+<p>It is noted that these functions do not represent the original Peskin-Takeuchi parameters \(S\), \(T\) and \(U\). In addition, the functions for the extended oblique parameters as well as the epsilon parameters are also provided:</p>
+<ul>
+<li>\(\hat{S}\), \(\hat{T}\), \(\hat{U}\), \(V\), \(W\), \(X\) and \(Y\)&#160;&#160; (with <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a93925935645e9b838aca708c94c6cb3c" title="The oblique parameter .">obliqueShat()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a068198688159f434e596d76c668a0aa4" title="The oblique parameter .">obliqueThat()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a3be4c251261f19472efe47d104fad837" title="The oblique parameter .">obliqueUhat()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a088701478938415199afb159d3ef86aa" title="The oblique parameter .">obliqueV()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#af8bd8ce263362f6f381bf68cd227f9f6" title="The oblique parameter .">obliqueW()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a9d7fc7dab9f9afe94f1e785a6021366b" title="The oblique parameter .">obliqueX()</a> and <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#ae09275ac58ab6f51148c7ec50e57f48b" title="The oblique parameter .">obliqueY()</a>), </li>
+<li>\(\varepsilon_1\), \(\varepsilon_2\), \(\varepsilon_3\) and \(\varepsilon_b\)&#160;&#160; (with <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a644537c4fb632b21e9d23ea8bdd6ea91" title="The parameter .">epsilon1()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a3f5c434e07eb2e32d77c764a3fa96237" title="The parameter .">epsilon2()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#ad1f6f55f0fc5f2477292bce08c7208c6" title="The parameter .">epsilon3()</a> and <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#abe76bb024718a664be9e59498fd7d8d6" title="The parameter .">epsilonb()</a>). </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/de2/_n_p_s_t_u_v_w_x_y_8h_source.html#l00137">137</a> of file <a class="el" href="../../d5/de2/_n_p_s_t_u_v_w_x_y_8h_source.html">NPSTUVWXY.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aef9b3896a6baafa325e22c95a9db40e2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#aef9b3896a6baafa325e22c95a9db40e2">CheckParameters</a> (const std::map&lt; std::string, double &gt; &amp;<a class="el" href="../../d2/d34/non_minimal_8cpp.html#a6e20bd060f27ea753274b52da14c0423">DPars</a>)</td></tr>
@@ -3531,53 +3577,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a83f641ad01d1965b44a555cfd868166c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for quarks.  <a href="../../dd/dfa/class_q_c_d.html#a83f641ad01d1965b44a555cfd868166c">More...</a><br /></td></tr>
 <tr class="separator:a83f641ad01d1965b44a555cfd868166c inherit pub_types_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A model class for new physics in the form of contributions to the extended oblique parameters \(\hat{S},~\hat{T},~\hat{U},~V,~W,~X\) and \(Y\). </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the necessary functions to compute new physics contributions to the electroweak precision observables and so forth, with the extended set of oblique parameters \(\hat{S},~\hat{T},~\hat{U},~V,~W,~X\) and \(Y\) <b>[Barbieri:2004qk]</b>.</p>
-<p >The hatted parameters are related to the original Peskin-Takeuchi parameters <b>[Peskin:1990zt]</b>, <b>[Peskin:1991sw]</b> through the relations: </p><p class="formulaDsp">
-\[ \widehat{S} = \frac{\alpha}{4s_W^2}\,S\,,\qquad \widehat{T} = \alpha\,T\,,\qquad \widehat{U} = -\frac{\alpha}{4s_W^2}\,U\,. \]
-</p>
-<p> Moreover, the following combinations of the parameters are relevant to the electroweak precision observables: </p><p class="formulaDsp">
-\begin{eqnarray} \frac{\alpha}{4s_W^2}\, S&#39; &amp;=&amp; \widehat{S} - W + \frac{X}{s_Wc_W} - Y\,, \\ \alpha\,T&#39; &amp;=&amp; \widehat{T} - W + \frac{2s_W}{c_W}\,X - \frac{s_W^2}{c_W^2}\,Y\,, \\ \frac{\alpha}{4s_W^2}\, U&#39; &amp;=&amp; - \widehat{U} + V + W - \frac{2s_W}{c_W}\,X\,. \end{eqnarray}
-</p>
-<p ><a class="anchor" id="NPSTUVWXYInitialization"></a></p><h3>Initialization</h3>
-<p >After creating an instance of the current class with the constructor <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a6bd75a01850e5e9f8bb8a6c66410874e" title="The default constructor.">NPSTUVWXY()</a>, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
-<p ><a class="anchor" id="NPSTUVWXYParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of NPSTUVWXY are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">obliqueShat  </td><td class="mod_symb">\(\hat{S}\) </td><td class="mod_desc">The oblique parameter \(\hat{S}\).  </td></tr>
-<tr>
-<td class="mod_name">obliqueThat  </td><td class="mod_symb">\(\hat{T} \) </td><td class="mod_desc">The oblique parameter \(\hat{T}\).  </td></tr>
-<tr>
-<td class="mod_name">obliqueUhat  </td><td class="mod_symb">\(\hat{U}\) </td><td class="mod_desc">The oblique parameter \(\hat{U}\).  </td></tr>
-<tr>
-<td class="mod_name">obliqueV  </td><td class="mod_symb">\(V\) </td><td class="mod_desc">The oblique parameter \(V\).  </td></tr>
-<tr>
-<td class="mod_name">obliqueW  </td><td class="mod_symb">\(W\) </td><td class="mod_desc">The oblique parameter \(W\).  </td></tr>
-<tr>
-<td class="mod_name">obliqueX  </td><td class="mod_symb">\(X\) </td><td class="mod_desc">The oblique parameter \(X\).  </td></tr>
-<tr>
-<td class="mod_name">obliqueY  </td><td class="mod_symb">\(Y\) </td><td class="mod_desc">The oblique parameter \(Y\).  </td></tr>
-</table>
-<p ><a class="anchor" id="NPSTUVWXYFlags"></a></p><h3>Model flags</h3>
-<p >There is no model flag in the current class.</p>
-<p ><a class="anchor" id="NPSTUVWXYFunctions"></a></p><h3>Important member functions</h3>
-<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
-<ul>
-<li>\(S&#39;\), \(T&#39;\) and \(U&#39;\)&#160;&#160; (with <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a073a3f40de908939bd824a9d04b42e29" title="The combination of extended oblique parameters, .">obliqueS()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#af05a0a2056221465f4136d1528078fc3" title="The combination of extended oblique parameters, .">obliqueT()</a> and <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a04df956c134d75a18775071aa0fa494c" title="The combination of extended oblique parameters, .">obliqueU()</a>).</li>
-</ul>
-<p>It is noted that these functions do not represent the original Peskin-Takeuchi parameters \(S\), \(T\) and \(U\). In addition, the functions for the extended oblique parameters as well as the epsilon parameters are also provided:</p>
-<ul>
-<li>\(\hat{S}\), \(\hat{T}\), \(\hat{U}\), \(V\), \(W\), \(X\) and \(Y\)&#160;&#160; (with <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a93925935645e9b838aca708c94c6cb3c" title="The oblique parameter .">obliqueShat()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a068198688159f434e596d76c668a0aa4" title="The oblique parameter .">obliqueThat()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a3be4c251261f19472efe47d104fad837" title="The oblique parameter .">obliqueUhat()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a088701478938415199afb159d3ef86aa" title="The oblique parameter .">obliqueV()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#af8bd8ce263362f6f381bf68cd227f9f6" title="The oblique parameter .">obliqueW()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a9d7fc7dab9f9afe94f1e785a6021366b" title="The oblique parameter .">obliqueX()</a> and <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#ae09275ac58ab6f51148c7ec50e57f48b" title="The oblique parameter .">obliqueY()</a>), </li>
-<li>\(\varepsilon_1\), \(\varepsilon_2\), \(\varepsilon_3\) and \(\varepsilon_b\)&#160;&#160; (with <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a644537c4fb632b21e9d23ea8bdd6ea91" title="The parameter .">epsilon1()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#a3f5c434e07eb2e32d77c764a3fa96237" title="The parameter .">epsilon2()</a>, <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#ad1f6f55f0fc5f2477292bce08c7208c6" title="The parameter .">epsilon3()</a> and <a class="el" href="../../d6/d53/class_n_p_s_t_u_v_w_x_y.html#abe76bb024718a664be9e59498fd7d8d6" title="The parameter .">epsilonb()</a>). </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="../../d5/de2/_n_p_s_t_u_v_w_x_y_8h_source.html#l00137">137</a> of file <a class="el" href="../../d5/de2/_n_p_s_t_u_v_w_x_y_8h_source.html">NPSTUVWXY.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6bd75a01850e5e9f8bb8a6c66410874e" name="a6bd75a01850e5e9f8bb8a6c66410874e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6bd75a01850e5e9f8bb8a6c66410874e">&#9670;&nbsp;</a></span>NPSTUVWXY()</h2>
 

@@ -158,7 +158,34 @@ $(document).ready(function(){initNavTree('d2/df3/class_n_pbase.html','../../'); 
 <area href="../../d5/d26/class_t_h_d_m_w_signal_strengths.html" alt="THDMWSignalStrengths" shape="rect" coords="157,1064,304,1088"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >The auxiliary base model class for other model classes. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This is an auxiliary <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the basic structure to compute new physics (NP) contributions to the electroweak precision observables. The NP contributions are described by the following quantities:</p>
+<ul>
+<li>\(\Delta G\)&#160;&#160; (with <a class="el" href="../../d2/df3/class_n_pbase.html#ad8059ac29eb5e03e2f1901ee7e56b539" title="New physics contribution to the Fermi constant.">DeltaGF()</a>), </li>
+<li>\(S\), \(T\) and \(U\)&#160;&#160; (with <a class="el" href="../../d2/df3/class_n_pbase.html#ab637a1d8811365b38272ee18a54152c8" title="The oblique parameter .">obliqueS()</a>, <a class="el" href="../../d2/df3/class_n_pbase.html#a13376d0b2f2e43c692a0a91b8424a943" title="The oblique parameter .">obliqueT()</a> and <a class="el" href="../../d2/df3/class_n_pbase.html#a78323fd9e508b10ae44c97046bf66be3" title="The oblique parameter .">obliqueU()</a>),</li>
+</ul>
+<p>Using these quantities, the mass and width of the \(W\) boson and the NP contributions to the effective vector and axial-vector couplings of the \(Z\)-boson to leptons and quarks are computed:</p>
+<ul>
+<li>\(M_W\), \(c_W^2\) and \(s_W^2\)&#160;&#160; (with <a class="el" href="../../d2/df3/class_n_pbase.html#a4ed7da85ac296cc78f03aecbd1de8419" title="The mass of the  boson, .">Mw()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#abe6d04b97a599b69b7a4948d88f35a26" title="The square of the cosine of the weak mixing angle in the on-shell scheme, denoted as .">cW2()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#af3ef50355becd1628f7098eb9fd58dca" title="The square of the sine of the weak mixing angle in the on-shell scheme, denoted as .">sW2()</a>), </li>
+<li>\(\Gamma_W\)&#160;&#160; (with <a class="el" href="../../d2/df3/class_n_pbase.html#acfe7c6fd06e91ebecd7180286a49daa9" title="A partial decay width of the  boson decay into a SM fermion pair.">GammaW()</a>), </li>
+<li>\(\delta g_V^f\)&#160;&#160;(with deltaGVl() and deltaGVq()), </li>
+<li>\(\delta g_A^f\)&#160;&#160;(with deltaGAl() and deltaGAq()).</li>
+</ul>
+<p>In the model classes that are inherited from the current class (see the inheritance diagram above), some of these methods are reimplemented to account for the details of more specific scenarios.</p>
+<p ><a class="anchor" id="NPbaseInitialization"></a></p><h3>Initialization</h3>
+<p >This class is intended to be used with an inherited model class.</p>
+<p ><a class="anchor" id="NPbaseParameters"></a></p><h3>Model parameters</h3>
+<p >There is no model parameter in the current class.</p>
+<p ><a class="anchor" id="NPbaseFlags"></a></p><h3>Model flags</h3>
+<p >There is no model flag in the current class.</p>
+<p ><a class="anchor" id="NPbaseFunctions"></a></p><h3>Important member functions</h3>
+<p >The functions are explained above. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/de8/_n_pbase_8h_source.html#l00066">66</a> of file <a class="el" href="../../d2/de8/_n_pbase_8h_source.html">NPbase.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a36c78bce4c5f07cb531321a5c9022033"><td class="memItemLeft" align="right" valign="top">virtual const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/df3/class_n_pbase.html#a36c78bce4c5f07cb531321a5c9022033">A_f</a> (const <a class="el" href="../../de/d85/class_particle.html">Particle</a> f) const</td></tr>
@@ -3489,34 +3516,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:ad68d42eeed48ab865870b5123d5f1fe2 inherit pro_methods_class_q_c_d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Mbar mass of the heaviest quark in the theory with Nf active flavour.  <a href="../../dd/dfa/class_q_c_d.html#ad68d42eeed48ab865870b5123d5f1fe2">More...</a><br /></td></tr>
 <tr class="separator:ad68d42eeed48ab865870b5123d5f1fe2 inherit pro_methods_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >The auxiliary base model class for other model classes. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This is an auxiliary <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the basic structure to compute new physics (NP) contributions to the electroweak precision observables. The NP contributions are described by the following quantities:</p>
-<ul>
-<li>\(\Delta G\)&#160;&#160; (with <a class="el" href="../../d2/df3/class_n_pbase.html#ad8059ac29eb5e03e2f1901ee7e56b539" title="New physics contribution to the Fermi constant.">DeltaGF()</a>), </li>
-<li>\(S\), \(T\) and \(U\)&#160;&#160; (with <a class="el" href="../../d2/df3/class_n_pbase.html#ab637a1d8811365b38272ee18a54152c8" title="The oblique parameter .">obliqueS()</a>, <a class="el" href="../../d2/df3/class_n_pbase.html#a13376d0b2f2e43c692a0a91b8424a943" title="The oblique parameter .">obliqueT()</a> and <a class="el" href="../../d2/df3/class_n_pbase.html#a78323fd9e508b10ae44c97046bf66be3" title="The oblique parameter .">obliqueU()</a>),</li>
-</ul>
-<p>Using these quantities, the mass and width of the \(W\) boson and the NP contributions to the effective vector and axial-vector couplings of the \(Z\)-boson to leptons and quarks are computed:</p>
-<ul>
-<li>\(M_W\), \(c_W^2\) and \(s_W^2\)&#160;&#160; (with <a class="el" href="../../d2/df3/class_n_pbase.html#a4ed7da85ac296cc78f03aecbd1de8419" title="The mass of the  boson, .">Mw()</a>, <a class="el" href="../../dc/dd5/class_standard_model.html#abe6d04b97a599b69b7a4948d88f35a26" title="The square of the cosine of the weak mixing angle in the on-shell scheme, denoted as .">cW2()</a> and <a class="el" href="../../dc/dd5/class_standard_model.html#af3ef50355becd1628f7098eb9fd58dca" title="The square of the sine of the weak mixing angle in the on-shell scheme, denoted as .">sW2()</a>), </li>
-<li>\(\Gamma_W\)&#160;&#160; (with <a class="el" href="../../d2/df3/class_n_pbase.html#acfe7c6fd06e91ebecd7180286a49daa9" title="A partial decay width of the  boson decay into a SM fermion pair.">GammaW()</a>), </li>
-<li>\(\delta g_V^f\)&#160;&#160;(with deltaGVl() and deltaGVq()), </li>
-<li>\(\delta g_A^f\)&#160;&#160;(with deltaGAl() and deltaGAq()).</li>
-</ul>
-<p>In the model classes that are inherited from the current class (see the inheritance diagram above), some of these methods are reimplemented to account for the details of more specific scenarios.</p>
-<p ><a class="anchor" id="NPbaseInitialization"></a></p><h3>Initialization</h3>
-<p >This class is intended to be used with an inherited model class.</p>
-<p ><a class="anchor" id="NPbaseParameters"></a></p><h3>Model parameters</h3>
-<p >There is no model parameter in the current class.</p>
-<p ><a class="anchor" id="NPbaseFlags"></a></p><h3>Model flags</h3>
-<p >There is no model flag in the current class.</p>
-<p ><a class="anchor" id="NPbaseFunctions"></a></p><h3>Important member functions</h3>
-<p >The functions are explained above. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/de8/_n_pbase_8h_source.html#l00066">66</a> of file <a class="el" href="../../d2/de8/_n_pbase_8h_source.html">NPbase.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad87edbe715d1c0b23e700f335458d123" name="ad87edbe715d1c0b23e700f335458d123"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad87edbe715d1c0b23e700f335458d123">&#9670;&nbsp;</a></span>NPbase()</h2>
 

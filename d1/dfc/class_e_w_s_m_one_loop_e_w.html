@@ -129,7 +129,44 @@ $(document).ready(function(){initNavTree('d1/dfc/class_e_w_s_m_one_loop_e_w.html
  <a href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d2/d7c/_e_w_s_m_one_loop_e_w_8h_source.html">EWSMOneLoopEW.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for \(O(\alpha)\) one-loop corrections to the EW precision observables. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class handles one-loop EW contributions of \(O(\alpha)\) to the following quantities, which are relevant to the EW precision observables:</p>
+<ul>
+<li>\(\Delta\alpha_{\mathrm{lept}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#ac2a70f8f838ced8b0c8283713c597ac6" title="Leptonic contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_l()</a>), </li>
+<li>\(\Delta\alpha_{\mathrm{top}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#aaa6e25079cdf031d55422237bbd6e20a" title="Top-quark contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_t()</a>), </li>
+<li>\(\Delta\rho\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#ab97f9786cd9bb97f84093b31fbd34d67" title="Leading one-loop contribution of  to , denoted as .">DeltaRho()</a>), </li>
+<li>\(\Delta r_{\mathrm{rem}}\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a1cd6f1cd5d6004cffdc8939e2cc65f3a" title="Remainder contribution of  to , denoted as .">DeltaR_rem()</a>), </li>
+<li>\(\delta\rho_{\mathrm{rem}}^{f}\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#af6d1adca6622111e151a05545ddb6ce2" title="Remainder contribution of  to the effective couplings , denoted as .">deltaRho_rem_f()</a>), </li>
+<li>\(\delta\kappa_{\mathrm{rem}}^{f}\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a02b1a4835ee4df6b59027fcd842e4546" title="Remainder contribution of  to the effective couplings , denoted as .">deltaKappa_rem_f()</a>), </li>
+<li>\(\rho_{ij}^W\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a15dc792c459c52ac9f87323c9e8db7fb" title="EW radiative corrections to the width of , denoted as .">rho_GammaW()</a>).</li>
+</ul>
+<p>See also the description of EWSM class for their definitions.</p>
+<p >The above quantities are computed with the help of the auxiliary member functions defined in the current class. It is noted that gauge-dependent quantities in the current class are given in the Unitary gauge. For example, the functions <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a06bf777f7701d91812be6ac5e18199ae" title="The bosonic contribution to the self-energy of the  boson in the Unitary gauge, .">SigmabarWW_bos()</a>, <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a06bf777f7701d91812be6ac5e18199ae" title="The bosonic contribution to the self-energy of the  boson in the Unitary gauge, .">SigmabarWW_bos()</a>, etc. represent the self-energies of the gauge bosons. <a class="anchor" id="SeflEnergies"></a>The following table shows the comparisons of the definitions of the self-energies in the current class to those in <b>[Bardin:1999ak]</b> and <b>[Hollik:1988ii]</b> : </p><table border="1" align="center">
+<tr>
+<td align="center">Current class </td><td align="center">Bardin &amp; Passarino <b>[Bardin:1999ak]</b> </td><td align="center">Hollik <b>[Hollik:1988ii]</b>  </td></tr>
+<tr>
+<td align="center">\(\displaystyle\Sigma_{WW}(s)=\frac{\alpha}{4\pi s_W^2 } \overline{\Sigma}_{WW}(s)\) </td><td align="center">\(\displaystyle\frac{\alpha}{4\pi s_W^2 } \Sigma_{WW}(s)\) </td><td align="center">\(\displaystyle\Sigma^W(s)\)  </td></tr>
+<tr>
+<td align="center">\(\displaystyle\Sigma_{ZZ}(s)=\frac{\alpha}{4\pi s_W^2 c_W^2 } \overline{\Sigma}_{ZZ}(s)\) </td><td align="center">\(\displaystyle\frac{\alpha}{4\pi s_W^2 c_W^2 } \Sigma_{ZZ}(s)\) </td><td align="center">\(\displaystyle\Sigma^Z(s)\)  </td></tr>
+<tr>
+<td align="center">\(\displaystyle\Pi_{\gamma\gamma}(s)=\frac{\alpha}{4\pi}\,\overline{\Pi}_{\gamma\gamma}(s)\) </td><td align="center">\(\displaystyle\frac{\alpha}{4\pi}\,\left[ -\Pi_{\gamma\gamma}(s) \right]\) </td><td align="center">\(\displaystyle\Pi^\gamma(s)=\frac{\partial\Sigma^\gamma(s)}{\partial s}\)  </td></tr>
+<tr>
+<td align="center">\(\displaystyle\Pi_{Z\gamma}(s) = \frac{\alpha}{4\pi s_W c_W}\overline{\Pi}_{Z\gamma}(s)\) </td><td align="center">\(\displaystyle\frac{\alpha}{4\pi s_W c_W}\left[ - \Pi_{ZA}(s)\right]\) </td><td align="center"></td></tr>
+<tr>
+<td align="center">\(\displaystyle\overline{\Sigma}^{\prime}_{WW}(s) = \frac{\partial\,\overline{\Sigma}_{WW}(s)}{\partial s}\) </td><td align="center">\(\displaystyle- \frac{\alpha}{4\pi s_W^2 } {\cal W}(s)\) </td><td align="center"></td></tr>
+<tr>
+<td align="center">\(\displaystyle\overline{\Sigma}^{\prime}_{ZZ}(s) =\frac{\partial\,\overline{\Sigma}_{ZZ}(s)}{\partial s}\) </td><td align="center">\(\displaystyle- \frac{\alpha}{4\pi s_W^2 c_W^2 } c_W^2 {\cal Z}(s)\) </td><td align="center"></td></tr>
+</table>
+<p>These self-energies are decomposed into the sum of bosonic and fermionic contributions: </p><p class="formulaDsp">
+\begin{align*} \overline{\Sigma}_{WW}(s) = \overline{\Sigma}^{\rm bos}_{WW}(s) + \overline{\Sigma}^{\rm fer}_{WW}(s)\,, \\ \overline{\Sigma}_{ZZ}(s) = \overline{\Sigma}^{\rm bos}_{ZZ}(s) + \overline{\Sigma}^{\rm fer}_{ZZ}(s)\,, \\ \overline{\Pi}_{\gamma\gamma}(s) = \overline{\Pi}_{\gamma\gamma}^{\rm bos}(s) + \overline{\Pi}_{\gamma\gamma}^{\rm fer}(s)\,, \\ \overline{\Pi}_{Z\gamma}(s) = \overline{\Pi}_{Z\gamma}^{\rm bos}(s) + \overline{\Pi}_{Z\gamma}^{\rm fer}(s)\,. \end{align*}
+</p>
+<p >Most of the formulae used in the current class have been copied or derived from from those in Bardin and Passarino's book <b>[Bardin:1999ak]</b> as well as from <b>[Sirlin:1980nh]</b>, <b>[Marciano:1980pb]</b>, <b>[Bardin:1981sv]</b>, <b>[Akhundov:1985fc]</b>, <b>[Bardin:1986fi]</b> and <b>[Bardin:1989di]</b>. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d7c/_e_w_s_m_one_loop_e_w_8h_source.html#l00105">105</a> of file <a class="el" href="../../d2/d7c/_e_w_s_m_one_loop_e_w_8h_source.html">EWSMOneLoopEW.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac2a70f8f838ced8b0c8283713c597ac6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#ac2a70f8f838ced8b0c8283713c597ac6">DeltaAlpha_l</a> (const double <a class="el" href="../../d0/d4a/classs.html">s</a>) const</td></tr>
@@ -256,44 +293,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a26a6f4d4397a6192ad0b1eac64c34634"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to an object of type <a class="el" href="../../dc/df3/class_e_w_s_mcache.html" title="A class for cache variables used in computing radiative corrections to the EW precision observables.">EWSMcache</a>.  <a href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a26a6f4d4397a6192ad0b1eac64c34634">More...</a><br /></td></tr>
 <tr class="separator:a26a6f4d4397a6192ad0b1eac64c34634"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for \(O(\alpha)\) one-loop corrections to the EW precision observables. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class handles one-loop EW contributions of \(O(\alpha)\) to the following quantities, which are relevant to the EW precision observables:</p>
-<ul>
-<li>\(\Delta\alpha_{\mathrm{lept}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#ac2a70f8f838ced8b0c8283713c597ac6" title="Leptonic contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_l()</a>), </li>
-<li>\(\Delta\alpha_{\mathrm{top}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#aaa6e25079cdf031d55422237bbd6e20a" title="Top-quark contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_t()</a>), </li>
-<li>\(\Delta\rho\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#ab97f9786cd9bb97f84093b31fbd34d67" title="Leading one-loop contribution of  to , denoted as .">DeltaRho()</a>), </li>
-<li>\(\Delta r_{\mathrm{rem}}\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a1cd6f1cd5d6004cffdc8939e2cc65f3a" title="Remainder contribution of  to , denoted as .">DeltaR_rem()</a>), </li>
-<li>\(\delta\rho_{\mathrm{rem}}^{f}\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#af6d1adca6622111e151a05545ddb6ce2" title="Remainder contribution of  to the effective couplings , denoted as .">deltaRho_rem_f()</a>), </li>
-<li>\(\delta\kappa_{\mathrm{rem}}^{f}\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a02b1a4835ee4df6b59027fcd842e4546" title="Remainder contribution of  to the effective couplings , denoted as .">deltaKappa_rem_f()</a>), </li>
-<li>\(\rho_{ij}^W\)&#160;&#160; (with <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a15dc792c459c52ac9f87323c9e8db7fb" title="EW radiative corrections to the width of , denoted as .">rho_GammaW()</a>).</li>
-</ul>
-<p>See also the description of EWSM class for their definitions.</p>
-<p >The above quantities are computed with the help of the auxiliary member functions defined in the current class. It is noted that gauge-dependent quantities in the current class are given in the Unitary gauge. For example, the functions <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a06bf777f7701d91812be6ac5e18199ae" title="The bosonic contribution to the self-energy of the  boson in the Unitary gauge, .">SigmabarWW_bos()</a>, <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html#a06bf777f7701d91812be6ac5e18199ae" title="The bosonic contribution to the self-energy of the  boson in the Unitary gauge, .">SigmabarWW_bos()</a>, etc. represent the self-energies of the gauge bosons. <a class="anchor" id="SeflEnergies"></a>The following table shows the comparisons of the definitions of the self-energies in the current class to those in <b>[Bardin:1999ak]</b> and <b>[Hollik:1988ii]</b> : </p><table border="1" align="center">
-<tr>
-<td align="center">Current class </td><td align="center">Bardin &amp; Passarino <b>[Bardin:1999ak]</b> </td><td align="center">Hollik <b>[Hollik:1988ii]</b>  </td></tr>
-<tr>
-<td align="center">\(\displaystyle\Sigma_{WW}(s)=\frac{\alpha}{4\pi s_W^2 } \overline{\Sigma}_{WW}(s)\) </td><td align="center">\(\displaystyle\frac{\alpha}{4\pi s_W^2 } \Sigma_{WW}(s)\) </td><td align="center">\(\displaystyle\Sigma^W(s)\)  </td></tr>
-<tr>
-<td align="center">\(\displaystyle\Sigma_{ZZ}(s)=\frac{\alpha}{4\pi s_W^2 c_W^2 } \overline{\Sigma}_{ZZ}(s)\) </td><td align="center">\(\displaystyle\frac{\alpha}{4\pi s_W^2 c_W^2 } \Sigma_{ZZ}(s)\) </td><td align="center">\(\displaystyle\Sigma^Z(s)\)  </td></tr>
-<tr>
-<td align="center">\(\displaystyle\Pi_{\gamma\gamma}(s)=\frac{\alpha}{4\pi}\,\overline{\Pi}_{\gamma\gamma}(s)\) </td><td align="center">\(\displaystyle\frac{\alpha}{4\pi}\,\left[ -\Pi_{\gamma\gamma}(s) \right]\) </td><td align="center">\(\displaystyle\Pi^\gamma(s)=\frac{\partial\Sigma^\gamma(s)}{\partial s}\)  </td></tr>
-<tr>
-<td align="center">\(\displaystyle\Pi_{Z\gamma}(s) = \frac{\alpha}{4\pi s_W c_W}\overline{\Pi}_{Z\gamma}(s)\) </td><td align="center">\(\displaystyle\frac{\alpha}{4\pi s_W c_W}\left[ - \Pi_{ZA}(s)\right]\) </td><td align="center"></td></tr>
-<tr>
-<td align="center">\(\displaystyle\overline{\Sigma}^{\prime}_{WW}(s) = \frac{\partial\,\overline{\Sigma}_{WW}(s)}{\partial s}\) </td><td align="center">\(\displaystyle- \frac{\alpha}{4\pi s_W^2 } {\cal W}(s)\) </td><td align="center"></td></tr>
-<tr>
-<td align="center">\(\displaystyle\overline{\Sigma}^{\prime}_{ZZ}(s) =\frac{\partial\,\overline{\Sigma}_{ZZ}(s)}{\partial s}\) </td><td align="center">\(\displaystyle- \frac{\alpha}{4\pi s_W^2 c_W^2 } c_W^2 {\cal Z}(s)\) </td><td align="center"></td></tr>
-</table>
-<p>These self-energies are decomposed into the sum of bosonic and fermionic contributions: </p><p class="formulaDsp">
-\begin{align*} \overline{\Sigma}_{WW}(s) = \overline{\Sigma}^{\rm bos}_{WW}(s) + \overline{\Sigma}^{\rm fer}_{WW}(s)\,, \\ \overline{\Sigma}_{ZZ}(s) = \overline{\Sigma}^{\rm bos}_{ZZ}(s) + \overline{\Sigma}^{\rm fer}_{ZZ}(s)\,, \\ \overline{\Pi}_{\gamma\gamma}(s) = \overline{\Pi}_{\gamma\gamma}^{\rm bos}(s) + \overline{\Pi}_{\gamma\gamma}^{\rm fer}(s)\,, \\ \overline{\Pi}_{Z\gamma}(s) = \overline{\Pi}_{Z\gamma}^{\rm bos}(s) + \overline{\Pi}_{Z\gamma}^{\rm fer}(s)\,. \end{align*}
-</p>
-<p >Most of the formulae used in the current class have been copied or derived from from those in Bardin and Passarino's book <b>[Bardin:1999ak]</b> as well as from <b>[Sirlin:1980nh]</b>, <b>[Marciano:1980pb]</b>, <b>[Bardin:1981sv]</b>, <b>[Akhundov:1985fc]</b>, <b>[Bardin:1986fi]</b> and <b>[Bardin:1989di]</b>. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d7c/_e_w_s_m_one_loop_e_w_8h_source.html#l00105">105</a> of file <a class="el" href="../../d2/d7c/_e_w_s_m_one_loop_e_w_8h_source.html">EWSMOneLoopEW.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad131730117c7d05124f82e7dc2e0f1a6" name="ad131730117c7d05124f82e7dc2e0f1a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad131730117c7d05124f82e7dc2e0f1a6">&#9670;&nbsp;</a></span>EWSMOneLoopEW()</h2>
 

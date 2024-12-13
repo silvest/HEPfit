@@ -145,7 +145,50 @@ $(document).ready(function(){initNavTree('d0/d52/class_t_h_d_m.html','../../'); 
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,98,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A base class for \(Z_2\) symmetric Two-Higgs-Doublet models. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p><a class="anchor" id="THDMParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of THDM are summarized below. The current implementation only allows for a Two-Higgs-Doublet model with a softly broken \(Z_2\) symmetry and without CP violation in the Higgs potential. The scalar 125 GeV resonance is assumed to be the one of the CP-even Higgs states of the model; the other is attributed to mHh in the <a class="el" href="../../d0/d52/class_t_h_d_m.html" title="A base class for  symmetric Two-Higgs-Doublet models.">THDM</a> configuration.</p>
+<table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">logtb </td><td class="mod_symb">\(\log_{10} \tan \beta\) </td><td class="mod_desc">The decadic logarithm of the tangent of the mixing angle \(\beta \equiv \arctan \frac{v_2}{v_1}\).  </td></tr>
+<tr>
+<td class="mod_name">bma </td><td class="mod_symb">\(\beta - \alpha\) </td><td class="mod_desc">The difference of the mixing angles \(\beta\) and \(\alpha\).  </td></tr>
+<tr>
+<td class="mod_name">mHh2 </td><td class="mod_symb">\(m_H^2\) </td><td class="mod_desc">The mass square of the "non-125 GeV" CP-even Higgs state.  </td></tr>
+<tr>
+<td class="mod_name">mA2 </td><td class="mod_symb">\(m_A^2\) </td><td class="mod_desc">The squared masses of the CP-odd Higgs \(A\).  </td></tr>
+<tr>
+<td class="mod_name">mHp2 </td><td class="mod_symb">\(m_{H^+}^2\) </td><td class="mod_desc">The squared masses of the charged Higgs.  </td></tr>
+<tr>
+<td class="mod_name">m12_2 </td><td class="mod_symb">\(m_{12}^2\) </td><td class="mod_desc">The soft \(Z_2\) symmetry breaking parameter.  </td></tr>
+<tr>
+<td class="mod_name">bsgamma_theoryerror </td><td class="mod_symb">\(\theta_{b\to s\gamma}^{\text{theo}}\) </td><td class="mod_desc">A nuisance parameter between -1 and +1 for the theoretical error in the determination of \(BR(B\to X_s \gamma)\).  </td></tr>
+<tr>
+<td class="mod_name">Q_THDM </td><td class="mod_symb">\(Q_{\text{THDM}}\) </td><td class="mod_desc">The <a class="el" href="../../d0/d52/class_t_h_d_m.html" title="A base class for  symmetric Two-Higgs-Doublet models.">THDM</a> scale.  </td></tr>
+<tr>
+<td class="mod_name">Rpeps </td><td class="mod_symb">\(\varepsilon_{\text{R&#39;}}\) </td><td class="mod_desc">Minimal value for which the R' perturbativity criterion should be applied for the unitarity bounds.  </td></tr>
+<tr>
+<td class="mod_name">NLOuniscale </td><td class="mod_symb">\(Q_{\text{min}}^{\text{NLOuni}}\) </td><td class="mod_desc">Minimal scale at which the NLO unitarity conditions are checked.  </td></tr>
+</table>
+<p ><a class="anchor" id="THDMFlags"></a></p><h3>Model flags</h3>
+<table class="model">
+<tr>
+<th>Label </th><th>Value </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">modelTypeflag </td><td class="mod_valu">typeI / typeII / typeX / typeY </td><td class="mod_desc">This flag determines the type of \(Z_2\) symmetry.  </td></tr>
+<tr>
+<td class="mod_name">RGEorder </td><td class="mod_valu">LO / approxNLO / NLO </td><td class="mod_desc">This flag determines the order in perturbation theory of the renormalization group equations.  </td></tr>
+<tr>
+<td class="mod_name">wavefunctionrenormalization </td><td class="mod_valu">true / false </td><td class="mod_desc">Whether to use wavefunction renormalization for NLO unitarity constraints.  </td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="../../de/de8/_t_h_d_m_8h_source.html#l00120">120</a> of file <a class="el" href="../../de/de8/_t_h_d_m_8h_source.html">THDM.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa742414b2ccec52b7546d7ada12cc159"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d52/class_t_h_d_m.html#aa742414b2ccec52b7546d7ada12cc159">CheckParameters</a> (const std::map&lt; std::string, double &gt; &amp;<a class="el" href="../../d2/d34/non_minimal_8cpp.html#a6e20bd060f27ea753274b52da14c0423">DPars</a>)</td></tr>
@@ -2131,50 +2174,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a83f641ad01d1965b44a555cfd868166c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for quarks.  <a href="../../dd/dfa/class_q_c_d.html#a83f641ad01d1965b44a555cfd868166c">More...</a><br /></td></tr>
 <tr class="separator:a83f641ad01d1965b44a555cfd868166c inherit pub_types_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A base class for \(Z_2\) symmetric Two-Higgs-Doublet models. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p><a class="anchor" id="THDMParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of THDM are summarized below. The current implementation only allows for a Two-Higgs-Doublet model with a softly broken \(Z_2\) symmetry and without CP violation in the Higgs potential. The scalar 125 GeV resonance is assumed to be the one of the CP-even Higgs states of the model; the other is attributed to mHh in the <a class="el" href="../../d0/d52/class_t_h_d_m.html" title="A base class for  symmetric Two-Higgs-Doublet models.">THDM</a> configuration.</p>
-<table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">logtb </td><td class="mod_symb">\(\log_{10} \tan \beta\) </td><td class="mod_desc">The decadic logarithm of the tangent of the mixing angle \(\beta \equiv \arctan \frac{v_2}{v_1}\).  </td></tr>
-<tr>
-<td class="mod_name">bma </td><td class="mod_symb">\(\beta - \alpha\) </td><td class="mod_desc">The difference of the mixing angles \(\beta\) and \(\alpha\).  </td></tr>
-<tr>
-<td class="mod_name">mHh2 </td><td class="mod_symb">\(m_H^2\) </td><td class="mod_desc">The mass square of the "non-125 GeV" CP-even Higgs state.  </td></tr>
-<tr>
-<td class="mod_name">mA2 </td><td class="mod_symb">\(m_A^2\) </td><td class="mod_desc">The squared masses of the CP-odd Higgs \(A\).  </td></tr>
-<tr>
-<td class="mod_name">mHp2 </td><td class="mod_symb">\(m_{H^+}^2\) </td><td class="mod_desc">The squared masses of the charged Higgs.  </td></tr>
-<tr>
-<td class="mod_name">m12_2 </td><td class="mod_symb">\(m_{12}^2\) </td><td class="mod_desc">The soft \(Z_2\) symmetry breaking parameter.  </td></tr>
-<tr>
-<td class="mod_name">bsgamma_theoryerror </td><td class="mod_symb">\(\theta_{b\to s\gamma}^{\text{theo}}\) </td><td class="mod_desc">A nuisance parameter between -1 and +1 for the theoretical error in the determination of \(BR(B\to X_s \gamma)\).  </td></tr>
-<tr>
-<td class="mod_name">Q_THDM </td><td class="mod_symb">\(Q_{\text{THDM}}\) </td><td class="mod_desc">The <a class="el" href="../../d0/d52/class_t_h_d_m.html" title="A base class for  symmetric Two-Higgs-Doublet models.">THDM</a> scale.  </td></tr>
-<tr>
-<td class="mod_name">Rpeps </td><td class="mod_symb">\(\varepsilon_{\text{R&#39;}}\) </td><td class="mod_desc">Minimal value for which the R' perturbativity criterion should be applied for the unitarity bounds.  </td></tr>
-<tr>
-<td class="mod_name">NLOuniscale </td><td class="mod_symb">\(Q_{\text{min}}^{\text{NLOuni}}\) </td><td class="mod_desc">Minimal scale at which the NLO unitarity conditions are checked.  </td></tr>
-</table>
-<p ><a class="anchor" id="THDMFlags"></a></p><h3>Model flags</h3>
-<table class="model">
-<tr>
-<th>Label </th><th>Value </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">modelTypeflag </td><td class="mod_valu">typeI / typeII / typeX / typeY </td><td class="mod_desc">This flag determines the type of \(Z_2\) symmetry.  </td></tr>
-<tr>
-<td class="mod_name">RGEorder </td><td class="mod_valu">LO / approxNLO / NLO </td><td class="mod_desc">This flag determines the order in perturbation theory of the renormalization group equations.  </td></tr>
-<tr>
-<td class="mod_name">wavefunctionrenormalization </td><td class="mod_valu">true / false </td><td class="mod_desc">Whether to use wavefunction renormalization for NLO unitarity constraints.  </td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="../../de/de8/_t_h_d_m_8h_source.html#l00120">120</a> of file <a class="el" href="../../de/de8/_t_h_d_m_8h_source.html">THDM.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aff772d44ecc41b4560753b6184a265ae" name="aff772d44ecc41b4560753b6184a265ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff772d44ecc41b4560753b6184a265ae">&#9670;&nbsp;</a></span>THDM()</h2>
 

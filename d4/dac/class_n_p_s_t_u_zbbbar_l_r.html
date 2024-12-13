@@ -146,7 +146,38 @@ $(document).ready(function(){initNavTree('d4/dac/class_n_p_s_t_u_zbbbar_l_r.html
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,109,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A model class for new physics in the form of oblique and \(Zb\bar{b}\)-vertex corrections. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the necessary functions to compute new physics contributions to the electroweak precision observables with the Peskin-Takeuchi oblique parameters <b>[Peskin:1990zt]</b>, <b>[Peskin:1991sw]</b> and with additional shifts to the left-handed and right-handed \(Zb\bar{b}\) vertices. The effective \(Zb\bar{b}\) couplings involve new physics contributions both from the oblique corrections and from the vertex corrections: </p><p class="formulaDsp">
+\[ \mathcal{L}_{\mathrm{eff}} = \frac{e}{2s_W c_W}\, Z_\mu\, \bar{b} \left[ g_{R,\mathrm{eff}}^b\, \gamma_\mu (1 + \gamma_5) + g_{L,\mathrm{eff}}^b\, \gamma_\mu (1 - \gamma_5) \right] b \]
+</p>
+<p> where the effective couplings are given by </p><p class="formulaDsp">
+\[ g_{R,\mathrm{eff}}^b = g_{R,\mathrm{SM}}^b + g_{R,\mathrm{SM}}^b \frac{\alpha(M_Z^2)\, T}{2} + g_{R,\mathrm{SM}}^b \frac{\alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)} {4s_W^2\,(c_W^2-s_W^2)} + \delta g_{R,\mathrm{vert}}^b\,, \\ g_{L,\mathrm{eff}}^b = g_{L,\mathrm{SM}}^b + g_{L,\mathrm{SM}}^b \frac{\alpha(M_Z^2)\, T}{2} + g_{R,\mathrm{SM}}^b \frac{\alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)} {4s_W^2\,(c_W^2-s_W^2)} + \delta g_{L,,\mathrm{vert}}^b\,. \]
+</p>
+<p ><a class="anchor" id="NPSTUZbbbarLRInitialization"></a></p><h3>Initialization</h3>
+<p >After creating an instance of the current class with the constructor <a class="el" href="../../d4/dac/class_n_p_s_t_u_zbbbar_l_r.html#a5d1207926d14d291f235e95ce754567c" title="Constructor.">NPSTUZbbbarLR()</a>, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
+<p ><a class="anchor" id="NPSTUZbbbarLRParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of NPSTUZbbbarLR are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">deltaGLb </td><td class="mod_symb">\(\delta g_{L,\mathrm{vert}}^b\) </td><td class="mod_desc">New physics vertex corrections to \(g_{L}^b\).  </td></tr>
+<tr>
+<td class="mod_name">deltaGRb </td><td class="mod_symb">\(\delta g_{R,\mathrm{vert}}^b\) </td><td class="mod_desc">New physics vertex corrections to \(g_{R}^b\).  </td></tr>
+</table>
+<p ><a class="anchor" id="NPSTUZbbbarLRFlags"></a></p><h3>Model flags</h3>
+<p >There is no model flag in the current class.</p>
+<p ><a class="anchor" id="NPSTUZbbbarLRFunctions"></a></p><h3>Important member functions</h3>
+<p >Compared to the base class <a class="el" href="../../d9/dad/class_n_p_s_t_u.html" title="A model class for new physics in the form of contributions to the oblique parameters  and .">NPSTU</a>, the functions for the following quantities are reimplemented in the current class:</p>
+<ul>
+<li>\(\delta g_V^f\)&#160;&#160;(with deltaGVf()), </li>
+<li>\(\delta g_A^f\)&#160;&#160;(with deltaGAf()). </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/db2/_n_p_s_t_u_zbbbar_l_r_8h_source.html#l00102">102</a> of file <a class="el" href="../../d8/db2/_n_p_s_t_u_zbbbar_l_r_8h_source.html">NPSTUZbbbarLR.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a51bf84b35bf992c913d1c5bd5b336d76"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dac/class_n_p_s_t_u_zbbbar_l_r.html#a51bf84b35bf992c913d1c5bd5b336d76">CheckParameters</a> (const std::map&lt; std::string, double &gt; &amp;<a class="el" href="../../d2/d34/non_minimal_8cpp.html#a6e20bd060f27ea753274b52da14c0423">DPars</a>)</td></tr>
@@ -3521,38 +3552,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a83f641ad01d1965b44a555cfd868166c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for quarks.  <a href="../../dd/dfa/class_q_c_d.html#a83f641ad01d1965b44a555cfd868166c">More...</a><br /></td></tr>
 <tr class="separator:a83f641ad01d1965b44a555cfd868166c inherit pub_types_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A model class for new physics in the form of oblique and \(Zb\bar{b}\)-vertex corrections. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing the necessary functions to compute new physics contributions to the electroweak precision observables with the Peskin-Takeuchi oblique parameters <b>[Peskin:1990zt]</b>, <b>[Peskin:1991sw]</b> and with additional shifts to the left-handed and right-handed \(Zb\bar{b}\) vertices. The effective \(Zb\bar{b}\) couplings involve new physics contributions both from the oblique corrections and from the vertex corrections: </p><p class="formulaDsp">
-\[ \mathcal{L}_{\mathrm{eff}} = \frac{e}{2s_W c_W}\, Z_\mu\, \bar{b} \left[ g_{R,\mathrm{eff}}^b\, \gamma_\mu (1 + \gamma_5) + g_{L,\mathrm{eff}}^b\, \gamma_\mu (1 - \gamma_5) \right] b \]
-</p>
-<p> where the effective couplings are given by </p><p class="formulaDsp">
-\[ g_{R,\mathrm{eff}}^b = g_{R,\mathrm{SM}}^b + g_{R,\mathrm{SM}}^b \frac{\alpha(M_Z^2)\, T}{2} + g_{R,\mathrm{SM}}^b \frac{\alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)} {4s_W^2\,(c_W^2-s_W^2)} + \delta g_{R,\mathrm{vert}}^b\,, \\ g_{L,\mathrm{eff}}^b = g_{L,\mathrm{SM}}^b + g_{L,\mathrm{SM}}^b \frac{\alpha(M_Z^2)\, T}{2} + g_{R,\mathrm{SM}}^b \frac{\alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)} {4s_W^2\,(c_W^2-s_W^2)} + \delta g_{L,,\mathrm{vert}}^b\,. \]
-</p>
-<p ><a class="anchor" id="NPSTUZbbbarLRInitialization"></a></p><h3>Initialization</h3>
-<p >After creating an instance of the current class with the constructor <a class="el" href="../../d4/dac/class_n_p_s_t_u_zbbbar_l_r.html#a5d1207926d14d291f235e95ce754567c" title="Constructor.">NPSTUZbbbarLR()</a>, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
-<p ><a class="anchor" id="NPSTUZbbbarLRParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of NPSTUZbbbarLR are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">deltaGLb </td><td class="mod_symb">\(\delta g_{L,\mathrm{vert}}^b\) </td><td class="mod_desc">New physics vertex corrections to \(g_{L}^b\).  </td></tr>
-<tr>
-<td class="mod_name">deltaGRb </td><td class="mod_symb">\(\delta g_{R,\mathrm{vert}}^b\) </td><td class="mod_desc">New physics vertex corrections to \(g_{R}^b\).  </td></tr>
-</table>
-<p ><a class="anchor" id="NPSTUZbbbarLRFlags"></a></p><h3>Model flags</h3>
-<p >There is no model flag in the current class.</p>
-<p ><a class="anchor" id="NPSTUZbbbarLRFunctions"></a></p><h3>Important member functions</h3>
-<p >Compared to the base class <a class="el" href="../../d9/dad/class_n_p_s_t_u.html" title="A model class for new physics in the form of contributions to the oblique parameters  and .">NPSTU</a>, the functions for the following quantities are reimplemented in the current class:</p>
-<ul>
-<li>\(\delta g_V^f\)&#160;&#160;(with deltaGVf()), </li>
-<li>\(\delta g_A^f\)&#160;&#160;(with deltaGAf()). </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="../../d8/db2/_n_p_s_t_u_zbbbar_l_r_8h_source.html#l00102">102</a> of file <a class="el" href="../../d8/db2/_n_p_s_t_u_zbbbar_l_r_8h_source.html">NPSTUZbbbarLR.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5d1207926d14d291f235e95ce754567c" name="a5d1207926d14d291f235e95ce754567c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d1207926d14d291f235e95ce754567c">&#9670;&nbsp;</a></span>NPSTUZbbbarLR()</h2>
 

@@ -147,7 +147,52 @@ $(document).ready(function(){initNavTree('d1/d57/class_n_p_epsilons.html','../..
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,98,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A model class for new physics in the form of contributions to the \(\varepsilon_{1,2,3,b}\) parameters. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing parameters and functions to work with the epsilon paramterization <b>[Altarelli:1990zd]</b>, <b>[Altarelli:1991fk]</b>,<b>[Altarelli:1993sz]</b> for new physics contributions to the electroweak precision observables. It is noted that the \(\varepsilon_{1,2,3,b}\) parameters include both the SM and new physics contributions.</p>
+<p ><a class="anchor" id="NPEpsilonsInitialization"></a></p><h3>Initialization</h3>
+<p >The constructor <a class="el" href="../../d1/d57/class_n_p_epsilons.html#abd43bc6c6afd65c7f9ed2830af0afd58" title="The default constructor.">NPEpsilons()</a> initializes the model flags explained below to their default values. After creating an instance of the current class, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. This pointer is then used in computing the \(W\)-boson mass and the fermionic neutral-current couplings with the epsilon parameters. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
+<p ><a class="anchor" id="NPEpsilonsParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of NPEpsilons are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">epsilon_1  </td><td class="mod_symb">\(\varepsilon_1\) </td><td class="mod_desc">The parameter \(\varepsilon_1\).  </td></tr>
+<tr>
+<td class="mod_name">epsilon_2  </td><td class="mod_symb">\(\varepsilon_2\) </td><td class="mod_desc">The parameter \(\varepsilon_2\).  </td></tr>
+<tr>
+<td class="mod_name">epsilon_3  </td><td class="mod_symb">\(\varepsilon_3\) </td><td class="mod_desc">The parameter \(\varepsilon_3\).  </td></tr>
+<tr>
+<td class="mod_name">epsilon_b  </td><td class="mod_symb">\(\varepsilon_b\) </td><td class="mod_desc">The parameter \(\varepsilon_b\).  </td></tr>
+</table>
+<p ><a class="anchor" id="NPEpsilonsFlags"></a></p><h3>Model Flags</h3>
+<p >The flags of NPEpsilons are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>Value </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">epsilon1SM </td><td class="mod_desc">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if only the SM contribution is considered for \(\varepsilon_1\). The default value is FALSE. </td></tr>
+<tr>
+<td class="mod_name">epsilon2SM </td><td class="mod_desc">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if only the SM contribution is considered for \(\varepsilon_2\). The default value is FALSE. </td></tr>
+<tr>
+<td class="mod_name">epsilon3SM </td><td class="mod_desc">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if only the SM contribution is considered for \(\varepsilon_3\). The default value is FALSE. </td></tr>
+<tr>
+<td class="mod_name">epsilonbSM </td><td class="mod_desc">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if only the SM contribution is considered for \(\varepsilon_b\). The default value is FALSE. </td></tr>
+</table>
+<p ><a class="anchor" id="NPEpsilonsFunctions"></a></p><h3>Important member functions</h3>
+<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
+<ul>
+<li>\(M_W\)&#160;&#160; (with <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a4324ccb92b5656a0ce71e44a13d7bf15" title="The mass of the  boson, .">Mw()</a>), </li>
+<li>\(\Gamma_W\)&#160;&#160; (with <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a179eb861a5b8c741ec1f149eb544ed19" title="The total width of the  boson, .">GammaW()</a>),</li>
+</ul>
+<p>where the latter is not available, since it cannot be simply parameterized by the epsilon parameters. In addition, the functions for the epsilon parameters are also provided:</p>
+<ul>
+<li>\(\varepsilon_1\), \(\varepsilon_2\), \(\varepsilon_3\) and \(\varepsilon_b\)&#160;&#160; (with <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a53df9257ee1d446add7235c9bcce2a4a" title="The parameter .">epsilon1()</a>, <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a6fd2cf331e1bf655a87e210685641b60" title="The parameter .">epsilon2()</a>, <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a132a81431cff147aafa816fbc215acb9" title="The parameter .">epsilon3()</a> and <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a3ec2e2777486d4bd5ebc9db9f831ba2e" title="The parameter .">epsilonb()</a>). </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d81/_n_p_epsilons_8h_source.html#l00123">123</a> of file <a class="el" href="../../d1/d81/_n_p_epsilons_8h_source.html">NPEpsilons.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a6aec8608b9c7cd39c4c7e128a2438552"><td class="memItemLeft" align="right" valign="top">virtual const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d57/class_n_p_epsilons.html#a6aec8608b9c7cd39c4c7e128a2438552">A_f</a> (const <a class="el" href="../../de/d85/class_particle.html">Particle</a> p) const</td></tr>
@@ -3549,52 +3594,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a83f641ad01d1965b44a555cfd868166c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for quarks.  <a href="../../dd/dfa/class_q_c_d.html#a83f641ad01d1965b44a555cfd868166c">More...</a><br /></td></tr>
 <tr class="separator:a83f641ad01d1965b44a555cfd868166c inherit pub_types_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A model class for new physics in the form of contributions to the \(\varepsilon_{1,2,3,b}\) parameters. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing parameters and functions to work with the epsilon paramterization <b>[Altarelli:1990zd]</b>, <b>[Altarelli:1991fk]</b>,<b>[Altarelli:1993sz]</b> for new physics contributions to the electroweak precision observables. It is noted that the \(\varepsilon_{1,2,3,b}\) parameters include both the SM and new physics contributions.</p>
-<p ><a class="anchor" id="NPEpsilonsInitialization"></a></p><h3>Initialization</h3>
-<p >The constructor <a class="el" href="../../d1/d57/class_n_p_epsilons.html#abd43bc6c6afd65c7f9ed2830af0afd58" title="The default constructor.">NPEpsilons()</a> initializes the model flags explained below to their default values. After creating an instance of the current class, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. This pointer is then used in computing the \(W\)-boson mass and the fermionic neutral-current couplings with the epsilon parameters. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
-<p ><a class="anchor" id="NPEpsilonsParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of NPEpsilons are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">epsilon_1  </td><td class="mod_symb">\(\varepsilon_1\) </td><td class="mod_desc">The parameter \(\varepsilon_1\).  </td></tr>
-<tr>
-<td class="mod_name">epsilon_2  </td><td class="mod_symb">\(\varepsilon_2\) </td><td class="mod_desc">The parameter \(\varepsilon_2\).  </td></tr>
-<tr>
-<td class="mod_name">epsilon_3  </td><td class="mod_symb">\(\varepsilon_3\) </td><td class="mod_desc">The parameter \(\varepsilon_3\).  </td></tr>
-<tr>
-<td class="mod_name">epsilon_b  </td><td class="mod_symb">\(\varepsilon_b\) </td><td class="mod_desc">The parameter \(\varepsilon_b\).  </td></tr>
-</table>
-<p ><a class="anchor" id="NPEpsilonsFlags"></a></p><h3>Model Flags</h3>
-<p >The flags of NPEpsilons are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>Value </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">epsilon1SM </td><td class="mod_desc">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if only the SM contribution is considered for \(\varepsilon_1\). The default value is FALSE. </td></tr>
-<tr>
-<td class="mod_name">epsilon2SM </td><td class="mod_desc">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if only the SM contribution is considered for \(\varepsilon_2\). The default value is FALSE. </td></tr>
-<tr>
-<td class="mod_name">epsilon3SM </td><td class="mod_desc">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if only the SM contribution is considered for \(\varepsilon_3\). The default value is FALSE. </td></tr>
-<tr>
-<td class="mod_name">epsilonbSM </td><td class="mod_desc">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if only the SM contribution is considered for \(\varepsilon_b\). The default value is FALSE. </td></tr>
-</table>
-<p ><a class="anchor" id="NPEpsilonsFunctions"></a></p><h3>Important member functions</h3>
-<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
-<ul>
-<li>\(M_W\)&#160;&#160; (with <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a4324ccb92b5656a0ce71e44a13d7bf15" title="The mass of the  boson, .">Mw()</a>), </li>
-<li>\(\Gamma_W\)&#160;&#160; (with <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a179eb861a5b8c741ec1f149eb544ed19" title="The total width of the  boson, .">GammaW()</a>),</li>
-</ul>
-<p>where the latter is not available, since it cannot be simply parameterized by the epsilon parameters. In addition, the functions for the epsilon parameters are also provided:</p>
-<ul>
-<li>\(\varepsilon_1\), \(\varepsilon_2\), \(\varepsilon_3\) and \(\varepsilon_b\)&#160;&#160; (with <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a53df9257ee1d446add7235c9bcce2a4a" title="The parameter .">epsilon1()</a>, <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a6fd2cf331e1bf655a87e210685641b60" title="The parameter .">epsilon2()</a>, <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a132a81431cff147aafa816fbc215acb9" title="The parameter .">epsilon3()</a> and <a class="el" href="../../d1/d57/class_n_p_epsilons.html#a3ec2e2777486d4bd5ebc9db9f831ba2e" title="The parameter .">epsilonb()</a>). </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="../../d1/d81/_n_p_epsilons_8h_source.html#l00123">123</a> of file <a class="el" href="../../d1/d81/_n_p_epsilons_8h_source.html">NPEpsilons.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abd43bc6c6afd65c7f9ed2830af0afd58" name="abd43bc6c6afd65c7f9ed2830af0afd58"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abd43bc6c6afd65c7f9ed2830af0afd58">&#9670;&nbsp;</a></span>NPEpsilons()</h2>
 

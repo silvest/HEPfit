@@ -140,7 +140,127 @@ $(document).ready(function(){initNavTree('d0/d62/class_meson.html','../../'); in
 <area href="../../de/d85/class_particle.html" title="A class for particles." alt="Particle" shape="rect" coords="0,0,55,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for mesons. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class is used to define a meson and three of its characteristics: mass, lifetime and decay constant. For selected mesons, also the Gegenbauer moments are defined. This class inherits the public access members of the <a class="el" href="../../de/d85/class_particle.html" title="A class for particles.">Particle</a> class.</p>
+<p ><a class="anchor" id="MesonParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of Meson are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">MP0 </td><td class="mod_symb">\(M_{\pi^0}\) </td><td class="mod_desc">The mass of the \( \pi^0 \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tP0 </td><td class="mod_symb">\(\tau_{\pi^0}\) </td><td class="mod_desc">The lifetime of the \( \pi^0 \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FP0 </td><td class="mod_symb">\(F_{\pi^0}\) </td><td class="mod_desc">The decay constant of the \( \pi^0 \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">MPp </td><td class="mod_symb">\(M_{\pi^\pm}\) </td><td class="mod_desc">The mass of the \( \pi^\pm \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tPp </td><td class="mod_symb">\(\tau_{\pi^\pm}\) </td><td class="mod_desc">The lifetime of the \( \pi^\pm \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FPp </td><td class="mod_symb">\(F_{\pi^\pm}\) </td><td class="mod_desc">The decay constant of the \( \pi^{\pm} \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">MK0 </td><td class="mod_symb">\(M_{K^0}\) </td><td class="mod_desc">The mass of the \( K^0 \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tKl </td><td class="mod_symb">\(\tau_{K_L}\) </td><td class="mod_desc">The lifetime of the \( K_L \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">MKp </td><td class="mod_symb">\(M_{K^\pm}\) </td><td class="mod_desc">The mass of the \( K^\pm \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tKp </td><td class="mod_symb">\(\tau_{K^\pm}\) </td><td class="mod_desc">The lifetime of the \( K^\pm \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FK </td><td class="mod_symb">\(F_{K}\) </td><td class="mod_desc">The decay constant of the \( K^{0,\pm} \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">alpha1kp, alpha2kp </td><td class="mod_symb">\(\alpha_1(K^+), \alpha_2(K^+)\) </td><td class="mod_desc">The Gegenbauer coefficients for the \(K^+\) meson.  </td></tr>
+<tr>
+<td class="mod_name">MD </td><td class="mod_symb">\(M_{D^0}\) </td><td class="mod_desc">The mass of the \( D^0 \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tD </td><td class="mod_symb">\(\tau_{D^0}\) </td><td class="mod_desc">The lifetime of the \( D^0 \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FD </td><td class="mod_symb">\(F_{D^0}\) </td><td class="mod_desc">The decay constant of the \( D^0 \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">MDp </td><td class="mod_symb">\(M_{D^\pm}\) </td><td class="mod_desc">The mass of the \( D^\pm \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tDp </td><td class="mod_symb">\(\tau_{D^\pm}\) </td><td class="mod_desc">The lifetime of the \( D^\pm \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FDp </td><td class="mod_symb">\(F_{D^\pm}\) </td><td class="mod_desc">The decay constant of the \( D^\pm \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">MBd </td><td class="mod_symb">\(M_{B_d}\) </td><td class="mod_desc">The mass of the \( B_d \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tBd </td><td class="mod_symb">\(\tau_{B_d}\) </td><td class="mod_desc">The lifetime of the \( B_d \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">MBp </td><td class="mod_symb">\(M_{B^\pm}\) </td><td class="mod_desc">The mass of the \( B^\pm \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tBp </td><td class="mod_symb">\(\tau_{B^\pm}\) </td><td class="mod_desc">The lifetime of the \( B^\pm \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FBsoFBd </td><td class="mod_symb">\(F_{B_s}/F_{B_d}\) </td><td class="mod_desc">The ratio of decay constants of the \( B_s \) and \( B_d \) mesons.  </td></tr>
+<tr>
+<td class="mod_name">MBs </td><td class="mod_symb">\(M_{B_s}\) </td><td class="mod_desc">The mass of the \( B_s \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tBs </td><td class="mod_symb">\(\tau_{B_s}\) </td><td class="mod_desc">The lifetime of the \( B_s \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FBs </td><td class="mod_symb">\(F_{B_s}\) </td><td class="mod_desc">The decay constant of the \( B_s \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">lambdaB </td><td class="mod_symb">\(\Lambda_{B,+}\) </td><td class="mod_desc">The integrated leading twist light-cone distribution amplitudes of the B meson divided by the integral variable.  </td></tr>
+<tr>
+<td class="mod_name">DGs_Gs </td><td class="mod_symb">\( \Delta \Gamma_s /\Gamma_s \) </td><td class="mod_desc">The oscillation parameter for the \(B_s\) meson.  </td></tr>
+<tr>
+<td class="mod_name">MBc </td><td class="mod_symb">\(M_{B_c}\) </td><td class="mod_desc">The mass of the \( B_c \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tBc </td><td class="mod_symb">\(\tau_{B_c}\) </td><td class="mod_desc">The lifetime of the \( B_c \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FBc </td><td class="mod_symb">\(F_{B_c}\) </td><td class="mod_desc">The decay constant of the \( B_c \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">Mphi </td><td class="mod_symb">\(M_{\phi}\) </td><td class="mod_desc">The mass of the \( \phi \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tphi </td><td class="mod_symb">\(\tau_{\phi}\) </td><td class="mod_desc">The lifetime of the \( \phi \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">Fphi </td><td class="mod_symb">\(F_{\phi}\) </td><td class="mod_desc">The decay constant of the \( \phi \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">Fphip </td><td class="mod_symb">\(F_{\phi}^{\perp}\) </td><td class="mod_desc">The decay constant of a transversely polarized \( \phi \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">alpha2phi </td><td class="mod_symb">\(\alpha_2(\phi)\) </td><td class="mod_desc">The Gegenbauer coefficient for the \(\phi\) meson.  </td></tr>
+<tr>
+<td class="mod_name">MKstar </td><td class="mod_symb">\(M_{K^{*0}}\) </td><td class="mod_desc">The mass of the \( K^{*0} \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">MKstarP </td><td class="mod_symb">\(M_{K^{*\pm}}\) </td><td class="mod_desc">The mass of the \( K^{*\pm} \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tKstar </td><td class="mod_symb">\(\tau_{K^*}\) </td><td class="mod_desc">The lifetime of the \( K^* \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FKstar </td><td class="mod_symb">\(F_{K^*}\) </td><td class="mod_desc">The decay constant of the \( K^* \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">FKstarp </td><td class="mod_symb">\(F_{K^*}^{\perp}\) </td><td class="mod_desc">The decay constant of a transversely polarized \( K^* \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">alpha1kst, alpha2kst </td><td class="mod_symb">\(\alpha_1(\bar{K}^*), \alpha_2(\bar{K}^*)\) </td><td class="mod_desc">The Gegenbauer coefficients for the \(\bar{K}^*\) meson.  </td></tr>
+<tr>
+<td class="mod_name">MDstarP </td><td class="mod_symb">\(M_{D^{*\pm}}\) </td><td class="mod_desc">The mass of the \( K^{*\pm} \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tDstarP </td><td class="mod_symb">\(\tau_{D^{*\pm}}\) </td><td class="mod_desc">The lifetime of the \( D^{*\pm} \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FDstarP </td><td class="mod_symb">\(F_{D^{*\pm}}\) </td><td class="mod_desc">The decay constant of the \( D^{*\pm} \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">Mrho </td><td class="mod_symb">\(M_{\rho}\) </td><td class="mod_desc">The mass of the \( \rho \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">trho </td><td class="mod_symb">\(\tau_{\rho}\) </td><td class="mod_desc">The lifetime of the \( \rho \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">Frho </td><td class="mod_symb">\(F_{\rho}\) </td><td class="mod_desc">The decay constant of the \( \rho \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">MrhoP </td><td class="mod_symb">\(M_{\rho^{\pm}}\) </td><td class="mod_desc">The mass of the \( \rho^{\pm} \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">trhoP </td><td class="mod_symb">\(\tau_{\rho^{\pm}}\) </td><td class="mod_desc">The lifetime of the \( \rho^{\pm} \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">FrhoP </td><td class="mod_symb">\(F_{\rho^{\pm}}\) </td><td class="mod_desc">The decay constant of the \( \rho^{\pm} \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">Momega </td><td class="mod_symb">\(M_{\omega}\) </td><td class="mod_desc">The mass of the \( \omega \) meson in GeV.  </td></tr>
+<tr>
+<td class="mod_name">tomega </td><td class="mod_symb">\(\tau_{\omega}\) </td><td class="mod_desc">The lifetime of the \( \omega \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
+<tr>
+<td class="mod_name">Fomega </td><td class="mod_symb">\(F_{\omega}\) </td><td class="mod_desc">The decay constant of the \( \omega \) meson in GeV.  </td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/d1a/_meson_8h_source.html#l00315">315</a> of file <a class="el" href="../../d1/d1a/_meson_8h_source.html">Meson.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a825cf857c479aff2b8e71771e7fb7f46"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d62/class_meson.html#a825cf857c479aff2b8e71771e7fb7f46">computeWidth</a> () const</td></tr>
@@ -291,127 +411,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:aa0edb06e09e1b4332636ebd907653da5 inherit pro_attribs_class_particle"><td class="mdescLeft">&#160;</td><td class="mdescRight">The particle width in GeV.  <a href="../../de/d85/class_particle.html#aa0edb06e09e1b4332636ebd907653da5">More...</a><br /></td></tr>
 <tr class="separator:aa0edb06e09e1b4332636ebd907653da5 inherit pro_attribs_class_particle"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for mesons. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class is used to define a meson and three of its characteristics: mass, lifetime and decay constant. For selected mesons, also the Gegenbauer moments are defined. This class inherits the public access members of the <a class="el" href="../../de/d85/class_particle.html" title="A class for particles.">Particle</a> class.</p>
-<p ><a class="anchor" id="MesonParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of Meson are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">MP0 </td><td class="mod_symb">\(M_{\pi^0}\) </td><td class="mod_desc">The mass of the \( \pi^0 \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tP0 </td><td class="mod_symb">\(\tau_{\pi^0}\) </td><td class="mod_desc">The lifetime of the \( \pi^0 \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FP0 </td><td class="mod_symb">\(F_{\pi^0}\) </td><td class="mod_desc">The decay constant of the \( \pi^0 \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">MPp </td><td class="mod_symb">\(M_{\pi^\pm}\) </td><td class="mod_desc">The mass of the \( \pi^\pm \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tPp </td><td class="mod_symb">\(\tau_{\pi^\pm}\) </td><td class="mod_desc">The lifetime of the \( \pi^\pm \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FPp </td><td class="mod_symb">\(F_{\pi^\pm}\) </td><td class="mod_desc">The decay constant of the \( \pi^{\pm} \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">MK0 </td><td class="mod_symb">\(M_{K^0}\) </td><td class="mod_desc">The mass of the \( K^0 \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tKl </td><td class="mod_symb">\(\tau_{K_L}\) </td><td class="mod_desc">The lifetime of the \( K_L \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">MKp </td><td class="mod_symb">\(M_{K^\pm}\) </td><td class="mod_desc">The mass of the \( K^\pm \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tKp </td><td class="mod_symb">\(\tau_{K^\pm}\) </td><td class="mod_desc">The lifetime of the \( K^\pm \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FK </td><td class="mod_symb">\(F_{K}\) </td><td class="mod_desc">The decay constant of the \( K^{0,\pm} \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">alpha1kp, alpha2kp </td><td class="mod_symb">\(\alpha_1(K^+), \alpha_2(K^+)\) </td><td class="mod_desc">The Gegenbauer coefficients for the \(K^+\) meson.  </td></tr>
-<tr>
-<td class="mod_name">MD </td><td class="mod_symb">\(M_{D^0}\) </td><td class="mod_desc">The mass of the \( D^0 \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tD </td><td class="mod_symb">\(\tau_{D^0}\) </td><td class="mod_desc">The lifetime of the \( D^0 \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FD </td><td class="mod_symb">\(F_{D^0}\) </td><td class="mod_desc">The decay constant of the \( D^0 \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">MDp </td><td class="mod_symb">\(M_{D^\pm}\) </td><td class="mod_desc">The mass of the \( D^\pm \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tDp </td><td class="mod_symb">\(\tau_{D^\pm}\) </td><td class="mod_desc">The lifetime of the \( D^\pm \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FDp </td><td class="mod_symb">\(F_{D^\pm}\) </td><td class="mod_desc">The decay constant of the \( D^\pm \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">MBd </td><td class="mod_symb">\(M_{B_d}\) </td><td class="mod_desc">The mass of the \( B_d \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tBd </td><td class="mod_symb">\(\tau_{B_d}\) </td><td class="mod_desc">The lifetime of the \( B_d \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">MBp </td><td class="mod_symb">\(M_{B^\pm}\) </td><td class="mod_desc">The mass of the \( B^\pm \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tBp </td><td class="mod_symb">\(\tau_{B^\pm}\) </td><td class="mod_desc">The lifetime of the \( B^\pm \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FBsoFBd </td><td class="mod_symb">\(F_{B_s}/F_{B_d}\) </td><td class="mod_desc">The ratio of decay constants of the \( B_s \) and \( B_d \) mesons.  </td></tr>
-<tr>
-<td class="mod_name">MBs </td><td class="mod_symb">\(M_{B_s}\) </td><td class="mod_desc">The mass of the \( B_s \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tBs </td><td class="mod_symb">\(\tau_{B_s}\) </td><td class="mod_desc">The lifetime of the \( B_s \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FBs </td><td class="mod_symb">\(F_{B_s}\) </td><td class="mod_desc">The decay constant of the \( B_s \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">lambdaB </td><td class="mod_symb">\(\Lambda_{B,+}\) </td><td class="mod_desc">The integrated leading twist light-cone distribution amplitudes of the B meson divided by the integral variable.  </td></tr>
-<tr>
-<td class="mod_name">DGs_Gs </td><td class="mod_symb">\( \Delta \Gamma_s /\Gamma_s \) </td><td class="mod_desc">The oscillation parameter for the \(B_s\) meson.  </td></tr>
-<tr>
-<td class="mod_name">MBc </td><td class="mod_symb">\(M_{B_c}\) </td><td class="mod_desc">The mass of the \( B_c \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tBc </td><td class="mod_symb">\(\tau_{B_c}\) </td><td class="mod_desc">The lifetime of the \( B_c \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FBc </td><td class="mod_symb">\(F_{B_c}\) </td><td class="mod_desc">The decay constant of the \( B_c \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">Mphi </td><td class="mod_symb">\(M_{\phi}\) </td><td class="mod_desc">The mass of the \( \phi \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tphi </td><td class="mod_symb">\(\tau_{\phi}\) </td><td class="mod_desc">The lifetime of the \( \phi \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">Fphi </td><td class="mod_symb">\(F_{\phi}\) </td><td class="mod_desc">The decay constant of the \( \phi \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">Fphip </td><td class="mod_symb">\(F_{\phi}^{\perp}\) </td><td class="mod_desc">The decay constant of a transversely polarized \( \phi \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">alpha2phi </td><td class="mod_symb">\(\alpha_2(\phi)\) </td><td class="mod_desc">The Gegenbauer coefficient for the \(\phi\) meson.  </td></tr>
-<tr>
-<td class="mod_name">MKstar </td><td class="mod_symb">\(M_{K^{*0}}\) </td><td class="mod_desc">The mass of the \( K^{*0} \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">MKstarP </td><td class="mod_symb">\(M_{K^{*\pm}}\) </td><td class="mod_desc">The mass of the \( K^{*\pm} \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tKstar </td><td class="mod_symb">\(\tau_{K^*}\) </td><td class="mod_desc">The lifetime of the \( K^* \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FKstar </td><td class="mod_symb">\(F_{K^*}\) </td><td class="mod_desc">The decay constant of the \( K^* \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">FKstarp </td><td class="mod_symb">\(F_{K^*}^{\perp}\) </td><td class="mod_desc">The decay constant of a transversely polarized \( K^* \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">alpha1kst, alpha2kst </td><td class="mod_symb">\(\alpha_1(\bar{K}^*), \alpha_2(\bar{K}^*)\) </td><td class="mod_desc">The Gegenbauer coefficients for the \(\bar{K}^*\) meson.  </td></tr>
-<tr>
-<td class="mod_name">MDstarP </td><td class="mod_symb">\(M_{D^{*\pm}}\) </td><td class="mod_desc">The mass of the \( K^{*\pm} \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tDstarP </td><td class="mod_symb">\(\tau_{D^{*\pm}}\) </td><td class="mod_desc">The lifetime of the \( D^{*\pm} \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FDstarP </td><td class="mod_symb">\(F_{D^{*\pm}}\) </td><td class="mod_desc">The decay constant of the \( D^{*\pm} \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">Mrho </td><td class="mod_symb">\(M_{\rho}\) </td><td class="mod_desc">The mass of the \( \rho \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">trho </td><td class="mod_symb">\(\tau_{\rho}\) </td><td class="mod_desc">The lifetime of the \( \rho \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">Frho </td><td class="mod_symb">\(F_{\rho}\) </td><td class="mod_desc">The decay constant of the \( \rho \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">MrhoP </td><td class="mod_symb">\(M_{\rho^{\pm}}\) </td><td class="mod_desc">The mass of the \( \rho^{\pm} \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">trhoP </td><td class="mod_symb">\(\tau_{\rho^{\pm}}\) </td><td class="mod_desc">The lifetime of the \( \rho^{\pm} \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">FrhoP </td><td class="mod_symb">\(F_{\rho^{\pm}}\) </td><td class="mod_desc">The decay constant of the \( \rho^{\pm} \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">Momega </td><td class="mod_symb">\(M_{\omega}\) </td><td class="mod_desc">The mass of the \( \omega \) meson in GeV.  </td></tr>
-<tr>
-<td class="mod_name">tomega </td><td class="mod_symb">\(\tau_{\omega}\) </td><td class="mod_desc">The lifetime of the \( \omega \) meson in \(\mathrm{ps}^{-1} \).  </td></tr>
-<tr>
-<td class="mod_name">Fomega </td><td class="mod_symb">\(F_{\omega}\) </td><td class="mod_desc">The decay constant of the \( \omega \) meson in GeV.  </td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="../../d1/d1a/_meson_8h_source.html#l00315">315</a> of file <a class="el" href="../../d1/d1a/_meson_8h_source.html">Meson.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a03499269f8e92ddcae5cae8a70310a08" name="a03499269f8e92ddcae5cae8a70310a08"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03499269f8e92ddcae5cae8a70310a08">&#9670;&nbsp;</a></span>Meson() <span class="overload">[1/2]</span></h2>
 

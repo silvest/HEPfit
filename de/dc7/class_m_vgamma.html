@@ -129,7 +129,56 @@ $(document).ready(function(){initNavTree('de/dc7/class_m_vgamma.html','../../');
  <a href="../../de/dc7/class_m_vgamma.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../db/d97/_m_vgamma_8h_source.html">MVgamma.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for the \(M \to V \gamma\) decay. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class is used to compute all the functions needed in order to compute the observables relative to the \(M \to V \gamma\) decays, where \(M\) is a generic meson and \(V\) is a vector meson.</p>
+<p ><a class="anchor" id="MVllParameters"></a> </p><h3>MVll parameters</h3>
+<p >The mandatory parameters of MVll are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">a_0T1 </td><td class="mod_symb">\(a_0^{T_1}\) </td><td class="mod_desc">The fit parameters for the form factor \(T_1\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
+<tr>
+<td class="mod_name">a_0T1phi </td><td class="mod_symb">\(a_0^{T_1}\) </td><td class="mod_desc">The fit parameters for the form factor \(T_1\) of the \(B\to\phi\) at \(q^2=0\).  </td><td class="mod_name">absh_p </td><td class="mod_symb">\(\mathrm{Abs}h_+^{(0)}\) </td><td class="mod_desc">The constant term of the absolute value of the hadronic parameter \(h_+\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
+<tr>
+<td class="mod_name">argh_p </td><td class="mod_symb">\(\mathrm{Arg}h_+^{(0)}\) </td><td class="mod_desc">The constant term of the argument of the hadronic parameter \(h_+\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
+<tr>
+<td class="mod_name">absh_m </td><td class="mod_symb">\(\mathrm{Abs}h_-^{(0)}\) </td><td class="mod_desc">The constant term of the absolute value of the hadronic parameter \(h_-\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
+<tr>
+<td class="mod_name">argh_m </td><td class="mod_symb">\(\mathrm{Arg}h_-^{(0)}\) </td><td class="mod_desc">The constant term of the argument of the hadronic parameter \(h_-\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
+</table>
+<p >This kind of decays can be described by means of the \(\Delta B = 1 \) weak effective Hamiltonian </p><p class="formulaDsp">
+\[ \mathcal{H}_\mathrm{eff}^{\Delta B = 1} = \mathcal{H}_\mathrm{eff}^\mathrm{had} + \mathcal{H}_\mathrm{eff}^\mathrm{\gamma}, \]
+</p>
+<p> where the first term is the hadronic contribution </p><p class="formulaDsp">
+\[ \mathcal{H}_\mathrm{eff}^\mathrm{had} = \frac{4G_F}{\sqrt{2}}\Bigg[\sum_{p=u,c}\lambda_p\bigg(C_1 Q^{p}_1 + C_2 Q^{p}_2\bigg) -\lambda_t \bigg(\sum_{i=3}^{6} C_i P_i + C_{8}Q_{8g} \bigg)\Bigg] \,, \]
+</p>
+<p> involving current-current, chromodynamic penguin and chromomagnetic dipole operators, while the second one, given by </p><p class="formulaDsp">
+\[ \mathcal{H}_\mathrm{eff}^\mathrm{\gamma} = - \frac{4G_F}{\sqrt{2}}\lambda_t C_7Q_{7\gamma} \,, \]
+</p>
+<p> includes the electromagnetic penguin operator.</p>
+<p >Considering the matrix element of \(\mathcal{H}_\mathrm{eff}^{\Delta B = 1}\) between the initial state \(M\) and the final state \(V \gamma\), only the contribution of \(\mathcal{H}_\mathrm{eff}^\mathrm{\gamma}\) clearly factorizes into the product of hadronic form factors and leptonic tensors at all orders in strong interactions. Following <b>[Jager:2012uw]</b>, we implemented the amplitude in the helicity basis; hence we made use of the helicity form factor \( T_-(0)\), which is related to the ones in the transverse basis through the following relation: </p><p class="formulaDsp">
+\[ T_{-}\left( q^{2}\right) = \frac{m_M^2 - m_V^2}{m_M^2}T_1\left( q^{2}\right)\,. \]
+</p>
+<p >The effect of the operators of \(\mathcal{H}_\mathrm{eff}^\mathrm{had}\) due to exchange of soft gluon can be reabsorbed in the following parameterization, </p><p class="formulaDsp">
+\[ h_\lambda(q^2) = \frac{\epsilon^*_\mu(\lambda)}{m_M^2} \int d^4x e^{iqx} \langle \bar V \vert T\{j^{\mu}_\mathrm{em} (x) \mathcal{H}_\mathrm{eff}^\mathrm{had} (0)\} \vert \bar M \rangle = h_\lambda^{(0)}\,, \]
+</p>
+<p> while the effect due to exchange of hard gluons can be parametrized following the prescription of <b>[Bosch:2001gv]</b> as a shift to the Wilson coefficient \(C_7\) : </p><p class="formulaDsp">
+\[ \Delta C_{7} = \frac{\alpha_s(\mu) C_F}{4\pi} \left( C_1(\mu) G_1(s_p)+ C_8(\mu) G_8\right) + \frac{\alpha_s(\mu_h) C_F}{4\pi} \left( C_1(\mu_h) H_1(s_p)+ C_8(\mu_h) H_8\right)\,, \]
+</p>
+<p> where the terms proportional to \(G_i\) are the ones describing the corrections where the spectator quark is connected to the hard process only through soft interactions, while the ones proportional to \(H_i\) (involving leading twist light-cone distributions) are the ones describing the corrections where the spectactor quark is involved in the hard process, and \(s=\frac{m_c^2}{m_b^2}\).</p>
+<p >The amplitude can be therefore parametrized in terms of the following helicity amplitudes: </p><p class="formulaDsp">
+\[ H_V^+ = \lambda_t \Big[- C_{7}&#39; {T}_{-} - \frac{m_M}{m_b} 8 \pi^2 h_\lambda \Big] \,, \\ H_V^- = \lambda_t \Big[ C_{7} T_{-} - \frac{m_M}{m_b} 8 \pi^2 h_\lambda \Big] \,. \]
+</p>
+<p >Squaring the amplitude and summing over the spins it is possible to obtain the Branching Ratio, which is </p><p class="formulaDsp">
+\[ BR = \frac {\alpha_e G_F^2 M_b^2 M_M \lambda}{(4\pi)^2 4 w_M} ( |H_V^+|^2 + |H_A^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_A^-|^2) \,. \]
+</p>
+<p >The class is build as follows: after the parameters are updated in <a class="el" href="../../de/dc7/class_m_vgamma.html#a487ac3f3900c5ff33992639c127a1141" title="The update parameter method for MVgamma.">updateParameters()</a> and the form factor \( T_1 \) is computed in T_1() following <b>[Straub:2015ica]</b>, the QCDF corrections to the Wilson coefficient \( C_7 \) is computed in the functions G1(), G8(), H1() and H8(). The helicity amplitudes \(H_V^{(+,-)},\overline{H}_V^{(+,-)}\) are build in H_V_p(), H_V_m(), H_V_p_bar() and H_V_m_bar(), in order to be further used to compute the observables. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d97/_m_vgamma_8h_source.html#l00143">143</a> of file <a class="el" href="../../db/d97/_m_vgamma_8h_source.html">MVgamma.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a859810c2fd7413e494255c2b939bd185"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/class_m_vgamma.html#a859810c2fd7413e494255c2b939bd185">initializeMVgammaParameters</a> ()</td></tr>
@@ -210,56 +259,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aea5b6cdd1b086e33d0c78aacf998600a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/class_m_vgamma.html#aea5b6cdd1b086e33d0c78aacf998600a">width</a></td></tr>
 <tr class="separator:aea5b6cdd1b086e33d0c78aacf998600a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for the \(M \to V \gamma\) decay. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class is used to compute all the functions needed in order to compute the observables relative to the \(M \to V \gamma\) decays, where \(M\) is a generic meson and \(V\) is a vector meson.</p>
-<p ><a class="anchor" id="MVllParameters"></a> </p><h3>MVll parameters</h3>
-<p >The mandatory parameters of MVll are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">a_0T1 </td><td class="mod_symb">\(a_0^{T_1}\) </td><td class="mod_desc">The fit parameters for the form factor \(T_1\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
-<tr>
-<td class="mod_name">a_0T1phi </td><td class="mod_symb">\(a_0^{T_1}\) </td><td class="mod_desc">The fit parameters for the form factor \(T_1\) of the \(B\to\phi\) at \(q^2=0\).  </td><td class="mod_name">absh_p </td><td class="mod_symb">\(\mathrm{Abs}h_+^{(0)}\) </td><td class="mod_desc">The constant term of the absolute value of the hadronic parameter \(h_+\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
-<tr>
-<td class="mod_name">argh_p </td><td class="mod_symb">\(\mathrm{Arg}h_+^{(0)}\) </td><td class="mod_desc">The constant term of the argument of the hadronic parameter \(h_+\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
-<tr>
-<td class="mod_name">absh_m </td><td class="mod_symb">\(\mathrm{Abs}h_-^{(0)}\) </td><td class="mod_desc">The constant term of the absolute value of the hadronic parameter \(h_-\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
-<tr>
-<td class="mod_name">argh_m </td><td class="mod_symb">\(\mathrm{Arg}h_-^{(0)}\) </td><td class="mod_desc">The constant term of the argument of the hadronic parameter \(h_-\) of the \(B\to K^*\) at \(q^2=0\).  </td></tr>
-</table>
-<p >This kind of decays can be described by means of the \(\Delta B = 1 \) weak effective Hamiltonian </p><p class="formulaDsp">
-\[ \mathcal{H}_\mathrm{eff}^{\Delta B = 1} = \mathcal{H}_\mathrm{eff}^\mathrm{had} + \mathcal{H}_\mathrm{eff}^\mathrm{\gamma}, \]
-</p>
-<p> where the first term is the hadronic contribution </p><p class="formulaDsp">
-\[ \mathcal{H}_\mathrm{eff}^\mathrm{had} = \frac{4G_F}{\sqrt{2}}\Bigg[\sum_{p=u,c}\lambda_p\bigg(C_1 Q^{p}_1 + C_2 Q^{p}_2\bigg) -\lambda_t \bigg(\sum_{i=3}^{6} C_i P_i + C_{8}Q_{8g} \bigg)\Bigg] \,, \]
-</p>
-<p> involving current-current, chromodynamic penguin and chromomagnetic dipole operators, while the second one, given by </p><p class="formulaDsp">
-\[ \mathcal{H}_\mathrm{eff}^\mathrm{\gamma} = - \frac{4G_F}{\sqrt{2}}\lambda_t C_7Q_{7\gamma} \,, \]
-</p>
-<p> includes the electromagnetic penguin operator.</p>
-<p >Considering the matrix element of \(\mathcal{H}_\mathrm{eff}^{\Delta B = 1}\) between the initial state \(M\) and the final state \(V \gamma\), only the contribution of \(\mathcal{H}_\mathrm{eff}^\mathrm{\gamma}\) clearly factorizes into the product of hadronic form factors and leptonic tensors at all orders in strong interactions. Following <b>[Jager:2012uw]</b>, we implemented the amplitude in the helicity basis; hence we made use of the helicity form factor \( T_-(0)\), which is related to the ones in the transverse basis through the following relation: </p><p class="formulaDsp">
-\[ T_{-}\left( q^{2}\right) = \frac{m_M^2 - m_V^2}{m_M^2}T_1\left( q^{2}\right)\,. \]
-</p>
-<p >The effect of the operators of \(\mathcal{H}_\mathrm{eff}^\mathrm{had}\) due to exchange of soft gluon can be reabsorbed in the following parameterization, </p><p class="formulaDsp">
-\[ h_\lambda(q^2) = \frac{\epsilon^*_\mu(\lambda)}{m_M^2} \int d^4x e^{iqx} \langle \bar V \vert T\{j^{\mu}_\mathrm{em} (x) \mathcal{H}_\mathrm{eff}^\mathrm{had} (0)\} \vert \bar M \rangle = h_\lambda^{(0)}\,, \]
-</p>
-<p> while the effect due to exchange of hard gluons can be parametrized following the prescription of <b>[Bosch:2001gv]</b> as a shift to the Wilson coefficient \(C_7\) : </p><p class="formulaDsp">
-\[ \Delta C_{7} = \frac{\alpha_s(\mu) C_F}{4\pi} \left( C_1(\mu) G_1(s_p)+ C_8(\mu) G_8\right) + \frac{\alpha_s(\mu_h) C_F}{4\pi} \left( C_1(\mu_h) H_1(s_p)+ C_8(\mu_h) H_8\right)\,, \]
-</p>
-<p> where the terms proportional to \(G_i\) are the ones describing the corrections where the spectator quark is connected to the hard process only through soft interactions, while the ones proportional to \(H_i\) (involving leading twist light-cone distributions) are the ones describing the corrections where the spectactor quark is involved in the hard process, and \(s=\frac{m_c^2}{m_b^2}\).</p>
-<p >The amplitude can be therefore parametrized in terms of the following helicity amplitudes: </p><p class="formulaDsp">
-\[ H_V^+ = \lambda_t \Big[- C_{7}&#39; {T}_{-} - \frac{m_M}{m_b} 8 \pi^2 h_\lambda \Big] \,, \\ H_V^- = \lambda_t \Big[ C_{7} T_{-} - \frac{m_M}{m_b} 8 \pi^2 h_\lambda \Big] \,. \]
-</p>
-<p >Squaring the amplitude and summing over the spins it is possible to obtain the Branching Ratio, which is </p><p class="formulaDsp">
-\[ BR = \frac {\alpha_e G_F^2 M_b^2 M_M \lambda}{(4\pi)^2 4 w_M} ( |H_V^+|^2 + |H_A^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_A^-|^2) \,. \]
-</p>
-<p >The class is build as follows: after the parameters are updated in <a class="el" href="../../de/dc7/class_m_vgamma.html#a487ac3f3900c5ff33992639c127a1141" title="The update parameter method for MVgamma.">updateParameters()</a> and the form factor \( T_1 \) is computed in T_1() following <b>[Straub:2015ica]</b>, the QCDF corrections to the Wilson coefficient \( C_7 \) is computed in the functions G1(), G8(), H1() and H8(). The helicity amplitudes \(H_V^{(+,-)},\overline{H}_V^{(+,-)}\) are build in H_V_p(), H_V_m(), H_V_p_bar() and H_V_m_bar(), in order to be further used to compute the observables. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../db/d97/_m_vgamma_8h_source.html#l00143">143</a> of file <a class="el" href="../../db/d97/_m_vgamma_8h_source.html">MVgamma.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="acae6db49504edbb09b78bb13c1e4bfff" name="acae6db49504edbb09b78bb13c1e4bfff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acae6db49504edbb09b78bb13c1e4bfff">&#9670;&nbsp;</a></span>MVgamma()</h2>
 

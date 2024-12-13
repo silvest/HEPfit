@@ -145,7 +145,54 @@ $(document).ready(function(){initNavTree('db/db3/class_n_p_higgs.html','../../')
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,98,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A model class for new physics in the form of an electroweak chiral Lagrangian with a light Higgs-like scalar. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class describing new physics models based on the electroweak chiral Lagrangian with a light neutral scalar \(h\). The effective Lagrangian expansion is truncated at the level of two-derivatives <b>[Contino:2010mh]</b>,</p>
+<p class="formulaDsp">
+\begin{eqnarray} {\cal L} &amp;=&amp; \frac {1}{2} (\partial_\mu h)^2 - V(h) + \frac{v^2}{4}\mathrm{Tr}(D_\mu \Sigma^\dagger D^\mu \Sigma) \left(1+2a\frac{h}{v}+b\frac{h^2}{v^2}+\cdots\right) \\ &amp;&amp; - \left[ m_{u,i}\overline{Q}_{L,i}\Sigma \left(\begin{array}{c}u_{R,i}\\0\end{array}\right)\left(1+c_u \frac{h}{v}+\cdots\right) + m_{d,i}\overline{Q}_{L,i}\Sigma \left(\begin{array}{c}0\\d_{R,i}\end{array}\right)\left(1+c_d \frac{h}{v}+\cdots\right) + m_{e,i}\overline{L}_{L,i}\Sigma \left(\begin{array}{c}0\\e_{R,i}\end{array}\right)\left(1+c_e \frac{h}{v}+\cdots\right) + \mathrm{h.c.} \right], \end{eqnarray}
+</p>
+<p> where \(V(h)\) is given by </p><p class="formulaDsp">
+\[ V(h) = \frac{m_h}{2}h^2 + \frac{d_3}{6}\left(\frac{3m_h^2}{v}\right)\,h^3 + \frac{d_4}{24}\left(\frac{3m_h^2}{v^2}\right)\,h^4 + \cdots\,. \]
+</p>
+<p >The SM corresponds to the choice \(a=b=c_u=c_d=c_e=d_3=d_4=1\). The dominant deviations from the SM in the electroweak precision observables are induced by the non-standard \(HVV\) coupling \(a\neq 1\). This generates extra contributions to the oblique parameters <b>[Barbieri:2007bh]</b> , </p><p class="formulaDsp">
+\begin{eqnarray} S &amp;=&amp; \frac{1}{12\pi} (1 - a^2) \ln\bigg(\frac{\Lambda^2}{m_h^2}\bigg)\,,\\ T &amp;=&amp; - \frac{3}{16\pi c_W^2} (1 - a^2) \ln\bigg(\frac{\Lambda^2}{m_h^2}\bigg)\,, \end{eqnarray}
+</p>
+<p> where \(\Lambda\) is the cutoff scale of the model.</p>
+<p ><a class="anchor" id="NPHiggsInitialization"></a></p><h3>Initialization</h3>
+<p >After creating an instance of the current class with the constructor <a class="el" href="../../db/db3/class_n_p_higgs.html#af8bda18cbe1d84291bfe82ebf142a11d" title="The default constructor.">NPHiggs()</a>, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
+<p ><a class="anchor" id="NPHiggsParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of NPHiggs are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">a  </td><td class="mod_symb">\(a \) </td><td class="mod_desc">The \(hVV\) coupling \(a\).   </td></tr>
+<tr>
+<td class="mod_name">b  </td><td class="mod_symb">\(b \) </td><td class="mod_desc">The \(hhVV\) coupling \(b\).   </td></tr>
+<tr>
+<td class="mod_name">c_u  </td><td class="mod_symb">\(c_u \) </td><td class="mod_desc">The \(h\overline{u}u\) coupling \(c_u\).   </td></tr>
+<tr>
+<td class="mod_name">c_d </td><td class="mod_symb">\(c_d \) </td><td class="mod_desc">The \(h\overline{d}d\) coupling \(c_d\).   </td></tr>
+<tr>
+<td class="mod_name">c_e  </td><td class="mod_symb">\(c_e \) </td><td class="mod_desc">The \(h\overline{e}e\) coupling \(c_e\).   </td></tr>
+<tr>
+<td class="mod_name">d_3  </td><td class="mod_symb">\(d_3\) </td><td class="mod_desc">The \(hhh\) coupling \(d_3\).   </td></tr>
+<tr>
+<td class="mod_name">d_4  </td><td class="mod_symb">\(d_4\) </td><td class="mod_desc">The \(hhhh\) coupling \(d_4\).   </td></tr>
+<tr>
+<td class="mod_name">LambdaNP </td><td class="mod_symb">\(\Lambda\) </td><td class="mod_desc">The cutoff scale of the effective Lagrangian. When the value of this parameter is set to 0 in model initialization, the cutoff scale is taken to be \(\Lambda = 4\pi v/\sqrt{|1-a^2|}\), where the \(W_LW_L\) scattering becomes non-perturbative.   </td></tr>
+</table>
+<p ><a class="anchor" id="NPHiggsFlags"></a></p><h3>Model flags</h3>
+<p >There is no model flag in the current class.</p>
+<p ><a class="anchor" id="NPHiggsFunctions"></a></p><h3>Important member functions</h3>
+<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
+<ul>
+<li>\(S\), \(T\) and \(U\)&#160;&#160; (with <a class="el" href="../../db/db3/class_n_p_higgs.html#a4a07576568273e76f23b80bc0bea0b03" title="The oblique parameter .">obliqueS()</a>, <a class="el" href="../../db/db3/class_n_p_higgs.html#a80a6710c40612b511632dad141c8417e" title="The oblique parameter .">obliqueT()</a> and <a class="el" href="../../db/db3/class_n_p_higgs.html#adfc8033dfe494afbbe85440da6ebd5cb" title="The oblique parameter .">obliqueU()</a>), </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/df8/_n_p_higgs_8h_source.html#l00142">142</a> of file <a class="el" href="../../d5/df8/_n_p_higgs_8h_source.html">NPHiggs.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abb186f76eca4702d2ea6befc7dbeaf9f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/db3/class_n_p_higgs.html#abb186f76eca4702d2ea6befc7dbeaf9f">CheckParameters</a> (const std::map&lt; std::string, double &gt; &amp;<a class="el" href="../../d2/d34/non_minimal_8cpp.html#a6e20bd060f27ea753274b52da14c0423">DPars</a>)</td></tr>
@@ -3517,54 +3564,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a83f641ad01d1965b44a555cfd868166c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for quarks.  <a href="../../dd/dfa/class_q_c_d.html#a83f641ad01d1965b44a555cfd868166c">More...</a><br /></td></tr>
 <tr class="separator:a83f641ad01d1965b44a555cfd868166c inherit pub_types_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A model class for new physics in the form of an electroweak chiral Lagrangian with a light Higgs-like scalar. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class describing new physics models based on the electroweak chiral Lagrangian with a light neutral scalar \(h\). The effective Lagrangian expansion is truncated at the level of two-derivatives <b>[Contino:2010mh]</b>,</p>
-<p class="formulaDsp">
-\begin{eqnarray} {\cal L} &amp;=&amp; \frac {1}{2} (\partial_\mu h)^2 - V(h) + \frac{v^2}{4}\mathrm{Tr}(D_\mu \Sigma^\dagger D^\mu \Sigma) \left(1+2a\frac{h}{v}+b\frac{h^2}{v^2}+\cdots\right) \\ &amp;&amp; - \left[ m_{u,i}\overline{Q}_{L,i}\Sigma \left(\begin{array}{c}u_{R,i}\\0\end{array}\right)\left(1+c_u \frac{h}{v}+\cdots\right) + m_{d,i}\overline{Q}_{L,i}\Sigma \left(\begin{array}{c}0\\d_{R,i}\end{array}\right)\left(1+c_d \frac{h}{v}+\cdots\right) + m_{e,i}\overline{L}_{L,i}\Sigma \left(\begin{array}{c}0\\e_{R,i}\end{array}\right)\left(1+c_e \frac{h}{v}+\cdots\right) + \mathrm{h.c.} \right], \end{eqnarray}
-</p>
-<p> where \(V(h)\) is given by </p><p class="formulaDsp">
-\[ V(h) = \frac{m_h}{2}h^2 + \frac{d_3}{6}\left(\frac{3m_h^2}{v}\right)\,h^3 + \frac{d_4}{24}\left(\frac{3m_h^2}{v^2}\right)\,h^4 + \cdots\,. \]
-</p>
-<p >The SM corresponds to the choice \(a=b=c_u=c_d=c_e=d_3=d_4=1\). The dominant deviations from the SM in the electroweak precision observables are induced by the non-standard \(HVV\) coupling \(a\neq 1\). This generates extra contributions to the oblique parameters <b>[Barbieri:2007bh]</b> , </p><p class="formulaDsp">
-\begin{eqnarray} S &amp;=&amp; \frac{1}{12\pi} (1 - a^2) \ln\bigg(\frac{\Lambda^2}{m_h^2}\bigg)\,,\\ T &amp;=&amp; - \frac{3}{16\pi c_W^2} (1 - a^2) \ln\bigg(\frac{\Lambda^2}{m_h^2}\bigg)\,, \end{eqnarray}
-</p>
-<p> where \(\Lambda\) is the cutoff scale of the model.</p>
-<p ><a class="anchor" id="NPHiggsInitialization"></a></p><h3>Initialization</h3>
-<p >After creating an instance of the current class with the constructor <a class="el" href="../../db/db3/class_n_p_higgs.html#af8bda18cbe1d84291bfe82ebf142a11d" title="The default constructor.">NPHiggs()</a>, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>. In the Monte Carlo run, the constructor as well as the initialization method are called in <a class="el" href="../../d1/df4/class_input_parser.html#aecab00bbcc47152c84d9656cc3d01f88" title="The member that parses the Observable2D directives from SomeModel.conf file.">InputParser::ReadParameters()</a>.</p>
-<p ><a class="anchor" id="NPHiggsParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of NPHiggs are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">a  </td><td class="mod_symb">\(a \) </td><td class="mod_desc">The \(hVV\) coupling \(a\).   </td></tr>
-<tr>
-<td class="mod_name">b  </td><td class="mod_symb">\(b \) </td><td class="mod_desc">The \(hhVV\) coupling \(b\).   </td></tr>
-<tr>
-<td class="mod_name">c_u  </td><td class="mod_symb">\(c_u \) </td><td class="mod_desc">The \(h\overline{u}u\) coupling \(c_u\).   </td></tr>
-<tr>
-<td class="mod_name">c_d </td><td class="mod_symb">\(c_d \) </td><td class="mod_desc">The \(h\overline{d}d\) coupling \(c_d\).   </td></tr>
-<tr>
-<td class="mod_name">c_e  </td><td class="mod_symb">\(c_e \) </td><td class="mod_desc">The \(h\overline{e}e\) coupling \(c_e\).   </td></tr>
-<tr>
-<td class="mod_name">d_3  </td><td class="mod_symb">\(d_3\) </td><td class="mod_desc">The \(hhh\) coupling \(d_3\).   </td></tr>
-<tr>
-<td class="mod_name">d_4  </td><td class="mod_symb">\(d_4\) </td><td class="mod_desc">The \(hhhh\) coupling \(d_4\).   </td></tr>
-<tr>
-<td class="mod_name">LambdaNP </td><td class="mod_symb">\(\Lambda\) </td><td class="mod_desc">The cutoff scale of the effective Lagrangian. When the value of this parameter is set to 0 in model initialization, the cutoff scale is taken to be \(\Lambda = 4\pi v/\sqrt{|1-a^2|}\), where the \(W_LW_L\) scattering becomes non-perturbative.   </td></tr>
-</table>
-<p ><a class="anchor" id="NPHiggsFlags"></a></p><h3>Model flags</h3>
-<p >There is no model flag in the current class.</p>
-<p ><a class="anchor" id="NPHiggsFunctions"></a></p><h3>Important member functions</h3>
-<p >Compared to the base class <a class="el" href="../../d2/df3/class_n_pbase.html" title="The auxiliary base model class for other model classes.">NPbase</a>, the functions for the following quantities are reimplemented in the current class:</p>
-<ul>
-<li>\(S\), \(T\) and \(U\)&#160;&#160; (with <a class="el" href="../../db/db3/class_n_p_higgs.html#a4a07576568273e76f23b80bc0bea0b03" title="The oblique parameter .">obliqueS()</a>, <a class="el" href="../../db/db3/class_n_p_higgs.html#a80a6710c40612b511632dad141c8417e" title="The oblique parameter .">obliqueT()</a> and <a class="el" href="../../db/db3/class_n_p_higgs.html#adfc8033dfe494afbbe85440da6ebd5cb" title="The oblique parameter .">obliqueU()</a>), </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="../../d5/df8/_n_p_higgs_8h_source.html#l00142">142</a> of file <a class="el" href="../../d5/df8/_n_p_higgs_8h_source.html">NPHiggs.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af8bda18cbe1d84291bfe82ebf142a11d" name="af8bda18cbe1d84291bfe82ebf142a11d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af8bda18cbe1d84291bfe82ebf142a11d">&#9670;&nbsp;</a></span>NPHiggs()</h2>
 

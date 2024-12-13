@@ -146,7 +146,76 @@ $(document).ready(function(){initNavTree('df/d15/class_higgs_kigen.html','../../
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,98,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A model class extending the StandardModel Higgs sector with seven flavour-universal couplings. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing parameters and functions associated to rescaling the Higgs decay into vector bosons ( \(\kappa_W,\kappa_Z\)), gluons ( \(\kappa_g\)), photons ( \(\kappa_\gamma\)), Z and photons ( \(\kappa_{Z\gamma}\)) and fermions ( \(\kappa_{u,c,t}, \kappa_{d,s,b}, \kappa_{e\mu\tau}\)) (as well as the corresponding production mechanisms) with respect to the StandardModel. The possibility of extra decay width is also parametrized independently by Br \((H\to invisible)\) and Br \((H\to exotic)\). This class inherits from the NPbase class, which defines parameters related to generic extensions of the StandardModel Higgs sector.</p>
+<p ><a class="anchor" id="HiggsKigenInitialization"></a></p><h3>Initialization</h3>
+<p >After creating an instance of the current class, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>, which is needed by the base class.</p>
+<p >The initializations and updates of the model parameters are explained below.</p>
+<p ><a class="anchor" id="HiggsKigenParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of HiggsKigen (in addition to the StandardModel ones) are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">Kw </td><td class="mod_symb">\(\kappa_W\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the W vector bosons with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Kz </td><td class="mod_symb">\(\kappa_Z\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the Z vector bosons with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Kg </td><td class="mod_symb">\(\kappa_g\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to gluons with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Kga </td><td class="mod_symb">\(\kappa_ga\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to photons with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Kzga </td><td class="mod_symb">\(\kappa_{zga}\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the Z and a photon with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Ku </td><td class="mod_symb">\(\kappa_u\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the up quark with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Kc </td><td class="mod_symb">\(\kappa_c\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the charm quark with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Kt </td><td class="mod_symb">\(\kappa_t\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the top quark with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Kd </td><td class="mod_symb">\(\kappa_d\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the down quark with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Ks </td><td class="mod_symb">\(\kappa_s\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the strange quark with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Kb </td><td class="mod_symb">\(\kappa_b\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the bottom quark with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Ke </td><td class="mod_symb">\(\kappa_e\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to electrons with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Kmu </td><td class="mod_symb">\(\kappa_\mu\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to muons with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">Ktau </td><td class="mod_symb">\(\kappa_\tau\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to taus with respect to the SM.  </td></tr>
+<tr>
+<td class="mod_name">KH </td><td class="mod_symb">\(\kappa_H\) </td><td class="mod_desc">The factor rescaling the Higgs total width with respect to the SM. (Only applies when flag UseKH is true. )  </td></tr>
+<tr>
+<td class="mod_name">BrHinv </td><td class="mod_symb">Br \((H\to invisible)\) </td><td class="mod_desc">The branching ratio of invisible Higgs decays. Only the absolute value of this parameter is considered.   </td></tr>
+<tr>
+<td class="mod_name">BrHexo </td><td class="mod_symb">Br \((H\to exotic (visible))\) </td><td class="mod_desc">The branching ratio of exotic, not invisible, Higgs decays. Only the absolute value of this parameter is considered. (If flag UseKH is true this parameter is ignored and it is recomputed as a function of KH. )  </td></tr>
+<tr>
+<td class="mod_name">eXint  </td><td class="mod_symb">\(\varepsilon_{X}^{int}\) </td><td class="mod_desc">The relative intrinsic theoretical uncertainty for the process X. (Only for Higgs observables and assumed to be constant in the energy.)  </td></tr>
+<tr>
+<td class="mod_name">eXpar  </td><td class="mod_symb">\(\varepsilon_{X}^{par}\) </td><td class="mod_desc">The relative parametric theoretical uncertainty for the process X. (Only for Higgs observables and assumed to be constant in the energy.)  </td></tr>
+</table>
+<p ><a class="anchor" id="HiggsKigenFlags"></a></p><h3>Model flags</h3>
+<p >The Flags of <a class="el" href="../../df/d15/class_higgs_kigen.html" title="A model class extending the StandardModel Higgs sector with seven flavour-universal couplings.">HiggsKigen</a> are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>Value </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">KiLoop </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if independent kappa's are used for the loop induced processes (g,ga,Zga). The default value is TRUE.  </td></tr>
+<tr>
+<td class="mod_name">Custodial </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if KZ=KW is assumed. The default value is FALSE.  </td></tr>
+<tr>
+<td class="mod_name">UniversalKf </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if all Kf are assumed to take the same universal value. The value is controlled by the parameter Kt. The default value is FALSE.  </td></tr>
+<tr>
+<td class="mod_name">UniversalK </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if all K are assumed to take the same universal value. The value is controlled by the parameter Kt. (It does not apply to the extra BR.) The default value is FALSE.  </td></tr>
+<tr>
+<td class="mod_name">UseKH </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if the total Higgs width is rescaled by KH. Otherwise, it is computed from the other SM decays, BrHinv and BrHexo. (If true BrHexo is ignored and computed from KH.) The default value is FALSE.  </td></tr>
+</table>
+<p >Please read information about parameter initialization and update in the documentation of the StandardModel class. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d7c/_higgs_kigen_8h_source.html#l00198">198</a> of file <a class="el" href="../../d7/d7c/_higgs_kigen_8h_source.html">HiggsKigen.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f0771d303cf6b70f0e1a3359fa47091"><td class="memItemLeft" align="right" valign="top">virtual const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d15/class_higgs_kigen.html#a4f0771d303cf6b70f0e1a3359fa47091">Br_H_exo</a> () const</td></tr>
@@ -4069,76 +4138,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:ab8f934941f91e2b741307d751e28bde7 inherit pro_attribs_class_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">A boolean set to false if update is successful.  <a href="../../d0/de3/class_model.html#ab8f934941f91e2b741307d751e28bde7">More...</a><br /></td></tr>
 <tr class="separator:ab8f934941f91e2b741307d751e28bde7 inherit pro_attribs_class_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A model class extending the StandardModel Higgs sector with seven flavour-universal couplings. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This is a <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> class containing parameters and functions associated to rescaling the Higgs decay into vector bosons ( \(\kappa_W,\kappa_Z\)), gluons ( \(\kappa_g\)), photons ( \(\kappa_\gamma\)), Z and photons ( \(\kappa_{Z\gamma}\)) and fermions ( \(\kappa_{u,c,t}, \kappa_{d,s,b}, \kappa_{e\mu\tau}\)) (as well as the corresponding production mechanisms) with respect to the StandardModel. The possibility of extra decay width is also parametrized independently by Br \((H\to invisible)\) and Br \((H\to exotic)\). This class inherits from the NPbase class, which defines parameters related to generic extensions of the StandardModel Higgs sector.</p>
-<p ><a class="anchor" id="HiggsKigenInitialization"></a></p><h3>Initialization</h3>
-<p >After creating an instance of the current class, it is required to call the initialization method <a class="el" href="../../dc/dd5/class_standard_model.html#af9ea160a84bc8546bac66cdac635cb98" title="A method to initialize the model.">InitializeModel()</a>, which is needed by the base class.</p>
-<p >The initializations and updates of the model parameters are explained below.</p>
-<p ><a class="anchor" id="HiggsKigenParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of HiggsKigen (in addition to the StandardModel ones) are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">Kw </td><td class="mod_symb">\(\kappa_W\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the W vector bosons with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Kz </td><td class="mod_symb">\(\kappa_Z\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the Z vector bosons with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Kg </td><td class="mod_symb">\(\kappa_g\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to gluons with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Kga </td><td class="mod_symb">\(\kappa_ga\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to photons with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Kzga </td><td class="mod_symb">\(\kappa_{zga}\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the Z and a photon with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Ku </td><td class="mod_symb">\(\kappa_u\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the up quark with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Kc </td><td class="mod_symb">\(\kappa_c\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the charm quark with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Kt </td><td class="mod_symb">\(\kappa_t\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the top quark with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Kd </td><td class="mod_symb">\(\kappa_d\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the down quark with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Ks </td><td class="mod_symb">\(\kappa_s\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the strange quark with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Kb </td><td class="mod_symb">\(\kappa_b\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to the bottom quark with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Ke </td><td class="mod_symb">\(\kappa_e\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to electrons with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Kmu </td><td class="mod_symb">\(\kappa_\mu\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to muons with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">Ktau </td><td class="mod_symb">\(\kappa_\tau\) </td><td class="mod_desc">The factor rescaling all Higgs couplings to taus with respect to the SM.  </td></tr>
-<tr>
-<td class="mod_name">KH </td><td class="mod_symb">\(\kappa_H\) </td><td class="mod_desc">The factor rescaling the Higgs total width with respect to the SM. (Only applies when flag UseKH is true. )  </td></tr>
-<tr>
-<td class="mod_name">BrHinv </td><td class="mod_symb">Br \((H\to invisible)\) </td><td class="mod_desc">The branching ratio of invisible Higgs decays. Only the absolute value of this parameter is considered.   </td></tr>
-<tr>
-<td class="mod_name">BrHexo </td><td class="mod_symb">Br \((H\to exotic (visible))\) </td><td class="mod_desc">The branching ratio of exotic, not invisible, Higgs decays. Only the absolute value of this parameter is considered. (If flag UseKH is true this parameter is ignored and it is recomputed as a function of KH. )  </td></tr>
-<tr>
-<td class="mod_name">eXint  </td><td class="mod_symb">\(\varepsilon_{X}^{int}\) </td><td class="mod_desc">The relative intrinsic theoretical uncertainty for the process X. (Only for Higgs observables and assumed to be constant in the energy.)  </td></tr>
-<tr>
-<td class="mod_name">eXpar  </td><td class="mod_symb">\(\varepsilon_{X}^{par}\) </td><td class="mod_desc">The relative parametric theoretical uncertainty for the process X. (Only for Higgs observables and assumed to be constant in the energy.)  </td></tr>
-</table>
-<p ><a class="anchor" id="HiggsKigenFlags"></a></p><h3>Model flags</h3>
-<p >The Flags of <a class="el" href="../../df/d15/class_higgs_kigen.html" title="A model class extending the StandardModel Higgs sector with seven flavour-universal couplings.">HiggsKigen</a> are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>Value </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">KiLoop </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if independent kappa's are used for the loop induced processes (g,ga,Zga). The default value is TRUE.  </td></tr>
-<tr>
-<td class="mod_name">Custodial </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if KZ=KW is assumed. The default value is FALSE.  </td></tr>
-<tr>
-<td class="mod_name">UniversalKf </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if all Kf are assumed to take the same universal value. The value is controlled by the parameter Kt. The default value is FALSE.  </td></tr>
-<tr>
-<td class="mod_name">UniversalK </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if all K are assumed to take the same universal value. The value is controlled by the parameter Kt. (It does not apply to the extra BR.) The default value is FALSE.  </td></tr>
-<tr>
-<td class="mod_name">UseKH </td><td class="mod_valu">TRUE&#160;/&#160;<b>FALSE</b> </td><td class="mod_desc">This flag is set to TRUE if the total Higgs width is rescaled by KH. Otherwise, it is computed from the other SM decays, BrHinv and BrHexo. (If true BrHexo is ignored and computed from KH.) The default value is FALSE.  </td></tr>
-</table>
-<p >Please read information about parameter initialization and update in the documentation of the StandardModel class. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d7c/_higgs_kigen_8h_source.html#l00198">198</a> of file <a class="el" href="../../d7/d7c/_higgs_kigen_8h_source.html">HiggsKigen.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3a89bb8e8e92ee623408c5d369a6a071" name="a3a89bb8e8e92ee623408c5d369a6a071"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a89bb8e8e92ee623408c5d369a6a071">&#9670;&nbsp;</a></span>HiggsKigen()</h2>
 

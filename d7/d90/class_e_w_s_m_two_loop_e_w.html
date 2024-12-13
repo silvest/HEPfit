@@ -130,7 +130,28 @@ $(document).ready(function(){initNavTree('d7/d90/class_e_w_s_m_two_loop_e_w.html
  <a href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d1/dd4/_e_w_s_m_two_loop_e_w_8h_source.html">EWSMTwoLoopEW.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >A class for \(O(\alpha^2)\) two-loop corrections to the EW precision observables. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p>This class handles two-loop EW contributions of \(O(\alpha^2)\) to the following quantities, which are relevant to the EW precision observables:</p>
+<ul>
+<li>\(\Delta\alpha_{\mathrm{lept}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#acf841f4ee0fcd847b45bd0e928556e87" title="Leptonic contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_l()</a>), </li>
+<li>\(\Delta\alpha_{\mathrm{top}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#a692661f4af840fb5f4d4931273055f74" title="Top-quark contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_t()</a>), </li>
+<li>\(\Delta\rho\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#a4ebc4ebea19e12bd865deecfc790c741" title="Leading two-loop contribution of  to , denoted as .">DeltaRho()</a>), </li>
+<li>\(\Delta r_{\mathrm{rem}}\)&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#add3322aeb0778ee8b7b847837c05646e" title="Remainder contribution of  to , denoted as .">DeltaR_rem()</a>), </li>
+<li>\(\delta\rho_{\mathrm{rem}}^{f}\)&#160;&#160; (with deltaRho_rem_l() and deltaRho_rem_q()), </li>
+<li>\(\delta\kappa_{\mathrm{rem}}^{f}\)&#160;&#160; (with deltaKappa_rem_l() and deltaKappa_rem_q()),</li>
+</ul>
+<p>and the \(O(\alpha^2)\) corrections to \(\Delta\rho\) and to \(Zb\bar{b}\):</p>
+<ul>
+<li>\(\rho^{(2)}\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#ad5eb42ca355de71c4b87c7e8d06d66f6" title="The function .">rho_2()</a>), </li>
+<li>\(\tau^{(2)}\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#a90094bc6471ac885a2d48a28f4d90721" title="The function .">tau_2()</a>).</li>
+</ul>
+<p>See also the description of EWSM class for their definitions. The \(O(\alpha^2)\) two-loop EW contributions to the vacuum polarization amplitudes of the gauge bosons were calculated in <b>[Barbieri:1992nz]</b>, <b>[Barbieri:1992dq]</b>, <b>[Fleischer:1993ub]</b>, <b>[Fleischer:1994cb]</b>, <b>[Degrassi:1996mg]</b>, <b>[Degrassi:1996ps]</b> and <b>[Degrassi:1999jd]</b> with large- \(m_t\) expansion. In the current class, the \(O(\alpha^2(m_t^4/m_Z^4 + m_t^2/M_Z^2))\) corrections to \(\Delta\rho\), \(\Delta r_{\mathrm{rem}}\), \(\delta\rho_{\mathrm{rem}}^{f}\) and \(\delta\kappa_{\mathrm{rem}}^{f}\) and the \(O(\alpha^2 m_t^4/M_Z^4)\) corrections to \(Zb\bar{b}\), denoted by \(\rho^{(2)}\) and \(\tau^{(2)}\), are computed with the auxiliary functions defined as private members. In <b>[Degrassi:1996mg]</b>, the former corrections were calculated in the MSbar scheme in order to undertake resummations correctly. In subsequent papers <b>[Degrassi:1996ps]</b> and <b>[Degrassi:1999jd]</b>, the resultant two-loop contributions were rewritten in terms of parameters in the on-shell scheme by taking into account additional contributions, which correspond to the member functions with the word "Add". </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/dd4/_e_w_s_m_two_loop_e_w_8h_source.html#l00057">57</a> of file <a class="el" href="../../d1/dd4/_e_w_s_m_two_loop_e_w_8h_source.html">EWSMTwoLoopEW.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:acf841f4ee0fcd847b45bd0e928556e87"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#acf841f4ee0fcd847b45bd0e928556e87">DeltaAlpha_l</a> (const double <a class="el" href="../../d0/d4a/classs.html">s</a>) const</td></tr>
@@ -236,28 +257,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a8c5f9e1331de3af3fe0185f77973eb1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">An object of type <a class="el" href="../../d1/dfc/class_e_w_s_m_one_loop_e_w.html" title="A class for  one-loop corrections to the EW precision observables.">EWSMOneLoopEW</a>.  <a href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#a8c5f9e1331de3af3fe0185f77973eb1f">More...</a><br /></td></tr>
 <tr class="separator:a8c5f9e1331de3af3fe0185f77973eb1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A class for \(O(\alpha^2)\) two-loop corrections to the EW precision observables. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class handles two-loop EW contributions of \(O(\alpha^2)\) to the following quantities, which are relevant to the EW precision observables:</p>
-<ul>
-<li>\(\Delta\alpha_{\mathrm{lept}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#acf841f4ee0fcd847b45bd0e928556e87" title="Leptonic contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_l()</a>), </li>
-<li>\(\Delta\alpha_{\mathrm{top}}(M_Z^2)\)&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#a692661f4af840fb5f4d4931273055f74" title="Top-quark contribution of  to the electromagnetic coupling , denoted as .">DeltaAlpha_t()</a>), </li>
-<li>\(\Delta\rho\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#a4ebc4ebea19e12bd865deecfc790c741" title="Leading two-loop contribution of  to , denoted as .">DeltaRho()</a>), </li>
-<li>\(\Delta r_{\mathrm{rem}}\)&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#add3322aeb0778ee8b7b847837c05646e" title="Remainder contribution of  to , denoted as .">DeltaR_rem()</a>), </li>
-<li>\(\delta\rho_{\mathrm{rem}}^{f}\)&#160;&#160; (with deltaRho_rem_l() and deltaRho_rem_q()), </li>
-<li>\(\delta\kappa_{\mathrm{rem}}^{f}\)&#160;&#160; (with deltaKappa_rem_l() and deltaKappa_rem_q()),</li>
-</ul>
-<p>and the \(O(\alpha^2)\) corrections to \(\Delta\rho\) and to \(Zb\bar{b}\):</p>
-<ul>
-<li>\(\rho^{(2)}\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#ad5eb42ca355de71c4b87c7e8d06d66f6" title="The function .">rho_2()</a>), </li>
-<li>\(\tau^{(2)}\)&#160;&#160;&#160;&#160;&#160;&#160; (with <a class="el" href="../../d7/d90/class_e_w_s_m_two_loop_e_w.html#a90094bc6471ac885a2d48a28f4d90721" title="The function .">tau_2()</a>).</li>
-</ul>
-<p>See also the description of EWSM class for their definitions. The \(O(\alpha^2)\) two-loop EW contributions to the vacuum polarization amplitudes of the gauge bosons were calculated in <b>[Barbieri:1992nz]</b>, <b>[Barbieri:1992dq]</b>, <b>[Fleischer:1993ub]</b>, <b>[Fleischer:1994cb]</b>, <b>[Degrassi:1996mg]</b>, <b>[Degrassi:1996ps]</b> and <b>[Degrassi:1999jd]</b> with large- \(m_t\) expansion. In the current class, the \(O(\alpha^2(m_t^4/m_Z^4 + m_t^2/M_Z^2))\) corrections to \(\Delta\rho\), \(\Delta r_{\mathrm{rem}}\), \(\delta\rho_{\mathrm{rem}}^{f}\) and \(\delta\kappa_{\mathrm{rem}}^{f}\) and the \(O(\alpha^2 m_t^4/M_Z^4)\) corrections to \(Zb\bar{b}\), denoted by \(\rho^{(2)}\) and \(\tau^{(2)}\), are computed with the auxiliary functions defined as private members. In <b>[Degrassi:1996mg]</b>, the former corrections were calculated in the MSbar scheme in order to undertake resummations correctly. In subsequent papers <b>[Degrassi:1996ps]</b> and <b>[Degrassi:1999jd]</b>, the resultant two-loop contributions were rewritten in terms of parameters in the on-shell scheme by taking into account additional contributions, which correspond to the member functions with the word "Add". </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d1/dd4/_e_w_s_m_two_loop_e_w_8h_source.html#l00057">57</a> of file <a class="el" href="../../d1/dd4/_e_w_s_m_two_loop_e_w_8h_source.html">EWSMTwoLoopEW.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac57c80487f47595920c7b6cda8824312" name="ac57c80487f47595920c7b6cda8824312"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac57c80487f47595920c7b6cda8824312">&#9670;&nbsp;</a></span>EWSMTwoLoopEW()</h2>
 

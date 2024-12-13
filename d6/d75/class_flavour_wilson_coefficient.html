@@ -145,7 +145,36 @@ $(document).ready(function(){initNavTree('d6/d75/class_flavour_wilson_coefficien
 <area href="../../d0/de3/class_model.html" title="A class for the template of models." alt="Model" shape="rect" coords="0,0,154,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Model for NP contributions to flavour through shifts to Standard Model Wilson coefficients. </p>
+<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
+<p><a class="anchor" id="FlavourWilsonCoefficientParameters"></a></p><h3>Model parameters</h3>
+<p >The model parameters of FlavourWilsonCoefficient model are summarized below: </p><table class="model">
+<tr>
+<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
+<tr>
+<td class="mod_name">reDC1 - reDC10 </td><td class="mod_symb">\( \mathcal{R}(\Delta C_i), (i=1,\ldots,10) \) </td><td class="mod_desc">The real part of \( \Delta C_i, (i=1,\ldots,10) \). (1-4) are current-current operators, (5-8) are electroweak penguin operators (9-10) are semileptonic operators.  </td></tr>
+<tr>
+<td class="mod_name">imDC1 - imDC10 </td><td class="mod_symb">\( \mathcal{I}(\Delta C_i), (i=1,\ldots,10) \) </td><td class="mod_desc">The imaginary part of \( \Delta C_i, (i=1,\ldots,10) \). (1-4) are current-current operators, (5-8) are electroweak penguin operators (9-10) are semileptonic operators.  </td></tr>
+<tr>
+<td class="mod_name">reDC7g - reDC8g </td><td class="mod_symb">\( \mathcal{R}(\Delta C_i), (i=7g, 8g) \) </td><td class="mod_desc">The real part of \( \Delta C_i, (i=7g,8g) \), 7g being the electric dipole operator and 8g being the chromomagnetic dipole operator.  </td></tr>
+<tr>
+<td class="mod_name">imDC7g - imDC8g </td><td class="mod_symb">\( \mathcal{I}(\Delta C_i), (i=7g, 8g) \) </td><td class="mod_desc">The imaginary part of \( \Delta C_i, (i=7g,8g) \), 7g being the electric dipole operator and 8g being the chromomagnetic dipole operator.  </td></tr>
+<tr>
+<td class="mod_name">reDC7p - reDC10p </td><td class="mod_symb">\( \mathcal{R}(\Delta C_i^\prime), (i=7,\ldots,10) \) </td><td class="mod_desc">The real part of \( \Delta C_i^\prime, (i=1,\ldots,10) \) which are the chirality flipped primed operators.  </td></tr>
+<tr>
+<td class="mod_name">imDC7p - imDC10p </td><td class="mod_symb">\( \mathcal{I}(\Delta C_i^\prime), (i=7,\ldots,10) \) </td><td class="mod_desc">The imaginary part of \( \Delta C_i^\prime, (i=1,\ldots,10) \) which are the chirality flipped primed operators.  </td></tr>
+<tr>
+<td class="mod_name">reDC7gp - reDC8gp </td><td class="mod_symb">\( \mathcal{R}(\Delta C_i^\prime), (i=7g, 8g) \) </td><td class="mod_desc">The real part of \( \Delta C_i^\prime, (i=7g,8g) \) which are the chirality flipped primed operators.  </td></tr>
+<tr>
+<td class="mod_name">imDC7gp - imDC8gp </td><td class="mod_symb">\( \mathcal{I}(\Delta C_i^\prime), (i=7g, 8g) \) </td><td class="mod_desc">The imaginary part of \( \Delta C_i^\prime, (i=7g,8g) \), which are the chirality flipped primed operators.  </td></tr>
+<tr>
+<td class="mod_name">WCscale </td><td class="mod_symb">\( \mu_{matching} \) </td><td class="mod_desc">The <a class="el" href="../../d5/d76/class_matching.html">Matching</a> scale of the Wilson coefficients  </td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/dbd/_flavour_wilson_coefficient_8h_source.html#l00094">94</a> of file <a class="el" href="../../dc/dbd/_flavour_wilson_coefficient_8h_source.html">FlavourWilsonCoefficient.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ada59209a31ffc6714dcfd831660a2388"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d75/class_flavour_wilson_coefficient.html#ada59209a31ffc6714dcfd831660a2388">CheckParameters</a> (const std::map&lt; std::string, double &gt; &amp;<a class="el" href="../../d2/d34/non_minimal_8cpp.html#a6e20bd060f27ea753274b52da14c0423">DPars</a>)</td></tr>
@@ -2141,36 +2170,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a83f641ad01d1965b44a555cfd868166c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum type for quarks.  <a href="../../dd/dfa/class_q_c_d.html#a83f641ad01d1965b44a555cfd868166c">More...</a><br /></td></tr>
 <tr class="separator:a83f641ad01d1965b44a555cfd868166c inherit pub_types_class_q_c_d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Model for NP contributions to flavour through shifts to Standard Model Wilson coefficients. </p>
-<dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p><a class="anchor" id="FlavourWilsonCoefficientParameters"></a></p><h3>Model parameters</h3>
-<p >The model parameters of FlavourWilsonCoefficient model are summarized below: </p><table class="model">
-<tr>
-<th>Label </th><th>LaTeX symbol </th><th>Description  </th></tr>
-<tr>
-<td class="mod_name">reDC1 - reDC10 </td><td class="mod_symb">\( \mathcal{R}(\Delta C_i), (i=1,\ldots,10) \) </td><td class="mod_desc">The real part of \( \Delta C_i, (i=1,\ldots,10) \). (1-4) are current-current operators, (5-8) are electroweak penguin operators (9-10) are semileptonic operators.  </td></tr>
-<tr>
-<td class="mod_name">imDC1 - imDC10 </td><td class="mod_symb">\( \mathcal{I}(\Delta C_i), (i=1,\ldots,10) \) </td><td class="mod_desc">The imaginary part of \( \Delta C_i, (i=1,\ldots,10) \). (1-4) are current-current operators, (5-8) are electroweak penguin operators (9-10) are semileptonic operators.  </td></tr>
-<tr>
-<td class="mod_name">reDC7g - reDC8g </td><td class="mod_symb">\( \mathcal{R}(\Delta C_i), (i=7g, 8g) \) </td><td class="mod_desc">The real part of \( \Delta C_i, (i=7g,8g) \), 7g being the electric dipole operator and 8g being the chromomagnetic dipole operator.  </td></tr>
-<tr>
-<td class="mod_name">imDC7g - imDC8g </td><td class="mod_symb">\( \mathcal{I}(\Delta C_i), (i=7g, 8g) \) </td><td class="mod_desc">The imaginary part of \( \Delta C_i, (i=7g,8g) \), 7g being the electric dipole operator and 8g being the chromomagnetic dipole operator.  </td></tr>
-<tr>
-<td class="mod_name">reDC7p - reDC10p </td><td class="mod_symb">\( \mathcal{R}(\Delta C_i^\prime), (i=7,\ldots,10) \) </td><td class="mod_desc">The real part of \( \Delta C_i^\prime, (i=1,\ldots,10) \) which are the chirality flipped primed operators.  </td></tr>
-<tr>
-<td class="mod_name">imDC7p - imDC10p </td><td class="mod_symb">\( \mathcal{I}(\Delta C_i^\prime), (i=7,\ldots,10) \) </td><td class="mod_desc">The imaginary part of \( \Delta C_i^\prime, (i=1,\ldots,10) \) which are the chirality flipped primed operators.  </td></tr>
-<tr>
-<td class="mod_name">reDC7gp - reDC8gp </td><td class="mod_symb">\( \mathcal{R}(\Delta C_i^\prime), (i=7g, 8g) \) </td><td class="mod_desc">The real part of \( \Delta C_i^\prime, (i=7g,8g) \) which are the chirality flipped primed operators.  </td></tr>
-<tr>
-<td class="mod_name">imDC7gp - imDC8gp </td><td class="mod_symb">\( \mathcal{I}(\Delta C_i^\prime), (i=7g, 8g) \) </td><td class="mod_desc">The imaginary part of \( \Delta C_i^\prime, (i=7g,8g) \), which are the chirality flipped primed operators.  </td></tr>
-<tr>
-<td class="mod_name">WCscale </td><td class="mod_symb">\( \mu_{matching} \) </td><td class="mod_desc">The <a class="el" href="../../d5/d76/class_matching.html">Matching</a> scale of the Wilson coefficients  </td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="../../dc/dbd/_flavour_wilson_coefficient_8h_source.html#l00094">94</a> of file <a class="el" href="../../dc/dbd/_flavour_wilson_coefficient_8h_source.html">FlavourWilsonCoefficient.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1fd5081617111db0bd6b25635d8ba2e2" name="a1fd5081617111db0bd6b25635d8ba2e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fd5081617111db0bd6b25635d8ba2e2">&#9670;&nbsp;</a></span>FlavourWilsonCoefficient()</h2>
 
