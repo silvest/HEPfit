@@ -17,13 +17,20 @@ jobs:
         with:
           # Doxygen configuration file path
           doxygenconf: ./Doxygen/Doxyfile-master
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        with:
+          path: docs/
+
+  # Deployment job
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: GetCode
-        uses: actions/checkout@v3
-      - name: PublishDocs
-        uses: actions/upload-artifact@v2
-        with:
-          name: docs      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
