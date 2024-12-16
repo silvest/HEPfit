@@ -8475,14 +8475,14 @@ bool NPSMEFTd6General::PostUpdate() {
     double delta_vT = getDelta_v();
     double vTosq2 = vT / sqrt(2.);
 
-    // Let us first define the full mass matrices, including the effect of dimension six operators in both running and matching
+    // Let us first define the full mass matrices, including the effect of dimension six operators
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
-            MUQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) + getSMEFTCoeffEW("dYuR", i, j) - getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
-            MUQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) + getSMEFTCoeffEW("dYuI", i, j) - getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
-            MDQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) + getSMEFTCoeffEW("dYdR", i, j) - getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
-            MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) + getSMEFTCoeffEW("dYdI", i, j) - getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
+            MUQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
+            MUQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
+            MDQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
+            MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
         }
 
     gslpp::vector<double> mmu(3), mmd(3);
@@ -8576,9 +8576,6 @@ bool NPSMEFTd6General::PostUpdate() {
 
     if (!NPbase::PostUpdate()) return (false);
     if (!trueSM.PostUpdate()) return (false);
-    trueSM.setYu(Yu);
-    trueSM.setYd(Yd);
-    trueSM.setYe(Ye);
 
     //  NP corrections to Total Higgs width
     dGammaHTotR1 = deltaGammaTotalRatio1();
