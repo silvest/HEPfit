@@ -3151,7 +3151,8 @@ int NPSMEFTd6::OutputOrder() const //AG:added
     // 1 Linear
     // 2 Linear + Quadratic
     // 3 Quadratic
-    return -1;
+    //return -1;
+    return 1;
 }
 
 bool NPSMEFTd6::hatCis() const //AG:added
@@ -25272,11 +25273,48 @@ const double NPSMEFTd6::AuxObs_NP23() const
 
 }
 
-const double NPSMEFTd6::AuxObs_NP24() const
-{
-    // To be used for some temporary observable
-    return 0.0;
-
+const double NPSMEFTd6::AuxObs_NP24() const {
+    // 10 TeV Muon Collider: combination of diboson and difermion (assuming universality for the moment
+    // Will need update
+    double chi2diBoson;
+    double chi2diLepton, chi2diJet;
+    
+    double cHe22, cHl122, cHl322;
+    double cee, cle, cll;
+    double ced, ceu, clu, cld, clq1, clq3, cqe;
+    
+    cHe22 = CHe_22 / LambdaNP2;
+    cHl122 = CHL1_22 / LambdaNP2;
+    cHl322 = CHL3_22 / LambdaNP2;
+    
+    cee = Cee_1122 / LambdaNP2;
+    cle = CLe_1122 / LambdaNP2;
+    cll = 0.5 * ( CLL_1122 + CLL_1221 )/ LambdaNP2;
+    ced = Ced_2211 / LambdaNP2;
+    ceu = Ceu_2211 / LambdaNP2;
+    clu = CLu_2211 / LambdaNP2;
+    cld = CLd_2211 / LambdaNP2;
+    clq1 = CLQ1_2211 / LambdaNP2;
+    clq3 = CLQ3_2211 / LambdaNP2;
+    cqe = CQe_1122 / LambdaNP2;
+    
+    chi2diBoson = 7.70298e+08 * cHe22*cHe22 + 6.74703e+08 * cHl122*cHl122 
+                + cHe22 * (-2.66366e+08 * cHl122 - 1.67235e+09 * cHl322) 
+                - 1.9158e+08 * cHl122 * cHl322 + 1.0704e+09 *cHl322*cHl322;
+    
+    chi2diLepton = 1.52207e+11*cee*cee + 6.58643e+10*cee*cle + 4.52713e+10*cle*cle 
+                + 1.8948e+11*cee*cll + 5.85144e+10*cle*cll + 9.33659e+10*cll*cll;
+            
+    chi2diJet = 1.84304e+10 * ced*ced + 2.68549e+10 * ceu*ceu + 1.27353e+10 * cld*cld 
+                + 9.01774e+09 * cld*clq1 + 3.80795e+10 * clq1*clq1 + 1.02373e+10 * cld*clq3 
+                + 1.81655e+10 * clq1*clq3 + 7.03391e+10 * clq3*clq3 + 8.71113e+09 * clq1*clu 
+                - 1.00186e+10 * clq3*clu + 1.8198e+10 * clu*clu 
+                + ced * (8.02051e+09 * cld + 4.06638e+10 * clq1 + 4.46532e+10 * clq3 - 7.61524e+09 * cqe) 
+                - 2.47371e+10 * cld*cqe - 4.39453e+09 * clq1*cqe - 1.79449e+10 * clq3*cqe 
+                + 1.81563e+10 * clu*cqe + 1.84877e+10 * cqe*cqe 
+                + ceu * (3.97882e+10 * clq1 - 4.51932e+10 * clq3 + 1.16765e+10 * clu + 5.79512e+09 * cqe);
+    
+    return chi2diBoson + chi2diLepton + chi2diJet;
 }
 
 const double NPSMEFTd6::AuxObs_NP25() const
@@ -25322,143 +25360,1061 @@ const double NPSMEFTd6::AuxObs_NP30() const
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+// e+ e- -> f f observables away from the Z pole
+///////////////////////////////////////////////////////////////////////////////
 
-const double NPSMEFTd6::CLL_mu() const
-{
-    return (CLL_1122 + CLL_2211 + CiLL_1221 + CiLL_2112);
+const double NPSMEFTd6::CeeLL_e() const {
+    return 2.0 * CLL_1111;
 }
 
-const double NPSMEFTd6::CLL_tau() const
+const double NPSMEFTd6::CeeLL_mu() const
 {
-    return (CLL_1133 + CLL_3311 + CLL_1331 + CLL_3113);
+    return 2.0 * (CLL_1122 + CiLL_1221);
 }
 
-const double NPSMEFTd6::CLL_up() const
+const double NPSMEFTd6::CeeLL_tau() const
+{
+    return 2.0 * (CLL_1133 + CLL_1331);
+}
+
+const double NPSMEFTd6::CeeLL_up() const
 {
     return (CLQ1_1111 - CLQ3_1111);
 }
 
-const double NPSMEFTd6::CLL_down() const
+const double NPSMEFTd6::CeeLL_charm() const
+{
+    return (CLQ1_1122 - CLQ3_1122);
+}
+
+const double NPSMEFTd6::CeeLL_top() const
+{
+    return (CLQ1_1133 - CLQ3_1133);
+}
+
+const double NPSMEFTd6::CeeLL_down() const
 {
     return (CLQ1_1111 + CLQ3_1111);
 }
 
-const double NPSMEFTd6::CLL_charm() const
+const double NPSMEFTd6::CeeLL_strange() const
 {
-    return (CLQ1_1122 + CLQ1_2211 - CLQ3_1122 - CLQ3_2211);
+    return (CLQ1_1122 + CLQ3_1122);
 }
 
-const double NPSMEFTd6::CLL_strange() const
+const double NPSMEFTd6::CeeLL_bottom() const
 {
-    return (CLQ1_1122 + CLQ1_2211 + CLQ3_1122 + CLQ3_2211);
+    return (CLQ1_1133 + CLQ3_1133);
 }
 
-const double NPSMEFTd6::CLL_bottom() const
-{
-    return (CLQ1_1133 + CLQ1_3311 + CLQ3_1133 + CLQ3_3311);
+const double NPSMEFTd6::CeeLR_e() const {
+    return CLe_1111;
 }
 
-const double NPSMEFTd6::CLR_mu() const
+const double NPSMEFTd6::CeeLR_mu() const
 {
-    return (CLe_1122 + CLe_2211);
+    return CLe_1122;
 }
 
-const double NPSMEFTd6::CLR_tau() const
+const double NPSMEFTd6::CeeLR_tau() const
 {
-    return (CLe_1133 + CLe_3311);
+    return CLe_1133;
 }
 
-const double NPSMEFTd6::CLR_up() const
+const double NPSMEFTd6::CeeLR_up() const
 {
-    return (CLu_1111);
+    return CLu_1111;
 }
 
-const double NPSMEFTd6::CLR_down() const
+const double NPSMEFTd6::CeeLR_charm() const
 {
-    return (CLd_1111);
+    return CLu_1122;
 }
 
-const double NPSMEFTd6::CLR_charm() const
+const double NPSMEFTd6::CeeLR_top() const
 {
-    return (CLu_1122 + CLu_2211);
+    return CLu_1133;
 }
 
-const double NPSMEFTd6::CLR_strange() const
+const double NPSMEFTd6::CeeLR_down() const
 {
-    return (CLd_1122 + CLd_2211);
+    return CLd_1111;
 }
 
-const double NPSMEFTd6::CLR_bottom() const
+const double NPSMEFTd6::CeeLR_strange() const
 {
-    return (CLd_1133 + CLd_3311);
+    return CLd_1122;
 }
 
-const double NPSMEFTd6::CRL_mu() const
+const double NPSMEFTd6::CeeLR_bottom() const
 {
-    return (CLe_1122 + CLe_2211);
+    return CLd_1133;
 }
 
-const double NPSMEFTd6::CRL_tau() const
-{
-    return (CLe_1133 + CLe_3311);
+const double NPSMEFTd6::CeeRL_e() const {
+    // Same as LR by definition
+    return CeeLR_e();
 }
 
-const double NPSMEFTd6::CRL_up() const
+const double NPSMEFTd6::CeeRL_mu() const
 {
-    return (CQe_1111);
+    return CLe_2211;
 }
 
-const double NPSMEFTd6::CRL_down() const
+const double NPSMEFTd6::CeeRL_tau() const
 {
-    return (CQe_1111);
+    return CLe_3311;
 }
 
-const double NPSMEFTd6::CRL_charm() const
+const double NPSMEFTd6::CeeRL_up() const
 {
-    return (CQe_1122 + CQe_2211);
+    return CQe_1111;
 }
 
-const double NPSMEFTd6::CRL_strange() const
+const double NPSMEFTd6::CeeRL_charm() const
 {
-    return (CQe_1122 + CQe_2211);
+    return CQe_2211;
 }
 
-const double NPSMEFTd6::CRL_bottom() const
+const double NPSMEFTd6::CeeRL_top() const
 {
-    return (CQe_1133 + CQe_3311);
+    return CQe_3311;
 }
 
-const double NPSMEFTd6::CRR_mu() const
+const double NPSMEFTd6::CeeRL_down() const
 {
-    return (Cee_1122 + Cee_2211);
+    return CQe_1111;
 }
 
-const double NPSMEFTd6::CRR_tau() const
+const double NPSMEFTd6::CeeRL_strange() const
 {
-    return (Cee_1133 + Cee_3311);
+    return CQe_2211;
 }
 
-const double NPSMEFTd6::CRR_up() const
+const double NPSMEFTd6::CeeRL_bottom() const
 {
-    return (Ceu_1111);
+    return CQe_3311;
 }
 
-const double NPSMEFTd6::CRR_down() const
-{
-    return (Ced_1111);
+const double NPSMEFTd6::CeeRR_e() const {
+    return 2.0 * Cee_1111;
 }
 
-const double NPSMEFTd6::CRR_charm() const
+const double NPSMEFTd6::CeeRR_mu() const
 {
-    return (Ceu_1122 + Ceu_2211);
+    return 4.0 * Cee_1122;
 }
 
-const double NPSMEFTd6::CRR_strange() const
+const double NPSMEFTd6::CeeRR_tau() const
 {
-    return (Ced_1122 + Ced_2211);
+    return 4.0 * Cee_1133;
 }
 
-const double NPSMEFTd6::CRR_bottom() const
+const double NPSMEFTd6::CeeRR_up() const
 {
-    return (Ced_1133 + Ced_3311);
+    return Ceu_1111;
 }
+
+const double NPSMEFTd6::CeeRR_charm() const
+{
+    return Ceu_1122;
+}
+
+const double NPSMEFTd6::CeeRR_top() const
+{
+    return Ceu_1133;
+}
+
+const double NPSMEFTd6::CeeRR_down() const
+{
+    return Ced_1111;
+}
+
+const double NPSMEFTd6::CeeRR_strange() const
+{
+    return Ced_1122;
+}
+
+const double NPSMEFTd6::CeeRR_bottom() const
+{
+    return Ced_1133;
+}
+
+// Functions below are ported directly from NPSMEFTd6General.cpp
+
+const double NPSMEFTd6::deltaMLR2_f(const Particle f, const double s) const {
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+
+    // Four-fermion contribution
+    double Aeeff;
+
+    // Propagator
+    gslpp::complex propZ, propZc;
+
+    // Correction to amplitude
+    gslpp::complex deltaM2a, deltaM2b, deltaM2;
+
+    // -------------------------------------------
+
+    geSM = gZlL;
+    deltage = deltaGL_f(leptons[ELECTRON]);
+
+    is2c2 = 1. / sW2_tree / cW2_tree;
+
+    if (f.is("ELECTRON")) {
+        Aeeff = CeeLR_e();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[ELECTRON]);
+    } else if (f.is("MU")) {
+        Aeeff = CeeLR_mu();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[MU]);
+    } else if (f.is("TAU")) {
+        Aeeff = CeeLR_tau();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[TAU]);
+    } else if (f.is("UP")) {
+        Aeeff = CeeLR_up();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuR;
+        deltagf = deltaGR_f(quarks[UP]);
+    } else if (f.is("CHARM")) {
+        Aeeff = CeeLR_charm();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuR;
+        deltagf = deltaGR_f(quarks[CHARM]);
+    } else if (f.is("DOWN")) {
+        Aeeff = CeeLR_down();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[DOWN]);
+    } else if (f.is("STRANGE")) {
+        Aeeff = CeeLR_strange();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[STRANGE]);
+    } else if (f.is("BOTTOM")) {
+        Aeeff = CeeLR_bottom();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[BOTTOM]);
+    } else
+        throw std::runtime_error("NPSMEFTd6::deltaMLR2_f(): wrong argument");
+
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * s / (4. * M_PI * trueSM.alphaMz());
+
+    deltaGammaZ = deltaGamma_Z();
+
+    // -------------------------------------------
+
+    propZ = s / (s - Mz * Mz - Mz * trueSM.Gamma_Z() * (gslpp::complex::i()));
+
+    propZc = propZ.conjugate();
+
+    deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
+
+    deltaM2b = -Qf * delta_e + Aeeff
+            + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
+            - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
+
+    deltaM2 = deltaM2a * deltaM2b;
+
+    return 2.0 * deltaM2.real();
+
+}
+
+const double NPSMEFTd6::deltaMRL2_f(const Particle f, const double s) const {
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+
+    // Four-fermion contribution
+    double Aeeff;
+
+    // Propagator
+    gslpp::complex propZ, propZc;
+
+    // Correction to amplitude
+    gslpp::complex deltaM2a, deltaM2b, deltaM2;
+
+    // -------------------------------------------
+
+    geSM = gZlR;
+    deltage = deltaGR_f(leptons[ELECTRON]);
+
+    is2c2 = 1. / sW2_tree / cW2_tree;
+
+    if (f.is("ELECTRON")) {
+        Aeeff = CeeRL_e();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[ELECTRON]);
+    } else if (f.is("MU")) {
+        Aeeff = CeeRL_mu();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[MU]);
+    } else if (f.is("TAU")) {
+        Aeeff = CeeRL_tau();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[TAU]);
+    } else if (f.is("UP")) {
+        Aeeff = CeeRL_up();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuL;
+        deltagf = deltaGL_f(quarks[UP]);
+    } else if (f.is("CHARM")) {
+        Aeeff = CeeRL_charm();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuL;
+        deltagf = deltaGL_f(quarks[CHARM]);
+    } else if (f.is("DOWN")) {
+        Aeeff = CeeRL_down();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[DOWN]);
+    } else if (f.is("STRANGE")) {
+        Aeeff = CeeRL_strange();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[STRANGE]);
+    } else if (f.is("BOTTOM")) {
+        Aeeff = CeeRL_bottom();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[BOTTOM]);
+    } else
+        throw std::runtime_error("NPSMEFTd6::deltaMRL2_f(): wrong argument");
+
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * s / (4. * M_PI * trueSM.alphaMz());
+
+    deltaGammaZ = deltaGamma_Z();
+
+    // -------------------------------------------
+
+    propZ = s / (s - Mz * Mz - Mz * trueSM.Gamma_Z() * (gslpp::complex::i()));
+
+    propZc = propZ.conjugate();
+
+    deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
+
+    deltaM2b = -Qf * delta_e + Aeeff
+            + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
+            - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
+
+    deltaM2 = deltaM2a * deltaM2b;
+
+    return 2.0 * deltaM2.real();
+
+}
+
+const double NPSMEFTd6::deltaMLR2t_e(const double t) const {
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, is2c2;
+
+    // Four-fermion contribution
+    double Aeeff;
+
+    // t-channel propagator
+    double propZ;
+
+    // Correction to amplitude
+    double deltaM2a, deltaM2b, deltaM2;
+
+    // -------------------------------------------
+
+    geSM = gZlL;
+    deltage = deltaGL_f(leptons[ELECTRON]);
+
+    is2c2 = 1. / sW2_tree / cW2_tree;
+
+    Aeeff = CeeLR_e();
+    Qf = leptons[ELECTRON].getCharge();
+    gfSM = gZlR;
+    deltagf = deltaGR_f(leptons[ELECTRON]);
+
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * t / (4. * M_PI * trueSM.alphaMz());
+
+    // -------------------------------------------
+
+    propZ = t / (t - Mz * Mz);
+
+    deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
+
+    deltaM2b = -Qf * delta_e + Aeeff
+            + is2c2 * (geSM * deltagf + gfSM * deltage) * propZ;
+
+    deltaM2 = deltaM2a * deltaM2b;
+
+    return 2.0 * deltaM2;
+
+}
+
+const double NPSMEFTd6::deltaMRL2t_e(const double t) const {
+    return deltaMLR2t_e(t);
+}
+
+const double NPSMEFTd6::deltaMLL2_f(const Particle f, const double s, const double t) const {
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+
+    // Four-fermion contribution
+    double Aeeff;
+
+    // Propagator
+    gslpp::complex propZ, propZc;
+    double propZt;
+
+    // Correction to amplitude
+    gslpp::complex deltaM2a, deltaM2b, deltaM2;
+
+    // -------------------------------------------
+
+    geSM = gZlL;
+    deltage = deltaGL_f(leptons[ELECTRON]);
+
+    is2c2 = 1. / sW2_tree / cW2_tree;
+
+    if (f.is("ELECTRON")) {
+        Aeeff = 2.0 * CeeLL_e();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[ELECTRON]);
+    } else if (f.is("MU")) {
+        Aeeff = CeeLL_mu();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[MU]);
+    } else if (f.is("TAU")) {
+        Aeeff = CeeLL_tau();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlL;
+        deltagf = deltaGL_f(leptons[TAU]);
+    } else if (f.is("UP")) {
+        Aeeff = CeeLL_up();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuL;
+        deltagf = deltaGL_f(quarks[UP]);
+    } else if (f.is("CHARM")) {
+        Aeeff = CeeLL_charm();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuL;
+        deltagf = deltaGL_f(quarks[CHARM]);
+    } else if (f.is("DOWN")) {
+        Aeeff = CeeLL_down();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[DOWN]);
+    } else if (f.is("STRANGE")) {
+        Aeeff = CeeLL_strange();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[STRANGE]);
+    } else if (f.is("BOTTOM")) {
+        Aeeff = CeeLL_bottom();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdL;
+        deltagf = deltaGL_f(quarks[BOTTOM]);
+    } else
+        throw std::runtime_error("NPSMEFTd6::deltaMLL2_f(): wrong argument");
+
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * s / (4. * M_PI * trueSM.alphaMz());
+
+    deltaGammaZ = deltaGamma_Z();
+
+    // -------------------------------------------
+
+    propZ = s / (s - Mz * Mz - Mz * trueSM.Gamma_Z() * (gslpp::complex::i()));
+
+    propZc = propZ.conjugate();
+
+    propZt = s / (t - Mz * Mz);
+
+    deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
+
+    deltaM2b = -Qf * delta_e + Aeeff
+            + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
+            - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
+
+    // Add t-channel contributions for f=e
+    if (f.is("ELECTRON")) {
+        deltaM2a = deltaM2a + is2c2 * geSM * gfSM * propZt + s / t;
+        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt;
+    }
+
+    deltaM2 = deltaM2a * deltaM2b;
+
+    return 2.0 * deltaM2.real();
+
+}
+
+const double NPSMEFTd6::deltaMRR2_f(const Particle f, const double s, const double t) const {
+    // Definitions      
+    double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+
+    // Four-fermion contribution
+    double Aeeff;
+
+    // Propagator
+    gslpp::complex propZ, propZc;
+    double propZt;
+
+    // Correction to amplitude
+    gslpp::complex deltaM2a, deltaM2b, deltaM2;
+
+    // -------------------------------------------
+
+    geSM = gZlR;
+    deltage = deltaGR_f(leptons[ELECTRON]);
+
+    is2c2 = 1. / sW2_tree / cW2_tree;
+
+    if (f.is("ELECTRON")) {
+        Aeeff = 2.0 * CeeRR_e();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[ELECTRON]);
+    } else if (f.is("MU")) {
+        Aeeff = CeeRR_mu();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[MU]);
+    } else if (f.is("TAU")) {
+        Aeeff = CeeRR_tau();
+        Qf = leptons[ELECTRON].getCharge();
+        gfSM = gZlR;
+        deltagf = deltaGR_f(leptons[TAU]);
+    } else if (f.is("UP")) {
+        Aeeff = CeeRR_up();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuR;
+        deltagf = deltaGR_f(quarks[UP]);
+    } else if (f.is("CHARM")) {
+        Aeeff = CeeRR_charm();
+        Qf = quarks[UP].getCharge();
+        gfSM = gZuR;
+        deltagf = deltaGR_f(quarks[CHARM]);
+    } else if (f.is("DOWN")) {
+        Aeeff = CeeRR_down();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[DOWN]);
+    } else if (f.is("STRANGE")) {
+        Aeeff = CeeRR_strange();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[STRANGE]);
+    } else if (f.is("BOTTOM")) {
+        Aeeff = CeeRR_bottom();
+        Qf = quarks[DOWN].getCharge();
+        gfSM = gZdR;
+        deltagf = deltaGR_f(quarks[BOTTOM]);
+    } else
+        throw std::runtime_error("NPSMEFTd6::deltaMRR2_f(): wrong argument");
+
+    // Add the remaining factors that enter with the four-fermion operator
+    Aeeff = Aeeff * s / (4. * M_PI * trueSM.alphaMz());
+
+    deltaGammaZ = deltaGamma_Z();
+
+    // -------------------------------------------
+
+    propZ = s / (s - Mz * Mz - Mz * trueSM.Gamma_Z() * (gslpp::complex::i()));
+
+    propZc = propZ.conjugate();
+
+    propZt = s / (t - Mz * Mz);
+
+    deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
+
+    deltaM2b = -Qf * delta_e + Aeeff
+            + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
+            - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
+
+    // Add t-channel contributions for f=e
+    if (f.is("ELECTRON")) {
+        deltaM2a = deltaM2a + is2c2 * geSM * gfSM * propZt + s / t;
+        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt;
+    }
+
+    deltaM2 = deltaM2a * deltaM2b;
+
+    return 2.0 * deltaM2.real();
+
+}
+
+//  Some simple functions for cos \theta integrals 
+
+const double NPSMEFTd6::tovers2(const double cosmin, const double cosmax) const {
+    return 0.25 * (cosmax * (1.0 - cosmax * (1.0 - cosmax / 3.0)) - cosmin * (1.0 - cosmin * (1.0 - cosmin / 3.0)));
+}
+
+const double NPSMEFTd6::uovers2(const double cosmin, const double cosmax) const {
+    return 0.25 * (cosmax * (1.0 + cosmax * (1.0 + cosmax / 3.0)) - cosmin * (1.0 + cosmin * (1.0 + cosmin / 3.0)));
+}
+
+const double NPSMEFTd6::delta_Dsigma_f(const Particle f, const double s, const double cos) const {
+    double sumM2, dsigma;
+    double topb = 0.3894e+9;
+
+    double t, u;
+
+    double Nf;
+
+    if (f.is("LEPTON")) {
+        Nf = 1.0;
+    } else {
+        Nf = 3.0;
+    }
+
+    // Values of t and u, assuming massless final state fermions
+    t = -0.5 * s * (1.0 - cos);
+    u = -0.5 * s * (1.0 + cos);
+
+    sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * t * t / s / s
+            + (deltaMLL2_f(f, s, t) + deltaMRR2_f(f, s, t)) * u * u / s / s;
+
+    // Add t-channel contributions for f=e
+    if (f.is("ELECTRON")) {
+        sumM2 = sumM2 + (deltaMLR2t_e(t) + deltaMRL2t_e(t)) * s * s / t / t;
+    }
+
+    dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
+
+    return topb * dsigma;
+};
+
+const double NPSMEFTd6::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const {
+    //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
+    double sumM2, dsigma;
+    double tdumm = 1.;
+    double topb = 0.3894e+9;
+
+    double Nf;
+
+    if (f.is("LEPTON")) {
+        Nf = 1.0;
+    } else {
+        Nf = 3.0;
+    }
+
+    sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * tovers2(cosmin, cosmax)
+            + (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm)) * uovers2(cosmin, cosmax);
+
+    dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
+
+    return topb * dsigma;
+};
+
+const double NPSMEFTd6::delta_sigma_had(const double s, const double cosmin, const double cosmax) const {
+    double dsigma;
+
+    dsigma = delta_sigma_f(quarks[UP], s, cosmin, cosmax) + delta_sigma_f(quarks[DOWN], s, cosmin, cosmax)
+            + delta_sigma_f(quarks[CHARM], s, cosmin, cosmax) + delta_sigma_f(quarks[STRANGE], s, cosmin, cosmax)
+            + delta_sigma_f(quarks[BOTTOM], s, cosmin, cosmax);
+
+    return dsigma;
+}
+
+const double NPSMEFTd6::delta_sigmaTot_f(const Particle f, const double s) const {
+    return delta_sigma_f(f, s, -1., 1.);
+}
+
+const double NPSMEFTd6::delta_AFB_f(const Particle f, const double s) const {
+    //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
+    double tdumm = 1.;
+
+    // Definitions      
+    double Qf, geLSM, gfLSM, geRSM, gfRSM, is2c2, GZ, Mz2s;
+
+    double MXX2SM, MXY2SM, M2SM;
+
+    double dAFB;
+
+    // -------------------------------------------
+
+    geLSM = gZlL;
+    geRSM = gZlR;
+
+    is2c2 = 1. / sW2_tree / cW2_tree;
+
+    GZ = trueSM.Gamma_Z();
+
+    Mz2s = Mz * Mz - s;
+
+    if (f.is("MU")) {
+        Qf = leptons[ELECTRON].getCharge();
+        gfLSM = gZlL;
+        gfRSM = gZlR;
+    } else if (f.is("TAU")) {
+        Qf = leptons[ELECTRON].getCharge();
+        gfLSM = gZlL;
+        gfRSM = gZlR;
+    } else if (f.is("UP")) {
+        Qf = quarks[UP].getCharge();
+        gfLSM = gZuL;
+        gfRSM = gZuR;
+    } else if (f.is("CHARM")) {
+        Qf = quarks[UP].getCharge();
+        gfLSM = gZuL;
+        gfRSM = gZuR;
+    } else if (f.is("DOWN")) {
+        Qf = quarks[DOWN].getCharge();
+        gfLSM = gZdL;
+        gfRSM = gZdR;
+    } else if (f.is("STRANGE")) {
+        Qf = quarks[DOWN].getCharge();
+        gfLSM = gZdL;
+        gfRSM = gZdR;
+    } else if (f.is("BOTTOM")) {
+        Qf = quarks[DOWN].getCharge();
+        gfLSM = gZdL;
+        gfRSM = gZdR;
+    } else
+        throw std::runtime_error("NPSMEFTd6::delta_AFB_f(): wrong argument");
+
+    // Sum of LL and RR SM amplitudes
+    MXX2SM = 2.0 * Qf * Qf
+            + (is2c2 * is2c2 * (geLSM * geLSM * gfLSM * gfLSM + geRSM * geRSM * gfRSM * gfRSM) * s * s
+            + 2.0 * Qf * is2c2 * (geLSM * gfLSM + geRSM * gfRSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ);
+
+
+    // Sum of LR and RL SM amplitudes
+    MXY2SM = 2.0 * Qf * Qf
+            + (is2c2 * is2c2 * (geLSM * geLSM * gfRSM * gfRSM + geRSM * geRSM * gfLSM * gfLSM) * s * s
+            + 2.0 * Qf * is2c2 * (geLSM * gfRSM + geRSM * gfLSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ);
+
+    // Full SM amplitude
+    M2SM = MXX2SM + MXY2SM;
+
+    // Asymmetry correction 
+    dAFB = -MXX2SM * (deltaMLR2_f(f, s) + deltaMRL2_f(f, s))
+            + MXY2SM * (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm));
+
+    dAFB = 3.0 * dAFB / 2.0 / M2SM / M2SM;
+
+    return dAFB;
+}
+
+//  Expressions for f=e   
+
+//  Integrals of the SM squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]    
+const double NPSMEFTd6::intMeeLR2SMts2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double sw2cw2;
+    double gLeSM,gReSM;
+    double GammaZSM;
+    double Mz2, s2;
+    double propZSM2,propZSMRe,MeeLR2SM;
+    
+    sw2cw2 = sW2_tree * cW2_tree;
+    gLeSM = gZlL;
+    gReSM = gZlR;
+    GammaZSM = trueSM.Gamma_Z();
+    Mz2 = Mz * Mz;
+    s2 = s * s;
+    
+    propZSM2 = s2/((s - Mz2)*(s - Mz2) + Mz2*GammaZSM*GammaZSM);
+    propZSMRe = (s*(s - Mz2))/((s - Mz2)*(s - Mz2) + Mz2*GammaZSM*GammaZSM);
+    
+    MeeLR2SM = 1.0 + (gLeSM*gLeSM*gReSM*gReSM/(sw2cw2*sw2cw2))*propZSM2 + 2.0*(gLeSM*gReSM/sw2cw2)*propZSMRe;
+
+    intM2 = MeeLR2SM*(t1*t1*t1 - t0*t0*t0)/(3.0*s*s);
+
+    return intM2;
+}
+
+const double NPSMEFTd6::intMeeLRtilde2SMst2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double sw2cw2; 
+    double gLeSM,gReSM;
+    double Mz2;
+    
+    sw2cw2 = sW2_tree * cW2_tree;
+    gLeSM = gZlL;
+    gReSM = gZlR;
+    Mz2 = Mz * Mz;
+    
+    intM2 = s*s*(((gLeSM*gLeSM*gReSM*gReSM)/sw2cw2/sw2cw2)*(1.0/(Mz2 - t1) - 1.0/(Mz2 - t0)) - 1.0/t1 + 1.0/t0 + 
+            (2.0*gLeSM*gReSM*(-log(t1/t0) + log((-Mz2 + t1)/(-Mz2 + t0))))/(Mz2*sw2cw2));
+
+    return intM2;
+}
+
+const double NPSMEFTd6::intMeeLL2SMus2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double sw2cw2; 
+    double gLeSM;
+    double GammaZSM;
+    double Mz2, Mz4, s2;
+
+    sw2cw2 = sW2_tree * cW2_tree;
+    gLeSM = gZlL;
+    GammaZSM = trueSM.Gamma_Z();
+    Mz2 = Mz * Mz;
+    Mz4 = Mz2 * Mz2;
+    s2 = s * s;
+    
+    intM2 = (gLeSM*gLeSM*gLeSM*gLeSM*s2 + 2.0*gLeSM*gLeSM*s*(-Mz2 + s)*sw2cw2 + sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))/(3.0*s2*sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*(pow(s + t1,3.0) - pow(s + t0,3.0)) +
+            ((2.0*(1.0 + (gLeSM*gLeSM*s*(-Mz2 + s))/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) )/s)*(2.0*s *(t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +
+            (2.0*gLeSM*gLeSM* (-sw2cw2 + (gLeSM*gLeSM*(Mz2 - s)*s)/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/(s*sw2cw2*sw2cw2)* (-(1.0/2.0)*t1*(2.0*Mz2 + 4.0*s + t1) + (1.0/2.0)*t0*(2.0*Mz2 + 4.0*s + t0) - (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)) ) +
+            (2.0*(gLeSM*gLeSM) )/(Mz2*sw2cw2)*(Mz2 *(t1 - t0) - s2*log(t1/t0) + (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (-(s2/t1) + s2/t0 + t1 - t0 + 2.0*s*log(t1/t0)) +
+            (gLeSM*gLeSM*gLeSM*gLeSM /sw2cw2/sw2cw2)*((Mz2 + s)*(Mz2 + s)*(1.0/(Mz2 - t1) - 1.0/(Mz2 - t0)) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)));            
+
+    return intM2;
+}
+
+const double NPSMEFTd6::intMeeRR2SMus2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double sw2cw2; 
+    double gReSM;
+    double GammaZSM;
+    double Mz2, Mz4, s2;
+
+    sw2cw2 = sW2_tree * cW2_tree;
+    gReSM = gZlL;
+    GammaZSM = trueSM.Gamma_Z();
+    Mz2 = Mz * Mz;
+    Mz4 = Mz2 * Mz2;
+    s2 = s * s;
+    
+    intM2 = (gReSM*gReSM*gReSM*gReSM*s2 + 2.0*gReSM*gReSM*s*(-Mz2 + s)*sw2cw2 + sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))/(3.0*s2*sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*(pow(s + t1,3.0) - pow(s + t0,3.0)) +
+            ((2.0*(1.0 + (gReSM*gReSM*s*(-Mz2 + s))/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) )/s)*(2.0*s *(t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +
+            (2.0*gReSM*gReSM* (-sw2cw2 + (gReSM*gReSM*(Mz2 - s)*s)/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/(s*sw2cw2*sw2cw2)* (-(1.0/2.0)*t1*(2.0*Mz2 + 4.0*s + t1) + (1.0/2.0)*t0*(2.0*Mz2 + 4.0*s + t0) - (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)) ) +
+            (2.0*(gReSM*gReSM) )/(Mz2*sw2cw2)*(Mz2 *(t1 - t0) - s2*log(t1/t0) + (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (-(s2/t1) + s2/t0 + t1 - t0 + 2.0*s*log(t1/t0)) +
+            (gReSM*gReSM*gReSM*gReSM /sw2cw2/sw2cw2)*((Mz2 + s)*(Mz2 + s)*(1.0/(Mz2 - t1) - 1.0/(Mz2 - t0)) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)));            
+
+    return intM2;
+}
+
+//  Integrals of the corrections to the squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]  
+const double NPSMEFTd6::intDMLL2eus2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double aEM, sw2cw2;
+    double gLeSM;
+    double deltagLe;
+    double Aeeee;
+    double GammaZSM, deltaGammaZ;
+    double Mz2, Mz4, s2;
+    
+    aEM = trueSM.alphaMz();
+    sw2cw2 = sW2_tree * cW2_tree;
+    Aeeee = CeeLL_e();
+    gLeSM = gZlL;
+    deltagLe = deltaGL_f(leptons[ELECTRON]);
+    GammaZSM = trueSM.Gamma_Z();
+    deltaGammaZ = deltaGamma_Z();
+    Mz2 = Mz * Mz;
+    Mz4 = Mz2 * Mz2;
+    s2 = s * s;
+
+    intM2 = (1.0/(3.0*s2))*((2.0*gLeSM*gLeSM*gLeSM*Mz2*s2*GammaZSM*(gLeSM*(Mz4 + s2 - Mz2*(2.0*s + GammaZSM*GammaZSM))*deltaGammaZ + 2.0*GammaZSM*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagLe))/(sw2cw2*sw2cw2 * pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),3.0)) + 
+            2.0*(1.0 - (gLeSM*gLeSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(delta_e + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gLeSM*(Mz2 - s)*s*(gLeSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagLe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
+            ((2.0*delta_e + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gLeSM*(Mz2 - s)*s*deltagLe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
+            (gLeSM *(gLeSM*(2.0*sw2cw2*delta_e + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gLeSM*gLeSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagLe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (4.0*gLeSM*deltagLe)/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (4.0*gLeSM*gLeSM*gLeSM*deltagLe)/(sw2cw2*sw2cw2)*(((Mz2 + s)*(Mz2 + s)/(Mz2 - t1) - (Mz2 + s)*(Mz2 + s)/(Mz2 - t0) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))));
+
+    return intM2;
+}
+
+const double NPSMEFTd6::intDMRR2eus2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double aEM, sw2cw2;
+    double gReSM;
+    double deltagRe;
+    double Aeeee;
+    double GammaZSM, deltaGammaZ;
+    double Mz2, Mz4, s2;
+    
+    aEM = trueSM.alphaMz();
+    sw2cw2 = sW2_tree * cW2_tree;
+    Aeeee = CeeRR_e();
+    gReSM = gZlR;
+    deltagRe = deltaGR_f(leptons[ELECTRON]);
+    GammaZSM = trueSM.Gamma_Z();
+    deltaGammaZ = deltaGamma_Z();
+    Mz2 = Mz * Mz;
+    Mz4 = Mz2 * Mz2;
+    s2 = s * s;
+
+    intM2 = (1.0/(3.0*s2))*((2.0*gReSM*gReSM*gReSM*Mz2*s2*GammaZSM*(gReSM*(Mz4 + s2 - Mz2*(2.0*s + GammaZSM*GammaZSM))*deltaGammaZ + 2.0*GammaZSM*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagRe))/(sw2cw2*sw2cw2 * pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),3.0)) + 
+            2.0*(1.0 - (gReSM*gReSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(delta_e + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gReSM*(Mz2 - s)*s*(gReSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagRe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
+            ((2.0*delta_e + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gReSM*(Mz2 - s)*s*deltagRe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
+            (gReSM *(gReSM*(2.0*sw2cw2*delta_e + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gReSM*gReSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagRe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (4.0*gReSM*deltagRe)/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (4.0*gReSM*gReSM*gReSM*deltagRe)/(sw2cw2*sw2cw2)*(((Mz2 + s)*(Mz2 + s)/(Mz2 - t1) - (Mz2 + s)*(Mz2 + s)/(Mz2 - t0) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))));
+
+    return intM2;
+}
+
+const double NPSMEFTd6::intDMLR2ets2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    
+    intM2 = deltaMLR2_f(leptons[ELECTRON], s) * (t1*t1*t1 - t0*t0*t0)/3.0/s/s;
+    
+    return intM2;
+}
+
+const double NPSMEFTd6::intDMRL2ets2(const double s, const double t0, const double t1) const {
+
+    double intM2;
+    
+    intM2 = deltaMRL2_f(leptons[ELECTRON], s) * (t1*t1*t1 - t0*t0*t0)/3.0/s/s;
+    
+    return intM2;
+}
+
+const double NPSMEFTd6::intDMLR2etildest2(const double s, const double t0, const double t1) const {
+
+    double intM2;
+    double aEM, sw2cw2;
+    double gLeSM, gReSM;
+    double deltagLe, deltagRe;
+    double Aeeee;
+    double s2;
+    
+    aEM = trueSM.alphaMz();
+    sw2cw2 = sW2_tree * cW2_tree;
+    Aeeee = CeeLR_e();
+    gLeSM = gZlL;
+    gReSM = gZlR;
+    deltagLe = deltaGL_f(leptons[ELECTRON]);
+    deltagRe = deltaGR_f(leptons[ELECTRON]);
+    s2 = s*s;
+    
+    intM2 = -2.0 * s2*delta_e *(1/t1 - 1/t0) -
+            (2.0 * s2*(gReSM * deltagLe + gLeSM*(gReSM*delta_e + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
+            (s2*Aeeee)/(2.0 * M_PI * aEM )* log(t1/t0) +
+            (gLeSM*gReSM*(s2)*Aeeee )/(2.0 * M_PI * sw2cw2 * aEM) * log( (Mz * Mz - t1)/(Mz * Mz - t0) ) +
+            ((2.0 *gLeSM*gReSM*s2*(gReSM*deltagLe +  gLeSM*deltagRe))/ sw2cw2/ sw2cw2) *(1.0/ (Mz * Mz - t1) - 1.0/ (Mz * Mz - t0));
+
+    return intM2;
+}
+
+const double NPSMEFTd6::intDMRL2etildest2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double aEM, sw2cw2;
+    double gLeSM, gReSM;
+    double deltagLe, deltagRe;
+    double Aeeee;
+    double s2;
+    
+    aEM = trueSM.alphaMz();
+    sw2cw2 = sW2_tree * cW2_tree;
+    Aeeee = CeeRL_e();
+    gLeSM = gZlL;
+    gReSM = gZlR;
+    deltagLe = deltaGL_f(leptons[ELECTRON]);
+    deltagRe = deltaGR_f(leptons[ELECTRON]);
+    s2 = s*s;
+    
+    intM2 = -2.0 * s2*delta_e *(1/t1 - 1/t0) -
+            (2.0 * s2*(gReSM * deltagLe + gLeSM*(gReSM*delta_e + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
+            (s2*Aeeee)/(2.0 * M_PI * aEM )* log(t1/t0) +
+            (gLeSM*gReSM*(s2)*Aeeee )/(2.0 * M_PI * sw2cw2 * aEM) * log( (Mz * Mz - t1)/(Mz * Mz - t0) ) +
+            ((2.0 *gLeSM*gReSM*s2*(gReSM*deltagLe +  gLeSM*deltagRe))/ sw2cw2/ sw2cw2) *(1.0/ (Mz * Mz - t1) - 1.0/ (Mz * Mz - t0));
+
+    return intM2;
+}
+
+//  SM cross section integrated in [cos \theta_{min},cos \theta_{max}] 
+const double NPSMEFTd6::sigmaSM_ee(const double s, const double cosmin, const double cosmax) const {
+
+    double sumM2, sigma;
+    double topb = 0.3894e+9; 
+    double t0, t1, lambdaK;
+    
+    // t values for cosmin and cosmax
+    t0 = 0.5 * s * ( -1.0 + cosmin );
+    t1 = 0.5 * s * ( -1.0 + cosmax );
+    
+    // Kähllén function of (s,0,0)
+    lambdaK = s*s;
+    
+    // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
+    sumM2 = 2.0 * intMeeLR2SMts2(s, t0, t1) + 2.0 * intMeeLRtilde2SMst2(s, t0, t1) + 
+            intMeeLL2SMus2(s, t0, t1) + intMeeRR2SMus2(s, t0, t1);   
+    
+    // Build the cross section
+    sigma = M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s / sqrt(lambdaK);
+    
+    return topb * sigma;
+}
+
+
+//  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
+const double NPSMEFTd6::delta_sigma_ee(const double s, const double cosmin, const double cosmax) const {
+
+    double sumM2, dsigma;
+    double topb = 0.3894e+9; 
+    double t0, t1, lambdaK;
+    
+    // t values for cosmin and cosmax
+    t0 = 0.5 * s * ( -1.0 + cosmin );
+    t1 = 0.5 * s * ( -1.0 + cosmax );
+    
+    // Kähllén function of (s,0,0)
+    lambdaK = s*s;
+    
+    // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
+    sumM2 = intDMLL2eus2(s, t0, t1) + intDMRR2eus2(s, t0, t1) +
+            intDMLR2ets2(s, t0, t1) + intDMRL2ets2(s, t0, t1) + 
+            intDMLR2etildest2(s, t0, t1) + intDMRL2etildest2(s, t0, t1);   
+    
+    // Build the cross section
+    dsigma = M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s / sqrt(lambdaK);
+    
+    return topb * dsigma;
+}
+
+//  Absolute corrections to the total cross section 
+const double NPSMEFTd6::delta_sigmaTot_ee(const double s) const {
+    return delta_sigma_ee(s, -1.0, 1.0);
+}
+
+//  Absolute corrections to the FB asymmetry 
+const double NPSMEFTd6::delta_AFB_ee(const double s) const {
+    
+    double xsSMF, xsSMB, xsSM;
+    double dxsF, dxsB, dxs;
+    double dAFB;
+    
+    // SM cross sections
+    xsSM = sigmaSM_ee(s, -1.0, 1.0);
+    xsSMF = sigmaSM_ee(s, 0.0, 1.0);
+    xsSMB = sigmaSM_ee(s, -1.0, 0.0);
+    
+    // Corrections to each
+    dxs = delta_sigma_ee(s, -1.0, 1.0);
+    dxsF = delta_sigma_ee(s, 0.0, 1.0);
+    dxsB = delta_sigma_ee(s, -1.0, 0.0);
+
+    // Correction to asymmetry
+    dAFB = (dxsF - dxsB)/xsSM - (xsSMF - xsSMB)*dxs/xsSM/xsSM;
+    
+    return dAFB;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// e+ e- -> f f observables away from the Z pole: END
+///////////////////////////////////////////////////////////////////////////////

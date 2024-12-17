@@ -13940,7 +13940,7 @@ double NPSMEFTd6General::CHF1_diag(const Particle F) const {
     else if (F.is("TOP") || F.is("BOTTOM"))
         return getSMEFTCoeffEW("CHq1R", 2, 2);
     else
-        throw std::runtime_error("NPSMEFTd6::CHF1_diag(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::CHF1_diag(): wrong argument");
 }
 
 double NPSMEFTd6General::CHF3_diag(const Particle F) const {
@@ -13957,7 +13957,7 @@ double NPSMEFTd6General::CHF3_diag(const Particle F) const {
     else if (F.is("TOP") || F.is("BOTTOM"))
         return getSMEFTCoeffEW("CHq3R", 2, 2);
     else
-        throw std::runtime_error("NPSMEFTd6::CHF3_diag(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::CHF3_diag(): wrong argument");
 }
 
 double NPSMEFTd6General::CHf_diag(const Particle f) const {
@@ -13982,12 +13982,12 @@ double NPSMEFTd6General::CHf_diag(const Particle f) const {
     else if (f.is("BOTTOM"))
         return getSMEFTCoeffEW("CHdR", 2, 2);
     else
-        throw std::runtime_error("NPSMEFTd6::CHf_diag(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::CHf_diag(): wrong argument");
 }
 
 gslpp::complex NPSMEFTd6General::CHud_diag(const Particle u) const {
     if (!u.is("QUARK") || u.getIndex() % 2 != 0)
-        throw std::runtime_error("NPSMEFTd6::CHud_diag(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::CHud_diag(): wrong argument");
 
     if (u.is("UP"))
         return gslpp::complex(getSMEFTCoeffEW("CHudR", 0, 0), getSMEFTCoeffEW("CHudI", 0, 0), false);
@@ -13996,7 +13996,7 @@ gslpp::complex NPSMEFTd6General::CHud_diag(const Particle u) const {
     else if (u.is("TOP"))
         return gslpp::complex(getSMEFTCoeffEW("CHudR", 2, 2), getSMEFTCoeffEW("CHudI", 2, 2), false);
     else
-        throw std::runtime_error("NPSMEFTd6::CHud_diag(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::CHud_diag(): wrong argument");
 }
 
 gslpp::complex NPSMEFTd6General::CfH_diag(const Particle f) const {
@@ -14021,7 +14021,7 @@ gslpp::complex NPSMEFTd6General::CfH_diag(const Particle f) const {
     else if (f.is("BOTTOM"))
         return gslpp::complex(getSMEFTCoeffEW("CdHR", 2, 2), getSMEFTCoeffEW("CdHI", 2, 2), false);
     else
-        throw std::runtime_error("NPSMEFTd6::CfH_diag(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::CfH_diag(): wrong argument");
 }
 
 gslpp::complex NPSMEFTd6General::CfG_diag(const Particle f) const {
@@ -14046,7 +14046,7 @@ gslpp::complex NPSMEFTd6General::CfG_diag(const Particle f) const {
     else if (f.is("BOTTOM"))
         return 0.0;
     else
-        throw std::runtime_error("NPSMEFTd6::CfG_diag(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::CfG_diag(): wrong argument");
 }
 
 gslpp::complex NPSMEFTd6General::CfW_diag(const Particle f) const {
@@ -14071,7 +14071,7 @@ gslpp::complex NPSMEFTd6General::CfW_diag(const Particle f) const {
     else if (f.is("BOTTOM"))
         return 0.0;
     else
-        throw std::runtime_error("NPSMEFTd6::CfW_diag(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::CfW_diag(): wrong argument");
 }
 
 gslpp::complex NPSMEFTd6General::CfB_diag(const Particle f) const {
@@ -14096,7 +14096,7 @@ gslpp::complex NPSMEFTd6General::CfB_diag(const Particle f) const {
     else if (f.is("BOTTOM"))
         return 0.0;
     else
-        throw std::runtime_error("NPSMEFTd6::CfB_diag(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::CfB_diag(): wrong argument");
 }
 
 
@@ -41879,8 +41879,8 @@ const double NPSMEFTd6General::AuxObs_NP19() const {
     double Chi2Tot;
 
     // Chi square formulae requires WC in units of TeV-2
-    CBpar = 1.0e+06 * (getSMEFTCoeffEW("CDB") / g1_tree);
-    CWpar = 1.0e+06 * (getSMEFTCoeffEW("CDW") / g2_tree);
+    CBpar = 0.0; //1.0e+06 * (getSMEFTCoeffEW("CDB") / g1_tree); // Not defined in this model
+    CWpar = 0.0; //1.0e+06 * (getSMEFTCoeffEW("CDW") / g2_tree); // Not defined in this model
 
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
@@ -41906,8 +41906,8 @@ const double NPSMEFTd6General::AuxObs_NP20() const {
     double Chi2Tot;
 
     // Chi square formulae requires WC in units of TeV-2
-    CBpar = 1.0e+06 * (getSMEFTCoeffEW("CDB") / g1_tree);
-    CWpar = 1.0e+06 * (getSMEFTCoeffEW("CDW") / g2_tree);
+    CBpar = 0.0; //1.0e+06 * (getSMEFTCoeffEW("CDB") / g1_tree); // Not defined in this model
+    CWpar = 0.0; //1.0e+06 * (getSMEFTCoeffEW("CDW") / g2_tree); // Not defined in this model
 
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
@@ -42060,9 +42060,47 @@ const double NPSMEFTd6General::AuxObs_NP23() const {
 }
 
 const double NPSMEFTd6General::AuxObs_NP24() const {
-    // To be used for some temporary observable
-    return 0.0;
-
+    // 10 TeV Muon Collider: combination of diboson and difermion (assuming universality for the moment
+    // Will need update
+    double chi2diBoson;
+    double chi2diLepton, chi2diJet;
+    
+    double cHe22, cHl122, cHl322;
+    double cee, cle, cll;
+    double ced, ceu, clu, cld, clq1, clq3, cqe;
+    
+    cHe22 = getSMEFTCoeffEW("CHeR",1,1);
+    cHl122 = getSMEFTCoeffEW("CHl1R", 1, 1);
+    cHl322 = getSMEFTCoeffEW("CHl3R", 1, 1);
+    
+    cee = getSMEFTCoeffEW("CeeR", 0, 0, 1, 1);
+    cle = 0.5 * (getSMEFTCoeffEW("CleR", 1, 1, 0, 0) + getSMEFTCoeffEW("CleR", 0, 0, 1, 1));
+    cll = 0.5 * (getSMEFTCoeffEW("CllR", 0, 0, 1, 1) + getSMEFTCoeffEW("CllR", 0, 1, 1, 0));
+    ced = getSMEFTCoeffEW("CedR", 1, 1, 0, 0);
+    ceu = getSMEFTCoeffEW("CeuR", 1, 1, 0, 0);
+    clu = getSMEFTCoeffEW("CluR", 1, 1, 0, 0);
+    cld = getSMEFTCoeffEW("CldR", 1, 1, 0, 0);
+    clq1 = getSMEFTCoeffEW("Clq1R", 1, 1, 0, 0);
+    clq3 = getSMEFTCoeffEW("Clq3R", 1, 1, 0, 0);
+    cqe = getSMEFTCoeffEW("CqeR", 0, 0, 1, 1);
+    
+    chi2diBoson = 7.70298e+08 * cHe22*cHe22 + 6.74703e+08 * cHl122*cHl122 
+                + cHe22 * (-2.66366e+08 * cHl122 - 1.67235e+09 * cHl322) 
+                - 1.9158e+08 * cHl122 * cHl322 + 1.0704e+09 *cHl322*cHl322;
+    
+    chi2diLepton = 1.52207e+11*cee*cee + 6.58643e+10*cee*cle + 4.52713e+10*cle*cle 
+                + 1.8948e+11*cee*cll + 5.85144e+10*cle*cll + 9.33659e+10*cll*cll;
+            
+    chi2diJet = 1.84304e+10 * ced*ced + 2.68549e+10 * ceu*ceu + 1.27353e+10 * cld*cld 
+                + 9.01774e+09 * cld*clq1 + 3.80795e+10 * clq1*clq1 + 1.02373e+10 * cld*clq3 
+                + 1.81655e+10 * clq1*clq3 + 7.03391e+10 * clq3*clq3 + 8.71113e+09 * clq1*clu 
+                - 1.00186e+10 * clq3*clu + 1.8198e+10 * clu*clu 
+                + ced * (8.02051e+09 * cld + 4.06638e+10 * clq1 + 4.46532e+10 * clq3 - 7.61524e+09 * cqe) 
+                - 2.47371e+10 * cld*cqe - 4.39453e+09 * clq1*cqe - 1.79449e+10 * clq3*cqe 
+                + 1.81563e+10 * clu*cqe + 1.84877e+10 * cqe*cqe 
+                + ceu * (3.97882e+10 * clq1 - 4.51932e+10 * clq3 + 1.16765e+10 * clu + 5.79512e+09 * cqe);
+    
+    return chi2diBoson + chi2diLepton + chi2diJet;
 }
 
 const double NPSMEFTd6General::AuxObs_NP25() const {
@@ -42311,7 +42349,7 @@ const double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) con
         gfSM = gZdR;
         deltagf = deltaGR_f(quarks[BOTTOM]);
     } else
-        throw std::runtime_error("NPSMEFTd6::deltaMLR2_f(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::deltaMLR2_f(): wrong argument");
 
     // Add the remaining factors that enter with the four-fermion operator
     Aeeff = Aeeff * s / (4. * M_PI * trueSM.alphaMz());
@@ -42397,7 +42435,7 @@ const double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) con
         gfSM = gZdL;
         deltagf = deltaGL_f(quarks[BOTTOM]);
     } else
-        throw std::runtime_error("NPSMEFTd6::deltaMRL2_f(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::deltaMRL2_f(): wrong argument");
 
     // Add the remaining factors that enter with the four-fermion operator
     Aeeff = Aeeff * s / (4. * M_PI * trueSM.alphaMz());
@@ -42531,7 +42569,7 @@ const double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, con
         gfSM = gZdL;
         deltagf = deltaGL_f(quarks[BOTTOM]);
     } else
-        throw std::runtime_error("NPSMEFTd6::deltaMLL2_f(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::deltaMLL2_f(): wrong argument");
 
     // Add the remaining factors that enter with the four-fermion operator
     Aeeff = Aeeff * s / (4. * M_PI * trueSM.alphaMz());
@@ -42626,7 +42664,7 @@ const double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, con
         gfSM = gZdR;
         deltagf = deltaGR_f(quarks[BOTTOM]);
     } else
-        throw std::runtime_error("NPSMEFTd6::deltaMRR2_f(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::deltaMRR2_f(): wrong argument");
 
     // Add the remaining factors that enter with the four-fermion operator
     Aeeff = Aeeff * s / (4. * M_PI * trueSM.alphaMz());
@@ -42787,7 +42825,7 @@ const double NPSMEFTd6General::delta_AFB_f(const Particle f, const double s) con
         gfLSM = gZdL;
         gfRSM = gZdR;
     } else
-        throw std::runtime_error("NPSMEFTd6::delta_AFB_f(): wrong argument");
+        throw std::runtime_error("NPSMEFTd6General::delta_AFB_f(): wrong argument");
 
     // Sum of LL and RR SM amplitudes
     MXX2SM = 2.0 * Qf * Qf

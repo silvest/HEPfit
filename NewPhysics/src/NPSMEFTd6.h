@@ -1787,38 +1787,113 @@ public:
     virtual const double RZlilj(const Particle li, const Particle lj) const;
 
     ////////////////////////////////////////////////////////////////////////
+    
+    // LEP2 definitions for 2 to 2 fermion processes
 
-    const double CLL_mu() const;
-    const double CLL_tau() const;
-    const double CLL_up() const;
-    const double CLL_down() const;
-    const double CLL_charm() const;
-    const double CLL_strange() const;
-    const double CLL_bottom() const;
+    const double CeeLL_e() const;
+    const double CeeLL_mu() const;
+    const double CeeLL_tau() const;
+    
+    const double CeeLL_up() const;
+    const double CeeLL_charm() const;
+    const double CeeLL_top() const;
+    
+    const double CeeLL_down() const;
+    const double CeeLL_strange() const;
+    const double CeeLL_bottom() const;
 
-    const double CLR_mu() const;
-    const double CLR_tau() const;
-    const double CLR_up() const;
-    const double CLR_down() const;
-    const double CLR_charm() const;
-    const double CLR_strange() const;
-    const double CLR_bottom() const;
 
-    const double CRL_mu() const;
-    const double CRL_tau() const;
-    const double CRL_up() const;
-    const double CRL_down() const;
-    const double CRL_charm() const;
-    const double CRL_strange() const;
-    const double CRL_bottom() const;
+    const double CeeLR_e() const;
+    const double CeeLR_mu() const;
+    const double CeeLR_tau() const;
+    
+    const double CeeLR_up() const;
+    const double CeeLR_charm() const;
+    const double CeeLR_top() const;
+    
+    const double CeeLR_down() const;
+    const double CeeLR_strange() const;
+    const double CeeLR_bottom() const;
 
-    const double CRR_mu() const;
-    const double CRR_tau() const;
-    const double CRR_up() const;
-    const double CRR_down() const;
-    const double CRR_charm() const;
-    const double CRR_strange() const;
-    const double CRR_bottom() const;
+    const double CeeRL_e() const;
+    const double CeeRL_mu() const;
+    const double CeeRL_tau() const;
+    
+    const double CeeRL_up() const;
+    const double CeeRL_charm() const;
+    const double CeeRL_top() const;
+    
+    const double CeeRL_down() const;
+    const double CeeRL_strange() const;
+    const double CeeRL_bottom() const;
+
+    const double CeeRR_e() const;
+    const double CeeRR_mu() const;
+    const double CeeRR_tau() const;
+    
+    const double CeeRR_up() const;
+    const double CeeRR_charm() const;
+    const double CeeRR_top() const;
+    
+    const double CeeRR_down() const;
+    const double CeeRR_strange() const;
+    const double CeeRR_bottom() const;
+    
+//  Absolute corrections to the helicity amplitudes squared
+  
+    const double deltaMLR2_f(const Particle f, const double s) const;
+    const double deltaMRL2_f(const Particle f, const double s) const;
+
+    const double deltaMLL2_f(const Particle f, const double s, const double t) const;       
+    const double deltaMRR2_f(const Particle f, const double s, const double t) const;
+
+//  Some simple functions for cos \theta integrals   
+    const double tovers2(const double cosmin, const double cosmax) const;
+    const double uovers2(const double cosmin, const double cosmax) const;
+
+//  Absolute corrections to the differential cross section        
+    virtual const double delta_Dsigma_f(const Particle f, const double s, const double cos) const;
+    
+//  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
+//  Valid for f=/=e
+    virtual const double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
+    
+    virtual const double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
+    
+//  Total cross sections  (full acceptance)
+    virtual const double delta_sigmaTot_f(const Particle f, const double s) const;
+    
+//  Forward-Backward asymmetry (full acceptance). Valid for f!=e
+    virtual const double delta_AFB_f(const Particle f, const double s) const;
+    
+//  Expressions for f=e   
+    
+//  Corrections to t-channel LR and RL amplitudes
+    const double deltaMLR2t_e(const double t) const;      
+    const double deltaMRL2t_e(const double t) const;    
+
+//  Integrals of the SM squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]
+    virtual const double intMeeLR2SMts2(const double s, const double t0, const double t1) const;
+    virtual const double intMeeLRtilde2SMst2(const double s, const double t0, const double t1) const;
+    virtual const double intMeeLL2SMus2(const double s, const double t0, const double t1) const;
+    virtual const double intMeeRR2SMus2(const double s, const double t0, const double t1) const;
+    
+//  Integrals of the corrections to the squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]
+    virtual const double intDMLL2eus2(const double s, const double t0, const double t1) const;
+    virtual const double intDMRR2eus2(const double s, const double t0, const double t1) const;
+    virtual const double intDMLR2ets2(const double s, const double t0, const double t1) const;
+    virtual const double intDMRL2ets2(const double s, const double t0, const double t1) const;
+    virtual const double intDMLR2etildest2(const double s, const double t0, const double t1) const;
+    virtual const double intDMRL2etildest2(const double s, const double t0, const double t1) const;
+
+//  SM cross section integrated in [cos \theta_{min},cos \theta_{max}] 
+    virtual const double sigmaSM_ee(const double s, const double cosmin, const double cosmax) const;
+//  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
+    virtual const double delta_sigma_ee(const double s, const double cosmin, const double cosmax) const;
+//  Absolute corrections to the total cross section 
+    virtual const double delta_sigmaTot_ee(const double s) const;
+//  Absolute corrections to the FB asymmetry 
+    virtual const double delta_AFB_ee(const double s) const;
 
     ////////////////////////////////////////////////////////////////////////
 
