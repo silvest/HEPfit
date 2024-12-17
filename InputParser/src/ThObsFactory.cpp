@@ -4589,9 +4589,9 @@ ThObsFactory::ThObsFactory()
 
     // Parameters for inclusive observables
     const double sqrt_see[8] = {158., 163., 240., 250., 345., 360., 365., 500.};
-    const double sqrt_s_eeff[12] = {157.5, 162.5, 240., 250., 345., 360., 365., 500.};
+    const double sqrt_s_eeff[8] = {157.5, 162.5, 240., 250., 345., 360., 365., 500.};
 
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 8; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
         obsThFactory["sigmaeeqq_" + sqrt_s_str] = bind(boost::factory<LEP2sigmaHadron*>(), _1, sqrt_s_eeff[i]);
         obsThFactory["sigmaeemumu_" + sqrt_s_str] = bind(boost::factory<LEP2sigmaMu*>(), _1, sqrt_s_eeff[i]);
