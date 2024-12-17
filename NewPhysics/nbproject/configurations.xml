@@ -19,7 +19,6 @@
       <itemPath>src/NPSMEFTd6U2.h</itemPath>
       <itemPath>src/NPSMEFTd6U2qU1le.h</itemPath>
       <itemPath>src/NPSMEFTd6U3.h</itemPath>
-      <itemPath>src/NPSMEFTd6_QFU_LFU.h</itemPath>
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
       <itemPath>src/NPSTUZbbbarLR.h</itemPath>
@@ -197,8 +196,6 @@
       </item>
       <item path="src/NPSMEFTd6U3.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSTU.h" ex="false" tool="3" flavor2="0">
@@ -351,8 +348,6 @@
       </item>
       <item path="src/NPSMEFTd6U3.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSTU.h" ex="false" tool="3" flavor2="0">
@@ -493,8 +488,6 @@
       </item>
       <item path="src/NPSMEFTd6U3.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSTU.h" ex="false" tool="3" flavor2="0">
@@ -625,8 +618,6 @@
       <item path="src/NPSMEFTd6U3.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6U3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPSMEFTd6_QFU_LFU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>

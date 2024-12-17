@@ -1782,6 +1782,17 @@ double EWSMApproximateFormulae::LEP2sigmaMuApprox(const double s) const
         cMZ = 3.42495;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2sigmaMuApprox()");
 
@@ -1934,6 +1945,17 @@ double EWSMApproximateFormulae::LEP2AFBmuApprox(const double s) const
         cMZ = 0.90624; 
   
         RelThError=0.;
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2AFBmuApprox()");
 
@@ -2086,6 +2108,17 @@ double EWSMApproximateFormulae::LEP2sigmaTauApprox(const double s) const
         cMZ = 3.42386;
   
         RelThError=0.;
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2sigmaTauApprox()");
 
@@ -2238,6 +2271,17 @@ double EWSMApproximateFormulae::LEP2AFBtauApprox(const double s) const
         cMZ = 0.90619; 
   
         RelThError=0.;
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2AFBtauApprox()");
 
@@ -2390,6 +2434,17 @@ double EWSMApproximateFormulae::LEP2sigmaHadronApprox(const double s) const
         cMZ = 76.9357; 
   
         RelThError=0.;
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2sigmaHadronApprox()");
 
@@ -2572,6 +2627,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         cMZ = 0.;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
     }     
@@ -2646,6 +2712,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         X0 = 1.745;
         cMH = 0.;
         cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
         caS = 0.;
         caS2 = 0.;
         caSmt = 0.;
@@ -2734,6 +2811,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         cMZ = 0.;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
     }     
@@ -2808,6 +2896,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         X0 = 3.194;
         cMH = 0.;
         cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
         caS = 0.;
         caS2 = 0.;
         caSmt = 0.;
@@ -2896,6 +2995,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         cMZ = 0.;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
     }    
@@ -2970,6 +3080,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         X0 = 5.729;
         cMH = 0.;
         cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
         caS = 0.;
         caS2 = 0.;
         caSmt = 0.;
@@ -3058,6 +3179,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         cMZ = 0.;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
     }
@@ -3132,6 +3264,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         X0 = 11.019;
         cMH = 0.;
         cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
         caS = 0.;
         caS2 = 0.;
         caSmt = 0.;
@@ -3220,6 +3363,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         cMZ = 0.;
   
         RelThError=0.;
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
     }
@@ -3294,6 +3448,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         X0 = 25.254;
         cMH = 0.;
         cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
         caS = 0.;
         caS2 = 0.;
         caSmt = 0.;
@@ -3382,6 +3547,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         cMZ = 0.;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
     }    
@@ -3456,6 +3632,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         X0 = 79.639;
         cMH = 0.;
         cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
         caS = 0.;
         caS2 = 0.;
         caSmt = 0.;
@@ -3544,6 +3731,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         cMZ = 0.;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosEApprox()");
     }
@@ -3618,6 +3816,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosEApprox(const double s, const doub
         X0 = 576.688;
         cMH = 0.;
         cmt = 0.;
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
         caS = 0.;
         caS2 = 0.;
         caSmt = 0.;
@@ -3738,6 +3947,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
           cMZ = -1.50565;
           
           RelThError=0.;
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosMuApprox()");
     }  
@@ -3828,6 +4048,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
         caSmt = 0.00034;
         cda5h = 0.03872;
         cMZ = -1.05883;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
   
         RelThError=0.; 
     } else {
@@ -3922,6 +4153,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
         cMZ = -0.51107;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosMuApprox()");
     }      
@@ -4012,6 +4254,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
         caSmt = -0.00003;
         cda5h = 0.03567;
         cMZ = 0.13452;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
   
         RelThError=0.; 
     } else {
@@ -4106,6 +4359,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
         cMZ = 0.87424;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosMuApprox()");
     }    
@@ -4196,6 +4460,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
         caSmt = -0.00051;
         cda5h = 0.04626;
         cMZ = 1.70151;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
   
         RelThError=0.; 
     } else {
@@ -4290,6 +4565,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
         cMZ = 2.60621;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosMuApprox()");
     }   
@@ -4380,6 +4666,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
         caSmt = -0.00111;
         cda5h = 0.07083;
         cMZ = 3.56935;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
   
         RelThError=0.; 
     } else {
@@ -4474,6 +4771,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
         cMZ = 4.54935;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosMuApprox()");
     }
@@ -4566,6 +4874,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosMuApprox(const double s, const dou
         cMZ = 5.47704;
   
         RelThError=0.;
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosMuApprox()");
     }
@@ -4679,6 +4998,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         cMZ = -1.50516;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosTauApprox()");
     }   
@@ -4769,6 +5099,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         caSmt = 0.00034;
         cda5h = 0.03873;
         cMZ = -1.05852;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
   
         RelThError=0.; 
     } else {
@@ -4863,6 +5204,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         cMZ = -0.51092;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosTauApprox()");
     }
@@ -4953,6 +5305,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         caSmt = -0.00003;
         cda5h = 0.03567;
         cMZ = 0.13448;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
   
         RelThError=0.; 
     } else {
@@ -5047,6 +5410,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         cMZ = 0.87397;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosTauApprox()");
     }
@@ -5137,6 +5511,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         caSmt = -0.00052;
         cda5h = 0.04626;
         cMZ = 1.70097;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
   
         RelThError=0.; 
     } else {
@@ -5231,6 +5616,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         cMZ = 2.60535;
   
         RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosTauApprox()");
     }
@@ -5321,6 +5717,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         caSmt = -0.00111;
         cda5h = 0.07083;
         cMZ = 3.56826;
+  
+        RelThError=0.; 
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
   
         RelThError=0.; 
     } else {
@@ -5415,6 +5822,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         cMZ = 4.5481;
   
         RelThError=0.;
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosTauApprox()");
     }
@@ -5507,6 +5925,17 @@ double EWSMApproximateFormulae::LEP2dsigmadcosTauApprox(const double s, const do
         cMZ = 5.47527;
   
         RelThError=0.;
+    } else if ( s > 210.*210. ) { 
+        X0 = 0.; 
+        cMH = 0.;
+        cmt = 0.; 
+        caS = 0.;
+        caS2 = 0.;
+        caSmt = 0.;
+        cda5h = 0.;
+        cMZ = 0.;
+  
+        RelThError=0.; 
     } else {
         throw std::runtime_error("ERROR: wrong LEP2 energy in ApproximateFormulae::LEP2dsigmadcosTauApprox()");
     }
