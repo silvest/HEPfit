@@ -1,5 +1,11 @@
 var NAVTREEINDEX132 =
 {
+"df/dec/class_hobs__bb__phi3__tautau___a_t_l_a_s13.html#af3c867bc887f617f3ad19535d46881a8":[27,0,894,0],
+"df/dec/class_hobs__bb__phi3__tautau___a_t_l_a_s13.html#af429ca49b4e29d8b827799cfdfd58746":[27,0,894,1],
+"df/dee/class_g_t_h_d_m_delta_s.html":[27,0,815],
+"df/dee/class_g_t_h_d_m_delta_s.html#a4063c6d7c0d9db2ce6ccda5a37c7d62a":[27,0,815,1],
+"df/dee/class_g_t_h_d_m_delta_s.html#a6fdf659489dfdf816e7633340420a464":[27,0,815,0],
+"df/df0/class_r12___g_t_h_d_m.html":[27,0,2265],
 "df/df0/class_r12___g_t_h_d_m.html#a9b030b22bd741d98457360d95908d220":[27,0,2265,2],
 "df/df0/class_r12___g_t_h_d_m.html#aa50d5f2df55da5bf37258ac56e2777d9":[27,0,2265,1],
 "df/df0/class_r12___g_t_h_d_m.html#ac1db9af3efc9c7e42f0daba961d037f5":[27,0,2265,0],

@@ -1,5 +1,11 @@
 var NAVTREEINDEX62 =
 {
+"d6/d75/class_flavour_wilson_coefficient.html#a7399b7143f5fd0b9a180b4694f76bece":[4,6,2,16],
+"d6/d75/class_flavour_wilson_coefficient.html#a77b7543d09f2b0344382304d84708afa":[4,6,2,1],
+"d6/d75/class_flavour_wilson_coefficient.html#a78377c4014681ab38013001a525df19d":[4,6,2,24],
+"d6/d75/class_flavour_wilson_coefficient.html#a7d818264e520627d2e74557d2982a55d":[4,6,2,38],
+"d6/d75/class_flavour_wilson_coefficient.html#a854793626b0a8d08bd2aa586e4b11b0e":[4,6,2,58],
+"d6/d75/class_flavour_wilson_coefficient.html#a857d7359a2efddb3a5a11c7511caada7":[4,6,2,26],
 "d6/d75/class_flavour_wilson_coefficient.html#a87871f255ac057fa3a9248035fd4d3af":[4,6,2,28],
 "d6/d75/class_flavour_wilson_coefficient.html#a881e1c95a21ee4a4c3fc5c27fc835518":[4,6,2,84],
 "d6/d75/class_flavour_wilson_coefficient.html#a88956a547430b2c4d9bccfbbf81a46c9":[4,6,2,69],
@@ -243,11 +249,5 @@ var NAVTREEINDEX62 =
 "d6/d9a/classdelg_zl_l.html":[27,0,414],
 "d6/d9a/classdelg_zl_l.html#a34a39ecf514f610136fadb78b24cfa00":[27,0,414,4],
 "d6/d9a/classdelg_zl_l.html#a3c30f3325ba717d91f2f91372eb15a35":[27,0,414,0],
-"d6/d9a/classdelg_zl_l.html#ab6b50b24ccd71468360edca46dbb9b89":[27,0,414,2],
-"d6/d9a/classdelg_zl_l.html#ac333b8d3bef18ab77ed9e00d08684e0e":[27,0,414,1],
-"d6/d9a/classdelg_zl_l.html#acff5078840f3907b5955a0943e3aedc5":[27,0,414,3],
-"d6/d9b/classunitarity_n_l_oev12.html":[4,17,487],
-"d6/d9b/classunitarity_n_l_oev12.html#a1d5c2adb3f49b0b5b85f792cf8bc5b08":[4,17,487,2],
-"d6/d9b/classunitarity_n_l_oev12.html#aa843a327f2e8b80123f4ba329b604359":[4,17,487,1],
-"d6/d9b/classunitarity_n_l_oev12.html#af4f7531e844dcc16e7757049badc93b8":[4,17,487,0]
+"d6/d9a/classdelg_zl_l.html#ab6b50b24ccd71468360edca46dbb9b89":[27,0,414,2]
 };

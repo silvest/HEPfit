@@ -1,5 +1,11 @@
 var NAVTREEINDEX81 =
 {
+"d9/d3b/class_s_u_s_y_mass_insertion.html#a06f19302f855ab7c4e8c87a237d4a246":[27,0,2751,69],
+"d9/d3b/class_s_u_s_y_mass_insertion.html#a07e3ed31e70e16aa934c5e080f64e25f":[27,0,2751,158],
+"d9/d3b/class_s_u_s_y_mass_insertion.html#a08976364d41c851f9808357a743d8195":[27,0,2751,144],
+"d9/d3b/class_s_u_s_y_mass_insertion.html#a0948459076e4f63a1e4122397c411726":[27,0,2751,125],
+"d9/d3b/class_s_u_s_y_mass_insertion.html#a0a9bd45e3689b8706f2330838ad2c1b7":[27,0,2751,49],
+"d9/d3b/class_s_u_s_y_mass_insertion.html#a0c062aa156f3b07bd26f8a0cdc25b13e":[27,0,2751,167],
 "d9/d3b/class_s_u_s_y_mass_insertion.html#a0c751c3afa35a50180743ab96be794c4":[27,0,2751,63],
 "d9/d3b/class_s_u_s_y_mass_insertion.html#a0c931d5ca16955f17f23ca0f0528e449":[27,0,2751,65],
 "d9/d3b/class_s_u_s_y_mass_insertion.html#a0e8a2d331c1c4294a9b40ea11a9bb77d":[27,0,2751,156],
@@ -243,11 +249,5 @@ var NAVTREEINDEX81 =
 "d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html":[27,0,1,2,9],
 "d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a0b01f2f224940d56ac64f439c798d456":[27,0,1,2,9,19],
 "d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a0d41d1826984087244c99f5bf8981a41":[27,0,1,2,9,27],
-"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a14172e78bf54b54b81f9fb9e075cf4f2":[27,0,1,2,9,2],
-"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a157c325e60b2af0070ff14fd0c37d419":[27,0,1,2,9,24],
-"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a17344b50244fea8d068e02f63dfc17c1":[27,0,1,2,9,9],
-"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a24fac0416f17f1084b83bd3ed994d268":[27,0,1,2,9,31],
-"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a27fa0e1a54b468ef69c1d9bd24c55e51":[27,0,1,2,9,15],
-"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a28790f34d5962bbcf474d79b537874be":[27,0,1,2,9,0],
-"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a29dd1ff99957b497b7cc77a49c6b3bf2":[27,0,1,2,9,29]
+"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a14172e78bf54b54b81f9fb9e075cf4f2":[27,0,1,2,9,2]
 };
