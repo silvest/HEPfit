@@ -291,7 +291,8 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
-        = {"CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
+        = {"CHWpCHB", "CHL1hat", "CHL3hat", "CHQ1hat", "CHQ3hat", "CHdhat", "CHuhat", "CHehat", "CLLhat", //AG:added
+    "CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i",
     "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i",
