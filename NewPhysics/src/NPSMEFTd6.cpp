@@ -23798,7 +23798,7 @@ const double NPSMEFTd6::CEWHd33() const
 
 const double NPSMEFTd6::NevLHCppee13(const int i_bin) const {
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-    double Civect[49] = {1., CLQ1_1111, CLQ1_1111, CLQ1_1111, CLQ3_1111, CLQ3_1111, CLQ3_1111, CQe_1111, CQe_1111, CQe_1111, CLu_1111, CLu_1111, CLd_1111, CLd_1111, CLd_1111, Ceu_1111, Ceu_1111, Ced_1111, Ced_1111, Ced_1111, CHL1_11, CHL1_11, CHe_11, CHQ1_11, CHQ1_11, CHQ1_11, CHQ3_11, CHQ3_11, CHQ3_11, CHu_11, CHu_11, CHd_11, CHd_11, CHd_11, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}; 
+    double Civect[49] = {LambdaNP2, CLQ1_1111, CLQ1_1111, CLQ1_1111, CLQ3_1111, CLQ3_1111, CLQ3_1111, CQe_1111, CQe_1111, CQe_1111, CLu_1111, CLu_1111, CLd_1111, CLd_1111, CLd_1111, Ceu_1111, Ceu_1111, Ced_1111, Ced_1111, Ced_1111, CHL1_11, CHL1_11, CHe_11, CHQ1_11, CHQ1_11, CHQ1_11, CHQ3_11, CHQ3_11, CHQ3_11, CHu_11, CHu_11, CHd_11, CHd_11, CHd_11, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}; 
     //{1., CLQ1_1111, CLQ1_1122, CLQ1_1133, CLQ3_1111, CLQ3_1122, CLQ3_1133, CQe_1111, CQe_2211, CQe_3311, CLu_1111, CLu_1122, CLd_1111, CLd_1122, CLd_1133, Ceu_1111, Ceu_1122, Ced_1111, Ced_1122, Ced_1133, CHL1_11, CHL3_11, CHe_11, CHQ1_11, CHQ1_22, CHQ1_33, CHQ3_11, CHQ3_22, CHQ3_33, CHu_11, CHu_22, CHd_11, CHd_22, CHd_33, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.};
 
     double NevCi[47][49] = {
@@ -23860,7 +23860,7 @@ const double NPSMEFTd6::NevLHCppee13(const int i_bin) const {
 
         for (int iCi = 0; iCi < NCi; ++iCi) {
 
-            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi];
+            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi] / LambdaNP2;
         }
 
     } else
@@ -23873,7 +23873,7 @@ const double NPSMEFTd6::NevLHCppee13(const int i_bin) const {
 
 const double NPSMEFTd6::NevLHCppmumu13(const int i_bin) const {
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-    double Civect[49] = {1., CLQ1_1111, CLQ1_1111, CLQ1_1111, CLQ3_1111, CLQ3_1111, CLQ3_1111, CQe_1111, CQe_1111, CQe_1111, CLu_1111, CLu_1111, CLd_1111, CLd_1111, CLd_1111, Ceu_1111, Ceu_1111, Ced_1111, Ced_1111, Ced_1111, CHL1_11, CHL1_11, CHe_11, CHQ1_11, CHQ1_11, CHQ1_11, CHQ3_11, CHQ3_11, CHQ3_11, CHu_11, CHu_11, CHd_11, CHd_11, CHd_11, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}; 
+    double Civect[49] = {LambdaNP2, CLQ1_1111, CLQ1_1111, CLQ1_1111, CLQ3_1111, CLQ3_1111, CLQ3_1111, CQe_1111, CQe_1111, CQe_1111, CLu_1111, CLu_1111, CLd_1111, CLd_1111, CLd_1111, Ceu_1111, Ceu_1111, Ced_1111, Ced_1111, Ced_1111, CHL1_11, CHL1_11, CHe_11, CHQ1_11, CHQ1_11, CHQ1_11, CHQ3_11, CHQ3_11, CHQ3_11, CHu_11, CHu_11, CHd_11, CHd_11, CHd_11, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}; 
     //{1., CLQ1_2211, CLQ1_2222, CLQ1_2233, CLQ3_2211, CLQ3_2222, CLQ3_2233, CQe_1122, CQe_2222, CQe_3322, CLu_2211, CLu_2222, CLd_2211, CLd_2222, CLd_2233, Ceu_2211, Ceu_2222, Ced_2211, Ced_2222, Ced_2233, CHL1_22, CHL3_22, CHe_22, CHQ1_11, CHQ1_22, CHQ1_33, CHQ3_11, CHQ3_22, CHQ3_33, CHu_11, CHu_22, CHd_11, CHd_22, CHd_33, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0. };
 
     double NevCi[30][49] = {
@@ -23918,7 +23918,7 @@ const double NPSMEFTd6::NevLHCppmumu13(const int i_bin) const {
 
         for (int iCi = 0; iCi < NCi; ++iCi) {
 
-            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi];
+            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi] / LambdaNP2;
         }
 
     } else
@@ -23931,7 +23931,7 @@ const double NPSMEFTd6::NevLHCppmumu13(const int i_bin) const {
 
 const double NPSMEFTd6::NevLHCpptautau13(const int i_bin) const {
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-    double Civect[49] = {1., CLQ1_1111, CLQ1_1111, CLQ1_1111, CLQ3_1111, CLQ3_1111, CLQ3_1111, CQe_1111, CQe_1111, CQe_1111, CLu_1111, CLu_1111, CLd_1111, CLd_1111, CLd_1111, Ceu_1111, Ceu_1111, Ced_1111, Ced_1111, Ced_1111, CHL1_11, CHL1_11, CHe_11, CHQ1_11, CHQ1_11, CHQ1_11, CHQ3_11, CHQ3_11, CHQ3_11, CHu_11, CHu_11, CHd_11, CHd_11, CHd_11, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}; 
+    double Civect[49] = {LambdaNP2, CLQ1_1111, CLQ1_1111, CLQ1_1111, CLQ3_1111, CLQ3_1111, CLQ3_1111, CQe_1111, CQe_1111, CQe_1111, CLu_1111, CLu_1111, CLd_1111, CLd_1111, CLd_1111, Ceu_1111, Ceu_1111, Ced_1111, Ced_1111, Ced_1111, CHL1_11, CHL1_11, CHe_11, CHQ1_11, CHQ1_11, CHQ1_11, CHQ3_11, CHQ3_11, CHQ3_11, CHu_11, CHu_11, CHd_11, CHd_11, CHd_11, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}; 
     //{1., CLQ1_3311, CLQ1_3322, CLQ1_3333, CLQ3_3311, CLQ3_3322, CLQ3_3333, CQe_1133, CQe_2233, CQe_3333, CLu_3311, CLu_3322, CLd_3311, CLd_3322, CLd_3333, Ceu_3311, Ceu_3322, Ced_3311, Ced_3322, Ced_3333, CHL1_33, CHL3_33, CHe_33, CHQ1_11, CHQ1_22, CHQ1_33, CHQ3_11, CHQ3_22, CHQ3_33, CHu_11, CHu_22, CHd_11, CHd_22, CHd_33, 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.};
 
     double NevCi[14][49] = {
@@ -23960,7 +23960,7 @@ const double NPSMEFTd6::NevLHCpptautau13(const int i_bin) const {
 
         for (int iCi = 0; iCi < NCi; ++iCi) {
 
-            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi];
+            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi] / LambdaNP2;
         }
 
     } else
@@ -23975,7 +23975,7 @@ const double NPSMEFTd6::NevLHCpptautau13(const int i_bin) const {
 
 const double NPSMEFTd6::NevLHCppenu13(const int i_bin) const {
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-    double Civect[12] = {1., CLQ3_1111, CLQ3_1111, CHL3_11, CHQ3_11, CHQ3_11, 0., 0. , 0., 0., 0., 0.};
+    double Civect[12] = {LambdaNP2, CLQ3_1111, CLQ3_1111, CHL3_11, CHQ3_11, CHQ3_11, 0., 0. , 0., 0., 0., 0.};
     // {1., CLQ3_1111, CLQ3_1122, CHL3_11, CHQ3_11, CHQ3_22, 0., 0. , 0., 0., 0., 0.};
 
     double NevCi[24][12] = {
@@ -24014,7 +24014,7 @@ const double NPSMEFTd6::NevLHCppenu13(const int i_bin) const {
 
         for (int iCi = 0; iCi < NCi; ++iCi) {
 
-            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi];
+            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi] / LambdaNP2;
         }
 
     } else
@@ -24027,7 +24027,7 @@ const double NPSMEFTd6::NevLHCppenu13(const int i_bin) const {
 
 const double NPSMEFTd6::NevLHCppmunu13(const int i_bin) const {
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-    double Civect[12] = {1., CLQ3_1111, CLQ3_1111, CHL3_11, CHQ3_11, CHQ3_11, 0., 0. , 0., 0., 0., 0.};
+    double Civect[12] = {LambdaNP2, CLQ3_1111, CLQ3_1111, CHL3_11, CHQ3_11, CHQ3_11, 0., 0. , 0., 0., 0., 0.};
     //{1., CLQ3_2211, CLQ3_2222, CHL3_22, CHQ3_11, CHQ3_22, 0., 0. , 0., 0., 0., 0.};
 
     double NevCi[20][12] = {
@@ -24062,7 +24062,7 @@ const double NPSMEFTd6::NevLHCppmunu13(const int i_bin) const {
 
         for (int iCi = 0; iCi < NCi; ++iCi) {
 
-            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi];
+            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi] / LambdaNP2;
         }
 
     } else
@@ -24075,7 +24075,7 @@ const double NPSMEFTd6::NevLHCppmunu13(const int i_bin) const {
 
 const double NPSMEFTd6::NevLHCpptaunu13(const int i_bin) const {
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-    double Civect[12] = {1., CLQ3_1111, CLQ3_1111, CHL3_11, CHQ3_11, CHQ3_11, 0., 0. , 0., 0., 0., 0.};
+    double Civect[12] = {LambdaNP2, CLQ3_1111, CLQ3_1111, CHL3_11, CHQ3_11, CHQ3_11, 0., 0. , 0., 0., 0., 0.};
     //{ 1., CLQ3_3311, CLQ3_3322, CHL3_33, CHQ3_11, CHQ3_22, 0., 0. , 0., 0., 0., 0.};
 
     double NevCi[10][12] = {
@@ -24100,7 +24100,7 @@ const double NPSMEFTd6::NevLHCpptaunu13(const int i_bin) const {
 
         for (int iCi = 0; iCi < NCi; ++iCi) {
 
-            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi];
+            Nev = Nev + NevCi[i_bin - 1][iCi] * Civect[iCi] / LambdaNP2;
         }
 
     } else
@@ -25683,91 +25683,91 @@ const double NPSMEFTd6::AuxObs_NP30() const
 ///////////////////////////////////////////////////////////////////////////////
 
 const double NPSMEFTd6::CeeLL_e() const {
-    return 2.0 * CLL_1111;
+    return 2.0 * CLL_1111 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLL_mu() const
 {
-    return 2.0 * (CLL_1122 + CiLL_1221);
+    return 2.0 * (CLL_1122 + CiLL_1221) / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLL_tau() const
 {
-    return 2.0 * (CLL_1133 + CLL_1331);
+    return 2.0 * (CLL_1133 + CLL_1331) / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLL_up() const
 {
-    return (CLQ1_1111 - CLQ3_1111);
+    return (CLQ1_1111 - CLQ3_1111) / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLL_charm() const
 {
-    return (CLQ1_1122 - CLQ3_1122);
+    return (CLQ1_1122 - CLQ3_1122) / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLL_top() const
 {
-    return (CLQ1_1133 - CLQ3_1133);
+    return (CLQ1_1133 - CLQ3_1133) / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLL_down() const
 {
-    return (CLQ1_1111 + CLQ3_1111);
+    return (CLQ1_1111 + CLQ3_1111) / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLL_strange() const
 {
-    return (CLQ1_1122 + CLQ3_1122);
+    return (CLQ1_1122 + CLQ3_1122) / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLL_bottom() const
 {
-    return (CLQ1_1133 + CLQ3_1133);
+    return (CLQ1_1133 + CLQ3_1133) / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLR_e() const {
-    return CLe_1111;
+    return CLe_1111 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLR_mu() const
 {
-    return CLe_1122;
+    return CLe_1122 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLR_tau() const
 {
-    return CLe_1133;
+    return CLe_1133 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLR_up() const
 {
-    return CLu_1111;
+    return CLu_1111 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLR_charm() const
 {
-    return CLu_1122;
+    return CLu_1122 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLR_top() const
 {
-    return CLu_1133;
+    return CLu_1133 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLR_down() const
 {
-    return CLd_1111;
+    return CLd_1111 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLR_strange() const
 {
-    return CLd_1122;
+    return CLd_1122 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeLR_bottom() const
 {
-    return CLd_1133;
+    return CLd_1133 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRL_e() const {
@@ -25777,86 +25777,86 @@ const double NPSMEFTd6::CeeRL_e() const {
 
 const double NPSMEFTd6::CeeRL_mu() const
 {
-    return CLe_2211;
+    return CLe_2211 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRL_tau() const
 {
-    return CLe_3311;
+    return CLe_3311 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRL_up() const
 {
-    return CQe_1111;
+    return CQe_1111 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRL_charm() const
 {
-    return CQe_2211;
+    return CQe_2211 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRL_top() const
 {
-    return CQe_3311;
+    return CQe_3311 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRL_down() const
 {
-    return CQe_1111;
+    return CQe_1111 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRL_strange() const
 {
-    return CQe_2211;
+    return CQe_2211 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRL_bottom() const
 {
-    return CQe_3311;
+    return CQe_3311 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRR_e() const {
-    return 2.0 * Cee_1111;
+    return 2.0 * Cee_1111 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRR_mu() const
 {
-    return 4.0 * Cee_1122;
+    return 4.0 * Cee_1122 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRR_tau() const
 {
-    return 4.0 * Cee_1133;
+    return 4.0 * Cee_1133 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRR_up() const
 {
-    return Ceu_1111;
+    return Ceu_1111 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRR_charm() const
 {
-    return Ceu_1122;
+    return Ceu_1122 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRR_top() const
 {
-    return Ceu_1133;
+    return Ceu_1133 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRR_down() const
 {
-    return Ced_1111;
+    return Ced_1111 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRR_strange() const
 {
-    return Ced_1122;
+    return Ced_1122 / LambdaNP2;
 }
 
 const double NPSMEFTd6::CeeRR_bottom() const
 {
-    return Ced_1133;
+    return Ced_1133 / LambdaNP2;
 }
 
 // Functions below are ported directly from NPSMEFTd6General.cpp
