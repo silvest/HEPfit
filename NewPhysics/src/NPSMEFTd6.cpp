@@ -25600,21 +25600,22 @@ const double NPSMEFTd6::AuxObs_NP24() const {
     double cHe22, cHl122, cHl322;
     double cee, cle, cll;
     double ced, ceu, clu, cld, clq1, clq3, cqe;
+
+    // Chi square computed assuming Lambda=1000 GeV. Correct here.    
+    cHe22 = CHe_22 * (1000000. / LambdaNP2);
+    cHl122 = CHL1_22 * (1000000. / LambdaNP2);
+    cHl322 = CHL3_22 * (1000000. / LambdaNP2);
     
-    cHe22 = CHe_22 / LambdaNP2;
-    cHl122 = CHL1_22 / LambdaNP2;
-    cHl322 = CHL3_22 / LambdaNP2;
-    
-    cee = Cee_1122 / LambdaNP2;
-    cle = CLe_1122 / LambdaNP2;
-    cll = 0.5 * ( CLL_1122 + CLL_1221 )/ LambdaNP2;
-    ced = Ced_2211 / LambdaNP2;
-    ceu = Ceu_2211 / LambdaNP2;
-    clu = CLu_2211 / LambdaNP2;
-    cld = CLd_2211 / LambdaNP2;
-    clq1 = CLQ1_2211 / LambdaNP2;
-    clq3 = CLQ3_2211 / LambdaNP2;
-    cqe = CQe_1122 / LambdaNP2;
+    cee = Cee_1122 * (1000000. / LambdaNP2);
+    cle = CLe_1122 * (1000000. / LambdaNP2);
+    cll = 0.5 * ( CLL_1122 + CLL_1221 )* (1000000. / LambdaNP2);
+    ced = Ced_2211 * (1000000. / LambdaNP2);
+    ceu = Ceu_2211 * (1000000. / LambdaNP2);
+    clu = CLu_2211 * (1000000. / LambdaNP2);
+    cld = CLd_2211 * (1000000. / LambdaNP2);
+    clq1 = CLQ1_2211 * (1000000. / LambdaNP2);
+    clq3 = CLQ3_2211 * (1000000. / LambdaNP2);
+    cqe = CQe_1122 * (1000000. / LambdaNP2);
     
     chi2diBoson = 7.70298e+08 * cHe22*cHe22 + 6.74703e+08 * cHl122*cHl122 
                 + cHe22 * (-2.66366e+08 * cHl122 - 1.67235e+09 * cHl322) 

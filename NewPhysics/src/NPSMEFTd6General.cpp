@@ -42068,21 +42068,22 @@ const double NPSMEFTd6General::AuxObs_NP24() const {
     double cHe22, cHl122, cHl322;
     double cee, cle, cll;
     double ced, ceu, clu, cld, clq1, clq3, cqe;
+
+    // Chi square computed assuming Lambda=1000 GeV. Correct here.
+    cHe22 = getSMEFTCoeffEW("CHeR",1,1) * 1000000.;
+    cHl122 = getSMEFTCoeffEW("CHl1R", 1, 1) * 1000000.;
+    cHl322 = getSMEFTCoeffEW("CHl3R", 1, 1) * 1000000.;
     
-    cHe22 = getSMEFTCoeffEW("CHeR",1,1);
-    cHl122 = getSMEFTCoeffEW("CHl1R", 1, 1);
-    cHl322 = getSMEFTCoeffEW("CHl3R", 1, 1);
-    
-    cee = getSMEFTCoeffEW("CeeR", 0, 0, 1, 1);
-    cle = 0.5 * (getSMEFTCoeffEW("CleR", 1, 1, 0, 0) + getSMEFTCoeffEW("CleR", 0, 0, 1, 1));
-    cll = 0.5 * (getSMEFTCoeffEW("CllR", 0, 0, 1, 1) + getSMEFTCoeffEW("CllR", 0, 1, 1, 0));
-    ced = getSMEFTCoeffEW("CedR", 1, 1, 0, 0);
-    ceu = getSMEFTCoeffEW("CeuR", 1, 1, 0, 0);
-    clu = getSMEFTCoeffEW("CluR", 1, 1, 0, 0);
-    cld = getSMEFTCoeffEW("CldR", 1, 1, 0, 0);
-    clq1 = getSMEFTCoeffEW("Clq1R", 1, 1, 0, 0);
-    clq3 = getSMEFTCoeffEW("Clq3R", 1, 1, 0, 0);
-    cqe = getSMEFTCoeffEW("CqeR", 0, 0, 1, 1);
+    cee = getSMEFTCoeffEW("CeeR", 0, 0, 1, 1) * 1000000.;
+    cle = 0.5 * (getSMEFTCoeffEW("CleR", 1, 1, 0, 0) + getSMEFTCoeffEW("CleR", 0, 0, 1, 1)) * 1000000.;
+    cll = 0.5 * (getSMEFTCoeffEW("CllR", 0, 0, 1, 1) + getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000.;
+    ced = getSMEFTCoeffEW("CedR", 1, 1, 0, 0) * 1000000.;
+    ceu = getSMEFTCoeffEW("CeuR", 1, 1, 0, 0) * 1000000.;
+    clu = getSMEFTCoeffEW("CluR", 1, 1, 0, 0) * 1000000.;
+    cld = getSMEFTCoeffEW("CldR", 1, 1, 0, 0) * 1000000.;
+    clq1 = getSMEFTCoeffEW("Clq1R", 1, 1, 0, 0) * 1000000.;
+    clq3 = getSMEFTCoeffEW("Clq3R", 1, 1, 0, 0) * 1000000.;
+    cqe = getSMEFTCoeffEW("CqeR", 0, 0, 1, 1) * 1000000.;
     
     chi2diBoson = 7.70298e+08 * cHe22*cHe22 + 6.74703e+08 * cHl122*cHl122 
                 + cHe22 * (-2.66366e+08 * cHl122 - 1.67235e+09 * cHl322) 
