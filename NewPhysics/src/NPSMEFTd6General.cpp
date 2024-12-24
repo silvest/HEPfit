@@ -344,6 +344,7 @@ NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW(),
     FlagLoopH3d6Quad = false;
     FlagMWinput = false;
     FlagRGEci = true;
+    FlagfiniteNLO = false;
     SMEFTBasisFlag = "UP";
     setModelLinearized();
 
@@ -2960,17 +2961,24 @@ NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW(),
     } else {
         cLHd6 = 1.0;
     }
+    
     if (!FlagHiggsSM) {
         cHSM = 0.0;
     } else {
         cHSM = 1.0;
     }
+    
     if (FlagLoopH3d6Quad || FlagQuadraticTerms) {
         cLH3d62 = 1.0;
     } else {
         cLH3d62 = 0.0;
     }
-
+    
+    if (!FlagfiniteNLO) {
+        cNLOd6 = 0.0;
+    } else {
+        cNLOd6 = 1.0;
+    }
 
 }
 
@@ -13863,6 +13871,9 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
     } else if (name.compare("RGEci") == 0) {
         FlagRGEci = value;
         res = true;
+    } else if (name.compare("finiteNLO") == 0) {
+        FlagfiniteNLO = value;
+        res = true;
     } else
         res = NPbase::setFlag(name, value);
     if (FlagMWinput) {
@@ -13889,7 +13900,11 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
     } else {
         cLH3d62 = 0.0;
     }
-
+    if (!FlagfiniteNLO) {
+        cNLOd6 = 0.0;
+    } else {
+        cNLOd6 = 1.0;
+    }
 
     return (res);
 }
@@ -14302,7 +14317,7 @@ const double NPSMEFTd6General::Mw() const {
     //            + cW2_tree * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2
     //            + 2.0 * sW2_tree * delta_GF));
 
-    return (trueSM.Mw() + Mw_tree * (delta_e - 0.5 * delta_sW2 + delta_v));
+    return (trueSM.Mw() + Mw_tree * deltaMwd6());
 }
 
 const double NPSMEFTd6General::deltaMwd6() const {
@@ -14310,8 +14325,12 @@ const double NPSMEFTd6General::deltaMwd6() const {
     //            *(4.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2
     //            + cW2_tree * getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2
     //            + 2.0 * sW2_tree * delta_GF));
+    
+    double deltaNLO;
+    
+    deltaNLO=0.;
 
-    return (delta_e - 0.5 * delta_sW2 + delta_v);
+    return (delta_e - 0.5 * delta_sW2 + delta_v + deltaNLO);
 }
 
 const double NPSMEFTd6General::deltaMwd62() const {
@@ -14365,8 +14384,13 @@ const double NPSMEFTd6General::deltaGamma_W() const {
     //            + 2.0 * (1.0 + cW2_tree) / 3.0 * delta_GF)
     //            + 2.0 * G0 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2) + Nc*(getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1))) * v2_over_LambdaNP2);          
 
+    double deltaNLO;
+    
+    deltaNLO=0.;
+    
     return ( GammaW_tree * (deltaMwd6() + 2.0 * delta_UgCC)
-            + 2.0 * G0 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2) + Nc * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1))) * v2);
+            + 2.0 * G0 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2) + Nc * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1))) * v2
+            + deltaNLO );
 }
 
 const double NPSMEFTd6General::GammaW() const {
@@ -14383,6 +14407,57 @@ const double NPSMEFTd6General::deltaGwd62() const {
     return (dWW * dWW);
 }
 
+const double NPSMEFTd6General::deltaGamma_Z() const
+{
+    double deltaGamma_Z = 0.;
+    bool nonZeroNP = false;
+    
+    double deltaNLO;
+    
+    deltaNLO=0.;
+
+    double delGVl[6], delGAl[6], delGVq[6], delGAq[6];
+    for (int p = 0; p < 6; ++p) {
+        delGVl[p] = deltaGV_f(leptons[p]);
+        delGAl[p] = deltaGA_f(leptons[p]);
+        delGVq[p] = deltaGV_f(quarks[p]);
+        delGAq[p] = deltaGA_f(quarks[p]);
+        if (delGVl[p] != 0.0 || delGAl[p] != 0.0
+                || delGVq[p] != 0.0 || delGAq[p] != 0.0)
+            nonZeroNP = true;
+    }
+
+    if (nonZeroNP) {
+        double gVf, gAf;
+        double deltaGl[6], deltaGq[6];
+        double delGammaZ = 0.0;
+        for (int p = 0; p < 6; ++p) {
+            gVf = trueSM.gV_f(leptons[p]).real();
+            gAf = trueSM.gA_f(leptons[p]).real();
+            deltaGl[p] = 2.0 * (gVf * delGVl[p] + gAf * delGAl[p]);
+
+            gVf = trueSM.gV_f(quarks[p]).real();
+            gAf = trueSM.gA_f(quarks[p]).real();
+            deltaGq[p] = 2.0 * (gVf * delGVq[p] + gAf * delGAq[p]);
+
+            delGammaZ += deltaGl[p] + 3.0 * deltaGq[p];
+        }
+
+        double alpha = trueSM.alphaMz();       
+        double sW2_SM = trueSM.sW2();
+        double cW2_SM = trueSM.cW2();
+        deltaGamma_Z = alpha * Mz / 12.0 / sW2_SM / cW2_SM
+                * delGammaZ;
+    }
+
+    return deltaGamma_Z + deltaNLO;
+}
+
+const double NPSMEFTd6General::Gamma_Z() const
+{
+    return (trueSM.Gamma_Z() + deltaGamma_Z());
+}
+
 const double NPSMEFTd6General::deltaGzd6() const {
     return ( deltaGamma_Z() / trueSM.Gamma_Z());
 }
@@ -14393,57 +14468,27 @@ const double NPSMEFTd6General::deltaGzd62() const {
     return (dWZ * dWZ);
 }
 
-const double NPSMEFTd6General::deltaGV_f(const Particle p) const {
-    return (deltaGL_f(p) + deltaGR_f(p));
-}
-
-const double NPSMEFTd6General::deltaGA_f(const Particle p) const {
-    return (deltaGL_f(p) - deltaGR_f(p));
-}
-
-const double NPSMEFTd6General::deltaGL_f(const Particle p) const {
-    double I3p = p.getIsospin(), Qp = p.getCharge();
-    double CHF1 = CHF1_diag(p);
-    double CHF3 = CHF3_diag(p);
-    double NPindirect;
-
-    //    NPindirect = -I3p / 4.0 * (getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2 + 2.0 * delta_GF)
-    //                - Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-    //                *((4.0 * cW_tree / sW_tree * getSMEFTCoeffEW("CHWB") + getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
-
-    NPindirect = (I3p - Qp * sW2_tree) * delta_UgNC + Qp * delta_QgNC;
-
-    double NPdirect = -0.5 * (CHF1 - 2.0 * I3p * CHF3) * v2;
-    return (NPindirect + NPdirect);
-}
-
-const double NPSMEFTd6General::deltaGR_f(const Particle p) const {
-    double Qp = p.getCharge();
-    double CHf = CHf_diag(p);
-    double NPindirect;
-
-    //    NPindirect = -Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-    //                *((4.0 * cW_tree / sW_tree * getSMEFTCoeffEW("CHWB") + getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
-
-    NPindirect = (-Qp * sW2_tree) * delta_UgNC + Qp * delta_QgNC;
-
-    double NPdirect = -0.5 * CHf*v2;
-    return (NPindirect + NPdirect);
-}
-
 const double NPSMEFTd6General::BrW(const Particle fi, const Particle fj) const {
     double GammW0 = trueSM.GammaW();
     double dGammW = deltaGamma_W();
+    
+    double deltaNLO;
+    
+    deltaNLO=0.;
 
     double GammWij0 = trueSM.GammaW(fi, fj);
     double dGammWij = deltaGamma_Wff(fi, fj);
 
-    return GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0;
+    return GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0 + deltaNLO;
 }
 
 const double NPSMEFTd6General::RWlilj(const Particle li, const Particle lj) const {
     double GammWli0, GammWlj0;
     double dGammWli, dGammWlj;
+    
+    double deltaNLO;
+    
+    deltaNLO=0.;
 
     if (li.is("ELECTRON")) {
         GammWli0 = trueSM.GammaW(leptons[NEUTRINO_1], li);
@@ -14471,7 +14516,7 @@ const double NPSMEFTd6General::RWlilj(const Particle li, const Particle lj) cons
         throw std::runtime_error("Error in NPSMEFTd6General::RWlilj. lj must be a charged lepton");
     }
 
-    return GammWli0 / GammWlj0 + dGammWli / GammWlj0 - GammWli0 * dGammWlj / GammWlj0 / GammWlj0;
+    return GammWli0 / GammWlj0 + dGammWli / GammWlj0 - GammWli0 * dGammWlj / GammWlj0 / GammWlj0 + deltaNLO;
 }
 
 const double NPSMEFTd6General::RWc() const {
@@ -14525,8 +14570,239 @@ const double NPSMEFTd6General::RZlilj(const Particle li, const Particle lj) cons
 }
 
 
+const double NPSMEFTd6General::deltaSigmaHadron() const
+{
+    double sigma_had = 0.;
+    bool nonZeroNP = false;
+    
+    double deltaNLO;
+    
+    deltaNLO=0.;
+
+    double delGVl[6], delGAl[6], delGVq[6], delGAq[6];
+    for (int p = 0; p < 6; ++p) {
+        delGVl[p] = deltaGV_f(leptons[p]);
+        delGAl[p] = deltaGA_f(leptons[p]);
+        delGVq[p] = deltaGV_f(quarks[p]);
+        delGAq[p] = deltaGA_f(quarks[p]);
+        if (delGVl[p] != 0.0 || delGAl[p] != 0.0
+                || delGVq[p] != 0.0 || delGAq[p] != 0.0)
+            nonZeroNP = true;
+    }
+
+    if (nonZeroNP) {
+        double gVf, gAf;
+        double Gl[6], deltaGl[6], Gq[6], deltaGq[6];
+        double Gq_sum = 0.0, delGq_sum = 0.0;
+        double Gf_sum = 0.0, delGf_sum = 0.0;
+        for (int p = 0; p < 6; ++p) {
+            gVf = trueSM.gV_f(leptons[p]).real();
+            gAf = trueSM.gA_f(leptons[p]).real();
+            Gl[p] = gVf * gVf + gAf*gAf;
+            deltaGl[p] = 2.0 * (gVf * delGVl[p] + gAf * delGAl[p]);
+
+            gVf = trueSM.gV_f(quarks[p]).real();
+            gAf = trueSM.gA_f(quarks[p]).real();
+            Gq[p] = gVf * gVf + gAf*gAf;
+            deltaGq[p] = 2.0 * (gVf * delGVq[p] + gAf * delGAq[p]);
+
+            Gq_sum += 3.0 * Gq[p];
+            Gf_sum += Gl[p] + 3.0 * Gq[p];
+            delGq_sum += 3.0 * deltaGq[p];
+            delGf_sum += deltaGl[p] + 3.0 * deltaGq[p];
+        }
+
+        sigma_had = 12.0 * M_PI / Mz / Mz
+                * Gl[ELECTRON] * Gq_sum / Gf_sum / Gf_sum
+                * (deltaGl[ELECTRON] / Gl[ELECTRON]
+                + delGq_sum / Gq_sum - 2.0 * delGf_sum / Gf_sum);
+    }
+
+    return sigma_had + deltaNLO;
+}
+
+
+const double NPSMEFTd6General::sigma0_had() const
+{
+    return (trueSM.sigma0_had() + deltaSigmaHadron());
+}
+
+
+const double NPSMEFTd6General::deltaA_f(const Particle f) const
+{
+    double dAf = 0.;
+    double delGVf = deltaGV_f(f);
+    double delGAf = deltaGA_f(f);
+    
+    double deltaNLO;
+    
+    deltaNLO=0.;    
+    
+    if (delGVf != 0.0 || delGAf != 0.0) {
+        double gVf = trueSM.gV_f(f).real();
+        double gAf = trueSM.gA_f(f).real();
+        double Gf = gVf * gVf + gAf*gAf;
+        double delGVfOverGAf = (gAf * delGVf - gVf * delGAf) / gAf / gAf;
+
+        dAf = -2.0 * (gVf * gVf - gAf * gAf) * gAf * gAf / Gf / Gf*delGVfOverGAf;
+    }
+
+    return dAf + deltaNLO;
+}
+
+const double NPSMEFTd6General::A_f(const Particle f) const
+{    
+    return (trueSM.A_f(f) + deltaA_f(f));
+}
+
+
+const double NPSMEFTd6General::deltaAFB(const Particle f) const
+{
+    double dAFB = 0.;
+    double delGVf = deltaGV_f(f);
+    double delGAf = deltaGA_f(f);
+    
+    double deltaNLO;
+    
+    deltaNLO=0.;
+    
+    if (f.is("ELECTRON")) {
+        if (delGVf != 0.0 || delGAf != 0.0) {
+            double gVe = trueSM.gV_f(f).real();
+            double gAe = trueSM.gA_f(f).real();
+            double Ge = gVe * gVe + gAe*gAe;
+            double delGVeOverGAe = (gAe * delGVf - gVe * delGAf) / gAe / gAe;
+            dAFB = -6.0 * gVe * gAe * (gVe * gVe - gAe * gAe) * gAe * gAe / Ge / Ge / Ge*delGVeOverGAe;
+        }
+    } else {
+        double delGVe = deltaGV_f(leptons[ELECTRON]);
+        double delGAe = deltaGA_f(leptons[ELECTRON]);
+        if (delGVe != 0.0 || delGAe != 0.0 || delGVf != 0.0 || delGAf != 0.0) {
+            double gVe = trueSM.gV_f(leptons[ELECTRON]).real();
+            double gAe = trueSM.gA_f(leptons[ELECTRON]).real();
+            double Ge = gVe * gVe + gAe*gAe;
+            double delGVeOverGAe = (gAe * delGVe - gVe * delGAe) / gAe / gAe;
+            //
+            double gVf = trueSM.gV_f(f).real();
+            double gAf = trueSM.gA_f(f).real();
+            double Gf = gVf * gVf + gAf*gAf;
+            double delGVfOverGAf = (gAf * delGVf - gVf * delGAf) / gAf / gAf;
+
+            dAFB = -(3.0 * gVf * gAf * (gVe * gVe - gAe * gAe) * gAe * gAe / Gf / Ge / Ge * delGVeOverGAe
+                    + 3.0 * gVe * gAe * (gVf * gVf - gAf * gAf) * gAf * gAf / Ge / Gf / Gf * delGVfOverGAf);
+        }
+    }
+
+    return dAFB + deltaNLO;
+}
+
+const double NPSMEFTd6General::AFB(const Particle f) const
+{
+    return (trueSM.AFB(f) + deltaAFB(f));
+}
+
+
+const double NPSMEFTd6General::deltaR0_f(const Particle f) const
+{
+    double dR0_f = 0., delGVl = 0., delGAl = 0., deltaGl = 0., Gl = 0.;
+    bool nonZeroNP = false;
+    
+    double deltaNLO;
+    
+    deltaNLO=0.;
+    
+    if (f.is("LEPTON")) {
+        delGVl = deltaGV_f(f);
+        delGAl = deltaGA_f(f);
+        if (delGVl != 0.0 || delGAl != 0.0) nonZeroNP = true;
+    }
+
+    double delGVq[6], delGAq[6];
+    for (int q = 0; q < 6; ++q) {
+        delGVq[q] = deltaGV_f(quarks[q]);
+        delGAq[q] = deltaGA_f(quarks[q]);
+        if (delGVq[q] != 0.0 || delGAq[q] != 0.0) nonZeroNP = true;
+    }
+
+    if (nonZeroNP) {
+        double CF = 1.;
+        if (f.is("LEPTON")) {
+            double gVl = trueSM.gV_f(f).real();
+            double gAl = trueSM.gA_f(f).real();
+            Gl = gVl * gVl + gAl*gAl;
+            deltaGl = 2.0 * (gVl * delGVl + gAl * delGAl);
+            CF = 3.;
+        }
+        double Gq[6], deltaGq[6];
+        double gVq, gAq;
+        double Gq_sum = 0.0, delGq_sum = 0.0;
+        for (int q = 0; q < 6; ++q) {
+            gVq = trueSM.gV_f(quarks[q]).real();
+            gAq = trueSM.gA_f(quarks[q]).real();
+            Gq[q] = gVq * gVq + gAq*gAq;
+            deltaGq[q] = 2.0 * (gVq * delGVq[q] + gAq * delGAq[q]);
+
+            Gq_sum += CF * Gq[q];
+            delGq_sum += CF * deltaGq[q];
+        }
+        if (f.is("LEPTON"))
+            if ( f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3")  ) {
+                dR0_f = deltaGl / Gq_sum - Gl * delGq_sum / Gq_sum / Gq_sum;                
+            } else {
+                dR0_f = delGq_sum / Gl - Gq_sum * deltaGl / Gl / Gl;
+            }
+        else
+            dR0_f = deltaGq[f.getIndex() - 6] / Gq_sum
+                - Gq[f.getIndex() - 6] * delGq_sum / Gq_sum / Gq_sum;
+    }
+    return dR0_f + deltaNLO;
+}
+
+const double NPSMEFTd6General::R0_f(const Particle f) const
+{
+    return (trueSM.R0_f(f) + deltaR0_f(f));
+}
 
 ////////////////////////////////////////////////////////////////////////
+
+const double NPSMEFTd6General::deltaGV_f(const Particle p) const {
+    return (deltaGL_f(p) + deltaGR_f(p));
+}
+
+const double NPSMEFTd6General::deltaGA_f(const Particle p) const {
+    return (deltaGL_f(p) - deltaGR_f(p));
+}
+
+const double NPSMEFTd6General::deltaGL_f(const Particle p) const {
+    double I3p = p.getIsospin(), Qp = p.getCharge();
+    double CHF1 = CHF1_diag(p);
+    double CHF3 = CHF3_diag(p);
+    double NPindirect;
+
+    //    NPindirect = -I3p / 4.0 * (getSMEFTCoeffEW("CHD") * v2_over_LambdaNP2 + 2.0 * delta_GF)
+    //                - Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
+    //                *((4.0 * cW_tree / sW_tree * getSMEFTCoeffEW("CHWB") + getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
+
+    NPindirect = (I3p - Qp * sW2_tree) * delta_UgNC + Qp * delta_QgNC;
+
+    double NPdirect = -0.5 * (CHF1 - 2.0 * I3p * CHF3) * v2;
+    return (NPindirect + NPdirect);
+}
+
+const double NPSMEFTd6General::deltaGR_f(const Particle p) const {
+    double Qp = p.getCharge();
+    double CHf = CHf_diag(p);
+    double NPindirect;
+
+    //    NPindirect = -Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
+    //                *((4.0 * cW_tree / sW_tree * getSMEFTCoeffEW("CHWB") + getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
+
+    NPindirect = (-Qp * sW2_tree) * delta_UgNC + Qp * delta_QgNC;
+
+    double NPdirect = -0.5 * CHf*v2;
+    return (NPindirect + NPdirect);
+}
+
 
 gslpp::complex NPSMEFTd6General::deltaGL_Wff(const Particle pbar, const Particle p) const {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)

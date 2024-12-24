@@ -1425,6 +1425,25 @@ public:
      * @return @f$(\delta \Gamma_W/\Gamma_W)^2@f$
      */
     virtual const double deltaGwd62() const;
+    
+        /**
+     * @brief The new physics contribution to the total decay width of the @f$Z@f$ boson, @f$\delta \Gamma_Z@f$.
+     * @return @f$\delta \Gamma_Z@f$ in GeV
+     */
+    virtual const double deltaGamma_Z() const;
+
+    /**
+     * @brief The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$.
+     * @details
+     * \f[
+     * \Gamma_Z = \Gamma_Z^{SM} + \Delta \Gamma_Z^{(1)} + \Delta \Gamma_Z^{(2)}
+     * \f]
+     * @return @f$\Gamma_Z@f$ in GeV, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual const double Gamma_Z() const; 
 
     /**
      * @brief The relative NP corrections to the width of the @f$Z@f$ boson, @f$\delta \Gamma_Z/\Gamma_Z@f$.
@@ -1437,36 +1456,6 @@ public:
      * @return @f$(\delta \Gamma_Z/\Gamma_Z)^2@f$
      */
     virtual const double deltaGzd62() const;
-
-    /**
-     * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
-     * @param[in] f a lepton or quark
-     * @return @f$\delta g_V^f@f$
-     */
-    virtual const double deltaGV_f(const Particle p) const;
-
-    /**
-     * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
-     * @param[in] f a lepton or quark
-     * @return @f$\delta g_A^f@f$
-     */
-    virtual const double deltaGA_f(const Particle p) const;
-
-    /**
-     * @brief New physics contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
-     * @param[in] f a lepton or quark
-     * @return @f$\delta g_L^f@f$
-     */
-    // no generation mixing
-    const double deltaGL_f(const Particle p) const;
-
-    /**
-     * @brief New physics contribution to the neutral-current right-handed coupling @f$g_R^f@f$.
-     * @param[in] f a lepton or quark
-     * @return @f$\delta g_R^f@f$
-     */
-    // no generation mixing
-    const double deltaGR_f(const Particle p) const;
 
     /**
      * @brief The branching ratio of the @f$W@f$ boson decaying into a SM fermion pair, @f$Br(W\to f_i f_j)@f$.
@@ -1491,8 +1480,94 @@ public:
      * @return @f$R_{Z,l_i/l_j)@f$ in GeV
      */
     virtual const double  RZlilj(const Particle li, const Particle lj) const;
+    
+    /**
+     * @brief The new physics contribution to the cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
+     * at the @f$Z@f$ pole, @f$\delta \sigma_h^0@f$.
+     * @return @f$\delta \sigma_h^0@f$ in GeV@f$^{-2}@f$
+     */
+    virtual const double deltaSigmaHadron() const;
+    
+    
+    /**
+     * @brief The cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
+     * at the @f$Z@f$ pole, @f$\sigma_h^0@f$.
+     * @details
+     * \f[
+     * \sigma_h = \sigma_h^{SM} + \Delta \sigma_h^{(1)} + \Delta \sigma_h^{(2)}
+     * \f]
+     * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual const double sigma0_had() const;                             //AG:modified
 
-
+    /**
+     * @brief The new physics contribution to the left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\delta \mathcal{A}_f@f$. 
+     * @param[in] f a lepton or quark
+     * @return @f$\delta \mathcal{A}_f@f$
+     */
+    virtual const double deltaA_f(const Particle f) const;
+    
+    /**
+     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\mathcal{A}_f@f$.
+     * @details
+     * \f[
+     * \mathcal{A}_f = \mathcal{A}_f^{SM} + \Delta \mathcal{A}_f^{(1)} + \Delta \mathcal{A}_f^{(2)}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$\mathcal{A}_f@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual const double A_f(const Particle f) const;
+    
+    /**
+     * @brief The new physics contribution to the forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\delta A^f_{FB}@f$. 
+     * @param[in] f a lepton or quark
+     * @return @f$\delta A^f_{FB}@f$
+     */
+    virtual const double deltaAFB(const Particle f) const;
+    
+    /**
+     * @brief The forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$A^f_{FB}@f$.
+     * @details
+     * \f[
+     * A_{FB,f} = A_{FB,f}^{SM} + \Delta A_{FB,f}^{(1)} + \Delta A_{FB,f}^{(2)}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$A^f_{FB}@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
+     */
+    virtual const double AFB(const Particle f) const;
+    
+    /**
+     * @brief The new physics contribution to the ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
+     * @f$R_q^0=\Gamma_q/\Gamma_{\mathrm{had}}@f$ and @f$R_\nu^0=\Gamma_\nu/\Gamma_{\mathrm{had}}@f$, 
+     * for charged leptons, quarks and neutrinos, respectively.
+     * @param f a lepton or quark
+     * @return @f$\delta R_f^0@f$
+     */
+    virtual const double deltaR0_f(const Particle f) const;  
+    
+    /**
+     * @brief The ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
+     * @f$R_q^0=\Gamma_q/\Gamma_{\mathrm{had}}@f$ and @f$R_\nu^0=\Gamma_\nu/\Gamma_{\mathrm{had}}@f$, 
+     * for charged leptons, quarks and neutrinos, respectively. 
+     * @details
+     * \f[
+     * R^0_f = R_f^{SM} + \Delta R_f^{(1)} + \Delta R_f^{(2)}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$R_f^0@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
+     */
+    virtual const double R0_f(const Particle f) const; 
+    
     ////////////////////////////////////////////////////////////////////////
     
     // LEP2 definitions for 2 to 2 fermion processes
@@ -1715,9 +1790,39 @@ public:
      * @return @f$\delta\left(g_\tau/ g_\mu\right)_K @f$
      */
       virtual const double delta_TauLFU_gtaugmuK() const;
-    
-
+      
     ////////////////////////////////////////////////////////////////////////
+    // Modifications of EW/Higgs couplings
+    
+    /**
+     * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_V^f@f$
+     */
+    virtual const double deltaGV_f(const Particle p) const;
+
+    /**
+     * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_A^f@f$
+     */
+    virtual const double deltaGA_f(const Particle p) const;
+
+    /**
+     * @brief New physics contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_L^f@f$
+     */
+    // no generation mixing
+    const double deltaGL_f(const Particle p) const;
+
+    /**
+     * @brief New physics contribution to the neutral-current right-handed coupling @f$g_R^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_R^f@f$
+     */
+    // no generation mixing
+    const double deltaGR_f(const Particle p) const;
 
     /**
      * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
@@ -7442,6 +7547,8 @@ protected:
 
     double cLH3d62; ///< Parameter to control the inclusion of modifications of SM loops in Higgs processes due to dim 6 interactions modifying the Higgs trilinear coupling (Quadratic terms).
 
+    double cNLOd6; ///< Parameter to control the inclusion of finite NLO corrections, when available.
+    
     double cAsch, cWsch; ///< Parameters to control the SM EW input scheme: Alpha or MW.
     
 //    double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
@@ -7751,7 +7858,8 @@ private:
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
     bool FlagLoopH3d6Quad; ///< A boolean flag that is true if including quadratic modifications in the SM loops in Higgs observables due to the dim 6 interactions that contribute to the trilinear Higgs coupling.
     bool FlagMWinput; ///< A boolean for the model flag %MWinput. 
-    bool FlagRGEci; ///< A boolean for the model flag %RGEci. 
+    bool FlagRGEci; ///< A boolean for the model flag %RGEci , to include RGE effects.
+    bool FlagfiniteNLO; ///< A boolean for the model flag %finiteNLO , to include finite NLO terms, when available. 
 
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function
