@@ -1,5 +1,17 @@
 var NAVTREEINDEX49 =
 {
+"d5/d6f/classg_h_w_weff.html":[27,0,731],
+"d5/d6f/classg_h_w_weff.html#a31cea2b6e3ea74a10a3a968a2b0da1db":[27,0,731,0],
+"d5/d6f/classg_h_w_weff.html#a3d30ef11d2df16413df299d1fc7d9bc5":[27,0,731,1],
+"d5/d6f/classg_h_w_weff.html#a564b289c06834d9c6095897815ed6194":[27,0,731,2],
+"d5/d6f/classg_h_w_weff.html#a7d207879eef0127740ff3935338af83a":[27,0,731,3],
+"d5/d70/classunitarity_n_l_o13.html":[4,17,462],
+"d5/d70/classunitarity_n_l_o13.html#a8bbb59ee95f243923614487818aa4983":[4,17,462,2],
+"d5/d70/classunitarity_n_l_o13.html#abc914677a248aa5cd432ec0b9499e23a":[4,17,462,0],
+"d5/d70/classunitarity_n_l_o13.html#ae398889136e625ef339bc2ad159a6925":[4,17,462,1],
+"d5/d71/class_n_p_d_f2.html":[4,6,4],
+"d5/d71/class_n_p_d_f2.html#a0c0e10f61dd91dafb7ccd7899f2bb7b9":[4,6,4,3],
+"d5/d71/class_n_p_d_f2.html#a26aae282a409a49e788f1a6a1696d49a":[4,6,4,10],
 "d5/d71/class_n_p_d_f2.html#a29d7b66cf907f07e3fe0063da6250263":[4,6,4,6],
 "d5/d71/class_n_p_d_f2.html#a3f469b2800f8068a08e8601a67766094":[4,6,4,8],
 "d5/d71/class_n_p_d_f2.html#a4c2a1cc1f292e1ddae0b602ce03986e8":[4,6,4,14],
@@ -237,17 +249,5 @@ var NAVTREEINDEX49 =
 "d5/d9a/classmass__m_hl.html#ae96acd89efb4332efedbcdacc7db35fb":[4,17,263,2],
 "d5/d9c/classunitarity10___g_t_h_d_m.html":[27,0,2830],
 "d5/d9c/classunitarity10___g_t_h_d_m.html#a269580b737bb64163fc6d9669c26120b":[27,0,2830,1],
-"d5/d9c/classunitarity10___g_t_h_d_m.html#a9b003423a27b3480be3da7539e333fbc":[27,0,2830,0],
-"d5/d9c/classunitarity10___g_t_h_d_m.html#af5dbe8351166a813056427d1bc0e6fce":[27,0,2830,2],
-"d5/d9d/class_clausen_functions.html":[4,11,1],
-"d5/d9d/class_clausen_functions.html#a0ac423a3764f1c3f47d256669c4482e8":[4,11,1,0],
-"d5/d9d/class_clausen_functions.html#ad1b0dbc972c95c67b02271db3973ff16":[4,11,1,2],
-"d5/d9d/class_clausen_functions.html#aeee1f98ce6156440a018e4fe739e3aba":[4,11,1,1],
-"d5/d9e/class_d_gamma__s__pole___n_l_o.html":[27,0,544],
-"d5/d9e/class_d_gamma__s__pole___n_l_o.html#a5fb7b3651d4b99d1f57a06853419f318":[27,0,544,1],
-"d5/d9e/class_d_gamma__s__pole___n_l_o.html#a6052d04fdb72c2353f7c5e54d6c97ffa":[27,0,544,2],
-"d5/d9e/class_d_gamma__s__pole___n_l_o.html#a73e1593c8f91db26c5916b866c766102":[27,0,544,0],
-"d5/d9f/class_t_h_d_m_wpositivity10.html":[27,0,2788],
-"d5/d9f/class_t_h_d_m_wpositivity10.html#a2d50d2b732a44885e4d17e669216987a":[27,0,2788,0],
-"d5/d9f/class_t_h_d_m_wpositivity10.html#a974c01c53ea7dd9a70bfb6c55b3556ca":[27,0,2788,1]
+"d5/d9c/classunitarity10___g_t_h_d_m.html#a9b003423a27b3480be3da7539e333fbc":[27,0,2830,0]
 };
