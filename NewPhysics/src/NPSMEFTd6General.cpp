@@ -14327,10 +14327,20 @@ const double NPSMEFTd6General::deltaMwd6() const {
     //            + 2.0 * sW2_tree * delta_GF));
     
     double deltaNLO;
-    
-    deltaNLO=0.;
 
-    return (delta_e - 0.5 * delta_sW2 + delta_v + deltaNLO);
+    // Finite NLO corrections
+    deltaNLO = (-0.15016 * getSMEFTCoeffEW("CW")  -0.03265 * getSMEFTCoeffEW("CHbox")  -2.57653 * getSMEFTCoeffEW("CHD")  -0.02759 * getSMEFTCoeffEW("CHB")   
+            -0.03484 * getSMEFTCoeffEW("CHW")  -6.31566 * getSMEFTCoeffEW("CHWB")  -0.23698 * getSMEFTCoeffEW("CuW",3, 3) -0.89903 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.06025 * getSMEFTCoeffEW("CHl1",1, 1) -0.06025 * getSMEFTCoeffEW("CHl1",2, 2) -0.04558 * getSMEFTCoeffEW("CHl1",3, 3) -2.93411 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -2.93411 * getSMEFTCoeffEW("CHl3",2, 2) +0.02788 * getSMEFTCoeffEW("CHl3",3, 3) -0.04558 * getSMEFTCoeffEW("CHe",1, 1) -0.04558 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.04558 * getSMEFTCoeffEW("CHe",3, 3) +0.04558 * getSMEFTCoeffEW("CHq1",1, 1) +0.04558 * getSMEFTCoeffEW("CHq1",2, 2) -2.11169 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.08365 * getSMEFTCoeffEW("CHq3",1, 1) +0.08365 * getSMEFTCoeffEW("CHq3",2, 2) +1.23886 * getSMEFTCoeffEW("CHq3",3, 3) +0.09116 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.09116 * getSMEFTCoeffEW("CHu",2, 2) +2.49078 * getSMEFTCoeffEW("CHu",3, 3) -0.04558 * getSMEFTCoeffEW("CHd",1, 1) -0.04558 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.04558 * getSMEFTCoeffEW("CHd",3, 3) -0.12748 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +1.29323 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) +1.29323 * getSMEFTCoeffEW("Cll",2, 1, 1, 2)  
+            -0.12748 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) +0.21768 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) +0.21768 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) ) * v2; 
+
+
+    return (delta_e - 0.5 * delta_sW2 + delta_v + cNLOd6 * deltaNLO);
 }
 
 const double NPSMEFTd6General::deltaMwd62() const {
@@ -14344,12 +14354,14 @@ const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle 
     double deltaGamma_Wij;
     double GammaW_tree;
     double CHF3ij;
-
+    
+    double deltaNLO;
+    
     if (fj.getIndex() - fi.getIndex() == 1)
         CHF3ij = CHF3_diag(fi);
     else
         CHF3ij = 0.;
-
+    
     if (fi.is("QUARK")) {
         GammaW_tree = Nc * G0;
     } else {
@@ -14367,7 +14379,49 @@ const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle 
 
     deltaGamma_Wij = GammaW_tree * (deltaGamma_Wij + 2.0 * CHF3ij * v2);
 
-    return deltaGamma_Wij;
+    // Finite NLO corrections    
+    // NLO only for leptonic decays for lepton universality tests. 
+    // This function is only used for the calculation of BR, RWc and universality tests. W width includes total NLO corrections separately.
+    if (fi.is("ELECTRON")) {
+    deltaNLO = (-0.00142 * getSMEFTCoeffEW("CW")  -0.0003 * getSMEFTCoeffEW("CHbox")  +14540.2 * getSMEFTCoeffEW("CHD")  -0.00024 * getSMEFTCoeffEW("CHB")   
+            -0.00043 * getSMEFTCoeffEW("CHW")  +31879.6 * getSMEFTCoeffEW("CHWB")  -0.00155 * getSMEFTCoeffEW("CuW",3, 3) -0.00768 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00091 * getSMEFTCoeffEW("CHl1",1, 1) -0.00074 * getSMEFTCoeffEW("CHl1",2, 2) -0.00039 * getSMEFTCoeffEW("CHl1",3, 3) -4825.13 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +22299.3 * getSMEFTCoeffEW("CHl3",2, 2) +0.00066 * getSMEFTCoeffEW("CHl3",3, 3) -0.00039 * getSMEFTCoeffEW("CHe",1, 1) -0.00039 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00039 * getSMEFTCoeffEW("CHe",3, 3) +0.00039 * getSMEFTCoeffEW("CHq1",1, 1) +0.00039 * getSMEFTCoeffEW("CHq1",2, 2) -0.01805 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00199 * getSMEFTCoeffEW("CHq3",1, 1) +0.00199 * getSMEFTCoeffEW("CHq3",2, 2) +0.01047 * getSMEFTCoeffEW("CHq3",3, 3) +0.00078 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00078 * getSMEFTCoeffEW("CHu",2, 2) +0.02129 * getSMEFTCoeffEW("CHu",3, 3) -0.00039 * getSMEFTCoeffEW("CHd",1, 1) -0.00039 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00039 * getSMEFTCoeffEW("CHd",3, 3) -0.00039 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.00308 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) -22299.5 * getSMEFTCoeffEW("Cll",1, 2, 2, 1)  
+            -0.00019 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +0.18592 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.00308 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) -0.00019 * getSMEFTCoeffEW("Cll",3, 1, 1, 3)  
+            -0.00244 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.00244 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) -0.00044 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) +0.00525 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) ) * v2; 
+        
+    } else if (fi.is("MUON")) {
+    deltaNLO = (-0.00142 * getSMEFTCoeffEW("CW")  -0.0003 * getSMEFTCoeffEW("CHbox")  +14540.2 * getSMEFTCoeffEW("CHD")  -0.00024 * getSMEFTCoeffEW("CHB")   
+            -0.00043 * getSMEFTCoeffEW("CHW")  +31879.6 * getSMEFTCoeffEW("CHWB")  -0.00155 * getSMEFTCoeffEW("CuW",3, 3) -0.00768 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00074 * getSMEFTCoeffEW("CHl1",1, 1) -0.00091 * getSMEFTCoeffEW("CHl1",2, 2) -0.00039 * getSMEFTCoeffEW("CHl1",3, 3) +22299.3 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -4825.13 * getSMEFTCoeffEW("CHl3",2, 2) +0.00066 * getSMEFTCoeffEW("CHl3",3, 3) -0.00039 * getSMEFTCoeffEW("CHe",1, 1) -0.00039 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00039 * getSMEFTCoeffEW("CHe",3, 3) +0.00039 * getSMEFTCoeffEW("CHq1",1, 1) +0.00039 * getSMEFTCoeffEW("CHq1",2, 2) -0.01805 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00199 * getSMEFTCoeffEW("CHq3",1, 1) +0.00199 * getSMEFTCoeffEW("CHq3",2, 2) +0.01047 * getSMEFTCoeffEW("CHq3",3, 3) +0.00078 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00078 * getSMEFTCoeffEW("CHu",2, 2) +0.02129 * getSMEFTCoeffEW("CHu",3, 3) -0.00039 * getSMEFTCoeffEW("CHd",1, 1) -0.00039 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00039 * getSMEFTCoeffEW("CHd",3, 3) -0.00308 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) -22299.5 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) +0.18592 * getSMEFTCoeffEW("Cll",2, 1, 1, 2)  
+            -0.00308 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) -0.00039 * getSMEFTCoeffEW("Cll",2, 2, 2, 2) -0.00019 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.00019 * getSMEFTCoeffEW("Cll",3, 2, 2, 3)  
+            +0.00525 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) -0.00244 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) -0.00244 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) -0.00044 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) ) * v2;         
+    } else if (fi.is("TAU")) {
+    deltaNLO = (-0.00142 * getSMEFTCoeffEW("CW")  -0.0003 * getSMEFTCoeffEW("CHbox")  +14540.2 * getSMEFTCoeffEW("CHD")  -0.00024 * getSMEFTCoeffEW("CHB")   
+            -0.00043 * getSMEFTCoeffEW("CHW")  +31879.6 * getSMEFTCoeffEW("CHWB")  -0.00155 * getSMEFTCoeffEW("CuW",3, 3) -0.00768 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00074 * getSMEFTCoeffEW("CHl1",1, 1) -0.00074 * getSMEFTCoeffEW("CHl1",2, 2) -0.00056 * getSMEFTCoeffEW("CHl1",3, 3) +22299.3 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +22299.3 * getSMEFTCoeffEW("CHl3",2, 2) -27124.4 * getSMEFTCoeffEW("CHl3",3, 3) -0.00039 * getSMEFTCoeffEW("CHe",1, 1) -0.00039 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00039 * getSMEFTCoeffEW("CHe",3, 3) +0.00039 * getSMEFTCoeffEW("CHq1",1, 1) +0.00039 * getSMEFTCoeffEW("CHq1",2, 2) -0.01805 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00199 * getSMEFTCoeffEW("CHq3",1, 1) +0.00199 * getSMEFTCoeffEW("CHq3",2, 2) +0.01047 * getSMEFTCoeffEW("CHq3",3, 3) +0.00078 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00078 * getSMEFTCoeffEW("CHu",2, 2) +0.02129 * getSMEFTCoeffEW("CHu",3, 3) -0.00039 * getSMEFTCoeffEW("CHd",1, 1) -0.00039 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00039 * getSMEFTCoeffEW("CHd",3, 3) -0.00308 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) -22299.5 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00019 * getSMEFTCoeffEW("Cll",1, 3, 3, 1)  
+            +0.18611 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.00308 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) -0.00019 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.00019 * getSMEFTCoeffEW("Cll",3, 1, 1, 3)  
+            -0.00019 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) -0.00039 * getSMEFTCoeffEW("Cll",3, 3, 3, 3) +0.00525 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) +0.00525 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3)  
+            -0.00244 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) -0.00244 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -0.00569 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) ) * v2;         
+    } else {
+        deltaNLO = 0.;
+    }
+    
+    return deltaGamma_Wij + cNLOd6 * deltaNLO;
 }
 
 const double NPSMEFTd6General::GammaW(const Particle fi, const Particle fj) const {
@@ -14385,12 +14439,31 @@ const double NPSMEFTd6General::deltaGamma_W() const {
     //            + 2.0 * G0 * (getSMEFTCoeffEW("CHl3R",0,0) + getSMEFTCoeffEW("CHl3R",1,1) + getSMEFTCoeffEW("CHl3R",2,2) + Nc*(getSMEFTCoeffEW("CHq3R",0,0) + getSMEFTCoeffEW("CHq3R",1,1))) * v2_over_LambdaNP2);          
 
     double deltaNLO;
-    
-    deltaNLO=0.;
+
+    // Finite NLO corrections    
+    deltaNLO = (-0.01253 * getSMEFTCoeffEW("CW")  -0.00262 * getSMEFTCoeffEW("CHbox")  -0.11629 * getSMEFTCoeffEW("CHD")  -0.00209 * getSMEFTCoeffEW("CHB")   
+            -0.00381 * getSMEFTCoeffEW("CHW")  -0.31139 * getSMEFTCoeffEW("CHWB")  -0.01379 * getSMEFTCoeffEW("CuW",3, 3) -0.06806 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00681 * getSMEFTCoeffEW("CHl1",1, 1) -0.00681 * getSMEFTCoeffEW("CHl1",2, 2) -0.00362 * getSMEFTCoeffEW("CHl1",3, 3) -0.23266 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.23266 * getSMEFTCoeffEW("CHl3",2, 2) +0.00275 * getSMEFTCoeffEW("CHl3",3, 3) -0.00345 * getSMEFTCoeffEW("CHe",1, 1) -0.00345 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00345 * getSMEFTCoeffEW("CHe",3, 3) +0.00362 * getSMEFTCoeffEW("CHq1",1, 1) +0.00362 * getSMEFTCoeffEW("CHq1",2, 2) -0.15985 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.05921 * getSMEFTCoeffEW("CHq3",1, 1) +0.05921 * getSMEFTCoeffEW("CHq3",2, 2) +0.09275 * getSMEFTCoeffEW("CHq3",3, 3) +0.0069 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.0069 * getSMEFTCoeffEW("CHu",2, 2) +0.18855 * getSMEFTCoeffEW("CHu",3, 3) -0.00345 * getSMEFTCoeffEW("CHd",1, 1) -0.00345 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00345 * getSMEFTCoeffEW("CHd",3, 3) -0.00038 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.02711 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.07724 * getSMEFTCoeffEW("Cll",1, 2, 2, 1)  
+            -0.00038 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +0.07724 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.02711 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) -0.00038 * getSMEFTCoeffEW("Cll",2, 2, 2, 2)  
+            -0.00038 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.00038 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) -0.00038 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) -0.00038 * getSMEFTCoeffEW("Cll",3, 3, 3, 3)  
+            -0.00114 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) -0.00114 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1) -0.00646 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) -0.00114 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2)  
+            -0.00114 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) -0.00646 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) -0.00646 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) -0.00646 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3)  
+            -0.01314 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1) -0.01427 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) -0.01678 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3) +0.00114 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1)  
+            +0.00646 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1) +0.00114 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.01427 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) -0.01314 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2)  
+            -0.01678 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) +0.00646 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.00646 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3) +0.00646 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3)  
+            -0.01678 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1) -0.01678 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) -0.00476 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.00476 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2)  
+            +0.04085 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) -0.00476 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) -0.00476 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +0.04085 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3)  
+            -0.00476 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) -0.00476 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -0.00559 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) ) * v2; 
+
     
     return ( GammaW_tree * (deltaMwd6() + 2.0 * delta_UgCC)
             + 2.0 * G0 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2) + Nc * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1))) * v2
-            + deltaNLO );
+            + cNLOd6 * deltaNLO );
 }
 
 const double NPSMEFTd6General::GammaW() const {
@@ -14407,6 +14480,228 @@ const double NPSMEFTd6General::deltaGwd62() const {
     return (dWW * dWW);
 }
 
+const double NPSMEFTd6General::deltaGamma_Zf(const Particle f) const
+{
+    double deltaGamma_Zf = 0.;
+    bool nonZeroNP = false;
+
+    double delGVf = deltaGV_f(f);
+    double delGAf = deltaGA_f(f);
+    
+    double gVf = trueSM.gV_f(f).real();
+    double gAf = trueSM.gA_f(f).real(); 
+    
+    double Nf;
+    
+    double deltaNLO;
+    
+    if (f.is("LEPTON")) {
+        Nf = 1.0;
+    } else {
+        Nf = 3.0;
+    }
+    
+    double alpha = trueSM.alphaMz();
+    double sW2_SM = trueSM.sW2();
+    double cW2_SM = trueSM.cW2();
+    
+    if (delGVf != 0.0 || delGAf != 0.0)
+            nonZeroNP = true;
+ 
+    if (nonZeroNP) {
+        double delGammaZf = 0.0;
+        delGammaZf = 2.0 * Nf * (gVf * delGVf + gAf * delGAf);
+        
+        deltaGamma_Zf = alpha * Mz / 12.0 / sW2_SM / cW2_SM * delGammaZf;
+    }
+
+    // Finite NLO corrections    
+    // NLO only for leptonic decays for lepton universality tests . 
+    // This function is only used for the calculation of corrections to BR and test of universality. Z width includes total NLO corrections separately.
+    if (f.is("ELECTRON")) {
+    deltaNLO = (-0.05049 * getSMEFTCoeffEW("CW")  -0.05591 * getSMEFTCoeffEW("CHbox")  +3.24947 * getSMEFTCoeffEW("CHD")  -0.02372 * getSMEFTCoeffEW("CHB")   
+            -0.04895 * getSMEFTCoeffEW("CHW")  +22.3852 * getSMEFTCoeffEW("CHWB")  -0.40651 * getSMEFTCoeffEW("CuW",3, 3) -0.46435 * getSMEFTCoeffEW("CuB",3, 3)  
+            -3.17654 * getSMEFTCoeffEW("CHl1",1, 1) -0.19096 * getSMEFTCoeffEW("CHl1",2, 2) -0.12549 * getSMEFTCoeffEW("CHl1",3, 3) +2.55144 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +6.25347 * getSMEFTCoeffEW("CHl3",2, 2) +0.40369 * getSMEFTCoeffEW("CHl3",3, 3) -12.8534 * getSMEFTCoeffEW("CHe",1, 1) -0.12548 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.12548 * getSMEFTCoeffEW("CHe",3, 3) -1.76467 * getSMEFTCoeffEW("CHq1",1, 1) -11.3691 * getSMEFTCoeffEW("CHq1",2, 2) +10.4382 * getSMEFTCoeffEW("CHq1",3, 3)  
+            -23.6588 * getSMEFTCoeffEW("CHq3",1, 1) +11.0461 * getSMEFTCoeffEW("CHq3",2, 2) +14.4131 * getSMEFTCoeffEW("CHq3",3, 3) -4.26802 * getSMEFTCoeffEW("CHu",1, 1)  
+            +4.44436 * getSMEFTCoeffEW("CHu",2, 2) +2.85478 * getSMEFTCoeffEW("CHu",3, 3) +1.83586 * getSMEFTCoeffEW("CHd",1, 1) +0.25407 * getSMEFTCoeffEW("CHd",2, 2)  
+            -2.21303 * getSMEFTCoeffEW("CHd",3, 3) +0.04824 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.50362 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.04922 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            -3.7684 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.0251 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) -3.7684 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.50362 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            +0. * getSMEFTCoeffEW("Cll",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Cll",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.0251 * getSMEFTCoeffEW("Cll",3, 1, 1, 3)  
+            +0. * getSMEFTCoeffEW("Cll",3, 2, 2, 3) +0.04922 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Cll",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cll",3, 3, 3, 3)  
+            -0.01927 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) +0. * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) +0.24302 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1)  
+            -0.00422 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) +0. * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) +0.01927 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2)  
+            -0.24302 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) +0.0042 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) -0.00422 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) +0.0042 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3)  
+            +0.24302 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) -0.24302 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) +0.00002 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) -0.11 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1)  
+            -0.00001 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) -0.30624 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) +0.32771 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1)  
+            +0. * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.00001 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) +0.10998 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) +0.30618 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3)  
+            -0.32769 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.32771 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3) -0.32769 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.30624 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1)  
+            +0.30618 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3) -0.04379 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.05464 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2)  
+            +2.20528 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) +0.00542 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1) -0.00542 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) -0.00001 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3)  
+            +0.00542 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) -0.00542 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) -0.00001 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) -0.54341 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1)  
+            -0.5049 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) -1.83081 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) -0.01926 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) +0.01925 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2)  
+            +0.94784 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.01926 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) +0.01925 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -0.00003 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3)  
+            -0.1081 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) -0.03861 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) -0.03861 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) -0.01544 * getSMEFTCoeffEW("Cee",1, 2, 2, 1)  
+            -0.01544 * getSMEFTCoeffEW("Cee",1, 3, 3, 1) -0.01544 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) -0.03861 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0. * getSMEFTCoeffEW("Cee",2, 2, 2, 2)  
+            +0. * getSMEFTCoeffEW("Cee",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cee",2, 3, 3, 2) -0.01544 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0. * getSMEFTCoeffEW("Cee",3, 2, 2, 3)  
+            -0.03861 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Cee",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cee",3, 3, 3, 3) +0. * getSMEFTCoeffEW("Cuu",1, 1, 1, 1)  
+            +0. * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cuu",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) +0. * getSMEFTCoeffEW("Cuu",1, 3, 3, 1)  
+            +0. * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cuu",2, 2, 1, 1) +0. * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Cuu",2, 2, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cuu",3, 1, 1, 3) +0. * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) +0. * getSMEFTCoeffEW("Cuu",3, 3, 1, 1)  
+            +0. * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) -0.00211 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1) +0. * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) -0.00093 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) -0.00012 * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) +0. * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cdd",2, 2, 1, 1)  
+            +0.00211 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2) +0.00093 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) +0.00012 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) -0.00012 * getSMEFTCoeffEW("Cdd",3, 1, 1, 3)  
+            +0.00012 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) -0.00093 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1) +0.00093 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cdd",3, 3, 3, 3)  
+            +0.07721 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) +0.07721 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) +2.0345 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Ceu",2, 2, 1, 1)  
+            +0. * getSMEFTCoeffEW("Ceu",2, 2, 2, 2) +0.00001 * getSMEFTCoeffEW("Ceu",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Ceu",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Ceu",3, 3, 3, 3) -0.03954 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) -0.03768 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) -0.03861 * getSMEFTCoeffEW("Ced",1, 1, 3, 3)  
+            -0.00093 * getSMEFTCoeffEW("Ced",2, 2, 1, 1) +0.00093 * getSMEFTCoeffEW("Ced",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Ced",2, 2, 3, 3) -0.00093 * getSMEFTCoeffEW("Ced",3, 3, 1, 1)  
+            +0.00093 * getSMEFTCoeffEW("Ced",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Ced",3, 3, 3, 3) +0.00186 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) -0.00186 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2)  
+            +0. * getSMEFTCoeffEW("Cud1",1, 1, 3, 3) +0.00186 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1) -0.00186 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Cud1",2, 2, 3, 3)  
+            +0.04907 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1) -0.04907 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) +0.01061 * getSMEFTCoeffEW("Cle",1, 1, 1, 1)  
+            +0.04922 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0.04922 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) -0.03861 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) +0. * getSMEFTCoeffEW("Cle",2, 2, 2, 2)  
+            +0. * getSMEFTCoeffEW("Cle",2, 2, 3, 3) -0.03861 * getSMEFTCoeffEW("Cle",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Cle",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cle",3, 3, 3, 3)  
+            -0.09844 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.09844 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) -2.5937 * getSMEFTCoeffEW("Clu",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Clu",2, 2, 1, 1)  
+            +0. * getSMEFTCoeffEW("Clu",2, 2, 2, 2) +0.00001 * getSMEFTCoeffEW("Clu",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Clu",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Clu",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Clu",3, 3, 3, 3) +0.04829 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.05015 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.04922 * getSMEFTCoeffEW("Cld",1, 1, 3, 3)  
+            -0.00093 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) +0.00093 * getSMEFTCoeffEW("Cld",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Cld",2, 2, 3, 3) -0.00093 * getSMEFTCoeffEW("Cld",3, 3, 1, 1)  
+            +0.00093 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cld",3, 3, 3, 3) +0.04403 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) +0.00542 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2)  
+            +0.00542 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3) +0.03318 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) -0.00542 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) -0.00542 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3)  
+            -1.72982 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) -0.01085 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1)  
+            -0.01085 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) -0.28583 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3) +0.01085 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) +0.01085 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2)  
+            +0.28582 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3)  
+            +0.00636 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1) +0.00449 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2) +0.00542 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) -0.00449 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1)  
+            -0.00636 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) -0.00542 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) -0.04173 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) +0.04172 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2)  
+            +0. * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+        
+    } else if (f.is("MUON")) {
+    deltaNLO = (-0.05049 * getSMEFTCoeffEW("CW")  -0.05591 * getSMEFTCoeffEW("CHbox")  +3.24947 * getSMEFTCoeffEW("CHD")  -0.02372 * getSMEFTCoeffEW("CHB")   
+            -0.04895 * getSMEFTCoeffEW("CHW")  +22.3852 * getSMEFTCoeffEW("CHWB")  -0.40651 * getSMEFTCoeffEW("CuW",3, 3) -0.46435 * getSMEFTCoeffEW("CuB",3, 3)  
+            -2.48457 * getSMEFTCoeffEW("CHl1",1, 1) -0.88293 * getSMEFTCoeffEW("CHl1",2, 2) -0.12549 * getSMEFTCoeffEW("CHl1",3, 3) +3.9599 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +4.84501 * getSMEFTCoeffEW("CHl3",2, 2) +0.40369 * getSMEFTCoeffEW("CHl3",3, 3) +1.56592 * getSMEFTCoeffEW("CHe",1, 1) -14.5448 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.12548 * getSMEFTCoeffEW("CHe",3, 3) -1.76467 * getSMEFTCoeffEW("CHq1",1, 1) -11.3691 * getSMEFTCoeffEW("CHq1",2, 2) +10.4382 * getSMEFTCoeffEW("CHq1",3, 3)  
+            -23.6588 * getSMEFTCoeffEW("CHq3",1, 1) +11.0461 * getSMEFTCoeffEW("CHq3",2, 2) +14.4131 * getSMEFTCoeffEW("CHq3",3, 3) -4.26802 * getSMEFTCoeffEW("CHu",1, 1)  
+            +4.44436 * getSMEFTCoeffEW("CHu",2, 2) +2.85478 * getSMEFTCoeffEW("CHu",3, 3) +1.83586 * getSMEFTCoeffEW("CHd",1, 1) +0.25407 * getSMEFTCoeffEW("CHd",2, 2)  
+            -2.21303 * getSMEFTCoeffEW("CHd",3, 3) +0. * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.50362 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            -3.7684 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) +0. * getSMEFTCoeffEW("Cll",1, 3, 3, 1) -3.7684 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.50362 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            +0.04824 * getSMEFTCoeffEW("Cll",2, 2, 2, 2) +0.04922 * getSMEFTCoeffEW("Cll",2, 2, 3, 3) -0.0251 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cll",3, 1, 1, 3)  
+            -0.0251 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) +0. * getSMEFTCoeffEW("Cll",3, 3, 1, 1) +0.04922 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cll",3, 3, 3, 3)  
+            -0.01927 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) +0. * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) +0.24302 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1)  
+            -0.00422 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) +0. * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) +0.01927 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2)  
+            -0.24302 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) +0.0042 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) -0.00422 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) +0.0042 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3)  
+            +0.24302 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) -0.24302 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) +0.00002 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) -0.11 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1)  
+            -0.00001 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) -0.30624 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) +0.32771 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1)  
+            +0. * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.00001 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) +0.10998 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) +0.30618 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3)  
+            -0.32769 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.32771 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3) -0.32769 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.30624 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1)  
+            +0.30618 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3) +0.00543 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.00542 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2)  
+            -0.00015 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) -0.0438 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1) -0.05465 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) +2.20542 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3)  
+            +0.00542 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) -0.00542 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) -0.00001 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) -0.01923 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1)  
+            +0.01928 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.94801 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) -0.54344 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) -0.50493 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2)  
+            -1.83099 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.01926 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) +0.01925 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -0.00003 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3)  
+            +0.00001 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) -0.03861 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cee",1, 1, 3, 3) -0.01544 * getSMEFTCoeffEW("Cee",1, 2, 2, 1)  
+            +0. * getSMEFTCoeffEW("Cee",1, 3, 3, 1) -0.01544 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) -0.03861 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) -0.10811 * getSMEFTCoeffEW("Cee",2, 2, 2, 2)  
+            -0.03861 * getSMEFTCoeffEW("Cee",2, 2, 3, 3) -0.01544 * getSMEFTCoeffEW("Cee",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cee",3, 1, 1, 3) -0.01544 * getSMEFTCoeffEW("Cee",3, 2, 2, 3)  
+            +0. * getSMEFTCoeffEW("Cee",3, 3, 1, 1) -0.03861 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cee",3, 3, 3, 3) +0. * getSMEFTCoeffEW("Cuu",1, 1, 1, 1)  
+            +0. * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cuu",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) +0. * getSMEFTCoeffEW("Cuu",1, 3, 3, 1)  
+            +0. * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cuu",2, 2, 1, 1) +0. * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Cuu",2, 2, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cuu",3, 1, 1, 3) +0. * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) +0. * getSMEFTCoeffEW("Cuu",3, 3, 1, 1)  
+            +0. * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) -0.00211 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1) +0. * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) -0.00093 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) -0.00012 * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) +0. * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cdd",2, 2, 1, 1)  
+            +0.00211 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2) +0.00093 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) +0.00012 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) -0.00012 * getSMEFTCoeffEW("Cdd",3, 1, 1, 3)  
+            +0.00012 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) -0.00093 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1) +0.00093 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cdd",3, 3, 3, 3)  
+            +0. * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) +0. * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) -0.00012 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) +0.07722 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1)  
+            +0.07722 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2) +2.03462 * getSMEFTCoeffEW("Ceu",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Ceu",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Ceu",3, 3, 3, 3) -0.00093 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) +0.00093 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Ced",1, 1, 3, 3)  
+            -0.03954 * getSMEFTCoeffEW("Ced",2, 2, 1, 1) -0.03768 * getSMEFTCoeffEW("Ced",2, 2, 2, 2) -0.03861 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) -0.00093 * getSMEFTCoeffEW("Ced",3, 3, 1, 1)  
+            +0.00093 * getSMEFTCoeffEW("Ced",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Ced",3, 3, 3, 3) +0.00186 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) -0.00186 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2)  
+            +0. * getSMEFTCoeffEW("Cud1",1, 1, 3, 3) +0.00186 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1) -0.00186 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Cud1",2, 2, 3, 3)  
+            +0.04907 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1) -0.04907 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) +0. * getSMEFTCoeffEW("Cle",1, 1, 1, 1)  
+            -0.03861 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0.04922 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) +0.01061 * getSMEFTCoeffEW("Cle",2, 2, 2, 2)  
+            +0.04922 * getSMEFTCoeffEW("Cle",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cle",3, 3, 1, 1) -0.03861 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cle",3, 3, 3, 3)  
+            +0.00001 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) +0.00001 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) +0.00017 * getSMEFTCoeffEW("Clu",1, 1, 3, 3) -0.09844 * getSMEFTCoeffEW("Clu",2, 2, 1, 1)  
+            -0.09844 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) -2.59386 * getSMEFTCoeffEW("Clu",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Clu",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Clu",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Clu",3, 3, 3, 3) -0.00093 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.00093 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cld",1, 1, 3, 3)  
+            +0.04829 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) +0.05015 * getSMEFTCoeffEW("Cld",2, 2, 2, 2) +0.04922 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) -0.00093 * getSMEFTCoeffEW("Cld",3, 3, 1, 1)  
+            +0.00093 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cld",3, 3, 3, 3) +0.00542 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) +0.04403 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2)  
+            +0.00542 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3) -0.00543 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) +0.03319 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) -0.00542 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3)  
+            +0.0001 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) -1.72993 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) -0.01085 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1)  
+            -0.01085 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) -0.28583 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3) +0.01085 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) +0.01085 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2)  
+            +0.28582 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3)  
+            +0.00636 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1) +0.00449 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2) +0.00542 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) -0.00449 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1)  
+            -0.00636 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) -0.00542 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) -0.04173 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) +0.04172 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2)  
+            +0. * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+
+    } else if (f.is("TAU")) {
+    deltaNLO = (-0.05049 * getSMEFTCoeffEW("CW")  -0.05591 * getSMEFTCoeffEW("CHbox")  +3.17568 * getSMEFTCoeffEW("CHD")  -0.02372 * getSMEFTCoeffEW("CHB")   
+            -0.04895 * getSMEFTCoeffEW("CHW")  +22.3117 * getSMEFTCoeffEW("CHWB")  -0.40651 * getSMEFTCoeffEW("CuW",3, 3) -0.46435 * getSMEFTCoeffEW("CuB",3, 3)  
+            -2.47921 * getSMEFTCoeffEW("CHl1",1, 1) -0.19078 * getSMEFTCoeffEW("CHl1",2, 2) -0.29579 * getSMEFTCoeffEW("CHl1",3, 3) +3.81686 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +6.10524 * getSMEFTCoeffEW("CHl3",2, 2) -0.48392 * getSMEFTCoeffEW("CHl3",3, 3) +1.56227 * getSMEFTCoeffEW("CHe",1, 1) -0.12531 * getSMEFTCoeffEW("CHe",2, 2)  
+            -14.929 * getSMEFTCoeffEW("CHe",3, 3) -1.77004 * getSMEFTCoeffEW("CHq1",1, 1) -11.3527 * getSMEFTCoeffEW("CHq1",2, 2) +10.3513 * getSMEFTCoeffEW("CHq1",3, 3)  
+            -23.71 * getSMEFTCoeffEW("CHq3",1, 1) +10.9164 * getSMEFTCoeffEW("CHq3",2, 2) +14.3261 * getSMEFTCoeffEW("CHq3",3, 3) -4.27707 * getSMEFTCoeffEW("CHu",1, 1)  
+            +4.41559 * getSMEFTCoeffEW("CHu",2, 2) +2.85478 * getSMEFTCoeffEW("CHu",3, 3) +1.84106 * getSMEFTCoeffEW("CHd",1, 1) +0.26285 * getSMEFTCoeffEW("CHd",2, 2)  
+            -2.1987 * getSMEFTCoeffEW("CHd",3, 3) +0. * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.55284 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.04922 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            -3.6695 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.0251 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) -3.6695 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.55284 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            +0. * getSMEFTCoeffEW("Cll",2, 2, 2, 2) +0.04922 * getSMEFTCoeffEW("Cll",2, 2, 3, 3) -0.0251 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.0251 * getSMEFTCoeffEW("Cll",3, 1, 1, 3)  
+            -0.0251 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) +0.04922 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) +0.04922 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) +0.04824 * getSMEFTCoeffEW("Cll",3, 3, 3, 3)  
+            -0.01923 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) +0. * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) +0.24247 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1)  
+            -0.00421 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) +0. * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) +0.01923 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2)  
+            -0.24247 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) +0.0042 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) -0.00421 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) +0.0042 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3)  
+            +0.24247 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) -0.24247 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) +0.00002 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) -0.10975 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1)  
+            -0.00001 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) -0.30554 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) +0.32697 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1)  
+            +0. * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.00001 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) +0.10973 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) +0.30548 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3)  
+            -0.32695 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.32697 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3) -0.32695 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.30554 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1)  
+            +0.30548 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3) +0.00542 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.00541 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2)  
+            -0.00015 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) +0.00541 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1) -0.00541 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) -0.00001 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3)  
+            -0.04381 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) -0.05463 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) +2.20542 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) -0.01918 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1)  
+            +0.01924 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.94801 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) -0.01922 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) +0.0192 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2)  
+            +0.94784 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.5434 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) -0.50498 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -2.77886 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3)  
+            +0.00001 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) +0. * getSMEFTCoeffEW("Cee",1, 1, 2, 2) -0.03861 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cee",1, 2, 2, 1)  
+            -0.01544 * getSMEFTCoeffEW("Cee",1, 3, 3, 1) +0. * getSMEFTCoeffEW("Cee",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0. * getSMEFTCoeffEW("Cee",2, 2, 2, 2)  
+            -0.03861 * getSMEFTCoeffEW("Cee",2, 2, 3, 3) -0.01544 * getSMEFTCoeffEW("Cee",2, 3, 3, 2) -0.01544 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) -0.01544 * getSMEFTCoeffEW("Cee",3, 2, 2, 3)  
+            -0.03861 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) -0.03861 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) -0.10811 * getSMEFTCoeffEW("Cee",3, 3, 3, 3) +0. * getSMEFTCoeffEW("Cuu",1, 1, 1, 1)  
+            +0. * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cuu",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) +0. * getSMEFTCoeffEW("Cuu",1, 3, 3, 1)  
+            +0. * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cuu",2, 2, 1, 1) +0. * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Cuu",2, 2, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cuu",3, 1, 1, 3) +0. * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) +0. * getSMEFTCoeffEW("Cuu",3, 3, 1, 1)  
+            +0. * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) -0.00211 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1) +0. * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) -0.00093 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) -0.00012 * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) +0. * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) +0. * getSMEFTCoeffEW("Cdd",2, 2, 1, 1)  
+            +0.00211 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2) +0.00093 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) +0.00012 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) -0.00012 * getSMEFTCoeffEW("Cdd",3, 1, 1, 3)  
+            +0.00012 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) -0.00093 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1) +0.00093 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cdd",3, 3, 3, 3)  
+            +0. * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) +0. * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) -0.00012 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Ceu",2, 2, 1, 1)  
+            +0. * getSMEFTCoeffEW("Ceu",2, 2, 2, 2) +0.00001 * getSMEFTCoeffEW("Ceu",2, 2, 3, 3) +0.07722 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) +0.07722 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2)  
+            +2.03462 * getSMEFTCoeffEW("Ceu",3, 3, 3, 3) -0.00093 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) +0.00093 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Ced",1, 1, 3, 3)  
+            -0.00093 * getSMEFTCoeffEW("Ced",2, 2, 1, 1) +0.00093 * getSMEFTCoeffEW("Ced",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Ced",2, 2, 3, 3) -0.03954 * getSMEFTCoeffEW("Ced",3, 3, 1, 1)  
+            -0.03768 * getSMEFTCoeffEW("Ced",3, 3, 2, 2) -0.03861 * getSMEFTCoeffEW("Ced",3, 3, 3, 3) +0.00186 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) -0.00186 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2)  
+            +0. * getSMEFTCoeffEW("Cud1",1, 1, 3, 3) +0.00186 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1) -0.00186 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Cud1",2, 2, 3, 3)  
+            +0.04896 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1) -0.04896 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2) +0. * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) +0. * getSMEFTCoeffEW("Cle",1, 1, 1, 1)  
+            +0. * getSMEFTCoeffEW("Cle",1, 1, 2, 2) -0.03861 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cle",2, 2, 1, 1) +0. * getSMEFTCoeffEW("Cle",2, 2, 2, 2)  
+            -0.03861 * getSMEFTCoeffEW("Cle",2, 2, 3, 3) +0.04922 * getSMEFTCoeffEW("Cle",3, 3, 1, 1) +0.04922 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) +0.01061 * getSMEFTCoeffEW("Cle",3, 3, 3, 3)  
+            +0.00001 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) +0.00001 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) +0.00017 * getSMEFTCoeffEW("Clu",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Clu",2, 2, 1, 1)  
+            +0. * getSMEFTCoeffEW("Clu",2, 2, 2, 2) +0.00001 * getSMEFTCoeffEW("Clu",2, 2, 3, 3) -0.09844 * getSMEFTCoeffEW("Clu",3, 3, 1, 1) -0.09844 * getSMEFTCoeffEW("Clu",3, 3, 2, 2)  
+            -2.59386 * getSMEFTCoeffEW("Clu",3, 3, 3, 3) -0.00093 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.00093 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cld",1, 1, 3, 3)  
+            -0.00093 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) +0.00093 * getSMEFTCoeffEW("Cld",2, 2, 2, 2) +0. * getSMEFTCoeffEW("Cld",2, 2, 3, 3) +0.04829 * getSMEFTCoeffEW("Cld",3, 3, 1, 1)  
+            +0.05015 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) +0.04922 * getSMEFTCoeffEW("Cld",3, 3, 3, 3) +0.00541 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) +0.00541 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2)  
+            +0.04402 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3) -0.00541 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) -0.00541 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) +0.0332 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3)  
+            +0.0001 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) -1.72993 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) -0.01082 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1)  
+            -0.01082 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) -0.28518 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3) +0.01082 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) +0.01082 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2)  
+            +0.28518 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) +0. * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3)  
+            +0.00634 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1) +0.00448 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2) +0.00541 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) -0.00448 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1)  
+            -0.00634 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) -0.00541 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) -0.04163 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) +0.04163 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2)  
+            +0. * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+
+    } else {
+        deltaNLO = 0.;
+    }
+
+    return deltaGamma_Zf + cNLOd6 * deltaNLO;
+}
+
+const double NPSMEFTd6General::Gamma_Zf(const Particle f) const
+{
+    return (trueSM.GammaZ(f) + deltaGamma_Zf(f));
+}
+
+
 const double NPSMEFTd6General::deltaGamma_Z() const
 {
     double deltaGamma_Z = 0.;
@@ -14414,8 +14709,6 @@ const double NPSMEFTd6General::deltaGamma_Z() const
     
     double deltaNLO;
     
-    deltaNLO=0.;
-
     double delGVl[6], delGAl[6], delGVq[6], delGAq[6];
     for (int p = 0; p < 6; ++p) {
         delGVl[p] = deltaGV_f(leptons[p]);
@@ -14450,7 +14743,64 @@ const double NPSMEFTd6General::deltaGamma_Z() const
                 * delGammaZ;
     }
 
-    return deltaGamma_Z + deltaNLO;
+    // Finite NLO corrections    
+    deltaNLO = (-0.00543 * getSMEFTCoeffEW("CW")  -0.00277 * getSMEFTCoeffEW("CHbox")  -0.05183 * getSMEFTCoeffEW("CHD")  -0.00136 * getSMEFTCoeffEW("CHB")   
+            -0.00257 * getSMEFTCoeffEW("CHW")  +0.10995 * getSMEFTCoeffEW("CHWB")  -0.03643 * getSMEFTCoeffEW("CuW",3, 3) -0.03167 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.02533 * getSMEFTCoeffEW("CHl1",1, 1) -0.02533 * getSMEFTCoeffEW("CHl1",2, 2) -0.0221 * getSMEFTCoeffEW("CHl1",3, 3) -0.11694 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.11694 * getSMEFTCoeffEW("CHl3",2, 2) +0.00817 * getSMEFTCoeffEW("CHl3",3, 3) -0.02131 * getSMEFTCoeffEW("CHe",1, 1) -0.02131 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.02131 * getSMEFTCoeffEW("CHe",3, 3) +0.9305 * getSMEFTCoeffEW("CHq1",1, 1) -0.87552 * getSMEFTCoeffEW("CHq1",2, 2) -0.09602 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.98005 * getSMEFTCoeffEW("CHq3",1, 1) -0.81707 * getSMEFTCoeffEW("CHq3",2, 2) +0.08005 * getSMEFTCoeffEW("CHq3",3, 3) +0.05315 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.05315 * getSMEFTCoeffEW("CHu",2, 2) +0.14572 * getSMEFTCoeffEW("CHu",3, 3) -0.19098 * getSMEFTCoeffEW("CHd",1, 1) +0.13807 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.02635 * getSMEFTCoeffEW("CHd",3, 3) -0.00046 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.02747 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) -0.00012 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            +0.02174 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00034 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +0.02174 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.02747 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            -0.00046 * getSMEFTCoeffEW("Cll",2, 2, 2, 2) -0.00012 * getSMEFTCoeffEW("Cll",2, 2, 3, 3) -0.00034 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.00034 * getSMEFTCoeffEW("Cll",3, 1, 1, 3)  
+            -0.00034 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) -0.00012 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) -0.00012 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) -0.00046 * getSMEFTCoeffEW("Cll",3, 3, 3, 3)  
+            -0.00235 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) -0.00012 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) +0.01856 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) -0.00094 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1)  
+            -0.00997 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) -0.00094 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2) -0.00012 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) +0.00021 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2)  
+            -0.01373 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) -0.00941 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) -0.00997 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) -0.00941 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3)  
+            +0.01856 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) -0.01373 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) +0.0316 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) -0.02043 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1)  
+            -0.01403 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) -0.06136 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3) +0.00091 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) +0.03506 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1)  
+            +0.00091 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.01403 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) -0.00581 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) -0.02067 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3)  
+            -0.00849 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.03506 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3) -0.00849 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.06136 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1)  
+            -0.02067 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0.00284 * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3) +0.00048 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.00024 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2)  
+            -0.00241 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) +0.00048 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1) -0.00024 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) -0.00241 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3)  
+            +0.00048 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) -0.00024 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) -0.00241 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) -0.00596 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1)  
+            -0.0034 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.0332 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) -0.00596 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) -0.0034 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2)  
+            +0.0332 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.00596 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) -0.0034 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -0.01367 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3)  
+            -0.00017 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) -0.00012 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) -0.00012 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) -0.00005 * getSMEFTCoeffEW("Cee",1, 2, 2, 1)  
+            -0.00005 * getSMEFTCoeffEW("Cee",1, 3, 3, 1) -0.00005 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) -0.00012 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) -0.00017 * getSMEFTCoeffEW("Cee",2, 2, 2, 2)  
+            -0.00012 * getSMEFTCoeffEW("Cee",2, 2, 3, 3) -0.00005 * getSMEFTCoeffEW("Cee",2, 3, 3, 2) -0.00005 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) -0.00005 * getSMEFTCoeffEW("Cee",3, 2, 2, 3)  
+            -0.00012 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) -0.00012 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) -0.00017 * getSMEFTCoeffEW("Cee",3, 3, 3, 3) -0.00056 * getSMEFTCoeffEW("Cuu",1, 1, 1, 1)  
+            -0.00049 * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) -0.00652 * getSMEFTCoeffEW("Cuu",1, 1, 3, 3) -0.00007 * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) -0.00394 * getSMEFTCoeffEW("Cuu",1, 3, 3, 1)  
+            -0.00007 * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) -0.00049 * getSMEFTCoeffEW("Cuu",2, 2, 1, 1) -0.00056 * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) -0.00652 * getSMEFTCoeffEW("Cuu",2, 2, 3, 3)  
+            -0.00394 * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) -0.00394 * getSMEFTCoeffEW("Cuu",3, 1, 1, 3) -0.00394 * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) -0.00652 * getSMEFTCoeffEW("Cuu",3, 3, 1, 1)  
+            -0.00652 * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) -0.00028 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1) -0.00012 * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) -0.00019 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3)  
+            -0.00002 * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) -0.00002 * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) -0.00002 * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) -0.00012 * getSMEFTCoeffEW("Cdd",2, 2, 1, 1)  
+            -0.00006 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) -0.00001 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) -0.00002 * getSMEFTCoeffEW("Cdd",3, 1, 1, 3) -0.00001 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3)  
+            -0.00019 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1) -0.00006 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) -0.00014 * getSMEFTCoeffEW("Cdd",3, 3, 3, 3) +0.00025 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1)  
+            +0.00025 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) +0.00326 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) +0.00025 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1) +0.00025 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2)  
+            +0.00326 * getSMEFTCoeffEW("Ceu",2, 2, 3, 3) +0.00025 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) +0.00025 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2) +0.00326 * getSMEFTCoeffEW("Ceu",3, 3, 3, 3)  
+            -0.00019 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) -0.00006 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) -0.00012 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) -0.00019 * getSMEFTCoeffEW("Ced",2, 2, 1, 1)  
+            -0.00006 * getSMEFTCoeffEW("Ced",2, 2, 2, 2) -0.00012 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) -0.00019 * getSMEFTCoeffEW("Ced",3, 3, 1, 1) -0.00006 * getSMEFTCoeffEW("Ced",3, 3, 2, 2)  
+            -0.00012 * getSMEFTCoeffEW("Ced",3, 3, 3, 3) +0.00037 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) +0.00012 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2) +0.00025 * getSMEFTCoeffEW("Cud1",1, 1, 3, 3)  
+            +0.00037 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1) +0.00012 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) +0.00025 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) +0.00652 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1)  
+            +0.00325 * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) -0.00012 * getSMEFTCoeffEW("Cle",1, 1, 1, 1) -0.00012 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) -0.00012 * getSMEFTCoeffEW("Cle",1, 1, 3, 3)  
+            -0.00012 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) -0.00012 * getSMEFTCoeffEW("Cle",2, 2, 2, 2) -0.00012 * getSMEFTCoeffEW("Cle",2, 2, 3, 3) -0.00012 * getSMEFTCoeffEW("Cle",3, 3, 1, 1)  
+            -0.00012 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) -0.00012 * getSMEFTCoeffEW("Cle",3, 3, 3, 3) +0.00025 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) +0.00025 * getSMEFTCoeffEW("Clu",1, 1, 2, 2)  
+            +0.00326 * getSMEFTCoeffEW("Clu",1, 1, 3, 3) +0.00025 * getSMEFTCoeffEW("Clu",2, 2, 1, 1) +0.00025 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) +0.00326 * getSMEFTCoeffEW("Clu",2, 2, 3, 3)  
+            +0.00025 * getSMEFTCoeffEW("Clu",3, 3, 1, 1) +0.00025 * getSMEFTCoeffEW("Clu",3, 3, 2, 2) +0.00326 * getSMEFTCoeffEW("Clu",3, 3, 3, 3) -0.00019 * getSMEFTCoeffEW("Cld",1, 1, 1, 1)  
+            -0.00006 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) -0.00012 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) -0.00019 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) -0.00006 * getSMEFTCoeffEW("Cld",2, 2, 2, 2)  
+            -0.00012 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) -0.00019 * getSMEFTCoeffEW("Cld",3, 3, 1, 1) -0.00006 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) -0.00012 * getSMEFTCoeffEW("Cld",3, 3, 3, 3)  
+            +0.00048 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) +0.00048 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2) +0.00048 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3) -0.00024 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1)  
+            -0.00024 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) -0.00024 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3) -0.00241 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) -0.00241 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2)  
+            -0.00241 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) -0.00097 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1) -0.00097 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) -0.02225 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3)  
+            +0.00047 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) +0.00047 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2) +0.01573 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) +0.00483 * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1)  
+            +0.00483 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.01891 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3) +0.00055 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1) +0.00042 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2)  
+            +0.00048 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) -0.00017 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1) -0.0003 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) -0.00024 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3)  
+            -0.00519 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) +0.00036 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2) -0.0024 * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+
+
+    return deltaGamma_Z + cNLOd6 * deltaNLO;
 }
 
 const double NPSMEFTd6General::Gamma_Z() const
@@ -14472,23 +14822,15 @@ const double NPSMEFTd6General::BrW(const Particle fi, const Particle fj) const {
     double GammW0 = trueSM.GammaW();
     double dGammW = deltaGamma_W();
     
-    double deltaNLO;
-    
-    deltaNLO=0.;
-
     double GammWij0 = trueSM.GammaW(fi, fj);
     double dGammWij = deltaGamma_Wff(fi, fj);
 
-    return GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0 + deltaNLO;
+    return GammWij0 / GammW0 + dGammWij / GammW0 - GammWij0 * dGammW / GammW0 / GammW0;
 }
 
 const double NPSMEFTd6General::RWlilj(const Particle li, const Particle lj) const {
     double GammWli0, GammWlj0;
     double dGammWli, dGammWlj;
-    
-    double deltaNLO;
-    
-    deltaNLO=0.;
 
     if (li.is("ELECTRON")) {
         GammWli0 = trueSM.GammaW(leptons[NEUTRINO_1], li);
@@ -14516,7 +14858,7 @@ const double NPSMEFTd6General::RWlilj(const Particle li, const Particle lj) cons
         throw std::runtime_error("Error in NPSMEFTd6General::RWlilj. lj must be a charged lepton");
     }
 
-    return GammWli0 / GammWlj0 + dGammWli / GammWlj0 - GammWli0 * dGammWlj / GammWlj0 / GammWlj0 + deltaNLO;
+    return GammWli0 / GammWlj0 + dGammWli / GammWlj0 - GammWli0 * dGammWlj / GammWlj0 / GammWlj0;
 }
 
 const double NPSMEFTd6General::RWc() const {
@@ -14577,8 +14919,6 @@ const double NPSMEFTd6General::deltaSigmaHadron() const
     
     double deltaNLO;
     
-    deltaNLO=0.;
-
     double delGVl[6], delGAl[6], delGVq[6], delGAq[6];
     for (int p = 0; p < 6; ++p) {
         delGVl[p] = deltaGV_f(leptons[p]);
@@ -14618,7 +14958,63 @@ const double NPSMEFTd6General::deltaSigmaHadron() const
                 + delGq_sum / Gq_sum - 2.0 * delGf_sum / Gf_sum);
     }
 
-    return sigma_had + deltaNLO;
+    // Finite NLO corrections    
+    deltaNLO = (+0.02598 * getSMEFTCoeffEW("CW")  +0.00118 * getSMEFTCoeffEW("CHbox")  +2.89603 * getSMEFTCoeffEW("CHD")  -0.00091 * getSMEFTCoeffEW("CHB")   
+            -0.00069 * getSMEFTCoeffEW("CHW")  +13.8093 * getSMEFTCoeffEW("CHWB")  +0.06255 * getSMEFTCoeffEW("CuW",3, 3) -0.01237 * getSMEFTCoeffEW("CuB",3, 3)  
+            -3.65911 * getSMEFTCoeffEW("CHl1",1, 1) +0.52073 * getSMEFTCoeffEW("CHl1",2, 2) +0.52258 * getSMEFTCoeffEW("CHl1",3, 3) +1.32456 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +6.07161 * getSMEFTCoeffEW("CHl3",2, 2) +0.37897 * getSMEFTCoeffEW("CHl3",3, 3) -8.24201 * getSMEFTCoeffEW("CHe",1, 1) +0.49621 * getSMEFTCoeffEW("CHe",2, 2)  
+            +0.49621 * getSMEFTCoeffEW("CHe",3, 3) -33.1133 * getSMEFTCoeffEW("CHq1",1, 1) +11.7646 * getSMEFTCoeffEW("CHq1",2, 2) +20.618 * getSMEFTCoeffEW("CHq1",3, 3)  
+            -68.1363 * getSMEFTCoeffEW("CHq3",1, 1) +46.6096 * getSMEFTCoeffEW("CHq3",2, 2) +20.8623 * getSMEFTCoeffEW("CHq3",3, 3) -7.2924 * getSMEFTCoeffEW("CHu",1, 1)  
+            +6.50374 * getSMEFTCoeffEW("CHu",2, 2) -0.00815 * getSMEFTCoeffEW("CHu",3, 3) +8.64662 * getSMEFTCoeffEW("CHd",1, 1) -4.80556 * getSMEFTCoeffEW("CHd",2, 2)  
+            -3.23933 * getSMEFTCoeffEW("CHd",3, 3) +0.05351 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) +0.02718 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.04308 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            -2.87847 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00867 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) -2.87847 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) +0.02718 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            +0.01531 * getSMEFTCoeffEW("Cll",2, 2, 2, 2) +0.00412 * getSMEFTCoeffEW("Cll",2, 2, 3, 3) +0.0112 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.00867 * getSMEFTCoeffEW("Cll",3, 1, 1, 3)  
+            +0.0112 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) +0.04308 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) +0.00412 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) +0.01531 * getSMEFTCoeffEW("Cll",3, 3, 3, 3)  
+            +0.02216 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) +0.00117 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) -0.17514 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) +0.00891 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1)  
+            +0.0941 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) +0.00891 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2) +0.00117 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) -0.00201 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2)  
+            +0.12959 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) +0.08882 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) +0.0941 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) +0.08882 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3)  
+            -0.17514 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) +0.12959 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) -0.29819 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) +0.19279 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1)  
+            +0.13242 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) +0.57905 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3) -0.00859 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) -0.33084 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1)  
+            -0.00859 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) +0.13242 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) +0.05487 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) +0.19508 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3)  
+            +0.08009 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) -0.33084 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3) +0.08009 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) +0.57905 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1)  
+            +0.19508 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) -0.02684 * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3) -0.04501 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.03821 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2)  
+            +1.83477 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) -0.00604 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1) +0.00076 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) +0.08883 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3)  
+            -0.00604 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) +0.00076 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) +0.08883 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) -0.30302 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1)  
+            -0.32717 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) -1.74819 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) +0.11194 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) +0.0878 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2)  
+            +0.45168 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) +0.11194 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) +0.0878 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) +0.42447 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3)  
+            -0.07982 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) -0.02645 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) -0.02645 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) -0.01058 * getSMEFTCoeffEW("Cee",1, 2, 2, 1)  
+            -0.01058 * getSMEFTCoeffEW("Cee",1, 3, 3, 1) -0.01058 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) -0.02645 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0.00576 * getSMEFTCoeffEW("Cee",2, 2, 2, 2)  
+            +0.00412 * getSMEFTCoeffEW("Cee",2, 2, 3, 3) +0.00165 * getSMEFTCoeffEW("Cee",2, 3, 3, 2) -0.01058 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.00165 * getSMEFTCoeffEW("Cee",3, 2, 2, 3)  
+            -0.02645 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) +0.00412 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) +0.00576 * getSMEFTCoeffEW("Cee",3, 3, 3, 3) +0.00529 * getSMEFTCoeffEW("Cuu",1, 1, 1, 1)  
+            +0.00467 * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) +0.06153 * getSMEFTCoeffEW("Cuu",1, 1, 3, 3) +0.00062 * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) +0.03719 * getSMEFTCoeffEW("Cuu",1, 3, 3, 1)  
+            +0.00062 * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) +0.00467 * getSMEFTCoeffEW("Cuu",2, 2, 1, 1) +0.00529 * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) +0.06153 * getSMEFTCoeffEW("Cuu",2, 2, 3, 3)  
+            +0.03719 * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) +0.03719 * getSMEFTCoeffEW("Cuu",3, 1, 1, 3) +0.03719 * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) +0.06153 * getSMEFTCoeffEW("Cuu",3, 3, 1, 1)  
+            +0.06153 * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) +0.00265 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1) +0.00117 * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) +0.00175 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3)  
+            +0.00016 * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) +0.00023 * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) +0.00016 * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) +0.00117 * getSMEFTCoeffEW("Cdd",2, 2, 1, 1)  
+            +0.00058 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) +0.00008 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) +0.00023 * getSMEFTCoeffEW("Cdd",3, 1, 1, 3) +0.00008 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3)  
+            +0.00175 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1) +0.00058 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) +0.00132 * getSMEFTCoeffEW("Cdd",3, 3, 3, 3) +0.05585 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1)  
+            +0.05585 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) +1.50225 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) -0.00528 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1) -0.00528 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2)  
+            -0.10846 * getSMEFTCoeffEW("Ceu",2, 2, 3, 3) -0.00528 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) -0.00528 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2) -0.10846 * getSMEFTCoeffEW("Ceu",3, 3, 3, 3)  
+            -0.02734 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) -0.02851 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) -0.02793 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) +0.00323 * getSMEFTCoeffEW("Ced",2, 2, 1, 1)  
+            +0.00206 * getSMEFTCoeffEW("Ced",2, 2, 2, 2) +0.00264 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) +0.00323 * getSMEFTCoeffEW("Ced",3, 3, 1, 1) +0.00206 * getSMEFTCoeffEW("Ced",3, 3, 2, 2)  
+            +0.00264 * getSMEFTCoeffEW("Ced",3, 3, 3, 3) -0.0035 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) -0.00117 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2) -0.00233 * getSMEFTCoeffEW("Cud1",1, 1, 3, 3)  
+            -0.0035 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1) -0.00117 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) -0.00233 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) -0.06153 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1)  
+            -0.03064 * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) +0.01252 * getSMEFTCoeffEW("Cle",1, 1, 1, 1) +0.04308 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0.04308 * getSMEFTCoeffEW("Cle",1, 1, 3, 3)  
+            -0.02645 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) +0.00412 * getSMEFTCoeffEW("Cle",2, 2, 2, 2) +0.00412 * getSMEFTCoeffEW("Cle",2, 2, 3, 3) -0.02645 * getSMEFTCoeffEW("Cle",3, 3, 1, 1)  
+            +0.00412 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) +0.00412 * getSMEFTCoeffEW("Cle",3, 3, 3, 3) -0.08322 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.08322 * getSMEFTCoeffEW("Clu",1, 1, 2, 2)  
+            -2.16191 * getSMEFTCoeffEW("Clu",1, 1, 3, 3) -0.00528 * getSMEFTCoeffEW("Clu",2, 2, 1, 1) -0.00528 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) -0.10846 * getSMEFTCoeffEW("Clu",2, 2, 3, 3)  
+            -0.00528 * getSMEFTCoeffEW("Clu",3, 3, 1, 1) -0.00528 * getSMEFTCoeffEW("Clu",3, 3, 2, 2) -0.10846 * getSMEFTCoeffEW("Clu",3, 3, 3, 3) +0.04219 * getSMEFTCoeffEW("Cld",1, 1, 1, 1)  
+            +0.04103 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.04161 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) +0.00323 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) +0.00206 * getSMEFTCoeffEW("Cld",2, 2, 2, 2)  
+            +0.00264 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) +0.00323 * getSMEFTCoeffEW("Cld",3, 3, 1, 1) +0.00206 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) +0.00264 * getSMEFTCoeffEW("Cld",3, 3, 3, 3)  
+            +0.02452 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) -0.00604 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2) -0.00604 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3) +0.03132 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1)  
+            +0.00076 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) +0.00076 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3) -1.28067 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) +0.08883 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2)  
+            +0.08883 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) +0.00914 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1) +0.00914 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) +0.20997 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3)  
+            -0.00447 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) -0.00447 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2) -0.14844 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) -0.04555 * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1)  
+            -0.04555 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) +0.17845 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3) -0.00515 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1) -0.00398 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2)  
+            -0.00457 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) +0.00165 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1) +0.00282 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) +0.00224 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3)  
+            +0.04893 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) -0.00339 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2) +0.02266 * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+
+    return sigma_had + cNLOd6 * deltaNLO;
 }
 
 
@@ -14634,9 +15030,7 @@ const double NPSMEFTd6General::deltaA_f(const Particle f) const
     double delGVf = deltaGV_f(f);
     double delGAf = deltaGA_f(f);
     
-    double deltaNLO;
-    
-    deltaNLO=0.;    
+    double deltaNLO;  
     
     if (delGVf != 0.0 || delGAf != 0.0) {
         double gVf = trueSM.gV_f(f).real();
@@ -14647,7 +15041,148 @@ const double NPSMEFTd6General::deltaA_f(const Particle f) const
         dAf = -2.0 * (gVf * gVf - gAf * gAf) * gAf * gAf / Gf / Gf*delGVfOverGAf;
     }
 
-    return dAf + deltaNLO;
+    // Finite NLO corrections: Not available for u and d    
+    if (f.is("ELECTRON")) {
+    deltaNLO = (-0.00458 * getSMEFTCoeffEW("CW")  -0.00043 * getSMEFTCoeffEW("CHbox")  -0.24067 * getSMEFTCoeffEW("CHD")  -0.00259 * getSMEFTCoeffEW("CHB")   
+            -0.00258 * getSMEFTCoeffEW("CHW")  -0.82157 * getSMEFTCoeffEW("CHWB")  -0.07084 * getSMEFTCoeffEW("CuW",3, 3) -0.08633 * getSMEFTCoeffEW("CuB",3, 3)  
+            +0.3006 * getSMEFTCoeffEW("CHl1",1, 1) -0.00647 * getSMEFTCoeffEW("CHl1",2, 2) -0.00428 * getSMEFTCoeffEW("CHl1",3, 3) -0.15696 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.45364 * getSMEFTCoeffEW("CHl3",2, 2) +0.00431 * getSMEFTCoeffEW("CHl3",3, 3) +0.02448 * getSMEFTCoeffEW("CHe",1, 1) -0.00428 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00428 * getSMEFTCoeffEW("CHe",3, 3) +0.00428 * getSMEFTCoeffEW("CHq1",1, 1) +0.00428 * getSMEFTCoeffEW("CHq1",2, 2) -0.09477 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.01294 * getSMEFTCoeffEW("CHq3",1, 1) +0.01294 * getSMEFTCoeffEW("CHq3",2, 2) +0.04598 * getSMEFTCoeffEW("CHq3",3, 3) +0.00856 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00856 * getSMEFTCoeffEW("CHu",2, 2) +0.10148 * getSMEFTCoeffEW("CHu",3, 3) -0.00428 * getSMEFTCoeffEW("CHd",1, 1) -0.00428 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00428 * getSMEFTCoeffEW("CHd",3, 3) +0.0007 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.01834 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.00071 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            +0.20054 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00036 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +0.20054 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.01834 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            -0.00036 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) +0.00071 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) -0.00071 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.00071 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2)  
+            +0.03199 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) -0.0076 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.0076 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) -0.00777 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            +0.03254 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) +0.00255 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) +0.00091 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) +0.00091 * getSMEFTCoeffEW("Cee",1, 1, 3, 3)  
+            +0.00036 * getSMEFTCoeffEW("Cee",1, 2, 2, 1) +0.00036 * getSMEFTCoeffEW("Cee",1, 3, 3, 1) +0.00036 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) +0.00091 * getSMEFTCoeffEW("Cee",2, 2, 1, 1)  
+            +0.00036 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.00091 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) -0.00182 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) -0.00182 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2)  
+            -0.04797 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) +0.00091 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) +0.00091 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0.00091 * getSMEFTCoeffEW("Ced",1, 1, 3, 3)  
+            +0.00162 * getSMEFTCoeffEW("Cle",1, 1, 1, 1) +0.00071 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0.00071 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0.00091 * getSMEFTCoeffEW("Cle",2, 2, 1, 1)  
+            +0.00091 * getSMEFTCoeffEW("Cle",3, 3, 1, 1) -0.00143 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.00143 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) -0.03763 * getSMEFTCoeffEW("Clu",1, 1, 3, 3)  
+            +0.00071 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.00071 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.00071 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) -0.00091 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1)  
+            -0.00091 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) +0.04079 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) ) * v2; 
+        
+    } else if (f.is("MUON")) {
+    deltaNLO = (-0.00458 * getSMEFTCoeffEW("CW")  -0.00043 * getSMEFTCoeffEW("CHbox")  -0.24067 * getSMEFTCoeffEW("CHD")  -0.00259 * getSMEFTCoeffEW("CHB")   
+            -0.00258 * getSMEFTCoeffEW("CHW")  -0.82157 * getSMEFTCoeffEW("CHWB")  -0.07084 * getSMEFTCoeffEW("CuW",3, 3) -0.08633 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00647 * getSMEFTCoeffEW("CHl1",1, 1) +0.3006 * getSMEFTCoeffEW("CHl1",2, 2) -0.00428 * getSMEFTCoeffEW("CHl1",3, 3) -0.45364 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.15696 * getSMEFTCoeffEW("CHl3",2, 2) +0.00431 * getSMEFTCoeffEW("CHl3",3, 3) -0.00428 * getSMEFTCoeffEW("CHe",1, 1) +0.02448 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00428 * getSMEFTCoeffEW("CHe",3, 3) +0.00428 * getSMEFTCoeffEW("CHq1",1, 1) +0.00428 * getSMEFTCoeffEW("CHq1",2, 2) -0.09477 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.01294 * getSMEFTCoeffEW("CHq3",1, 1) +0.01294 * getSMEFTCoeffEW("CHq3",2, 2) +0.04598 * getSMEFTCoeffEW("CHq3",3, 3) +0.00856 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00856 * getSMEFTCoeffEW("CHu",2, 2) +0.10148 * getSMEFTCoeffEW("CHu",3, 3) -0.00428 * getSMEFTCoeffEW("CHd",1, 1) -0.00428 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00428 * getSMEFTCoeffEW("CHd",3, 3) -0.01834 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.20054 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) +0.20054 * getSMEFTCoeffEW("Cll",2, 1, 1, 2)  
+            -0.01834 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) +0.0007 * getSMEFTCoeffEW("Cll",2, 2, 2, 2) +0.00071 * getSMEFTCoeffEW("Cll",2, 2, 3, 3) -0.00036 * getSMEFTCoeffEW("Cll",2, 3, 3, 2)  
+            -0.00036 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) +0.00071 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) -0.00071 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1) -0.00071 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2)  
+            +0.03199 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3) +0.03254 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) -0.0076 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) -0.0076 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2)  
+            -0.00777 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) +0.00091 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) +0.00036 * getSMEFTCoeffEW("Cee",1, 2, 2, 1) +0.00036 * getSMEFTCoeffEW("Cee",2, 1, 1, 2)  
+            +0.00091 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0.00255 * getSMEFTCoeffEW("Cee",2, 2, 2, 2) +0.00091 * getSMEFTCoeffEW("Cee",2, 2, 3, 3) +0.00036 * getSMEFTCoeffEW("Cee",2, 3, 3, 2)  
+            +0.00036 * getSMEFTCoeffEW("Cee",3, 2, 2, 3) +0.00091 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) -0.00182 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1) -0.00182 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2)  
+            -0.04797 * getSMEFTCoeffEW("Ceu",2, 2, 3, 3) +0.00091 * getSMEFTCoeffEW("Ced",2, 2, 1, 1) +0.00091 * getSMEFTCoeffEW("Ced",2, 2, 2, 2) +0.00091 * getSMEFTCoeffEW("Ced",2, 2, 3, 3)  
+            +0.00091 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0.00071 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) +0.00162 * getSMEFTCoeffEW("Cle",2, 2, 2, 2) +0.00071 * getSMEFTCoeffEW("Cle",2, 2, 3, 3)  
+            +0.00091 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) -0.00143 * getSMEFTCoeffEW("Clu",2, 2, 1, 1) -0.00143 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) -0.03763 * getSMEFTCoeffEW("Clu",2, 2, 3, 3)  
+            +0.00071 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) +0.00071 * getSMEFTCoeffEW("Cld",2, 2, 2, 2) +0.00071 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) -0.00091 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2)  
+            -0.00091 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) +0.04079 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) ) * v2; 
+        
+    } else if (f.is("TAU")) {
+    deltaNLO = (-0.00458 * getSMEFTCoeffEW("CW")  -0.00043 * getSMEFTCoeffEW("CHbox")  -0.24067 * getSMEFTCoeffEW("CHD")  -0.00259 * getSMEFTCoeffEW("CHB")   
+            -0.00258 * getSMEFTCoeffEW("CHW")  -0.82157 * getSMEFTCoeffEW("CHWB")  -0.07084 * getSMEFTCoeffEW("CuW",3, 3) -0.08633 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00647 * getSMEFTCoeffEW("CHl1",1, 1) -0.00647 * getSMEFTCoeffEW("CHl1",2, 2) +0.30279 * getSMEFTCoeffEW("CHl1",3, 3) -0.45364 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.45364 * getSMEFTCoeffEW("CHl3",2, 2) +0.30099 * getSMEFTCoeffEW("CHl3",3, 3) -0.00428 * getSMEFTCoeffEW("CHe",1, 1) -0.00428 * getSMEFTCoeffEW("CHe",2, 2)  
+            +0.02448 * getSMEFTCoeffEW("CHe",3, 3) +0.00428 * getSMEFTCoeffEW("CHq1",1, 1) +0.00428 * getSMEFTCoeffEW("CHq1",2, 2) -0.09477 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.01294 * getSMEFTCoeffEW("CHq3",1, 1) +0.01294 * getSMEFTCoeffEW("CHq3",2, 2) +0.04598 * getSMEFTCoeffEW("CHq3",3, 3) +0.00856 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00856 * getSMEFTCoeffEW("CHu",2, 2) +0.10148 * getSMEFTCoeffEW("CHu",3, 3) -0.00428 * getSMEFTCoeffEW("CHd",1, 1) -0.00428 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00428 * getSMEFTCoeffEW("CHd",3, 3) -0.01906 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.00071 * getSMEFTCoeffEW("Cll",1, 1, 3, 3) +0.20091 * getSMEFTCoeffEW("Cll",1, 2, 2, 1)  
+            -0.00036 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +0.20091 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.01906 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) +0.00071 * getSMEFTCoeffEW("Cll",2, 2, 3, 3)  
+            -0.00036 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.00036 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) -0.00036 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) +0.00071 * getSMEFTCoeffEW("Cll",3, 3, 1, 1)  
+            +0.00071 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) +0.0007 * getSMEFTCoeffEW("Cll",3, 3, 3, 3) -0.00071 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) -0.00071 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2)  
+            +0.03199 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) +0.03254 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) +0.03254 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.0076 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1)  
+            -0.0076 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -0.04031 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) +0.00091 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) +0.00036 * getSMEFTCoeffEW("Cee",1, 3, 3, 1)  
+            +0.00091 * getSMEFTCoeffEW("Cee",2, 2, 3, 3) +0.00036 * getSMEFTCoeffEW("Cee",2, 3, 3, 2) +0.00036 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.00036 * getSMEFTCoeffEW("Cee",3, 2, 2, 3)  
+            +0.00091 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) +0.00091 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) +0.00255 * getSMEFTCoeffEW("Cee",3, 3, 3, 3) -0.00182 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1)  
+            -0.00182 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2) -0.04797 * getSMEFTCoeffEW("Ceu",3, 3, 3, 3) +0.00091 * getSMEFTCoeffEW("Ced",3, 3, 1, 1) +0.00091 * getSMEFTCoeffEW("Ced",3, 3, 2, 2)  
+            +0.00091 * getSMEFTCoeffEW("Ced",3, 3, 3, 3) +0.00091 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0.00091 * getSMEFTCoeffEW("Cle",2, 2, 3, 3) +0.00071 * getSMEFTCoeffEW("Cle",3, 3, 1, 1)  
+            +0.00071 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) +0.00162 * getSMEFTCoeffEW("Cle",3, 3, 3, 3) -0.00143 * getSMEFTCoeffEW("Clu",3, 3, 1, 1) -0.00143 * getSMEFTCoeffEW("Clu",3, 3, 2, 2)  
+            -0.03763 * getSMEFTCoeffEW("Clu",3, 3, 3, 3) +0.00071 * getSMEFTCoeffEW("Cld",3, 3, 1, 1) +0.00071 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) +0.00071 * getSMEFTCoeffEW("Cld",3, 3, 3, 3)  
+            -0.00091 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3) -0.00091 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3) +0.04079 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) ) * v2; 
+        
+    } else if (f.is("STRANGE")) {
+    deltaNLO = (-0.00038 * getSMEFTCoeffEW("CW")  -0.00004 * getSMEFTCoeffEW("CHbox")  -0.02465 * getSMEFTCoeffEW("CHD")  -0.0002 * getSMEFTCoeffEW("CHB")   
+            -0.0002 * getSMEFTCoeffEW("CHW")  -0.09162 * getSMEFTCoeffEW("CHWB")  -0.00552 * getSMEFTCoeffEW("CuW",3, 3) -0.00682 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00051 * getSMEFTCoeffEW("CHl1",1, 1) -0.00051 * getSMEFTCoeffEW("CHl1",2, 2) -0.00034 * getSMEFTCoeffEW("CHl1",3, 3) -0.04686 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.04686 * getSMEFTCoeffEW("CHl3",2, 2) +0.00034 * getSMEFTCoeffEW("CHl3",3, 3) -0.00034 * getSMEFTCoeffEW("CHe",1, 1) -0.00034 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00034 * getSMEFTCoeffEW("CHe",3, 3) +0.00034 * getSMEFTCoeffEW("CHq1",1, 1) +0.03267 * getSMEFTCoeffEW("CHq1",2, 2) -0.00766 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00101 * getSMEFTCoeffEW("CHq3",1, 1) +0.03267 * getSMEFTCoeffEW("CHq3",2, 2) +0.00375 * getSMEFTCoeffEW("CHq3",3, 3) +0.00068 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00068 * getSMEFTCoeffEW("CHu",2, 2) +0.00823 * getSMEFTCoeffEW("CHu",3, 3) -0.00034 * getSMEFTCoeffEW("CHd",1, 1) +0.10336 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00034 * getSMEFTCoeffEW("CHd",3, 3) -0.00149 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.0214 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) +0.0214 * getSMEFTCoeffEW("Cll",2, 1, 1, 2)  
+            -0.00149 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) -0.00006 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) -0.00004 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1) -0.00004 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2)  
+            -0.00006 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) -0.0002 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) +0.00248 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) -0.00004 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2)  
+            -0.00004 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) +0.00248 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) -0.00059 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) +0.00003 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1)  
+            +0.00003 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.00059 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) -0.00112 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) -0.00312 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3)  
+            +0.00334 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.00334 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.00312 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0.00006 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2)  
+            +0.00006 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) +0.00006 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) -0.0002 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.00255 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            -0.0002 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +0.00255 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.0002 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) +0.00032 * getSMEFTCoeffEW("Cdd",1, 1, 2, 2)  
+            +0.00004 * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) +0.00004 * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) +0.00032 * getSMEFTCoeffEW("Cdd",2, 2, 1, 1) +0.00073 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2)  
+            +0.00032 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) +0.00004 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) +0.00004 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) +0.00032 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2)  
+            +0.00032 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0.00032 * getSMEFTCoeffEW("Ced",2, 2, 2, 2) +0.00032 * getSMEFTCoeffEW("Ced",3, 3, 2, 2) -0.00064 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2)  
+            -0.00064 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) -0.01697 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2) +0.00032 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.00032 * getSMEFTCoeffEW("Cld",2, 2, 2, 2)  
+            +0.00032 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) +0.00006 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) +0.00006 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) +0.00006 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3)  
+            -0.00011 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) -0.00011 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2) -0.00291 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) -0.00032 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2)  
+            +0.00006 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1) -0.00027 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) +0.00006 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) +0.01443 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2) ) * v2; 
+        
+    } else if (f.is("CHARM")) {
+    deltaNLO = (-0.00205 * getSMEFTCoeffEW("CW")  -0.00021 * getSMEFTCoeffEW("CHbox")  -0.13657 * getSMEFTCoeffEW("CHD")  -0.00111 * getSMEFTCoeffEW("CHB")   
+            -0.00111 * getSMEFTCoeffEW("CHW")  -0.50997 * getSMEFTCoeffEW("CHWB")  -0.03 * getSMEFTCoeffEW("CuW",3, 3) -0.03707 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00277 * getSMEFTCoeffEW("CHl1",1, 1) -0.00277 * getSMEFTCoeffEW("CHl1",2, 2) -0.00184 * getSMEFTCoeffEW("CHl1",3, 3) -0.25914 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.25914 * getSMEFTCoeffEW("CHl3",2, 2) +0.00184 * getSMEFTCoeffEW("CHl3",3, 3) -0.00184 * getSMEFTCoeffEW("CHe",1, 1) -0.00184 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00184 * getSMEFTCoeffEW("CHe",3, 3) +0.00184 * getSMEFTCoeffEW("CHq1",1, 1) -0.17697 * getSMEFTCoeffEW("CHq1",2, 2) -0.04164 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00551 * getSMEFTCoeffEW("CHq3",1, 1) +0.18028 * getSMEFTCoeffEW("CHq3",2, 2) +0.02039 * getSMEFTCoeffEW("CHq3",3, 3) +0.00368 * getSMEFTCoeffEW("CHu",1, 1)  
+            -0.19929 * getSMEFTCoeffEW("CHu",2, 2) +0.04478 * getSMEFTCoeffEW("CHu",3, 3) -0.00184 * getSMEFTCoeffEW("CHd",1, 1) -0.00184 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00184 * getSMEFTCoeffEW("CHd",3, 3) -0.00812 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.11852 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) +0.11852 * getSMEFTCoeffEW("Cll",2, 1, 1, 2)  
+            -0.00812 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) +0.0003 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) -0.00019 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1) -0.00019 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2)  
+            +0.0003 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) +0.00021 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) -0.01346 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) -0.00919 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2)  
+            -0.00919 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) -0.01346 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) -0.0032 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) +0.00027 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1)  
+            +0.00027 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.0032 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) -0.00585 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) -0.01696 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3)  
+            -0.00872 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) -0.00872 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.01696 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) -0.0003 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2)  
+            -0.0003 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) -0.0003 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) -0.00107 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.01387 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            -0.00107 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +0.01387 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.00107 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) +0.00145 * getSMEFTCoeffEW("Cuu",1, 1, 2, 2)  
+            +0.00019 * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) +0.00019 * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) +0.00145 * getSMEFTCoeffEW("Cuu",2, 2, 1, 1) +0.00328 * getSMEFTCoeffEW("Cuu",2, 2, 2, 2)  
+            +0.03819 * getSMEFTCoeffEW("Cuu",2, 2, 3, 3) +0.02308 * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) +0.02308 * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) +0.03819 * getSMEFTCoeffEW("Cuu",3, 3, 2, 2)  
+            -0.00072 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) -0.00072 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2) -0.00072 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2) -0.00072 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1)  
+            -0.00072 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) -0.00072 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) -0.00072 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) -0.00072 * getSMEFTCoeffEW("Clu",2, 2, 2, 2)  
+            -0.00072 * getSMEFTCoeffEW("Clu",3, 3, 2, 2) -0.0003 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) -0.0003 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) -0.0003 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3)  
+            +0.00072 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) +0.0006 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) +0.00133 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2) +0.01583 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3)  
+            -0.03247 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.0003 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1) -0.0003 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) -0.0003 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) ) * v2; 
+        
+    } else if (f.is("BOTTOM")) {
+    deltaNLO = (-0.00072 * getSMEFTCoeffEW("CW")  -0.00004 * getSMEFTCoeffEW("CHbox")  -0.02542 * getSMEFTCoeffEW("CHD")  -0.0002 * getSMEFTCoeffEW("CHB")   
+            -0.0002 * getSMEFTCoeffEW("CHW")  -0.09687 * getSMEFTCoeffEW("CHWB")  -0.00748 * getSMEFTCoeffEW("CuW",3, 3) -0.00708 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00051 * getSMEFTCoeffEW("CHl1",1, 1) -0.00051 * getSMEFTCoeffEW("CHl1",2, 2) -0.00034 * getSMEFTCoeffEW("CHl1",3, 3) -0.04834 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.04834 * getSMEFTCoeffEW("CHl3",2, 2) +0.00034 * getSMEFTCoeffEW("CHl3",3, 3) -0.00034 * getSMEFTCoeffEW("CHe",1, 1) -0.00034 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00034 * getSMEFTCoeffEW("CHe",3, 3) +0.00034 * getSMEFTCoeffEW("CHq1",1, 1) +0.00034 * getSMEFTCoeffEW("CHq1",2, 2) +0.02817 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00101 * getSMEFTCoeffEW("CHq3",1, 1) +0.00101 * getSMEFTCoeffEW("CHq3",2, 2) +0.03482 * getSMEFTCoeffEW("CHq3",3, 3) +0.00068 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00068 * getSMEFTCoeffEW("CHu",2, 2) +0.00774 * getSMEFTCoeffEW("CHu",3, 3) -0.00034 * getSMEFTCoeffEW("CHd",1, 1) -0.00034 * getSMEFTCoeffEW("CHd",2, 2)  
+            +0.1152 * getSMEFTCoeffEW("CHd",3, 3) -0.00149 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.02214 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) +0.02214 * getSMEFTCoeffEW("Cll",2, 1, 1, 2)  
+            -0.00149 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) -0.00006 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) -0.00004 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) -0.00006 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3)  
+            -0.00004 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) -0.00004 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) -0.00004 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) -0.00006 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1)  
+            -0.00006 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) +0.00487 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) -0.00059 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3) +0.00003 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1)  
+            -0.00059 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) +0.00003 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.00003 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3) +0.00003 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3)  
+            -0.00059 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1) -0.00059 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0.00044 * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3) +0.00006 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3)  
+            +0.00006 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3) +0.00006 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) +0.00236 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) +0.00236 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3)  
+            -0.0002 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) +0.00032 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3) +0.00004 * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) +0.00032 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3)  
+            +0.00004 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) +0.00004 * getSMEFTCoeffEW("Cdd",3, 1, 1, 3) +0.00004 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) +0.00032 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1)  
+            +0.00032 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) +0.00073 * getSMEFTCoeffEW("Cdd",3, 3, 3, 3) +0.00032 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) +0.00032 * getSMEFTCoeffEW("Ced",2, 2, 3, 3)  
+            +0.00032 * getSMEFTCoeffEW("Ced",3, 3, 3, 3) -0.00064 * getSMEFTCoeffEW("Cud1",1, 1, 3, 3) -0.00064 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) -0.01697 * getSMEFTCoeffEW("Cud1",3, 3, 3, 3)  
+            +0.00032 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) +0.00032 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) +0.00032 * getSMEFTCoeffEW("Cld",3, 3, 3, 3) +0.00006 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1)  
+            +0.00006 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) +0.00006 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) -0.00011 * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) -0.00011 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2)  
+            -0.00291 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3) -0.00032 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) -0.00032 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) +0.00006 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1)  
+            +0.00006 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2) +0.01449 * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+        
+    } else {
+        deltaNLO = 0.;
+    }
+
+    return dAf + cNLOd6 * deltaNLO;
 }
 
 const double NPSMEFTd6General::A_f(const Particle f) const
@@ -14663,8 +15198,6 @@ const double NPSMEFTd6General::deltaAFB(const Particle f) const
     double delGAf = deltaGA_f(f);
     
     double deltaNLO;
-    
-    deltaNLO=0.;
     
     if (f.is("ELECTRON")) {
         if (delGVf != 0.0 || delGAf != 0.0) {
@@ -14693,7 +15226,190 @@ const double NPSMEFTd6General::deltaAFB(const Particle f) const
         }
     }
 
-    return dAFB + deltaNLO;
+    // Finite NLO corrections: not available for u and d    
+    if (f.is("ELECTRON")) {
+    deltaNLO = (-0.00101 * getSMEFTCoeffEW("CW")  -0.00009 * getSMEFTCoeffEW("CHbox")  +0.18951 * getSMEFTCoeffEW("CHD")  -0.00057 * getSMEFTCoeffEW("CHB")   
+            -0.00057 * getSMEFTCoeffEW("CHW")  +1.00549 * getSMEFTCoeffEW("CHWB")  -0.01561 * getSMEFTCoeffEW("CuW",3, 3) -0.01902 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.28823 * getSMEFTCoeffEW("CHl1",1, 1) -0.00143 * getSMEFTCoeffEW("CHl1",2, 2) -0.00094 * getSMEFTCoeffEW("CHl1",3, 3) +0.09604 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +0.38513 * getSMEFTCoeffEW("CHl3",2, 2) +0.00095 * getSMEFTCoeffEW("CHl3",3, 3) -0.47554 * getSMEFTCoeffEW("CHe",1, 1) -0.00094 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00094 * getSMEFTCoeffEW("CHe",3, 3) +0.00094 * getSMEFTCoeffEW("CHq1",1, 1) +0.00094 * getSMEFTCoeffEW("CHq1",2, 2) -0.02088 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00285 * getSMEFTCoeffEW("CHq3",1, 1) +0.00285 * getSMEFTCoeffEW("CHq3",2, 2) +0.01013 * getSMEFTCoeffEW("CHq3",3, 3) +0.00189 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00189 * getSMEFTCoeffEW("CHu",2, 2) +0.02236 * getSMEFTCoeffEW("CHu",3, 3) -0.00094 * getSMEFTCoeffEW("CHd",1, 1) -0.00094 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00094 * getSMEFTCoeffEW("CHd",3, 3) +0.00015 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.00404 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.00016 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            -0.19836 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00008 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) -0.19836 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.00404 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            -0.00008 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) +0.00016 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) -0.00016 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.00016 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2)  
+            +0.00705 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) -0.00168 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.00168 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) -0.00171 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            +0.00717 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) +0.00056 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) +0.0002 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) +0.0002 * getSMEFTCoeffEW("Cee",1, 1, 3, 3)  
+            +0.00008 * getSMEFTCoeffEW("Cee",1, 2, 2, 1) +0.00008 * getSMEFTCoeffEW("Cee",1, 3, 3, 1) +0.00008 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) +0.0002 * getSMEFTCoeffEW("Cee",2, 2, 1, 1)  
+            +0.00008 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.0002 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) -0.0004 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) -0.0004 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2)  
+            -0.01057 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) +0.0002 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) +0.0002 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0.0002 * getSMEFTCoeffEW("Ced",1, 1, 3, 3)  
+            +0.00036 * getSMEFTCoeffEW("Cle",1, 1, 1, 1) +0.00016 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0.00016 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0.0002 * getSMEFTCoeffEW("Cle",2, 2, 1, 1)  
+            +0.0002 * getSMEFTCoeffEW("Cle",3, 3, 1, 1) -0.00031 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.00031 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) -0.00829 * getSMEFTCoeffEW("Clu",1, 1, 3, 3)  
+            +0.00016 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.00016 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.00016 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) -0.0002 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1)  
+            -0.0002 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) +0.00899 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) ) * v2; 
+        
+    } else if (f.is("MUON")) {
+    deltaNLO = (-0.00101 * getSMEFTCoeffEW("CW")  -0.00009 * getSMEFTCoeffEW("CHbox")  +0.18951 * getSMEFTCoeffEW("CHD")  -0.00057 * getSMEFTCoeffEW("CHB")   
+            -0.00057 * getSMEFTCoeffEW("CHW")  +1.00549 * getSMEFTCoeffEW("CHWB")  -0.01561 * getSMEFTCoeffEW("CuW",3, 3) -0.01902 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.14483 * getSMEFTCoeffEW("CHl1",1, 1) -0.14483 * getSMEFTCoeffEW("CHl1",2, 2) -0.00094 * getSMEFTCoeffEW("CHl1",3, 3) +0.24058 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +0.24058 * getSMEFTCoeffEW("CHl3",2, 2) +0.00095 * getSMEFTCoeffEW("CHl3",3, 3) -0.23824 * getSMEFTCoeffEW("CHe",1, 1) -0.23824 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00094 * getSMEFTCoeffEW("CHe",3, 3) +0.00094 * getSMEFTCoeffEW("CHq1",1, 1) +0.00094 * getSMEFTCoeffEW("CHq1",2, 2) -0.02088 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00285 * getSMEFTCoeffEW("CHq3",1, 1) +0.00285 * getSMEFTCoeffEW("CHq3",2, 2) +0.01013 * getSMEFTCoeffEW("CHq3",3, 3) +0.00189 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00189 * getSMEFTCoeffEW("CHu",2, 2) +0.02236 * getSMEFTCoeffEW("CHu",3, 3) -0.00094 * getSMEFTCoeffEW("CHd",1, 1) -0.00094 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00094 * getSMEFTCoeffEW("CHd",3, 3) +0.00008 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.00404 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.00008 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            -0.19836 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00004 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) -0.19836 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.00404 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            +0.00008 * getSMEFTCoeffEW("Cll",2, 2, 2, 2) +0.00008 * getSMEFTCoeffEW("Cll",2, 2, 3, 3) -0.00004 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.00004 * getSMEFTCoeffEW("Cll",3, 1, 1, 3)  
+            -0.00004 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) +0.00008 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) +0.00008 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) -0.00008 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1)  
+            -0.00008 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) +0.00352 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) -0.00008 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1) -0.00008 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2)  
+            +0.00352 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3) -0.00084 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.00084 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.00273 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            -0.00084 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) -0.00084 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +0.00273 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) +0.00028 * getSMEFTCoeffEW("Cee",1, 1, 1, 1)  
+            +0.0002 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) +0.0001 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) +0.00008 * getSMEFTCoeffEW("Cee",1, 2, 2, 1) +0.00004 * getSMEFTCoeffEW("Cee",1, 3, 3, 1)  
+            +0.00008 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) +0.0002 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0.00028 * getSMEFTCoeffEW("Cee",2, 2, 2, 2) +0.0001 * getSMEFTCoeffEW("Cee",2, 2, 3, 3)  
+            +0.00004 * getSMEFTCoeffEW("Cee",2, 3, 3, 2) +0.00004 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.00004 * getSMEFTCoeffEW("Cee",3, 2, 2, 3) +0.0001 * getSMEFTCoeffEW("Cee",3, 3, 1, 1)  
+            +0.0001 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) -0.0002 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) -0.0002 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) -0.00529 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3)  
+            -0.0002 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1) -0.0002 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2) -0.00529 * getSMEFTCoeffEW("Ceu",2, 2, 3, 3) +0.0001 * getSMEFTCoeffEW("Ced",1, 1, 1, 1)  
+            +0.0001 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0.0001 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) +0.0001 * getSMEFTCoeffEW("Ced",2, 2, 1, 1) +0.0001 * getSMEFTCoeffEW("Ced",2, 2, 2, 2)  
+            +0.0001 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) +0.00018 * getSMEFTCoeffEW("Cle",1, 1, 1, 1) +0.00018 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0.00008 * getSMEFTCoeffEW("Cle",1, 1, 3, 3)  
+            +0.00018 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) +0.00018 * getSMEFTCoeffEW("Cle",2, 2, 2, 2) +0.00008 * getSMEFTCoeffEW("Cle",2, 2, 3, 3) +0.0001 * getSMEFTCoeffEW("Cle",3, 3, 1, 1)  
+            +0.0001 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) -0.00016 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.00016 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) -0.00415 * getSMEFTCoeffEW("Clu",1, 1, 3, 3)  
+            -0.00016 * getSMEFTCoeffEW("Clu",2, 2, 1, 1) -0.00016 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) -0.00415 * getSMEFTCoeffEW("Clu",2, 2, 3, 3) +0.00008 * getSMEFTCoeffEW("Cld",1, 1, 1, 1)  
+            +0.00008 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.00008 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) +0.00008 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) +0.00008 * getSMEFTCoeffEW("Cld",2, 2, 2, 2)  
+            +0.00008 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) -0.0001 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) -0.0001 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2) -0.0001 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1)  
+            -0.0001 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) +0.00449 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) +0.00449 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) ) * v2; 
+        
+    } else if (f.is("TAU")) {
+    deltaNLO = (-0.00101 * getSMEFTCoeffEW("CW")  -0.00009 * getSMEFTCoeffEW("CHbox")  +0.18951 * getSMEFTCoeffEW("CHD")  -0.00057 * getSMEFTCoeffEW("CHB")   
+            -0.00057 * getSMEFTCoeffEW("CHW")  +1.00549 * getSMEFTCoeffEW("CHWB")  -0.01561 * getSMEFTCoeffEW("CuW",3, 3) -0.01902 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.14483 * getSMEFTCoeffEW("CHl1",1, 1) -0.00143 * getSMEFTCoeffEW("CHl1",2, 2) -0.14434 * getSMEFTCoeffEW("CHl1",3, 3) +0.24058 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +0.38513 * getSMEFTCoeffEW("CHl3",2, 2) -0.1436 * getSMEFTCoeffEW("CHl3",3, 3) -0.23824 * getSMEFTCoeffEW("CHe",1, 1) -0.00094 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.23824 * getSMEFTCoeffEW("CHe",3, 3) +0.00094 * getSMEFTCoeffEW("CHq1",1, 1) +0.00094 * getSMEFTCoeffEW("CHq1",2, 2) -0.02088 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00285 * getSMEFTCoeffEW("CHq3",1, 1) +0.00285 * getSMEFTCoeffEW("CHq3",2, 2) +0.01013 * getSMEFTCoeffEW("CHq3",3, 3) +0.00189 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00189 * getSMEFTCoeffEW("CHu",2, 2) +0.02236 * getSMEFTCoeffEW("CHu",3, 3) -0.00094 * getSMEFTCoeffEW("CHd",1, 1) -0.00094 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00094 * getSMEFTCoeffEW("CHd",3, 3) +0.00008 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.00412 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.00016 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            -0.19831 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00008 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) -0.19831 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.00412 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            +0.00008 * getSMEFTCoeffEW("Cll",2, 2, 3, 3) -0.00004 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) -0.00008 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) -0.00004 * getSMEFTCoeffEW("Cll",3, 2, 2, 3)  
+            +0.00016 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) +0.00008 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) +0.00008 * getSMEFTCoeffEW("Cll",3, 3, 3, 3) -0.00008 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1)  
+            -0.00008 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) +0.00352 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) -0.00008 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) -0.00008 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2)  
+            +0.00352 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) -0.00084 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.00084 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.00273 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            +0.00717 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.00084 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) -0.00084 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -0.00444 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3)  
+            +0.00028 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) +0.0001 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) +0.0002 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) +0.00004 * getSMEFTCoeffEW("Cee",1, 2, 2, 1)  
+            +0.00008 * getSMEFTCoeffEW("Cee",1, 3, 3, 1) +0.00004 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) +0.0001 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0.0001 * getSMEFTCoeffEW("Cee",2, 2, 3, 3)  
+            +0.00004 * getSMEFTCoeffEW("Cee",2, 3, 3, 2) +0.00008 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.00004 * getSMEFTCoeffEW("Cee",3, 2, 2, 3) +0.0002 * getSMEFTCoeffEW("Cee",3, 3, 1, 1)  
+            +0.0001 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) +0.00028 * getSMEFTCoeffEW("Cee",3, 3, 3, 3) -0.0002 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) -0.0002 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2)  
+            -0.00529 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) -0.0002 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) -0.0002 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2) -0.00529 * getSMEFTCoeffEW("Ceu",3, 3, 3, 3)  
+            +0.0001 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) +0.0001 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0.0001 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) +0.0001 * getSMEFTCoeffEW("Ced",3, 3, 1, 1)  
+            +0.0001 * getSMEFTCoeffEW("Ced",3, 3, 2, 2) +0.0001 * getSMEFTCoeffEW("Ced",3, 3, 3, 3) +0.00018 * getSMEFTCoeffEW("Cle",1, 1, 1, 1) +0.00008 * getSMEFTCoeffEW("Cle",1, 1, 2, 2)  
+            +0.00018 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0.0001 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) +0.0001 * getSMEFTCoeffEW("Cle",2, 2, 3, 3) +0.00018 * getSMEFTCoeffEW("Cle",3, 3, 1, 1)  
+            +0.00008 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) +0.00018 * getSMEFTCoeffEW("Cle",3, 3, 3, 3) -0.00016 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.00016 * getSMEFTCoeffEW("Clu",1, 1, 2, 2)  
+            -0.00415 * getSMEFTCoeffEW("Clu",1, 1, 3, 3) -0.00016 * getSMEFTCoeffEW("Clu",3, 3, 1, 1) -0.00016 * getSMEFTCoeffEW("Clu",3, 3, 2, 2) -0.00415 * getSMEFTCoeffEW("Clu",3, 3, 3, 3)  
+            +0.00008 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.00008 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.00008 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) +0.00008 * getSMEFTCoeffEW("Cld",3, 3, 1, 1)  
+            +0.00008 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) +0.00008 * getSMEFTCoeffEW("Cld",3, 3, 3, 3) -0.0001 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) -0.0001 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3)  
+            -0.0001 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) -0.0001 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3) +0.00449 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) +0.00449 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) ) * v2; 
+        
+    } else if (f.is("STRANGE")) {
+    deltaNLO = (-0.00325 * getSMEFTCoeffEW("CW")  -0.00031 * getSMEFTCoeffEW("CHbox")  -0.15305 * getSMEFTCoeffEW("CHD")  -0.00184 * getSMEFTCoeffEW("CHB")   
+            -0.00183 * getSMEFTCoeffEW("CHW")  -0.4959 * getSMEFTCoeffEW("CHWB")  -0.05032 * getSMEFTCoeffEW("CuW",3, 3) -0.06133 * getSMEFTCoeffEW("CuB",3, 3)  
+            +0.19718 * getSMEFTCoeffEW("CHl1",1, 1) -0.0046 * getSMEFTCoeffEW("CHl1",2, 2) -0.00304 * getSMEFTCoeffEW("CHl1",3, 3) -0.09192 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.28641 * getSMEFTCoeffEW("CHl3",2, 2) +0.00306 * getSMEFTCoeffEW("CHl3",3, 3) -0.00145 * getSMEFTCoeffEW("CHe",1, 1) -0.00304 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00304 * getSMEFTCoeffEW("CHe",3, 3) +0.00304 * getSMEFTCoeffEW("CHq1",1, 1) -0.0068 * getSMEFTCoeffEW("CHq1",2, 2) -0.06735 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00919 * getSMEFTCoeffEW("CHq3",1, 1) -0.00072 * getSMEFTCoeffEW("CHq3",2, 2) +0.03268 * getSMEFTCoeffEW("CHq3",3, 3) +0.00608 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00608 * getSMEFTCoeffEW("CHu",2, 2) +0.07212 * getSMEFTCoeffEW("CHu",3, 3) -0.00304 * getSMEFTCoeffEW("CHd",1, 1) -0.07297 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00304 * getSMEFTCoeffEW("CHd",3, 3) +0.00049 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.01304 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.0005 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            +0.12454 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00026 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +0.12454 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.01304 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            -0.00026 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) +0.0005 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1)  
+            +0. * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2) -0.00001 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) -0.00002 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) +0.00027 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) +0.00027 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) -0.00006 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2)  
+            +0. * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) +0. * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.00006 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) -0.00012 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2)  
+            -0.00034 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) +0.00037 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.00037 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.00034 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2)  
+            -0.0005 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.00049 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) +0.02245 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) +0.00001 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) -0.00534 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.00536 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) -0.00517 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            -0.00002 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +0.02312 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.00002 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) +0.00179 * getSMEFTCoeffEW("Cee",1, 1, 1, 1)  
+            +0.00064 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) +0.00064 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) +0.00026 * getSMEFTCoeffEW("Cee",1, 2, 2, 1) +0.00026 * getSMEFTCoeffEW("Cee",1, 3, 3, 1)  
+            +0.00026 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) +0.00064 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0.00026 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.00064 * getSMEFTCoeffEW("Cee",3, 3, 1, 1)  
+            +0.00004 * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) +0. * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) +0. * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) +0.00004 * getSMEFTCoeffEW("Cdd",2, 2, 1, 1)  
+            +0.00008 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2) +0.00004 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cdd",3, 2, 2, 3)  
+            +0.00004 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) -0.00128 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) -0.00128 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) -0.03366 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3)  
+            +0.00064 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) +0.00067 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0.00064 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) +0.00004 * getSMEFTCoeffEW("Ced",2, 2, 2, 2)  
+            +0.00004 * getSMEFTCoeffEW("Ced",3, 3, 2, 2) -0.00007 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2) -0.00007 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) -0.00187 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2)  
+            +0.00114 * getSMEFTCoeffEW("Cle",1, 1, 1, 1) +0.0005 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0.0005 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0.00064 * getSMEFTCoeffEW("Cle",2, 2, 1, 1)  
+            +0.00064 * getSMEFTCoeffEW("Cle",3, 3, 1, 1) -0.001 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.001 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) -0.02641 * getSMEFTCoeffEW("Clu",1, 1, 3, 3)  
+            +0.0005 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.00054 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.0005 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) +0.00004 * getSMEFTCoeffEW("Cld",2, 2, 2, 2)  
+            +0.00004 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) -0.00064 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) -0.00063 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) +0.00001 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3) +0.02862 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2)  
+            -0.00032 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) -0.00004 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2) +0.00001 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1) -0.00003 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) +0.00159 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2) ) * v2; 
+        
+    } else if (f.is("CHARM")) {
+    deltaNLO = (-0.00252 * getSMEFTCoeffEW("CW")  -0.00024 * getSMEFTCoeffEW("CHbox")  -0.03461 * getSMEFTCoeffEW("CHD")  -0.00142 * getSMEFTCoeffEW("CHB")   
+            -0.00141 * getSMEFTCoeffEW("CHW")  +0.02627 * getSMEFTCoeffEW("CHWB")  -0.03878 * getSMEFTCoeffEW("CuW",3, 3) -0.04732 * getSMEFTCoeffEW("CuB",3, 3)  
+            +0.07536 * getSMEFTCoeffEW("CHl1",1, 1) -0.00355 * getSMEFTCoeffEW("CHl1",2, 2) -0.00235 * getSMEFTCoeffEW("CHl1",3, 3) +0.01989 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.05381 * getSMEFTCoeffEW("CHl3",2, 2) +0.00236 * getSMEFTCoeffEW("CHl3",3, 3) -0.08953 * getSMEFTCoeffEW("CHe",1, 1) -0.00235 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00235 * getSMEFTCoeffEW("CHe",3, 3) +0.00235 * getSMEFTCoeffEW("CHq1",1, 1) +0.05532 * getSMEFTCoeffEW("CHq1",2, 2) -0.05205 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00709 * getSMEFTCoeffEW("CHq3",1, 1) -0.04633 * getSMEFTCoeffEW("CHq3",2, 2) +0.02528 * getSMEFTCoeffEW("CHq3",3, 3) +0.00469 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.16658 * getSMEFTCoeffEW("CHu",2, 2) +0.05575 * getSMEFTCoeffEW("CHu",3, 3) -0.00235 * getSMEFTCoeffEW("CHd",1, 1) -0.00235 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.00235 * getSMEFTCoeffEW("CHd",3, 3) +0.00035 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.01008 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.00036 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            +0.01253 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00018 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +0.01253 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.01008 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            -0.00018 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) +0.00036 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) +0.00003 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) -0.00002 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1)  
+            -0.00002 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2) +0.00003 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) +0.00002 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) -0.00148 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3)  
+            -0.00101 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) -0.00101 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) -0.00148 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) -0.00035 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2)  
+            +0.00003 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) +0.00003 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.00035 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) -0.00064 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2)  
+            -0.00187 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) -0.00096 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) -0.00096 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.00187 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2)  
+            -0.00036 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.00039 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) +0.01602 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) -0.00003 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2)  
+            -0.00003 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) -0.00381 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.00393 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) -0.00236 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            -0.00012 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +0.01782 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.00012 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) +0.00128 * getSMEFTCoeffEW("Cee",1, 1, 1, 1)  
+            +0.00046 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) +0.00046 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) +0.00018 * getSMEFTCoeffEW("Cee",1, 2, 2, 1) +0.00018 * getSMEFTCoeffEW("Cee",1, 3, 3, 1)  
+            +0.00018 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) +0.00046 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0.00018 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.00046 * getSMEFTCoeffEW("Cee",3, 3, 1, 1)  
+            +0.00016 * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) +0.00002 * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) +0.00002 * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) +0.00016 * getSMEFTCoeffEW("Cuu",2, 2, 1, 1)  
+            +0.00036 * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) +0.00421 * getSMEFTCoeffEW("Cuu",2, 2, 3, 3) +0.00254 * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) +0.00254 * getSMEFTCoeffEW("Cuu",3, 2, 2, 3)  
+            +0.00421 * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) -0.00091 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) -0.00099 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) -0.02402 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3)  
+            -0.00008 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2) -0.00008 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2) +0.00046 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) +0.00046 * getSMEFTCoeffEW("Ced",1, 1, 2, 2)  
+            +0.00046 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) -0.00008 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1) -0.00008 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) -0.00008 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3)  
+            +0.00081 * getSMEFTCoeffEW("Cle",1, 1, 1, 1) +0.00036 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0.00036 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0.00046 * getSMEFTCoeffEW("Cle",2, 2, 1, 1)  
+            +0.00046 * getSMEFTCoeffEW("Cle",3, 3, 1, 1) -0.00072 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.0008 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) -0.01884 * getSMEFTCoeffEW("Clu",1, 1, 3, 3)  
+            -0.00008 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) -0.00008 * getSMEFTCoeffEW("Clu",3, 3, 2, 2) +0.00036 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.00036 * getSMEFTCoeffEW("Cld",1, 1, 2, 2)  
+            +0.00036 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) -0.00046 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) -0.00049 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) -0.00003 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2)  
+            -0.00003 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3) +0.02043 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) +0.00008 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) +0.00007 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1)  
+            +0.00015 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2) +0.00174 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) -0.00358 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.00003 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1)  
+            -0.00003 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) -0.00003 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) ) * v2; 
+        
+    } else if (f.is("BOTTOM")) {
+    deltaNLO = (-0.00326 * getSMEFTCoeffEW("CW")  -0.0003 * getSMEFTCoeffEW("CHbox")  -0.1445 * getSMEFTCoeffEW("CHD")  -0.00182 * getSMEFTCoeffEW("CHB")   
+            -0.00182 * getSMEFTCoeffEW("CHW")  -0.45652 * getSMEFTCoeffEW("CHWB")  -0.05008 * getSMEFTCoeffEW("CuW",3, 3) -0.0608 * getSMEFTCoeffEW("CuB",3, 3)  
+            +0.18489 * getSMEFTCoeffEW("CHl1",1, 1) -0.00456 * getSMEFTCoeffEW("CHl1",2, 2) -0.00301 * getSMEFTCoeffEW("CHl1",3, 3) -0.08725 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -0.26947 * getSMEFTCoeffEW("CHl3",2, 2) +0.00304 * getSMEFTCoeffEW("CHl3",3, 3) -0.01563 * getSMEFTCoeffEW("CHe",1, 1) -0.00301 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00301 * getSMEFTCoeffEW("CHe",3, 3) +0.00301 * getSMEFTCoeffEW("CHq1",1, 1) +0.00301 * getSMEFTCoeffEW("CHq1",2, 2) -0.07618 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.00911 * getSMEFTCoeffEW("CHq3",1, 1) +0.00911 * getSMEFTCoeffEW("CHq3",2, 2) +0.0224 * getSMEFTCoeffEW("CHq3",3, 3) +0.00602 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.00602 * getSMEFTCoeffEW("CHu",2, 2) +0.0714 * getSMEFTCoeffEW("CHu",3, 3) -0.00301 * getSMEFTCoeffEW("CHd",1, 1) -0.00301 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.07163 * getSMEFTCoeffEW("CHd",3, 3) +0.00049 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.01292 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +0.0005 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            +0.11624 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00025 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +0.11624 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.01292 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            -0.00025 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) +0.0005 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1)  
+            -0.00001 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) +0. * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3)  
+            -0.00001 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) +0.00054 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) -0.00006 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1) -0.00006 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3)  
+            +0. * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.00006 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1) -0.00006 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0.00005 * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3)  
+            -0.0005 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) -0.0005 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) +0.02225 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) +0.00001 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3)  
+            +0.00001 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) -0.00529 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.00529 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) -0.00514 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            +0.02288 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.00002 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) +0.00177 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) +0.00063 * getSMEFTCoeffEW("Cee",1, 1, 2, 2)  
+            +0.00063 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) +0.00025 * getSMEFTCoeffEW("Cee",1, 2, 2, 1) +0.00025 * getSMEFTCoeffEW("Cee",1, 3, 3, 1) +0.00025 * getSMEFTCoeffEW("Cee",2, 1, 1, 2)  
+            +0.00063 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0.00025 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.00063 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) +0.00004 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) +0.00004 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) +0. * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cdd",3, 1, 1, 3)  
+            +0. * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) +0.00004 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1) +0.00004 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) +0.00008 * getSMEFTCoeffEW("Cdd",3, 3, 3, 3)  
+            -0.00127 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) -0.00127 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) -0.03335 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) +0.00063 * getSMEFTCoeffEW("Ced",1, 1, 1, 1)  
+            +0.00063 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0.00067 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) +0.00004 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) +0.00004 * getSMEFTCoeffEW("Ced",3, 3, 3, 3)  
+            -0.00007 * getSMEFTCoeffEW("Cud1",1, 1, 3, 3) -0.00007 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) -0.00187 * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) +0.00113 * getSMEFTCoeffEW("Cle",1, 1, 1, 1)  
+            +0.0005 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) +0.0005 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0.00063 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) +0.00063 * getSMEFTCoeffEW("Cle",3, 3, 1, 1)  
+            -0.00099 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.00099 * getSMEFTCoeffEW("Clu",1, 1, 2, 2) -0.02616 * getSMEFTCoeffEW("Clu",1, 1, 3, 3) +0.0005 * getSMEFTCoeffEW("Cld",1, 1, 1, 1)  
+            +0.0005 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.00053 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) +0.00004 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) +0.00004 * getSMEFTCoeffEW("Cld",3, 3, 3, 3)  
+            -0.00063 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) -0.00063 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) +0.02836 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) +0.00001 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) -0.00001 * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.00032 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3)  
+            -0.00004 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) -0.00004 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) +0.00001 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) +0.00001 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2)  
+            +0.0016 * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+        
+    } else {
+        deltaNLO = 0.;
+    }
+
+    return dAFB + cNLOd6 * deltaNLO;
 }
 
 const double NPSMEFTd6General::AFB(const Particle f) const
@@ -14708,8 +15424,6 @@ const double NPSMEFTd6General::deltaR0_f(const Particle f) const
     bool nonZeroNP = false;
     
     double deltaNLO;
-    
-    deltaNLO=0.;
     
     if (f.is("LEPTON")) {
         delGVl = deltaGV_f(f);
@@ -14755,7 +15469,262 @@ const double NPSMEFTd6General::deltaR0_f(const Particle f) const
             dR0_f = deltaGq[f.getIndex() - 6] / Gq_sum
                 - Gq[f.getIndex() - 6] * delGq_sum / Gq_sum / Gq_sum;
     }
-    return dR0_f + deltaNLO;
+
+    // Finite NLO corrections: not available for u, d and s    
+    if (f.is("ELECTRON")) {
+    deltaNLO = (-0.03732 * getSMEFTCoeffEW("CW")  -0.00117 * getSMEFTCoeffEW("CHbox")  -1.98556 * getSMEFTCoeffEW("CHD")  -0.00428 * getSMEFTCoeffEW("CHB")   
+            -0.00427 * getSMEFTCoeffEW("CHW")  -8.9838 * getSMEFTCoeffEW("CHWB")  -0.25267 * getSMEFTCoeffEW("CuW",3, 3) -0.1653 * getSMEFTCoeffEW("CuB",3, 3)  
+            +0.2639 * getSMEFTCoeffEW("CHl1",1, 1) -0.00985 * getSMEFTCoeffEW("CHl1",2, 2) -0.00698 * getSMEFTCoeffEW("CHl1",3, 3) -3.30084 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -3.85804 * getSMEFTCoeffEW("CHl3",2, 2) +0.00571 * getSMEFTCoeffEW("CHl3",3, 3) +5.69744 * getSMEFTCoeffEW("CHe",1, 1) -0.00698 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00698 * getSMEFTCoeffEW("CHe",3, 3) +0.3193 * getSMEFTCoeffEW("CHq1",1, 1) +0.3193 * getSMEFTCoeffEW("CHq1",2, 2) +0.44688 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.96638 * getSMEFTCoeffEW("CHq3",1, 1) +0.96638 * getSMEFTCoeffEW("CHq3",2, 2) +0.35096 * getSMEFTCoeffEW("CHq3",3, 3) +0.61681 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.61681 * getSMEFTCoeffEW("CHu",2, 2) +0.15952 * getSMEFTCoeffEW("CHu",3, 3) -0.30695 * getSMEFTCoeffEW("CHd",1, 1) -0.30695 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.30569 * getSMEFTCoeffEW("CHd",3, 3) -0.01909 * getSMEFTCoeffEW("Cll",1, 1, 1, 1) -0.0446 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) -0.01947 * getSMEFTCoeffEW("Cll",1, 1, 3, 3)  
+            +1.90483 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) +0.00993 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +1.90483 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.0446 * getSMEFTCoeffEW("Cll",2, 2, 1, 1)  
+            +0.00993 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) -0.01947 * getSMEFTCoeffEW("Cll",3, 3, 1, 1) -0.01271 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) -0.00147 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2)  
+            +0.02874 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) -0.01124 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1) -0.11541 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) -0.01124 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2)  
+            -0.00147 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) -0.01271 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) +0.02874 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) -0.11541 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2)  
+            -0.11541 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) -0.11541 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) +0.02874 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) +0.02874 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2)  
+            +0.37629 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) -0.15626 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1) -0.1671 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) -0.48844 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3)  
+            +0.01085 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) +0.15821 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1) +0.01085 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.1671 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1)  
+            -0.15626 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) -0.48844 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) +0.15821 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.15821 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3)  
+            +0.15821 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.48844 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1) -0.48844 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0.03387 * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3)  
+            +0.02021 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) +0.02021 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) -0.86821 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) +0.00074 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1)  
+            +0.00074 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) +0.00427 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3) +0.00074 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) +0.00074 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2)  
+            +0.00427 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) +0.17952 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) +0.17952 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +1.12704 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            -0.02785 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) -0.02785 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +0.0277 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.02785 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1)  
+            -0.02785 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -0.01517 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) +0.04277 * getSMEFTCoeffEW("Cee",1, 1, 1, 1) +0.01527 * getSMEFTCoeffEW("Cee",1, 1, 2, 2)  
+            +0.01527 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) +0.00611 * getSMEFTCoeffEW("Cee",1, 2, 2, 1) +0.00611 * getSMEFTCoeffEW("Cee",1, 3, 3, 1) +0.00611 * getSMEFTCoeffEW("Cee",2, 1, 1, 2)  
+            +0.01527 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0.00611 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.01527 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) -0.00668 * getSMEFTCoeffEW("Cuu",1, 1, 1, 1)  
+            -0.00589 * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) -0.07765 * getSMEFTCoeffEW("Cuu",1, 1, 3, 3) -0.00079 * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) -0.04693 * getSMEFTCoeffEW("Cuu",1, 3, 3, 1)  
+            -0.00079 * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) -0.00589 * getSMEFTCoeffEW("Cuu",2, 2, 1, 1) -0.00668 * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) -0.07765 * getSMEFTCoeffEW("Cuu",2, 2, 3, 3)  
+            -0.04693 * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) -0.04693 * getSMEFTCoeffEW("Cuu",3, 1, 1, 3) -0.04693 * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) -0.07765 * getSMEFTCoeffEW("Cuu",3, 3, 1, 1)  
+            -0.07765 * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) -0.00167 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1) -0.00147 * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) -0.00147 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3)  
+            -0.0002 * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) -0.0002 * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) -0.0002 * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) -0.00147 * getSMEFTCoeffEW("Cdd",2, 2, 1, 1)  
+            -0.00167 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2) -0.00147 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) -0.0002 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) -0.0002 * getSMEFTCoeffEW("Cdd",3, 1, 1, 3)  
+            -0.0002 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) -0.00147 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1) -0.00147 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) -0.00166 * getSMEFTCoeffEW("Cdd",3, 3, 3, 3)  
+            -0.02908 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) -0.02908 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) -0.80491 * getSMEFTCoeffEW("Ceu",1, 1, 3, 3) +0.00147 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1)  
+            +0.00147 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2) +0.00147 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) +0.00147 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2) +0.01454 * getSMEFTCoeffEW("Ced",1, 1, 1, 1)  
+            +0.01454 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0.01454 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) -0.00074 * getSMEFTCoeffEW("Ced",2, 2, 1, 1) -0.00074 * getSMEFTCoeffEW("Ced",2, 2, 2, 2)  
+            -0.00073 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) -0.00074 * getSMEFTCoeffEW("Ced",3, 3, 1, 1) -0.00074 * getSMEFTCoeffEW("Ced",3, 3, 2, 2) -0.00073 * getSMEFTCoeffEW("Ced",3, 3, 3, 3)  
+            +0.00295 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) +0.00295 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2) +0.00294 * getSMEFTCoeffEW("Cud1",1, 1, 3, 3) +0.00295 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1)  
+            +0.00295 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) +0.00294 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) +0.03882 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1) +0.03882 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2)  
+            +0.03866 * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) -0.0042 * getSMEFTCoeffEW("Cle",1, 1, 1, 1) -0.01947 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) -0.01947 * getSMEFTCoeffEW("Cle",1, 1, 3, 3)  
+            +0.01527 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) +0.01527 * getSMEFTCoeffEW("Cle",3, 3, 1, 1) +0.04042 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) +0.04042 * getSMEFTCoeffEW("Clu",1, 1, 2, 2)  
+            +1.02616 * getSMEFTCoeffEW("Clu",1, 1, 3, 3) +0.00147 * getSMEFTCoeffEW("Clu",2, 2, 1, 1) +0.00147 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) +0.00147 * getSMEFTCoeffEW("Clu",3, 3, 1, 1)  
+            +0.00147 * getSMEFTCoeffEW("Clu",3, 3, 2, 2) -0.02021 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) -0.02021 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) -0.02021 * getSMEFTCoeffEW("Cld",1, 1, 3, 3)  
+            -0.00074 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) -0.00074 * getSMEFTCoeffEW("Cld",2, 2, 2, 2) -0.00073 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) -0.00074 * getSMEFTCoeffEW("Cld",3, 3, 1, 1)  
+            -0.00074 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) -0.00073 * getSMEFTCoeffEW("Cld",3, 3, 3, 3) -0.01454 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) +0.00074 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2)  
+            +0.00074 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3) -0.01454 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) +0.00074 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) +0.00074 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3)  
+            +0.68865 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) +0.00427 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) +0.00427 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) -0.00295 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1)  
+            -0.00295 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) -0.03882 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3) -0.00295 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) -0.00295 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2)  
+            -0.03882 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) +0.05747 * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) +0.05747 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.22519 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3)  
+            +0.00147 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1) +0.00147 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) +0.00147 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1)  
+            +0.00147 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) -0.02874 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) -0.02874 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2)  
+            -0.0286 * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+        
+    } else if (f.is("MUON")) {
+    deltaNLO = (-0.03732 * getSMEFTCoeffEW("CW")  -0.00117 * getSMEFTCoeffEW("CHbox")  -1.98556 * getSMEFTCoeffEW("CHD")  -0.00428 * getSMEFTCoeffEW("CHB")   
+            -0.00427 * getSMEFTCoeffEW("CHW")  -8.9838 * getSMEFTCoeffEW("CHWB")  -0.25267 * getSMEFTCoeffEW("CuW",3, 3) -0.1653 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00985 * getSMEFTCoeffEW("CHl1",1, 1) +0.2639 * getSMEFTCoeffEW("CHl1",2, 2) -0.00698 * getSMEFTCoeffEW("CHl1",3, 3) -3.85804 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -3.30084 * getSMEFTCoeffEW("CHl3",2, 2) +0.00571 * getSMEFTCoeffEW("CHl3",3, 3) -0.00698 * getSMEFTCoeffEW("CHe",1, 1) +5.69744 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00698 * getSMEFTCoeffEW("CHe",3, 3) +0.3193 * getSMEFTCoeffEW("CHq1",1, 1) +0.3193 * getSMEFTCoeffEW("CHq1",2, 2) +0.44688 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +0.96638 * getSMEFTCoeffEW("CHq3",1, 1) +0.96638 * getSMEFTCoeffEW("CHq3",2, 2) +0.35096 * getSMEFTCoeffEW("CHq3",3, 3) +0.61681 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.61681 * getSMEFTCoeffEW("CHu",2, 2) +0.15952 * getSMEFTCoeffEW("CHu",3, 3) -0.30695 * getSMEFTCoeffEW("CHd",1, 1) -0.30695 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.30569 * getSMEFTCoeffEW("CHd",3, 3) -0.0446 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) +1.90483 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) +1.90483 * getSMEFTCoeffEW("Cll",2, 1, 1, 2)  
+            -0.0446 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) -0.01909 * getSMEFTCoeffEW("Cll",2, 2, 2, 2) -0.01947 * getSMEFTCoeffEW("Cll",2, 2, 3, 3) +0.00993 * getSMEFTCoeffEW("Cll",2, 3, 3, 2)  
+            +0.00993 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) -0.01947 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) -0.01271 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) -0.00147 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2)  
+            +0.02874 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) -0.01124 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1) -0.11541 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) -0.01124 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2)  
+            -0.00147 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) -0.01271 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) +0.02874 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) -0.11541 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2)  
+            -0.11541 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) -0.11541 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) +0.02874 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) +0.02874 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2)  
+            +0.37629 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) -0.15626 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1) -0.1671 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) -0.48844 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3)  
+            +0.01085 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) +0.15821 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1) +0.01085 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.1671 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1)  
+            -0.15626 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) -0.48844 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) +0.15821 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.15821 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3)  
+            +0.15821 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.48844 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1) -0.48844 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0.03387 * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3)  
+            +0.00074 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) +0.00074 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) +0.00427 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) +0.02021 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1)  
+            +0.02021 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) -0.86821 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3) +0.00074 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) +0.00074 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2)  
+            +0.00427 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) -0.02785 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.02785 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.0277 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            +0.17952 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) +0.17952 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +1.12704 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) -0.02785 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1)  
+            -0.02785 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) -0.01517 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) +0.01527 * getSMEFTCoeffEW("Cee",1, 1, 2, 2) +0.00611 * getSMEFTCoeffEW("Cee",1, 2, 2, 1)  
+            +0.00611 * getSMEFTCoeffEW("Cee",2, 1, 1, 2) +0.01527 * getSMEFTCoeffEW("Cee",2, 2, 1, 1) +0.04277 * getSMEFTCoeffEW("Cee",2, 2, 2, 2) +0.01527 * getSMEFTCoeffEW("Cee",2, 2, 3, 3)  
+            +0.00611 * getSMEFTCoeffEW("Cee",2, 3, 3, 2) +0.00611 * getSMEFTCoeffEW("Cee",3, 2, 2, 3) +0.01527 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) -0.00668 * getSMEFTCoeffEW("Cuu",1, 1, 1, 1)  
+            -0.00589 * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) -0.07765 * getSMEFTCoeffEW("Cuu",1, 1, 3, 3) -0.00079 * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) -0.04693 * getSMEFTCoeffEW("Cuu",1, 3, 3, 1)  
+            -0.00079 * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) -0.00589 * getSMEFTCoeffEW("Cuu",2, 2, 1, 1) -0.00668 * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) -0.07765 * getSMEFTCoeffEW("Cuu",2, 2, 3, 3)  
+            -0.04693 * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) -0.04693 * getSMEFTCoeffEW("Cuu",3, 1, 1, 3) -0.04693 * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) -0.07765 * getSMEFTCoeffEW("Cuu",3, 3, 1, 1)  
+            -0.07765 * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) -0.00167 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1) -0.00147 * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) -0.00147 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3)  
+            -0.0002 * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) -0.0002 * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) -0.0002 * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) -0.00147 * getSMEFTCoeffEW("Cdd",2, 2, 1, 1)  
+            -0.00167 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2) -0.00147 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) -0.0002 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) -0.0002 * getSMEFTCoeffEW("Cdd",3, 1, 1, 3)  
+            -0.0002 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) -0.00147 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1) -0.00147 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) -0.00166 * getSMEFTCoeffEW("Cdd",3, 3, 3, 3)  
+            +0.00147 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) +0.00147 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) -0.02908 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1) -0.02908 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2)  
+            -0.80491 * getSMEFTCoeffEW("Ceu",2, 2, 3, 3) +0.00147 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) +0.00147 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2) -0.00074 * getSMEFTCoeffEW("Ced",1, 1, 1, 1)  
+            -0.00074 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) -0.00073 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) +0.01454 * getSMEFTCoeffEW("Ced",2, 2, 1, 1) +0.01454 * getSMEFTCoeffEW("Ced",2, 2, 2, 2)  
+            +0.01454 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) -0.00074 * getSMEFTCoeffEW("Ced",3, 3, 1, 1) -0.00074 * getSMEFTCoeffEW("Ced",3, 3, 2, 2) -0.00073 * getSMEFTCoeffEW("Ced",3, 3, 3, 3)  
+            +0.00295 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) +0.00295 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2) +0.00294 * getSMEFTCoeffEW("Cud1",1, 1, 3, 3) +0.00295 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1)  
+            +0.00295 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) +0.00294 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) +0.03882 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1) +0.03882 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2)  
+            +0.03866 * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) +0.01527 * getSMEFTCoeffEW("Cle",1, 1, 2, 2) -0.01947 * getSMEFTCoeffEW("Cle",2, 2, 1, 1) -0.0042 * getSMEFTCoeffEW("Cle",2, 2, 2, 2)  
+            -0.01947 * getSMEFTCoeffEW("Cle",2, 2, 3, 3) +0.01527 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) +0.00147 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) +0.00147 * getSMEFTCoeffEW("Clu",1, 1, 2, 2)  
+            +0.04042 * getSMEFTCoeffEW("Clu",2, 2, 1, 1) +0.04042 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) +1.02616 * getSMEFTCoeffEW("Clu",2, 2, 3, 3) +0.00147 * getSMEFTCoeffEW("Clu",3, 3, 1, 1)  
+            +0.00147 * getSMEFTCoeffEW("Clu",3, 3, 2, 2) -0.00074 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) -0.00074 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) -0.00073 * getSMEFTCoeffEW("Cld",1, 1, 3, 3)  
+            -0.02021 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) -0.02021 * getSMEFTCoeffEW("Cld",2, 2, 2, 2) -0.02021 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) -0.00074 * getSMEFTCoeffEW("Cld",3, 3, 1, 1)  
+            -0.00074 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) -0.00073 * getSMEFTCoeffEW("Cld",3, 3, 3, 3) +0.00074 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) -0.01454 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2)  
+            +0.00074 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3) +0.00074 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) -0.01454 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) +0.00074 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3)  
+            +0.00427 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) +0.68865 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) +0.00427 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) -0.00295 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1)  
+            -0.00295 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) -0.03882 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3) -0.00295 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) -0.00295 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2)  
+            -0.03882 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) +0.05747 * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) +0.05747 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.22519 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3)  
+            +0.00147 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1) +0.00147 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) +0.00147 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1)  
+            +0.00147 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) -0.02874 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) -0.02874 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2)  
+            -0.0286 * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+        
+    } else if (f.is("TAU")) {
+    deltaNLO = (-0.03735 * getSMEFTCoeffEW("CW")  -0.00113 * getSMEFTCoeffEW("CHbox")  -1.96366 * getSMEFTCoeffEW("CHD")  -0.00427 * getSMEFTCoeffEW("CHB")   
+            -0.00424 * getSMEFTCoeffEW("CHW")  -8.99508 * getSMEFTCoeffEW("CHWB")  -0.25287 * getSMEFTCoeffEW("CuW",3, 3) -0.16525 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00977 * getSMEFTCoeffEW("CHl1",1, 1) -0.00977 * getSMEFTCoeffEW("CHl1",2, 2) +0.0608 * getSMEFTCoeffEW("CHl1",3, 3) -3.81351 * getSMEFTCoeffEW("CHl3",1, 1)  
+            -3.81351 * getSMEFTCoeffEW("CHl3",2, 2) +0.3581 * getSMEFTCoeffEW("CHl3",3, 3) -0.00695 * getSMEFTCoeffEW("CHe",1, 1) -0.00695 * getSMEFTCoeffEW("CHe",2, 2)  
+            +5.87612 * getSMEFTCoeffEW("CHe",3, 3) +0.32374 * getSMEFTCoeffEW("CHq1",1, 1) +0.32374 * getSMEFTCoeffEW("CHq1",2, 2) +0.47306 * getSMEFTCoeffEW("CHq1",3, 3)  
+            +1.01017 * getSMEFTCoeffEW("CHq3",1, 1) +1.01017 * getSMEFTCoeffEW("CHq3",2, 2) +0.37335 * getSMEFTCoeffEW("CHq3",3, 3) +0.62564 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.62564 * getSMEFTCoeffEW("CHu",2, 2) +0.15732 * getSMEFTCoeffEW("CHu",3, 3) -0.31136 * getSMEFTCoeffEW("CHd",1, 1) -0.31136 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.31008 * getSMEFTCoeffEW("CHd",3, 3) -0.02469 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) -0.01956 * getSMEFTCoeffEW("Cll",1, 1, 3, 3) +1.87324 * getSMEFTCoeffEW("Cll",1, 2, 2, 1)  
+            +0.00998 * getSMEFTCoeffEW("Cll",1, 3, 3, 1) +1.87324 * getSMEFTCoeffEW("Cll",2, 1, 1, 2) -0.02469 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) -0.01956 * getSMEFTCoeffEW("Cll",2, 2, 3, 3)  
+            +0.00998 * getSMEFTCoeffEW("Cll",2, 3, 3, 2) +0.00998 * getSMEFTCoeffEW("Cll",3, 1, 1, 3) +0.00998 * getSMEFTCoeffEW("Cll",3, 2, 2, 3) -0.01956 * getSMEFTCoeffEW("Cll",3, 3, 1, 1)  
+            -0.01956 * getSMEFTCoeffEW("Cll",3, 3, 2, 2) -0.01917 * getSMEFTCoeffEW("Cll",3, 3, 3, 3) -0.01274 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) -0.00148 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2)  
+            +0.0288 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3) -0.01126 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1) -0.11567 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) -0.01126 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2)  
+            -0.00148 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1) -0.01274 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) +0.0288 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) -0.11567 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2)  
+            -0.11567 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3) -0.11567 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) +0.0288 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) +0.0288 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2)  
+            +0.37714 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3) -0.15661 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1) -0.16748 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) -0.48955 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3)  
+            +0.01087 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1) +0.15857 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1) +0.01087 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.16748 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1)  
+            -0.15661 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2) -0.48955 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) +0.15857 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) +0.15857 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3)  
+            +0.15857 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3) -0.48955 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1) -0.48955 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0.03395 * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3)  
+            +0.00074 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1) +0.00074 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) +0.00428 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) +0.00074 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1)  
+            +0.00074 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2) +0.00428 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3) +0.0203 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) +0.0203 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2)  
+            -0.87217 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3) -0.02791 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.02791 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.02692 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3)  
+            -0.02791 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1) -0.02791 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +0.02692 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) +0.1804 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1)  
+            +0.1804 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2) +1.08912 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) +0.01534 * getSMEFTCoeffEW("Cee",1, 1, 3, 3) +0.00614 * getSMEFTCoeffEW("Cee",1, 3, 3, 1)  
+            +0.01534 * getSMEFTCoeffEW("Cee",2, 2, 3, 3) +0.00614 * getSMEFTCoeffEW("Cee",2, 3, 3, 2) +0.00614 * getSMEFTCoeffEW("Cee",3, 1, 1, 3) +0.00614 * getSMEFTCoeffEW("Cee",3, 2, 2, 3)  
+            +0.01534 * getSMEFTCoeffEW("Cee",3, 3, 1, 1) +0.01534 * getSMEFTCoeffEW("Cee",3, 3, 2, 2) +0.04296 * getSMEFTCoeffEW("Cee",3, 3, 3, 3) -0.0067 * getSMEFTCoeffEW("Cuu",1, 1, 1, 1)  
+            -0.00591 * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) -0.07783 * getSMEFTCoeffEW("Cuu",1, 1, 3, 3) -0.00079 * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) -0.04704 * getSMEFTCoeffEW("Cuu",1, 3, 3, 1)  
+            -0.00079 * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) -0.00591 * getSMEFTCoeffEW("Cuu",2, 2, 1, 1) -0.0067 * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) -0.07783 * getSMEFTCoeffEW("Cuu",2, 2, 3, 3)  
+            -0.04704 * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) -0.04704 * getSMEFTCoeffEW("Cuu",3, 1, 1, 3) -0.04704 * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) -0.07783 * getSMEFTCoeffEW("Cuu",3, 3, 1, 1)  
+            -0.07783 * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) -0.00167 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1) -0.00148 * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) -0.00147 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3)  
+            -0.0002 * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) -0.0002 * getSMEFTCoeffEW("Cdd",1, 3, 3, 1) -0.0002 * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) -0.00148 * getSMEFTCoeffEW("Cdd",2, 2, 1, 1)  
+            -0.00167 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2) -0.00147 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3) -0.0002 * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) -0.0002 * getSMEFTCoeffEW("Cdd",3, 1, 1, 3)  
+            -0.0002 * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) -0.00147 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1) -0.00147 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) -0.00167 * getSMEFTCoeffEW("Cdd",3, 3, 3, 3)  
+            +0.00148 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) +0.00148 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2) +0.00148 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1) +0.00148 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2)  
+            -0.02921 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) -0.02921 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2) -0.80857 * getSMEFTCoeffEW("Ceu",3, 3, 3, 3) -0.00074 * getSMEFTCoeffEW("Ced",1, 1, 1, 1)  
+            -0.00074 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) -0.00074 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) -0.00074 * getSMEFTCoeffEW("Ced",2, 2, 1, 1) -0.00074 * getSMEFTCoeffEW("Ced",2, 2, 2, 2)  
+            -0.00074 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) +0.01461 * getSMEFTCoeffEW("Ced",3, 3, 1, 1) +0.01461 * getSMEFTCoeffEW("Ced",3, 3, 2, 2) +0.01461 * getSMEFTCoeffEW("Ced",3, 3, 3, 3)  
+            +0.00295 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) +0.00295 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2) +0.00295 * getSMEFTCoeffEW("Cud1",1, 1, 3, 3) +0.00295 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1)  
+            +0.00295 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) +0.00295 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) +0.03891 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1) +0.03891 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2)  
+            +0.03875 * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) +0.01534 * getSMEFTCoeffEW("Cle",1, 1, 3, 3) +0.01534 * getSMEFTCoeffEW("Cle",2, 2, 3, 3) -0.01956 * getSMEFTCoeffEW("Cle",3, 3, 1, 1)  
+            -0.01956 * getSMEFTCoeffEW("Cle",3, 3, 2, 2) -0.00422 * getSMEFTCoeffEW("Cle",3, 3, 3, 3) +0.00148 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) +0.00148 * getSMEFTCoeffEW("Clu",1, 1, 2, 2)  
+            +0.00148 * getSMEFTCoeffEW("Clu",2, 2, 1, 1) +0.00148 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) +0.0406 * getSMEFTCoeffEW("Clu",3, 3, 1, 1) +0.0406 * getSMEFTCoeffEW("Clu",3, 3, 2, 2)  
+            +1.03082 * getSMEFTCoeffEW("Clu",3, 3, 3, 3) -0.00074 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) -0.00074 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) -0.00074 * getSMEFTCoeffEW("Cld",1, 1, 3, 3)  
+            -0.00074 * getSMEFTCoeffEW("Cld",2, 2, 1, 1) -0.00074 * getSMEFTCoeffEW("Cld",2, 2, 2, 2) -0.00074 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) -0.0203 * getSMEFTCoeffEW("Cld",3, 3, 1, 1)  
+            -0.0203 * getSMEFTCoeffEW("Cld",3, 3, 2, 2) -0.0203 * getSMEFTCoeffEW("Cld",3, 3, 3, 3) +0.00074 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) +0.00074 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2)  
+            -0.01461 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3) +0.00074 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) +0.00074 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) -0.01461 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3)  
+            +0.00428 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1) +0.00428 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) +0.69176 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) -0.00295 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1)  
+            -0.00295 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2) -0.03891 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3) -0.00295 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) -0.00295 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2)  
+            -0.03891 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3) +0.05761 * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) +0.05761 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.2257 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3)  
+            +0.00148 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1) +0.00148 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) +0.00148 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1)  
+            +0.00148 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) -0.0288 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) -0.0288 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2)  
+            -0.02866 * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+        
+    } else if (f.is("CHARM")) {
+    deltaNLO = (+0.00019 * getSMEFTCoeffEW("CW")  +0. * getSMEFTCoeffEW("CHbox")  +0.00168 * getSMEFTCoeffEW("CHD")  -0.00002 * getSMEFTCoeffEW("CHB")   
+            -0.00002 * getSMEFTCoeffEW("CHW")  +0.0087 * getSMEFTCoeffEW("CHWB")  +0.00065 * getSMEFTCoeffEW("CuW",3, 3) -0.00052 * getSMEFTCoeffEW("CuB",3, 3)  
+            -0.00005 * getSMEFTCoeffEW("CHl1",1, 1) -0.00005 * getSMEFTCoeffEW("CHl1",2, 2) -0.00003 * getSMEFTCoeffEW("CHl1",3, 3) +0.00352 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +0.00352 * getSMEFTCoeffEW("CHl3",2, 2) +0.00003 * getSMEFTCoeffEW("CHl3",3, 3) -0.00003 * getSMEFTCoeffEW("CHe",1, 1) -0.00003 * getSMEFTCoeffEW("CHe",2, 2)  
+            -0.00003 * getSMEFTCoeffEW("CHe",3, 3) -0.00227 * getSMEFTCoeffEW("CHq1",1, 1) -0.01094 * getSMEFTCoeffEW("CHq1",2, 2) -0.00407 * getSMEFTCoeffEW("CHq1",3, 3)  
+            -0.00459 * getSMEFTCoeffEW("CHq3",1, 1) +0.00177 * getSMEFTCoeffEW("CHq3",2, 2) -0.00013 * getSMEFTCoeffEW("CHq3",3, 3) -0.00437 * getSMEFTCoeffEW("CHu",1, 1)  
+            +0.02111 * getSMEFTCoeffEW("CHu",2, 2) +0.00096 * getSMEFTCoeffEW("CHu",3, 3) +0.00217 * getSMEFTCoeffEW("CHd",1, 1) +0.00217 * getSMEFTCoeffEW("CHd",2, 2)  
+            +0.00216 * getSMEFTCoeffEW("CHd",3, 3) -0.00015 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) -0.00197 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00197 * getSMEFTCoeffEW("Cll",2, 1, 1, 2)  
+            -0.00015 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) +0.00011 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) +0.00018 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) -0.00024 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3)  
+            -0.00002 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1) +0.00096 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) -0.00002 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2) +0.00018 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1)  
+            +0.00023 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) -0.00792 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) -0.00429 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) +0.00096 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3)  
+            -0.00429 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) -0.00024 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) -0.00792 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) -0.00313 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3)  
+            +0.0013 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1) -0.00044 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) +0.00406 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3) +0.00007 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1)  
+            -0.00131 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1) +0.00007 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) -0.00044 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) -0.00204 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2)  
+            -0.00562 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) -0.00629 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) -0.00131 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3) -0.00629 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3)  
+            +0.00406 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1) -0.00562 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) -0.00028 * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3) -0.00001 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1)  
+            -0.00018 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) -0.00004 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) -0.00001 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1) -0.00018 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2)  
+            -0.00004 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3) -0.00001 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) -0.00018 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) -0.00004 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3)  
+            +0.00023 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) -0.00038 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) +0.00038 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) +0.00023 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1)  
+            -0.00038 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) +0.00038 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) +0.00023 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) -0.00038 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2)  
+            +0.00013 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) +0.00006 * getSMEFTCoeffEW("Cuu",1, 1, 1, 1) -0.00009 * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) +0.00064 * getSMEFTCoeffEW("Cuu",1, 1, 3, 3)  
+            -0.00001 * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) +0.00039 * getSMEFTCoeffEW("Cuu",1, 3, 3, 1) -0.00001 * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) -0.00009 * getSMEFTCoeffEW("Cuu",2, 2, 1, 1)  
+            -0.00027 * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) -0.0031 * getSMEFTCoeffEW("Cuu",2, 2, 3, 3) -0.00187 * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) +0.00039 * getSMEFTCoeffEW("Cuu",3, 1, 1, 3)  
+            -0.00187 * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) +0.00064 * getSMEFTCoeffEW("Cuu",3, 3, 1, 1) -0.0031 * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) +0.00001 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1)  
+            +0.00001 * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) +0.00001 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) +0. * getSMEFTCoeffEW("Cdd",1, 3, 3, 1)  
+            +0. * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) +0.00001 * getSMEFTCoeffEW("Cdd",2, 2, 1, 1) +0.00001 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2) +0.00001 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cdd",3, 1, 1, 3) +0. * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) +0.00001 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1)  
+            +0.00001 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) +0.00001 * getSMEFTCoeffEW("Cdd",3, 3, 3, 3) -0.00001 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) +0.00006 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2)  
+            -0.00001 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1) +0.00006 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2) -0.00001 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) +0.00006 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) +0.00001 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) +0.00001 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) +0.00001 * getSMEFTCoeffEW("Ced",2, 2, 1, 1)  
+            +0.00001 * getSMEFTCoeffEW("Ced",2, 2, 2, 2) +0.00001 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) +0.00001 * getSMEFTCoeffEW("Ced",3, 3, 1, 1) +0.00001 * getSMEFTCoeffEW("Ced",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Ced",3, 3, 3, 3) -0.00002 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) -0.00002 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2) -0.00002 * getSMEFTCoeffEW("Cud1",1, 1, 3, 3)  
+            +0.00005 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1) +0.00005 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) +0.00005 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) -0.00032 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1)  
+            -0.00032 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2) -0.00032 * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) -0.00001 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) +0.00006 * getSMEFTCoeffEW("Clu",1, 1, 2, 2)  
+            -0.00001 * getSMEFTCoeffEW("Clu",2, 2, 1, 1) +0.00006 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) -0.00001 * getSMEFTCoeffEW("Clu",3, 3, 1, 1) +0.00006 * getSMEFTCoeffEW("Clu",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.00001 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) +0.00001 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) +0.00001 * getSMEFTCoeffEW("Cld",2, 2, 1, 1)  
+            +0.00001 * getSMEFTCoeffEW("Cld",2, 2, 2, 2) +0.00001 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) +0.00001 * getSMEFTCoeffEW("Cld",3, 3, 1, 1) +0.00001 * getSMEFTCoeffEW("Cld",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Cld",3, 3, 3, 3) -0.00001 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3)  
+            -0.00018 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) -0.00018 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) -0.00018 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3) -0.00004 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1)  
+            -0.00004 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) -0.00004 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) +0.00002 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1) -0.00005 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2)  
+            +0.00032 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3) +0.00037 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) +0.0003 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2) +0.00936 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3)  
+            -0.00048 * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) +0.00271 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) +0.00187 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3) -0.00001 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1)  
+            -0.00001 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) -0.00018 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1) -0.00018 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2)  
+            -0.00018 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) +0.00024 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) +0.00024 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2) +0.00024 * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+        
+    } else if (f.is("BOTTOM")) {
+    deltaNLO = (-0.00098 * getSMEFTCoeffEW("CW")  +0. * getSMEFTCoeffEW("CHbox")  +0.00054 * getSMEFTCoeffEW("CHD")  +0.00001 * getSMEFTCoeffEW("CHB")   
+            +0.00001 * getSMEFTCoeffEW("CHW")  -0.00228 * getSMEFTCoeffEW("CHWB")  -0.00534 * getSMEFTCoeffEW("CuW",3, 3) -0.00033 * getSMEFTCoeffEW("CuB",3, 3)  
+            +0.00003 * getSMEFTCoeffEW("CHl1",1, 1) +0.00003 * getSMEFTCoeffEW("CHl1",2, 2) +0.00002 * getSMEFTCoeffEW("CHl1",3, 3) +0.00091 * getSMEFTCoeffEW("CHl3",1, 1)  
+            +0.00091 * getSMEFTCoeffEW("CHl3",2, 2) -0.00002 * getSMEFTCoeffEW("CHl3",3, 3) +0.00002 * getSMEFTCoeffEW("CHe",1, 1) +0.00002 * getSMEFTCoeffEW("CHe",2, 2)  
+            +0.00002 * getSMEFTCoeffEW("CHe",3, 3) -0.0027 * getSMEFTCoeffEW("CHq1",1, 1) -0.0027 * getSMEFTCoeffEW("CHq1",2, 2) +0.01646 * getSMEFTCoeffEW("CHq1",3, 3)  
+            -0.00357 * getSMEFTCoeffEW("CHq3",1, 1) -0.00357 * getSMEFTCoeffEW("CHq3",2, 2) +0.00218 * getSMEFTCoeffEW("CHq3",3, 3) -0.00517 * getSMEFTCoeffEW("CHu",1, 1)  
+            -0.00517 * getSMEFTCoeffEW("CHu",2, 2) -0.00174 * getSMEFTCoeffEW("CHu",3, 3) +0.00257 * getSMEFTCoeffEW("CHd",1, 1) +0.00257 * getSMEFTCoeffEW("CHd",2, 2)  
+            -0.01006 * getSMEFTCoeffEW("CHd",3, 3) +0.00008 * getSMEFTCoeffEW("Cll",1, 1, 2, 2) -0.00035 * getSMEFTCoeffEW("Cll",1, 2, 2, 1) -0.00035 * getSMEFTCoeffEW("Cll",2, 1, 1, 2)  
+            +0.00008 * getSMEFTCoeffEW("Cll",2, 2, 1, 1) +0.00013 * getSMEFTCoeffEW("Cqq1",1, 1, 1, 1) +0.00002 * getSMEFTCoeffEW("Cqq1",1, 1, 2, 2) -0.00051 * getSMEFTCoeffEW("Cqq1",1, 1, 3, 3)  
+            +0.00012 * getSMEFTCoeffEW("Cqq1",1, 2, 2, 1) +0.00104 * getSMEFTCoeffEW("Cqq1",1, 3, 3, 1) +0.00012 * getSMEFTCoeffEW("Cqq1",2, 1, 1, 2) +0.00002 * getSMEFTCoeffEW("Cqq1",2, 2, 1, 1)  
+            +0.00013 * getSMEFTCoeffEW("Cqq1",2, 2, 2, 2) -0.00051 * getSMEFTCoeffEW("Cqq1",2, 2, 3, 3) +0.00104 * getSMEFTCoeffEW("Cqq1",2, 3, 3, 2) +0.00104 * getSMEFTCoeffEW("Cqq1",3, 1, 1, 3)  
+            +0.00104 * getSMEFTCoeffEW("Cqq1",3, 2, 2, 3) -0.00051 * getSMEFTCoeffEW("Cqq1",3, 3, 1, 1) -0.00051 * getSMEFTCoeffEW("Cqq1",3, 3, 2, 2) +0.01423 * getSMEFTCoeffEW("Cqq1",3, 3, 3, 3)  
+            +0.00163 * getSMEFTCoeffEW("Cqq3",1, 1, 1, 1) +0.00174 * getSMEFTCoeffEW("Cqq3",1, 1, 2, 2) +0.00289 * getSMEFTCoeffEW("Cqq3",1, 1, 3, 3) -0.00011 * getSMEFTCoeffEW("Cqq3",1, 2, 2, 1)  
+            -0.00154 * getSMEFTCoeffEW("Cqq3",1, 3, 3, 1) -0.00011 * getSMEFTCoeffEW("Cqq3",2, 1, 1, 2) +0.00174 * getSMEFTCoeffEW("Cqq3",2, 2, 1, 1) +0.00163 * getSMEFTCoeffEW("Cqq3",2, 2, 2, 2)  
+            +0.00289 * getSMEFTCoeffEW("Cqq3",2, 2, 3, 3) -0.00154 * getSMEFTCoeffEW("Cqq3",2, 3, 3, 2) -0.00154 * getSMEFTCoeffEW("Cqq3",3, 1, 1, 3) -0.00154 * getSMEFTCoeffEW("Cqq3",3, 2, 2, 3)  
+            +0.00289 * getSMEFTCoeffEW("Cqq3",3, 3, 1, 1) +0.00289 * getSMEFTCoeffEW("Cqq3",3, 3, 2, 2) +0.00128 * getSMEFTCoeffEW("Cqq3",3, 3, 3, 3) -0.00001 * getSMEFTCoeffEW("Clq1",1, 1, 1, 1)  
+            -0.00001 * getSMEFTCoeffEW("Clq1",1, 1, 2, 2) +0.00016 * getSMEFTCoeffEW("Clq1",1, 1, 3, 3) -0.00001 * getSMEFTCoeffEW("Clq1",2, 2, 1, 1) -0.00001 * getSMEFTCoeffEW("Clq1",2, 2, 2, 2)  
+            +0.00016 * getSMEFTCoeffEW("Clq1",2, 2, 3, 3) -0.00001 * getSMEFTCoeffEW("Clq1",3, 3, 1, 1) -0.00001 * getSMEFTCoeffEW("Clq1",3, 3, 2, 2) +0.00016 * getSMEFTCoeffEW("Clq1",3, 3, 3, 3)  
+            +0.00029 * getSMEFTCoeffEW("Clq3",1, 1, 1, 1) +0.00029 * getSMEFTCoeffEW("Clq3",1, 1, 2, 2) -0.0007 * getSMEFTCoeffEW("Clq3",1, 1, 3, 3) +0.00029 * getSMEFTCoeffEW("Clq3",2, 2, 1, 1)  
+            +0.00029 * getSMEFTCoeffEW("Clq3",2, 2, 2, 2) -0.0007 * getSMEFTCoeffEW("Clq3",2, 2, 3, 3) +0.00029 * getSMEFTCoeffEW("Clq3",3, 3, 1, 1) +0.00029 * getSMEFTCoeffEW("Clq3",3, 3, 2, 2)  
+            -0.00057 * getSMEFTCoeffEW("Clq3",3, 3, 3, 3) +0.00007 * getSMEFTCoeffEW("Cuu",1, 1, 1, 1) +0.00006 * getSMEFTCoeffEW("Cuu",1, 1, 2, 2) +0.00081 * getSMEFTCoeffEW("Cuu",1, 1, 3, 3)  
+            +0.00001 * getSMEFTCoeffEW("Cuu",1, 2, 2, 1) +0.00049 * getSMEFTCoeffEW("Cuu",1, 3, 3, 1) +0.00001 * getSMEFTCoeffEW("Cuu",2, 1, 1, 2) +0.00006 * getSMEFTCoeffEW("Cuu",2, 2, 1, 1)  
+            +0.00007 * getSMEFTCoeffEW("Cuu",2, 2, 2, 2) +0.00081 * getSMEFTCoeffEW("Cuu",2, 2, 3, 3) +0.00049 * getSMEFTCoeffEW("Cuu",2, 3, 3, 2) +0.00049 * getSMEFTCoeffEW("Cuu",3, 1, 1, 3)  
+            +0.00049 * getSMEFTCoeffEW("Cuu",3, 2, 2, 3) +0.00081 * getSMEFTCoeffEW("Cuu",3, 3, 1, 1) +0.00081 * getSMEFTCoeffEW("Cuu",3, 3, 2, 2) +0.00002 * getSMEFTCoeffEW("Cdd",1, 1, 1, 1)  
+            +0.00002 * getSMEFTCoeffEW("Cdd",1, 1, 2, 2) -0.00002 * getSMEFTCoeffEW("Cdd",1, 1, 3, 3) +0. * getSMEFTCoeffEW("Cdd",1, 2, 2, 1) +0. * getSMEFTCoeffEW("Cdd",1, 3, 3, 1)  
+            +0. * getSMEFTCoeffEW("Cdd",2, 1, 1, 2) +0.00002 * getSMEFTCoeffEW("Cdd",2, 2, 1, 1) +0.00002 * getSMEFTCoeffEW("Cdd",2, 2, 2, 2) -0.00002 * getSMEFTCoeffEW("Cdd",2, 2, 3, 3)  
+            +0. * getSMEFTCoeffEW("Cdd",2, 3, 3, 2) +0. * getSMEFTCoeffEW("Cdd",3, 1, 1, 3) +0. * getSMEFTCoeffEW("Cdd",3, 2, 2, 3) -0.00002 * getSMEFTCoeffEW("Cdd",3, 3, 1, 1)  
+            -0.00002 * getSMEFTCoeffEW("Cdd",3, 3, 2, 2) -0.00006 * getSMEFTCoeffEW("Cdd",3, 3, 3, 3) -0.00002 * getSMEFTCoeffEW("Ceu",1, 1, 1, 1) -0.00002 * getSMEFTCoeffEW("Ceu",1, 1, 2, 2)  
+            -0.00002 * getSMEFTCoeffEW("Ceu",2, 2, 1, 1) -0.00002 * getSMEFTCoeffEW("Ceu",2, 2, 2, 2) -0.00002 * getSMEFTCoeffEW("Ceu",3, 3, 1, 1) -0.00002 * getSMEFTCoeffEW("Ceu",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Ced",1, 1, 1, 1) +0.00001 * getSMEFTCoeffEW("Ced",1, 1, 2, 2) -0.00003 * getSMEFTCoeffEW("Ced",1, 1, 3, 3) +0.00001 * getSMEFTCoeffEW("Ced",2, 2, 1, 1)  
+            +0.00001 * getSMEFTCoeffEW("Ced",2, 2, 2, 2) -0.00003 * getSMEFTCoeffEW("Ced",2, 2, 3, 3) +0.00001 * getSMEFTCoeffEW("Ced",3, 3, 1, 1) +0.00001 * getSMEFTCoeffEW("Ced",3, 3, 2, 2)  
+            -0.00003 * getSMEFTCoeffEW("Ced",3, 3, 3, 3) -0.00003 * getSMEFTCoeffEW("Cud1",1, 1, 1, 1) -0.00003 * getSMEFTCoeffEW("Cud1",1, 1, 2, 2) +0.00004 * getSMEFTCoeffEW("Cud1",1, 1, 3, 3)  
+            -0.00003 * getSMEFTCoeffEW("Cud1",2, 2, 1, 1) -0.00003 * getSMEFTCoeffEW("Cud1",2, 2, 2, 2) +0.00004 * getSMEFTCoeffEW("Cud1",2, 2, 3, 3) -0.0004 * getSMEFTCoeffEW("Cud1",3, 3, 1, 1)  
+            -0.0004 * getSMEFTCoeffEW("Cud1",3, 3, 2, 2) +0.00146 * getSMEFTCoeffEW("Cud1",3, 3, 3, 3) -0.00002 * getSMEFTCoeffEW("Clu",1, 1, 1, 1) -0.00002 * getSMEFTCoeffEW("Clu",1, 1, 2, 2)  
+            -0.00002 * getSMEFTCoeffEW("Clu",2, 2, 1, 1) -0.00002 * getSMEFTCoeffEW("Clu",2, 2, 2, 2) -0.00002 * getSMEFTCoeffEW("Clu",3, 3, 1, 1) -0.00002 * getSMEFTCoeffEW("Clu",3, 3, 2, 2)  
+            +0.00001 * getSMEFTCoeffEW("Cld",1, 1, 1, 1) +0.00001 * getSMEFTCoeffEW("Cld",1, 1, 2, 2) -0.00003 * getSMEFTCoeffEW("Cld",1, 1, 3, 3) +0.00001 * getSMEFTCoeffEW("Cld",2, 2, 1, 1)  
+            +0.00001 * getSMEFTCoeffEW("Cld",2, 2, 2, 2) -0.00003 * getSMEFTCoeffEW("Cld",2, 2, 3, 3) +0.00001 * getSMEFTCoeffEW("Cld",3, 3, 1, 1) +0.00001 * getSMEFTCoeffEW("Cld",3, 3, 2, 2)  
+            -0.00003 * getSMEFTCoeffEW("Cld",3, 3, 3, 3) -0.00001 * getSMEFTCoeffEW("Cqe",1, 1, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqe",1, 1, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqe",1, 1, 3, 3)  
+            -0.00001 * getSMEFTCoeffEW("Cqe",2, 2, 1, 1) -0.00001 * getSMEFTCoeffEW("Cqe",2, 2, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqe",2, 2, 3, 3) +0.00016 * getSMEFTCoeffEW("Cqe",3, 3, 1, 1)  
+            +0.00016 * getSMEFTCoeffEW("Cqe",3, 3, 2, 2) +0.00016 * getSMEFTCoeffEW("Cqe",3, 3, 3, 3) +0.00003 * getSMEFTCoeffEW("Cqu1",1, 1, 1, 1) +0.00003 * getSMEFTCoeffEW("Cqu1",1, 1, 2, 2)  
+            +0.0004 * getSMEFTCoeffEW("Cqu1",1, 1, 3, 3) +0.00003 * getSMEFTCoeffEW("Cqu1",2, 2, 1, 1) +0.00003 * getSMEFTCoeffEW("Cqu1",2, 2, 2, 2) +0.0004 * getSMEFTCoeffEW("Cqu1",2, 2, 3, 3)  
+            -0.00101 * getSMEFTCoeffEW("Cqu1",3, 3, 1, 1) -0.00101 * getSMEFTCoeffEW("Cqu1",3, 3, 2, 2) -0.00852 * getSMEFTCoeffEW("Cqu1",3, 3, 3, 3) -0.00002 * getSMEFTCoeffEW("Cqd1",1, 1, 1, 1)  
+            -0.00002 * getSMEFTCoeffEW("Cqd1",1, 1, 2, 2) +0.00002 * getSMEFTCoeffEW("Cqd1",1, 1, 3, 3) -0.00002 * getSMEFTCoeffEW("Cqd1",2, 2, 1, 1) -0.00002 * getSMEFTCoeffEW("Cqd1",2, 2, 2, 2)  
+            +0.00002 * getSMEFTCoeffEW("Cqd1",2, 2, 3, 3) +0.00051 * getSMEFTCoeffEW("Cqd1",3, 3, 1, 1) +0.00051 * getSMEFTCoeffEW("Cqd1",3, 3, 2, 2) -0.00108 * getSMEFTCoeffEW("Cqd1",3, 3, 3, 3) ) * v2; 
+   
+    } else {
+        deltaNLO = 0.;
+    }
+       
+    return dR0_f + cNLOd6 * deltaNLO;
 }
 
 const double NPSMEFTd6General::R0_f(const Particle f) const

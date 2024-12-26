@@ -1426,7 +1426,29 @@ public:
      */
     virtual const double deltaGwd62() const;
     
-        /**
+    
+    /**
+     * @brief The new physics contribution to the decay width of the @f$Z@f$ boson into a given fermion pair, @f$\delta \Gamma_Z^{f}@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta \Gamma_Z^{f}@f$ in GeV
+     */
+    virtual const double deltaGamma_Zf(const Particle f) const;
+    
+    /**
+     * @brief The decay width of the @f$Z@f$ boson into a given fermion pair, @f$\Gamma_Z^{f}@f$.
+     * @details
+     * \f[
+     * \Gamma_Z^{f} = \Gamma_{Z,f}^{SM} + \Delta \Gamma_{Z,f}^{(1)} + \Delta \Gamma_{Z,f}^{(2)}
+     * \f]
+     * @param[in] f a lepton or quark
+     * @return @f$\Gamma_Z^{f}@f$ in GeV, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual const double Gamma_Zf(const Particle f) const;
+    
+    /**
      * @brief The new physics contribution to the total decay width of the @f$Z@f$ boson, @f$\delta \Gamma_Z@f$.
      * @return @f$\delta \Gamma_Z@f$ in GeV
      */
