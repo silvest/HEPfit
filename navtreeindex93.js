@@ -1,5 +1,7 @@
 var NAVTREEINDEX93 =
 {
+"da/de7/class_sigma_b_r.html#a42d550de60eae1a80a2b93b1e738aa33":[27,0,2582,27],
+"da/de7/class_sigma_b_r.html#a43b9d073352ffa320b387dd3bcc82a60":[27,0,2582,150],
 "da/de7/class_sigma_b_r.html#a4418826b53374cddcb3464d94fb40092":[27,0,2582,93],
 "da/de7/class_sigma_b_r.html#a4460804f0b701764dad16e87a55f9215":[27,0,2582,122],
 "da/de7/class_sigma_b_r.html#a4512fd3a86d30a6a6a02442e8bd15964":[27,0,2582,90],
@@ -247,7 +249,5 @@ var NAVTREEINDEX93 =
 "da/dfa/classm_sp_t_h_d_m_w.html#a3e143937458c25d18d333f71fc6d6e52":[4,18,61,1],
 "da/dfa/classm_sp_t_h_d_m_w.html#a801cc8354f6343e49783bf98b6e9c1ec":[4,18,61,0],
 "da/dfa/classm_sp_t_h_d_m_w.html#a9b587b23acbbce656a4b859cd304e49a":[4,18,61,2],
-"da/dfc/class_mslepton.html":[4,16,55],
-"da/dfc/class_mslepton.html#a1c93173c02f850fcadfefc105584dd98":[4,16,55,3],
-"da/dfc/class_mslepton.html#a6871b58178a268483b680ef92bae38d8":[4,16,55,1]
+"da/dfc/class_mslepton.html":[4,16,55]
 };

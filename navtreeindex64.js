@@ -1,5 +1,7 @@
 var NAVTREEINDEX64 =
 {
+"d6/db5/class_g_mmassdifference__m_hlmm_a.html":[4,8,69],
+"d6/db5/class_g_mmassdifference__m_hlmm_a.html#addddf44e364e18a517722408231d3a42":[4,8,69,2],
 "d6/db5/class_g_mmassdifference__m_hlmm_a.html#ae58983292fc5c8db637bfa8d6553e255":[4,8,69,0],
 "d6/db5/class_g_mmassdifference__m_hlmm_a.html#aeed6454bf758330e45e4abff409d5135":[4,8,69,1],
 "d6/db5/class_heff_d_s1.html":[27,0,837],
@@ -247,7 +249,5 @@ var NAVTREEINDEX64 =
 "d6/dd3/classsigma__tta__diff___l_o___c_m_s__dilepton__220107301.html#a2347b36752dea291b25ed9d5f11aaa52":[27,0,2551,4],
 "d6/dd3/classsigma__tta__diff___l_o___c_m_s__dilepton__220107301.html#a4e77e8c97dd943a7abfd68e88e02f8c6":[27,0,2551,1],
 "d6/dd3/classsigma__tta__diff___l_o___c_m_s__dilepton__220107301.html#a66727f27b96bee0480194da6715d6915":[27,0,2551,2],
-"d6/dd3/classsigma__tta__diff___l_o___c_m_s__dilepton__220107301.html#a747ce5fed0e25da0ef37b7e6fd0f6ccb":[27,0,2551,0],
-"d6/dd3/classsigma__tta__diff___l_o___c_m_s__dilepton__220107301.html#aac7ee712f51c8e521686bac74246e9a6":[27,0,2551,6],
-"d6/dd3/classsigma__tta__diff___l_o___c_m_s__dilepton__220107301.html#ac0ccfc00fc098c7ce871b1905ed9d39a":[27,0,2551,7]
+"d6/dd3/classsigma__tta__diff___l_o___c_m_s__dilepton__220107301.html#a747ce5fed0e25da0ef37b7e6fd0f6ccb":[27,0,2551,0]
 };

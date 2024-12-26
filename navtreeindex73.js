@@ -1,5 +1,7 @@
 var NAVTREEINDEX73 =
 {
+"d7/dbc/class_l_h_p_c_1_1_mass_spectrum_class_1_1_squarks_one_to_six.html#a8187aa8430fa73dcb380d26c099a1fac":[27,0,1,2,10,48],
+"d7/dbc/class_l_h_p_c_1_1_mass_spectrum_class_1_1_squarks_one_to_six.html#a8201c94e1067e01bdff42e16a275123a":[27,0,1,2,10,56],
 "d7/dbc/class_l_h_p_c_1_1_mass_spectrum_class_1_1_squarks_one_to_six.html#a82782b679c1600eb201b87e3f5a0d455":[27,0,1,2,10,4],
 "d7/dbc/class_l_h_p_c_1_1_mass_spectrum_class_1_1_squarks_one_to_six.html#a82a84a08aeb7b79fd83009e101852c68":[27,0,1,2,10,24],
 "d7/dbc/class_l_h_p_c_1_1_mass_spectrum_class_1_1_squarks_one_to_six.html#a848a79b9e6b62897a618ee13b86789c3":[27,0,1,2,10,130],
@@ -247,7 +249,5 @@ var NAVTREEINDEX73 =
 "d7/ddb/class_nev_l_h_ctautau13.html#a8e0638ca661c4369118fd672682b1a77":[27,0,2131,4],
 "d7/ddc/class_hobs__gg__phi3__tautau___c_m_s8.html":[27,0,1013],
 "d7/ddc/class_hobs__gg__phi3__tautau___c_m_s8.html#a8bab2918e5fc5a2415d944436f13c9fb":[27,0,1013,1],
-"d7/ddc/class_hobs__gg__phi3__tautau___c_m_s8.html#a8df624bfd8bdfed74fb0d748db5f16ce":[27,0,1013,2],
-"d7/ddc/class_hobs__gg__phi3__tautau___c_m_s8.html#a98ba8a478e01963e046143407a74e896":[27,0,1013,0],
-"d7/ddd/class_s_t_x_sqq_hqq__p_tj__200__4l.html":[4,13,499]
+"d7/ddc/class_hobs__gg__phi3__tautau___c_m_s8.html#a8df624bfd8bdfed74fb0d748db5f16ce":[27,0,1013,2]
 };

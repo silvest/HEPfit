@@ -1,5 +1,7 @@
 var NAVTREEINDEX61 =
 {
+"d6/d49/class_br_wlepton.html#a655c33911dddca04d0d64fe6597982c2":[4,3,17,1],
+"d6/d49/class_br_wlepton.html#ad4d0619ab91a7ba39b2478d29c75c932":[4,3,17,0],
 "d6/d4d/class_nev_l_h_cmumu13.html":[27,0,2128],
 "d6/d4d/class_nev_l_h_cmumu13.html#a0744355bca37569e0c647cdd91a39378":[27,0,2128,2],
 "d6/d4d/class_nev_l_h_cmumu13.html#a09a2e090441924088e8e8a95d557512a":[27,0,2128,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX61 =
 "d6/d75/class_flavour_wilson_coefficient.html#a333bc7d682028d4f22373bbe3a8a5197":[4,6,2,6],
 "d6/d75/class_flavour_wilson_coefficient.html#a337affc30b4fd514fb946d50e432c15b":[4,6,2,80],
 "d6/d75/class_flavour_wilson_coefficient.html#a38fe46f41fb7a272dc58af9d6e304416":[4,6,2,22],
-"d6/d75/class_flavour_wilson_coefficient.html#a3a4842295891f406acb4bf1a912e2dbe":[4,6,2,54],
-"d6/d75/class_flavour_wilson_coefficient.html#a42a2107d488aeb15f276121148e56d36":[4,6,2,63],
-"d6/d75/class_flavour_wilson_coefficient.html#a44bda45605e6e10ead806abddae566cd":[4,6,2,17]
+"d6/d75/class_flavour_wilson_coefficient.html#a3a4842295891f406acb4bf1a912e2dbe":[4,6,2,54]
 };

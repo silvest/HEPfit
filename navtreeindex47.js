@@ -1,5 +1,7 @@
 var NAVTREEINDEX47 =
 {
+"d5/d17/classsigma__taq___l_o___c_m_s.html#a8db67285a8ad9bcc45b52949bfbf2c32":[27,0,2536,3],
+"d5/d17/classsigma__taq___l_o___c_m_s.html#a9262f5c6e8deceb5af2eab2ed2cc5693":[27,0,2536,4],
 "d5/d17/classsigma__taq___l_o___c_m_s.html#a92bfe7d1374b55965fe42e697ecc6a5a":[27,0,2536,2],
 "d5/d17/classsigma__taq___l_o___c_m_s.html#a9cf8a4a2c02955a2b4f019dafaa9055f":[27,0,2536,5],
 "d5/d17/classsigma__taq___l_o___c_m_s.html#af181f987004c2ad36974513f5d0bbbaf":[27,0,2536,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX47 =
 "d5/d4a/class_f_b__asymmetry___tevatron__tt__diff__mtt___l_o.html#a8baf07a75a400550077a685d463f4ce8":[27,0,619,2],
 "d5/d4a/class_f_b__asymmetry___tevatron__tt__diff__mtt___l_o.html#aa20953ab31a6e97989b687bae7cf7f72":[27,0,619,4],
 "d5/d4a/class_f_b__asymmetry___tevatron__tt__diff__mtt___l_o.html#ab3a85039faddc8c312901574323b3403":[27,0,619,1],
-"d5/d4a/class_f_b__asymmetry___tevatron__tt__diff__mtt___l_o.html#ac0e9a489d24489c1cdda65143d80737c":[27,0,619,5],
-"d5/d4a/class_f_b__asymmetry___tevatron__tt__diff__mtt___l_o.html#afa80f3a79088d366d81fb5103e39e72b":[27,0,619,6],
-"d5/d4a/class_l_e_p2_a_f_bbottom.html":[4,3,50]
+"d5/d4a/class_f_b__asymmetry___tevatron__tt__diff__mtt___l_o.html#ac0e9a489d24489c1cdda65143d80737c":[27,0,619,5]
 };

@@ -1,5 +1,7 @@
 var NAVTREEINDEX51 =
 {
+"d5/dac/class_s_u_s_y_matching.html#ab647f34e7235ed5eacb168b2382271af":[4,16,63,19],
+"d5/dac/class_s_u_s_y_matching.html#ab666e76fc22e214cf7d92726abd4447b":[4,16,63,257],
 "d5/dac/class_s_u_s_y_matching.html#ab7a5ac6859b70f49cb17bdc45269ed10":[4,16,63,34],
 "d5/dac/class_s_u_s_y_matching.html#ab7ff96d378d5199a41c661bbe93e6e53":[4,16,63,291],
 "d5/dac/class_s_u_s_y_matching.html#abbca7255ec37e64008664a722f0aac28":[4,16,63,174],
@@ -247,7 +249,5 @@ var NAVTREEINDEX51 =
 "d5/dde/class_e_w_s_m_approximate_formulae.html#a06f081f40cc1a9275b37d28b448574b4":[4,0,4,11],
 "d5/dde/class_e_w_s_m_approximate_formulae.html#a1699668e85351c3d098c405df174ae7e":[4,0,4,19],
 "d5/dde/class_e_w_s_m_approximate_formulae.html#a3d232b41d35b565a9c9fe9bf9265b812":[4,0,4,7],
-"d5/dde/class_e_w_s_m_approximate_formulae.html#a3eb55e143deb4a79a58bdd4728c57bae":[4,0,4,12],
-"d5/dde/class_e_w_s_m_approximate_formulae.html#a40ac953f539b06cf46144aa26821a8b9":[4,0,4,2],
-"d5/dde/class_e_w_s_m_approximate_formulae.html#a505c1bc4ca415e13add0b780ea62003e":[4,0,4,16]
+"d5/dde/class_e_w_s_m_approximate_formulae.html#a3eb55e143deb4a79a58bdd4728c57bae":[4,0,4,12]
 };

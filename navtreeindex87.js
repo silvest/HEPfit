@@ -1,5 +1,7 @@
 var NAVTREEINDEX87 =
 {
+"da/d29/class_amp_d_b2.html#a724a57b808e29b120d1a1df6891934b7":[4,5,30,135],
+"da/d29/class_amp_d_b2.html#a732c33a60ea98f830503fa87441a815b":[4,5,30,52],
 "da/d29/class_amp_d_b2.html#a742727f42098997cf3651a4630c7ac01":[4,5,30,39],
 "da/d29/class_amp_d_b2.html#a744d7bec4c139bf6397e918af1ed3301":[4,5,30,91],
 "da/d29/class_amp_d_b2.html#a750120fd8381a1ac0b7b052620815bbc":[4,5,30,119],
@@ -247,7 +249,5 @@ var NAVTREEINDEX87 =
 "da/d4d/class_hobs__gg__phi3__phi1_z__bb_z___a_t_l_a_s8.html#ad02ab4585ba0724b0c75dd089755f9e6":[27,0,1003,1],
 "da/d4d/class_hobs__gg__phi3__phi1_z__bb_z___a_t_l_a_s8.html#adb98834efee028bb3f30a37211b4f8ae":[27,0,1003,2],
 "da/d4d/class_z_f_dsigma_quarks_l_e_p2.html":[27,0,3046],
-"da/d4d/class_z_f_dsigma_quarks_l_e_p2.html#a2c107ba3130a85c3254cc763b2465c1d":[27,0,3046,4],
-"da/d4d/class_z_f_dsigma_quarks_l_e_p2.html#a572e9a52ec27619f5ccfc826e6c4962d":[27,0,3046,2],
-"da/d4d/class_z_f_dsigma_quarks_l_e_p2.html#aac8b7c7e36c109973d9773908a83557b":[27,0,3046,3]
+"da/d4d/class_z_f_dsigma_quarks_l_e_p2.html#a2c107ba3130a85c3254cc763b2465c1d":[27,0,3046,4]
 };

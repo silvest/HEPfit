@@ -1,5 +1,7 @@
 var NAVTREEINDEX88 =
 {
+"da/d4d/class_z_f_dsigma_quarks_l_e_p2.html#a572e9a52ec27619f5ccfc826e6c4962d":[27,0,3046,2],
+"da/d4d/class_z_f_dsigma_quarks_l_e_p2.html#aac8b7c7e36c109973d9773908a83557b":[27,0,3046,3],
 "da/d4d/class_z_f_dsigma_quarks_l_e_p2.html#ac225c9db6583d0dee41b85237e7fb084":[27,0,3046,0],
 "da/d4d/class_z_f_dsigma_quarks_l_e_p2.html#ae61bfc2aa5160931e8840b9da2ce34c5":[27,0,3046,1],
 "da/d4f/class_b_r___h3p___h5_w___g_m.html":[4,8,27],
@@ -247,7 +249,5 @@ var NAVTREEINDEX88 =
 "da/d86/class_higgs_chiral.html#a286f7c38a4cc83cd579f87af30c8b67a":[4,13,64,213],
 "da/d86/class_higgs_chiral.html#a28748f06900b408c50865e2a89a1186f":[4,13,64,215],
 "da/d86/class_higgs_chiral.html#a287e10bb6ad1bdd91e8513b50f93d6c7":[4,13,64,248],
-"da/d86/class_higgs_chiral.html#a28c043d185412aee7a2095444728085c":[4,13,64,126],
-"da/d86/class_higgs_chiral.html#a2908ed62f52abe3bc7c8dc84e96436d1":[4,13,64,16],
-"da/d86/class_higgs_chiral.html#a29442a82e851682dcf6c0c538ba9019f":[4,13,64,194]
+"da/d86/class_higgs_chiral.html#a28c043d185412aee7a2095444728085c":[4,13,64,126]
 };
