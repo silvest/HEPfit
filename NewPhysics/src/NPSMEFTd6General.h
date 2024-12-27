@@ -2379,7 +2379,7 @@ public:
     virtual const double delta_mubbH_2(const double sqrt_s) const
     {
         return 0.0;
-    };	///<The SMEFT quadratic correction to the ratio @f$\mu_{bbH}@f$ between the bbH production cross-section in the current model and in the Standard Model.
+    }	///<The SMEFT quadratic correction to the ratio @f$\mu_{bbH}@f$ between the bbH production cross-section in the current model and in the Standard Model.
     //AG:end
 
     ////////////HIGGS DECAY WIDTHS AND BRANCHING RATIOS/////////////

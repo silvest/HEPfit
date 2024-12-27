@@ -16101,6 +16101,8 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
 
     //  Linear contribution from Higgs self-coupling
     mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     return mu;
 }
@@ -16388,7 +16390,9 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
         throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muVBF_1()");
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     return mu;
 }
@@ -16697,10 +16701,12 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
                 - 2.047 * deltaMwd6()
                 ;
     } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muWH()");
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muWH_1()");
 
     //  Linear contribution from Higgs self-coupling
     mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     return mu;
 }
@@ -17004,10 +17010,12 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 - 2.504 * delta_GF
                 ;
     } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muZH()");
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muZH_1()");
 
     //  Linear contribution from Higgs self-coupling
     mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     return mu;
 }
@@ -17419,10 +17427,12 @@ const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
                 - 2.837 * deltaG_hff(quarks[TOP]).real()
                 ;
     } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::muttH()");
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muttH_1()");
 
     //  Linear contribution from Higgs self-coupling
     mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     return mu;
 }
@@ -17879,6 +17889,8 @@ const double NPSMEFTd6General::delta_mutH_1(const double sqrt_s) const {
 
     //  Linear contribution from Higgs self-coupling
     mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     return mu;
 }
@@ -17996,14 +18008,12 @@ const double NPSMEFTd6General::mutH(const double sqrt_s) const //AG:added
 const double NPSMEFTd6General::delta_muVH_1(const double sqrt_s) const {
     double mu = 0.0;
 
-    if (FlagQuadraticTerms) {
-        double sigmaWH_SM = computeSigmaWH(sqrt_s);
-        double sigmaZH_SM = computeSigmaZH(sqrt_s);
+    double sigmaWH_SM = computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = computeSigmaZH(sqrt_s);
 
-        double sigmaWH_1 = delta_muWH_1(sqrt_s) * sigmaWH_SM;
-        double sigmaZH_1 = delta_muZH_1(sqrt_s) * sigmaZH_SM;
-        mu += ((sigmaWH_1 + sigmaZH_1) / (sigmaWH_SM + sigmaZH_SM));
-    }
+    double sigmaWH_1 = delta_muWH_1(sqrt_s) * sigmaWH_SM;
+    double sigmaZH_1 = delta_muZH_1(sqrt_s) * sigmaZH_SM;
+    mu += ((sigmaWH_1 + sigmaZH_1) / (sigmaWH_SM + sigmaZH_SM));
 
     return mu;
 }
@@ -18030,7 +18040,7 @@ const double NPSMEFTd6General::muVH(const double sqrt_s) const {
     //mu += ;
 
     // Linear contribution 
-    mu += delta_muVH_2(sqrt_s);
+    mu += delta_muVH_1(sqrt_s);
 
     // Quadratic contribution 
     mu += delta_muVH_2(sqrt_s);
