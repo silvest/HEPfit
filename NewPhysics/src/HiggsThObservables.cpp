@@ -1169,7 +1169,14 @@ double muVBFHgaga::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+        
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu;  
     } else {
         return myNPbase->muVBFHgaga(sqrt_s);
     }
@@ -1197,7 +1204,15 @@ double muZHgaga::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );         
+                
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+         
     } else {
         return myNPbase->muZHgaga(sqrt_s);
     }
@@ -1225,7 +1240,15 @@ double muWHgaga::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );    
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muWHgaga(sqrt_s);
     }
@@ -1269,7 +1292,15 @@ double muttHgaga::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );       
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muttHgaga(sqrt_s);
     }
@@ -1296,7 +1327,15 @@ double mutHgaga::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );       
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         //VM: Just in case someone wants to add directly the production*decay 
         //(which is the observable we fit at the end)
@@ -1330,7 +1369,15 @@ double muggHpbbH_Hgaga::computeThValue()                                        
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         //VM: Just in case someone wants to add directly the production*decay 
         //(which is the observable we fit at the end)
@@ -1376,7 +1423,15 @@ double muttHptH_Hgaga::computeThValue()                                         
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) ); 
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         //VM: Just in case someone wants to add directly the production*decay 
         //(which is the observable we fit at the end)
@@ -1411,7 +1466,15 @@ double muggHZga::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );     
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muggHZga(sqrt_s);
     }
@@ -1455,7 +1518,15 @@ double muVBFHZga::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muVBFHZga(sqrt_s);
     }
@@ -1547,7 +1618,15 @@ double muggHZZ::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muggHZZ(sqrt_s);
     }
@@ -1575,7 +1654,15 @@ double muVBFHZZ::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muVBFHZZ(sqrt_s);
     }
@@ -1603,7 +1690,15 @@ double muZHZZ::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );   
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muZHZZ(sqrt_s);
     }
@@ -1631,7 +1726,15 @@ double muWHZZ::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muWHZZ(sqrt_s);
     }
@@ -1668,7 +1771,15 @@ double muVHZZ::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         //return myNPbase->muVHZZ(sqrt_s);
         //VM: Just in case someone wants to add directly the production*decay 
@@ -1729,7 +1840,15 @@ double muttHptH_HZZ::computeThValue()                                           
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );       
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         
         //VM: Just in case someone wants to add directly the production*decay 
@@ -1774,7 +1893,15 @@ double muttHptH_Hmumu::computeThValue()                                         
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) ); 
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         
         //VM: Just in case someone wants to add directly the production*decay 
@@ -1810,7 +1937,15 @@ double muggHpbbH_HZZ::computeThValue()                                          
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         //VM: Just in case someone wants to add directly the production*decay 
         //(which is the observable we fit at the end)
@@ -1959,7 +2094,15 @@ double muggHWW::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muggHWW(sqrt_s);
     }
@@ -1987,7 +2130,15 @@ double muVBFHWW::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muVBFHWW(sqrt_s);
     }
@@ -2015,7 +2166,15 @@ double muZHWW::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );        
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muZHWW(sqrt_s);
     }
@@ -2043,7 +2202,15 @@ double muWHWW::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );    
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muWHWW(sqrt_s);
     }
@@ -2112,7 +2279,15 @@ double muttHptH_HWW::computeThValue()                                           
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );     
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         
         //VM: Just in case someone wants to add directly the production*decay 
@@ -2148,7 +2323,15 @@ double muggHpbbH_HWW::computeThValue()                                          
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         
         //VM: Just in case someone wants to add directly the production*decay 
@@ -2298,7 +2481,15 @@ double muggHmumu::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muggHmumu(sqrt_s);
     }
@@ -2326,7 +2517,15 @@ double muVBFHmumu::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );      
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muVBFHmumu(sqrt_s);
     }
@@ -2353,7 +2552,15 @@ double muZHmumu::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muZHmumu(sqrt_s);
     }
@@ -2407,7 +2614,15 @@ double muVHmumu::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         //return myNPbase->muVHmumu(sqrt_s);
         //VM: Just in case someone wants to add directly the production*decay 
@@ -2478,7 +2693,15 @@ double muggHpttHptHpbbH_Hmumu::computeThValue()                                 
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         
         //VM: Just in case someone wants to add directly the production*decay 
@@ -2527,7 +2750,15 @@ double muVBFpVH_Hmumu::computeThValue()                                         
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         
         //VM: Just in case someone wants to add directly the production*decay 
@@ -2563,7 +2794,15 @@ double muggHtautau::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );        
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muggHtautau(sqrt_s);
     }
@@ -2591,7 +2830,15 @@ double muVBFHtautau::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );      
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muVBFHtautau(sqrt_s);
     }
@@ -2639,7 +2886,15 @@ double muZHtautau::computeThValue()                                             
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );           
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muZHtautau(sqrt_s);
     }
@@ -2678,7 +2933,13 @@ double muWHtautau::computeThValue()
         std::cout<<myNPbase->muWH(sqrt_s)<<std::endl;
         std::cout<<myNPbase->muWH(sqrt_s)<<std::endl;*/
         
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu;   
         
     } else {
         return myNPbase->muWHtautau(sqrt_s);
@@ -2716,7 +2977,15 @@ double muVHtautau::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         //return myNPbase->muVHtautau(sqrt_s);
         
@@ -2777,7 +3046,15 @@ double muttHptH_Htautau::computeThValue()                                       
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );     
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         
         //VM: Just in case someone wants to add directly the production*decay 
@@ -2814,7 +3091,15 @@ double muggHpbbH_Htautau::computeThValue()                                      
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         
         //VM: Just in case someone wants to add directly the production*decay 
@@ -2852,7 +3137,15 @@ double muggHbb::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);     
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muggHbb(sqrt_s);
     }
@@ -2896,7 +3189,15 @@ double muZHbb::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muZHbb(sqrt_s);
     }
@@ -2924,7 +3225,15 @@ double muWHbb::computeThValue()
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );  
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
     } else {
         return myNPbase->muWHbb(sqrt_s);
     }
@@ -2992,7 +3301,15 @@ double muttHptH_Hbb::computeThValue()                                           
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );   
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+           
     } else {
         
         
@@ -3042,7 +3359,15 @@ double muggHpVBFpbbH_Hbb::computeThValue()                                      
         double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
         double Br1 = dGammaR1-dGammaRTot1;
         double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
-        return ( 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1) );   
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+           
     } else {
         
         
