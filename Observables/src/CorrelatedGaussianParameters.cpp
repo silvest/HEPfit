@@ -53,9 +53,12 @@ void CorrelatedGaussianParameters::DiagonalizePars(TMatrixDSym Corr) {
     if (Corr.GetNrows() != size || Corr.GetNcols() != size)
         throw std::runtime_error("The size of the correlated parameters in " + name + " does not match the size of the correlation matrix!");
     Cov.ResizeTo(size,size);
-    for (unsigned int i = 0; i < size; i++)
-        for (unsigned int j = i; j < size; j++)
+    for (unsigned int i = 0; i < size; i++) {
+        for (unsigned int j = i; j < size; j++) {
             Cov(i, j) = Pars.at(i).geterrg() * Corr(i, j) * Pars.at(j).geterrg();
+            Cov(j, i) = Cov(i, j); // Make sure TMatrixDsym element (j,i) is stored symmetrically
+        }
+    }
 
     //    *Cov = Cov->inverse();
 
@@ -203,9 +206,12 @@ int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars,
             exit(EXIT_FAILURE);
         } else {
             TMatrixDSym mySCorr(nlines);
-            for (int i = 0; i < nlines; i++)
-                for (int j = 0; j <= i; j++)
+            for (int i = 0; i < nlines; i++) {
+                for (int j = 0; j <= i; j++) {
                     mySCorr(i, j) = myCorr(i, j);
+                    mySCorr(j, i) = mySCorr(i, j); // Make sure TMatrixDsym element (j,i) is stored symmetrically
+                }
+            }
             DiagonalizePars(mySCorr);
             ModPars.insert(ModPars.end(), getDiagPars().begin(), getDiagPars().end());
         }

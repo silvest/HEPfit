@@ -61,7 +61,7 @@ void CorrelatedGaussianObservables::ComputeCov(const TMatrixDSym& Corr) {
 
 double CorrelatedGaussianObservables::computeWeight() {
     TVectorD x(Obs.size());
-
+        
     for (unsigned int i = 0; i < Obs.size(); i++)
         x(i) = Obs.at(i).computeTheoryValue() - Obs.at(i).getAve();
 
@@ -169,9 +169,12 @@ int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Obser
                 else sleep(2);
             } else {
                 TMatrixDSym mySCorr(nlines);
-                for (int i = 0; i < nlines; i++)
-                    for (int j = 0; j <= i; j++)
+                for (int i = 0; i < nlines; i++) {
+                    for (int j = 0; j <= i; j++) {
                         mySCorr(i, j) = myCorr(i, j);
+                        mySCorr(j, i) = mySCorr(i, j); // Make sure TMatrixDsym element (j,i) is stored symmetrically
+                    }
+                }
                 ComputeCov(mySCorr);
             }
         } else {
