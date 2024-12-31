@@ -33,7 +33,7 @@ var searchData=
   ['whichtriple_30',['whichTriple',['../d7/d5b/class_b_o_l_1_1_file_placeholder_manager.html#a2cff2ab4b5f5d61bf47bcae5d811f193',1,'BOL::FilePlaceholderManager']]],
   ['whitespaceandnewlinechars_31',['whitespaceAndNewlineChars',['../d2/d43/class_b_o_l_1_1_string_parser.html#a201aa51e666e2411219ae4c9f6b84ced',1,'BOL::StringParser']]],
   ['whitespacechars_32',['whitespaceChars',['../d2/d43/class_b_o_l_1_1_string_parser.html#a66f0be09254b376098712d0a7eb3c2df',1,'BOL::StringParser']]],
-  ['width_33',['width',['../da/d48/class_m_plnu.html#ae46a0b07346be24db3533074a2775572',1,'MPlnu::width()'],['../de/dc7/class_m_vgamma.html#aea5b6cdd1b086e33d0c78aacf998600a',1,'MVgamma::width()'],['../d5/d81/class_m_vll.html#a74319752b72af9f23f75255709e5e6fc',1,'MVll::width()'],['../d6/d7b/class_m_vlnu.html#ac4d22a5774205c44626524d12c14cc0b',1,'MVlnu::width()'],['../de/d85/class_particle.html#aa0edb06e09e1b4332636ebd907653da5',1,'Particle::width()'],['../dc/dce/class_m_pll.html#a72baafc25b25208b41cf817b8647891d',1,'MPll::width()']]],
+  ['width_33',['width',['../dc/dce/class_m_pll.html#a72baafc25b25208b41cf817b8647891d',1,'MPll::width()'],['../de/d85/class_particle.html#aa0edb06e09e1b4332636ebd907653da5',1,'Particle::width()'],['../d6/d7b/class_m_vlnu.html#ac4d22a5774205c44626524d12c14cc0b',1,'MVlnu::width()'],['../de/dc7/class_m_vgamma.html#aea5b6cdd1b086e33d0c78aacf998600a',1,'MVgamma::width()'],['../da/d48/class_m_plnu.html#ae46a0b07346be24db3533074a2775572',1,'MPlnu::width()'],['../d5/d81/class_m_vll.html#a74319752b72af9f23f75255709e5e6fc',1,'MVll::width()']]],
   ['widths_34',['WIDTHS',['../d2/d10/_z_fitter-f2c_8h.html#acc8b51c057747207cedb32c5395c507f',1,'ZFitter-f2c.h']]],
   ['wilson_35',['wilson',['../dd/d6c/class_wilson_template_new.html#ac0de196f2ee2a3d13f75c0b74a79544e',1,'WilsonTemplateNew']]],
   ['wminus_36',['wMinus',['../dc/ded/class_l_h_p_c_1_1_seven_digit_slha_codes.html#adeb80e78bca7ddbc71617825d88c92c7',1,'LHPC::SevenDigitSlhaCodes::wMinus()'],['../d6/d92/class_l_h_p_c_1_1_nine_digit_slha_codes.html#a6714b1e7cae8a4e819607c0d1f7ffa80',1,'LHPC::NineDigitSlhaCodes::wMinus()']]],
@@ -58,6 +58,7 @@ var searchData=
   ['writeloglikelihoodchain_55',['WriteLogLikelihoodChain',['../d6/dc9/class_monte_carlo_engine.html#a3f33d34295ad2a8d6c38af06975fc5d5',1,'MonteCarloEngine']]],
   ['writeparameterschain_56',['WriteParametersChain',['../d6/dc9/class_monte_carlo_engine.html#aea3f4ad89128b4fb67a478cafcef0697',1,'MonteCarloEngine']]],
   ['writeprerundata_57',['WritePreRunData',['../d1/d58/class_monte_carlo.html#a798fba601f49e0a17e46d373fbe0819e',1,'MonteCarlo']]],
-  ['wz_5fh5pm_5fwz_5fth13_58',['WZ_H5pm_WZ_TH13',['../d7/db7/class_g_mcache.html#ac7e920b57cae9e059e46de39bd065c16',1,'GMcache']]],
-  ['wz_5fh5pm_5fwz_5fth8_59',['WZ_H5pm_WZ_TH8',['../d7/db7/class_g_mcache.html#a6f8e9db44fa0cd317ea5385a05264afe',1,'GMcache']]]
+  ['wtoalpha_58',['Wtoalpha',['../d1/d9e/class_n_p_s_m_e_f_td6_general.html#add3954eb02e233799323d6accaff8881',1,'NPSMEFTd6General']]],
+  ['wz_5fh5pm_5fwz_5fth13_59',['WZ_H5pm_WZ_TH13',['../d7/db7/class_g_mcache.html#ac7e920b57cae9e059e46de39bd065c16',1,'GMcache']]],
+  ['wz_5fh5pm_5fwz_5fth8_60',['WZ_H5pm_WZ_TH8',['../d7/db7/class_g_mcache.html#a6f8e9db44fa0cd317ea5385a05264afe',1,'GMcache']]]
 ];

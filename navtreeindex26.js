@@ -1,5 +1,9 @@
 var NAVTREEINDEX26 =
 {
+"d2/d0a/class_flavour_wilson_coefficient_matching.html#af9e08e2da006288e8dd12c2198510021":[27,0,647,36],
+"d2/d0d/class_hobs__bb___h1__tautau___a_t_l_a_s13.html":[4,8,77],
+"d2/d0d/class_hobs__bb___h1__tautau___a_t_l_a_s13.html#a3030b0ffdce05e9957b266efc1f6a98b":[4,8,77,0],
+"d2/d0d/class_hobs__bb___h1__tautau___a_t_l_a_s13.html#ac65c6f0ad0a266262d09e8dff487867c":[4,8,77,2],
 "d2/d0d/class_hobs__bb___h1__tautau___a_t_l_a_s13.html#af2da70bd401a0e3b60a9119aa76d9c73":[4,8,77,1],
 "d2/d0d/class_n_p_s_m_e_f_td6.html":[4,13,372],
 "d2/d0d/class_n_p_s_m_e_f_td6.html#a0002486805293099944347c23185b66b":[4,13,372,470],
@@ -245,9 +249,5 @@ var NAVTREEINDEX26 =
 "d2/d0d/class_n_p_s_m_e_f_td6.html#a287abd89b66214b3f2528b22480746de":[4,13,372,482],
 "d2/d0d/class_n_p_s_m_e_f_td6.html#a28b13fe6659053329db2786a4996ee3c":[4,13,372,234],
 "d2/d0d/class_n_p_s_m_e_f_td6.html#a2942bfeddae3e878e80c777fdafe8155":[4,13,372,328],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a296d0a5047b0bdf859d161d8e28876cc":[4,13,372,697],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a29d2898419e7d36a7daef9ccdd4f2435":[4,13,372,55],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a2a949827853aa6830440046c582308f1":[4,13,372,172],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a2abca6bed52bb045c5c412536c539410":[4,13,372,371],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a2acaef5a14af7a210f4f17e913b18105":[4,13,372,754]
+"d2/d0d/class_n_p_s_m_e_f_td6.html#a296d0a5047b0bdf859d161d8e28876cc":[4,13,372,697]
 };
