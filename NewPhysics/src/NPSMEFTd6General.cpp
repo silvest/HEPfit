@@ -8456,7 +8456,18 @@ bool NPSMEFTd6General::PostUpdate() {
     delta_QgNC = -(sW_tree * cW_tree * delta_ZA + sW2_tree * delta_sW2);
 
     delta_UgCC = (delta_e - 0.5 * delta_sW2);
-
+    
+    // Combinations of parameters to control the change of SM EW input scheme
+    // Combination multiplying d OSM/d alpha
+    alphatoW = ( GF/sqrt(2.0)/Mz/Mz/M_PI ) * ( pow(Mw_inp,4) * ( getSMEFTCoeffEW("CHD") * v2 - 2.0 * delta_GF ) 
+            + 2.0 * pow(Mz*Mw_inp,2) * (delta_GF + 2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2 ) );
+    
+    // Combination multiplying d OSM/d MW    
+    Wtoalpha = ( sqrt(M_PI * aleMz / sW2_tree)/( 8.0 * GF * sqrt( sqrt(2.0) * GF ) * Mz*Mz * sW2_tree*sW2_tree * (sW2_tree - cW2_tree) ) )
+            * ( sqrt(2.0) * M_PI * sW2_tree * aleMz * getSMEFTCoeffEW("CHD") * v2
+            + ( 4.0 * GF * Mz*Mz * sW2_tree - 2.0 * sqrt(2.0) * aleMz * M_PI * (1.0 + sW2_tree) ) * delta_GF 
+            + ( 8.0 * GF * Mz*Mz * sW2_tree - 4.0 * sqrt(2.0) * aleMz * M_PI ) * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2 );
+            
     ////////////////////////////////////////////////////////////////////////////
     //AG:begin
     delta_ale = -2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2;
@@ -14169,13 +14180,30 @@ double NPSMEFTd6General::test_evolutor() const
  */
 
 
+////////////////////////////////////////////////////////////////////////
 
+    // Functions to facilitate the change of scheme (at tree level)
 
+const double NPSMEFTd6General::DeltaOalphtoW(const double dOSMdalpha) const {
+    
+    double deltaOLO;
+    
+    deltaOLO = dOSMdalpha * alphatoW;
+            
+    return deltaOLO;
+}
+    
+const double NPSMEFTd6General::DeltaOWtoalph(const double dOSMdMW) const {
+    
+    double deltaOLO;
+    
+    deltaOLO = dOSMdMW * Wtoalpha;
+            
+    return deltaOLO;
+}
 
-
-
-
-
+////////////////////////////////////////////////////////////////////////
+    
 const double NPSMEFTd6General::DeltaGF() const {
     return ((getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) - 0.5 * (getSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getSMEFTCoeffEW("CllR", 1, 0, 0, 1))) * v2);
 }

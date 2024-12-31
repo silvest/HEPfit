@@ -1171,6 +1171,39 @@ public:
     double getCG_LNP() const {
         return CG_LNP;
     }
+    
+    //////////////////////////////////////////////////////////////////////// 
+    // Functions to facilitate the change of scheme (at tree level)
+    
+    /**
+     * @brief Difference in prediction in @f$\alpha@f$ scheme and W mass scheme, 
+     * computed from observable in @f$\alpha@f$ scheme. 
+     * Difference at tree level.
+     * @details The difference @f$\Delta O@f$ is defined as
+     * @f[
+     * \Delta O = O_{\alpha} - O_{W} \,,
+     * @f]
+     * where @f$O@f$ is a given observable in the SMEFT.
+     * @param[in] dOSMdalpha the derivative with respect to @f$\alpha@f$ of 
+     * the SM tree-level prediction of @f$O@f$ (in the @f$\alpha@f$ scheme)
+     * @return The tree level difference between schemes @f$\Delta O@f$
+     */
+    virtual const double  DeltaOalphtoW(const double dOSMdalpha) const;
+    
+    /**
+     * @brief Difference in prediction in @f$\alpha@f$ scheme and W mass scheme, 
+     * computed from observable in W mass scheme. 
+     * Difference at tree level.
+     * @details The difference @f$\Delta O@f$ is defined as
+     * @f[
+     * \Delta O = O_{\alpha} - O_{W} \,,
+     * @f]
+     * where @f$O@f$ is a given observable in the SMEFT.
+     * @param[in] dOSMdMW the derivative with respect to @f$M_W@f$ of 
+     * the SM tree-level prediction of @f$O@f$ (in the @f$M_W@f$ scheme)
+     * @return The tree level difference between schemes @f$\Delta O@f$
+     */
+    virtual const double  DeltaOWtoalph(const double dOSMdMW) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -7572,6 +7605,8 @@ protected:
     double cNLOd6; ///< Parameter to control the inclusion of finite NLO corrections, when available.
     
     double cAsch, cWsch; ///< Parameters to control the SM EW input scheme: Alpha or MW.
+    
+    double alphatoW, Wtoalpha; ///< Parameters to control the change of SM EW input scheme 
     
 //    double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
     double Yuku,Yukc,Yukt;///< SM u-quark Yukawas
