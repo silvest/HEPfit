@@ -21490,13 +21490,104 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
 
     double mu = 1.0;
     
+    double dmuLO = 0.0;
+    double dmuNLO = 0.0;
+    
+    double xsSMLO, xsSMNLOW, xsSMNLO;   
+    double dSMWLH[3] = {0., 0., 0.};
+    double dSMWRH[3] = {0., 0., 0.}; // SM weak corrections (LH and RH)
+    double dSMQEDLH[3] = {0., 0., 0.};
+    double dSMQEDRH[3] = {0., 0., 0.}; // SM QED corrections (LH and RH)
+    
+    double tofb = 3.894e+11;  // Conversion of the cross section to fb
+    
     double Pe = Pol_em, Pp = Pol_ep;
     double s,s2, MH2, MW2, MZ2, MH4, MW4, MZ4, MW6, MZ6, MW8, MZ8;
+    
+    // For LO corrections
     double CHDden, CHWden, CHWBden; // Independent denominators
     double Cllnum, CHl111num, CHe11num, CHl322num, CHBnum, CHWnum, CHWBnum, CHDnum, CHboxnum; // Independent Numerators
     double derSMMW;
-
+    
+    // For NLO corrections
     double C1 = 0.0;
+    double Ch2f1 = 0.0, Ch2f2 = 0.0;
+    double Ch4f1 = 0.0, Ch4f2 = 0.0, Ch4f3 = 0.0, Ch4f4 = 0.0, Ch4f5 = 0.0, Ch4f6 = 0.0;
+
+    // Energy dependent corrections for each operator: LH and RH initial electrons
+    double d6LHCHbox[3] = {0., 0., 0.};
+    double d6LHCHl1R00[3] = {0., 0., 0.};
+    double d6LHCHeR00[3] = {0., 0., 0.};
+    double d6LHCHl3R00[3] = {0., 0., 0.};
+    double d6LHCHl3R11[3] = {0., 0., 0.};
+    double d6LHCHD[3] = {0., 0., 0.};
+    double d6LHCHB[3] = {0., 0., 0.};
+    double d6LHCHW[3] = {0., 0., 0.};
+    double d6LHCHWB[3] = {0., 0., 0.};
+    double d6LHCHq1R22[3] = {0., 0., 0.};
+    double d6LHCHq3R22[3] = {0., 0., 0.};
+    double d6LHCHuR22[3] = {0., 0., 0.};
+    double d6LHCuWR22[3] = {0., 0., 0.};
+    double d6LHCuBR22[3] = {0., 0., 0.};
+    double d6LHCuHR22[3] = {0., 0., 0.};
+    double d6LHCHl1R11[3] = {0., 0., 0.};
+    double d6LHCh2f1[3] = {0., 0., 0.};
+    double d6LHCh2f2[3] = {0., 0., 0.};
+    double d6LHCH[3] = {0., 0., 0.};
+    double d6LHCW[3] = {0., 0., 0.};
+    double d6LHCeuR0022[3] = {0., 0., 0.};
+    double d6LHCluR0022[3] = {0., 0., 0.};
+    double d6LHCqeR2200[3] = {0., 0., 0.};
+    double d6LHClq1R0022[3] = {0., 0., 0.};
+    double d6LHClq3R0022[3] = {0., 0., 0.};
+    double d6LHClq3R1122[3] = {0., 0., 0.};
+    double d6LHCleR0000[3] = {0., 0., 0.};
+    double d6LHCllR0000[3] = {0., 0., 0.};
+    double d6LHCeeR0000[3] = {0., 0., 0.};
+    double d6LHCh4f1[3] = {0., 0., 0.};
+    double d6LHCh4f2[3] = {0., 0., 0.};
+    double d6LHCh4f3[3] = {0., 0., 0.};
+    double d6LHCh4f4[3] = {0., 0., 0.};
+    double d6LHCh4f5[3] = {0., 0., 0.};
+    double d6LHCh4f6[3] = {0., 0., 0.};
+    
+    double d6RHCHbox[3] = {0., 0., 0.};
+    double d6RHCHl1R00[3] = {0., 0., 0.};
+    double d6RHCHeR00[3] = {0., 0., 0.};
+    double d6RHCHl3R00[3] = {0., 0., 0.};
+    double d6RHCHl3R11[3] = {0., 0., 0.};
+    double d6RHCHD[3] = {0., 0., 0.};
+    double d6RHCHB[3] = {0., 0., 0.};
+    double d6RHCHW[3] = {0., 0., 0.};
+    double d6RHCHWB[3] = {0., 0., 0.};
+    double d6RHCHq1R22[3] = {0., 0., 0.};
+    double d6RHCHq3R22[3] = {0., 0., 0.};
+    double d6RHCHuR22[3] = {0., 0., 0.};
+    double d6RHCuWR22[3] = {0., 0., 0.};
+    double d6RHCuBR22[3] = {0., 0., 0.};
+    double d6RHCuHR22[3] = {0., 0., 0.};
+    double d6RHCHl1R11[3] = {0., 0., 0.};
+    double d6RHCh2f1[3] = {0., 0., 0.};
+    double d6RHCh2f2[3] = {0., 0., 0.};
+    double d6RHCH[3] = {0., 0., 0.};
+    double d6RHCW[3] = {0., 0., 0.};
+    double d6RHCeuR0022[3] = {0., 0., 0.};
+    double d6RHCluR0022[3] = {0., 0., 0.};
+    double d6RHCqeR2200[3] = {0., 0., 0.};
+    double d6RHClq1R0022[3] = {0., 0., 0.};
+    double d6RHClq3R0022[3] = {0., 0., 0.};
+    double d6RHClq3R1122[3] = {0., 0., 0.};
+    double d6RHCleR0000[3] = {0., 0., 0.};
+    double d6RHCllR0000[3] = {0., 0., 0.};
+    double d6RHCeeR0000[3] = {0., 0., 0.};
+    double d6RHCh4f1[3] = {0., 0., 0.};
+    double d6RHCh4f2[3] = {0., 0., 0.};
+    double d6RHCh4f3[3] = {0., 0., 0.};
+    double d6RHCh4f4[3] = {0., 0., 0.};
+    double d6RHCh4f5[3] = {0., 0., 0.};
+    double d6RHCh4f6[3] = {0., 0., 0.};
+    
+    double d6NLOLH = 0., d6NLORH = 0.; // SMEFT absolute NLO corrections (LH and RH)
     
     // Base implementation in W mass scheme
     s = sqrt_s * sqrt_s;
@@ -21512,14 +21603,20 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
     MW8 = MW4 * MW4;
     MZ8 = MZ4 * MZ4;
     
-     // Independent Numerators
+    // SM cross section at LO
+    xsSMLO = - GF*GF * (8.0 * MW4 * (-1.0 + Pe * Pp) - 4.0 * MW2 * MZ2 * (-3.0 + Pp + Pe * (-1.0 + 3.0 * Pp)) 
+            + MZ4 * (-5.0 + 3.0 * Pp + Pe * (-3.0 + 5.0 * Pp))) * sqrt( MH4 + (MZ2 - s) * (MZ2 - s) - 2.0 * MH2 * (MZ2 + s) ) * (MH4 + MZ4 + 10.0 * MZ2 * s + s2 - 2.0 * MH2 * (MZ2 + s));
+    
+    xsSMLO = xsSMLO/( 48.0 * M_PI * (MZ2 - s) * (MZ2 - s) * s2 );
+    
+    // Independent numerators of the LO dimension-6 contrib.
     CHDden = GF * (8.0 * MW8 * MZ4 * (-1.0 + Pe * Pp) - 4.0 * MW6 * MZ6 * (-3.0 + Pp + Pe * (-1.0 + 3.0 * Pp)) + MW4 * MZ8 * (-5.0 + 3.0 * Pp + Pe * (-3.0 + 5.0 * Pp)));
         
     CHWden = CHDden * (MH4 * MZ2 + MZ6 + 10.0 * MZ4 * s + MZ2 * s2 + MH2 * (-2.0 * MZ4 - 2.0 * MZ2 * s));
 
     CHWBden = CHWden * MZ2 * MW2 * (MZ4 - MZ2 * s) * (MZ4 - MZ2 * s);
     
-    // Independent denominators
+    // Independent denominators of the LO dimension-6 contrib.
     Cllnum = 2.0; 
     CHl111num = sqrt(2.0) * MW2 * MZ2 * (2.0 * MW4 * MZ2 - MW2 * MZ4) * (-1.0 + Pe) * (1.0 + Pp) * s; 
     CHe11num = 2.0 * sqrt(2.0) * MW2 * MZ2 * (MW4 * MZ2 - MW2 * MZ4) * (1.0 + Pe) * (-1.0 + Pp) * s; 
@@ -21548,8 +21645,8 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
     
     derSMMW = derSMMW / (8.0 * MW4 * (-1.0 + Pe * Pp) - 4.0 * MW2 * MZ2 * (-3.0 + Pp + Pe * (-1.0 + 3.0 * Pp)) + MZ4 * (-5.0 + 3.0 * Pp + Pe * (-3.0 + 5.0 * Pp)));
     
-    // Signal strength in W scheme
-    mu += 
+    // LO corrections to signal strength in W scheme
+    dmuLO += 
                 + ( CHboxnum/GF ) * getSMEFTCoeffEW("CHbox")
                 + ( CHl111num/CHDden ) * getSMEFTCoeffEW("CHl1R", 0, 0)
                 + ( CHe11num/CHDden ) * getSMEFTCoeffEW("CHeR", 0, 0)
@@ -21562,7 +21659,143 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + ( Cllnum/GF ) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0);
     
     // Correction to alpha scheme: only added if the scheme is chosen
-    mu += cAsch * DeltaOWtoalph(derSMMW);
+    dmuLO += cAsch * DeltaOWtoalph(derSMMW);
+    
+    if (FlagfiniteNLO) {
+        
+        // Choose the right index in the different lists according to the selected energy
+        int iECM;
+        
+        if ( (sqrt_s == 240.0) || (sqrt_s == 250.0) ) {
+            iECM = 0;
+        } else if ( (sqrt_s == 350.0) || (sqrt_s == 360.0)  || (sqrt_s == 365.0) ) {
+            iECM = 1;            
+        } else if ( sqrt_s == 500.0 ) {
+            iECM = 2;
+        } else 
+            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZH(): NLO corrections not available for this energy");            
+        
+        
+        // Include NLO corrections
+        
+        // SM Cross section including only EW corrections [fb]
+        xsSMNLOW = tofb * xsSMLO 
+                + 0.25 * (1.0 - Pe) * (1.0 + Pp) * dSMWLH[iECM] 
+                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * dSMWRH[iECM];
+        xsSMNLO = xsSMNLOW
+                + 0.25 * (1.0 - Pe) * (1.0 + Pp) * dSMQEDLH[iECM] 
+                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * dSMQEDRH[iECM];
+        
+        // Combination of dimension-6 coefficients
+        Ch2f1 = getSMEFTCoeffEW("CHeR",1, 1) + getSMEFTCoeffEW("CHeR",2, 2) 
+                + getSMEFTCoeffEW("CHdR",0, 0) + getSMEFTCoeffEW("CHdR",1, 1) + getSMEFTCoeffEW("CHdR",2, 2) 
+                - 2.0 * getSMEFTCoeffEW("CHuR",0, 0) - 2.0 * getSMEFTCoeffEW("CHuR",1, 1) 
+                - getSMEFTCoeffEW("CHq1R",0, 0) - getSMEFTCoeffEW("CHq1R",1, 1) + getSMEFTCoeffEW("CHl1R",2, 2);
+        
+        Ch2f2 = getSMEFTCoeffEW("CHl3R",2, 2) 
+                + 3.0 * getSMEFTCoeffEW("CHq3R",0, 0) + 3.0 * getSMEFTCoeffEW("CHq3R",1, 1);
+        
+        Ch4f1 = getSMEFTCoeffEW("CldR",0, 0, 0, 0) + getSMEFTCoeffEW("CldR",0, 0, 1, 1) + getSMEFTCoeffEW("CldR",0, 0, 2, 2) 
+                - 2.0*(getSMEFTCoeffEW("CluR",0, 0, 0, 0) + getSMEFTCoeffEW("CluR",0, 0, 1, 1)) 
+                - getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) - getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) 
+                + getSMEFTCoeffEW("CllR",0, 0, 2, 2) + getSMEFTCoeffEW("CllR",2, 2, 0, 0) 
+                + getSMEFTCoeffEW("CleR",0, 0, 1, 1) + getSMEFTCoeffEW("CleR",0, 0, 2, 2) 
+                - (3.0 * MW2)/(MZ2 - MW2)*(getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) + getSMEFTCoeffEW("Clq3R",0, 0, 1, 1));
+        
+        Ch4f2 = getSMEFTCoeffEW("CllR",0, 1, 1, 0) + getSMEFTCoeffEW("CllR",1, 0, 0, 1);
+        Ch4f3 = getSMEFTCoeffEW("CllR",0, 0, 1, 1) + getSMEFTCoeffEW("CllR",1, 1, 0, 0);
+        Ch4f4 = getSMEFTCoeffEW("CllR",0, 2, 2, 0) + getSMEFTCoeffEW("CllR",2, 0, 0, 2);
+        Ch4f5 = getSMEFTCoeffEW("CeeR",0, 0, 1, 1) + getSMEFTCoeffEW("CeeR",0, 0, 2, 2) + getSMEFTCoeffEW("CeeR",1, 1, 0, 0) + getSMEFTCoeffEW("CeeR",2, 2, 0, 0) 
+                - getSMEFTCoeffEW("CqeR",0, 0, 0, 0) - getSMEFTCoeffEW("CqeR",1, 1, 0, 0) 
+                - 2.0 * (getSMEFTCoeffEW("CeuR",0, 0, 0, 0) + getSMEFTCoeffEW("CeuR",0, 0, 1, 1) ) 
+                + getSMEFTCoeffEW("CedR",0, 0, 0, 0) + getSMEFTCoeffEW("CedR",0, 0, 1, 1) + getSMEFTCoeffEW("CedR",0, 0, 2, 2) 
+                + getSMEFTCoeffEW("CleR",1, 1, 0, 0) + getSMEFTCoeffEW("CleR",2, 2, 0, 0);
+        Ch4f6 = getSMEFTCoeffEW("CeeR",0, 1, 1, 0) + getSMEFTCoeffEW("CeeR",1, 0, 0, 1) + getSMEFTCoeffEW("CeeR",0, 2, 2, 0) + getSMEFTCoeffEW("CeeR",2, 0, 0, 2);
+
+        // Corrections for LH initial electrons
+        d6NLOLH = d6LHCHbox[iECM] * getSMEFTCoeffEW("CHbox")
+                + d6LHCHl1R00[iECM] * getSMEFTCoeffEW("CHl1R", 0, 0)
+                + d6LHCHeR00[iECM] * getSMEFTCoeffEW("CHeR", 0, 0)
+                + d6LHCHl3R00[iECM] * getSMEFTCoeffEW("CHl3R", 0, 0)
+                + d6LHCHl3R11[iECM] * getSMEFTCoeffEW("CHl3R", 1, 1)
+                + d6LHCHD[iECM] * getSMEFTCoeffEW("CHD")
+                + d6LHCHB[iECM] * getSMEFTCoeffEW("CHB")
+                + d6LHCHW[iECM] * getSMEFTCoeffEW("CHW")
+                + d6LHCHWB[iECM] * getSMEFTCoeffEW("CHWB")
+                + d6LHCHq1R22[iECM] * getSMEFTCoeffEW("CHq1R", 2, 2)
+                + d6LHCHq3R22[iECM] * getSMEFTCoeffEW("CHq3R", 2, 2)
+                + d6LHCHuR22[iECM] * getSMEFTCoeffEW("CHuR", 2, 2)
+                + d6LHCuWR22[iECM] * getSMEFTCoeffEW("CuWR", 2, 2)
+                + d6LHCuBR22[iECM] * getSMEFTCoeffEW("CuBR", 2, 2)
+                + d6LHCuHR22[iECM] * getSMEFTCoeffEW("CuHR", 2, 2)
+                + d6LHCHl1R11[iECM] * getSMEFTCoeffEW("CHl1R", 1, 1)
+                + d6LHCh2f1[iECM] * Ch2f1
+                + d6LHCh2f2[iECM] * Ch2f2
+                + d6LHCH[iECM] * getSMEFTCoeffEW("CH")
+                + d6LHCW[iECM] * getSMEFTCoeffEW("CW")
+                + d6LHCeuR0022[iECM] * getSMEFTCoeffEW("CeuR",0, 0, 2, 2)
+                + d6LHCluR0022[iECM] * getSMEFTCoeffEW("CluR",0, 0, 2, 2)
+                + d6LHCqeR2200[iECM] * getSMEFTCoeffEW("CqeR",2, 2, 0, 0)
+                + d6LHClq1R0022[iECM] * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2)
+                + d6LHClq3R0022[iECM] * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)
+                + d6LHClq3R1122[iECM] * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2)
+                + d6LHCleR0000[iECM] * getSMEFTCoeffEW("CleR",0, 0, 0, 0)
+                + d6LHCllR0000[iECM] * getSMEFTCoeffEW("CllR",0, 0, 0, 0)
+                + d6LHCeeR0000[iECM] * getSMEFTCoeffEW("CeeR",0, 0, 0, 0)
+                + d6LHCh4f1[iECM] * Ch4f1
+                + d6LHCh4f2[iECM] * Ch4f2
+                + d6LHCh4f3[iECM] * Ch4f3
+                + d6LHCh4f4[iECM] * Ch4f4
+                + d6LHCh4f5[iECM] * Ch4f5
+                + d6LHCh4f6[iECM] * Ch4f6;
+                  
+        // Corrections for RH initial electrons
+        d6NLORH = d6RHCHbox[iECM] * getSMEFTCoeffEW("CHbox")
+                + d6RHCHl1R00[iECM] * getSMEFTCoeffEW("CHl1R", 0, 0)
+                + d6RHCHeR00[iECM] * getSMEFTCoeffEW("CHeR", 0, 0)
+                + d6RHCHl3R00[iECM] * getSMEFTCoeffEW("CHl3R", 0, 0)
+                + d6RHCHl3R11[iECM] * getSMEFTCoeffEW("CHl3R", 1, 1)
+                + d6RHCHD[iECM] * getSMEFTCoeffEW("CHD")
+                + d6RHCHB[iECM] * getSMEFTCoeffEW("CHB")
+                + d6RHCHW[iECM] * getSMEFTCoeffEW("CHW")
+                + d6RHCHWB[iECM] * getSMEFTCoeffEW("CHWB")
+                + d6RHCHq1R22[iECM] * getSMEFTCoeffEW("CHq1R", 2, 2)
+                + d6RHCHq3R22[iECM] * getSMEFTCoeffEW("CHq3R", 2, 2)
+                + d6RHCHuR22[iECM] * getSMEFTCoeffEW("CHuR", 2, 2)
+                + d6RHCuWR22[iECM] * getSMEFTCoeffEW("CuWR", 2, 2)
+                + d6RHCuBR22[iECM] * getSMEFTCoeffEW("CuBR", 2, 2)
+                + d6RHCuHR22[iECM] * getSMEFTCoeffEW("CuHR", 2, 2)
+                + d6RHCHl1R11[iECM] * getSMEFTCoeffEW("CHl1R", 1, 1)
+                + d6RHCh2f1[iECM] * Ch2f1
+                + d6RHCh2f2[iECM] * Ch2f2
+                + d6RHCH[iECM] * getSMEFTCoeffEW("CH")
+                + d6RHCW[iECM] * getSMEFTCoeffEW("CW")
+                + d6RHCeuR0022[iECM] * getSMEFTCoeffEW("CeuR",0, 0, 2, 2)
+                + d6RHCluR0022[iECM] * getSMEFTCoeffEW("CluR",0, 0, 2, 2)
+                + d6RHCqeR2200[iECM] * getSMEFTCoeffEW("CqeR",2, 2, 0, 0)
+                + d6RHClq1R0022[iECM] * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2)
+                + d6RHClq3R0022[iECM] * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)
+                + d6RHClq3R1122[iECM] * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2)
+                + d6RHCleR0000[iECM] * getSMEFTCoeffEW("CleR",0, 0, 0, 0)
+                + d6RHCllR0000[iECM] * getSMEFTCoeffEW("CllR",0, 0, 0, 0)
+                + d6RHCeeR0000[iECM] * getSMEFTCoeffEW("CeeR",0, 0, 0, 0)
+                + d6RHCh4f1[iECM] * Ch4f1
+                + d6RHCh4f2[iECM] * Ch4f2
+                + d6RHCh4f3[iECM] * Ch4f3
+                + d6RHCh4f4[iECM] * Ch4f4
+                + d6RHCh4f5[iECM] * Ch4f5
+                + d6RHCh4f6[iECM] * Ch4f6;
+        
+        // Correction to polarized cross section
+        dmuNLO += 0.25 * (1.0 - Pe) * (1.0 + Pp) * d6NLOLH 
+                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * d6NLORH;
+        
+        // Rescale the LO contribution and normalizer the NLO to the SM cross section
+        dmuLO = dmuLO * (tofb * xsSMLO/xsSMNLO);
+        
+        dmuNLO = dmuNLO/xsSMNLO;
+        
+    }
     
     // Coefficient for Higgs self-coupling corrections
     if (sqrt_s == 0.240) {
@@ -21608,13 +21841,16 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZH()");
 
+    // Add the LO and NLO corrections
+    mu += dmuLO + dmuNLO;
+
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeeZHint + eeeZHpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    // mu += cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio(); // Linear corrections already included
     //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+    mu += cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
 
