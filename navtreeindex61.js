@@ -1,5 +1,6 @@
 var NAVTREEINDEX61 =
 {
+"d6/d44/classdeltag_zmumu_r.html":[27,0,451],
 "d6/d44/classdeltag_zmumu_r.html#a2677bb7e9f88f2d3462e3dc60e504ea1":[27,0,451,1],
 "d6/d44/classdeltag_zmumu_r.html#a319d4dc3f56f5fa4db541b2bf92f8ad0":[27,0,451,3],
 "d6/d44/classdeltag_zmumu_r.html#a447837ee0d989d423b401a5075155ffa":[27,0,451,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX61 =
 "d6/d75/class_c_c_bu13.html#a412cf8ebdad626a3647712813ae8daba":[4,16,14,1],
 "d6/d75/class_c_c_bu13.html#a89de7a6c493a72b36f0374b3bf9d85ce":[4,16,14,0],
 "d6/d75/class_flavour_wilson_coefficient.html":[4,6,2],
-"d6/d75/class_flavour_wilson_coefficient.html#a085af7710e89b9a51edffa6a94178992":[4,6,2,42],
-"d6/d75/class_flavour_wilson_coefficient.html#a0f2e77d69631dca0c103379a5b6595a4":[4,6,2,65]
+"d6/d75/class_flavour_wilson_coefficient.html#a085af7710e89b9a51edffa6a94178992":[4,6,2,42]
 };

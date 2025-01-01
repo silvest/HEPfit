@@ -1,5 +1,6 @@
 var NAVTREEINDEX119 =
 {
+"dd/da5/classmummtt_htautau.html#a526842af4cd93332fc7e5916503f3635":[4,13,220,2],
 "dd/da5/classmummtt_htautau.html#a61ea2e3faf008e2b3394e5f3c237a98f":[4,13,220,3],
 "dd/da5/classmummtt_htautau.html#a7e1926aaf9789b61df8fd3619afff9c1":[4,13,220,1],
 "dd/da7/class_input_parameters.html":[4,1,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX119 =
 "dd/df3/class_loop_mediators_matching.html#a3ba0bea855c38e4a66e1d4e6a4aa14af":[27,0,1692,7],
 "dd/df3/class_loop_mediators_matching.html#a5c2f240a7b4a17ecadb69a2640b701ee":[27,0,1692,39],
 "dd/df3/class_loop_mediators_matching.html#a5d22fbde91ba5abfad2ddd34c5555ab7":[27,0,1692,14],
-"dd/df3/class_loop_mediators_matching.html#a5e3bbf18aedd0412c9ad8e341d7f51be":[27,0,1692,36],
-"dd/df3/class_loop_mediators_matching.html#a6b3d7b17d55ca2cb910b08c663e68171":[27,0,1692,5]
+"dd/df3/class_loop_mediators_matching.html#a5e3bbf18aedd0412c9ad8e341d7f51be":[27,0,1692,36]
 };

@@ -1,5 +1,6 @@
 var NAVTREEINDEX83 =
 {
+"d9/d72/classunitarity_r8.html#a089d27fe847e31654f13de193560dfa7":[4,17,520,0],
 "d9/d72/classunitarity_r8.html#a1580ac758d32e8ad26888d3cc24cefac":[4,17,520,2],
 "d9/d72/classunitarity_r8.html#aba06dfe5a780fdeb11a9f5f089f7ff20":[4,17,520,1],
 "d9/d75/class_l_e_p2_a_f_bcharm.html":[4,3,51],
@@ -248,6 +249,5 @@ var NAVTREEINDEX83 =
 "d9/dad/class_rbottom.html":[4,3,78],
 "d9/dad/class_rbottom.html#a17adb73b1aa6068b34205d50c8d49d1f":[4,3,78,1],
 "d9/dad/class_rbottom.html#a2fe166164381766478fa6cb92970d955":[4,3,78,0],
-"d9/daf/classlog10___v_b_f___h___w_w___t_h8.html":[4,17,251],
-"d9/daf/classlog10___v_b_f___h___w_w___t_h8.html#a32d273cd554f38d1c73048819f326207":[4,17,251,0]
+"d9/daf/classlog10___v_b_f___h___w_w___t_h8.html":[4,17,251]
 };

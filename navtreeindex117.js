@@ -1,5 +1,6 @@
 var NAVTREEINDEX117 =
 {
+"dd/d75/class_b_parameter.html#a2deb679613eb98bff789dadbf95e8895":[4,0,0,40],
 "dd/d75/class_b_parameter.html#a2e556902d397cb602997c65b036e0cfc":[4,0,0,31],
 "dd/d75/class_b_parameter.html#a309d7588a40a9b1af82c149549c08c3a":[4,0,0,24],
 "dd/d75/class_b_parameter.html#a39dd1b0eb6e6cb591e8a9c57873d3019":[4,0,0,33],
@@ -248,6 +249,5 @@ var NAVTREEINDEX117 =
 "dd/d87/class_heff_d_b1.html#a6333188b408f428309069671e08c5f04":[27,0,827,79],
 "dd/d87/class_heff_d_b1.html#a63c4671b3471c1ec4205748c7ccebc41":[27,0,827,97],
 "dd/d87/class_heff_d_b1.html#a6629121fcfafff69ee9ee3f1a47c62f2":[27,0,827,39],
-"dd/d87/class_heff_d_b1.html#a67752c034a3b85d17309923f2d019a2f":[27,0,827,90],
-"dd/d87/class_heff_d_b1.html#a6d6d2e68b3c521941f9f45ce8b18f62b":[27,0,827,2]
+"dd/d87/class_heff_d_b1.html#a67752c034a3b85d17309923f2d019a2f":[27,0,827,90]
 };

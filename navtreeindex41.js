@@ -1,5 +1,6 @@
 var NAVTREEINDEX41 =
 {
+"d3/dc3/class_b_o_l_1_1_balanced_partitioner.html#a497e3d5e94d8c66416ae1606eec47a36":[27,0,0,3,7],
 "d3/dc3/class_b_o_l_1_1_balanced_partitioner.html#a56328efa9b914877b5d27ad3a52fdc19":[27,0,0,3,30],
 "d3/dc3/class_b_o_l_1_1_balanced_partitioner.html#a6bd508a6c71e36b5b0300a76520eb69e":[27,0,0,3,4],
 "d3/dc3/class_b_o_l_1_1_balanced_partitioner.html#a6cff36b9d9b8453cf42c429c8dbbd689":[27,0,0,3,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX41 =
 "d4/d0e/classg_hcceff.html#ab04cb849af8ff64506919865c95b486b":[27,0,724,2],
 "d4/d11/class_br_htotautau_ratio.html":[4,13,38],
 "d4/d11/class_br_htotautau_ratio.html#a69d5e6f16e88e80e098001b79f7d6b0f":[4,13,38,2],
-"d4/d11/class_br_htotautau_ratio.html#a7926984d1c1530ee6bf4f94ed8058e38":[4,13,38,0],
-"d4/d11/class_br_htotautau_ratio.html#a7c8d366c5f60cffd1ef02bb3ba85e6a1":[4,13,38,1]
+"d4/d11/class_br_htotautau_ratio.html#a7926984d1c1530ee6bf4f94ed8058e38":[4,13,38,0]
 };
