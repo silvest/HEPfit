@@ -21485,6 +21485,143 @@ const double NPSMEFTd6General::muZHpT250(const double sqrt_s) const {
     return mu;
 }
 
+
+const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
+
+    double mu = 1.0;
+    
+    double Pe = Pol_em, Pp = Pol_ep;
+    double s,s2, MH2, MW2, MZ2, MH4, MW4, MZ4, MW6, MZ6, MW8, MZ8;
+    double CHDden, CHWden, CHWBden; // Independent denominators
+    double Cllnum, CHl111num, CHe11num, CHl322num, CHBnum, CHWnum, CHWBnum, CHDnum, CHboxnum; // Independent Numerators
+    double derSMMW;
+
+    double C1 = 0.0;
+    
+    // Base implementation in W mass scheme
+    s = sqrt_s * sqrt_s;
+    s2 = s * s;
+    MH2 = mHl * mHl;
+    MW2 = Mw_tree * Mw_tree;
+    MZ2 = Mz * Mz;
+    MH4 = MH2 * MH2;
+    MW4 = MW2 * MW2;
+    MZ4 = MZ2 * MZ2;
+    MW6 = MW4 * MW2;
+    MZ6 = MZ4 * MZ2;
+    MW8 = MW4 * MW4;
+    MZ8 = MZ4 * MZ4;
+    
+     // Independent Numerators
+    CHDden = GF * (8.0 * MW8 * MZ4 * (-1.0 + Pe * Pp) - 4.0 * MW6 * MZ6 * (-3.0 + Pp + Pe * (-1.0 + 3.0 * Pp)) + MW4 * MZ8 * (-5.0 + 3.0 * Pp + Pe * (-3.0 + 5.0 * Pp)));
+        
+    CHWden = CHDden * (MH4 * MZ2 + MZ6 + 10.0 * MZ4 * s + MZ2 * s2 + MH2 * (-2.0 * MZ4 - 2.0 * MZ2 * s));
+
+    CHWBden = CHWden * MZ2 * MW2 * (MZ4 - MZ2 * s) * (MZ4 - MZ2 * s);
+    
+    // Independent denominators
+    Cllnum = 2.0; 
+    CHl111num = sqrt(2.0) * MW2 * MZ2 * (2.0 * MW4 * MZ2 - MW2 * MZ4) * (-1.0 + Pe) * (1.0 + Pp) * s; 
+    CHe11num = 2.0 * sqrt(2.0) * MW2 * MZ2 * (MW4 * MZ2 - MW2 * MZ4) * (1.0 + Pe) * (-1.0 + Pp) * s; 
+    CHl322num = -2.0;
+    
+    CHBnum = -12.0 * sqrt(2.0) * (MW4 * MZ2 - MW2 * MZ4) * (-MH2 * MZ2 + MZ4 + MZ2 * s) * (8.0 * MW8 * MZ2 * (-1.0 + Pe * Pp) 
+            + MW4 * MZ4 * (-5.0 - 3.0 * Pe + 3.0 * Pp + 5.0 * Pe * Pp) * s 
+            - 2.0 * MW6 * (-3.0 + Pp + Pe * (-1.0 + 3.0 * Pp)) * (MZ4 + MZ2 * s));
+    
+    CHWnum = 12.0 * sqrt(2.0) * MW2 * (-MH2 * MZ2 + MZ4 + MZ2 * s) * (8.0 * MW8 * MZ4 * (-1.0 + Pe * Pp) 
+            - 2.0 * MW6 * MZ2 * (MZ4 * (-7.0 + Pp + Pe * (-1.0 + 7.0 * Pp)) -  MZ2 * (-1.0 + Pe) * (1.0 + Pp) * s) 
+            + MW4 * (2.0 * MZ8 * (-3.0 + Pp + Pe * (-1.0 + 3.0 * Pp)) - MZ6 * (-1.0 + Pe) * (1.0 + Pp) * s)); 
+    
+    CHWBnum = 2.0 * sqrt(2.0) * sqrt( -((MW4 * MZ2)/( MW4 * MZ2 - MW2 * MZ4)) ) * (-MZ4 + MZ2 * s) * (-MZ4 + MZ2 * s)
+            * (-((2.0 * MW8 * MZ4 - 3.0 * MW6 * MZ6 + MW4 * MZ8) * (-1.0 + Pe) * (1.0 + Pp) * (MH4 * MW2 * MZ4 + 12.0 * MW4 * MZ2 * (MZ4 + MZ2 * s) 
+            + MW2 * (-5.0 * MZ8 + 4.0 * MZ6 * s + MZ4 * s2) + MH2 * MZ2 * (-12.0 * MW4 * MZ2 + MW2 * (4.0 * MZ4 - 2.0 * MZ2 * s)))) 
+            - 2.0 * (-MW4 * MZ2 + MW2 * MZ4) * (-MW4 * MZ2 + MW2 * MZ4) * (1.0 + Pe) * (-1.0 + Pp) * (MH4 * MW2 * MZ4 + 12.0 * MW4 * MZ2 * (MZ4 + MZ2 * s) 
+            - MW2 * (5.0 * MZ8 + 2.0 * MZ6 * s + 5.0 * MZ4 * s2) + MH2 * MZ2 * (-12.0 * MW4 * MZ2 + MW2 * (4.0 * MZ4 + 4.0 * MZ2 * s)))); 
+    
+    CHDnum = sqrt(2.0) * MW4 * MZ2 * (MW2 * MZ4 * (3.0 + Pe - Pp - 3.0 * Pe * Pp) + 4.0 * MW4 * MZ2 * (-1.0 + Pe * Pp)); 
+    
+    CHboxnum = sqrt(2.0);
+    
+    // Derivative of cross section wrt MW, normalized to SM
+    derSMMW = 8.0 * Mw_tree * (MZ2 * (3.0 + Pe - Pp - 3.0 * Pe * Pp) + 4.0 * MW2 * (-1.0 + Pe * Pp));
+    
+    derSMMW = derSMMW / (8.0 * MW4 * (-1.0 + Pe * Pp) - 4.0 * MW2 * MZ2 * (-3.0 + Pp + Pe * (-1.0 + 3.0 * Pp)) + MZ4 * (-5.0 + 3.0 * Pp + Pe * (-3.0 + 5.0 * Pp)));
+    
+    // Signal strength in W scheme
+    mu += 
+                + ( CHboxnum/GF ) * getSMEFTCoeffEW("CHbox")
+                + ( CHl111num/CHDden ) * getSMEFTCoeffEW("CHl1R", 0, 0)
+                + ( CHe11num/CHDden ) * getSMEFTCoeffEW("CHeR", 0, 0)
+                + ( CHl111num/CHDden + CHl322num/GF ) * getSMEFTCoeffEW("CHl3R", 0, 0)
+                + ( CHl322num/GF ) * getSMEFTCoeffEW("CHl3R", 1, 1)
+                + ( CHDnum/CHDden ) * getSMEFTCoeffEW("CHD")
+                + ( CHBnum/CHWden/MW2 ) * getSMEFTCoeffEW("CHB")
+                + ( CHWnum/CHWden ) * getSMEFTCoeffEW("CHW")
+                + ( CHWBnum/CHWBden ) * getSMEFTCoeffEW("CHWB")
+                + ( Cllnum/GF ) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0);
+    
+    // Correction to alpha scheme: only added if the scheme is chosen
+    mu += cAsch * DeltaOWtoalph(derSMMW);
+    
+    // Coefficient for Higgs self-coupling corrections
+    if (sqrt_s == 0.240) {
+
+        C1 = 0.017;
+        
+    } else if (sqrt_s == 0.250) {
+
+        C1 = 0.015;
+
+    } else if (sqrt_s == 0.350) {
+
+        C1 = 0.0057;
+
+    } else if (sqrt_s == 0.365) {
+
+        C1 = 0.0057; // Use same as 350 GeV
+
+    } else if (sqrt_s == 0.380) {
+
+        C1 = 0.0057; // Use same as 350 GeV
+
+    } else if (sqrt_s == 0.500) {
+
+        C1 = 0.00099;
+
+    } else if (sqrt_s == 1.0) {
+
+        C1 = -0.0012;
+
+    } else if (sqrt_s == 1.4) {
+
+        C1 = -0.0011;
+
+    } else if (sqrt_s == 1.5) {
+
+        C1 = -0.0011; // Use the same as 1400 GeV
+
+    } else if (sqrt_s == 3.0) {
+
+        C1 = -0.00054;
+
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZH()");
+
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeZHint + eeeZHpar;
+
+    //  Linear contribution from Higgs self-coupling
+    mu = mu + cLHd6 * (C1 + 2.0 * dZH1) * deltaG_hhhRatio();
+    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
+    mu = mu + cLHd6 * cLH3d62 * dZH2 * deltaG_hhhRatio() * deltaG_hhhRatio();
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    return mu;
+}
+
+
 const double NPSMEFTd6General::mueeZH(const double sqrt_s) const {
 
     // Only Alpha scheme
