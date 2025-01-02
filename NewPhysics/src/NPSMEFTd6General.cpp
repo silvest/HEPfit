@@ -21494,10 +21494,20 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
     double dmuNLO = 0.0;
     
     double xsSMLO, xsSMNLOW, xsSMNLO;   
-    double dSMWLH[3] = {0., 0., 0.};
-    double dSMWRH[3] = {0., 0., 0.}; // SM weak corrections (LH and RH)
-    double dSMQEDLH[3] = {0., 0., 0.};
-    double dSMQEDRH[3] = {0., 0., 0.}; // SM QED corrections (LH and RH)
+    
+//     SM NLO absolute cross sections: Weak and Weak+QED [fb]
+  
+    double xsSMweakLH[3] = {507.6, 247.9, 118.8}; 
+    double xsSMweakRH[3] = {420.7, 205., 100.8}; 
+    double xsSMNLOLH[3] = {416.1, 267., 138.7}; 
+    double xsSMNLORH[3] = {361.4, 217.3, 113.7}; 
+    
+//     SM NLO absolute corrections: Weak and QED [fb]
+  
+    double dSMWLH[3] = {-73., -35.9, -19.7}; 
+    double dSMWRH[3] = {44.6, 21.1, 11.1}; // SM weak corrections (LH and RH)
+    double dSMQEDLH[3] = {-91.5, 19.1, 19.9}; 
+    double dSMQEDRH[3] = {-59.3, 12.3, 12.9}; // SM QED corrections (LH and RH)
     
     double tofb = 3.894e+11;  // Conversion of the cross section to fb
     
@@ -21515,77 +21525,86 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
     double Ch4f1 = 0.0, Ch4f2 = 0.0, Ch4f3 = 0.0, Ch4f4 = 0.0, Ch4f5 = 0.0, Ch4f6 = 0.0;
 
     // Energy dependent corrections for each operator: LH and RH initial electrons
-    double d6LHCHbox[3] = {0., 0., 0.};
-    double d6LHCHl1R00[3] = {0., 0., 0.};
-    double d6LHCHeR00[3] = {0., 0., 0.};
-    double d6LHCHl3R00[3] = {0., 0., 0.};
-    double d6LHCHl3R11[3] = {0., 0., 0.};
-    double d6LHCHD[3] = {0., 0., 0.};
-    double d6LHCHB[3] = {0., 0., 0.};
-    double d6LHCHW[3] = {0., 0., 0.};
-    double d6LHCHWB[3] = {0., 0., 0.};
-    double d6LHCHq1R22[3] = {0., 0., 0.};
-    double d6LHCHq3R22[3] = {0., 0., 0.};
-    double d6LHCHuR22[3] = {0., 0., 0.};
-    double d6LHCuWR22[3] = {0., 0., 0.};
-    double d6LHCuBR22[3] = {0., 0., 0.};
-    double d6LHCuHR22[3] = {0., 0., 0.};
-    double d6LHCHl1R11[3] = {0., 0., 0.};
-    double d6LHCh2f1[3] = {0., 0., 0.};
-    double d6LHCh2f2[3] = {0., 0., 0.};
-    double d6LHCH[3] = {0., 0., 0.};
-    double d6LHCW[3] = {0., 0., 0.};
-    double d6LHCeuR0022[3] = {0., 0., 0.};
-    double d6LHCluR0022[3] = {0., 0., 0.};
-    double d6LHCqeR2200[3] = {0., 0., 0.};
-    double d6LHClq1R0022[3] = {0., 0., 0.};
-    double d6LHClq3R0022[3] = {0., 0., 0.};
-    double d6LHClq3R1122[3] = {0., 0., 0.};
-    double d6LHCleR0000[3] = {0., 0., 0.};
-    double d6LHCllR0000[3] = {0., 0., 0.};
-    double d6LHCeeR0000[3] = {0., 0., 0.};
-    double d6LHCh4f1[3] = {0., 0., 0.};
-    double d6LHCh4f2[3] = {0., 0., 0.};
-    double d6LHCh4f3[3] = {0., 0., 0.};
-    double d6LHCh4f4[3] = {0., 0., 0.};
-    double d6LHCh4f5[3] = {0., 0., 0.};
-    double d6LHCh4f6[3] = {0., 0., 0.};
-    
-    double d6RHCHbox[3] = {0., 0., 0.};
-    double d6RHCHl1R00[3] = {0., 0., 0.};
-    double d6RHCHeR00[3] = {0., 0., 0.};
-    double d6RHCHl3R00[3] = {0., 0., 0.};
-    double d6RHCHl3R11[3] = {0., 0., 0.};
-    double d6RHCHD[3] = {0., 0., 0.};
-    double d6RHCHB[3] = {0., 0., 0.};
-    double d6RHCHW[3] = {0., 0., 0.};
-    double d6RHCHWB[3] = {0., 0., 0.};
-    double d6RHCHq1R22[3] = {0., 0., 0.};
-    double d6RHCHq3R22[3] = {0., 0., 0.};
-    double d6RHCHuR22[3] = {0., 0., 0.};
-    double d6RHCuWR22[3] = {0., 0., 0.};
-    double d6RHCuBR22[3] = {0., 0., 0.};
-    double d6RHCuHR22[3] = {0., 0., 0.};
-    double d6RHCHl1R11[3] = {0., 0., 0.};
-    double d6RHCh2f1[3] = {0., 0., 0.};
-    double d6RHCh2f2[3] = {0., 0., 0.};
-    double d6RHCH[3] = {0., 0., 0.};
-    double d6RHCW[3] = {0., 0., 0.};
-    double d6RHCeuR0022[3] = {0., 0., 0.};
-    double d6RHCluR0022[3] = {0., 0., 0.};
-    double d6RHCqeR2200[3] = {0., 0., 0.};
-    double d6RHClq1R0022[3] = {0., 0., 0.};
-    double d6RHClq3R0022[3] = {0., 0., 0.};
-    double d6RHClq3R1122[3] = {0., 0., 0.};
-    double d6RHCleR0000[3] = {0., 0., 0.};
-    double d6RHCllR0000[3] = {0., 0., 0.};
-    double d6RHCeeR0000[3] = {0., 0., 0.};
-    double d6RHCh4f1[3] = {0., 0., 0.};
-    double d6RHCh4f2[3] = {0., 0., 0.};
-    double d6RHCh4f3[3] = {0., 0., 0.};
-    double d6RHCh4f4[3] = {0., 0., 0.};
-    double d6RHCh4f5[3] = {0., 0., 0.};
-    double d6RHCh4f6[3] = {0., 0., 0.};
+    // (To normalize with SM NLO weak cross section)
+  
+    double d6LHCHD[3] = {-0.044, -0.009, -0.002}; 
+    double d6RHCHD[3] = {0.022, -0.013, -0.025}; 
+    double d6LHCHbox[3] = {-0.042, -0.02, -0.017}; 
+    double d6RHCHbox[3] = {-0.004, 0.013, 0.019}; 
+    double d6LHCHW[3] = {-0.259, -0.14, -0.1}; 
+    double d6RHCHW[3] = {-0.0023, 0.0117, 0.0123}; 
+    double d6LHCHB[3] = {0.049, 0.021, 0.008}; 
+    double d6RHCHB[3] = {-0.034, 0.085, 0.16}; 
+    double d6LHCHWB[3] = {-0.058, -0.006, 0.008}; 
+    double d6RHCHWB[3] = {-0.035, 0.02, 0.058}; 
+    double d6LHCHeR00[3] = {-0.00016, -0.00119, -0.00295}; 
+    double d6RHCHeR00[3] = {0.18, -0.08, -0.21}; 
+    double d6LHCHl1R00[3] = {-0.4, -0.41, -0.83}; 
+    double d6RHCHl1R00[3] = {0.00082, 0.00293, 0.00628}; 
+    double d6LHCHl3R00[3] = {-0.17, -0.23, -0.68}; 
+    double d6RHCHl3R00[3] = {0.1824, 0.1649, 0.1574}; 
+    double d6LHCHl3R11[3] = {0.281, 0.253, 0.249}; 
+    double d6RHCHl3R11[3] = {0.1807, 0.1632, 0.1557}; 
+    double d6LHCh4f2[3] = {-0.1415, -0.1291, -0.1302}; 
+    double d6RHCh4f2[3] = {-0.0905, -0.0808, -0.0767}; 
+    double d6LHCHq1R22[3] = {-0.0138, -0.0213, -0.0287}; 
+    double d6RHCHq1R22[3] = {0.0136, 0.0161, 0.0216}; 
+    double d6LHCHq3R22[3] = {-0.00938, -0.0189, -0.0328}; 
+    double d6RHCHq3R22[3] = {0.0124, 0.0238, 0.0267}; 
+    double d6LHCHuR22[3] = {0.00905, 0.0341, 0.0483}; 
+    double d6RHCHuR22[3] = {-0.0121, -0.0295, -0.0438}; 
+    double d6LHCuWR22[3] = {-0.00854, 0.00942, 0.0233}; 
+    double d6RHCuWR22[3] = {0.00671, -0.00399, -0.00562}; 
+    double d6LHCuBR22[3] = {-0.00217, -0.0159, -0.0153}; 
+    double d6RHCuBR22[3] = {0.00296, 0.0127, 0.0057}; 
+    double d6LHCuHR22[3] = {0.00012, -0.0019, -0.00168}; 
+    double d6RHCuHR22[3] = {0.00055, -0.0001, -0.00099}; 
+    double d6LHCh2f1[3] = {-0.00009, -0.00092, -0.00237}; 
+    double d6RHCh2f1[3] = {0.00069, 0.00242, 0.0052}; 
+    double d6LHCh2f2[3] = {-0.00218, -0.00553, -0.0109}; 
+    double d6RHCh2f2[3] = {0.00002, 0.00007, 0.00012}; 
+    double d6LHCHl1R11[3] = {-0.00023, -0.00107, -0.00252}; 
+    double d6RHCHl1R11[3] = {0.00058, 0.00231, 0.00509}; 
+    double d6LHCH[3] = {-0.00801, -0.00111, 0.00111}; 
+    double d6RHCH[3] = {-0.00626, -0.00087, 0.00085}; 
+    double d6LHCW[3] = {0.0287, 0.0452, 0.0559}; 
+    double d6RHCW[3] = {-0.00009, -0.00103, -0.00124}; 
+    double d6LHCeuR0022[3] = {0., 0., 0.}; 
+    double d6RHCeuR0022[3] = {0.00003, -0.0823, -0.277}; 
+    double d6LHCluR0022[3] = {-0.00003, 0.0845, 0.292}; 
+    double d6RHCluR0022[3] = {0., 0., 0.}; 
+    double d6LHCqeR2200[3] = {0., 0., 0.}; 
+    double d6RHCqeR2200[3] = {0.00651, 0.108, 0.292}; 
+    double d6LHClq1R0022[3] = {-0.00671, -0.111, -0.308}; 
+    double d6RHClq1R0022[3] = {0., 0., 0.}; 
+    double d6LHClq3R0022[3] = {-0.00484, 0.0861, 0.263}; 
+    double d6RHClq3R0022[3] = {-0.00235, -0.00406, -0.0053}; 
+    double d6LHClq3R1122[3] = {-0.003, -0.00518, -0.00694}; 
+    double d6RHClq3R1122[3] = {-0.00235, -0.00406, -0.0053}; 
+    double d6LHCh4f1[3] = {0.00075, 0.00173, 0.0033}; 
+    double d6RHCh4f1[3] = {0., 0., 0.}; 
+    double d6LHCh4f3[3] = {-0.00151, -0.001, 0.00016}; 
+    double d6RHCh4f3[3] = {-0.00176, -0.00214, -0.0024}; 
+    double d6LHCh4f4[3] = {-0.00037, -0.00086, -0.00164}; 
+    double d6RHCh4f4[3] = {0., 0., 0.}; 
+    double d6LHCh4f5[3] = {0., 0., 0.}; 
+    double d6RHCh4f5[3] = {-0.00072, -0.00168, -0.00313}; 
+    double d6LHCh4f6[3] = {0., 0., 0.}; 
+    double d6RHCh4f6[3] = {-0.00029, -0.00067, -0.00125}; 
+    double d6LHCleR0000[3] = {0.00075, 0.00173, 0.0033}; 
+    double d6RHCleR0000[3] = {-0.00072, -0.00168, -0.00313}; 
+    double d6LHCllR0000[3] = {0.00075, 0.00174, 0.00332}; 
+    double d6RHCllR0000[3] = {0., 0., 0.}; 
+    double d6LHCeeR0000[3] = {0., 0., 0.}; 
+    double d6RHCeeR0000[3] = {-0.00203, -0.00471, -0.00877}; 
+    double d6LHCHBt[3] = {0.00278, 0.00803, 0.0103}; 
+    double d6RHCHBt[3] = {0.00551, 0.014, 0.0259}; 
+    double d6LHCHWt[3] = {0.0226, 0.0788, 0.112}; 
+    double d6RHCHWt[3] = {0.0009, 0.00081, 0.00038}; 
+    double d6LHCHWBt[3] = {0.00473, 0.0125, 0.0192}; 
+    double d6RHCHWBt[3] = {0.00478, 0.018, 0.0349}; 
+    double d6LHCWt[3] = {0.00608, 0.0215, 0.0334}; 
+    double d6RHCWt[3] = {0.00013, 0.00058, 0.00124}; 
     
     double d6NLOLH = 0., d6NLORH = 0.; // SMEFT absolute NLO corrections (LH and RH)
     
@@ -21713,87 +21732,95 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
         Ch4f6 = getSMEFTCoeffEW("CeeR",0, 1, 1, 0) + getSMEFTCoeffEW("CeeR",1, 0, 0, 1) + getSMEFTCoeffEW("CeeR",0, 2, 2, 0) + getSMEFTCoeffEW("CeeR",2, 0, 0, 2);
 
         // Corrections for LH initial electrons
-        d6NLOLH = d6LHCHbox[iECM] * getSMEFTCoeffEW("CHbox")
-                + d6LHCHl1R00[iECM] * getSMEFTCoeffEW("CHl1R", 0, 0)
+        d6NLOLH = d6LHCHD[iECM] * getSMEFTCoeffEW("CHD")
+                + d6LHCHbox[iECM] * getSMEFTCoeffEW("CHbox")
+                + d6LHCHW[iECM] * getSMEFTCoeffEW("CHW")
+                + d6LHCHB[iECM] * getSMEFTCoeffEW("CHB")
+                + d6LHCHWB[iECM] * getSMEFTCoeffEW("CHWB")
                 + d6LHCHeR00[iECM] * getSMEFTCoeffEW("CHeR", 0, 0)
+                + d6LHCHl1R00[iECM] * getSMEFTCoeffEW("CHl1R", 0, 0)
                 + d6LHCHl3R00[iECM] * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + d6LHCHl3R11[iECM] * getSMEFTCoeffEW("CHl3R", 1, 1)
-                + d6LHCHD[iECM] * getSMEFTCoeffEW("CHD")
-                + d6LHCHB[iECM] * getSMEFTCoeffEW("CHB")
-                + d6LHCHW[iECM] * getSMEFTCoeffEW("CHW")
-                + d6LHCHWB[iECM] * getSMEFTCoeffEW("CHWB")
+                + d6LHCh4f2[iECM] * Ch4f2                                
                 + d6LHCHq1R22[iECM] * getSMEFTCoeffEW("CHq1R", 2, 2)
                 + d6LHCHq3R22[iECM] * getSMEFTCoeffEW("CHq3R", 2, 2)
                 + d6LHCHuR22[iECM] * getSMEFTCoeffEW("CHuR", 2, 2)
                 + d6LHCuWR22[iECM] * getSMEFTCoeffEW("CuWR", 2, 2)
                 + d6LHCuBR22[iECM] * getSMEFTCoeffEW("CuBR", 2, 2)
                 + d6LHCuHR22[iECM] * getSMEFTCoeffEW("CuHR", 2, 2)
-                + d6LHCHl1R11[iECM] * getSMEFTCoeffEW("CHl1R", 1, 1)
                 + d6LHCh2f1[iECM] * Ch2f1
-                + d6LHCh2f2[iECM] * Ch2f2
+                + d6LHCh2f2[iECM] * Ch2f2                
+                + d6LHCHl1R11[iECM] * getSMEFTCoeffEW("CHl1R", 1, 1)
                 + d6LHCH[iECM] * getSMEFTCoeffEW("CH")
-                + d6LHCW[iECM] * getSMEFTCoeffEW("CW")
+                + d6LHCW[iECM] * getSMEFTCoeffEW("CW")                
                 + d6LHCeuR0022[iECM] * getSMEFTCoeffEW("CeuR",0, 0, 2, 2)
                 + d6LHCluR0022[iECM] * getSMEFTCoeffEW("CluR",0, 0, 2, 2)
                 + d6LHCqeR2200[iECM] * getSMEFTCoeffEW("CqeR",2, 2, 0, 0)
                 + d6LHClq1R0022[iECM] * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2)
                 + d6LHClq3R0022[iECM] * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)
                 + d6LHClq3R1122[iECM] * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2)
-                + d6LHCleR0000[iECM] * getSMEFTCoeffEW("CleR",0, 0, 0, 0)
-                + d6LHCllR0000[iECM] * getSMEFTCoeffEW("CllR",0, 0, 0, 0)
-                + d6LHCeeR0000[iECM] * getSMEFTCoeffEW("CeeR",0, 0, 0, 0)
                 + d6LHCh4f1[iECM] * Ch4f1
-                + d6LHCh4f2[iECM] * Ch4f2
                 + d6LHCh4f3[iECM] * Ch4f3
                 + d6LHCh4f4[iECM] * Ch4f4
                 + d6LHCh4f5[iECM] * Ch4f5
-                + d6LHCh4f6[iECM] * Ch4f6;
+                + d6LHCh4f6[iECM] * Ch4f6            
+                + d6LHCleR0000[iECM] * getSMEFTCoeffEW("CleR",0, 0, 0, 0)
+                + d6LHCllR0000[iECM] * getSMEFTCoeffEW("CllR",0, 0, 0, 0)
+                + d6LHCeeR0000[iECM] * getSMEFTCoeffEW("CeeR",0, 0, 0, 0)                
+                + d6LHCHBt[iECM] * getSMEFTCoeffEW("CHBtilde")
+                + d6LHCHWt[iECM] * getSMEFTCoeffEW("CHWtilde")
+                + d6LHCHWBt[iECM] * getSMEFTCoeffEW("CHWtildeB")
+                + d6LHCWt[iECM] * getSMEFTCoeffEW("CWtilde");
                   
         // Corrections for RH initial electrons
-        d6NLORH = d6RHCHbox[iECM] * getSMEFTCoeffEW("CHbox")
-                + d6RHCHl1R00[iECM] * getSMEFTCoeffEW("CHl1R", 0, 0)
+        d6NLORH = d6RHCHD[iECM] * getSMEFTCoeffEW("CHD")
+                + d6RHCHbox[iECM] * getSMEFTCoeffEW("CHbox")
+                + d6RHCHW[iECM] * getSMEFTCoeffEW("CHW")
+                + d6RHCHB[iECM] * getSMEFTCoeffEW("CHB")
+                + d6RHCHWB[iECM] * getSMEFTCoeffEW("CHWB")
                 + d6RHCHeR00[iECM] * getSMEFTCoeffEW("CHeR", 0, 0)
+                + d6RHCHl1R00[iECM] * getSMEFTCoeffEW("CHl1R", 0, 0)
                 + d6RHCHl3R00[iECM] * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + d6RHCHl3R11[iECM] * getSMEFTCoeffEW("CHl3R", 1, 1)
-                + d6RHCHD[iECM] * getSMEFTCoeffEW("CHD")
-                + d6RHCHB[iECM] * getSMEFTCoeffEW("CHB")
-                + d6RHCHW[iECM] * getSMEFTCoeffEW("CHW")
-                + d6RHCHWB[iECM] * getSMEFTCoeffEW("CHWB")
+                + d6RHCh4f2[iECM] * Ch4f2                                
                 + d6RHCHq1R22[iECM] * getSMEFTCoeffEW("CHq1R", 2, 2)
                 + d6RHCHq3R22[iECM] * getSMEFTCoeffEW("CHq3R", 2, 2)
                 + d6RHCHuR22[iECM] * getSMEFTCoeffEW("CHuR", 2, 2)
                 + d6RHCuWR22[iECM] * getSMEFTCoeffEW("CuWR", 2, 2)
                 + d6RHCuBR22[iECM] * getSMEFTCoeffEW("CuBR", 2, 2)
                 + d6RHCuHR22[iECM] * getSMEFTCoeffEW("CuHR", 2, 2)
-                + d6RHCHl1R11[iECM] * getSMEFTCoeffEW("CHl1R", 1, 1)
                 + d6RHCh2f1[iECM] * Ch2f1
-                + d6RHCh2f2[iECM] * Ch2f2
+                + d6RHCh2f2[iECM] * Ch2f2                
+                + d6RHCHl1R11[iECM] * getSMEFTCoeffEW("CHl1R", 1, 1)
                 + d6RHCH[iECM] * getSMEFTCoeffEW("CH")
-                + d6RHCW[iECM] * getSMEFTCoeffEW("CW")
+                + d6RHCW[iECM] * getSMEFTCoeffEW("CW")                
                 + d6RHCeuR0022[iECM] * getSMEFTCoeffEW("CeuR",0, 0, 2, 2)
                 + d6RHCluR0022[iECM] * getSMEFTCoeffEW("CluR",0, 0, 2, 2)
                 + d6RHCqeR2200[iECM] * getSMEFTCoeffEW("CqeR",2, 2, 0, 0)
                 + d6RHClq1R0022[iECM] * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2)
                 + d6RHClq3R0022[iECM] * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)
                 + d6RHClq3R1122[iECM] * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2)
-                + d6RHCleR0000[iECM] * getSMEFTCoeffEW("CleR",0, 0, 0, 0)
-                + d6RHCllR0000[iECM] * getSMEFTCoeffEW("CllR",0, 0, 0, 0)
-                + d6RHCeeR0000[iECM] * getSMEFTCoeffEW("CeeR",0, 0, 0, 0)
                 + d6RHCh4f1[iECM] * Ch4f1
-                + d6RHCh4f2[iECM] * Ch4f2
                 + d6RHCh4f3[iECM] * Ch4f3
                 + d6RHCh4f4[iECM] * Ch4f4
                 + d6RHCh4f5[iECM] * Ch4f5
-                + d6RHCh4f6[iECM] * Ch4f6;
+                + d6RHCh4f6[iECM] * Ch4f6            
+                + d6RHCleR0000[iECM] * getSMEFTCoeffEW("CleR",0, 0, 0, 0)
+                + d6RHCllR0000[iECM] * getSMEFTCoeffEW("CllR",0, 0, 0, 0)
+                + d6RHCeeR0000[iECM] * getSMEFTCoeffEW("CeeR",0, 0, 0, 0)                
+                + d6RHCHBt[iECM] * getSMEFTCoeffEW("CHBtilde")
+                + d6RHCHWt[iECM] * getSMEFTCoeffEW("CHWtilde")
+                + d6RHCHWBt[iECM] * getSMEFTCoeffEW("CHWtildeB")
+                + d6RHCWt[iECM] * getSMEFTCoeffEW("CWtilde");       
         
         // Correction to polarized cross section
-        dmuNLO += 0.25 * (1.0 - Pe) * (1.0 + Pp) * d6NLOLH 
-                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * d6NLORH;
+        dmuNLO += 0.25 * (1.0 - Pe) * (1.0 + Pp) * xsSMweakLH[iECM] * d6NLOLH 
+                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * xsSMweakRH[iECM] * d6NLORH;
+        // Normalize to SM full NLO cross section
+        dmuNLO = 4.0 * dmuNLO /((1.0 - Pe) * (1.0 + Pp) * xsSMNLOLH[iECM] + (1.0 + Pe) * (1.0 - Pp) * xsSMNLORH[iECM]);
         
         // Rescale the LO contribution and normalizer the NLO to the SM cross section
         dmuLO = dmuLO * (tofb * xsSMLO/xsSMNLO);
-        
-        dmuNLO = dmuNLO/xsSMNLO;
         
     }
     
