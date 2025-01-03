@@ -77,6 +77,65 @@ var group___e_w =
       [ "BrWtau", "df/d38/class_br_wtau.html#a1d3f8fd52e180d7ba1d3b3a0ba8715e1", null ],
       [ "computeThValue", "df/d38/class_br_wtau.html#a223a0bae0930693415bead2fb89378f7", null ]
     ] ],
+    [ "eeffAFBbottom", "df/daf/classeeff_a_f_bbottom.html", [
+      [ "eeffAFBbottom", "df/daf/classeeff_a_f_bbottom.html#a31a6ffac46201377a1e51168e1f008df", null ],
+      [ "computeThValue", "df/daf/classeeff_a_f_bbottom.html#aba86c678c51e55e3618b0df69542378c", null ]
+    ] ],
+    [ "eeffAFBcharm", "d6/d09/classeeff_a_f_bcharm.html", [
+      [ "eeffAFBcharm", "d6/d09/classeeff_a_f_bcharm.html#a3f8d28dc55682523a4e055cfb4cdfc51", null ],
+      [ "computeThValue", "d6/d09/classeeff_a_f_bcharm.html#a33c7bc45430de15b2ff479a20f211d94", null ]
+    ] ],
+    [ "eeffAFBelectron", "d8/db3/classeeff_a_f_belectron.html", [
+      [ "eeffAFBelectron", "d8/db3/classeeff_a_f_belectron.html#a6fcfd572632eeb246f668633f9ef3c1d", null ],
+      [ "computeThValue", "d8/db3/classeeff_a_f_belectron.html#a0c8bcb322495feacb34f82acb101943d", null ]
+    ] ],
+    [ "eeffAFBmu", "da/d35/classeeff_a_f_bmu.html", [
+      [ "eeffAFBmu", "da/d35/classeeff_a_f_bmu.html#a42ad49c17a5b90464e39723c8f053749", null ],
+      [ "computeThValue", "da/d35/classeeff_a_f_bmu.html#a44cadddb4adcfa41609fbaf11a1a17e4", null ]
+    ] ],
+    [ "eeffAFBstrange", "d2/d38/classeeff_a_f_bstrange.html", [
+      [ "eeffAFBstrange", "d2/d38/classeeff_a_f_bstrange.html#a4e90574115afe41663029fae40944912", null ],
+      [ "computeThValue", "d2/d38/classeeff_a_f_bstrange.html#afc0776b67eda636e98882ff2ae3a0f14", null ]
+    ] ],
+    [ "eeffAFBtau", "d8/d3d/classeeff_a_f_btau.html", [
+      [ "eeffAFBtau", "d8/d3d/classeeff_a_f_btau.html#a432b9d0708d4e3f4acbd2d2b6a0af4cf", null ],
+      [ "computeThValue", "d8/d3d/classeeff_a_f_btau.html#a10196b58be4e20232829a2fd086be79a", null ]
+    ] ],
+    [ "eeffsigmaBottom", "d0/dd1/classeeffsigma_bottom.html", [
+      [ "eeffsigmaBottom", "d0/dd1/classeeffsigma_bottom.html#ad1f893764e0bd0ae5eefdaaab223b4a2", null ],
+      [ "computeThValue", "d0/dd1/classeeffsigma_bottom.html#aa830309d39b9d89e43cf4c40c925f6d6", null ]
+    ] ],
+    [ "eeffsigmaCharm", "d3/df2/classeeffsigma_charm.html", [
+      [ "eeffsigmaCharm", "d3/df2/classeeffsigma_charm.html#aa5940cd4896027f5b348f109328d1b68", null ],
+      [ "computeThValue", "d3/df2/classeeffsigma_charm.html#aa74a9e3f736bc5e159c7d74e6b093619", null ]
+    ] ],
+    [ "eeffsigmaElectron", "d4/dfd/classeeffsigma_electron.html", [
+      [ "eeffsigmaElectron", "d4/dfd/classeeffsigma_electron.html#ad58787d5b122aa7d8accd76ffb4ebce3", null ],
+      [ "computeThValue", "d4/dfd/classeeffsigma_electron.html#aad5fbc3fcfd2216f77056f23eaf71142", null ]
+    ] ],
+    [ "eeffsigmaHadron", "da/d72/classeeffsigma_hadron.html", [
+      [ "eeffsigmaHadron", "da/d72/classeeffsigma_hadron.html#acf7d3b6465c685d561d2ae97b0cdb03e", null ],
+      [ "computeThValue", "da/d72/classeeffsigma_hadron.html#a9c1deabf3712fc43f42ddcea242c7afe", null ]
+    ] ],
+    [ "eeffsigmaMu", "dd/d9c/classeeffsigma_mu.html", [
+      [ "eeffsigmaMu", "dd/d9c/classeeffsigma_mu.html#ac77bf2b0260f3f3f9bbd787bde758772", null ],
+      [ "computeThValue", "dd/d9c/classeeffsigma_mu.html#a024b94b76edc0814dfdd0df2c8d410f6", null ]
+    ] ],
+    [ "eeffsigmaStrange", "d9/d57/classeeffsigma_strange.html", [
+      [ "eeffsigmaStrange", "d9/d57/classeeffsigma_strange.html#a703b6cc76102ffcced130feb5b1bd431", null ],
+      [ "computeThValue", "d9/d57/classeeffsigma_strange.html#abc3b0ecc5df84dcc1e7f138f95d76758", null ]
+    ] ],
+    [ "eeffsigmaTau", "d8/d5e/classeeffsigma_tau.html", [
+      [ "eeffsigmaTau", "d8/d5e/classeeffsigma_tau.html#aa8ce8248edd10fa94f532cc88d63ff9f", null ],
+      [ "computeThValue", "d8/d5e/classeeffsigma_tau.html#a1f634a8d4a87f514d953fd7e0e2c7944", null ]
+    ] ],
+    [ "eeffThObservable", "d1/da5/classeeff_th_observable.html", [
+      [ "eeffThObservable", "d1/da5/classeeff_th_observable.html#af8464ed2a7cdf7060767de98736e6dcf", null ],
+      [ "pol_e", "d1/da5/classeeff_th_observable.html#acb2654f41a4f53777d6079edd219e209", null ],
+      [ "pol_p", "d1/da5/classeeff_th_observable.html#a04832781d72cbe7f253f49f34a895842", null ],
+      [ "s", "d1/da5/classeeff_th_observable.html#ac4322b10c9040962f3465f851fb90764", null ],
+      [ "sqrt_s", "d1/da5/classeeff_th_observable.html#a5f1c8a82dc77831e87e23c7cddd82455", null ]
+    ] ],
     [ "Epsilon1", "dd/d75/class_epsilon1.html", [
       [ "Epsilon1", "dd/d75/class_epsilon1.html#ae89a55fbf85f1795e111c6581e6017be", null ],
       [ "computeThValue", "dd/d75/class_epsilon1.html#aaf58da85dfbc8a9df078f193dc684a51", null ]
