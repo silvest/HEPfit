@@ -3568,6 +3568,7 @@ var class_n_p_s_m_e_f_td6_general =
     [ "FlagHiggsSM", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a731701a97d1a1235f6ab76fa5a2c9c50", null ],
     [ "FlagLoopH3d6Quad", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a3ec5a48dfa6c34a303eab2332b767210", null ],
     [ "FlagLoopHd6", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#aadfac9424784739bd8eb8e9d7f52aa93", null ],
+    [ "FlagmatchLEFT", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ad9b1b9d78060df517440a9f44b726148", null ],
     [ "FlagMWinput", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a0d5e4c3057df6edc55878ad79ec34fb9", null ],
     [ "FlagQuadraticTerms", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a9dc990027a46d45b447f2b8191b1e482", null ],
     [ "FlagRGEci", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a3d194389099f86be5c583118094acbf1", null ],

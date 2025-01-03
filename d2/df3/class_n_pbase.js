@@ -321,6 +321,7 @@ var class_n_pbase =
     [ "mueeZBF", "d2/df3/class_n_pbase.html#a8902280743900ad6dc2421123e0c9dad", null ],
     [ "mueeZBFPol", "d2/df3/class_n_pbase.html#a9b4dcd0071ef75c6093d462753568232", null ],
     [ "mueeZH", "d2/df3/class_n_pbase.html#a227ab5a25e0fbdb85b147ac3152bfbe2", null ],
+    [ "mueeZHGen", "d2/df3/class_n_pbase.html#a3adef38fa6287875c44872a68116cfc5", null ],
     [ "mueeZHPol", "d2/df3/class_n_pbase.html#a998dcd051671c8b5e6ee9d77763cd8bf", null ],
     [ "mueeZllH", "d2/df3/class_n_pbase.html#adac50eb3dbbf056f3ba774b5801292ef", null ],
     [ "mueeZllHPol", "d2/df3/class_n_pbase.html#a41589bf3325a6f87e963691764ff5654", null ],

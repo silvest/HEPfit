@@ -1398,6 +1398,14 @@ var group___new_physics =
       [ "Pol_ep", "da/dc4/classmuee_z_hgaga_pol.html#aa89b51bbe432d1438eb44a26bcf89c30", null ],
       [ "sqrt_s", "da/dc4/classmuee_z_hgaga_pol.html#af952aa98504b54cf17151218c985f45e", null ]
     ] ],
+    [ "mueeZHGen", "d7/d92/classmuee_z_h_gen.html", [
+      [ "mueeZHGen", "d7/d92/classmuee_z_h_gen.html#a1f1bad604ca33ca80f84a08f0322f903", null ],
+      [ "computeThValue", "d7/d92/classmuee_z_h_gen.html#a14075614f96f5a30395901455d3d1673", null ],
+      [ "myNPbase", "d7/d92/classmuee_z_h_gen.html#a04ca462591e798bd88fe4e646fe3611f", null ],
+      [ "Pol_em", "d7/d92/classmuee_z_h_gen.html#ae0c5cdd9769ecf447463eac1ef4e1f38", null ],
+      [ "Pol_ep", "d7/d92/classmuee_z_h_gen.html#a58e3106b4f091adf2fb711eff3381f6a", null ],
+      [ "sqrt_s", "d7/d92/classmuee_z_h_gen.html#a405ddd46df3ba1be9d50abc1ff8e797a", null ]
+    ] ],
     [ "mueeZHgg", "d9/d57/classmuee_z_hgg.html", [
       [ "mueeZHgg", "d9/d57/classmuee_z_hgg.html#a495221e466533e1179482f6281f10dc1", null ],
       [ "computeThValue", "d9/d57/classmuee_z_hgg.html#a1033e72f0261e9692d87f29aff3791ab", null ],
@@ -3248,6 +3256,7 @@ var group___new_physics =
       [ "mueeZBF", "d2/df3/class_n_pbase.html#a8902280743900ad6dc2421123e0c9dad", null ],
       [ "mueeZBFPol", "d2/df3/class_n_pbase.html#a9b4dcd0071ef75c6093d462753568232", null ],
       [ "mueeZH", "d2/df3/class_n_pbase.html#a227ab5a25e0fbdb85b147ac3152bfbe2", null ],
+      [ "mueeZHGen", "d2/df3/class_n_pbase.html#a3adef38fa6287875c44872a68116cfc5", null ],
       [ "mueeZHPol", "d2/df3/class_n_pbase.html#a998dcd051671c8b5e6ee9d77763cd8bf", null ],
       [ "mueeZllH", "d2/df3/class_n_pbase.html#adac50eb3dbbf056f3ba774b5801292ef", null ],
       [ "mueeZllHPol", "d2/df3/class_n_pbase.html#a41589bf3325a6f87e963691764ff5654", null ],
@@ -8763,6 +8772,7 @@ var group___new_physics =
       [ "FlagHiggsSM", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a731701a97d1a1235f6ab76fa5a2c9c50", null ],
       [ "FlagLoopH3d6Quad", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a3ec5a48dfa6c34a303eab2332b767210", null ],
       [ "FlagLoopHd6", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#aadfac9424784739bd8eb8e9d7f52aa93", null ],
+      [ "FlagmatchLEFT", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ad9b1b9d78060df517440a9f44b726148", null ],
       [ "FlagMWinput", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a0d5e4c3057df6edc55878ad79ec34fb9", null ],
       [ "FlagQuadraticTerms", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a9dc990027a46d45b447f2b8191b1e482", null ],
       [ "FlagRGEci", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a3d194389099f86be5c583118094acbf1", null ],

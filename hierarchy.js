@@ -2762,6 +2762,7 @@ var hierarchy =
       [ "mueeZH", "d9/d53/classmuee_z_h.html", null ],
       [ "mueeZHBRinv", "d5/de6/classmuee_z_h_b_rinv.html", null ],
       [ "mueeZHBRinvPol", "db/d31/classmuee_z_h_b_rinv_pol.html", null ],
+      [ "mueeZHGen", "d7/d92/classmuee_z_h_gen.html", null ],
       [ "mueeZHPol", "dc/d46/classmuee_z_h_pol.html", null ],
       [ "mueeZHWW", "d1/d81/classmuee_z_h_w_w.html", null ],
       [ "mueeZHWWPol", "d2/d60/classmuee_z_h_w_w_pol.html", null ],
