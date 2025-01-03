@@ -19,6 +19,14 @@ double LEP2AFBcharm::computeThValue()
 
     return AFB_c;
 }
+
+
+double eeffAFBcharm::computeThValue()
+{ 
+    double AFB_c = SM.eeffAFBcharm(pol_e, pol_p, s);
+       
+    return AFB_c;
+}
         
 
 

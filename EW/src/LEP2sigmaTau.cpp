@@ -36,3 +36,14 @@ double LEP2dsigmadcosTau::computeThValue()
     //  Approximate formulae returns result in pb
     return ( dsigmadcos_tau );
 }
+
+
+double eeffsigmaTau::computeThValue() 
+{ 
+    double sigma_tau = SM.eeffsigmaTau(pol_e, pol_p, s);
+        
+//    return ( sigma_mu*SM.GeVminus2_to_nb*1000.0 );
+    //  Approximate formulae returns result in pb
+    return ( sigma_tau );
+}
+  

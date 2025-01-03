@@ -44296,13 +44296,18 @@ const double NPSMEFTd6General::uovers2(const double cosmin, const double cosmax)
     return 0.25 * (cosmax * (1.0 + cosmax * (1.0 + cosmax / 3.0)) - cosmin * (1.0 + cosmin * (1.0 + cosmin / 3.0)));
 }
 
-const double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double s, const double cos) const {
+const double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cos) const {
     double sumM2, dsigma;
     double topb = 0.3894e+9;
 
     double t, u;
 
     double Nf;
+    
+    double pLH, pRH; //Polarization factors, minus the 1/4 average
+    
+    pLH = (1.0 - pol_e) * (1.0 + pol_p);
+    pRH = (1.0 + pol_e) * (1.0 - pol_p);
 
     if (f.is("LEPTON")) {
         Nf = 1.0;
@@ -44314,12 +44319,12 @@ const double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double s, 
     t = -0.5 * s * (1.0 - cos);
     u = -0.5 * s * (1.0 + cos);
 
-    sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * t * t / s / s
-            + (deltaMLL2_f(f, s, t) + deltaMRR2_f(f, s, t)) * u * u / s / s;
+    sumM2 = (pLH * deltaMLR2_f(f, s) + pRH * deltaMRL2_f(f, s)) * t * t / s / s
+            + (pLH * deltaMLL2_f(f, s, t) + pRH * deltaMRR2_f(f, s, t)) * u * u / s / s;
 
     // Add t-channel contributions for f=e
     if (f.is("ELECTRON")) {
-        sumM2 = sumM2 + (deltaMLR2t_e(t) + deltaMRL2t_e(t)) * s * s / t / t;
+        sumM2 = sumM2 + (pLH * deltaMLR2t_e(t) + pRH * deltaMRL2t_e(t)) * s * s / t / t;
     }
 
     dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
@@ -44327,13 +44332,18 @@ const double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double s, 
     return topb * dsigma;
 };
 
-const double NPSMEFTd6General::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const {
+const double NPSMEFTd6General::delta_sigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
     //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
     double sumM2, dsigma;
     double tdumm = 1.;
     double topb = 0.3894e+9;
 
     double Nf;
+    
+    double pLH, pRH; //Polarization factors, minus the 1/4 average
+    
+    pLH = (1.0 - pol_e) * (1.0 + pol_p);
+    pRH = (1.0 + pol_e) * (1.0 - pol_p);
 
     if (f.is("LEPTON")) {
         Nf = 1.0;
@@ -44341,38 +44351,45 @@ const double NPSMEFTd6General::delta_sigma_f(const Particle f, const double s, c
         Nf = 3.0;
     }
 
-    sumM2 = (deltaMLR2_f(f, s) + deltaMRL2_f(f, s)) * tovers2(cosmin, cosmax)
-            + (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm)) * uovers2(cosmin, cosmax);
+    sumM2 = (pLH * deltaMLR2_f(f, s) + pRH * deltaMRL2_f(f, s)) * tovers2(cosmin, cosmax)
+            + (pLH * deltaMLL2_f(f, s, tdumm) + pRH * deltaMRR2_f(f, s, tdumm)) * uovers2(cosmin, cosmax);
 
     dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
 
     return topb * dsigma;
 };
 
-const double NPSMEFTd6General::delta_sigma_had(const double s, const double cosmin, const double cosmax) const {
+const double NPSMEFTd6General::delta_sigma_had(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
     double dsigma;
 
-    dsigma = delta_sigma_f(quarks[UP], s, cosmin, cosmax) + delta_sigma_f(quarks[DOWN], s, cosmin, cosmax)
-            + delta_sigma_f(quarks[CHARM], s, cosmin, cosmax) + delta_sigma_f(quarks[STRANGE], s, cosmin, cosmax)
-            + delta_sigma_f(quarks[BOTTOM], s, cosmin, cosmax);
+    dsigma = delta_sigma_f(quarks[UP], pol_e, pol_p, s, cosmin, cosmax) + delta_sigma_f(quarks[DOWN], pol_e, pol_p, s, cosmin, cosmax)
+            + delta_sigma_f(quarks[CHARM], pol_e, pol_p, s, cosmin, cosmax) + delta_sigma_f(quarks[STRANGE], pol_e, pol_p, s, cosmin, cosmax)
+            + delta_sigma_f(quarks[BOTTOM], pol_e, pol_p, s, cosmin, cosmax);
 
     return dsigma;
 }
 
-const double NPSMEFTd6General::delta_sigmaTot_f(const Particle f, const double s) const {
-    return delta_sigma_f(f, s, -1., 1.);
+const double NPSMEFTd6General::delta_sigmaTot_f(const Particle f, const double pol_e, const double pol_p, const double s) const {
+    return delta_sigma_f(f, pol_e, pol_p, s, -1., 1.);
 }
 
-const double NPSMEFTd6General::delta_AFB_f(const Particle f, const double s) const {
+const double NPSMEFTd6General::delta_AFB_f(const Particle f, const double pol_e, const double pol_p, const double s) const {
     //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
     double tdumm = 1.;
 
     // Definitions      
     double Qf, geLSM, gfLSM, geRSM, gfRSM, is2c2, GZ, Mz2s;
 
-    double MXX2SM, MXY2SM, M2SM;
+    //double MXX2SM, MXY2SM, M2SM;
+    
+    double MLR2SM, MRL2SM, MLL2SM, MRR2SM, numdA, dendA;
 
     double dAFB;
+    
+    double pLH, pRH; //Polarization factors, minus the 1/4 average
+    
+    pLH = (1.0 - pol_e) * (1.0 + pol_p);
+    pRH = (1.0 + pol_e) * (1.0 - pol_p);
 
     // -------------------------------------------
 
@@ -44417,24 +44434,51 @@ const double NPSMEFTd6General::delta_AFB_f(const Particle f, const double s) con
         throw std::runtime_error("NPSMEFTd6General::delta_AFB_f(): wrong argument");
 
     // Sum of LL and RR SM amplitudes
-    MXX2SM = 2.0 * Qf * Qf
-            + (is2c2 * is2c2 * (geLSM * geLSM * gfLSM * gfLSM + geRSM * geRSM * gfRSM * gfRSM) * s * s
-            + 2.0 * Qf * is2c2 * (geLSM * gfLSM + geRSM * gfRSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ);
+    //MXX2SM = 2.0 * Qf * Qf
+    //        + (is2c2 * is2c2 * (geLSM * geLSM * gfLSM * gfLSM + geRSM * geRSM * gfRSM * gfRSM) * s * s
+    //        + 2.0 * Qf * is2c2 * (geLSM * gfLSM + geRSM * gfRSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ);
 
 
     // Sum of LR and RL SM amplitudes
-    MXY2SM = 2.0 * Qf * Qf
-            + (is2c2 * is2c2 * (geLSM * geLSM * gfRSM * gfRSM + geRSM * geRSM * gfLSM * gfLSM) * s * s
-            + 2.0 * Qf * is2c2 * (geLSM * gfRSM + geRSM * gfLSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ);
+    //MXY2SM = 2.0 * Qf * Qf
+    //        + (is2c2 * is2c2 * (geLSM * geLSM * gfRSM * gfRSM + geRSM * geRSM * gfLSM * gfLSM) * s * s
+    //        + 2.0 * Qf * is2c2 * (geLSM * gfRSM + geRSM * gfLSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ);
 
     // Full SM amplitude
-    M2SM = MXX2SM + MXY2SM;
-
+    //M2SM = MXX2SM + MXY2SM;
+    
+    // LR, RL, LL and RR SM squared amplitudes
+    MLR2SM = 2.0 * Qf * Qf
+            + (is2c2 * is2c2 * (geLSM * geLSM * gfRSM * gfRSM) * s * s
+            + 2.0 * Qf * is2c2 * (geLSM * gfRSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ);
+    
+    MRL2SM = 2.0 * Qf * Qf
+            + (is2c2 * is2c2 * (geRSM * geRSM * gfLSM * gfLSM) * s * s
+            + 2.0 * Qf * is2c2 * (geRSM * gfLSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ); 
+    
+    MLL2SM = 2.0 * Qf * Qf
+            + (is2c2 * is2c2 * (geLSM * geLSM * gfLSM * gfLSM) * s * s
+            + 2.0 * Qf * is2c2 * (geLSM * gfLSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ); 
+    
+    MRR2SM = 2.0 * Qf * Qf
+            + (is2c2 * is2c2 * (geRSM * geRSM * gfRSM * gfRSM) * s * s
+            + 2.0 * Qf * is2c2 * (geRSM * gfRSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ); 
+    
+    numdA = 3.0 * (-(( MRR2SM * pRH + MLL2SM * pLH) * ( pLH * deltaMLR2_f(f, s) + pRH * deltaMRL2_f(f, s) )) 
+            + MRL2SM * pRH * ( pLH * deltaMLL2_f(f, s, tdumm) + pRH * deltaMRR2_f(f, s, tdumm) ) 
+            + MLR2SM * pLH * ( pLH * deltaMLL2_f(f, s, tdumm) + pRH * deltaMRR2_f(f, s, tdumm) ));
+            
+    dendA = ((MRL2SM + MRR2SM) * pRH + (MLL2SM + MLR2SM) * pLH);
+    
+    dendA = 2.0 * dendA * dendA;
+    
     // Asymmetry correction 
-    dAFB = -MXX2SM * (deltaMLR2_f(f, s) + deltaMRL2_f(f, s))
-            + MXY2SM * (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm));
+    //dAFB = -MXX2SM * (deltaMLR2_f(f, s) + deltaMRL2_f(f, s))
+    //        + MXY2SM * (deltaMLL2_f(f, s, tdumm) + deltaMRR2_f(f, s, tdumm));
 
-    dAFB = 3.0 * dAFB / 2.0 / M2SM / M2SM;
+    //dAFB = 3.0 * dAFB / 2.0 / M2SM / M2SM;
+    
+    dAFB = numdA/dendA;
 
     return dAFB;
 }
@@ -44672,11 +44716,16 @@ const double NPSMEFTd6General::intDMRL2etildest2(const double s, const double t0
 }
 
 //  SM cross section integrated in [cos \theta_{min},cos \theta_{max}] 
-const double NPSMEFTd6General::sigmaSM_ee(const double s, const double cosmin, const double cosmax) const {
+const double NPSMEFTd6General::sigmaSM_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
 
     double sumM2, sigma;
     double topb = 0.3894e+9; 
     double t0, t1, lambdaK;
+    
+    double pLH, pRH; //Polarization factors, minus the 1/4 average
+    
+    pLH = (1.0 - pol_e) * (1.0 + pol_p);
+    pRH = (1.0 + pol_e) * (1.0 - pol_p);
     
     // t values for cosmin and cosmax
     t0 = 0.5 * s * ( -1.0 + cosmin );
@@ -44686,8 +44735,8 @@ const double NPSMEFTd6General::sigmaSM_ee(const double s, const double cosmin, c
     lambdaK = s*s;
     
     // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
-    sumM2 = 2.0 * intMeeLR2SMts2(s, t0, t1) + 2.0 * intMeeLRtilde2SMst2(s, t0, t1) + 
-            intMeeLL2SMus2(s, t0, t1) + intMeeRR2SMus2(s, t0, t1);   
+    sumM2 = (pLH + pRH) * ( intMeeLR2SMts2(s, t0, t1) + intMeeLRtilde2SMst2(s, t0, t1) ) + 
+            pLH * intMeeLL2SMus2(s, t0, t1) + pRH * intMeeRR2SMus2(s, t0, t1);   
     
     // Build the cross section
     sigma = M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s / sqrt(lambdaK);
@@ -44697,11 +44746,16 @@ const double NPSMEFTd6General::sigmaSM_ee(const double s, const double cosmin, c
 
 
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
-const double NPSMEFTd6General::delta_sigma_ee(const double s, const double cosmin, const double cosmax) const {
+const double NPSMEFTd6General::delta_sigma_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
 
     double sumM2, dsigma;
     double topb = 0.3894e+9; 
     double t0, t1, lambdaK;
+    
+    double pLH, pRH; //Polarization factors, minus the 1/4 average
+    
+    pLH = (1.0 - pol_e) * (1.0 + pol_p);
+    pRH = (1.0 + pol_e) * (1.0 - pol_p);
     
     // t values for cosmin and cosmax
     t0 = 0.5 * s * ( -1.0 + cosmin );
@@ -44711,9 +44765,9 @@ const double NPSMEFTd6General::delta_sigma_ee(const double s, const double cosmi
     lambdaK = s*s;
     
     // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
-    sumM2 = intDMLL2eus2(s, t0, t1) + intDMRR2eus2(s, t0, t1) +
-            intDMLR2ets2(s, t0, t1) + intDMRL2ets2(s, t0, t1) + 
-            intDMLR2etildest2(s, t0, t1) + intDMRL2etildest2(s, t0, t1);   
+    sumM2 = pLH * intDMLL2eus2(s, t0, t1) + pRH * intDMRR2eus2(s, t0, t1) +
+            pLH * intDMLR2ets2(s, t0, t1) + pRH * intDMRL2ets2(s, t0, t1) + 
+            pLH * intDMLR2etildest2(s, t0, t1) + pRH * intDMRL2etildest2(s, t0, t1);   
     
     // Build the cross section
     dsigma = M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s / sqrt(lambdaK);
@@ -44722,26 +44776,26 @@ const double NPSMEFTd6General::delta_sigma_ee(const double s, const double cosmi
 }
 
 //  Absolute corrections to the total cross section 
-const double NPSMEFTd6General::delta_sigmaTot_ee(const double s) const {
-    return delta_sigma_ee(s, -1.0, 1.0);
+const double NPSMEFTd6General::delta_sigmaTot_ee(const double pol_e, const double pol_p, const double s) const {
+    return delta_sigma_ee(pol_e, pol_p, s, -1.0, 1.0);
 }
 
 //  Absolute corrections to the FB asymmetry 
-const double NPSMEFTd6General::delta_AFB_ee(const double s) const {
+const double NPSMEFTd6General::delta_AFB_ee(const double pol_e, const double pol_p, const double s) const {
     
     double xsSMF, xsSMB, xsSM;
     double dxsF, dxsB, dxs;
     double dAFB;
     
     // SM cross sections
-    xsSM = sigmaSM_ee(s, -1.0, 1.0);
-    xsSMF = sigmaSM_ee(s, 0.0, 1.0);
-    xsSMB = sigmaSM_ee(s, -1.0, 0.0);
+    xsSM = sigmaSM_ee(pol_e, pol_p, s, -1.0, 1.0);
+    xsSMF = sigmaSM_ee(pol_e, pol_p, s, 0.0, 1.0);
+    xsSMB = sigmaSM_ee(pol_e, pol_p, s, -1.0, 0.0);
     
     // Corrections to each
-    dxs = delta_sigma_ee(s, -1.0, 1.0);
-    dxsF = delta_sigma_ee(s, 0.0, 1.0);
-    dxsB = delta_sigma_ee(s, -1.0, 0.0);
+    dxs = delta_sigma_ee(pol_e, pol_p, s, -1.0, 1.0);
+    dxsF = delta_sigma_ee(pol_e, pol_p, s, 0.0, 1.0);
+    dxsB = delta_sigma_ee(pol_e, pol_p, s, -1.0, 0.0);
 
     // Correction to asymmetry
     dAFB = (dxsF - dxsB)/xsSM - (xsSMF - xsSMB)*dxs/xsSM/xsSM;

@@ -41,5 +41,37 @@ private:
     
 };
 
+
+/**
+ * @class eeffAFBcharm
+ * @ingroup EW
+ * @brief A class for the forward-backward asymmetry of @f$e^+e^-\to c\bar{c}@f$ 
+ * above the @f$Z@f$ pole.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class eeffAFBcharm : public eeffThObservable {
+public:
+
+    /**
+     * @brief eeffAFBcharm constructor
+     * @param[in] pol_e_i, pol_p_i the electron and positron polarizations
+     * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
+     */
+    eeffAFBcharm(const StandardModel& SM_i, const double pol_e_i, const double pol_p_i, const double sqrt_s_i) 
+    : eeffThObservable(SM_i, pol_e_i, pol_p_i, sqrt_s_i)
+    {
+    }
+
+    /**
+     * @return the forward-backward asymmetry for e^+ e^- -> c cbar at sqrt_s
+     */
+    double computeThValue();
+
+private:
+    
+};
+
 #endif	/* LEP2AFBCHARM_H */
 

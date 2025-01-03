@@ -19,3 +19,9 @@ double LEP2AFBmu::computeThValue()
     return AFB_mu;
 }
         
+double eeffAFBmu::computeThValue()
+{ 
+    double AFB_mu = SM.eeffAFBmu(pol_e, pol_p, s);
+       
+    return AFB_mu;
+}

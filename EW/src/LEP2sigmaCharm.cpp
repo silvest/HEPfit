@@ -14,4 +14,11 @@ double LEP2sigmaCharm::computeThValue()
     
     return ( sigma_charm*SM.GeVminus2_to_nb*1000.0 );
 }
+
+double eeffsigmaCharm::computeThValue() 
+{ 
+    double sigma_charm = SM.eeffsigmaCharm(pol_e, pol_p, s);
+    
+    return ( sigma_charm );
+}
         

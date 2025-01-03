@@ -4607,31 +4607,47 @@ public:
     
     
 //  Absolute corrections to the differential cross section        
-    virtual const double delta_Dsigma_f(const Particle f, const double s, const double cos) const;
+    virtual const double delta_Dsigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cos) const;
     
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
 //  Valid for f=/=e
-    virtual const double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
-    virtual const double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
+    virtual const double delta_sigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
+    virtual const double delta_sigma_had(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
     
 //  Total cross sections  (full acceptance)
-    virtual const double delta_sigmaTot_f(const Particle f, const double s) const;
+    virtual const double delta_sigmaTot_f(const Particle f, const double pol_e, const double pol_p, const double s) const;
     
 //  Forward-Backward asymmetry (full acceptance). Valid for f!=e
-    virtual const double delta_AFB_f(const Particle f, const double s) const;
+    virtual const double delta_AFB_f(const Particle f, const double pol_e, const double pol_p, const double s) const;
  
 //  Expressions for f=e
 
 //  SM cross section integrated in [cos \theta_{min},cos \theta_{max}] 
-    virtual const double sigmaSM_ee(const double s, const double cosmin, const double cosmax) const;
+    virtual const double sigmaSM_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
-    virtual const double delta_sigma_ee(const double s, const double cosmin, const double cosmax) const;
+    virtual const double delta_sigma_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
 //  Absolute corrections to the total cross section 
-    virtual const double delta_sigmaTot_ee(const double s) const;
+    virtual const double delta_sigmaTot_ee(const double pol_e, const double pol_p, const double s) const;
 //  Absolute corrections to the FB asymmetry 
-    virtual const double delta_AFB_ee(const double s) const;
+    virtual const double delta_AFB_ee(const double pol_e, const double pol_p, const double s) const;
       
 //   Extension of SM observable definitions
+    virtual const double eeffsigmaE(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffsigmaMu(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffsigmaTau(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffsigmaHadron(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffsigmaStrange(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffsigmaCharm(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffsigmaBottom(const double pol_e, const double pol_p, const double s) const;
+
+    virtual const double eeffAFBe(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffAFBmu(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffAFBtau(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffAFBstrange(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffAFBcharm(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffAFBbottom(const double pol_e, const double pol_p, const double s) const;
+    
+    // LEP2 specific
     virtual const double LEP2sigmaE(const double s) const;
     virtual const double LEP2sigmaMu(const double s) const;
     virtual const double LEP2sigmaTau(const double s) const;

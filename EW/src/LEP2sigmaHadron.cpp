@@ -24,3 +24,10 @@ double LEP2sigmaHadron::computeThValue()
 }
         
 
+double eeffsigmaHadron::computeThValue()
+{ 
+    double sigmaH = SM.eeffsigmaHadron(pol_e, pol_p, s);
+    
+    return ( sigmaH );
+}
+

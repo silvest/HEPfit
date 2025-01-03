@@ -83,5 +83,35 @@ private:
       
 };
 
+
+/**
+ * @class eeffThObservable
+ * @ingroup EW 
+ * @brief A class for the two to two fermion inclusive observables in electron positron colliders. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
+class eeffThObservable : public ThObservable  {
+public:
+        
+    /**
+     * @brief eeffThObservable constructor
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] pol_e_i, pol_p_i the electron and positron polarizations
+     * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
+     */
+    eeffThObservable(const StandardModel& SM_i, const double pol_e_i, const double pol_p_i, const double sqrt_s_i) 
+            : ThObservable(SM_i), pol_e(pol_e_i), pol_p(pol_p_i), sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i)
+    {
+    }
+
+    const double pol_e, pol_p, sqrt_s, s;
+     
+private:   
+      
+};
+
+
 #endif	/* LEP2THOBSERVABLE_H */
 

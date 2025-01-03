@@ -56,6 +56,9 @@
       <itemPath>src/Ruc.h</itemPath>
       <itemPath>src/aTGC.h</itemPath>
       <itemPath>src/ee_WW.h</itemPath>
+      <itemPath>src/eeffAFBelectron.h</itemPath>
+      <itemPath>src/eeffAFBstrange.h</itemPath>
+      <itemPath>src/eeffsigmaStrange.h</itemPath>
       <itemPath>src/pp_DiBoson.h</itemPath>
       <itemPath>src/sigmaHadron.h</itemPath>
       <itemPath>src/sin2thetaEff.h</itemPath>
@@ -112,6 +115,9 @@
       <itemPath>src/Rneutrinos.cpp</itemPath>
       <itemPath>src/Ruc.cpp</itemPath>
       <itemPath>src/aTGC.cpp</itemPath>
+      <itemPath>src/eeffAFBelectron.cpp</itemPath>
+      <itemPath>src/eeffAFBstrange.cpp</itemPath>
+      <itemPath>src/eeffsigmaStrange.cpp</itemPath>
       <itemPath>src/sigmaHadron.cpp</itemPath>
       <itemPath>src/sin2thetaEff.cpp</itemPath>
     </logicalFolder>
@@ -489,6 +495,18 @@
       </item>
       <item path="src/ee_WW.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/eeffAFBelectron.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffAFBelectron.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffAFBstrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffAFBstrange.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffsigmaStrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffsigmaStrange.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/pp_DiBoson.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
@@ -749,6 +767,18 @@
       <item path="src/aTGC.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ee_WW.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffAFBelectron.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffAFBelectron.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffAFBstrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffAFBstrange.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffsigmaStrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffsigmaStrange.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/pp_DiBoson.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1011,6 +1041,18 @@
       <item path="src/aTGC.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ee_WW.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffAFBelectron.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffAFBelectron.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffAFBstrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffAFBstrange.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffsigmaStrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffsigmaStrange.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/pp_DiBoson.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1380,6 +1422,18 @@
       <item path="src/aTGC.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ee_WW.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffAFBelectron.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffAFBelectron.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffAFBstrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffAFBstrange.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/eeffsigmaStrange.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/eeffsigmaStrange.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/pp_DiBoson.h" ex="false" tool="3" flavor2="0">
       </item>

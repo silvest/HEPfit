@@ -34,5 +34,15 @@ double LEP2dsigmadcosMu::computeThValue()
     //  Approximate formulae returns result in pb
     return ( dsigmadcos_mu );
 }
+
+
+double eeffsigmaMu::computeThValue() 
+{ 
+    double sigma_mu = SM.eeffsigmaMu(pol_e, pol_p, s);
+        
+//    return ( sigma_mu*SM.GeVminus2_to_nb*1000.0 );
+    //  Approximate formulae returns result in pb
+    return ( sigma_mu );
+}
         
 

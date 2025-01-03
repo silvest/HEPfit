@@ -3113,6 +3113,63 @@ public:
         return 0.;
     }
     
+    ////////////////////////////////////////////////////////////////////////
+    //Generic e+e- -> ff Inclusive Observables
+
+    virtual const double eeffsigmaE(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }    
+    virtual const double eeffsigmaMu(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    } 
+    virtual const double eeffsigmaTau(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffsigmaHadron(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffsigmaStrange(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffsigmaCharm(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffsigmaBottom(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+
+    virtual const double eeffAFBe(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffAFBmu(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffAFBtau(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffAFBstrange(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffAFBcharm(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffAFBbottom(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    
 /* BEGIN: REMOVE FROM THE PACKAGE */
     ////////////////////////////////////////////////////////////////////////
     //LEP2 Inclusive Observables

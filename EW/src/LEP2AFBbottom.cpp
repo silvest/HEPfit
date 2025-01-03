@@ -18,4 +18,12 @@ double LEP2AFBbottom::computeThValue()
        
     return AFB_b;
 }
+
+
+double eeffAFBbottom::computeThValue()
+{ 
+    double AFB_b = SM.eeffAFBbottom(pol_e, pol_p, s);
+       
+    return AFB_b;
+}
         

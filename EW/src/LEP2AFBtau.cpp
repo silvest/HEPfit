@@ -21,3 +21,9 @@ double LEP2AFBtau::computeThValue()
     return AFB_tau;
 }
         
+double eeffAFBtau::computeThValue()
+{ 
+    double AFB_tau = SM.eeffAFBtau(pol_e, pol_p, s);
+       
+    return AFB_tau;
+}

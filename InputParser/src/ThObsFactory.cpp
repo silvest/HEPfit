@@ -4588,16 +4588,65 @@ ThObsFactory::ThObsFactory()
     //-----  e+ e- two-fermion processes  -----
 
     // Parameters for inclusive observables
-    const double sqrt_see[8] = {158., 163., 240., 250., 345., 360., 365., 500.};
-    const double sqrt_s_eeff[8] = {157.5, 162.5, 240., 250., 345., 360., 365., 500.};
+    const double sqrt_see[9] = {158., 163., 240., 250., 345., 360., 365., 500., 1000.};
+    const double sqrt_s_eeff[9] = {157.5, 162.5, 240., 250., 345., 360., 365., 500., 1000.};
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 9; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
-        obsThFactory["sigmaeeqq_" + sqrt_s_str] = bind(boost::factory<LEP2sigmaHadron*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["sigmaeemumu_" + sqrt_s_str] = bind(boost::factory<LEP2sigmaMu*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["sigmaeetautau_" + sqrt_s_str] = bind(boost::factory<LEP2sigmaTau*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["AFBeemumu_" + sqrt_s_str] = bind(boost::factory<LEP2AFBmu*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["AFBeetautau_" + sqrt_s_str] = bind(boost::factory<LEP2AFBtau*>(), _1, sqrt_s_eeff[i]);
+
+        // Unpolarized
+        obsThFactory["sigmaeeee_" + sqrt_s_str] = bind(boost::factory<eeffsigmaElectron*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        obsThFactory["sigmaeemumu_" + sqrt_s_str] = bind(boost::factory<eeffsigmaMu*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        obsThFactory["sigmaeetautau_" + sqrt_s_str] = bind(boost::factory<eeffsigmaTau*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        
+        obsThFactory["sigmaeeqq_" + sqrt_s_str] = bind(boost::factory<eeffsigmaHadron*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        obsThFactory["sigmaeess_" + sqrt_s_str] = bind(boost::factory<eeffsigmaStrange*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        obsThFactory["sigmaeecc_" + sqrt_s_str] = bind(boost::factory<eeffsigmaCharm*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        obsThFactory["sigmaeebb_" + sqrt_s_str] = bind(boost::factory<eeffsigmaBottom*>(), _1, 0., 0., sqrt_s_eeff[i]);
+
+        obsThFactory["AFBeeee_" + sqrt_s_str] = bind(boost::factory<eeffAFBelectron*>(), _1, 0., 0., sqrt_s_eeff[i]);        
+        obsThFactory["AFBeemumu_" + sqrt_s_str] = bind(boost::factory<eeffAFBmu*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        obsThFactory["AFBeetautau_" + sqrt_s_str] = bind(boost::factory<eeffAFBtau*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        
+        obsThFactory["AFBeetss_" + sqrt_s_str] = bind(boost::factory<eeffAFBstrange*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        obsThFactory["AFBeetcc_" + sqrt_s_str] = bind(boost::factory<eeffAFBcharm*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        obsThFactory["AFBeetbb_" + sqrt_s_str] = bind(boost::factory<eeffAFBbottom*>(), _1, 0., 0., sqrt_s_eeff[i]);
+        
+        // Polarized: Pe-: -80% Pe+: +30%
+        obsThFactory["sigmaeeee_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaElectron*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeemumu_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaMu*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeetautau_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaTau*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        
+        obsThFactory["sigmaeeqq_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaHadron*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeess_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaStrange*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeecc_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaCharm*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeebb_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaBottom*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+
+        obsThFactory["AFBeeee_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffAFBelectron*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);        
+        obsThFactory["AFBeemumu_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffAFBmu*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        obsThFactory["AFBeetautau_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffAFBtau*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        
+        obsThFactory["AFBeetss_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffAFBstrange*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        obsThFactory["AFBeetcc_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffAFBcharm*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        obsThFactory["AFBeetbb_Pol_m80p30_" + sqrt_s_str] = bind(boost::factory<eeffAFBbottom*>(), _1, -0.8, 0.3, sqrt_s_eeff[i]);
+        
+        // Polarized: Pe-: 80% Pe+: -30%
+        obsThFactory["sigmaeeee_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaElectron*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeemumu_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaMu*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeetautau_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaTau*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        
+        obsThFactory["sigmaeeqq_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaHadron*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeess_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaStrange*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeecc_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaCharm*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        obsThFactory["sigmaeebb_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffsigmaBottom*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+
+        obsThFactory["AFBeeee_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBelectron*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);        
+        obsThFactory["AFBeemumu_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBmu*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        obsThFactory["AFBeetautau_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBtau*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        
+        obsThFactory["AFBeetss_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBstrange*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        obsThFactory["AFBeetcc_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBcharm*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+        obsThFactory["AFBeetbb_Pol_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBbottom*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
     }
 
     /* BEGIN: REMOVE FROM THE PACKAGE */

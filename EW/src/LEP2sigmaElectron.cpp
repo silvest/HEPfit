@@ -21,3 +21,9 @@ double LEP2dsigmadcosElectron::computeThValue()
 }
         
 
+double eeffsigmaElectron::computeThValue()
+{ 
+    double sigma_e = SM.eeffsigmaE(pol_e, pol_p, s);
+    
+    return ( sigma_e );
+}

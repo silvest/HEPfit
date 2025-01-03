@@ -1852,19 +1852,19 @@ public:
     const double uovers2(const double cosmin, const double cosmax) const;
 
 //  Absolute corrections to the differential cross section        
-    virtual const double delta_Dsigma_f(const Particle f, const double s, const double cos) const;
+    virtual const double delta_Dsigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cos) const;
     
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
 //  Valid for f=/=e
-    virtual const double delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const;
+    virtual const double delta_sigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
     
-    virtual const double delta_sigma_had(const double s, const double cosmin, const double cosmax) const;
+    virtual const double delta_sigma_had(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
     
 //  Total cross sections  (full acceptance)
-    virtual const double delta_sigmaTot_f(const Particle f, const double s) const;
+    virtual const double delta_sigmaTot_f(const Particle f, const double pol_e, const double pol_p, const double s) const;
     
 //  Forward-Backward asymmetry (full acceptance). Valid for f!=e
-    virtual const double delta_AFB_f(const Particle f, const double s) const;
+    virtual const double delta_AFB_f(const Particle f, const double pol_e, const double pol_p, const double s) const;
     
 //  Expressions for f=e   
     
@@ -1887,13 +1887,13 @@ public:
     virtual const double intDMRL2etildest2(const double s, const double t0, const double t1) const;
 
 //  SM cross section integrated in [cos \theta_{min},cos \theta_{max}] 
-    virtual const double sigmaSM_ee(const double s, const double cosmin, const double cosmax) const;
+    virtual const double sigmaSM_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
-    virtual const double delta_sigma_ee(const double s, const double cosmin, const double cosmax) const;
+    virtual const double delta_sigma_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
 //  Absolute corrections to the total cross section 
-    virtual const double delta_sigmaTot_ee(const double s) const;
+    virtual const double delta_sigmaTot_ee(const double pol_e, const double pol_p, const double s) const;
 //  Absolute corrections to the FB asymmetry 
-    virtual const double delta_AFB_ee(const double s) const;
+    virtual const double delta_AFB_ee(const double pol_e, const double pol_p, const double s) const;
 
     ////////////////////////////////////////////////////////////////////////
 

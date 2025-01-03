@@ -15,4 +15,12 @@ double LEP2sigmaBottom::computeThValue()
     
     return ( sigma_bottom*SM.GeVminus2_to_nb*1000.0 );
 }
+
+
+double eeffsigmaBottom::computeThValue()
+{ 
+    double sigma_bottom = SM.eeffsigmaBottom(pol_e, pol_p, s);
+    
+    return ( sigma_bottom );
+}
         

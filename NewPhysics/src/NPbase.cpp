@@ -1129,109 +1129,165 @@ const double NPbase::N_nu() const
 //LEP2 Observables
 
        
-const double NPbase::delta_Dsigma_f(const Particle f, const double s, const double cos) const
+const double NPbase::delta_Dsigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cos) const
 {
     return 0.0;
 }
 
-const double NPbase::delta_sigma_f(const Particle f, const double s, const double cosmin, const double cosmax) const
+const double NPbase::delta_sigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const
 {
     return 0.0;
 }
 
-const double NPbase::delta_sigma_had(const double s, const double cosmin, const double cosmax) const
+const double NPbase::delta_sigma_had(const double s, const double pol_e, const double pol_p, const double cosmin, const double cosmax) const
 {
     return 0.0;
 }
     
 //  Total cross sections  (full acceptance)
-const double NPbase::delta_sigmaTot_f(const Particle f, const double s) const
+const double NPbase::delta_sigmaTot_f(const Particle f, const double pol_e, const double pol_p, const double s) const
 {
     return 0.0;
 }
     
 //  Forward-Backward asymmetry (full acceptance). Valid for f!=e
-const double NPbase::delta_AFB_f(const Particle f, const double s) const
+const double NPbase::delta_AFB_f(const Particle f, const double pol_e, const double pol_p, const double s) const
 {
     return 0.0;
 }
 
 //  Expressions for f=e
 
-const double NPbase::sigmaSM_ee(const double s, const double cosmin, const double cosmax) const
+const double NPbase::sigmaSM_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const
 {
     return 0.0;
 }
 
-const double NPbase::delta_sigma_ee(const double s, const double cosmin, const double cosmax) const
+const double NPbase::delta_sigma_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const
 {
     return 0.0;
 }
 
-const double NPbase::delta_sigmaTot_ee(const double s) const
+const double NPbase::delta_sigmaTot_ee(const double pol_e, const double pol_p, const double s) const
 {
     return 0.0;
 }
 
-const double NPbase::delta_AFB_ee(const double s) const
+const double NPbase::delta_AFB_ee(const double pol_e, const double pol_p, const double s) const
 {
     return 0.0;
 }
 
 //   Extension of SM observable definitions
+const double NPbase::eeffsigmaE(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffsigmaE(pol_e, pol_p, s) + delta_sigmaTot_ee(pol_e, pol_p, s));
+}
+const double NPbase::eeffsigmaMu(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffsigmaMu(pol_e, pol_p, s) + delta_sigmaTot_f(leptons[MU], pol_e, pol_p, s));
+}
+const double NPbase::eeffsigmaTau(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffsigmaTau(pol_e, pol_p, s) + delta_sigmaTot_f(leptons[TAU], pol_e, pol_p, s));
+}
+const double NPbase::eeffsigmaHadron(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffsigmaHadron(pol_e, pol_p, s) + delta_sigma_had(pol_e, pol_p, s, -1.0, 1.0));
+}
+const double NPbase::eeffsigmaStrange(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffsigmaStrange(pol_e, pol_p, s) + delta_sigmaTot_f(quarks[STRANGE], pol_e, pol_p, s));
+}
+const double NPbase::eeffsigmaCharm(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffsigmaCharm(pol_e, pol_p, s) + delta_sigmaTot_f(quarks[CHARM], pol_e, pol_p, s));
+}
+const double NPbase::eeffsigmaBottom(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffsigmaBottom(pol_e, pol_p, s) + delta_sigmaTot_f(quarks[BOTTOM], pol_e, pol_p, s));
+}
+
+const double NPbase::eeffAFBe(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffAFBe(pol_e, pol_p, s) + delta_AFB_ee(pol_e, pol_p, s));
+}
+const double NPbase::eeffAFBmu(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffAFBmu(pol_e, pol_p, s) + delta_AFB_f(leptons[MU], pol_e, pol_p, s));
+}
+const double NPbase::eeffAFBtau(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffAFBtau(pol_e, pol_p, s) + delta_AFB_f(leptons[TAU], pol_e, pol_p, s));
+}
+const double NPbase::eeffAFBstrange(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffAFBstrange(pol_e, pol_p, s) + delta_AFB_f(quarks[STRANGE], pol_e, pol_p, s));
+}
+const double NPbase::eeffAFBcharm(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffAFBcharm(pol_e, pol_p, s) + delta_AFB_f(quarks[CHARM], pol_e, pol_p, s));
+}
+const double NPbase::eeffAFBbottom(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffAFBbottom(pol_e, pol_p, s) + delta_AFB_f(quarks[BOTTOM], pol_e, pol_p, s));
+}
+
+
+    // LEP2 specific
 const double NPbase::LEP2sigmaE(const double s) const
 {
-    return (trueSM.LEP2sigmaE(s) + delta_sigmaTot_ee(s));
+    return (trueSM.LEP2sigmaE(s) + delta_sigmaTot_ee(0., 0., s));
 }
 
 const double NPbase::LEP2sigmaMu(const double s) const
 {
-    return (trueSM.LEP2sigmaMu(s) + delta_sigmaTot_f(leptons[MU], s));
+    return (trueSM.LEP2sigmaMu(s) + delta_sigmaTot_f(leptons[MU], 0., 0., s));
 }
 
 const double NPbase::LEP2sigmaTau(const double s) const
 {
-    return (trueSM.LEP2sigmaTau(s) + delta_sigmaTot_f(leptons[TAU], s));
+    return (trueSM.LEP2sigmaTau(s) + delta_sigmaTot_f(leptons[TAU], 0., 0., s));
 }
 
 const double NPbase::LEP2sigmaHadron(const double s) const
 {
-    return (trueSM.LEP2sigmaHadron(s) + delta_sigma_had(s, -1.0, 1.0));
+    return (trueSM.LEP2sigmaHadron(s) + delta_sigma_had(0., 0., s, -1.0, 1.0));
 }
 
 const double NPbase::LEP2sigmaCharm(const double s) const
 {
-    return (trueSM.LEP2sigmaCharm(s) + delta_sigmaTot_f(quarks[CHARM], s));
+    return (trueSM.LEP2sigmaCharm(s) + delta_sigmaTot_f(quarks[CHARM], 0., 0., s));
 }
 
 const double NPbase::LEP2sigmaBottom(const double s) const
 {
-    return (trueSM.LEP2sigmaBottom(s) + delta_sigmaTot_f(quarks[BOTTOM], s));
+    return (trueSM.LEP2sigmaBottom(s) + delta_sigmaTot_f(quarks[BOTTOM], 0., 0., s));
 }
 
 const double NPbase::LEP2AFBe(const double s) const
 {
-    return (trueSM.LEP2AFBe(s) + delta_AFB_ee(s));
+    return (trueSM.LEP2AFBe(s) + delta_AFB_ee(0., 0., s));
 }
     
 const double NPbase::LEP2AFBmu(const double s) const
 {
-    return (trueSM.LEP2AFBmu(s) + delta_AFB_f(leptons[MU], s));
+    return (trueSM.LEP2AFBmu(s) + delta_AFB_f(leptons[MU], 0., 0., s));
 }
 
 const double NPbase::LEP2AFBtau(const double s) const
 {
-    return (trueSM.LEP2AFBtau(s) + delta_AFB_f(leptons[TAU], s));
+    return (trueSM.LEP2AFBtau(s) + delta_AFB_f(leptons[TAU], 0., 0., s));
 }
 
 const double NPbase::LEP2AFBcharm(const double s) const
 {
-    return (trueSM.LEP2AFBcharm(s) + delta_AFB_f(quarks[CHARM], s));
+    return (trueSM.LEP2AFBcharm(s) + delta_AFB_f(quarks[CHARM], 0., 0., s));
 }
 
 const double NPbase::LEP2AFBbottom(const double s) const
 {
-    return (trueSM.LEP2AFBbottom(s) + delta_AFB_f(quarks[BOTTOM], s));
+    return (trueSM.LEP2AFBbottom(s) + delta_AFB_f(quarks[BOTTOM], 0., 0., s));
 }
 
 const double NPbase::LEP2Rcharm(const double s) const
@@ -1246,17 +1302,17 @@ const double NPbase::LEP2Rbottom(const double s) const
 
 const double NPbase::LEP2dsigmadcosE(const double s, const double cos) const
 {
-    return (trueSM.LEP2dsigmadcosE(s,cos) + delta_Dsigma_f(leptons[ELECTRON], s, cos));
+    return (trueSM.LEP2dsigmadcosE(s,cos) + delta_Dsigma_f(leptons[ELECTRON], 0., 0., s, cos));
 }
 
 const double NPbase::LEP2dsigmadcosMu(const double s, const double cos) const
 {
-    return (trueSM.LEP2dsigmadcosMu(s,cos) + delta_Dsigma_f(leptons[MU], s, cos) );
+    return (trueSM.LEP2dsigmadcosMu(s,cos) + delta_Dsigma_f(leptons[MU], 0., 0., s, cos) );
 }
 
 const double NPbase::LEP2dsigmadcosTau(const double s, const double cos) const
 {
-    return (trueSM.LEP2dsigmadcosTau(s,cos) + delta_Dsigma_f(leptons[TAU], s, cos) );
+    return (trueSM.LEP2dsigmadcosTau(s,cos) + delta_Dsigma_f(leptons[TAU], 0., 0., s, cos) );
 }
 
 
