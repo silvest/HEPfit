@@ -194,6 +194,20 @@ double muZHpT250::computeThValue()
     return myNPbase->muZHpT250(sqrt_s);
 }
 
+
+mueeZHGen::mueeZHGen(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mueeZHGen called with a class whose parent is not NPbase");
+}
+
+double mueeZHGen::computeThValue()
+{
+    return myNPbase->mueeZHGen(sqrt_s, Pol_em, Pol_ep);
+}
+
+
 mueeZH::mueeZH(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {

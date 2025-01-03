@@ -486,6 +486,39 @@ private:
 
 
 /**
+ * @class mueeZHGen
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH}@f$.
+ * @author HEPfit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH}@f$ between the 
+ * @f$e^+e^- \to ZH@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mueeZHGen : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
+     */
+    mueeZHGen(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH}@f$ in the current model.
+     * @return @f$\mu_{e^+e^- \to ZH}@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s, Pol_em, Pol_ep;
+};
+
+/**
  * @class mueeZH
  * @ingroup NewPhysics
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH}@f$.

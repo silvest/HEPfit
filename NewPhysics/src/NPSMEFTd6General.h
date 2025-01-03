@@ -165,34 +165,6 @@
  *   \f${\cal O}_{W}=\varepsilon_{abc}W_{\mu}^{a\nu} W_{\nu}^{b\rho}W_{\rho}^{b\mu}\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%C2B </td>
- *   <td class="mod_symb">\f$C_{2B} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. 
- *  (Implemented via EOM.)</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%C2W </td>
- *   <td class="mod_symb">\f$C_{2W} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. 
- *  (Implemented via EOM.)</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%C2BS </td>
- *   <td class="mod_symb">\f$C_{2B}^{SILH} \f$</td>
- *   <td class="mod_desc">The coefficient of the SILH operator
- *   \f${\cal O}_{2B}^{SILH}=\frac 12 (\partial^\mu B_{\mu\nu})(\partial_\rho B^{\rho\nu})\f$. 
- *   (Implemented via EOM.) </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%C2WS </td>
- *   <td class="mod_symb">\f$C_{2W}^{SILH} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2W}^{SILH}=\frac 12 (D_\mu W^{a~\!\mu\nu})(D^\rho W_{\rho\nu}^{a})\f$. 
- *   (Implemented via EOM.) </td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%CHG </td>
  *   <td class="mod_symb">\f$C_{HG} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -211,34 +183,8 @@
  *   \f${\cal O}_{HB}=\big(H^\dagger H\big)B_{\mu\nu} B^{\mu\nu}\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CDHB </td>
- *   <td class="mod_symb">\f$C_{DHB} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DHB}=i\big(D^\mu H^\dagger D^\nu H\big) B_{\mu\nu}\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CDHW </td>
- *   <td class="mod_symb">\f$C_{DHW}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \sigma^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CDB </td>
- *   <td class="mod_symb">\f$C_{DB} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DB}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
- *   (Implemented via EOM.)</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CDW </td>
- *   <td class="mod_symb">\f$C_{DW}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DW}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^{a~\!\mu} H\big) D^\nu W_{\mu\nu}^a\f$.
- *  (Implemented via EOM.) </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CWB </td>
- *   <td class="mod_symb">\f$C_{WB} \f$</td>
+ *   <td class="mod_name">%CHWB </td>
+ *   <td class="mod_symb">\f$C_{HWB} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HWB}=\big(H^\dagger\sigma^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
  * </tr>
@@ -247,12 +193,6 @@
  *   <td class="mod_symb">\f$C_{HD}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CT </td>
- *   <td class="mod_symb">\f$C_{T}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{T}=\frac{1}{2} \big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)^2\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHbox </td>
@@ -568,18 +508,6 @@
  *   <td class="mod_symb">@f$\lambda_{Z}@f$</td>
  *   <td class="mod_desc">Independent contribution to aTGC. (extra contribution to the one from the EFT. Only for tests.)</td>
  * </tr>
- * <tr>
- *   <td class="mod_name">%eXint </td>
- *   <td class="mod_symb">\f$\varepsilon_{X}^{int}\f$</td>
- *   <td class="mod_desc">The relative intrinsic theoretical uncertainty for the process X.
- *    (Only for Higgs observables and assumed to be constant in the energy.)</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%eXpar </td>
- *   <td class="mod_symb">\f$\varepsilon_{X}^{par}\f$</td>
- *   <td class="mod_desc">The relative parametric theoretical uncertainty for the process X.
- *    (Only for Higgs observables and assumed to be constant in the energy.)</td>
- * </tr>
  * </table>
  * 
  * Where the hermitian derivatives are defined as 
@@ -591,424 +519,6 @@
  * H^\dagger i \overset{\leftrightarrow}{D^a_\mu} H\equiv H^\dagger i (\sigma^a D_\mu - \overset{\leftarrow}{D}_\mu \sigma^a)H.  
  * @f]
  *
- * Alternatively, when using the model name "NPSMEFTd6_LFU_QFU", where lepton
- * and quark flavour universality are assumed 
- * (except for \f$(C_{fH})_{ij},~f=e,u,d\f$ which are assumed to be diagonal only), 
- * the parameters to be used as inputs
- * for the dimension six coefficients are the following:
- * <table class="model">
- * <tr>
- *   <th>Label</th>
- *   <th>LaTeX symbol</th>
- *   <th>Description</th>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CG </td>
- *   <td class="mod_symb">\f$C_{G} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{G}=f_{ABC}G_{\mu}^{A\nu} G_{\nu}^{B\rho}W_{\rho}^{C\mu}\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CW </td>
- *   <td class="mod_symb">\f$C_{W} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{W}=\varepsilon_{abc}W_{\mu}^{a\nu} W_{\nu}^{b\rho}W_{\rho}^{b\mu}\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%C2B </td>
- *   <td class="mod_symb">\f$C_{2B} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2B}=\frac 12 (\partial_\rho B_{\mu\nu})^2\f$. 
- *   (Implemented via EOM.) </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%C2W </td>
- *   <td class="mod_symb">\f$C_{2W} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2W}=\frac 12 (D_\rho W_{\mu\nu}^{a})^2\f$. 
- *   (Implemented via EOM.) </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%C2BS </td>
- *   <td class="mod_symb">\f$C_{2B}^{SILH} \f$</td>
- *   <td class="mod_desc">The coefficient of the SILH operator
- *   \f${\cal O}_{2B}^{SILH}=\frac 12 (\partial^\mu B_{\mu\nu})(\partial_\rho B^{\rho\nu})\f$. 
- *   (Implemented via EOM.) </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%C2WS </td>
- *   <td class="mod_symb">\f$C_{2W}^{SILH} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{2W}^{SILH}=\frac 12 (D_\mu W^{a~\!\mu\nu})(D^\rho W_{\rho\nu}^{a})\f$. 
- *   (Implemented via EOM.) </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHG </td>
- *   <td class="mod_symb">\f$C_{HG} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HG}=\big(H^\dagger H\big)G_{\mu\nu}^A G^{A\mu\nu}\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHW </td>
- *   <td class="mod_symb">\f$C_{HW} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HW}=\big(H^\dagger H\big)W_{\mu\nu}^a W^{a\mu\nu}\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHB </td>
- *   <td class="mod_symb">\f$C_{HB} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HB}=\big(H^\dagger H\big)B_{\mu\nu} B^{\mu\nu}\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CDHB </td>
- *   <td class="mod_symb">\f$C_{DHB} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DHB}=i\big(D^\mu H^\dagger D^\nu H\big) B_{\mu\nu}\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CDHW </td>
- *   <td class="mod_symb">\f$C_{DHW}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DHW}=i\big(D^\mu H^\dagger \sigma^a D^\nu H\big) W_{\mu\nu}^a\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CDB </td>
- *   <td class="mod_symb">\f$C_{DB} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DB}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^\mu H\big) \partial^\nu B_{\mu\nu}\f$. 
- *   (Implemented via EOM.)</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CDW </td>
- *   <td class="mod_symb">\f$C_{DW}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{DW}=\frac{i}{2}\big(H^\dagger \overset{\leftrightarrow}{D}^{a~\!\mu} H\big) D^\nu W_{\mu\nu}^a\f$.
- *  (Implemented via EOM.) </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CWB </td>
- *   <td class="mod_symb">\f$C_{WB} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HWB}=\big(H^\dagger\sigma^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHD </td>
- *   <td class="mod_symb">\f$C_{HD}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CT </td>
- *   <td class="mod_symb">\f$C_{T}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{T}=\frac{1}{2} \big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)^2\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHbox </td>
- *   <td class="mod_symb">\f$C_{H\Box}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{H\Box}=\big(H^\dagger H\big)\Box\big(H^\dagger H\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CH </td>
- *   <td class="mod_symb">\f$C_{H}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{H}=\big(H^\dagger H\big)^3\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHl1</td>
- *   <td class="mod_symb">\f$ (C_{HL}^{(1)})_{ii} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HL}^{(1)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
- *   \big(\overline{L^i}\,\gamma^\mu L^i\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHl3 </td>
- *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{ii} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HL}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{L^i}\,\gamma^\mu \sigma^a L^i\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHe </td>
- *   <td class="mod_symb">\f$ (C_{He})_{ii} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{He})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
- *   \big(\overline{E^i}\,\gamma^\mu E^i\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHq1 </td>
- *   <td class="mod_symb">\f$ (C_{HQ}^{(1)})_{ii} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HQ}^{(1)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
- *   \big(\overline{Q^i}\,\gamma^\mu Q^i\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHq3 </td>
- *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{ii}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HQ}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
- *   \big(\overline{Q^i}\,\gamma^\mu \sigma^a Q^i\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHu </td>
- *   <td class="mod_symb">\f$ (C_{Hu})_{ii} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{Hu})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
- *   \big(\overline{U^i}\,\gamma^\mu U^i\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHd </td>
- *   <td class="mod_symb">\f$ (C_{Hd})_{ii} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{Hd})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
- *   \big(\overline{D^i}\,\gamma^\mu D^i\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CHud_r, CHud_i </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{Hud})_{ii}\big], \mbox{Im}\big[(C_{Hud})_{ii}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{Hud})_{ii} =i\big(\widetilde{H}^\dagger D_\mu H\big)
- *   \big(\overline{U^i}\,\gamma^\mu D^i\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CeH_jjr, CeH_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{eH})_{jj}\big], \mbox{Im}\big[(C_{eH})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{eH})_{jj} =\big(H^\dagger H\big)
- *   \big(\overline{L^j}\,H E^j\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CuH_jjr, CuH_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uH})_{jj}\big], \mbox{Im}\big[(C_{uH})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uH})_{jj} =\big(H^\dagger H\big)
- *   \big(\overline{Q^j}\,\widetilde{H} U^j\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CdH_jjr, CdH_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dH})_{jj}\big], \mbox{Im}\big[(C_{dH})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{dH})_{jj} =\big(H^\dagger H\big)
- *   \big(\overline{Q^j}\,H D^j\big)\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CuG_jjr, CuG_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uG})_{jj}\big], \mbox{Im}\big[(C_{uG})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uG})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} T_A U^j\big)\widetilde{H} G_{\mu\nu}^A\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CuW_jjr, CuW_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uW})_{jj}\big], \mbox{Im}\big[(C_{uW})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uW})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} \sigma_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CuB_jjr, CuB_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uB})_{jj}\big], \mbox{Im}\big[(C_{uB})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uB})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} U^j\big)\widetilde{H} B_{\mu\nu}\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CdG_jjr, CdG_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dG})_{jj}\big], \mbox{Im}\big[(C_{dG})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{dG})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} T_A D^j\big)H G_{\mu\nu}^A\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CdW_jjr, CdW_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dW})_{jj}\big], \mbox{Im}\big[(C_{dW})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{dW})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} \sigma_a D^j\big)H W_{\mu\nu}^a\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CdB_jjr, CdB_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dB})_{jj}\big], \mbox{Im}\big[(C_{dB})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{dB})_{jj} =\big(\overline{Q^j}\sigma^{\mu\nu} D^j\big)H B_{\mu\nu}\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CeW_jjr, CeW_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{eW})_{jj}\big], \mbox{Im}\big[(C_{eW})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{eW})_{jj} =\big(\overline{L^j}\sigma^{\mu\nu} \sigma_a E^j\big)H W_{\mu\nu}^a\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CeB_jjr, CeB_jji </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{eB})_{jj}\big], \mbox{Im}\big[(C_{eB})_{jj}\big] \f$</td>
- *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{eB})_{jj} =\big(\overline{L^j}\sigma^{\mu\nu} E^j\big)H B_{\mu\nu}\f$ (flavor universal). </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cll </td>
- *   <td class="mod_symb">\f$(C_{LL})_{1221,2112}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LL})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{L^k}\,\gamma_\mu L^l\big)\f$, for \f$ijkl=1221,2112\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Clq1 </td>
- *   <td class="mod_symb">\f$C_{LQ}^{(1)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(1)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Clq3 </td>
- *   <td class="mod_symb">\f$C_{LQ}^{(3)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \sigma_a L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu \sigma_a Q^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cee </td>
- *   <td class="mod_symb">\f$C_{EE}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{EE})_{ijkl}=\big(\overline{E^i}\,\gamma^\mu E^j\big)
- *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Ceu </td>
- *   <td class="mod_symb">\f$C_{EU}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{EU})_{ijkl}=\big(\overline{E^i}\,\gamma^\mu E^j\big)
- *   \big(\overline{U^k}\,\gamma_\mu U^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Ced </td>
- *   <td class="mod_symb">\f$C_{ED}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{ED})_{ijkl}=\big(\overline{E^i}\,\gamma^\mu E^j\big)
- *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cle </td>
- *   <td class="mod_symb">\f$C_{LE}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LE})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Clu </td>
- *   <td class="mod_symb">\f$C_{LU}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LU})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{U^k}\,\gamma_\mu U^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cld </td>
- *   <td class="mod_symb">\f$C_{LD}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LD})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cqe </td>
- *   <td class="mod_symb">\f$C_{QE}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{QE})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
- *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cqq1 </td>
- *   <td class="mod_symb">\f$C_{QQ}^{(1)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{QQ}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cqq3 </td>
- *   <td class="mod_symb">\f$C_{QQ}^{(3)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{QQ}^{(3)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu \sigma_a Q^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu \sigma_a Q^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cuu </td>
- *   <td class="mod_symb">\f$C_{uu}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{uu})_{ijkl}=\big(\overline{u^i}\,\gamma^\mu u^j\big)
- *   \big(\overline{u^k}\,\gamma_\mu u^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cud1 </td>
- *   <td class="mod_symb">\f$C_{ud}^{(1)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{ud}^{(1)})_{ijkl}=\big(\overline{u^i}\,\gamma^\mu u^j\big)
- *   \big(\overline{d^k}\,\gamma_\mu d^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cud8 </td>
- *   <td class="mod_symb">\f$C_{ud}^{(8)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{ud}^{(8)})_{ijkl}=\big(\overline{u^i}\,\gamma^\mu T^A u^j\big)
- *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cqu1 </td>
- *   <td class="mod_symb">\f$C_{Qu}^{(1)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{Qu}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
- *   \big(\overline{u^k}\,\gamma_\mu u^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cqu8 </td>
- *   <td class="mod_symb">\f$C_{Qu}^{(8)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{Qu}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
- *   \big(\overline{u^k}\,\gamma_\mu T^A u^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cqd1 </td>
- *   <td class="mod_symb">\f$C_{Qd}^{(1)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{Qd}^{(1)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
- *   \big(\overline{d^k}\,\gamma_\mu d^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cqd8 </td>
- *   <td class="mod_symb">\f$C_{Qd}^{(8)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{Qd}^{(8)})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu T^A Q^j\big)
- *   \big(\overline{d^k}\,\gamma_\mu T^A d^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cquqd1 </td>
- *   <td class="mod_symb">\f$C_{QuQd}^{(1)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{QuQd}^{(1)})_{ijkl}=\big(\overline{Q^i}\, u^j\big) i\sigma_2
- *   \big(\overline{Q^k}^T\, d^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cquqd8 </td>
- *   <td class="mod_symb">\f$C_{QuQd}^{(8)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{QuQd}^{(8)})_{ijkl}=\big(\overline{Q^i}\, T^A u^j\big) i\sigma_2
- *   \big(\overline{Q^k}^T\, T^A d^l\big)\f$. </td>
- * </tr> 
- * <tr>
- *   <td class="mod_name">%Lambda_NP </td>
- *   <td class="mod_symb">\f$\Lambda \f$</td>
- *   <td class="mod_desc">The new physics scale. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BrHinv</td>
- *   <td class="mod_symb">Br@f$(H\to invisible)@f$</td>
- *   <td class="mod_desc">The branching ratio of invisible Higgs decays. (Not part of the EFT. Only for tests.)</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BrHexo</td>
- *   <td class="mod_symb">Br@f$(H\to exotic)@f$</td>
- *   <td class="mod_desc">The branching ratio of exotic Higgs decays. (Not part of the EFT. Only for tests.)</td>
- * </tr>
- * </table>
- * (The parameters associated to the theoretical uncertainties:
- * \f$\varepsilon_{X}^{int}\f$, \f$\varepsilon_{X}^{par}\f$ and
- * \f$\varepsilon_{X}^i(E)\f$,
- * are the same for both "NPSMEFTd6General" and "NPSMEFTd6_LFU_QFU".)
- *
  * @anchor NPSMEFTd6GeneralFlags
  * <h3>%Model flags</h3>
  *
@@ -1019,6 +529,13 @@
  *   <th>Value</th>
  *   <th>Description</th>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%MWinput</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, 
+ *   instead of the electromagnetic constant parameter %dAle5Mz. 
+ *   The default value is FALSE. This flag will override the flag of the same name in StandardModel</td>
+ * </tr> 
  * <tr>
  *   <td class="mod_name">%QuadraticTerms</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
@@ -1053,14 +570,17 @@
  *   The default value is TRUE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%MWinput</td>
+ *   <td class="mod_name">%finiteNLO</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, 
- *   instead of the electromagnetic constant parameter %dAle5Mz. 
- *   The default value is FALSE. This flag will override the flag of the same name in StandardModel</td>
+ *   <td class="mod_desc">This flag is set to TRUE if including SMEFT finite NLO terms (where available).
+ *   The default value is FALSE.</td>
  * </tr>
- * 
- * 
+ * <tr>
+ *   <td class="mod_name">%matchLEFT</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if the matching between SMEFT and LEFT needs to be computed.
+ *   The default value is TRUE.</td>
+ * </tr>  
  * </table>
  *
  *
@@ -2194,7 +1714,6 @@ public:
      * @return @f$\mu_{ZH}@f$
      */
     virtual const double muZHpT250(const double sqrt_s) const;
-    
     
     /**
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
@@ -7921,13 +7440,14 @@ private:
     
     gslpp::matrix<gslpp::complex> VuL, VuLd, VuR, VuRd, VdL, VdLd, VdR, VdRd, VeL, VeLd, VeR, VeRd, MUQ, MDQ;
 
+    bool FlagMWinput; ///< A boolean for the model flag %MWinput. 
     bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
     bool FlagHiggsSM; ///< A boolean flag that is true if including dependence on small variations of the SM parameters (dependence is linearized). Available only in selected Higgs observables. 
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
     bool FlagLoopH3d6Quad; ///< A boolean flag that is true if including quadratic modifications in the SM loops in Higgs observables due to the dim 6 interactions that contribute to the trilinear Higgs coupling.
-    bool FlagMWinput; ///< A boolean for the model flag %MWinput. 
     bool FlagRGEci; ///< A boolean for the model flag %RGEci , to include RGE effects.
     bool FlagfiniteNLO; ///< A boolean for the model flag %finiteNLO , to include finite NLO terms, when available. 
+    bool FlagmatchLEFT; ///< A boolean for the model flag %matchLEFT , to include the matching between SMEFT and LEFT.
 
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function

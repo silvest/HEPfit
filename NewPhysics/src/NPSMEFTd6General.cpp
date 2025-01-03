@@ -338,13 +338,14 @@ NPbase(), NPSMEFTd6GM(*this), SMEFTEvolEW(),
         VeR(gslpp::matrix<complex>::Id(3)), VeRd(gslpp::matrix<complex>::Id(3)), 
         MUQ(3, 0.), MDQ(3, 0.) {
 
+    FlagMWinput = false;
     FlagQuadraticTerms = false;
     FlagHiggsSM = false;
     FlagLoopHd6 = false;
     FlagLoopH3d6Quad = false;
-    FlagMWinput = false;
     FlagRGEci = true;
     FlagfiniteNLO = false;
+    FlagmatchLEFT = true;
     SMEFTBasisFlag = "UP";
     setModelLinearized();
 
@@ -8652,11 +8653,10 @@ bool NPSMEFTd6General::PostUpdate() {
     //    aiu = -getSMEFTCoeffEW("CuHR",2,2) * v2 / Yukt;
     //    aiuG = getSMEFTCoeffEW("CuGR",2,2) * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / getSMEFTCoeffEW("YuR",2,2) / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
 
-    //  Dim 6 SMEFT matching
+    //  Dim 6 SMEFT-LEFT matching
 
-
-    // update LEFT Wilson coefficients 
-    getMatching().updateLEFTGeneralParameters();
+    // update LEFT Wilson coefficients (time consuming, do only if FlagmatchLEFT=true
+    if (FlagmatchLEFT) getMatching().updateLEFTGeneralParameters();
 
     return (true);
 }
@@ -13859,7 +13859,13 @@ void NPSMEFTd6General::setParameter(const std::string name, const double& value)
 
 bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
     bool res = false;
-    if (name.compare("QuadraticTerms") == 0) {
+    if (name.compare("MWinput") == 0) {
+        FlagMWinput = value;
+        //We need to fix FlagMWinput also in the StandardModel
+        res = NPbase::setFlag(name, value);
+        res = trueSM.setFlag(name, value);
+        //    res = true;    
+    } else if (name.compare("QuadraticTerms") == 0) {
         FlagQuadraticTerms = value;
         if (value) setModelLinearized(false);
         if (value) setModelNPquadratic(true); //AG:added
@@ -13872,21 +13878,19 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
         res = true;
     } else if (name.compare("LoopH3d6Quad") == 0) {
         FlagLoopH3d6Quad = value;
-        res = true;
-    } else if (name.compare("MWinput") == 0) {
-        FlagMWinput = value;
-        //We need to fix FlagMWinput also in the StandardModel
-        res = NPbase::setFlag(name, value);
-        res = trueSM.setFlag(name, value);
-        //    res = true;
+        res = true; 
     } else if (name.compare("RGEci") == 0) {
         FlagRGEci = value;
         res = true;
     } else if (name.compare("finiteNLO") == 0) {
         FlagfiniteNLO = value;
         res = true;
+    } else if (name.compare("matchLEFT") == 0) {
+        FlagmatchLEFT = value;
+        res = true;
     } else
         res = NPbase::setFlag(name, value);
+    
     if (FlagMWinput) {
         //  MW scheme
         cAsch = 0.;
@@ -13896,21 +13900,25 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
         cAsch = 1.;
         cWsch = 0.;
     }
+    
     if (!FlagLoopHd6) {
         cLHd6 = 0.0;
     } else {
         cLHd6 = 1.0;
     }
+    
     if (!FlagHiggsSM) {
         cHSM = 0.0;
     } else {
         cHSM = 1.0;
     }
+    
     if (FlagLoopH3d6Quad || FlagQuadraticTerms) {
         cLH3d62 = 1.0;
     } else {
         cLH3d62 = 0.0;
     }
+    
     if (!FlagfiniteNLO) {
         cNLOd6 = 0.0;
     } else {
