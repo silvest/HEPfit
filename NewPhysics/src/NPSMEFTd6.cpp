@@ -26496,25 +26496,24 @@ const double NPSMEFTd6::delta_AFB_f(const Particle f, const double pol_e, const 
     //M2SM = MXX2SM + MXY2SM;
     
     // LR, RL, LL and RR SM squared amplitudes
-    MLR2SM = 2.0 * Qf * Qf
+    MLR2SM = Qf * Qf
             + (is2c2 * is2c2 * (geLSM * geLSM * gfRSM * gfRSM) * s * s
             + 2.0 * Qf * is2c2 * (geLSM * gfRSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ);
     
-    MRL2SM = 2.0 * Qf * Qf
+    MRL2SM = Qf * Qf
             + (is2c2 * is2c2 * (geRSM * geRSM * gfLSM * gfLSM) * s * s
             + 2.0 * Qf * is2c2 * (geRSM * gfLSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ); 
     
-    MLL2SM = 2.0 * Qf * Qf
+    MLL2SM = Qf * Qf
             + (is2c2 * is2c2 * (geLSM * geLSM * gfLSM * gfLSM) * s * s
             + 2.0 * Qf * is2c2 * (geLSM * gfLSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ); 
     
-    MRR2SM = 2.0 * Qf * Qf
+    MRR2SM = Qf * Qf
             + (is2c2 * is2c2 * (geRSM * geRSM * gfRSM * gfRSM) * s * s
             + 2.0 * Qf * is2c2 * (geRSM * gfRSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ); 
     
-    numdA = 3.0 * (-(( MRR2SM * pRH + MLL2SM * pLH) * ( pLH * deltaMLR2_f(f, s) + pRH * deltaMRL2_f(f, s) )) 
-            + MRL2SM * pRH * ( pLH * deltaMLL2_f(f, s, tdumm) + pRH * deltaMRR2_f(f, s, tdumm) ) 
-            + MLR2SM * pLH * ( pLH * deltaMLL2_f(f, s, tdumm) + pRH * deltaMRR2_f(f, s, tdumm) ));
+    numdA = 3.0 * ( -( MRR2SM * pRH + MLL2SM * pLH ) * ( pLH * deltaMLR2_f(f, s) + pRH * deltaMRL2_f(f, s) ) 
+            + ( MRL2SM * pRH + MLR2SM * pLH ) * ( pLH * deltaMLL2_f(f, s, tdumm) + pRH * deltaMRR2_f(f, s, tdumm) ) );
             
     dendA = ((MRL2SM + MRR2SM) * pRH + (MLL2SM + MLR2SM) * pLH);
     
@@ -26825,25 +26824,27 @@ const double NPSMEFTd6::delta_sigma_ee(const double pol_e, const double pol_p, c
 
 //  Absolute corrections to the total cross section 
 const double NPSMEFTd6::delta_sigmaTot_ee(const double pol_e, const double pol_p, const double s) const {
-    return delta_sigma_ee(pol_e, pol_p, s, -1.0, 1.0);
+    double coscut = 0.990268; // 8 degrees  
+    return delta_sigma_ee(pol_e, pol_p, s, -coscut, coscut);
 }
 
 //  Absolute corrections to the FB asymmetry 
 const double NPSMEFTd6::delta_AFB_ee(const double pol_e, const double pol_p, const double s) const {
     
+    double coscut = 0.990268; // 8 degrees
     double xsSMF, xsSMB, xsSM;
     double dxsF, dxsB, dxs;
     double dAFB;
     
     // SM cross sections
-    xsSM = sigmaSM_ee(pol_e, pol_p, s, -1.0, 1.0);
-    xsSMF = sigmaSM_ee(pol_e, pol_p, s, 0.0, 1.0);
-    xsSMB = sigmaSM_ee(pol_e, pol_p, s, -1.0, 0.0);
+    xsSM = sigmaSM_ee(pol_e, pol_p, s, -coscut, coscut);
+    xsSMF = sigmaSM_ee(pol_e, pol_p, s, 0.0, coscut);
+    xsSMB = sigmaSM_ee(pol_e, pol_p, s, -coscut, 0.0);
     
     // Corrections to each
-    dxs = delta_sigma_ee(pol_e, pol_p, s, -1.0, 1.0);
-    dxsF = delta_sigma_ee(pol_e, pol_p, s, 0.0, 1.0);
-    dxsB = delta_sigma_ee(pol_e, pol_p, s, -1.0, 0.0);
+    dxs = delta_sigma_ee(pol_e, pol_p, s, -coscut, coscut);
+    dxsF = delta_sigma_ee(pol_e, pol_p, s, 0.0, coscut);
+    dxsB = delta_sigma_ee(pol_e, pol_p, s, -coscut, 0.0);
 
     // Correction to asymmetry
     dAFB = (dxsF - dxsB)/xsSM - (xsSMF - xsSMB)*dxs/xsSM/xsSM;
