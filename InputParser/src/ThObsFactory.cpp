@@ -904,20 +904,20 @@ ThObsFactory::ThObsFactory()
     obsThFactory["VH196"] = bind(boost::factory<muVH*>(), _1, sqrt_s_TeV);
     obsThFactory["ttH196"] = bind(boost::factory<muttH*>(), _1, sqrt_s_TeV);
     //
-    // Parameters for inclusive Higgs 0bservables at e+ e-
+    // Parameters for inclusive Higgs observables at e+ e-
     const double sqrts_eetoH[8] = {240., 250., 345., 350., 360., 365., 500., 1000.};
 
     for (int i = 0; i < 8; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrts_eetoH[i]);
 
         // Unpolarized
-        obsThFactory["eeZH_" + sqrt_s_str] = bind(boost::factory<mueeZHGen*>(), _1, 0., 0., sqrts_eetoH[i]);
+        obsThFactory["eeZH_" + sqrt_s_str] = bind(boost::factory<mueeZHGen*>(), _1, sqrts_eetoH[i], 0., 0.);
         
         // Polarized: Pe-: -80% Pe+: +30%
-        obsThFactory["eeZH_m80p30_" + sqrt_s_str] = bind(boost::factory<mueeZHGen*>(), _1, -0.8, 0.3, sqrts_eetoH[i]);
+        obsThFactory["eeZH_m80p30_" + sqrt_s_str] = bind(boost::factory<mueeZHGen*>(), _1, sqrts_eetoH[i], -0.8, 0.3);
         
         // Polarized: Pe-: 80% Pe+: -30%
-        obsThFactory["eeZH_p80m30_" + sqrt_s_str] = bind(boost::factory<mueeZHGen*>(), _1, 0.8, -0.3, sqrts_eetoH[i]);
+        obsThFactory["eeZH_p80m30_" + sqrt_s_str] = bind(boost::factory<mueeZHGen*>(), _1, sqrts_eetoH[i], 0.8, -0.3);
     }    
     //
     obsThFactory["eeZH240"] = bind(boost::factory<mueeZH*>(), _1, sqrt_s_leptcoll_240);

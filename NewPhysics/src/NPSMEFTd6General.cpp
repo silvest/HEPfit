@@ -21823,9 +21823,9 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + d6RHCHWBt[iECM] * getSMEFTCoeffEW("CHWtildeB")
                 + d6RHCWt[iECM] * getSMEFTCoeffEW("CWtilde");       
         
-        // Correction to polarized cross section
-        dmuNLO += 0.25 * (1.0 - Pe) * (1.0 + Pp) * xsSMweakLH[iECM] * d6NLOLH 
-                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * xsSMweakRH[iECM] * d6NLORH;
+        // Correction to polarized cross section: Need to multiply by Lambda^2
+        dmuNLO += 0.25 * (1.0 - Pe) * (1.0 + Pp) * xsSMweakLH[iECM] * d6NLOLH * LambdaNP2 
+                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * xsSMweakRH[iECM] * d6NLORH * LambdaNP2;
         // Normalize to SM full NLO cross section
         dmuNLO = 4.0 * dmuNLO /((1.0 - Pe) * (1.0 + Pp) * xsSMNLOLH[iECM] + (1.0 + Pe) * (1.0 - Pp) * xsSMNLORH[iECM]);
         
@@ -21834,49 +21834,49 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
         
     }
     
-    // Coefficient for Higgs self-coupling corrections
-    if (sqrt_s == 0.240) {
+    // Coefficient for Higgs self-coupling corrections (disabled for the moment as these are already included in NLO above)
+    //if (sqrt_s == 240.) {
 
-        C1 = 0.017;
+    //    C1 = 0.017;
         
-    } else if (sqrt_s == 0.250) {
+    //} else if (sqrt_s == 250.) {
 
-        C1 = 0.015;
+    //    C1 = 0.015;
 
-    } else if (sqrt_s == 0.350) {
+    //} else if (sqrt_s == 350.) {
 
-        C1 = 0.0057;
+    //    C1 = 0.0057;
 
-    } else if (sqrt_s == 0.365) {
+    //} else if (sqrt_s == 365.) {
 
-        C1 = 0.0057; // Use same as 350 GeV
+    //    C1 = 0.0057; // Use same as 350 GeV
 
-    } else if (sqrt_s == 0.380) {
+    //} else if (sqrt_s == 380.) {
 
-        C1 = 0.0057; // Use same as 350 GeV
+    //    C1 = 0.0057; // Use same as 350 GeV
 
-    } else if (sqrt_s == 0.500) {
+    //} else if (sqrt_s == 500.) {
 
-        C1 = 0.00099;
+    //    C1 = 0.00099;
 
-    } else if (sqrt_s == 1.0) {
+    //} else if (sqrt_s == 1000.) {
 
-        C1 = -0.0012;
+    //    C1 = -0.0012;
 
-    } else if (sqrt_s == 1.4) {
+    //} else if (sqrt_s == 1400.) {
 
-        C1 = -0.0011;
+    //    C1 = -0.0011;
 
-    } else if (sqrt_s == 1.5) {
+    //} else if (sqrt_s == 1500.) {
 
-        C1 = -0.0011; // Use the same as 1400 GeV
+    //    C1 = -0.0011; // Use the same as 1400 GeV
 
-    } else if (sqrt_s == 3.0) {
+    //} else if (sqrt_s == 3000.) {
 
-        C1 = -0.00054;
+    //    C1 = -0.00054;
 
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZH()");
+    //} else
+    //    throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZH()");
 
     // Add the LO and NLO corrections
     mu += dmuLO + dmuNLO;
