@@ -1,5 +1,7 @@
 var NAVTREEINDEX131 =
 {
+"df/d97/class_br_htolljj_ratio.html#a46fc2a0715bcb4a524f3cbd9d8fed98b":[4,13,30,1],
+"df/d97/class_br_htolljj_ratio.html#ae3703619d80d2360f71ab0b5d3957bd4":[4,13,30,2],
 "df/d9c/class_l_h_p_c_1_1_s_l_h_a_1_1_dense_singly_indexed_block.html":[27,0,1,3,6],
 "df/d9c/class_l_h_p_c_1_1_s_l_h_a_1_1_dense_singly_indexed_block.html#a2af99598e9f0f41e9073cdddfe280cf4":[27,0,1,3,6,4],
 "df/d9c/class_l_h_p_c_1_1_s_l_h_a_1_1_dense_singly_indexed_block.html#a40facef23d042029a53d758addbed4e6":[27,0,1,3,6,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX131 =
 "df/dcf/class_evol_d_c1_buras.html#ac314778950aa90176426673d0e57a51c":[27,0,608,9],
 "df/dcf/class_evol_d_c1_buras.html#ac4dc00547b5eefc546d7c321f50401f7":[27,0,608,8],
 "df/dcf/class_evol_d_c1_buras.html#acf78b3ba7ea96eef53713aa4c94e23eb":[27,0,608,22],
-"df/dcf/class_evol_d_c1_buras.html#ad309984e8f31b9e1b50040daa149cd30":[27,0,608,20],
-"df/dcf/class_evol_d_c1_buras.html#ad7ba509791b345bc0bc0e660ac7e339b":[27,0,608,5],
-"df/dcf/class_evol_d_c1_buras.html#ad90e42adba3f95c5861777ef3fc6c275":[27,0,608,27]
+"df/dcf/class_evol_d_c1_buras.html#ad309984e8f31b9e1b50040daa149cd30":[27,0,608,20]
 };

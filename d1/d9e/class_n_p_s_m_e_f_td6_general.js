@@ -3454,6 +3454,7 @@ var class_n_p_s_m_e_f_td6_general =
     [ "delta_ale_2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a1ae85ea3abc122ade327c31408e7398f", null ],
     [ "delta_AZ", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a368c224ac7b1219a05bc5e990e855df8", null ],
     [ "delta_e", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a59344f7456e6fc522f044769d738541c", null ],
+    [ "delta_em", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ac4331003236582204d690589581adf58", null ],
     [ "delta_g1", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#aba04c84e6efdf6e310115a71d61671fd", null ],
     [ "delta_g1_2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a20bf6509d54e112dc82fc96fb6fcfc5e", null ],
     [ "delta_g2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a7703786a171245d9bd04a78106e4fd94", null ],

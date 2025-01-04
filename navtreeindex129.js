@@ -1,5 +1,7 @@
 var NAVTREEINDEX129 =
 {
+"df/d2d/classtanbeta.html#a4efe9db326bbfb81547c445cabda097f":[4,17,407,0],
+"df/d2d/classtanbeta.html#a8f5513f786f9c068bca1dd29100e91c3":[4,17,407,1],
 "df/d2d/classtanbeta.html#a94726bd9380e93d1466f88ff10665afc":[4,17,407,2],
 "df/d2f/class_c_bs.html":[4,5,55],
 "df/d2f/class_c_bs.html#a0f8a9736ce0d950589629d865722c0dd":[4,5,55,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX129 =
 "df/d54/class_robs__gg_f___h__tt___a_t_l_a_s8.html#ad30687786421c63847638b05a5d76679":[4,17,333,2],
 "df/d54/class_robs__gg_f___h__tt___a_t_l_a_s8.html#af7d81dd75778cf9a44d7f3966808c0af":[4,17,333,0],
 "df/d54/classmuee_z_htautau_pol.html":[4,13,128],
-"df/d54/classmuee_z_htautau_pol.html#a1d295314d6fd6850b96744e33165c6bd":[4,13,128,2],
-"df/d54/classmuee_z_htautau_pol.html#a7577f18649f93fd572739911c306967f":[4,13,128,0],
-"df/d54/classmuee_z_htautau_pol.html#a7f91204c7629c05c8df236acb0670fe1":[4,13,128,4]
+"df/d54/classmuee_z_htautau_pol.html#a1d295314d6fd6850b96744e33165c6bd":[4,13,128,2]
 };

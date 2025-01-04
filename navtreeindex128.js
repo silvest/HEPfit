@@ -1,5 +1,7 @@
 var NAVTREEINDEX128 =
 {
+"df/d15/class_higgs_kigen.html#a92890d79a0327c3e028111b883828714":[4,13,65,41],
+"df/d15/class_higgs_kigen.html#a942bc9df1c81f439c922e52c73e18ee6":[4,13,65,30],
 "df/d15/class_higgs_kigen.html#a94922e82dab2c4a60b0adca15dd3f1b9":[4,13,65,239],
 "df/d15/class_higgs_kigen.html#a94b006a287f249ea8b1db475f0433e2c":[4,13,65,100],
 "df/d15/class_higgs_kigen.html#a94b7916d95b39f3e4f0d234c05acfcd5":[4,13,65,280],
@@ -247,7 +249,5 @@ var NAVTREEINDEX128 =
 "df/d2d/class_b_o_l_1_1_argument_parser.html#aca30790c8d953a6136cb7f4481e8907a":[27,0,0,0,2],
 "df/d2d/class_b_o_l_1_1_argument_parser.html#ad46945baf51fd69ed07651fc581644a3":[27,0,0,0,1],
 "df/d2d/class_b_o_l_1_1_argument_parser.html#ae4712027d02b9ba01720968a39b34f53":[27,0,0,0,4],
-"df/d2d/classtanbeta.html":[4,17,407],
-"df/d2d/classtanbeta.html#a4efe9db326bbfb81547c445cabda097f":[4,17,407,0],
-"df/d2d/classtanbeta.html#a8f5513f786f9c068bca1dd29100e91c3":[4,17,407,1]
+"df/d2d/classtanbeta.html":[4,17,407]
 };

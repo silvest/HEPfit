@@ -1,5 +1,7 @@
 var NAVTREEINDEX117 =
 {
+"dd/d6c/class_wilson_template_new.html#a8a4549866ec901b3730f6b74217cdf22":[27,0,3018,8],
+"dd/d6c/class_wilson_template_new.html#a8a83813a042404f25d0150b6c83a9e99":[27,0,3018,11],
 "dd/d6c/class_wilson_template_new.html#a91a2314b181017cd2c5df72215d8dbac":[27,0,3018,13],
 "dd/d6c/class_wilson_template_new.html#a9241a612bf64d799a8b780e0684c3cc7":[27,0,3018,7],
 "dd/d6c/class_wilson_template_new.html#ab8c4c7b84699ef94dd184a067aa504f6":[27,0,3018,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX117 =
 "dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#adf4fe760ed0ee3527fbe43c54de4d50a":[4,0,12,48],
 "dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#ae27f9ce6c18a56c572b5b93cfc28efc6":[4,0,12,41],
 "dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#ae482dc94064b193b79252c73e49bbb9a":[4,0,12,33],
-"dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#ae8281c7355dce5bd57434e1015525284":[4,0,12,50],
-"dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#aef8a9523c68fc22215ad0c447111752d":[4,0,12,9],
-"dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#af303b964ec3bb93d3f0190f1a34a7d31":[4,0,12,31]
+"dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#ae8281c7355dce5bd57434e1015525284":[4,0,12,50]
 };

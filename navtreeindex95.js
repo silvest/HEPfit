@@ -1,5 +1,7 @@
 var NAVTREEINDEX95 =
 {
+"db/d20/class_l_h_p_c_1_1_mass_eigenstate.html#a683c9827c96b6438ecc1db062cc84cb7":[27,0,1,12,38],
+"db/d20/class_l_h_p_c_1_1_mass_eigenstate.html#a69bac7f240fb94868637e1daa57f2dbf":[27,0,1,12,13],
 "db/d20/class_l_h_p_c_1_1_mass_eigenstate.html#a69ca43b06fd31b743b2af5c4f9248925":[27,0,1,12,58],
 "db/d20/class_l_h_p_c_1_1_mass_eigenstate.html#a6b0e81a930efeb8743921885d0e55bc7":[27,0,1,12,70],
 "db/d20/class_l_h_p_c_1_1_mass_eigenstate.html#a6cbb49ed3b9b41e2e658d1bd2df4c45a":[27,0,1,12,31],
@@ -247,7 +249,5 @@ var NAVTREEINDEX95 =
 "db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a62f5bcc46736ea698a467779773dad6e":[4,0,11,68],
 "db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a63442a91d08b517ec3d9efaf824d4d84":[4,0,11,23],
 "db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a63ba022dc334e6edb2db24a77c04f206":[4,0,11,48],
-"db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a6477b0185f87d4bf07dbb6924c5b2514":[4,0,11,50],
-"db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a691511d93e1ca8ad54f3facd43b9eef4":[4,0,11,7],
-"db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a694cace6b93b7816e51af2203e206712":[4,0,11,83]
+"db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a6477b0185f87d4bf07dbb6924c5b2514":[4,0,11,50]
 };
