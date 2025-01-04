@@ -6893,6 +6893,8 @@ protected:
     double delta_UgNC; ///< The dimension 6 universal correction to neutral current EW couplings
     double delta_QgNC; ///< The dimension 6 charge correction to neutral current EW couplings
     double delta_UgCC; ///< The dimension 6 universal correction to charged current EW couplings
+    
+    double delta_em; ///< The relative dimension 6 correction to the QED interaction vertex
 
     //AG:begin
     /**
