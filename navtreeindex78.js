@@ -1,5 +1,13 @@
 var NAVTREEINDEX78 =
 {
+"d8/d94/classobs_b_dstartaunu___b.html#a2957186b37522b67188ce9de093e75a7":[4,17,280,0],
+"d8/d95/classmuee_w_b_fbb_pol.html":[4,13,92],
+"d8/d95/classmuee_w_b_fbb_pol.html#a0c05aed7a651a9b52765bf8c588a43c9":[4,13,92,5],
+"d8/d95/classmuee_w_b_fbb_pol.html#a3e58698483fda9a49f98c9c9d7c17af6":[4,13,92,3],
+"d8/d95/classmuee_w_b_fbb_pol.html#a42aa37dedc50d1978b8913a0549899a2":[4,13,92,4],
+"d8/d95/classmuee_w_b_fbb_pol.html#a8838cc2df699180c496737aae70e6946":[4,13,92,0],
+"d8/d95/classmuee_w_b_fbb_pol.html#aa9a569ee61e6475b8daf1ed0b58bad27":[4,13,92,1],
+"d8/d95/classmuee_w_b_fbb_pol.html#afe69820772ff9244ed1d3ac25a43227b":[4,13,92,2],
 "d8/d98/class_hobs__pp__h__phi3phi3__tautautautau___c_m_s8.html":[27,0,1194],
 "d8/d98/class_hobs__pp__h__phi3phi3__tautautautau___c_m_s8.html#a3c8208fccd98042e44920d6603d6f8cc":[27,0,1194,1],
 "d8/d98/class_hobs__pp__h__phi3phi3__tautautautau___c_m_s8.html#ab1ca137f6ec50c01bf85c27a38c8ff8c":[27,0,1194,0],
@@ -241,13 +249,5 @@ var NAVTREEINDEX78 =
 "d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a1aee9458224c38645da085bbe1689038":[27,0,2311,40],
 "d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a30401b21fe81b49554acfcf9eed47d74":[27,0,2311,22],
 "d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a33c5cf8c1b25f689cef26855837992bd":[27,0,2311,38],
-"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a367c412cf35a767978bcb8a94547a38f":[27,0,2311,19],
-"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a46e814ff577b523e286ebc8a4ae75573":[27,0,2311,2],
-"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a50df28c31188f6e92709b5aad18f98cc":[27,0,2311,6],
-"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a511c443d781492140f835167399ceb17":[27,0,2311,17],
-"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a518fb9f576b2248cc0f56e2d348f28f1":[27,0,2311,24],
-"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a52fc0078c4a0dfc9a602198a572534a6":[27,0,2311,21],
-"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a5519accbb58bb1090c6d73896edb8ce2":[27,0,2311,34],
-"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a694762287bd26420077d169e1598c0bb":[27,0,2311,20],
-"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a6d3abaacc6019c2ad447963733a54f98":[27,0,2311,1]
+"d8/dce/class_real_weak_e_f_t_l_f_v_matching.html#a367c412cf35a767978bcb8a94547a38f":[27,0,2311,19]
 };

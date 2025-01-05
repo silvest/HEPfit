@@ -1,5 +1,13 @@
 var NAVTREEINDEX26 =
 {
+"d2/d0a/class_flavour_wilson_coefficient_matching.html#a84bcf9a80d7f5ff44f98b66819e52d98":[27,0,661,38],
+"d2/d0a/class_flavour_wilson_coefficient_matching.html#a85b2a4ff72728141e95289c1c3f9a134":[27,0,661,6],
+"d2/d0a/class_flavour_wilson_coefficient_matching.html#a997d48b189928ed0c6b64d9bd54bc493":[27,0,661,2],
+"d2/d0a/class_flavour_wilson_coefficient_matching.html#a9e2077a8783f7696b350fcf297a92f64":[27,0,661,35],
+"d2/d0a/class_flavour_wilson_coefficient_matching.html#aa083245d5b5426890aa58ce2f45b9752":[27,0,661,26],
+"d2/d0a/class_flavour_wilson_coefficient_matching.html#aa8b85fe4b17cb094bea19288c9d4c124":[27,0,661,10],
+"d2/d0a/class_flavour_wilson_coefficient_matching.html#ab119d854df0629a965f51510b56b7739":[27,0,661,17],
+"d2/d0a/class_flavour_wilson_coefficient_matching.html#ab878bed70371feb3a33f4aaf198b97a3":[27,0,661,18],
 "d2/d0a/class_flavour_wilson_coefficient_matching.html#aba739abd3422eea7a9e3e71903173629":[27,0,661,0],
 "d2/d0a/class_flavour_wilson_coefficient_matching.html#abb423b10c11928716df24562fc0c1075":[27,0,661,31],
 "d2/d0a/class_flavour_wilson_coefficient_matching.html#acfd91865f6a2e4674b801d67d09885f5":[27,0,661,22],
@@ -241,13 +249,5 @@ var NAVTREEINDEX26 =
 "d2/d0d/class_n_p_s_m_e_f_td6.html#a25f97f3cbab364c2ab438b6abe11fda5":[4,13,373,779],
 "d2/d0d/class_n_p_s_m_e_f_td6.html#a2616c26f8a056a705dce5b55ccc96437":[4,13,373,1353],
 "d2/d0d/class_n_p_s_m_e_f_td6.html#a261cc743d154487bd9b35007b786d745":[4,13,373,1042],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a26203983ecddc0130a452749502f8b48":[4,13,373,565],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a2673e7b9bcd5002f4f931caf380d9cf7":[4,13,373,773],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a2689e355395c65b15c0665ef7741f9fd":[4,13,373,1281],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a2691f826fee3e6cebc744daf9ac6b4c6":[4,13,373,435],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a269e90185d67dcb0c11b5402190d2d3f":[4,13,373,413],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a26c968821e6fc5167f93a6ac0c5b7d28":[4,13,373,429],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a26e45ec22de180babb6ad83b5bfe8f08":[4,13,373,1391],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a26f8167822c9be51656e2e16536a67f7":[4,13,373,277],
-"d2/d0d/class_n_p_s_m_e_f_td6.html#a27127b605f3254dfd93ca66e32263ee5":[4,13,373,1242]
+"d2/d0d/class_n_p_s_m_e_f_td6.html#a26203983ecddc0130a452749502f8b48":[4,13,373,565]
 };
