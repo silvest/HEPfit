@@ -6408,7 +6408,7 @@ public:
     {
         return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
     }
-    
+        
     void printNonVanishingSMEFTCoeffEW() const;
     
     RGESolver getSMEFTEvolEW() const
@@ -6416,6 +6416,15 @@ public:
         return SMEFTEvolEW;
     }
 
+    
+    // Functions to select the operators at different scales
+    double getSMEFTCoeff(const std::string name, const double mu) const;
+    
+    double getSMEFTCoeff(const std::string name, int i, int j, const double mu) const;
+    
+    double getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const;
+    
+    
     const double getDelta_v() const
     {
         return delta_v;
@@ -6670,7 +6679,7 @@ protected:
     /**
      * @brief An auxiliary method to set the WC on the evolutor
      */
-    void setSMEFTEvolWC();
+    void setSMEFTEvolWC(RGESolver& RGevol);
     
     
     /**
@@ -7427,6 +7436,8 @@ protected:
     
     RGESolver SMEFTEvolEW;
     
+    RGESolver SMEFTEvolMH, SMEFTEvol240, SMEFTEvol365, SMEFTEvol500;
+    
     //These operators should be written in terms of the ones of the Warsaw basis -- TO BE FIXED!!!!!!!!
     double C2B = 0.; ///< The dimension-6 operator coefficient \f$C_{2W}(\Lambda_{\rm{EW}})\f$.
     double C2W = 0.; ///< The dimension-6 operator coefficient \f$C_{2B}(\Lambda_{\rm{EW}})\f$.
@@ -7448,6 +7459,7 @@ private:
     bool FlagLoopHd6; ///< A boolean flag that is true if including modifications in the SM loops in Higgs observables due to the dim 6 interactions.
     bool FlagLoopH3d6Quad; ///< A boolean flag that is true if including quadratic modifications in the SM loops in Higgs observables due to the dim 6 interactions that contribute to the trilinear Higgs coupling.
     bool FlagRGEci; ///< A boolean for the model flag %RGEci , to include RGE effects.
+    bool FlagmultiScaleRGE; ///< A boolean for the model flag %multiScaleRGE , to include RGE effects at different scales.
     bool FlagfiniteNLO; ///< A boolean for the model flag %finiteNLO , to include finite NLO terms, when available. 
     bool FlagmatchLEFT; ///< A boolean for the model flag %matchLEFT , to include the matching between SMEFT and LEFT.
 
