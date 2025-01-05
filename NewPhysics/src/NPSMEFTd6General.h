@@ -1147,54 +1147,54 @@ public:
     
     // LEP2 definitions for 2 to 2 fermion processes
 
-    const double CeeLL_e() const;
-    const double CeeLL_mu() const;
-    const double CeeLL_tau() const;
+    const double CeeLL_e(const double mu) const;
+    const double CeeLL_mu(const double mu) const;
+    const double CeeLL_tau(const double mu) const;
     
-    const double CeeLL_up() const;
-    const double CeeLL_charm() const;
-    const double CeeLL_top() const;
+    const double CeeLL_up(const double mu) const;
+    const double CeeLL_charm(const double mu) const;
+    const double CeeLL_top(const double mu) const;
     
-    const double CeeLL_down() const;
-    const double CeeLL_strange() const;
-    const double CeeLL_bottom() const;
+    const double CeeLL_down(const double mu) const;
+    const double CeeLL_strange(const double mu) const;
+    const double CeeLL_bottom(const double mu) const;
 
 
-    const double CeeLR_e() const;
-    const double CeeLR_mu() const;
-    const double CeeLR_tau() const;
+    const double CeeLR_e(const double mu) const;
+    const double CeeLR_mu(const double mu) const;
+    const double CeeLR_tau(const double mu) const;
     
-    const double CeeLR_up() const;
-    const double CeeLR_charm() const;
-    const double CeeLR_top() const;
+    const double CeeLR_up(const double mu) const;
+    const double CeeLR_charm(const double mu) const;
+    const double CeeLR_top(const double mu) const;
     
-    const double CeeLR_down() const;
-    const double CeeLR_strange() const;
-    const double CeeLR_bottom() const;
+    const double CeeLR_down(const double mu) const;
+    const double CeeLR_strange(const double mu) const;
+    const double CeeLR_bottom(const double mu) const;
 
-    const double CeeRL_e() const;
-    const double CeeRL_mu() const;
-    const double CeeRL_tau() const;
+    const double CeeRL_e(const double mu) const;
+    const double CeeRL_mu(const double mu) const;
+    const double CeeRL_tau(const double mu) const;
     
-    const double CeeRL_up() const;
-    const double CeeRL_charm() const;
-    const double CeeRL_top() const;
+    const double CeeRL_up(const double mu) const;
+    const double CeeRL_charm(const double mu) const;
+    const double CeeRL_top(const double mu) const;
     
-    const double CeeRL_down() const;
-    const double CeeRL_strange() const;
-    const double CeeRL_bottom() const;
+    const double CeeRL_down(const double mu) const;
+    const double CeeRL_strange(const double mu) const;
+    const double CeeRL_bottom(const double mu) const;
 
-    const double CeeRR_e() const;
-    const double CeeRR_mu() const;
-    const double CeeRR_tau() const;
+    const double CeeRR_e(const double mu) const;
+    const double CeeRR_mu(const double mu) const;
+    const double CeeRR_tau(const double mu) const;
     
-    const double CeeRR_up() const;
-    const double CeeRR_charm() const;
-    const double CeeRR_top() const;
+    const double CeeRR_up(const double mu) const;
+    const double CeeRR_charm(const double mu) const;
+    const double CeeRR_top(const double mu) const;
     
-    const double CeeRR_down() const;
-    const double CeeRR_strange() const;
-    const double CeeRR_bottom() const;
+    const double CeeRR_down(const double mu) const;
+    const double CeeRR_strange(const double mu) const;
+    const double CeeRR_bottom(const double mu) const;
     
 //  Absolute corrections to the helicity amplitudes squared
   
@@ -1226,8 +1226,8 @@ public:
 //  Expressions for f=e   
     
 //  Corrections to t-channel LR and RL amplitudes
-    const double deltaMLR2t_e(const double t) const;      
-    const double deltaMRL2t_e(const double t) const;    
+    const double deltaMLR2t_e(const double s, const double t) const;      
+    const double deltaMRL2t_e(const double s, const double t) const;    
 
 //  Integrals of the SM squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]
     virtual const double intMeeLR2SMts2(const double s, const double t0, const double t1) const;

@@ -8415,7 +8415,6 @@ bool NPSMEFTd6General::PostUpdate() {
         //Now everything has been evolved
         //printNonVanishingSMEFTCoeffEW();
         
-        if (FlagmultiScaleRGE) {
         // Work with the extra instances of RGEsolver: would be better to have a deep copy of SMEFTEvolEW
 
         // SM initial conditions for RGEsolver SMEFTEvolEW
@@ -8441,17 +8440,17 @@ bool NPSMEFTd6General::PostUpdate() {
         setSMEFTEvolWC(SMEFTEvol365);
         setSMEFTEvolWC(SMEFTEvol500);
         
+        if (FlagmultiScaleRGE) {
         // Perform the evolution for the other RGE instances
-        SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, 125.1);
-        SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, 240.);
-        SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, 365.);
-        SMEFTEvol500.EvolveSMEFTOnly(Lambda_NP, 500.);
+            SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, 125.1);
+            SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, 240.);
+            SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, 365.);
+            SMEFTEvol500.EvolveSMEFTOnly(Lambda_NP, 500.);
         } else {
-        // Set the extra instances of RGEsolver as copies of SMEFTEvolEW
-            SMEFTEvolMH = SMEFTEvolEW;
-            SMEFTEvol240 = SMEFTEvolEW;
-            SMEFTEvol365 = SMEFTEvolEW;
-            SMEFTEvol500 = SMEFTEvolEW;            
+            SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+            SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+            SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+            SMEFTEvol500.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);            
         }
         
     } else {
@@ -8468,11 +8467,36 @@ bool NPSMEFTd6General::PostUpdate() {
         SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
         SMEFTEvolEW.EvolveSMOnly("Numeric", muw, muw);
         
-        // Set the extra instances of RGEsolver as copies of SMEFTEvolEW
-        SMEFTEvolMH = SMEFTEvolEW;
-        SMEFTEvol240 = SMEFTEvolEW;
-        SMEFTEvol365 = SMEFTEvolEW;
-        SMEFTEvol500 = SMEFTEvolEW;
+        // Work with the extra instances of RGEsolver: would be better to have a deep copy of SMEFTEvolEW
+
+        // SM initial conditions for RGEsolver SMEFTEvolEW
+        SMEFTEvolMH.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol240.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol365.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol500.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+
+        // SMEFT initial conditions for RGEsolver
+        setSMEFTEvolWC(SMEFTEvolMH);
+        setSMEFTEvolWC(SMEFTEvol240);
+        setSMEFTEvolWC(SMEFTEvol365);
+        setSMEFTEvolWC(SMEFTEvol500);
+        
+        // Skip RGE by setting the two scales at Lambda_NP for the EFT
+        SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol500.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
     }
     
     // Renormalization of gauge fields parameters
@@ -43884,155 +43908,157 @@ const double NPSMEFTd6General::AuxObs_NP30() const {
 // e+ e- -> f f observables away from the Z pole
 ///////////////////////////////////////////////////////////////////////////////
 
-const double NPSMEFTd6General::CeeLL_e() const {
-    return 2.0 * (getSMEFTCoeffEW("CllR", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeLL_e(const double mu) const {
+    return 2.0 * (getSMEFTCoeff("CllR", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeLL_mu() const {
-    return 2.0 * (getSMEFTCoeffEW("CllR", 0, 0, 1, 1) + getSMEFTCoeffEW("CllR", 0, 1, 1, 0));
+const double NPSMEFTd6General::CeeLL_mu(const double mu) const {
+    return 2.0 * (getSMEFTCoeff("CllR", 0, 0, 1, 1, mu) + getSMEFTCoeff("CllR", 0, 1, 1, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeLL_tau() const {
-    return 2.0 * (getSMEFTCoeffEW("CllR", 0, 0, 2, 2) + getSMEFTCoeffEW("CllR", 0, 2, 2, 0));
+const double NPSMEFTd6General::CeeLL_tau(const double mu) const {
+    return 2.0 * (getSMEFTCoeff("CllR", 0, 0, 2, 2, mu) + getSMEFTCoeff("CllR", 0, 2, 2, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeLL_up() const {
-    return (getSMEFTCoeffEW("Clq1R", 0, 0, 0, 0) - getSMEFTCoeffEW("Clq3R", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeLL_up(const double mu) const {
+    return (getSMEFTCoeff("Clq1R", 0, 0, 0, 0, mu) - getSMEFTCoeff("Clq3R", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeLL_charm() const {
-    return (getSMEFTCoeffEW("Clq1R", 0, 0, 1, 1) - getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1));
+const double NPSMEFTd6General::CeeLL_charm(const double mu) const {
+    return (getSMEFTCoeff("Clq1R", 0, 0, 1, 1, mu) - getSMEFTCoeff("Clq3R", 0, 0, 1, 1, mu));
 }
 
-const double NPSMEFTd6General::CeeLL_top() const {
-    return (getSMEFTCoeffEW("Clq1R", 0, 0, 2, 2) - getSMEFTCoeffEW("Clq3R", 0, 0, 2, 2));
+const double NPSMEFTd6General::CeeLL_top(const double mu) const {
+    return (getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) - getSMEFTCoeff("Clq3R", 0, 0, 2, 2, mu));
 }
 
-const double NPSMEFTd6General::CeeLL_down() const {
-    return (getSMEFTCoeffEW("Clq1R", 0, 0, 0, 0) + getSMEFTCoeffEW("Clq3R", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeLL_down(const double mu) const {
+    return (getSMEFTCoeff("Clq1R", 0, 0, 0, 0, mu) + getSMEFTCoeff("Clq3R", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeLL_strange() const {
-    return (getSMEFTCoeffEW("Clq1R", 0, 0, 1, 1) + getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1));
+const double NPSMEFTd6General::CeeLL_strange(const double mu) const {
+    return (getSMEFTCoeff("Clq1R", 0, 0, 1, 1, mu) + getSMEFTCoeff("Clq3R", 0, 0, 1, 1, mu));
 }
 
-const double NPSMEFTd6General::CeeLL_bottom() const {
-    return (getSMEFTCoeffEW("Clq1R", 0, 0, 2, 2) + getSMEFTCoeffEW("Clq3R", 0, 0, 2, 2));
+const double NPSMEFTd6General::CeeLL_bottom(const double mu) const {
+    return (getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) + getSMEFTCoeff("Clq3R", 0, 0, 2, 2, mu));
 }
 
-const double NPSMEFTd6General::CeeLR_e() const {
-    return (getSMEFTCoeffEW("CleR", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeLR_e(const double mu) const {
+    return (getSMEFTCoeff("CleR", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeLR_mu() const {
-    return (getSMEFTCoeffEW("CleR", 0, 0, 1, 1));
+const double NPSMEFTd6General::CeeLR_mu(const double mu) const {
+    return (getSMEFTCoeff("CleR", 0, 0, 1, 1, mu));
 }
 
-const double NPSMEFTd6General::CeeLR_tau() const {
-    return (getSMEFTCoeffEW("CleR", 0, 0, 2, 2));
+const double NPSMEFTd6General::CeeLR_tau(const double mu) const {
+    return (getSMEFTCoeff("CleR", 0, 0, 2, 2, mu));
 }
 
-const double NPSMEFTd6General::CeeLR_up() const {
-    return (getSMEFTCoeffEW("CluR", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeLR_up(const double mu) const {
+    return (getSMEFTCoeff("CluR", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeLR_charm() const {
-    return (getSMEFTCoeffEW("CluR", 0, 0, 1, 1));
+const double NPSMEFTd6General::CeeLR_charm(const double mu) const {
+    return (getSMEFTCoeff("CluR", 0, 0, 1, 1, mu));
 }
 
-const double NPSMEFTd6General::CeeLR_top() const {
-    return (getSMEFTCoeffEW("CluR", 0, 0, 2, 2));
+const double NPSMEFTd6General::CeeLR_top(const double mu) const {
+    return (getSMEFTCoeff("CluR", 0, 0, 2, 2, mu));
 }
 
-const double NPSMEFTd6General::CeeLR_down() const {
-    return (getSMEFTCoeffEW("CldR", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeLR_down(const double mu) const {
+    return (getSMEFTCoeff("CldR", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeLR_strange() const {
-    return (getSMEFTCoeffEW("CldR", 0, 0, 1, 1));
+const double NPSMEFTd6General::CeeLR_strange(const double mu) const {
+    return (getSMEFTCoeff("CldR", 0, 0, 1, 1, mu));
 }
 
-const double NPSMEFTd6General::CeeLR_bottom() const {
-    return (getSMEFTCoeffEW("CldR", 0, 0, 2, 2));
+const double NPSMEFTd6General::CeeLR_bottom(const double mu) const {
+    return (getSMEFTCoeff("CldR", 0, 0, 2, 2, mu));
 }
 
-const double NPSMEFTd6General::CeeRL_e() const {
+const double NPSMEFTd6General::CeeRL_e(const double mu) const {
     // Same as LR by definition
-    return CeeLR_e();
+    return CeeLR_e(mu);
 }
 
-const double NPSMEFTd6General::CeeRL_mu() const {
-    return (getSMEFTCoeffEW("CleR", 1, 1, 0, 0));
+const double NPSMEFTd6General::CeeRL_mu(const double mu) const {
+    return (getSMEFTCoeff("CleR", 1, 1, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRL_tau() const {
-    return (getSMEFTCoeffEW("CleR", 2, 2, 0, 0));
+const double NPSMEFTd6General::CeeRL_tau(const double mu) const {
+    return (getSMEFTCoeff("CleR", 2, 2, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRL_up() const {
-    return (getSMEFTCoeffEW("CqeR", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeRL_up(const double mu) const {
+    return (getSMEFTCoeff("CqeR", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRL_charm() const {
-    return (getSMEFTCoeffEW("CqeR", 1, 1, 0, 0));
+const double NPSMEFTd6General::CeeRL_charm(const double mu) const {
+    return (getSMEFTCoeff("CqeR", 1, 1, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRL_top() const {
-    return (getSMEFTCoeffEW("CqeR", 2, 2, 0, 0));
+const double NPSMEFTd6General::CeeRL_top(const double mu) const {
+    return (getSMEFTCoeff("CqeR", 2, 2, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRL_down() const {
-    return (getSMEFTCoeffEW("CqeR", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeRL_down(const double mu) const {
+    return (getSMEFTCoeff("CqeR", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRL_strange() const {
-    return (getSMEFTCoeffEW("CqeR", 1, 1, 0, 0));
+const double NPSMEFTd6General::CeeRL_strange(const double mu) const {
+    return (getSMEFTCoeff("CqeR", 1, 1, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRL_bottom() const {
-    return (getSMEFTCoeffEW("CqeR", 2, 2, 0, 0));
+const double NPSMEFTd6General::CeeRL_bottom(const double mu) const {
+    return (getSMEFTCoeff("CqeR", 2, 2, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRR_e() const {
-    return 2.0 * (getSMEFTCoeffEW("CeeR", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeRR_e(const double mu) const {
+    return 2.0 * (getSMEFTCoeff("CeeR", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRR_mu() const {
-    return 4.0 * (getSMEFTCoeffEW("CeeR", 0, 0, 1, 1));
+const double NPSMEFTd6General::CeeRR_mu(const double mu) const {
+    return 4.0 * (getSMEFTCoeff("CeeR", 0, 0, 1, 1, mu));
 }
 
-const double NPSMEFTd6General::CeeRR_tau() const {
-    return 4.0 * (getSMEFTCoeffEW("CeeR", 0, 0, 2, 2));
+const double NPSMEFTd6General::CeeRR_tau(const double mu) const {
+    return 4.0 * (getSMEFTCoeff("CeeR", 0, 0, 2, 2, mu));
 }
 
-const double NPSMEFTd6General::CeeRR_up() const {
-    return (getSMEFTCoeffEW("CeuR", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeRR_up(const double mu) const {
+    return (getSMEFTCoeff("CeuR", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRR_charm() const {
-    return (getSMEFTCoeffEW("CeuR", 0, 0, 1, 1));
+const double NPSMEFTd6General::CeeRR_charm(const double mu) const {
+    return (getSMEFTCoeff("CeuR", 0, 0, 1, 1, mu));
 }
 
-const double NPSMEFTd6General::CeeRR_top() const {
-    return (getSMEFTCoeffEW("CeuR", 0, 0, 2, 2));
+const double NPSMEFTd6General::CeeRR_top(const double mu) const {
+    return (getSMEFTCoeff("CeuR", 0, 0, 2, 2, mu));
 }
 
-const double NPSMEFTd6General::CeeRR_down() const {
-    return (getSMEFTCoeffEW("CedR", 0, 0, 0, 0));
+const double NPSMEFTd6General::CeeRR_down(const double mu) const {
+    return (getSMEFTCoeff("CedR", 0, 0, 0, 0, mu));
 }
 
-const double NPSMEFTd6General::CeeRR_strange() const {
-    return (getSMEFTCoeffEW("CedR", 0, 0, 1, 1));
+const double NPSMEFTd6General::CeeRR_strange(const double mu) const {
+    return (getSMEFTCoeff("CedR", 0, 0, 1, 1, mu));
 }
 
-const double NPSMEFTd6General::CeeRR_bottom() const {
-    return (getSMEFTCoeffEW("CedR", 0, 0, 2, 2));
+const double NPSMEFTd6General::CeeRR_bottom(const double mu) const {
+    return (getSMEFTCoeff("CedR", 0, 0, 2, 2, mu));
 }
 
 const double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) const {
     // Definitions      
     double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
 
+    double muRG;
+    
     // Four-fermion contribution
     double Aeeff;
 
@@ -44043,6 +44069,8 @@ const double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) con
     gslpp::complex deltaM2a, deltaM2b, deltaM2;
 
     // -------------------------------------------
+    
+    muRG = sqrt(s);
 
     geSM = gZlL;
     deltage = deltaGL_f(leptons[ELECTRON]);
@@ -44050,42 +44078,42 @@ const double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) con
     is2c2 = 1. / sW2_tree / cW2_tree;
 
     if (f.is("ELECTRON")) {
-        Aeeff = CeeLR_e();
+        Aeeff = CeeLR_e(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f(leptons[ELECTRON]);
     } else if (f.is("MU")) {
-        Aeeff = CeeLR_mu();
+        Aeeff = CeeLR_mu(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f(leptons[MU]);
     } else if (f.is("TAU")) {
-        Aeeff = CeeLR_tau();
+        Aeeff = CeeLR_tau(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f(leptons[TAU]);
     } else if (f.is("UP")) {
-        Aeeff = CeeLR_up();
+        Aeeff = CeeLR_up(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuR;
         deltagf = deltaGR_f(quarks[UP]);
     } else if (f.is("CHARM")) {
-        Aeeff = CeeLR_charm();
+        Aeeff = CeeLR_charm(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuR;
         deltagf = deltaGR_f(quarks[CHARM]);
     } else if (f.is("DOWN")) {
-        Aeeff = CeeLR_down();
+        Aeeff = CeeLR_down(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f(quarks[DOWN]);
     } else if (f.is("STRANGE")) {
-        Aeeff = CeeLR_strange();
+        Aeeff = CeeLR_strange(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f(quarks[STRANGE]);
     } else if (f.is("BOTTOM")) {
-        Aeeff = CeeLR_bottom();
+        Aeeff = CeeLR_bottom(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f(quarks[BOTTOM]);
@@ -44118,6 +44146,8 @@ const double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) con
 const double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) const {
     // Definitions      
     double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+    
+    double muRG;
 
     // Four-fermion contribution
     double Aeeff;
@@ -44129,6 +44159,8 @@ const double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) con
     gslpp::complex deltaM2a, deltaM2b, deltaM2;
 
     // -------------------------------------------
+    
+    muRG = sqrt(s);
 
     geSM = gZlR;
     deltage = deltaGR_f(leptons[ELECTRON]);
@@ -44136,42 +44168,42 @@ const double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) con
     is2c2 = 1. / sW2_tree / cW2_tree;
 
     if (f.is("ELECTRON")) {
-        Aeeff = CeeRL_e();
+        Aeeff = CeeRL_e(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f(leptons[ELECTRON]);
     } else if (f.is("MU")) {
-        Aeeff = CeeRL_mu();
+        Aeeff = CeeRL_mu(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f(leptons[MU]);
     } else if (f.is("TAU")) {
-        Aeeff = CeeRL_tau();
+        Aeeff = CeeRL_tau(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f(leptons[TAU]);
     } else if (f.is("UP")) {
-        Aeeff = CeeRL_up();
+        Aeeff = CeeRL_up(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuL;
         deltagf = deltaGL_f(quarks[UP]);
     } else if (f.is("CHARM")) {
-        Aeeff = CeeRL_charm();
+        Aeeff = CeeRL_charm(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuL;
         deltagf = deltaGL_f(quarks[CHARM]);
     } else if (f.is("DOWN")) {
-        Aeeff = CeeRL_down();
+        Aeeff = CeeRL_down(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f(quarks[DOWN]);
     } else if (f.is("STRANGE")) {
-        Aeeff = CeeRL_strange();
+        Aeeff = CeeRL_strange(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f(quarks[STRANGE]);
     } else if (f.is("BOTTOM")) {
-        Aeeff = CeeRL_bottom();
+        Aeeff = CeeRL_bottom(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f(quarks[BOTTOM]);
@@ -44201,9 +44233,11 @@ const double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) con
 
 }
 
-const double NPSMEFTd6General::deltaMLR2t_e(const double t) const {
+const double NPSMEFTd6General::deltaMLR2t_e(const double s, const double t) const {
     // Definitions      
     double Qf, geSM, gfSM, deltage, deltagf, is2c2;
+    
+    double muRG;
 
     // Four-fermion contribution
     double Aeeff;
@@ -44215,13 +44249,15 @@ const double NPSMEFTd6General::deltaMLR2t_e(const double t) const {
     double deltaM2a, deltaM2b, deltaM2;
 
     // -------------------------------------------
+    
+    muRG = sqrt(s);
 
     geSM = gZlL;
     deltage = deltaGL_f(leptons[ELECTRON]);
 
     is2c2 = 1. / sW2_tree / cW2_tree;
 
-    Aeeff = CeeLR_e();
+    Aeeff = CeeLR_e(muRG);
     Qf = leptons[ELECTRON].getCharge();
     gfSM = gZlR;
     deltagf = deltaGR_f(leptons[ELECTRON]);
@@ -44244,13 +44280,15 @@ const double NPSMEFTd6General::deltaMLR2t_e(const double t) const {
 
 }
 
-const double NPSMEFTd6General::deltaMRL2t_e(const double t) const {
-    return deltaMLR2t_e(t);
+const double NPSMEFTd6General::deltaMRL2t_e(const double s, const double t) const {
+    return deltaMLR2t_e(s, t);
 }
 
 const double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, const double t) const {
     // Definitions      
     double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+    
+    double muRG;
 
     // Four-fermion contribution
     double Aeeff;
@@ -44263,6 +44301,8 @@ const double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, con
     gslpp::complex deltaM2a, deltaM2b, deltaM2;
 
     // -------------------------------------------
+    
+    muRG = sqrt(s);
 
     geSM = gZlL;
     deltage = deltaGL_f(leptons[ELECTRON]);
@@ -44270,42 +44310,42 @@ const double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, con
     is2c2 = 1. / sW2_tree / cW2_tree;
 
     if (f.is("ELECTRON")) {
-        Aeeff = 2.0 * CeeLL_e();
+        Aeeff = 2.0 * CeeLL_e(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f(leptons[ELECTRON]);
     } else if (f.is("MU")) {
-        Aeeff = CeeLL_mu();
+        Aeeff = CeeLL_mu(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f(leptons[MU]);
     } else if (f.is("TAU")) {
-        Aeeff = CeeLL_tau();
+        Aeeff = CeeLL_tau(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f(leptons[TAU]);
     } else if (f.is("UP")) {
-        Aeeff = CeeLL_up();
+        Aeeff = CeeLL_up(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuL;
         deltagf = deltaGL_f(quarks[UP]);
     } else if (f.is("CHARM")) {
-        Aeeff = CeeLL_charm();
+        Aeeff = CeeLL_charm(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuL;
         deltagf = deltaGL_f(quarks[CHARM]);
     } else if (f.is("DOWN")) {
-        Aeeff = CeeLL_down();
+        Aeeff = CeeLL_down(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f(quarks[DOWN]);
     } else if (f.is("STRANGE")) {
-        Aeeff = CeeLL_strange();
+        Aeeff = CeeLL_strange(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f(quarks[STRANGE]);
     } else if (f.is("BOTTOM")) {
-        Aeeff = CeeLL_bottom();
+        Aeeff = CeeLL_bottom(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f(quarks[BOTTOM]);
@@ -44346,6 +44386,8 @@ const double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, con
 const double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, const double t) const {
     // Definitions      
     double Qf, geSM, gfSM, deltage, deltagf, deltaGammaZ, is2c2;
+    
+    double muRG;
 
     // Four-fermion contribution
     double Aeeff;
@@ -44358,6 +44400,8 @@ const double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, con
     gslpp::complex deltaM2a, deltaM2b, deltaM2;
 
     // -------------------------------------------
+    
+    muRG = sqrt(s);
 
     geSM = gZlR;
     deltage = deltaGR_f(leptons[ELECTRON]);
@@ -44365,42 +44409,42 @@ const double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, con
     is2c2 = 1. / sW2_tree / cW2_tree;
 
     if (f.is("ELECTRON")) {
-        Aeeff = 2.0 * CeeRR_e();
+        Aeeff = 2.0 * CeeRR_e(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f(leptons[ELECTRON]);
     } else if (f.is("MU")) {
-        Aeeff = CeeRR_mu();
+        Aeeff = CeeRR_mu(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f(leptons[MU]);
     } else if (f.is("TAU")) {
-        Aeeff = CeeRR_tau();
+        Aeeff = CeeRR_tau(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f(leptons[TAU]);
     } else if (f.is("UP")) {
-        Aeeff = CeeRR_up();
+        Aeeff = CeeRR_up(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuR;
         deltagf = deltaGR_f(quarks[UP]);
     } else if (f.is("CHARM")) {
-        Aeeff = CeeRR_charm();
+        Aeeff = CeeRR_charm(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuR;
         deltagf = deltaGR_f(quarks[CHARM]);
     } else if (f.is("DOWN")) {
-        Aeeff = CeeRR_down();
+        Aeeff = CeeRR_down(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f(quarks[DOWN]);
     } else if (f.is("STRANGE")) {
-        Aeeff = CeeRR_strange();
+        Aeeff = CeeRR_strange(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f(quarks[STRANGE]);
     } else if (f.is("BOTTOM")) {
-        Aeeff = CeeRR_bottom();
+        Aeeff = CeeRR_bottom(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f(quarks[BOTTOM]);
@@ -44476,7 +44520,7 @@ const double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double pol
 
     // Add t-channel contributions for f=e
     if (f.is("ELECTRON")) {
-        sumM2 = sumM2 + (pLH * deltaMLR2t_e(t) + pRH * deltaMRL2t_e(t)) * s * s / t / t;
+        sumM2 = sumM2 + (pLH * deltaMLR2t_e(s,t) + pRH * deltaMRL2t_e(s,t)) * s * s / t / t;
     }
 
     dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
@@ -44741,10 +44785,13 @@ const double NPSMEFTd6General::intDMLL2eus2(const double s, const double t0, con
     double Aeeee;
     double GammaZSM, deltaGammaZ;
     double Mz2, Mz4, s2;
+    double muRG;
+    
+    muRG = sqrt(s);
     
     aEM = trueSM.alphaMz();
     sw2cw2 = sW2_tree * cW2_tree;
-    Aeeee = CeeLL_e();
+    Aeeee = CeeLL_e(muRG);
     gLeSM = gZlL;
     deltagLe = deltaGL_f(leptons[ELECTRON]);
     GammaZSM = trueSM.Gamma_Z();
@@ -44772,10 +44819,13 @@ const double NPSMEFTd6General::intDMRR2eus2(const double s, const double t0, con
     double Aeeee;
     double GammaZSM, deltaGammaZ;
     double Mz2, Mz4, s2;
+    double muRG;
+    
+    muRG = sqrt(s);
     
     aEM = trueSM.alphaMz();
     sw2cw2 = sW2_tree * cW2_tree;
-    Aeeee = CeeRR_e();
+    Aeeee = CeeRR_e(muRG);
     gReSM = gZlR;
     deltagRe = deltaGR_f(leptons[ELECTRON]);
     GammaZSM = trueSM.Gamma_Z();
@@ -44820,10 +44870,13 @@ const double NPSMEFTd6General::intDMLR2etildest2(const double s, const double t0
     double deltagLe, deltagRe;
     double Aeeee;
     double s2;
+    double muRG;
+    
+    muRG = sqrt(s);
     
     aEM = trueSM.alphaMz();
     sw2cw2 = sW2_tree * cW2_tree;
-    Aeeee = CeeLR_e();
+    Aeeee = CeeLR_e(muRG);
     gLeSM = gZlL;
     gReSM = gZlR;
     deltagLe = deltaGL_f(leptons[ELECTRON]);
@@ -44847,10 +44900,13 @@ const double NPSMEFTd6General::intDMRL2etildest2(const double s, const double t0
     double deltagLe, deltagRe;
     double Aeeee;
     double s2;
+    double muRG;
+    
+    muRG = sqrt(s);
     
     aEM = trueSM.alphaMz();
     sw2cw2 = sW2_tree * cW2_tree;
-    Aeeee = CeeRL_e();
+    Aeeee = CeeRL_e(muRG);
     gLeSM = gZlL;
     gReSM = gZlR;
     deltagLe = deltaGL_f(leptons[ELECTRON]);
