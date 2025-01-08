@@ -470,8 +470,7 @@ var group___new_physics =
       [ "mueeWBFPol", "da/d86/class_higgs_chiral.html#a01778a5bfef2a4ae8af70ad0b33141df", null ],
       [ "mueeZBF", "da/d86/class_higgs_chiral.html#a6e8d10f4a90472f1ddc9c55fbefc49a2", null ],
       [ "mueeZBFPol", "da/d86/class_higgs_chiral.html#a36961e2774ec3f728a5b4d5ca0a3304a", null ],
-      [ "mueeZH", "da/d86/class_higgs_chiral.html#ad3cf780b994dff9ef0d09ffe5b96d3bc", null ],
-      [ "mueeZHPol", "da/d86/class_higgs_chiral.html#af34ca3086f9928d4aed5e705e1715899", null ],
+      [ "mueeZH", "da/d86/class_higgs_chiral.html#a26cc3261f02bdb584620617218b0e564", null ],
       [ "mueeZllH", "da/d86/class_higgs_chiral.html#a962c8b9edb7636d74f95b951a8b52431", null ],
       [ "mueeZllHPol", "da/d86/class_higgs_chiral.html#ae29cdc4c25ef9ced47b9f6d82f27b959", null ],
       [ "mueeZqqH", "da/d86/class_higgs_chiral.html#ac38b03a51cea14476d6204d95781182b", null ],
@@ -779,8 +778,7 @@ var group___new_physics =
       [ "mueeWBFPol", "df/d15/class_higgs_kigen.html#ad5ed347e8a0e631cc0ebbae2231f2bca", null ],
       [ "mueeZBF", "df/d15/class_higgs_kigen.html#a3e2813dc3fa4defecd53b996323ce17f", null ],
       [ "mueeZBFPol", "df/d15/class_higgs_kigen.html#a68ae9c403e33f888c31815d037855180", null ],
-      [ "mueeZH", "df/d15/class_higgs_kigen.html#ad631eaca821ae14086f4d62881da0184", null ],
-      [ "mueeZHPol", "df/d15/class_higgs_kigen.html#afc4f587510394e9a8ac872577708afb5", null ],
+      [ "mueeZH", "df/d15/class_higgs_kigen.html#aa89c971f7d3e3511d4ef6db803d0ce54", null ],
       [ "mueeZllH", "df/d15/class_higgs_kigen.html#a26b4e1d7b82113d8c9e290711281392d", null ],
       [ "mueeZllHPol", "df/d15/class_higgs_kigen.html#a63873614f155aa1f98d5086f4fa43d1d", null ],
       [ "mueeZqqH", "df/d15/class_higgs_kigen.html#a7aef986987f282406753dcf6deb71bba", null ],
@@ -1337,66 +1335,44 @@ var group___new_physics =
       [ "sqrt_s", "d2/de0/classmuee_z_b_f_pol.html#a90b9c9da7be391acaa8c1bdc7b023db3", null ]
     ] ],
     [ "mueeZH", "d9/d53/classmuee_z_h.html", [
-      [ "mueeZH", "d9/d53/classmuee_z_h.html#a676585c635d83e7664d3a5cf810810e2", null ],
+      [ "mueeZH", "d9/d53/classmuee_z_h.html#aaac0a8067f11b7cdedc546d92f93b7ac", null ],
       [ "computeThValue", "d9/d53/classmuee_z_h.html#aedf3ede89bd72c923838c23cd9ec92fa", null ],
       [ "myNPbase", "d9/d53/classmuee_z_h.html#a08350bb5332181b825f5786f0cb6e478", null ],
+      [ "Pol_em", "d9/d53/classmuee_z_h.html#a0035e47c41afcfa07ea9780b2f5df84e", null ],
+      [ "Pol_ep", "d9/d53/classmuee_z_h.html#a5fd5c02263ec00dfbed407f76195e49a", null ],
       [ "sqrt_s", "d9/d53/classmuee_z_h.html#a60d2065f21c6c87d9e018ae174899980", null ]
     ] ],
     [ "mueeZHbb", "da/db3/classmuee_z_hbb.html", [
-      [ "mueeZHbb", "da/db3/classmuee_z_hbb.html#a32f4ad7382db3cbddc41a178f643f330", null ],
+      [ "mueeZHbb", "da/db3/classmuee_z_hbb.html#a992633bfce7cca0c24e5f9fb0cdbcc74", null ],
       [ "computeThValue", "da/db3/classmuee_z_hbb.html#aa274aee23839560ab223ea8f9035ea5c", null ],
       [ "myNPbase", "da/db3/classmuee_z_hbb.html#aeb34e42e02d6fc5af3f2f8ed531d505d", null ],
+      [ "Pol_em", "da/db3/classmuee_z_hbb.html#ab0a3bdc3e71b9123bb1bf551679eb5b3", null ],
+      [ "Pol_ep", "da/db3/classmuee_z_hbb.html#adc7bc9928284ba38fd3fc70c267ad9b2", null ],
       [ "sqrt_s", "da/db3/classmuee_z_hbb.html#ada8f1458d4627e68fdb5248a4755e1ba", null ]
     ] ],
-    [ "mueeZHbbPol", "de/d28/classmuee_z_hbb_pol.html", [
-      [ "mueeZHbbPol", "de/d28/classmuee_z_hbb_pol.html#a5fc7e61178db14507445dafac6c21b58", null ],
-      [ "computeThValue", "de/d28/classmuee_z_hbb_pol.html#a83faacd8a4224b3813a8b7498be0ca4c", null ],
-      [ "myNPbase", "de/d28/classmuee_z_hbb_pol.html#ae01d60646edbaac586de496de0c85720", null ],
-      [ "Pol_em", "de/d28/classmuee_z_hbb_pol.html#a79d219115ff8430329b3d67c966997d4", null ],
-      [ "Pol_ep", "de/d28/classmuee_z_hbb_pol.html#a47e56e3bd0818ac7cc8f788a69e13f15", null ],
-      [ "sqrt_s", "de/d28/classmuee_z_hbb_pol.html#a1e2d0390db6e333b36ea06334fe1cbc3", null ]
-    ] ],
     [ "mueeZHBRinv", "d5/de6/classmuee_z_h_b_rinv.html", [
-      [ "mueeZHBRinv", "d5/de6/classmuee_z_h_b_rinv.html#a127dd05d9526703af28fad3e77300630", null ],
+      [ "mueeZHBRinv", "d5/de6/classmuee_z_h_b_rinv.html#a9b72da755052ed0b49c2cf01edb72c72", null ],
       [ "computeThValue", "d5/de6/classmuee_z_h_b_rinv.html#a46abff98afa7cc6d66a43160fc4d0edf", null ],
       [ "myNPbase", "d5/de6/classmuee_z_h_b_rinv.html#a0a06c70eb360f8b261dd9fffe5820bbd", null ],
+      [ "Pol_em", "d5/de6/classmuee_z_h_b_rinv.html#a1961d8b6508b7375cf06337a7743c79a", null ],
+      [ "Pol_ep", "d5/de6/classmuee_z_h_b_rinv.html#aee8bebf0e519139279bce036d948265e", null ],
       [ "sqrt_s", "d5/de6/classmuee_z_h_b_rinv.html#a6ba0186c07f4a2ef1c5d4a1aebb68a00", null ]
     ] ],
-    [ "mueeZHBRinvPol", "db/d31/classmuee_z_h_b_rinv_pol.html", [
-      [ "mueeZHBRinvPol", "db/d31/classmuee_z_h_b_rinv_pol.html#adf5fa214a94a9f638b7e26c80a6f73ed", null ],
-      [ "computeThValue", "db/d31/classmuee_z_h_b_rinv_pol.html#a3fca001997a826691b24c3bd8421324e", null ],
-      [ "myNPbase", "db/d31/classmuee_z_h_b_rinv_pol.html#a8dc04573e546f244a38aba7ffc0d367f", null ],
-      [ "Pol_em", "db/d31/classmuee_z_h_b_rinv_pol.html#a0bb8ef816412a7301882acd89e6f05d3", null ],
-      [ "Pol_ep", "db/d31/classmuee_z_h_b_rinv_pol.html#a39845b1e27a03122fa004e494052db42", null ],
-      [ "sqrt_s", "db/d31/classmuee_z_h_b_rinv_pol.html#a951513b5cc6910e1424094cdc25cb8e2", null ]
-    ] ],
     [ "mueeZHcc", "df/d32/classmuee_z_hcc.html", [
-      [ "mueeZHcc", "df/d32/classmuee_z_hcc.html#a704eb0b97859b2e9b395acd8cdac7274", null ],
+      [ "mueeZHcc", "df/d32/classmuee_z_hcc.html#ad8d180008bde0a492a1093ac084156a5", null ],
       [ "computeThValue", "df/d32/classmuee_z_hcc.html#a694d56369038914fc69c547c15527c67", null ],
       [ "myNPbase", "df/d32/classmuee_z_hcc.html#abb04e0f0c291ce51193e2274aea88625", null ],
+      [ "Pol_em", "df/d32/classmuee_z_hcc.html#ad81d7025c12fe6cb9ceb74cba25f8de7", null ],
+      [ "Pol_ep", "df/d32/classmuee_z_hcc.html#a767f4d84872d370b90b0fe42257e130d", null ],
       [ "sqrt_s", "df/d32/classmuee_z_hcc.html#ae254b4e33ed49e7879c57d2ebdbdd387", null ]
     ] ],
-    [ "mueeZHccPol", "d6/dbc/classmuee_z_hcc_pol.html", [
-      [ "mueeZHccPol", "d6/dbc/classmuee_z_hcc_pol.html#a0e7d01b9bb5286e161dadedc46c2dfa5", null ],
-      [ "computeThValue", "d6/dbc/classmuee_z_hcc_pol.html#ac4425e32a415b99712f23420a3cb0e8b", null ],
-      [ "myNPbase", "d6/dbc/classmuee_z_hcc_pol.html#abf2581f468fd8dd98e0886181562be75", null ],
-      [ "Pol_em", "d6/dbc/classmuee_z_hcc_pol.html#a2b55232c1471f94bd6c31999dcba89bf", null ],
-      [ "Pol_ep", "d6/dbc/classmuee_z_hcc_pol.html#af6525b8b32e2d85939c89b1e19458150", null ],
-      [ "sqrt_s", "d6/dbc/classmuee_z_hcc_pol.html#af52bc24c6202d316fa9808f50978e87c", null ]
-    ] ],
     [ "mueeZHgaga", "d8/d0d/classmuee_z_hgaga.html", [
-      [ "mueeZHgaga", "d8/d0d/classmuee_z_hgaga.html#a56e2cbefab7c7403649772c1c35cc28d", null ],
+      [ "mueeZHgaga", "d8/d0d/classmuee_z_hgaga.html#a5c9a0cdbbcb9a5d340d20c331cf862f1", null ],
       [ "computeThValue", "d8/d0d/classmuee_z_hgaga.html#a9557cef8521abdf9d7538c64d888c2a6", null ],
       [ "myNPbase", "d8/d0d/classmuee_z_hgaga.html#aa0a20549b8b21c244d8e84ce12f14b09", null ],
+      [ "Pol_em", "d8/d0d/classmuee_z_hgaga.html#ae36983d0b461d637970bfecc579c0317", null ],
+      [ "Pol_ep", "d8/d0d/classmuee_z_hgaga.html#a0c67185b996c887492d7536c1d3784e2", null ],
       [ "sqrt_s", "d8/d0d/classmuee_z_hgaga.html#a9a89f0554fd3c1a90547cde43ef82892", null ]
-    ] ],
-    [ "mueeZHgagaPol", "da/dc4/classmuee_z_hgaga_pol.html", [
-      [ "mueeZHgagaPol", "da/dc4/classmuee_z_hgaga_pol.html#a1792f82dc6eb20f2a4e498af5a3e59ce", null ],
-      [ "computeThValue", "da/dc4/classmuee_z_hgaga_pol.html#ab90ce2d461af9d54485ffe5aa7cb6d18", null ],
-      [ "myNPbase", "da/dc4/classmuee_z_hgaga_pol.html#af53851c971dc0a6abe654e7f725518b8", null ],
-      [ "Pol_em", "da/dc4/classmuee_z_hgaga_pol.html#a5352cb88232290cd91e81cff7ec102c9", null ],
-      [ "Pol_ep", "da/dc4/classmuee_z_hgaga_pol.html#aa89b51bbe432d1438eb44a26bcf89c30", null ],
-      [ "sqrt_s", "da/dc4/classmuee_z_hgaga_pol.html#af952aa98504b54cf17151218c985f45e", null ]
     ] ],
     [ "mueeZHGen", "d7/d92/classmuee_z_h_gen.html", [
       [ "mueeZHGen", "d7/d92/classmuee_z_h_gen.html#a1f1bad604ca33ca80f84a08f0322f903", null ],
@@ -1407,124 +1383,68 @@ var group___new_physics =
       [ "sqrt_s", "d7/d92/classmuee_z_h_gen.html#a405ddd46df3ba1be9d50abc1ff8e797a", null ]
     ] ],
     [ "mueeZHgg", "d9/d57/classmuee_z_hgg.html", [
-      [ "mueeZHgg", "d9/d57/classmuee_z_hgg.html#a495221e466533e1179482f6281f10dc1", null ],
+      [ "mueeZHgg", "d9/d57/classmuee_z_hgg.html#a971b8943fb476129ed89caea46c5327a", null ],
       [ "computeThValue", "d9/d57/classmuee_z_hgg.html#a1033e72f0261e9692d87f29aff3791ab", null ],
       [ "myNPbase", "d9/d57/classmuee_z_hgg.html#a668e5e656da0cf9cb7c667974a82ffc5", null ],
+      [ "Pol_em", "d9/d57/classmuee_z_hgg.html#a8804b61d3a1cc6688d9a0fbc2e8767e0", null ],
+      [ "Pol_ep", "d9/d57/classmuee_z_hgg.html#a8f9237676122ed4e385e18a76b305ab3", null ],
       [ "sqrt_s", "d9/d57/classmuee_z_hgg.html#a1ff4873177034fd859258d04e44cee4a", null ]
     ] ],
-    [ "mueeZHggPol", "df/d91/classmuee_z_hgg_pol.html", [
-      [ "mueeZHggPol", "df/d91/classmuee_z_hgg_pol.html#ab0b1979397282f8837782c84d3358159", null ],
-      [ "computeThValue", "df/d91/classmuee_z_hgg_pol.html#ab47f3cf2aa74fd1e271a50c3691922b3", null ],
-      [ "myNPbase", "df/d91/classmuee_z_hgg_pol.html#a0fd378f7feef02c8167bd965516cfece", null ],
-      [ "Pol_em", "df/d91/classmuee_z_hgg_pol.html#a7b3c0445aa14575fba57dc24344e5d31", null ],
-      [ "Pol_ep", "df/d91/classmuee_z_hgg_pol.html#a38aba001b43f6890152d6137743d3eba", null ],
-      [ "sqrt_s", "df/d91/classmuee_z_hgg_pol.html#a067d626c3c79e1736aae33c312747f9f", null ]
-    ] ],
     [ "mueeZHinv", "d0/d50/classmuee_z_hinv.html", [
-      [ "mueeZHinv", "d0/d50/classmuee_z_hinv.html#a0c9591f4cecb3cc97501490281246185", null ],
+      [ "mueeZHinv", "d0/d50/classmuee_z_hinv.html#a8536e0e656abe960580273625a233e7c", null ],
       [ "computeThValue", "d0/d50/classmuee_z_hinv.html#a0f7c289a17c22942d6f1d62b143a5830", null ],
       [ "myNPbase", "d0/d50/classmuee_z_hinv.html#a2051e8958fb794a251c0a442183788ca", null ],
+      [ "Pol_em", "d0/d50/classmuee_z_hinv.html#a36806787ef0d66e1bddb406709082107", null ],
+      [ "Pol_ep", "d0/d50/classmuee_z_hinv.html#aa7af1fe893f2903437a34c2a736c181a", null ],
       [ "sqrt_s", "d0/d50/classmuee_z_hinv.html#a2ca5198eb4cef27a289b3d5074ed82fe", null ]
     ] ],
-    [ "mueeZHinvPol", "df/d16/classmuee_z_hinv_pol.html", [
-      [ "mueeZHinvPol", "df/d16/classmuee_z_hinv_pol.html#a6a8b772e0d27449c27c059e04faa5d64", null ],
-      [ "computeThValue", "df/d16/classmuee_z_hinv_pol.html#aa4633aed92dbec5ac7400ba4d1ad0caa", null ],
-      [ "myNPbase", "df/d16/classmuee_z_hinv_pol.html#a2a80decfd34bc39c36d3f45f4cab9f3e", null ],
-      [ "Pol_em", "df/d16/classmuee_z_hinv_pol.html#a805d3d65b64221b0689cdd8e883bda05", null ],
-      [ "Pol_ep", "df/d16/classmuee_z_hinv_pol.html#aadf054a1eb3a5d4b67a38815eb045e8b", null ],
-      [ "sqrt_s", "df/d16/classmuee_z_hinv_pol.html#a54389b268cc41e1052abe9a36359d66e", null ]
-    ] ],
     [ "mueeZHmumu", "d4/dc3/classmuee_z_hmumu.html", [
-      [ "mueeZHmumu", "d4/dc3/classmuee_z_hmumu.html#a805b26bf39c4ec9aa4f1f9f33a342679", null ],
+      [ "mueeZHmumu", "d4/dc3/classmuee_z_hmumu.html#a8062b6729b38ac4e40851942a4f2f91d", null ],
       [ "computeThValue", "d4/dc3/classmuee_z_hmumu.html#a0c8699b72678c11a05e142867d50a484", null ],
       [ "myNPbase", "d4/dc3/classmuee_z_hmumu.html#a6f7817ba74556ada2b5b483efad6278c", null ],
+      [ "Pol_em", "d4/dc3/classmuee_z_hmumu.html#a720715473d2fb910cb4419b80b25ef79", null ],
+      [ "Pol_ep", "d4/dc3/classmuee_z_hmumu.html#a3655b675f88ff5bd83b44ca5340e0a81", null ],
       [ "sqrt_s", "d4/dc3/classmuee_z_hmumu.html#ae6e4778d9046b4d16a441966eaf60498", null ]
     ] ],
-    [ "mueeZHmumuPol", "d2/d9e/classmuee_z_hmumu_pol.html", [
-      [ "mueeZHmumuPol", "d2/d9e/classmuee_z_hmumu_pol.html#af8e1dd3dd13dea7c13442870f3cf0399", null ],
-      [ "computeThValue", "d2/d9e/classmuee_z_hmumu_pol.html#ac1c47809194a820a466b7abbb54e4e41", null ],
-      [ "myNPbase", "d2/d9e/classmuee_z_hmumu_pol.html#a1bed80bf2347bd64783f2eb0210576ba", null ],
-      [ "Pol_em", "d2/d9e/classmuee_z_hmumu_pol.html#ae489923ae34839aeaa48a9cd965a231e", null ],
-      [ "Pol_ep", "d2/d9e/classmuee_z_hmumu_pol.html#a76d5fe2371ab75e34e448109b1e719eb", null ],
-      [ "sqrt_s", "d2/d9e/classmuee_z_hmumu_pol.html#a395cd9c2034fe0a977aff3e310b26c20", null ]
-    ] ],
-    [ "mueeZHPol", "dc/d46/classmuee_z_h_pol.html", [
-      [ "mueeZHPol", "dc/d46/classmuee_z_h_pol.html#a5fc141ffd7cbbb571cdf549777bfcc88", null ],
-      [ "computeThValue", "dc/d46/classmuee_z_h_pol.html#a72440f87ae651b6e0b44315c231ded49", null ],
-      [ "myNPbase", "dc/d46/classmuee_z_h_pol.html#ac830ac3a85d07e37e194427b29c4dc2f", null ],
-      [ "Pol_em", "dc/d46/classmuee_z_h_pol.html#a705835abe6bb80e6dc510adaf0198701", null ],
-      [ "Pol_ep", "dc/d46/classmuee_z_h_pol.html#a405ff0588f16cd1d9458c41436e1cc09", null ],
-      [ "sqrt_s", "dc/d46/classmuee_z_h_pol.html#ae82390f2ec0143845829ec2468a931e6", null ]
-    ] ],
     [ "mueeZHss", "d8/dd1/classmuee_z_hss.html", [
-      [ "mueeZHss", "d8/dd1/classmuee_z_hss.html#aa15df7d58e0dfad507af07cfbc2403e2", null ],
+      [ "mueeZHss", "d8/dd1/classmuee_z_hss.html#a245e037b38659264a7fd196b62f694a7", null ],
       [ "computeThValue", "d8/dd1/classmuee_z_hss.html#a6d518b6e72ff50bc3aa7a1f398d1a0ee", null ],
       [ "myNPbase", "d8/dd1/classmuee_z_hss.html#ae364d63962768e38c62b8b5471572e08", null ],
+      [ "Pol_em", "d8/dd1/classmuee_z_hss.html#a922d4f103c25429a31fc91a363bb7b0e", null ],
+      [ "Pol_ep", "d8/dd1/classmuee_z_hss.html#a012f28ed098900548353b11103769594", null ],
       [ "sqrt_s", "d8/dd1/classmuee_z_hss.html#a3059c4f1f7dc21aef4b095c4d8c872f4", null ]
     ] ],
-    [ "mueeZHssPol", "dd/d5c/classmuee_z_hss_pol.html", [
-      [ "mueeZHssPol", "dd/d5c/classmuee_z_hss_pol.html#a75f628b428f9092b4aa08adfdfeb21fe", null ],
-      [ "computeThValue", "dd/d5c/classmuee_z_hss_pol.html#aac8b9dc86786ebbcb6bd3c11bbe2e7d8", null ],
-      [ "myNPbase", "dd/d5c/classmuee_z_hss_pol.html#ab583437f0a88b37106cbac2d7f943a10", null ],
-      [ "Pol_em", "dd/d5c/classmuee_z_hss_pol.html#a7d7f54d55211e60769b894461803db71", null ],
-      [ "Pol_ep", "dd/d5c/classmuee_z_hss_pol.html#a2e7b8fa50b5cdd9df03e5af699600bf3", null ],
-      [ "sqrt_s", "dd/d5c/classmuee_z_hss_pol.html#aa76181470433a9233a3a9ae61881ef2a", null ]
-    ] ],
     [ "mueeZHtautau", "db/db4/classmuee_z_htautau.html", [
-      [ "mueeZHtautau", "db/db4/classmuee_z_htautau.html#aa9571197d24c9b8820ed1dfc302fc78c", null ],
+      [ "mueeZHtautau", "db/db4/classmuee_z_htautau.html#afb2de6dce826c7b2f722e4558e29628e", null ],
       [ "computeThValue", "db/db4/classmuee_z_htautau.html#a8db7952ca6028c600a86e7b3bab5b76c", null ],
       [ "myNPbase", "db/db4/classmuee_z_htautau.html#a5759c0a2f0cbdb3ea8facf107503977c", null ],
+      [ "Pol_em", "db/db4/classmuee_z_htautau.html#aea6637e4681bcd66239f4c956726280c", null ],
+      [ "Pol_ep", "db/db4/classmuee_z_htautau.html#a7deb358b34119dd671e369c30c7858ba", null ],
       [ "sqrt_s", "db/db4/classmuee_z_htautau.html#a1339c9dc440438d8eaff5a39403c69ff", null ]
     ] ],
-    [ "mueeZHtautauPol", "df/d54/classmuee_z_htautau_pol.html", [
-      [ "mueeZHtautauPol", "df/d54/classmuee_z_htautau_pol.html#a7577f18649f93fd572739911c306967f", null ],
-      [ "computeThValue", "df/d54/classmuee_z_htautau_pol.html#a9adc182aea4167758325f66b4756d562", null ],
-      [ "myNPbase", "df/d54/classmuee_z_htautau_pol.html#a1d295314d6fd6850b96744e33165c6bd", null ],
-      [ "Pol_em", "df/d54/classmuee_z_htautau_pol.html#aa4aa1a334f85283f9cd1547195d051e2", null ],
-      [ "Pol_ep", "df/d54/classmuee_z_htautau_pol.html#a7f91204c7629c05c8df236acb0670fe1", null ],
-      [ "sqrt_s", "df/d54/classmuee_z_htautau_pol.html#a9c36a0a0950117fe4a4d6038f456f5a6", null ]
-    ] ],
     [ "mueeZHWW", "d1/d81/classmuee_z_h_w_w.html", [
-      [ "mueeZHWW", "d1/d81/classmuee_z_h_w_w.html#a9ec20fd56efdb3c44b981ec4f191f558", null ],
+      [ "mueeZHWW", "d1/d81/classmuee_z_h_w_w.html#a763d388de30261852147ff8bc1f3f78b", null ],
       [ "computeThValue", "d1/d81/classmuee_z_h_w_w.html#aea19e60a9920a86a34decd3fec21b145", null ],
       [ "myNPbase", "d1/d81/classmuee_z_h_w_w.html#aff53c1f0bd00991421a6dc3ce7a617ae", null ],
+      [ "Pol_em", "d1/d81/classmuee_z_h_w_w.html#ae2a47c626dc74c6b1786bc5a787c8b3e", null ],
+      [ "Pol_ep", "d1/d81/classmuee_z_h_w_w.html#ab2c16048fb8126ce1b10b9fcf4768885", null ],
       [ "sqrt_s", "d1/d81/classmuee_z_h_w_w.html#a20762412dfe0243e4eb4dc53b545dad8", null ]
     ] ],
-    [ "mueeZHWWPol", "d2/d60/classmuee_z_h_w_w_pol.html", [
-      [ "mueeZHWWPol", "d2/d60/classmuee_z_h_w_w_pol.html#a83e700a75ce0cdca65841d7cd47f3dba", null ],
-      [ "computeThValue", "d2/d60/classmuee_z_h_w_w_pol.html#ae3ffea2cc756604f5af0247e509b42fc", null ],
-      [ "myNPbase", "d2/d60/classmuee_z_h_w_w_pol.html#a0c891d88d5c673355bd4a9ddd8e405ca", null ],
-      [ "Pol_em", "d2/d60/classmuee_z_h_w_w_pol.html#a20fb14a2733113aec4544c5fc4c886ed", null ],
-      [ "Pol_ep", "d2/d60/classmuee_z_h_w_w_pol.html#a6f9473ab77b9b007a68b5ad664be548a", null ],
-      [ "sqrt_s", "d2/d60/classmuee_z_h_w_w_pol.html#a2fa35ab2b6c57455cbf2cef3a3219355", null ]
-    ] ],
     [ "mueeZHZga", "d5/d92/classmuee_z_h_zga.html", [
-      [ "mueeZHZga", "d5/d92/classmuee_z_h_zga.html#a6832c7cbd03f173553e52db5da46e624", null ],
+      [ "mueeZHZga", "d5/d92/classmuee_z_h_zga.html#a3df2e3301119e69c0c0f28de3330e6e7", null ],
       [ "computeThValue", "d5/d92/classmuee_z_h_zga.html#aca6233bf6fdd8abc927599c2e9a7eb0e", null ],
       [ "myNPbase", "d5/d92/classmuee_z_h_zga.html#a0c6d6d5e1e2f91ffd016916687c02418", null ],
+      [ "Pol_em", "d5/d92/classmuee_z_h_zga.html#a5b63c8845e89b8eaf8ea31b6ef3c82e0", null ],
+      [ "Pol_ep", "d5/d92/classmuee_z_h_zga.html#adf8099cbc5a04db531e3c71c576bf8f0", null ],
       [ "sqrt_s", "d5/d92/classmuee_z_h_zga.html#a51c508bc10b99cd915ed09c1e0695869", null ]
     ] ],
-    [ "mueeZHZgaPol", "db/d51/classmuee_z_h_zga_pol.html", [
-      [ "mueeZHZgaPol", "db/d51/classmuee_z_h_zga_pol.html#ae3687eb8c19698c4f08099df25bc408f", null ],
-      [ "computeThValue", "db/d51/classmuee_z_h_zga_pol.html#a282215e921e6d3e4014b5b43680036d3", null ],
-      [ "myNPbase", "db/d51/classmuee_z_h_zga_pol.html#a7b85eca434e25c74c13915f6136b1fc1", null ],
-      [ "Pol_em", "db/d51/classmuee_z_h_zga_pol.html#a6c60fffa727df94311419480f549a4ae", null ],
-      [ "Pol_ep", "db/d51/classmuee_z_h_zga_pol.html#a0eb48a2e11ce4198278a09ff914e9c6d", null ],
-      [ "sqrt_s", "db/d51/classmuee_z_h_zga_pol.html#a042795e3f836e6848fac70d2ec9e1c65", null ]
-    ] ],
     [ "mueeZHZZ", "d9/d76/classmuee_z_h_z_z.html", [
-      [ "mueeZHZZ", "d9/d76/classmuee_z_h_z_z.html#a4db190ca0b7827290b06e518bcb3e1d5", null ],
+      [ "mueeZHZZ", "d9/d76/classmuee_z_h_z_z.html#aeb0d5673b3ceedc1c40ebce1b2b6384b", null ],
       [ "computeThValue", "d9/d76/classmuee_z_h_z_z.html#a35dcfc96e8de842099ba3033478b220d", null ],
       [ "myNPbase", "d9/d76/classmuee_z_h_z_z.html#af9aab4c1a90eae1de531bc10598553ca", null ],
+      [ "Pol_em", "d9/d76/classmuee_z_h_z_z.html#ad5706fed0ecb02b4c2d493db1ff01979", null ],
+      [ "Pol_ep", "d9/d76/classmuee_z_h_z_z.html#ae0656e717dc80a0681e6cdc2320c2a7c", null ],
       [ "sqrt_s", "d9/d76/classmuee_z_h_z_z.html#a40ede0abee1390a7750b8bd97622e2b9", null ]
-    ] ],
-    [ "mueeZHZZPol", "df/d37/classmuee_z_h_z_z_pol.html", [
-      [ "mueeZHZZPol", "df/d37/classmuee_z_h_z_z_pol.html#acd27f9d6232b8c9d023853b257fe5504", null ],
-      [ "computeThValue", "df/d37/classmuee_z_h_z_z_pol.html#a4aa7005680cd7f004acb5dc3ee5b3a8a", null ],
-      [ "myNPbase", "df/d37/classmuee_z_h_z_z_pol.html#a5ec20425d554b98799827380676f4032", null ],
-      [ "Pol_em", "df/d37/classmuee_z_h_z_z_pol.html#ac77394ff71b97f960b880dc6ae9ff421", null ],
-      [ "Pol_ep", "df/d37/classmuee_z_h_z_z_pol.html#a38696587df945bd3231ec28b0d163163", null ],
-      [ "sqrt_s", "df/d37/classmuee_z_h_z_z_pol.html#a61a3a8ef0cf3551f898a38a3f63b7506", null ]
     ] ],
     [ "mueeZllH", "df/d4c/classmuee_zll_h.html", [
       [ "mueeZllH", "df/d4c/classmuee_zll_h.html#a03ced39df9a279df821a32c109e1f635", null ],
@@ -3255,9 +3175,8 @@ var group___new_physics =
       [ "mueeWWPol", "d2/df3/class_n_pbase.html#a520b5a6b0f4dd3cf0ca14959b6bb39b7", null ],
       [ "mueeZBF", "d2/df3/class_n_pbase.html#a8902280743900ad6dc2421123e0c9dad", null ],
       [ "mueeZBFPol", "d2/df3/class_n_pbase.html#a9b4dcd0071ef75c6093d462753568232", null ],
-      [ "mueeZH", "d2/df3/class_n_pbase.html#a227ab5a25e0fbdb85b147ac3152bfbe2", null ],
+      [ "mueeZH", "d2/df3/class_n_pbase.html#a62ca00708274ce5cf58581094137a5a4", null ],
       [ "mueeZHGen", "d2/df3/class_n_pbase.html#a3adef38fa6287875c44872a68116cfc5", null ],
-      [ "mueeZHPol", "d2/df3/class_n_pbase.html#a998dcd051671c8b5e6ee9d77763cd8bf", null ],
       [ "mueeZllH", "d2/df3/class_n_pbase.html#adac50eb3dbbf056f3ba774b5801292ef", null ],
       [ "mueeZllHPol", "d2/df3/class_n_pbase.html#a41589bf3325a6f87e963691764ff5654", null ],
       [ "mueeZqqH", "d2/df3/class_n_pbase.html#af25d02c0d17b596f23711c61ccabb093", null ],
@@ -4151,7 +4070,7 @@ var group___new_physics =
       [ "mueeWWPol", "d2/d0d/class_n_p_s_m_e_f_td6.html#a7e64a3b03922ea2d5e9219577abc119d", null ],
       [ "mueeZBF", "d2/d0d/class_n_p_s_m_e_f_td6.html#a2af7ff9c4e423c6873b353ff5fd082e6", null ],
       [ "mueeZBFPol", "d2/d0d/class_n_p_s_m_e_f_td6.html#a159ed8fe45c9b15acf3dc5932fd96692", null ],
-      [ "mueeZH", "d2/d0d/class_n_p_s_m_e_f_td6.html#a61b01a1cc66162270a53e4da059b58bd", null ],
+      [ "mueeZH", "d2/d0d/class_n_p_s_m_e_f_td6.html#a274da89a19191c5b4a4f1e684b02073f", null ],
       [ "mueeZHPol", "d2/d0d/class_n_p_s_m_e_f_td6.html#a317c68c13a9fefc7ba7c54eed6c72e73", null ],
       [ "mueeZllH", "d2/d0d/class_n_p_s_m_e_f_td6.html#a630a06810bbfac9da83e7dc2083196fe", null ],
       [ "mueeZllHPol", "d2/d0d/class_n_p_s_m_e_f_td6.html#ae90ccb037ef3d50b0cd120cc82efce47", null ],
@@ -5611,12 +5530,14 @@ var group___new_physics =
       [ "deltaGammaTotalRatio2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a1d1a694386da51fdf61625fc0fbf3aa7", null ],
       [ "DeltaGF", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#aa773af16329ece617a4bbcf4d95119a2", null ],
       [ "deltaGL_f", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#afaa23a28de3b31abfb559d53bafebf56", null ],
+      [ "deltaGL_f_mu", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a9f8a15a954e3c721059f07dce6fad2a9", null ],
       [ "deltaGL_Wff", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a0296cc328611d7a0f4f795cfb70d798e", null ],
       [ "deltaGL_Wffh", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a237ab144d10e83e8fa56999694cb7649", null ],
       [ "deltaGL_Zffh", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ae7bdab371158b2d5f5c539aa488fe0ba", null ],
       [ "deltaGmu", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ad2d5e6f12eadac0089897895c6a2262d", null ],
       [ "deltaGmu2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a201cba63042cdb8264bd40f7ed5d283f", null ],
       [ "deltaGR_f", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a202e04703d18d535903ab4a8b9554b67", null ],
+      [ "deltaGR_f_mu", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#abc776fd295503d36c280e7c09010d55e", null ],
       [ "deltaGR_Wff", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ad703d0d227e9d7afb9e4d93416db616b", null ],
       [ "deltaGR_Wffh", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a8e81deea39c34e0d6926d34157513915", null ],
       [ "deltaGR_Zffh", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a42bade2598d3a2666b9bd9531aa1f91b", null ],
@@ -5650,8 +5571,8 @@ var group___new_physics =
       [ "deltaMwd62", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a3168d698e7e55cce96c8f7015a1dd09d", null ],
       [ "deltaMz", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a19899b5dc6305d59c668ad91f81c1d31", null ],
       [ "deltaMz2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a1784b9200eebccc982642199e6b879bd", null ],
-      [ "DeltaOalphtoW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ae1416a964f0d844ff3399ab1a1f45be9", null ],
-      [ "DeltaOWtoalph", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ae71267d8d898d9702c605c3aed2a9796", null ],
+      [ "DeltaOalphtoW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#aaee9699d995af8a78c5376d41872dbb9", null ],
+      [ "DeltaOWtoalph", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a2a51f1eedce3b1380e2ce1439368b80c", null ],
       [ "deltaR0_f", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#abd10339a0f773ad12fdd0f8c2e6fd5e2", null ],
       [ "deltaSigmaHadron", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a213f56871f2e477aa583bdb40d04c2ef", null ],
       [ "deltaxseeWW4fLEP2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#adaf8f63498d170a8bdd8e5ed1b8c7bfe", null ],
@@ -5819,7 +5740,7 @@ var group___new_physics =
       [ "mueeWWPol", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a466ce75f2a5d2b5303727f340f112f3b", null ],
       [ "mueeZBF", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a546fb1858bcc71d977395f7ab92fb078", null ],
       [ "mueeZBFPol", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a9f99cd8759bbb01feab9b2062348a2da", null ],
-      [ "mueeZH", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#af76dc055373dff436f3f00e6ad2dd65c", null ],
+      [ "mueeZH", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a45dac0e712bf27888bb493170845db22", null ],
       [ "mueeZHGen", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a6eea74979bcbd0def898818bdaa27a6c", null ],
       [ "mueeZHPol", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a26fd823ed46670330c523817d60cbf14", null ],
       [ "mueeZllH", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a054d5769b3974520af2d08d01248f900", null ],
@@ -6134,7 +6055,6 @@ var group___new_physics =
       [ "aiuG", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a410a7ce9be73707ee6664a100bdd95a1", null ],
       [ "aiWW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a8c2dc6631dd1ad7d6a044eeef9fa1ccc", null ],
       [ "aleMz", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a2c300075b462531310b43b37e9acb9b9", null ],
-      [ "alphatoW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#abd1df51131927772d261bf12a4f2ee5c", null ],
       [ "BrHexo", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#acdd2faf4f162e10aa051bb5668ff18e2", null ],
       [ "BrHinv", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ad0a7e34780aec9eb23bad3a060242506", null ],
       [ "C2B", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a8657bf063c8a68543ec664655c141778", null ],
@@ -8843,7 +8763,6 @@ var group___new_physics =
       [ "VuR", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a218af19221f132aeee77f11b3ed6b804", null ],
       [ "VuRd", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ab04e162bc68a24dd9ddd8b387e160c19", null ],
       [ "w_WW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a2a89def3b0c7ebb877fdb2fa9b6d7e38", null ],
-      [ "Wtoalpha", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#add3954eb02e233799323d6accaff8881", null ],
       [ "xBZ_tree", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a7207ae02b4f83add26b0525a030d5691", null ],
       [ "xWZ_tree", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ab20a6ee84e86424191d4558e82cfd5a2", null ],
       [ "Yukc", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ae38b9ec9889f5922f53e8bf2f7db2a1f", null ],

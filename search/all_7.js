@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['f_0',['F',['../da/d29/class_amp_d_b2.html#a475dae03a7ecb40fdfc510f46fe0482c',1,'AmpDB2::F()'],['../dd/d00/class_evol_bsmm.html#a8f88ae14bd8df8c6f79af5dd9b0edb28',1,'EvolBsmm::F()'],['../d7/d0f/class_s_t_u.html#a2fe209575f5fcd5d779e60eaf8606683',1,'STU::F()'],['../de/d45/class_t_h_d_m_w_s_t_u.html#aaace74885c69f02da52e4cf84366a8a6',1,'THDMWSTU::F()']]],
-  ['f_1',['f',['../d0/d13/class_bsgamma.html#a529c56671700edd8d9c8bbda179a3ac2',1,'Bsgamma']]],
+  ['f_0',['f',['../d0/d13/class_bsgamma.html#a529c56671700edd8d9c8bbda179a3ac2',1,'Bsgamma']]],
+  ['f_1',['F',['../da/d29/class_amp_d_b2.html#a475dae03a7ecb40fdfc510f46fe0482c',1,'AmpDB2::F()'],['../dd/d00/class_evol_bsmm.html#a8f88ae14bd8df8c6f79af5dd9b0edb28',1,'EvolBsmm::F()'],['../d7/d0f/class_s_t_u.html#a2fe209575f5fcd5d779e60eaf8606683',1,'STU::F()'],['../de/d45/class_t_h_d_m_w_s_t_u.html#aaace74885c69f02da52e4cf84366a8a6',1,'THDMWSTU::F()']]],
   ['f0_2',['F0',['../da/d29/class_amp_d_b2.html#a695070f37415bde28cce0e9d5ae9f0ad',1,'AmpDB2::F0()'],['../df/d18/class_f0.html#a69cbfc7ce0199bf0bd98e78d8c6c18c3',1,'F0::F0()']]],
   ['f0_3',['f0',['../d7/d90/class_e_w_s_m_two_loop_e_w.html#a6a46ca33308952f5d8e271ae6438abda',1,'EWSMTwoLoopEW']]],
   ['f0_4',['F0',['../df/d18/class_f0.html',1,'']]],

@@ -12,7 +12,7 @@ var class_t_h_d_m_w_signal_strengths =
     [ "BrHZZRatio", "d5/d26/class_t_h_d_m_w_signal_strengths.html#aa4a0bca7814118df93d723b1a7407630", null ],
     [ "computeGammaTotalRatio", "d5/d26/class_t_h_d_m_w_signal_strengths.html#a7171347e165884a68e06afba9ea667db", null ],
     [ "mueeWBF", "d5/d26/class_t_h_d_m_w_signal_strengths.html#a3a2fcc2f0bb9d2d01e67d8d577c1f4af", null ],
-    [ "mueeZH", "d5/d26/class_t_h_d_m_w_signal_strengths.html#adc669c8e0337d3620e8d322ce85ba036", null ],
+    [ "mueeZH", "d5/d26/class_t_h_d_m_w_signal_strengths.html#aec4437b8cedc39be4dc9db80b2d21d25", null ],
     [ "muggH", "d5/d26/class_t_h_d_m_w_signal_strengths.html#a376a946922ef50b0c7547528911f5471", null ],
     [ "muttH", "d5/d26/class_t_h_d_m_w_signal_strengths.html#a20c6ee31938cb5c98337a1a7c2b2a9fe", null ],
     [ "muVBF", "d5/d26/class_t_h_d_m_w_signal_strengths.html#a5abafb46e12a9535e3432c79896deb6c", null ],
