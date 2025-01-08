@@ -9286,7 +9286,7 @@ const double NPSMEFTd6::muZHpT250(const double sqrt_s) const
     return mu;
 }
 
-const double NPSMEFTd6::mueeZH(const double sqrt_s) const
+const double NPSMEFTd6::mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     // Only Alpha scheme
@@ -9294,6 +9294,8 @@ const double NPSMEFTd6::mueeZH(const double sqrt_s) const
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeZHPol(sqrt_s, Pol_em, Pol_ep);
 
     if (sqrt_s == 0.240) {
 
@@ -9605,7 +9607,7 @@ const double NPSMEFTd6::mueeZllH(const double sqrt_s) const
 {
 
     //  The signal strength eeZH
-    double mu = mueeZH(sqrt_s);
+    double mu = mueeZH(sqrt_s, 0., 0.);
 
     //  The (relative) linear correction to the Z>ll BR
     double deltaBRratio;
@@ -9625,7 +9627,7 @@ const double NPSMEFTd6::mueeZqqH(const double sqrt_s) const
 {
 
     //  The signal strength eeZH
-    double mu = mueeZH(sqrt_s);
+    double mu = mueeZH(sqrt_s, 0., 0.);
 
     //  The (relative) linear correction to the Z>qq BR
     double deltaBRratio;

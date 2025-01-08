@@ -652,7 +652,7 @@ const double HiggsKigen::muZHpT250(const double sqrt_s) const
     return muZH(sqrt_s);
 }
 
-const double HiggsKigen::mueeZH(const double sqrt_s) const
+const double HiggsKigen::mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKZ() * computeKZ());
@@ -667,13 +667,6 @@ const double HiggsKigen::mueeZllH(const double sqrt_s) const
 }
 
 const double HiggsKigen::mueeZqqH(const double sqrt_s) const
-{
-    double mu = 1.0;
-    mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeZHint + eeeZHpar));
-}
-
-const double HiggsKigen::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKZ() * computeKZ());

@@ -234,7 +234,7 @@ const double SigmaBR::muggHpttH(const double sqrt_s) const
     return mu;
 } 
 
-const double SigmaBR::mueeZH(const double sqrt_s) const
+const double SigmaBR::mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     
     if (sqrt_s == 0.240) {
@@ -279,12 +279,6 @@ const double SigmaBR::mueeZH(const double sqrt_s) const
     return 1.0;
 
 }
-
-const double SigmaBR::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    return mueeZH(sqrt_s);
-}
-
 
 const double SigmaBR::mueeHvv(const double sqrt_s) const
 {

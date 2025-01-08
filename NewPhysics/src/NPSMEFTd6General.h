@@ -706,9 +706,10 @@ public:
      * where @f$O@f$ is a given observable in the SMEFT.
      * @param[in] dOSMdalpha the derivative with respect to @f$\alpha@f$ of 
      * the SM tree-level prediction of @f$O@f$ (in the @f$\alpha@f$ scheme)
+     * @param[in] mu the RG scale associated to the observable
      * @return The tree level difference between schemes @f$\Delta O@f$
      */
-    virtual const double  DeltaOalphtoW(const double dOSMdalpha) const;
+    virtual const double  DeltaOalphtoW(const double dOSMdalpha, const double mu) const;
     
     /**
      * @brief Difference in prediction in @f$\alpha@f$ scheme and W mass scheme, 
@@ -721,9 +722,10 @@ public:
      * where @f$O@f$ is a given observable in the SMEFT.
      * @param[in] dOSMdMW the derivative with respect to @f$M_W@f$ of 
      * the SM tree-level prediction of @f$O@f$ (in the @f$M_W@f$ scheme)
+     * @param[in] mu the RG scale associated to the observable
      * @return The tree level difference between schemes @f$\Delta O@f$
      */
-    virtual const double  DeltaOWtoalph(const double dOSMdMW) const;
+    virtual const double  DeltaOWtoalph(const double dOSMdMW, const double mu) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -1398,6 +1400,24 @@ public:
      */
     // no generation mixing
     const double deltaGR_f(const Particle p) const;
+    
+    /**
+     * @brief New physics contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
+     * @param[in] f a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_L^f(\mu)@f$
+     */
+    // no generation mixing
+    const double deltaGL_f_mu(const Particle p, const double mu) const;
+
+    /**
+     * @brief New physics contribution to the neutral-current right-handed coupling @f$g_R^f@f$.
+     * @param[in] f a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_R^f(\mu)@f$
+     */
+    // no generation mixing
+    const double deltaGR_f_mu(const Particle p, const double mu) const;
 
     /**
      * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
@@ -1728,10 +1748,11 @@ public:
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
      * @f$e^{+}e^{-}\to ZH@f$ associated production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeZH}@f$
      */
-    virtual const double mueeZH(const double sqrt_s) const;
+    virtual const double mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to e^+ e^-, \mu^+ \mu^- @f$ associated production
@@ -7144,8 +7165,6 @@ protected:
     double cNLOd6; ///< Parameter to control the inclusion of finite NLO corrections, when available.
     
     double cAsch, cWsch; ///< Parameters to control the SM EW input scheme: Alpha or MW.
-    
-    double alphatoW, Wtoalpha; ///< Parameters to control the change of SM EW input scheme 
     
 //    double Yuke,Yukmu,Yuktau;///< SM lepton Yukawas
     double Yuku,Yukc,Yukt;///< SM u-quark Yukawas

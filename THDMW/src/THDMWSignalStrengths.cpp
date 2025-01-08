@@ -39,7 +39,7 @@ const double THDMWSignalStrengths::muZH(const double sqrt_s) const
     return myTHDMW.getMyTHDMWCache()->rh_VV;
 }
 
-const double THDMWSignalStrengths::mueeZH(const double sqrt_s) const
+const double THDMWSignalStrengths::mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return myTHDMW.getMyTHDMWCache()->rh_VV;
 }

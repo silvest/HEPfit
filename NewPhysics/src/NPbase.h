@@ -1098,9 +1098,11 @@ public:
      * @f$ e^{+}e^{-}\to ZH @f$ associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeZH}@f$
      */
-    virtual const double mueeZH(const double sqrt_s) const
+    virtual const double mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
     {
         return 1.0;
     }
@@ -1128,20 +1130,7 @@ public:
     {
         return 1.0;
     }
-    
-    /**
-     * @brief The ratio @f$\mu_{eeZH}@f$ between the 
-     * @f$ e^{+}e^{-}\to ZH @f$ associated production
-     * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively 
-     * @return @f$\mu_{eeZH}@f$
-     */
-    virtual const double mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-    {
-        return 1.0;
-    }
-    
+        
     /**
      * @brief The ratio @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to e^+ e^-, \mu^+ \mu^- @f$ associated production
