@@ -4670,6 +4670,69 @@ public:
     virtual const double LEP2dsigmadcosMu(const double s, const double cos) const;
     virtual const double LEP2dsigmadcosTau(const double s, const double cos) const;
     
+    //////////////////////////////////////////////////////////////////////// 
+    // Top Wilson coefficients in the notation of arXiv: 1807.02121
+
+    virtual const double cHQpOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double cHQmOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double cHtOO(const double mu) const
+    {
+        return 0.0;
+    }
+    
+    virtual const double ctWOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double ctAOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double ctZOO(const double mu) const
+    {
+        return 0.0;
+    }
+    
+    virtual const double ctHOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double clQpOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double clQmOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double cltOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double cQeOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double cetOO(const double mu) const
+    {
+        return 0.0;
+    }
+    
     ////////////////////////////////////////////////////////////////////////     
     // EW low-energy observables: Muon g-2
     

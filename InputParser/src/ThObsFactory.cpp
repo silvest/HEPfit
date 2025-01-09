@@ -826,7 +826,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["AuxObsNP28"] = boost::factory<AuxObsNP28*>();
     obsThFactory["AuxObsNP29"] = boost::factory<AuxObsNP29*>();
     obsThFactory["AuxObsNP30"] = boost::factory<AuxObsNP30*>();
-
+    
     //-----  Higgs observables  ----------
 
     //-----  Production cross sections (ratios with SM)  ----------
@@ -4606,7 +4606,7 @@ ThObsFactory::ThObsFactory()
     // Parameters for inclusive observables
     const double sqrt_see[9] = {158., 163., 240., 250., 345., 360., 365., 500., 1000.};
     const double sqrt_s_eeff[9] = {157.5, 162.5, 240., 250., 345., 360., 365., 500., 1000.};
-
+    
     for (int i = 0; i < 9; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
 
@@ -4663,6 +4663,27 @@ ThObsFactory::ThObsFactory()
         obsThFactory["AFBeess_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBstrange*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
         obsThFactory["AFBeecc_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBcharm*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
         obsThFactory["AFBeebb_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBbottom*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
+    }
+    
+    //-----  Combinations of Warsaw basis entering in e+ e- Top optimal observables  ----------
+    //----- Only for energies above the ttbar threshold
+
+    for (int i = 4; i < 9; i++) {
+        std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
+        
+        obsThFactory["C_phiQP_OO_" + sqrt_s_str] = bind(boost::factory<OOcHQplus*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_phiQM_OO_" + sqrt_s_str] = bind(boost::factory<OOcHQminus*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_phit_OO_" + sqrt_s_str] = bind(boost::factory<OOcHt*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_tW_OO_" + sqrt_s_str] = bind(boost::factory<OOctW*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_tA_OO_" + sqrt_s_str] = bind(boost::factory<OOctA*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_tZ_OO_" + sqrt_s_str] = bind(boost::factory<OOctZ*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_tH_OO_" + sqrt_s_str] = bind(boost::factory<OOctH*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_lQP_OO_" + sqrt_s_str] = bind(boost::factory<OOclQplus*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_lQM_OO_" + sqrt_s_str] = bind(boost::factory<OOclQminus*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_lt_OO_" + sqrt_s_str] = bind(boost::factory<OOclt*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_Qe_OO_" + sqrt_s_str] = bind(boost::factory<OOcQe*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["C_et_OO_" + sqrt_s_str] = bind(boost::factory<OOcet*>(), _1, sqrt_s_eeff[i]);
+        
     }
 
     /* BEGIN: REMOVE FROM THE PACKAGE */

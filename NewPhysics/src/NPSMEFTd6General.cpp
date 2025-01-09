@@ -45414,3 +45414,140 @@ const double NPSMEFTd6General::delta_TauLFU_gtaugmuK() const {
     return delta;
 }
 
+// Top Wilson coefficients in the notation of arXiv: 1807.02121
+
+const double NPSMEFTd6General::cHQpOO(const double mu) const {
+
+    double yt, comb;
+    
+    yt = mtpole*sqrt(2.0)/v();
+    
+    comb = getSMEFTCoeff("CHq1R", 2, 2, mu) + getSMEFTCoeff("CHq3R", 2, 2, mu);
+    
+    comb = comb * (2.0)/yt/yt;
+
+    return comb;
+}
+
+const double NPSMEFTd6General::cHQmOO(const double mu) const {
+
+    double yt, comb;
+    
+    yt = mtpole*sqrt(2.0)/v();
+    
+    comb = getSMEFTCoeff("CHq1R", 2, 2, mu) - getSMEFTCoeff("CHq3R", 2, 2, mu);
+    
+    comb = comb * (2.0)/yt/yt;
+
+    return comb;
+}
+
+const double NPSMEFTd6General::cHtOO(const double mu) const {
+
+    double yt, comb;
+    
+    yt = mtpole*sqrt(2.0)/v();
+    
+    comb = getSMEFTCoeff("CHuR", 2, 2, mu);
+    
+    comb = comb * (2.0)/yt/yt;
+
+    return comb;
+}
+
+const double NPSMEFTd6General::ctWOO(const double mu) const {
+
+    double yt, comb;
+    
+    yt = mtpole*sqrt(2.0)/v();
+    
+    comb = getSMEFTCoeff("CuWR", 2, 2, mu)/g2_tree;
+    
+    comb = comb /yt;
+
+    return comb;
+}
+
+const double NPSMEFTd6General::ctAOO(const double mu) const {
+
+    double yt, comb;
+    
+    yt = mtpole*sqrt(2.0)/v();
+    
+    comb = getSMEFTCoeff("CuBR", 2, 2, mu)/g1_tree + getSMEFTCoeff("CuWR", 2, 2, mu)/g2_tree;
+    
+    comb = comb /yt;
+
+    return comb;
+}
+
+const double NPSMEFTd6General::ctZOO(const double mu) const {
+
+    double yt, comb;
+    
+    yt = mtpole*sqrt(2.0)/v();
+    
+    comb = -sW_tree * getSMEFTCoeff("CuBR", 2, 2, mu)/cW_tree/g1_tree + cW_tree * getSMEFTCoeff("CuWR", 2, 2, mu)/sW_tree/g2_tree;
+    
+    comb = comb /yt;
+
+    return comb;
+}
+
+const double NPSMEFTd6General::ctHOO(const double mu) const {
+
+    double yt, comb;
+    
+    yt = mtpole*sqrt(2.0)/v();
+    
+    comb = getSMEFTCoeff("CuHR", 2, 2, mu);
+    
+    comb = comb /yt/yt/yt;
+
+    return comb;
+}
+
+const double NPSMEFTd6General::clQpOO(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) + getSMEFTCoeff("CHq3R", 0, 0, 2, 2, mu);
+    
+    return 2.0 * comb;
+}
+
+const double NPSMEFTd6General::clQmOO(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) - getSMEFTCoeff("CHq3R", 0, 0, 2, 2, mu);
+    
+    return 2.0 * comb;
+}
+
+const double NPSMEFTd6General::cltOO(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CluR", 0, 0, 2, 2, mu);
+    
+    return 2.0 * comb;
+}
+
+const double NPSMEFTd6General::cQeOO(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CqeR", 2, 2, 0, 0, mu);
+    
+    return 2.0 * comb;
+}
+
+const double NPSMEFTd6General::cetOO(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CeuR", 0, 0, 2, 2, mu);
+    
+    return 2.0 * comb;
+}

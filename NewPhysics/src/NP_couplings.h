@@ -5558,6 +5558,422 @@ private:
 
 };
 
+// Top Wilson coefficients in the notation of arXiv: 1807.02121
+
+/**
+ * @class OOcHQplus
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOcHQplus : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOcHQplus(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOcHQplus class.
+     */
+    virtual ~OOcHQplus();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{phi q}^{+}@f$.
+     * @return @f$@f$C_{phi q}^{+}@f$@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class OOcHQminus
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOcHQminus : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOcHQminus(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOcHQminus class.
+     */
+    virtual ~OOcHQminus();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{phi q}^{-}@f$.
+     * @return @f$@f$C_{phi q}^{-}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class OOcHt
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOcHt : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOcHt(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOcHt class.
+     */
+    virtual ~OOcHt();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{phi t}@f$.
+     * @return @f$@f$C_{phi t}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+
+/**
+ * @class OOctW
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOctW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOctW(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOctW class.
+     */
+    virtual ~OOctW();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{tW}@f$.
+     * @return @f$@f$C_{tW}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+
+/**
+ * @class OOctA
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOctA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOctA(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOctA class.
+     */
+    virtual ~OOctA();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{tA}@f$.
+     * @return @f$@f$C_{tA}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+/**
+ * @class OOctZ
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOctZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOctZ(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOctZ class.
+     */
+    virtual ~OOctZ();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{tZ}@f$.
+     * @return @f$@f$C_{tZ}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+
+/**
+ * @class OOctH
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOctH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOctH(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOctZ class.
+     */
+    virtual ~OOctH();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{tH}@f$.
+     * @return @f$@f$C_{tH}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+/**
+ * @class OOclQplus
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOclQplus : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOclQplus(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOclQplus class.
+     */
+    virtual ~OOclQplus();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{l q}^{+}@f$.
+     * @return @f$@f$C_{l q}^{+}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+
+/**
+ * @class OOclQminus
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOclQminus : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOclQminus(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOclQminus class.
+     */
+    virtual ~OOclQminus();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{l q}^{-}@f$.
+     * @return @f$@f$C_{l q}^{-}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class OOclt
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOclt : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOclt(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOclt class.
+     */
+    virtual ~OOclt();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{l t}@f$.
+     * @return @f$@f$C_{l t}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+/**
+ * @class OOcQe
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOcQe : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOcQe(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOcQe class.
+     */
+    virtual ~OOcQe();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{q e}@f$.
+     * @return @f$@f$C_{ qe}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+
+/**
+ * @class OOcet
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ *
+ */
+class OOcet : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOcet(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOcet class.
+     */
+    virtual ~OOcet();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{e t}@f$.
+     * @return @f$@f$C_{e t}@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
 
 
 #endif	/* NPCOUPLINGS_H */

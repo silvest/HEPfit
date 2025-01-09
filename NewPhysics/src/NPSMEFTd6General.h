@@ -1253,7 +1253,33 @@ public:
     virtual const double delta_sigmaTot_ee(const double pol_e, const double pol_p, const double s) const;
 //  Absolute corrections to the FB asymmetry 
     virtual const double delta_AFB_ee(const double pol_e, const double pol_p, const double s) const;
+ 
+    //////////////////////////////////////////////////////////////////////// 
+    // Top Wilson coefficients in the notation of arXiv: 1807.02121
+
+    virtual const double cHQpOO(const double mu) const;
+
+    virtual const double cHQmOO(const double mu) const;
+
+    virtual const double cHtOO(const double mu) const;
     
+    virtual const double ctWOO(const double mu) const;
+
+    virtual const double ctAOO(const double mu) const;
+
+    virtual const double ctZOO(const double mu) const;
+    
+    virtual const double ctHOO(const double mu) const;
+
+    virtual const double clQpOO(const double mu) const;
+
+    virtual const double clQmOO(const double mu) const;
+
+    virtual const double cltOO(const double mu) const;
+
+    virtual const double cQeOO(const double mu) const;
+
+    virtual const double cetOO(const double mu) const;
     
     ////////////////////////////////////////////////////////////////////////     
     // EW low-energy observables: Muon g-2
