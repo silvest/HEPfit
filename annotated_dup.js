@@ -2310,7 +2310,6 @@ var annotated_dup =
     [ "OOclQplus", "df/d22/class_o_ocl_qplus.html", "df/d22/class_o_ocl_qplus" ],
     [ "OOclt", "da/db2/class_o_oclt.html", "da/db2/class_o_oclt" ],
     [ "OOcQe", "dd/d0f/class_o_oc_qe.html", "dd/d0f/class_o_oc_qe" ],
-    [ "OOctA", "d5/de1/class_o_oct_a.html", "d5/de1/class_o_oct_a" ],
     [ "OOctH", "d0/d64/class_o_oct_h.html", "d0/d64/class_o_oct_h" ],
     [ "OOctW", "d4/dac/class_o_oct_w.html", "d4/dac/class_o_oct_w" ],
     [ "OOctZ", "d9/d00/class_o_oct_z.html", "d9/d00/class_o_oct_z" ],

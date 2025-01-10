@@ -144,9 +144,9 @@ $(document).ready(function(){initNavTree('d0/d64/class_o_oct_h.html','../../'); 
 <div class="textblock"><p >An observable class for the e+ e- Top optimal observables in the SMEFT. </p>
 <dl class="section author"><dt>Author</dt><dd>HEPfit Collaboration </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
-<p>This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121. </p>
+<p>This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html#l05779">5779</a> of file <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html">NP_couplings.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html#l05745">5745</a> of file <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html">NP_couplings.h</a>.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -249,15 +249,15 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html#l03130">3130</a> of file <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html">NP_couplings.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l03131" name="l03131"></a><span class="lineno"> 3131</span>:<a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable</a>(SM_i), <a class="code hl_variable" href="../../d0/d64/class_o_oct_h.html#a2bc503cafcf4c0af6dc74e74ba14fb10">mu</a>(mu_i)</div>
-<div class="line"><a id="l03132" name="l03132"></a><span class="lineno"> 3132</span>{</div>
-<div class="line"><a id="l03133" name="l03133"></a><span class="lineno"> 3133</span>    <span class="keywordflow">if</span> ((<a class="code hl_variable" href="../../d0/d64/class_o_oct_h.html#a8f5360993f77ab9b73b844fd0b2f43c6">myNPbase</a> = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="../../d2/df3/class_n_pbase.html">NPbase</a>*<span class="keyword">&gt;</span> (&amp;<a class="code hl_variable" href="../../dc/d1f/class_th_observable.html#af6d1804943261b813d7e0b84e2812404">SM</a>)) == NULL)</div>
-<div class="line"><a id="l03134" name="l03134"></a><span class="lineno"> 3134</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;OOctH called with a class whose parent is not NPbase&quot;</span>);</div>
-<div class="line"><a id="l03135" name="l03135"></a><span class="lineno"> 3135</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html#l03112">3112</a> of file <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html">NP_couplings.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l03113" name="l03113"></a><span class="lineno"> 3113</span>:<a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable</a>(SM_i), <a class="code hl_variable" href="../../d0/d64/class_o_oct_h.html#a2bc503cafcf4c0af6dc74e74ba14fb10">mu</a>(mu_i)</div>
+<div class="line"><a id="l03114" name="l03114"></a><span class="lineno"> 3114</span>{</div>
+<div class="line"><a id="l03115" name="l03115"></a><span class="lineno"> 3115</span>    <span class="keywordflow">if</span> ((<a class="code hl_variable" href="../../d0/d64/class_o_oct_h.html#a8f5360993f77ab9b73b844fd0b2f43c6">myNPbase</a> = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="../../d2/df3/class_n_pbase.html">NPbase</a>*<span class="keyword">&gt;</span> (&amp;<a class="code hl_variable" href="../../dc/d1f/class_th_observable.html#af6d1804943261b813d7e0b84e2812404">SM</a>)) == NULL)</div>
+<div class="line"><a id="l03116" name="l03116"></a><span class="lineno"> 3116</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;OOctH called with a class whose parent is not NPbase&quot;</span>);</div>
+<div class="line"><a id="l03117" name="l03117"></a><span class="lineno"> 3117</span>}</div>
 <div class="ttc" id="aclass_n_pbase_html"><div class="ttname"><a href="../../d2/df3/class_n_pbase.html">NPbase</a></div><div class="ttdoc">The auxiliary base model class for other model classes.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de8/_n_pbase_8h_source.html#l00066">NPbase.h:66</a></div></div>
-<div class="ttc" id="aclass_o_oct_h_html_a2bc503cafcf4c0af6dc74e74ba14fb10"><div class="ttname"><a href="../../d0/d64/class_o_oct_h.html#a2bc503cafcf4c0af6dc74e74ba14fb10">OOctH::mu</a></div><div class="ttdeci">const double mu</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/de3/_n_p__couplings_8h_source.html#l05801">NP_couplings.h:5801</a></div></div>
-<div class="ttc" id="aclass_o_oct_h_html_a8f5360993f77ab9b73b844fd0b2f43c6"><div class="ttname"><a href="../../d0/d64/class_o_oct_h.html#a8f5360993f77ab9b73b844fd0b2f43c6">OOctH::myNPbase</a></div><div class="ttdeci">const NPbase * myNPbase</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/de3/_n_p__couplings_8h_source.html#l05800">NP_couplings.h:5800</a></div></div>
+<div class="ttc" id="aclass_o_oct_h_html_a2bc503cafcf4c0af6dc74e74ba14fb10"><div class="ttname"><a href="../../d0/d64/class_o_oct_h.html#a2bc503cafcf4c0af6dc74e74ba14fb10">OOctH::mu</a></div><div class="ttdeci">const double mu</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/de3/_n_p__couplings_8h_source.html#l05767">NP_couplings.h:5767</a></div></div>
+<div class="ttc" id="aclass_o_oct_h_html_a8f5360993f77ab9b73b844fd0b2f43c6"><div class="ttname"><a href="../../d0/d64/class_o_oct_h.html#a8f5360993f77ab9b73b844fd0b2f43c6">OOctH::myNPbase</a></div><div class="ttdeci">const NPbase * myNPbase</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/de3/_n_p__couplings_8h_source.html#l05766">NP_couplings.h:5766</a></div></div>
 <div class="ttc" id="aclass_th_observable_html_a61df653abc411fb5b5ccd090f735a0c4"><div class="ttname"><a href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable::ThObservable</a></div><div class="ttdeci">ThObservable(const StandardModel &amp;SM_i)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcd/_th_observable_8h_source.html#l00032">ThObservable.h:32</a></div></div>
 <div class="ttc" id="aclass_th_observable_html_af6d1804943261b813d7e0b84e2812404"><div class="ttname"><a href="../../dc/d1f/class_th_observable.html#af6d1804943261b813d7e0b84e2812404">ThObservable::SM</a></div><div class="ttdeci">const StandardModel &amp; SM</div><div class="ttdoc">A reference to an object of StandardMode class.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcd/_th_observable_8h_source.html#l00124">ThObservable.h:121</a></div></div>
 </div><!-- fragment -->
@@ -288,8 +288,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Destructor of the <a class="el" href="../../d9/d00/class_o_oct_z.html" title="An observable class for the e+ e- Top optimal observables in the SMEFT.">OOctZ</a> class. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html#l03138">3138</a> of file <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html">NP_couplings.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l03139" name="l03139"></a><span class="lineno"> 3139</span>{}</div>
+<p class="definition">Definition at line <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html#l03120">3120</a> of file <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html">NP_couplings.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l03121" name="l03121"></a><span class="lineno"> 3121</span>{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -322,11 +322,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../dc/d1f/class_th_observable.html#a87d938c43d30f3ba5107728fdcc4074d">ThObservable</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html#l03141">3141</a> of file <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html">NP_couplings.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l03142" name="l03142"></a><span class="lineno"> 3142</span>{    </div>
-<div class="line"><a id="l03143" name="l03143"></a><span class="lineno"> 3143</span>    <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d0/d64/class_o_oct_h.html#a8f5360993f77ab9b73b844fd0b2f43c6">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#aa79e3a1981863bc8079001d964698926">ctHOO</a>(<a class="code hl_variable" href="../../d0/d64/class_o_oct_h.html#a2bc503cafcf4c0af6dc74e74ba14fb10">mu</a>));</div>
-<div class="line"><a id="l03144" name="l03144"></a><span class="lineno"> 3144</span>}</div>
-<div class="ttc" id="aclass_n_pbase_html_aa79e3a1981863bc8079001d964698926"><div class="ttname"><a href="../../d2/df3/class_n_pbase.html#aa79e3a1981863bc8079001d964698926">NPbase::ctHOO</a></div><div class="ttdeci">virtual const double ctHOO(const double mu) const</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de8/_n_pbase_8h_source.html#l04706">NPbase.h:4706</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html#l03123">3123</a> of file <a class="el" href="../../df/d82/_n_p__couplings_8cpp_source.html">NP_couplings.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l03124" name="l03124"></a><span class="lineno"> 3124</span>{    </div>
+<div class="line"><a id="l03125" name="l03125"></a><span class="lineno"> 3125</span>    <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d0/d64/class_o_oct_h.html#a8f5360993f77ab9b73b844fd0b2f43c6">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#aa79e3a1981863bc8079001d964698926">ctHOO</a>(<a class="code hl_variable" href="../../d0/d64/class_o_oct_h.html#a2bc503cafcf4c0af6dc74e74ba14fb10">mu</a>));</div>
+<div class="line"><a id="l03126" name="l03126"></a><span class="lineno"> 3126</span>}</div>
+<div class="ttc" id="aclass_n_pbase_html_aa79e3a1981863bc8079001d964698926"><div class="ttname"><a href="../../d2/df3/class_n_pbase.html#aa79e3a1981863bc8079001d964698926">NPbase::ctHOO</a></div><div class="ttdeci">virtual const double ctHOO(const double mu) const</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de8/_n_pbase_8h_source.html#l04701">NPbase.h:4701</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -351,7 +351,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html#l05801">5801</a> of file <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html">NP_couplings.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html#l05767">5767</a> of file <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html">NP_couplings.h</a>.</p>
 
 </div>
 </div>
@@ -375,7 +375,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html#l05800">5800</a> of file <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html">NP_couplings.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html#l05766">5766</a> of file <a class="el" href="../../dc/de3/_n_p__couplings_8h_source.html">NP_couplings.h</a>.</p>
 
 </div>
 </div>
@@ -389,7 +389,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d0/d64/class_o_oct_h.html">OOctH</a></li>
-    <li class="footer">Generated on Thu Jan 9 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Fri Jan 10 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>

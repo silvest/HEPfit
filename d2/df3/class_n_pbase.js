@@ -136,7 +136,6 @@ var class_n_pbase =
     [ "cltOO", "d2/df3/class_n_pbase.html#a5e0743054428955a340c4a4d00f3ab42", null ],
     [ "computeGammaTotalRatio", "d2/df3/class_n_pbase.html#a8deb091b6c70fff088b9bc1504b383db", null ],
     [ "cQeOO", "d2/df3/class_n_pbase.html#ade3a52280b8424f59ec6a76afda6f942", null ],
-    [ "ctAOO", "d2/df3/class_n_pbase.html#ae625155e89ec3a508d0eef37c72409e3", null ],
     [ "ctHOO", "d2/df3/class_n_pbase.html#aa79e3a1981863bc8079001d964698926", null ],
     [ "ctWOO", "d2/df3/class_n_pbase.html#a29dac7b22eb232bf86aae33630c73649", null ],
     [ "ctZOO", "d2/df3/class_n_pbase.html#a8a2a7b825ed4e8823076d6d11c3ad29e", null ],

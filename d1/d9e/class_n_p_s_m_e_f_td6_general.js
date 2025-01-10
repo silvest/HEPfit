@@ -192,7 +192,6 @@ var class_n_p_s_m_e_f_td6_general =
     [ "computeGammaTotalRatio", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#adf7bab804cccb22ecc9cf245bed39b30", null ],
     [ "computeQuarkMassesAndCKMFromYukawas", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a23db0149e29c93344a06c42e6a384a40", null ],
     [ "cQeOO", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a32627a02b6ad11038d95e562913c149b", null ],
-    [ "ctAOO", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ae7bbe9df4d5285d401acdffcee2fb554", null ],
     [ "ctHOO", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a9be90ef7bf4aaababe119e04bbddffd9", null ],
     [ "ctWOO", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a871f530bcbf31b53f9772628c411260f", null ],
     [ "ctZOO", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a7dd182f882d0fe0bb9ed1e7bdcf50691", null ],

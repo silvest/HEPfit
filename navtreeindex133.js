@@ -1,13 +1,5 @@
 var NAVTREEINDEX133 =
 {
-"functions_func_v.html":[27,3,1,21],
-"functions_func_w.html":[27,3,1,22],
-"functions_func_x.html":[27,3,1,23],
-"functions_func_y.html":[27,3,1,24],
-"functions_func_z.html":[27,3,1,25],
-"functions_func_~.html":[27,3,1,26],
-"functions_g.html":[27,3,0,6],
-"functions_h.html":[27,3,0,7],
 "functions_i.html":[27,3,0,8],
 "functions_j.html":[27,3,0,9],
 "functions_k.html":[27,3,0,10],
@@ -24,8 +16,8 @@ var NAVTREEINDEX133 =
 "functions_type.html":[27,3,3],
 "functions_u.html":[27,3,0,20],
 "functions_v.html":[27,3,0,21],
-"functions_vars.html":[27,3,2],
 "functions_vars.html":[27,3,2,0],
+"functions_vars.html":[27,3,2],
 "functions_vars_b.html":[27,3,2,1],
 "functions_vars_c.html":[27,3,2,2],
 "functions_vars_d.html":[27,3,2,3],

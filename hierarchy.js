@@ -1524,7 +1524,6 @@ var hierarchy =
       [ "OOclQminus", "d7/d37/class_o_ocl_qminus.html", null ],
       [ "OOclQplus", "df/d22/class_o_ocl_qplus.html", null ],
       [ "OOclt", "da/db2/class_o_oclt.html", null ],
-      [ "OOctA", "d5/de1/class_o_oct_a.html", null ],
       [ "OOctH", "d0/d64/class_o_oct_h.html", null ],
       [ "OOctW", "d4/dac/class_o_oct_w.html", null ],
       [ "OOctZ", "d9/d00/class_o_oct_z.html", null ],
