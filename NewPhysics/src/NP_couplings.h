@@ -5558,14 +5558,14 @@ private:
 
 };
 
-// Top Wilson coefficients in the notation of arXiv: 1807.02121
+// Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
 
 /**
  * @class OOcHQplus
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOcHQplus : public ThObservable {
@@ -5600,7 +5600,7 @@ private:
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOcHQminus : public ThObservable {
@@ -5634,7 +5634,7 @@ private:
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOcHt : public ThObservable {
@@ -5669,7 +5669,7 @@ private:
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOctW : public ThObservable {
@@ -5700,45 +5700,11 @@ private:
 
 
 /**
- * @class OOctA
- * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
- *
- */
-class OOctA : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    OOctA(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the OOctA class.
-     */
-    virtual ~OOctA();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{tA}@f$.
-     * @return @f$@f$C_{tA}@f$@f$
-     */
-    double computeThValue();
-      
-private:
-    const NPbase * myNPbase;
-    const double mu;
-    
-};
-
-/**
  * @class OOctZ
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOctZ : public ThObservable {
@@ -5773,7 +5739,7 @@ private:
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOctH : public ThObservable {
@@ -5807,7 +5773,7 @@ private:
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOclQplus : public ThObservable {
@@ -5842,7 +5808,7 @@ private:
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOclQminus : public ThObservable {
@@ -5876,7 +5842,7 @@ private:
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOclt : public ThObservable {
@@ -5910,7 +5876,7 @@ private:
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOcQe : public ThObservable {
@@ -5945,7 +5911,7 @@ private:
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of arXiv: 1807.02121.
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
 class OOcet : public ThObservable {

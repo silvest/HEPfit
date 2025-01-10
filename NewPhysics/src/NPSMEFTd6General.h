@@ -1255,7 +1255,7 @@ public:
     virtual const double delta_AFB_ee(const double pol_e, const double pol_p, const double s) const;
  
     //////////////////////////////////////////////////////////////////////// 
-    // Top Wilson coefficients in the notation of arXiv: 1807.02121
+    // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
 
     virtual const double cHQpOO(const double mu) const;
 
@@ -1264,8 +1264,6 @@ public:
     virtual const double cHtOO(const double mu) const;
     
     virtual const double ctWOO(const double mu) const;
-
-    virtual const double ctAOO(const double mu) const;
 
     virtual const double ctZOO(const double mu) const;
     

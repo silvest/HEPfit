@@ -4671,7 +4671,7 @@ public:
     virtual const double LEP2dsigmadcosTau(const double s, const double cos) const;
     
     //////////////////////////////////////////////////////////////////////// 
-    // Top Wilson coefficients in the notation of arXiv: 1807.02121
+    // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
 
     virtual const double cHQpOO(const double mu) const
     {
@@ -4689,11 +4689,6 @@ public:
     }
     
     virtual const double ctWOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double ctAOO(const double mu) const
     {
         return 0.0;
     }

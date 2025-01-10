@@ -3017,7 +3017,7 @@ double dmtRef::computeThValue()
 
 /* -------------------------------------*/
 
-// Top Wilson coefficients in the notation of arXiv: 1807.02121
+// Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
 
 OOcHQplus::OOcHQplus(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
@@ -3087,24 +3087,6 @@ OOctW::~OOctW()
 double OOctW::computeThValue()
 {    
     return (myNPbase->ctWOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOctA::OOctA(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOctA called with a class whose parent is not NPbase");
-}
-
-
-OOctA::~OOctA()
-{}
-
-double OOctA::computeThValue()
-{    
-    return (myNPbase->ctAOO(mu));
 }
 
 /* -------------------------------------*/
