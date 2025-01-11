@@ -228,6 +228,31 @@ const gslpp::complex NPbase::kappaZ_f(const Particle f) const
     return ( (1.0 - gV_f(f) / gA_f(f)) / (4.0 * fabs(f.getCharge()) * sW2()));
 }
 
+const double NPbase::deltaGL_f_mu(const Particle p, const double mu) const
+{
+    // Default: No scale dependence
+    return 0.5 * ( deltaGV_f(p) + deltaGA_f(p) );
+}
+
+
+const double NPbase::deltaGR_f_mu(const Particle p, const double mu) const
+{
+    // Default: No scale dependence
+    return 0.5 * ( deltaGV_f(p) - deltaGA_f(p) );
+}
+
+gslpp::complex NPbase::deltaGL_Wff_mu(const Particle pbar, const Particle p, const double mu) const
+{
+    // Default: No scale dependence
+    return deltaGL_Wff(pbar, p);
+}
+
+gslpp::complex NPbase::deltaGR_Wff_mu(const Particle pbar, const Particle p, const double mu) const
+{
+    // Default: No scale dependence
+    return deltaGR_Wff(pbar, p);
+}
+
 const double NPbase::deltaGamma_Zf_2(const Particle f) const            
 {   
     //AG:added

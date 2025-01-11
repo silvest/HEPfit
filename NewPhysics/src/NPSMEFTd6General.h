@@ -732,7 +732,7 @@ public:
     //test function to test speed of code
     //double test_direct() const;
 
-    
+    ////////////////////////////////////////////////////////////////////////    
     
     /**
      * @brief New physics contribution to the Fermi constant.
@@ -745,6 +745,76 @@ public:
      * @return @f$\Delta G@f$
      */
     virtual const double  DeltaGF() const;
+    
+    ////////////////////////////////////////////////////////////////////////
+    // Functions to compute quantities involved in indirect corrections, depending on RG scale
+    
+    /**
+     * @brief Correction to photon WF.
+     * @details 
+     * @param[in] mu the RG scale associated to the observable where the function is used
+     * @return @f$\delta A(\mu)@f$
+     */
+    virtual const double  del_A_mu(const double mu) const;
+    
+    /**
+     * @brief Correction to Z WF.
+     * @details 
+     * @param[in] mu the RG scale associated to the observable where the function is used
+     * @return @f$\delta Z(\mu)@f$
+     */
+    virtual const double  del_Z_mu(const double mu) const;
+    
+    /**
+     * @brief Correction to Z-A mixing.
+     * @details 
+     * @param[in] mu the RG scale associated to the observable where the function is used
+     * @return @f$\delta ZA(\mu)@f$
+     */
+    virtual const double  del_ZA_mu(const double mu) const;
+    
+    
+    /**
+     * @brief Correction to electric charge.
+     * @details 
+     * @param[in] mu the RG scale associated to the observable where the function is used
+     * @return @f$\delta e(\mu)@f$
+     */
+    virtual const double  del_e_mu(const double mu) const;
+    
+    /**
+     * @brief Correction to (sin squared of) weak mixing angle.
+     * @details 
+     * @param[in] mu the RG scale associated to the observable where the function is used
+     * @return @f$\delta s_W^2(\mu)@f$
+     */
+    virtual const double  del_sW2_mu(const double mu) const;
+    
+    /**
+     * @brief Universal indirect correction to EW neutral currents.
+     * @details 
+     * @param[in] mu the RG scale associated to the observable where the function is used
+     * @return @f$\delta g_{NC}^{U}(\mu)@f$
+     */
+    virtual const double  delU_gNC(const double mu) const;
+    
+    /**
+     * @brief Separate, charge-proportional, indirect correction to EW neutral currents.
+     * @details 
+     * @param[in] mu the RG scale associated to the observable where the function is used
+     * @return @f$\delta g_{NC}^{Q}(\mu)@f$
+     */
+    virtual const double  delQ_gNC(const double mu) const;
+    
+    /**
+     * @brief Universal indirect correction to EW charged currents.
+     * @details 
+     * @param[in] mu the RG scale associated to the observable where the function is used
+     * @return @f$\delta g_{CC}^{U}(\mu)@f$
+     */
+    virtual const double  delU_gCC(const double mu) const;
+    
+    ///////////////////////////// Oblique parameters ////////////////////////////
 
     /**
      * @brief The oblique parameter \f$S\f$.
@@ -922,6 +992,8 @@ public:
      * @return @f$\alpha(M_Z^2)@f$
      */
     virtual const double  alphaMz() const;
+    
+    /////////////////////// EWPO: W mass and widths /////////////////////////
 
     /**
      * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
@@ -980,6 +1052,8 @@ public:
      * @return @f$(\delta \Gamma_W/\Gamma_W)^2@f$
      */
     virtual const double deltaGwd62() const;
+    
+    /////////////////////// EWPO: Z-pole ///////////////////////// 
     
     
     /**
@@ -1395,6 +1469,8 @@ public:
     ////////////////////////////////////////////////////////////////////////
     // Modifications of EW/Higgs couplings
     
+    // Modifications of Zff couplings
+      
     /**
      * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
      * @param[in] f a lepton or quark
@@ -1442,6 +1518,8 @@ public:
      */
     // no generation mixing
     const double deltaGR_f_mu(const Particle p, const double mu) const;
+    
+    // Modifications of Wff couplings
 
     /**
      * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
@@ -1459,6 +1537,27 @@ public:
      */
     // no generation mixing
     virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
+    
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation (for those models where it is available)
+     * @return @f$\delta g_{Wff}^{L}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaGL_Wff_mu(const Particle pbar, const Particle p, const double mu) const;
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation (for those models where it is available)
+     * @return @f$\delta g_{Wff}^{R}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaGR_Wff_mu(const Particle pbar, const Particle p, const double mu) const;
+    
+    // Modifications of Higgs couplings
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
@@ -4894,31 +4993,31 @@ public:
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
      * @return @f$\delta g_{1,Z}@f$
      */
-    virtual const double deltag1ZNP() const;
+    virtual const double deltag1ZNP(const double mu) const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{Z}@f$.
      * @return @f$\delta \kappa_{Z}@f$
      */
-    virtual const double deltaKZNP() const;
+    virtual const double deltaKZNP(const double mu) const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,\gamma}@f$.
      * @return @f$\delta g_{1,\gamma}@f$
      */
-    virtual const double deltag1gaNP() const;
+    virtual const double deltag1gaNP(const double mu) const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{\gamma}@f$.
      * @return @f$\delta \kappa_{\gamma}@f$
      */
-    virtual const double deltaKgammaNP() const;
+    virtual const double deltaKgammaNP(const double mu) const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\lambda_{Z}@f$.
      * @return @f$\lambda_{Z}@f$
      */
-    virtual const double lambdaZNP() const;
+    virtual const double lambdaZNP(const double mu) const;
 
     ////////////////////////////////////////////////////////////////////////
 

@@ -36,7 +36,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZveveL(const StandardModel& SM_i);
+    deltagZveveL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZveveL class.
@@ -49,11 +49,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -73,7 +71,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZvmuvmuL(const StandardModel& SM_i);
+    deltagZvmuvmuL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZvmuvmuL class.
@@ -85,12 +83,10 @@ public:
      * @return @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
     
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -111,7 +107,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZvtavtaL(const StandardModel& SM_i);
+    deltagZvtavtaL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZvtavtaL class.
@@ -124,11 +120,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -149,7 +143,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZeeL(const StandardModel& SM_i);
+    deltagZeeL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZeeL class.
@@ -162,11 +156,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -186,7 +178,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZeeR(const StandardModel& SM_i);
+    deltagZeeR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZeeR class.
@@ -199,11 +191,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -223,7 +213,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZmumuL(const StandardModel& SM_i);
+    deltagZmumuL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZmumuL class.
@@ -236,11 +226,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -260,7 +248,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZmumuR(const StandardModel& SM_i);
+    deltagZmumuR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZmumuR class.
@@ -273,11 +261,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -297,7 +283,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZtataL(const StandardModel& SM_i);
+    deltagZtataL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZtataL class.
@@ -310,11 +296,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -334,7 +318,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZtataR(const StandardModel& SM_i);
+    deltagZtataR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZtataR class.
@@ -347,11 +331,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -371,7 +353,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZuuL(const StandardModel& SM_i);
+    deltagZuuL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZuuL class.
@@ -384,11 +366,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -408,7 +388,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZuuR(const StandardModel& SM_i);
+    deltagZuuR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZuuR class.
@@ -421,11 +401,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -445,7 +423,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZuuV(const StandardModel& SM_i);
+    deltagZuuV(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZuuV class.
@@ -458,11 +436,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -482,7 +458,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZuuA(const StandardModel& SM_i);
+    deltagZuuA(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZuuA class.
@@ -495,11 +471,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -519,7 +493,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZccL(const StandardModel& SM_i);
+    deltagZccL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZccL class.
@@ -532,11 +506,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -556,7 +528,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZccR(const StandardModel& SM_i);
+    deltagZccR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZccR class.
@@ -569,11 +541,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -593,7 +563,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZttL(const StandardModel& SM_i);
+    deltagZttL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZttL class.
@@ -606,11 +576,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -630,7 +598,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZttR(const StandardModel& SM_i);
+    deltagZttR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZttR class.
@@ -643,11 +611,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -667,7 +633,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZttV(const StandardModel& SM_i);
+    deltagZttV(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZttV class.
@@ -680,11 +646,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -704,7 +668,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZttA(const StandardModel& SM_i);
+    deltagZttA(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZttA class.
@@ -717,11 +681,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -742,7 +704,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZddL(const StandardModel& SM_i);
+    deltagZddL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZddL class.
@@ -755,11 +717,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -779,7 +739,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZddR(const StandardModel& SM_i);
+    deltagZddR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZddR class.
@@ -792,11 +752,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -816,7 +774,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZddV(const StandardModel& SM_i);
+    deltagZddV(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZddV class.
@@ -829,11 +787,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -853,7 +809,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZddA(const StandardModel& SM_i);
+    deltagZddA(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZuuA class.
@@ -866,11 +822,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -890,7 +844,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZssL(const StandardModel& SM_i);
+    deltagZssL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZssL class.
@@ -903,11 +857,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -927,7 +879,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZssR(const StandardModel& SM_i);
+    deltagZssR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZssR class.
@@ -940,11 +892,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -964,7 +914,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZbbL(const StandardModel& SM_i);
+    deltagZbbL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZbbL class.
@@ -977,11 +927,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1001,7 +949,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagZbbR(const StandardModel& SM_i);
+    deltagZbbR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagZbbR class.
@@ -1014,11 +962,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 //-----  Wff couplings observables  ----------
@@ -1040,7 +986,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaUWeve(const StandardModel& SM_i);
+    deltaUWeve(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaUWeve class.
@@ -1053,11 +999,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1077,7 +1021,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaUWmuvmu(const StandardModel& SM_i);
+    deltaUWmuvmu(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaUWmuvmu class.
@@ -1090,11 +1034,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1114,7 +1056,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaUWtavta(const StandardModel& SM_i);
+    deltaUWtavta(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaUWtavta class.
@@ -1127,11 +1069,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1151,7 +1091,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaVudL(const StandardModel& SM_i);
+    deltaVudL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaVudL class.
@@ -1164,11 +1104,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1188,7 +1126,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaVudR(const StandardModel& SM_i);
+    deltaVudR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaVudR class.
@@ -1201,11 +1139,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1225,7 +1161,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaVcsL(const StandardModel& SM_i);
+    deltaVcsL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaVcsL class.
@@ -1238,11 +1174,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1262,7 +1196,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaVcsR(const StandardModel& SM_i);
+    deltaVcsR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaVcsR class.
@@ -1275,11 +1209,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1299,7 +1231,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaVtbL(const StandardModel& SM_i);
+    deltaVtbL(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaVtbL class.
@@ -1312,11 +1244,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1336,7 +1266,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaVtbR(const StandardModel& SM_i);
+    deltaVtbR(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaVtbR class.
@@ -1349,11 +1279,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -1389,11 +1317,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1426,11 +1351,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1463,11 +1385,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1500,11 +1419,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1537,11 +1453,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -1575,11 +1488,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -1613,11 +1523,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1650,11 +1557,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1687,11 +1591,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1724,11 +1625,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1761,11 +1659,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -1799,11 +1694,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1836,11 +1728,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 //-----  HGG couplings observables  ----------
@@ -1875,11 +1764,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1912,11 +1798,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 //-----  HZZ couplings observables  ----------
@@ -1951,11 +1834,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -1988,11 +1868,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2025,11 +1902,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2062,11 +1936,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 //-----  HAA couplings observables  ----------
@@ -2101,11 +1972,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -2139,11 +2007,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 //-----  HZA couplings observables  ----------
@@ -2178,11 +2043,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2215,11 +2077,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2252,10 +2111,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 
 };
 
@@ -2291,11 +2148,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2328,11 +2182,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2365,11 +2216,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2402,11 +2250,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 //-----  Other couplings observables  ----------
@@ -2441,11 +2286,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2478,11 +2320,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2515,11 +2354,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -2553,11 +2389,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 //-----  HHH couplings observables  ----------
@@ -2592,11 +2425,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 //-----  VVV couplings observables  ----------
@@ -2633,11 +2463,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -2671,11 +2498,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -2711,11 +2535,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2748,11 +2569,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2785,11 +2603,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -2822,11 +2637,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -2860,11 +2672,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -2898,10 +2707,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 
 };
 
@@ -2936,10 +2743,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 
 };
 
@@ -2974,11 +2779,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -3012,11 +2814,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -3050,11 +2849,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -3088,11 +2884,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -3127,11 +2920,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -3165,11 +2955,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 
@@ -3208,11 +2995,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
 };
 
 //-----  Absolute correction to some EW couplings (factoring e/sc or e/sqrt(2)s  ----------
@@ -3235,7 +3019,7 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] lepton a lepton
      */
-    delgZlL(const StandardModel& SM_i, const StandardModel::lepton lepton);
+    delgZlL(const StandardModel& SM_i, const StandardModel::lepton lepton, const double mu_i);
       
     /**
      * @brief Destructor of the delgZlL class.
@@ -3252,6 +3036,7 @@ public:
 private:
     const NPbase * myNPbase;
     StandardModel::lepton lepton;
+    const double mu;
 
 };
 
@@ -3273,7 +3058,7 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] lepton a lepton
      */
-    delgZlR(const StandardModel& SM_i, const StandardModel::lepton lepton);
+    delgZlR(const StandardModel& SM_i, const StandardModel::lepton lepton, const double mu_i);
       
     /**
      * @brief Destructor of the delgZlR class.
@@ -3290,6 +3075,7 @@ public:
 private:
     const NPbase * myNPbase;
     StandardModel::lepton lepton;
+    const double mu;
 
 };
 
@@ -3311,7 +3097,7 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] quark a quark
      */
-    delgZqL(const StandardModel& SM_i, const StandardModel::quark quark);
+    delgZqL(const StandardModel& SM_i, const StandardModel::quark quark, const double mu_i);
       
     /**
      * @brief Destructor of the delgZqL class.
@@ -3328,6 +3114,7 @@ public:
 private:
     const NPbase * myNPbase;
     StandardModel::quark quark;
+    const double mu;
 
 };
 
@@ -3349,7 +3136,7 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] quark a quark
      */
-    delgZqR(const StandardModel& SM_i, const StandardModel::quark quark);
+    delgZqR(const StandardModel& SM_i, const StandardModel::quark quark, const double mu_i);
       
     /**
      * @brief Destructor of the delgZqR class.
@@ -3366,6 +3153,7 @@ public:
 private:
     const NPbase * myNPbase;
     StandardModel::quark quark;
+    const double mu;
 
 };
 
@@ -3400,10 +3188,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 /**
@@ -3434,10 +3220,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -3469,10 +3253,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -3504,10 +3286,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4349,10 +4129,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4384,10 +4162,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4419,10 +4195,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4454,10 +4228,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4489,10 +4261,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4524,10 +4294,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4559,10 +4327,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4594,10 +4360,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4629,10 +4393,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4664,10 +4426,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4699,10 +4459,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4734,10 +4492,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4770,10 +4526,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4805,10 +4559,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4840,10 +4592,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4875,10 +4625,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4910,10 +4658,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4945,10 +4691,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -4980,10 +4724,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5015,10 +4757,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5050,10 +4790,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5085,10 +4823,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5121,10 +4857,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5156,10 +4890,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5191,10 +4923,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5226,10 +4956,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5261,10 +4989,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5296,10 +5022,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5331,10 +5055,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5366,10 +5088,8 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
+    const NPbase * myNPbase;
 };
 
 
@@ -5406,7 +5126,7 @@ public:
      * @return @f$\delta \alpha(M_z) / \alpha(M_z)@f$
      */
     double computeThValue();
-      
+
     const NPbase * myNPbase;
     
 private:
@@ -5447,7 +5167,7 @@ public:
     
 private:
 
-
+    
 };
 
 
@@ -5483,7 +5203,7 @@ public:
     
 private:
 
-
+    
 };
 
 
@@ -5519,7 +5239,7 @@ public:
     
 private:
 
-
+    
 };
 
 
@@ -5555,7 +5275,7 @@ public:
     
 private:
 
-
+    
 };
 
 // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237

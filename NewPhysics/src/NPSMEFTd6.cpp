@@ -18251,7 +18251,7 @@ const double NPSMEFTd6::muTHUggHZgamumu(const double sqrt_s) const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-const double NPSMEFTd6::deltag1ZNP() const
+const double NPSMEFTd6::deltag1ZNP(const double mu) const
 {
     double NPdirect, NPindirect;
 
@@ -18269,14 +18269,14 @@ const double NPSMEFTd6::deltag1ZNP() const
     return NPdirect + NPindirect + dg1Z;
 }
 
-const double NPSMEFTd6::deltaKZNP() const
+const double NPSMEFTd6::deltaKZNP(const double mu) const
 {
     // Obtain from the other aTGC  
 
-    return ( deltag1ZNP() - (sW2_tree / cW2_tree) * (deltaKgammaNP() - deltag1gaNP()));
+    return ( deltag1ZNP(mu) - (sW2_tree / cW2_tree) * (deltaKgammaNP(mu) - deltag1gaNP(mu)));
 }
 
-const double NPSMEFTd6::deltag1gaNP() const
+const double NPSMEFTd6::deltag1gaNP(const double mu) const
 {
     double NPindirect;
 
@@ -18285,7 +18285,7 @@ const double NPSMEFTd6::deltag1gaNP() const
     return NPindirect;
 }
 
-const double NPSMEFTd6::deltaKgammaNP() const
+const double NPSMEFTd6::deltaKgammaNP(const double mu) const
 {
     double NPdirect, NPindirect;
 
@@ -18300,7 +18300,7 @@ const double NPSMEFTd6::deltaKgammaNP() const
     return NPdirect + NPindirect + dKappaga;
 }
 
-const double NPSMEFTd6::lambdaZNP() const
+const double NPSMEFTd6::lambdaZNP(const double mu) const
 {
     double NPdirect;
 
@@ -18322,7 +18322,7 @@ const double NPSMEFTd6::deltag1ZNPEff() const
             sW2_tree * deltaGR_f(leptons[ELECTRON]) / gZlR -
             2.0 * deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]).real() / UevL);
 
-    return dgEff + deltag1ZNP();
+    return dgEff + deltag1ZNP(muw);
 }
 
 const double NPSMEFTd6::deltaKgammaNPEff() const
@@ -18334,7 +18334,7 @@ const double NPSMEFTd6::deltaKgammaNPEff() const
     dgEff = (cW2_tree - sW2_tree)*(deltaGL_f(leptons[ELECTRON]) / gZlL - deltaGR_f(leptons[ELECTRON]) / gZlR)
             - 2.0 * deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]).real() / UevL;
 
-    return dgEff + deltaKgammaNP();
+    return dgEff + deltaKgammaNP(muw);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -18398,17 +18398,17 @@ const double NPSMEFTd6::deltaxseeWW4fLEP2(const double sqrt_s, const int fstate)
             + cAsch * (0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgZ1 = deltag1ZNP();
+    dgZ1 = deltag1ZNP(sqrt_s);
 
-    dgga1 = deltag1gaNP();
+    dgga1 = deltag1gaNP(sqrt_s);
 
-    dkga = deltaKgammaNP();
+    dkga = deltaKgammaNP(sqrt_s);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP();
+    dlga = -lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP();
+    dlZ = -lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -18961,17 +18961,17 @@ const double NPSMEFTd6::xseeWW4fLEP2(const double sqrt_s, const int fstate) cons
             + cAsch * (0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgZ1 = deltag1ZNP();
+    dgZ1 = deltag1ZNP(sqrt_s);
 
-    dgga1 = deltag1gaNP();
+    dgga1 = deltag1gaNP(sqrt_s);
 
-    dkga = deltaKgammaNP();
+    dkga = deltaKgammaNP(sqrt_s);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP();
+    dlga = -lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP();
+    dlZ = -lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -19503,17 +19503,17 @@ const double NPSMEFTd6::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int 
             + cAsch * (0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgZ1 = deltag1ZNP();
+    dgZ1 = deltag1ZNP(sqrt_s);
 
-    dgga1 = deltag1gaNP();
+    dgga1 = deltag1gaNP(sqrt_s);
 
-    dkga = deltaKgammaNP();
+    dkga = deltaKgammaNP(sqrt_s);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP();
+    dlga = -lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP();
+    dlZ = -lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -19887,17 +19887,17 @@ const double NPSMEFTd6::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) 
             + cAsch * (0.25 * (cW_tree * CiHWB / sW_tree) * v2_over_LambdaNP2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgZ1 = deltag1ZNP();
+    dgZ1 = deltag1ZNP(sqrt_s);
 
-    dgga1 = deltag1gaNP();
+    dgga1 = deltag1gaNP(sqrt_s);
 
-    dkga = deltaKgammaNP();
+    dkga = deltaKgammaNP(sqrt_s);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP();
+    dlga = -lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP();
+    dlZ = -lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -20312,12 +20312,12 @@ const double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     double g1Z, g1ga, kZ, kga, lambdaZ, lambdaga, g4Z, g4ga, g5Z, g5ga, ktZ, ktga, lambdatZ, lambdatga;
 
     //  TGC present in the SM     
-    g1Z = 1.0 + deltag1ZNP();
+    g1Z = 1.0 + deltag1ZNP(sqrt_s);
     g1ga = 1.0;
-    kZ = 1.0 + deltag1ZNP() - (sW2_tree / cW2_tree) * deltaKgammaNP();
-    kga = 1.0 + deltaKgammaNP();
+    kZ = 1.0 + deltag1ZNP(sqrt_s) - (sW2_tree / cW2_tree) * deltaKgammaNP(sqrt_s);
+    kga = 1.0 + deltaKgammaNP(sqrt_s);
     //  TGC not present in the SM
-    lambdaZ = lambdaZNP(); //Check normalization
+    lambdaZ = lambdaZNP(sqrt_s); //Check normalization
     lambdaga = lambdaZ;
     g4Z = 0.0;
     g4ga = 0.0;
@@ -25039,13 +25039,13 @@ const double NPSMEFTd6::AuxObs_NP15() const
     dgRZd = deltaGR_f(quarks[DOWN]);
 
     // arXiv: 2003.07862 convention for aTGC Lagrangian has a minus sign wrt HEPfit definitions
-    dgZ1 = -deltag1ZNP();
+    dgZ1 = -deltag1ZNP(muw);
 
-    dkga = -deltaKgammaNP();
+    dkga = -deltaKgammaNP(muw);
 
-    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - deltag1gaNP());
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - deltag1gaNP(muw));
 
-    lZ = -lambdaZNP();
+    lZ = -lambdaZNP(muw);
 
     // Parameterization of pp->WW
 
@@ -25258,13 +25258,13 @@ const double NPSMEFTd6::AuxObs_NP16() const
     dgRZd = deltaGR_f(quarks[DOWN]);
 
     // arXiv: 2003.07862 convention for aTGC Lagrangian has a minus sign wrt HEPfit definitions
-    dgZ1 = -deltag1ZNP();
+    dgZ1 = -deltag1ZNP(muw);
 
-    dkga = -deltaKgammaNP();
+    dkga = -deltaKgammaNP(muw);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga;
 
-    lZ = -lambdaZNP();
+    lZ = -lambdaZNP(muw);
 
     // Parameterization of pp->WW
 

@@ -111,6 +111,27 @@ ThObsFactory::ThObsFactory()
     const double pol_20 = 20.0;
     const double pol_30 = 30.0;
     const double pol_80 = 80.0;
+    // Lists with values of energies/angles for energy/angle dependent definitions
+    //    
+    // Parameters for LEP 2 inclusive observables
+    const double sqrt_s[12] = {130., 136., 161., 172., 183., 189.,
+        192., 196., 200., 202., 205., 207.};
+    const double sqrt_s_LEP2eeff[12] = {130.2, 136.2, 161.3, 172.1, 182.7, 188.6,
+        191.6, 195.5, 199.5, 201.6, 204.9, 206.7};
+    //    
+    // Parameters for LEP2 differential observables
+    const double sqrt_sDiffll[8] = {183., 189., 192., 196., 200., 202., 205., 207.};
+    const double cos_Diffll[10] = {-0.9, -0.7, -0.5, -0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9};
+    //
+    const double cos_DiffeeInp[15] = {-0.8,-0.6,-0.5,-0.3,-0.1,0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9};
+    const double cos_Diffee[15] = {-0.81,-0.63,-0.45,-0.27,-0.09,0.045,0.135,0.225,0.315,0.405,0.495,0.585,0.675,0.765,0.855};
+    //
+    // Parameters for future e+e- observables
+    const double sqrt_see[9] = {158., 163., 240., 250., 345., 360., 365., 500., 1000.};
+    const double sqrt_s_eeff[9] = {157.5, 162.5, 240., 250., 345., 360., 365., 500., 1000.};
+    // Approximate electroweak scale, taken as the W mass
+    const double muEW = 80.365;
+    //    
     //
     //-----  StandardModel observables  -----
     obsThFactory["MtMSbar"] = boost::factory<MtMSbar*>();
@@ -189,10 +210,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["GammaHtoZga"] = boost::factory<HtoZga*>();
     obsThFactory["GammaHtogg"] = boost::factory<Htogg*>();
     obsThFactory["GammaH"] = boost::factory<Hwidth*>();    
-    //-----  Triple gauge coupling observables  -----
-    obsThFactory["deltag1Z"] = boost::factory<deltag1Z*>();
-    obsThFactory["deltaKgamma"] = boost::factory<deltaKgamma*>();
-    obsThFactory["lambdaZ"] = boost::factory<lambdaZ*>();
     //-----  ee -> WW observables: LEP2 total cross section  -----
     obsThFactory["eeWW_LEP2_161"] = bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_161);
     obsThFactory["eeWW_LEP2_172"] = bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_172);
@@ -637,44 +654,150 @@ ThObsFactory::ThObsFactory()
     obsThFactory["NEvpptaunu13_Bin11"] = bind(boost::factory<NevLHCtaunu13*>(), _1, 11);
     //
     //-----  Observables for particle couplings -----
-    //-----  Zff couplings observables  ----------
-    obsThFactory["deltagZveveL"] = boost::factory<deltagZveveL*>();
-    obsThFactory["deltagZvmuvmuL"] = boost::factory<deltagZvmuvmuL*>();
-    obsThFactory["deltagZvtavtaL"] = boost::factory<deltagZvtavtaL*>();
-    obsThFactory["deltagZeeL"] = boost::factory<deltagZeeL*>();
-    obsThFactory["deltagZeeR"] = boost::factory<deltagZeeR*>();
-    obsThFactory["deltagZmumuL"] = boost::factory<deltagZmumuL*>();
-    obsThFactory["deltagZmumuR"] = boost::factory<deltagZmumuR*>();
-    obsThFactory["deltagZtataL"] = boost::factory<deltagZtataL*>();
-    obsThFactory["deltagZtataR"] = boost::factory<deltagZtataR*>();
-    obsThFactory["deltagZuuL"] = boost::factory<deltagZuuL*>();
-    obsThFactory["deltagZuuR"] = boost::factory<deltagZuuR*>();
-    obsThFactory["deltagZuuV"] = boost::factory<deltagZuuV*>();
-    obsThFactory["deltagZuuA"] = boost::factory<deltagZuuA*>();
-    obsThFactory["deltagZccL"] = boost::factory<deltagZccL*>();
-    obsThFactory["deltagZccR"] = boost::factory<deltagZccR*>();
-    obsThFactory["deltagZttL"] = boost::factory<deltagZttL*>();
-    obsThFactory["deltagZttR"] = boost::factory<deltagZttR*>();
-    obsThFactory["deltagZttV"] = boost::factory<deltagZttV*>();
-    obsThFactory["deltagZttA"] = boost::factory<deltagZttA*>();
-    obsThFactory["deltagZddL"] = boost::factory<deltagZddL*>();
-    obsThFactory["deltagZddR"] = boost::factory<deltagZddR*>();
-    obsThFactory["deltagZddV"] = boost::factory<deltagZddV*>();
-    obsThFactory["deltagZddA"] = boost::factory<deltagZddA*>();
-    obsThFactory["deltagZssL"] = boost::factory<deltagZssL*>();
-    obsThFactory["deltagZssR"] = boost::factory<deltagZssR*>();
-    obsThFactory["deltagZbbL"] = boost::factory<deltagZbbL*>();
-    obsThFactory["deltagZbbR"] = boost::factory<deltagZbbR*>();
-    //-----  Wff couplings observables  ----------
-    obsThFactory["deltaUWeve"] = boost::factory<deltaUWeve*>();
-    obsThFactory["deltaUWmuvmu"] = boost::factory<deltaUWmuvmu*>();
-    obsThFactory["deltaUWtavta"] = boost::factory<deltaUWtavta*>();
-    obsThFactory["deltaVudL"] = boost::factory<deltaVudL*>();
-    obsThFactory["deltaVudR"] = boost::factory<deltaVudR*>();
-    obsThFactory["deltaVcsL"] = boost::factory<deltaVcsL*>();
-    obsThFactory["deltaVcsR"] = boost::factory<deltaVcsR*>();
-    obsThFactory["deltaVtbL"] = boost::factory<deltaVtbL*>();
-    obsThFactory["deltaVtbR"] = boost::factory<deltaVtbR*>();
+    //-----  Triple gauge coupling observables (scale independent definition -> muEW)  -----
+    obsThFactory["deltag1Z"] = bind(boost::factory<deltag1Z*>(), _1, muEW);
+    obsThFactory["deltaKgamma"] = bind(boost::factory<deltaKgamma*>(), _1, muEW);
+    obsThFactory["lambdaZ"] = bind(boost::factory<lambdaZ*>(), _1, muEW);
+    //-----  Zff couplings observables: relative corrections (scale independent definition -> muEW)  ----------
+    //-----  Z couplings with neutrinos ---------
+    obsThFactory["deltagZveveL"] = bind(boost::factory<deltagZveveL*>(), _1, muEW);
+    obsThFactory["deltagZvmuvmuL"] = bind(boost::factory<deltagZvmuvmuL*>(), _1, muEW);
+    obsThFactory["deltagZvtavtaL"] = bind(boost::factory<deltagZvtavtaL*>(), _1, muEW);
+    //-----  Z couplings with leptons ---------
+    obsThFactory["deltagZeeL"] = bind(boost::factory<deltagZeeL*>(), _1, muEW);
+    obsThFactory["deltagZeeR"] = bind(boost::factory<deltagZeeR*>(), _1, muEW);
+    obsThFactory["deltagZmumuL"] = bind(boost::factory<deltagZmumuL*>(), _1, muEW);
+    obsThFactory["deltagZmumuR"] = bind(boost::factory<deltagZmumuR*>(), _1, muEW);
+    obsThFactory["deltagZtataL"] = bind(boost::factory<deltagZtataL*>(), _1, muEW);
+    obsThFactory["deltagZtataR"] = bind(boost::factory<deltagZtataR*>(), _1, muEW);
+    //-----  Z couplings with up sector quarks ---------
+    obsThFactory["deltagZuuL"] = bind(boost::factory<deltagZuuL*>(), _1, muEW);
+    obsThFactory["deltagZuuR"] = bind(boost::factory<deltagZuuR*>(), _1, muEW);
+    obsThFactory["deltagZuuV"] = bind(boost::factory<deltagZuuV*>(), _1, muEW);
+    obsThFactory["deltagZuuA"] = bind(boost::factory<deltagZuuA*>(), _1, muEW);
+    obsThFactory["deltagZccL"] = bind(boost::factory<deltagZccL*>(), _1, muEW);
+    obsThFactory["deltagZccR"] = bind(boost::factory<deltagZccR*>(), _1, muEW);
+    obsThFactory["deltagZttL"] = bind(boost::factory<deltagZttL*>(), _1, muEW);
+    obsThFactory["deltagZttR"] = bind(boost::factory<deltagZttR*>(), _1, muEW);
+    obsThFactory["deltagZttV"] = bind(boost::factory<deltagZttV*>(), _1, muEW);
+    obsThFactory["deltagZttA"] = bind(boost::factory<deltagZttA*>(), _1, muEW);
+    //-----  Z couplings with down sector quarks ---------
+    obsThFactory["deltagZddL"] = bind(boost::factory<deltagZddL*>(), _1, muEW);
+    obsThFactory["deltagZddR"] = bind(boost::factory<deltagZddR*>(), _1, muEW);
+    obsThFactory["deltagZddV"] = bind(boost::factory<deltagZddV*>(), _1, muEW);
+    obsThFactory["deltagZddA"] = bind(boost::factory<deltagZddA*>(), _1, muEW);
+    obsThFactory["deltagZssL"] = bind(boost::factory<deltagZssL*>(), _1, muEW);
+    obsThFactory["deltagZssR"] = bind(boost::factory<deltagZssR*>(), _1, muEW);
+    obsThFactory["deltagZbbL"] = bind(boost::factory<deltagZbbL*>(), _1, muEW);
+    obsThFactory["deltagZbbR"] = bind(boost::factory<deltagZbbR*>(), _1, muEW);
+    //-----  Zff couplings observables: absolute corrections (scale independent definition -> muEW)  ----------
+    //-----  Z couplings with leptons ---------
+    obsThFactory["delgZeL"] = bind(boost::factory<delgZlL*>(), _1, StandardModel::ELECTRON, muEW);
+    obsThFactory["delgZeR"] = bind(boost::factory<delgZlR*>(), _1, StandardModel::ELECTRON, muEW);
+    obsThFactory["delgZmuL"] = bind(boost::factory<delgZlL*>(), _1, StandardModel::MU, muEW);
+    obsThFactory["delgZmuR"] = bind(boost::factory<delgZlR*>(), _1, StandardModel::MU, muEW);
+    obsThFactory["delgZtaL"] = bind(boost::factory<delgZlL*>(), _1, StandardModel::TAU, muEW);
+    obsThFactory["delgZtaR"] = bind(boost::factory<delgZlR*>(), _1, StandardModel::TAU, muEW);
+    //-----  Z couplings with up sector quarks ---------
+    obsThFactory["delgZuL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::UP, muEW);
+    obsThFactory["delgZuR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::UP, muEW);
+    obsThFactory["delgZcL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::CHARM, muEW);
+    obsThFactory["delgZcR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::CHARM, muEW);
+    obsThFactory["delgZtL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::TOP, muEW);
+    obsThFactory["delgZtR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::TOP, muEW);
+    //-----  Z couplings with down sector quarks ---------
+    obsThFactory["delgZdL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::DOWN, muEW);
+    obsThFactory["delgZdR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::DOWN, muEW);
+    obsThFactory["delgZsL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::STRANGE, muEW);
+    obsThFactory["delgZsR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::STRANGE, muEW);
+    obsThFactory["delgZbL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::BOTTOM, muEW);
+    obsThFactory["delgZbR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::BOTTOM, muEW);    
+    //-----  Wff couplings observables (scale independent definition -> muEW) ----------
+    obsThFactory["deltaUWeve"] = bind(boost::factory<deltaUWeve*>(), _1, muEW);
+    obsThFactory["deltaUWmuvmu"] = bind(boost::factory<deltaUWmuvmu*>(), _1, muEW);
+    obsThFactory["deltaUWtavta"] = bind(boost::factory<deltaUWtavta*>(), _1, muEW);
+    obsThFactory["deltaVudL"] = bind(boost::factory<deltaVudL*>(), _1, muEW);
+    obsThFactory["deltaVudR"] = bind(boost::factory<deltaVudR*>(), _1, muEW);
+    obsThFactory["deltaVcsL"] = bind(boost::factory<deltaVcsL*>(), _1, muEW);
+    obsThFactory["deltaVcsR"] = bind(boost::factory<deltaVcsR*>(), _1, muEW);
+    obsThFactory["deltaVtbL"] = bind(boost::factory<deltaVtbL*>(), _1, muEW);
+    obsThFactory["deltaVtbR"] = bind(boost::factory<deltaVtbR*>(), _1, muEW);
+    //
+    // Energy dependent definitions of the above
+    for (int i = 0; i < 9; i++) {
+        std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
+    //-----  Triple gauge coupling observables (scale dependent definition)  -----
+        obsThFactory["deltag1Z_" + sqrt_s_str] = bind(boost::factory<deltag1Z*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltaKgamma_" + sqrt_s_str] = bind(boost::factory<deltaKgamma*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["lambdaZ_" + sqrt_s_str] = bind(boost::factory<lambdaZ*>(), _1, sqrt_s_eeff[i]);
+    //-----  Zff couplings observables: relative corrections (scale dependent definition)  ----------
+    //-----  Z couplings with neutrinos ---------
+        obsThFactory["deltagZveveL_" + sqrt_s_str] = bind(boost::factory<deltagZveveL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZvmuvmuL_" + sqrt_s_str] = bind(boost::factory<deltagZvmuvmuL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZvtavtaL_" + sqrt_s_str] = bind(boost::factory<deltagZvtavtaL*>(), _1, sqrt_s_eeff[i]);
+    //-----  Z couplings with leptons ---------
+        obsThFactory["deltagZeeL_" + sqrt_s_str] = bind(boost::factory<deltagZeeL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZeeR_" + sqrt_s_str] = bind(boost::factory<deltagZeeR*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZmumuL_" + sqrt_s_str] = bind(boost::factory<deltagZmumuL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZmumuR_" + sqrt_s_str] = bind(boost::factory<deltagZmumuR*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZtataL_" + sqrt_s_str] = bind(boost::factory<deltagZtataL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZtataR_" + sqrt_s_str] = bind(boost::factory<deltagZtataR*>(), _1, sqrt_s_eeff[i]);
+    //-----  Z couplings with up sector quarks ---------
+        obsThFactory["deltagZuuL_" + sqrt_s_str] = bind(boost::factory<deltagZuuL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZuuR_" + sqrt_s_str] = bind(boost::factory<deltagZuuR*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZuuV_" + sqrt_s_str] = bind(boost::factory<deltagZuuV*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZuuA_" + sqrt_s_str] = bind(boost::factory<deltagZuuA*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZccL_" + sqrt_s_str] = bind(boost::factory<deltagZccL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZccR_" + sqrt_s_str] = bind(boost::factory<deltagZccR*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZttL_" + sqrt_s_str] = bind(boost::factory<deltagZttL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZttR_" + sqrt_s_str] = bind(boost::factory<deltagZttR*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZttV_" + sqrt_s_str] = bind(boost::factory<deltagZttV*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZttA_" + sqrt_s_str] = bind(boost::factory<deltagZttA*>(), _1, sqrt_s_eeff[i]);
+    //-----  Z couplings with down sector quarks ---------
+        obsThFactory["deltagZddL_" + sqrt_s_str] = bind(boost::factory<deltagZddL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZddR_" + sqrt_s_str] = bind(boost::factory<deltagZddR*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZddV_" + sqrt_s_str] = bind(boost::factory<deltagZddV*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZddA_" + sqrt_s_str] = bind(boost::factory<deltagZddA*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZssL_" + sqrt_s_str] = bind(boost::factory<deltagZssL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZssR_" + sqrt_s_str] = bind(boost::factory<deltagZssR*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZbbL_" + sqrt_s_str] = bind(boost::factory<deltagZbbL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltagZbbR_" + sqrt_s_str] = bind(boost::factory<deltagZbbR*>(), _1, sqrt_s_eeff[i]);
+    //-----  Zff couplings observables: absolute corrections (scale dependent definition)  ----------
+    //-----  Z couplings with leptons ---------
+        obsThFactory["delgZeL_" + sqrt_s_str] = bind(boost::factory<delgZlL*>(), _1, StandardModel::ELECTRON, sqrt_s_eeff[i]);
+        obsThFactory["delgZeR_" + sqrt_s_str] = bind(boost::factory<delgZlR*>(), _1, StandardModel::ELECTRON, sqrt_s_eeff[i]);
+        obsThFactory["delgZmuL_" + sqrt_s_str] = bind(boost::factory<delgZlL*>(), _1, StandardModel::MU, sqrt_s_eeff[i]);
+        obsThFactory["delgZmuR_" + sqrt_s_str] = bind(boost::factory<delgZlR*>(), _1, StandardModel::MU, sqrt_s_eeff[i]);
+        obsThFactory["delgZtaL_" + sqrt_s_str] = bind(boost::factory<delgZlL*>(), _1, StandardModel::TAU, sqrt_s_eeff[i]);
+        obsThFactory["delgZtaR_" + sqrt_s_str] = bind(boost::factory<delgZlR*>(), _1, StandardModel::TAU, sqrt_s_eeff[i]);
+    //-----  Z couplings with up sector quarks ---------
+        obsThFactory["delgZuL_" + sqrt_s_str] = bind(boost::factory<delgZqL*>(), _1, StandardModel::UP, sqrt_s_eeff[i]);
+        obsThFactory["delgZuR_" + sqrt_s_str] = bind(boost::factory<delgZqR*>(), _1, StandardModel::UP, sqrt_s_eeff[i]);
+        obsThFactory["delgZcL_" + sqrt_s_str] = bind(boost::factory<delgZqL*>(), _1, StandardModel::CHARM, sqrt_s_eeff[i]);
+        obsThFactory["delgZcR_" + sqrt_s_str] = bind(boost::factory<delgZqR*>(), _1, StandardModel::CHARM, sqrt_s_eeff[i]);
+        obsThFactory["delgZtL_" + sqrt_s_str] = bind(boost::factory<delgZqL*>(), _1, StandardModel::TOP, sqrt_s_eeff[i]);
+        obsThFactory["delgZtR_" + sqrt_s_str] = bind(boost::factory<delgZqR*>(), _1, StandardModel::TOP, sqrt_s_eeff[i]);
+    //-----  Z couplings with down sector quarks ---------
+        obsThFactory["delgZdL_" + sqrt_s_str] = bind(boost::factory<delgZqL*>(), _1, StandardModel::DOWN, sqrt_s_eeff[i]);
+        obsThFactory["delgZdR_" + sqrt_s_str] = bind(boost::factory<delgZqR*>(), _1, StandardModel::DOWN, sqrt_s_eeff[i]);
+        obsThFactory["delgZsL_" + sqrt_s_str] = bind(boost::factory<delgZqL*>(), _1, StandardModel::STRANGE, sqrt_s_eeff[i]);
+        obsThFactory["delgZsR_" + sqrt_s_str] = bind(boost::factory<delgZqR*>(), _1, StandardModel::STRANGE, sqrt_s_eeff[i]);
+        obsThFactory["delgZbL_" + sqrt_s_str] = bind(boost::factory<delgZqL*>(), _1, StandardModel::BOTTOM, sqrt_s_eeff[i]);
+        obsThFactory["delgZbR_" + sqrt_s_str] = bind(boost::factory<delgZqR*>(), _1, StandardModel::BOTTOM, sqrt_s_eeff[i]);    
+    //-----  Wff couplings observables (scale dependent) ----------
+        obsThFactory["deltaUWeve_" + sqrt_s_str] = bind(boost::factory<deltaUWeve*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltaUWmuvmu_" + sqrt_s_str] = bind(boost::factory<deltaUWmuvmu*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltaUWtavta_" + sqrt_s_str] = bind(boost::factory<deltaUWtavta*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltaVudL_" + sqrt_s_str] = bind(boost::factory<deltaVudL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltaVudR_" + sqrt_s_str] = bind(boost::factory<deltaVudR*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltaVcsL_" + sqrt_s_str] = bind(boost::factory<deltaVcsL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltaVcsR_" + sqrt_s_str] = bind(boost::factory<deltaVcsR*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltaVtbL_" + sqrt_s_str] = bind(boost::factory<deltaVtbL*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["deltaVtbR_" + sqrt_s_str] = bind(boost::factory<deltaVtbR*>(), _1, sqrt_s_eeff[i]);
+    }
+    //
+    //-----  W mass correction  ----------
+    obsThFactory["deltaMW"] = boost::factory<deltaMW*>();
     //-----  Hff couplings observables  ----------
     obsThFactory["gHmumueff"] = boost::factory<gHmumueff*>();
     obsThFactory["gHtataeff"] = boost::factory<gHtataeff*>();
@@ -733,28 +856,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["cggEff_HB"] = boost::factory<cggEffHB*>();
     obsThFactory["lambz_HB"] = boost::factory<lambzHB*>();
     //-----  Other useful observables to work with new physics  ----------
-    //-----  Z couplings with leptons ---------
-    obsThFactory["delgZeL"] = bind(boost::factory<delgZlL*>(), _1, StandardModel::ELECTRON);
-    obsThFactory["delgZeR"] = bind(boost::factory<delgZlR*>(), _1, StandardModel::ELECTRON);
-    obsThFactory["delgZmuL"] = bind(boost::factory<delgZlL*>(), _1, StandardModel::MU);
-    obsThFactory["delgZmuR"] = bind(boost::factory<delgZlR*>(), _1, StandardModel::MU);
-    obsThFactory["delgZtaL"] = bind(boost::factory<delgZlL*>(), _1, StandardModel::TAU);
-    obsThFactory["delgZtaR"] = bind(boost::factory<delgZlR*>(), _1, StandardModel::TAU);
-    //-----  Z couplings with up sector quarks ---------
-    obsThFactory["delgZuL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::UP);
-    obsThFactory["delgZuR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::UP);
-    obsThFactory["delgZcL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::CHARM);
-    obsThFactory["delgZcR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::CHARM);
-    obsThFactory["delgZtL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::TOP);
-    obsThFactory["delgZtR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::TOP);
-    //-----  Z couplings with down sector quarks ---------
-    obsThFactory["delgZdL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::DOWN);
-    obsThFactory["delgZdR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::DOWN);
-    obsThFactory["delgZsL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::STRANGE);
-    obsThFactory["delgZsR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::STRANGE);
-    obsThFactory["delgZbL"] = bind(boost::factory<delgZqL*>(), _1, StandardModel::BOTTOM);
-    obsThFactory["delgZbR"] = bind(boost::factory<delgZqR*>(), _1, StandardModel::BOTTOM);
-    obsThFactory["deltaMW"] = boost::factory<deltaMW*>();
     //-----  Oblique Parameters ---------
     obsThFactory["oblSpar"] = boost::factory<oblS*>();
     obsThFactory["oblTpar"] = boost::factory<oblT*>();
@@ -4547,12 +4648,6 @@ ThObsFactory::ThObsFactory()
 
     //-----  LEP-II two-fermion processes  -----
 
-    // Parameters for inclusive observables
-    const double sqrt_s[12] = {130., 136., 161., 172., 183., 189.,
-        192., 196., 200., 202., 205., 207.};
-    const double sqrt_s_LEP2eeff[12] = {130.2, 136.2, 161.3, 172.1, 182.7, 188.6,
-        191.6, 195.5, 199.5, 201.6, 204.9, 206.7};
-
     for (int i = 0; i < 12; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s[i]);
         obsThFactory["sigmaqLEP2_" + sqrt_s_str] = bind(boost::factory<LEP2sigmaHadron*>(), _1, sqrt_s_LEP2eeff[i]);
@@ -4561,13 +4656,6 @@ ThObsFactory::ThObsFactory()
         obsThFactory["AFBmuLEP2_" + sqrt_s_str] = bind(boost::factory<LEP2AFBmu*>(), _1, sqrt_s_LEP2eeff[i]);
         obsThFactory["AFBtauLEP2_" + sqrt_s_str] = bind(boost::factory<LEP2AFBtau*>(), _1, sqrt_s_LEP2eeff[i]);
     }
-
-    // Parameters for differential observables
-    const double sqrt_sDiffll[8] = {183., 189., 192., 196., 200., 202., 205., 207.};
-    const double cos_Diffll[10] = {-0.9, -0.7, -0.5, -0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9};
-
-    const double cos_DiffeeInp[15] = {-0.8,-0.6,-0.5,-0.3,-0.1,0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9};
-    const double cos_Diffee[15] = {-0.81,-0.63,-0.45,-0.27,-0.09,0.045,0.135,0.225,0.315,0.405,0.495,0.585,0.675,0.765,0.855};
 
     for (int i = 0; i < 8; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_sDiffll[i]);
@@ -4602,10 +4690,6 @@ ThObsFactory::ThObsFactory()
     }
     
     //-----  e+ e- two-fermion processes  -----
-
-    // Parameters for inclusive observables
-    const double sqrt_see[9] = {158., 163., 240., 250., 345., 360., 365., 500., 1000.};
-    const double sqrt_s_eeff[9] = {157.5, 162.5, 240., 250., 345., 360., 365., 500., 1000.};
     
     for (int i = 0; i < 9; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);

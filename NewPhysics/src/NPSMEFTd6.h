@@ -1740,7 +1740,7 @@ public:
      */
     // no generation mixing
     const double deltaGR_f(const Particle p) const;
-
+    
     /**
      * @brief The branching ratio of the @f$W@f$ boson decaying into a SM fermion pair, @f$Br(W\to f_i f_j)@f$.
      * @details
@@ -4847,31 +4847,31 @@ public:
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
      * @return @f$\delta g_{1,Z}@f$
      */
-    virtual const double deltag1ZNP() const;
+    virtual const double deltag1ZNP(const double mu) const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{Z}@f$.
      * @return @f$\delta \kappa_{Z}@f$
      */
-    virtual const double deltaKZNP() const;
+    virtual const double deltaKZNP(const double mu) const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,\gamma}@f$.
      * @return @f$\delta g_{1,\gamma}@f$
      */
-    virtual const double deltag1gaNP() const;
+    virtual const double deltag1gaNP(const double mu) const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{\gamma}@f$.
      * @return @f$\delta \kappa_{\gamma}@f$
      */
-    virtual const double deltaKgammaNP() const;
+    virtual const double deltaKgammaNP(const double mu) const;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\lambda_{Z}@f$.
      * @return @f$\lambda_{Z}@f$
      */
-    virtual const double lambdaZNP() const;
+    virtual const double lambdaZNP(const double mu) const;
 
     ////////////////////////////////////////////////////////////////////////
 

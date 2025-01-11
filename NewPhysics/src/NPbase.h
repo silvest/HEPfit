@@ -158,6 +158,157 @@ public:
      * @return @f$\alpha(M_Z^2)@f$
      */
     virtual const double alphaMz() const;
+        
+    /////////////////////// Corrections to V and A Zff couplings /////////////////////////
+
+    /**
+     * @brief 
+     */    
+    virtual const double deltaGV_f_2(const Particle f) const {
+        return 0.0;
+    }  //AG:added
+    
+    /**
+     * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
+     * @details
+     * The neutral-current vector coupling @f$g_V^f@f$ receives the new physics
+     * contribution via the oblique parameters @f$S@f$ and @f$T@f$ and the shift
+     * in the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * \delta g_V^f =
+     * \frac{g_{V,\mathrm{SM}}^f}{2}
+     * \left[ \alpha(M_Z^2)\, T - \Delta G \right]
+     * +
+     * \frac{\big( g_{V,\mathrm{SM}}^f - g_{A,\mathrm{SM}}^f \big)
+     * \left[
+     * \alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)
+     * + 4\,c_W^2s_W^2\, \Delta G
+     * \right]}{4s_W^2\,(c_W^2-s_W^2)}\,.
+     * @f]
+     *
+     * See @cite Ciuchini:2013pca and references therein.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_V^f@f$
+     */
+    virtual const double deltaGV_f(const Particle f) const;
+
+    /**
+     * @brief The total (SM+NP) contribution to the neutral-current vector coupling @f$g_V^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$g_V^f@f$, including SM plus NP contributions
+     */
+    virtual const gslpp::complex gV_f(const Particle f) const;
+
+    /**
+     * @brief 
+     */    
+    virtual const double deltaGA_f_2(const Particle f) const {
+        return 0.0;
+    }  //AG:added    
+
+    /**
+     * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
+     * @details
+     * The neutral-current axial-vector coupling @f$g_A^f@f$ receives the new
+     * physics contribution via the oblique parameter @f$T@f$ and the shift in
+     * the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * \delta g_A^f
+     * = \frac{g_{A,\mathrm{SM}}^f}{2} \left[ \alpha(M_Z^2)\, T - \Delta G \right].
+     * @f]
+     *
+     * See @cite Ciuchini:2013pca and references therein.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_A^f@f$
+     */
+    virtual const double deltaGA_f(const Particle f) const;
+
+    /**
+     * @brief The total (SM+NP) contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$g_A^f@f$, including SM plus NP contributions
+     */
+    virtual const gslpp::complex gA_f(const Particle f) const;
+
+    /**
+     * @brief The effective neutral-current coupling @f$\rho_Z^f@f$ including SM plus NP contributions.
+     * @param[in] f a lepton or quark
+     * @return @f$\rho_Z^f@f$, including SM plus NP contributions
+     */
+    virtual const gslpp::complex rhoZ_f(const Particle f) const;
+
+    /**
+     * @brief The effective neutral-current coupling @f$\kappa_Z^f@f$ including SM plus NP contributions.
+     * @param[in] f a lepton or quark
+     * @return @f$\kappa_Z^f@f$, including SM plus NP contributions
+     */
+    virtual const gslpp::complex kappaZ_f(const Particle f) const;
+    
+    /////////////////////// Corrections to LH and RH Zff couplings (scale dependent) /////////////////////////    
+    
+    /**
+     * @brief New physics contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
+     * @param[in] f a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation (for those models where it is available)
+     * @return @f$\delta g_L^f(\mu)@f$
+     */
+    // no generation mixing
+    const double deltaGL_f_mu(const Particle p, const double mu) const;
+
+    /**
+     * @brief New physics contribution to the neutral-current right-handed coupling @f$g_R^f@f$.
+     * @param[in] f a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation (for those models where it is available)
+     * @return @f$\delta g_R^f(\mu)@f$
+     */
+    // no generation mixing
+    const double deltaGR_f_mu(const Particle p, const double mu) const;
+    
+    /////////////////////// Corrections to LH and RH Wff couplings (scale independent and dependent) /////////////////////////    
+    
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Wff}^{L}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Wff}^{R}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const
+    {
+        return 0.0;
+    };
+    
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation (for those models where it is available)
+     * @return @f$\delta g_{Wff}^{L}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaGL_Wff_mu(const Particle pbar, const Particle p, const double mu) const;
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation (for those models where it is available)
+     * @return @f$\delta g_{Wff}^{R}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaGR_Wff_mu(const Particle pbar, const Particle p, const double mu) const;
+    
+    /////////////////////// EWPO: W mass and widths /////////////////////////   
 
     /**
      * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
@@ -258,89 +409,8 @@ public:
      * @return @f$R_{W,c)@f$ in GeV
      */
     virtual const double RWc() const;
-
-    /**
-     * @brief 
-     */    
-    virtual const double deltaGV_f_2(const Particle f) const {
-        return 0.0;
-    }  //AG:added
     
-    /**
-     * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
-     * @details
-     * The neutral-current vector coupling @f$g_V^f@f$ receives the new physics
-     * contribution via the oblique parameters @f$S@f$ and @f$T@f$ and the shift
-     * in the Fermi constant, @f$\Delta G@f$:
-     * @f[
-     * \delta g_V^f =
-     * \frac{g_{V,\mathrm{SM}}^f}{2}
-     * \left[ \alpha(M_Z^2)\, T - \Delta G \right]
-     * +
-     * \frac{\big( g_{V,\mathrm{SM}}^f - g_{A,\mathrm{SM}}^f \big)
-     * \left[
-     * \alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)
-     * + 4\,c_W^2s_W^2\, \Delta G
-     * \right]}{4s_W^2\,(c_W^2-s_W^2)}\,.
-     * @f]
-     *
-     * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] f a lepton or quark
-     * @return @f$\delta g_V^f@f$
-     */
-    virtual const double deltaGV_f(const Particle f) const;
-
-    /**
-     * @brief The total (SM+NP) contribution to the neutral-current vector coupling @f$g_V^f@f$.
-     * @param[in] f a lepton or quark
-     * @return @f$g_V^f@f$, including SM plus NP contributions
-     */
-    virtual const gslpp::complex gV_f(const Particle f) const;
-
-    /**
-     * @brief 
-     */    
-    virtual const double deltaGA_f_2(const Particle f) const {
-        return 0.0;
-    }  //AG:added    
-
-    /**
-     * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
-     * @details
-     * The neutral-current axial-vector coupling @f$g_A^f@f$ receives the new
-     * physics contribution via the oblique parameter @f$T@f$ and the shift in
-     * the Fermi constant, @f$\Delta G@f$:
-     * @f[
-     * \delta g_A^f
-     * = \frac{g_{A,\mathrm{SM}}^f}{2} \left[ \alpha(M_Z^2)\, T - \Delta G \right].
-     * @f]
-     *
-     * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] f a lepton or quark
-     * @return @f$\delta g_A^f@f$
-     */
-    virtual const double deltaGA_f(const Particle f) const;
-
-    /**
-     * @brief The total (SM+NP) contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
-     * @param[in] f a lepton or quark
-     * @return @f$g_A^f@f$, including SM plus NP contributions
-     */
-    virtual const gslpp::complex gA_f(const Particle f) const;
-
-    /**
-     * @brief The effective neutral-current coupling @f$\rho_Z^f@f$ including SM plus NP contributions.
-     * @param[in] f a lepton or quark
-     * @return @f$\rho_Z^f@f$, including SM plus NP contributions
-     */
-    virtual const gslpp::complex rhoZ_f(const Particle f) const;
-
-    /**
-     * @brief The effective neutral-current coupling @f$\kappa_Z^f@f$ including SM plus NP contributions.
-     * @param[in] f a lepton or quark
-     * @return @f$\kappa_Z^f@f$, including SM plus NP contributions
-     */
-    virtual const gslpp::complex kappaZ_f(const Particle f) const;
+    /////////////////////// EWPO: Z-pole /////////////////////////     
     
     /**
      * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ new physics contribution to the decay width of the \f$Z\f$ boson into a given fermion pair, @f$\Delta \Gamma_{Z,f}^{(2)}@f$.
@@ -738,31 +808,8 @@ public:
      * are inherited from NPbase.
      */
     virtual const double N_nu() const;
-
-    ////////////////////////////////////////////////////////////////////////
     
-    /**
-     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
-     * @param[in] pbar a lepton or quark
-     * @param[in] p a lepton or quark
-     * @return @f$\delta g_{Wff}^{L}@f$
-     */
-    // no generation mixing
-    virtual gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const
-    {
-        return 0.0;
-    };
-    /**
-     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
-     * @param[in] pbar a lepton or quark
-     * @param[in] p a lepton or quark
-     * @return @f$\delta g_{Wff}^{R}@f$
-     */
-    // no generation mixing
-    virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const
-    {
-        return 0.0;
-    };
+    //////////////////////// Corrections to Higgs couplings /////////////////////////////////
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
@@ -2780,7 +2827,7 @@ public:
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
      * @return @f$\delta g_{1,Z}@f$
      */
-    virtual const double deltag1ZNP() const
+    virtual const double deltag1ZNP(const double mu) const
     {
         return 0.0;
     }
@@ -2789,7 +2836,7 @@ public:
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{\gamma}@f$.
      * @return @f$\delta \kappa_{\gamma}@f$
      */
-    virtual const double deltaKgammaNP() const
+    virtual const double deltaKgammaNP(const double mu) const
     {
         return 0.0;
     }
@@ -2798,7 +2845,7 @@ public:
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\lambda_{Z}@f$.
      * @return @f$\lambda_{Z}@f$
      */
-    virtual const double lambdaZNP() const
+    virtual const double lambdaZNP(const double mu) const
     {
         return 0.0;
     }

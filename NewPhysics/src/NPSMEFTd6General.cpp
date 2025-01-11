@@ -14395,6 +14395,107 @@ const double NPSMEFTd6General::DeltaGF() const {
     return ((getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) - 0.5 * (getSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getSMEFTCoeffEW("CllR", 1, 0, 0, 1))) * v2);
 }
 
+////////////////////////////////////////////////////////////////////////
+// Functions to compute quantities involved in indirect corrections, depending on RG scale
+
+const double NPSMEFTd6General::del_A_mu(const double mu) const {
+    double d_A_mu;
+    
+    // Same expressions as in PostUpdate, with scale dependence (on NP only)
+    d_A_mu = -2.0 * sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) * v2;
+
+    return d_A_mu;    
+}
+    
+const double NPSMEFTd6General::del_Z_mu(const double mu) const {
+    double d_Z_mu;
+    
+    // Same expressions as in PostUpdate, with scale dependence (on NP only)
+    d_Z_mu = 2.0 * sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) * v2; 
+    
+    return d_Z_mu;
+}
+    
+const double NPSMEFTd6General::del_ZA_mu(const double mu) const {
+    double d_ZA_mu;
+    
+    // Same expressions as in PostUpdate, with scale dependence (on NP only)
+    d_ZA_mu = (cW2_tree - sW2_tree) * getSMEFTCoeff("CHWB", mu) * v2;
+    
+    return d_ZA_mu;
+}
+    
+    
+const double NPSMEFTd6General::del_e_mu(const double mu) const {
+    double d_MW_mu, d_MZ_mu, d_GF_mu, d_e_mu;
+    
+    // Same expressions as in PostUpdate, with scale dependence (on NP only)
+    d_MW_mu = (3.0 / 8.0) * (getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;
+    d_MZ_mu = (sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) + 0.25 * getSMEFTCoeff("CHD", mu) + (3.0 / 8.0) * getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
+    
+    d_e_mu = cAsch * (-0.5 * del_A_mu(mu))
+            + cWsch * ((cW2_tree / sW2_tree) * (d_MW_mu - d_MZ_mu) - 0.5 * d_GF_mu);
+
+    return d_e_mu;
+}
+    
+const double NPSMEFTd6General::del_sW2_mu(const double mu) const {
+    double d_GF_mu, d_MW_mu, d_MZ_mu, d_sW2_mu;
+    
+    // Same expressions as in PostUpdate, with scale dependence (on NP only)
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
+    d_MW_mu = (3.0 / 8.0) * (getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;
+    d_MZ_mu = (sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) + 0.25 * getSMEFTCoeff("CHD", mu) + (3.0 / 8.0) * getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;
+    
+    d_sW2_mu = cAsch * (-cW2_tree * (d_GF_mu - 2.0 * (d_MW_mu - d_MZ_mu) - del_A_mu(mu)) / (sW2_tree - cW2_tree))
+            + cWsch * (2.0 * cW2_tree * (d_MW_mu - d_MZ_mu) / sW2_tree);
+    
+    return d_sW2_mu;    
+}
+
+
+const double NPSMEFTd6General::delU_gNC(const double mu) const {
+    
+    double dg;
+
+    double d_GF_mu, d_MW_mu, d_MZ_mu;
+    
+    // Same expressions as in PostUpdate, with scale dependence (on NP only)   
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
+    d_MW_mu = (3.0 / 8.0) * (getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;
+    d_MZ_mu = (sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) + 0.25 * getSMEFTCoeff("CHD", mu) + (3.0 / 8.0) * getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;
+    
+    
+    dg = (0.5 * del_Z_mu(mu) - 0.5 * d_GF_mu + d_MW_mu - d_MZ_mu);
+    
+    return dg;
+}
+    
+
+const double NPSMEFTd6General::delQ_gNC(const double mu) const {
+    
+    double dg;
+    
+    // Same expressions as in PostUpdate, with scale dependence (on NP only)
+    dg = -(sW_tree * cW_tree * del_ZA_mu(mu) + sW2_tree * del_sW2_mu(mu));
+    
+    return dg;
+}
+    
+
+const double NPSMEFTd6General::delU_gCC(const double mu) const {
+    
+    double dg;
+    
+    // Same expressions as in PostUpdate, with scale dependence (on NP only)    
+    dg = (del_e_mu(mu) - 0.5 * del_sW2_mu(mu));
+    
+    return dg;
+}
+
+///////////////////////////// Oblique parameters //////////////////////////// 
+
 const double NPSMEFTd6General::obliqueS() const {
     return (4.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") / aleMz * v2);
 }
@@ -15899,21 +16000,11 @@ const double NPSMEFTd6General::deltaGL_f_mu(const Particle p, const double mu) c
     double NPindirect;
     
     // Parameters from the indirect corrections depending on the RG scale
-    double d_Z_mu, d_A_mu, d_ZA_mu, d_MZ_mu, d_MW_mu, d_GF_mu, d_sW2_mu;
     double d_UgNC_mu, d_QgNC_mu;
     
-    d_Z_mu = 2.0 * sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) * v2;    
-    d_A_mu = -2.0 * sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) * v2;
-    d_ZA_mu = (cW2_tree - sW2_tree) * getSMEFTCoeff("CHWB", mu) * v2;    
-    d_MZ_mu = (sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) + 0.25 * getSMEFTCoeff("CHD", mu) + (3.0 / 8.0) * getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;
-    d_MW_mu = (3.0 / 8.0) * (getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;    
-    d_GF_mu = (getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2;
-    d_sW2_mu = cAsch * (-cW2_tree * (d_GF_mu - 2.0 * (d_MW_mu - d_MZ_mu) - d_A_mu) / (sW2_tree - cW2_tree))
-            + cWsch * (2.0 * cW2_tree * (d_MW_mu - d_MZ_mu) / sW2_tree);
-    
     //  NP indirect corrections to EW fermion couplings
-    d_UgNC_mu = (0.5 * d_Z_mu - 0.5 * d_GF_mu + d_MW_mu - d_MZ_mu);
-    d_QgNC_mu = -(sW_tree * cW_tree * d_ZA_mu + sW2_tree * d_sW2_mu);    
+    d_UgNC_mu = delU_gNC(mu);
+    d_QgNC_mu = delQ_gNC(mu);    
     
     NPindirect = (I3p - Qp * sW2_tree) * d_UgNC_mu + Qp * d_QgNC_mu;
     
@@ -15955,21 +16046,11 @@ const double NPSMEFTd6General::deltaGR_f_mu(const Particle p, const double mu) c
     double NPindirect;
     
     // Parameters from the indirect corrections depending on the RG scale
-    double d_Z_mu, d_A_mu, d_ZA_mu, d_MZ_mu, d_MW_mu, d_GF_mu, d_sW2_mu;
     double d_UgNC_mu, d_QgNC_mu;
     
-    d_Z_mu = 2.0 * sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) * v2;    
-    d_A_mu = -2.0 * sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) * v2;
-    d_ZA_mu = (cW2_tree - sW2_tree) * getSMEFTCoeff("CHWB", mu) * v2;    
-    d_MZ_mu = (sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu) + 0.25 * getSMEFTCoeff("CHD", mu) + (3.0 / 8.0) * getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;
-    d_MW_mu = (3.0 / 8.0) * (getSMEFTCoeff("CH", mu) / lambdaH_tree) * v2;    
-    d_GF_mu = (getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2;
-    d_sW2_mu = cAsch * (-cW2_tree * (d_GF_mu - 2.0 * (d_MW_mu - d_MZ_mu) - d_A_mu) / (sW2_tree - cW2_tree))
-            + cWsch * (2.0 * cW2_tree * (d_MW_mu - d_MZ_mu) / sW2_tree);
-    
     //  NP indirect corrections to EW fermion couplings
-    d_UgNC_mu = (0.5 * d_Z_mu - 0.5 * d_GF_mu + d_MW_mu - d_MZ_mu);
-    d_QgNC_mu = -(sW_tree * cW_tree * d_ZA_mu + sW2_tree * d_sW2_mu);  
+    d_UgNC_mu = delU_gNC(mu);
+    d_QgNC_mu = delQ_gNC(mu);   
     
     NPindirect = (-Qp * sW2_tree) * d_UgNC_mu + Qp * d_QgNC_mu;
     
@@ -16025,6 +16106,60 @@ gslpp::complex NPSMEFTd6General::deltaGR_Wff(const Particle pbar, const Particle
     gslpp::complex CHud = CHud_diag(pbar);
     return (0.5 * CHud * v2);
 }
+
+
+gslpp::complex NPSMEFTd6General::deltaGL_Wff_mu(const Particle pbar, const Particle p, const double mu) const {
+    if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
+        throw std::runtime_error("NPSMEFTd6General::deltaGL_Wff(): Not implemented");
+
+    double CHF3;
+    double NPindirect;
+
+    //  NP indirect corrections to EW fermion couplings
+    NPindirect = delU_gCC(mu);
+    
+    // Direct contribution
+    if (pbar.is("NEUTRINO_1") || pbar.is("ELECTRON"))
+        CHF3 = getSMEFTCoeff("CHl3R", 0, 0, mu);
+    else if (pbar.is("NEUTRINO_2") || pbar.is("MU"))
+        CHF3 = getSMEFTCoeff("CHl3R", 1, 1, mu);
+    else if (pbar.is("NEUTRINO_3") || pbar.is("TAU"))
+        CHF3 = getSMEFTCoeff("CHl3R", 2, 2, mu);
+    else if (pbar.is("UP") || pbar.is("DOWN"))
+        CHF3 = getSMEFTCoeff("CHq3R", 0, 0, mu);
+    else if (pbar.is("CHARM") || pbar.is("STRANGE"))
+        CHF3 = getSMEFTCoeff("CHq3R", 1, 1, mu);
+    else if (pbar.is("TOP") || pbar.is("BOTTOM"))
+        CHF3 = getSMEFTCoeff("CHq3R", 2, 2, mu);
+    else
+        throw std::runtime_error("NPSMEFTd6General::deltaGL_Wff_mu(): wrong argument");
+
+    double NPdirect = CHF3 * v2;
+    return (NPindirect + NPdirect);
+}
+
+gslpp::complex NPSMEFTd6General::deltaGR_Wff_mu(const Particle pbar, const Particle p, const double mu) const {
+    if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
+        throw std::runtime_error("NPSMEFTd6General::deltaGR_Wff_mu(): Not implemented");
+
+    gslpp::complex CHud;
+    
+    if (!pbar.is("QUARK") || pbar.getIndex() % 2 != 0)
+        throw std::runtime_error("NPSMEFTd6General::deltaGR_Wff_mu(): wrong argument");
+
+    if (pbar.is("UP"))
+        CHud = gslpp::complex(getSMEFTCoeff("CHudR", 0, 0, mu), getSMEFTCoeff("CHudI", 0, 0, mu), false);
+    else if (pbar.is("CHARM"))
+        CHud = gslpp::complex(getSMEFTCoeff("CHudR", 1, 1, mu), getSMEFTCoeff("CHudI", 1, 1, mu), false);
+    else if (pbar.is("TOP"))
+        CHud = gslpp::complex(getSMEFTCoeff("CHudR", 2, 2, mu), getSMEFTCoeff("CHudI", 2, 2, mu), false);
+    else
+        throw std::runtime_error("NPSMEFTd6General::deltaGR_Wff_mu(): wrong argument");    
+    
+    return (0.5 * CHud * v2);
+}
+
+    // Modifications of Higgs couplings
 
 const double NPSMEFTd6General::deltaG_hgg() const {
     return (getSMEFTCoeffEW("CHG") * v2 / v());
@@ -35214,11 +35349,10 @@ const double NPSMEFTd6General::muTHUggHZgamumu(const double sqrt_s) const {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-const double NPSMEFTd6General::deltag1ZNP() const {
+const double NPSMEFTd6General::deltag1ZNP(const double mu) const {
     double NPdirect, NPindirect;
 
-    NPdirect = sW_tree / eeMz;
-    NPdirect = -NPdirect * (Mz * Mz / v() / v()) * CDHW * v2;
+    NPdirect = 0.;
 
     //      NPindirect = - 1.0 / (cW2_tree-sW2_tree);
 
@@ -35226,44 +35360,42 @@ const double NPSMEFTd6General::deltag1ZNP() const {
     //              + 0.25 * getSMEFTCoeffEW("CHD") ) * v2
     //              + 0.5 * NPindirect * delta_GF ;
 
-    NPindirect = delta_e - 0.5 * delta_sW2 / cW2_tree + 0.5 * delta_Z - sW_tree * delta_ZA / cW_tree;
+    NPindirect = del_e_mu(mu) - 0.5 * del_sW2_mu(mu) / cW2_tree + 0.5 * del_Z_mu(mu) - sW_tree * del_ZA_mu(mu) / cW_tree;
 
     return NPdirect + NPindirect;
 }
 
-const double NPSMEFTd6General::deltaKZNP() const {
+const double NPSMEFTd6General::deltaKZNP(const double mu) const {
     // Obtain from the other aTGC  
 
-    return ( deltag1ZNP() - (sW2_tree / cW2_tree) * (deltaKgammaNP() - deltag1gaNP()));
+    return ( deltag1ZNP(mu) - (sW2_tree / cW2_tree) * (deltaKgammaNP(mu) - deltag1gaNP(mu)));
 }
 
-const double NPSMEFTd6General::deltag1gaNP() const {
+const double NPSMEFTd6General::deltag1gaNP(const double mu) const {
     double NPindirect;
 
-    NPindirect = delta_e + 0.5 * delta_A;
+    NPindirect = del_e_mu(mu) + 0.5 * del_A_mu(mu);
 
     return NPindirect;
 }
 
-const double NPSMEFTd6General::deltaKgammaNP() const {
+const double NPSMEFTd6General::deltaKgammaNP(const double mu) const {
     double NPdirect, NPindirect;
 
     NPdirect = eeMz / 4.0 / sW2_tree;
 
-    NPdirect = NPdirect * ((4.0 * sW_tree * cW_tree / eeMz) * getSMEFTCoeffEW("CHWB")
-            - sW_tree * CDHW
-            - cW_tree * CDHB) * v2;
+    NPdirect = NPdirect * ((4.0 * sW_tree * cW_tree / eeMz) * getSMEFTCoeff("CHWB",mu)) * v2;
 
-    NPindirect = delta_e + 0.5 * delta_A;
+    NPindirect = del_e_mu(mu) + 0.5 * del_A_mu(mu);
 
     return NPdirect + NPindirect;
 }
 
-const double NPSMEFTd6General::lambdaZNP() const {
+const double NPSMEFTd6General::lambdaZNP(const double mu) const {
     double NPdirect;
 
     //    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  
-    NPdirect = -(3.0 / 2.0) * (eeMz / sW_tree) * getSMEFTCoeffEW("CW") * v2;
+    NPdirect = -(3.0 / 2.0) * (eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
 
     return NPdirect;
 }
@@ -35279,7 +35411,7 @@ const double NPSMEFTd6General::deltag1ZNPEff() const {
             sW2_tree * deltaGR_f(leptons[ELECTRON]) / gZlR -
             2.0 * deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]).real() / UevL);
 
-    return dgEff + deltag1ZNP();
+    return dgEff + deltag1ZNP(muw);
 }
 
 const double NPSMEFTd6General::deltaKgammaNPEff() const {
@@ -35290,7 +35422,7 @@ const double NPSMEFTd6General::deltaKgammaNPEff() const {
     dgEff = (cW2_tree - sW2_tree)*(deltaGL_f(leptons[ELECTRON]) / gZlL - deltaGR_f(leptons[ELECTRON]) / gZlR)
             - 2.0 * deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]).real() / UevL;
 
-    return dgEff + deltaKgammaNP();
+    return dgEff + deltaKgammaNP(muw);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -35353,17 +35485,17 @@ const double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int 
             + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgZ1 = deltag1ZNP();
+    dgZ1 = deltag1ZNP(sqrt_s);
 
-    dgga1 = deltag1gaNP();
+    dgga1 = deltag1gaNP(sqrt_s);
 
-    dkga = deltaKgammaNP();
+    dkga = deltaKgammaNP(sqrt_s);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP();
+    dlga = -lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP();
+    dlZ = -lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -35915,17 +36047,17 @@ const double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstat
             + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgZ1 = deltag1ZNP();
+    dgZ1 = deltag1ZNP(sqrt_s);
 
-    dgga1 = deltag1gaNP();
+    dgga1 = deltag1gaNP(sqrt_s);
 
-    dkga = deltaKgammaNP();
+    dkga = deltaKgammaNP(sqrt_s);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP();
+    dlga = -lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP();
+    dlZ = -lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -36454,17 +36586,17 @@ const double NPSMEFTd6General::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, con
             + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgZ1 = deltag1ZNP();
+    dgZ1 = deltag1ZNP(sqrt_s);
 
-    dgga1 = deltag1gaNP();
+    dgga1 = deltag1gaNP(sqrt_s);
 
-    dkga = deltaKgammaNP();
+    dkga = deltaKgammaNP(sqrt_s);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP();
+    dlga = -lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP();
+    dlZ = -lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -36837,17 +36969,17 @@ const double NPSMEFTd6General::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const in
             + cAsch * (0.25 * (cW_tree * getSMEFTCoeffEW("CHWB") / sW_tree) * v2 + 0.25 * dsW2)
             + cWsch * (-dGF / 2.0 / sqrt(2.0));
 
-    dgZ1 = deltag1ZNP();
+    dgZ1 = deltag1ZNP(sqrt_s);
 
-    dgga1 = deltag1gaNP();
+    dgga1 = deltag1gaNP(sqrt_s);
 
-    dkga = deltaKgammaNP();
+    dkga = deltaKgammaNP(sqrt_s);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP();
+    dlga = -lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP();
+    dlZ = -lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -37261,12 +37393,12 @@ const double NPSMEFTd6General::dxseeWWdcos(const double sqrt_s, const double cos
     double g1Z, g1ga, kZ, kga, lambdaZ, lambdaga, g4Z, g4ga, g5Z, g5ga, ktZ, ktga, lambdatZ, lambdatga;
 
     //  TGC present in the SM     
-    g1Z = 1.0 + deltag1ZNP();
+    g1Z = 1.0 + deltag1ZNP(sqrt_s);
     g1ga = 1.0;
-    kZ = 1.0 + deltag1ZNP() - (sW2_tree / cW2_tree) * deltaKgammaNP();
-    kga = 1.0 + deltaKgammaNP();
+    kZ = 1.0 + deltag1ZNP(sqrt_s) - (sW2_tree / cW2_tree) * deltaKgammaNP(sqrt_s);
+    kga = 1.0 + deltaKgammaNP(sqrt_s);
     //  TGC not present in the SM
-    lambdaZ = lambdaZNP(); //Check normalization
+    lambdaZ = lambdaZNP(sqrt_s); //Check normalization
     lambdaga = lambdaZ;
     g4Z = 0.0;
     g4ga = 0.0;
@@ -43340,13 +43472,13 @@ const double NPSMEFTd6General::AuxObs_NP15() const {
     dgRZd = deltaGR_f(quarks[DOWN]);
 
     // arXiv: 2003.07862 convention for aTGC Lagrangian has a minus sign wrt HEPfit definitions
-    dgZ1 = -deltag1ZNP();
+    dgZ1 = -deltag1ZNP(muw);
 
-    dkga = -deltaKgammaNP();
+    dkga = -deltaKgammaNP(muw);
 
-    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - deltag1gaNP());
+    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - deltag1gaNP(muw));
 
-    lZ = -lambdaZNP();
+    lZ = -lambdaZNP(muw);
 
     // Parameterization of pp->WW
 
@@ -43558,13 +43690,13 @@ const double NPSMEFTd6General::AuxObs_NP16() const {
     dgRZd = deltaGR_f(quarks[DOWN]);
 
     // arXiv: 2003.07862 convention for aTGC Lagrangian has a minus sign wrt HEPfit definitions
-    dgZ1 = -deltag1ZNP();
+    dgZ1 = -deltag1ZNP(muw);
 
-    dkga = -deltaKgammaNP();
+    dkga = -deltaKgammaNP(muw);
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga;
 
-    lZ = -lambdaZNP();
+    lZ = -lambdaZNP(muw);
 
     // Parameterization of pp->WW
 

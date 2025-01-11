@@ -29,7 +29,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltag1Z(const StandardModel& SM_i);
+    deltag1Z(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltag1Z class.
@@ -42,11 +42,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -66,7 +64,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaKgamma(const StandardModel& SM_i);
+    deltaKgamma(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaKgamma class.
@@ -79,11 +77,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -103,7 +99,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    lambdaZ(const StandardModel& SM_i);
+    lambdaZ(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the lambdaZ class.
@@ -116,11 +112,9 @@ public:
      */
     double computeThValue();
       
-    const NPbase * myNPbase;
-    
 private:
-
-
+    const NPbase * myNPbase;
+    const double mu;
 };
 
 #endif	/* ATGC_H */
