@@ -266,8 +266,8 @@ var searchData=
   ['susymivars_263',['SusyMIvars',['../d9/d3b/class_s_u_s_y_mass_insertion.html#acd75b68b5c0f6412aec440e2f04d2957',1,'SUSYMassInsertion']]],
   ['susyvars_264',['SUSYvars',['../dc/d6f/class_s_u_s_y.html#a3869b0d034fb0da3422bc2992bde7c84',1,'SUSY']]],
   ['sw_265',['sw',['../d8/d0e/classee_w_w.html#af5afd63061797641c0579ff1bb02c5e4',1,'eeWW']]],
-  ['sw2_266',['sW2',['../dc/dfd/class_general_t_h_d_mcache.html#ad423152567bdcd00788bf17eda345e8d',1,'GeneralTHDMcache']]],
-  ['sw2_267',['sw2',['../d8/d0e/classee_w_w.html#a6849d5b1ee4919c558246403542dc526',1,'eeWW']]],
+  ['sw2_266',['sw2',['../d8/d0e/classee_w_w.html#a6849d5b1ee4919c558246403542dc526',1,'eeWW']]],
+  ['sw2_267',['sW2',['../dc/dfd/class_general_t_h_d_mcache.html#ad423152567bdcd00788bf17eda345e8d',1,'GeneralTHDMcache']]],
   ['sw2_5ftree_268',['sW2_tree',['../d2/d0d/class_n_p_s_m_e_f_td6.html#a2396d2610ff390602eb0a84858c1b145',1,'NPSMEFTd6::sW2_tree()'],['../d1/d9e/class_n_p_s_m_e_f_td6_general.html#a585d7d444e0f8b7de40d4a2e9d09180f',1,'NPSMEFTd6General::sW2_tree()']]],
   ['sw_5ftree_269',['sW_tree',['../d2/d0d/class_n_p_s_m_e_f_td6.html#a96ab2bec928fd20008c1a38c840275b8',1,'NPSMEFTd6::sW_tree()'],['../d1/d9e/class_n_p_s_m_e_f_td6_general.html#ae418211cd2ef31e6af60dff5d0e6e703',1,'NPSMEFTd6General::sW_tree()']]],
   ['systemcallreturn_270',['systemCallReturn',['../d2/d2c/class_l_h_p_c_1_1_s_l_h_a_1_1_spectrum_plotter.html#abd9702d4098a152e3c8f665512f9309b',1,'LHPC::SLHA::SpectrumPlotter']]]

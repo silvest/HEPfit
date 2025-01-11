@@ -603,6 +603,8 @@ var class_n_p_s_m_e_f_td6_general =
     [ "getYd", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a32ba45e9127118af143417c89da94e98", null ],
     [ "getYe", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#acbb7d08d61cbe794ab13aa48086bca79", null ],
     [ "getYu", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a048f89cff6cd96f202946bdd9b20066b", null ],
+    [ "ImctWOO", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a82887f453b851ba7e7a539b7ff57880d", null ],
+    [ "ImctZOO", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#aaede0051ae0d7f2056518c13570b08cd", null ],
     [ "Init", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a58e073623a3ffa16632c961cd0097a53", null ],
     [ "intDMLL2eus2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a4b83125d4ef2450cef008422e301f80e", null ],
     [ "intDMLR2etildest2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#abc9c23d100411044ecaed3150ef067f1", null ],

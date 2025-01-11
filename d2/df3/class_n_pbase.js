@@ -296,6 +296,8 @@ var class_n_pbase =
     [ "gRnuN2", "d2/df3/class_n_pbase.html#a02b7ba1a812bf6cafa1db9f65141b6eb", null ],
     [ "gV_f", "d2/df3/class_n_pbase.html#a9bd9928a9e06741d96187a7ea3b61acc", null ],
     [ "gVnue", "d2/df3/class_n_pbase.html#af2e1a7e94ce79f3f7528309dd6f811eb", null ],
+    [ "ImctWOO", "d2/df3/class_n_pbase.html#acba974f0c3b1b3fb8798bc3bdc3c7ded", null ],
+    [ "ImctZOO", "d2/df3/class_n_pbase.html#af1faf4c2008b7cf0273b01299092b3d7", null ],
     [ "kappaAeff", "d2/df3/class_n_pbase.html#ae24f29616b13d2c1a1f7b95e77faf597", null ],
     [ "kappabeff", "d2/df3/class_n_pbase.html#adc37453b4f0053566a9e8d59032d3985", null ],
     [ "kappaceff", "d2/df3/class_n_pbase.html#ad410f5fd0a6676055ecbd8d701eb575b", null ],

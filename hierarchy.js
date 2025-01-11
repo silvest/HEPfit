@@ -1516,6 +1516,8 @@ var hierarchy =
       [ "NevLHCtaunu13", "dd/de1/class_nev_l_h_ctaunu13.html", null ],
       [ "NevLHCtautau13", "d7/ddb/class_nev_l_h_ctautau13.html", null ],
       [ "Nneutrinos", "df/d81/class_nneutrinos.html", null ],
+      [ "OOImctW", "d0/d8d/class_o_o_imct_w.html", null ],
+      [ "OOImctZ", "d2/d0d/class_o_o_imct_z.html", null ],
       [ "OOcHQminus", "dc/dce/class_o_oc_h_qminus.html", null ],
       [ "OOcHQplus", "df/d32/class_o_oc_h_qplus.html", null ],
       [ "OOcHt", "d1/d43/class_o_oc_ht.html", null ],
