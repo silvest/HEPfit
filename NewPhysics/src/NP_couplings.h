@@ -5407,8 +5407,8 @@ public:
     virtual ~OOctW();
 
     /**
-     * @brief The Wilson coefficient @f$C_{tW}@f$.
-     * @return @f$@f$C_{tW}@f$@f$
+     * @brief The Wilson coefficient @f$Re[C_{tW}]@f$.
+     * @return @f$@f$Re[C_{tW}]@f$@f$
      */
     double computeThValue();
       
@@ -5442,8 +5442,77 @@ public:
     virtual ~OOctZ();
 
     /**
-     * @brief The Wilson coefficient @f$C_{tZ}@f$.
-     * @return @f$@f$C_{tZ}@f$@f$
+     * @brief The Wilson coefficient @f$Re[C_{tZ}]@f$.
+     * @return @f$@f$Re[C_{tZ}]@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+/**
+ * @class OOImctW
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class OOImctW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOImctW(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOImctW class.
+     */
+    virtual ~OOImctW();
+
+    /**
+     * @brief The Wilson coefficient @f$Im[C_{tW}]@f$.
+     * @return @f$@f$Im[C_{tW}]@f$@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+    
+};
+
+
+/**
+ * @class OOImctZ
+ * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class OOImctZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    OOImctZ(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the OOImctZ class.
+     */
+    virtual ~OOImctZ();
+
+    /**
+     * @brief The Wilson coefficient @f$Im[C_{tZ}]@f$.
+     * @return @f$@f$Im[C_{tZ}]@f$@f$
      */
     double computeThValue();
       

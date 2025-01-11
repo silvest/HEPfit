@@ -45554,9 +45554,9 @@ const double NPSMEFTd6General::cHQpOO(const double mu) const {
     
     comb = getSMEFTCoeff("CHq1R", 2, 2, mu) + getSMEFTCoeff("CHq3R", 2, 2, mu);
     
-    comb = comb / 2.0;
-
-    return comb;
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2
+    return (1000000. * comb / 2.0);
 }
 
 const double NPSMEFTd6General::cHQmOO(const double mu) const {
@@ -45564,10 +45564,10 @@ const double NPSMEFTd6General::cHQmOO(const double mu) const {
     double comb;
     
     comb = getSMEFTCoeff("CHq1R", 2, 2, mu) - getSMEFTCoeff("CHq3R", 2, 2, mu);
-    
-    comb = comb / 2.0;
 
-    return comb;
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2    
+    return (1000000. * comb / 2.0);
 }
 
 const double NPSMEFTd6General::cHtOO(const double mu) const {
@@ -45576,7 +45576,9 @@ const double NPSMEFTd6General::cHtOO(const double mu) const {
     
     comb = getSMEFTCoeff("CHuR", 2, 2, mu);
 
-    return comb;
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::ctWOO(const double mu) const {
@@ -45585,7 +45587,9 @@ const double NPSMEFTd6General::ctWOO(const double mu) const {
     
     comb = getSMEFTCoeff("CuWR", 2, 2, mu) + getSMEFTCoeff("CuBR", 2, 2, mu) * cW_tree /sW_tree ;
 
-    return comb;
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::ctZOO(const double mu) const {
@@ -45594,7 +45598,31 @@ const double NPSMEFTd6General::ctZOO(const double mu) const {
     
     comb = - getSMEFTCoeff("CuBR", 2, 2, mu) /sW_tree;
 
-    return comb;
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2
+    return (1000000. * comb);
+}
+
+const double NPSMEFTd6General::ImctWOO(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CuWI", 2, 2, mu) + getSMEFTCoeff("CuBI", 2, 2, mu) * cW_tree /sW_tree ;
+
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2
+    return (1000000. * comb);
+}
+
+const double NPSMEFTd6General::ImctZOO(const double mu) const {
+
+    double comb;
+    
+    comb = - getSMEFTCoeff("CuBI", 2, 2, mu) /sW_tree;
+
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::ctHOO(const double mu) const {
@@ -45603,7 +45631,9 @@ const double NPSMEFTd6General::ctHOO(const double mu) const {
     
     comb = getSMEFTCoeff("CuHR", 2, 2, mu);
 
-    return comb;
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::clQpOO(const double mu) const {
@@ -45611,8 +45641,10 @@ const double NPSMEFTd6General::clQpOO(const double mu) const {
     double comb;
     
     comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) + getSMEFTCoeff("CHq3R", 0, 0, 2, 2, mu);
-    
-    return comb/2.0;
+
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2  
+    return (1000000. * comb/2.0);
 }
 
 const double NPSMEFTd6General::clQmOO(const double mu) const {
@@ -45620,8 +45652,10 @@ const double NPSMEFTd6General::clQmOO(const double mu) const {
     double comb;
     
     comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) - getSMEFTCoeff("CHq3R", 0, 0, 2, 2, mu);
-    
-    return comb/2.0;
+
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2    
+    return (1000000. * comb/2.0);
 }
 
 const double NPSMEFTd6General::cltOO(const double mu) const {
@@ -45629,8 +45663,10 @@ const double NPSMEFTd6General::cltOO(const double mu) const {
     double comb;
     
     comb = getSMEFTCoeff("CluR", 0, 0, 2, 2, mu);
-    
-    return comb;
+
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2    
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::cQeOO(const double mu) const {
@@ -45638,8 +45674,10 @@ const double NPSMEFTd6General::cQeOO(const double mu) const {
     double comb;
     
     comb = getSMEFTCoeff("CqeR", 2, 2, 0, 0, mu);
-    
-    return comb;
+
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2    
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::cetOO(const double mu) const {
@@ -45647,6 +45685,8 @@ const double NPSMEFTd6General::cetOO(const double mu) const {
     double comb;
     
     comb = getSMEFTCoeff("CeuR", 0, 0, 2, 2, mu);
-    
-    return comb;
+
+    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
+    //Re-normalize the coefficients multiplying by 1000^2    
+    return (1000000. * comb);
 }

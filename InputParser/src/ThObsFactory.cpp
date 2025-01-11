@@ -4760,6 +4760,8 @@ ThObsFactory::ThObsFactory()
         obsThFactory["C_phit_OO_" + sqrt_s_str] = bind(boost::factory<OOcHt*>(), _1, sqrt_s_eeff[i]);
         obsThFactory["C_tW_OO_" + sqrt_s_str] = bind(boost::factory<OOctW*>(), _1, sqrt_s_eeff[i]);
         obsThFactory["C_tZ_OO_" + sqrt_s_str] = bind(boost::factory<OOctZ*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ImC_tW_OO_" + sqrt_s_str] = bind(boost::factory<OOImctW*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ImC_tZ_OO_" + sqrt_s_str] = bind(boost::factory<OOImctZ*>(), _1, sqrt_s_eeff[i]);
         obsThFactory["C_tH_OO_" + sqrt_s_str] = bind(boost::factory<OOctH*>(), _1, sqrt_s_eeff[i]);
         obsThFactory["C_lQP_OO_" + sqrt_s_str] = bind(boost::factory<OOclQplus*>(), _1, sqrt_s_eeff[i]);
         obsThFactory["C_lQM_OO_" + sqrt_s_str] = bind(boost::factory<OOclQminus*>(), _1, sqrt_s_eeff[i]);

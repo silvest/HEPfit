@@ -4745,6 +4745,16 @@ public:
         return 0.0;
     }
     
+    virtual const double ImctWOO(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double ImctZOO(const double mu) const
+    {
+        return 0.0;
+    }
+    
     virtual const double ctHOO(const double mu) const
     {
         return 0.0;

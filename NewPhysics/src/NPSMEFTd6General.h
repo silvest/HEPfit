@@ -1341,6 +1341,10 @@ public:
 
     virtual const double ctZOO(const double mu) const;
     
+    virtual const double ImctWOO(const double mu) const;
+
+    virtual const double ImctZOO(const double mu) const;
+    
     virtual const double ctHOO(const double mu) const;
 
     virtual const double clQpOO(const double mu) const;

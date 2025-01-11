@@ -3190,6 +3190,43 @@ double OOctZ::computeThValue()
 
 /* -------------------------------------*/
 
+OOImctW::OOImctW(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("OOImctW called with a class whose parent is not NPbase");
+}
+
+
+OOImctW::~OOImctW()
+{}
+
+double OOImctW::computeThValue()
+{    
+    return (myNPbase->ImctWOO(mu));
+}
+
+/* -------------------------------------*/
+
+OOImctZ::OOImctZ(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("OOImctZ called with a class whose parent is not NPbase");
+}
+
+
+OOImctZ::~OOImctZ()
+{}
+
+double OOImctZ::computeThValue()
+{    
+    return (myNPbase->ImctZOO(mu));
+}
+
+
+/* -------------------------------------*/
+
 OOctH::OOctH(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
