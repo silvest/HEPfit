@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['w_0',['w',['../d8/d0e/classee_w_w.html#a32d0dfb4602438f4635631d91d6bf092',1,'eeWW']]],
-  ['w_1',['W',['../da/d10/class_l_e_p2oblique.html#abdf358b6681fcd7b576c57a8c24625eda7bffd94713c84a13afcab652fb06e233',1,'LEP2oblique']]],
+  ['w_0',['W',['../da/d10/class_l_e_p2oblique.html#abdf358b6681fcd7b576c57a8c24625eda7bffd94713c84a13afcab652fb06e233',1,'LEP2oblique']]],
+  ['w_1',['w',['../d8/d0e/classee_w_w.html#a32d0dfb4602438f4635631d91d6bf092',1,'eeWW']]],
   ['w0_2',['w0',['../da/d48/class_m_plnu.html#ac81ebfc7c54dabec4d59d3d76339557f',1,'MPlnu::w0()'],['../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334',1,'MVlnu::w0()']]],
   ['w1_3',['w1',['../d7/d0d/class_m_f_v.html#a3ee490e269371dc52a364972f6c6537b',1,'MFV']]],
   ['w2_4',['w2',['../d7/d0d/class_m_f_v.html#ac3c1eb0be591a081e43b52bc7b662d75',1,'MFV']]],
