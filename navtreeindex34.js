@@ -1,14 +1,5 @@
 var NAVTREEINDEX34 =
 {
-"d2/d4a/classtanbeta_g_m.html#a2b02a5ee4b253049c470caaaf2906f36":[4,8,300,1],
-"d2/d4a/classtanbeta_g_m.html#a9a657a289d6455c773837472e95f2d13":[4,8,300,0],
-"d2/d4c/classdeltag_h_w_w.html":[27,0,437],
-"d2/d4c/classdeltag_h_w_w.html#a22589ec5fa1225a0531def0b8055f879":[27,0,437,1],
-"d2/d4c/classdeltag_h_w_w.html#ab0d9bcbc6aeaa806d1d52b3b46ce1b10":[27,0,437,3],
-"d2/d4c/classdeltag_h_w_w.html#acc2da2d6f4a5256f8dbe11920045a228":[27,0,437,0],
-"d2/d4c/classdeltag_h_w_w.html#aedaebd87995402b785e9f7f35f6497d0":[27,0,437,2],
-"d2/d4d/class_l_h_p_c_1_1_running_constant.html":[27,0,1,17],
-"d2/d4d/class_l_h_p_c_1_1_running_constant.html#a029bea3c0b4660bd67ac16f3a24bca27":[27,0,1,17,11],
 "d2/d4d/class_l_h_p_c_1_1_running_constant.html#a123a8bf18cf285cc3eaf89b7addff63e":[27,0,1,17,1],
 "d2/d4d/class_l_h_p_c_1_1_running_constant.html#a16cfbbeb38ed88b4598d5d91d7c6c81b":[27,0,1,17,2],
 "d2/d4d/class_l_h_p_c_1_1_running_constant.html#a27f7479db03208ea1a1c69d495c8d3c6":[27,0,1,17,8],
@@ -249,5 +240,14 @@ var NAVTREEINDEX34 =
 "d2/d8a/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_dense_doubly_indexed.html#aa1632015b377cf037963163fab26f9ae":[27,0,1,3,1,0,2],
 "d2/d8a/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_dense_doubly_indexed.html#ad0bde8437a23dda505e7a36bca0c4cf2":[27,0,1,3,1,0,3],
 "d2/d8a/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_dense_doubly_indexed.html#ad7d1d309321eca15ffda38b51ec4fc16":[27,0,1,3,1,0,16],
-"d2/d8a/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_dense_doubly_indexed.html#adab48f6d0c754a6028534870320737ee":[27,0,1,3,1,0,10]
+"d2/d8a/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_dense_doubly_indexed.html#adab48f6d0c754a6028534870320737ee":[27,0,1,3,1,0,10],
+"d2/d8a/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_dense_doubly_indexed.html#adb16cf6afe21b8ca3871a99ed09b59cf":[27,0,1,3,1,0,15],
+"d2/d8a/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_dense_doubly_indexed.html#ae0cd6acb51b8df113ce321520ecee9ec":[27,0,1,3,1,0,8],
+"d2/d8a/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_dense_doubly_indexed.html#ae9dedfd4ad59599172b55338d99b6731":[27,0,1,3,1,0,9],
+"d2/d8a/classtau__3mu.html":[4,10,20],
+"d2/d8a/classtau__3mu.html#a2ce945d598d30ec7c8b064a0d7949c7f":[4,10,20,1],
+"d2/d8a/classtau__3mu.html#a50090367e49c5a21db40d7552b322b09":[4,10,20,0],
+"d2/d8b/class_aux_obs_n_p4.html":[27,0,165],
+"d2/d8b/class_aux_obs_n_p4.html#a32c7aeafa8a84817d276658d4cfa8600":[27,0,165,1],
+"d2/d8b/class_aux_obs_n_p4.html#a3c3aa97a4ad082c4d44085f6e95cd365":[27,0,165,2]
 };
