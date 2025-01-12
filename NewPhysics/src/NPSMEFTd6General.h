@@ -1330,7 +1330,64 @@ public:
  
     //////////////////////////////////////////////////////////////////////// 
     // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
+        
+    virtual const double cQq31_TWG(const double mu) const;
+    
+    virtual const double cQq38_TWG(const double mu) const;
+    
+    virtual const double cQq11_TWG(const double mu) const;
+    
+    virtual const double cQq18_TWG(const double mu) const;
+    
+    virtual const double cQu1_TWG(const double mu) const;
+    
+    virtual const double cQu8_TWG(const double mu) const;
+    
+    virtual const double cQd1_TWG(const double mu) const;
+    
+    virtual const double cQd8_TWG(const double mu) const;
+    
+    virtual const double ctq1_TWG(const double mu) const;
+    
+    virtual const double ctq8_TWG(const double mu) const;    
+    
+    virtual const double ctu1_TWG(const double mu) const;
+    
+    virtual const double ctu8_TWG(const double mu) const;
+    
+    virtual const double ctd1_TWG(const double mu) const;
+    
+    virtual const double ctd8_TWG(const double mu) const;
+       
+    virtual const double ctH_TWG(const double mu) const;
+    
+    virtual const double cHQm_TWG(const double mu) const;
+    
+    virtual const double cHQ3_TWG(const double mu) const;
+    
+    virtual const double cHt_TWG(const double mu) const;
+    
+    virtual const double cHb_TWG(const double mu) const;
+    
+    virtual const double ctW_TWG(const double mu) const;
+    
+    virtual const double IctW_TWG(const double mu) const;
+    
+    virtual const double ctZ_TWG(const double mu) const;
+    
+    virtual const double IctZ_TWG(const double mu) const;
+    
+    virtual const double ctG_TWG(const double mu) const;
 
+    virtual const double cQlM_TWG(const double mu) const;
+    
+    virtual const double cQe_TWG(const double mu) const;
+    
+    virtual const double ctl_TWG(const double mu) const;
+    
+    virtual const double cte_TWG(const double mu) const;
+
+    // Definitions for optimal observable analyses
     virtual const double cHQpOO(const double mu) const;
 
     virtual const double cHQmOO(const double mu) const;

@@ -45548,6 +45548,277 @@ const double NPSMEFTd6General::delta_TauLFU_gtaugmuK() const {
 
 // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
 
+// In the same order as Table 1 (Not all implemented. Some extra WC are placed next to similar in kind)
+
+const double NPSMEFTd6General::cQq31_TWG(const double mu) const {
+    
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqq3R", 0, 0, 2, 2, mu) + (1.0/6.0) * ( getSMEFTCoeff("Cqq1R", 0, 2, 2, 0, mu) - getSMEFTCoeff("Cqq3R", 0, 2, 2, 0, mu) );
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cQq38_TWG(const double mu) const {
+
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqq1R", 0, 2, 2, 0, mu) - getSMEFTCoeff("Cqq3R", 0, 2, 2, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cQq11_TWG(const double mu) const {
+
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqq1R", 0, 0, 2, 2, mu) + (1.0/6.0) * getSMEFTCoeff("Cqq1R", 0, 2, 2, 0, mu) + 0.5 * getSMEFTCoeff("Cqq3R", 0, 2, 2, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cQq18_TWG(const double mu) const {
+
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqq1R", 0, 2, 2, 0, mu) + 3.0 * getSMEFTCoeff("Cqq3R", 0, 2, 2, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cQu1_TWG(const double mu) const {
+    
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqu1R", 2, 2, 0, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cQu8_TWG(const double mu) const {
+    
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqu8R", 2, 2, 0, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cQd1_TWG(const double mu) const {
+    
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqd1R", 2, 2, 0, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cQd8_TWG(const double mu) const {
+    
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqd8R", 2, 2, 0, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::ctq1_TWG(const double mu) const {
+    
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqu1R", 0, 0, 2, 2, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::ctq8_TWG(const double mu) const {
+    
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cqu8R", 0, 0, 2, 2, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::ctu1_TWG(const double mu) const {
+    
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("CuuR", 0, 0, 2, 2, mu) + getSMEFTCoeff("CuuR", 0, 2, 2, 0, mu)/3.0;
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::ctu8_TWG(const double mu) const {
+
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = 2.0 * getSMEFTCoeff("CuuR", 0, 2, 2, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::ctd1_TWG(const double mu) const {
+
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cud1R", 2, 2, 0, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::ctd8_TWG(const double mu) const {
+
+    double comb;
+    
+    // LHC Top WG uses U(2)^3 for quarks. Here take i=0 (1st family)
+    comb = getSMEFTCoeff("Cud8R", 2, 2, 0, 0, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::ctH_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CuHR", 2, 2, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cHQm_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CHq1R", 2, 2, mu) - getSMEFTCoeff("CHq3R", 2, 2, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cHQ3_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CHq3R", 2, 2, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cHt_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CHuR", 2, 2, mu);
+
+    return comb;
+}
+
+const double NPSMEFTd6General::cHb_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CHdR", 2, 2, mu);
+
+    return comb;
+}
+
+const double NPSMEFTd6General::ctW_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CuWR", 2, 2, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::IctW_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CuWI", 2, 2, mu);;
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::ctZ_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = - sW_tree * getSMEFTCoeff("CuBR", 2, 2, mu) + cW_tree * getSMEFTCoeff("CuWR", 2, 2, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::IctZ_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = - sW_tree * getSMEFTCoeff("CuBI", 2, 2, mu) + cW_tree * getSMEFTCoeff("CuWI", 2, 2, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::ctG_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CuGR", 2, 2, mu);
+  
+    return comb;
+}
+
+const double NPSMEFTd6General::cQlM_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) - getSMEFTCoeff("CHq3R", 0, 0, 2, 2, mu);
+ 
+    return comb;
+}
+
+const double NPSMEFTd6General::cQe_TWG(const double mu) const {
+    
+    double comb;
+    
+    comb = getSMEFTCoeff("CqeR", 2, 2, 0, 0, mu);
+   
+    return comb;
+}
+
+const double NPSMEFTd6General::ctl_TWG(const double mu) const {
+    
+    double comb;
+    
+    comb = getSMEFTCoeff("CluR", 0, 0, 2, 2, mu);
+   
+    return comb;
+}
+
+const double NPSMEFTd6General::cte_TWG(const double mu) const {
+
+    double comb;
+    
+    comb = getSMEFTCoeff("CeuR", 0, 0, 2, 2, mu);
+    
+    return comb;
+}
+
+
+    // Definitions for optimal observable analyses
+
 const double NPSMEFTd6General::cHQpOO(const double mu) const {
 
     double comb;
@@ -45556,25 +45827,25 @@ const double NPSMEFTd6General::cHQpOO(const double mu) const {
     
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2
-    return (1000000. * comb / 2.0);
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::cHQmOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("CHq1R", 2, 2, mu) - getSMEFTCoeff("CHq3R", 2, 2, mu);
+    comb = cHQm_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2    
-    return (1000000. * comb / 2.0);
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::cHtOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("CHuR", 2, 2, mu);
+    comb = cHt_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2
@@ -45585,7 +45856,7 @@ const double NPSMEFTd6General::ctWOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("CuWR", 2, 2, mu) + getSMEFTCoeff("CuBR", 2, 2, mu) * cW_tree /sW_tree ;
+    comb = ctW_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2
@@ -45596,7 +45867,7 @@ const double NPSMEFTd6General::ctZOO(const double mu) const {
 
     double comb;
     
-    comb = - getSMEFTCoeff("CuBR", 2, 2, mu) /sW_tree;
+    comb = ctZ_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2
@@ -45607,7 +45878,7 @@ const double NPSMEFTd6General::ImctWOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("CuWI", 2, 2, mu) + getSMEFTCoeff("CuBI", 2, 2, mu) * cW_tree /sW_tree ;
+    comb = IctW_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2
@@ -45618,7 +45889,7 @@ const double NPSMEFTd6General::ImctZOO(const double mu) const {
 
     double comb;
     
-    comb = - getSMEFTCoeff("CuBI", 2, 2, mu) /sW_tree;
+    comb = IctZ_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2
@@ -45629,7 +45900,7 @@ const double NPSMEFTd6General::ctHOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("CuHR", 2, 2, mu);
+    comb = ctH_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2
@@ -45644,25 +45915,25 @@ const double NPSMEFTd6General::clQpOO(const double mu) const {
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2  
-    return (1000000. * comb/2.0);
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::clQmOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) - getSMEFTCoeff("CHq3R", 0, 0, 2, 2, mu);
+    comb = cQlM_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2    
-    return (1000000. * comb/2.0);
+    return (1000000. * comb);
 }
 
 const double NPSMEFTd6General::cltOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("CluR", 0, 0, 2, 2, mu);
+    comb = ctl_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2    
@@ -45673,7 +45944,7 @@ const double NPSMEFTd6General::cQeOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("CqeR", 2, 2, 0, 0, mu);
+    comb = cQe_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2    
@@ -45684,7 +45955,7 @@ const double NPSMEFTd6General::cetOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("CeuR", 0, 0, 2, 2, mu);
+    comb = cte_TWG(mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2    

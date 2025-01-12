@@ -4770,6 +4770,43 @@ ThObsFactory::ThObsFactory()
         obsThFactory["C_et_OO_" + sqrt_s_str] = bind(boost::factory<OOcet*>(), _1, sqrt_s_eeff[i]);
         
     }
+   
+    //-----  Wilson coefficients of Top operators in the conventions of the LHC Top WG ----------
+    //-----  (Energy-independent definition) ----------
+    //
+    obsThFactory["cQq31_TWG"] = bind(boost::factory<TWGcQq31*>(), _1, muEW);    
+    obsThFactory["cQq38_TWG"] = bind(boost::factory<TWGcQq38*>(), _1, muEW);
+    obsThFactory["cQq11_TWG"] = bind(boost::factory<TWGcQq11*>(), _1, muEW);    
+    obsThFactory["cQq18_TWG"] = bind(boost::factory<TWGcQq18*>(), _1, muEW);
+    obsThFactory["cQu1_TWG"] = bind(boost::factory<TWGcQu1*>(), _1, muEW);
+    obsThFactory["cQu8_TWG"] = bind(boost::factory<TWGcQu8*>(), _1, muEW);
+    obsThFactory["cQd1_TWG"] = bind(boost::factory<TWGcQd1*>(), _1, muEW);
+    obsThFactory["cQd8_TWG"] = bind(boost::factory<TWGcQd8*>(), _1, muEW);
+    obsThFactory["ctq1_TWG"] = bind(boost::factory<TWGctq1*>(), _1, muEW);
+    obsThFactory["ctq8_TWG"] = bind(boost::factory<TWGctq8*>(), _1, muEW);
+    obsThFactory["ctu1_TWG"] = bind(boost::factory<TWGctu1*>(), _1, muEW);
+    obsThFactory["ctu8_TWG"] = bind(boost::factory<TWGctu8*>(), _1, muEW);
+    obsThFactory["ctd1_TWG"] = bind(boost::factory<TWGctd1*>(), _1, muEW);
+    obsThFactory["ctd8_TWG"] = bind(boost::factory<TWGctd8*>(), _1, muEW);
+    //
+    obsThFactory["ctH_TWG"] = bind(boost::factory<TWGctH*>(), _1, muEW);
+    obsThFactory["cHQm_TWG"] = bind(boost::factory<TWGcHQm*>(), _1, muEW);
+    obsThFactory["cHQ3_TWG"] = bind(boost::factory<TWGcHQ3*>(), _1, muEW);
+    obsThFactory["cHt_TWG"] = bind(boost::factory<TWGcHt*>(), _1, muEW);
+    obsThFactory["cHb_TWG"] = bind(boost::factory<TWGcHb*>(), _1, muEW);
+    //
+    obsThFactory["ctW_TWG"] = bind(boost::factory<TWGctW*>(), _1, muEW);
+    obsThFactory["ImctW_TWG"] = bind(boost::factory<TWGImctW*>(), _1, muEW);
+    obsThFactory["ctZ_TWG"] = bind(boost::factory<TWGctZ*>(), _1, muEW);
+    obsThFactory["ImctZ_TWG"] = bind(boost::factory<TWGImctZ*>(), _1, muEW);
+    obsThFactory["ctG_TWG"] = bind(boost::factory<TWGctG*>(), _1, muEW);
+    //
+    obsThFactory["cQlM_TWG"] = bind(boost::factory<TWGcQlM*>(), _1, muEW);
+    obsThFactory["cQe_TWG"] = bind(boost::factory<TWGcQe*>(), _1, muEW);
+    obsThFactory["ctl_TWG"] = bind(boost::factory<TWGctl*>(), _1, muEW);
+    obsThFactory["cte_TWG"] = bind(boost::factory<TWGcte*>(), _1, muEW);
+
+
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
 

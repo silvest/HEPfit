@@ -5281,6 +5281,965 @@ private:
 // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
 
 /**
+ * @class TWGctH
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctH(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctH class.
+     */
+    virtual ~TWGctH();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t phi}@f$.
+     * @return @f$C_{t phi}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcHQm
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcHQm : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcHQm(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcHQm class.
+     */
+    virtual ~TWGcHQm();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{phi Q}^{-}@f$.
+     * @return @f$C_{phi Q}^{-}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcHt
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcHt : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcHt(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcHt class.
+     */
+    virtual ~TWGcHt();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{phi t}@f$.
+     * @return @f$C_{phi t}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGctG
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctG : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctG(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctG class.
+     */
+    virtual ~TWGctG();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t G}@f$.
+     * @return @f$C_{t G}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcHQ3
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcHQ3 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcHQ3(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcHQ3 class.
+     */
+    virtual ~TWGcHQ3();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{phi Q}^{(3)}@f$.
+     * @return @f$C_{phi Q}^{(3)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGctW
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctW(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctW class.
+     */
+    virtual ~TWGctW();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t W}@f$.
+     * @return @f$C_{t W}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGImctW
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGImctW : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGImctW(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGImctW class.
+     */
+    virtual ~TWGImctW();
+
+    /**
+     * @brief The Wilson coefficient @f$Im[C_{t W}]@f$.
+     * @return @f$Im[C_{t W}]@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGctZ
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctZ(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctZ class.
+     */
+    virtual ~TWGctZ();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t Z}@f$.
+     * @return @f$C_{t Z}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGImctZ
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGImctZ : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGImctZ(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGImctZ class.
+     */
+    virtual ~TWGImctZ();
+
+    /**
+     * @brief The Wilson coefficient @f$Im[C_{t Z}]@f$.
+     * @return @f$Im[C_{t Z}]@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcHb
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcHb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcHb(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcHb class.
+     */
+    virtual ~TWGcHb();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{phi b}@f$.
+     * @return @f$C_{phi b}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGctu8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctu8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctu8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctu8 class.
+     */
+    virtual ~TWGctu8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{tu}^{(8)}@f$.
+     * @return @f$C_{tu}^{(8)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGctd8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctd8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctd8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctd8 class.
+     */
+    virtual ~TWGctd8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{td}^{(8)}@f$.
+     * @return @f$C_{td}^{(8)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcQq18
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQq18 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQq18(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQq18 class.
+     */
+    virtual ~TWGcQq18();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q q}^{(1,8)}@f$.
+     * @return @f$C_{Q q}^{(1,8)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGctq8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctq8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctq8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctq8 class.
+     */
+    virtual ~TWGctq8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t q}^{(8)}@f$.
+     * @return @f$C_{t q}^{(8)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcQq38
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQq38 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQq38(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQq38 class.
+     */
+    virtual ~TWGcQq38();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q q}^{(3,8)}@f$.
+     * @return @f$C_{Q q}^{(3,8)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcQu8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQu8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQu8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQu8 class.
+     */
+    virtual ~TWGcQu8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q u}^{(8)}@f$.
+     * @return @f$C_{Q u}^{(8)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcQd8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQd8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQd8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQd8 class.
+     */
+    virtual ~TWGcQd8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q d}^{(8)}@f$.
+     * @return @f$C_{Q d}^{(8)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcQd1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQd1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQd1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQd1 class.
+     */
+    virtual ~TWGcQd1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q d}^{(1)}@f$.
+     * @return @f$C_{Q d}^{(1)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcQu1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQu1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQu1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQu1 class.
+     */
+    virtual ~TWGcQu1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q u}^{(1)}@f$.
+     * @return @f$C_{Q u}^{(1)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGctd1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctd1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctd1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctd1 class.
+     */
+    virtual ~TWGctd1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t d}^{(1)}@f$.
+     * @return @f$C_{t d}^{(1)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGctu1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctu1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctu1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctu1 class.
+     */
+    virtual ~TWGctu1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t u}^{(1)}@f$.
+     * @return @f$C_{t u}^{(1)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGctq1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctq1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctq1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctq1 class.
+     */
+    virtual ~TWGctq1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t q}^{(1)}@f$.
+     * @return @f$C_{t q}^{(1)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcQq11
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQq11 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQq11(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQq11 class.
+     */
+    virtual ~TWGcQq11();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q q}^{(1,1)}@f$.
+     * @return @f$C_{Q q}^{(1,1)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcQq31
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQq31 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQq31(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQq31 class.
+     */
+    virtual ~TWGcQq31();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q q}^{(3,1)}@f$.
+     * @return @f$C_{Q q}^{(3,1)}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGcQlM
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQlM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQlM(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQlM class.
+     */
+    virtual ~TWGcQlM();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q l}^{-}@f$.
+     * @return @f$C_{Q l}^{-}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcte
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcte : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcte(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcte class.
+     */
+    virtual ~TWGcte();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t e}@f$.
+     * @return @f$C_{t e}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGctl
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctl : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctl(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctl class.
+     */
+    virtual ~TWGctl();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t l}@f$.
+     * @return @f$C_{t l}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQe
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQe : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQe(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQe class.
+     */
+    virtual ~TWGcQe();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q e}@f$.
+     * @return @f$C_{Q e}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+// Definitions for optimal observable analyses
+
+/**
  * @class OOcHQplus
  * @brief An observable class for the e+ e- Top optimal observables in the SMEFT.
  * @author HEPfit Collaboration
@@ -5304,7 +6263,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$C_{phi q}^{+}@f$.
-     * @return @f$@f$C_{phi q}^{+}@f$@f$
+     * @return @f$C_{phi q}^{+}@f$
      */
     double computeThValue();
           
@@ -5339,7 +6298,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$C_{phi q}^{-}@f$.
-     * @return @f$@f$C_{phi q}^{-}@f$@f$
+     * @return @f$C_{phi q}^{-}@f$
      */
     double computeThValue();
       
@@ -5373,7 +6332,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$C_{phi t}@f$.
-     * @return @f$@f$C_{phi t}@f$@f$
+     * @return @f$C_{phi t}@f$
      */
     double computeThValue();
       
@@ -5408,7 +6367,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$Re[C_{tW}]@f$.
-     * @return @f$@f$Re[C_{tW}]@f$@f$
+     * @return @f$Re[C_{tW}]@f$
      */
     double computeThValue();
       
@@ -5443,7 +6402,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$Re[C_{tZ}]@f$.
-     * @return @f$@f$Re[C_{tZ}]@f$@f$
+     * @return @f$Re[C_{tZ}]@f$
      */
     double computeThValue();
       
@@ -5477,7 +6436,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$Im[C_{tW}]@f$.
-     * @return @f$@f$Im[C_{tW}]@f$@f$
+     * @return @f$Im[C_{tW}]@f$
      */
     double computeThValue();
       
@@ -5512,7 +6471,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$Im[C_{tZ}]@f$.
-     * @return @f$@f$Im[C_{tZ}]@f$@f$
+     * @return @f$Im[C_{tZ}]@f$
      */
     double computeThValue();
       
@@ -5547,7 +6506,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$C_{tH}@f$.
-     * @return @f$@f$C_{tH}@f$@f$
+     * @return @f$C_{tH}@f$
      */
     double computeThValue();
       
@@ -5581,7 +6540,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$C_{l q}^{+}@f$.
-     * @return @f$@f$C_{l q}^{+}@f$@f$
+     * @return @f$C_{l q}^{+}@f$
      */
     double computeThValue();
       
@@ -5616,7 +6575,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$C_{l q}^{-}@f$.
-     * @return @f$@f$C_{l q}^{-}@f$@f$
+     * @return @f$C_{l q}^{-}@f$
      */
     double computeThValue();
       
@@ -5650,7 +6609,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$C_{l t}@f$.
-     * @return @f$@f$C_{l t}@f$@f$
+     * @return @f$C_{l t}@f$
      */
     double computeThValue();
       
@@ -5684,7 +6643,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$C_{q e}@f$.
-     * @return @f$@f$C_{ qe}@f$@f$
+     * @return @f$C_{ qe}@f$
      */
     double computeThValue();
       
@@ -5719,7 +6678,7 @@ public:
 
     /**
      * @brief The Wilson coefficient @f$C_{e t}@f$.
-     * @return @f$@f$C_{e t}@f$@f$
+     * @return @f$C_{e t}@f$
      */
     double computeThValue();
       
