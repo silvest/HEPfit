@@ -21858,11 +21858,11 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
         // Choose the right index in the different lists according to the selected energy
         int iECM;
         
-        if ( (sqrt_s == 240.0) || (sqrt_s == 250.0) ) {
+        if ( (sqrt_s == 0.240) || (sqrt_s == 0.250) ) {
             iECM = 0;
-        } else if ( (sqrt_s == 350.0) || (sqrt_s == 360.0)  || (sqrt_s == 365.0) ) {
+        } else if ( (sqrt_s == 0.350) || (sqrt_s == 0.360)  || (sqrt_s == 0.365) ) {
             iECM = 1;            
-        } else if ( sqrt_s == 500.0 ) {
+        } else if ( sqrt_s == 0.500 ) {
             iECM = 2;
         } else 
             throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZH(): NLO corrections not available for this energy");            
