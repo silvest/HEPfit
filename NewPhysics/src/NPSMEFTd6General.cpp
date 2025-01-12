@@ -8712,8 +8712,8 @@ bool NPSMEFTd6General::PostUpdate() {
     //    aiH = -2.0 * getSMEFTCoeffEW("CHbox") * v2;
     //    aiWW = 0.0; // Add
     //    aiB = 0.0; // Add
-    //    aiHW = CDHW * Mw_tree * Mw_tree / 2.0 / g2_tree / LambdaNP2;
-    //    aiHB = CDHB * Mw_tree * Mw_tree / 2.0 / g1_tree / LambdaNP2;
+    //    aiHW = 0.0;
+    //    aiHB = 0.0;
     //    aiA =getSMEFTCoeffEW("CHB") * Mw_tree * Mw_tree / g1_tree / g1_tree / LambdaNP2;
     //    aiHQ = getSMEFTCoeffEW("CHq1R",0,0) * v2; // Valid only for flavour universal NP
     //    aipHQ = getSMEFTCoeffEW("CHq3R",0,0) * v2; // Valid only for flavour universal NP
@@ -14510,12 +14510,10 @@ const double NPSMEFTd6General::obliqueU() const {
 
 const double NPSMEFTd6General::obliqueW() const {
     return 0.;
-    //return (-g2_tree * g2_tree * (C2W + 0.5 * C2WS) * v2 / 2.0);
 }
 
 const double NPSMEFTd6General::obliqueY() const {
     return 0.;
-    //return (-g2_tree * g2_tree * (C2B + 0.5 * C2BS) * v2_over_LambdaNP2 / 2.0);
 }
 
 /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
@@ -16191,11 +16189,11 @@ const double NPSMEFTd6General::deltaG_hggRatio() const {
 }
 
 const double NPSMEFTd6General::deltaG1_hWW() const {
-    return ((2.0 * getSMEFTCoeffEW("CHW") - 0.5 * eeMz * CDHW / sW_tree) * v2 / v());
+    return ((2.0 * getSMEFTCoeffEW("CHW")) * v2 / v());
 }
 
 const double NPSMEFTd6General::deltaG2_hWW() const {
-    return ( -0.5 * eeMz * (CDHW / sW_tree) * v2 / v());
+    return 0.0;
 }
 
 const double NPSMEFTd6General::deltaG3_hWW() const {
@@ -16212,11 +16210,11 @@ const double NPSMEFTd6General::deltaG3_hWW() const {
 }
 
 const double NPSMEFTd6General::deltaG1_hZZ() const {
-    return ( (delta_ZZ - 0.25 * eeMz * (CDHB / cW_tree + CDHW / sW_tree) * v2) / v());
+    return ( delta_ZZ / v());
 }
 
 const double NPSMEFTd6General::deltaG2_hZZ() const {
-    return ( -0.5 * eeMz * (CDHB / cW_tree + CDHW / sW_tree) * v2 / v());
+    return 0.0;
 }
 
 const double NPSMEFTd6General::deltaG3_hZZ() const {
@@ -16228,7 +16226,7 @@ const double NPSMEFTd6General::deltaG3_hZZ() const {
 }
 
 const double NPSMEFTd6General::deltaG1_hZA() const {
-    return ( (delta_AZ + 0.25 * eeMz * (CDHB / sW_tree - CDHW / cW_tree) * v2) / v());
+    return ( delta_AZ / v());
 }
 
 const double NPSMEFTd6General::deltaG1_hZARatio() const {
@@ -16321,7 +16319,7 @@ const double NPSMEFTd6General::deltaG1_hZARatio() const {
 }
 
 const double NPSMEFTd6General::deltaG2_hZA() const {
-    return ( 0.5 * eeMz * (CDHB / sW_tree - CDHW / cW_tree) * v2 / v());
+    return 0.0;
 }
 
 const double NPSMEFTd6General::deltaG_hAA() const {
@@ -16533,7 +16531,8 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
     //AG:
     // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO    
     if (sqrt_s == 8.0) {
-        mu += cWsch * (
+        //mu += cWsch * (   // Same for alpha & MW scheme at LO
+        mu += (
                 ((0.12124142781783014) * getSMEFTCoeffEW("CHbox")
                 + (-0.030314752945313873) * getSMEFTCoeffEW("CHD")
                 + (39.31144) * getSMEFTCoeffEW("CHG") //
@@ -16543,8 +16542,9 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
                 + (-0.060629505890627745) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.060629505890627745) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
                 );
-    } else if (sqrt_s == 13.0) {
-        mu += cWsch * (
+    } else if ((sqrt_s == 13.0) || (sqrt_s == 14.0)) {
+        //mu += cWsch * (   // Same for alpha & MW scheme at LO
+        mu +=  (
                 ((0.121) * getSMEFTCoeffEW("CHbox")
                 + (-0.03031) * getSMEFTCoeffEW("CHD")
                 + (39.31144) * getSMEFTCoeffEW("CHG")
@@ -16615,8 +16615,6 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 + 5770.95 * getSMEFTCoeffEW("CHB")
                 - 51626.2 * getSMEFTCoeffEW("CHW")
                 + 57783.8 * getSMEFTCoeffEW("CHG")
-                + 771.294 * CDHB
-                - 31008.9 * CDHW
                 - 15060.5 * getSMEFTCoeffEW("CHq1R", 0, 0)
                 - 1122.91 * getSMEFTCoeffEW("CHq1R", 1, 1)
                 - 9988.6 * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -16643,8 +16641,6 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 - 810.554 * getSMEFTCoeffEW("CHB")
                 - 86724.3 * getSMEFTCoeffEW("CHW")
                 - 155709. * getSMEFTCoeffEW("CHG")
-                - 369.549 * CDHB
-                - 54328.9 * CDHW
                 + 15633.8 * getSMEFTCoeffEW("CHq1R", 0, 0)
                 - 2932.56 * getSMEFTCoeffEW("CHq1R", 1, 1)
                 - 24997.3 * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -16671,8 +16667,6 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 - 684.545 * getSMEFTCoeffEW("CHB")
                 - 85129.2 * getSMEFTCoeffEW("CHW")
                 - 136876. * getSMEFTCoeffEW("CHG")
-                - 456.67 * CDHB
-                - 56410.8 * CDHW
                 + 15225.3 * getSMEFTCoeffEW("CHq1R", 0, 0)
                 - 3114.83 * getSMEFTCoeffEW("CHq1R", 1, 1)
                 - 25391.2 * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -16721,8 +16715,6 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 - 283.27 * getSMEFTCoeffEW("CHB")
                 - 80829.5 * getSMEFTCoeffEW("CHW")
                 - 90637.9 * getSMEFTCoeffEW("CHG")
-                - 769.333 * CDHB
-                - 63886.1 * CDHW
                 + 13466.3 * getSMEFTCoeffEW("CHq1R", 0, 0)
                 - 3912.24 * getSMEFTCoeffEW("CHq1R", 1, 1)
                 - 26789.8 * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -16793,8 +16785,6 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 - 81639.9 * getSMEFTCoeffEW("CHW")
                 - 331061. * getSMEFTCoeffEW("CHWB")
                 - 84843. * getSMEFTCoeffEW("CHG")
-                - 842.254 * CDHB
-                - 65370.6 * CDHW
                 - 4.528 * delta_GF
                 - 3.193 * deltaMwd6()
                 ;
@@ -16816,8 +16806,6 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 - 81360.5 * getSMEFTCoeffEW("CHW")
                 - 313026. * getSMEFTCoeffEW("CHWB")
                 - 16430. * getSMEFTCoeffEW("CHG")
-                - 1314.45 * CDHB
-                - 75884.6 * CDHW
                 - 4.475 * delta_GF
                 - 2.99 * deltaMwd6()
                 ;
@@ -16839,8 +16827,6 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 - 90808.2 * getSMEFTCoeffEW("CHW")
                 - 312544. * getSMEFTCoeffEW("CHWB")
                 - 8165.65 * getSMEFTCoeffEW("CHG")
-                - 2615.48 * CDHB
-                - 96539.6 * CDHW
                 - 4.452 * delta_GF
                 - 2.949 * deltaMwd6()
                 ;
@@ -17018,7 +17004,6 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
         mu +=
                 +121231. * getSMEFTCoeffEW("CHbox")
                 + 855498. * getSMEFTCoeffEW("CHW")
-                + 135077. * CDHW
                 + 1554889. * getSMEFTCoeffEW("CHq3R", 0, 0)
                 + 10415.1 * getSMEFTCoeffEW("CHq3R", 1, 1)
                 + cAsch * (-160273. * getSMEFTCoeffEW("CHD")
@@ -17036,7 +17021,6 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
         mu +=
                 +121215. * getSMEFTCoeffEW("CHbox")
                 + 874536. * getSMEFTCoeffEW("CHW")
-                + 168556. * CDHW
                 + 1688781. * getSMEFTCoeffEW("CHq3R", 0, 0)
                 + 101677. * getSMEFTCoeffEW("CHq3R", 1, 1)
                 + cAsch * (-160236. * getSMEFTCoeffEW("CHD")
@@ -17054,7 +17038,6 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
         /*mu +=
                 +121222. * getSMEFTCoeffEW("CHbox")
                 + 877503. * getSMEFTCoeffEW("CHW")
-                + 174299. * CDHW
                 + 1716018. * getSMEFTCoeffEW("CHq3R", 0, 0)
                 + 113210. * getSMEFTCoeffEW("CHq3R", 1, 1)
                 + cAsch * (-160294. * getSMEFTCoeffEW("CHD")
@@ -17085,7 +17068,6 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
         /*mu +=
                 +121126. * getSMEFTCoeffEW("CHbox")
                 + 886205. * getSMEFTCoeffEW("CHW")
-                + 193294. * CDHW
                 + 1792005. * getSMEFTCoeffEW("CHq3R", 0, 0)
                 + 161535. * getSMEFTCoeffEW("CHq3R", 1, 1)
                 + cAsch * (-160176. * getSMEFTCoeffEW("CHD")
@@ -17123,7 +17105,6 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
                 - 160171. * getSMEFTCoeffEW("CHD")
                 + 893242. * getSMEFTCoeffEW("CHW")
                 - 284850. * getSMEFTCoeffEW("CHWB")
-                + 195766. * CDHW
                 - 3.286 * delta_GF
                 - 2.103 * deltaMwd6()
                 ;
@@ -17139,7 +17120,6 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
                 - 159695. * getSMEFTCoeffEW("CHD")
                 + 900162. * getSMEFTCoeffEW("CHW")
                 - 283257. * getSMEFTCoeffEW("CHWB")
-                + 215592. * CDHW
                 - 3.256 * delta_GF
                 - 2.063 * deltaMwd6()
                 ;
@@ -17155,7 +17135,6 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
                 - 159242. * getSMEFTCoeffEW("CHD")
                 + 908130. * getSMEFTCoeffEW("CHW")
                 - 282574. * getSMEFTCoeffEW("CHWB")
-                + 245406. * CDHW
                 - 3.259 * delta_GF
                 - 2.047 * deltaMwd6()
                 ;
@@ -17267,8 +17246,6 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 +121186. * getSMEFTCoeffEW("CHbox")
                 + 79191.5 * getSMEFTCoeffEW("CHB")
                 + 712325. * getSMEFTCoeffEW("CHW")
-                + 9992.07 * CDHB
-                + 131146. * CDHW
                 - 813859. * getSMEFTCoeffEW("CHq1R", 0, 0)
                 + 3350.92 * getSMEFTCoeffEW("CHq1R", 1, 1)
                 + 527754. * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -17292,8 +17269,6 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 +121226. * getSMEFTCoeffEW("CHbox")
                 + 87099.3 * getSMEFTCoeffEW("CHB")
                 + 717825. * getSMEFTCoeffEW("CHW")
-                + 17433.4 * CDHB
-                + 153216. * CDHW
                 - 213136. * getSMEFTCoeffEW("CHq1R", 0, 0)
                 + 30259.1 * getSMEFTCoeffEW("CHq1R", 1, 1)
                 + 405194. * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -17317,8 +17292,6 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 +121277. * getSMEFTCoeffEW("CHbox")
                 + 87409.1 * getSMEFTCoeffEW("CHB")
                 + 721014. * getSMEFTCoeffEW("CHW")
-                + 18357.2 * CDHB
-                + 158294. * CDHW
                 - 211101. * getSMEFTCoeffEW("CHq1R", 0, 0)
                 + 32881.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
                 + 409966. * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -17363,8 +17336,6 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 +121234. * getSMEFTCoeffEW("CHbox")
                 + 88512.4 * getSMEFTCoeffEW("CHB")
                 + 728790. * getSMEFTCoeffEW("CHW")
-                + 21680.9 * CDHB
-                + 175494. * CDHW
                 - 196945. * getSMEFTCoeffEW("CHq1R", 0, 0)
                 + 43331.9 * getSMEFTCoeffEW("CHq1R", 1, 1)
                 + 422018. * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -17424,8 +17395,6 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 + 88565.4 * getSMEFTCoeffEW("CHB")
                 + 729690. * getSMEFTCoeffEW("CHW")
                 + 208170. * getSMEFTCoeffEW("CHWB")
-                + 22093. * CDHB
-                + 177891. * CDHW
                 - 2.504 * delta_GF
                 ;
     } else if (sqrt_s == 27.0) {
@@ -17444,8 +17413,6 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 + 89958. * getSMEFTCoeffEW("CHB")
                 + 735013. * getSMEFTCoeffEW("CHW")
                 + 211026. * getSMEFTCoeffEW("CHWB")
-                + 25604. * CDHB
-                + 196710. * CDHW
                 - 2.505 * delta_GF
                 ;
     } else if (sqrt_s == 100.0) {
@@ -17464,8 +17431,6 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 + 91707.3 * getSMEFTCoeffEW("CHB")
                 + 741805. * getSMEFTCoeffEW("CHW")
                 + 215319. * getSMEFTCoeffEW("CHWB")
-                + 31435.6 * CDHB
-                + 223843. * CDHW
                 - 2.504 * delta_GF
                 ;
     } else
@@ -17771,10 +17736,10 @@ const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
                 + (0.06105) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
                 );
         //AG:end
-    } else if (sqrt_s == 13.0) {
+    } else if ((sqrt_s == 13.0) || (sqrt_s == 14.0)) {
 
-        C1 = 0.0351;
-
+        C1 = 0.0351;    // 13 TeV
+        
         /*mu +=
                 +538046. * getSMEFTCoeffEW("CHG")
                 - 85159.5 * getSMEFTCoeffEW("CG")
@@ -17797,7 +17762,8 @@ const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
                 ;*/
 
         //AG:begin
-        mu += cWsch * (
+        // mu += cWsch * // QCD LO contribution should be alpha-MW scheme independent. Use as first approx for the moment 
+        mu +=  (
                 ((0.12121) * getSMEFTCoeffEW("CHbox")
                 + (-0.03042744) * getSMEFTCoeffEW("CHD")
                 + (0.001047) * getSMEFTCoeffEW("CHW")
@@ -17848,18 +17814,18 @@ const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
                 );
         //AG:end 
 
-    } else if (sqrt_s == 14.0) {
+    //} else if (sqrt_s == 14.0) {
 
-        //  Old (but ok) implementation + Missing 4F
+    //    //  Old (but ok) implementation + Missing 4F
 
-        C1 = 0.0347;
+    //    C1 = 0.0347;
 
-        mu +=
-                +536980. * getSMEFTCoeffEW("CHG")
-                - 83662.2 * getSMEFTCoeffEW("CG")
-                + 864481. * getSMEFTCoeffEW("CuGR", 2, 2)
-                - 2.844 * deltaG_hff(quarks[TOP]).real()
-                ;
+    //    mu +=
+    //            +536980. * getSMEFTCoeffEW("CHG")
+    //            - 83662.2 * getSMEFTCoeffEW("CG")
+    //            + 864481. * getSMEFTCoeffEW("CuGR", 2, 2)
+    //            - 2.844 * deltaG_hff(quarks[TOP]).real()
+    //            ;
 
     } else if (sqrt_s == 27.0) {
 
@@ -18603,8 +18569,6 @@ const double NPSMEFTd6General::muVBFgamma(const double sqrt_s) const {
                 +121253. * getSMEFTCoeffEW("CHbox")
                 + 11791.5 * getSMEFTCoeffEW("CHB")
                 - 130714. * getSMEFTCoeffEW("CHW")
-                - 18848.5 * CDHB
-                - 69191.8 * CDHW
                 + 23472.1 * getSMEFTCoeffEW("CW")
                 - 461704. * getSMEFTCoeffEW("CHq3R", 0, 0)
                 - 35103.4 * getSMEFTCoeffEW("CHq3R", 1, 1)
@@ -18655,7 +18619,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203727. * getSMEFTCoeffEW("CHD")
                 - 24699.7 * getSMEFTCoeffEW("CHW")
                 - 379830. * getSMEFTCoeffEW("CHWB")
-                - 18173.7 * CDHW
                 - 4.716 * delta_GF
                 - 5.665 * deltaMwd6()
                 ;
@@ -18682,7 +18645,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203726. * getSMEFTCoeffEW("CHD")
                 - 26559.2 * getSMEFTCoeffEW("CHW")
                 - 379797. * getSMEFTCoeffEW("CHWB")
-                - 19265.3 * CDHW
                 - 4.717 * delta_GF
                 - 5.593 * deltaMwd6()
                 ;
@@ -18709,7 +18671,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203717. * getSMEFTCoeffEW("CHD")
                 - 39722.3 * getSMEFTCoeffEW("CHW")
                 - 379795. * getSMEFTCoeffEW("CHWB")
-                - 28864.2 * CDHW
                 - 4.714 * delta_GF
                 - 5.13 * deltaMwd6()
                 ;
@@ -18736,7 +18697,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203725. * getSMEFTCoeffEW("CHD")
                 - 40966.9 * getSMEFTCoeffEW("CHW")
                 - 379798. * getSMEFTCoeffEW("CHWB")
-                - 30110.4 * CDHW
                 - 4.714 * delta_GF
                 - 5.08 * deltaMwd6()
                 ;
@@ -18763,7 +18723,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203726. * getSMEFTCoeffEW("CHD")
                 - 42070.9 * getSMEFTCoeffEW("CHW")
                 - 379788. * getSMEFTCoeffEW("CHWB")
-                - 31352.7 * CDHW
                 - 4.714 * delta_GF
                 - 5.044 * deltaMwd6()
                 ;
@@ -18790,7 +18749,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203679. * getSMEFTCoeffEW("CHD")
                 - 47539.5 * getSMEFTCoeffEW("CHW")
                 - 379773. * getSMEFTCoeffEW("CHWB")
-                - 39825.1 * CDHW
                 - 4.715 * delta_GF
                 - 4.817 * deltaMwd6()
                 ;
@@ -18817,7 +18775,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203748. * getSMEFTCoeffEW("CHD")
                 - 49375.4 * getSMEFTCoeffEW("CHW")
                 - 379685. * getSMEFTCoeffEW("CHWB")
-                - 63503.9 * CDHW
                 - 4.712 * delta_GF
                 - 4.481 * deltaMwd6()
                 ;
@@ -18844,7 +18801,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203684. * getSMEFTCoeffEW("CHD")
                 - 46619.5 * getSMEFTCoeffEW("CHW")
                 - 379667. * getSMEFTCoeffEW("CHWB")
-                - 75747.8 * CDHW
                 - 4.714 * delta_GF
                 - 4.391 * deltaMwd6()
                 ;
@@ -18871,7 +18827,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203649. * getSMEFTCoeffEW("CHD")
                 - 45921.3 * getSMEFTCoeffEW("CHW")
                 - 379591. * getSMEFTCoeffEW("CHWB")
-                - 78241.3 * CDHW
                 - 4.715 * delta_GF
                 - 4.38 * deltaMwd6()
                 ;
@@ -18898,7 +18853,6 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
                 - 203585. * getSMEFTCoeffEW("CHD")
                 - 38239. * getSMEFTCoeffEW("CHW")
                 - 379518. * getSMEFTCoeffEW("CHWB")
-                - 104465. * CDHW
                 - 4.714 * delta_GF
                 - 4.258 * deltaMwd6()
                 ;
@@ -18962,8 +18916,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 - 70718.5 * getSMEFTCoeffEW("CHB")
                 + 29671.9 * getSMEFTCoeffEW("CHW")
                 - 401378. * getSMEFTCoeffEW("CHWB")
-                - 23969.3 * CDHB
-                - 1814.47 * CDHW
                 - 4.698 * delta_GF
                 - 5.463 * deltaMwd6()
                 ;
@@ -18993,8 +18945,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 - 57405. * getSMEFTCoeffEW("CHB")
                 - 9860.82 * getSMEFTCoeffEW("CHW")
                 - 403474. * getSMEFTCoeffEW("CHWB")
-                - 20447.1 * CDHB
-                - 9672.74 * CDHW
                 - 4.656 * delta_GF
                 - 5.633 * deltaMwd6()
                 ;
@@ -19024,8 +18974,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 + 11833.5 * getSMEFTCoeffEW("CHB")
                 - 94273.3 * getSMEFTCoeffEW("CHW")
                 - 377703. * getSMEFTCoeffEW("CHWB")
-                + 1111.63 * CDHB
-                - 31735.2 * CDHW
                 - 4.669 * delta_GF
                 - 5.329 * deltaMwd6()
                 ;
@@ -19055,8 +19003,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 + 12826.5 * getSMEFTCoeffEW("CHB")
                 - 93455. * getSMEFTCoeffEW("CHW")
                 - 377489. * getSMEFTCoeffEW("CHWB")
-                + 1693.48 * CDHB
-                - 32834.7 * CDHW
                 - 4.68 * delta_GF
                 - 5.265 * deltaMwd6()
                 ;
@@ -19086,8 +19032,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 + 13052.3 * getSMEFTCoeffEW("CHB")
                 - 92560.2 * getSMEFTCoeffEW("CHW")
                 - 377461. * getSMEFTCoeffEW("CHWB")
-                + 1916.19 * CDHB
-                - 33824.9 * CDHW
                 - 4.684 * delta_GF
                 - 5.221 * deltaMwd6()
                 ;
@@ -19117,8 +19061,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 + 10505.8 * getSMEFTCoeffEW("CHB")
                 - 82453.1 * getSMEFTCoeffEW("CHW")
                 - 378407. * getSMEFTCoeffEW("CHWB")
-                + 1889.64 * CDHB
-                - 41332.3 * CDHW
                 - 4.705 * delta_GF
                 - 4.943 * deltaMwd6()
                 ;
@@ -19148,8 +19090,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 + 3421.94 * getSMEFTCoeffEW("CHB")
                 - 61892.5 * getSMEFTCoeffEW("CHW")
                 - 379786. * getSMEFTCoeffEW("CHWB")
-                + 396.747 * CDHB
-                - 63826.6 * CDHW
                 - 4.711 * delta_GF
                 - 4.587 * deltaMwd6()
                 ;
@@ -19179,8 +19119,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 + 1891.37 * getSMEFTCoeffEW("CHB")
                 - 54492.9 * getSMEFTCoeffEW("CHW")
                 - 379916. * getSMEFTCoeffEW("CHWB")
-                + 142.745 * CDHB
-                - 75976. * CDHW
                 - 4.712 * delta_GF
                 - 4.486 * deltaMwd6()
                 ;
@@ -19210,8 +19148,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 + 1682.65 * getSMEFTCoeffEW("CHB")
                 - 53138.1 * getSMEFTCoeffEW("CHW")
                 - 379943. * getSMEFTCoeffEW("CHWB")
-                + 134.612 * CDHB
-                - 78546.2 * CDHW
                 - 4.711 * delta_GF
                 - 4.469 * deltaMwd6()
                 ;
@@ -19241,8 +19177,6 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
                 + 293.31 * getSMEFTCoeffEW("CHB")
                 - 41440.6 * getSMEFTCoeffEW("CHW")
                 - 380130. * getSMEFTCoeffEW("CHWB")
-                - 272.36 * CDHB
-                - 104900. * CDHW
                 - 4.706 * delta_GF
                 - 4.343 * deltaMwd6()
                 ;
@@ -19299,8 +19233,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 24268.3 * getSMEFTCoeffEW("CHB")
                     - 32411.5 * getSMEFTCoeffEW("CHW")
                     - 194663. * getSMEFTCoeffEW("CHWB")
-                    + 29267.1 * CDHB
-                    - 11610.1 * CDHW
                     - 3.633 * delta_GF
                     - 4.394 * deltaMwd6()
                     ;
@@ -19321,8 +19253,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     - 78796.8 * getSMEFTCoeffEW("CHB")
                     + 34606.7 * getSMEFTCoeffEW("CHW")
                     - 418335. * getSMEFTCoeffEW("CHWB")
-                    - 28484. * CDHB
-                    - 1197.92 * CDHW
                     - 4.781 * delta_GF
                     - 5.537 * deltaMwd6()
                     ;
@@ -19343,8 +19273,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     - 15072.1 * getSMEFTCoeffEW("CHB")
                     - 6209.98 * getSMEFTCoeffEW("CHW")
                     - 281195. * getSMEFTCoeffEW("CHWB")
-                    + 6468.72 * CDHB
-                    - 7633.09 * CDHW
                     - 4.079 * delta_GF
                     - 4.832 * deltaMwd6()
                     ;
@@ -19365,8 +19293,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     - 78465.3 * getSMEFTCoeffEW("CHB")
                     + 34393.4 * getSMEFTCoeffEW("CHW")
                     - 417413. * getSMEFTCoeffEW("CHWB")
-                    - 28344.3 * CDHB
-                    - 1296.23 * CDHW
                     - 4.777 * delta_GF
                     - 5.539 * deltaMwd6()
                     ;
@@ -19395,8 +19321,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 30993.1 * getSMEFTCoeffEW("CHB")
                     - 62277.2 * getSMEFTCoeffEW("CHW")
                     - 213096. * getSMEFTCoeffEW("CHWB")
-                    + 32593.7 * CDHB
-                    - 18479.4 * CDHW
                     - 3.678 * delta_GF
                     - 4.598 * deltaMwd6()
                     ;
@@ -19417,8 +19341,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     - 64672.8 * getSMEFTCoeffEW("CHB")
                     - 5618.64 * getSMEFTCoeffEW("CHW")
                     - 418629. * getSMEFTCoeffEW("CHWB")
-                    - 24815.6 * CDHB
-                    - 9013.23 * CDHW
                     + 286902. * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                     - 5.706 * deltaMwd6()
                     ;
@@ -19439,8 +19361,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     - 6529.15 * getSMEFTCoeffEW("CHB")
                     - 40099.4 * getSMEFTCoeffEW("CHW")
                     - 293696. * getSMEFTCoeffEW("CHWB")
-                    + 10284.9 * CDHB
-                    - 15311.7 * CDHW
                     - 4.092 * delta_GF
                     - 5.01 * deltaMwd6()
                     ;
@@ -19461,8 +19381,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     - 64371.5 * getSMEFTCoeffEW("CHB")
                     - 5927.95 * getSMEFTCoeffEW("CHW")
                     - 417860. * getSMEFTCoeffEW("CHWB")
-                    - 24699.8 * CDHB
-                    - 9119.93 * CDHW
                     - 4.726 * delta_GF
                     - 5.715 * deltaMwd6()
                     ;
@@ -19491,8 +19409,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 102909. * getSMEFTCoeffEW("CHB")
                     - 87947.8 * getSMEFTCoeffEW("CHW")
                     - 228111. * getSMEFTCoeffEW("CHWB")
-                    + 40181.7 * CDHB
-                    - 37530.5 * CDHW
                     - 4.236 * delta_GF
                     - 4.832 * deltaMwd6()
                     ;
@@ -19513,8 +19429,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 5738.97 * getSMEFTCoeffEW("CHB")
                     - 94600.4 * getSMEFTCoeffEW("CHW")
                     - 387581. * getSMEFTCoeffEW("CHWB")
-                    - 1403.89 * CDHB
-                    - 31363.8 * CDHW
                     - 4.699 * delta_GF
                     - 5.361 * deltaMwd6()
                     ;
@@ -19535,8 +19449,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 60320.1 * getSMEFTCoeffEW("CHB")
                     - 90446.2 * getSMEFTCoeffEW("CHW")
                     - 297833. * getSMEFTCoeffEW("CHWB")
-                    + 22132.1 * CDHB
-                    - 34844.4 * CDHW
                     - 4.439 * delta_GF
                     - 5.054 * deltaMwd6()
                     ;
@@ -19557,8 +19469,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 6134.48 * getSMEFTCoeffEW("CHB")
                     - 94603.3 * getSMEFTCoeffEW("CHW")
                     - 387053. * getSMEFTCoeffEW("CHWB")
-                    - 1323.12 * CDHB
-                    - 31434.2 * CDHW
                     - 4.696 * delta_GF
                     - 5.365 * deltaMwd6()
                     ;
@@ -19587,8 +19497,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 95027.9 * getSMEFTCoeffEW("CHB")
                     - 87042.2 * getSMEFTCoeffEW("CHW")
                     - 246839. * getSMEFTCoeffEW("CHWB")
-                    + 37834.6 * CDHB
-                    - 38594.2 * CDHW
                     - 4.314 * delta_GF
                     - 4.867 * deltaMwd6()
                     ;
@@ -19609,8 +19517,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 7209.08 * getSMEFTCoeffEW("CHB")
                     - 94095.3 * getSMEFTCoeffEW("CHW")
                     - 386056. * getSMEFTCoeffEW("CHWB")
-                    - 673.745 * CDHB
-                    - 32528.4 * CDHW
                     - 4.703 * delta_GF
                     - 5.297 * deltaMwd6()
                     ;
@@ -19631,8 +19537,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 56353. * getSMEFTCoeffEW("CHB")
                     - 90080.9 * getSMEFTCoeffEW("CHW")
                     - 308151. * getSMEFTCoeffEW("CHWB")
-                    + 20707.2 * CDHB
-                    - 35840.6 * CDHW
                     - 4.485 * delta_GF
                     - 5.033 * deltaMwd6()
                     ;
@@ -19653,8 +19557,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 7600.7 * getSMEFTCoeffEW("CHB")
                     - 94080.6 * getSMEFTCoeffEW("CHW")
                     - 385587. * getSMEFTCoeffEW("CHWB")
-                    - 525.394 * CDHB
-                    - 32486.9 * CDHW
                     - 4.703 * delta_GF
                     - 5.294 * deltaMwd6()
                     ;
@@ -19683,8 +19585,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 86802.5 * getSMEFTCoeffEW("CHB")
                     - 86378.3 * getSMEFTCoeffEW("CHW")
                     - 262732. * getSMEFTCoeffEW("CHWB")
-                    + 35211.7 * CDHB
-                    - 39122. * CDHW
                     - 4.375 * delta_GF
                     - 4.833 * deltaMwd6()
                     ;
@@ -19705,8 +19605,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 8226.72 * getSMEFTCoeffEW("CHB")
                     - 92973.9 * getSMEFTCoeffEW("CHW")
                     - 384868. * getSMEFTCoeffEW("CHWB")
-                    - 154.996 * CDHB
-                    - 33479.2 * CDHW
                     - 4.706 * delta_GF
                     - 5.24 * deltaMwd6()
                     ;
@@ -19727,8 +19625,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 52143.1 * getSMEFTCoeffEW("CHB")
                     - 89227.7 * getSMEFTCoeffEW("CHW")
                     - 317018. * getSMEFTCoeffEW("CHWB")
-                    + 19725.8 * CDHB
-                    - 36723.5 * CDHW
                     - 4.524 * delta_GF
                     - 5.007 * deltaMwd6()
                     ;
@@ -19749,8 +19645,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 8476.41 * getSMEFTCoeffEW("CHB")
                     - 92899.6 * getSMEFTCoeffEW("CHW")
                     - 384414. * getSMEFTCoeffEW("CHWB")
-                    + 15.496 * CDHB
-                    - 33502.8 * CDHW
                     - 4.704 * delta_GF
                     - 5.232 * deltaMwd6()
                     ;
@@ -19779,8 +19673,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 44288.8 * getSMEFTCoeffEW("CHB")
                     - 78960.3 * getSMEFTCoeffEW("CHW")
                     - 332501. * getSMEFTCoeffEW("CHWB")
-                    + 20615.5 * CDHB
-                    - 43923.9 * CDHW
                     - 4.614 * delta_GF
                     - 4.84 * deltaMwd6()
                     ;
@@ -19801,8 +19693,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 8508.33 * getSMEFTCoeffEW("CHB")
                     - 82669.6 * getSMEFTCoeffEW("CHW")
                     - 381185. * getSMEFTCoeffEW("CHWB")
-                    + 784.456 * CDHB
-                    - 41153.8 * CDHW
                     - 4.711 * delta_GF
                     - 4.948 * deltaMwd6()
                     ;
@@ -19823,8 +19713,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 27690.6 * getSMEFTCoeffEW("CHB")
                     - 80770. * getSMEFTCoeffEW("CHW")
                     - 355060. * getSMEFTCoeffEW("CHWB")
-                    + 11299.4 * CDHB
-                    - 42756.5 * CDHW
                     - 4.656 * delta_GF
                     - 4.875 * deltaMwd6()
                     ;
@@ -19845,8 +19733,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 8471.25 * getSMEFTCoeffEW("CHB")
                     - 82673.2 * getSMEFTCoeffEW("CHW")
                     - 381049. * getSMEFTCoeffEW("CHWB")
-                    + 862.813 * CDHB
-                    - 41179.7 * CDHW
                     - 4.711 * delta_GF
                     - 4.942 * deltaMwd6()
                     ;
@@ -19875,8 +19761,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 8561.22 * getSMEFTCoeffEW("CHB")
                     - 61449.7 * getSMEFTCoeffEW("CHW")
                     - 374076. * getSMEFTCoeffEW("CHWB")
-                    + 6473.98 * CDHB
-                    - 64032.3 * CDHW
                     - 4.706 * delta_GF
                     - 4.581 * deltaMwd6()
                     ;
@@ -19897,8 +19781,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 3158.25 * getSMEFTCoeffEW("CHB")
                     - 61850.9 * getSMEFTCoeffEW("CHW")
                     - 380114. * getSMEFTCoeffEW("CHWB")
-                    + 63.589 * CDHB
-                    - 63800.9 * CDHW
                     - 4.712 * delta_GF
                     - 4.587 * deltaMwd6()
                     ;
@@ -19919,8 +19801,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 7555.11 * getSMEFTCoeffEW("CHB")
                     - 61524.6 * getSMEFTCoeffEW("CHW")
                     - 375155. * getSMEFTCoeffEW("CHWB")
-                    + 5263.81 * CDHB
-                    - 64001.7 * CDHW
                     - 4.706 * delta_GF
                     - 4.589 * deltaMwd6()
                     ;
@@ -19941,8 +19821,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 3145.81 * getSMEFTCoeffEW("CHB")
                     - 61837. * getSMEFTCoeffEW("CHW")
                     - 380115. * getSMEFTCoeffEW("CHWB")
-                    + 45.924 * CDHB
-                    - 63834.7 * CDHW
                     - 4.711 * delta_GF
                     - 4.588 * deltaMwd6()
                     ;
@@ -19963,8 +19841,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 6021.71 * getSMEFTCoeffEW("CHB")
                     - 61580. * getSMEFTCoeffEW("CHW")
                     - 376790. * getSMEFTCoeffEW("CHWB")
-                    + 3494.08 * CDHB
-                    - 63959. * CDHW
                     - 4.708 * delta_GF
                     - 4.589 * deltaMwd6()
                     ;
@@ -19985,8 +19861,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 3196.39 * getSMEFTCoeffEW("CHB")
                     - 61833.5 * getSMEFTCoeffEW("CHW")
                     - 380094. * getSMEFTCoeffEW("CHWB")
-                    + 82.665 * CDHB
-                    - 63817.5 * CDHW
                     - 4.712 * delta_GF
                     - 4.588 * deltaMwd6()
                     ;
@@ -20015,8 +19889,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 4153.08 * getSMEFTCoeffEW("CHB")
                     - 54219.3 * getSMEFTCoeffEW("CHW")
                     - 377548. * getSMEFTCoeffEW("CHWB")
-                    + 4509.78 * CDHB
-                    - 76054.8 * CDHW
                     - 4.71 * delta_GF
                     - 4.484 * deltaMwd6()
                     ;
@@ -20037,8 +19909,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 1784.38 * getSMEFTCoeffEW("CHB")
                     - 54507.5 * getSMEFTCoeffEW("CHW")
                     - 380042. * getSMEFTCoeffEW("CHWB")
-                    - 122.009 * CDHB
-                    - 75950.5 * CDHW
                     - 4.712 * delta_GF
                     - 4.487 * deltaMwd6()
                     ;
@@ -20059,8 +19929,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 3068.42 * getSMEFTCoeffEW("CHB")
                     - 54375.2 * getSMEFTCoeffEW("CHW")
                     - 378699. * getSMEFTCoeffEW("CHWB")
-                    + 2390.51 * CDHB
-                    - 75996.8 * CDHW
                     - 4.711 * delta_GF
                     - 4.485 * deltaMwd6()
                     ;
@@ -20081,8 +19949,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 1784.37 * getSMEFTCoeffEW("CHB")
                     - 54482.7 * getSMEFTCoeffEW("CHW")
                     - 380051. * getSMEFTCoeffEW("CHWB")
-                    - 99.132 * CDHB
-                    - 75974.5 * CDHW
                     - 4.712 * delta_GF
                     - 4.487 * deltaMwd6()
                     ;
@@ -20111,8 +19977,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 3556.32 * getSMEFTCoeffEW("CHB")
                     - 52816.2 * getSMEFTCoeffEW("CHW")
                     - 377932. * getSMEFTCoeffEW("CHWB")
-                    + 4253.17 * CDHB
-                    - 78599.6 * CDHW
                     - 4.71 * delta_GF
                     - 4.465 * deltaMwd6()
                     ;
@@ -20133,8 +19997,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 1553.24 * getSMEFTCoeffEW("CHB")
                     - 53097.9 * getSMEFTCoeffEW("CHW")
                     - 380055. * getSMEFTCoeffEW("CHWB")
-                    - 129.437 * CDHB
-                    - 78539.4 * CDHW
                     - 4.711 * delta_GF
                     - 4.468 * deltaMwd6()
                     ;
@@ -20155,8 +20017,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 2641.32 * getSMEFTCoeffEW("CHB")
                     - 53045.1 * getSMEFTCoeffEW("CHW")
                     - 378920. * getSMEFTCoeffEW("CHWB")
-                    + 2237.55 * CDHB
-                    - 78549.8 * CDHW
                     - 4.711 * delta_GF
                     - 4.468 * deltaMwd6()
                     ;
@@ -20177,8 +20037,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 1570.5 * getSMEFTCoeffEW("CHB")
                     - 53079.3 * getSMEFTCoeffEW("CHW")
                     - 380043. * getSMEFTCoeffEW("CHWB")
-                    - 112.179 * CDHB
-                    - 78543.9 * CDHW
                     - 4.711 * delta_GF
                     - 4.468 * deltaMwd6()
                     ;
@@ -20207,8 +20065,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 628.479 * getSMEFTCoeffEW("CHB")
                     - 41464.7 * getSMEFTCoeffEW("CHW")
                     - 379766. * getSMEFTCoeffEW("CHWB")
-                    + 2259.53 * CDHB
-                    - 104941. * CDHW
                     - 4.706 * delta_GF
                     - 4.342 * deltaMwd6()
                     ;
@@ -20229,8 +20085,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 268.601 * getSMEFTCoeffEW("CHB")
                     - 41454. * getSMEFTCoeffEW("CHW")
                     - 380141. * getSMEFTCoeffEW("CHWB")
-                    - 447.668 * CDHB
-                    - 104906. * CDHW
                     - 4.707 * delta_GF
                     - 4.342 * deltaMwd6()
                     ;
@@ -20251,8 +20105,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 439.947 * getSMEFTCoeffEW("CHB")
                     - 41459.8 * getSMEFTCoeffEW("CHW")
                     - 379947. * getSMEFTCoeffEW("CHWB")
-                    + 1005.59 * CDHB
-                    - 104927. * CDHW
                     - 4.706 * delta_GF
                     - 4.342 * deltaMwd6()
                     ;
@@ -20273,8 +20125,6 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
                     + 244.425 * getSMEFTCoeffEW("CHB")
                     - 41447.5 * getSMEFTCoeffEW("CHW")
                     - 380150. * getSMEFTCoeffEW("CHWB")
-                    - 430.653 * CDHB
-                    - 104905. * CDHW
                     - 4.706 * delta_GF
                     - 4.343 * deltaMwd6()
                     ;
@@ -20326,8 +20176,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 1525468. * getSMEFTCoeffEW("CHB")
                 + 378019. * getSMEFTCoeffEW("CHW")
                 + 215983. * getSMEFTCoeffEW("CHWB")
-                - 6554.11 * CDHB
-                + 1175.47 * CDHW
                 - 3.161 * delta_GF
                 ;
 
@@ -20355,8 +20203,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 1186855. * getSMEFTCoeffEW("CHB")
                 + 301913. * getSMEFTCoeffEW("CHW")
                 + 98540.5 * getSMEFTCoeffEW("CHWB")
-                - 5766.35 * CDHB
-                + 294.724 * CDHW
                 - 3.279 * delta_GF
                 ;
 
@@ -20384,8 +20230,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 450512. * getSMEFTCoeffEW("CHB")
                 + 166493. * getSMEFTCoeffEW("CHW")
                 - 198898. * getSMEFTCoeffEW("CHWB")
-                - 4408.76 * CDHB
-                - 17005.2 * CDHW
                 - 3.427 * delta_GF
                 ;
 
@@ -20413,8 +20257,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 417865. * getSMEFTCoeffEW("CHB")
                 + 154270. * getSMEFTCoeffEW("CHW")
                 - 201517. * getSMEFTCoeffEW("CHWB")
-                - 4943.82 * CDHB
-                - 19213.5 * CDHW
                 - 3.423 * delta_GF
                 ;
 
@@ -20442,8 +20284,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 388336. * getSMEFTCoeffEW("CHB")
                 + 140923. * getSMEFTCoeffEW("CHW")
                 - 202884. * getSMEFTCoeffEW("CHWB")
-                - 5363.69 * CDHB
-                - 21404.2 * CDHW
                 - 3.418 * delta_GF
                 ;
 
@@ -20471,8 +20311,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 236945. * getSMEFTCoeffEW("CHB")
                 + 67833.5 * getSMEFTCoeffEW("CHW")
                 - 178623. * getSMEFTCoeffEW("CHWB")
-                - 8004.61 * CDHB
-                - 33567.3 * CDHW
                 - 3.416 * delta_GF
                 ;
 
@@ -20500,8 +20338,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 69851. * getSMEFTCoeffEW("CHB")
                 - 14416.8 * getSMEFTCoeffEW("CHW")
                 - 113198. * getSMEFTCoeffEW("CHWB")
-                - 18688.4 * CDHB
-                - 61696. * CDHW
                 - 3.405 * delta_GF
                 ;
 
@@ -20529,8 +20365,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 34633.1 * getSMEFTCoeffEW("CHB")
                 - 27609.6 * getSMEFTCoeffEW("CHW")
                 - 97014.2 * getSMEFTCoeffEW("CHWB")
-                - 23942.2 * CDHB
-                - 74940.3 * CDHW
                 - 3.405 * delta_GF
                 ;
 
@@ -20558,8 +20392,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 30448.1 * getSMEFTCoeffEW("CHB")
                 - 30741.2 * getSMEFTCoeffEW("CHW")
                 - 95903.3 * getSMEFTCoeffEW("CHWB")
-                - 25074.9 * CDHB
-                - 77634.5 * CDHW
                 - 3.401 * delta_GF
                 ;
 
@@ -20587,8 +20419,6 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
                 + 6810.6 * getSMEFTCoeffEW("CHB")
                 - 32994.5 * getSMEFTCoeffEW("CHW")
                 - 78012.3 * getSMEFTCoeffEW("CHWB")
-                - 36250. * CDHB
-                - 105734. * CDHW
                 - 3.405 * delta_GF
                 ;
 
@@ -20642,8 +20472,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 2082256. * getSMEFTCoeffEW("CHB")
                     + 108043. * getSMEFTCoeffEW("CHW")
                     + 1362693. * getSMEFTCoeffEW("CHWB")
-                    + 40385. * CDHB
-                    - 21886. * CDHW
                     + 0.563 * delta_GF
                     ;
 
@@ -20663,8 +20491,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 905057. * getSMEFTCoeffEW("CHB")
                     + 540185. * getSMEFTCoeffEW("CHW")
                     - 329708. * getSMEFTCoeffEW("CHWB")
-                    - 37296.9 * CDHB
-                    + 20497.1 * CDHW
                     - 5.854 * delta_GF
                     ;
 
@@ -20684,8 +20510,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 2101955. * getSMEFTCoeffEW("CHB")
                     + 182237. * getSMEFTCoeffEW("CHW")
                     + 972861. * getSMEFTCoeffEW("CHWB")
-                    + 29346.2 * CDHB
-                    - 18562.1 * CDHW
                     - 0.206 * delta_GF
                     ;
 
@@ -20705,8 +20529,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 1115316. * getSMEFTCoeffEW("CHB")
                     + 521873. * getSMEFTCoeffEW("CHW")
                     - 331727. * getSMEFTCoeffEW("CHWB")
-                    - 32442.4 * CDHB
-                    + 15348.7 * CDHW
                     - 5.334 * delta_GF
                     ;
 
@@ -20734,8 +20556,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 1629614. * getSMEFTCoeffEW("CHB")
                     + 72741.6 * getSMEFTCoeffEW("CHW")
                     + 1130834. * getSMEFTCoeffEW("CHWB")
-                    + 34381.7 * CDHB
-                    - 19876.5 * CDHW
                     + 0.563 * delta_GF
                     ;
 
@@ -20755,8 +20575,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 644513. * getSMEFTCoeffEW("CHB")
                     + 425051. * getSMEFTCoeffEW("CHW")
                     - 383720. * getSMEFTCoeffEW("CHWB")
-                    - 32434.3 * CDHB
-                    + 15329.4 * CDHW
                     - 6.022 * delta_GF
                     ;
 
@@ -20776,8 +20594,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 1668830. * getSMEFTCoeffEW("CHB")
                     + 145010. * getSMEFTCoeffEW("CHW")
                     + 772902. * getSMEFTCoeffEW("CHWB")
-                    + 23910.6 * CDHB
-                    - 16890.6 * CDHW
                     - 0.226 * delta_GF
                     ;
 
@@ -20797,8 +20613,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 843388. * getSMEFTCoeffEW("CHB")
                     + 417838. * getSMEFTCoeffEW("CHW")
                     - 386753. * getSMEFTCoeffEW("CHWB")
-                    - 27915.7 * CDHB
-                    + 11946.5 * CDHW
                     - 5.496 * delta_GF
                     ;
 
@@ -20826,8 +20640,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 544205. * getSMEFTCoeffEW("CHB")
                     + 83604.4 * getSMEFTCoeffEW("CHW")
                     + 435393. * getSMEFTCoeffEW("CHWB")
-                    - 24800.4 * CDHB
-                    - 4583.09 * CDHW
                     - 0.05 * delta_GF
                     ;
 
@@ -20847,8 +20659,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 181154. * getSMEFTCoeffEW("CHB")
                     + 195329. * getSMEFTCoeffEW("CHW")
                     - 505800. * getSMEFTCoeffEW("CHWB")
-                    + 13082.6 * CDHB
-                    - 26607.4 * CDHW
                     - 6.096 * delta_GF
                     ;
 
@@ -20868,8 +20678,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 623389. * getSMEFTCoeffEW("CHB")
                     + 123932. * getSMEFTCoeffEW("CHW")
                     + 181789. * getSMEFTCoeffEW("CHWB")
-                    - 20420. * CDHB
-                    - 7820.42 * CDHW
                     - 0.875 * delta_GF
                     ;
 
@@ -20889,8 +20697,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 323596. * getSMEFTCoeffEW("CHB")
                     + 201676. * getSMEFTCoeffEW("CHW")
                     - 491019. * getSMEFTCoeffEW("CHWB")
-                    + 7992.43 * CDHB
-                    - 24283.6 * CDHW
                     - 5.391 * delta_GF
                     ;
 
@@ -20918,8 +20724,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 489137. * getSMEFTCoeffEW("CHB")
                     + 80751.3 * getSMEFTCoeffEW("CHW")
                     + 410304. * getSMEFTCoeffEW("CHWB")
-                    - 30918.3 * CDHB
-                    - 3571.31 * CDHW
                     - 0.085 * delta_GF
                     ;
 
@@ -20939,8 +20743,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 165799. * getSMEFTCoeffEW("CHB")
                     + 176652. * getSMEFTCoeffEW("CHW")
                     - 504889. * getSMEFTCoeffEW("CHWB")
-                    + 16920.7 * CDHB
-                    - 31414.1 * CDHW
                     - 6.076 * delta_GF
                     ;
 
@@ -20960,8 +20762,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 573505. * getSMEFTCoeffEW("CHB")
                     + 117937. * getSMEFTCoeffEW("CHW")
                     + 166382. * getSMEFTCoeffEW("CHWB")
-                    - 25012.1 * CDHB
-                    - 7703.47 * CDHW
                     - 0.911 * delta_GF
                     ;
 
@@ -20981,8 +20781,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 305730. * getSMEFTCoeffEW("CHB")
                     + 183682. * getSMEFTCoeffEW("CHW")
                     - 487770. * getSMEFTCoeffEW("CHWB")
-                    + 10624.8 * CDHB
-                    - 28092.3 * CDHW
                     - 5.366 * delta_GF
                     ;
 
@@ -21010,8 +20808,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 439155. * getSMEFTCoeffEW("CHB")
                     + 76978.2 * getSMEFTCoeffEW("CHW")
                     + 392293. * getSMEFTCoeffEW("CHWB")
-                    - 36175.9 * CDHB
-                    - 3193.74 * CDHW
                     - 0.11 * delta_GF
                     ;
 
@@ -21031,8 +20827,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 151617. * getSMEFTCoeffEW("CHB")
                     + 154342. * getSMEFTCoeffEW("CHW")
                     - 500961. * getSMEFTCoeffEW("CHWB")
-                    + 20509.9 * CDHB
-                    - 35718.1 * CDHW
                     - 6.064 * delta_GF
                     ;
 
@@ -21052,8 +20846,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 524620. * getSMEFTCoeffEW("CHB")
                     + 111520. * getSMEFTCoeffEW("CHW")
                     + 156122. * getSMEFTCoeffEW("CHWB")
-                    - 29271.1 * CDHB
-                    - 8056.8 * CDHW
                     - 0.928 * delta_GF
                     ;
 
@@ -21073,8 +20865,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 286981. * getSMEFTCoeffEW("CHB")
                     + 164662. * getSMEFTCoeffEW("CHW")
                     - 480410. * getSMEFTCoeffEW("CHWB")
-                    + 13149.6 * CDHB
-                    - 31886.7 * CDHW
                     - 5.346 * delta_GF
                     ;
 
@@ -21102,8 +20892,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 201238. * getSMEFTCoeffEW("CHB")
                     + 52456.6 * getSMEFTCoeffEW("CHW")
                     + 335517. * getSMEFTCoeffEW("CHWB")
-                    - 63733.4 * CDHB
-                    - 2379.21 * CDHW
                     - 0.207 * delta_GF
                     ;
 
@@ -21123,8 +20911,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 83220.9 * getSMEFTCoeffEW("CHB")
                     + 42832.2 * getSMEFTCoeffEW("CHW")
                     - 464173. * getSMEFTCoeffEW("CHWB")
-                    + 37654.2 * CDHB
-                    - 59029.6 * CDHW
                     - 6.025 * delta_GF
                     ;
 
@@ -21144,8 +20930,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 298145. * getSMEFTCoeffEW("CHB")
                     + 75047.6 * getSMEFTCoeffEW("CHW")
                     + 137304. * getSMEFTCoeffEW("CHWB")
-                    - 49636.1 * CDHB
-                    - 10277.1 * CDHW
                     - 1.027 * delta_GF
                     ;
 
@@ -21165,8 +20949,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 190310. * getSMEFTCoeffEW("CHB")
                     + 62321.4 * getSMEFTCoeffEW("CHW")
                     - 429412. * getSMEFTCoeffEW("CHWB")
-                    + 24628.2 * CDHB
-                    - 51722.9 * CDHW
                     - 5.287 * delta_GF
                     ;
 
@@ -21194,8 +20976,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     - 30839.6 * getSMEFTCoeffEW("CHB")
                     + 18110.3 * getSMEFTCoeffEW("CHW")
                     + 345253. * getSMEFTCoeffEW("CHWB")
-                    - 108488. * CDHB
-                    - 12324.2 * CDHW
                     - 0.229 * delta_GF
                     ;
 
@@ -21215,8 +20995,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 7953.6 * getSMEFTCoeffEW("CHB")
                     - 79908.9 * getSMEFTCoeffEW("CHW")
                     - 402278. * getSMEFTCoeffEW("CHWB")
-                    + 54805.3 * CDHB
-                    - 101988. * CDHW
                     - 6.001 * delta_GF
                     ;
 
@@ -21236,8 +21014,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 2164.38 * getSMEFTCoeffEW("CHB")
                     + 20504.6 * getSMEFTCoeffEW("CHW")
                     + 290141. * getSMEFTCoeffEW("CHWB")
-                    - 100416. * CDHB
-                    - 16574.6 * CDHW
                     - 0.51 * delta_GF
                     ;
 
@@ -21257,8 +21033,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 29757.9 * getSMEFTCoeffEW("CHB")
                     - 69897.4 * getSMEFTCoeffEW("CHW")
                     - 385087. * getSMEFTCoeffEW("CHWB")
-                    + 47999.3 * CDHB
-                    - 98310.4 * CDHW
                     - 5.76 * delta_GF
                     ;
 
@@ -21278,8 +21052,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 63176.5 * getSMEFTCoeffEW("CHB")
                     + 26728.5 * getSMEFTCoeffEW("CHW")
                     + 184228. * getSMEFTCoeffEW("CHWB")
-                    - 85487.1 * CDHB
-                    - 24906.1 * CDHW
                     - 1.044 * delta_GF
                     ;
 
@@ -21299,8 +21071,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 74694.7 * getSMEFTCoeffEW("CHB")
                     - 49060.4 * getSMEFTCoeffEW("CHW")
                     - 348619. * getSMEFTCoeffEW("CHWB")
-                    + 33861.6 * CDHB
-                    - 90369.8 * CDHW
                     - 5.256 * delta_GF
                     ;
 
@@ -21328,8 +21098,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     - 64876.7 * getSMEFTCoeffEW("CHB")
                     + 9362.37 * getSMEFTCoeffEW("CHW")
                     + 355440. * getSMEFTCoeffEW("CHWB")
-                    - 127361. * CDHB
-                    - 18147.3 * CDHW
                     - 0.228 * delta_GF
                     ;
 
@@ -21349,8 +21117,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     - 4989.81 * getSMEFTCoeffEW("CHB")
                     - 93241.6 * getSMEFTCoeffEW("CHW")
                     - 392394. * getSMEFTCoeffEW("CHWB")
-                    + 60556.9 * CDHB
-                    - 121409. * CDHW
                     - 6.003 * delta_GF
                     ;
 
@@ -21370,8 +21136,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 22438.3 * getSMEFTCoeffEW("CHB")
                     + 16021.7 * getSMEFTCoeffEW("CHW")
                     + 202496. * getSMEFTCoeffEW("CHWB")
-                    - 100775. * CDHB
-                    - 32830.8 * CDHW
                     - 1.043 * delta_GF
                     ;
 
@@ -21391,8 +21155,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 49040.2 * getSMEFTCoeffEW("CHB")
                     - 63051.7 * getSMEFTCoeffEW("CHW")
                     - 332850. * getSMEFTCoeffEW("CHWB")
-                    + 36510.1 * CDHB
-                    - 108018. * CDHW
                     - 5.256 * delta_GF
                     ;
 
@@ -21420,8 +21182,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     - 71192.9 * getSMEFTCoeffEW("CHB")
                     + 9743.41 * getSMEFTCoeffEW("CHW")
                     + 357556. * getSMEFTCoeffEW("CHWB")
-                    - 131206. * CDHB
-                    - 19448. * CDHW
                     - 0.224 * delta_GF
                     ;
 
@@ -21441,8 +21201,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     - 6057.91 * getSMEFTCoeffEW("CHB")
                     - 95148.1 * getSMEFTCoeffEW("CHW")
                     - 390958. * getSMEFTCoeffEW("CHWB")
-                    + 61690.7 * CDHB
-                    - 125382. * CDHW
                     - 5.997 * delta_GF
                     ;
 
@@ -21462,8 +21220,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 14190.4 * getSMEFTCoeffEW("CHB")
                     + 16080. * getSMEFTCoeffEW("CHW")
                     + 205187. * getSMEFTCoeffEW("CHWB")
-                    - 103927. * CDHB
-                    - 34420.2 * CDHW
                     - 1.04 * delta_GF
                     ;
 
@@ -21483,8 +21239,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 46418.4 * getSMEFTCoeffEW("CHB")
                     - 64166.6 * getSMEFTCoeffEW("CHW")
                     - 330855. * getSMEFTCoeffEW("CHWB")
-                    + 36774.5 * CDHB
-                    - 111573. * CDHW
                     - 5.253 * delta_GF
                     ;
 
@@ -21512,8 +21266,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     - 79161. * getSMEFTCoeffEW("CHB")
                     + 3856.87 * getSMEFTCoeffEW("CHW")
                     + 369878. * getSMEFTCoeffEW("CHWB")
-                    - 170059. * CDHB
-                    - 32235.8 * CDHW
                     - 0.226 * delta_GF
                     ;
 
@@ -21533,8 +21285,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     - 10752.9 * getSMEFTCoeffEW("CHB")
                     - 92123.7 * getSMEFTCoeffEW("CHW")
                     - 391807. * getSMEFTCoeffEW("CHWB")
-                    + 73242.2 * CDHB
-                    - 165690. * CDHW
                     - 6.002 * delta_GF
                     ;
 
@@ -21554,8 +21304,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     - 10885.4 * getSMEFTCoeffEW("CHB")
                     + 8249.25 * getSMEFTCoeffEW("CHW")
                     + 228820. * getSMEFTCoeffEW("CHWB")
-                    - 135851. * CDHB
-                    - 51177.2 * CDHW
                     - 1.04 * delta_GF
                     ;
 
@@ -21575,8 +21323,6 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
                     + 28681.4 * getSMEFTCoeffEW("CHB")
                     - 66216.6 * getSMEFTCoeffEW("CHW")
                     - 320715. * getSMEFTCoeffEW("CHWB")
-                    + 41721.6 * CDHB
-                    - 148698. * CDHW
                     - 5.256 * delta_GF
                     ;
 
@@ -21622,7 +21368,6 @@ const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
                 - 203141. * getSMEFTCoeffEW("CHD")
                 - 88171.6 * getSMEFTCoeffEW("CHW")
                 - 377218. * getSMEFTCoeffEW("CHWB")
-                - 37738.9 * CDHW
                 - 4.676 * delta_GF
                 - 4.916 * deltaMwd6()
                 ;
@@ -21641,7 +21386,6 @@ const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
                 - 202400. * getSMEFTCoeffEW("CHD")
                 - 78295.8 * getSMEFTCoeffEW("CHW")
                 - 377193. * getSMEFTCoeffEW("CHWB")
-                - 45757.3 * CDHW
                 - 4.672 * delta_GF
                 - 4.637 * deltaMwd6()
                 ;
@@ -21660,7 +21404,6 @@ const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
                 - 202390. * getSMEFTCoeffEW("CHD")
                 - 64783.2 * getSMEFTCoeffEW("CHW")
                 - 377727. * getSMEFTCoeffEW("CHWB")
-                - 60431.2 * CDHW
                 - 4.688 * delta_GF
                 - 4.573 * deltaMwd6()
                 ;
@@ -21679,7 +21422,6 @@ const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
                 - 203294. * getSMEFTCoeffEW("CHD")
                 - 60911. * getSMEFTCoeffEW("CHW")
                 - 378045. * getSMEFTCoeffEW("CHWB")
-                - 67483.7 * CDHW
                 - 4.667 * delta_GF
                 - 4.437 * deltaMwd6()
                 ;
@@ -21721,8 +21463,6 @@ const double NPSMEFTd6General::muepZBF(const double sqrt_s) const {
                 - 34636.2 * getSMEFTCoeffEW("CHB")
                 - 121438. * getSMEFTCoeffEW("CHW")
                 - 74939.1 * getSMEFTCoeffEW("CHWB")
-                - 5454.93 * CDHB
-                - 39349.6 * CDHW
                 - 3.719 * delta_GF
                 ;
 
@@ -21746,8 +21486,6 @@ const double NPSMEFTd6General::muepZBF(const double sqrt_s) const {
                 - 19800. * getSMEFTCoeffEW("CHB")
                 - 103254. * getSMEFTCoeffEW("CHW")
                 - 89049.2 * getSMEFTCoeffEW("CHWB")
-                - 8304.85 * CDHB
-                - 48942.9 * CDHW
                 - 3.714 * delta_GF
                 ;
 
@@ -21771,8 +21509,6 @@ const double NPSMEFTd6General::muepZBF(const double sqrt_s) const {
                 - 6887.17 * getSMEFTCoeffEW("CHB")
                 - 79245. * getSMEFTCoeffEW("CHW")
                 - 103223. * getSMEFTCoeffEW("CHWB")
-                - 9863.11 * CDHB
-                - 61304.3 * CDHW
                 - 3.721 * delta_GF
                 ;
 
@@ -21796,8 +21532,6 @@ const double NPSMEFTd6General::muepZBF(const double sqrt_s) const {
                 - 4524.89 * getSMEFTCoeffEW("CHB")
                 - 71935.4 * getSMEFTCoeffEW("CHW")
                 - 104998. * getSMEFTCoeffEW("CHWB")
-                - 11877.8 * CDHB
-                - 69467.3 * CDHW
                 - 3.71 * delta_GF
                 ;
 
@@ -21829,7 +21563,6 @@ const double NPSMEFTd6General::muWHpT250(const double sqrt_s) const {
         mu +=
                 +121150. * getSMEFTCoeffEW("CHbox")
                 + 1095782. * getSMEFTCoeffEW("CHW")
-                + 1870485. * CDHW
                 + 11951748. * getSMEFTCoeffEW("CHq3R", 0, 0)
                 + 540010. * getSMEFTCoeffEW("CHq3R", 1, 1)
                 + cAsch * (-160282. * getSMEFTCoeffEW("CHD")
@@ -21876,8 +21609,6 @@ const double NPSMEFTd6General::muZHpT250(const double sqrt_s) const {
                 +121102. * getSMEFTCoeffEW("CHbox")
                 + 103334. * getSMEFTCoeffEW("CHB")
                 + 968778. * getSMEFTCoeffEW("CHW")
-                + 295029. * CDHB
-                + 1652242. * CDHW
                 - 1507566. * getSMEFTCoeffEW("CHq1R", 0, 0)
                 + 165375. * getSMEFTCoeffEW("CHq1R", 1, 1)
                 + 2712770. * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -22345,8 +22076,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 122439. * getSMEFTCoeffEW("CHB")
                 + 540057. * getSMEFTCoeffEW("CHW")
                 + 231063. * getSMEFTCoeffEW("CHWB")
-                + 17593.2 * CDHB
-                + 53409.5 * CDHW
                 - 2.2 * delta_GF
                 ;
 
@@ -22374,8 +22103,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 128443. * getSMEFTCoeffEW("CHB")
                 + 568273. * getSMEFTCoeffEW("CHW")
                 + 244206. * getSMEFTCoeffEW("CHWB")
-                + 19818.6 * CDHB
-                + 60127.6 * CDHW
                 - 2.2 * delta_GF
                 ;
 
@@ -22403,8 +22130,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 173183. * getSMEFTCoeffEW("CHB")
                 + 785843. * getSMEFTCoeffEW("CHW")
                 + 344494. * getSMEFTCoeffEW("CHWB")
-                + 59158.7 * CDHB
-                + 167954. * CDHW
                 - 2.201 * delta_GF
                 ;
 
@@ -22432,8 +22157,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 178173. * getSMEFTCoeffEW("CHB")
                 + 809806. * getSMEFTCoeffEW("CHW")
                 + 355487. * getSMEFTCoeffEW("CHWB")
-                + 67662.7 * CDHB
-                + 190194. * CDHW
                 - 2.201 * delta_GF
                 ;
 
@@ -22461,8 +22184,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 182674. * getSMEFTCoeffEW("CHB")
                 + 832109. * getSMEFTCoeffEW("CHW")
                 + 365819. * getSMEFTCoeffEW("CHWB")
-                + 76742. * CDHB
-                + 214030. * CDHW
                 - 2.202 * delta_GF
                 ;
 
@@ -22490,8 +22211,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 209229. * getSMEFTCoeffEW("CHB")
                 + 959942. * getSMEFTCoeffEW("CHW")
                 + 425112. * getSMEFTCoeffEW("CHWB")
-                + 169841. * CDHB
-                + 455437. * CDHW
                 - 2.202 * delta_GF
                 ;
 
@@ -22519,8 +22238,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 243960. * getSMEFTCoeffEW("CHB")
                 + 1128805. * getSMEFTCoeffEW("CHW")
                 + 503138. * getSMEFTCoeffEW("CHWB")
-                + 899357. * CDHB
-                + 2321619. * CDHW
                 - 2.202 * delta_GF
                 ;
 
@@ -22548,8 +22265,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 250804. * getSMEFTCoeffEW("CHB")
                 + 1161208. * getSMEFTCoeffEW("CHW")
                 + 518040. * getSMEFTCoeffEW("CHWB")
-                + 1848758. * CDHB
-                + 4747422. * CDHW
                 - 2.203 * delta_GF
                 ;
 
@@ -22577,8 +22292,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 251576. * getSMEFTCoeffEW("CHB")
                 + 1165634. * getSMEFTCoeffEW("CHW")
                 + 519954. * getSMEFTCoeffEW("CHWB")
-                + 2132554. * CDHB
-                + 5481906. * CDHW
                 - 2.203 * delta_GF
                 ;
 
@@ -22606,8 +22319,6 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
                 + 257222. * getSMEFTCoeffEW("CHB")
                 + 1188444. * getSMEFTCoeffEW("CHW")
                 + 530503. * getSMEFTCoeffEW("CHWB")
-                + 8839419. * CDHB
-                + 22583370. * CDHW
                 - 2.202 * delta_GF
                 ;
 
@@ -22703,8 +22414,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 528105. * getSMEFTCoeffEW("CHB")
                     + 134403. * getSMEFTCoeffEW("CHW")
                     + 872560. * getSMEFTCoeffEW("CHWB")
-                    + 137571. * CDHB
-                    - 12321.5 * CDHW
                     + 0.459 * delta_GF
                     ;
 
@@ -22724,8 +22433,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 187104. * getSMEFTCoeffEW("CHB")
                     + 849552. * getSMEFTCoeffEW("CHW")
                     - 258537. * getSMEFTCoeffEW("CHWB")
-                    - 73970.1 * CDHB
-                    + 103582. * CDHW
                     - 4.23 * delta_GF
                     ;
 
@@ -22745,8 +22452,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 482729. * getSMEFTCoeffEW("CHB")
                     + 179733. * getSMEFTCoeffEW("CHW")
                     + 800870. * getSMEFTCoeffEW("CHWB")
-                    + 124170. * CDHB
-                    - 5016.48 * CDHW
                     + 0.162 * delta_GF
                     ;
 
@@ -22766,8 +22471,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 159988. * getSMEFTCoeffEW("CHB")
                     + 822448. * getSMEFTCoeffEW("CHW")
                     - 215639. * getSMEFTCoeffEW("CHWB")
-                    - 65950.1 * CDHB
-                    + 99206.1 * CDHW
                     - 4.052 * delta_GF
                     ;
 
@@ -22795,8 +22498,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 560319. * getSMEFTCoeffEW("CHB")
                     + 136129. * getSMEFTCoeffEW("CHW")
                     + 902676. * getSMEFTCoeffEW("CHWB")
-                    + 154358. * CDHB
-                    - 13612.9 * CDHW
                     + 0.459 * delta_GF
                     ;
 
@@ -22816,8 +22517,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 201409. * getSMEFTCoeffEW("CHB")
                     + 898116. * getSMEFTCoeffEW("CHW")
                     - 258306. * getSMEFTCoeffEW("CHWB")
-                    - 82898. * CDHB
-                    + 116421. * CDHW
                     - 4.23 * delta_GF
                     ;
 
@@ -22837,8 +22536,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 512136. * getSMEFTCoeffEW("CHB")
                     + 184424. * getSMEFTCoeffEW("CHW")
                     + 829145. * getSMEFTCoeffEW("CHWB")
-                    + 139369. * CDHB
-                    - 5351.17 * CDHW
                     + 0.162 * delta_GF
                     ;
 
@@ -22858,8 +22555,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 172540. * getSMEFTCoeffEW("CHB")
                     + 869218. * getSMEFTCoeffEW("CHW")
                     - 214299. * getSMEFTCoeffEW("CHWB")
-                    - 73929.8 * CDHB
-                    + 111494. * CDHW
                     - 4.053 * delta_GF
                     ;
 
@@ -22887,8 +22582,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 812491. * getSMEFTCoeffEW("CHB")
                     + 146212. * getSMEFTCoeffEW("CHW")
                     + 1135161. * getSMEFTCoeffEW("CHWB")
-                    + 395085. * CDHB
-                    - 16140.8 * CDHW
                     + 0.458 * delta_GF
                     ;
 
@@ -22908,8 +22601,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 314653. * getSMEFTCoeffEW("CHB")
                     + 1273817. * getSMEFTCoeffEW("CHW")
                     - 258947. * getSMEFTCoeffEW("CHWB")
-                    - 197137. * CDHB
-                    + 308384. * CDHW
                     - 4.231 * delta_GF
                     ;
 
@@ -22929,8 +22620,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 741142. * getSMEFTCoeffEW("CHB")
                     + 217654. * getSMEFTCoeffEW("CHW")
                     + 1046799. * getSMEFTCoeffEW("CHWB")
-                    + 357606. * CDHB
-                    + 4440.1 * CDHW
                     + 0.161 * delta_GF
                     ;
 
@@ -22950,8 +22639,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 271962. * getSMEFTCoeffEW("CHB")
                     + 1231171. * getSMEFTCoeffEW("CHW")
                     - 206112. * getSMEFTCoeffEW("CHWB")
-                    - 174718. * CDHB
-                    + 296046. * CDHW
                     - 4.053 * delta_GF
                     ;
 
@@ -22979,8 +22666,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 840573. * getSMEFTCoeffEW("CHB")
                     + 147108. * getSMEFTCoeffEW("CHW")
                     + 1160947. * getSMEFTCoeffEW("CHWB")
-                    + 442125. * CDHB
-                    - 15038.8 * CDHW
                     + 0.459 * delta_GF
                     ;
 
@@ -23000,8 +22685,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 327391. * getSMEFTCoeffEW("CHB")
                     + 1315671. * getSMEFTCoeffEW("CHW")
                     - 259142. * getSMEFTCoeffEW("CHWB")
-                    - 218241. * CDHB
-                    + 346804. * CDHW
                     - 4.231 * delta_GF
                     ;
 
@@ -23021,8 +22704,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 766585. * getSMEFTCoeffEW("CHB")
                     + 221202. * getSMEFTCoeffEW("CHW")
                     + 1070933. * getSMEFTCoeffEW("CHWB")
-                    + 400293. * CDHB
-                    + 7914.02 * CDHW
                     + 0.161 * delta_GF
                     ;
 
@@ -23042,8 +22723,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 283174. * getSMEFTCoeffEW("CHB")
                     + 1271272. * getSMEFTCoeffEW("CHW")
                     - 205330. * getSMEFTCoeffEW("CHWB")
-                    - 193153. * CDHB
-                    + 333078. * CDHW
                     - 4.053 * delta_GF
                     ;
 
@@ -23071,8 +22750,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 866754. * getSMEFTCoeffEW("CHB")
                     + 147982. * getSMEFTCoeffEW("CHW")
                     + 1184912. * getSMEFTCoeffEW("CHWB")
-                    + 492018. * CDHB
-                    - 13596.5 * CDHW
                     + 0.459 * delta_GF
                     ;
 
@@ -23092,8 +22769,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 339193. * getSMEFTCoeffEW("CHB")
                     + 1354040. * getSMEFTCoeffEW("CHW")
                     - 259321. * getSMEFTCoeffEW("CHWB")
-                    - 240311. * CDHB
-                    + 387710. * CDHW
                     - 4.23 * delta_GF
                     ;
 
@@ -23113,8 +22788,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 790306. * getSMEFTCoeffEW("CHB")
                     + 224394. * getSMEFTCoeffEW("CHW")
                     + 1093297. * getSMEFTCoeffEW("CHWB")
-                    + 445530. * CDHB
-                    + 11860.4 * CDHW
                     + 0.161 * delta_GF
                     ;
 
@@ -23134,8 +22807,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 293491. * getSMEFTCoeffEW("CHB")
                     + 1308558. * getSMEFTCoeffEW("CHW")
                     - 204594. * getSMEFTCoeffEW("CHWB")
-                    - 212514. * CDHB
-                    + 372554. * CDHW
                     - 4.053 * delta_GF
                     ;
 
@@ -23163,8 +22834,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1018069. * getSMEFTCoeffEW("CHB")
                     + 151257. * getSMEFTCoeffEW("CHW")
                     + 1323862. * getSMEFTCoeffEW("CHWB")
-                    + 985604. * CDHB
-                    + 8362.16 * CDHW
                     + 0.458 * delta_GF
                     ;
 
@@ -23184,8 +22853,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 408101. * getSMEFTCoeffEW("CHB")
                     + 1576859. * getSMEFTCoeffEW("CHW")
                     - 260777. * getSMEFTCoeffEW("CHWB")
-                    - 452746. * CDHB
-                    + 796569. * CDHW
                     - 4.231 * delta_GF
                     ;
 
@@ -23205,8 +22872,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 927745. * getSMEFTCoeffEW("CHB")
                     + 241619. * getSMEFTCoeffEW("CHW")
                     + 1223535. * getSMEFTCoeffEW("CHWB")
-                    + 894441. * CDHB
-                    + 58317. * CDHW
                     + 0.161 * delta_GF
                     ;
 
@@ -23226,8 +22891,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 353914. * getSMEFTCoeffEW("CHB")
                     + 1522841. * getSMEFTCoeffEW("CHW")
                     - 200684. * getSMEFTCoeffEW("CHWB")
-                    - 398214. * CDHB
-                    + 766821. * CDHW
                     - 4.054 * delta_GF
                     ;
 
@@ -23255,8 +22918,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1218284. * getSMEFTCoeffEW("CHB")
                     + 154779. * getSMEFTCoeffEW("CHW")
                     + 1507673. * getSMEFTCoeffEW("CHWB")
-                    + 4701988. * CDHB
-                    + 239404. * CDHW
                     + 0.458 * delta_GF
                     ;
 
@@ -23276,8 +22937,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 499699. * getSMEFTCoeffEW("CHB")
                     + 1872177. * getSMEFTCoeffEW("CHW")
                     - 263454. * getSMEFTCoeffEW("CHWB")
-                    - 1999387. * CDHB
-                    + 3910434. * CDHW
                     - 4.233 * delta_GF
                     ;
 
@@ -23297,8 +22956,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1186280. * getSMEFTCoeffEW("CHB")
                     + 186435. * getSMEFTCoeffEW("CHW")
                     + 1475072. * getSMEFTCoeffEW("CHWB")
-                    + 4578518. * CDHB
-                    + 307070. * CDHW
                     + 0.371 * delta_GF
                     ;
 
@@ -23318,8 +22975,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 480973. * getSMEFTCoeffEW("CHB")
                     + 1853631. * getSMEFTCoeffEW("CHW")
                     - 244288. * getSMEFTCoeffEW("CHWB")
-                    - 1927204. * CDHB
-                    + 3870798. * CDHW
                     - 4.182 * delta_GF
                     ;
 
@@ -23339,8 +22994,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1109435. * getSMEFTCoeffEW("CHB")
                     + 263679. * getSMEFTCoeffEW("CHW")
                     + 1395519. * getSMEFTCoeffEW("CHWB")
-                    + 4277336. * CDHB
-                    + 472106. * CDHW
                     + 0.159 * delta_GF
                     ;
 
@@ -23360,8 +23013,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 434824. * getSMEFTCoeffEW("CHB")
                     + 1807095. * getSMEFTCoeffEW("CHW")
                     - 196264. * getSMEFTCoeffEW("CHWB")
-                    - 1746222. * CDHB
-                    + 3771341. * CDHW
                     - 4.056 * delta_GF
                     ;
 
@@ -23389,8 +23040,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1256970. * getSMEFTCoeffEW("CHB")
                     + 155358. * getSMEFTCoeffEW("CHW")
                     + 1542655. * getSMEFTCoeffEW("CHWB")
-                    + 9506894. * CDHB
-                    + 553431. * CDHW
                     + 0.457 * delta_GF
                     ;
 
@@ -23410,8 +23059,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 516385. * getSMEFTCoeffEW("CHB")
                     + 1928805. * getSMEFTCoeffEW("CHW")
                     - 264072. * getSMEFTCoeffEW("CHWB")
-                    - 3989947. * CDHB
-                    + 7948308. * CDHW
                     - 4.233 * delta_GF
                     ;
 
@@ -23431,8 +23078,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1144464. * getSMEFTCoeffEW("CHB")
                     + 267732. * getSMEFTCoeffEW("CHW")
                     + 1428214. * getSMEFTCoeffEW("CHWB")
-                    + 8650536. * CDHB
-                    + 1021964. * CDHW
                     + 0.16 * delta_GF
                     ;
 
@@ -23452,8 +23097,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 450090. * getSMEFTCoeffEW("CHB")
                     + 1861602. * getSMEFTCoeffEW("CHW")
                     - 195621. * getSMEFTCoeffEW("CHWB")
-                    - 3478338. * CDHB
-                    + 7668095. * CDHW
                     - 4.055 * delta_GF
                     ;
 
@@ -23481,8 +23124,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1262261. * getSMEFTCoeffEW("CHB")
                     + 155435. * getSMEFTCoeffEW("CHW")
                     + 1547379. * getSMEFTCoeffEW("CHWB")
-                    + 10961322. * CDHB
-                    + 649157. * CDHW
                     + 0.457 * delta_GF
                     ;
 
@@ -23502,8 +23143,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 518798. * getSMEFTCoeffEW("CHB")
                     + 1936613. * getSMEFTCoeffEW("CHW")
                     - 264171. * getSMEFTCoeffEW("CHWB")
-                    - 4590136. * CDHB
-                    + 9169803. * CDHW
                     - 4.233 * delta_GF
                     ;
 
@@ -23523,8 +23162,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1149083. * getSMEFTCoeffEW("CHB")
                     + 268317. * getSMEFTCoeffEW("CHW")
                     + 1432777. * getSMEFTCoeffEW("CHWB")
-                    + 9972576. * CDHB
-                    + 1188554. * CDHW
                     + 0.16 * delta_GF
                     ;
 
@@ -23544,8 +23181,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 452149. * getSMEFTCoeffEW("CHB")
                     + 1869136. * getSMEFTCoeffEW("CHW")
                     - 195562. * getSMEFTCoeffEW("CHWB")
-                    - 4000306. * CDHB
-                    + 8846432. * CDHW
                     - 4.055 * delta_GF
                     ;
 
@@ -23573,8 +23208,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1289569. * getSMEFTCoeffEW("CHB")
                     + 155612. * getSMEFTCoeffEW("CHW")
                     + 1572580. * getSMEFTCoeffEW("CHWB")
-                    + 44806408. * CDHB
-                    + 2877519. * CDHW
                     + 0.456 * delta_GF
                     ;
 
@@ -23594,8 +23227,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 531387. * getSMEFTCoeffEW("CHB")
                     + 1976750. * getSMEFTCoeffEW("CHW")
                     - 264661. * getSMEFTCoeffEW("CHWB")
-                    - 18587969. * CDHB
-                    + 37618569. * CDHW
                     - 4.233 * delta_GF
                     ;
 
@@ -23615,8 +23246,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 1173703. * getSMEFTCoeffEW("CHB")
                     + 270983. * getSMEFTCoeffEW("CHW")
                     + 1456032. * getSMEFTCoeffEW("CHWB")
-                    + 40783748. * CDHB
-                    + 5077924. * CDHW
                     + 0.16 * delta_GF
                     ;
 
@@ -23636,8 +23265,6 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 463403. * getSMEFTCoeffEW("CHB")
                     + 1907593. * getSMEFTCoeffEW("CHW")
                     - 195017. * getSMEFTCoeffEW("CHWB")
-                    - 16188019. * CDHB
-                    + 36299719. * CDHW
                     - 4.054 * delta_GF
                     ;
 
@@ -23975,8 +23602,6 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s) const {
                 + 138929. * getSMEFTCoeffEW("CHB")
                 + 130909. * getSMEFTCoeffEW("CHW")
                 - 253030. * getSMEFTCoeffEW("CHWB")
-                - 1757.66 * CDHB
-                + 1501.34 * CDHW
                 + 1386027. * getSMEFTCoeffEW("CuWR", 2, 2)
                 + 1698012. * getSMEFTCoeffEW("CuBR", 2, 2)
                 - 1.965 * delta_GF
@@ -24010,8 +23635,6 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s) const {
                 + 352804. * getSMEFTCoeffEW("CHB")
                 + 361918. * getSMEFTCoeffEW("CHW")
                 - 397547. * getSMEFTCoeffEW("CHWB")
-                + 37326.1 * CDHB
-                + 113772. * CDHW
                 + 2758980. * getSMEFTCoeffEW("CuWR", 2, 2)
                 + 3462941. * getSMEFTCoeffEW("CuBR", 2, 2)
                 - 2.08 * delta_GF
@@ -24045,8 +23668,6 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s) const {
                 + 464967. * getSMEFTCoeffEW("CHB")
                 + 487659. * getSMEFTCoeffEW("CHW")
                 - 471053. * getSMEFTCoeffEW("CHWB")
-                + 134900. * CDHB
-                + 371767. * CDHW
                 + 3804096. * getSMEFTCoeffEW("CuWR", 2, 2)
                 + 4800265. * getSMEFTCoeffEW("CuBR", 2, 2)
                 - 2.139 * delta_GF
@@ -24080,8 +23701,6 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s) const {
                 + 487962. * getSMEFTCoeffEW("CHB")
                 + 513503. * getSMEFTCoeffEW("CHW")
                 - 485782. * getSMEFTCoeffEW("CHWB")
-                + 170734. * CDHB
-                + 462665. * CDHW
                 + 4068326. * getSMEFTCoeffEW("CuWR", 2, 2)
                 + 5138930. * getSMEFTCoeffEW("CuBR", 2, 2)
                 - 2.149 * delta_GF
@@ -24115,8 +23734,6 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s) const {
                 + 697868. * getSMEFTCoeffEW("CHB")
                 + 751003. * getSMEFTCoeffEW("CHW")
                 - 625171. * getSMEFTCoeffEW("CHWB")
-                + 1204441. * CDHB
-                + 3111413. * CDHW
                 + 8604912. * getSMEFTCoeffEW("CuWR", 2, 2)
                 + 10946841. * getSMEFTCoeffEW("CuBR", 2, 2)
                 - 2.224 * delta_GF
@@ -24175,8 +23792,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 249779. * getSMEFTCoeffEW("CHB")
                     + 18912.8 * getSMEFTCoeffEW("CHW")
                     - 109936. * getSMEFTCoeffEW("CHWB")
-                    - 5170.73 * CDHB
-                    + 3167.65 * CDHW
                     + 174267. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 3032981. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.388 * delta_GF
@@ -24202,8 +23817,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 87352.2 * getSMEFTCoeffEW("CHB")
                     + 182702. * getSMEFTCoeffEW("CHW")
                     - 319427. * getSMEFTCoeffEW("CHWB")
-                    - 21.616 * CDHB
-                    + 799.81 * CDHW
                     + 1948272. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 1078489. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 2.697 * delta_GF
@@ -24229,8 +23842,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 233452. * getSMEFTCoeffEW("CHB")
                     + 35310.2 * getSMEFTCoeffEW("CHW")
                     - 131019. * getSMEFTCoeffEW("CHWB")
-                    - 4810.06 * CDHB
-                    + 2842.31 * CDHW
                     + 351790. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 2837005. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.617 * delta_GF
@@ -24256,8 +23867,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 91201.9 * getSMEFTCoeffEW("CHB")
                     + 178853. * getSMEFTCoeffEW("CHW")
                     - 314513. * getSMEFTCoeffEW("CHWB")
-                    - 137.642 * CDHB
-                    + 853.383 * CDHW
                     + 1906734. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 1124181. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 2.642 * delta_GF
@@ -24291,8 +23900,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 648027. * getSMEFTCoeffEW("CHB")
                     + 58990.6 * getSMEFTCoeffEW("CHW")
                     - 166947. * getSMEFTCoeffEW("CHWB")
-                    + 258446. * CDHB
-                    + 27641. * CDHW
                     + 416063. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 5771745. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.426 * delta_GF
@@ -24318,8 +23925,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 202732. * getSMEFTCoeffEW("CHB")
                     + 516612. * getSMEFTCoeffEW("CHW")
                     - 514723. * getSMEFTCoeffEW("CHWB")
-                    - 75504.5 * CDHB
-                    + 158356. * CDHW
                     + 3954267. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 2288387. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 2.929 * delta_GF
@@ -24345,8 +23950,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 636347. * getSMEFTCoeffEW("CHB")
                     + 71703.6 * getSMEFTCoeffEW("CHW")
                     - 176417. * getSMEFTCoeffEW("CHWB")
-                    + 249649. * CDHB
-                    + 31542.3 * CDHW
                     + 513357. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 5678281. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.497 * delta_GF
@@ -24372,8 +23975,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 206295. * getSMEFTCoeffEW("CHB")
                     + 513404. * getSMEFTCoeffEW("CHW")
                     - 512197. * getSMEFTCoeffEW("CHWB")
-                    - 72925.9 * CDHB
-                    + 157286. * CDHW
                     + 3929488. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 2314064. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 2.911 * delta_GF
@@ -24399,8 +24000,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 607466. * getSMEFTCoeffEW("CHB")
                     + 101359. * getSMEFTCoeffEW("CHW")
                     - 198737. * getSMEFTCoeffEW("CHWB")
-                    + 227834. * CDHB
-                    + 39939.6 * CDHW
                     + 742520. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 5453267. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.659 * delta_GF
@@ -24426,8 +24025,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 214128. * getSMEFTCoeffEW("CHB")
                     + 505118. * getSMEFTCoeffEW("CHW")
                     - 505830. * getSMEFTCoeffEW("CHWB")
-                    - 66814.1 * CDHB
-                    + 155075. * CDHW
                     + 3863710. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 2378351. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 2.867 * delta_GF
@@ -24461,8 +24058,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 852065. * getSMEFTCoeffEW("CHB")
                     + 78915.7 * getSMEFTCoeffEW("CHW")
                     - 191411. * getSMEFTCoeffEW("CHWB")
-                    + 881670. * CDHB
-                    + 72289.2 * CDHW
                     + 588296. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 7812392. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.441 * delta_GF
@@ -24488,8 +24083,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 261266. * getSMEFTCoeffEW("CHB")
                     + 703789. * getSMEFTCoeffEW("CHW")
                     - 618584. * getSMEFTCoeffEW("CHWB")
-                    - 257636. * CDHB
-                    + 530202. * CDHW
                     + 5501929. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 3213842. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 3.038 * delta_GF
@@ -24515,8 +24108,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 798771. * getSMEFTCoeffEW("CHB")
                     + 134415. * getSMEFTCoeffEW("CHW")
                     - 229663. * getSMEFTCoeffEW("CHWB")
-                    + 779863. * CDHB
-                    + 112951. * CDHW
                     + 1026697. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 7402171. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.673 * delta_GF
@@ -24542,8 +24133,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 276629. * getSMEFTCoeffEW("CHB")
                     + 687136. * getSMEFTCoeffEW("CHW")
                     - 607155. * getSMEFTCoeffEW("CHWB")
-                    - 227375. * CDHB
-                    + 517945. * CDHW
                     + 5370183. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 3335906. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 2.969 * delta_GF
@@ -24577,8 +24166,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 893094. * getSMEFTCoeffEW("CHB")
                     + 82781.5 * getSMEFTCoeffEW("CHW")
                     - 196556. * getSMEFTCoeffEW("CHWB")
-                    + 1099527. * CDHB
-                    + 87228. * CDHW
                     + 630747. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 8328477. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.442 * delta_GF
@@ -24604,8 +24191,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 273106. * getSMEFTCoeffEW("CHB")
                     + 741955. * getSMEFTCoeffEW("CHW")
                     - 639545. * getSMEFTCoeffEW("CHWB")
-                    - 322155. * CDHB
-                    + 661931. * CDHW
                     + 5892414. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 3448015. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 3.057 * delta_GF
@@ -24631,8 +24216,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 837632. * getSMEFTCoeffEW("CHB")
                     + 141142. * getSMEFTCoeffEW("CHW")
                     - 235907. * getSMEFTCoeffEW("CHWB")
-                    + 973107. * CDHB
-                    + 138331. * CDHW
                     + 1097452. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 7895510. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.673 * delta_GF
@@ -24658,8 +24241,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 289620. * getSMEFTCoeffEW("CHB")
                     + 724463. * getSMEFTCoeffEW("CHW")
                     - 627885. * getSMEFTCoeffEW("CHWB")
-                    - 284076. * CDHB
-                    + 646658. * CDHW
                     + 5753330. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 3578793. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 2.989 * delta_GF
@@ -24693,8 +24274,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 1267548. * getSMEFTCoeffEW("CHB")
                     + 118886. * getSMEFTCoeffEW("CHW")
                     - 247164. * getSMEFTCoeffEW("CHWB")
-                    + 7397753. * CDHB
-                    + 510206. * CDHW
                     + 1343630. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 17234081. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.459 * delta_GF
@@ -24720,8 +24299,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 381886. * getSMEFTCoeffEW("CHB")
                     + 1102843. * getSMEFTCoeffEW("CHW")
                     - 834821. * getSMEFTCoeffEW("CHWB")
-                    - 2237555. * CDHB
-                    + 4557030. * CDHW
                     + 12639913. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 7455995. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 3.212 * delta_GF
@@ -24747,8 +24324,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 1192421. * getSMEFTCoeffEW("CHB")
                     + 202915. * getSMEFTCoeffEW("CHW")
                     - 296939. * getSMEFTCoeffEW("CHWB")
-                    + 6582510. * CDHB
-                    + 853895. * CDHW
                     + 2303644. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 16407287. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 0.693 * delta_GF
@@ -24774,8 +24349,6 @@ const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_
                     + 406305. * getSMEFTCoeffEW("CHB")
                     + 1075086. * getSMEFTCoeffEW("CHW")
                     - 818808. * getSMEFTCoeffEW("CHWB")
-                    - 1967062. * CDHB
-                    + 4442109. * CDHW
                     + 12322125. * getSMEFTCoeffEW("CuWR", 2, 2)
                     + 7728315. * getSMEFTCoeffEW("CuBR", 2, 2)
                     - 3.134 * delta_GF
@@ -24863,8 +24436,6 @@ const double NPSMEFTd6General::mummZH(const double sqrt_s) const {
                 + 253308. * getSMEFTCoeffEW("CHB")
                 + 1178831. * getSMEFTCoeffEW("CHW")
                 + 526388. * getSMEFTCoeffEW("CHWB")
-                + 8753562. * CDHB
-                + 22389067. * CDHW
                 + 139222448. * getSMEFTCoeffEW("CHl1R", 1, 1)
                 - 119515557. * getSMEFTCoeffEW("CHeR", 1, 1)
                 + 0. * getSMEFTCoeffEW("CHl3R", 0, 0)
@@ -24893,8 +24464,6 @@ const double NPSMEFTd6General::mummZH(const double sqrt_s) const {
                 + 234510. * getSMEFTCoeffEW("CHB")
                 + 1090997. * getSMEFTCoeffEW("CHW")
                 + 487384. * getSMEFTCoeffEW("CHWB")
-                + 90542251. * CDHB
-                + 230979695. * CDHW
                 + 1423231114. * getSMEFTCoeffEW("CHl1R", 1, 1)
                 - 1221737534. * getSMEFTCoeffEW("CHeR", 1, 1)
                 + 74.649 * getSMEFTCoeffEW("CHl3R", 0, 0)
@@ -24949,8 +24518,6 @@ const double NPSMEFTd6General::mummHvv(const double sqrt_s) const {
                 + 584.639 * getSMEFTCoeffEW("CHB")
                 - 40740.1 * getSMEFTCoeffEW("CHW")
                 - 380159. * getSMEFTCoeffEW("CHWB")
-                + 96.414 * CDHB
-                - 104066. * CDHW
                 - 518.996 * getSMEFTCoeffEW("CHl1R", 1, 1)
                 - 1015.43 * getSMEFTCoeffEW("CHeR", 1, 1)
                 - 1128.25 * getSMEFTCoeffEW("CHl3R", 0, 0)
@@ -24981,8 +24548,6 @@ const double NPSMEFTd6General::mummHvv(const double sqrt_s) const {
                 - 38.696 * getSMEFTCoeffEW("CHB")
                 - 27111.7 * getSMEFTCoeffEW("CHW")
                 - 380108. * getSMEFTCoeffEW("CHWB")
-                - 85.858 * CDHB
-                - 151122. * CDHW
                 + 296.269 * getSMEFTCoeffEW("CHl1R", 1, 1)
                 - 613.096 * getSMEFTCoeffEW("CHeR", 1, 1)
                 - 1584.13 * getSMEFTCoeffEW("CHl3R", 0, 0)
@@ -25037,8 +24602,6 @@ const double NPSMEFTd6General::mummHmm(const double sqrt_s) const {
                 + 5651.3 * getSMEFTCoeffEW("CHB")
                 - 34526.8 * getSMEFTCoeffEW("CHW")
                 - 77320.9 * getSMEFTCoeffEW("CHWB")
-                - 36523.8 * CDHB
-                - 105717. * CDHW
                 - 676758. * getSMEFTCoeffEW("CHl1R", 1, 1)
                 + 581864. * getSMEFTCoeffEW("CHeR", 1, 1)
                 - 1258.06 * getSMEFTCoeffEW("CHl3R", 0, 0)
@@ -25067,8 +24630,6 @@ const double NPSMEFTd6General::mummHmm(const double sqrt_s) const {
                 - 3306.42 * getSMEFTCoeffEW("CHB")
                 - 26428.1 * getSMEFTCoeffEW("CHW")
                 - 65710.7 * getSMEFTCoeffEW("CHWB")
-                - 55246.2 * CDHB
-                - 154926. * CDHW
                 - 972321. * getSMEFTCoeffEW("CHl1R", 1, 1)
                 + 835352. * getSMEFTCoeffEW("CHeR", 1, 1)
                 - 208.826 * getSMEFTCoeffEW("CHl3R", 0, 0)
@@ -25123,8 +24684,6 @@ const double NPSMEFTd6General::mummttH(const double sqrt_s) const {
                 + 696642. * getSMEFTCoeffEW("CHB")
                 + 749580. * getSMEFTCoeffEW("CHW")
                 - 625570. * getSMEFTCoeffEW("CHWB")
-                + 1203584. * CDHB
-                + 3110823. * CDHW
                 + 8600327. * getSMEFTCoeffEW("CuWR", 2, 2)
                 + 10933756. * getSMEFTCoeffEW("CuBR", 2, 2)
                 + 19536100. * getSMEFTCoeffEW("CHl1R", 1, 1)
@@ -25159,8 +24718,6 @@ const double NPSMEFTd6General::mummttH(const double sqrt_s) const {
                 + 977027. * getSMEFTCoeffEW("CHB")
                 + 1069899. * getSMEFTCoeffEW("CHW")
                 - 816019. * getSMEFTCoeffEW("CHWB")
-                + 19093781. * CDHB
-                + 48703755. * CDHW
                 + 48598343. * getSMEFTCoeffEW("CuWR", 2, 2)
                 + 62025699. * getSMEFTCoeffEW("CuBR", 2, 2)
                 + 300770201. * getSMEFTCoeffEW("CHl1R", 1, 1)
@@ -25474,7 +25031,6 @@ const double NPSMEFTd6General::deltaGammaHWlvRatio1() const {
             - 159873. * getSMEFTCoeffEW("CHD")
             - 91288.7 * getSMEFTCoeffEW("CHW")
             - 284689. * getSMEFTCoeffEW("CHWB")
-            + 37703.7 * CDHW
             - 3.292 * delta_GF
             - 15.14 * deltaMwd6());
 
@@ -25552,7 +25108,6 @@ const double NPSMEFTd6General::deltaGammaHWW2l2vRatio1() const {
             - 204043. * getSMEFTCoeffEW("CHD")
             - 91463.9 * getSMEFTCoeffEW("CHW")
             - 379529. * getSMEFTCoeffEW("CHWB")
-            + 36848.2 * CDHW
             - 4.705 * delta_GF
             - 13.735 * deltaMwd6()
             - 0.965 * deltaGwd6()
@@ -25635,7 +25190,6 @@ const double NPSMEFTd6General::deltaGammaHWjjRatio1() const {
             - 159273. * getSMEFTCoeffEW("CHD")
             - 91021.6 * getSMEFTCoeffEW("CHW")
             - 282574. * getSMEFTCoeffEW("CHWB")
-            + 37917.5 * CDHW
             - 3.259 * delta_GF
             - 15.198 * deltaMwd6());
 
@@ -25713,7 +25267,6 @@ const double NPSMEFTd6General::deltaGammaHWW4jRatio1() const {
             - 205023. * getSMEFTCoeffEW("CHD")
             - 89938.5 * getSMEFTCoeffEW("CHW")
             - 383944. * getSMEFTCoeffEW("CHWB")
-            + 38244.6 * CDHW
             - 4.816 * delta_GF
             - 13.647 * deltaMwd6()
             - 0.959 * deltaGwd6());
@@ -25796,7 +25349,6 @@ const double NPSMEFTd6General::deltaGammaHWffRatio1() const {
             - 159787. * getSMEFTCoeffEW("CHD")
             - 91509.1 * getSMEFTCoeffEW("CHW")
             - 283092. * getSMEFTCoeffEW("CHWB")
-            + 37845.1 * CDHW
             - 3.259 * delta_GF
             - 15.196 * deltaMwd6());
 
@@ -25883,7 +25435,6 @@ const double NPSMEFTd6General::deltaGammaHWW4fRatio1() const {
             - 204009. * getSMEFTCoeffEW("CHD")
             - 91455.7 * getSMEFTCoeffEW("CHW")
             - 382903. * getSMEFTCoeffEW("CHWB")
-            + 38314.9 * CDHW
             - 4.757 * delta_GF
             - 13.716 * deltaMwd6()
             - 0.963 * deltaGwd6()
@@ -26066,8 +25617,6 @@ const double NPSMEFTd6General::deltaGammaHZllRatio1() const {
             - 13560.9 * getSMEFTCoeffEW("CHB")
             - 45585.2 * getSMEFTCoeffEW("CHW")
             - 53507.9 * getSMEFTCoeffEW("CHWB")
-            + 16829.2 * CDHB
-            + 30766.6 * CDHW
             - 2.204 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -26149,8 +25698,6 @@ const double NPSMEFTd6General::deltaGammaHZeeRatio1() const {
             - 13560.9 * getSMEFTCoeffEW("CHB")
             - 45585.2 * getSMEFTCoeffEW("CHW")
             - 53507.9 * getSMEFTCoeffEW("CHWB")
-            + 16829.2 * CDHB
-            + 30766.6 * CDHW
             - 2.204 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -26208,8 +25755,6 @@ const double NPSMEFTd6General::deltaGammaHZmumuRatio1() const {
             - 13560.9 * getSMEFTCoeffEW("CHB")
             - 45585.2 * getSMEFTCoeffEW("CHW")
             - 53507.9 * getSMEFTCoeffEW("CHWB")
-            + 16829.2 * CDHB
-            + 30766.6 * CDHW
             - 2.204 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -26272,8 +25817,6 @@ const double NPSMEFTd6General::deltaGammaHZZ4lRatio1() const {
             - 13602.6 * getSMEFTCoeffEW("CHB")
             - 45248.6 * getSMEFTCoeffEW("CHW")
             - 88372.1 * getSMEFTCoeffEW("CHWB")
-            + 16088.6 * CDHB
-            + 29210.1 * CDHW
             - 3.462 * delta_GF
             - 0.808 * deltaGzd6());
 
@@ -26357,8 +25900,6 @@ const double NPSMEFTd6General::deltaGammaHZZ4eRatio1() const {
             - 13385.3 * getSMEFTCoeffEW("CHB")
             - 45127.7 * getSMEFTCoeffEW("CHW")
             - 91708.7 * getSMEFTCoeffEW("CHWB")
-            + 16138.9 * CDHB
-            + 28759.4 * CDHW
             - 3.462 * delta_GF
             - 0.769 * deltaGzd6());
 
@@ -26442,8 +25983,6 @@ const double NPSMEFTd6General::deltaGammaHZZ2e2muRatio1() const {
             - 14299. * getSMEFTCoeffEW("CHB")
             - 47298.2 * getSMEFTCoeffEW("CHW")
             - 83098.2 * getSMEFTCoeffEW("CHWB")
-            + 16362.7 * CDHB
-            + 29503.4 * CDHW
             - 3.378 * delta_GF
             - 0.85 * deltaGzd6());
 
@@ -26527,8 +26066,6 @@ const double NPSMEFTd6General::deltaGammaHZZ4muRatio1() const {
             - 13575.5 * getSMEFTCoeffEW("CHB")
             - 45200.8 * getSMEFTCoeffEW("CHW")
             - 91625.2 * getSMEFTCoeffEW("CHWB")
-            + 15449.3 * CDHB
-            + 28489.5 * CDHW
             - 3.471 * delta_GF
             - 0.774 * deltaGzd6());
 
@@ -26611,8 +26148,6 @@ const double NPSMEFTd6General::deltaGammaHZvvRatio1() const {
             - 13535.2 * getSMEFTCoeffEW("CHB")
             - 45480.6 * getSMEFTCoeffEW("CHW")
             - 24891. * getSMEFTCoeffEW("CHWB")
-            + 16833. * CDHB
-            + 30597.6 * CDHW
             - 2. * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -26691,8 +26226,6 @@ const double NPSMEFTd6General::deltaGammaHZZ4vRatio1() const {
             - 13816.7 * getSMEFTCoeffEW("CHB")
             - 44782.1 * getSMEFTCoeffEW("CHW")
             - 25256.6 * getSMEFTCoeffEW("CHWB")
-            + 15982.5 * CDHB
-            + 28910.7 * CDHW
             - 3.013 * delta_GF
             - 0.787 * deltaGzd6()
             );
@@ -26777,8 +26310,6 @@ const double NPSMEFTd6General::deltaGammaHZuuRatio1() const {
             - 13473.3 * getSMEFTCoeffEW("CHB")
             - 45667.9 * getSMEFTCoeffEW("CHW")
             - 110057. * getSMEFTCoeffEW("CHWB")
-            + 16854.2 * CDHB
-            + 30781.7 * CDHW
             - 2.6 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -26872,8 +26403,6 @@ const double NPSMEFTd6General::deltaGammaHZddRatio1() const {
             - 13589.3 * getSMEFTCoeffEW("CHB")
             - 45689.4 * getSMEFTCoeffEW("CHW")
             - 85582.3 * getSMEFTCoeffEW("CHWB")
-            + 17007.1 * CDHB
-            + 30733.1 * CDHW
             - 2.427 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -26974,8 +26503,6 @@ const double NPSMEFTd6General::deltaGammaHZffRatio1() const {
             - 14222.3 * getSMEFTCoeffEW("CHB")
             - 45455.6 * getSMEFTCoeffEW("CHW")
             - 75343.1 * getSMEFTCoeffEW("CHWB")
-            + 16804.9 * CDHB
-            + 30421. * CDHW
             - 2.356 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -27077,8 +26604,6 @@ const double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const {
             - 14137.9 * getSMEFTCoeffEW("CHB")
             - 46350.1 * getSMEFTCoeffEW("CHW")
             - 126336. * getSMEFTCoeffEW("CHWB")
-            + 16558.7 * CDHB
-            + 29628.7 * CDHW
             - 3.715 * delta_GF
             - 0.834 * deltaGzd6()
             );*/
@@ -27280,8 +26805,6 @@ const double NPSMEFTd6General::deltaGammaHZgaRatio1() const {
             //            +14894914. *getSMEFTCoeffEW("CHB") 
             //            -14894913. * getSMEFTCoeffEW("CHW") 
             //            +9508089. * getSMEFTCoeffEW("CHWB") 
-            //            -2869576. * CDHB 
-            //            +1572613. * CDHW             
             + cLHd6 * (
             +120002. * getSMEFTCoeffEW("CHbox")
             + 50.12 * getSMEFTCoeffEW("CHl1R", 2, 2)
@@ -28214,8 +27737,6 @@ const double NPSMEFTd6General::deltaGammaH2L2LRatio1() const {
     /*dwidth = (+121302. * getSMEFTCoeffEW("CHbox")
             - 59592.5 * getSMEFTCoeffEW("CHB")
             - 6187.97 * getSMEFTCoeffEW("CHW")
-            + 27262.7 * CDHB
-            + 23783.2 * CDHW
             + 42404.3 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
             + 42440.7 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
             + 42633.3 * (getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -28465,8 +27986,6 @@ const double NPSMEFTd6General::deltaGammaH2e2muRatio1() const {
     dwidth = (+121249. * getSMEFTCoeffEW("CHbox")
             - 59336.7 * getSMEFTCoeffEW("CHB")
             - 7152.53 * getSMEFTCoeffEW("CHW")
-            + 27264.5 * CDHB
-            + 23839.6 * CDHW
             + 63753.6 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
             + 63771.3 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
             - 54745.8 * getSMEFTCoeffEW("CHeR", 0, 0)
@@ -28560,8 +28079,6 @@ const double NPSMEFTd6General::deltaGammaH2v2vRatio1() const {
     /*dwidth = (+121344. * getSMEFTCoeffEW("CHbox")
             - 14021.1 * getSMEFTCoeffEW("CHB")
             - 46733.1 * getSMEFTCoeffEW("CHW")
-            + 15986.2 * CDHB
-            + 29166.5 * CDHW
             - 39647.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
             - 39690.9 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
             - 39622.3 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -28763,8 +28280,6 @@ const double NPSMEFTd6General::deltaGammaH2L2vRatio1() const {
     /*dwidth = (+121291. * getSMEFTCoeffEW("CHbox")
             - 35349.6 * getSMEFTCoeffEW("CHB")
             - 27095.7 * getSMEFTCoeffEW("CHW")
-            + 21443.2 * CDHB
-            + 26588.4 * CDHW
             + 3026.29 * getSMEFTCoeffEW("CHl1R", 0, 0)
             + 3021.87 * getSMEFTCoeffEW("CHl1R", 1, 1)
             + 2746.62 * getSMEFTCoeffEW("CHl1R", 2, 2)
@@ -29004,8 +28519,6 @@ const double NPSMEFTd6General::deltaGammaH2L2v2Ratio1() const {
     dwidth = (+121298. * getSMEFTCoeffEW("CHbox")
             - 35499.1 * getSMEFTCoeffEW("CHB")
             - 27241.9 * getSMEFTCoeffEW("CHW")
-            + 21422.8 * CDHB
-            + 26606.6 * CDHW
             + 18600.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
             + 18562.6 * getSMEFTCoeffEW("CHl1R", 1, 1)
             - 28682. * getSMEFTCoeffEW("CHl1R", 2, 2)
@@ -29101,8 +28614,6 @@ const double NPSMEFTd6General::deltaGammaH2e2vRatio1() const {
     dwidth = (+121287. * getSMEFTCoeffEW("CHbox")
             - 35405.9 * getSMEFTCoeffEW("CHB")
             - 27195.5 * getSMEFTCoeffEW("CHW")
-            + 21469.4 * CDHB
-            + 26548.6 * CDHW
             + 65790.6 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
             - 28690.7 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
             - 28703.9 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -29196,8 +28707,6 @@ const double NPSMEFTd6General::deltaGammaH2mu2vRatio1() const {
     dwidth = (+121291. * getSMEFTCoeffEW("CHbox")
             - 35658.4 * getSMEFTCoeffEW("CHB")
             - 26866.3 * getSMEFTCoeffEW("CHW")
-            + 21500.1 * CDHB
-            + 26571.5 * CDHW
             - 28684.4 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
             + 65832. * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
             - 28703.3 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -29290,8 +28799,6 @@ const double NPSMEFTd6General::deltaGammaH2u2uRatio1() const {
     /*dwidth = (+121242. * getSMEFTCoeffEW("CHbox")
             - 147406. * getSMEFTCoeffEW("CHB")
             + 73926.6 * getSMEFTCoeffEW("CHW")
-            + 47688.3 * CDHB
-            + 12016.1 * CDHW
             - 71435.3 * (getSMEFTCoeffEW("CHq1R", 0, 0) - getSMEFTCoeffEW("CHq3R", 0, 0))
             - 71331.9 * (getSMEFTCoeffEW("CHq1R", 1, 1) - getSMEFTCoeffEW("CHq3R", 1, 1))
             + 31760.4 * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -29524,8 +29031,6 @@ const double NPSMEFTd6General::deltaGammaH2d2dRatio1() const {
     /*dwidth = (+121209. * getSMEFTCoeffEW("CHbox")
             - 109493. * getSMEFTCoeffEW("CHB")
             + 40559.6 * getSMEFTCoeffEW("CHW")
-            + 39022.8 * CDHB
-            + 17020.8 * CDHW
             + 43704.5 * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq3R", 0, 0))
             + 43686.8 * (getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq3R", 1, 1))
             + 48405. * (getSMEFTCoeffEW("CHq1R", 2, 2) + getSMEFTCoeffEW("CHq3R", 2, 2))
@@ -29793,8 +29298,6 @@ const double NPSMEFTd6General::deltaGammaH2u2dRatio1() const {
     /*dwidth = (+121245. * getSMEFTCoeffEW("CHbox")
             - 129896. * getSMEFTCoeffEW("CHB")
             + 58951.9 * getSMEFTCoeffEW("CHW")
-            + 43749.1 * CDHB
-            + 14365.1 * CDHW
             - 18953.2 * getSMEFTCoeffEW("CHq1R", 0, 0)
             - 18954.1 * getSMEFTCoeffEW("CHq1R", 1, 1)
             + 36775. * getSMEFTCoeffEW("CHq1R", 2, 2)
@@ -30087,8 +29590,6 @@ const double NPSMEFTd6General::deltaGammaH2L2uRatio1() const {
     /*dwidth = (+121251. * getSMEFTCoeffEW("CHbox")
             - 103956. * getSMEFTCoeffEW("CHB")
             + 35760.1 * getSMEFTCoeffEW("CHW")
-            + 38002.6 * CDHB
-            + 17867.3 * CDHW
             + 21276.1 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
             + 21284.8 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
             + 21179.4 * (getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -30397,8 +29898,6 @@ const double NPSMEFTd6General::deltaGammaH2L2dRatio1() const {
     /*dwidth = (+121289. * getSMEFTCoeffEW("CHbox")
             - 84134.2 * getSMEFTCoeffEW("CHB")
             + 17402.7 * getSMEFTCoeffEW("CHW")
-            + 33258.3 * CDHB
-            + 20429.8 * CDHW
             + 21075. * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
             + 21073.9 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
             + 20966.2 * (getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -30740,8 +30239,6 @@ const double NPSMEFTd6General::deltaGammaH2v2uRatio1() const {
     /*dwidth = (+121248. * getSMEFTCoeffEW("CHbox")
             - 76316.6 * getSMEFTCoeffEW("CHB")
             + 13981.5 * getSMEFTCoeffEW("CHW")
-            + 31756.8 * CDHB
-            + 20941.3 * CDHW
             - 19052.2 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
             - 19081.3 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
             - 19088.9 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -31006,8 +30503,6 @@ const double NPSMEFTd6General::deltaGammaH2v2dRatio1() const {
     /*dwidth = (+121140. * getSMEFTCoeffEW("CHbox")
             - 57872.8 * getSMEFTCoeffEW("CHB")
             - 4371.77 * getSMEFTCoeffEW("CHW")
-            + 27059.2 * CDHB
-            + 23376.6 * CDHW
             - 18746.1 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
             - 18746.1 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
             - 18868.3 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -31311,8 +30806,6 @@ const double NPSMEFTd6General::deltaGammaH4LRatio1() const {
     /*dwidth = (+121291. * getSMEFTCoeffEW("CHbox")
             - 103587. * getSMEFTCoeffEW("CHB")
             - 25126.1 * getSMEFTCoeffEW("CHW")
-            + 25935.6 * CDHB
-            + 22895.7 * CDHW
             + 40801.2 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
             + 40841.5 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
             + 40593.4 * (getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -31551,8 +31044,6 @@ const double NPSMEFTd6General::deltaGammaH4L2Ratio1() const {
     dwidth = (+121305. * getSMEFTCoeffEW("CHbox")
             - 101068. * getSMEFTCoeffEW("CHB")
             - 26272.7 * getSMEFTCoeffEW("CHW")
-            + 25787.2 * CDHB
-            + 23110.1 * CDHW
             + 61265. * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
             + 61239.2 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
             - 52542.2 * getSMEFTCoeffEW("CHeR", 0, 0)
@@ -31646,8 +31137,6 @@ const double NPSMEFTd6General::deltaGammaH4eRatio1() const {
     dwidth = (+121313. * getSMEFTCoeffEW("CHbox")
             - 101223. * getSMEFTCoeffEW("CHB")
             - 25774.5 * getSMEFTCoeffEW("CHW")
-            + 25802.5 * CDHB
-            + 23066. * CDHW
             + 122287. * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
             - 104859. * getSMEFTCoeffEW("CHeR", 0, 0)
             + cAsch * (-43133.2 * getSMEFTCoeffEW("CHD")
@@ -31738,8 +31227,6 @@ const double NPSMEFTd6General::deltaGammaH4muRatio1() const {
     dwidth = (+121280. * getSMEFTCoeffEW("CHbox")
             - 101266. * getSMEFTCoeffEW("CHB")
             - 25189.1 * getSMEFTCoeffEW("CHW")
-            + 25799.1 * CDHB
-            + 23071.4 * CDHW
             + 122245. * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
             - 105313. * getSMEFTCoeffEW("CHeR", 1, 1)
             + cAsch * (-43187.7 * getSMEFTCoeffEW("CHD")
@@ -31830,8 +31317,6 @@ const double NPSMEFTd6General::deltaGammaH4vRatio1() const {
     /*dwidth = (+121311. * getSMEFTCoeffEW("CHbox")
             - 13320.2 * getSMEFTCoeffEW("CHB")
             - 44355.6 * getSMEFTCoeffEW("CHW")
-            + 15020. * CDHB
-            + 27416.8 * CDHW
             - 37027.3 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
             - 36969.3 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
             - 37032.5 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
@@ -32032,8 +31517,6 @@ const double NPSMEFTd6General::deltaGammaH4uRatio1() const {
             - 153814. * getSMEFTCoeffEW("CHB")
             + 70762.7 * getSMEFTCoeffEW("CHW")
             - 476614. * getSMEFTCoeffEW("CHG")
-            + 47719.2 * CDHB
-            + 11347.8 * CDHW
             - 70157.4 * (getSMEFTCoeffEW("CHq1R", 0, 0) - getSMEFTCoeffEW("CHq3R", 0, 0))
             - 70569. * (getSMEFTCoeffEW("CHq1R", 1, 1) - getSMEFTCoeffEW("CHq3R", 1, 1))
             + 30328.1 * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -32279,8 +31762,6 @@ const double NPSMEFTd6General::deltaGammaH4dRatio1() const {
             - 106312. * getSMEFTCoeffEW("CHB")
             + 37722.3 * getSMEFTCoeffEW("CHW")
             - 368494. * getSMEFTCoeffEW("CHG")
-            + 38027.3 * CDHB
-            + 16455.2 * CDHW
             + 43669.1 * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq3R", 0, 0))
             + 43649.7 * (getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq3R", 1, 1))
             + 45003.6 * (getSMEFTCoeffEW("CHq1R", 2, 2) + getSMEFTCoeffEW("CHq3R", 2, 2))
@@ -32555,7 +32036,6 @@ const double NPSMEFTd6General::deltaGammaHLvvLRatio1() const {
 
     /*dwidth = (+121150. * getSMEFTCoeffEW("CHbox")
             - 91767.5 * getSMEFTCoeffEW("CHW")
-            + 36978. * CDHW
             + 45140.3 * getSMEFTCoeffEW("CHl3R", 0, 0)
             + 45192.1 * getSMEFTCoeffEW("CHl3R", 1, 1)
             + 45407.7 * getSMEFTCoeffEW("CHl3R", 2, 2)
@@ -32697,7 +32177,6 @@ const double NPSMEFTd6General::deltaGammaHevmuvRatio1() const {
 
     dwidth = (+121407. * getSMEFTCoeffEW("CHbox")
             - 91741.5 * getSMEFTCoeffEW("CHW")
-            + 36995.8 * CDHW
             + 68126.1 * getSMEFTCoeffEW("CHl3R", 0, 0)
             + 68223.8 * getSMEFTCoeffEW("CHl3R", 1, 1)
             + cAsch * (-203550. * getSMEFTCoeffEW("CHD")
@@ -32789,7 +32268,6 @@ const double NPSMEFTd6General::deltaGammaHudduRatio1() const {
 
     /*dwidth = (+121333. * getSMEFTCoeffEW("CHbox")
             - 92283.9 * getSMEFTCoeffEW("CHW")
-            + 37165.5 * CDHW
             + 68273.4 * getSMEFTCoeffEW("CHq3R", 0, 0)
             + 68176.3 * getSMEFTCoeffEW("CHq3R", 1, 1)
             + cAsch * (-203776. * getSMEFTCoeffEW("CHD")
@@ -32942,7 +32420,6 @@ const double NPSMEFTd6General::deltaGammaHLvudRatio1() const {
 
     /*dwidth = (+121281. * getSMEFTCoeffEW("CHbox")
             - 93409.7 * getSMEFTCoeffEW("CHW")
-            + 37365.5 * CDHW
             + 22531.9 * getSMEFTCoeffEW("CHl3R", 0, 0)
             + 22479. * getSMEFTCoeffEW("CHl3R", 1, 1)
             + 22364.3 * getSMEFTCoeffEW("CHl3R", 2, 2)
@@ -33109,8 +32586,6 @@ const double NPSMEFTd6General::deltaGammaH2udRatio1() const {
             - 3244.8 * getSMEFTCoeffEW("CHB")
             - 88391.2 * getSMEFTCoeffEW("CHW")
             - 55282. * getSMEFTCoeffEW("CHG")
-            + 1177.32 * CDHB
-            + 36769.9 * CDHW
             - 23.442 * getSMEFTCoeffEW("CHq1R", 0, 0)
             - 22.98 * getSMEFTCoeffEW("CHq1R", 1, 1)
             + 559.485 * getSMEFTCoeffEW("CHuR", 0, 0)
@@ -33336,8 +32811,6 @@ const double NPSMEFTd6General::deltaGammaH2LvRatio1() const {
     /*dwidth = (+121133. * getSMEFTCoeffEW("CHbox")
             + 1057.61 * getSMEFTCoeffEW("CHB")
             - 91969.3 * getSMEFTCoeffEW("CHW")
-            - 210.15 * CDHB
-            + 37475. * CDHW
             - 137.279 * getSMEFTCoeffEW("CHl1R", 0, 0)
             - 137.825 * getSMEFTCoeffEW("CHl1R", 1, 1)
             - 123.03 * getSMEFTCoeffEW("CHl1R", 2, 2)
@@ -33537,8 +33010,6 @@ const double NPSMEFTd6General::deltaGammaH2Lv2Ratio1() const {
     dwidth = (+121215. * getSMEFTCoeffEW("CHbox")
             + 1054.39 * getSMEFTCoeffEW("CHB")
             - 91849.7 * getSMEFTCoeffEW("CHW")
-            - 207.764 * CDHB
-            + 37474.1 * CDHW
             - 205.44 * getSMEFTCoeffEW("CHl1R", 0, 0)
             - 205.933 * getSMEFTCoeffEW("CHl1R", 1, 1)
             - 1345.15 * getSMEFTCoeffEW("CHeR", 0, 0)
@@ -33638,8 +33109,6 @@ const double NPSMEFTd6General::deltaGammaH2evRatio1() const {
     dwidth = (+121306. * getSMEFTCoeffEW("CHbox")
             + 1054.18 * getSMEFTCoeffEW("CHB")
             - 91797.7 * getSMEFTCoeffEW("CHW")
-            - 205.428 * CDHB
-            + 37460.6 * CDHW
             - 411.183 * getSMEFTCoeffEW("CHl1R", 0, 0)
             - 2684.07 * getSMEFTCoeffEW("CHeR", 0, 0)
             + 136899. * getSMEFTCoeffEW("CHl3R", 0, 0)
@@ -33735,8 +33204,6 @@ const double NPSMEFTd6General::deltaGammaH2muvRatio1() const {
     dwidth = (+121244. * getSMEFTCoeffEW("CHbox")
             + 1045.26 * getSMEFTCoeffEW("CHB")
             - 91781. * getSMEFTCoeffEW("CHW")
-            - 206.573 * CDHB
-            + 37435.3 * CDHW
             - 410.738 * getSMEFTCoeffEW("CHl1R", 1, 1)
             - 2593.82 * getSMEFTCoeffEW("CHeR", 1, 1)
             + 136695. * getSMEFTCoeffEW("CHl3R", 1, 1)
@@ -34068,8 +33535,6 @@ const double NPSMEFTd6General::deltaGammaHlljjRatio1() const {
     dwidth = (+121311. * getSMEFTCoeffEW("CHbox")
             - 92298.6 * getSMEFTCoeffEW("CHB")
             + 24856.5 * getSMEFTCoeffEW("CHW")
-            + 35209.4 * CDHB
-            + 19445.9 * CDHW
             + 31820. * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
             + 31802.8 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
             + 3495.26 * getSMEFTCoeffEW("CHq1R", 0, 0)
@@ -34168,7 +33633,6 @@ const double NPSMEFTd6General::deltaGammaHlvjjRatio1() const {
 
     dwidth = (+121253. * getSMEFTCoeffEW("CHbox")
             - 93392.5 * getSMEFTCoeffEW("CHW")
-            + 37361. * CDHW
             + 33596.1 * getSMEFTCoeffEW("CHl3R", 0, 0)
             + 33564.4 * getSMEFTCoeffEW("CHl3R", 1, 1)
             + 34752.8 * getSMEFTCoeffEW("CHq3R", 0, 0)
@@ -37670,8 +37134,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s) const {
                 + 242506. * getSMEFTCoeffEW("CHl3R", 0, 0)
                 - 86570.7 * getSMEFTCoeffEW("CHD")
                 - 189772. * getSMEFTCoeffEW("CHWB")
-                + 12.769 * CDHB
-                + 6.384 * CDHW
                 + 0. * getSMEFTCoeffEW("CW")
                 - 2.858 * delta_GF
                 - 70.01 * deltaMwd6();
@@ -37694,8 +37156,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s) const {
                 + 267456. * getSMEFTCoeffEW("CHl3R", 0, 0)
                 - 83799.2 * getSMEFTCoeffEW("CHD")
                 - 168074. * getSMEFTCoeffEW("CHWB")
-                + 3199.72 * CDHB
-                + 3401.93 * CDHW
                 + 6649.22 * getSMEFTCoeffEW("CW")
                 - 2.812 * delta_GF
                 - 0.993 * deltaMwd6();
@@ -37718,8 +37178,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s) const {
                 + 269747. * getSMEFTCoeffEW("CHl3R", 0, 0)
                 - 83750.9 * getSMEFTCoeffEW("CHD")
                 - 167811. * getSMEFTCoeffEW("CHWB")
-                + 3401.99 * CDHB
-                + 3624.67 * CDHW
                 + 7249.33 * getSMEFTCoeffEW("CW")
                 - 2.812 * delta_GF
                 - 0.959 * deltaMwd6();
@@ -37742,8 +37200,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s) const {
                 + 289379. * getSMEFTCoeffEW("CHl3R", 0, 0)
                 - 83905.3 * getSMEFTCoeffEW("CHD")
                 - 168326. * getSMEFTCoeffEW("CHWB")
-                + 5979.05 * CDHB
-                + 6520.95 * CDHW
                 + 10476.9 * getSMEFTCoeffEW("CW")
                 - 2.832 * delta_GF
                 - 0.781 * deltaMwd6();
@@ -37766,8 +37222,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s) const {
                 + 290743. * getSMEFTCoeffEW("CHl3R", 0, 0)
                 - 84033.5 * getSMEFTCoeffEW("CHD")
                 - 168466. * getSMEFTCoeffEW("CHWB")
-                + 6310.59 * CDHB
-                + 6842.81 * CDHW
                 + 10606.3 * getSMEFTCoeffEW("CW")
                 - 2.828 * delta_GF
                 - 0.775 * deltaMwd6();
@@ -37790,8 +37244,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s) const {
                 + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
                 - 84926.8 * getSMEFTCoeffEW("CHD")
                 - 171658. * getSMEFTCoeffEW("CHWB")
-                + 9325.19 * CDHB
-                + 10009.9 * CDHW
                 + 10896.4 * getSMEFTCoeffEW("CW")
                 - 2.84 * delta_GF
                 - 0.705 * deltaMwd6();
@@ -37826,8 +37278,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 231526. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 72645.8 * getSMEFTCoeffEW("CHD")
                     - 25084.5 * getSMEFTCoeffEW("CHWB")
-                    + 27060.4 * CDHB
-                    - 7822.83 * CDHW
                     - 587.63 * getSMEFTCoeffEW("CW")
                     - 2.437 * delta_GF
                     - 1.554 * deltaMwd6();
@@ -37844,8 +37294,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 269600. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 84684.5 * getSMEFTCoeffEW("CHD")
                     - 178168. * getSMEFTCoeffEW("CHWB")
-                    + 1539.25 * CDHB
-                    + 4130.32 * CDHW
                     + 7121.6 * getSMEFTCoeffEW("CW")
                     - 2.838 * delta_GF
                     - 0.949 * deltaMwd6();
@@ -37868,8 +37316,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 234621. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 72498.3 * getSMEFTCoeffEW("CHD")
                     - 23308.5 * getSMEFTCoeffEW("CHWB")
-                    + 29321.9 * CDHB
-                    - 7518.62 * CDHW
                     + 314.876 * getSMEFTCoeffEW("CW")
                     - 2.444 * delta_GF
                     - 1.448 * deltaMwd6();
@@ -37886,8 +37332,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 271032. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 84929.3 * getSMEFTCoeffEW("CHD")
                     - 177727. * getSMEFTCoeffEW("CHWB")
-                    + 1648.44 * CDHB
-                    + 4443.85 * CDHW
                     + 7778.07 * getSMEFTCoeffEW("CW")
                     - 2.829 * delta_GF
                     - 0.914 * deltaMwd6();
@@ -37904,8 +37348,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 250086. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 77904.2 * getSMEFTCoeffEW("CHD")
                     - 89451.9 * getSMEFTCoeffEW("CHWB")
-                    + 17499.7 * CDHB
-                    - 2499.14 * CDHW
                     + 3435.6 * getSMEFTCoeffEW("CW")
                     - 2.607 * delta_GF
                     - 1.242 * deltaMwd6();
@@ -37922,8 +37364,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 271004. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 84881.5 * getSMEFTCoeffEW("CHD")
                     - 177249. * getSMEFTCoeffEW("CHWB")
-                    + 1732.98 * CDHB
-                    + 4380.98 * CDHW
                     + 7742.96 * getSMEFTCoeffEW("CW")
                     - 2.828 * delta_GF
                     - 0.915 * deltaMwd6();
@@ -37946,8 +37386,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 262809. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 76119.5 * getSMEFTCoeffEW("CHD")
                     - 35565.5 * getSMEFTCoeffEW("CHWB")
-                    + 48488.8 * CDHB
-                    - 4519.05 * CDHW
                     + 6279.71 * getSMEFTCoeffEW("CW")
                     - 2.571 * delta_GF
                     - 1.059 * deltaMwd6();
@@ -37964,8 +37402,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 290384. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 84475.3 * getSMEFTCoeffEW("CHD")
                     - 177142. * getSMEFTCoeffEW("CHWB")
-                    + 3105.71 * CDHB
-                    + 7205.25 * CDHW
                     + 10660.4 * getSMEFTCoeffEW("CW")
                     - 2.841 * delta_GF
                     - 0.773 * deltaMwd6();
@@ -37982,8 +37418,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 274583. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 80024.1 * getSMEFTCoeffEW("CHD")
                     - 97902.7 * getSMEFTCoeffEW("CHWB")
-                    + 28562.8 * CDHB
-                    + 575.898 * CDHW
                     + 8122.74 * getSMEFTCoeffEW("CW")
                     - 2.687 * delta_GF
                     - 0.928 * deltaMwd6();
@@ -38000,8 +37434,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 290349. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 84405.4 * getSMEFTCoeffEW("CHD")
                     - 176530. * getSMEFTCoeffEW("CHWB")
-                    + 3309.62 * CDHB
-                    + 7174.21 * CDHW
                     + 10675.5 * getSMEFTCoeffEW("CW")
                     - 2.84 * delta_GF
                     - 0.777 * deltaMwd6();
@@ -38024,8 +37456,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 265703. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 77085.4 * getSMEFTCoeffEW("CHD")
                     - 38791. * getSMEFTCoeffEW("CHWB")
-                    + 51079.9 * CDHB
-                    - 3972.2 * CDHW
                     + 6727.91 * getSMEFTCoeffEW("CW")
                     - 2.582 * delta_GF
                     - 1.04 * deltaMwd6();
@@ -38042,8 +37472,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 291951. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 84657.2 * getSMEFTCoeffEW("CHD")
                     - 177196. * getSMEFTCoeffEW("CHWB")
-                    + 3348.72 * CDHB
-                    + 7579.53 * CDHW
                     + 10879.2 * getSMEFTCoeffEW("CW")
                     - 2.84 * delta_GF
                     - 0.753 * deltaMwd6();
@@ -38066,8 +37494,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 280445. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 80550.4 * getSMEFTCoeffEW("CHD")
                     - 101476. * getSMEFTCoeffEW("CHWB")
-                    + 31723.3 * CDHB
-                    + 1672.16 * CDHW
                     + 8838.57 * getSMEFTCoeffEW("CW")
                     - 2.707 * delta_GF
                     - 0.891 * deltaMwd6();
@@ -38084,8 +37510,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 294134. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 84922.5 * getSMEFTCoeffEW("CHD")
                     - 176871. * getSMEFTCoeffEW("CHWB")
-                    + 3635.55 * CDHB
-                    + 7973.68 * CDHW
                     + 10984.7 * getSMEFTCoeffEW("CW")
                     - 2.838 * delta_GF
                     - 0.753 * deltaMwd6();
@@ -38108,8 +37532,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 289682. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 80108.8 * getSMEFTCoeffEW("CHD")
                     - 61678. * getSMEFTCoeffEW("CHWB")
-                    + 75403.3 * CDHB
-                    + 458.146 * CDHW
                     + 8723.87 * getSMEFTCoeffEW("CW")
                     - 2.664 * delta_GF
                     - 0.849 * deltaMwd6();
@@ -38126,8 +37548,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 311528. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 84984.5 * getSMEFTCoeffEW("CHD")
                     - 178260. * getSMEFTCoeffEW("CHWB")
-                    + 5206.37 * CDHB
-                    + 10705.4 * CDHW
                     + 11071.1 * getSMEFTCoeffEW("CW")
                     - 2.855 * delta_GF
                     - 0.671 * deltaMwd6();
@@ -38144,8 +37564,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 299745. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 82524.6 * getSMEFTCoeffEW("CHD")
                     - 113979. * getSMEFTCoeffEW("CHWB")
-                    + 43898.4 * CDHB
-                    + 5024.43 * CDHW
                     + 9759.79 * getSMEFTCoeffEW("CW")
                     - 2.752 * delta_GF
                     - 0.778 * deltaMwd6();
@@ -38162,8 +37580,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 310020. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 85227.7 * getSMEFTCoeffEW("CHD")
                     - 178139. * getSMEFTCoeffEW("CHWB")
-                    + 5322.77 * CDHB
-                    + 10598. * CDHW
                     + 11009.9 * getSMEFTCoeffEW("CW")
                     - 2.846 * delta_GF
                     - 0.681 * deltaMwd6();
@@ -38186,8 +37602,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 383080. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 83628.6 * getSMEFTCoeffEW("CHD")
                     - 114732. * getSMEFTCoeffEW("CHWB")
-                    + 159832. * CDHB
-                    + 17735.5 * CDHW
                     + 8916.37 * getSMEFTCoeffEW("CW")
                     - 2.787 * delta_GF
                     - 0.57 * deltaMwd6();
@@ -38204,8 +37618,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 394641. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 85925.1 * getSMEFTCoeffEW("CHD")
                     - 181046. * getSMEFTCoeffEW("CHWB")
-                    + 13333.6 * CDHB
-                    + 23871.2 * CDHW
                     + 9450.35 * getSMEFTCoeffEW("CW")
                     - 2.871 * delta_GF
                     - 0.492 * deltaMwd6();
@@ -38228,8 +37640,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 500666. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 84992.3 * getSMEFTCoeffEW("CHD")
                     - 144925. * getSMEFTCoeffEW("CHWB")
-                    + 205215. * CDHB
-                    + 38777.5 * CDHW
                     + 7857.84 * getSMEFTCoeffEW("CW")
                     - 2.817 * delta_GF
                     - 0.471 * deltaMwd6();
@@ -38246,8 +37656,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 507924. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 86313.9 * getSMEFTCoeffEW("CHD")
                     - 182113. * getSMEFTCoeffEW("CHWB")
-                    + 24953.6 * CDHB
-                    + 42429.8 * CDHW
                     + 8014.86 * getSMEFTCoeffEW("CW")
                     - 2.857 * delta_GF
                     - 0.429 * deltaMwd6();
@@ -38270,8 +37678,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 1016120. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 85414.3 * getSMEFTCoeffEW("CHD")
                     - 155729. * getSMEFTCoeffEW("CHWB")
-                    + 628130. * CDHB
-                    + 123368. * CDHW
                     + 6454.34 * getSMEFTCoeffEW("CW")
                     - 2.831 * delta_GF
                     - 0.352 * deltaMwd6();
@@ -38288,8 +37694,6 @@ const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_e
                     + 1027322. * getSMEFTCoeffEW("CHl3R", 0, 0)
                     - 86621.7 * getSMEFTCoeffEW("CHD")
                     - 184516. * getSMEFTCoeffEW("CHWB")
-                    + 75975.5 * CDHB
-                    + 127086. * CDHW
                     + 6519.78 * getSMEFTCoeffEW("CW")
                     - 2.86 * delta_GF
                     - 0.328 * deltaMwd6();
@@ -38324,10 +37728,10 @@ const double NPSMEFTd6General::ppZHprobe(const double sqrt_s) const {
     // In the Warsaw basis the contact interactions are generated only by CHF ops but
     // in the modified basis ODHB, ODHW also contribute
 
-    ghZuL = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHq1R", 0, 0) - getSMEFTCoeffEW("CHq3R", 0, 0) + g1_tree * (1.0 / 12.0) * CDHB - (g2_tree / 4.0) * CDHW) * v2;
-    ghZdL = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq3R", 0, 0) + g1_tree * (1.0 / 12.0) * CDHB + (g2_tree / 4.0) * CDHW) * v2;
-    ghZuR = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHuR", 0, 0) + g1_tree * (1.0 / 3.0) * CDHB) * v2;
-    ghZdR = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHdR", 0, 0) - g1_tree * (1.0 / 6.0) * CDHB) * v2;
+    ghZuL = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHq1R", 0, 0) - getSMEFTCoeffEW("CHq3R", 0, 0) ) * v2;
+    ghZdL = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq3R", 0, 0) ) * v2;
+    ghZuR = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHuR", 0, 0) ) * v2;
+    ghZdR = -(eeMz / sW_tree / cW_tree)*(getSMEFTCoeffEW("CHdR", 0, 0) ) * v2;
 
     if (sqrt_s == 14.0) {
 
@@ -38360,7 +37764,7 @@ const double NPSMEFTd6General::mupTVppWZ(const double sqrt_s, const double pTV1,
     // Master Equations below are for cHWp = Ci/Lambda^2 in units of TeV^{-2}, 
     // but LambdaNP is in GeV. Add conversion factor.
 
-    cHWp = 4.0 * (sW2_tree / eeMz2) * (getSMEFTCoeffEW("CHq3R", 0, 0) + (g2_tree / 4.0) * CDHW) * 1000000.0;
+    cHWp = 4.0 * (sW2_tree / eeMz2) * (getSMEFTCoeffEW("CHq3R", 0, 0) ) * 1000000.0;
 
     //  Bin dependences assuming cutoff of the EFT at 5 TeV
     //  Normalize to the total number of events to remove the dependence on Lumi
@@ -38471,8 +37875,6 @@ const double NPSMEFTd6General::STXS0_qqH(const double sqrt_s) const {
                 + 6933.53 * getSMEFTCoeffEW("CHB")
                 + 133459. * getSMEFTCoeffEW("CHW")
                 - 286707. * getSMEFTCoeffEW("CHWB")
-                + 1616.64 * CDHB
-                - 1257.62 * CDHW
                 - 1929.85 * getSMEFTCoeffEW("CHq1R", 0, 0)
                 + 1378.01 * getSMEFTCoeffEW("CHq1R", 1, 1)
                 + 2505.13 * getSMEFTCoeffEW("CHq1R", 2, 2)
@@ -42145,8 +41547,6 @@ const double NPSMEFTd6General::cZBox_HB() const {
 
     ciHB = (sW2_tree / eeMz2)*(delta_GF + 0.5 * getSMEFTCoeffEW("CHD") * v2);
 
-    ciHB = ciHB + 0.5 * (sW2_tree / eeMz)*(CDHB / cW_tree + CDHW / sW_tree) * v2; // Extra, not in Warsaw basis
-
     return ciHB;
 }
 
@@ -42155,8 +41555,6 @@ const double NPSMEFTd6General::cZZ_HB() const {
 
     ciHB = (4.0 * sW2_tree * cW2_tree / eeMz2)*(cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree * getSMEFTCoeffEW("CHB") + sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
 
-    ciHB = ciHB - (sW2_tree * cW2_tree / eeMz)*(CDHB / cW_tree + CDHW / sW_tree) * v2; // Extra, not in Warsaw basis
-
     return ciHB;
 }
 
@@ -42164,8 +41562,6 @@ const double NPSMEFTd6General::cZga_HB() const {
     double ciHB;
 
     ciHB = (sW2_tree * cW2_tree / eeMz2)*(4.0 * getSMEFTCoeffEW("CHW") - 4.0 * getSMEFTCoeffEW("CHB") - (2.0 * (cW2_tree - sW2_tree) / sW_tree / cW_tree) * getSMEFTCoeffEW("CHWB")) * v2;
-
-    ciHB = ciHB + 0.5 * (sW_tree * cW_tree / eeMz)*(CDHB / sW_tree - CDHW / cW_tree) * v2; // Extra, not in Warsaw basis
 
     return ciHB;
 }
@@ -43903,8 +43299,8 @@ const double NPSMEFTd6General::AuxObs_NP19() const {
     double Chi2Tot;
 
     // Chi square formulae requires WC in units of TeV-2
-    CBpar = 0.0; //1.0e+06 * (getSMEFTCoeffEW("CDB") / g1_tree); // Not defined in this model
-    CWpar = 0.0; //1.0e+06 * (getSMEFTCoeffEW("CDW") / g2_tree); // Not defined in this model
+    CBpar = 0.0; 
+    CWpar = 0.0; 
 
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
@@ -43930,8 +43326,8 @@ const double NPSMEFTd6General::AuxObs_NP20() const {
     double Chi2Tot;
 
     // Chi square formulae requires WC in units of TeV-2
-    CBpar = 0.0; //1.0e+06 * (getSMEFTCoeffEW("CDB") / g1_tree); // Not defined in this model
-    CWpar = 0.0; //1.0e+06 * (getSMEFTCoeffEW("CDW") / g2_tree); // Not defined in this model
+    CBpar = 0.0; 
+    CWpar = 0.0; 
 
     CBpar2 = CBpar*CBpar;
     CWpar2 = CWpar*CWpar;
