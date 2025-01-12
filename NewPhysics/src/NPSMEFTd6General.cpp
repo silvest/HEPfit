@@ -21774,10 +21774,15 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
     
     double d6NLOLH = 0., d6NLORH = 0.; // SMEFT absolute NLO corrections (LH and RH)
     
-    muRG = sqrt_s;
+    // Current input of observables is in TeV -> Translate sqrt_s to GeV before operating
+    double sqrt_sGeV;
+    
+    sqrt_sGeV = 1000. * sqrt_s;
+    
+    muRG = sqrt_sGeV;
     
     // Base implementation in W mass scheme
-    s = sqrt_s * sqrt_s;
+    s = sqrt_sGeV * sqrt_sGeV;
     s2 = s * s;
     MH2 = mHl * mHl;
     MW2 = Mw_tree * Mw_tree;
@@ -45247,7 +45252,7 @@ const double NPSMEFTd6General::cQlM_TWG(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) - getSMEFTCoeff("CHq3R", 0, 0, 2, 2, mu);
+    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) - getSMEFTCoeff("Clq3R", 0, 0, 2, 2, mu);
  
     return comb;
 }
@@ -45374,7 +45379,7 @@ const double NPSMEFTd6General::clQpOO(const double mu) const {
 
     double comb;
     
-    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) + getSMEFTCoeff("CHq3R", 0, 0, 2, 2, mu);
+    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) + getSMEFTCoeff("Clq3R", 0, 0, 2, 2, mu);
 
     //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
     //Re-normalize the coefficients multiplying by 1000^2  
