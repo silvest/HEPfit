@@ -1148,11 +1148,8 @@ public:
      * \sigma_h = \sigma_h^{SM} + \Delta \sigma_h^{(1)} + \Delta \sigma_h^{(2)}
      * \f]
      * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
-     *
-     * @attention This function is applicable only to the NP model classes that
-     * are inherited from NPbase.
      */
-    virtual const double sigma0_had() const;                             //AG:modified
+    virtual const double sigma0_had() const;
 
     /**
      * @brief The new physics contribution to the left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the

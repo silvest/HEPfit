@@ -15238,7 +15238,7 @@ const double NPSMEFTd6General::deltaSigmaHadron() const
                 + delGq_sum / Gq_sum - 2.0 * delGf_sum / Gf_sum);
     }
 
-    // Finite NLO corrections    
+    // Finite NLO corrections [in nb] => Need to be translated to GeV^-2    
     deltaNLO = (+0.02598 * getSMEFTCoeffEW("CW")  +0.00118 * getSMEFTCoeffEW("CHbox")  +2.89603 * getSMEFTCoeffEW("CHD")  -0.00091 * getSMEFTCoeffEW("CHB")   
             -0.00069 * getSMEFTCoeffEW("CHW")  +13.8093 * getSMEFTCoeffEW("CHWB")  +0.06255 * getSMEFTCoeffEW("CuWR",2, 2) -0.01237 * getSMEFTCoeffEW("CuBR",2, 2)  
             -3.65911 * getSMEFTCoeffEW("CHl1R",0, 0) +0.52073 * getSMEFTCoeffEW("CHl1R",1, 1) +0.52258 * getSMEFTCoeffEW("CHl1R",2, 2) +1.32456 * getSMEFTCoeffEW("CHl3R",0, 0)  
@@ -15290,13 +15290,16 @@ const double NPSMEFTd6General::deltaSigmaHadron() const
             -0.00515 * getSMEFTCoeffEW("Cqd1R",0, 0, 0, 0) -0.00398 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) -0.00457 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) +0.00165 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0)  
             +0.00282 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) +0.00224 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) +0.04893 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) -0.00339 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1)  
             +0.02266 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
-
+    
+    // Translated to GeV^-2 
+    deltaNLO = deltaNLO / trueSM.GeVminus2_to_nb;
+    
     return sigma_had + cNLOd6 * deltaNLO;
 }
 
 
 const double NPSMEFTd6General::sigma0_had() const
-{
+{    
     return (trueSM.sigma0_had() + deltaSigmaHadron());
 }
 
