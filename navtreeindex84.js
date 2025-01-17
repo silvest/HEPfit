@@ -1,5 +1,6 @@
 var NAVTREEINDEX84 =
 {
+"d9/d60/class_higgs_observable.html#a92fc1a2cfc14048aebb83de264d872c6":[4,14,2,7],
 "d9/d60/class_higgs_observable.html#a9409d536ce4704f8d68a6c8fa773d997":[4,14,2,3],
 "d9/d60/class_higgs_observable.html#aa4de53414b4bd2d07a1c5a88b020bf90":[4,14,2,9],
 "d9/d60/class_higgs_observable.html#aaef71437966b4150682d622a611d3c65":[4,14,2,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX84 =
 "d9/d97/class_c_e_w_h_l322.html#a4cbfa12be4fae0704ad20702f65d54a6":[27,0,347,1],
 "d9/d99/class_l_h_p_c_1_1_s_l_h_a_1_1_doubly_indexed_multiple_entries_block.html":[27,0,1,3,8],
 "d9/d99/class_l_h_p_c_1_1_s_l_h_a_1_1_doubly_indexed_multiple_entries_block.html#a04063594b222df3ae69ea401355bf046":[27,0,1,3,8,3],
-"d9/d99/class_l_h_p_c_1_1_s_l_h_a_1_1_doubly_indexed_multiple_entries_block.html#a84b2c770c21eda8e1796297f369f9b09":[27,0,1,3,8,5],
-"d9/d99/class_l_h_p_c_1_1_s_l_h_a_1_1_doubly_indexed_multiple_entries_block.html#a991d5ae7642c352859ca1b4734de590f":[27,0,1,3,8,2]
+"d9/d99/class_l_h_p_c_1_1_s_l_h_a_1_1_doubly_indexed_multiple_entries_block.html#a84b2c770c21eda8e1796297f369f9b09":[27,0,1,3,8,5]
 };

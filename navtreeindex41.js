@@ -1,5 +1,6 @@
 var NAVTREEINDEX41 =
 {
+"d3/d7d/classmu_v_b_f.html#af702cc92176e751178931852b1733106":[4,13,304,3],
 "d3/d7f/classmu_v_h_b_rinv.html":[4,13,322],
 "d3/d7f/classmu_v_h_b_rinv.html#a0a6e6d0c635b969de9a7f6c4ebd34e1a":[4,13,322,3],
 "d3/d7f/classmu_v_h_b_rinv.html#a133f5456dcb752a5830b76e711f09f29":[4,13,322,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX41 =
 "d3/dce/class_hobs__pp__h__phi3phi3__gagagaga___a_t_l_a_s8.html#a78918e1f43eaa4824ae1812458c9f79e":[27,0,1187,0],
 "d3/dce/class_hobs__pp__h__phi3phi3__gagagaga___a_t_l_a_s8.html#acbdd8fe9b7673ada772556cfad312f17":[27,0,1187,2],
 "d3/dce/class_hobs__pp__h__phi3phi3__gagagaga___a_t_l_a_s8.html#adf6191e9e62398bdb08fe1109588c53b":[27,0,1187,1],
-"d3/dcf/class_hobs__pp__phi3__phi1phi1__bbtautau___a_t_l_a_s13.html":[27,0,1278],
-"d3/dcf/classa___z__pole__bb__e_p___m30__e_m___p80.html":[27,0,47]
+"d3/dcf/class_hobs__pp__phi3__phi1phi1__bbtautau___a_t_l_a_s13.html":[27,0,1278]
 };

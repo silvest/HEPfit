@@ -1,5 +1,6 @@
 var NAVTREEINDEX98 =
 {
+"db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a0c22e72c0e2e4815b0870226845a5929":[27,0,1,2,8,4],
 "db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a15c86728b241ffa490f64abe8e2931e9":[27,0,1,2,8,17],
 "db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a28743e9c75d9d87b11be46921b6a0e02":[27,0,1,2,8,18],
 "db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a3319ce926348ab76f00fb1a69df0587f":[27,0,1,2,8,11],
@@ -248,6 +249,5 @@ var NAVTREEINDEX98 =
 "db/da9/class_rinv.html#a9971f54d749aa98aaa896d622d2523eb":[4,3,95,1],
 "db/daa/class_robs__gg_f___h__gaga___c_m_s8.html":[4,17,324],
 "db/daa/class_robs__gg_f___h__gaga___c_m_s8.html#a30971db2031c197c28f0381cfdfa2e6b":[4,17,324,1],
-"db/daa/class_robs__gg_f___h__gaga___c_m_s8.html#a93cbe195c251f7ccdeee3ad2e3bdc3e2":[4,17,324,0],
-"db/daa/class_robs__gg_f___h__gaga___c_m_s8.html#acc7c6dd9616284beeda75d6511f40ded":[4,17,324,2]
+"db/daa/class_robs__gg_f___h__gaga___c_m_s8.html#a93cbe195c251f7ccdeee3ad2e3bdc3e2":[4,17,324,0]
 };

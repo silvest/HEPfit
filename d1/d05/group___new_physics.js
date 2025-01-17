@@ -8780,6 +8780,7 @@ var group___new_physics =
       [ "eZHWW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#acae8f1aa52a1f990a5229fbeeb20a8db", null ],
       [ "eZHZga", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#aad870ca1796e303bd56f0848d1258aa8", null ],
       [ "eZHZZ", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#acb6c873c16e7600d7e1829fef47ded0d", null ],
+      [ "FlagCorrsInSMRunning", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a285b39406ba53adb47932ce21373f9c0", null ],
       [ "FlagfiniteNLO", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ad80480461a6bde72f6c5b2b15c5f7733", null ],
       [ "FlagHiggsSM", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a731701a97d1a1235f6ab76fa5a2c9c50", null ],
       [ "FlagLoopH3d6Quad", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a3ec5a48dfa6c34a303eab2332b767210", null ],

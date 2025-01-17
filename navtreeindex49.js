@@ -1,5 +1,6 @@
 var NAVTREEINDEX49 =
 {
+"d5/d49/classg_h_z_aeff.html#aa28de49f4f5ef69c3b0b4d91b0d91b36":[27,0,749,1],
 "d5/d4a/class_f_b__asymmetry___tevatron__tt__diff__mtt___l_o.html":[27,0,633],
 "d5/d4a/class_f_b__asymmetry___tevatron__tt__diff__mtt___l_o.html#a48a8b1768205c492c0639e9508be3b68":[27,0,633,0],
 "d5/d4a/class_f_b__asymmetry___tevatron__tt__diff__mtt___l_o.html#a5befc3996b856ea688b5960472d4e335":[27,0,633,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX49 =
 "d5/d69/class_loop_mediators.html#afbee7e2f8de7ea17436be9724dae4564":[27,0,1705,12],
 "d5/d69/class_loop_mediators.html#affee0e81d6588df2c9407584fb7494f8":[27,0,1705,11],
 "d5/d6c/class_f_f___r1.html":[27,0,646],
-"d5/d6c/class_f_f___r1.html#a6f210ddb083395dfb4b72fa1e36b16a3":[27,0,646,3],
-"d5/d6c/class_f_f___r1.html#a7514abfe3f373f11b2a2114b55a499b3":[27,0,646,1]
+"d5/d6c/class_f_f___r1.html#a6f210ddb083395dfb4b72fa1e36b16a3":[27,0,646,3]
 };
