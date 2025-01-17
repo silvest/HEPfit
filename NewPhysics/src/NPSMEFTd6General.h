@@ -7651,7 +7651,8 @@ private:
     bool FlagmultiScaleRGE; ///< A boolean for the model flag %multiScaleRGE , to include RGE effects at different scales.
     bool FlagfiniteNLO; ///< A boolean for the model flag %finiteNLO , to include finite NLO terms, when available. 
     bool FlagmatchLEFT; ///< A boolean for the model flag %matchLEFT , to include the matching between SMEFT and LEFT.
-    
+    bool FlagCorrsInSMRunning; ///< A boolean for the model flag %CorrsInSMRunning , to include corrections from the SMEFT in the SM running.
+
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function
 

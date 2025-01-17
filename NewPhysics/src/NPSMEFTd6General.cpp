@@ -346,6 +346,7 @@ NPbase(), NPSMEFTd6GM(*this),
     FlagLoopHd6 = false;
     FlagLoopH3d6Quad = false;
     FlagRGEci = true;
+    FlagCorrsInSMRunning = true;
     FlagmultiScaleRGE = false;
     FlagfiniteNLO = false;
     FlagmatchLEFT = true;
@@ -8571,10 +8572,10 @@ bool NPSMEFTd6General::PostUpdate() {
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
-            MUQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
-            MUQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
-            MDQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
-            MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) - getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
+            MUQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuR", i, j) - getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
+            MUQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuI", i, j) - getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
+            MDQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdR", i, j) - getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
+            MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdI", i, j) - getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
         }
 
     gslpp::vector<double> mmu(3), mmd(3);
@@ -13953,6 +13954,9 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
         res = true; 
     } else if (name.compare("RGEci") == 0) {
         FlagRGEci = value;
+        res = true;
+    } else if (name.compare("CorrsInSMRunning") == 0) {
+        FlagCorrsInSMRunning = value;
         res = true;
     } else if (name.compare("multiScaleRGE") == 0) {
         FlagmultiScaleRGE = value;
