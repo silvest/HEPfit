@@ -6579,6 +6579,8 @@ public:
      * @return AuxObs_NP20
      */
     virtual const double AuxObs_NP30() const;
+    
+    /////////////RG evolution////////////////
 
     const RGESolver& getSMEFTEvol() const {
         return SMEFTEvolEW;
@@ -6617,7 +6619,6 @@ public:
     {
         return SMEFTEvolEW;
     }
-
     
     // Functions to select the operators at different scales
     double getSMEFTCoeff(const std::string name, const double mu) const;
@@ -6626,6 +6627,21 @@ public:
     
     double getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const;
     
+    // Functions used by the above to compute the approximation by a polynomial up to log^5 to the RG evolution
+    
+    // Coeff of term proportional to log(mu/Lambda)
+    double xlog1(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const;
+    // Coeff of term proportional to log^2(mu/Lambda)
+    double xlog2(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const;
+    // Coeff of term proportional to log^3(mu/Lambda)
+    double xlog3(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const;
+    // Coeff of term proportional to log^4(mu/Lambda)
+    double xlog4(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const;
+    // Coeff of term proportional to log^5(mu/Lambda)
+    double xlog5(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const;
+    
+
+    ////////////////////////////////////////////    
     
     const double getDelta_v() const
     {
@@ -7635,8 +7651,14 @@ protected:
     ////////////////////////////////////////////////////////////////////////
     
     RGESolver SMEFTEvolEW;
-    
+        
     RGESolver SMEFTEvolMH, SMEFTEvol240, SMEFTEvol365, SMEFTEvol500;
+    
+    RGESolver SMEFTEvolUV; // Reference at UV (Lambda_NP). Used to be able to access values of the coefficients via the RGEsolver methods. It is not evolved.
+    
+    // Log of the RGE scales associated to the non-trivial evolutors (for SMEFTEvolEW the scale is muw), from top to bottom. 
+    // Initialize here to 0. Set in PostUpdate 
+    double tmu2 = 0., tmu3 = 0., tmu4 = 0., tmu5 = 0., tmuw = 0.;
         
 private:
     

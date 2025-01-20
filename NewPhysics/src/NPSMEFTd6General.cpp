@@ -329,9 +329,9 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
 
 NPSMEFTd6General::NPSMEFTd6General()
 :
-NPbase(), NPSMEFTd6GM(*this), 
+NPbase(), NPSMEFTd6GM(*this),
         SMEFTEvolEW(), 
-        SMEFTEvolMH(), SMEFTEvol240(), SMEFTEvol365(), SMEFTEvol500(),
+        SMEFTEvolMH(), SMEFTEvol240(), SMEFTEvol365(), SMEFTEvol500(), SMEFTEvolUV(),
         VuL(gslpp::matrix<complex>::Id(3)), VuLd(gslpp::matrix<complex>::Id(3)), 
         VuR(gslpp::matrix<complex>::Id(3)), VuRd(gslpp::matrix<complex>::Id(3)), 
         VdL(gslpp::matrix<complex>::Id(3)), VdLd(gslpp::matrix<complex>::Id(3)), 
@@ -3005,6 +3005,7 @@ bool NPSMEFTd6General::PreUpdate() {
     SMEFTEvol240.Reset();
     SMEFTEvol365.Reset();
     SMEFTEvol500.Reset();
+    SMEFTEvolUV.Reset();
 
     if (!NPbase::PreUpdate()) return (false);
 
@@ -8347,7 +8348,7 @@ bool NPSMEFTd6General::PostUpdate() {
 
     LambdaNP2 = Lambda_NP * Lambda_NP;
     LambdaNPm2 = 1. / LambdaNP2;
-
+    
     //  1) Post-update operations involving SM parameters only 
 
     v2 = v() * v();
@@ -8397,6 +8398,17 @@ bool NPSMEFTd6General::PostUpdate() {
     double Md_LEW[3] = {md_LEW, ms_LEW, mb_LEW};
     double Me_LEW[3] = {me_LEW, mmu_LEW, mtau_LEW};
     
+    // Renormalization Group Evolution (RGE)
+    
+    // Logs of the scales used in the evolutors, from top to bottom
+    tmu2 = log(500.0/Lambda_NP); 
+    tmu3 = log(365.0/Lambda_NP); 
+    tmu4 = log(240.0/Lambda_NP);
+    tmu5 = log(mHl/Lambda_NP);
+    tmuw = log(muw/Lambda_NP);
+    
+    // SMEFTEvol* setup
+    
     if (FlagRGEci) {
 
         // SM initial conditions for RGEsolver SMEFTEvolEW
@@ -8418,7 +8430,7 @@ bool NPSMEFTd6General::PostUpdate() {
         
         // Work with the extra instances of RGEsolver: would be better to have a deep copy of SMEFTEvolEW
 
-        // SM initial conditions for RGEsolver SMEFTEvolEW
+        // SM initial conditions for RGEsolver        
         SMEFTEvolMH.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
@@ -8434,12 +8446,17 @@ bool NPSMEFTd6General::PostUpdate() {
         SMEFTEvol500.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvolUV.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
 
         // SMEFT initial conditions for RGEsolver
         setSMEFTEvolWC(SMEFTEvolMH);
         setSMEFTEvolWC(SMEFTEvol240);
         setSMEFTEvolWC(SMEFTEvol365);
         setSMEFTEvolWC(SMEFTEvol500);
+        setSMEFTEvolWC(SMEFTEvolUV); // Not evolved. Only for reference to retrieve C(Lambda)
         
         if (FlagmultiScaleRGE) {
         // Perform the evolution for the other RGE instances
@@ -8470,7 +8487,7 @@ bool NPSMEFTd6General::PostUpdate() {
         
         // Work with the extra instances of RGEsolver: would be better to have a deep copy of SMEFTEvolEW
 
-        // SM initial conditions for RGEsolver SMEFTEvolEW
+        // SM initial conditions for RGEsolver        
         SMEFTEvolMH.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
@@ -8486,12 +8503,17 @@ bool NPSMEFTd6General::PostUpdate() {
         SMEFTEvol500.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvolUV.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
 
-        // SMEFT initial conditions for RGEsolver
+        // SMEFT initial conditions for RGEsolver        
         setSMEFTEvolWC(SMEFTEvolMH);
         setSMEFTEvolWC(SMEFTEvol240);
         setSMEFTEvolWC(SMEFTEvol365);
         setSMEFTEvolWC(SMEFTEvol500);
+        setSMEFTEvolWC(SMEFTEvolUV); // Not evolved. Only for reference to retrieve C(Lambda)
         
         // Skip RGE by setting the two scales at Lambda_NP for the EFT
         SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
@@ -14019,90 +14041,444 @@ bool NPSMEFTd6General::setFlagStr(const std::string name, const std::string valu
 
 ////////////////////////////////////////////////////////////////////////
 
-// Preparing functions to select the SMEFT WC at different energy scales 
+// Functions to select the SMEFT WC at different energy scales 
 
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) const {
-    double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol500.GetCoefficient(name)};
-    int imu;
-    //double WCmu;
+    //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol500.GetCoefficient(name)};
+    //int imu;
+    ////double WCmu;
     
-    if (abs(log(mu/muw)) <= 0.2 ) {
-        imu = 0;
-        return Cimu[imu];
-    } else if ( abs(log(mu/125.1)) <= 0.35 ) {
-        imu = 1;
-        return Cimu[imu];
-    } else if ( abs(log(mu/240.)) <= 0.35 ) {
-        imu = 2;
-        return Cimu[imu];
-    } else if ( abs(log(mu/365.)) <= 0.2 ) {
-        imu = 3;
-        return Cimu[imu];
-    } else if ( abs(log(mu/500.)) <= 0.2 ) {
-        imu = 4;
-        return Cimu[imu];
-    } else {
-        std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-        std::cout << "Returning value at muW = " << muw << std::endl;
-        imu = 0;
-        return Cimu[imu];
-    }
+    //if (abs(log(mu/muw)) <= 0.2 ) {
+    //    imu = 0;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/125.1)) <= 0.35 ) {
+    //    imu = 1;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/240.)) <= 0.35 ) {
+    //    imu = 2;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/365.)) <= 0.2 ) {
+    //    imu = 3;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/500.)) <= 0.2 ) {
+    //    imu = 4;
+    //    return Cimu[imu];
+    //} else {
+    //    std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
+    //    std::cout << "Returning value at muW = " << muw << std::endl;
+    //    imu = 0;
+    //    return Cimu[imu];
+    //}
+    
+    // The values of the Wilson coefficients, evaluated at the different scales, from top (Lambda) to bottom (MW)
+    double Cimu[6] = {SMEFTEvolUV.GetCoefficient(name), SMEFTEvol500.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvolEW.GetCoefficient(name)};
+    double t1, t2, t3, t4, t5;
+    double x1, x2, x3, x4, x5;
+    
+    t1 = log(mu/Lambda_NP);
+    t2 = t1*t1;
+    t3 = t2*t1;
+    t4 = t3*t1;
+    t5 = t4*t1;
+    
+    x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+
+    return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5); 
 }
     
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, const double mu) const {
-    double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol500.GetCoefficient(name, i, j)};
-    int imu;
-    //double WCmu;
+    //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol500.GetCoefficient(name, i, j)};
+    //int imu;
+    ////double WCmu;
     
-    if (abs(log(mu/muw)) <= 0.2 ) {
-        imu = 0;
-        return Cimu[imu];
-    } else if ( abs(log(mu/125.1)) <= 0.35 ) {
-        imu = 1;
-        return Cimu[imu];
-    } else if ( abs(log(mu/240.)) <= 0.35 ) {
-        imu = 2;
-        return Cimu[imu];
-    } else if ( abs(log(mu/365.)) <= 0.2 ) {
-        imu = 3;
-        return Cimu[imu];
-    } else if ( abs(log(mu/500.)) <= 0.2 ) {
-        imu = 4;
-        return Cimu[imu];
-    } else {
-        std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-        std::cout << "Returning value at muW = " << muw << std::endl;
-        imu = 0;
-        return Cimu[imu];
-    }
+    //if (abs(log(mu/muw)) <= 0.2 ) {
+    //    imu = 0;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/125.1)) <= 0.35 ) {
+    //    imu = 1;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/240.)) <= 0.35 ) {
+    //    imu = 2;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/365.)) <= 0.2 ) {
+    //    imu = 3;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/500.)) <= 0.2 ) {
+    //    imu = 4;
+    //    return Cimu[imu];
+    //} else {
+    //    std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
+    //    std::cout << "Returning value at muW = " << muw << std::endl;
+    //    imu = 0;
+    //    return Cimu[imu];
+    //}
+    
+    // The values of the Wilson coefficients, evaluated at the different scales, from top (Lambda) to bottom (MW)
+    double Cimu[6] = {SMEFTEvolUV.GetCoefficient(name, i, j), SMEFTEvol500.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvolEW.GetCoefficient(name, i, j)};
+    double t1, t2, t3, t4, t5;
+    double x1, x2, x3, x4, x5;
+    
+    t1 = log(mu/Lambda_NP);
+    t2 = t1*t1;
+    t3 = t2*t1;
+    t4 = t3*t1;
+    t5 = t4*t1;
+    
+    x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+
+    return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
 }
     
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const {
-    double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol500.GetCoefficient(name, i, j, k, l)};    
-    int imu;
-    //double WCmu;
+    //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol500.GetCoefficient(name, i, j, k, l)};    
+    //int imu;
+    ////double WCmu;
     
-    if (abs(log(mu/muw)) <= 0.2 ) {
-        imu = 0;
-        return Cimu[imu];
-    } else if ( abs(log(mu/125.1)) <= 0.35 ) {
-        imu = 1;
-        return Cimu[imu];
-    } else if ( abs(log(mu/240.)) <= 0.35 ) {
-        imu = 2;
-        return Cimu[imu];
-    } else if ( abs(log(mu/365.)) <= 0.2 ) {
-        imu = 3;
-        return Cimu[imu];
-    } else if ( abs(log(mu/500.)) <= 0.2 ) {
-        imu = 4;
-        return Cimu[imu];
-    } else {
-        std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-        std::cout << "Returning value at muW = " << muw << std::endl;
-        imu = 0;
-        return Cimu[imu];
-    }
+    //if (abs(log(mu/muw)) <= 0.2 ) {
+    //    imu = 0;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/125.1)) <= 0.35 ) {
+    //    imu = 1;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/240.)) <= 0.35 ) {
+    //    imu = 2;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/365.)) <= 0.2 ) {
+    //    imu = 3;
+    //    return Cimu[imu];
+    //} else if ( abs(log(mu/500.)) <= 0.2 ) {
+    //    imu = 4;
+    //    return Cimu[imu];
+    //} else {
+    //    std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
+    //    std::cout << "Returning value at muW = " << muw << std::endl;
+    //    imu = 0;
+    //    return Cimu[imu];
+    //}
+    
+    // The values of the Wilson coefficients, evaluated at the different scales, from top (Lambda) to bottom (MW)
+    double Cimu[6] = { SMEFTEvolUV.GetCoefficient(name, i, j, k, l), SMEFTEvol500.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvolEW.GetCoefficient(name, i, j, k, l)};    
+    double t1, t2, t3, t4, t5;
+    double x1, x2, x3, x4, x5;
+    
+    t1 = log(mu/Lambda_NP);
+    t2 = t1*t1;
+    t3 = t2*t1;
+    t4 = t3*t1;
+    t5 = t4*t1;
+    
+    x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+
+    return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
+}
+
+
+// Functions used by the above to compute the approximation by a polynomial up to log^5 to the RG evolution
+// Coeff of term proportional to log(mu/Lambda)
+double NPSMEFTd6General::xlog1(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const{
+    
+    double t2, t3, t4, t5, tW;
+    double t22, t23, t24, t25;
+    double t32, t33, t34, t35;
+    double t42, t43, t44, t45;
+    double t52, t53, t54, t55;
+    double tW2, tW3, tW4, tW5;
+    double xlog, den;
+    
+    // The logs associated to each evolutor, ordered from top to bottom;
+    t2 = tmu2;
+    t3 = tmu3;
+    t4 = tmu4;
+    t5 = tmu5; 
+    tW = tmuw; 
+  
+    t22 = t2 * t2; t23 = t22 * t2; t24 = t23 * t2; t25 = t24 * t2;
+    t32 = t3 * t3; t33 = t32 * t3; t34 = t33 * t3; t35 = t34 * t3;
+    t42 = t4 * t4; t43 = t42 * t4; t44 = t43 * t4; t45 = t44 * t4;
+    t52 = t5 * t5; t53 = t52 * t5; t54 = t53 * t5; t55 = t54 * t5;
+    tW2 = tW * tW; tW3 = tW2 * tW; tW4 = tW3 * tW; tW5 = tW4 * tW;
+    
+    // The denominator and numerator of the expression
+    den = t2*(t2 - t3)*t3*(t2 - t4)*(t3 - t4)*t4*(t2 - t5)*(t3 - t5)*(t4 - t5)*t5*(t2 - tW)*(t3 - tW)*(t4 - tW)*tW*(-t5 + tW);
+    
+    xlog = C6muw*(-(t25*t34*t43*t52) + t24*t35*t43*t52 + t25*t33*t44*t52 - t23*t35*t44*t52 - t24*t33*t45*t52 + t23*t34*t45*t52 + t25*t34*t42*t53 - t24*t35*t42*t53 
+            - t25*t32*t44*t53 + t22*t35*t44*t53 + t24*t32*t45*t53 - t22*t34*t45*t53 - t25*t33*t42*t54 + t23*t35*t42*t54 + t25*t32*t43*t54 - t22*t35*t43*t54 - t23*t32*t45*t54 
+            + t22*t33*t45*t54 + t24*t33*t42*t55 - t23*t34*t42*t55 - t24*t32*t43*t55 + t22*t34*t43*t55 + t23*t32*t44*t55 - t22*t33*t44*t55) 
+            + C5*(t25*t34*t43*tW2 - t24*t35*t43*tW2 - t25*t33*t44*tW2 + t23*t35*t44*tW2 + t24*t33*t45*tW2 - t23*t34*t45*tW2 - t25*t34*t42*tW3 + t24*t35*t42*tW3 
+            + t25*t32*t44*tW3 - t22*t35*t44*tW3 - t24*t32*t45*tW3 + t22*t34*t45*tW3 + t25*t33*t42*tW4 - t23*t35*t42*tW4 - t25*t32*t43*tW4 + t22*t35*t43*tW4 + t23*t32*t45*tW4 
+            - t22*t33*t45*tW4 - t24*t33*t42*tW5 + t23*t34*t42*tW5 + t24*t32*t43*tW5 - t22*t34*t43*tW5 - t23*t32*t44*tW5 + t22*t33*t44*tW5) 
+            + C4*(-(t25*t34*t53*tW2) + t24*t35*t53*tW2 + t25*t33*t54*tW2 - t23*t35*t54*tW2 - t24*t33*t55*tW2 + t23*t34*t55*tW2 + t25*t34*t52*tW3 - t24*t35*t52*tW3 
+            - t25*t32*t54*tW3 + t22*t35*t54*tW3 + t24*t32*t55*tW3 - t22*t34*t55*tW3 - t25*t33*t52*tW4 + t23*t35*t52*tW4 + t25*t32*t53*tW4 - t22*t35*t53*tW4 - t23*t32*t55*tW4 
+            + t22*t33*t55*tW4 + t24*t33*t52*tW5 - t23*t34*t52*tW5 - t24*t32*t53*tW5 + t22*t34*t53*tW5 + t23*t32*t54*tW5 - t22*t33*t54*tW5) 
+            + C3*(t25*t44*t53*tW2 - t24*t45*t53*tW2 - t25*t43*t54*tW2 + t23*t45*t54*tW2 + t24*t43*t55*tW2 - t23*t44*t55*tW2 - t25*t44*t52*tW3 + t24*t45*t52*tW3 
+            + t25*t42*t54*tW3 - t22*t45*t54*tW3 - t24*t42*t55*tW3 + t22*t44*t55*tW3 + t25*t43*t52*tW4 - t23*t45*t52*tW4 - t25*t42*t53*tW4 + t22*t45*t53*tW4 + t23*t42*t55*tW4 
+            - t22*t43*t55*tW4 - t24*t43*t52*tW5 + t23*t44*t52*tW5 + t24*t42*t53*tW5 - t22*t44*t53*tW5 - t23*t42*t54*tW5 + t22*t43*t54*tW5) 
+            + C2*(-(t35*t44*t53*tW2) + t34*t45*t53*tW2 + t35*t43*t54*tW2 - t33*t45*t54*tW2 - t34*t43*t55*tW2 + t33*t44*t55*tW2 + t35*t44*t52*tW3 - t34*t45*t52*tW3 
+            - t35*t42*t54*tW3 + t32*t45*t54*tW3 + t34*t42*t55*tW3 - t32*t44*t55*tW3 - t35*t43*t52*tW4 + t33*t45*t52*tW4 + t35*t42*t53*tW4 - t32*t45*t53*tW4 - t33*t42*t55*tW4 
+            + t32*t43*t55*tW4 + t34*t43*t52*tW5 - t33*t44*t52*tW5 - t34*t42*t53*tW5 + t32*t44*t53*tW5 + t33*t42*t54*tW5 - t32*t43*t54*tW5) 
+            + C1Lambda*(t25*t34*t43*t52 - t24*t35*t43*t52 - t25*t33*t44*t52 + t23*t35*t44*t52 + t24*t33*t45*t52 - t23*t34*t45*t52 - t25*t34*t42*t53 + t24*t35*t42*t53 + t25*t32*t44*t53 
+            - t22*t35*t44*t53 - t24*t32*t45*t53 + t22*t34*t45*t53 + t25*t33*t42*t54 - t23*t35*t42*t54 - t25*t32*t43*t54 + t22*t35*t43*t54 + t23*t32*t45*t54 - t22*t33*t45*t54 
+            - t24*t33*t42*t55 + t23*t34*t42*t55 + t24*t32*t43*t55 - t22*t34*t43*t55 - t23*t32*t44*t55 + t22*t33*t44*t55 - t25*t34*t43*tW2 + t24*t35*t43*tW2 + t25*t33*t44*tW2 
+            - t23*t35*t44*tW2 - t24*t33*t45*tW2 + t23*t34*t45*tW2 + t25*t34*t53*tW2 - t24*t35*t53*tW2 - t25*t44*t53*tW2 + t35*t44*t53*tW2 + t24*t45*t53*tW2 - t34*t45*t53*tW2 
+            - t25*t33*t54*tW2 + t23*t35*t54*tW2 + t25*t43*t54*tW2 - t35*t43*t54*tW2 - t23*t45*t54*tW2 + t33*t45*t54*tW2 + t24*t33*t55*tW2 - t23*t34*t55*tW2 - t24*t43*t55*tW2 
+            + t34*t43*t55*tW2 + t23*t44*t55*tW2 - t33*t44*t55*tW2 + t25*t34*t42*tW3 - t24*t35*t42*tW3 - t25*t32*t44*tW3 + t22*t35*t44*tW3 + t24*t32*t45*tW3 - t22*t34*t45*tW3 
+            - t25*t34*t52*tW3 + t24*t35*t52*tW3 + t25*t44*t52*tW3 - t35*t44*t52*tW3 - t24*t45*t52*tW3 + t34*t45*t52*tW3 + t25*t32*t54*tW3 - t22*t35*t54*tW3 - t25*t42*t54*tW3 
+            + t35*t42*t54*tW3 + t22*t45*t54*tW3 - t32*t45*t54*tW3 - t24*t32*t55*tW3 + t22*t34*t55*tW3 + t24*t42*t55*tW3 - t34*t42*t55*tW3 - t22*t44*t55*tW3 + t32*t44*t55*tW3 
+            - t25*t33*t42*tW4 + t23*t35*t42*tW4 + t25*t32*t43*tW4 - t22*t35*t43*tW4 - t23*t32*t45*tW4 + t22*t33*t45*tW4 + t25*t33*t52*tW4 - t23*t35*t52*tW4 - t25*t43*t52*tW4 
+            + t35*t43*t52*tW4 + t23*t45*t52*tW4 - t33*t45*t52*tW4 - t25*t32*t53*tW4 + t22*t35*t53*tW4 + t25*t42*t53*tW4 - t35*t42*t53*tW4 - t22*t45*t53*tW4 + t32*t45*t53*tW4 
+            + t23*t32*t55*tW4 - t22*t33*t55*tW4 - t23*t42*t55*tW4 + t33*t42*t55*tW4 + t22*t43*t55*tW4 - t32*t43*t55*tW4 + t24*t33*t42*tW5 - t23*t34*t42*tW5 - t24*t32*t43*tW5 
+            + t22*t34*t43*tW5 + t23*t32*t44*tW5 - t22*t33*t44*tW5 - t24*t33*t52*tW5 + t23*t34*t52*tW5 + t24*t43*t52*tW5 - t34*t43*t52*tW5 - t23*t44*t52*tW5 + t33*t44*t52*tW5 
+            + t24*t32*t53*tW5 - t22*t34*t53*tW5 - t24*t42*t53*tW5 + t34*t42*t53*tW5 + t22*t44*t53*tW5 - t32*t44*t53*tW5 - t23*t32*t54*tW5 + t22*t33*t54*tW5 + t23*t42*t54*tW5 
+            - t33*t42*t54*tW5 - t22*t43*t54*tW5 + t32*t43*t54*tW5);
+
+    return xlog/den;
+}
+    // Coeff of term proportional to log^2(mu/Lambda)
+double NPSMEFTd6General::xlog2(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const{
+    
+    double t2, t3, t4, t5, tW;
+    double t22, t23, t24, t25;
+    double t32, t33, t34, t35;
+    double t42, t43, t44, t45;
+    double t52, t53, t54, t55;
+    double tW2, tW3, tW4, tW5;
+    double xlog, den;
+    
+    // The logs associated to each evolutor, ordered from top to bottom;
+    t2 = tmu2;
+    t3 = tmu3;
+    t4 = tmu4;
+    t5 = tmu5; 
+    tW = tmuw; 
+  
+    t22 = t2 * t2; t23 = t22 * t2; t24 = t23 * t2; t25 = t24 * t2;
+    t32 = t3 * t3; t33 = t32 * t3; t34 = t33 * t3; t35 = t34 * t3;
+    t42 = t4 * t4; t43 = t42 * t4; t44 = t43 * t4; t45 = t44 * t4;
+    t52 = t5 * t5; t53 = t52 * t5; t54 = t53 * t5; t55 = t54 * t5;
+    tW2 = tW * tW; tW3 = tW2 * tW; tW4 = tW3 * tW; tW5 = tW4 * tW;
+    
+    // The denominator and numerator of the expression
+    den = t2*(t2 - t3)*t3*(t2 - t4)*(t3 - t4)*t4*(t2 - t5)*(t3 - t5)*(t4 - t5)*t5*tW*(-t2 + tW)*(-t3 + tW)*(-t4 + tW)*(-t5 + tW);
+    
+    xlog = C6muw*(-(t25*t34*t43*t5) + t24*t35*t43*t5 + t25*t33*t44*t5 - t23*t35*t44*t5 - t24*t33*t45*t5 + t23*t34*t45*t5 + t25*t34*t4*t53 - t24*t35*t4*t53 - t25*t3*t44*t53 
+            + t2*t35*t44*t53 + t24*t3*t45*t53 - t2*t34*t45*t53 - t25*t33*t4*t54 + t23*t35*t4*t54 + t25*t3*t43*t54 - t2*t35*t43*t54 - t23*t3*t45*t54 + t2*t33*t45*t54 
+            + t24*t33*t4*t55 - t23*t34*t4*t55 - t24*t3*t43*t55 + t2*t34*t43*t55 + t23*t3*t44*t55 - t2*t33*t44*t55) 
+            + C5*(t25*t34*t43*tW - t24*t35*t43*tW - t25*t33*t44*tW + t23*t35*t44*tW + t24*t33*t45*tW - t23*t34*t45*tW - t25*t34*t4*tW3 + t24*t35*t4*tW3 + t25*t3*t44*tW3 
+            - t2*t35*t44*tW3 - t24*t3*t45*tW3 + t2*t34*t45*tW3 + t25*t33*t4*tW4 - t23*t35*t4*tW4 - t25*t3*t43*tW4 + t2*t35*t43*tW4 + t23*t3*t45*tW4 - t2*t33*t45*tW4 
+            - t24*t33*t4*tW5 + t23*t34*t4*tW5 + t24*t3*t43*tW5 - t2*t34*t43*tW5 - t23*t3*t44*tW5 + t2*t33*t44*tW5) 
+            + C4*(-(t25*t34*t53*tW) + t24*t35*t53*tW + t25*t33*t54*tW - t23*t35*t54*tW - t24*t33*t55*tW + t23*t34*t55*tW + t25*t34*t5*tW3 - t24*t35*t5*tW3 - t25*t3*t54*tW3 
+            + t2*t35*t54*tW3 + t24*t3*t55*tW3 - t2*t34*t55*tW3 - t25*t33*t5*tW4 + t23*t35*t5*tW4 + t25*t3*t53*tW4 - t2*t35*t53*tW4 - t23*t3*t55*tW4 + t2*t33*t55*tW4 
+            + t24*t33*t5*tW5 - t23*t34*t5*tW5 - t24*t3*t53*tW5 + t2*t34*t53*tW5 + t23*t3*t54*tW5 - t2*t33*t54*tW5) 
+            + C3*(t25*t44*t53*tW - t24*t45*t53*tW - t25*t43*t54*tW + t23*t45*t54*tW + t24*t43*t55*tW - t23*t44*t55*tW - t25*t44*t5*tW3 + t24*t45*t5*tW3 + t25*t4*t54*tW3 
+            - t2*t45*t54*tW3 - t24*t4*t55*tW3 + t2*t44*t55*tW3 + t25*t43*t5*tW4 - t23*t45*t5*tW4 - t25*t4*t53*tW4 + t2*t45*t53*tW4 + t23*t4*t55*tW4 - t2*t43*t55*tW4 
+            - t24*t43*t5*tW5 + t23*t44*t5*tW5 + t24*t4*t53*tW5 - t2*t44*t53*tW5 - t23*t4*t54*tW5 + t2*t43*t54*tW5) 
+            + C2*(-(t35*t44*t53*tW) + t34*t45*t53*tW + t35*t43*t54*tW - t33*t45*t54*tW - t34*t43*t55*tW + t33*t44*t55*tW + t35*t44*t5*tW3 - t34*t45*t5*tW3 - t35*t4*t54*tW3 
+            + t3*t45*t54*tW3 + t34*t4*t55*tW3 - t3*t44*t55*tW3 - t35*t43*t5*tW4 + t33*t45*t5*tW4 + t35*t4*t53*tW4 - t3*t45*t53*tW4 - t33*t4*t55*tW4 + t3*t43*t55*tW4 
+            + t34*t43*t5*tW5 - t33*t44*t5*tW5 - t34*t4*t53*tW5 + t3*t44*t53*tW5 + t33*t4*t54*tW5 - t3*t43*t54*tW5) 
+            + C1Lambda*(t25*t34*t43*t5 - t24*t35*t43*t5 - t25*t33*t44*t5 + t23*t35*t44*t5 + t24*t33*t45*t5 - t23*t34*t45*t5 - t25*t34*t4*t53 + t24*t35*t4*t53 + t25*t3*t44*t53 
+            - t2*t35*t44*t53 - t24*t3*t45*t53 + t2*t34*t45*t53 + t25*t33*t4*t54 - t23*t35*t4*t54 - t25*t3*t43*t54 + t2*t35*t43*t54 + t23*t3*t45*t54 - t2*t33*t45*t54 
+            - t24*t33*t4*t55 + t23*t34*t4*t55 + t24*t3*t43*t55 - t2*t34*t43*t55 - t23*t3*t44*t55 + t2*t33*t44*t55 - t25*t34*t43*tW + t24*t35*t43*tW + t25*t33*t44*tW 
+            - t23*t35*t44*tW - t24*t33*t45*tW + t23*t34*t45*tW + t25*t34*t53*tW - t24*t35*t53*tW - t25*t44*t53*tW + t35*t44*t53*tW + t24*t45*t53*tW - t34*t45*t53*tW 
+            - t25*t33*t54*tW + t23*t35*t54*tW + t25*t43*t54*tW - t35*t43*t54*tW - t23*t45*t54*tW + t33*t45*t54*tW + t24*t33*t55*tW - t23*t34*t55*tW - t24*t43*t55*tW 
+            + t34*t43*t55*tW + t23*t44*t55*tW - t33*t44*t55*tW + t25*t34*t4*tW3 - t24*t35*t4*tW3 - t25*t3*t44*tW3 + t2*t35*t44*tW3 + t24*t3*t45*tW3 - t2*t34*t45*tW3 
+            - t25*t34*t5*tW3 + t24*t35*t5*tW3 + t25*t44*t5*tW3 - t35*t44*t5*tW3 - t24*t45*t5*tW3 + t34*t45*t5*tW3 + t25*t3*t54*tW3 - t2*t35*t54*tW3 - t25*t4*t54*tW3 
+            + t35*t4*t54*tW3 + t2*t45*t54*tW3 - t3*t45*t54*tW3 - t24*t3*t55*tW3 + t2*t34*t55*tW3 + t24*t4*t55*tW3 - t34*t4*t55*tW3 - t2*t44*t55*tW3 + t3*t44*t55*tW3 
+            - t25*t33*t4*tW4 + t23*t35*t4*tW4 + t25*t3*t43*tW4 - t2*t35*t43*tW4 - t23*t3*t45*tW4 + t2*t33*t45*tW4 + t25*t33*t5*tW4 - t23*t35*t5*tW4 - t25*t43*t5*tW4 
+            + t35*t43*t5*tW4 + t23*t45*t5*tW4 - t33*t45*t5*tW4 - t25*t3*t53*tW4 + t2*t35*t53*tW4 + t25*t4*t53*tW4 - t35*t4*t53*tW4 - t2*t45*t53*tW4 + t3*t45*t53*tW4 
+            + t23*t3*t55*tW4 - t2*t33*t55*tW4 - t23*t4*t55*tW4 + t33*t4*t55*tW4 + t2*t43*t55*tW4 - t3*t43*t55*tW4 + t24*t33*t4*tW5 - t23*t34*t4*tW5 - t24*t3*t43*tW5 
+            + t2*t34*t43*tW5 + t23*t3*t44*tW5 - t2*t33*t44*tW5 - t24*t33*t5*tW5 + t23*t34*t5*tW5 + t24*t43*t5*tW5 - t34*t43*t5*tW5 - t23*t44*t5*tW5 + t33*t44*t5*tW5 
+            + t24*t3*t53*tW5 - t2*t34*t53*tW5 - t24*t4*t53*tW5 + t34*t4*t53*tW5 + t2*t44*t53*tW5 - t3*t44*t53*tW5 - t23*t3*t54*tW5 + t2*t33*t54*tW5 + t23*t4*t54*tW5 
+            - t33*t4*t54*tW5 - t2*t43*t54*tW5 + t3*t43*t54*tW5);    
+
+    return xlog/den;
+}
+    // Coeff of term proportional to log^3(mu/Lambda)
+double NPSMEFTd6General::xlog3(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const{
+    
+    double t2, t3, t4, t5, tW;
+    double t22, t23, t24, t25;
+    double t32, t33, t34, t35;
+    double t42, t43, t44, t45;
+    double t52, t53, t54, t55;
+    double tW2, tW3, tW4, tW5;
+    double xlog, den;
+    
+    // The logs associated to each evolutor, ordered from top to bottom;
+    t2 = tmu2;
+    t3 = tmu3;
+    t4 = tmu4;
+    t5 = tmu5; 
+    tW = tmuw;  
+  
+    t22 = t2 * t2; t23 = t22 * t2; t24 = t23 * t2; t25 = t24 * t2;
+    t32 = t3 * t3; t33 = t32 * t3; t34 = t33 * t3; t35 = t34 * t3;
+    t42 = t4 * t4; t43 = t42 * t4; t44 = t43 * t4; t45 = t44 * t4;
+    t52 = t5 * t5; t53 = t52 * t5; t54 = t53 * t5; t55 = t54 * t5;
+    tW2 = tW * tW; tW3 = tW2 * tW; tW4 = tW3 * tW; tW5 = tW4 * tW;
+    
+    // The denominator and numerator of the expression
+    den = t2*(t2 - t3)*t3*(t2 - t4)*(t3 - t4)*t4*(t2 - t5)*(t3 - t5)*(t4 - t5)*t5*tW*(-t2 + tW)*(-t3 + tW)*(-t4 + tW)*(-t5 + tW);
+    
+    xlog = C6muw*(t25*t34*t42*t5 - t24*t35*t42*t5 - t25*t32*t44*t5 + t22*t35*t44*t5 + t24*t32*t45*t5 - t22*t34*t45*t5 - t25*t34*t4*t52 + t24*t35*t4*t52 + t25*t3*t44*t52 
+            - t2*t35*t44*t52 - t24*t3*t45*t52 + t2*t34*t45*t52 + t25*t32*t4*t54 - t22*t35*t4*t54 - t25*t3*t42*t54 + t2*t35*t42*t54 + t22*t3*t45*t54 - t2*t32*t45*t54 
+            - t24*t32*t4*t55 + t22*t34*t4*t55 + t24*t3*t42*t55 - t2*t34*t42*t55 - t22*t3*t44*t55 + t2*t32*t44*t55) 
+            + C5*(-(t25*t34*t42*tW) + t24*t35*t42*tW + t25*t32*t44*tW - t22*t35*t44*tW - t24*t32*t45*tW + t22*t34*t45*tW + t25*t34*t4*tW2 - t24*t35*t4*tW2 - t25*t3*t44*tW2 
+            + t2*t35*t44*tW2 + t24*t3*t45*tW2 - t2*t34*t45*tW2 - t25*t32*t4*tW4 + t22*t35*t4*tW4 + t25*t3*t42*tW4 - t2*t35*t42*tW4 - t22*t3*t45*tW4 + t2*t32*t45*tW4 
+            + t24*t32*t4*tW5 - t22*t34*t4*tW5 - t24*t3*t42*tW5 + t2*t34*t42*tW5 + t22*t3*t44*tW5 - t2*t32*t44*tW5) 
+            + C4*(t25*t34*t52*tW - t24*t35*t52*tW - t25*t32*t54*tW + t22*t35*t54*tW + t24*t32*t55*tW - t22*t34*t55*tW - t25*t34*t5*tW2 + t24*t35*t5*tW2 + t25*t3*t54*tW2 
+            - t2*t35*t54*tW2 - t24*t3*t55*tW2 + t2*t34*t55*tW2 + t25*t32*t5*tW4 - t22*t35*t5*tW4 - t25*t3*t52*tW4 + t2*t35*t52*tW4 + t22*t3*t55*tW4 - t2*t32*t55*tW4 
+            - t24*t32*t5*tW5 + t22*t34*t5*tW5 + t24*t3*t52*tW5 - t2*t34*t52*tW5 - t22*t3*t54*tW5 + t2*t32*t54*tW5) 
+            + C3*(-(t25*t44*t52*tW) + t24*t45*t52*tW + t25*t42*t54*tW - t22*t45*t54*tW - t24*t42*t55*tW + t22*t44*t55*tW + t25*t44*t5*tW2 - t24*t45*t5*tW2 - t25*t4*t54*tW2 
+            + t2*t45*t54*tW2 + t24*t4*t55*tW2 - t2*t44*t55*tW2 - t25*t42*t5*tW4 + t22*t45*t5*tW4 + t25*t4*t52*tW4 - t2*t45*t52*tW4 - t22*t4*t55*tW4 + t2*t42*t55*tW4 
+            + t24*t42*t5*tW5 - t22*t44*t5*tW5 - t24*t4*t52*tW5 + t2*t44*t52*tW5 + t22*t4*t54*tW5 - t2*t42*t54*tW5) 
+            + C1Lambda*(-(t25*t34*t42*t5) + t24*t35*t42*t5 + t25*t32*t44*t5 - t22*t35*t44*t5 - t24*t32*t45*t5 + t22*t34*t45*t5 + t25*t34*t4*t52 - t24*t35*t4*t52 - t25*t3*t44*t52 
+            + t2*t35*t44*t52 + t24*t3*t45*t52 - t2*t34*t45*t52 - t25*t32*t4*t54 + t22*t35*t4*t54 + t25*t3*t42*t54 - t2*t35*t42*t54 - t22*t3*t45*t54 + t2*t32*t45*t54 
+            + t24*t32*t4*t55 - t22*t34*t4*t55 - t24*t3*t42*t55 + t2*t34*t42*t55 + t22*t3*t44*t55 - t2*t32*t44*t55 + t25*t34*t42*tW - t24*t35*t42*tW - t25*t32*t44*tW 
+            + t22*t35*t44*tW + t24*t32*t45*tW - t22*t34*t45*tW - t25*t34*t52*tW + t24*t35*t52*tW + t25*t44*t52*tW - t35*t44*t52*tW - t24*t45*t52*tW + t34*t45*t52*tW 
+            + t25*t32*t54*tW - t22*t35*t54*tW - t25*t42*t54*tW + t35*t42*t54*tW + t22*t45*t54*tW - t32*t45*t54*tW - t24*t32*t55*tW + t22*t34*t55*tW + t24*t42*t55*tW 
+            - t34*t42*t55*tW - t22*t44*t55*tW + t32*t44*t55*tW - t25*t34*t4*tW2 + t24*t35*t4*tW2 + t25*t3*t44*tW2 - t2*t35*t44*tW2 - t24*t3*t45*tW2 + t2*t34*t45*tW2 
+            + t25*t34*t5*tW2 - t24*t35*t5*tW2 - t25*t44*t5*tW2 + t35*t44*t5*tW2 + t24*t45*t5*tW2 - t34*t45*t5*tW2 - t25*t3*t54*tW2 + t2*t35*t54*tW2 + t25*t4*t54*tW2 
+            - t35*t4*t54*tW2 - t2*t45*t54*tW2 + t3*t45*t54*tW2 + t24*t3*t55*tW2 - t2*t34*t55*tW2 - t24*t4*t55*tW2 + t34*t4*t55*tW2 + t2*t44*t55*tW2 - t3*t44*t55*tW2 
+            + t25*t32*t4*tW4 - t22*t35*t4*tW4 - t25*t3*t42*tW4 + t2*t35*t42*tW4 + t22*t3*t45*tW4 - t2*t32*t45*tW4 - t25*t32*t5*tW4 + t22*t35*t5*tW4 + t25*t42*t5*tW4 
+            - t35*t42*t5*tW4 - t22*t45*t5*tW4 + t32*t45*t5*tW4 + t25*t3*t52*tW4 - t2*t35*t52*tW4 - t25*t4*t52*tW4 + t35*t4*t52*tW4 + t2*t45*t52*tW4 - t3*t45*t52*tW4 
+            - t22*t3*t55*tW4 + t2*t32*t55*tW4 + t22*t4*t55*tW4 - t32*t4*t55*tW4 - t2*t42*t55*tW4 + t3*t42*t55*tW4 - t24*t32*t4*tW5 + t22*t34*t4*tW5 + t24*t3*t42*tW5 
+            - t2*t34*t42*tW5 - t22*t3*t44*tW5 + t2*t32*t44*tW5 + t24*t32*t5*tW5 - t22*t34*t5*tW5 - t24*t42*t5*tW5 + t34*t42*t5*tW5 + t22*t44*t5*tW5 - t32*t44*t5*tW5 
+            - t24*t3*t52*tW5 + t2*t34*t52*tW5 + t24*t4*t52*tW5 - t34*t4*t52*tW5 - t2*t44*t52*tW5 + t3*t44*t52*tW5 + t22*t3*t54*tW5 - t2*t32*t54*tW5 - t22*t4*t54*tW5 
+            + t32*t4*t54*tW5 + t2*t42*t54*tW5 - t3*t42*t54*tW5) 
+            + C2*(t35*t44*t52*tW - t34*t45*t52*tW - t35*t42*t54*tW + t32*t45*t54*tW + t34*t42*t55*tW - t32*t44*t55*tW - t35*t44*t5*tW2 + t34*t45*t5*tW2 + t35*t4*t54*tW2 
+            - t3*t45*t54*tW2 - t34*t4*t55*tW2 + t3*t44*t55*tW2 + t35*t42*t5*tW4 - t32*t45*t5*tW4 - t35*t4*t52*tW4 + t3*t45*t52*tW4 + t32*t4*t55*tW4 - t3*t42*t55*tW4 
+            - t34*t42*t5*tW5 + t32*t44*t5*tW5 + t34*t4*t52*tW5 - t3*t44*t52*tW5 - t32*t4*t54*tW5 + t3*t42*t54*tW5);    
+
+    return xlog/den;
+}
+    // Coeff of term proportional to log^4(mu/Lambda)
+double NPSMEFTd6General::xlog4(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const{
+    
+    double t2, t3, t4, t5, tW;
+    double t22, t23, t24, t25;
+    double t32, t33, t34, t35;
+    double t42, t43, t44, t45;
+    double t52, t53, t54, t55;
+    double tW2, tW3, tW4, tW5;
+    double xlog, den;
+    
+    // The logs associated to each evolutor, ordered from top to bottom;
+    t2 = tmu2;
+    t3 = tmu3;
+    t4 = tmu4;
+    t5 = tmu5; 
+    tW = tmuw; 
+  
+    t22 = t2 * t2; t23 = t22 * t2; t24 = t23 * t2; t25 = t24 * t2;
+    t32 = t3 * t3; t33 = t32 * t3; t34 = t33 * t3; t35 = t34 * t3;
+    t42 = t4 * t4; t43 = t42 * t4; t44 = t43 * t4; t45 = t44 * t4;
+    t52 = t5 * t5; t53 = t52 * t5; t54 = t53 * t5; t55 = t54 * t5;
+    tW2 = tW * tW; tW3 = tW2 * tW; tW4 = tW3 * tW; tW5 = tW4 * tW;
+    
+    // The denominator and numerator of the expression
+    den = t2*(t2 - t3)*t3*(t2 - t4)*(t3 - t4)*t4*(t2 - t5)*(t3 - t5)*(t4 - t5)*t5*tW*(-t2 + tW)*(-t3 + tW)*(-t4 + tW)*(-t5 + tW);
+    
+    xlog = C6muw*(-(t25*t33*t42*t5) + t23*t35*t42*t5 + t25*t32*t43*t5 - t22*t35*t43*t5 - t23*t32*t45*t5 + t22*t33*t45*t5 + t25*t33*t4*t52 - t23*t35*t4*t52 - t25*t3*t43*t52 
+            + t2*t35*t43*t52 + t23*t3*t45*t52 - t2*t33*t45*t52 - t25*t32*t4*t53 + t22*t35*t4*t53 + t25*t3*t42*t53 - t2*t35*t42*t53 - t22*t3*t45*t53 + t2*t32*t45*t53 
+            + t23*t32*t4*t55 - t22*t33*t4*t55 - t23*t3*t42*t55 + t2*t33*t42*t55 + t22*t3*t43*t55 - t2*t32*t43*t55) 
+            + C5*(t25*t33*t42*tW - t23*t35*t42*tW - t25*t32*t43*tW + t22*t35*t43*tW + t23*t32*t45*tW - t22*t33*t45*tW - t25*t33*t4*tW2 + t23*t35*t4*tW2 + t25*t3*t43*tW2 
+            - t2*t35*t43*tW2 - t23*t3*t45*tW2 + t2*t33*t45*tW2 + t25*t32*t4*tW3 - t22*t35*t4*tW3 - t25*t3*t42*tW3 + t2*t35*t42*tW3 + t22*t3*t45*tW3 - t2*t32*t45*tW3 
+            - t23*t32*t4*tW5 + t22*t33*t4*tW5 + t23*t3*t42*tW5 - t2*t33*t42*tW5 - t22*t3*t43*tW5 + t2*t32*t43*tW5) 
+            + C4*(-(t25*t33*t52*tW) + t23*t35*t52*tW + t25*t32*t53*tW - t22*t35*t53*tW - t23*t32*t55*tW + t22*t33*t55*tW + t25*t33*t5*tW2 - t23*t35*t5*tW2 - t25*t3*t53*tW2 
+            + t2*t35*t53*tW2 + t23*t3*t55*tW2 - t2*t33*t55*tW2 - t25*t32*t5*tW3 + t22*t35*t5*tW3 + t25*t3*t52*tW3 - t2*t35*t52*tW3 - t22*t3*t55*tW3 + t2*t32*t55*tW3 
+            + t23*t32*t5*tW5 - t22*t33*t5*tW5 - t23*t3*t52*tW5 + t2*t33*t52*tW5 + t22*t3*t53*tW5 - t2*t32*t53*tW5) 
+            + C3*(t25*t43*t52*tW - t23*t45*t52*tW - t25*t42*t53*tW + t22*t45*t53*tW + t23*t42*t55*tW - t22*t43*t55*tW - t25*t43*t5*tW2 + t23*t45*t5*tW2 + t25*t4*t53*tW2 
+            - t2*t45*t53*tW2 - t23*t4*t55*tW2 + t2*t43*t55*tW2 + t25*t42*t5*tW3 - t22*t45*t5*tW3 - t25*t4*t52*tW3 + t2*t45*t52*tW3 + t22*t4*t55*tW3 - t2*t42*t55*tW3 
+            - t23*t42*t5*tW5 + t22*t43*t5*tW5 + t23*t4*t52*tW5 - t2*t43*t52*tW5 - t22*t4*t53*tW5 + t2*t42*t53*tW5) 
+            + C2*(-(t35*t43*t52*tW) + t33*t45*t52*tW + t35*t42*t53*tW - t32*t45*t53*tW - t33*t42*t55*tW + t32*t43*t55*tW + t35*t43*t5*tW2 - t33*t45*t5*tW2 - t35*t4*t53*tW2 
+            + t3*t45*t53*tW2 + t33*t4*t55*tW2 - t3*t43*t55*tW2 - t35*t42*t5*tW3 + t32*t45*t5*tW3 + t35*t4*t52*tW3 - t3*t45*t52*tW3 - t32*t4*t55*tW3 + t3*t42*t55*tW3 
+            + t33*t42*t5*tW5 - t32*t43*t5*tW5 - t33*t4*t52*tW5 + t3*t43*t52*tW5 + t32*t4*t53*tW5 - t3*t42*t53*tW5) 
+            + C1Lambda*(t25*t33*t42*t5 - t23*t35*t42*t5 - t25*t32*t43*t5 + t22*t35*t43*t5 + t23*t32*t45*t5 - t22*t33*t45*t5 - t25*t33*t4*t52 + t23*t35*t4*t52 + t25*t3*t43*t52 
+            - t2*t35*t43*t52 - t23*t3*t45*t52 + t2*t33*t45*t52 + t25*t32*t4*t53 - t22*t35*t4*t53 - t25*t3*t42*t53 + t2*t35*t42*t53 + t22*t3*t45*t53 - t2*t32*t45*t53 
+            - t23*t32*t4*t55 + t22*t33*t4*t55 + t23*t3*t42*t55 - t2*t33*t42*t55 - t22*t3*t43*t55 + t2*t32*t43*t55 - t25*t33*t42*tW + t23*t35*t42*tW + t25*t32*t43*tW 
+            - t22*t35*t43*tW - t23*t32*t45*tW + t22*t33*t45*tW + t25*t33*t52*tW - t23*t35*t52*tW - t25*t43*t52*tW + t35*t43*t52*tW + t23*t45*t52*tW - t33*t45*t52*tW 
+            - t25*t32*t53*tW + t22*t35*t53*tW + t25*t42*t53*tW - t35*t42*t53*tW - t22*t45*t53*tW + t32*t45*t53*tW + t23*t32*t55*tW - t22*t33*t55*tW - t23*t42*t55*tW 
+            + t33*t42*t55*tW + t22*t43*t55*tW - t32*t43*t55*tW + t25*t33*t4*tW2 - t23*t35*t4*tW2 - t25*t3*t43*tW2 + t2*t35*t43*tW2 + t23*t3*t45*tW2 - t2*t33*t45*tW2 
+            - t25*t33*t5*tW2 + t23*t35*t5*tW2 + t25*t43*t5*tW2 - t35*t43*t5*tW2 - t23*t45*t5*tW2 + t33*t45*t5*tW2 + t25*t3*t53*tW2 - t2*t35*t53*tW2 - t25*t4*t53*tW2 
+            + t35*t4*t53*tW2 + t2*t45*t53*tW2 - t3*t45*t53*tW2 - t23*t3*t55*tW2 + t2*t33*t55*tW2 + t23*t4*t55*tW2 - t33*t4*t55*tW2 - t2*t43*t55*tW2 + t3*t43*t55*tW2 
+            - t25*t32*t4*tW3 + t22*t35*t4*tW3 + t25*t3*t42*tW3 - t2*t35*t42*tW3 - t22*t3*t45*tW3 + t2*t32*t45*tW3 + t25*t32*t5*tW3 - t22*t35*t5*tW3 - t25*t42*t5*tW3 
+            + t35*t42*t5*tW3 + t22*t45*t5*tW3 - t32*t45*t5*tW3 - t25*t3*t52*tW3 + t2*t35*t52*tW3 + t25*t4*t52*tW3 - t35*t4*t52*tW3 - t2*t45*t52*tW3 + t3*t45*t52*tW3 
+            + t22*t3*t55*tW3 - t2*t32*t55*tW3 - t22*t4*t55*tW3 + t32*t4*t55*tW3 + t2*t42*t55*tW3 - t3*t42*t55*tW3 + t23*t32*t4*tW5 - t22*t33*t4*tW5 - t23*t3*t42*tW5 
+            + t2*t33*t42*tW5 + t22*t3*t43*tW5 - t2*t32*t43*tW5 - t23*t32*t5*tW5 + t22*t33*t5*tW5 + t23*t42*t5*tW5 - t33*t42*t5*tW5 - t22*t43*t5*tW5 + t32*t43*t5*tW5 
+            + t23*t3*t52*tW5 - t2*t33*t52*tW5 - t23*t4*t52*tW5 + t33*t4*t52*tW5 + t2*t43*t52*tW5 - t3*t43*t52*tW5 - t22*t3*t53*tW5 + t2*t32*t53*tW5 + t22*t4*t53*tW5 
+            - t32*t4*t53*tW5 - t2*t42*t53*tW5 + t3*t42*t53*tW5);    
+
+    return xlog/den;
+}
+    // Coeff of term proportional to log^5(mu/Lambda)
+double NPSMEFTd6General::xlog5(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const{
+    
+    double t2, t3, t4, t5, tW;
+    double t22, t23, t24;//, t25;
+    double t32, t33, t34;//, t35;
+    double t42, t43, t44;//, t45;
+    double t52, t53, t54;//, t55;
+    double tW2, tW3, tW4;//, tW5;
+    double xlog, den;
+    
+    // The logs associated to each evolutor, ordered from top to bottom;
+    t2 = tmu2;
+    t3 = tmu3;
+    t4 = tmu4;
+    t5 = tmu5; 
+    tW = tmuw; 
+  
+    t22 = t2 * t2; t23 = t22 * t2; t24 = t23 * t2;// t25 = t24 * t2;
+    t32 = t3 * t3; t33 = t32 * t3; t34 = t33 * t3;// t35 = t34 * t3;
+    t42 = t4 * t4; t43 = t42 * t4; t44 = t43 * t4;// t45 = t44 * t4;
+    t52 = t5 * t5; t53 = t52 * t5; t54 = t53 * t5;// t55 = t54 * t5;
+    tW2 = tW * tW; tW3 = tW2 * tW; tW4 = tW3 * tW;// tW5 = tW4 * tW;
+    
+    // The denominator and numerator of the expression
+    den = t2*(t2 - t3)*t3*(t2 - t4)*(t3 - t4)*t4*(t2 - t5)*(t3 - t5)*(t4 - t5)*t5*tW*(-t2 + tW)*(-t3 + tW)*(-t4 + tW)*(-t5 + tW);
+    
+    xlog = C6muw*(t24*t33*t42*t5 - t23*t34*t42*t5 - t24*t32*t43*t5 + t22*t34*t43*t5 + t23*t32*t44*t5 - t22*t33*t44*t5 - t24*t33*t4*t52 + t23*t34*t4*t52 + t24*t3*t43*t52 
+            - t2*t34*t43*t52 - t23*t3*t44*t52 + t2*t33*t44*t52 + t24*t32*t4*t53 - t22*t34*t4*t53 - t24*t3*t42*t53 + t2*t34*t42*t53 + t22*t3*t44*t53 - t2*t32*t44*t53 
+            - t23*t32*t4*t54 + t22*t33*t4*t54 + t23*t3*t42*t54 - t2*t33*t42*t54 - t22*t3*t43*t54 + t2*t32*t43*t54) 
+            + C5*(-(t24*t33*t42*tW) + t23*t34*t42*tW + t24*t32*t43*tW - t22*t34*t43*tW - t23*t32*t44*tW + t22*t33*t44*tW + t24*t33*t4*tW2 - t23*t34*t4*tW2 - t24*t3*t43*tW2 
+            + t2*t34*t43*tW2 + t23*t3*t44*tW2 - t2*t33*t44*tW2 - t24*t32*t4*tW3 + t22*t34*t4*tW3 + t24*t3*t42*tW3 - t2*t34*t42*tW3 - t22*t3*t44*tW3 + t2*t32*t44*tW3 
+            + t23*t32*t4*tW4 - t22*t33*t4*tW4 - t23*t3*t42*tW4 + t2*t33*t42*tW4 + t22*t3*t43*tW4 - t2*t32*t43*tW4) 
+            + C4*(t24*t33*t52*tW - t23*t34*t52*tW - t24*t32*t53*tW + t22*t34*t53*tW + t23*t32*t54*tW - t22*t33*t54*tW - t24*t33*t5*tW2 + t23*t34*t5*tW2 + t24*t3*t53*tW2 
+            - t2*t34*t53*tW2 - t23*t3*t54*tW2 + t2*t33*t54*tW2 + t24*t32*t5*tW3 - t22*t34*t5*tW3 - t24*t3*t52*tW3 + t2*t34*t52*tW3 + t22*t3*t54*tW3 - t2*t32*t54*tW3 
+            - t23*t32*t5*tW4 + t22*t33*t5*tW4 + t23*t3*t52*tW4 - t2*t33*t52*tW4 - t22*t3*t53*tW4 + t2*t32*t53*tW4) 
+            + C3*(-(t24*t43*t52*tW) + t23*t44*t52*tW + t24*t42*t53*tW - t22*t44*t53*tW - t23*t42*t54*tW + t22*t43*t54*tW + t24*t43*t5*tW2 - t23*t44*t5*tW2 - t24*t4*t53*tW2 
+            + t2*t44*t53*tW2 + t23*t4*t54*tW2 - t2*t43*t54*tW2 - t24*t42*t5*tW3 + t22*t44*t5*tW3 + t24*t4*t52*tW3 - t2*t44*t52*tW3 - t22*t4*t54*tW3 + t2*t42*t54*tW3 
+            + t23*t42*t5*tW4 - t22*t43*t5*tW4 - t23*t4*t52*tW4 + t2*t43*t52*tW4 + t22*t4*t53*tW4 - t2*t42*t53*tW4) 
+            + C1Lambda*(-(t24*t33*t42*t5) + t23*t34*t42*t5 + t24*t32*t43*t5 - t22*t34*t43*t5 - t23*t32*t44*t5 + t22*t33*t44*t5 + t24*t33*t4*t52 - t23*t34*t4*t52 - t24*t3*t43*t52 
+            + t2*t34*t43*t52 + t23*t3*t44*t52 - t2*t33*t44*t52 - t24*t32*t4*t53 + t22*t34*t4*t53 + t24*t3*t42*t53 - t2*t34*t42*t53 - t22*t3*t44*t53 + t2*t32*t44*t53 
+            + t23*t32*t4*t54 - t22*t33*t4*t54 - t23*t3*t42*t54 + t2*t33*t42*t54 + t22*t3*t43*t54 - t2*t32*t43*t54 + t24*t33*t42*tW - t23*t34*t42*tW - t24*t32*t43*tW 
+            + t22*t34*t43*tW + t23*t32*t44*tW - t22*t33*t44*tW - t24*t33*t52*tW + t23*t34*t52*tW + t24*t43*t52*tW - t34*t43*t52*tW - t23*t44*t52*tW + t33*t44*t52*tW 
+            + t24*t32*t53*tW - t22*t34*t53*tW - t24*t42*t53*tW + t34*t42*t53*tW + t22*t44*t53*tW - t32*t44*t53*tW - t23*t32*t54*tW + t22*t33*t54*tW + t23*t42*t54*tW 
+            - t33*t42*t54*tW - t22*t43*t54*tW + t32*t43*t54*tW - t24*t33*t4*tW2 + t23*t34*t4*tW2 + t24*t3*t43*tW2 - t2*t34*t43*tW2 - t23*t3*t44*tW2 + t2*t33*t44*tW2 
+            + t24*t33*t5*tW2 - t23*t34*t5*tW2 - t24*t43*t5*tW2 + t34*t43*t5*tW2 + t23*t44*t5*tW2 - t33*t44*t5*tW2 - t24*t3*t53*tW2 + t2*t34*t53*tW2 + t24*t4*t53*tW2 
+            - t34*t4*t53*tW2 - t2*t44*t53*tW2 + t3*t44*t53*tW2 + t23*t3*t54*tW2 - t2*t33*t54*tW2 - t23*t4*t54*tW2 + t33*t4*t54*tW2 + t2*t43*t54*tW2 - t3*t43*t54*tW2 
+            + t24*t32*t4*tW3 - t22*t34*t4*tW3 - t24*t3*t42*tW3 + t2*t34*t42*tW3 + t22*t3*t44*tW3 - t2*t32*t44*tW3 - t24*t32*t5*tW3 + t22*t34*t5*tW3 + t24*t42*t5*tW3 
+            - t34*t42*t5*tW3 - t22*t44*t5*tW3 + t32*t44*t5*tW3 + t24*t3*t52*tW3 - t2*t34*t52*tW3 - t24*t4*t52*tW3 + t34*t4*t52*tW3 + t2*t44*t52*tW3 - t3*t44*t52*tW3 
+            - t22*t3*t54*tW3 + t2*t32*t54*tW3 + t22*t4*t54*tW3 - t32*t4*t54*tW3 - t2*t42*t54*tW3 + t3*t42*t54*tW3 - t23*t32*t4*tW4 + t22*t33*t4*tW4 + t23*t3*t42*tW4 
+            - t2*t33*t42*tW4 - t22*t3*t43*tW4 + t2*t32*t43*tW4 + t23*t32*t5*tW4 - t22*t33*t5*tW4 - t23*t42*t5*tW4 + t33*t42*t5*tW4 + t22*t43*t5*tW4 - t32*t43*t5*tW4 
+            - t23*t3*t52*tW4 + t2*t33*t52*tW4 + t23*t4*t52*tW4 - t33*t4*t52*tW4 - t2*t43*t52*tW4 + t3*t43*t52*tW4 + t22*t3*t53*tW4 - t2*t32*t53*tW4 - t22*t4*t53*tW4 
+            + t32*t4*t53*tW4 + t2*t42*t53*tW4 - t3*t42*t53*tW4) + C2*(t34*t43*t52*tW - t33*t44*t52*tW - t34*t42*t53*tW + t32*t44*t53*tW + t33*t42*t54*tW - t32*t43*t54*tW 
+            - t34*t43*t5*tW2 + t33*t44*t5*tW2 + t34*t4*t53*tW2 - t3*t44*t53*tW2 - t33*t4*t54*tW2 + t3*t43*t54*tW2 + t34*t42*t5*tW3 - t32*t44*t5*tW3 - t34*t4*t52*tW3 
+            + t3*t44*t52*tW3 + t32*t4*t54*tW3 - t3*t42*t54*tW3 - t33*t42*t5*tW4 + t32*t43*t5*tW4 + t33*t4*t52*tW4 - t3*t43*t52*tW4 - t32*t4*t53*tW4 + t3*t42*t53*tW4);    
+
+    return xlog/den;
 }
 
 
