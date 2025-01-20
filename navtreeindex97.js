@@ -1,5 +1,16 @@
 var NAVTREEINDEX97 =
 {
+"db/d2b/class_georgi_machacek.html#ae4cb8b548c79fe107bc566ed71df89c2":[4,8,46,53],
+"db/d2b/class_georgi_machacek.html#aea34a53ac23d0da242c9980f05b49e18":[4,8,46,54],
+"db/d2b/class_georgi_machacek.html#aeb913c1fc5f302bd26f1feffb61f4b75":[4,8,46,3],
+"db/d2b/class_georgi_machacek.html#aeea56f10c3afeacac5985d6bcee62d47":[4,8,46,39],
+"db/d2b/class_georgi_machacek.html#af5ba82f05f4b30952f046ce4e41f8e83":[4,8,46,11],
+"db/d2b/class_georgi_machacek.html#af97a49178ac4add81008fab115ddc387":[4,8,46,2],
+"db/d2b/class_georgi_machacek.html#afc8135d782649dace5835a032fa58271":[4,8,46,4],
+"db/d2c/classlog10___v_v__phi3___w_w___t_h13.html":[27,0,1693],
+"db/d2c/classlog10___v_v__phi3___w_w___t_h13.html#aa4ee20bf44c165052651161e7afd21b2":[27,0,1693,0],
+"db/d2c/classlog10___v_v__phi3___w_w___t_h13.html#ac9fd9db49c2a28b22a53dca2e7cef141":[27,0,1693,1],
+"db/d2c/classlog10___v_v__phi3___w_w___t_h13.html#aed53c0cd2bf271d0839022023fc1a419":[27,0,1693,2],
 "db/d31/class_robs__pp___h___z_z__llll___c_m_s13.html":[4,17,381],
 "db/d31/class_robs__pp___h___z_z__llll___c_m_s13.html#a4b432b468144e238b489132d060b285d":[4,17,381,1],
 "db/d31/class_robs__pp___h___z_z__llll___c_m_s13.html#ad48cd7ede17f73855ff8bc099e168276":[4,17,381,0],
@@ -238,16 +249,5 @@ var NAVTREEINDEX97 =
 "db/d67/classmu_v_b_f_hbb.html#a73b9c65c7b45546ff67b6e21d1b637a1":[4,13,307,0],
 "db/d67/classmu_v_b_f_hbb.html#a7a51d5955fdb9a9144f33d7673192fd6":[4,13,307,1],
 "db/d67/classmu_v_b_f_hbb.html#aa3139217886841bf25c8f49686ec64b9":[4,13,307,2],
-"db/d68/class_s_t_x_s12__gg_h__mjj350__700__p_t_h0__200__pt_hjj0__25___nj2.html":[4,13,374],
-"db/d68/class_s_t_x_s12__gg_h__mjj350__700__p_t_h0__200__pt_hjj0__25___nj2.html#a6940baa4efeae821e8504dd32ffb9b3b":[4,13,374,1],
-"db/d68/class_s_t_x_s12__gg_h__mjj350__700__p_t_h0__200__pt_hjj0__25___nj2.html#a75a8835ba5cda1c2a9468547d6bb0704":[4,13,374,2],
-"db/d68/class_s_t_x_s12__gg_h__mjj350__700__p_t_h0__200__pt_hjj0__25___nj2.html#a989d8fa0a964d9c5748e42717cc30d66":[4,13,374,0],
-"db/d68/class_s_t_x_s12__gg_h__mjj350__700__p_t_h0__200__pt_hjj0__25___nj2.html#ac70f75578ad25cf9a5d6a663f33d86c5":[4,13,374,4],
-"db/d68/class_s_t_x_s12__gg_h__mjj350__700__p_t_h0__200__pt_hjj0__25___nj2.html#ac9e75848ba73c455238c7437a01f3c05":[4,13,374,3],
-"db/d6b/classmuee_w_b_fcc.html":[4,13,93],
-"db/d6b/classmuee_w_b_fcc.html#aa81c84d85eb647ff28bac93eb844f48b":[4,13,93,3],
-"db/d6b/classmuee_w_b_fcc.html#ada874fefcf65b12fd6190ff9572dc0c9":[4,13,93,1],
-"db/d6b/classmuee_w_b_fcc.html#adbe606cef8fce92bf59a890a57073f03":[4,13,93,2],
-"db/d6b/classmuee_w_b_fcc.html#ae5217ff260d42fb35d2941f102e852a7":[4,13,93,0],
-"db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html":[27,0,1,2,8]
+"db/d68/class_s_t_x_s12__gg_h__mjj350__700__p_t_h0__200__pt_hjj0__25___nj2.html":[4,13,374]
 };
