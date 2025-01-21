@@ -60,7 +60,7 @@ NPSMEFTd6U3::NPSMEFTd6U3()
     ModelParamMap.insert(std::make_pair("Cqq3_abba_LNP", std::cref(Cqq3_abba_LNP)));
     ModelParamMap.insert(std::make_pair("Cuu_aabb_LNP", std::cref(Cuu_aabb_LNP)));
     ModelParamMap.insert(std::make_pair("Cuu_abba_LNP", std::cref(Cuu_abba_LNP)));
-    ModelParamMap.insert(std::make_pair("Cdd_abba_LNP", std::cref(Cdd_aabb_LNP)));
+    ModelParamMap.insert(std::make_pair("Cdd_aabb_LNP", std::cref(Cdd_aabb_LNP)));
     ModelParamMap.insert(std::make_pair("Cdd_abba_LNP", std::cref(Cdd_abba_LNP)));
 
     ModelParamMap.insert(std::make_pair("Cud1_LNP", std::cref(Cud1_LNP)));
