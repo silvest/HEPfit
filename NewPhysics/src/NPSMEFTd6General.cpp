@@ -339,7 +339,9 @@ NPbase(), NPSMEFTd6GM(*this),
         VeL(gslpp::matrix<complex>::Id(3)), VeLd(gslpp::matrix<complex>::Id(3)), 
         VeR(gslpp::matrix<complex>::Id(3)), VeRd(gslpp::matrix<complex>::Id(3)), 
         MUQ(3, 0.), MDQ(3, 0.) {
-
+    
+    setModelName("NPSMEFTd6General");
+    
     FlagMWinput = false;
     FlagQuadraticTerms = false;
     FlagHiggsSM = false;
