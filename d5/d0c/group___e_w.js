@@ -101,6 +101,30 @@ var group___e_w =
       [ "eeffAFBtau", "d8/d3d/classeeff_a_f_btau.html#a432b9d0708d4e3f4acbd2d2b6a0af4cf", null ],
       [ "computeThValue", "d8/d3d/classeeff_a_f_btau.html#a10196b58be4e20232829a2fd086be79a", null ]
     ] ],
+    [ "eeffRbottom", "d8/ded/classeeff_rbottom.html", [
+      [ "eeffRbottom", "d8/ded/classeeff_rbottom.html#a0da84756eefbcfd65df82a8ab2d307c9", null ],
+      [ "computeThValue", "d8/ded/classeeff_rbottom.html#a1e3f3ba2f4b50070f63c28d998440a36", null ]
+    ] ],
+    [ "eeffRcharm", "d2/d4d/classeeff_rcharm.html", [
+      [ "eeffRcharm", "d2/d4d/classeeff_rcharm.html#a35c335f40170a675d633ed1fa121349b", null ],
+      [ "computeThValue", "d2/d4d/classeeff_rcharm.html#a3a81c5aa2d115df239064f03ebba5bff", null ]
+    ] ],
+    [ "eeffRelectron", "d4/d61/classeeff_relectron.html", [
+      [ "eeffRelectron", "d4/d61/classeeff_relectron.html#a37de7e83486e882a4f6932a548f13cc1", null ],
+      [ "computeThValue", "d4/d61/classeeff_relectron.html#accb7de230a2d3db69ec248b656415b41", null ]
+    ] ],
+    [ "eeffRmuon", "d1/dc9/classeeff_rmuon.html", [
+      [ "eeffRmuon", "d1/dc9/classeeff_rmuon.html#ac3e5c65282f9d33c2458c2f581a585a0", null ],
+      [ "computeThValue", "d1/dc9/classeeff_rmuon.html#ab5def60b36ea5ad7d649b65b6d8f58cb", null ]
+    ] ],
+    [ "eeffRstrange", "da/d0e/classeeff_rstrange.html", [
+      [ "eeffRstrange", "da/d0e/classeeff_rstrange.html#ae37f8da9282ac2c185b3c72d337b7e34", null ],
+      [ "computeThValue", "da/d0e/classeeff_rstrange.html#a7f850e8d63aeb9918ac4fbc6eac84e66", null ]
+    ] ],
+    [ "eeffRtau", "d5/d21/classeeff_rtau.html", [
+      [ "eeffRtau", "d5/d21/classeeff_rtau.html#a6f94d8f9dbc4ebdda6b7ba79fea08a3c", null ],
+      [ "computeThValue", "d5/d21/classeeff_rtau.html#a348767eea6f4a3aaeed0136e080e8863", null ]
+    ] ],
     [ "eeffsigmaBottom", "d0/dd1/classeeffsigma_bottom.html", [
       [ "eeffsigmaBottom", "d0/dd1/classeeffsigma_bottom.html#ad1f893764e0bd0ae5eefdaaab223b4a2", null ],
       [ "computeThValue", "d0/dd1/classeeffsigma_bottom.html#aa830309d39b9d89e43cf4c40c925f6d6", null ]
