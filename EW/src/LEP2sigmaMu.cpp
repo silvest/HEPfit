@@ -46,3 +46,10 @@ double eeffsigmaMu::computeThValue()
 }
         
 
+double eeffRmuon::computeThValue()
+{ 
+    double R_muon = SM.eeffRmuon(pol_e, pol_p, s);
+    
+    return ( R_muon );
+}
+     

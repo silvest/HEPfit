@@ -15,4 +15,12 @@ double eeffsigmaStrange::computeThValue()
     
     return ( sigma_strange );
 }
+
+
+double eeffRstrange::computeThValue()
+{ 
+    double R_strange = SM.eeffRstrange(pol_e, pol_p, s);
+    
+    return ( R_strange );
+}
         

@@ -4688,6 +4688,13 @@ public:
     virtual const double eeffsigmaStrange(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffsigmaCharm(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffsigmaBottom(const double pol_e, const double pol_p, const double s) const;
+    
+    virtual const double eeffRelectron(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffRmuon(const double pol_e, const double pol_p, const double s) const;     
+    virtual const double eeffRtau(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffRstrange(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffRcharm(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffRbottom(const double pol_e, const double pol_p, const double s) const;
 
     virtual const double eeffAFBe(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffAFBmu(const double pol_e, const double pol_p, const double s) const;

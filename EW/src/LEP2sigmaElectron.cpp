@@ -27,3 +27,12 @@ double eeffsigmaElectron::computeThValue()
     
     return ( sigma_e );
 }
+
+
+double eeffRelectron::computeThValue()
+{ 
+    double R_electron = SM.eeffRelectron(pol_e, pol_p, s);
+    
+    return ( R_electron );
+}
+     

@@ -23,4 +23,12 @@ double eeffsigmaBottom::computeThValue()
     
     return ( sigma_bottom );
 }
+
+
+double eeffRbottom::computeThValue()
+{ 
+    double R_bottom = SM.eeffRbottom(pol_e, pol_p, s);
+    
+    return ( R_bottom );
+}
         

@@ -1204,6 +1204,8 @@ const double NPbase::delta_AFB_ee(const double pol_e, const double pol_p, const 
 }
 
 //   Extension of SM observable definitions
+
+// Cross sections
 const double NPbase::eeffsigmaE(const double pol_e, const double pol_p, const double s) const
 {
     return (trueSM.eeffsigmaE(pol_e, pol_p, s) + delta_sigmaTot_ee(pol_e, pol_p, s));
@@ -1233,6 +1235,82 @@ const double NPbase::eeffsigmaBottom(const double pol_e, const double pol_p, con
     return (trueSM.eeffsigmaBottom(pol_e, pol_p, s) + delta_sigmaTot_f(quarks[BOTTOM], pol_e, pol_p, s));
 }
 
+// Ratios of cross sections
+const double NPbase::eeffRelectron(const double pol_e, const double pol_p, const double s) const
+{
+    double sigmaHadSM = trueSM.eeffsigmaHadron(pol_e, pol_p, s);
+    double sigmaffSM = trueSM.eeffsigmaE(pol_e, pol_p, s);
+    double Rf;
+    
+    Rf = trueSM.eeffRelectron(pol_e, pol_p, s) 
+            + delta_sigma_had(pol_e, pol_p, s, -1.0, 1.0) / sigmaffSM 
+            - delta_sigmaTot_ee(pol_e, pol_p, s) * sigmaHadSM / sigmaffSM / sigmaffSM;
+    
+    return Rf;
+}
+const double NPbase::eeffRmuon(const double pol_e, const double pol_p, const double s) const
+{
+    double sigmaHadSM = trueSM.eeffsigmaHadron(pol_e, pol_p, s);
+    double sigmaffSM = trueSM.eeffsigmaMu(pol_e, pol_p, s);
+    double Rf;
+    
+    Rf = trueSM.eeffRmuon(pol_e, pol_p, s) 
+            + delta_sigma_had(pol_e, pol_p, s, -1.0, 1.0) / sigmaffSM 
+            - delta_sigmaTot_f(leptons[MU], pol_e, pol_p, s) * sigmaHadSM / sigmaffSM / sigmaffSM;
+    
+    return Rf;
+}     
+const double NPbase::eeffRtau(const double pol_e, const double pol_p, const double s) const
+{
+    double sigmaHadSM = trueSM.eeffsigmaHadron(pol_e, pol_p, s);
+    double sigmaffSM = trueSM.eeffsigmaTau(pol_e, pol_p, s);
+    double Rf;
+    
+    Rf = trueSM.eeffRtau(pol_e, pol_p, s) 
+            + delta_sigma_had(pol_e, pol_p, s, -1.0, 1.0) / sigmaffSM 
+            - delta_sigmaTot_f(leptons[TAU], pol_e, pol_p, s) * sigmaHadSM / sigmaffSM / sigmaffSM;
+    
+    return Rf;
+}
+const double NPbase::eeffRstrange(const double pol_e, const double pol_p, const double s) const
+{
+    double sigmaHadSM = trueSM.eeffsigmaHadron(pol_e, pol_p, s);
+    double sigmaffSM = trueSM.eeffsigmaStrange(pol_e, pol_p, s);
+    double Rf;
+    
+    Rf = trueSM.eeffRstrange(pol_e, pol_p, s) 
+            + delta_sigmaTot_f(quarks[STRANGE], pol_e, pol_p, s) / sigmaHadSM
+            - delta_sigma_had(pol_e, pol_p, s, -1.0, 1.0) * sigmaffSM / sigmaHadSM / sigmaHadSM;
+    
+    return Rf;
+}     
+const double NPbase::eeffRcharm(const double pol_e, const double pol_p, const double s) const
+{
+    double sigmaHadSM = trueSM.eeffsigmaHadron(pol_e, pol_p, s);
+    double sigmaffSM = trueSM.eeffsigmaCharm(pol_e, pol_p, s);
+    double Rf;
+    
+    Rf = trueSM.eeffRcharm(pol_e, pol_p, s) 
+            + delta_sigmaTot_f(quarks[CHARM], pol_e, pol_p, s) / sigmaHadSM
+            - delta_sigma_had(pol_e, pol_p, s, -1.0, 1.0) * sigmaffSM / sigmaHadSM / sigmaHadSM;
+    
+    return Rf;
+}
+const double NPbase::eeffRbottom(const double pol_e, const double pol_p, const double s) const
+{
+    double sigmaHadSM = trueSM.eeffsigmaHadron(pol_e, pol_p, s);
+    double sigmaffSM = trueSM.eeffsigmaBottom(pol_e, pol_p, s);
+    double Rf;
+    
+    Rf = trueSM.eeffRbottom(pol_e, pol_p, s) 
+            + delta_sigmaTot_f(quarks[BOTTOM], pol_e, pol_p, s) / sigmaHadSM
+            - delta_sigma_had(pol_e, pol_p, s, -1.0, 1.0) * sigmaffSM / sigmaHadSM / sigmaHadSM;
+    
+    return Rf;
+}
+
+
+// Asymmetries
 const double NPbase::eeffAFBe(const double pol_e, const double pol_p, const double s) const
 {
     return (trueSM.eeffAFBe(pol_e, pol_p, s) + delta_AFB_ee(pol_e, pol_p, s));

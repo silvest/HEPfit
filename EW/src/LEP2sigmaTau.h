@@ -79,7 +79,7 @@ private:
 /**
  * @class eeffsigmaTau
  * @ingroup EW
- * @brief A class for the cross section of @f$e^+e^-\to \tau^+\tau^-@f$ above the @f$Z@f$ pole.
+ * @brief A class for the cross section of @f$e^+e^-\to \tau^+\tau^-@f$ off the @f$Z@f$ pole.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -108,6 +108,37 @@ private:
 
 };
 
+
+/**
+ * @class eeffRtau
+ * @ingroup EW
+ * @brief A class for the ratio of cross sections of @f$R_\tau=\sigma(e^+e^-\to hadrons)/\sigma(e^+e^-\to \tau^+\tau^-)@f$ off the @f$Z@f$ pole.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class eeffRtau : public eeffThObservable {
+public:
+
+    /**
+     * @brief eeffRtau constructor
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] pol_e_i, pol_p_i the electron and positron polarizations
+     * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
+     */
+    eeffRtau(const StandardModel& SM_i, const double pol_e_i, const double pol_p_i, const double sqrt_s_i) 
+    : eeffThObservable(SM_i, pol_e_i, pol_p_i, sqrt_s_i)
+    {
+    }
+
+    /**
+     * @return the ratio @f$R_\tau=\sigma(e^+e^-\to hadrons)/\sigma(e^+e^-\to \tau^+\tau^-)@f$ at sqrt_s
+     */
+    double computeThValue();
+
+private:
+    
+};
 
 #endif	/* LEP2SIGMATAU_H */
 
