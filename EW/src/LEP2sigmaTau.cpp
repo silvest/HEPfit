@@ -47,3 +47,11 @@ double eeffsigmaTau::computeThValue()
     return ( sigma_tau );
 }
   
+
+double eeffRtau::computeThValue()
+{ 
+    double R_tau = SM.eeffRtau(pol_e, pol_p, s);
+    
+    return ( R_tau );
+}
+     

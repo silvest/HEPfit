@@ -22,3 +22,11 @@ double eeffsigmaCharm::computeThValue()
     return ( sigma_charm );
 }
         
+
+double eeffRcharm::computeThValue()
+{ 
+    double R_charm = SM.eeffRcharm(pol_e, pol_p, s);
+    
+    return ( R_charm );
+}
+     

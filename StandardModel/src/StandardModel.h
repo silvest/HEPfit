@@ -3145,6 +3145,31 @@ public:
         return 0.;
     }
 
+    virtual const double eeffRelectron(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    } 
+    virtual const double eeffRmuon(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }     
+    virtual const double eeffRtau(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffRstrange(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffRcharm(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+    virtual const double eeffRbottom(const double pol_e, const double pol_p, const double s) const
+    {
+        return 0.;
+    }
+
     virtual const double eeffAFBe(const double pol_e, const double pol_p, const double s) const
     {
         return 0.;
