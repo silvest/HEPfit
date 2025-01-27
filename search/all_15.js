@@ -958,7 +958,7 @@ var searchData=
   ['torescalebasis_955',['ToRescaleBasis',['../dc/d99/class_evol_d_b1bsg.html#a67c25e6d47c338bf5acd913db5a8d11a',1,'EvolDB1bsg::ToRescaleBasis()'],['../de/def/class_evol_d_b1_mll.html#acc947b2ce5a510918a3dfa9ffabbc686',1,'EvolDB1Mll::ToRescaleBasis()']]],
   ['torescaledbasis_956',['ToRescaledBasis',['../d7/dda/class_evol_d_c1.html#a36c4bd8910f95489d948b27deb3743db',1,'EvolDC1']]],
   ['tostring_957',['toString',['../dc/d71/class_l_h_p_c_1_1_four_momentum.html#adba917c676ee0f4b4c1379bd12ed9f89',1,'LHPC::FourMomentum']]],
-  ['tovers2_958',['tovers2',['../d2/d0d/class_n_p_s_m_e_f_td6.html#a2acaef5a14af7a210f4f17e913b18105',1,'NPSMEFTd6::tovers2()'],['../d1/d9e/class_n_p_s_m_e_f_td6_general.html#a0b41539cc5e44b679cde7452b1055571',1,'NPSMEFTd6General::tovers2()']]],
+  ['tovers2_958',['tovers2',['../dc/dd5/class_standard_model.html#a1ebb219cd807130f6120f1883e393e0c',1,'StandardModel::tovers2()'],['../d1/d9e/class_n_p_s_m_e_f_td6_general.html#a0b41539cc5e44b679cde7452b1055571',1,'NPSMEFTd6General::tovers2()'],['../d2/d0d/class_n_p_s_m_e_f_td6.html#a2acaef5a14af7a210f4f17e913b18105',1,'NPSMEFTd6::tovers2()']]],
   ['tp_959',['Tp',['../d9/d5c/class_tp.html',1,'Tp'],['../d9/d5c/class_tp.html#a9e3deaa48674afd745da855157e6133f',1,'Tp::Tp()']]],
   ['transformation_960',['transformation',['../da/d29/class_amp_d_b2.html#aba8cf1ca37f8b58ef28b4369d08bc3e7',1,'AmpDB2']]],
   ['transformtolowercase_961',['transformToLowercase',['../d2/d43/class_b_o_l_1_1_string_parser.html#a0dd77ca3a2cbc2bb580b849409939783',1,'BOL::StringParser']]],

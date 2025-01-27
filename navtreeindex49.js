@@ -1,10 +1,5 @@
 var NAVTREEINDEX49 =
 {
-"d5/d41/classunitarity5___g_t_h_d_m.html#acf5fe8465c3c387f2eab4692215c6af7":[27,0,2892,1],
-"d5/d41/classunitarity5___g_t_h_d_m.html#af050315f865cffe23b0ed23b2f5287a8":[27,0,2892,0],
-"d5/d44/class_l_e_p2sigma_hadron.html":[4,3,83],
-"d5/d44/class_l_e_p2sigma_hadron.html#a5d3b1fa44197b7b149d33d2b7cab7cda":[4,3,83,0],
-"d5/d44/class_l_e_p2sigma_hadron.html#a95f2fe6f370a26c125947aecdb7c2e3d":[4,3,83,1],
 "d5/d44/classa__250__bb__e_p___m30__e_m___m80.html":[27,0,17],
 "d5/d44/classa__250__bb__e_p___m30__e_m___m80.html#a071cb313f5aa9dece01bf3433d1d52ac":[27,0,17,2],
 "d5/d44/classa__250__bb__e_p___m30__e_m___m80.html#a604e54f6cf9f2c5b07196069590e8cc1":[27,0,17,1],
@@ -249,5 +244,10 @@ var NAVTREEINDEX49 =
 "d5/d68/classunitaritya11odd_im.html#aa02ed051b58fa9be3a41db0f5288035a":[4,17,456,1],
 "d5/d69/class_g_mmassdifference__m_amm_hh.html":[4,8,61],
 "d5/d69/class_g_mmassdifference__m_amm_hh.html#a2738823e1e39375f85f0cf8daeaf3da4":[4,8,61,0],
-"d5/d69/class_g_mmassdifference__m_amm_hh.html#a4f331d5fb2adcd0cf890c1429318d4cf":[4,8,61,1]
+"d5/d69/class_g_mmassdifference__m_amm_hh.html#a4f331d5fb2adcd0cf890c1429318d4cf":[4,8,61,1],
+"d5/d69/class_g_mmassdifference__m_amm_hh.html#ae3fe0ee9ba4da345801281164755ba9c":[4,8,61,2],
+"d5/d69/class_loop_mediators.html":[27,0,1711],
+"d5/d69/class_loop_mediators.html#a07af3dd3830fbdda9bbfa984a66ad43b":[27,0,1711,17],
+"d5/d69/class_loop_mediators.html#a0e9dcadfbeb9515ae910dd544fd008f0":[27,0,1711,0],
+"d5/d69/class_loop_mediators.html#a15b53b666cca5c0eb65b680ad66d29a4":[27,0,1711,14]
 };

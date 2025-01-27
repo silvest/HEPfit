@@ -1,10 +1,5 @@
 var NAVTREEINDEX48 =
 {
-"d5/d11/class_hobs__pp__phi2__phi1phi1__bbgaga___c_m_s13.html#a2b856ef6d2717ca09b59a2fe23a991f0":[27,0,1244,2],
-"d5/d11/class_hobs__pp__phi2__phi1phi1__bbgaga___c_m_s13.html#a7a3a2e0a5465f08a3fe1c9e83b3cf964":[27,0,1244,1],
-"d5/d11/class_hobs__pp__phi2__phi1phi1__bbgaga___c_m_s13.html#aadaa1eb5f8553beca5517810dd91b4bc":[27,0,1244,0],
-"d5/d11/class_s_t_x_sqq_hll__p_t_v__150__250__bb.html":[4,13,473],
-"d5/d11/class_s_t_x_sqq_hll__p_t_v__150__250__bb.html#a572bae2a7356e51099924e9d27f8eecb":[4,13,473,3],
 "d5/d11/class_s_t_x_sqq_hll__p_t_v__150__250__bb.html#a7aa0b32bd569ae270996a5fa50446fd2":[4,13,473,2],
 "d5/d11/class_s_t_x_sqq_hll__p_t_v__150__250__bb.html#ab12fc5f8c6a7bf57f3bc0addaabc491d":[4,13,473,1],
 "d5/d11/class_s_t_x_sqq_hll__p_t_v__150__250__bb.html#acf780f2ca08cd64465bfdcbe5ca0a487":[4,13,473,0],
@@ -249,5 +244,10 @@ var NAVTREEINDEX48 =
 "d5/d41/classmugg_hbb.html#a3f4cdc262af8ed90f2fe416bdd6311fc":[4,13,143,0],
 "d5/d41/classmugg_hbb.html#ac734dda0a379fa11bedbf24636cbfb39":[4,13,143,2],
 "d5/d41/classunitarity5___g_t_h_d_m.html":[27,0,2892],
-"d5/d41/classunitarity5___g_t_h_d_m.html#a28a1cd40ebbc25033c658f2970ce8a89":[27,0,2892,2]
+"d5/d41/classunitarity5___g_t_h_d_m.html#a28a1cd40ebbc25033c658f2970ce8a89":[27,0,2892,2],
+"d5/d41/classunitarity5___g_t_h_d_m.html#acf5fe8465c3c387f2eab4692215c6af7":[27,0,2892,1],
+"d5/d41/classunitarity5___g_t_h_d_m.html#af050315f865cffe23b0ed23b2f5287a8":[27,0,2892,0],
+"d5/d44/class_l_e_p2sigma_hadron.html":[4,3,83],
+"d5/d44/class_l_e_p2sigma_hadron.html#a5d3b1fa44197b7b149d33d2b7cab7cda":[4,3,83,0],
+"d5/d44/class_l_e_p2sigma_hadron.html#a95f2fe6f370a26c125947aecdb7c2e3d":[4,3,83,1]
 };
