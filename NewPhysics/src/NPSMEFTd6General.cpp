@@ -44796,101 +44796,6 @@ const double NPSMEFTd6General::delta_AFB_f(const Particle f, const double pol_e,
 
 //  Expressions for f=e   
 
-//  Integrals of the SM squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]    
-const double NPSMEFTd6General::intMeeLR2SMts2(const double s, const double t0, const double t1) const {
-    
-    double intM2;
-    double sw2cw2;
-    double gLeSM,gReSM;
-    double GammaZSM;
-    double Mz2, s2;
-    double propZSM2,propZSMRe,MeeLR2SM;
-    
-    sw2cw2 = sW2_tree * cW2_tree;
-    gLeSM = gZlL;
-    gReSM = gZlR;
-    GammaZSM = trueSM.Gamma_Z();
-    Mz2 = Mz * Mz;
-    s2 = s * s;
-    
-    propZSM2 = s2/((s - Mz2)*(s - Mz2) + Mz2*GammaZSM*GammaZSM);
-    propZSMRe = (s*(s - Mz2))/((s - Mz2)*(s - Mz2) + Mz2*GammaZSM*GammaZSM);
-    
-    MeeLR2SM = 1.0 + (gLeSM*gLeSM*gReSM*gReSM/(sw2cw2*sw2cw2))*propZSM2 + 2.0*(gLeSM*gReSM/sw2cw2)*propZSMRe;
-
-    intM2 = MeeLR2SM*(t1*t1*t1 - t0*t0*t0)/(3.0*s*s);
-
-    return intM2;
-}
-
-const double NPSMEFTd6General::intMeeLRtilde2SMst2(const double s, const double t0, const double t1) const {
-    
-    double intM2;
-    double sw2cw2; 
-    double gLeSM,gReSM;
-    double Mz2;
-    
-    sw2cw2 = sW2_tree * cW2_tree;
-    gLeSM = gZlL;
-    gReSM = gZlR;
-    Mz2 = Mz * Mz;
-    
-    intM2 = s*s*(((gLeSM*gLeSM*gReSM*gReSM)/sw2cw2/sw2cw2)*(1.0/(Mz2 - t1) - 1.0/(Mz2 - t0)) - 1.0/t1 + 1.0/t0 + 
-            (2.0*gLeSM*gReSM*(-log(t1/t0) + log((-Mz2 + t1)/(-Mz2 + t0))))/(Mz2*sw2cw2));
-
-    return intM2;
-}
-
-const double NPSMEFTd6General::intMeeLL2SMus2(const double s, const double t0, const double t1) const {
-    
-    double intM2;
-    double sw2cw2; 
-    double gLeSM;
-    double GammaZSM;
-    double Mz2, Mz4, s2;
-
-    sw2cw2 = sW2_tree * cW2_tree;
-    gLeSM = gZlL;
-    GammaZSM = trueSM.Gamma_Z();
-    Mz2 = Mz * Mz;
-    Mz4 = Mz2 * Mz2;
-    s2 = s * s;
-    
-    intM2 = (gLeSM*gLeSM*gLeSM*gLeSM*s2 + 2.0*gLeSM*gLeSM*s*(-Mz2 + s)*sw2cw2 + sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))/(3.0*s2*sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*(pow(s + t1,3.0) - pow(s + t0,3.0)) +
-            ((2.0*(1.0 + (gLeSM*gLeSM*s*(-Mz2 + s))/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) )/s)*(2.0*s *(t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +
-            (2.0*gLeSM*gLeSM* (-sw2cw2 + (gLeSM*gLeSM*(Mz2 - s)*s)/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/(s*sw2cw2*sw2cw2)* (-(1.0/2.0)*t1*(2.0*Mz2 + 4.0*s + t1) + (1.0/2.0)*t0*(2.0*Mz2 + 4.0*s + t0) - (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)) ) +
-            (2.0*(gLeSM*gLeSM) )/(Mz2*sw2cw2)*(Mz2 *(t1 - t0) - s2*log(t1/t0) + (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))) +
-            (-(s2/t1) + s2/t0 + t1 - t0 + 2.0*s*log(t1/t0)) +
-            (gLeSM*gLeSM*gLeSM*gLeSM /sw2cw2/sw2cw2)*((Mz2 + s)*(Mz2 + s)*(1.0/(Mz2 - t1) - 1.0/(Mz2 - t0)) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)));            
-
-    return intM2;
-}
-
-const double NPSMEFTd6General::intMeeRR2SMus2(const double s, const double t0, const double t1) const {
-    
-    double intM2;
-    double sw2cw2; 
-    double gReSM;
-    double GammaZSM;
-    double Mz2, Mz4, s2;
-
-    sw2cw2 = sW2_tree * cW2_tree;
-    gReSM = gZlL;
-    GammaZSM = trueSM.Gamma_Z();
-    Mz2 = Mz * Mz;
-    Mz4 = Mz2 * Mz2;
-    s2 = s * s;
-    
-    intM2 = (gReSM*gReSM*gReSM*gReSM*s2 + 2.0*gReSM*gReSM*s*(-Mz2 + s)*sw2cw2 + sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))/(3.0*s2*sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*(pow(s + t1,3.0) - pow(s + t0,3.0)) +
-            ((2.0*(1.0 + (gReSM*gReSM*s*(-Mz2 + s))/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) )/s)*(2.0*s *(t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +
-            (2.0*gReSM*gReSM* (-sw2cw2 + (gReSM*gReSM*(Mz2 - s)*s)/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/(s*sw2cw2*sw2cw2)* (-(1.0/2.0)*t1*(2.0*Mz2 + 4.0*s + t1) + (1.0/2.0)*t0*(2.0*Mz2 + 4.0*s + t0) - (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)) ) +
-            (2.0*(gReSM*gReSM) )/(Mz2*sw2cw2)*(Mz2 *(t1 - t0) - s2*log(t1/t0) + (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))) +
-            (-(s2/t1) + s2/t0 + t1 - t0 + 2.0*s*log(t1/t0)) +
-            (gReSM*gReSM*gReSM*gReSM /sw2cw2/sw2cw2)*((Mz2 + s)*(Mz2 + s)*(1.0/(Mz2 - t1) - 1.0/(Mz2 - t0)) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)));            
-
-    return intM2;
-}
-
 //  Integrals of the corrections to the squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]  
 const double NPSMEFTd6General::intDMLL2eus2(const double s, const double t0, const double t1) const {
     
@@ -45042,36 +44947,6 @@ const double NPSMEFTd6General::intDMRL2etildest2(const double s, const double t0
     return intM2;
 }
 
-//  SM cross section integrated in [cos \theta_{min},cos \theta_{max}] 
-const double NPSMEFTd6General::sigmaSM_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
-
-    double sumM2, sigma;
-    double topb = 0.3894e+9; 
-    double t0, t1, lambdaK;
-    
-    double pLH, pRH; //Polarization factors, minus the 1/4 average
-    
-    pLH = (1.0 - pol_e) * (1.0 + pol_p);
-    pRH = (1.0 + pol_e) * (1.0 - pol_p);
-    
-    // t values for cosmin and cosmax
-    t0 = 0.5 * s * ( -1.0 + cosmin );
-    t1 = 0.5 * s * ( -1.0 + cosmax );
-    
-    // Kähllén function of (s,0,0)
-    lambdaK = s*s;
-    
-    // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
-    sumM2 = (pLH + pRH) * ( intMeeLR2SMts2(s, t0, t1) + intMeeLRtilde2SMst2(s, t0, t1) ) + 
-            pLH * intMeeLL2SMus2(s, t0, t1) + pRH * intMeeRR2SMus2(s, t0, t1);   
-    
-    // Build the cross section
-    sigma = M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s / sqrt(lambdaK);
-    
-    return topb * sigma;
-}
-
-
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
 const double NPSMEFTd6General::delta_sigma_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
 
@@ -45117,9 +44992,9 @@ const double NPSMEFTd6General::delta_AFB_ee(const double pol_e, const double pol
     double dAFB;
     
     // SM cross sections
-    xsSM = sigmaSM_ee(pol_e, pol_p, s, -coscut, coscut);
-    xsSMF = sigmaSM_ee(pol_e, pol_p, s, 0.0, coscut);
-    xsSMB = sigmaSM_ee(pol_e, pol_p, s, -coscut, 0.0);
+    xsSM = trueSM.eeffsigmaEbin(pol_e, pol_p, s, -coscut, coscut);
+    xsSMF = trueSM.eeffsigmaEbin(pol_e, pol_p, s, 0.0, coscut);
+    xsSMB = trueSM.eeffsigmaEbin(pol_e, pol_p, s, -coscut, 0.0);
     
     // Corrections to each
     dxs = delta_sigma_ee(pol_e, pol_p, s, -coscut, coscut);

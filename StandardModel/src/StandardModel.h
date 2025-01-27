@@ -3115,84 +3115,129 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
     //Generic e+e- -> ff Inclusive Observables
+    
+//  For f!=e
+    
+//  Helicity amplitudes squared
+    const double MLR2eeff(const Particle f, const double s) const;
+    const double MRL2eeff(const Particle f, const double s) const;
 
-    virtual const double eeffsigmaE(const double pol_e, const double pol_p, const double s) const
+    const double MLL2eeff(const Particle f, const double s, const double t) const;       
+    const double MRR2eeff(const Particle f, const double s, const double t) const;
+
+//  Some simple functions for cos \theta integrals   
+    const double tovers2(const double cosmin, const double cosmax) const;
+    const double uovers2(const double cosmin, const double cosmax) const;
+    
+//  For f=e  
+
+//  Integrals of the SM squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]
+    const double intMLR2eeeets2(const double s, const double t0, const double t1) const;
+    const double intMLRtilde2eeeest2(const double s, const double t0, const double t1) const;
+    const double intMLL2eeeeus2(const double s, const double t0, const double t1) const;
+    const double intMRR2eeeeus2(const double s, const double t0, const double t1) const;
+    
+//  Cross sections
+
+    const double eeffsigmaEbin(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
+
+    virtual const double eeffsigmaE(const double pol_e, const double pol_p, const double s) const    
     {
-        return 0.;
-    }    
+        double cosmin = -0.990268; // 8 degrees
+        double cosmax = 0.990268; // 8 degrees
+        
+        return eeffsigmaEbin(pol_e, pol_p, s, cosmin, cosmax);
+    }
+    
+    const double eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
+    
     virtual const double eeffsigmaMu(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return eeffsigma(leptons[MU], pol_e, pol_p, s, -1.0, 1.0);
     } 
+    
     virtual const double eeffsigmaTau(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return eeffsigma(leptons[TAU], pol_e, pol_p, s, -1.0, 1.0);
     }
+    
     virtual const double eeffsigmaHadron(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( eeffsigma(quarks[UP], pol_e, pol_p, s, -1.0, 1.0) + eeffsigma(quarks[DOWN], pol_e, pol_p, s, -1.0, 1.0)
+            + eeffsigma(quarks[CHARM], pol_e, pol_p, s, -1.0, 1.0) + eeffsigma(quarks[STRANGE], pol_e, pol_p, s, -1.0, 1.0)
+            + eeffsigma(quarks[BOTTOM], pol_e, pol_p, s, -1.0, 1.0) );        
     }
+    
     virtual const double eeffsigmaStrange(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return eeffsigma(quarks[STRANGE], pol_e, pol_p, s, -1.0, 1.0);
     }
+    
     virtual const double eeffsigmaCharm(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return eeffsigma(quarks[CHARM], pol_e, pol_p, s, -1.0, 1.0);
     }
+    
     virtual const double eeffsigmaBottom(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return eeffsigma(quarks[BOTTOM], pol_e, pol_p, s, -1.0, 1.0);
     }
+    
+//  Ratios
 
     virtual const double eeffRelectron(const double pol_e, const double pol_p, const double s) const
-    {
-        return 0.;
+    {        
+        return ( eeffsigmaHadron(pol_e, pol_p, s) / eeffsigmaE(pol_e, pol_p, s) );
     } 
     virtual const double eeffRmuon(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( eeffsigmaHadron(pol_e, pol_p, s) / eeffsigmaMu(pol_e, pol_p, s) );
     }     
     virtual const double eeffRtau(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( eeffsigmaHadron(pol_e, pol_p, s) / eeffsigmaTau(pol_e, pol_p, s) );
     }
     virtual const double eeffRstrange(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return  ( eeffsigmaStrange(pol_e, pol_p, s) / eeffsigmaHadron(pol_e, pol_p, s) );
     }
     virtual const double eeffRcharm(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( eeffsigmaCharm(pol_e, pol_p, s) / eeffsigmaHadron(pol_e, pol_p, s) );
     }
     virtual const double eeffRbottom(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( eeffsigmaBottom(pol_e, pol_p, s) / eeffsigmaHadron(pol_e, pol_p, s) );
     }
+    
+//  FB asymmetries
 
     virtual const double eeffAFBe(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        double cosmin = -0.990268; // 8 degrees
+        double cosmax = 0.990268; // 8 degrees
+        
+        return (( eeffsigmaEbin(pol_e, pol_p, s, 0.0 , cosmax) - eeffsigmaEbin(pol_e, pol_p, s, cosmin, 0.0) ) / eeffsigmaEbin(pol_e, pol_p, s, cosmin, cosmax));
     }
     virtual const double eeffAFBmu(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( ( eeffsigma(leptons[MU], pol_e, pol_p, s, 0.0, 1.0) - eeffsigma(leptons[MU], pol_e, pol_p, s, -1.0, 0.0) ) / eeffsigma(leptons[MU], pol_e, pol_p, s, -1.0, 1.0) );
     }
     virtual const double eeffAFBtau(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( ( eeffsigma(leptons[TAU], pol_e, pol_p, s, 0.0, 1.0) - eeffsigma(leptons[TAU], pol_e, pol_p, s, -1.0, 0.0) ) / eeffsigma(leptons[TAU], pol_e, pol_p, s, -1.0, 1.0) );
     }
     virtual const double eeffAFBstrange(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( ( eeffsigma(quarks[STRANGE], pol_e, pol_p, s, 0.0, 1.0) - eeffsigma(quarks[STRANGE], pol_e, pol_p, s, -1.0, 0.0) ) / eeffsigma(quarks[STRANGE], pol_e, pol_p, s, -1.0, 1.0) );
     }
     virtual const double eeffAFBcharm(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( ( eeffsigma(quarks[CHARM], pol_e, pol_p, s, 0.0, 1.0) - eeffsigma(quarks[CHARM], pol_e, pol_p, s, -1.0, 0.0) ) / eeffsigma(quarks[CHARM], pol_e, pol_p, s, -1.0, 1.0) );
     }
     virtual const double eeffAFBbottom(const double pol_e, const double pol_p, const double s) const
     {
-        return 0.;
+        return ( ( eeffsigma(quarks[BOTTOM], pol_e, pol_p, s, 0.0, 1.0) - eeffsigma(quarks[BOTTOM], pol_e, pol_p, s, -1.0, 0.0) ) / eeffsigma(quarks[BOTTOM], pol_e, pol_p, s, -1.0, 1.0) );
     }
     
 /* BEGIN: REMOVE FROM THE PACKAGE */

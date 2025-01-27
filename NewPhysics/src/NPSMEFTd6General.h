@@ -1301,12 +1301,6 @@ public:
 //  Corrections to t-channel LR and RL amplitudes
     const double deltaMLR2t_e(const double s, const double t) const;      
     const double deltaMRL2t_e(const double s, const double t) const;    
-
-//  Integrals of the SM squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]
-    virtual const double intMeeLR2SMts2(const double s, const double t0, const double t1) const;
-    virtual const double intMeeLRtilde2SMst2(const double s, const double t0, const double t1) const;
-    virtual const double intMeeLL2SMus2(const double s, const double t0, const double t1) const;
-    virtual const double intMeeRR2SMus2(const double s, const double t0, const double t1) const;
     
 //  Integrals of the corrections to the squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]
     virtual const double intDMLL2eus2(const double s, const double t0, const double t1) const;
@@ -1316,8 +1310,6 @@ public:
     virtual const double intDMLR2etildest2(const double s, const double t0, const double t1) const;
     virtual const double intDMRL2etildest2(const double s, const double t0, const double t1) const;
 
-//  SM cross section integrated in [cos \theta_{min},cos \theta_{max}] 
-    virtual const double sigmaSM_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
     virtual const double delta_sigma_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
 //  Absolute corrections to the total cross section 

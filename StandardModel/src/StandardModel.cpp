@@ -3692,6 +3692,375 @@ const double StandardModel::BrHtobb() const
     return GammaHtobb()/GammaHTot();
 }
 
+////////////////////////////////////////////////////////////////////////
+//Generic e+e- -> ff Inclusive Observables
+
+//  For f!=e
+    
+//  Helicity amplitudes squared
+const double StandardModel::MLR2eeff(const Particle f, const double s) const {
+    
+    // Definitions      
+    double Qf, geLSM, gfRSM, is2c2, GZ, Mz2s;
+    
+    double MLR2SM;
+
+    // -------------------------------------------
+
+    geLSM = (leptons[ELECTRON].getIsospin()) - (leptons[ELECTRON].getCharge()) * s02();
+
+    is2c2 = 1. / s02() / c02();
+
+    GZ = Gamma_Z();
+
+    Mz2s = Mz * Mz - s;
+
+    if (f.is("MU")) {
+        Qf = leptons[MU].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("TAU")) {
+        Qf = leptons[TAU].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("UP")) {
+        Qf = quarks[UP].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("CHARM")) {
+        Qf = quarks[CHARM].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("DOWN")) {
+        Qf = quarks[DOWN].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("STRANGE")) {
+        Qf = quarks[STRANGE].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("BOTTOM")) {
+        Qf = quarks[BOTTOM].getCharge();
+        gfRSM = - Qf * s02();
+    } else
+        throw std::runtime_error("StandardModel::MLR2eeff: wrong argument");
+    
+    // LR, RL, LL and RR SM squared amplitudes
+    MLR2SM = Qf * Qf
+            + (is2c2 * is2c2 * (geLSM * geLSM * gfRSM * gfRSM) * s * s
+            + 2.0 * Qf * is2c2 * (geLSM * gfRSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ);
+
+    return MLR2SM;
+}
+const double StandardModel::MRL2eeff(const Particle f, const double s) const{
+    
+    // Definitions      
+    double Qf, geRSM, gfLSM, is2c2, GZ, Mz2s;
+    
+    double MRL2SM;
+
+    // -------------------------------------------
+
+    geRSM = - (leptons[ELECTRON].getCharge()) * s02();
+
+    is2c2 = 1. / s02() / c02();
+
+    GZ = Gamma_Z();
+
+    Mz2s = Mz * Mz - s;
+
+    if (f.is("MU")) {
+        Qf = leptons[MU].getCharge();
+        gfLSM = (leptons[MU].getIsospin()) - Qf * s02();
+    } else if (f.is("TAU")) {
+        Qf = leptons[TAU].getCharge();
+        gfLSM = (leptons[TAU].getIsospin()) - Qf * s02();
+    } else if (f.is("UP")) {
+        Qf = quarks[UP].getCharge();
+        gfLSM = (quarks[UP].getIsospin()) - Qf * s02();
+    } else if (f.is("CHARM")) {
+        Qf = quarks[CHARM].getCharge();
+        gfLSM = (quarks[CHARM].getIsospin()) - Qf * s02();
+    } else if (f.is("DOWN")) {
+        Qf = quarks[DOWN].getCharge();
+        gfLSM = (quarks[DOWN].getIsospin()) - Qf * s02();
+    } else if (f.is("STRANGE")) {
+        Qf = quarks[STRANGE].getCharge();
+        gfLSM = (quarks[STRANGE].getIsospin()) - Qf * s02();
+    } else if (f.is("BOTTOM")) {
+        Qf = quarks[BOTTOM].getCharge();
+        gfLSM = (quarks[BOTTOM].getIsospin()) - Qf * s02();
+    } else
+        throw std::runtime_error("StandardModel::MRL2eeff: wrong argument");
+    
+    // RL SM squared amplitude    
+    MRL2SM = Qf * Qf
+            + (is2c2 * is2c2 * (geRSM * geRSM * gfLSM * gfLSM) * s * s
+            + 2.0 * Qf * is2c2 * (geRSM * gfLSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ); 
+ 
+    return MRL2SM;
+}
+
+const double StandardModel::MLL2eeff(const Particle f, const double s, const double t) const{
+    
+    // Definitions      
+    double Qf, geLSM, gfLSM, is2c2, GZ, Mz2s;
+    
+    double MLL2SM;
+
+    // -------------------------------------------
+
+    geLSM = (leptons[ELECTRON].getIsospin()) - (leptons[ELECTRON].getCharge()) * s02();
+
+    is2c2 = 1. / s02() / c02();
+
+    GZ = Gamma_Z();
+
+    Mz2s = Mz * Mz - s;
+
+    if (f.is("MU")) {
+        Qf = leptons[MU].getCharge();
+        gfLSM = (leptons[MU].getIsospin()) - Qf * s02();
+    } else if (f.is("TAU")) {
+        Qf = leptons[TAU].getCharge();
+        gfLSM = (leptons[TAU].getIsospin()) - Qf * s02();
+    } else if (f.is("UP")) {
+        Qf = quarks[UP].getCharge();
+        gfLSM = (quarks[UP].getIsospin()) - Qf * s02();
+    } else if (f.is("CHARM")) {
+        Qf = quarks[CHARM].getCharge();
+        gfLSM = (quarks[CHARM].getIsospin()) - Qf * s02();
+    } else if (f.is("DOWN")) {
+        Qf = quarks[DOWN].getCharge();
+        gfLSM = (quarks[DOWN].getIsospin()) - Qf * s02();
+    } else if (f.is("STRANGE")) {
+        Qf = quarks[STRANGE].getCharge();
+        gfLSM = (quarks[STRANGE].getIsospin()) - Qf * s02();
+    } else if (f.is("BOTTOM")) {
+        Qf = quarks[BOTTOM].getCharge();
+        gfLSM = (quarks[BOTTOM].getIsospin()) - Qf * s02();
+    } else
+        throw std::runtime_error("StandardModel::MLL2eeff: wrong argument");
+    
+    // LL SM squared amplitude    
+    MLL2SM = Qf * Qf
+            + (is2c2 * is2c2 * (geLSM * geLSM * gfLSM * gfLSM) * s * s
+            + 2.0 * Qf * is2c2 * (geLSM * gfLSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ); 
+    
+    return MLL2SM;
+        
+}       
+const double StandardModel::MRR2eeff(const Particle f, const double s, const double t) const{
+    
+    // Definitions      
+    double Qf, geRSM, gfRSM, is2c2, GZ, Mz2s;
+    
+    double MRR2SM;
+
+    // -------------------------------------------
+
+    geRSM = - (leptons[ELECTRON].getCharge()) * s02();
+
+    is2c2 = 1. / s02() / c02();
+
+    GZ = Gamma_Z();
+
+    Mz2s = Mz * Mz - s;
+
+    if (f.is("MU")) {
+        Qf = leptons[MU].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("TAU")) {
+        Qf = leptons[TAU].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("UP")) {
+        Qf = quarks[UP].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("CHARM")) {
+        Qf = quarks[CHARM].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("DOWN")) {
+        Qf = quarks[DOWN].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("STRANGE")) {
+        Qf = quarks[STRANGE].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("BOTTOM")) {
+        Qf = quarks[BOTTOM].getCharge();
+        gfRSM = - Qf * s02();
+    } else
+        throw std::runtime_error("StandardModel::MRR2eeff: wrong argument");
+    
+    // RR SM squared amplitude    
+    MRR2SM = Qf * Qf
+            + (is2c2 * is2c2 * (geRSM * geRSM * gfRSM * gfRSM) * s * s
+            + 2.0 * Qf * is2c2 * (geRSM * gfRSM) * Mz2s * s) / (Mz2s * Mz2s + Mz * Mz * GZ * GZ); 
+    
+    return MRR2SM;
+}
+
+//  Some simple functions for cos \theta integrals 
+
+const double StandardModel::tovers2(const double cosmin, const double cosmax) const {
+    return 0.25 * (cosmax * (1.0 - cosmax * (1.0 - cosmax / 3.0)) - cosmin * (1.0 - cosmin * (1.0 - cosmin / 3.0)));
+}
+
+const double StandardModel::uovers2(const double cosmin, const double cosmax) const {
+    return 0.25 * (cosmax * (1.0 + cosmax * (1.0 + cosmax / 3.0)) - cosmin * (1.0 + cosmin * (1.0 + cosmin / 3.0)));
+}
+
+//  Expressions for f=e   
+
+//  Integrals of the SM squared amplitudes x (t/s)^2, (s/t)^2, (u/s)^2 in [t0, t1]    
+const double StandardModel::intMLR2eeeets2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double sw2cw2;
+    double gLeSM,gReSM;
+    double GammaZSM;
+    double Mz2, s2;
+    double propZSM2,propZSMRe,MeeLR2SM;
+    
+    sw2cw2 = s02() * c02();
+    gLeSM = (leptons[ELECTRON].getIsospin()) - (leptons[ELECTRON].getCharge()) * s02();
+    gReSM = - (leptons[ELECTRON].getCharge()) * s02();
+    GammaZSM = Gamma_Z();
+    Mz2 = Mz * Mz;
+    s2 = s * s;
+    
+    propZSM2 = s2/((s - Mz2)*(s - Mz2) + Mz2*GammaZSM*GammaZSM);
+    propZSMRe = (s*(s - Mz2))/((s - Mz2)*(s - Mz2) + Mz2*GammaZSM*GammaZSM);
+    
+    MeeLR2SM = 1.0 + (gLeSM*gLeSM*gReSM*gReSM/(sw2cw2*sw2cw2))*propZSM2 + 2.0*(gLeSM*gReSM/sw2cw2)*propZSMRe;
+
+    intM2 = MeeLR2SM*(t1*t1*t1 - t0*t0*t0)/(3.0*s*s);
+
+    return intM2;
+}
+
+const double StandardModel::intMLRtilde2eeeest2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double sw2cw2; 
+    double gLeSM,gReSM;
+    double Mz2;
+    
+    sw2cw2 = s02() * c02();
+    gLeSM = (leptons[ELECTRON].getIsospin()) - (leptons[ELECTRON].getCharge()) * s02();
+    gReSM = - (leptons[ELECTRON].getCharge()) * s02();
+    Mz2 = Mz * Mz;
+    
+    intM2 = s*s*(((gLeSM*gLeSM*gReSM*gReSM)/sw2cw2/sw2cw2)*(1.0/(Mz2 - t1) - 1.0/(Mz2 - t0)) - 1.0/t1 + 1.0/t0 + 
+            (2.0*gLeSM*gReSM*(-log(t1/t0) + log((-Mz2 + t1)/(-Mz2 + t0))))/(Mz2*sw2cw2));
+
+    return intM2;
+}
+
+const double StandardModel::intMLL2eeeeus2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double sw2cw2; 
+    double gLeSM;
+    double GammaZSM;
+    double Mz2, Mz4, s2;
+
+    sw2cw2 = s02() * c02();
+    gLeSM = (leptons[ELECTRON].getIsospin()) - (leptons[ELECTRON].getCharge()) * s02();
+    GammaZSM = Gamma_Z();
+    Mz2 = Mz * Mz;
+    Mz4 = Mz2 * Mz2;
+    s2 = s * s;
+    
+    intM2 = (gLeSM*gLeSM*gLeSM*gLeSM*s2 + 2.0*gLeSM*gLeSM*s*(-Mz2 + s)*sw2cw2 + sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))/(3.0*s2*sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*(pow(s + t1,3.0) - pow(s + t0,3.0)) +
+            ((2.0*(1.0 + (gLeSM*gLeSM*s*(-Mz2 + s))/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) )/s)*(2.0*s *(t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +
+            (2.0*gLeSM*gLeSM* (-sw2cw2 + (gLeSM*gLeSM*(Mz2 - s)*s)/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/(s*sw2cw2*sw2cw2)* (-(1.0/2.0)*t1*(2.0*Mz2 + 4.0*s + t1) + (1.0/2.0)*t0*(2.0*Mz2 + 4.0*s + t0) - (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)) ) +
+            (2.0*(gLeSM*gLeSM) )/(Mz2*sw2cw2)*(Mz2 *(t1 - t0) - s2*log(t1/t0) + (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (-(s2/t1) + s2/t0 + t1 - t0 + 2.0*s*log(t1/t0)) +
+            (gLeSM*gLeSM*gLeSM*gLeSM /sw2cw2/sw2cw2)*((Mz2 + s)*(Mz2 + s)*(1.0/(Mz2 - t1) - 1.0/(Mz2 - t0)) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)));            
+
+    return intM2;
+}
+
+const double StandardModel::intMRR2eeeeus2(const double s, const double t0, const double t1) const {
+    
+    double intM2;
+    double sw2cw2; 
+    double gReSM;
+    double GammaZSM;
+    double Mz2, Mz4, s2;
+
+    sw2cw2 = s02() * c02();
+    gReSM = - (leptons[ELECTRON].getCharge()) * s02();
+    GammaZSM = Gamma_Z();
+    Mz2 = Mz * Mz;
+    Mz4 = Mz2 * Mz2;
+    s2 = s * s;
+    
+    intM2 = (gReSM*gReSM*gReSM*gReSM*s2 + 2.0*gReSM*gReSM*s*(-Mz2 + s)*sw2cw2 + sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))/(3.0*s2*sw2cw2*sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*(pow(s + t1,3.0) - pow(s + t0,3.0)) +
+            ((2.0*(1.0 + (gReSM*gReSM*s*(-Mz2 + s))/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) )/s)*(2.0*s *(t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +
+            (2.0*gReSM*gReSM* (-sw2cw2 + (gReSM*gReSM*(Mz2 - s)*s)/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/(s*sw2cw2*sw2cw2)* (-(1.0/2.0)*t1*(2.0*Mz2 + 4.0*s + t1) + (1.0/2.0)*t0*(2.0*Mz2 + 4.0*s + t0) - (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)) ) +
+            (2.0*(gReSM*gReSM) )/(Mz2*sw2cw2)*(Mz2 *(t1 - t0) - s2*log(t1/t0) + (Mz2 + s)*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (-(s2/t1) + s2/t0 + t1 - t0 + 2.0*s*log(t1/t0)) +
+            (gReSM*gReSM*gReSM*gReSM /sw2cw2/sw2cw2)*((Mz2 + s)*(Mz2 + s)*(1.0/(Mz2 - t1) - 1.0/(Mz2 - t0)) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0)));            
+
+    return intM2;
+}
+
+//  Cross sections
+
+const double StandardModel::eeffsigmaEbin(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
+    
+    double sumM2, sigma;
+    double topb = 0.3894e+9; 
+    double t0, t1, lambdaK;
+    
+    double pLH, pRH; //Polarization factors, minus the 1/4 average
+    
+    pLH = (1.0 - pol_e) * (1.0 + pol_p);
+    pRH = (1.0 + pol_e) * (1.0 - pol_p);
+    
+    // t values for cosmin and cosmax
+    t0 = 0.5 * s * ( -1.0 + cosmin );
+    t1 = 0.5 * s * ( -1.0 + cosmax );
+    
+    // Kähllén function of (s,0,0)
+    lambdaK = s*s;
+    
+    // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
+    sumM2 = (pLH + pRH) * ( intMLR2eeeets2(s, t0, t1) + intMLRtilde2eeeest2(s, t0, t1) ) + 
+            pLH * intMLL2eeeeus2(s, t0, t1) + pRH * intMRR2eeeeus2(s, t0, t1);   
+    
+    // Build the cross section
+    sigma = M_PI * (alphaMz())*(alphaMz()) * sumM2 / s / sqrt(lambdaK);
+    
+    return topb * sigma;
+    
+}
+    
+const double StandardModel::eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
+    //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
+    double sumM2, sigma;
+    double tdumm = 1.;
+    double topb = 0.3894e+9;
+    
+    //double cosmin = -1.0;
+    //double cosmax = 1.0;
+
+    double Nf;
+    
+    double pLH, pRH; //Polarization factors, minus the 1/4 average
+    
+    pLH = (1.0 - pol_e) * (1.0 + pol_p);
+    pRH = (1.0 + pol_e) * (1.0 - pol_p);
+
+    if (f.is("LEPTON")) {
+        Nf = 1.0;
+    } else {
+        Nf = 3.0;
+    }
+
+    sumM2 = (pLH * MLR2eeff(f, s) + pRH * MRL2eeff(f, s)) * tovers2(cosmin, cosmax)
+            + (pLH * MLL2eeff(f, s, tdumm) + pRH * MRR2eeff(f, s, tdumm)) * uovers2(cosmin, cosmax);
+
+    sigma = Nf * 0.5 * M_PI * (alphaMz())*(alphaMz()) * sumM2 / s;
+
+    return topb * sigma;
+}
+
 /* BEGIN: REMOVE FROM THE PACKAGE */
 ////////////////////////////////////////////////////////////////////////////////////
 //LEP2 Observables
