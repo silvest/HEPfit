@@ -14674,6 +14674,35 @@ gslpp::complex NPSMEFTd6General::CfB_diag(const Particle f) const {
 
 
 ////////////////////////////////////////////////////////////////////////
+//  Scale-dependent versions of some of the above
+////////////////////////////////////////////////////////////////////////
+
+gslpp::complex NPSMEFTd6General::CfH_diag_mu(const Particle f, const double mu) const {
+    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
+        return 0.0;
+    else if (f.is("ELECTRON"))
+        return gslpp::complex(getSMEFTCoeff("CeHR", 0, 0, mu), getSMEFTCoeff("CeHI", 0, 0, mu), false);
+    else if (f.is("MU"))
+        return gslpp::complex(getSMEFTCoeff("CeHR", 1, 1, mu), getSMEFTCoeff("CeHI", 1, 1, mu), false);
+    else if (f.is("TAU"))
+        return gslpp::complex(getSMEFTCoeff("CeHR", 2, 2, mu), getSMEFTCoeff("CeHI", 2, 2, mu), false);
+    else if (f.is("UP"))
+        return gslpp::complex(getSMEFTCoeff("CuHR", 0, 0, mu), getSMEFTCoeff("CuHI", 0, 0, mu), false);
+    else if (f.is("CHARM"))
+        return gslpp::complex(getSMEFTCoeff("CuHR", 1, 1, mu), getSMEFTCoeff("CuHI", 1, 1, mu), false);
+    else if (f.is("TOP"))
+        return gslpp::complex(getSMEFTCoeff("CuHR", 2, 2, mu), getSMEFTCoeff("CuHI", 2, 2, mu), false);
+    else if (f.is("DOWN"))
+        return gslpp::complex(getSMEFTCoeff("CdHR", 0, 0, mu), getSMEFTCoeff("CdHI", 0, 0, mu), false);
+    else if (f.is("STRANGE"))
+        return gslpp::complex(getSMEFTCoeff("CdHR", 1, 1, mu), getSMEFTCoeff("CdHI", 1, 1, mu), false);
+    else if (f.is("BOTTOM"))
+        return gslpp::complex(getSMEFTCoeff("CdHR", 2, 2, mu), getSMEFTCoeff("CdHI", 2, 2, mu), false);
+    else
+        throw std::runtime_error("NPSMEFTd6General::CfH_diag_mu(): wrong argument");
+}
+
+////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 /////////////////////////// Until here /////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
@@ -16790,6 +16819,297 @@ const double NPSMEFTd6General::deltaG_hhhRatio() const {
     return dg;
 }
 
+
+    // Modifications of Higgs couplings  (scale dependent)
+
+const double NPSMEFTd6General::deltaG_hgg_mu(const double mu) const {
+    return (getSMEFTCoeff("CHG", mu) * v2 / v());
+}
+
+const double NPSMEFTd6General::deltaG_hggRatio_mu(const double mu) const {
+    double m_t = mtpole;
+    double m_b = quarks[BOTTOM].getMass();
+    double m_c = quarks[CHARM].getMass();
+    double m_s = quarks[STRANGE].getMass();
+    double tau_t = 4.0 * m_t * m_t / mHl / mHl;
+    double tau_b = 4.0 * m_b * m_b / mHl / mHl;
+    double tau_c = 4.0 * m_c * m_c / mHl / mHl;
+    double tau_s = 4.0 * m_s * m_s / mHl / mHl;
+    double aSPiv = AlsMz / 16.0 / M_PI / v();
+    gslpp::complex gSM, dg;
+    gslpp::complex dKappa_t = cLHd6 * deltaG_hff_mu(quarks[TOP], mu) / (-m_t / v());
+    gslpp::complex dKappa_b = cLHd6 * deltaG_hff_mu(quarks[BOTTOM], mu) / (-m_b / v());
+    gslpp::complex dKappa_c = cLHd6 * deltaG_hff_mu(quarks[CHARM], mu) / (-m_c / v());
+    gslpp::complex dKappa_s = cLHd6 * deltaG_hff_mu(quarks[STRANGE], mu) / (-m_s / v());
+    
+    double deltaloc = deltaG_hgg_mu(mu);
+
+    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c));
+
+    dg = deltaloc / gSM + (aSPiv / gSM) * (dKappa_t * AH_f(tau_t) + dKappa_b * AH_f(tau_b) + dKappa_c * AH_f(tau_c) + dKappa_s * AH_f(tau_s));
+
+    return dg.real();
+}
+
+const double NPSMEFTd6General::deltaG1_hWW_mu(const double mu) const {
+    return ((2.0 * getSMEFTCoeff("CHW", mu)) * v2 / v());
+}
+
+const double NPSMEFTd6General::deltaG2_hWW_mu(const double mu) const {
+    return 0.0;
+}
+
+const double NPSMEFTd6General::deltaG3_hWW_mu(const double mu) const {
+    double NPindirect;
+
+    double d_h_mu, d_GF_mu;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu)) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
+
+    NPindirect = 2.0 * cW2_tree * Mz * Mz / v()
+            * (d_h_mu + 0.5 * d_GF_mu + 2.0 * del_e_mu(mu) - del_sW2_mu(mu));
+
+    return NPindirect;
+}
+
+const double NPSMEFTd6General::deltaG1_hZZ_mu(const double mu) const {
+    
+    double d_ZZ_mu;
+    
+    // delta_ZZ as function os scale
+    d_ZZ_mu = (cW2_tree * getSMEFTCoeff("CHW", mu) + sW2_tree * getSMEFTCoeff("CHB", mu) + sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu)) * v2;
+
+    return ( d_ZZ_mu / v());
+}
+
+const double NPSMEFTd6General::deltaG2_hZZ_mu(const double mu) const {
+    return 0.0;
+}
+
+const double NPSMEFTd6General::deltaG3_hZZ_mu(const double mu) const {
+    
+    double d_h_mu, d_GF_mu;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu)) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
+
+    double NPindirect = Mz * Mz / v() * (del_Z_mu(mu) + d_h_mu + 0.5 * d_GF_mu + 2.0 * del_e_mu(mu) - (1.0 - sW2_tree / cW2_tree) * del_sW2_mu(mu));
+    double NPdirect = Mz * Mz / v() * getSMEFTCoeff("CHD", mu) * v2;
+
+    return (NPindirect + NPdirect);
+}
+
+const double NPSMEFTd6General::deltaG1_hZA_mu(const double mu) const {
+    
+    double d_AZ_mu; 
+    
+    // delta_AZ as function os scale
+    d_AZ_mu = 2.0 * sW_tree * cW_tree * (getSMEFTCoeff("CHW", mu) - getSMEFTCoeff("CHB", mu)) * v2
+            - (cW2_tree - sW2_tree) * getSMEFTCoeff("CHWB", mu) * v2;
+    
+    return ( d_AZ_mu / v());
+}
+
+const double NPSMEFTd6General::deltaG1_hZARatio_mu(const double mu) const {
+    double m_t = mtpole;
+    double m_b = quarks[BOTTOM].getMass();
+    double m_c = quarks[CHARM].getMass();
+    double m_s = quarks[STRANGE].getMass();
+    double m_tau = leptons[TAU].getMass();
+    double m_mu = leptons[MU].getMass();
+
+    double M_w_2 = (trueSM.Mw())*(trueSM.Mw());
+
+    double Qt = quarks[TOP].getCharge();
+    double Qb = quarks[BOTTOM].getCharge();
+    double Qc = quarks[CHARM].getCharge();
+    double Qs = quarks[STRANGE].getCharge();
+    double Qtau = leptons[TAU].getCharge();
+    double Qmu = leptons[MU].getCharge();
+
+    double tau_t = 4.0 * m_t * m_t / mHl / mHl;
+    double tau_b = 4.0 * m_b * m_b / mHl / mHl;
+    double tau_c = 4.0 * m_c * m_c / mHl / mHl;
+    double tau_s = 4.0 * m_s * m_s / mHl / mHl;
+    double tau_tau = 4.0 * m_tau * m_tau / mHl / mHl;
+    double tau_mu = 4.0 * m_mu * m_mu / mHl / mHl;
+    double tau_W = 4.0 * M_w_2 / mHl / mHl;
+
+    double lambda_t = 4.0 * m_t * m_t / Mz / Mz;
+    double lambda_b = 4.0 * m_b * m_b / Mz / Mz;
+    double lambda_c = 4.0 * m_c * m_c / Mz / Mz;
+    double lambda_s = 4.0 * m_s * m_s / Mz / Mz;
+    double lambda_tau = 4.0 * m_tau * m_tau / Mz / Mz;
+    double lambda_mu = 4.0 * m_mu * m_mu / Mz / Mz;
+    double lambda_W = 4.0 * M_w_2 / Mz / Mz;
+    double alpha2 = sqrt(2.0) * GF * M_w_2 / M_PI;
+    double aPiv = sqrt(ale * alpha2) / 4.0 / M_PI / v();
+
+    //  mod. of Higgs couplings
+    gslpp::complex gSM, dg;
+    gslpp::complex dKappa_t = cLHd6 * deltaG_hff_mu(quarks[TOP], mu) / (-m_t / v());
+    gslpp::complex dKappa_b = cLHd6 * deltaG_hff_mu(quarks[BOTTOM], mu) / (-m_b / v());
+    gslpp::complex dKappa_c = cLHd6 * deltaG_hff_mu(quarks[CHARM], mu) / (-m_c / v());
+    gslpp::complex dKappa_s = cLHd6 * deltaG_hff_mu(quarks[STRANGE], mu) / (-m_s / v());
+    gslpp::complex dKappa_tau = cLHd6 * deltaG_hff_mu(leptons[TAU], mu) / (-m_tau / v());
+    gslpp::complex dKappa_mu = cLHd6 * deltaG_hff_mu(leptons[MU], mu) / (-m_mu / v());
+    double dKappa_W = cLHd6 * (0.5 * v() / M_w_2) * deltaG3_hWW_mu(mu);
+
+    //  mod of EW vector couplings vf =2 gvf    
+    double vSMt = 2.0 * (quarks[TOP].getIsospin()) - 4.0 * Qt * sW2_tree;
+    double vSMb = 2.0 * (quarks[BOTTOM].getIsospin()) - 4.0 * Qb * sW2_tree;
+    double vSMc = 2.0 * (quarks[CHARM].getIsospin()) - 4.0 * Qc * sW2_tree;
+    double vSMs = 2.0 * (quarks[STRANGE].getIsospin()) - 4.0 * Qs * sW2_tree;
+    double vSMtau = 2.0 * (leptons[TAU].getIsospin()) - 4.0 * Qtau * sW2_tree;
+    double vSMmu = 2.0 * (leptons[MU].getIsospin()) - 4.0 * Qmu * sW2_tree;
+
+    double dvSMt = cLHd6 * 2.0 * (deltaGL_f_mu(quarks[TOP], mu) + deltaGR_f_mu(quarks[TOP], mu)); //deltaGV_f(quarks[TOP]);
+    double dvSMb = cLHd6 * 2.0 * (deltaGL_f_mu(quarks[BOTTOM], mu) + deltaGR_f_mu(quarks[BOTTOM], mu)); //deltaGV_f(quarks[BOTTOM]);
+    double dvSMc = cLHd6 * 2.0 * (deltaGL_f_mu(quarks[CHARM], mu) + deltaGR_f_mu(quarks[CHARM], mu)); //deltaGV_f(quarks[CHARM]);
+    double dvSMs = cLHd6 * 2.0 * (deltaGL_f_mu(quarks[STRANGE], mu) + deltaGR_f_mu(quarks[STRANGE], mu)); //deltaGV_f(quarks[STRANGE]);
+    double dvSMtau = cLHd6 * 2.0 * (deltaGL_f_mu(leptons[TAU], mu) + deltaGR_f_mu(leptons[TAU], mu)); //deltaGV_f(leptons[TAU]);
+    double dvSMmu = cLHd6 * 2.0 * (deltaGL_f_mu(leptons[MU], mu) + deltaGR_f_mu(leptons[MU], mu)); //deltaGV_f(leptons[MU]);
+
+    double deltaloc = deltaG1_hZA_mu(mu);
+
+    gSM = -aPiv * ((3.0 * vSMt * Qt * AHZga_f(tau_t, lambda_t) +
+            3.0 * vSMb * Qb * AHZga_f(tau_b, lambda_b) +
+            3.0 * vSMc * Qc * AHZga_f(tau_c, lambda_c) +
+            3.0 * vSMs * Qs * AHZga_f(tau_s, lambda_s) +
+            vSMtau * Qtau * AHZga_f(tau_tau, lambda_tau) +
+            vSMmu * Qmu * AHZga_f(tau_mu, lambda_mu)) / cW_tree +
+            AHZga_W(tau_W, lambda_W));
+
+    dg = deltaloc / gSM - (aPiv / gSM) * (
+            (3.0 * vSMt * dKappa_t * Qt * AHZga_f(tau_t, lambda_t) +
+            3.0 * vSMb * dKappa_b * Qb * AHZga_f(tau_b, lambda_b) +
+            3.0 * vSMc * dKappa_c * Qc * AHZga_f(tau_c, lambda_c) +
+            3.0 * vSMs * dKappa_s * Qs * AHZga_f(tau_s, lambda_s) +
+            dKappa_tau * vSMtau * Qtau * AHZga_f(tau_tau, lambda_tau) +
+            dKappa_mu * vSMmu * Qmu * AHZga_f(tau_mu, lambda_mu)) / cW_tree +
+            dKappa_W * AHZga_W(tau_W, lambda_W) +
+            (3.0 * dvSMt * Qt * AHZga_f(tau_t, lambda_t) +
+            3.0 * dvSMb * Qb * AHZga_f(tau_b, lambda_b) +
+            3.0 * dvSMc * Qc * AHZga_f(tau_c, lambda_c) +
+            3.0 * dvSMs * Qs * AHZga_f(tau_s, lambda_s) +
+            dvSMtau * Qtau * AHZga_f(tau_tau, lambda_tau) +
+            dvSMmu * Qmu * AHZga_f(tau_mu, lambda_mu)) / cW_tree
+            );
+
+    return dg.real();
+}
+
+const double NPSMEFTd6General::deltaG2_hZA_mu(const double mu) const {
+    return 0.0;
+}
+
+const double NPSMEFTd6General::deltaG_hAA_mu(const double mu) const {
+    
+    double d_AA_mu;
+    
+    // delta_AA as function os scale
+    d_AA_mu = (sW2_tree * getSMEFTCoeff("CHW", mu) + cW2_tree * getSMEFTCoeff("CHB", mu) - sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu)) * v2;
+
+    return (d_AA_mu / v());
+}
+
+const double NPSMEFTd6General::deltaG_hAARatio_mu(const double mu) const {
+    double m_t = mtpole;
+    double m_b = quarks[BOTTOM].getMass();
+    double m_c = quarks[CHARM].getMass();
+    double m_s = quarks[STRANGE].getMass();
+    double m_tau = leptons[TAU].getMass();
+    double m_mu = leptons[MU].getMass();
+
+    double M_w_2 = (trueSM.Mw())*(trueSM.Mw());
+
+    double Qt = quarks[TOP].getCharge();
+    double Qb = quarks[BOTTOM].getCharge();
+    double Qc = quarks[CHARM].getCharge();
+    double Qs = quarks[STRANGE].getCharge();
+    double Qtau = leptons[TAU].getCharge();
+    double Qmu = leptons[MU].getCharge();
+
+    double tau_t = 4.0 * m_t * m_t / mHl / mHl;
+    double tau_b = 4.0 * m_b * m_b / mHl / mHl;
+    double tau_c = 4.0 * m_c * m_c / mHl / mHl;
+    double tau_s = 4.0 * m_s * m_s / mHl / mHl;
+    double tau_tau = 4.0 * m_tau * m_tau / mHl / mHl;
+    double tau_mu = 4.0 * m_mu * m_mu / mHl / mHl;
+    double tau_W = 4.0 * M_w_2 / mHl / mHl;
+
+    double aPiv = ale / 8.0 / M_PI / v();
+    gslpp::complex gSM, dg;
+    gslpp::complex dKappa_t = cLHd6 * deltaG_hff_mu(quarks[TOP], mu) / (-m_t / v());
+    gslpp::complex dKappa_b = cLHd6 * deltaG_hff_mu(quarks[BOTTOM], mu) / (-m_b / v());
+    gslpp::complex dKappa_c = cLHd6 * deltaG_hff_mu(quarks[CHARM], mu) / (-m_c / v());
+    gslpp::complex dKappa_s = cLHd6 * deltaG_hff_mu(quarks[STRANGE], mu) / (-m_s / v());
+    gslpp::complex dKappa_tau = cLHd6 * deltaG_hff_mu(leptons[TAU], mu) / (-m_tau / v());
+    gslpp::complex dKappa_mu = cLHd6 * deltaG_hff_mu(leptons[MU], mu) / (-m_mu / v());
+    double dKappa_W = cLHd6 * (0.5 * v() / M_w_2) * deltaG3_hWW_mu(mu);
+
+    double deltaloc = deltaG_hAA_mu(mu);
+
+    gSM = aPiv * (3.0 * Qt * Qt * AH_f(tau_t) +
+            3.0 * Qb * Qb * AH_f(tau_b) +
+            3.0 * Qc * Qc * AH_f(tau_c) +
+            3.0 * Qs * Qs * AH_f(tau_s) +
+            Qtau * Qtau * AH_f(tau_tau) +
+            Qmu * Qmu * AH_f(tau_mu) +
+            AH_W(tau_W));
+
+    dg = deltaloc / gSM + (aPiv / gSM) * (
+            3.0 * Qt * Qt * dKappa_t * AH_f(tau_t) +
+            3.0 * Qb * Qb * dKappa_b * AH_f(tau_b) +
+            3.0 * Qc * Qc * dKappa_c * AH_f(tau_c) +
+            3.0 * Qs * Qs * dKappa_s * AH_f(tau_s) +
+            dKappa_tau * Qtau * Qtau * AH_f(tau_tau) +
+            dKappa_mu * Qmu * Qmu * AH_f(tau_mu) +
+            dKappa_W * AH_W(tau_W)
+            );
+
+    return dg.real();
+}
+
+gslpp::complex NPSMEFTd6General::deltaG_hff_mu(const Particle p, const double mu) const {
+    // The effects of the SM RG running are neglected. 
+    double mf;
+    
+    double d_h_mu, d_GF_mu;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu)) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
+    
+    if (p.is("TOP"))
+        //mf = p.getMass(); // m_t(m_t)
+        mf = mtpole; // pole mass
+    else
+        mf = p.getMass();
+
+    gslpp::complex CfH = CfH_diag_mu(p, mu);
+    
+    return (-mf / v() * (d_h_mu - 0.5 * d_GF_mu)
+            + CfH * v2 / sqrt(2.0));
+}
+
+const double NPSMEFTd6General::deltaG_hhhRatio_mu(const double mu) const {
+    double dg;
+    double d_h_mu, d_GF_mu;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu)) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
+
+    dg = -0.5 * d_GF_mu + 3.0 * d_h_mu - 2.0 * getSMEFTCoeff("CH", mu) * v2 * v2 / mHl / mHl;
+
+    return dg;
+}
+
+
+
+    /////////////////// hVff interactions     ///////////////////
+
+
 gslpp::complex NPSMEFTd6General::deltaGL_Wffh(const Particle pbar, const Particle p) const {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPSMEFTd6General::deltaGL_Wffh(): Not implemented");
@@ -16818,6 +17138,8 @@ const double NPSMEFTd6General::deltaGR_Zffh(const Particle p) const {
     return (-2.0 * Mz / v() / v() * CHf * v2);
 }
 
+    /////////////////// hVff dipole interactions     ///////////////////
+
 gslpp::complex NPSMEFTd6General::deltaG_hGff(const Particle p) const {
     // Set to 0. for the moment 
 
@@ -16835,6 +17157,8 @@ gslpp::complex NPSMEFTd6General::deltaG_hAff(const Particle p) const {
 
     return 0.;
 }
+
+    /////////////////// Vff dipole interactions     ///////////////////
 
 gslpp::complex NPSMEFTd6General::deltaG_Gff(const Particle p) const {
     // Set to 0. for the moment 
@@ -41937,128 +42261,159 @@ const double NPSMEFTd6General::kappaZAeff() const {
 
 /////////////Basic interactions of the so-called Higgs basis////////////////
 
-const double NPSMEFTd6General::deltayt_HB() const {
+const double NPSMEFTd6General::deltayt_HB(const double mu) const {
     double mf = mtpole;
+    double d_h_mu, d_GF_mu;
     double ciHB;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu) ) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
 
-    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CuHR", 2, 2) * v2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeff("CuHR", 2, 2, mu) * v2 + d_h_mu - 0.5 * d_GF_mu;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::deltayb_HB() const {
+const double NPSMEFTd6General::deltayb_HB(const double mu) const {
     double mf = (quarks[BOTTOM].getMass());
+    double d_h_mu, d_GF_mu;
     double ciHB;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu) ) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
 
-    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CdHR", 2, 2) * v2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeff("CdHR", 2, 2, mu) * v2 + d_h_mu - 0.5 * d_GF_mu;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::deltaytau_HB() const {
+const double NPSMEFTd6General::deltaytau_HB(const double mu) const {
     double mf = (leptons[TAU].getMass());
+    double d_h_mu, d_GF_mu;
     double ciHB;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu) ) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
 
-    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CeHR", 2, 2) * v2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeff("CeHR", 2, 2, mu) * v2 + d_h_mu - 0.5 * d_GF_mu;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::deltayc_HB() const {
+const double NPSMEFTd6General::deltayc_HB(const double mu) const {
     double mf = (quarks[CHARM].getMass());
+    double d_h_mu, d_GF_mu;
     double ciHB;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu) ) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
 
-    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CuHR", 1, 1) * v2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeff("CuHR", 1, 1, mu) * v2 + d_h_mu - 0.5 * d_GF_mu;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::deltays_HB() const {
+const double NPSMEFTd6General::deltays_HB(const double mu) const {
     double mf = (quarks[STRANGE].getMass());
+    double d_h_mu, d_GF_mu;
     double ciHB;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu) ) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
 
-    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CdHR", 1, 1) * v2 + delta_h - 0.5 * delta_GF;
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeff("CdHR", 1, 1, mu) * v2 + d_h_mu - 0.5 * d_GF_mu;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::deltaymu_HB() const {
+const double NPSMEFTd6General::deltaymu_HB(const double mu) const {
     double mf = (leptons[MU].getMass());
+    double d_h_mu, d_GF_mu;
     double ciHB;
 
-    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeffEW("CeHR", 1, 1) * v2 + delta_h - 0.5 * delta_GF;
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu) ) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
+
+    ciHB = -(v() / mf / sqrt(2.0)) * getSMEFTCoeff("CeHR", 1, 1, mu) * v2 + d_h_mu - 0.5 * d_GF_mu;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::deltacZ_HB() const {
+const double NPSMEFTd6General::deltacZ_HB(const double mu) const {
+    double d_h_mu, d_GF_mu;
     double ciHB;
+    
+    d_h_mu = (-getSMEFTCoeff("CHD", mu) / 4.0 + getSMEFTCoeff("CHbox", mu) ) * v2;
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
 
-    ciHB = delta_h - (3.0 / 2.0) * delta_GF;
+    ciHB = d_h_mu - (3.0 / 2.0) * d_GF_mu;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::cZBox_HB() const {
+const double NPSMEFTd6General::cZBox_HB(const double mu) const {
+    double d_GF_mu;
     double ciHB;
+    
+    d_GF_mu = ((getSMEFTCoeff("CHl3R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu) - 0.5 * (getSMEFTCoeff("CllR", 0, 1, 1, 0, mu) + getSMEFTCoeff("CllR", 1, 0, 0, 1, mu))) * v2);
 
-    ciHB = (sW2_tree / eeMz2)*(delta_GF + 0.5 * getSMEFTCoeffEW("CHD") * v2);
+    ciHB = (sW2_tree / eeMz2)*(d_GF_mu + 0.5 * getSMEFTCoeff("CHD", mu) * v2);
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::cZZ_HB() const {
+const double NPSMEFTd6General::cZZ_HB(const double mu) const {
     double ciHB;
 
-    ciHB = (4.0 * sW2_tree * cW2_tree / eeMz2)*(cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree * getSMEFTCoeffEW("CHB") + sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
+    ciHB = (4.0 * sW2_tree * cW2_tree / eeMz2)*(cW2_tree * getSMEFTCoeff("CHW", mu) + sW2_tree * getSMEFTCoeff("CHB", mu) + sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu)) * v2;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::cZga_HB() const {
+const double NPSMEFTd6General::cZga_HB(const double mu) const {
     double ciHB;
 
-    ciHB = (sW2_tree * cW2_tree / eeMz2)*(4.0 * getSMEFTCoeffEW("CHW") - 4.0 * getSMEFTCoeffEW("CHB") - (2.0 * (cW2_tree - sW2_tree) / sW_tree / cW_tree) * getSMEFTCoeffEW("CHWB")) * v2;
+    ciHB = (sW2_tree * cW2_tree / eeMz2)*(4.0 * getSMEFTCoeff("CHW", mu) - 4.0 * getSMEFTCoeff("CHB", mu) - (2.0 * (cW2_tree - sW2_tree) / sW_tree / cW_tree) * getSMEFTCoeff("CHWB", mu)) * v2;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::cgaga_HB() const {
+const double NPSMEFTd6General::cgaga_HB(const double mu) const {
     double ciHB;
 
-    ciHB = (4.0 / eeMz2)*(sW2_tree * getSMEFTCoeffEW("CHW") + cW2_tree * getSMEFTCoeffEW("CHB") - sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
+    ciHB = (4.0 / eeMz2)*(sW2_tree * getSMEFTCoeff("CHW", mu) + cW2_tree * getSMEFTCoeff("CHB", mu) - sW_tree * cW_tree * getSMEFTCoeff("CHWB", mu)) * v2;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::cgg_HB() const {
+const double NPSMEFTd6General::cgg_HB(const double mu) const {
     double ciHB;
 
-    ciHB = (1.0 / (M_PI * AlsMz)) * getSMEFTCoeffEW("CHG") * v2;
+    ciHB = (1.0 / (M_PI * AlsMz)) * getSMEFTCoeff("CHG", mu) * v2;
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::cggEff_HB() const {
+const double NPSMEFTd6General::cggEff_HB(const double mu) const {
     double ciHB;
 
     double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
 
-    double At = deltayt_HB() * AH_f(4.0 * m_t * m_t / mHl / mHl).real();
-    double Ab = deltayb_HB() * AH_f(4.0 * m_b * m_b / mHl / mHl).real();
-    double Ac = deltayc_HB() * AH_f(4.0 * m_c * m_c / mHl / mHl).real();
+    double At = deltayt_HB(mu) * AH_f(4.0 * m_t * m_t / mHl / mHl).real();
+    double Ab = deltayb_HB(mu) * AH_f(4.0 * m_b * m_b / mHl / mHl).real();
+    double Ac = deltayc_HB(mu) * AH_f(4.0 * m_c * m_c / mHl / mHl).real();
 
-    ciHB = cgg_HB() + (1.0 / 16.0 / M_PI / M_PI) * (At + Ab + Ac);
+    ciHB = cgg_HB(mu) + (1.0 / 16.0 / M_PI / M_PI) * (At + Ab + Ac);
 
     return ciHB;
 }
 
-const double NPSMEFTd6General::lambz_HB() const {
+const double NPSMEFTd6General::lambz_HB(const double mu) const {
     double ciHB;
 
-    ciHB = -(3.0 / 2.0)*(eeMz / sW_tree) * getSMEFTCoeffEW("CW") * v2;
+    ciHB = -(3.0 / 2.0)*(eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
 
     return ciHB;
 }
@@ -42713,22 +43068,22 @@ const double NPSMEFTd6General::AuxObs_NP6() const {
     double dytHB, dybHB, dytauHB;
     double dKlambda;
 
-    dcZHB = deltacZ_HB();
-    cZboxHB = cZBox_HB();
-    cZZHB = cZZ_HB();
+    dcZHB = deltacZ_HB(2.0 * mHl);
+    cZboxHB = cZBox_HB(2.0 * mHl);
+    cZZHB = cZZ_HB(2.0 * mHl);
 
     // In the paper it seems they use diff. norm but in the chi 2.nb
     //  they translate into that convention, so I assume their calculation
     //  is directly in the HB for the following 3 couplings 
-    cZgaHB = cZga_HB();
-    cgagaHB = cgaga_HB();
-    cggHB = cgg_HB();
+    cZgaHB = cZga_HB(2.0 * mHl);
+    cgagaHB = cgaga_HB(2.0 * mHl);
+    cggHB = cgg_HB(2.0 * mHl);
 
-    dytHB = deltayt_HB();
-    dybHB = deltayb_HB();
-    dytauHB = deltaytau_HB();
+    dytHB = deltayt_HB(2.0 * mHl);
+    dybHB = deltayb_HB(2.0 * mHl);
+    dytauHB = deltaytau_HB(2.0 * mHl);
 
-    dKlambda = deltaG_hhhRatio();
+    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
 
     //  Corrections to the different Higgs widths
     dGH2 = 1. + 0.010512791990056657 * cZboxHB
@@ -43002,7 +43357,7 @@ const double NPSMEFTd6General::AuxObs_NP8() const {
     //  Higgs basis parameters
     double dKlambda;
 
-    dKlambda = deltaG_hhhRatio();
+    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
 
     Chi2Tot = dKlambda * dKlambda * (50.04473972806045
             - 104.47283225861888 * dKlambda
@@ -43023,13 +43378,13 @@ const double NPSMEFTd6General::AuxObs_NP9() const {
     double dcZHB, cZboxHB, cZZHB, cZgaHB, cgagaHB;
     double dKlambda;
 
-    dcZHB = deltacZ_HB();
-    cZboxHB = cZBox_HB();
-    cZZHB = cZZ_HB();
-    cZgaHB = cZga_HB();
-    cgagaHB = cgaga_HB();
+    dcZHB = deltacZ_HB(2.0 * mHl);
+    cZboxHB = cZBox_HB(2.0 * mHl);
+    cZZHB = cZZ_HB(2.0 * mHl);
+    cZgaHB = cZga_HB(2.0 * mHl);
+    cgagaHB = cgaga_HB(2.0 * mHl);
 
-    dKlambda = deltaG_hhhRatio();
+    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
 
     //  The signal strength -1    
     Chi2p80m30 = 13.6982 * cZZHB
@@ -43173,10 +43528,10 @@ const double NPSMEFTd6General::AuxObs_NP14() const {
     double dytHB;
     double dKlambda;
 
-    dcZHB = deltacZ_HB();
-    cggHB = cgg_HB();
-    dytHB = deltayt_HB();
-    dKlambda = deltaG_hhhRatio();
+    dcZHB = deltacZ_HB(2.0 * mHl);
+    cggHB = cgg_HB(2.0 * mHl);
+    dytHB = deltayt_HB(2.0 * mHl);
+    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
 
     double dcZHB2, dcZHB3, dcZHB4;
     double cggHB2, cggHB3, cggHB4;

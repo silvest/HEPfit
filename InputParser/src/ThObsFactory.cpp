@@ -129,8 +129,9 @@ ThObsFactory::ThObsFactory()
     // Parameters for future e+e- observables
     const double sqrt_see[9] = {158., 163., 240., 250., 345., 360., 365., 500., 1000.};
     const double sqrt_s_eeff[9] = {157.5, 162.5, 240., 250., 345., 360., 365., 500., 1000.};
-    // Approximate electroweak scale, taken as the W mass
+    // Approximate electroweak scale, taken as the W mass, and Higgs mass, taken as 125 GeV
     const double muEW = 80.365;
+    const double muMH = 125.;
     //    
     //
     //-----  StandardModel observables  -----
@@ -803,37 +804,37 @@ ThObsFactory::ThObsFactory()
     obsThFactory["gHtataeff"] = boost::factory<gHtataeff*>();
     obsThFactory["gHcceff"] = boost::factory<gHcceff*>();
     obsThFactory["gHbbeff"] = boost::factory<gHbbeff*>();
-    obsThFactory["deltagHee"] = boost::factory<deltagHee*>();
-    obsThFactory["deltagHmumu"] = boost::factory<deltagHmumu*>();
-    obsThFactory["deltagHtata"] = boost::factory<deltagHtata*>();
-    obsThFactory["deltagHuu"] = boost::factory<deltagHuu*>();
-    obsThFactory["deltagHcc"] = boost::factory<deltagHcc*>();
-    obsThFactory["deltagHtt"] = boost::factory<deltagHtt*>();
-    obsThFactory["deltagHdd"] = boost::factory<deltagHdd*>();
-    obsThFactory["deltagHss"] = boost::factory<deltagHss*>();
-    obsThFactory["deltagHbb"] = boost::factory<deltagHbb*>();
+    obsThFactory["deltagHee"] = bind(boost::factory<deltagHee*>(), _1, muMH);//boost::factory<deltagHee*>();
+    obsThFactory["deltagHmumu"] = bind(boost::factory<deltagHmumu*>(), _1, muMH);//boost::factory<deltagHmumu*>();
+    obsThFactory["deltagHtata"] = bind(boost::factory<deltagHtata*>(), _1, muMH);//boost::factory<deltagHtata*>();
+    obsThFactory["deltagHuu"] = bind(boost::factory<deltagHuu*>(), _1, muMH);//boost::factory<deltagHuu*>();
+    obsThFactory["deltagHcc"] = bind(boost::factory<deltagHcc*>(), _1, muMH);//boost::factory<deltagHcc*>();
+    obsThFactory["deltagHtt"] = bind(boost::factory<deltagHtt*>(), _1, muMH);//boost::factory<deltagHtt*>();
+    obsThFactory["deltagHdd"] = bind(boost::factory<deltagHdd*>(), _1, muMH);//boost::factory<deltagHdd*>();
+    obsThFactory["deltagHss"] = bind(boost::factory<deltagHss*>(), _1, muMH);//boost::factory<deltagHss*>();
+    obsThFactory["deltagHbb"] = bind(boost::factory<deltagHbb*>(), _1, muMH);//boost::factory<deltagHbb*>();
     //-----  HGG couplings observables  ----------
     obsThFactory["gHGGeff"] = boost::factory<gHGGeff*>();
-    obsThFactory["deltagHGG"] = boost::factory<deltagHGG*>();
+    obsThFactory["deltagHGG"] = bind(boost::factory<deltagHGG*>(), _1, muMH);//boost::factory<deltagHGG*>();
     //-----  HZZ couplings observables  ----------
     obsThFactory["gHZZeff"] = boost::factory<gHZZeff*>();
-    obsThFactory["deltagHZZ"] = boost::factory<deltagHZZ*>();
-    obsThFactory["gHZZ1"] = boost::factory<gHZZ1*>();
-    obsThFactory["gHZZ2"] = boost::factory<gHZZ2*>();
+    obsThFactory["deltagHZZ"] = bind(boost::factory<deltagHZZ*>(), _1, muMH);//boost::factory<deltagHZZ*>();
+    obsThFactory["gHZZ1"] = bind(boost::factory<gHZZ1*>(), _1, muMH);//boost::factory<gHZZ1*>();
+    obsThFactory["gHZZ2"] = bind(boost::factory<gHZZ2*>(), _1, muMH);//boost::factory<gHZZ2*>();
     //-----  HAA couplings observables  ----------
     obsThFactory["gHAAeff"] = boost::factory<gHAAeff*>();
-    obsThFactory["deltagHAA"] = boost::factory<deltagHAA*>();
+    obsThFactory["deltagHAA"] = bind(boost::factory<deltagHAA*>(), _1, muMH);//boost::factory<deltagHAA*>();
     //-----  HZA couplings observables  ----------
     obsThFactory["gHZAeff"] = boost::factory<gHZAeff*>();
-    obsThFactory["deltagHZA"] = boost::factory<deltagHZA*>();
-    obsThFactory["gHZA2"] = boost::factory<gHZA2*>();
+    obsThFactory["deltagHZA"] = bind(boost::factory<deltagHZA*>(), _1, muMH);//boost::factory<deltagHZA*>();
+    obsThFactory["gHZA2"] = bind(boost::factory<gHZA2*>(), _1, muMH);//boost::factory<gHZA2*>();
     //-----  HWW couplings observables  ----------
     obsThFactory["gHWWeff"] = boost::factory<gHWWeff*>();
-    obsThFactory["deltagHWW"] = boost::factory<deltagHWW*>();
-    obsThFactory["gHWW1"] = boost::factory<gHWW1*>();
-    obsThFactory["gHWW2"] = boost::factory<gHWW2*>();
+    obsThFactory["deltagHWW"] = bind(boost::factory<deltagHWW*>(), _1, muMH);//boost::factory<deltagHWW*>();
+    obsThFactory["gHWW1"] = bind(boost::factory<gHWW1*>(), _1, muMH);//boost::factory<gHWW1*>();
+    obsThFactory["gHWW2"] = bind(boost::factory<gHWW2*>(), _1, muMH);//boost::factory<gHWW2*>();
     //-----  HHH couplings observables  ----------
-    obsThFactory["deltalHHH"] = boost::factory<deltalHHH*>();
+    obsThFactory["deltalHHH"] = bind(boost::factory<deltalHHH*>(), _1, muMH);//boost::factory<deltalHHH*>();
     //-----  Other Higgs couplings observables  ----------
     obsThFactory["gHWZeff_Ratio"] = boost::factory<gHWZeff*>();
     obsThFactory["gHbWeff_Ratio"] = boost::factory<gHbWeff*>();
@@ -842,19 +843,19 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltag1ZEff"] = boost::factory<deltag1ZEff*>();
     obsThFactory["deltaKgammaEff"] = boost::factory<deltaKgammaEff*>();
     //-----  Basic interactions of the so-called Higgs basis  ----------
-    obsThFactory["deltayt_HB"] = boost::factory<deltaytHB*>();
-    obsThFactory["deltayb_HB"] = boost::factory<deltaybHB*>();
-    obsThFactory["deltaytau_HB"] = boost::factory<deltaytauHB*>();
-    obsThFactory["deltayc_HB"] = boost::factory<deltaycHB*>();
-    obsThFactory["deltaymu_HB"] = boost::factory<deltaymuHB*>();
-    obsThFactory["deltacZ_HB"] = boost::factory<deltacZHB*>();
-    obsThFactory["cZBox_HB"] = boost::factory<cZBoxHB*>();
-    obsThFactory["cZZ_HB"] = boost::factory<cZZHB*>();
-    obsThFactory["cZga_HB"] = boost::factory<cZgaHB*>();
-    obsThFactory["cgaga_HB"] = boost::factory<cgagaHB*>();
-    obsThFactory["cgg_HB"] = boost::factory<cggHB*>();
-    obsThFactory["cggEff_HB"] = boost::factory<cggEffHB*>();
-    obsThFactory["lambz_HB"] = boost::factory<lambzHB*>();
+    obsThFactory["deltayt_HB"] = bind(boost::factory<deltaytHB*>(), _1, muMH);////boost::factory<deltaytHB*>();
+    obsThFactory["deltayb_HB"] = bind(boost::factory<deltaybHB*>(), _1, muMH);////boost::factory<deltaybHB*>();
+    obsThFactory["deltaytau_HB"] = bind(boost::factory<deltaytauHB*>(), _1, muMH);////boost::factory<deltaytauHB*>();
+    obsThFactory["deltayc_HB"] = bind(boost::factory<deltaycHB*>(), _1, muMH);////boost::factory<deltaycHB*>();
+    obsThFactory["deltaymu_HB"] = bind(boost::factory<deltaymuHB*>(), _1, muMH);////boost::factory<deltaymuHB*>();
+    obsThFactory["deltacZ_HB"] = bind(boost::factory<deltacZHB*>(), _1, muMH);////boost::factory<deltacZHB*>();
+    obsThFactory["cZBox_HB"] = bind(boost::factory<cZBoxHB*>(), _1, muMH);////boost::factory<cZBoxHB*>();
+    obsThFactory["cZZ_HB"] = bind(boost::factory<cZZHB*>(), _1, muMH);////boost::factory<cZZHB*>();
+    obsThFactory["cZga_HB"] = bind(boost::factory<cZgaHB*>(), _1, muMH);////boost::factory<cZgaHB*>();
+    obsThFactory["cgaga_HB"] = bind(boost::factory<cgagaHB*>(), _1, muMH);////boost::factory<cgagaHB*>();
+    obsThFactory["cgg_HB"] = bind(boost::factory<cggHB*>(), _1, muMH);////boost::factory<cggHB*>();
+    obsThFactory["cggEff_HB"] = bind(boost::factory<cggEffHB*>(), _1, muMH);////boost::factory<cggEffHB*>();
+    obsThFactory["lambz_HB"] = bind(boost::factory<lambzHB*>(), _1, muMH);////boost::factory<lambzHB*>();
     //-----  Other useful observables to work with new physics  ----------
     //-----  Oblique Parameters ---------
     obsThFactory["oblSpar"] = boost::factory<oblS*>();

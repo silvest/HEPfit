@@ -914,11 +914,11 @@ double deltaVtbR::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHee::deltagHee(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHee::deltagHee(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHee called with a class whose parent is not NPbase");
 }
 
 
@@ -927,7 +927,7 @@ deltagHee::~deltagHee()
 
 double deltagHee::computeThValue()
 {
-    double dg = myNPbase->deltaG_hff(SM.getLeptons(StandardModel::ELECTRON)).real();
+    double dg = myNPbase->deltaG_hff_mu(SM.getLeptons(StandardModel::ELECTRON), mu).real();
     double gSM = -(SM.getLeptons(StandardModel::ELECTRON)).getMass() / (SM.v());
     
     return dg/gSM;
@@ -935,11 +935,11 @@ double deltagHee::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHmumu::deltagHmumu(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHmumu::deltagHmumu(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHmumu called with a class whose parent is not NPbase");
 }
 
 
@@ -948,7 +948,7 @@ deltagHmumu::~deltagHmumu()
 
 double deltagHmumu::computeThValue()
 {
-    double dg = myNPbase->deltaG_hff(SM.getLeptons(StandardModel::MU)).real();
+    double dg = myNPbase->deltaG_hff_mu(SM.getLeptons(StandardModel::MU), mu).real();
     double gSM = -(SM.getLeptons(StandardModel::MU)).getMass() / (SM.v());
     
     return dg/gSM;
@@ -974,11 +974,11 @@ double gHmumueff::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHtata::deltagHtata(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHtata::deltagHtata(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHtata called with a class whose parent is not NPbase");
 }
 
 
@@ -987,7 +987,7 @@ deltagHtata::~deltagHtata()
 
 double deltagHtata::computeThValue()
 {
-    double dg = myNPbase->deltaG_hff(SM.getLeptons(StandardModel::TAU)).real();
+    double dg = myNPbase->deltaG_hff_mu(SM.getLeptons(StandardModel::TAU), mu).real();
     double gSM = -(SM.getLeptons(StandardModel::TAU)).getMass() / (SM.v());
     
     return dg/gSM;
@@ -1013,11 +1013,11 @@ double gHtataeff::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHuu::deltagHuu(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHuu::deltagHuu(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHuu called with a class whose parent is not NPbase");
 }
 
 
@@ -1026,7 +1026,7 @@ deltagHuu::~deltagHuu()
 
 double deltagHuu::computeThValue()
 {
-    double dg = myNPbase->deltaG_hff(SM.getQuarks(StandardModel::UP)).real();
+    double dg = myNPbase->deltaG_hff_mu(SM.getQuarks(StandardModel::UP), mu).real();
     double gSM = -(SM.getQuarks(StandardModel::UP)).getMass() / (SM.v());
     
     return dg/gSM;
@@ -1034,11 +1034,11 @@ double deltagHuu::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHcc::deltagHcc(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHcc::deltagHcc(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHcc called with a class whose parent is not NPbase");
 }
 
 
@@ -1047,7 +1047,7 @@ deltagHcc::~deltagHcc()
 
 double deltagHcc::computeThValue()
 {
-    double dg = myNPbase->deltaG_hff(SM.getQuarks(StandardModel::CHARM)).real();
+    double dg = myNPbase->deltaG_hff_mu(SM.getQuarks(StandardModel::CHARM), mu).real();
     double gSM = -(SM.getQuarks(StandardModel::CHARM)).getMass() / (SM.v());
     
     return dg/gSM;
@@ -1073,11 +1073,11 @@ double gHcceff::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHtt::deltagHtt(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHtt::deltagHtt(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHtt called with a class whose parent is not NPbase");
 }
 
 
@@ -1086,7 +1086,7 @@ deltagHtt::~deltagHtt()
 
 double deltagHtt::computeThValue()
 {
-    double dg = myNPbase->deltaG_hff(SM.getQuarks(StandardModel::TOP)).real();
+    double dg = myNPbase->deltaG_hff_mu(SM.getQuarks(StandardModel::TOP), mu).real();
     double gSM = -(SM.getMtpole()) / (SM.v());
     
     return dg/gSM;
@@ -1094,11 +1094,11 @@ double deltagHtt::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHdd::deltagHdd(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHdd::deltagHdd(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHdd called with a class whose parent is not NPbase");
 }
 
 
@@ -1107,7 +1107,7 @@ deltagHdd::~deltagHdd()
 
 double deltagHdd::computeThValue()
 {
-    double dg = myNPbase->deltaG_hff(SM.getQuarks(StandardModel::DOWN)).real();
+    double dg = myNPbase->deltaG_hff_mu(SM.getQuarks(StandardModel::DOWN), mu).real();
     double gSM = -(SM.getQuarks(StandardModel::DOWN)).getMass() / (SM.v());
     
     return dg/gSM;
@@ -1115,11 +1115,11 @@ double deltagHdd::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHss::deltagHss(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHss::deltagHss(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHss called with a class whose parent is not NPbase");
 }
 
 
@@ -1128,7 +1128,7 @@ deltagHss::~deltagHss()
 
 double deltagHss::computeThValue()
 {
-    double dg = myNPbase->deltaG_hff(SM.getQuarks(StandardModel::STRANGE)).real();
+    double dg = myNPbase->deltaG_hff_mu(SM.getQuarks(StandardModel::STRANGE), mu).real();
     double gSM = -(SM.getQuarks(StandardModel::STRANGE)).getMass() / (SM.v());
     
     return dg/gSM;
@@ -1136,11 +1136,11 @@ double deltagHss::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHbb::deltagHbb(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHbb::deltagHbb(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHbb called with a class whose parent is not NPbase");
 }
 
 
@@ -1149,7 +1149,7 @@ deltagHbb::~deltagHbb()
 
 double deltagHbb::computeThValue()
 {
-    double dg = myNPbase->deltaG_hff(SM.getQuarks(StandardModel::BOTTOM)).real();
+    double dg = myNPbase->deltaG_hff_mu(SM.getQuarks(StandardModel::BOTTOM), mu).real();
     double gSM = -(SM.getQuarks(StandardModel::BOTTOM)).getMass() / (SM.v());
     
     return dg/gSM;
@@ -1179,11 +1179,11 @@ double gHbbeff::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHGG::deltagHGG(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHGG::deltagHGG(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHGG called with a class whose parent is not NPbase");
 }
 
 
@@ -1192,7 +1192,7 @@ deltagHGG::~deltagHGG()
 
 double deltagHGG::computeThValue()
 {   
-    return myNPbase->deltaG_hggRatio();
+    return myNPbase->deltaG_hggRatio_mu(mu);
 }
 
 /* -------------------------------------*/
@@ -1219,11 +1219,11 @@ double gHGGeff::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHZZ::deltagHZZ(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHZZ::deltagHZZ(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHZZ called with a class whose parent is not NPbase");
 }
 
 
@@ -1232,7 +1232,7 @@ deltagHZZ::~deltagHZZ()
 
 double deltagHZZ::computeThValue()
 {
-    double dg = myNPbase->deltaG3_hZZ();
+    double dg = myNPbase->deltaG3_hZZ_mu(mu);
     double gSM = (SM.getMz()) * (SM.getMz()) / (SM.v());
     
     return dg/gSM;
@@ -1258,11 +1258,11 @@ double gHZZeff::computeThValue()
 
 /* -------------------------------------*/
 
-gHZZ1::gHZZ1(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+gHZZ1::gHZZ1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("gHZZ1 called with a class whose parent is not NPbase");
 }
 
 
@@ -1271,16 +1271,16 @@ gHZZ1::~gHZZ1()
 
 double gHZZ1::computeThValue()
 {
-    return myNPbase->deltaG1_hZZ();
+    return myNPbase->deltaG1_hZZ_mu(mu);
 }
 
 /* -------------------------------------*/
 
-gHZZ2::gHZZ2(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+gHZZ2::gHZZ2(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("gHZZ2 called with a class whose parent is not NPbase");
 }
 
 
@@ -1289,7 +1289,7 @@ gHZZ2::~gHZZ2()
 
 double gHZZ2::computeThValue()
 {
-    return myNPbase->deltaG2_hZZ();
+    return myNPbase->deltaG2_hZZ_mu(mu);
 }
 
 /* -------------------------------------*/
@@ -1298,11 +1298,11 @@ double gHZZ2::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHAA::deltagHAA(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHAA::deltagHAA(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHAA called with a class whose parent is not NPbase");
 }
 
 
@@ -1311,7 +1311,7 @@ deltagHAA::~deltagHAA()
 
 double deltagHAA::computeThValue()
 {
-    return myNPbase->deltaG_hAARatio();
+    return myNPbase->deltaG_hAARatio_mu(mu);
 }
 
 /* -------------------------------------*/
@@ -1338,11 +1338,11 @@ double gHAAeff::computeThValue()
 
 /* -------------------------------------*/
 
-deltagHZA::deltagHZA(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHZA::deltagHZA(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHZA called with a class whose parent is not NPbase");
 }
 
 
@@ -1351,7 +1351,7 @@ deltagHZA::~deltagHZA()
 
 double deltagHZA::computeThValue()
 {
-    return myNPbase->deltaG1_hZARatio();
+    return myNPbase->deltaG1_hZARatio_mu(mu);
 }
 
 /* -------------------------------------*/
@@ -1374,11 +1374,11 @@ double gHZAeff::computeThValue()
 
 /* -------------------------------------*/
 
-gHZA2::gHZA2(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+gHZA2::gHZA2(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("gHZA2 called with a class whose parent is not NPbase");
 }
 
 
@@ -1387,7 +1387,7 @@ gHZA2::~gHZA2()
 
 double gHZA2::computeThValue()
 {
-    return myNPbase->deltaG2_hZA();
+    return myNPbase->deltaG2_hZA_mu(mu);
 }
 
 /* -------------------------------------*/
@@ -1395,11 +1395,11 @@ double gHZA2::computeThValue()
 //-----  HWW couplings observables  ----------
 /* -------------------------------------*/
 
-deltagHWW::deltagHWW(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltagHWW::deltagHWW(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagHWW called with a class whose parent is not NPbase");
 }
 
 
@@ -1408,7 +1408,7 @@ deltagHWW::~deltagHWW()
 
 double deltagHWW::computeThValue()
 {
-    double dg = myNPbase->deltaG3_hWW();
+    double dg = myNPbase->deltaG3_hWW_mu(mu);
     double gSM = 2.0 * (SM.StandardModel::Mw_tree())* (SM.StandardModel::Mw_tree()) / (SM.v());
     
     return dg/gSM;
@@ -1435,11 +1435,11 @@ double gHWWeff::computeThValue()
 
 /* -------------------------------------*/
 
-gHWW1::gHWW1(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+gHWW1::gHWW1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("gHWW1 called with a class whose parent is not NPbase");
 }
 
 
@@ -1448,16 +1448,16 @@ gHWW1::~gHWW1()
 
 double gHWW1::computeThValue()
 {
-    return myNPbase->deltaG1_hWW();
+    return myNPbase->deltaG1_hWW_mu(mu);
 }
 
 /* -------------------------------------*/
 
-gHWW2::gHWW2(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+gHWW2::gHWW2(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("gHWW2 called with a class whose parent is not NPbase");
 }
 
 
@@ -1466,7 +1466,7 @@ gHWW2::~gHWW2()
 
 double gHWW2::computeThValue()
 {
-    return myNPbase->deltaG2_hWW();
+    return myNPbase->deltaG2_hWW_mu(mu);
 }
 
 /* -------------------------------------*/
@@ -1494,11 +1494,11 @@ double gHWZeff::computeThValue()
 
 /* -------------------------------------*/
 
-gHWZSMLin::gHWZSMLin(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+gHWZSMLin::gHWZSMLin(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("gHWZSMLin called with a class whose parent is not NPbase");
 }
 
 
@@ -1507,10 +1507,10 @@ gHWZSMLin::~gHWZSMLin()
 
 double gHWZSMLin::computeThValue()
 {   
-    double dgZ = myNPbase->deltaG3_hZZ();
+    double dgZ = myNPbase->deltaG3_hZZ_mu(mu);
     double gZSM = (SM.getMz()) * (SM.getMz()) / (SM.v());
     
-    double dgW = myNPbase->deltaG3_hWW();
+    double dgW = myNPbase->deltaG3_hWW_mu(mu);
     double gWSM = 2.0 * (SM.StandardModel::Mw_tree())* (SM.StandardModel::Mw_tree()) / (SM.v());
     
     return (1.0 + dgW/gWSM - dgZ/gZSM);
@@ -1558,11 +1558,11 @@ double gHtaWeff::computeThValue()
 
 /* -------------------------------------*/
 
-deltalHHH::deltalHHH(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltalHHH::deltalHHH(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltalHHH called with a class whose parent is not NPbase");
 }
 
 
@@ -1571,7 +1571,7 @@ deltalHHH::~deltalHHH()
 
 double deltalHHH::computeThValue()
 {
-    return myNPbase->deltaG_hhhRatio();
+    return myNPbase->deltaG_hhhRatio_mu(mu);
 }
 
 /* -------------------------------------*/
@@ -1621,11 +1621,11 @@ double deltaKgammaEff::computeThValue()
 
 /* -------------------------------------*/
 
-deltaytHB::deltaytHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltaytHB::deltaytHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltaytHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1634,16 +1634,16 @@ deltaytHB::~deltaytHB()
 
 double deltaytHB::computeThValue()
 {
-    return myNPbase->deltayt_HB();
+    return myNPbase->deltayt_HB(mu);
 }
 
 /* -------------------------------------*/
 
-deltaybHB::deltaybHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltaybHB::deltaybHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltaybHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1652,16 +1652,16 @@ deltaybHB::~deltaybHB()
 
 double deltaybHB::computeThValue()
 {
-    return myNPbase->deltayb_HB();
+    return myNPbase->deltayb_HB(mu);
 }
 
 /* -------------------------------------*/
 
-deltaytauHB::deltaytauHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltaytauHB::deltaytauHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltaytauHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1670,16 +1670,16 @@ deltaytauHB::~deltaytauHB()
 
 double deltaytauHB::computeThValue()
 {
-    return myNPbase->deltaytau_HB();
+    return myNPbase->deltaytau_HB(mu);
 }
 
 /* -------------------------------------*/
 
-deltaycHB::deltaycHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltaycHB::deltaycHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltaycHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1688,16 +1688,16 @@ deltaycHB::~deltaycHB()
 
 double deltaycHB::computeThValue()
 {
-    return myNPbase->deltayc_HB();
+    return myNPbase->deltayc_HB(mu);
 }
 
 /* -------------------------------------*/
 
-deltaymuHB::deltaymuHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltaymuHB::deltaymuHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltaymuHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1706,16 +1706,16 @@ deltaymuHB::~deltaymuHB()
 
 double deltaymuHB::computeThValue()
 {
-    return myNPbase->deltaymu_HB();
+    return myNPbase->deltaymu_HB(mu);
 }
 
 /* -------------------------------------*/
 
-deltacZHB::deltacZHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+deltacZHB::deltacZHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltacZHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1724,16 +1724,16 @@ deltacZHB::~deltacZHB()
 
 double deltacZHB::computeThValue()
 {
-    return myNPbase->deltacZ_HB();
+    return myNPbase->deltacZ_HB(mu);
 }
 
 /* -------------------------------------*/
 
-cZBoxHB::cZBoxHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+cZBoxHB::cZBoxHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("cZBoxHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1742,16 +1742,16 @@ cZBoxHB::~cZBoxHB()
 
 double cZBoxHB::computeThValue()
 {
-    return myNPbase->cZBox_HB();
+    return myNPbase->cZBox_HB(mu);
 }
 
 /* -------------------------------------*/
 
-cZZHB::cZZHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+cZZHB::cZZHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("cZZHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1760,16 +1760,16 @@ cZZHB::~cZZHB()
 
 double cZZHB::computeThValue()
 {   
-    return myNPbase->cZZ_HB();
+    return myNPbase->cZZ_HB(mu);
 }
 
 /* -------------------------------------*/
 
-cZgaHB::cZgaHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+cZgaHB::cZgaHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("cZgaHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1778,16 +1778,16 @@ cZgaHB::~cZgaHB()
 
 double cZgaHB::computeThValue()
 {   
-    return myNPbase->cZga_HB();
+    return myNPbase->cZga_HB(mu);
 }
 
 /* -------------------------------------*/
 
-cgagaHB::cgagaHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+cgagaHB::cgagaHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("cgagaHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1796,16 +1796,16 @@ cgagaHB::~cgagaHB()
 
 double cgagaHB::computeThValue()
 {   
-    return myNPbase->cgaga_HB();
+    return myNPbase->cgaga_HB(mu);
 }
 
 /* -------------------------------------*/
 
-cggHB::cggHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+cggHB::cggHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("cggHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1814,16 +1814,16 @@ cggHB::~cggHB()
 
 double cggHB::computeThValue()
 {
-    return myNPbase->cgg_HB();
+    return myNPbase->cgg_HB(mu);
 }
 
 /* -------------------------------------*/
 
-cggEffHB::cggEffHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+cggEffHB::cggEffHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("cggEffHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1832,16 +1832,16 @@ cggEffHB::~cggEffHB()
 
 double cggEffHB::computeThValue()
 {
-    return myNPbase->cggEff_HB();
+    return myNPbase->cggEff_HB(mu);
 }
 
 /* -------------------------------------*/
 
-lambzHB::lambzHB(const StandardModel& SM_i):
-
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
+lambzHB::lambzHB(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
 {
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("lambzHB called with a class whose parent is not NPbase");
 }
 
 
@@ -1850,7 +1850,7 @@ lambzHB::~lambzHB()
 
 double lambzHB::computeThValue()
 {   
-    return myNPbase->lambz_HB();
+    return myNPbase->lambz_HB(mu);
 }
 
 /* -------------------------------------*/

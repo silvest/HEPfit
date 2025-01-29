@@ -23611,7 +23611,7 @@ const double NPSMEFTd6::kappaZAeff() const
 
 /////////////Basic interactions of the so-called Higgs basis////////////////
 
-const double NPSMEFTd6::deltayt_HB() const
+const double NPSMEFTd6::deltayt_HB(const double mu) const
 {
     double mf = mtpole;
     double ciHB;
@@ -23621,7 +23621,7 @@ const double NPSMEFTd6::deltayt_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::deltayb_HB() const
+const double NPSMEFTd6::deltayb_HB(const double mu) const
 {
     double mf = (quarks[BOTTOM].getMass());
     double ciHB;
@@ -23631,7 +23631,7 @@ const double NPSMEFTd6::deltayb_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::deltaytau_HB() const
+const double NPSMEFTd6::deltaytau_HB(const double mu) const
 {
     double mf = (leptons[TAU].getMass());
     double ciHB;
@@ -23641,7 +23641,7 @@ const double NPSMEFTd6::deltaytau_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::deltayc_HB() const
+const double NPSMEFTd6::deltayc_HB(const double mu) const
 {
     double mf = (quarks[CHARM].getMass());
     double ciHB;
@@ -23651,7 +23651,16 @@ const double NPSMEFTd6::deltayc_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::deltaymu_HB() const
+const double NPSMEFTd6::deltays_HB(const double mu) const {
+    double mf = (quarks[STRANGE].getMass());
+    double ciHB;
+    
+    ciHB = -(v() / mf / sqrt(2.0)) * CidH_22r * v2_over_LambdaNP2 + delta_h - 0.5 * delta_GF;
+
+    return ciHB;
+}
+
+const double NPSMEFTd6::deltaymu_HB(const double mu) const
 {
     double mf = (leptons[MU].getMass());
     double ciHB;
@@ -23661,7 +23670,7 @@ const double NPSMEFTd6::deltaymu_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::deltacZ_HB() const
+const double NPSMEFTd6::deltacZ_HB(const double mu) const
 {
     double ciHB;
 
@@ -23670,7 +23679,7 @@ const double NPSMEFTd6::deltacZ_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::cZBox_HB() const
+const double NPSMEFTd6::cZBox_HB(const double mu) const
 {
     double ciHB;
 
@@ -23681,7 +23690,7 @@ const double NPSMEFTd6::cZBox_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::cZZ_HB() const
+const double NPSMEFTd6::cZZ_HB(const double mu) const
 {
     double ciHB;
 
@@ -23692,7 +23701,7 @@ const double NPSMEFTd6::cZZ_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::cZga_HB() const
+const double NPSMEFTd6::cZga_HB(const double mu) const
 {
     double ciHB;
 
@@ -23703,7 +23712,7 @@ const double NPSMEFTd6::cZga_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::cgaga_HB() const
+const double NPSMEFTd6::cgaga_HB(const double mu) const
 {
     double ciHB;
 
@@ -23712,7 +23721,7 @@ const double NPSMEFTd6::cgaga_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::cgg_HB() const
+const double NPSMEFTd6::cgg_HB(const double mu) const
 {
     double ciHB;
 
@@ -23721,7 +23730,7 @@ const double NPSMEFTd6::cgg_HB() const
     return ciHB;
 }
 
-const double NPSMEFTd6::cggEff_HB() const
+const double NPSMEFTd6::cggEff_HB(const double mu) const
 {
     double ciHB;
 
@@ -23730,16 +23739,16 @@ const double NPSMEFTd6::cggEff_HB() const
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
 
-    double At = deltayt_HB() * AH_f(4.0 * m_t * m_t / mHl / mHl).real();
-    double Ab = deltayb_HB() * AH_f(4.0 * m_b * m_b / mHl / mHl).real();
-    double Ac = deltayc_HB() * AH_f(4.0 * m_c * m_c / mHl / mHl).real();
+    double At = deltayt_HB(mu) * AH_f(4.0 * m_t * m_t / mHl / mHl).real();
+    double Ab = deltayb_HB(mu) * AH_f(4.0 * m_b * m_b / mHl / mHl).real();
+    double Ac = deltayc_HB(mu) * AH_f(4.0 * m_c * m_c / mHl / mHl).real();
 
-    ciHB = cgg_HB() + (1.0 / 16.0 / M_PI / M_PI) * (At + Ab + Ac);
+    ciHB = cgg_HB(mu) + (1.0 / 16.0 / M_PI / M_PI) * (At + Ab + Ac);
 
     return ciHB;
 }
 
-const double NPSMEFTd6::lambz_HB() const
+const double NPSMEFTd6::lambz_HB(const double mu) const
 {
     double ciHB;
 
@@ -24418,20 +24427,20 @@ const double NPSMEFTd6::AuxObs_NP6() const
     double dytHB, dybHB, dytauHB;
     double dKlambda;
 
-    dcZHB = deltacZ_HB();
-    cZboxHB = cZBox_HB();
-    cZZHB = cZZ_HB();
+    dcZHB = deltacZ_HB(2.0 * mHl);
+    cZboxHB = cZBox_HB(2.0 * mHl);
+    cZZHB = cZZ_HB(2.0 * mHl);
 
     // In the paper it seems they use diff. norm but in the chi 2.nb
     //  they translate into that convention, so I assume their calculation
     //  is directly in the HB for the following 3 couplings 
-    cZgaHB = cZga_HB();
-    cgagaHB = cgaga_HB();
-    cggHB = cgg_HB();
+    cZgaHB = cZga_HB(2.0 * mHl);
+    cgagaHB = cgaga_HB(2.0 * mHl);
+    cggHB = cgg_HB(2.0 * mHl);
 
-    dytHB = deltayt_HB();
-    dybHB = deltayb_HB();
-    dytauHB = deltaytau_HB();
+    dytHB = deltayt_HB(2.0 * mHl);
+    dybHB = deltayb_HB(2.0 * mHl);
+    dytauHB = deltaytau_HB(2.0 * mHl);
 
     dKlambda = deltaG_hhhRatio();
 
@@ -24731,11 +24740,11 @@ const double NPSMEFTd6::AuxObs_NP9() const
     double dcZHB, cZboxHB, cZZHB, cZgaHB, cgagaHB;
     double dKlambda;
 
-    dcZHB = deltacZ_HB();
-    cZboxHB = cZBox_HB();
-    cZZHB = cZZ_HB();
-    cZgaHB = cZga_HB();
-    cgagaHB = cgaga_HB();
+    dcZHB = deltacZ_HB(2.0 * mHl);
+    cZboxHB = cZBox_HB(2.0 * mHl);
+    cZZHB = cZZ_HB(2.0 * mHl);
+    cZgaHB = cZga_HB(2.0 * mHl);
+    cgagaHB = cgaga_HB(2.0 * mHl);
 
     dKlambda = deltaG_hhhRatio();
 
@@ -24886,9 +24895,9 @@ const double NPSMEFTd6::AuxObs_NP14() const
     double dytHB;
     double dKlambda;
 
-    dcZHB = deltacZ_HB();
-    cggHB = cgg_HB();
-    dytHB = deltayt_HB();
+    dcZHB = deltacZ_HB(2.0 * mHl);
+    cggHB = cgg_HB(2.0 * mHl);
+    dytHB = deltayt_HB(2.0 * mHl);
     dKlambda = deltaG_hhhRatio();
 
     double dcZHB2, dcZHB3, dcZHB4;

@@ -1690,6 +1690,107 @@ public:
      * @return @f$\delta g_{HHH}/g_{HHH}^SM}@f$
      */
     virtual const double deltaG_hhhRatio() const;
+    
+ 
+    //////////////////////// Corrections to Higgs couplings  (scale dependent) /////////////////////////////////
+
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HGG}(\mu)@f$
+     */
+    virtual const double deltaG_hgg_mu(const double mu) const;
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HGG}(\mu)/g_{HGG}^SM}(\mu)@f$
+     */
+    virtual const double deltaG_hggRatio_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HWW}^{(1)}(\mu)@f$
+     */
+    virtual const double deltaG1_hWW_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HWW}^{(2)}(\mu)@f$
+     */
+    virtual const double deltaG2_hWW_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HWW}^{(3)}(\mu)@f$
+     */
+    virtual const double deltaG3_hWW_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZZ}^{(1)}(\mu)@f$
+     */
+    virtual const double deltaG1_hZZ_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZZ}^{(2)}(\mu)@f$
+     */
+    virtual const double deltaG2_hZZ_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZZ}^{(3)}(\mu)@f$
+     */
+    virtual const double deltaG3_hZZ_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZA}^{(1)}(\mu)@f$
+     */
+    virtual const double deltaG1_hZA_mu(const double mu) const;
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZA}^{(1)}(\mu)/g_{HZA}^{(1),SM}(\mu)@f$
+     */
+    virtual const double deltaG1_hZARatio_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZA}^{(2)}(\mu)@f$
+     */
+    virtual const double deltaG2_hZA_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HAA}(\mu)@f$
+     */
+    virtual const double deltaG_hAA_mu(const double mu) const;
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HAA}(\mu)/g_{HAA}^SM(\mu)}@f$
+     */
+    virtual const double deltaG_hAARatio_mu(const double mu) const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
+     * @param[in] p a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{Hff}(\mu)@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaG_hff_mu(const Particle p, const double mu) const;
+    /**
+     * @brief The new physics contribution to the Higgs self-coupling @f$ H H H@f$. Normalized to the SM value.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HHH}/g_{HHH}^SM}(\mu)@f$
+     */
+    virtual const double deltaG_hhhRatio_mu(const double mu) const;
+    
+    /////////////////// hVff interactions     ///////////////////
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_\mu \bar{f_L}\gamma^mu f_L@f$.
@@ -1724,6 +1825,8 @@ public:
      */
     // no generation mixing 
     const double deltaGR_Zffh(const Particle p) const;
+    
+    /////////////////// hVff dipole interactions     ///////////////////
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu} \bar{f}\sigma^{\mu\nu} f@f$.
@@ -1748,6 +1851,8 @@ public:
      */
     // no generation mixing
     gslpp::complex deltaG_hAff(const Particle p) const;
+    
+    /////////////////// Vff dipole interactions     ///////////////////
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$G_{\mu\nu}^A \bar{f}\sigma^{\mu\nu} T_A f@f$.
@@ -6014,9 +6119,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_t@f$
      */
-    virtual const double deltayt_HB() const;
+    virtual const double deltayt_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_b@f$.
@@ -6026,9 +6132,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_b@f$
      */
-    virtual const double deltayb_HB() const;
+    virtual const double deltayb_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\tau@f$.
@@ -6038,9 +6145,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_\tau@f$
      */
-    virtual const double deltaytau_HB() const;
+    virtual const double deltaytau_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_c@f$.
@@ -6050,9 +6158,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_c@f$
      */
-    virtual const double deltayc_HB() const;
+    virtual const double deltayc_HB(const double mu) const;
     
 
     /**
@@ -6063,9 +6172,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_s@f$
      */
-    virtual const double deltays_HB() const;
+    virtual const double deltays_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
@@ -6075,9 +6185,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_\mu@f$
      */
-    virtual const double deltaymu_HB() const;
+    virtual const double deltaymu_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta c_z@f$.
@@ -6087,9 +6198,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta c_z@f$
      */
-    virtual const double deltacZ_HB() const;
+    virtual const double deltacZ_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{z\Box}@f$.
@@ -6099,9 +6211,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{z\Box}@f$
      */
-    virtual const double cZBox_HB() const;
+    virtual const double cZBox_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{zz}@f$.
@@ -6111,9 +6224,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{zz}@f$
      */
-    virtual const double cZZ_HB() const;
+    virtual const double cZZ_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{z\gamma}@f$.
@@ -6123,9 +6237,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{z\gamma}@f$
      */
-    virtual const double cZga_HB() const;
+    virtual const double cZga_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
@@ -6135,9 +6250,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{\gamma\gamma}@f$
      */
-    virtual const double cgaga_HB() const;
+    virtual const double cgaga_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{gg}@f$.
@@ -6147,9 +6263,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{gg}@f$
      */
-    virtual const double cgg_HB() const;
+    virtual const double cgg_HB(const double mu) const;
 
     /**
      * @brief The effective Higgs-basis coupling @f$c_{gg}^{Eff}@f$. (Similar to cgg_HB but including modifications of SM loops.)
@@ -6159,9 +6276,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{gg}^{Eff}@f$
      */
-    virtual const double cggEff_HB() const;
+    virtual const double cggEff_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
@@ -6171,9 +6289,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\lambda_{z}@f$
      */
-    virtual const double lambz_HB() const;
+    virtual const double lambz_HB(const double mu) const;
 
     /////////////Combinations of Warsaw basis coefficients constrained by EWPO////////////////
 
@@ -7638,6 +7757,18 @@ protected:
      * @return @f$(\f$C_{fB})_{ff}\f$@f$
      */
     gslpp::complex CfB_diag(const Particle f) const;
+    
+    ////////////////////////////////////////////////////////////////////////
+    //  Scale-dependent versions of some of the above
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{EH,UH,DH}\f$ corresponding to particle f.
+     * @param[in] f a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$(\f$C_{fH})_{ff}(\mu)\f$@f$
+     */
+    gslpp::complex CfH_diag_mu(const Particle f, const double mu) const;
     
 
     ////////////////////////////////////////////////////////////////////////

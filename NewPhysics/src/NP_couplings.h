@@ -1304,7 +1304,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHee(const StandardModel& SM_i);
+    deltagHee(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHee class.
@@ -1319,6 +1319,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1338,7 +1339,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHmumu(const StandardModel& SM_i);
+    deltagHmumu(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHtata class.
@@ -1353,6 +1354,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1406,7 +1408,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHtata(const StandardModel& SM_i);
+    deltagHtata(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHtata class.
@@ -1421,6 +1423,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1475,7 +1478,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHuu(const StandardModel& SM_i);
+    deltagHuu(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHtata class.
@@ -1490,6 +1493,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -1510,7 +1514,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHcc(const StandardModel& SM_i);
+    deltagHcc(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHtata class.
@@ -1525,6 +1529,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1578,7 +1583,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHtt(const StandardModel& SM_i);
+    deltagHtt(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHtata class.
@@ -1593,6 +1598,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1612,7 +1618,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHdd(const StandardModel& SM_i);
+    deltagHdd(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHdd class.
@@ -1627,6 +1633,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1646,7 +1653,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHss(const StandardModel& SM_i);
+    deltagHss(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHss class.
@@ -1661,6 +1668,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -1681,7 +1689,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHbb(const StandardModel& SM_i);
+    deltagHbb(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHtata class.
@@ -1696,6 +1704,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1751,7 +1760,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHGG(const StandardModel& SM_i);
+    deltagHGG(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHGG class.
@@ -1766,6 +1775,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1821,7 +1831,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHZZ(const StandardModel& SM_i);
+    deltagHZZ(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHZZ class.
@@ -1836,6 +1846,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1889,7 +1900,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    gHZZ1(const StandardModel& SM_i);
+    gHZZ1(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the gHZZ1 class.
@@ -1904,6 +1915,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -1923,7 +1935,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    gHZZ2(const StandardModel& SM_i);
+    gHZZ2(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the gHZZ2 class.
@@ -1938,6 +1950,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 //-----  HAA couplings observables  ----------
@@ -1959,7 +1972,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHAA(const StandardModel& SM_i);
+    deltagHAA(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHAA class.
@@ -1974,6 +1987,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -2030,7 +2044,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHZA(const StandardModel& SM_i);
+    deltagHZA(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHZA class.
@@ -2045,6 +2059,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -2098,7 +2113,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    gHZA2(const StandardModel& SM_i);
+    gHZA2(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the gHZA2 class.
@@ -2113,7 +2128,7 @@ public:
       
 private:
     const NPbase * myNPbase;
-
+    const double mu;
 };
 
 //-----  HWW couplings observables  ----------
@@ -2135,7 +2150,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltagHWW(const StandardModel& SM_i);
+    deltagHWW(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltagHWW class.
@@ -2150,6 +2165,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -2203,7 +2219,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    gHWW1(const StandardModel& SM_i);
+    gHWW1(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the gHWW1 class.
@@ -2218,6 +2234,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -2237,7 +2254,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    gHWW2(const StandardModel& SM_i);
+    gHWW2(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the gHWW2 class.
@@ -2252,6 +2269,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 //-----  Other couplings observables  ----------
@@ -2307,7 +2325,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    gHWZSMLin(const StandardModel& SM_i);
+    gHWZSMLin(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the gHWZSMLin class.
@@ -2322,6 +2340,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -2412,7 +2431,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltalHHH(const StandardModel& SM_i);
+    deltalHHH(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltalHHH class.
@@ -2427,6 +2446,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 //-----  VVV couplings observables  ----------
@@ -2522,7 +2542,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaytHB(const StandardModel& SM_i);
+    deltaytHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaytHB class.
@@ -2537,6 +2557,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -2556,7 +2577,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaybHB(const StandardModel& SM_i);
+    deltaybHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaybHB class.
@@ -2571,6 +2592,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -2590,7 +2612,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaytauHB(const StandardModel& SM_i);
+    deltaytauHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaytauHB class.
@@ -2605,6 +2627,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 /**
@@ -2624,7 +2647,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaycHB(const StandardModel& SM_i);
+    deltaycHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaycHB class.
@@ -2639,6 +2662,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -2659,7 +2683,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltaymuHB(const StandardModel& SM_i);
+    deltaymuHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltaymuHB class.
@@ -2674,6 +2698,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -2694,7 +2719,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    deltacZHB(const StandardModel& SM_i);
+    deltacZHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the deltacZHB class.
@@ -2709,7 +2734,7 @@ public:
       
 private:
     const NPbase * myNPbase;
-
+    const double mu;
 };
 
 
@@ -2730,7 +2755,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    cZBoxHB(const StandardModel& SM_i);
+    cZBoxHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the cZBoxHB class.
@@ -2745,7 +2770,7 @@ public:
       
 private:
     const NPbase * myNPbase;
-
+    const double mu;
 };
 
 
@@ -2766,7 +2791,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    cZZHB(const StandardModel& SM_i);
+    cZZHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the cZZHB class.
@@ -2781,6 +2806,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -2801,7 +2827,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    cZgaHB(const StandardModel& SM_i);
+    cZgaHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the cZgaHB class.
@@ -2816,6 +2842,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -2836,7 +2863,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    cgagaHB(const StandardModel& SM_i);
+    cgagaHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the cgagaHB class.
@@ -2851,6 +2878,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -2871,7 +2899,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    cggHB(const StandardModel& SM_i);
+    cggHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the cggHB class.
@@ -2886,6 +2914,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -2907,7 +2936,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    cggEffHB(const StandardModel& SM_i);
+    cggEffHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the cggEffHB class.
@@ -2922,6 +2951,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 
@@ -2942,7 +2972,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    lambzHB(const StandardModel& SM_i);
+    lambzHB(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the lambzHB class.
@@ -2957,6 +2987,7 @@ public:
       
 private:
     const NPbase * myNPbase;
+    const double mu;
 };
 
 

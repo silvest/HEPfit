@@ -936,6 +936,149 @@ public:
     {
         return 0.0;
     };
+    
+    //////////////////////// Corrections to Higgs couplings  (scale dependent) /////////////////////////////////
+
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HGG}(\mu)@f$
+     */
+    virtual const double deltaG_hgg_mu(const double mu) const
+    {
+        return deltaG_hgg();
+    };
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HGG}(\mu)/g_{HGG}^SM}(\mu)@f$
+     */
+    virtual const double deltaG_hggRatio_mu(const double mu) const
+    {
+        return deltaG_hggRatio();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HWW}^{(1)}(\mu)@f$
+     */
+    virtual const double deltaG1_hWW_mu(const double mu) const
+    {
+        return deltaG1_hWW();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HWW}^{(2)}(\mu)@f$
+     */
+    virtual const double deltaG2_hWW_mu(const double mu) const
+    {
+        return deltaG2_hWW();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HWW}^{(3)}(\mu)@f$
+     */
+    virtual const double deltaG3_hWW_mu(const double mu) const
+    {
+        return deltaG3_hWW();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZZ}^{(1)}(\mu)@f$
+     */
+    virtual const double deltaG1_hZZ_mu(const double mu) const
+    {
+        return deltaG1_hZZ();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZZ}^{(2)}(\mu)@f$
+     */
+    virtual const double deltaG2_hZZ_mu(const double mu) const
+    {
+        return deltaG2_hZZ();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZZ}^{(3)}(\mu)@f$
+     */
+    virtual const double deltaG3_hZZ_mu(const double mu) const
+    {
+        return deltaG3_hZZ();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZA}^{(1)}(\mu)@f$
+     */
+    virtual const double deltaG1_hZA_mu(const double mu) const
+    {
+        return deltaG1_hZA();
+    };
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZA}^{(1)}(\mu)/g_{HZA}^{(1),SM}(\mu)@f$
+     */
+    virtual const double deltaG1_hZARatio_mu(const double mu) const
+    {
+        return deltaG1_hZARatio();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HZA}^{(2)}(\mu)@f$
+     */
+    virtual const double deltaG2_hZA_mu(const double mu) const
+    {
+        return deltaG2_hZA();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HAA}(\mu)@f$
+     */
+    virtual const double deltaG_hAA_mu(const double mu) const
+    {
+        return deltaG_hAA();
+    };
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HAA}(\mu)/g_{HAA}^SM(\mu)}@f$
+     */
+    virtual const double deltaG_hAARatio_mu(const double mu) const
+    {
+        return deltaG_hAARatio();
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
+     * @param[in] p a lepton or quark
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{Hff}(\mu)@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaG_hff_mu(const Particle p, const double mu) const
+    {
+        return deltaG_hff(p);
+    };
+    /**
+     * @brief The new physics contribution to the Higgs self-coupling @f$ H H H@f$. Normalized to the SM value.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta g_{HHH}/g_{HHH}^SM}(\mu)@f$
+     */
+    virtual const double deltaG_hhhRatio_mu(const double mu) const
+    {
+        return deltaG_hhhRatio();
+    };
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -4294,9 +4437,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$\delta y_t@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_t@f$
      */
-    virtual const double deltayt_HB() const
+    virtual const double deltayt_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4304,9 +4448,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$\delta y_b@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_b@f$
      */
-    virtual const double deltayb_HB() const
+    virtual const double deltayb_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4314,9 +4459,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\tau@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_\tau@f$
      */
-    virtual const double deltaytau_HB() const
+    virtual const double deltaytau_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4324,20 +4470,32 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$\delta y_c@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_c@f$
      */
-    virtual const double deltayc_HB() const
+    virtual const double deltayc_HB(const double mu) const
     {
         return 0.0;
     }
     
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_s@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta y_s@f$
+     */
+    virtual const double deltays_HB(const double mu) const
+    {
+        return 0.0;
+    }
     
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_\mu@f$
      */
-    virtual const double deltaymu_HB() const
+    virtual const double deltaymu_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4345,9 +4503,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$\delta c_z@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta c_z@f$
      */
-    virtual const double deltacZ_HB() const
+    virtual const double deltacZ_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4355,9 +4514,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$c_{z\Box}@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{z\Box}@f$
      */
-    virtual const double cZBox_HB() const
+    virtual const double cZBox_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4365,9 +4525,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$c_{zz}@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{zz}@f$
      */
-    virtual const double cZZ_HB() const
+    virtual const double cZZ_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4375,9 +4536,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$c_{z\gamma}@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{z\gamma}@f$
      */
-    virtual const double cZga_HB() const
+    virtual const double cZga_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4385,9 +4547,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{\gamma\gamma}@f$
      */
-    virtual const double cgaga_HB() const
+    virtual const double cgaga_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4395,9 +4558,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$c_{gg}@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{gg}@f$
      */
-    virtual const double cgg_HB() const
+    virtual const double cgg_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4405,9 +4569,10 @@ public:
     /**
      * @brief The effective Higgs-basis coupling @f$c_{gg}^{Eff}@f$. (Similar to cgg_HB but including modifications of SM loops.)
      * (See arXiv: 1505.00046 [hep-ph] document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{gg}^{Eff}@f$
      */
-    virtual const double cggEff_HB() const
+    virtual const double cggEff_HB(const double mu) const
     {
         return 0.0;
     }
@@ -4415,9 +4580,10 @@ public:
     /**
      * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
      * (See LHCHXSWG-INT-2015-001 document.)
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\lambda_{z}@f$
      */
-    virtual const double lambz_HB() const
+    virtual const double lambz_HB(const double mu) const
     {
         return 0.0;
     }

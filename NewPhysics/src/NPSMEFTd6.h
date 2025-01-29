@@ -5651,9 +5651,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_t@f$
      */
-    virtual const double deltayt_HB() const;
+    virtual const double deltayt_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_b@f$.
@@ -5663,9 +5664,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_b@f$
      */
-    virtual const double deltayb_HB() const;
+    virtual const double deltayb_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\tau@f$.
@@ -5675,9 +5677,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_\tau@f$
      */
-    virtual const double deltaytau_HB() const;
+    virtual const double deltaytau_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_c@f$.
@@ -5687,9 +5690,24 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_c@f$
      */
-    virtual const double deltayc_HB() const;
+    virtual const double deltayc_HB(const double mu) const;
+    
+
+    /**
+     * @brief The Higgs-basis coupling @f$\delta y_s@f$.
+     * (See LHCHXSWG-INT-2015-001 document.)
+     * Note that the Lagrangian definition of the Higgs-basis parameters coincides with the one of 
+     * some of the @f$g_i, \delta g_i@f$ couplings defined above.
+     * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
+     * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
+     * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
+     * @return @f$\delta y_s@f$
+     */
+    virtual const double deltays_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
@@ -5699,9 +5717,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_\mu@f$
      */
-    virtual const double deltaymu_HB() const;
+    virtual const double deltaymu_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta c_z@f$.
@@ -5711,9 +5730,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta c_z@f$
      */
-    virtual const double deltacZ_HB() const;
+    virtual const double deltacZ_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{z\Box}@f$.
@@ -5723,9 +5743,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{z\Box}@f$
      */
-    virtual const double cZBox_HB() const;
+    virtual const double cZBox_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{zz}@f$.
@@ -5735,9 +5756,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{zz}@f$
      */
-    virtual const double cZZ_HB() const;
+    virtual const double cZZ_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{z\gamma}@f$.
@@ -5747,9 +5769,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{z\gamma}@f$
      */
-    virtual const double cZga_HB() const;
+    virtual const double cZga_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
@@ -5759,9 +5782,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{\gamma\gamma}@f$
      */
-    virtual const double cgaga_HB() const;
+    virtual const double cgaga_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{gg}@f$.
@@ -5771,9 +5795,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{gg}@f$
      */
-    virtual const double cgg_HB() const;
+    virtual const double cgg_HB(const double mu) const;
 
     /**
      * @brief The effective Higgs-basis coupling @f$c_{gg}^{Eff}@f$. (Similar to cgg_HB but including modifications of SM loops.)
@@ -5783,9 +5808,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{gg}^{Eff}@f$
      */
-    virtual const double cggEff_HB() const;
+    virtual const double cggEff_HB(const double mu) const;
 
     /**
      * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
@@ -5795,9 +5821,10 @@ public:
      * In the Higgs basis, however, one uses the freedom to perform certain field redefinitions and 
      * operations to demand that the mass eigenstate Lagrangian has specific features. (See pag. 5,6 in the reference.)
      * Therefore, the actual expression in terms of dim 6 coefficients may differ from the one for @f$g_i, \delta g_i@f$.
+     * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\lambda_{z}@f$
      */
-    virtual const double lambz_HB() const;
+    virtual const double lambz_HB(const double mu) const;
 
     /////////////Combinations of Warsaw basis coefficients constrained by EWPO////////////////
 
