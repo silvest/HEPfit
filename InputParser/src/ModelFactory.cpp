@@ -41,6 +41,7 @@
 #include "MFV.h"
 #include "NPSTUVWXY.h"
 #include "GeneralTHDM.h"
+#include "GeneralTHDMZ2.h"
 #include "THDMW.h"
 /* END: REMOVE FROM THE PACKAGE */
 #include <boost/bind/bind.hpp>
@@ -89,6 +90,7 @@ ModelFactory::ModelFactory()
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
     modelFactory["GeneralTHDM"] = boost::factory<GeneralTHDM*>();
+    modelFactory["GeneralTHDMZ2"] = boost::factory<GeneralTHDMZ2*>();
     modelFactory["THDMW"] = boost::factory<THDMW*>();
 /* END: REMOVE FROM THE PACKAGE */
 }
