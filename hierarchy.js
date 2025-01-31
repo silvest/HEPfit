@@ -193,6 +193,9 @@ var hierarchy =
     [ "LHPC::FlhaOne", "d8/d0b/class_l_h_p_c_1_1_flha_one.html", null ],
     [ "LHPC::FourMomentum", "dc/d71/class_l_h_p_c_1_1_four_momentum.html", null ],
     [ "FR", "dd/d91/class_f_r.html", null ],
+    [ "GeneralTHDM", null, [
+      [ "GeneralTHDMZ2", "db/db1/class_general_t_h_d_m_z2.html", null ]
+    ] ],
     [ "GeneralTHDMcache", "dc/dfd/class_general_t_h_d_mcache.html", null ],
     [ "GeneralTHDMEWPO", "d6/d35/class_general_t_h_d_m_e_w_p_o.html", null ],
     [ "GeneralTHDMHeavyHiggs", "d2/d5c/class_general_t_h_d_m_heavy_higgs.html", null ],
