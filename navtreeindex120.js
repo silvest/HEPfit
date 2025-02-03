@@ -1,5 +1,7 @@
 var NAVTREEINDEX120 =
 {
+"dd/d87/class_heff_d_b1.html#a23974c492dc29227435f381db3c112c3":[27,0,848,40],
+"dd/d87/class_heff_d_b1.html#a2a36e028ed23c4dafa36a0843a609e5b":[27,0,848,17],
 "dd/d87/class_heff_d_b1.html#a2aa5329b2c18122ccb81005cb6b37207":[27,0,848,37],
 "dd/d87/class_heff_d_b1.html#a2fa1901fa3290934daa78230d5df19de":[27,0,848,34],
 "dd/d87/class_heff_d_b1.html#a3241df139d68f7a8d72e1d8945f90550":[27,0,848,46],
@@ -247,7 +249,5 @@ var NAVTREEINDEX120 =
 "dd/d9a/classunitarity_n_l_oev2.html":[4,17,494],
 "dd/d9a/classunitarity_n_l_oev2.html#a379189233bbc1b36e12b7b00b9dbc5ed":[4,17,494,1],
 "dd/d9a/classunitarity_n_l_oev2.html#a4c6a252638f5afdc25db9610ffb27480":[4,17,494,0],
-"dd/d9a/classunitarity_n_l_oev2.html#a967e39b1094b4dd20dbcbc0597579004":[4,17,494,2],
-"dd/d9b/class_d_gamma__s___m_sbar___n_l_o___r_i__trad_basis.html":[27,0,536],
-"dd/d9b/class_d_gamma__s___m_sbar___n_l_o___r_i__trad_basis.html#a3c4a466414b3cb08726bb509466bacfb":[27,0,536,1]
+"dd/d9a/classunitarity_n_l_oev2.html#a967e39b1094b4dd20dbcbc0597579004":[4,17,494,2]
 };
