@@ -96,7 +96,7 @@ protected:
 private:
 
     double tanb, bma, m12_2; ///< parameters exclusively in Z2 models: tan(beta), beta-alpha, m_12^2
-    double beta, cosb, cos2b, cos4b, cos6b, sinb, sin2b, sin6b, cos2bma, sin2bma;
+    double beta, cosb, cos2b, cos4b, cos6b, sinb, sin2b, sin4b, sin6b, cos2bma, sin2bma;
     double vev, mh_2, mH_2, mA_2, mHp_2;
     std::string flag_model;
 };

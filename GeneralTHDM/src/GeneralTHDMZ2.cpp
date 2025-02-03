@@ -78,6 +78,7 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
             cos6b = cos(6.*beta);
             sinb  = sin(beta);
             sin2b = sin(2.*beta);
+            sin4b = sin(4.*beta);
             sin6b = sin(6.*beta);
         }
         else {
@@ -107,7 +108,9 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
         GeneralTHDM::setParameter("lambda3", ((-32.*m12_2 + 8.*(mh_2 + mH_2 + mA_2)*sin2b +
         (mh_2 - mH_2)*(-4. + 3.*cos2b + 4.*cos4b + cos6b)*sin2bma)/16./cosb/sinb/vev/vev));
     else if (name.compare("Relambda7") == 0)
-        GeneralTHDM::setParameter("Relambda7", 0.);
+        GeneralTHDM::setParameter("Relambda7", ((4.*(mh_2 - mH_2)*cos2b*cos2bma/cosb/sinb +
+        4.*(mh_2 + mH_2 - 2.*m12_2/cosb/sinb)*sin4b/sin2b/sin2b -
+        (mh_2 - mH_2)*(1. + 8.*cos2b + cos4b)*sin2bma)/8./vev/vev));
     else if (name.compare("Nu_11r") == 0) {
         if (flag_model == "type1")
             GeneralTHDM::setParameter("Nu_11r", 1./tanb);
