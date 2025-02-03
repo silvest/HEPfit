@@ -25,6 +25,7 @@ var class_general_t_h_d_m_z2 =
     [ "mHp_2", "db/db1/class_general_t_h_d_m_z2.html#ae2aa3bba5d6e62ebedf7babb9049d16c", null ],
     [ "sin2b", "db/db1/class_general_t_h_d_m_z2.html#aea6a77c426770db57b3d9475d3c08bcc", null ],
     [ "sin2bma", "db/db1/class_general_t_h_d_m_z2.html#af355a4957f4acbbff65d0dbfc055a7c9", null ],
+    [ "sin4b", "db/db1/class_general_t_h_d_m_z2.html#af251ec145ea4405aa17acd734f4255a2", null ],
     [ "sin6b", "db/db1/class_general_t_h_d_m_z2.html#ab8e80a0a1b697a588ef5f3520460daa7", null ],
     [ "sinb", "db/db1/class_general_t_h_d_m_z2.html#ad639bc2f9ef90171b40d6ed59dd8fb3e", null ],
     [ "tanb", "db/db1/class_general_t_h_d_m_z2.html#af1625ee8981fc896b1d3eaa9918b6321", null ],

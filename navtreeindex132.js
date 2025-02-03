@@ -1,5 +1,6 @@
 var NAVTREEINDEX132 =
 {
+"df/d59/class_c_penguin_box.html#a619183be6df6c6bb60d1cddc01206dc1":[27,0,397,28],
 "df/d59/class_c_penguin_box.html#a7306d9604c0f369bba7e2abe996dcdaf":[27,0,397,33],
 "df/d59/class_c_penguin_box.html#a74c32110a042d94e5f6b5fa8383dd01e":[27,0,397,11],
 "df/d59/class_c_penguin_box.html#a77e76e7158b009ce854ffcdae8c22148":[27,0,397,40],
@@ -248,6 +249,5 @@ var NAVTREEINDEX132 =
 "df/da0/class_v0.html#a2ede2f9e9a4a5d5c5323411c1667c130":[4,5,199,2],
 "df/da0/class_v0.html#a44f192f094d59ec8acedec28aeca646c":[4,5,199,3],
 "df/da0/class_v0.html#a77b3e3bfc049d1e56714a808473bd55a":[4,5,199,1],
-"df/da5/classobl_s.html":[27,0,2166],
-"df/da5/classobl_s.html#a401d7763d0dd998be5c63f9174a3e71b":[27,0,2166,0]
+"df/da5/classobl_s.html":[27,0,2166]
 };
