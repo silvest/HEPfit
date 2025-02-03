@@ -68,12 +68,12 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief A method to set a flag of %GeneralTHDMZ2.
+     * @brief A method to set a string flag of %GeneralTHDMZ2.
      * @param[in] name name of a model flag
-     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @param[in] value the string to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool setFlag(const std::string name, const bool value);
+    virtual bool setFlagStr(const std::string name, const std::string value);
 
 
 protected:
@@ -85,12 +85,20 @@ protected:
      */
     virtual void setParameter(const std::string, const double&);
 
+    /**
+     * @brief A method to check if the model type name in string form is valid.
+     * @param[in] modeltype GeneralTHDMZ2 model type name
+     * @return a boolean that is true if the model type name is valid
+     */
+    bool CheckModelType(const std::string modeltype) const;
+
 
 private:
 
     double tanb, bma, m12_2; ///< parameters exclusively in Z2 models: tan(beta), beta-alpha, m_12^2
     double beta, cosb, cos2b, cos4b, cos6b, sinb, sin2b, sin6b, cos2bma, sin2bma;
     double vev, mh_2, mH_2, mA_2, mHp_2;
+    std::string flag_model;
 };
 
 #endif /* GENERALTHDMZ2_H */

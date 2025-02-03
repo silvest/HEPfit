@@ -108,6 +108,36 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
         (mh_2 - mH_2)*(-4. + 3.*cos2b + 4.*cos4b + cos6b)*sin2bma)/16./cosb/sinb/vev/vev));
     else if (name.compare("Relambda7") == 0)
         GeneralTHDM::setParameter("Relambda7", 0.);
+    else if (name.compare("Nu_11r") == 0) {
+        if (flag_model == "type1")
+            GeneralTHDM::setParameter("Nu_11r", 1./tanb);
+        else if (flag_model == "type2")
+            GeneralTHDM::setParameter("Nu_11r", 1./tanb);
+        else if (flag_model == "typeX")
+            GeneralTHDM::setParameter("Nu_11r", 1./tanb);
+        else if (flag_model == "typeY")
+            GeneralTHDM::setParameter("Nu_11r", 1./tanb);
+    }
+    else if (name.compare("Nd_11r") == 0) {
+        if (flag_model == "type1")
+            GeneralTHDM::setParameter("Nd_11r", 1./tanb);
+        else if (flag_model == "type2")
+            GeneralTHDM::setParameter("Nd_11r", -tanb);
+        else if (flag_model == "typeX")
+            GeneralTHDM::setParameter("Nd_11r", 1./tanb);
+        else if (flag_model == "typeY")
+            GeneralTHDM::setParameter("Nd_11r", -tanb);
+    }
+    else if (name.compare("Nl_11r") == 0) {
+        if (flag_model == "type1")
+            GeneralTHDM::setParameter("Nl_11r", 1./tanb);
+        else if (flag_model == "type2")
+            GeneralTHDM::setParameter("Nl_11r", -tanb);
+        else if (flag_model == "typeX")
+            GeneralTHDM::setParameter("Nl_11r", -tanb);
+        else if (flag_model == "typeY")
+            GeneralTHDM::setParameter("Nl_11r", 1./tanb);
+    }
     else
         GeneralTHDM::setParameter(name, value);
 }
@@ -128,7 +158,35 @@ bool GeneralTHDMZ2::CheckParameters(const std::map<std::string, double>& DPars)
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-bool GeneralTHDMZ2::setFlag(const std::string name, const bool value)
+bool GeneralTHDMZ2::setFlagStr(const std::string name, const std::string value)
 {
-    return GeneralTHDM::setFlag(name, value);
+    bool res = false;
+
+    if(name.compare("modelType") == 0) {
+        if (CheckModelType(value))
+        {
+            flag_model = value;
+            res = true;
+        }
+        else
+        {
+            throw std::runtime_error("GeneralTHDMZ2::setFlagStr(): invalid model-type flag"
+                + name + "=" + value);
+        }
+    }
+    else
+        res = GeneralTHDM::setFlagStr(name,value);
+
+    return res;
+}
+
+bool GeneralTHDMZ2::CheckModelType(const std::string modeltype) const
+{
+    if (modeltype.compare("type1") == 0 ||
+        modeltype.compare("type2") == 0 ||
+        modeltype.compare("typeX") == 0 ||
+        modeltype.compare("typeY") == 0 )
+        return true;
+    else
+        return false;
 }
