@@ -47,14 +47,48 @@ void CorrelatedGaussianObservables::ComputeCov(const TMatrixDSym& Corr) {
         throw std::runtime_error("The size of the correlated observables in " + name + " does not match the size of the correlation matrix!");
     InvCov.ResizeTo(size, size);
     if (covarianceFromConfig) {
-        for (unsigned int i = 0; i < size; i++)
+        for (unsigned int i = 0; i < size; i++) {
             for (unsigned int j = 0; j < size; j++)
                 InvCov(i, j) = Corr(i, j);
+        }
+
+        // Check inverse-covariance is positive semi-definite   
+        TMatrixDSymEigen icovES(InvCov);
+        TVectorD egval(icovES.GetEigenValues());
+        unsigned int EVbad = 0;
+        for (unsigned int i = 0; i < size; i++) {
+            if (egval(i) < 0.) {
+                EVbad++;
+            }
+        }
+        if (EVbad > 0) {
+            std::cout << "WARNING: Inverse-covariance matrix of the correlated observables in "<< name <<" is not a positive semi-definite matrix!" << std::endl;
+            std::cout << "("<< EVbad <<" non positive eigenvalue(s).)" << std::endl;
+            sleep(2);
+        }
+        
     } else {
         for (unsigned int i = 0; i < size; i++) {
             for (unsigned int j = 0; j < size; j++)
-                InvCov(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();
+                InvCov(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();            
         }
+       
+        // Check covariance is positive definite
+        TMatrixDSymEigen covES(InvCov);
+        TVectorD egval(covES.GetEigenValues());
+        unsigned int EVbad = 0;
+        for (unsigned int i = 0; i < size; i++) {
+            if (egval(i) <= 0.) {
+                EVbad++;
+            }
+        }
+        if (EVbad > 0) {
+            std::cout << "WARNING: Covariance matrix of the correlated observables in "<< name <<" is not a positive definite matrix!" << std::endl;
+            std::cout << "("<< EVbad <<" non positive eigenvalue(s).)" << std::endl;
+            sleep(2);
+        }
+        
+        // Invert
         InvCov.Invert();
     }
 }
