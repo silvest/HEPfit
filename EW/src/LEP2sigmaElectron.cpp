@@ -35,4 +35,20 @@ double eeffRelectron::computeThValue()
     
     return ( R_electron );
 }
+
+
+double eeffsigmatsubElectron::computeThValue()
+{ 
+    double sigma_e = SM.eeffsigmaEtsub(pol_e, pol_p, s);
+    
+    return ( sigma_e );
+}
+
+
+double eeffRelectrontsub::computeThValue()
+{ 
+    double R_electron = SM.eeffRelectrontsub(pol_e, pol_p, s);
+    
+    return ( R_electron );
+}
      

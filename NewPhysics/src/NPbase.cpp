@@ -1210,6 +1210,10 @@ const double NPbase::eeffsigmaE(const double pol_e, const double pol_p, const do
 {
     return (trueSM.eeffsigmaE(pol_e, pol_p, s) + delta_sigmaTot_ee(pol_e, pol_p, s));
 }
+const double NPbase::eeffsigmaEtsub(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffsigmaEtsub(pol_e, pol_p, s) + delta_sigmaTot_ee(pol_e, pol_p, s));
+}
 const double NPbase::eeffsigmaMu(const double pol_e, const double pol_p, const double s) const
 {
     return (trueSM.eeffsigmaMu(pol_e, pol_p, s) + delta_sigmaTot_f(leptons[MU], pol_e, pol_p, s));
@@ -1243,6 +1247,18 @@ const double NPbase::eeffRelectron(const double pol_e, const double pol_p, const
     double Rf;
     
     Rf = trueSM.eeffRelectron(pol_e, pol_p, s) 
+            + delta_sigma_had(pol_e, pol_p, s, -1.0, 1.0) / sigmaffSM 
+            - delta_sigmaTot_ee(pol_e, pol_p, s) * sigmaHadSM / sigmaffSM / sigmaffSM;
+    
+    return Rf;
+}
+const double NPbase::eeffRelectrontsub(const double pol_e, const double pol_p, const double s) const
+{
+    double sigmaHadSM = trueSM.eeffsigmaHadron(pol_e, pol_p, s);
+    double sigmaffSM = trueSM.eeffsigmaEtsub(pol_e, pol_p, s);
+    double Rf;
+    
+    Rf = trueSM.eeffRelectrontsub(pol_e, pol_p, s) 
             + delta_sigma_had(pol_e, pol_p, s, -1.0, 1.0) / sigmaffSM 
             - delta_sigmaTot_ee(pol_e, pol_p, s) * sigmaHadSM / sigmaffSM / sigmaffSM;
     
@@ -1314,6 +1330,10 @@ const double NPbase::eeffRbottom(const double pol_e, const double pol_p, const d
 const double NPbase::eeffAFBe(const double pol_e, const double pol_p, const double s) const
 {
     return (trueSM.eeffAFBe(pol_e, pol_p, s) + delta_AFB_ee(pol_e, pol_p, s));
+}
+const double NPbase::eeffAFBetsub(const double pol_e, const double pol_p, const double s) const
+{
+    return (trueSM.eeffAFBetsub(pol_e, pol_p, s) + delta_AFB_ee(pol_e, pol_p, s));
 }
 const double NPbase::eeffAFBmu(const double pol_e, const double pol_p, const double s) const
 {

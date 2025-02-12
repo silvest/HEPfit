@@ -26837,14 +26837,14 @@ const double NPSMEFTd6::delta_sigma_ee(const double pol_e, const double pol_p, c
 
 //  Absolute corrections to the total cross section 
 const double NPSMEFTd6::delta_sigmaTot_ee(const double pol_e, const double pol_p, const double s) const {
-    double coscut = 0.990268; // 8 degrees  
+    double coscut = 0.90; // As in LEP2  
     return delta_sigma_ee(pol_e, pol_p, s, -coscut, coscut);
 }
 
 //  Absolute corrections to the FB asymmetry 
 const double NPSMEFTd6::delta_AFB_ee(const double pol_e, const double pol_p, const double s) const {
     
-    double coscut = 0.990268; // 8 degrees
+    double coscut = 0.90; // As in LEP2
     double xsSMF, xsSMB, xsSM;
     double dxsF, dxsB, dxs;
     double dAFB;

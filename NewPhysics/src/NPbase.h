@@ -4848,6 +4848,7 @@ public:
       
 //   Extension of SM observable definitions
     virtual const double eeffsigmaE(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffsigmaEtsub(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffsigmaMu(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffsigmaTau(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffsigmaHadron(const double pol_e, const double pol_p, const double s) const;
@@ -4856,6 +4857,7 @@ public:
     virtual const double eeffsigmaBottom(const double pol_e, const double pol_p, const double s) const;
     
     virtual const double eeffRelectron(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffRelectrontsub(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffRmuon(const double pol_e, const double pol_p, const double s) const;     
     virtual const double eeffRtau(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffRstrange(const double pol_e, const double pol_p, const double s) const;
@@ -4863,6 +4865,7 @@ public:
     virtual const double eeffRbottom(const double pol_e, const double pol_p, const double s) const;
 
     virtual const double eeffAFBe(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffAFBetsub(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffAFBmu(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffAFBtau(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffAFBstrange(const double pol_e, const double pol_p, const double s) const;

@@ -13,3 +13,11 @@ double eeffAFBelectron::computeThValue()
        
     return AFB_e;
 }
+
+
+double eeffAFBelectrontsub::computeThValue()
+{ 
+    double AFB_e = SM.eeffAFBetsub(pol_e, pol_p, s);
+       
+    return AFB_e;
+}

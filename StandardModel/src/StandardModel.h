@@ -3143,13 +3143,21 @@ public:
 
     virtual const double eeffsigmaE(const double pol_e, const double pol_p, const double s) const    
     {
-        double cosmin = -0.990268; // 8 degrees
-        double cosmax = 0.990268; // 8 degrees
+        double cosmin = -0.90; // As in LEP2
+        double cosmax = 0.90; // As in LEP2
         
         return eeffsigmaEbin(pol_e, pol_p, s, cosmin, cosmax);
     }
-    
+        
     const double eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
+    
+    virtual const double eeffsigmaEtsub(const double pol_e, const double pol_p, const double s) const    
+    {
+        double cosmin = -0.90; // As in LEP2
+        double cosmax = 0.90; // As in LEP2
+        
+        return eeffsigma(leptons[ELECTRON], pol_e, pol_p, s, cosmin, cosmax);
+    }
     
     virtual const double eeffsigmaMu(const double pol_e, const double pol_p, const double s) const
     {
@@ -3189,6 +3197,10 @@ public:
     {        
         return ( eeffsigmaHadron(pol_e, pol_p, s) / eeffsigmaE(pol_e, pol_p, s) );
     } 
+    virtual const double eeffRelectrontsub(const double pol_e, const double pol_p, const double s) const
+    {        
+        return ( eeffsigmaHadron(pol_e, pol_p, s) / eeffsigmaEtsub(pol_e, pol_p, s) );
+    } 
     virtual const double eeffRmuon(const double pol_e, const double pol_p, const double s) const
     {
         return ( eeffsigmaHadron(pol_e, pol_p, s) / eeffsigmaMu(pol_e, pol_p, s) );
@@ -3214,10 +3226,17 @@ public:
 
     virtual const double eeffAFBe(const double pol_e, const double pol_p, const double s) const
     {
-        double cosmin = -0.990268; // 8 degrees
-        double cosmax = 0.990268; // 8 degrees
+        double cosmin = -0.90; // As in LEP2
+        double cosmax = 0.90; // As in LEP2
         
         return (( eeffsigmaEbin(pol_e, pol_p, s, 0.0 , cosmax) - eeffsigmaEbin(pol_e, pol_p, s, cosmin, 0.0) ) / eeffsigmaEbin(pol_e, pol_p, s, cosmin, cosmax));
+    }
+    virtual const double eeffAFBetsub(const double pol_e, const double pol_p, const double s) const
+    {
+        double cosmin = -0.90; // As in LEP2
+        double cosmax = 0.90; // As in LEP2
+ 
+        return ( ( eeffsigma(leptons[ELECTRON], pol_e, pol_p, s, 0.0 , cosmax) - eeffsigma(leptons[ELECTRON], pol_e, pol_p, s, cosmin, 0.0) ) / eeffsigma(leptons[ELECTRON], pol_e, pol_p, s, cosmin, cosmax) );
     }
     virtual const double eeffAFBmu(const double pol_e, const double pol_p, const double s) const
     {

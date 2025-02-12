@@ -3696,6 +3696,7 @@ const double StandardModel::BrHtobb() const
 //Generic e+e- -> ff Inclusive Observables
 
 //  For f!=e
+//  (f=e also included to define a t-subtracted observable, like in LEP)
     
 //  Helicity amplitudes squared
 const double StandardModel::MLR2eeff(const Particle f, const double s) const {
@@ -3715,7 +3716,10 @@ const double StandardModel::MLR2eeff(const Particle f, const double s) const {
 
     Mz2s = Mz * Mz - s;
 
-    if (f.is("MU")) {
+    if (f.is("ELECTRON")) {
+        Qf = leptons[ELECTRON].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("MU")) {
         Qf = leptons[MU].getCharge();
         gfRSM = - Qf * s02();
     } else if (f.is("TAU")) {
@@ -3763,7 +3767,10 @@ const double StandardModel::MRL2eeff(const Particle f, const double s) const{
 
     Mz2s = Mz * Mz - s;
 
-    if (f.is("MU")) {
+    if (f.is("ELECTRON")) {
+        Qf = leptons[ELECTRON].getCharge();
+        gfLSM = (leptons[ELECTRON].getIsospin()) - Qf * s02();
+    } else if (f.is("MU")) {
         Qf = leptons[MU].getCharge();
         gfLSM = (leptons[MU].getIsospin()) - Qf * s02();
     } else if (f.is("TAU")) {
@@ -3812,7 +3819,10 @@ const double StandardModel::MLL2eeff(const Particle f, const double s, const dou
 
     Mz2s = Mz * Mz - s;
 
-    if (f.is("MU")) {
+    if (f.is("ELECTRON")) {
+        Qf = leptons[ELECTRON].getCharge();
+        gfLSM = (leptons[ELECTRON].getIsospin()) - Qf * s02();
+    } else if (f.is("MU")) {
         Qf = leptons[MU].getCharge();
         gfLSM = (leptons[MU].getIsospin()) - Qf * s02();
     } else if (f.is("TAU")) {
@@ -3861,7 +3871,10 @@ const double StandardModel::MRR2eeff(const Particle f, const double s, const dou
 
     Mz2s = Mz * Mz - s;
 
-    if (f.is("MU")) {
+    if (f.is("ELECTRON")) {
+        Qf = leptons[ELECTRON].getCharge();
+        gfRSM = - Qf * s02();
+    } else if (f.is("MU")) {
         Qf = leptons[MU].getCharge();
         gfRSM = - Qf * s02();
     } else if (f.is("TAU")) {
@@ -4033,6 +4046,7 @@ const double StandardModel::eeffsigmaEbin(const double pol_e, const double pol_p
     
 const double StandardModel::eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
     //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
+    //  For f=e this corresponds to t-subtracted definition from LEP
     double sumM2, sigma;
     double tdumm = 1.;
     double topb = 0.3894e+9;
