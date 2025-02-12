@@ -66,6 +66,7 @@ void CorrelatedGaussianParameters::DiagonalizePars(TMatrixDSym Corr) {
 
     TMatrixD vv(SE.GetEigenVectors());
     TVectorD ee(SE.GetEigenValues());
+    unsigned int EVbad = 0;
 
     v = new gslpp::matrix<double>(size, size, 0.);
     e = new gslpp::vector<double>(size, 0.);
@@ -75,8 +76,19 @@ void CorrelatedGaussianParameters::DiagonalizePars(TMatrixDSym Corr) {
         for (unsigned int j = 0; j < size; j++) {
             (*v)(i, j) = vv(i, j);
         }
+        
+        if (ee(i) <= 0.) {
+            EVbad++;
+        }
+        
     }
-
+    
+    if (EVbad > 0) {
+        std::cout << "WARNING: Covariance matrix of the correlated parameters in "<< name <<" is not a positive definite matrix!" << std::endl;
+        std::cout << "("<< EVbad <<" non positive eigenvalue(s).)" << std::endl;
+        sleep(2);
+    }
+    
     gslpp::vector<double> ave_in(size, 0.);
 
     int ind = 0;
