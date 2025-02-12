@@ -3138,6 +3138,24 @@ double TWGcHQm::computeThValue()
 
 /* -------------------------------------*/
 
+TWGcHQp::TWGcHQp(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcHQp called with a class whose parent is not NPbase");
+}
+
+
+TWGcHQp::~TWGcHQp()
+{}
+
+double TWGcHQp::computeThValue()
+{    
+    return (myNPbase->cHQp_TWG(mu));
+}
+
+/* -------------------------------------*/
+
 TWGcHt::TWGcHt(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
@@ -3552,6 +3570,24 @@ double TWGcQlM::computeThValue()
 
 /* -------------------------------------*/
 
+TWGcQlP::TWGcQlP(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQlP called with a class whose parent is not NPbase");
+}
+
+
+TWGcQlP::~TWGcQlP()
+{}
+
+double TWGcQlP::computeThValue()
+{    
+    return (myNPbase->cQlP_TWG(mu));
+}
+
+/* -------------------------------------*/
+
 TWGcte::TWGcte(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
@@ -3602,244 +3638,6 @@ TWGcQe::~TWGcQe()
 double TWGcQe::computeThValue()
 {    
     return (myNPbase->cQe_TWG(mu));
-}
-
-/* -------------------------------------*/
-// Definitions for optimal observable analyses
-
-OOcHQplus::OOcHQplus(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOcHQplus called with a class whose parent is not NPbase");
-}
-
-
-OOcHQplus::~OOcHQplus()
-{}
-
-double OOcHQplus::computeThValue()
-{    
-    return (myNPbase->cHQpOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOcHQminus::OOcHQminus(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOcHQminus called with a class whose parent is not NPbase");
-}
-
-
-OOcHQminus::~OOcHQminus()
-{}
-
-double OOcHQminus::computeThValue()
-{    
-    return (myNPbase->cHQmOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOcHt::OOcHt(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOcHt called with a class whose parent is not NPbase");
-}
-
-
-OOcHt::~OOcHt()
-{}
-
-double OOcHt::computeThValue()
-{    
-    return (myNPbase->cHtOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOctW::OOctW(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOctW called with a class whose parent is not NPbase");
-}
-
-
-OOctW::~OOctW()
-{}
-
-double OOctW::computeThValue()
-{    
-    return (myNPbase->ctWOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOctZ::OOctZ(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOctZ called with a class whose parent is not NPbase");
-}
-
-
-OOctZ::~OOctZ()
-{}
-
-double OOctZ::computeThValue()
-{    
-    return (myNPbase->ctZOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOImctW::OOImctW(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOImctW called with a class whose parent is not NPbase");
-}
-
-
-OOImctW::~OOImctW()
-{}
-
-double OOImctW::computeThValue()
-{    
-    return (myNPbase->ImctWOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOImctZ::OOImctZ(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOImctZ called with a class whose parent is not NPbase");
-}
-
-
-OOImctZ::~OOImctZ()
-{}
-
-double OOImctZ::computeThValue()
-{    
-    return (myNPbase->ImctZOO(mu));
-}
-
-
-/* -------------------------------------*/
-
-OOctH::OOctH(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOctH called with a class whose parent is not NPbase");
-}
-
-
-OOctH::~OOctH()
-{}
-
-double OOctH::computeThValue()
-{    
-    return (myNPbase->ctHOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOclQplus::OOclQplus(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOclQplus called with a class whose parent is not NPbase");
-}
-
-
-OOclQplus::~OOclQplus()
-{}
-
-double OOclQplus::computeThValue()
-{    
-    return (myNPbase->clQpOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOclQminus::OOclQminus(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOclQminus called with a class whose parent is not NPbase");
-}
-
-
-OOclQminus::~OOclQminus()
-{}
-
-double OOclQminus::computeThValue()
-{    
-    return (myNPbase->clQmOO(mu));
-}
-
-/* -------------------------------------*/
-
-OOclt::OOclt(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOclt called with a class whose parent is not NPbase");
-}
-
-
-OOclt::~OOclt()
-{}
-
-double OOclt::computeThValue()
-{    
-    return (myNPbase->cltOO(mu));
-}
-
-/* -------------------------------------*/
-
-
-OOcQe::OOcQe(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOcQe called with a class whose parent is not NPbase");
-}
-
-
-OOcQe::~OOcQe()
-{}
-
-double OOcQe::computeThValue()
-{    
-    return (myNPbase->cQeOO(mu));
-}
-
-/* -------------------------------------*/
-
-
-OOcet::OOcet(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("OOcet called with a class whose parent is not NPbase");
-}
-
-
-OOcet::~OOcet()
-{}
-
-double OOcet::computeThValue()
-{    
-    return (myNPbase->cetOO(mu));
 }
 
 /* -------------------------------------*/

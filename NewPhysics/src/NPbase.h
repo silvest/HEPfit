@@ -4892,6 +4892,7 @@ public:
     
     //////////////////////////////////////////////////////////////////////// 
     // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
+    // In units of TeV^^2 
         
     virtual const double cQq31_TWG(const double mu) const
     {
@@ -4973,6 +4974,11 @@ public:
         return 0.0;
     }
     
+    virtual const double cHQp_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+    
     virtual const double cHQ3_TWG(const double mu) const
     {
         return 0.0;
@@ -5018,6 +5024,11 @@ public:
         return 0.0;
     }
     
+    virtual const double cQlP_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+    
     virtual const double cQe_TWG(const double mu) const
     {
         return 0.0;
@@ -5029,72 +5040,6 @@ public:
     }
     
     virtual const double cte_TWG(const double mu) const
-    {
-        return 0.0;
-    }
-
-    // Definitions for optimal observable analyses
-    virtual const double cHQpOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double cHQmOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double cHtOO(const double mu) const
-    {
-        return 0.0;
-    }
-    
-    virtual const double ctWOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double ctZOO(const double mu) const
-    {
-        return 0.0;
-    }
-    
-    virtual const double ImctWOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double ImctZOO(const double mu) const
-    {
-        return 0.0;
-    }
-    
-    virtual const double ctHOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double clQpOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double clQmOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double cltOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double cQeOO(const double mu) const
-    {
-        return 0.0;
-    }
-
-    virtual const double cetOO(const double mu) const
     {
         return 0.0;
     }

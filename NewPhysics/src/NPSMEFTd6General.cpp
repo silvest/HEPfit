@@ -45808,6 +45808,16 @@ const double NPSMEFTd6General::cHQm_TWG(const double mu) const {
     return (toTeVm2 * comb);
 }
 
+const double NPSMEFTd6General::cHQp_TWG(const double mu) const {
+
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    comb = getSMEFTCoeff("CHq1R", 2, 2, mu) + getSMEFTCoeff("CHq3R", 2, 2, mu);
+  
+    return (toTeVm2 * comb);
+}
+
 const double NPSMEFTd6General::cHQ3_TWG(const double mu) const {
 
     double comb;
@@ -45898,6 +45908,16 @@ const double NPSMEFTd6General::cQlM_TWG(const double mu) const {
     return (toTeVm2 * comb);
 }
 
+const double NPSMEFTd6General::cQlP_TWG(const double mu) const {
+
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) + getSMEFTCoeff("Clq3R", 0, 0, 2, 2, mu);
+ 
+    return (toTeVm2 * comb);
+}
+
 const double NPSMEFTd6General::cQe_TWG(const double mu) const {
     
     double comb;
@@ -45926,128 +45946,4 @@ const double NPSMEFTd6General::cte_TWG(const double mu) const {
     comb = getSMEFTCoeff("CeuR", 0, 0, 2, 2, mu);
     
     return (toTeVm2 * comb);
-}
-
-
-    // Definitions for optimal observable analyses
-
-const double NPSMEFTd6General::cHQpOO(const double mu) const {
-
-    double comb;
-    
-    comb = getSMEFTCoeff("CHq1R", 2, 2, mu) + getSMEFTCoeff("CHq3R", 2, 2, mu);
-    
-    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
-    //i.e. C/Lambda^2 in units of TeV^-2. Write in TeV^-2 multiplying by 1000^2
-    return (1000000. * comb);
-}
-
-const double NPSMEFTd6General::cHQmOO(const double mu) const {
-
-    double comb;
-    
-    comb = cHQm_TWG(mu);
- 
-    return comb;
-}
-
-const double NPSMEFTd6General::cHtOO(const double mu) const {
-
-    double comb;
-    
-    comb = cHt_TWG(mu);
-
-    return comb;
-}
-
-const double NPSMEFTd6General::ctWOO(const double mu) const {
-
-    double comb;
-    
-    comb = ctW_TWG(mu);
-
-    return comb;
-}
-
-const double NPSMEFTd6General::ctZOO(const double mu) const {
-
-    double comb;
-    
-    comb = ctZ_TWG(mu);
-
-    return comb;
-}
-
-const double NPSMEFTd6General::ImctWOO(const double mu) const {
-
-    double comb;
-    
-    comb = IctW_TWG(mu);
-
-    return comb;
-}
-
-const double NPSMEFTd6General::ImctZOO(const double mu) const {
-
-    double comb;
-    
-    comb = IctZ_TWG(mu);
-
-    return comb;
-}
-
-const double NPSMEFTd6General::ctHOO(const double mu) const {
-
-    double comb;
-    
-    comb = ctH_TWG(mu);
-
-    return comb;
-}
-
-const double NPSMEFTd6General::clQpOO(const double mu) const {
-
-    double comb;
-    
-    comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) + getSMEFTCoeff("Clq3R", 0, 0, 2, 2, mu);
-
-    //Optimal observables defined for the Wilson coefficients, and for Lambda=1000 GeV
-    //i.e. C/Lambda^2 in units of TeV^-2. Write in TeV^-2 multiplying by 1000^2  
-    return (1000000. * comb);
-}
-
-const double NPSMEFTd6General::clQmOO(const double mu) const {
-
-    double comb;
-    
-    comb = cQlM_TWG(mu);
-  
-    return comb;
-}
-
-const double NPSMEFTd6General::cltOO(const double mu) const {
-
-    double comb;
-    
-    comb = ctl_TWG(mu);
-   
-    return comb;
-}
-
-const double NPSMEFTd6General::cQeOO(const double mu) const {
-
-    double comb;
-    
-    comb = cQe_TWG(mu);
- 
-    return comb;
-}
-
-const double NPSMEFTd6General::cetOO(const double mu) const {
-
-    double comb;
-    
-    comb = cte_TWG(mu);
-    
-    return comb;
 }

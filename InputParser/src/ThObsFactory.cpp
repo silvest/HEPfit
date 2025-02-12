@@ -127,8 +127,8 @@ ThObsFactory::ThObsFactory()
     const double cos_Diffee[15] = {-0.81,-0.63,-0.45,-0.27,-0.09,0.045,0.135,0.225,0.315,0.405,0.495,0.585,0.675,0.765,0.855};
     //
     // Parameters for future e+e- observables
-    const double sqrt_see[9] = {158., 163., 240., 250., 345., 360., 365., 500., 1000.};
-    const double sqrt_s_eeff[9] = {157.5, 162.5, 240., 250., 345., 360., 365., 500., 1000.};
+    const double sqrt_see[11] = {158., 163., 240., 250., 345., 360., 365., 380., 500., 550., 1000.};
+    const double sqrt_s_eeff[11] = {157.5, 162.5, 240., 250., 345., 360., 365., 380., 500., 550., 1000.};
     // Approximate electroweak scale, taken as the W mass, and Higgs mass, taken as 125 GeV
     const double muEW = 80.365;
     const double muMH = 125.;
@@ -725,7 +725,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltaVtbR"] = bind(boost::factory<deltaVtbR*>(), _1, muEW);
     //
     // Energy dependent definitions of the above
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 11; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
     //-----  Triple gauge coupling observables (scale dependent definition)  -----
         obsThFactory["deltag1Z_" + sqrt_s_str] = bind(boost::factory<deltag1Z*>(), _1, sqrt_s_eeff[i]);
@@ -4692,7 +4692,7 @@ ThObsFactory::ThObsFactory()
     
     //-----  e+ e- two-fermion processes  -----
     
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 11; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
 
         // Unpolarized
@@ -4782,29 +4782,7 @@ ThObsFactory::ThObsFactory()
         obsThFactory["AFBeecc_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBcharm*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
         obsThFactory["AFBeebb_p80m30_" + sqrt_s_str] = bind(boost::factory<eeffAFBbottom*>(), _1, 0.8, -0.3, sqrt_s_eeff[i]);
     }
-    
-    //-----  Combinations of Warsaw basis entering in e+ e- Top optimal observables  ----------
-    //----- Only for energies above the ttbar threshold
-
-    for (int i = 4; i < 9; i++) {
-        std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
-        
-        obsThFactory["C_phiQP_OO_" + sqrt_s_str] = bind(boost::factory<OOcHQplus*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_phiQM_OO_" + sqrt_s_str] = bind(boost::factory<OOcHQminus*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_phit_OO_" + sqrt_s_str] = bind(boost::factory<OOcHt*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_tW_OO_" + sqrt_s_str] = bind(boost::factory<OOctW*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_tZ_OO_" + sqrt_s_str] = bind(boost::factory<OOctZ*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["ImC_tW_OO_" + sqrt_s_str] = bind(boost::factory<OOImctW*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["ImC_tZ_OO_" + sqrt_s_str] = bind(boost::factory<OOImctZ*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_tH_OO_" + sqrt_s_str] = bind(boost::factory<OOctH*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_lQP_OO_" + sqrt_s_str] = bind(boost::factory<OOclQplus*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_lQM_OO_" + sqrt_s_str] = bind(boost::factory<OOclQminus*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_lt_OO_" + sqrt_s_str] = bind(boost::factory<OOclt*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_Qe_OO_" + sqrt_s_str] = bind(boost::factory<OOcQe*>(), _1, sqrt_s_eeff[i]);
-        obsThFactory["C_et_OO_" + sqrt_s_str] = bind(boost::factory<OOcet*>(), _1, sqrt_s_eeff[i]);
-        
-    }
-   
+       
     //-----  Wilson coefficients of Top operators in the conventions of the LHC Top WG ----------
     //-----  (Energy-independent definition) ----------
     //
@@ -4825,6 +4803,7 @@ ThObsFactory::ThObsFactory()
     //
     obsThFactory["ctH_TWG"] = bind(boost::factory<TWGctH*>(), _1, muEW);
     obsThFactory["cHQm_TWG"] = bind(boost::factory<TWGcHQm*>(), _1, muEW);
+    obsThFactory["cHQp_TWG"] = bind(boost::factory<TWGcHQp*>(), _1, muEW);
     obsThFactory["cHQ3_TWG"] = bind(boost::factory<TWGcHQ3*>(), _1, muEW);
     obsThFactory["cHt_TWG"] = bind(boost::factory<TWGcHt*>(), _1, muEW);
     obsThFactory["cHb_TWG"] = bind(boost::factory<TWGcHb*>(), _1, muEW);
@@ -4836,11 +4815,52 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ctG_TWG"] = bind(boost::factory<TWGctG*>(), _1, muEW);
     //
     obsThFactory["cQlM_TWG"] = bind(boost::factory<TWGcQlM*>(), _1, muEW);
+    obsThFactory["cQlP_TWG"] = bind(boost::factory<TWGcQlP*>(), _1, muEW);
     obsThFactory["cQe_TWG"] = bind(boost::factory<TWGcQe*>(), _1, muEW);
     obsThFactory["ctl_TWG"] = bind(boost::factory<TWGctl*>(), _1, muEW);
     obsThFactory["cte_TWG"] = bind(boost::factory<TWGcte*>(), _1, muEW);
-
-
+    
+    //-----  Wilson coefficients of Top operators in the conventions of the LHC Top WG ----------
+    //-----  (Energy-dependent definition: Only for energies above the ttbar threshold ) --------
+    
+    for (int i = 4; i < 11; i++) {
+        std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
+        
+        obsThFactory["cQq31_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQq31*>(), _1, sqrt_s_eeff[i]);    
+        obsThFactory["cQq38_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQq38*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cQq11_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQq11*>(), _1, sqrt_s_eeff[i]);    
+        obsThFactory["cQq18_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQq18*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cQu1_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQu1*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cQu8_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQu8*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cQd1_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQd1*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cQd8_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQd8*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ctq1_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctq1*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ctq8_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctq8*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ctu1_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctu1*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ctu8_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctu8*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ctd1_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctd1*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ctd8_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctd8*>(), _1, sqrt_s_eeff[i]);
+        //
+        obsThFactory["ctH_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctH*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cHQm_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcHQm*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cHQp_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcHQp*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cHQ3_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcHQ3*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cHt_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcHt*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cHb_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcHb*>(), _1, sqrt_s_eeff[i]);
+        //
+        obsThFactory["ctW_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctW*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ImctW_TWG_" + sqrt_s_str] = bind(boost::factory<TWGImctW*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ctZ_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctZ*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ImctZ_TWG_" + sqrt_s_str] = bind(boost::factory<TWGImctZ*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ctG_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctG*>(), _1, sqrt_s_eeff[i]);
+        //
+        obsThFactory["cQlM_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQlM*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cQlP_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQlP*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cQe_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQe*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["ctl_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctl*>(), _1, sqrt_s_eeff[i]);
+        obsThFactory["cte_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcte*>(), _1, sqrt_s_eeff[i]);        
+        
+    }
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
 
