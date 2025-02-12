@@ -89,6 +89,10 @@ var group___e_w =
       [ "eeffAFBelectron", "d8/db3/classeeff_a_f_belectron.html#a6fcfd572632eeb246f668633f9ef3c1d", null ],
       [ "computeThValue", "d8/db3/classeeff_a_f_belectron.html#a0c8bcb322495feacb34f82acb101943d", null ]
     ] ],
+    [ "eeffAFBelectrontsub", "df/d18/classeeff_a_f_belectrontsub.html", [
+      [ "eeffAFBelectrontsub", "df/d18/classeeff_a_f_belectrontsub.html#a1c9bd2cf40b22ee1cf9b23d759881e8f", null ],
+      [ "computeThValue", "df/d18/classeeff_a_f_belectrontsub.html#a761cf6855f3fa8c161bb8f4de9ff839c", null ]
+    ] ],
     [ "eeffAFBmu", "da/d35/classeeff_a_f_bmu.html", [
       [ "eeffAFBmu", "da/d35/classeeff_a_f_bmu.html#a42ad49c17a5b90464e39723c8f053749", null ],
       [ "computeThValue", "da/d35/classeeff_a_f_bmu.html#a44cadddb4adcfa41609fbaf11a1a17e4", null ]
@@ -112,6 +116,10 @@ var group___e_w =
     [ "eeffRelectron", "d4/d61/classeeff_relectron.html", [
       [ "eeffRelectron", "d4/d61/classeeff_relectron.html#a37de7e83486e882a4f6932a548f13cc1", null ],
       [ "computeThValue", "d4/d61/classeeff_relectron.html#accb7de230a2d3db69ec248b656415b41", null ]
+    ] ],
+    [ "eeffRelectrontsub", "d8/db3/classeeff_relectrontsub.html", [
+      [ "eeffRelectrontsub", "d8/db3/classeeff_relectrontsub.html#afa19b6a46687746e987898842bcbc06c", null ],
+      [ "computeThValue", "d8/db3/classeeff_relectrontsub.html#aff4ba91af243982d47050be054cf6730", null ]
     ] ],
     [ "eeffRmuon", "d1/dc9/classeeff_rmuon.html", [
       [ "eeffRmuon", "d1/dc9/classeeff_rmuon.html#ac3e5c65282f9d33c2458c2f581a585a0", null ],
@@ -152,6 +160,10 @@ var group___e_w =
     [ "eeffsigmaTau", "d8/d5e/classeeffsigma_tau.html", [
       [ "eeffsigmaTau", "d8/d5e/classeeffsigma_tau.html#aa8ce8248edd10fa94f532cc88d63ff9f", null ],
       [ "computeThValue", "d8/d5e/classeeffsigma_tau.html#a1f634a8d4a87f514d953fd7e0e2c7944", null ]
+    ] ],
+    [ "eeffsigmatsubElectron", "d2/dac/classeeffsigmatsub_electron.html", [
+      [ "eeffsigmatsubElectron", "d2/dac/classeeffsigmatsub_electron.html#a913733f3c077a6b353a36938b8badbeb", null ],
+      [ "computeThValue", "d2/dac/classeeffsigmatsub_electron.html#abb42eefe103a5a4660dd3485cc9b5b44", null ]
     ] ],
     [ "eeffThObservable", "d1/da5/classeeff_th_observable.html", [
       [ "eeffThObservable", "d1/da5/classeeff_th_observable.html#af8464ed2a7cdf7060767de98736e6dcf", null ],
