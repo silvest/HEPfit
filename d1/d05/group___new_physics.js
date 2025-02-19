@@ -306,6 +306,56 @@ var group___new_physics =
       [ "computeThValue", "db/df4/class_gamma_h_ratio.html#a4525eaed84e6b0c4c3911dfdc2f956c2", null ],
       [ "myNPbase", "db/df4/class_gamma_h_ratio.html#af994bc6243d30ffa6fb10fb4eb6041eb", null ]
     ] ],
+    [ "GammaHtobbRatio", "d9/d9f/class_gamma_htobb_ratio.html", [
+      [ "GammaHtobbRatio", "d9/d9f/class_gamma_htobb_ratio.html#a3d5dfa7806bff05933085b5e6ab98522", null ],
+      [ "computeThValue", "d9/d9f/class_gamma_htobb_ratio.html#a17e9c4001d0c3647166edb16dfa3c6aa", null ],
+      [ "myNPbase", "d9/d9f/class_gamma_htobb_ratio.html#aa9fd1898acaea92dd1b2a7d842527e9a", null ]
+    ] ],
+    [ "GammaHtoccRatio", "da/dcc/class_gamma_htocc_ratio.html", [
+      [ "GammaHtoccRatio", "da/dcc/class_gamma_htocc_ratio.html#aed5754e70b7047ab009366b7ab7f59c8", null ],
+      [ "computeThValue", "da/dcc/class_gamma_htocc_ratio.html#ad8ab4599606f1456172530ff034274e6", null ],
+      [ "myNPbase", "da/dcc/class_gamma_htocc_ratio.html#afb4e060535752a5d6ca5568ec99d1427", null ]
+    ] ],
+    [ "GammaHtogagaRatio", "d6/dfb/class_gamma_htogaga_ratio.html", [
+      [ "GammaHtogagaRatio", "d6/dfb/class_gamma_htogaga_ratio.html#aa9cd1f8fa88a4384cf42b1188a0803da", null ],
+      [ "computeThValue", "d6/dfb/class_gamma_htogaga_ratio.html#ac6912591a892d42214e45ea9608a7395", null ],
+      [ "myNPbase", "d6/dfb/class_gamma_htogaga_ratio.html#aaf5e2bff204ccd492d321a512417515e", null ]
+    ] ],
+    [ "GammaHtoggRatio", "da/d47/class_gamma_htogg_ratio.html", [
+      [ "GammaHtoggRatio", "da/d47/class_gamma_htogg_ratio.html#a026138206118e7a8e3d8c9596a0c1235", null ],
+      [ "computeThValue", "da/d47/class_gamma_htogg_ratio.html#a85d24d8540780858cf9ce757186044e2", null ],
+      [ "myNPbase", "da/d47/class_gamma_htogg_ratio.html#ae69a428f5030ba74c0195ba4ea5f4376", null ]
+    ] ],
+    [ "GammaHtomumuRatio", "da/d3b/class_gamma_htomumu_ratio.html", [
+      [ "GammaHtomumuRatio", "da/d3b/class_gamma_htomumu_ratio.html#a5d67a4bbbd1037ff6c4259a3944572ce", null ],
+      [ "computeThValue", "da/d3b/class_gamma_htomumu_ratio.html#a6ff6a7134c98505d4bb0d0eb1fa6280c", null ],
+      [ "myNPbase", "da/d3b/class_gamma_htomumu_ratio.html#af0395af18d74e31443410a0e94c3d6fc", null ]
+    ] ],
+    [ "GammaHtossRatio", "db/d60/class_gamma_htoss_ratio.html", [
+      [ "GammaHtossRatio", "db/d60/class_gamma_htoss_ratio.html#a921186e358f066e16d36271fff7cacc7", null ],
+      [ "computeThValue", "db/d60/class_gamma_htoss_ratio.html#ae33d970ecb2e7223acf1f141387cc002", null ],
+      [ "myNPbase", "db/d60/class_gamma_htoss_ratio.html#a248aee251f022d9518ce87a7547477aa", null ]
+    ] ],
+    [ "GammaHtotautauRatio", "d7/d74/class_gamma_htotautau_ratio.html", [
+      [ "GammaHtotautauRatio", "d7/d74/class_gamma_htotautau_ratio.html#ae6b7506e9617742a5ffd93520d284116", null ],
+      [ "computeThValue", "d7/d74/class_gamma_htotautau_ratio.html#a1ef9b86b6371f9afc2fb7cb09f8e3bf0", null ],
+      [ "myNPbase", "d7/d74/class_gamma_htotautau_ratio.html#aef178c8f4908181f7b066fff5509d51c", null ]
+    ] ],
+    [ "GammaHtoWWRatio", "d5/d9d/class_gamma_hto_w_w_ratio.html", [
+      [ "GammaHtoWWRatio", "d5/d9d/class_gamma_hto_w_w_ratio.html#a631df89cf30835d6668ec2fcb1ea70c0", null ],
+      [ "computeThValue", "d5/d9d/class_gamma_hto_w_w_ratio.html#aeb0a7be3f6e4faa0ddbb7c4d05a242b1", null ],
+      [ "myNPbase", "d5/d9d/class_gamma_hto_w_w_ratio.html#a15186dcdac4f5ab93b8f9515d5c8ad84", null ]
+    ] ],
+    [ "GammaHtoZgaRatio", "d7/d98/class_gamma_hto_zga_ratio.html", [
+      [ "GammaHtoZgaRatio", "d7/d98/class_gamma_hto_zga_ratio.html#a3abcdf5996d8829291943953f77f1984", null ],
+      [ "computeThValue", "d7/d98/class_gamma_hto_zga_ratio.html#a3d400b6eddafcd37d2a56dcc711d97f4", null ],
+      [ "myNPbase", "d7/d98/class_gamma_hto_zga_ratio.html#a6901c2028addf40a036b32dba0bc8d9a", null ]
+    ] ],
+    [ "GammaHtoZZRatio", "d4/db4/class_gamma_hto_z_z_ratio.html", [
+      [ "GammaHtoZZRatio", "d4/db4/class_gamma_hto_z_z_ratio.html#abc40c2984bf5c1711593bcb443c18302", null ],
+      [ "computeThValue", "d4/db4/class_gamma_hto_z_z_ratio.html#a58d5ec7f6ec62182e2e09d3e9d33ee42", null ],
+      [ "myNPbase", "d4/db4/class_gamma_hto_z_z_ratio.html#af397f95253018c50769b177a8057a7a3", null ]
+    ] ],
     [ "ggHgaga", "dd/d73/classgg_hgaga.html", [
       [ "ggHgaga", "dd/d73/classgg_hgaga.html#a56e87eb6c6f9f2adbf112eca7948906d", null ],
       [ "computeThValue", "dd/d73/classgg_hgaga.html#aa694784fa924f8108ef3ffc8ed8975d7", null ],
@@ -3185,6 +3235,16 @@ var group___new_physics =
       [ "Gamma_had", "d2/df3/class_n_pbase.html#a28e7d98b8bf947a340f5f165bf4722b5", null ],
       [ "Gamma_Z", "d2/df3/class_n_pbase.html#aaa27b83cf5d29d697ecf27f225a79265", null ],
       [ "Gamma_Zf", "d2/df3/class_n_pbase.html#ae1823d032c60d282344da6f36d54bbfc", null ],
+      [ "GammaHbbRatio", "d2/df3/class_n_pbase.html#a30768115945a437bc9c67b0acb210558", null ],
+      [ "GammaHccRatio", "d2/df3/class_n_pbase.html#a1d02b129337327b6fc3a65b81eb8b8fe", null ],
+      [ "GammaHgagaRatio", "d2/df3/class_n_pbase.html#a9cd254e5c814b349902089ddd42b4463", null ],
+      [ "GammaHggRatio", "d2/df3/class_n_pbase.html#a53f53382964b79f0a8afcea27671fbf0", null ],
+      [ "GammaHmumuRatio", "d2/df3/class_n_pbase.html#aa73eb5732d49fc0c2a3c3434b82d5eee", null ],
+      [ "GammaHssRatio", "d2/df3/class_n_pbase.html#a97529d0cd42c874f76685cfd91480353", null ],
+      [ "GammaHtautauRatio", "d2/df3/class_n_pbase.html#ab066585014b883954121f2ef79810de7", null ],
+      [ "GammaHWWRatio", "d2/df3/class_n_pbase.html#a63c37b291563e2fdc39e974baad79858", null ],
+      [ "GammaHZgaRatio", "d2/df3/class_n_pbase.html#a9c71d376712d267f7bb5f59bc934b409", null ],
+      [ "GammaHZZRatio", "d2/df3/class_n_pbase.html#a5cb9c4dd76e149636611d7d1009bd789", null ],
       [ "GammaW", "d2/df3/class_n_pbase.html#a344caeecdcb524bface687b02fa08f67", null ],
       [ "GammaW", "d2/df3/class_n_pbase.html#acfe7c6fd06e91ebecd7180286a49daa9", null ],
       [ "gAnue", "d2/df3/class_n_pbase.html#ad64dba93d5d6e8afa009733e89ddee83", null ],
