@@ -416,6 +416,123 @@ double mummHNWA::computeThValue()
     return myNPbase->mummHNWA(sqrt_s);
 }
 
+// -----------------------------------------------------------------------------
+// Decay widths
+// -----------------------------------------------------------------------------
+
+GammaHtoggRatio::GammaHtoggRatio(const StandardModel& SM_i)
+: ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtoggRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtoggRatio::computeThValue()
+{
+    return myNPbase->GammaHggRatio();
+}
+
+GammaHtoWWRatio::GammaHtoWWRatio(const StandardModel& SM_i)
+: ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtoWWRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtoWWRatio::computeThValue()
+{
+    return myNPbase->GammaHWWRatio();
+}
+
+GammaHtoZZRatio::GammaHtoZZRatio(const StandardModel& SM_i)
+: ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtoZZRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtoZZRatio::computeThValue()
+{
+    return myNPbase->GammaHZZRatio();
+}
+
+GammaHtoZgaRatio::GammaHtoZgaRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtoZgaRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtoZgaRatio::computeThValue()
+{
+    return myNPbase->GammaHZgaRatio();
+}
+
+GammaHtogagaRatio::GammaHtogagaRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtogagaRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtogagaRatio::computeThValue()
+{
+    return myNPbase->GammaHgagaRatio();
+}
+
+GammaHtomumuRatio::GammaHtomumuRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtomumuRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtomumuRatio::computeThValue()
+{
+    return myNPbase->GammaHmumuRatio();
+}
+
+GammaHtotautauRatio::GammaHtotautauRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtotautauRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtotautauRatio::computeThValue()
+{
+    return myNPbase->GammaHtautauRatio();
+}
+
+GammaHtossRatio::GammaHtossRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtossRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtossRatio::computeThValue()
+{
+    return myNPbase->GammaHssRatio();
+}
+
+GammaHtoccRatio::GammaHtoccRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtoccRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtoccRatio::computeThValue()
+{
+    return myNPbase->GammaHccRatio();
+}
+
+GammaHtobbRatio::GammaHtobbRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("GammaHtobbRatio called with a class whose parent is not NPbase");
+}
+
+double GammaHtobbRatio::computeThValue()
+{
+    return myNPbase->GammaHbbRatio();
+}
+
 GammaHRatio::GammaHRatio(const StandardModel& SM_i)
 : ThObservable(SM_i)
 {
@@ -427,6 +544,10 @@ double GammaHRatio::computeThValue()
 {
     return myNPbase->computeGammaTotalRatio();
 }
+
+// -----------------------------------------------------------------------------
+// Branching Ratios
+// -----------------------------------------------------------------------------
 
 BrHtoinvRatio::BrHtoinvRatio(const StandardModel& SM_i) : ThObservable(SM_i)
 {

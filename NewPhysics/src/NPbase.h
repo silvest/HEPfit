@@ -2047,7 +2047,110 @@ public:
     //AG:end
     
     ///////////////////////HIGGS DECAY WIDTHS/////////////////////////
+        
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to gg)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHggRatio() const
+    {
+        return 1.0;
+    }
 
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to WW)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHWWRatio() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to ZZ)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHZZRatio() const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to Z\gamma)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHZgaRatio() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to \gamma\gamma)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHgagaRatio() const
+    {
+        return 1.0;
+    }
+    
+    /////////////////////// HIGGS TO 2 FERMION DECAYS /////////////////////////
+
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to \mu^+\mu^-)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to \mu^+\mu^-)@f$/@f$\Gamma(H\to \mu^+\mu^-)_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHmumuRatio() const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to \tau^+\tau^-)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to \tau^+\tau^-)@f$/@f$\Gamma(H\to \tau^+\tau^-)_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHtautauRatio() const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to c\bar{c})@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to c\bar{c})@f$/@f$\Gamma(H\to c\bar{c})_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHccRatio() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to s\bar{s})@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to s\bar{s})@f$/@f$\Gamma(H\to s\bar{s})_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHssRatio() const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to b\bar{b})@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to b\bar{b})@f$/@f$\Gamma(H\to b\bar{b})_{\mathrm{SM}}@f$
+     */
+    virtual const double GammaHbbRatio() const
+    {
+        return 1.0;
+    }
+    
     /**
      * @brief The ratio of the @f$\Gamma(H)@f$ in the current model
      * and in the Standard Model.

@@ -1057,6 +1057,302 @@ private:
 };
 
 
+// -----------------------------------------------------------------------------
+// Decay widths
+// -----------------------------------------------------------------------------
+
+/**
+ * @class GammaHtoggRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to gg)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to gg)@f$
+ * in the current model and in the Standard Model.
+ */
+class GammaHtoggRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    GammaHtoggRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to gg)@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to gg)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class GammaHtoWWRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to WW\to 4f)@f$ with @f$f@f$ any fermion.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to WW\to 4f)@f$.
+ * in the current model and in the Standard Model
+ */
+class GammaHtoWWRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    GammaHtoWWRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to WW\to 4f)@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to WW\to 4f)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class GammaHtoZZRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to ZZ \to 4f)@f$ with @f$f@f$ any fermion.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to ZZ\to 4f)@f$
+ * in the current model and in the Standard Model.
+ */
+class GammaHtoZZRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    GammaHtoZZRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to ZZ\to 4f)@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to ZZ\to 4f)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class GammaHtoZgaRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to Z\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to Z\gamma)@f$
+ * in the current model and in the Standard Model.
+ */
+class GammaHtoZgaRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    GammaHtoZgaRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to Z\gamma)@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to Z\gamma)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class GammaHtogagaRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to\gamma\gamma)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to\gamma\gamma)@f$
+ * in the current model and in the Standard Model.
+ */
+class GammaHtogagaRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    GammaHtogagaRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to \gamma\gamma)@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to \gamma\gamma)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class GammaHtomumuRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to \mu^+\mu^-)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to \mu^+\mu^-)@f$
+ * in the current model and in the Standard Model.
+ */
+class GammaHtomumuRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    GammaHtomumuRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to \mu^+\mu^-)@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to \mu^+\mu^-)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class GammaHtotautauRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to \tau^+\tau^-)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to \tau^+\tau^-)@f$
+ * in the current model and in the Standard Model.
+ */
+class GammaHtotautauRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    GammaHtotautauRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to \tau^+\tau^-)@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to \tau^+\tau^-)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class GammaHtossRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to s\bar{s})@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to s\bar{s})@f$
+ * in the current model and in the Standard Model.
+ */
+class GammaHtossRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    GammaHtossRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to s\bar{s})@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to s\bar{s})@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class GammaHtoccRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to c\bar{c})@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to c\bar{c})@f$
+ * in the current model and in the Standard Model.
+ */
+class GammaHtoccRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    GammaHtoccRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to c\bar{c})@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to c\bar{c})@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class GammaHtobbRatio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the @f$\Gamma(H\to b\bar{b})@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the @f$\Gamma(H\to b\bar{b})@f$
+ * in the current model and in the Standard Model.
+ */
+class GammaHtobbRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    GammaHtobbRatio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the @f$\Gamma(H\to b\bar{b})@f$
+     * in the current model and in the Standard Model.
+     * @return @f$\Gamma(H\to b\bar{b})@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
 /**
  * @class GammaHRatio
  * @ingroup NewPhysics
@@ -1086,6 +1382,9 @@ private:
     const NPbase* myNPbase;
 };
 
+// -----------------------------------------------------------------------------
+// Branching Ratios
+// -----------------------------------------------------------------------------
 
 /**
  * @class BrHtoinvRatio

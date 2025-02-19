@@ -1442,7 +1442,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["epZBF3500"] = bind(boost::factory<muepZBF*>(), _1, sqrt_s_FCCep_3_5);
     obsThFactory["epZBF5000"] = bind(boost::factory<muepZBF*>(), _1, sqrt_s_FCCep_5);
     //-----  Decay width and Branching ratios (ratios with SM)  ----------
+    obsThFactory["GammaHggRatio"] = boost::factory<GammaHtoggRatio*>();
+    obsThFactory["GammaHWWRatio"] = boost::factory<GammaHtoWWRatio*>();
+    obsThFactory["GammaHZZRatio"] = boost::factory<GammaHtoZZRatio*>();
+    obsThFactory["GammaHZgaRatio"] = boost::factory<GammaHtoZgaRatio*>();
+    obsThFactory["GammaHgagaRatio"] = boost::factory<GammaHtogagaRatio*>();
+    obsThFactory["GammaHmumuRatio"] = boost::factory<GammaHtomumuRatio*>();
+    obsThFactory["GammaHtautauRatio"] = boost::factory<GammaHtotautauRatio*>();
+    obsThFactory["GammaHssRatio"] = boost::factory<GammaHtossRatio*>();
+    obsThFactory["GammaHccRatio"] = boost::factory<GammaHtoccRatio*>();
+    obsThFactory["GammaHbbRatio"] = boost::factory<GammaHtobbRatio*>();
     obsThFactory["GammaHRatio"] = boost::factory<GammaHRatio*>();
+    //
     obsThFactory["BrHinvisible"] = boost::factory<BrHinvisible*>();
     obsThFactory["BrHinvisibleNP"] = boost::factory<BrHinvisibleNP*>();
     obsThFactory["BrHexotic"] = boost::factory<BrHexotic*>();
