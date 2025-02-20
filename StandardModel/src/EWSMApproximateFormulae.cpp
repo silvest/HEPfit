@@ -1232,7 +1232,8 @@ double EWSMApproximateFormulae::X_full(const std::string observable) const
     double LH = log(mycache.getSM().getMHl() / 125.7);
     double LH2 = LH * LH;
     
-    double DH = pow(125.7 / (mycache.getSM().getMHl()), 4.0) - 1.0;
+    // Corrected in v2 of https://arxiv.org/abs/1906.08815
+    double DH = mycache.getSM().getMHl() / 125.7 - 1.0;
     
     double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
     
