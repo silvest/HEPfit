@@ -4492,6 +4492,17 @@ ThObsFactory::ThObsFactory()
     obsThFactory["sigma_mumu_10TeV_ttH"] = boost::factory<sigma_mumu_10TeV_ttH*>();
     obsThFactory["sigma_mumu_30TeV_ttH"] = boost::factory<sigma_mumu_30TeV_ttH*>();
 
+    
+    obsThFactory["sigma_mumu_sch_3TeV_ttH"] = boost::factory<sigma_mumu_sch_3TeV_ttH*>();
+    obsThFactory["sigma_mumu_sch_10TeV_ttH"] = boost::factory<sigma_mumu_sch_10TeV_ttH*>();
+    obsThFactory["sigma_mumu_sch_30TeV_ttH"] = boost::factory<sigma_mumu_sch_30TeV_ttH*>();
+
+    
+    obsThFactory["sigma_mumu_VBF_3TeV_ttH"] = boost::factory<sigma_mumu_VBF_3TeV_ttH*>();
+    obsThFactory["sigma_mumu_VBF_10TeV_ttH"] = boost::factory<sigma_mumu_VBF_10TeV_ttH*>();
+    obsThFactory["sigma_mumu_VBF_30TeV_ttH"] = boost::factory<sigma_mumu_VBF_30TeV_ttH*>();
+
+    
         //bb
     obsThFactory["sigma_mumu_3TeV_bb"] = boost::factory<sigma_mumu_3TeV_bb*>();
     obsThFactory["a_3TeV_mumu_bb"] = boost::factory<a_3TeV_mumu_bb*>();
