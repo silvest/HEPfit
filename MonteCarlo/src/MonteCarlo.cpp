@@ -38,6 +38,7 @@ MonteCarlo::MonteCarlo(
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
     RunMinuitOnly = false;
+    ComputeHessianOnly = false;
     CalculateNormalization = "false";
     NIterationNormalizationMC = 0;
     PrintAllMarginalized = false;
@@ -269,8 +270,9 @@ void MonteCarlo::Run(const int rank) {
 #endif
         } else {
             ParseMCMCConfig(MCMCConf);
-            if (!RunMinuitOnly) std::cout << std::endl << "\nRunning in MonteCarlo mode...\n" << std::endl;
-            else std::cout << std::endl << "\nRunning Minuit Minimizer..." << std::endl;
+            if (!RunMinuitOnly && !ComputeHessianOnly) std::cout << std::endl << "\nRunning in MonteCarlo mode...\n" << std::endl;
+            else if (RunMinuitOnly) std::cout << std::endl << "\nRunning Minuit Minimizer..." << std::endl;
+            else std::cout << std::endl << "\nComputing the Hessian for central values of the input parameters..." << std::endl;
             std::cout << std::endl;
             if (ModPars.size() > 0) std::cout << ModPars.size() - unknownParameters.size() << " parameters defined." << std::endl;
             if (Obs.size() > 0) std::cout << Obs.size() << " observables defined." << std::endl;
@@ -317,6 +319,34 @@ void MonteCarlo::Run(const int rank) {
                 std::cout << std::endl;
                 return;
             }
+            else if (ComputeHessianOnly) {
+                BCLog::OpenLog(("HessianComputationResults" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
+                RedirectHandle_t * rHandle = NULL;
+                gSystem->RedirectOutput(("HessianComputationResults" + JobTag + ".txt").c_str(), "a", rHandle);
+                std::vector<double> point;
+                unsigned int Npars = MCEngine.GetNParameters();
+                for (unsigned int i = 0; i < Npars; i++) {
+                    std::cout << "Parameter " << MCEngine.GetParameter(i).GetName() << " = " << MCEngine.GetParameter(i).GetPriorMean() << std::endl;
+                    point.push_back(MCEngine.GetParameter(i).GetPriorMean());
+                }
+                gslpp::matrix<double> Hessian(Npars, Npars, 0.);
+                std::vector<double> n;
+                for (unsigned int i = 0; i < Npars; i++)
+                    {
+                        Hessian.assign(i, i, -MCEngine.SecondDerivative(MCEngine.GetParameter(i), MCEngine.GetParameter(i), point));
+                        n.push_back(sqrt(fabs(Hessian(i, i))));
+                        std::cout << "Sqrt(|Hessian(" << MCEngine.GetParameter(i).GetName() << "," << MCEngine.GetParameter(i).GetName() << ")|) = " << n[i] << std::endl;
+                    }
+                for (unsigned int i = 0; i < Npars; i++)
+                        for (unsigned int j = i; j < Npars; j++) {
+                        // calculate Hessian matrix element
+                        Hessian.assign(i, j, -MCEngine.SecondDerivative(MCEngine.GetParameter(i), MCEngine.GetParameter(j), point));
+                        if (fabs(Hessian(i, j))/n[i]/n[j] > .1)
+                            std::cout << "Corr(" << MCEngine.GetParameter(i).GetName() << "," << MCEngine.GetParameter(j).GetName() << ") = " << Hessian(i, j)/n[i]/n[j] << std::endl;
+                        }
+                return;
+            }
+
   
             MCEngine.CreateHistogramMaps();
             
@@ -560,6 +590,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (beg->compare("true") == 0 || beg->compare("false") == 0) RunMinuitOnly = (beg->compare("true") == 0);
             else
                 throw std::runtime_error("\nERROR: RunMinuitOnly in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+        } else if (beg->compare("ComputeHessianOnly") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) ComputeHessianOnly = (beg->compare("true") == 0);
+            else
+                throw std::runtime_error("\nERROR: ComputeHessianOnly in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
         } else if (beg->compare("CalculateNormalization") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) CalculateNormalization = *beg;
