@@ -1,5 +1,6 @@
 var NAVTREEINDEX51 =
 {
+"d5/d8b/class_xmatrices.html#a54717927475eeed82920af5ad4e1264a":[27,0,3066,2],
 "d5/d8b/class_xmatrices.html#a6a94a9b4e76cb3d85db1d3f4814d6dfc":[27,0,3066,11],
 "d5/d8b/class_xmatrices.html#a6feede68935bdc9b588aa8507652fc5c":[27,0,3066,6],
 "d5/d8b/class_xmatrices.html#a8a46a046496054e6a268ad2bdb4f7d02":[27,0,3066,21],
@@ -248,6 +249,5 @@ var NAVTREEINDEX51 =
 "d5/dac/class_s_u_s_y_matching.html#a876c556a9c2a85ebc00f7db06e6bbca6":[4,16,63,289],
 "d5/dac/class_s_u_s_y_matching.html#a88469deeb53042beddbff915bc231998":[4,16,63,52],
 "d5/dac/class_s_u_s_y_matching.html#a88514b2e87bb52e871f9041587e75a3a":[4,16,63,180],
-"d5/dac/class_s_u_s_y_matching.html#a88b6bd39b4024abf6cfce6dd6b9f5f61":[4,16,63,49],
-"d5/dac/class_s_u_s_y_matching.html#a895aeeb3a2e47a8af8f9f7a20bb510b0":[4,16,63,27]
+"d5/dac/class_s_u_s_y_matching.html#a88b6bd39b4024abf6cfce6dd6b9f5f61":[4,16,63,49]
 };

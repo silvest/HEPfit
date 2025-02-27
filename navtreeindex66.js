@@ -1,5 +1,6 @@
 var NAVTREEINDEX66 =
 {
+"d6/dc9/class_monte_carlo_engine.html#a94a4bcc2489cbfffdb236bf881a7e9e2":[4,12,1,42],
 "d6/dc9/class_monte_carlo_engine.html#a95303d5058544ae520caa14265981675":[4,12,1,97],
 "d6/dc9/class_monte_carlo_engine.html#a96894d2c2d9eee22ee9ba36780766d36":[4,12,1,28],
 "d6/dc9/class_monte_carlo_engine.html#a9b40c06befc1b85052c78a99b8a75902":[4,12,1,73],
@@ -248,6 +249,5 @@ var NAVTREEINDEX66 =
 "d7/d01/class_b_xqll.html#a4969800b6330287415006248f31f4f8f":[4,5,51,143],
 "d7/d01/class_b_xqll.html#a4c8579e2c2e5d2954a13012be020f8db":[4,5,51,113],
 "d7/d01/class_b_xqll.html#a4d6b42d792a7ef467abff6d1063b8e1e":[4,5,51,86],
-"d7/d01/class_b_xqll.html#a4f02edeb9b8490d3d02d8f4901fece9e":[4,5,51,107],
-"d7/d01/class_b_xqll.html#a5033ace6724d37c0058a9c1eae136203":[4,5,51,85]
+"d7/d01/class_b_xqll.html#a4f02edeb9b8490d3d02d8f4901fece9e":[4,5,51,107]
 };

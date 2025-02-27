@@ -14,6 +14,7 @@ var group___monte_carlo =
       [ "CGO", "d1/d58/class_monte_carlo.html#a66ddca88e534e07f346d9bd73931aaaa", null ],
       [ "CGP", "d1/d58/class_monte_carlo.html#a3a5616ed642d4508afb2ebfc36f3ee62", null ],
       [ "checkrun", "d1/d58/class_monte_carlo.html#acc0d4b2b2d9b76386d95d5a744c31335", null ],
+      [ "ComputeHessianOnly", "d1/d58/class_monte_carlo.html#acfc7dbc9a6b26e537fe164575a555424", null ],
       [ "FindModeWithMinuit", "d1/d58/class_monte_carlo.html#ab34ab0850f6cca31325724fb4b105dc7", null ],
       [ "JobTag", "d1/d58/class_monte_carlo.html#a07fa8dcf3b47bd215769a19d6b3eccad", null ],
       [ "MCEngine", "d1/d58/class_monte_carlo.html#a2b79c025c9f7af2c087b5c7fae78400a", null ],

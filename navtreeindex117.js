@@ -1,5 +1,6 @@
 var NAVTREEINDEX117 =
 {
+"dd/d00/class_evol_bsmm.html#a5ce171e8250b5794049903057a93aea6":[27,0,613,45],
 "dd/d00/class_evol_bsmm.html#a5f54b2c8dc0b40ed220e02b784c9e9ba":[27,0,613,22],
 "dd/d00/class_evol_bsmm.html#a60afd9251dbd20fa82b8a1264a5caa18":[27,0,613,48],
 "dd/d00/class_evol_bsmm.html#a634e3545d04e136d18216d2509b64c42":[27,0,613,47],
@@ -248,6 +249,5 @@ var NAVTREEINDEX117 =
 "dd/d3e/class_compute_observables.html#ade1e3f2ade9a859469c6f68a0e008ff5":[4,1,0,1],
 "dd/d3e/class_compute_observables.html#ae99c394499b78635121b86e10701a0ac":[4,1,0,4],
 "dd/d3e/class_compute_observables.html#aeafc1a366ba5862c63fb8cedbd036cb2":[4,1,0,15],
-"dd/d3e/class_compute_observables.html#af0f36e15db2f49d4168d0dc333196b98":[4,1,0,9],
-"dd/d3e/class_compute_observables.html#af1d2dba5a5a088d5a7073417dee1f13c":[4,1,0,11]
+"dd/d3e/class_compute_observables.html#af0f36e15db2f49d4168d0dc333196b98":[4,1,0,9]
 };

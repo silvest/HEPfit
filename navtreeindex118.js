@@ -1,5 +1,6 @@
 var NAVTREEINDEX118 =
 {
+"dd/d3e/class_compute_observables.html#af1d2dba5a5a088d5a7073417dee1f13c":[4,1,0,11],
 "dd/d3e/classsigma__240__bb.html":[27,0,2522],
 "dd/d3e/classsigma__240__bb.html#a161fce0d8736123e40db375ed3f70f27":[27,0,2522,1],
 "dd/d3e/classsigma__240__bb.html#a2c6957c4081b7381b641fa66cf96d303":[27,0,2522,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX118 =
 "dd/d6f/class_wilson_template.html#aad6c69f3726cdd35367c1b1ae57e84da":[4,0,27,11],
 "dd/d6f/class_wilson_template.html#aaf67eb991a2238b11e97bd4dba5df24b":[4,0,27,7],
 "dd/d6f/class_wilson_template.html#ab412635e1c698772fa12ab9046e6d1c2":[4,0,27,19],
-"dd/d6f/class_wilson_template.html#aba7e249f0eb75f490aed1c274535d44b":[4,0,27,17],
-"dd/d6f/class_wilson_template.html#ac6a4119a19dd830636809836908cbfb3":[4,0,27,6]
+"dd/d6f/class_wilson_template.html#aba7e249f0eb75f490aed1c274535d44b":[4,0,27,17]
 };
