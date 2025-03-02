@@ -14,6 +14,7 @@
 //#include <NPSTUVWXY.h>
 #include <StandardModel.h>
 #include "LEP2test.h"
+#include "std_make_vector.h"
 
 // TEST: use the Zfitter outputs defined in LEP2test class for SM predictions
 //#define LEP2TEST
@@ -42,6 +43,12 @@ public:
     LEP2ThObservable(const StandardModel& SM_i, const double sqrt_s_i) 
             : ThObservable(SM_i),sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i)
     {
+        // SM intrinsic (relative) error. Assumed the same for all energies
+        // Different for cross sections and asymmetries.
+        // Same for muon and tau final states. Not implemented for electrons
+        // For hadronic final states, only implemented for total cross section
+        setParametersForObservable(make_vector<std::string>() << "errSMint_xseellLEP2"<< "errSMint_AFBeellLEP2"
+                << "errSMint_xseejjLEP2");   
     }
 
     const LEP2test myTEST;
@@ -73,6 +80,9 @@ public:
     LEP2ThDiffObservable(const StandardModel& SM_i, const double sqrt_s_i, const double cos_i) 
             : ThObservable(SM_i),sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), cos(cos_i)
     {
+        // SM intrinsic (relative) error. Assummed the same for all energies/angles
+        // Same for muon and tau final states but different than for electrons
+        setParametersForObservable(make_vector<std::string>() << "errSMint_deeeedcosLEP2"<< "errSMint_deelldcosLEP2");                
     }
 
     const LEP2test myTEST;
@@ -103,7 +113,13 @@ public:
      */
     eeffThObservable(const StandardModel& SM_i, const double pol_e_i, const double pol_p_i, const double sqrt_s_i) 
             : ThObservable(SM_i), pol_e(pol_e_i), pol_p(pol_p_i), sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i)
-    {
+    {                
+        // SM intrinsic (relative) error. Assumed the same for all energies
+        // Different for cross sections, asymmetries and ratios with the hadronic cross section.
+        // Same for muon and tau final states but different than for electrons.
+        // Separate uncertainties for b-hadrons and light jets
+        setParametersForObservable(make_vector<std::string>() << "errSMint_xseeee"<< "errSMint_AFBeeee"<< "errSMint_Reeee" << "errSMint_xseell"<< "errSMint_AFBeell"<< "errSMint_Reell"
+                << "errSMint_xseebb"<< "errSMint_AFBeebb"<< "errSMint_Reebb" << "errSMint_xseejj"<< "errSMint_AFBeejj"<< "errSMint_Reejj");                  
     }
 
     const double pol_e, pol_p, sqrt_s, s;

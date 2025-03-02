@@ -21,7 +21,10 @@ double eeffsigmaBottom::computeThValue()
 { 
     double sigma_bottom = SM.eeffsigmaBottom(pol_e, pol_p, s);
     
-    return ( sigma_bottom );
+    // Intrinsic SM theory uncertainty
+    double SM_intr_err = SM.getOptionalParameter("errSMint_xseebb");
+    
+    return ( sigma_bottom * ( 1.0 + SM_intr_err ) );
 }
 
 
@@ -29,6 +32,9 @@ double eeffRbottom::computeThValue()
 { 
     double R_bottom = SM.eeffRbottom(pol_e, pol_p, s);
     
-    return ( R_bottom );
+    // Intrinsic SM theory uncertainty
+    double SM_intr_err = SM.getOptionalParameter("errSMint_Reebb");
+    
+    return ( R_bottom * ( 1.0 + SM_intr_err ) );
 }
         

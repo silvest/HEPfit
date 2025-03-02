@@ -24,8 +24,11 @@ double LEP2AFBcharm::computeThValue()
 double eeffAFBcharm::computeThValue()
 { 
     double AFB_c = SM.eeffAFBcharm(pol_e, pol_p, s);
+    
+    // Intrinsic SM theory uncertainty
+    double SM_intr_err = SM.getOptionalParameter("errSMint_AFBeejj");
        
-    return AFB_c;
+    return ( AFB_c * ( 1.0 + SM_intr_err ) );
 }
         
 

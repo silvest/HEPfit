@@ -19,7 +19,10 @@ double eeffsigmaCharm::computeThValue()
 { 
     double sigma_charm = SM.eeffsigmaCharm(pol_e, pol_p, s);
     
-    return ( sigma_charm );
+    // Intrinsic SM theory uncertainty
+    double SM_intr_err = SM.getOptionalParameter("errSMint_xseejj");
+    
+    return ( sigma_charm * ( 1.0 + SM_intr_err ) );
 }
         
 
@@ -27,6 +30,9 @@ double eeffRcharm::computeThValue()
 { 
     double R_charm = SM.eeffRcharm(pol_e, pol_p, s);
     
-    return ( R_charm );
+    // Intrinsic SM theory uncertainty
+    double SM_intr_err = SM.getOptionalParameter("errSMint_Reejj");
+    
+    return ( R_charm * ( 1.0 + SM_intr_err ) );
 }
      
