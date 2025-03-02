@@ -158,7 +158,7 @@ $(document).ready(function(){initNavTree('db/de5/class_l_e_p2_th_observable.html
 <p><br  />
  </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00029">29</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00030">30</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -271,12 +271,19 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00042">42</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
-<div class="fragment"><div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            : <a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable</a>(SM_i),<a class="code hl_variable" href="../../db/de5/class_l_e_p2_th_observable.html#a39e0d3daa08df13d3e89608def1c283d">sqrt_s</a>(sqrt_s_i), <a class="code hl_variable" href="../../db/de5/class_l_e_p2_th_observable.html#a79e955b45bca3d284280a6a15cada065">s</a>(sqrt_s_i*sqrt_s_i)</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
-<div class="ttc" id="aclass_l_e_p2_th_observable_html_a39e0d3daa08df13d3e89608def1c283d"><div class="ttname"><a href="../../db/de5/class_l_e_p2_th_observable.html#a39e0d3daa08df13d3e89608def1c283d">LEP2ThObservable::sqrt_s</a></div><div class="ttdeci">const double sqrt_s</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00048">LEP2ThObservable.h:48</a></div></div>
-<div class="ttc" id="aclass_l_e_p2_th_observable_html_a79e955b45bca3d284280a6a15cada065"><div class="ttname"><a href="../../db/de5/class_l_e_p2_th_observable.html#a79e955b45bca3d284280a6a15cada065">LEP2ThObservable::s</a></div><div class="ttdeci">const double s</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00048">LEP2ThObservable.h:48</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00043">43</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<div class="fragment"><div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            : <a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable</a>(SM_i),<a class="code hl_variable" href="../../db/de5/class_l_e_p2_th_observable.html#a39e0d3daa08df13d3e89608def1c283d">sqrt_s</a>(sqrt_s_i), <a class="code hl_variable" href="../../db/de5/class_l_e_p2_th_observable.html#a79e955b45bca3d284280a6a15cada065">s</a>(sqrt_s_i*sqrt_s_i)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="comment">// SM intrinsic (relative) error. Assumed the same for all energies</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="comment">// Different for cross sections and asymmetries.</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="comment">// Same for muon and tau final states. Not implemented for electrons</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="comment">// For hadronic final states, only implemented for total cross section</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a0ea08a9a07422a941de5ccbae80cc7e5">setParametersForObservable</a>(make_vector&lt;std::string&gt;() &lt;&lt; <span class="stringliteral">&quot;errSMint_xseellLEP2&quot;</span>&lt;&lt; <span class="stringliteral">&quot;errSMint_AFBeellLEP2&quot;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                &lt;&lt; <span class="stringliteral">&quot;errSMint_xseejjLEP2&quot;</span>);   </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="ttc" id="aclass_l_e_p2_th_observable_html_a39e0d3daa08df13d3e89608def1c283d"><div class="ttname"><a href="../../db/de5/class_l_e_p2_th_observable.html#a39e0d3daa08df13d3e89608def1c283d">LEP2ThObservable::sqrt_s</a></div><div class="ttdeci">const double sqrt_s</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00055">LEP2ThObservable.h:55</a></div></div>
+<div class="ttc" id="aclass_l_e_p2_th_observable_html_a79e955b45bca3d284280a6a15cada065"><div class="ttname"><a href="../../db/de5/class_l_e_p2_th_observable.html#a79e955b45bca3d284280a6a15cada065">LEP2ThObservable::s</a></div><div class="ttdeci">const double s</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00055">LEP2ThObservable.h:55</a></div></div>
+<div class="ttc" id="aclass_th_observable_html_a0ea08a9a07422a941de5ccbae80cc7e5"><div class="ttname"><a href="../../dc/d1f/class_th_observable.html#a0ea08a9a07422a941de5ccbae80cc7e5">ThObservable::setParametersForObservable</a></div><div class="ttdeci">void setParametersForObservable(std::vector&lt; std::string &gt; parametersForObservable_i)</div><div class="ttdoc">A set method to get the parameters for the specific observable.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcd/_th_observable_8h_source.html#l00109">ThObservable.h:109</a></div></div>
 <div class="ttc" id="aclass_th_observable_html_a61df653abc411fb5b5ccd090f735a0c4"><div class="ttname"><a href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable::ThObservable</a></div><div class="ttdeci">ThObservable(const StandardModel &amp;SM_i)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcd/_th_observable_8h_source.html#l00032">ThObservable.h:32</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -294,7 +301,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00047">47</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00054">54</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
 
 </div>
 </div>
@@ -310,7 +317,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00048">48</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00055">55</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
 
 </div>
 </div>
@@ -326,7 +333,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00048">48</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00055">55</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
 
 </div>
 </div>
@@ -339,7 +346,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../db/de5/class_l_e_p2_th_observable.html">LEP2ThObservable</a></li>
-    <li class="footer">Generated on Thu Feb 27 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Sun Mar 2 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>

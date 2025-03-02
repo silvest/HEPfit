@@ -150,7 +150,7 @@ $(document).ready(function(){initNavTree('dd/d28/class_l_e_p2_th_diff_observable
 <p><br  />
  </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00064">64</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00071">71</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -270,13 +270,17 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00073">73</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
-<div class="fragment"><div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            : <a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable</a>(SM_i),<a class="code hl_variable" href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a88a5141b4380eeda65befc03d19b2232">sqrt_s</a>(sqrt_s_i), <a class="code hl_variable" href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a6c778c65578cd0ed5e6560fa7cf43cb5">s</a>(sqrt_s_i*sqrt_s_i), <a class="code hl_variable" href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a14c63e27fc92324943192406791cc185">cos</a>(cos_i)</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
-<div class="ttc" id="aclass_l_e_p2_th_diff_observable_html_a14c63e27fc92324943192406791cc185"><div class="ttname"><a href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a14c63e27fc92324943192406791cc185">LEP2ThDiffObservable::cos</a></div><div class="ttdeci">const double cos</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00079">LEP2ThObservable.h:79</a></div></div>
-<div class="ttc" id="aclass_l_e_p2_th_diff_observable_html_a6c778c65578cd0ed5e6560fa7cf43cb5"><div class="ttname"><a href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a6c778c65578cd0ed5e6560fa7cf43cb5">LEP2ThDiffObservable::s</a></div><div class="ttdeci">const double s</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00079">LEP2ThObservable.h:79</a></div></div>
-<div class="ttc" id="aclass_l_e_p2_th_diff_observable_html_a88a5141b4380eeda65befc03d19b2232"><div class="ttname"><a href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a88a5141b4380eeda65befc03d19b2232">LEP2ThDiffObservable::sqrt_s</a></div><div class="ttdeci">const double sqrt_s</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00079">LEP2ThObservable.h:79</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00080">80</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<div class="fragment"><div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            : <a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable</a>(SM_i),<a class="code hl_variable" href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a88a5141b4380eeda65befc03d19b2232">sqrt_s</a>(sqrt_s_i), <a class="code hl_variable" href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a6c778c65578cd0ed5e6560fa7cf43cb5">s</a>(sqrt_s_i*sqrt_s_i), <a class="code hl_variable" href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a14c63e27fc92324943192406791cc185">cos</a>(cos_i)</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="comment">// SM intrinsic (relative) error. Assummed the same for all energies/angles</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="comment">// Same for muon and tau final states but different than for electrons</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a0ea08a9a07422a941de5ccbae80cc7e5">setParametersForObservable</a>(make_vector&lt;std::string&gt;() &lt;&lt; <span class="stringliteral">&quot;errSMint_deeeedcosLEP2&quot;</span>&lt;&lt; <span class="stringliteral">&quot;errSMint_deelldcosLEP2&quot;</span>);                </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="ttc" id="aclass_l_e_p2_th_diff_observable_html_a14c63e27fc92324943192406791cc185"><div class="ttname"><a href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a14c63e27fc92324943192406791cc185">LEP2ThDiffObservable::cos</a></div><div class="ttdeci">const double cos</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00089">LEP2ThObservable.h:89</a></div></div>
+<div class="ttc" id="aclass_l_e_p2_th_diff_observable_html_a6c778c65578cd0ed5e6560fa7cf43cb5"><div class="ttname"><a href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a6c778c65578cd0ed5e6560fa7cf43cb5">LEP2ThDiffObservable::s</a></div><div class="ttdeci">const double s</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00089">LEP2ThObservable.h:89</a></div></div>
+<div class="ttc" id="aclass_l_e_p2_th_diff_observable_html_a88a5141b4380eeda65befc03d19b2232"><div class="ttname"><a href="../../dd/d28/class_l_e_p2_th_diff_observable.html#a88a5141b4380eeda65befc03d19b2232">LEP2ThDiffObservable::sqrt_s</a></div><div class="ttdeci">const double sqrt_s</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00089">LEP2ThObservable.h:89</a></div></div>
+<div class="ttc" id="aclass_th_observable_html_a0ea08a9a07422a941de5ccbae80cc7e5"><div class="ttname"><a href="../../dc/d1f/class_th_observable.html#a0ea08a9a07422a941de5ccbae80cc7e5">ThObservable::setParametersForObservable</a></div><div class="ttdeci">void setParametersForObservable(std::vector&lt; std::string &gt; parametersForObservable_i)</div><div class="ttdoc">A set method to get the parameters for the specific observable.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcd/_th_observable_8h_source.html#l00109">ThObservable.h:109</a></div></div>
 <div class="ttc" id="aclass_th_observable_html_a61df653abc411fb5b5ccd090f735a0c4"><div class="ttname"><a href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable::ThObservable</a></div><div class="ttdeci">ThObservable(const StandardModel &amp;SM_i)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcd/_th_observable_8h_source.html#l00032">ThObservable.h:32</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -294,7 +298,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00079">79</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00089">89</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
 
 </div>
 </div>
@@ -310,7 +314,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00078">78</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00088">88</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
 
 </div>
 </div>
@@ -326,7 +330,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00079">79</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00089">89</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
 
 </div>
 </div>
@@ -342,7 +346,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00079">79</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html#l00089">89</a> of file <a class="el" href="../../d5/de9/_l_e_p2_th_observable_8h_source.html">LEP2ThObservable.h</a>.</p>
 
 </div>
 </div>
@@ -355,7 +359,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dd/d28/class_l_e_p2_th_diff_observable.html">LEP2ThDiffObservable</a></li>
-    <li class="footer">Generated on Thu Feb 27 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Sun Mar 2 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
