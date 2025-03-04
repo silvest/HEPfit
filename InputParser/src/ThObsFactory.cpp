@@ -131,8 +131,8 @@ ThObsFactory::ThObsFactory()
     const double cosmax_Diffee[15] = {-0.72,-0.54,-0.36,-0.18, 0.0 ,0.09,0.18,0.27,0.36,0.45,0.54,0.63,0.72,0.81,0.90};
     //
     // Parameters for future e+e- observables
-    const double sqrt_see[11] = {158., 163., 240., 250., 345., 360., 365., 380., 500., 550., 1000.};
-    const double sqrt_s_eeff[11] = {157.5, 162.5, 240., 250., 345., 360., 365., 380., 500., 550., 1000.};
+    const double sqrt_see[12] = {158., 163., 240., 250., 345., 350., 360., 365., 380., 500., 550., 1000.};
+    const double sqrt_s_eeff[12] = {157.5, 162.5, 240., 250., 345., 350., 360., 365., 380., 500., 550., 1000.};
     // Approximate electroweak scale, taken as the W mass, and Higgs mass, taken as 125 GeV
     const double muEW = 80.365;
     const double muMH = 125.;
@@ -729,7 +729,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltaVtbR"] = bind(boost::factory<deltaVtbR*>(), _1, muEW);
     //
     // Energy dependent definitions of the above
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 12; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
     //-----  Triple gauge coupling observables (scale dependent definition)  -----
         obsThFactory["deltag1Z_" + sqrt_s_str] = bind(boost::factory<deltag1Z*>(), _1, sqrt_s_eeff[i]);
@@ -4718,7 +4718,7 @@ ThObsFactory::ThObsFactory()
     
     //-----  e+ e- two-fermion processes  -----
     
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 12; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
 
         // Unpolarized
@@ -4858,7 +4858,7 @@ ThObsFactory::ThObsFactory()
     //-----  Wilson coefficients of Top operators in the conventions of the LHC Top WG ----------
     //-----  (Energy-dependent definition: Only for energies above the ttbar threshold ) --------
     
-    for (int i = 4; i < 11; i++) {
+    for (int i = 4; i < 12; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_see[i]);
         
         obsThFactory["cQq31_TWG_" + sqrt_s_str] = bind(boost::factory<TWGcQq31*>(), _1, sqrt_s_eeff[i]);    
