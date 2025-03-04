@@ -253,8 +253,8 @@ $(document).ready(function(){initNavTree('d1/de2/_th_obs_factory_8cpp_source.htm
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> cosmax_Diffee[15] = {-0.72,-0.54,-0.36,-0.18, 0.0 ,0.09,0.18,0.27,0.36,0.45,0.54,0.63,0.72,0.81,0.90};</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="comment">//</span></div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="comment">// Parameters for future e+e- observables</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> sqrt_see[11] = {158., 163., 240., 250., 345., 360., 365., 380., 500., 550., 1000.};</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> sqrt_s_eeff[11] = {157.5, 162.5, 240., 250., 345., 360., 365., 380., 500., 550., 1000.};</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> sqrt_see[12] = {158., 163., 240., 250., 345., 350., 360., 365., 380., 500., 550., 1000.};</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> sqrt_s_eeff[12] = {157.5, 162.5, 240., 250., 345., 350., 360., 365., 380., 500., 550., 1000.};</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="comment">// Approximate electroweak scale, taken as the W mass, and Higgs mass, taken as 125 GeV</span></div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> muEW = 80.365;</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> muMH = 125.;</div>
@@ -851,7 +851,7 @@ $(document).ready(function(){initNavTree('d1/de2/_th_obs_factory_8cpp_source.htm
 <div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>    <a class="code hl_variable" href="../../d5/d49/class_th_obs_factory.html#ab0b8eb52d045634a9cafac3688f70a97">obsThFactory</a>[<span class="stringliteral">&quot;deltaVtbR&quot;</span>] = bind(boost::factory&lt;deltaVtbR*&gt;(), _1, muEW);</div>
 <div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>    <span class="comment">//</span></div>
 <div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    <span class="comment">// Energy dependent definitions of the above</span></div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 11; i++) {</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 12; i++) {</div>
 <div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>        std::string sqrt_s_str = boost::lexical_cast&lt;std::string, double&gt;(sqrt_see[i]);</div>
 <div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    <span class="comment">//-----  Triple gauge coupling observables (scale dependent definition)  -----</span></div>
 <div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>        <a class="code hl_variable" href="../../d5/d49/class_th_obs_factory.html#ab0b8eb52d045634a9cafac3688f70a97">obsThFactory</a>[<span class="stringliteral">&quot;deltag1Z_&quot;</span> + sqrt_s_str] = bind(boost::factory&lt;deltag1Z*&gt;(), _1, sqrt_s_eeff[i]);</div>
@@ -4839,7 +4839,7 @@ $(document).ready(function(){initNavTree('d1/de2/_th_obs_factory_8cpp_source.htm
 <div class="line"><a id="l04718" name="l04718"></a><span class="lineno"> 4718</span>    </div>
 <div class="line"><a id="l04719" name="l04719"></a><span class="lineno"> 4719</span>    <span class="comment">//-----  e+ e- two-fermion processes  -----</span></div>
 <div class="line"><a id="l04720" name="l04720"></a><span class="lineno"> 4720</span>    </div>
-<div class="line"><a id="l04721" name="l04721"></a><span class="lineno"> 4721</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 11; i++) {</div>
+<div class="line"><a id="l04721" name="l04721"></a><span class="lineno"> 4721</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 12; i++) {</div>
 <div class="line"><a id="l04722" name="l04722"></a><span class="lineno"> 4722</span>        std::string sqrt_s_str = boost::lexical_cast&lt;std::string, double&gt;(sqrt_see[i]);</div>
 <div class="line"><a id="l04723" name="l04723"></a><span class="lineno"> 4723</span> </div>
 <div class="line"><a id="l04724" name="l04724"></a><span class="lineno"> 4724</span>        <span class="comment">// Unpolarized</span></div>
@@ -4979,7 +4979,7 @@ $(document).ready(function(){initNavTree('d1/de2/_th_obs_factory_8cpp_source.htm
 <div class="line"><a id="l04858" name="l04858"></a><span class="lineno"> 4858</span>    <span class="comment">//-----  Wilson coefficients of Top operators in the conventions of the LHC Top WG ----------</span></div>
 <div class="line"><a id="l04859" name="l04859"></a><span class="lineno"> 4859</span>    <span class="comment">//-----  (Energy-dependent definition: Only for energies above the ttbar threshold ) --------</span></div>
 <div class="line"><a id="l04860" name="l04860"></a><span class="lineno"> 4860</span>    </div>
-<div class="line"><a id="l04861" name="l04861"></a><span class="lineno"> 4861</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 4; i &lt; 11; i++) {</div>
+<div class="line"><a id="l04861" name="l04861"></a><span class="lineno"> 4861</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 4; i &lt; 12; i++) {</div>
 <div class="line"><a id="l04862" name="l04862"></a><span class="lineno"> 4862</span>        std::string sqrt_s_str = boost::lexical_cast&lt;std::string, double&gt;(sqrt_see[i]);</div>
 <div class="line"><a id="l04863" name="l04863"></a><span class="lineno"> 4863</span>        </div>
 <div class="line"><a id="l04864" name="l04864"></a><span class="lineno"> 4864</span>        <a class="code hl_variable" href="../../d5/d49/class_th_obs_factory.html#ab0b8eb52d045634a9cafac3688f70a97">obsThFactory</a>[<span class="stringliteral">&quot;cQq31_TWG_&quot;</span> + sqrt_s_str] = bind(boost::factory&lt;TWGcQq31*&gt;(), _1, sqrt_s_eeff[i]);    </div>
