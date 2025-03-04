@@ -30,7 +30,7 @@ double LEP2sigmaTau::computeThValue()
 
 double LEP2dsigmadcosTau::computeThValue() 
 { 
-    double dsigmadcos_tau = SM.LEP2dsigmadcosTau(s,cos);
+    double dsigmadcos_tau = SM.LEP2dsigmadcosBinTau(s, cos, cosmin, cosmax);
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_deelldcosLEP2");

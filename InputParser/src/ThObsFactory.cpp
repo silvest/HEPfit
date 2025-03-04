@@ -122,9 +122,13 @@ ThObsFactory::ThObsFactory()
     // Parameters for LEP2 differential observables
     const double sqrt_sDiffll[8] = {183., 189., 192., 196., 200., 202., 205., 207.};
     const double cos_Diffll[10] = {-0.9, -0.7, -0.5, -0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9};
+    const double cosmin_Diffll[10] = {-1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8};
+    const double cosmax_Diffll[10] = {-0.8, -0.6, -0.4, -0.2,  0.0, 0.2, 0.4, 0.6, 0.8, 1.0};
     //
     const double cos_DiffeeInp[15] = {-0.8,-0.6,-0.5,-0.3,-0.1,0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9};
     const double cos_Diffee[15] = {-0.81,-0.63,-0.45,-0.27,-0.09,0.045,0.135,0.225,0.315,0.405,0.495,0.585,0.675,0.765,0.855};
+    const double cosmin_Diffee[15] = {-0.90,-0.72,-0.54,-0.36,-0.18,0.0 ,0.09,0.18,0.27,0.36,0.45,0.54,0.63,0.72,0.81};
+    const double cosmax_Diffee[15] = {-0.72,-0.54,-0.36,-0.18, 0.0 ,0.09,0.18,0.27,0.36,0.45,0.54,0.63,0.72,0.81,0.90};
     //
     // Parameters for future e+e- observables
     const double sqrt_see[11] = {158., 163., 240., 250., 345., 360., 365., 380., 500., 550., 1000.};
@@ -4687,26 +4691,26 @@ ThObsFactory::ThObsFactory()
         std::string cos_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_Diffll[j]));
         std::string cosee_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_DiffeeInp[j]));
 
-        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_m0" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
-        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_m0" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
+        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_m0" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[j], cosmin_Diffll[j], cosmax_Diffll[j]);
+        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_m0" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[j], cosmin_Diffll[j], cosmax_Diffll[j]);
 
-        if (i>0) {obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_m0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j]);}
+        if (i>0) {obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_m0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j], cosmin_Diffee[j], cosmax_Diffee[j]);}
         }
 
         for (int j = 5; j < 10; j++) {
         std::string cos_str = boost::lexical_cast<std::string, double>(10.*cos_Diffll[j]);
         std::string cosee_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_DiffeeInp[j]));
 
-        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_0" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
-        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_0" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[j]);
+        obsThFactory["dsigmadcosmuLEP2_" + sqrt_s_str + "_0" + cos_str] = bind(boost::factory<LEP2dsigmadcosMu*>(), _1, sqrt_sDiffll[i], cos_Diffll[j], cosmin_Diffll[j], cosmax_Diffll[j]);
+        obsThFactory["dsigmadcostauLEP2_" + sqrt_s_str + "_0" + cos_str] = bind(boost::factory<LEP2dsigmadcosTau*>(), _1, sqrt_sDiffll[i], cos_Diffll[j], cosmin_Diffll[j], cosmax_Diffll[j]);
 
-        if (i>0) {obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j]);}
+        if (i>0) {obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j], cosmin_Diffee[j], cosmax_Diffee[j]);}
         }
 
         if (i>0) {
         for (int j = 10; j < 15; j++) {
         std::string cosee_str = boost::lexical_cast<std::string, double>(fabs(10.*cos_DiffeeInp[j]));
-        obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j]);
+        obsThFactory["dsigmadcoseLEP2_" + sqrt_s_str + "_0" + cosee_str] = bind(boost::factory<LEP2dsigmadcosElectron*>(), _1, sqrt_sDiffll[i], cos_Diffee[j], cosmin_Diffee[j], cosmax_Diffee[j]);
         }
         }
 

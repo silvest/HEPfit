@@ -28,7 +28,7 @@ double LEP2sigmaMu::computeThValue()
 
 double LEP2dsigmadcosMu::computeThValue() 
 { 
-    double dsigmadcos_mu = SM.LEP2dsigmadcosMu(s,cos);
+    double dsigmadcos_mu = SM.LEP2dsigmadcosBinMu(s, cos, cosmin, cosmax);
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_deelldcosLEP2");

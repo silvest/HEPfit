@@ -9638,4 +9638,24 @@ const double StandardModel::LEP2dsigmadcosTau(double s, double cos) const
         throw std::runtime_error("ERROR: StandardModel::LEP2dsigmadcosTau only implemented via semi-analytical approx");
     }
 }
+
+
+//  LEP2 differential observables: Defined in bins. SM prediction given already by the above
+
+const double StandardModel::LEP2dsigmadcosBinE(const double s, const double cos, const double cosmin, const double cosmax) const
+{
+    return LEP2dsigmadcosE(s, cos);
+}
+
+const double StandardModel::LEP2dsigmadcosBinMu(double s, double cos, const double cosmin, const double cosmax) const
+{
+    return LEP2dsigmadcosMu(s, cos);
+}
+
+const double StandardModel::LEP2dsigmadcosBinTau(double s, double cos, const double cosmin, const double cosmax) const
+{
+    return LEP2dsigmadcosTau(s, cos);
+}
+
+
 /* END: REMOVE FROM THE PACKAGE */

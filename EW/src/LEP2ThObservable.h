@@ -80,13 +80,49 @@ public:
     LEP2ThDiffObservable(const StandardModel& SM_i, const double sqrt_s_i, const double cos_i) 
             : ThObservable(SM_i),sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), cos(cos_i)
     {
-        // SM intrinsic (relative) error. Assummed the same for all energies/angles
+        // SM intrinsic (relative) error. Assumed the same for all energies/angles
         // Same for muon and tau final states but different than for electrons
         setParametersForObservable(make_vector<std::string>() << "errSMint_deeeedcosLEP2"<< "errSMint_deelldcosLEP2");                
     }
 
     const LEP2test myTEST;
     const double sqrt_s, s, cos;
+    
+    
+private:   
+      
+};
+
+
+/**
+ * @class LEP2ThDiffObservableBin
+ * @ingroup EW 
+ * @brief A class for the LEP2 differential observables computed from finite bins. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
+class LEP2ThDiffObservableBin : public ThObservable  {
+public:
+        
+    /**
+     * @brief LEP2ThDiffObservableBin constructor
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
+     * @param[in] cos_i the polar angle of the final state particle wrt e^-
+     * @param[in] cosmin_i the minimum polar angle of the final state particle wrt e^- in the bin
+     * @param[in] cosmax_i the maximum polar angle of the final state particle wrt e^- in the bin
+     */
+    LEP2ThDiffObservableBin(const StandardModel& SM_i, const double sqrt_s_i, const double cos_i, const double cosmin_i, const double cosmax_i) 
+            : ThObservable(SM_i),sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), cos(cos_i), cosmin(cosmin_i), cosmax(cosmax_i)
+    {
+        // SM intrinsic (relative) error. Assumed the same for all energies/angles
+        // Same for muon and tau final states but different than for electrons
+        setParametersForObservable(make_vector<std::string>() << "errSMint_deeeedcosLEP2"<< "errSMint_deelldcosLEP2");                
+    }
+
+    const LEP2test myTEST;
+    const double sqrt_s, s, cos, cosmin, cosmax;
     
     
 private:   
