@@ -309,15 +309,15 @@ var group___e_w =
       [ "computeThValue", "d8/d2c/class_l_e_p2_a_f_btau.html#ae7c026f44f378add9ce43fa432f0cc71", null ]
     ] ],
     [ "LEP2dsigmadcosElectron", "d9/d87/class_l_e_p2dsigmadcos_electron.html", [
-      [ "LEP2dsigmadcosElectron", "d9/d87/class_l_e_p2dsigmadcos_electron.html#a68d5ca46ff837e80e4ddfbba6ed19738", null ],
+      [ "LEP2dsigmadcosElectron", "d9/d87/class_l_e_p2dsigmadcos_electron.html#a8bd61bf6de263409548968e4d19688a7", null ],
       [ "computeThValue", "d9/d87/class_l_e_p2dsigmadcos_electron.html#af20bf6f09ac39c16ebe1ea3224ccf35c", null ]
     ] ],
     [ "LEP2dsigmadcosMu", "d9/d2d/class_l_e_p2dsigmadcos_mu.html", [
-      [ "LEP2dsigmadcosMu", "d9/d2d/class_l_e_p2dsigmadcos_mu.html#a31520429b650b3f1de68d38a61066f09", null ],
+      [ "LEP2dsigmadcosMu", "d9/d2d/class_l_e_p2dsigmadcos_mu.html#a27ebbf26f57f0ea03e39088249e6c32a", null ],
       [ "computeThValue", "d9/d2d/class_l_e_p2dsigmadcos_mu.html#a9ab33f9f1028c0bb753263ba0ad77f00", null ]
     ] ],
     [ "LEP2dsigmadcosTau", "d9/d8c/class_l_e_p2dsigmadcos_tau.html", [
-      [ "LEP2dsigmadcosTau", "d9/d8c/class_l_e_p2dsigmadcos_tau.html#adade80559d7f393393dbfe2765865951", null ],
+      [ "LEP2dsigmadcosTau", "d9/d8c/class_l_e_p2dsigmadcos_tau.html#ad0b411b1b4499dd62a3cde8a342efaac", null ],
       [ "computeThValue", "d9/d8c/class_l_e_p2dsigmadcos_tau.html#ae073ce3cc23fa555a95a20f2dac3180b", null ]
     ] ],
     [ "LEP2GIMR", "dc/d6a/class_l_e_p2_g_i_m_r.html", [
@@ -449,6 +449,15 @@ var group___e_w =
       [ "myTEST", "dd/d28/class_l_e_p2_th_diff_observable.html#a6b26322099b0ff1332604d030c93da31", null ],
       [ "s", "dd/d28/class_l_e_p2_th_diff_observable.html#a6c778c65578cd0ed5e6560fa7cf43cb5", null ],
       [ "sqrt_s", "dd/d28/class_l_e_p2_th_diff_observable.html#a88a5141b4380eeda65befc03d19b2232", null ]
+    ] ],
+    [ "LEP2ThDiffObservableBin", "d3/ddd/class_l_e_p2_th_diff_observable_bin.html", [
+      [ "LEP2ThDiffObservableBin", "d3/ddd/class_l_e_p2_th_diff_observable_bin.html#afbf3125c04cf3dca891e29a354f3149c", null ],
+      [ "cos", "d3/ddd/class_l_e_p2_th_diff_observable_bin.html#abda04391260bed6f594a0bc530df15b4", null ],
+      [ "cosmax", "d3/ddd/class_l_e_p2_th_diff_observable_bin.html#ad5cd1e302c8d2e0a7b8cee7e4a058bb9", null ],
+      [ "cosmin", "d3/ddd/class_l_e_p2_th_diff_observable_bin.html#ac2fa833b98e76903330fd9f521e483d0", null ],
+      [ "myTEST", "d3/ddd/class_l_e_p2_th_diff_observable_bin.html#aa52396eb89283081786ef44edabfe0dc", null ],
+      [ "s", "d3/ddd/class_l_e_p2_th_diff_observable_bin.html#a1c2e9d5ce2a3f744af1e16f51c86f222", null ],
+      [ "sqrt_s", "d3/ddd/class_l_e_p2_th_diff_observable_bin.html#a2bdca530fe4d15faa458975a5edafc8b", null ]
     ] ],
     [ "LEP2ThObservable", "db/de5/class_l_e_p2_th_observable.html", [
       [ "LEP2ThObservable", "db/de5/class_l_e_p2_th_observable.html#a28442015d172a763fe3601daf53a631c", null ],

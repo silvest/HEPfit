@@ -1478,7 +1478,8 @@ var hierarchy =
       [ "Imtau_DS1", "d9/d0c/class_imtau___d_s1.html", null ],
       [ "J_CP", "d8/d63/class_j___c_p.html", null ],
       [ "Kmunu_o_Pmunu", "dd/d25/class_kmunu__o___pmunu.html", null ],
-      [ "LEP2ThDiffObservable", "dd/d28/class_l_e_p2_th_diff_observable.html", [
+      [ "LEP2ThDiffObservable", "dd/d28/class_l_e_p2_th_diff_observable.html", null ],
+      [ "LEP2ThDiffObservableBin", "d3/ddd/class_l_e_p2_th_diff_observable_bin.html", [
         [ "LEP2dsigmadcosElectron", "d9/d87/class_l_e_p2dsigmadcos_electron.html", null ],
         [ "LEP2dsigmadcosMu", "d9/d2d/class_l_e_p2dsigmadcos_mu.html", null ],
         [ "LEP2dsigmadcosTau", "d9/d8c/class_l_e_p2dsigmadcos_tau.html", null ]
