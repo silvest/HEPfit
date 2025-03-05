@@ -10,7 +10,7 @@
 
 double LEP2dsigmadcosElectron::computeThValue() 
 { 
-    double dsigmadcos_e = SM.LEP2dsigmadcosE(s,cos);
+    double dsigmadcos_e = SM.LEP2dsigmadcosBinE(s, cos, cosmin, cosmax);
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_deeeedcosLEP2");

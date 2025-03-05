@@ -1438,6 +1438,30 @@ const double NPbase::LEP2dsigmadcosTau(const double s, const double cos) const
     return (trueSM.LEP2dsigmadcosTau(s,cos) + delta_Dsigma_f(leptons[TAU], 0., 0., s, cos) );
 }
 
+const double NPbase::LEP2dsigmadcosBinE(const double s, const double cos, const double cosmin, const double cosmax) const
+{
+    double Deltacos = fabs(cosmax-cosmin); // Bin width
+    
+    // Compute differential cross section as the cross section in the bin/Delta cos (see e.g. hep-ex/0512012)
+    return (trueSM.LEP2dsigmadcosBinE(s,cos,cosmin,cosmax) + delta_sigma_ee(0., 0., s, cosmin, cosmax) / Deltacos );
+}
+
+const double NPbase::LEP2dsigmadcosBinMu(const double s, const double cos, const double cosmin, const double cosmax) const
+{
+    double Deltacos = fabs(cosmax-cosmin); // Bin width
+    
+    // Compute differential cross section as the cross section in the bin/Delta cos (see e.g. hep-ex/0512012)
+    return (trueSM.LEP2dsigmadcosBinMu(s,cos,cosmin,cosmax) + delta_sigma_f(leptons[MU], 0., 0., s, cosmin, cosmax) / Deltacos );
+}
+
+const double NPbase::LEP2dsigmadcosBinTau(const double s, const double cos, const double cosmin, const double cosmax) const
+{
+    double Deltacos = fabs(cosmax-cosmin);
+    
+    // Compute differential cross section as the cross section in the bin/Delta cos (see e.g. hep-ex/0512012)
+    return (trueSM.LEP2dsigmadcosBinTau(s,cos,cosmin,cosmax) + delta_sigma_f(leptons[TAU], 0., 0., s, cosmin, cosmax) / Deltacos );
+}
+
 
 // EW low-energy observables: Muon g-2
 

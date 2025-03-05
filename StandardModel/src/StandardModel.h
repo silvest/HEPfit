@@ -3283,6 +3283,10 @@ public:
     virtual const double LEP2dsigmadcosMu(const double s, const double cos) const;
     virtual const double LEP2dsigmadcosTau(const double s, const double cos) const;
     
+    virtual const double LEP2dsigmadcosBinE(const double s, const double cos, const double cosmin, const double cosmax) const;
+    virtual const double LEP2dsigmadcosBinMu(const double s, const double cos, const double cosmin, const double cosmax) const;
+    virtual const double LEP2dsigmadcosBinTau(const double s, const double cos, const double cosmin, const double cosmax) const;
+    
 /* END: REMOVE FROM THE PACKAGE */
     
 bool setFlagSigmaForAFB(const bool flagSigmaForAFB_i)
