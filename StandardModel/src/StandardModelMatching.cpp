@@ -915,7 +915,8 @@ const double StandardModelMatching::phi2(double x, double y) const{
     else{
         std::stringstream out;
         out << x;
-        throw std::runtime_error("StandardModelMatching::phi2(double x, double y) wrong" + out.str());
+        std::cout << "Error in StandardModelMatching::phi2(double x, double y): wrong input " << out.str() << std::endl;
+        SM.setSMSuccess(false);
     }
     return (0.);
 }

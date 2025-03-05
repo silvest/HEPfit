@@ -242,6 +242,7 @@ bool StandardModel::PostUpdate()
 {
     if (!QCD::PostUpdate()) return (false);
 
+    SMSuccess = true;
     /* Set the CKM and PMNS matrices if not already set in the derived classes */
     if(requireCKM)
         computeCKM();

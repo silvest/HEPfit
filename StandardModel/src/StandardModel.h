@@ -3386,6 +3386,24 @@ virtual const double getmq(const QCD::quark q, const double mu) const
         this->Ye = Ye;
     }
 
+    /**
+     * @brief A get method to retrieve the success status of the Standard Model update and matching.
+     * @return a boolean that is true if the Standard Model update and matching were successful
+     */
+    const bool isSMSuccess() const
+    {
+        return SMSuccess;
+    }
+    
+    /**
+     * @brief A set method to change the success status of the Standard Model update and matching.
+     * @param[in] success the new value for SMSuccess
+     */
+    void setSMSuccess(bool success) const
+    {
+        SMSuccess = success;
+    }
+
 
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -4013,6 +4031,8 @@ private:
     bool FlagMWinput; ///< A boolean for the model flag %MWinput.    
     bool FlagSMAux; ///< A boolean for the model flag %SMAux.
 
+    mutable bool SMSuccess; ///< A boolean for the success of the Standard Model update and matching
+    
     ////////////////////////////////////////////////////////////////////////     
     // Caches for EWPO
 
