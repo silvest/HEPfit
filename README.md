@@ -26,8 +26,8 @@ Installation (for developers):
   - [OpenMPI](https://docs.open-mpi.org/en/v5.0.x/installing-open-mpi/quickstart.html)
 - Developer Libraries
   - [RGESolver](https://github.com/silvest/RGESolver)
-    ```{sh}
-    git clone https://github.com/silvest/RGESolver.git --recursive
+    ```console
+    git clone https://github.com/silvest/RGESolver.git --recurse-submodules
     cd RGESolver
     mkdir build
     cd build
@@ -35,17 +35,18 @@ Installation (for developers):
     make -j
     make install
     ```
+  (add to the ```cmake .. ``` command line the options ``` -DBOOST_INCLUDE_DIR:PATH=<include path>/boost/``` and/or  ```-DBOOST_LIB_DIR:PATH=<boost lib path> ``` if needed)
   - [bat_MPI](https://github.com/silvest/bat_MPI)
-    ```{sh}
-    git clone https://github.com/silvest/bat_MPI.git
+    ```console
+    git clone https://github.com/silvest/bat_MPI.git --recurse-submodules
     cd bat_MPI
     ./configure CXX=mpic++ --prefix=<PATH>
     make -j
     make install
     ```
 - HEPfit (using CMake)
-  ```{sh}
-  git clone https://github.com/silvest/HEPfit.git --recursive
+  ```console
+  git clone https://github.com/silvest/HEPfit.git --recurse-submodules
   cd HEPfit
   mkdir build
   cd build
@@ -65,7 +66,7 @@ See doc/COPYING and doc/LICENSE for licensing terms.
 
 Documentation:
 --------------
-The documentation of the master branch is available from the [HEPfit webpage](https://hepfit.roma1.infn.it/doc/master/index.html). It is meant for the developers and is updated periodically. Documentation can also be generated from the master using the pacakging script in the `Packaging` directory by running
+The documentation of the master branch is available from the [HEPfit github.io webpage](https://silvest.github.io/HEPfit/). It is meant for the developers and is updated periodically. Documentation can also be generated from the master using the packaging script in the `Packaging` directory by running
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $ cd Packaging
 $ sh makepackage.sh --doxygen
