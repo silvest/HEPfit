@@ -2212,7 +2212,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keywordflow">for</span> (std::vector&lt;CorrelatedGaussianObservables&gt;::iterator it = <a class="code hl_variable" href="../../d6/dc9/class_monte_carlo_engine.html#acb2927c21f38bc94593d05341e1b598c">CGO</a>.begin(); it &lt; <a class="code hl_variable" href="../../d6/dc9/class_monte_carlo_engine.html#acb2927c21f38bc94593d05341e1b598c">CGO</a>.end(); it++) {</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="keywordflow">if</span>(!(it-&gt;isPrediction())) logprob += it-&gt;computeWeight();</div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    }</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keywordflow">if</span> (!std::isfinite(logprob) || !<a class="code hl_variable" href="../../d6/dc9/class_monte_carlo_engine.html#a57dd9a28a3cfa401f04f3405b6effe51">Mod</a>-&gt;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a0ba1dae4e56da55f768ed379d9b11e3e">isQCDsuccess</a>()) {</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keywordflow">if</span> (!std::isfinite(logprob) || !<a class="code hl_variable" href="../../d6/dc9/class_monte_carlo_engine.html#a57dd9a28a3cfa401f04f3405b6effe51">Mod</a>-&gt;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a0ba1dae4e56da55f768ed379d9b11e3e">isQCDsuccess</a>() || !<a class="code hl_variable" href="../../d6/dc9/class_monte_carlo_engine.html#a57dd9a28a3cfa401f04f3405b6effe51">Mod</a>-&gt;<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a778c8dfc4cb4970fe26498744cef2642">isSMSuccess</a>()) {</div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        <a class="code hl_variable" href="../../d6/dc9/class_monte_carlo_engine.html#a082682829a6c86b65857a42bf38bbd09">NumOfDiscardedEvents</a>++;</div>
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span><span class="preprocessor">#ifdef _MCDEBUG</span></div>
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span><span class="comment">//        std::cout &lt;&lt; &quot;Event discarded since logprob evaluated to: &quot; &lt;&lt; logprob &lt;&lt; std::endl ;</span></div>
@@ -2223,6 +2223,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <span class="keywordflow">return</span> logprob;</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>}</div>
 <div class="ttc" id="aclass_q_c_d_html_a0ba1dae4e56da55f768ed379d9b11e3e"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#a0ba1dae4e56da55f768ed379d9b11e3e">QCD::isQCDsuccess</a></div><div class="ttdeci">bool isQCDsuccess() const</div><div class="ttdoc">A getter for the QCDsuccess flag.</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d68/_q_c_d_8h_source.html#l00979">QCD.h:979</a></div></div>
+<div class="ttc" id="aclass_standard_model_html_a778c8dfc4cb4970fe26498744cef2642"><div class="ttname"><a href="../../dc/dd5/class_standard_model.html#a778c8dfc4cb4970fe26498744cef2642">StandardModel::isSMSuccess</a></div><div class="ttdeci">const bool isSMSuccess() const</div><div class="ttdoc">A get method to retrieve the success status of the Standard Model update and matching.</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d0a/_standard_model_8h_source.html#l03397">StandardModel.h:3397</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -5086,7 +5087,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d6/dc9/class_monte_carlo_engine.html">MonteCarloEngine</a></li>
-    <li class="footer">Generated on Tue Mar 4 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Wed Mar 5 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
