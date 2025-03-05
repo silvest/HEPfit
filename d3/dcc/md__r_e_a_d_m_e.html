@@ -145,17 +145,17 @@ Installation (for developers):</h1>
 </ul>
 </li>
 <li>Developer Libraries<ul>
-<li><a href="https://github.com/silvest/RGESolver">RGESolver</a> <div class="fragment"><div class="line">git clone https://github.com/silvest/RGESolver.git --recursive</div>
+<li><a href="https://github.com/silvest/RGESolver">RGESolver</a> <div class="fragment"><div class="line">git clone https://github.com/silvest/RGESolver.git --recurse-submodules</div>
 <div class="line">cd RGESolver</div>
 <div class="line">mkdir build</div>
 <div class="line">cd build</div>
 <div class="line">cmake .. -DCMAKE_INSTALL_PREFIX=&lt;PATH&gt;</div>
 <div class="line">make -j</div>
 <div class="line">make install</div>
-</div><!-- fragment --></li>
-<li><a href="https://github.com/silvest/bat_MPI">bat_MPI</a> ```{sh} git clone <a href="https://github.com/silvest/bat_MPI.git">https://github.com/silvest/bat_MPI.git</a> cd bat_MPI ./configure CXX=mpic++ &ndash;prefix=&lt;PATH&gt; make -j make install <div class="fragment"><div class="line">- HEPfit (using CMake)</div>
-<div class="line">  ```{sh}</div>
-<div class="line">  git clone https://github.com/silvest/HEPfit.git --recursive</div>
+</div><!-- fragment --> (add to the <code>cmake ..</code> command line the options <code>-DBOOST_INCLUDE_DIR:PATH=&lt;include path&gt;/boost/</code> and/or <code>-DBOOST_LIB_DIR:PATH=&lt;boost lib path&gt;</code> if needed)</li>
+<li><a href="https://github.com/silvest/bat_MPI">bat_MPI</a> ```console git clone <a href="https://github.com/silvest/bat_MPI.git">https://github.com/silvest/bat_MPI.git</a> &ndash;recurse-submodules cd bat_MPI ./configure CXX=mpic++ &ndash;prefix=&lt;PATH&gt; make -j make install <div class="fragment"><div class="line">- HEPfit (using CMake)</div>
+<div class="line">  ```console</div>
+<div class="line">  git clone https://github.com/silvest/HEPfit.git --recurse-submodules</div>
 <div class="line">  cd HEPfit</div>
 <div class="line">  mkdir build</div>
 <div class="line">  cd build</div>
@@ -172,7 +172,7 @@ Availability:</h1>
 <p >The HEPfit distribution package is available from the <a href="https://hepfit.roma1.infn.it/">HEPfit webpage</a>. See doc/COPYING and doc/LICENSE for licensing terms.</p>
 <h1><a class="anchor" id="autotoc_md56"></a>
 Documentation:</h1>
-<p >The documentation of the master branch is available from the <a href="https://hepfit.roma1.infn.it/doc/master/index.html">HEPfit webpage</a>. It is meant for the developers and is updated periodically. Documentation can also be generated from the master using the pacakging script in the <code>Packaging</code> directory by running </p><div class="fragment"><div class="line">$ cd Packaging</div>
+<p >The documentation of the master branch is available from the <a href="https://silvest.github.io/HEPfit/">HEPfit github.io webpage</a>. It is meant for the developers and is updated periodically. Documentation can also be generated from the master using the packaging script in the <code>Packaging</code> directory by running </p><div class="fragment"><div class="line">$ cd Packaging</div>
 <div class="line">$ sh makepackage.sh --doxygen</div>
 </div><!-- fragment --><p> The documentation will be generated in <code>Packaging/HEPfit-master-&lt;commit no.&gt;/Doxygen/html</code>. An installation of <a href="https://www.doxygen.nl/">Doxygen</a> is necessary. </p>
 </div></div><!-- contents -->
