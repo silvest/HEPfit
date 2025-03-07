@@ -4555,6 +4555,33 @@ ThObsFactory::ThObsFactory()
 
     //Observables for CP-violation at tth and thj (prospects and proposed asymmetries)
 
+    
+    
+    obsThFactory["Asymmetry_Dazi_ord_ttH_eta_cut_3"] = boost::factory<Asymmetry_Dazi_ord_ttH_eta_cut_3*>();
+    obsThFactory["Asymmetry_Dazi_ord_ttH_eta_cut_3_ee"] = boost::factory<Asymmetry_Dazi_ord_ttH_eta_cut_3_ee*>();
+    obsThFactory["Asymmetry_trip_prod_pt_pe_pp_ttH_eta_cut_3"] = boost::factory<Asymmetry_trip_prod_pt_pe_pp_ttH_eta_cut_3*>();
+    obsThFactory["Asymmetry_sign_trip_prod_pe_pp_ttH_eta_cut_3"] = boost::factory<Asymmetry_sign_trip_prod_pe_pp_ttH_eta_cut_3*>();
+
+    obsThFactory["sigma_ttH_eta_cut_3_diff_LO_mtth"] = boost::factory<sigma_ttH_eta_cut_3_diff_LO_mtth*>();
+    obsThFactory["b4_ttH_eta_cut_3_LO"] = boost::factory<b4_ttH_eta_cut_3_LO*>();
+
+
+
+
+    obsThFactory["Asymmetry_cos_je_tHj_eta_cut_3"] = boost::factory<Asymmetry_cos_je_tHj_eta_cut_3*>();
+    obsThFactory["Asymmetry_cos_se_tHj_eta_cut_3"] = boost::factory<Asymmetry_cos_se_tHj_eta_cut_3*>();
+    obsThFactory["Asymmetry_cos_ye_tHj_eta_cut_3"] = boost::factory<Asymmetry_cos_ye_tHj_eta_cut_3*>();
+    obsThFactory["Asymmetry_trip_prod_ph_pt_pj_tHj_eta_cut_3"] = boost::factory<Asymmetry_trip_prod_ph_pt_pj_tHj_eta_cut_3*>();
+
+    obsThFactory["sigma_tHj_eta_cut_3_diff_LO_Del_R_th"] = boost::factory<sigma_tHj_eta_cut_3_diff_LO_Del_R_th*>();
+    obsThFactory["sigma_tHj_eta_cut_3_diff_LO_mth"] = boost::factory<sigma_tHj_eta_cut_3_diff_LO_mth*>();
+    obsThFactory["sigma_tHj_eta_cut_3_diff_LO_trip_prod_z_pt_pj"] = boost::factory<sigma_tHj_eta_cut_3_diff_LO_trip_prod_z_pt_pj*>();
+    
+    
+    
+    
+    
+    
     obsThFactory["Asymmetry_Dazi_ord_ttH"] = boost::factory<Asymmetry_Dazi_ord_ttH*>();
     obsThFactory["Asymmetry_Dazi_ord_ttH_ee"] = boost::factory<Asymmetry_Dazi_ord_ttH_ee*>();
     obsThFactory["Asymmetry_trip_prod_pt_pe_pp_ttH"] = boost::factory<Asymmetry_trip_prod_pt_pe_pp_ttH*>();

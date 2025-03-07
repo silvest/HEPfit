@@ -3461,10 +3461,14 @@ private:
     };
     
     
-
     
     
-    /*
+    
+    
+    
+    
+    
+        /*
     * @class b4_ttH_LO
     * @ingroup TopQuarkObservables 
     * @brief b4 observable for ttH
@@ -3648,13 +3652,6 @@ private:
         const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
 
     };
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -3858,6 +3855,428 @@ private:
      * @brief sigma_tHj_diff_LO_trip_prod_z_pt_pj constructor.
      */
     sigma_tHj_diff_LO_trip_prod_z_pt_pj(const StandardModel& SM_i);
+
+    /**
+     * @return The value of sigma_tHj_diff_LO_trip_prod_z_pt_pj
+     */
+    double computeThValue();
+    
+    private:
+        
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    /*
+    * @class b4_ttH_LO
+    * @ingroup TopQuarkObservables 
+    * @brief b4 observable for ttH
+    */
+    class b4_ttH_eta_cut_3_LO: public ThObservable {
+    public:
+
+    /**
+     * @brief b4_ttH_LO constructor.
+     */
+    b4_ttH_eta_cut_3_LO(const StandardModel& SM_i);
+
+    /**
+     * @return The value of b4_ttH_LO
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_Dazi_ord_ttH
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the variation
+     * of the azimuthal angle of the 
+     * top pairs in the tth process
+     * ordered by the pseudorapidty
+    */
+    class Asymmetry_Dazi_ord_ttH_eta_cut_3: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_Dazi_ord_ttH constructor.
+     */
+    Asymmetry_Dazi_ord_ttH_eta_cut_3(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_Dazi_ord_ttH
+     */
+    double computeThValue();
+    
+    private:
+
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_Dazi_ord_ttH
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the variation
+     * of the azimuthal angle of the 
+     * final electron pairs in the 
+     * tth process ordered by the 
+     * pseudorapidty
+    */
+    class Asymmetry_Dazi_ord_ttH_eta_cut_3_ee: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_Dazi_ord_ttH_ee constructor.
+     */
+    Asymmetry_Dazi_ord_ttH_eta_cut_3_ee(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_Dazi_ord_ttH_ee
+     */
+    double computeThValue();
+    
+    private:
+
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /*
+    * @class sigma_ttH_diff_LO_mtth
+    * @ingroup TopQuarkObservables 
+    * @brief ttH differential cross
+     * section w.r.t. the invariant
+     * mass of tth
+    */
+    class sigma_ttH_eta_cut_3_diff_LO_mtth: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_ttH_diff_LO_mtth constructor.
+     */
+    sigma_ttH_eta_cut_3_diff_LO_mtth(const StandardModel& SM_i);
+
+    /**
+     * @return The value of sigma_ttH_diff_LO_mtth
+     */
+    double computeThValue();
+    
+    private:
+     
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_trip_prod_pt_pe_pp_ttH
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the triple product
+     * p_t\cdot(p_{e^-}\times p_{e^+})
+     * in the tth process 
+    */
+    class Asymmetry_trip_prod_pt_pe_pp_ttH_eta_cut_3: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_trip_prod_pt_pe_pp_ttH constructor.
+     */
+    Asymmetry_trip_prod_pt_pe_pp_ttH_eta_cut_3(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_trip_prod_pt_pe_pp_ttH
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_sign_trip_prod_pe_pp_ttH
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the scalar product
+     * p_{e^-}\cdot p_{e^+} in the tth process 
+     * scaled by the sign of the triple product
+     * p_t\cdot(p_{e^-}\times p_{e^+})
+    */
+    class Asymmetry_sign_trip_prod_pe_pp_ttH_eta_cut_3: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_sign_trip_prod_pe_pp_ttH constructor.
+     */
+    Asymmetry_sign_trip_prod_pe_pp_ttH_eta_cut_3(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_sign_trip_prod_pe_pp_ttH
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_cos_je_tHj
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the cosine of the 
+     * polarisation angle defined with respect
+     * to the axis "je" in the thj process.
+    */
+    class Asymmetry_cos_je_tHj_eta_cut_3: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_cos_je_tHj constructor.
+     */
+    Asymmetry_cos_je_tHj_eta_cut_3(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_cos_je_tHj
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_cos_se_tHj
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the cosine of the 
+     * polarisation angle defined with respect
+     * to the axis "se" in the thj process.
+    */
+    class Asymmetry_cos_se_tHj_eta_cut_3: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_cos_se_tHj constructor.
+     */
+    Asymmetry_cos_se_tHj_eta_cut_3(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_cos_se_tHj
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_cos_ye_tHj
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the cosine of the 
+     * polarisation angle defined with respect
+     * to the axis "ye" in the thj process.
+    */
+    class Asymmetry_cos_ye_tHj_eta_cut_3: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_cos_ye_tHj constructor.
+     */
+    Asymmetry_cos_ye_tHj_eta_cut_3(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_cos_ye_tHj
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+    /*
+    * @class Asymmetry_trip_prod_ph_pt_pj_tHj
+    * @ingroup TopQuarkObservables 
+    * @brief Asymmetry of the triple product
+     * ph\cross(pt\cdot pj) in the thj process.
+    */
+    class Asymmetry_trip_prod_ph_pt_pj_tHj_eta_cut_3: public ThObservable {
+    public:
+
+    /**
+     * @brief Asymmetry_trip_prod_ph_pt_pj_tHj constructor.
+     */
+    Asymmetry_trip_prod_ph_pt_pj_tHj_eta_cut_3(const StandardModel& SM_i);
+
+    /**
+     * @return The value of Asymmetry_trip_prod_ph_pt_pj_tHj
+     */
+    double computeThValue();
+    
+    private:
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    
+    
+    
+    /*
+    * @class sigma_tHj_diff_LO_Del_R_th
+    * @ingroup TopQuarkObservables 
+    * @brief Differential cross section
+     * with respect to the \Delta R(th)
+     *  in the thj process.
+    */
+    class sigma_tHj_eta_cut_3_diff_LO_Del_R_th: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tHj_diff_LO_Del_R_th constructor.
+     */
+    sigma_tHj_eta_cut_3_diff_LO_Del_R_th(const StandardModel& SM_i);
+
+    /**
+     * @return The value of sigma_tHj_diff_LO_Del_R_th
+     */
+    double computeThValue();
+    
+    private:
+        
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+    
+    
+    /*
+    * @class sigma_tHj_diff_LO_mth
+    * @ingroup TopQuarkObservables 
+    * @brief Differential cross section
+     * with respect to the invariant
+     * mass of the Higgs and top
+     *  in the thj process.
+    */
+    class sigma_tHj_eta_cut_3_diff_LO_mth: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tHj_diff_LO_mth constructor.
+     */
+    sigma_tHj_eta_cut_3_diff_LO_mth(const StandardModel& SM_i);
+
+    /**
+     * @return The value of sigma_tHj_diff_LO_mth
+     */
+    double computeThValue();
+    
+    private:
+        
+        double b_min = 0.;
+        double b_max = 0.;
+        
+        const NPSMEFT6dtopquark& myNPSMEFT6dtopquark;
+
+    };
+    
+
+    
+    
+    /*
+    * @class sigma_tHj_diff_LO_trip_prod_z_pt_pj
+    * @ingroup TopQuarkObservables 
+    * @brief Differential cross section with
+     * respect to the triple product of the 
+     * 3-momenta of the proton beam the 
+     * top-quark and the jet in the thj process.
+    */
+    class sigma_tHj_eta_cut_3_diff_LO_trip_prod_z_pt_pj: public ThObservable {
+    public:
+
+    /**
+     * @brief sigma_tHj_diff_LO_trip_prod_z_pt_pj constructor.
+     */
+    sigma_tHj_eta_cut_3_diff_LO_trip_prod_z_pt_pj(const StandardModel& SM_i);
 
     /**
      * @return The value of sigma_tHj_diff_LO_trip_prod_z_pt_pj
