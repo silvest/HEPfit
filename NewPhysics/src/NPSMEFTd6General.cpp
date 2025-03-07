@@ -8538,7 +8538,7 @@ bool NPSMEFTd6General::PostUpdate() {
     // Renormalization of Higgs field parameter
     delta_h = (-getSMEFTCoeffEW("CHD") / 4.0 + getSMEFTCoeffEW("CHbox")) * v2;
 
-    //  Calculation of some quantities repeteadly used in the code
+    //  Calculation of some quantities repeatedly used in the code
 
     //  NP corrections to Z and W mass Lagrangian parameters
     delta_MZ = (sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") + 0.25 * getSMEFTCoeffEW("CHD") + (3.0 / 8.0) * getSMEFTCoeffEW("CH") / lambdaH_tree) * v2;
@@ -8754,6 +8754,43 @@ bool NPSMEFTd6General::PostUpdate() {
 
     // update LEFT Wilson coefficients (time consuming, do only if FlagmatchLEFT=true
     if (FlagmatchLEFT) getMatching().updateLEFTGeneralParameters();
+    
+    
+    //  3) Store some of the operators at the EW scale in the physical basis
+    
+    // Diagonal-elements of neutral-current (NC) combinations are always real
+    
+    // NC up-quark sector
+    CHq1EWuu = getSMEFTCoeffEWMB("CHq1", 0, 0, VuLd, VuL).real();
+    CHq1EWcc = getSMEFTCoeffEWMB("CHq1", 1, 1, VuLd, VuL).real();
+    CHq1EWtt = getSMEFTCoeffEWMB("CHq1", 2, 2, VuLd, VuL).real();
+    
+    CHq3EWuu = getSMEFTCoeffEWMB("CHq3", 0, 0, VuLd, VuL).real();
+    CHq3EWcc = getSMEFTCoeffEWMB("CHq3", 1, 1, VuLd, VuL).real();
+    CHq3EWtt = getSMEFTCoeffEWMB("CHq3", 2, 2, VuLd, VuL).real();
+    
+    CHuEWuu = getSMEFTCoeffEWMB("CHu", 0, 0, VuRd, VuR).real();
+    CHuEWcc = getSMEFTCoeffEWMB("CHu", 1, 1, VuRd, VuR).real();
+    CHuEWtt = getSMEFTCoeffEWMB("CHu", 2, 2, VuRd, VuR).real();
+    
+    // NC down-quark sector
+    CHq1EWdd = getSMEFTCoeffEWMB("CHq1", 0, 0, VdLd, VdL).real();
+    CHq1EWss = getSMEFTCoeffEWMB("CHq1", 1, 1, VdLd, VdL).real();
+    CHq1EWbb = getSMEFTCoeffEWMB("CHq1", 2, 2, VdLd, VdL).real();
+    
+    CHq3EWdd = getSMEFTCoeffEWMB("CHq3", 0, 0, VdLd, VdL).real();
+    CHq3EWss = getSMEFTCoeffEWMB("CHq3", 1, 1, VdLd, VdL).real();
+    CHq3EWbb = getSMEFTCoeffEWMB("CHq3", 2, 2, VdLd, VdL).real();
+    
+    CHdEWdd = getSMEFTCoeffEWMB("CHd", 0, 0, VdRd, VdR).real();
+    CHdEWss = getSMEFTCoeffEWMB("CHd", 1, 1, VdRd, VdR).real();
+    CHdEWbb = getSMEFTCoeffEWMB("CHd", 2, 2, VdRd, VdR).real();
+    
+    // Charged-Current up-down-quark sector (complex)   
+    CHq3EWud = getSMEFTCoeffEWMB("CHq3", 0, 0, VuLd, VdL);
+    CHq3EWcs = getSMEFTCoeffEWMB("CHq3", 1, 1, VuLd, VdL);
+    CHq3EWtb = getSMEFTCoeffEWMB("CHq3", 2, 2, VuLd, VdL);
+
 
     return (true);
 }
@@ -14043,6 +14080,59 @@ bool NPSMEFTd6General::setFlagStr(const std::string name, const std::string valu
 
 ////////////////////////////////////////////////////////////////////////
 
+// Coefficients of fermionic operators in the mass basis
+    
+// Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
+inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name, int i, int j, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj) const
+{
+        std::string nameR, nameI;
+        gslpp::complex Cij;
+        
+        // Add the R and I to the name of the operator, to call the real and imaginary parts of the operator from RGEsolver
+        nameR = name;
+        nameI = name;
+        
+        nameR.push_back('R');
+        nameI.push_back('I');
+
+        Cij = 0.;
+        
+        for (int k = 0; k < 3; k++)
+            for (int l = 0; l < 3; l++) 
+            {
+                Cij +=  Vi(i,k) * ( getSMEFTCoeffEW(nameR, k, l) + gslpp::complex::i() * getSMEFTCoeffEW(nameI, k, l) ) * Vj(l,j);
+            }
+        
+        return Cij;
+}
+    
+inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name, int i, int j, int k, int l, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, gslpp::matrix<gslpp::complex> Vk, gslpp::matrix<gslpp::complex>  Vl) const
+{
+        std::string nameR, nameI;
+        gslpp::complex Cijkl;
+        
+        // Add the R and I to the name of the operator, to call the real and imaginary parts of the operator from RGEsolver
+        nameR = name;
+        nameI = name;
+        
+        nameR.push_back('R');
+        nameI.push_back('I');
+
+        Cijkl = 0.;
+        
+        for (int m1 = 0; m1 < 3; m1++)
+            for (int n1 = 0; n1 < 3; n1++) 
+                for (int m2 = 0; m2 < 3; m2++) 
+                    for (int n2 = 0; n2 < 3; n2++)
+                    {
+                        Cijkl +=  Vi(i,m1) * Vk(k,m2) * ( getSMEFTCoeffEW(nameR, m1, n1, m2, n2) + gslpp::complex::i() * getSMEFTCoeffEW(nameI, m1, n1, m2, n2) ) * Vj(n1,j) * Vl(n2,l);
+                    }
+        
+        return Cijkl;   
+}
+
+////////////////////////////////////////////////////////////////////////
+
 // Functions to select the SMEFT WC at different energy scales 
 
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) const {
@@ -14483,6 +14573,58 @@ double NPSMEFTd6General::xlog5(const double C1Lambda, const double C2, const dou
     return xlog/den;
 }
 
+////////////////////////////////////////////////////////////////////////
+
+// Coefficients of fermionic operators in the mass basis
+    
+// Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
+inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffMB(const std::string name, int i, int j, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, const double mu) const
+{
+        std::string nameR, nameI;
+        gslpp::complex Cij;
+        
+        // Add the R and I to the name of the operator, to call the real and imaginary parts of the operator from RGEsolver
+        nameR = name;
+        nameI = name;
+        
+        nameR.push_back('R');
+        nameI.push_back('I');
+
+        Cij = 0.;
+        
+        for (int k = 0; k < 3; k++)
+            for (int l = 0; l < 3; l++) 
+            {
+                Cij +=  Vi(i,k) * ( getSMEFTCoeff(nameR, k, l, mu) + gslpp::complex::i() * getSMEFTCoeff(nameI, k, l, mu) ) * Vj(l,j);
+            }
+        
+        return Cij;
+}
+    
+inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffMB(const std::string name, int i, int j, int k, int l, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, gslpp::matrix<gslpp::complex> Vk, gslpp::matrix<gslpp::complex>  Vl, const double mu) const
+{
+        std::string nameR, nameI;
+        gslpp::complex Cijkl;
+        
+        // Add the R and I to the name of the operator, to call the real and imaginary parts of the operator from RGEsolver
+        nameR = name;
+        nameI = name;
+        
+        nameR.push_back('R');
+        nameI.push_back('I');
+
+        Cijkl = 0.;
+        
+        for (int m1 = 0; m1 < 3; m1++)
+            for (int n1 = 0; n1 < 3; n1++) 
+                for (int m2 = 0; m2 < 3; m2++) 
+                    for (int n2 = 0; n2 < 3; n2++)
+                    {
+                        Cijkl +=  Vi(i,m1) * Vk(k,m2) * ( getSMEFTCoeff(nameR, m1, n1, m2, n2, mu) + gslpp::complex::i() * getSMEFTCoeff(nameI, m1, n1, m2, n2, mu) ) * Vj(n1,j) * Vl(n2,l);
+                    }
+        
+        return Cijkl;   
+}
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -14500,40 +14642,121 @@ double NPSMEFTd6General::xlog5(const double C1Lambda, const double C2, const dou
 
 double NPSMEFTd6General::CHF1_diag(const Particle F) const {
     //We include only the real part for the moment
+    //if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
+    //    return getSMEFTCoeffEW("CHl1R", 0, 0);
+    //else if (F.is("NEUTRINO_2") || F.is("MU"))
+    //    return getSMEFTCoeffEW("CHl1R", 1, 1);
+    //else if (F.is("NEUTRINO_3") || F.is("TAU"))
+    //    return getSMEFTCoeffEW("CHl1R", 2, 2);
+    //else if (F.is("UP") || F.is("DOWN"))
+    //    return getSMEFTCoeffEW("CHq1R", 0, 0);
+    //else if (F.is("CHARM") || F.is("STRANGE"))
+    //    return getSMEFTCoeffEW("CHq1R", 1, 1);
+    //else if (F.is("TOP") || F.is("BOTTOM"))
+    //    return getSMEFTCoeffEW("CHq1R", 2, 2);
+    //else
+    //    throw std::runtime_error("NPSMEFTd6General::CHF1_diag(): wrong argument");
+    
     if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
         return getSMEFTCoeffEW("CHl1R", 0, 0);
     else if (F.is("NEUTRINO_2") || F.is("MU"))
         return getSMEFTCoeffEW("CHl1R", 1, 1);
     else if (F.is("NEUTRINO_3") || F.is("TAU"))
         return getSMEFTCoeffEW("CHl1R", 2, 2);
-    else if (F.is("UP") || F.is("DOWN"))
-        return getSMEFTCoeffEW("CHq1R", 0, 0);
-    else if (F.is("CHARM") || F.is("STRANGE"))
-        return getSMEFTCoeffEW("CHq1R", 1, 1);
-    else if (F.is("TOP") || F.is("BOTTOM"))
-        return getSMEFTCoeffEW("CHq1R", 2, 2);
+    else if (F.is("UP"))
+        return CHq1EWuu;
+    else if (F.is("DOWN"))
+        return CHq1EWdd;
+    else if (F.is("CHARM"))
+        return CHq1EWcc;
+    else if (F.is("STRANGE"))
+        return CHq1EWss;
+    else if (F.is("TOP"))
+        return CHq1EWtt;
+    else if (F.is("BOTTOM"))
+        return CHq1EWbb;
     else
         throw std::runtime_error("NPSMEFTd6General::CHF1_diag(): wrong argument");
 }
 
 double NPSMEFTd6General::CHF3_diag(const Particle F) const {
+    //if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
+    //    return getSMEFTCoeffEW("CHl3R", 0, 0);
+    //else if (F.is("NEUTRINO_2") || F.is("MU"))
+    //    return getSMEFTCoeffEW("CHl3R", 1, 1);
+    //else if (F.is("NEUTRINO_3") || F.is("TAU"))
+    //    return getSMEFTCoeffEW("CHl3R", 2, 2);
+    //else if (F.is("UP") || F.is("DOWN"))
+    //    return getSMEFTCoeffEW("CHq3R", 0, 0);
+    //else if (F.is("CHARM") || F.is("STRANGE"))
+    //    return getSMEFTCoeffEW("CHq3R", 1, 1);
+    //else if (F.is("TOP") || F.is("BOTTOM"))
+    //    return getSMEFTCoeffEW("CHq3R", 2, 2);
+    //else
+    //    throw std::runtime_error("NPSMEFTd6General::CHF3_diag(): wrong argument");
+    
     if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
         return getSMEFTCoeffEW("CHl3R", 0, 0);
     else if (F.is("NEUTRINO_2") || F.is("MU"))
         return getSMEFTCoeffEW("CHl3R", 1, 1);
     else if (F.is("NEUTRINO_3") || F.is("TAU"))
         return getSMEFTCoeffEW("CHl3R", 2, 2);
-    else if (F.is("UP") || F.is("DOWN"))
-        return getSMEFTCoeffEW("CHq3R", 0, 0);
-    else if (F.is("CHARM") || F.is("STRANGE"))
-        return getSMEFTCoeffEW("CHq3R", 1, 1);
-    else if (F.is("TOP") || F.is("BOTTOM"))
-        return getSMEFTCoeffEW("CHq3R", 2, 2);
+    else if (F.is("UP"))
+        return CHq3EWuu;
+    else if (F.is("DOWN"))
+        return CHq3EWdd;
+    else if (F.is("CHARM"))
+        return CHq3EWcc;
+    else if (F.is("STRANGE"))
+        return CHq3EWss;
+    else if (F.is("TOP"))
+        return CHq3EWtt;
+    else if (F.is("BOTTOM"))
+        return CHq3EWbb;
     else
         throw std::runtime_error("NPSMEFTd6General::CHF3_diag(): wrong argument");
 }
 
+gslpp::complex NPSMEFTd6General::CHF3CC_diag(const Particle F) const {
+    if (F.getIndex() % 2 != 0)
+        throw std::runtime_error("NPSMEFTd6General::CHF3CC_diag(): wrong argument");
+
+    if (F.is("LEPTON"))
+        return gslpp::complex(CHF3_diag(F), 0.0, false);
+    else if (F.is("UP"))
+        return CHq3EWud;
+    else if (F.is("CHARM"))
+        return CHq3EWcs;
+    else if (F.is("TOP"))
+        return CHq3EWtb;
+    else
+        throw std::runtime_error("NPSMEFTd6General::CHF3CC_diag(): wrong argument");
+}
+
 double NPSMEFTd6General::CHf_diag(const Particle f) const {
+    //if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
+    //    return 0.0;
+    //else if (f.is("ELECTRON"))
+    //    return getSMEFTCoeffEW("CHeR", 0, 0);
+    //else if (f.is("MU"))
+    //    return getSMEFTCoeffEW("CHeR", 1, 1);
+    //else if (f.is("TAU"))
+    //    return getSMEFTCoeffEW("CHeR", 2, 2);
+    //else if (f.is("UP"))
+    //    return getSMEFTCoeffEW("CHuR", 0, 0);
+    //else if (f.is("CHARM"))
+    //    return getSMEFTCoeffEW("CHuR", 1, 1);
+    //else if (f.is("TOP"))
+    //    return getSMEFTCoeffEW("CHuR", 2, 2);
+    //else if (f.is("DOWN"))
+    //    return getSMEFTCoeffEW("CHdR", 0, 0);
+    //else if (f.is("STRANGE"))
+    //    return getSMEFTCoeffEW("CHdR", 1, 1);
+    //else if (f.is("BOTTOM"))
+    //    return getSMEFTCoeffEW("CHdR", 2, 2);
+    //else
+    //    throw std::runtime_error("NPSMEFTd6General::CHf_diag(): wrong argument");
+    
     if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
         return 0.0;
     else if (f.is("ELECTRON"))
@@ -14543,17 +14766,17 @@ double NPSMEFTd6General::CHf_diag(const Particle f) const {
     else if (f.is("TAU"))
         return getSMEFTCoeffEW("CHeR", 2, 2);
     else if (f.is("UP"))
-        return getSMEFTCoeffEW("CHuR", 0, 0);
+        return CHuEWuu;
     else if (f.is("CHARM"))
-        return getSMEFTCoeffEW("CHuR", 1, 1);
+        return CHuEWcc;
     else if (f.is("TOP"))
-        return getSMEFTCoeffEW("CHuR", 2, 2);
+        return CHuEWtt;
     else if (f.is("DOWN"))
-        return getSMEFTCoeffEW("CHdR", 0, 0);
+        return CHdEWdd;
     else if (f.is("STRANGE"))
-        return getSMEFTCoeffEW("CHdR", 1, 1);
+        return CHdEWss;
     else if (f.is("BOTTOM"))
-        return getSMEFTCoeffEW("CHdR", 2, 2);
+        return CHdEWbb;
     else
         throw std::runtime_error("NPSMEFTd6General::CHf_diag(): wrong argument");
 }
@@ -15082,7 +15305,8 @@ const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle 
     double deltaNLO;
     
     if (fj.getIndex() - fi.getIndex() == 1)
-        CHF3ij = CHF3_diag(fi);
+        //CHF3ij = CHF3_diag(fi);
+        CHF3ij = CHF3CC_diag(fi).real();
     else
         CHF3ij = 0.;
     
@@ -16499,16 +16723,17 @@ gslpp::complex NPSMEFTd6General::deltaGL_Wff(const Particle pbar, const Particle
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPSMEFTd6General::deltaGL_Wff(): Not implemented");
 
-    double CHF3 = CHF3_diag(pbar);
-    double NPindirect;
+    //double CHF3 = CHF3_diag(pbar);
+    gslpp::complex CHF3 = CHF3CC_diag(pbar);
+    
+    gslpp::complex NPindirect;
 
     //    NPindirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
     //                * ((4.0 * sW_tree / cW_tree * getSMEFTCoeffEW("CHWB") + getSMEFTCoeffEW("CHD")) * v2_over_LambdaNP2 + 2.0 * delta_GF);
 
-    NPindirect = delta_UgCC;
-
-    double NPdirect = CHF3 * v2;
-    return (NPindirect + NPdirect);
+    NPindirect = gslpp::complex(delta_UgCC, 0.0, false);
+    
+    return (NPindirect + CHF3 * v2 );
 }
 
 gslpp::complex NPSMEFTd6General::deltaGR_Wff(const Particle pbar, const Particle p) const {
@@ -17114,7 +17339,9 @@ gslpp::complex NPSMEFTd6General::deltaGL_Wffh(const Particle pbar, const Particl
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPSMEFTd6General::deltaGL_Wffh(): Not implemented");
 
-    double CHF3 = CHF3_diag(pbar);
+    //double CHF3 = CHF3_diag(pbar);
+    gslpp::complex CHF3 = CHF3CC_diag(pbar);
+    
     return (2.0 * sqrt(2.0) * Mz * cW_tree / v() / v() * CHF3 * v2);
 }
 

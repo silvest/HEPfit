@@ -6701,6 +6701,13 @@ public:
     {
         return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
     }
+    
+    // Coefficients of fermionic operators in the mass basis
+    
+    // Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
+    inline gslpp::complex getSMEFTCoeffEWMB(const std::string name, int i, int j, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj) const;
+    
+    inline gslpp::complex getSMEFTCoeffEWMB(const std::string name, int i, int j, int k, int l, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, gslpp::matrix<gslpp::complex> Vk, gslpp::matrix<gslpp::complex>  Vl) const;
         
     void printNonVanishingSMEFTCoeffEW() const;
     
@@ -6715,7 +6722,7 @@ public:
     double getSMEFTCoeff(const std::string name, int i, int j, const double mu) const;
     
     double getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const;
-    
+        
     // Functions used by the above to compute the approximation by a polynomial up to log^5 to the RG evolution
     
     // Coeff of term proportional to log(mu/Lambda)
@@ -6728,7 +6735,14 @@ public:
     double xlog4(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const;
     // Coeff of term proportional to log^5(mu/Lambda)
     double xlog5(const double C1Lambda, const double C2, const double C3,  const double C4, const double C5, const double C6muw) const;
+
     
+    // Coefficients of fermionic operators in the mass basis
+    
+    // Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
+    inline gslpp::complex getSMEFTCoeffMB(const std::string name, int i, int j, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, const double mu) const;
+    
+    inline gslpp::complex getSMEFTCoeffMB(const std::string name, int i, int j, int k, int l, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, gslpp::matrix<gslpp::complex> Vk, gslpp::matrix<gslpp::complex>  Vl, const double mu) const;
 
     ////////////////////////////////////////////    
     
@@ -7479,6 +7493,17 @@ protected:
     double delta_UgCC; ///< The dimension 6 universal correction to charged current EW couplings
     
     double delta_em; ///< The relative dimension 6 correction to the QED interaction vertex
+    
+    // Operators entering in the EWPO (mass basis)
+    double CHq1EWuu, CHq1EWcc, CHq1EWtt; ///< CHq1 operators at the EW scale in the up-quark mass basis
+    double CHq3EWuu, CHq3EWcc,CHq3EWtt; ///< CHq3 operators at the EW scale in the up-quark mass basis
+    double CHuEWuu, CHuEWcc, CHuEWtt; ///< CHu operators at the EW scale in the up-quark mass basis
+    
+    double CHq1EWdd, CHq1EWss, CHq1EWbb;  ///< CHq1 operators at the EW scale in the down-quark mass basis   
+    double CHq3EWdd, CHq3EWss, CHq3EWbb;  ///< CHq3 operators at the EW scale in the down-quark mass basis  
+    double CHdEWdd, CHdEWss, CHdEWbb;  ///< CHd operators at the EW scale in the down-quark mass basis  
+    
+    gslpp::complex CHq3EWud, CHq3EWcs, CHq3EWtb; ///< CHq3 operators at the EW scale in the up-down-quark mass basis     
 
      //AG:begin
     /**
@@ -7693,6 +7718,13 @@ protected:
      * @return @f$(\f$C_{HF}^{(3)})_{FF}\f$@f$
      */
     double CHF3_diag(const Particle F) const;
+    
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HL,HQ}^{(3)}\f$ corresponding to charged-current modification, e.g. quarks u d (family diagonal).
+     * @param[in] F a lepton or quark
+     * @return @f$(\f$C_{HF}^{(3)})_{Fup-Fdown}\f$@f$
+     */
+    gslpp::complex CHF3CC_diag(const Particle F) const;
 
     /**
      * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HE,HU,HD}\f$ corresponding to particle f.
