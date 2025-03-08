@@ -7495,15 +7495,15 @@ protected:
     double delta_em; ///< The relative dimension 6 correction to the QED interaction vertex
     
     // Operators entering in the EWPO (mass basis)
-    double CHq1EWuu, CHq1EWcc, CHq1EWtt; ///< CHq1 operators at the EW scale in the up-quark mass basis
-    double CHq3EWuu, CHq3EWcc,CHq3EWtt; ///< CHq3 operators at the EW scale in the up-quark mass basis
-    double CHuEWuu, CHuEWcc, CHuEWtt; ///< CHu operators at the EW scale in the up-quark mass basis
+    double CHq1EWuu = 0., CHq1EWcc = 0., CHq1EWtt = 0.; ///< CHq1 operators at the EW scale in the up-quark mass basis
+    double CHq3EWuu = 0., CHq3EWcc = 0., CHq3EWtt = 0.; ///< CHq3 operators at the EW scale in the up-quark mass basis
+    double CHuEWuu = 0., CHuEWcc = 0., CHuEWtt = 0.; ///< CHu operators at the EW scale in the up-quark mass basis
     
-    double CHq1EWdd, CHq1EWss, CHq1EWbb;  ///< CHq1 operators at the EW scale in the down-quark mass basis   
-    double CHq3EWdd, CHq3EWss, CHq3EWbb;  ///< CHq3 operators at the EW scale in the down-quark mass basis  
-    double CHdEWdd, CHdEWss, CHdEWbb;  ///< CHd operators at the EW scale in the down-quark mass basis  
+    double CHq1EWdd = 0., CHq1EWss = 0., CHq1EWbb = 0.;  ///< CHq1 operators at the EW scale in the down-quark mass basis   
+    double CHq3EWdd = 0., CHq3EWss = 0., CHq3EWbb = 0.;  ///< CHq3 operators at the EW scale in the down-quark mass basis  
+    double CHdEWdd = 0., CHdEWss = 0., CHdEWbb = 0.;  ///< CHd operators at the EW scale in the down-quark mass basis  
     
-    gslpp::complex CHq3EWud, CHq3EWcs, CHq3EWtb; ///< CHq3 operators at the EW scale in the up-down-quark mass basis     
+    gslpp::complex CHq3EWud = gslpp::complex(0., 0., false), CHq3EWcs = gslpp::complex(0., 0., false), CHq3EWtb = gslpp::complex(0., 0., false); ///< CHq3 operators at the EW scale in the up-down-quark mass basis     
 
      //AG:begin
     /**
