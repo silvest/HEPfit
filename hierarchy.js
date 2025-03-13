@@ -3112,6 +3112,8 @@ var hierarchy =
       [ "sigma_tq_13_LO", "d7/d6d/classsigma__tq__13___l_o.html", null ],
       [ "sigma_tq_7_LO", "dd/d9c/classsigma__tq__7___l_o.html", null ],
       [ "sigma_tq_8_LO", "d5/d1a/classsigma__tq__8___l_o.html", null ],
+      [ "sigma_tq_antitop_13_LO", "d9/dd3/classsigma__tq__antitop__13___l_o.html", null ],
+      [ "sigma_tq_top_13_LO", "d8/dd1/classsigma__tq__top__13___l_o.html", null ],
       [ "sigma_ttH_diff_LO_mtth", "d6/dd6/classsigma__tt_h__diff___l_o__mtth.html", null ],
       [ "sigma_ttH_diff_NLO_ATLAS_220700092", "d2/dd9/classsigma__tt_h__diff___n_l_o___a_t_l_a_s__220700092.html", null ],
       [ "sigma_ttH_eta_cut_3_diff_LO_mtth", "d4/df0/classsigma__tt_h__eta__cut__3__diff___l_o__mtth.html", null ],

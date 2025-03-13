@@ -281,18 +281,27 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><a id="l03875" name="l03875"></a><span class="lineno"> 3875</span>        }</div>
 <div class="line"><a id="l03876" name="l03876"></a><span class="lineno"> 3876</span>        <span class="keywordflow">else</span>{</div>
 <div class="line"><a id="l03877" name="l03877"></a><span class="lineno"> 3877</span>        </div>
-<div class="line"><a id="l03878" name="l03878"></a><span class="lineno"> 3878</span>            <span class="keywordtype">double</span> total = sigma_tq_7_SM +(6.512720*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CHq3R&quot;</span>,2,2)-1.642790*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CuWR&quot;</span>,2,2)</div>
-<div class="line"><a id="l03879" name="l03879"></a><span class="lineno"> 3879</span>            -6.576310*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CHl3R&quot;</span>,0,0)+-6.576310*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CHl3R&quot;</span>,1,1)+0.008127*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CHudR&quot;</span>,2,2)</div>
-<div class="line"><a id="l03880" name="l03880"></a><span class="lineno"> 3880</span>            +6.580220*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CllR&quot;</span>,0,1,1,0))*(sigma_tq_7_SM/sigma_tq_7_LO_madgraph);</div>
+<div class="line"><a id="l03878" name="l03878"></a><span class="lineno"> 3878</span>            <span class="comment">//double total = sigma_tq_7_SM +(6.512720*ewgc(&quot;CHq3R&quot;,2,2)-1.642790*ewgc(&quot;CuWR&quot;,2,2)</span></div>
+<div class="line"><a id="l03879" name="l03879"></a><span class="lineno"> 3879</span>            <span class="comment">//-6.576310*ewgc(&quot;CHl3R&quot;,0,0)+-6.576310*ewgc(&quot;CHl3R&quot;,1,1)+0.008127*ewgc(&quot;CHudR&quot;,2,2)</span></div>
+<div class="line"><a id="l03880" name="l03880"></a><span class="lineno"> 3880</span>            <span class="comment">//+6.580220*ewgc(&quot;CllR&quot;,0,1,1,0))*(sigma_tq_7_SM/sigma_tq_7_LO_madgraph);</span></div>
 <div class="line"><a id="l03881" name="l03881"></a><span class="lineno"> 3881</span>            </div>
 <div class="line"><a id="l03882" name="l03882"></a><span class="lineno"> 3882</span>            </div>
-<div class="line"><a id="l03883" name="l03883"></a><span class="lineno"> 3883</span>            <span class="keywordflow">if</span> (total &lt; 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
-<div class="line"><a id="l03884" name="l03884"></a><span class="lineno"> 3884</span>            </div>
-<div class="line"><a id="l03885" name="l03885"></a><span class="lineno"> 3885</span>            <span class="keywordflow">return</span> total;</div>
-<div class="line"><a id="l03886" name="l03886"></a><span class="lineno"> 3886</span>            </div>
-<div class="line"><a id="l03887" name="l03887"></a><span class="lineno"> 3887</span>        }</div>
-<div class="line"><a id="l03888" name="l03888"></a><span class="lineno"> 3888</span> </div>
-<div class="line"><a id="l03889" name="l03889"></a><span class="lineno"> 3889</span>}</div>
+<div class="line"><a id="l03883" name="l03883"></a><span class="lineno"> 3883</span>            <span class="keywordtype">double</span> total = sigma_tq_7_SM +(-5.3801e+00*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;Cqq1R&quot;</span>,0,2,2,0) + </div>
+<div class="line"><a id="l03884" name="l03884"></a><span class="lineno"> 3884</span>            -7.3805e-01*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;Cqq1R&quot;</span>,1,2,2,1) + -3.2281e+01*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;Cqq3R&quot;</span>,0,0,2,2) </div>
+<div class="line"><a id="l03885" name="l03885"></a><span class="lineno"> 3885</span>            + 5.3809e+00*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;Cqq3R&quot;</span>,0,2,2,0) + -4.4283e+00*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;Cqq3R&quot;</span>,1,1,2,2) </div>
+<div class="line"><a id="l03886" name="l03886"></a><span class="lineno"> 3886</span>            + -1.6446e+00*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CuWR&quot;</span>,2,2) + 6.5481e+00*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CllR&quot;</span>,0,1,1,0) </div>
+<div class="line"><a id="l03887" name="l03887"></a><span class="lineno"> 3887</span>            + -6.5448e+00*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CHl3R&quot;</span>,0,0) + -6.5448e+00*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CHl3R&quot;</span>,1,1) </div>
+<div class="line"><a id="l03888" name="l03888"></a><span class="lineno"> 3888</span>            + 6.5106e+00*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;CHq3R&quot;</span>,2,2) + 7.3824e-01*<a class="code hl_function" href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">ewgc</a>(<span class="stringliteral">&quot;Cqq3R&quot;</span>,1,2,2,1)</div>
+<div class="line"><a id="l03889" name="l03889"></a><span class="lineno"> 3889</span>            )*(sigma_tq_7_SM/sigma_tq_7_LO_madgraph);</div>
+<div class="line"><a id="l03890" name="l03890"></a><span class="lineno"> 3890</span>            </div>
+<div class="line"><a id="l03891" name="l03891"></a><span class="lineno"> 3891</span>            </div>
+<div class="line"><a id="l03892" name="l03892"></a><span class="lineno"> 3892</span>            <span class="keywordflow">if</span> (total &lt; 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
+<div class="line"><a id="l03893" name="l03893"></a><span class="lineno"> 3893</span>            </div>
+<div class="line"><a id="l03894" name="l03894"></a><span class="lineno"> 3894</span>            <span class="keywordflow">return</span> total;</div>
+<div class="line"><a id="l03895" name="l03895"></a><span class="lineno"> 3895</span>            </div>
+<div class="line"><a id="l03896" name="l03896"></a><span class="lineno"> 3896</span>        }</div>
+<div class="line"><a id="l03897" name="l03897"></a><span class="lineno"> 3897</span> </div>
+<div class="line"><a id="l03898" name="l03898"></a><span class="lineno"> 3898</span>}</div>
 <div class="ttc" id="aclass_q_c_d_html_a5a48a9e9df5f383c9a144b5b6706f199"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#a5a48a9e9df5f383c9a144b5b6706f199">QCD::getOptionalParameter</a></div><div class="ttdeci">const double getOptionalParameter(std::string name) const</div><div class="ttdoc">A method to get parameters that are specific to only one set of observables.</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d68/_q_c_d_8h_source.html#l00450">QCD.h:450</a></div></div>
 <div class="ttc" id="aclasssigma__tq__7___l_o_html_abb0cda3715308c873ce7533edf2c3c3e"><div class="ttname"><a href="../../dd/d9c/classsigma__tq__7___l_o.html#abb0cda3715308c873ce7533edf2c3c3e">sigma_tq_7_LO::ewgc</a></div><div class="ttdeci">double ewgc(const std::string name) const</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/db9/_top_quark_observables_8h_source.html#l00891">TopQuarkObservables.h:891</a></div></div>
 </div><!-- fragment -->
@@ -472,7 +481,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dd/d9c/classsigma__tq__7___l_o.html">sigma_tq_7_LO</a></li>
-    <li class="footer">Generated on Sat Mar 8 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Thu Mar 13 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
