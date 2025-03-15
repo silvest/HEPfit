@@ -14656,27 +14656,34 @@ double NPSMEFTd6General::CHF1_diag(const Particle F) const {
     //    return getSMEFTCoeffEW("CHq1R", 2, 2);
     //else
     //    throw std::runtime_error("NPSMEFTd6General::CHF1_diag(): wrong argument");
-    
-    if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
-        return getSMEFTCoeffEW("CHl1R", 0, 0);
-    else if (F.is("NEUTRINO_2") || F.is("MU"))
-        return getSMEFTCoeffEW("CHl1R", 1, 1);
-    else if (F.is("NEUTRINO_3") || F.is("TAU"))
-        return getSMEFTCoeffEW("CHl1R", 2, 2);
-    else if (F.is("UP"))
-        return CHq1EWuu;
-    else if (F.is("DOWN"))
-        return CHq1EWdd;
-    else if (F.is("CHARM"))
-        return CHq1EWcc;
-    else if (F.is("STRANGE"))
-        return CHq1EWss;
-    else if (F.is("TOP"))
-        return CHq1EWtt;
-    else if (F.is("BOTTOM"))
-        return CHq1EWbb;
-    else
-        throw std::runtime_error("NPSMEFTd6General::CHF1_diag(): wrong argument");
+    switch(F.getIndex()){
+        case 0:
+            return getSMEFTCoeffEW("CHl1R", 0, 0);
+        case 1:
+            return getSMEFTCoeffEW("CHl1R", 0, 0);
+        case 2:
+            return getSMEFTCoeffEW("CHl1R", 1, 1);
+        case 3:
+            return getSMEFTCoeffEW("CHl1R", 1, 1);
+        case 4:
+            return getSMEFTCoeffEW("CHl1R", 2, 2);
+        case 5:
+            return getSMEFTCoeffEW("CHl1R", 2, 2);
+        case 6:
+            return CHq1EWuu;
+        case 7:
+            return CHq1EWdd;
+        case 8:
+            return CHq1EWcc;
+        case 9:
+            return CHq1EWss;
+        case 10:
+            return CHq1EWtt;
+        case 11:
+            return CHq1EWbb;
+        default:
+            throw std::runtime_error("NPSMEFTd6General::CHF1_diag(): wrong argument");
+    }
 }
 
 double NPSMEFTd6General::CHF3_diag(const Particle F) const {
@@ -14694,43 +14701,50 @@ double NPSMEFTd6General::CHF3_diag(const Particle F) const {
     //    return getSMEFTCoeffEW("CHq3R", 2, 2);
     //else
     //    throw std::runtime_error("NPSMEFTd6General::CHF3_diag(): wrong argument");
-    
-    if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
-        return getSMEFTCoeffEW("CHl3R", 0, 0);
-    else if (F.is("NEUTRINO_2") || F.is("MU"))
-        return getSMEFTCoeffEW("CHl3R", 1, 1);
-    else if (F.is("NEUTRINO_3") || F.is("TAU"))
-        return getSMEFTCoeffEW("CHl3R", 2, 2);
-    else if (F.is("UP"))
-        return CHq3EWuu;
-    else if (F.is("DOWN"))
-        return CHq3EWdd;
-    else if (F.is("CHARM"))
-        return CHq3EWcc;
-    else if (F.is("STRANGE"))
-        return CHq3EWss;
-    else if (F.is("TOP"))
-        return CHq3EWtt;
-    else if (F.is("BOTTOM"))
-        return CHq3EWbb;
-    else
-        throw std::runtime_error("NPSMEFTd6General::CHF3_diag(): wrong argument");
+    switch(F.getIndex()){
+        case 0:
+            return getSMEFTCoeffEW("CHl3R", 0, 0);
+        case 1:
+            return getSMEFTCoeffEW("CHl3R", 0, 0);
+        case 2:
+            return getSMEFTCoeffEW("CHl3R", 1, 1);
+        case 3:
+            return getSMEFTCoeffEW("CHl3R", 1, 1);
+        case 4:
+            return getSMEFTCoeffEW("CHl3R", 2, 2);
+        case 5:
+            return getSMEFTCoeffEW("CHl3R", 2, 2);
+        case 6:
+            return CHq3EWuu;
+        case 7:
+            return CHq3EWdd;
+        case 8:
+            return CHq3EWcc;
+        case 9:
+            return CHq3EWss;
+        case 10:
+            return CHq3EWtt;
+        case 11:
+            return CHq3EWbb;
+        default:
+            throw std::runtime_error("NPSMEFTd6General::CHF3_diag(): wrong argument");
+    }
 }
 
 gslpp::complex NPSMEFTd6General::CHF3CC_diag(const Particle F) const {
-    if (F.getIndex() % 2 != 0)
+    int index = F.getIndex();
+    if (index < 0 || index > 11 || index % 2 != 0)
         throw std::runtime_error("NPSMEFTd6General::CHF3CC_diag(): wrong argument");
-
-    if (F.is("LEPTON"))
-        return gslpp::complex(CHF3_diag(F), 0.0, false);
-    else if (F.is("UP"))
-        return CHq3EWud;
-    else if (F.is("CHARM"))
-        return CHq3EWcs;
-    else if (F.is("TOP"))
-        return CHq3EWtb;
-    else
-        throw std::runtime_error("NPSMEFTd6General::CHF3CC_diag(): wrong argument");
+    switch (index) {
+        case 6:
+            return CHq3EWud; // Up
+        case 8:
+            return CHq3EWcs; // Charm
+        case 10:
+            return CHq3EWtb; // Top
+        default:
+            return gslpp::complex(CHF3_diag(F), 0.0, false); // Leptons
+    }
 }
 
 double NPSMEFTd6General::CHf_diag(const Particle f) const {
@@ -14756,173 +14770,161 @@ double NPSMEFTd6General::CHf_diag(const Particle f) const {
     //    return getSMEFTCoeffEW("CHdR", 2, 2);
     //else
     //    throw std::runtime_error("NPSMEFTd6General::CHf_diag(): wrong argument");
-    
-    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
-        return 0.0;
-    else if (f.is("ELECTRON"))
-        return getSMEFTCoeffEW("CHeR", 0, 0);
-    else if (f.is("MU"))
-        return getSMEFTCoeffEW("CHeR", 1, 1);
-    else if (f.is("TAU"))
-        return getSMEFTCoeffEW("CHeR", 2, 2);
-    else if (f.is("UP"))
-        return CHuEWuu;
-    else if (f.is("CHARM"))
-        return CHuEWcc;
-    else if (f.is("TOP"))
-        return CHuEWtt;
-    else if (f.is("DOWN"))
-        return CHdEWdd;
-    else if (f.is("STRANGE"))
-        return CHdEWss;
-    else if (f.is("BOTTOM"))
-        return CHdEWbb;
-    else
-        throw std::runtime_error("NPSMEFTd6General::CHf_diag(): wrong argument");
+    switch(f.getIndex()){
+        case 0:
+            return 0.;
+        case 1:
+            return getSMEFTCoeffEW("CHeR", 0, 0);
+        case 2:
+            return 0.;
+        case 3:
+            return getSMEFTCoeffEW("CHeR", 1, 1);
+        case 4:
+            return 0.;
+        case 5:
+            return getSMEFTCoeffEW("CHeR", 2, 2);
+        case 6:
+            return CHuEWuu;
+        case 7:
+            return CHdEWdd;
+        case 8:
+            return CHuEWcc;
+        case 9:
+            return CHdEWss;
+        case 10:
+            return CHuEWtt;
+        case 11:
+            return CHdEWbb;
+        default:
+            throw std::runtime_error("NPSMEFTd6General::CHf_diag(): wrong argument");
+    }
 }
 
 gslpp::complex NPSMEFTd6General::CHud_diag(const Particle u) const {
-    if (!u.is("QUARK") || u.getIndex() % 2 != 0)
+    int index = u.getIndex();
+    if (index < 6 || index % 2 != 0)
         throw std::runtime_error("NPSMEFTd6General::CHud_diag(): wrong argument");
-
-    if (u.is("UP"))
-        return gslpp::complex(getSMEFTCoeffEW("CHudR", 0, 0), getSMEFTCoeffEW("CHudI", 0, 0), false);
-    else if (u.is("CHARM"))
-        return gslpp::complex(getSMEFTCoeffEW("CHudR", 1, 1), getSMEFTCoeffEW("CHudI", 1, 1), false);
-    else if (u.is("TOP"))
-        return gslpp::complex(getSMEFTCoeffEW("CHudR", 2, 2), getSMEFTCoeffEW("CHudI", 2, 2), false);
-    else
-        throw std::runtime_error("NPSMEFTd6General::CHud_diag(): wrong argument");
+    switch (index) {
+        case 6:
+            return gslpp::complex(getSMEFTCoeffEW("CHudR", 0, 0), getSMEFTCoeffEW("CHudI", 0, 0), false); // 1st generation
+        case 8:
+            return gslpp::complex(getSMEFTCoeffEW("CHudR", 1, 1), getSMEFTCoeffEW("CHudI", 1, 1), false); // 2nd generation
+        case 10:
+            return gslpp::complex(getSMEFTCoeffEW("CHudR", 2, 2), getSMEFTCoeffEW("CHudI", 2, 2), false); // 3rd generation
+        default:
+            throw std::runtime_error("NPSMEFTd6General::CHud_diag(): wrong argument");
+    }
 }
 
 gslpp::complex NPSMEFTd6General::CfH_diag(const Particle f) const {
-    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
-        return 0.0;
-    else if (f.is("ELECTRON"))
-        return gslpp::complex(getSMEFTCoeffEW("CeHR", 0, 0), getSMEFTCoeffEW("CeHI", 0, 0), false);
-    else if (f.is("MU"))
-        return gslpp::complex(getSMEFTCoeffEW("CeHR", 1, 1), getSMEFTCoeffEW("CeHI", 1, 1), false);
-    else if (f.is("TAU"))
-        return gslpp::complex(getSMEFTCoeffEW("CeHR", 2, 2), getSMEFTCoeffEW("CeHI", 2, 2), false);
-    else if (f.is("UP"))
-        return gslpp::complex(getSMEFTCoeffEW("CuHR", 0, 0), getSMEFTCoeffEW("CuHI", 0, 0), false);
-    else if (f.is("CHARM"))
-        return gslpp::complex(getSMEFTCoeffEW("CuHR", 1, 1), getSMEFTCoeffEW("CuHI", 1, 1), false);
-    else if (f.is("TOP"))
-        return gslpp::complex(getSMEFTCoeffEW("CuHR", 2, 2), getSMEFTCoeffEW("CuHI", 2, 2), false);
-    else if (f.is("DOWN"))
-        return gslpp::complex(getSMEFTCoeffEW("CdHR", 0, 0), getSMEFTCoeffEW("CdHI", 0, 0), false);
-    else if (f.is("STRANGE"))
-        return gslpp::complex(getSMEFTCoeffEW("CdHR", 1, 1), getSMEFTCoeffEW("CdHI", 1, 1), false);
-    else if (f.is("BOTTOM"))
-        return gslpp::complex(getSMEFTCoeffEW("CdHR", 2, 2), getSMEFTCoeffEW("CdHI", 2, 2), false);
-    else
-        throw std::runtime_error("NPSMEFTd6General::CfH_diag(): wrong argument");
+    switch(f.getIndex()){
+        case 0:
+            return 0.;
+        case 1:
+            return gslpp::complex(getSMEFTCoeffEW("CeHR", 0, 0), getSMEFTCoeffEW("CeHI", 0, 0), false); // electron
+        case 2:
+            return 0.;
+        case 3:
+            return gslpp::complex(getSMEFTCoeffEW("CeHR", 1, 1), getSMEFTCoeffEW("CeHI", 1, 1), false); // muon
+        case 4:
+            return 0.;
+        case 5:
+            return gslpp::complex(getSMEFTCoeffEW("CeHR", 2, 2), getSMEFTCoeffEW("CeHI", 2, 2), false); // tau
+        case 6:
+            return gslpp::complex(getSMEFTCoeffEW("CuHR", 0, 0), getSMEFTCoeffEW("CuHI", 0, 0), false); // up
+        case 7:
+            return gslpp::complex(getSMEFTCoeffEW("CdHR", 0, 0), getSMEFTCoeffEW("CdHI", 0, 0), false); // down
+        case 8:
+            return gslpp::complex(getSMEFTCoeffEW("CuHR", 1, 1), getSMEFTCoeffEW("CuHI", 1, 1), false); // charm
+        case 9:
+            return gslpp::complex(getSMEFTCoeffEW("CdHR", 1, 1), getSMEFTCoeffEW("CdHI", 1, 1), false); // strange
+        case 10:
+            return gslpp::complex(getSMEFTCoeffEW("CuHR", 2, 2), getSMEFTCoeffEW("CuHI", 2, 2), false); // top
+        case 11:
+            return gslpp::complex(getSMEFTCoeffEW("CdHR", 2, 2), getSMEFTCoeffEW("CdHI", 2, 2), false); // bottom
+        default:
+            throw std::runtime_error("NPSMEFTd6General::CfH_diag(): wrong argument");
+    }
 }
 
 gslpp::complex NPSMEFTd6General::CfG_diag(const Particle f) const {
-    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
-        return 0.0;
-    else if (f.is("ELECTRON"))
-        return 0.0;
-    else if (f.is("MU"))
-        return 0.0;
-    else if (f.is("TAU"))
-        return 0.0;
-    else if (f.is("UP"))
-        return gslpp::complex(getSMEFTCoeffEW("CuGR", 0, 0), getSMEFTCoeffEW("CuGI", 0, 0), false);
-    else if (f.is("CHARM"))
-        return gslpp::complex(getSMEFTCoeffEW("CuGR", 1, 1), getSMEFTCoeffEW("CuGI", 1, 1), false);
-    else if (f.is("TOP"))
-        return gslpp::complex(getSMEFTCoeffEW("CuGR", 2, 2), getSMEFTCoeffEW("CuGI", 2, 2), false);
-    else if (f.is("DOWN"))
-        return 0.0;
-    else if (f.is("STRANGE"))
-        return 0.0;
-    else if (f.is("BOTTOM"))
-        return 0.0;
-    else
+    int index = f.getIndex();
+    if (index < 0 || index > 11)
         throw std::runtime_error("NPSMEFTd6General::CfG_diag(): wrong argument");
+    switch (index) {
+        case 6:
+            return gslpp::complex(getSMEFTCoeffEW("CuGR", 0, 0), getSMEFTCoeffEW("CuGI", 0, 0), false); // up
+        case 8:
+            return gslpp::complex(getSMEFTCoeffEW("CuGR", 1, 1), getSMEFTCoeffEW("CuGI", 1, 1), false); // charm
+        case 10:
+            return gslpp::complex(getSMEFTCoeffEW("CuGR", 2, 2), getSMEFTCoeffEW("CuGI", 2, 2), false); // top
+        default:
+            return 0.;
+    }
 }
 
 gslpp::complex NPSMEFTd6General::CfW_diag(const Particle f) const {
-    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
-        return 0.0;
-    else if (f.is("ELECTRON"))
-        return 0.0;
-    else if (f.is("MU"))
-        return 0.0;
-    else if (f.is("TAU"))
-        return 0.0;
-    else if (f.is("UP"))
-        return gslpp::complex(getSMEFTCoeffEW("CuWR", 0, 0), getSMEFTCoeffEW("CuWI", 0, 0), false);
-    else if (f.is("CHARM"))
-        return gslpp::complex(getSMEFTCoeffEW("CuWR", 1, 1), getSMEFTCoeffEW("CuWI", 1, 1), false);
-    else if (f.is("TOP"))
-        return gslpp::complex(getSMEFTCoeffEW("CuWR", 2, 2), getSMEFTCoeffEW("CuWI", 2, 2), false);
-    else if (f.is("DOWN"))
-        return 0.0;
-    else if (f.is("STRANGE"))
-        return 0.0;
-    else if (f.is("BOTTOM"))
-        return 0.0;
-    else
+    int index = f.getIndex();
+    if (index < 0 || index > 11)
         throw std::runtime_error("NPSMEFTd6General::CfW_diag(): wrong argument");
+    switch (index) {
+        case 6:
+            return gslpp::complex(getSMEFTCoeffEW("CuWR", 0, 0), getSMEFTCoeffEW("CuWI", 0, 0), false); // up
+        case 8:
+            return gslpp::complex(getSMEFTCoeffEW("CuWR", 1, 1), getSMEFTCoeffEW("CuWI", 1, 1), false); // charm
+        case 10:
+            return gslpp::complex(getSMEFTCoeffEW("CuWR", 2, 2), getSMEFTCoeffEW("CuWI", 2, 2), false); // top
+        default:
+            return 0.;
+    }
 }
 
 gslpp::complex NPSMEFTd6General::CfB_diag(const Particle f) const {
-    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
-        return 0.0;
-    else if (f.is("ELECTRON"))
-        return 0.0;
-    else if (f.is("MU"))
-        return 0.0;
-    else if (f.is("TAU"))
-        return 0.0;
-    else if (f.is("UP"))
-        return gslpp::complex(getSMEFTCoeffEW("CuBR", 0, 0), getSMEFTCoeffEW("CuBI", 0, 0), false);
-    else if (f.is("CHARM"))
-        return gslpp::complex(getSMEFTCoeffEW("CuBR", 1, 1), getSMEFTCoeffEW("CuBI", 1, 1), false);
-    else if (f.is("TOP"))
-        return gslpp::complex(getSMEFTCoeffEW("CuBR", 2, 2), getSMEFTCoeffEW("CuBI", 2, 2), false);
-    else if (f.is("DOWN"))
-        return 0.0;
-    else if (f.is("STRANGE"))
-        return 0.0;
-    else if (f.is("BOTTOM"))
-        return 0.0;
-    else
+    int index = f.getIndex();
+    if (index < 0 || index > 11)
         throw std::runtime_error("NPSMEFTd6General::CfB_diag(): wrong argument");
+    switch (index) {
+        case 6:
+            return gslpp::complex(getSMEFTCoeffEW("CuBR", 0, 0), getSMEFTCoeffEW("CuBI", 0, 0), false); // up
+        case 8:
+            return gslpp::complex(getSMEFTCoeffEW("CuBR", 1, 1), getSMEFTCoeffEW("CuBI", 1, 1), false); // charm
+        case 10:
+            return gslpp::complex(getSMEFTCoeffEW("CuBR", 2, 2), getSMEFTCoeffEW("CuBI", 2, 2), false); // top
+        default:
+            return 0.;
+    }
 }
-
 
 ////////////////////////////////////////////////////////////////////////
 //  Scale-dependent versions of some of the above
 ////////////////////////////////////////////////////////////////////////
 
 gslpp::complex NPSMEFTd6General::CfH_diag_mu(const Particle f, const double mu) const {
-    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
-        return 0.0;
-    else if (f.is("ELECTRON"))
-        return gslpp::complex(getSMEFTCoeff("CeHR", 0, 0, mu), getSMEFTCoeff("CeHI", 0, 0, mu), false);
-    else if (f.is("MU"))
-        return gslpp::complex(getSMEFTCoeff("CeHR", 1, 1, mu), getSMEFTCoeff("CeHI", 1, 1, mu), false);
-    else if (f.is("TAU"))
-        return gslpp::complex(getSMEFTCoeff("CeHR", 2, 2, mu), getSMEFTCoeff("CeHI", 2, 2, mu), false);
-    else if (f.is("UP"))
-        return gslpp::complex(getSMEFTCoeff("CuHR", 0, 0, mu), getSMEFTCoeff("CuHI", 0, 0, mu), false);
-    else if (f.is("CHARM"))
-        return gslpp::complex(getSMEFTCoeff("CuHR", 1, 1, mu), getSMEFTCoeff("CuHI", 1, 1, mu), false);
-    else if (f.is("TOP"))
-        return gslpp::complex(getSMEFTCoeff("CuHR", 2, 2, mu), getSMEFTCoeff("CuHI", 2, 2, mu), false);
-    else if (f.is("DOWN"))
-        return gslpp::complex(getSMEFTCoeff("CdHR", 0, 0, mu), getSMEFTCoeff("CdHI", 0, 0, mu), false);
-    else if (f.is("STRANGE"))
-        return gslpp::complex(getSMEFTCoeff("CdHR", 1, 1, mu), getSMEFTCoeff("CdHI", 1, 1, mu), false);
-    else if (f.is("BOTTOM"))
-        return gslpp::complex(getSMEFTCoeff("CdHR", 2, 2, mu), getSMEFTCoeff("CdHI", 2, 2, mu), false);
-    else
+    int index = f.getIndex();
+    if (index < 0 || index > 11)
         throw std::runtime_error("NPSMEFTd6General::CfH_diag_mu(): wrong argument");
+    switch (index) {
+        case 1:
+            return gslpp::complex(getSMEFTCoeff("CeHR", 0, 0, mu), getSMEFTCoeff("CeHI", 0, 0, mu), false); // electron
+        case 3:
+            return gslpp::complex(getSMEFTCoeff("CeHR", 1, 1, mu), getSMEFTCoeff("CeHI", 1, 1, mu), false); // muon
+        case 5:
+            return gslpp::complex(getSMEFTCoeff("CeHR", 2, 2, mu), getSMEFTCoeff("CeHI", 2, 2, mu), false); // tau 
+        case 6:
+            return gslpp::complex(getSMEFTCoeff("CuHR", 0, 0, mu), getSMEFTCoeff("CuHI", 0, 0, mu), false); // up
+        case 7:
+            return gslpp::complex(getSMEFTCoeff("CdHR", 0, 0, mu), getSMEFTCoeff("CdHI", 0, 0, mu), false); // down
+        case 8:
+            return gslpp::complex(getSMEFTCoeff("CuHR", 1, 1, mu), getSMEFTCoeff("CuHI", 1, 1, mu), false); // charm
+        case 9:
+            return gslpp::complex(getSMEFTCoeff("CdHR", 1, 1, mu), getSMEFTCoeff("CdHI", 1, 1, mu), false); // strange
+        case 10:
+            return gslpp::complex(getSMEFTCoeff("CuHR", 2, 2, mu), getSMEFTCoeff("CuHI", 2, 2, mu), false); // top
+        case 11:
+            return gslpp::complex(getSMEFTCoeff("CdHR", 2, 2, mu), getSMEFTCoeff("CdHI", 2, 2, mu), false); // bottom
+        default:
+            return 0.;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////
