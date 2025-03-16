@@ -61,8 +61,10 @@ MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i,
     ag2_cache = max_double;
     aF11_cache = max_double;
     aF12_cache = max_double;
+    aF13_cache = max_double;
     aF21_cache = max_double;
     aF22_cache = max_double;
+    aF23_cache = max_double;
     
     af_1_cache = max_double;
     ag_1_cache = max_double;
@@ -181,7 +183,7 @@ std::vector<std::string> MVlnu::initializeMVlnuParameters()
         mvlnuParameters.clear();
         if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
             << "af0" << "af1" << "af2" << "ag0" << "ag1" << "ag2"
-            << "aF11" << "aF12" << "aF21" << "aF22"
+            << "aF11" << "aF12" << "aF13" << "aF21" << "aF22" << "aF23"
             << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
             << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
             << "mBcstP1" << "mBcstP2" << "mBcstP3"
@@ -318,8 +320,10 @@ void MVlnu::updateParameters()
                 ag2 = mySM.getOptionalParameter("ag2");
                 aF11 = mySM.getOptionalParameter("aF11");
                 aF12 = mySM.getOptionalParameter("aF12");
+                aF13 = mySM.getOptionalParameter("aF13");
                 aF21 = mySM.getOptionalParameter("aF21");
                 aF22 = mySM.getOptionalParameter("aF22");
+                aF23 = mySM.getOptionalParameter("aF23");
                 mBcstV1 = mySM.getOptionalParameter("mBcstV1");
                 mBcstV2 = mySM.getOptionalParameter("mBcstV2");
                 mBcstV3 = mySM.getOptionalParameter("mBcstV3");
@@ -457,7 +461,8 @@ void MVlnu::updateParameters()
             || (k_A != k_A_cache) || (k_0 != k_0_cache) || (k_1 != k_1_cache) || (k_2 != k_2_cache)
             || (af0 != af0_cache) || (af1 != af1_cache) || (af2 != af2_cache) 
             || (ag0 != ag0_cache) || (ag1 != af1_cache) || (ag2 != af2_cache)
-            || (aF11 != aF11_cache) || (aF12 != aF12_cache) || (aF21 != aF21_cache) || (aF22 != aF22_cache)
+            || (aF11 != aF11_cache) || (aF12 != aF12_cache) || (aF13 != aF13_cache) 
+            || (aF21 != aF21_cache) || (aF22 != aF22_cache) || (aF23 != aF23_cache)
             || (af_1 != af_1_cache) || (ag_1 != ag_1_cache) || (aF1_1 != aF1_1_cache) || (aF2_1 != aF2_1_cache)
             || (af_2 != af_2_cache) || (ag_2 != ag_2_cache) || (aF1_2 != aF1_2_cache) || (aF2_2 != aF2_2_cache)
             || (af_3 != af_3_cache) || (ag_3 != ag_3_cache) || (aF1_3 != aF1_3_cache) || (aF2_3 != aF2_3_cache)
@@ -583,8 +588,10 @@ void MVlnu::updateParameters()
         ag2_cache = ag2;
         aF11_cache = aF11;
         aF12_cache = aF12;
+        aF13_cache = aF13;
         aF21_cache = aF21;
         aF22_cache = aF22;
+        aF23_cache = aF23;
     }
     else if (DMflag){
         af_1_cache = af_1;
@@ -751,7 +758,7 @@ double MVlnu::F1_BGL(double q2)
     double PfacF1 = (z - zA1) / (1. - z * zA1)*(z - zA2) / (1. - z * zA2)*(z - zA3) / (1. - z * zA3)*(z - zA4) / (1. - z * zA4);
     double phiF1 = phi_F1(z);
     double aF10 = (MM - MV)*(phi_F1(0.) / phi_f(0.)) * af0; // F1(z=0) = (MM-MV)*f(z=0)
-    return (aF10 + aF11 * z + aF12 * z * z) / phiF1 / PfacF1;
+    return (aF10 + aF11 * z + aF12 * z * z + aF13 * z * z * z) / phiF1 / PfacF1;
 }
 
 double MVlnu::phi_F2(double z)
@@ -773,7 +780,7 @@ double MVlnu::F2_BGL(double q2)
     double phiF2 = phi_F2(z);
     double phiF2z0 = phi_F2(z0);
     double aF20 = PfacF2z0 * phiF2z0 * 2. * F1_BGL(0.) / (MM * MM - MV * MV) - aF21 * z0 - aF22 * z0*z0; // F2(q2=0) = 2.*F1(q2=0)/(MM*MM-MV*MV)
-    return (aF20 + aF21 * z + aF22 * z * z) / phiF2 / PfacF2;
+    return (aF20 + aF21 * z + aF22 * z * z + aF23 * z * z * z) / phiF2 / PfacF2;
 }
 
 double MVlnu::hA1(double q2)
@@ -1489,7 +1496,7 @@ double MVlnu::get_unitarity_A_BGL()
     updateParameters();
 
     double aF10 = (MM - MV)*(phi_F1(0.) / phi_f(0.)) * af0;
-    return af0 * af0 + af1 * af1 + af2 * af2 + aF10 * aF10 + aF11 * aF11 + aF12*aF12;
+    return af0 * af0 + af1 * af1 + af2 * af2 + aF10 * aF10 + aF11 * aF11 + aF12*aF12 + aF13*aF13;
 }
 
 double MVlnu::get_unitarity_P_BGL()
@@ -1499,8 +1506,8 @@ double MVlnu::get_unitarity_P_BGL()
     double z0 = (sqrt(w0 + 1.) - M_SQRT2) / (sqrt(w0 + 1.) + M_SQRT2);
     double PfacF2z0 = (z0 - zP1) / (1. - z0 * zP1)*(z0 - zP2) / (1. - z0 * zP2)*(z0 - zP3) / (1. - z0 * zP3);
     double phiF2z0 = phi_F2(z0);
-    double aF20 = PfacF2z0 * phiF2z0 * 2. * F1_BGL(0.) / (MM * MM - MV * MV) - aF21 * z0 - aF22 * z0*z0;
-    return aF20 * aF20 + aF21 * aF21 + aF22*aF22;
+    double aF20 = PfacF2z0 * phiF2z0 * 2. * F1_BGL(0.) / (MM * MM - MV * MV) - aF21 * z0 - aF22 * z0*z0 - aF23 * z0*z0*z0;
+    return aF20 * aF20 + aF21 * aF21 + aF22*aF22 + aF23*aF23;
 }
 
 double MVlnu::get_hA1w1()
