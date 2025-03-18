@@ -75,6 +75,53 @@ public:
      */
     virtual bool setFlagStr(const std::string name, const std::string value);
 
+    /**
+     *
+     * @brief A getter for the parameter of the scalar potential @f$\lambda_1@f$
+     * @return @f$\lambda_1@f$ in the basis where the Z2 symmetry is imposed
+     */
+    double getlambda1_Z2() const {
+        return ((mH_2 + mh_2 + (mH_2 - mh_2)*cos(2.*(beta - bma)) -
+                2.*M2aux*sinb*sinb)/2./cosb/cosb/vev/vev);
+    }
+
+    /**
+     *
+     * @brief A getter for the parameter of the scalar potential @f$\lambda_2@f$
+     * @return @f$\lambda_2@f$ in the basis where the Z2 symmetry is imposed
+     */
+    double getlambda2_Z2() const {
+        return ((mh_2 + mH_2 + (mh_2 - mH_2)*cos(2.*(beta + bma)) -
+                2.*M2aux*cosb*cosb)/2./sinb/sinb/vev/vev);
+    }
+
+    /**
+     *
+     * @brief A getter for the parameter of the scalar potential @f$\lambda_3@f$
+     * @return @f$\lambda_3@f$ in the basis where the Z2 symmetry is imposed
+     */
+    double getlambda3_Z2() const {
+        return ((2.*mHp_2 - M2aux + (mH_2 - mh_2)*(cos(bma)*cos(bma) -
+                sin(bma)*sin(bma) - cos(bma)*sin(bma)*cos2b/sin2b))/vev/vev);
+    }
+
+    /**
+     *
+     * @brief A getter for the parameter of the scalar potential @f$\lambda_4@f$
+     * @return @f$\lambda_4@f$ in the basis where the Z2 symmetry is imposed
+     */
+    double getlambda4_Z2() const {
+        return ((M2aux - 2.*mHp_2 + mA_2)/vev/vev);
+    }
+
+    /**
+     *
+     * @brief A getter for the parameter of the scalar potential @f$\lambda_5@f$
+     * @return @f$\lambda_5@f$ in the basis where the Z2 symmetry is imposed
+     */
+    double getlambda5_Z2() const {
+        return ((M2aux - mA_2)/vev/vev);
+    }
 
 protected:
 
@@ -97,7 +144,7 @@ private:
 
     double tanb, bma, m12_2; ///< parameters exclusively in Z2 models: tan(beta), beta-alpha, m_12^2
     double beta, cosb, cos2b, cos4b, cos6b, sinb, sin2b, sin4b, sin6b, cos2bma, sin2bma;
-    double vev, mh_2, mH_2, mA_2, mHp_2;
+    double vev, mh_2, mH_2, mA_2, mHp_2, M2aux;
     std::string flag_model;
 };
 

@@ -20,6 +20,7 @@
 #include "GeneralTHDMSTU.h"
 #include "GeneralTHDMLowMass.h"
 #include "GeneralTHDMSusyObs.h"
+#include "GeneralTHDMZ2Unitarity.h"
 
 
 

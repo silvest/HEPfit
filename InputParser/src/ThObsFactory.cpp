@@ -6250,6 +6250,19 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitarity11_GTHDM"] = boost::factory<unitarity11_GTHDM*>();
     obsThFactory["unitarity12_GTHDM"] = boost::factory<unitarity12_GTHDM*>();
 
+    obsThFactory["unitarity00eveP_Z2"] = boost::factory<unitarity00eveP_Z2*>();
+    obsThFactory["unitarity00eveM_Z2"] = boost::factory<unitarity00eveM_Z2*>();
+    obsThFactory["unitarity00oddP_Z2"] = boost::factory<unitarity00oddP_Z2*>();
+    obsThFactory["unitarity00oddM_Z2"] = boost::factory<unitarity00oddM_Z2*>();
+    obsThFactory["unitarity01eveP_Z2"] = boost::factory<unitarity01eveP_Z2*>();
+    obsThFactory["unitarity01eveM_Z2"] = boost::factory<unitarity01eveM_Z2*>();
+    obsThFactory["unitarity01oddP_Z2"] = boost::factory<unitarity01oddP_Z2*>();
+    obsThFactory["unitarity01oddM_Z2"] = boost::factory<unitarity01oddM_Z2*>();
+    obsThFactory["unitarity10odd_Z2"]  = boost::factory<unitarity10odd_Z2*>();
+    obsThFactory["unitarity11eveP_Z2"] = boost::factory<unitarity11eveP_Z2*>();
+    obsThFactory["unitarity11eveM_Z2"] = boost::factory<unitarity11eveM_Z2*>();
+    obsThFactory["unitarity11odd_Z2"]  = boost::factory<unitarity11odd_Z2*>();
+
     obsThFactory["perturbativity1_GTHDM"] = boost::factory<perturbativity1_GTHDM*>();
     obsThFactory["perturbativity2_GTHDM"] = boost::factory<perturbativity2_GTHDM*>();
 

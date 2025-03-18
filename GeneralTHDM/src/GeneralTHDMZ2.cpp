@@ -90,10 +90,12 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
         cos2bma = cos(2.*bma);
         sin2bma = sin(2.*bma);
     }
-    else if (name.compare("m12_2") == 0)
+    else if (name.compare("m12_2") == 0) {
         m12_2 = value;
+        M2aux = m12_2/cosb/sinb;
+    }
     else if (name.compare("alpha1") == 0)
-        GeneralTHDM::setParameter("alpha1", beta - bma);
+        GeneralTHDM::setParameter("alpha1", bma - M_PI/2.);
     else if (name.compare("lambda2") == 0) {
         mh_2 = getmH1sq();
         mH_2 = getmH2sq();
