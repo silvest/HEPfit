@@ -14136,6 +14136,7 @@ inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name
 // Functions to select the SMEFT WC at different energy scales 
 
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) const {
+//    return SMEFTEvolEW.GetCoefficient(name);
     //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol500.GetCoefficient(name)};
     //int imu;
     ////double WCmu;
@@ -14183,6 +14184,7 @@ double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) 
 }
     
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, const double mu) const {
+    //return SMEFTEvolEW.GetCoefficient(name, i, j);
     //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol500.GetCoefficient(name, i, j)};
     //int imu;
     ////double WCmu;
@@ -14230,6 +14232,7 @@ double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, con
 }
     
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const {
+    //return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
     //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol500.GetCoefficient(name, i, j, k, l)};    
     //int imu;
     ////double WCmu;
@@ -15346,7 +15349,7 @@ const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle 
             -0.00039 * getSMEFTCoeffEW("CHdR",2, 2) -0.00039 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) -0.00615 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.00401 * getSMEFTCoeffEW("CllR",0, 1, 1, 0)  
             -0.00039 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) -0.00244 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) -0.00244 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.00044 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
             +0.00525 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) ) * v2; 
- 
+        break;
     //} else if (fj.is("MUON")) {
         case 3:
             deltaNLO = (-0.00142 * getSMEFTCoeffEW("CW")  -0.0003 * getSMEFTCoeffEW("CHbox")  -0.0075 * getSMEFTCoeffEW("CHD")  -0.00024 * getSMEFTCoeffEW("CHB")   
@@ -15359,7 +15362,7 @@ const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle 
             -0.00039 * getSMEFTCoeffEW("CHdR",2, 2) -0.00615 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.00401 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.00039 * getSMEFTCoeffEW("CllR",1, 1, 1, 1)  
             -0.00039 * getSMEFTCoeffEW("CllR",1, 2, 2, 1) +0.00525 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2) -0.00244 * getSMEFTCoeffEW("Clq3R",1, 1, 0, 0) -0.00244 * getSMEFTCoeffEW("Clq3R",1, 1, 1, 1)  
             -0.00044 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) ) * v2; 
-    
+        break;
     //} else if (fj.is("TAU")) {
         case 5:
             deltaNLO = (-0.00142 * getSMEFTCoeffEW("CW")  -0.0003 * getSMEFTCoeffEW("CHbox")  -0.0075 * getSMEFTCoeffEW("CHD")  -0.00024 * getSMEFTCoeffEW("CHB")   
@@ -15372,7 +15375,7 @@ const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle 
             -0.00039 * getSMEFTCoeffEW("CHdR",2, 2) -0.00615 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.00439 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.00039 * getSMEFTCoeffEW("CllR",0, 2, 2, 0)  
             -0.00039 * getSMEFTCoeffEW("CllR",1, 2, 2, 1) -0.00039 * getSMEFTCoeffEW("CllR",2, 2, 2, 2) +0.00525 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2) +0.00525 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2)  
             -0.00244 * getSMEFTCoeffEW("Clq3R",2, 2, 0, 0) -0.00244 * getSMEFTCoeffEW("Clq3R",2, 2, 1, 1) -0.00569 * getSMEFTCoeffEW("Clq3R",2, 2, 2, 2) ) * v2; 
-
+        break;
     //} else if (fi.is("UP")) {
         case 6:
             deltaNLO = (-0.0042 * getSMEFTCoeffEW("CW")  -0.00088 * getSMEFTCoeffEW("CHbox")  -0.04694 * getSMEFTCoeffEW("CHD")  -0.0007 * getSMEFTCoeffEW("CHB")   
@@ -15388,7 +15391,7 @@ const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle 
             +0.00657 * getSMEFTCoeffEW("Cqq3R",0, 2, 2, 0) +0.00058 * getSMEFTCoeffEW("Cqq3R",1, 0, 0, 1) -0.00731 * getSMEFTCoeffEW("Cqq3R",1, 1, 0, 0) +0.00657 * getSMEFTCoeffEW("Cqq3R",2, 0, 0, 2)  
             -0.01708 * getSMEFTCoeffEW("Cqq3R",2, 2, 0, 0) -0.00244 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) +0.01569 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2) -0.00244 * getSMEFTCoeffEW("Clq3R",1, 1, 0, 0)  
             +0.01569 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) -0.00244 * getSMEFTCoeffEW("Clq3R",2, 2, 0, 0) ) * v2; 
-        
+        break;
     //} else if (fi.is("CHARM")) {
         case 8:
             deltaNLO = (-0.0042 * getSMEFTCoeffEW("CW")  -0.00088 * getSMEFTCoeffEW("CHbox")  -0.04694 * getSMEFTCoeffEW("CHD")  -0.0007 * getSMEFTCoeffEW("CHB")   
@@ -15404,7 +15407,7 @@ const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle 
             -0.01347 * getSMEFTCoeffEW("Cqq3R",1, 1, 1, 1) -0.01708 * getSMEFTCoeffEW("Cqq3R",1, 1, 2, 2) +0.00657 * getSMEFTCoeffEW("Cqq3R",1, 2, 2, 1) +0.00657 * getSMEFTCoeffEW("Cqq3R",2, 1, 1, 2)  
             -0.01708 * getSMEFTCoeffEW("Cqq3R",2, 2, 1, 1) -0.00244 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) +0.01569 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2) -0.00244 * getSMEFTCoeffEW("Clq3R",1, 1, 1, 1)  
             +0.01569 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) -0.00244 * getSMEFTCoeffEW("Clq3R",2, 2, 1, 1) ) * v2; 
-                
+        break;   
     //} else {
         default:
             deltaNLO = 0.;
@@ -15549,7 +15552,7 @@ const double NPSMEFTd6General::deltaGamma_Zf(const Particle f) const
             +0.01085 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0) +0.01085 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1) +0.28582 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2)  
             +0.00636 * getSMEFTCoeffEW("Cqd1R",0, 0, 0, 0) +0.00449 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.00542 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) -0.00449 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0)  
             -0.00636 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) -0.00542 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) -0.04173 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) +0.04172 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) ) * v2; 
-        
+        break;
     //} else if (f.is("MUON")) {
         case 3:
             deltaNLO = (-0.05049 * getSMEFTCoeffEW("CW")  -0.05591 * getSMEFTCoeffEW("CHbox")  +3.24947 * getSMEFTCoeffEW("CHD")  -0.02372 * getSMEFTCoeffEW("CHB")   
@@ -15588,7 +15591,7 @@ const double NPSMEFTd6General::deltaGamma_Zf(const Particle f) const
             +0.01085 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0) +0.01085 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1) +0.28582 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2)  
             +0.00636 * getSMEFTCoeffEW("Cqd1R",0, 0, 0, 0) +0.00449 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.00542 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) -0.00449 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0)  
             -0.00636 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) -0.00542 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) -0.04173 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) +0.04172 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) ) * v2; 
-
+        break;
     //} else if (f.is("TAU")) {
         case 5:
             deltaNLO = (-0.05049 * getSMEFTCoeffEW("CW")  -0.05591 * getSMEFTCoeffEW("CHbox")  +3.17568 * getSMEFTCoeffEW("CHD")  -0.02372 * getSMEFTCoeffEW("CHB")   
@@ -15628,7 +15631,7 @@ const double NPSMEFTd6General::deltaGamma_Zf(const Particle f) const
             -0.00001 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2) +0.00634 * getSMEFTCoeffEW("Cqd1R",0, 0, 0, 0) +0.00448 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.00541 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2)  
             -0.00448 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0) -0.00634 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) -0.00541 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) -0.04163 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0)  
             +0.04163 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) ) * v2; 
-
+        break;
         default:
             deltaNLO = 0.;
     }
@@ -15997,7 +16000,7 @@ const double NPSMEFTd6General::deltaA_f(const Particle f) const
             -0.00143 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.00143 * getSMEFTCoeffEW("CluR",0, 0, 1, 1) -0.03763 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) +0.00071 * getSMEFTCoeffEW("CldR",0, 0, 0, 0)  
             +0.00071 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.00071 * getSMEFTCoeffEW("CldR",0, 0, 2, 2) -0.00091 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.00091 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0)  
             +0.04079 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) ) * v2; 
-        
+        break;
     //} else if (f.is("MUON")) {
         case 3:
             deltaNLO = (-0.00458 * getSMEFTCoeffEW("CW")  -0.00043 * getSMEFTCoeffEW("CHbox")  -0.24067 * getSMEFTCoeffEW("CHD")  -0.00259 * getSMEFTCoeffEW("CHB")   
@@ -16017,7 +16020,7 @@ const double NPSMEFTd6General::deltaA_f(const Particle f) const
             -0.00143 * getSMEFTCoeffEW("CluR",1, 1, 0, 0) -0.00143 * getSMEFTCoeffEW("CluR",1, 1, 1, 1) -0.03763 * getSMEFTCoeffEW("CluR",1, 1, 2, 2) +0.00071 * getSMEFTCoeffEW("CldR",1, 1, 0, 0)  
             +0.00071 * getSMEFTCoeffEW("CldR",1, 1, 1, 1) +0.00071 * getSMEFTCoeffEW("CldR",1, 1, 2, 2) -0.00091 * getSMEFTCoeffEW("CqeR",0, 0, 1, 1) -0.00091 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1)  
             +0.04079 * getSMEFTCoeffEW("CqeR",2, 2, 1, 1) ) * v2; 
-        
+        break;
     //} else if (f.is("TAU")) {
         case 5:
             deltaNLO = (-0.00458 * getSMEFTCoeffEW("CW")  -0.00043 * getSMEFTCoeffEW("CHbox")  -0.24067 * getSMEFTCoeffEW("CHD")  -0.00259 * getSMEFTCoeffEW("CHB")   
@@ -16037,7 +16040,7 @@ const double NPSMEFTd6General::deltaA_f(const Particle f) const
             +0.00071 * getSMEFTCoeffEW("CleR",2, 2, 1, 1) +0.00162 * getSMEFTCoeffEW("CleR",2, 2, 2, 2) -0.00143 * getSMEFTCoeffEW("CluR",2, 2, 0, 0) -0.00143 * getSMEFTCoeffEW("CluR",2, 2, 1, 1)  
             -0.03763 * getSMEFTCoeffEW("CluR",2, 2, 2, 2) +0.00071 * getSMEFTCoeffEW("CldR",2, 2, 0, 0) +0.00071 * getSMEFTCoeffEW("CldR",2, 2, 1, 1) +0.00071 * getSMEFTCoeffEW("CldR",2, 2, 2, 2)  
             -0.00091 * getSMEFTCoeffEW("CqeR",0, 0, 2, 2) -0.00091 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2) +0.04079 * getSMEFTCoeffEW("CqeR",2, 2, 2, 2) ) * v2; 
-        
+        break;
     //} else if (f.is("STRANGE")) {
         case 9:
             deltaNLO = (-0.00038 * getSMEFTCoeffEW("CW")  -0.00004 * getSMEFTCoeffEW("CHbox")  -0.02465 * getSMEFTCoeffEW("CHD")  -0.0002 * getSMEFTCoeffEW("CHB")   
@@ -16062,7 +16065,7 @@ const double NPSMEFTd6General::deltaA_f(const Particle f) const
             +0.00006 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1) +0.00006 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2) -0.00011 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0) -0.00011 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1)  
             -0.00291 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2) -0.00032 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.00006 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0) -0.00027 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1)  
             +0.00006 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) +0.01443 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) ) * v2; 
-        
+        break;
     //} else if (f.is("CHARM")) {
         case 8:
             deltaNLO = (-0.00205 * getSMEFTCoeffEW("CW")  -0.00021 * getSMEFTCoeffEW("CHbox")  -0.13657 * getSMEFTCoeffEW("CHD")  -0.00111 * getSMEFTCoeffEW("CHB")   
@@ -16087,7 +16090,7 @@ const double NPSMEFTd6General::deltaA_f(const Particle f) const
             -0.0003 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1) -0.0003 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2) +0.00072 * getSMEFTCoeffEW("Cqu1R",0, 0, 1, 1) +0.0006 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0)  
             +0.00133 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1) +0.01583 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2) -0.03247 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1) -0.0003 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0)  
             -0.0003 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) -0.0003 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) ) * v2; 
-        
+        break;
     //} else if (f.is("BOTTOM")) {
         case 11:
             deltaNLO = (-0.00072 * getSMEFTCoeffEW("CW")  -0.00004 * getSMEFTCoeffEW("CHbox")  -0.02542 * getSMEFTCoeffEW("CHD")  -0.0002 * getSMEFTCoeffEW("CHB")   
@@ -16111,7 +16114,7 @@ const double NPSMEFTd6General::deltaA_f(const Particle f) const
             +0.00032 * getSMEFTCoeffEW("CldR",2, 2, 2, 2) +0.00006 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.00006 * getSMEFTCoeffEW("CqeR",2, 2, 1, 1) +0.00006 * getSMEFTCoeffEW("CqeR",2, 2, 2, 2)  
             -0.00011 * getSMEFTCoeffEW("Cqu1R",2, 2, 0, 0) -0.00011 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1) -0.00291 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2) -0.00032 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2)  
             -0.00032 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) +0.00006 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) +0.00006 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) +0.01449 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
-        
+        break;
     //} else {
         default:
             deltaNLO = 0.;
@@ -16183,7 +16186,7 @@ const double NPSMEFTd6General::deltaAFB(const Particle f) const
             -0.00031 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.00031 * getSMEFTCoeffEW("CluR",0, 0, 1, 1) -0.00829 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) +0.00016 * getSMEFTCoeffEW("CldR",0, 0, 0, 0)  
             +0.00016 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.00016 * getSMEFTCoeffEW("CldR",0, 0, 2, 2) -0.0002 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.0002 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0)  
             +0.00899 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) ) * v2; 
-        
+        break;
     //} else if (f.is("MUON")) {
         case 3:
             deltaNLO = (-0.00101 * getSMEFTCoeffEW("CW")  -0.00009 * getSMEFTCoeffEW("CHbox")  +0.18951 * getSMEFTCoeffEW("CHD")  -0.00057 * getSMEFTCoeffEW("CHB")   
@@ -16210,7 +16213,7 @@ const double NPSMEFTd6General::deltaAFB(const Particle f) const
             +0.00008 * getSMEFTCoeffEW("CldR",1, 1, 0, 0) +0.00008 * getSMEFTCoeffEW("CldR",1, 1, 1, 1) +0.00008 * getSMEFTCoeffEW("CldR",1, 1, 2, 2) -0.0001 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0)  
             -0.0001 * getSMEFTCoeffEW("CqeR",0, 0, 1, 1) -0.0001 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0) -0.0001 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1) +0.00449 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0)  
             +0.00449 * getSMEFTCoeffEW("CqeR",2, 2, 1, 1) ) * v2; 
-        
+        break;
     //} else if (f.is("TAU")) {
         case 5:
             deltaNLO = (-0.00101 * getSMEFTCoeffEW("CW")  -0.00009 * getSMEFTCoeffEW("CHbox")  +0.18951 * getSMEFTCoeffEW("CHD")  -0.00057 * getSMEFTCoeffEW("CHB")   
@@ -16237,7 +16240,7 @@ const double NPSMEFTd6General::deltaAFB(const Particle f) const
             +0.00008 * getSMEFTCoeffEW("CldR",0, 0, 2, 2) +0.00008 * getSMEFTCoeffEW("CldR",2, 2, 0, 0) +0.00008 * getSMEFTCoeffEW("CldR",2, 2, 1, 1) +0.00008 * getSMEFTCoeffEW("CldR",2, 2, 2, 2)  
             -0.0001 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.0001 * getSMEFTCoeffEW("CqeR",0, 0, 2, 2) -0.0001 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0) -0.0001 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2)  
             +0.00449 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.00449 * getSMEFTCoeffEW("CqeR",2, 2, 2, 2) ) * v2; 
-        
+        break;
     //} else if (f.is("STRANGE")) {
         case 9:
             deltaNLO = (-0.00325 * getSMEFTCoeffEW("CW")  -0.00031 * getSMEFTCoeffEW("CHbox")  -0.15305 * getSMEFTCoeffEW("CHD")  -0.00184 * getSMEFTCoeffEW("CHB")   
@@ -16264,7 +16267,7 @@ const double NPSMEFTd6General::deltaAFB(const Particle f) const
             +0.00004 * getSMEFTCoeffEW("CldR",1, 1, 1, 1) +0.00004 * getSMEFTCoeffEW("CldR",2, 2, 1, 1) -0.00064 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.00063 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0)  
             +0.02862 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) -0.00001 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0) -0.00001 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1) -0.00032 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2)  
             -0.00004 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) -0.00003 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) +0.00159 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) ) * v2; 
-        
+        break;
     //} else if (f.is("CHARM")) {
         case 8:
             deltaNLO = (-0.00252 * getSMEFTCoeffEW("CW")  -0.00024 * getSMEFTCoeffEW("CHbox")  -0.03461 * getSMEFTCoeffEW("CHD")  -0.00142 * getSMEFTCoeffEW("CHB")   
@@ -16296,7 +16299,7 @@ const double NPSMEFTd6General::deltaAFB(const Particle f) const
             +0.02043 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.00008 * getSMEFTCoeffEW("Cqu1R",0, 0, 1, 1) +0.00007 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0) +0.00015 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1)  
             +0.00174 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2) -0.00358 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1) -0.00003 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0) -0.00003 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1)  
             -0.00003 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) ) * v2; 
-        
+        break;
     //} else if (f.is("BOTTOM")) {
         case 11:
             deltaNLO = (-0.00326 * getSMEFTCoeffEW("CW")  -0.0003 * getSMEFTCoeffEW("CHbox")  -0.1445 * getSMEFTCoeffEW("CHD")  -0.00182 * getSMEFTCoeffEW("CHB")   
@@ -16322,7 +16325,7 @@ const double NPSMEFTd6General::deltaAFB(const Particle f) const
             +0.00004 * getSMEFTCoeffEW("CldR",2, 2, 2, 2) -0.00063 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.00063 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0) +0.02836 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0)  
             -0.00001 * getSMEFTCoeffEW("Cqu1R",2, 2, 0, 0) -0.00001 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1) -0.00032 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2) -0.00004 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2)  
             -0.00004 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) +0.0016 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
-        
+        break;
     //} else {
         default:
             deltaNLO = 0.;
@@ -16446,7 +16449,7 @@ const double NPSMEFTd6General::deltaR0_f(const Particle f) const
             +0.05747 * getSMEFTCoeffEW("Cqu1R",2, 2, 0, 0) +0.05747 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1) -0.22519 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1R",0, 0, 0, 0)  
             +0.00147 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.00147 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0) +0.00147 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1)  
             +0.00147 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) -0.02874 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) -0.02874 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) -0.0286 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
-        
+        break;
     //} else if (f.is("MUON")) {
         case 3:
             deltaNLO = (-0.03732 * getSMEFTCoeffEW("CW")  -0.00117 * getSMEFTCoeffEW("CHbox")  -1.98556 * getSMEFTCoeffEW("CHD")  -0.00428 * getSMEFTCoeffEW("CHB")   
@@ -16496,7 +16499,7 @@ const double NPSMEFTd6General::deltaR0_f(const Particle f) const
             +0.05747 * getSMEFTCoeffEW("Cqu1R",2, 2, 0, 0) +0.05747 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1) -0.22519 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1R",0, 0, 0, 0)  
             +0.00147 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.00147 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) +0.00147 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0) +0.00147 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1)  
             +0.00147 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) -0.02874 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) -0.02874 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) -0.0286 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
-        
+        break;
     //} else if (f.is("TAU")) {
         case 5:
             deltaNLO = (-0.03735 * getSMEFTCoeffEW("CW")  -0.00113 * getSMEFTCoeffEW("CHbox")  -1.96366 * getSMEFTCoeffEW("CHD")  -0.00427 * getSMEFTCoeffEW("CHB")   
@@ -16547,7 +16550,7 @@ const double NPSMEFTd6General::deltaR0_f(const Particle f) const
             +0.00148 * getSMEFTCoeffEW("Cqd1R",0, 0, 0, 0) +0.00148 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.00147 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) +0.00148 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0)  
             +0.00148 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) +0.00147 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) -0.0288 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) -0.0288 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1)  
             -0.02866 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
-        
+        break;
     //} else if (f.is("CHARM")) {
         case 8:
             deltaNLO = (+0.00019 * getSMEFTCoeffEW("CW")  +0.00168 * getSMEFTCoeffEW("CHD")  -0.00002 * getSMEFTCoeffEW("CHB")  -0.00002 * getSMEFTCoeffEW("CHW")   
@@ -16586,7 +16589,7 @@ const double NPSMEFTd6General::deltaR0_f(const Particle f) const
             +0.00271 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1) +0.00187 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2) -0.00001 * getSMEFTCoeffEW("Cqd1R",0, 0, 0, 0) -0.00001 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1)  
             -0.00001 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) -0.00018 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0) -0.00018 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) -0.00018 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2)  
             +0.00024 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) +0.00024 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) +0.00024 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
-        
+        break;
     //} else if (f.is("BOTTOM")) {
         case 11:
             deltaNLO = (-0.00098 * getSMEFTCoeffEW("CW")  +0.00054 * getSMEFTCoeffEW("CHD")  +0.00001 * getSMEFTCoeffEW("CHB")  +0.00001 * getSMEFTCoeffEW("CHW")   
@@ -16625,7 +16628,7 @@ const double NPSMEFTd6General::deltaR0_f(const Particle f) const
             -0.00002 * getSMEFTCoeffEW("Cqd1R",0, 0, 0, 0) -0.00002 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.00002 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) -0.00002 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0)  
             -0.00002 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) +0.00002 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) +0.00051 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) +0.00051 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1)  
             -0.00108 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
-   
+        break;
     //} else {
         default:
             deltaNLO = 0.;
@@ -16699,39 +16702,49 @@ const double NPSMEFTd6General::deltaGL_f_mu(const Particle p, const double mu) c
     //if (p.is("NEUTRINO_1"))
         case 0:
             CHF = getSMEFTCoeff("CHl1R", 0, 0, mu) - getSMEFTCoeff("CHl3R", 0, 0, mu);
+            break;
     //else if (p.is("ELECTRON"))
         case 1:
             CHF = getSMEFTCoeff("CHl1R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 0, 0, mu);
+            break;
     //else if (p.is("NEUTRINO_2"))
         case 2:
             CHF = getSMEFTCoeff("CHl1R", 1, 1, mu) - getSMEFTCoeff("CHl3R", 1, 1, mu);
+            break;
     //else if (p.is("MU"))
         case 3:
             CHF = getSMEFTCoeff("CHl1R", 1, 1, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu);
+            break;
     //else if (p.is("NEUTRINO_3"))
         case 4:
             CHF = getSMEFTCoeff("CHl1R", 2, 2, mu) - getSMEFTCoeff("CHl3R", 2, 2, mu);
+            break;
     //else if (p.is("TAU"))
         case 5:
             CHF = getSMEFTCoeff("CHl1R", 2, 2, mu) + getSMEFTCoeff("CHl3R", 2, 2, mu);
+            break;
     //else if (p.is("UP"))
         case 6:
             CHF = getSMEFTCoeff("CHq1R", 0, 0, mu) - getSMEFTCoeff("CHq3R", 0, 0, mu);
-    //else if (p.is("DOWN"))
+            break;
         case 7:
             CHF = getSMEFTCoeff("CHq1R", 0, 0, mu) + getSMEFTCoeff("CHq3R", 0, 0, mu);
-    //else if (p.is("CHARM"))
+            break;
         case 8:
             CHF = getSMEFTCoeff("CHq1R", 1, 1, mu) - getSMEFTCoeff("CHq3R", 1, 1, mu);
+            break;
     //else if (p.is("STRANGE"))
         case 9:
             CHF = getSMEFTCoeff("CHq1R", 1, 1, mu) + getSMEFTCoeff("CHq3R", 1, 1, mu);
+            break;
     //else if (p.is("TOP"))
         case 10:
             CHF = getSMEFTCoeff("CHq1R", 2, 2, mu) - getSMEFTCoeff("CHq3R", 2, 2, mu);
+            break;
     //else if (p.is("BOTTOM"))
         case 11:
             CHF = getSMEFTCoeff("CHq1R", 2, 2, mu) + getSMEFTCoeff("CHq3R", 2, 2, mu);
+            break;
     //else
         default:
             throw std::runtime_error("NPSMEFTd6General::deltaGL_f_mu(): wrong argument");
@@ -16760,37 +16773,46 @@ const double NPSMEFTd6General::deltaGR_f_mu(const Particle p, const double mu) c
     //if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3"))
         case 0:
             CHf = 0.0;
+            break;
     //else if (p.is("ELECTRON"))
         case 1:
             CHf = getSMEFTCoeff("CHeR", 0, 0, mu);
+            break;
         case 2:
             CHf = 0.;
+            break;
     //else if (p.is("MU"))
         case 3:
             CHf = getSMEFTCoeff("CHeR", 1, 1, mu);
+            break;
         case 4:
             CHf = 0.;
+            break;
     //else if (p.is("TAU"))
         case 5:
             CHf = getSMEFTCoeff("CHeR", 2, 2, mu);
+            break;
     //else if (p.is("UP"))
         case 6:
             CHf = getSMEFTCoeff("CHuR", 0, 0, mu);
+            break;
     //else if (p.is("DOWN"))
         case 7:
             CHf = getSMEFTCoeff("CHdR", 0, 0, mu);
-    //else if (p.is("CHARM"))
+            break;
         case 8:
             CHf = getSMEFTCoeff("CHuR", 1, 1, mu);
-    //else if (p.is("STRANGE"))
+            break;
         case 9:
             CHf = getSMEFTCoeff("CHdR", 1, 1, mu);
-    //else if (p.is("TOP"))
+            break;
         case 10:
             CHf = getSMEFTCoeff("CHuR", 2, 2, mu);
+            break;
     //else if (p.is("BOTTOM"))
         case 11:
             CHf = getSMEFTCoeff("CHdR", 2, 2, mu);
+            break;
     //else
         default:
             throw std::runtime_error("NPSMEFTd6General::deltaGR_f_mu(): wrong argument");
@@ -45083,56 +45105,56 @@ const double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) con
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f_mu(leptons[ELECTRON], muRG);
-        
+        break;
     //} else if (f.is("MU")) {
         case 3:
         Aeeff = CeeLR_mu(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f_mu(leptons[MU], muRG);
-        
+        break;
     //} else if (f.is("TAU")) {
         case 5:
         Aeeff = CeeLR_tau(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f_mu(leptons[TAU], muRG);
-        
+        break;
     //} else if (f.is("UP")) {
         case 6:
         Aeeff = CeeLR_up(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuR;
         deltagf = deltaGR_f_mu(quarks[UP], muRG);
-        
+        break;
     //} else if (f.is("CHARM")) {
         case 8:
         Aeeff = CeeLR_charm(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuR;
         deltagf = deltaGR_f_mu(quarks[CHARM], muRG);
-        
+        break;
     //} else if (f.is("DOWN")) {
         case 7:
         Aeeff = CeeLR_down(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f_mu(quarks[DOWN], muRG);
-        
+        break;
     //} else if (f.is("STRANGE")) {
         case 9:
         Aeeff = CeeLR_strange(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f_mu(quarks[STRANGE], muRG);
-        
+        break;
     //} else if (f.is("BOTTOM")) {
         case 11:
         Aeeff = CeeLR_bottom(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f_mu(quarks[BOTTOM], muRG);
-        
+        break;
     //} else
         default:
         throw std::runtime_error("NPSMEFTd6General::deltaMLR2_f(): wrong argument");
@@ -45192,56 +45214,56 @@ const double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) con
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f_mu(leptons[ELECTRON], muRG);
-        
+        break;
     //} else if (f.is("MU")) {
         case 3:
         Aeeff = CeeRL_mu(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f_mu(leptons[MU], muRG);
-        
+        break;
     //} else if (f.is("TAU")) {
         case 5:
         Aeeff = CeeRL_tau(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f_mu(leptons[TAU], muRG);
-        
+        break;
     //} else if (f.is("UP")) {
         case 6:
         Aeeff = CeeRL_up(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuL;
         deltagf = deltaGL_f_mu(quarks[UP], muRG);
-        
+        break;
     //} else if (f.is("CHARM")) {
         case 8:
         Aeeff = CeeRL_charm(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuL;
         deltagf = deltaGL_f_mu(quarks[CHARM], muRG);
-        
+        break;
     //} else if (f.is("DOWN")) {
         case 7:
         Aeeff = CeeRL_down(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f_mu(quarks[DOWN], muRG);
-        
+        break;
     //} else if (f.is("STRANGE")) {
         case 9:
         Aeeff = CeeRL_strange(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f_mu(quarks[STRANGE], muRG);
-        
+        break;
     //} else if (f.is("BOTTOM")) {
         case 11:
         Aeeff = CeeRL_bottom(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f_mu(quarks[BOTTOM], muRG);
-        
+        break;
     //} else
         default:
         throw std::runtime_error("NPSMEFTd6General::deltaMRL2_f(): wrong argument");
@@ -45355,56 +45377,56 @@ const double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, con
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f_mu(leptons[ELECTRON], muRG);
-        
+        break;
     //} else if (f.is("MU")) {
         case 3:
         Aeeff = CeeLL_mu(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f_mu(leptons[MU], muRG);
-        
+        break;
     //} else if (f.is("TAU")) {
         case 5:
         Aeeff = CeeLL_tau(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlL;
         deltagf = deltaGL_f_mu(leptons[TAU], muRG);
-        
+        break;
     //} else if (f.is("UP")) {
         case 6:
         Aeeff = CeeLL_up(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuL;
         deltagf = deltaGL_f_mu(quarks[UP], muRG);
-        
+        break;
     //} else if (f.is("CHARM")) {
         case 8:
         Aeeff = CeeLL_charm(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuL;
         deltagf = deltaGL_f_mu(quarks[CHARM], muRG);
-        
+        break;
     //} else if (f.is("DOWN")) {
         case 7:
         Aeeff = CeeLL_down(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f_mu(quarks[DOWN], muRG);
-        
+        break;
     //} else if (f.is("STRANGE")) {
         case 9:
         Aeeff = CeeLL_strange(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f_mu(quarks[STRANGE], muRG);
-        
+        break;
     //} else if (f.is("BOTTOM")) {
         case 11:
         Aeeff = CeeLL_bottom(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdL;
         deltagf = deltaGL_f_mu(quarks[BOTTOM], muRG);
-        
+        break;
         default:
         throw std::runtime_error("NPSMEFTd6General::deltaMLL2_f(): wrong argument");
     }
@@ -45473,56 +45495,56 @@ const double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, con
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f_mu(leptons[ELECTRON], muRG);
-        
+        break;
     //} else if (f.is("MU")) {
         case 3:
         Aeeff = CeeRR_mu(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f_mu(leptons[MU], muRG);
-        
+        break;
     //} else if (f.is("TAU")) {
         case 5:
         Aeeff = CeeRR_tau(muRG);
         Qf = leptons[ELECTRON].getCharge();
         gfSM = gZlR;
         deltagf = deltaGR_f_mu(leptons[TAU], muRG);
-        
+        break;
     //} else if (f.is("UP")) {
         case 6:
         Aeeff = CeeRR_up(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuR;
         deltagf = deltaGR_f_mu(quarks[UP], muRG);
-        
+        break;
     //} else if (f.is("CHARM")) {
         case 8:
         Aeeff = CeeRR_charm(muRG);
         Qf = quarks[UP].getCharge();
         gfSM = gZuR;
         deltagf = deltaGR_f_mu(quarks[CHARM], muRG);
-        
+        break;
     //} else if (f.is("DOWN")) {
         case 7:
         Aeeff = CeeRR_down(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f_mu(quarks[DOWN], muRG);
-        
+        break;
     //} else if (f.is("STRANGE")) {
         case 9:
         Aeeff = CeeRR_strange(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f_mu(quarks[STRANGE], muRG);
-        
+        break;
     //} else if (f.is("BOTTOM")) {
         case 11:
         Aeeff = CeeRR_bottom(muRG);
         Qf = quarks[DOWN].getCharge();
         gfSM = gZdR;
         deltagf = deltaGR_f_mu(quarks[BOTTOM], muRG);
-        
+        break;
         default:
         throw std::runtime_error("NPSMEFTd6General::deltaMRR2_f(): wrong argument");
     }
@@ -45684,43 +45706,43 @@ const double NPSMEFTd6General::delta_AFB_f(const Particle f, const double pol_e,
         Qf = leptons[ELECTRON].getCharge();
         gfLSM = gZlL;
         gfRSM = gZlR;
-        
+        break;
     //} else if (f.is("TAU")) {
         case 5:
         Qf = leptons[ELECTRON].getCharge();
         gfLSM = gZlL;
         gfRSM = gZlR;
-        
+        break;
     //} else if (f.is("UP")) {
         case 6:
         Qf = quarks[UP].getCharge();
         gfLSM = gZuL;
         gfRSM = gZuR;
-        
+        break;
     //} else if (f.is("CHARM")) {
         case 8:
         Qf = quarks[UP].getCharge();
         gfLSM = gZuL;
         gfRSM = gZuR;
-        
+        break;
     //} else if (f.is("DOWN")) {
         case 7:
         Qf = quarks[DOWN].getCharge();
         gfLSM = gZdL;
         gfRSM = gZdR;
-        
+        break;
     //} else if (f.is("STRANGE")) {
         case 9:
         Qf = quarks[DOWN].getCharge();
         gfLSM = gZdL;
         gfRSM = gZdR;
-        
+        break;
     //} else if (f.is("BOTTOM")) {
         case 11:
         Qf = quarks[DOWN].getCharge();
         gfLSM = gZdL;
         gfRSM = gZdR;
-        
+        break;
         default:            
         throw std::runtime_error("NPSMEFTd6General::delta_AFB_f(): wrong argument");
     }
