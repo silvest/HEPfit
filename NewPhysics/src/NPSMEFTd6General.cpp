@@ -14136,7 +14136,7 @@ inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name
 // Functions to select the SMEFT WC at different energy scales 
 
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) const {
-//    return SMEFTEvolEW.GetCoefficient(name);
+    return SMEFTEvolEW.GetCoefficient(name);
     //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol500.GetCoefficient(name)};
     //int imu;
     ////double WCmu;
@@ -14184,7 +14184,7 @@ double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) 
 }
     
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, const double mu) const {
-    //return SMEFTEvolEW.GetCoefficient(name, i, j);
+    return SMEFTEvolEW.GetCoefficient(name, i, j);
     //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol500.GetCoefficient(name, i, j)};
     //int imu;
     ////double WCmu;
@@ -14232,7 +14232,7 @@ double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, con
 }
     
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const {
-    //return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
+    return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
     //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol500.GetCoefficient(name, i, j, k, l)};    
     //int imu;
     ////double WCmu;
