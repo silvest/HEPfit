@@ -1800,6 +1800,12 @@ var group___new_physics =
       [ "myNPbase", "dd/d80/classmumm_hgg_n_w_a.html#a3058b00bff0ffa6d87a1649bf08f2b36", null ],
       [ "sqrt_s", "dd/d80/classmumm_hgg_n_w_a.html#a2655a873210d8b1b7ed250c9a7988004", null ]
     ] ],
+    [ "mummHmm", "d0/d0d/classmumm_hmm.html", [
+      [ "mummHmm", "d0/d0d/classmumm_hmm.html#a5a4f201cc40727711a7eb19591615d57", null ],
+      [ "computeThValue", "d0/d0d/classmumm_hmm.html#a774fb42647786095be9dddc1c01f715b", null ],
+      [ "myNPbase", "d0/d0d/classmumm_hmm.html#ae90f6eff4988cc9cfbc7503760e6c6f1", null ],
+      [ "sqrt_s", "d0/d0d/classmumm_hmm.html#a83ff46075484339e304c56e042bc4756", null ]
+    ] ],
     [ "mummHmmbb", "d1/d0c/classmumm_hmmbb.html", [
       [ "mummHmmbb", "d1/d0c/classmumm_hmmbb.html#a87387ce324ff0f75f6b64ed8d694c693", null ],
       [ "computeThValue", "d1/d0c/classmumm_hmmbb.html#ac8e40e9bcdfe7fad6becb681b2fbda94", null ],

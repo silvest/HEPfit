@@ -2897,6 +2897,7 @@ var hierarchy =
       [ "mummHgagaNWA", "d0/d41/classmumm_hgaga_n_w_a.html", null ],
       [ "mummHgg", "d6/da0/classmumm_hgg.html", null ],
       [ "mummHggNWA", "dd/d80/classmumm_hgg_n_w_a.html", null ],
+      [ "mummHmm", "d0/d0d/classmumm_hmm.html", null ],
       [ "mummHmmWW", "db/d3c/classmumm_hmm_w_w.html", null ],
       [ "mummHmmZZ", "dd/d96/classmumm_hmm_z_z.html", null ],
       [ "mummHmmZga", "d7/db8/classmumm_hmm_zga.html", null ],
