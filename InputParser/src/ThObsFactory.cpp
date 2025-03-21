@@ -1292,6 +1292,9 @@ ThObsFactory::ThObsFactory()
     //
     obsThFactory["mumuHvv3000"] = bind(boost::factory<mummHvv*>(), _1, sqrt_s_leptcoll_3000);
     obsThFactory["mumuHvv10000"] = bind(boost::factory<mummHvv*>(), _1, sqrt_s_leptcoll_10000);
+    //
+    obsThFactory["mumuHmumu3000"] = bind(boost::factory<mummHmm*>(), _1, sqrt_s_leptcoll_3000);
+    obsThFactory["mumuHmumu10000"] = bind(boost::factory<mummHmm*>(), _1, sqrt_s_leptcoll_10000);
      //
     obsThFactory["eeHvv250_p80_m30"] = bind(boost::factory<mueeHvvPol*>(), _1, sqrt_s_leptcoll_250, pol_80, -pol_30);
     obsThFactory["eeHvv250_m80_p30"] = bind(boost::factory<mueeHvvPol*>(), _1, sqrt_s_leptcoll_250, -pol_80, pol_30);

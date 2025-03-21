@@ -4886,6 +4886,19 @@ double mummHvv::computeThValue()
 }
 
 
+mummHmm::mummHmm(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mummHmm called with a class whose parent is not NPbase");
+}
+
+double mummHmm::computeThValue()
+{
+    return myNPbase->mummHmm(sqrt_s);
+}
+
+
 mummttH::mummttH(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
