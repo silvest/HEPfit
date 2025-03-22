@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014 HEPfit Collaboration
  *
  *
@@ -19,15 +19,14 @@ using namespace boost::placeholders;
 
 MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
 : mySM(SM_i), myF_1(new F_1()), myF_2(new F_2()),
-#if LATTICE        
+#if defined LATTICE || defined BSZ
 fplus_lat_cache(3, 0.),
 fT_lat_cache(3, 0.),
 f0_lat_cache(3, 0.),
-#else        
+#else
 fplus_cache(2, 0.),
 fT_cache(2, 0.),
-f0_cache(2, 0.),
-#endif        
+#endif
 k2_cache(2, 0.),
 SL_cache(2, 0.),
 N_cache(3, 0.),
@@ -85,19 +84,27 @@ std::vector<std::string> MPll::initializeMPllParameters()
         << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
         << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
         << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+#elif BSZ
+        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+        << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
 #else
         << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-#endif            
+#endif
         << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP" << "absh_2_MP" << "argh_2_MP";
 #else
     if (pseudoscalar == StandardModel::K_P || pseudoscalar == StandardModel::K_0) mpllParameters = make_vector<std::string>()
-#if LATTICE            
+#if LATTICE
         << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
         << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
         << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-#else            
+#elif BSZ
+        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+        << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+#else
         << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-#endif            
+#endif
         << "reh_0_MP" << "imh_0_MP" << "reh_1_MP" << "imh_1_MP" << "reh_2_MP" << "imh_2_MP";
 #endif
     else {
@@ -113,9 +120,13 @@ std::vector<std::string> MPll::initializeMPllParameters()
             << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
             << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
             << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-#else                
+#elif BSZ
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+#else
             << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-#endif                
+#endif
             << "r1_BK" << "r2_BK" << "deltaC9_BK" << "phDC9_BK";
     }
 
@@ -151,7 +162,7 @@ void MPll::updateParameters()
     switch (pseudoscalar) {
         case StandardModel::K_P:
         case StandardModel::K_0:
-#if LATTICE            
+#if LATTICE
             b_0_fplus = mySM.getOptionalParameter("b_0_fplus");
             b_1_fplus = mySM.getOptionalParameter("b_1_fplus");
             b_2_fplus = mySM.getOptionalParameter("b_2_fplus");
@@ -164,6 +175,19 @@ void MPll::updateParameters()
             b_1_f0 = mySM.getOptionalParameter("b_1_f0");
             b_2_f0 = mySM.getOptionalParameter("b_2_f0");
             m_fit2_f0_lat = mySM.getOptionalParameter("m_fit_f0_lat") * mySM.getOptionalParameter("m_fit_f0_lat");
+#elif BSZ
+            b_0_fplus = mySM.getOptionalParameter("b_0_fplus");
+            b_1_fplus = mySM.getOptionalParameter("b_1_fplus");
+            b_2_fplus = mySM.getOptionalParameter("b_2_fplus");
+            m_fit2_fplus_lat = mySM.getOptionalParameter("m_fit_fplus_lat") * mySM.getOptionalParameter("m_fit_fplus_lat");
+            b_0_fT = mySM.getOptionalParameter("b_0_fT");
+            b_1_fT = mySM.getOptionalParameter("b_1_fT");
+            b_2_fT = mySM.getOptionalParameter("b_2_fT");
+            m_fit2_fT_lat = mySM.getOptionalParameter("m_fit_fT_lat") * mySM.getOptionalParameter("m_fit_fT_lat");
+            b_0_f0 = b_0_fplus;
+            b_1_f0 = mySM.getOptionalParameter("b_1_f0");
+            b_2_f0 = mySM.getOptionalParameter("b_2_f0");
+            m_fit2_f0_lat = mySM.getOptionalParameter("m_fit_f0_lat") * mySM.getOptionalParameter("m_fit_f0_lat");
 #else
             r_1_fplus = mySM.getOptionalParameter("r_1_fplus");
             r_2_fplus = mySM.getOptionalParameter("r_2_fplus");
@@ -173,7 +197,7 @@ void MPll::updateParameters()
             m_fit2_fT = mySM.getOptionalParameter("m_fit2_fT");
             r_2_f0 = mySM.getOptionalParameter("r_2_f0");
             m_fit2_f0 = mySM.getOptionalParameter("m_fit2_f0");
-#endif            
+#endif
 
             if (pseudoscalar == StandardModel::K_P) spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
             else spectator_charge = mySM.getQuarks(QCD::DOWN).getCharge();
@@ -238,7 +262,7 @@ void MPll::updateParameters()
     C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
     C_Sp = MW / Mb * ((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
     C_Pp = MW / Mb * ((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
-    
+
     if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
         allcoeff_noSM = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep, true); //check the mass scale, scheme fixed to NDR
         C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
@@ -347,7 +371,7 @@ void MPll::updateParameters()
 
     if (deltaTparpupdated * deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
-#if SPLINE    
+#if SPLINE
     if (mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) spline_QCDF_func();
 #else
     fit_DeltaC9_mumu();
@@ -370,7 +394,7 @@ void MPll::checkCache()
         k2_cache(1) = MP;
     }
 
-#if LATTICE    
+#if defined LATTICE || defined BSZ
     if (b_0_fplus == fplus_lat_cache(0) && b_1_fplus == fplus_lat_cache(1) && b_2_fplus == fplus_lat_cache(2)) {
         fplus_lat_updated = 1;
     } else {
@@ -397,7 +421,7 @@ void MPll::checkCache()
         f0_lat_cache(1) = b_1_f0;
         f0_lat_cache(2) = b_2_f0;
     }
-#else    
+#else
     if (r_1_fplus == fplus_cache(0) && r_2_fplus == fplus_cache(1)) {
         fplus_updated = 1;
     } else {
@@ -420,7 +444,7 @@ void MPll::checkCache()
         f0_updated = 0;
         f0_cache = r_2_f0;
     }
-#endif    
+#endif
     if (Mlep == beta_cache) {
         beta_updated = 1;
     } else {
@@ -431,24 +455,24 @@ void MPll::checkCache()
     lambda_updated = k2_updated;
     F_updated = lambda_updated * beta_updated;
 
-#if LATTICE 
+#if defined LATTICE || defined BSZ
     VL_updated = k2_updated * fplus_lat_updated;
 #else
     VL_updated = k2_updated * fplus_updated;
-#endif 
+#endif
 
-#if LATTICE 
+#if defined LATTICE || defined BSZ
     TL_updated = k2_updated * fT_lat_updated;
 #else
     TL_updated = k2_updated * fT_updated;
-#endif 
+#endif
 
     if (Mb == SL_cache(0) && Ms == SL_cache(1)) {
-#if LATTICE 
+#if defined LATTICE || defined BSZ
         SL_updated = k2_updated * f0_lat_updated;
 #else
         SL_updated = k2_updated * f0_updated;
-#endif            
+#endif
     } else {
         SL_updated = 0;
         SL_cache(0) = Mb;
@@ -679,6 +703,11 @@ double MPll::LCSR_fit2(double q2, double r_2, double m_fit2)
     return r_2 / (1. - q2 / m_fit2);
 }
 
+double MPll::LCSR_fit3(double q2, double b_0, double b_1, double b_2, double m_fit2)
+{
+    return 1. / (1. - q2 / m_fit2) * (b_0 + b_1 * (zeta(q2) - zeta(0)) + b_2 * (zeta(q2) - zeta(0)) * (zeta(q2) - zeta(0)));
+}
+
 double MPll::zeta(double q2)
 {
     double tp, t0;
@@ -707,27 +736,33 @@ double MPll::f_plus(double q2)
 {
 #if LATTICE
     return LATTICE_fit1(q2, b_0_fplus, b_1_fplus, b_2_fplus, m_fit2_fplus_lat);
+#elif BSZ
+    return LCSR_fit3(q2, b_0_fplus, b_1_fplus, b_2_fplus, m_fit2_fplus_lat);
 #else
     return LCSR_fit1(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
-#endif        
+#endif
 }
 
 double MPll::f_T(double q2)
 {
 #if LATTICE
     return LATTICE_fit1(q2, b_0_fT, b_1_fT, b_2_fT, m_fit2_fT_lat);
+#elif BSZ
+    return LCSR_fit3(q2, b_0_fT, b_1_fT, b_2_fT, m_fit2_fT_lat);
 #else
     return LCSR_fit1(q2, r_1_fT, r_2_fT, m_fit2_fT);
-#endif        
+#endif
 }
 
 double MPll::f_0(double q2)
 {
 #if LATTICE
     return LATTICE_fit2(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
+#elif BSZ
+    return LCSR_fit3(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
 #else
     return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
-#endif        
+#endif
 }
 
 gslpp::complex MPll::V_L(double q2)
@@ -1105,7 +1140,7 @@ gslpp::complex MPll::h_lambda(double q2)
 //            h_2 = (-sixteenM_PI2*4.9e-7/MM2 * (1. + gslpp::complex::i()) / sqrt(2.) - h_1 / MM2 * V_L(1.) - h_2 * sixteenM_PI2) / twoMboMM / T_L(1.);
 //            h_2 = 1.3e-4/MM2 * (1. + gslpp::complex::i()) / sqrt(2.) - h_1 * V_L(1.)/sixteenM_PI2/MM2;
             //else return 4.9e-7/MM2 + h_1 * (q2 * V_L(q2) - T_L(q2). * V_L(1)/T_L(1.)) / MM2  / sixteenM_PI2;
-            return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * q2; 
+            return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * q2;
 //        }
     } else {
         return -q2 / (MM2 * sixteenM_PI2) * V_L(q2) * DeltaC9_KD(q2);
@@ -1114,8 +1149,8 @@ gslpp::complex MPll::h_lambda(double q2)
 
 gslpp::complex MPll::H_V(double q2)
 {
-    return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2) 
-            + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, SPLINE) - etaP * pow(-1, angmomP) * C_7p) * T_L(q2) 
+    return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2)
+            + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, SPLINE) - etaP * pow(-1, angmomP) * C_7p) * T_L(q2)
             - sixteenM_PI2 * h_lambda(q2)));
 }
 
