@@ -7016,7 +7016,7 @@ private:
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to bb @f$ production
+ * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to cc @f$ production
  * cross-section in the current model and in the Standard Model.
  */
 class mueeHvvccPol : public ThObservable {
@@ -7034,6 +7034,74 @@ public:
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to cc@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to cc@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s, Pol_em, Pol_ep;
+};
+
+
+/**
+ * @class mueeHvvss
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ss}@f$,
+ * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ss}@f$ between the 
+ * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to ss@f$ production
+ * cross-section in the current model and in the Standard Model.
+ */
+class mueeHvvss : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mueeHvvss(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ss@f$ in the current model.
+     * @return @f$e^+e^- \to \nu\nu H, H \to ss@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class mueeHvvssPol
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ss@f$,
+ * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ss@f$ between the 
+ * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to ss @f$ production
+ * cross-section in the current model and in the Standard Model.
+ */
+class mueeHvvssPol : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
+     */
+    mueeHvvssPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+
+    /**
+     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ss@f$ in the current model.
+     * @return @f$e^+e^- \to \nu\nu H, H \to ss@f$
      */
     double computeThValue();
 

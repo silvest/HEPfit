@@ -4554,6 +4554,42 @@ double mueeHvvccPol::computeThValue()
     }
 }
 
+
+mueeHvvss::mueeHvvss(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mueeHvvss called with a class whose parent is not NPbase");
+
+}
+
+double mueeHvvss::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHssRatio()) - 1.0);
+    } else {
+        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHssRatio());
+    }
+}
+
+mueeHvvssPol::mueeHvvssPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("mueeHvvssPol called with a class whose parent is not NPbase");
+
+}
+
+double mueeHvvssPol::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHssRatio()) - 1.0);
+    } else {
+        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHssRatio());
+    }
+}
+
+
 mueeHvvgg::mueeHvvgg(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
