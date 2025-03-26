@@ -2802,6 +2802,8 @@ var hierarchy =
       [ "mueeHvvggPol", "d0/dee/classmuee_hvvgg_pol.html", null ],
       [ "mueeHvvmumu", "dd/d66/classmuee_hvvmumu.html", null ],
       [ "mueeHvvmumuPol", "de/d91/classmuee_hvvmumu_pol.html", null ],
+      [ "mueeHvvss", "d0/d90/classmuee_hvvss.html", null ],
+      [ "mueeHvvssPol", "d2/d17/classmuee_hvvss_pol.html", null ],
       [ "mueeHvvtautau", "d1/d23/classmuee_hvvtautau.html", null ],
       [ "mueeHvvtautauPol", "de/d48/classmuee_hvvtautau_pol.html", null ],
       [ "mueeWBF", "d5/d3f/classmuee_w_b_f.html", null ],

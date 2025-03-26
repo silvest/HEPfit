@@ -1182,6 +1182,20 @@ var group___new_physics =
       [ "Pol_ep", "d2/d59/classmuee_hvv_pol.html#a98a8305187abb68c9bdac7f369b55430", null ],
       [ "sqrt_s", "d2/d59/classmuee_hvv_pol.html#aabe382cb2b181a0d49cf93786477b1cb", null ]
     ] ],
+    [ "mueeHvvss", "d0/d90/classmuee_hvvss.html", [
+      [ "mueeHvvss", "d0/d90/classmuee_hvvss.html#ae9305738ae5a649d1db3c9b968ccf397", null ],
+      [ "computeThValue", "d0/d90/classmuee_hvvss.html#a3694aeb4755729b55647a7e87635ac73", null ],
+      [ "myNPbase", "d0/d90/classmuee_hvvss.html#a9d64d820fa382f3307614a02afc81fd3", null ],
+      [ "sqrt_s", "d0/d90/classmuee_hvvss.html#ac6e5b890cf9ff2494aa270e61ca2e82d", null ]
+    ] ],
+    [ "mueeHvvssPol", "d2/d17/classmuee_hvvss_pol.html", [
+      [ "mueeHvvssPol", "d2/d17/classmuee_hvvss_pol.html#afdfaa0c862846fad596411ebb1028f99", null ],
+      [ "computeThValue", "d2/d17/classmuee_hvvss_pol.html#aa3e96987cf8c0f3f2641f20ca5912261", null ],
+      [ "myNPbase", "d2/d17/classmuee_hvvss_pol.html#ae5c6be1996833cb8c4e388a9c24186fd", null ],
+      [ "Pol_em", "d2/d17/classmuee_hvvss_pol.html#a3fee98fff05fcb02c578f263a9edef76", null ],
+      [ "Pol_ep", "d2/d17/classmuee_hvvss_pol.html#aa316dd402e48204f24222306315bf7da", null ],
+      [ "sqrt_s", "d2/d17/classmuee_hvvss_pol.html#a5eba368383a46c69dffa1ddeb9b29e90", null ]
+    ] ],
     [ "mueeHvvtautau", "d1/d23/classmuee_hvvtautau.html", [
       [ "mueeHvvtautau", "d1/d23/classmuee_hvvtautau.html#a4d10947802672ed61d75963e16d4644e", null ],
       [ "computeThValue", "d1/d23/classmuee_hvvtautau.html#a1c131b5c5e8dd91f19cf51d197f86fc5", null ],

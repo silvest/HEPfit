@@ -146,7 +146,7 @@ $(document).ready(function(){initNavTree('d1/d71/classmumm_z_h_w_w.html','../../
 <dl class="section copyright"><dt>Copyright</dt><dd>GNU General Public License</dd></dl>
 <p>A class for computing the ratio \(\mu_{\mu^+ \mu^- \to H, H \to WW}\) between the \(\mu^+ \mu^- \to H, H \to WW\) associated production cross-section in the current model and in the Standard <a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html#l08471">8471</a> of file <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html">HiggsThObservables.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html#l08539">8539</a> of file <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html">HiggsThObservables.h</a>.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -247,17 +247,17 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dfd/_higgs_th_observables_8cpp_source.html#l05113">5113</a> of file <a class="el" href="../../df/dfd/_higgs_th_observables_8cpp_source.html">HiggsThObservables.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l05114" name="l05114"></a><span class="lineno"> 5114</span>: <a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable</a>(SM_i), <a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#a1349fed003ca923d46d673c9f0ec3791">sqrt_s</a>(sqrt_s_i)</div>
-<div class="line"><a id="l05115" name="l05115"></a><span class="lineno"> 5115</span>{</div>
-<div class="line"><a id="l05116" name="l05116"></a><span class="lineno"> 5116</span>    <span class="keywordflow">if</span> ((<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a> = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="../../d2/df3/class_n_pbase.html">NPbase</a>*<span class="keyword">&gt;</span> (&amp;<a class="code hl_variable" href="../../dc/d1f/class_th_observable.html#af6d1804943261b813d7e0b84e2812404">SM</a>)) == NULL)</div>
-<div class="line"><a id="l05117" name="l05117"></a><span class="lineno"> 5117</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;mummZHcc called with a class whose parent is not NPbase&quot;</span>);</div>
-<div class="line"><a id="l05118" name="l05118"></a><span class="lineno"> 5118</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../df/dfd/_higgs_th_observables_8cpp_source.html#l05149">5149</a> of file <a class="el" href="../../df/dfd/_higgs_th_observables_8cpp_source.html">HiggsThObservables.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l05150" name="l05150"></a><span class="lineno"> 5150</span>: <a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable</a>(SM_i), <a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#a1349fed003ca923d46d673c9f0ec3791">sqrt_s</a>(sqrt_s_i)</div>
+<div class="line"><a id="l05151" name="l05151"></a><span class="lineno"> 5151</span>{</div>
+<div class="line"><a id="l05152" name="l05152"></a><span class="lineno"> 5152</span>    <span class="keywordflow">if</span> ((<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a> = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="../../d2/df3/class_n_pbase.html">NPbase</a>*<span class="keyword">&gt;</span> (&amp;<a class="code hl_variable" href="../../dc/d1f/class_th_observable.html#af6d1804943261b813d7e0b84e2812404">SM</a>)) == NULL)</div>
+<div class="line"><a id="l05153" name="l05153"></a><span class="lineno"> 5153</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;mummZHcc called with a class whose parent is not NPbase&quot;</span>);</div>
+<div class="line"><a id="l05154" name="l05154"></a><span class="lineno"> 5154</span>}</div>
 <div class="ttc" id="aclass_n_pbase_html"><div class="ttname"><a href="../../d2/df3/class_n_pbase.html">NPbase</a></div><div class="ttdoc">The auxiliary base model class for other model classes.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de8/_n_pbase_8h_source.html#l00066">NPbase.h:66</a></div></div>
 <div class="ttc" id="aclass_th_observable_html_a61df653abc411fb5b5ccd090f735a0c4"><div class="ttname"><a href="../../dc/d1f/class_th_observable.html#a61df653abc411fb5b5ccd090f735a0c4">ThObservable::ThObservable</a></div><div class="ttdeci">ThObservable(const StandardModel &amp;SM_i)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcd/_th_observable_8h_source.html#l00032">ThObservable.h:32</a></div></div>
 <div class="ttc" id="aclass_th_observable_html_af6d1804943261b813d7e0b84e2812404"><div class="ttname"><a href="../../dc/d1f/class_th_observable.html#af6d1804943261b813d7e0b84e2812404">ThObservable::SM</a></div><div class="ttdeci">const StandardModel &amp; SM</div><div class="ttdoc">A reference to an object of StandardMode class.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcd/_th_observable_8h_source.html#l00124">ThObservable.h:121</a></div></div>
-<div class="ttc" id="aclassmumm_z_h_w_w_html_a1349fed003ca923d46d673c9f0ec3791"><div class="ttname"><a href="../../d1/d71/classmumm_z_h_w_w.html#a1349fed003ca923d46d673c9f0ec3791">mummZHWW::sqrt_s</a></div><div class="ttdeci">const double sqrt_s</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d28/_higgs_th_observables_8h_source.html#l08489">HiggsThObservables.h:8489</a></div></div>
-<div class="ttc" id="aclassmumm_z_h_w_w_html_ae36ba8316f442ad4e3969a5d1ba0f885"><div class="ttname"><a href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">mummZHWW::myNPbase</a></div><div class="ttdeci">const NPbase * myNPbase</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d28/_higgs_th_observables_8h_source.html#l08488">HiggsThObservables.h:8488</a></div></div>
+<div class="ttc" id="aclassmumm_z_h_w_w_html_a1349fed003ca923d46d673c9f0ec3791"><div class="ttname"><a href="../../d1/d71/classmumm_z_h_w_w.html#a1349fed003ca923d46d673c9f0ec3791">mummZHWW::sqrt_s</a></div><div class="ttdeci">const double sqrt_s</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d28/_higgs_th_observables_8h_source.html#l08557">HiggsThObservables.h:8557</a></div></div>
+<div class="ttc" id="aclassmumm_z_h_w_w_html_ae36ba8316f442ad4e3969a5d1ba0f885"><div class="ttname"><a href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">mummZHWW::myNPbase</a></div><div class="ttdeci">const NPbase * myNPbase</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d28/_higgs_th_observables_8h_source.html#l08556">HiggsThObservables.h:8556</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -290,14 +290,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="../../dc/d1f/class_th_observable.html#a87d938c43d30f3ba5107728fdcc4074d">ThObservable</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dfd/_higgs_th_observables_8cpp_source.html#l05120">5120</a> of file <a class="el" href="../../df/dfd/_higgs_th_observables_8cpp_source.html">HiggsThObservables.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l05121" name="l05121"></a><span class="lineno"> 5121</span>{</div>
-<div class="line"><a id="l05122" name="l05122"></a><span class="lineno"> 5122</span>    <span class="keywordflow">if</span> ((this-&gt;<a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a76e24912065f6324dee051520f9b11d8">getModel</a>()).isModelLinearized()) {</div>
-<div class="line"><a id="l05123" name="l05123"></a><span class="lineno"> 5123</span>        <span class="keywordflow">return</span> ((<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#a1986e4b630d30df99df3ac1c87461f10">mummZH</a>(<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#a1349fed003ca923d46d673c9f0ec3791">sqrt_s</a>)) + (<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#ad77218d2b562b36a7adbaf570e014c4b">BrHWWRatio</a>()) - 1.0);</div>
-<div class="line"><a id="l05124" name="l05124"></a><span class="lineno"> 5124</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l05125" name="l05125"></a><span class="lineno"> 5125</span>        <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#a1986e4b630d30df99df3ac1c87461f10">mummZH</a>(<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#a1349fed003ca923d46d673c9f0ec3791">sqrt_s</a>))*(<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#ad77218d2b562b36a7adbaf570e014c4b">BrHWWRatio</a>());</div>
-<div class="line"><a id="l05126" name="l05126"></a><span class="lineno"> 5126</span>    }</div>
-<div class="line"><a id="l05127" name="l05127"></a><span class="lineno"> 5127</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../df/dfd/_higgs_th_observables_8cpp_source.html#l05156">5156</a> of file <a class="el" href="../../df/dfd/_higgs_th_observables_8cpp_source.html">HiggsThObservables.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l05157" name="l05157"></a><span class="lineno"> 5157</span>{</div>
+<div class="line"><a id="l05158" name="l05158"></a><span class="lineno"> 5158</span>    <span class="keywordflow">if</span> ((this-&gt;<a class="code hl_function" href="../../dc/d1f/class_th_observable.html#a76e24912065f6324dee051520f9b11d8">getModel</a>()).isModelLinearized()) {</div>
+<div class="line"><a id="l05159" name="l05159"></a><span class="lineno"> 5159</span>        <span class="keywordflow">return</span> ((<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#a1986e4b630d30df99df3ac1c87461f10">mummZH</a>(<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#a1349fed003ca923d46d673c9f0ec3791">sqrt_s</a>)) + (<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#ad77218d2b562b36a7adbaf570e014c4b">BrHWWRatio</a>()) - 1.0);</div>
+<div class="line"><a id="l05160" name="l05160"></a><span class="lineno"> 5160</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l05161" name="l05161"></a><span class="lineno"> 5161</span>        <span class="keywordflow">return</span> (<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#a1986e4b630d30df99df3ac1c87461f10">mummZH</a>(<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#a1349fed003ca923d46d673c9f0ec3791">sqrt_s</a>))*(<a class="code hl_variable" href="../../d1/d71/classmumm_z_h_w_w.html#ae36ba8316f442ad4e3969a5d1ba0f885">myNPbase</a>-&gt;<a class="code hl_function" href="../../d2/df3/class_n_pbase.html#ad77218d2b562b36a7adbaf570e014c4b">BrHWWRatio</a>());</div>
+<div class="line"><a id="l05162" name="l05162"></a><span class="lineno"> 5162</span>    }</div>
+<div class="line"><a id="l05163" name="l05163"></a><span class="lineno"> 5163</span>}</div>
 <div class="ttc" id="aclass_n_pbase_html_a1986e4b630d30df99df3ac1c87461f10"><div class="ttname"><a href="../../d2/df3/class_n_pbase.html#a1986e4b630d30df99df3ac1c87461f10">NPbase::mummZH</a></div><div class="ttdeci">virtual const double mummZH(const double sqrt_s) const</div><div class="ttdoc">The ratio  between the  production cross-section in the current model and in the Standard Model.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de8/_n_pbase_8h_source.html#l01523">NPbase.h:1523</a></div></div>
 <div class="ttc" id="aclass_n_pbase_html_ad77218d2b562b36a7adbaf570e014c4b"><div class="ttname"><a href="../../d2/df3/class_n_pbase.html#ad77218d2b562b36a7adbaf570e014c4b">NPbase::BrHWWRatio</a></div><div class="ttdeci">virtual const double BrHWWRatio() const</div><div class="ttdoc">The ratio of the Br  in the current model and in the Standard Model.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de8/_n_pbase_8h_source.html#l02181">NPbase.h:2181</a></div></div>
 <div class="ttc" id="aclass_th_observable_html_a76e24912065f6324dee051520f9b11d8"><div class="ttname"><a href="../../dc/d1f/class_th_observable.html#a76e24912065f6324dee051520f9b11d8">ThObservable::getModel</a></div><div class="ttdeci">const StandardModel &amp; getModel()</div><div class="ttdoc">A get method to get the model.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcd/_th_observable_8h_source.html#l00100">ThObservable.h:100</a></div></div>
@@ -325,7 +325,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html#l08488">8488</a> of file <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html">HiggsThObservables.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html#l08556">8556</a> of file <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html">HiggsThObservables.h</a>.</p>
 
 </div>
 </div>
@@ -349,7 +349,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html#l08489">8489</a> of file <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html">HiggsThObservables.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html#l08557">8557</a> of file <a class="el" href="../../d6/d28/_higgs_th_observables_8h_source.html">HiggsThObservables.h</a>.</p>
 
 </div>
 </div>
@@ -363,7 +363,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d1/d71/classmumm_z_h_w_w.html">mummZHWW</a></li>
-    <li class="footer">Generated on Sat Mar 22 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Wed Mar 26 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>

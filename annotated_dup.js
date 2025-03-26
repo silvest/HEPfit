@@ -2000,6 +2000,8 @@ var annotated_dup =
     [ "mueeHvvmumu", "dd/d66/classmuee_hvvmumu.html", "dd/d66/classmuee_hvvmumu" ],
     [ "mueeHvvmumuPol", "de/d91/classmuee_hvvmumu_pol.html", "de/d91/classmuee_hvvmumu_pol" ],
     [ "mueeHvvPol", "d2/d59/classmuee_hvv_pol.html", "d2/d59/classmuee_hvv_pol" ],
+    [ "mueeHvvss", "d0/d90/classmuee_hvvss.html", "d0/d90/classmuee_hvvss" ],
+    [ "mueeHvvssPol", "d2/d17/classmuee_hvvss_pol.html", "d2/d17/classmuee_hvvss_pol" ],
     [ "mueeHvvtautau", "d1/d23/classmuee_hvvtautau.html", "d1/d23/classmuee_hvvtautau" ],
     [ "mueeHvvtautauPol", "de/d48/classmuee_hvvtautau_pol.html", "de/d48/classmuee_hvvtautau_pol" ],
     [ "mueeHvvWW", "da/d07/classmuee_hvv_w_w.html", "da/d07/classmuee_hvv_w_w" ],
