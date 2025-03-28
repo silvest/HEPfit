@@ -19,8 +19,8 @@ class F_2;
 #include <memory>
 
 #define MPllSWITCH 8.2
-#define LATTICE false
-#define BSZ true
+#define LATTICE true
+#define BSZ false
 #define GSL_INTERP_DIM_DC 10
 #define SPLINE true
 
