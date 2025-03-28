@@ -1965,7 +1965,8 @@ const double HiggsKigen::BrHvisRatio() const
 
 const double HiggsKigen::BrHtoinvRatio() const
 {    
-        return (Br_H_inv()/(trueSM.computeBrHto4v()));   
+        // H->ZZ*->4v + H->inv (NP)
+        return ( BrHZZRatio() + Br_H_inv() / (trueSM.computeBrHto4v()) );   
 }
 
 ////////////////////////////////////////////////////////////////////////
