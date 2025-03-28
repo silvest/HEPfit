@@ -17230,8 +17230,8 @@ const double NPSMEFTd6::BrHvisRatio() const
 
 const double NPSMEFTd6::BrHtoinvRatio() const
 {
-    // H->ZZ*->4v + H->inv (NP): Assume SM part fixed for the moment
-    return ( 1.0 + Br_H_inv() / (trueSM.computeBrHto4v()) );
+    // H->ZZ*->4v + H->inv (NP)
+    return ( Br_H_inv() / (trueSM.computeBrHto4v()) );
 }
 
 
