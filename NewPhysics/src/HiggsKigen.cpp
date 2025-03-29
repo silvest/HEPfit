@@ -1123,10 +1123,15 @@ const double HiggsKigen::BrH2l2vRatio() const
 
 const double HiggsKigen::muttHZbbboost(const double sqrt_s) const
 {    
-    return computeKt() * computeKt() * computeKb() * computeKb() / GammaHTotR;
+    return computeKt() * computeKt() * BrHbbRatio();
     
 }
 
+const double HiggsKigen::muttHgagaZeeboost(const double sqrt_s) const
+{    
+    return computeKt() * computeKt() * BrHgagaRatio();
+    
+}
 
 const double HiggsKigen::muggHgaga(const double sqrt_s) const
 {

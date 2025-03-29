@@ -5317,7 +5317,7 @@ private:
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
- * in the @f$H,Z\to b\bar{b}@f$ channelin the boosted region in the current model.
+ * in the @f$H,Z\to b\bar{b}@f$ channel in the boosted region in the current model.
  */
 class muttHZbbboost : public ThObservable {
 public:
@@ -5328,6 +5328,39 @@ public:
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
     muttHZbbboost(const StandardModel& SM_i, const double sqrt_s_i);
+
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+     * in the @f$H,Z\to b\bar{b}@f$ channel in the current model.
+     * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM.
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+/**
+ * @class muttHgagaZeeboost
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+ * in the @f$H\to b\bar{b}@f$, @f$Z\to e^+e^-@f$ channel in the boosted region. Normalized to the SM.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+ * in the @f$H\to b\bar{b}@f$, @f$Z\to e^+e^-@f$ channel in the boosted region in the current model.
+ */
+class muttHgagaZeeboost : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHgagaZeeboost(const StandardModel& SM_i, const double sqrt_s_i);
 
     /**
      * @brief A method to compute the value of @f$\sigma(ttH)/\sigma(ttZ)@f$ 

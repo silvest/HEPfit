@@ -1573,6 +1573,17 @@ public:
         return 1.0;
     }
         
+    /**
+     * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+     * in the @f$H\to b\bar{b}@f$, @f$Z\to e^+e^-@f$ channel channel in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
+     */
+    virtual const double muttHgagaZeeboost(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+      
     virtual const double muggHgaga(const double sqrt_s) const
     {
         return 1.0;

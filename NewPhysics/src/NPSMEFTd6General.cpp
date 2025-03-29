@@ -35080,6 +35080,61 @@ const double NPSMEFTd6General::muttHZbbboost(const double sqrt_s) const {
 
 }
 
+const double NPSMEFTd6General::muttHgagaZeeboost(const double sqrt_s) const {
+    // Ratios of BR with the SM
+    double BrHgagarat = BrHgagaRatio();
+    double BrZeeSM = (trueSM.GammaZ(leptons[ELECTRON])) / trueSM.Gamma_Z();
+    double BrZeerat = BR_Zf(leptons[ELECTRON]) / BrZeeSM;
+
+    //    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-mtpole / v());    
+    //    double dkt = dKappa_t.real();
+
+    //    double dgV = deltaGV_f(quarks[TOP]);
+    //    double dgA = deltaGA_f(quarks[TOP]);
+    //    double gLSM = quarks[TOP].getIsospin() 
+    //    - (quarks[TOP].getCharge())*sW2_tree;
+    //    double gRSM = - (quarks[TOP].getCharge())*sW2_tree;
+
+    //    double dgL = 0.5*(dgV + dgA)/gLSM;
+    //    double dgR = 0.5*(dgV - dgA)/gRSM;
+
+    double dsigmarat;
+
+    // VERY CRUDE APPROX. 
+    //dsigmarat = 1.0 + 
+    //        2.0 * dkt -
+    //        2.0 * (gLSM*gLSM*dgL + gRSM*gRSM*dgR)/(gLSM*gLSM + gRSM*gRSM);
+
+    dsigmarat = 1.0;
+    //  ttH 100 TeV (from muttH func): NOT BOOSTED YET
+    dsigmarat += +467438. * getSMEFTCoeffEW("CHG")
+            - 22519. * getSMEFTCoeffEW("CG")
+            + 880378. * getSMEFTCoeffEW("CuGR", 2, 2)
+            - 2.837 * deltaG_hff(quarks[TOP]).real()
+            ;
+    //  Divided (linearized) by ttZ 100 TeV
+    dsigmarat = dsigmarat - (
+            -40869.4 * getSMEFTCoeffEW("CHD")
+            - 52607.9 * getSMEFTCoeffEW("CHWB")
+            - 90424.9 * getSMEFTCoeffEW("CHG")
+            + 432089. * getSMEFTCoeffEW("CG")
+            + 326525. * getSMEFTCoeffEW("CuGR", 2, 2)
+            - 2028.11 * getSMEFTCoeffEW("CuWR", 2, 2)
+            + 1679.85 * getSMEFTCoeffEW("CuBR", 2, 2)
+            + 1454.5 * getSMEFTCoeffEW("CHq1R", 0, 0)
+            + 1065.27 * getSMEFTCoeffEW("CHuR", 0, 0)
+            + 82169.1 * getSMEFTCoeffEW("CHuR", 2, 2)
+            - 1229.16 * getSMEFTCoeffEW("CHdR", 0, 0)
+            + 6780.84 * getSMEFTCoeffEW("CHq3R", 0, 0)
+            - 1.374 * delta_GF
+            + 4.242 * -0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
+            );
+
+    return dsigmarat * (BrHgagarat / BrZeerat);
+
+}
+
+
 const double NPSMEFTd6General::muggHgaga(const double sqrt_s) const {
     return muggH(sqrt_s) * BrHgagaRatio();
 

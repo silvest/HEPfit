@@ -3911,6 +3911,14 @@ public:
      * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
      */
     virtual const double muttHZbbboost(double sqrt_s) const;
+    
+    /**
+     * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+     * in the @f$H\to b\bar{b}@f$, @f$Z\to e^+e^-@f$ channel channel in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
+     */
+    virtual const double muttHgagaZeeboost(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs

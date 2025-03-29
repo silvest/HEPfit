@@ -84,6 +84,7 @@ ThObsFactory::ThObsFactory()
     const double sqrt_s_LHC13 = 13.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_LHC14 = 14.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_LHC27 = 27.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_FCC84 = 84.0; ///< the center-of-mass energy in TeV    
     const double sqrt_s_FCC100 = 100.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_TeV = 1.96; ///< the center-of-mass energy in TeV
     //
@@ -1515,7 +1516,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtogg_over_bb_Ratio"] = boost::factory<BrHtogg_over_bb_Ratio*>();
     obsThFactory["BrHtogg_over_cc_Ratio"] = boost::factory<BrHtogg_over_cc_Ratio*>();
     //-----  Special observables --------
-    obsThFactory["muttHZbb_boost100"] = bind(boost::factory<muttHZbbboost*>(), _1, sqrt_s_FCC100);
+    obsThFactory["muttHZbb_boost100"] = bind(boost::factory<muttHZbbboost*>(), _1, sqrt_s_FCC100);    
+    obsThFactory["muttHgagaZee_boost100"] = bind(boost::factory<muttHgagaZeeboost*>(), _1, sqrt_s_FCC100);
     obsThFactory["ggHgagaInt14"] = bind(boost::factory<muggHgagaInt*>(), _1, sqrt_s_LHC14);
     //-----  Full Signal strengths per prod and decay: Hadron colliders  ----------
     obsThFactory["muggHgaga"] = bind(boost::factory<muggHgaga*>(), _1, sqrt_s_LHC13);

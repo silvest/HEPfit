@@ -3674,6 +3674,18 @@ double muttHZbbboost::computeThValue()
     return (myNPbase->muttHZbbboost(sqrt_s));
 }
 
+muttHgagaZeeboost::muttHgagaZeeboost(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muttHgagaZeeboost called with a class whose parent is not NPbase");
+}
+
+double muttHgagaZeeboost::computeThValue()
+{
+    return (myNPbase->muttHgagaZeeboost(sqrt_s));
+}
+
 //AG:begin
 ggHgaga::ggHgaga(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
