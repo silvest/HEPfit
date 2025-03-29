@@ -1496,6 +1496,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtogaga_over_mumu_Ratio"] = boost::factory<BrHtogaga_over_mumu_Ratio*>();
     obsThFactory["BrHtoZga_over_mumu_Ratio"] = boost::factory<BrHtoZga_over_mumu_Ratio*>();
     obsThFactory["BrHtoZmumuga_over_mumu_Ratio"] = boost::factory<BrHtoZmumuga_over_mumu_Ratio*>();
+    obsThFactory["BrHtoZga_over_4mu_Ratio"] = boost::factory<BrHtoZga_over_4mu_Ratio*>();
+    obsThFactory["BrHtoZmumuga_over_4mu_Ratio"] = boost::factory<BrHtoZmumuga_over_4mu_Ratio*>();    
     obsThFactory["BrHtogaga_over_4l_Ratio"] = boost::factory<BrHtogaga_over_4l_Ratio*>();
     obsThFactory["BrHtobb_over_4l_Ratio"] = boost::factory<BrHtobb_over_4l_Ratio*>();
     obsThFactory["BrHto2l2v_over_4l_Ratio"] = boost::factory<BrHto2l2v_over_4l_Ratio*>();

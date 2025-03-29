@@ -2377,6 +2377,66 @@ private:
 
 
 /**
+ * @class BrHtoZga_over_4mu_Ratio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)/@f$Br@f$(H\to 4\mu)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to Z\gamma)/@f$Br@f$(H\to 4\mu)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoZga_over_4mu_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoZga_over_4mu_Ratio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)/@f$Br@f$(H\to 4\mu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma)/@f$Br@f$(H\to 4\mu)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHtoZmumuga_over_4mu_Ratio
+ * @ingroup NewPhysics
+ * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)/@f$Br@f$(H\to 4\mu)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)/@f$Br@f$(H\to 4\mu)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoZmumuga_over_4mu_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoZmumuga_over_4mu_Ratio(const StandardModel& SM_i);
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma\to\mu\mu \gamma)/@f$Br@f$(H\to 4\mu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma\to\mu\mu \gamma)/@f$Br@f$(H\to 4\mu)@f$
+     */
+    double computeThValue();
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
  * @class BrHtogaga_over_4l_Ratio
  * @ingroup NewPhysics
  * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)/@f$Br@f$(H\to 4\ell)@f$.
