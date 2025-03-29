@@ -221,6 +221,11 @@ var group___new_physics =
       [ "computeThValue", "da/db8/class_br_hto_zga__over__4l___ratio.html#a73e42fef5578cd7930c4f75332be6e04", null ],
       [ "myNPbase", "da/db8/class_br_hto_zga__over__4l___ratio.html#aad59e695de2e9efd888728acb9d0ea84", null ]
     ] ],
+    [ "BrHtoZga_over_4mu_Ratio", "d7/d85/class_br_hto_zga__over__4mu___ratio.html", [
+      [ "BrHtoZga_over_4mu_Ratio", "d7/d85/class_br_hto_zga__over__4mu___ratio.html#a7e74a1f0cedf5c853c72704d7be00b89", null ],
+      [ "computeThValue", "d7/d85/class_br_hto_zga__over__4mu___ratio.html#a0c7699b2faa7940522315ec2f80f8f77", null ],
+      [ "myNPbase", "d7/d85/class_br_hto_zga__over__4mu___ratio.html#a3195006645895ac7f8db79f617580e0a", null ]
+    ] ],
     [ "BrHtoZga_over_gaga_Ratio", "d4/d8d/class_br_hto_zga__over__gaga___ratio.html", [
       [ "BrHtoZga_over_gaga_Ratio", "d4/d8d/class_br_hto_zga__over__gaga___ratio.html#ad2efe1627d503c0b2a9252fdb3aaeae7", null ],
       [ "computeThValue", "d4/d8d/class_br_hto_zga__over__gaga___ratio.html#a7092eb0ac74a7f33ac12d33d31cfa54e", null ],
@@ -250,6 +255,11 @@ var group___new_physics =
       [ "BrHtoZgaRatio", "db/de1/class_br_hto_zga_ratio.html#a23282ff61f538f67bbe75fda15684273", null ],
       [ "computeThValue", "db/de1/class_br_hto_zga_ratio.html#a13a164c5b69e74777f113f88bc451b93", null ],
       [ "myNPbase", "db/de1/class_br_hto_zga_ratio.html#a70a163f98a31df369f22963b0728a8f4", null ]
+    ] ],
+    [ "BrHtoZmumuga_over_4mu_Ratio", "d9/de3/class_br_hto_zmumuga__over__4mu___ratio.html", [
+      [ "BrHtoZmumuga_over_4mu_Ratio", "d9/de3/class_br_hto_zmumuga__over__4mu___ratio.html#a2d3b9601ce49e6c2ad6416865e79aeb2", null ],
+      [ "computeThValue", "d9/de3/class_br_hto_zmumuga__over__4mu___ratio.html#a3bd02a7c210c901e7ca4758cc1db7ca2", null ],
+      [ "myNPbase", "d9/de3/class_br_hto_zmumuga__over__4mu___ratio.html#ab4cb18743093bd9bd74b77984ef85c6f", null ]
     ] ],
     [ "BrHtoZmumuga_over_mumu_Ratio", "d5/dc3/class_br_hto_zmumuga__over__mumu___ratio.html", [
       [ "BrHtoZmumuga_over_mumu_Ratio", "d5/dc3/class_br_hto_zmumuga__over__mumu___ratio.html#a459e53c0bd8088419d6ed254bb53d73a", null ],
