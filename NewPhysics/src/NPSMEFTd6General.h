@@ -731,6 +731,21 @@ public:
 
     //test function to test speed of code
     //double test_direct() const;
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    //  Functions used to compute the 1-loop dependence of single Higgs observables 
+    //  on the Higgs self-coupling
+        
+    /**
+     * @brief The coefficient of the 1-loop linear term in the Higgs selfcoupling
+     */
+    virtual const double deltaH3L1(double C1) const;
+    
+    /**
+     * @brief The coefficient of the 1-loop quadratic term in the Higgs selfcoupling
+     */
+    virtual const double deltaH3L2(double C1) const;
 
     ////////////////////////////////////////////////////////////////////////    
     
