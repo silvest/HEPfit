@@ -1,5 +1,9 @@
 var NAVTREEINDEX48 =
 {
+"d4/def/class_l_h_p_c_1_1_mass_spectrum_class_1_1_next_to_minimal_supersymmetric_standard_model.html#a8df5478d831734b95f7e317138592de5":[27,0,1,2,7,0],
+"d4/df0/classmuee_hvvbb_pol.html":[4,13,80],
+"d4/df0/classmuee_hvvbb_pol.html#a11769a553ca228468a1b2aacede99906":[4,13,80,3],
+"d4/df0/classmuee_hvvbb_pol.html#a2224f73486482b731c3a1c861fb16f52":[4,13,80,4],
 "d4/df0/classmuee_hvvbb_pol.html#a33434230d7cf741fa6d68a5afae27c27":[4,13,80,1],
 "d4/df0/classmuee_hvvbb_pol.html#acfad1b1c8b7946d9a00df027207af957":[4,13,80,5],
 "d4/df0/classmuee_hvvbb_pol.html#af057308ae42b7477d6075f427cf05674":[4,13,80,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX48 =
 "d5/d26/class_t_h_d_m_w_signal_strengths.html#a3a2fcc2f0bb9d2d01e67d8d577c1f4af":[27,0,2850,11],
 "d5/d26/class_t_h_d_m_w_signal_strengths.html#a5abafb46e12a9535e3432c79896deb6c":[27,0,2850,15],
 "d5/d26/class_t_h_d_m_w_signal_strengths.html#a5d42517499810ace92ea314d586d6d2e":[27,0,2850,5],
-"d5/d26/class_t_h_d_m_w_signal_strengths.html#a65cdfa9e28b5709336624e85fc7c6f05":[27,0,2850,8],
-"d5/d26/class_t_h_d_m_w_signal_strengths.html#a7171347e165884a68e06afba9ea667db":[27,0,2850,10],
-"d5/d26/class_t_h_d_m_w_signal_strengths.html#aa4a0bca7814118df93d723b1a7407630":[27,0,2850,9],
-"d5/d26/class_t_h_d_m_w_signal_strengths.html#ab3fe248b32182a16b18bef305a985da5":[27,0,2850,2],
-"d5/d26/class_t_h_d_m_w_signal_strengths.html#abff5a37813371134b8c9a8c7b2b7dda6":[27,0,2850,17]
+"d5/d26/class_t_h_d_m_w_signal_strengths.html#a65cdfa9e28b5709336624e85fc7c6f05":[27,0,2850,8]
 };

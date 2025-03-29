@@ -1,5 +1,9 @@
 var NAVTREEINDEX65 =
 {
+"d6/da6/class_b_r___kp0nunu.html#ac49a8207dade606484ca3ff2046f8008":[4,5,43,2],
+"d6/da6/class_b_r___kp0nunu.html#ae11ddcfd45a321e6e95f11eba748e1e7":[4,5,43,0],
+"d6/da6/class_left_right_symmetric_model.html":[27,0,1475],
+"d6/da6/class_left_right_symmetric_model.html#a0218bb6c1bae76ea5535aa5e738996a7":[27,0,1475,65],
 "d6/da6/class_left_right_symmetric_model.html#a040bcf902f85e1cab5ca792ad51d93f5":[27,0,1475,62],
 "d6/da6/class_left_right_symmetric_model.html#a051a65f8f221e1c5e6ef8d94691ced15":[27,0,1475,39],
 "d6/da6/class_left_right_symmetric_model.html#a05c5e845b4e43d7dccc746c19ddeb690":[27,0,1475,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX65 =
 "d6/db8/class_l_h_p_c_1_1_s_l_h_a_1_1_sparse_quadruply_indexed_block.html#ad15b3157832e913e0ad5e69cfacb97b4":[27,0,1,3,22,7],
 "d6/dba/class_rneutrinos.html":[4,3,108],
 "d6/dba/class_rneutrinos.html#a620e738c86913dc89ddc1e5c2b7858a9":[4,3,108,0],
-"d6/dba/class_rneutrinos.html#a7448e3973a27a7927587de0e7306b163":[4,3,108,1],
-"d6/dbb/classa__500__bb__e_lp_r.html":[27,0,30],
-"d6/dbb/classa__500__bb__e_lp_r.html#a1f71408a1c2d47c3c0502b7cf596fea5":[27,0,30,0],
-"d6/dbb/classa__500__bb__e_lp_r.html#a3340327f2cea5b1697b78e7b1a8b3847":[27,0,30,2],
-"d6/dbb/classa__500__bb__e_lp_r.html#a3398438712d181d5a263632cea9dcd1f":[27,0,30,1]
+"d6/dba/class_rneutrinos.html#a7448e3973a27a7927587de0e7306b163":[4,3,108,1]
 };

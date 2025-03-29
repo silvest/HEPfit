@@ -1,5 +1,9 @@
 var NAVTREEINDEX68 =
 {
+"d7/d0d/class_a_f_belectron.html":[4,3,5],
+"d7/d0d/class_a_f_belectron.html#a06e7a331b3abba7d81ceea5e099a0fa9":[4,3,5,0],
+"d7/d0d/class_a_f_belectron.html#aa8d5f88d808d31a1431f7139b4f555d9":[4,3,5,1],
+"d7/d0d/class_m_f_v.html":[27,0,1782],
 "d7/d0d/class_m_f_v.html#a00bf0cef5d8b39462bda2eb2a698037d":[27,0,1782,7],
 "d7/d0d/class_m_f_v.html#a01101d7585485bd3f4a623db5a093aa0":[27,0,1782,4],
 "d7/d0d/class_m_f_v.html#a049104d419a79913cdf70a60e14ed453":[27,0,1782,5],
@@ -245,9 +249,5 @@ var NAVTREEINDEX68 =
 "d7/d42/classmu_t_h_utt_h_w_w2l2v.html#a52e64e83e1a48975772c04e2acf08430":[4,13,257,2],
 "d7/d42/classmu_t_h_utt_h_w_w2l2v.html#a9a5fce5d31f981e872256885244a3b36":[4,13,257,3],
 "d7/d43/class_br_whadrons.html":[4,3,16],
-"d7/d43/class_br_whadrons.html#a24577d52915233f1f4bbc98f237f20a1":[4,3,16,0],
-"d7/d43/class_br_whadrons.html#ab81338c72243cd1728cd8aaace6ec295":[4,3,16,1],
-"d7/d43/class_epsilon2.html":[4,3,44],
-"d7/d43/class_epsilon2.html#a22c4aff72dc25ef35135bd639b598bde":[4,3,44,0],
-"d7/d43/class_epsilon2.html#af87ef4efcb34d8f1b3c3c83bd7374b5d":[4,3,44,1]
+"d7/d43/class_br_whadrons.html#a24577d52915233f1f4bbc98f237f20a1":[4,3,16,0]
 };

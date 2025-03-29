@@ -1,5 +1,9 @@
 var NAVTREEINDEX90 =
 {
+"da/d3d/class_hobs__gg__phi2___w_w___a_t_l_a_s8.html":[27,0,1025],
+"da/d3d/class_hobs__gg__phi2___w_w___a_t_l_a_s8.html#a091899988c6c794265ee5fd52642b572":[27,0,1025,1],
+"da/d3d/class_hobs__gg__phi2___w_w___a_t_l_a_s8.html#ac9cf2c08f6ea00c80c6b802beec01fb5":[27,0,1025,0],
+"da/d3d/class_hobs__gg__phi2___w_w___a_t_l_a_s8.html#aed9c4c0a5af7ac3af737b840190fff3d":[27,0,1025,2],
 "da/d40/class_s_t_x_s12__gg_h__p_t_h200__300.html":[4,13,402],
 "da/d40/class_s_t_x_s12__gg_h__p_t_h200__300.html#a18ec95666675e93387140a980664489f":[4,13,402,1],
 "da/d40/class_s_t_x_s12__gg_h__p_t_h200__300.html#a20fa94cd83e7081ef660f95d1219edc9":[4,13,402,2],
@@ -245,9 +249,5 @@ var NAVTREEINDEX90 =
 "da/d6e/classdeltag_hdd.html#ae9132bd57be663d69c32209c40f6deb5":[27,0,440,4],
 "da/d70/class_general_t_h_d_m_s_t_u.html":[27,0,742],
 "da/d70/class_general_t_h_d_m_s_t_u.html#a91fa70625a44eddf7897f24ae7bf9f03":[27,0,742,0],
-"da/d70/class_general_t_h_d_m_s_t_u.html#ac3b1fbe78af76736ee43dccd74cd377e":[27,0,742,1],
-"da/d70/class_general_t_h_d_m_s_t_u.html#ad5e7ff7b3fc200fedb7a76b4b53cff6a":[27,0,742,2],
-"da/d72/classeeffsigma_hadron.html":[4,3,37],
-"da/d72/classeeffsigma_hadron.html#a9c1deabf3712fc43f42ddcea242c7afe":[4,3,37,1],
-"da/d72/classeeffsigma_hadron.html#acf7d3b6465c685d561d2ae97b0cdb03e":[4,3,37,0]
+"da/d70/class_general_t_h_d_m_s_t_u.html#ac3b1fbe78af76736ee43dccd74cd377e":[27,0,742,1]
 };

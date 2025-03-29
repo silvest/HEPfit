@@ -475,6 +475,8 @@ var class_n_p_s_m_e_f_td6_general =
     [ "deltaGwd62", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a639c983ce3026a275d808111571d6908", null ],
     [ "deltaGzd6", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#adc1f597978297a16533f4e1fc706cffb", null ],
     [ "deltaGzd62", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a66c9f3874df45277f502093e549f7ab1", null ],
+    [ "deltaH3L1", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a8997d955f7416f9938ded5892ecb70d2", null ],
+    [ "deltaH3L2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#abb12c5257838a8be3c58d76c610f5366", null ],
     [ "deltaKgammaNP", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#add2c11949062bfa3ffd0a697eee6bd9d", null ],
     [ "deltaKgammaNPEff", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a3b49df3cf25816e8809cbd78920b1e26", null ],
     [ "deltaKZNP", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ad418b7b36c3ef423b291d1ca2e6509f1", null ],

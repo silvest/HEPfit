@@ -1,5 +1,9 @@
 var NAVTREEINDEX69 =
 {
+"d7/d43/class_br_whadrons.html#ab81338c72243cd1728cd8aaace6ec295":[4,3,16,1],
+"d7/d43/class_epsilon2.html":[4,3,44],
+"d7/d43/class_epsilon2.html#a22c4aff72dc25ef35135bd639b598bde":[4,3,44,0],
+"d7/d43/class_epsilon2.html#af87ef4efcb34d8f1b3c3c83bd7374b5d":[4,3,44,1],
 "d7/d46/classc_v__plus__ctau.html":[4,13,60],
 "d7/d46/classc_v__plus__ctau.html#a4eeb578c9a17e8095254a5329f913c21":[4,13,60,0],
 "d7/d46/classc_v__plus__ctau.html#a6ec9c02cf86e74ee201a76522848e9b9":[4,13,60,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX69 =
 "d7/d88/class_r___m_vgamma.html#a3686cd6d92508c0b7e32f2d5bb48aa05":[27,0,2315,3],
 "d7/d88/class_r___m_vgamma.html#a488d3701efab842902380b7957534e3e":[27,0,2315,2],
 "d7/d88/class_r___m_vgamma.html#a50492ae57f944720d854b6de609660c5":[27,0,2315,5],
-"d7/d88/class_r___m_vgamma.html#a86ff3fef22fd676af1a480afc0555011":[27,0,2315,1],
-"d7/d89/class_s__9.html":[4,5,188],
-"d7/d89/class_s__9.html#a2cad54cc9779ca8998c811ddd5cc07dd":[4,5,188,2],
-"d7/d89/class_s__9.html#a5e3f72f1d2d1a0bd2f520e1f491da7fe":[4,5,188,0],
-"d7/d89/class_s__9.html#a8fb343656d602b2cbd319917b0696a7c":[4,5,188,3]
+"d7/d88/class_r___m_vgamma.html#a86ff3fef22fd676af1a480afc0555011":[27,0,2315,1]
 };
