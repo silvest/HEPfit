@@ -766,6 +766,7 @@ var class_n_p_s_m_e_f_td6_general =
     [ "muttH", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ae55901348978fb597737c9f4739719f1", null ],
     [ "muttHbb", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a102b2ecc490185aaa2d99f3fcaffcb2d", null ],
     [ "muttHgaga", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a1e1515de7d2702d0602cd0ac71cbac42", null ],
+    [ "muttHgagaZeeboost", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ade40f3efeff8cbf538706e39ce080385", null ],
     [ "muttHmumu", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a92b8c7b8f7252575d6c505df9a3aa335", null ],
     [ "muttHtautau", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a79927d7cecfbe76cd16885c0aa1df6ce", null ],
     [ "muttHWW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a68a0b47c5bc1cb37021edd5a78022eae", null ],

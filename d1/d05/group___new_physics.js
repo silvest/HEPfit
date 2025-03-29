@@ -927,6 +927,7 @@ var group___new_physics =
       [ "muttH", "df/d15/class_higgs_kigen.html#a71cc6e827e97a88f17fd08ca0cd8e1ba", null ],
       [ "muttHbb", "df/d15/class_higgs_kigen.html#a8ad3f1dbc39c691055fc757c7cbf9622", null ],
       [ "muttHgaga", "df/d15/class_higgs_kigen.html#a2d0d1c01dc95f524fec5c677416e0b93", null ],
+      [ "muttHgagaZeeboost", "df/d15/class_higgs_kigen.html#ac7d8ad3c5962a1f6ddb909125cbc0f23", null ],
       [ "muttHmumu", "df/d15/class_higgs_kigen.html#ae697ff6a1d463b5c1968d3f346bcd439", null ],
       [ "muttHtautau", "df/d15/class_higgs_kigen.html#a03840c14b6e3739526cb2d11f0d4b2ef", null ],
       [ "muttHWW", "df/d15/class_higgs_kigen.html#a1346250405798bcbf0de11fc45046ffb", null ],
@@ -2532,6 +2533,12 @@ var group___new_physics =
       [ "myNPbase", "d4/d77/classmutt_hgaga.html#a3992ce34bafb273d73bb8939286cbadd", null ],
       [ "sqrt_s", "d4/d77/classmutt_hgaga.html#ac03b1036b826fba0b261bad16e6cfe34", null ]
     ] ],
+    [ "muttHgagaZeeboost", "db/d98/classmutt_hgaga_zeeboost.html", [
+      [ "muttHgagaZeeboost", "db/d98/classmutt_hgaga_zeeboost.html#a0d78de789662d1180b0d869ff8482714", null ],
+      [ "computeThValue", "db/d98/classmutt_hgaga_zeeboost.html#a4934faabbf905030d36916e867add5e1", null ],
+      [ "myNPbase", "db/d98/classmutt_hgaga_zeeboost.html#a81853398022363e67503ce04d84562a6", null ],
+      [ "sqrt_s", "db/d98/classmutt_hgaga_zeeboost.html#a2ddc9797d04aed3a9a7d67f7db81a112", null ]
+    ] ],
     [ "muttHmumu", "db/dea/classmutt_hmumu.html", [
       [ "muttHmumu", "db/dea/classmutt_hmumu.html#aa3dfb48e9144685b2d79ff5d1aa811d2", null ],
       [ "computeThValue", "db/dea/classmutt_hmumu.html#adb4a0fbe217a5ba15617c4a5ce2f5fad", null ],
@@ -3429,6 +3436,7 @@ var group___new_physics =
       [ "muttH", "d2/df3/class_n_pbase.html#a147d4b42533517bbaa20502f1133514f", null ],
       [ "muttHbb", "d2/df3/class_n_pbase.html#aeeb9c5cdd69727d80924dfc3cacf37b5", null ],
       [ "muttHgaga", "d2/df3/class_n_pbase.html#ab23efb7d327639bf006514bb6b7f67e2", null ],
+      [ "muttHgagaZeeboost", "d2/df3/class_n_pbase.html#a1d6944ab11be8be7be319a401b51bc9d", null ],
       [ "muttHmumu", "d2/df3/class_n_pbase.html#ab914e6506ee25025970099654ccc74fe", null ],
       [ "muttHptH_Hbb", "d2/df3/class_n_pbase.html#af720ab0c25fc619c6cdf740c6fe50eaf", null ],
       [ "muttHptH_Hgaga", "d2/df3/class_n_pbase.html#a443cd353f384369dabef2f6bed716c32", null ],
@@ -4314,6 +4322,7 @@ var group___new_physics =
       [ "muttH", "d2/d0d/class_n_p_s_m_e_f_td6.html#a9ae448a5e6dcf7b6375c97f594173c77", null ],
       [ "muttHbb", "d2/d0d/class_n_p_s_m_e_f_td6.html#a46e91f039985001da5c9c23af8caf880", null ],
       [ "muttHgaga", "d2/d0d/class_n_p_s_m_e_f_td6.html#aaf3ec40290af0225b9fa852ece6a32dc", null ],
+      [ "muttHgagaZeeboost", "d2/d0d/class_n_p_s_m_e_f_td6.html#ab13d55e64b0f33c0fcc15d4b9e4bc23b", null ],
       [ "muttHmumu", "d2/d0d/class_n_p_s_m_e_f_td6.html#a50ab24251c245479b97a7323a3248704", null ],
       [ "muttHtautau", "d2/d0d/class_n_p_s_m_e_f_td6.html#a71e9dc0e88ad686bedc67cd8fe90814f", null ],
       [ "muttHWW", "d2/d0d/class_n_p_s_m_e_f_td6.html#a7d2f25c2021decbb2572450f643dd38a", null ],
@@ -6043,6 +6052,7 @@ var group___new_physics =
       [ "muttH", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ae55901348978fb597737c9f4739719f1", null ],
       [ "muttHbb", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a102b2ecc490185aaa2d99f3fcaffcb2d", null ],
       [ "muttHgaga", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a1e1515de7d2702d0602cd0ac71cbac42", null ],
+      [ "muttHgagaZeeboost", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ade40f3efeff8cbf538706e39ce080385", null ],
       [ "muttHmumu", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a92b8c7b8f7252575d6c505df9a3aa335", null ],
       [ "muttHtautau", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a79927d7cecfbe76cd16885c0aa1df6ce", null ],
       [ "muttHWW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a68a0b47c5bc1cb37021edd5a78022eae", null ],

@@ -588,6 +588,7 @@ var class_n_p_s_m_e_f_td6 =
     [ "muttH", "d2/d0d/class_n_p_s_m_e_f_td6.html#a9ae448a5e6dcf7b6375c97f594173c77", null ],
     [ "muttHbb", "d2/d0d/class_n_p_s_m_e_f_td6.html#a46e91f039985001da5c9c23af8caf880", null ],
     [ "muttHgaga", "d2/d0d/class_n_p_s_m_e_f_td6.html#aaf3ec40290af0225b9fa852ece6a32dc", null ],
+    [ "muttHgagaZeeboost", "d2/d0d/class_n_p_s_m_e_f_td6.html#ab13d55e64b0f33c0fcc15d4b9e4bc23b", null ],
     [ "muttHmumu", "d2/d0d/class_n_p_s_m_e_f_td6.html#a50ab24251c245479b97a7323a3248704", null ],
     [ "muttHtautau", "d2/d0d/class_n_p_s_m_e_f_td6.html#a71e9dc0e88ad686bedc67cd8fe90814f", null ],
     [ "muttHWW", "d2/d0d/class_n_p_s_m_e_f_td6.html#a7d2f25c2021decbb2572450f643dd38a", null ],

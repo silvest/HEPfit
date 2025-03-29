@@ -494,6 +494,7 @@ var class_n_pbase =
     [ "muttH", "d2/df3/class_n_pbase.html#a147d4b42533517bbaa20502f1133514f", null ],
     [ "muttHbb", "d2/df3/class_n_pbase.html#aeeb9c5cdd69727d80924dfc3cacf37b5", null ],
     [ "muttHgaga", "d2/df3/class_n_pbase.html#ab23efb7d327639bf006514bb6b7f67e2", null ],
+    [ "muttHgagaZeeboost", "d2/df3/class_n_pbase.html#a1d6944ab11be8be7be319a401b51bc9d", null ],
     [ "muttHmumu", "d2/df3/class_n_pbase.html#ab914e6506ee25025970099654ccc74fe", null ],
     [ "muttHptH_Hbb", "d2/df3/class_n_pbase.html#af720ab0c25fc619c6cdf740c6fe50eaf", null ],
     [ "muttHptH_Hgaga", "d2/df3/class_n_pbase.html#a443cd353f384369dabef2f6bed716c32", null ],

@@ -221,6 +221,7 @@ var class_higgs_kigen =
     [ "muttH", "df/d15/class_higgs_kigen.html#a71cc6e827e97a88f17fd08ca0cd8e1ba", null ],
     [ "muttHbb", "df/d15/class_higgs_kigen.html#a8ad3f1dbc39c691055fc757c7cbf9622", null ],
     [ "muttHgaga", "df/d15/class_higgs_kigen.html#a2d0d1c01dc95f524fec5c677416e0b93", null ],
+    [ "muttHgagaZeeboost", "df/d15/class_higgs_kigen.html#ac7d8ad3c5962a1f6ddb909125cbc0f23", null ],
     [ "muttHmumu", "df/d15/class_higgs_kigen.html#ae697ff6a1d463b5c1968d3f346bcd439", null ],
     [ "muttHtautau", "df/d15/class_higgs_kigen.html#a03840c14b6e3739526cb2d11f0d4b2ef", null ],
     [ "muttHWW", "df/d15/class_higgs_kigen.html#a1346250405798bcbf0de11fc45046ffb", null ],

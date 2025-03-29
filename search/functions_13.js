@@ -665,8 +665,8 @@ var searchData=
   ['susymatching_662',['SUSYMatching',['../d5/dac/class_s_u_s_y_matching.html#adc949de0a25dd65abff1c1f7fa54f0dd',1,'SUSYMatching']]],
   ['susyscalarpotential_663',['SUSYScalarPotential',['../d2/d4e/class_s_u_s_y_scalar_potential.html#a171ac0c30981c4307c7b3fc9a0c09dc6',1,'SUSYScalarPotential']]],
   ['susyspectrum_664',['SUSYSpectrum',['../d4/d6e/class_s_u_s_y_spectrum.html#a734f8b22c196ab8c9e9307dd48a55945',1,'SUSYSpectrum']]],
-  ['sw2_665',['sw2',['../d3/d5f/class_z_fitter_wrapper.html#a020f853600732107f169c13600664caf',1,'ZFitterWrapper']]],
-  ['sw2_666',['sW2',['../dc/dd5/class_standard_model.html#af3ef50355becd1628f7098eb9fd58dca',1,'StandardModel::sW2(const double Mw_i) const'],['../dc/dd5/class_standard_model.html#ae8b3128bcd0fbd7677c0069d7fae5e3a',1,'StandardModel::sW2() const']]],
+  ['sw2_665',['sW2',['../dc/dd5/class_standard_model.html#af3ef50355becd1628f7098eb9fd58dca',1,'StandardModel::sW2(const double Mw_i) const'],['../dc/dd5/class_standard_model.html#ae8b3128bcd0fbd7677c0069d7fae5e3a',1,'StandardModel::sW2() const']]],
+  ['sw2_666',['sw2',['../d3/d5f/class_z_fitter_wrapper.html#a020f853600732107f169c13600664caf',1,'ZFitterWrapper']]],
   ['sw2_5fmsbar_5fapprox_667',['sW2_MSbar_Approx',['../dc/dd5/class_standard_model.html#a22655f3644e33087d6e0cfe6cc6fb3ad',1,'StandardModel']]],
   ['sw2_5fnd_668',['sW2_ND',['../dc/dd5/class_standard_model.html#ad3fc3d05399abb867414fa16c09314f0',1,'StandardModel']]],
   ['sxxxxx_669',['sxxxxx',['../d8/d0e/classee_w_w.html#a7228faa49bdade3691e9b3d024e5164e',1,'eeWW']]]

@@ -2961,6 +2961,7 @@ var hierarchy =
       [ "muttHZga", "df/dff/classmutt_h_zga.html", null ],
       [ "muttHbb", "db/d1e/classmutt_hbb.html", null ],
       [ "muttHgaga", "d4/d77/classmutt_hgaga.html", null ],
+      [ "muttHgagaZeeboost", "db/d98/classmutt_hgaga_zeeboost.html", null ],
       [ "muttHmumu", "db/dea/classmutt_hmumu.html", null ],
       [ "muttHptH_HWW", "db/d9b/classmutt_hpt_h___h_w_w.html", null ],
       [ "muttHptH_HZZ", "d2/dd7/classmutt_hpt_h___h_z_z.html", null ],

@@ -2219,6 +2219,7 @@ var annotated_dup =
     [ "muttH", "dc/d04/classmutt_h.html", "dc/d04/classmutt_h" ],
     [ "muttHbb", "db/d1e/classmutt_hbb.html", "db/d1e/classmutt_hbb" ],
     [ "muttHgaga", "d4/d77/classmutt_hgaga.html", "d4/d77/classmutt_hgaga" ],
+    [ "muttHgagaZeeboost", "db/d98/classmutt_hgaga_zeeboost.html", "db/d98/classmutt_hgaga_zeeboost" ],
     [ "muttHmumu", "db/dea/classmutt_hmumu.html", "db/dea/classmutt_hmumu" ],
     [ "muttHptH_Hbb", "df/dd2/classmutt_hpt_h___hbb.html", "df/dd2/classmutt_hpt_h___hbb" ],
     [ "muttHptH_Hgaga", "df/d03/classmutt_hpt_h___hgaga.html", "df/d03/classmutt_hpt_h___hgaga" ],
