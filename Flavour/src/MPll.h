@@ -280,6 +280,12 @@ public:
     double integrateDelta(int i, double q_min, double q_max);
 
     /**
+    * @brief The value of \f$ \Sigma_{tree} \f$ from 0 to \f$q_{limit}\f$
+    * @return \f$ <\Sigma{tree}> \f$
+    */
+    double getSigmaTree();
+    
+    /**
     * @brief The width of the meson M
     * @return \f$ \Gamma_M \f$
     */
@@ -393,6 +399,8 @@ private:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
 
+    gslpp::complex C_nunu;/**<Wilson coeffients @f$C_{\nu\nu}'@f$*/
+    
     gsl_interp_accel *acc_Re_deltaC7_QCDF;
     gsl_interp_accel *acc_Im_deltaC7_QCDF;
     gsl_interp_accel *acc_Re_deltaC9_QCDF;
@@ -427,6 +435,7 @@ private:
     double fournineth;/**< Cache variable */
     double half;/**< Cache variable */
     double twothird;/**< Cache variable */
+    double sqrt3;/**< Cache variable */
     double Mc2;/**< Cache variable */
     double Mb2;/**< Cache variable */
     double logMc;/**< Cache variable */
@@ -500,6 +509,18 @@ private:
     double F89_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     double F89_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     double Ee;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    
+    //additional variables for B to K nu nu
+    const double M_PI2 = M_PI * M_PI;
+    double GF4;
+    double MM3;
+    double fM2;
+    double fP2;
+
+    double mtau;
+    double mtau2;
+    double Gammatau;
+    double VusVub_abs2;
 
 #if defined LATTICE || defined BSZ
     unsigned int fplus_lat_updated;/**< Cache variable */

@@ -5550,6 +5550,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["RK_B0Kll"] = bind(boost::factory<R_MPll*>(), _1, StandardModel::B_D, StandardModel::K_0, StandardModel::MU, StandardModel::ELECTRON);
 
     obsThFactory["DC9_hlambda"] = bind(boost::factory<DC9_hlambda*>(), _1, StandardModel::B_D, StandardModel::K_0, StandardModel::MU);
+    
+    //----- B+ to K+ nunu-----
+    obsThFactory["BR_BKnunu"] = bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, QCD::NOLEPTON);
 
     //----- B to D*lnu -----
     obsThFactory["Gammaw_MVlnu"] = bind(boost::factory<Gammaw_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU, StandardModel::ELECTRON);

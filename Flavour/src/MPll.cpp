@@ -144,7 +144,13 @@ void MPll::updateParameters()
 
     GF = mySM.getGF();
     ale = mySM.getAle();
-    Mlep = mySM.getLeptons(lep).getMass();
+    if (lep == QCD::NOLEPTON){
+        Mlep = 0.;
+    }
+    else{
+        Mlep = mySM.getLeptons(lep).getMass();
+    }
+    
     MM = mySM.getMesons(meson).getMass();
     MP = mySM.getMesons(pseudoscalar).getMass();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
@@ -242,46 +248,63 @@ void MPll::updateParameters()
         Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
         exp_Phase = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_BK"));
     }
-
-    allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
-    allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
-
-    C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
-    C_1L_bar = (*(allcoeff[LO]))(0) / 2.;
-    C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
-    C_2L_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
-    C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
-    C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
-    C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
-    C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
-    C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
-    C_8L = (*(allcoeff[LO]))(7);
-    C_S = MW / Mb * ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10));
-    C_P = MW / Mb * ((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11));
-    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
-    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-    C_Sp = MW / Mb * ((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
-    C_Pp = MW / Mb * ((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
-
-    if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
-        allcoeff_noSM = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep, true); //check the mass scale, scheme fixed to NDR
-        C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
-        C_9 = mySM.getOptionalParameter("C9_SM") + ((*(allcoeff_noSM[LO]))(8) + (*(allcoeff_noSM[NLO]))(8));
-        C_10 = mySM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
-    } else {
-        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
-        C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
-        C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+    
+    if (lep == QCD::NOLEPTON){
+        
+        VusVub_abs2 = (mySM.getCKM().computelamu_s() * mySM.getCKM().computelamu_s().conjugate()).abs();
+        GF4 = GF * GF * GF * GF;
+        MM3 = MM * MM * MM;
+        fM2 = mySM.getMesons(meson).getDecayconst() * mySM.getMesons(meson).getDecayconst();
+        fP2 = mySM.getMesons(pseudoscalar).getDecayconst() * mySM.getMesons(pseudoscalar).getDecayconst();
+        mtau = mySM.getLeptons(QCD::TAU).getMass();
+        mtau2 = mtau * mtau;
+        //from PDG 2024 tau lifetime: need SM prediction
+        Gammatau = HCUT / 0.2903;
+    
+        allcoeff = mySM.getFlavour().ComputeCoeffdnunu();
+        C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
     }
-    C_7p = MsoMb * ((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6));
-    C_7p -= MsoMb * (C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
+    else{
+        allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
+        allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
 
-    allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
+        C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
+        C_1L_bar = (*(allcoeff[LO]))(0) / 2.;
+        C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
+        C_2L_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
+        C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
+        C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
+        C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
+        C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
+        C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
+        C_8L = (*(allcoeff[LO]))(7);
+        C_S = MW / Mb * ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10));
+        C_P = MW / Mb * ((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11));
+        C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
+        C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
+        C_Sp = MW / Mb * ((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
+        C_Pp = MW / Mb * ((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
 
-    C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
-    C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
-    C_8Lh = (*(allcoeffh[LO]))(7);
+        if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
+            allcoeff_noSM = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep, true); //check the mass scale, scheme fixed to NDR
+            C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
+            C_9 = mySM.getOptionalParameter("C9_SM") + ((*(allcoeff_noSM[LO]))(8) + (*(allcoeff_noSM[NLO]))(8));
+            C_10 = mySM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
+        } else {
+            C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+            C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
+            C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+        }
+        C_7p = MsoMb * ((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6));
+        C_7p -= MsoMb * (C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
 
+        allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
+
+        C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
+        C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
+        C_8Lh = (*(allcoeffh[LO]))(7);
+    }
+    
     checkCache();
 
     H_0_pre = 8. / 27. + 4. / 9. * gslpp::complex::i() * M_PI;
@@ -291,6 +314,7 @@ void MPll::updateParameters()
     fournineth = 4. / 9.;
     half = 1. / 2.;
     twothird = 2. / 3.;
+    sqrt3 = sqrt(3.);
     ihalfMPI = gslpp::complex::i() * M_PI / 2.;
     Mc2 = Mc*Mc;
     Mb2 = Mb*Mb;
@@ -1149,6 +1173,11 @@ gslpp::complex MPll::h_lambda(double q2)
 
 gslpp::complex MPll::H_V(double q2)
 {
+    if (lep == QCD::NOLEPTON) {
+        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
+        return -C_nunu * sqrt3 * V_L(q2);
+    }
+    else
     return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2)
             + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, SPLINE) - etaP * pow(-1, angmomP) * C_7p) * T_L(q2)
             - sixteenM_PI2 * h_lambda(q2)));
@@ -1156,6 +1185,11 @@ gslpp::complex MPll::H_V(double q2)
 
 gslpp::complex MPll::H_A(double q2)
 {
+    if (lep == QCD::NOLEPTON) {
+        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
+        return -C_nunu * sqrt3 * V_L(q2);
+    }
+    else
     return (-C_10 + etaP * pow(-1, angmomP) * C_10p) *V_L(q2);
 }
 
@@ -1222,7 +1256,6 @@ double MPll::Delta(int i, double q2)
 double MPll::integrateSigma(int i, double q_min, double q_max)
 {
     updateParameters();
-
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
     old_handler = gsl_set_error_handler_off();
@@ -1312,4 +1345,12 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
 
     gsl_set_error_handler(old_handler);
 
+}
+
+double MPll::getSigmaTree()
+{
+    if (lep != QCD::NOLEPTON) return 0.;
+
+    updateParameters();
+    return mySM.getMesons(meson).getLifetime() / HCUT * GF4 * VusVub_abs2 * fP2 * fM2 / (128. * M_PI2 * MM3 * Gammatau) * mtau * (mtau2 - MP2) * (mtau2 - MP2) * (MM2 - mtau2) * (MM2 - mtau2);
 }

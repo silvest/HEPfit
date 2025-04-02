@@ -870,8 +870,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsnunu()
     
     for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
-            coeffsnunu.setCoeff(*coeffsnunu.getCoeff(orders(j))
-                                    + *mcb[i].getCoeff(orders(j)), orders(j));
+            coeffsnunu.setCoeff(*mcb[i].getCoeff(orders(j)), orders(j));
         }
     }
      
@@ -887,8 +886,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdnunu()
     
     for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
-            coeffdnunu.setCoeff(*coeffdnunu.getCoeff(orders(j))
-                                    + *mcb[i].getCoeff(orders(j)), orders(j));
+            coeffdnunu.setCoeff(*mcb[i].getCoeff(orders(j)), orders(j));
         }
     }
     

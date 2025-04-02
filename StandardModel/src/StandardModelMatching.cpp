@@ -724,7 +724,7 @@ const double StandardModelMatching::Hew(double xt, double xz, double mu) const {
 /******************************************************************************/
 
 const double StandardModelMatching::X0t(double x) const {
-    return ((x / 8.)*((x + 2.) / (x - 1.)+(3. * x - 6) / (x - 1.) / (x - 1.) * log(x)));
+    return ((x / 8.) * ((x + 2.) / (x - 1.) + (3. * x - 6.) / ((x - 1.) * (x - 1.)) * log(x)));
 }
 
 const double StandardModelMatching::X1t(double x) const {
@@ -732,14 +732,14 @@ const double StandardModelMatching::X1t(double x) const {
     double x2 = x * x;
     double x3 = x2 * x;
     double x4 = x3 * x;
-    double xm3 = pow(1. - x, 3.);
+    double xm3 = (1. - x) * (1. - x) * (1. - x);
     double logx = log(x);
 
     return (-(29. * x - x2 - 4. * x3) / (3. * (1. - x) * (1. - x))
             - logx * (x + 9. * x2 - x3 - x4) / xm3
             + logx * logx * (8. * x + 4. * x2 + x3 - x4) / (2. * xm3)
             - gslpp_special_functions::dilog(1. - x) * (4. * x - x3) / ((1. - x) * (1. - x))
-            - 8. * x * log(Mut * Mut / Muw / Muw) * (8. - 9. * x + x3 + 6. * logx) / 8. / xm3);
+            - 8. * x * log(Mut * Mut / Muw / Muw) * (8. - 9. * x + x3 + 6. * logx) / (8. * xm3));
 }
 
 const double StandardModelMatching::Xewt(double x, double a, double mu) const {
@@ -2076,7 +2076,8 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
 std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
 
     double xt = x_t(Muw);
-
+    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
+    
     vmcbdnn.clear();
 
     mcbdnn.setMu(Mut);
@@ -2084,11 +2085,9 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
     switch (mcbdnn.getOrder()) {
         case NNLO:
         case NLO:
-            mcbsnn.setCoeff(0, (Vckm(2, 2).abs() / Vckm(1, 2).abs()) *
-                    SM.Als(Muw, FULLNLO) / 4. / M_PI * X1t(xt), NLO); //* CHECK ORDER *//
+            mcbdnn.setCoeff(0, 1/sw2 * SM.Als(Muw, FULLNLO) / 4. / M_PI * X1t(xt), NLO); //* CHECK ORDER *//
         case LO:
-            mcbsnn.setCoeff(0, (Vckm(2, 2).abs() / Vckm(1, 2).abs()) *
-                    X0t(xt), LO);
+            mcbdnn.setCoeff(0, 1/sw2 * X0t(xt), LO);
             break;
         default:
             std::stringstream out;
