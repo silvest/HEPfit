@@ -5,6 +5,7 @@ var class_m_pll =
     [ "DeltaC9_KD", "dc/dce/class_m_pll.html#a383373be2326398500effaec5cd426da", null ],
     [ "funct_g", "dc/dce/class_m_pll.html#a98fdd6fc92c828062c320c7d14c84eb7", null ],
     [ "getSigma", "dc/dce/class_m_pll.html#a9049e70744fac1b856e54fdfe44368ee", null ],
+    [ "getSigmaTree", "dc/dce/class_m_pll.html#a6f85b5e2826582fbaaef646b7e26cf30", null ],
     [ "getwidth", "dc/dce/class_m_pll.html#ae030bb998ae55abc75c60b4e9a98b970", null ],
     [ "H_A", "dc/dce/class_m_pll.html#a28d8077ed80bcc30d77f754209f5ec75", null ],
     [ "h_lambda", "dc/dce/class_m_pll.html#a2b06cbeae77bc788451c7fb54d15e419", null ],
