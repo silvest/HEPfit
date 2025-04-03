@@ -617,6 +617,9 @@ private:
     unsigned int C_8Lh_updated;/**< Cache variable */
     gslpp::complex C_8Lh_cache;/**< Cache variable */
 
+    unsigned int C_nunu_updated;/**< Cache variable */
+    gslpp::complex C_nunu_cache;/**< Cache variable */
+    
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */
 

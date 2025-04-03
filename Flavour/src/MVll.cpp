@@ -260,7 +260,13 @@ void MVll::updateParameters()
     
     GF = mySM.getGF();
     ale = mySM.getAle();
-    Mlep = mySM.getLeptons(lep).getMass();
+    if (lep == QCD::NOLEPTON){
+        Mlep = 0.;
+    }
+    else{
+        Mlep = mySM.getLeptons(lep).getMass();
+    }
+    
     MM = mySM.getMesons(meson).getMass();
     MV = mySM.getMesons(vectorM).getMass();
     mu_b = mySM.getMub();
@@ -324,7 +330,7 @@ void MVll::updateParameters()
             etaV = -1;
             angmomV = 1.;
 
-            b = 1;
+            b = 1.;
 
             SU3_breaking = 1.;
 
@@ -454,51 +460,69 @@ void MVll::updateParameters()
         h_2[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_2"), mySM.getOptionalParameter("imh_m_2"), false);
 #endif
     }
-
-    allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
-    allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
-
-    C_1 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
-    C_1L_bar = (*(allcoeff[LO]))(0) / 2.;
-    C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
-    C_2L_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
-    C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
-    C_4 = ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3));
-    C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
-    C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
-    C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
-    C_8L = (*(allcoeff[LO]))(7);
-    C_S = MW / Mb * (((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10)));
-    C_P = MW / Mb * (((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11)));
-    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
-    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-    C_Sp = MW / Mb * ((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
-    C_Pp = MW / Mb * ((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
+    sqrt3 = sqrt(3.);
     
-    if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
-        allcoeff_noSM = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep, true); //check the mass scale, scheme fixed to NDR
-        C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
-        C_9 = mySM.getOptionalParameter("C9_SM") + ((*(allcoeff_noSM[LO]))(8) + (*(allcoeff_noSM[NLO]))(8));
-        C_10 = mySM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
-    } else {
-        C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
-        C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
-        C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+    if (lep == QCD::NOLEPTON){
+        VusVub_abs2 = (mySM.getCKM().computelamu_s() * mySM.getCKM().computelamu_s().conjugate()).abs();
+        GF4 = GF * GF * GF * GF;
+        MM3 = MM * MM * MM;
+        fM2 = mySM.getMesons(meson).getDecayconst() * mySM.getMesons(meson).getDecayconst();
+        fV2 = mySM.getMesons(vectorM).getDecayconst() * mySM.getMesons(vectorM).getDecayconst();
+        mtau = mySM.getLeptons(QCD::TAU).getMass();
+        mtau2 = mtau * mtau;
+        //from PDG 2024 tau lifetime: need SM prediction
+        Gammatau = HCUT / 0.2903;
+    
+        allcoeff = mySM.getFlavour().ComputeCoeffdnunu();
+        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
+        C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0)) * sqrt3;
     }
-    C_7p = MsoMb * ((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6));
-    C_7p -= MsoMb * (C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
-    
-    allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
+    else{
+        allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
+        allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
 
-    C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
-    C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
-    C_8Lh = (*(allcoeffh[LO]))(7);
-    
-    if (zExpansion) {
-        C_9 += DeltaC9;
-        C_10 += DeltaC10;
+        C_1 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+        C_1L_bar = (*(allcoeff[LO]))(0) / 2.;
+        C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
+        C_2L_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
+        C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
+        C_4 = ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3));
+        C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
+        C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
+        C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
+        C_8L = (*(allcoeff[LO]))(7);
+        C_S = MW / Mb * (((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10)));
+        C_P = MW / Mb * (((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11)));
+        C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
+        C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
+        C_Sp = MW / Mb * ((*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10));
+        C_Pp = MW / Mb * ((*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11));
+
+        if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
+            allcoeff_noSM = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep, true); //check the mass scale, scheme fixed to NDR
+            C_7 = mySM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
+            C_9 = mySM.getOptionalParameter("C9_SM") + ((*(allcoeff_noSM[LO]))(8) + (*(allcoeff_noSM[NLO]))(8));
+            C_10 = mySM.getOptionalParameter("C10_SM") + ((*(allcoeff_noSM[LO]))(9) + (*(allcoeff_noSM[NLO]))(9));
+        } else {
+            C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+            C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
+            C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+        }
+        C_7p = MsoMb * ((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6));
+        C_7p -= MsoMb * (C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
+
+        allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
+
+        C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
+        C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
+        C_8Lh = (*(allcoeffh[LO]))(7);
+
+        if (zExpansion) {
+            C_9 += DeltaC9;
+            C_10 += DeltaC10;
+        }
     }
-
+    
     checkCache();
 
     t_p = pow(MM + MV, 2.);
@@ -876,6 +900,13 @@ void MVll::checkCache()
         C_8Lh_cache = C_8Lh;
     }
 
+    if (C_nunu == C_nunu_cache) {
+        C_nunu_updated = 1;
+    } else {
+        C_nunu_updated = 0;
+        C_nunu_cache = C_nunu;
+    }
+
     if (Mb == Ycache(0) && Mc == Ycache(1)) {
         Yupdated = C_1_updated * C_2_updated * C_3_updated * C_4_updated * C_5_updated * C_6_updated;
     } else {
@@ -962,7 +993,7 @@ void MVll::checkCache()
     }
 
     if (MM == H_V0cache(0) && Mb == H_V0cache(1)) {
-        H_V0updated = N_updated * C_9_updated * Yupdated * VL0_updated * C_9p_updated * VR0_updated * C_7_updated * TL0_updated * C_7p_updated * TR0_updated * h0_updated;
+        H_V0updated = N_updated * C_9_updated * Yupdated * VL0_updated * C_9p_updated * VR0_updated * C_7_updated * TL0_updated * C_7p_updated * TR0_updated * h0_updated * C_nunu_updated;
     } else {
         H_V0updated = 0;
         H_V0cache(0) = MM;
@@ -970,7 +1001,7 @@ void MVll::checkCache()
     }
 
     if (MM == H_V1cache(0) && Mb == H_V1cache(1)) {
-        H_V1updated = N_updated * C_9_updated * Yupdated * VL1_updated * C_9p_updated * VR1_updated * C_7_updated * TL1_updated * C_7p_updated * TR1_updated * h1_updated;
+        H_V1updated = N_updated * C_9_updated * Yupdated * VL1_updated * C_9p_updated * VR1_updated * C_7_updated * TL1_updated * C_7p_updated * TR1_updated * h1_updated * C_nunu_updated;
     } else {
         H_V1updated = 0;
         H_V1cache(0) = MM;
@@ -978,16 +1009,16 @@ void MVll::checkCache()
     }
 
     if (MM == H_V2cache(0) && Mb == H_V2cache(1)) {
-        H_V2updated = N_updated * C_9_updated * Yupdated * VL2_updated * C_9p_updated * VR2_updated * C_7_updated * TL2_updated * C_7p_updated * TR2_updated * h2_updated;
+        H_V2updated = N_updated * C_9_updated * Yupdated * VL2_updated * C_9p_updated * VR2_updated * C_7_updated * TL2_updated * C_7p_updated * TR2_updated * h2_updated * C_nunu_updated;
     } else {
         H_V2updated = 0;
         H_V2cache(0) = MM;
         H_V2cache(1) = Mb;
     }
 
-    H_A0updated = N_updated * C_10_updated * VL0_updated * C_10p_updated * VR0_updated;
-    H_A1updated = N_updated * C_10_updated * VL1_updated * C_10p_updated * VR1_updated;
-    H_A2updated = N_updated * C_10_updated * VL2_updated * C_10p_updated * VR2_updated;
+    H_A0updated = N_updated * C_10_updated * VL0_updated * C_10p_updated * VR0_updated * C_nunu_updated;
+    H_A1updated = N_updated * C_10_updated * VL1_updated * C_10p_updated * VR1_updated * C_nunu_updated;
+    H_A2updated = N_updated * C_10_updated * VL2_updated * C_10p_updated * VR2_updated * C_nunu_updated;
 
     if (Mb == H_Scache(0) && MW == H_Scache(1)) {
         H_Supdated = N_updated * C_S_updated * SL_updated * C_Sp_updated * SR_updated;
@@ -1966,6 +1997,10 @@ double MVll::Delta_C9_zExp(int hel)
 
 gslpp::complex MVll::H_V_0(double q2, bool bar)
 {
+    if (lep == QCD::NOLEPTON) {
+        if (!bar) return -gslpp::complex::i() * NN * C_nunu * V_0t(q2);
+        return -gslpp::complex::i() * NN_conjugate * C_nunu.conjugate() * V_0t(q2);
+    }
     if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV * pow(-1, angmomV) * C_9p) * V_0t(q2) + T_0(q2, !bar) + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, !bar, SPLINE) - etaV * pow(-1, angmomV) * C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV * pow(-1, angmomV) * C_9p.conjugate()) * V_0t(q2) + T_0(q2, bar) + MM2 / q2 * (twoMboMM * (C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE) - etaV * pow(-1, angmomV) * C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0, q2)));
 
@@ -1973,42 +2008,66 @@ gslpp::complex MVll::H_V_0(double q2, bool bar)
 
 gslpp::complex MVll::H_V_p(double q2, bool bar)
 {
+    if (lep == QCD::NOLEPTON) {
+        if (!bar) return -gslpp::complex::i() * NN *C_nunu * V_p(q2);
+        return -gslpp::complex::i() * NN_conjugate *C_nunu.conjugate() * V_p(q2);
+    }
     if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV * pow(-1, angmomV) * C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_p(q2) - etaV * pow(-1, angmomV) * C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV * pow(-1, angmomV) * C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_p(q2) - etaV * pow(-1, angmomV) * C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1, q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2, bool bar)
 {
+    if (lep == QCD::NOLEPTON) {
+        if (!bar) return -gslpp::complex::i() * NN *C_nunu * V_m(q2);
+        return -gslpp::complex::i() * NN_conjugate *C_nunu.conjugate() * V_m(q2);
+    }
     if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV * pow(-1, angmomV) * C_9p * V_p(q2)) + T_minus(q2, !bar) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_m(q2) - etaV * pow(-1, angmomV) * C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV * pow(-1, angmomV) * C_9p.conjugate() * V_p(q2)) + T_minus(q2, bar) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_m(q2) - etaV * pow(-1, angmomV) * C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2, q2)));
 }
 
 gslpp::complex MVll::H_A_0(double q2, bool bar)
 {
+    if (lep == QCD::NOLEPTON) {
+        if (!bar) return -gslpp::complex::i() * NN *C_nunu * V_0t(q2);
+        return -gslpp::complex::i() * NN_conjugate *C_nunu.conjugate() * V_0t(q2);
+    }
     if (!bar) return gslpp::complex::i() * NN * (-C_10 + etaV * pow(-1, angmomV) * C_10p) * V_0t(q2);
     return gslpp::complex::i() * NN_conjugate * (-C_10.conjugate() + etaV * pow(-1, angmomV) * C_10p.conjugate()) * V_0t(q2);
 }
 
 gslpp::complex MVll::H_A_p(double q2, bool bar)
 {
+    if (lep == QCD::NOLEPTON) {
+        if (!bar) return -gslpp::complex::i() * NN *C_nunu * V_p(q2);
+        return -gslpp::complex::i() * NN_conjugate *C_nunu.conjugate() * V_p(q2);
+    }
     if (!bar) return gslpp::complex::i() * NN * (-C_10 * V_p(q2) + etaV * pow(-1, angmomV) * C_10p * V_m(q2));
     return gslpp::complex::i() * NN_conjugate * (-C_10.conjugate() * V_p(q2) + etaV * pow(-1, angmomV) * C_10p.conjugate() * V_m(q2));
 }
 
 gslpp::complex MVll::H_A_m(double q2, bool bar)
 {
+    if (lep == QCD::NOLEPTON) {
+        if (!bar) return -gslpp::complex::i() * NN *C_nunu * V_m(q2);
+        return -gslpp::complex::i() * NN_conjugate *C_nunu.conjugate() * V_m(q2);
+    }
     if (!bar) return gslpp::complex::i() * NN * (-C_10 * V_m(q2) + etaV * pow(-1, angmomV) * C_10p * V_p(q2));
     return gslpp::complex::i() * NN_conjugate * (-C_10.conjugate() * V_m(q2) + etaV * pow(-1, angmomV) * C_10p.conjugate() * V_p(q2));
 }
 
 gslpp::complex MVll::H_S(double q2, bool bar)
 {
+    if (lep == QCD::NOLEPTON) return 0.;
+    
     if (!bar) return gslpp::complex::i() * NN * MboMW * (C_S - etaV * pow(-1, angmomV) * C_Sp) * S_L(q2);
     return gslpp::complex::i() * NN_conjugate * MboMW * (C_S.conjugate() - etaV * pow(-1, angmomV) * C_Sp.conjugate()) * S_L(q2);
 }
 
 gslpp::complex MVll::H_P(double q2, bool bar)
 {
+    if (lep == QCD::NOLEPTON) return 0.;
+    
     if (!bar) return gslpp::complex::i() * NN * (MboMW * (C_P - etaV * pow(-1, angmomV) * C_Pp) + twoMlepMb / q2 * (C_10 * (1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p * (etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
     return gslpp::complex::i() * NN_conjugate * (MboMW * (C_P.conjugate() - etaV * pow(-1, angmomV) * C_Pp.conjugate()) + twoMlepMb / q2 * (C_10.conjugate()*(1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p.conjugate()*(etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
 }
@@ -2463,4 +2522,12 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
 
     gsl_set_error_handler(old_handler);
 
+}
+
+double MVll::getSigmaTree()
+{
+    if (lep != QCD::NOLEPTON) return 0.;
+
+    updateParameters();
+    return mySM.getMesons(meson).getLifetime() / HCUT * GF4 * VusVub_abs2 * fV2 * fM2 / (128. * M_PI2 * MM3 * Gammatau) * mtau * (mtau2 - MV2) * (mtau2 - MV2) * (MM2 - mtau2) * (MM2 - mtau2) * (1. + 2.* MV2 / mtau2);
 }

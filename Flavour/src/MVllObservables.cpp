@@ -227,7 +227,7 @@ double BR_MVll::computeThValue()
     switch(vectorM){
             case StandardModel::K_star:
             case StandardModel::K_star_P:
-                return computeGammaPrime(q_min, q_max, lep)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth() / ( q_max - q_min );
+                return (computeGammaPrime(q_min, q_max, lep)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth() + SM.getFlavour().getMVll(meson, vectorM, lep).getSigmaTree()) / ( q_max - q_min );
                 break;
             case StandardModel::PHI:
                 return computeGammaPrime(q_min, q_max, lep)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth()/(1. - ys*ys) / ( q_max - q_min );

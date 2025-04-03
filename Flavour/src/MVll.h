@@ -349,6 +349,12 @@ public:
     double integrateDelta(int i, double q_min, double q_max);
     
     /**
+    * @brief The value of \f$ \Sigma_{tree} \f$ from 0 to \f$q_{limit}\f$
+    * @return \f$ <\Sigma{tree}> \f$
+    */
+    double getSigmaTree();
+    
+    /**
     * @brief The width of the meson M
     * @return \f$ \Gamma_M \f$ 
     */
@@ -886,6 +892,7 @@ private:
     double fournineth;/**< Cache variable */
     double half;/**< Cache variable */
     double twothird;/**< Cache variable */
+    double sqrt3;/**< Cache variable */
     gslpp::complex ihalfMPI;/**< Cache variable */
     double twoMM3;/**< Cache variable */
     double gtilde_1_pre;/**< Cache variable */
@@ -951,6 +958,17 @@ private:
     double a_1T23;/**<LCSR fit parameter */
     double a_2T23;/**<LCSR fit parameter */
     double MRT23_2;/**<LCSR fit parameter */
+    
+    //additional variables for B to K nu nu
+    double GF4;
+    double MM3;
+    double fM2;
+    double fV2;
+
+    double mtau;
+    double mtau2;
+    double Gammatau;
+    double VusVub_abs2;
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<Vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
@@ -983,6 +1001,7 @@ private:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
+    gslpp::complex C_nunu;/**<Wilson coeffients @f$C_{\nu\nu}'@f$*/
     
     std::vector<double> Re_T_perp;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
     std::vector<double> Im_T_perp;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
@@ -1207,6 +1226,9 @@ private:
     
     unsigned int C_8Lh_updated;/**< Cache variable */
     gslpp::complex C_8Lh_cache;/**< Cache variable */
+    
+    unsigned int C_nunu_updated;/**< Cache variable */
+    gslpp::complex C_nunu_cache;/**< Cache variable */
     
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */

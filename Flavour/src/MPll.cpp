@@ -248,6 +248,7 @@ void MPll::updateParameters()
         Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
         exp_Phase = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_BK"));
     }
+    sqrt3 = sqrt(3.);
     
     if (lep == QCD::NOLEPTON){
         
@@ -262,7 +263,8 @@ void MPll::updateParameters()
         Gammatau = HCUT / 0.2903;
     
         allcoeff = mySM.getFlavour().ComputeCoeffdnunu();
-        C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
+        C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0)) * sqrt3;
     }
     else{
         allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
@@ -314,7 +316,6 @@ void MPll::updateParameters()
     fournineth = 4. / 9.;
     half = 1. / 2.;
     twothird = 2. / 3.;
-    sqrt3 = sqrt(3.);
     ihalfMPI = gslpp::complex::i() * M_PI / 2.;
     Mc2 = Mc*Mc;
     Mb2 = Mb*Mb;
@@ -638,6 +639,13 @@ void MPll::checkCache()
         C_8Lh_updated = 0;
         C_8Lh_cache = C_8Lh;
     }
+    
+    if (C_nunu == C_nunu_cache) {
+        C_nunu_updated = 1;
+    } else {
+        C_nunu_updated = 0;
+        C_nunu_cache = C_nunu;
+    }
 
     if (Mb == Ycache(0) && Mc == Ycache(1)) {
         Yupdated = C_1_updated * C_2_updated * C_3_updated * C_4_updated * C_5_updated * C_6_updated;
@@ -649,7 +657,7 @@ void MPll::checkCache()
 
     if (!dispersion) {
         if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_1 == H_V0Ccache[1] && h_2 == H_V0Ccache[2]) {
-            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * C_7_updated * TL_updated * C_7p_updated;
+            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * C_7_updated * TL_updated * C_7p_updated * C_nunu_updated;
         } else {
             H_V0updated = 0;
             H_V0cache(0) = MM;
@@ -660,7 +668,7 @@ void MPll::checkCache()
         }
     } else {
         if (MM == H_V0cache(0) && Mb == H_V0cache(1) && r_1 == H_V0Ccache_dispersion[0] && r_2 == H_V0Ccache_dispersion[1] && Delta_C9 == H_V0Ccache_dispersion[2] && exp_Phase == H_V0Ccache_dispersion[3]) {
-            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * C_7_updated * TL_updated * C_7p_updated;
+            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * C_7_updated * TL_updated * C_7p_updated * C_nunu_updated;
         } else {
             H_V0updated = 0;
             H_V0cache(0) = MM;
@@ -672,7 +680,7 @@ void MPll::checkCache()
         }
     }
 
-    H_A0updated = N_updated * C_10_updated * VL_updated * C_10p_updated;
+    H_A0updated = N_updated * C_10_updated * VL_updated * C_10p_updated * C_nunu_updated;
 
     if (Mb == H_Scache(0) && MW == H_Scache(1)) {
         H_Supdated = N_updated * C_S_updated * SL_updated * C_Sp_updated;
@@ -1174,10 +1182,8 @@ gslpp::complex MPll::h_lambda(double q2)
 gslpp::complex MPll::H_V(double q2)
 {
     if (lep == QCD::NOLEPTON) {
-        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
-        return -C_nunu * sqrt3 * V_L(q2);
+        return -C_nunu * V_L(q2);
     }
-    else
     return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2)
             + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, SPLINE) - etaP * pow(-1, angmomP) * C_7p) * T_L(q2)
             - sixteenM_PI2 * h_lambda(q2)));
@@ -1186,10 +1192,8 @@ gslpp::complex MPll::H_V(double q2)
 gslpp::complex MPll::H_A(double q2)
 {
     if (lep == QCD::NOLEPTON) {
-        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
-        return -C_nunu * sqrt3 * V_L(q2);
+        return -C_nunu * V_L(q2);
     }
-    else
     return (-C_10 + etaP * pow(-1, angmomP) * C_10p) *V_L(q2);
 }
 
@@ -1256,6 +1260,7 @@ double MPll::Delta(int i, double q2)
 double MPll::integrateSigma(int i, double q_min, double q_max)
 {
     updateParameters();
+    
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
     old_handler = gsl_set_error_handler_off();
