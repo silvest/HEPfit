@@ -15,6 +15,8 @@ var class_n_p_s_m_e_f_td6_general_matching =
     [ "getCddVLL", "d9/d18/class_n_p_s_m_e_f_td6_general_matching.html#ac29092fdc2ace92121b4601cd3f3cb70", null ],
     [ "getCddVRR", "d9/d18/class_n_p_s_m_e_f_td6_general_matching.html#ae231bd85788495d2bca4b3a2f9874774", null ],
     [ "getCdeVLR", "d9/d18/class_n_p_s_m_e_f_td6_general_matching.html#ad12f2ac62dcd07e7d03c1d8385a7190e", null ],
+    [ "getCdG", "d9/d18/class_n_p_s_m_e_f_td6_general_matching.html#a64a423b46a0ca1f2f2e39e22695e23f2", null ],
+    [ "getCdg", "d9/d18/class_n_p_s_m_e_f_td6_general_matching.html#a84a61b34ef1e5f4afe260b456ff38a94", null ],
     [ "getCduV1LR", "d9/d18/class_n_p_s_m_e_f_td6_general_matching.html#a2025a41a74118119b979e91c8f9c8acc", null ],
     [ "getCduV8LR", "d9/d18/class_n_p_s_m_e_f_td6_general_matching.html#aa5e1b53526a8f2d9825d15abf01b1a73", null ],
     [ "getCedSRL", "d9/d18/class_n_p_s_m_e_f_td6_general_matching.html#a8651c9542d0dfe12805c8f40f8f780ac", null ],

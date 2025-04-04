@@ -1,5 +1,11 @@
 var NAVTREEINDEX97 =
 {
+"db/d1e/classmutt_hbb.html#a0344541f926fc061b52335a37b59fc2f":[4,13,302,0],
+"db/d1e/classmutt_hbb.html#a67b72a19aad59e99c8e85d60f2e90ab6":[4,13,302,2],
+"db/d1e/classmutt_hbb.html#a684175cddec0c80d5a4cbc3c0efd44f5":[4,13,302,1],
+"db/d1e/classmutt_hbb.html#a8f3545a512746099c999136f56a770de":[4,13,302,3],
+"db/d1f/class_g_mmassdifference__m_hhmm_hl.html":[4,8,68],
+"db/d1f/class_g_mmassdifference__m_hhmm_hl.html#a2c3e5637648ed601d836bf6c825f8b09":[4,8,68,2],
 "db/d1f/class_g_mmassdifference__m_hhmm_hl.html#a64bf7abb59438757dd6ee808f62dc16d":[4,8,68,1],
 "db/d1f/class_g_mmassdifference__m_hhmm_hl.html#ab2ee9e78b023863a947906008a6df819":[4,8,68,0],
 "db/d20/class_l_h_p_c_1_1_mass_eigenstate.html":[27,0,1,12],
@@ -243,11 +249,5 @@ var NAVTREEINDEX97 =
 "db/d2b/class_georgi_machacek.html#afc8135d782649dace5835a032fa58271":[4,8,46,4],
 "db/d2c/classlog10___v_v__phi3___w_w___t_h13.html":[27,0,1726],
 "db/d2c/classlog10___v_v__phi3___w_w___t_h13.html#aa4ee20bf44c165052651161e7afd21b2":[27,0,1726,0],
-"db/d2c/classlog10___v_v__phi3___w_w___t_h13.html#ac9fd9db49c2a28b22a53dca2e7cef141":[27,0,1726,1],
-"db/d2c/classlog10___v_v__phi3___w_w___t_h13.html#aed53c0cd2bf271d0839022023fc1a419":[27,0,1726,2],
-"db/d31/class_robs__pp___h___z_z__llll___c_m_s13.html":[4,17,381],
-"db/d31/class_robs__pp___h___z_z__llll___c_m_s13.html#a4b432b468144e238b489132d060b285d":[4,17,381,1],
-"db/d31/class_robs__pp___h___z_z__llll___c_m_s13.html#ad48cd7ede17f73855ff8bc099e168276":[4,17,381,0],
-"db/d31/class_robs__pp___h___z_z__llll___c_m_s13.html#afa3b45ebbe035512a9ac04126ba22cd6":[4,17,381,2],
-"db/d32/class_e_w_s_m_two_fermions_l_e_p2.html":[4,0,11]
+"db/d2c/classlog10___v_v__phi3___w_w___t_h13.html#ac9fd9db49c2a28b22a53dca2e7cef141":[27,0,1726,1]
 };
