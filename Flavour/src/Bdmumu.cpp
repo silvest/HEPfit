@@ -103,7 +103,7 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
 
-            gslpp::complex NPfactor = (Vckm(2,2).conjugate() * Vckm(2,0)) * coupling;
+            gslpp::complex NPfactor = coupling;
 
             if(SM.getModelName().compare("NPSMEFTd6U2") == 0 || SM.getModelName().compare("NPSMEFTd6U3") == 0)
             {

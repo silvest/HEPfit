@@ -425,7 +425,18 @@ public:
      */    
     const gslpp::complex getCnueduSRL(int i, int j, int k, int l) const;
     
+    /**
+     * @brief Return CdGLR (chromomagnetic dipole operator)
+     * @return \f$ C_{d G}^{LR}(i,j) \f$ 
+     */
+    const gslpp::complex getCdG(int i, int j) const;
  
+    /**
+     * @brief Return CdgLR (electric dipole operator)
+     * @return \f$ C_{d \gamma}^{LR}(i,j) \f$ 
+     */
+    const gslpp::complex getCdg(int i, int j) const;
+
     //Fermion rotation matrices to mass-eigenstate basis
     
     /**

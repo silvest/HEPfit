@@ -1801,10 +1801,16 @@ private:
     
     gslpp::complex C7p_0;/**<LO term of the Wilson coeffients @f$C'_7@f$*/
     gslpp::complex C7p_1;/**<NLO term of the Wilson coeffients @f$C_7@f$*/
+    gslpp::complex C8p_0;/**<LO term of the Wilson coeffients @f$C'_8@f$*/
+    gslpp::complex C8p_1;/**<NLO term of the Wilson coeffients @f$C_8@f$*/
+
     
     gslpp::complex C_7_NP;
     gslpp::complex C_7p_NP;
-    
+  
+    gslpp::complex C_8_NP;
+    gslpp::complex C_8p_NP;   
+
     gsl_function INT;/**< Gsl integral variable */
     gsl_integration_cquad_workspace * w_INT;/**< Gsl integral variable */
     double avaINT;/**< Gsl integral variable */    

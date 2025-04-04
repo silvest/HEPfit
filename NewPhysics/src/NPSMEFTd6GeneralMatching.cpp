@@ -284,7 +284,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
                                                         CedVRR.at(i).at(j).at(k).at(l) += VdRd(k, p) * ((mySMEFT.getSMEFTCoeffEW("CedR", i, j, p, r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CedI", i, j, p, r))) * VdR(r, l);
                                                         CnudVLR.at(i).at(j).at(k).at(l) += VdRd(k, p) * ((mySMEFT.getSMEFTCoeffEW("CldR", i, j, p, r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CldI", i, j, p, r))) * VdR(r, l);
                                                         CedVLR.at(i).at(j).at(k).at(l) += VdRd(k, p) * ((mySMEFT.getSMEFTCoeffEW("CldR", i, j, p, r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CldI", i, j, p, r))) * VdR(r, l);
-                                                        CdeVLR.at(i).at(j).at(k).at(l) += VuLd(i, p) * ((mySMEFT.getSMEFTCoeffEW("CqeR", p, r, k, l) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CqeI", p, r, k, l))) * VuL(r, j);
+                                                        CdeVLR.at(i).at(j).at(k).at(l) += VdLd(i, p) * ((mySMEFT.getSMEFTCoeffEW("CqeR", p, r, k, l) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CqeI", p, r, k, l))) * VdL(r, j);
                                                         CedSRL.at(i).at(j).at(k).at(l) += VdRd(k, p) * ((mySMEFT.getSMEFTCoeffEW("CledqR", i, j, p, r) + gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CledqI", i, j, p, r))) * VdL(r, l);
                                                         for (int s = 0; s < 3; s++)
                                                                 for (int t = 0; t < 3; t++)
@@ -1087,6 +1087,15 @@ const gslpp::complex NPSMEFTd6GeneralMatching::getCnueduSRL(int i, int j, int k,
     return (CnueduSRL.at(i).at(j).at(k).at(l));
 }
 
+const gslpp::complex NPSMEFTd6GeneralMatching::getCdG(int i, int j) const
+{
+    return (CdG.at(i).at(j));
+}
+
+const gslpp::complex NPSMEFTd6GeneralMatching::getCdg(int i, int j) const
+{
+    return (Cdg.at(i).at(j));
+}
 
 //Fermion rotation matrices to mass-eigenstate basis
     
