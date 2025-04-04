@@ -280,10 +280,12 @@ public:
     double integrateDelta(int i, double q_min, double q_max);
 
     /**
-    * @brief The value of \f$ \Sigma_{tree} \f$ from 0 to \f$q_{limit}\f$
-    * @return \f$ <\Sigma{tree}> \f$
+    * @brief The integral of \f$ \Sigma_{tree} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$ (arxiv/2301.06990)
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return \f$ <\Sigma_{tree}> \f$
     */
-    double getSigmaTree();
+    double integrateSigmaTree(double q_min, double q_max);
     
     /**
     * @brief The width of the meson M
@@ -639,7 +641,10 @@ private:
     unsigned int I0_updated;/**< Cache variable */
     unsigned int I2_updated;/**< Cache variable */
     unsigned int I8_updated;/**< Cache variable */
-
+    
+    unsigned int Itree_updated;/**< Cache variable */
+    gslpp::vector<double> Itree_cache;/**< Cache variable */
+    
     std::map<std::pair<double, double>, unsigned int > I1Cached;/**< Cache variable */
 
     std::map<std::pair<double, double>, unsigned int > sigma0Cached;/**< Cache variable */
@@ -648,12 +653,16 @@ private:
     std::map<std::pair<double, double>, unsigned int > delta0Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta2Cached;/**< Cache variable */
 
+    std::map<std::pair<double, double>, unsigned int > sigmaTreeCached;/**< Cache variable */
+
     double avaSigma;/**< Gsl integral variable */
     double avaDelta;/**< Gsl integral variable */
+    double avaSigmaTree;/**< Gsl integral variable */
     double avaDTPPR;/**< Gsl integral variable */
 
     double errSigma;/**< Gsl integral variable */
     double errDelta;/**< Gsl integral variable */
+    double errSigmaTree;/**< Gsl integral variable */
     double errDTPPR;/**< Gsl integral variable */
 
     gsl_function FS;/**< Gsl integral variable */
@@ -662,6 +671,7 @@ private:
 
     gsl_integration_cquad_workspace * w_sigma;/**< Gsl integral variable */
     gsl_integration_cquad_workspace * w_delta;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_sigmaTree;/**< Gsl integral variable */
     gsl_integration_cquad_workspace * w_DTPPR;/**< Gsl integral variable */
 
     gsl_error_handler_t * old_handler; /**< GSL error handler store */
@@ -673,6 +683,8 @@ private:
 
     std::map<std::pair<double, double>, double > cacheDelta0;/**< Gsl integral variable */
     std::map<std::pair<double, double>, double > cacheDelta2;/**< Gsl integral variable */
+
+    std::map<std::pair<double, double>, double > cacheSigmaTree;/**< Gsl integral variable */
 
     std::map<double, unsigned int> deltaTparpCached;/**< Cache variable */
     std::map<double, unsigned int> deltaTparmCached;/**< Cache variable */
@@ -886,6 +898,19 @@ private:
     * @return \f$ \Delta_{i} \f$
     */
     double Delta(int i, double q2);
+    
+    /**
+    * @brief The value of \f$ \Sigma_{tree}: contains the full q2-dependence but neglects a "prefactor"
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ <\Sigma{tree}> \f$
+    */
+    double SigmaTree(double q2);
+   
+    /**
+    * @brief The integral of \f$ \Sigma_{tree} \f$ from 0 to \f$q_{cut}\f$
+    * @return \f$ <\Sigma{tree}> \f$
+    */
+    double getintegratedSigmaTree();
 
     /**
     * @brief The CP average \f$ \Sigma_{1s} \f$ .

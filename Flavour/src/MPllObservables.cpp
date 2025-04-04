@@ -31,7 +31,7 @@ double BR_MPll::computeBR_MPll(double qmin, double qmax, QCD::lepton lep)
     QCD::lepton lep_i = lep;
     
     return (3.*SM.getFlavour().getMPll(meson, pseudoscalar, lep_i).integrateSigma(0,q_min,q_max)- SM.getFlavour().getMPll(meson, pseudoscalar, lep_i).integrateSigma(2,q_min,q_max))/(4. * SM.getFlavour().getMPll(meson, pseudoscalar, lep_i).getwidth())
-            + SM.getFlavour().getMPll(meson, pseudoscalar, lep_i).getSigmaTree();
+            + SM.getFlavour().getMPll(meson, pseudoscalar, lep_i).integrateSigmaTree(q_min, q_max);
 }
 
 double BR_MPll::computeThValue()

@@ -34,6 +34,7 @@ Ycache(2, 0.),
 H_V0cache(2, 0.),
 H_Scache(2, 0.),
 H_P_cache(4, 0.),
+Itree_cache(3, 0.),
 T_cache(5, 0.)
 {
     lep = lep_i;
@@ -46,6 +47,7 @@ T_cache(5, 0.)
     I0_updated = 0;
     I2_updated = 0;
     I8_updated = 0;
+    Itree_updated = 0;
 
     VL_updated = 0;
     TL_updated = 0;
@@ -56,6 +58,7 @@ T_cache(5, 0.)
 
     w_sigma = gsl_integration_cquad_workspace_alloc(100);
     w_delta = gsl_integration_cquad_workspace_alloc(100);
+    w_sigmaTree = gsl_integration_cquad_workspace_alloc(100);
     w_DTPPR = gsl_integration_cquad_workspace_alloc(100);
 
     acc_Re_deltaC7_QCDF = gsl_interp_accel_alloc();
@@ -389,6 +392,8 @@ void MPll::updateParameters()
 
     if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
     if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
+    
+    if (Itree_updated) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
 
     std::map<double, unsigned int >::iterator iti;
     if (deltaTparpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
@@ -718,6 +723,15 @@ void MPll::checkCache()
     I0_updated = F_updated * H_V0updated * H_A0updated * H_P_updated * beta_updated * H_Supdated * deltaTparmupdated;
     I2_updated = F_updated * beta_updated * H_V0updated * H_A0updated * deltaTparmupdated;
     I8_updated = F_updated * beta_updated * H_Supdated * H_V0updated * deltaTparmupdated;
+
+    if (MM2 == Itree_cache(0) && mtau2 == Itree_cache(1) && MP2 == Itree_cache(2)) {
+        Itree_updated = 1;
+    } else {
+        Itree_updated = 0;
+        Itree_cache(0) = MM2;
+        Itree_cache(1) = mtau2;
+        Itree_cache(2) = MP2;
+    }
 
 }
 
@@ -1352,10 +1366,42 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
 
 }
 
-double MPll::getSigmaTree()
+double MPll::integrateSigmaTree(double q_min, double q_max)
 {
     if (lep != QCD::NOLEPTON) return 0.;
 
     updateParameters();
+    
+    //phase space limit where tree-level contribution is relevant (0908.1174)
+    double q_cut = (mtau2 - MP2) * (MM2 - mtau2) / mtau2;
+    if (q_max >= q_cut) {
+        if (q_min == 0.) return getintegratedSigmaTree();
+        q_max = q_cut;
+    }
+    
+    double prefactor = mySM.getMesons(meson).getLifetime() / HCUT * GF4 * VusVub_abs2 * fP2 * fM2 / (64. * M_PI2 * MM3 * Gammatau) * mtau2 * mtau;
+    
+    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
+
+    old_handler = gsl_set_error_handler_off();
+
+    if (sigmaTreeCached[qbin] == 0) {
+        FD = convertToGslFunction(bind(&MPll::SigmaTree, &(*this), _1));
+        if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_sigmaTree, &avaSigmaTree, &errSigmaTree, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        cacheSigmaTree[qbin] = avaSigmaTree;
+        sigmaTreeCached[qbin] = 1;
+    }
+    return prefactor * cacheSigmaTree[qbin];
+
+    gsl_set_error_handler(old_handler);
+}
+
+double MPll::SigmaTree(double q2)
+{
+    return MM2 * (mtau2 - MP2) - mtau2 * (mtau2 + q2 - MP2);
+}
+
+double MPll::getintegratedSigmaTree()
+{
     return mySM.getMesons(meson).getLifetime() / HCUT * GF4 * VusVub_abs2 * fP2 * fM2 / (128. * M_PI2 * MM3 * Gammatau) * mtau * (mtau2 - MP2) * (mtau2 - MP2) * (MM2 - mtau2) * (MM2 - mtau2);
 }
