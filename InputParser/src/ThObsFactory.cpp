@@ -5551,10 +5551,11 @@ ThObsFactory::ThObsFactory()
 
     obsThFactory["DC9_hlambda"] = bind(boost::factory<DC9_hlambda*>(), _1, StandardModel::B_D, StandardModel::K_0, StandardModel::MU);
     
-    //----- B+ to K+ nunu-----
-    obsThFactory["BR_BKnunu"] = bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, QCD::NOLEPTON);
-    obsThFactory["BR_BKstarnunu"] = bind(boost::factory<BR_MVll*>(), _1, StandardModel::B_P, StandardModel::K_star_P, QCD::NOLEPTON);
-
+    //----- B to K nunu-----
+    obsThFactory["BR_BpKpnunu"] = bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, QCD::NOLEPTON);
+    obsThFactory["BR_BpKstarpnunu"] = bind(boost::factory<BR_MVll*>(), _1, StandardModel::B_P, StandardModel::K_star_P, QCD::NOLEPTON);
+    obsThFactory["BR_BKstarnunu"] = bind(boost::factory<BR_MVll*>(), _1, StandardModel::B_D, StandardModel::K_star, QCD::NOLEPTON);
+ 
     //----- B to D*lnu -----
     obsThFactory["Gammaw_MVlnu"] = bind(boost::factory<Gammaw_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU, StandardModel::ELECTRON);
     obsThFactory["RDstar_MVlnu"] = bind(boost::factory<RDstar_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::TAU, StandardModel::MU, StandardModel::ELECTRON);
@@ -5689,7 +5690,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["OutputSLHAfromFH"] = boost::factory<OutputSLHAfromFH*>(); // for debug
 #endif
 /* END: REMOVE FROM THE PACKAGE */
-    obsThFactory["MHl"] = bind(boost::factory<Mhiggs*>(), _1, 0);
+/*    obsThFactory["MHl"] = bind(boost::factory<Mhiggs*>(), _1, 0);
     obsThFactory["MHh"] = bind(boost::factory<Mhiggs*>(), _1, 1);
     obsThFactory["MHa"] = bind(boost::factory<Mhiggs*>(), _1, 2);
     obsThFactory["MHp"] = bind(boost::factory<Mhiggs*>(), _1, 3);
@@ -6226,7 +6227,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitaritya11oddIm"] = boost::factory<unitaritya11oddIm*>();
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
-    //-----  GeneralTHDM observables  -----
+/*    //-----  GeneralTHDM observables  -----
     //obsThFactory["mH1"] = boost::factory<mH1_GTHDM*>();  //We have the map, no need of this
     //obsThFactory["mH2"] = boost::factory<mH2_GTHDM*>();  //We have the map, no need of this
     //obsThFactory["mH3"] = boost::factory<mH3_GTHDM*>();  //We have the map, no need of this
@@ -6416,7 +6417,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BR_HH_HpHm_THDM"] = boost::factory<BR_HH_HpHm_THDM*>();
     obsThFactory["BR_HH_AZ_THDM"] = boost::factory<BR_HH_AZ_THDM*>();
     obsThFactory["BR_HH_HpW_THDM"] = boost::factory<BR_HH_HpW_THDM*>(); */
-    obsThFactory["Hobs_bb_phi2_bb_ATLAS13"] = boost::factory<Hobs_bb_phi2_bb_ATLAS13*>();
+/*    obsThFactory["Hobs_bb_phi2_bb_ATLAS13"] = boost::factory<Hobs_bb_phi2_bb_ATLAS13*>();
     obsThFactory["Hobs_tt_phi2_tt_ATLAS13"] = boost::factory<Hobs_tt_phi2_tt_ATLAS13*>();
     obsThFactory["Hobs_bb_phi2_tt_ATLAS13"] = boost::factory<Hobs_bb_phi2_tt_ATLAS13*>();
     obsThFactory["Hobs_bb_phi2_bb_CMS8"] = boost::factory<Hobs_bb_phi2_bb_CMS8*>();
@@ -6833,7 +6834,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_Hpm_tb_TH13_GTHDM"] = boost::factory<log10_pp_Hpm_tb_TH13_GTHDM*>();
     /* END: REMOVE FROM THE PACKAGE */
 
-    //-----  LeftRightSymmetric model observables  -----
+/*    //-----  LeftRightSymmetric model observables  -----
     obsThFactory["mu1_2_LRSM"] = boost::factory<mu1_2_LRSM*>();
     obsThFactory["mu2_2_LRSM"] = boost::factory<mu2_2_LRSM*>();
     obsThFactory["mu3_2_LRSM"] = boost::factory<mu3_2_LRSM*>();
@@ -6854,7 +6855,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["MH04_app"] = bind(boost::factory<MH0_app*>(), _1, 3);
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
-    //-----  THDMW model observables  -----
+ /*   //-----  THDMW model observables  -----
     obsThFactory["Q_stTHDMW"] = boost::factory<Q_stTHDMW*>();
     obsThFactory["DeltaQ_THDMW"] = boost::factory<DeltaQ_THDMW*>();
     obsThFactory["lambda1atQTHDMW"] = boost::factory<lambda1atQTHDMW*>();
@@ -7015,7 +7016,7 @@ ThObsFactory::ThObsFactory()
 
     /* END: REMOVE FROM THE PACKAGE */
 
-    //-----  GeorgiMachacek observables  -----
+ /*   //-----  GeorgiMachacek observables  -----
     //-----  GeorgiMachacek quantities -----
     obsThFactory["tanbetaGM"] = boost::factory<tanbetaGM*>();
     obsThFactory["m1sqGM"] = boost::factory<m1sqGM*>();
@@ -7341,7 +7342,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_pp_H5ppmmH5mmpp_WWWW_TH13"] = boost::factory<log10_pp_H5ppmmH5mmpp_WWWW_TH13*>();
     obsThFactory["log10_VV_H5ppmm_WW_TH8"] = boost::factory<log10_VV_H5ppmm_WW_TH8*>();
     obsThFactory["log10_VV_H5ppmm_WW_TH13"] = boost::factory<log10_VV_H5ppmm_WW_TH13*>();
-
+*/
 }
 
 void ThObsFactory::addObsToFactory(const std::string name, boost::function<ThObservable*(const StandardModel&) > funct)

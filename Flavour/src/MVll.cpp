@@ -2539,7 +2539,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
 }
 double MVll::integrateSigmaTree(double q_min, double q_max)
 {
-    if (lep != QCD::NOLEPTON) return 0.;
+    if (lep != QCD::NOLEPTON or meson != QCD::B_P) return 0.;
 
     updateParameters();
     
