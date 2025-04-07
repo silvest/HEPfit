@@ -1,9 +1,5 @@
 var NAVTREEINDEX53 =
 {
-"d5/dac/class_s_u_s_y_matching.html#af9cb55770b9a1fe28fda8a7d646c4a24":[4,16,63,63],
-"d5/dac/class_s_u_s_y_matching.html#afb0adf4630f54fdb6a536960ab21672c":[4,16,63,146],
-"d5/dac/class_s_u_s_y_matching.html#afea0d097da5852bc06d437c5b9b3881a":[4,16,63,62],
-"d5/dac/class_s_u_s_y_matching.html#aff4a007f91a793fc340f32ca29ef97cf":[4,16,63,20],
 "d5/dac/class_s_u_s_y_matching.html#affe13542e00dac06e0ecff84d48ef7dd":[4,16,63,207],
 "d5/dad/class_asl__d___m_sbar___n_l_o__trad_basis.html":[27,0,105],
 "d5/dad/class_asl__d___m_sbar___n_l_o__trad_basis.html#a16618010d952f7d2b23312b2e07c6de4":[27,0,105,0],
@@ -249,5 +245,9 @@ var NAVTREEINDEX53 =
 "d5/def/class_doxy_example.html":[4,2,0],
 "d5/def/class_doxy_example.html#a02a9ba7a63439f489ffc74a2e7fb4631":[4,2,0,5],
 "d5/def/class_doxy_example.html#a0db95b4bcd306491c67a749076705d9b":[4,2,0,7],
-"d5/def/class_doxy_example.html#a2beb95adb621b304c8df6e19bdcf7eb8":[4,2,0,0]
+"d5/def/class_doxy_example.html#a2beb95adb621b304c8df6e19bdcf7eb8":[4,2,0,0],
+"d5/def/class_doxy_example.html#a4b640ee7b677b5c5947507b5dc64424d":[4,2,0,8],
+"d5/def/class_doxy_example.html#a6def35bf033290995e74ed78249f43d6":[4,2,0,6],
+"d5/def/class_doxy_example.html#a73d1fbe488aa1f9fbd0bec1d0433d307":[4,2,0,9],
+"d5/def/class_doxy_example.html#a7974c0d93e43fc00f8203a6b133622c8":[4,2,0,11]
 };

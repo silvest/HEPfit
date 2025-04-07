@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['r_0',['R',['../dd/d00/class_evol_bsmm.html#a5b71385bdc9265332fb36d44e853a137',1,'EvolBsmm']]],
-  ['r_1',['r',['../d7/dc5/class_evol_d_f1nlep.html#a5d4b707cbdee1ef4f57992300041221b',1,'EvolDF1nlep']]],
+  ['r_0',['r',['../d7/dc5/class_evol_d_f1nlep.html#a5d4b707cbdee1ef4f57992300041221b',1,'EvolDF1nlep']]],
+  ['r_1',['R',['../dd/d00/class_evol_bsmm.html#a5b71385bdc9265332fb36d44e853a137',1,'EvolBsmm']]],
   ['r0_5f4b_2',['R0_4b',['../d5/d60/class_charm___kpnunu.html#a29ec0aee3695376f7fd934f01271cbd3',1,'Charm_Kpnunu']]],
   ['r0_5f4p_3',['R0_4p',['../d5/d60/class_charm___kpnunu.html#af95cd82bd0f652fc62e03ad85fa94319',1,'Charm_Kpnunu']]],
   ['r0_5f5b_4',['R0_5b',['../d5/d60/class_charm___kpnunu.html#a7bcc7221879c36b3a460c96bfffd3494',1,'Charm_Kpnunu']]],
@@ -469,8 +469,8 @@ var searchData=
   ['rhh_5fvv_466',['rHH_VV',['../d7/db7/class_g_mcache.html#af703bedb2c7d570eacdba7f06a81267c',1,'GMcache::rHH_VV()'],['../d5/df2/class_t_h_d_mcache.html#a8fadfb23d18764666a36cc785ca57381',1,'THDMcache::rHH_VV()']]],
   ['rhh_5fzga_467',['rHH_Zga',['../d7/db7/class_g_mcache.html#a1e5111442846e94f95dbbb133e779994',1,'GMcache']]],
   ['rho_468',['rho',['../d0/d13/class_bsgamma.html#ae3000d32bb9bb95149e5355a04aadced',1,'Bsgamma']]],
-  ['rho_469',['Rho',['../d9/db9/class_c_k_m.html#ac3f1a8dc92b52c7e0cab3e18e2de3c3a',1,'CKM']]],
-  ['rho_470',['RHO',['../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044bab47c9b3bad09d5f220cfac1c12416086',1,'QCD']]],
+  ['rho_469',['RHO',['../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044bab47c9b3bad09d5f220cfac1c12416086',1,'QCD']]],
+  ['rho_470',['Rho',['../d9/db9/class_c_k_m.html#ac3f1a8dc92b52c7e0cab3e18e2de3c3a',1,'CKM']]],
   ['rho1_5flrsm_471',['rho1_LRSM',['../d6/da6/class_left_right_symmetric_model.html#a146165663b38256d537b8766ea49b079',1,'LeftRightSymmetricModel']]],
   ['rho2_5flrsm_472',['rho2_LRSM',['../d6/d3e/classrho2___l_r_s_m.html',1,'rho2_LRSM'],['../d6/d3e/classrho2___l_r_s_m.html#ab9e199d3e3c8f9e92bbdc65ce58aba08',1,'rho2_LRSM::rho2_LRSM()']]],
   ['rho3_5flrsm_473',['rho3_LRSM',['../d0/d1e/classrho3___l_r_s_m.html#a46677260ba4304089995ba1a3b93e51c',1,'rho3_LRSM::rho3_LRSM()'],['../d0/d1e/classrho3___l_r_s_m.html',1,'rho3_LRSM']]],

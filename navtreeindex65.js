@@ -1,9 +1,5 @@
 var NAVTREEINDEX65 =
 {
-"d6/da6/class_b_r___kp0nunu.html#a35768e17f4029cac9d9cc247d8ee7e1d":[4,5,43,1],
-"d6/da6/class_b_r___kp0nunu.html#a83be19e464c07e62d6e75816ab19bf25":[4,5,43,5],
-"d6/da6/class_b_r___kp0nunu.html#a99dcb473a085122718febbde13e759ea":[4,5,43,4],
-"d6/da6/class_b_r___kp0nunu.html#aba31f98901b0cfcc1f3a3be36635562b":[4,5,43,3],
 "d6/da6/class_b_r___kp0nunu.html#ac49a8207dade606484ca3ff2046f8008":[4,5,43,2],
 "d6/da6/class_b_r___kp0nunu.html#ae11ddcfd45a321e6e95f11eba748e1e7":[4,5,43,0],
 "d6/da6/class_left_right_symmetric_model.html":[27,0,1475],
@@ -249,5 +245,9 @@ var NAVTREEINDEX65 =
 "d6/db8/class_l_h_p_c_1_1_s_l_h_a_1_1_sparse_quadruply_indexed_block.html#a7d06d49d68542302a7eb394958162d5a":[27,0,1,3,22,3],
 "d6/db8/class_l_h_p_c_1_1_s_l_h_a_1_1_sparse_quadruply_indexed_block.html#a7d3ba98fd448d79185a1f809d9353e5b":[27,0,1,3,22,2],
 "d6/db8/class_l_h_p_c_1_1_s_l_h_a_1_1_sparse_quadruply_indexed_block.html#a7e0df2ba79acf3ae72e575b5ff00e728":[27,0,1,3,22,1],
-"d6/db8/class_l_h_p_c_1_1_s_l_h_a_1_1_sparse_quadruply_indexed_block.html#abead84546bc6e69421f0695e0a7e5ba1":[27,0,1,3,22,4]
+"d6/db8/class_l_h_p_c_1_1_s_l_h_a_1_1_sparse_quadruply_indexed_block.html#abead84546bc6e69421f0695e0a7e5ba1":[27,0,1,3,22,4],
+"d6/db8/class_l_h_p_c_1_1_s_l_h_a_1_1_sparse_quadruply_indexed_block.html#ad15b3157832e913e0ad5e69cfacb97b4":[27,0,1,3,22,7],
+"d6/dba/class_rneutrinos.html":[4,3,108],
+"d6/dba/class_rneutrinos.html#a620e738c86913dc89ddc1e5c2b7858a9":[4,3,108,0],
+"d6/dba/class_rneutrinos.html#a7448e3973a27a7927587de0e7306b163":[4,3,108,1]
 };

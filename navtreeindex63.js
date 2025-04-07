@@ -1,9 +1,5 @@
 var NAVTREEINDEX63 =
 {
-"d6/d53/class_n_p_s_t_u_v_w_x_y.html#a9e95985e85c197f36503ed96460ee76b":[4,13,381,6],
-"d6/d53/class_n_p_s_t_u_v_w_x_y.html#a9f7f763361d3cebc5a532eca42a6b5c1":[4,13,381,12],
-"d6/d53/class_n_p_s_t_u_v_w_x_y.html#abe76bb024718a664be9e59498fd7d8d6":[4,13,381,5],
-"d6/d53/class_n_p_s_t_u_v_w_x_y.html#ac69444785bdf6ff8b9ea7dd90e20cb5a":[4,13,381,8],
 "d6/d53/class_n_p_s_t_u_v_w_x_y.html#ace5534d0d5d3cb7c6ee3b38a6122b2d4":[4,13,381,30],
 "d6/d53/class_n_p_s_t_u_v_w_x_y.html#ad1f6f55f0fc5f2477292bce08c7208c6":[4,13,381,4],
 "d6/d53/class_n_p_s_t_u_v_w_x_y.html#ae09275ac58ab6f51148c7ec50e57f48b":[4,13,381,27],
@@ -249,5 +245,9 @@ var NAVTREEINDEX63 =
 "d6/d75/class_flavour_wilson_coefficient.html#afb5748c65c00192d8749f800b9bcc9c6":[4,6,2,61],
 "d6/d75/class_flavour_wilson_coefficient.html#afb9fec51c5f6ef5feead9499604fcbf7":[4,6,2,83],
 "d6/d75/class_flavour_wilson_coefficient.html#afdb2adf1d01296077ef5b95928e02aef":[4,6,2,37],
-"d6/d75/class_flavour_wilson_coefficient.html#afede57a424b64a0081759de69541f0b8":[4,6,2,5]
+"d6/d75/class_flavour_wilson_coefficient.html#afede57a424b64a0081759de69541f0b8":[4,6,2,5],
+"d6/d75/classunitarity_r5.html":[4,17,517],
+"d6/d75/classunitarity_r5.html#aab391d30049784fb0aa57f48cd65c8fa":[4,17,517,1],
+"d6/d75/classunitarity_r5.html#aba751f624c536bdcb0513bd698158e2c":[4,17,517,2],
+"d6/d75/classunitarity_r5.html#ad88e9c261f784ad005c51858b3d4b78c":[4,17,517,0]
 };
