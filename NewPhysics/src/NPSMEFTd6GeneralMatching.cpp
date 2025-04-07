@@ -33,7 +33,10 @@ NPSMEFTd6GeneralMatching::NPSMEFTd6GeneralMatching(const NPSMEFTd6General &NPSME
                                                                                                  mcbs(5, NDR, NLO), 
                                                                                                  mck2(5, NDR, NLO), 
                                                                                                  mculeptonnu(5, NDR, LO), 
-                                                                                                 mckpnn(2, NDR, NLO, NLO_QED11)
+                                                                                                 mckpnn(2, NDR, NLO, NLO_QED11),
+                                                                                                 mcbsg(8, NDR, NNLO),
+                                                                                                 mcprimebsg(8, NDR, NNLO)
+                                                                                                 
 {
 }
 
@@ -769,6 +772,72 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMkpnn() {
     vmckpnn.push_back(mckpnn);
     return (vmckpnn);
 
+}
+
+/*******************************************************************************
+ * Wilson coefficients misiak basis for b -> s g                               * 
+ * operator basis: - current current                                           *         
+ *                 - qcd penguins                                              * 
+ *                 - magnetic and chromomagnetic penguins                      *
+ * ****************************************************************************/
+std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMbsg() {
+
+    vmcbsg = StandardModelMatching::CMbsg();
+
+    mcbsg.setMu(mySMEFT.getMuw());
+
+    gslpp::complex LEFT_factor = sqrt(2.) / 4. / mySMEFT.getGF() / mySMEFT.getCKM().computelamt_s() ;
+    gslpp::complex LEFT_factor_radiative = 16. * M_PI * M_PI / mySMEFT.getQuarks(QCD::BOTTOM).getMass() * LEFT_factor / sqrt(4. * M_PI * mySMEFT.getAle());
+    
+    switch (mcbsg.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+        //  {O1, O2} = {{-(1/N), (-1 + N^2)/(2 N^2)}, {2, 1/N}} {OV8LLud,OV1LLud}
+            mcbsg.setCoeff(0, (-1./mySMEFT.getNc() * getCudV8LL(1,1,1,2) + .5 * (1. - 1./mySMEFT.getNc()/mySMEFT.getNc()) * getCudV1LL(1,1,1,2)) * LEFT_factor, LO);
+            mcbsg.setCoeff(1, (2. * getCudV8LL(1,1,1,2) + 1./mySMEFT.getNc() * getCudV1LL(1,1,1,2)) * LEFT_factor, LO);
+            // Add penguin operators in the future
+            mcbsg.setCoeff(6, getCdg(1,2) * LEFT_factor_radiative, LO);
+            mcbsg.setCoeff(7, getCdG(1,2) * LEFT_factor_radiative * (mySMEFT.getAle()/mySMEFT.Als(mySMEFT.getQuarks(QCD::BOTTOM).getMass())), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbsg.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented");
+    }
+
+    vmcbsg.push_back(mcbsg);
+    return (vmcbsg);
+}
+
+std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMprimebsg() {
+
+    vmcprimebsg = StandardModelMatching::CMprimebsg();
+
+    mcprimebsg.setMu(mySMEFT.getMuw());
+
+    gslpp::complex LEFT_factor = sqrt(2.) / 4. / mySMEFT.getGF() / mySMEFT.getCKM().computelamt_s() ;
+    gslpp::complex LEFT_factor_radiative = 16. * M_PI * M_PI / mySMEFT.getQuarks(QCD::BOTTOM).getMass() * LEFT_factor / sqrt(4. * M_PI * mySMEFT.getAle());
+
+    switch (mcprimebsg.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+        //  {O1prime, O2prime} = {{-(1/N), (-1 + N^2)/(2 N^2)}, {2, 1/N}} {OV8RRud,OV1RRud}
+            mcprimebsg.setCoeff(0, (-1./mySMEFT.getNc() * getCudV8RR(1,1,1,2) + .5 * (1. - 1./mySMEFT.getNc()/mySMEFT.getNc()) * getCudV1RR(1,1,1,2)) * LEFT_factor, LO);
+            mcprimebsg.setCoeff(1, (2. * getCudV8RR(1,1,1,2) + 1./mySMEFT.getNc() * getCudV1RR(1,1,1,2)) * LEFT_factor, LO);
+            // Add penguin operators in the future
+            mcprimebsg.setCoeff(6, getCdg(2,1).conjugate() * LEFT_factor_radiative, LO);
+            mcprimebsg.setCoeff(7, getCdG(2,1).conjugate() * LEFT_factor_radiative * (mySMEFT.getAle()/mySMEFT.Als(mySMEFT.getQuarks(QCD::BOTTOM).getMass())), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcprimebsg.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented");
+    }
+
+    vmcprimebsg.push_back(mcprimebsg);
+    return (vmcprimebsg);
 }
 
 /*******************************************************************************

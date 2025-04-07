@@ -18,7 +18,6 @@
 #include <gsl/gsl_sf_zeta.h>
 #include <gsl/gsl_sf_clausen.h>
 #include <boost/bind/bind.hpp>
-#include "NPSMEFTd6GeneralMatching.h"
 using namespace boost::placeholders;
 
 Bsgamma::Bsgamma(const StandardModel& SM_i, QCD::quark quark_i, int obsFlag)
@@ -1940,8 +1939,7 @@ void Bsgamma::computeCoeff(double mu)
     C5_0 = (*(allcoeff[LO]))(4);
     C6_0 = (*(allcoeff[LO]))(5);
     C7_0 = (*(allcoeff[LO]))(6)  + C_7_NP;
-    C8_0 = (*(allcoeff[LO]))(7) + C_8_NP;
-
+    C8_0 = (*(allcoeff[LO]))(7);
     
     C1_1 = (*(allcoeff[NLO]))(0)/Alstilde;
     C2_1 = (*(allcoeff[NLO]))(1)/Alstilde;
@@ -1956,7 +1954,6 @@ void Bsgamma::computeCoeff(double mu)
 
     C7p_0 = (*(allcoeffprime[LO]))(6) + Ms/Mb*((*(allcoeff[LO]))(6)) + C_7p_NP;
     C7p_1 = ((*(allcoeffprime[NLO]))(6) + Ms/Mb*((*(allcoeff[NLO]))(6)))/Alstilde; /*Implement the other WCs*/
-    C8p_0 = (*(allcoeffprime[LO]))(7) + Ms/Mb*((*(allcoeff[LO]))(7)) + C_8p_NP;
 
     /*std::cout << "C_0(mu): (" << C1_0.real() << "," << C2_0.real() << "," 
             << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
@@ -1985,7 +1982,7 @@ double Bsgamma::P21(double E0, double mu)
 {
     int i,j;
     gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
-    gslpp::complex C0p[8]={0.,0.,0.,0.,0.,0.,C7p_0,C8p_0}; /*IMPLEMENT OTHER WC*/
+    gslpp::complex C0p[8]={C7p_0}; /*IMPLEMENT OTHER WC*/
     double p21=0.;
     
     for(i=0;i<8;i++)
@@ -1996,9 +1993,9 @@ double Bsgamma::P21(double E0, double mu)
         }
     }
     
-    for(i=6;i<8;i++) /*CHECK ALGORITHM*/
+    for(i=6;i<7;i++) /*CHECK ALGORITHM*/
     {
-        for(j=6;j<8;j++)
+        for(j=6;j<7;j++)
         {
             p21 += (C0p[i].real()*C0p[j].real() + C0p[i].imag()*C0p[j].imag()) * Kij_1(i+1,j+1,E0,mu).real();
         }
@@ -2011,7 +2008,7 @@ double Bsgamma::P21_CPodd(double E0, double mu)
 {
     int i,j;
     gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
-    gslpp::complex C0p[8]={0.,0.,0.,0.,0.,0.,C7p_0,C8p_0}; /*IMPLEMENT OTHER WC*/
+    gslpp::complex C0p[8]={C7p_0}; /*IMPLEMENT OTHER WC*/
     double p21=0.;
     
     for(i=0;i<8;i++)
@@ -2022,9 +2019,9 @@ double Bsgamma::P21_CPodd(double E0, double mu)
         }
     }
     
-    for(i=6;i<8;i++) /*CHECK ALGORITHM*/
+    for(i=6;i<7;i++) /*CHECK ALGORITHM*/
     {
-        for(j=6;j<8;j++)
+        for(j=6;j<7;j++)
         {
             p21 += - ( C0p[i].real()*C0p[j].imag() - C0p[i].imag()*C0p[j].real() ) * Kij_1(i+1,j+1,E0,mu).imag();
         }
@@ -2370,18 +2367,9 @@ void Bsgamma::updateParameters()
             C_7p_NP = SM.getOptionalParameter("CpdB")-SM.getOptionalParameter("CpdW");
             C_7p_NP *= SMEFT_factor*SM.getAle()*8.*M_PI*SM.v()/Mb;
     }
-    else if(SM.getModelName().compare("NPSMEFTd6U2") == 0 || SM.getModelName().compare("NPSMEFTd6U3") == 0){
-        gslpp::complex LEFT_factor = 16. * M_PI * M_PI / Mb * sqrt(2.) / 4. / SM.getGF() / SM.getCKM().computelamt_s();
-        C_7_NP =  dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCdg(1,2) * LEFT_factor / sqrt(4. * M_PI * SM.getAle());
-        C_7p_NP =  dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCdg(2,1) * LEFT_factor / sqrt(4. * M_PI * SM.getAle());
-        C_8_NP =  dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCdG(1,2) * LEFT_factor / sqrt(4. * M_PI * SM.Als(Mb));
-        C_8p_NP =  dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCdG(2,1) * LEFT_factor / sqrt(4. * M_PI * SM.Als(Mb));
-    }
     else{
         C_7_NP = 0.;
-        C_7p_NP = 0.;
-        C_8_NP = 0.;
-        C_8p_NP = 0.;        
+        C_7p_NP = 0.;        
     }
     
     if (SUM) {
