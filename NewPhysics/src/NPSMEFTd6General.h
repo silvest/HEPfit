@@ -5858,6 +5858,8 @@ public:
      */
     virtual const double STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const;
 
+    
+    
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH}[GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV

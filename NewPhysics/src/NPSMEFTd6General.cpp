@@ -40356,6 +40356,10 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double s
 }
 
 const double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const {
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -40380,6 +40384,12 @@ const double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(cons
 }
 
 const double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const {
+    
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -40404,6 +40414,10 @@ const double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(co
 }
 
 const double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const {
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -40427,7 +40441,14 @@ const double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(cons
     return STXSb;
 }
 
+
+
+
 const double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const {
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -40827,6 +40848,12 @@ const double NPSMEFTd6General::STXS12_qqHqq_Nj1(const double sqrt_s) const {
 }
 
 const double NPSMEFTd6General::STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const {
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -40859,6 +40886,11 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) con
 }
 
 const double NPSMEFTd6General::STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const {
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -40890,6 +40922,10 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) c
 }
 
 const double NPSMEFTd6General::STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const {
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -40972,7 +41008,20 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const doub
     return STXSb;
 }
 
+
+
+
+
+
+
+
 const double NPSMEFTd6General::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const {
+    
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -41005,6 +41054,12 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(co
 }
 
 const double NPSMEFTd6General::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const {
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -41036,6 +41091,12 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(
 }
 
 const double NPSMEFTd6General::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const {
+    
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -41067,6 +41128,12 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(co
 }
 
 const double NPSMEFTd6General::STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const {
+    
+    
+    //NOT PROPERLY IMPLEMENTED, RETURNING A NaN
+    return std::numeric_limits<double>::quiet_NaN();
+    
+    
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
@@ -41501,14 +41568,10 @@ const double NPSMEFTd6General::STXS12_qqHlv_pTV250_Inf(const double sqrt_s) cons
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 
-    double CiHQ3; // Cannot resolve fam. dependence -> assume universality for quarks. 
-    CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
 
     if (sqrt_s == 13.0) {
 
-        STXSb += (0.12 * getSMEFTCoeffEW("CHbox") - 0.0282 * getSMEFTCoeffEW("CHD") + 1.07 * getSMEFTCoeffEW("CHW")
-                - 0.228 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-                + 10.6 * CiHQ3 + 0.170 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);
+        STXSb = (0.01127*STXS12_qqHlv_pTV250_400(sqrt_s) + 0.00339*STXS12_qqHlv_pTV400_Inf(sqrt_s))/(0.01127+0.00339);
 
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -42375,6 +42438,7 @@ const double NPSMEFTd6General::STXS12_ttH_pTH200_300(const double sqrt_s) const 
 }
 
 const double NPSMEFTd6General::STXS12_ttH_pTH300_Inf(const double sqrt_s) const {
+    // VM: This is an old version of the function. IT'S NOT USED ANYMORE!!!
     // To be fixed together with the UFO file when going beyond U(2)
     double STXSb = 1.0;
 

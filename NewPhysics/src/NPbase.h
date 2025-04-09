@@ -1666,6 +1666,14 @@ public:
     {
         return 1.0;
     }  
+    virtual const double muggHpttHptHpbbH_HZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual const double muVBFpVH_HZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
     virtual const double muggHZZ(const double sqrt_s) const
     {
         return 1.0;
@@ -4203,6 +4211,12 @@ public:
     {
         return 1.0;
     }
+    
+    
+    
+    
+    
+    
     
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH}[GeV]<200,~p_{THjj}[GeV]<25@f$.
