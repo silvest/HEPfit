@@ -204,7 +204,7 @@ mueeZHGen::mueeZHGen(const StandardModel& SM_i, const double sqrt_s_i, const dou
 
 double mueeZHGen::computeThValue()
 {
-    return myNPbase->mueeZHGen(sqrt_s, Pol_em, Pol_ep);
+    return ( (myNPbase->mueeZHGen(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 
@@ -217,7 +217,7 @@ mueeZH::mueeZH(const StandardModel& SM_i, const double sqrt_s_i, const double Po
 
 double mueeZH::computeThValue()
 {
-    return myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep);
+    return ( (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 mueeZllH::mueeZllH(const StandardModel& SM_i, const double sqrt_s_i)
@@ -229,7 +229,7 @@ mueeZllH::mueeZllH(const StandardModel& SM_i, const double sqrt_s_i)
 
 double mueeZllH::computeThValue()
 {
-    return myNPbase->mueeZllH(sqrt_s);
+    return ( (myNPbase->mueeZllH(sqrt_s)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 mueeZllHPol::mueeZllHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
@@ -241,7 +241,7 @@ mueeZllHPol::mueeZllHPol(const StandardModel& SM_i, const double sqrt_s_i, const
 
 double mueeZllHPol::computeThValue()
 {
-    return myNPbase->mueeZllHPol(sqrt_s, Pol_em, Pol_ep);
+    return ( (myNPbase->mueeZllHPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 mueeZqqH::mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i)
@@ -253,7 +253,7 @@ mueeZqqH::mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i)
 
 double mueeZqqH::computeThValue()
 {
-    return myNPbase->mueeZqqH(sqrt_s);
+    return ( (myNPbase->mueeZqqH(sqrt_s)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 mueeZqqHPol::mueeZqqHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
@@ -265,7 +265,7 @@ mueeZqqHPol::mueeZqqHPol(const StandardModel& SM_i, const double sqrt_s_i, const
 
 double mueeZqqHPol::computeThValue()
 {
-    return myNPbase->mueeZqqHPol(sqrt_s, Pol_em, Pol_ep);
+    return ( (myNPbase->mueeZqqHPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 
@@ -4176,7 +4176,7 @@ mueeZHbb::mueeZHbb(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }
@@ -4192,7 +4192,7 @@ mueeZHcc::mueeZHcc(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHcc::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hcc)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
     }
@@ -4208,7 +4208,7 @@ mueeZHss::mueeZHss(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHss::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHssRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHssRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hss)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHssRatio());
     }
@@ -4224,7 +4224,7 @@ mueeZHgg::mueeZHgg(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHgg::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hgg)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
     }
@@ -4240,7 +4240,7 @@ mueeZHWW::mueeZHWW(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHWW::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1HWW)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
     }
@@ -4256,7 +4256,7 @@ mueeZHtautau::mueeZHtautau(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeZHtautau::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Htautau)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
     }
@@ -4272,7 +4272,7 @@ mueeZHZZ::mueeZHZZ(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHZZ::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1HZZ)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
     }
@@ -4288,7 +4288,7 @@ mueeZHZga::mueeZHZga(const StandardModel& SM_i, const double sqrt_s_i, const dou
 double mueeZHZga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1HZga)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZgaRatio());
     }
@@ -4304,7 +4304,7 @@ mueeZHgaga::mueeZHgaga(const StandardModel& SM_i, const double sqrt_s_i, const d
 double mueeZHgaga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hgaga)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
     }
@@ -4320,7 +4320,7 @@ mueeZHmumu::mueeZHmumu(const StandardModel& SM_i, const double sqrt_s_i, const d
 double mueeZHmumu::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hmumu)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
     }
@@ -4351,7 +4351,7 @@ double mueeZHinv::computeThValue()
 {
 
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtoinvRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtoinvRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1HZZ)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHtoinvRatio());
     }
@@ -4369,7 +4369,7 @@ mueeWBFbb::mueeWBFbb(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHbbRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHbbRatio());
     }
@@ -4386,7 +4386,7 @@ mueeWBFbbPol::mueeWBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeWBFbbPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBFPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeWBFPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueeWBFPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }
@@ -4403,7 +4403,7 @@ mueeWBFcc::mueeWBFcc(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFcc::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHccRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hcc)) - 1.0);
     } else {
         return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHccRatio());
     }
@@ -4420,7 +4420,7 @@ mueeWBFgg::mueeWBFgg(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFgg::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHggRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hgg)) - 1.0);
     } else {
         return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHggRatio());
     }
@@ -4437,7 +4437,7 @@ mueeWBFWW::mueeWBFWW(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFWW::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHWWRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHWWRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1HWW)) - 1.0);
     } else {
         return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHWWRatio());
     }
@@ -4454,7 +4454,7 @@ mueeWBFtautau::mueeWBFtautau(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFtautau::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHtautauRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Htautau)) - 1.0);
     } else {
         return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHtautauRatio());
     }
@@ -4471,7 +4471,7 @@ mueeWBFZZ::mueeWBFZZ(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFZZ::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHZZRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHZZRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1HZZ)) - 1.0);
     } else {
         return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHZZRatio());
     }
@@ -4488,7 +4488,7 @@ mueeWBFZga::mueeWBFZga(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFZga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHZgaRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHZgaRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1HZga)) - 1.0);
     } else {
         return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHZgaRatio());
     }
@@ -4505,7 +4505,7 @@ mueeWBFgaga::mueeWBFgaga(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFgaga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHgagaRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hgaga)) - 1.0);
     } else {
         return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHgagaRatio());
     }
@@ -4522,7 +4522,7 @@ mueeWBFmumu::mueeWBFmumu(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFmumu::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHmumuRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHmumuRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hmumu)) - 1.0);
     } else {
         return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHmumuRatio());
     }
@@ -4539,7 +4539,7 @@ mueeHvvbb::mueeHvvbb(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHbbRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHbbRatio());
     }
@@ -4556,7 +4556,7 @@ mueeHvvbbPol::mueeHvvbbPol(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeHvvbbPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }
@@ -4573,7 +4573,7 @@ mueeHvvcc::mueeHvvcc(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvcc::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHccRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hcc)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHccRatio());
     }
@@ -4590,7 +4590,7 @@ mueeHvvccPol::mueeHvvccPol(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeHvvccPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hcc)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
     }
@@ -4608,7 +4608,7 @@ mueeHvvss::mueeHvvss(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvss::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHssRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHssRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hss)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHssRatio());
     }
@@ -4625,7 +4625,7 @@ mueeHvvssPol::mueeHvvssPol(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeHvvssPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHssRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHssRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hss)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHssRatio());
     }
@@ -4643,7 +4643,7 @@ mueeHvvgg::mueeHvvgg(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvgg::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHggRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hgg)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHggRatio());
     }
@@ -4660,7 +4660,7 @@ mueeHvvggPol::mueeHvvggPol(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeHvvggPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hgg)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
     }
@@ -4677,7 +4677,7 @@ mueeHvvWW::mueeHvvWW(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvWW::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHWWRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHWWRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1HWW)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHWWRatio());
     }
@@ -4694,7 +4694,7 @@ mueeHvvWWPol::mueeHvvWWPol(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeHvvWWPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1HWW)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
     }
@@ -4711,7 +4711,7 @@ mueeHvvtautau::mueeHvvtautau(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvtautau::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHtautauRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Htautau)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHtautauRatio());
     }
@@ -4728,7 +4728,7 @@ mueeHvvtautauPol::mueeHvvtautauPol(const StandardModel& SM_i, const double sqrt_
 double mueeHvvtautauPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Htautau)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
     }
@@ -4745,7 +4745,7 @@ mueeHvvZZ::mueeHvvZZ(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvZZ::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHZZRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHZZRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1HZZ)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHZZRatio());
     }
@@ -4762,7 +4762,7 @@ mueeHvvZZPol::mueeHvvZZPol(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeHvvZZPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1HZZ)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
     }
@@ -4779,7 +4779,7 @@ mueeHvvZga::mueeHvvZga(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvZga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHZgaRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHZgaRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1HZga)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHZgaRatio());
     }
@@ -4796,7 +4796,7 @@ mueeHvvZgaPol::mueeHvvZgaPol(const StandardModel& SM_i, const double sqrt_s_i, c
 double mueeHvvZgaPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1HZga)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZgaRatio());
     }
@@ -4813,7 +4813,7 @@ mueeHvvgaga::mueeHvvgaga(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvgaga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHgagaRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hgaga)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHgagaRatio());
     }
@@ -4830,7 +4830,7 @@ mueeHvvgagaPol::mueeHvvgagaPol(const StandardModel& SM_i, const double sqrt_s_i,
 double mueeHvvgagaPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hgaga)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
     }
@@ -4847,7 +4847,7 @@ mueeHvvmumu::mueeHvvmumu(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvmumu::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHmumuRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHmumuRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hmumu)) - 1.0);
     } else {
         return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHmumuRatio());
     }
@@ -4864,7 +4864,7 @@ mueeHvvmumuPol::mueeHvvmumuPol(const StandardModel& SM_i, const double sqrt_s_i,
 double mueeHvvmumuPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0);
+        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hmumu)) - 1.0);
     } else {
         return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
     }
@@ -4880,7 +4880,7 @@ mueeZBFbb::mueeZBFbb(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeZBFbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZBF(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeZBF(sqrt_s)) + (myNPbase->BrHbbRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZBF(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueeZBF(sqrt_s))*(myNPbase->BrHbbRatio());
     }
@@ -4896,7 +4896,7 @@ mueeZBFbbPol::mueeZBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeZBFbbPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZBFPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeZBFPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eeZBF(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueeZBFPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }
@@ -4912,7 +4912,7 @@ mueettHbb::mueettHbb(const StandardModel& SM_i, const double sqrt_s_i)
 double mueettHbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueettH(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueettH(sqrt_s)) + (myNPbase->BrHbbRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eettH(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueettH(sqrt_s))*(myNPbase->BrHbbRatio());
     }
@@ -4928,7 +4928,7 @@ mueettHbbPol::mueettHbbPol(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueettHbbPol::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueettHPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueettHPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) + (myNPbase->delta2sBRH3(myNPbase->C1eettH(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueettHPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }

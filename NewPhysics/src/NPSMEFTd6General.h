@@ -746,7 +746,21 @@ public:
      * @brief The coefficient of the 1-loop quadratic term in the Higgs selfcoupling
      */
     virtual const double deltaH3L2(double C1) const;
-
+        
+    /////////////// QUADRATIC CORRECTIONS ON SIGMA AND SIGMA X BR FROM H3 ////////
+    
+    /**
+     * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for an observable @f$\sigma@f$ in the current model.
+     * @return @f$\delta^{(2)}_{h^3}@f$
+     */
+    virtual const double delta2sH3(const double C1) const;
+    
+    /**
+     * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for @f$\sigma \times BR(H\to xx)@f$ in the current model.
+     * @return @f$\delta^{(2)}_{h^3}@f$
+     */
+    virtual const double delta2sBRH3(const double C1prod, const double C1Hxx) const;
+    
     ////////////////////////////////////////////////////////////////////////    
     
     /**
@@ -7528,6 +7542,8 @@ protected:
     
     gslpp::complex CHq3EWud = gslpp::complex(0., 0., false), CHq3EWcs = gslpp::complex(0., 0., false), CHq3EWtb = gslpp::complex(0., 0., false); ///< CHq3 operators at the EW scale in the up-down-quark mass basis     
 
+    double C1Htotal; ///< The C1 coefficient controlling the H^3 corrections to the total Higgs width from the Higgs trilinear coupling.
+    
      //AG:begin
     /**
      * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the Fermi constant.

@@ -1355,6 +1355,20 @@ public:
      */
     virtual const double deltaH3L2(double C1) const;
     
+    /////////////// QUADRATIC CORRECTIONS ON SIGMA AND SIGMA X BR FROM H3 ////////
+    
+    /**
+     * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for an observable @f$\sigma@f$ in the current model.
+     * @return @f$\delta^{(2)}_{h^3}@f$
+     */
+    virtual const double delta2sH3(const double C1) const;
+    
+    /**
+     * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for @f$\sigma \times BR(H\to xx)@f$ in the current model.
+     * @return @f$\delta^{(2)}_{h^3}@f$
+     */
+    virtual const double delta2sBRH3(const double C1prod, const double C1Hxx) const;
+        
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -3916,7 +3930,7 @@ public:
      * @return Br@f$(H\to invisible)@f$/Br@f$(H\to ZZ \to invisible)_{\mathrm{SM}}@f$
      */
     virtual const double BrHtoinvRatio() const;
-
+    
     ///////////////////////SPECIAL OBSERVABLES/////////////////////////
 
     /**
@@ -6946,6 +6960,8 @@ protected:
     double delta_UgCC; ///< The dimension 6 universal correction to charged current EW couplings
     
     double delta_em; ///< The relative dimension 6 correction to the QED interaction vertex
+    
+    double C1Htotal; ///< The C1 coefficient controlling the H^3 corrections to the total Higgs width from the Higgs trilinear coupling.
 
     //AG:begin
     /**

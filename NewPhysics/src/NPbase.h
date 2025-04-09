@@ -2710,6 +2710,54 @@ public:
     {
         return 1.0;
     }
+    
+    
+    /////////////// QUADRATIC CORRECTIONS ON SIGMA AND SIGMA X BR FROM H3 ////////
+    
+    /**
+     * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for an observable @f$\sigma@f$ in the current model.
+     * @return @f$\delta^{(2)}_{h^3}@f$
+     */
+    virtual const double delta2sH3(const double C1) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for @f$\sigma \times BR(H\to xx)@f$ in the current model.
+     * @return @f$\delta^{(2)}_{h^3}@f$
+     */
+    virtual const double delta2sBRH3(const double C1prod, const double C1Hxx) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The C1 value controlling linear corrections from the Higgs self-coupling to single-Higgs processes for ZH.
+     */
+    virtual const double C1eeZH(const double sqrt_s) const;
+    
+    /**
+     * @brief The C1 value controlling linear corrections from the Higgs self-coupling to single-Higgs processes for ZH.
+     */
+    virtual const double C1eeWBF(const double sqrt_s) const;
+    
+    /**
+     * @brief The C1 value controlling linear corrections from the Higgs self-coupling to single-Higgs processes for ZH.
+     */
+    virtual const double C1eeHvv(const double sqrt_s) const;
+    
+    /**
+     * @brief The C1 value controlling linear corrections from the Higgs self-coupling to single-Higgs processes for ZH.
+     */
+    virtual const double C1eeZBF(const double sqrt_s) const;
+    
+    /**
+     * @brief The C1 value controlling linear corrections from the Higgs self-coupling to single-Higgs processes for ZH.
+     */
+    virtual const double C1eettH(const double sqrt_s) const;
+    
+    ///////////////////////////////////////////////////////////////////
 
     /**
      * @brief 
@@ -5629,6 +5677,13 @@ public:
     }
     
     virtual int OutputOrder() const;                                    //AG:added
+    
+    
+    // Coefficients controlling the Higgs trilinear corrections to single Higgs observables
+    // Here for decays and production at e+e-
+    double C1Hbb = 0.0, C1Hcc = 0.0, C1Hss = 0.0, C1Htautau = 0.0, C1Hmumu = 0.0; ///< The C1 coefficient controlling the H^3 corrections to the Higgs partial width from the Higgs trilinear coupling.
+    double C1Hgg = 0.0066, C1HWW = 0.0073, C1HZZ = 0.0083, C1Hgaga = 0.0049, C1HZga = 0.0;   ///< The C1 coefficient controlling the H^3 corrections to the Higgs partial width from the Higgs trilinear coupling.    
+    const double C1Htot() const; ///< The C1 coefficient controlling the H^3 corrections to the total Higgs width from the Higgs trilinear coupling.
       
     ////////////////////////////////////////////////////////////////////////
 protected:

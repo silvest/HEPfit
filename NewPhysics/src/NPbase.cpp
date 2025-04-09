@@ -46,7 +46,7 @@ int NPbase::OutputOrder() const {
     // 2 Linear + Quadratic
     // 3 Quadratic
     return 1;       //Overwritten in NPSMEFTd6
-}                           
+}          
 
 const double NPbase::alphaMz() const
 {
@@ -1616,4 +1616,243 @@ const double NPbase::TauLFU_gtaugmuPi() const
 const double NPbase::TauLFU_gtaugmuK() const
 {
     return (trueSM.TauLFU_gtaugmuK() + delta_TauLFU_gtaugmuK());    
+}
+
+
+// Higgs-related definitions
+
+const double NPbase::C1Htot() const
+{
+    return ( (trueSM.computeBrHtogg() * C1Hgg) + (trueSM.computeBrHtoWW() * C1HWW) + (trueSM.computeBrHtoZZ() * C1HZZ) + (trueSM.computeBrHtogaga() * C1Hgaga) ); 
+            //+ trueSM.computeBrHtoZga() * 0.0 + trueSM.computeBrHtomumu() * 0.0 + trueSM.computeBrHtotautau() * 0.0 + trueSM.computeBrHtocc() * 0.0 + trueSM.computeBrHtoss() * 0.0 + trueSM.computeBrHtobb() * 0.0
+}
+
+const double NPbase::C1eeZH(const double sqrt_s) const
+{
+    double C1;
+    
+    if (sqrt_s == 0.240) {
+
+        C1 = 0.0173302;
+        
+    } else if (sqrt_s == 0.250) {
+
+        C1 = 0.015;
+
+    } else if (sqrt_s == 0.350) {
+
+        C1 = 0.0057;
+
+    } else if (sqrt_s == 0.365) {
+
+        C1 = 0.00493549; 
+
+    } else if (sqrt_s == 0.380) {
+
+        C1 = 0.0057; // Use same as 350 GeV
+
+    } else if (sqrt_s == 0.500) {
+
+        C1 = 0.00099;
+
+    } else if (sqrt_s == 1.0) {
+
+        C1 = -0.0012;
+
+    } else if (sqrt_s == 1.4) {
+
+        C1 = -0.0011;
+
+    } else if (sqrt_s == 1.5) {
+
+        C1 = -0.0011; // Use the same as 1400 GeV
+
+    } else if (sqrt_s == 3.0) {
+
+        C1 = -0.00054;
+
+    } else
+        throw std::runtime_error("Bad argument in NPbase::C1eeZH");
+    
+    return C1;
+}
+    
+const double NPbase::C1eeWBF(const double sqrt_s) const
+{
+    double C1;
+    
+    if (sqrt_s == 0.240) {
+
+        C1 = 0.00639683;
+        
+    } else if (sqrt_s == 0.250) {
+
+        C1 = 0.0064;
+
+    } else if (sqrt_s == 0.350) {
+
+        C1 = 0.0062;
+
+    } else if (sqrt_s == 0.365) {
+
+        C1 = 0.00618352; 
+
+    } else if (sqrt_s == 0.380) {
+
+        C1 = 0.0062;
+
+    } else if (sqrt_s == 0.500) {
+
+        C1 = 0.0061;
+
+    } else if (sqrt_s == 1.0) {
+
+        C1 = 0.0059;
+
+    } else if (sqrt_s == 1.4) {
+
+        C1 = 0.0058;
+
+    } else if (sqrt_s == 1.5) {
+
+        C1 = 0.0058;
+
+    } else if (sqrt_s == 3.0) {
+
+        C1 = 0.0057;
+
+    } else
+        throw std::runtime_error("Bad argument in NPbase::C1eeWBF");
+    
+    return C1;
+}   
+
+const double NPbase::C1eeHvv(const double sqrt_s) const
+{
+    double C1;
+    
+    if (sqrt_s == 0.240) {
+
+        C1 = 0.00639683;
+        
+    } else if (sqrt_s == 0.250) {
+
+        C1 = 0.0064;
+
+    } else if (sqrt_s == 0.350) {
+
+        C1 = 0.0062;
+
+    } else if (sqrt_s == 0.365) {
+
+        C1 = 0.00618352; 
+
+    } else if (sqrt_s == 0.380) {
+
+        C1 = 0.0062;
+
+    } else if (sqrt_s == 0.500) {
+
+        C1 = 0.0061;
+
+    } else if (sqrt_s == 1.0) {
+
+        C1 = 0.0059;
+
+    } else if (sqrt_s == 1.4) {
+
+        C1 = 0.0058;
+
+    } else if (sqrt_s == 1.5) {
+
+        C1 = 0.0058;
+
+    } else if (sqrt_s == 3.0) {
+
+        C1 = 0.0057;
+
+    } else
+        throw std::runtime_error("Bad argument in NPbase::C1eeHvv");
+    
+    return C1;
+}   
+
+const double NPbase::C1eeZBF(const double sqrt_s) const
+{
+    double C1;
+    
+    if (sqrt_s == 0.240) {
+
+        C1 = 0.0070;
+        
+    } else if (sqrt_s == 0.250) {
+
+        C1 = 0.0070;
+
+    } else if (sqrt_s == 0.350) {
+
+        C1 = 0.0069;
+
+    } else if (sqrt_s == 0.365) {
+
+        C1 = 0.0069; 
+
+    } else if (sqrt_s == 0.380) {
+
+        C1 = 0.0069;
+
+    } else if (sqrt_s == 0.500) {
+
+        C1 = 0.0067;
+
+    } else if (sqrt_s == 1.0) {
+
+        C1 = 0.0065;
+
+    } else if (sqrt_s == 1.4) {
+
+        C1 = 0.0065;
+
+    } else if (sqrt_s == 1.5) {
+
+        C1 = 0.0065;
+
+    } else if (sqrt_s == 3.0) {
+
+        C1 = 0.0063;
+
+    } else
+        throw std::runtime_error("Bad argument in NPbase::C1eeZBF");
+    
+    return C1;
+}   
+
+const double NPbase::C1eettH(const double sqrt_s) const
+{
+    double C1;
+    
+    if (sqrt_s == 0.500) {
+
+        C1 = 0.086;
+
+    } else if (sqrt_s == 1.0) {
+
+        C1 = 0.017;
+
+    } else if (sqrt_s == 1.4) {
+
+        C1 = 0.0094;
+
+    } else if (sqrt_s == 1.5) {
+
+        C1 = 0.0094;
+
+    } else if (sqrt_s == 3.0) {
+
+        C1 = 0.0037;
+
+    } else
+        throw std::runtime_error("Bad argument in NPbase::C1eettH");
+    
+    return C1;
 }
