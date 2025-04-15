@@ -88,6 +88,20 @@ public:
         return trueSM;
     }
 
+    /**
+     * @brief A method to set a flag of %NPbase.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool setFlag(const std::string name, const bool value)
+    {
+        bool result = false;
+        result = trueSM.setFlag(name, value) && StandardModel::setFlag(name, value);
+        return result;
+    }
+    
+
     ////////////////////////////////////////////////////////////////////////
 
     /**
