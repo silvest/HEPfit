@@ -548,6 +548,10 @@ var group___e_w =
       [ "Rneutrinos", "d6/dba/class_rneutrinos.html#a620e738c86913dc89ddc1e5c2b7858a9", null ],
       [ "computeThValue", "d6/dba/class_rneutrinos.html#a7448e3973a27a7927587de0e7306b163", null ]
     ] ],
+    [ "Rstrange", "d4/d51/class_rstrange.html", [
+      [ "Rstrange", "d4/d51/class_rstrange.html#a495d7f041efb65d3826a67bf728023f1", null ],
+      [ "computeThValue", "d4/d51/class_rstrange.html#afd8dc75a9916a46baa1acc27f6bb1420", null ]
+    ] ],
     [ "Rtau", "d9/d1d/class_rtau.html", [
       [ "Rtau", "d9/d1d/class_rtau.html#ab3a58c288c18f8fee7ee8f6e88658b23", null ],
       [ "computeThValue", "d9/d1d/class_rtau.html#a4138b0b688fc2c7df87721bf47ba0c77", null ]

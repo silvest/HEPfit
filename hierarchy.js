@@ -1750,6 +1750,7 @@ var hierarchy =
       [ "Robs_tau_mu_gamma_BelleII", "d7/dd4/class_robs__tau__mu__gamma___belle_i_i.html", null ],
       [ "Robs_ttF_A_tt_ATLAS13", "da/ddd/class_robs__tt_f___a__tt___a_t_l_a_s13.html", null ],
       [ "Robs_ttF_H_tt_ATLAS13", "df/db5/class_robs__tt_f___h__tt___a_t_l_a_s13.html", null ],
+      [ "Rstrange", "d4/d51/class_rstrange.html", null ],
       [ "Rtau", "d9/d1d/class_rtau.html", null ],
       [ "Ruc", "d2/d77/class_ruc.html", null ],
       [ "Runner", "da/df0/class_runner.html", null ],
