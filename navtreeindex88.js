@@ -1,5 +1,6 @@
 var NAVTREEINDEX88 =
 {
+"d9/ddd/classmu_v_hcc.html#a52bd265e69156e7b921d84b111714688":[4,13,341,2],
 "d9/ddd/classmu_v_hcc.html#a58aaf7c381a973cc44823de43e4eb5d8":[4,13,341,0],
 "d9/ddd/classmu_v_hcc.html#a69c737fd9254c7e93d6adee69ae0e616":[4,13,341,1],
 "d9/ddd/classmu_v_hcc.html#ab964c0523bcbb1a5d92b554a3f557226":[4,13,341,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX88 =
 "da/d15/class_flavour_wilson_coefficient___d_f2___c_k.html#aa062819474994501f376e6e7ef00480c":[27,0,679,1],
 "da/d17/class_asl__s__pole__fixmub.html":[27,0,120],
 "da/d17/class_asl__s__pole__fixmub.html#a1c14aa438560c4416be4ee2340373514":[27,0,120,2],
-"da/d17/class_asl__s__pole__fixmub.html#a5c4d11cc2ae92aea287d7a9fa705b257":[27,0,120,0],
-"da/d17/class_asl__s__pole__fixmub.html#aedad366d4a2c7057a7d1a34802386b4b":[27,0,120,1]
+"da/d17/class_asl__s__pole__fixmub.html#a5c4d11cc2ae92aea287d7a9fa705b257":[27,0,120,0]
 };

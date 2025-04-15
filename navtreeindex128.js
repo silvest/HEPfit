@@ -1,5 +1,6 @@
 var NAVTREEINDEX128 =
 {
+"de/dc7/class_m_vgamma.html#a5a09a03f932b965d928f3f9f8b004b8f":[4,5,129,1],
 "de/dc7/class_m_vgamma.html#a6ee1d1794d3f4ec5cde1d2005923ed58":[4,5,129,19],
 "de/dc7/class_m_vgamma.html#a859810c2fd7413e494255c2b939bd185":[4,5,129,2],
 "de/dc7/class_m_vgamma.html#a8d51c18042f4b13406f5d3eb124a5c73":[4,5,129,16],
@@ -248,6 +249,5 @@ var NAVTREEINDEX128 =
 "de/df2/class_l_h_p_c_1_1_mass_spectrum_class_1_1_standard_model.html#a3f5e37fc555256ef84484484d18eb3d7":[27,0,1,2,11,92],
 "de/df2/class_l_h_p_c_1_1_mass_spectrum_class_1_1_standard_model.html#a3faf1c4d84d057669d8f2c9abaf84213":[27,0,1,2,11,169],
 "de/df2/class_l_h_p_c_1_1_mass_spectrum_class_1_1_standard_model.html#a41eacb968c094d298f0aa83f51c7627a":[27,0,1,2,11,152],
-"de/df2/class_l_h_p_c_1_1_mass_spectrum_class_1_1_standard_model.html#a4278ea93644e89d101d233cb3227b2ed":[27,0,1,2,11,93],
-"de/df2/class_l_h_p_c_1_1_mass_spectrum_class_1_1_standard_model.html#a43626f041cc3638b994c73447cf73803":[27,0,1,2,11,55]
+"de/df2/class_l_h_p_c_1_1_mass_spectrum_class_1_1_standard_model.html#a4278ea93644e89d101d233cb3227b2ed":[27,0,1,2,11,93]
 };

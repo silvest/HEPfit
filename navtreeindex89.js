@@ -1,5 +1,6 @@
 var NAVTREEINDEX89 =
 {
+"da/d17/class_asl__s__pole__fixmub.html#aedad366d4a2c7057a7d1a34802386b4b":[27,0,120,1],
 "da/d19/class_hobs___v_v__phi2___w_w__heavy___c_m_s13.html":[27,0,1394],
 "da/d19/class_hobs___v_v__phi2___w_w__heavy___c_m_s13.html#a82d6abd1d2169f63f2b004396c30ed67":[27,0,1394,0],
 "da/d19/class_hobs___v_v__phi2___w_w__heavy___c_m_s13.html#abcd709be9bf418c91e39fd10ae05cf6b":[27,0,1394,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX89 =
 "da/d29/class_amp_d_b2.html#ad572afe75da43326f24ac1b43dea328a":[4,5,30,16],
 "da/d29/class_amp_d_b2.html#ad9080ac09e78b9a74447dac75c5edd52":[4,5,30,82],
 "da/d29/class_amp_d_b2.html#adc9844cb1b33efeee6498129b36b3666":[4,5,30,10],
-"da/d29/class_amp_d_b2.html#add3c79256444407c2b96d4ae379630b9":[4,5,30,149],
-"da/d29/class_amp_d_b2.html#adec3e7e68de33e8e23320ee31aa50c53":[4,5,30,53]
+"da/d29/class_amp_d_b2.html#add3c79256444407c2b96d4ae379630b9":[4,5,30,149]
 };

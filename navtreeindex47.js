@@ -1,5 +1,6 @@
 var NAVTREEINDEX47 =
 {
+"d4/db0/classmueett_hbb_pol.html#ae10939fe7d5916cc103be7d936a914a1":[4,13,102,1],
 "d4/db4/class_alepton.html":[4,3,11],
 "d4/db4/class_alepton.html#a5985046035a7adbf65fc3613f474d9d4":[4,3,11,1],
 "d4/db4/class_alepton.html#a8aadbff7502f5f33679cc1c973404965":[4,3,11,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX47 =
 "d4/deb/class_l_h_p_c_1_1_slha_parser.html#a2319ad26c1c487b5bdc372d3ebdbd00e":[27,0,1,21,32],
 "d4/deb/class_l_h_p_c_1_1_slha_parser.html#a2c109bec1d0f434e6c07353a7258d9c5":[27,0,1,21,21],
 "d4/deb/class_l_h_p_c_1_1_slha_parser.html#a2c2cf4cde5371cdae049e578fd334e46":[27,0,1,21,35],
-"d4/deb/class_l_h_p_c_1_1_slha_parser.html#a3f1544652c52e907b0905475d8312227":[27,0,1,21,36],
-"d4/deb/class_l_h_p_c_1_1_slha_parser.html#a3f1d6430c05b8fe52e28a047f962361c":[27,0,1,21,18]
+"d4/deb/class_l_h_p_c_1_1_slha_parser.html#a3f1544652c52e907b0905475d8312227":[27,0,1,21,36]
 };

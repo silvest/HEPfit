@@ -591,6 +591,7 @@ var class_n_pbase =
     [ "RWc", "d2/df3/class_n_pbase.html#a73881ddb1baee181bce0bc352f4de87b", null ],
     [ "RWlilj", "d2/df3/class_n_pbase.html#a8ebcd0f3297a77c5d71858c5e4a1c404", null ],
     [ "RZlilj", "d2/df3/class_n_pbase.html#a4be6659bf34a233c3611fe261ac13759", null ],
+    [ "setFlag", "d2/df3/class_n_pbase.html#ab42d5d931de7863960019098eb8be3ab", null ],
     [ "sigma0_had", "d2/df3/class_n_pbase.html#a54c421df23487731516258c345904d4e", null ],
     [ "sigmaSM_ee", "d2/df3/class_n_pbase.html#af8a2bb3f13246a9b0a91b88e7b0dcf1c", null ],
     [ "sin2thetaEff", "d2/df3/class_n_pbase.html#ab2332898f73512b75d963dc9e6538300", null ],

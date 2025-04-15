@@ -4749,7 +4749,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><a id="l01957" name="l01957"></a><span class="lineno"> 1957</span>    <span class="keywordflow">return</span> ( (<a class="code hl_variable" href="../../d2/df3/class_n_pbase.html#a629a2565220c761ac0d6ce5f5c8e1a24">trueSM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#ae8520a581c4939143d6ca1860c907886">computeBrHto4v</a>())*<a class="code hl_function" href="../../df/d15/class_higgs_kigen.html#a5634815140cf3f48c026742e4cfa2803">BrHZZRatio</a>() + <a class="code hl_variable" href="../../df/d15/class_higgs_kigen.html#a4ec598a208cf7316936da0ded2dff940">BrHinv</a> );</div>
 <div class="line"><a id="l01958" name="l01958"></a><span class="lineno"> 1958</span>}</div>
 <div class="ttc" id="aclass_higgs_kigen_html_a5634815140cf3f48c026742e4cfa2803"><div class="ttname"><a href="../../df/d15/class_higgs_kigen.html#a5634815140cf3f48c026742e4cfa2803">HiggsKigen::BrHZZRatio</a></div><div class="ttdeci">virtual const double BrHZZRatio() const</div><div class="ttdoc">The ratio of the Br  in the current model and in the Standard Model.</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d2a/_higgs_kigen_8cpp_source.html#l00845">HiggsKigen.cpp:845</a></div></div>
-<div class="ttc" id="aclass_n_pbase_html_a629a2565220c761ac0d6ce5f5c8e1a24"><div class="ttname"><a href="../../d2/df3/class_n_pbase.html#a629a2565220c761ac0d6ce5f5c8e1a24">NPbase::trueSM</a></div><div class="ttdeci">StandardModel trueSM</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de8/_n_pbase_8h_source.html#l05704">NPbase.h:5704</a></div></div>
+<div class="ttc" id="aclass_n_pbase_html_a629a2565220c761ac0d6ce5f5c8e1a24"><div class="ttname"><a href="../../d2/df3/class_n_pbase.html#a629a2565220c761ac0d6ce5f5c8e1a24">NPbase::trueSM</a></div><div class="ttdeci">StandardModel trueSM</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de8/_n_pbase_8h_source.html#l05718">NPbase.h:5718</a></div></div>
 <div class="ttc" id="aclass_standard_model_html_ae8520a581c4939143d6ca1860c907886"><div class="ttname"><a href="../../dc/dd5/class_standard_model.html#ae8520a581c4939143d6ca1860c907886">StandardModel::computeBrHto4v</a></div><div class="ttdeci">const double computeBrHto4v() const</div><div class="ttdoc">The Br  in the Standard Model.</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d0a/_standard_model_8h_source.html#l02869">StandardModel.h:2869</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -16404,7 +16404,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a boolean that is true if the execution is successful </dd></dl>
 
-<p>Reimplemented from <a class="el" href="../../dc/dd5/class_standard_model.html#a93a9ea641aee81a24ca592a94c29cc26">StandardModel</a>.</p>
+<p>Reimplemented from <a class="el" href="../../d2/df3/class_n_pbase.html#ab42d5d931de7863960019098eb8be3ab">NPbase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../d7/d2a/_higgs_kigen_8cpp_source.html#l00445">445</a> of file <a class="el" href="../../d7/d2a/_higgs_kigen_8cpp_source.html">HiggsKigen.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>{</div>
@@ -16425,12 +16425,12 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>        <a class="code hl_variable" href="../../df/d15/class_higgs_kigen.html#aae49238611a2cab4b0f3aed522cdd5ad">FlagUseKH</a> = value;</div>
 <div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>        res = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>    } <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>        res = <a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a93a9ea641aee81a24ca592a94c29cc26">NPbase::setFlag</a>(<a class="code hl_variable" href="../../d0/de3/class_model.html#a90fe59cc0709dd732cf5f180064db6fe">name</a>, value);</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>        res = <a class="code hl_function" href="../../d2/df3/class_n_pbase.html#ab42d5d931de7863960019098eb8be3ab">NPbase::setFlag</a>(<a class="code hl_variable" href="../../d0/de3/class_model.html#a90fe59cc0709dd732cf5f180064db6fe">name</a>, value);</div>
 <div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span> </div>
 <div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>    <span class="keywordflow">return</span> (res);</div>
 <div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>}</div>
 <div class="ttc" id="aclass_model_html_a90fe59cc0709dd732cf5f180064db6fe"><div class="ttname"><a href="../../d0/de3/class_model.html#a90fe59cc0709dd732cf5f180064db6fe">Model::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">The name of the model.</div><div class="ttdef"><b>Definition:</b> <a href="../../da/ded/_model_8h_source.html#l00285">Model.h:285</a></div></div>
-<div class="ttc" id="aclass_standard_model_html_a93a9ea641aee81a24ca592a94c29cc26"><div class="ttname"><a href="../../dc/dd5/class_standard_model.html#a93a9ea641aee81a24ca592a94c29cc26">StandardModel::setFlag</a></div><div class="ttdeci">virtual bool setFlag(const std::string name, const bool value)</div><div class="ttdoc">A method to set a flag of StandardModel.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/df3/_standard_model_2src_2_standard_model_8cpp_source.html#l00443">StandardModel/src/StandardModel.cpp:443</a></div></div>
+<div class="ttc" id="aclass_n_pbase_html_ab42d5d931de7863960019098eb8be3ab"><div class="ttname"><a href="../../d2/df3/class_n_pbase.html#ab42d5d931de7863960019098eb8be3ab">NPbase::setFlag</a></div><div class="ttdeci">virtual bool setFlag(const std::string name, const bool value)</div><div class="ttdoc">A method to set a flag of NPbase.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de8/_n_pbase_8h_source.html#l00097">NPbase.h:97</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -19988,7 +19988,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../df/d15/class_higgs_kigen.html">HiggsKigen</a></li>
-    <li class="footer">Generated on Wed Apr 9 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Tue Apr 15 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>

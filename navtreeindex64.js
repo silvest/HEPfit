@@ -1,5 +1,6 @@
 var NAVTREEINDEX64 =
 {
+"d6/d75/class_flavour_wilson_coefficient.html#a8a3f7a93fb56b2dcd2f149074ff2e5fb":[4,6,2,67],
 "d6/d75/class_flavour_wilson_coefficient.html#a8b538b5f8f1045f789dcb78a1c99d9c9":[4,6,2,72],
 "d6/d75/class_flavour_wilson_coefficient.html#a8fb8a3d3f397b52ac20b07c15fcb9f7a":[4,6,2,31],
 "d6/d75/class_flavour_wilson_coefficient.html#a95d663107adbcd9e04272022a769dd58":[4,6,2,76],
@@ -248,6 +249,5 @@ var NAVTREEINDEX64 =
 "d6/d9b/class_asymmetry__cos__je__t_hj__eta__cut__3.html#a2abb103d373a89e02b66f449e4135d57":[27,0,132,1],
 "d6/d9b/class_asymmetry__cos__je__t_hj__eta__cut__3.html#adf2ddde92d86dbab4ae8587fef6d77be":[27,0,132,2],
 "d6/d9b/class_asymmetry__cos__je__t_hj__eta__cut__3.html#ae62d872489444ee9001cfdbe7001339c":[27,0,132,0],
-"d6/d9b/classunitarity_n_l_oev12.html":[4,17,487],
-"d6/d9b/classunitarity_n_l_oev12.html#a1d5c2adb3f49b0b5b85f792cf8bc5b08":[4,17,487,2]
+"d6/d9b/classunitarity_n_l_oev12.html":[4,17,487]
 };
