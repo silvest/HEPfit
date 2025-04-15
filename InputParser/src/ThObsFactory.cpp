@@ -202,6 +202,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Rneutrinos"] = boost::factory<Rneutrinos*>();
     obsThFactory["Rinv"] = boost::factory<Rinv*>();
     obsThFactory["Ruc"] = boost::factory<Ruc*>();
+    obsThFactory["Rstrange"] = boost::factory<Rstrange*>();
     obsThFactory["Rcharm"] = boost::factory<Rcharm*>();
     obsThFactory["Rbottom"] = boost::factory<Rbottom*>();
     //----- Higgs observables: Decay widths
