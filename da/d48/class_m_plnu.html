@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('da/d48/class_m_plnu.html','../../'); i
 <p><code>#include &lt;<a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00021">21</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00023">23</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -266,7 +266,7 @@ Private Attributes</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>: <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>(SM_i)</div>
+<div class="fragment"><div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>: <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>(SM_i), ig(ROOT::Math::Integration::kADAPTIVESINGULAR, ROOT::Math::Integration::kGAUSS51), wf()</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a027977719c994b82f2a8e71c3fc577fa">lep</a> = lep_i;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a8ff52f7c8b677a80f39effac82de62d1">meson</a> = meson_i;</div>
@@ -277,95 +277,97 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a07bbfa46986619d2ebc743687451139b">btocNPpmflag</a> = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a0fcbd583c845dba39ceb48b2c5fb9423">NPanalysis</a> = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    w_J = gsl_integration_cquad_workspace_alloc(100);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    checkcache_int_tau = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    checkcache_int_mu = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    checkcache_int_el = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    checkcache_int_tau = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    checkcache_int_mu = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    checkcache_int_el = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">double</span> max_double = std::numeric_limits&lt;double&gt;::max();</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">double</span> max_double = std::numeric_limits&lt;double&gt;::max();</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    fplusz0_cache = max_double;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    rho1to2_cache = max_double;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    N_0_cache = max_double;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    alpha_0_cache = max_double;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    alpha_p_cache = max_double;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    beta_0_cache = max_double;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    beta_p_cache = max_double;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    gamma_0_cache = max_double;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    gamma_p_cache = max_double;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    af0_1_cache = max_double;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    af0_2_cache = max_double;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    afplus_0_cache = max_double;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    afplus_1_cache = max_double;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    afplus_2_cache = max_double;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#if NBGL == 3</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    af0_3_cache = max_double;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    afplus_3_cache = max_double;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#endif </span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    afplus1_cache = max_double;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    afplus2_cache = max_double;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    afplus3_cache = max_double;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    afplus4_cache = max_double;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    afplus5_cache = max_double;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    afplus6_cache = max_double;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    afplus7_cache = max_double;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    afplus8_cache = max_double;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    afplus9_cache = max_double;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    afplus10_cache = max_double;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    afzero1_cache = max_double;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    afzero2_cache = max_double;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    afzero3_cache = max_double;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    afzero4_cache = max_double;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    afzero5_cache = max_double;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    afzero6_cache = max_double;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    afzero7_cache = max_double;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    afzero8_cache = max_double;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    afzero9_cache = max_double;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    afzero10_cache = max_double;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    bfplus1_cache = max_double;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    bfplus2_cache = max_double;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    bfplus3_cache = max_double;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    bfplus4_cache = max_double;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    bfplus5_cache = max_double;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    bfplus6_cache = max_double;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    bfplus7_cache = max_double;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    bfplus8_cache = max_double;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    bfplus9_cache = max_double;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    bfplus10_cache = max_double;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    bfzero1_cache = max_double;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    bfzero2_cache = max_double;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    bfzero3_cache = max_double;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    bfzero4_cache = max_double;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    bfzero5_cache = max_double;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    bfzero6_cache = max_double;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    bfzero7_cache = max_double;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    bfzero8_cache = max_double;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    bfzero9_cache = max_double;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    bfzero10_cache = max_double;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    CS_cache = max_double;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    CSp_cache = max_double;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    CP_cache = max_double;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    CPp_cache = max_double;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    CV_cache = max_double;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    CVp_cache = max_double;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    CA_cache = max_double;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    CAp_cache = max_double;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    CT_cache = max_double;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    CTp_cache = max_double;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>}</div>
-<div class="ttc" id="aclass_m_plnu_html_a027977719c994b82f2a8e71c3fc577fa"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a027977719c994b82f2a8e71c3fc577fa">MPlnu::lep</a></div><div class="ttdeci">QCD::lepton lep</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00104">MPlnu.h:104</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_a07bbfa46986619d2ebc743687451139b"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a07bbfa46986619d2ebc743687451139b">MPlnu::btocNPpmflag</a></div><div class="ttdeci">bool btocNPpmflag</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00111">MPlnu.h:111</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_a0ec85120a20564ed03d11633b90ca0b2"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a0ec85120a20564ed03d11633b90ca0b2">MPlnu::CLNflag</a></div><div class="ttdeci">bool CLNflag</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00108">MPlnu.h:108</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_a0fcbd583c845dba39ceb48b2c5fb9423"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a0fcbd583c845dba39ceb48b2c5fb9423">MPlnu::NPanalysis</a></div><div class="ttdeci">bool NPanalysis</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00112">MPlnu.h:112</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_a657cfe5491926f0d21db696d5cce8abb"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">MPlnu::pseudoscalarM</a></div><div class="ttdeci">QCD::meson pseudoscalarM</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00106">MPlnu.h:106</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_a8ff52f7c8b677a80f39effac82de62d1"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a8ff52f7c8b677a80f39effac82de62d1">MPlnu::meson</a></div><div class="ttdeci">QCD::meson meson</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00105">MPlnu.h:105</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_ab8a1fb643650a079d33aad53d95f5f60"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ab8a1fb643650a079d33aad53d95f5f60">MPlnu::BGLflag</a></div><div class="ttdeci">bool BGLflag</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00109">MPlnu.h:109</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_ad1b08606cd13fd005141ff9dbe810475"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">MPlnu::mySM</a></div><div class="ttdeci">const StandardModel &amp; mySM</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00103">MPlnu.h:103</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_afc000e49558f05b2ca8d34f479896172"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#afc000e49558f05b2ca8d34f479896172">MPlnu::DMflag</a></div><div class="ttdeci">bool DMflag</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00110">MPlnu.h:110</a></div></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    fplusz0_cache = max_double;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    rho1to2_cache = max_double;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    N_0_cache = max_double;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    alpha_0_cache = max_double;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    alpha_p_cache = max_double;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    beta_0_cache = max_double;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    beta_p_cache = max_double;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    gamma_0_cache = max_double;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    gamma_p_cache = max_double;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    af0_1_cache = max_double;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    af0_2_cache = max_double;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    afplus_0_cache = max_double;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    afplus_1_cache = max_double;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    afplus_2_cache = max_double;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#if NBGL == 3</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    af0_3_cache = max_double;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    afplus_3_cache = max_double;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif </span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    afplus1_cache = max_double;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    afplus2_cache = max_double;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    afplus3_cache = max_double;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    afplus4_cache = max_double;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    afplus5_cache = max_double;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    afplus6_cache = max_double;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    afplus7_cache = max_double;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    afplus8_cache = max_double;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    afplus9_cache = max_double;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    afplus10_cache = max_double;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    afzero1_cache = max_double;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    afzero2_cache = max_double;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    afzero3_cache = max_double;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    afzero4_cache = max_double;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    afzero5_cache = max_double;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    afzero6_cache = max_double;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    afzero7_cache = max_double;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    afzero8_cache = max_double;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    afzero9_cache = max_double;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    afzero10_cache = max_double;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    bfplus1_cache = max_double;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    bfplus2_cache = max_double;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    bfplus3_cache = max_double;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    bfplus4_cache = max_double;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    bfplus5_cache = max_double;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    bfplus6_cache = max_double;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    bfplus7_cache = max_double;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    bfplus8_cache = max_double;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    bfplus9_cache = max_double;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    bfplus10_cache = max_double;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    bfzero1_cache = max_double;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    bfzero2_cache = max_double;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    bfzero3_cache = max_double;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    bfzero4_cache = max_double;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    bfzero5_cache = max_double;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    bfzero6_cache = max_double;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    bfzero7_cache = max_double;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    bfzero8_cache = max_double;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    bfzero9_cache = max_double;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    bfzero10_cache = max_double;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    CS_cache = max_double;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    CSp_cache = max_double;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    CP_cache = max_double;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    CPp_cache = max_double;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    CV_cache = max_double;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    CVp_cache = max_double;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    CA_cache = max_double;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    CAp_cache = max_double;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    CT_cache = max_double;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    CTp_cache = max_double;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    ig.SetRelTolerance(1.E-6);  <span class="comment">// set relative tolerance</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    ig.SetAbsTolerance(1.E-6);   <span class="comment">// set absoulte tolerance</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+<div class="ttc" id="aclass_m_plnu_html_a027977719c994b82f2a8e71c3fc577fa"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a027977719c994b82f2a8e71c3fc577fa">MPlnu::lep</a></div><div class="ttdeci">QCD::lepton lep</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00106">MPlnu.h:106</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_a07bbfa46986619d2ebc743687451139b"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a07bbfa46986619d2ebc743687451139b">MPlnu::btocNPpmflag</a></div><div class="ttdeci">bool btocNPpmflag</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00113">MPlnu.h:113</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_a0ec85120a20564ed03d11633b90ca0b2"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a0ec85120a20564ed03d11633b90ca0b2">MPlnu::CLNflag</a></div><div class="ttdeci">bool CLNflag</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00110">MPlnu.h:110</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_a0fcbd583c845dba39ceb48b2c5fb9423"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a0fcbd583c845dba39ceb48b2c5fb9423">MPlnu::NPanalysis</a></div><div class="ttdeci">bool NPanalysis</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00114">MPlnu.h:114</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_a657cfe5491926f0d21db696d5cce8abb"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">MPlnu::pseudoscalarM</a></div><div class="ttdeci">QCD::meson pseudoscalarM</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00108">MPlnu.h:108</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_a8ff52f7c8b677a80f39effac82de62d1"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a8ff52f7c8b677a80f39effac82de62d1">MPlnu::meson</a></div><div class="ttdeci">QCD::meson meson</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00107">MPlnu.h:107</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_ab8a1fb643650a079d33aad53d95f5f60"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ab8a1fb643650a079d33aad53d95f5f60">MPlnu::BGLflag</a></div><div class="ttdeci">bool BGLflag</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00111">MPlnu.h:111</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_ad1b08606cd13fd005141ff9dbe810475"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">MPlnu::mySM</a></div><div class="ttdeci">const StandardModel &amp; mySM</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00105">MPlnu.h:105</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_afc000e49558f05b2ca8d34f479896172"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#afc000e49558f05b2ca8d34f479896172">MPlnu::DMflag</a></div><div class="ttdeci">bool DMflag</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00112">MPlnu.h:112</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -394,8 +396,8 @@ Private Attributes</h2></td></tr>
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>{}</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00116">116</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -419,12 +421,12 @@ Private Attributes</h2></td></tr>
 <p>return f0 form factor at \( q^2 \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( f_{0}(q^2) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00810">810</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>{</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>    updateParameters();</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span> </div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>    <span class="keywordflow">return</span> f0(q2);</div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00816">816</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>{</div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>    updateParameters();</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span> </div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>    <span class="keywordflow">return</span> f0(q2);</div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -447,12 +449,12 @@ Private Attributes</h2></td></tr>
 <p>return fplus form factor at \( q^2 \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( f_{+}(q^2) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00803">803</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>{</div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    updateParameters();</div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span> </div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>    <span class="keywordflow">return</span> fplus(q2);</div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00809">809</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>{</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>    updateParameters();</div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span> </div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>    <span class="keywordflow">return</span> fplus(q2);</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -475,12 +477,12 @@ Private Attributes</h2></td></tr>
 <p>return fT form factor at \( q^2 \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( q^2 \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00817">817</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>{</div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>    updateParameters();</div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span> </div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    <span class="keywordflow">return</span> fT(q2);</div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00823">823</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>{</div>
+<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>    updateParameters();</div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span> </div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>    <span class="keywordflow">return</span> fT(q2);</div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -502,18 +504,18 @@ Private Attributes</h2></td></tr>
 <p>Strong Unitarity constraint for BGL parameters using HQET. </p>
 <dl class="section return"><dt>Returns</dt><dd>\( \Sum_i (af0_i^2) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00790">790</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>{</div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>    updateParameters();</div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span> </div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span><span class="preprocessor">#if NBGL == 3</span></div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>    <span class="keywordflow">return</span> 1707.54 * afplus_0 * afplus_0 + 1299.57 * afplus_0 * afplus_1 + 442.82 * afplus_1 * afplus_1 - 356.01 * afplus_0 * afplus_2 </div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>               - 101.62 * afplus_1 * afplus_2 + 34.947 * afplus_2 * afplus_2 - 206.767 * afplus_0 * afplus_3 - 127.668 * afplus_1 * afplus_3 </div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>               + 33.234 * afplus_2 * afplus_3 + 16.475 * afplus_3 * afplus_3;</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span><span class="preprocessor">#else    </span></div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>    <span class="keywordflow">return</span> 442.82 * afplus_0 * afplus_0 - 101.619 * afplus_0 * afplus_1 + 34.947* afplus_1 * afplus_1 - 127.668 * afplus_0 * afplus_2 + 33.234 * afplus_1 * afplus_2 + 16.4754 * afplus_2 * afplus_2;</div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span><span class="preprocessor">#endif    </span></div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00796">796</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>{</div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>    updateParameters();</div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span> </div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span><span class="preprocessor">#if NBGL == 3</span></div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>    <span class="keywordflow">return</span> 1707.54 * afplus_0 * afplus_0 + 1299.57 * afplus_0 * afplus_1 + 442.82 * afplus_1 * afplus_1 - 356.01 * afplus_0 * afplus_2 </div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>               - 101.62 * afplus_1 * afplus_2 + 34.947 * afplus_2 * afplus_2 - 206.767 * afplus_0 * afplus_3 - 127.668 * afplus_1 * afplus_3 </div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>               + 33.234 * afplus_2 * afplus_3 + 16.475 * afplus_3 * afplus_3;</div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span><span class="preprocessor">#else    </span></div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    <span class="keywordflow">return</span> 442.82 * afplus_0 * afplus_0 - 101.619 * afplus_0 * afplus_1 + 34.947* afplus_1 * afplus_1 - 127.668 * afplus_0 * afplus_2 + 33.234 * afplus_1 * afplus_2 + 16.4754 * afplus_2 * afplus_2;</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span><span class="preprocessor">#endif    </span></div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -535,16 +537,16 @@ Private Attributes</h2></td></tr>
 <p>Weak Unitarity constraint for BGL parameters related to 0+ resonances. </p>
 <dl class="section return"><dt>Returns</dt><dd>\( \Sum_i (af0_i^2) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00779">779</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>{</div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>    updateParameters();</div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span> </div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span><span class="preprocessor">#if NBGL == 3</span></div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a> * <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a> + af0_1 * af0_1 + af0_2 * af0_2 + af0_3 * af0_3;</div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span><span class="preprocessor">#else    </span></div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a> * <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a> + af0_1 * af0_1 + af0_2*af0_2;</div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span><span class="preprocessor">#endif    </span></div>
-<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00785">785</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>{</div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>    updateParameters();</div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span> </div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span><span class="preprocessor">#if NBGL == 3</span></div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a> * <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a> + af0_1 * af0_1 + af0_2 * af0_2 + af0_3 * af0_3;</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span><span class="preprocessor">#else    </span></div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a> * <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a> + af0_1 * af0_1 + af0_2*af0_2;</div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span><span class="preprocessor">#endif    </span></div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>}</div>
 <div class="ttc" id="aclassaf0__0_html"><div class="ttname"><a href="../../de/d9a/classaf0__0.html">af0_0</a></div><div class="ttdef"><b>Definition:</b> <a href="../../da/d20/_m_plnu_observables_8h_source.html#l00195">MPlnuObservables.h:195</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -567,16 +569,16 @@ Private Attributes</h2></td></tr>
 <p>Weak Unitarity constraint for BGL parameters related to 1- resonances. </p>
 <dl class="section return"><dt>Returns</dt><dd>\( \Sum_i (af+_i^2) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00768">768</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>{</div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>    updateParameters();</div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span> </div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span><span class="preprocessor">#if NBGL == 3</span></div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>    <span class="keywordflow">return</span> afplus_0 * afplus_0 + afplus_1 * afplus_1 + afplus_2 * afplus_2 + afplus_3 * afplus_3;</div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span><span class="preprocessor">#else    </span></div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>    <span class="keywordflow">return</span> afplus_0 * afplus_0 + afplus_1 * afplus_1 + afplus_2 * afplus_2;</div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span><span class="preprocessor">#endif    </span></div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00774">774</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>{</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>    updateParameters();</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span> </div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span><span class="preprocessor">#if NBGL == 3</span></div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>    <span class="keywordflow">return</span> afplus_0 * afplus_0 + afplus_1 * afplus_1 + afplus_2 * afplus_2 + afplus_3 * afplus_3;</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span><span class="preprocessor">#else    </span></div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>    <span class="keywordflow">return</span> afplus_0 * afplus_0 + afplus_1 * afplus_1 + afplus_2 * afplus_2;</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span><span class="preprocessor">#endif    </span></div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -606,11 +608,11 @@ Private Attributes</h2></td></tr>
 <p>The BGL parameter \( a_0^{f_0}\). </p>
 <dl class="section return"><dt>Returns</dt><dd>\( a_0^{f_0}\) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00096">96</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
-<div class="fragment"><div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        updateParameters();</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a>;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00098">98</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<div class="fragment"><div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        updateParameters();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="../../de/d9a/classaf0__0.html">af0_0</a>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -650,24 +652,24 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;d\Gamma/dw&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00752">752</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>{</div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>    updateParameters();</div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>    </div>
-<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>    <span class="keywordtype">double</span> q2_min = (2. * <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#af44016024af346195666e36ec204208c">MM</a> * <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ac11907bbd82bfd9eff06e26c2b181940">MP</a>)*(<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ac81ebfc7c54dabec4d59d3d76339557f">w0</a> - w_max); <span class="comment">// min is Mlep*Mlep;</span></div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>    <span class="keywordtype">double</span> q2_max = (2. * <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#af44016024af346195666e36ec204208c">MM</a> * <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ac11907bbd82bfd9eff06e26c2b181940">MP</a>)*(<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ac81ebfc7c54dabec4d59d3d76339557f">w0</a> - w_min); <span class="comment">// max is (MM-MP)*(MM-MP);</span></div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>    </div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>    <span class="keywordtype">double</span> intJ1 = integrateJ(1, q2_min, q2_max);</div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>    <span class="keywordtype">double</span> intJ3 = integrateJ(3, q2_min, q2_max);</div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span> </div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    <span class="keywordflow">return</span> 2. * (intJ1 + intJ3 / 3.);</div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    </div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    <span class="comment">// x-check of the SM computation</span></div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    <span class="comment">//return integrateJ(4, q2_min, q2_max);</span></div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>}</div>
-<div class="ttc" id="aclass_m_plnu_html_ac11907bbd82bfd9eff06e26c2b181940"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ac11907bbd82bfd9eff06e26c2b181940">MPlnu::MP</a></div><div class="ttdeci">double MP</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00118">MPlnu.h:118</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_ac81ebfc7c54dabec4d59d3d76339557f"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ac81ebfc7c54dabec4d59d3d76339557f">MPlnu::w0</a></div><div class="ttdeci">double w0</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00119">MPlnu.h:119</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_af44016024af346195666e36ec204208c"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#af44016024af346195666e36ec204208c">MPlnu::MM</a></div><div class="ttdeci">double MM</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00117">MPlnu.h:117</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00758">758</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>{</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>    updateParameters();</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    </div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    <span class="keywordtype">double</span> q2_min = (2. * <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#af44016024af346195666e36ec204208c">MM</a> * <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ac11907bbd82bfd9eff06e26c2b181940">MP</a>)*(<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ac81ebfc7c54dabec4d59d3d76339557f">w0</a> - w_max); <span class="comment">// min is Mlep*Mlep;</span></div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>    <span class="keywordtype">double</span> q2_max = (2. * <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#af44016024af346195666e36ec204208c">MM</a> * <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ac11907bbd82bfd9eff06e26c2b181940">MP</a>)*(<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ac81ebfc7c54dabec4d59d3d76339557f">w0</a> - w_min); <span class="comment">// max is (MM-MP)*(MM-MP);</span></div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    </div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    <span class="keywordtype">double</span> intJ1 = integrateJ(1, q2_min, q2_max);</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    <span class="keywordtype">double</span> intJ3 = integrateJ(3, q2_min, q2_max);</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span> </div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>    <span class="keywordflow">return</span> 2. * (intJ1 + intJ3 / 3.);</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    </div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>    <span class="comment">// x-check of the SM computation</span></div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>    <span class="comment">//return integrateJ(4, q2_min, q2_max);</span></div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>}</div>
+<div class="ttc" id="aclass_m_plnu_html_ac11907bbd82bfd9eff06e26c2b181940"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ac11907bbd82bfd9eff06e26c2b181940">MPlnu::MP</a></div><div class="ttdeci">double MP</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00120">MPlnu.h:120</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_ac81ebfc7c54dabec4d59d3d76339557f"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ac81ebfc7c54dabec4d59d3d76339557f">MPlnu::w0</a></div><div class="ttdeci">double w0</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00121">MPlnu.h:121</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_af44016024af346195666e36ec204208c"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#af44016024af346195666e36ec204208c">MPlnu::MM</a></div><div class="ttdeci">double MM</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00119">MPlnu.h:119</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -697,12 +699,12 @@ Private Attributes</h2></td></tr>
 <p>The width of the meson M. </p>
 <dl class="section return"><dt>Returns</dt><dd>\( \Gamma_M \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00086">86</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
-<div class="fragment"><div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    {</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        updateParameters();</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ae46a0b07346be24db3533074a2775572">width</a>;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    }</div>
-<div class="ttc" id="aclass_m_plnu_html_ae46a0b07346be24db3533074a2775572"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ae46a0b07346be24db3533074a2775572">MPlnu::width</a></div><div class="ttdeci">double width</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00125">MPlnu.h:125</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00088">88</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<div class="fragment"><div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        updateParameters();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ae46a0b07346be24db3533074a2775572">width</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
+<div class="ttc" id="aclass_m_plnu_html_ae46a0b07346be24db3533074a2775572"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#ae46a0b07346be24db3533074a2775572">MPlnu::width</a></div><div class="ttdeci">double width</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00127">MPlnu.h:127</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -721,57 +723,57 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00117">117</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>{</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a0ec85120a20564ed03d11633b90ca0b2">CLNflag</a> = <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a5e58851ff319848e8698dfb579a37b26">getFlagCLN</a>();</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ab8a1fb643650a079d33aad53d95f5f60">BGLflag</a> = <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a42df9429dfae5476b04a7ff43305b182">getFlagBGL</a>();</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#afc000e49558f05b2ca8d34f479896172">DMflag</a> = <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a9f7132198e7aebb79ae095e8a729dfde">getFlagDM</a>();</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a07bbfa46986619d2ebc743687451139b">btocNPpmflag</a> = (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCCPM&quot;</span>) == 0);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a0fcbd583c845dba39ceb48b2c5fb9423">NPanalysis</a> = (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCCPM&quot;</span>) == 0 || <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCC&quot;</span>) == 0);</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a0ec85120a20564ed03d11633b90ca0b2">CLNflag</a> + <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ab8a1fb643650a079d33aad53d95f5f60">BGLflag</a> + <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#afc000e49558f05b2ca8d34f479896172">DMflag</a> != <span class="keyword">true</span>) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPlnu: Set only one among CLNflag, BGLflag, DMflag to true&quot;</span>);</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">else</span> <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a> = make_vector&lt;std::string&gt;();</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a0ec85120a20564ed03d11633b90ca0b2">CLNflag</a>) {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a>.clear();</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">pseudoscalarM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba23e0568f47c2a226041146deab538b0f">StandardModel::D_P</a>) <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a> = make_vector&lt;std::string&gt;()</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            &lt;&lt; <span class="stringliteral">&quot;fplusz0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;rho1to2&quot;</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            &lt;&lt; <span class="stringliteral">&quot;N_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;alpha_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;alpha_p&quot;</span> &lt;&lt; <span class="stringliteral">&quot;beta_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;beta_p&quot;</span> &lt;&lt; <span class="stringliteral">&quot;gamma_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;gamma_p&quot;</span>;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    }</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ab8a1fb643650a079d33aad53d95f5f60">BGLflag</a>) {</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a>.clear();</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">pseudoscalarM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba23e0568f47c2a226041146deab538b0f">StandardModel::D_P</a>) <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a> = make_vector&lt;std::string&gt;()</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        &lt;&lt; <span class="stringliteral">&quot;af0_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;af0_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus_2&quot;</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="preprocessor">#if NBGL == 3</span></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        &lt;&lt; <span class="stringliteral">&quot;af0_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus_3&quot;</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">#endif                </span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        &lt;&lt; <span class="stringliteral">&quot;mBc1m_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBc1m_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBc1m_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBc1m_4&quot;</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        &lt;&lt; <span class="stringliteral">&quot;mBc0p_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBc0p_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;chitildeT&quot;</span> &lt;&lt; <span class="stringliteral">&quot;chiL&quot;</span> &lt;&lt; <span class="stringliteral">&quot;nI&quot;</span>;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    }</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#afc000e49558f05b2ca8d34f479896172">DMflag</a>) {</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a>.clear();</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a> = make_vector&lt;std::string&gt;() </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        &lt;&lt; <span class="stringliteral">&quot;afplus1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus5&quot;</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        &lt;&lt; <span class="stringliteral">&quot;afplus6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus10&quot;</span></div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        &lt;&lt; <span class="stringliteral">&quot;afzero1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero5&quot;</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        &lt;&lt; <span class="stringliteral">&quot;afzero6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero10&quot;</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        &lt;&lt; <span class="stringliteral">&quot;bfplus1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus5&quot;</span></div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        &lt;&lt; <span class="stringliteral">&quot;bfplus6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus10&quot;</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        &lt;&lt; <span class="stringliteral">&quot;bfzero1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero5&quot;</span></div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        &lt;&lt; <span class="stringliteral">&quot;bfzero6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero10&quot;</span>;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    }</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        std::stringstream out;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        out &lt;&lt; <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">pseudoscalarM</a>;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPlnu: vector &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    }</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">initializeMeson</a>(<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a8ff52f7c8b677a80f39effac82de62d1">meson</a>);</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">initializeMeson</a>(<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">pseudoscalarM</a>);</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a>;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html#l00119">119</a> of file <a class="el" href="../../d9/d35/_m_plnu_8cpp_source.html">MPlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>{</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a0ec85120a20564ed03d11633b90ca0b2">CLNflag</a> = <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a5e58851ff319848e8698dfb579a37b26">getFlagCLN</a>();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ab8a1fb643650a079d33aad53d95f5f60">BGLflag</a> = <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a42df9429dfae5476b04a7ff43305b182">getFlagBGL</a>();</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#afc000e49558f05b2ca8d34f479896172">DMflag</a> = <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a9f7132198e7aebb79ae095e8a729dfde">getFlagDM</a>();</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a07bbfa46986619d2ebc743687451139b">btocNPpmflag</a> = (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCCPM&quot;</span>) == 0);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a0fcbd583c845dba39ceb48b2c5fb9423">NPanalysis</a> = (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCCPM&quot;</span>) == 0 || <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCC&quot;</span>) == 0);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a0ec85120a20564ed03d11633b90ca0b2">CLNflag</a> + <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ab8a1fb643650a079d33aad53d95f5f60">BGLflag</a> + <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#afc000e49558f05b2ca8d34f479896172">DMflag</a> != <span class="keyword">true</span>) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPlnu: Set only one among CLNflag, BGLflag, DMflag to true&quot;</span>);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">else</span> <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a> = make_vector&lt;std::string&gt;();</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a0ec85120a20564ed03d11633b90ca0b2">CLNflag</a>) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a>.clear();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">pseudoscalarM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba23e0568f47c2a226041146deab538b0f">StandardModel::D_P</a>) <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a> = make_vector&lt;std::string&gt;()</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            &lt;&lt; <span class="stringliteral">&quot;fplusz0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;rho1to2&quot;</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            &lt;&lt; <span class="stringliteral">&quot;N_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;alpha_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;alpha_p&quot;</span> &lt;&lt; <span class="stringliteral">&quot;beta_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;beta_p&quot;</span> &lt;&lt; <span class="stringliteral">&quot;gamma_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;gamma_p&quot;</span>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ab8a1fb643650a079d33aad53d95f5f60">BGLflag</a>) {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a>.clear();</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">pseudoscalarM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba23e0568f47c2a226041146deab538b0f">StandardModel::D_P</a>) <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a> = make_vector&lt;std::string&gt;()</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        &lt;&lt; <span class="stringliteral">&quot;af0_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;af0_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus_2&quot;</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">#if NBGL == 3</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        &lt;&lt; <span class="stringliteral">&quot;af0_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus_3&quot;</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="preprocessor">#endif                </span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        &lt;&lt; <span class="stringliteral">&quot;mBc1m_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBc1m_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBc1m_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBc1m_4&quot;</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        &lt;&lt; <span class="stringliteral">&quot;mBc0p_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBc0p_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;chitildeT&quot;</span> &lt;&lt; <span class="stringliteral">&quot;chiL&quot;</span> &lt;&lt; <span class="stringliteral">&quot;n_I&quot;</span>;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#afc000e49558f05b2ca8d34f479896172">DMflag</a>) {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a>.clear();</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a> = make_vector&lt;std::string&gt;() </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        &lt;&lt; <span class="stringliteral">&quot;afplus1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus5&quot;</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        &lt;&lt; <span class="stringliteral">&quot;afplus6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afplus10&quot;</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        &lt;&lt; <span class="stringliteral">&quot;afzero1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero5&quot;</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        &lt;&lt; <span class="stringliteral">&quot;afzero6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;afzero10&quot;</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        &lt;&lt; <span class="stringliteral">&quot;bfplus1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus5&quot;</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        &lt;&lt; <span class="stringliteral">&quot;bfplus6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfplus10&quot;</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        &lt;&lt; <span class="stringliteral">&quot;bfzero1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero5&quot;</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        &lt;&lt; <span class="stringliteral">&quot;bfzero6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bfzero10&quot;</span>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        std::stringstream out;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        out &lt;&lt; <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">pseudoscalarM</a>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPlnu: vector &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">initializeMeson</a>(<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a8ff52f7c8b677a80f39effac82de62d1">meson</a>);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#ad1b08606cd13fd005141ff9dbe810475">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">initializeMeson</a>(<a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a657cfe5491926f0d21db696d5cce8abb">pseudoscalarM</a>);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">mplnuParameters</a>;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
 <div class="ttc" id="aclass_flavour_html_a42df9429dfae5476b04a7ff43305b182"><div class="ttname"><a href="../../d4/d6d/class_flavour.html#a42df9429dfae5476b04a7ff43305b182">Flavour::getFlagBGL</a></div><div class="ttdeci">bool getFlagBGL() const</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d65/_flavour_8h_source.html#l00320">Flavour.h:320</a></div></div>
 <div class="ttc" id="aclass_flavour_html_a5e58851ff319848e8698dfb579a37b26"><div class="ttname"><a href="../../d4/d6d/class_flavour.html#a5e58851ff319848e8698dfb579a37b26">Flavour::getFlagCLN</a></div><div class="ttdeci">bool getFlagCLN() const</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d65/_flavour_8h_source.html#l00316">Flavour.h:316</a></div></div>
 <div class="ttc" id="aclass_flavour_html_a9f7132198e7aebb79ae095e8a729dfde"><div class="ttname"><a href="../../d4/d6d/class_flavour.html#a9f7132198e7aebb79ae095e8a729dfde">Flavour::getFlagDM</a></div><div class="ttdeci">bool getFlagDM() const</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d65/_flavour_8h_source.html#l00324">Flavour.h:324</a></div></div>
-<div class="ttc" id="aclass_m_plnu_html_a54c0a5ed54718ef5f9bd2d952a371f0b"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">MPlnu::mplnuParameters</a></div><div class="ttdeci">std::vector&lt; std::string &gt; mplnuParameters</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00107">MPlnu.h:107</a></div></div>
+<div class="ttc" id="aclass_m_plnu_html_a54c0a5ed54718ef5f9bd2d952a371f0b"><div class="ttname"><a href="../../da/d48/class_m_plnu.html#a54c0a5ed54718ef5f9bd2d952a371f0b">MPlnu::mplnuParameters</a></div><div class="ttdeci">std::vector&lt; std::string &gt; mplnuParameters</div><div class="ttdef"><b>Definition:</b> <a href="../../df/da9/_m_plnu_8h_source.html#l00109">MPlnu.h:109</a></div></div>
 <div class="ttc" id="aclass_model_html_ad15f2258e4d79d8f17d2dac2a6f27e99"><div class="ttname"><a href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">Model::getModelName</a></div><div class="ttdeci">std::string getModelName() const</div><div class="ttdoc">A method to fetch the name of the model.</div><div class="ttdef"><b>Definition:</b> <a href="../../da/ded/_model_8h_source.html#l00059">Model.h:59</a></div></div>
 <div class="ttc" id="aclass_q_c_d_html_a18ab2f6f6e5a803af54771626281044ba23e0568f47c2a226041146deab538b0f"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba23e0568f47c2a226041146deab538b0f">QCD::D_P</a></div><div class="ttdeci">@ D_P</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d68/_q_c_d_8h_source.html#l00342">QCD.h:342</a></div></div>
 <div class="ttc" id="aclass_q_c_d_html_ae425889b72aa4e1a45f8fa521a0942bc"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">QCD::initializeMeson</a></div><div class="ttdeci">void initializeMeson(QCD::meson meson_i) const</div><div class="ttdoc">A method to initialize a meson.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d8d/_q_c_d_8cpp_source.html#l00280">QCD.cpp:280</a></div></div>
@@ -801,7 +803,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag for switching to BGL parameterization </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00109">109</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00111">111</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -826,7 +828,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag for switching to the +/- basis for NP Wilson coefficients </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00111">111</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00113">113</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -851,7 +853,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag for switching to CLN parameterization </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00108">108</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00110">110</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -876,7 +878,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag for switching to Dispersive Matrix method </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00110">110</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00112">112</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -901,7 +903,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Fermi constant </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00114">114</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00116">116</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -926,7 +928,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Final leptons type </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00104">104</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00106">106</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -951,7 +953,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >b quark mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00123">123</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00125">125</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -976,7 +978,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >charm quark mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00124">124</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00126">126</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1001,7 +1003,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Initial meson type </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00105">105</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00107">107</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1026,7 +1028,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Lepton mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00115">115</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00117">117</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1051,7 +1053,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Initial meson mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00117">117</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00119">119</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1076,7 +1078,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Neutrino mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00116">116</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00118">118</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1101,7 +1103,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Final pseudoscalar meson mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00118">118</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00120">120</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1126,7 +1128,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >The string of mandatory <a class="el" href="../../da/d48/class_m_plnu.html">MPlnu</a> parameters </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00107">107</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00109">109</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1151,7 +1153,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >b mass scale </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00122">122</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00124">124</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1176,7 +1178,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p ><a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> type </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00103">103</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00105">105</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1201,7 +1203,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag to switch to BSM analysis </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00112">112</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00114">114</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1226,7 +1228,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Final vector meson type </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00106">106</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00108">108</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1251,7 +1253,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Dimensionless meson - vector mass ratio </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00121">121</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00123">123</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1276,7 +1278,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Kinematic variable w at q2=0 </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00119">119</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00121">121</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1301,7 +1303,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Initial meson width </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00125">125</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00127">127</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1326,7 +1328,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Kinematic variable z at q2=0 </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00120">120</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/da9/_m_plnu_8h_source.html#l00122">122</a> of file <a class="el" href="../../df/da9/_m_plnu_8h_source.html">MPlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1340,7 +1342,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../da/d48/class_m_plnu.html">MPlnu</a></li>
-    <li class="footer">Generated on Tue Apr 15 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Wed Apr 16 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
