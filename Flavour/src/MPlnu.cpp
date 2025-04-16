@@ -19,7 +19,7 @@
 using namespace boost::placeholders;
 
 MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
-: mySM(SM_i)
+: mySM(SM_i), ig(ROOT::Math::Integration::kADAPTIVESINGULAR, ROOT::Math::Integration::kGAUSS51), wf()
 {
     lep = lep_i;
     meson = meson_i;
@@ -29,8 +29,6 @@ MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudosca
     DMflag = false;
     btocNPpmflag = false;
     NPanalysis = false;
-
-    w_J = gsl_integration_cquad_workspace_alloc(100);
 
     checkcache_int_tau = false;
     checkcache_int_mu = false;
@@ -109,6 +107,10 @@ MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudosca
     CAp_cache = max_double;
     CT_cache = max_double;
     CTp_cache = max_double;
+
+    ig.SetRelTolerance(1.E-6);  // set relative tolerance
+    ig.SetAbsTolerance(1.E-6);   // set absoulte tolerance
+
 }
 
 MPlnu::~MPlnu()
@@ -137,7 +139,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
         << "af0_3" << "afplus_3"
 #endif                
         << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
-        << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI";
+        << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "n_I";
     }
     else if (DMflag) {
         mplnuParameters.clear();
@@ -258,7 +260,7 @@ void MPlnu::updateParameters()
                 mBc0p_2 = mySM.getOptionalParameter("mBc0p_2");
                 chitildeT = mySM.getOptionalParameter("chitildeT");
                 chiL = mySM.getOptionalParameter("chiL");
-                nI = mySM.getOptionalParameter("nI");
+                nI = mySM.getOptionalParameter("n_I");
                 
                 z1m_1 = sqrt((MM+MP)*(MM+MP)-mBc1m_1*mBc1m_1)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
                 z1m_1 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_1*mBc1m_1)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
@@ -411,6 +413,8 @@ void MPlnu::updateParameters()
         /* f+(q2=0) = f0(q2=0) */
         z0 = (sqrt(w0+1.)-sqrt(2.))/(sqrt(w0+1.)+sqrt(2.));
         af0_0 = fplus(0.);
+        std::cout << "af0_0 = " << af0_0 << std::endl;
+        std::cout << meson << " " << pseudoscalarM << " " << lep << std::endl;
 #if NBGL == 3
         af0_0 -= (af0_1 * z0 + af0_2 * z0 * z0 + af0_3 * z0 * z0 *z0) / phi_f0(z0) / ((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
 #else        
@@ -697,43 +701,45 @@ double MPlnu::dGammadq2(double q2)
 
 double MPlnu::integrateJ(int i, double q2_min, double q2_max)
 {
-    old_handler = gsl_set_error_handler_off();
 
     switch (i) {
         case 1:
             if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_tau;
             if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_mu;
             if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_el;
-            FJ = convertToGslFunction(bind(&MPlnu::J1, &(*this), _1));
-            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
-            gsl_set_error_handler(old_handler);
+            wf=ROOT::Math::Functor1D(&(*this),&MPlnu::J1);
+            ig.SetFunction(wf);
+            J_res = ig.Integral(q2_min, q2_max);
+            if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
             return J_res;
             break;
         case 2:
             if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2_tau;
             if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2_mu;
             if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2_el;
-            FJ = convertToGslFunction(bind(&MPlnu::J2, &(*this), _1));
-            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
-            gsl_set_error_handler(old_handler);
+            wf=ROOT::Math::Functor1D(&(*this),&MPlnu::J2);
+            ig.SetFunction(wf);
+            J_res = ig.Integral(q2_min, q2_max);
+           if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
             return J_res;
             break;
         case 3:
             if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_tau;
             if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_mu;
             if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_el;
-            FJ = convertToGslFunction(bind(&MPlnu::J3, &(*this), _1));
-            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
-            gsl_set_error_handler(old_handler);
+            wf=ROOT::Math::Functor1D(&(*this),&MPlnu::J3);
+            ig.SetFunction(wf);
+            J_res = ig.Integral(q2_min, q2_max);
+            if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
             return J_res;
         case 4:
-            FJ = convertToGslFunction(bind(&MPlnu::dGammadq2, &(*this), _1));
-            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
-            gsl_set_error_handler(old_handler);
+            wf=ROOT::Math::Functor1D(&(*this),&MPlnu::dGammadq2);
+            ig.SetFunction(wf);
+            J_res = ig.Integral(q2_min, q2_max);
+            if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
             return J_res;
             break;
         default:
-            gsl_set_error_handler(old_handler);
             std::stringstream out;
             out << i;
             throw std::runtime_error("MPlnu::integrateJ: index " + out.str() + " not implemented");

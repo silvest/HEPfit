@@ -9,11 +9,13 @@
 #define MPLNU_H
 
 class StandardModel;
-#include <gsl/gsl_integration.h>
+
 #include <TF1.h>
 #include <TGraph.h>
 #include <TFitResultPtr.h>
 #include <gsl/gsl_spline.h>
+#include "Math/GSLIntegrator.h"
+#include "Math/Functor.h"
 #include <memory>
 
 #define NBGL 3 /* ONLY 3 or 2*/
@@ -333,11 +335,9 @@ private:
      */    
     double dGammadw(double w);
     
-    gsl_error_handler_t * old_handler; /**< GSL error handler store */
-    gsl_function FJ;/**< GSL integral variable */
     double J_res;/**< GSL integral variable */
-    double J_err;/**< GSL integral variable */
-    gsl_integration_cquad_workspace * w_J;/**< GSL integral variable */
+    ROOT::Math::GSLIntegrator ig;/**< GSL integrator */
+    ROOT::Math::Functor1D wf;/**< GSL integrator function */
  
 };
 
