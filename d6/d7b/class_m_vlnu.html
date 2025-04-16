@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('d6/d7b/class_m_vlnu.html','../../'); i
 <p><code>#include &lt;<a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00016">16</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00021">21</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -306,145 +306,143 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a424b390d05ecf6727a439e71cf34e598">btocNPpmflag</a> = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a9a3e333623dfee9dea6a71897c9f8eaa">NPanalysis</a> = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    w_J = gsl_integration_cquad_workspace_alloc (100); </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    checkcache_int_tau = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    checkcache_int_mu = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    checkcache_int_el = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    checkcache_int_tau = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    checkcache_int_mu = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    checkcache_int_el = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">double</span> max_double = std::numeric_limits&lt;double&gt;::max();</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">double</span> max_double = std::numeric_limits&lt;double&gt;::max();</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    hA1w1_cache = max_double;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    rho2_cache = max_double;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    R1w1_cache = max_double;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    R2w1_cache = max_double;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    N_A_cache = max_double;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    N_1_cache =max_double;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    N_2_cache = max_double;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    j_A_cache= max_double;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    j_0_cache = max_double;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    j_1_cache = max_double;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    j_2_cache = max_double;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    k_A_cache = max_double;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    k_0_cache = max_double;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    k_1_cache = max_double;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    k_2_cache = max_double;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    l_A_cache = max_double;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    af0_cache = max_double;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    af1_cache = max_double;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    af2_cache = max_double;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    ag0_cache = max_double;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    ag1_cache = max_double;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    ag2_cache = max_double;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    aF11_cache = max_double;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    aF12_cache = max_double;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    aF13_cache = max_double;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    aF21_cache = max_double;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    aF22_cache = max_double;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    aF23_cache = max_double;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    af_1_cache = max_double;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    ag_1_cache = max_double;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    aF1_1_cache = max_double;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    aF2_1_cache = max_double;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    af_2_cache = max_double;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    ag_2_cache = max_double;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    aF1_2_cache = max_double;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    aF2_2_cache = max_double;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    af_3_cache = max_double;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    ag_3_cache = max_double;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    aF1_3_cache = max_double;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    aF2_3_cache = max_double;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    af_4_cache = max_double;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    ag_4_cache = max_double;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    aF1_4_cache = max_double;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    aF2_4_cache = max_double;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    af_5_cache = max_double;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    ag_5_cache = max_double;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    aF1_5_cache = max_double;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    aF2_5_cache = max_double;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    af_6_cache = max_double;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    ag_6_cache = max_double;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    aF1_6_cache = max_double;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    aF2_6_cache = max_double;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    af_7_cache = max_double;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    ag_7_cache = max_double;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    aF1_7_cache = max_double;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    aF2_7_cache = max_double;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    af_8_cache = max_double;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    ag_8_cache = max_double;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    aF1_8_cache = max_double;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    aF2_8_cache = max_double;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    af_9_cache = max_double;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    ag_9_cache = max_double;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    aF1_9_cache = max_double;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    aF2_9_cache = max_double;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    af_10_cache = max_double;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    ag_10_cache = max_double;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    aF1_10_cache = max_double;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    aF2_10_cache = max_double;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    bf_1_cache = max_double;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    bg_1_cache = max_double;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    bF1_1_cache = max_double;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    bF2_1_cache = max_double;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    bf_2_cache = max_double;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    bg_2_cache = max_double;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    bF1_2_cache = max_double;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    bF2_2_cache = max_double;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    bf_3_cache = max_double;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    bg_3_cache = max_double;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    bF1_3_cache = max_double;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    bF2_3_cache = max_double;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    bf_4_cache = max_double;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    bg_4_cache = max_double;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    bF1_4_cache = max_double;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    bF2_4_cache = max_double;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    bf_5_cache = max_double;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    bg_5_cache = max_double;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    bF1_5_cache = max_double;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    bF2_5_cache = max_double;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    bf_6_cache = max_double;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    bg_6_cache = max_double;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    bF1_6_cache = max_double;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    bF2_6_cache = max_double;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    bf_7_cache = max_double;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    bg_7_cache = max_double;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    bF1_7_cache = max_double;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    bF2_7_cache = max_double;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    bf_8_cache = max_double;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    bg_8_cache = max_double;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    bF1_8_cache = max_double;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    bF2_8_cache = max_double;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    bf_9_cache = max_double;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    bg_9_cache = max_double;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    bF1_9_cache = max_double;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    bF2_9_cache = max_double;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    bf_10_cache = max_double;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    bg_10_cache = max_double;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    bF1_10_cache = max_double;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    bF2_10_cache = max_double;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    CS_cache = max_double;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    CSp_cache = max_double;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    CP_cache = max_double;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    CPp_cache = max_double;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    CV_cache = max_double;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    CVp_cache = max_double;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    CA_cache = max_double;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    CAp_cache = max_double;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    CT_cache = max_double;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    CTp_cache = max_double;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>}</div>
-<div class="ttc" id="aclass_m_vlnu_html_a424b390d05ecf6727a439e71cf34e598"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a424b390d05ecf6727a439e71cf34e598">MVlnu::btocNPpmflag</a></div><div class="ttdeci">bool btocNPpmflag</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00161">MVlnu.h:161</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_a61ed1d5eff9bd00f43b5f1f0ee476700"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a61ed1d5eff9bd00f43b5f1f0ee476700">MVlnu::meson</a></div><div class="ttdeci">QCD::meson meson</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00155">MVlnu.h:155</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_a6c55b29a8a52491ba21a575c284f1828"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">MVlnu::BGLflag</a></div><div class="ttdeci">bool BGLflag</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00159">MVlnu.h:159</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_a738663ca01d29b97c0e9584aae0d77fc"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">MVlnu::mySM</a></div><div class="ttdeci">const StandardModel &amp; mySM</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00153">MVlnu.h:153</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_a9a3e333623dfee9dea6a71897c9f8eaa"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a9a3e333623dfee9dea6a71897c9f8eaa">MVlnu::NPanalysis</a></div><div class="ttdeci">bool NPanalysis</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00162">MVlnu.h:162</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_ac56e9cb996022b8a47bc421b0151bb48"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">MVlnu::vectorM</a></div><div class="ttdeci">QCD::meson vectorM</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00156">MVlnu.h:156</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_ac9c9807872b54ed41253d7055973e8f1"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#ac9c9807872b54ed41253d7055973e8f1">MVlnu::DMflag</a></div><div class="ttdeci">bool DMflag</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00160">MVlnu.h:160</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_adc6a6dac079f3d104e07de5a687d2356"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">MVlnu::CLNflag</a></div><div class="ttdeci">bool CLNflag</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00158">MVlnu.h:158</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_adee0a2b137a690f2a12d1a66bba8a29d"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#adee0a2b137a690f2a12d1a66bba8a29d">MVlnu::lep</a></div><div class="ttdeci">QCD::lepton lep</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00154">MVlnu.h:154</a></div></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    hA1w1_cache = max_double;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    rho2_cache = max_double;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    R1w1_cache = max_double;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    R2w1_cache = max_double;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    N_A_cache = max_double;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    N_1_cache =max_double;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    N_2_cache = max_double;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    j_A_cache= max_double;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    j_0_cache = max_double;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    j_1_cache = max_double;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    j_2_cache = max_double;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    k_A_cache = max_double;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    k_0_cache = max_double;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    k_1_cache = max_double;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    k_2_cache = max_double;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    l_A_cache = max_double;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    af0_cache = max_double;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    af1_cache = max_double;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    af2_cache = max_double;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    ag0_cache = max_double;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    ag1_cache = max_double;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    ag2_cache = max_double;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    aF11_cache = max_double;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    aF12_cache = max_double;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    aF13_cache = max_double;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    aF21_cache = max_double;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    aF22_cache = max_double;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    aF23_cache = max_double;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    af_1_cache = max_double;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    ag_1_cache = max_double;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    aF1_1_cache = max_double;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    aF2_1_cache = max_double;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    af_2_cache = max_double;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    ag_2_cache = max_double;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    aF1_2_cache = max_double;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    aF2_2_cache = max_double;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    af_3_cache = max_double;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    ag_3_cache = max_double;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    aF1_3_cache = max_double;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    aF2_3_cache = max_double;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    af_4_cache = max_double;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    ag_4_cache = max_double;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    aF1_4_cache = max_double;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    aF2_4_cache = max_double;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    af_5_cache = max_double;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    ag_5_cache = max_double;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    aF1_5_cache = max_double;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    aF2_5_cache = max_double;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    af_6_cache = max_double;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    ag_6_cache = max_double;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    aF1_6_cache = max_double;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    aF2_6_cache = max_double;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    af_7_cache = max_double;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    ag_7_cache = max_double;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    aF1_7_cache = max_double;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    aF2_7_cache = max_double;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    af_8_cache = max_double;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    ag_8_cache = max_double;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    aF1_8_cache = max_double;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    aF2_8_cache = max_double;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    af_9_cache = max_double;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    ag_9_cache = max_double;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    aF1_9_cache = max_double;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    aF2_9_cache = max_double;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    af_10_cache = max_double;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    ag_10_cache = max_double;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    aF1_10_cache = max_double;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    aF2_10_cache = max_double;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    bf_1_cache = max_double;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    bg_1_cache = max_double;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    bF1_1_cache = max_double;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    bF2_1_cache = max_double;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    bf_2_cache = max_double;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    bg_2_cache = max_double;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    bF1_2_cache = max_double;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    bF2_2_cache = max_double;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    bf_3_cache = max_double;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    bg_3_cache = max_double;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    bF1_3_cache = max_double;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    bF2_3_cache = max_double;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    bf_4_cache = max_double;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    bg_4_cache = max_double;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    bF1_4_cache = max_double;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    bF2_4_cache = max_double;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    bf_5_cache = max_double;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    bg_5_cache = max_double;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    bF1_5_cache = max_double;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    bF2_5_cache = max_double;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    bf_6_cache = max_double;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    bg_6_cache = max_double;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    bF1_6_cache = max_double;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    bF2_6_cache = max_double;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    bf_7_cache = max_double;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    bg_7_cache = max_double;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    bF1_7_cache = max_double;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    bF2_7_cache = max_double;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    bf_8_cache = max_double;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    bg_8_cache = max_double;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    bF1_8_cache = max_double;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    bF2_8_cache = max_double;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    bf_9_cache = max_double;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    bg_9_cache = max_double;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    bF1_9_cache = max_double;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    bF2_9_cache = max_double;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    bf_10_cache = max_double;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    bg_10_cache = max_double;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    bF1_10_cache = max_double;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    bF2_10_cache = max_double;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    CS_cache = max_double;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    CSp_cache = max_double;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    CP_cache = max_double;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    CPp_cache = max_double;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    CV_cache = max_double;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    CVp_cache = max_double;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    CA_cache = max_double;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    CAp_cache = max_double;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    CT_cache = max_double;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    CTp_cache = max_double;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>}</div>
+<div class="ttc" id="aclass_m_vlnu_html_a424b390d05ecf6727a439e71cf34e598"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a424b390d05ecf6727a439e71cf34e598">MVlnu::btocNPpmflag</a></div><div class="ttdeci">bool btocNPpmflag</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00166">MVlnu.h:166</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_a61ed1d5eff9bd00f43b5f1f0ee476700"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a61ed1d5eff9bd00f43b5f1f0ee476700">MVlnu::meson</a></div><div class="ttdeci">QCD::meson meson</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00160">MVlnu.h:160</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_a6c55b29a8a52491ba21a575c284f1828"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">MVlnu::BGLflag</a></div><div class="ttdeci">bool BGLflag</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00164">MVlnu.h:164</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_a738663ca01d29b97c0e9584aae0d77fc"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">MVlnu::mySM</a></div><div class="ttdeci">const StandardModel &amp; mySM</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00158">MVlnu.h:158</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_a9a3e333623dfee9dea6a71897c9f8eaa"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a9a3e333623dfee9dea6a71897c9f8eaa">MVlnu::NPanalysis</a></div><div class="ttdeci">bool NPanalysis</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00167">MVlnu.h:167</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_ac56e9cb996022b8a47bc421b0151bb48"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">MVlnu::vectorM</a></div><div class="ttdeci">QCD::meson vectorM</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00161">MVlnu.h:161</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_ac9c9807872b54ed41253d7055973e8f1"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#ac9c9807872b54ed41253d7055973e8f1">MVlnu::DMflag</a></div><div class="ttdeci">bool DMflag</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00165">MVlnu.h:165</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_adc6a6dac079f3d104e07de5a687d2356"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">MVlnu::CLNflag</a></div><div class="ttdeci">bool CLNflag</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00163">MVlnu.h:163</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_adee0a2b137a690f2a12d1a66bba8a29d"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#adee0a2b137a690f2a12d1a66bba8a29d">MVlnu::lep</a></div><div class="ttdeci">QCD::lepton lep</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00159">MVlnu.h:159</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -473,9 +471,9 @@ Private Attributes</h2></td></tr>
 
 <p>Destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l00162">162</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>              {</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l00160">160</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>              {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -499,16 +497,16 @@ Private Attributes</h2></td></tr>
 <p>return \( h_{A1} \) at \( w = w \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( h_{A1}(w) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01520">1520</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01521" name="l01521"></a><span class="lineno"> 1521</span>{</div>
-<div class="line"><a id="l01522" name="l01522"></a><span class="lineno"> 1522</span>    updateParameters();</div>
-<div class="line"><a id="l01523" name="l01523"></a><span class="lineno"> 1523</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
-<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span> </div>
-<div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span>    <span class="keywordflow">return</span> hA1(q2);</div>
-<div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span>}</div>
-<div class="ttc" id="aclass_m_vlnu_html_a2fc6d3fb5c74aba47b582b0c198ab334"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">MVlnu::w0</a></div><div class="ttdeci">double w0</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00172">MVlnu.h:172</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_aaa5cd4bc82d4b0fabcfd3beef7d64e27"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MVlnu::MM</a></div><div class="ttdeci">double MM</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00170">MVlnu.h:170</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_ae6eefebf217c603d5f14aacc51a889a6"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MVlnu::MV</a></div><div class="ttdeci">double MV</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00171">MVlnu.h:171</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01514">1514</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01515" name="l01515"></a><span class="lineno"> 1515</span>{</div>
+<div class="line"><a id="l01516" name="l01516"></a><span class="lineno"> 1516</span>    updateParameters();</div>
+<div class="line"><a id="l01517" name="l01517"></a><span class="lineno"> 1517</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
+<div class="line"><a id="l01518" name="l01518"></a><span class="lineno"> 1518</span> </div>
+<div class="line"><a id="l01519" name="l01519"></a><span class="lineno"> 1519</span>    <span class="keywordflow">return</span> hA1(q2);</div>
+<div class="line"><a id="l01520" name="l01520"></a><span class="lineno"> 1520</span>}</div>
+<div class="ttc" id="aclass_m_vlnu_html_a2fc6d3fb5c74aba47b582b0c198ab334"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">MVlnu::w0</a></div><div class="ttdeci">double w0</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00177">MVlnu.h:177</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_aaa5cd4bc82d4b0fabcfd3beef7d64e27"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MVlnu::MM</a></div><div class="ttdeci">double MM</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00175">MVlnu.h:175</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_ae6eefebf217c603d5f14aacc51a889a6"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MVlnu::MV</a></div><div class="ttdeci">double MV</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00176">MVlnu.h:176</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -530,12 +528,12 @@ Private Attributes</h2></td></tr>
 <p>return A1 form factor at \( w = 1 \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( h_{A1}((MM-MV)^2) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01513">1513</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01514" name="l01514"></a><span class="lineno"> 1514</span>{</div>
-<div class="line"><a id="l01515" name="l01515"></a><span class="lineno"> 1515</span>    updateParameters();</div>
-<div class="line"><a id="l01516" name="l01516"></a><span class="lineno"> 1516</span> </div>
-<div class="line"><a id="l01517" name="l01517"></a><span class="lineno"> 1517</span>    <span class="keywordflow">return</span> hA1(q2max);</div>
-<div class="line"><a id="l01518" name="l01518"></a><span class="lineno"> 1518</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01507">1507</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01508" name="l01508"></a><span class="lineno"> 1508</span>{</div>
+<div class="line"><a id="l01509" name="l01509"></a><span class="lineno"> 1509</span>    updateParameters();</div>
+<div class="line"><a id="l01510" name="l01510"></a><span class="lineno"> 1510</span> </div>
+<div class="line"><a id="l01511" name="l01511"></a><span class="lineno"> 1511</span>    <span class="keywordflow">return</span> hA1(q2max);</div>
+<div class="line"><a id="l01512" name="l01512"></a><span class="lineno"> 1512</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -558,16 +556,16 @@ Private Attributes</h2></td></tr>
 <p>return \( h_{A2} \) at \( w = w \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( h_{A2}(w) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01528">1528</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span>{</div>
-<div class="line"><a id="l01530" name="l01530"></a><span class="lineno"> 1530</span>    updateParameters();</div>
-<div class="line"><a id="l01531" name="l01531"></a><span class="lineno"> 1531</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
-<div class="line"><a id="l01532" name="l01532"></a><span class="lineno"> 1532</span> </div>
-<div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span>    <span class="keywordflow">return</span> (hA1(q2) * (1. + w) - <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a> * (A0(q2) * (1. + <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a>) - A2(q2) * (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a> - w))) /  (1. + <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a>*<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a> - 2.* <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a> * w);</div>
-<div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span>    <span class="comment">// return (hA1(q2) * (1. + w) - A0(q2) * RV * (1. + MV_o_MM) - A2(q2) * RV * (w - MV_o_MM)) / (1. + MV_o_MM*MV_o_MM - 2.*MV_o_MM*w) ;</span></div>
-<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>}</div>
-<div class="ttc" id="aclass_m_vlnu_html_a08b7d33880f920ab116342373c9a466b"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MVlnu::MV_o_MM</a></div><div class="ttdeci">double MV_o_MM</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00164">MVlnu.h:164</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_aa9ec0672befc4990b64ab1384d23c1b4"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">MVlnu::RV</a></div><div class="ttdeci">double RV</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00173">MVlnu.h:173</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01522">1522</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01523" name="l01523"></a><span class="lineno"> 1523</span>{</div>
+<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span>    updateParameters();</div>
+<div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
+<div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span> </div>
+<div class="line"><a id="l01527" name="l01527"></a><span class="lineno"> 1527</span>    <span class="keywordflow">return</span> (hA1(q2) * (1. + w) - <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a> * (A0(q2) * (1. + <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a>) - A2(q2) * (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a> - w))) /  (1. + <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a>*<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a> - 2.* <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a> * w);</div>
+<div class="line"><a id="l01528" name="l01528"></a><span class="lineno"> 1528</span>    <span class="comment">// return (hA1(q2) * (1. + w) - A0(q2) * RV * (1. + MV_o_MM) - A2(q2) * RV * (w - MV_o_MM)) / (1. + MV_o_MM*MV_o_MM - 2.*MV_o_MM*w) ;</span></div>
+<div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span>}</div>
+<div class="ttc" id="aclass_m_vlnu_html_a08b7d33880f920ab116342373c9a466b"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MVlnu::MV_o_MM</a></div><div class="ttdeci">double MV_o_MM</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00169">MVlnu.h:169</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_aa9ec0672befc4990b64ab1384d23c1b4"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">MVlnu::RV</a></div><div class="ttdeci">double RV</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00178">MVlnu.h:178</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -590,14 +588,14 @@ Private Attributes</h2></td></tr>
 <p>return \( h_{A3} \) at \( w = w \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( h_{A3}(w) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01537">1537</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span>{</div>
-<div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span>    updateParameters();</div>
-<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
-<div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span> </div>
-<div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span>    <span class="keywordflow">return</span> A2(q2) * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a> - <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a> * <a class="code hl_function" href="../../d6/d7b/class_m_vlnu.html#a71f9fd60f14c2154f8195b24f7fb3268">get_hA2</a>(w) ;</div>
-<div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span>}</div>
-<div class="ttc" id="aclass_m_vlnu_html_a71f9fd60f14c2154f8195b24f7fb3268"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a71f9fd60f14c2154f8195b24f7fb3268">MVlnu::get_hA2</a></div><div class="ttdeci">double get_hA2(double w)</div><div class="ttdoc">return  at</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d00/_m_vlnu_8cpp_source.html#l01528">MVlnu.cpp:1528</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01531">1531</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01532" name="l01532"></a><span class="lineno"> 1532</span>{</div>
+<div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span>    updateParameters();</div>
+<div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
+<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span> </div>
+<div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span>    <span class="keywordflow">return</span> A2(q2) * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a> - <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a08b7d33880f920ab116342373c9a466b">MV_o_MM</a> * <a class="code hl_function" href="../../d6/d7b/class_m_vlnu.html#a71f9fd60f14c2154f8195b24f7fb3268">get_hA2</a>(w) ;</div>
+<div class="line"><a id="l01537" name="l01537"></a><span class="lineno"> 1537</span>}</div>
+<div class="ttc" id="aclass_m_vlnu_html_a71f9fd60f14c2154f8195b24f7fb3268"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#a71f9fd60f14c2154f8195b24f7fb3268">MVlnu::get_hA2</a></div><div class="ttdeci">double get_hA2(double w)</div><div class="ttdoc">return  at</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d00/_m_vlnu_8cpp_source.html#l01522">MVlnu.cpp:1522</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -620,13 +618,13 @@ Private Attributes</h2></td></tr>
 <p>return \( h_{V} \) at \( w = w \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( h_{V}(w) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01545">1545</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span>{</div>
-<div class="line"><a id="l01547" name="l01547"></a><span class="lineno"> 1547</span>    updateParameters();</div>
-<div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
-<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span> </div>
-<div class="line"><a id="l01550" name="l01550"></a><span class="lineno"> 1550</span>    <span class="keywordflow">return</span> V(q2) * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a>;</div>
-<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01539">1539</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>{</div>
+<div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span>    updateParameters();</div>
+<div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
+<div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span> </div>
+<div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span>    <span class="keywordflow">return</span> V(q2) * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a>;</div>
+<div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -649,15 +647,15 @@ Private Attributes</h2></td></tr>
 <p>return \( R_0 \) at \( w = w \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( R_{0}(w) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01573">1573</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01574" name="l01574"></a><span class="lineno"> 1574</span>{</div>
-<div class="line"><a id="l01575" name="l01575"></a><span class="lineno"> 1575</span>    updateParameters();</div>
-<div class="line"><a id="l01576" name="l01576"></a><span class="lineno"> 1576</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
-<div class="line"><a id="l01577" name="l01577"></a><span class="lineno"> 1577</span> </div>
-<div class="line"><a id="l01578" name="l01578"></a><span class="lineno"> 1578</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a>) <span class="keywordflow">return</span> R0(q2);</div>
-<div class="line"><a id="l01579" name="l01579"></a><span class="lineno"> 1579</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a>) <span class="keywordflow">return</span> A0(q2) / A1(q2);</div>
-<div class="line"><a id="l01580" name="l01580"></a><span class="lineno"> 1580</span>    <span class="keywordflow">return</span> 0.;</div>
-<div class="line"><a id="l01581" name="l01581"></a><span class="lineno"> 1581</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01567">1567</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01568" name="l01568"></a><span class="lineno"> 1568</span>{</div>
+<div class="line"><a id="l01569" name="l01569"></a><span class="lineno"> 1569</span>    updateParameters();</div>
+<div class="line"><a id="l01570" name="l01570"></a><span class="lineno"> 1570</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
+<div class="line"><a id="l01571" name="l01571"></a><span class="lineno"> 1571</span> </div>
+<div class="line"><a id="l01572" name="l01572"></a><span class="lineno"> 1572</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a>) <span class="keywordflow">return</span> R0(q2);</div>
+<div class="line"><a id="l01573" name="l01573"></a><span class="lineno"> 1573</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a>) <span class="keywordflow">return</span> A0(q2) / A1(q2);</div>
+<div class="line"><a id="l01574" name="l01574"></a><span class="lineno"> 1574</span>    <span class="keywordflow">return</span> 0.;</div>
+<div class="line"><a id="l01575" name="l01575"></a><span class="lineno"> 1575</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -680,15 +678,15 @@ Private Attributes</h2></td></tr>
 <p>return \( R_1 \) at \( w = w \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( R_{1}(w) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01553">1553</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01554" name="l01554"></a><span class="lineno"> 1554</span>{</div>
-<div class="line"><a id="l01555" name="l01555"></a><span class="lineno"> 1555</span>    updateParameters();</div>
-<div class="line"><a id="l01556" name="l01556"></a><span class="lineno"> 1556</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
-<div class="line"><a id="l01557" name="l01557"></a><span class="lineno"> 1557</span> </div>
-<div class="line"><a id="l01558" name="l01558"></a><span class="lineno"> 1558</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a>) <span class="keywordflow">return</span> R1(q2);</div>
-<div class="line"><a id="l01559" name="l01559"></a><span class="lineno"> 1559</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a>) <span class="keywordflow">return</span> V(q2) * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a> / hA1(q2);</div>
-<div class="line"><a id="l01560" name="l01560"></a><span class="lineno"> 1560</span>    <span class="keywordflow">return</span> 0.;</div>
-<div class="line"><a id="l01561" name="l01561"></a><span class="lineno"> 1561</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01547">1547</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span>{</div>
+<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span>    updateParameters();</div>
+<div class="line"><a id="l01550" name="l01550"></a><span class="lineno"> 1550</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
+<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span> </div>
+<div class="line"><a id="l01552" name="l01552"></a><span class="lineno"> 1552</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a>) <span class="keywordflow">return</span> R1(q2);</div>
+<div class="line"><a id="l01553" name="l01553"></a><span class="lineno"> 1553</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a>) <span class="keywordflow">return</span> V(q2) * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a> / hA1(q2);</div>
+<div class="line"><a id="l01554" name="l01554"></a><span class="lineno"> 1554</span>    <span class="keywordflow">return</span> 0.;</div>
+<div class="line"><a id="l01555" name="l01555"></a><span class="lineno"> 1555</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -711,15 +709,15 @@ Private Attributes</h2></td></tr>
 <p>return \( R_2 \) at \( w = w \) </p>
 <dl class="section return"><dt>Returns</dt><dd>\( R_{2}(w) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01563">1563</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01564" name="l01564"></a><span class="lineno"> 1564</span>{</div>
-<div class="line"><a id="l01565" name="l01565"></a><span class="lineno"> 1565</span>    updateParameters();</div>
-<div class="line"><a id="l01566" name="l01566"></a><span class="lineno"> 1566</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
-<div class="line"><a id="l01567" name="l01567"></a><span class="lineno"> 1567</span> </div>
-<div class="line"><a id="l01568" name="l01568"></a><span class="lineno"> 1568</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a>) <span class="keywordflow">return</span> R2(q2);</div>
-<div class="line"><a id="l01569" name="l01569"></a><span class="lineno"> 1569</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a>) <span class="keywordflow">return</span> A2(q2) * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a> / hA1(q2);</div>
-<div class="line"><a id="l01570" name="l01570"></a><span class="lineno"> 1570</span>    <span class="keywordflow">return</span> 0.;</div>
-<div class="line"><a id="l01571" name="l01571"></a><span class="lineno"> 1571</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01557">1557</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01558" name="l01558"></a><span class="lineno"> 1558</span>{</div>
+<div class="line"><a id="l01559" name="l01559"></a><span class="lineno"> 1559</span>    updateParameters();</div>
+<div class="line"><a id="l01560" name="l01560"></a><span class="lineno"> 1560</span>    <span class="keywordtype">double</span> q2 = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w);</div>
+<div class="line"><a id="l01561" name="l01561"></a><span class="lineno"> 1561</span> </div>
+<div class="line"><a id="l01562" name="l01562"></a><span class="lineno"> 1562</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a>) <span class="keywordflow">return</span> R2(q2);</div>
+<div class="line"><a id="l01563" name="l01563"></a><span class="lineno"> 1563</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a>) <span class="keywordflow">return</span> A2(q2) * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aa9ec0672befc4990b64ab1384d23c1b4">RV</a> / hA1(q2);</div>
+<div class="line"><a id="l01564" name="l01564"></a><span class="lineno"> 1564</span>    <span class="keywordflow">return</span> 0.;</div>
+<div class="line"><a id="l01565" name="l01565"></a><span class="lineno"> 1565</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -741,13 +739,13 @@ Private Attributes</h2></td></tr>
 <p>Axial unitarity constraint for BGL parameters. </p>
 <dl class="section return"><dt>Returns</dt><dd>\( \sum_i (af_i^2 + aF1_i^2) \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01494">1494</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01495" name="l01495"></a><span class="lineno"> 1495</span>{</div>
-<div class="line"><a id="l01496" name="l01496"></a><span class="lineno"> 1496</span>    updateParameters();</div>
-<div class="line"><a id="l01497" name="l01497"></a><span class="lineno"> 1497</span> </div>
-<div class="line"><a id="l01498" name="l01498"></a><span class="lineno"> 1498</span>    <span class="keywordtype">double</span> aF10 = (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> - <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(phi_F1(0.) / phi_f(0.)) * af0;</div>
-<div class="line"><a id="l01499" name="l01499"></a><span class="lineno"> 1499</span>    <span class="keywordflow">return</span> af0 * af0 + af1 * af1 + af2 * af2 + aF10 * aF10 + aF11 * aF11 + aF12*aF12 + aF13*aF13;</div>
-<div class="line"><a id="l01500" name="l01500"></a><span class="lineno"> 1500</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01488">1488</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01489" name="l01489"></a><span class="lineno"> 1489</span>{</div>
+<div class="line"><a id="l01490" name="l01490"></a><span class="lineno"> 1490</span>    updateParameters();</div>
+<div class="line"><a id="l01491" name="l01491"></a><span class="lineno"> 1491</span> </div>
+<div class="line"><a id="l01492" name="l01492"></a><span class="lineno"> 1492</span>    <span class="keywordtype">double</span> aF10 = (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> - <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(phi_F1(0.) / phi_f(0.)) * af0;</div>
+<div class="line"><a id="l01493" name="l01493"></a><span class="lineno"> 1493</span>    <span class="keywordflow">return</span> af0 * af0 + af1 * af1 + af2 * af2 + aF10 * aF10 + aF11 * aF11 + aF12*aF12 + aF13*aF13;</div>
+<div class="line"><a id="l01494" name="l01494"></a><span class="lineno"> 1494</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -769,16 +767,16 @@ Private Attributes</h2></td></tr>
 <p>Pseudoscalar unitarity constraint for BGL parameters. </p>
 <dl class="section return"><dt>Returns</dt><dd>\( \sum_i aF2_i^2 \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01502">1502</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01503" name="l01503"></a><span class="lineno"> 1503</span>{</div>
-<div class="line"><a id="l01504" name="l01504"></a><span class="lineno"> 1504</span>    updateParameters();</div>
-<div class="line"><a id="l01505" name="l01505"></a><span class="lineno"> 1505</span> </div>
-<div class="line"><a id="l01506" name="l01506"></a><span class="lineno"> 1506</span>    <span class="keywordtype">double</span> z0 = (sqrt(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> + 1.) - M_SQRT2) / (sqrt(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> + 1.) + M_SQRT2);</div>
-<div class="line"><a id="l01507" name="l01507"></a><span class="lineno"> 1507</span>    <span class="keywordtype">double</span> PfacF2z0 = (z0 - zP1) / (1. - z0 * zP1)*(z0 - zP2) / (1. - z0 * zP2)*(z0 - zP3) / (1. - z0 * zP3);</div>
-<div class="line"><a id="l01508" name="l01508"></a><span class="lineno"> 1508</span>    <span class="keywordtype">double</span> phiF2z0 = phi_F2(z0);</div>
-<div class="line"><a id="l01509" name="l01509"></a><span class="lineno"> 1509</span>    <span class="keywordtype">double</span> aF20 = PfacF2z0 * phiF2z0 * 2. * F1_BGL(0.) / (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> - <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>) - aF21 * z0 - aF22 * z0*z0 - aF23 * z0*z0*z0;</div>
-<div class="line"><a id="l01510" name="l01510"></a><span class="lineno"> 1510</span>    <span class="keywordflow">return</span> aF20 * aF20 + aF21 * aF21 + aF22*aF22 + aF23*aF23;</div>
-<div class="line"><a id="l01511" name="l01511"></a><span class="lineno"> 1511</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01496">1496</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01497" name="l01497"></a><span class="lineno"> 1497</span>{</div>
+<div class="line"><a id="l01498" name="l01498"></a><span class="lineno"> 1498</span>    updateParameters();</div>
+<div class="line"><a id="l01499" name="l01499"></a><span class="lineno"> 1499</span> </div>
+<div class="line"><a id="l01500" name="l01500"></a><span class="lineno"> 1500</span>    <span class="keywordtype">double</span> z0 = (sqrt(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> + 1.) - M_SQRT2) / (sqrt(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> + 1.) + M_SQRT2);</div>
+<div class="line"><a id="l01501" name="l01501"></a><span class="lineno"> 1501</span>    <span class="keywordtype">double</span> PfacF2z0 = (z0 - zP1) / (1. - z0 * zP1)*(z0 - zP2) / (1. - z0 * zP2)*(z0 - zP3) / (1. - z0 * zP3);</div>
+<div class="line"><a id="l01502" name="l01502"></a><span class="lineno"> 1502</span>    <span class="keywordtype">double</span> phiF2z0 = phi_F2(z0);</div>
+<div class="line"><a id="l01503" name="l01503"></a><span class="lineno"> 1503</span>    <span class="keywordtype">double</span> aF20 = PfacF2z0 * phiF2z0 * 2. * F1_BGL(0.) / (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> - <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>) - aF21 * z0 - aF22 * z0*z0 - aF23 * z0*z0*z0;</div>
+<div class="line"><a id="l01504" name="l01504"></a><span class="lineno"> 1504</span>    <span class="keywordflow">return</span> aF20 * aF20 + aF21 * aF21 + aF22*aF22 + aF23*aF23;</div>
+<div class="line"><a id="l01505" name="l01505"></a><span class="lineno"> 1505</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -800,13 +798,13 @@ Private Attributes</h2></td></tr>
 <p>Vector unitarity constraint for BGL parameters. </p>
 <dl class="section return"><dt>Returns</dt><dd>\( \sum_i ag_i^2 \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01486">1486</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01487" name="l01487"></a><span class="lineno"> 1487</span>{</div>
-<div class="line"><a id="l01488" name="l01488"></a><span class="lineno"> 1488</span>    updateParameters();</div>
-<div class="line"><a id="l01489" name="l01489"></a><span class="lineno"> 1489</span> </div>
-<div class="line"><a id="l01490" name="l01490"></a><span class="lineno"> 1490</span>    <span class="keywordflow">return</span> ag0 * ag0 + ag1 * ag1 + ag2*ag2;</div>
-<div class="line"><a id="l01491" name="l01491"></a><span class="lineno"> 1491</span> </div>
-<div class="line"><a id="l01492" name="l01492"></a><span class="lineno"> 1492</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01480">1480</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01481" name="l01481"></a><span class="lineno"> 1481</span>{</div>
+<div class="line"><a id="l01482" name="l01482"></a><span class="lineno"> 1482</span>    updateParameters();</div>
+<div class="line"><a id="l01483" name="l01483"></a><span class="lineno"> 1483</span> </div>
+<div class="line"><a id="l01484" name="l01484"></a><span class="lineno"> 1484</span>    <span class="keywordflow">return</span> ag0 * ag0 + ag1 * ag1 + ag2*ag2;</div>
+<div class="line"><a id="l01485" name="l01485"></a><span class="lineno"> 1485</span> </div>
+<div class="line"><a id="l01486" name="l01486"></a><span class="lineno"> 1486</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -846,21 +844,21 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;d\Gamma/dcos\chi&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01455">1455</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span>{</div>
-<div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span>    updateParameters();</div>
-<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span> </div>
-<div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2min, q2max);</div>
-<div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2min, q2max);</div>
-<div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2min, q2max);</div>
-<div class="line"><a id="l01462" name="l01462"></a><span class="lineno"> 1462</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2min, q2max);</div>
-<div class="line"><a id="l01463" name="l01463"></a><span class="lineno"> 1463</span>    <span class="keywordtype">double</span> intJ3 = integrateJ(5, q2min, q2max);</div>
-<div class="line"><a id="l01464" name="l01464"></a><span class="lineno"> 1464</span>    <span class="keywordtype">double</span> intJ9 = integrateJ(12, q2min, q2max);</div>
-<div class="line"><a id="l01465" name="l01465"></a><span class="lineno"> 1465</span> </div>
-<div class="line"><a id="l01466" name="l01466"></a><span class="lineno"> 1466</span>    <span class="keywordflow">return</span> ((chi_max - chi_min)*(3. * intJ1c + 6. * intJ1s - intJ2c - 2. * intJ2s) / 4. +</div>
-<div class="line"><a id="l01467" name="l01467"></a><span class="lineno"> 1467</span>            (sin(2. * chi_max) - sin(2. * chi_min)) / 2. * intJ3 -</div>
-<div class="line"><a id="l01468" name="l01468"></a><span class="lineno"> 1468</span>            (cos(2. * chi_max) - cos(2. * chi_min)) / 2. * intJ9) / (2. * M_PI);</div>
-<div class="line"><a id="l01469" name="l01469"></a><span class="lineno"> 1469</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01449">1449</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01450" name="l01450"></a><span class="lineno"> 1450</span>{</div>
+<div class="line"><a id="l01451" name="l01451"></a><span class="lineno"> 1451</span>    updateParameters();</div>
+<div class="line"><a id="l01452" name="l01452"></a><span class="lineno"> 1452</span> </div>
+<div class="line"><a id="l01453" name="l01453"></a><span class="lineno"> 1453</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2min, q2max);</div>
+<div class="line"><a id="l01454" name="l01454"></a><span class="lineno"> 1454</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2min, q2max);</div>
+<div class="line"><a id="l01455" name="l01455"></a><span class="lineno"> 1455</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2min, q2max);</div>
+<div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2min, q2max);</div>
+<div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span>    <span class="keywordtype">double</span> intJ3 = integrateJ(5, q2min, q2max);</div>
+<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span>    <span class="keywordtype">double</span> intJ9 = integrateJ(12, q2min, q2max);</div>
+<div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span> </div>
+<div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span>    <span class="keywordflow">return</span> ((chi_max - chi_min)*(3. * intJ1c + 6. * intJ1s - intJ2c - 2. * intJ2s) / 4. +</div>
+<div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span>            (sin(2. * chi_max) - sin(2. * chi_min)) / 2. * intJ3 -</div>
+<div class="line"><a id="l01462" name="l01462"></a><span class="lineno"> 1462</span>            (cos(2. * chi_max) - cos(2. * chi_min)) / 2. * intJ9) / (2. * M_PI);</div>
+<div class="line"><a id="l01463" name="l01463"></a><span class="lineno"> 1463</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -900,21 +898,21 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;d\Gamma/dcos\theta_{l}&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01384">1384</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01385" name="l01385"></a><span class="lineno"> 1385</span>{</div>
-<div class="line"><a id="l01386" name="l01386"></a><span class="lineno"> 1386</span>    updateParameters();</div>
-<div class="line"><a id="l01387" name="l01387"></a><span class="lineno"> 1387</span> </div>
-<div class="line"><a id="l01388" name="l01388"></a><span class="lineno"> 1388</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2min, q2max);</div>
-<div class="line"><a id="l01389" name="l01389"></a><span class="lineno"> 1389</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2min, q2max);</div>
-<div class="line"><a id="l01390" name="l01390"></a><span class="lineno"> 1390</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2min, q2max);</div>
-<div class="line"><a id="l01391" name="l01391"></a><span class="lineno"> 1391</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2min, q2max);</div>
-<div class="line"><a id="l01392" name="l01392"></a><span class="lineno"> 1392</span>    <span class="keywordtype">double</span> intJ6s = integrateJ(8, q2min, q2max);</div>
-<div class="line"><a id="l01393" name="l01393"></a><span class="lineno"> 1393</span>    <span class="keywordtype">double</span> intJ6c = integrateJ(9, q2min, q2max);</div>
-<div class="line"><a id="l01394" name="l01394"></a><span class="lineno"> 1394</span> </div>
-<div class="line"><a id="l01395" name="l01395"></a><span class="lineno"> 1395</span>    <span class="keywordflow">return</span> 3. / 8. * ((cl_max - cl_min)*(intJ1c + 2. * intJ1s)+</div>
-<div class="line"><a id="l01396" name="l01396"></a><span class="lineno"> 1396</span>            (cl_max * cl_max - cl_min * cl_min) / 2. * (intJ6c + 2. * intJ6s)+</div>
-<div class="line"><a id="l01397" name="l01397"></a><span class="lineno"> 1397</span>            (2. / 3. * (cl_max * cl_max * cl_max - cl_min * cl_min * cl_min)-(cl_max - cl_min))*(intJ2c + 2. * intJ2s));</div>
-<div class="line"><a id="l01398" name="l01398"></a><span class="lineno"> 1398</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01378">1378</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01379" name="l01379"></a><span class="lineno"> 1379</span>{</div>
+<div class="line"><a id="l01380" name="l01380"></a><span class="lineno"> 1380</span>    updateParameters();</div>
+<div class="line"><a id="l01381" name="l01381"></a><span class="lineno"> 1381</span> </div>
+<div class="line"><a id="l01382" name="l01382"></a><span class="lineno"> 1382</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2min, q2max);</div>
+<div class="line"><a id="l01383" name="l01383"></a><span class="lineno"> 1383</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2min, q2max);</div>
+<div class="line"><a id="l01384" name="l01384"></a><span class="lineno"> 1384</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2min, q2max);</div>
+<div class="line"><a id="l01385" name="l01385"></a><span class="lineno"> 1385</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2min, q2max);</div>
+<div class="line"><a id="l01386" name="l01386"></a><span class="lineno"> 1386</span>    <span class="keywordtype">double</span> intJ6s = integrateJ(8, q2min, q2max);</div>
+<div class="line"><a id="l01387" name="l01387"></a><span class="lineno"> 1387</span>    <span class="keywordtype">double</span> intJ6c = integrateJ(9, q2min, q2max);</div>
+<div class="line"><a id="l01388" name="l01388"></a><span class="lineno"> 1388</span> </div>
+<div class="line"><a id="l01389" name="l01389"></a><span class="lineno"> 1389</span>    <span class="keywordflow">return</span> 3. / 8. * ((cl_max - cl_min)*(intJ1c + 2. * intJ1s)+</div>
+<div class="line"><a id="l01390" name="l01390"></a><span class="lineno"> 1390</span>            (cl_max * cl_max - cl_min * cl_min) / 2. * (intJ6c + 2. * intJ6s)+</div>
+<div class="line"><a id="l01391" name="l01391"></a><span class="lineno"> 1391</span>            (2. / 3. * (cl_max * cl_max * cl_max - cl_min * cl_min * cl_min)-(cl_max - cl_min))*(intJ2c + 2. * intJ2s));</div>
+<div class="line"><a id="l01392" name="l01392"></a><span class="lineno"> 1392</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -954,18 +952,18 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;d\Gamma/dcos\theta_{V}&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01419">1419</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span>{</div>
-<div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span>    updateParameters();</div>
-<div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span> </div>
-<div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2min, q2max);</div>
-<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2min, q2max);</div>
-<div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2min, q2max);</div>
-<div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2min, q2max);</div>
-<div class="line"><a id="l01427" name="l01427"></a><span class="lineno"> 1427</span> </div>
-<div class="line"><a id="l01428" name="l01428"></a><span class="lineno"> 1428</span>    <span class="keywordflow">return</span> 3. / 8. * ((cV_max * cV_max * cV_max - cV_min * cV_min * cV_min) / 3. * (3. * intJ1c - intJ2c)+</div>
-<div class="line"><a id="l01429" name="l01429"></a><span class="lineno"> 1429</span>            ((cV_max - cV_min)-(cV_max * cV_max * cV_max - cV_min * cV_min * cV_min) / 3.)*(3. * intJ1s - intJ2s));</div>
-<div class="line"><a id="l01430" name="l01430"></a><span class="lineno"> 1430</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01413">1413</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01414" name="l01414"></a><span class="lineno"> 1414</span>{</div>
+<div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span>    updateParameters();</div>
+<div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span> </div>
+<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2min, q2max);</div>
+<div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2min, q2max);</div>
+<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2min, q2max);</div>
+<div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2min, q2max);</div>
+<div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span> </div>
+<div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span>    <span class="keywordflow">return</span> 3. / 8. * ((cV_max * cV_max * cV_max - cV_min * cV_min * cV_min) / 3. * (3. * intJ1c - intJ2c)+</div>
+<div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span>            ((cV_max - cV_min)-(cV_max * cV_max * cV_max - cV_min * cV_min * cV_min) / 3.)*(3. * intJ1s - intJ2s));</div>
+<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1005,20 +1003,20 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;d\Gamma/dw&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01348">1348</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>{</div>
-<div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span>    updateParameters();</div>
-<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span> </div>
-<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>    <span class="keywordtype">double</span> q2_min = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w_max); <span class="comment">// min is Mlep*Mlep;</span></div>
-<div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span>    <span class="keywordtype">double</span> q2_max = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w_min); <span class="comment">// max is (MM-MV)*(MM-MV);</span></div>
-<div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span> </div>
-<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2_min, q2_max);</div>
-<div class="line"><a id="l01356" name="l01356"></a><span class="lineno"> 1356</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2_min, q2_max);</div>
-<div class="line"><a id="l01357" name="l01357"></a><span class="lineno"> 1357</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2_min, q2_max);</div>
-<div class="line"><a id="l01358" name="l01358"></a><span class="lineno"> 1358</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2_min, q2_max);</div>
-<div class="line"><a id="l01359" name="l01359"></a><span class="lineno"> 1359</span> </div>
-<div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>    <span class="keywordflow">return</span> 3. / 4. * (2. * intJ1s + intJ1c) - 1. / 4. * (2. * intJ2s + intJ2c);</div>
-<div class="line"><a id="l01361" name="l01361"></a><span class="lineno"> 1361</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01342">1342</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01343" name="l01343"></a><span class="lineno"> 1343</span>{</div>
+<div class="line"><a id="l01344" name="l01344"></a><span class="lineno"> 1344</span>    updateParameters();</div>
+<div class="line"><a id="l01345" name="l01345"></a><span class="lineno"> 1345</span> </div>
+<div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span>    <span class="keywordtype">double</span> q2_min = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w_max); <span class="comment">// min is Mlep*Mlep;</span></div>
+<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span>    <span class="keywordtype">double</span> q2_max = (2. * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#aaa5cd4bc82d4b0fabcfd3beef7d64e27">MM</a> * <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ae6eefebf217c603d5f14aacc51a889a6">MV</a>)*(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a2fc6d3fb5c74aba47b582b0c198ab334">w0</a> - w_min); <span class="comment">// max is (MM-MV)*(MM-MV);</span></div>
+<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span> </div>
+<div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2_min, q2_max);</div>
+<div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2_min, q2_max);</div>
+<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2_min, q2_max);</div>
+<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2_min, q2_max);</div>
+<div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span> </div>
+<div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span>    <span class="keywordflow">return</span> 3. / 4. * (2. * intJ1s + intJ1c) - 1. / 4. * (2. * intJ2s + intJ2c);</div>
+<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1040,20 +1038,20 @@ Private Attributes</h2></td></tr>
 <p>Binned D* polarization fraction \( F_{L} \). </p>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;F_{L}&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01471">1471</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01472" name="l01472"></a><span class="lineno"> 1472</span>{</div>
-<div class="line"><a id="l01473" name="l01473"></a><span class="lineno"> 1473</span>    updateParameters();</div>
-<div class="line"><a id="l01474" name="l01474"></a><span class="lineno"> 1474</span> </div>
-<div class="line"><a id="l01475" name="l01475"></a><span class="lineno"> 1475</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2min, q2max);</div>
-<div class="line"><a id="l01476" name="l01476"></a><span class="lineno"> 1476</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2min, q2max);</div>
-<div class="line"><a id="l01477" name="l01477"></a><span class="lineno"> 1477</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2min, q2max);</div>
-<div class="line"><a id="l01478" name="l01478"></a><span class="lineno"> 1478</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2min, q2max);</div>
-<div class="line"><a id="l01479" name="l01479"></a><span class="lineno"> 1479</span>    </div>
-<div class="line"><a id="l01480" name="l01480"></a><span class="lineno"> 1480</span>    <span class="keywordtype">double</span> DeltaJL = (3. * intJ1c - intJ2c) / 4.;</div>
-<div class="line"><a id="l01481" name="l01481"></a><span class="lineno"> 1481</span>    <span class="keywordtype">double</span> DeltaJ = 3. / 4. * (2. * intJ1s + intJ1c) - 1. / 4. * (2. * intJ2s + intJ2c);</div>
-<div class="line"><a id="l01482" name="l01482"></a><span class="lineno"> 1482</span>    <span class="keywordflow">return</span> DeltaJL/DeltaJ;</div>
-<div class="line"><a id="l01483" name="l01483"></a><span class="lineno"> 1483</span>    </div>
-<div class="line"><a id="l01484" name="l01484"></a><span class="lineno"> 1484</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01465">1465</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01466" name="l01466"></a><span class="lineno"> 1466</span>{</div>
+<div class="line"><a id="l01467" name="l01467"></a><span class="lineno"> 1467</span>    updateParameters();</div>
+<div class="line"><a id="l01468" name="l01468"></a><span class="lineno"> 1468</span> </div>
+<div class="line"><a id="l01469" name="l01469"></a><span class="lineno"> 1469</span>    <span class="keywordtype">double</span> intJ1s = integrateJ(1, q2min, q2max);</div>
+<div class="line"><a id="l01470" name="l01470"></a><span class="lineno"> 1470</span>    <span class="keywordtype">double</span> intJ1c = integrateJ(2, q2min, q2max);</div>
+<div class="line"><a id="l01471" name="l01471"></a><span class="lineno"> 1471</span>    <span class="keywordtype">double</span> intJ2s = integrateJ(3, q2min, q2max);</div>
+<div class="line"><a id="l01472" name="l01472"></a><span class="lineno"> 1472</span>    <span class="keywordtype">double</span> intJ2c = integrateJ(4, q2min, q2max);</div>
+<div class="line"><a id="l01473" name="l01473"></a><span class="lineno"> 1473</span>    </div>
+<div class="line"><a id="l01474" name="l01474"></a><span class="lineno"> 1474</span>    <span class="keywordtype">double</span> DeltaJL = (3. * intJ1c - intJ2c) / 4.;</div>
+<div class="line"><a id="l01475" name="l01475"></a><span class="lineno"> 1475</span>    <span class="keywordtype">double</span> DeltaJ = 3. / 4. * (2. * intJ1s + intJ1c) - 1. / 4. * (2. * intJ2s + intJ2c);</div>
+<div class="line"><a id="l01476" name="l01476"></a><span class="lineno"> 1476</span>    <span class="keywordflow">return</span> DeltaJL/DeltaJ;</div>
+<div class="line"><a id="l01477" name="l01477"></a><span class="lineno"> 1477</span>    </div>
+<div class="line"><a id="l01478" name="l01478"></a><span class="lineno"> 1478</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1083,12 +1081,12 @@ Private Attributes</h2></td></tr>
 <p>The width of the meson M. </p>
 <dl class="section return"><dt>Returns</dt><dd>\( \Gamma_M \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00147">147</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
-<div class="fragment"><div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                      {</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        updateParameters();</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac4d22a5774205c44626524d12c14cc0b">width</a>;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
-<div class="ttc" id="aclass_m_vlnu_html_ac4d22a5774205c44626524d12c14cc0b"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#ac4d22a5774205c44626524d12c14cc0b">MVlnu::width</a></div><div class="ttdeci">double width</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00177">MVlnu.h:177</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00152">152</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<div class="fragment"><div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                      {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        updateParameters();</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac4d22a5774205c44626524d12c14cc0b">width</a>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    }</div>
+<div class="ttc" id="aclass_m_vlnu_html_ac4d22a5774205c44626524d12c14cc0b"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#ac4d22a5774205c44626524d12c14cc0b">MVlnu::width</a></div><div class="ttdeci">double width</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00182">MVlnu.h:182</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1110,16 +1108,16 @@ Private Attributes</h2></td></tr>
 <p>Binned lepton helicity asymmetry \( P_{\ell} = (&lt;G_{+}&gt; - &lt;G_{-}&gt;) / (&lt;G_{+}&gt; + &lt;G_{-}&gt;) \). </p>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;P_{\ell}&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01652">1652</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01653" name="l01653"></a><span class="lineno"> 1653</span>{</div>
-<div class="line"><a id="l01654" name="l01654"></a><span class="lineno"> 1654</span>    updateParameters();</div>
-<div class="line"><a id="l01655" name="l01655"></a><span class="lineno"> 1655</span>     </div>
-<div class="line"><a id="l01656" name="l01656"></a><span class="lineno"> 1656</span>    <span class="keywordtype">double</span> DeltaGammaPlus = integrateGpm(1,q2min,q2max);</div>
-<div class="line"><a id="l01657" name="l01657"></a><span class="lineno"> 1657</span>    <span class="keywordtype">double</span> DeltaGammaMinus = integrateGpm(2,q2min,q2max);</div>
-<div class="line"><a id="l01658" name="l01658"></a><span class="lineno"> 1658</span>    </div>
-<div class="line"><a id="l01659" name="l01659"></a><span class="lineno"> 1659</span>    <span class="keywordflow">return</span> (DeltaGammaPlus-DeltaGammaMinus)/(DeltaGammaPlus+DeltaGammaMinus);</div>
-<div class="line"><a id="l01660" name="l01660"></a><span class="lineno"> 1660</span>    </div>
-<div class="line"><a id="l01661" name="l01661"></a><span class="lineno"> 1661</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l01643">1643</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01644" name="l01644"></a><span class="lineno"> 1644</span>{</div>
+<div class="line"><a id="l01645" name="l01645"></a><span class="lineno"> 1645</span>    updateParameters();</div>
+<div class="line"><a id="l01646" name="l01646"></a><span class="lineno"> 1646</span>     </div>
+<div class="line"><a id="l01647" name="l01647"></a><span class="lineno"> 1647</span>    <span class="keywordtype">double</span> DeltaGammaPlus = integrateGpm(1,q2min,q2max);</div>
+<div class="line"><a id="l01648" name="l01648"></a><span class="lineno"> 1648</span>    <span class="keywordtype">double</span> DeltaGammaMinus = integrateGpm(2,q2min,q2max);</div>
+<div class="line"><a id="l01649" name="l01649"></a><span class="lineno"> 1649</span>    </div>
+<div class="line"><a id="l01650" name="l01650"></a><span class="lineno"> 1650</span>    <span class="keywordflow">return</span> (DeltaGammaPlus-DeltaGammaMinus)/(DeltaGammaPlus+DeltaGammaMinus);</div>
+<div class="line"><a id="l01651" name="l01651"></a><span class="lineno"> 1651</span>    </div>
+<div class="line"><a id="l01652" name="l01652"></a><span class="lineno"> 1652</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1138,71 +1136,71 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l00165">165</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>{</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a> = <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a5e58851ff319848e8698dfb579a37b26">getFlagCLN</a>();</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a> = <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a42df9429dfae5476b04a7ff43305b182">getFlagBGL</a>();</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac9c9807872b54ed41253d7055973e8f1">DMflag</a> = <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a9f7132198e7aebb79ae095e8a729dfde">getFlagDM</a>();</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a424b390d05ecf6727a439e71cf34e598">btocNPpmflag</a> = (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCCPM&quot;</span>) == 0);</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a9a3e333623dfee9dea6a71897c9f8eaa">NPanalysis</a> = (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCCPM&quot;</span>) == 0 || <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCC&quot;</span>) == 0);   </div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a> + <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a> + <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac9c9807872b54ed41253d7055973e8f1">DMflag</a> != <span class="keyword">true</span>) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MVlnu: Set only one among CLNflag, BGLflag, DMflag to true&quot;</span>);</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">else</span> <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a> = make_vector&lt;std::string&gt;();</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a>) {</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a>.clear();</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba7f17b1e15bc7056f0a6573581c16b8bc">StandardModel::D_star_P</a>) <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a> = make_vector&lt;std::string&gt;()</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            &lt;&lt; <span class="stringliteral">&quot;hA1w1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;rho2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;R1w1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;R2w1&quot;</span></div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            &lt;&lt; <span class="stringliteral">&quot;N_A&quot;</span> &lt;&lt; <span class="stringliteral">&quot;N_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;N_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;j_A&quot;</span> &lt;&lt; <span class="stringliteral">&quot;j_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;j_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;j_2&quot;</span></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            &lt;&lt; <span class="stringliteral">&quot;k_A&quot;</span> &lt;&lt; <span class="stringliteral">&quot;k_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;k_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;k_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;l_A&quot;</span>;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    } </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a>) {</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a>.clear();</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba7f17b1e15bc7056f0a6573581c16b8bc">StandardModel::D_star_P</a>) <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a> = make_vector&lt;std::string&gt;()</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            &lt;&lt; <span class="stringliteral">&quot;af0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;af1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;af2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag2&quot;</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            &lt;&lt; <span class="stringliteral">&quot;aF11&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF12&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF13&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF21&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF22&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF23&quot;</span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            &lt;&lt; <span class="stringliteral">&quot;mBcstV1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstV2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstV3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstV4&quot;</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            &lt;&lt; <span class="stringliteral">&quot;mBcstA1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstA2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstA3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstA4&quot;</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            &lt;&lt; <span class="stringliteral">&quot;mBcstP1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstP2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstP3&quot;</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            &lt;&lt; <span class="stringliteral">&quot;chiTV&quot;</span> &lt;&lt; <span class="stringliteral">&quot;chiTA&quot;</span> &lt;&lt; <span class="stringliteral">&quot;chiTP&quot;</span> &lt;&lt; <span class="stringliteral">&quot;nI&quot;</span>;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    }</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac9c9807872b54ed41253d7055973e8f1">DMflag</a>){</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a>.clear();</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba7f17b1e15bc7056f0a6573581c16b8bc">StandardModel::D_star_P</a>) <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a> = make_vector&lt;std::string&gt;() </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            &lt;&lt; <span class="stringliteral">&quot;af_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_1&quot;</span></div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            &lt;&lt; <span class="stringliteral">&quot;af_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_2&quot;</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            &lt;&lt; <span class="stringliteral">&quot;af_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_3&quot;</span></div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            &lt;&lt; <span class="stringliteral">&quot;af_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_4&quot;</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            &lt;&lt; <span class="stringliteral">&quot;af_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_5&quot;</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            &lt;&lt; <span class="stringliteral">&quot;af_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_6&quot;</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            &lt;&lt; <span class="stringliteral">&quot;af_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_7&quot;</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            &lt;&lt; <span class="stringliteral">&quot;af_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_8&quot;</span></div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            &lt;&lt; <span class="stringliteral">&quot;af_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_9&quot;</span></div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            &lt;&lt; <span class="stringliteral">&quot;af_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_10&quot;</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            &lt;&lt; <span class="stringliteral">&quot;bf_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_1&quot;</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            &lt;&lt; <span class="stringliteral">&quot;bf_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_2&quot;</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            &lt;&lt; <span class="stringliteral">&quot;bf_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_3&quot;</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            &lt;&lt; <span class="stringliteral">&quot;bf_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_4&quot;</span></div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            &lt;&lt; <span class="stringliteral">&quot;bf_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_5&quot;</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            &lt;&lt; <span class="stringliteral">&quot;bf_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_6&quot;</span></div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            &lt;&lt; <span class="stringliteral">&quot;bf_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_7&quot;</span></div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            &lt;&lt; <span class="stringliteral">&quot;bf_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_8&quot;</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            &lt;&lt; <span class="stringliteral">&quot;bf_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_9&quot;</span></div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            &lt;&lt; <span class="stringliteral">&quot;bf_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_10&quot;</span>;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    }</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        std::stringstream out;</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        out &lt;&lt; <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a>;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MVlnu: vector &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    }</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">initializeMeson</a>(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a61ed1d5eff9bd00f43b5f1f0ee476700">meson</a>);</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">initializeMeson</a>(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a>);</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a>;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html#l00163">163</a> of file <a class="el" href="../../db/d00/_m_vlnu_8cpp_source.html">MVlnu.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>{</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a> = <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a5e58851ff319848e8698dfb579a37b26">getFlagCLN</a>();</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a> = <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a42df9429dfae5476b04a7ff43305b182">getFlagBGL</a>();</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac9c9807872b54ed41253d7055973e8f1">DMflag</a> = <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#a99986a0c3308ef98c14164969eb2010f">getFlavour</a>().<a class="code hl_function" href="../../d4/d6d/class_flavour.html#a9f7132198e7aebb79ae095e8a729dfde">getFlagDM</a>();</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a424b390d05ecf6727a439e71cf34e598">btocNPpmflag</a> = (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCCPM&quot;</span>) == 0);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a9a3e333623dfee9dea6a71897c9f8eaa">NPanalysis</a> = (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCCPM&quot;</span>) == 0 || <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">getModelName</a>().compare(<span class="stringliteral">&quot;RealWeakEFTCC&quot;</span>) == 0);   </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a> + <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a> + <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac9c9807872b54ed41253d7055973e8f1">DMflag</a> != <span class="keyword">true</span>) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MVlnu: Set only one among CLNflag, BGLflag, DMflag to true&quot;</span>);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">else</span> <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a> = make_vector&lt;std::string&gt;();</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#adc6a6dac079f3d104e07de5a687d2356">CLNflag</a>) {</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a>.clear();</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba7f17b1e15bc7056f0a6573581c16b8bc">StandardModel::D_star_P</a>) <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a> = make_vector&lt;std::string&gt;()</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            &lt;&lt; <span class="stringliteral">&quot;hA1w1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;rho2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;R1w1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;R2w1&quot;</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            &lt;&lt; <span class="stringliteral">&quot;N_A&quot;</span> &lt;&lt; <span class="stringliteral">&quot;N_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;N_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;j_A&quot;</span> &lt;&lt; <span class="stringliteral">&quot;j_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;j_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;j_2&quot;</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            &lt;&lt; <span class="stringliteral">&quot;k_A&quot;</span> &lt;&lt; <span class="stringliteral">&quot;k_0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;k_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;k_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;l_A&quot;</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    } </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a6c55b29a8a52491ba21a575c284f1828">BGLflag</a>) {</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a>.clear();</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba7f17b1e15bc7056f0a6573581c16b8bc">StandardModel::D_star_P</a>) <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a> = make_vector&lt;std::string&gt;()</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            &lt;&lt; <span class="stringliteral">&quot;af0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;af1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;af2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag0&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag2&quot;</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            &lt;&lt; <span class="stringliteral">&quot;aF11&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF12&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF13&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF21&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF22&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF23&quot;</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            &lt;&lt; <span class="stringliteral">&quot;mBcstV1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstV2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstV3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstV4&quot;</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            &lt;&lt; <span class="stringliteral">&quot;mBcstA1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstA2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstA3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstA4&quot;</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            &lt;&lt; <span class="stringliteral">&quot;mBcstP1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstP2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;mBcstP3&quot;</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            &lt;&lt; <span class="stringliteral">&quot;chiTV&quot;</span> &lt;&lt; <span class="stringliteral">&quot;chiTA&quot;</span> &lt;&lt; <span class="stringliteral">&quot;chiTP&quot;</span> &lt;&lt; <span class="stringliteral">&quot;nI&quot;</span>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    }</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac9c9807872b54ed41253d7055973e8f1">DMflag</a>){</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a>.clear();</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba7f17b1e15bc7056f0a6573581c16b8bc">StandardModel::D_star_P</a>) <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a> = make_vector&lt;std::string&gt;() </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            &lt;&lt; <span class="stringliteral">&quot;af_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_1&quot;</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            &lt;&lt; <span class="stringliteral">&quot;af_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_2&quot;</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            &lt;&lt; <span class="stringliteral">&quot;af_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_3&quot;</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            &lt;&lt; <span class="stringliteral">&quot;af_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_4&quot;</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            &lt;&lt; <span class="stringliteral">&quot;af_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_5&quot;</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            &lt;&lt; <span class="stringliteral">&quot;af_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_6&quot;</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            &lt;&lt; <span class="stringliteral">&quot;af_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_7&quot;</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            &lt;&lt; <span class="stringliteral">&quot;af_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_8&quot;</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            &lt;&lt; <span class="stringliteral">&quot;af_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_9&quot;</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            &lt;&lt; <span class="stringliteral">&quot;af_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;ag_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF1_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;aF2_10&quot;</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            &lt;&lt; <span class="stringliteral">&quot;bf_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_1&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_1&quot;</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            &lt;&lt; <span class="stringliteral">&quot;bf_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_2&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_2&quot;</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            &lt;&lt; <span class="stringliteral">&quot;bf_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_3&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_3&quot;</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            &lt;&lt; <span class="stringliteral">&quot;bf_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_4&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_4&quot;</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            &lt;&lt; <span class="stringliteral">&quot;bf_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_5&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_5&quot;</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            &lt;&lt; <span class="stringliteral">&quot;bf_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_6&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_6&quot;</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            &lt;&lt; <span class="stringliteral">&quot;bf_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_7&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_7&quot;</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            &lt;&lt; <span class="stringliteral">&quot;bf_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_8&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_8&quot;</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            &lt;&lt; <span class="stringliteral">&quot;bf_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_9&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_9&quot;</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            &lt;&lt; <span class="stringliteral">&quot;bf_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bg_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF1_10&quot;</span> &lt;&lt; <span class="stringliteral">&quot;bF2_10&quot;</span>;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    }</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        std::stringstream out;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        out &lt;&lt; <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a>;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MVlnu: vector &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    }</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">initializeMeson</a>(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a61ed1d5eff9bd00f43b5f1f0ee476700">meson</a>);</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#a738663ca01d29b97c0e9584aae0d77fc">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">initializeMeson</a>(<a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#ac56e9cb996022b8a47bc421b0151bb48">vectorM</a>);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">mvlnuParameters</a>;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>}</div>
 <div class="ttc" id="aclass_flavour_html_a42df9429dfae5476b04a7ff43305b182"><div class="ttname"><a href="../../d4/d6d/class_flavour.html#a42df9429dfae5476b04a7ff43305b182">Flavour::getFlagBGL</a></div><div class="ttdeci">bool getFlagBGL() const</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d65/_flavour_8h_source.html#l00320">Flavour.h:320</a></div></div>
 <div class="ttc" id="aclass_flavour_html_a5e58851ff319848e8698dfb579a37b26"><div class="ttname"><a href="../../d4/d6d/class_flavour.html#a5e58851ff319848e8698dfb579a37b26">Flavour::getFlagCLN</a></div><div class="ttdeci">bool getFlagCLN() const</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d65/_flavour_8h_source.html#l00316">Flavour.h:316</a></div></div>
 <div class="ttc" id="aclass_flavour_html_a9f7132198e7aebb79ae095e8a729dfde"><div class="ttname"><a href="../../d4/d6d/class_flavour.html#a9f7132198e7aebb79ae095e8a729dfde">Flavour::getFlagDM</a></div><div class="ttdeci">bool getFlagDM() const</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d65/_flavour_8h_source.html#l00324">Flavour.h:324</a></div></div>
-<div class="ttc" id="aclass_m_vlnu_html_af9c5579d49fefae756b7605f2cda487a"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">MVlnu::mvlnuParameters</a></div><div class="ttdeci">std::vector&lt; std::string &gt; mvlnuParameters</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00157">MVlnu.h:157</a></div></div>
+<div class="ttc" id="aclass_m_vlnu_html_af9c5579d49fefae756b7605f2cda487a"><div class="ttname"><a href="../../d6/d7b/class_m_vlnu.html#af9c5579d49fefae756b7605f2cda487a">MVlnu::mvlnuParameters</a></div><div class="ttdeci">std::vector&lt; std::string &gt; mvlnuParameters</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d4c/_m_vlnu_8h_source.html#l00162">MVlnu.h:162</a></div></div>
 <div class="ttc" id="aclass_model_html_ad15f2258e4d79d8f17d2dac2a6f27e99"><div class="ttname"><a href="../../d0/de3/class_model.html#ad15f2258e4d79d8f17d2dac2a6f27e99">Model::getModelName</a></div><div class="ttdeci">std::string getModelName() const</div><div class="ttdoc">A method to fetch the name of the model.</div><div class="ttdef"><b>Definition:</b> <a href="../../da/ded/_model_8h_source.html#l00059">Model.h:59</a></div></div>
 <div class="ttc" id="aclass_q_c_d_html_a18ab2f6f6e5a803af54771626281044ba7f17b1e15bc7056f0a6573581c16b8bc"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba7f17b1e15bc7056f0a6573581c16b8bc">QCD::D_star_P</a></div><div class="ttdeci">@ D_star_P</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d68/_q_c_d_8h_source.html#l00352">QCD.h:352</a></div></div>
 <div class="ttc" id="aclass_q_c_d_html_ae425889b72aa4e1a45f8fa521a0942bc"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#ae425889b72aa4e1a45f8fa521a0942bc">QCD::initializeMeson</a></div><div class="ttdeci">void initializeMeson(QCD::meson meson_i) const</div><div class="ttdoc">A method to initialize a meson.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d8d/_q_c_d_8cpp_source.html#l00280">QCD.cpp:280</a></div></div>
@@ -1232,7 +1230,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag for switching to BGL parameterization </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00159">159</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00164">164</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1257,7 +1255,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag for switching to the +/- basis for NP Wilson coefficients </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00161">161</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00166">166</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1282,7 +1280,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag for switching to CLN parameterization </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00158">158</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00163">163</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1307,7 +1305,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag for switching to Dispersive Matrix method </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00160">160</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00165">165</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1332,7 +1330,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Fermi constant </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00167">167</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00172">172</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1357,7 +1355,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Final leptons type </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00154">154</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00159">159</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1382,7 +1380,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >b quark mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00175">175</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00180">180</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1407,7 +1405,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >charm quark mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00176">176</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00181">181</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1432,7 +1430,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Initial meson type </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00155">155</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00160">160</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1457,7 +1455,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Lepton mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00168">168</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00173">173</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1482,7 +1480,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Initial meson mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00170">170</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00175">175</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1507,7 +1505,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Neutrino mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00169">169</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00174">174</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1532,7 +1530,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >b mass scale </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00174">174</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00179">179</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1557,7 +1555,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Final vector meson mass </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00171">171</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00176">176</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1581,7 +1579,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00164">164</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00169">169</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1606,7 +1604,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >The string of mandatory <a class="el" href="../../d6/d7b/class_m_vlnu.html">MVlnu</a> parameters </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00157">157</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00162">162</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1631,7 +1629,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p ><a class="el" href="../../d0/de3/class_model.html" title="A class for the template of models.">Model</a> type </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00153">153</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00158">158</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1656,7 +1654,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >A flag to switch to BSM analysis </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00162">162</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00167">167</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1681,7 +1679,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Dimensionless meson - vector mass ratio </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00173">173</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00178">178</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1705,7 +1703,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00165">165</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00170">170</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1730,7 +1728,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Final vector meson type </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00156">156</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00161">161</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1755,7 +1753,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Kinematic variable w at q2=0 </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00172">172</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00177">177</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
@@ -1780,7 +1778,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p >Initial meson width </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00177">177</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html#l00182">182</a> of file <a class="el" href="../../db/d4c/_m_vlnu_8h_source.html">MVlnu.h</a>.</p>
 
 </div>
 </div>
