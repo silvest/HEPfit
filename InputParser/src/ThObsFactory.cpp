@@ -2350,10 +2350,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["STXS12_ggH_pTH450_Inf_gaga_placeholderObs"]    = bind(boost::factory<STXS12_ggH_pTH450_Inf*>()                 , _1, sqrt_s_LHC13, 2);
 
     obsThFactory["STXS12_qqHqq_VH_veto_Nj01_gaga_placeholderObs"]   = bind(boost::factory<STXS12_qqHqq_VH_veto_Nj01*>()   , _1, sqrt_s_LHC13, 2);
-    obsThFactory["STXS12_qqHqq_VH_had_Nj2_gaga_placeholderObs"]   = bind(boost::factory<STXS12_qqHqq_VH_had_Nj2*>()   , _1, sqrt_s_LHC13, 2);
     
-    
-    obsThFactory["STXS12_qqHqq_mjj60_120_Nj2_gaga_placeholderObs"]           = bind(boost::factory<STXS12_qqHqq_mjj60_120_Nj2*>(), _1, sqrt_s_LHC13, 2);
     
     
     obsThFactory["STXS12_qqHqq_mjj350_700_pTH0_200_Nj2_gaga"]   = bind(boost::factory<STXS12_qqHqq_mjj350_700_pTH0_200_Nj2*>()   , _1, sqrt_s_LHC13, 2);
@@ -2405,7 +2402,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["STXS12_ggH_pTH120_200_Nj1_tautau"]            = bind(boost::factory<STXS12_ggH_pTH120_200_Nj1*>()          , _1, sqrt_s_LHC13, 5);
     obsThFactory["STXS12_ggH_mjj0_350_pTH120_200_Nj2_tautau"]   = bind(boost::factory<STXS12_ggH_mjj0_350_pTH120_200_Nj2*>() , _1, sqrt_s_LHC13, 5);
     obsThFactory["STXS12_ggH_mjj350_Inf_pTH0_200_Nj2_tautau"]   = bind(boost::factory<STXS12_ggH_mjj350_Inf_pTH0_200_Nj2*>() , _1, sqrt_s_LHC13, 5);
-    obsThFactory["STXS12_qqHqq_mjj60_120_Nj2_tautau_placeholderObs"]           = bind(boost::factory<STXS12_qqHqq_mjj60_120_Nj2*>(), _1, sqrt_s_LHC13, 5);
+    obsThFactory["STXS12_qqHqq_mjj60_120_Nj2_tautau"]           = bind(boost::factory<STXS12_qqHqq_mjj60_120_Nj2*>(), _1, sqrt_s_LHC13, 5);
     obsThFactory["STXS12_qqHqq_mjj350_Inf_Nj2_tautau"]          = bind(boost::factory<STXS12_qqHqq_mjj350_Inf_Nj2*>(), _1, sqrt_s_LHC13, 5);
     obsThFactory["STXS12_ttH_tautau"]                           = bind(boost::factory<STXS12_ttH*>()      , _1, sqrt_s_LHC13, 5);
     obsThFactory["STXS12_ggH_pTH200_300_tautau_placeholderObs"]    = bind(boost::factory<STXS12_ggH_pTH200_300*>()                 , _1, sqrt_s_LHC13, 5);

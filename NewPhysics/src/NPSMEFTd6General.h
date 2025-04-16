@@ -5815,12 +5815,7 @@ public:
     virtual const double STXS12_qqHqq_VH_veto_Nj01(const double sqrt_s) const;
     
     
-    /**
-     * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \ge 2@f$ VH-had Ref. 2402.05742.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual const double STXS12_qqHqq_VH_had_Nj2(const double sqrt_s) const;
-    
+
     
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j = 0@f$.
