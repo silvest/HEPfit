@@ -9,7 +9,8 @@
 #define	BSGAMMA_H
 
 #include "ThObservable.h"
-#include <gsl/gsl_integration.h>
+#include "Math/GSLIntegrator.h"
+#include "Math/Functor.h"
 #include <Polylogarithms.h>
 #include <ClausenFunctions.h>
 
@@ -1805,10 +1806,9 @@ private:
     gslpp::complex C_7_NP;
     gslpp::complex C_7p_NP;
     
-    gsl_function INT;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_INT;/**< Gsl integral variable */
-    double avaINT;/**< Gsl integral variable */    
-    double errINT;/**< Gsl integral variable */
+    double avaINT;/**< integral variable */    
+    ROOT::Math::GSLIntegrator ig;/**< GSL integrator */
+    ROOT::Math::Functor1D wf;/**< GSL integrator function */
     
     unsigned int Intb1Cached;/**< Cache variable */
     unsigned int Intb2Cached;/**< Cache variable */

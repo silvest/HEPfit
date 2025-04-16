@@ -22,7 +22,7 @@ using namespace boost::placeholders;
 
 Bsgamma::Bsgamma(const StandardModel& SM_i, QCD::quark quark_i, int obsFlag)
 : ThObservable(SM_i),
-Intbc_cache(2, 0.)
+Intbc_cache(2, 0.), ig(ROOT::Math::Integration::kADAPTIVESINGULAR, ROOT::Math::Integration::kGAUSS51), wf()
 {    
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
@@ -52,13 +52,12 @@ Intbc_cache(2, 0.)
     Intc3Cached = 0;
     Intcc1Cached = 0;
     IntPhi772rCached = 0;
-    
-    w_INT = gsl_integration_cquad_workspace_alloc (100);
+
 }
 
 Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
-Intbc_cache(2, 0.)
+Intbc_cache(2, 0.), ig(ROOT::Math::Integration::kADAPTIVESINGULAR, ROOT::Math::Integration::kGAUSS51), wf()
 {
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
@@ -81,8 +80,7 @@ Intbc_cache(2, 0.)
     Intc3Cached = 0;
     Intcc1Cached = 0;
     IntPhi772rCached = 0;
-    
-    w_INT = gsl_integration_cquad_workspace_alloc (100);
+
 }
 
 void Bsgamma::checkCache()
@@ -361,13 +359,16 @@ double Bsgamma::Int_b1(double E0)
 {
     if (Intb1Cached == 0) {
         double t1 = (1. - delta(E0));
-    
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_re_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_re_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt2 = avaINT;
 
         CacheIntb1 = delta(E0)*mt + mt2;
@@ -382,12 +383,16 @@ double Bsgamma::Int_b2(double E0)
     if (Intb2Cached == 0) {
         double t1 = (1. - delta(E0));
     
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_re_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_re_t_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt2 = avaINT;
 
         CacheIntb2 = delta(E0)*mt + mt2;
@@ -402,12 +407,16 @@ double Bsgamma::Int_b3(double E0)
     if (Intb3Cached == 0) {
         double t1 = (1. - delta(E0));
     
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_re_t, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double t = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_re_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
         CacheIntb3 = delta(E0)*t + mt;
@@ -422,12 +431,16 @@ double Bsgamma::Int_b4(double E0)
     if (Intb4Cached == 0) {
         double t1 = (1. - delta(E0));
     
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_re_t2_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t2_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_re_t2_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t2_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt2 = avaINT;
 
         CacheIntb4 = delta(E0)*mt + mt2;
@@ -442,12 +455,16 @@ double Bsgamma::Int_bb1(double E0)
     if (Intbb1Cached == 0) {
         double t1 = (1. - delta(E0));
     
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_abs2_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_abs2_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt2 = avaINT;
 
         CacheIntbb1 = delta(E0)*mt + mt2;
@@ -462,12 +479,16 @@ double Bsgamma::Int_bb2(double E0)
     if (Intbb2Cached == 0) {
         double t1 = (1. - delta(E0));
     
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_abs2_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_abs2_t_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_t_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt2 = avaINT;
 
         CacheIntbb2 = delta(E0)*mt + mt2;
@@ -482,12 +503,16 @@ double Bsgamma::Int_bb4(double E0)
     if (Intbb4Cached == 0) {
         double t1 = (1. - delta(E0));
     
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_abs2_t2_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_t2_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKb_abs2_t2_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_t2_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt2 = avaINT;
 
         CacheIntbb4 = delta(E0)*mt + mt2;
@@ -502,20 +527,28 @@ gslpp::complex Bsgamma::Int_bc1(double E0)
     if (Intbc1Cached == 0) {
         double t1 = (1. - delta(E0));
     
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_Kb_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_Kb_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex mt = avaINT;
-    
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_Kb_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_Kb_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         mt += gslpp::complex::i() * avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_Kb_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_Kb_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex mt2 = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_Kb_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_Kb_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntbc1 = delta(E0)*mt + mt2;
@@ -530,20 +563,28 @@ gslpp::complex Bsgamma::Int_bc2(double E0)
     if (Intbc2Cached == 0) {
         double t1 = (1. - delta(E0));
     
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_Kb_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_Kb_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex mt = avaINT;
-    
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_Kb_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_Kb_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         mt += gslpp::complex::i() * avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_Kb_t_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_Kb_t_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex mt2 = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_Kb_t_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_Kb_t_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntbc2 = delta(E0)*mt + mt2;
@@ -557,21 +598,29 @@ gslpp::complex Bsgamma::Int_c1(double E0)
 {
     if (Intc1Cached == 0) {
         double t1 = (1. - delta(E0));
-    
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex mt = avaINT;
-    
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         mt += gslpp::complex::i() * avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex mt2 = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntc1 = delta(E0)*mt + mt2;
@@ -586,21 +635,29 @@ gslpp::complex Bsgamma::Int_c2(double E0)
     if (Intc2Cached == 0) {
         double t1 = (1. - delta(E0));
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         mt += gslpp::complex::i() * avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_t_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_t_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex mt2 = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_t_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        mt2 += gslpp::complex::i() * avaINT;
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_t_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt2 += gslpp::complex::i() * avaINT;        
 
         CacheIntc2 = delta(E0)*mt + mt2;
         Intc2Cached = 1;
@@ -614,22 +671,30 @@ gslpp::complex Bsgamma::Int_c3(double E0)
     if (Intc3Cached == 0) {
         double t1 = (1. - delta(E0));
     
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_t, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_t);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex t = avaINT;
-    
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_t, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_t);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         t += gslpp::complex::i() * avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_re_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         gslpp::complex mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_im_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        mt += gslpp::complex::i() * avaINT;
-        
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt += gslpp::complex::i() * avaINT;        
+
         CacheIntc3 = delta(E0)*t + mt;
         Intc3Cached = 1;
     }
@@ -642,12 +707,16 @@ double Bsgamma::Int_cc(double E0)
     if (IntccCached == 0) {
         double t1 = (1. - delta(E0));
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_abs2_t, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_t);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_abs2_t_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_t_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt2 = avaINT;
         
         CacheIntcc = delta(E0)*mt + 2. * mt2;
@@ -662,15 +731,18 @@ double Bsgamma::Int_cc1(double E0)
     if (Intcc1Cached == 0) {
         double t1 = (1. - delta(E0));
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_abs2_1mt, &(*this), _1));
-    
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_abs2_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_1mt2);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(t1, 1.);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt2 = avaINT;
-        
+
         CacheIntcc1 = delta(E0)*mt + mt2;
         Intcc1Cached = 1;
     }
@@ -683,9 +755,11 @@ double Bsgamma::Int_cc1_part1(double E0)
     if (Intcc1p1Cached == 0) {
         double t1 = (1. - delta(E0));
 
-        INT = convertToGslFunction(bind(&Bsgamma::getKc_abs2_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_1mt);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0., t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+
         CacheIntcc1p1 = delta(E0)*avaINT;
         Intcc1p1Cached = 1;
     }
@@ -1802,9 +1876,11 @@ double Bsgamma::Int_Phi77_2rem(double E0)
     if (IntPhi772rCached == 0) {
         double t1 = (1. - delta(E0));
 
-        INT = convertToGslFunction(bind(&Bsgamma::omega77, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        
+        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::omega77);
+        ig.SetFunction(wf);
+        avaINT = ig.Integral(0.,t1);
+        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+
         CacheIntPhi772r = avaINT;
         IntPhi772rCached = 1;
     }
