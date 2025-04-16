@@ -1,13 +1,5 @@
 var NAVTREEINDEX85 =
 {
-"d9/d5c/class_tp.html#af8ff1b1101ab2489d333d2f7ceee6841":[4,5,197,1],
-"d9/d5d/class_hobs__bb___h3__bb___c_m_s8.html":[4,8,83],
-"d9/d5d/class_hobs__bb___h3__bb___c_m_s8.html#a0bf2f49db123ac2a5d7a110017fe0d13":[4,8,83,2],
-"d9/d5d/class_hobs__bb___h3__bb___c_m_s8.html#a213f5d53e6d52e590e423f829347c6e6":[4,8,83,0],
-"d9/d5d/class_hobs__bb___h3__bb___c_m_s8.html#aa9f599ae4612c6e541d7a35328910e6e":[4,8,83,1],
-"d9/d5f/class_hobs__pp___h5ppmm_h5mmpp__eeee___a_t_l_a_s8.html":[4,8,175],
-"d9/d5f/class_hobs__pp___h5ppmm_h5mmpp__eeee___a_t_l_a_s8.html#a7812cd4235764300f278fa0e11cd8510":[4,8,175,2],
-"d9/d5f/class_hobs__pp___h5ppmm_h5mmpp__eeee___a_t_l_a_s8.html#adb1763376b34d8fc523970d7025caa6f":[4,8,175,0],
 "d9/d5f/class_hobs__pp___h5ppmm_h5mmpp__eeee___a_t_l_a_s8.html#aff72da8ac2b89c9d17de0ef0975a63e7":[4,8,175,1],
 "d9/d60/class_higgs_observable.html":[4,14,2],
 "d9/d60/class_higgs_observable.html#a0212d2fb48b95dd4b792ba644a81faf2":[4,14,2,11],
@@ -249,5 +241,13 @@ var NAVTREEINDEX85 =
 "d9/d8f/group___standard_model.html#ga512826765d034b75cc5d95a0d1a727cd":[4,0,33],
 "d9/d8f/group___standard_model.html#ga5f038b5aa5a392661ff3a8494829bd9e":[4,0,28],
 "d9/d8f/group___standard_model.html#gacceea4799584714bfd62c9ebf9dae601":[4,0,32],
-"d9/d8f/group___standard_model.html#gadb5b4063c9d00b5fd8af20ec261246b1":[4,0,31]
+"d9/d8f/group___standard_model.html#gadb5b4063c9d00b5fd8af20ec261246b1":[4,0,31],
+"d9/d8f/group___standard_model.html#gaedfe8994731224f3497151a54eb75abd":[4,0,29],
+"d9/d8f/group___standard_model.html#gafdeb2b6c039acca75ebbc57ff69004ae":[4,0,30],
+"d9/d94/classlog10__bb__phi2__bb___t_h13.html":[27,0,1511],
+"d9/d94/classlog10__bb__phi2__bb___t_h13.html#a43110c313118223f28b5aab36b5444c2":[27,0,1511,0],
+"d9/d94/classlog10__bb__phi2__bb___t_h13.html#a7c0469fd2001302da5bb4b90046722e0":[27,0,1511,2],
+"d9/d94/classlog10__bb__phi2__bb___t_h13.html#a96eb0e3e48462bea4bc45b9bb66f3acb":[27,0,1511,1],
+"d9/d94/classsigma__250__bb__e_p___p30__e_m___p80.html":[27,0,2547],
+"d9/d94/classsigma__250__bb__e_p___p30__e_m___p80.html#a5873fa5518394225d677fcab864effbb":[27,0,2547,0]
 };

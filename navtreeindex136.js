@@ -1,13 +1,5 @@
 var NAVTREEINDEX136 =
 {
-"functions_q.html":[27,3,0,16],
-"functions_r.html":[27,3,0,17],
-"functions_rela.html":[27,3,6],
-"functions_s.html":[27,3,0,18],
-"functions_t.html":[27,3,0,19],
-"functions_type.html":[27,3,3],
-"functions_u.html":[27,3,0,20],
-"functions_v.html":[27,3,0,21],
 "functions_vars.html":[27,3,2],
 "functions_vars.html":[27,3,2,0],
 "functions_vars_b.html":[27,3,2,1],
@@ -41,8 +33,8 @@ var NAVTREEINDEX136 =
 "functions_z.html":[27,3,0,25],
 "functions_~.html":[27,3,0,26],
 "hierarchy.html":[27,2],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "modules.html":[4],
 "pages.html":[]
 };

@@ -1,13 +1,5 @@
 var NAVTREEINDEX88 =
 {
-"d9/ddd/class_correlated_gaussian_parameters.html#aff3c5c144181ea0a444cd1a39c32b717":[4,14,1,16],
-"d9/ddd/classmu_v_hcc.html":[4,13,341],
-"d9/ddd/classmu_v_hcc.html#a52bd265e69156e7b921d84b111714688":[4,13,341,2],
-"d9/ddd/classmu_v_hcc.html#a58aaf7c381a973cc44823de43e4eb5d8":[4,13,341,0],
-"d9/ddd/classmu_v_hcc.html#a69c737fd9254c7e93d6adee69ae0e616":[4,13,341,1],
-"d9/ddd/classmu_v_hcc.html#ab964c0523bcbb1a5d92b554a3f557226":[4,13,341,3],
-"d9/ddf/class_ytopat_q.html":[4,17,557],
-"d9/ddf/class_ytopat_q.html#a152b0c52ac81aa3190e7d97a24dd0421":[4,17,557,2],
 "d9/ddf/class_ytopat_q.html#a41974b23432893dc1c3d698d4d0924e8":[4,17,557,0],
 "d9/ddf/class_ytopat_q.html#aa023939a5b96f14366dfc24cda81edd8":[4,17,557,1],
 "d9/ddf/classlog10__pp___h1__hh__bbbb___t_h8.html":[4,8,248],
@@ -249,5 +241,13 @@ var NAVTREEINDEX88 =
 "da/d15/class_flavour_wilson_coefficient___d_f2___c_k.html#a59c6d5282a5bf95a0c3c22775da364cc":[27,0,679,2],
 "da/d15/class_flavour_wilson_coefficient___d_f2___c_k.html#a804eb31f6fcd08933a797c0b3fcd3366":[27,0,679,4],
 "da/d15/class_flavour_wilson_coefficient___d_f2___c_k.html#aa062819474994501f376e6e7ef00480c":[27,0,679,1],
-"da/d17/class_asl__s__pole__fixmub.html":[27,0,120]
+"da/d17/class_asl__s__pole__fixmub.html":[27,0,120],
+"da/d17/class_asl__s__pole__fixmub.html#a1c14aa438560c4416be4ee2340373514":[27,0,120,2],
+"da/d17/class_asl__s__pole__fixmub.html#a5c4d11cc2ae92aea287d7a9fa705b257":[27,0,120,0],
+"da/d17/class_asl__s__pole__fixmub.html#aedad366d4a2c7057a7d1a34802386b4b":[27,0,120,1],
+"da/d19/class_hobs___v_v__phi2___w_w__heavy___c_m_s13.html":[27,0,1394],
+"da/d19/class_hobs___v_v__phi2___w_w__heavy___c_m_s13.html#a82d6abd1d2169f63f2b004396c30ed67":[27,0,1394,0],
+"da/d19/class_hobs___v_v__phi2___w_w__heavy___c_m_s13.html#abcd709be9bf418c91e39fd10ae05cf6b":[27,0,1394,2],
+"da/d19/class_hobs___v_v__phi2___w_w__heavy___c_m_s13.html#ad509a8227630fcec1df0656a4e3b31a2":[27,0,1394,1],
+"da/d19/class_s_t_x_s12__qq_hqq__mjj350___inf__p_t_h0__200__p_t_hjj25___inf___nj2.html":[4,13,452]
 };

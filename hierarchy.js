@@ -1821,7 +1821,6 @@ var hierarchy =
       [ "STXS12_qqHlv_pTV75_150", "d8/d71/class_s_t_x_s12__qq_hlv__p_t_v75__150.html", null ],
       [ "STXS12_qqHqq_Nj0", "dd/d92/class_s_t_x_s12__qq_hqq___nj0.html", null ],
       [ "STXS12_qqHqq_Nj1", "d2/d01/class_s_t_x_s12__qq_hqq___nj1.html", null ],
-      [ "STXS12_qqHqq_VH_had_Nj2", "d3/d1e/class_s_t_x_s12__qq_hqq___v_h__had___nj2.html", null ],
       [ "STXS12_qqHqq_VH_veto_Nj01", "d4/d06/class_s_t_x_s12__qq_hqq___v_h__veto___nj01.html", null ],
       [ "STXS12_qqHqq_mjj0_60_Nj2", "d7/d3b/class_s_t_x_s12__qq_hqq__mjj0__60___nj2.html", null ],
       [ "STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2", "d4/de9/class_s_t_x_s12__qq_hqq__mjj1000__1500__p_t_h0__200___nj2.html", null ],

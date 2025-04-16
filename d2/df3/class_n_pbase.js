@@ -662,7 +662,6 @@ var class_n_pbase =
     [ "STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2", "d2/df3/class_n_pbase.html#ae1788f724f224d786316e1b2fce06369", null ],
     [ "STXS12_qqHqq_Nj0", "d2/df3/class_n_pbase.html#a18be2b8468b70d85d28348e7a0d4dec0", null ],
     [ "STXS12_qqHqq_Nj1", "d2/df3/class_n_pbase.html#a2b6f19106c07bab339adabf34a1a4e1f", null ],
-    [ "STXS12_qqHqq_VH_had_Nj2", "d2/df3/class_n_pbase.html#a298db1beb245630d2e98170d303e8661", null ],
     [ "STXS12_qqHqq_VH_veto_Nj01", "d2/df3/class_n_pbase.html#ac52de084e63f216fbe9c5de4fcff3d69", null ],
     [ "STXS12_tH", "d2/df3/class_n_pbase.html#ab64125b033e8c1accf521dd662989c19", null ],
     [ "STXS12_ttH_pTH0_60", "d2/df3/class_n_pbase.html#a2457cda5a9d9067b0504fce90b47654f", null ],

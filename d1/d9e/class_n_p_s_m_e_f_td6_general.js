@@ -916,7 +916,6 @@ var class_n_p_s_m_e_f_td6_general =
     [ "STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a5a710a207f4774c9f2fada7a5113986c", null ],
     [ "STXS12_qqHqq_Nj0", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a7c39531cb753144af459ecd8e6bf0040", null ],
     [ "STXS12_qqHqq_Nj1", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a1458c68757f9c1ba5c2e2da56942139b", null ],
-    [ "STXS12_qqHqq_VH_had_Nj2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a69e6e106798eaee3c37a1d9aa081a0e8", null ],
     [ "STXS12_qqHqq_VH_veto_Nj01", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a6e35fa1dd87bc086cbdaf79ff04742a9", null ],
     [ "STXS12_tH", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a9e9e1f0d4bda5a50217891abaa18fd4d", null ],
     [ "STXS12_ttH_pTH0_60", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#abcb89191c8543f01a5505e4e3d81cebf", null ],

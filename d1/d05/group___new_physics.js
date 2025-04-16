@@ -3616,7 +3616,6 @@ var group___new_physics =
       [ "STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2", "d2/df3/class_n_pbase.html#ae1788f724f224d786316e1b2fce06369", null ],
       [ "STXS12_qqHqq_Nj0", "d2/df3/class_n_pbase.html#a18be2b8468b70d85d28348e7a0d4dec0", null ],
       [ "STXS12_qqHqq_Nj1", "d2/df3/class_n_pbase.html#a2b6f19106c07bab339adabf34a1a4e1f", null ],
-      [ "STXS12_qqHqq_VH_had_Nj2", "d2/df3/class_n_pbase.html#a298db1beb245630d2e98170d303e8661", null ],
       [ "STXS12_qqHqq_VH_veto_Nj01", "d2/df3/class_n_pbase.html#ac52de084e63f216fbe9c5de4fcff3d69", null ],
       [ "STXS12_tH", "d2/df3/class_n_pbase.html#ab64125b033e8c1accf521dd662989c19", null ],
       [ "STXS12_ttH_pTH0_60", "d2/df3/class_n_pbase.html#a2457cda5a9d9067b0504fce90b47654f", null ],
@@ -6240,7 +6239,6 @@ var group___new_physics =
       [ "STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a5a710a207f4774c9f2fada7a5113986c", null ],
       [ "STXS12_qqHqq_Nj0", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a7c39531cb753144af459ecd8e6bf0040", null ],
       [ "STXS12_qqHqq_Nj1", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a1458c68757f9c1ba5c2e2da56942139b", null ],
-      [ "STXS12_qqHqq_VH_had_Nj2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a69e6e106798eaee3c37a1d9aa081a0e8", null ],
       [ "STXS12_qqHqq_VH_veto_Nj01", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a6e35fa1dd87bc086cbdaf79ff04742a9", null ],
       [ "STXS12_tH", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a9e9e1f0d4bda5a50217891abaa18fd4d", null ],
       [ "STXS12_ttH_pTH0_60", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#abcb89191c8543f01a5505e4e3d81cebf", null ],
@@ -9891,13 +9889,6 @@ var group___new_physics =
       [ "fstate", "d2/d01/class_s_t_x_s12__qq_hqq___nj1.html#a9dc2592cebdf2cb00d47a46624329721", null ],
       [ "myNPbase", "d2/d01/class_s_t_x_s12__qq_hqq___nj1.html#afd35b5d2bdd1e8f9c0ac171db0128b9c", null ],
       [ "sqrt_s", "d2/d01/class_s_t_x_s12__qq_hqq___nj1.html#a191fd3689975ea50804a6ab38e70f491", null ]
-    ] ],
-    [ "STXS12_qqHqq_VH_had_Nj2", "d3/d1e/class_s_t_x_s12__qq_hqq___v_h__had___nj2.html", [
-      [ "STXS12_qqHqq_VH_had_Nj2", "d3/d1e/class_s_t_x_s12__qq_hqq___v_h__had___nj2.html#ae84d4ccde577472daafbef7dfe319b23", null ],
-      [ "computeThValue", "d3/d1e/class_s_t_x_s12__qq_hqq___v_h__had___nj2.html#a4ff5bcef8d91a9e850f2f9ae5be1e6c7", null ],
-      [ "fstate", "d3/d1e/class_s_t_x_s12__qq_hqq___v_h__had___nj2.html#aecdb7a57bcd4a5a5fd6cb8ef4fd712c5", null ],
-      [ "myNPbase", "d3/d1e/class_s_t_x_s12__qq_hqq___v_h__had___nj2.html#a1730bb47d7b03d296af1a6c6edaf41a6", null ],
-      [ "sqrt_s", "d3/d1e/class_s_t_x_s12__qq_hqq___v_h__had___nj2.html#ab1943fd2be07a9fa768bd35477b3734a", null ]
     ] ],
     [ "STXS12_qqHqq_VH_veto_Nj01", "d4/d06/class_s_t_x_s12__qq_hqq___v_h__veto___nj01.html", [
       [ "STXS12_qqHqq_VH_veto_Nj01", "d4/d06/class_s_t_x_s12__qq_hqq___v_h__veto___nj01.html#a32783fffa6b1a95a776ff0f7686509c8", null ],
