@@ -133,18 +133,18 @@ private:
     double eta_EW; /**<EW correction @f$\eta_{EW}@f$*/
     double CV_SM; /**<Wilson coeffients @f$C_{V}@f$*/
     
-    double CS; /**<Wilson coeffients @f$C_{S}@f$*/
-    double CP; /**<Wilson coeffients @f$C_{P}@f$*/
-    double CSp; /**<Wilson coeffients @f$C_{S}'@f$*/
-    double CPp; /**<Wilson coeffients @f$C_{P}'@f$*/
-    double CV; /**<Wilson coeffients @f$C_{V}@f$*/
-    double CA; /**<Wilson coeffients @f$C_{A}@f$*/
-    double CVp; /**<Wilson coeffients @f$C_{V}'@f$*/
-    double CAp; /**<Wilson coeffients @f$C_{A}'@f$*/
-    double C7; /**<Wilson coeffients @f$C_{7}@f$*/
-    double C7p; /**<Wilson coeffients @f$C_{7}'@f$*/
-    double CT; /**<Wilson coeffients @f$C_{T}@f$*/
-    double CTp; /**<Wilson coeffients @f$C_{Tp}@f$*/
+    gslpp::complex CS; /**<Wilson coeffients @f$C_{S}@f$*/
+    gslpp::complex CP; /**<Wilson coeffients @f$C_{P}@f$*/
+    gslpp::complex CSp; /**<Wilson coeffients @f$C_{S}'@f$*/
+    gslpp::complex CPp; /**<Wilson coeffients @f$C_{P}'@f$*/
+    gslpp::complex CV; /**<Wilson coeffients @f$C_{V}@f$*/
+    gslpp::complex CA; /**<Wilson coeffients @f$C_{A}@f$*/
+    gslpp::complex CVp; /**<Wilson coeffients @f$C_{V}'@f$*/
+    gslpp::complex CAp; /**<Wilson coeffients @f$C_{A}'@f$*/
+    gslpp::complex C7; /**<Wilson coeffients @f$C_{7}@f$*/
+    gslpp::complex C7p; /**<Wilson coeffients @f$C_{7}'@f$*/
+    gslpp::complex CT; /**<Wilson coeffients @f$C_{T}@f$*/
+    gslpp::complex CTp; /**<Wilson coeffients @f$C_{Tp}@f$*/
     
     double fplusz0,rho1to2; /**<CLN form factor parameters*/
     double N_0, alpha_0, alpha_p, beta_0, beta_p, gamma_0, gamma_p; /**<CLN form factor parameter modification*/
@@ -176,7 +176,7 @@ private:
 #if NBGL == 3
     double af0_3_cache,afplus_3_cache;
 #endif    
-    double CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
+    gslpp::complex CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
     bool checkcache_int_tau, checkcache_int_mu, checkcache_int_el;
     
     /**

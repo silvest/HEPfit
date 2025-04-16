@@ -168,7 +168,6 @@ void MPlnu::updateParameters()
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, pseudoscalarM, lep)) return;
     
-    GF = mySM.getGF();
     Mlep = mySM.getLeptons(lep).getMass();
     Mnu = 0.; // neutrinos assumed to be massless
     MM = mySM.getMesons(meson).getMass();
@@ -179,30 +178,28 @@ void MPlnu::updateParameters()
     mu_b = MM; // mySM.getMub();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass(); // add the PS b mass
-    Vcb = mySM.getCKM().getV_cb(); // mySM.getOptionalParameter("AbsVcb");
     ale_mub = mySM.Ale(mu_b,FULLNLO);
     /* Amplitude propto 4*GF*Vij/sqrt(2) & kinematics requires 1/(2^9 pi^3 MB^3) */
-    amplsq_factor = GF*GF*Vcb.abs2()/(64.*M_PI*M_PI*M_PI*MM*MM*MM);
+    amplsq_factor = 1./(64.*M_PI*M_PI*M_PI*MM*MM*MM);
     q2min = Mlep*Mlep;
     q2max = (MM-MP)*(MM-MP);
     
-    /* SM Wilson coefficients */
-    eta_EW = (1.+ale_mub/M_PI*log(mySM.getMz()/mu_b));
-    CV_SM = 1./2.;
-    CV = CV_SM*eta_EW;
-    CA = -CV_SM*eta_EW;
-    CVp = 0.;
-    CAp = 0.;
-    CS = 0.;
-    CSp = 0.;
-    CP = 0.;
-    CPp = 0.;
+    /* SM + NP Wilson coefficients */
+    gslpp::complex norm = 4./sqrt(2.);
+    gslpp::vector<gslpp::complex> ** allcoeff_bclnu = mySM.getFlavour().ComputeCoeffdiujlknu(2,1,0,mu_b);
+    CV = (*(allcoeff_bclnu[LO]))(0)/norm*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b))/2.;
+    CA = -CV;
+    CVp = (*(allcoeff_bclnu[LO]))(1)/norm/2.;
+    CAp = -CVp;
+    CS = (*(allcoeff_bclnu[LO]))(2)/norm/2.;
+    CSp = (*(allcoeff_bclnu[LO]))(3)/norm/2.;
+    CP = -CS;
+    CPp = -CSp;
     C7 = 0.;
     C7p = 0.;
-    CT = 0.;
+    CT = (*(allcoeff_bclnu[LO]))(4)/norm/2.;
     CTp = 0.;
 
-    /* SM + NP Wilson coefficients */
     if (NPanalysis) {
         if (lep == StandardModel::TAU) {
             if (btocNPpmflag) {
@@ -413,8 +410,6 @@ void MPlnu::updateParameters()
         /* f+(q2=0) = f0(q2=0) */
         z0 = (sqrt(w0+1.)-sqrt(2.))/(sqrt(w0+1.)+sqrt(2.));
         af0_0 = fplus(0.);
-        std::cout << "af0_0 = " << af0_0 << std::endl;
-        std::cout << meson << " " << pseudoscalarM << " " << lep << std::endl;
 #if NBGL == 3
         af0_0 -= (af0_1 * z0 + af0_2 * z0 * z0 + af0_3 * z0 * z0 *z0) / phi_f0(z0) / ((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
 #else        
@@ -688,7 +683,7 @@ double MPlnu::dGammadq2(double q2)
 {
     if ((q2 < q2min) or (q2 > (MM - MP)*(MM - MP))) return 0.;
     double sqlambdaB = lambda_half(q2,MM*MM,MP*MP);
-    double prefac = (CV-CA)*(CV-CA)*GF*GF*Vcb.abs2()*MM*sqlambdaB/192./M_PI/M_PI/M_PI;
+    double prefac = (CV-CA).abs2()*MM*sqlambdaB/192./M_PI/M_PI/M_PI;
     double coeff_fp = (1.+Mlep*Mlep/(2.*q2))*sqlambdaB*sqlambdaB/MM/MM/MM/MM;
     double coeff_f0 = (1.-MP*MP/MM/MM)*(1.-MP*MP/MM/MM)*3.*Mlep*Mlep/(2.*q2);
     double TotAmp2 = coeff_fp*fplus(q2)*fplus(q2)+coeff_f0*f0(q2)*f0(q2);
@@ -720,7 +715,7 @@ double MPlnu::integrateJ(int i, double q2_min, double q2_max)
             wf=ROOT::Math::Functor1D(&(*this),&MPlnu::J2);
             ig.SetFunction(wf);
             J_res = ig.Integral(q2_min, q2_max);
-           if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+            if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
             return J_res;
             break;
         case 3:
