@@ -717,10 +717,9 @@ var group___flavour =
       [ "CKMratio", "d0/d13/class_bsgamma.html#a076ac7c0f670bd2dc87765f973cd2067", null ],
       [ "CKMu", "d0/d13/class_bsgamma.html#aaa5643d99da4f4334fd6ce8ec7fa7847", null ],
       [ "CKMusq", "d0/d13/class_bsgamma.html#a838edfdd016d4c20ceb820f6dc87ced8", null ],
-      [ "errINT", "d0/d13/class_bsgamma.html#a1cccbb52a70013c97c305b03deefb867", null ],
       [ "EWflag", "d0/d13/class_bsgamma.html#aa83b33f8a9c01fdfcc22c20b57b7cb17", null ],
       [ "FOUR_BODY", "d0/d13/class_bsgamma.html#a7200ffd3ccba2e4561c7eae194de4c06", null ],
-      [ "INT", "d0/d13/class_bsgamma.html#acbfaf3cc6008782286b0632556123509", null ],
+      [ "ig", "d0/d13/class_bsgamma.html#a3af1a7c8d0c072d9e793c90c3b3aa9dc", null ],
       [ "Intb1Cached", "d0/d13/class_bsgamma.html#a255c459e5412709b3439e5d60768ed06", null ],
       [ "Intb2Cached", "d0/d13/class_bsgamma.html#a3d158181e58abef598141eca11a068c1", null ],
       [ "Intb3Cached", "d0/d13/class_bsgamma.html#a13541bed6cb0c4acbaea08d5dc17e519", null ],
@@ -762,8 +761,8 @@ var group___flavour =
       [ "V_cb", "d0/d13/class_bsgamma.html#addc09c239bf51a5d80eca2a5d9071b6e", null ],
       [ "V_tb", "d0/d13/class_bsgamma.html#a6a05c7b95a10d9ea6e2ca46165bf7331", null ],
       [ "V_ub", "d0/d13/class_bsgamma.html#ac5fb7b0f8b623f8c743d45afbde98154", null ],
-      [ "w_INT", "d0/d13/class_bsgamma.html#a333a30f84279c89536af544d7d63acb7", null ],
-      [ "WET_NP_btos", "d0/d13/class_bsgamma.html#a5d95159e016db3c150a8d0b73ae7327c", null ]
+      [ "WET_NP_btos", "d0/d13/class_bsgamma.html#a5d95159e016db3c150a8d0b73ae7327c", null ],
+      [ "wf", "d0/d13/class_bsgamma.html#a7ae94de9947e77566f58d5c94b73b6d6", null ]
     ] ],
     [ "BXqll", "d7/d01/class_b_xqll.html", [
       [ "BXqll", "d7/d01/class_b_xqll.html#a2b54db8f67f9b43434fc486413fed781", null ],

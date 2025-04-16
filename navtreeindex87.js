@@ -1,6 +1,5 @@
 var NAVTREEINDEX87 =
 {
-"d9/dba/class_observable.html#a8922d491174f8e89beaa192c0823f896":[4,14,4,68],
 "d9/dba/class_observable.html#a89d963584ab7007ee9412ebdc859f5f2":[4,14,4,3],
 "d9/dba/class_observable.html#a8ae11184b953b68c495aa0d81924411f":[4,14,4,13],
 "d9/dba/class_observable.html#a8c5256eeff4cc1388a0bab5a1029567f":[4,14,4,49],
@@ -249,5 +248,6 @@ var NAVTREEINDEX87 =
 "d9/ddd/class_correlated_gaussian_parameters.html#ad1183eca557b3e9798f274ecf41a8b58":[4,14,1,2],
 "d9/ddd/class_correlated_gaussian_parameters.html#aee803e11d3da8c0918764fdc78be3d9b":[4,14,1,5],
 "d9/ddd/class_correlated_gaussian_parameters.html#aefc8ef89debbf58c703c028fc98a1be1":[4,14,1,19],
-"d9/ddd/class_correlated_gaussian_parameters.html#af9bfd5fbdd2f461e34b2f09bac49fd79":[4,14,1,6]
+"d9/ddd/class_correlated_gaussian_parameters.html#af9bfd5fbdd2f461e34b2f09bac49fd79":[4,14,1,6],
+"d9/ddd/class_correlated_gaussian_parameters.html#afaf5fb24d1ec445f86a155471e9abb7b":[4,14,1,10]
 };

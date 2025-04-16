@@ -1,6 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"d0/d7c/class_s_t_x_s12__qq_hll__p_t_v250__400.html#aaa58cff920871b7b3157cbe8b4175cf1":[4,13,429,1],
 "d0/d7c/class_s_t_x_s12__qq_hll__p_t_v250__400.html#ac345f52034a32b022f162296cf5f2715":[4,13,429,0],
 "d0/d7c/class_s_t_x_s12__qq_hll__p_t_v250__400.html#ad030407550b74c3c47e0e948e5656a09":[4,13,429,4],
 "d0/d7c/class_s_t_x_s12__qq_hll__p_t_v250__400.html#afded57773022aa505834fcd977abaa5f":[4,13,429,3],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "d0/dba/class_l_h_p_c_1_1_mass_spectrum_class_1_1_charged_sleptons_one_to_six.html#ab941c2aff44aa8793b3e44b70c5e8b13":[27,0,1,2,0,12],
 "d0/dba/class_l_h_p_c_1_1_mass_spectrum_class_1_1_charged_sleptons_one_to_six.html#ab946f04ef397d3a793260afef332a7ef":[27,0,1,2,0,44],
 "d0/dba/class_l_h_p_c_1_1_mass_spectrum_class_1_1_charged_sleptons_one_to_six.html#aba93b2be8914fbaa4d9248cf34443615":[27,0,1,2,0,35],
-"d0/dba/class_l_h_p_c_1_1_mass_spectrum_class_1_1_charged_sleptons_one_to_six.html#abef882f919af9c5c9df42176226b1132":[27,0,1,2,0,14]
+"d0/dba/class_l_h_p_c_1_1_mass_spectrum_class_1_1_charged_sleptons_one_to_six.html#abef882f919af9c5c9df42176226b1132":[27,0,1,2,0,14],
+"d0/dba/class_l_h_p_c_1_1_mass_spectrum_class_1_1_charged_sleptons_one_to_six.html#abf6c88fe34935dbf2835b9354bc7eb5e":[27,0,1,2,0,48]
 };

@@ -1,6 +1,5 @@
 var NAVTREEINDEX88 =
 {
-"d9/ddd/class_correlated_gaussian_parameters.html#afaf5fb24d1ec445f86a155471e9abb7b":[4,14,1,10],
 "d9/ddd/class_correlated_gaussian_parameters.html#aff3c5c144181ea0a444cd1a39c32b717":[4,14,1,16],
 "d9/ddd/classmu_v_hcc.html":[4,13,341],
 "d9/ddd/classmu_v_hcc.html#a52bd265e69156e7b921d84b111714688":[4,13,341,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX88 =
 "da/d15/class_flavour_wilson_coefficient___d_f2___c_k.html#a42f8733ab52006359ca6edd3c777121f":[27,0,679,0],
 "da/d15/class_flavour_wilson_coefficient___d_f2___c_k.html#a59c6d5282a5bf95a0c3c22775da364cc":[27,0,679,2],
 "da/d15/class_flavour_wilson_coefficient___d_f2___c_k.html#a804eb31f6fcd08933a797c0b3fcd3366":[27,0,679,4],
-"da/d15/class_flavour_wilson_coefficient___d_f2___c_k.html#aa062819474994501f376e6e7ef00480c":[27,0,679,1]
+"da/d15/class_flavour_wilson_coefficient___d_f2___c_k.html#aa062819474994501f376e6e7ef00480c":[27,0,679,1],
+"da/d17/class_asl__s__pole__fixmub.html":[27,0,120]
 };

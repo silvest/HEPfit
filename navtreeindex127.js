@@ -1,6 +1,5 @@
 var NAVTREEINDEX127 =
 {
-"de/d8a/classmumm_hvvtautau.html#a7a28ce1fb64d79d34e1d5fbccda79fd5":[4,13,208,0],
 "de/d8a/classmumm_hvvtautau.html#a8bc3c0ce0f1f5858fe6c89233163f2b6":[4,13,208,1],
 "de/d8a/classmumm_hvvtautau.html#ad97aa7c88ce242aa187785a41d2b4e1b":[4,13,208,2],
 "de/d8d/class_hobs__gg_f___h___w_w___a_t_l_a_s8.html":[4,17,99],
@@ -249,5 +248,6 @@ var NAVTREEINDEX127 =
 "de/dc7/class_m_vgamma.html#a2bdf81c0764b4eb3a51618c29462d205":[4,5,129,31],
 "de/dc7/class_m_vgamma.html#a3c2cda3a3d4fb0f1671a770d6428900c":[4,5,129,22],
 "de/dc7/class_m_vgamma.html#a443c26ba14ff26067b499b419e1bb94a":[4,5,129,13],
-"de/dc7/class_m_vgamma.html#a46d2e5bd88f2c5930889c67c624ce777":[4,5,129,17]
+"de/dc7/class_m_vgamma.html#a46d2e5bd88f2c5930889c67c624ce777":[4,5,129,17],
+"de/dc7/class_m_vgamma.html#a4700b2c5d47bcc89a46293f5367cddd9":[4,5,129,28]
 };

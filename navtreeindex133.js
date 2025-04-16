@@ -1,6 +1,5 @@
 var NAVTREEINDEX133 =
 {
-"df/d52/classc_z_box_h_b.html#a832f6b009851c352d98d39a475368b71":[27,0,413,3],
 "df/d52/classc_z_box_h_b.html#aa46a10c1a4f3da9a9dce1fcc92a13ff7":[27,0,413,4],
 "df/d52/classc_z_box_h_b.html#ad339d5d4667ea79399ee064924da5dfc":[27,0,413,2],
 "df/d54/class_robs__gg_f___h__tt___a_t_l_a_s8.html":[4,17,333],
@@ -249,5 +248,6 @@ var NAVTREEINDEX133 =
 "df/d96/classeta_l2at_q_g_t_h_d_m.html":[27,0,621],
 "df/d96/classeta_l2at_q_g_t_h_d_m.html#a477eafbf542c7aba81d59a8ff17a4468":[27,0,621,1],
 "df/d96/classeta_l2at_q_g_t_h_d_m.html#a7d095c09e1a6fbcdf64b29b784d07fdf":[27,0,621,0],
-"df/d96/classeta_l2at_q_g_t_h_d_m.html#ad40c7f5cda3bee28686626f30b128499":[27,0,621,2]
+"df/d96/classeta_l2at_q_g_t_h_d_m.html#ad40c7f5cda3bee28686626f30b128499":[27,0,621,2],
+"df/d97/class_br_htolljj_ratio.html":[4,13,30]
 };

@@ -1,6 +1,5 @@
 var NAVTREEINDEX119 =
 {
-"dd/d3e/class_compute_observables.html#a2dbd6624ca1fbb31d5c1007b8f6f3d63":[4,1,0,24],
 "dd/d3e/class_compute_observables.html#a3a2fa1d99ad8af2696253b16c91e7cc1":[4,1,0,20],
 "dd/d3e/class_compute_observables.html#a539159e7b7d2f2e7a95d83f5555cf6b3":[4,1,0,25],
 "dd/d3e/class_compute_observables.html#a67ed2fae935541f6cec58a10fc7aac29":[4,1,0,17],
@@ -249,5 +248,6 @@ var NAVTREEINDEX119 =
 "dd/d6c/classunitarity_rp19.html#a8c510c15466f507c47b276bbd8c74c2e":[4,17,532,2],
 "dd/d6c/classunitarity_rp19.html#adaec127069d6a067aabba39f32fd0b9c":[4,17,532,0],
 "dd/d6c/classunitarity_rp19.html#ae96666a55efd30cf559e62505858f58b":[4,17,532,1],
-"dd/d6d/class_s_t_x_s12__tt_h__p_t_h300__450.html":[4,13,469]
+"dd/d6d/class_s_t_x_s12__tt_h__p_t_h300__450.html":[4,13,469],
+"dd/d6d/class_s_t_x_s12__tt_h__p_t_h300__450.html#a59a883ceb6bf41c3a3486bff32cb6ff6":[4,13,469,2]
 };

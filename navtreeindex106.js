@@ -1,6 +1,5 @@
 var NAVTREEINDEX106 =
 {
-"dc/d90/class_t_h_d_m_w.html#ae37a5d967ef3b5f6866f3cac3d84936a":[4,18,88,34],
 "dc/d90/class_t_h_d_m_w.html#ae3b637a685a49cd00c8e53d56ea41838":[4,18,88,67],
 "dc/d90/class_t_h_d_m_w.html#ae55d1373e995d8889265ff311c1e19e3":[4,18,88,138],
 "dc/d90/class_t_h_d_m_w.html#ae5e99f6226a6dcf8205dd57a081d1e64":[4,18,88,91],
@@ -249,5 +248,6 @@ var NAVTREEINDEX106 =
 "dc/db3/class_l_h_p_c_1_1_mass_spectrum_class_1_1_mssm_extra_ewsb_spin_zero_boson_set.html#abbd75ec6fd8f0277707b2c1fc853dbae":[27,0,1,2,4,10],
 "dc/db3/class_l_h_p_c_1_1_mass_spectrum_class_1_1_mssm_extra_ewsb_spin_zero_boson_set.html#abcba9e993702068c9bead4935b04c80d":[27,0,1,2,4,17],
 "dc/db3/class_l_h_p_c_1_1_mass_spectrum_class_1_1_mssm_extra_ewsb_spin_zero_boson_set.html#abd4f673835747cd6b4f26862f0eb8c7a":[27,0,1,2,4,2],
-"dc/db3/class_l_h_p_c_1_1_mass_spectrum_class_1_1_mssm_extra_ewsb_spin_zero_boson_set.html#ac6ae87e3206bc671f58bc9b65038617d":[27,0,1,2,4,3]
+"dc/db3/class_l_h_p_c_1_1_mass_spectrum_class_1_1_mssm_extra_ewsb_spin_zero_boson_set.html#ac6ae87e3206bc671f58bc9b65038617d":[27,0,1,2,4,3],
+"dc/db3/class_l_h_p_c_1_1_mass_spectrum_class_1_1_mssm_extra_ewsb_spin_zero_boson_set.html#ad00f40698c30a222c44ca64121b8b13d":[27,0,1,2,4,44]
 };

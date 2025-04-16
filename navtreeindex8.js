@@ -1,6 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#ab42ec9cc85031d82905b44708a1b9b12":[27,0,0,2,6],
 "d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#ace695728459df37a42ed9a9c1283862d":[27,0,0,2,8],
 "d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#ae632dffe4fa3891f749e3f3c89bc445b":[27,0,0,2,10],
 "d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#ae665d5b7bddf6e992a515f09a0436a71":[27,0,0,2,4],
@@ -249,5 +248,6 @@ var NAVTREEINDEX8 =
 "d1/d71/class_s_t_x_sqq_hqq___v_htopo__4l.html":[4,13,517],
 "d1/d71/class_s_t_x_sqq_hqq___v_htopo__4l.html#a03601eab1429e90e9a9cbd86b2bad9a4":[4,13,517,0],
 "d1/d71/class_s_t_x_sqq_hqq___v_htopo__4l.html#a082829b7c2ecd38fe5b3763ca921741d":[4,13,517,3],
-"d1/d71/class_s_t_x_sqq_hqq___v_htopo__4l.html#aa88e9760dd55287e4b3b696d3c857e7b":[4,13,517,2]
+"d1/d71/class_s_t_x_sqq_hqq___v_htopo__4l.html#aa88e9760dd55287e4b3b696d3c857e7b":[4,13,517,2],
+"d1/d71/class_s_t_x_sqq_hqq___v_htopo__4l.html#ae9d7cb1d06055e3002355dc81dc6aa48":[4,13,517,1]
 };
