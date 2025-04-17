@@ -38,7 +38,7 @@ double Gammaw_MPlnu::computeThValue()
     double deltaGammadeltaw_lep1 = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep1).getDeltaGammaDeltaw(w_min,w_max_lep1);
     double deltaGammadeltaw_lep2 = SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep2).getDeltaGammaDeltaw(w_min,w_max_lep1);
     
-    return (deltaGammadeltaw_lep2_extra+0.5*(deltaGammadeltaw_lep1+deltaGammadeltaw_lep2))/(w_max-w_min);
+    return (deltaGammadeltaw_lep2_extra+0.5*(deltaGammadeltaw_lep1+deltaGammadeltaw_lep2))/(w_max-w_min)*1.e+15; // in units of 10^-15 GeV
 }
 
 RD_MPlnu::RD_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_1, QCD::lepton lep_2, QCD::lepton lep_3)
