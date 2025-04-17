@@ -32,7 +32,7 @@ var class_georgi_machacek =
     [ "getvDelta", "db/d2b/class_georgi_machacek.html#acc2c706a211d8d45517f73f4d16f0419", null ],
     [ "Init", "db/d2b/class_georgi_machacek.html#a35b5229be24891e45935055ca56b63cb", null ],
     [ "InitializeModel", "db/d2b/class_georgi_machacek.html#a7d862c5e0b43cf957a4e3015513620cf", null ],
-    [ "mueeWBF", "db/d2b/class_georgi_machacek.html#a09a0eaeb593ffd39c9540e04ddb6a0c9", null ],
+    [ "mueeWBF", "db/d2b/class_georgi_machacek.html#a95fba55f511c329360d1fb03cad43048", null ],
     [ "mueeZH", "db/d2b/class_georgi_machacek.html#ae0be63764929d60cdb4622a9dcc117d8", null ],
     [ "muggH", "db/d2b/class_georgi_machacek.html#ac434647ade837df53f76afe040b9b634", null ],
     [ "muggHbb", "db/d2b/class_georgi_machacek.html#ac1cd49ce905e4c76ef3796db332c8ed6", null ],

@@ -506,7 +506,7 @@ var group___t_h_d_m_w =
       [ "getTHDMW_tanb", "dc/d90/class_t_h_d_m_w.html#affc3eb7c6cd3797bc583bd27f70effae", null ],
       [ "Init", "dc/d90/class_t_h_d_m_w.html#acf9460d0c594128de6274b8291c552a4", null ],
       [ "InitializeModel", "dc/d90/class_t_h_d_m_w.html#a5f0d1cf8ef999faf672a85547e96b8b9", null ],
-      [ "mueeWBF", "dc/d90/class_t_h_d_m_w.html#add74bcc11193e605f24eba476f82889a", null ],
+      [ "mueeWBF", "dc/d90/class_t_h_d_m_w.html#ae9921b4d59c75a3627fce33f7ea292fd", null ],
       [ "mueeZH", "dc/d90/class_t_h_d_m_w.html#a3832fa2d568bf6d63976ef3329c6b59d", null ],
       [ "muggH", "dc/d90/class_t_h_d_m_w.html#ac4f635146dabd8bbf1238174faeb255d", null ],
       [ "muggHbb", "dc/d90/class_t_h_d_m_w.html#a2c2853dbfd57473bf67052b6a3ae88d7", null ],
