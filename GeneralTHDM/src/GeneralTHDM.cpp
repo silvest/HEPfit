@@ -535,7 +535,7 @@ const double GeneralTHDM::muVBF(const double sqrt_s) const
     return getMyGTHDMCache()->rh_VV;
 }
 
-const double GeneralTHDM::mueeWBF(const double sqrt_s) const
+const double GeneralTHDM::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return getMyGTHDMCache()->rh_VV;
 }

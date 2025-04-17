@@ -5602,13 +5602,16 @@ const double NPSMEFTd6::muVBFgamma(const double sqrt_s) const
     return mu;
 }
 
-const double NPSMEFTd6::mueeWBF(const double sqrt_s) const
+const double NPSMEFTd6::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     //  Only Alpha scheme
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    //  Pure WBF, hence only initiated by LH fermions. No difference between polarizations at the linear level.
+    //  Expand like other functions when quadratic terms are included
 
     if (sqrt_s == 0.240) {
 
@@ -5895,16 +5898,7 @@ const double NPSMEFTd6::mueeWBF(const double sqrt_s) const
     return mu;
 }
 
-const double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-
-    //  Pure WBF, hence only initiated by LH fermions. No difference between polarizations at the linear level.
-    //  Expand like other functions when quadratic terms are included
-
-    return mueeWBF(sqrt_s);
-}
-
-const double NPSMEFTd6::mueeHvv(const double sqrt_s) const
+const double NPSMEFTd6::mueeHvv(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     //  Only Alpha scheme
@@ -5912,6 +5906,8 @@ const double NPSMEFTd6::mueeHvv(const double sqrt_s) const
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeHvvPol(sqrt_s, Pol_em, Pol_ep);
 
     //  For the Higgs trilinear dependence assume the WBF mechanism dominates
 
@@ -7270,7 +7266,7 @@ const double NPSMEFTd6::mueeHvvPol(const double sqrt_s, const double Pol_em, con
     return mu;
 }
 
-const double NPSMEFTd6::mueeZBF(const double sqrt_s) const
+const double NPSMEFTd6::mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     //  Only Alpha scheme
@@ -7278,6 +7274,8 @@ const double NPSMEFTd6::mueeZBF(const double sqrt_s) const
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeZBFPol(sqrt_s, Pol_em, Pol_ep);
 
     if (sqrt_s == 0.240) {
 
@@ -9648,9 +9646,11 @@ const double NPSMEFTd6::mueeZH(const double sqrt_s, const double Pol_em, const d
     return mu;
 }
 
-const double NPSMEFTd6::mueeZllH(const double sqrt_s) const
+const double NPSMEFTd6::mueeZllH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeZllHPol(sqrt_s, Pol_em, Pol_ep);
+    
     //  The signal strength eeZH
     double mu = mueeZH(sqrt_s, 0., 0.);
 
@@ -9668,8 +9668,10 @@ const double NPSMEFTd6::mueeZllH(const double sqrt_s) const
     return mu + deltaBRratio;
 }
 
-const double NPSMEFTd6::mueeZqqH(const double sqrt_s) const
+const double NPSMEFTd6::mueeZqqH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeZqqHPol(sqrt_s, Pol_em, Pol_ep);
 
     //  The signal strength eeZH
     double mu = mueeZH(sqrt_s, 0., 0.);
@@ -11287,7 +11289,7 @@ const double NPSMEFTd6::muggHpttH(const double sqrt_s) const
     return mu;
 }
 
-const double NPSMEFTd6::mueettH(const double sqrt_s) const
+const double NPSMEFTd6::mueettH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 
     // Only Alpha scheme
@@ -11295,6 +11297,8 @@ const double NPSMEFTd6::mueettH(const double sqrt_s) const
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueettHPol(sqrt_s, Pol_em, Pol_ep);
 
     if (sqrt_s == 0.500) {
 
@@ -20631,8 +20635,10 @@ const double NPSMEFTd6::xseeWW(const double sqrt_s) const
     return dxseeWWdcosBin(sqrt_s, -1.0, 1.0);
 }
 
-const double NPSMEFTd6::mueeWW(const double sqrt_s) const
+const double NPSMEFTd6::mueeWW(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeWWPol(sqrt_s, Pol_em, Pol_ep);
+    
     double mu = 1.0;
 
     if (sqrt_s == 0.161) {

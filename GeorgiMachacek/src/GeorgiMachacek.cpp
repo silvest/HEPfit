@@ -150,7 +150,7 @@ const double GeorgiMachacek::muVBF(const double sqrt_s) const
     return getMyGMCache()->rh_VV;
 }
 
-const double GeorgiMachacek::mueeWBF(const double sqrt_s) const
+const double GeorgiMachacek::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return getMyGMCache()->rh_VV;
 }

@@ -120,41 +120,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeWBF(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$\mu_{eeWBF}@f$ in the current model.
-     * @return @f$\mu_{eeWBF}@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-/**
- * @class mueeWBFPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{eeWBF}@f$.
- * @author HEPfit CollaborationH
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{eeWBF}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ 
- * associated production cross-section in the current model and in the Standard Model.
- */
-class mueeWBFPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeWBF(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{eeWBF}@f$ in the current model.
@@ -186,42 +155,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvv(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ in the current model.
-     * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-/**
- * @class mueeHvvPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$, 
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit CollaborationH
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ between the 
- * @f$e^+e^- \to H\nu\bar{\nu}@f$ 
- * production cross-section in the current model and in the Standard Model.
- */
-class mueeHvvPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeHvv(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ in the current model.
@@ -233,6 +170,7 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s, Pol_em, Pol_ep;
 };
+
 
 /**
  * @class mueeZBF
@@ -251,42 +189,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeZBF(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$ in the current model.
-     * @return @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeZBFPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$.
- * @author HEPfit CollaborationH
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$ between the 
- * @f$e^{+}e^{-}\to e^{+}e^{-} H@f$ 
- * production cross-section in the current model and in the Standard Model.
- */
-class mueeZBFPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeZBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeZBF(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^{+}e^{-}\to e^{+}e^{-} H}@f$ in the current model.
@@ -298,6 +204,7 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s, Pol_em, Pol_ep;
 };
+
 
 /**
  * @class muepWBF
@@ -568,41 +475,11 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeZllH(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ in the current model.
-     * @return @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-/**
- * @class mueeZllHPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$.
- * @author HEPfit CollaborationH
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ between the 
- * @f$e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-@f$ 
- * associated production cross-section in the current model and in the Standard Model.
- */
-class mueeZllHPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeZllHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeZllH(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ in the current model.
      * @return @f$\mu_{e^+e^- \to ZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$
@@ -613,6 +490,7 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s, Pol_em, Pol_ep;
 };
+
 
 /**
  * @class mueeZqqH
@@ -631,41 +509,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$ in the current model.
-     * @return @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-/**
- * @class mueeZqqHPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$.
- * @author HEPfit CollaborationH
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$ between the 
- * @f$e^+e^- \to ZH, Z \to q \bar{q}@f$ 
- * associated production cross-section in the current model and in the Standard Model.
- */
-class mueeZqqHPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeZqqHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, Z \to q \bar{q}}@f$ in the current model.
@@ -946,42 +793,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueettH(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$\mu_{eettH}@f$ in the current model.
-     * @return @f$\mu_{eettH}@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueettHPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{eettH}@f$.
- * @author HEPfit CollaborationH
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{eettH}@f$ between the 
- * @f$ e^{+}e^{-}\to t\bar{t} H @f$ 
- * associated production cross-section in the current model and in the Standard Model.
- */
-class mueettHPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueettHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueettH(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{eettH}@f$ in the current model.
@@ -6759,42 +6574,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeWBFbb(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to bb@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to bb@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeWBFbbPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to bb @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeWBFbbPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeWBFbb(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to bb@f$ in the current model.
@@ -6825,8 +6608,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFcc(const StandardModel& SM_i, const double sqrt_s_i);
+    mueeWBFcc(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to cc@f$ in the current model.
@@ -6836,7 +6621,7 @@ public:
 
 private:
     const NPbase* myNPbase;
-    const double sqrt_s;
+    const double sqrt_s, Pol_em, Pol_ep;
 };
 
 
@@ -6857,8 +6642,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFgg(const StandardModel& SM_i, const double sqrt_s_i);
+    mueeWBFgg(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to gg@f$ in the current model.
@@ -6868,7 +6655,7 @@ public:
 
 private:
     const NPbase* myNPbase;
-    const double sqrt_s;
+    const double sqrt_s, Pol_em, Pol_ep;
 };
 
 
@@ -6889,8 +6676,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFWW(const StandardModel& SM_i, const double sqrt_s_i);
+    mueeWBFWW(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to WW@f$ in the current model.
@@ -6900,7 +6689,7 @@ public:
 
 private:
     const NPbase* myNPbase;
-    const double sqrt_s;
+    const double sqrt_s, Pol_em, Pol_ep;
 };
 
 
@@ -6921,8 +6710,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFtautau(const StandardModel& SM_i, const double sqrt_s_i);
+    mueeWBFtautau(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$ in the current model.
@@ -6932,7 +6723,7 @@ public:
 
 private:
     const NPbase* myNPbase;
-    const double sqrt_s;
+    const double sqrt_s, Pol_em, Pol_ep;
 };
 
 
@@ -6953,8 +6744,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFZZ(const StandardModel& SM_i, const double sqrt_s_i);
+    mueeWBFZZ(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ZZ@f$ in the current model.
@@ -6964,7 +6757,7 @@ public:
 
 private:
     const NPbase* myNPbase;
-    const double sqrt_s;
+    const double sqrt_s, Pol_em, Pol_ep;
 };
 
 
@@ -6985,8 +6778,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFZga(const StandardModel& SM_i, const double sqrt_s_i);
+    mueeWBFZga(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$ in the current model.
@@ -6996,7 +6791,7 @@ public:
 
 private:
     const NPbase* myNPbase;
-    const double sqrt_s;
+    const double sqrt_s, Pol_em, Pol_ep;
 };
 
 
@@ -7017,8 +6812,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFgaga(const StandardModel& SM_i, const double sqrt_s_i);
+    mueeWBFgaga(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$ in the current model.
@@ -7028,7 +6825,7 @@ public:
 
 private:
     const NPbase* myNPbase;
-    const double sqrt_s;
+    const double sqrt_s, Pol_em, Pol_ep;
 };
 
 
@@ -7049,8 +6846,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeWBFmumu(const StandardModel& SM_i, const double sqrt_s_i);
+    mueeWBFmumu(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$ in the current model.
@@ -7060,7 +6859,7 @@ public:
 
 private:
     const NPbase* myNPbase;
-    const double sqrt_s;
+    const double sqrt_s, Pol_em, Pol_ep;
 };
 
 
@@ -7082,43 +6881,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvvbb(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to bb@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to bb@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvbbPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to bb}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to bb @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvbbPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeHvvbb(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to bb@f$ in the current model.
@@ -7150,43 +6916,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvvcc(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to cc@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to cc@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvccPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to cc}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to cc @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvccPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvccPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeHvvcc(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to cc@f$ in the current model.
@@ -7218,43 +6951,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvvss(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ss@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to ss@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvssPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ss@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ss@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to ss @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvssPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvssPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeHvvss(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ss@f$ in the current model.
@@ -7286,47 +6986,14 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] Pol_em_i polarization of the electron
+     * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvgg(const StandardModel& SM_i, const double sqrt_s_i);
+    mueeHvvgg(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to gg@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to gg@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvggPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to gg}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to gg @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvggPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     * @param[in] Pol_em_i polarization of the electron
-     * @param[in] Pol_ep_i polarization of the positron
-     */
-    mueeHvvggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to gg@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to bb@f$
      */
     double computeThValue();
 
@@ -7354,43 +7021,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvvWW(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to WW@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to WW@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvWWPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to WW}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to WW @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvWWPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeHvvWW(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to WW@f$ in the current model.
@@ -7422,43 +7056,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvvtautau(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvtautauPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \tau\tau}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to \tau\tau @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvtautauPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvtautauPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeHvvtautau(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \tau\tau@f$ in the current model.
@@ -7490,43 +7091,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvvZZ(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ZZ@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to ZZ@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvZZPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to ZZ}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to ZZ @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvZZPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvZZPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeHvvZZ(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to ZZ@f$ in the current model.
@@ -7558,44 +7126,11 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvvZga(const StandardModel& SM_i, const double sqrt_s_i);
-    
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvZgaPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to Z\gamma}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to Z\gamma @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvZgaPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvZgaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
-
+    mueeHvvZga(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$ in the current model.
      * @return @f$e^+e^- \to \nu\nu H, H \to Z\gamma@f$
@@ -7626,43 +7161,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvvgaga(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvgagaPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \gamma\gamma}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to \gamma\gamma @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvgagaPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvgagaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeHvvgaga(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \gamma\gamma@f$ in the current model.
@@ -7694,43 +7196,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeHvvmumu(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$ in the current model.
-     * @return @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeHvvmumuPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$,
- * excluding contributions from on-shell @f$Z\to \nu\bar{\nu} @f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to \nu\nu H, H \to \mu\mu}@f$ between the 
- * @f$ e^{+}e^{-}\to \nu\bar{\nu} H, H \to \mu\mu @f$ production
- * cross-section in the current model and in the Standard Model.
- */
-class mueeHvvmumuPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeHvvmumuPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeHvvmumu(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$e^+e^- \to \nu\nu H, H \to \mu\mu@f$ in the current model.
@@ -7742,7 +7211,6 @@ private:
     const NPbase* myNPbase;
     const double sqrt_s, Pol_em, Pol_ep;
 };
-
 
 
 /**
@@ -7762,42 +7230,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueeZBFbb(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.
-     * @return @f$\mu_{e^+e^- \to ZH, H \to bb}@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueeZBFbbPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$.
- * @author HEPfit CollaborationH
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ between the 
- * @f$e^+e^- \to ZH, H \to bb@f$ 
- * associated production cross-section in the current model and in the Standard Model.
- */
-class mueeZBFbbPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueeZBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueeZBFbb(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.
@@ -7828,42 +7264,10 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
      * @param[in] sqrt_s_i the center-of-mass energy in TeV
-     */
-    mueettHbb(const StandardModel& SM_i, const double sqrt_s_i);
-
-    /**
-     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.
-     * @return @f$\mu_{e^+e^- \to ZH, H \to bb}@f$
-     */
-    double computeThValue();
-
-private:
-    const NPbase* myNPbase;
-    const double sqrt_s;
-};
-
-
-/**
- * @class mueettHbbPol
- * @ingroup NewPhysics
- * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$.
- * @author HEPfit CollaborationH
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ between the 
- * @f$e^+e^- \to ZH, H \to bb@f$ 
- * associated production cross-section in the current model and in the Standard Model.
- */
-class mueettHbbPol : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      * @param[in] Pol_em_i polarization of the electron
      * @param[in] Pol_ep_i polarization of the positron
      */
-    mueettHbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
+    mueettHbb(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i);
 
     /**
      * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH, H \to bb}@f$ in the current model.

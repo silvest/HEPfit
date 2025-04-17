@@ -19691,12 +19691,15 @@ const double NPSMEFTd6General::muVBFgamma(const double sqrt_s) const {
     return mu;
 }
 
-const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
+const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
 
     //  Only Alpha scheme
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    //  Pure WBF, hence only initiated by LH fermions. No difference between polarizations at the linear level.
+    //  Expand like other functions when quadratic terms are included
 
     if (sqrt_s == 0.240) {
 
@@ -19973,21 +19976,15 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s) const {
     return mu;
 }
 
-const double NPSMEFTd6General::mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
-
-    //  Pure WBF, hence only initiated by LH fermions. No difference between polarizations at the linear level.
-    //  Expand like other functions when quadratic terms are included
-
-    return mueeWBF(sqrt_s);
-}
-
-const double NPSMEFTd6General::mueeHvv(const double sqrt_s) const {
+const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
 
     //  Only Alpha scheme
 
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeHvvPol(sqrt_s, Pol_em, Pol_ep);
 
     //  For the Higgs trilinear dependence assume the WBF mechanism dominates
 
@@ -21241,13 +21238,15 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
     return mu;
 }
 
-const double NPSMEFTd6General::mueeZBF(const double sqrt_s) const {
+const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
 
     //  Only Alpha scheme
 
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeZBFPol(sqrt_s, Pol_em, Pol_ep);
 
     if (sqrt_s == 0.240) {
 
@@ -23434,7 +23433,9 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
     return mu;
 }
 
-const double NPSMEFTd6General::mueeZllH(const double sqrt_s) const {
+const double NPSMEFTd6General::mueeZllH(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeZllHPol(sqrt_s, Pol_em, Pol_ep);
 
     //  The signal strength eeZH
     double mu = mueeZH(sqrt_s, 0., 0.);
@@ -23453,7 +23454,9 @@ const double NPSMEFTd6General::mueeZllH(const double sqrt_s) const {
     return mu + deltaBRratio;
 }
 
-const double NPSMEFTd6General::mueeZqqH(const double sqrt_s) const {
+const double NPSMEFTd6General::mueeZqqH(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeZqqHPol(sqrt_s, Pol_em, Pol_ep);
 
     //  The signal strength eeZH
     double mu = mueeZH(sqrt_s, 0., 0.);
@@ -24662,13 +24665,15 @@ const double NPSMEFTd6General::muggHpttH(const double sqrt_s) const {
     return mu;
 }
 
-const double NPSMEFTd6General::mueettH(const double sqrt_s) const {
+const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
 
     // Only Alpha scheme
 
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueettHPol(sqrt_s, Pol_em, Pol_ep);
 
     if (sqrt_s == 0.500) {
 
@@ -38264,7 +38269,10 @@ const double NPSMEFTd6General::xseeWW(const double sqrt_s) const {
     return dxseeWWdcosBin(sqrt_s, -1.0, 1.0);
 }
 
-const double NPSMEFTd6General::mueeWW(const double sqrt_s) const {
+const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
+    
+    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeWWPol(sqrt_s, Pol_em, Pol_ep);
+
     double mu = 1.0;
 
     if (sqrt_s == 0.161) {
@@ -40711,8 +40719,6 @@ const double NPSMEFTd6General::STXS12_ggHll_pTV250_Inf(const double sqrt_s) cons
 
 
 
-
-
 const double NPSMEFTd6General::STXS12_qqHqq_VH_veto_Nj01(const double sqrt_s) const 
 {
     
@@ -40742,15 +40748,6 @@ const double NPSMEFTd6General::STXS12_qqHqq_VH_veto_Nj01(const double sqrt_s) co
 
     return STXSb;
 }
-
-
-
-
-
-
-
-
-
 
 
 

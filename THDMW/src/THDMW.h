@@ -758,7 +758,7 @@ public:
 
     virtual const double muggH(const double sqrt_s) const;
     virtual const double muVBF(const double sqrt_s) const;
-    virtual const double mueeWBF(const double sqrt_s) const;
+    virtual const double mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     virtual const double muWH(const double sqrt_s) const;
     virtual const double muZH(const double sqrt_s) const;
     virtual const double mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;

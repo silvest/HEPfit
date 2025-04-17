@@ -568,21 +568,15 @@ const double HiggsKigen::muVBFgamma(const double sqrt_s) const
     return (mu*(1.0 + eVBFint + eVBFpar));
 }
 
-const double HiggsKigen::mueeWBF(const double sqrt_s) const
+const double HiggsKigen::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKW() * computeKW());
     return (mu*(1.0 + eeeWBFint + eeeWBFpar));
 }
 
-const double HiggsKigen::mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    double mu = 1.0;
-    mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
-}
 
-const double HiggsKigen::mueeHvv(const double sqrt_s) const
+const double HiggsKigen::mueeHvv(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 //  In this model we neglect the contributions from HZ->vv with off-shell Z
 //  Dependence is exact if Custodial symmetry option is on
@@ -591,28 +585,14 @@ const double HiggsKigen::mueeHvv(const double sqrt_s) const
     return (mu*(1.0 + eeeWBFint + eeeWBFpar));
 }
 
-const double HiggsKigen::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-//  In this model we neglect the contributions from HZ->vv with off-shell Z
-//  Dependence is exact if Custodial symmetry option is on
-    double mu = 1.0;
-    mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
-}
 
-const double HiggsKigen::mueeZBF(const double sqrt_s) const
+const double HiggsKigen::mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKZ() * computeKZ());
     return (mu*(1.0 + eeeWBFint + eeeWBFpar));
 }
 
-const double HiggsKigen::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    double mu = 1.0;
-    mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
-}
 
 const double HiggsKigen::muepWBF(const double sqrt_s) const
 {
@@ -659,28 +639,14 @@ const double HiggsKigen::mueeZH(const double sqrt_s, const double Pol_em, const 
     return (mu*(1.0 + eeeZHint + eeeZHpar));
 }
 
-const double HiggsKigen::mueeZllH(const double sqrt_s) const
+const double HiggsKigen::mueeZllH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKZ() * computeKZ());
     return (mu*(1.0 + eeeZHint + eeeZHpar));
 }
 
-const double HiggsKigen::mueeZqqH(const double sqrt_s) const
-{
-    double mu = 1.0;
-    mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeZHint + eeeZHpar));
-}
-
-const double HiggsKigen::mueeZllHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    double mu = 1.0;
-    mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeZHint + eeeZHpar));
-}
-
-const double HiggsKigen::mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double HiggsKigen::mueeZqqH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKZ() * computeKZ());
@@ -752,15 +718,7 @@ const double HiggsKigen::muggHpttH(const double sqrt_s) const
     return ((sigmaggH + sigmattH) / (sigmaggH_SM + sigmattH_SM));
 } 
 
-const double HiggsKigen::mueettH(const double sqrt_s) const
-{
-    double mu = 1.0;
-    mu = (computeKt() * computeKt());
-    return (mu*(1.0 + eeettHint + eeettHpar));
-}
-
-
-const double HiggsKigen::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double HiggsKigen::mueettH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKt() * computeKt());
