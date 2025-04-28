@@ -659,10 +659,15 @@ void MPll::checkCache()
         Ycache(0) = Mb;
         Ycache(1) = Mc;
     }
+        
+    if (lep == QCD::NOLEPTON){
+        H_V0updated = N_updated * VL_updated * C_nunu_updated;
+        H_A0updated = N_updated * VL_updated * C_nunu_updated;
+    } else {
 
     if (!dispersion) {
         if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_1 == H_V0Ccache[1] && h_2 == H_V0Ccache[2]) {
-            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * C_7_updated * TL_updated * C_7p_updated * C_nunu_updated;
+            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * C_7_updated * TL_updated * C_7p_updated;
         } else {
             H_V0updated = 0;
             H_V0cache(0) = MM;
@@ -673,7 +678,7 @@ void MPll::checkCache()
         }
     } else {
         if (MM == H_V0cache(0) && Mb == H_V0cache(1) && r_1 == H_V0Ccache_dispersion[0] && r_2 == H_V0Ccache_dispersion[1] && Delta_C9 == H_V0Ccache_dispersion[2] && exp_Phase == H_V0Ccache_dispersion[3]) {
-            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * C_7_updated * TL_updated * C_7p_updated * C_nunu_updated;
+            H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * C_7_updated * TL_updated * C_7p_updated;
         } else {
             H_V0updated = 0;
             H_V0cache(0) = MM;
@@ -685,7 +690,8 @@ void MPll::checkCache()
         }
     }
 
-    H_A0updated = N_updated * C_10_updated * VL_updated * C_10p_updated * C_nunu_updated;
+    H_A0updated = N_updated * C_10_updated * VL_updated * C_10p_updated;
+    }
 
     if (Mb == H_Scache(0) && MW == H_Scache(1)) {
         H_Supdated = N_updated * C_S_updated * SL_updated * C_Sp_updated;

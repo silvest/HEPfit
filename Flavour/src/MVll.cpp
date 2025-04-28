@@ -996,35 +996,44 @@ void MVll::checkCache()
             h2Ccache[3] = SU3_breaking;
         }
     }
+    
+    if (lep == QCD::NOLEPTON){
+        H_V0updated = N_updated * VL0_updated * C_nunu_updated * VR0_updated;
+        H_V1updated = N_updated * VL1_updated * C_nunu_updated * VR1_updated;
+        H_V2updated = N_updated * VL2_updated * C_nunu_updated * VR2_updated;
+        H_A0updated = N_updated * VL0_updated * C_nunu_updated * VR0_updated;
+        H_A1updated = N_updated * VL1_updated * C_nunu_updated * VR1_updated;
+        H_A2updated = N_updated * VL2_updated * C_nunu_updated * VR2_updated;
+    } else { 
+        if (MM == H_V0cache(0) && Mb == H_V0cache(1)) {
+            H_V0updated = N_updated * C_9_updated * Yupdated * VL0_updated * C_9p_updated * VR0_updated * C_7_updated * TL0_updated * C_7p_updated * TR0_updated * h0_updated;
+        } else {
+            H_V0updated = 0;
+            H_V0cache(0) = MM;
+            H_V0cache(1) = Mb;
+        }
 
-    if (MM == H_V0cache(0) && Mb == H_V0cache(1)) {
-        H_V0updated = N_updated * C_9_updated * Yupdated * VL0_updated * C_9p_updated * VR0_updated * C_7_updated * TL0_updated * C_7p_updated * TR0_updated * h0_updated * C_nunu_updated;
-    } else {
-        H_V0updated = 0;
-        H_V0cache(0) = MM;
-        H_V0cache(1) = Mb;
+        if (MM == H_V1cache(0) && Mb == H_V1cache(1)) {
+            H_V1updated = N_updated * C_9_updated * Yupdated * VL1_updated * C_9p_updated * VR1_updated * C_7_updated * TL1_updated * C_7p_updated * TR1_updated * h1_updated;
+        } else {
+            H_V1updated = 0;
+            H_V1cache(0) = MM;
+            H_V1cache(1) = Mb;
+        }
+
+        if (MM == H_V2cache(0) && Mb == H_V2cache(1)) {
+            H_V2updated = N_updated * C_9_updated * Yupdated * VL2_updated * C_9p_updated * VR2_updated * C_7_updated * TL2_updated * C_7p_updated * TR2_updated * h2_updated;
+        } else {
+            H_V2updated = 0;
+            H_V2cache(0) = MM;
+            H_V2cache(1) = Mb;
+        }
+
+        H_A0updated = N_updated * C_10_updated * VL0_updated * C_10p_updated * VR0_updated;
+        H_A1updated = N_updated * C_10_updated * VL1_updated * C_10p_updated * VR1_updated;
+        H_A2updated = N_updated * C_10_updated * VL2_updated * C_10p_updated * VR2_updated;
     }
-
-    if (MM == H_V1cache(0) && Mb == H_V1cache(1)) {
-        H_V1updated = N_updated * C_9_updated * Yupdated * VL1_updated * C_9p_updated * VR1_updated * C_7_updated * TL1_updated * C_7p_updated * TR1_updated * h1_updated * C_nunu_updated;
-    } else {
-        H_V1updated = 0;
-        H_V1cache(0) = MM;
-        H_V1cache(1) = Mb;
-    }
-
-    if (MM == H_V2cache(0) && Mb == H_V2cache(1)) {
-        H_V2updated = N_updated * C_9_updated * Yupdated * VL2_updated * C_9p_updated * VR2_updated * C_7_updated * TL2_updated * C_7p_updated * TR2_updated * h2_updated * C_nunu_updated;
-    } else {
-        H_V2updated = 0;
-        H_V2cache(0) = MM;
-        H_V2cache(1) = Mb;
-    }
-
-    H_A0updated = N_updated * C_10_updated * VL0_updated * C_10p_updated * VR0_updated * C_nunu_updated;
-    H_A1updated = N_updated * C_10_updated * VL1_updated * C_10p_updated * VR1_updated * C_nunu_updated;
-    H_A2updated = N_updated * C_10_updated * VL2_updated * C_10p_updated * VR2_updated * C_nunu_updated;
-
+    
     if (Mb == H_Scache(0) && MW == H_Scache(1)) {
         H_Supdated = N_updated * C_S_updated * SL_updated * C_Sp_updated * SR_updated;
     } else {
