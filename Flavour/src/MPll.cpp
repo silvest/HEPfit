@@ -34,6 +34,7 @@ Ycache(2, 0.),
 H_V0cache(2, 0.),
 H_Scache(2, 0.),
 H_P_cache(4, 0.),
+Itree_cache(3, 0.),
 T_cache(5, 0.)
 {
     lep = lep_i;
@@ -46,6 +47,7 @@ T_cache(5, 0.)
     I0_updated = 0;
     I2_updated = 0;
     I8_updated = 0;
+    Itree_updated = 0;
 
     VL_updated = 0;
     TL_updated = 0;
@@ -56,6 +58,7 @@ T_cache(5, 0.)
 
     w_sigma = gsl_integration_cquad_workspace_alloc(100);
     w_delta = gsl_integration_cquad_workspace_alloc(100);
+    w_sigmaTree = gsl_integration_cquad_workspace_alloc(100);
     w_DTPPR = gsl_integration_cquad_workspace_alloc(100);
 
     acc_Re_deltaC7_QCDF = gsl_interp_accel_alloc();
@@ -248,6 +251,7 @@ void MPll::updateParameters()
         Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
         exp_Phase = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_BK"));
     }
+    sqrt3 = sqrt(3.);
     
     if (lep == QCD::NOLEPTON){
         
@@ -262,7 +266,8 @@ void MPll::updateParameters()
         Gammatau = HCUT / 0.2903;
     
         allcoeff = mySM.getFlavour().ComputeCoeffdnunu();
-        C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
+        C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0)) * sqrt3;
     }
     else{
         allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
@@ -314,7 +319,6 @@ void MPll::updateParameters()
     fournineth = 4. / 9.;
     half = 1. / 2.;
     twothird = 2. / 3.;
-    sqrt3 = sqrt(3.);
     ihalfMPI = gslpp::complex::i() * M_PI / 2.;
     Mc2 = Mc*Mc;
     Mb2 = Mb*Mb;
@@ -388,6 +392,8 @@ void MPll::updateParameters()
 
     if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
     if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
+    
+    if (Itree_updated) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
 
     std::map<double, unsigned int >::iterator iti;
     if (deltaTparpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
@@ -638,6 +644,13 @@ void MPll::checkCache()
         C_8Lh_updated = 0;
         C_8Lh_cache = C_8Lh;
     }
+    
+    if (C_nunu == C_nunu_cache) {
+        C_nunu_updated = 1;
+    } else {
+        C_nunu_updated = 0;
+        C_nunu_cache = C_nunu;
+    }
 
     if (Mb == Ycache(0) && Mc == Ycache(1)) {
         Yupdated = C_1_updated * C_2_updated * C_3_updated * C_4_updated * C_5_updated * C_6_updated;
@@ -646,6 +659,11 @@ void MPll::checkCache()
         Ycache(0) = Mb;
         Ycache(1) = Mc;
     }
+        
+    if (lep == QCD::NOLEPTON){
+        H_V0updated = N_updated * VL_updated * C_nunu_updated;
+        H_A0updated = N_updated * VL_updated * C_nunu_updated;
+    } else {
 
     if (!dispersion) {
         if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_1 == H_V0Ccache[1] && h_2 == H_V0Ccache[2]) {
@@ -673,6 +691,7 @@ void MPll::checkCache()
     }
 
     H_A0updated = N_updated * C_10_updated * VL_updated * C_10p_updated;
+    }
 
     if (Mb == H_Scache(0) && MW == H_Scache(1)) {
         H_Supdated = N_updated * C_S_updated * SL_updated * C_Sp_updated;
@@ -710,6 +729,15 @@ void MPll::checkCache()
     I0_updated = F_updated * H_V0updated * H_A0updated * H_P_updated * beta_updated * H_Supdated * deltaTparmupdated;
     I2_updated = F_updated * beta_updated * H_V0updated * H_A0updated * deltaTparmupdated;
     I8_updated = F_updated * beta_updated * H_Supdated * H_V0updated * deltaTparmupdated;
+
+    if (MM2 == Itree_cache(0) && mtau2 == Itree_cache(1) && MP2 == Itree_cache(2)) {
+        Itree_updated = 1;
+    } else {
+        Itree_updated = 0;
+        Itree_cache(0) = MM2;
+        Itree_cache(1) = mtau2;
+        Itree_cache(2) = MP2;
+    }
 
 }
 
@@ -1174,10 +1202,8 @@ gslpp::complex MPll::h_lambda(double q2)
 gslpp::complex MPll::H_V(double q2)
 {
     if (lep == QCD::NOLEPTON) {
-        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
-        return -C_nunu * sqrt3 * V_L(q2);
+        return -C_nunu * V_L(q2);
     }
-    else
     return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2)
             + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, SPLINE) - etaP * pow(-1, angmomP) * C_7p) * T_L(q2)
             - sixteenM_PI2 * h_lambda(q2)));
@@ -1186,10 +1212,8 @@ gslpp::complex MPll::H_V(double q2)
 gslpp::complex MPll::H_A(double q2)
 {
     if (lep == QCD::NOLEPTON) {
-        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
-        return -C_nunu * sqrt3 * V_L(q2);
+        return -C_nunu * V_L(q2);
     }
-    else
     return (-C_10 + etaP * pow(-1, angmomP) * C_10p) *V_L(q2);
 }
 
@@ -1256,6 +1280,7 @@ double MPll::Delta(int i, double q2)
 double MPll::integrateSigma(int i, double q_min, double q_max)
 {
     updateParameters();
+    
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
     old_handler = gsl_set_error_handler_off();
@@ -1347,10 +1372,42 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
 
 }
 
-double MPll::getSigmaTree()
+double MPll::integrateSigmaTree(double q_min, double q_max)
 {
-    if (lep != QCD::NOLEPTON) return 0.;
+    if (lep != QCD::NOLEPTON or meson != QCD::B_P) return 0.;
 
     updateParameters();
+    
+    //phase space limit where tree-level contribution is relevant (0908.1174)
+    double q_cut = (mtau2 - MP2) * (MM2 - mtau2) / mtau2;
+    if (q_max >= q_cut) {
+        if (q_min == 0.) return getintegratedSigmaTree();
+        q_max = q_cut;
+    }
+    
+    double prefactor = mySM.getMesons(meson).getLifetime() / HCUT * GF4 * VusVub_abs2 * fP2 * fM2 / (64. * M_PI2 * MM3 * Gammatau) * mtau2 * mtau;
+    
+    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
+
+    old_handler = gsl_set_error_handler_off();
+
+    if (sigmaTreeCached[qbin] == 0) {
+        FD = convertToGslFunction(bind(&MPll::SigmaTree, &(*this), _1));
+        if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_sigmaTree, &avaSigmaTree, &errSigmaTree, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        cacheSigmaTree[qbin] = avaSigmaTree;
+        sigmaTreeCached[qbin] = 1;
+    }
+    return prefactor * cacheSigmaTree[qbin];
+
+    gsl_set_error_handler(old_handler);
+}
+
+double MPll::SigmaTree(double q2)
+{
+    return MM2 * (mtau2 - MP2) - mtau2 * (mtau2 + q2 - MP2);
+}
+
+double MPll::getintegratedSigmaTree()
+{
     return mySM.getMesons(meson).getLifetime() / HCUT * GF4 * VusVub_abs2 * fP2 * fM2 / (128. * M_PI2 * MM3 * Gammatau) * mtau * (mtau2 - MP2) * (mtau2 - MP2) * (MM2 - mtau2) * (MM2 - mtau2);
 }

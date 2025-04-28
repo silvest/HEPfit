@@ -349,6 +349,14 @@ public:
     double integrateDelta(int i, double q_min, double q_max);
     
     /**
+    * @brief The integral of \f$ \Sigma_{tree} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$ (arxiv/2301.06990)
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return \f$ <\Sigma_{tree}> \f$
+    */
+    double integrateSigmaTree(double q_min, double q_max);
+    
+    /**
     * @brief The width of the meson M
     * @return \f$ \Gamma_M \f$ 
     */
@@ -886,6 +894,7 @@ private:
     double fournineth;/**< Cache variable */
     double half;/**< Cache variable */
     double twothird;/**< Cache variable */
+    double sqrt3;/**< Cache variable */
     gslpp::complex ihalfMPI;/**< Cache variable */
     double twoMM3;/**< Cache variable */
     double gtilde_1_pre;/**< Cache variable */
@@ -951,6 +960,17 @@ private:
     double a_1T23;/**<LCSR fit parameter */
     double a_2T23;/**<LCSR fit parameter */
     double MRT23_2;/**<LCSR fit parameter */
+    
+    //additional variables for B to K nu nu
+    double GF4;
+    double MM3;
+    double fM2;
+    double fV2;
+
+    double mtau;
+    double mtau2;
+    double Gammatau;
+    double VusVub_abs2;
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<Vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
@@ -983,6 +1003,7 @@ private:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
+    gslpp::complex C_nunu;/**<Wilson coeffients @f$C_{\nu\nu}'@f$*/
     
     std::vector<double> Re_T_perp;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
     std::vector<double> Im_T_perp;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
@@ -1058,16 +1079,19 @@ private:
     
     double avaSigma;/**< GSL integral variable */
     double avaDelta;/**< GSL integral variable */
-    
+    double avaSigmaTree;/**< Gsl integral variable */
+
     double errSigma;/**< GSL integral variable */
     double errDelta;/**< GSL integral variable */
-    
+    double errSigmaTree;/**< Gsl integral variable */
+
     gsl_function FS;/**< GSL integral variable */
     gsl_function FD;/**< GSL integral variable */
     
     gsl_integration_cquad_workspace * w_sigma;/**< GSL integral variable */
     gsl_integration_cquad_workspace * w_delta;/**< GSL integral variable */
-    
+    gsl_integration_cquad_workspace * w_sigmaTree;/**< Gsl integral variable */
+
     gsl_error_handler_t * old_handler; /**< GSL error handler store */
     
     std::map<std::pair<double, double>, gslpp::complex > cacheI1;/**< Cache variable */
@@ -1094,6 +1118,8 @@ private:
     std::map<std::pair<double, double>, double > cacheDelta10;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta11;/**< Cache variable */
     
+    std::map<std::pair<double, double>, double > cacheSigmaTree;/**< Gsl integral variable */
+
     unsigned int N_updated;/**< Cache variable */
     gslpp::vector<double> N_cache;/**< Cache variable */
     gslpp::complex Nc_cache;/**< Cache variable */
@@ -1208,6 +1234,9 @@ private:
     unsigned int C_8Lh_updated;/**< Cache variable */
     gslpp::complex C_8Lh_cache;/**< Cache variable */
     
+    unsigned int C_nunu_updated;/**< Cache variable */
+    gslpp::complex C_nunu_cache;/**< Cache variable */
+    
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */
     
@@ -1255,6 +1284,9 @@ private:
     unsigned int I10_updated;/**< Cache variable */
     unsigned int I11_updated;/**< Cache variable */
     
+    unsigned int Itree_updated;/**< Cache variable */
+    gslpp::vector<double> Itree_cache;/**< Cache variable */
+    
     std::map<std::pair<double, double>, unsigned int > I1Cached;/**< Cache variable */
     
     std::map<std::pair<double, double>, unsigned int > sigma0Cached;/**< Cache variable */
@@ -1279,6 +1311,8 @@ private:
     std::map<std::pair<double, double>, unsigned int > delta10Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta11Cached;/**< Cache variable */
     
+    std::map<std::pair<double, double>, unsigned int > sigmaTreeCached;/**< Cache variable */
+
     std::map<double, unsigned int> deltaTparpCached;/**< Cache variable */
     std::map<double, unsigned int> deltaTparmCached;/**< Cache variable */
     std::map<double, unsigned int> deltaTperpCached;/**< Cache variable */
@@ -2242,6 +2276,19 @@ private:
                 throw std::runtime_error("MVll::getDelta9 : vector " + out.str() + " not implemented");
         }
     };
+    
+    /**
+    * @brief The value of \f$ \Sigma_{tree}: contains the full q2-dependence but neglects a "prefactor"
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ <\Sigma{tree}> \f$
+    */
+    double SigmaTree(double q2);
+   
+    /**
+    * @brief The integral of \f$ \Sigma_{tree} \f$ from 0 to \f$q_{cut}\f$
+    * @return \f$ <\Sigma{tree}> \f$
+    */
+    double getintegratedSigmaTree();
     
     gslpp::complex A_Seidel(double q2, double mb2);
     
