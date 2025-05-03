@@ -17,7 +17,7 @@
 using namespace boost::placeholders;
 
 MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
-: mySM(SM_i)
+: mySM(SM_i), ig(ROOT::Math::Integration::kADAPTIVESINGULAR, ROOT::Math::Integration::kGAUSS51), wf()
 {
     lep = lep_i;
     meson = meson_i;
@@ -155,6 +155,10 @@ MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i,
     CAp_cache = max_double;
     CT_cache = max_double;
     CTp_cache = max_double;
+    
+    ig.SetRelTolerance(1.E-6);  // set relative tolerance
+    ig.SetAbsTolerance(1.E-6);   // set absoulte tolerance
+    
 }
 
 MVlnu::~MVlnu() {
