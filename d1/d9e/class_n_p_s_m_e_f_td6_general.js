@@ -3656,6 +3656,7 @@ var class_n_p_s_m_e_f_td6_general =
     [ "FlagMWinput", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a0d5e4c3057df6edc55878ad79ec34fb9", null ],
     [ "FlagQuadraticTerms", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a9dc990027a46d45b447f2b8191b1e482", null ],
     [ "FlagRGEci", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a3d194389099f86be5c583118094acbf1", null ],
+    [ "flavBas", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a18220edd4d52e8640de861dcc15731b1", null ],
     [ "g1_LEW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a80e66c20e0b70981d89a15827ed8b714", null ],
     [ "g1_tree", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a945841dd99bbd68dc1a865337a574add", null ],
     [ "g2_LEW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ae0267b735096cfd8ed22712b47bb4c60", null ],

@@ -1,8 +1,8 @@
 var searchData=
 [
   ['y_0',['Y',['../da/d10/class_l_e_p2oblique.html#abdf358b6681fcd7b576c57a8c24625eda275d3c2378e8e46a13f986a7b9a99404',1,'LEP2oblique']]],
-  ['y1_1',['Y1',['../d0/d13/class_bsgamma.html#a7581aa279fa1a2ed143c1859786a73e0',1,'Bsgamma']]],
-  ['y1_2',['y1',['../d7/d0d/class_m_f_v.html#a68322677a124d3b6686a7456d17066dc',1,'MFV']]],
+  ['y1_1',['y1',['../d7/d0d/class_m_f_v.html#a68322677a124d3b6686a7456d17066dc',1,'MFV']]],
+  ['y1_2',['Y1',['../d0/d13/class_bsgamma.html#a7581aa279fa1a2ed143c1859786a73e0',1,'Bsgamma']]],
   ['y1_5fthdm_3',['Y1_THDM',['../d4/dc8/class_y1___t_h_d_m.html#a1733152d49d3c087cbcd04114244e671',1,'Y1_THDM::Y1_THDM()'],['../d4/dc8/class_y1___t_h_d_m.html',1,'Y1_THDM']]],
   ['y2_4',['Y2',['../d0/d13/class_bsgamma.html#ac39ee1f2ee903e444f9afdc002c47117',1,'Bsgamma']]],
   ['y2_5',['y2',['../d7/d0d/class_m_f_v.html#a61eed3d26581cc7d12173c9b5c56f48a',1,'MFV']]],
@@ -36,8 +36,8 @@ var searchData=
   ['yd2r_5fgthdm_33',['yd2r_GTHDM',['../da/d51/classyd2r___g_t_h_d_m.html',1,'yd2r_GTHDM'],['../da/d51/classyd2r___g_t_h_d_m.html#a31e2a9e034f01927a1048f90881e4c36',1,'yd2r_GTHDM::yd2r_GTHDM()']]],
   ['yd3_34',['yd3',['../dc/dfd/class_general_t_h_d_mcache.html#a4c212b9b06fd49133ea3fdccdf4f80dd',1,'GeneralTHDMcache']]],
   ['yd3r_5fgthdm_35',['yd3r_GTHDM',['../da/df7/classyd3r___g_t_h_d_m.html',1,'yd3r_GTHDM'],['../da/df7/classyd3r___g_t_h_d_m.html#af6cec39e64ac729b403436b058b6e557',1,'yd3r_GTHDM::yd3r_GTHDM()']]],
-  ['ye_36',['YE',['../d1/d8e/class_l_h_p_c_1_1_slha_one.html#aa3235447a61eab468fe72b940fbb16aa',1,'LHPC::SlhaOne']]],
-  ['ye_37',['Ye',['../dc/dd5/class_standard_model.html#ad26dd754ccfdb4f8d690d6c49f2615be',1,'StandardModel']]],
+  ['ye_36',['Ye',['../dc/dd5/class_standard_model.html#ad26dd754ccfdb4f8d690d6c49f2615be',1,'StandardModel']]],
+  ['ye_37',['YE',['../d1/d8e/class_l_h_p_c_1_1_slha_one.html#aa3235447a61eab468fe72b940fbb16aa',1,'LHPC::SlhaOne']]],
   ['yl1r_38',['yl1R',['../dc/dfd/class_general_t_h_d_mcache.html#aba27f486aa4ac2b56773d59361868b3d',1,'GeneralTHDMcache']]],
   ['yl1r_5fgthdm_39',['yl1r_GTHDM',['../dc/d6a/classyl1r___g_t_h_d_m.html#aeff5991524212e52aacf8d3cf5684ccc',1,'yl1r_GTHDM::yl1r_GTHDM()'],['../dc/d6a/classyl1r___g_t_h_d_m.html',1,'yl1r_GTHDM']]],
   ['yl2r_40',['yl2R',['../dc/dfd/class_general_t_h_d_mcache.html#acb36b1077205d15a432cf30af3fe0c6d',1,'GeneralTHDMcache']]],

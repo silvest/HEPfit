@@ -1,5 +1,6 @@
 var NAVTREEINDEX86 =
 {
+"d9/d9d/class_c_k_m___gamma.html":[4,5,64],
 "d9/d9d/class_c_k_m___gamma.html#a81de6797ea90755d3f26cb1a1eef6e11":[4,5,64,0],
 "d9/d9d/class_c_k_m___gamma.html#a9adda4ec9e179b32ca41fc36cc67ac84":[4,5,64,1],
 "d9/d9f/class_gamma_htobb_ratio.html":[4,13,62],
@@ -248,6 +249,5 @@ var NAVTREEINDEX86 =
 "d9/dba/class_observable.html#afc5123f77911db1cf4e9606aca491d8b":[4,14,4,43],
 "d9/dba/class_z_f_dsigma_mu_l_e_p2.html":[27,0,3127],
 "d9/dba/class_z_f_dsigma_mu_l_e_p2.html#a4168a916b0f07b1f5b497303255989c6":[27,0,3127,3],
-"d9/dba/class_z_f_dsigma_mu_l_e_p2.html#a8822fc6828329e01d68d0bfe76347c27":[27,0,3127,2],
-"d9/dba/class_z_f_dsigma_mu_l_e_p2.html#acbce70567f7b1a7a739a49273cd8c269":[27,0,3127,0]
+"d9/dba/class_z_f_dsigma_mu_l_e_p2.html#a8822fc6828329e01d68d0bfe76347c27":[27,0,3127,2]
 };

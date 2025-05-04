@@ -1,5 +1,6 @@
 var NAVTREEINDEX102 =
 {
+"dc/d10/classmugg_h_w_w.html#a87a77f8b7d6869e1bacd2b738c740f47":[4,13,151,3],
 "dc/d10/classmugg_h_w_w.html#a888ad76b4a655b6f3ab0cf7e2e867f9d":[4,13,151,2],
 "dc/d10/classmugg_h_w_w.html#af03f3632b5ad7c8501e7e1fa3f6150eb":[4,13,151,0],
 "dc/d11/class_hobs__gg_f___a___zga__llga___a_t_l_a_s13.html":[4,17,87],
@@ -248,6 +249,5 @@ var NAVTREEINDEX102 =
 "dc/d43/class_robs___v_b_f___h___z_z__llllnunu___a_t_l_a_s13.html#a40bc62d38085588b0a6c3234261e00ce":[4,17,400,2],
 "dc/d43/class_robs___v_b_f___h___z_z__llllnunu___a_t_l_a_s13.html#aa066b4275f132c66520aacc65ea23152":[4,17,400,0],
 "dc/d43/class_robs___v_b_f___h___z_z__llllnunu___a_t_l_a_s13.html#ad63b1d588c3eccf7b11a605e2bd25c8d":[4,17,400,1],
-"dc/d47/class_correlated_gaussian_observables.html":[4,14,0],
-"dc/d47/class_correlated_gaussian_observables.html#a01f868d4c4e6d1ed92252c6ecba01660":[4,14,0,23]
+"dc/d47/class_correlated_gaussian_observables.html":[4,14,0]
 };

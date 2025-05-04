@@ -1,5 +1,6 @@
 var NAVTREEINDEX98 =
 {
+"db/d2b/class_georgi_machacek.html#ae4cb8b548c79fe107bc566ed71df89c2":[4,8,46,53],
 "db/d2b/class_georgi_machacek.html#aea34a53ac23d0da242c9980f05b49e18":[4,8,46,54],
 "db/d2b/class_georgi_machacek.html#aeb913c1fc5f302bd26f1feffb61f4b75":[4,8,46,3],
 "db/d2b/class_georgi_machacek.html#aeea56f10c3afeacac5985d6bcee62d47":[4,8,46,39],
@@ -248,6 +249,5 @@ var NAVTREEINDEX98 =
 "db/d67/classmu_t_h_u_w_hgaga.html#ad336bff867e2e6ffea85ad11c7830071":[4,13,265,1],
 "db/d67/classmu_t_h_u_w_hgaga.html#aea57dcb486db5692de8c1ac5b3924b40":[4,13,265,2],
 "db/d67/classmu_v_b_f_hbb.html":[4,13,304],
-"db/d67/classmu_v_b_f_hbb.html#a48739ff11a0bab4df22d628753b679f0":[4,13,304,3],
-"db/d67/classmu_v_b_f_hbb.html#a73b9c65c7b45546ff67b6e21d1b637a1":[4,13,304,0]
+"db/d67/classmu_v_b_f_hbb.html#a48739ff11a0bab4df22d628753b679f0":[4,13,304,3]
 };

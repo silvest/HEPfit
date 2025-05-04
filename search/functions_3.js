@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['c_0',['c',['../da/d29/class_amp_d_b2.html#ae0873151e306c7df09f53e2901482a6f',1,'AmpDB2']]],
-  ['c_1',['C',['../d5/d60/class_charm___kpnunu.html#aa5e90cfd0b6be8782e02a8f32995e75a',1,'Charm_Kpnunu']]],
+  ['c_0',['C',['../d5/d60/class_charm___kpnunu.html#aa5e90cfd0b6be8782e02a8f32995e75a',1,'Charm_Kpnunu']]],
+  ['c_1',['c',['../da/d29/class_amp_d_b2.html#ae0873151e306c7df09f53e2901482a6f',1,'AmpDB2']]],
   ['c0_2',['C0',['../d4/d7b/class_p_vfunctions.html#a1cfd36273fce66883dc455f962fd12df',1,'PVfunctions::C0(const double p1, const double p2, const double p1p22, const double m02, const double m12, const double m22) const'],['../d4/d7b/class_p_vfunctions.html#ad84dc06b0537389cc33bdfae8f9f7c53',1,'PVfunctions::C0(const double p2, const double m02, const double m12, const double m22) const']]],
   ['c02_3',['c02',['../dc/dd5/class_standard_model.html#ab4f91b5a130dbb1ffda09c1e2e3601fe',1,'StandardModel::c02()'],['../da/d10/class_l_e_p2oblique.html#ab1bad3f95f57c4ffd875761a32a7bc2e',1,'LEP2oblique::c02()']]],
   ['c0_5fhollik_4',['C0_Hollik',['../dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#a4b536b9291704dde6c389db9688a9092',1,'EWSMTwoFermionsLEP2_Hollik']]],

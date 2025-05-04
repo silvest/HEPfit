@@ -1,5 +1,6 @@
 var NAVTREEINDEX61 =
 {
+"d5/dfb/class_general_s_u_s_y.html#abc384f818a3bb73602f196887c686788":[27,0,733,71],
 "d5/dfb/class_general_s_u_s_y.html#abcdcfcd350e06415bf5750de759b89ac":[27,0,733,51],
 "d5/dfb/class_general_s_u_s_y.html#ac1c0e4f37ae6495b3fd099393e748695":[27,0,733,13],
 "d5/dfb/class_general_s_u_s_y.html#ac28ebf602159ec06a85c521e10a7997b":[27,0,733,33],
@@ -248,6 +249,5 @@ var NAVTREEINDEX61 =
 "d6/d1c/class_heff_d_c1.html#a1ccebd8d100af211c7556c99cb517021":[27,0,874,5],
 "d6/d1c/class_heff_d_c1.html#a42174d9d8d17e591488d8a51ab74b23f":[27,0,874,1],
 "d6/d1c/class_heff_d_c1.html#a63349888774c5c619a6e93da56c261fb":[27,0,874,15],
-"d6/d1c/class_heff_d_c1.html#a6b59d3e36982e04bd4346a586cf48689":[27,0,874,10],
-"d6/d1c/class_heff_d_c1.html#a6f7a279b48159da2e59d65ee475b911a":[27,0,874,3]
+"d6/d1c/class_heff_d_c1.html#a6b59d3e36982e04bd4346a586cf48689":[27,0,874,10]
 };

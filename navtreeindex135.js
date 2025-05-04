@@ -1,5 +1,6 @@
 var NAVTREEINDEX135 =
 {
+"df/dd4/class_upper_limit__pp_h_zgamma_a13.html#a1a5f1c216c9dc72a18bd364e60f0f684":[4,13,513,2],
 "df/dd4/class_upper_limit__pp_h_zgamma_a13.html#a30abd2b63f162177a61dd36291ccf9b0":[4,13,513,3],
 "df/dd4/class_upper_limit__pp_h_zgamma_a13.html#a3fa33f0d4c1c50ea5039088e2999f055":[4,13,513,1],
 "df/dd4/class_upper_limit__pp_h_zgamma_a13.html#a6577588019c59f1f407fd486476a9237":[4,13,513,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX135 =
 "functions_~.html":[27,3,0,26],
 "hierarchy.html":[27,2],
 "index.html":[],
-"index.html":[0],
-"modules.html":[4]
+"index.html":[0]
 };

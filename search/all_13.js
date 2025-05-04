@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['r_0',['r',['../d7/dc5/class_evol_d_f1nlep.html#a5d4b707cbdee1ef4f57992300041221b',1,'EvolDF1nlep']]],
-  ['r_1',['R',['../dd/d00/class_evol_bsmm.html#a5b71385bdc9265332fb36d44e853a137',1,'EvolBsmm']]],
+  ['r_0',['R',['../dd/d00/class_evol_bsmm.html#a5b71385bdc9265332fb36d44e853a137',1,'EvolBsmm']]],
+  ['r_1',['r',['../d7/dc5/class_evol_d_f1nlep.html#a5d4b707cbdee1ef4f57992300041221b',1,'EvolDF1nlep']]],
   ['r0_5f4b_2',['R0_4b',['../d5/d60/class_charm___kpnunu.html#a29ec0aee3695376f7fd934f01271cbd3',1,'Charm_Kpnunu']]],
   ['r0_5f4p_3',['R0_4p',['../d5/d60/class_charm___kpnunu.html#af95cd82bd0f652fc62e03ad85fa94319',1,'Charm_Kpnunu']]],
   ['r0_5f5b_4',['R0_5b',['../d5/d60/class_charm___kpnunu.html#a7bcc7221879c36b3a460c96bfffd3494',1,'Charm_Kpnunu']]],
@@ -379,8 +379,8 @@ var searchData=
   ['relambda7_376',['Relambda7',['../dc/dfd/class_general_t_h_d_mcache.html#a0788e05f074114e6df8fd2348dc22afe',1,'GeneralTHDMcache']]],
   ['relambda7_5fat_5fq_377',['Relambda7_at_Q',['../dc/dfd/class_general_t_h_d_mcache.html#af836001348656db40e61cdb4cfe6c483',1,'GeneralTHDMcache']]],
   ['relambda7atqgthdm_378',['Relambda7atQGTHDM',['../d5/d8a/class_relambda7at_q_g_t_h_d_m.html',1,'Relambda7atQGTHDM'],['../d5/d8a/class_relambda7at_q_g_t_h_d_m.html#ac482db98b5e4cac279c79ef0255d1595',1,'Relambda7atQGTHDM::Relambda7atQGTHDM()']]],
-  ['relcorrhhphm_379',['RelCorrHHpHm',['../d7/d4c/classunitarity___g_t_h_d_m.html#a1076931d27745c1180a91f43fadecdee',1,'unitarity_GTHDM']]],
-  ['relcorrhhphm_380',['RelCorrhHpHm',['../d7/d4c/classunitarity___g_t_h_d_m.html#a7eafd81f298058e9d1467801100986b7',1,'unitarity_GTHDM']]],
+  ['relcorrhhphm_379',['RelCorrhHpHm',['../d7/d4c/classunitarity___g_t_h_d_m.html#a7eafd81f298058e9d1467801100986b7',1,'unitarity_GTHDM']]],
+  ['relcorrhhphm_380',['RelCorrHHpHm',['../d7/d4c/classunitarity___g_t_h_d_m.html#a1076931d27745c1180a91f43fadecdee',1,'unitarity_GTHDM']]],
   ['relectron_381',['Relectron',['../d1/d01/class_relectron.html#a2cf421939ac8bb3173c903b421a231e4',1,'Relectron::Relectron()'],['../d1/d01/class_relectron.html',1,'Relectron']]],
   ['rem12_5f2_5fgthdm_382',['Rem12_2_GTHDM',['../d3/ddc/class_rem12__2___g_t_h_d_m.html',1,'Rem12_2_GTHDM'],['../d3/ddc/class_rem12__2___g_t_h_d_m.html#a2567df6a450cc1da393d645c7a39fc4f',1,'Rem12_2_GTHDM::Rem12_2_GTHDM()']]],
   ['rem12sq_383',['Rem12sq',['../dc/dfd/class_general_t_h_d_mcache.html#a88ace0a5bdd9256c363d9385f37297f2',1,'GeneralTHDMcache']]],
