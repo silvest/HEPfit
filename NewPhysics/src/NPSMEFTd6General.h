@@ -7042,7 +7042,9 @@ protected:
     
     mutable Matching<NPSMEFTd6GeneralMatching, NPSMEFTd6General> NPSMEFTd6GM;
 
+//  Flag and integer to specify flavor basis "UP" (1, default), "DOWN" (2)
     std::string SMEFTBasisFlag;
+    int flavBas = 1; 
 
     //For the SM parameters used in the evolutor we start at the EW scale
     double g1_LEW = 0;
