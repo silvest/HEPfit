@@ -1348,7 +1348,17 @@ public:
  
     //////////////////////////////////////////////////////////////////////// 
     // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
-    // In units of TeV^^2 
+    // In units of TeV^-2 
+    
+    virtual const double cQQ1_TWG(const double mu) const;
+    
+    virtual const double cQQ8_TWG(const double mu) const;
+
+    virtual const double ctt1_TWG(const double mu) const;
+
+    virtual const double cQt1_TWG(const double mu) const;
+
+    virtual const double cQt8_TWG(const double mu) const;
         
     virtual const double cQq31_TWG(const double mu) const;
     
@@ -1390,6 +1400,8 @@ public:
     
     virtual const double cHb_TWG(const double mu) const;
     
+    virtual const double cHtb_TWG(const double mu) const;
+    
     virtual const double ctW_TWG(const double mu) const;
     
     virtual const double IctW_TWG(const double mu) const;
@@ -1399,16 +1411,24 @@ public:
     virtual const double IctZ_TWG(const double mu) const;
     
     virtual const double ctG_TWG(const double mu) const;
+    
+    virtual const double cbW_TWG(const double mu) const;
 
     virtual const double cQlM_TWG(const double mu) const;
     
     virtual const double cQlP_TWG(const double mu) const;
+    
+    virtual const double cQl3_TWG(const double mu) const;
     
     virtual const double cQe_TWG(const double mu) const;
     
     virtual const double ctl_TWG(const double mu) const;
     
     virtual const double cte_TWG(const double mu) const;
+    
+    virtual const double ctlS_TWG(const double mu) const;
+
+    virtual const double ctlT_TWG(const double mu) const;
     
     ////////////////////////////////////////////////////////////////////////     
     // EW low-energy observables: Muon g-2

@@ -3102,6 +3102,348 @@ double dmtRef::computeThValue()
 
 /* -------------------------------------*/
 
+TWGcQQ1::TWGcQQ1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQQ1 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQQ1::~TWGcQQ1()
+{}
+
+double TWGcQQ1::computeThValue()
+{    
+    return (myNPbase->cQQ1_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQQ8::TWGcQQ8(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQQ8 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQQ8::~TWGcQQ8()
+{}
+
+double TWGcQQ8::computeThValue()
+{    
+    return (myNPbase->cQQ8_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGctt1::TWGctt1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGctt1 called with a class whose parent is not NPbase");
+}
+
+
+TWGctt1::~TWGctt1()
+{}
+
+double TWGctt1::computeThValue()
+{    
+    return (myNPbase->ctt1_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQt1::TWGcQt1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQt1 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQt1::~TWGcQt1()
+{}
+
+double TWGcQt1::computeThValue()
+{    
+    return (myNPbase->cQt1_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQt8::TWGcQt8(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQt8 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQt8::~TWGcQt8()
+{}
+
+double TWGcQt8::computeThValue()
+{    
+    return (myNPbase->cQt8_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQq31::TWGcQq31(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQq31 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQq31::~TWGcQq31()
+{}
+
+double TWGcQq31::computeThValue()
+{    
+    return (myNPbase->cQq31_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQq38::TWGcQq38(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQq38 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQq38::~TWGcQq38()
+{}
+
+double TWGcQq38::computeThValue()
+{    
+    return (myNPbase->cQq38_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQq11::TWGcQq11(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQq11 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQq11::~TWGcQq11()
+{}
+
+double TWGcQq11::computeThValue()
+{    
+    return (myNPbase->cQq11_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQq18::TWGcQq18(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQq18 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQq18::~TWGcQq18()
+{}
+
+double TWGcQq18::computeThValue()
+{    
+    return (myNPbase->cQq18_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQu1::TWGcQu1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQu1 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQu1::~TWGcQu1()
+{}
+
+double TWGcQu1::computeThValue()
+{    
+    return (myNPbase->cQu1_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQu8::TWGcQu8(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQu8 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQu8::~TWGcQu8()
+{}
+
+double TWGcQu8::computeThValue()
+{    
+    return (myNPbase->cQu8_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQd1::TWGcQd1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQd1 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQd1::~TWGcQd1()
+{}
+
+double TWGcQd1::computeThValue()
+{    
+    return (myNPbase->cQd1_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQd8::TWGcQd8(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQd8 called with a class whose parent is not NPbase");
+}
+
+
+TWGcQd8::~TWGcQd8()
+{}
+
+double TWGcQd8::computeThValue()
+{    
+    return (myNPbase->cQd8_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGctq1::TWGctq1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGctq1 called with a class whose parent is not NPbase");
+}
+
+
+TWGctq1::~TWGctq1()
+{}
+
+double TWGctq1::computeThValue()
+{    
+    return (myNPbase->ctq1_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGctq8::TWGctq8(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGctq8 called with a class whose parent is not NPbase");
+}
+
+
+TWGctq8::~TWGctq8()
+{}
+
+double TWGctq8::computeThValue()
+{    
+    return (myNPbase->ctq8_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGctu1::TWGctu1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGctu1 called with a class whose parent is not NPbase");
+}
+
+
+TWGctu1::~TWGctu1()
+{}
+
+double TWGctu1::computeThValue()
+{    
+    return (myNPbase->ctu1_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGctu8::TWGctu8(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGctu8 called with a class whose parent is not NPbase");
+}
+
+
+TWGctu8::~TWGctu8()
+{}
+
+double TWGctu8::computeThValue()
+{    
+    return (myNPbase->ctu8_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGctd1::TWGctd1(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGctd1 called with a class whose parent is not NPbase");
+}
+
+
+TWGctd1::~TWGctd1()
+{}
+
+double TWGctd1::computeThValue()
+{    
+    return (myNPbase->ctd1_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGctd8::TWGctd8(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGctd8 called with a class whose parent is not NPbase");
+}
+
+
+TWGctd8::~TWGctd8()
+{}
+
+double TWGctd8::computeThValue()
+{    
+    return (myNPbase->ctd8_TWG(mu));
+}
+
+/* -------------------------------------*/
+
 TWGctH::TWGctH(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
@@ -3156,6 +3498,24 @@ double TWGcHQp::computeThValue()
 
 /* -------------------------------------*/
 
+TWGcHQ3::TWGcHQ3(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcHQ3 called with a class whose parent is not NPbase");
+}
+
+
+TWGcHQ3::~TWGcHQ3()
+{}
+
+double TWGcHQ3::computeThValue()
+{    
+    return (myNPbase->cHQ3_TWG(mu));
+}
+
+/* -------------------------------------*/
+
 TWGcHt::TWGcHt(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
@@ -3174,41 +3534,42 @@ double TWGcHt::computeThValue()
 
 /* -------------------------------------*/
 
-TWGctG::TWGctG(const StandardModel& SM_i, const double mu_i)
+TWGcHb::TWGcHb(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGctG called with a class whose parent is not NPbase");
+        throw std::runtime_error("TWGcHb called with a class whose parent is not NPbase");
 }
 
 
-TWGctG::~TWGctG()
+TWGcHb::~TWGcHb()
 {}
 
-double TWGctG::computeThValue()
+double TWGcHb::computeThValue()
 {    
-    return (myNPbase->ctG_TWG(mu));
+    return (myNPbase->cHb_TWG(mu));
 }
 
 /* -------------------------------------*/
 
-TWGcHQ3::TWGcHQ3(const StandardModel& SM_i, const double mu_i)
+TWGcHtb::TWGcHtb(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcHQ3 called with a class whose parent is not NPbase");
+        throw std::runtime_error("TWGcHtb called with a class whose parent is not NPbase");
 }
 
 
-TWGcHQ3::~TWGcHQ3()
+TWGcHtb::~TWGcHtb()
 {}
 
-double TWGcHQ3::computeThValue()
+double TWGcHtb::computeThValue()
 {    
-    return (myNPbase->cHQ3_TWG(mu));
+    return (myNPbase->cHtb_TWG(mu));
 }
 
 /* -------------------------------------*/
+
 
 TWGctW::TWGctW(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
@@ -3282,272 +3643,38 @@ double TWGImctZ::computeThValue()
 
 /* -------------------------------------*/
 
-TWGcHb::TWGcHb(const StandardModel& SM_i, const double mu_i)
+TWGctG::TWGctG(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcHb called with a class whose parent is not NPbase");
+        throw std::runtime_error("TWGctG called with a class whose parent is not NPbase");
 }
 
 
-TWGcHb::~TWGcHb()
+TWGctG::~TWGctG()
 {}
 
-double TWGcHb::computeThValue()
+double TWGctG::computeThValue()
 {    
-    return (myNPbase->cHb_TWG(mu));
+    return (myNPbase->ctG_TWG(mu));
 }
 
 /* -------------------------------------*/
 
-TWGctu8::TWGctu8(const StandardModel& SM_i, const double mu_i)
+TWGcbW::TWGcbW(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGctu8 called with a class whose parent is not NPbase");
+        throw std::runtime_error("TWGcbW called with a class whose parent is not NPbase");
 }
 
 
-TWGctu8::~TWGctu8()
+TWGcbW::~TWGcbW()
 {}
 
-double TWGctu8::computeThValue()
+double TWGcbW::computeThValue()
 {    
-    return (myNPbase->ctu8_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGctd8::TWGctd8(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGctd8 called with a class whose parent is not NPbase");
-}
-
-
-TWGctd8::~TWGctd8()
-{}
-
-double TWGctd8::computeThValue()
-{    
-    return (myNPbase->ctd8_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGcQq18::TWGcQq18(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcQq18 called with a class whose parent is not NPbase");
-}
-
-
-TWGcQq18::~TWGcQq18()
-{}
-
-double TWGcQq18::computeThValue()
-{    
-    return (myNPbase->cQq18_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGctq8::TWGctq8(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGctq8 called with a class whose parent is not NPbase");
-}
-
-
-TWGctq8::~TWGctq8()
-{}
-
-double TWGctq8::computeThValue()
-{    
-    return (myNPbase->ctq8_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGcQq38::TWGcQq38(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcQq38 called with a class whose parent is not NPbase");
-}
-
-
-TWGcQq38::~TWGcQq38()
-{}
-
-double TWGcQq38::computeThValue()
-{    
-    return (myNPbase->cQq38_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGcQu8::TWGcQu8(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcQu8 called with a class whose parent is not NPbase");
-}
-
-
-TWGcQu8::~TWGcQu8()
-{}
-
-double TWGcQu8::computeThValue()
-{    
-    return (myNPbase->cQu8_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGcQd8::TWGcQd8(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcQd8 called with a class whose parent is not NPbase");
-}
-
-
-TWGcQd8::~TWGcQd8()
-{}
-
-double TWGcQd8::computeThValue()
-{    
-    return (myNPbase->cQd8_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGcQd1::TWGcQd1(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcQd1 called with a class whose parent is not NPbase");
-}
-
-
-TWGcQd1::~TWGcQd1()
-{}
-
-double TWGcQd1::computeThValue()
-{    
-    return (myNPbase->cQd1_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGcQu1::TWGcQu1(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcQu1 called with a class whose parent is not NPbase");
-}
-
-
-TWGcQu1::~TWGcQu1()
-{}
-
-double TWGcQu1::computeThValue()
-{    
-    return (myNPbase->cQu1_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGctd1::TWGctd1(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGctd1 called with a class whose parent is not NPbase");
-}
-
-
-TWGctd1::~TWGctd1()
-{}
-
-double TWGctd1::computeThValue()
-{    
-    return (myNPbase->ctd1_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGctu1::TWGctu1(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGctu1 called with a class whose parent is not NPbase");
-}
-
-
-TWGctu1::~TWGctu1()
-{}
-
-double TWGctu1::computeThValue()
-{    
-    return (myNPbase->ctu1_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGctq1::TWGctq1(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGctq1 called with a class whose parent is not NPbase");
-}
-
-
-TWGctq1::~TWGctq1()
-{}
-
-double TWGctq1::computeThValue()
-{    
-    return (myNPbase->ctq1_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGcQq11::TWGcQq11(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcQq11 called with a class whose parent is not NPbase");
-}
-
-
-TWGcQq11::~TWGcQq11()
-{}
-
-double TWGcQq11::computeThValue()
-{    
-    return (myNPbase->cQq11_TWG(mu));
-}
-
-/* -------------------------------------*/
-
-TWGcQq31::TWGcQq31(const StandardModel& SM_i, const double mu_i)
-:ThObservable(SM_i), mu(mu_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcQq31 called with a class whose parent is not NPbase");
-}
-
-
-TWGcQq31::~TWGcQq31()
-{}
-
-double TWGcQq31::computeThValue()
-{    
-    return (myNPbase->cQq31_TWG(mu));
+    return (myNPbase->cbW_TWG(mu));
 }
 
 /* -------------------------------------*/
@@ -3588,20 +3715,38 @@ double TWGcQlP::computeThValue()
 
 /* -------------------------------------*/
 
-TWGcte::TWGcte(const StandardModel& SM_i, const double mu_i)
+TWGcQl3::TWGcQl3(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcte called with a class whose parent is not NPbase");
+        throw std::runtime_error("TWGcQl3 called with a class whose parent is not NPbase");
 }
 
 
-TWGcte::~TWGcte()
+TWGcQl3::~TWGcQl3()
 {}
 
-double TWGcte::computeThValue()
+double TWGcQl3::computeThValue()
 {    
-    return (myNPbase->cte_TWG(mu));
+    return (myNPbase->cQl3_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGcQe::TWGcQe(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGcQe called with a class whose parent is not NPbase");
+}
+
+
+TWGcQe::~TWGcQe()
+{}
+
+double TWGcQe::computeThValue()
+{    
+    return (myNPbase->cQe_TWG(mu));
 }
 
 /* -------------------------------------*/
@@ -3624,20 +3769,56 @@ double TWGctl::computeThValue()
 
 /* -------------------------------------*/
 
-TWGcQe::TWGcQe(const StandardModel& SM_i, const double mu_i)
+TWGcte::TWGcte(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("TWGcQe called with a class whose parent is not NPbase");
+        throw std::runtime_error("TWGcte called with a class whose parent is not NPbase");
 }
 
 
-TWGcQe::~TWGcQe()
+TWGcte::~TWGcte()
 {}
 
-double TWGcQe::computeThValue()
+double TWGcte::computeThValue()
 {    
-    return (myNPbase->cQe_TWG(mu));
+    return (myNPbase->cte_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGctlS::TWGctlS(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGctlS called with a class whose parent is not NPbase");
+}
+
+
+TWGctlS::~TWGctlS()
+{}
+
+double TWGctlS::computeThValue()
+{    
+    return (myNPbase->ctlS_TWG(mu));
+}
+
+/* -------------------------------------*/
+
+TWGctlT::TWGctlT(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("TWGctlT called with a class whose parent is not NPbase");
+}
+
+
+TWGctlT::~TWGctlT()
+{}
+
+double TWGctlT::computeThValue()
+{    
+    return (myNPbase->ctlT_TWG(mu));
 }
 
 /* -------------------------------------*/

@@ -5001,8 +5001,33 @@ public:
     
     //////////////////////////////////////////////////////////////////////// 
     // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
-    // In units of TeV^^2 
-        
+    // In units of TeV^-2 
+    
+    virtual const double cQQ1_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+    
+    virtual const double cQQ8_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double ctt1_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double cQt1_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double cQt8_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+
     virtual const double cQq31_TWG(const double mu) const
     {
         return 0.0;
@@ -5103,6 +5128,11 @@ public:
         return 0.0;
     }
     
+    virtual const double cHtb_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+    
     virtual const double ctW_TWG(const double mu) const
     {
         return 0.0;
@@ -5127,6 +5157,11 @@ public:
     {
         return 0.0;
     }
+    
+    virtual const double cbW_TWG(const double mu) const
+    {
+        return 0.0;
+    }
 
     virtual const double cQlM_TWG(const double mu) const
     {
@@ -5134,6 +5169,11 @@ public:
     }
     
     virtual const double cQlP_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+    
+    virtual const double cQl3_TWG(const double mu) const
     {
         return 0.0;
     }
@@ -5149,6 +5189,16 @@ public:
     }
     
     virtual const double cte_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+    
+    virtual const double ctlS_TWG(const double mu) const
+    {
+        return 0.0;
+    }
+
+    virtual const double ctlT_TWG(const double mu) const
     {
         return 0.0;
     }

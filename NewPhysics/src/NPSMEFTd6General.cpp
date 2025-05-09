@@ -46613,6 +46613,56 @@ const double NPSMEFTd6General::delta_TauLFU_gtaugmuK() const {
 
 // In the same order as Table 1 (Not all implemented. Some extra WC are placed next to similar in kind)
 
+const double NPSMEFTd6General::cQQ1_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    comb = 2.0 * getSMEFTCoeff("Cqq1R", 2, 2, 2, 2, mu) - (2.0/3.0) * getSMEFTCoeff("Cqq3R", 2, 2, 2, 2, mu);
+  
+    return (toTeVm2 * comb);
+}
+
+const double NPSMEFTd6General::cQQ8_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    comb = 8.0 * getSMEFTCoeff("Cqq3R", 2, 2, 2, 2, mu);
+  
+    return (toTeVm2 * comb);
+}
+
+const double NPSMEFTd6General::ctt1_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    comb = getSMEFTCoeff("CuuR", 2, 2, 2, 2, mu);
+  
+    return (toTeVm2 * comb);
+}
+
+const double NPSMEFTd6General::cQt1_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    comb = getSMEFTCoeff("Cqu1R", 2, 2, 2, 2, mu);
+  
+    return (toTeVm2 * comb);
+}
+
+const double NPSMEFTd6General::cQt8_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    comb = getSMEFTCoeff("Cqu8R", 2, 2, 2, 2, mu);
+  
+    return (toTeVm2 * comb);
+}
+
 const double NPSMEFTd6General::cQq31_TWG(const double mu) const {
     
     double comb;
@@ -46827,6 +46877,16 @@ const double NPSMEFTd6General::cHb_TWG(const double mu) const {
     return (toTeVm2 * comb);
 }
 
+const double NPSMEFTd6General::cHtb_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    comb = getSMEFTCoeff("CHudR", 2, 2, mu);
+  
+    return (toTeVm2 * comb);
+}
+
 const double NPSMEFTd6General::ctW_TWG(const double mu) const {
 
     double comb;
@@ -46877,11 +46937,22 @@ const double NPSMEFTd6General::ctG_TWG(const double mu) const {
     return (toTeVm2 * comb);
 }
 
+const double NPSMEFTd6General::cbW_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    comb = getSMEFTCoeff("CdWR", 2, 2, mu);
+  
+    return (toTeVm2 * comb);
+}
+
 const double NPSMEFTd6General::cQlM_TWG(const double mu) const {
 
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
     
+    // Take first family for leptons
     comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) - getSMEFTCoeff("Clq3R", 0, 0, 2, 2, mu);
  
     return (toTeVm2 * comb);
@@ -46892,8 +46963,20 @@ const double NPSMEFTd6General::cQlP_TWG(const double mu) const {
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
     
+    // Take first family for leptons
     comb = getSMEFTCoeff("Clq1R", 0, 0, 2, 2, mu) + getSMEFTCoeff("Clq3R", 0, 0, 2, 2, mu);
  
+    return (toTeVm2 * comb);
+}
+
+const double NPSMEFTd6General::cQl3_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    // Take first family for leptons
+    comb = getSMEFTCoeff("Clq3R", 0, 0, 2, 2, mu);
+  
     return (toTeVm2 * comb);
 }
 
@@ -46902,6 +46985,7 @@ const double NPSMEFTd6General::cQe_TWG(const double mu) const {
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
     
+    // Take first family for leptons
     comb = getSMEFTCoeff("CqeR", 2, 2, 0, 0, mu);
    
     return (toTeVm2 * comb);
@@ -46912,6 +46996,7 @@ const double NPSMEFTd6General::ctl_TWG(const double mu) const {
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
     
+    // Take first family for leptons
     comb = getSMEFTCoeff("CluR", 0, 0, 2, 2, mu);
    
     return (toTeVm2 * comb);
@@ -46922,7 +47007,30 @@ const double NPSMEFTd6General::cte_TWG(const double mu) const {
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
     
+    // Take first family for leptons
     comb = getSMEFTCoeff("CeuR", 0, 0, 2, 2, mu);
     
+    return (toTeVm2 * comb);
+}
+
+const double NPSMEFTd6General::ctlS_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    // Take first family for leptons
+    comb = getSMEFTCoeff("Clequ1R", 0, 0, 2, 2, mu);
+  
+    return (toTeVm2 * comb);
+}
+
+const double NPSMEFTd6General::ctlT_TWG(const double mu) const {
+    
+    double comb;
+    double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
+    
+    // Take first family for leptons
+    comb = getSMEFTCoeff("Clequ3R", 0, 0, 2, 2, mu);
+  
     return (toTeVm2 * comb);
 }
