@@ -41901,9 +41901,13 @@ const double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) 
 }
 
 const double NPSMEFTd6General::STXS12_qqHll_pTV250_Inf(const double sqrt_s) const {
-    // To be fixed together with the UFO file when going beyond U(2)
-    double STXSb = 1.0;
+    
+    double STXSb = (0.003784*STXS12_qqHll_pTV250_400(sqrt_s)+0.0007538*STXS12_qqHll_pTV400_Inf(sqrt_s))/(0.003784+0.0007538);
 
+    
+    
+    /*
+    // To be fixed together with the UFO file when going beyond U(2)
     double CiHQ1, CiHQ3, CiHu, CiHd; // Cannot resolve fam. dependence -> assume universality for quarks. 
     CiHQ1 = (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2)) / 3.0;
     CiHQ3 = (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) / 3.0;
@@ -41927,10 +41931,26 @@ const double NPSMEFTd6General::STXS12_qqHll_pTV250_Inf(const double sqrt_s) cons
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_qqHll_pTV250_Inf()");
 
+     
+    */
+    
+    
+    
+    
+    
     if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
 
     return STXSb;
+     
+     
+    
+    
+    
+    
+    
+    
 }
+
 
 const double NPSMEFTd6General::STXS12_qqHll_pTV0_150(const double sqrt_s) const //AG:added
 {
