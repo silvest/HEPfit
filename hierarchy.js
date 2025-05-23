@@ -202,6 +202,7 @@ var hierarchy =
     [ "GeneralTHDMLowMass", "d1/ddc/class_general_t_h_d_m_low_mass.html", null ],
     [ "GeneralTHDMRunner", "db/d3a/class_general_t_h_d_m_runner.html", null ],
     [ "GeneralTHDMSusyObs", "da/d94/class_general_t_h_d_m_susy_obs.html", null ],
+    [ "GeneralTHDMZ2Runner", "dc/d4c/class_general_t_h_d_m_z2_runner.html", null ],
     [ "GeneralTHDMZ2Unitarity", "d8/da3/class_general_t_h_d_m_z2_unitarity.html", null ],
     [ "GenerateEvent", "d2/d7d/class_generate_event.html", null ],
     [ "GMcache", "d7/db7/class_g_mcache.html", null ],

@@ -1,14 +1,14 @@
 var searchData=
 [
   ['q_0',['q',['../d7/dc5/class_evol_d_f1nlep.html#adb7ce4445ebd414e741b2fdde83c7db6',1,'EvolDF1nlep']]],
-  ['q_5fcutoff_1',['Q_cutoff',['../dc/dfd/class_general_t_h_d_mcache.html#a9925221024729da98c127b3a562fc000',1,'GeneralTHDMcache::Q_cutoff()'],['../d5/df2/class_t_h_d_mcache.html#ac1a606d867a5abcfe979e439ca0dc9a9',1,'THDMcache::Q_cutoff()'],['../da/d99/class_t_h_d_m_wcache.html#ab008dceae583d3b113ced17ae5f20efd',1,'THDMWcache::Q_cutoff()']]],
+  ['q_5fcutoff_1',['Q_cutoff',['../dc/dfd/class_general_t_h_d_mcache.html#a9925221024729da98c127b3a562fc000',1,'GeneralTHDMcache::Q_cutoff()'],['../dc/d4c/class_general_t_h_d_m_z2_runner.html#a20f94952fbd7c85e3479a7221466a564',1,'GeneralTHDMZ2Runner::Q_cutoff()'],['../d5/df2/class_t_h_d_mcache.html#ac1a606d867a5abcfe979e439ca0dc9a9',1,'THDMcache::Q_cutoff()'],['../da/d99/class_t_h_d_m_wcache.html#ab008dceae583d3b113ced17ae5f20efd',1,'THDMWcache::Q_cutoff()']]],
   ['q_5fgm_2',['Q_GM',['../db/d2b/class_georgi_machacek.html#a7c969e255f7ecd181b96b508d48f6fd2',1,'GeorgiMachacek::Q_GM()'],['../d7/db7/class_g_mcache.html#afed87489c650d0b65212e828a5b51515',1,'GMcache::Q_GM()']]],
-  ['q_5fgthdm_3',['Q_GTHDM',['../dc/dfd/class_general_t_h_d_mcache.html#af4caa188e7e8d65677ac6817db42a88d',1,'GeneralTHDMcache']]],
+  ['q_5fgthdm_3',['Q_GTHDM',['../dc/dfd/class_general_t_h_d_mcache.html#af4caa188e7e8d65677ac6817db42a88d',1,'GeneralTHDMcache::Q_GTHDM()'],['../dc/d4c/class_general_t_h_d_m_z2_runner.html#a2fa5c6189f941292f9cc46e972b1e4b7',1,'GeneralTHDMZ2Runner::Q_GTHDM()']]],
   ['q_5flrsm_4',['Q_LRSM',['../d6/da6/class_left_right_symmetric_model.html#a2438b16e06b0d250a4f6296eb6621f71',1,'LeftRightSymmetricModel']]],
   ['q_5fs_5',['Q_S',['../d5/dac/class_s_u_s_y_matching.html#a7c75af488d24a1754a042750e43792db',1,'SUSYMatching']]],
   ['q_5fsusy_6',['Q_SUSY',['../dc/d6f/class_s_u_s_y.html#a5e711b4a09498ce07410c7c1c5fa5cf7',1,'SUSY']]],
   ['q_5fthdm_7',['Q_THDM',['../d0/d52/class_t_h_d_m.html#a43cbb97d978d2e73c36726877d0d1418',1,'THDM::Q_THDM()'],['../d5/df2/class_t_h_d_mcache.html#a4cb60d41b56cde90770761559ef703cc',1,'THDMcache::Q_THDM()']]],
-  ['q_5fthdmw_8',['Q_THDMW',['../da/d99/class_t_h_d_m_wcache.html#a824f1c27ad86fcb4cdb09273f3cbc4c4',1,'THDMWcache::Q_THDMW()'],['../dc/d90/class_t_h_d_m_w.html#a9d2f36a9e2304bf81f585ea17e27fcd4',1,'THDMW::Q_THDMW()']]],
+  ['q_5fthdmw_8',['Q_THDMW',['../dc/d90/class_t_h_d_m_w.html#a9d2f36a9e2304bf81f585ea17e27fcd4',1,'THDMW::Q_THDMW()'],['../da/d99/class_t_h_d_m_wcache.html#a824f1c27ad86fcb4cdb09273f3cbc4c4',1,'THDMWcache::Q_THDMW()']]],
   ['qcd_5fmax_9',['QCD_max',['../d7/d01/class_b_xqll.html#a532dbff0415d3bbdeba97531f293a904',1,'BXqll']]],
   ['qcdcor_10',['QCDCOR',['../d2/d10/_z_fitter-f2c_8h.html#ab9d0d475d8a8c62405a159dfecffea68',1,'ZFitter-f2c.h']]],
   ['qcdsuccess_11',['QCDsuccess',['../dd/dfa/class_q_c_d.html#ab942f9a0b8aa0a009f8e2e434987c061',1,'QCD']]],

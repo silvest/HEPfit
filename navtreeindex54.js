@@ -1,12 +1,17 @@
 var NAVTREEINDEX54 =
 {
+"d5/dde/class_e_w_s_m_approximate_formulae.html#ae651f612f70ba9526ccca369cb49cfaa":[4,0,4,24],
+"d5/dde/class_e_w_s_m_approximate_formulae.html#ae673d4e5f0c8084e1647c64c2307f6c4":[4,0,4,28],
+"d5/dde/class_e_w_s_m_approximate_formulae.html#aed554235b1f1adba4625b8aa360f3715":[4,0,4,26],
+"d5/dde/class_e_w_s_m_approximate_formulae.html#afb32d1dddc51c0cd9684bea7e75febba":[4,0,4,17],
+"d5/dde/class_e_w_s_m_approximate_formulae.html#afcdad0b617f52389702ff98c8cc7f84e":[4,0,4,9],
 "d5/dde/classunitarity_rp1.html":[4,17,522],
 "d5/dde/classunitarity_rp1.html#a04292e6b6b5d3a4aa2a5e78c522ff6f8":[4,17,522,1],
 "d5/dde/classunitarity_rp1.html#a175ddd3d8da1fe655507a0be4bcd7f35":[4,17,522,0],
 "d5/dde/classunitarity_rp1.html#a8b794db1bf8ae339ee7244a850f5ae7e":[4,17,522,2],
-"d5/ddf/class_m2___g_t_h_d_m.html":[27,0,1755],
-"d5/ddf/class_m2___g_t_h_d_m.html#a364bb903ce9a784ebb5fc970f54c7225":[27,0,1755,1],
-"d5/ddf/class_m2___g_t_h_d_m.html#adad2eb016482433c5c853045ac549408":[27,0,1755,0],
+"d5/ddf/class_m2___g_t_h_d_m.html":[27,0,1756],
+"d5/ddf/class_m2___g_t_h_d_m.html#a364bb903ce9a784ebb5fc970f54c7225":[27,0,1756,1],
+"d5/ddf/class_m2___g_t_h_d_m.html#adad2eb016482433c5c853045ac549408":[27,0,1756,0],
 "d5/de2/classdelta_vcs_l.html":[27,0,520],
 "d5/de2/classdelta_vcs_l.html#a0883fff6c7642b154a08ee897d58787d":[27,0,520,1],
 "d5/de2/classdelta_vcs_l.html#a0d8b3618d9656be28402637fa35a39be":[27,0,520,3],
@@ -244,10 +249,5 @@ var NAVTREEINDEX54 =
 "d5/df2/class_t_h_d_mcache.html#a0def8249ce3e1e2b6622f688327e4f06":[4,17,412,1485],
 "d5/df2/class_t_h_d_mcache.html#a0df9affa8cb83d0a69e99374dde8410a":[4,17,412,622],
 "d5/df2/class_t_h_d_mcache.html#a0e2be9e9797d45b8b06fa9f53fba42fb":[4,17,412,145],
-"d5/df2/class_t_h_d_mcache.html#a0e3adada68053330cfb6238d324ba76a":[4,17,412,1340],
-"d5/df2/class_t_h_d_mcache.html#a0e3f7169268ba12f4c6613ec37acb98b":[4,17,412,156],
-"d5/df2/class_t_h_d_mcache.html#a0e42ab5389a7826d59ed30271e74e1ea":[4,17,412,1259],
-"d5/df2/class_t_h_d_mcache.html#a0e59e01e4aa9846cb8e62428236b6968":[4,17,412,1280],
-"d5/df2/class_t_h_d_mcache.html#a0e726d3b16de3f82aca6e41a1aecf7be":[4,17,412,429],
-"d5/df2/class_t_h_d_mcache.html#a0e7a90a9f8fab9a95d062b761cc05abd":[4,17,412,1531]
+"d5/df2/class_t_h_d_mcache.html#a0e3adada68053330cfb6238d324ba76a":[4,17,412,1340]
 };
