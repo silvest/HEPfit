@@ -5628,6 +5628,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["P_2_Bsphie"] = bind(boost::factory<P_2*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON);
     obsThFactory["P_3_Bsphie"] = bind(boost::factory<P_3*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON);
     obsThFactory["F_L_Bsphie"] = bind(boost::factory<F_L*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON);
+    obsThFactory["S_3_Bsphie"] = bind(boost::factory<S_3*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON);
 
     //----- B+ to K+ ll  -----
     obsThFactory["BR_BpKmu"] = bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::MU);
