@@ -77,6 +77,60 @@ public:
 
     /**
      *
+     * @brief A getter for @f$\beta@f$
+     * @return @f$\beta@f$
+     */
+    double getbeta_Z2() const {
+        return (beta);
+    }
+
+    /**
+     *
+     * @brief A getter for the tangent of @f$\beta@f$
+     * @return @f$\tan \beta@f$
+     */
+    double gettanb_Z2() const {
+        return (tanb);
+    }
+
+    /**
+     *
+     * @brief A getter for the sine of @f$\beta@f$
+     * @return @f$\sin \beta@f$
+     */
+    double getsinb_Z2() const {
+        return (sinb);
+    }
+
+    /**
+     *
+     * @brief A getter for the cosine of @f$\beta@f$
+     * @return @f$\cos \beta@f$
+     */
+    double getcosb_Z2() const {
+        return (cosb);
+    }
+
+    /**
+     *
+     * @brief A getter for the difference between @f$\beta@f$ and @f$\alpha@f$
+     * @return @f$\beta - \alpha@f$
+     */
+    double getbma_Z2() const {
+        return (bma);
+    }
+
+    /**
+     *
+     * @brief A getter for the parameter of the scalar potential @f$\m_{12}^2@f$
+     * @return @f$\m_{12}^2@f$ in the basis where the Z2 symmetry is imposed
+     */
+    double getm12sq_Z2() const {
+        return (m12_2);
+    }
+
+    /**
+     *
      * @brief A getter for the parameter of the scalar potential @f$\lambda_1@f$
      * @return @f$\lambda_1@f$ in the basis where the Z2 symmetry is imposed
      */
@@ -121,6 +175,14 @@ public:
      */
     double getlambda5_Z2() const {
         return ((M2aux - mA_2)/vev/vev);
+    }
+
+    /**
+     * @brief A getter for the chosen Z2-symmetric model type
+     * @return GeneralTHDMZ2 model type flag
+     */
+    std::string getZ2ModelType() const {
+        return flag_model;
     }
 
 protected:

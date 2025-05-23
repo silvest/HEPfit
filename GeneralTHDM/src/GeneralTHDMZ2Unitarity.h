@@ -9,9 +9,8 @@
 #define GENERALTHDMZ2UNITARITY_H
 
 #include "ThObservable.h"
-
-class GeneralTHDMZ2;
-class GeneralTHDMcache;
+#include "GeneralTHDMZ2Runner.h"
+#include <gslpp.h>
 
 /**
  * @class GeneralTHDMZ2Unitarity
@@ -46,7 +45,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 /**
@@ -68,7 +69,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 
@@ -95,7 +98,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 /**
@@ -117,7 +122,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 
@@ -144,7 +151,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 /**
@@ -166,7 +175,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 
@@ -193,7 +204,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 /**
@@ -215,7 +228,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 
@@ -242,7 +257,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 
@@ -269,7 +286,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 /**
@@ -291,7 +310,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 
@@ -318,7 +339,9 @@ public:
     double computeThValue();
 
 private:
-    const GeneralTHDMZ2& myGTHDM;
+    GeneralTHDMZ2Runner myGTHDM;
+
+    gslpp::matrix<double> myZ2_at_Q;
 };
 
 #endif /* GENERALTHDMZ2UNITARITY_H */

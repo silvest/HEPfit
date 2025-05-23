@@ -122,6 +122,8 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
             GeneralTHDM::setParameter("Nu_11r", 1./tanb);
         else if (flag_model == "typeY")
             GeneralTHDM::setParameter("Nu_11r", 1./tanb);
+        else if (flag_model == "inert")
+            GeneralTHDM::setParameter("Nu_11r", 0.);
     }
     else if (name.compare("Nd_11r") == 0) {
         if (flag_model == "type1")
@@ -132,6 +134,8 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
             GeneralTHDM::setParameter("Nd_11r", 1./tanb);
         else if (flag_model == "typeY")
             GeneralTHDM::setParameter("Nd_11r", -tanb);
+        else if (flag_model == "inert")
+            GeneralTHDM::setParameter("Nd_11r", 0.);
     }
     else if (name.compare("Nl_11r") == 0) {
         if (flag_model == "type1")
@@ -142,6 +146,8 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
             GeneralTHDM::setParameter("Nl_11r", -tanb);
         else if (flag_model == "typeY")
             GeneralTHDM::setParameter("Nl_11r", 1./tanb);
+        else if (flag_model == "inert")
+            GeneralTHDM::setParameter("Nl_11r", 0.);
     }
     else
         GeneralTHDM::setParameter(name, value);
@@ -190,7 +196,8 @@ bool GeneralTHDMZ2::CheckModelType(const std::string modeltype) const
     if (modeltype.compare("type1") == 0 ||
         modeltype.compare("type2") == 0 ||
         modeltype.compare("typeX") == 0 ||
-        modeltype.compare("typeY") == 0 )
+        modeltype.compare("typeY") == 0 ||
+        modeltype.compare("inert") == 0 )
         return true;
     else
         return false;
