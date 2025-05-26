@@ -1975,12 +1975,12 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
         else if (hel == 1) {
             if (q2 == 0.) return SU3_breaking * (-1. / (MM2 * 16. * M_PI * M_PI) * (
                     (MMpMV * A_1(0.)) / (2. * MM) * ((-h_0[1] + h_2[1]) / (1. + h_1[1] / mJ2)) * exp_Phase[1]
-                    - sqrt(lambda(0.)) / (2. * MM * MMpMV) * V(0.) * ((-h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2)) * exp_Phase[1]));
+                    - sqrt(lambda(0.)) / (2. * MM * MMpMV) * V(0.) * ((-h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2)) * exp_Phase[0]));
             else return SU3_breaking * (-q2 / (MM2 * 16. * M_PI * M_PI) * ((MMpMV * A_1(q2)) / (2. * MM) * DeltaC9_KD(q2, 1) - sqrt(lambda(q2)) / (2. * MM * MMpMV) * V(q2) * DeltaC9_KD(q2, 0)));
         } else {
             if (q2 == 0.) return SU3_breaking * (-1. / (MM2 * 16. * M_PI * M_PI) *
                     ((MMpMV * A_1(0.)) / (2. * MM) * ((-h_0[1] + h_2[1]) / (1. + h_1[1] / mJ2)) * exp_Phase[1]
-                    + sqrt(lambda(0.)) / (2. * MM * MMpMV) * V(0.) * ((-h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2)) * exp_Phase[1]));
+                    + sqrt(lambda(0.)) / (2. * MM * MMpMV) * V(0.) * ((-h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2)) * exp_Phase[0]));
             else return SU3_breaking * (-q2 / (MM2 * 16. * M_PI * M_PI) * ((MMpMV * A_1(q2)) / (2. * MM) * DeltaC9_KD(q2, 1) + sqrt(lambda(q2)) / (2. * MM * MMpMV) * V(q2) * DeltaC9_KD(q2, 0)));
         }
     } else {

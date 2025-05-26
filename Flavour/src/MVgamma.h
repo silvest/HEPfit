@@ -373,12 +373,61 @@ public:
      */
     gslpp::complex T_QCDF_minus(bool conjugate);
     
+    /**
+    * @brief The expansion parameter \f$ \hat{z} \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ zh \f$
+    */
+    gslpp::complex zh(double q2);
+    
+    /**
+    * @brief The Blaschke factor \f$ \mathcal{P} \f$ from arXiv:2206.03797.
+    * @return \f$ P \f$
+    */
+    gslpp::complex P();
+    
+    /**
+    * @brief The outer function \f$ phi_1 \f$ from arXiv:2011.09813.
+    * @return \f$ phi_1 \f$
+    */
+    gslpp::complex phi_1();
+    
+    /**
+    * @brief The outer function \f$ phi_2 \f$ from arXiv:2011.09813.
+    * @return \f$ phi_2 \f$
+    */
+    gslpp::complex phi_2();
+    
+    /**
+    * @brief The outer function \f$ phi_3 \f$ from arXiv:2011.09813.
+    * @return \f$ phi_3 \f$
+    */
+    gslpp::complex phi_3();
+        
+    /**
+    * @brief The correction to \f$ C_9 \f$ from arXiv:2206.03797.
+    * @param[in] tran transversity
+    * @return \f$ \Delta C_9 \f$
+    */
+    gslpp::complex DeltaC9_zExpansion(int tran);
+    
 private:
     QCD::meson meson;
     QCD::meson vectorM;
     bool dispersion;
+    bool zExpansion;
     bool FixedWCbtos;
-    double mJ2;
+
+    gslpp::complex beta_0[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex beta_1[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex beta_2[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    double s_p;
+    double s_0;
+    double Q2;
+    double chiOPE;
+    double mJpsi, mJ2;
+    double mPsi2S, mPsi2S2;
+    double mD2;
     
     const StandardModel& SM;
     std::unique_ptr<F_1> myF_1;
