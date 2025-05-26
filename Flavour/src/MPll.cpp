@@ -19,14 +19,11 @@ using namespace boost::placeholders;
 
 MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
 : mySM(SM_i), myF_1(new F_1()), myF_2(new F_2()),
-#if defined LATTICE || defined BSZ
 fplus_lat_cache(3, 0.),
 fT_lat_cache(3, 0.),
 f0_lat_cache(3, 0.),
-#else
 fplus_cache(2, 0.),
 fT_cache(2, 0.),
-#endif
 k2_cache(2, 0.),
 SL_cache(2, 0.),
 N_cache(3, 0.),
@@ -42,6 +39,8 @@ T_cache(5, 0.)
     pseudoscalar = pseudoscalar_i;
     dispersion = true;
     FixedWCbtos = false;
+    MPll_Lattice_flag = false;
+    MPll_GRvDV_flag = false;
     mJ2 = 3.096 * 3.096;
 
     I0_updated = 0;
@@ -80,57 +79,34 @@ std::vector<std::string> MPll::initializeMPllParameters()
 {
     dispersion = mySM.getFlavour().getFlagUseDispersionRelation();
     FixedWCbtos = mySM.getFlavour().getFlagFixedWCbtos();
+    MPll_Lattice_flag = mySM.getFlavour().getFlagMPll_Lattice();
+    MPll_GRvDV_flag = mySM.getFlavour().getFlagMPll_GRvDV();
 
-#if NFPOLARBASIS_MPLL
-    if (pseudoscalar == StandardModel::K_P || pseudoscalar == StandardModel::K_0) mpllParameters = make_vector<std::string>()
-#if LATTICE
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-#elif BSZ
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-#else
-        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-#endif
-        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP" << "absh_2_MP" << "argh_2_MP";
-#else
-    if (pseudoscalar == StandardModel::K_P || pseudoscalar == StandardModel::K_0) mpllParameters = make_vector<std::string>()
-#if LATTICE
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-#elif BSZ
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-#else
-        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-#endif
-        << "reh_0_MP" << "imh_0_MP" << "reh_1_MP" << "imh_1_MP" << "reh_2_MP" << "imh_2_MP";
-#endif
-    else {
+    if (pseudoscalar == StandardModel::K_P || pseudoscalar == StandardModel::K_0) {
+        if (MPll_Lattice_flag) mpllParameters = make_vector<std::string>()
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat" ;
+        else if (MPll_GRvDV_flag) mpllParameters = make_vector<std::string>()
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat" ;
+        else mpllParameters = make_vector<std::string>()
+            << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0";
+    } else {
         std::stringstream out;
         out << pseudoscalar;
         throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
 
     if (dispersion) {
-        mpllParameters.clear();
-        if (pseudoscalar == StandardModel::K_P || pseudoscalar == StandardModel::K_0) mpllParameters = make_vector<std::string>()
-#if LATTICE
-            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-            << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-#elif BSZ
-            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-            << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+        mpllParameters.insert(mpllParameters.end(), { "r1_BK", "r2_BK", "deltaC9_BK", "phDC9_BK" });
+    } else {
+#if NFPOLARBASIS_MPLL
+        mpllParameters.insert(mpllParameters.end(), { "absh_0_MP", "argh_0_MP", "absh_1_MP", "argh_1_MP", "absh_2_MP", "argh_2_MP" });
 #else
-            << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+        mpllParameters.insert(mpllParameters.end(), { "reh_0_MP", "imh_0_MP", "reh_1_MP", "imh_1_MP", "reh_2_MP", "imh_2_MP" });
 #endif
-            << "r1_BK" << "r2_BK" << "deltaC9_BK" << "phDC9_BK";
     }
 
     if (FixedWCbtos) mpllParameters.insert(mpllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
@@ -171,7 +147,7 @@ void MPll::updateParameters()
     switch (pseudoscalar) {
         case StandardModel::K_P:
         case StandardModel::K_0:
-#if LATTICE
+        if (MPll_Lattice_flag) {
             b_0_fplus = mySM.getOptionalParameter("b_0_fplus");
             b_1_fplus = mySM.getOptionalParameter("b_1_fplus");
             b_2_fplus = mySM.getOptionalParameter("b_2_fplus");
@@ -184,7 +160,7 @@ void MPll::updateParameters()
             b_1_f0 = mySM.getOptionalParameter("b_1_f0");
             b_2_f0 = mySM.getOptionalParameter("b_2_f0");
             m_fit2_f0_lat = mySM.getOptionalParameter("m_fit_f0_lat") * mySM.getOptionalParameter("m_fit_f0_lat");
-#elif BSZ
+        } else if (MPll_GRvDV_flag) {
             b_0_fplus = mySM.getOptionalParameter("b_0_fplus");
             b_1_fplus = mySM.getOptionalParameter("b_1_fplus");
             b_2_fplus = mySM.getOptionalParameter("b_2_fplus");
@@ -197,7 +173,7 @@ void MPll::updateParameters()
             b_1_f0 = mySM.getOptionalParameter("b_1_f0");
             b_2_f0 = mySM.getOptionalParameter("b_2_f0");
             m_fit2_f0_lat = mySM.getOptionalParameter("m_fit_f0_lat") * mySM.getOptionalParameter("m_fit_f0_lat");
-#else
+        } else {
             r_1_fplus = mySM.getOptionalParameter("r_1_fplus");
             r_2_fplus = mySM.getOptionalParameter("r_2_fplus");
             m_fit2_fplus = mySM.getOptionalParameter("m_fit2_fplus");
@@ -206,7 +182,7 @@ void MPll::updateParameters()
             m_fit2_fT = mySM.getOptionalParameter("m_fit2_fT");
             r_2_f0 = mySM.getOptionalParameter("r_2_f0");
             m_fit2_f0 = mySM.getOptionalParameter("m_fit2_f0");
-#endif
+        }
 
             if (pseudoscalar == StandardModel::K_P) spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
             else spectator_charge = mySM.getQuarks(QCD::DOWN).getCharge();
@@ -424,57 +400,58 @@ void MPll::checkCache()
         k2_cache(1) = MP;
     }
 
-#if defined LATTICE || defined BSZ
-    if (b_0_fplus == fplus_lat_cache(0) && b_1_fplus == fplus_lat_cache(1) && b_2_fplus == fplus_lat_cache(2)) {
-        fplus_lat_updated = 1;
+    if (MPll_Lattice_flag || MPll_GRvDV_flag) {
+        if (b_0_fplus == fplus_lat_cache(0) && b_1_fplus == fplus_lat_cache(1) && b_2_fplus == fplus_lat_cache(2)) {
+            fplus_lat_updated = 1;
+        } else {
+            fplus_lat_updated = 0;
+            fplus_lat_cache(0) = b_0_fplus;
+            fplus_lat_cache(1) = b_1_fplus;
+            fplus_lat_cache(2) = b_2_fplus;
+        }
+
+        if (b_0_fT == fT_lat_cache(0) && b_1_fT == fT_lat_cache(1) && b_2_fT == fT_lat_cache(2)) {
+            fT_lat_updated = 1;
+        } else {
+            fT_lat_updated = 0;
+            fT_lat_cache(0) = b_0_fT;
+            fT_lat_cache(1) = b_1_fT;
+            fT_lat_cache(2) = b_2_fT;
+        }
+
+        if (b_0_f0 == f0_lat_cache(0) && b_1_f0 == f0_lat_cache(1) && b_2_f0 == f0_lat_cache(2)) {
+            f0_lat_updated = 1;
+        } else {
+            f0_lat_updated = 0;
+            f0_lat_cache(0) = b_0_f0;
+            f0_lat_cache(1) = b_1_f0;
+            f0_lat_cache(2) = b_2_f0;
+        }
     } else {
-        fplus_lat_updated = 0;
-        fplus_lat_cache(0) = b_0_fplus;
-        fplus_lat_cache(1) = b_1_fplus;
-        fplus_lat_cache(2) = b_2_fplus;
+        if (r_1_fplus == fplus_cache(0) && r_2_fplus == fplus_cache(1)) {
+            fplus_updated = 1;
+        } else {
+            fplus_updated = 0;
+            fplus_cache(0) = r_1_fplus;
+            fplus_cache(1) = r_2_fplus;
+        }
+
+        if (r_1_fT == fT_cache(0) && r_2_fT == fT_cache(1)) {
+            fT_updated = 1;
+        } else {
+            fT_updated = 0;
+            fT_cache(0) = r_1_fT;
+            fT_cache(1) = r_2_fT;
+        }
+
+        if (r_2_f0 == f0_cache) {
+            f0_updated = 1;
+        } else {
+            f0_updated = 0;
+            f0_cache = r_2_f0;
+        }
     }
 
-    if (b_0_fT == fT_lat_cache(0) && b_1_fT == fT_lat_cache(1) && b_2_fT == fT_lat_cache(2)) {
-        fT_lat_updated = 1;
-    } else {
-        fT_lat_updated = 0;
-        fT_lat_cache(0) = b_0_fT;
-        fT_lat_cache(1) = b_1_fT;
-        fT_lat_cache(2) = b_2_fT;
-    }
-
-    if (b_0_f0 == f0_lat_cache(0) && b_1_f0 == f0_lat_cache(1) && b_2_f0 == f0_lat_cache(2)) {
-        f0_lat_updated = 1;
-    } else {
-        f0_lat_updated = 0;
-        f0_lat_cache(0) = b_0_f0;
-        f0_lat_cache(1) = b_1_f0;
-        f0_lat_cache(2) = b_2_f0;
-    }
-#else
-    if (r_1_fplus == fplus_cache(0) && r_2_fplus == fplus_cache(1)) {
-        fplus_updated = 1;
-    } else {
-        fplus_updated = 0;
-        fplus_cache(0) = r_1_fplus;
-        fplus_cache(1) = r_2_fplus;
-    }
-
-    if (r_1_fT == fT_cache(0) && r_2_fT == fT_cache(1)) {
-        fT_updated = 1;
-    } else {
-        fT_updated = 0;
-        fT_cache(0) = r_1_fT;
-        fT_cache(1) = r_2_fT;
-    }
-
-    if (r_2_f0 == f0_cache) {
-        f0_updated = 1;
-    } else {
-        f0_updated = 0;
-        f0_cache = r_2_f0;
-    }
-#endif
     if (Mlep == beta_cache) {
         beta_updated = 1;
     } else {
@@ -485,24 +462,19 @@ void MPll::checkCache()
     lambda_updated = k2_updated;
     F_updated = lambda_updated * beta_updated;
 
-#if defined LATTICE || defined BSZ
+    if (MPll_Lattice_flag || MPll_GRvDV_flag) {
     VL_updated = k2_updated * fplus_lat_updated;
-#else
-    VL_updated = k2_updated * fplus_updated;
-#endif
-
-#if defined LATTICE || defined BSZ
     TL_updated = k2_updated * fT_lat_updated;
-#else
+    } else {
+    VL_updated = k2_updated * fplus_updated;
     TL_updated = k2_updated * fT_updated;
-#endif
+    }
 
     if (Mb == SL_cache(0) && Ms == SL_cache(1)) {
-#if defined LATTICE || defined BSZ
-        SL_updated = k2_updated * f0_lat_updated;
-#else
-        SL_updated = k2_updated * f0_updated;
-#endif
+        if (MPll_Lattice_flag || MPll_GRvDV_flag)
+            SL_updated = k2_updated * f0_lat_updated;
+        else
+            SL_updated = k2_updated * f0_updated;
     } else {
         SL_updated = 0;
         SL_cache(0) = Mb;
@@ -786,35 +758,32 @@ double MPll::LATTICE_fit2(double q2, double b_0, double b_1, double b_2, double 
 
 double MPll::f_plus(double q2)
 {
-#if LATTICE
-    return LATTICE_fit1(q2, b_0_fplus, b_1_fplus, b_2_fplus, m_fit2_fplus_lat);
-#elif BSZ
-    return LCSR_fit3(q2, b_0_fplus, b_1_fplus, b_2_fplus, m_fit2_fplus_lat);
-#else
-    return LCSR_fit1(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
-#endif
+    if (MPll_Lattice_flag)
+        return LATTICE_fit1(q2, b_0_fplus, b_1_fplus, b_2_fplus, m_fit2_fplus_lat);
+    else if (MPll_GRvDV_flag)
+        return LCSR_fit3(q2, b_0_fplus, b_1_fplus, b_2_fplus, m_fit2_fplus_lat);
+    else 
+        return LCSR_fit1(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
 }
 
 double MPll::f_T(double q2)
 {
-#if LATTICE
-    return LATTICE_fit1(q2, b_0_fT, b_1_fT, b_2_fT, m_fit2_fT_lat);
-#elif BSZ
-    return LCSR_fit3(q2, b_0_fT, b_1_fT, b_2_fT, m_fit2_fT_lat);
-#else
-    return LCSR_fit1(q2, r_1_fT, r_2_fT, m_fit2_fT);
-#endif
+    if (MPll_Lattice_flag)
+        return LATTICE_fit1(q2, b_0_fT, b_1_fT, b_2_fT, m_fit2_fT_lat);
+    else if (MPll_GRvDV_flag)
+        return LCSR_fit3(q2, b_0_fT, b_1_fT, b_2_fT, m_fit2_fT_lat);
+    else
+        return LCSR_fit1(q2, r_1_fT, r_2_fT, m_fit2_fT);
 }
 
 double MPll::f_0(double q2)
 {
-#if LATTICE
-    return LATTICE_fit2(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
-#elif BSZ
-    return LCSR_fit3(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
-#else
-    return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
-#endif
+    if (MPll_Lattice_flag)
+        return LATTICE_fit2(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
+    else if (MPll_GRvDV_flag)
+        return LCSR_fit3(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
+    else
+        return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
 }
 
 gslpp::complex MPll::V_L(double q2)

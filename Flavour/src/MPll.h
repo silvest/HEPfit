@@ -313,6 +313,8 @@ private:
     std::unique_ptr<F_2> myF_2;
     bool dispersion = false;
     bool FixedWCbtos = false;
+    bool MPll_Lattice_flag; /**< A flag for switching to LATTICE FF parameterization */
+    bool MPll_GRvDV_flag; /**< A flag for switching to GRvDV parameterization */
     double mJ2;
 
     double GF;            /**<Fermi constant */
@@ -344,7 +346,6 @@ private:
     gslpp::complex exp_Phase;
 
     /*LATTICE fit parameters*/
-#if defined LATTICE || defined BSZ
     double b_0_fplus;/**<LATTICE fit parameter */
     double b_1_fplus;/**<LATTICE fit parameter */
     double b_2_fplus;/**<LATTICE fit parameter */
@@ -357,7 +358,6 @@ private:
     double b_1_f0;/**<LATTICE fit parameter */
     double b_2_f0;/**<LATTICE fit parameter */
     double m_fit2_f0_lat;/**<LATTICE fit parameter */
-#else
     /*LCSR fit parameters*/
     double r_1_fplus;/**<LCSR fit parameter */
     double r_2_fplus;/**<LCSR fit parameter */
@@ -367,7 +367,6 @@ private:
     double m_fit2_fT;/**<LCSR fit parameter */
     double r_2_f0;/**<LCSR fit parameter */
     double m_fit2_f0;/**<LCSR fit parameter */
-#endif
 
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
@@ -524,7 +523,6 @@ private:
     double Gammatau;
     double VusVub_abs2;
 
-#if defined LATTICE || defined BSZ
     unsigned int fplus_lat_updated;/**< Cache variable */
     gslpp::vector<double> fplus_lat_cache;/**< Cache variable */
 
@@ -533,7 +531,7 @@ private:
 
     unsigned int f0_lat_updated;/**< Cache variable */
     gslpp::vector<double> f0_lat_cache;/**< Cache variable */
-#else
+    
     unsigned int fplus_updated;/**< Cache variable */
     gslpp::vector<double> fplus_cache;/**< Cache variable */
 
@@ -542,7 +540,6 @@ private:
 
     unsigned int f0_updated;/**< Cache variable */
     double f0_cache;/**< Cache variable */
-#endif
 
     unsigned int k2_updated;/**< Cache variable */
     gslpp::vector<double> k2_cache;/**< Cache variable */

@@ -28,6 +28,8 @@ Flavour::Flavour(const StandardModel& SM_i)
     BGLflag = false;
     DMflag = false;
     FixedWCbtosflag = false;
+    MPll_Lattice_flag = false;
+    MPll_GRvDV_flag = false;
 };
 
 bool Flavour::setFlag(const std::string name, const bool value) 
@@ -50,6 +52,12 @@ bool Flavour::setFlag(const std::string name, const bool value)
         return true;
     } else if (name.compare("FixedWCbtos") == 0) {
         setFlagFixedWCbtos(value);
+        return true;
+    } else if (name.compare("MPll_Lattice_flag") == 0) {
+        setFlagMPll_Lattice(value);
+        return true;
+    } else if (name.compare("MPll_GRvDV_flag") == 0) {
+        setFlagMPll_GRvDV(value);
         return true;
     } else
         return false;
