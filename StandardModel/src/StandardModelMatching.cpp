@@ -31,8 +31,8 @@ mcd1(10, NDR, NLO),
 mcd1Buras(10, NDR, NLO),
 mckpnn(2, NDR, NLO, NLO_QED11),
 mckmm(1, NDR, NLO),
-mcbsnn(1, NDR, NLO),
-mcbdnn(1, NDR, NLO),
+mcbsnn(1, NDR, NLO, NLO_QED11),
+mcbdnn(1, NDR, NLO, NLO_QED11),
 mcbsmm(8, NDR, NNLO, NLO_QED22),
 mcbdmm(8, NDR, NNLO, NLO_QED22),
 mculeptonnu(5, NDR, LO),
@@ -2047,7 +2047,8 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
 
 std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
 
-    double xt = x_t(Muw);
+    double xt = x_t(Mut,FULLNNLO);
+    sw2 = SM.sW2_ND();
 
     vmcbsnn.clear();
 
@@ -2056,16 +2057,26 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
     switch (mcbsnn.getOrder()) {
         case NNLO:
         case NLO:
-            mcbsnn.setCoeff(0, (Vckm(2, 1).abs() / Vckm(1, 2).abs()) *
-                    SM.Als(Muw, FULLNLO) / 4. / M_PI * X1t(xt), NLO); //* CHECK ORDER *//
+            mcbsnn.setCoeff(0, 1/sw2 * SM.Als(Mut, FULLNLO) / 4. / M_PI * X1t(xt), NLO); //* CHECK ORDER *// //* CKM ELEMENTS IN CLASS AND NOT HERE *//
         case LO:
-            mcbsnn.setCoeff(0, (Vckm(2, 1).abs() / Vckm(1, 2).abs()) *
-                    X0t(xt), LO);
+            mcbsnn.setCoeff(0, 1/sw2 * X0t(xt), LO);
             break;
         default:
             std::stringstream out;
             out << mcbsnn.getOrder();
             throw std::runtime_error("StandardModelMatching::CMXsnn(): order " + out.str() + "not implemented");
+    }
+
+    switch (mcbsnn.getOrder_qed()) {
+        case NLO_QED11:
+            mcbsnn.setCoeff(0, 1/sw2 * SM.Ale(Mut,FULLNLO) / 4. / M_PI * Xewt(xt, SM.getMHl() * SM.getMHl() / getMt_mut() / getMt_mut(), Mut), NLO_QED11);
+        case LO_QED:
+            mcbsnn.setCoeff(0, 0. , LO_QED);
+            break; 
+        default:
+            std::stringstream out;
+            out << mcbsnn.getOrder_qed();
+            throw std::runtime_error("StandardModelMatching::CMXsnn(): qed order " + out.str() + " not implemented"); 
     }
 
     vmcbsnn.push_back(mcbsnn);
@@ -2075,8 +2086,8 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
 
 std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
 
-    double xt = x_t(Muw);
-    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
+    double xt = x_t(Mut,FULLNNLO);
+    sw2 = SM.sW2_ND();
     
     vmcbdnn.clear();
 
@@ -2085,7 +2096,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
     switch (mcbdnn.getOrder()) {
         case NNLO:
         case NLO:
-            mcbdnn.setCoeff(0, 1/sw2 * SM.Als(Muw, FULLNLO) / 4. / M_PI * X1t(xt), NLO); //* CHECK ORDER *//
+            mcbdnn.setCoeff(0, 1/sw2 * SM.Als(Mut, FULLNLO) / 4. / M_PI * X1t(xt), NLO); //* CHECK ORDER *// //* CKM ELEMENTS IN CLASS AND NOT HERE *//
         case LO:
             mcbdnn.setCoeff(0, 1/sw2 * X0t(xt), LO);
             break;
@@ -2093,6 +2104,18 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
             std::stringstream out;
             out << mcbdnn.getOrder();
             throw std::runtime_error("StandardModelMatching::CXdnn(): order " + out.str() + "not implemented");
+    }
+
+    switch (mcbdnn.getOrder_qed()) {
+        case NLO_QED11:
+            mcbdnn.setCoeff(0, 1/sw2 * SM.Ale(Mut,FULLNLO) / 4. / M_PI * Xewt(xt, SM.getMHl() * SM.getMHl() / getMt_mut() / getMt_mut(), Mut), NLO_QED11);
+        case LO_QED:
+            mcbdnn.setCoeff(0, 0. , LO_QED);
+            break; 
+        default:
+            std::stringstream out;
+            out << mcbdnn.getOrder_qed();
+            throw std::runtime_error("StandardModelMatching::CXdnn(): qed order " + out.str() + " not implemented"); 
     }
 
     vmcbdnn.push_back(mcbdnn);

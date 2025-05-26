@@ -251,7 +251,6 @@ void MPll::updateParameters()
         Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
         exp_Phase = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_BK"));
     }
-    sqrt3 = sqrt(3.);
     
     if (lep == QCD::NOLEPTON){
         
@@ -264,8 +263,9 @@ void MPll::updateParameters()
         mtau2 = mtau * mtau;
         //from PDG 2024 tau lifetime: need SM prediction
         Gammatau = HCUT / 0.2903;
+        sqrt3 = sqrt(3.);
     
-        allcoeff = mySM.getFlavour().ComputeCoeffdnunu();
+        allcoeff = mySM.getFlavour().ComputeCoeffsnunu();
         //(sqrt3)^2 gives the factor for the 3 neutrino flavour
         C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0)) * sqrt3;
     }
