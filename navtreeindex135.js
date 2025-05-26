@@ -1,5 +1,13 @@
 var NAVTREEINDEX135 =
 {
+"df/db6/classgg_f__hto_w_w.html#a132482d8520d6fca4ca5c64beacf4cef":[4,17,41,1],
+"df/db6/classgg_f__hto_w_w.html#aa3f6893920319c08a63b84c6f8b3e9cf":[4,17,41,0],
+"df/db6/classgg_f__hto_w_w.html#ab118dee41ea8ddf71f107cc2be7de101":[4,17,41,2],
+"df/db7/classh__0.html":[4,5,99],
+"df/db7/classh__0.html#a1c870f02c4839b2724d8feee3f1c463e":[4,5,99,0],
+"df/db7/classh__0.html#a297cffaacc63eee367e46627112611b5":[4,5,99,3],
+"df/db7/classh__0.html#a9f2e1a75760d71c09987e413f529bf8e":[4,5,99,4],
+"df/db7/classh__0.html#ab56ae1a85fe16a5b022c4b6a18f2ae52":[4,5,99,2],
 "df/db7/classh__0.html#ad966ede516c853f73e6fcc77c3bacc3c":[4,5,99,5],
 "df/db7/classh__0.html#af8c566f564a57b201fe2c29e5ae7a9ba":[4,5,99,1],
 "df/db7/classsigmatchannel8.html":[27,0,2624],
@@ -241,13 +249,5 @@ var NAVTREEINDEX135 =
 "df/dec/class_epsilon_p___o___epsilon.html#af0dbd2d45e69ea381d5587b1d22c6799":[4,5,86,2],
 "df/dec/class_hobs__bb__phi3__tautau___a_t_l_a_s13.html":[27,0,941],
 "df/dec/class_hobs__bb__phi3__tautau___a_t_l_a_s13.html#a0f988e2f674b7c3dd0fad77c54a25f6e":[27,0,941,2],
-"df/dec/class_hobs__bb__phi3__tautau___a_t_l_a_s13.html#af3c867bc887f617f3ad19535d46881a8":[27,0,941,0],
-"df/dec/class_hobs__bb__phi3__tautau___a_t_l_a_s13.html#af429ca49b4e29d8b827799cfdfd58746":[27,0,941,1],
-"df/dee/class_g_t_h_d_m_delta_s.html":[27,0,862],
-"df/dee/class_g_t_h_d_m_delta_s.html#a4063c6d7c0d9db2ce6ccda5a37c7d62a":[27,0,862,1],
-"df/dee/class_g_t_h_d_m_delta_s.html#a6fdf659489dfdf816e7633340420a464":[27,0,862,0],
-"df/df0/class_r12___g_t_h_d_m.html":[27,0,2287],
-"df/df0/class_r12___g_t_h_d_m.html#a9b030b22bd741d98457360d95908d220":[27,0,2287,2],
-"df/df0/class_r12___g_t_h_d_m.html#aa50d5f2df55da5bf37258ac56e2777d9":[27,0,2287,1],
-"df/df0/class_r12___g_t_h_d_m.html#ac1db9af3efc9c7e42f0daba961d037f5":[27,0,2287,0]
+"df/dec/class_hobs__bb__phi3__tautau___a_t_l_a_s13.html#af3c867bc887f617f3ad19535d46881a8":[27,0,941,0]
 };
