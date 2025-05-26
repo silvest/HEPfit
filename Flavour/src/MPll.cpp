@@ -267,7 +267,7 @@ void MPll::updateParameters()
     
         allcoeff = mySM.getFlavour().ComputeCoeffsnunu();
         //(sqrt3)^2 gives the factor for the 3 neutrino flavour
-        C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0)) * sqrt3;
+        C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0) + (*(allcoeff[NLO_QED11]))(0)) * sqrt3;
     }
     else{
         allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
