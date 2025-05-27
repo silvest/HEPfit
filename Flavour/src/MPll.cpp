@@ -99,14 +99,16 @@ std::vector<std::string> MPll::initializeMPllParameters()
         throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
 
-    if (dispersion) {
-        mpllParameters.insert(mpllParameters.end(), { "r1_BK", "r2_BK", "deltaC9_BK", "phDC9_BK" });
-    } else {
+    if (lep != QCD::NOLEPTON){
+        if (dispersion) {
+            mpllParameters.insert(mpllParameters.end(), { "r1_BK", "r2_BK", "deltaC9_BK", "phDC9_BK" });
+        } else {
 #if NFPOLARBASIS_MPLL
-        mpllParameters.insert(mpllParameters.end(), { "absh_0_MP", "argh_0_MP", "absh_1_MP", "argh_1_MP", "absh_2_MP", "argh_2_MP" });
+            mpllParameters.insert(mpllParameters.end(), { "absh_0_MP", "argh_0_MP", "absh_1_MP", "argh_1_MP", "absh_2_MP", "argh_2_MP" });
 #else
-        mpllParameters.insert(mpllParameters.end(), { "reh_0_MP", "imh_0_MP", "reh_1_MP", "imh_1_MP", "reh_2_MP", "imh_2_MP" });
+            mpllParameters.insert(mpllParameters.end(), { "reh_0_MP", "imh_0_MP", "reh_1_MP", "imh_1_MP", "reh_2_MP", "imh_2_MP" });
 #endif
+        }
     }
 
     if (FixedWCbtos) mpllParameters.insert(mpllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
@@ -197,39 +199,40 @@ void MPll::updateParameters()
             throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
 
-    if (!dispersion) {
+    if (lep != QCD::NOLEPTON){
+        if (!dispersion) {
 #if NFPOLARBASIS_MPLL
-        h_0 = gslpp::complex(mySM.getOptionalParameter("absh_0_MP"), mySM.getOptionalParameter("argh_0_MP"), true);
-        h_1 = gslpp::complex(mySM.getOptionalParameter("absh_1_MP"), mySM.getOptionalParameter("argh_1_MP"), true);
-        h_2 = gslpp::complex(mySM.getOptionalParameter("absh_2_MP"), mySM.getOptionalParameter("argh_2_MP"), true);
+            h_0 = gslpp::complex(mySM.getOptionalParameter("absh_0_MP"), mySM.getOptionalParameter("argh_0_MP"), true);
+            h_1 = gslpp::complex(mySM.getOptionalParameter("absh_1_MP"), mySM.getOptionalParameter("argh_1_MP"), true);
+            h_2 = gslpp::complex(mySM.getOptionalParameter("absh_2_MP"), mySM.getOptionalParameter("argh_2_MP"), true);
 
-        r_1 = 0.;
-        r_2 = 0.;
-        Delta_C9 = 0.;
-        exp_Phase = 0.;
+            r_1 = 0.;
+            r_2 = 0.;
+            Delta_C9 = 0.;
+            exp_Phase = 0.;
 #else
-        h_0 = gslpp::complex(mySM.getOptionalParameter("reh_0_MP"), mySM.getOptionalParameter("imh_0_MP"), false);
-        h_1 = gslpp::complex(mySM.getOptionalParameter("reh_1_MP"), mySM.getOptionalParameter("imh_1_MP"), false);
-        h_2 = gslpp::complex(mySM.getOptionalParameter("reh_2_MP"), mySM.getOptionalParameter("imh_2_MP"), false);
+            h_0 = gslpp::complex(mySM.getOptionalParameter("reh_0_MP"), mySM.getOptionalParameter("imh_0_MP"), false);
+            h_1 = gslpp::complex(mySM.getOptionalParameter("reh_1_MP"), mySM.getOptionalParameter("imh_1_MP"), false);
+            h_2 = gslpp::complex(mySM.getOptionalParameter("reh_2_MP"), mySM.getOptionalParameter("imh_2_MP"), false);
 
-        r_1 = 0.;
-        r_2 = 0.;
-        Delta_C9 = 0.;
-        exp_Phase = 0.;
+            r_1 = 0.;
+            r_2 = 0.;
+            Delta_C9 = 0.;
+            exp_Phase = 0.;
 #endif
-    } else {
-        h_0 = 0.;
-        h_1 = 0.;
-        h_2 = 0.;
+        } else {
+            h_0 = 0.;
+            h_1 = 0.;
+            h_2 = 0.;
 
-        r_1 = mySM.getOptionalParameter("r1_BK");
-        r_2 = mySM.getOptionalParameter("r2_BK");
-        Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
-        exp_Phase = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_BK"));
+            r_1 = mySM.getOptionalParameter("r1_BK");
+            r_2 = mySM.getOptionalParameter("r2_BK");
+            Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
+            exp_Phase = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_BK"));
+        }
     }
     
     if (lep == QCD::NOLEPTON){
-        
         VusVub_abs2 = (mySM.getCKM().computelamu_s() * mySM.getCKM().computelamu_s().conjugate()).abs();
         GF4 = GF * GF * GF * GF;
         MM3 = MM * MM * MM;
@@ -243,7 +246,8 @@ void MPll::updateParameters()
     
         allcoeff = mySM.getFlavour().ComputeCoeffsnunu();
         //(sqrt3)^2 gives the factor for the 3 neutrino flavour
-        C_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0) + (*(allcoeff[NLO_QED11]))(0)) * sqrt3;
+        C_L_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0) + (*(allcoeff[NLO_QED11]))(0)) * sqrt3;
+        C_R_nunu = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1) + (*(allcoeff[NLO_QED11]))(1)) * sqrt3;
     }
     else{
         allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
@@ -617,11 +621,18 @@ void MPll::checkCache()
         C_8Lh_cache = C_8Lh;
     }
     
-    if (C_nunu == C_nunu_cache) {
-        C_nunu_updated = 1;
+    if (C_L_nunu == C_L_nunu_cache) {
+        C_L_nunu_updated = 1;
     } else {
-        C_nunu_updated = 0;
-        C_nunu_cache = C_nunu;
+        C_L_nunu_updated = 0;
+        C_L_nunu_cache = C_L_nunu;
+    }
+    
+    if (C_R_nunu == C_R_nunu_cache) {
+        C_R_nunu_updated = 1;
+    } else {
+        C_R_nunu_updated = 0;
+        C_R_nunu_cache = C_R_nunu;
     }
 
     if (Mb == Ycache(0) && Mc == Ycache(1)) {
@@ -633,8 +644,8 @@ void MPll::checkCache()
     }
         
     if (lep == QCD::NOLEPTON){
-        H_V0updated = N_updated * VL_updated * C_nunu_updated;
-        H_A0updated = N_updated * VL_updated * C_nunu_updated;
+        H_V0updated = N_updated * VL_updated * C_L_nunu_updated * C_R_nunu_updated;
+        H_A0updated = N_updated * VL_updated * C_L_nunu_updated * C_R_nunu_updated;
     } else {
 
     if (!dispersion) {
@@ -1171,7 +1182,7 @@ gslpp::complex MPll::h_lambda(double q2)
 gslpp::complex MPll::H_V(double q2)
 {
     if (lep == QCD::NOLEPTON) {
-        return -C_nunu * V_L(q2);
+        return -C_L_nunu * V_L(q2);
     }
     return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2)
             + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, SPLINE) - etaP * pow(-1, angmomP) * C_7p) * T_L(q2)
@@ -1181,7 +1192,7 @@ gslpp::complex MPll::H_V(double q2)
 gslpp::complex MPll::H_A(double q2)
 {
     if (lep == QCD::NOLEPTON) {
-        return -C_nunu * V_L(q2);
+        return -C_L_nunu * V_L(q2);
     }
     return (-C_10 + etaP * pow(-1, angmomP) * C_10p) *V_L(q2);
 }

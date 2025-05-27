@@ -1003,7 +1003,8 @@ private:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
-    gslpp::complex C_nunu;/**<Wilson coeffients @f$C_{\nu\nu}'@f$*/
+    gslpp::complex C_L_nunu;/**<Wilson coeffients @f$C_L^{\nu\nu}'@f$*/
+    gslpp::complex C_R_nunu;/**<Wilson coeffients @f$C_R^{\nu\nu}'@f$*/
     
     std::vector<double> Re_T_perp;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
     std::vector<double> Im_T_perp;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
@@ -1234,8 +1235,11 @@ private:
     unsigned int C_8Lh_updated;/**< Cache variable */
     gslpp::complex C_8Lh_cache;/**< Cache variable */
     
-    unsigned int C_nunu_updated;/**< Cache variable */
-    gslpp::complex C_nunu_cache;/**< Cache variable */
+    unsigned int C_L_nunu_updated;/**< Cache variable */
+    gslpp::complex C_L_nunu_cache;/**< Cache variable */
+    
+    unsigned int C_R_nunu_updated;/**< Cache variable */
+    gslpp::complex C_R_nunu_cache;/**< Cache variable */
     
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */

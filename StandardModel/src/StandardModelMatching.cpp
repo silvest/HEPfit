@@ -31,8 +31,8 @@ mcd1(10, NDR, NLO),
 mcd1Buras(10, NDR, NLO),
 mckpnn(2, NDR, NLO, NLO_QED11),
 mckmm(1, NDR, NLO),
-mcbsnn(1, NDR, NLO, NLO_QED11),
-mcbdnn(1, NDR, NLO, NLO_QED11),
+mcbsnn(2, NDR, NLO, NLO_QED11),
+mcbdnn(2, NDR, NLO, NLO_QED11),
 mcbsmm(8, NDR, NNLO, NLO_QED22),
 mcbdmm(8, NDR, NNLO, NLO_QED22),
 mculeptonnu(5, NDR, LO),
@@ -2058,8 +2058,10 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
         case NNLO:
         case NLO:
             mcbsnn.setCoeff(0, -1/sw2 * SM.Als(Mut, FULLNLO) / 4. / M_PI * X1t(xt), NLO); //* CHECK ORDER *// //* CKM ELEMENTS IN CLASS AND NOT HERE *//
+            mcbsnn.setCoeff(1, 0., NLO);
         case LO:
             mcbsnn.setCoeff(0, -1/sw2 * X0t(xt), LO);
+            mcbsnn.setCoeff(1, 0., LO);
             break;
         default:
             std::stringstream out;
@@ -2070,8 +2072,10 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
     switch (mcbsnn.getOrder_qed()) {
         case NLO_QED11:
             mcbsnn.setCoeff(0, -1/sw2 * SM.Ale(Mut,FULLNLO) / 4. / M_PI * Xewt(xt, SM.getMHl() * SM.getMHl() / getMt_mut() / getMt_mut(), Mut), NLO_QED11);
+            mcbsnn.setCoeff(1, 0., NLO_QED11);
         case LO_QED:
             mcbsnn.setCoeff(0, 0. , LO_QED);
+            mcbsnn.setCoeff(1, 0., LO_QED);
             break; 
         default:
             std::stringstream out;
