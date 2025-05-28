@@ -1,5 +1,6 @@
 var NAVTREEINDEX8 =
 {
+"d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#a96d060fa8a9049eb06c782cde30debfa":[27,0,0,2,0],
 "d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#a9920b0601900f3912516eca05e610985":[27,0,0,2,1],
 "d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#aaecee1547b4d310ac90dd9c75db03774":[27,0,0,2,9],
 "d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#ab42ec9cc85031d82905b44708a1b9b12":[27,0,0,2,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX8 =
 "d1/d6f/classgg_f__tth__htogaga13.html#a1d4ed6c96e5c569a63235f3b8bb4c4fb":[4,17,45,2],
 "d1/d6f/classgg_f__tth__htogaga13.html#a54713d66be58eaeb195e3902989276bc":[4,17,45,1],
 "d1/d6f/classgg_f__tth__htogaga13.html#aed75b2068e438ece7da4b2b3e7048ee5":[4,17,45,0],
-"d1/d71/class_s_t_x_sqq_hqq___v_htopo__4l.html":[4,13,496],
-"d1/d71/class_s_t_x_sqq_hqq___v_htopo__4l.html#a03601eab1429e90e9a9cbd86b2bad9a4":[4,13,496,0]
+"d1/d71/class_s_t_x_sqq_hqq___v_htopo__4l.html":[4,13,496]
 };

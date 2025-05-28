@@ -5,6 +5,7 @@ var class_model_matching =
     [ "CMbnlep", "d0/d2a/class_model_matching.html#aa7885c211692dd176fb190dd776504cb", null ],
     [ "CMbnlepCC", "d0/d2a/class_model_matching.html#aba641aafae9e4d0840036f2d0396f852", null ],
     [ "CMbsg", "d0/d2a/class_model_matching.html#afc97123b2e4e15b759c35d743c998f9e", null ],
+    [ "CMBXsnn", "d0/d2a/class_model_matching.html#a0180322cb63d2e5d54ad8008182e5591", null ],
     [ "CMd1", "d0/d2a/class_model_matching.html#a76b72d877c289299d4dd1c320b950aa5", null ],
     [ "CMd1Buras", "d0/d2a/class_model_matching.html#a8ed84e72081c7f9e955e67a8db943bca", null ],
     [ "CMdbd2", "d0/d2a/class_model_matching.html#a39996e86f653ca2f37417031284c9108", null ],

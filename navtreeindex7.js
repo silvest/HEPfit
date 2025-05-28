@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"d1/d02/classop1.html#ad85798bb7fffa629191b21c45f681bd7":[27,0,2194,2],
 "d1/d02/classop1.html#af67d1f17b6b8f00be070f1981c54c273":[27,0,2194,0],
 "d1/d05/group___new_physics.html":[4,13],
 "d1/d07/classmumm_hmumu_n_w_a.html":[4,13,178],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html":[27,0,0,2],
 "d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#a25df73c2e741834fc6e53bf8936b392b":[27,0,0,2,7],
 "d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#a2840e81c14f9bbd60c57c2c5cd3009c0":[27,0,0,2,2],
-"d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#a36a03171697039e0acaec433bad69b5d":[27,0,0,2,3],
-"d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#a96d060fa8a9049eb06c782cde30debfa":[27,0,0,2,0]
+"d1/d34/class_b_o_l_1_1_balanced_partition_candidate.html#a36a03171697039e0acaec433bad69b5d":[27,0,0,2,3]
 };

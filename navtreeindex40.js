@@ -1,5 +1,6 @@
 var NAVTREEINDEX40 =
 {
+"d3/d0f/classmutt_hpt_h___htautau.html":[4,13,290],
 "d3/d0f/classmutt_hpt_h___htautau.html#a231a4968bb65b490bb72b0de7485d47a":[4,13,290,0],
 "d3/d0f/classmutt_hpt_h___htautau.html#a63179eb566b7a81decd2a986b54c55fa":[4,13,290,1],
 "d3/d0f/classmutt_hpt_h___htautau.html#a95ada7e8bb0c84e011e2d3f1f2eee2ec":[4,13,290,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX40 =
 "d3/d5f/class_z_fitter_wrapper.html#a2212c160a6c2f9086ef4282642204ccd":[27,0,3143,43],
 "d3/d5f/class_z_fitter_wrapper.html#a2a48cf4c103fd86133c64dc6a16ca2bc":[27,0,3143,60],
 "d3/d5f/class_z_fitter_wrapper.html#a3000d3490919f90f764406a16e2264bf":[27,0,3143,12],
-"d3/d5f/class_z_fitter_wrapper.html#a31789ba514998aaeeec24d6f34696c55":[27,0,3143,42],
-"d3/d5f/class_z_fitter_wrapper.html#a331f32ef39f6ac6eaad3d489a3e937f3":[27,0,3143,16]
+"d3/d5f/class_z_fitter_wrapper.html#a31789ba514998aaeeec24d6f34696c55":[27,0,3143,42]
 };
