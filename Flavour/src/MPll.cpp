@@ -1184,7 +1184,7 @@ gslpp::complex MPll::h_lambda(double q2)
 gslpp::complex MPll::H_V(double q2)
 {
     if (lep == QCD::NOLEPTON) {
-        return -C_L_nunu * V_L(q2);
+        return -(C_L_nunu - etaP * pow(-1, angmomP) * C_R_nunu) * V_L(q2);
     }
     return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2)
             + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, SPLINE) - etaP * pow(-1, angmomP) * C_7p) * T_L(q2)
@@ -1194,7 +1194,7 @@ gslpp::complex MPll::H_V(double q2)
 gslpp::complex MPll::H_A(double q2)
 {
     if (lep == QCD::NOLEPTON) {
-        return -C_L_nunu * V_L(q2);
+        return -(C_L_nunu - etaP * pow(-1, angmomP) * C_R_nunu) * V_L(q2);
     }
     return (-C_10 + etaP * pow(-1, angmomP) * C_10p) *V_L(q2);
 }
