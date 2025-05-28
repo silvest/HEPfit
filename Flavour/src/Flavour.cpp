@@ -30,6 +30,7 @@ Flavour::Flavour(const StandardModel& SM_i)
     FixedWCbtosflag = false;
     MPll_Lattice_flag = false;
     MPll_GRvDV_flag = false;
+    NeutrinoTree_flag = false;
 };
 
 bool Flavour::setFlag(const std::string name, const bool value) 
@@ -58,6 +59,9 @@ bool Flavour::setFlag(const std::string name, const bool value)
         return true;
     } else if (name.compare("MPll_GRvDV_flag") == 0) {
         setFlagMPll_GRvDV(value);
+        return true;
+    } else if (name.compare("NeutrinoTree_flag") == 0) {
+        setFlagNeutrinoTree(value);
         return true;
     } else
         return false;

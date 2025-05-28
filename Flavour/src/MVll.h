@@ -786,6 +786,7 @@ private:
     bool dispersion;
     bool zExpansion;
     bool FixedWCbtos;
+    bool NeutrinoTree_flag;
     double mJpsi, mJ2;
     double mPsi2S, mPsi2S2;
     double mD2;

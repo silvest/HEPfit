@@ -46,6 +46,7 @@ T_cache(5, 0.)
     dispersion = false;
     zExpansion = false;
     FixedWCbtos = false;
+    NeutrinoTree_flag = false;
     mJpsi = 3.0969;
     mJ2 = mJpsi * mJpsi;
     mPsi2S = 3.6861;
@@ -160,6 +161,7 @@ std::vector<std::string> MVll::initializeMVllParameters()
     dispersion = mySM.getFlavour().getFlagUseDispersionRelation();
     zExpansion = mySM.getFlavour().getFlagUsezExpansion();
     FixedWCbtos = mySM.getFlavour().getFlagFixedWCbtos();
+    NeutrinoTree_flag = mySM.getFlavour().getFlagNeutrinoTree();
     
 #if NFPOLARBASIS_MVLL
     if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
@@ -2556,7 +2558,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
 }
 double MVll::integrateSigmaTree(double q_min, double q_max)
 {
-    if (lep != QCD::NOLEPTON or meson != QCD::B_P) return 0.;
+    if (lep != QCD::NOLEPTON or meson != QCD::B_P or !NeutrinoTree_flag) return 0.;
 
     updateParameters();
     

@@ -41,6 +41,7 @@ T_cache(5, 0.)
     FixedWCbtos = false;
     MPll_Lattice_flag = false;
     MPll_GRvDV_flag = false;
+    NeutrinoTree_flag = false;
     mJ2 = 3.096 * 3.096;
 
     I0_updated = 0;
@@ -81,6 +82,7 @@ std::vector<std::string> MPll::initializeMPllParameters()
     FixedWCbtos = mySM.getFlavour().getFlagFixedWCbtos();
     MPll_Lattice_flag = mySM.getFlavour().getFlagMPll_Lattice();
     MPll_GRvDV_flag = mySM.getFlavour().getFlagMPll_GRvDV();
+    NeutrinoTree_flag = mySM.getFlavour().getFlagNeutrinoTree();
 
     if (pseudoscalar == StandardModel::K_P || pseudoscalar == StandardModel::K_0) {
         if (MPll_Lattice_flag) mpllParameters = make_vector<std::string>()
@@ -1354,7 +1356,7 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
 
 double MPll::integrateSigmaTree(double q_min, double q_max)
 {
-    if (lep != QCD::NOLEPTON or meson != QCD::B_P) return 0.;
+    if (lep != QCD::NOLEPTON or meson != QCD::B_P or !NeutrinoTree_flag) return 0.;
 
     updateParameters();
     

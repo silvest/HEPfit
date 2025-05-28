@@ -315,6 +315,7 @@ private:
     bool FixedWCbtos = false;
     bool MPll_Lattice_flag; /**< A flag for switching to LATTICE FF parameterization */
     bool MPll_GRvDV_flag; /**< A flag for switching to GRvDV parameterization */
+    bool NeutrinoTree_flag;
     double mJ2;
 
     double GF;            /**<Fermi constant */

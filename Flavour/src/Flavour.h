@@ -313,6 +313,10 @@ public:
         return (this->MPll_GRvDV_flag = MPll_GRvDV_flag);
     }
 
+    bool setFlagNeutrinoTree(bool NeutrinoTree_flag) const {
+        return (this->NeutrinoTree_flag = NeutrinoTree_flag);
+    }
+
     bool getFlagUseDispersionRelation() const {
         return dispersion;
     }
@@ -345,6 +349,10 @@ public:
         return MPll_GRvDV_flag;
     }
 
+    bool getFlagNeutrinoTree() const {
+        return NeutrinoTree_flag;
+    }
+
 private:
     template<typename T, typename... Args> std::shared_ptr<T>& getPtr(std::shared_ptr<T>& x, Args... args) const;
     template <typename T, typename... Args> T& getM(std::map<std::vector<int>, std::shared_ptr<T> >& map, Args ... args) const;
@@ -369,6 +377,7 @@ private:
     mutable bool FixedWCbtosflag;
     mutable bool MPll_Lattice_flag;
     mutable bool MPll_GRvDV_flag;
+    mutable bool NeutrinoTree_flag;
 };
 
 #endif /* FLAVOUR_H */
