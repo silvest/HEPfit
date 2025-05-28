@@ -140,7 +140,7 @@ public:
 
     gslpp::vector<gslpp::complex>** ComputeCoeffdiujlknu(int i, int j, int k, double mu) const;
 
-    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu() const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu(bool noSM = false) const;
 
     gslpp::vector<gslpp::complex>** ComputeCoeffdnunu() const;
 

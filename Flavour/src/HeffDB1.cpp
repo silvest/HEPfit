@@ -861,15 +861,20 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
     return coeffdmumu.getCoeff();
 }
 
-gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsnunu() 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsnunu(bool noSM) 
 {
     
     const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMBXsnn();
+
     coeffsnunu.resetCoefficient();
     orders ordDF1 = coeffsnunu.getOrder();
     orders_qed ordDF1_ew = coeffsnunu.getOrder_qed();
+
+    unsigned int order_ini;
+    if (noSM) order_ini = 1;
+    else order_ini = 0;
     
-    for (unsigned int i = 0; i < mcb.size(); i++){
+    for (unsigned int i = order_ini; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             coeffsnunu.setCoeff(*coeffsnunu.getCoeff(orders(j)) + *mcb[i].getCoeff(orders(j)), orders(j));
         }

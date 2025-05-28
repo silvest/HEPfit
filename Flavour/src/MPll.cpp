@@ -113,7 +113,9 @@ std::vector<std::string> MPll::initializeMPllParameters()
         }
     }
 
-    if (FixedWCbtos) mpllParameters.insert(mpllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
+    if (FixedWCbtos) 
+        if (lep != QCD::NOLEPTON) mpllParameters.insert(mpllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
+        else mpllParameters.insert(mpllParameters.end(), { "CLnunu_SM" });
     mySM.initializeMeson(meson);
     mySM.initializeMeson(pseudoscalar);
     return mpllParameters;
@@ -248,8 +250,13 @@ void MPll::updateParameters()
     
         allcoeff = mySM.getFlavour().ComputeCoeffsnunu();
         //(sqrt3)^2 gives the factor for the 3 neutrino flavour
-        C_L_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0) + (*(allcoeff[NLO_QED11]))(0)) * sqrt3;
         C_R_nunu = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1) + (*(allcoeff[NLO_QED11]))(1)) * sqrt3;
+        if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
+            allcoeff_noSM = mySM.getFlavour().ComputeCoeffsnunu(true); //check the mass scale, scheme fixed to NDR
+            C_L_nunu = (mySM.getOptionalParameter("CLnunu_SM") + ((*(allcoeff_noSM[LO]))(0) + (*(allcoeff_noSM[NLO]))(0) + (*(allcoeff_noSM[NLO_QED11]))(0))) * sqrt3;
+        } else {
+            C_L_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0) + (*(allcoeff[NLO_QED11]))(0)) * sqrt3;        
+        }
     }
     else{
         allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR

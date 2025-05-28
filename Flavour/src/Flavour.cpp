@@ -156,9 +156,9 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdmumu(double mu, schemes sc
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffdmumu(mu, scheme);
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsnunu() const
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsnunu(bool noSM) const
 {
-    return getPtr<HeffDB1>(HDB1)->ComputeCoeffsnunu();
+    return getPtr<HeffDB1>(HDB1)->ComputeCoeffsnunu(noSM);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdnunu() const
