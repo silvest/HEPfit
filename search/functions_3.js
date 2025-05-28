@@ -429,7 +429,7 @@ var searchData=
   ['computecoeffsgamma_5fburas_426',['ComputeCoeffsgamma_Buras',['../d4/d6d/class_flavour.html#a109730a3b209c2b4c7ee1afeab71c137',1,'Flavour::ComputeCoeffsgamma_Buras()'],['../dd/d87/class_heff_d_b1.html#a015451a67813c6a834edb5312630aa02',1,'HeffDB1::ComputeCoeffsgamma_Buras()']]],
   ['computecoeffsmumu_427',['ComputeCoeffsmumu',['../d4/d6d/class_flavour.html#ac19846a8f1ee41ba2a655dc2dffdf600',1,'Flavour::ComputeCoeffsmumu()'],['../dd/d87/class_heff_d_b1.html#a0a492b5f7b4d99f53fc42496215e2015',1,'HeffDB1::ComputeCoeffsmumu(double mu, schemes scheme=NDR)']]],
   ['computecoeffsmumustandardnorm_428',['ComputeCoeffsmumuStandardNorm',['../dd/d87/class_heff_d_b1.html#a58fd51f8a8a974cfceff0553f45bcc94',1,'HeffDB1']]],
-  ['computecoeffsnunu_429',['ComputeCoeffsnunu',['../dd/d87/class_heff_d_b1.html#a2a36e028ed23c4dafa36a0843a609e5b',1,'HeffDB1::ComputeCoeffsnunu()'],['../d4/d6d/class_flavour.html#a7f56c3358a4606e885c10de2835faf76',1,'Flavour::ComputeCoeffsnunu()']]],
+  ['computecoeffsnunu_429',['ComputeCoeffsnunu',['../dd/d87/class_heff_d_b1.html#adbd7b286ad71ce661d4d627ce5c51b60',1,'HeffDB1::ComputeCoeffsnunu()'],['../d4/d6d/class_flavour.html#a73263a90361235a83c365bc0bf1c36a2',1,'Flavour::ComputeCoeffsnunu()']]],
   ['computecov_430',['ComputeCov',['../dc/d47/class_correlated_gaussian_observables.html#ac8702cf04ed9aec44f102e35fb630b2a',1,'CorrelatedGaussianObservables::ComputeCov()'],['../d5/def/class_doxy_example.html#a9c2a1297a4d7a3014935bdd287dfe2ef',1,'DoxyExample::ComputeCov()']]],
   ['computecs_431',['computecs',['../da/d86/class_higgs_chiral.html#ad5df41604aee28ab6937e6ebe84b6ae8',1,'HiggsChiral']]],
   ['computect_432',['computect',['../da/d86/class_higgs_chiral.html#aa47684b224194eda10ef95ee788f70f1',1,'HiggsChiral']]],

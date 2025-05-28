@@ -21,7 +21,7 @@ var class_flavour =
     [ "ComputeCoeffsgamma", "d4/d6d/class_flavour.html#a0bc923003019d355f9cf46d07cea105b", null ],
     [ "ComputeCoeffsgamma_Buras", "d4/d6d/class_flavour.html#a109730a3b209c2b4c7ee1afeab71c137", null ],
     [ "ComputeCoeffsmumu", "d4/d6d/class_flavour.html#ac19846a8f1ee41ba2a655dc2dffdf600", null ],
-    [ "ComputeCoeffsnunu", "d4/d6d/class_flavour.html#a7f56c3358a4606e885c10de2835faf76", null ],
+    [ "ComputeCoeffsnunu", "d4/d6d/class_flavour.html#a73263a90361235a83c365bc0bf1c36a2", null ],
     [ "getDB2", "d4/d6d/class_flavour.html#a17d292d406f405ba293f2ee24a3a1a44", null ],
     [ "getFlagBGL", "d4/d6d/class_flavour.html#a42df9429dfae5476b04a7ff43305b182", null ],
     [ "getFlagCLN", "d4/d6d/class_flavour.html#a5e58851ff319848e8698dfb579a37b26", null ],

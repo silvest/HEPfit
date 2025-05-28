@@ -191,8 +191,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac19846a8f1ee41ba2a655dc2dffdf600"><td class="memItemLeft" align="right" valign="top">gslpp::vector&lt; gslpp::complex &gt; **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6d/class_flavour.html#ac19846a8f1ee41ba2a655dc2dffdf600">ComputeCoeffsmumu</a> (double mu, <a class="el" href="../../d9/d8f/group___standard_model.html#gacceea4799584714bfd62c9ebf9dae601">schemes</a> scheme=<a class="el" href="../../d4/d36/_order_scheme_8h.html#gacceea4799584714bfd62c9ebf9dae601ad743fb4be72b0f4e3e9d0a0c0d655c86">NDR</a>) const</td></tr>
 <tr class="memdesc:ac19846a8f1ee41ba2a655dc2dffdf600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the Wilson coefficient for the process \( B_s \to \mu \mu \).  <a href="../../d4/d6d/class_flavour.html#ac19846a8f1ee41ba2a655dc2dffdf600">More...</a><br /></td></tr>
 <tr class="separator:ac19846a8f1ee41ba2a655dc2dffdf600"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f56c3358a4606e885c10de2835faf76"><td class="memItemLeft" align="right" valign="top">gslpp::vector&lt; gslpp::complex &gt; **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6d/class_flavour.html#a7f56c3358a4606e885c10de2835faf76">ComputeCoeffsnunu</a> () const</td></tr>
-<tr class="separator:a7f56c3358a4606e885c10de2835faf76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73263a90361235a83c365bc0bf1c36a2"><td class="memItemLeft" align="right" valign="top">gslpp::vector&lt; gslpp::complex &gt; **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6d/class_flavour.html#a73263a90361235a83c365bc0bf1c36a2">ComputeCoeffsnunu</a> (bool noSM=false) const</td></tr>
+<tr class="separator:a73263a90361235a83c365bc0bf1c36a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae652efc7e3f169ead40bcf8f0f895db9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6d/class_flavour.html#ae652efc7e3f169ead40bcf8f0f895db9">Flavour</a> (const <a class="el" href="../../dc/dd5/class_standard_model.html">StandardModel</a> &amp;SM_i)</td></tr>
 <tr class="memdesc:ae652efc7e3f169ead40bcf8f0f895db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor.  <a href="../../d4/d6d/class_flavour.html#ae652efc7e3f169ead40bcf8f0f895db9">More...</a><br /></td></tr>
 <tr class="separator:ae652efc7e3f169ead40bcf8f0f895db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1189,8 +1189,8 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a7f56c3358a4606e885c10de2835faf76" name="a7f56c3358a4606e885c10de2835faf76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f56c3358a4606e885c10de2835faf76">&#9670;&nbsp;</a></span>ComputeCoeffsnunu()</h2>
+<a id="a73263a90361235a83c365bc0bf1c36a2" name="a73263a90361235a83c365bc0bf1c36a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73263a90361235a83c365bc0bf1c36a2">&#9670;&nbsp;</a></span>ComputeCoeffsnunu()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1198,7 +1198,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">gslpp::vector&lt; gslpp::complex &gt; ** Flavour::ComputeCoeffsnunu </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>noSM</em> = <code>false</code></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1206,7 +1207,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="../../d7/d30/_flavour_8cpp_source.html#l00159">159</a> of file <a class="el" href="../../d7/d30/_flavour_8cpp_source.html">Flavour.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>{</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">return</span> getPtr&lt;HeffDB1&gt;(<a class="code hl_variable" href="../../d4/d6d/class_flavour.html#a0faadbc117a83fc800aa693850deb242">HDB1</a>)-&gt;ComputeCoeffsnunu();</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">return</span> getPtr&lt;HeffDB1&gt;(<a class="code hl_variable" href="../../d4/d6d/class_flavour.html#a0faadbc117a83fc800aa693850deb242">HDB1</a>)-&gt;ComputeCoeffsnunu(noSM);</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>}</div>
 </div><!-- fragment -->
 </div>
