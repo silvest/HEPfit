@@ -2074,7 +2074,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
             mcbsnn.setCoeff(0, -1/sw2 * SM.Ale(Mut,FULLNLO) / 4. / M_PI * Xewt(xt, SM.getMHl() * SM.getMHl() / getMt_mut() / getMt_mut(), Mut), NLO_QED11);
             mcbsnn.setCoeff(1, 0., NLO_QED11);
         case LO_QED:
-            mcbsnn.setCoeff(0, 0. , LO_QED);
+            mcbsnn.setCoeff(0, 0., LO_QED);
             mcbsnn.setCoeff(1, 0., LO_QED);
             break; 
         default:
@@ -2114,7 +2114,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
         case NLO_QED11:
             mcbdnn.setCoeff(0, -1/sw2 * SM.Ale(Mut,FULLNLO) / 4. / M_PI * Xewt(xt, SM.getMHl() * SM.getMHl() / getMt_mut() / getMt_mut(), Mut), NLO_QED11);
         case LO_QED:
-            mcbdnn.setCoeff(0, 0. , LO_QED);
+            mcbdnn.setCoeff(0, 0., LO_QED);
             break; 
         default:
             std::stringstream out;

@@ -18,7 +18,8 @@ RealWeakEFTLFVMatching::RealWeakEFTLFVMatching(const RealWeakEFTLFV & RealWeakEF
     mcbsmm(8, NDR, NNLO, NLO_QED22),
     mcbdmm(8, NDR, NNLO, NLO_QED22),
     mcBMll(13, NDR, NLO),
-    mcprimeBMll(13, NDR, NLO)
+    mcprimeBMll(13, NDR, NLO),
+    mcbsnn(2, NDR, NLO, NLO_QED11)
 {}
 
 void RealWeakEFTLFVMatching::updateRealWeakEFTLFVParameters()
@@ -45,6 +46,9 @@ void RealWeakEFTLFVMatching::updateRealWeakEFTLFVParameters()
     CSpNPmu = myRealWeakEFTLFV.getCSp_22();
     CPNPmu = myRealWeakEFTLFV.getCP_22();
     CPpNPmu = myRealWeakEFTLFV.getCPp_22();
+
+    CL_nunuNP = myRealWeakEFTLFV.getCL_nunu();
+    CR_nunuNP = myRealWeakEFTLFV.getCR_nunu();
     
     WCscale = myRealWeakEFTLFV.getWCscale();
 
@@ -290,5 +294,45 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMprimeBMll(QCD::lepton 
 
     vmcprimeBMll.push_back(mcprimeBMll);
     return (vmcprimeBMll);
+}
+
+std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMBXsnn() {
+
+    vmcbsnn.clear();
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMBXsnn().begin(); it != StandardModelMatching::CMBXsnn().end(); it++ ) vmcbsnn.push_back(*it);
+
+    mcbsnn.setMu(WCscale);
+
+    switch (mcbsnn.getOrder()) {
+        case NNLO:
+        case NLO:
+            mcbsnn.setCoeff(0, 0., NLO);
+            mcbsnn.setCoeff(1, 0., NLO);
+        case LO:
+            mcbsnn.setCoeff(0, CL_nunuNP, LO);
+            mcbsnn.setCoeff(1, CR_nunuNP, LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbsnn.getOrder();
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMBXsnn(): order " + out.str() + "not implemented"); 
+    }
+
+    switch (mcbsnn.getOrder_qed()) {
+        case NLO_QED11:
+            mcbsnn.setCoeff(0, 0., NLO_QED11);
+            mcbsnn.setCoeff(1, 0., NLO_QED11);
+        case LO_QED:
+            mcbsnn.setCoeff(0, 0., LO_QED);
+            mcbsnn.setCoeff(1, 0., LO_QED);
+            break; 
+        default:
+            std::stringstream out;
+            out << mcbsnn.getOrder_qed();
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMXsnn(): qed order " + out.str() + " not implemented"); 
+    }
+
+    vmcbsnn.push_back(mcbsnn);
+    return (vmcbsnn);
 }
 

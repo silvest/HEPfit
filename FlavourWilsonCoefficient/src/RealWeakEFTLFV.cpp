@@ -10,6 +10,7 @@
 const std::string RealWeakEFTLFV::RealWeakEFTLFVvars[NRealWeakEFTLFVvars] = {"C7", "C7p", "C8", "C8p", 
                                                                              "C9_11", "C9p_11", "C10_11", "C10p_11", "CS_11", "CSp_11", "CP_11", "CPp_11", 
                                                                              "C9_22", "C9p_22", "C10_22", "C10p_22", "CS_22", "CSp_22", "CP_22", "CPp_22",
+                                                                             "CL_nunu", "CR_nunu",
                                                                              "WCscale"};
 
 RealWeakEFTLFV::RealWeakEFTLFV() : StandardModel(), ReWEFTM(*this) {   
@@ -37,6 +38,9 @@ RealWeakEFTLFV::RealWeakEFTLFV() : StandardModel(), ReWEFTM(*this) {
     ModelParamMap.insert(std::make_pair("CSp_22", std::cref(CSp_22)));
     ModelParamMap.insert(std::make_pair("CP_22", std::cref(CP_22)));
     ModelParamMap.insert(std::make_pair("CPp_22", std::cref(CPp_22)));
+
+    ModelParamMap.insert(std::make_pair("CL_nunu", std::cref(CL_nunu)));
+    ModelParamMap.insert(std::make_pair("CR_nunu", std::cref(CR_nunu)));
     
     ModelParamMap.insert(std::make_pair("WCscale", std::cref(WCscale)));
 }
@@ -134,6 +138,10 @@ void RealWeakEFTLFV::setParameter(const std::string name, const double& value){
         CP_22 = value;
     else if(name.compare("CPp_22") == 0)
         CPp_22 = value;
+    else if(name.compare("CL_nunu") == 0)
+        CL_nunu = value;
+    else if(name.compare("CR_nunu") == 0)
+        CR_nunu = value;
     else if(name.compare("WCscale") == 0)
         WCscale = value;
     else
