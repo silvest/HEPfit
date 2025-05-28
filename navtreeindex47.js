@@ -1,5 +1,8 @@
 var NAVTREEINDEX47 =
 {
+"d4/dac/class_wilson_coefficient_new.html#a9da854237d78f6a62b8595ae0f472d4a":[4,0,26,1],
+"d4/dac/class_wilson_coefficient_new.html#ac08a598bc6e3de13b059c0be1971e062":[4,0,26,7],
+"d4/dac/class_wilson_coefficient_new.html#ac7b9dfce46e4d45538e94557870feb99":[4,0,26,0],
 "d4/dae/classsigma__360__bb.html":[27,0,2534],
 "d4/dae/classsigma__360__bb.html#a42bac4c44d3f5d32a874a7d19b23eb89":[27,0,2534,0],
 "d4/dae/classsigma__360__bb.html#aab54ef19a6012fa7156f60b743c2649f":[27,0,2534,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX47 =
 "d4/deb/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_lines_as_strings.html#af2a1e2592ded2de145f33db145808698":[27,0,1,3,1,6,4],
 "d4/deb/class_l_h_p_c_1_1_s_l_h_a_1_1_interpreter_class_1_1_lines_as_strings.html#afcc80e0012eed0aab086591f73eaecba":[27,0,1,3,1,6,6],
 "d4/deb/class_l_h_p_c_1_1_slha_parser.html":[27,0,1,21],
-"d4/deb/class_l_h_p_c_1_1_slha_parser.html#a03e7eaa0fd24f3c52dead5a722aa7116":[27,0,1,21,2],
-"d4/deb/class_l_h_p_c_1_1_slha_parser.html#a0afe345b4ab0d889499df7fd60e7bc90":[27,0,1,21,13],
-"d4/deb/class_l_h_p_c_1_1_slha_parser.html#a170de44cd1f5272f5821f06e751c3544":[27,0,1,21,14],
-"d4/deb/class_l_h_p_c_1_1_slha_parser.html#a17a8227d63ea08175886e50c426bc875":[27,0,1,21,29]
+"d4/deb/class_l_h_p_c_1_1_slha_parser.html#a03e7eaa0fd24f3c52dead5a722aa7116":[27,0,1,21,2]
 };

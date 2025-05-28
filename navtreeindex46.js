@@ -1,5 +1,8 @@
 var NAVTREEINDEX46 =
 {
+"d4/d6e/class_s_u_s_y_spectrum.html#af5ace903ace49097069cdc90078437b9":[4,16,65,6],
+"d4/d6e/class_s_u_s_y_spectrum.html#afef1a7d3337ecdd93aa7b852e0dd85eb":[4,16,65,18],
+"d4/d6e/class_s_u_s_y_spectrum.html#aff2024896001dab9cc59b8e50af17ca9":[4,16,65,17],
 "d4/d6e/classop__1000__4.html":[27,0,2201],
 "d4/d6e/classop__1000__4.html#a33aeb45208090c68f3de403653f36381":[27,0,2201,2],
 "d4/d6e/classop__1000__4.html#a53b47184051afab11288875d748b8157":[27,0,2201,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX46 =
 "d4/dac/class_wilson_coefficient_new.html#a659258d6fc09bc0bc0d11cfed28e50b8":[4,0,26,5],
 "d4/dac/class_wilson_coefficient_new.html#a7b0ef77d52189aad4e07df2c3dccefba":[4,0,26,3],
 "d4/dac/class_wilson_coefficient_new.html#a8167b74a232b7f2fa954de78fcd01f7a":[4,0,26,2],
-"d4/dac/class_wilson_coefficient_new.html#a961b03c274c8c51e2a59e99b723c4e77":[4,0,26,4],
-"d4/dac/class_wilson_coefficient_new.html#a9da854237d78f6a62b8595ae0f472d4a":[4,0,26,1],
-"d4/dac/class_wilson_coefficient_new.html#ac08a598bc6e3de13b059c0be1971e062":[4,0,26,7],
-"d4/dac/class_wilson_coefficient_new.html#ac7b9dfce46e4d45538e94557870feb99":[4,0,26,0]
+"d4/dac/class_wilson_coefficient_new.html#a961b03c274c8c51e2a59e99b723c4e77":[4,0,26,4]
 };

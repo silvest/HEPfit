@@ -121,6 +121,7 @@ var class_m_vll =
     [ "myF_1", "d5/d81/class_m_vll.html#a727684123d4b1b03a2a700e5f49cbdd5", null ],
     [ "myF_2", "d5/d81/class_m_vll.html#a46019bd7e5b1711d5a27eceae11f36e1", null ],
     [ "mySM", "d5/d81/class_m_vll.html#a124e024a3980e900c7f2119074b31ecf", null ],
+    [ "NeutrinoTree_flag", "d5/d81/class_m_vll.html#aed9a16958eedac51ec1c040f4e8ff723", null ],
     [ "spectator_charge", "d5/d81/class_m_vll.html#acf12d10fde5583165d4db649e53c9024", null ],
     [ "vectorM", "d5/d81/class_m_vll.html#acc6f55270157fdf1d2e8760366bad03e", null ],
     [ "width", "d5/d81/class_m_vll.html#a74319752b72af9f23f75255709e5e6fc", null ],

@@ -73,6 +73,7 @@ var class_m_pll =
     [ "myF_1", "dc/dce/class_m_pll.html#ab056025a5ab6e0e3c4c515a73a04f17f", null ],
     [ "myF_2", "dc/dce/class_m_pll.html#a500058f49d3b1cd8b2b95b49e43ca21c", null ],
     [ "mySM", "dc/dce/class_m_pll.html#a88cca25d242a303ed08701e7e7deadfd", null ],
+    [ "NeutrinoTree_flag", "dc/dce/class_m_pll.html#ab6ad4505c5ff50f2058e5dc99714edf0", null ],
     [ "pseudoscalar", "dc/dce/class_m_pll.html#a3d5ca1f2f3d721629649960deeb557e4", null ],
     [ "spectator_charge", "dc/dce/class_m_pll.html#ae5fbbada58a8edfec407b11eaea904ba", null ],
     [ "width", "dc/dce/class_m_pll.html#a72baafc25b25208b41cf817b8647891d", null ]

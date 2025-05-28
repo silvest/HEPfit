@@ -1140,6 +1140,7 @@ var group___flavour =
       [ "getFlagFixedWCbtos", "d4/d6d/class_flavour.html#a3fe38a5dd9289c373a84e93a76eee2a2", null ],
       [ "getFlagMPll_GRvDV", "d4/d6d/class_flavour.html#afb964780ceb8d5c44bba46d6657ef79b", null ],
       [ "getFlagMPll_Lattice", "d4/d6d/class_flavour.html#ae1b999c2a65161c9ee024f0ac5a05905", null ],
+      [ "getFlagNeutrinoTree", "d4/d6d/class_flavour.html#a79c27c7fe2f8b46928d8cdc47b2e49cf", null ],
       [ "getFlagUseDispersionRelation", "d4/d6d/class_flavour.html#a11cef653e9c84ad2eda71e2549fc8532", null ],
       [ "getFlagUsezExpansion", "d4/d6d/class_flavour.html#ae564f57201dffa7d03c56b14fc6d0f72", null ],
       [ "getHDB1", "d4/d6d/class_flavour.html#a4df288fb91c65158410e854b489141cf", null ],
@@ -1163,6 +1164,7 @@ var group___flavour =
       [ "setFlagFixedWCbtos", "d4/d6d/class_flavour.html#a8f823d519f9ecd4da437e8de26dd8074", null ],
       [ "setFlagMPll_GRvDV", "d4/d6d/class_flavour.html#adb61b40ca143f57cfe33c13071642f90", null ],
       [ "setFlagMPll_Lattice", "d4/d6d/class_flavour.html#aa43d5f32f317b6ae704779a86578410a", null ],
+      [ "setFlagNeutrinoTree", "d4/d6d/class_flavour.html#a47a215d81891c18f83ec63b2244ce7a7", null ],
       [ "setFlagUseDispersionRelation", "d4/d6d/class_flavour.html#ad5fadc8ebaeebaa148492b3b020adab9", null ],
       [ "setFlagUsezExpansion", "d4/d6d/class_flavour.html#ad8da4e1f8793d73a752e136b67449cc8", null ],
       [ "setSMupdated", "d4/d6d/class_flavour.html#ad34b5c3830a6b89ef60ba0d0d0803c1f", null ],
@@ -1186,6 +1188,7 @@ var group___flavour =
       [ "MVllMap", "d4/d6d/class_flavour.html#a233510c3f885c09bb9c268e1d68953ed", null ],
       [ "MVlnuMap", "d4/d6d/class_flavour.html#a6ae91f3d1f7ee87118d4f14484b5f937", null ],
       [ "mySM", "d4/d6d/class_flavour.html#ab35779fba638336dad205d3ea2f2dd7c", null ],
+      [ "NeutrinoTree_flag", "d4/d6d/class_flavour.html#a59a22e91625a2b4ba9cf4b2f5e00934b", null ],
       [ "zExpansion", "d4/d6d/class_flavour.html#ac32def6ac091ddaaa13d1243f52dc7bb", null ]
     ] ],
     [ "GammaPrime", "dc/d7e/class_gamma_prime.html", [
@@ -1460,6 +1463,7 @@ var group___flavour =
       [ "myF_1", "dc/dce/class_m_pll.html#ab056025a5ab6e0e3c4c515a73a04f17f", null ],
       [ "myF_2", "dc/dce/class_m_pll.html#a500058f49d3b1cd8b2b95b49e43ca21c", null ],
       [ "mySM", "dc/dce/class_m_pll.html#a88cca25d242a303ed08701e7e7deadfd", null ],
+      [ "NeutrinoTree_flag", "dc/dce/class_m_pll.html#ab6ad4505c5ff50f2058e5dc99714edf0", null ],
       [ "pseudoscalar", "dc/dce/class_m_pll.html#a3d5ca1f2f3d721629649960deeb557e4", null ],
       [ "spectator_charge", "dc/dce/class_m_pll.html#ae5fbbada58a8edfec407b11eaea904ba", null ],
       [ "width", "dc/dce/class_m_pll.html#a72baafc25b25208b41cf817b8647891d", null ]
@@ -1631,6 +1635,7 @@ var group___flavour =
       [ "myF_1", "d5/d81/class_m_vll.html#a727684123d4b1b03a2a700e5f49cbdd5", null ],
       [ "myF_2", "d5/d81/class_m_vll.html#a46019bd7e5b1711d5a27eceae11f36e1", null ],
       [ "mySM", "d5/d81/class_m_vll.html#a124e024a3980e900c7f2119074b31ecf", null ],
+      [ "NeutrinoTree_flag", "d5/d81/class_m_vll.html#aed9a16958eedac51ec1c040f4e8ff723", null ],
       [ "spectator_charge", "d5/d81/class_m_vll.html#acf12d10fde5583165d4db649e53c9024", null ],
       [ "vectorM", "d5/d81/class_m_vll.html#acc6f55270157fdf1d2e8760366bad03e", null ],
       [ "width", "d5/d81/class_m_vll.html#a74319752b72af9f23f75255709e5e6fc", null ],
