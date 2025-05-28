@@ -478,7 +478,7 @@ void MVll::updateParameters()
         //from PDG 2024 tau lifetime: need SM prediction
         Gammatau = HCUT / 0.2903;
     
-        allcoeff = mySM.getFlavour().ComputeCoeffdnunu();
+        allcoeff = mySM.getFlavour().ComputeCoeffsnunu();
         //(sqrt3)^2 gives the factor for the 3 neutrino flavour
         C_L_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0) + (*(allcoeff[NLO_QED11]))(0)) * sqrt3;
         C_R_nunu = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1) + (*(allcoeff[NLO_QED11]))(1)) * sqrt3;
