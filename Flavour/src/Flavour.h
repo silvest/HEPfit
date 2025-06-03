@@ -140,7 +140,7 @@ public:
 
     gslpp::vector<gslpp::complex>** ComputeCoeffdiujlknu(int i, int j, int k, double mu) const;
 
-    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu(bool noSM = false) const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu(QCD::lepton lepton = QCD::NOLEPTON, bool noSM = false) const;
 
     gslpp::vector<gslpp::complex>** ComputeCoeffdnunu() const;
 
@@ -305,8 +305,8 @@ public:
         return (this->FixedWCbtosflag = FixedWCbtosflag);
     }
 
-    bool setFlagMPll_Lattice(bool MPll_Lattice_flag) {
-        return (this->MPll_Lattice_flag = MPll_Lattice_flag);
+    bool setFlagMPll_FNALMILC(bool MPll_FNALMILC_flag) {
+        return (this->MPll_FNALMILC_flag = MPll_FNALMILC_flag);
     }
 
     bool setFlagMPll_GRvDV(bool MPll_GRvDV_flag) {
@@ -315,6 +315,10 @@ public:
 
     bool setFlagNeutrinoTree(bool NeutrinoTree_flag) const {
         return (this->NeutrinoTree_flag = NeutrinoTree_flag);
+    }
+
+    bool setFlagBXsnunu_LFUNP(bool BXsnunu_LFUNP_flag) const {
+        return (this->BXsnunu_LFUNP_flag = BXsnunu_LFUNP_flag);
     }
 
     bool getFlagUseDispersionRelation() const {
@@ -341,8 +345,8 @@ public:
         return FixedWCbtosflag;
     }
 
-    bool getFlagMPll_Lattice() const {
-        return MPll_Lattice_flag;
+    bool getFlagMPll_FNALMILC() const {
+        return MPll_FNALMILC_flag;
     }
 
     bool getFlagMPll_GRvDV() const {
@@ -351,6 +355,10 @@ public:
 
     bool getFlagNeutrinoTree() const {
         return NeutrinoTree_flag;
+    }
+
+    bool getFlagBXsnunu_LFUNP() const {
+        return BXsnunu_LFUNP_flag;
     }
 
 private:
@@ -375,9 +383,10 @@ private:
     mutable bool BGLflag;
     mutable bool DMflag;
     mutable bool FixedWCbtosflag;
-    mutable bool MPll_Lattice_flag;
+    mutable bool MPll_FNALMILC_flag;
     mutable bool MPll_GRvDV_flag;
     mutable bool NeutrinoTree_flag;
+    mutable bool BXsnunu_LFUNP_flag;
 };
 
 #endif /* FLAVOUR_H */

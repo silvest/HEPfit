@@ -2045,7 +2045,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
 
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
+std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn(QCD::lepton lepton) {
 
     double xt = x_t(Mut,FULLNNLO);
     sw2 = SM.sW2_ND();

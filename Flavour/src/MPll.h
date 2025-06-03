@@ -376,6 +376,10 @@ private:
 
     gslpp::vector<gslpp::complex> ** allcoeff_noSM;/**<vector that contains the Wilson coeffients without the SM contributions.*/
 
+    gslpp::vector<gslpp::complex> ** allcoeff_nu;/**<Vector that contains the Wilson coeffients */
+    
+    gslpp::vector<gslpp::complex> ** allcoeff_noSM_nu;/**<Vector that contains the Wilson coeffients without the SM contribution.*/
+
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_1L_bar;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_1Lh_bar;/**<Wilson coeffients @f$C_1@f$*/
@@ -403,6 +407,13 @@ private:
 
     gslpp::complex C_L_nunu;/**<Wilson coeffients @f$C_L^{\nu\nu}'@f$*/
     gslpp::complex C_R_nunu;/**<Wilson coeffients @f$C_R^{\nu\nu}'@f$*/
+
+    gslpp::complex C_L_nunu_e;/**<Wilson coeffients @f$C_L^{\nu_1\nu_1}'@f$*/
+    gslpp::complex C_R_nunu_e;/**<Wilson coeffients @f$C_R^{\nu_1\nu_1}'@f$*/
+    gslpp::complex C_L_nunu_mu;/**<Wilson coeffients @f$C_L^{\nu_2\nu_2}'@f$*/
+    gslpp::complex C_R_nunu_mu;/**<Wilson coeffients @f$C_R^{\nu_2\nu_2}'@f$*/
+    gslpp::complex C_L_nunu_tau;/**<Wilson coeffients @f$C_L^{\nu_3\nu_3}'@f$*/
+    gslpp::complex C_R_nunu_tau;/**<Wilson coeffients @f$C_R^{\nu_3\nu_3}'@f$*/
     
     gsl_interp_accel *acc_Re_deltaC7_QCDF;
     gsl_interp_accel *acc_Im_deltaC7_QCDF;
@@ -438,7 +449,6 @@ private:
     double fournineth;/**< Cache variable */
     double half;/**< Cache variable */
     double twothird;/**< Cache variable */
-    double sqrt3;/**< Cache variable */
     double Mc2;/**< Cache variable */
     double Mb2;/**< Cache variable */
     double logMc;/**< Cache variable */

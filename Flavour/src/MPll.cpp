@@ -80,7 +80,7 @@ std::vector<std::string> MPll::initializeMPllParameters()
 {
     dispersion = mySM.getFlavour().getFlagUseDispersionRelation();
     FixedWCbtos = mySM.getFlavour().getFlagFixedWCbtos();
-    MPll_Lattice_flag = mySM.getFlavour().getFlagMPll_Lattice();
+    MPll_Lattice_flag = mySM.getFlavour().getFlagMPll_FNALMILC();
     MPll_GRvDV_flag = mySM.getFlavour().getFlagMPll_GRvDV();
     NeutrinoTree_flag = mySM.getFlavour().getFlagNeutrinoTree();
 
@@ -246,17 +246,33 @@ void MPll::updateParameters()
         mtau2 = mtau * mtau;
         //from PDG 2024 tau lifetime: need SM prediction
         Gammatau = HCUT / 0.2903;
-        sqrt3 = sqrt(3.);
     
-        allcoeff = mySM.getFlavour().ComputeCoeffsnunu();
-        //(sqrt3)^2 gives the factor for the 3 neutrino flavour
-        C_R_nunu = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1) + (*(allcoeff[NLO_QED11]))(1)) * sqrt3;
+        allcoeff_nu = mySM.getFlavour().ComputeCoeffsnunu(QCD::NEUTRINO_1);
+        C_R_nunu_e = ((*(allcoeff_nu[LO]))(1) + (*(allcoeff_nu[NLO]))(1) + (*(allcoeff_nu[NLO_QED11]))(1));
         if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
-            allcoeff_noSM = mySM.getFlavour().ComputeCoeffsnunu(true); //check the mass scale, scheme fixed to NDR
-            C_L_nunu = (mySM.getOptionalParameter("CLnunu_SM") + ((*(allcoeff_noSM[LO]))(0) + (*(allcoeff_noSM[NLO]))(0) + (*(allcoeff_noSM[NLO_QED11]))(0))) * sqrt3;
-        } else {
-            C_L_nunu = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0) + (*(allcoeff[NLO_QED11]))(0)) * sqrt3;        
-        }
+            allcoeff_noSM_nu = mySM.getFlavour().ComputeCoeffsnunu(QCD::NEUTRINO_1,true); //check the mass scale, scheme fixed to NDR
+            C_L_nunu_e = mySM.getOptionalParameter("CLnunu_SM") + ((*(allcoeff_noSM_nu[LO]))(0) + (*(allcoeff_noSM_nu[NLO]))(0) + (*(allcoeff_noSM_nu[NLO_QED11]))(0));
+        } else
+            C_L_nunu_e = ((*(allcoeff_nu[LO]))(0) + (*(allcoeff_nu[NLO]))(0) + (*(allcoeff_nu[NLO_QED11]))(0));
+        
+        allcoeff_nu = mySM.getFlavour().ComputeCoeffsnunu(QCD::NEUTRINO_2);
+        C_R_nunu_mu = ((*(allcoeff_nu[LO]))(1) + (*(allcoeff_nu[NLO]))(1) + (*(allcoeff_nu[NLO_QED11]))(1));
+        if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
+            allcoeff_noSM_nu = mySM.getFlavour().ComputeCoeffsnunu(QCD::NEUTRINO_2,true); //check the mass scale, scheme fixed to NDR
+            C_L_nunu_mu = mySM.getOptionalParameter("CLnunu_SM") + ((*(allcoeff_noSM_nu[LO]))(0) + (*(allcoeff_noSM_nu[NLO]))(0) + (*(allcoeff_noSM_nu[NLO_QED11]))(0));
+        } else
+            C_L_nunu_mu = ((*(allcoeff_nu[LO]))(0) + (*(allcoeff_nu[NLO]))(0) + (*(allcoeff_nu[NLO_QED11]))(0));
+
+        allcoeff_nu = mySM.getFlavour().ComputeCoeffsnunu(QCD::NEUTRINO_3);
+        C_R_nunu_tau = ((*(allcoeff_nu[LO]))(1) + (*(allcoeff_nu[NLO]))(1) + (*(allcoeff_nu[NLO_QED11]))(1));
+        if (FixedWCbtos) { /** NOTE: ComputeCoeff with different argumetns cannot be mixed. They have to be called sequentially. **/
+            allcoeff_noSM_nu = mySM.getFlavour().ComputeCoeffsnunu(QCD::NEUTRINO_3,true); //check the mass scale, scheme fixed to NDR
+            C_L_nunu_tau = mySM.getOptionalParameter("CLnunu_SM") + ((*(allcoeff_noSM_nu[LO]))(0) + (*(allcoeff_noSM_nu[NLO]))(0) + (*(allcoeff_noSM_nu[NLO_QED11]))(0));
+        } else
+            C_L_nunu_tau = ((*(allcoeff_nu[LO]))(0) + (*(allcoeff_nu[NLO]))(0) + (*(allcoeff_nu[NLO_QED11]))(0));
+
+        C_L_nunu = sqrt(C_L_nunu_e * C_L_nunu_e + C_L_nunu_mu * C_L_nunu_mu + C_L_nunu_tau * C_L_nunu_tau);
+        C_R_nunu = sqrt(C_R_nunu_e * C_R_nunu_e + C_R_nunu_mu * C_R_nunu_mu + C_R_nunu_tau * C_R_nunu_tau);
     }
     else{
         allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR

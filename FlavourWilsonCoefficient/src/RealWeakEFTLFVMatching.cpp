@@ -47,8 +47,21 @@ void RealWeakEFTLFVMatching::updateRealWeakEFTLFVParameters()
     CPNPmu = myRealWeakEFTLFV.getCP_22();
     CPpNPmu = myRealWeakEFTLFV.getCPp_22();
 
-    CL_nunuNP = myRealWeakEFTLFV.getCL_nunu();
-    CR_nunuNP = myRealWeakEFTLFV.getCR_nunu();
+    if (myRealWeakEFTLFV.getFlavour().getFlagBXsnunu_LFUNP()) {
+        CLnunuNPe = myRealWeakEFTLFV.getCLnunu();
+        CRnunuNPe = myRealWeakEFTLFV.getCRnunu();
+        CLnunuNPmu = myRealWeakEFTLFV.getCLnunu();
+        CRnunuNPmu = myRealWeakEFTLFV.getCRnunu();
+        CLnunuNPtau = myRealWeakEFTLFV.getCLnunu();
+        CRnunuNPtau = myRealWeakEFTLFV.getCRnunu();
+    } else {
+        CLnunuNPe = myRealWeakEFTLFV.getCLnunu_11();
+        CRnunuNPe = myRealWeakEFTLFV.getCRnunu_11();
+        CLnunuNPmu = myRealWeakEFTLFV.getCLnunu_22();
+        CRnunuNPmu = myRealWeakEFTLFV.getCRnunu_22();
+        CLnunuNPtau = myRealWeakEFTLFV.getCLnunu_33();
+        CRnunuNPtau = myRealWeakEFTLFV.getCRnunu_33();
+    }
     
     WCscale = myRealWeakEFTLFV.getWCscale();
 
@@ -296,10 +309,10 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMprimeBMll(QCD::lepton 
     return (vmcprimeBMll);
 }
 
-std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMBXsnn() {
+std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMBXsnn(QCD::lepton lepton) {
 
     vmcbsnn.clear();
-    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMBXsnn().begin(); it != StandardModelMatching::CMBXsnn().end(); it++ ) vmcbsnn.push_back(*it);
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMBXsnn(lepton).begin(); it != StandardModelMatching::CMBXsnn(lepton).end(); it++ ) vmcbsnn.push_back(*it);
 
     mcbsnn.setMu(WCscale);
 
@@ -309,8 +322,18 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMBXsnn() {
             mcbsnn.setCoeff(0, 0., NLO);
             mcbsnn.setCoeff(1, 0., NLO);
         case LO:
-            mcbsnn.setCoeff(0, CL_nunuNP, LO);
-            mcbsnn.setCoeff(1, CR_nunuNP, LO);
+            if(lepton == RealWeakEFTLFV::NEUTRINO_1){
+                mcbsnn.setCoeff(0, CLnunuNPe, LO);
+                mcbsnn.setCoeff(1, CRnunuNPe, LO);
+            }
+            else if(lepton == RealWeakEFTLFV::NEUTRINO_2){
+                mcbsnn.setCoeff(0, CLnunuNPmu, LO);
+                mcbsnn.setCoeff(1, CRnunuNPmu, LO);
+            }
+            else if(lepton == RealWeakEFTLFV::NEUTRINO_3){
+                mcbsnn.setCoeff(0, CLnunuNPtau, LO);
+                mcbsnn.setCoeff(1, CRnunuNPtau, LO);
+            }
             break;
         default:
             std::stringstream out;

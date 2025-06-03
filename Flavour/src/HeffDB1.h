@@ -100,7 +100,7 @@ public:
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{s} \rightarrow \nu \bar{\nu} \f$
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu(bool noSM = false);
+    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu(QCD::lepton lepton, bool noSM = false);
     
     /**
      * 

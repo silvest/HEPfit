@@ -28,7 +28,8 @@ Flavour::Flavour(const StandardModel& SM_i)
     BGLflag = false;
     DMflag = false;
     FixedWCbtosflag = false;
-    MPll_Lattice_flag = false;
+    MPll_FNALMILC_flag = false;
+    BXsnunu_LFUNP_flag = false;
     MPll_GRvDV_flag = false;
     NeutrinoTree_flag = false;
 };
@@ -54,14 +55,20 @@ bool Flavour::setFlag(const std::string name, const bool value)
     } else if (name.compare("FixedWCbtos") == 0) {
         setFlagFixedWCbtos(value);
         return true;
-    } else if (name.compare("MPll_Lattice_flag") == 0) {
-        setFlagMPll_Lattice(value);
+    } else if (name.compare("MPll_FNALMILC_flag") == 0) {
+        setFlagMPll_FNALMILC(value);
         return true;
     } else if (name.compare("MPll_GRvDV_flag") == 0) {
         setFlagMPll_GRvDV(value);
         return true;
     } else if (name.compare("NeutrinoTree_flag") == 0) {
         setFlagNeutrinoTree(value);
+        return true;
+    } else if (name.compare("NeutrinoTree_flag") == 0) {
+        setFlagNeutrinoTree(value);
+        return true;
+    } else if (name.compare("BXsnunu_LFUNP_flag") == 0) {
+        setFlagBXsnunu_LFUNP(value);
         return true;
     } else
         return false;
@@ -156,9 +163,9 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdmumu(double mu, schemes sc
     return getPtr<HeffDB1>(HDB1)->ComputeCoeffdmumu(mu, scheme);
 }
 
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsnunu(bool noSM) const
+gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsnunu(QCD::lepton lepton, bool noSM) const
 {
-    return getPtr<HeffDB1>(HDB1)->ComputeCoeffsnunu(noSM);
+    return getPtr<HeffDB1>(HDB1)->ComputeCoeffsnunu(lepton, noSM);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdnunu() const
