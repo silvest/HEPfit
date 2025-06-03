@@ -64,9 +64,6 @@ bool Flavour::setFlag(const std::string name, const bool value)
     } else if (name.compare("NeutrinoTree_flag") == 0) {
         setFlagNeutrinoTree(value);
         return true;
-    } else if (name.compare("NeutrinoTree_flag") == 0) {
-        setFlagNeutrinoTree(value);
-        return true;
     } else if (name.compare("BXsnunu_LFUNP_flag") == 0) {
         setFlagBXsnunu_LFUNP(value);
         return true;
