@@ -17,7 +17,7 @@ var class_heff_d_b1 =
     [ "ComputeCoeffsgamma_Buras", "dd/d87/class_heff_d_b1.html#a015451a67813c6a834edb5312630aa02", null ],
     [ "ComputeCoeffsmumu", "dd/d87/class_heff_d_b1.html#a0a492b5f7b4d99f53fc42496215e2015", null ],
     [ "ComputeCoeffsmumuStandardNorm", "dd/d87/class_heff_d_b1.html#a58fd51f8a8a974cfceff0553f45bcc94", null ],
-    [ "ComputeCoeffsnunu", "dd/d87/class_heff_d_b1.html#adbd7b286ad71ce661d4d627ce5c51b60", null ],
+    [ "ComputeCoeffsnunu", "dd/d87/class_heff_d_b1.html#ac7d5732377ea6d8b51485f8e64682962", null ],
     [ "getCoeffbtaunu", "dd/d87/class_heff_d_b1.html#ab213f4faf99a6dd8dff7eb8c35129b81", null ],
     [ "getCoeffdmumu", "dd/d87/class_heff_d_b1.html#a5ef23c28ec8cfdcb22572bdddca1c48d", null ],
     [ "getCoeffdnunu", "dd/d87/class_heff_d_b1.html#aaa7fef83fa14400de4d3b43e4876aa56", null ],

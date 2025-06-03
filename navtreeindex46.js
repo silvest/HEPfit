@@ -1,5 +1,8 @@
 var NAVTREEINDEX46 =
 {
+"d4/d6e/class_s_u_s_y_spectrum.html#ae4ce0b523b1a12de55ad30875d69d0af":[4,16,65,31],
+"d4/d6e/class_s_u_s_y_spectrum.html#ae725dd4f213b152f51aa843fef368f6e":[4,16,65,23],
+"d4/d6e/class_s_u_s_y_spectrum.html#ae942b7e8d4c802511b9ea0033ef7109e":[4,16,65,2],
 "d4/d6e/class_s_u_s_y_spectrum.html#af3a9a53ab47f8265e8a555c0d1723255":[4,16,65,16],
 "d4/d6e/class_s_u_s_y_spectrum.html#af5ace903ace49097069cdc90078437b9":[4,16,65,6],
 "d4/d6e/class_s_u_s_y_spectrum.html#afef1a7d3337ecdd93aa7b852e0dd85eb":[4,16,65,18],
@@ -246,8 +249,5 @@ var NAVTREEINDEX46 =
 "d4/dac/class_s_t_x_s12__qq_hlv__p_t_v250__400.html#a7046a612000168fb7f3cf7d0aff1c0c3":[4,13,417,4],
 "d4/dac/class_s_t_x_s12__qq_hlv__p_t_v250__400.html#ac82cf3f7e863c03075d7e4ec956dab78":[4,13,417,3],
 "d4/dac/class_wilson_coefficient_new.html":[4,0,26],
-"d4/dac/class_wilson_coefficient_new.html#a0bc9851a2f0c47cc6a9e3b70b174fcc2":[4,0,26,6],
-"d4/dac/class_wilson_coefficient_new.html#a659258d6fc09bc0bc0d11cfed28e50b8":[4,0,26,5],
-"d4/dac/class_wilson_coefficient_new.html#a7b0ef77d52189aad4e07df2c3dccefba":[4,0,26,3],
-"d4/dac/class_wilson_coefficient_new.html#a8167b74a232b7f2fa954de78fcd01f7a":[4,0,26,2]
+"d4/dac/class_wilson_coefficient_new.html#a0bc9851a2f0c47cc6a9e3b70b174fcc2":[4,0,26,6]
 };

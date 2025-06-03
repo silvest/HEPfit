@@ -163,8 +163,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0a492b5f7b4d99f53fc42496215e2015"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58fd51f8a8a974cfceff0553f45bcc94"><td class="memItemLeft" align="right" valign="top">gslpp::vector&lt; gslpp::complex &gt; **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d87/class_heff_d_b1.html#a58fd51f8a8a974cfceff0553f45bcc94">ComputeCoeffsmumuStandardNorm</a> (double mu, <a class="el" href="../../d9/d8f/group___standard_model.html#gacceea4799584714bfd62c9ebf9dae601">schemes</a> scheme=<a class="el" href="../../d4/d36/_order_scheme_8h.html#gacceea4799584714bfd62c9ebf9dae601ad743fb4be72b0f4e3e9d0a0c0d655c86">NDR</a>)</td></tr>
 <tr class="separator:a58fd51f8a8a974cfceff0553f45bcc94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbd7b286ad71ce661d4d627ce5c51b60"><td class="memItemLeft" align="right" valign="top">gslpp::vector&lt; gslpp::complex &gt; **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d87/class_heff_d_b1.html#adbd7b286ad71ce661d4d627ce5c51b60">ComputeCoeffsnunu</a> (bool noSM=false)</td></tr>
-<tr class="separator:adbd7b286ad71ce661d4d627ce5c51b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7d5732377ea6d8b51485f8e64682962"><td class="memItemLeft" align="right" valign="top">gslpp::vector&lt; gslpp::complex &gt; **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d87/class_heff_d_b1.html#ac7d5732377ea6d8b51485f8e64682962">ComputeCoeffsnunu</a> (<a class="el" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3">QCD::lepton</a> lepton, bool noSM=false)</td></tr>
+<tr class="separator:ac7d5732377ea6d8b51485f8e64682962"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab213f4faf99a6dd8dff7eb8c35129b81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d95/class_wilson_coefficient.html">WilsonCoefficient</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d87/class_heff_d_b1.html#ab213f4faf99a6dd8dff7eb8c35129b81">getCoeffbtaunu</a> () const</td></tr>
 <tr class="separator:ab213f4faf99a6dd8dff7eb8c35129b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ef23c28ec8cfdcb22572bdddca1c48d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d95/class_wilson_coefficient.html">WilsonCoefficient</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d87/class_heff_d_b1.html#a5ef23c28ec8cfdcb22572bdddca1c48d">getCoeffdmumu</a> () const</td></tr>
@@ -2179,8 +2179,8 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="adbd7b286ad71ce661d4d627ce5c51b60" name="adbd7b286ad71ce661d4d627ce5c51b60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbd7b286ad71ce661d4d627ce5c51b60">&#9670;&nbsp;</a></span>ComputeCoeffsnunu()</h2>
+<a id="ac7d5732377ea6d8b51485f8e64682962" name="ac7d5732377ea6d8b51485f8e64682962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7d5732377ea6d8b51485f8e64682962">&#9670;&nbsp;</a></span>ComputeCoeffsnunu()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2188,9 +2188,19 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">gslpp::vector&lt; gslpp::complex &gt; ** HeffDB1::ComputeCoeffsnunu </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>noSM</em> = <code>false</code></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3">QCD::lepton</a>&#160;</td>
+          <td class="paramname"><em>lepton</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>noSM</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2205,7 +2215,7 @@ Private Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="../../d5/d20/_heff_d_b1_8cpp_source.html#l00864">864</a> of file <a class="el" href="../../d5/d20/_heff_d_b1_8cpp_source.html">HeffDB1.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>{</div>
 <div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>    </div>
-<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>    <span class="keyword">const</span> std::vector&lt;WilsonCoefficient&gt;&amp; mcb = <a class="code hl_variable" href="../../dd/d87/class_heff_d_b1.html#ab9bbcb39fb5e83b0dcbecec12a4b4fae">model</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#aaaddbaf5f4fb1585adb8b1708cbb80a5">getMatching</a>().<a class="code hl_function" href="../../d0/d2a/class_model_matching.html#a0180322cb63d2e5d54ad8008182e5591">CMBXsnn</a>();</div>
+<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>    <span class="keyword">const</span> std::vector&lt;WilsonCoefficient&gt;&amp; mcb = <a class="code hl_variable" href="../../dd/d87/class_heff_d_b1.html#ab9bbcb39fb5e83b0dcbecec12a4b4fae">model</a>.<a class="code hl_function" href="../../dc/dd5/class_standard_model.html#aaaddbaf5f4fb1585adb8b1708cbb80a5">getMatching</a>().<a class="code hl_function" href="../../d0/d2a/class_model_matching.html#a1c5b867eb250e55688173cf4ba5391e5">CMBXsnn</a>(lepton);</div>
 <div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span> </div>
 <div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>    <a class="code hl_variable" href="../../dd/d87/class_heff_d_b1.html#acfcd4f211338909dc775bb604892bb29">coeffsnunu</a>.<a class="code hl_function" href="../../dd/d6f/class_wilson_template.html#acb076cc3f4f2e3a34943060e5b021d14">resetCoefficient</a>();</div>
 <div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>    <a class="code hl_enumeration" href="../../d9/d8f/group___standard_model.html#ga5f038b5aa5a392661ff3a8494829bd9e">orders</a> ordDF1 = <a class="code hl_variable" href="../../dd/d87/class_heff_d_b1.html#acfcd4f211338909dc775bb604892bb29">coeffsnunu</a>.<a class="code hl_function" href="../../dd/d6f/class_wilson_template.html#ac6a4119a19dd830636809836908cbfb3">getOrder</a>();</div>
@@ -2226,7 +2236,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>     </div>
 <div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../dd/d87/class_heff_d_b1.html#acfcd4f211338909dc775bb604892bb29">coeffsnunu</a>.<a class="code hl_function" href="../../d2/d95/class_wilson_coefficient.html#a0eee2b64042671c739dea62b9072a67c">getCoeff</a>(); </div>
 <div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>} </div>
-<div class="ttc" id="aclass_model_matching_html_a0180322cb63d2e5d54ad8008182e5591"><div class="ttname"><a href="../../d0/d2a/class_model_matching.html#a0180322cb63d2e5d54ad8008182e5591">ModelMatching::CMBXsnn</a></div><div class="ttdeci">virtual std::vector&lt; WilsonCoefficient &gt; &amp; CMBXsnn()=0</div></div>
+<div class="ttc" id="aclass_model_matching_html_a1c5b867eb250e55688173cf4ba5391e5"><div class="ttname"><a href="../../d0/d2a/class_model_matching.html#a1c5b867eb250e55688173cf4ba5391e5">ModelMatching::CMBXsnn</a></div><div class="ttdeci">virtual std::vector&lt; WilsonCoefficient &gt; &amp; CMBXsnn(QCD::lepton lepton)=0</div></div>
 <div class="ttc" id="aclass_wilson_template_html_acb076cc3f4f2e3a34943060e5b021d14"><div class="ttname"><a href="../../dd/d6f/class_wilson_template.html#acb076cc3f4f2e3a34943060e5b021d14">WilsonTemplate::resetCoefficient</a></div><div class="ttdeci">virtual void resetCoefficient()</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/de7/_wilson_template_8h_source.html#l00080">WilsonTemplate.h:80</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -4392,7 +4402,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dd/d87/class_heff_d_b1.html">HeffDB1</a></li>
-    <li class="footer">Generated on Mon Jun 2 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Tue Jun 3 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
