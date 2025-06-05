@@ -1172,6 +1172,14 @@ public:
     }
 
     /**
+     * @brief Return NP coeff CLQ1_3323
+     * @return \f$ CLQ1_3323 \f$ 
+     */
+    const double getCLQ1_3323() const {
+        return CLQ1_3323;
+    }
+
+    /**
      * @brief Return NP coeff CLQ3_1123
      * @return \f$ CLQ3_1123 \f$ 
      */
@@ -1201,6 +1209,14 @@ public:
      */
     const double getCLd_2223() const {
         return CLd_2223;
+    }
+
+    /**
+     * @brief Return NP coeff CLd_3323
+     * @return \f$ CLd_3323 \f$ 
+     */
+    const double getCLd_3323() const {
+        return CLd_3323;
     }
 
     /**

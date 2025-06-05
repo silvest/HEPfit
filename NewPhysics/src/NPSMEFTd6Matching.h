@@ -46,6 +46,8 @@ public:
     std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton) ;
     
     std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton) ;
+    
+    std::vector<WilsonCoefficient>& CMBXsnn(QCD::lepton lepton);
 
 private:
     const NPSMEFTd6 & myNPSMEFTd6;
@@ -74,9 +76,16 @@ private:
     gslpp::complex CSpNPe;
     gslpp::complex CPNPe;
     gslpp::complex CPpNPe;
+
+    gslpp::complex CLnunuNPe;///< the Wilson Coefficient \f$C_{L}^{\nu\nu}\f$.
+    gslpp::complex CRnunuNPe;///< the Wilson Coefficient \f$C_{R}^{\nu\nu}\f$.
+    gslpp::complex CLnunuNPmu;///< the Wilson Coefficient \f$C_{L}^{\nu\nu}\f$.
+    gslpp::complex CRnunuNPmu;///< the Wilson Coefficient \f$C_{R}^{\nu\nu}\f$.
+    gslpp::complex CLnunuNPtau;///< the Wilson Coefficient \f$C_{L}^{\nu\nu}\f$.
+    gslpp::complex CRnunuNPtau;///< the Wilson Coefficient \f$C_{R}^{\nu\nu}\f$.
     
-    gslpp::complex CLQ1_1123_tot, CLQ1_2223_tot;
-    gslpp::complex CLQ3_1123_tot, CLQ3_2223_tot; 
+    gslpp::complex CLQ1_1123_tot, CLQ1_2223_tot, CLQ1_3323_tot;
+    gslpp::complex CLQ3_1123_tot, CLQ3_2223_tot, CLQ3_3323_tot; 
     gslpp::complex CQe_2311_tot, CQe_2322_tot;
     
     double Muw;
@@ -85,10 +94,12 @@ private:
     WilsonCoefficient mcbsmm;
     WilsonCoefficient mcbdmm;
     WilsonCoefficient mcBMll, mcprimeBMll;
+    WilsonCoefficient mcbsnn;
     std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg;
     std::vector<WilsonCoefficient> vmcbsmm;
     std::vector<WilsonCoefficient> vmcbdmm;
     std::vector<WilsonCoefficient> vmcBMll, vmcprimeBMll;
+    std::vector<WilsonCoefficient> vmcbsnn;
 };
 
 #endif /* NPSMEFTD6MATCHING_H */
