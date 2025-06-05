@@ -1,5 +1,6 @@
 var NAVTREEINDEX122 =
 {
+"dd/d87/class_heff_d_b1.html#ad85d38e7faa8139cfd41c2bb89ea79e0":[27,0,874,48],
 "dd/d87/class_heff_d_b1.html#ad9e3d1e25e564495dfa1f7e4bb8d3801":[27,0,874,88],
 "dd/d87/class_heff_d_b1.html#adbe42ab914444e52629cda17a9050ed1":[27,0,874,12],
 "dd/d87/class_heff_d_b1.html#adf922a78d6357208ef11f3e9afba191c":[27,0,874,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX122 =
 "dd/dad/class_z_fsigma_quarks_l_e_p2.html":[27,0,3154],
 "dd/dad/class_z_fsigma_quarks_l_e_p2.html#a028926b0ee7bac7b0e1983b81e933706":[27,0,3154,2],
 "dd/dad/class_z_fsigma_quarks_l_e_p2.html#a08e1f98e0dfebafd23d414c5484dc049":[27,0,3154,1],
-"dd/dad/class_z_fsigma_quarks_l_e_p2.html#a7b78b126d186fb2e477470521adc166a":[27,0,3154,0],
-"dd/dad/class_z_fsigma_quarks_l_e_p2.html#a83f18d46c652b52cd5a602f58d9b9200":[27,0,3154,3]
+"dd/dad/class_z_fsigma_quarks_l_e_p2.html#a7b78b126d186fb2e477470521adc166a":[27,0,3154,0]
 };

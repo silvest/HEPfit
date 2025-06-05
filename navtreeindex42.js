@@ -1,5 +1,6 @@
 var NAVTREEINDEX42 =
 {
+"d3/d9c/classtop__mass.html":[4,5,196],
 "d3/d9c/classtop__mass.html#a52825c0cd2830b6873e4992dcc52972e":[4,5,196,0],
 "d3/d9c/classtop__mass.html#acfba33f3ab5f041739c37e0187458412":[4,5,196,1],
 "d3/da0/class_robs__pp___hp__taunu___c_m_s8.html":[4,17,384],
@@ -248,6 +249,5 @@ var NAVTREEINDEX42 =
 "d3/de9/class_asymmetry___dazi__ord__tt_h__ee.html#afbfb395c2fca5882231c9cab9575262d":[27,0,138,2],
 "d3/de9/class_b_r___h5pp___h3p_h3p___g_m.html":[4,8,43],
 "d3/de9/class_b_r___h5pp___h3p_h3p___g_m.html#a07eec3c0483cbe2379a067f1eb384787":[4,8,43,0],
-"d3/de9/class_b_r___h5pp___h3p_h3p___g_m.html#a8624cb73d90cb7faf0348d193cae2181":[4,8,43,1],
-"d3/de9/class_b_r___h5pp___h3p_h3p___g_m.html#affcb73d692dc95bacf1158a5eb6ab1e6":[4,8,43,2]
+"d3/de9/class_b_r___h5pp___h3p_h3p___g_m.html#a8624cb73d90cb7faf0348d193cae2181":[4,8,43,1]
 };

@@ -1,5 +1,6 @@
 var NAVTREEINDEX123 =
 {
+"dd/dad/class_z_fsigma_quarks_l_e_p2.html#a83f18d46c652b52cd5a602f58d9b9200":[27,0,3154,3],
 "dd/dae/classlog10__tt__phi3__tt___t_h13.html":[27,0,1705],
 "dd/dae/classlog10__tt__phi3__tt___t_h13.html#a6410105155ebfdcb7cde316e070ff8e5":[27,0,1705,2],
 "dd/dae/classlog10__tt__phi3__tt___t_h13.html#a8e39ca6f301aa3ee19d319e53445e563":[27,0,1705,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX123 =
 "dd/df4/classdelta_r_l__12__d.html#a262d8aa1b413e484e0772d0b072b6eae":[4,16,25,2],
 "dd/df4/classdelta_r_l__12__d.html#a56dd5241f04bac0dc289131406989334":[4,16,25,1],
 "dd/df4/classdelta_r_l__12__d.html#a7fae30f0239dc6a6f2790139b43ebdab":[4,16,25,0],
-"dd/df5/class_b_r__h__gaga___g_t_h_d_m.html":[27,0,245],
-"dd/df5/class_b_r__h__gaga___g_t_h_d_m.html#a25374e4a25653ced08c3acc744c80d80":[27,0,245,2]
+"dd/df5/class_b_r__h__gaga___g_t_h_d_m.html":[27,0,245]
 };

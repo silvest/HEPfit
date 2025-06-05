@@ -45,6 +45,7 @@ var class_n_p_s_m_e_f_td6_matching =
     [ "CSpNPe", "de/d13/class_n_p_s_m_e_f_td6_matching.html#ab4cd0af22610313a46594c6daa317d3b", null ],
     [ "CSpNPmu", "de/d13/class_n_p_s_m_e_f_td6_matching.html#a0c48358f4b1c8a87e9cb0d170ea70e89", null ],
     [ "loop_factor", "de/d13/class_n_p_s_m_e_f_td6_matching.html#aff4e2aef4f369a06a6d09bb082b65433", null ],
+    [ "loop_factor_2", "de/d13/class_n_p_s_m_e_f_td6_matching.html#a30876fd426d412fe4b5cd3aa6f5bb7a5", null ],
     [ "mcbdmm", "de/d13/class_n_p_s_m_e_f_td6_matching.html#ac3aaac14b2835210e9b6061f6ccf710e", null ],
     [ "mcBMll", "de/d13/class_n_p_s_m_e_f_td6_matching.html#afe978277a363b7d7ea3aba377afc5f36", null ],
     [ "mcbsg", "de/d13/class_n_p_s_m_e_f_td6_matching.html#aba3fd4f38d9cdd60de16afec0a779e56", null ],

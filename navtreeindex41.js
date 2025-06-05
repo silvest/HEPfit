@@ -1,5 +1,6 @@
 var NAVTREEINDEX41 =
 {
+"d3/d5f/class_z_fitter_wrapper.html#a2a48cf4c103fd86133c64dc6a16ca2bc":[27,0,3143,60],
 "d3/d5f/class_z_fitter_wrapper.html#a3000d3490919f90f764406a16e2264bf":[27,0,3143,12],
 "d3/d5f/class_z_fitter_wrapper.html#a31789ba514998aaeeec24d6f34696c55":[27,0,3143,42],
 "d3/d5f/class_z_fitter_wrapper.html#a331f32ef39f6ac6eaad3d489a3e937f3":[27,0,3143,16],
@@ -248,6 +249,5 @@ var NAVTREEINDEX41 =
 "d3/d9a/class_hobs__pp__phi3___v_v___c_m_s8.html":[27,0,1323],
 "d3/d9a/class_hobs__pp__phi3___v_v___c_m_s8.html#a464a7af4ce45ed4b262e983e391cafe7":[27,0,1323,0],
 "d3/d9a/class_hobs__pp__phi3___v_v___c_m_s8.html#ad8de7703ee9410f8bb287a9e9736215d":[27,0,1323,1],
-"d3/d9a/class_hobs__pp__phi3___v_v___c_m_s8.html#ae27ec5354240a808600acf709031a7d7":[27,0,1323,2],
-"d3/d9c/classtop__mass.html":[4,5,196]
+"d3/d9a/class_hobs__pp__phi3___v_v___c_m_s8.html#ae27ec5354240a808600acf709031a7d7":[27,0,1323,2]
 };
