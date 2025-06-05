@@ -101,7 +101,7 @@ std::vector<std::string> MPll::initializeMPllParameters()
         throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
 
-    if (lep != QCD::NOLEPTON){
+    if (lep != QCD::NEUTRINO_1){
         if (dispersion) {
             mpllParameters.insert(mpllParameters.end(), { "r1_BK", "r2_BK", "deltaC9_BK", "phDC9_BK" });
         } else {
@@ -114,7 +114,7 @@ std::vector<std::string> MPll::initializeMPllParameters()
     }
 
     if (FixedWCbtos) 
-        if (lep != QCD::NOLEPTON) mpllParameters.insert(mpllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
+        if (lep != QCD::NEUTRINO_1) mpllParameters.insert(mpllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
         else mpllParameters.insert(mpllParameters.end(), { "CLnunu_SM" });
     mySM.initializeMeson(meson);
     mySM.initializeMeson(pseudoscalar);
@@ -129,7 +129,7 @@ void MPll::updateParameters()
 
     GF = mySM.getGF();
     ale = mySM.getAle();
-    if (lep == QCD::NOLEPTON){
+    if (lep == QCD::NEUTRINO_1){
         Mlep = 0.;
     }
     else{
@@ -203,7 +203,7 @@ void MPll::updateParameters()
             throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
 
-    if (lep != QCD::NOLEPTON){
+    if (lep != QCD::NEUTRINO_1){
         if (!dispersion) {
 #if NFPOLARBASIS_MPLL
             h_0 = gslpp::complex(mySM.getOptionalParameter("absh_0_MP"), mySM.getOptionalParameter("argh_0_MP"), true);
@@ -236,7 +236,7 @@ void MPll::updateParameters()
         }
     }
     
-    if (lep == QCD::NOLEPTON){
+    if (lep == QCD::NEUTRINO_1){
         VusVub_abs2 = (mySM.getCKM().computelamu_s() * mySM.getCKM().computelamu_s().conjugate()).abs();
         GF4 = GF * GF * GF * GF;
         MM3 = MM * MM * MM;
@@ -668,7 +668,7 @@ void MPll::checkCache()
         Ycache(1) = Mc;
     }
         
-    if (lep == QCD::NOLEPTON){
+    if (lep == QCD::NEUTRINO_1){
         H_V0updated = N_updated * VL_updated * C_L_nunu_updated * C_R_nunu_updated;
         H_A0updated = N_updated * VL_updated * C_L_nunu_updated * C_R_nunu_updated;
     } else {
@@ -1206,7 +1206,7 @@ gslpp::complex MPll::h_lambda(double q2)
 
 gslpp::complex MPll::H_V(double q2)
 {
-    if (lep == QCD::NOLEPTON) {
+    if (lep == QCD::NEUTRINO_1) {
         return -(C_L_nunu - etaP * pow(-1, angmomP) * C_R_nunu) * V_L(q2);
     }
     return -((C_9 + deltaC9_QCDF(q2, SPLINE) + Y(q2) /*+ fDeltaC9(q2)*/ - etaP * pow(-1, angmomP) * C_9p) * V_L(q2)
@@ -1216,7 +1216,7 @@ gslpp::complex MPll::H_V(double q2)
 
 gslpp::complex MPll::H_A(double q2)
 {
-    if (lep == QCD::NOLEPTON) {
+    if (lep == QCD::NEUTRINO_1) {
         return -(C_L_nunu - etaP * pow(-1, angmomP) * C_R_nunu) * V_L(q2);
     }
     return (-C_10 + etaP * pow(-1, angmomP) * C_10p) *V_L(q2);
@@ -1379,7 +1379,7 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
 
 double MPll::integrateSigmaTree(double q_min, double q_max)
 {
-    if (lep != QCD::NOLEPTON or meson != QCD::B_P or !NeutrinoTree_flag) return 0.;
+    if (lep != QCD::NEUTRINO_1 or meson != QCD::B_P or !NeutrinoTree_flag) return 0.;
 
     updateParameters();
     

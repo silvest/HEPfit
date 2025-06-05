@@ -252,7 +252,7 @@ std::vector<std::string> MVll::initializeMVllParameters()
     }
 
     if (FixedWCbtos) 
-        if (lep != QCD::NOLEPTON) mvllParameters.insert(mvllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
+        if (lep != QCD::NEUTRINO_1) mvllParameters.insert(mvllParameters.end(), { "C7_SM", "C9_SM", "C10_SM" });
         else mvllParameters.insert(mvllParameters.end(), { "CLnunu_SM" });
     
     mySM.initializeMeson(meson);
@@ -267,7 +267,7 @@ void MVll::updateParameters()
     
     GF = mySM.getGF();
     ale = mySM.getAle();
-    if (lep == QCD::NOLEPTON){
+    if (lep == QCD::NEUTRINO_1){
         Mlep = 0.;
     }
     else{
@@ -469,7 +469,7 @@ void MVll::updateParameters()
     }
     sqrt3 = sqrt(3.);
     
-    if (lep == QCD::NOLEPTON){
+    if (lep == QCD::NEUTRINO_1){
         VusVub_abs2 = (mySM.getCKM().computelamu_s() * mySM.getCKM().computelamu_s().conjugate()).abs();
         GF4 = GF * GF * GF * GF;
         MM3 = MM * MM * MM;
@@ -1031,7 +1031,7 @@ void MVll::checkCache()
         }
     }
     
-    if (lep == QCD::NOLEPTON){
+    if (lep == QCD::NEUTRINO_1){
         H_V0updated = N_updated * VL0_updated * C_L_nunu_updated * C_R_nunu_updated * VR0_updated;
         H_V1updated = N_updated * VL1_updated * C_L_nunu_updated * C_R_nunu_updated * VR1_updated;
         H_V2updated = N_updated * VL2_updated * C_L_nunu_updated * C_R_nunu_updated * VR2_updated;
@@ -2054,7 +2054,7 @@ double MVll::Delta_C9_zExp(int hel)
 
 gslpp::complex MVll::H_V_0(double q2, bool bar)
 {
-    if (lep == QCD::NOLEPTON) {
+    if (lep == QCD::NEUTRINO_1) {
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu - etaV * pow(-1, angmomV) * C_R_nunu) * V_0t(q2);
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() - etaV * pow(-1, angmomV) * C_R_nunu.conjugate()) * V_0t(q2);
     }
@@ -2065,7 +2065,7 @@ gslpp::complex MVll::H_V_0(double q2, bool bar)
 
 gslpp::complex MVll::H_V_p(double q2, bool bar)
 {
-    if (lep == QCD::NOLEPTON) {
+    if (lep == QCD::NEUTRINO_1) {
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu * V_m(q2));
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu.conjugate() * V_m(q2));
     }
@@ -2075,7 +2075,7 @@ gslpp::complex MVll::H_V_p(double q2, bool bar)
 
 gslpp::complex MVll::H_V_m(double q2, bool bar)
 {
-    if (lep == QCD::NOLEPTON) {
+    if (lep == QCD::NEUTRINO_1) {
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu * V_p(q2));
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu.conjugate() * V_p(q2));
     }
@@ -2085,7 +2085,7 @@ gslpp::complex MVll::H_V_m(double q2, bool bar)
 
 gslpp::complex MVll::H_A_0(double q2, bool bar)
 {
-    if (lep == QCD::NOLEPTON) {
+    if (lep == QCD::NEUTRINO_1) {
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu - etaV * pow(-1, angmomV) * C_R_nunu) * V_0t(q2);
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() - etaV * pow(-1, angmomV) * C_R_nunu.conjugate()) * V_0t(q2);
     }
@@ -2095,7 +2095,7 @@ gslpp::complex MVll::H_A_0(double q2, bool bar)
 
 gslpp::complex MVll::H_A_p(double q2, bool bar)
 {
-    if (lep == QCD::NOLEPTON) {
+    if (lep == QCD::NEUTRINO_1) {
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu * V_m(q2));
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu.conjugate() * V_m(q2));
     }
@@ -2105,7 +2105,7 @@ gslpp::complex MVll::H_A_p(double q2, bool bar)
 
 gslpp::complex MVll::H_A_m(double q2, bool bar)
 {
-    if (lep == QCD::NOLEPTON) {
+    if (lep == QCD::NEUTRINO_1) {
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu * V_p(q2));
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() * V_m(q2) - etaV * pow(-1, angmomV) *  C_R_nunu.conjugate() * V_p(q2));
     }
@@ -2115,7 +2115,7 @@ gslpp::complex MVll::H_A_m(double q2, bool bar)
 
 gslpp::complex MVll::H_S(double q2, bool bar)
 {
-    if (lep == QCD::NOLEPTON) return 0.;
+    if (lep == QCD::NEUTRINO_1) return 0.;
     
     if (!bar) return gslpp::complex::i() * NN * MboMW * (C_S - etaV * pow(-1, angmomV) * C_Sp) * S_L(q2);
     return gslpp::complex::i() * NN_conjugate * MboMW * (C_S.conjugate() - etaV * pow(-1, angmomV) * C_Sp.conjugate()) * S_L(q2);
@@ -2123,7 +2123,7 @@ gslpp::complex MVll::H_S(double q2, bool bar)
 
 gslpp::complex MVll::H_P(double q2, bool bar)
 {
-    if (lep == QCD::NOLEPTON) return 0.;
+    if (lep == QCD::NEUTRINO_1) return 0.;
     
     if (!bar) return gslpp::complex::i() * NN * (MboMW * (C_P - etaV * pow(-1, angmomV) * C_Pp) + twoMlepMb / q2 * (C_10 * (1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p * (etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
     return gslpp::complex::i() * NN_conjugate * (MboMW * (C_P.conjugate() - etaV * pow(-1, angmomV) * C_Pp.conjugate()) + twoMlepMb / q2 * (C_10.conjugate()*(1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p.conjugate()*(etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
@@ -2582,7 +2582,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
 }
 double MVll::integrateSigmaTree(double q_min, double q_max)
 {
-    if (lep != QCD::NOLEPTON or meson != QCD::B_P or !NeutrinoTree_flag) return 0.;
+    if (lep != QCD::NEUTRINO_1 or meson != QCD::B_P or !NeutrinoTree_flag) return 0.;
 
     updateParameters();
     
