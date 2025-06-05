@@ -30,6 +30,7 @@ void NPSMEFTd6Matching::updateNPSMEFTd6Parameters()
     
     double ytop = myNPSMEFTd6.getQuarks(QCD::TOP).getMass()/myNPSMEFTd6.v();
     loop_factor = myNPSMEFTd6.getCKM().computelamt_s()*ytop*ytop/(16.*M_PI*M_PI);
+    loop_factor_2 = 4./3.*(myNPSMEFTd6.v()/myNPSMEFTd6.getLambda_NP())*(myNPSMEFTd6.v()/myNPSMEFTd6.getLambda_NP())/myNPSMEFTd6.getCKM().computelamt_s();
     
     C7NP = 0.; // to be implemented
     C8NP = 0.; // to be implemented 
@@ -44,10 +45,16 @@ void NPSMEFTd6Matching::updateNPSMEFTd6Parameters()
     CLQ1_2223_tot -= loop_factor*logLambdaomu*(myNPSMEFTd6.getCHL1_22()-myNPSMEFTd6.getCLu_2233());
     CLQ1_3323_tot = myNPSMEFTd6.getCLQ1_3323();
     //CLQ1_3323_tot -= loop_factor*logLambdaomu*(myNPSMEFTd6.getCHL1_33()-myNPSMEFTd6.getCLu_3333());
+    CLQ1_1123_tot += loop_factor_2*logLambdaomu*myNPSMEFTd6.getCLQ1_3323();
+    CLQ1_2223_tot += loop_factor_2*logLambdaomu*myNPSMEFTd6.getCLQ1_3323();
     CLQ3_1123_tot = myNPSMEFTd6.getCLQ3_1123();
     CLQ3_1123_tot += loop_factor*logLambdaomu*myNPSMEFTd6.getCHL3_11();
     CLQ3_2223_tot = myNPSMEFTd6.getCLQ3_2223();
     CLQ3_2223_tot += loop_factor*logLambdaomu*myNPSMEFTd6.getCHL3_22();
+    CLQ3_3323_tot = myNPSMEFTd6.getCLQ3_3323();
+    //CLQ3_3323_tot += loop_factor*logLambdaomu*myNPSMEFTd6.getCHL3_33();
+    CLQ3_1123_tot += loop_factor_2*logLambdaomu*myNPSMEFTd6.getCLQ3_3323();
+    CLQ3_2223_tot += loop_factor_2*logLambdaomu*myNPSMEFTd6.getCLQ3_3323();
     CQe_2311_tot = myNPSMEFTd6.getCQe_2311();
     CQe_2311_tot -= loop_factor*logLambdaomu*(myNPSMEFTd6.getCHe_11()-myNPSMEFTd6.getCeu_1133());
     CQe_2322_tot = myNPSMEFTd6.getCQe_2322();

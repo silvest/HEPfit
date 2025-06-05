@@ -52,7 +52,7 @@ public:
 private:
     const NPSMEFTd6 & myNPSMEFTd6;
     
-    gslpp::complex SMEFT_factor, loop_factor;
+    gslpp::complex SMEFT_factor, loop_factor, loop_factor_2;
     
     gslpp::complex C7NP;
     gslpp::complex C8NP;
