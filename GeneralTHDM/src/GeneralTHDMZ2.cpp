@@ -202,3 +202,17 @@ bool GeneralTHDMZ2::CheckModelType(const std::string modeltype) const
     else
         return false;
 }
+
+bool GeneralTHDMZ2::setFlag(const std::string name, const bool value)
+{
+    bool res = false;
+
+    if(name.compare("use_wf_renorm") == 0) {
+        flag_wfr = value;
+        res = true;
+    }
+    else
+        res = GeneralTHDM::setFlag(name,value);
+
+    return res;
+}

@@ -76,6 +76,14 @@ public:
     virtual bool setFlagStr(const std::string name, const std::string value);
 
     /**
+     * @brief A method to set a flag of %GeneralTHDMZ2.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool setFlag(const std::string name, const bool value);
+
+    /**
      *
      * @brief A getter for @f$\beta@f$
      * @return @f$\beta@f$
@@ -185,6 +193,14 @@ public:
         return flag_model;
     }
 
+    /**
+     * @brief A getter for the chosen option to include WFR in NLO unitarity
+     * @return a boolean that is true if WFR is to be used, false if not
+     */
+    bool getWFRflag_Z2() const {
+        return flag_wfr;
+    }
+
 protected:
 
     /**
@@ -208,6 +224,7 @@ private:
     double beta, cosb, cos2b, cos4b, cos6b, sinb, sin2b, sin4b, sin6b, cos2bma, sin2bma;
     double vev, mh_2, mH_2, mA_2, mHp_2, M2aux;
     std::string flag_model;
+    bool flag_wfr;
 };
 
 #endif /* GENERALTHDMZ2_H */

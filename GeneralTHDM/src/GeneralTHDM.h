@@ -1476,11 +1476,21 @@ protected:
      */
     bool checkRGEorder(const std::string RGEorder) const
     {
-        if (RGEorder.compare("LO") == 0)
+        if (getModelName() == "GeneralTHDMZ2") {
+            if (RGEorder.compare("LO") == 0
+                || RGEorder.compare("approxNLO") == 0
+                || RGEorder.compare("NLO") == 0)
+                return true;
+            else
+                return false;
+        }
+        else {
+            if (RGEorder.compare("LO") == 0)
 //                || RGEorder.compare("approxNLO") == 0)
-            return true;
-        else
-            return false;
+                return true;
+            else
+                return false;
+        }
     }
 
     mutable Matching<GeneralTHDMMatching,GeneralTHDM> GTHDMM; ///< An object of type Matching.

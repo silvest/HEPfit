@@ -736,12 +736,12 @@ void GeneralTHDMZ2Runner::runGeneralTHDMZ2parameters()
 // Wavefunction renormalization contributions to unitarity, from Grinstein:2015rtl
 void GeneralTHDMZ2Runner::computeWFR_Z2()
 {
-    double WFRcomb1a = 0.0;
-    double WFRcomb1b = 0.0;
-    double WFRcomb2a = 0.0;
-    double WFRcomb3a = 0.0;
-    double WFRcomb3b = 0.0;
-    double WFRcomb4a = 0.0;
+    double WFRcomb1a;
+    double WFRcomb1b;
+    double WFRcomb2a;
+    double WFRcomb3a;
+    double WFRcomb3b;
+    double WFRcomb4a;
 
     double B000mh     = myGTHDMZ2->getMyGTHDMCache()->B0_MZ2_0_0_mHh2(MZ2,mHl2).real();
     double B000mH     = myGTHDMZ2->getMyGTHDMCache()->B0_MZ2_0_0_mHh2(MZ2,mHh2).real();
@@ -1098,10 +1098,10 @@ void GeneralTHDMZ2Runner::computeWFR_Z2()
         + pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+(2.0*mA2+3.0*mHh2)*cos(alpha+3.0*beta)
               +16.0*m12_2*sin(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mAmAmH;
 
-    WFRcomb1=-(WFRcomb1a+WFRcomb1b)/(vev*vev);
-    WFRcomb2=-WFRcomb2a/(vev*vev);
-    WFRcomb3=-(WFRcomb3a+WFRcomb3b)/(vev*vev);
-    WFRcomb4=-WFRcomb4a/(vev*vev);
+    WFRcomb1 = -(WFRcomb1a+WFRcomb1b)/(vev*vev);
+    WFRcomb2 = -WFRcomb2a/(vev*vev);
+    WFRcomb3 = -(WFRcomb3a+WFRcomb3b)/(vev*vev);
+    WFRcomb4 = -WFRcomb4a/(vev*vev);
 }
 
 
@@ -1134,7 +1134,13 @@ gslpp::matrix<double> GeneralTHDMZ2Runner::getGTHDMZ2_at_Q()
     runGeneralTHDMZ2parameters();
 
     // Wavefunction renormalization contributions to unitarity, from Grinstein:2015rtl
-    computeWFR_Z2();
+    WFRcomb1 = 0.;
+    WFRcomb2 = 0.;
+    WFRcomb3 = 0.;
+    WFRcomb4 = 0.;
+
+    if(myGTHDMZ2->getWFRflag_Z2())
+        computeWFR_Z2();
 
     // 1st row: (lambda1, lambda2, lambda3, lambda4, lambda5)
     // 2nd row: (Ytop, Ybottom1, Ybottom2, Ytau1, Ytau2)
