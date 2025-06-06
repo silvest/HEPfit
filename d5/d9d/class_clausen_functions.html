@@ -257,20 +257,20 @@ The Bernoulli numbers are stored in the base class <a class="el" href="../../df/
 
 <p class="definition">Definition at line <a class="el" href="../../df/dfb/_clausen_functions_8cpp_source.html#l00026">26</a> of file <a class="el" href="../../df/dfb/_clausen_functions_8cpp_source.html">ClausenFunctions.cpp</a>.</p>
 <div class="fragment"><div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    phi = remainder(phi, 2.0 * M_PI);   <span class="comment">// reduce phi to the range [-pi, pi]</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (phi &lt; 0.0) phi = -phi; <span class="comment">// Clausen function of third order is even, so we can use the positive value</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">if</span> (phi==0.0) <span class="keywordflow">return</span> ( gsl_sf_zeta_int(3) );</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">auto</span> myphi = remainder(phi, 2.0 * M_PI);   <span class="comment">// reduce phi to the range [-pi, pi]</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (myphi &lt; 0.0) myphi = -myphi; <span class="comment">// Clausen function of third order is even, so we can use the positive value</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">if</span> (myphi==0.0) <span class="keywordflow">return</span> ( gsl_sf_zeta_int(3) );</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">double</span> TMP = 0.0, l_double = 0.0, lfactorial = 1.0, sign = 1.0;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> l=2; l&lt;19; l++) {</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        l_double = (double)l;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        lfactorial *= l_double;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">if</span> (l%4) { sign = - 1.0; } <span class="keywordflow">else</span> { sign = 1.0; }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        TMP += <a class="code hl_variable" href="../../df/dea/class_bernoulli_numbers.html#a75da801e940dee5454efd36c4bab2997">B</a>[l]*pow(phi,l_double)/l_double/(l_double + 1.0)/(l_double + 2.0)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        TMP += <a class="code hl_variable" href="../../df/dea/class_bernoulli_numbers.html#a75da801e940dee5454efd36c4bab2997">B</a>[l]*pow(myphi,l_double)/l_double/(l_double + 1.0)/(l_double + 2.0)</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>               /lfactorial * sign;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> ( gsl_sf_zeta_int(3) - phi*phi*(3.0/4.0 - log(phi)/2.0 - TMP) );</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> ( gsl_sf_zeta_int(3) - myphi*myphi*(3.0/4.0 - log(myphi)/2.0 - TMP) );</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
 <div class="ttc" id="aclass_bernoulli_numbers_html_a75da801e940dee5454efd36c4bab2997"><div class="ttname"><a href="../../df/dea/class_bernoulli_numbers.html#a75da801e940dee5454efd36c4bab2997">BernoulliNumbers::B</a></div><div class="ttdeci">double B[19]</div><div class="ttdoc">the Bernoulli numbers</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d27/_bernoulli_numbers_8h_source.html#l00037">BernoulliNumbers.h:37</a></div></div>
 </div><!-- fragment -->
