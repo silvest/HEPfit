@@ -146,8 +146,8 @@ $(document).ready(function(){initNavTree('df/dfb/_clausen_functions_8cpp_source.
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d5/d9d/class_clausen_functions.html#ad1b0dbc972c95c67b02271db3973ff16">   26</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d5/d9d/class_clausen_functions.html#ad1b0dbc972c95c67b02271db3973ff16">ClausenFunctions::Cl3</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> phi)<span class="keyword"> const </span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">if</span> (phi &lt; 0.0 || phi &gt; M_PI) </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ClausenFunctions::Cl3(): phi is out of range!&quot;</span>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    phi = remainder(phi, 2.0 * M_PI);   <span class="comment">// reduce phi to the range [-pi, pi]</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (phi &lt; 0.0) phi = -phi; <span class="comment">// Clausen function of third order is even, so we can use the positive value</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">if</span> (phi==0.0) <span class="keywordflow">return</span> ( gsl_sf_zeta_int(3) );</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    </div>
@@ -174,7 +174,7 @@ $(document).ready(function(){initNavTree('df/dfb/_clausen_functions_8cpp_source.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6db1c069948d59c49e3dd255dfa7d52e.html">LoopFunctions</a></li><li class="navelem"><a class="el" href="../../dir_8e3405edc138cbbe3b6168d45fc21beb.html">src</a></li><li class="navelem"><a class="el" href="../../df/dfb/_clausen_functions_8cpp.html">ClausenFunctions.cpp</a></li>
-    <li class="footer">Generated on Thu Jun 5 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Fri Jun 6 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
