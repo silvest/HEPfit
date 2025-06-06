@@ -25,8 +25,8 @@ double ClausenFunctions::Cl2(const double phi) const
 
 double ClausenFunctions::Cl3(const double phi) const 
 {
-    if (phi < 0.0 || phi > M_PI) 
-        throw std::runtime_error("ClausenFunctions::Cl3(): phi is out of range!");
+    phi = remainder(phi, 2.0 * M_PI);   // reduce phi to the range [-pi, pi]
+    if (phi < 0.0) phi = -phi; // Clausen function of third order is even, so we can use the positive value
     
     if (phi==0.0) return ( gsl_sf_zeta_int(3) );
     

@@ -42,9 +42,9 @@ public:
      * @details The function @f$\mathrm{Cl}_3(\phi)@f$ is computed with the help
      * of the GSL function gsl_sf_zeta_int(3). See @cite Kniehl:1989qu. 
      * @param[in] phi a real variable
-     * @return @f$\mathrm{Cl}_3(\phi)@f$
-     *
-     * @attention This function is applicable for @f$0\leq \phi\leq \pi@f$.
+     * @return @f$\mathrm{Cl}_3(\phi) = \zeta(3) - \phi^2 \left( \frac{3}{4} - \frac{\ln(\phi)}{2} + \sum_{n=1}^{\infty} \frac{B_n \phi^{2n}}{2n(2n+1)(2n+2)(2n)!} \right)@f$
+     * @note The function is even, so the argument is internally reduced to the range [0, pi]. The sum is truncated at n=18.
+     * @note The Bernoulli numbers are stored in the base class BernoulliNumbers.
      */
     double Cl3(const double phi) const;
 

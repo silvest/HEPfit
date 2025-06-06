@@ -404,7 +404,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
                                         for (int p = 0; p < 3; p++)
                                                 for (int r = 0; r < 3; r++)
                                                 {
-                                                        CudduV1LR.at(i).at(j).at(k).at(l) += VCKM(i, j) * VdRd(k, p) * (-0.25 * (g22oMW2 * v2 * (mySMEFT.getSMEFTCoeffEW("CHudR", r, p) - gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHudI", r, p)))) * VdR(r, k);
+                                                        CudduV1LR.at(i).at(j).at(k).at(l) += VCKM(i, j) * VdRd(k, p) * (-0.25 * (g22oMW2 * v2 * (mySMEFT.getSMEFTCoeffEW("CHudR", r, p) - gslpp::complex::i() * mySMEFT.getSMEFTCoeffEW("CHudI", r, p)))) * VuR(r, k);
                                                         for (int s = 0; s < 3; s++)
                                                                 for (int t = 0; t < 3; t++)
                                                                 {
