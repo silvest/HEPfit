@@ -20128,273 +20128,205 @@ const double NPSMEFTd6General::muVBFgamma(const double sqrt_s) const {
 
 const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
 
-    //  Only Alpha scheme
+    //  Mw scheme
+
     double mu = 1.0;
 
     double C1 = 0.0;
     
+    double CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl3R11 = 0.0, CHl3R22 = 0.0, CllR1221 = 0.0;
+    double muRG = 0;
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
+    
+    //  Wilson coefficients definitions 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG);
+        
     //  Pure WBF, hence only initiated by LH fermions. No difference between polarizations at the linear level.
     //  Expand like other functions when quadratic terms are included
+    
 
-    if (sqrt_s == 0.240) {
+    if (sqrt_s == 0.230) {
 
         C1 = 0.00639683;
 
-        mu +=
-                +121120. * getSMEFTCoeffEW("CHbox")
-                - 138682. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203727. * getSMEFTCoeffEW("CHD")
-                - 24699.7 * getSMEFTCoeffEW("CHW")
-                - 379830. * getSMEFTCoeffEW("CHWB")
-                - 4.716 * delta_GF
-                - 5.665 * deltaMwd6()
-                ;
+        mu += cWsch * (
+                -22678.4 * CHW 
+                -403.784 * CHWB 
+                -30227.6 * CHD 
+                +120870. * CHbox 
+                -307776. * CHl3R11 
+                -182383. * CHl3R22 
+                +181458. * CllR1221 
+                );
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +3.307 * deltaMz()
-                - 3.995 * deltaMh()
-                - 0.486 * deltaaMZ()
-                + 3.507 * deltaGmu());
 
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+    } else if (sqrt_s == 0.240) {
+
+        C1 = 0.00639683;
+
+        mu += cWsch * (
+                -24480.4 * CHW 
+                -420.775 * CHWB 
+                -30228.3 * CHD 
+                +120890. * CHbox 
+                -316741. * CHl3R11 
+                -182335. * CHl3R22 
+                +181564. * CllR1221 
+                );
+
 
     } else if (sqrt_s == 0.250) {
 
         C1 = 0.0064;
 
-        mu +=
-                +121142. * getSMEFTCoeffEW("CHbox")
-                - 147357. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203726. * getSMEFTCoeffEW("CHD")
-                - 26559.2 * getSMEFTCoeffEW("CHW")
-                - 379797. * getSMEFTCoeffEW("CHWB")
-                - 4.717 * delta_GF
-                - 5.593 * deltaMwd6()
-                ;
+        mu += cWsch * (
+                -26656.2 * CHW 
+                -536.424 * CHWB 
+                -30398.4 * CHD 
+                +120546. * CHbox 
+                -325556. * CHl3R11 
+                -182521. * CHl3R22 
+                +181327. * CllR1221 
+                );
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +3.413 * deltaMz()
-                - 3.644 * deltaMh()
-                - 0.502 * deltaaMZ()
-                + 3.523 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
 
     } else if (sqrt_s == 0.350) {
 
         C1 = 0.0062;
 
-        mu +=
-                +121107. * getSMEFTCoeffEW("CHbox")
-                - 219582. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203717. * getSMEFTCoeffEW("CHD")
-                - 39722.3 * getSMEFTCoeffEW("CHW")
-                - 379795. * getSMEFTCoeffEW("CHWB")
-                - 4.714 * delta_GF
-                - 5.13 * deltaMwd6()
-                ;
+        mu += cWsch * (
+                -39530.3 * CHW 
+                -646.027 * CHWB 
+                -30240.6 * CHD 
+                +120881. * CHbox 
+                -396701. * CHl3R11 
+                -182400. * CHl3R22 
+                +181394. * CllR1221 
+                );
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +4.073 * deltaMz()
-                - 1.94 * deltaMh()
-                - 0.598 * deltaaMZ()
-                + 3.623 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
 
     } else if (sqrt_s == 0.365) {
 
         C1 = 0.00618352;
 
-        mu +=
-                +121071. * getSMEFTCoeffEW("CHbox")
-                - 228452. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203725. * getSMEFTCoeffEW("CHD")
-                - 40966.9 * getSMEFTCoeffEW("CHW")
-                - 379798. * getSMEFTCoeffEW("CHWB")
-                - 4.714 * delta_GF
-                - 5.08 * deltaMwd6()
-                ;
+        mu += cWsch * (
+                -40796.6 * CHW 
+                -626.864 * CHWB 
+                -30507.4 * CHD 
+                +120603. * CHbox 
+                -405380. * CHl3R11 
+                -182353. * CHl3R22 
+                +181575. * CllR1221
+                );
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +4.136 * deltaMz()
-                - 1.817 * deltaMh()
-                - 0.609 * deltaaMZ()
-                + 3.635 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
 
     } else if (sqrt_s == 0.380) {
 
         C1 = 0.0062; // Use the same as 350 GeV
 
-        mu +=
-                +121001. * getSMEFTCoeffEW("CHbox")
-                - 237126. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203726. * getSMEFTCoeffEW("CHD")
-                - 42070.9 * getSMEFTCoeffEW("CHW")
-                - 379788. * getSMEFTCoeffEW("CHWB")
-                - 4.714 * delta_GF
-                - 5.044 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +4.192 * deltaMz()
-                - 1.711 * deltaMh()
-                - 0.618 * deltaaMZ()
-                + 3.64 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        mu += cWsch * (
+                -41677.4 * CHW 
+                -456.017 * CHWB 
+                -30347.6 * CHD 
+                +120703. * CHbox 
+                -413858. * CHl3R11 
+                -182188. * CHl3R22 
+                +181341. * CllR1221 
+                );
 
     } else if (sqrt_s == 0.500) {
 
         C1 = 0.0061;
 
-        mu +=
-                +121063. * getSMEFTCoeffEW("CHbox")
-                - 295115. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203679. * getSMEFTCoeffEW("CHD")
-                - 47539.5 * getSMEFTCoeffEW("CHW")
-                - 379773. * getSMEFTCoeffEW("CHWB")
-                - 4.715 * delta_GF
-                - 4.817 * deltaMwd6()
-                ;
+        mu += cWsch * (
+                -47053.9 * CHW 
+                -244.306 * CHWB 
+                -30283.9 * CHD 
+                +121058. * CHbox 
+                -471403. * CHl3R11 
+                -181871. * CHl3R22 
+                +181700. * CllR1221
+                );
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +4.509 * deltaMz()
-                - 1.178 * deltaMh()
-                - 0.666 * deltaaMZ()
-                + 3.692 * deltaGmu());
 
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+    } else if (sqrt_s == 0.550) {
+
+        C1 = 0.0061;
+
+        mu += cWsch * (
+                -48186.2 * CHW 
+                -331.282 * CHWB 
+                -30408.3 * CHD 
+                +121124. * CHbox 
+                -491380. * CHl3R11 
+                -181977. * CHl3R22 
+                +181701. * CllR1221 
+                );
+
 
     } else if (sqrt_s == 1.0) {
 
         C1 = 0.0059;
 
-        mu +=
-                +120960. * getSMEFTCoeffEW("CHbox")
-                - 442647. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203748. * getSMEFTCoeffEW("CHD")
-                - 49375.4 * getSMEFTCoeffEW("CHW")
-                - 379685. * getSMEFTCoeffEW("CHWB")
-                - 4.712 * delta_GF
-                - 4.481 * deltaMwd6()
-                ;
+        mu += cWsch * (
+                -49488.8 * CHW 
+                -166.83 * CHWB 
+                -30446.4 * CHD 
+                +121190. * CHbox 
+                -617416. * CHl3R11 
+                -182202. * CHl3R22 
+                +181511. * CllR1221 
+                );
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +4.99 * deltaMz()
-                - 0.582 * deltaMh()
-                - 0.734 * deltaaMZ()
-                + 3.765 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
 
     } else if (sqrt_s == 1.4) {
 
         C1 = 0.0058;
 
-        mu +=
-                +121118. * getSMEFTCoeffEW("CHbox")
-                - 515189. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203684. * getSMEFTCoeffEW("CHD")
-                - 46619.5 * getSMEFTCoeffEW("CHW")
-                - 379667. * getSMEFTCoeffEW("CHWB")
-                - 4.714 * delta_GF
-                - 4.391 * deltaMwd6()
-                ;
+        mu += cWsch * (
+                -46762. * CHW 
+                -145.836 * CHWB 
+                -30411.2 * CHD 
+                +121259. * CHbox 
+                -689513. * CHl3R11 
+                -182210. * CHl3R22 
+                +181661. * CllR1221 
+                );
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +5.13 * deltaMz()
-                - 0.446 * deltaMh()
-                - 0.754 * deltaaMZ()
-                + 3.784 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
 
     } else if (sqrt_s == 1.5) {
 
-        C1 = 0.0058; // Use the same as 1400 GeV
-
-        mu +=
-                +121200. * getSMEFTCoeffEW("CHbox")
-                - 530152. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203649. * getSMEFTCoeffEW("CHD")
-                - 45921.3 * getSMEFTCoeffEW("CHW")
-                - 379591. * getSMEFTCoeffEW("CHWB")
-                - 4.715 * delta_GF
-                - 4.38 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +5.154 * deltaMz()
-                - 0.424 * deltaMh()
-                - 0.757 * deltaaMZ()
-                + 3.786 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        mu += cWsch * (
+                -46321.6 * CHW 
+                -315.498 * CHWB 
+                -30490.1 * CHD 
+                +121143. * CHbox 
+                -704469. * CHl3R11 
+                -182156. * CHl3R22 
+                +181112. * CllR1221 
+                );
 
     } else if (sqrt_s == 3.0) {
 
         C1 = 0.0057;
 
-        mu +=
-                +121321. * getSMEFTCoeffEW("CHbox")
-                - 684382. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 203585. * getSMEFTCoeffEW("CHD")
-                - 38239. * getSMEFTCoeffEW("CHW")
-                - 379518. * getSMEFTCoeffEW("CHWB")
-                - 4.714 * delta_GF
-                - 4.258 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +5.331 * deltaMz()
-                - 0.279 * deltaMh()
-                - 0.785 * deltaaMZ()
-                + 3.81 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        mu += cWsch * (
+                -38546. * CHW 
+                -674.92 * CHWB 
+                -30159.9 * CHD 
+                +121148. * CHbox 
+                -857367. * CHl3R11 
+                -182782. * CHl3R22 
+                +180763. * CllR1221 
+                );
 
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWBF()");
@@ -20413,1253 +20345,861 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
 const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
 
-    //  Only Alpha scheme
+    //  Mw scheme
 
     double mu = 1.0;
 
     double C1 = 0.0;
     
-    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeHvvPol(sqrt_s, Pol_em, Pol_ep);
+    // Wilson coefficients and scale
+    double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R11 = 0.0;
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR11 = 0.0, CllR1221 = 0.0; 
+    double muRG = 0;    
 
+    // Polarization factors
+    double Pe = Pol_em, Pp = Pol_ep;
+    double fLR, fRL;
+
+    // LH and RH cross sections    
+    double sigmaSMeLHa0 = 0.0, sigmaeLHa0 = 0.0, sigmaSMeLHa1 = 0.0, sigmaeLHa1 = 0.0; 
+    double sigmaSMeRHa0 = 0.0, sigmaeRHa0 = 0.0, sigmaSMeRHa1 = 0.0, sigmaeRHa1 = 0.0;
+    
+    // -------------------------------------------------------------------------
+    
+    fLR = 0.25 * (1.0 - Pe) * (1.0 + Pp);
+    fRL = 0.25 * (1.0 + Pe) * (1.0 - Pp);
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
+    
+    //  Wilson coefficients definitions 
+    CHB = getSMEFTCoeff("CHB", muRG); 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl1R11 = getSMEFTCoeff("CHl1R",0,0, muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CHeR11 = getSMEFTCoeff("CHeR",0,0, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG);
+    
     //  For the Higgs trilinear dependence assume the WBF mechanism dominates
+    
+    // Computed as the difference between e+ e- > H ve ve and e+ e- > H Z, Z > ve ve
 
-    if (sqrt_s == 0.240) {
+    if (sqrt_s == 0.230) {
 
         C1 = 0.00639683;
 
-        mu +=
-                +121539. * getSMEFTCoeffEW("CHbox")
-                + 328845. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 37798.9 * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 279733. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 196039. * getSMEFTCoeffEW("CHD")
-                - 70718.5 * getSMEFTCoeffEW("CHB")
-                + 29671.9 * getSMEFTCoeffEW("CHW")
-                - 401378. * getSMEFTCoeffEW("CHWB")
-                - 4.698 * delta_GF
-                - 5.463 * deltaMwd6()
-                ;
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.059149; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -6703.9 * CHB 
+                +28405.8 * CHW 
+                +8204.2 * CHWB 
+                +4505.86 * CHD 
+                +7247.85 * CHbox 
+                +46957.8 * CHl1R11 
+                +41337.8 * CHl3R11 
+                -10716.8 * CHl3R22 
+                +50.057 * CHeR11 
+                +10816.5 * CllR1221
+                );
+        
+        sigmaSMeLHa1 = 0.029738; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -5698. * CHB 
+                +24313. * CHW 
+                +6634. * CHWB 
+                +4154. * CHD 
+                +3596. * CHbox 
+                +37856. * CHl1R11 
+                +39659. * CHl3R11 
+                -5412. * CHl3R22 
+                -2. * CHeR11 
+                +5405. * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.021932; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +11963.9 * CHB 
+                +1660.64 * CHW 
+                +6640.6 * CHWB 
+                -5265.33 * CHD 
+                +2635.77 * CHbox 
+                -2626.19 * CHl1R11 
+                -1364.38 * CHl3R11 
+                -3977.51 * CHl3R22 
+                -37857.4 * CHeR11 
+                +3998.57 * CllR1221              
+                );
+        
+        sigmaSMeRHa1 = 0.019411; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +10684.6 * CHB 
+                +1491.6 * CHW 
+                +5968.6 * CHWB 
+                -4673.2 * CHD 
+                +2359.6 * CHbox 
+                -2347.2 * CHl1R11 
+                -1176.4 * CHl3R11 
+                -3522.7 * CHl3R22 
+                -33504.4 * CHeR11 
+                +3535.6 * CllR1221              
+                );
+        
+    } else if (sqrt_s == 0.240) {
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +4.842 * deltaMz()
-                - 2.535 * deltaMh()
-                - 0.528 * deltaaMZ()
-                + 3.46 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        C1 = 0.00639683;
+        
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.064179; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -7582.01 * CHB 
+                +31652.3 * CHW 
+                +8473.6 * CHWB 
+                +4551.21 * CHD 
+                +7782.99 * CHbox 
+                +53595.2 * CHl1R11 
+                +46797.1 * CHl3R11 
+                -11665.3 * CHl3R22 
+                -34.399 * CHeR11 
+                +11729.1 * CllR1221 
+                );
+        
+        sigmaSMeLHa1 = 0.032478; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -6747. * CHB 
+                +28236. * CHW 
+                +7213. * CHWB 
+                +4534. * CHD 
+                +3930. * CHbox 
+                +45348. * CHl1R11 
+                +47337. * CHl3R11 
+                -5915. * CHl3R22 
+                -5. * CHeR11 
+                +5905. * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.024227; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +14216.9 * CHB 
+                +1819.5 * CHW 
+                +8263.49 * CHWB 
+                -5810.48 * CHD 
+                +2944.56 * CHbox 
+                -2904.14 * CHl1R11 
+                -1479.61 * CHl3R11 
+                -4379.55 * CHl3R22 
+                -45568.2 * CHeR11 
+                +4424.17 * CllR1221              
+                );
+        
+        sigmaSMeRHa1 = 0.021198; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +12477. * CHB 
+                +1581. * CHW 
+                +7265. * CHWB 
+                -5103. * CHD 
+                +2581. * CHbox 
+                -2563.9 * CHl1R11 
+                -1282.9 * CHl3R11 
+                -3841.8 * CHl3R22 
+                -39845. * CHeR11 
+                +3860. * CllR1221              
+                );
 
     } else if (sqrt_s == 0.250) {
 
         C1 = 0.0064;
 
-        mu +=
-                +120627. * getSMEFTCoeffEW("CHbox")
-                + 256825. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 38677.5 * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 175735. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 201059. * getSMEFTCoeffEW("CHD")
-                - 57405. * getSMEFTCoeffEW("CHB")
-                - 9860.82 * getSMEFTCoeffEW("CHW")
-                - 403474. * getSMEFTCoeffEW("CHWB")
-                - 4.656 * delta_GF
-                - 5.633 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +4.194 * deltaMz()
-                - 2.783 * deltaMh()
-                - 0.477 * deltaaMZ()
-                + 3.414 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.067697; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -7842.55 * CHB 
+                +32195.3 * CHW 
+                +7995.72 * CHWB 
+                +4345.9 * CHD 
+                +8239.09 * CHbox 
+                +56576.4 * CHl1R11 
+                +47681.9 * CHl3R11 
+                -12330.7 * CHl3R22 
+                +4.62 * CHeR11 
+                +12293.3 * CllR1221 
+                );
+        
+        sigmaSMeLHa1 = 0.032502; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -7262. * CHB 
+                +29887. * CHW 
+                +7183. * CHWB 
+                +4539. * CHD 
+                +3925. * CHbox 
+                +49603. * CHl1R11 
+                +51583. * CHl3R11 
+                -5918. * CHl3R22 
+                -9. * CHeR11 
+                +5897. * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.024424; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +15200.9 * CHB 
+                +1794.68 * CHW 
+                +9134.34 * CHWB 
+                -5883.35 * CHD 
+                +2944.13 * CHbox 
+                -2967.46 * CHl1R11 
+                -1479.3 * CHl3R11 
+                -4437.99 * CHl3R22 
+                -49809.1 * CHeR11 
+                +4461.27 * CllR1221              
+                );
+        
+        sigmaSMeRHa1 = 0.021221; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +13253. * CHB 
+                +1527. * CHW 
+                +7972. * CHWB 
+                -5113.4 * CHD 
+                +2577. * CHbox 
+                -2574.3 * CHl1R11 
+                -1286. * CHl3R11 
+                -3855.1 * CHl3R22 
+                -43275. * CHeR11 
+                +3856. * CllR1221               
+                );
 
     } else if (sqrt_s == 0.350) {
 
         C1 = 0.0062;
 
-        mu +=
-                +120666. * getSMEFTCoeffEW("CHbox")
-                - 19184.6 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 27432.1 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 238244. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 204898. * getSMEFTCoeffEW("CHD")
-                + 11833.5 * getSMEFTCoeffEW("CHB")
-                - 94273.3 * getSMEFTCoeffEW("CHW")
-                - 377703. * getSMEFTCoeffEW("CHWB")
-                - 4.669 * delta_GF
-                - 5.329 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +3.738 * deltaMz()
-                - 1.994 * deltaMh()
-                - 0.537 * deltaaMZ()
-                + 3.484 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.134698; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -4610.61 * CHB 
+                +13131.4 * CHW 
+                +3271.33 * CHWB 
+                -1426.48 * CHD 
+                +16256.3 * CHbox 
+                +52474.1 * CHl1R11 
+                +5236.32 * CHl3R11 
+                -24479. * CHl3R22 
+                -79.73 * CHeR11 
+                +24584.9 * CllR1221 
+                );
+        
+        sigmaSMeLHa1 = 0.017502; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -6067.4 * CHB 
+                +22837.2 * CHW 
+                +3670.2 * CHWB 
+                +2444.5 * CHD 
+                +2120.8 * CHbox 
+                +54404.2 * CHl1R11 
+                +55470.2 * CHl3R11 
+                -3184. * CHl3R22 
+                -2.7 * CHeR11 
+                +3180.2 * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.013416; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +12262.3 * CHB 
+                +674.27 * CHW 
+                +8562.69 * CHWB 
+                -3239.42 * CHD 
+                +1628.99 * CHbox 
+                -1664.92 * CHl1R11 
+                -772.27 * CHl3R11 
+                -2434.07 * CHl3R22 
+                -53588.2 * CHeR11 
+                +2433.13 * CllR1221               
+                );
+        
+        sigmaSMeRHa1 = 0.011428; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +10380.3 * CHB 
+                +578.1 * CHW 
+                +7249.4 * CHWB 
+                -2754.8 * CHD 
+                +1382.8 * CHbox 
+                -1386.5 * CHl1R11 
+                -695.2 * CHl3R11 
+                -2079.1 * CHl3R22 
+                -45682.7 * CHeR11 
+                +2080.1 * CllR1221              
+                );
 
     } else if (sqrt_s == 0.365) {
 
         C1 = 0.00618352;
 
-        mu +=
-                +120864. * getSMEFTCoeffEW("CHbox")
-                - 24430. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 24398.7 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 253414. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 204817. * getSMEFTCoeffEW("CHD")
-                + 12826.5 * getSMEFTCoeffEW("CHB")
-                - 93455. * getSMEFTCoeffEW("CHW")
-                - 377489. * getSMEFTCoeffEW("CHWB")
-                - 4.68 * delta_GF
-                - 5.265 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +3.834 * deltaMz()
-                - 1.867 * deltaMh()
-                - 0.556 * deltaaMZ()
-                + 3.512 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.149505; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -4089.28 * CHB 
+                +10219.8 * CHW 
+                +2978.04 * CHWB 
+                -2089.33 * CHD 
+                +18094.8 * CHbox 
+                +51560.3 * CHl1R11 
+                -3886.54 * CHl3R11 
+                -27167.1 * CHl3R22 
+                +40.4 * CHeR11 
+                +27244.9 * CllR1221 
+                );
+        
+        sigmaSMeLHa1 = 0.015907; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -5736.2 * CHB 
+                +21442.2 * CHW 
+                +3310.6 * CHWB 
+                +2221. * CHD 
+                +1927.1 * CHbox 
+                +53940.2 * CHl1R11 
+                +54912.2 * CHl3R11 
+                -2892.8 * CHl3R22 
+                -1.6 * CHeR11 
+                +2891.4 * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.012207; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +11547.6 * CHB 
+                +589.54 * CHW 
+                +8177.48 * CHWB 
+                -2948.28 * CHD 
+                +1481.42 * CHbox 
+                -1521.36 * CHl1R11 
+                -701.48 * CHl3R11 
+                -2218.87 * CHl3R22 
+                -53022.9 * CHeR11 
+                +2214.52 * CllR1221               
+                );
+        
+        sigmaSMeRHa1 = 0.010386; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +9767.4 * CHB 
+                +498.7 * CHW 
+                +6888.4 * CHWB 
+                -2501.9 * CHD 
+                +1260.2 * CHbox 
+                -1260.4 * CHl1R11 
+                -632. * CHl3R11 
+                -1889.5 * CHl3R22 
+                -45151.6 * CHeR11 
+                +1891.8 * CllR1221               
+                );
 
     } else if (sqrt_s == 0.380) {
 
         C1 = 0.0062;
 
-        mu +=
-                +120775. * getSMEFTCoeffEW("CHbox")
-                - 27548.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 22022.3 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 266603. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 204782. * getSMEFTCoeffEW("CHD")
-                + 13052.3 * getSMEFTCoeffEW("CHB")
-                - 92560.2 * getSMEFTCoeffEW("CHW")
-                - 377461. * getSMEFTCoeffEW("CHWB")
-                - 4.684 * delta_GF
-                - 5.221 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +3.931 * deltaMz()
-                - 1.75 * deltaMh()
-                - 0.574 * deltaaMZ()
-                + 3.532 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.165164; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -3620.09 * CHB 
+                +7262.01 * CHW 
+                +2533.79 * CHWB 
+                -2795.85 * CHD 
+                +19930.1 * CHbox 
+                +50455.6 * CHl1R11 
+                -13297.1 * CHl3R11 
+                -30129. * CHl3R22 
+                -75.41 * CHeR11 
+                +29935.6 * CllR1221
+                );
+        
+        sigmaSMeLHa1 = 0.014504; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -5414.8 * CHB 
+                +20137. * CHW 
+                +3002.5 * CHWB 
+                +2029.9 * CHD 
+                +1760.6 * CHbox 
+                +53470. * CHl1R11 
+                +54342. * CHl3R11 
+                -2636.3 * CHl3R22 
+                +2.7 * CHeR11 
+                +2640.2 * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.011137; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +10870.8 * CHB 
+                +511.27 * CHW 
+                +7767.56 * CHWB 
+                -2692.87 * CHD 
+                +1349.76 * CHbox 
+                -1394.99 * CHl1R11 
+                -634.74 * CHl3R11 
+                -2023.82 * CHl3R22 
+                -52450.2 * CHeR11 
+                +2030.93 * CllR1221              
+                );
+        
+        sigmaSMeRHa1 = 0.009472; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +9181.6 * CHB 
+                +430.1 * CHW 
+                +6529.6 * CHWB 
+                -2282.2 * CHD 
+                +1147.4 * CHbox 
+                -1151. * CHl1R11 
+                -575.8 * CHl3R11 
+                -1722.9 * CHl3R22 
+                -44623.5 * CHeR11 
+                +1726.7 * CllR1221              
+                );
 
     } else if (sqrt_s == 0.500) {
 
         C1 = 0.0061;
 
-        mu +=
-                +120683. * getSMEFTCoeffEW("CHbox")
-                - 26906.2 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 11055.8 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 326940. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 204335. * getSMEFTCoeffEW("CHD")
-                + 10505.8 * getSMEFTCoeffEW("CHB")
-                - 82453.1 * getSMEFTCoeffEW("CHW")
-                - 378407. * getSMEFTCoeffEW("CHWB")
-                - 4.705 * delta_GF
-                - 4.943 * deltaMwd6()
-                ;
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.302866; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -401.42 * CHB 
+                -11755. * CHW 
+                +877.96 * CHWB 
+                -8221.05 * CHD 
+                +36140. * CHbox 
+                +45149.8 * CHl1R11 
+                -95968.7 * CHl3R11 
+                -55410.3 * CHl3R22 
+                -243.04 * CHeR11 
+                +54805.9 * CllR1221 
+                );
+        
+        sigmaSMeLHa1 = 0.00776; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -3477.5 * CHB 
+                +12550.9 * CHW 
+                +1542.9 * CHWB 
+                +1083.3 * CHD 
+                +941.7 * CHbox 
+                +50229.9 * CHl1R11 
+                +50669.9 * CHl3R11 
+                -1411.6 * CHl3R22 
+                -0.7 * CHeR11 
+                +1411. * CllR1221               
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.005968; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +6902.97 * CHB 
+                +180.91 * CHW 
+                +5139.82 * CHWB 
+                -1436.97 * CHD 
+                +722.43 * CHbox 
+                -752.583 * CHl1R11 
+                -332.172 * CHl3R11 
+                -1083.6 * CHl3R22 
+                -48701.4 * CHeR11 
+                +1087.27 * CllR1221               
+                );
+        
+        sigmaSMeRHa1 = 0.005067; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +5773.6 * CHB 
+                +153.1 * CHW 
+                +4277.7 * CHWB 
+                -1220.2 * CHD 
+                +614.4 * CHbox 
+                -614.8 * CHl1R11 
+                -307.7 * CHl3R11 
+                -921.5 * CHl3R22 
+                -41341.8 * CHeR11 
+                +923.7 * CllR1221               
+                );
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +4.412 * deltaMz()
-                - 1.191 * deltaMh()
-                - 0.659 * deltaaMZ()
-                + 3.633 * deltaGmu());
+    } else if (sqrt_s == 0.550) {
 
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        C1 = 0.0061;
+
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.362269; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +373.85 * CHB 
+                -17839.8 * CHW 
+                +734.48 * CHWB 
+                -9923.28 * CHD 
+                +43743. * CHbox 
+                +44063.1 * CHl1R11 
+                -132983. * CHl3R11 
+                -65946.9 * CHl3R22 
+                +152.15 * CHeR11 
+                +66262.6 * CllR1221 
+                );
+        
+        sigmaSMeLHa1 = 0.006271; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -2939. * CHB 
+                +10537.5 * CHW 
+                +1232.7 * CHWB 
+                +876. * CHD 
+                +761.8 * CHbox 
+                +49277.3 * CHl1R11 
+                +49629.3 * CHl3R11 
+                -1139.8 * CHl3R22 
+                -0.2 * CHeR11 
+                +1140.9 * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.004825; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +5824.16 * CHB 
+                +125.188 * CHW 
+                +4375.17 * CHWB 
+                -1164.22 * CHD 
+                +579.62 * CHbox 
+                -613.231 * CHl1R11 
+                -265.447 * CHl3R11 
+                -877.103 * CHl3R22 
+                -47624.2 * CHeR11 
+                +876.017 * CllR1221              
+                );
+        
+        sigmaSMeRHa1 = 0.004095; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +4857.9 * CHB 
+                +105.3 * CHW 
+                +3628.7 * CHWB 
+                -986.7 * CHD 
+                +497.2 * CHbox 
+                -496.9 * CHl1R11 
+                -248.5 * CHl3R11 
+                -744.8 * CHl3R22 
+                -40427.9 * CHeR11 
+                +745.8 * CllR1221              
+                );
 
     } else if (sqrt_s == 1.0) {
 
         C1 = 0.0059;
 
-        mu +=
-                +120462. * getSMEFTCoeffEW("CHbox")
-                - 9025.99 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 3124.38 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 454282. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 204077. * getSMEFTCoeffEW("CHD")
-                + 3421.94 * getSMEFTCoeffEW("CHB")
-                - 61892.5 * getSMEFTCoeffEW("CHW")
-                - 379786. * getSMEFTCoeffEW("CHWB")
-                - 4.711 * delta_GF
-                - 4.587 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +4.969 * deltaMz()
-                - 0.583 * deltaMh()
-                - 0.745 * deltaaMZ()
-                + 3.729 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.840445; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +1799.69 * CHB 
+                -46969.5 * CHW 
+                +104.525 * CHWB 
+                -25193.7 * CHD 
+                +101623. * CHbox 
+                +42181.4 * CHl1R11 
+                -477637. * CHl3R11 
+                -153174. * CHl3R22 
+                -72.821 * CHeR11 
+                +152853. * CllR1221
+                );
+        
+        sigmaSMeLHa1 = 0.001741; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -952.62 * CHB 
+                +3344.46 * CHW 
+                +325.76 * CHWB 
+                +243.3 * CHD 
+                +211.6 * CHbox 
+                +45697. * CHl1R11 
+                +45787. * CHl3R11 
+                -317.11 * CHl3R22 
+                +0.04 * CHeR11 
+                +317.06 * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.001338; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +1883.78 * CHB 
+                +12.31 * CHW 
+                +1460.68 * CHWB 
+                -322.405 * CHD 
+                +162.126 * CHbox 
+                -173.677 * CHl1R11 
+                -69.869 * CHl3R11 
+                -243.069 * CHl3R22 
+                -43656.7 * CHeR11 
+                +243.762 * CllR1221              
+                );
+        
+        sigmaSMeRHa1 = 0.001137; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +1552.24 * CHB 
+                +9.77 * CHW 
+                +1192.24 * CHWB 
+                -274. * CHD 
+                +137.9 * CHbox 
+                -138.09 * CHl1R11 
+                -69.34 * CHl3R11 
+                -207.12 * CHl3R22 
+                -37101. * CHeR11 
+                +207.27 * CllR1221              
+                );
 
     } else if (sqrt_s == 1.4) {
 
         C1 = 0.0058;
 
-        mu +=
-                +120512. * getSMEFTCoeffEW("CHbox")
-                - 4746.27 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 2212.55 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 521829. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 204054. * getSMEFTCoeffEW("CHD")
-                + 1891.37 * getSMEFTCoeffEW("CHB")
-                - 54492.9 * getSMEFTCoeffEW("CHW")
-                - 379916. * getSMEFTCoeffEW("CHWB")
-                - 4.712 * delta_GF
-                - 4.486 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +5.108 * deltaMz()
-                - 0.447 * deltaMh()
-                - 0.767 * deltaaMZ()
-                + 3.751 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 1.16664; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +1515.52 * CHB 
+                -60139.2 * CHW 
+                -313.042 * CHWB 
+                -35595.8 * CHD 
+                +140688. * CHbox 
+                +44830.7 * CHl1R11 
+                -760542. * CHl3R11 
+                -212799. * CHl3R22 
+                -216.739 * CHeR11 
+                +212046. * CllR1221
+                );
+        
+        sigmaSMeLHa1 = 0.00087; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -493.41 * CHB 
+                +1722.63 * CHW 
+                +160.89 * CHWB 
+                +121.5 * CHD 
+                +105.7 * CHbox 
+                +44873.7 * CHl1R11 
+                +44905.7 * CHl3R11 
+                -158.44 * CHl3R22 
+                +0.06 * CHeR11 
+                +158.6 * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.000668; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +978.328 * CHB 
+                +2.9797 * CHW 
+                +762.181 * CHWB 
+                -161.445 * CHD 
+                +80.9252 * CHbox 
+                -87.7595 * CHl1R11 
+                -34.4707 * CHl3R11 
+                -121.863 * CHl3R22 
+                -42733.6 * CHeR11 
+                +121.358 * CllR1221              
+                );
+        
+        sigmaSMeRHa1 = 0.000568; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +800.12 * CHB 
+                +2.56 * CHW 
+                +617.74 * CHWB 
+                -137. * CHD 
+                +69.04 * CHbox 
+                -68.9 * CHl1R11 
+                -34.69 * CHl3R11 
+                -103.56 * CHl3R22 
+                -36345.3 * CHeR11 
+                +103.63 * CllR1221              
+                );
 
     } else if (sqrt_s == 1.5) {
 
         C1 = 0.0058;
 
-        mu +=
-                +120512. * getSMEFTCoeffEW("CHbox")
-                - 4105.67 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 2086.49 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 536150. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 204072. * getSMEFTCoeffEW("CHD")
-                + 1682.65 * getSMEFTCoeffEW("CHB")
-                - 53138.1 * getSMEFTCoeffEW("CHW")
-                - 379943. * getSMEFTCoeffEW("CHWB")
-                - 4.711 * delta_GF
-                - 4.469 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +5.132 * deltaMz()
-                - 0.424 * deltaMh()
-                - 0.773 * deltaaMZ()
-                + 3.757 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 1.23716; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +1360.69 * CHB 
+                -62523.7 * CHW 
+                -725.756 * CHWB 
+                -37981.9 * CHD 
+                +148772. * CHbox 
+                +45105.6 * CHl1R11 
+                -827326. * CHl3R11 
+                -225838. * CHl3R22 
+                -486.794 * CHeR11 
+                +224000. * CllR1221 
+                );
+        
+        sigmaSMeLHa1 = 0.000756; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -430.8 * CHB 
+                +1501.77 * CHW 
+                +139.53 * CHWB 
+                +105.54 * CHD 
+                +91.77 * CHbox 
+                +44758. * CHl1R11 
+                +44786. * CHl3R11 
+                -137.66 * CHl3R22 
+                +0.03 * CHeR11 
+                +137.58 * CllR1221              
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.000581; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +854.12 * CHB 
+                +2.2845 * CHW 
+                +666.124 * CHWB 
+                -140.103 * CHD 
+                +70.3909 * CHbox 
+                -76.2121 * CHl1R11 
+                -29.8378 * CHl3R11 
+                -105.842 * CHl3R22 
+                -42598.1 * CHeR11 
+                +105.12 * CllR1221              
+                );
+        
+        sigmaSMeRHa1 = 0.000494; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +698.25 * CHB 
+                +1.85 * CHW 
+                +539.85 * CHWB 
+                -119.02 * CHD 
+                +59.95 * CHbox 
+                -59.89 * CHl1R11 
+                -30.15 * CHl3R11 
+                -89.98 * CHl3R22 
+                -36240.7 * CHeR11 
+                +89.99 * CllR1221              
+                );
 
     } else if (sqrt_s == 3.0) {
 
         C1 = 0.0057;
 
-        mu +=
-                +120404. * getSMEFTCoeffEW("CHbox")
-                - 1215.14 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 1382.75 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 686451. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 204039. * getSMEFTCoeffEW("CHD")
-                + 293.31 * getSMEFTCoeffEW("CHB")
-                - 41440.6 * getSMEFTCoeffEW("CHW")
-                - 380130. * getSMEFTCoeffEW("CHWB")
-                - 4.706 * delta_GF
-                - 4.343 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +5.307 * deltaMz()
-                - 0.283 * deltaMh()
-                - 0.802 * deltaaMZ()
-                + 3.789 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // e+ e- > H ve ve - e+ e- > H Z, Z > ve ve
+        // LH -------------------------------
+        sigmaSMeLHa0 = 1.98635; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +167.781 * CHB 
+                -80364. * CHW 
+                -1108.24 * CHWB 
+                -61687.4 * CHD 
+                +238369. * CHbox 
+                +47553.5 * CHl1R11 
+                -1654456. * CHl3R11 
+                -363189. * CHl3R22 
+                -1681.06 * CHeR11 
+                +359731. * CllR1221
+                );
+        
+        sigmaSMeLHa1 = 0.000186; 
+ 
+        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+                -108.342 * CHB 
+                +378.008 * CHW 
+                +34.078 * CHWB 
+                +26.048 * CHD 
+                +22.648 * CHbox 
+                +44190.7 * CHl1R11 
+                +44174.7 * CHl3R11 
+                -33.916 * CHl3R22 
+                +0.021 * CHeR11 
+                +33.948 * CllR1221               
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.000143; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +217.438 * CHB 
+                +0.099697 * CHW 
+                +171.124 * CHWB 
+                -34.49 * CHD 
+                +17.3203 * CHbox 
+                -18.9965 * CHl1R11 
+                -7.08342 * CHl3R11 
+                -26.059 * CHl3R22 
+                -41954. * CHeR11 
+                +25.932 * CllR1221              
+                );
+        
+        sigmaSMeRHa1 = 0.000122; 
+ 
+        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+                +175.68 * CHB 
+                +0.114 * CHW 
+                +136.74 * CHWB 
+                -29.295 * CHD 
+                +14.797 * CHbox 
+                -14.707 * CHl1R11 
+                -7.394 * CHl3R11 
+                -22.139 * CHl3R22 
+                -35717.6 * CHeR11 
+                +22.19 * CllR1221               
+                );
 
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvv()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eeeWBFint + eeeWBFpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
-
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
-
-const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
-
-    //  Only Alpha scheme
-
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    //  For the Higgs trilinear dependence assume the WBF mechanism dominates
-
-    if (sqrt_s == 0.240) {
-
-        C1 = 0.00639683;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121180. * getSMEFTCoeffEW("CHbox")
-                    + 221479. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 508958. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 220003. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 149238. * getSMEFTCoeffEW("CHD")
-                    + 24268.3 * getSMEFTCoeffEW("CHB")
-                    - 32411.5 * getSMEFTCoeffEW("CHW")
-                    - 194663. * getSMEFTCoeffEW("CHWB")
-                    - 3.633 * delta_GF
-                    - 4.394 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+2.975 * deltaMz()
-                    - 2.624 * deltaMh()
-                    + 0.379 * deltaaMZ()
-                    + 2.282 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +121456. * getSMEFTCoeffEW("CHbox")
-                    + 337881. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 931.718 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 283908. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 199920. * getSMEFTCoeffEW("CHD")
-                    - 78796.8 * getSMEFTCoeffEW("CHB")
-                    + 34606.7 * getSMEFTCoeffEW("CHW")
-                    - 418335. * getSMEFTCoeffEW("CHWB")
-                    - 4.781 * delta_GF
-                    - 5.537 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.005 * deltaMz()
-                    - 2.529 * deltaMh()
-                    - 0.603 * deltaaMZ()
-                    + 3.57 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121483. * getSMEFTCoeffEW("CHbox")
-                    + 266382. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 313151. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 245682. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 168446. * getSMEFTCoeffEW("CHD")
-                    - 15072.1 * getSMEFTCoeffEW("CHB")
-                    - 6209.98 * getSMEFTCoeffEW("CHW")
-                    - 281195. * getSMEFTCoeffEW("CHWB")
-                    - 4.079 * delta_GF
-                    - 4.832 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.758 * deltaMz()
-                    - 2.579 * deltaMh()
-                    + 0.009 * deltaaMZ()
-                    + 2.778 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +121500. * getSMEFTCoeffEW("CHbox")
-                    + 337280. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1209.82 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 283754. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 199723. * getSMEFTCoeffEW("CHD")
-                    - 78465.3 * getSMEFTCoeffEW("CHB")
-                    + 34393.4 * getSMEFTCoeffEW("CHW")
-                    - 417413. * getSMEFTCoeffEW("CHWB")
-                    - 4.777 * delta_GF
-                    - 5.539 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.99 * deltaMz()
-                    - 2.528 * deltaMh()
-                    - 0.6 * deltaaMZ()
-                    + 3.56 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else if (sqrt_s == 0.250) {
-
-        C1 = 0.0064;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120626. * getSMEFTCoeffEW("CHbox")
-                    + 172936. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 516799. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 146366. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 156275. * getSMEFTCoeffEW("CHD")
-                    + 30993.1 * getSMEFTCoeffEW("CHB")
-                    - 62277.2 * getSMEFTCoeffEW("CHW")
-                    - 213096. * getSMEFTCoeffEW("CHWB")
-                    - 3.678 * delta_GF
-                    - 4.598 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+2.739 * deltaMz()
-                    - 2.661 * deltaMh()
-                    + 0.356 * deltaaMZ()
-                    + 2.343 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120567. * getSMEFTCoeffEW("CHbox")
-                    + 263666. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 351.165 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 396055. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204612. * getSMEFTCoeffEW("CHD")
-                    - 64672.8 * getSMEFTCoeffEW("CHB")
-                    - 5618.64 * getSMEFTCoeffEW("CHW")
-                    - 418629. * getSMEFTCoeffEW("CHWB")
-                    + 286902. * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
-                    - 5.706 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.313 * deltaMz()
-                    - 2.793 * deltaMh()
-                    - 0.544 * deltaaMZ()
-                    + 3.494 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120240. * getSMEFTCoeffEW("CHbox")
-                    + 208124. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 315248. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 158895. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 175074. * getSMEFTCoeffEW("CHD")
-                    - 6529.15 * getSMEFTCoeffEW("CHB")
-                    - 40099.4 * getSMEFTCoeffEW("CHW")
-                    - 293696. * getSMEFTCoeffEW("CHWB")
-                    - 4.092 * delta_GF
-                    - 5.01 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.351 * deltaMz()
-                    - 2.698 * deltaMh()
-                    - 0.006 * deltaaMZ()
-                    + 2.791 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120459. * getSMEFTCoeffEW("CHbox")
-                    + 263262. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 2507.98 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 177390. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204514. * getSMEFTCoeffEW("CHD")
-                    - 64371.5 * getSMEFTCoeffEW("CHB")
-                    - 5927.95 * getSMEFTCoeffEW("CHW")
-                    - 417860. * getSMEFTCoeffEW("CHWB")
-                    - 4.726 * delta_GF
-                    - 5.715 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.305 * deltaMz()
-                    - 2.793 * deltaMh()
-                    - 0.54 * deltaaMZ()
-                    + 3.492 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else if (sqrt_s == 0.350) {
-
-        C1 = 0.0062;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120937. * getSMEFTCoeffEW("CHbox")
-                    - 41080.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 416801. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 192794. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 182281. * getSMEFTCoeffEW("CHD")
-                    + 102909. * getSMEFTCoeffEW("CHB")
-                    - 87947.8 * getSMEFTCoeffEW("CHW")
-                    - 228111. * getSMEFTCoeffEW("CHWB")
-                    - 4.236 * delta_GF
-                    - 4.832 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.177 * deltaMz()
-                    - 1.894 * deltaMh()
-                    - 0.171 * deltaaMZ()
-                    + 3.022 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120796. * getSMEFTCoeffEW("CHbox")
-                    - 17710.6 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1357.61 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 241114. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 206464. * getSMEFTCoeffEW("CHD")
-                    + 5738.97 * getSMEFTCoeffEW("CHB")
-                    - 94600.4 * getSMEFTCoeffEW("CHW")
-                    - 387581. * getSMEFTCoeffEW("CHWB")
-                    - 4.699 * delta_GF
-                    - 5.361 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.768 * deltaMz()
-                    - 2. * deltaMh()
-                    - 0.556 * deltaaMZ()
-                    + 3.512 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121065. * getSMEFTCoeffEW("CHbox")
-                    - 30567.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 235832. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 213581. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 192620. * getSMEFTCoeffEW("CHD")
-                    + 60320.1 * getSMEFTCoeffEW("CHB")
-                    - 90446.2 * getSMEFTCoeffEW("CHW")
-                    - 297833. * getSMEFTCoeffEW("CHWB")
-                    - 4.439 * delta_GF
-                    - 5.054 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.437 * deltaMz()
-                    - 1.943 * deltaMh()
-                    - 0.343 * deltaaMZ()
-                    + 3.237 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120725. * getSMEFTCoeffEW("CHbox")
-                    - 17741.9 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 2786.58 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 241197. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 206387. * getSMEFTCoeffEW("CHD")
-                    + 6134.48 * getSMEFTCoeffEW("CHB")
-                    - 94603.3 * getSMEFTCoeffEW("CHW")
-                    - 387053. * getSMEFTCoeffEW("CHWB")
-                    - 4.696 * delta_GF
-                    - 5.365 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.764 * deltaMz()
-                    - 2. * deltaMh()
-                    - 0.556 * deltaaMZ()
-                    + 3.517 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else if (sqrt_s == 0.365) {
-
-        C1 = 0.00618352;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121120. * getSMEFTCoeffEW("CHbox")
-                    - 43274.8 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 379332. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 213151. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 185704. * getSMEFTCoeffEW("CHD")
-                    + 95027.9 * getSMEFTCoeffEW("CHB")
-                    - 87042.2 * getSMEFTCoeffEW("CHW")
-                    - 246839. * getSMEFTCoeffEW("CHWB")
-                    - 4.314 * delta_GF
-                    - 4.867 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.356 * deltaMz()
-                    - 1.787 * deltaMh()
-                    - 0.246 * deltaaMZ()
-                    + 3.12 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120708. * getSMEFTCoeffEW("CHbox")
-                    - 23163.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1266.64 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 256145. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 206112. * getSMEFTCoeffEW("CHD")
-                    + 7209.08 * getSMEFTCoeffEW("CHB")
-                    - 94095.3 * getSMEFTCoeffEW("CHW")
-                    - 386056. * getSMEFTCoeffEW("CHWB")
-                    - 4.703 * delta_GF
-                    - 5.297 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.865 * deltaMz()
-                    - 1.869 * deltaMh()
-                    - 0.577 * deltaaMZ()
-                    + 3.533 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120872. * getSMEFTCoeffEW("CHbox")
-                    - 34492.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 212361. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 232050. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 194801. * getSMEFTCoeffEW("CHD")
-                    + 56353. * getSMEFTCoeffEW("CHB")
-                    - 90080.9 * getSMEFTCoeffEW("CHW")
-                    - 308151. * getSMEFTCoeffEW("CHWB")
-                    - 4.485 * delta_GF
-                    - 5.033 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.586 * deltaMz()
-                    - 1.817 * deltaMh()
-                    - 0.393 * deltaaMZ()
-                    + 3.287 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120806. * getSMEFTCoeffEW("CHbox")
-                    - 23082.3 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 2521.89 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 255807. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 205972. * getSMEFTCoeffEW("CHD")
-                    + 7600.7 * getSMEFTCoeffEW("CHB")
-                    - 94080.6 * getSMEFTCoeffEW("CHW")
-                    - 385587. * getSMEFTCoeffEW("CHWB")
-                    - 4.703 * delta_GF
-                    - 5.294 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.87 * deltaMz()
-                    - 1.873 * deltaMh()
-                    - 0.577 * deltaaMZ()
-                    + 3.533 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else if (sqrt_s == 0.380) {
-
-        C1 = 0.0062;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120907. * getSMEFTCoeffEW("CHbox")
-                    - 43917.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 344628. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 230932. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 188656. * getSMEFTCoeffEW("CHD")
-                    + 86802.5 * getSMEFTCoeffEW("CHB")
-                    - 86378.3 * getSMEFTCoeffEW("CHW")
-                    - 262732. * getSMEFTCoeffEW("CHWB")
-                    - 4.375 * delta_GF
-                    - 4.833 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.526 * deltaMz()
-                    - 1.675 * deltaMh()
-                    - 0.322 * deltaaMZ()
-                    + 3.202 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120826. * getSMEFTCoeffEW("CHbox")
-                    - 26397.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1156.51 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 268680. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 205752. * getSMEFTCoeffEW("CHD")
-                    + 8226.72 * getSMEFTCoeffEW("CHB")
-                    - 92973.9 * getSMEFTCoeffEW("CHW")
-                    - 384868. * getSMEFTCoeffEW("CHWB")
-                    - 4.706 * delta_GF
-                    - 5.24 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.957 * deltaMz()
-                    - 1.756 * deltaMh()
-                    - 0.592 * deltaaMZ()
-                    + 3.551 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121123. * getSMEFTCoeffEW("CHbox")
-                    - 35934.5 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 191922. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 247636. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 196255. * getSMEFTCoeffEW("CHD")
-                    + 52143.1 * getSMEFTCoeffEW("CHB")
-                    - 89227.7 * getSMEFTCoeffEW("CHW")
-                    - 317018. * getSMEFTCoeffEW("CHWB")
-                    - 4.524 * delta_GF
-                    - 5.007 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.729 * deltaMz()
-                    - 1.706 * deltaMh()
-                    - 0.439 * deltaaMZ()
-                    + 3.366 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120839. * getSMEFTCoeffEW("CHbox")
-                    - 26545. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 2293.44 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 268673. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 205696. * getSMEFTCoeffEW("CHD")
-                    + 8476.41 * getSMEFTCoeffEW("CHB")
-                    - 92899.6 * getSMEFTCoeffEW("CHW")
-                    - 384414. * getSMEFTCoeffEW("CHWB")
-                    - 4.704 * delta_GF
-                    - 5.232 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.958 * deltaMz()
-                    - 1.755 * deltaMh()
-                    - 0.59 * deltaaMZ()
-                    + 3.555 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else if (sqrt_s == 0.500) {
-
-        C1 = 0.0061;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120734. * getSMEFTCoeffEW("CHbox")
-                    - 33626. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 177471. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 312922. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 199388. * getSMEFTCoeffEW("CHD")
-                    + 44288.8 * getSMEFTCoeffEW("CHB")
-                    - 78960.3 * getSMEFTCoeffEW("CHW")
-                    - 332501. * getSMEFTCoeffEW("CHWB")
-                    - 4.614 * delta_GF
-                    - 4.84 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.296 * deltaMz()
-                    - 1.178 * deltaMh()
-                    - 0.582 * deltaaMZ()
-                    + 3.535 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120746. * getSMEFTCoeffEW("CHbox")
-                    - 26369.8 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 905.141 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 327709. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204622. * getSMEFTCoeffEW("CHD")
-                    + 8508.33 * getSMEFTCoeffEW("CHB")
-                    - 82669.6 * getSMEFTCoeffEW("CHW")
-                    - 381185. * getSMEFTCoeffEW("CHWB")
-                    - 4.711 * delta_GF
-                    - 4.948 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.417 * deltaMz()
-                    - 1.196 * deltaMh()
-                    - 0.664 * deltaaMZ()
-                    + 3.639 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120667. * getSMEFTCoeffEW("CHbox")
-                    - 30480.6 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 96672.9 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 320011. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 201855. * getSMEFTCoeffEW("CHD")
-                    + 27690.6 * getSMEFTCoeffEW("CHB")
-                    - 80770. * getSMEFTCoeffEW("CHW")
-                    - 355060. * getSMEFTCoeffEW("CHWB")
-                    - 4.656 * delta_GF
-                    - 4.875 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.345 * deltaMz()
-                    - 1.186 * deltaMh()
-                    - 0.621 * deltaaMZ()
-                    + 3.589 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120715. * getSMEFTCoeffEW("CHbox")
-                    - 26433.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1490.31 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 327665. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204644. * getSMEFTCoeffEW("CHD")
-                    + 8471.25 * getSMEFTCoeffEW("CHB")
-                    - 82673.2 * getSMEFTCoeffEW("CHW")
-                    - 381049. * getSMEFTCoeffEW("CHWB")
-                    - 4.711 * delta_GF
-                    - 4.942 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.416 * deltaMz()
-                    - 1.194 * deltaMh()
-                    - 0.664 * deltaaMZ()
-                    + 3.64 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else if (sqrt_s == 1.0) {
-
-        C1 = 0.0059;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120494. * getSMEFTCoeffEW("CHbox")
-                    - 9728.66 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 46166.9 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 452752. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 203700. * getSMEFTCoeffEW("CHD")
-                    + 8561.22 * getSMEFTCoeffEW("CHB")
-                    - 61449.7 * getSMEFTCoeffEW("CHW")
-                    - 374076. * getSMEFTCoeffEW("CHWB")
-                    - 4.706 * delta_GF
-                    - 4.581 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.956 * deltaMz()
-                    - 0.583 * deltaMh()
-                    - 0.739 * deltaaMZ()
-                    + 3.723 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120522. * getSMEFTCoeffEW("CHbox")
-                    - 8881.26 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 529.908 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 454326. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204057. * getSMEFTCoeffEW("CHD")
-                    + 3158.25 * getSMEFTCoeffEW("CHB")
-                    - 61850.9 * getSMEFTCoeffEW("CHW")
-                    - 380114. * getSMEFTCoeffEW("CHWB")
-                    - 4.712 * delta_GF
-                    - 4.587 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.967 * deltaMz()
-                    - 0.582 * deltaMh()
-                    - 0.746 * deltaaMZ()
-                    + 3.731 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == -20.) {
-            mu +=
-                    +120541. * getSMEFTCoeffEW("CHbox")
-                    - 9598.71 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 37435. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 453118. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 203771. * getSMEFTCoeffEW("CHD")
-                    + 7555.11 * getSMEFTCoeffEW("CHB")
-                    - 61524.6 * getSMEFTCoeffEW("CHW")
-                    - 375155. * getSMEFTCoeffEW("CHWB")
-                    - 4.706 * delta_GF
-                    - 4.589 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.959 * deltaMz()
-                    - 0.583 * deltaMh()
-                    - 0.741 * deltaaMZ()
-                    + 3.726 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 20.) {
-            mu +=
-                    +120482. * getSMEFTCoeffEW("CHbox")
-                    - 8932.26 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 597.015 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 454406. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204110. * getSMEFTCoeffEW("CHD")
-                    + 3145.81 * getSMEFTCoeffEW("CHB")
-                    - 61837. * getSMEFTCoeffEW("CHW")
-                    - 380115. * getSMEFTCoeffEW("CHWB")
-                    - 4.711 * delta_GF
-                    - 4.588 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.968 * deltaMz()
-                    - 0.582 * deltaMh()
-                    - 0.746 * deltaaMZ()
-                    + 3.73 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120509. * getSMEFTCoeffEW("CHbox")
-                    - 9342.32 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 25028.5 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 453487. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 203871. * getSMEFTCoeffEW("CHD")
-                    + 6021.71 * getSMEFTCoeffEW("CHB")
-                    - 61580. * getSMEFTCoeffEW("CHW")
-                    - 376790. * getSMEFTCoeffEW("CHWB")
-                    - 4.708 * delta_GF
-                    - 4.589 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.962 * deltaMz()
-                    - 0.582 * deltaMh()
-                    - 0.742 * deltaaMZ()
-                    + 3.726 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120526. * getSMEFTCoeffEW("CHbox")
-                    - 8927.83 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 633.766 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 454337. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204073. * getSMEFTCoeffEW("CHD")
-                    + 3196.39 * getSMEFTCoeffEW("CHB")
-                    - 61833.5 * getSMEFTCoeffEW("CHW")
-                    - 380094. * getSMEFTCoeffEW("CHWB")
-                    - 4.712 * delta_GF
-                    - 4.588 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.967 * deltaMz()
-                    - 0.582 * deltaMh()
-                    - 0.746 * deltaaMZ()
-                    + 3.731 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else if (sqrt_s == 1.4) {
-
-        C1 = 0.0058;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120516. * getSMEFTCoeffEW("CHbox")
-                    - 5019.36 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 29937.8 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 521211. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 203908. * getSMEFTCoeffEW("CHD")
-                    + 4153.08 * getSMEFTCoeffEW("CHB")
-                    - 54219.3 * getSMEFTCoeffEW("CHW")
-                    - 377548. * getSMEFTCoeffEW("CHWB")
-                    - 4.71 * delta_GF
-                    - 4.484 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.105 * deltaMz()
-                    - 0.447 * deltaMh()
-                    - 0.765 * deltaaMZ()
-                    + 3.747 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120530. * getSMEFTCoeffEW("CHbox")
-                    - 4727.84 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 488.036 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 521821. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204045. * getSMEFTCoeffEW("CHD")
-                    + 1784.38 * getSMEFTCoeffEW("CHB")
-                    - 54507.5 * getSMEFTCoeffEW("CHW")
-                    - 380042. * getSMEFTCoeffEW("CHWB")
-                    - 4.712 * delta_GF
-                    - 4.487 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.108 * deltaMz()
-                    - 0.447 * deltaMh()
-                    - 0.768 * deltaaMZ()
-                    + 3.749 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120542. * getSMEFTCoeffEW("CHbox")
-                    - 4870.22 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 16376.8 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 521472. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 203960. * getSMEFTCoeffEW("CHD")
-                    + 3068.42 * getSMEFTCoeffEW("CHB")
-                    - 54375.2 * getSMEFTCoeffEW("CHW")
-                    - 378699. * getSMEFTCoeffEW("CHWB")
-                    - 4.711 * delta_GF
-                    - 4.485 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.107 * deltaMz()
-                    - 0.448 * deltaMh()
-                    - 0.766 * deltaaMZ()
-                    + 3.749 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120504. * getSMEFTCoeffEW("CHbox")
-                    - 4718.66 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 574.963 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 521805. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204053. * getSMEFTCoeffEW("CHD")
-                    + 1784.37 * getSMEFTCoeffEW("CHB")
-                    - 54482.7 * getSMEFTCoeffEW("CHW")
-                    - 380051. * getSMEFTCoeffEW("CHWB")
-                    - 4.712 * delta_GF
-                    - 4.487 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.107 * deltaMz()
-                    - 0.447 * deltaMh()
-                    - 0.767 * deltaaMZ()
-                    + 3.749 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else if (sqrt_s == 1.5) {
-
-        C1 = 0.0058;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120531. * getSMEFTCoeffEW("CHbox")
-                    - 4421.38 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 28114.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 535633. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 203960. * getSMEFTCoeffEW("CHD")
-                    + 3556.32 * getSMEFTCoeffEW("CHB")
-                    - 52816.2 * getSMEFTCoeffEW("CHW")
-                    - 377932. * getSMEFTCoeffEW("CHWB")
-                    - 4.71 * delta_GF
-                    - 4.465 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.128 * deltaMz()
-                    - 0.424 * deltaMh()
-                    - 0.772 * deltaaMZ()
-                    + 3.755 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120491. * getSMEFTCoeffEW("CHbox")
-                    - 4113.21 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 517.747 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 536169. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204050. * getSMEFTCoeffEW("CHD")
-                    + 1553.24 * getSMEFTCoeffEW("CHB")
-                    - 53097.9 * getSMEFTCoeffEW("CHW")
-                    - 380055. * getSMEFTCoeffEW("CHWB")
-                    - 4.711 * delta_GF
-                    - 4.468 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.131 * deltaMz()
-                    - 0.424 * deltaMh()
-                    - 0.773 * deltaaMZ()
-                    + 3.755 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120525. * getSMEFTCoeffEW("CHbox")
-                    - 4256.39 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 15376.9 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 535845. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 203987. * getSMEFTCoeffEW("CHD")
-                    + 2641.32 * getSMEFTCoeffEW("CHB")
-                    - 53045.1 * getSMEFTCoeffEW("CHW")
-                    - 378920. * getSMEFTCoeffEW("CHWB")
-                    - 4.711 * delta_GF
-                    - 4.468 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.129 * deltaMz()
-                    - 0.424 * deltaMh()
-                    - 0.772 * deltaaMZ()
-                    + 3.753 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120499. * getSMEFTCoeffEW("CHbox")
-                    - 4113.23 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 616.984 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 536155. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204035. * getSMEFTCoeffEW("CHD")
-                    + 1570.5 * getSMEFTCoeffEW("CHB")
-                    - 53079.3 * getSMEFTCoeffEW("CHW")
-                    - 380043. * getSMEFTCoeffEW("CHWB")
-                    - 4.711 * delta_GF
-                    - 4.468 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.13 * deltaMz()
-                    - 0.424 * deltaMh()
-                    - 0.773 * deltaaMZ()
-                    + 3.755 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else if (sqrt_s == 3.0) {
-
-        C1 = 0.0057;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120384. * getSMEFTCoeffEW("CHbox")
-                    - 1301.85 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 16370.4 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 686389. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204031. * getSMEFTCoeffEW("CHD")
-                    + 628.479 * getSMEFTCoeffEW("CHB")
-                    - 41464.7 * getSMEFTCoeffEW("CHW")
-                    - 379766. * getSMEFTCoeffEW("CHWB")
-                    - 4.706 * delta_GF
-                    - 4.342 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.306 * deltaMz()
-                    - 0.283 * deltaMh()
-                    - 0.802 * deltaaMZ()
-                    + 3.787 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120423. * getSMEFTCoeffEW("CHbox")
-                    - 1253.47 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 537.201 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 686427. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204047. * getSMEFTCoeffEW("CHD")
-                    + 268.601 * getSMEFTCoeffEW("CHB")
-                    - 41454. * getSMEFTCoeffEW("CHW")
-                    - 380141. * getSMEFTCoeffEW("CHWB")
-                    - 4.707 * delta_GF
-                    - 4.342 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.305 * deltaMz()
-                    - 0.284 * deltaMh()
-                    - 0.802 * deltaaMZ()
-                    + 3.787 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120399. * getSMEFTCoeffEW("CHbox")
-                    - 1267.47 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 9008.44 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 686485. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204052. * getSMEFTCoeffEW("CHD")
-                    + 439.947 * getSMEFTCoeffEW("CHB")
-                    - 41459.8 * getSMEFTCoeffEW("CHW")
-                    - 379947. * getSMEFTCoeffEW("CHWB")
-                    - 4.706 * delta_GF
-                    - 4.342 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.303 * deltaMz()
-                    - 0.283 * deltaMh()
-                    - 0.802 * deltaaMZ()
-                    + 3.789 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120385. * getSMEFTCoeffEW("CHbox")
-                    - 1245.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 535.407 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 686461. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 204048. * getSMEFTCoeffEW("CHD")
-                    + 244.425 * getSMEFTCoeffEW("CHB")
-                    - 41447.5 * getSMEFTCoeffEW("CHW")
-                    - 380150. * getSMEFTCoeffEW("CHWB")
-                    - 4.706 * delta_GF
-                    - 4.343 * deltaMwd6()
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.307 * deltaMz()
-                    - 0.283 * deltaMh()
-                    - 0.802 * deltaaMZ()
-                    + 3.789 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHvvPol()");
+    
+    // Construct the signal strength
+    // Total cross section
+    mu = fLR * (sigmaeLHa0 - sigmaeLHa1) + fRL * (sigmaeRHa0 - sigmaeRHa1);
+    // Normalize to SM
+    mu = mu / (fLR * (sigmaSMeLHa0 - sigmaSMeLHa1) + fRL * (sigmaSMeRHa0 - sigmaSMeRHa1));
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeeWBFint + eeeWBFpar;
@@ -21675,286 +21215,486 @@ const double NPSMEFTd6General::mueeHvvPol(const double sqrt_s, const double Pol_
 
 const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
 
-    //  Only Alpha scheme
+    //  Mw scheme
 
     double mu = 1.0;
 
     double C1 = 0.0;
+
+    // Wilson coefficients and scale    
+    double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R11 = 0.0;
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR11 = 0.0, CllR1221 = 0.0; 
+    double muRG = 0;
+
+    // Polarization factors
+    double Pe = Pol_em, Pp = Pol_ep;
+    double fLR, fRL, fLL, fRR;
     
-    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeZBFPol(sqrt_s, Pol_em, Pol_ep);
+    // LR, RL, LL, and RR cross sections    
+    double sigmaSMeLRa0 = 0.0, sigmaeLRa0 = 0.0; 
+    double sigmaSMeRLa0 = 0.0, sigmaeRLa0 = 0.0;
+    
+    double sigmaSMeLLa0 = 0.0, sigmaeLLa0 = 0.0; 
+    double sigmaSMeRRa0 = 0.0, sigmaeRRa0 = 0.0;
+    
+    // -------------------------------------------------------------------------
+    
+    fLR = 0.25 * (1.0 - Pe) * (1.0 + Pp);
+    fRL = 0.25 * (1.0 + Pe) * (1.0 - Pp);
+    fLL = 0.25 * (1.0 - Pe) * (1.0 - Pp);
+    fRR = 0.25 * (1.0 + Pe) * (1.0 + Pp);
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
+    
+//  Wilson coefficients definitions 
+    CHB = getSMEFTCoeff("CHB", muRG); 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl1R11 = getSMEFTCoeff("CHl1R",0,0, muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CHeR11 = getSMEFTCoeff("CHeR",0,0, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG);
+    
+    // Computed as the pure between e+ e- > H e+ e- via ZBF, without any s-channel contribution
+    
+    if (sqrt_s == 0.500) {
 
-    if (sqrt_s == 0.240) {
+        C1 = 0.0067;
+        
+        // e+ e- > H e+ e- 
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.010339; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -2455.7 * CHB 
+                -2622.7 * CHW 
+                +6297. * CHWB 
+                +3208. * CHD 
+                +1254. * CHbox 
+                -4875.8 * CHl1R11 
+                -6752.7 * CHl3R11 
+                -1881.1 * CHl3R22 
+                +4. * CHeR11 
+                +1882. * CllR1221
+                );
+        
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.004408; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                -3017.2 * CHB 
+                -185. * CHW 
+                -1260.4 * CHWB 
+                -1990.9 * CHD 
+                +534.2 * CHbox 
+                +0.9 * CHl1R11 
+                -800.6 * CHl3R11 
+                -802.2 * CHl3R22 
+                +2575.2 * CHeR11 
+                +802.3 * CllR1221              
+                );
+                
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.006964; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +4723.4 * CHB 
+                +1092.9 * CHW 
+                -3439.1 * CHWB 
+                -491.9 * CHD 
+                +844.7 * CHbox 
+                -1785.4 * CHl1R11 
+                -3050.5 * CHl3R11 
+                -1267. * CHl3R22 
+                +2215.4 * CHeR11 
+                +1267.4 * CllR1221
+                );
+        
 
-        C1 = 0.0070;
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.006964; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +4723.4 * CHB 
+                +1096.3 * CHW 
+                -3435.1 * CHWB 
+                -490.4 * CHD 
+                +842.2 * CHbox 
+                -1784.7 * CHl1R11 
+                -3050.7 * CHl3R11 
+                -1264.2 * CHl3R22 
+                +2213.9 * CHeR11 
+                +1267.4 * CllR1221             
+                );
 
-        mu +=
-                +121661. * getSMEFTCoeffEW("CHbox")
-                + 489617. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 357163. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 489617. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 39217.8 * getSMEFTCoeffEW("CHD")
-                + 1525468. * getSMEFTCoeffEW("CHB")
-                + 378019. * getSMEFTCoeffEW("CHW")
-                + 215983. * getSMEFTCoeffEW("CHWB")
-                - 3.161 * delta_GF
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+0.908 * deltaMz()
-                - 5.799 * deltaMh()
-                - 0.248 * deltaaMZ()
-                + 3.158 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
-
-    } else if (sqrt_s == 0.250) {
-
-        C1 = 0.0070;
-
-        mu +=
-                +122144. * getSMEFTCoeffEW("CHbox")
-                + 444406. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 315727. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 444406. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 41440.8 * getSMEFTCoeffEW("CHD")
-                + 1186855. * getSMEFTCoeffEW("CHB")
-                + 301913. * getSMEFTCoeffEW("CHW")
-                + 98540.5 * getSMEFTCoeffEW("CHWB")
-                - 3.279 * delta_GF
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+2.044 * deltaMz()
-                - 4.578 * deltaMh()
-                - 0.341 * deltaaMZ()
-                + 3.283 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
-
-    } else if (sqrt_s == 0.350) {
-
-        C1 = 0.0069;
-
-        mu +=
-                +121556. * getSMEFTCoeffEW("CHbox")
-                + 46354.9 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 251.929 * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 46354.9 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 43426.2 * getSMEFTCoeffEW("CHD")
-                + 450512. * getSMEFTCoeffEW("CHB")
-                + 166493. * getSMEFTCoeffEW("CHW")
-                - 198898. * getSMEFTCoeffEW("CHWB")
-                - 3.427 * delta_GF
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+3.845 * deltaMz()
-                - 1.857 * deltaMh()
-                - 0.423 * deltaaMZ()
-                + 3.407 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
-
-    } else if (sqrt_s == 0.365) {
-
-        C1 = 0.0069; // use same as 350 GeV
-
-        mu +=
-                +121067. * getSMEFTCoeffEW("CHbox")
-                + 9887.64 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                + 27809. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 9887.64 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 43174.2 * getSMEFTCoeffEW("CHD")
-                + 417865. * getSMEFTCoeffEW("CHB")
-                + 154270. * getSMEFTCoeffEW("CHW")
-                - 201517. * getSMEFTCoeffEW("CHWB")
-                - 3.423 * delta_GF
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+3.861 * deltaMz()
-                - 1.736 * deltaMh()
-                - 0.426 * deltaaMZ()
-                + 3.375 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
-
-    } else if (sqrt_s == 0.380) {
-
-        C1 = 0.0069; // use same as 350 GeV
-
-        mu +=
-                +121214. * getSMEFTCoeffEW("CHbox")
-                - 22289.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                + 52903.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 22289.7 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 43137.3 * getSMEFTCoeffEW("CHD")
-                + 388336. * getSMEFTCoeffEW("CHB")
-                + 140923. * getSMEFTCoeffEW("CHW")
-                - 202884. * getSMEFTCoeffEW("CHWB")
-                - 3.418 * delta_GF
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+3.887 * deltaMz()
-                - 1.633 * deltaMh()
-                - 0.419 * deltaaMZ()
-                + 3.393 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
-
-    } else if (sqrt_s == 0.500) {
+    } else if (sqrt_s == 0.550) {
 
         C1 = 0.0067;
 
-        mu +=
-                +121453. * getSMEFTCoeffEW("CHbox")
-                - 185326. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                + 178925. * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 185326. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 42051.6 * getSMEFTCoeffEW("CHD")
-                + 236945. * getSMEFTCoeffEW("CHB")
-                + 67833.5 * getSMEFTCoeffEW("CHW")
-                - 178623. * getSMEFTCoeffEW("CHWB")
-                - 3.416 * delta_GF
-                ;
+        // e+ e- > H e+ e- 
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.012531; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -2846.7 * CHB 
+                -3153.5 * CHW 
+                +7554. * CHWB 
+                +3888. * CHD 
+                +1521. * CHbox 
+                -6342.7 * CHl1R11 
+                -8619.3 * CHl3R11 
+                -2278. * CHl3R22 
+                +5. * CHeR11 
+                +2283. * CllR1221
+                );
+        
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.005342; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                -3571.2 * CHB 
+                -205.3 * CHW 
+                -1576.1 * CHWB 
+                -2412.8 * CHD 
+                +648.3 * CHbox 
+                +1.3 * CHl1R11 
+                -969.9 * CHl3R11 
+                -971.6 * CHl3R22 
+                +3351.3 * CHeR11 
+                +973.1 * CllR1221             
+                );
+                
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.008384; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +5195.9 * CHB 
+                +1184.5 * CHW 
+                -3839.5 * CHWB 
+                -592.5 * CHD 
+                +1017.3 * CHbox 
+                -2276.4 * CHl1R11 
+                -3799.1 * CHl3R11 
+                -1525. * CHl3R22 
+                +2823.9 * CHeR11 
+                +1526.4 * CllR1221
+                );
+        
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+3.963 * deltaMz()
-                - 1.143 * deltaMh()
-                - 0.408 * deltaaMZ()
-                + 3.383 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.008384; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +5197.9 * CHB 
+                +1188.1 * CHW 
+                -3835.5 * CHWB 
+                -592.5 * CHD 
+                +1017.3 * CHbox 
+                -2277.5 * CHl1R11 
+                -3800.4 * CHl3R11 
+                -1525. * CHl3R22 
+                +2823.9 * CHeR11 
+                +1526.4 * CllR1221             
+                );
 
     } else if (sqrt_s == 1.0) {
 
         C1 = 0.0065;
 
-        mu +=
-                +121062. * getSMEFTCoeffEW("CHbox")
-                - 409543. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                + 356730. * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 409543. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 42133.9 * getSMEFTCoeffEW("CHD")
-                + 69851. * getSMEFTCoeffEW("CHB")
-                - 14416.8 * getSMEFTCoeffEW("CHW")
-                - 113198. * getSMEFTCoeffEW("CHWB")
-                - 3.405 * delta_GF
-                ;
+        // e+ e- > H e+ e- 
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.030357; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -5227. * CHB 
+                -6830. * CHW 
+                +17024. * CHWB 
+                +9420. * CHD 
+                +3687. * CHbox 
+                -22051.9 * CHl1R11 
+                -27585.4 * CHl3R11 
+                -5520. * CHl3R22 
+                +13. * CHeR11 
+                +5532. * CllR1221
+                );
+        
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.012942; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                -7216. * CHB 
+                -304. * CHW 
+                -4417.7 * CHWB 
+                -5844.6 * CHD 
+                +1572. * CHbox 
+                +5. * CHl1R11 
+                -2348. * CHl3R11 
+                -2353. * CHl3R22 
+                +11654. * CHeR11 
+                +2358. * CllR1221              
+                );
+                
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.019928; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +7750. * CHB 
+                +1636. * CHW 
+                -6201. * CHWB 
+                -1408. * CHD 
+                +2420. * CHbox 
+                -7400. * CHl1R11 
+                -11020.6 * CHl3R11 
+                -3625. * CHl3R22 
+                +9176. * CHeR11 
+                +3630. * CllR1221
+                );
+        
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.216 * deltaMz()
-                - 0.546 * deltaMh()
-                - 0.407 * deltaaMZ()
-                + 3.393 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.019928; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +7753. * CHB 
+                +1648. * CHW 
+                -6189. * CHWB 
+                -1408. * CHD 
+                +2420. * CHbox 
+                -7396. * CHl1R11 
+                -11020.1 * CHl3R11 
+                -3625. * CHl3R22 
+                +9174. * CHeR11 
+                +3630. * CllR1221             
+                );
 
     } else if (sqrt_s == 1.4) {
 
         C1 = 0.0065;
 
-        mu +=
-                +120749. * getSMEFTCoeffEW("CHbox")
-                - 493617. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                + 426669. * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 493617. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 42486.9 * getSMEFTCoeffEW("CHD")
-                + 34633.1 * getSMEFTCoeffEW("CHB")
-                - 27609.6 * getSMEFTCoeffEW("CHW")
-                - 97014.2 * getSMEFTCoeffEW("CHWB")
-                - 3.405 * delta_GF
-                ;
+        // e+ e- > H e+ e- 
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.042715; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -6315. * CHB 
+                -8759. * CHW 
+                +22966. * CHWB 
+                +13250. * CHD 
+                +5175. * CHbox 
+                -36465.5 * CHl1R11 
+                -44246.7 * CHl3R11 
+                -7755. * CHl3R22 
+                +1. * CHeR11 
+                +7782. * CllR1221 
+                );
+        
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.01821; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                 -9021.3 * CHB 
+                -343. * CHW 
+                -6557. * CHWB 
+                -8224.3 * CHD 
+                +2207. * CHbox 
+                +5. * CHl1R11 
+                -3305. * CHl3R11 
+                -3312. * CHl3R22 
+                +19259. * CHeR11 
+                +3318. * CllR1221             
+                );
+                
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.027954; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +8794. * CHB 
+                +1796. * CHW 
+                -7333. * CHWB 
+                -1976. * CHD 
+                +3388. * CHbox 
+                -12072. * CHl1R11 
+                -17149. * CHl3R11 
+                -5084. * CHl3R22 
+                +14954. * CHeR11 
+                +5093. * CllR1221
+                );
+        
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.309 * deltaMz()
-                - 0.422 * deltaMh()
-                - 0.402 * deltaaMZ()
-                + 3.379 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.027954; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +8802. * CHB 
+                +1812. * CHW 
+                -7315. * CHWB 
+                -1976. * CHD 
+                +3388. * CHbox 
+                -12060. * CHl1R11 
+                -17151. * CHl3R11 
+                -5084. * CHl3R22 
+                +14953. * CHeR11 
+                +5093. * CllR1221              
+                );
 
     } else if (sqrt_s == 1.5) {
 
         C1 = 0.0065; // Use the same as 1400 GeV
 
-        mu +=
-                +120587. * getSMEFTCoeffEW("CHbox")
-                - 510290. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                + 440504. * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 510290. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 42529.6 * getSMEFTCoeffEW("CHD")
-                + 30448.1 * getSMEFTCoeffEW("CHB")
-                - 30741.2 * getSMEFTCoeffEW("CHW")
-                - 95903.3 * getSMEFTCoeffEW("CHWB")
-                - 3.401 * delta_GF
-                ;
+        // e+ e- > H e+ e- 
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.045391; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -6499. * CHB 
+                -9111. * CHW 
+                +24208. * CHWB 
+                +14078. * CHD 
+                +5504. * CHbox 
+                -39948.6 * CHl1R11 
+                -48214.3 * CHl3R11 
+                -8238. * CHl3R22 
+                +2. * CHeR11 
+                +8271. * CllR1221 
+                );
+        
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.019352; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                -9353.7 * CHB 
+                -348. * CHW 
+                -7033. * CHWB 
+                -8741. * CHD 
+                +2346. * CHbox 
+                +5. * CHl1R11 
+                -3513. * CHl3R11 
+                -3520. * CHl3R22 
+                +21099. * CHeR11 
+                +3526. * CllR1221              
+                );
+                
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.029695; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +8978. * CHB 
+                +1827. * CHW 
+                -7544. * CHWB 
+                -2101. * CHD 
+                +3601. * CHbox 
+                -13199. * CHl1R11 
+                -18594. * CHl3R11 
+                -5400. * CHl3R22 
+                +16352. * CHeR11 
+                +5411. * CllR1221
+                );
+        
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.326 * deltaMz()
-                - 0.4 * deltaMh()
-                - 0.403 * deltaaMZ()
-                + 3.37 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.029695; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +8983. * CHB 
+                +1841. * CHW 
+                -7521. * CHWB 
+                -2101. * CHD 
+                +3601. * CHbox 
+                -13187. * CHl1R11 
+                -18597. * CHl3R11 
+                -5400. * CHl3R22 
+                +16353. * CHeR11 
+                +5411. * CllR1221              
+                );
 
     } else if (sqrt_s == 3.0) {
 
         C1 = 0.0063;
 
-        mu +=
-                +120474. * getSMEFTCoeffEW("CHbox")
-                - 677185. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                + 582037. * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 677185. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 42541.3 * getSMEFTCoeffEW("CHD")
-                + 6810.6 * getSMEFTCoeffEW("CHB")
-                - 32994.5 * getSMEFTCoeffEW("CHW")
-                - 78012.3 * getSMEFTCoeffEW("CHWB")
-                - 3.405 * delta_GF
-                ;
+        // e+ e- > H e+ e- 
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.074102; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -7921. * CHB 
+                -11849. * CHW 
+                +36688. * CHWB 
+                +23012. * CHD 
+                +8976. * CHbox 
+                -85300. * CHl1R11 
+                -98820. * CHl3R11 
+                -13463. * CHl3R22 
+                -3. * CHeR11 
+                +13507. * CllR1221 
+                );
+        
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.031592; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                -11864. * CHB 
+                -380. * CHW 
+                -12283. * CHWB 
+                -14264. * CHD 
+                +3826. * CHbox 
+                +8. * CHl1R11 
+                -5737. * CHl3R11 
+                -5744. * CHl3R22 
+                +45048. * CHeR11 
+                +5759. * CllR1221             
+                );
+                
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.048401; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +10290. * CHB 
+                +1982. * CHW 
+                -9308. * CHWB 
+                -3411. * CHD 
+                +5863. * CHbox 
+                -27936. * CHl1R11 
+                -36729. * CHl3R11 
+                -8799. * CHl3R22 
+                +34596. * CHeR11 
+                +8824. * CllR1221
+                );
+        
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.463 * deltaMz()
-                - 0.265 * deltaMh()
-                - 0.405 * deltaaMZ()
-                + 3.351 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
-
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.048401; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +10301. * CHB 
+                +2016. * CHW 
+                -9292. * CHWB 
+                -3411. * CHD 
+                +5863. * CHbox 
+                -27914. * CHl1R11 
+                -36742. * CHl3R11 
+                -8799. * CHl3R22 
+                +34591. * CHeR11 
+                +8824. * CllR1221             
+                );
+        
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBF()");
+    
+    // Construct the signal strength
+    // Total cross section
+    mu = fLR * (sigmaeLRa0) + fRL * (sigmaeRLa0) + fLL * (sigmaeLLa0) + fRR * (sigmaeRRa0);
+    // Normalize to SM
+    mu = mu / (fLR * (sigmaSMeLRa0) + fRL * (sigmaSMeRLa0) + fLL * (sigmaSMeLLa0) + fRR * (sigmaSMeRRa0));
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     //(Assume similar to WBF.)
@@ -21969,894 +21709,709 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
     return mu;
 }
 
-const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
 
-    //  Only Alpha scheme
+const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
+
+    //  Mw scheme
 
     double mu = 1.0;
 
     double C1 = 0.0;
 
-    if (sqrt_s == 0.240) {
-
-        C1 = 0.0070;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121531. * getSMEFTCoeffEW("CHbox")
-                    + 58943.5 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 939512. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 58943.5 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 77442.6 * getSMEFTCoeffEW("CHD")
-                    + 2082256. * getSMEFTCoeffEW("CHB")
-                    + 108043. * getSMEFTCoeffEW("CHW")
-                    + 1362693. * getSMEFTCoeffEW("CHWB")
-                    + 0.563 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-6.582 * deltaMz()
-                    - 5.732 * deltaMh()
-                    + 3.573 * deltaaMZ()
-                    - 0.708 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +122065. * getSMEFTCoeffEW("CHbox")
-                    + 905327. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 55689. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 905327. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 124548. * getSMEFTCoeffEW("CHD")
-                    + 905057. * getSMEFTCoeffEW("CHB")
-                    + 540185. * getSMEFTCoeffEW("CHW")
-                    - 329708. * getSMEFTCoeffEW("CHWB")
-                    - 5.854 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+6.473 * deltaMz()
-                    - 5.971 * deltaMh()
-                    - 3.019 * deltaaMZ()
-                    + 5.959 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121947. * getSMEFTCoeffEW("CHbox")
-                    + 88774.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 753269. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 88774.4 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 54593.2 * getSMEFTCoeffEW("CHD")
-                    + 2101955. * getSMEFTCoeffEW("CHB")
-                    + 182237. * getSMEFTCoeffEW("CHW")
-                    + 972861. * getSMEFTCoeffEW("CHWB")
-                    - 0.206 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-5.131 * deltaMz()
-                    - 5.658 * deltaMh()
-                    + 2.794 * deltaaMZ()
-                    + 0.082 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +122265. * getSMEFTCoeffEW("CHbox")
-                    + 785643. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 66907.6 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 785643. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 107673. * getSMEFTCoeffEW("CHD")
-                    + 1115316. * getSMEFTCoeffEW("CHB")
-                    + 521873. * getSMEFTCoeffEW("CHW")
-                    - 331727. * getSMEFTCoeffEW("CHWB")
-                    - 5.334 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.367 * deltaMz()
-                    - 5.87 * deltaMh()
-                    - 2.491 * deltaaMZ()
-                    + 5.409 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
-
-    } else if (sqrt_s == 0.250) {
-
-        C1 = 0.0070;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121054. * getSMEFTCoeffEW("CHbox")
-                    + 51113. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 851357. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 51113. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 76762.9 * getSMEFTCoeffEW("CHD")
-                    + 1629614. * getSMEFTCoeffEW("CHB")
-                    + 72741.6 * getSMEFTCoeffEW("CHW")
-                    + 1130834. * getSMEFTCoeffEW("CHWB")
-                    + 0.563 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-5.658 * deltaMz()
-                    - 4.485 * deltaMh()
-                    + 3.577 * deltaaMZ()
-                    - 0.638 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +121471. * getSMEFTCoeffEW("CHbox")
-                    + 824294. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 45066.5 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 824294. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 128864. * getSMEFTCoeffEW("CHD")
-                    + 644513. * getSMEFTCoeffEW("CHB")
-                    + 425051. * getSMEFTCoeffEW("CHW")
-                    - 383720. * getSMEFTCoeffEW("CHWB")
-                    - 6.022 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+7.852 * deltaMz()
-                    - 4.536 * deltaMh()
-                    - 3.165 * deltaaMZ()
-                    + 6.136 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121494. * getSMEFTCoeffEW("CHbox")
-                    + 77372.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 676199. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 77372.1 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 53294.7 * getSMEFTCoeffEW("CHD")
-                    + 1668830. * getSMEFTCoeffEW("CHB")
-                    + 145010. * getSMEFTCoeffEW("CHW")
-                    + 772902. * getSMEFTCoeffEW("CHWB")
-                    - 0.226 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-4.183 * deltaMz()
-                    - 4.557 * deltaMh()
-                    + 2.773 * deltaaMZ()
-                    + 0.148 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +121947. * getSMEFTCoeffEW("CHbox")
-                    + 713174. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 53393.3 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 713174. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 111120. * getSMEFTCoeffEW("CHD")
-                    + 843388. * getSMEFTCoeffEW("CHB")
-                    + 417838. * getSMEFTCoeffEW("CHW")
-                    - 386753. * getSMEFTCoeffEW("CHWB")
-                    - 5.496 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+6.641 * deltaMz()
-                    - 4.576 * deltaMh()
-                    - 2.605 * deltaaMZ()
-                    + 5.56 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
-
-    } else if (sqrt_s == 0.350) {
-
-        C1 = 0.0069;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121674. * getSMEFTCoeffEW("CHbox")
-                    - 47420.2 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 172088. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 47420.2 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 59728. * getSMEFTCoeffEW("CHD")
-                    + 544205. * getSMEFTCoeffEW("CHB")
-                    + 83604.4 * getSMEFTCoeffEW("CHW")
-                    + 435393. * getSMEFTCoeffEW("CHWB")
-                    - 0.05 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-2.905 * deltaMz()
-                    - 1.842 * deltaMh()
-                    + 2.966 * deltaaMZ()
-                    + 0.009 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +121541. * getSMEFTCoeffEW("CHbox")
-                    + 197618. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 42238.9 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 197618. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 124376. * getSMEFTCoeffEW("CHD")
-                    + 181154. * getSMEFTCoeffEW("CHB")
-                    + 195329. * getSMEFTCoeffEW("CHW")
-                    - 505800. * getSMEFTCoeffEW("CHWB")
-                    - 6.096 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+9.303 * deltaMz()
-                    - 1.82 * deltaMh()
-                    - 3.105 * deltaaMZ()
-                    + 6.071 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121760. * getSMEFTCoeffEW("CHbox")
-                    - 62853. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 83019.6 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 62853. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 34395.4 * getSMEFTCoeffEW("CHD")
-                    + 623389. * getSMEFTCoeffEW("CHB")
-                    + 123932. * getSMEFTCoeffEW("CHW")
-                    + 181789. * getSMEFTCoeffEW("CHWB")
-                    - 0.875 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.322 * deltaMz()
-                    - 1.873 * deltaMh()
-                    + 2.14 * deltaaMZ()
-                    + 0.844 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +121557. * getSMEFTCoeffEW("CHbox")
-                    + 131443. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 63326.7 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 131443. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 103038. * getSMEFTCoeffEW("CHD")
-                    + 323596. * getSMEFTCoeffEW("CHB")
-                    + 201676. * getSMEFTCoeffEW("CHW")
-                    - 491019. * getSMEFTCoeffEW("CHWB")
-                    - 5.391 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+7.818 * deltaMz()
-                    - 1.846 * deltaMh()
-                    - 2.402 * deltaaMZ()
-                    + 5.358 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
-
-    } else if (sqrt_s == 0.365) {
-
-        C1 = 0.0069; // Use same as 350 GeV
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121458. * getSMEFTCoeffEW("CHbox")
-                    - 58695.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 109686. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 58695.1 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 58496.7 * getSMEFTCoeffEW("CHD")
-                    + 489137. * getSMEFTCoeffEW("CHB")
-                    + 80751.3 * getSMEFTCoeffEW("CHW")
-                    + 410304. * getSMEFTCoeffEW("CHWB")
-                    - 0.085 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-2.809 * deltaMz()
-                    - 1.721 * deltaMh()
-                    + 2.93 * deltaaMZ()
-                    + 0.026 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +121152. * getSMEFTCoeffEW("CHbox")
-                    + 136019. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 50762. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 136019. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 123859. * getSMEFTCoeffEW("CHD")
-                    + 165799. * getSMEFTCoeffEW("CHB")
-                    + 176652. * getSMEFTCoeffEW("CHW")
-                    - 504889. * getSMEFTCoeffEW("CHWB")
-                    - 6.076 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+9.271 * deltaMz()
-                    - 1.7 * deltaMh()
-                    - 3.092 * deltaaMZ()
-                    + 6.031 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121193. * getSMEFTCoeffEW("CHbox")
-                    - 76905.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 32264.3 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 76905.7 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 33650.3 * getSMEFTCoeffEW("CHD")
-                    + 573505. * getSMEFTCoeffEW("CHB")
-                    + 117937. * getSMEFTCoeffEW("CHW")
-                    + 166382. * getSMEFTCoeffEW("CHWB")
-                    - 0.911 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.233 * deltaMz()
-                    - 1.746 * deltaMh()
-                    + 2.101 * deltaaMZ()
-                    + 0.861 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +121177. * getSMEFTCoeffEW("CHbox")
-                    + 77981.5 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 74274.1 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 77981.5 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 102068. * getSMEFTCoeffEW("CHD")
-                    + 305730. * getSMEFTCoeffEW("CHB")
-                    + 183682. * getSMEFTCoeffEW("CHW")
-                    - 487770. * getSMEFTCoeffEW("CHWB")
-                    - 5.366 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+7.791 * deltaMz()
-                    - 1.726 * deltaMh()
-                    - 2.377 * deltaaMZ()
-                    + 5.325 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
-
-    } else if (sqrt_s == 0.380) {
-
-        C1 = 0.0069; // Use same as 350 GeV
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121392. * getSMEFTCoeffEW("CHbox")
-                    - 68799.8 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 54383.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 68799.8 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 57427.7 * getSMEFTCoeffEW("CHD")
-                    + 439155. * getSMEFTCoeffEW("CHB")
-                    + 76978.2 * getSMEFTCoeffEW("CHW")
-                    + 392293. * getSMEFTCoeffEW("CHWB")
-                    - 0.11 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-2.74 * deltaMz()
-                    - 1.62 * deltaMh()
-                    + 2.907 * deltaaMZ()
-                    + 0.079 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +121306. * getSMEFTCoeffEW("CHbox")
-                    + 80159.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 58002.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 80159.7 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 123524. * getSMEFTCoeffEW("CHD")
-                    + 151617. * getSMEFTCoeffEW("CHB")
-                    + 154342. * getSMEFTCoeffEW("CHW")
-                    - 500961. * getSMEFTCoeffEW("CHWB")
-                    - 6.064 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+9.254 * deltaMz()
-                    - 1.608 * deltaMh()
-                    - 3.07 * deltaaMZ()
-                    + 6.04 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121171. * getSMEFTCoeffEW("CHbox")
-                    - 89494.3 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 11882.3 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 89494.3 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 32430.1 * getSMEFTCoeffEW("CHD")
-                    + 524620. * getSMEFTCoeffEW("CHB")
-                    + 111520. * getSMEFTCoeffEW("CHW")
-                    + 156122. * getSMEFTCoeffEW("CHWB")
-                    - 0.928 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.145 * deltaMz()
-                    - 1.643 * deltaMh()
-                    + 2.077 * deltaaMZ()
-                    + 0.898 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +121286. * getSMEFTCoeffEW("CHbox")
-                    + 30046.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 84014. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 30046.7 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 101539. * getSMEFTCoeffEW("CHD")
-                    + 286981. * getSMEFTCoeffEW("CHB")
-                    + 164662. * getSMEFTCoeffEW("CHW")
-                    - 480410. * getSMEFTCoeffEW("CHWB")
-                    - 5.346 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+7.766 * deltaMz()
-                    - 1.629 * deltaMh()
-                    - 2.353 * deltaaMZ()
-                    + 5.316 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
-
-    } else if (sqrt_s == 0.500) {
+    // Wilson coefficients and scale    
+    double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R11 = 0.0;
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR11 = 0.0, CllR1221 = 0.0; 
+    double muRG = 0;
+    
+    // Polarization factors
+    double Pe = Pol_em, Pp = Pol_ep;
+    double fLR, fRL, fLL, fRR;
+    
+    // LR, RL, LL, and RR cross sections    
+    double sigmaSMeLRa0 = 0.0, sigmaeLRa0 = 0.0, sigmaSMeLRa1 = 0.0, sigmaeLRa1 = 0.0; 
+    double sigmaSMeRLa0 = 0.0, sigmaeRLa0 = 0.0, sigmaSMeRLa1 = 0.0, sigmaeRLa1 = 0.0;
+    
+    double sigmaSMeLLa0 = 0.0, sigmaeLLa0 = 0.0, sigmaSMeLLa1 = 0.0, sigmaeLLa1 = 0.0; 
+    double sigmaSMeRRa0 = 0.0, sigmaeRRa0 = 0.0, sigmaSMeRRa1 = 0.0, sigmaeRRa1 = 0.0;
+    
+    // -------------------------------------------------------------------------
+    
+    fLR = 0.25 * (1.0 - Pe) * (1.0 + Pp);
+    fRL = 0.25 * (1.0 + Pe) * (1.0 - Pp);
+    fLL = 0.25 * (1.0 - Pe) * (1.0 - Pp);
+    fRR = 0.25 * (1.0 + Pe) * (1.0 + Pp);
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
+    
+//  Wilson coefficients definitions 
+    CHB = getSMEFTCoeff("CHB", muRG); 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl1R11 = getSMEFTCoeff("CHl1R",0,0, muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CHeR11 = getSMEFTCoeff("CHeR",0,0, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG);
+    
+    // Computed as the difference between e+ e- > H e+ e- and e+ e- > H Z, Z > e+ e-
+    
+    if (sqrt_s == 0.500) {
 
         C1 = 0.0067;
+        
+        // e+ e- > H e+ e- - e+ e- > H Z, Z > e+ e-
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.015502; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -4098.92 * CHB 
+                +7192.41 * CHW 
+                +6438.5 * CHWB 
+                +4108.48 * CHD 
+                +1877.39 * CHbox 
+                +28079.5 * CHl1R11 
+                +25267.8 * CHl3R11 
+                -2824.24 * CHl3R22 
+                -526.241 * CHeR11 
+                +2810.1 * CllR1221 
+                );
+        
+        sigmaSMeLRa1 = 0.003925; 
+ 
+        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+                -1760.76 * CHB 
+                +6343.83 * CHW 
+                +862.93 * CHWB 
+                +624.83 * CHD 
+                +475.03 * CHbox 
+                +26386.7 * CHl1R11 
+                +25667.3 * CHl3R11 
+                -714.93 * CHl3R22 
+                -421.83 * CHeR11 
+                +711.83 * CllR1221               
+                );
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.007657; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                +1971.91 * CHB 
+                -91.342 * CHW 
+                +1373.22 * CHWB 
+                -2764.85 * CHD 
+                +924.564 * CHbox 
+                +414.096 * CHl1R11 
+                -976.972 * CHl3R11 
+                -1394.52 * CHl3R22 
+                -23347.4 * CHeR11 
+                +1388.44 * CllR1221              
+                );
+        
+        sigmaSMeRLa1 = 0.002563; 
+ 
+        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+                +2917.26 * CHB 
+                +76.18 * CHW 
+                +2218.96 * CHWB 
+                -566.82 * CHD 
+                +310.61 * CHbox 
+                +340.09 * CHl1R11 
+                -126.53 * CHl3R11 
+                -466.71 * CHl3R22 
+                -21174.2 * CHeR11 
+                +464.69 * CllR1221               
+                );   
+        
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.006966; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +4733.36 * CHB 
+                +1093.5 * CHW 
+                -3452.57 * CHWB 
+                -494.684 * CHD 
+                +844.033 * CHbox 
+                -1787.74 * CHl1R11 
+                -3056.39 * CHl3R11 
+                -1268.13 * CHl3R22 
+                +2206.99 * CHeR11 
+                +1266.16 * CllR1221
+                );
+        
+        sigmaSMeLLa1 = 0.0; 
+ 
+        sigmaeLLa1 = sigmaSMeLLa1;
+        
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.006966; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +4735.97 * CHB 
+                +1092.78 * CHW 
+                -3453.81 * CHWB 
+                -494.684 * CHD 
+                +844.033 * CHbox 
+                -1788.99 * CHl1R11 
+                -3056.38 * CHl3R11 
+                -1268.13 * CHl3R22 
+                +2206.53 * CHeR11 
+                +1266.16 * CllR1221             
+                );
+        
+        sigmaSMeRRa1 = 0.0; 
+ 
+        sigmaeRRa1 = sigmaSMeRRa1; 
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121372. * getSMEFTCoeffEW("CHbox")
-                    - 121062. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 224754. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 121062. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 55161.7 * getSMEFTCoeffEW("CHD")
-                    + 201238. * getSMEFTCoeffEW("CHB")
-                    + 52456.6 * getSMEFTCoeffEW("CHW")
-                    + 335517. * getSMEFTCoeffEW("CHWB")
-                    - 0.207 * delta_GF
-                    ;
+    } else if (sqrt_s == 0.550) {
 
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-2.453 * deltaMz()
-                    - 1.136 * deltaMh()
-                    + 2.81 * deltaaMZ()
-                    + 0.175 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +121399. * getSMEFTCoeffEW("CHbox")
-                    - 200849. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 96427.7 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 200849. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 121178. * getSMEFTCoeffEW("CHD")
-                    + 83220.9 * getSMEFTCoeffEW("CHB")
-                    + 42832.2 * getSMEFTCoeffEW("CHW")
-                    - 464173. * getSMEFTCoeffEW("CHWB")
-                    - 6.025 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+9.205 * deltaMz()
-                    - 1.133 * deltaMh()
-                    - 3.019 * deltaaMZ()
-                    + 5.99 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121435. * getSMEFTCoeffEW("CHbox")
-                    - 154953. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 235326. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 154953. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 30472. * getSMEFTCoeffEW("CHD")
-                    + 298145. * getSMEFTCoeffEW("CHB")
-                    + 75047.6 * getSMEFTCoeffEW("CHW")
-                    + 137304. * getSMEFTCoeffEW("CHWB")
-                    - 1.027 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.829 * deltaMz()
-                    - 1.142 * deltaMh()
-                    + 1.988 * deltaaMZ()
-                    + 0.989 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +121468. * getSMEFTCoeffEW("CHbox")
-                    - 208577. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 134790. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 208577. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 98708.1 * getSMEFTCoeffEW("CHD")
-                    + 190310. * getSMEFTCoeffEW("CHB")
-                    + 62321.4 * getSMEFTCoeffEW("CHW")
-                    - 429412. * getSMEFTCoeffEW("CHWB")
-                    - 5.287 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+7.714 * deltaMz()
-                    - 1.14 * deltaMh()
-                    - 2.279 * deltaaMZ()
-                    + 5.251 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
+        C1 = 0.0067;
+        
+        // e+ e- > H e+ e- - e+ e- > H Z, Z > e+ e-
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.016705; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -4112.54 * CHB 
+                +5601.16 * CHW 
+                +7336.04 * CHWB 
+                +4634.02 * CHD 
+                +2029.88 * CHbox 
+                +25858.5 * CHl1R11 
+                +22849.8 * CHl3R11 
+                -3039.76 * CHl3R22 
+                -434.5 * CHeR11 
+                +3041.28 * CllR1221
+                );
+        
+        sigmaSMeLRa1 = 0.003172; 
+ 
+        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+                -1488.24 * CHB 
+                +5327.07 * CHW 
+                +689.75 * CHWB 
+                +506.48 * CHD 
+                +383.93 * CHbox 
+                +25710.4 * CHl1R11 
+                +25128.9 * CHl3R11 
+                -576.71 * CHl3R22 
+                -340.94 * CHeR11 
+                +576.93 * CllR1221               
+                );
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.007966; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                +984.448 * CHB 
+                -142.658 * CHW 
+                +677.26 * CHWB 
+                -3034.71 * CHD 
+                +965.07 * CHbox 
+                +340.095 * CHl1R11 
+                -1101.65 * CHl3R11 
+                -1452.34 * CHl3R22 
+                -21978.4 * CHeR11 
+                +1451.97 * CllR1221             
+                );
+        
+        sigmaSMeRLa1 = 0.00207; 
+ 
+        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+                +2454.5 * CHB 
+                +53.84 * CHW 
+                +1880.89 * CHWB 
+                -457.54 * CHD 
+                +251.23 * CHbox 
+                +275.71 * CHl1R11 
+                -101.57 * CHl3R11 
+                -376.05 * CHl3R22 
+                -20653.6 * CHeR11 
+                +376.16 * CllR1221                
+                );   
+        
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.008388; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +5210.05 * CHB 
+                +1184.39 * CHW 
+                -3856.1 * CHWB 
+                -596.339 * CHD 
+                +1015.68 * CHbox 
+                -2279.34 * CHl1R11 
+                -3807.33 * CHl3R11 
+                -1526.87 * CHl3R22 
+                +2813.4 * CHeR11 
+                +1523.44 * CllR1221
+                );
+        
+        sigmaSMeLLa1 = 0.0; 
+ 
+        sigmaeLLa1 = sigmaSMeLLa1;
+        
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.008388; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +5210.49 * CHB 
+                +1183.86 * CHW 
+                -3856.65 * CHWB 
+                -594.298 * CHD 
+                +1014.02 * CHbox 
+                -2283.41 * CHl1R11 
+                -3805.47 * CHl3R11 
+                -1526.24 * CHl3R22 
+                +2814.1 * CHeR11 
+                +1522.51 * CllR1221             
+                );
+        
+        sigmaSMeRRa1 = 0.0; 
+ 
+        sigmaeRRa1 = sigmaSMeRRa1; 
 
     } else if (sqrt_s == 1.0) {
 
         C1 = 0.0065;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121044. * getSMEFTCoeffEW("CHbox")
-                    - 206156. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 586357. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 206156. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 54157.3 * getSMEFTCoeffEW("CHD")
-                    - 30839.6 * getSMEFTCoeffEW("CHB")
-                    + 18110.3 * getSMEFTCoeffEW("CHW")
-                    + 345253. * getSMEFTCoeffEW("CHWB")
-                    - 0.229 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-2.141 * deltaMz()
-                    - 0.544 * deltaMh()
-                    + 2.775 * deltaaMZ()
-                    + 0.211 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +121085. * getSMEFTCoeffEW("CHbox")
-                    - 565700. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 157498. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 565700. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 120795. * getSMEFTCoeffEW("CHD")
-                    + 7953.6 * getSMEFTCoeffEW("CHB")
-                    - 79908.9 * getSMEFTCoeffEW("CHW")
-                    - 402278. * getSMEFTCoeffEW("CHWB")
-                    - 6.001 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+9.412 * deltaMz()
-                    - 0.546 * deltaMh()
-                    - 3.005 * deltaaMZ()
-                    + 5.986 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == -20.) {
-            mu +=
-                    +121091. * getSMEFTCoeffEW("CHbox")
-                    - 225779. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 568149. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 225779. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 45736.7 * getSMEFTCoeffEW("CHD")
-                    + 2164.38 * getSMEFTCoeffEW("CHB")
-                    + 20504.6 * getSMEFTCoeffEW("CHW")
-                    + 290141. * getSMEFTCoeffEW("CHWB")
-                    - 0.51 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.569 * deltaMz()
-                    - 0.555 * deltaMh()
-                    + 2.507 * deltaaMZ()
-                    + 0.493 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 20.) {
-            mu +=
-                    +121091. * getSMEFTCoeffEW("CHbox")
-                    - 552286. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 177286. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 552286. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 113484. * getSMEFTCoeffEW("CHD")
-                    + 29757.9 * getSMEFTCoeffEW("CHB")
-                    - 69897.4 * getSMEFTCoeffEW("CHW")
-                    - 385087. * getSMEFTCoeffEW("CHWB")
-                    - 5.76 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+8.942 * deltaMz()
-                    - 0.556 * deltaMh()
-                    - 2.75 * deltaaMZ()
-                    + 5.748 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120996. * getSMEFTCoeffEW("CHbox")
-                    - 263143. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 533190. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 263143. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 29434.5 * getSMEFTCoeffEW("CHD")
-                    + 63176.5 * getSMEFTCoeffEW("CHB")
-                    + 26728.5 * getSMEFTCoeffEW("CHW")
-                    + 184228. * getSMEFTCoeffEW("CHWB")
-                    - 1.044 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.508 * deltaMz()
-                    - 0.545 * deltaMh()
-                    + 1.958 * deltaaMZ()
-                    + 1.027 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +121114. * getSMEFTCoeffEW("CHbox")
-                    - 524119. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 218758. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 524119. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 98164. * getSMEFTCoeffEW("CHD")
-                    + 74694.7 * getSMEFTCoeffEW("CHB")
-                    - 49060.4 * getSMEFTCoeffEW("CHW")
-                    - 348619. * getSMEFTCoeffEW("CHWB")
-                    - 5.256 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+7.922 * deltaMz()
-                    - 0.546 * deltaMh()
-                    - 2.261 * deltaaMZ()
-                    + 5.242 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
+        // e+ e- > H e+ e- - e+ e- > H Z, Z > e+ e-
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.031515; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -5273.48 * CHB 
+                -2563.62 * CHW 
+                +16070.3 * CHWB 
+                +9598.71 * CHD 
+                +3803.15 * CHbox 
+                +6786.78 * CHl1R11 
+                +1156.86 * CHl3R11 
+                -5735.46 * CHl3R22 
+                -132.37 * CHeR11 
+                +5728.09 * CllR1221
+                );
+        
+        sigmaSMeLRa1 = 0.00088; 
+ 
+        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+                -482.328 * CHB 
+                +1692.36 * CHW 
+                +183.29 * CHWB 
+                +140.1 * CHD 
+                +106.2 * CHbox 
+                +23325.2 * CHl1R11 
+                +23162.1 * CHl3R11 
+                -160.16 * CHl3R22 
+                -94.45 * CHeR11 
+                +159.86 * CllR1221               
+                );
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.013671; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                -4714.26 * CHB 
+                -308.604 * CHW 
+                -3682.04 * CHWB 
+                -6021.83 * CHD 
+                +1648.1 * CHbox 
+                +93.8183 * CHl1R11 
+                -2395.03 * CHl3R11 
+                -2489.25 * CHl3R22 
+                -11195.5 * CHeR11 
+                +2484.75 * CllR1221             
+                );
+        
+        sigmaSMeRLa1 = 0.000575; 
+ 
+        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+                +783.67 * CHB 
+                +4.93 * CHW 
+                +615.38 * CHWB 
+                -127.27 * CHD 
+                +69.67 * CHbox 
+                +76.16 * CHl1R11 
+                -28.32 * CHl3R11 
+                -104.57 * CHl3R22 
+                -18814. * CHeR11 
+                +104.73 * CllR1221                
+                );   
+        
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.019938; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +7757.24 * CHB 
+                +1628.67 * CHW 
+                -6241.45 * CHWB 
+                -1420.11 * CHD 
+                +2407.24 * CHbox 
+                -7405.21 * CHl1R11 
+                -11030.9 * CHl3R11 
+                -3630.32 * CHl3R22 
+                +9152.39 * CHeR11 
+                +3619.27 * CllR1221
+                );
+        
+        sigmaSMeLLa1 = 0.0; 
+ 
+        sigmaeLLa1 = sigmaSMeLLa1;
+        
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.019938; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +7760.88 * CHB 
+                +1629.58 * CHW 
+                -6241.85 * CHWB 
+                -1420.11 * CHD 
+                +2407.24 * CHbox 
+                -7416.83 * CHl1R11 
+                -11036.3 * CHl3R11 
+                -3630.32 * CHl3R22 
+                +9151.14 * CHeR11 
+                +3619.27 * CllR1221             
+                );
+        
+        sigmaSMeRRa1 = 0.0; 
+ 
+        sigmaeRRa1 = sigmaSMeRRa1; 
 
     } else if (sqrt_s == 1.4) {
 
         C1 = 0.0065;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120762. * getSMEFTCoeffEW("CHbox")
-                    - 242720. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 714345. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 242720. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 53823.3 * getSMEFTCoeffEW("CHD")
-                    - 64876.7 * getSMEFTCoeffEW("CHB")
-                    + 9362.37 * getSMEFTCoeffEW("CHW")
-                    + 355440. * getSMEFTCoeffEW("CHWB")
-                    - 0.228 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-2.05 * deltaMz()
-                    - 0.422 * deltaMh()
-                    + 2.78 * deltaaMZ()
-                    + 0.2 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120818. * getSMEFTCoeffEW("CHbox")
-                    - 692905. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 184416. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 692905. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 121143. * getSMEFTCoeffEW("CHD")
-                    - 4989.81 * getSMEFTCoeffEW("CHB")
-                    - 93241.6 * getSMEFTCoeffEW("CHW")
-                    - 392394. * getSMEFTCoeffEW("CHWB")
-                    - 6.003 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+9.501 * deltaMz()
-                    - 0.422 * deltaMh()
-                    - 2.999 * deltaaMZ()
-                    + 5.972 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120773. * getSMEFTCoeffEW("CHbox")
-                    - 309806. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 643900. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 309806. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 29091.1 * getSMEFTCoeffEW("CHD")
-                    + 22438.3 * getSMEFTCoeffEW("CHB")
-                    + 16021.7 * getSMEFTCoeffEW("CHW")
-                    + 202496. * getSMEFTCoeffEW("CHWB")
-                    - 1.043 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.415 * deltaMz()
-                    - 0.422 * deltaMh()
-                    + 1.961 * deltaaMZ()
-                    + 1.014 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120795. * getSMEFTCoeffEW("CHbox")
-                    - 637584. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 256188. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 637584. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 98543.3 * getSMEFTCoeffEW("CHD")
-                    + 49040.2 * getSMEFTCoeffEW("CHB")
-                    - 63051.7 * getSMEFTCoeffEW("CHW")
-                    - 332850. * getSMEFTCoeffEW("CHWB")
-                    - 5.256 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+8.01 * deltaMz()
-                    - 0.423 * deltaMh()
-                    - 2.255 * deltaaMZ()
-                    + 5.227 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
+        // e+ e- > H e+ e- - e+ e- > H Z, Z > e+ e-
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.043295; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -6192.44 * CHB 
+                -5876.33 * CHW 
+                +22064.3 * CHWB 
+                +13310.3 * CHD 
+                +5226.12 * CHbox 
+                -8410.11 * CHl1R11 
+                -16330.9 * CHl3R11 
+                -7885.24 * CHl3R22 
+                -80.8144 * CHeR11 
+                +7861.2 * CllR1221
+                );
+        
+        sigmaSMeLRa1 = 0.00044; 
+ 
+        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+                -249.516 * CHB 
+                +871.46 * CHW 
+                +91. * CHWB 
+                +70.15 * CHD 
+                +53.31 * CHbox 
+                +22795.3 * CHl1R11 
+                +22705.4 * CHl3R11 
+                -80.019 * CHl3R22 
+                -47.409 * CHeR11 
+                +79.81 * CllR1221               
+                );
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.018575; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                -7253.38 * CHB 
+                -354.216 * CHW 
+                -6168.17 * CHWB 
+                -8318.73 * CHD 
+                +2239.38 * CHbox 
+                +44.6 * CHl1R11 
+                -3340.37 * CHl3R11 
+                -3383.27 * CHl3R22 
+                -3085.96 * CHeR11 
+                +3370.78 * CllR1221             
+                );
+        
+        sigmaSMeRLa1 = 0.000287; 
+ 
+        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+                +404.369 * CHB 
+                +1.262 * CHW 
+                +318.379 * CHWB 
+                -63.65 * CHD 
+                +34.837 * CHbox 
+                +38.139 * CHl1R11 
+                -14.289 * CHl3R11 
+                -52.272 * CHl3R22 
+                -18393.9 * CHeR11 
+                +52.215 * CllR1221                
+                );   
+        
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.027967; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +8797.53 * CHB 
+                +1783.21 * CHW 
+                -7389.69 * CHWB 
+                -1996.03 * CHD 
+                +3374.01 * CHbox 
+                -12077. * CHl1R11 
+                -17157.9 * CHl3R11 
+                -5092.09 * CHl3R22 
+                +14929.2 * CHeR11 
+                +5076.1 * CllR1221
+                );
+        
+        sigmaSMeLLa1 = 0.0; 
+ 
+        sigmaeLLa1 = sigmaSMeLLa1;
+        
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.027967; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +8799.81 * CHB 
+                +1789.18 * CHW 
+                -7386.69 * CHWB 
+                -1996.03 * CHD 
+                +3374.07 * CHbox 
+                -12093.2 * CHl1R11 
+                -17168.1 * CHl3R11 
+                -5092.1 * CHl3R22 
+                +14921.5 * CHeR11 
+                +5076.11 * CllR1221             
+                );
+        
+        sigmaSMeRRa1 = 0.0; 
+ 
+        sigmaeRRa1 = sigmaSMeRRa1;  
 
     } else if (sqrt_s == 1.5) {
 
         C1 = 0.0065; // Use the same as 1400 GeV
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120570. * getSMEFTCoeffEW("CHbox")
-                    - 250340. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 739684. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 250340. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 53685.8 * getSMEFTCoeffEW("CHD")
-                    - 71192.9 * getSMEFTCoeffEW("CHB")
-                    + 9743.41 * getSMEFTCoeffEW("CHW")
-                    + 357556. * getSMEFTCoeffEW("CHWB")
-                    - 0.224 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-2.032 * deltaMz()
-                    - 0.4 * deltaMh()
-                    + 2.778 * deltaaMZ()
-                    + 0.194 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120602. * getSMEFTCoeffEW("CHbox")
-                    - 718001. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 189852. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 718001. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 121214. * getSMEFTCoeffEW("CHD")
-                    - 6057.91 * getSMEFTCoeffEW("CHB")
-                    - 95148.1 * getSMEFTCoeffEW("CHW")
-                    - 390958. * getSMEFTCoeffEW("CHWB")
-                    - 5.997 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+9.519 * deltaMz()
-                    - 0.399 * deltaMh()
-                    - 3.001 * deltaaMZ()
-                    + 5.965 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120563. * getSMEFTCoeffEW("CHbox")
-                    - 319378. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 665765. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 319378. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 29010.7 * getSMEFTCoeffEW("CHD")
-                    + 14190.4 * getSMEFTCoeffEW("CHB")
-                    + 16080. * getSMEFTCoeffEW("CHW")
-                    + 205187. * getSMEFTCoeffEW("CHWB")
-                    - 1.04 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.398 * deltaMz()
-                    - 0.4 * deltaMh()
-                    + 1.96 * deltaaMZ()
-                    + 1.01 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120607. * getSMEFTCoeffEW("CHbox")
-                    - 659879. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 263841. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 659879. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 98617.3 * getSMEFTCoeffEW("CHD")
-                    + 46418.4 * getSMEFTCoeffEW("CHB")
-                    - 64166.6 * getSMEFTCoeffEW("CHW")
-                    - 330855. * getSMEFTCoeffEW("CHWB")
-                    - 5.253 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+8.03 * deltaMz()
-                    - 0.4 * deltaMh()
-                    - 2.257 * deltaaMZ()
-                    + 5.221 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
+        // e+ e- > H e+ e- - e+ e- > H Z, Z > e+ e-
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.045902; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -6375.19 * CHB 
+                -6460.92 * CHW 
+                +23318.4 * CHWB 
+                +14123. * CHD 
+                +5539.23 * CHbox 
+                -12062.5 * CHl1R11 
+                -20377.7 * CHl3R11 
+                -8361.26 * CHl3R22 
+                -70.2473 * CHeR11 
+                +8323.76 * CllR1221 
+                );
+        
+        sigmaSMeLRa1 = 0.000382; 
+ 
+        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+                -217.463 * CHB 
+                +760.524 * CHW 
+                +78.744 * CHWB 
+                +60.914 * CHD 
+                +46.284 * CHbox 
+                +22714.2 * CHl1R11 
+                +22643.9 * CHl3R11 
+                -69.698 * CHl3R22 
+                -41.158 * CHeR11 
+                +69.444 * CllR1221                
+                );
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.019672; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                -7723.03 * CHB 
+                -363.499 * CHW 
+                -6714.28 * CHWB 
+                -8822.04 * CHD 
+                +2368.63 * CHbox 
+                +26.1277 * CHl1R11 
+                -3541.43 * CHl3R11 
+                -3586.63 * CHl3R22 
+                -1139.61 * CHeR11 
+                +3562.85 * CllR1221              
+                );
+        
+        sigmaSMeRLa1 = 0.00025; 
+ 
+        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+                +353.423 * CHB 
+                +0.877 * CHW 
+                +278.093 * CHWB 
+                -55.24 * CHD 
+                +30.338 * CHbox 
+                +33.078 * CHl1R11 
+                -12.356 * CHl3R11 
+                -45.362 * CHl3R22 
+                -18343.1 * CHeR11 
+                +45.449 * CllR1221                
+                );   
+        
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.029711; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +8980.14 * CHB 
+                +1806.17 * CHW 
+                -7606.24 * CHWB 
+                -2122.01 * CHD 
+                +3584.01 * CHbox 
+                -13210.4 * CHl1R11 
+                -18604.3 * CHl3R11 
+                -5410.06 * CHl3R22 
+                +16326.5 * CHeR11 
+                +5389.08 * CllR1221 
+                );
+        
+        sigmaSMeLLa1 = 0.0; 
+ 
+        sigmaeLLa1 = sigmaSMeLLa1;
+        
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.029711; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +8985.08 * CHB 
+                +1815.25 * CHW 
+                -7606.1 * CHWB 
+                -2122.01 * CHD 
+                +3584.06 * CHbox 
+                -13225.4 * CHl1R11 
+                -18615.2 * CHl3R11 
+                -5410.07 * CHl3R22 
+                +16320. * CHeR11 
+                +5389.08 * CllR1221              
+                );
+        
+        sigmaSMeRRa1 = 0.0; 
+ 
+        sigmaeRRa1 = sigmaSMeRRa1;  
 
     } else if (sqrt_s == 3.0) {
 
         C1 = 0.0063;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +120539. * getSMEFTCoeffEW("CHbox")
-                    - 327096. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 988310. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 327096. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 53758.1 * getSMEFTCoeffEW("CHD")
-                    - 79161. * getSMEFTCoeffEW("CHB")
-                    + 3856.87 * getSMEFTCoeffEW("CHW")
-                    + 369878. * getSMEFTCoeffEW("CHWB")
-                    - 0.226 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.896 * deltaMz()
-                    - 0.264 * deltaMh()
-                    + 2.778 * deltaaMZ()
-                    + 0.174 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +120565. * getSMEFTCoeffEW("CHbox")
-                    - 961658. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 247947. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 961658. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 121230. * getSMEFTCoeffEW("CHD")
-                    - 10752.9 * getSMEFTCoeffEW("CHB")
-                    - 92123.7 * getSMEFTCoeffEW("CHW")
-                    - 391807. * getSMEFTCoeffEW("CHWB")
-                    - 6.002 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+9.659 * deltaMz()
-                    - 0.264 * deltaMh()
-                    - 3.003 * deltaaMZ()
-                    + 5.943 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +120534. * getSMEFTCoeffEW("CHbox")
-                    - 417962. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 884851. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 417962. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    + 29065.5 * getSMEFTCoeffEW("CHD")
-                    - 10885.4 * getSMEFTCoeffEW("CHB")
-                    + 8249.25 * getSMEFTCoeffEW("CHW")
-                    + 228820. * getSMEFTCoeffEW("CHWB")
-                    - 1.04 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.262 * deltaMz()
-                    - 0.264 * deltaMh()
-                    + 1.959 * deltaaMZ()
-                    + 0.987 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +120480. * getSMEFTCoeffEW("CHbox")
-                    - 880604. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 344657. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 880604. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 98656.8 * getSMEFTCoeffEW("CHD")
-                    + 28681.4 * getSMEFTCoeffEW("CHB")
-                    - 66216.6 * getSMEFTCoeffEW("CHW")
-                    - 320715. * getSMEFTCoeffEW("CHWB")
-                    - 5.256 * delta_GF
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+8.169 * deltaMz()
-                    - 0.264 * deltaMh()
-                    - 2.259 * deltaaMZ()
-                    + 5.202 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
-        }
-
+        // e+ e- > H e+ e- - e+ e- > H Z, Z > e+ e-
+        // LR -------------------------------
+        sigmaSMeLRa0 = 0.074258; 
+ 
+        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+                -7890.8 * CHB 
+                -10712. * CHW 
+                +36102.9 * CHWB 
+                +22954.4 * CHD 
+                +8950.34 * CHbox 
+                -58386.8 * CHl1R11 
+                -71823.6 * CHl3R11 
+                -13529.9 * CHl3R22 
+                -84.4482 * CHeR11 
+                +13440.9 * CllR1221 
+                );
+        
+        sigmaSMeLRa1 = 0.000094; 
+ 
+        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+                -54.8938 * CHB 
+                +191.442 * CHW 
+                +19.136 * CHWB 
+                +14.986 * CHD 
+                +11.398 * CHbox 
+                +22370.4 * CHl1R11 
+                +22337.9 * CHl3R11 
+                -17.152 * CHl3R22 
+                -10.134 * CHeR11 
+                +17.064 * CllR1221                
+                );
+        
+        // RL -------------------------------
+        sigmaSMeRLa0 = 0.031683; 
+ 
+        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+                -11227.5 * CHB 
+                -410.83 * CHW 
+                -12206.1 * CHWB 
+                -14304.6 * CHD 
+                +3817.17 * CHbox 
+                -0.93975 * CHl1R11 
+                -5766.16 * CHl3R11 
+                -5772.65 * CHl3R22 
+                +23381.2 * CHeR11 
+                +5741.22 * CllR1221              
+                );
+        
+        sigmaSMeRLa1 = 0.000061; 
+ 
+        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+                +89.174 * CHB 
+                -0.004 * CHW 
+                +70.224 * CHWB 
+                -13.617 * CHD 
+                +7.452 * CHbox 
+                +8.178 * CHl1R11 
+                -3.058 * CHl3R11 
+                -11.199 * CHl3R22 
+                -18063.7 * CHeR11 
+                +11.123 * CllR1221                
+                );   
+        
+        // LL -------------------------------
+        sigmaSMeLLa0 = 0.048427; 
+ 
+        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+                +10268.1 * CHB 
+                +1941.01 * CHW 
+                -9431.02 * CHWB 
+                -3454. * CHD 
+                +5837. * CHbox 
+                -27962.8 * CHl1R11 
+                -36729.7 * CHl3R11 
+                -8820.01 * CHl3R22 
+                +34561.2 * CHeR11 
+                +8778.01 * CllR1221 
+                );
+        
+        sigmaSMeLLa1 = 0.0; 
+ 
+        sigmaeLLa1 = sigmaSMeLLa1;
+        
+        // RR -------------------------------
+        sigmaSMeRRa0 = 0.048427; 
+ 
+        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+                +10279.1 * CHB 
+                +1965.01 * CHW 
+                -9436.92 * CHWB 
+                -3454. * CHD 
+                +5837. * CHbox 
+                -27968.7 * CHl1R11 
+                -36755.7 * CHl3R11 
+                -8820.01 * CHl3R22 
+                +34557.2 * CHeR11 
+                +8779.01 * CllR1221              
+                );
+        
+        sigmaSMeRRa1 = 0.0; 
+ 
+        sigmaeRRa1 = sigmaSMeRRa1;  
+ 
+        sigmaeRRa1 = cWsch * (sigmaSMeRRa1
+               
+                ); 
+        
     } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZBFPol()");
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeHee()");
+    
+    // Construct the signal strength
+    // Total cross section
+    mu = fLR * (sigmaeLRa0 - sigmaeLRa1) + fRL * (sigmaeRLa0 - sigmaeRLa1) + fLL * (sigmaeLLa0 - sigmaeLLa1) + fRR * (sigmaeRRa0 - sigmaeRRa1);
+    // Normalize to SM
+    mu = mu / (fLR * (sigmaSMeLRa0 - sigmaSMeLRa1) + fRL * (sigmaSMeRLa0 - sigmaSMeRLa1) + fLL * (sigmaSMeLLa0 - sigmaSMeLLa1) + fRR * (sigmaSMeRRa0 - sigmaSMeRRa1));
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     //(Assume similar to WBF.)
@@ -22870,6 +22425,8 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
 
     return mu;
 }
+
+
 
 const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
 
@@ -23282,7 +22839,6 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
     
     double tofb = 3.894e+11;  // Conversion of the cross section to fb
     
-    double Pe = Pol_em, Pp = Pol_ep;
     double s,s2, MH2, MW2, MZ2, MH4, MW4, MZ4, MW6, MZ6, MW8, MZ8;
     
     // For LO corrections
@@ -23386,6 +22942,13 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
     // Current input of observables is in TeV -> Translate sqrt_s to GeV before operating
     double sqrt_sGeV;
     
+    // Polarization factors
+    double Pe = Pol_em, Pp = Pol_ep;
+    double fLR, fRL;
+    
+    fLR = 0.25 * (1.0 - Pe) * (1.0 + Pp);
+    fRL = 0.25 * (1.0 + Pe) * (1.0 - Pp);
+    
     sqrt_sGeV = 1000. * sqrt_s;
     
     muRG = sqrt_sGeV;
@@ -23467,9 +23030,9 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
         // Choose the right index in the different lists according to the selected energy
         int iECM;
         
-        if ( (sqrt_s == 0.240) || (sqrt_s == 0.250) ) {
+        if ( (sqrt_s > 0.220) && (sqrt_s < 0.260) ) {
             iECM = 0;
-        } else if ( (sqrt_s == 0.350) || (sqrt_s == 0.360)  || (sqrt_s == 0.365) ) {
+        } else if ( (sqrt_s > 0.340) && (sqrt_s < 0.390) ) {
             iECM = 1;            
         } else if ( sqrt_s == 0.500 ) {
             iECM = 2;
@@ -23481,11 +23044,11 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
         
         // SM Cross section including only EW corrections [fb]
         xsSMNLOW = tofb * xsSMLO 
-                + 0.25 * (1.0 - Pe) * (1.0 + Pp) * dSMWLH[iECM] 
-                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * dSMWRH[iECM];
+                + fLR * dSMWLH[iECM] 
+                + fRL * dSMWRH[iECM];
         xsSMNLO = xsSMNLOW
-                + 0.25 * (1.0 - Pe) * (1.0 + Pp) * dSMQEDLH[iECM] 
-                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * dSMQEDRH[iECM];
+                + fLR * dSMQEDLH[iECM] 
+                + fRL * dSMQEDRH[iECM];
         
         // Combination of dimension-6 coefficients
         Ch2f1 = getSMEFTCoeff("CHeR",1, 1, muRG) + getSMEFTCoeff("CHeR",2, 2, muRG) 
@@ -23596,10 +23159,10 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
                 + d6RHCWt[iECM] * getSMEFTCoeff("CWtilde", muRG);       
         
         // Correction to polarized cross section: Need to multiply by Lambda^2
-        dmuNLO += 0.25 * (1.0 - Pe) * (1.0 + Pp) * xsSMweakLH[iECM] * d6NLOLH * LambdaNP2 
-                + 0.25 * (1.0 + Pe) * (1.0 - Pp) * xsSMweakRH[iECM] * d6NLORH * LambdaNP2;
+        dmuNLO += fLR * xsSMweakLH[iECM] * d6NLOLH * LambdaNP2 
+                + fRL * xsSMweakRH[iECM] * d6NLORH * LambdaNP2;
         // Normalize to SM full NLO cross section
-        dmuNLO = 4.0 * dmuNLO /((1.0 - Pe) * (1.0 + Pp) * xsSMNLOLH[iECM] + (1.0 + Pe) * (1.0 - Pp) * xsSMNLORH[iECM]);
+        dmuNLO = dmuNLO /(fLR * xsSMNLOLH[iECM] + fRL * xsSMNLORH[iECM]);
         
         // Rescale the LO contribution and normalizer the NLO to the SM cross section
         dmuLO = dmuLO * (tofb * xsSMLO/xsSMNLO);
@@ -25195,181 +24758,336 @@ const double NPSMEFTd6General::muggHpttH(const double sqrt_s) const {
 
 const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
 
-    // Only Alpha scheme
+    //  Mw scheme
 
     double mu = 1.0;
 
     double C1 = 0.0;
-    
-    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueettHPol(sqrt_s, Pol_em, Pol_ep);
 
+    // Wilson coefficients and scale    
+    double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R11 = 0.0;
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR11 = 0.0, CllR1221 = 0.0, Clq1R1133 = 0.0;
+    double Clq3R1133 = 0.0, CeuR1133 = 0.0, CluR1133 = 0.0, CqeR3311 = 0.0;
+    double muRG = 0;
+    
+    // Polarization factors
+    double Pe = Pol_em, Pp = Pol_ep;
+    double fLR, fRL;
+
+    // LH and RH cross sections    
+    double sigmaSMeLHa0 = 0.0, sigmaeLHa0 = 0.0; 
+    double sigmaSMeRHa0 = 0.0, sigmaeRHa0 = 0.0;
+    
+    // -------------------------------------------------------------------------
+
+    fLR = 0.25 * (1.0 - Pe) * (1.0 + Pp);
+    fRL = 0.25 * (1.0 + Pe) * (1.0 - Pp);
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
+    
+//  Wilson coefficients definitions 
+    CHB = getSMEFTCoeff("CHB", muRG); 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl1R11 = getSMEFTCoeff("CHl1R",0,0, muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CHeR11 = getSMEFTCoeff("CHeR",0,0, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG); 
+    Clq1R1133 = getSMEFTCoeff("Clq1R",0,0,2,2, muRG); 
+    Clq3R1133 = getSMEFTCoeff("Clq3R",0,0,2,2, muRG); 
+    CeuR1133 = getSMEFTCoeff("CeuR",0,0,2,2, muRG); 
+    CluR1133 = getSMEFTCoeff("CluR",0,0,2,2, muRG); 
+    CqeR3311 = getSMEFTCoeff("CqeR",2,2,0,0, muRG); 
+    
     if (sqrt_s == 0.500) {
 
         C1 = 0.086;
 
-        mu +=
-                +121901. * getSMEFTCoeffEW("CHbox")
-                + 84038.2 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                + 41671.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 31418.2 * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 84038.2 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 121791. * getSMEFTCoeffEW("CuHR", 2, 2)
-                - 59467.6 * getSMEFTCoeffEW("CHD")
-                + 138929. * getSMEFTCoeffEW("CHB")
-                + 130909. * getSMEFTCoeffEW("CHW")
-                - 253030. * getSMEFTCoeffEW("CHWB")
-                + 1386027. * getSMEFTCoeffEW("CuWR", 2, 2)
-                + 1698012. * getSMEFTCoeffEW("CuBR", 2, 2)
-                - 1.965 * delta_GF
-                - 1.187 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                ;
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.000784; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +64.05 * CHB 
+                +150.149 * CHW 
+                -293.859 * CHWB 
+                -83.749 * CHD 
+                +94.929 * CHbox 
+                +99.403 * CHl1R11 
+                -43.388 * CHl3R11 
+                -142.79 * CHl3R22 
+                -0.09 * CHeR11 
+                +142.587 * CllR1221 
+                -2459.84 * Clq1R1133 
+                +2459.57 * Clq3R1133 
+                -0.039 * CeuR1133 
+                -2383.15 * CluR1133 
+                +0.038 * CqeR3311 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.000306; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +84.619 * CHB 
+                -1.392 * CHW 
+                -229.525 * CHWB 
+                -94.6744 * CHD 
+                +37.061 * CHbox 
+                -0.045 * CHl1R11 
+                -55.781 * CHl3R11 
+                -55.7456 * CHl3R22 
+                +47.617 * CHeR11 
+                +55.691 * CllR1221 
+                -0.07 * Clq1R1133 
+                -0.023 * Clq3R1133 
+                -1539.29 * CeuR1133 
+                -0.04 * CluR1133 
+                -1476.99 * CqeR3311               
+                );
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+1.932 * deltaMz()
-                - 9.827 * deltaMh()
-                + 1.04 * deltaaMZ()
-                + 1.992 * deltaGmu()
-                - 18.476 * deltamt());
+    } else if (sqrt_s == 0.550) {
 
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        C1 = 0.086;
+
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.00312; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +297.11 * CHB 
+                +724.31 * CHW 
+                -1223.66 * CHWB 
+                -325.49 * CHD 
+                +377.98 * CHbox 
+                +534.49 * CHl1R11 
+                -33.9 * CHl3R11 
+                -567.507 * CHl3R22 
+                +0.21 * CHeR11 
+                +567.66 * CllR1221 
+                -11969.1 * Clq1R1133 
+                +11968.5 * Clq3R1133 
+                -0.11 * CeuR1133 
+                -11014.6 * CluR1133 
+                +0.67 * CqeR3311 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.001237; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                 +409.925 * CHB 
+                -5.186 * CHW 
+                -935.608 * CHWB 
+                -381.431 * CHD 
+                +149.802 * CHbox 
+                -0.09 * CHl1R11 
+                -225.376 * CHl3R11 
+                -225.159 * CHl3R22 
+                +135.744 * CHeR11 
+                +225.027 * CllR1221 
+                -0.125 * Clq1R1133 
+                -0.068 * Clq3R1133 
+                -7563.55 * CeuR1133 
+                -0.029 * CluR1133 
+                -6791.05 * CqeR3311 
+             
+                );
 
     } else if (sqrt_s == 1.0) {
 
         C1 = 0.017;
 
-        mu +=
-                +122013. * getSMEFTCoeffEW("CHbox")
-                + 889282. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 543424. * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 8240.83 * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 889282. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 116099. * getSMEFTCoeffEW("CuHR", 2, 2)
-                - 60351.9 * getSMEFTCoeffEW("CHD")
-                + 352804. * getSMEFTCoeffEW("CHB")
-                + 361918. * getSMEFTCoeffEW("CHW")
-                - 397547. * getSMEFTCoeffEW("CHWB")
-                + 2758980. * getSMEFTCoeffEW("CuWR", 2, 2)
-                + 3462941. * getSMEFTCoeffEW("CuBR", 2, 2)
-                - 2.08 * delta_GF
-                - 2.575 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+2.185 * deltaMz()
-                - 1.195 * deltaMh()
-                + 0.92 * deltaaMZ()
-                + 2.096 * deltaGmu()
-                + 2.136 * deltamt());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.005628; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +1025.46 * CHB 
+                +3025.89 * CHW 
+                -2904.01 * CHWB 
+                -487.21 * CHD 
+                +679.93 * CHbox 
+                +7559.2 * CHl1R11 
+                +6531.9 * CHl3R11 
+                -1025.4 * CHl3R22 
+                -1.38 * CHeR11 
+                +1023.74 * CllR1221 
+                -74007.7 * Clq1R1133 
+                +74002.2 * Clq3R1133 
+                -0.51 * CeuR1133 
+                -49985.1 * CluR1133 
+                +1.77 * CqeR3311 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.002438; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +1730.78 * CHB 
+                -4.46 * CHW 
+                -1901.35 * CHWB 
+                -734.641 * CHD 
+                +294.72 * CHbox 
+                +0.18 * CHl1R11 
+                -444.453 * CHl3R11 
+                -444.042 * CHl3R22 
+                -4301.18 * CHeR11 
+                +443.17 * CllR1221 
+                -0.99 * Clq1R1133 
+                -0.53 * Clq3R1133 
+                -49023.4 * CeuR1133 
+                +0. * CluR1133 
+                -29612. * CqeR3311               
+                );
 
     } else if (sqrt_s == 1.4) {
 
         C1 = 0.0094;
 
-        mu +=
-                +122081. * getSMEFTCoeffEW("CHbox")
-                + 2544832. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 1901938. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 3241.73 * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 2544832. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 112208. * getSMEFTCoeffEW("CuHR", 2, 2)
-                - 60340.4 * getSMEFTCoeffEW("CHD")
-                + 464967. * getSMEFTCoeffEW("CHB")
-                + 487659. * getSMEFTCoeffEW("CHW")
-                - 471053. * getSMEFTCoeffEW("CHWB")
-                + 3804096. * getSMEFTCoeffEW("CuWR", 2, 2)
-                + 4800265. * getSMEFTCoeffEW("CuBR", 2, 2)
-                - 2.139 * delta_GF
-                - 3.203 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+2.309 * deltaMz()
-                - 0.898 * deltaMh()
-                + 0.872 * deltaaMZ()
-                + 2.157 * deltaGmu()
-                + 2.262 * deltamt());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.003663; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +851.16 * CHB 
+                +2683.85 * CHW 
+                -2175.84 * CHWB 
+                -281.36 * CHD 
+                +443.46 * CHbox 
+                +14219.5 * CHl1R11 
+                +13530.3 * CHl3R11 
+                -666.64 * CHl3R22 
+                +0.23 * CHeR11 
+                +667.92 * CllR1221 
+                -94483. * Clq1R1133 
+                +94422.2 * Clq3R1133 
+                -0.27 * CeuR1133 
+                -55215.2 * CluR1133 
+                +2.12 * CqeR3311 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.001649; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                 +1534.5 * CHB 
+                -1.516 * CHW 
+                -1307.33 * CHWB 
+                -491.01 * CHD 
+                +199.437 * CHbox 
+                +0.185 * CHl1R11 
+                -300.664 * CHl3R11 
+                -300.5 * CHl3R22 
+                -9966.43 * CHeR11 
+                +299.889 * CllR1221 
+                -0.467 * Clq1R1133 
+                -0.15 * Clq3R1133 
+                -63653.5 * CeuR1133 
+                +0.084 * CluR1133 
+                -31925.6 * CqeR3311              
+                );
 
     } else if (sqrt_s == 1.5) {
 
         C1 = 0.0094; // Use the same as 1400 GeV
 
-        mu +=
-                +122173. * getSMEFTCoeffEW("CHbox")
-                + 3117293. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 2378233. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 5531.15 * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 3117293. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 111274. * getSMEFTCoeffEW("CuHR", 2, 2)
-                - 60192. * getSMEFTCoeffEW("CHD")
-                + 487962. * getSMEFTCoeffEW("CHB")
-                + 513503. * getSMEFTCoeffEW("CHW")
-                - 485782. * getSMEFTCoeffEW("CHWB")
-                + 4068326. * getSMEFTCoeffEW("CuWR", 2, 2)
-                + 5138930. * getSMEFTCoeffEW("CuBR", 2, 2)
-                - 2.149 * delta_GF
-                - 3.325 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+2.322 * deltaMz()
-                - 0.858 * deltaMh()
-                + 0.866 * deltaaMZ()
-                + 2.164 * deltaGmu()
-                + 2.265 * deltamt());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.003313; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +802.15 * CHB 
+                +2557.53 * CHW 
+                -2020.86 * CHWB 
+                -247.18 * CHD 
+                +399.96 * CHbox 
+                +15759.7 * CHl1R11 
+                +15137.2 * CHl3R11 
+                -603.19 * CHl3R22 
+                -0.33 * CHeR11 
+                +603.07 * CllR1221 
+                -97959.2 * Clq1R1133 
+                +97891.1 * Clq3R1133 
+                -1.18 * CeuR1133 
+                -55773.9 * CluR1133 
+                +0.81 * CqeR3311 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.001501; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +1463.34 * CHB 
+                -0.798 * CHW 
+                -1194.15 * CHWB 
+                -445.894 * CHD 
+                +181.657 * CHbox 
+                +0.545 * CHl1R11 
+                -273.374 * CHl3R11 
+                -273.049 * CHl3R22 
+                -11292.4 * CHeR11 
+                +273.183 * CllR1221 
+                -0.06 * Clq1R1133 
+                -0.076 * Clq3R1133 
+                -66166.1 * CeuR1133 
+                +0.319 * CluR1133 
+                -32094.8 * CqeR3311               
+                );
 
     } else if (sqrt_s == 3.0) {
 
         C1 = 0.0037;
 
-        mu +=
-                +121915. * getSMEFTCoeffEW("CHbox")
-                + 19529668. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 16356276. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 23142.9 * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 19529668. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 104011. * getSMEFTCoeffEW("CuHR", 2, 2)
-                - 58710.4 * getSMEFTCoeffEW("CHD")
-                + 697868. * getSMEFTCoeffEW("CHB")
-                + 751003. * getSMEFTCoeffEW("CHW")
-                - 625171. * getSMEFTCoeffEW("CHWB")
-                + 8604912. * getSMEFTCoeffEW("CuWR", 2, 2)
-                + 10946841. * getSMEFTCoeffEW("CuBR", 2, 2)
-                - 2.224 * delta_GF
-                - 4.279 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+2.483 * deltaMz()
-                - 0.572 * deltaMh()
-                + 0.771 * deltaaMZ()
-                + 2.242 * deltaGmu()
-                + 2.182 * deltamt());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // LH -------------------------------
+        sigmaSMeLHa0 = 0.001106; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                +369.229 * CHB 
+                +1267.68 * CHW 
+                -846.969 * CHWB 
+                -65.475 * CHD 
+                +133.094 * CHbox 
+                +33426.2 * CHl1R11 
+                +33181.8 * CHl3R11 
+                -201.591 * CHl3R22 
+                +0.184 * CHeR11 
+                +201.833 * CllR1221 
+                -127907. * Clq1R1133 
+                +127790. * Clq3R1133 
+                -0.298 * CeuR1133 
+                -60001.5 * CluR1133 
+                +0.24 * CqeR3311 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.000527; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +724.065 * CHB 
+                +0.053 * CHW 
+                -436.716 * CHWB 
+                -153.745 * CHD 
+                +63.636 * CHbox 
+                +0.234 * CHl1R11 
+                -96.001 * CHl3R11 
+                -95.827 * CHl3R22 
+                -26304.8 * CHeR11 
+                +95.878 * CllR1221 
+                -0.166 * Clq1R1133 
+                -0.081 * Clq3R1133 
+                -88019.1 * CeuR1133 
+                +0.289 * CluR1133 
+                -33112.4 * CqeR3311               
+                );
 
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mueettH()");
+    
+    // Construct the signal strength
+    // Total cross section
+    mu = fLR * (sigmaeLHa0) + fRL * (sigmaeRHa0);
+    // Normalize to SM
+    mu = mu / (fLR * (sigmaSMeLHa0) + fRL * (sigmaSMeRHa0));
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeettHint + eeettHpar;
@@ -25383,618 +25101,6 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
     return mu;
 }
 
-const double NPSMEFTd6General::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
-
-    // Only Alpha scheme
-
-    double mu = 1.0;
-
-    double C1 = 0.0;
-
-    if (sqrt_s == 0.500) {
-
-        C1 = 0.086;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121861. * getSMEFTCoeffEW("CHbox")
-                    + 14207.9 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 124191. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 112591. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 14207.9 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 123399. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 12437.7 * getSMEFTCoeffEW("CHD")
-                    + 249779. * getSMEFTCoeffEW("CHB")
-                    + 18912.8 * getSMEFTCoeffEW("CHW")
-                    - 109936. * getSMEFTCoeffEW("CHWB")
-                    + 174267. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 3032981. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.388 * delta_GF
-                    + 3.51 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.319 * deltaMz()
-                    - 9.866 * deltaMh()
-                    + 2.617 * deltaaMZ()
-                    + 0.421 * deltaGmu()
-                    - 18.44 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +121809. * getSMEFTCoeffEW("CHbox")
-                    + 116253. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 3415.4 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 98311.8 * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 116253. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 121117. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 81321.2 * getSMEFTCoeffEW("CHD")
-                    + 87352.2 * getSMEFTCoeffEW("CHB")
-                    + 182702. * getSMEFTCoeffEW("CHW")
-                    - 319427. * getSMEFTCoeffEW("CHWB")
-                    + 1948272. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 1078489. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 2.697 * delta_GF
-                    - 3.37 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.441 * deltaMz()
-                    - 9.806 * deltaMh()
-                    + 0.308 * deltaaMZ()
-                    + 2.725 * deltaGmu()
-                    - 18.491 * deltamt());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121837. * getSMEFTCoeffEW("CHbox")
-                    + 24323.6 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 111998. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 91391.1 * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 24323.6 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 123203. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 19404.2 * getSMEFTCoeffEW("CHD")
-                    + 233452. * getSMEFTCoeffEW("CHB")
-                    + 35310.2 * getSMEFTCoeffEW("CHW")
-                    - 131019. * getSMEFTCoeffEW("CHWB")
-                    + 351790. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 2837005. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.617 * delta_GF
-                    + 2.818 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.843 * deltaMz()
-                    - 9.86 * deltaMh()
-                    + 2.385 * deltaaMZ()
-                    + 0.645 * deltaGmu()
-                    - 18.45 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +121814. * getSMEFTCoeffEW("CHbox")
-                    + 113858. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    + 6221.44 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 93321.6 * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 113858. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 121180. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 79695. * getSMEFTCoeffEW("CHD")
-                    + 91201.9 * getSMEFTCoeffEW("CHB")
-                    + 178853. * getSMEFTCoeffEW("CHW")
-                    - 314513. * getSMEFTCoeffEW("CHWB")
-                    + 1906734. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 1124181. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 2.642 * delta_GF
-                    - 3.21 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.33 * deltaMz()
-                    - 9.807 * deltaMh()
-                    + 0.362 * deltaaMZ()
-                    + 2.671 * deltaGmu()
-                    - 18.489 * deltamt());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueettHPol()");
-        }
-
-    } else if (sqrt_s == 1.0) {
-
-        C1 = 0.017;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +122269. * getSMEFTCoeffEW("CHbox")
-                    + 148925. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1516295. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 181376. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 148925. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 115721. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 9966.97 * getSMEFTCoeffEW("CHD")
-                    + 648027. * getSMEFTCoeffEW("CHB")
-                    + 58990.6 * getSMEFTCoeffEW("CHW")
-                    - 166947. * getSMEFTCoeffEW("CHWB")
-                    + 416063. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 5771745. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.426 * delta_GF
-                    + 3.026 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.159 * deltaMz()
-                    - 1.211 * deltaMh()
-                    + 2.586 * deltaaMZ()
-                    + 0.445 * deltaGmu()
-                    + 2.101 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +122212. * getSMEFTCoeffEW("CHbox")
-                    + 1266376. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 47326.8 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 104685. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 1266376. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 116193. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 85861. * getSMEFTCoeffEW("CHD")
-                    + 202732. * getSMEFTCoeffEW("CHB")
-                    + 516612. * getSMEFTCoeffEW("CHW")
-                    - 514723. * getSMEFTCoeffEW("CHWB")
-                    + 3954267. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 2288387. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 2.929 * delta_GF
-                    - 5.432 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.902 * deltaMz()
-                    - 1.192 * deltaMh()
-                    + 0.075 * deltaaMZ()
-                    + 2.94 * deltaGmu()
-                    + 2.16 * deltamt());
-
-        } else if (Pol_em == 80. && Pol_ep == -20.) {
-            mu +=
-                    +122563. * getSMEFTCoeffEW("CHbox")
-                    + 179718. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1476392. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 173910. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 179718. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 115349. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 11797.8 * getSMEFTCoeffEW("CHD")
-                    + 636347. * getSMEFTCoeffEW("CHB")
-                    + 71703.6 * getSMEFTCoeffEW("CHW")
-                    - 176417. * getSMEFTCoeffEW("CHWB")
-                    + 513357. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 5678281. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.497 * delta_GF
-                    + 2.823 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.986 * deltaMz()
-                    - 1.242 * deltaMh()
-                    + 2.514 * deltaaMZ()
-                    + 0.529 * deltaGmu()
-                    + 2.133 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 20.) {
-            mu +=
-                    +122316. * getSMEFTCoeffEW("CHbox")
-                    + 1258544. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 57807.1 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 102560. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 1258544. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 116091. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 85249.7 * getSMEFTCoeffEW("CHD")
-                    + 206295. * getSMEFTCoeffEW("CHB")
-                    + 513404. * getSMEFTCoeffEW("CHW")
-                    - 512197. * getSMEFTCoeffEW("CHWB")
-                    + 3929488. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 2314064. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 2.911 * delta_GF
-                    - 5.37 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.877 * deltaMz()
-                    - 1.222 * deltaMh()
-                    + 0.099 * deltaaMZ()
-                    + 2.937 * deltaGmu()
-                    + 2.184 * deltamt());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +122564. * getSMEFTCoeffEW("CHbox")
-                    + 252265. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1381101. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 155161. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 252265. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 115358. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 16813.1 * getSMEFTCoeffEW("CHD")
-                    + 607466. * getSMEFTCoeffEW("CHB")
-                    + 101359. * getSMEFTCoeffEW("CHW")
-                    - 198737. * getSMEFTCoeffEW("CHWB")
-                    + 742520. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 5453267. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.659 * delta_GF
-                    + 2.273 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.69 * deltaMz()
-                    - 1.205 * deltaMh()
-                    + 2.349 * deltaaMZ()
-                    + 0.676 * deltaGmu()
-                    + 2.105 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +122380. * getSMEFTCoeffEW("CHbox")
-                    + 1238124. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 84811.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 97259.2 * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 1238124. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 116044. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 83798.9 * getSMEFTCoeffEW("CHD")
-                    + 214128. * getSMEFTCoeffEW("CHB")
-                    + 505118. * getSMEFTCoeffEW("CHW")
-                    - 505830. * getSMEFTCoeffEW("CHWB")
-                    + 3863710. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 2378351. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 2.867 * delta_GF
-                    - 5.212 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.771 * deltaMz()
-                    - 1.195 * deltaMh()
-                    + 0.137 * deltaaMZ()
-                    + 2.878 * deltaGmu()
-                    + 2.166 * deltamt());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueettHPol()");
-        }
-
-    } else if (sqrt_s == 1.4) {
-
-        C1 = 0.0094;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121945. * getSMEFTCoeffEW("CHbox")
-                    + 416437. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 5198451. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 211446. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 416437. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 110413. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 8089.5 * getSMEFTCoeffEW("CHD")
-                    + 852065. * getSMEFTCoeffEW("CHB")
-                    + 78915.7 * getSMEFTCoeffEW("CHW")
-                    - 191411. * getSMEFTCoeffEW("CHWB")
-                    + 588296. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 7812392. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.441 * delta_GF
-                    + 2.819 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.109 * deltaMz()
-                    - 0.905 * deltaMh()
-                    + 2.571 * deltaaMZ()
-                    + 0.451 * deltaGmu()
-                    + 2.225 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +122124. * getSMEFTCoeffEW("CHbox")
-                    + 3668482. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 164738. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 106285. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 3668482. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 112775. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 87497.2 * getSMEFTCoeffEW("CHD")
-                    + 261266. * getSMEFTCoeffEW("CHB")
-                    + 703789. * getSMEFTCoeffEW("CHW")
-                    - 618584. * getSMEFTCoeffEW("CHWB")
-                    + 5501929. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 3213842. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 3.038 * delta_GF
-                    - 6.378 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.12 * deltaMz()
-                    - 0.898 * deltaMh()
-                    - 0.029 * deltaaMZ()
-                    + 3.056 * deltaGmu()
-                    + 2.28 * deltamt());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121843. * getSMEFTCoeffEW("CHbox")
-                    + 706068. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 4748505. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 182964. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 706068. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 110672. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 15249.5 * getSMEFTCoeffEW("CHD")
-                    + 798771. * getSMEFTCoeffEW("CHB")
-                    + 134415. * getSMEFTCoeffEW("CHW")
-                    - 229663. * getSMEFTCoeffEW("CHWB")
-                    + 1026697. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 7402171. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.673 * delta_GF
-                    + 1.996 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.648 * deltaMz()
-                    - 0.901 * deltaMh()
-                    + 2.34 * deltaaMZ()
-                    + 0.693 * deltaGmu()
-                    + 2.232 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +122069. * getSMEFTCoeffEW("CHbox")
-                    + 3581543. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 298692. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 97874.3 * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 3581543. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 112737. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 85431.2 * getSMEFTCoeffEW("CHD")
-                    + 276629. * getSMEFTCoeffEW("CHB")
-                    + 687136. * getSMEFTCoeffEW("CHW")
-                    - 607155. * getSMEFTCoeffEW("CHWB")
-                    + 5370183. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 3335906. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 2.969 * delta_GF
-                    - 6.138 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.976 * deltaMz()
-                    - 0.895 * deltaMh()
-                    + 0.039 * deltaaMZ()
-                    + 2.986 * deltaGmu()
-                    + 2.271 * deltamt());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueettHPol()");
-        }
-
-    } else if (sqrt_s == 1.5) {
-
-        C1 = 0.0094; // Use the same as 1400 GeV
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +121854. * getSMEFTCoeffEW("CHbox")
-                    + 507190. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 6475118. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 216935. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 507190. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 109820. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 7568.59 * getSMEFTCoeffEW("CHD")
-                    + 893094. * getSMEFTCoeffEW("CHB")
-                    + 82781.5 * getSMEFTCoeffEW("CHW")
-                    - 196556. * getSMEFTCoeffEW("CHWB")
-                    + 630747. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 8328477. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.442 * delta_GF
-                    + 2.756 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.104 * deltaMz()
-                    - 0.856 * deltaMh()
-                    + 2.568 * deltaaMZ()
-                    + 0.455 * deltaGmu()
-                    + 2.232 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +121994. * getSMEFTCoeffEW("CHbox")
-                    + 4501280. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 206085. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 106381. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 4501280. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 112104. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 87805.6 * getSMEFTCoeffEW("CHD")
-                    + 273106. * getSMEFTCoeffEW("CHB")
-                    + 741955. * getSMEFTCoeffEW("CHW")
-                    - 639545. * getSMEFTCoeffEW("CHWB")
-                    + 5892414. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 3448015. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 3.057 * delta_GF
-                    - 6.552 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.154 * deltaMz()
-                    - 0.856 * deltaMh()
-                    - 0.045 * deltaaMZ()
-                    + 3.071 * deltaGmu()
-                    + 2.287 * deltamt());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +121793. * getSMEFTCoeffEW("CHbox")
-                    + 861242. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 5919951. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 188249. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 861242. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 109696. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 14806.7 * getSMEFTCoeffEW("CHD")
-                    + 837632. * getSMEFTCoeffEW("CHB")
-                    + 141142. * getSMEFTCoeffEW("CHW")
-                    - 235907. * getSMEFTCoeffEW("CHWB")
-                    + 1097452. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 7895510. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.673 * delta_GF
-                    + 1.935 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.637 * deltaMz()
-                    - 0.859 * deltaMh()
-                    + 2.339 * deltaaMZ()
-                    + 0.68 * deltaGmu()
-                    + 2.236 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +122029. * getSMEFTCoeffEW("CHbox")
-                    + 4394189. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 373205. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 97750.6 * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 4394189. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 112024. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 85643.3 * getSMEFTCoeffEW("CHD")
-                    + 289620. * getSMEFTCoeffEW("CHB")
-                    + 724463. * getSMEFTCoeffEW("CHW")
-                    - 627885. * getSMEFTCoeffEW("CHWB")
-                    + 5753330. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 3578793. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 2.989 * delta_GF
-                    - 6.311 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.014 * deltaMz()
-                    - 0.855 * deltaMh()
-                    + 0.024 * deltaaMZ()
-                    + 3.011 * deltaGmu()
-                    + 2.286 * deltamt());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueettHPol()");
-        }
-
-    } else if (sqrt_s == 3.0) {
-
-        C1 = 0.0037;
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    +122442. * getSMEFTCoeffEW("CHbox")
-                    + 3092340. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 43264264. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 259622. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 3092340. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 100510. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 3230.01 * getSMEFTCoeffEW("CHD")
-                    + 1267548. * getSMEFTCoeffEW("CHB")
-                    + 118886. * getSMEFTCoeffEW("CHW")
-                    - 247164. * getSMEFTCoeffEW("CHWB")
-                    + 1343630. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 17234081. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.459 * delta_GF
-                    + 2.453 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-1.07 * deltaMz()
-                    - 0.576 * deltaMh()
-                    + 2.542 * deltaaMZ()
-                    + 0.468 * deltaGmu()
-                    + 2.145 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    +122230. * getSMEFTCoeffEW("CHbox")
-                    + 28686134. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1435177. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 108195. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 28686134. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 105858. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 89803.1 * getSMEFTCoeffEW("CHD")
-                    + 381886. * getSMEFTCoeffEW("CHB")
-                    + 1102843. * getSMEFTCoeffEW("CHW")
-                    - 834821. * getSMEFTCoeffEW("CHWB")
-                    + 12639913. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 7455995. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 3.212 * delta_GF
-                    - 8.009 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.469 * deltaMz()
-                    - 0.595 * deltaMh()
-                    - 0.222 * deltaaMZ()
-                    + 3.22 * deltaGmu()
-                    + 2.195 * deltamt());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    +122688. * getSMEFTCoeffEW("CHbox")
-                    + 5271741. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 39707692. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 228729. * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 5271741. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 100891. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 10526.3 * getSMEFTCoeffEW("CHD")
-                    + 1192421. * getSMEFTCoeffEW("CHB")
-                    + 202915. * getSMEFTCoeffEW("CHW")
-                    - 296939. * getSMEFTCoeffEW("CHWB")
-                    + 2303644. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 16407287. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 0.693 * delta_GF
-                    + 1.565 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (-0.597 * deltaMz()
-                    - 0.565 * deltaMh()
-                    + 2.305 * deltaaMZ()
-                    + 0.708 * deltaGmu()
-                    + 2.153 * deltamt());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    +121781. * getSMEFTCoeffEW("CHbox")
-                    + 27966374. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 2597153. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    - 98089.4 * getSMEFTCoeffEW("CHuR", 0, 0)
-                    + 27966374. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 105885. * getSMEFTCoeffEW("CuHR", 2, 2)
-                    - 87600.3 * getSMEFTCoeffEW("CHD")
-                    + 406305. * getSMEFTCoeffEW("CHB")
-                    + 1075086. * getSMEFTCoeffEW("CHW")
-                    - 818808. * getSMEFTCoeffEW("CHWB")
-                    + 12322125. * getSMEFTCoeffEW("CuWR", 2, 2)
-                    + 7728315. * getSMEFTCoeffEW("CuBR", 2, 2)
-                    - 3.134 * delta_GF
-                    - 7.724 * 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-                    ;
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.305 * deltaMz()
-                    - 0.59 * deltaMh()
-                    - 0.147 * deltaaMZ()
-                    + 3.144 * deltaGmu()
-                    + 2.192 * deltamt());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueettHPol()");
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueettHPol()");
-
-    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eeettHint + eeettHpar;
-
-    //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
-
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
 
 const double NPSMEFTd6General::mummH(const double sqrt_s) const {
     double mu = 1.0;

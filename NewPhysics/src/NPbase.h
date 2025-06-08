@@ -1182,6 +1182,19 @@ public:
         return 1.0;
     }
     
+    /**
+     * @brief The ratio @f$\mu_{e^+e^- \to He^+e^-}@f$ between the 
+     * @f$ e^+e^- \to H e^+e^- @f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
+     * @return @f$\mu_{e^+e^- \to H e^+e^-}@f$
+     */
+    virtual const double mueeHee(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+    {
+        return 1.0;
+    }
+    
     
     /**
      * @brief The ratio @f$\mu_{epWBF}@f$ between the 
