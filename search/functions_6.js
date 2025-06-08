@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['f_0',['F',['../da/d29/class_amp_d_b2.html#a475dae03a7ecb40fdfc510f46fe0482c',1,'AmpDB2']]],
+  ['f_0',['F',['../dd/d00/class_evol_bsmm.html#a8f88ae14bd8df8c6f79af5dd9b0edb28',1,'EvolBsmm::F()'],['../da/d29/class_amp_d_b2.html#a475dae03a7ecb40fdfc510f46fe0482c',1,'AmpDB2::F()']]],
   ['f_1',['f',['../d0/d13/class_bsgamma.html#a529c56671700edd8d9c8bbda179a3ac2',1,'Bsgamma']]],
-  ['f_2',['F',['../de/d45/class_t_h_d_m_w_s_t_u.html#aaace74885c69f02da52e4cf84366a8a6',1,'THDMWSTU::F()'],['../dd/d00/class_evol_bsmm.html#a8f88ae14bd8df8c6f79af5dd9b0edb28',1,'EvolBsmm::F()'],['../d7/d0f/class_s_t_u.html#a2fe209575f5fcd5d779e60eaf8606683',1,'STU::F()']]],
+  ['f_2',['F',['../d7/d0f/class_s_t_u.html#a2fe209575f5fcd5d779e60eaf8606683',1,'STU::F()'],['../de/d45/class_t_h_d_m_w_s_t_u.html#aaace74885c69f02da52e4cf84366a8a6',1,'THDMWSTU::F()']]],
   ['f0_3',['F0',['../da/d29/class_amp_d_b2.html#a695070f37415bde28cce0e9d5ae9f0ad',1,'AmpDB2']]],
   ['f0_4',['f0',['../d7/d90/class_e_w_s_m_two_loop_e_w.html#a6a46ca33308952f5d8e271ae6438abda',1,'EWSMTwoLoopEW']]],
   ['f0_5',['F0',['../df/d18/class_f0.html#a69cbfc7ce0199bf0bd98e78d8c6c18c3',1,'F0']]],
@@ -41,8 +41,8 @@ var searchData=
   ['f8_38',['f8',['../df/d2f/class_general_t_h_d_m_matching.html#a3a992c56d7ec98a6ef6b1c6cc33378b3',1,'GeneralTHDMMatching']]],
   ['f87_39',['F87',['../d7/d01/class_b_xqll.html#a4080c75d304ced1300f19a506b67fc91',1,'BXqll::F87()'],['../dc/dce/class_m_pll.html#a45ff26625ae1d981775e02d972fc1015',1,'MPll::F87()']]],
   ['f89_40',['F89',['../d7/d01/class_b_xqll.html#ac62d48d3bdeaa8e7c5a069acb39dd280',1,'BXqll::F89()'],['../dc/dce/class_m_pll.html#a2f294a25effa165ed5a6c62549bb71ea',1,'MPll::F89()']]],
-  ['f9_41',['f9',['../df/d2f/class_general_t_h_d_m_matching.html#aca61b291d4bbc88210e5aac16f0a9ff7',1,'GeneralTHDMMatching']]],
-  ['f9_42',['F9',['../d5/d69/class_loop_mediators.html#ac0e12d3246d3f1baf9184d230d81cb21',1,'LoopMediators']]],
+  ['f9_41',['F9',['../d5/d69/class_loop_mediators.html#ac0e12d3246d3f1baf9184d230d81cb21',1,'LoopMediators']]],
+  ['f9_42',['f9',['../df/d2f/class_general_t_h_d_m_matching.html#aca61b291d4bbc88210e5aac16f0a9ff7',1,'GeneralTHDMMatching']]],
   ['f9pen_5fhuber_43',['f9pen_Huber',['../d7/d01/class_b_xqll.html#ade83e4b7405fc659820827f4a502a713',1,'BXqll']]],
   ['f_5f1_44',['F_1',['../d0/d13/class_bsgamma.html#a85df779f79890cce13eacfe91459de76',1,'Bsgamma::F_1()'],['../d6/d2d/class_f__1.html#af1f193b3b3c55aa59259c68a48759b38',1,'F_1::F_1()']]],
   ['f_5f17im_45',['F_17im',['../d7/d01/class_b_xqll.html#ac9799f53e6e984964b93540a556ead88',1,'BXqll::F_17im()'],['../d6/d2d/class_f__1.html#a48a00f530572d9b52d12dab1096c05b0',1,'F_1::F_17im()']]],

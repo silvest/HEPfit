@@ -400,6 +400,7 @@ var class_n_pbase =
     [ "LEP2sigmaMu", "d2/df3/class_n_pbase.html#a2292533d83e8414ee09d7ca2bfe872b1", null ],
     [ "LEP2sigmaTau", "d2/df3/class_n_pbase.html#a7c4c83a8701d088a15b6dd547d0105f0", null ],
     [ "mubbH", "d2/df3/class_n_pbase.html#ad8b6abfe235ae064908ce5976f0f19c4", null ],
+    [ "mueeHee", "d2/df3/class_n_pbase.html#af260d9b78468a94bab7a4ed526523aa1", null ],
     [ "mueeHvv", "d2/df3/class_n_pbase.html#ac24c4a49325c9ebb375780dad62934f2", null ],
     [ "mueettH", "d2/df3/class_n_pbase.html#abc111196f95c7282dbf2bf45d96d0e73", null ],
     [ "mueeWBF", "d2/df3/class_n_pbase.html#acba04c8f06b7d0c1a14d178e79d573f1", null ],
