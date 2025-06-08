@@ -7813,7 +7813,7 @@ protected:
     
     RGESolver SMEFTEvolEW;
         
-    RGESolver SMEFTEvolMH, SMEFTEvol240, SMEFTEvol365, SMEFTEvol500;
+    RGESolver SMEFTEvolMH, SMEFTEvol161, SMEFTEvol240, SMEFTEvol365, SMEFTEvol550, SMEFTEvol1000, SMEFTEvol1500, SMEFTEvol3000, SMEFTEvol5000, SMEFTEvol10000;
     
     RGESolver SMEFTEvolUV; // Reference at UV (Lambda_NP). Used to be able to access values of the coefficients via the RGEsolver methods. It is not evolved.
     

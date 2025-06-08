@@ -331,7 +331,9 @@ NPSMEFTd6General::NPSMEFTd6General()
 :
 NPbase(), NPSMEFTd6GM(*this),
         SMEFTEvolEW(), 
-        SMEFTEvolMH(), SMEFTEvol240(), SMEFTEvol365(), SMEFTEvol500(), SMEFTEvolUV(),
+        SMEFTEvolMH(), SMEFTEvol161(), SMEFTEvol240(), SMEFTEvol365(), SMEFTEvol550(), 
+        SMEFTEvol1000(), SMEFTEvol1500(), SMEFTEvol3000(), SMEFTEvol5000(), SMEFTEvol10000(),
+        SMEFTEvolUV(),
         VuL(gslpp::matrix<complex>::Id(3)), VuLd(gslpp::matrix<complex>::Id(3)), 
         VuR(gslpp::matrix<complex>::Id(3)), VuRd(gslpp::matrix<complex>::Id(3)), 
         VdL(gslpp::matrix<complex>::Id(3)), VdLd(gslpp::matrix<complex>::Id(3)), 
@@ -3003,13 +3005,19 @@ bool NPSMEFTd6General::Init(const std::map<std::string, double>& DPars) {
 }
 
 bool NPSMEFTd6General::PreUpdate() {
-    SMEFTEvolEW.Reset();
+    SMEFTEvolEW.Reset();    
     SMEFTEvolMH.Reset();
+    SMEFTEvol161.Reset();
     SMEFTEvol240.Reset();
     SMEFTEvol365.Reset();
-    SMEFTEvol500.Reset();
+    SMEFTEvol550.Reset();
+    SMEFTEvol1000.Reset();
+    SMEFTEvol1500.Reset();
+    SMEFTEvol3000.Reset();
+    SMEFTEvol5000.Reset();
+    SMEFTEvol10000.Reset();
     SMEFTEvolUV.Reset();
-
+    
     if (!NPbase::PreUpdate()) return (false);
 
     return (true);
@@ -8438,6 +8446,10 @@ bool NPSMEFTd6General::PostUpdate() {
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
         
+        SMEFTEvol161.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
         SMEFTEvol240.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
@@ -8446,7 +8458,27 @@ bool NPSMEFTd6General::PostUpdate() {
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
         
-        SMEFTEvol500.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+        SMEFTEvol550.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol1000.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol1500.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol3000.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol5000.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol10000.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
         
@@ -8456,22 +8488,40 @@ bool NPSMEFTd6General::PostUpdate() {
 
         // SMEFT initial conditions for RGEsolver
         setSMEFTEvolWC(SMEFTEvolMH);
+        setSMEFTEvolWC(SMEFTEvol161);
         setSMEFTEvolWC(SMEFTEvol240);
         setSMEFTEvolWC(SMEFTEvol365);
-        setSMEFTEvolWC(SMEFTEvol500);
+        setSMEFTEvolWC(SMEFTEvol550);
+        setSMEFTEvolWC(SMEFTEvol1000);
+        setSMEFTEvolWC(SMEFTEvol1500);
+        setSMEFTEvolWC(SMEFTEvol3000);
+        setSMEFTEvolWC(SMEFTEvol5000);
+        setSMEFTEvolWC(SMEFTEvol10000);
         setSMEFTEvolWC(SMEFTEvolUV); // Not evolved. Only for reference to retrieve C(Lambda)
         
         if (FlagmultiScaleRGE) {
         // Perform the evolution for the other RGE instances
             SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, 125.1);
+            SMEFTEvol161.EvolveSMEFTOnly(Lambda_NP, 161.);
             SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, 240.);
             SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, 365.);
-            SMEFTEvol500.EvolveSMEFTOnly(Lambda_NP, 500.);
+            SMEFTEvol550.EvolveSMEFTOnly(Lambda_NP, 550.);
+            SMEFTEvol1000.EvolveSMEFTOnly(Lambda_NP, fmin(1000.,Lambda_NP) );
+            SMEFTEvol1500.EvolveSMEFTOnly(Lambda_NP, fmin(1500.,Lambda_NP) );
+            SMEFTEvol3000.EvolveSMEFTOnly(Lambda_NP, fmin(3000.,Lambda_NP) );
+            SMEFTEvol5000.EvolveSMEFTOnly(Lambda_NP, fmin(5000.,Lambda_NP) );
+            SMEFTEvol10000.EvolveSMEFTOnly(Lambda_NP, fmin(10000.,Lambda_NP) );
         } else {
             SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+            SMEFTEvol161.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
             SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
             SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-            SMEFTEvol500.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);            
+            SMEFTEvol550.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+            SMEFTEvol1000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+            SMEFTEvol1500.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+            SMEFTEvol3000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+            SMEFTEvol5000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+            SMEFTEvol10000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);            
         }
         
     } else {
@@ -8491,38 +8541,74 @@ bool NPSMEFTd6General::PostUpdate() {
         // Work with the extra instances of RGEsolver: would be better to have a deep copy of SMEFTEvolEW
 
         // SM initial conditions for RGEsolver        
-        SMEFTEvolMH.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+        SMEFTEvolMH.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
         
-        SMEFTEvol240.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+        SMEFTEvol161.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
         
-        SMEFTEvol365.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+        SMEFTEvol240.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
         
-        SMEFTEvol500.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+        SMEFTEvol365.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
         
-        SMEFTEvolUV.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+        SMEFTEvol550.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol1000.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol1500.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol3000.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol5000.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvol10000.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        
+        SMEFTEvolUV.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
 
         // SMEFT initial conditions for RGEsolver        
         setSMEFTEvolWC(SMEFTEvolMH);
+        setSMEFTEvolWC(SMEFTEvol161);
         setSMEFTEvolWC(SMEFTEvol240);
         setSMEFTEvolWC(SMEFTEvol365);
-        setSMEFTEvolWC(SMEFTEvol500);
+        setSMEFTEvolWC(SMEFTEvol550);
+        setSMEFTEvolWC(SMEFTEvol1000);
+        setSMEFTEvolWC(SMEFTEvol1500);
+        setSMEFTEvolWC(SMEFTEvol3000);
+        setSMEFTEvolWC(SMEFTEvol5000);
+        setSMEFTEvolWC(SMEFTEvol10000);
         setSMEFTEvolWC(SMEFTEvolUV); // Not evolved. Only for reference to retrieve C(Lambda)
         
         // Skip RGE by setting the two scales at Lambda_NP for the EFT
         SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol161.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
         SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
         SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        SMEFTEvol500.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol550.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol1000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol1500.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol3000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol5000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
+        SMEFTEvol10000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
     }
     
     // Renormalization of gauge fields parameters
@@ -14147,146 +14233,149 @@ inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name
 
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) const {
     return SMEFTEvolEW.GetCoefficient(name);
-    //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol500.GetCoefficient(name)};
-    //int imu;
-    ////double WCmu;
     
-    //if (abs(log(mu/muw)) <= 0.2 ) {
-    //    imu = 0;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/125.1)) <= 0.35 ) {
-    //    imu = 1;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/240.)) <= 0.35 ) {
-    //    imu = 2;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/365.)) <= 0.2 ) {
-    //    imu = 3;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/500.)) <= 0.2 ) {
-    //    imu = 4;
-    //    return Cimu[imu];
-    //} else {
-    //    std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-    //    std::cout << "Returning value at muW = " << muw << std::endl;
-    //    imu = 0;
-    //    return Cimu[imu];
-    //}
+    double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol550.GetCoefficient(name)};
+    int imu;
+    //double WCmu;
+    
+    if (abs(log(mu/muw)) <= 0.2 ) {
+        imu = 0;
+        return Cimu[imu];
+    } else if ( abs(log(mu/125.1)) <= 0.35 ) {
+        imu = 1;
+        return Cimu[imu];
+    } else if ( abs(log(mu/240.)) <= 0.35 ) {
+        imu = 2;
+        return Cimu[imu];
+    } else if ( abs(log(mu/365.)) <= 0.2 ) {
+        imu = 3;
+        return Cimu[imu];
+    } else if ( abs(log(mu/500.)) <= 0.2 ) {
+        imu = 4;
+        return Cimu[imu];
+    } else {
+        std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
+        std::cout << "Returning value at muW = " << muw << std::endl;
+        imu = 0;
+        return Cimu[imu];
+    }
     
     // The values of the Wilson coefficients, evaluated at the different scales, from top (Lambda) to bottom (MW)
-    double Cimu[6] = {SMEFTEvolUV.GetCoefficient(name), SMEFTEvol500.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvolEW.GetCoefficient(name)};
-    double t1, t2, t3, t4, t5;
-    double x1, x2, x3, x4, x5;
+    //double Cimu[6] = {SMEFTEvolUV.GetCoefficient(name), SMEFTEvol550.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvolEW.GetCoefficient(name)};
+    //double t1, t2, t3, t4, t5;
+    //double x1, x2, x3, x4, x5;
     
-    t1 = log(mu/Lambda_NP);
-    t2 = t1*t1;
-    t3 = t2*t1;
-    t4 = t3*t1;
-    t5 = t4*t1;
+    //t1 = log(mu/Lambda_NP);
+    //t2 = t1*t1;
+    //t3 = t2*t1;
+    //t4 = t3*t1;
+    //t5 = t4*t1;
     
-    x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
 
-    return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5); 
+    //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5); 
 }
     
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, const double mu) const {
     return SMEFTEvolEW.GetCoefficient(name, i, j);
-    //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol500.GetCoefficient(name, i, j)};
-    //int imu;
+    
+    double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol550.GetCoefficient(name, i, j)};
+    int imu;
     ////double WCmu;
     
-    //if (abs(log(mu/muw)) <= 0.2 ) {
-    //    imu = 0;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/125.1)) <= 0.35 ) {
-    //    imu = 1;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/240.)) <= 0.35 ) {
-    //    imu = 2;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/365.)) <= 0.2 ) {
-    //    imu = 3;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/500.)) <= 0.2 ) {
-    //    imu = 4;
-    //    return Cimu[imu];
-    //} else {
-    //    std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-    //    std::cout << "Returning value at muW = " << muw << std::endl;
-    //    imu = 0;
-    //    return Cimu[imu];
-    //}
+    if (abs(log(mu/muw)) <= 0.2 ) {
+        imu = 0;
+        return Cimu[imu];
+    } else if ( abs(log(mu/125.1)) <= 0.35 ) {
+        imu = 1;
+        return Cimu[imu];
+    } else if ( abs(log(mu/240.)) <= 0.35 ) {
+        imu = 2;
+        return Cimu[imu];
+    } else if ( abs(log(mu/365.)) <= 0.2 ) {
+        imu = 3;
+        return Cimu[imu];
+    } else if ( abs(log(mu/500.)) <= 0.2 ) {
+        imu = 4;
+        return Cimu[imu];
+    } else {
+        std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
+        std::cout << "Returning value at muW = " << muw << std::endl;
+        imu = 0;
+        return Cimu[imu];
+    }
     
     // The values of the Wilson coefficients, evaluated at the different scales, from top (Lambda) to bottom (MW)
-    double Cimu[6] = {SMEFTEvolUV.GetCoefficient(name, i, j), SMEFTEvol500.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvolEW.GetCoefficient(name, i, j)};
-    double t1, t2, t3, t4, t5;
-    double x1, x2, x3, x4, x5;
+    //double Cimu[6] = {SMEFTEvolUV.GetCoefficient(name, i, j), SMEFTEvol550.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvolEW.GetCoefficient(name, i, j)};
+    //double t1, t2, t3, t4, t5;
+    //double x1, x2, x3, x4, x5;
     
-    t1 = log(mu/Lambda_NP);
-    t2 = t1*t1;
-    t3 = t2*t1;
-    t4 = t3*t1;
-    t5 = t4*t1;
+    //t1 = log(mu/Lambda_NP);
+    //t2 = t1*t1;
+    //t3 = t2*t1;
+    //t4 = t3*t1;
+    //t5 = t4*t1;
     
-    x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
 
-    return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
+    //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
 }
     
 double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const {
     return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
-    //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol500.GetCoefficient(name, i, j, k, l)};    
-    //int imu;
+    
+    double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol550.GetCoefficient(name, i, j, k, l)};    
+    int imu;
     ////double WCmu;
     
-    //if (abs(log(mu/muw)) <= 0.2 ) {
-    //    imu = 0;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/125.1)) <= 0.35 ) {
-    //    imu = 1;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/240.)) <= 0.35 ) {
-    //    imu = 2;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/365.)) <= 0.2 ) {
-    //    imu = 3;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/500.)) <= 0.2 ) {
-    //    imu = 4;
-    //    return Cimu[imu];
-    //} else {
-    //    std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-    //    std::cout << "Returning value at muW = " << muw << std::endl;
-    //    imu = 0;
-    //    return Cimu[imu];
-    //}
+    if (abs(log(mu/muw)) <= 0.2 ) {
+        imu = 0;
+        return Cimu[imu];
+    } else if ( abs(log(mu/125.1)) <= 0.35 ) {
+        imu = 1;
+        return Cimu[imu];
+    } else if ( abs(log(mu/240.)) <= 0.35 ) {
+        imu = 2;
+        return Cimu[imu];
+    } else if ( abs(log(mu/365.)) <= 0.2 ) {
+        imu = 3;
+        return Cimu[imu];
+    } else if ( abs(log(mu/500.)) <= 0.2 ) {
+        imu = 4;
+        return Cimu[imu];
+    } else {
+        std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
+        std::cout << "Returning value at muW = " << muw << std::endl;
+        imu = 0;
+        return Cimu[imu];
+    }
     
     // The values of the Wilson coefficients, evaluated at the different scales, from top (Lambda) to bottom (MW)
-    double Cimu[6] = { SMEFTEvolUV.GetCoefficient(name, i, j, k, l), SMEFTEvol500.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvolEW.GetCoefficient(name, i, j, k, l)};    
-    double t1, t2, t3, t4, t5;
-    double x1, x2, x3, x4, x5;
+    //double Cimu[6] = { SMEFTEvolUV.GetCoefficient(name, i, j, k, l), SMEFTEvol550.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvolEW.GetCoefficient(name, i, j, k, l)};    
+    //double t1, t2, t3, t4, t5;
+    //double x1, x2, x3, x4, x5;
     
-    t1 = log(mu/Lambda_NP);
-    t2 = t1*t1;
-    t3 = t2*t1;
-    t4 = t3*t1;
-    t5 = t4*t1;
+    //t1 = log(mu/Lambda_NP);
+    //t2 = t1*t1;
+    //t3 = t2*t1;
+    //t4 = t3*t1;
+    //t5 = t4*t1;
     
-    x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
+    //x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
 
-    return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
+    //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
 }
 
 
