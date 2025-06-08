@@ -37996,7 +37996,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
 
     // Wilson coefficients and scale    
     double CW = 0.0, CHWB = 0.0, CHD = 0.0, CHl1R11 = 0.0, CHl3R11 = 0.0;
-    double CHl3R22 = 0.0, CHeR11 = 0.0, CllR1221 = 0.0;
+    double CHl3R22 = 0.0, CHeR11 = 0.0, CllR1221 = 0.0; 
     double muRG = 0;
     
     // Polarization factors
@@ -38027,170 +38027,416 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
 
     if (sqrt_s == 0.161) {
 
-        mu +=
-                -127.685 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 175.567 * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 242506. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 86570.7 * getSMEFTCoeffEW("CHD")
-                - 189772. * getSMEFTCoeffEW("CHWB")
-                + 0. * getSMEFTCoeffEW("CW")
-                - 2.858 * delta_GF
-                - 70.01 * deltaMwd6();
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (-13.134 * deltaMz()
-                + 0. * deltaaMZ()
-                + 18.795 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        // LH -------------------------------
+        sigmaSMeLHa0 = 12.9284; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -70. * CW 
+                +38. * CHWB 
+                -80. * CHD 
+                -1416. * CHl1R11 
+                +1568661. * CHl3R11 
+                -1567486. * CHl3R22 
+                -1073. * CHeR11 
+                +1567418. * CllR1221
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.00232; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +122.385 * CW 
+                +235.258 * CHWB 
+                -488.691 * CHD 
+                -0.0333 * CHl1R11 
+                -281.296 * CHl3R11 
+                -281.292 * CHl3R22 
+                -1960.29 * CHeR11 
+                +281.274 * CllR1221             
+                );
 
     } else if (sqrt_s == 0.230) {
 
-        mu +=
-                -26882.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 17485.4 * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 267456. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 83799.2 * getSMEFTCoeffEW("CHD")
-                - 168074. * getSMEFTCoeffEW("CHWB")
-                + 6649.22 * getSMEFTCoeffEW("CW")
-                - 2.812 * delta_GF
-                - 0.993 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 70.5564; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -402730. * CW 
+                +23840. * CHWB 
+                -226360. * CHD 
+                -1745010. * CHl1R11 
+                +10098670. * CHl3R11 
+                -8510260. * CHl3R22 
+                +10640. * CHeR11 
+                +8598300. * CllR1221 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.684821; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +32771. * CW 
+                +275222. * CHWB 
+                -144266. * CHD 
+                -22. * CHl1R11 
+                -82975. * CHl3R11 
+                -82897. * CHl3R22 
+                -1181168. * CHeR11 
+                +83185. * CllR1221             
+                );
 
 
     } else if (sqrt_s == 0.240) {
 
-        mu +=
-                -26882.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 17485.4 * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 267456. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 83799.2 * getSMEFTCoeffEW("CHD")
-                - 168074. * getSMEFTCoeffEW("CHWB")
-                + 6649.22 * getSMEFTCoeffEW("CW")
-                - 2.812 * delta_GF
-                - 0.993 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 67.9294; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -439450. * CW 
+                +40210. * CHWB 
+                -228100. * CHD 
+                -1866240. * CHl1R11 
+                +9886460. * CHl3R11 
+                -8196200. * CHl3R22 
+                +3050. * CHeR11 
+                +8272340. * CllR1221
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.639986; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +29994. * CW 
+                +284436. * CHWB 
+                -134835. * CHD 
+                +4. * CHl1R11 
+                -77575. * CHl3R11 
+                -77505. * CHl3R22 
+                -1201943. * CHeR11 
+                +77766. * CllR1221             
+                );
 
 
     } else if (sqrt_s == 0.250) {
 
-        mu +=
-                -29442.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 18494.5 * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 269747. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 83750.9 * getSMEFTCoeffEW("CHD")
-                - 167811. * getSMEFTCoeffEW("CHWB")
-                + 7249.33 * getSMEFTCoeffEW("CW")
-                - 2.812 * delta_GF
-                - 0.959 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 65.3108; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -449120. * CW 
+                +71270. * CHWB 
+                -205800. * CHD 
+                -1957840. * CHl1R11 
+                +9671820. * CHl3R11 
+                -7877690. * CHl3R22 
+                +6620. * CHeR11 
+                +7962190. * CllR1221
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.593472; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +27185. * CW 
+                +288498. * CHWB 
+                -125062. * CHD 
+                -81. * CHl1R11 
+                -71945. * CHl3R11 
+                -71972. * CHl3R22 
+                -1209216. * CHeR11 
+                +72007. * CllR1221             
+                );
 
 
     } else if (sqrt_s == 0.350) {
 
-        mu +=
-                -47552.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 23798.8 * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 289379. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 83905.3 * getSMEFTCoeffEW("CHD")
-                - 168326. * getSMEFTCoeffEW("CHWB")
-                + 10476.9 * getSMEFTCoeffEW("CW")
-                - 2.832 * delta_GF
-                - 0.781 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 44.8939; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -439960. * CW 
+                +155590. * CHWB 
+                -118280. * CHD 
+                -2143580. * CHl1R11 
+                +7481240. * CHl3R11 
+                -5415950. * CHl3R22 
+                +10980. * CHeR11 
+                +5473930. * CllR1221 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.267037; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +9564. * CW 
+                +230676. * CHWB 
+                -56256. * CHD 
+                -18. * CHl1R11 
+                -32398. * CHl3R11 
+                -32368. * CHl3R22 
+                -1066430. * CHeR11 
+                +32444. * CllR1221             
+                );
 
 
     } else if (sqrt_s == 0.365) {
 
-        mu +=
-                -49800.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 24520.1 * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 290743. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 84033.5 * getSMEFTCoeffEW("CHD")
-                - 168466. * getSMEFTCoeffEW("CHWB")
-                + 10606.3 * getSMEFTCoeffEW("CW")
-                - 2.828 * delta_GF
-                - 0.775 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 42.6742; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -426720. * CW 
+                +156580. * CHWB 
+                -109180. * CHD 
+                -2125940. * CHl1R11 
+                +7206190. * CHl3R11 
+                -5148260. * CHl3R22 
+                +10850. * CHeR11 
+                +5202890. * CllR1221
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.239761; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +8244. * CW 
+                +218802. * CHWB 
+                -50510. * CHD 
+                -25. * CHl1R11 
+                -29102. * CHl3R11 
+                -29066. * CHl3R22 
+                -1041291. * CHeR11 
+                +29116. * CllR1221              
+                );
+
+
+    } else if (sqrt_s == 0.380) {
+
+        // LH -------------------------------
+        sigmaSMeLHa0 = 40.6204; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -409440. * CW 
+                +156620. * CHWB 
+                -100050. * CHD 
+                -2107634. * CHl1R11 
+                +6949930. * CHl3R11 
+                -4899610. * CHl3R22 
+                +10740. * CHeR11 
+                +4954360. * CllR1221
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.216166; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +7126. * CW 
+                +207337. * CHWB 
+                -45542. * CHD 
+                -22. * CHl1R11 
+                -26233. * CHl3R11 
+                -26217. * CHl3R22 
+                -1017531. * CHeR11 
+                +26219. * CllR1221             
+                );
 
 
     } else if (sqrt_s == 0.500) {
 
-        mu +=
-                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 84926.8 * getSMEFTCoeffEW("CHD")
-                - 171658. * getSMEFTCoeffEW("CHWB")
-                + 10896.4 * getSMEFTCoeffEW("CW")
-                - 2.84 * delta_GF
-                - 0.705 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 28.5996; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -294100. * CW 
+                +129650. * CHWB 
+                -55880. * CHD 
+                -1935741. * CHl1R11 
+                +5364950. * CHl3R11 
+                -3446370. * CHl3R22 
+                +9900. * CHeR11 
+                +3485060. * CllR1221 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.107613; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +2564.6 * CW 
+                +135799. * CHWB 
+                -22683.7 * CHD 
+                -4.9 * CHl1R11 
+                -13070.6 * CHl3R11 
+                -13060.2 * CHl3R22 
+                -876943. * CHeR11 
+                +13043.6 * CllR1221              
+                );
 
 
     } else if (sqrt_s == 0.550) {
 
-        mu +=
-                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 84926.8 * getSMEFTCoeffEW("CHD")
-                - 171658. * getSMEFTCoeffEW("CHWB")
-                + 10896.4 * getSMEFTCoeffEW("CW")
-                - 2.84 * delta_GF
-                - 0.705 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 25.1749; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -256296. * CW 
+                +118140. * CHWB 
+                -44500. * CHD 
+                -1867097. * CHl1R11 
+                +4896910. * CHl3R11 
+                -3031578. * CHl3R22 
+                +10830. * CHeR11 
+                +3069940. * CllR1221
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.08506; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +1776.7 * CW 
+                +115390. * CHWB 
+                -17929.8 * CHD 
+                +1.1 * CHl1R11 
+                -10331. * CHl3R11 
+                -10328. * CHl3R22 
+                -838703. * CHeR11 
+                +10323.6 * CllR1221             
+                );
 
 
     } else if (sqrt_s == 1.0) {
 
-        mu +=
-                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 84926.8 * getSMEFTCoeffEW("CHD")
-                - 171658. * getSMEFTCoeffEW("CHWB")
-                + 10896.4 * getSMEFTCoeffEW("CW")
-                - 2.84 * delta_GF
-                - 0.705 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 10.6999; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -92382. * CW 
+                +49273. * CHWB 
+                -10274. * CHD 
+                -1580824. * CHl1R11 
+                +2884383. * CHl3R11 
+                -1285157. * CHl3R22 
+                +7857. * CHeR11 
+                +1307083. * CllR1221 
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.021453; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +165.5 * CW 
+                +38090.4 * CHWB 
+                -4524.6 * CHD 
+                +0.5 * CHl1R11 
+                -2607.1 * CHl3R11 
+                -2604.3 * CHl3R22 
+                -699201. * CHeR11 
+                +2603. * CllR1221             
+                );
 
 
     } else if (sqrt_s == 1.4) {
 
-        mu +=
-                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 84926.8 * getSMEFTCoeffEW("CHD")
-                - 171658. * getSMEFTCoeffEW("CHWB")
-                + 10896.4 * getSMEFTCoeffEW("CW")
-                - 2.84 * delta_GF
-                - 0.705 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 6.38565; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -48428. * CW 
+                +26846. * CHWB 
+                -5517. * CHD 
+                -1503300. * CHl1R11 
+                +2282510. * CHl3R11 
+                -766437. * CHl3R22 
+                +4723. * CHeR11 
+                +779623. * CllR1221
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.010445; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +41.49 * CW 
+                +19779.7 * CHWB 
+                -2202.72 * CHD 
+                +0.64 * CHl1R11 
+                -1268.91 * CHl3R11 
+                -1267.89 * CHl3R22 
+                -667234. * CHeR11 
+                +1268.68 * CllR1221             
+                );
 
 
     } else if (sqrt_s == 1.5) {
 
-        mu +=
-                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 84926.8 * getSMEFTCoeffEW("CHD")
-                - 171658. * getSMEFTCoeffEW("CHWB")
-                + 10896.4 * getSMEFTCoeffEW("CW")
-                - 2.84 * delta_GF
-                - 0.705 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 5.73018; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -42573. * CW 
+                +23444. * CHWB 
+                -5270. * CHD 
+                -1493406. * CHl1R11 
+                +2191484. * CHl3R11 
+                -688035. * CHl3R22 
+                +4044. * CHeR11 
+                +699633. * CllR1221
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.009039; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +31.06 * CW 
+                +17271.3 * CHWB 
+                -1905.96 * CHD 
+                +0.61 * CHl1R11 
+                -1097.86 * CHl3R11 
+                -1097.06 * CHl3R22 
+                -662888. * CHeR11 
+                +1097.77 * CllR1221              
+                );
 
 
     } else if (sqrt_s == 3.0) {
 
-        mu +=
-                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
-                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 84926.8 * getSMEFTCoeffEW("CHD")
-                - 171658. * getSMEFTCoeffEW("CHWB")
-                + 10896.4 * getSMEFTCoeffEW("CW")
-                - 2.84 * delta_GF
-                - 0.705 * deltaMwd6();
+        // LH -------------------------------
+        sigmaSMeLHa0 = 1.85913; 
+ 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -11055.6 * CW 
+                +6174.7 * CHWB 
+                -1334.5 * CHD 
+                -1437804. * CHl1R11 
+                +1662016. * CHl3R11 
+                -225638. * CHl3R22 
+                -109.3 * CHeR11 
+                +225706. * CllR1221
+                );
+        
+        // RH -------------------------------
+        sigmaSMeRHa0 = 0.002184; 
+ 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                +1.26 * CW 
+                +4369.21 * CHWB 
+                -460.56 * CHD 
+                +0.24 * CHl1R11 
+                -265.13 * CHl3R11 
+                -265.06 * CHl3R22 
+                -640592. * CHeR11 
+                +265.16 * CllR1221             
+                );
 
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWW()");
+    
+    // Construct the signal strength
+    // Total cross section
+    mu = fLR * (sigmaeLHa0) + fRL * (sigmaeRHa0);
+    // Normalize to SM
+    mu = mu / (fLR * (sigmaSMeLHa0) + fRL * (sigmaSMeRHa0));
+    
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeWWint;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
 
