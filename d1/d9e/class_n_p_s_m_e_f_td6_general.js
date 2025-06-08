@@ -682,7 +682,6 @@ var class_n_p_s_m_e_f_td6_general =
     [ "mueettH", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ace076d9dea6e37ec37f9f6b119072886", null ],
     [ "mueeWBF", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a1548165075bf3d036cc67a26aeec3a66", null ],
     [ "mueeWW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a5b5a0a7f5e75b10d874b79a5e7dfb3f1", null ],
-    [ "mueeWWPol", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a466ce75f2a5d2b5303727f340f112f3b", null ],
     [ "mueeZBF", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#ac05e6ba0a15eaa1a38369ba07189142c", null ],
     [ "mueeZH", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a45dac0e712bf27888bb493170845db22", null ],
     [ "mueeZHGen", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a6eea74979bcbd0def898818bdaa27a6c", null ],
