@@ -17601,6 +17601,19 @@ const double NPSMEFTd6General::deltag3G() const {
 const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
     double mu = 0.0;
     double C1 = 0.0066; //It seems to be independent of energy 
+    
+    double CHG = 0.0, CDH = 0.0, CHD = 0.0, CuHR33 = 0.0, CtGR = 0.0, CHl3R11 = 0.0, CHl3R22 = 0.0, Cll1221 = 0.0; 
+    double muRG = 125.1;
+    
+//  Wilson coefficients definitions 
+    CHG = getSMEFTCoeff("CHG",muRG); 
+    CDH = (-getSMEFTCoeff("CHbox",muRG)); 
+    CHD = getSMEFTCoeff("CHD",muRG); 
+    CuHR33 = getSMEFTCoeff("CuHR",2,2,muRG); 
+    CtGR = (getSMEFTCoeff("CuGR",2,2,muRG) / g3_tree); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0,muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1,muRG); 
+    Cll1221 = getSMEFTCoeff("CllR",0,1,1,0,muRG); 
 
     /*
     double m_t = mtpole;
@@ -17647,7 +17660,7 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
                 + (-0.060629505890627745) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.060629505890627745) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
                 );
-    } else if ((sqrt_s == 13.0) || (sqrt_s == 14.0)) {
+    } else if (sqrt_s == 13.0) {
         //mu += cWsch * (   // Same for alpha & MW scheme at LO
         mu +=  (
                 ((0.121) * getSMEFTCoeffEW("CHbox")
@@ -17658,6 +17671,36 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
                 + (-0.06062) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.06062) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.0606) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+                );
+    } else if (sqrt_s == 14.0) {
+        //mu += cWsch * (   // Same for alpha & MW scheme at LO
+        mu +=  (
+                +34861157. * CHG 
+                +121542. * CDH 
+                -30260.6 * CHD 
+                -121842. * CuHR33 
+                +1577851. * CtGR 
+                -60687.9 * (CHl3R11 + CHl3R22 - Cll1221)  
+                );
+    } else if (sqrt_s == 50.0) {
+        //mu += cWsch * (   // Same for alpha & MW scheme at LO
+        mu +=  (
+                +34861330. * CHG 
+                +121551. * CDH 
+                -30261.2 * CHD 
+                -121874. * CuHR33 
+                +1577818. * CtGR 
+                -60706.6 * (CHl3R11 + CHl3R22 - Cll1221)
+                );
+    } else if (sqrt_s == 84.0) {
+        //mu += cWsch * (   // Same for alpha & MW scheme at LO
+        mu +=  (
+                +34860509. * CHG 
+                +121540. * CDH 
+                -30278.6 * CHD 
+                -121876. * CuHR33 
+                +1577893. * CtGR 
+                -60714. * (CHl3R11 + CHl3R22 - Cll1221)
                 );
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muggH_1()");
@@ -17709,6 +17752,31 @@ const double NPSMEFTd6General::muggH(const double sqrt_s) const //AG:modified
 const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
     double mu = 0.0;
     double C1 = 0.0;
+    
+    double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHG = 0.0, CHD = 0.0, CHbox = 0.0; 
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CllR1221 = 0.0, CHq1R11 = 0.0, CHq3R11 = 0.0;
+    double CHq1R22 = 0.0, CHq3R22 = 0.0, CHuR11 = 0.0, CHuR22 = 0.0, CHdR11 = 0.0, CHdR22 = 0.0; 
+    
+    double muRG = muw;
+    
+//  Wilson coefficients definitions 
+    CHB = getSMEFTCoeff("CHB", muRG); 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHG = getSMEFTCoeff("CHG", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG); 
+    CHq1R11 = getSMEFTCoeff("CHq1R",0,0, muRG); 
+    CHq3R11 = getSMEFTCoeff("CHq3R",0,0, muRG); 
+    CHq1R22 = getSMEFTCoeff("CHq1R",1,1, muRG); 
+    CHq3R22 = getSMEFTCoeff("CHq3R",1,1, muRG); 
+    CHuR11 = getSMEFTCoeff("CHuR",0,0, muRG); 
+    CHuR22 = getSMEFTCoeff("CHuR",1,1, muRG); 
+    CHdR11 = getSMEFTCoeff("CHdR",0,0, muRG); 
+    CHdR22 = getSMEFTCoeff("CHdR",1,1, muRG); 
 
     if (sqrt_s == 1.96) {
 
@@ -17866,32 +17934,30 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
 
     } else if (sqrt_s == 14.0) {
 
-        // Only Alpha scheme
+        // Mw scheme
 
         C1 = 0.0064;
 
         mu +=
-                +121214. * getSMEFTCoeffEW("CHbox")
-                // +10009.1 * getSMEFTCoeffEW("CHq1R",0,0) 
-                // -31070.5 * getSMEFTCoeffEW("CHuR",0,0) 
-                // +10788.6 * getSMEFTCoeffEW("CHdR",0,0) 
-                // -472970. * getSMEFTCoeffEW("CHq3R",0,0) 
-                + 13451.5 * getSMEFTCoeffEW("CHq1R", 0, 0)
-                - 4103.42 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                - 27417.3 * getSMEFTCoeffEW("CHuR", 0, 0)
-                - 3604.82 * getSMEFTCoeffEW("CHuR", 1, 1)
-                + 8579.9 * getSMEFTCoeffEW("CHdR", 0, 0)
-                + 2219.75 * getSMEFTCoeffEW("CHdR", 1, 1)
-                - 396964. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 75687.4 * getSMEFTCoeffEW("CHq3R", 1, 1)
-                - 166015. * getSMEFTCoeffEW("CHD")
-                - 239.03 * getSMEFTCoeffEW("CHB")
-                - 81639.9 * getSMEFTCoeffEW("CHW")
-                - 331061. * getSMEFTCoeffEW("CHWB")
-                - 84843. * getSMEFTCoeffEW("CHG")
-                - 4.528 * delta_GF
-                - 3.193 * deltaMwd6()
-                ;
+                cWsch * (
+                -149.911 * CHB 
+                -82290.4 * CHW 
+                +21589.7 * CHWB 
+                -64109.4 * CHG 
+                -11380.7 * CHD 
+                +121758. * CHbox 
+                -182196. * CHl3R11 
+                -181307. * CHl3R22 
+                +183438. * CllR1221 
+                +15981.4 * CHq1R11 
+                -385489. * CHq3R11 
+                -5754.62 * CHq1R22 
+                -81679.1 * CHq3R22 
+                -25756.3 * CHuR11 
+                -3379.74 * CHuR22 
+                +8049.27 * CHdR11 
+                +2139.42 * CHdR22
+                );
 
     } else if (sqrt_s == 27.0) {
 
@@ -17913,6 +17979,60 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 - 4.475 * delta_GF
                 - 2.99 * deltaMwd6()
                 ;
+        
+    } else if (sqrt_s == 50.0) {
+
+        // Mw scheme
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                cWsch * (
+                +63.2251 * CHB 
+                -84681.3 * CHW 
+                +20726.1 * CHWB 
+                -34760.9 * CHG 
+                -10986.7 * CHD 
+                +121258. * CHbox 
+                -181170. * CHl3R11 
+                -181540. * CHl3R22 
+                +183281. * CllR1221 
+                +11576.7 * CHq1R11 
+                -461606. * CHq3R11 
+                -8442.73 * CHq1R22 
+                -134822. * CHq3R22 
+                -29766.6 * CHuR11 
+                -6031.76 * CHuR22 
+                +10677.4 * CHdR11 
+                +3637.44 * CHdR22 
+                );
+        
+    } else if (sqrt_s == 84.0) {
+
+        // Mw scheme
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                cWsch * (
+                +49.3432 * CHB 
+                -88355. * CHW 
+                +20554. * CHWB 
+                -32006.7 * CHG 
+                -11122. * CHD 
+                +121764. * CHbox 
+                -181033. * CHl3R11 
+                -181604. * CHl3R22 
+                +184047. * CllR1221 
+                +9449.49 * CHq1R11 
+                -490153. * CHq3R11 
+                -9699.98 * CHq1R22 
+                -160491. * CHq3R22 
+                -31231.9 * CHuR11 
+                -7518.66 * CHuR22 
+                +11885.7 * CHdR11 
+                +4545.8 * CHdR22 
+                );
 
     } else if (sqrt_s == 100.0) {
 
@@ -18099,6 +18219,20 @@ const double NPSMEFTd6General::muVBF(const double sqrt_s) const //AG:modified
 const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
     double mu = 0.0;
     double C1 = 0.0;
+    
+    double CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl3R11 = 0.0, CHl3R22 = 0.0, CllR1221 = 0.0, CHq3R11 = 0.0, CHq3R22 = 0.0;
+    double muRG = muw;
+    
+//  Wilson coefficients definitions 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG); 
+    CHq3R11 = getSMEFTCoeff("CHq3R",0,0, muRG); 
+    CHq3R22 = getSMEFTCoeff("CHq3R",1,1, muRG); 
 
     if (sqrt_s == 1.96) {
 
@@ -18196,21 +18330,20 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
         //AG:end
     } else if (sqrt_s == 14.0) {
 
-        // Only Alpha scheme
+        // Mw scheme
 
         C1 = 0.0103;
 
         mu +=
-                +121112. * getSMEFTCoeffEW("CHbox")
-                // +1973653. * getSMEFTCoeffEW("CHq3R",0,0) 
-                + 1804876. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 169913. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                - 160171. * getSMEFTCoeffEW("CHD")
-                + 893242. * getSMEFTCoeffEW("CHW")
-                - 284850. * getSMEFTCoeffEW("CHWB")
-                - 3.286 * delta_GF
-                - 2.103 * deltaMwd6()
-                ;
+                cWsch * (
+                +884638. * CHW 
+                -12.8388 * CHWB 
+                -30014.6 * CHD 
+                +121050. * CHbox 
+                -121033. * (CHl3R11 + CHl3R22 -CllR1221)  
+                +1763715. * CHq3R11 
+                +189400. * CHq3R22 
+                );
     } else if (sqrt_s == 27.0) {
 
         // Only Alpha scheme
@@ -18226,6 +18359,38 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
                 - 3.256 * delta_GF
                 - 2.063 * deltaMwd6()
                 ;
+    } else if (sqrt_s == 50.0) {
+
+        // Mw scheme
+
+        C1 = 0.0; // N.A. 
+
+        mu +=
+                cWsch * (
+                +894965. * CHW 
+                -5.20074 * CHWB 
+                -30691.6 * CHD 
+                +120571. * CHbox 
+                -121425. * (CHl3R11 + CHl3R22 -CllR1221) 
+                +1831037. * CHq3R11 
+                +352873. * CHq3R22 
+                );
+    } else if (sqrt_s == 84.0) {
+
+        // Mw scheme
+
+        C1 = 0.0; // N.A. 
+
+        mu +=
+                cWsch * (
+                +897281. * CHW 
+                -43.9532 * CHWB 
+                -30887.3 * CHD 
+                +120409. * CHbox 
+                -121441. * (CHl3R11 + CHl3R22 -CllR1221) 
+                +1828221. * CHq3R11 
+                +424079. * CHq3R22 
+                );
     } else if (sqrt_s == 100.0) {
 
         // Only Alpha scheme
@@ -18339,6 +18504,29 @@ const double NPSMEFTd6General::muWH(const double sqrt_s) const //AG:modified
 const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
     double mu = 0.0;
     double C1 = 0.0;
+    
+    double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl3R11 = 0.0;
+    double CHl3R22 = 0.0, CllR1221 = 0.0, CHq1R11 = 0.0, CHq3R11 = 0.0, CHq1R22 = 0.0;
+    double CHq3R22 = 0.0, CHuR11 = 0.0, CHuR22 = 0.0, CHdR11 = 0.0, CHdR22 = 0.0;
+    double muRG = muw;
+    
+//  Wilson coefficients definitions 
+    CHB = getSMEFTCoeff("CHB", muRG); 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG); 
+    CHq1R11 = getSMEFTCoeff("CHq1R",0,0, muRG); 
+    CHq3R11 = getSMEFTCoeff("CHq3R",0,0, muRG); 
+    CHq1R22 = getSMEFTCoeff("CHq1R",1,1, muRG); 
+    CHq3R22 = getSMEFTCoeff("CHq3R",1,1, muRG); 
+    CHuR11 = getSMEFTCoeff("CHuR",0,0, muRG); 
+    CHuR22 = getSMEFTCoeff("CHuR",1,1, muRG); 
+    CHdR11 = getSMEFTCoeff("CHdR",0,0, muRG); 
+    CHdR22 = getSMEFTCoeff("CHdR",1,1, muRG); 
 
     if (sqrt_s == 1.96) {
 
@@ -18475,30 +18663,27 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
         //AG:end
     } else if (sqrt_s == 14.0) {
 
-        // Only Alpha scheme
+        // Mw scheme
 
         C1 = 0.0118;
 
         mu +=
-                +121216. * getSMEFTCoeffEW("CHbox")
-                // -148862. * getSMEFTCoeffEW("CHq1R",0,0) 
-                // +451139. * getSMEFTCoeffEW("CHuR",0,0) 
-                // -157486. * getSMEFTCoeffEW("CHdR",0,0) 
-                // +1879522. * getSMEFTCoeffEW("CHq3R",0,0) 
-                - 192919. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 45027.7 * getSMEFTCoeffEW("CHq1R", 1, 1)
-                + 423160. * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 27887. * getSMEFTCoeffEW("CHuR", 1, 1)
-                - 137883. * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 19603.3 * getSMEFTCoeffEW("CHdR", 1, 1)
-                + 1709121. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                + 170449. * getSMEFTCoeffEW("CHq3R", 1, 1)
-                - 15263.4 * getSMEFTCoeffEW("CHD")
-                + 88565.4 * getSMEFTCoeffEW("CHB")
-                + 729690. * getSMEFTCoeffEW("CHW")
-                + 208170. * getSMEFTCoeffEW("CHWB")
-                - 2.504 * delta_GF
-                ;
+                cWsch * (
+                +82708.7 * CHB 
+                +736201. * CHW 
+                +313759. * CHWB 
+                +36761.1 * CHD 
+                +121603. * CHbox 
+                -121162. * (CHl3R11 + CHl3R22 - CllR1221)  
+                -232996. * CHq1R11 
+                +1675060. * CHq3R11 
+                +77454.8 * CHq1R22 
+                +203131. * CHq3R22 
+                +404665. * CHuR11 
+                +26641. * CHuR22 
+                -132321. * CHdR11 
+                -18720.6 * CHdR22
+                );
     } else if (sqrt_s == 27.0) {
 
         // Only Alpha scheme
@@ -18517,6 +18702,52 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 + 211026. * getSMEFTCoeffEW("CHWB")
                 - 2.505 * delta_GF
                 ;
+    } else if (sqrt_s == 50.0) {
+
+        // Mw scheme
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                cWsch * (
+                +84651.9 * CHB 
+                +745844. * CHW 
+                +317941. * CHWB 
+                +36732.9 * CHD 
+                +121413. * CHbox 
+                -121096. * (CHl3R11 + CHl3R22 - CllR1221)
+                -166824. * CHq1R11 
+                +1735550. * CHq3R11 
+                +105478. * CHq1R22 
+                +357701. * CHq3R22 
+                +404281. * CHuR11 
+                +53551.6 * CHuR22 
+                -142253. * CHdR11 
+                -34995.9 * CHdR22
+                );
+    } else if (sqrt_s == 84.0) {
+
+        // Mw scheme
+
+        C1 = 0.0; // N.A.
+
+        mu +=
+                cWsch * (
+                +85156.7 * CHB 
+                +748204. * CHW 
+                +318992. * CHWB 
+                +36536.9 * CHD 
+                +121415. * CHbox 
+                -120911. * (CHl3R11 + CHl3R22 - CllR1221)
+                -136107. * CHq1R11 
+                +1730540. * CHq3R11 
+                +115332. * CHq1R22 
+                +424682. * CHq3R22 
+                +396960. * CHuR11 
+                +65688.9 * CHuR22 
+                -144251. * CHdR11 
+                -41973.4 * CHdR22 
+                );
     } else if (sqrt_s == 100.0) {
 
         // Only Alpha scheme
@@ -18710,6 +18941,60 @@ const double NPSMEFTd6General::muZH(const double sqrt_s) const //AG:modified
 const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
     double mu = 0.0;
     double C1 = 0.0;
+    
+    double CG = 0.0, CuHR33 = 0.0, CHq1R11 = 0.0, CHq3R11 = 0.0, CHuR11 = 0.0;
+    double CHdR11 = 0.0, CHq1R22 = 0.0, CHq3R22 = 0.0, CHuR22 = 0.0, CHdR22 = 0.0;
+    double CHq1R33 = 0.0, CHq3R33 = 0.0, CHuR33 = 0.0, CuGR33 = 0.0, Cqq1R1133 = 0.0;
+    double Cqq1R1331 = 0.0, Cqq1R2233 = 0.0, Cqq1R2332 = 0.0, Cqq3R1133 = 0.0, Cqq3R1331 = 0.0;
+    double Cqq3R2233 = 0.0, Cqq3R2332 = 0.0, CuuR1133 = 0.0, CuuR2233 = 0.0, CuuR1331 = 0.0;
+    double CuuR2332 = 0.0, Cud1R3311 = 0.0, Cud1R3322 = 0.0, Cud8R3311 = 0.0, Cud8R3322 = 0.0;
+    double Cqu1R1133 = 0.0, Cqu1R2233 = 0.0, Cqu1R3311 = 0.0, Cqu1R3322 = 0.0, Cqu8R1133 = 0.0;
+    double Cqu8R2233 = 0.0, Cqu8R3311 = 0.0, Cqu8R3322 = 0.0, Cqd1R3311 = 0.0, Cqd1R3322 = 0.0, Cqd8R3311 = 0.0, Cqd8R3322 = 0.0; 
+    double muRG = 240.;
+    
+//  Wilson coefficients definitions 
+    CG = getSMEFTCoeff("CG", muRG); 
+    CuHR33 = getSMEFTCoeff("CuHR",2,2, muRG); 
+    CHq1R11 = getSMEFTCoeff("CHq1R",0,0, muRG); 
+    CHq3R11 = getSMEFTCoeff("CHq3R",0,0, muRG); 
+    CHuR11 = getSMEFTCoeff("CHuR",0,0, muRG); 
+    CHdR11 = getSMEFTCoeff("CHdR",0,0, muRG); 
+    CHq1R22 = getSMEFTCoeff("CHq1R",1,1, muRG); 
+    CHq3R22 = getSMEFTCoeff("CHq3R",1,1, muRG); 
+    CHuR22 = getSMEFTCoeff("CHuR",1,1, muRG); 
+    CHdR22 = getSMEFTCoeff("CHdR",1,1, muRG); 
+    CHq1R33 = getSMEFTCoeff("CHq1R",2,2, muRG); 
+    CHq3R33 = getSMEFTCoeff("CHq3R",2,2, muRG); 
+    CHuR33 = getSMEFTCoeff("CHuR",2,2, muRG); 
+    CuGR33 = getSMEFTCoeff("CuGR",2,2, muRG); 
+    Cqq1R1133 = getSMEFTCoeff("Cqq1R",0,0,2,2, muRG); 
+    Cqq1R1331 = getSMEFTCoeff("Cqq1R",0,2,2,0, muRG); 
+    Cqq1R2233 = getSMEFTCoeff("Cqq1R",1,1,2,2, muRG); 
+    Cqq1R2332 = getSMEFTCoeff("Cqq1R",1,2,2,1, muRG); 
+    Cqq3R1133 = getSMEFTCoeff("Cqq3R",0,0,2,2, muRG); 
+    Cqq3R1331 = getSMEFTCoeff("Cqq3R",0,2,2,0, muRG); 
+    Cqq3R2233 = getSMEFTCoeff("Cqq3R",1,1,2,2, muRG); 
+    Cqq3R2332 = getSMEFTCoeff("Cqq3R",1,2,2,1, muRG); 
+    CuuR1133 = getSMEFTCoeff("CuuR",0,0,2,2, muRG); 
+    CuuR2233 = getSMEFTCoeff("CuuR",1,1,2,2, muRG); 
+    CuuR1331 = getSMEFTCoeff("CuuR",0,2,2,0, muRG); 
+    CuuR2332 = getSMEFTCoeff("CuuR",1,2,2,1, muRG); 
+    Cud1R3311 = getSMEFTCoeff("Cud1R",2,2,0,0, muRG); 
+    Cud1R3322 = getSMEFTCoeff("Cud1R",2,2,1,1, muRG); 
+    Cud8R3311 = getSMEFTCoeff("Cud8R",2,2,0,0, muRG); 
+    Cud8R3322 = getSMEFTCoeff("Cud8R",2,2,1,1, muRG); 
+    Cqu1R1133 = getSMEFTCoeff("Cqu1R",0,0,2,2, muRG); 
+    Cqu1R2233 = getSMEFTCoeff("Cqu1R",1,1,2,2, muRG); 
+    Cqu1R3311 = getSMEFTCoeff("Cqu1R",2,2,0,0, muRG); 
+    Cqu1R3322 = getSMEFTCoeff("Cqu1R",2,2,1,1, muRG); 
+    Cqu8R1133 = getSMEFTCoeff("Cqu8R",0,0,2,2, muRG); 
+    Cqu8R2233 = getSMEFTCoeff("Cqu8R",1,1,2,2, muRG); 
+    Cqu8R3311 = getSMEFTCoeff("Cqu8R",2,2,0,0, muRG); 
+    Cqu8R3322 = getSMEFTCoeff("Cqu8R",2,2,1,1, muRG); 
+    Cqd1R3311 = getSMEFTCoeff("Cqd1R",2,2,0,0, muRG); 
+    Cqd1R3322 = getSMEFTCoeff("Cqd1R",2,2,1,1, muRG); 
+    Cqd8R3311 = getSMEFTCoeff("Cqd8R",2,2,0,0, muRG); 
+    Cqd8R3322 = getSMEFTCoeff("Cqd8R",2,2,1,1, muRG); 
 
     // 4F ccontributions computed using SMEFTsimA
     if (sqrt_s == 1.96) {
@@ -18837,7 +19122,7 @@ const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
                 + (0.06105) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
                 );
         //AG:end
-    } else if ((sqrt_s == 13.0) || (sqrt_s == 14.0)) {
+    } else if (sqrt_s == 13.0) {
 
         C1 = 0.0351;    // 13 TeV
         
@@ -18915,18 +19200,56 @@ const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
                 );
         //AG:end 
 
-    //} else if (sqrt_s == 14.0) {
+    } else if (sqrt_s == 14.0) {
 
-    //    //  Old (but ok) implementation + Missing 4F
+        //  Mw scheme. Only interference with QCD 
 
-    //    C1 = 0.0347;
+        C1 = 0.0347;
 
-    //    mu +=
-    //            +536980. * getSMEFTCoeffEW("CHG")
-    //            - 83662.2 * getSMEFTCoeffEW("CG")
-    //            + 864481. * getSMEFTCoeffEW("CuGR", 2, 2)
-    //            - 2.844 * deltaG_hff(quarks[TOP]).real()
-    //            ;
+        mu +=  (
+                +83480.4 * CG 
+                -122879. * CuHR33 
+                -4.73871 * CHq1R11 
+                -231.66 * CHq3R11 
+                -91.7543 * CHuR11 
+                +87.4143 * CHdR11 
+                -24.8507 * CHq1R22 
+                +16.9517 * CHq3R22 
+                -17.2674 * CHuR22 
+                -15.1008 * CHdR22 
+                -115.164 * CHq1R33 
+                -217.306 * CHq3R33 
+                -239.384 * CHuR33 
+                -865559. * CuGR33 
+                -115.367 * Cqq1R1133 
+                +172262. * Cqq1R1331 
+                -8.83359 * Cqq1R2233 
+                +5264.44 * Cqq1R2332 
+                -102.174 * Cqq3R1133 
+                +376043. * Cqq3R1331 
+                -10.6569 * Cqq3R2233 
+                +31547.6 * Cqq3R2332 
+                -46.0629 * CuuR1133 
+                -48.4844 * CuuR2233 
+                +173243. * CuuR1331 
+                +5195.12 * CuuR2332 
+                -77.2185 * Cud1R3311 
+                -72.1335 * Cud1R3322 
+                +26016.4 * Cud8R3311 
+                +1960.64 * Cud8R3322 
+                -130.929 * Cqu1R1133 
+                -46.8336 * Cqu1R2233 
+                -202.882 * Cqu1R3311 
+                -30.1958 * Cqu1R3322 
+                +68525.2 * Cqu8R1133 
+                +4494.83 * Cqu8R2233 
+                +42510. * Cqu8R3311 
+                +1281.44 * Cqu8R3322 
+                -152.4 * Cqd1R3311 
+                -37.2748 * Cqd1R3322 
+                +26242.2 * Cqd8R3311 
+                +1993.33 * Cqd8R3322 
+                );
 
     } else if (sqrt_s == 27.0) {
 
@@ -18940,6 +19263,109 @@ const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
                 + 884060. * getSMEFTCoeffEW("CuGR", 2, 2)
                 - 2.849 * deltaG_hff(quarks[TOP]).real()
                 ;
+        
+    } else if (sqrt_s == 50.0) {
+
+        //  Mw scheme. Only interference with QCD
+
+        C1 = 0.0; // N.A.
+
+        mu +=  (
+                +48030.8 * CG 
+                -122979. * CuHR33 
+                -205.704 * CHq1R11 
+                -174.036 * CHq3R11 
+                +35.0258 * CHuR11 
+                +9.29779 * CHdR11 
+                -106.234 * CHq1R22 
+                -23.9319 * CHq3R22 
+                -78.4184 * CHuR22 
+                -10.0042 * CHdR22 
+                -85.4844 * CHq1R33 
+                -242.855 * CHq3R33 
+                -258.711 * CHuR33 
+                -886651. * CuGR33 
+                -80.4492 * Cqq1R1133 
+                +87600.9 * Cqq1R1331 
+                -18.1512 * Cqq1R2233 
+                +6155.28 * Cqq1R2332 
+                +30.6261 * Cqq3R1133 
+                +198713. * Cqq3R1331 
+                -48.6117 * Cqq3R2233 
+                +28525.5 * Cqq3R2332 
+                -210.478 * CuuR1133 
+                -20.4365 * CuuR2233 
+                +88038.5 * CuuR1331 
+                +6188.99 * CuuR2332 
+                -110.028 * Cud1R3311 
+                -80.9324 * Cud1R3322 
+                +14322.3 * Cud8R3311 
+                +2112.96 * Cud8R3322 
+                -195.357 * Cqu1R1133 
+                -32.7726 * Cqu1R2233 
+                -6.33031 * Cqu1R3311 
+                -49.1434 * Cqu1R3322 
+                +35537.6 * Cqu8R1133 
+                +4228.53 * Cqu8R2233 
+                +21136.8 * Cqu8R3311 
+                +1540.47 * Cqu8R3322 
+                -152.389 * Cqd1R3311 
+                -20.2313 * Cqd1R3322 
+                +13562.3 * Cqd8R3311 
+                +2031.46 * Cqd8R3322 
+                );
+        
+    } else if (sqrt_s == 84.0) {
+
+        //  Mw scheme. Only interference with QCD
+
+        C1 = 0.0; // N.A.
+
+        mu +=  (
+                +29568.5 * CG 
+                -122466. * CuHR33 
+                -188.515 * CHq1R11 
+                -161.156 * CHq3R11 
+                -18.7298 * CHuR11 
+                +84.0969 * CHdR11 
+                -60.6269 * CHq1R22 
+                +3.04679 * CHq3R22 
+                -33.1077 * CHuR22 
+                -10.836 * CHdR22 
+                +33.4766 * CHq1R33 
+                -249.387 * CHq3R33 
+                -170.736 * CHuR33 
+                -882584. * CuGR33 
+                +165.169 * Cqq1R1133 
+                +66847.5 * Cqq1R1331 
+                -29.2351 * Cqq1R2233 
+                +6258.47 * Cqq1R2332 
+                +71.2558 * Cqq3R1133 
+                +153407. * Cqq3R1331 
+                -31.3139 * Cqq3R2233 
+                +26872.2 * Cqq3R2332 
+                -27.0795 * CuuR1133 
+                -49.9167 * CuuR2233 
+                +66805.3 * CuuR1331 
+                +6238.71 * CuuR2332 
+                -2.604 * Cud1R3311 
+                -100.751 * Cud1R3322 
+                +11049.3 * Cud8R3311 
+                +2000. * Cud8R3322 
+                +82.7029 * Cqu1R1133 
+                -5.7992 * Cqu1R2233 
+                -28.88 * Cqu1R3311 
+                -56.5691 * Cqu1R3322 
+                +27287.5 * Cqu8R1133 
+                +4036.71 * Cqu8R2233 
+                +15311. * Cqu8R3311 
+                +1562.51 * Cqu8R3322 
+                -40.5882 * Cqd1R3311 
+                -14.8135 * Cqd1R3322 
+                +10857.1 * Cqd8R3311 
+                +1948.06 * Cqd8R3322
+                );
+
     } else if (sqrt_s == 100.0) {
 
         //  Old (but ok) implementation + Missing 4F
@@ -22447,29 +22873,61 @@ const double NPSMEFTd6General::mueeZBFPol(const double sqrt_s, const double Pol_
 
 const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
 
-    //  Only Alpha scheme
-
+    //  2025 versions are for electron polarization -80% (1.2 and 1.3 TeV)
+        
     double mu = 1.0;
+    double C1 = 0.0;
+    
+    double CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl3R11 = 0.0;
+    double CHl3R22 = 0.0, CHq3R11 = 0.0, CHq3R22 = 0.0, CllR1221 = 0.0;
+    double muRG = muw;
+    
+//  Wilson coefficients definitions 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CHq3R11 = getSMEFTCoeff("CHq3R",0,0, muRG); 
+    CHq3R22 = getSMEFTCoeff("CHq3R",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG); 
 
-    if (sqrt_s == 1.3) {
+    if (sqrt_s == 1.2) {
 
-        mu +=
-                +121790. * getSMEFTCoeffEW("CHbox")
-                - 161604. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 161282. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 203141. * getSMEFTCoeffEW("CHD")
-                - 88171.6 * getSMEFTCoeffEW("CHW")
-                - 377218. * getSMEFTCoeffEW("CHWB")
-                - 4.676 * delta_GF
-                - 4.916 * deltaMwd6()
-                ;
+        C1 = 0.0;
+        
+        mu += cWsch * (
+                -89863.9 * CHW 
+                +1384.83 * CHWB 
+                -29993.1 * CHD 
+                +121095. * CHbox 
+                -331289. * CHl3R11 
+                -181498. * CHl3R22 
+                -139640. * CHq3R11 
+                -9061.74 * CHq3R22 
+                +181670. * CllR1221 
+                );
 
-        //        if (FlagQuadraticTerms) {
-        //Add contributions that are quadratic in the effective coefficients
-
-        //        }
+    } else if (sqrt_s == 1.3) {
+        
+        C1 = 0.0;
+        
+        mu += cWsch * (
+                -84713.5 * CHW 
+                +2452.67 * CHWB 
+                -29561.7 * CHD 
+                +121718. * CHbox 
+                -335293. * CHl3R11 
+                -181119. * CHl3R22 
+                -143207. * CHq3R11 
+                -10057.4 * CHq3R22 
+                +181876. * CllR1221 
+                );
 
     } else if (sqrt_s == 1.8) {
+        
+    //  Only Alpha scheme
 
         mu +=
                 +121867. * getSMEFTCoeffEW("CHbox")
@@ -22488,6 +22946,8 @@ const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
         //        }
 
     } else if (sqrt_s == 3.5) {
+        
+    //  Only Alpha scheme
 
         mu +=
                 +121250. * getSMEFTCoeffEW("CHbox")
@@ -22536,34 +22996,89 @@ const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muepZBF(const double sqrt_s) const {
 
-    //  Only Alpha scheme
-
+    //  2025 versions are for electron polarization -80% (1.2 and 1.3 TeV)
+    
     double mu = 1.0;
+    double C1 = 0.0;
+    
+    double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R11 = 0.0;
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR11 = 0.0, CHq1R11 = 0.0, CHq3R11 = 0.0;
+    double CHq1R22 = 0.0, CHq3R22 = 0.0, CHuR11 = 0.0, CHuR22 = 0.0, CHdR11 = 0.0, CHdR22 = 0.0, CllR1221 = 0.0; 
+    double muRG = muw;
+    
+//  Wilson coefficients definitions 
+    CHB = getSMEFTCoeff("CHB", muRG); 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl1R11 = getSMEFTCoeff("CHl1R",0,0, muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CHeR11 = getSMEFTCoeff("CHeR",0,0, muRG); 
+    CHq1R11 = getSMEFTCoeff("CHq1R",0,0, muRG); 
+    CHq3R11 = getSMEFTCoeff("CHq3R",0,0, muRG); 
+    CHq1R22 = getSMEFTCoeff("CHq1R",1,1, muRG); 
+    CHq3R22 = getSMEFTCoeff("CHq3R",1,1, muRG); 
+    CHuR11 = getSMEFTCoeff("CHuR",0,0, muRG); 
+    CHuR22 = getSMEFTCoeff("CHuR",1,1, muRG); 
+    CHdR11 = getSMEFTCoeff("CHdR",0,0, muRG); 
+    CHdR22 = getSMEFTCoeff("CHdR",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG);
 
-    if (sqrt_s == 1.3) {
+    if (sqrt_s == 1.2) {
 
-        mu +=
-                +121280. * getSMEFTCoeffEW("CHbox")
-                - 152367. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                + 32200. * getSMEFTCoeffEW("CHq1R", 0, 0)
-                + 124934. * getSMEFTCoeffEW("CHeR", 0, 0)
-                - 42209.5 * getSMEFTCoeffEW("CHuR", 0, 0)
-                + 12445.7 * getSMEFTCoeffEW("CHdR", 0, 0)
-                - 152367. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 165343. * getSMEFTCoeffEW("CHq3R", 0, 0)
-                - 173922. * getSMEFTCoeffEW("CHD")
-                - 34636.2 * getSMEFTCoeffEW("CHB")
-                - 121438. * getSMEFTCoeffEW("CHW")
-                - 74939.1 * getSMEFTCoeffEW("CHWB")
-                - 3.719 * delta_GF
-                ;
+        C1 = 0.0;
+        
+        mu += cWsch * (
+                -45626.8 * CHB 
+                -233105. * CHW 
+                +322530. * CHWB 
+                +153678. * CHD 
+                +122298. * CHbox 
+                -223465. * CHl1R11 
+                -405483. * CHl3R11 
+                -180952. * CHl3R22 
+                +19607.3 * CHeR11 
+                +38972.5 * CHq1R11 
+                -141632. * CHq3R11 
+                -5274.11 * CHq1R22 
+                -14946.6 * CHq3R22 
+                -34549.1 * CHuR11 
+                -1967. * CHuR22 
+                +10146.9 * CHdR11 
+                +1521.41 * CHdR22 
+                +183749. * CllR1221 
+                );
 
-        //        if (FlagQuadraticTerms) {
-        //Add contributions that are quadratic in the effective coefficients
-
-        //        }
+    } else if (sqrt_s == 1.3) {
+        
+        C1 = 0.0;
+        
+        mu += cWsch * (
+                -40452.1 * CHB 
+                -222889. * CHW 
+                +314229. * CHWB 
+                +153151. * CHD 
+                +120937. * CHbox 
+                -232181. * CHl1R11 
+                -414451. * CHl3R11 
+                -182056. * CHl3R22 
+                +19001.5 * CHeR11 
+                +36594.9 * CHq1R11 
+                -146957. * CHq3R11 
+                -5715.25 * CHq1R22 
+                -16408.9 * CHq3R22 
+                -35934.4 * CHuR11 
+                -2333.7 * CHuR22 
+                +10800.1 * CHdR11 
+                +1501.27 * CHdR22 
+                +182692. * CllR1221
+                );
 
     } else if (sqrt_s == 1.8) {
+        
+        //  Only Alpha scheme
 
         mu +=
                 +120218. * getSMEFTCoeffEW("CHbox")
@@ -22587,6 +23102,8 @@ const double NPSMEFTd6General::muepZBF(const double sqrt_s) const {
         //        }
 
     } else if (sqrt_s == 3.5) {
+        
+        //  Only Alpha scheme
 
         mu +=
                 +123119. * getSMEFTCoeffEW("CHbox")
@@ -22610,6 +23127,8 @@ const double NPSMEFTd6General::muepZBF(const double sqrt_s) const {
         //        }
 
     } else if (sqrt_s == 5.0) {
+        
+        //  Only Alpha scheme
 
         mu +=
                 +121709. * getSMEFTCoeffEW("CHbox")
