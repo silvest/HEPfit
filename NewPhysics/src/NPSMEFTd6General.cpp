@@ -25219,73 +25219,69 @@ const double NPSMEFTd6General::mummZH(const double sqrt_s) const {
 
 const double NPSMEFTd6General::mummHvv(const double sqrt_s) const {
 
-    //  Only Alpha scheme
+    //  Mw scheme
 
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    // Wilson coefficients and scale 
+    double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R22 = 0.0;
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR22 = 0.0, CllR1221 = 0.0;
+    double muRG = 0;
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
+    
+//  Wilson coefficients definitions 
+    CHB = getSMEFTCoeff("CHB", muRG); 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl1R22 = getSMEFTCoeff("CHl1R",1,1, muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CHeR22 = getSMEFTCoeff("CHeR",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG); 
 
     //  For the Higgs trilinear dependence assume the WBF mechanism dominates
+    
+    // Defined as (unpolarized) mu+ mu- > H vm vm~. At these energies it is mostly WBF
 
     if (sqrt_s == 3.0) {
 
         C1 = 0.0057; // Use the same as CLIC
 
-        mu +=
-                +120415. * getSMEFTCoeffEW("CHbox")
-                - 204193. * getSMEFTCoeffEW("CHD")
-                + 584.639 * getSMEFTCoeffEW("CHB")
-                - 40740.1 * getSMEFTCoeffEW("CHW")
-                - 380159. * getSMEFTCoeffEW("CHWB")
-                - 518.996 * getSMEFTCoeffEW("CHl1R", 1, 1)
-                - 1015.43 * getSMEFTCoeffEW("CHeR", 1, 1)
-                - 1128.25 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 678627. * getSMEFTCoeffEW("CHl3R", 1, 1)
-                - 4.701 * delta_GF
-                - 4.244 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +5.314 * deltaMz()
-                - 0.277 * deltaMh()
-                - 0.795 * deltaaMZ()
-                + 3.787 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        mu += cWsch * (
+                -189.453 * CHB 
+                -40354.5 * CHW 
+                -498.257 * CHWB 
+                -30770. * CHD 
+                +120184. * CHbox 
+                +23876.8 * CHl1R22 
+                -182919. * CHl3R11 
+                -833760. * CHl3R22 
+                -21601.8 * CHeR22 
+                +181050. * CllR1221 
+                );
 
     } else if (sqrt_s == 10.0) {
 
         C1 = 0.0; // NA
 
-        mu +=
-                +120660. * getSMEFTCoeffEW("CHbox")
-                - 204535. * getSMEFTCoeffEW("CHD")
-                - 38.696 * getSMEFTCoeffEW("CHB")
-                - 27111.7 * getSMEFTCoeffEW("CHW")
-                - 380108. * getSMEFTCoeffEW("CHWB")
-                + 296.269 * getSMEFTCoeffEW("CHl1R", 1, 1)
-                - 613.096 * getSMEFTCoeffEW("CHeR", 1, 1)
-                - 1584.13 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 952573. * getSMEFTCoeffEW("CHl3R", 1, 1)
-                - 4.696 * delta_GF
-                - 4.223 * deltaMwd6()
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (
-                +5.49 * deltaMz()
-                - 0.177 * deltaMh()
-                - 0.821 * deltaaMZ()
-                + 3.804 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        mu += cWsch * (
+                -578.66 * CHB 
+                -27152.7 * CHW 
+                -101.506 * CHWB 
+                -30749.2 * CHD 
+                +120814. * CHbox 
+                +14588.5 * CHl1R22 
+                -182384. * CHl3R11 
+                -1117285. * CHl3R22 
+                -13721. * CHeR22 
+                +181019. * CllR1221 
+                );
 
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mummHvv()");
@@ -25304,67 +25300,67 @@ const double NPSMEFTd6General::mummHvv(const double sqrt_s) const {
 
 const double NPSMEFTd6General::mummHmm(const double sqrt_s) const {
 
-    //  Only Alpha scheme
+    //  Mw scheme
 
     double mu = 1.0;
 
     double C1 = 0.0;
 
+    // Wilson coefficients and scale    
+    double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R22 = 0.0;
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR22 = 0.0, CllR1221 = 0.0;
+    double muRG = 0;
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
+    
+//  Wilson coefficients definitions 
+    CHB = getSMEFTCoeff("CHB", muRG); 
+    CHW = getSMEFTCoeff("CHW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHbox = getSMEFTCoeff("CHbox", muRG); 
+    CHl1R22 = getSMEFTCoeff("CHl1R",1,1, muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CHeR22 = getSMEFTCoeff("CHeR",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG); 
+    
+    // Defined as (unpolarized) mu+ mu- > H mu+ mu-. At these energies it is mostly ZBF
+
     if (sqrt_s == 3.0) {
 
         C1 = 0.0063; // Use the same as CLIC
 
-        mu +=
-                +120754. * getSMEFTCoeffEW("CHbox")
-                - 42566.4 * getSMEFTCoeffEW("CHD")
-                + 5651.3 * getSMEFTCoeffEW("CHB")
-                - 34526.8 * getSMEFTCoeffEW("CHW")
-                - 77320.9 * getSMEFTCoeffEW("CHWB")
-                - 676758. * getSMEFTCoeffEW("CHl1R", 1, 1)
-                + 581864. * getSMEFTCoeffEW("CHeR", 1, 1)
-                - 1258.06 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 677145. * getSMEFTCoeffEW("CHl3R", 1, 1)
-                - 3.389 * delta_GF
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.494 * deltaMz()
-                - 0.253 * deltaMh()
-                - 0.397 * deltaaMZ()
-                + 3.403 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        mu += cWsch * (
+                +8523.28 * CHB 
+                -36317.7 * CHW 
+                +24490.5 * CHWB 
+                +8511.15 * CHD 
+                +120628. * CHbox 
+                -564246. * CHl1R22 
+                -182191. * CHl3R11 
+                -745892. * CHl3R22 
+                +456271. * CHeR22 
+                +181186. * CllR1221 
+                );
 
     } else if (sqrt_s == 10.0) {
 
         C1 = 0.0; //NA
 
-        mu +=
-                +121595. * getSMEFTCoeffEW("CHbox")
-                - 42528.7 * getSMEFTCoeffEW("CHD")
-                - 3306.42 * getSMEFTCoeffEW("CHB")
-                - 26428.1 * getSMEFTCoeffEW("CHW")
-                - 65710.7 * getSMEFTCoeffEW("CHWB")
-                - 972321. * getSMEFTCoeffEW("CHl1R", 1, 1)
-                + 835352. * getSMEFTCoeffEW("CHeR", 1, 1)
-                - 208.826 * getSMEFTCoeffEW("CHl3R", 0, 0)
-                - 970869. * getSMEFTCoeffEW("CHl3R", 1, 1)
-                - 3.401 * delta_GF
-                ;
-
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.603 * deltaMz()
-                - 0.147 * deltaMh()
-                - 0.394 * deltaaMZ()
-                + 3.403 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+        mu += cWsch * (
+                -562.405 * CHB 
+                -27961.5 * CHW 
+                +35431.1 * CHWB 
+                +8154.94 * CHD 
+                +119971. * CHbox 
+                -920487. * CHl1R22 
+                -182505. * CHl3R11 
+                -1101897. * CHl3R22 
+                +742050. * CHeR22 
+                +181016. * CllR1221 
+                );
 
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mummHmm()");
@@ -37904,10 +37900,41 @@ const double NPSMEFTd6General::xseeWW(const double sqrt_s) const {
 }
 
 const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
-    
-    if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeWWPol(sqrt_s, Pol_em, Pol_ep);
 
+    //  Mw scheme
+    
     double mu = 1.0;
+
+    // Wilson coefficients and scale    
+    double CW = 0.0, CHWB = 0.0, CHD = 0.0, CHl1R11 = 0.0, CHl3R11 = 0.0;
+    double CHl3R22 = 0.0, CHeR11 = 0.0, CllR1221 = 0.0;
+    double muRG = 0;
+    
+    // Polarization factors
+    double Pe = Pol_em, Pp = Pol_ep;
+    double fLR, fRL;
+
+    // LH and RH cross sections    
+    double sigmaSMeLHa0 = 0.0, sigmaeLHa0 = 0.0; 
+    double sigmaSMeRHa0 = 0.0, sigmaeRHa0 = 0.0;
+    
+    // -------------------------------------------------------------------------
+    
+    fLR = 0.25 * (1.0 - Pe) * (1.0 + Pp);
+    fRL = 0.25 * (1.0 + Pe) * (1.0 - Pp);
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
+    
+//  Wilson coefficients definitions 
+    CW = getSMEFTCoeff("CW", muRG); 
+    CHWB = getSMEFTCoeff("CHWB", muRG); 
+    CHD = getSMEFTCoeff("CHD", muRG); 
+    CHl1R11 = getSMEFTCoeff("CHl1R",0,0, muRG); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CHeR11 = getSMEFTCoeff("CHeR",0,0, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG);
 
     if (sqrt_s == 0.161) {
 
@@ -37931,6 +37958,19 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
             mu += 0.0;
         }
 
+    } else if (sqrt_s == 0.230) {
+
+        mu +=
+                -26882.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
+                - 17485.4 * getSMEFTCoeffEW("CHeR", 0, 0)
+                + 267456. * getSMEFTCoeffEW("CHl3R", 0, 0)
+                - 83799.2 * getSMEFTCoeffEW("CHD")
+                - 168074. * getSMEFTCoeffEW("CHWB")
+                + 6649.22 * getSMEFTCoeffEW("CW")
+                - 2.812 * delta_GF
+                - 0.993 * deltaMwd6();
+
+
     } else if (sqrt_s == 0.240) {
 
         mu +=
@@ -37943,15 +37983,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
                 - 2.812 * delta_GF
                 - 0.993 * deltaMwd6();
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.101 * deltaMz()
-                - 0.584 * deltaaMZ()
-                + 2.688 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
 
     } else if (sqrt_s == 0.250) {
 
@@ -37965,15 +37996,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
                 - 2.812 * delta_GF
                 - 0.959 * deltaMwd6();
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.184 * deltaMz()
-                - 0.585 * deltaaMZ()
-                + 2.709 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
 
     } else if (sqrt_s == 0.350) {
 
@@ -37987,15 +38009,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
                 - 2.832 * delta_GF
                 - 0.781 * deltaMwd6();
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.516 * deltaMz()
-                - 0.659 * deltaaMZ()
-                + 2.768 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
 
     } else if (sqrt_s == 0.365) {
 
@@ -38009,15 +38022,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
                 - 2.828 * delta_GF
                 - 0.775 * deltaMwd6();
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.533 * deltaMz()
-                - 0.661 * deltaaMZ()
-                + 2.789 * deltaGmu());
-
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
 
     } else if (sqrt_s == 0.500) {
 
@@ -38031,15 +38035,70 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
                 - 2.84 * delta_GF
                 - 0.705 * deltaMwd6();
 
-        // Add modifications due to small variations of the SM parameters    
-        mu += cHSM * (+4.7 * deltaMz()
-                - 0.683 * deltaaMZ()
-                + 2.799 * deltaGmu());
 
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            mu += 0.0;
-        }
+    } else if (sqrt_s == 0.550) {
+
+        mu +=
+                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
+                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
+                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
+                - 84926.8 * getSMEFTCoeffEW("CHD")
+                - 171658. * getSMEFTCoeffEW("CHWB")
+                + 10896.4 * getSMEFTCoeffEW("CW")
+                - 2.84 * delta_GF
+                - 0.705 * deltaMwd6();
+
+
+    } else if (sqrt_s == 1.0) {
+
+        mu +=
+                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
+                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
+                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
+                - 84926.8 * getSMEFTCoeffEW("CHD")
+                - 171658. * getSMEFTCoeffEW("CHWB")
+                + 10896.4 * getSMEFTCoeffEW("CW")
+                - 2.84 * delta_GF
+                - 0.705 * deltaMwd6();
+
+
+    } else if (sqrt_s == 1.4) {
+
+        mu +=
+                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
+                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
+                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
+                - 84926.8 * getSMEFTCoeffEW("CHD")
+                - 171658. * getSMEFTCoeffEW("CHWB")
+                + 10896.4 * getSMEFTCoeffEW("CW")
+                - 2.84 * delta_GF
+                - 0.705 * deltaMwd6();
+
+
+    } else if (sqrt_s == 1.5) {
+
+        mu +=
+                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
+                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
+                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
+                - 84926.8 * getSMEFTCoeffEW("CHD")
+                - 171658. * getSMEFTCoeffEW("CHWB")
+                + 10896.4 * getSMEFTCoeffEW("CW")
+                - 2.84 * delta_GF
+                - 0.705 * deltaMwd6();
+
+
+    } else if (sqrt_s == 3.0) {
+
+        mu +=
+                -68234.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
+                - 31290. * getSMEFTCoeffEW("CHeR", 0, 0)
+                + 309504. * getSMEFTCoeffEW("CHl3R", 0, 0)
+                - 84926.8 * getSMEFTCoeffEW("CHD")
+                - 171658. * getSMEFTCoeffEW("CHWB")
+                + 10896.4 * getSMEFTCoeffEW("CW")
+                - 2.84 * delta_GF
+                - 0.705 * deltaMwd6();
 
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWW()");
@@ -38049,454 +38108,6 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
     return mu;
 }
 
-const double NPSMEFTd6General::mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
-    double mu = 1.0;
-
-    if (sqrt_s == 0.240) {
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    -23395. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 261092. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 231526. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 72645.8 * getSMEFTCoeffEW("CHD")
-                    - 25084.5 * getSMEFTCoeffEW("CHWB")
-                    - 587.63 * getSMEFTCoeffEW("CW")
-                    - 2.437 * delta_GF
-                    - 1.554 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.226 * deltaMz()
-                    - 0.083 * deltaaMZ()
-                    + 2.189 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    -27334.5 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 564.392 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 269600. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 84684.5 * getSMEFTCoeffEW("CHD")
-                    - 178168. * getSMEFTCoeffEW("CHWB")
-                    + 7121.6 * getSMEFTCoeffEW("CW")
-                    - 2.838 * delta_GF
-                    - 0.949 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.156 * deltaMz()
-                    - 0.607 * deltaaMZ()
-                    + 2.724 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-        }
-
-    } else if (sqrt_s == 0.250) {
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    -25554.9 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 274633. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 234621. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 72498.3 * getSMEFTCoeffEW("CHD")
-                    - 23308.5 * getSMEFTCoeffEW("CHWB")
-                    + 314.876 * getSMEFTCoeffEW("CW")
-                    - 2.444 * delta_GF
-                    - 1.448 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.37 * deltaMz()
-                    - 0.119 * deltaaMZ()
-                    + 2.223 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    -29714.6 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 693.518 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 271032. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 84929.3 * getSMEFTCoeffEW("CHD")
-                    - 177727. * getSMEFTCoeffEW("CHWB")
-                    + 7778.07 * getSMEFTCoeffEW("CW")
-                    - 2.829 * delta_GF
-                    - 0.914 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.233 * deltaMz()
-                    - 0.62 * deltaaMZ()
-                    + 2.73 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    -27418.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 157891. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 250086. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 77904.2 * getSMEFTCoeffEW("CHD")
-                    - 89451.9 * getSMEFTCoeffEW("CHWB")
-                    + 3435.6 * getSMEFTCoeffEW("CW")
-                    - 2.607 * delta_GF
-                    - 1.242 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+3.759 * deltaMz()
-                    - 0.343 * deltaaMZ()
-                    + 2.459 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    -29686. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1698.32 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 271004. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 84881.5 * getSMEFTCoeffEW("CHD")
-                    - 177249. * getSMEFTCoeffEW("CHWB")
-                    + 7742.96 * getSMEFTCoeffEW("CW")
-                    - 2.828 * delta_GF
-                    - 0.915 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.244 * deltaMz()
-                    - 0.624 * deltaaMZ()
-                    + 2.729 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-        }
-
-    } else if (sqrt_s == 0.350) {
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    -43312.4 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 370403. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 262809. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 76119.5 * getSMEFTCoeffEW("CHD")
-                    - 35565.5 * getSMEFTCoeffEW("CHWB")
-                    + 6279.71 * getSMEFTCoeffEW("CW")
-                    - 2.571 * delta_GF
-                    - 1.059 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.035 * deltaMz()
-                    - 0.336 * deltaaMZ()
-                    + 2.471 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    -47925. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 912.302 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 290384. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 84475.3 * getSMEFTCoeffEW("CHD")
-                    - 177142. * getSMEFTCoeffEW("CHWB")
-                    + 10660.4 * getSMEFTCoeffEW("CW")
-                    - 2.841 * delta_GF
-                    - 0.773 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.542 * deltaMz()
-                    - 0.672 * deltaaMZ()
-                    + 2.797 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    -45448.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 208484. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 274583. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 80024.1 * getSMEFTCoeffEW("CHD")
-                    - 97902.7 * getSMEFTCoeffEW("CHWB")
-                    + 8122.74 * getSMEFTCoeffEW("CW")
-                    - 2.687 * delta_GF
-                    - 0.928 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.257 * deltaMz()
-                    - 0.496 * deltaaMZ()
-                    + 2.607 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    -47903.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 2144.19 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 290349. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 84405.4 * getSMEFTCoeffEW("CHD")
-                    - 176530. * getSMEFTCoeffEW("CHWB")
-                    + 10675.5 * getSMEFTCoeffEW("CW")
-                    - 2.84 * delta_GF
-                    - 0.777 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.543 * deltaMz()
-                    - 0.674 * deltaaMZ()
-                    + 2.798 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-        }
-
-    } else if (sqrt_s == 0.365) {
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    -45618.2 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 382668. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 265703. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 77085.4 * getSMEFTCoeffEW("CHD")
-                    - 38791. * getSMEFTCoeffEW("CHWB")
-                    + 6727.91 * getSMEFTCoeffEW("CW")
-                    - 2.582 * delta_GF
-                    - 1.04 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.09 * deltaMz()
-                    - 0.349 * deltaaMZ()
-                    + 2.483 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    -50230.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1000.53 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 291951. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 84657.2 * getSMEFTCoeffEW("CHD")
-                    - 177196. * getSMEFTCoeffEW("CHWB")
-                    + 10879.2 * getSMEFTCoeffEW("CW")
-                    - 2.84 * delta_GF
-                    - 0.753 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.576 * deltaMz()
-                    - 0.681 * deltaaMZ()
-                    + 2.795 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-        }
-
-    } else if (sqrt_s == 0.380) {
-
-        if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    -49806.5 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 221155. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 280445. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 80550.4 * getSMEFTCoeffEW("CHD")
-                    - 101476. * getSMEFTCoeffEW("CHWB")
-                    + 8838.57 * getSMEFTCoeffEW("CW")
-                    - 2.707 * delta_GF
-                    - 0.891 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.331 * deltaMz()
-                    - 0.503 * deltaaMZ()
-                    + 2.64 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    -52386.5 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 2537.08 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 294134. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 84922.5 * getSMEFTCoeffEW("CHD")
-                    - 176871. * getSMEFTCoeffEW("CHWB")
-                    + 10984.7 * getSMEFTCoeffEW("CW")
-                    - 2.838 * delta_GF
-                    - 0.753 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.589 * deltaMz()
-                    - 0.68 * deltaaMZ()
-                    + 2.81 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-        }
-
-    } else if (sqrt_s == 0.500) {
-
-        if (Pol_em == 80. && Pol_ep == -30.) {
-            mu +=
-                    -64264.6 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 495727. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 289682. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 80108.8 * getSMEFTCoeffEW("CHD")
-                    - 61678. * getSMEFTCoeffEW("CHWB")
-                    + 8723.87 * getSMEFTCoeffEW("CW")
-                    - 2.664 * delta_GF
-                    - 0.849 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.362 * deltaMz()
-                    - 0.496 * deltaaMZ()
-                    + 2.591 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
-            mu +=
-                    -68310.7 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1341.22 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 311528. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 84984.5 * getSMEFTCoeffEW("CHD")
-                    - 178260. * getSMEFTCoeffEW("CHWB")
-                    + 11071.1 * getSMEFTCoeffEW("CW")
-                    - 2.855 * delta_GF
-                    - 0.671 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.728 * deltaMz()
-                    - 0.698 * deltaaMZ()
-                    + 2.817 * deltaGmu());
-
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    -66178. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 274919. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 299745. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 82524.6 * getSMEFTCoeffEW("CHD")
-                    - 113979. * getSMEFTCoeffEW("CHWB")
-                    + 9759.79 * getSMEFTCoeffEW("CW")
-                    - 2.752 * delta_GF
-                    - 0.778 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.515 * deltaMz()
-                    - 0.602 * deltaaMZ()
-                    + 2.695 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    -68435.6 * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 3089.11 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 310020. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 85227.7 * getSMEFTCoeffEW("CHD")
-                    - 178139. * getSMEFTCoeffEW("CHWB")
-                    + 11009.9 * getSMEFTCoeffEW("CW")
-                    - 2.846 * delta_GF
-                    - 0.681 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.725 * deltaMz()
-                    - 0.695 * deltaaMZ()
-                    + 2.828 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-        }
-
-    } else if (sqrt_s == 1.0) {
-
-        if (Pol_em == 80. && Pol_ep == -20.) {
-            mu +=
-                    -145951. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 885593. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 383080. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 83628.6 * getSMEFTCoeffEW("CHD")
-                    - 114732. * getSMEFTCoeffEW("CHWB")
-                    + 8916.37 * getSMEFTCoeffEW("CW")
-                    - 2.787 * delta_GF
-                    - 0.57 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.793 * deltaMz()
-                    - 0.653 * deltaaMZ()
-                    + 2.677 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 20.) {
-            mu +=
-                    -150086. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 4395.1 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 394641. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 85925.1 * getSMEFTCoeffEW("CHD")
-                    - 181046. * getSMEFTCoeffEW("CHWB")
-                    + 9450.35 * getSMEFTCoeffEW("CW")
-                    - 2.871 * delta_GF
-                    - 0.492 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.001 * deltaMz()
-                    - 0.752 * deltaaMZ()
-                    + 2.79 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-        }
-
-    } else if (sqrt_s == 1.5) {
-
-        if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    -261040. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 1059495. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 500666. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 84992.3 * getSMEFTCoeffEW("CHD")
-                    - 144925. * getSMEFTCoeffEW("CHWB")
-                    + 7857.84 * getSMEFTCoeffEW("CW")
-                    - 2.817 * delta_GF
-                    - 0.471 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+4.975 * deltaMz()
-                    - 0.718 * deltaaMZ()
-                    + 2.688 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    -265008. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 13002.4 * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 507924. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 86313.9 * getSMEFTCoeffEW("CHD")
-                    - 182113. * getSMEFTCoeffEW("CHWB")
-                    + 8014.86 * getSMEFTCoeffEW("CW")
-                    - 2.857 * delta_GF
-                    - 0.429 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.094 * deltaMz()
-                    - 0.768 * deltaaMZ()
-                    + 2.739 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-        }
-
-    } else if (sqrt_s == 3.0) {
-
-        if (Pol_em == 80. && Pol_ep == 0.) {
-            mu +=
-                    -776767. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 3168410. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 1016120. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 85414.3 * getSMEFTCoeffEW("CHD")
-                    - 155729. * getSMEFTCoeffEW("CHWB")
-                    + 6454.34 * getSMEFTCoeffEW("CW")
-                    - 2.831 * delta_GF
-                    - 0.352 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.165 * deltaMz()
-                    - 0.755 * deltaaMZ()
-                    + 2.77 * deltaGmu());
-
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
-            mu +=
-                    -785359. * getSMEFTCoeffEW("CHl1R", 0, 0)
-                    - 39533. * getSMEFTCoeffEW("CHeR", 0, 0)
-                    + 1027322. * getSMEFTCoeffEW("CHl3R", 0, 0)
-                    - 86621.7 * getSMEFTCoeffEW("CHD")
-                    - 184516. * getSMEFTCoeffEW("CHWB")
-                    + 6519.78 * getSMEFTCoeffEW("CW")
-                    - 2.86 * delta_GF
-                    - 0.328 * deltaMwd6();
-
-            // Add modifications due to small variations of the SM parameters    
-            mu += cHSM * (+5.246 * deltaMz()
-                    - 0.79 * deltaaMZ()
-                    + 2.81 * deltaGmu());
-
-        } else {
-            throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWWPol()");
-
-    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    return mu;
-}
 
 ////////////////////////////////////////////////////////////////////////
 
