@@ -522,6 +522,15 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMdk2()
                 throw std::runtime_error("StandardModelMatching::CMk2(): order " + out.str() + "not implemented");
         }
 
+        // std::cout << "NPSMEFTd6GeneralMatching::CMk2(): Matching to the Delta F=2 Hamiltonian in the SUSY Basis, checked using 1512.02830" << std::endl;
+        // std::cout << "C1 = " << (*(mck2.getCoeff(LO)))(0) << std::endl;
+        // std::cout << "C2 = " << (*(mck2.getCoeff(LO)))(1) << std::endl;
+        // std::cout << "C3 = " << (*(mck2.getCoeff(LO)))(2) << std::endl;
+        // std::cout << "C4 = " << (*(mck2.getCoeff(LO)))(3) << std::endl;
+        // std::cout << "C5 = " << (*(mck2.getCoeff(LO)))(4) << std::endl;
+        // //mck2.setCoeff(0, 0., LO);
+
+
         vmck2.push_back(mck2);
 
         switch (mck2.getOrder())
@@ -544,6 +553,10 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMdk2()
         }
 
         vmck2.push_back(mck2);
+
+        // std::cout << "C1t = " << (*(mck2.getCoeff(LO)))(0) << std::endl;
+        // std::cout << "C2t = " << (*(mck2.getCoeff(LO)))(1) << std::endl;
+        // std::cout << "C3t = " << (*(mck2.getCoeff(LO)))(2) << std::endl;
 
         return (vmck2);
 }
@@ -575,6 +588,14 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdd2()
                 throw std::runtime_error("StandardModelMatching::CMdd2(): order " + out.str() + "not implemented");
         }
 
+        // std::cout << "NPSMEFTd6GeneralMatching::CMdd2(): Matching to the Delta B=2 Hamiltonian in the SUSY Basis, checked using 1512.02830" << std::endl;
+        // std::cout << "C1 = " << (*(mcd2.getCoeff(LO)))(0) << std::endl;
+        // std::cout << "C2 = " << (*(mcd2.getCoeff(LO)))(1) << std::endl;
+        // std::cout << "C3 = " << (*(mcd2.getCoeff(LO)))(2) << std::endl;
+        // std::cout << "C4 = " << (*(mcd2.getCoeff(LO)))(3) << std::endl;
+        // std::cout << "C5 = " << (*(mcd2.getCoeff(LO)))(4) << std::endl;
+        // //mcd2.setCoeff(0, 0., LO);
+
         vmcd2.push_back(mcd2);
 
         switch (mcd2.getOrder())
@@ -597,6 +618,10 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdd2()
         }
 
         vmcd2.push_back(mcd2);
+
+        // std::cout << "C1t = " << (*(mcd2.getCoeff(LO)))(0) << std::endl;
+        // std::cout << "C2t = " << (*(mcd2.getCoeff(LO)))(1) << std::endl;
+        // std::cout << "C3t = " << (*(mcd2.getCoeff(LO)))(2) << std::endl;
 
         return (vmcd2);
 }
@@ -628,6 +653,15 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbd2()
                 throw std::runtime_error("StandardModelMatching::CMdbd2(): order " + out.str() + "not implemented");
         }
 
+
+        // std::cout << "NPSMEFTd6GeneralMatching::CMdbd2(): Matching to the Delta B=2 Hamiltonian in the SUSY Basis, checked using 1512.02830" << std::endl;
+        // std::cout << "C1 = " << (*(mcbd.getCoeff(LO)))(0) << std::endl;
+        // std::cout << "C2 = " << (*(mcbd.getCoeff(LO)))(1) << std::endl;
+        // std::cout << "C3 = " << (*(mcbd.getCoeff(LO)))(2) << std::endl;
+        // std::cout << "C4 = " << (*(mcbd.getCoeff(LO)))(3) << std::endl;
+        // std::cout << "C5 = " << (*(mcbd.getCoeff(LO)))(4) << std::endl;
+        // //mcbd.setCoeff(0, 0., LO);
+
         vmcdb.push_back(mcbd);
 
         switch (mcbd.getOrder())
@@ -650,6 +684,10 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbd2()
         }
 
         vmcdb.push_back(mcbd);
+
+        // std::cout << "C1t = " << (*(mcbd.getCoeff(LO)))(0) << std::endl;
+        // std::cout << "C2t = " << (*(mcbd.getCoeff(LO)))(1) << std::endl;
+        // std::cout << "C3t = " << (*(mcbd.getCoeff(LO)))(2) << std::endl;
 
         return (vmcdb);
 }
@@ -681,6 +719,15 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
                 throw std::runtime_error("StandardModelMatching::CMdbs2(): order " + out.str() + "not implemented");
         }
 
+
+        // std::cout << "NPSMEFTd6GeneralMatching::CMdbs2(): Matching to the Delta BS=2 Hamiltonian in the SUSY Basis, checked using 1512.02830" << std::endl;
+        // std::cout << "C1 = " << (*(mcbs.getCoeff(LO)))(0) << std::endl;
+        // std::cout << "C2 = " << (*(mcbs.getCoeff(LO)))(1) << std::endl;
+        // std::cout << "C3 = " << (*(mcbs.getCoeff(LO)))(2) << std::endl;
+        // std::cout << "C4 = " << (*(mcbs.getCoeff(LO)))(3) << std::endl;
+        // std::cout << "C5 = " << (*(mcbs.getCoeff(LO)))(4) << std::endl;
+        // //mcbs.setCoeff(0, 0., LO);
+
         vmcds.push_back(mcbs);
 
         switch (mcbs.getOrder())
@@ -703,6 +750,9 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
         }
 
         vmcds.push_back(mcbs);
+        // std::cout << "C1t = " << (*(mcbs.getCoeff(LO)))(0) << std::endl;
+        // std::cout << "C2t = " << (*(mcbs.getCoeff(LO)))(1) << std::endl;
+        // std::cout << "C3t = " << (*(mcbs.getCoeff(LO)))(2) << std::endl;
 
         return (vmcds);
 }
