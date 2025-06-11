@@ -43197,24 +43197,9 @@ const double NPSMEFTd6General::NevLHCpptaunu13(const int i_bin) const {
 const double NPSMEFTd6General::AuxObs_NP1() const {
     // To be used for some temporary observable
 
-    // WY analysis at 13 TeV for HL-LHC 3/ab
-    double Wpar, Ypar, Wpar2, Ypar2;
-    double Chi2NC13, Chi2CC13, Chi2Tot;
+    double Chi2Tot;
 
-    Wpar = 10000.0 * obliqueW();
-    Ypar = 10000.0 * obliqueY();
-
-    Wpar2 = Wpar*Wpar;
-    Ypar2 = Ypar*Ypar;
-
-    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
-
-    Chi2NC13 = 0.032772034538390675 * Wpar2 * Wpar2 + 2.815243944990361 * Ypar2 - 0.36522061776278516 * Ypar2 * Ypar
-            + 0.017375258924241194 * Ypar2 * Ypar2 + Wpar2 * Wpar * (-0.7059117582389635 + 0.006816297425306027 * Ypar)
-            + Wpar * Ypar * (7.988302197022343 + Ypar * (-0.5450119819316416 + 0.0050292149953719766 * Ypar))
-            + Wpar2 * (5.68581760491364 + Ypar * (-0.5794111075840261 + 0.048026245835369625 * Ypar));
-
-    Chi2Tot = Chi2CC13 + Chi2NC13;
+    Chi2Tot = 0.0;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
@@ -43223,25 +43208,9 @@ const double NPSMEFTd6General::AuxObs_NP1() const {
 const double NPSMEFTd6General::AuxObs_NP2() const {
     // To be used for some temporary observable
 
-    // WY analysis at 13 TeV for HL-LHC 3/ab for the CC
-    // WY analysis at 27 TeV for HE-LHC 15/ab for the NC. 5% systematics (corr and uncorr)
-    double Wpar, Ypar, Wpar2, Ypar2;
-    double Chi2NC27, Chi2CC13, Chi2Tot;
+    double Chi2Tot;
 
-    Wpar = 10000.0 * obliqueW();
-    Ypar = 10000.0 * obliqueY();
-
-    Wpar2 = Wpar*Wpar;
-    Ypar2 = Ypar*Ypar;
-
-    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
-
-    Chi2NC27 = 21.139285368181907 * Wpar2 * Wpar2 + Wpar2 * Wpar * (-89.16828370317616 + 7.182929295852857 * Ypar)
-            + Wpar * Ypar * (208.8092257396059 + Ypar * (-81.00102926445666 + 6.203591096144735 * Ypar))
-            + Ypar2 * (81.01075991905888 + Ypar * (-58.822719932531164 + 14.670206406369107 * Ypar))
-            + Wpar2 * (136.70787790194357 + Ypar * (-86.48485007990255 + 35.67671393730628 * Ypar));
-
-    Chi2Tot = Chi2CC13 + Chi2NC27;
+    Chi2Tot = 0.0;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
@@ -43250,425 +43219,42 @@ const double NPSMEFTd6General::AuxObs_NP2() const {
 const double NPSMEFTd6General::AuxObs_NP3() const {
     // To be used for some temporary observable
 
-    // WY analysis at 13 TeV for HL-LHC 3/ab for the CC
-    // WY analysis at 27 TeV for HE-LHC 15/ab for the NC. 1% systematics (corr and uncorr)
-    double Wpar, Ypar, Wpar2, Ypar2;
-    double Chi2NC27, Chi2CC13, Chi2Tot;
+    double Chi2Tot;
 
-    Wpar = 10000.0 * obliqueW();
-    Ypar = 10000.0 * obliqueY();
-
-    Wpar2 = Wpar*Wpar;
-    Ypar2 = Ypar*Ypar;
-
-    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
-
-    Chi2NC27 = 25.148424251427552 * Wpar2 * Wpar2 + Wpar2 * Wpar * (-105.31753344410277 + 8.01723084630248 * Ypar)
-            + Wpar * Ypar * (253.11721255992683 + Ypar * (-93.18990615818014 + 6.8250043104055816 * Ypar))
-            + Ypar2 * (97.52107126224298 + Ypar * (-67.961770347904945 + 16.80046890875678 * Ypar))
-            + Wpar2 * (166.84179829911304 + Ypar * (-100.88118582829852 + 41.55424691040131 * Ypar));
-
-    Chi2Tot = Chi2CC13 + Chi2NC27;
+    Chi2Tot = 0.0;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
 }
 
 const double NPSMEFTd6General::AuxObs_NP4() const {
-    // WH distribution at 14 TeV: From 1704.01953 + hvqq terms
+    // To be used for some temporary observable
 
-    double Bin1 = 1.0, Bin2 = 1.0, Bin3 = 1.0, Bin4 = 1.0, Bin5 = 1.0;
+    double Chi2Tot;
 
-    double dVud = 0.0, dVcs = 0.0;
-    double dcZ = 0.0, cZBox = 0.0, cZZ = 0.0, cZA = 0.0, cAA = 0.0;
-
-    double C11 = 0.0178, C12 = 0.0144, C13 = 0.0102, C14 = 0.0052, C15 = 0.0006;
-
-    double dchi2;
-
-    //  Production in each bin (signal strength)
-
-    Bin1 += 12.8 * dVud + 1.75 * dVcs
-            + 2.00 * dcZ + 5.01 * cZBox + 2.72 * cZZ - 0.0267 * cZA - 0.0217 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin1 = Bin1 + cLHd6 * (C11 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin1 = Bin1 + cLHd6 * cLH3d62 * deltaH3L2(C11) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    Bin2 += 15.3 * dVud + 1.91 * dVcs
-            + 2.00 * dcZ + 5.81 * cZBox + 3.10 * cZZ - 0.0337 * cZA - 0.0255 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin2 = Bin2 + cLHd6 * (C12 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin2 = Bin2 + cLHd6 * cLH3d62 * deltaH3L2(C12) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    Bin3 += 20.7 * dVud + 2.49 * dVcs
-            + 2.01 * dcZ + 7.44 * cZBox + 3.76 * cZZ - 0.0535 * cZA - 0.0340 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin3 = Bin3 + cLHd6 * (C13 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin3 = Bin3 + cLHd6 * cLH3d62 * deltaH3L2(C13) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    Bin4 += 35.1 * dVud + 3.63 * dVcs
-            + 1.98 * dcZ + 11.8 * cZBox + 5.40 * cZZ - 0.112 * cZA - 0.0572 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin4 = Bin4 + cLHd6 * (C14 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin4 = Bin4 + cLHd6 * cLH3d62 * deltaH3L2(C14) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    Bin5 += 67.7 * dVud + 5.41 * dVcs
-            + 2.03 * dcZ + 22.6 * cZBox + 9.05 * cZZ - 0.276 * cZA - 0.117 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin5 = Bin5 + cLHd6 * (C15 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin5 = Bin5 + cLHd6 * cLH3d62 * deltaH3L2(C15) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    //  Compute Chi square using only the last bin and the diphoton, ZZ and bb channels
-    dchi2 = (Bin5 * BrHZZ4lRatio() - 1.0) * (Bin5 * BrHZZ4lRatio() - 1.0) / (0.07 * 0.07 + 0.48 * 0.48)
-            + (Bin5 * BrHgagaRatio() - 1.0) * (Bin5 * BrHgagaRatio() - 1.0) / (0.08 * 0.08 + 0.54 * 0.54)
-            + (Bin5 * BrHbbRatio() - 1.0) * (Bin5 * BrHbbRatio() - 1.0) / (0.33 * 0.33 + 0.61 * 0.61);
+    Chi2Tot = 0.0;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
-    return sqrt(dchi2);
+    return sqrt(Chi2Tot);
 }
 
 const double NPSMEFTd6General::AuxObs_NP5() const {
-    // ZH distribution at 14 TeV: From 1704.01953 + hvqq terms
+    // To be used for some temporary observable
 
-    double Bin1 = 1.0, Bin2 = 1.0, Bin3 = 1.0, Bin4 = 1.0, Bin5 = 1.0;
+    double Chi2Tot;
 
-    double dgLZuu = 0.0, dgRZuu = 0.0, dgLZcc = 0.0, dgRZcc = 0.0;
-    double dgLZdd = 0.0, dgRZdd = 0.0, dgLZss = 0.0, dgRZss = 0.0;
-
-    double dcZ = 0.0, cZBox = 0.0, cZZ = 0.0, cZA = 0.0, cAA = 0.0;
-
-    double C11 = 0.0208, C12 = 0.0164, C13 = 0.0112, C14 = 0.0051, C15 = 0.0021;
-
-    double dchi2;
-
-    //  Production in each bin (signal strength)
-
-    Bin1 += 14.6 * dgLZuu - 6.74 * dgRZuu - 11.6 * dgLZdd + 2.28 * dgRZdd
-            + 1.35 * dgLZcc - 0.589 * dgRZcc - 2.35 * dgLZss + 0.431 * dgRZss
-            + 2.01 * dcZ + 4.14 * cZBox + 2.12 * cZZ - 0.0237 * cZA - 0.0126 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin1 = Bin1 + cLHd6 * (C11 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin1 = Bin1 + cLHd6 * cLH3d62 * deltaH3L2(C11) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    Bin2 += 16.2 * dgLZuu - 7.77 * dgRZuu - 13.4 * dgLZdd + 2.63 * dgRZdd
-            + 1.44 * dgLZcc - 0.668 * dgRZcc - 2.52 * dgLZss + 0.462 * dgRZss
-            + 2.01 * dcZ + 4.86 * cZBox + 2.49 * cZZ - 0.0284 * cZA - 0.0156 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin2 = Bin2 + cLHd6 * (C12 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin2 = Bin2 + cLHd6 * cLH3d62 * deltaH3L2(C12) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    Bin3 += 23.0 * dgLZuu - 10.8 * dgRZuu - 19.0 * dgLZdd + 3.64 * dgRZdd
-            + 1.88 * dgLZcc - 0.891 * dgRZcc - 3.19 * dgLZss + 0.591 * dgRZss
-            + 2.00 * dcZ + 6.35 * cZBox + 3.02 * cZZ - 0.0448 * cZA - 0.0221 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin3 = Bin3 + cLHd6 * (C13 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin3 = Bin3 + cLHd6 * cLH3d62 * deltaH3L2(C13) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    Bin4 += 39.2 * dgLZuu - 18.4 * dgRZuu - 31.4 * dgLZdd + 5.88 * dgRZdd
-            + 2.78 * dgLZcc - 1.36 * dgRZcc - 4.64 * dgLZss + 0.919 * dgRZss
-            + 1.98 * dcZ + 10.5 * cZBox + 4.44 * cZZ - 0.0873 * cZA - 0.0396 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin4 = Bin4 + cLHd6 * (C14 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin4 = Bin4 + cLHd6 * cLH3d62 * deltaH3L2(C14) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    Bin5 += 73.4 * dgLZuu - 35.5 * dgRZuu - 58.5 * dgLZdd + 11.2 * dgRZdd
-            + 4.13 * dgLZcc - 1.95 * dgRZcc - 6.97 * dgLZss + 1.41 * dgRZss
-            + 1.96 * dcZ + 20.3 * cZBox + 7.27 * cZZ - 0.193 * cZA - 0.0800 * cAA;
-
-    //  Linear contribution from Higgs self-coupling
-    Bin5 = Bin5 + cLHd6 * (C15 + 2.0 * dZH1) * deltaG_hhhRatio();
-    //  Quadratic contribution from Higgs self-coupling: add separately from FlagQuadraticTerms
-    Bin5 = Bin5 + cLHd6 * cLH3d62 * deltaH3L2(C15) * deltaG_hhhRatio() * deltaG_hhhRatio();
-
-    //  Compute Chi square using only the last bin and the diphoton, ZZ and bb channels
-    dchi2 = (Bin5 * BrHZZ4lRatio() - 1.0) * (Bin5 * BrHZZ4lRatio() - 1.0) / (0.09 * 0.09 + 0.65 * 0.65)
-            + (Bin5 * BrHgagaRatio() - 1.0) * (Bin5 * BrHgagaRatio() - 1.0) / (0.03 * 0.03 + 0.99 * 0.99)
-            + (Bin5 * BrHbbRatio() - 1.0) * (Bin5 * BrHbbRatio() - 1.0) / (0.10 * 0.10 + 0.34 * 0.34);
+    Chi2Tot = 0.0;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
-    return sqrt(dchi2);
+    return sqrt(Chi2Tot);
 }
 
 const double NPSMEFTd6General::AuxObs_NP6() const {
     // To be used for some temporary observable
 
-    // HL-LHC DiHiggs invariant mass distribution: 14 TeV 3/ab
-
     double Chi2Tot;
 
-    //  NP in decays
-    double dGH2, dGgaga, dGbb, dBRTot;
-
-    //  Contributions from the different bins    
-    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
-    double LLBin1, LLBin2, LLBin3, LLBin4, LLBin5, LLBin6;
-
-    //  Higgs basis parameters
-    double dcZHB, cZboxHB, cZZHB, cZgaHB, cgagaHB, cggHB;
-    double dytHB, dybHB, dytauHB;
-    double dKlambda;
-
-    dcZHB = deltacZ_HB(2.0 * mHl);
-    cZboxHB = cZBox_HB(2.0 * mHl);
-    cZZHB = cZZ_HB(2.0 * mHl);
-
-    // In the paper it seems they use diff. norm but in the chi 2.nb
-    //  they translate into that convention, so I assume their calculation
-    //  is directly in the HB for the following 3 couplings 
-    cZgaHB = cZga_HB(2.0 * mHl);
-    cgagaHB = cgaga_HB(2.0 * mHl);
-    cggHB = cgg_HB(2.0 * mHl);
-
-    dytHB = deltayt_HB(2.0 * mHl);
-    dybHB = deltayb_HB(2.0 * mHl);
-    dytauHB = deltaytau_HB(2.0 * mHl);
-
-    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
-
-    //  Corrections to the different Higgs widths
-    dGH2 = 1. + 0.010512791990056657 * cZboxHB
-            - 0.003819752423722165 * cZZHB + 0.0016024991450954641 * cZgaHB
-            - 0.0005968238492400916 * (2.8975474398595105 * cZboxHB
-            + 1.8975474398595107 * cZZHB - cZgaHB - 0.3426378481886507 * cgagaHB)
-            + 0.0990750425382019 * (1.4487737199297552 * cZboxHB + 0.44877371992975534 * cZZHB
-            - 0.2365019764475461 * cZgaHB - 0.08103452830235015 * cgagaHB)
-            - 0.0330404571742506 * (cZZHB + 0.4730039528950922 * cZgaHB + 0.055933184863595636 * cgagaHB)
-            - 0.00033171593951211893 * cgagaHB + 0.48287726036165796 * dcZHB
-            + 1.1541846695471276 * dybHB + 0.12642022723635785 * dytauHB
-            + 0.1704272683629381 * (0. + 118.68284969347252 * cggHB
-            - 0.031082871395970327 * dybHB + 1.034601498835783 * dytHB)
-            + 0.004560729716754681 * (0. - 12.079950077697095 * cgagaHB
-            + 1.2739859351743013 * dcZHB + 0.0022136399615102554 * dybHB
-            - 0.28081416399029446 * dytHB + 0.0036305606562964158 * dytauHB)
-            + 0.003080492878860618 * (0. - 17.021015025105033 * cZgaHB
-            + 1.0557935963831278 * dcZHB + 0.0006235357344154619 * dybHB
-            - 0.05644023795399054 * dytHB + 0.000023105836447458856 * dytauHB);
-
-    dGH2 = dGH2 * dGH2;
-
-    dGgaga = 1.0 + 2.0 * (0. - 12.079950077697095 * cgagaHB
-            + 1.2739859351743013 * dcZHB + 0.0022136399615102554 * dybHB
-            - 0.28081416399029446 * dytHB + 0.0036305606562964158 * dytauHB);
-
-    dGbb = 1.0 + 2.0 * dybHB;
-
-    dBRTot = dGbb * dGgaga / dGH2;
-
-    // Bin 1
-    Bin1 = 0.17 * (1.0 + 3.9863794294589585 * cggHB
-            + 21.333394807321064 * cggHB * cggHB + 3.9527789724382836 * dcZHB
-            + 0.5566823785534646 * cggHB * dcZHB + 9.077153576669469 * dcZHB * dcZHB
-            - 7.713285621354339 * dytHB + 6.573887966178747 * cggHB * dytHB
-            - 45.88983201032187 * dcZHB * dytHB + 62.42156375416841 * dytHB * dytHB
-            + 4.257555672380181 * cggHB * dytHB * dytHB + 4.620310477256665 * dcZHB * dytHB * dytHB
-            - 9.403185493195476 * dytHB * dytHB * dytHB + 1.1563473213070041 * dytHB * dytHB * dytHB * dytHB
-            - 0.14505129596051047 * dKlambda - 0.1418831193390564 * cggHB * dKlambda
-            + 1.3502693869386464 * cggHB * cggHB * dKlambda - 0.6675315048183816 * dcZHB * dKlambda
-            - 0.002999558395846163 * cggHB * dcZHB * dKlambda
-            + 1.5448485758806263 * dytHB * dKlambda
-            - 0.005002986050963205 * cggHB * dytHB * dKlambda
-            - 0.6675315048183816 * dcZHB * dytHB * dKlambda
-            + 1.5222565251876392 * dytHB * dytHB * dKlambda
-            + 0.1278814581005547 * cggHB * dytHB * dytHB * dKlambda
-            - 0.1676433466534976 * dytHB * dytHB * dytHB * dKlambda
-            + 0.011296025346493552 * dKlambda * dKlambda
-            + 0.0014116654816114353 * cggHB * dKlambda * dKlambda
-            + 0.022260157195710357 * cggHB * cggHB * dKlambda * dKlambda
-            + 0.022592050692987104 * dytHB * dKlambda * dKlambda
-            + 0.0014116654816114353 * cggHB * dytHB * dKlambda * dKlambda
-            + 0.011296025346493552 * dytHB * dytHB * dKlambda * dKlambda);
-
-    Bin1 = 0.67944 + Bin1 * dBRTot;
-
-    // Exclude points with negative values of BinX
-    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    // Delta chi2 = -2*LL for the bin
-    // Add an abs in the denominator of the log, 
-    // even if events with negative BinX are not supposed to reach here.
-    LLBin1 = 2.0 * (Bin1 - 0.84944 + 0.84944 * log(0.84944 / fabs(Bin1)));
-
-    // Bin 2
-    Bin2 = 0.33 * (1.0 + 1.8019627645351037 * cggHB
-            + 7.953163597932105 * cggHB * cggHB + 3.735123481549394 * dcZHB
-            - 2.654186900737259 * cggHB * dcZHB + 6.403420811368324 * dcZHB * dcZHB
-            - 6.991501690350679 * dytHB + 11.425848100026737 * cggHB * dytHB
-            - 30.219763494155394 * dcZHB * dytHB + 39.692409895713936 * dytHB * dytHB
-            + 1.661324633279857 * cggHB * dytHB * dytHB + 4.46563789250516 * dcZHB * dytHB * dytHB
-            - 8.710706509282613 * dytHB * dytHB * dytHB + 1.2361692069676826 * dytHB * dytHB * dytHB * dytHB
-            - 0.21386875429750188 * dKlambda + 0.2363972133088796 * cggHB * dKlambda
-            + 0.8549707073528667 * cggHB * cggHB * dKlambda - 0.7305144109557659 * dcZHB * dKlambda
-            - 0.14136602060890807 * cggHB * dcZHB * dKlambda + 1.50533606463443 * dytHB * dKlambda
-            + 0.747017712869579 * cggHB * dytHB * dKlambda - 0.7305144109557659 * dcZHB * dytHB * dKlambda
-            + 1.4607351592940678 * dytHB * dytHB * dKlambda
-            + 0.08652243773397514 * cggHB * dytHB * dytHB * dKlambda
-            - 0.25846965963786395 * dytHB * dytHB * dytHB * dKlambda
-            + 0.022300452670181038 * dKlambda * dKlambda + 0.009236644319657653 * cggHB * dKlambda * dKlambda
-            + 0.023125582948149842 * cggHB * cggHB * dKlambda * dKlambda
-            + 0.044600905340362075 * dytHB * dKlambda * dKlambda
-            + 0.009236644319657653 * cggHB * dytHB * dKlambda * dKlambda
-            + 0.022300452670181038 * dytHB * dytHB * dKlambda * dKlambda);
-
-    Bin2 = 1.4312 + Bin2 * dBRTot;
-
-    // Exclude points with negative values of BinX
-    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    // Delta chi2 = -2*LL for the bin
-    // Add an abs in the denominator of the log, 
-    // even if events with negative BinX are not supposed to reach here.
-    LLBin2 = 2.0 * (Bin2 - 1.7612 + 1.7612 * log(1.7612 / fabs(Bin2)));
-
-    // Bin 3
-    Bin3 = 0.99 * (1.0 + 0.6707152151845268 * cggHB
-            + 4.113022405261353 * cggHB * cggHB + 3.4241906309399726 * dcZHB
-            - 2.9926046286644703 * cggHB * dcZHB + 4.72026565086762 * dcZHB * dcZHB
-            - 5.98522416048399 * dytHB + 10.012680455917307 * cggHB * dytHB
-            - 20.69102310585157 * dcZHB * dytHB + 26.4871108999121 * dytHB * dytHB
-            + 0.36415135473936855 * cggHB * dytHB * dytHB
-            + 4.206380168414172 * dcZHB * dytHB * dytHB - 7.688318821918381 * dytHB * dytHB * dytHB
-            + 1.3217369754941033 * dytHB * dytHB * dytHB * dytHB - 0.2873477323359291 * dKlambda
-            + 0.35631144357921507 * cggHB * dKlambda
-            + 0.6197019283831009 * cggHB * cggHB * dKlambda
-            - 0.7821895374741993 * dcZHB * dKlambda
-            - 0.23172596419155064 * cggHB * dcZHB * dKlambda
-            + 1.415746929098462 * dytHB * dKlambda
-            + 1.0816714186441074 * cggHB * dytHB * dKlambda
-            - 0.7821895374741993 * dcZHB * dytHB * dKlambda
-            + 1.3469684427821131 * dytHB * dytHB * dKlambda
-            + 0.030182082490240562 * cggHB * dytHB * dytHB * dKlambda
-            - 0.35612621865227795 * dytHB * dytHB * dytHB * dKlambda
-            + 0.03438924315817444 * dKlambda * dKlambda
-            + 0.019565500643816278 * cggHB * dKlambda * dKlambda
-            + 0.02382411268034237 * cggHB * cggHB * dKlambda * dKlambda
-            + 0.06877848631634888 * dytHB * dKlambda * dKlambda
-            + 0.019565500643816278 * cggHB * dytHB * dKlambda * dKlambda
-            + 0.03438924315817444 * dytHB * dytHB * dKlambda * dKlambda);
-
-    Bin3 = 1.9764 + Bin3 * dBRTot;
-
-    // Exclude points with negative values of BinX
-    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    // Delta chi2 = -2*LL for the bin
-    // Add an abs in the denominator of the log, 
-    // even if events with negative BinX are not supposed to reach here.
-    LLBin3 = 2.0 * (Bin3 - 2.9664 + 2.9664 * log(2.9664 / fabs(Bin3)));
-
-    // Bin 4
-    Bin4 = 2.86 * (1.0 - 0.27406342847042814 * cggHB
-            + 1.9597360046161074 * cggHB * cggHB + 3.0113078755334115 * dcZHB
-            - 2.776019265892887 * cggHB * dcZHB + 3.1917709639679823 * dcZHB * dcZHB
-            - 4.6362529563760955 * dytHB + 7.377234185667426 * cggHB * dytHB
-            - 12.294598143269557 * dcZHB * dytHB + 15.407456380301479 * dytHB * dytHB
-            - 0.6767601835408067 * cggHB * dytHB * dytHB
-            + 3.844719765004924 * dcZHB * dytHB * dytHB
-            - 6.227970053277897 * dytHB * dytHB * dytHB + 1.4542592857563688 * dytHB * dytHB * dytHB * dytHB
-            - 0.39767067022413716 * dKlambda + 0.3661464075997459 * cggHB * dKlambda
-            + 0.4464409042746693 * cggHB * cggHB * dKlambda
-            - 0.8334118894715125 * dcZHB * dKlambda
-            - 0.3263197431214281 * cggHB * dcZHB * dKlambda
-            + 1.1940464266776625 * dytHB * dKlambda
-            + 1.2643073873631234 * cggHB * dytHB * dKlambda
-            - 0.8334118894715125 * dcZHB * dytHB * dKlambda
-            + 1.0808691956131988 * dytHB * dytHB * dKlambda
-            - 0.0807982496009068 * cggHB * dytHB * dytHB * dKlambda
-            - 0.5108479012886007 * dytHB * dytHB * dytHB * dKlambda
-            + 0.05658861553223176 * dKlambda * dKlambda
-            + 0.04424790213027415 * cggHB * dKlambda * dKlambda
-            + 0.02585578262020257 * cggHB * cggHB * dKlambda * dKlambda
-            + 0.11317723106446352 * dytHB * dKlambda * dKlambda
-            + 0.04424790213027415 * cggHB * dytHB * dKlambda * dKlambda
-            + 0.05658861553223176 * dytHB * dytHB * dKlambda * dKlambda);
-
-    Bin4 = 5.167 + Bin4 * dBRTot;
-
-    // Exclude points with negative values of BinX
-    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    // Delta chi2 = -2*LL for the bin
-    // Add an abs in the denominator of the log, 
-    // even if events with negative BinX are not supposed to reach here.
-    LLBin4 = 2.0 * (Bin4 - 8.027 + 8.027 * log(8.027 / fabs(Bin4)));
-
-    // Bin 5
-    Bin5 = 6.34 * (1.0 - 1.094329254675176 * cggHB
-            + 1.0393648302909912 * cggHB * cggHB + 2.6000916816530903 * dcZHB
-            - 2.4448264513323226 * cggHB * dcZHB + 2.073935963891534 * dcZHB * dcZHB
-            - 3.192332240205929 * dytHB + 4.5914586198385 * cggHB * dytHB
-            - 6.2871857258718595 * dcZHB * dytHB + 8.134770266934664 * dytHB * dytHB
-            - 1.648691479483292 * cggHB * dytHB * dytHB + 3.5563383758242524 * dcZHB * dytHB * dytHB
-            - 4.615570013047001 * dytHB * dytHB * dytHB + 1.7227511548362076 * dytHB * dytHB * dytHB * dytHB
-            - 0.6079428047533413 * dKlambda + 0.33825211279194234 * cggHB * dKlambda
-            + 0.3879052211526028 * cggHB * cggHB * dKlambda - 0.956246694171162 * dcZHB * dKlambda
-            - 0.4572431444456198 * cggHB * dcZHB * dKlambda + 0.8152949680877302 * dytHB * dKlambda
-            + 1.3814632626914451 * cggHB * dytHB * dKlambda
-            - 0.956246694171162 * dcZHB * dytHB * dKlambda + 0.5856782679219981 * dytHB * dytHB * dKlambda
-            - 0.3285182834373566 * cggHB * dytHB * dytHB * dKlambda
-            - 0.8375595049190734 * dytHB * dytHB * dytHB * dKlambda + 0.11480835008286604 * dKlambda * dKlambda
-            + 0.11240817142118299 * cggHB * dKlambda * dKlambda + 0.03688252014841459 * cggHB * cggHB * dKlambda * dKlambda
-            + 0.22961670016573207 * dytHB * dKlambda * dKlambda
-            + 0.11240817142118299 * cggHB * dytHB * dKlambda * dKlambda
-            + 0.11480835008286604 * dytHB * dytHB * dKlambda * dKlambda);
-
-    Bin5 = 15.93 + Bin5 * dBRTot;
-
-    // Exclude points with negative values of BinX
-    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    // Delta chi2 = -2*LL for the bin
-    // Add an abs in the denominator of the log, 
-    // even if events with negative BinX are not supposed to reach here.
-    LLBin5 = 2.0 * (Bin5 - 22.27 + 22.27 * log(22.27 / fabs(Bin5)));
-
-    // Bin 6
-    Bin6 = 2.14 * (1.0 - 2.007855065799201 * cggHB + 1.1994575008850934 * cggHB * cggHB
-            + 2.5987763498382352 * dcZHB - 2.908713303420072 * cggHB * dcZHB
-            + 1.804645897901265 * dcZHB * dcZHB - 2.806900956988577 * dytHB
-            + 3.5621616844486415 * cggHB * dytHB - 4.250685020965587 * dcZHB * dytHB
-            + 5.7468374752045515 * dytHB * dytHB - 3.1561231600123736 * cggHB * dytHB * dytHB
-            + 3.9784140166037667 * dcZHB * dytHB * dytHB - 4.4303353405513395 * dytHB * dytHB * dytHB
-            + 2.257739308366916 * dytHB * dytHB * dytHB * dytHB - 0.9894280925261291 * dKlambda
-            + 0.589956279744333 * cggHB * dKlambda + 0.6687315933211253 * cggHB * cggHB * dKlambda
-            - 1.3796376667655315 * dcZHB * dKlambda - 0.8069993678124955 * cggHB * dcZHB * dKlambda
-            + 0.6340062910366335 * dytHB * dKlambda + 2.127573647123277 * cggHB * dytHB * dKlambda
-            - 1.3796376667655315 * dcZHB * dytHB * dKlambda + 0.09738385935505989 * dytHB * dytHB * dKlambda
-            - 0.8833807360585424 * cggHB * dytHB * dytHB * dKlambda - 1.5260505242077027 * dytHB * dytHB * dytHB * dKlambda
-            + 0.2683112158407868 * dKlambda * dKlambda + 0.32506892158970235 * cggHB * dKlambda * dKlambda
-            + 0.09418943796384227 * cggHB * cggHB * dKlambda * dKlambda + 0.5366224316815736 * dytHB * dKlambda * dKlambda
-            + 0.32506892158970235 * cggHB * dytHB * dKlambda * dKlambda
-            + 0.2683112158407868 * dytHB * dytHB * dKlambda * dKlambda);
-
-    Bin6 = 12.01 + Bin6 * dBRTot;
-
-    // Exclude points with negative values of BinX
-    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
-
-    // Delta chi2 = -2*LL for the bin
-    // Add an abs in the denominator of the log, 
-    // even if events with negative BinX are not supposed to reach here.
-    LLBin6 = 2.0 * (Bin6 - 14.15 + 14.15 * log(14.15 / fabs(Bin6)));
-
-    // The total contributions to the log-likelihood/chi-square
-    Chi2Tot = LLBin1 + LLBin2 + LLBin3 + LLBin4 + LLBin5 + LLBin6;
+    Chi2Tot = 0.0;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
@@ -43677,30 +43263,9 @@ const double NPSMEFTd6General::AuxObs_NP6() const {
 const double NPSMEFTd6General::AuxObs_NP7() const {
     // To be used for some temporary observable
 
-    // CLIC STWY using difermion production at all energies: 380, 1500 and 3000 GeV
-    double Spar, Tpar, Wpar, Ypar, Spar2, Tpar2, Wpar2, Ypar2;
     double Chi2Tot;
 
-    Spar = obliqueS();
-    Tpar = obliqueT();
-    Wpar = 10000.0 * obliqueW();
-    Ypar = 10000.0 * obliqueY();
-
-    Spar2 = Spar*Spar;
-    Tpar2 = Tpar*Tpar;
-    Wpar2 = Wpar*Wpar;
-    Ypar2 = Ypar*Ypar;
-
-    Chi2Tot = 442.84977653097394 * Spar2
-            - 728.5215604181935 * Spar * Tpar
-            + 404.15957807101813 * Tpar2
-            + 400.03987723904224 * Spar * Wpar
-            - 639.6154242400826 * Tpar * Wpar
-            + 4337.791457515823 * Wpar2
-            - 106.87313892453362 * Spar * Ypar
-            - 72.94355609762007 * Tpar * Ypar
-            + 3002.848116515672 * Wpar * Ypar
-            + 3040.1630882458923 * Ypar2;
+    Chi2Tot = 0.0;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
@@ -43709,17 +43274,9 @@ const double NPSMEFTd6General::AuxObs_NP7() const {
 const double NPSMEFTd6General::AuxObs_NP8() const {
     // To be used for some temporary observable
 
-    // CLIC DiHiggs: exclusive analysis. Full CLIC run   
     double Chi2Tot;
 
-    //  Higgs basis parameters
-    double dKlambda;
-
-    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
-
-    Chi2Tot = dKlambda * dKlambda * (50.04473972806045
-            - 104.47283225861888 * dKlambda
-            + 84.48333683635175 * dKlambda * dKlambda);
+    Chi2Tot = 0.0;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
@@ -43728,793 +43285,738 @@ const double NPSMEFTd6General::AuxObs_NP8() const {
 const double NPSMEFTd6General::AuxObs_NP9() const {
     // To be used for some temporary observable
 
-    // ILC DiHiggs at 500 GeV: 2/ab per polarization (+-80,-+30) 
+    double Chi2Tot;
 
-    double Chi2p80m30, Chi2m80p30, Chi2Tot;
-
-    //  Higgs basis parameters
-    double dcZHB, cZboxHB, cZZHB, cZgaHB, cgagaHB;
-    double dKlambda;
-
-    dcZHB = deltacZ_HB(2.0 * mHl);
-    cZboxHB = cZBox_HB(2.0 * mHl);
-    cZZHB = cZZ_HB(2.0 * mHl);
-    cZgaHB = cZga_HB(2.0 * mHl);
-    cgagaHB = cgaga_HB(2.0 * mHl);
-
-    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
-
-    //  The signal strength -1    
-    Chi2p80m30 = 13.6982 * cZZHB
-            - 7.58943 * cZgaHB
-            + 14.6843 * cZboxHB
-            - 1.51882 * cgagaHB
-            + 5.46836 * dcZHB
-            + 0.565585 * dKlambda
-            + 0.000631004 * cZZHB * dKlambda
-            - 0.195079 * cZgaHB * dKlambda
-            + 0.064441 * cZboxHB * dKlambda
-            + 0.440061 * cgagaHB * dKlambda
-            + 2.13192 * dcZHB * dKlambda
-            + 0.0968208 * dKlambda * dKlambda;
-
-    //  ILC report (1903.01629) gives total cross section a 4/ab: 16.8%. 
-    // Assume the precision for each polarization is the same as they do for single Higgs in ZH...    
-    Chi2p80m30 = Chi2p80m30 * Chi2p80m30 / 0.168 / 0.168 / 2.0;
-
-    //  The signal strength -1 
-    Chi2m80p30 = -2.57112 * cZZHB
-            + 6.97966 * cZgaHB
-            - 10.2626 * cZboxHB
-            + 1.39647 * cgagaHB
-            + 5.4684 * dcZHB
-            + 0.565577 * dKlambda
-            + 4.71916 * cZZHB * dKlambda
-            + 0.179045 * cZgaHB * dKlambda
-            + 7.28766 * cZboxHB * dKlambda
-            - 0.405166 * cgagaHB * dKlambda
-            + 2.13189 * dcZHB * dKlambda
-            + 0.0968201 * dKlambda * dKlambda;
-
-    //  ILC report (1903.01629) gives total cross section a 4/ab: 16.8%. 
-    // Assume the precision for each polarization is the same as they do for single Higgs in ZH...        
-    Chi2m80p30 = Chi2m80p30 * Chi2m80p30 / 0.168 / 0.168 / 2.0;
-
-    Chi2Tot = Chi2p80m30 + Chi2m80p30;
+    Chi2Tot = 0.0;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
 }
 
 const double NPSMEFTd6General::AuxObs_NP10() const {
-    // CLIC STWY using difermion production at all energies: 380 and 1500 GeV
-    double Spar, Tpar, Wpar, Ypar, Spar2, Tpar2, Wpar2, Ypar2;
+    // To be used for some temporary observable
+    
     double Chi2Tot;
 
-    Spar = obliqueS();
-    Tpar = obliqueT();
-    Wpar = 10000.0 * obliqueW();
-    Ypar = 10000.0 * obliqueY();
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    Spar2 = Spar*Spar;
-    Tpar2 = Tpar*Tpar;
-    Wpar2 = Wpar*Wpar;
-    Ypar2 = Ypar*Ypar;
+    // Bin 1
+    Bin1 = 0.;
 
-    Chi2Tot = 375.63808963031073 * Spar2
-            - 617.8864704052573 * Spar * Tpar
-            + 353.1650032169891 * Tpar2
-            + 215.96605851087603 * Spar * Wpar
-            - 309.3469843690006 * Tpar * Wpar
-            + 518.10263970583244 * Wpar2
-            - 45.972763923203014 * Spar * Ypar
-            - 40.670385844305705 * Tpar * Ypar
-            + 340.56677318671185 * Wpar * Ypar
-            + 364.5290176991845 * Ypar2;
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin1 = 0.0;
+
+    // Bin 2
+    Bin2 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin2 = 0.0;
+
+    // Bin 3
+    Bin3 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
+
 }
 
 const double NPSMEFTd6General::AuxObs_NP11() const {
-    // CLIC STWY using difermion production at all energies: 380 GeV
-    double Spar, Tpar, Wpar, Ypar, Spar2, Tpar2, Wpar2, Ypar2;
+    // To be used for some temporary observable
+    
     double Chi2Tot;
 
-    Spar = obliqueS();
-    Tpar = obliqueT();
-    Wpar = 10000.0 * obliqueW();
-    Ypar = 10000.0 * obliqueY();
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    Spar2 = Spar*Spar;
-    Tpar2 = Tpar*Tpar;
-    Wpar2 = Wpar*Wpar;
-    Ypar2 = Ypar*Ypar;
+    // Bin 1
+    Bin1 = 0.;
 
-    Chi2Tot = 282.9842573293628 * Spar2
-            - 462.32090035841725 * Spar * Tpar
-            + 276.2496928300019 * Tpar2
-            + 66.08702076419566 * Spar * Wpar
-            - 87.95794393624075 * Tpar * Wpar
-            + 9.5435699879102 * Wpar2
-            - 26.170009941328716 * Spar * Ypar
-            - 9.695238064023518 * Tpar * Ypar
-            + 6.519573295893438 * Wpar * Ypar
-            + 12.858593910798793 * Ypar2;
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin1 = 0.0;
+
+    // Bin 2
+    Bin2 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin2 = 0.0;
+
+    // Bin 3
+    Bin3 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
+
 }
 
 const double NPSMEFTd6General::AuxObs_NP12() const {
-    // CLIC dim6 Top fit 1500 GeV: only for SVF operators
-    double CHqminus, CHt;
+    // To be used for some temporary observable
+    
     double Chi2Tot;
 
-    // The chi2 is given assuming C/Lambda^2 is in units of TeV^-2
-    CHqminus = 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * (1000000.0);
-    CHt = 0.5 * getSMEFTCoeffEW("CHuR", 2, 2) * (1000000.0);
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    Chi2Tot = 1203.58 * CHqminus * CHqminus + 1661.59 * CHqminus * CHt + 1257.83 * CHt * CHt;
+    // Bin 1
+    Bin1 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin1 = 0.0;
+
+    // Bin 2
+    Bin2 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin2 = 0.0;
+
+    // Bin 3
+    Bin3 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
+
 }
 
 const double NPSMEFTd6General::AuxObs_NP13() const {
-    // CLIC dim6 Top fit 3000 GeV: only for SVF operators
-    double CHqminus, CHt;
+    // To be used for some temporary observable
+    
     double Chi2Tot;
 
-    // The chi2 is given assuming C/Lambda^2 is in units of TeV^-2
-    CHqminus = 0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * (1000000.0);
-    CHt = 0.5 * getSMEFTCoeffEW("CHuR", 2, 2) * (1000000.0);
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    Chi2Tot = 5756.01 * CHqminus * CHqminus + 8013.79 * CHqminus * CHt + 3380.7 * CHt * CHt;
+    // Bin 1
+    Bin1 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin1 = 0.0;
+
+    // Bin 2
+    Bin2 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin2 = 0.0;
+
+    // Bin 3
+    Bin3 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
+
 }
 
 const double NPSMEFTd6General::AuxObs_NP14() const {
-    // Test chi2 for HH production at 100 TeV: only the first two bins in 1704.01953 are included,
-    // with the same coefficients (including ratios of cross sections in each bin) its table 4.  The EFT parameterization of Higgs decays are not included.
+    // To be used for some temporary observable
+    
     double Chi2Tot;
 
-    //  Higgs basis parameters
-    double dcZHB, cggHB;
-    double dytHB;
-    double dKlambda;
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    dcZHB = deltacZ_HB(2.0 * mHl);
-    cggHB = cgg_HB(2.0 * mHl);
-    dytHB = deltayt_HB(2.0 * mHl);
-    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
+    // Bin 1
+    Bin1 = 0.;
 
-    double dcZHB2, dcZHB3, dcZHB4;
-    double cggHB2, cggHB3, cggHB4;
-    double dytHB2, dytHB3, dytHB4, dytHB5, dytHB6, dytHB7, dytHB8;
-    double dKlambda2, dKlambda3, dKlambda4;
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    dcZHB2 = dcZHB * dcZHB;
-    dcZHB3 = dcZHB2 * dcZHB;
-    dcZHB4 = dcZHB3 * dcZHB;
+    Chi2Bin1 = 0.0;
 
-    cggHB2 = cggHB * cggHB;
-    cggHB3 = cggHB2 * cggHB;
-    cggHB4 = cggHB3 * cggHB;
+    // Bin 2
+    Bin2 = 0.;
 
-    dytHB2 = dytHB * dytHB;
-    dytHB3 = dytHB2 * dytHB;
-    dytHB4 = dytHB3 * dytHB;
-    dytHB5 = dytHB4 * dytHB;
-    dytHB6 = dytHB5 * dytHB;
-    dytHB7 = dytHB6 * dytHB;
-    dytHB8 = dytHB7 * dytHB;
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    dKlambda2 = dKlambda * dKlambda;
-    dKlambda3 = dKlambda2 * dKlambda;
-    dKlambda4 = dKlambda3 * dKlambda;
+    Chi2Bin2 = 0.0;
 
-    // The Chi2
+    // Bin 3
+    Bin3 = 0.;
 
-    Chi2Tot = 2.0595082782796297e7 * cggHB2 - 3.6971136499764752e9 * cggHB3 + 1.7583900534677216e11 * cggHB4
-            - 630035.4483047676 * cggHB * dcZHB + 1.3588174266991532e8 * cggHB2 * dcZHB - 7.10364464231958e9 * cggHB3 * dcZHB
-            + 5311.651853836387 * dcZHB2 - 1.7067170379207395e6 * cggHB * dcZHB2 + 1.1851653627034137e8 * cggHB2 * dcZHB2
-            + 8180.119549200313 * dcZHB3 - 943018.2335425722 * cggHB * dcZHB3 + 3159.9135213745994 * dcZHB4
-            + 180518.97210352542 * cggHB * dKlambda - 2.8949546963646576e7 * cggHB2 * dKlambda - 5.501576225306801e8 * cggHB3 * dKlambda
-            + 1.5079027448500854e11 * cggHB4 * dKlambda - 2846.9365320948145 * dcZHB * dKlambda + 797208.485191074 * cggHB * dcZHB * dKlambda
-            - 4.978486710457227e6 * cggHB2 * dcZHB * dKlambda - 4.586348042437428e9 * cggHB3 * dcZHB * dKlambda - 6485.875373880575 * dcZHB2 * dKlambda
-            + 390177.86145601963 * cggHB * dcZHB2 * dKlambda + 5.056678567468029e7 * cggHB2 * dcZHB2 * dKlambda - 3291.6842405815532 * dcZHB3 * dKlambda
-            - 198301.99217208195 * cggHB * dcZHB3 * dKlambda + 399.29685823653153 * dKlambda2 - 95580.41780509672 * cggHB * dKlambda2
-            - 7.430874086734321e6 * cggHB2 * dKlambda2 + 7.720064658809748e8 * cggHB3 * dKlambda2 + 5.089872992160051e10 * cggHB4 * dKlambda2
-            + 1809.9095844013955 * dcZHB * dKlambda2 - 1150.4119995786175 * cggHB * dcZHB * dKlambda2 - 2.2786176268418655e7 * cggHB2 * dcZHB * dKlambda2
-            - 1.0351049455121036e9 * cggHB3 * dcZHB * dKlambda2 + 1362.5781363223641 * dcZHB2 * dKlambda2 + 170792.06609378837 * cggHB * dcZHB2 * dKlambda2
-            + 5.658917948194164e6 * cggHB2 * dcZHB2 * dKlambda2 - 178.77181321253659 * dKlambda3 - 11443.938844928987 * cggHB * dKlambda3
-            + 2.461878722072089e6 * cggHB2 * dKlambda3 + 2.821167791764089e8 * cggHB3 * dKlambda3 + 7.998289700049803e9 * cggHB4 * dKlambda3
-            - 267.7615464146533 * dcZHB * dKlambda3 - 52488.33374581051 * cggHB * dcZHB * dKlambda3 - 3.555711022595523e6 * cggHB2 * dcZHB * dKlambda3
-            - 8.149153208622633e7 * cggHB3 * dcZHB * dKlambda3 + 21.07398490236267 * dKlambda4 + 5735.3996792942135 * cggHB * dKlambda4
-            + 596986.3215027236 * cggHB2 * dKlambda4 + 2.773647081412465e7 * cggHB3 * dKlambda4 + 4.915460918180312e8 * cggHB4 * dKlambda4
-            + 740876.8879497008 * cggHB * dytHB - 1.938279550686329e8 * cggHB2 * dytHB + 1.1944585224312653e10 * cggHB3 * dytHB
-            - 12947.635844899749 * dcZHB * dytHB + 4.908519506685015e6 * cggHB * dcZHB * dytHB - 3.742271337006843e8 * cggHB2 * dcZHB * dytHB
-            - 33546.241370498166 * dcZHB2 * dytHB + 4.3134482870087875e6 * cggHB * dcZHB2 * dytHB - 18267.038917513022 * dcZHB3 * dytHB
-            + 3387.385955080094 * dKlambda * dytHB - 963072.1570381082 * cggHB * dKlambda * dytHB - 2.3453010760683898e7 * cggHB2 * dKlambda * dytHB
-            + 9.317798790237669e9 * cggHB3 * dKlambda * dytHB + 14461.190498065112 * dcZHB * dKlambda * dytHB - 276210.0620250288 * cggHB * dcZHB * dKlambda * dytHB
-            - 2.1850896154428744e8 * cggHB2 * dcZHB * dKlambda * dytHB + 7442.375770947524 * dcZHB2 * dKlambda * dytHB
-            + 1.6339998473341048e6 * cggHB * dcZHB2 * dKlambda * dytHB - 3291.6842405815532 * dcZHB3 * dKlambda * dytHB - 1559.6600507789517 * dKlambda2 * dytHB
-            - 212800.20942464058 * cggHB * dKlambda2 * dytHB + 3.499621075016396e7 * cggHB2 * dKlambda2 * dytHB + 2.9495867407085886e9 * cggHB3 * dKlambda2 * dytHB
-            - 132.54584108464164 * dcZHB * dKlambda2 * dytHB - 704650.5551856682 * cggHB * dcZHB * dKlambda2 * dytHB
-            - 4.6230021860231325e7 * cggHB2 * dcZHB * dKlambda2 * dytHB + 2725.1562726447282 * dcZHB2 * dKlambda2 * dytHB
-            + 170792.06609378837 * cggHB * dcZHB2 * dKlambda2 * dytHB - 174.87036642817392 * dKlambda3 * dytHB + 72002.66692264378 * cggHB * dKlambda3 * dytHB
-            + 1.2160354917437742e7 * cggHB2 * dKlambda3 * dytHB + 4.500393455278235e8 * cggHB3 * dKlambda3 * dytHB - 803.2846392439599 * dcZHB * dKlambda3 * dytHB
-            - 104976.66749162102 * cggHB * dcZHB * dKlambda3 * dytHB - 3.555711022595523e6 * cggHB2 * dcZHB * dKlambda3 * dytHB
-            + 84.29593960945068 * dKlambda4 * dytHB + 17206.19903788264 * cggHB * dKlambda4 * dytHB + 1.1939726430054472e6 * cggHB2 * dKlambda4 * dytHB
-            + 2.773647081412465e7 * cggHB3 * dKlambda4 * dytHB + 7985.615632692477 * dytHB2 - 4.312707242837639e6 * cggHB * dytHB2
-            + 4.446488644358661e8 * cggHB2 * dytHB2 - 5.669235052669609e9 * cggHB3 * dytHB2 + 59322.05816648064 * dcZHB * dytHB2
-            - 1.0048203483978426e7 * cggHB * dcZHB * dytHB2 + 2.009903412514487e8 * cggHB2 * dcZHB * dytHB2 + 64971.66315898899 * dcZHB2 * dytHB2
-            - 2.4669987769536236e6 * cggHB * dcZHB2 * dytHB2 + 11471.803789781865 * dcZHB3 * dytHB2 - 11811.249755773804 * dKlambda * dytHB2
-            + 431747.7364057698 * cggHB * dKlambda * dytHB2 + 2.2358583287946397e8 * cggHB2 * dKlambda * dytHB2 - 3.8910877145439386e9 * cggHB3 * dKlambda * dytHB2
-            - 16029.606555240167 * dcZHB * dKlambda * dytHB2 - 2.9253661324121524e6 * cggHB * dcZHB * dKlambda * dytHB2
-            + 8.987023921425158e7 * cggHB2 * dcZHB * dKlambda * dytHB2 + 4717.219498302798 * dcZHB2 * dKlambda * dytHB2
-            - 540895.9436706528 * cggHB * dcZHB2 * dKlambda * dytHB2 + 214.81067429237223 * dKlambda2 * dytHB2 + 567954.341114266 * cggHB * dKlambda2 * dytHB2
-            + 4.5123619667514816e7 * cggHB2 * dKlambda2 * dytHB2 - 9.277345617086976e8 * cggHB3 * dKlambda2 * dytHB2
-            - 3081.626211728115 * dcZHB * dKlambda2 * dytHB2 - 381097.4778098703 * cggHB * dcZHB * dKlambda2 * dytHB2
-            + 1.050966209735231e7 * cggHB2 * dcZHB * dKlambda2 * dytHB2 + 1362.5781363223641 * dcZHB2 * dKlambda2 * dytHB2
-            + 284.9520271687106 * dKlambda3 * dytHB2 + 127206.63260007375 * cggHB * dKlambda3 * dytHB2 + 6.267940600872645e6 * cggHB2 * dKlambda3 * dytHB2
-            - 7.655202990726441e7 * cggHB3 * dKlambda3 * dytHB2 - 803.2846392439599 * dcZHB * dKlambda3 * dytHB2 - 52488.33374581051 * cggHB * dcZHB * dKlambda3 * dytHB2
-            + 126.44390941417602 * dKlambda4 * dytHB2 + 17206.19903788264 * cggHB * dKlambda4 * dytHB2 + 596986.3215027236 * cggHB2 * dKlambda4 * dytHB2
-            - 37223.626257417236 * dytHB3 + 8.269994128894571e6 * cggHB * dytHB3 - 2.9221928856272686e8 * cggHB2 * dytHB3 - 105038.22976459829 * dcZHB * dytHB3
-            + 7.149383019204844e6 * cggHB * dcZHB * dytHB3 - 47474.492515326274 * dcZHB2 * dytHB3 + 11656.27418420629 * dKlambda * dytHB3
-            + 2.385352845620739e6 * cggHB * dKlambda * dytHB3 - 1.8438201632292444e8 * cggHB2 * dKlambda * dytHB3 - 8524.8765354653 * dcZHB * dKlambda * dytHB3
-            + 2.8867300035650665e6 * cggHB * dcZHB * dKlambda * dytHB3 - 9211.031646525304 * dcZHB2 * dKlambda * dytHB3 + 3263.1999469874036 * dKlambda2 * dytHB3
-            + 44138.45406924717 * cggHB * dKlambda2 * dytHB3 - 4.193837918690795e7 * cggHB2 * dKlambda2 * dytHB3 + 1474.023437403278 * dcZHB * dKlambda2 * dytHB3
-            + 322402.6653762193 * cggHB * dcZHB * dKlambda2 * dytHB3 + 116.36014794980927 * dKlambda3 * dytHB3 - 7370.4909474997985 * cggHB * dKlambda3 * dytHB3
-            - 3.4305355944930054e6 * cggHB2 * dKlambda3 * dytHB3 - 267.7615464146533 * dcZHB * dKlambda3 * dytHB3 + 84.29593960945068 * dKlambda4 * dytHB3
-            + 5735.3996792942135 * cggHB * dKlambda4 * dytHB3 + 66652.27308402126 * dytHB4 - 6.871040436399154e6 * cggHB * dytHB4
-            + 9.22099747455498e7 * cggHB2 * dytHB4 + 92021.78032189047 * dcZHB * dytHB4 - 2.257899878309953e6 * cggHB * dcZHB * dytHB4
-            + 16245.693309808961 * dcZHB2 * dytHB4 + 2838.4331580144003 * dKlambda * dytHB4 - 2.731422853592693e6 * cggHB * dKlambda * dytHB4
-            + 4.274439860749665e7 * cggHB2 * dKlambda * dytHB4 + 15892.926730807862 * dcZHB * dKlambda * dytHB4 - 515009.5486394962 * cggHB * dcZHB * dKlambda * dytHB4
-            - 1056.6073875703482 * dKlambda2 * dytHB4 - 482475.3464808796 * cggHB * dKlambda2 * dytHB4 + 5.170468004804585e6 * cggHB2 * dKlambda2 * dytHB4
-            + 2613.194223645355 * dcZHB * dKlambda2 * dytHB4 - 427.75818525652596 * dKlambda3 * dytHB4 - 51130.51778000078 * cggHB * dKlambda3 * dytHB4
-            + 21.07398490236267 * dKlambda4 * dytHB4 - 63203.969008703876 * dytHB5 + 3.151938475204292e6 * cggHB * dytHB5 - 42834.09620756765 * dcZHB * dytHB5
-            - 12524.979109927113 * dKlambda * dytHB5 + 1.3421161655790398e6 * cggHB * dKlambda * dytHB5 - 8919.930319126936 * dcZHB * dKlambda * dytHB5
-            - 849.49051561947 * dKlambda2 * dytHB5 + 158560.3321836832 * cggHB * dKlambda2 * dytHB5 - 263.0677528219873 * dKlambda3 * dytHB5
-            + 37913.4502786983 * dytHB6 - 712582.2268647491 * cggHB * dytHB6 + 10593.332328402174 * dcZHB * dytHB6 + 8514.598993531516 * dKlambda * dytHB6
-            - 169200.83566434312 * cggHB * dKlambda * dytHB6 + 1296.5492356304262 * dKlambda2 * dytHB6 - 13281.426292006341 * dytHB7
-            - 2976.898633587163 * dKlambda * dytHB7 + 2684.433665848417 * dytHB8;
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
+
 }
 
 const double NPSMEFTd6General::AuxObs_NP15() const {
-    // diBoson study from arXiv: 2003.07862: LO version
-    // Only WW and WZ distributions
+    // To be used for some temporary observable
+    
+    double Chi2Tot;
 
-    // Effective couplings
-    double dgZ1, lZ, dkga, dkZ, dgLZu, dgRZu, dgLZd, dgRZd;
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    double chi2WW, chi2WZ;
+    // Bin 1
+    Bin1 = 0.;
 
-    double chi2WWA8, chi2WWA13;
-    double chi2WZA8, chi2WZC8, chi2WZA13, chi2WZC13;
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    // Bins: Theory prediction
-    double WWA8bin1LO, WWA8bin2LO, WWA8bin3LO, WWA8bin4LO, WWA8bin5LO;
-    double WWA13bin1LO, WWA13bin2LO, WWA13bin3LO, WWA13bin4LO, WWA13bin5LO, WWA13bin6LO, WWA13bin7LO;
-    double WZA8bin1LO, WZA8bin2LO, WZA8bin3LO, WZA8bin4LO, WZA8bin5LO, WZA8bin6LO;
-    double WZC8bin1LO, WZC8bin2LO, WZC8bin3LO, WZC8bin4LO, WZC8bin5LO, WZC8bin6LO, WZC8bin7LO, WZC8bin8LO, WZC8bin9LO;
-    double WZA13bin1LO, WZA13bin2LO, WZA13bin3LO, WZA13bin4LO, WZA13bin5LO, WZA13bin6LO;
-    double WZC13bin1LO, WZC13bin2LO, WZC13bin3LO, WZC13bin4LO, WZC13bin5LO, WZC13bin6LO, WZC13bin7LO;
+    Chi2Bin1 = 0.0;
 
-    // Bins: Exp values and errors
-    double WWA8bin1Exp = 4022., WWA8bin2Exp = 951., WWA8bin3Exp = 74., WWA8bin4Exp = 2., WWA8bin5Exp = 1.;
-    double WWA8bin1Err = 210.863, WWA8bin2Err = 56.6745, WWA8bin3Err = 9.35361, WWA8bin4Err = 1.43849, WWA8bin5Err = 0.866498;
+    // Bin 2
+    Bin2 = 0.;
 
-    double WWA13bin1Exp = 419.843, WWA13bin2Exp = 512.837, WWA13bin3Exp = 258.115, WWA13bin4Exp = 170.302, WWA13bin5Exp = 123.998, WWA13bin6Exp = 72.922, WWA13bin7Exp = 35.8834;
-    double WWA13bin1Err = 58.121, WWA13bin2Err = 80.142, WWA13bin3Err = 43.32, WWA13bin4Err = 31.5875, WWA13bin5Err = 24.2051, WWA13bin6Err = 14.44, WWA13bin7Err = 9.55206;
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    double WZA8bin1Exp = 83.23, WZA8bin2Exp = 324.8, WZA8bin3Exp = 217.21, WZA8bin4Exp = 89.32, WZA8bin5Exp = 8.12, WZA8bin6Exp = 2.03;
-    double WZA8bin1Err = 11.4025, WZA8bin2Err = 18.1888, WZA8bin3Err = 13.9014, WZA8bin4Err = 8.66404, WZA8bin5Err = 2.46848, WZA8bin6Err = 1.01906;
+    Chi2Bin2 = 0.0;
 
-    double WZC8bin1Exp = 58016., WZC8bin2Exp = 136024., WZC8bin3Exp = 100352., WZC8bin4Exp = 82320., WZC8bin5Exp = 47040., WZC8bin6Exp = 19208., WZC8bin7Exp = 19600., WZC8bin8Exp = 15758.4, WZC8bin9Exp = 9604.;
-    double WZC8bin1Err = 17038.1, WZC8bin2Err = 30818.8, WZC8bin3Err = 28715.2, WZC8bin4Err = 21945., WZC8bin5Err = 16718.7, WZC8bin6Err = 10771.1, WZC8bin7Err = 9505.49, WZC8bin8Err = 10897.5, WZC8bin9Err = 7723.99;
+    // Bin 3
+    Bin3 = 0.;
 
-    double WZA13bin1Exp = 280.497, WZA13bin2Exp = 925.965, WZA13bin3Exp = 784.814, WZA13bin4Exp = 280.136, WZA13bin5Exp = 21.299, WZA13bin6Exp = 15.162;
-    double WZA13bin1Err = 40.3916, WZA13bin2Err = 62.0397, WZA13bin3Err = 45.5192, WZA13bin4Err = 22.9712, WZA13bin5Err = 4.89877, WZA13bin6Err = 3.54791;
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    double WZC13bin1Exp = 475.3, WZC13bin2Exp = 1963.2, WZC13bin3Exp = 849.4, WZC13bin4Exp = 305.1, WZC13bin5Exp = 210., WZC13bin6Exp = 10.9, WZC13bin7Exp = 3.54;
-    double WZC13bin1Err = 32.2502, WZC13bin2Err = 107.697, WZC13bin3Err = 51.5083, WZC13bin4Err = 23.1908, WZC13bin5Err = 17.8955, WZC13bin6Err = 3.83689, WZC13bin7Err = 2.01542;
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
 
-    //  Effective parameters
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    // Zff couplings. Approximate them as couplings with 1st family quarks (i.e. all pp is 1st family)
-    dgLZu = deltaGL_f(quarks[UP]);
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
 
-    dgRZu = deltaGR_f(quarks[UP]);
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    dgLZd = deltaGL_f(quarks[DOWN]);
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
 
-    dgRZd = deltaGR_f(quarks[DOWN]);
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    // arXiv: 2003.07862 convention for aTGC Lagrangian has a minus sign wrt HEPfit definitions
-    dgZ1 = -deltag1ZNP(muw);
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
-    dkga = -deltaKgammaNP(muw);
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 
-    dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - deltag1gaNP(muw));
-
-    lZ = -lambdaZNP(muw);
-
-    // Parameterization of pp->WW
-
-    // WW ATLAS pT bins 8 TeV
-    WWA8bin1LO = 2410.31 - 7955.92 * dgLZd + 12275.5 * dgLZu + 2557.08 * dgRZd + 2052.71 * dgRZu + 1909.25 * dgZ1 + 2578.16 * dkZ + 2481.23 * lZ;
-
-    WWA8bin2LO = 550.64 - 2620.11 * dgLZd + 3535.75 * dgLZu + 686.547 * dgRZd + 182.622 * dgRZu - 282.928 * dgZ1 + 741.476 * dkZ + 383.857 * lZ;
-
-    WWA8bin3LO = 49.86 - 410.099 * dgLZd + 445.841 * dgLZu + 83.1445 * dgRZd - 52.7319 * dgRZu - 185.631 * dgZ1 + 123.908 * dkZ + 18.1956 * lZ;
-
-    WWA8bin4LO = 5.699 - 79.7396 * dgLZd + 70.0216 * dgLZu + 12.9901 * dgRZd - 18.8422 * dgRZu - 50.7712 * dgZ1 + 26.0995 * dkZ + 1.24051 * lZ;
-
-    WWA8bin5LO = 1.2727 - 30.569 * dgLZd + 21.8664 * dgLZu + 4.07619 * dgRZd - 9.13773 * dgRZu - 22.4705 * dgZ1 + 10.6031 * dkZ - 0.0207054 * lZ;
-
-    // Use only last bin
-    chi2WWA8 = 0. * (WWA8bin1Exp - WWA8bin1LO)*(WWA8bin1Exp - WWA8bin1LO) / WWA8bin1Err / WWA8bin1Err +
-            0. * (WWA8bin2Exp - WWA8bin2LO)*(WWA8bin2Exp - WWA8bin2LO) / WWA8bin2Err / WWA8bin2Err +
-            0. * (WWA8bin3Exp - WWA8bin3LO)*(WWA8bin3Exp - WWA8bin3LO) / WWA8bin3Err / WWA8bin3Err +
-            0. * (WWA8bin4Exp - WWA8bin4LO)*(WWA8bin4Exp - WWA8bin4LO) / WWA8bin4Err / WWA8bin4Err +
-            (WWA8bin5Exp - WWA8bin5LO)*(WWA8bin5Exp - WWA8bin5LO) / WWA8bin5Err / WWA8bin5Err;
-
-
-    // WW ATLAS pT bins 13 TeV 
-    WWA13bin1LO = 400.32 - 2010.9 * dgLZd + 2743.29 * dgLZu + 518.417 * dgRZd + 74.99 * dgRZu - 334.799 * dgZ1 + 564.605 * dkZ + 277.749 * lZ;
-
-    WWA13bin2LO = 493.759 - 2748.52 * dgLZd + 3608.02 * dgLZu + 674.641 * dgRZd - 19.055 * dgRZu - 667.59 * dgZ1 + 779.098 * dkZ + 298.751 * lZ;
-
-    WWA13bin3LO = 258.115 - 1651.56 * dgLZd + 2047.54 * dgLZu + 379.535 * dgRZd - 97.9571 * dgRZu - 549.495 * dgZ1 + 478.339 * dkZ + 128.105 * lZ;
-
-    WWA13bin4LO = 171.153 - 1266.88 * dgLZd + 1471.52 * dgLZu + 271.806 * dgRZd - 134.097 * dgRZu - 521.841 * dgZ1 + 376.853 * dkZ + 68.516 * lZ;
-
-    WWA13bin5LO = 134.414 - 1215.57 * dgLZd + 1285.59 * dgLZu + 237.757 * dgRZd - 191.781 * dgRZu - 607.825 * dgZ1 + 374.921 * dkZ + 38.9405 * lZ;
-
-    WWA13bin6LO = 69.2759 - 853.385 * dgLZd + 780.617 * dgLZu + 145.743 * dgRZd - 185.211 * dgRZu - 512.435 * dgZ1 + 276.095 * dkZ + 11.456 * lZ;
-
-    WWA13bin7LO = 33.7304 - 713.411 * dgLZd + 510.906 * dgLZu + 97.8425 * dgRZd - 199.708 * dgRZu - 502.132 * dgZ1 + 244.554 * dkZ + 0.233402 * lZ;
-
-    // Exclude last 2 bins
-    chi2WWA13 = (WWA13bin1Exp - WWA13bin1LO)*(WWA13bin1Exp - WWA13bin1LO) / WWA13bin1Err / WWA13bin1Err +
-            (WWA13bin2Exp - WWA13bin2LO)*(WWA13bin2Exp - WWA13bin2LO) / WWA13bin2Err / WWA13bin2Err +
-            (WWA13bin3Exp - WWA13bin3LO)*(WWA13bin3Exp - WWA13bin3LO) / WWA13bin3Err / WWA13bin3Err +
-            (WWA13bin4Exp - WWA13bin4LO)*(WWA13bin4Exp - WWA13bin4LO) / WWA13bin4Err / WWA13bin4Err +
-            (WWA13bin5Exp - WWA13bin5LO)*(WWA13bin5Exp - WWA13bin5LO) / WWA13bin5Err / WWA13bin5Err +
-            0. * (WWA13bin6Exp - WWA13bin6LO)*(WWA13bin6Exp - WWA13bin6LO) / WWA13bin6Err / WWA13bin6Err +
-            0. * (WWA13bin7Exp - WWA13bin7LO)*(WWA13bin7Exp - WWA13bin7LO) / WWA13bin7Err / WWA13bin7Err;
-
-
-    // Total WW chi2
-    chi2WW = chi2WWA8 + chi2WWA13;
-
-
-    // Parameterization of pp->WZ
-
-    // WZ ATLAS MT bins 8 TeV
-    WZA8bin1LO = 64.0231 - 262.564 * dgLZd + 271.127 * dgLZu + 64.0231 * dgRZd + 64.0231 * dgRZu + 73.1446 * dgZ1 + 70.0463 * dkZ + 79.3857 * lZ;
-
-    WZA8bin2LO = 266.448 - 1078.16 * dgLZd + 1164.29 * dgLZu + 266.448 * dgRZd + 266.448 * dgRZu + 306.867 * dgZ1 + 282.18 * dkZ + 337.517 * lZ;
-
-    WZA8bin3LO = 199.275 - 1246.69 * dgLZd + 1419.14 * dgLZu + 199.275 * dgRZd + 199.275 * dgRZu - 66.2903 * dgZ1 + 125.888 * dkZ + 130.754 * lZ;
-
-    WZA8bin4LO = 62.4615 - 900.496 * dgLZd + 976.191 * dgLZu + 62.4615 * dgRZd + 62.4615 * dgRZu - 376.789 * dgZ1 - 7.89486 * dkZ - 3.3 * lZ;
-
-    WZA8bin5LO = 4.89157 - 167.729 * dgLZd + 172.898 * dgLZu + 4.89157 * dgRZd + 4.89157 * dgRZu - 101.811 * dgZ1 - 3.62056 * dkZ + 2.56078 * lZ;
-
-    WZA8bin6LO = 1.42958 - 105.344 * dgLZd + 106.596 * dgLZu + 1.42958 * dgRZd + 1.42958 * dgRZu - 73.1082 * dgZ1 - 1.40856 * dkZ + 4.95953 * lZ;
-
-    // Consider only 5 and 6th bin
-    chi2WZA8 = 0. * (WZA8bin1Exp - WZA8bin1LO)*(WZA8bin1Exp - WZA8bin1LO) / WZA8bin1Err / WZA8bin1Err +
-            0. * (WZA8bin2Exp - WZA8bin2LO)*(WZA8bin2Exp - WZA8bin2LO) / WZA8bin2Err / WZA8bin2Err +
-            0. * (WZA8bin3Exp - WZA8bin3LO)*(WZA8bin3Exp - WZA8bin3LO) / WZA8bin3Err / WZA8bin3Err +
-            0. * (WZA8bin4Exp - WZA8bin4LO)*(WZA8bin4Exp - WZA8bin4LO) / WZA8bin4Err / WZA8bin4Err +
-            (WZA8bin5Exp - WZA8bin5LO)*(WZA8bin5Exp - WZA8bin5LO) / WZA8bin5Err / WZA8bin5Err +
-            (WZA8bin6Exp - WZA8bin6LO)*(WZA8bin6Exp - WZA8bin6LO) / WZA8bin6Err / WZA8bin6Err;
-
-
-    // WZ CMS pT bins 8 TeV
-    WZC8bin1LO = 48211.3 - 137924. * dgLZd + 120313. * dgLZu + 48211.3 * dgRZd + 48211.3 * dgRZu + 94261.9 * dgZ1 + 67530. * dkZ + 85895.7 * lZ;
-
-    WZC8bin2LO = 105555. - 440885. * dgLZd + 355350. * dgLZu + 105555. * dgRZd + 105555. * dgRZu + 141264. * dgZ1 + 122367. * dkZ + 148838. * lZ;
-
-    WZC8bin3LO = 95535.1 - 542042. * dgLZd + 467766. * dgLZu + 95535.1 * dgRZd + 95535.1 * dgRZu + 46226.7 * dgZ1 + 80186.7 * dkZ + 97205.6 * lZ;
-
-    WZC8bin4LO = 63880.3 - 479646. * dgLZd + 456064. * dgLZu + 63880.3 * dgRZd + 63880.3 * dgRZu - 44518.1 * dgZ1 + 28691.7 * dkZ + 38018.6 * lZ;
-
-    WZC8bin5LO = 39607.7 - 383899. * dgLZd + 379976. * dgLZu + 39607.7 * dgRZd + 39607.7 * dgRZu - 84542.1 * dgZ1 + 4050.03 * dkZ + 6365.16 * lZ;
-
-    WZC8bin6LO = 24855.2 - 302869. * dgLZd + 304541. * dgLZu + 24855.2 * dgRZd + 24855.2 * dgRZu - 95368.5 * dgZ1 - 4726.25 * dkZ - 6591.92 * lZ;
-
-    WZC8bin7LO = 14988.1 - 224947. * dgLZd + 227541. * dgLZu + 14988.1 * dgRZd + 14988.1 * dgRZu - 87151.6 * dgZ1 - 6575.39 * dkZ - 9906.71 * lZ;
-
-    WZC8bin8LO = 19871.3 - 412140. * dgLZd + 417930. * dgLZu + 19871.3 * dgRZd + 19871.3 * dgRZu - 198439. * dgZ1 - 15171.5 * dkZ - 24525.7 * lZ;
-
-    WZC8bin9LO = 7452.7 - 269883. * dgLZd + 272932. * dgLZu + 7452.7 * dgRZd + 7452.7 * dgRZu - 161173. * dgZ1 - 8792.17 * dkZ - 15465.3 * lZ;
-
-    // All bins
-    chi2WZC8 = (WZC8bin1Exp - WZC8bin1LO)*(WZC8bin1Exp - WZC8bin1LO) / WZC8bin1Err / WZC8bin1Err +
-            (WZC8bin2Exp - WZC8bin2LO)*(WZC8bin2Exp - WZC8bin2LO) / WZC8bin2Err / WZC8bin2Err +
-            (WZC8bin3Exp - WZC8bin3LO)*(WZC8bin3Exp - WZC8bin3LO) / WZC8bin3Err / WZC8bin3Err +
-            (WZC8bin4Exp - WZC8bin4LO)*(WZC8bin4Exp - WZC8bin4LO) / WZC8bin4Err / WZC8bin4Err +
-            (WZC8bin5Exp - WZC8bin5LO)*(WZC8bin5Exp - WZC8bin5LO) / WZC8bin5Err / WZC8bin5Err +
-            (WZC8bin6Exp - WZC8bin6LO)*(WZC8bin6Exp - WZC8bin6LO) / WZC8bin6Err / WZC8bin6Err +
-            (WZC8bin7Exp - WZC8bin7LO)*(WZC8bin7Exp - WZC8bin7LO) / WZC8bin7Err / WZC8bin7Err +
-            (WZC8bin8Exp - WZC8bin8LO)*(WZC8bin8Exp - WZC8bin8LO) / WZC8bin8Err / WZC8bin8Err +
-            (WZC8bin9Exp - WZC8bin9LO)*(WZC8bin9Exp - WZC8bin9LO) / WZC8bin9Err / WZC8bin9Err;
-
-
-    // WZ ATLAS MT bins 13 TeV
-    WZA13bin1LO = 210.9 - 863.074 * dgLZd + 900.382 * dgLZu + 211.842 * dgRZd + 211.842 * dgRZu + 242.98 * dgZ1 + 232.219 * dkZ + 262.962 * lZ;
-
-    WZA13bin2LO = 935.318 - 3772.34 * dgLZd + 4098.21 * dgLZu + 936.319 * dgRZd + 936.319 * dgRZu + 1081.52 * dgZ1 + 993.265 * dkZ + 1188.07 * lZ;
-
-    WZA13bin3LO = 761.955 - 4753.51 * dgLZd + 5422.16 * dgLZu + 762.426 * dgRZd + 762.426 * dgRZu - 246.741 * dgZ1 + 484.428 * dkZ + 506.464 * lZ;
-
-    WZA13bin4LO = 282.966 - 4085.68 * dgLZd + 4424.39 * dgLZu + 284.141 * dgRZd + 284.141 * dgRZu - 1707.42 * dgZ1 - 32.2231 * dkZ - 2.89413 * lZ;
-
-    WZA13bin5LO = 28.3987 - 953.075 * dgLZd + 982.47 * dgLZu + 28.5529 * dgRZd + 28.5529 * dgRZu - 574.883 * dgZ1 - 19.8605 * dkZ + 19.6616 * lZ;
-
-    WZA13bin6LO = 14.1701 - 1069.87 * dgLZd + 1082.36 * dgLZu + 14.3211 * dgRZd + 14.3211 * dgRZu - 744.911 * dgZ1 - 12.7999 * dkZ + 67.0172 * lZ;
-
-    // All bins
-    chi2WZA13 = (WZA13bin1Exp - WZA13bin1LO)*(WZA13bin1Exp - WZA13bin1LO) / WZA13bin1Err / WZA13bin1Err +
-            (WZA13bin2Exp - WZA13bin2LO)*(WZA13bin2Exp - WZA13bin2LO) / WZA13bin2Err / WZA13bin2Err +
-            (WZA13bin3Exp - WZA13bin3LO)*(WZA13bin3Exp - WZA13bin3LO) / WZA13bin3Err / WZA13bin3Err +
-            (WZA13bin4Exp - WZA13bin4LO)*(WZA13bin4Exp - WZA13bin4LO) / WZA13bin4Err / WZA13bin4Err +
-            (WZA13bin5Exp - WZA13bin5LO)*(WZA13bin5Exp - WZA13bin5LO) / WZA13bin5Err / WZA13bin5Err +
-            (WZA13bin6Exp - WZA13bin6LO)*(WZA13bin6Exp - WZA13bin6LO) / WZA13bin6Err / WZA13bin6Err;
-
-
-    // WZ CMS M bins 13 TeV
-    WZC13bin1LO = 310.897 - 1747.83 * dgLZd + 1098.2 * dgLZu + 310.897 * dgRZd + 310.897 * dgRZu + 254.88 * dgZ1 + 308.331 * dkZ + 338.716 * lZ;
-
-    WZC13bin2LO = 1490.35 - 9445.69 * dgLZd + 9529.15 * dgLZu + 1490.35 * dgRZd + 1490.35 * dgRZu - 292.046 * dgZ1 + 1065.37 * dkZ + 1331.03 * lZ;
-
-    WZC13bin3LO = 629.894 - 5705.32 * dgLZd + 5880.54 * dgLZu + 629.894 * dgRZd + 629.894 * dgRZu - 1292.82 * dgZ1 + 241.436 * dkZ + 348.134 * lZ;
-
-    WZC13bin4LO = 232.784 - 2749.58 * dgLZd + 2807.65 * dgLZu + 232.784 * dgRZd + 232.784 * dgRZu - 933.382 * dgZ1 + 49.9535 * dkZ + 91.6478 * lZ;
-
-    WZC13bin5LO = 174.94 - 3217.49 * dgLZd + 3252.81 * dgLZu + 174.94 * dgRZd + 174.94 * dgRZu - 1564.01 * dgZ1 + 7.77705 * dkZ + 55.699 * lZ;
-
-    WZC13bin6LO = 8.27 - 347.727 * dgLZd + 351.047 * dgLZu + 8.27 * dgRZd + 8.27 * dgRZu - 225.256 * dgZ1 - 1.11098 * dkZ + 4.70184 * lZ;
-
-    WZC13bin7LO = 1.71 - 136.248 * dgLZd + 137.365 * dgLZu + 1.71 * dgRZd + 1.71 * dgRZu - 96.8497 * dgZ1 - 0.143322 * dkZ + 2.33017 * lZ;
-
-    // Consider only the last 3 bins
-    chi2WZC13 = 0. * (WZC13bin1Exp - WZC13bin1LO)*(WZC13bin1Exp - WZC13bin1LO) / WZC13bin1Err / WZC13bin1Err +
-            0. * (WZC13bin2Exp - WZC13bin2LO)*(WZC13bin2Exp - WZC13bin2LO) / WZC13bin2Err / WZC13bin2Err +
-            0. * (WZC13bin3Exp - WZC13bin3LO)*(WZC13bin3Exp - WZC13bin3LO) / WZC13bin3Err / WZC13bin3Err +
-            0. * (WZC13bin4Exp - WZC13bin4LO)*(WZC13bin4Exp - WZC13bin4LO) / WZC13bin4Err / WZC13bin4Err +
-            (WZC13bin5Exp - WZC13bin5LO)*(WZC13bin5Exp - WZC13bin5LO) / WZC13bin5Err / WZC13bin5Err +
-            (WZC13bin6Exp - WZC13bin6LO)*(WZC13bin6Exp - WZC13bin6LO) / WZC13bin6Err / WZC13bin6Err +
-            (WZC13bin7Exp - WZC13bin7LO)*(WZC13bin7Exp - WZC13bin7LO) / WZC13bin7Err / WZC13bin7Err;
-
-
-    // Total WW chi2
-    chi2WZ = chi2WZA8 + chi2WZC8 + chi2WZA13 + chi2WZC13;
-
-    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt of the total chi2    
-    return sqrt(chi2WW + chi2WZ);
 }
 
 const double NPSMEFTd6General::AuxObs_NP16() const {
-    // diBoson study from arXiv: 2003.07862: NLO version
-    // Only WW and WZ distributions
+    // To be used for some temporary observable
+    
+    double Chi2Tot;
 
-    // Effective couplings
-    double dgZ1, lZ, dkga, dkZ, dgLZu, dgRZu, dgLZd, dgRZd;
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    double chi2WW, chi2WZ;
+    // Bin 1
+    Bin1 = 0.;
 
-    double chi2WWA8, chi2WWA13;
-    double chi2WZA8, chi2WZC8, chi2WZA13, chi2WZC13;
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    // Bins: Theory prediction
-    double WWA8bin1NLO, WWA8bin2NLO, WWA8bin3NLO, WWA8bin4NLO, WWA8bin5NLO;
-    double WWA13bin1NLO, WWA13bin2NLO, WWA13bin3NLO, WWA13bin4NLO, WWA13bin5NLO, WWA13bin6NLO, WWA13bin7NLO;
-    double WZA8bin1NLO, WZA8bin2NLO, WZA8bin3NLO, WZA8bin4NLO, WZA8bin5NLO, WZA8bin6NLO;
-    double WZC8bin1NLO, WZC8bin2NLO, WZC8bin3NLO, WZC8bin4NLO, WZC8bin5NLO, WZC8bin6NLO, WZC8bin7NLO, WZC8bin8NLO, WZC8bin9NLO;
-    double WZA13bin1NLO, WZA13bin2NLO, WZA13bin3NLO, WZA13bin4NLO, WZA13bin5NLO, WZA13bin6NLO;
-    double WZC13bin1NLO, WZC13bin2NLO, WZC13bin3NLO, WZC13bin4NLO, WZC13bin5NLO, WZC13bin6NLO, WZC13bin7NLO;
+    Chi2Bin1 = 0.0;
 
-    // Bins: Exp values and errors
-    double WWA8bin1Exp = 4022., WWA8bin2Exp = 951., WWA8bin3Exp = 74., WWA8bin4Exp = 2., WWA8bin5Exp = 1.;
-    double WWA8bin1Err = 210.863, WWA8bin2Err = 56.6745, WWA8bin3Err = 9.35361, WWA8bin4Err = 1.43849, WWA8bin5Err = 0.866498;
+    // Bin 2
+    Bin2 = 0.;
 
-    double WWA13bin1Exp = 419.843, WWA13bin2Exp = 512.837, WWA13bin3Exp = 258.115, WWA13bin4Exp = 170.302, WWA13bin5Exp = 123.998, WWA13bin6Exp = 72.922, WWA13bin7Exp = 35.8834;
-    double WWA13bin1Err = 58.121, WWA13bin2Err = 80.142, WWA13bin3Err = 43.32, WWA13bin4Err = 31.5875, WWA13bin5Err = 24.2051, WWA13bin6Err = 14.44, WWA13bin7Err = 9.55206;
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    double WZA8bin1Exp = 83.23, WZA8bin2Exp = 324.8, WZA8bin3Exp = 217.21, WZA8bin4Exp = 89.32, WZA8bin5Exp = 8.12, WZA8bin6Exp = 2.03;
-    double WZA8bin1Err = 11.4025, WZA8bin2Err = 18.1888, WZA8bin3Err = 13.9014, WZA8bin4Err = 8.66404, WZA8bin5Err = 2.46848, WZA8bin6Err = 1.01906;
+    Chi2Bin2 = 0.0;
 
-    double WZC8bin1Exp = 58016., WZC8bin2Exp = 136024., WZC8bin3Exp = 100352., WZC8bin4Exp = 82320., WZC8bin5Exp = 47040., WZC8bin6Exp = 19208., WZC8bin7Exp = 19600., WZC8bin8Exp = 15758.4, WZC8bin9Exp = 9604.;
-    double WZC8bin1Err = 17038.1, WZC8bin2Err = 30818.8, WZC8bin3Err = 28715.2, WZC8bin4Err = 21945., WZC8bin5Err = 16718.7, WZC8bin6Err = 10771.1, WZC8bin7Err = 9505.49, WZC8bin8Err = 10897.5, WZC8bin9Err = 7723.99;
+    // Bin 3
+    Bin3 = 0.;
 
-    double WZA13bin1Exp = 280.497, WZA13bin2Exp = 925.965, WZA13bin3Exp = 784.814, WZA13bin4Exp = 280.136, WZA13bin5Exp = 21.299, WZA13bin6Exp = 15.162;
-    double WZA13bin1Err = 40.3916, WZA13bin2Err = 62.0397, WZA13bin3Err = 45.5192, WZA13bin4Err = 22.9712, WZA13bin5Err = 4.89877, WZA13bin6Err = 3.54791;
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    double WZC13bin1Exp = 475.3, WZC13bin2Exp = 1963.2, WZC13bin3Exp = 849.4, WZC13bin4Exp = 305.1, WZC13bin5Exp = 210., WZC13bin6Exp = 10.9, WZC13bin7Exp = 3.54;
-    double WZC13bin1Err = 32.2502, WZC13bin2Err = 107.697, WZC13bin3Err = 51.5083, WZC13bin4Err = 23.1908, WZC13bin5Err = 17.8955, WZC13bin6Err = 3.83689, WZC13bin7Err = 2.01542;
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
 
-    //  Effective parameters
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    // Zff couplings. Approximate them as couplings with 1st family quarks (i.e. all pp is 1st family)
-    dgLZu = deltaGL_f(quarks[UP]);
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
 
-    dgRZu = deltaGR_f(quarks[UP]);
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    dgLZd = deltaGL_f(quarks[DOWN]);
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
 
-    dgRZd = deltaGR_f(quarks[DOWN]);
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    // arXiv: 2003.07862 convention for aTGC Lagrangian has a minus sign wrt HEPfit definitions
-    dgZ1 = -deltag1ZNP(muw);
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
-    dkga = -deltaKgammaNP(muw);
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 
-    dkZ = dgZ1 - (sW2_tree / cW2_tree) * dkga;
-
-    lZ = -lambdaZNP(muw);
-
-    // Parameterization of pp->WW
-
-    // WW ATLAS pT bins 8 TeV
-    WWA8bin1NLO = 2410.31 - 7829.11 * dgLZd + 12299.8 * dgLZu + 2556.54 * dgRZd + 2112.94 * dgRZu + 2030.05 * dgZ1 + 2568.87 * dkZ + 2528.84 * lZ;
-
-    WWA8bin2NLO = 550.64 - 2265.28 * dgLZd + 3155.45 * dgLZu + 615.479 * dgRZd + 203.37 * dgRZu - 165.565 * dgZ1 + 650.167 * dkZ + 411.026 * lZ;
-
-    WWA8bin3NLO = 49.86 - 317.921 * dgLZd + 351.102 * dgLZu + 66.4958 * dgRZd - 36.0034 * dgRZu - 135.219 * dgZ1 + 94.4916 * dkZ + 37.3071 * lZ;
-
-    WWA8bin4NLO = 5.699 - 57.4092 * dgLZd + 50.6928 * dgLZu + 9.81372 * dgRZd - 13.2364 * dgRZu - 36.198 * dgZ1 + 18.55 * dkZ + 6.98241 * lZ;
-
-    WWA8bin5NLO = 1.2727 - 20.8509 * dgLZd + 15.6341 * dgLZu + 3.00117 * dgRZd - 6.22156 * dgRZu - 15.5846 * dgZ1 + 7.18415 * dkZ + 2.99976 * lZ;
-
-    // Use only last bin
-    chi2WWA8 = 0. * (WWA8bin1Exp - WWA8bin1NLO)*(WWA8bin1Exp - WWA8bin1NLO) / WWA8bin1Err / WWA8bin1Err +
-            0. * (WWA8bin2Exp - WWA8bin2NLO)*(WWA8bin2Exp - WWA8bin2NLO) / WWA8bin2Err / WWA8bin2Err +
-            0. * (WWA8bin3Exp - WWA8bin3NLO)*(WWA8bin3Exp - WWA8bin3NLO) / WWA8bin3Err / WWA8bin3Err +
-            0. * (WWA8bin4Exp - WWA8bin4NLO)*(WWA8bin4Exp - WWA8bin4NLO) / WWA8bin4Err / WWA8bin4Err +
-            (WWA8bin5Exp - WWA8bin5NLO)*(WWA8bin5Exp - WWA8bin5NLO) / WWA8bin5Err / WWA8bin5Err;
-
-
-    // WW ATLAS pT bins 13 TeV 
-    WWA13bin1NLO = 400.32 - 1946.32 * dgLZd + 2736.41 * dgLZu + 521.991 * dgRZd + 114.286 * dgRZu - 241.492 * dgZ1 + 557.655 * dkZ + 348.551 * lZ;
-
-    WWA13bin2NLO = 493.759 - 2620.09 * dgLZd + 3518.17 * dgLZu + 666.437 * dgRZd + 38.085 * dgRZu - 533.621 * dgZ1 + 750.58 * dkZ + 409.991 * lZ;
-
-    WWA13bin3NLO = 258.115 - 1522.46 * dgLZd + 1943.17 * dgLZu + 365.503 * dgRZd - 61.1737 * dgRZu - 455.013 * dgZ1 + 446.558 * dkZ + 198.405 * lZ;
-
-    WWA13bin4NLO = 171.153 - 1153.75 * dgLZd + 1360.68 * dgLZu + 256.067 * dgRZd - 102.757 * dgRZu - 434.307 * dgZ1 + 342.709 * dkZ + 132.885 * lZ;
-
-    WWA13bin5NLO = 134.414 - 1086.1 * dgLZd + 1149.72 * dgLZu + 217.941 * dgRZd - 150.149 * dgRZu - 509.092 * dgZ1 + 327.509 * dkZ + 110.989 * lZ;
-
-    WWA13bin6NLO = 69.2759 - 729.641 * dgLZd + 667.246 * dgLZu + 129.686 * dgRZd - 150.65 * dgRZu - 424.099 * dgZ1 + 233.325 * dkZ + 74.4341 * lZ;
-
-    WWA13bin7NLO = 33.7304 - 593.383 * dgLZd + 426.917 * dgLZu + 84.0936 * dgRZd - 160.339 * dgRZu - 410.935 * dgZ1 + 198.867 * dkZ + 61.7305 * lZ;
-
-    // Exclude last 2 bins
-    chi2WWA13 = (WWA13bin1Exp - WWA13bin1NLO)*(WWA13bin1Exp - WWA13bin1NLO) / WWA13bin1Err / WWA13bin1Err +
-            (WWA13bin2Exp - WWA13bin2NLO)*(WWA13bin2Exp - WWA13bin2NLO) / WWA13bin2Err / WWA13bin2Err +
-            (WWA13bin3Exp - WWA13bin3NLO)*(WWA13bin3Exp - WWA13bin3NLO) / WWA13bin3Err / WWA13bin3Err +
-            (WWA13bin4Exp - WWA13bin4NLO)*(WWA13bin4Exp - WWA13bin4NLO) / WWA13bin4Err / WWA13bin4Err +
-            (WWA13bin5Exp - WWA13bin5NLO)*(WWA13bin5Exp - WWA13bin5NLO) / WWA13bin5Err / WWA13bin5Err +
-            0. * (WWA13bin6Exp - WWA13bin6NLO)*(WWA13bin6Exp - WWA13bin6NLO) / WWA13bin6Err / WWA13bin6Err +
-            0. * (WWA13bin7Exp - WWA13bin7NLO)*(WWA13bin7Exp - WWA13bin7NLO) / WWA13bin7Err / WWA13bin7Err;
-
-
-    // Total WW chi2
-    chi2WW = chi2WWA8 + chi2WWA13;
-
-
-    // Parameterization of pp->WZ
-
-    // WZ ATLAS MT bins 8 TeV
-    WZA8bin1NLO = 64.0231 - 432.326 * dgLZd + 663.895 * dgLZu + 113.935 * dgRZd + 113.935 * dgRZu + 136.053 * dgZ1 + 127.745 * dkZ + 154.176 * lZ;
-
-    WZA8bin2NLO = 266.448 - 1696.04 * dgLZd + 2682.91 * dgLZu + 455.526 * dgRZd + 455.526 * dgRZu + 567.978 * dgZ1 + 500.809 * dkZ + 624.434 * lZ;
-
-    WZA8bin3NLO = 199.275 - 1851.45 * dgLZd + 2302.17 * dgLZu + 368.076 * dgRZd + 368.076 * dgRZu + 124.683 * dgZ1 + 312.161 * dkZ + 421.23 * lZ;
-
-    WZA8bin4NLO = 62.4615 - 1194.94 * dgLZd + 1449.19 * dgLZu + 127.456 * dgRZd + 127.456 * dgRZu - 352.836 * dgZ1 + 63.0308 * dkZ + 201.643 * lZ;
-
-    WZA8bin5NLO = 4.89157 - 198.225 * dgLZd + 260.69 * dgLZu + 10.1279 * dgRZd + 10.1279 * dgRZu - 106.64 * dgZ1 + 2.82628 * dkZ + 41.4749 * lZ;
-
-    WZA8bin6NLO = 1.42958 - 106.675 * dgLZd + 155.184 * dgLZu + 2.76817 * dgRZd + 2.76817 * dgRZu - 69.2783 * dgZ1 + 0.662577 * dkZ + 26.9946 * lZ;
-
-    // Consider only 5 and 6th bin
-    chi2WZA8 = 0. * (WZA8bin1Exp - WZA8bin1NLO)*(WZA8bin1Exp - WZA8bin1NLO) / WZA8bin1Err / WZA8bin1Err +
-            0. * (WZA8bin2Exp - WZA8bin2NLO)*(WZA8bin2Exp - WZA8bin2NLO) / WZA8bin2Err / WZA8bin2Err +
-            0. * (WZA8bin3Exp - WZA8bin3NLO)*(WZA8bin3Exp - WZA8bin3NLO) / WZA8bin3Err / WZA8bin3Err +
-            0. * (WZA8bin4Exp - WZA8bin4NLO)*(WZA8bin4Exp - WZA8bin4NLO) / WZA8bin4Err / WZA8bin4Err +
-            (WZA8bin5Exp - WZA8bin5NLO)*(WZA8bin5Exp - WZA8bin5NLO) / WZA8bin5Err / WZA8bin5Err +
-            (WZA8bin6Exp - WZA8bin6NLO)*(WZA8bin6Exp - WZA8bin6NLO) / WZA8bin6Err / WZA8bin6Err;
-
-
-    // WZ CMS pT bins 8 TeV
-    WZC8bin1NLO = 48211.3 - 211046. * dgLZd + 574513. * dgLZu + 68328.7 * dgRZd + 68328.7 * dgRZu + 122719. * dgZ1 + 87803.2 * dkZ + 113221. * lZ;
-
-    WZC8bin2NLO = 105555. - 636900. * dgLZd + 771034. * dgLZu + 164538. * dgRZd + 164538. * dgRZu + 227935. * dgZ1 + 185437. * dkZ + 235575. * lZ;
-
-    WZC8bin3NLO = 95535.1 - 800852. * dgLZd + 771583. * dgLZu + 163657. * dgRZd + 163657. * dgRZu + 133396. * dgZ1 + 151539. * dkZ + 198427. * lZ;
-
-    WZC8bin4NLO = 63880.3 - 691881. * dgLZd + 690499. * dgLZu + 117894. * dgRZd + 117894. * dgRZu + 14995.3 * dgZ1 + 85009.3 * dkZ + 122822. * lZ;
-
-    WZC8bin5NLO = 39607.7 - 539249. * dgLZd + 568912. * dgLZu + 78418.4 * dgRZd + 78418.4 * dgRZu - 50735.4 * dgZ1 + 44726.9 * dkZ + 75660.1 * lZ;
-
-    WZC8bin6NLO = 24855.2 - 422586. * dgLZd + 462072. * dgLZu + 53286.7 * dgRZd + 53286.7 * dgRZu - 76050. * dgZ1 + 25301.8 * dkZ + 50553.7 * lZ;
-
-    WZC8bin7NLO = 14988.1 - 313165. * dgLZd + 352433. * dgLZu + 34854.5 * dgRZd + 34854.5 * dgRZu - 77082.3 * dgZ1 + 15108. * dkZ + 36685.2 * lZ;
-
-    WZC8bin8NLO = 19871.3 - 568574. * dgLZd + 670089. * dgLZu + 52746.6 * dgRZd + 52746.6 * dgRZu - 188355. * dgZ1 + 22816.8 * dkZ + 72677. * lZ;
-
-    WZC8bin9NLO = 7452.7 - 349468. * dgLZd + 453250. * dgLZu + 24770.6 * dgRZd + 24770.6 * dgRZu - 160704. * dgZ1 + 13427. * dkZ + 59126.2 * lZ;
-
-    // All bins
-    chi2WZC8 = (WZC8bin1Exp - WZC8bin1NLO)*(WZC8bin1Exp - WZC8bin1NLO) / WZC8bin1Err / WZC8bin1Err +
-            (WZC8bin2Exp - WZC8bin2NLO)*(WZC8bin2Exp - WZC8bin2NLO) / WZC8bin2Err / WZC8bin2Err +
-            (WZC8bin3Exp - WZC8bin3NLO)*(WZC8bin3Exp - WZC8bin3NLO) / WZC8bin3Err / WZC8bin3Err +
-            (WZC8bin4Exp - WZC8bin4NLO)*(WZC8bin4Exp - WZC8bin4NLO) / WZC8bin4Err / WZC8bin4Err +
-            (WZC8bin5Exp - WZC8bin5NLO)*(WZC8bin5Exp - WZC8bin5NLO) / WZC8bin5Err / WZC8bin5Err +
-            (WZC8bin6Exp - WZC8bin6NLO)*(WZC8bin6Exp - WZC8bin6NLO) / WZC8bin6Err / WZC8bin6Err +
-            (WZC8bin7Exp - WZC8bin7NLO)*(WZC8bin7Exp - WZC8bin7NLO) / WZC8bin7Err / WZC8bin7Err +
-            (WZC8bin8Exp - WZC8bin8NLO)*(WZC8bin8Exp - WZC8bin8NLO) / WZC8bin8Err / WZC8bin8Err +
-            (WZC8bin9Exp - WZC8bin9NLO)*(WZC8bin9Exp - WZC8bin9NLO) / WZC8bin9Err / WZC8bin9Err;
-
-
-    // WZ ATLAS MT bins 13 TeV
-    WZA13bin1NLO = 210.9 - 1538.29 * dgLZd + 2090.03 * dgLZu + 412.422 * dgRZd + 412.422 * dgRZu + 495.535 * dgZ1 + 463.077 * dkZ + 573.114 * lZ;
-
-    WZA13bin2NLO = 935.318 - 6327.47 * dgLZd + 8887.4 * dgLZu + 1735.63 * dgRZd + 1735.63 * dgRZu + 2189.77 * dgZ1 + 1920.9 * dkZ + 2423.75 * lZ;
-
-    WZA13bin3NLO = 761.955 - 7639.11 * dgLZd + 9400.48 * dgLZu + 1592.09 * dgRZd + 1592.09 * dgRZu + 727.602 * dgZ1 + 1411.59 * dkZ + 1983.66 * lZ;
-
-    WZA13bin4NLO = 282.966 - 5916.74 * dgLZd + 7021.37 * dgLZu + 704.878 * dgRZd + 704.878 * dgRZu - 1518.83 * dgZ1 + 433.021 * dkZ + 1322.95 * lZ;
-
-    WZA13bin5NLO = 28.3987 - 1235.14 * dgLZd + 1523.66 * dgLZu + 75.7642 * dgRZd + 75.7642 * dgRZu - 622.335 * dgZ1 + 35.011 * dkZ + 340.428 * lZ;
-
-    WZA13bin6NLO = 14.1701 - 1200.86 * dgLZd + 1637.7 * dgLZu + 35.6558 * dgRZd + 35.6558 * dgRZu - 765.679 * dgZ1 + 15.3856 * dkZ + 386.992 * lZ;
-
-    // All bins
-    chi2WZA13 = (WZA13bin1Exp - WZA13bin1NLO)*(WZA13bin1Exp - WZA13bin1NLO) / WZA13bin1Err / WZA13bin1Err +
-            (WZA13bin2Exp - WZA13bin2NLO)*(WZA13bin2Exp - WZA13bin2NLO) / WZA13bin2Err / WZA13bin2Err +
-            (WZA13bin3Exp - WZA13bin3NLO)*(WZA13bin3Exp - WZA13bin3NLO) / WZA13bin3Err / WZA13bin3Err +
-            (WZA13bin4Exp - WZA13bin4NLO)*(WZA13bin4Exp - WZA13bin4NLO) / WZA13bin4Err / WZA13bin4Err +
-            (WZA13bin5Exp - WZA13bin5NLO)*(WZA13bin5Exp - WZA13bin5NLO) / WZA13bin5Err / WZA13bin5Err +
-            (WZA13bin6Exp - WZA13bin6NLO)*(WZA13bin6Exp - WZA13bin6NLO) / WZA13bin6Err / WZA13bin6Err;
-
-
-    // WZ CMS M bins 13 TeV
-    WZC13bin1NLO = 310.897 - 3311.66 * dgLZd + 4923.17 * dgLZu + 730.006 * dgRZd + 730.006 * dgRZu + 718.192 * dgZ1 + 751.263 * dkZ + 850.366 * lZ;
-
-    WZC13bin2NLO = 1490.35 - 15194.9 * dgLZd + 16711.1 * dgLZu + 3034.05 * dgRZd + 3034.05 * dgRZu + 1380.12 * dgZ1 + 2725.68 * dkZ + 3868.96 * lZ;
-
-    WZC13bin3NLO = 629.894 - 8390.66 * dgLZd + 9234.47 * dgLZu + 1290.66 * dgRZd + 1290.66 * dgRZu - 748.093 * dgZ1 + 947.852 * dkZ + 1888.75 * lZ;
-
-    WZC13bin4NLO = 232.784 - 3896.81 * dgLZd + 4345.03 * dgLZu + 485.435 * dgRZd + 485.435 * dgRZu - 810.122 * dgZ1 + 323.179 * dkZ + 894.34 * lZ;
-
-    WZC13bin5NLO = 174.94 - 4161.42 * dgLZd + 5115.65 * dgLZu + 365.576 * dgRZd + 365.576 * dgRZu - 1577.77 * dgZ1 + 224.176 * dkZ + 1058.21 * lZ;
-
-    WZC13bin6NLO = 8.27 - 373.695 * dgLZd + 600.396 * dgLZu + 15.4694 * dgRZd + 15.4694 * dgRZu - 216.476 * dgZ1 + 8.36269 * dkZ + 110.306 * lZ;
-
-    WZC13bin7NLO = 1.71 - 122.273 * dgLZd + 251.559 * dgLZu + 2.55789 * dgRZd + 2.55789 * dgRZu - 78.8209 * dgZ1 + 1.48003 * dkZ + 37.0098 * lZ;
-
-    // Consider only the last 3 bins
-    chi2WZC13 = 0. * (WZC13bin1Exp - WZC13bin1NLO)*(WZC13bin1Exp - WZC13bin1NLO) / WZC13bin1Err / WZC13bin1Err +
-            0. * (WZC13bin2Exp - WZC13bin2NLO)*(WZC13bin2Exp - WZC13bin2NLO) / WZC13bin2Err / WZC13bin2Err +
-            0. * (WZC13bin3Exp - WZC13bin3NLO)*(WZC13bin3Exp - WZC13bin3NLO) / WZC13bin3Err / WZC13bin3Err +
-            0. * (WZC13bin4Exp - WZC13bin4NLO)*(WZC13bin4Exp - WZC13bin4NLO) / WZC13bin4Err / WZC13bin4Err +
-            (WZC13bin5Exp - WZC13bin5NLO)*(WZC13bin5Exp - WZC13bin5NLO) / WZC13bin5Err / WZC13bin5Err +
-            (WZC13bin6Exp - WZC13bin6NLO)*(WZC13bin6Exp - WZC13bin6NLO) / WZC13bin6Err / WZC13bin6Err +
-            (WZC13bin7Exp - WZC13bin7NLO)*(WZC13bin7Exp - WZC13bin7NLO) / WZC13bin7Err / WZC13bin7Err;
-
-
-    // Total WW chi2
-    chi2WZ = chi2WZA8 + chi2WZC8 + chi2WZA13 + chi2WZC13;
-
-    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt of the total chi2    
-    return sqrt(chi2WW + chi2WZ);
 }
 
 const double NPSMEFTd6General::AuxObs_NP17() const {
     // To be used for some temporary observable
-
-    // Muon Collider WY using difermion production at energy: 3000 GeV
-    double Wpar, Ypar, Wpar2, Ypar2;
+    
     double Chi2Tot;
 
-    Wpar = 10000.0 * obliqueW();
-    Ypar = 10000.0 * obliqueY();
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    Wpar2 = Wpar*Wpar;
-    Ypar2 = Ypar*Ypar;
+    // Bin 1
+    Bin1 = 0.;
 
-    Chi2Tot = 2250.66 * Wpar2 + 2440.91 * Wpar * Ypar + 1833.38 * Ypar2;
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin1 = 0.0;
+
+    // Bin 2
+    Bin2 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin2 = 0.0;
+
+    // Bin 3
+    Bin3 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
+
 }
 
 const double NPSMEFTd6General::AuxObs_NP18() const {
     // To be used for some temporary observable
-
-    // Muon Collider WY using difermion production at energy: 10000 GeV
-    double Wpar, Ypar, Wpar2, Ypar2;
+    
     double Chi2Tot;
 
-    Wpar = 10000.0 * obliqueW();
-    Ypar = 10000.0 * obliqueY();
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    Wpar2 = Wpar*Wpar;
-    Ypar2 = Ypar*Ypar;
+    // Bin 1
+    Bin1 = 0.;
 
-    Chi2Tot = 278252. * Wpar2 + 268761. * Wpar * Ypar + 222406. * Ypar2;
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin1 = 0.0;
+
+    // Bin 2
+    Bin2 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin2 = 0.0;
+
+    // Bin 3
+    Bin3 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
+
 }
 
 const double NPSMEFTd6General::AuxObs_NP19() const {
-    // To be used for some temporary observable
-
-    // Muon Collider CB, getSMEFTCoeffEW("CW") using diboson production at energy: 3000 GeV
-    double CBpar, CWpar, CBpar2, CWpar2;
+     // To be used for some temporary observable
+    
     double Chi2Tot;
 
-    // Chi square formulae requires WC in units of TeV-2
-    CBpar = 0.0; 
-    CWpar = 0.0; 
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    CBpar2 = CBpar*CBpar;
-    CWpar2 = CWpar*CWpar;
+    // Bin 1
+    Bin1 = 0.;
 
-    Chi2Tot = 16353.7 * CBpar2 + 71488.1 * CBpar * CWpar + 88825.5 * CWpar2;
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    if (FlagQuadraticTerms) {
+    Chi2Bin1 = 0.0;
 
-        Chi2Tot = Chi2Tot + 180317. * CBpar2 * CBpar + 713067. * CBpar2 * CBpar2 + 412966. * CBpar2 * CWpar
-                - 1.22601 * 1.0e+06 * CBpar2 * CBpar * CWpar + 39461.7 * CBpar * CWpar2 + 3.68154 * 1.0e+06 * CBpar2 * CWpar2
-                + 952190. * CWpar2 * CWpar - 2.32501 * 1.0e+06 * CBpar * CWpar2 * CWpar + 2.71116 * 1.0e+06 * CWpar2 * CWpar2;
-    }
+    // Bin 2
+    Bin2 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin2 = 0.0;
+
+    // Bin 3
+    Bin3 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
+
 }
 
 const double NPSMEFTd6General::AuxObs_NP20() const {
     // To be used for some temporary observable
-
-    // Muon Collider CB, getSMEFTCoeffEW("CW") using diboson production at energy: 10000 GeV
-    double CBpar, CWpar, CBpar2, CWpar2;
+    
     double Chi2Tot;
 
-    // Chi square formulae requires WC in units of TeV-2
-    CBpar = 0.0; 
-    CWpar = 0.0; 
+    //  Contributions from the different bins    
+    double Bin1, Bin2, Bin3, Bin4, Bin5, Bin6;
+    double Chi2Bin1, Chi2Bin2, Chi2Bin3, Chi2Bin4, Chi2Bin5, Chi2Bin6;
 
-    CBpar2 = CBpar*CBpar;
-    CWpar2 = CWpar*CWpar;
+    // Bin 1
+    Bin1 = 0.;
 
-    Chi2Tot = 1000000. * (2.34317 * CBpar2 + 9.35455 * CBpar * CWpar + 1.01982 * 10. * CWpar2);
+    // Exclude points with negative values of BinX
+    if (Bin1 < 0) return std::numeric_limits<double>::quiet_NaN();
 
-    if (FlagQuadraticTerms) {
+    Chi2Bin1 = 0.0;
 
-        Chi2Tot = Chi2Tot + 1.0e+08 * (2.77515 * CBpar2 * CBpar + 1.06951 * 100. * CBpar2 * CBpar2
-                + 5.38407 * CBpar2 * CWpar - 1.49637 * 100. * CBpar2 * CBpar * CWpar
-                + 1.95735 * CBpar * CWpar2 + 4.90583 * 100. * CBpar2 * CWpar2
-                + 1.16919 * 10. * CWpar2 * CWpar - 2.59927 * 100. * CBpar * CWpar2 * CWpar
-                + 3.55074 * 100. * CWpar2 * CWpar2);
-    }
+    // Bin 2
+    Bin2 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin2 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin2 = 0.0;
+
+    // Bin 3
+    Bin3 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin3 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin3 = 0.0;
+    
+    // Bin 4
+    Bin4 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin4 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin4 = 0.0;
+    
+    // Bin 5
+    Bin5 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin5 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin5 = 0.0;
+    
+    // Bin 6
+    Bin6 = 0.;
+
+    // Exclude points with negative values of BinX
+    if (Bin6 < 0) return std::numeric_limits<double>::quiet_NaN();
+
+    Chi2Bin6 = 0.0;
+    
+    
+    // The total contributions to the log-likelihood/chi-square
+    Chi2Tot = Chi2Bin1 + Chi2Bin2 + Chi2Bin3 + Chi2Bin4 + Chi2Bin5 + Chi2Bin6;
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
+
 }
 
 const double NPSMEFTd6General::AuxObs_NP21() const {
@@ -44918,13 +44420,83 @@ const double NPSMEFTd6General::AuxObs_NP24() const {
 
 const double NPSMEFTd6General::AuxObs_NP25() const {
     // To be used for some temporary observable
-    return 0.0;
+
+    // ILC DiHiggs at 500 GeV: 2/ab per polarization (+-80,-+30) 
+
+    double Chi2p80m30, Chi2m80p30, Chi2Tot;
+
+    //  Higgs basis parameters
+    double dcZHB, cZboxHB, cZZHB, cZgaHB, cgagaHB;
+    double dKlambda;
+
+    dcZHB = deltacZ_HB(2.0 * mHl);
+    cZboxHB = cZBox_HB(2.0 * mHl);
+    cZZHB = cZZ_HB(2.0 * mHl);
+    cZgaHB = cZga_HB(2.0 * mHl);
+    cgagaHB = cgaga_HB(2.0 * mHl);
+
+    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
+
+    //  The signal strength -1    
+    Chi2p80m30 = 13.6982 * cZZHB
+            - 7.58943 * cZgaHB
+            + 14.6843 * cZboxHB
+            - 1.51882 * cgagaHB
+            + 5.46836 * dcZHB
+            + 0.565585 * dKlambda
+            + 0.000631004 * cZZHB * dKlambda
+            - 0.195079 * cZgaHB * dKlambda
+            + 0.064441 * cZboxHB * dKlambda
+            + 0.440061 * cgagaHB * dKlambda
+            + 2.13192 * dcZHB * dKlambda
+            + 0.0968208 * dKlambda * dKlambda;
+
+    //  ILC report (1903.01629) gives total cross section a 4/ab: 16.8%. 
+    // Assume the precision for each polarization is the same as they do for single Higgs in ZH...    
+    Chi2p80m30 = Chi2p80m30 * Chi2p80m30 / 0.168 / 0.168 / 2.0;
+
+    //  The signal strength -1 
+    Chi2m80p30 = -2.57112 * cZZHB
+            + 6.97966 * cZgaHB
+            - 10.2626 * cZboxHB
+            + 1.39647 * cgagaHB
+            + 5.4684 * dcZHB
+            + 0.565577 * dKlambda
+            + 4.71916 * cZZHB * dKlambda
+            + 0.179045 * cZgaHB * dKlambda
+            + 7.28766 * cZboxHB * dKlambda
+            - 0.405166 * cgagaHB * dKlambda
+            + 2.13189 * dcZHB * dKlambda
+            + 0.0968201 * dKlambda * dKlambda;
+
+    //  ILC report (1903.01629) gives total cross section a 4/ab: 16.8%. 
+    // Assume the precision for each polarization is the same as they do for single Higgs in ZH...        
+    Chi2m80p30 = Chi2m80p30 * Chi2m80p30 / 0.168 / 0.168 / 2.0;
+
+    Chi2Tot = Chi2p80m30 + Chi2m80p30;
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 
 }
 
 const double NPSMEFTd6General::AuxObs_NP26() const {
     // To be used for some temporary observable
-    return 0.0;
+
+    // CLIC DiHiggs: exclusive analysis. Full CLIC run   
+    double Chi2Tot;
+
+    //  Higgs basis parameters
+    double dKlambda;
+
+    dKlambda = deltaG_hhhRatio_mu(2.0 * mHl);
+
+    Chi2Tot = dKlambda * dKlambda * (50.04473972806045
+            - 104.47283225861888 * dKlambda
+            + 84.48333683635175 * dKlambda * dKlambda);
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 
 }
 
