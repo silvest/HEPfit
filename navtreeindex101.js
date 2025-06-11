@@ -1,7 +1,5 @@
 var NAVTREEINDEX101 =
 {
-"db/db6/classbottom__mass.html#a307bc2559bca168057e4e29f5c7e0010":[4,5,38,0],
-"db/db8/classmuee_w_b_ftautau.html":[4,13,97],
 "db/db8/classmuee_w_b_ftautau.html#a0156356db4bb73b404111e2edcd14520":[4,13,97,3],
 "db/db8/classmuee_w_b_ftautau.html#a1a66db42df255fa4e93b2578f38ea9b0":[4,13,97,5],
 "db/db8/classmuee_w_b_ftautau.html#a383cdad7b4d80ae620009ec9bcf6e070":[4,13,97,2],
@@ -249,5 +247,7 @@ var NAVTREEINDEX101 =
 "db/df2/class_p__1f.html#a3d733fef30180a6eb59a2d7a4694cf44":[4,5,133,4],
 "db/df2/class_p__1f.html#a72699d3283e9becea768e7d04a6883c9":[4,5,133,2],
 "db/df2/class_p__1f.html#a7d7f8f45a3dfe13e2233a14f907128d8":[4,5,133,0],
-"db/df2/class_p__1f.html#a88321cc1dd43418f43d465c58a6315f8":[4,5,133,3]
+"db/df2/class_p__1f.html#a88321cc1dd43418f43d465c58a6315f8":[4,5,133,3],
+"db/df2/class_p__1f.html#aebcb667abcf30c62aa64aa9b93026129":[4,5,133,1],
+"db/df4/class_gamma_h_ratio.html":[4,13,61]
 };

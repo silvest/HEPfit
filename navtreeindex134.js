@@ -1,7 +1,5 @@
 var NAVTREEINDEX134 =
 {
-"df/d67/classsigma__mumu__30_te_v__tt_h.html#aabc56d236efb10281030def35d809ccd":[27,0,2550,0],
-"df/d69/classunitarity_rp6.html":[4,17,538],
 "df/d69/classunitarity_rp6.html#aaa49e4330be57e86ff7a587593e0f010":[4,17,538,2],
 "df/d69/classunitarity_rp6.html#ab57abfb4d295aa4e36108425ffec2178":[4,17,538,0],
 "df/d69/classunitarity_rp6.html#afbc4b2291691d6e0a6f668562ef116fc":[4,17,538,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX134 =
 "df/dad/class_hobs__gg__phi3__tautau___c_m_s13.html#a7c0680680e638702528b87cbf52d91cd":[27,0,1059,0],
 "df/dad/class_hobs__gg__phi3__tautau___c_m_s13.html#aa5cea10bb415c28261f64c3a136f6361":[27,0,1059,2],
 "df/daf/class_b_r___a___hp_w___t_h_d_m.html":[4,17,1],
-"df/daf/class_b_r___a___hp_w___t_h_d_m.html#a254479c2c4684d8e57daad53166883df":[4,17,1,1]
+"df/daf/class_b_r___a___hp_w___t_h_d_m.html#a254479c2c4684d8e57daad53166883df":[4,17,1,1],
+"df/daf/class_b_r___a___hp_w___t_h_d_m.html#a5d9e749caf34cef42bd6a1b2cee19230":[4,17,1,0],
+"df/daf/class_b_r___a___hp_w___t_h_d_m.html#ad98e2964fd59c20b4d0e7740e3c97de9":[4,17,1,2]
 };

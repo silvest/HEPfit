@@ -1,7 +1,5 @@
 var NAVTREEINDEX97 =
 {
-"db/d02/class_mneutralino.html#a75033e0044f4232979e754dca069ee48":[4,16,53,0],
-"db/d02/class_mneutralino.html#a9565b2f0e424bffe4724a32f50da460a":[4,16,53,3],
 "db/d02/class_mneutralino.html#aad470fe21c743d00148d0c95f0e6c271":[4,16,53,2],
 "db/d03/class_br_htogg__over__bb___ratio.html":[4,13,25],
 "db/d03/class_br_htogg__over__bb___ratio.html#a54ad7c9244662c27327b1ece490aec28":[4,13,25,2],
@@ -249,5 +247,7 @@ var NAVTREEINDEX97 =
 "db/d28/class_l_h_p_c_1_1_l_h_e_f_1_1_particle_line.html#a76b62fbb51eaff1047bbd195b5d666e8":[27,0,1,1,6,15],
 "db/d28/class_l_h_p_c_1_1_l_h_e_f_1_1_particle_line.html#a7771eb968e30a9d5bfc46fcdbbb882e5":[27,0,1,1,6,13],
 "db/d28/class_l_h_p_c_1_1_l_h_e_f_1_1_particle_line.html#a7a66df0aa0806c954b3e7d370ae21535":[27,0,1,1,6,11],
-"db/d28/class_l_h_p_c_1_1_l_h_e_f_1_1_particle_line.html#a96b2ab19938eccfa4282377a0a32ae71":[27,0,1,1,6,5]
+"db/d28/class_l_h_p_c_1_1_l_h_e_f_1_1_particle_line.html#a96b2ab19938eccfa4282377a0a32ae71":[27,0,1,1,6,5],
+"db/d28/class_l_h_p_c_1_1_l_h_e_f_1_1_particle_line.html#a9b2963cc8bb414c480a218dfb084766d":[27,0,1,1,6,16],
+"db/d28/class_l_h_p_c_1_1_l_h_e_f_1_1_particle_line.html#aa7e59d673f99ebea8ae47b5ed93a70c0":[27,0,1,1,6,8]
 };
