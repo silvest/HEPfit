@@ -1907,7 +1907,7 @@ const double HiggsKigen::computeGammaTotalSMnoErrorRatio() const
 const double HiggsKigen::Br_H_exo() const
 {
     return BrHexo;    
-};
+}
 
 
 const double HiggsKigen::Br_H_inv() const

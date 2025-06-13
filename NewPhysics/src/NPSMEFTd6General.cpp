@@ -34829,109 +34829,341 @@ const double NPSMEFTd6General::BrHtoinvRatio() const {
 
 const double NPSMEFTd6General::muttHZbbboost(const double sqrt_s) const {
     // Ratios of BR with the SM
-    double BrHbbrat = BrHbbRatio();
-    double BrZbbSM = (trueSM.GammaZ(quarks[BOTTOM])) / trueSM.Gamma_Z();
-    double BrZbbrat = BR_Zf(quarks[BOTTOM]) / BrZbbSM;
+    double delBRHbbRatio, delBRZbbRatio;
 
-    //    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-mtpole / v());    
-    //    double dkt = dKappa_t.real();
-
-    //    double dgV = deltaGV_f(quarks[TOP]);
-    //    double dgA = deltaGA_f(quarks[TOP]);
-    //    double gLSM = quarks[TOP].getIsospin() 
-    //    - (quarks[TOP].getCharge())*sW2_tree;
-    //    double gRSM = - (quarks[TOP].getCharge())*sW2_tree;
-
-    //    double dgL = 0.5*(dgV + dgA)/gLSM;
-    //    double dgR = 0.5*(dgV - dgA)/gRSM;
-
+    double CG = 0.0, CuHR33 = 0.0, CHq1R11 = 0.0, CHq3R11 = 0.0, CHuR11 = 0.0;
+    double CHdR11 = 0.0, CHq1R22 = 0.0, CHq3R22 = 0.0, CHuR22 = 0.0, CHdR22 = 0.0;
+    double CHq1R33 = 0.0, CHq3R33 = 0.0, CHuR33 = 0.0, CuGR33 = 0.0, Cqq1R1133 = 0.0;
+    double Cqq1R1331 = 0.0, Cqq1R2233 = 0.0, Cqq1R2332 = 0.0, Cqq3R1133 = 0.0, Cqq3R1331 = 0.0;
+    double Cqq3R2233 = 0.0, Cqq3R2332 = 0.0, CuuR1133 = 0.0, CuuR2233 = 0.0, CuuR1331 = 0.0;
+    double CuuR2332 = 0.0, Cud1R3311 = 0.0, Cud1R3322 = 0.0, Cud8R3311 = 0.0, Cud8R3322 = 0.0;
+    double Cqu1R1133 = 0.0, Cqu1R2233 = 0.0, Cqu1R3311 = 0.0, Cqu1R3322 = 0.0, Cqu8R1133 = 0.0;
+    double Cqu8R2233 = 0.0, Cqu8R3311 = 0.0, Cqu8R3322 = 0.0, Cqd1R3311 = 0.0, Cqd1R3322 = 0.0;
+    double Cqd8R3311 = 0.0, Cqd8R3322 = 0.0; 
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CllR1221 = 0.0; 
+    double muRG = 230.; // ttH done for 236 GeV, ttZ for 220 GeV
+    
     double dsigmarat;
-
-    // VERY CRUDE APPROX. 
-    //dsigmarat = 1.0 + 
-    //        2.0 * dkt -
-    //        2.0 * (gLSM*gLSM*dgL + gRSM*gRSM*dgR)/(gLSM*gLSM + gRSM*gRSM);
+    
+//  Corrections to ratios of BR for final states
+    delBRHbbRatio = deltaGammaHbbRatio1() - dGammaHTotR1;
+    
+    delBRZbbRatio = deltaGamma_Zf(quarks[BOTTOM])/(trueSM.GammaZ(quarks[BOTTOM])) 
+            - deltaGamma_Z()/ trueSM.Gamma_Z();
+    
+//  Wilson coefficients definitions 
+    CG = getSMEFTCoeff("CG", muRG); 
+    CuHR33 = getSMEFTCoeff("CuHR",2,2, muRG); 
+    CHq1R11 = getSMEFTCoeff("CHq1R",0,0, muRG); 
+    CHq3R11 = getSMEFTCoeff("CHq3R",0,0, muRG); 
+    CHuR11 = getSMEFTCoeff("CHuR",0,0, muRG); 
+    CHdR11 = getSMEFTCoeff("CHdR",0,0, muRG); 
+    CHq1R22 = getSMEFTCoeff("CHq1R",1,1, muRG); 
+    CHq3R22 = getSMEFTCoeff("CHq3R",1,1, muRG); 
+    CHuR22 = getSMEFTCoeff("CHuR",1,1, muRG); 
+    CHdR22 = getSMEFTCoeff("CHdR",1,1, muRG); 
+    CHq1R33 = getSMEFTCoeff("CHq1R",2,2, muRG); 
+    CHq3R33 = getSMEFTCoeff("CHq3R",2,2, muRG); 
+    CHuR33 = getSMEFTCoeff("CHuR",2,2, muRG); 
+    CuGR33 = getSMEFTCoeff("CuGR",2,2, muRG); 
+    Cqq1R1133 = getSMEFTCoeff("Cqq1R",0,0,2,2, muRG); 
+    Cqq1R1331 = getSMEFTCoeff("Cqq1R",0,2,2,0, muRG); 
+    Cqq1R2233 = getSMEFTCoeff("Cqq1R",1,1,2,2, muRG); 
+    Cqq1R2332 = getSMEFTCoeff("Cqq1R",1,2,2,1, muRG); 
+    Cqq3R1133 = getSMEFTCoeff("Cqq3R",0,0,2,2, muRG); 
+    Cqq3R1331 = getSMEFTCoeff("Cqq3R",0,2,2,0, muRG); 
+    Cqq3R2233 = getSMEFTCoeff("Cqq3R",1,1,2,2, muRG); 
+    Cqq3R2332 = getSMEFTCoeff("Cqq3R",1,2,2,1, muRG); 
+    CuuR1133 = getSMEFTCoeff("CuuR",0,0,2,2, muRG); 
+    CuuR2233 = getSMEFTCoeff("CuuR",1,1,2,2, muRG); 
+    CuuR1331 = getSMEFTCoeff("CuuR",0,2,2,0, muRG); 
+    CuuR2332 = getSMEFTCoeff("CuuR",1,2,2,1, muRG); 
+    Cud1R3311 = getSMEFTCoeff("Cud1R",2,2,0,0, muRG); 
+    Cud1R3322 = getSMEFTCoeff("Cud1R",2,2,1,1, muRG); 
+    Cud8R3311 = getSMEFTCoeff("Cud8R",2,2,0,0, muRG); 
+    Cud8R3322 = getSMEFTCoeff("Cud8R",2,2,1,1, muRG); 
+    Cqu1R1133 = getSMEFTCoeff("Cqu1R",0,0,2,2, muRG); 
+    Cqu1R2233 = getSMEFTCoeff("Cqu1R",1,1,2,2, muRG); 
+    Cqu1R3311 = getSMEFTCoeff("Cqu1R",2,2,0,0, muRG); 
+    Cqu1R3322 = getSMEFTCoeff("Cqu1R",2,2,1,1, muRG); 
+    Cqu8R1133 = getSMEFTCoeff("Cqu8R",0,0,2,2, muRG); 
+    Cqu8R2233 = getSMEFTCoeff("Cqu8R",1,1,2,2, muRG); 
+    Cqu8R3311 = getSMEFTCoeff("Cqu8R",2,2,0,0, muRG); 
+    Cqu8R3322 = getSMEFTCoeff("Cqu8R",2,2,1,1, muRG); 
+    Cqd1R3311 = getSMEFTCoeff("Cqd1R",2,2,0,0, muRG); 
+    Cqd1R3322 = getSMEFTCoeff("Cqd1R",2,2,1,1, muRG); 
+    Cqd8R3311 = getSMEFTCoeff("Cqd8R",2,2,0,0, muRG); 
+    Cqd8R3322 = getSMEFTCoeff("Cqd8R",2,2,1,1, muRG);     
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG); 
+        
+    // Madgraph simulations for 84 TeV
 
     dsigmarat = 1.0;
-    //  ttH 100 TeV (from muttH func): NOT BOOSTED YET
-    dsigmarat += +467438. * getSMEFTCoeffEW("CHG")
-            - 22519. * getSMEFTCoeffEW("CG")
-            + 880378. * getSMEFTCoeffEW("CuGR", 2, 2)
-            - 2.837 * deltaG_hff(quarks[TOP]).real()
-            ;
-    //  Divided (linearized) by ttZ 100 TeV
+    //  ttH 84 TeV
+    dsigmarat += (
+                -814615. * CG 
+                -122358. * CuHR33 
+                +43.4869 * CHq1R11 
+                +29.6743 * CHq3R11 
+                +1.47314 * CHuR11 
+                +71.5756 * CHdR11 
+                +4.91872 * CHq1R22 
+                -87.4079 * CHq3R22 
+                -76.7362 * CHuR22 
+                +11.5842 * CHdR22 
+                -443.578 * CHq1R33 
+                -293.356 * CHq3R33 
+                -329.955 * CHuR33 
+                -1237480. * CuGR33 
+                +16.9383 * Cqq1R1133 
+                +334309. * Cqq1R1331 
+                -5.91142 * Cqq1R2233 
+                +18575.1 * Cqq1R2332 
+                -243.453 * Cqq3R1133 
+                +743417. * Cqq3R1331 
+                +58.8933 * Cqq3R2233 
+                +90015.6 * Cqq3R2332 
+                -23.0103 * CuuR1133 
+                -44.938 * CuuR2233 
+                +333804. * CuuR1331 
+                +18524.5 * CuuR2332 
+                -21.3446 * Cud1R3311 
+                -41.7531 * Cud1R3322 
+                +52881.4 * Cud8R3311 
+                +6555.05 * Cud8R3322 
+                +353.475 * Cqu1R1133 
+                -74.8719 * Cqu1R2233 
+                -192.922 * Cqu1R3311 
+                -47.5578 * Cqu1R3322 
+                +133978. * Cqu8R1133 
+                +13659.6 * Cqu8R2233 
+                +82844. * Cqu8R3311 
+                +4587.38 * Cqu8R3322 
+                -191.882 * Cqd1R3311 
+                -76.3599 * Cqd1R3322 
+                +53420.8 * Cqd8R3311 
+                +6537.54 * Cqd8R3322 
+                -61170.9 * (CHl3R11 + CHl3R22 - CllR1221 ) )
+                ;            
+            
+    //  Divided (linearized) by ttZ 84 TeV
     dsigmarat = dsigmarat - (
-            -40869.4 * getSMEFTCoeffEW("CHD")
-            - 52607.9 * getSMEFTCoeffEW("CHWB")
-            - 90424.9 * getSMEFTCoeffEW("CHG")
-            + 432089. * getSMEFTCoeffEW("CG")
-            + 326525. * getSMEFTCoeffEW("CuGR", 2, 2)
-            - 2028.11 * getSMEFTCoeffEW("CuWR", 2, 2)
-            + 1679.85 * getSMEFTCoeffEW("CuBR", 2, 2)
-            + 1454.5 * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + 1065.27 * getSMEFTCoeffEW("CHuR", 0, 0)
-            + 82169.1 * getSMEFTCoeffEW("CHuR", 2, 2)
-            - 1229.16 * getSMEFTCoeffEW("CHdR", 0, 0)
-            + 6780.84 * getSMEFTCoeffEW("CHq3R", 0, 0)
-            - 1.374 * delta_GF
-            + 4.242 * -0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-            );
+                -1253959. * CG 
+                -195.273 * CHq1R11 
+                +5722.23 * CHq3R11 
+                +939.285 * CHuR11 
+                -840.086 * CHdR11 
+                +316.078 * CHq1R22 
+                +819.585 * CHq3R22 
+                +97.2898 * CHuR22 
+                -134.566 * CHdR22 
+                -125938. * CHq1R33 
+                +125889. * CHq3R33 
+                +91464.4 * CHuR33 
+                -564449. * CuGR33 
+                -159.949 * Cqq1R1133 
+                +371709. * Cqq1R1331 
+                -68.0447 * Cqq1R2233 
+                +17904.8 * Cqq1R2332 
+                -91.1919 * Cqq3R1133 
+                +1193228. * Cqq3R1331 
+                +47.7377 * Cqq3R2233 
+                +152055. * Cqq3R2332 
+                -133.953 * CuuR1133 
+                -17.3028 * CuuR2233 
+                +181860. * CuuR1331 
+                +9119.11 * CuuR2332 
+                -195.733 * Cud1R3311 
+                -39.4786 * Cud1R3322 
+                +30947.2 * Cud8R3311 
+                +3492.61 * Cud8R3322 
+                -45.2385 * Cqu1R1133 
+                -14.2913 * Cqu1R2233 
+                -98.8336 * Cqu1R3311 
+                -24.4606 * Cqu1R3322 
+                +138699. * Cqu8R1133 
+                +14699.9 * Cqu8R2233 
+                +78699.3 * Cqu8R3311 
+                +3755.34 * Cqu8R3322 
+                -14.8631 * Cqd1R3311 
+                -20.1378 * Cqd1R3322 
+                +55799.6 * Cqd8R3311 
+                +6291.33 * Cqd8R3322 
+                -61231.8 * (CHl3R11 + CHl3R22 - CllR1221 ) );
 
-    return dsigmarat * (BrHbbrat / BrZbbrat);
-
+    return (dsigmarat + delBRHbbRatio - delBRZbbRatio);
 }
 
 const double NPSMEFTd6General::muttHgagaZeeboost(const double sqrt_s) const {
     // Ratios of BR with the SM
-    double BrHgagarat = BrHgagaRatio();
-    double BrZeeSM = (trueSM.GammaZ(leptons[ELECTRON])) / trueSM.Gamma_Z();
-    double BrZeerat = BR_Zf(leptons[ELECTRON]) / BrZeeSM;
-
-    //    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-mtpole / v());    
-    //    double dkt = dKappa_t.real();
-
-    //    double dgV = deltaGV_f(quarks[TOP]);
-    //    double dgA = deltaGA_f(quarks[TOP]);
-    //    double gLSM = quarks[TOP].getIsospin() 
-    //    - (quarks[TOP].getCharge())*sW2_tree;
-    //    double gRSM = - (quarks[TOP].getCharge())*sW2_tree;
-
-    //    double dgL = 0.5*(dgV + dgA)/gLSM;
-    //    double dgR = 0.5*(dgV - dgA)/gRSM;
-
+    double delBRHgagaRatio, delBRZeeRatio;
+    
+    // Wilson Coefficients
+    double CG = 0.0, CuHR33 = 0.0, CHq1R11 = 0.0, CHq3R11 = 0.0, CHuR11 = 0.0;
+    double CHdR11 = 0.0, CHq1R22 = 0.0, CHq3R22 = 0.0, CHuR22 = 0.0, CHdR22 = 0.0;
+    double CHq1R33 = 0.0, CHq3R33 = 0.0, CHuR33 = 0.0, CuGR33 = 0.0, Cqq1R1133 = 0.0;
+    double Cqq1R1331 = 0.0, Cqq1R2233 = 0.0, Cqq1R2332 = 0.0, Cqq3R1133 = 0.0, Cqq3R1331 = 0.0;
+    double Cqq3R2233 = 0.0, Cqq3R2332 = 0.0, CuuR1133 = 0.0, CuuR2233 = 0.0, CuuR1331 = 0.0;
+    double CuuR2332 = 0.0, Cud1R3311 = 0.0, Cud1R3322 = 0.0, Cud8R3311 = 0.0, Cud8R3322 = 0.0;
+    double Cqu1R1133 = 0.0, Cqu1R2233 = 0.0, Cqu1R3311 = 0.0, Cqu1R3322 = 0.0, Cqu8R1133 = 0.0;
+    double Cqu8R2233 = 0.0, Cqu8R3311 = 0.0, Cqu8R3322 = 0.0, Cqd1R3311 = 0.0, Cqd1R3322 = 0.0;
+    double Cqd8R3311 = 0.0, Cqd8R3322 = 0.0; 
+    double CHl3R11 = 0.0, CHl3R22 = 0.0, CllR1221 = 0.0; 
+    double muRG = 230.; // ttH done for 236 GeV, ttZ for 220 GeV
+    
     double dsigmarat;
-
-    // VERY CRUDE APPROX. 
-    //dsigmarat = 1.0 + 
-    //        2.0 * dkt -
-    //        2.0 * (gLSM*gLSM*dgL + gRSM*gRSM*dgR)/(gLSM*gLSM + gRSM*gRSM);
+    
+//  Corrections to ratios of BR for final states
+    delBRHgagaRatio = deltaGammaHgagaRatio1() - dGammaHTotR1;
+    
+    delBRZeeRatio = deltaGamma_Zf(leptons[ELECTRON])/(trueSM.GammaZ(leptons[ELECTRON])) 
+            - deltaGamma_Z()/ trueSM.Gamma_Z();
+    
+//  Wilson coefficients definitions 
+    CG = getSMEFTCoeff("CG", muRG); 
+    CuHR33 = getSMEFTCoeff("CuHR",2,2, muRG); 
+    CHq1R11 = getSMEFTCoeff("CHq1R",0,0, muRG); 
+    CHq3R11 = getSMEFTCoeff("CHq3R",0,0, muRG); 
+    CHuR11 = getSMEFTCoeff("CHuR",0,0, muRG); 
+    CHdR11 = getSMEFTCoeff("CHdR",0,0, muRG); 
+    CHq1R22 = getSMEFTCoeff("CHq1R",1,1, muRG); 
+    CHq3R22 = getSMEFTCoeff("CHq3R",1,1, muRG); 
+    CHuR22 = getSMEFTCoeff("CHuR",1,1, muRG); 
+    CHdR22 = getSMEFTCoeff("CHdR",1,1, muRG); 
+    CHq1R33 = getSMEFTCoeff("CHq1R",2,2, muRG); 
+    CHq3R33 = getSMEFTCoeff("CHq3R",2,2, muRG); 
+    CHuR33 = getSMEFTCoeff("CHuR",2,2, muRG); 
+    CuGR33 = getSMEFTCoeff("CuGR",2,2, muRG); 
+    Cqq1R1133 = getSMEFTCoeff("Cqq1R",0,0,2,2, muRG); 
+    Cqq1R1331 = getSMEFTCoeff("Cqq1R",0,2,2,0, muRG); 
+    Cqq1R2233 = getSMEFTCoeff("Cqq1R",1,1,2,2, muRG); 
+    Cqq1R2332 = getSMEFTCoeff("Cqq1R",1,2,2,1, muRG); 
+    Cqq3R1133 = getSMEFTCoeff("Cqq3R",0,0,2,2, muRG); 
+    Cqq3R1331 = getSMEFTCoeff("Cqq3R",0,2,2,0, muRG); 
+    Cqq3R2233 = getSMEFTCoeff("Cqq3R",1,1,2,2, muRG); 
+    Cqq3R2332 = getSMEFTCoeff("Cqq3R",1,2,2,1, muRG); 
+    CuuR1133 = getSMEFTCoeff("CuuR",0,0,2,2, muRG); 
+    CuuR2233 = getSMEFTCoeff("CuuR",1,1,2,2, muRG); 
+    CuuR1331 = getSMEFTCoeff("CuuR",0,2,2,0, muRG); 
+    CuuR2332 = getSMEFTCoeff("CuuR",1,2,2,1, muRG); 
+    Cud1R3311 = getSMEFTCoeff("Cud1R",2,2,0,0, muRG); 
+    Cud1R3322 = getSMEFTCoeff("Cud1R",2,2,1,1, muRG); 
+    Cud8R3311 = getSMEFTCoeff("Cud8R",2,2,0,0, muRG); 
+    Cud8R3322 = getSMEFTCoeff("Cud8R",2,2,1,1, muRG); 
+    Cqu1R1133 = getSMEFTCoeff("Cqu1R",0,0,2,2, muRG); 
+    Cqu1R2233 = getSMEFTCoeff("Cqu1R",1,1,2,2, muRG); 
+    Cqu1R3311 = getSMEFTCoeff("Cqu1R",2,2,0,0, muRG); 
+    Cqu1R3322 = getSMEFTCoeff("Cqu1R",2,2,1,1, muRG); 
+    Cqu8R1133 = getSMEFTCoeff("Cqu8R",0,0,2,2, muRG); 
+    Cqu8R2233 = getSMEFTCoeff("Cqu8R",1,1,2,2, muRG); 
+    Cqu8R3311 = getSMEFTCoeff("Cqu8R",2,2,0,0, muRG); 
+    Cqu8R3322 = getSMEFTCoeff("Cqu8R",2,2,1,1, muRG); 
+    Cqd1R3311 = getSMEFTCoeff("Cqd1R",2,2,0,0, muRG); 
+    Cqd1R3322 = getSMEFTCoeff("Cqd1R",2,2,1,1, muRG); 
+    Cqd8R3311 = getSMEFTCoeff("Cqd8R",2,2,0,0, muRG); 
+    Cqd8R3322 = getSMEFTCoeff("Cqd8R",2,2,1,1, muRG);     
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0, muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1, muRG); 
+    CllR1221 = getSMEFTCoeff("CllR",0,1,1,0, muRG); 
+        
+    // Madgraph simulations for 84 TeV
 
     dsigmarat = 1.0;
-    //  ttH 100 TeV (from muttH func): NOT BOOSTED YET
-    dsigmarat += +467438. * getSMEFTCoeffEW("CHG")
-            - 22519. * getSMEFTCoeffEW("CG")
-            + 880378. * getSMEFTCoeffEW("CuGR", 2, 2)
-            - 2.837 * deltaG_hff(quarks[TOP]).real()
-            ;
-    //  Divided (linearized) by ttZ 100 TeV
+    //  ttH 84 TeV
+    dsigmarat += (
+                -814615. * CG 
+                -122358. * CuHR33 
+                +43.4869 * CHq1R11 
+                +29.6743 * CHq3R11 
+                +1.47314 * CHuR11 
+                +71.5756 * CHdR11 
+                +4.91872 * CHq1R22 
+                -87.4079 * CHq3R22 
+                -76.7362 * CHuR22 
+                +11.5842 * CHdR22 
+                -443.578 * CHq1R33 
+                -293.356 * CHq3R33 
+                -329.955 * CHuR33 
+                -1237480. * CuGR33 
+                +16.9383 * Cqq1R1133 
+                +334309. * Cqq1R1331 
+                -5.91142 * Cqq1R2233 
+                +18575.1 * Cqq1R2332 
+                -243.453 * Cqq3R1133 
+                +743417. * Cqq3R1331 
+                +58.8933 * Cqq3R2233 
+                +90015.6 * Cqq3R2332 
+                -23.0103 * CuuR1133 
+                -44.938 * CuuR2233 
+                +333804. * CuuR1331 
+                +18524.5 * CuuR2332 
+                -21.3446 * Cud1R3311 
+                -41.7531 * Cud1R3322 
+                +52881.4 * Cud8R3311 
+                +6555.05 * Cud8R3322 
+                +353.475 * Cqu1R1133 
+                -74.8719 * Cqu1R2233 
+                -192.922 * Cqu1R3311 
+                -47.5578 * Cqu1R3322 
+                +133978. * Cqu8R1133 
+                +13659.6 * Cqu8R2233 
+                +82844. * Cqu8R3311 
+                +4587.38 * Cqu8R3322 
+                -191.882 * Cqd1R3311 
+                -76.3599 * Cqd1R3322 
+                +53420.8 * Cqd8R3311 
+                +6537.54 * Cqd8R3322 
+                -61170.9 * (CHl3R11 + CHl3R22 - CllR1221 ) )
+                ;            
+            
+    //  Divided (linearized) by ttZ 84 TeV
     dsigmarat = dsigmarat - (
-            -40869.4 * getSMEFTCoeffEW("CHD")
-            - 52607.9 * getSMEFTCoeffEW("CHWB")
-            - 90424.9 * getSMEFTCoeffEW("CHG")
-            + 432089. * getSMEFTCoeffEW("CG")
-            + 326525. * getSMEFTCoeffEW("CuGR", 2, 2)
-            - 2028.11 * getSMEFTCoeffEW("CuWR", 2, 2)
-            + 1679.85 * getSMEFTCoeffEW("CuBR", 2, 2)
-            + 1454.5 * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + 1065.27 * getSMEFTCoeffEW("CHuR", 0, 0)
-            + 82169.1 * getSMEFTCoeffEW("CHuR", 2, 2)
-            - 1229.16 * getSMEFTCoeffEW("CHdR", 0, 0)
-            + 6780.84 * getSMEFTCoeffEW("CHq3R", 0, 0)
-            - 1.374 * delta_GF
-            + 4.242 * -0.5 * (getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 2, 2)) * v2
-            );
+                -1253959. * CG 
+                -195.273 * CHq1R11 
+                +5722.23 * CHq3R11 
+                +939.285 * CHuR11 
+                -840.086 * CHdR11 
+                +316.078 * CHq1R22 
+                +819.585 * CHq3R22 
+                +97.2898 * CHuR22 
+                -134.566 * CHdR22 
+                -125938. * CHq1R33 
+                +125889. * CHq3R33 
+                +91464.4 * CHuR33 
+                -564449. * CuGR33 
+                -159.949 * Cqq1R1133 
+                +371709. * Cqq1R1331 
+                -68.0447 * Cqq1R2233 
+                +17904.8 * Cqq1R2332 
+                -91.1919 * Cqq3R1133 
+                +1193228. * Cqq3R1331 
+                +47.7377 * Cqq3R2233 
+                +152055. * Cqq3R2332 
+                -133.953 * CuuR1133 
+                -17.3028 * CuuR2233 
+                +181860. * CuuR1331 
+                +9119.11 * CuuR2332 
+                -195.733 * Cud1R3311 
+                -39.4786 * Cud1R3322 
+                +30947.2 * Cud8R3311 
+                +3492.61 * Cud8R3322 
+                -45.2385 * Cqu1R1133 
+                -14.2913 * Cqu1R2233 
+                -98.8336 * Cqu1R3311 
+                -24.4606 * Cqu1R3322 
+                +138699. * Cqu8R1133 
+                +14699.9 * Cqu8R2233 
+                +78699.3 * Cqu8R3311 
+                +3755.34 * Cqu8R3322 
+                -14.8631 * Cqd1R3311 
+                -20.1378 * Cqd1R3322 
+                +55799.6 * Cqd8R3311 
+                +6291.33 * Cqd8R3322 
+                -61231.8 * (CHl3R11 + CHl3R22 - CllR1221 ) );
 
-    return dsigmarat * (BrHgagarat / BrZeerat);
+    return (dsigmarat + delBRHgagaRatio - delBRZeeRatio);
 
 }
 
@@ -45226,7 +45458,7 @@ const double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double pol
     dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
 
     return topb * dsigma;
-};
+}
 
 const double NPSMEFTd6General::delta_sigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
     //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
@@ -45254,7 +45486,7 @@ const double NPSMEFTd6General::delta_sigma_f(const Particle f, const double pol_
     dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
 
     return topb * dsigma;
-};
+}
 
 const double NPSMEFTd6General::delta_sigma_had(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
     double dsigma;

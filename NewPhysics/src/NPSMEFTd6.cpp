@@ -26448,7 +26448,7 @@ const double NPSMEFTd6::delta_Dsigma_f(const Particle f, const double pol_e, con
     dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
 
     return topb * dsigma;
-};
+}
 
 const double NPSMEFTd6::delta_sigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
     //  Only valid for f=/=e (MLL2, MRR2 do not depend on t for f=/=e. Simply enter t=1 as argument)
@@ -26475,7 +26475,7 @@ const double NPSMEFTd6::delta_sigma_f(const Particle f, const double pol_e, cons
     dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
 
     return topb * dsigma;
-};
+}
 
 const double NPSMEFTd6::delta_sigma_had(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const {
     double dsigma;
