@@ -34248,13 +34248,13 @@ const double NPSMEFTd6General::deltaGammaH4fRatio2() const {
     if (FlagQuadraticTerms) {
         //Contributions that are quadratic in the effective coefficients
         // SM decay widths (from MG simulations)
-        double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
-        double wH2u2uSM = 0.22500e-05, wH2d2dSM = 0.11906e-04, wH2u2dSM = 0.12361e-04;
-        double wH2L2uSM = 0.45029e-05, wH2L2dSM = 0.85830e-05, wH2v2uSM = 0.93233e-05;
-        double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06, wH4vSM = 0.16884e-05;
-        double wH4uSM = 0.23669e-05, wH4dSM = 0.60254e-05;
-        double wHLvvLSM = 0.58098e-04, wHudduSM = 0.13384e-03, wHLvudSM = 0.39063e-03;
-        double wH2udSM = 0.13711e-03, wH2LvSM = 0.27557e-04;
+        double wH2L2LSM = 6.905e-07, wH2v2vSM = 2.922e-06, wH2L2vSM = 2.844e-06;
+        double wH2u2uSM = 2.406e-06, wH2d2dSM = 1.265e-05, wH2u2dSM = 1.291e-05;
+        double wH2L2uSM = 4.402e-06, wH2L2dSM = 8.593e-06, wH2v2uSM = 9.831e-06, wH2v2dSM = 1.867e-05;
+        double wH4LSM = 3.565e-07, wH4vSM = 1.747e-06;
+        double wH4uSM = 2.533e-06, wH4dSM = 6.394e-06;
+        double wHLvvLSM = 6.318e-05, wHudduSM = 0.0001716, wHLvudSM = 0.0003606;
+        double wH2udSM = 0.0001758, wH2LvSM = 3.164e-05;
 
         // Sum
         double wH4fSM = wH2L2LSM + wH2v2vSM + wH2L2vSM + wH2u2uSM + wH2d2dSM + wH2u2dSM +
@@ -34298,6 +34298,171 @@ const double NPSMEFTd6General::BrH4fRatio() const {
     return Br;
 
 }
+
+
+const double NPSMEFTd6General::GammaH4fNCRatio() const {
+    // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4fNCRatio1
+    double width = 1.0;
+
+    width += deltaGammaH4fNCRatio1();
+
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        width += deltaGammaH4fNCRatio2();
+    }
+
+    return width;
+}
+
+const double NPSMEFTd6General::deltaGammaH4fNCRatio1() const {
+    double dwidth = 0.0;
+
+    // SM decay widths (from MG simulations) 
+    double wH2L2LSM = 6.905e-07, wH2v2vSM = 2.922e-06, wH2L2vSM = 2.844e-06;
+    double wH2u2uSM = 2.406e-06, wH2d2dSM = 1.265e-05, wH2u2dSM = 1.291e-05;
+    double wH2L2uSM = 4.402e-06, wH2L2dSM = 8.593e-06, wH2v2uSM = 9.831e-06, wH2v2dSM = 1.867e-05;
+    double wH4LSM = 3.565e-07, wH4vSM = 1.747e-06;
+    double wH4uSM = 2.533e-06, wH4dSM = 6.394e-06;
+
+    // Sum
+    double wH4fSM = wH2L2LSM + wH2v2vSM + wH2L2vSM + wH2u2uSM + wH2d2dSM + wH2u2dSM +
+            wH2L2uSM + wH2L2dSM + wH2v2uSM + wH2v2dSM + wH4LSM + wH4vSM + wH4uSM + wH4dSM;
+
+    dwidth += (wH2L2LSM * deltaGammaH2L2LRatio1() + wH2v2vSM * deltaGammaH2v2vRatio1() + wH2L2vSM * deltaGammaH2L2vRatio1() +
+            wH2u2uSM * deltaGammaH2u2uRatio1() + wH2d2dSM * deltaGammaH2d2dRatio1() + wH2u2dSM * deltaGammaH2u2dRatio1() +
+            wH2L2uSM * deltaGammaH2L2uRatio1() + wH2L2dSM * deltaGammaH2L2dRatio1() + wH2v2uSM * deltaGammaH2v2uRatio1() +
+            wH2v2dSM * deltaGammaH2v2dRatio1() + wH4LSM * deltaGammaH4LRatio1() + wH4LSM * deltaGammaH4LRatio1() +
+            wH4uSM * deltaGammaH4uRatio1() + wH4dSM * deltaGammaH4dRatio1()) / wH4fSM;
+
+    return dwidth;
+}
+
+const double NPSMEFTd6General::deltaGammaH4fNCRatio2() const {
+    double dwidth = 0.0;
+    if (FlagQuadraticTerms) {
+        //Contributions that are quadratic in the effective coefficients
+        // SM decay widths (from MG simulations)
+        double wH2L2LSM = 6.905e-07, wH2v2vSM = 2.922e-06, wH2L2vSM = 2.844e-06;
+        double wH2u2uSM = 2.406e-06, wH2d2dSM = 1.265e-05, wH2u2dSM = 1.291e-05;
+        double wH2L2uSM = 4.402e-06, wH2L2dSM = 8.593e-06, wH2v2uSM = 9.831e-06, wH2v2dSM = 1.867e-05;
+        double wH4LSM = 3.565e-07, wH4vSM = 1.747e-06;
+        double wH4uSM = 2.533e-06, wH4dSM = 6.394e-06;
+
+        // Sum
+        double wH4fSM = wH2L2LSM + wH2v2vSM + wH2L2vSM + wH2u2uSM + wH2d2dSM + wH2u2dSM +
+                wH2L2uSM + wH2L2dSM + wH2v2uSM + wH2v2dSM + wH4LSM + wH4vSM + wH4uSM + wH4dSM;
+
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += (wH2L2LSM * deltaGammaH2L2LRatio2() + wH2v2vSM * deltaGammaH2v2vRatio2() + wH2L2vSM * deltaGammaH2L2vRatio2() +
+                wH2u2uSM * deltaGammaH2u2uRatio2() + wH2d2dSM * deltaGammaH2d2dRatio2() + wH2u2dSM * deltaGammaH2u2dRatio2() +
+                wH2L2uSM * deltaGammaH2L2uRatio2() + wH2L2dSM * deltaGammaH2L2dRatio2() + wH2v2uSM * deltaGammaH2v2uRatio2() +
+                wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4LSM * deltaGammaH4LRatio2() +
+                wH4uSM * deltaGammaH4uRatio2() + wH4dSM * deltaGammaH4dRatio2()) / wH4fSM;
+    }
+
+    return dwidth;
+}
+
+const double NPSMEFTd6General::BrH4fNCRatio() const {
+    double Br = 1.0;
+    double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
+
+    dGHiR1 = deltaGammaH4fNCRatio1();
+
+    Br += dGHiR1 - dGammaHTotR1;
+
+    if (FlagQuadraticTerms) {
+
+        dGHiR2 = deltaGammaH4fNCRatio2();
+
+        //Add contributions that are quadratic in the effective coefficients
+        Br += -dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1, 2.0);
+    }
+
+    GHiR += dGHiR1 + dGHiR2;
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
+
+    return Br;
+
+}
+
+
+const double NPSMEFTd6General::GammaH4fCCRatio() const {
+    // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4fCCRatio1
+    double width = 1.0;
+
+    width += deltaGammaH4fCCRatio1();
+
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        width += deltaGammaH4fCCRatio2();
+    }
+
+    return width;
+}
+
+const double NPSMEFTd6General::deltaGammaH4fCCRatio1() const {
+    double dwidth = 0.0;
+
+    // SM decay widths (from MG simulations) 
+    double wHLvvLSM = 6.318e-05, wHudduSM = 0.0001716, wHLvudSM = 0.0003606;
+    double wH2udSM = 0.0001758, wH2LvSM = 3.164e-05;
+
+    // Sum
+    double wH4fSM = wHLvvLSM + wHudduSM + wHLvudSM + wH2udSM + wH2LvSM;
+
+    dwidth += (wHLvvLSM * deltaGammaHLvvLRatio1() + wHudduSM * deltaGammaHudduRatio1() + wHLvudSM * deltaGammaHLvudRatio1() +
+            wH2udSM * deltaGammaH2udRatio1() + wH2LvSM * deltaGammaH2LvRatio1()) / wH4fSM;
+
+    return dwidth;
+}
+
+const double NPSMEFTd6General::deltaGammaH4fCCRatio2() const {
+    double dwidth = 0.0;
+    if (FlagQuadraticTerms) {
+        //Contributions that are quadratic in the effective coefficients
+        // SM decay widths (from MG simulations)
+        double wHLvvLSM = 6.318e-05, wHudduSM = 0.0001716, wHLvudSM = 0.0003606;
+        double wH2udSM = 0.0001758, wH2LvSM = 3.164e-05;
+
+        // Sum
+        double wH4fSM = wHLvvLSM + wHudduSM + wHLvudSM + wH2udSM + wH2LvSM;
+
+        //Contributions that are quadratic in the effective coefficients
+        dwidth += (wHLvvLSM * deltaGammaHLvvLRatio2() + wHudduSM * deltaGammaHudduRatio2() + wHLvudSM * deltaGammaHLvudRatio2() +
+                wH2udSM * deltaGammaH2udRatio2() + wH2LvSM * deltaGammaH2LvRatio2()) / wH4fSM;
+    }
+
+    return dwidth;
+}
+
+const double NPSMEFTd6General::BrH4fCCRatio() const {
+    double Br = 1.0;
+    double dGHiR1 = 0.0, dGHiR2 = 0.0, GHiR = 1.0;
+
+    dGHiR1 = deltaGammaH4fCCRatio1();
+
+    Br += dGHiR1 - dGammaHTotR1;
+
+    if (FlagQuadraticTerms) {
+
+        dGHiR2 = deltaGammaH4fCCRatio2();
+
+        //Add contributions that are quadratic in the effective coefficients
+        Br += -dGHiR1 * dGammaHTotR1
+                + dGHiR2 - dGammaHTotR2
+                + pow(dGammaHTotR1, 2.0);
+    }
+
+    GHiR += dGHiR1 + dGHiR2;
+    if ((Br < 0) || (GHiR < 0) || (GammaHTotR < 0)) return std::numeric_limits<double>::quiet_NaN();
+
+    return Br;
+
+}
+
 
 const double NPSMEFTd6General::GammaH4lRatio() const {
     // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaH4lRatio1
@@ -36011,6 +36176,18 @@ const double NPSMEFTd6General::muTHUggHZgamumu(const double sqrt_s) const {
     }
 }
 
+///////////////////////////////////////////////////////////////////////////////
+
+//  Relative correction to EM coupling
+
+const double NPSMEFTd6General::deltaeNP(const double mu) const {
+    
+    double NPindirect;
+
+    NPindirect = del_e_mu(mu) + 0.5 * del_A_mu(mu);
+
+    return NPindirect;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -42581,6 +42758,14 @@ const double NPSMEFTd6General::kappaZeff() const {
 
 const double NPSMEFTd6General::kappaWeff() const {
     return sqrt(GammaHWWRatio());
+}
+
+const double NPSMEFTd6General::kappaZ4feff() const {
+    return sqrt(GammaH4fNCRatio());
+}
+
+const double NPSMEFTd6General::kappaW4feff() const {
+    return sqrt(GammaH4fCCRatio());
 }
 
 const double NPSMEFTd6General::kappaAeff() const {

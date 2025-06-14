@@ -1258,6 +1258,24 @@ double gHZZeff::computeThValue()
 
 /* -------------------------------------*/
 
+gHZZ4feff::gHZZ4feff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHZZ4feff::~gHZZ4feff()
+{}
+
+double gHZZ4feff::computeThValue()
+{
+    return myNPbase->kappaZ4feff();
+}
+
+/* -------------------------------------*/
+
 gHZZ1::gHZZ1(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {
@@ -1431,6 +1449,24 @@ gHWWeff::~gHWWeff()
 double gHWWeff::computeThValue()
 {
     return myNPbase->kappaWeff();
+}
+
+/* -------------------------------------*/
+
+gHWW4feff::gHWW4feff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHWW4feff::~gHWW4feff()
+{}
+
+double gHWW4feff::computeThValue()
+{
+    return myNPbase->kappaW4feff();
 }
 
 /* -------------------------------------*/
@@ -1858,6 +1894,28 @@ double lambzHB::computeThValue()
 //-----  Other useful observables to work with new physics  ----------
 
 /* -------------------------------------*/
+
+/* -------------------------------------*/
+
+//-----  Relative correction to EM coupling  ----------
+
+/* -------------------------------------*/
+
+deltae::deltae(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltae called with a class whose parent is not NPbase");    
+}
+
+
+deltae::~deltae()
+{}
+
+double deltae::computeThValue()
+{    
+    return (myNPbase->deltaeNP(mu));
+}
 
 /* -------------------------------------*/
 

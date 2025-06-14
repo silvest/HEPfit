@@ -3093,12 +3093,32 @@ public:
     
 
     ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The new physics relative contribution to the EW coupling constant @f$e@f$.
+     * @return @f$\delta e@f$
+     */
+    virtual const double deltaeNP(const double mu) const
+    {
+        return 0.0;
+    }
+    
+    ////////////////////////////////////////////////////////////////////////
       
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
      * @return @f$\delta g_{1,Z}@f$
      */
     virtual const double deltag1ZNP(const double mu) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
+     * @return @f$\delta g_{1,\gamma}@f$
+     */
+    virtual const double deltag1gaNP(const double mu) const
     {
         return 0.0;
     }
@@ -4525,6 +4545,24 @@ public:
      * @return @f$\kappa_{W,eff}@f$
      */
     virtual const double kappaWeff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{Z4f,eff}=\sqrt{\Gamma_{H4f, NC}/\Gamma_{H4f, NC}^{SM}}@f$.
+     * @return @f$\kappa_{Z4f,eff}@f$
+     */
+    virtual const double kappaZ4feff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{W4f,eff}=\sqrt{\Gamma_{H4f, CC}/\Gamma_{H4f, CC}^{SM}}@f$.
+     * @return @f$\kappa_{W4f,eff}@f$
+     */
+    virtual const double kappaW4feff() const
     {
         return 1.0;
     }

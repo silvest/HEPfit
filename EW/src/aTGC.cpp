@@ -28,6 +28,24 @@ double deltag1Z::computeThValue()
 
 /* -------------------------------------*/
 
+deltag1gamma::deltag1gamma(const StandardModel& SM_i, const double mu_i)
+:ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltag1gamma called with a class whose parent is not NPbase");
+}
+
+
+deltag1gamma::~deltag1gamma()
+{}
+
+double deltag1gamma::computeThValue()
+{
+    return myNPbase->deltag1gaNP(mu);
+}
+
+/* -------------------------------------*/
+
 deltaKgamma::deltaKgamma(const StandardModel& SM_i, const double mu_i)
 :ThObservable(SM_i), mu(mu_i)
 {

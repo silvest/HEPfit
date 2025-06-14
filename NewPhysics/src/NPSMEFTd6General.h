@@ -4008,6 +4008,62 @@ public:
      * @return Br@f$(H\to 4f)@f$/Br@f$(H\to 4f)_{\mathrm{SM}}@f$
      */
     virtual const double BrH4fRatio() const;
+    
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to 4f)@f$ via NC in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 4f, NC)@f$/@f$\Gamma(H\to 4f, NC)_{\mathrm{SM}}@f$
+     */
+    const double  GammaH4fNCRatio() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f, NC)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4f, NC)@f$/@f$\Gamma(H\to 4f, NC)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaH4fNCRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f, NC)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4f, NC)@f$/@f$\Gamma(H\to 4f, NC)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaH4fNCRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 4f, NC)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4f, NC)@f$/Br@f$(H\to 4f, NC)_{\mathrm{SM}}@f$
+     */
+    virtual const double BrH4fNCRatio() const;
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to 4f)@f$ via CC in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 4f, CC)@f$/@f$\Gamma(H\to 4f, CC)_{\mathrm{SM}}@f$
+     */
+    const double  GammaH4fCCRatio() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f, CC)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4f, CC)@f$/@f$\Gamma(H\to 4f, CC)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaH4fCCRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f, CC)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4f, CC)@f$/@f$\Gamma(H\to 4f, CC)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaH4fCCRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 4f, CC)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4f, CC)@f$/Br@f$(H\to 4f, CC)_{\mathrm{SM}}@f$
+     */
+    virtual const double BrH4fCCRatio() const;
+    
 
     // DECAYS INVOLVING ONLY ELECTRONS, MUONS OR NEUTRINOS IN THE FINAL STATES 
 
@@ -5154,6 +5210,14 @@ public:
      * @return @f$\mu_{ggH,Z\gamma\to \gamma 2\mu}@f$
      */
     virtual const double muTHUggHZgamumu(const double sqrt_s) const;
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The new physics relative contribution to the EW coupling constant @f$e@f$.
+     * @return @f$\delta e@f$
+     */
+    virtual const double deltaeNP(const double mu) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -6098,7 +6162,19 @@ public:
      * @return @f$\kappa_{W,eff}@f$
      */
     virtual const double kappaWeff() const;
-
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{Z4f,eff}=\sqrt{\Gamma_{H4f, NC}/\Gamma_{H4f, NC}^{SM}}@f$.
+     * @return @f$\kappa_{Z4f,eff}@f$
+     */
+    virtual const double kappaZ4feff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{W4f,eff}=\sqrt{\Gamma_{H4f, CC}/\Gamma_{H4f, CC}^{SM}}@f$.
+     * @return @f$\kappa_{W4f,eff}@f$
+     */
+    virtual const double kappaW4feff() const;
+    
     /**
      * @brief The effective coupling @f$\kappa_{A,eff}=\sqrt{\Gamma_{HAA}/\Gamma_{HAA}^{SM}}@f$.
      * @return @f$\kappa_{A,eff}@f$

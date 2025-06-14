@@ -1884,6 +1884,40 @@ private:
 };
 
 /**
+ * @class gHZZ4feff
+ * @brief An observable class for the effective @f$H ZZ@f$ coupling, defined from 4f final sates 
+ * @f$g_{HZZ,4f}^{Eff}@f$, defined from the square root of @f$\Gamma_{H4f, NC}/\Gamma_{H4f, NC}^{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective @f$H ZZ@f$ coupling
+ * @f$g_{HZZ,4f}^{Eff}@f$, defined from the square root of @f$\Gamma_{H4f, NC}/\Gamma_{H4f, NC}^{SM}@f$.
+ *
+ */
+class gHZZ4feff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHZZ4feff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHZZeff class.
+     */
+    virtual ~gHZZ4feff();
+
+    /**
+     * @brief The effective @f$H ZZ@f$ coupling
+     * @return @f$g_{HZZ,4f}^{Eff}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+};
+
+/**
  * @class gHZZ1
  * @brief An observable class for the non-SM coupling @f$H Z_{\mu\nu} Z^{\mu\nu}@f$
  * @f$g_{HZZ}^{(1)}@f$.
@@ -2195,6 +2229,41 @@ public:
     /**
      * @brief The effective @f$H WW@f$ coupling
      * @return @f$g_{HWW}^{Eff}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+};
+
+/**
+ * @class gHWW4feff
+ * @brief An observable class for the effective @f$H WW@f$ coupling defined from all 4f final states minus pure NC
+ * (Still contains a small amount of NC and NC-CC interference)
+ * @f$g_{HWW,4f}^{Eff}@f$, defined from the square root of @f$\Gamma_{H4f, CC}/\Gamma_{H4f, CC}^{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective @f$H WW@f$ coupling
+ * @f$g_{HWW,4f}^{Eff}@f$, defined from the square root of @f$\Gamma_{H4f, CC}/\Gamma_{H4f, CC}^{SM}@f$.
+ *
+ */
+class gHWW4feff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHWW4feff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHWWeff class.
+     */
+    virtual ~gHWW4feff();
+
+    /**
+     * @brief The effective @f$H WW@f$ coupling
+     * @return @f$g_{HWW,4f}^{Eff}@f$
      */
     double computeThValue();
       
@@ -3029,6 +3098,47 @@ public:
 private:
     const NPbase * myNPbase;
 };
+
+
+//-----  Relative correction to EM constant  ----------
+
+/**
+ * @class deltae
+ * @brief An observable class for the relative deviation from the SM of the EM coupling @f$e@f$ 
+ * @f$\delta e@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute deviation from the SM of the EM coupling @f$e@f$
+ * @f$\delta e@f$.
+ *
+ */
+class deltae : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] lepton a lepton
+     */
+    deltae(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the deltae class.
+     */
+    virtual ~deltae();
+
+    /**
+     * @brief The absolute deviation from the SM from the SM of the EM coupling @f$e@f$
+     * @f$\delta e@f$.
+     * @return @f$\delta e@f$
+     */
+    double computeThValue();    
+    
+private:
+    const NPbase * myNPbase;
+    const double mu;
+};
+
 
 //-----  Absolute correction to some EW couplings (factoring e/sc or e/sqrt(2)s  ----------
 
