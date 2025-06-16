@@ -25940,7 +25940,8 @@ const double NPSMEFTd6General::deltaGammaHWWRatio2() const {
 
 const double NPSMEFTd6General::BrHWWRatio() const {
 
-    return BrHWW4fRatio();
+//    return BrHWW4fRatio();
+    return BrH4fCCRatio();
 
 }
 
@@ -26521,7 +26522,8 @@ const double NPSMEFTd6General::deltaGammaHZZRatio2() const {
 }
 
 const double NPSMEFTd6General::BrHZZRatio() const {
-    return BrHZZ4fRatio();
+    //return BrHZZ4fRatio();    
+    return BrH4fNCRatio();
 }
 
 const double NPSMEFTd6General::GammaHZllRatio() const {
