@@ -824,6 +824,27 @@ ThObsFactory::ThObsFactory()
         obsThFactory["deltaVtbR_" + sqrt_s_str] = bind(boost::factory<deltaVtbR*>(), _1, sqrt_s_eeff[i]);
     }
     //
+    //-----  Zff EFFECTIVE couplings observables: relative corrections (derived from Af and Gamma(Z->ff)  ----------
+    //-----  Z couplings with neutrinos ---------
+    obsThFactory["deltagZveveLeff"] = bind(boost::factory<deltagEffZveveL*>(), _1);
+    obsThFactory["deltagZvmuvmuLeff"] = bind(boost::factory<deltagEffZvmuvmuL*>(), _1);
+    obsThFactory["deltagZvtavtaLeff"] = bind(boost::factory<deltagEffZvtavtaL*>(), _1);
+    //-----  Z couplings with leptons ---------
+    obsThFactory["deltagZeeLeff"] = bind(boost::factory<deltagEffZeeL*>(), _1);
+    obsThFactory["deltagZeeReff"] = bind(boost::factory<deltagEffZeeR*>(), _1);
+    obsThFactory["deltagZmumuLeff"] = bind(boost::factory<deltagEffZmumuL*>(), _1);
+    obsThFactory["deltagZmumuReff"] = bind(boost::factory<deltagEffZmumuR*>(), _1);
+    obsThFactory["deltagZtataLeff"] = bind(boost::factory<deltagEffZtataL*>(), _1);
+    obsThFactory["deltagZtataReff"] = bind(boost::factory<deltagEffZtataR*>(), _1);
+    //-----  Z couplings with up sector quarks ---------
+    obsThFactory["deltagZccLeff"] = bind(boost::factory<deltagEffZccL*>(), _1);
+    obsThFactory["deltagZccReff"] = bind(boost::factory<deltagEffZccR*>(), _1);
+    //-----  Z couplings with down sector quarks ---------
+    obsThFactory["deltagZssLeff"] = bind(boost::factory<deltagEffZssL*>(), _1);
+    obsThFactory["deltagZssReff"] = bind(boost::factory<deltagEffZssR*>(), _1);
+    obsThFactory["deltagZbbLeff"] = bind(boost::factory<deltagEffZbbL*>(), _1);
+    obsThFactory["deltagZbbReff"] = bind(boost::factory<deltagEffZbbR*>(), _1);
+    //
     //-----  W mass correction  ----------
     obsThFactory["deltaMW"] = boost::factory<deltaMW*>();
     //-----  Hff couplings observables  ----------

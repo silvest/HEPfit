@@ -707,6 +707,505 @@ double deltagZbbR::computeThValue()
 
 /* -------------------------------------*/
 
+//-----  Zff EFFECTIVE couplings observables: relative corrections (derived from Af and Gamma(Z->ff)  ----------
+
+/* -------------------------------------*/
+
+deltagEffZveveL::deltagEffZveveL(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZveveL called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZveveL::~deltagEffZveveL()
+{}
+
+double deltagEffZveveL::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getLeptons(StandardModel::NEUTRINO_1));
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    double gSM = (SM.getLeptons(StandardModel::NEUTRINO_1)).getIsospin();
+    
+    dGaZff = 3.0 * sw2_tree * cw2_tree * dGaZff / (SM.getMz()) / (SM.alphaMz()); 
+    
+    return (dGaZff/gSM/gSM);
+}
+
+/* -------------------------------------*/
+
+deltagEffZvmuvmuL::deltagEffZvmuvmuL(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZvmuvmuL called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZvmuvmuL::~deltagEffZvmuvmuL()
+{}
+
+double deltagEffZvmuvmuL::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getLeptons(StandardModel::NEUTRINO_2));
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    double gSM = (SM.getLeptons(StandardModel::NEUTRINO_2)).getIsospin();
+    
+    dGaZff = 3.0 * sw2_tree * cw2_tree * dGaZff / (SM.getMz()) / (SM.alphaMz()); 
+    
+    return (dGaZff/gSM/gSM);
+}
+
+/* -------------------------------------*/
+
+deltagEffZvtavtaL::deltagEffZvtavtaL(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZvtavtaL called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZvtavtaL::~deltagEffZvtavtaL()
+{}
+
+double deltagEffZvtavtaL::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getLeptons(StandardModel::NEUTRINO_3));
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    double gSM = (SM.getLeptons(StandardModel::NEUTRINO_3)).getIsospin();
+    
+    dGaZff = 3.0 * sw2_tree * cw2_tree * dGaZff / (SM.getMz()) / (SM.alphaMz()); 
+    
+    return (dGaZff/gSM/gSM);
+}
+
+/* -------------------------------------*/
+
+deltagEffZeeL::deltagEffZeeL(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZeeL called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZeeL::~deltagEffZeeL()
+{}
+
+double deltagEffZeeL::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getLeptons(StandardModel::ELECTRON));
+    double dAf = myNPbase->deltaA_f(SM.getLeptons(StandardModel::ELECTRON));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double gLSM = (SM.getLeptons(StandardModel::ELECTRON)).getIsospin() 
+    - ((SM.getLeptons(StandardModel::ELECTRON)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getLeptons(StandardModel::ELECTRON)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz());
+    
+    dg = dg + (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gLSM*gLSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZeeR::deltagEffZeeR(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZeeR called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZeeR::~deltagEffZeeR()
+{}
+
+double deltagEffZeeR::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getLeptons(StandardModel::ELECTRON));
+    double dAf = myNPbase->deltaA_f(SM.getLeptons(StandardModel::ELECTRON));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double gLSM = (SM.getLeptons(StandardModel::ELECTRON)).getIsospin() 
+    - ((SM.getLeptons(StandardModel::ELECTRON)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getLeptons(StandardModel::ELECTRON)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz());
+    
+    dg = dg - (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gRSM*gRSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZmumuL::deltagEffZmumuL(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZmumuL called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZmumuL::~deltagEffZmumuL()
+{}
+
+double deltagEffZmumuL::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getLeptons(StandardModel::MU));
+    double dAf = myNPbase->deltaA_f(SM.getLeptons(StandardModel::MU));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double gLSM = (SM.getLeptons(StandardModel::MU)).getIsospin() 
+    - ((SM.getLeptons(StandardModel::MU)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getLeptons(StandardModel::MU)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz());
+    
+    dg = dg + (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gLSM*gLSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZmumuR::deltagEffZmumuR(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZmumuR called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZmumuR::~deltagEffZmumuR()
+{}
+
+double deltagEffZmumuR::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getLeptons(StandardModel::MU));
+    double dAf = myNPbase->deltaA_f(SM.getLeptons(StandardModel::MU));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double gLSM = (SM.getLeptons(StandardModel::MU)).getIsospin() 
+    - ((SM.getLeptons(StandardModel::MU)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getLeptons(StandardModel::MU)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz());
+    
+    dg = dg - (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gRSM*gRSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZtataL::deltagEffZtataL(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZtataL called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZtataL::~deltagEffZtataL()
+{}
+
+double deltagEffZtataL::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getLeptons(StandardModel::TAU));
+    double dAf = myNPbase->deltaA_f(SM.getLeptons(StandardModel::TAU));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double gLSM = (SM.getLeptons(StandardModel::TAU)).getIsospin() 
+    - ((SM.getLeptons(StandardModel::TAU)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getLeptons(StandardModel::TAU)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz());
+    
+    dg = dg + (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gLSM*gLSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZtataR::deltagEffZtataR(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZtataR called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZtataR::~deltagEffZtataR()
+{}
+
+double deltagEffZtataR::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getLeptons(StandardModel::TAU));
+    double dAf = myNPbase->deltaA_f(SM.getLeptons(StandardModel::TAU));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double gLSM = (SM.getLeptons(StandardModel::TAU)).getIsospin() 
+    - ((SM.getLeptons(StandardModel::TAU)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getLeptons(StandardModel::TAU)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz());
+    
+    dg = dg - (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gRSM*gRSM);
+        
+    return dg;
+}
+
+
+/* -------------------------------------*/
+
+deltagEffZccL::deltagEffZccL(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZccLs called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZccL::~deltagEffZccL()
+{}
+
+double deltagEffZccL::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getQuarks(StandardModel::CHARM));
+    double dAf = myNPbase->deltaA_f(SM.getQuarks(StandardModel::CHARM));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double Nc = 3.0;
+    
+    double gLSM = (SM.getQuarks(StandardModel::CHARM)).getIsospin() 
+    - ((SM.getQuarks(StandardModel::CHARM)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getQuarks(StandardModel::CHARM)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz()) / Nc;
+    
+    dg = dg + (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gLSM*gLSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZccR::deltagEffZccR(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZccR called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZccR::~deltagEffZccR()
+{}
+
+double deltagEffZccR::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getQuarks(StandardModel::CHARM));
+    double dAf = myNPbase->deltaA_f(SM.getQuarks(StandardModel::CHARM));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double Nc = 3.0;
+    
+    double gLSM = (SM.getQuarks(StandardModel::CHARM)).getIsospin() 
+    - ((SM.getQuarks(StandardModel::CHARM)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getQuarks(StandardModel::CHARM)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz()) / Nc;
+    
+    dg = dg - (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gRSM*gRSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZssL::deltagEffZssL(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZssL called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZssL::~deltagEffZssL()
+{}
+
+double deltagEffZssL::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getQuarks(StandardModel::STRANGE));
+    double dAf = myNPbase->deltaA_f(SM.getQuarks(StandardModel::STRANGE));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double Nc = 3.0;
+    
+    double gLSM = (SM.getQuarks(StandardModel::STRANGE)).getIsospin() 
+    - ((SM.getQuarks(StandardModel::STRANGE)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getQuarks(StandardModel::STRANGE)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz()) / Nc;
+    
+    dg = dg + (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gLSM*gLSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZssR::deltagEffZssR(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZssR called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZssR::~deltagEffZssR()
+{}
+
+double deltagEffZssR::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getQuarks(StandardModel::STRANGE));
+    double dAf = myNPbase->deltaA_f(SM.getQuarks(StandardModel::STRANGE));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double Nc = 3.0;
+    
+    double gLSM = (SM.getQuarks(StandardModel::STRANGE)).getIsospin() 
+    - ((SM.getQuarks(StandardModel::STRANGE)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getQuarks(StandardModel::STRANGE)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz()) / Nc;
+    
+    dg = dg - (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gRSM*gRSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZbbL::deltagEffZbbL(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZbbL called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZbbL::~deltagEffZbbL()
+{}
+
+double deltagEffZbbL::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getQuarks(StandardModel::BOTTOM));
+    double dAf = myNPbase->deltaA_f(SM.getQuarks(StandardModel::BOTTOM));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double Nc = 3.0;
+    
+    double gLSM = (SM.getQuarks(StandardModel::BOTTOM)).getIsospin() 
+    - ((SM.getQuarks(StandardModel::BOTTOM)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getQuarks(StandardModel::BOTTOM)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz()) / Nc;
+    
+    dg = dg + (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gLSM*gLSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
+
+deltagEffZbbR::deltagEffZbbR(const StandardModel& SM_i)
+:ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("deltagEffZbbR called with a class whose parent is not NPbase");
+}
+
+
+deltagEffZbbR::~deltagEffZbbR()
+{}
+
+double deltagEffZbbR::computeThValue()
+{
+    double dGaZff = myNPbase->deltaGamma_Zf(SM.getQuarks(StandardModel::BOTTOM));
+    double dAf = myNPbase->deltaA_f(SM.getQuarks(StandardModel::BOTTOM));    
+    
+    double sw2_tree = 1.0 - (SM.StandardModel::Mw_tree())*(SM.StandardModel::Mw_tree())/(SM.getMz())/(SM.getMz());
+    double cw2_tree = 1.0 - sw2_tree;
+    
+    double Nc = 3.0;
+    
+    double gLSM = (SM.getQuarks(StandardModel::BOTTOM)).getIsospin() 
+    - ((SM.getQuarks(StandardModel::BOTTOM)).getCharge())*sw2_tree;
+    double gRSM = - ((SM.getQuarks(StandardModel::BOTTOM)).getCharge())*sw2_tree;
+    
+    double dg;
+    
+    dg =  3.0 * sw2_tree * cw2_tree * dGaZff / (gLSM*gLSM + gRSM*gRSM) / (SM.getMz()) / (SM.alphaMz()) / Nc;
+    
+    dg = dg - (gLSM*gLSM + gRSM*gRSM) * dAf / (4.0 * gRSM*gRSM);
+        
+    return dg;
+}
+
+/* -------------------------------------*/
 
 //-----  Wff couplings observables  ----------
 

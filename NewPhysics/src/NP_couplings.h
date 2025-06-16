@@ -967,6 +967,538 @@ private:
     const double mu;
 };
 
+
+//-----  Zff EFFECTIVE couplings observables: relative corrections (derived from Af and Gamma(Z->ff)  ----------
+
+
+/**
+ * @class deltagEffZveveL
+ * @brief An observable class for the deviation from the SM of the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZveveL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZveveL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZveveL class.
+     */
+    virtual ~deltagEffZveveL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZvmuvmuL
+ * @brief An observable class for the deviation from the SM of the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZvmuvmuL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZvmuvmuL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZvmuvmuL class.
+     */
+    virtual ~deltagEffZvmuvmuL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+    
+private:
+    const NPbase * myNPbase;
+
+};
+
+
+/**
+ * @class deltagEffZvtavtaL
+ * @brief An observable class for the deviation from the SM of the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZvtavtaL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZvtavtaL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZvtavtaL class.
+     */
+    virtual ~deltagEffZvtavtaL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+
+/**
+ * @class deltagEffZeeL
+ * @brief An observable class for the deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling
+ * @f$\delta g_{Zee}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z e_{L} e_{L}@f$ coupling
+ * @f$\delta g_{Zee}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZeeL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZeeL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZeeL class.
+     */
+    virtual ~deltagEffZeeL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling @f$\delta g_{Zee}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zee}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZeeR
+ * @brief An observable class for the deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling
+ * @f$\delta g_{Zee}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z e_{R} e_{R}@f$ coupling
+ * @f$\delta g_{Zee}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZeeR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZeeR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZeeR class.
+     */
+    virtual ~deltagEffZeeR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling @f$\delta g_{Zee}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zee}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZmumuL
+ * @brief An observable class for the deviation from the SM of the @f$Z \mu_{L} \mu_{L}@f$ coupling
+ * @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \mu_{L} \mu_{L}@f$ coupling
+ * @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZmumuL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZmumuL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZmumuL class.
+     */
+    virtual ~deltagEffZmumuL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \mu_{L} \mu_{L}@f$ coupling @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZmumuR
+ * @brief An observable class for the deviation from the SM of the @f$Z \mu_{R} \mu_{R}@f$ coupling
+ * @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \mu_{R} \mu_{R}@f$ coupling
+ * @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZmumuR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZmumuR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZmumuR class.
+     */
+    virtual ~deltagEffZmumuR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \mu_{R} \mu_{R}@f$ coupling @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZtataL
+ * @brief An observable class for the deviation from the SM of the @f$Z \tau_{L} \tau_{L}@f$ coupling
+ * @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \tau_{L} \tau_{L}@f$ coupling
+ * @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZtataL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZtataL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZtataL class.
+     */
+    virtual ~deltagEffZtataL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \tau_{L} \tau_{L}@f$ coupling @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZtataR
+ * @brief An observable class for the deviation from the SM of the @f$Z \tau_{R} \tau_{R}@f$ coupling
+ * @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \tau_{R} \tau_{R}@f$ coupling
+ * @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZtataR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZtataR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZtataR class.
+     */
+    virtual ~deltagEffZtataR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \tau_{R} \tau_{R}@f$ coupling @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZccL
+ * @brief An observable class for the deviation from the SM of the @f$Z c_{L} c_{L}@f$ coupling
+ * @f$\delta g_{Zcc}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z c_{L} c_{L}@f$ coupling
+ * @f$\delta g_{Zcc}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZccL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZccL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZccL class.
+     */
+    virtual ~deltagEffZccL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z c_{L} c_{L}@f$ coupling @f$\delta g_{Zcc}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zcc}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZccR
+ * @brief An observable class for the deviation from the SM of the @f$Z c_{R} c_{R}@f$ coupling
+ * @f$\delta g_{Zcc}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z c_{R} c_{R}@f$ coupling
+ * @f$\delta g_{Zcc}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZccR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZccR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZccR class.
+     */
+    virtual ~deltagEffZccR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z c_{R} c_{R}@f$ coupling @f$\delta g_{Zcc}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zcc}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+
+/**
+ * @class deltagEffZssL
+ * @brief An observable class for the deviation from the SM of the @f$Z s_{L} s_{L}@f$ coupling
+ * @f$\delta g_{Zss}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z s_{L} s_{L}@f$ coupling
+ * @f$\delta g_{Zss}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZssL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZssL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZssL class.
+     */
+    virtual ~deltagEffZssL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z s_{L} s_{L}@f$ coupling @f$\delta g_{Zss}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zss}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZssR
+ * @brief An observable class for the deviation from the SM of the @f$Z s_{R} s_{R}@f$ coupling
+ * @f$\delta g_{Zss}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z s_{R} s_{R}@f$ coupling
+ * @f$\delta g_{Zss}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZssR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZssR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZssR class.
+     */
+    virtual ~deltagEffZssR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z s_{R} s_{R}@f$ coupling @f$\delta g_{Zss}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zss}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZbbL
+ * @brief An observable class for the deviation from the SM of the @f$Z b_{L} b_{L}@f$ coupling
+ * @f$\delta g_{Zbb}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z b_{L} b_{L}@f$ coupling
+ * @f$\delta g_{Zbb}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZbbL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZbbL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZbbL class.
+     */
+    virtual ~deltagEffZbbL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z b_{L} b_{L}@f$ coupling @f$\delta g_{Zbb}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zbb}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZbbR
+ * @brief An observable class for the deviation from the SM of the @f$Z b_{R} b_{R}@f$ coupling
+ * @f$\delta g_{Zbb}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z b_{R} b_{R}@f$ coupling
+ * @f$\delta g_{Zbb}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZbbR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZbbR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZbbR class.
+     */
+    virtual ~deltagEffZbbR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z b_{R} b_{R}@f$ coupling @f$\delta g_{Zbb}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zbb}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
 //-----  Wff couplings observables  ----------
 
 /**
