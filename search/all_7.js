@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['f_0',['F',['../da/d29/class_amp_d_b2.html#a475dae03a7ecb40fdfc510f46fe0482c',1,'AmpDB2::F()'],['../dd/d00/class_evol_bsmm.html#a8f88ae14bd8df8c6f79af5dd9b0edb28',1,'EvolBsmm::F()'],['../d7/d0f/class_s_t_u.html#a2fe209575f5fcd5d779e60eaf8606683',1,'STU::F()'],['../de/d45/class_t_h_d_m_w_s_t_u.html#aaace74885c69f02da52e4cf84366a8a6',1,'THDMWSTU::F()']]],
-  ['f_1',['f',['../d0/d13/class_bsgamma.html#a529c56671700edd8d9c8bbda179a3ac2',1,'Bsgamma']]],
+  ['f_0',['f',['../d0/d13/class_bsgamma.html#a529c56671700edd8d9c8bbda179a3ac2',1,'Bsgamma']]],
+  ['f_1',['F',['../da/d29/class_amp_d_b2.html#a475dae03a7ecb40fdfc510f46fe0482c',1,'AmpDB2::F()'],['../dd/d00/class_evol_bsmm.html#a8f88ae14bd8df8c6f79af5dd9b0edb28',1,'EvolBsmm::F()'],['../d7/d0f/class_s_t_u.html#a2fe209575f5fcd5d779e60eaf8606683',1,'STU::F()'],['../de/d45/class_t_h_d_m_w_s_t_u.html#aaace74885c69f02da52e4cf84366a8a6',1,'THDMWSTU::F()']]],
   ['f0_2',['f0',['../d7/d90/class_e_w_s_m_two_loop_e_w.html#a6a46ca33308952f5d8e271ae6438abda',1,'EWSMTwoLoopEW']]],
   ['f0_3',['F0',['../da/d29/class_amp_d_b2.html#a695070f37415bde28cce0e9d5ae9f0ad',1,'AmpDB2::F0()'],['../df/d18/class_f0.html#a69cbfc7ce0199bf0bd98e78d8c6c18c3',1,'F0::F0()'],['../df/d18/class_f0.html',1,'F0']]],
   ['f0_5flo_4',['F0_LO',['../d4/d6d/class_f0___l_o.html',1,'F0_LO'],['../d4/d6d/class_f0___l_o.html#a3bde9e7ff3bd9021e3eb7b2f7fcefd6c',1,'F0_LO::F0_LO()']]],
-  ['f1_5',['f1',['../df/d2f/class_general_t_h_d_m_matching.html#a7ac94ff247132a18ac4c9fa03e8f07bd',1,'GeneralTHDMMatching']]],
-  ['f1_6',['F1',['../da/d29/class_amp_d_b2.html#a3c6a1b0f4bdcfe33c4e70fed089cd20d',1,'AmpDB2::F1()'],['../da/d0b/class_e_w_s_m_two_loop_q_c_d.html#af222317a3788713d60a0f0d8fa48d9db',1,'EWSMTwoLoopQCD::F1()']]],
-  ['f1_7',['f1',['../d7/d90/class_e_w_s_m_two_loop_e_w.html#a55755cd4907650c3f840729e5d7116d0',1,'EWSMTwoLoopEW']]],
+  ['f1_5',['F1',['../da/d29/class_amp_d_b2.html#a3c6a1b0f4bdcfe33c4e70fed089cd20d',1,'AmpDB2']]],
+  ['f1_6',['f1',['../df/d2f/class_general_t_h_d_m_matching.html#a7ac94ff247132a18ac4c9fa03e8f07bd',1,'GeneralTHDMMatching::f1()'],['../d7/d90/class_e_w_s_m_two_loop_e_w.html#a55755cd4907650c3f840729e5d7116d0',1,'EWSMTwoLoopEW::f1()']]],
+  ['f1_7',['F1',['../da/d0b/class_e_w_s_m_two_loop_q_c_d.html#af222317a3788713d60a0f0d8fa48d9db',1,'EWSMTwoLoopQCD']]],
   ['f10_8',['f10',['../df/d2f/class_general_t_h_d_m_matching.html#a18b9a9d76b776f128c64cde59848c819',1,'GeneralTHDMMatching']]],
   ['f17_9',['F17',['../d7/d01/class_b_xqll.html#a5a9f4d81d71b97444438bef6b6dbfdc3',1,'BXqll']]],
   ['f19_10',['F19',['../d7/d01/class_b_xqll.html#a9924d7c2a172d98f7dfff8978ccbcf84',1,'BXqll::F19()'],['../dc/dce/class_m_pll.html#a74820f10610fd80b9f026431cd6b38e3',1,'MPll::F19()']]],
