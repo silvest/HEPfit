@@ -2382,7 +2382,7 @@ public:
             return 54.72; // in pb for Mh=125.09 GeV     
         } else if (sqrt_s == 27.0) {
             return 146.65; // in pb for Mh=125.09 GeV
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return 740.3; // in pb for Mh=125. GeV            
         } else if (sqrt_s == 1.96) {
             return 0.9493; // in pb for Mh=125 GeV
@@ -2414,7 +2414,7 @@ public:
             return 53.93; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_tt(14.); // in the absence of this value we rescale the LHC result at 14 TeV
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_tt(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tt()");
@@ -2444,7 +2444,7 @@ public:
             return 0.11; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_bb(14.); // in the absence of this value we rescale the LHC result at 14 TeV
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_bb(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_bb()");
@@ -2474,7 +2474,7 @@ public:
             return -1.92; // in pb for Mh=125.09 GeV 
         } else if (sqrt_s == 27.0) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_tb(14.); // in the absence of this value we rescale the LHC result at 14 TeV
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return computeSigmaggH(sqrt_s) / computeSigmaggH(14.) * computeSigmaggH_tb(14.); // in the absence of this value we rescale the LHC result at 14 TeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tb()");
@@ -2507,7 +2507,7 @@ public:
             return 4.260; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
             return 11.838; // in pb for Mh=125.09 GeV
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return 82.0; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
             return 0.0653; // in pb for Mh=125 GeV
@@ -2540,7 +2540,7 @@ public:
             return 3.260; // in pb for Mh=125 GeV            
         } else if (sqrt_s == 27.0) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(14.) * computeSigmaWF(14.); // in the absence of this value we rescale the LHC result at 14 TeV
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(14.) * computeSigmaWF(14.); // in the absence of this value we rescale the LHC result at 14 TeV 
         } else if (sqrt_s == 1.96) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(7.) * computeSigmaWF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
@@ -2573,7 +2573,7 @@ public:
             return 1.191; // in pb for Mh=125 GeV
         } else if (sqrt_s == 27.0) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(14.) * computeSigmaZF(14.); // in the absence of this value we rescale the LHC result at 14 TeV
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(14.) * computeSigmaZF(14.); // in the absence of this value we rescale the LHC result at 14 TeV 
         } else if (sqrt_s == 1.96) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(7.) * computeSigmaZF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
@@ -2622,7 +2622,7 @@ public:
             return 1.498; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
             return 3.397; // in pb for Mh=125.09 GeV
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return 15.9; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
             return 0.1295; // in pb for Mh=125 GeV
@@ -2659,7 +2659,7 @@ public:
             return 0.981; // in pb for Mh=125.09 GeV   
         } else if (sqrt_s == 27.0) {
             return 2.463; // in pb for Mh=125.09 GeV        
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return 11.26; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
             return 0.0785; // in pb for Mh=125 GeV
@@ -2699,7 +2699,7 @@ public:
             return 0.6128; // in pb for Mh=125.09 GeV            
         } else if (sqrt_s == 27.0) {
             return 2.86; // in pb for Mh=125.09 GeV
-        } else if (sqrt_s == 100.0) {
+        } else if ( (sqrt_s == 84.0) || (sqrt_s == 100.0) ) {
             return 37.9; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
             return 0.0043; // in pb for Mh=125 GeV
