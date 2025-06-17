@@ -23383,9 +23383,9 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
                 + d6RHCHWBt[iECM] * getSMEFTCoeff("CHWtildeB", muRG)
                 + d6RHCWt[iECM] * getSMEFTCoeff("CWtilde", muRG);       
         
-        // Correction to polarized cross section: Need to multiply by Lambda^2
-        dmuNLO += fLR * xsSMweakLH[iECM] * d6NLOLH * LambdaNP2 
-                + fRL * xsSMweakRH[iECM] * d6NLORH * LambdaNP2;
+        // Correction to polarized cross section: Need to multiply by (Lambda=1000 GeV)^2
+        dmuNLO += ( fLR * xsSMweakLH[iECM] * d6NLOLH  
+                + fRL * xsSMweakRH[iECM] * d6NLORH ) * 1000000;
         // Normalize to SM full NLO cross section
         dmuNLO = dmuNLO /(fLR * xsSMNLOLH[iECM] + fRL * xsSMNLORH[iECM]);
         
