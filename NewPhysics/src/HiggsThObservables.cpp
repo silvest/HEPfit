@@ -171,7 +171,7 @@ mueeZHGen::mueeZHGen(const StandardModel& SM_i, const double sqrt_s_i, const dou
 
 double mueeZHGen::computeThValue()
 {
-    return ( (myNPbase->mueeZHGen(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
+    return ( (myNPbase->mueeZHGen(sqrt_s, Pol_em, Pol_ep)) ); //+ (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 
@@ -184,7 +184,7 @@ mueeZH::mueeZH(const StandardModel& SM_i, const double sqrt_s_i, const double Po
 
 double mueeZH::computeThValue()
 {
-    return ( (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
+    return ( (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) ); //+ (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 mueeZllH::mueeZllH(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
@@ -196,7 +196,7 @@ mueeZllH::mueeZllH(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 
 double mueeZllH::computeThValue()
 {
-    return ( (myNPbase->mueeZllH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
+    return ( (myNPbase->mueeZllH(sqrt_s, Pol_em, Pol_ep)) ); //+ (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 
@@ -209,7 +209,7 @@ mueeZqqH::mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 
 double mueeZqqH::computeThValue()
 {
-    return ( (myNPbase->mueeZqqH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
+    return ( (myNPbase->mueeZqqH(sqrt_s, Pol_em, Pol_ep)) ); // + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 

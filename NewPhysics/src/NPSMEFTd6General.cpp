@@ -23083,84 +23083,84 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
     // Energy dependent corrections for each operator: LH and RH initial electrons
     // (To normalize with SM NLO weak cross section)
   
-    double d6LHCHD[3] = {-0.044, -0.009, -0.002}; 
-    double d6RHCHD[3] = {0.022, -0.013, -0.025}; 
-    double d6LHCHbox[3] = {-0.042, -0.02, -0.017}; 
-    double d6RHCHbox[3] = {-0.004, 0.013, 0.019}; 
-    double d6LHCHW[3] = {-0.259, -0.14, -0.1}; 
-    double d6RHCHW[3] = {-0.0023, 0.0117, 0.0123}; 
-    double d6LHCHB[3] = {0.049, 0.021, 0.008}; 
-    double d6RHCHB[3] = {-0.034, 0.085, 0.16}; 
-    double d6LHCHWB[3] = {-0.058, -0.006, 0.008}; 
-    double d6RHCHWB[3] = {-0.035, 0.02, 0.058}; 
-    double d6LHCHeR00[3] = {-0.00016, -0.00119, -0.00295}; 
-    double d6RHCHeR00[3] = {0.18, -0.08, -0.21}; 
-    double d6LHCHl1R00[3] = {-0.4, -0.41, -0.83}; 
-    double d6RHCHl1R00[3] = {0.00082, 0.00293, 0.00628}; 
-    double d6LHCHl3R00[3] = {-0.17, -0.23, -0.68}; 
-    double d6RHCHl3R00[3] = {0.1824, 0.1649, 0.1574}; 
-    double d6LHCHl3R11[3] = {0.281, 0.253, 0.249}; 
-    double d6RHCHl3R11[3] = {0.1807, 0.1632, 0.1557}; 
-    double d6LHCh4f2[3] = {-0.1415, -0.1291, -0.1302}; 
-    double d6RHCh4f2[3] = {-0.0905, -0.0808, -0.0767}; 
-    double d6LHCHq1R22[3] = {-0.0138, -0.0213, -0.0287}; 
-    double d6RHCHq1R22[3] = {0.0136, 0.0161, 0.0216}; 
-    double d6LHCHq3R22[3] = {-0.00938, -0.0189, -0.0328}; 
-    double d6RHCHq3R22[3] = {0.0124, 0.0238, 0.0267}; 
-    double d6LHCHuR22[3] = {0.00905, 0.0341, 0.0483}; 
-    double d6RHCHuR22[3] = {-0.0121, -0.0295, -0.0438}; 
-    double d6LHCuWR22[3] = {-0.00854, 0.00942, 0.0233}; 
-    double d6RHCuWR22[3] = {0.00671, -0.00399, -0.00562}; 
-    double d6LHCuBR22[3] = {-0.00217, -0.0159, -0.0153}; 
-    double d6RHCuBR22[3] = {0.00296, 0.0127, 0.0057}; 
-    double d6LHCuHR22[3] = {0.00012, -0.0019, -0.00168}; 
-    double d6RHCuHR22[3] = {0.00055, -0.0001, -0.00099}; 
-    double d6LHCh2f1[3] = {-0.00009, -0.00092, -0.00237}; 
-    double d6RHCh2f1[3] = {0.00069, 0.00242, 0.0052}; 
-    double d6LHCh2f2[3] = {-0.00218, -0.00553, -0.0109}; 
-    double d6RHCh2f2[3] = {0.00002, 0.00007, 0.00012}; 
-    double d6LHCHl1R11[3] = {-0.00023, -0.00107, -0.00252}; 
-    double d6RHCHl1R11[3] = {0.00058, 0.00231, 0.00509}; 
-    double d6LHCH[3] = {-0.00801, -0.00111, 0.00111}; 
-    double d6RHCH[3] = {-0.00626, -0.00087, 0.00085}; 
-    double d6LHCW[3] = {0.0287, 0.0452, 0.0559}; 
-    double d6RHCW[3] = {-0.00009, -0.00103, -0.00124}; 
-    double d6LHCeuR0022[3] = {0., 0., 0.}; 
-    double d6RHCeuR0022[3] = {0.00003, -0.0823, -0.277}; 
-    double d6LHCluR0022[3] = {-0.00003, 0.0845, 0.292}; 
-    double d6RHCluR0022[3] = {0., 0., 0.}; 
-    double d6LHCqeR2200[3] = {0., 0., 0.}; 
-    double d6RHCqeR2200[3] = {0.00651, 0.108, 0.292}; 
-    double d6LHClq1R0022[3] = {-0.00671, -0.111, -0.308}; 
-    double d6RHClq1R0022[3] = {0., 0., 0.}; 
-    double d6LHClq3R0022[3] = {-0.00484, 0.0861, 0.263}; 
-    double d6RHClq3R0022[3] = {-0.00235, -0.00406, -0.0053}; 
-    double d6LHClq3R1122[3] = {-0.003, -0.00518, -0.00694}; 
-    double d6RHClq3R1122[3] = {-0.00235, -0.00406, -0.0053}; 
-    double d6LHCh4f1[3] = {0.00075, 0.00173, 0.0033}; 
-    double d6RHCh4f1[3] = {0., 0., 0.}; 
-    double d6LHCh4f3[3] = {-0.00151, -0.001, 0.00016}; 
-    double d6RHCh4f3[3] = {-0.00176, -0.00214, -0.0024}; 
-    double d6LHCh4f4[3] = {-0.00037, -0.00086, -0.00164}; 
-    double d6RHCh4f4[3] = {0., 0., 0.}; 
-    double d6LHCh4f5[3] = {0., 0., 0.}; 
-    double d6RHCh4f5[3] = {-0.00072, -0.00168, -0.00313}; 
-    double d6LHCh4f6[3] = {0., 0., 0.}; 
-    double d6RHCh4f6[3] = {-0.00029, -0.00067, -0.00125}; 
-    double d6LHCleR0000[3] = {0.00075, 0.00173, 0.0033}; 
-    double d6RHCleR0000[3] = {-0.00072, -0.00168, -0.00313}; 
-    double d6LHCllR0000[3] = {0.00075, 0.00174, 0.00332}; 
-    double d6RHCllR0000[3] = {0., 0., 0.}; 
-    double d6LHCeeR0000[3] = {0., 0., 0.}; 
-    double d6RHCeeR0000[3] = {-0.00203, -0.00471, -0.00877}; 
-    double d6LHCHBt[3] = {0.00278, 0.00803, 0.0103}; 
-    double d6RHCHBt[3] = {0.00551, 0.014, 0.0259}; 
-    double d6LHCHWt[3] = {0.0226, 0.0788, 0.112}; 
-    double d6RHCHWt[3] = {0.0009, 0.00081, 0.00038}; 
-    double d6LHCHWBt[3] = {0.00473, 0.0125, 0.0192}; 
-    double d6RHCHWBt[3] = {0.00478, 0.018, 0.0349}; 
-    double d6LHCWt[3] = {0.00608, 0.0215, 0.0334}; 
-    double d6RHCWt[3] = {0.00013, 0.00058, 0.00124}; 
+    double d6LHCHD[3] = {-0.044, -0.009, -0.002};
+    double d6RHCHD[3] = {0.022, -0.013, -0.025};
+    double d6LHCHbox[3] = {-0.042, -0.02, -0.017};
+    double d6RHCHbox[3] = {-0.004, 0.013, 0.019};
+    double d6LHCHW[3] = {-0.259, -0.14, -0.1};
+    double d6RHCHW[3] = {-0.0023, 0.0117, 0.0123};
+    double d6LHCHB[3] = {0.049, 0.021, 0.008};
+    double d6RHCHB[3] = {-0.034, 0.085, 0.16};
+    double d6LHCHWB[3] = {-0.058, -0.006, 0.008};
+    double d6RHCHWB[3] = {-0.035, 0.02, 0.058};
+    double d6LHCHeR00[3] = {-0.00016, -0.00119, -0.00295};
+    double d6RHCHeR00[3] = {0.18, -0.08, -0.21};
+    double d6LHCHl1R00[3] = {-0.4, -0.41, -0.83};
+    double d6RHCHl1R00[3] = {0.00082, 0.00293, 0.00628};
+    double d6LHCHl3R00[3] = {-0.17, -0.23, -0.68};
+    double d6RHCHl3R00[3] = {0.1824, 0.1649, 0.1574};
+    double d6LHCHl3R11[3] = {0.281, 0.253, 0.249};
+    double d6RHCHl3R11[3] = {0.1807, 0.1632, 0.1557};
+    double d6LHCh4f2[3] = {-0.1415, -0.1291, -0.1302};
+    double d6RHCh4f2[3] = {-0.0905, -0.0808, -0.0767};
+    double d6LHCHq1R22[3] = {-0.0138, -0.0213, -0.0287};
+    double d6RHCHq1R22[3] = {0.0136, 0.0161, 0.0216};
+    double d6LHCHq3R22[3] = {-0.00938, -0.0189, -0.0328};
+    double d6RHCHq3R22[3] = {0.0124, 0.0238, 0.0267};
+    double d6LHCHuR22[3] = {0.00905, 0.0341, 0.0483};
+    double d6RHCHuR22[3] = {-0.0121, -0.0295, -0.0438};
+    double d6LHCuWR22[3] = {-0.00854, 0.00942, 0.0233};
+    double d6RHCuWR22[3] = {0.00671, -0.00399, -0.00562};
+    double d6LHCuBR22[3] = {-0.00217, -0.0159, -0.0153};
+    double d6RHCuBR22[3] = {0.00296, 0.0127, 0.0057};
+    double d6LHCuHR22[3] = {0.00012, -0.0019, -0.00168};
+    double d6RHCuHR22[3] = {0.00055, -0.0001, -0.00099};
+    double d6LHCh2f1[3] = {-0.00009, -0.00092, -0.00237};
+    double d6RHCh2f1[3] = {0.00069, 0.00242, 0.0052};
+    double d6LHCh2f2[3] = {-0.00218, -0.00553, -0.0109};
+    double d6RHCh2f2[3] = {0.00002, 0.00007, 0.00012};
+    double d6LHCHl1R11[3] = {-0.00023, -0.00107, -0.00252};
+    double d6RHCHl1R11[3] = {0.00058, 0.00231, 0.00509};
+    double d6LHCH[3] = {-0.00801, -0.00111, 0.00111};
+    double d6RHCH[3] = {-0.00626, -0.00087, 0.00085};
+    double d6LHCW[3] = {0.0287, 0.0452, 0.0559};
+    double d6RHCW[3] = {-0.00009, -0.00103, -0.00124};
+    double d6LHCeuR0022[3] = {0., 0., 0.};
+    double d6RHCeuR0022[3] = {0.00003, -0.0823, -0.277};
+    double d6LHCluR0022[3] = {-0.00003, 0.0845, 0.292};
+    double d6RHCluR0022[3] = {0., 0., 0.};
+    double d6LHCqeR2200[3] = {0., 0., 0.};
+    double d6RHCqeR2200[3] = {0.00651, 0.108, 0.292};
+    double d6LHClq1R0022[3] = {-0.00671, -0.111, -0.308};
+    double d6RHClq1R0022[3] = {0., 0., 0.};
+    double d6LHClq3R0022[3] = {-0.00484, 0.0861, 0.263};
+    double d6RHClq3R0022[3] = {-0.00235, -0.00406, -0.0053};
+    double d6LHClq3R1122[3] = {-0.003, -0.00518, -0.00694};
+    double d6RHClq3R1122[3] = {-0.00235, -0.00406, -0.0053};
+    double d6LHCh4f1[3] = {0.00075, 0.00173, 0.0033};
+    double d6RHCh4f1[3] = {0., 0., 0.};
+    double d6LHCh4f3[3] = {-0.00151, -0.001, 0.00016};
+    double d6RHCh4f3[3] = {-0.00176, -0.00214, -0.0024};
+    double d6LHCh4f4[3] = {-0.00037, -0.00086, -0.00164};
+    double d6RHCh4f4[3] = {0., 0., 0.};
+    double d6LHCh4f5[3] = {0., 0., 0.};
+    double d6RHCh4f5[3] = {-0.00072, -0.00168, -0.00313};
+    double d6LHCh4f6[3] = {0., 0., 0.};
+    double d6RHCh4f6[3] = {-0.00029, -0.00067, -0.00125};
+    double d6LHCleR0000[3] = {0.00075, 0.00173, 0.0033};
+    double d6RHCleR0000[3] = {-0.00072, -0.00168, -0.00313};
+    double d6LHCllR0000[3] = {0.00075, 0.00174, 0.00332};
+    double d6RHCllR0000[3] = {0., 0., 0.};
+    double d6LHCeeR0000[3] = {0., 0., 0.};
+    double d6RHCeeR0000[3] = {-0.00203, -0.00471, -0.00877};
+    double d6LHCHBt[3] = {0.00278, 0.00803, 0.0103};
+    double d6RHCHBt[3] = {0.00551, 0.014, 0.0259};
+    double d6LHCHWt[3] = {0.0226, 0.0788, 0.112};
+    double d6RHCHWt[3] = {0.0009, 0.00081, 0.00038};
+    double d6LHCHWBt[3] = {0.00473, 0.0125, 0.0192};
+    double d6RHCHWBt[3] = {0.00478, 0.018, 0.0349};
+    double d6LHCWt[3] = {0.00608, 0.0215, 0.0334};
+    double d6RHCWt[3] = {0.00013, 0.00058, 0.00124};
     
     double d6NLOLH = 0., d6NLORH = 0.; // SMEFT absolute NLO corrections (LH and RH)
     
@@ -23250,7 +23250,7 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
     // Correction to alpha scheme: only added if the scheme is chosen
     dmuLO += cAsch * DeltaOWtoalph(derSMMW, muRG);
     
-    if (FlagfiniteNLO) {
+    if (FlagfiniteNLO && (sqrt_s < 0.600) ) {
         
         // Choose the right index in the different lists according to the selected energy
         int iECM;
@@ -23259,7 +23259,7 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
             iECM = 0;
         } else if ( (sqrt_s > 0.340) && (sqrt_s < 0.390) ) {
             iECM = 1;            
-        } else if ( sqrt_s == 0.500 ) {
+        } else if ( (sqrt_s > 0.450) && (sqrt_s < 0.600) ) {
             iECM = 2;
         } else 
             throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZH(): NLO corrections not available for this energy");            
