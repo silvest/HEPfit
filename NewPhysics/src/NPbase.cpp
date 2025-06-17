@@ -1631,7 +1631,7 @@ const double NPbase::C1eeZH(const double sqrt_s) const
 {
     double C1;
     
-    if (sqrt_s == 0.240) {
+    if (sqrt_s <= 0.240) {
 
         C1 = 0.0173302;
         
@@ -1651,7 +1651,7 @@ const double NPbase::C1eeZH(const double sqrt_s) const
 
         C1 = 0.0057; // Use same as 350 GeV
 
-    } else if (sqrt_s == 0.500) {
+    } else if ((sqrt_s == 0.500)||(sqrt_s == 0.550) ) {
 
         C1 = 0.00099;
 
