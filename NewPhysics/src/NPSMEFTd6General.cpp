@@ -8349,10 +8349,7 @@ void NPSMEFTd6General::getWCFromEvolutor()
 }
  */
 
-
-
-bool NPSMEFTd6General::PostUpdate() {
-
+NPSMEFTd6General::GenerateSMInitialConditions()  {
     //    std::cout<<"\033[1;31m Mw_inp = \033[0m "<< Mw_inp << std::endl;
 
     LambdaNP2 = Lambda_NP * Lambda_NP;
@@ -8424,6 +8421,21 @@ bool NPSMEFTd6General::PostUpdate() {
         SMEFTEvolEW.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+
+        }
+    else {
+
+        // SM initial conditions for RGEsolver SMEFTEvolEW        
+        // Skip RGE by setting the two scales at Lambda_NP for the EFT and to muw for the SM pars
+        SMEFTEvolEW.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
+            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+    }
+}
+
+bool NPSMEFTd6General::PostUpdate() {
+    
+    if (FlagRGEci) {
 
         // SMEFT initial conditions for RGEsolver SMEFTEvolEW
         setSMEFTEvolWC(SMEFTEvolEW);
@@ -8509,12 +8521,6 @@ bool NPSMEFTd6General::PostUpdate() {
         }
         
     } else {
-
-        // SM initial conditions for RGEsolver SMEFTEvolEW        
-        // Skip RGE by setting the two scales at Lambda_NP for the EFT and to muw for the SM pars
-        SMEFTEvolEW.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
 
         // SMEFT initial conditions for RGEsolver SMEFTEvolEW
         setSMEFTEvolWC(SMEFTEvolEW);

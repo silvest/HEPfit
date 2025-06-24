@@ -637,6 +637,8 @@ public:
      */
     virtual bool PostUpdate();
 
+
+    NPSMEFTd6General::GenerateSMInitialConditions()  
     
     //I think that for this model, with so many parameters, it's better to include only those we're really interested in
     //Since all the parameters are initialized to zero we can just skip the CheckParameters for this model

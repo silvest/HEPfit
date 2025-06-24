@@ -1179,6 +1179,7 @@ void NPSMEFTd6U2qU1le::setNPSMEFTd6GeneralParameters()
 
 bool NPSMEFTd6U2qU1le::PostUpdate()
 {
+    NPSMEFTd6General::GenerateSMInitialConditions();
     
     setNPSMEFTd6GeneralParameters();
     
