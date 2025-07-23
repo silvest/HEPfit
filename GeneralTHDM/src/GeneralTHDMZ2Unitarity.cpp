@@ -8,19 +8,28 @@
 #include "GeneralTHDMZ2Unitarity.h"
 #include "GeneralTHDMZ2Runner.h"
 
+unitarity_Z2::unitarity_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+{}
+
+void unitarity_Z2::computeZ2_at_Q()
+{
+    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+}
+
 /************************************/
 /* Eigenvalues of the even 00 block */
 /************************************/
 
 unitarity00eveP_Z2::unitarity00eveP_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity00eveP_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -58,14 +67,14 @@ double unitarity00eveP_Z2::computeThValue()
 }
 
 unitarity00eveM_Z2::unitarity00eveM_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity00eveM_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -108,14 +117,14 @@ double unitarity00eveM_Z2::computeThValue()
 /***********************************/
 
 unitarity00oddP_Z2::unitarity00oddP_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity00oddP_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -146,14 +155,14 @@ double unitarity00oddP_Z2::computeThValue()
 }
 
 unitarity00oddM_Z2::unitarity00oddM_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity00oddM_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -189,14 +198,14 @@ double unitarity00oddM_Z2::computeThValue()
 /************************************/
 
 unitarity01eveP_Z2::unitarity01eveP_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity01eveP_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -230,14 +239,14 @@ double unitarity01eveP_Z2::computeThValue()
 }
 
 unitarity01eveM_Z2::unitarity01eveM_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity01eveM_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -276,14 +285,14 @@ double unitarity01eveM_Z2::computeThValue()
 /***********************************/
 
 unitarity01oddP_Z2::unitarity01oddP_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity01oddP_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -312,14 +321,14 @@ double unitarity01oddP_Z2::computeThValue()
 }
 
 unitarity01oddM_Z2::unitarity01oddM_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity01oddM_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -353,14 +362,14 @@ double unitarity01oddM_Z2::computeThValue()
 /**********************************/
 
 unitarity10odd_Z2::unitarity10odd_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity10odd_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -391,14 +400,14 @@ double unitarity10odd_Z2::computeThValue()
 /************************************/
 
 unitarity11eveP_Z2::unitarity11eveP_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity11eveP_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -434,14 +443,14 @@ double unitarity11eveP_Z2::computeThValue()
 }
 
 unitarity11eveM_Z2::unitarity11eveM_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity11eveM_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
@@ -482,14 +491,14 @@ double unitarity11eveM_Z2::computeThValue()
 /**********************************/
 
 unitarity11odd_Z2::unitarity11odd_Z2(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(SM_i), myZ2_at_Q(3, 5, 0.)
+: unitarity_Z2(SM_i)
 {}
 
 double unitarity11odd_Z2::computeThValue()
 {
     gslpp::complex i = gslpp::complex::i();
 
-    myZ2_at_Q = myGTHDM.getGTHDMZ2_at_Q();
+    computeZ2_at_Q();
 
     double la1Q = myZ2_at_Q(0, 0);
     double la2Q = myZ2_at_Q(0, 1);
