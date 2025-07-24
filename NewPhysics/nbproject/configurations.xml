@@ -26,6 +26,7 @@
       <itemPath>src/NPZbbbarLinearized.h</itemPath>
       <itemPath>src/NP_couplings.h</itemPath>
       <itemPath>src/NPbase.h</itemPath>
+      <itemPath>src/NPd6SILH.h</itemPath>
       <itemPath>src/OptimizedObservablesSMEFTd6.h</itemPath>
       <itemPath>src/OtherThObservables.h</itemPath>
       <itemPath>src/SigmaBR.h</itemPath>
@@ -60,6 +61,7 @@
       <itemPath>src/NPZbbbarLinearized.cpp</itemPath>
       <itemPath>src/NP_couplings.cpp</itemPath>
       <itemPath>src/NPbase.cpp</itemPath>
+      <itemPath>src/NPd6SILH.cpp</itemPath>
       <itemPath>src/OptimizedObservablesSMEFTd6.cpp</itemPath>
       <itemPath>src/OtherThObservables.cpp</itemPath>
       <itemPath>src/SigmaBR.cpp</itemPath>
@@ -224,6 +226,10 @@
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPd6SILH.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPd6SILH.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/OptimizedObservablesSMEFTd6.cpp"
             ex="false"
             tool="1"
@@ -376,6 +382,10 @@
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPd6SILH.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPd6SILH.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/OptimizedObservablesSMEFTd6.cpp"
             ex="false"
             tool="1"
@@ -516,6 +526,10 @@
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPd6SILH.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPd6SILH.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/OptimizedObservablesSMEFTd6.cpp"
             ex="false"
             tool="1"
@@ -646,6 +660,10 @@
       <item path="src/NPbase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPd6SILH.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPd6SILH.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/OptimizedObservablesSMEFTd6.cpp"
             ex="false"
