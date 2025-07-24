@@ -269,7 +269,8 @@ var hierarchy =
             [ "NPSMEFTd6General", "d1/d9e/class_n_p_s_m_e_f_td6_general.html", [
               [ "NPSMEFTd6U2", "d5/dfe/class_n_p_s_m_e_f_td6_u2.html", null ],
               [ "NPSMEFTd6U2qU1le", "d8/dcc/class_n_p_s_m_e_f_td6_u2q_u1le.html", null ],
-              [ "NPSMEFTd6U3", "d7/d20/class_n_p_s_m_e_f_td6_u3.html", null ]
+              [ "NPSMEFTd6U3", "d7/d20/class_n_p_s_m_e_f_td6_u3.html", null ],
+              [ "NPd6SILH", "dc/d05/class_n_pd6_s_i_l_h.html", null ]
             ] ],
             [ "NPSTU", "d9/dad/class_n_p_s_t_u.html", [
               [ "NPSTUZbbbarLR", "d4/dac/class_n_p_s_t_u_zbbbar_l_r.html", null ]
