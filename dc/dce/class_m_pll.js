@@ -64,6 +64,7 @@ var class_m_pll =
     [ "Mlep", "dc/dce/class_m_pll.html#a56a49295f257bc9e44da8c3b52d2f312", null ],
     [ "MM", "dc/dce/class_m_pll.html#ab042a01613b46ae4f2db859f6ad6d5be", null ],
     [ "MP", "dc/dce/class_m_pll.html#ac468c6e3cbb84cf21dc937f16380ac1f", null ],
+    [ "MPll_DM_flag", "dc/dce/class_m_pll.html#a5df5d6ae25e55b4989169847d2d37687", null ],
     [ "MPll_GRvDV_flag", "dc/dce/class_m_pll.html#a282cd200f9522a4abc4bf324882b0756", null ],
     [ "MPll_Lattice_flag", "dc/dce/class_m_pll.html#a5433325e2a8eb5f15b51fe4890fff1a1", null ],
     [ "mpllParameters", "dc/dce/class_m_pll.html#a480815124a04df7fc363e52ecd05ed52", null ],

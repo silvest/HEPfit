@@ -1,5 +1,8 @@
 var NAVTREEINDEX85 =
 {
+"d9/d4c/classdeltag_zuu_r.html#a2aa1b6ec1d9b10a5ab75faf9d1a70c69":[27,0,490,4],
+"d9/d4c/classdeltag_zuu_r.html#a3f94c9b77967a39ce068e5e534533af2":[27,0,490,3],
+"d9/d4c/classdeltag_zuu_r.html#a52a8ba4c3bb6fe5ab766fdb2aa2f43a2":[27,0,490,2],
 "d9/d4c/classdeltag_zuu_r.html#a7dc70c246bc3ceb24af44abdda1ef036":[27,0,490,0],
 "d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html":[27,0,1,2,9],
 "d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a0b01f2f224940d56ac64f439c798d456":[27,0,1,2,9,19],
@@ -246,8 +249,5 @@ var NAVTREEINDEX85 =
 "d9/d77/class_aux_obs_n_p29.html#ac66331602cc9cda61685ba869ba73627":[27,0,170,3],
 "d9/d77/class_aux_obs_n_p29.html#ad9bb97e7e2b6078b7165a34a2f7da2ed":[27,0,170,1],
 "d9/d77/class_aux_obs_n_p29.html#ae756e6478a5179e5028c458e477c07c6":[27,0,170,2],
-"d9/d77/classsin2theta_effel.html":[4,3,121],
-"d9/d77/classsin2theta_effel.html#aa74806ce560dadf2d82a7e1e9df02200":[4,3,121,0],
-"d9/d77/classsin2theta_effel.html#acf39132906176f5b314dcfa372c01a1f":[4,3,121,1],
-"d9/d78/classcgg_h_b.html":[27,0,375]
+"d9/d77/classsin2theta_effel.html":[4,3,121]
 };
