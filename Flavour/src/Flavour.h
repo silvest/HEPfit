@@ -313,6 +313,10 @@ public:
         return (this->MPll_GRvDV_flag = MPll_GRvDV_flag);
     }
 
+    bool setFlagMPll_DM(bool MPll_DM_flag) {
+        return (this->MPll_DM_flag = MPll_DM_flag);
+    }
+
     bool setFlagNeutrinoTree(bool NeutrinoTree_flag) const {
         return (this->NeutrinoTree_flag = NeutrinoTree_flag);
     }
@@ -353,6 +357,10 @@ public:
         return MPll_GRvDV_flag;
     }
 
+    bool getFlagMPll_DM() const {
+        return MPll_DM_flag;
+    }
+
     bool getFlagNeutrinoTree() const {
         return NeutrinoTree_flag;
     }
@@ -385,6 +393,7 @@ private:
     mutable bool FixedWCbtosflag;
     mutable bool MPll_FNALMILC_flag;
     mutable bool MPll_GRvDV_flag;
+    mutable bool MPll_DM_flag;
     mutable bool NeutrinoTree_flag;
     mutable bool BXsnunu_LFUNP_flag;
 };

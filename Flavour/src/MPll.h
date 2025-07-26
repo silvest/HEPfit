@@ -315,6 +315,7 @@ private:
     bool FixedWCbtos = false;
     bool MPll_Lattice_flag; /**< A flag for switching to LATTICE FF parameterization */
     bool MPll_GRvDV_flag; /**< A flag for switching to GRvDV parameterization */
+    bool MPll_DM_flag; /**< A flag for switching to DM FF parameterization */
     bool NeutrinoTree_flag;
     double mJ2;
 
@@ -761,6 +762,71 @@ private:
     * @return \f$ z \f$
     */
     double zeta(double q2);
+
+
+    /**
+    * @brief The z function used for the DM Form Factors, \f$ z \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ z \f$
+    */
+    double zeta_DM(double q2);
+
+    /**
+    * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_+^{DM} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_+^{DM} \f$
+    */
+    double phiplus_DM(double q2, double m_fit2);
+
+    /**
+    * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_+^{DM} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_+^{DM} \f$
+    */
+    double phi0_DM(double q2);
+
+    /**
+    * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_+^{DM} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_+^{DM} \f$
+    */
+    double phiT_DM(double q2, double m_fit2);
+
+    /**
+    * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_+^{DM} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] b_0 fit parameter
+    * @param[in] b_1 fit parameter
+    * @param[in] b_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_+^{DM} \f$
+    */
+    double fplus_DM(double q2, double b_0, double b_1, double b_2, double m_fit2);
+
+    /**
+    * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_0^{DM} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] b_0 fit parameter
+    * @param[in] b_1 fit parameter
+    * @param[in] b_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_0^{DM} \f$
+    */
+    double f0_DM(double q2, double b_0, double b_1, double b_2);
+
+    /**
+    * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_T^{DM} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] b_0 fit parameter
+    * @param[in] b_1 fit parameter
+    * @param[in] b_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_T^{DM} \f$
+    */
+    double fT_DM(double q2, double b_0, double b_1, double b_2, double m_fit2);
 
 
     /**
