@@ -1,5 +1,13 @@
 var NAVTREEINDEX128 =
 {
+"de/d85/class_particle.html#a5e18de82627d7d405919202b42210c41":[4,0,19,9],
+"de/d85/class_particle.html#a5f0817fb0985a7ba7a3309e50beb2dc6":[4,0,19,13],
+"de/d85/class_particle.html#a6380328077c029a760f09c8ec0a9883e":[4,0,19,18],
+"de/d85/class_particle.html#a81fd95a0c85b018d3021c852d61bc00b":[4,0,19,11],
+"de/d85/class_particle.html#a95effa0d8be97f910ccff977d3074d46":[4,0,19,8],
+"de/d85/class_particle.html#a98ecbe7072d66cf9e8ba0f41cd40574e":[4,0,19,14],
+"de/d85/class_particle.html#aa0edb06e09e1b4332636ebd907653da5":[4,0,19,24],
+"de/d85/class_particle.html#aa101c0912988d2e17f1b670a21fc315b":[4,0,19,15],
 "de/d85/class_particle.html#aa23e67aa701554956e28ee8279809bfa":[4,0,19,22],
 "de/d85/class_particle.html#aa9ee582256e1b303da867e384772061f":[4,0,19,3],
 "de/d85/class_particle.html#adfaa80de34958757e0e0397acf1cee22":[4,0,19,4],
@@ -241,13 +249,5 @@ var NAVTREEINDEX128 =
 "de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#a8462a9569b277f9619fffd16270584ee":[27,0,1,6,9],
 "de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#a84633c714cc4e35729c630a9972c2618":[27,0,1,6,3],
 "de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#a9ba36b75118df3a99499b228d6716f30":[27,0,1,6,7],
-"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#aa7b2e5fbfce7d2b5e3b02cf1d4466191":[27,0,1,6,13],
-"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#ab8b9c8fa39e2f7c58c4343a3361fd511":[27,0,1,6,8],
-"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#ac2df7903e2d00f8cb506e3d31670c164":[27,0,1,6,10],
-"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#ac4054758c37186a18553f85feb305c07":[27,0,1,6,2],
-"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#aeeb138395ac469d93a3411e96d364bd6":[27,0,1,6,14],
-"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#af4965d049601ed05b997d2885a9a67e3":[27,0,1,6,1],
-"de/dbe/class_hobs__gg__phi3__mumu___a_t_l_a_s13.html":[27,0,1059],
-"de/dbe/class_hobs__gg__phi3__mumu___a_t_l_a_s13.html#a02e25c967538cd07728264db051bb168":[27,0,1059,0],
-"de/dbe/class_hobs__gg__phi3__mumu___a_t_l_a_s13.html#a686a0cf7e977a5b71fc57e09945a60ba":[27,0,1059,2]
+"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#aa7b2e5fbfce7d2b5e3b02cf1d4466191":[27,0,1,6,13]
 };
