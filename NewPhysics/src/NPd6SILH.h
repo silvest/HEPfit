@@ -2,7 +2,7 @@
 * 
 * For the licensing terms see doc/COPYING.
 *
-* Created on Thu 3 Jul 2025 11:55:55
+* Created on Sun 27 Jul 2025 17:40:34
 *
 */
 
@@ -14,7 +14,7 @@
 class NPd6SILH:public NPSMEFTd6General {
 public:
 
-    static const int NNPd6SILHVars = 20+1;
+    static const int NNPd6SILHVars = 28+1;
 
     static std::string NPd6SILHVars[NNPd6SILHVars];
 
@@ -58,6 +58,14 @@ protected:
     double ctD = 0.0;
     double cqD1 = 0.0;
     double cqD3 = 0.0;
+    double cqq1 = 0.0;
+    double cqq3 = 0.0;
+    double cqt1 = 0.0;
+    double cqt8 = 0.0;
+    double ctt = 0.0;
+    double ctG = 0.0;
+    double ctB = 0.0;
+    double ctW = 0.0;
     double cu = 0.0;
     double cd = 0.0;
     double ce = 0.0;

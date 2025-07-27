@@ -2,7 +2,7 @@
 * 
 * For the licensing terms see doc/COPYING.
 *
-* Created on Thu 3 Jul 2025 11:55:55
+* Created on Sun 27 Jul 2025 17:40:34
 *
 */
 
@@ -10,7 +10,7 @@
 
 
 std::string NPd6SILH::NPd6SILHVars[NNPd6SILHVars] = {
-    "cH", "cT", "c6", "cB", "cW", "c2B", "c2W", "c2G", "c3W", "c3G", "cHW", "cHB", "cgam", "cg", "ctD", "cqD1", "cqD3", "cu", "cd", "ce", "Lambda_NP" 
+    "cH", "cT", "c6", "cB", "cW", "c2B", "c2W", "c2G", "c3W", "c3G", "cHW", "cHB", "cgam", "cg", "ctD", "cqD1", "cqD3", "cqq1", "cqq3", "cqt1", "cqt8", "ctt", "ctG", "ctB", "ctW", "cu", "cd", "ce", "Lambda_NP" 
 };
 
 
@@ -37,6 +37,14 @@ NPd6SILH::NPd6SILH()
     ModelParamMap.insert(std::make_pair("ctD", std::cref(ctD)));
     ModelParamMap.insert(std::make_pair("cqD1", std::cref(cqD1)));
     ModelParamMap.insert(std::make_pair("cqD3", std::cref(cqD3)));
+    ModelParamMap.insert(std::make_pair("cqq1", std::cref(cqq1)));
+    ModelParamMap.insert(std::make_pair("cqq3", std::cref(cqq3)));
+    ModelParamMap.insert(std::make_pair("cqt1", std::cref(cqt1)));
+    ModelParamMap.insert(std::make_pair("cqt8", std::cref(cqt8)));
+    ModelParamMap.insert(std::make_pair("ctt", std::cref(ctt)));
+    ModelParamMap.insert(std::make_pair("ctG", std::cref(ctG)));
+    ModelParamMap.insert(std::make_pair("ctB", std::cref(ctB)));
+    ModelParamMap.insert(std::make_pair("ctW", std::cref(ctW)));
     ModelParamMap.insert(std::make_pair("cu", std::cref(cu)));
     ModelParamMap.insert(std::make_pair("cd", std::cref(cd)));
     ModelParamMap.insert(std::make_pair("ce", std::cref(ce)));
@@ -114,6 +122,38 @@ void NPd6SILH::setParameter(const std::string name, const double& value)
     } else if(name.compare("cqD3")==0) {
 
         cqD3 = value;
+
+    } else if(name.compare("cqq1")==0) {
+
+        cqq1 = value;
+
+    } else if(name.compare("cqq3")==0) {
+
+        cqq3 = value;
+
+    } else if(name.compare("cqt1")==0) {
+
+        cqt1 = value;
+
+    } else if(name.compare("cqt8")==0) {
+
+        cqt8 = value;
+
+    } else if(name.compare("ctt")==0) {
+
+        ctt = value;
+
+    } else if(name.compare("ctG")==0) {
+
+        ctG = value;
+
+    } else if(name.compare("ctB")==0) {
+
+        ctB = value;
+
+    } else if(name.compare("ctW")==0) {
+
+        ctW = value;
 
     } else if(name.compare("cu")==0) {
 
@@ -217,6 +257,12 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
     CeH_32i_LNP = ( ce*YeUVhc(2,1) - (cHW*g2UV*YeUVhc(2,1))/2. - cW*g2UV*YeUVhc(2,1) - (c2W*g2UV2*YeUVhc(2,1))/2. ).imag();
     CeH_33r_LNP = ( ce*YeUVhc(2,2) - (cHW*g2UV*YeUVhc(2,2))/2. - cW*g2UV*YeUVhc(2,2) - (c2W*g2UV2*YeUVhc(2,2))/2. ).real();
     CeH_33i_LNP = ( ce*YeUVhc(2,2) - (cHW*g2UV*YeUVhc(2,2))/2. - cW*g2UV*YeUVhc(2,2) - (c2W*g2UV2*YeUVhc(2,2))/2. ).imag();
+    CuG_33r_LNP = ctG;
+    CuG_33i_LNP = 0.0;
+    CuW_33r_LNP = ctW;
+    CuW_33i_LNP = 0.0;
+    CuB_33r_LNP = ctB;
+    CuB_33i_LNP = 0.0;
     CHl1_11r_LNP = (cB*g1UV)/2. + (cHB*g1UV)/4. + (c2B*g1UV2)/2.;
     CHl1_22r_LNP = (cB*g1UV)/2. + (cHB*g1UV)/4. + (c2B*g1UV2)/2.;
     CHl1_33r_LNP = (cB*g1UV)/2. + (cHB*g1UV)/4. + (c2B*g1UV2)/2.;
@@ -255,7 +301,7 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
     Cqq1_2222r_LNP = -0.027777777777777776*(c2B*g1UV2) - (c2G*g3UV2)/12.;
     Cqq1_2233r_LNP = -0.16666666666666666*(cqD1*g1UV) - (c2B*g1UV2)/36. + (c2G*g3UV2)/6.;
     Cqq1_2332r_LNP = -0.25*(c2G*g3UV2);
-    Cqq1_3333r_LNP = -0.16666666666666666*(cqD1*g1UV) - (c2B*g1UV2)/36. - (c2G*g3UV2)/12.;
+    Cqq1_3333r_LNP = cqq1 - (cqD1*g1UV)/6. - (c2B*g1UV2)/36. - (c2G*g3UV2)/12.;
     Cqq3_1111r_LNP = -(c2W*g2UV2) - (c2G*g3UV2)/4.;
     Cqq3_1122r_LNP = -(c2W*g2UV2);
     Cqq3_1133r_LNP = -0.5*(cqD3*g2UV) - c2W*g2UV2;
@@ -264,7 +310,7 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
     Cqq3_2222r_LNP = -(c2W*g2UV2) - (c2G*g3UV2)/4.;
     Cqq3_2233r_LNP = -0.5*(cqD3*g2UV) - c2W*g2UV2;
     Cqq3_2332r_LNP = -0.25*(c2G*g3UV2);
-    Cqq3_3333r_LNP = -0.5*(cqD3*g2UV) - c2W*g2UV2 - (c2G*g3UV2)/4.;
+    Cqq3_3333r_LNP = cqq3 - (cqD3*g2UV)/2. - c2W*g2UV2 - (c2G*g3UV2)/4.;
     Clq1_1111r_LNP = (c2B*g1UV2)/6.;
     Clq1_1122r_LNP = (c2B*g1UV2)/6.;
     Clq1_1133r_LNP = (c2B*g1UV2)/6.;
@@ -297,7 +343,7 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
     Cuu_2222r_LNP = (-4*c2B*g1UV2)/9. - (c2G*g3UV2)/3.;
     Cuu_2233r_LNP = (-2*ctD*g1UV)/3. - (4*c2B*g1UV2)/9. + (c2G*g3UV2)/6.;
     Cuu_2332r_LNP = -0.5*(c2G*g3UV2);
-    Cuu_3333r_LNP = (-2*ctD*g1UV)/3. - (4*c2B*g1UV2)/9. - (c2G*g3UV2)/3.;
+    Cuu_3333r_LNP = ctt - (2*ctD*g1UV)/3. - (4*c2B*g1UV2)/9. - (c2G*g3UV2)/3.;
     Cdd_1111r_LNP = -0.1111111111111111*(c2B*g1UV2) - (c2G*g3UV2)/3.;
     Cdd_1122r_LNP = -0.1111111111111111*(c2B*g1UV2) + (c2G*g3UV2)/6.;
     Cdd_1133r_LNP = -0.1111111111111111*(c2B*g1UV2) + (c2G*g3UV2)/6.;
@@ -387,7 +433,7 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
     Cqu1_2233r_LNP = -0.16666666666666666*(ctD*g1UV) - (2*c2B*g1UV2)/9.;
     Cqu1_3311r_LNP = (-2*cqD1*g1UV)/3. - (2*c2B*g1UV2)/9.;
     Cqu1_3322r_LNP = (-2*cqD1*g1UV)/3. - (2*c2B*g1UV2)/9.;
-    Cqu1_3333r_LNP = (-2*cqD1*g1UV)/3. - (ctD*g1UV)/6. - (2*c2B*g1UV2)/9.;
+    Cqu1_3333r_LNP = cqt1 - (2*cqD1*g1UV)/3. - (ctD*g1UV)/6. - (2*c2B*g1UV2)/9.;
     Cqu8_1111r_LNP = -2*c2G*g3UV2;
     Cqu8_1122r_LNP = -2*c2G*g3UV2;
     Cqu8_1133r_LNP = -2*c2G*g3UV2;
@@ -396,7 +442,7 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
     Cqu8_2233r_LNP = -2*c2G*g3UV2;
     Cqu8_3311r_LNP = -2*c2G*g3UV2;
     Cqu8_3322r_LNP = -2*c2G*g3UV2;
-    Cqu8_3333r_LNP = -2*c2G*g3UV2;
+    Cqu8_3333r_LNP = cqt8 - 2*c2G*g3UV2;
     Cqd1_1111r_LNP = (c2B*g1UV2)/9.;
     Cqd1_1122r_LNP = (c2B*g1UV2)/9.;
     Cqd1_1133r_LNP = (c2B*g1UV2)/9.;
