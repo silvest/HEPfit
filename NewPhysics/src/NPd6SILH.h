@@ -2,7 +2,7 @@
 * 
 * For the licensing terms see doc/COPYING.
 *
-* Created on Sun 27 Jul 2025 17:40:34
+* Created on Mon 28 Jul 2025 11:32:58
 *
 */
 
@@ -41,34 +41,34 @@ public:
 
 protected:
 
-    double cH = 0.0;
-    double cT = 0.0;
-    double c6 = 0.0;
-    double cB = 0.0;
-    double cW = 0.0;
-    double c2B = 0.0;
-    double c2W = 0.0;
-    double c2G = 0.0;
-    double c3W = 0.0;
-    double c3G = 0.0;
-    double cHW = 0.0;
-    double cHB = 0.0;
-    double cgam = 0.0;
-    double cg = 0.0;
-    double ctD = 0.0;
-    double cqD1 = 0.0;
-    double cqD3 = 0.0;
-    double cqq1 = 0.0;
-    double cqq3 = 0.0;
-    double cqt1 = 0.0;
-    double cqt8 = 0.0;
-    double ctt = 0.0;
-    double ctG = 0.0;
-    double ctB = 0.0;
-    double ctW = 0.0;
-    double cu = 0.0;
-    double cd = 0.0;
-    double ce = 0.0;
+    double cH_LNP = 0.0;
+    double cT_LNP = 0.0;
+    double c6_LNP = 0.0;
+    double cB_LNP = 0.0;
+    double cW_LNP = 0.0;
+    double c2B_LNP = 0.0;
+    double c2W_LNP = 0.0;
+    double c2G_LNP = 0.0;
+    double c3W_LNP = 0.0;
+    double c3G_LNP = 0.0;
+    double cHW_LNP = 0.0;
+    double cHB_LNP = 0.0;
+    double cgam_LNP = 0.0;
+    double cg_LNP = 0.0;
+    double ctD_LNP = 0.0;
+    double cqD1_LNP = 0.0;
+    double cqD3_LNP = 0.0;
+    double cqq1_LNP = 0.0;
+    double cqq3_LNP = 0.0;
+    double cqt1_LNP = 0.0;
+    double cqt8_LNP = 0.0;
+    double ctt_LNP = 0.0;
+    double ctG_LNP = 0.0;
+    double ctB_LNP = 0.0;
+    double ctW_LNP = 0.0;
+    double cu_LNP = 0.0;
+    double cd_LNP = 0.0;
+    double ce_LNP = 0.0;
 
 
     virtual void setParameter(const std::string name, const double& value);
