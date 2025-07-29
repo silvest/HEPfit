@@ -2,7 +2,7 @@
 * 
 * For the licensing terms see doc/COPYING.
 *
-* Created on Mon 28 Jul 2025 11:32:58
+* Created on Tue 29 Jul 2025 16:05:01
 *
 */
 
@@ -10,7 +10,7 @@
 
 
 std::string NPd6SILH::NPd6SILHVars[NNPd6SILHVars] = {
-    "cH_LNP", "cT_LNP", "c6_LNP", "cB_LNP", "cW_LNP", "c2B_LNP", "c2W_LNP", "c2G_LNP", "c3W_LNP", "c3G_LNP", "cHW_LNP", "cHB_LNP", "cgam_LNP", "cg_LNP", "ctD_LNP", "cqD1_LNP", "cqD3_LNP", "cqq1_LNP", "cqq3_LNP", "cqt1_LNP", "cqt8_LNP", "ctt_LNP", "ctG_LNP", "ctB_LNP", "ctW_LNP", "cu_LNP", "cd_LNP", "ce_LNP", "Lambda_NP" 
+    "cH_LNP", "cT_LNP", "c6_LNP", "cB_LNP", "cW_LNP", "c2B_LNP", "c2W_LNP", "c2G_LNP", "c3W_LNP", "c3G_LNP", "cHW_LNP", "cHB_LNP", "cgam_LNP", "cg_LNP", "cHq1_LNP", "cHq3_LNP", "cHt_LNP", "ctD_LNP", "cqD1_LNP", "cqD3_LNP", "cqq1_LNP", "cqq3_LNP", "cqt1_LNP", "cqt8_LNP", "ctt_LNP", "ctG_LNP", "ctB_LNP", "ctW_LNP", "cu_LNP", "cd_LNP", "ce_LNP", "Lambda_NP" 
 };
 
 
@@ -34,6 +34,9 @@ NPd6SILH::NPd6SILH()
     ModelParamMap.insert(std::make_pair("cHB_LNP", std::cref(cHB_LNP)));
     ModelParamMap.insert(std::make_pair("cgam_LNP", std::cref(cgam_LNP)));
     ModelParamMap.insert(std::make_pair("cg_LNP", std::cref(cg_LNP)));
+    ModelParamMap.insert(std::make_pair("cHq1_LNP", std::cref(cHq1_LNP)));
+    ModelParamMap.insert(std::make_pair("cHq3_LNP", std::cref(cHq3_LNP)));
+    ModelParamMap.insert(std::make_pair("cHt_LNP", std::cref(cHt_LNP)));
     ModelParamMap.insert(std::make_pair("ctD_LNP", std::cref(ctD_LNP)));
     ModelParamMap.insert(std::make_pair("cqD1_LNP", std::cref(cqD1_LNP)));
     ModelParamMap.insert(std::make_pair("cqD3_LNP", std::cref(cqD3_LNP)));
@@ -110,6 +113,18 @@ void NPd6SILH::setParameter(const std::string name, const double& value)
     } else if(name.compare("cg_LNP")==0) {
 
         cg_LNP = value;
+
+    } else if(name.compare("cHq1_LNP")==0) {
+
+        cHq1_LNP = value;
+
+    } else if(name.compare("cHq3_LNP")==0) {
+
+        cHq3_LNP = value;
+
+    } else if(name.compare("cHt_LNP")==0) {
+
+        cHt_LNP = value;
 
     } else if(name.compare("ctD_LNP")==0) {
 
@@ -274,13 +289,13 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
     CHe_33r_LNP = cB_LNP*g1UV + (cHB_LNP*g1UV)/2. + c2B_LNP*g1UV2;
     CHq1_11r_LNP = -0.16666666666666666*(cB_LNP*g1UV) - (cHB_LNP*g1UV)/12. - (c2B_LNP*g1UV2)/6.;
     CHq1_22r_LNP = -0.16666666666666666*(cB_LNP*g1UV) - (cHB_LNP*g1UV)/12. - (c2B_LNP*g1UV2)/6.;
-    CHq1_33r_LNP = -0.16666666666666666*(cB_LNP*g1UV) - (cHB_LNP*g1UV)/12. - (cqD1_LNP*g1UV)/2. - (c2B_LNP*g1UV2)/6.;
+    CHq1_33r_LNP = cHq1_LNP - (cB_LNP*g1UV)/6. - (cHB_LNP*g1UV)/12. - (cqD1_LNP*g1UV)/2. - (c2B_LNP*g1UV2)/6.;
     CHq3_11r_LNP = -0.25*(cHW_LNP*g2UV) - (cW_LNP*g2UV)/2. - (c2W_LNP*g2UV2)/2.;
     CHq3_22r_LNP = -0.25*(cHW_LNP*g2UV) - (cW_LNP*g2UV)/2. - (c2W_LNP*g2UV2)/2.;
-    CHq3_33r_LNP = -0.25*(cHW_LNP*g2UV) - (cqD3_LNP*g2UV)/2. - (cW_LNP*g2UV)/2. - (c2W_LNP*g2UV2)/2.;
+    CHq3_33r_LNP = cHq3_LNP - (cHW_LNP*g2UV)/4. - (cqD3_LNP*g2UV)/2. - (cW_LNP*g2UV)/2. - (c2W_LNP*g2UV2)/2.;
     CHu_11r_LNP = (-2*cB_LNP*g1UV)/3. - (cHB_LNP*g1UV)/3. - (2*c2B_LNP*g1UV2)/3.;
     CHu_22r_LNP = (-2*cB_LNP*g1UV)/3. - (cHB_LNP*g1UV)/3. - (2*c2B_LNP*g1UV2)/3.;
-    CHu_33r_LNP = (-2*cB_LNP*g1UV)/3. - (cHB_LNP*g1UV)/3. - (ctD_LNP*g1UV)/2. - (2*c2B_LNP*g1UV2)/3.;
+    CHu_33r_LNP = cHt_LNP - (2*cB_LNP*g1UV)/3. - (cHB_LNP*g1UV)/3. - (ctD_LNP*g1UV)/2. - (2*c2B_LNP*g1UV2)/3.;
     CHd_11r_LNP = (cB_LNP*g1UV)/3. + (cHB_LNP*g1UV)/6. + (c2B_LNP*g1UV2)/3.;
     CHd_22r_LNP = (cB_LNP*g1UV)/3. + (cHB_LNP*g1UV)/6. + (c2B_LNP*g1UV2)/3.;
     CHd_33r_LNP = (cB_LNP*g1UV)/3. + (cHB_LNP*g1UV)/6. + (c2B_LNP*g1UV2)/3.;
