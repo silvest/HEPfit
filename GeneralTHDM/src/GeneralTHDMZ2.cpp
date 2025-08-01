@@ -93,10 +93,11 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
     else if (name.compare("m12_2") == 0) {
         m12_2 = value;
         M2aux = m12_2/cosb/sinb;
-    }
-    else if (name.compare("alpha1") == 0)
+
+        // Fix alpha1 in Higgs basis of Z2-symmetric model
         GeneralTHDM::setParameter("alpha1", bma - M_PI/2.);
-    else if (name.compare("lambda2") == 0) {
+
+        // Fix lambda2 in Higgs basis of Z2-symmetric model
         mh_2 = getmH1sq();
         mH_2 = getmH2sq();
         mA_2 = getmH3sq();
@@ -105,49 +106,56 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
         GeneralTHDM::setParameter("lambda2", ((4.*(mh_2 - mH_2)*(3. + 5.*cos4b)*cos2bma/cosb/sinb +
         (-32.*m12_2*(1. + cos4b) + (mh_2 + mH_2)*(7.*sin2b + 3.*sin6b))/cosb/cosb/sinb/sinb +
         (mH_2 - mh_2)*(20. - cos2b + 12.*cos4b + cos6b)*2.*sin2bma)/64./cosb/sinb/vev/vev));
-    }
-    else if (name.compare("lambda3") == 0)
+
+        // Fix lambda3 in Higgs basis of Z2-symmetric model
         GeneralTHDM::setParameter("lambda3", ((-32.*m12_2 + 8.*(mh_2 + mH_2 + mA_2)*sin2b +
         (mh_2 - mH_2)*(-4. + 3.*cos2b + 4.*cos4b + cos6b)*sin2bma)/16./cosb/sinb/vev/vev));
-    else if (name.compare("Relambda7") == 0)
+
+        // Fix lambda7 in Higgs basis of Z2-symmetric model
         GeneralTHDM::setParameter("Relambda7", ((4.*(mh_2 - mH_2)*cos2b*cos2bma/cosb/sinb +
         4.*(mh_2 + mH_2 - 2.*m12_2/cosb/sinb)*sin4b/sin2b/sin2b -
         (mh_2 - mH_2)*(1. + 8.*cos2b + cos4b)*sin2bma)/8./vev/vev));
-    else if (name.compare("Nu_11r") == 0) {
-        if (flag_model == "type1")
+
+        // Fix sigma_u,d,l in Higgs basis of Z2-symmetric model
+        if (flag_model == "type1") {
             GeneralTHDM::setParameter("Nu_11r", 1./tanb);
-        else if (flag_model == "type2")
+            GeneralTHDM::setParameter("Nd_11r", 1./tanb);
+            GeneralTHDM::setParameter("Nl_11r", 1./tanb);
+        }
+        else if (flag_model == "type2") {
             GeneralTHDM::setParameter("Nu_11r", 1./tanb);
-        else if (flag_model == "typeX")
+            GeneralTHDM::setParameter("Nd_11r", -tanb);
+            GeneralTHDM::setParameter("Nl_11r", -tanb);
+        }
+        else if (flag_model == "typeX") {
             GeneralTHDM::setParameter("Nu_11r", 1./tanb);
-        else if (flag_model == "typeY")
+            GeneralTHDM::setParameter("Nd_11r", 1./tanb);
+            GeneralTHDM::setParameter("Nl_11r", -tanb);
+        }
+        else if (flag_model == "typeY") {
             GeneralTHDM::setParameter("Nu_11r", 1./tanb);
-        else if (flag_model == "inert")
+            GeneralTHDM::setParameter("Nd_11r", -tanb);
+            GeneralTHDM::setParameter("Nl_11r", 1./tanb);
+        }
+        else if (flag_model == "inert") {
             GeneralTHDM::setParameter("Nu_11r", 0.);
+            GeneralTHDM::setParameter("Nd_11r", 0.);
+            GeneralTHDM::setParameter("Nl_11r", 0.);
+        }
+    }
+    else if (name.compare("alpha1") == 0) {
+    }
+    else if (name.compare("lambda2") == 0) {
+    }
+    else if (name.compare("lambda3") == 0) {
+    }
+    else if (name.compare("Relambda7") == 0) {
+    }
+    else if (name.compare("Nu_11r") == 0) {
     }
     else if (name.compare("Nd_11r") == 0) {
-        if (flag_model == "type1")
-            GeneralTHDM::setParameter("Nd_11r", 1./tanb);
-        else if (flag_model == "type2")
-            GeneralTHDM::setParameter("Nd_11r", -tanb);
-        else if (flag_model == "typeX")
-            GeneralTHDM::setParameter("Nd_11r", 1./tanb);
-        else if (flag_model == "typeY")
-            GeneralTHDM::setParameter("Nd_11r", -tanb);
-        else if (flag_model == "inert")
-            GeneralTHDM::setParameter("Nd_11r", 0.);
     }
     else if (name.compare("Nl_11r") == 0) {
-        if (flag_model == "type1")
-            GeneralTHDM::setParameter("Nl_11r", 1./tanb);
-        else if (flag_model == "type2")
-            GeneralTHDM::setParameter("Nl_11r", -tanb);
-        else if (flag_model == "typeX")
-            GeneralTHDM::setParameter("Nl_11r", -tanb);
-        else if (flag_model == "typeY")
-            GeneralTHDM::setParameter("Nl_11r", 1./tanb);
-        else if (flag_model == "inert")
-            GeneralTHDM::setParameter("Nl_11r", 0.);
     }
     else
         GeneralTHDM::setParameter(name, value);
