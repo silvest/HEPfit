@@ -196,7 +196,7 @@ void MPll::updateParameters()
             m_fit2_fT_lat = mySM.getOptionalParameter("m_fit_fT_lat") * mySM.getOptionalParameter("m_fit_fT_lat");
             b_1_f0 = mySM.getOptionalParameter("b_1_f0");
             b_2_f0 = mySM.getOptionalParameter("b_2_f0");
-            b_0_f0 = fplus_DM(0,b_0_fplus,b_1_fplus,b_2_fplus,m_fit2_fplus_lat)*phi0_DM(0) - b_1_f0*zeta_DM(0) - b_2_f0*zeta_DM(0)*zeta_DM(0);
+            b_0_f0 = fplus_DM(0.,b_0_fplus,b_1_fplus,b_2_fplus,m_fit2_fplus_lat)*phi0_DM(0) - b_1_f0*zeta_DM(0) - b_2_f0*zeta_DM(0)*zeta_DM(0);
         } else {
             r_1_fplus = mySM.getOptionalParameter("r_1_fplus");
             r_2_fplus = mySM.getOptionalParameter("r_2_fplus");

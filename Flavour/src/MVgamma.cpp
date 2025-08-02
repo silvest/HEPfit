@@ -27,6 +27,7 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     dispersion = false;
     zExpansion = false;
     FixedWCbtos = false;
+    MVll_DM_flag = false;
     mJpsi = 3.0969;
     mJ2 = mJpsi * mJpsi;
     mPsi2S = 3.6861;
@@ -46,13 +47,27 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
     dispersion = SM.getFlavour().getFlagUseDispersionRelation();
     zExpansion = SM.getFlavour().getFlagUsezExpansion();
     FixedWCbtos = SM.getFlavour().getFlagFixedWCbtos();
-    
+    MVll_DM_flag = SM.getFlavour().getFlagMVll_DM();
+
 #if NFPOLARBASIS_MVGAMMA
-    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << 
+    if (vectorM == StandardModel::PHI)
+        if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
+            "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << 
+            "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << 
+            "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg" << 
+            "Chi1minus" << "Chi1plus" << "ChiTT" <<
+            "absh_p" << "absh_m" << "argh_p" << "argh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
+        else mVgammaParameters = make_vector<std::string>() << 
             "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
             "absh_p" << "absh_m" << "argh_p" << "argh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
-        mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << 
+        if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
+            "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << 
+            "a_0f" << "a_1f" << "a_2f" << "MRf" << 
+            "a_0g" << "a_1g" << "a_2g" << "MRg" <<
+            "Chi1minus" << "Chi1plus" << "ChiTT" <<
+            "absh_p" << "absh_m" << "argh_p" << "argh_m";
+        else mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << 
             "absh_p" << "absh_m" << "argh_p" << "argh_m";
     else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
         mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
@@ -61,11 +76,25 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
         mVgammaParameters = make_vector<std::string>() << "a_0T1omega" << "a_0A1omega" << "a_0Vomega" << 
             "absh_p" << "absh_m" << "argh_p" << "argh_m";
 #else
-    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << 
+    if (vectorM == StandardModel::PHI)
+        if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
+            "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << 
+            "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << 
+            "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg" <<
+            "Chi1minus" << "Chi1plus" << "ChiTT" <<
+            "reh_p" << "reh_m" << "imh_p" << "imh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
+        else mVgammaParameters = make_vector<std::string>() << 
             "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
             "reh_p" << "reh_m" << "imh_p" << "imh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
-        mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << 
+        if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
+            "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" <<
+            "a_0f" << "a_1f" << "a_2f" << "MRf" << 
+            "a_0g" << "a_1g" << "a_2g" << "MRg" <<
+            "Chi1minus" << "Chi1plus" << "ChiTT" <<
+            "reh_p" << "reh_m" << "imh_p" << "imh_m";
+        else mVgammaParameters = make_vector<std::string>() << 
+            "a_0T1" << "a_0A1" << "a_0V" << 
             "reh_p" << "reh_m" << "imh_p" << "imh_m";
     else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
         mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
@@ -82,11 +111,25 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 
     if (dispersion) {
         mVgammaParameters.clear();
-        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << 
+        if (vectorM == StandardModel::PHI) 
+            if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
+                "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << 
+                "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << 
+                "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg" <<
+                "Chi1minus" << "Chi1plus" << "ChiTT" <<
+                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2" << "SU3_breaking_abs" << "SU3_breaking_arg";
+            else mVgammaParameters = make_vector<std::string>() << 
                 "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
                 "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2" << "SU3_breaking_abs" << "SU3_breaking_arg";
         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
-            mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" <<
+            if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
+                "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << 
+                "a_0f" << "a_1f" << "a_2f" << "MRf" << 
+                "a_0g" << "a_1g" << "a_2g" << "MRg" <<
+                "Chi1minus" << "Chi1plus" << "ChiTT" <<
+                "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2";
+            else mVgammaParameters = make_vector<std::string>() << 
+                "a_0T1" << "a_0A1" << "a_0V" <<
                 "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2";
         else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
             mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
@@ -103,18 +146,38 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 
     if (zExpansion) {
         mVgammaParameters.clear();
-        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() <<
-            "a_0T1phi" << "a_0A1phi" << "a_0Vphi"
-            << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
-            << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
-            << "re_beta_2_0" << "re_beta_2_1" << "re_beta_2_2" << "re_beta_2_3" << "re_beta_2_4" << "re_beta_2_5" << "re_beta_2_6"
-            << "im_beta_2_0" << "im_beta_2_1" << "im_beta_2_2" << "im_beta_2_3" << "im_beta_2_4" << "im_beta_2_5" << "im_beta_2_6" << "SU3_breaking_abs" << "SU3_breaking_arg";
+        if (vectorM == StandardModel::PHI) 
+            if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
+                "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" 
+                << "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" 
+                << "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg"
+                << "Chi1minus" << "Chi1plus" << "ChiTT"
+                << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
+                << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
+                << "re_beta_2_0" << "re_beta_2_1" << "re_beta_2_2" << "re_beta_2_3" << "re_beta_2_4" << "re_beta_2_5" << "re_beta_2_6"
+                << "im_beta_2_0" << "im_beta_2_1" << "im_beta_2_2" << "im_beta_2_3" << "im_beta_2_4" << "im_beta_2_5" << "im_beta_2_6" << "SU3_breaking_abs" << "SU3_breaking_arg";
+            else mVgammaParameters = make_vector<std::string>() <<
+                "a_0T1phi" << "a_0A1phi" << "a_0Vphi"
+                << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
+                << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
+                << "re_beta_2_0" << "re_beta_2_1" << "re_beta_2_2" << "re_beta_2_3" << "re_beta_2_4" << "re_beta_2_5" << "re_beta_2_6"
+                << "im_beta_2_0" << "im_beta_2_1" << "im_beta_2_2" << "im_beta_2_3" << "im_beta_2_4" << "im_beta_2_5" << "im_beta_2_6" << "SU3_breaking_abs" << "SU3_breaking_arg";
         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
-            mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V"
-            << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
-            << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
-            << "re_beta_2_0" << "re_beta_2_1" << "re_beta_2_2" << "re_beta_2_3" << "re_beta_2_4" << "re_beta_2_5" << "re_beta_2_6"
-            << "im_beta_2_0" << "im_beta_2_1" << "im_beta_2_2" << "im_beta_2_3" << "im_beta_2_4" << "im_beta_2_5" << "im_beta_2_6";
+            if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
+                "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" 
+                << "a_0f" << "a_1f" << "a_2f" << "MRf" 
+                << "a_0g" << "a_1g" << "a_2g" << "MRg" 
+                << "Chi1minus" << "Chi1plus" << "ChiTT"
+                << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
+                << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
+                << "re_beta_2_0" << "re_beta_2_1" << "re_beta_2_2" << "re_beta_2_3" << "re_beta_2_4" << "re_beta_2_5" << "re_beta_2_6"
+                << "im_beta_2_0" << "im_beta_2_1" << "im_beta_2_2" << "im_beta_2_3" << "im_beta_2_4" << "im_beta_2_5" << "im_beta_2_6";
+            else mVgammaParameters = make_vector<std::string>() << 
+                "a_0T1" << "a_0A1" << "a_0V"
+                << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
+                << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
+                << "re_beta_2_0" << "re_beta_2_1" << "re_beta_2_2" << "re_beta_2_3" << "re_beta_2_4" << "re_beta_2_5" << "re_beta_2_6"
+                << "im_beta_2_0" << "im_beta_2_1" << "im_beta_2_2" << "im_beta_2_3" << "im_beta_2_4" << "im_beta_2_5" << "im_beta_2_6";
         else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
             mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho"
             << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
@@ -161,30 +224,92 @@ void MVgamma::updateParameters()
     width = SM.getMesons(meson).computeWidth();
     lambda = MM2 - pow(MV, 2.);
     alpha_s_mub = SM.Als(mu_b, FULLNLO); /* Used for QCDF @ NLO */
-    
+
+    t_p = pow(MM + MV, 2.);
+    t_m = pow(MM - MV, 2.);
+    z_DM = (sqrt(t_p) - sqrt(t_p - t_m)) / (sqrt(t_p) + sqrt(t_p - t_m));
+    rV = MV/MM;
+
     switch (vectorM) {
         case StandardModel::K_star:
-            a_0T1 = SM.getOptionalParameter("a_0T1");
-            a_0A1 = SM.getOptionalParameter("a_0A1");
-            a_0V = SM.getOptionalParameter("a_0V");
+            if (MVll_DM_flag) {
+                a_0T1 = SM.getOptionalParameter("a_0T1");
+                a_1T1 = SM.getOptionalParameter("a_1T1");
+                a_2T1 = SM.getOptionalParameter("a_2T1");
+                MRT1_2 = SM.getOptionalParameter("MRT1")*SM.getOptionalParameter("MRT1");
+                a_0f = SM.getOptionalParameter("a_0f");
+                a_1f = SM.getOptionalParameter("a_1f");
+                a_2f = SM.getOptionalParameter("a_2f");
+                MRf_2 = SM.getOptionalParameter("MRf")*SM.getOptionalParameter("MRf");
+                a_0g = SM.getOptionalParameter("a_0g");
+                a_1g = SM.getOptionalParameter("a_1g");
+                a_2g = SM.getOptionalParameter("a_2g");
+                MRg_2 = SM.getOptionalParameter("MRg")*SM.getOptionalParameter("MRg");
+                Chi1minus = SM.getOptionalParameter("Chi1minus"); //0.000623174575;
+                Chi1plus = SM.getOptionalParameter("Chi1plus"); //0.000543940610;
+                ChiTT = SM.getOptionalParameter("ChiTT"); //0.0454644444;
+            }
+            else {
+                a_0T1 = SM.getOptionalParameter("a_0T1");
+                a_0A1 = SM.getOptionalParameter("a_0A1");
+                a_0V = SM.getOptionalParameter("a_0V");
+            }
             lambda_t = SM.getCKM().computelamt_s();
             lambda_u = SM.getCKM().computelamu_s();
             spectator_charge = SM.getQuarks(QCD::DOWN).getCharge();
             SU3_breaking = 1.;
             break;
         case StandardModel::K_star_P:
-            a_0T1 = SM.getOptionalParameter("a_0T1");
-            a_0A1 = SM.getOptionalParameter("a_0A1");
-            a_0V = SM.getOptionalParameter("a_0V");
+            if (MVll_DM_flag) {
+                a_0T1 = SM.getOptionalParameter("a_0T1");
+                a_1T1 = SM.getOptionalParameter("a_1T1");
+                a_2T1 = SM.getOptionalParameter("a_2T1");
+                MRT1_2 = SM.getOptionalParameter("MRT1")*SM.getOptionalParameter("MRT1");
+                a_0f = SM.getOptionalParameter("a_0f");
+                a_1f = SM.getOptionalParameter("a_1f");
+                a_2f = SM.getOptionalParameter("a_2f");
+                MRf_2 = SM.getOptionalParameter("MRf")*SM.getOptionalParameter("MRf");
+                a_0g = SM.getOptionalParameter("a_0g");
+                a_1g = SM.getOptionalParameter("a_1g");
+                a_2g = SM.getOptionalParameter("a_2g");
+                MRg_2 = SM.getOptionalParameter("MRg")*SM.getOptionalParameter("MRg");
+                Chi1minus = SM.getOptionalParameter("Chi1minus"); //0.000623174575;
+                Chi1plus = SM.getOptionalParameter("Chi1plus"); //0.000543940610;
+                ChiTT = SM.getOptionalParameter("ChiTT"); //0.0454644444;
+            }
+            else {
+                a_0T1 = SM.getOptionalParameter("a_0T1");
+                a_0A1 = SM.getOptionalParameter("a_0A1");
+                a_0V = SM.getOptionalParameter("a_0V");
+            }
             lambda_t = SM.getCKM().computelamt_s();
             lambda_u = SM.getCKM().computelamu_s();
             spectator_charge = SM.getQuarks(QCD::UP).getCharge();
             SU3_breaking = 1.;
             break;
         case StandardModel::PHI:
-            a_0T1 = SM.getOptionalParameter("a_0T1phi");
-            a_0A1 = SM.getOptionalParameter("a_0A1phi");
-            a_0V = SM.getOptionalParameter("a_0Vphi");
+            if (MVll_DM_flag) {
+                a_0T1 = SM.getOptionalParameter("a_0T1phi");
+                a_1T1 = SM.getOptionalParameter("a_1T1phi");
+                a_2T1 = SM.getOptionalParameter("a_2T1phi");
+                MRT1_2 = SM.getOptionalParameter("MRT1")*SM.getOptionalParameter("MRT1");
+                a_0f = SM.getOptionalParameter("a_0fphi");
+                a_1f = SM.getOptionalParameter("a_1fphi");
+                a_2f = SM.getOptionalParameter("a_2fphi");
+                MRf_2 = SM.getOptionalParameter("MRf")*SM.getOptionalParameter("MRf");
+                a_0g = SM.getOptionalParameter("a_0gphi");
+                a_1g = SM.getOptionalParameter("a_1gphi");
+                a_2g = SM.getOptionalParameter("a_2gphi");
+                MRg_2 = SM.getOptionalParameter("MRg")*SM.getOptionalParameter("MRg");
+                Chi1minus = SM.getOptionalParameter("Chi1minus"); //0.000623174575;
+                Chi1plus = SM.getOptionalParameter("Chi1plus"); //0.000543940610;
+                ChiTT = SM.getOptionalParameter("ChiTT"); //0.0454644444;
+            }
+            else {
+                a_0T1 = SM.getOptionalParameter("a_0T1phi");
+                a_0A1 = SM.getOptionalParameter("a_0A1phi");
+                a_0V = SM.getOptionalParameter("a_0Vphi");
+            }
             lambda_t = SM.getCKM().computelamt_s();
             lambda_u = SM.getCKM().computelamu_s();
             spectator_charge = SM.getQuarks(QCD::STRANGE).getCharge();
@@ -386,9 +511,49 @@ void MVgamma::updateParameters()
 /*******************************************************************************
  * Form Factor                                                     *
  * ****************************************************************************/
+double MVgamma::phi_f(double MRf_2)
+{
+    double z = z_DM;
+    double z_M = (sqrt(t_p - MRf_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRf_2) + sqrt(t_p - t_m));
+
+    return 4.*rV/MM2*sqrt(2./3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+}
+
+double MVgamma::phi_g(double MRg_2)
+{
+    double z = z_DM;
+    double z_M = (sqrt(t_p - MRg_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRg_2) + sqrt(t_p - t_m));
+
+    return 16.*rV*rV*sqrt(2./3./Chi1minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+}
+
+double MVgamma::phi_T1(double MRT1_2)
+{
+    double z = z_DM;
+    double z_M = (sqrt(t_p - MRT1_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRT1_2) + sqrt(t_p - t_m));
+
+    return 32.*rV*rV/MM*sqrt(2./3./ChiTT/M_PI) * (1. + z)*(1. + z)*pow(1. - z,0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
+}
+
+double MVgamma::f_DM(double a_0f, double a_1f, double a_2f, double MRf_2)
+{
+    return (a_0f + a_1f*z_DM + a_2f*z_DM*z_DM) / phi_f(MRf_2);
+}
+
+double MVgamma::g_DM(double a_0g, double a_1g, double a_2g, double MRg_2)
+{
+    return (a_0g + a_1g*z_DM + a_2g*z_DM*z_DM) / phi_g(MRg_2);
+}
+
+double MVgamma::T1_DM(double a_0T1, double a_1T1, double a_2T1, double MRT1_2)
+{
+    return (a_0T1 + a_1T1*z_DM + a_2T1*z_DM*z_DM) / phi_T1(MRT1_2);
+}
+
 double MVgamma::T_1()
 {
-    return ( a_0T1);
+    if (MVll_DM_flag) return T1_DM(a_0T1, a_1T1, a_2T1, MRT1_2);
+    else return a_0T1;
 }
 
 gslpp::complex MVgamma::deltaC7_QCDF(bool conjugate)
@@ -571,20 +736,31 @@ gslpp::complex MVgamma::phi_3()
 
 gslpp::complex MVgamma::h_lambda(int hel) 
 {
+    double A1;
+    double V;
+
+    if (MVll_DM_flag) {
+        A1 = f_DM(a_0f,a_1f,a_2f,MRf_2)/(MM+MV);
+        V = g_DM(a_0g,a_1g,a_2g,MRg_2)*(MM+MV)/2.;
+    } else {
+        A1 = a_0A1;
+        V = a_0V;
+    }
+
     if (hel == 0) {
         if (dispersion)
             return SU3_breaking * ( -1./(MM2*16.*M_PI*M_PI) * (
-                ((MM+MV)*a_0A1) / (2.*MM) * ((- r1_2 + deltaC9_2) / (1. + r2_2 / mJ2) )*exp_Phase_2
-                - lambda / (2.*MM*(MM+MV))*a_0V * ((- r1_1 + deltaC9_1) / (1. + r2_1 / mJ2) )*exp_Phase_1 ) );
+                ((MM+MV)*A1) / (2.*MM) * ((- r1_2 + deltaC9_2) / (1. + r2_2 / mJ2) )*exp_Phase_2
+                - lambda / (2.*MM*(MM+MV))*V * ((- r1_1 + deltaC9_1) / (1. + r2_1 / mJ2) )*exp_Phase_1 ) );
         else if (zExpansion) 
             return (DeltaC9_zExpansion(1) - DeltaC9_zExpansion(2)) / sqrt(2.);
     }
     else if (hel == 1) {
         if (dispersion)
             return SU3_breaking * (-1./(MM2*16.*M_PI*M_PI) *
-                (((MM+MV)*a_0A1) / (2.*MM) * ((- r1_2 + deltaC9_2) / (1. + r2_2 / mJ2) )*exp_Phase_2
-                + lambda / (2.*MM*(MM+MV))*a_0V * ((- r1_1 + deltaC9_1) / (1. + r2_1 / mJ2) )*exp_Phase_1 ) );
-        else if (zExpansion) 
+                (((MM+MV)*A1) / (2.*MM) * ((- r1_2 + deltaC9_2) / (1. + r2_2 / mJ2) )*exp_Phase_2
+                + lambda / (2.*MM*(MM+MV))*V * ((- r1_1 + deltaC9_1) / (1. + r2_1 / mJ2) )*exp_Phase_1 ) );
+        else if (zExpansion)
             return (DeltaC9_zExpansion(1) + DeltaC9_zExpansion(2)) / sqrt(2.);
     }
     else {
