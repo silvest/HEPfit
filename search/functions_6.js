@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['f_0',['F',['../dd/d00/class_evol_bsmm.html#a8f88ae14bd8df8c6f79af5dd9b0edb28',1,'EvolBsmm::F()'],['../da/d29/class_amp_d_b2.html#a475dae03a7ecb40fdfc510f46fe0482c',1,'AmpDB2::F()']]],
+  ['f_0',['F',['../da/d29/class_amp_d_b2.html#a475dae03a7ecb40fdfc510f46fe0482c',1,'AmpDB2']]],
   ['f_1',['f',['../d0/d13/class_bsgamma.html#a529c56671700edd8d9c8bbda179a3ac2',1,'Bsgamma']]],
-  ['f_2',['F',['../d7/d0f/class_s_t_u.html#a2fe209575f5fcd5d779e60eaf8606683',1,'STU::F()'],['../de/d45/class_t_h_d_m_w_s_t_u.html#aaace74885c69f02da52e4cf84366a8a6',1,'THDMWSTU::F()']]],
+  ['f_2',['F',['../de/d45/class_t_h_d_m_w_s_t_u.html#aaace74885c69f02da52e4cf84366a8a6',1,'THDMWSTU::F()'],['../dd/d00/class_evol_bsmm.html#a8f88ae14bd8df8c6f79af5dd9b0edb28',1,'EvolBsmm::F()'],['../d7/d0f/class_s_t_u.html#a2fe209575f5fcd5d779e60eaf8606683',1,'STU::F()']]],
   ['f0_3',['F0',['../da/d29/class_amp_d_b2.html#a695070f37415bde28cce0e9d5ae9f0ad',1,'AmpDB2']]],
   ['f0_4',['f0',['../d7/d90/class_e_w_s_m_two_loop_e_w.html#a6a46ca33308952f5d8e271ae6438abda',1,'EWSMTwoLoopEW']]],
   ['f0_5',['F0',['../df/d18/class_f0.html#a69cbfc7ce0199bf0bd98e78d8c6c18c3',1,'F0']]],
@@ -82,8 +82,8 @@ var searchData=
   ['f_5fwn_5ft_79',['F_Wn_t',['../db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#aeb310b1e0c6f9f3f23d1f9410fffc4c3',1,'EWSMTwoFermionsLEP2']]],
   ['f_5fwn_5ft_5fhat_80',['F_Wn_t_hat',['../db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a6477b0185f87d4bf07dbb6924c5b2514',1,'EWSMTwoFermionsLEP2']]],
   ['f_5fza_5f0_81',['F_za_0',['../db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a0eaf62c1d9f3c73613798b0aa9150807',1,'EWSMTwoFermionsLEP2']]],
-  ['fa_82',['FA',['../da/df7/class_e_w_s_u_s_y.html#ab25200f61dc32d8469bcb10fea74d3a9',1,'EWSUSY']]],
-  ['fa_83',['Fa',['../d5/dac/class_s_u_s_y_matching.html#a0194af8d36de58a9cb375e6efb9493a1',1,'SUSYMatching']]],
+  ['fa_82',['Fa',['../d5/dac/class_s_u_s_y_matching.html#a0194af8d36de58a9cb375e6efb9493a1',1,'SUSYMatching']]],
+  ['fa_83',['FA',['../da/df7/class_e_w_s_u_s_y.html#ab25200f61dc32d8469bcb10fea74d3a9',1,'EWSUSY']]],
   ['fagamma_5fl_84',['FAgamma_l',['../dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#a1d0fadb2e2df41de14c08eaaff92b267',1,'EWSMTwoFermionsLEP2_Hollik']]],
   ['fagamma_5fq_85',['FAgamma_q',['../dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#a2f90ac36bbb52cca48ba709591b6bd14',1,'EWSMTwoFermionsLEP2_Hollik']]],
   ['faz_5fl_86',['FAZ_l',['../dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#af303b964ec3bb93d3f0190f1a34a7d31',1,'EWSMTwoFermionsLEP2_Hollik']]],

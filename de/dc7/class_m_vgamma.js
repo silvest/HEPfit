@@ -5,6 +5,9 @@ var class_m_vgamma =
     [ "initializeMVgammaParameters", "de/dc7/class_m_vgamma.html#a859810c2fd7413e494255c2b939bd185", null ],
     [ "updateParameters", "de/dc7/class_m_vgamma.html#a487ac3f3900c5ff33992639c127a1141", null ],
     [ "ale", "de/dc7/class_m_vgamma.html#a9fe8794ee52946884d0b69d0ee876ffb", null ],
+    [ "Chi1minus", "de/dc7/class_m_vgamma.html#a8c904ece8e47ca885c6529a558f702c5", null ],
+    [ "Chi1plus", "de/dc7/class_m_vgamma.html#a3a2619381c51014312bb9414fddc9521", null ],
+    [ "ChiTT", "de/dc7/class_m_vgamma.html#a46c1a6964c511a8d4cc569481dd5b372", null ],
     [ "deltaC9_1", "de/dc7/class_m_vgamma.html#aafa98a7ce21a5a90e64fb4c1517fdd90", null ],
     [ "deltaC9_2", "de/dc7/class_m_vgamma.html#aa2ad78da9aab090e1fcb475aac911857", null ],
     [ "exp_Phase_1", "de/dc7/class_m_vgamma.html#aaf91ae23d8f174c02f840cdadd5b53e3", null ],
@@ -32,7 +35,11 @@ var class_m_vgamma =
     [ "r1_2", "de/dc7/class_m_vgamma.html#aea6d2047e954be2f8a0b6e297753bc9f", null ],
     [ "r2_1", "de/dc7/class_m_vgamma.html#a0b8e94d18b37c171eb64f19855844a82", null ],
     [ "r2_2", "de/dc7/class_m_vgamma.html#a2bdf81c0764b4eb3a51618c29462d205", null ],
+    [ "rV", "de/dc7/class_m_vgamma.html#a5c2c18a764ee3f988af349569525e3be", null ],
     [ "spectator_charge", "de/dc7/class_m_vgamma.html#a53c9235001581939eb3b8bb0e657e60c", null ],
     [ "SU3_breaking", "de/dc7/class_m_vgamma.html#aaaf3e912745d68f1b43a69fc976321f0", null ],
-    [ "width", "de/dc7/class_m_vgamma.html#aea5b6cdd1b086e33d0c78aacf998600a", null ]
+    [ "t_m", "de/dc7/class_m_vgamma.html#a05fa5aa18852210217b5f62be7fe7858", null ],
+    [ "t_p", "de/dc7/class_m_vgamma.html#a08ed030fb455c0b43e0cc992a98b889e", null ],
+    [ "width", "de/dc7/class_m_vgamma.html#aea5b6cdd1b086e33d0c78aacf998600a", null ],
+    [ "z_DM", "de/dc7/class_m_vgamma.html#a3771580ec4a831be2dd7c443a3e4ce41", null ]
 ];

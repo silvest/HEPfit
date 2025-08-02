@@ -117,6 +117,7 @@ var class_m_vll =
     [ "mu_b", "d5/d81/class_m_vll.html#af9297dcd6825262613b9e271cf8a084e", null ],
     [ "mu_h", "d5/d81/class_m_vll.html#a1407d4fb97bcdbe1b15c8a02649deb1b", null ],
     [ "MV", "d5/d81/class_m_vll.html#ab03afb2771906ab3253e981713758055", null ],
+    [ "MVll_DM_flag", "d5/d81/class_m_vll.html#a33a48f51260b18dcf4858ff372e8b925", null ],
     [ "mvllParameters", "d5/d81/class_m_vll.html#a0d7408fad3043f34f6ea2bef7cea22ed", null ],
     [ "myF_1", "d5/d81/class_m_vll.html#a727684123d4b1b03a2a700e5f49cbdd5", null ],
     [ "myF_2", "d5/d81/class_m_vll.html#a46019bd7e5b1711d5a27eceae11f36e1", null ],
