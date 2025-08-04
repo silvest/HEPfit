@@ -349,7 +349,7 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordtype">double</span> beta4 = <a class="code hl_variable" href="../../dc/ddb/classunitarity___z2.html#ae320ed10a57160448d95232432f6ead7">myGTHDM</a>.<a class="code hl_function" href="../../dc/d4c/class_general_t_h_d_m_z2_runner.html#af6e10f5c7f6f9f50cb02ca0a640ea8cc">betalambda4_Z2</a>(la1Q, la2Q, la3Q, la4Q, la5Q, YtQ, Yb1Q, Yb2Q, Ytau1Q, Ytau2Q);</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    gslpp::complex B7 = -la1Q + 3.*beta1/2. + (i*M_PI - 1.)*(la1Q*la1Q + la4Q*la4Q)/16./M_PI/M_PI -</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                         la1Q*WFRc1/32.*M_PI/M_PI;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                         la1Q*WFRc1/32./M_PI/M_PI;</div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    gslpp::complex B8 = -la2Q + 3.*beta2/2. + (i*M_PI - 1.)*(la2Q*la2Q + la4Q*la4Q)/16./M_PI/M_PI -</div>
 <div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                         la2Q*(-WFRc1 + 2.*WFRc2)/32./M_PI/M_PI;</div>
@@ -390,7 +390,7 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keywordtype">double</span> beta4 = <a class="code hl_variable" href="../../dc/ddb/classunitarity___z2.html#ae320ed10a57160448d95232432f6ead7">myGTHDM</a>.<a class="code hl_function" href="../../dc/d4c/class_general_t_h_d_m_z2_runner.html#af6e10f5c7f6f9f50cb02ca0a640ea8cc">betalambda4_Z2</a>(la1Q, la2Q, la3Q, la4Q, la5Q, YtQ, Yb1Q, Yb2Q, Ytau1Q, Ytau2Q);</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    gslpp::complex B7 = -la1Q + 3.*beta1/2. + (i*M_PI - 1.)*(la1Q*la1Q + la4Q*la4Q)/16./M_PI/M_PI -</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>                         la1Q*WFRc1/32.*M_PI/M_PI;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>                         la1Q*WFRc1/32./M_PI/M_PI;</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    gslpp::complex B8 = -la2Q + 3.*beta2/2. + (i*M_PI - 1.)*(la2Q*la2Q + la4Q*la4Q)/16./M_PI/M_PI -</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                         la2Q*(-WFRc1 + 2.*WFRc2)/32./M_PI/M_PI;</div>
@@ -436,7 +436,7 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    gslpp::complex B13 = -la3Q + 3.*beta3/2. + (i*M_PI - 1.)*(la3Q*la3Q + la5Q*la5Q)/16./M_PI/M_PI -</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>                         (la3Q + la4Q - la5Q)*WFRc2/32./M_PI/M_PI;</div>
 <div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    gslpp::complex B15 = -la5Q + 3.*beta5/2. + (i*M_PI - 1.)*la3Q*la5Q/16./M_PI/M_PI -</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    gslpp::complex B15 = -la5Q + 3.*beta5/2. + 2.*(i*M_PI - 1.)*la3Q*la5Q/16./M_PI/M_PI -</div>
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>                         (la4Q - 2.*la5Q)*WFRc2/32./M_PI/M_PI;</div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordflow">return</span> ((B13 + B15)/16./M_PI - i/2.).abs();</div>
@@ -472,7 +472,7 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    gslpp::complex B13 = -la3Q + 3.*beta3/2. + (i*M_PI - 1.)*(la3Q*la3Q + la5Q*la5Q)/16./M_PI/M_PI -</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>                         (la3Q + la4Q - la5Q)*WFRc2/32./M_PI/M_PI;</div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    gslpp::complex B15 = -la5Q + 3.*beta5/2. + (i*M_PI - 1.)*la3Q*la5Q/16./M_PI/M_PI -</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    gslpp::complex B15 = -la5Q + 3.*beta5/2. + 2.*(i*M_PI - 1.)*la3Q*la5Q/16./M_PI/M_PI -</div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>                         (la4Q - 2.*la5Q)*WFRc2/32./M_PI/M_PI;</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    <span class="keywordflow">return</span> ((B13 - B15)/16./M_PI - i/2.).abs();</div>
@@ -690,7 +690,7 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6e393f1cfc0ec71aa9e8f3d2e068aede.html">GeneralTHDM</a></li><li class="navelem"><a class="el" href="../../dir_e0771760c57e2379c2b9ea45e6536d33.html">src</a></li><li class="navelem"><a class="el" href="../../dd/d60/_general_t_h_d_m_z2_unitarity_8cpp.html">GeneralTHDMZ2Unitarity.cpp</a></li>
-    <li class="footer">Generated on Sat Aug 2 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Mon Aug 4 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
