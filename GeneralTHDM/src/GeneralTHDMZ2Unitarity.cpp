@@ -227,7 +227,7 @@ double unitarity01eveP_Z2::computeThValue()
     double beta4 = myGTHDM.betalambda4_Z2(la1Q, la2Q, la3Q, la4Q, la5Q, YtQ, Yb1Q, Yb2Q, Ytau1Q, Ytau2Q);
 
     gslpp::complex B7 = -la1Q + 3.*beta1/2. + (i*M_PI - 1.)*(la1Q*la1Q + la4Q*la4Q)/16./M_PI/M_PI -
-                         la1Q*WFRc1/32.*M_PI/M_PI;
+                         la1Q*WFRc1/32./M_PI/M_PI;
 
     gslpp::complex B8 = -la2Q + 3.*beta2/2. + (i*M_PI - 1.)*(la2Q*la2Q + la4Q*la4Q)/16./M_PI/M_PI -
                          la2Q*(-WFRc1 + 2.*WFRc2)/32./M_PI/M_PI;
@@ -268,7 +268,7 @@ double unitarity01eveM_Z2::computeThValue()
     double beta4 = myGTHDM.betalambda4_Z2(la1Q, la2Q, la3Q, la4Q, la5Q, YtQ, Yb1Q, Yb2Q, Ytau1Q, Ytau2Q);
 
     gslpp::complex B7 = -la1Q + 3.*beta1/2. + (i*M_PI - 1.)*(la1Q*la1Q + la4Q*la4Q)/16./M_PI/M_PI -
-                         la1Q*WFRc1/32.*M_PI/M_PI;
+                         la1Q*WFRc1/32./M_PI/M_PI;
 
     gslpp::complex B8 = -la2Q + 3.*beta2/2. + (i*M_PI - 1.)*(la2Q*la2Q + la4Q*la4Q)/16./M_PI/M_PI -
                          la2Q*(-WFRc1 + 2.*WFRc2)/32./M_PI/M_PI;
@@ -314,7 +314,7 @@ double unitarity01oddP_Z2::computeThValue()
     gslpp::complex B13 = -la3Q + 3.*beta3/2. + (i*M_PI - 1.)*(la3Q*la3Q + la5Q*la5Q)/16./M_PI/M_PI -
                          (la3Q + la4Q - la5Q)*WFRc2/32./M_PI/M_PI;
 
-    gslpp::complex B15 = -la5Q + 3.*beta5/2. + (i*M_PI - 1.)*la3Q*la5Q/16./M_PI/M_PI -
+    gslpp::complex B15 = -la5Q + 3.*beta5/2. + 2.*(i*M_PI - 1.)*la3Q*la5Q/16./M_PI/M_PI -
                          (la4Q - 2.*la5Q)*WFRc2/32./M_PI/M_PI;
 
     return ((B13 + B15)/16./M_PI - i/2.).abs();
@@ -350,7 +350,7 @@ double unitarity01oddM_Z2::computeThValue()
     gslpp::complex B13 = -la3Q + 3.*beta3/2. + (i*M_PI - 1.)*(la3Q*la3Q + la5Q*la5Q)/16./M_PI/M_PI -
                          (la3Q + la4Q - la5Q)*WFRc2/32./M_PI/M_PI;
 
-    gslpp::complex B15 = -la5Q + 3.*beta5/2. + (i*M_PI - 1.)*la3Q*la5Q/16./M_PI/M_PI -
+    gslpp::complex B15 = -la5Q + 3.*beta5/2. + 2.*(i*M_PI - 1.)*la3Q*la5Q/16./M_PI/M_PI -
                          (la4Q - 2.*la5Q)*WFRc2/32./M_PI/M_PI;
 
     return ((B13 - B15)/16./M_PI - i/2.).abs();

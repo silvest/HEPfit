@@ -89,6 +89,8 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
         bma = value;
         cos2bma = cos(2.*bma);
         sin2bma = sin(2.*bma);
+        cos2bmbma = cos(2.*(beta-bma));
+        sin2bmbma = sin(2.*(beta-bma));
     }
     else if (name.compare("m12_2") == 0) {
         m12_2 = value;
@@ -103,18 +105,17 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
         mA_2 = getmH3sq();
         mHp_2 = getmHp2();
         vev = GeneralTHDM::v();
-        GeneralTHDM::setParameter("lambda2", ((4.*(mh_2 - mH_2)*(3. + 5.*cos4b)*cos2bma/cosb/sinb +
+        GeneralTHDM::setParameter("lambda2", (4.*(mh_2 - mH_2)*(3. + 5.*cos4b)*cos2bma/cosb/sinb +
         (-32.*m12_2*(1. + cos4b) + (mh_2 + mH_2)*(7.*sin2b + 3.*sin6b))/cosb/cosb/sinb/sinb +
-        (mH_2 - mh_2)*(20. - cos2b + 12.*cos4b + cos6b)*2.*sin2bma)/64./cosb/sinb/vev/vev));
+        64.*(mh_2 - mH_2)*cos2b*sin2bma)/64./cosb/sinb/vev/vev);
 
         // Fix lambda3 in Higgs basis of Z2-symmetric model
-        GeneralTHDM::setParameter("lambda3", ((-32.*m12_2 + 8.*(mh_2 + mH_2 + mA_2)*sin2b +
-        (mh_2 - mH_2)*(-4. + 3.*cos2b + 4.*cos4b + cos6b)*sin2bma)/16./cosb/sinb/vev/vev));
+        GeneralTHDM::setParameter("lambda3", (mh_2 + mH_2 + mA_2 + (-2.*m12_2 +
+        (mh_2 - mH_2)*cos2b*cos(bma)*sin(bma))/cosb/sinb)/vev/vev);
 
         // Fix lambda7 in Higgs basis of Z2-symmetric model
-        GeneralTHDM::setParameter("Relambda7", ((4.*(mh_2 - mH_2)*cos2b*cos2bma/cosb/sinb +
-        4.*(mh_2 + mH_2 - 2.*m12_2/cosb/sinb)*sin4b/sin2b/sin2b -
-        (mh_2 - mH_2)*(1. + 8.*cos2b + cos4b)*sin2bma)/8./vev/vev));
+        GeneralTHDM::setParameter("Relambda7", ((mh_2 - mH_2)*cos2b*cos2bma/cosb/sinb +
+        (mh_2 + mH_2 - 2.*m12_2/cosb/sinb)*sin4b/sin2b/sin2b + (mh_2 - mH_2)*sin2bma)/2./vev/vev);
 
         // Fix sigma_u,d,l in Higgs basis of Z2-symmetric model
         if (flag_model == "type1") {

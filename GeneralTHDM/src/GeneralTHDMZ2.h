@@ -143,7 +143,7 @@ public:
      * @return @f$\lambda_1@f$ in the basis where the Z2 symmetry is imposed
      */
     double getlambda1_Z2() const {
-        return ((mH_2 + mh_2 + (mH_2 - mh_2)*cos(2.*(beta - bma)) -
+        return ((mH_2 + mh_2 + (mH_2 - mh_2)*cos2bmbma -
                 2.*M2aux*sinb*sinb)/2./cosb/cosb/vev/vev);
     }
 
@@ -153,7 +153,7 @@ public:
      * @return @f$\lambda_2@f$ in the basis where the Z2 symmetry is imposed
      */
     double getlambda2_Z2() const {
-        return ((mh_2 + mH_2 + (mh_2 - mH_2)*cos(2.*(beta + bma)) -
+        return ((mh_2 + mH_2 + (mh_2 - mH_2)*cos2bmbma -
                 2.*M2aux*cosb*cosb)/2./sinb/sinb/vev/vev);
     }
 
@@ -163,8 +163,7 @@ public:
      * @return @f$\lambda_3@f$ in the basis where the Z2 symmetry is imposed
      */
     double getlambda3_Z2() const {
-        return ((2.*mHp_2 - M2aux + (mH_2 - mh_2)*(cos(bma)*cos(bma) -
-                sin(bma)*sin(bma) - cos(bma)*sin(bma)*cos2b/sin2b))/vev/vev);
+        return ((2.*mHp_2 - M2aux + (mH_2 - mh_2)*sin2bmbma/sin2b)/vev/vev);
     }
 
     /**
@@ -221,7 +220,7 @@ protected:
 private:
 
     double tanb, bma, m12_2; ///< parameters exclusively in Z2 models: tan(beta), beta-alpha, m_12^2
-    double beta, cosb, cos2b, cos4b, cos6b, sinb, sin2b, sin4b, sin6b, cos2bma, sin2bma;
+    double beta, cosb, cos2b, cos4b, cos6b, sinb, sin2b, sin4b, sin6b, cos2bma, sin2bma, cos2bmbma, sin2bmbma;
     double vev, mh_2, mH_2, mA_2, mHp_2, M2aux;
     std::string flag_model;
     bool flag_wfr;
