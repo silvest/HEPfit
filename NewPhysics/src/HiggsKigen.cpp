@@ -571,8 +571,18 @@ const double HiggsKigen::muVBFgamma(const double sqrt_s) const
 const double HiggsKigen::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
 
@@ -581,16 +591,36 @@ const double HiggsKigen::mueeHvv(const double sqrt_s, const double Pol_em, const
 //  In this model we neglect the contributions from HZ->vv with off-shell Z
 //  Dependence is exact if Custodial symmetry option is on
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
 
 const double HiggsKigen::mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+        
     mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
 
@@ -765,16 +795,36 @@ const double HiggsKigen::mummHvv(const double sqrt_s) const
 //  In this model we neglect the contributions from HZ->vv with off-shell Z
 //  Dependence is exact if Custodial symmetry option is on
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
 
 const double HiggsKigen::mummHmm(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
 

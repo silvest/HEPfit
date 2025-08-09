@@ -20362,6 +20362,15 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
     double CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl3R11 = 0.0, CHl3R22 = 0.0, CllR1221 = 0.0;
     double muRG = 0;
     
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     // RG scale in GeV
     muRG = 1000. * sqrt_s;
     
@@ -20557,7 +20566,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeWBF()");
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eeeWBFint + eeeWBFpar;
+    mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
@@ -20588,9 +20597,18 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
     // LH and RH cross sections    
     double sigmaSMeLHa0 = 0.0, sigmaeLHa0 = 0.0, sigmaSMeLHa1 = 0.0, sigmaeLHa1 = 0.0; 
     double sigmaSMeRHa0 = 0.0, sigmaeRHa0 = 0.0, sigmaSMeRHa1 = 0.0, sigmaeRHa1 = 0.0;
+
+    double scalTH = 1.0;
     
     // -------------------------------------------------------------------------
     
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+        
     fLR = 0.25 * (1.0 - Pe) * (1.0 + Pp);
     fRL = 0.25 * (1.0 + Pe) * (1.0 - Pp);
     
@@ -21427,7 +21445,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
     mu = mu / (fLR * (sigmaSMeLHa0 - sigmaSMeLHa1) + fRL * (sigmaSMeRHa0 - sigmaSMeRHa1));
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eeeWBFint + eeeWBFpar;
+    mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
@@ -21462,8 +21480,17 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
     double sigmaSMeLLa0 = 0.0, sigmaeLLa0 = 0.0; 
     double sigmaSMeRRa0 = 0.0, sigmaeRRa0 = 0.0;
     
+    double scalTH = 1.0;
+    
     // -------------------------------------------------------------------------
     
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+        
     fLR = 0.25 * (1.0 - Pe) * (1.0 + Pp);
     fRL = 0.25 * (1.0 + Pe) * (1.0 - Pp);
     fLL = 0.25 * (1.0 - Pe) * (1.0 - Pp);
@@ -21923,7 +21950,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     //(Assume similar to WBF.)
-    mu += eeeWBFint + eeeWBFpar;
+    mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
@@ -21959,7 +21986,16 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
     double sigmaSMeLLa0 = 0.0, sigmaeLLa0 = 0.0, sigmaSMeLLa1 = 0.0, sigmaeLLa1 = 0.0; 
     double sigmaSMeRRa0 = 0.0, sigmaeRRa0 = 0.0, sigmaSMeRRa1 = 0.0, sigmaeRRa1 = 0.0;
     
+    double scalTH = 1.0;
+    
     // -------------------------------------------------------------------------
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
     
     fLR = 0.25 * (1.0 - Pe) * (1.0 + Pp);
     fRL = 0.25 * (1.0 + Pe) * (1.0 - Pp);
@@ -22640,7 +22676,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     //(Assume similar to WBF.)
-    mu += eeeWBFint + eeeWBFpar;
+    mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
@@ -25455,6 +25491,15 @@ const double NPSMEFTd6General::mummHvv(const double sqrt_s) const {
     double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR22 = 0.0, CllR1221 = 0.0;
     double muRG = 0;
     
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     // RG scale in GeV
     muRG = 1000. * sqrt_s;
     
@@ -25512,7 +25557,7 @@ const double NPSMEFTd6General::mummHvv(const double sqrt_s) const {
         throw std::runtime_error("Bad argument in NPSMEFTd6General::mummHvv()");
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
-    mu += eeeWBFint + eeeWBFpar;
+    mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
@@ -25535,6 +25580,15 @@ const double NPSMEFTd6General::mummHmm(const double sqrt_s) const {
     double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R22 = 0.0;
     double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR22 = 0.0, CllR1221 = 0.0;
     double muRG = 0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
     
     // RG scale in GeV
     muRG = 1000. * sqrt_s;
@@ -25592,7 +25646,7 @@ const double NPSMEFTd6General::mummHmm(const double sqrt_s) const {
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     //(Assume similar to WBF.)
-    mu += eeeWBFint + eeeWBFpar;
+    mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
     mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
