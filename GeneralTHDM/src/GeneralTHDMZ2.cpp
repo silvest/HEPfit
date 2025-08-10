@@ -96,8 +96,8 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
         m12_2 = value;
         M2aux = m12_2/cosb/sinb;
 
-        // Fix alpha1 in Higgs basis of Z2-symmetric model
-        GeneralTHDM::setParameter("alpha1", bma - M_PI/2.);
+        // Fix alpha1 in Higgs basis of Z2-symmetric model (cross-checked against 1509.06060)
+        GeneralTHDM::setParameter("alpha1", M_PI/2. - bma);
 
         // Fix lambda2 in Higgs basis of Z2-symmetric model
         mh_2 = getmH1sq();
@@ -105,17 +105,16 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
         mA_2 = getmH3sq();
         mHp_2 = getmHp2();
         vev = GeneralTHDM::v();
-        GeneralTHDM::setParameter("lambda2", (4.*(mh_2 - mH_2)*(3. + 5.*cos4b)*cos2bma/cosb/sinb +
-        (-32.*m12_2*(1. + cos4b) + (mh_2 + mH_2)*(7.*sin2b + 3.*sin6b))/cosb/cosb/sinb/sinb +
-        64.*(mh_2 - mH_2)*cos2b*sin2bma)/64./cosb/sinb/vev/vev);
+        GeneralTHDM::setParameter("lambda2", (-8.*M2aux + 5.*(mh_2+mH_2) + (-8.*M2aux + 3.*(mh_2+mH_2))*cos4b
+        + (mh_2-mH_2)*(3.+5.*cos4b)*cos2bma + 4.*(mh_2-mH_2)*sin4b*sin2bma)/4./vev/vev/sin2b/sin2b);
 
         // Fix lambda3 in Higgs basis of Z2-symmetric model
-        GeneralTHDM::setParameter("lambda3", (mh_2 + mH_2 + mA_2 + (-2.*m12_2 +
-        (mh_2 - mH_2)*cos2b*cos(bma)*sin(bma))/cosb/sinb)/vev/vev);
+        GeneralTHDM::setParameter("lambda3", (-4.*M2aux + mh_2 + mH_2 + 4.*mHp_2
+        - (mh_2-mH_2)*(cos2bma-2.*cos2b*sin2bma/sin2b))/2./vev/vev);
 
         // Fix lambda7 in Higgs basis of Z2-symmetric model
-        GeneralTHDM::setParameter("Relambda7", ((mh_2 - mH_2)*cos2b*cos2bma/cosb/sinb +
-        (mh_2 + mH_2 - 2.*m12_2/cosb/sinb)*sin4b/sin2b/sin2b + (mh_2 - mH_2)*sin2bma)/2./vev/vev);
+        GeneralTHDM::setParameter("Relambda7", (2.* cos2b * (-2.*M2aux + mh_2 + mH_2 + (mh_2-mH_2)*cos2bma)
+        + (mh_2-mH_2)*sin2bma*sin2b)/2./vev/vev/sin2b);
 
         // Fix sigma_u,d,l in Higgs basis of Z2-symmetric model
         if (flag_model == "type1") {
