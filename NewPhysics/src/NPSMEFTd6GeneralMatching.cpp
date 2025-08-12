@@ -115,6 +115,8 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         // the Z coupling and its correction  were not explicit in Angelica's notes, so they need to be checked
         double gZbar = ebar / sbar / cbar;
         double delta_gZbar = (g1bar * g1bar + g2bar * g2bar) / (2. * g1bar * g2bar) * v2 * mySMEFT.getSMEFTCoeffEW("CHWB");
+        // indeed a piece was missing, I add it here
+        delta_gZbar += -(g1bar * g1bar * g1bar * g1bar + g2bar * g2bar * g2bar * g2bar) / (2. * (g1bar * g1bar + g2bar * g2bar) * g1bar * g2bar) * v2 * mySMEFT.getSMEFTCoeffEW("CHWB");
         double gZ2oMZ2 = gZbar / mySMEFT.getMz();
         gZ2oMZ2 *= gZ2oMZ2;
         double delta_gZ2oMZ2 = 2. * delta_gZbar - delta_MZ2;
