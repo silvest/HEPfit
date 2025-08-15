@@ -4875,6 +4875,16 @@ public:
         return 0.0;
     }
     
+    /**
+     * @brief Combination of coefficients of the Warsaw basis not constrained by EWPO (at LO)
+     * @f$(\hat{C}_{HQ}^{(u)})_{33}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(u)})_{33}@f$
+     */
+    virtual const double CEWHQu33() const
+    {
+        return 0.0;
+    }
+    
         
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
@@ -4968,6 +4978,190 @@ public:
         return 0.0;
     }  
     
+    
+    //-----  The same, in the quark mass basis  ----------    
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$
+     */
+    virtual const double CEWHQ1uu() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$
+     */
+    virtual const double CEWHQ1cc() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$
+     */
+    virtual const double CEWHQ1tt() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$
+     */
+    virtual const double CEWHQ1dd() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$
+     */
+    virtual const double CEWHQ1ss() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$
+     */
+    virtual const double CEWHQ1bb() const
+    {
+        return 0.0;
+    }
+    
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$
+     */
+    virtual const double CEWHQ3uu() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$
+     */
+    virtual const double CEWHQ3cc() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$
+     */
+    virtual const double CEWHQ3tt() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$
+     */
+    virtual const double CEWHQ3dd() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$
+     */
+    virtual const double CEWHQ3ss() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$
+     */
+    virtual const double CEWHQ3bb() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hu})_{uu}@f$.
+     * @return @f$(\hat{C}_{Hu})_{uu}@f$
+     */
+    virtual const double CEWHuuu() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hu})_{cc}@f$.
+     * @return @f$(\hat{C}_{Hu})_{cc}@f$
+     */
+    virtual const double CEWHucc() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hu})_{tt}@f$.
+     * @return @f$(\hat{C}_{Hu})_{tt}@f$
+     */
+    virtual const double CEWHutt() const
+    {
+        return 0.0;
+    }
+    
+ 
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hd})_{dd}@f$.
+     * @return @f$(\hat{C}_{Hd})_{dd}@f$
+     */
+    virtual const double CEWHddd() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hd})_{ss}@f$.
+     * @return @f$(\hat{C}_{Hd})_{ss}@f$
+     */
+    virtual const double CEWHdss() const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hd})_{bb}@f$.
+     * @return @f$(\hat{C}_{Hd})_{bb}@f$
+     */
+    virtual const double CEWHdbb() const
+    {
+        return 0.0;
+    }
     
     
     ////////////////////////////////////////////////////////////////////////

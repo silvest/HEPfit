@@ -43076,8 +43076,11 @@ const double NPSMEFTd6General::CEWHQ333() const {
 }
 
 const double NPSMEFTd6General::CEWHQd33() const {
-    return 0.5 * ((getSMEFTCoeffEW("CHq1R", 2, 2) - (1.0 / 12.0) * getSMEFTCoeffEW("CHD")) +
-            (getSMEFTCoeffEW("CHq3R", 2, 2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD")));
+    return 0.5 * (CEWHQ111() + CEWHQ333());
+}
+
+const double NPSMEFTd6General::CEWHQu33() const {
+    return 0.5 * (CEWHQ111() - CEWHQ333());
 }
 
 const double NPSMEFTd6General::CEWHe11() const {
@@ -43115,6 +43118,84 @@ const double NPSMEFTd6General::CEWHd22() const {
 const double NPSMEFTd6General::CEWHd33() const {
     return getSMEFTCoeffEW("CHdR", 2, 2) + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
 }
+
+//-----  The same, in the quark mass basis  ----------
+
+const double NPSMEFTd6General::CEWHQ1uu() const {
+    return CHq1EWuu - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ1cc() const {
+    return CHq1EWcc - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ1tt() const {
+    return CHq1EWtt - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ1dd() const {
+    return CHq1EWdd - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ1ss() const {
+    return CHq1EWss - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ1bb() const {
+    return CHq1EWbb - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ3uu() const {
+    return CHq3EWuu + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ3cc() const {
+    return CHq3EWcc + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ3tt() const {
+    return CHq3EWtt + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ3dd() const {
+    return CHq3EWdd + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ3ss() const {
+    return CHq3EWss + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHQ3bb() const {
+    return CHq3EWbb + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+}
+
+
+const double NPSMEFTd6General::CEWHuuu() const {
+    return CHuEWuu - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHucc() const {
+    return CHuEWcc - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHutt() const {
+    return CHuEWtt - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
+}
+
+
+const double NPSMEFTd6General::CEWHddd() const {
+    return CHdEWdd + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
+}
+
+const double NPSMEFTd6General::CEWHdss() const {
+    return CHdEWss + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
+}
+
+
+const double NPSMEFTd6General::CEWHdbb() const {
+    return CHdEWbb + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
+}
+
 
 ///////////Collider observables: LHC dilepton events////////////////////////
 

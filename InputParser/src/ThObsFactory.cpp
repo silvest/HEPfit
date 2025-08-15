@@ -934,6 +934,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["CEWHQ3_22"] = boost::factory<CEWHQ322*>();
     obsThFactory["CEWHQ3_33"] = boost::factory<CEWHQ333*>();
     obsThFactory["CEWHQd_33"] = boost::factory<CEWHQd33*>();
+    obsThFactory["CEWHQu_33"] = boost::factory<CEWHQu33*>();
     obsThFactory["CEWHe_11"] = boost::factory<CEWHe11*>();
     obsThFactory["CEWHe_22"] = boost::factory<CEWHe22*>();
     obsThFactory["CEWHe_33"] = boost::factory<CEWHe33*>();
@@ -943,8 +944,31 @@ ThObsFactory::ThObsFactory()
     obsThFactory["CEWHd_11"] = boost::factory<CEWHd11*>();
     obsThFactory["CEWHd_22"] = boost::factory<CEWHd22*>();
     obsThFactory["CEWHd_33"] = boost::factory<CEWHd33*>();
-
-
+    
+    //-----  The same, in the quark mass basis  ----------
+    obsThFactory["CEWHQ1_uu"] = boost::factory<CEWHQ1uu*>();
+    obsThFactory["CEWHQ1_cc"] = boost::factory<CEWHQ1cc*>();
+    obsThFactory["CEWHQ1_tt"] = boost::factory<CEWHQ1tt*>();
+    //
+    obsThFactory["CEWHQ1_dd"] = boost::factory<CEWHQ1dd*>();
+    obsThFactory["CEWHQ1_ss"] = boost::factory<CEWHQ1ss*>();
+    obsThFactory["CEWHQ1_bb"] = boost::factory<CEWHQ1bb*>();
+    //
+    obsThFactory["CEWHQ3_uu"] = boost::factory<CEWHQ3uu*>();
+    obsThFactory["CEWHQ3_cc"] = boost::factory<CEWHQ3cc*>();
+    obsThFactory["CEWHQ3_tt"] = boost::factory<CEWHQ3tt*>();
+    //
+    obsThFactory["CEWHQ3_dd"] = boost::factory<CEWHQ3dd*>();
+    obsThFactory["CEWHQ3_ss"] = boost::factory<CEWHQ3ss*>();
+    obsThFactory["CEWHQ3_bb"] = boost::factory<CEWHQ3bb*>();
+    //    
+    obsThFactory["CEWHu_uu"] = boost::factory<CEWHuuu*>();
+    obsThFactory["CEWHu_cc"] = boost::factory<CEWHucc*>();
+    obsThFactory["CEWHu_tt"] = boost::factory<CEWHutt*>();
+    //
+    obsThFactory["CEWHd_dd"] = boost::factory<CEWHddd*>();
+    obsThFactory["CEWHd_ss"] = boost::factory<CEWHdss*>();
+    obsThFactory["CEWHd_bb"] = boost::factory<CEWHdbb*>();
 
 
     //-----  Auxiliary observables to work with new physics  ----------

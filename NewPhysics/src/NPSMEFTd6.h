@@ -5978,6 +5978,13 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(d)})_{33}@f$
      */
     virtual const double CEWHQd33() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis not constrained by EWPO (at LO)
+     * @f$(\hat{C}_{HQ}^{(u)})_{33}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(u)})_{33}@f$
+     */
+    virtual const double CEWHQu33() const;
 
 
     /**
