@@ -208,9 +208,45 @@ var group___e_w =
       [ "GammaZ", "df/d87/class_gamma_z.html#a55aef1cec9bab396beb131d40639745c", null ],
       [ "computeThValue", "df/d87/class_gamma_z.html#a38e0de8edc61bb414ca91e7977a31603", null ]
     ] ],
+    [ "GammaZbb", "dd/df8/class_gamma_zbb.html", [
+      [ "GammaZbb", "dd/df8/class_gamma_zbb.html#a97cc996ec1ed27444e505ebcf1a7d316", null ],
+      [ "computeThValue", "dd/df8/class_gamma_zbb.html#a5b6dc26c60fbdc6698ae1575c1ae8a8e", null ]
+    ] ],
+    [ "GammaZcc", "d2/d05/class_gamma_zcc.html", [
+      [ "GammaZcc", "d2/d05/class_gamma_zcc.html#a5d881fc88053716e88e81de89c512a99", null ],
+      [ "computeThValue", "d2/d05/class_gamma_zcc.html#a827f302ed4887ce5a43f506eec77fc79", null ]
+    ] ],
+    [ "GammaZdd", "d5/d03/class_gamma_zdd.html", [
+      [ "GammaZdd", "d5/d03/class_gamma_zdd.html#a99fdd4fc7a769e298ad8458aa0ddb1a1", null ],
+      [ "computeThValue", "d5/d03/class_gamma_zdd.html#ad4ec5f3c21075fbcefe160afb4a9f7d2", null ]
+    ] ],
+    [ "GammaZee", "d0/d58/class_gamma_zee.html", [
+      [ "GammaZee", "d0/d58/class_gamma_zee.html#aa328be1424fdafb71c5f4612fc536066", null ],
+      [ "computeThValue", "d0/d58/class_gamma_zee.html#aaf5389c682ae9879d25cfde51a09ad2f", null ]
+    ] ],
     [ "GammaZhad", "dc/d6c/class_gamma_zhad.html", [
       [ "GammaZhad", "dc/d6c/class_gamma_zhad.html#a7ce6dfc4b7ba581f52a39f09284ef41b", null ],
       [ "computeThValue", "dc/d6c/class_gamma_zhad.html#a35a348c3f7d0822f306d9cc147af3cf0", null ]
+    ] ],
+    [ "GammaZinv", "d9/dc9/class_gamma_zinv.html", [
+      [ "GammaZinv", "d9/dc9/class_gamma_zinv.html#a6d2cb428072df8a091c3f37be350e779", null ],
+      [ "computeThValue", "d9/dc9/class_gamma_zinv.html#ac832076669f10eb64aad1cb049571e08", null ]
+    ] ],
+    [ "GammaZmumu", "da/db4/class_gamma_zmumu.html", [
+      [ "GammaZmumu", "da/db4/class_gamma_zmumu.html#a45894e52c3beaceae0007c7c42627288", null ],
+      [ "computeThValue", "da/db4/class_gamma_zmumu.html#af6e133cccebd3a48506d65a914d95042", null ]
+    ] ],
+    [ "GammaZss", "da/df6/class_gamma_zss.html", [
+      [ "GammaZss", "da/df6/class_gamma_zss.html#ac070bbcfbb86fddd2c6bdc50edc3dd58", null ],
+      [ "computeThValue", "da/df6/class_gamma_zss.html#ab8a82bc89e98be982ab2fbddb4a9bedb", null ]
+    ] ],
+    [ "GammaZtautau", "dd/d14/class_gamma_ztautau.html", [
+      [ "GammaZtautau", "dd/d14/class_gamma_ztautau.html#a47c2326f6bd86c88a3da2c60d6efb5a8", null ],
+      [ "computeThValue", "dd/d14/class_gamma_ztautau.html#abd078a7d569677a5bdec54562d52dc98", null ]
+    ] ],
+    [ "GammaZuu", "d6/d4d/class_gamma_zuu.html", [
+      [ "GammaZuu", "d6/d4d/class_gamma_zuu.html#a0ec43c87556ed2bed361e17d82e068b9", null ],
+      [ "computeThValue", "d6/d4d/class_gamma_zuu.html#a321f29b23a105e4c675343009106daf1", null ]
     ] ],
     [ "gAnue", "dc/dc7/classg_anue.html", [
       [ "gAnue", "dc/dc7/classg_anue.html#a8b5c676455d273e259c1b928ec76c357", null ],
