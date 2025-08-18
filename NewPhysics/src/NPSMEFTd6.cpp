@@ -23878,12 +23878,12 @@ const double NPSMEFTd6::CEWHQ333() const
 
 const double NPSMEFTd6::CEWHQd33() const
 {
-    return 0.5 * (CEWHQ111() + CEWHQ333());
+    return 0.5 * (CEWHQ133() + CEWHQ333());
 }
 
 const double NPSMEFTd6::CEWHQu33() const
 {
-    return 0.5 * (CEWHQ111() - CEWHQ333());
+    return 0.5 * (CEWHQ133() - CEWHQ333());
 }
 
 const double NPSMEFTd6::CEWHe11() const

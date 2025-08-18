@@ -43076,11 +43076,11 @@ const double NPSMEFTd6General::CEWHQ333() const {
 }
 
 const double NPSMEFTd6General::CEWHQd33() const {
-    return 0.5 * (CEWHQ111() + CEWHQ333());
+    return 0.5 * (CEWHQ133() + CEWHQ333());
 }
 
 const double NPSMEFTd6General::CEWHQu33() const {
-    return 0.5 * (CEWHQ111() - CEWHQ333());
+    return 0.5 * (CEWHQ133() - CEWHQ333());
 }
 
 const double NPSMEFTd6General::CEWHe11() const {
