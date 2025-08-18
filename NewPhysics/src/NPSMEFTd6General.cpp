@@ -43040,15 +43040,15 @@ const double NPSMEFTd6General::CEWHL133() const {
 }
 
 const double NPSMEFTd6General::CEWHL311() const {
-    return getSMEFTCoeffEW("CHl3R", 0, 0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return getSMEFTCoeffEW("CHl3R", 0, 0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHL322() const {
-    return getSMEFTCoeffEW("CHl3R", 1, 1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return getSMEFTCoeffEW("CHl3R", 1, 1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHL333() const {
-    return getSMEFTCoeffEW("CHl3R", 2, 2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return getSMEFTCoeffEW("CHl3R", 2, 2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHQ111() const {
@@ -43064,15 +43064,15 @@ const double NPSMEFTd6General::CEWHQ133() const {
 }
 
 const double NPSMEFTd6General::CEWHQ311() const {
-    return getSMEFTCoeffEW("CHq3R", 0, 0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return getSMEFTCoeffEW("CHq3R", 0, 0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHQ322() const {
-    return getSMEFTCoeffEW("CHq3R", 1, 1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return getSMEFTCoeffEW("CHq3R", 1, 1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHQ333() const {
-    return getSMEFTCoeffEW("CHq3R", 2, 2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return getSMEFTCoeffEW("CHq3R", 2, 2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHQd33() const {
@@ -43146,27 +43146,27 @@ const double NPSMEFTd6General::CEWHQ1bb() const {
 }
 
 const double NPSMEFTd6General::CEWHQ3uu() const {
-    return CHq3EWuu + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return CHq3EWuu + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHQ3cc() const {
-    return CHq3EWcc + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return CHq3EWcc + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHQ3tt() const {
-    return CHq3EWtt + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return CHq3EWtt + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHQ3dd() const {
-    return CHq3EWdd + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return CHq3EWdd + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHQ3ss() const {
-    return CHq3EWss + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return CHq3EWss + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 const double NPSMEFTd6General::CEWHQ3bb() const {
-    return CHq3EWbb + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHD");
+    return CHq3EWbb + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
 }
 
 

@@ -23833,17 +23833,17 @@ const double NPSMEFTd6::CEWHL133() const
 
 const double NPSMEFTd6::CEWHL311() const
 {
-    return CiHL3_11 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
+    return CiHL3_11 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHWB;
 }
 
 const double NPSMEFTd6::CEWHL322() const
 {
-    return CiHL3_22 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
+    return CiHL3_22 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHWB;
 }
 
 const double NPSMEFTd6::CEWHL333() const
 {
-    return CiHL3_33 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
+    return CiHL3_33 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHWB;
 }
 
 const double NPSMEFTd6::CEWHQ111() const
@@ -23863,17 +23863,17 @@ const double NPSMEFTd6::CEWHQ133() const
 
 const double NPSMEFTd6::CEWHQ311() const
 {
-    return CiHQ3_11 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
+    return CiHQ3_11 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHWB;
 }
 
 const double NPSMEFTd6::CEWHQ322() const
 {
-    return CiHQ3_22 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
+    return CiHQ3_22 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHWB;
 }
 
 const double NPSMEFTd6::CEWHQ333() const
 {
-    return CiHQ3_33 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHD;
+    return CiHQ3_33 + (1.0 / 4.0) * (cW2_tree / sW2_tree) * CiHD + (cW_tree / sW_tree) * CiHWB;
 }
 
 const double NPSMEFTd6::CEWHQd33() const
