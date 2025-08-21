@@ -40,7 +40,7 @@ double EWSMApproximateFormulae::Mw() const
         c11 = 115.0;
     } else if (mycache.getSM().getMHl() >= 10.0 && mycache.getSM().getMHl() <= 1000.0) {
         // applicable for 10 GeV <= mHl <= 1 TeV
-        Mw0 = 80.3799;
+        Mw0 = 80.3779;
         c1 = 0.05427;
         c2 = 0.008931;
         c3 = 0.0000882;
