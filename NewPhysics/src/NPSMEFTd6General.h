@@ -7196,6 +7196,33 @@ public:
     const gslpp::matrix<gslpp::complex>& getVuRd() const {
         return VuRd;
     }
+    
+    /**
+     * getter for the lepton masses
+     */
+    std::array<double, 3> getMe_LEW() const {
+    	return { me_LEW, mmu_LEW, mtau_LEW};
+    }
+    /**
+     * getter for the lepton masses
+     */
+    std::array<double, 3> getMu_LEW() const {
+    	return { mu_LEW, mc_LEW, mt_LEW};
+    }
+    /**
+     * getter for the lepton masses
+     */
+    std::array<double, 3> getMd_LEW() const {
+    	return { md_LEW, ms_LEW, mb_LEW};
+    }
+    /**
+     * getter for lambdaH
+     */
+        const double getLambdaH_tree() const
+    {
+        return lambdaH_tree;
+    }
+    bool FlagNewTerms; ///< A boolean for the model flag NewTerms, to include corrections in the matching between SMEFT and LEFT
    
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -8051,7 +8078,7 @@ private:
     bool FlagfiniteNLO; ///< A boolean for the model flag %finiteNLO , to include finite NLO terms, when available. 
     bool FlagmatchLEFT; ///< A boolean for the model flag %matchLEFT , to include the matching between SMEFT and LEFT.
     bool FlagCorrsInSMRunning; ///< A boolean for the model flag %CorrsInSMRunning , to include corrections from the SMEFT in the SM running.
-
+    
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function
 

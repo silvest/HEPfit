@@ -354,6 +354,7 @@ NPbase(), NPSMEFTd6GM(*this),
     FlagmultiScaleRGE = false;
     FlagfiniteNLO = false;
     FlagmatchLEFT = true;
+    FlagNewTerms = false;
     SMEFTBasisFlag = "UP";
     flavBas = 1;
     setModelLinearized();
@@ -14087,6 +14088,9 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
         res = true;
     } else if (name.compare("matchLEFT") == 0) {
         FlagmatchLEFT = value;
+        res = true;
+    } else if (name.compare("NewTerms") == 0) {
+        FlagNewTerms = value;
         res = true;
     } else
         res = NPbase::setFlag(name, value);
