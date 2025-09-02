@@ -34,6 +34,7 @@ var class_general_t_h_d_m_z2 =
     [ "cosb", "db/db1/class_general_t_h_d_m_z2.html#a7b230f4b71514a8b8e49b6dfcc3fa4b4", null ],
     [ "flag_model", "db/db1/class_general_t_h_d_m_z2.html#ad4c31cbd819994a8a638e46c8bc87096", null ],
     [ "flag_wfr", "db/db1/class_general_t_h_d_m_z2.html#a5aa127b9120a8ca71e4af5c9b5cc5819", null ],
+    [ "logtb", "db/db1/class_general_t_h_d_m_z2.html#aeb5cb00c3aa1a62b810fe3b41c12dfb5", null ],
     [ "m12_2", "db/db1/class_general_t_h_d_m_z2.html#a7ef67ca4c0e6cf35ab07b6c588698993", null ],
     [ "M2aux", "db/db1/class_general_t_h_d_m_z2.html#a1d2fba39ec7f18d7bddd597880b26806", null ],
     [ "mA_2", "db/db1/class_general_t_h_d_m_z2.html#a231025a7be24094491a287e17af781a7", null ],
