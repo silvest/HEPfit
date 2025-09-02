@@ -7,11 +7,11 @@
 
 #include "GeneralTHDMZ2.h"
 
-const std::string GeneralTHDMZ2::GeneralTHDMZ2vars[NGeneralTHDMZ2vars] = {"tanb", "bma", "m12_2"};
+const std::string GeneralTHDMZ2::GeneralTHDMZ2vars[NGeneralTHDMZ2vars] = {"logtb", "bma", "m12_2"};
 
 GeneralTHDMZ2::GeneralTHDMZ2() : GeneralTHDM()
 {
-    ModelParamMap.insert(std::make_pair("tanb",  std::cref(tanb)));
+    ModelParamMap.insert(std::make_pair("logtb",  std::cref(logtb)));
     ModelParamMap.insert(std::make_pair("bma",   std::cref(bma)));
     ModelParamMap.insert(std::make_pair("m12_2", std::cref(m12_2)));
 }
@@ -68,22 +68,17 @@ bool GeneralTHDMZ2::PostUpdate()
 
 void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
 {
-    if (name.compare("tanb") == 0) {
-        tanb = value;
-        if(tanb > 0.) {
-            beta  = atan(tanb);
-            cosb  = cos(beta);
-            cos2b = cos(2.*beta);
-            cos4b = cos(4.*beta);
-            cos6b = cos(6.*beta);
-            sinb  = sin(beta);
-            sin2b = sin(2.*beta);
-            sin4b = sin(4.*beta);
-            sin6b = sin(6.*beta);
-        }
-        else {
-            throw std::runtime_error("ERROR: in GeneralTHDMZ2::setParameter, tanb < 0!");
-        }
+    if (name.compare("logtb") == 0) {
+        tanb = pow(10., value); // Input is log(tanb), but we work with tanb
+        beta  = atan(tanb);
+        cosb  = cos(beta);
+        cos2b = cos(2.*beta);
+        cos4b = cos(4.*beta);
+        cos6b = cos(6.*beta);
+        sinb  = sin(beta);
+        sin2b = sin(2.*beta);
+        sin4b = sin(4.*beta);
+        sin6b = sin(6.*beta);
     }
     else if (name.compare("bma") == 0) {
         bma = value;
