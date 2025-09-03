@@ -39,6 +39,7 @@ public:
     virtual std::vector<WilsonCoefficient>& CMprimebsg() = 0;
     virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton) = 0;
     virtual std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton) = 0;
+    virtual std::vector<WilsonCoefficient>& CMBXsnn(QCD::lepton lepton) = 0;
     virtual std::vector<WilsonCoefficient>& CMd1() = 0;
     virtual std::vector<WilsonCoefficient>& CMd1Buras() = 0;
     

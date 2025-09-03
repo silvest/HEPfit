@@ -140,7 +140,7 @@ public:
 
     gslpp::vector<gslpp::complex>** ComputeCoeffdiujlknu(int i, int j, int k, double mu) const;
 
-    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu() const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu(QCD::lepton lepton = QCD::NOLEPTON, bool noSM = false) const;
 
     gslpp::vector<gslpp::complex>** ComputeCoeffdnunu() const;
 
@@ -305,6 +305,30 @@ public:
         return (this->FixedWCbtosflag = FixedWCbtosflag);
     }
 
+    bool setFlagMPll_FNALMILC(bool MPll_FNALMILC_flag) {
+        return (this->MPll_FNALMILC_flag = MPll_FNALMILC_flag);
+    }
+
+    bool setFlagMPll_GRvDV(bool MPll_GRvDV_flag) {
+        return (this->MPll_GRvDV_flag = MPll_GRvDV_flag);
+    }
+
+    bool setFlagMPll_DM(bool MPll_DM_flag) {
+        return (this->MPll_DM_flag = MPll_DM_flag);
+    }
+
+    bool setFlagMVll_DM(bool MVll_DM_flag) {
+        return (this->MVll_DM_flag = MVll_DM_flag);
+    }
+
+    bool setFlagNeutrinoTree(bool NeutrinoTree_flag) const {
+        return (this->NeutrinoTree_flag = NeutrinoTree_flag);
+    }
+
+    bool setFlagBXsnunu_LFUNP(bool BXsnunu_LFUNP_flag) const {
+        return (this->BXsnunu_LFUNP_flag = BXsnunu_LFUNP_flag);
+    }
+
     bool getFlagUseDispersionRelation() const {
         return dispersion;
     }
@@ -329,6 +353,30 @@ public:
         return FixedWCbtosflag;
     }
 
+    bool getFlagMPll_FNALMILC() const {
+        return MPll_FNALMILC_flag;
+    }
+
+    bool getFlagMPll_GRvDV() const {
+        return MPll_GRvDV_flag;
+    }
+
+    bool getFlagMPll_DM() const {
+        return MPll_DM_flag;
+    }
+
+    bool getFlagMVll_DM() const {
+        return MVll_DM_flag;
+    }
+
+    bool getFlagNeutrinoTree() const {
+        return NeutrinoTree_flag;
+    }
+
+    bool getFlagBXsnunu_LFUNP() const {
+        return BXsnunu_LFUNP_flag;
+    }
+
 private:
     template<typename T, typename... Args> std::shared_ptr<T>& getPtr(std::shared_ptr<T>& x, Args... args) const;
     template <typename T, typename... Args> T& getM(std::map<std::vector<int>, std::shared_ptr<T> >& map, Args ... args) const;
@@ -351,6 +399,12 @@ private:
     mutable bool BGLflag;
     mutable bool DMflag;
     mutable bool FixedWCbtosflag;
+    mutable bool MPll_FNALMILC_flag;
+    mutable bool MPll_GRvDV_flag;
+    mutable bool MPll_DM_flag;
+    mutable bool MVll_DM_flag;
+    mutable bool NeutrinoTree_flag;
+    mutable bool BXsnunu_LFUNP_flag;
 };
 
 #endif /* FLAVOUR_H */

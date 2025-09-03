@@ -41,6 +41,7 @@
 #include "Rneutrinos.h"
 #include "Rinv.h"
 #include "Ruc.h"
+#include "Rstrange.h"
 #include "Rcharm.h"
 #include "Rbottom.h"
 #include "Epsilon1.h"

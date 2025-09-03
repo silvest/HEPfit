@@ -731,7 +731,36 @@ public:
 
     //test function to test speed of code
     //double test_direct() const;
-
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    //  Functions used to compute the 1-loop dependence of single Higgs observables 
+    //  on the Higgs self-coupling
+        
+    /**
+     * @brief The coefficient of the 1-loop linear term in the Higgs selfcoupling
+     */
+    virtual const double deltaH3L1(double C1) const;
+    
+    /**
+     * @brief The coefficient of the 1-loop quadratic term in the Higgs selfcoupling
+     */
+    virtual const double deltaH3L2(double C1) const;
+        
+    /////////////// QUADRATIC CORRECTIONS ON SIGMA AND SIGMA X BR FROM H3 ////////
+    
+    /**
+     * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for an observable @f$\sigma@f$ in the current model.
+     * @return @f$\delta^{(2)}_{h^3}@f$
+     */
+    virtual const double delta2sH3(const double C1) const;
+    
+    /**
+     * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for @f$\sigma \times BR(H\to xx)@f$ in the current model.
+     * @return @f$\delta^{(2)}_{h^3}@f$
+     */
+    virtual const double delta2sBRH3(const double C1prod, const double C1Hxx) const;
+    
     ////////////////////////////////////////////////////////////////////////    
     
     /**
@@ -1319,7 +1348,17 @@ public:
  
     //////////////////////////////////////////////////////////////////////// 
     // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
-    // In units of TeV^^2 
+    // In units of TeV^-2 
+    
+    virtual const double cQQ1_TWG(const double mu) const;
+    
+    virtual const double cQQ8_TWG(const double mu) const;
+
+    virtual const double ctt1_TWG(const double mu) const;
+
+    virtual const double cQt1_TWG(const double mu) const;
+
+    virtual const double cQt8_TWG(const double mu) const;
         
     virtual const double cQq31_TWG(const double mu) const;
     
@@ -1361,6 +1400,8 @@ public:
     
     virtual const double cHb_TWG(const double mu) const;
     
+    virtual const double cHtb_TWG(const double mu) const;
+    
     virtual const double ctW_TWG(const double mu) const;
     
     virtual const double IctW_TWG(const double mu) const;
@@ -1370,16 +1411,24 @@ public:
     virtual const double IctZ_TWG(const double mu) const;
     
     virtual const double ctG_TWG(const double mu) const;
+    
+    virtual const double cbW_TWG(const double mu) const;
 
     virtual const double cQlM_TWG(const double mu) const;
     
     virtual const double cQlP_TWG(const double mu) const;
+    
+    virtual const double cQl3_TWG(const double mu) const;
     
     virtual const double cQe_TWG(const double mu) const;
     
     virtual const double ctl_TWG(const double mu) const;
     
     virtual const double cte_TWG(const double mu) const;
+    
+    virtual const double ctlS_TWG(const double mu) const;
+
+    virtual const double ctlT_TWG(const double mu) const;
     
     ////////////////////////////////////////////////////////////////////////     
     // EW low-energy observables: Muon g-2
@@ -1899,53 +1948,38 @@ public:
      * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
      * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return @f$\mu_{eeWBF}@f$
-     */
-    virtual const double mueeWBF(const double sqrt_s) const;
-    /**
-     * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
-     * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
-     * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eeWBF}@f$
      */
-    virtual const double mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
-    /**
-     * @brief The ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ between the 
-     * @f$ e^+e^- \to H\nu\bar{\nu} @f$ associated production
-     * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
-     */
-    virtual const double mueeHvv(const double sqrt_s) const;
+    virtual const double mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ between the 
      * @f$ e^+e^- \to H\nu\bar{\nu} @f$ associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively 
+     * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
      */
-    virtual const double mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
-    /**
-     * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
-     * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
-     * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return @f$\mu_{eeZBF}@f$
-     */
-    virtual const double mueeZBF(const double sqrt_s) const;
+    virtual const double mueeHvv(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
      * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
-     * are the polarization of electrons and positrons, respectively 
+     * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eeZBF}@f$
      */
-    virtual const double mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    /**
+     * @brief The ratio @f$\mu_{e^+e^- \to He^+e^-}@f$ between the 
+     * @f$ e^+e^- \to H e^+e^- @f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
+     * @return @f$\mu_{e^+e^- \to H e^+e^-}@f$
+     */
+    virtual const double mueeHee(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{epWBF}@f$ between the 
      * @f$ e^{-} p\to \nu j H @f$ production
@@ -2013,18 +2047,20 @@ public:
      * @brief The ratio @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to e^+ e^-, \mu^+ \mu^- @f$ associated production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$
      */
-    virtual const double mueeZllH(const double sqrt_s) const;
+    virtual const double mueeZllH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{eeZH, Z \to q \bar{q}}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to q \bar{q} @f$ associated production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eeZH, Z \to q \bar{q}}@f$
      */
-    virtual const double mueeZqqH(const double sqrt_s) const;
+    virtual const double mueeZqqH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH @f$ associated production
@@ -2133,19 +2169,11 @@ public:
      * @brief The ratio @f$\mu_{eettH}@f$ between the 
      * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return @f$\mu_{eettH}@f$
-     */
-    virtual const double mueettH(const double sqrt_s) const;
-    /**
-     * @brief The ratio @f$\mu_{eettH}@f$ between the 
-     * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
-     * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eettH}@f$
      */
-    virtual const double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueettH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
      * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
      * production cross-section in the current model and in the Standard Model.
@@ -3980,6 +4008,62 @@ public:
      * @return Br@f$(H\to 4f)@f$/Br@f$(H\to 4f)_{\mathrm{SM}}@f$
      */
     virtual const double BrH4fRatio() const;
+    
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to 4f)@f$ via NC in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 4f, NC)@f$/@f$\Gamma(H\to 4f, NC)_{\mathrm{SM}}@f$
+     */
+    const double  GammaH4fNCRatio() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f, NC)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4f, NC)@f$/@f$\Gamma(H\to 4f, NC)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaH4fNCRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f, NC)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4f, NC)@f$/@f$\Gamma(H\to 4f, NC)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaH4fNCRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 4f, NC)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4f, NC)@f$/Br@f$(H\to 4f, NC)_{\mathrm{SM}}@f$
+     */
+    virtual const double BrH4fNCRatio() const;
+    
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to 4f)@f$ via CC in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to 4f, CC)@f$/@f$\Gamma(H\to 4f, CC)_{\mathrm{SM}}@f$
+     */
+    const double  GammaH4fCCRatio() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f, CC)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4f, CC)@f$/@f$\Gamma(H\to 4f, CC)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaH4fCCRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to 4f, CC)@f$
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
+     * @return @f$\delta \Gamma(H\to 4f, CC)@f$/@f$\Gamma(H\to 4f, CC)_{\mathrm{SM}}@f$
+     */
+    const double deltaGammaH4fCCRatio2() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to 4f, CC)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to 4f, CC)@f$/Br@f$(H\to 4f, CC)_{\mathrm{SM}}@f$
+     */
+    virtual const double BrH4fCCRatio() const;
+    
 
     // DECAYS INVOLVING ONLY ELECTRONS, MUONS OR NEUTRINOS IN THE FINAL STATES 
 
@@ -4190,6 +4274,14 @@ public:
      * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
      */
     virtual const double muttHZbbboost(const double sqrt_s) const;
+    
+    /**
+     * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+     * in the @f$H\to b\bar{b}@f$, @f$Z\to e^+e^-@f$ channel channel in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
+     */
+    virtual const double muttHgagaZeeboost(const double sqrt_s) const;
 
     /**
      * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs
@@ -5118,6 +5210,14 @@ public:
      * @return @f$\mu_{ggH,Z\gamma\to \gamma 2\mu}@f$
      */
     virtual const double muTHUggHZgamumu(const double sqrt_s) const;
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The new physics relative contribution to the EW coupling constant @f$e@f$.
+     * @return @f$\delta e@f$
+     */
+    virtual const double deltaeNP(const double mu) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5252,20 +5352,11 @@ public:
      * @brief The ratio @f$\mu_{eeWW}@f$ between the 
      * @f$ e^{+}e^{-}\to W^{+}W^{-} @f$ production
      * cross-section in the current model and in the Standard Model.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return @f$\mu_{eeWW}@f$
-     */
-    virtual const double mueeWW(const double sqrt_s) const;
-
-    /**
-     * @brief The ratio @f$\mu_{eeWW}@f$ between the 
-     * @f$ e^{+}e^{-}\to W^{+}W^{-} @f$ production
-     * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeWW}@f$
      */
-    virtual const double mueeWWPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeWW(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5776,13 +5867,8 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
     virtual const double STXS12_qqHqq_VH_veto_Nj01(const double sqrt_s) const;
+
     
-    
-    /**
-     * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \ge 2@f$ VH-had Ref. 2402.05742.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual const double STXS12_qqHqq_VH_had_Nj2(const double sqrt_s) const;
     
     
     /**
@@ -5821,6 +5907,8 @@ public:
      */
     virtual const double STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const;
 
+    
+    
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH}[GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -6074,7 +6162,19 @@ public:
      * @return @f$\kappa_{W,eff}@f$
      */
     virtual const double kappaWeff() const;
-
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{Z4f,eff}=\sqrt{\Gamma_{H4f, NC}/\Gamma_{H4f, NC}^{SM}}@f$.
+     * @return @f$\kappa_{Z4f,eff}@f$
+     */
+    virtual const double kappaZ4feff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{W4f,eff}=\sqrt{\Gamma_{H4f, CC}/\Gamma_{H4f, CC}^{SM}}@f$.
+     * @return @f$\kappa_{W4f,eff}@f$
+     */
+    virtual const double kappaW4feff() const;
+    
     /**
      * @brief The effective coupling @f$\kappa_{A,eff}=\sqrt{\Gamma_{HAA}/\Gamma_{HAA}^{SM}}@f$.
      * @return @f$\kappa_{A,eff}@f$
@@ -6365,6 +6465,13 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(d)})_{33}@f$
      */
     virtual const double CEWHQd33() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis not constrained by EWPO (at LO)
+     * @f$(\hat{C}_{HQ}^{(u)})_{33}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(u)})_{33}@f$
+     */
+    virtual const double CEWHQu33() const;
 
 
     /**
@@ -6431,6 +6538,139 @@ public:
      * @return @f$(\hat{C}_{Hd})_{33}@f$
      */
     virtual const double CEWHd33() const;
+    
+    
+    //-----  The same, in the quark mass basis  ----------    
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$
+     */
+    virtual const double CEWHQ1uu() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$
+     */
+    virtual const double CEWHQ1cc() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$
+     */
+    virtual const double CEWHQ1tt() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$
+     */
+    virtual const double CEWHQ1dd() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$
+     */
+    virtual const double CEWHQ1ss() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$
+     */
+    virtual const double CEWHQ1bb() const;
+    
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$
+     */
+    virtual const double CEWHQ3uu() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$
+     */
+    virtual const double CEWHQ3cc() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$
+     */
+    virtual const double CEWHQ3tt() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$
+     */
+    virtual const double CEWHQ3dd() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$
+     */
+    virtual const double CEWHQ3ss() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$
+     */
+    virtual const double CEWHQ3bb() const;
+    
+    
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hu})_{uu}@f$.
+     * @return @f$(\hat{C}_{Hu})_{uu}@f$
+     */
+    virtual const double CEWHuuu() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hu})_{cc}@f$.
+     * @return @f$(\hat{C}_{Hu})_{cc}@f$
+     */
+    virtual const double CEWHucc() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hu})_{tt}@f$.
+     * @return @f$(\hat{C}_{Hu})_{tt}@f$
+     */
+    virtual const double CEWHutt() const;
+    
+ 
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hd})_{dd}@f$.
+     * @return @f$(\hat{C}_{Hd})_{dd}@f$
+     */
+    virtual const double CEWHddd() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hd})_{ss}@f$.
+     * @return @f$(\hat{C}_{Hd})_{ss}@f$
+     */
+    virtual const double CEWHdss() const;
+    
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{Hd})_{bb}@f$.
+     * @return @f$(\hat{C}_{Hd})_{bb}@f$
+     */
+    virtual const double CEWHdbb() const;
 
 
     ///////////Collider observables: LHC dilepton events////////////////////////
@@ -6956,6 +7196,33 @@ public:
     const gslpp::matrix<gslpp::complex>& getVuRd() const {
         return VuRd;
     }
+    
+    /**
+     * getter for the lepton masses
+     */
+    std::array<double, 3> getMe_LEW() const {
+    	return { me_LEW, mmu_LEW, mtau_LEW};
+    }
+    /**
+     * getter for the lepton masses
+     */
+    std::array<double, 3> getMu_LEW() const {
+    	return { mu_LEW, mc_LEW, mt_LEW};
+    }
+    /**
+     * getter for the lepton masses
+     */
+    std::array<double, 3> getMd_LEW() const {
+    	return { md_LEW, ms_LEW, mb_LEW};
+    }
+    /**
+     * getter for lambdaH
+     */
+        const double getLambdaH_tree() const
+    {
+        return lambdaH_tree;
+    }
+    bool FlagNewTerms; ///< A boolean for the model flag NewTerms, to include corrections in the matching between SMEFT and LEFT
    
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -7010,7 +7277,9 @@ protected:
     
     mutable Matching<NPSMEFTd6GeneralMatching, NPSMEFTd6General> NPSMEFTd6GM;
 
+//  Flag and integer to specify flavor basis "UP" (1, default), "DOWN" (2)
     std::string SMEFTBasisFlag;
+    int flavBas = 1; 
 
     //For the SM parameters used in the evolutor we start at the EW scale
     double g1_LEW = 0;
@@ -7505,6 +7774,8 @@ protected:
     
     gslpp::complex CHq3EWud = gslpp::complex(0., 0., false), CHq3EWcs = gslpp::complex(0., 0., false), CHq3EWtb = gslpp::complex(0., 0., false); ///< CHq3 operators at the EW scale in the up-down-quark mass basis     
 
+    double C1Htotal; ///< The C1 coefficient controlling the H^3 corrections to the total Higgs width from the Higgs trilinear coupling.
+    
      //AG:begin
     /**
      * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the Fermi constant.
@@ -7785,7 +8056,7 @@ protected:
     
     RGESolver SMEFTEvolEW;
         
-    RGESolver SMEFTEvolMH, SMEFTEvol240, SMEFTEvol365, SMEFTEvol500;
+    RGESolver SMEFTEvolMH, SMEFTEvol240, SMEFTEvol365, SMEFTEvol550, SMEFTEvol1000, SMEFTEvol1500, SMEFTEvol3000, SMEFTEvol5000;
     
     RGESolver SMEFTEvolUV; // Reference at UV (Lambda_NP). Used to be able to access values of the coefficients via the RGEsolver methods. It is not evolved.
     
@@ -7807,7 +8078,7 @@ private:
     bool FlagfiniteNLO; ///< A boolean for the model flag %finiteNLO , to include finite NLO terms, when available. 
     bool FlagmatchLEFT; ///< A boolean for the model flag %matchLEFT , to include the matching between SMEFT and LEFT.
     bool FlagCorrsInSMRunning; ///< A boolean for the model flag %CorrsInSMRunning , to include corrections from the SMEFT in the SM running.
-
+    
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function
 

@@ -91,13 +91,19 @@
  *   <td class="mod_desc">The Wilson coefficient of the pseudo-scalar operator
  *   @f$O_{P,\mu}@f$ and the chirality flipped @f$O_{P,\mu}^\prime@f$ coupling to muons</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%CL_nunu, %CL_nunu</td>
+ *   <td class="mod_symb">@f$C_L^{\nu\nu}@f$ and @f$C_R^{\nu\nu}@f$</td>
+ *   <td class="mod_desc">The Wilson coefficient of the semileptonic operator
+ *   @f$O_L^{\nu\nu}@f$ and the chirality flipped @f$O_R^{\nu\nu}@f$ coupling to neutrinos</td>
+ * </tr>
  * </table>
  */
  
 class RealWeakEFTLFV: public StandardModel {
 public:
 
-    static const int NRealWeakEFTLFVvars = 21;
+    static const int NRealWeakEFTLFVvars = 29;
 
     static const std::string RealWeakEFTLFVvars[NRealWeakEFTLFVvars];
     
@@ -309,7 +315,7 @@ public:
         return CS_22;
     }
     
-        /**
+    /**
      *
      * @return \f$ C_S'^{22}\f$
      */
@@ -325,12 +331,72 @@ public:
         return CP_22;
     }
     
-        /**
+    /**
      *
      * @return \f$ C_P'^{22}\f$
      */
     double getCPp_22() const {
         return CPp_22;
+    }
+    
+    /**
+     *
+     * @return \f$ C_L^{\nu\nu}\f$
+     */
+    double getCLnunu() const {
+        return CLnunu;
+    }
+    
+    /**
+     *
+     * @return \f$ C_R^{\nu\nu}\f$
+     */
+    double getCRnunu() const {
+        return CRnunu;
+    }
+    
+    /**
+     *
+     * @return \f$ C_L^{\nu_1\nu_1}\f$
+     */
+    double getCLnunu_11() const {
+        return CLnunu_11;
+    }
+    
+    /**
+     *
+     * @return \f$ C_R^{\nu_1\nu_1}\f$
+     */
+    double getCRnunu_11() const {
+        return CRnunu_11;
+    }
+    /**
+     *
+     * @return \f$ C_L^{\nu_2\nu_2}\f$
+     */
+    double getCLnunu_22() const {
+        return CLnunu_22;
+    }
+    /**
+     *
+     * @return \f$ C_R^{\nu_2\nu_2}\f$
+     */
+    double getCRnunu_22() const {
+        return CRnunu_22;
+    }
+    /**
+     *
+     * @return \f$ C_L^{\nu_3\nu_3}\f$
+     */
+    double getCLnunu_33() const {
+        return CLnunu_33;
+    }
+    /**
+     *
+     * @return \f$ C_R^{\nu_3\nu_3}\f$
+     */
+    double getCRnunu_33() const {
+        return CRnunu_33;
     }
     
     /**
@@ -356,6 +422,8 @@ private:
     double C7, C7p, C8, C8p;///< The real Wilson Coefficients.
     double C9_11, C9p_11, C10_11, C10p_11, CS_11, CSp_11, CP_11, CPp_11;///< The real Wilson Coefficients for electrons.
     double C9_22, C9p_22, C10_22, C10p_22, CS_22, CSp_22, CP_22, CPp_22;///< The real Wilson Coefficients for muons.
+    double CLnunu, CRnunu;///< The real Wilson Coefficients for neutrinos.
+    double CLnunu_11, CRnunu_11, CLnunu_22, CRnunu_22, CLnunu_33, CRnunu_33;///< The real Wilson Coefficients for neutrinos.
     
     double WCscale;///< The scale of the  Wilson Coefficients.
     

@@ -178,7 +178,7 @@ public:
      * 
      * @return Wilson coefficients for \f$ B_{s} \rightarrow X_{s} \nu \nu \f$
      */
-    virtual std::vector<WilsonCoefficient>& CMBXsnn() ;
+    virtual std::vector<WilsonCoefficient>& CMBXsnn(QCD::lepton lepton) ;
     
     /**
      * 

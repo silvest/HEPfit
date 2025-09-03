@@ -19,7 +19,7 @@
 using namespace boost::placeholders;
 
 MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
-: mySM(SM_i)
+: mySM(SM_i), ig(ROOT::Math::Integration::kADAPTIVESINGULAR, ROOT::Math::Integration::kGAUSS51), wf()
 {
     lep = lep_i;
     meson = meson_i;
@@ -29,8 +29,6 @@ MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudosca
     DMflag = false;
     btocNPpmflag = false;
     NPanalysis = false;
-
-    w_J = gsl_integration_cquad_workspace_alloc(100);
 
     checkcache_int_tau = false;
     checkcache_int_mu = false;
@@ -109,6 +107,10 @@ MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudosca
     CAp_cache = max_double;
     CT_cache = max_double;
     CTp_cache = max_double;
+
+    ig.SetRelTolerance(1.E-6);  // set relative tolerance
+    ig.SetAbsTolerance(1.E-6);   // set absoulte tolerance
+
 }
 
 MPlnu::~MPlnu()
@@ -137,7 +139,7 @@ std::vector<std::string> MPlnu::initializeMPlnuParameters()
         << "af0_3" << "afplus_3"
 #endif                
         << "mBc1m_1" << "mBc1m_2" << "mBc1m_3" << "mBc1m_4"
-        << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "nI";
+        << "mBc0p_1" << "mBc0p_2" << "chitildeT" << "chiL" << "n_I";
     }
     else if (DMflag) {
         mplnuParameters.clear();
@@ -166,7 +168,6 @@ void MPlnu::updateParameters()
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, pseudoscalarM, lep)) return;
     
-    GF = mySM.getGF();
     Mlep = mySM.getLeptons(lep).getMass();
     Mnu = 0.; // neutrinos assumed to be massless
     MM = mySM.getMesons(meson).getMass();
@@ -177,30 +178,28 @@ void MPlnu::updateParameters()
     mu_b = MM; // mySM.getMub();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass(); // add the PS b mass
-    Vcb = mySM.getCKM().getV_cb(); // mySM.getOptionalParameter("AbsVcb");
     ale_mub = mySM.Ale(mu_b,FULLNLO);
     /* Amplitude propto 4*GF*Vij/sqrt(2) & kinematics requires 1/(2^9 pi^3 MB^3) */
-    amplsq_factor = GF*GF*Vcb.abs2()/(64.*M_PI*M_PI*M_PI*MM*MM*MM);
+    amplsq_factor = 1./(64.*M_PI*M_PI*M_PI*MM*MM*MM);
     q2min = Mlep*Mlep;
     q2max = (MM-MP)*(MM-MP);
     
-    /* SM Wilson coefficients */
-    eta_EW = (1.+ale_mub/M_PI*log(mySM.getMz()/mu_b));
-    CV_SM = 1./2.;
-    CV = CV_SM*eta_EW;
-    CA = -CV_SM*eta_EW;
-    CVp = 0.;
-    CAp = 0.;
-    CS = 0.;
-    CSp = 0.;
-    CP = 0.;
-    CPp = 0.;
+    /* SM + NP Wilson coefficients */
+    gslpp::complex norm = 4./sqrt(2.);
+    gslpp::vector<gslpp::complex> ** allcoeff_bclnu = mySM.getFlavour().ComputeCoeffdiujlknu(2,1,0,mu_b);
+    CV = (*(allcoeff_bclnu[LO]))(0)/norm*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b))/2.;
+    CA = -CV;
+    CVp = (*(allcoeff_bclnu[LO]))(1)/norm/2.;
+    CAp = -CVp;
+    CS = (*(allcoeff_bclnu[LO]))(2)/norm/2.;
+    CSp = (*(allcoeff_bclnu[LO]))(3)/norm/2.;
+    CP = -CS;
+    CPp = -CSp;
     C7 = 0.;
     C7p = 0.;
-    CT = 0.;
+    CT = (*(allcoeff_bclnu[LO]))(4)/norm/2.;
     CTp = 0.;
 
-    /* SM + NP Wilson coefficients */
     if (NPanalysis) {
         if (lep == StandardModel::TAU) {
             if (btocNPpmflag) {
@@ -258,7 +257,7 @@ void MPlnu::updateParameters()
                 mBc0p_2 = mySM.getOptionalParameter("mBc0p_2");
                 chitildeT = mySM.getOptionalParameter("chitildeT");
                 chiL = mySM.getOptionalParameter("chiL");
-                nI = mySM.getOptionalParameter("nI");
+                nI = mySM.getOptionalParameter("n_I");
                 
                 z1m_1 = sqrt((MM+MP)*(MM+MP)-mBc1m_1*mBc1m_1)-sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP));
                 z1m_1 /= (sqrt((MM+MP)*(MM+MP)-mBc1m_1*mBc1m_1)+sqrt((MM+MP)*(MM+MP)-(MM-MP)*(MM-MP)));
@@ -684,7 +683,7 @@ double MPlnu::dGammadq2(double q2)
 {
     if ((q2 < q2min) or (q2 > (MM - MP)*(MM - MP))) return 0.;
     double sqlambdaB = lambda_half(q2,MM*MM,MP*MP);
-    double prefac = (CV-CA)*(CV-CA)*GF*GF*Vcb.abs2()*MM*sqlambdaB/192./M_PI/M_PI/M_PI;
+    double prefac = (CV-CA).abs2()*MM*sqlambdaB/192./M_PI/M_PI/M_PI;
     double coeff_fp = (1.+Mlep*Mlep/(2.*q2))*sqlambdaB*sqlambdaB/MM/MM/MM/MM;
     double coeff_f0 = (1.-MP*MP/MM/MM)*(1.-MP*MP/MM/MM)*3.*Mlep*Mlep/(2.*q2);
     double TotAmp2 = coeff_fp*fplus(q2)*fplus(q2)+coeff_f0*f0(q2)*f0(q2);
@@ -697,43 +696,45 @@ double MPlnu::dGammadq2(double q2)
 
 double MPlnu::integrateJ(int i, double q2_min, double q2_max)
 {
-    old_handler = gsl_set_error_handler_off();
 
     switch (i) {
         case 1:
             if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_tau;
             if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_mu;
             if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1_el;
-            FJ = convertToGslFunction(bind(&MPlnu::J1, &(*this), _1));
-            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
-            gsl_set_error_handler(old_handler);
+            wf=ROOT::Math::Functor1D(&(*this),&MPlnu::J1);
+            ig.SetFunction(wf);
+            J_res = ig.Integral(q2_min, q2_max);
+            if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
             return J_res;
             break;
         case 2:
             if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2_tau;
             if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2_mu;
             if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2_el;
-            FJ = convertToGslFunction(bind(&MPlnu::J2, &(*this), _1));
-            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
-            gsl_set_error_handler(old_handler);
+            wf=ROOT::Math::Functor1D(&(*this),&MPlnu::J2);
+            ig.SetFunction(wf);
+            J_res = ig.Integral(q2_min, q2_max);
+            if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
             return J_res;
             break;
         case 3:
             if (lep == StandardModel::TAU) if (checkcache_int_tau && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_tau;
             if (lep == StandardModel::MU) if (checkcache_int_mu && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_mu;
             if (lep == StandardModel::ELECTRON) if (checkcache_int_el && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_el;
-            FJ = convertToGslFunction(bind(&MPlnu::J3, &(*this), _1));
-            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
-            gsl_set_error_handler(old_handler);
+            wf=ROOT::Math::Functor1D(&(*this),&MPlnu::J3);
+            ig.SetFunction(wf);
+            J_res = ig.Integral(q2_min, q2_max);
+            if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
             return J_res;
         case 4:
-            FJ = convertToGslFunction(bind(&MPlnu::dGammadq2, &(*this), _1));
-            if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
-            gsl_set_error_handler(old_handler);
+            wf=ROOT::Math::Functor1D(&(*this),&MPlnu::dGammadq2);
+            ig.SetFunction(wf);
+            J_res = ig.Integral(q2_min, q2_max);
+            if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
             return J_res;
             break;
         default:
-            gsl_set_error_handler(old_handler);
             std::stringstream out;
             out << i;
             throw std::runtime_error("MPlnu::integrateJ: index " + out.str() + " not implemented");

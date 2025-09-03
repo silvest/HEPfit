@@ -17,6 +17,7 @@
       <itemPath>src/GeneralTHDMSTU.h</itemPath>
       <itemPath>src/GeneralTHDMSusyObs.h</itemPath>
       <itemPath>src/GeneralTHDMZ2.h</itemPath>
+      <itemPath>src/GeneralTHDMZ2Runner.h</itemPath>
       <itemPath>src/GeneralTHDMZ2Unitarity.h</itemPath>
       <itemPath>src/GeneralTHDMcache.h</itemPath>
       <itemPath>src/GeneralTHDMgminus2.h</itemPath>
@@ -43,34 +44,13 @@
       <itemPath>src/GeneralTHDMSTU.cpp</itemPath>
       <itemPath>src/GeneralTHDMSusyObs.cpp</itemPath>
       <itemPath>src/GeneralTHDMZ2.cpp</itemPath>
+      <itemPath>src/GeneralTHDMZ2Runner.cpp</itemPath>
       <itemPath>src/GeneralTHDMZ2Unitarity.cpp</itemPath>
       <itemPath>src/GeneralTHDMcache.cpp</itemPath>
       <itemPath>src/GeneralTHDMgminus2.cpp</itemPath>
       <itemPath>src/GeneralTHDMquantities.cpp</itemPath>
       <itemPath>src/GeneralTHDMstability.cpp</itemPath>
       <itemPath>src/GeneralTHDMunitarity.cpp</itemPath>
-    </logicalFolder>
-    <logicalFolder name="TestFiles"
-                   displayName="Test Files"
-                   projectFiles="false"
-                   kind="TEST_LOGICAL_FOLDER">
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false"
-                   kind="IMPORTANT_FILES_FOLDER">
-      <itemPath>Makefile</itemPath>
-    </logicalFolder>
-    <logicalFolder name="TestFiles"
-                   displayName="Test Files"
-                   projectFiles="false"
-                   kind="TEST_LOGICAL_FOLDER">
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false"
-                   kind="IMPORTANT_FILES_FOLDER">
-      <itemPath>Makefile</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -160,6 +140,10 @@
       <item path="src/GeneralTHDMZ2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMZ2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMZ2Runner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMZ2Runner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMZ2Unitarity.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -269,6 +253,10 @@
       </item>
       <item path="src/GeneralTHDMZ2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMZ2Runner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMZ2Runner.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMZ2Unitarity.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMZ2Unitarity.h" ex="false" tool="3" flavor2="0">
@@ -368,6 +356,10 @@
       </item>
       <item path="src/GeneralTHDMZ2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMZ2Runner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMZ2Runner.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMZ2Unitarity.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMZ2Unitarity.h" ex="false" tool="3" flavor2="0">
@@ -466,6 +458,10 @@
       <item path="src/GeneralTHDMZ2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMZ2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMZ2Runner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMZ2Runner.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMZ2Unitarity.cpp" ex="false" tool="1" flavor2="0">
       </item>

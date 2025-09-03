@@ -75,7 +75,18 @@ public:
      * @return Wilson coefficients for \f$ K_{L} \rightarrow \pi \nu \nu \f$
      */
     virtual std::vector<WilsonCoefficient>& CMkpnn();
-    
+
+    /**
+     * 
+     * @return Wilson coefficients for \f$ b_R \rightarrow s_L \gamma \f$
+     */
+    virtual std::vector<WilsonCoefficient>& CMbsg();
+
+    /**
+     * 
+     * @return Wilson coefficients for \f$ b_L \rightarrow s_R \gamma \f$
+     */
+    virtual std::vector<WilsonCoefficient>& CMprimebsg();
 
     //dimension 6 four-fermion operators involving all left-handed fields
 
@@ -425,7 +436,18 @@ public:
      */    
     const gslpp::complex getCnueduSRL(int i, int j, int k, int l) const;
     
+    /**
+     * @brief Return CdGLR (chromomagnetic dipole operator)
+     * @return \f$ C_{d G}^{LR}(i,j) \f$ 
+     */
+    const gslpp::complex getCdG(int i, int j) const;
  
+    /**
+     * @brief Return CdgLR (electric dipole operator)
+     * @return \f$ C_{d \gamma}^{LR}(i,j) \f$ 
+     */
+    const gslpp::complex getCdg(int i, int j) const;
+
     //Fermion rotation matrices to mass-eigenstate basis
     
     /**
@@ -566,7 +588,7 @@ private:
     double v2;
     double v;
     gslpp::matrix<gslpp::complex> VuL, VuLd, VuR, VuRd, VdL, VdLd, VdR, VdRd, VeL, VeLd, VeR, VeRd, MU, MD;
-    WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2, mculeptonnu, mckpnn;
+    WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2, mculeptonnu, mckpnn, mcbsg, mcprimebsg;
     //TRandom3 myrnd;
 
 };

@@ -1332,7 +1332,7 @@ public:
 
     virtual const double muggH(const double sqrt_s) const;
     virtual const double muVBF(const double sqrt_s) const;
-    virtual const double mueeWBF(const double sqrt_s) const;
+    virtual const double mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     virtual const double muWH(const double sqrt_s) const;
     virtual const double muZH(const double sqrt_s) const;
     virtual const double mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
@@ -1476,11 +1476,21 @@ protected:
      */
     bool checkRGEorder(const std::string RGEorder) const
     {
-        if (RGEorder.compare("LO") == 0)
+        if (getModelName() == "GeneralTHDMZ2") {
+            if (RGEorder.compare("LO") == 0
+                || RGEorder.compare("approxNLO") == 0
+                || RGEorder.compare("NLO") == 0)
+                return true;
+            else
+                return false;
+        }
+        else {
+            if (RGEorder.compare("LO") == 0)
 //                || RGEorder.compare("approxNLO") == 0)
-            return true;
-        else
-            return false;
+                return true;
+            else
+                return false;
+        }
     }
 
     mutable Matching<GeneralTHDMMatching,GeneralTHDM> GTHDMM; ///< An object of type Matching.

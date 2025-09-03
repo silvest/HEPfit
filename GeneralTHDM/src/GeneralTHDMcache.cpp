@@ -306,7 +306,7 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         //Yu1_GTHDM(3,3,0.), Yu2_GTHDM(3,3,0.), Yd1_GTHDM(3,3,0.), Yd2_GTHDM(3,3,0.),
         //Yl1_GTHDM(3,3,0.), Yl2_GTHDM(3,3,0.),
         //
-        myGTHDM(static_cast<const GeneralTHDM*> (&SM_i)), 
+        myGTHDM(static_cast<const GeneralTHDM*> (&SM_i)),
         PV(true)
 {
     read();
@@ -10505,10 +10505,8 @@ void GeneralTHDMcache::computeLowMass()
     }
 }
 
-void GeneralTHDMcache::runGeneralTHDMparameters()
+void GeneralTHDMcache::runGeneralTHDMparameters(std::string RGEorder)
 {
-
-    std::string RGEorder=myGTHDM->getRGEorderflag();
     //flag will be used to transport information about model and RGEorder to the Runner:
     //flag=0 for LO (1 for approxNLO and 2 for NLO - not implemented yet)
     int flag;
@@ -10545,7 +10543,11 @@ void GeneralTHDMcache::runGeneralTHDMparameters()
         double RpepsGTHDM=myGTHDM->getRpepsGTHDM();
         double NLOuniscale=myGTHDM->getNLOuniscaleGTHDM();
 
-        if(fabs(Q_GTHDM-log10(MZ))<0.005)   //at MZ scale
+        // Temporarily, until this running (in the Higgs basis) is clarified, we fix the scale to Mz
+        // Once solved, reverse changes: Q_A2HDM -> Q_GTHDM [defined below, in updateCache()]
+        double Q_A2HDM = log10(MZ);
+
+        if(fabs(Q_A2HDM-log10(MZ))<0.005)   //at MZ scale
         {
             Q_cutoff=log10(MZ);
 
@@ -10978,7 +10980,14 @@ double GeneralTHDMcache::updateCache()
     Me   = myGTHDM->getLeptons(StandardModel::ELECTRON).getMass();
 
 
-    runGeneralTHDMparameters();
+    if (myGTHDM->getModelName() == "GeneralTHDMZ2") {
+        // runGeneralTHDMparameters:   RGEorder can be only "LO" at the moment
+        // runGeneralTHDMZ2parameters: RGEorder can be "LO", "approxNLO", "NLO"
+        runGeneralTHDMparameters("LO");
+    }
+    else {
+        runGeneralTHDMparameters(myGTHDM->getRGEorderflag());
+    }
     computeSignalStrengths();
     computephi2quantities();
     computephi3quantities();

@@ -10,6 +10,8 @@
 const std::string RealWeakEFTLFV::RealWeakEFTLFVvars[NRealWeakEFTLFVvars] = {"C7", "C7p", "C8", "C8p", 
                                                                              "C9_11", "C9p_11", "C10_11", "C10p_11", "CS_11", "CSp_11", "CP_11", "CPp_11", 
                                                                              "C9_22", "C9p_22", "C10_22", "C10p_22", "CS_22", "CSp_22", "CP_22", "CPp_22",
+                                                                             "CLnunu", "CRnunu",
+                                                                             "CLnunu_11", "CRnunu_11", "CLnunu_22", "CRnunu_22", "CLnunu_33", "CRnunu_33",  
                                                                              "WCscale"};
 
 RealWeakEFTLFV::RealWeakEFTLFV() : StandardModel(), ReWEFTM(*this) {   
@@ -37,6 +39,16 @@ RealWeakEFTLFV::RealWeakEFTLFV() : StandardModel(), ReWEFTM(*this) {
     ModelParamMap.insert(std::make_pair("CSp_22", std::cref(CSp_22)));
     ModelParamMap.insert(std::make_pair("CP_22", std::cref(CP_22)));
     ModelParamMap.insert(std::make_pair("CPp_22", std::cref(CPp_22)));
+
+    ModelParamMap.insert(std::make_pair("CLnunu", std::cref(CLnunu)));
+    ModelParamMap.insert(std::make_pair("CRnunu", std::cref(CRnunu)));
+
+    ModelParamMap.insert(std::make_pair("CLnunu_11", std::cref(CLnunu_11)));
+    ModelParamMap.insert(std::make_pair("CRnunu_11", std::cref(CRnunu_11)));
+    ModelParamMap.insert(std::make_pair("CLnunu_22", std::cref(CLnunu_22)));
+    ModelParamMap.insert(std::make_pair("CRnunu_22", std::cref(CRnunu_22)));
+    ModelParamMap.insert(std::make_pair("CLnunu_33", std::cref(CLnunu_33)));
+    ModelParamMap.insert(std::make_pair("CRnunu_33", std::cref(CRnunu_33)));
     
     ModelParamMap.insert(std::make_pair("WCscale", std::cref(WCscale)));
 }
@@ -134,6 +146,22 @@ void RealWeakEFTLFV::setParameter(const std::string name, const double& value){
         CP_22 = value;
     else if(name.compare("CPp_22") == 0)
         CPp_22 = value;
+    else if(name.compare("CLnunu") == 0)
+        CLnunu = value;
+    else if(name.compare("CRnunu") == 0)
+        CRnunu = value;
+    else if(name.compare("CLnunu_11") == 0)
+        CLnunu_11 = value;
+    else if(name.compare("CRnunu_11") == 0)
+        CRnunu_11 = value;
+    else if(name.compare("CLnunu_22") == 0)
+        CLnunu_22 = value;
+    else if(name.compare("CRnunu_22") == 0)
+        CRnunu_22 = value;
+    else if(name.compare("CLnunu_33") == 0)
+        CLnunu_33 = value;
+    else if(name.compare("CRnunu_33") == 0)
+        CRnunu_33 = value;
     else if(name.compare("WCscale") == 0)
         WCscale = value;
     else

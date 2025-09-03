@@ -9,8 +9,13 @@
 #define MVLNU_H
 
 class StandardModel;
-#include <gsl/gsl_integration.h>
+
+#include <TF1.h>
+#include <TGraph.h>
+#include <TFitResultPtr.h>
 #include <gsl/gsl_spline.h>
+#include "Math/GSLIntegrator.h"
+#include "Math/Functor.h"
 #include <memory>
 
 class MVlnu {
@@ -182,18 +187,18 @@ private:
     
     double CV_SM; /**<Wilson coeffients @f$C_{V}@f$*/
     
-    double CS; /**<Wilson coeffients @f$C_{S}@f$*/
-    double CP; /**<Wilson coeffients @f$C_{P}@f$*/
-    double CSp; /**<Wilson coeffients @f$C_{S}'@f$*/
-    double CPp; /**<Wilson coeffients @f$C_{P}'@f$*/
-    double CV; /**<Wilson coeffients @f$C_{V}@f$*/
-    double CA; /**<Wilson coeffients @f$C_{A}@f$*/
-    double CVp; /**<Wilson coeffients @f$C_{V}'@f$*/
-    double CAp; /**<Wilson coeffients @f$C_{A}'@f$*/
-    double C7; /**<Wilson coeffients @f$C_{7}@f$*/
-    double C7p; /**<Wilson coeffients @f$C_{7}'@f$*/
-    double CT; /**<Wilson coeffients @f$C_{T}@f$*/
-    double CTp; /**<Wilson coeffients @f$C_{Tp}@f$*/
+    gslpp::complex CS; /**<Wilson coeffients @f$C_{S}@f$*/
+    gslpp::complex CP; /**<Wilson coeffients @f$C_{P}@f$*/
+    gslpp::complex CSp; /**<Wilson coeffients @f$C_{S}'@f$*/
+    gslpp::complex CPp; /**<Wilson coeffients @f$C_{P}'@f$*/
+    gslpp::complex CV; /**<Wilson coeffients @f$C_{V}@f$*/
+    gslpp::complex CA; /**<Wilson coeffients @f$C_{A}@f$*/
+    gslpp::complex CVp; /**<Wilson coeffients @f$C_{V}'@f$*/
+    gslpp::complex CAp; /**<Wilson coeffients @f$C_{A}'@f$*/
+    gslpp::complex C7; /**<Wilson coeffients @f$C_{7}@f$*/
+    gslpp::complex C7p; /**<Wilson coeffients @f$C_{7}'@f$*/
+    gslpp::complex CT; /**<Wilson coeffients @f$C_{T}@f$*/
+    gslpp::complex CTp; /**<Wilson coeffients @f$C_{Tp}@f$*/
     
     double hA1w1,rho2,R1w1,R2w1; /**<CLN form factor parameters*/
     double N_A, N_1, N_2, j_A, j_0, j_1, j_2, k_A, k_0, k_1, k_2, l_A; /**<CLN Enhanced form factor parameters*/
@@ -226,7 +231,7 @@ private:
         bf_5_cache, bg_5_cache, bF1_5_cache, bF2_5_cache, bf_6_cache, bg_6_cache, bF1_6_cache, bF2_6_cache, 
         bf_7_cache, bg_7_cache, bF1_7_cache, bF2_7_cache, bf_8_cache, bg_8_cache, bF1_8_cache, bF2_8_cache, 
         bf_9_cache, bg_9_cache, bF1_9_cache, bF2_9_cache, bf_10_cache, bg_10_cache, bF1_10_cache, bF2_10_cache;
-    double CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
+    gslpp::complex CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
     bool checkcache_int_tau, checkcache_int_mu, checkcache_int_el;
     
     /**
@@ -743,11 +748,9 @@ private:
     */
     double integrateGpm(int i, double q2_min, double q2_max) ;
     
-    gsl_error_handler_t * old_handler; /**< GSL error handler store */
-    gsl_function FJ;/**< GSL integral variable */
     double J_res;/**< GSL integral variable */
-    double J_err;/**< GSL integral variable */
-    gsl_integration_cquad_workspace * w_J;/**< GSL integral variable */
+    ROOT::Math::GSLIntegrator ig;/**< GSL integrator */
+    ROOT::Math::Functor1D wf;/**< GSL integrator function */
  
 };
 

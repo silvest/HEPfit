@@ -24,7 +24,7 @@ const double THDMWSignalStrengths::muVBF(const double sqrt_s) const
     return myTHDMW.getMyTHDMWCache()->rh_VV;
 }
 
-const double THDMWSignalStrengths::mueeWBF(const double sqrt_s) const
+const double THDMWSignalStrengths::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return myTHDMW.getMyTHDMWCache()->rh_VV;
 }

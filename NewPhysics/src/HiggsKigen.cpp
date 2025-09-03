@@ -568,51 +568,61 @@ const double HiggsKigen::muVBFgamma(const double sqrt_s) const
     return (mu*(1.0 + eVBFint + eVBFpar));
 }
 
-const double HiggsKigen::mueeWBF(const double sqrt_s) const
+const double HiggsKigen::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
-const double HiggsKigen::mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    double mu = 1.0;
-    mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
-}
 
-const double HiggsKigen::mueeHvv(const double sqrt_s) const
+const double HiggsKigen::mueeHvv(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
 //  In this model we neglect the contributions from HZ->vv with off-shell Z
 //  Dependence is exact if Custodial symmetry option is on
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
-const double HiggsKigen::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-//  In this model we neglect the contributions from HZ->vv with off-shell Z
-//  Dependence is exact if Custodial symmetry option is on
-    double mu = 1.0;
-    mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
-}
 
-const double HiggsKigen::mueeZBF(const double sqrt_s) const
+const double HiggsKigen::mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+        
     mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
-const double HiggsKigen::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    double mu = 1.0;
-    mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
-}
 
 const double HiggsKigen::muepWBF(const double sqrt_s) const
 {
@@ -659,28 +669,14 @@ const double HiggsKigen::mueeZH(const double sqrt_s, const double Pol_em, const 
     return (mu*(1.0 + eeeZHint + eeeZHpar));
 }
 
-const double HiggsKigen::mueeZllH(const double sqrt_s) const
+const double HiggsKigen::mueeZllH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKZ() * computeKZ());
     return (mu*(1.0 + eeeZHint + eeeZHpar));
 }
 
-const double HiggsKigen::mueeZqqH(const double sqrt_s) const
-{
-    double mu = 1.0;
-    mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeZHint + eeeZHpar));
-}
-
-const double HiggsKigen::mueeZllHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    double mu = 1.0;
-    mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeZHint + eeeZHpar));
-}
-
-const double HiggsKigen::mueeZqqHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double HiggsKigen::mueeZqqH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKZ() * computeKZ());
@@ -752,15 +748,7 @@ const double HiggsKigen::muggHpttH(const double sqrt_s) const
     return ((sigmaggH + sigmattH) / (sigmaggH_SM + sigmattH_SM));
 } 
 
-const double HiggsKigen::mueettH(const double sqrt_s) const
-{
-    double mu = 1.0;
-    mu = (computeKt() * computeKt());
-    return (mu*(1.0 + eeettHint + eeettHpar));
-}
-
-
-const double HiggsKigen::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+const double HiggsKigen::mueettH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     double mu = 1.0;
     mu = (computeKt() * computeKt());
@@ -807,16 +795,36 @@ const double HiggsKigen::mummHvv(const double sqrt_s) const
 //  In this model we neglect the contributions from HZ->vv with off-shell Z
 //  Dependence is exact if Custodial symmetry option is on
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     mu = (computeKW() * computeKW());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
 
 const double HiggsKigen::mummHmm(const double sqrt_s) const
 {
     double mu = 1.0;
+    
+    double scalTH = 1.0;
+    
+    if ( sqrt_s > 0.5 ) {
+        // Theory uncert. scaling like log^2(E/MW)
+        
+        scalTH = log(sqrt_s/0.080365)/log(0.5/0.080365);
+        scalTH = scalTH * scalTH;
+    }
+    
     mu = (computeKZ() * computeKZ());
-    return (mu*(1.0 + eeeWBFint + eeeWBFpar));
+    return (mu*(1.0 + scalTH * eeeWBFint + eeeWBFpar));
 }
 
 
@@ -1123,10 +1131,15 @@ const double HiggsKigen::BrH2l2vRatio() const
 
 const double HiggsKigen::muttHZbbboost(const double sqrt_s) const
 {    
-    return computeKt() * computeKt() * computeKb() * computeKb() / GammaHTotR;
+    return computeKt() * computeKt() * BrHbbRatio();
     
 }
 
+const double HiggsKigen::muttHgagaZeeboost(const double sqrt_s) const
+{    
+    return computeKt() * computeKt() * BrHgagaRatio();
+    
+}
 
 const double HiggsKigen::muggHgaga(const double sqrt_s) const
 {
@@ -1944,7 +1957,7 @@ const double HiggsKigen::computeGammaTotalSMnoErrorRatio() const
 const double HiggsKigen::Br_H_exo() const
 {
     return BrHexo;    
-};
+}
 
 
 const double HiggsKigen::Br_H_inv() const
@@ -1965,7 +1978,8 @@ const double HiggsKigen::BrHvisRatio() const
 
 const double HiggsKigen::BrHtoinvRatio() const
 {    
-        return (Br_H_inv()/(trueSM.computeBrHto4v()));   
+        // H->ZZ*->4v + H->inv (NP)
+        return ( Br_H_inv() / (trueSM.computeBrHto4v()) );   
 }
 
 ////////////////////////////////////////////////////////////////////////

@@ -39,7 +39,7 @@ double Gammaw_MVlnu::computeThValue()
     double deltaGammadeltaw_lep1 = SM.getFlavour().getMVlnu(meson, vectorM, lep1).getDeltaGammaDeltaw(w_min,w_max_lep1);
     double deltaGammadeltaw_lep2 = SM.getFlavour().getMVlnu(meson, vectorM, lep2).getDeltaGammaDeltaw(w_min,w_max_lep1);
     
-    return (deltaGammadeltaw_lep2_extra+0.5*(deltaGammadeltaw_lep1+deltaGammadeltaw_lep2)); // NOTE: DO NOT divide by the bin size because experimentalists do not.
+    return (deltaGammadeltaw_lep2_extra+0.5*(deltaGammadeltaw_lep1+deltaGammadeltaw_lep2))*1.e+15; // in units of 10^-15 GeV // NOTE: DO NOT divide by the bin size because experimentalists do not.
 }
 
 RDstar_MVlnu::RDstar_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2, QCD::lepton lep_3)
@@ -72,7 +72,7 @@ double RDstar_MVlnu::computeThValue()
     double deltaGammadeltaw_lep2 = SM.getFlavour().getMVlnu(meson, vectorM, lep2).getDeltaGammaDeltaw(w_min,w_max_lep2);
     double deltaGammadeltaw_lep3 = SM.getFlavour().getMVlnu(meson, vectorM, lep3).getDeltaGammaDeltaw(w_min,w_max_lep3);
     
-    return deltaGammadeltaw_lep1/((deltaGammadeltaw_lep2+deltaGammadeltaw_lep3)/2.);
+    return deltaGammadeltaw_lep1/((deltaGammadeltaw_lep2+deltaGammadeltaw_lep3)/2.); // in units of 10^-15 GeV
 }
 
 Gammacl_MVlnu::Gammacl_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2)
@@ -95,7 +95,7 @@ double Gammacl_MVlnu::computeThValue()
     double deltaGammadeltacl_lep1 = SM.getFlavour().getMVlnu(meson, vectorM, lep1).getDeltaGammaDeltacl(cl_min,cl_max);
     double deltaGammadeltacl_lep2 = SM.getFlavour().getMVlnu(meson, vectorM, lep2).getDeltaGammaDeltacl(cl_min,cl_max);
     
-    return (deltaGammadeltacl_lep1+deltaGammadeltacl_lep2)/2.;
+    return (deltaGammadeltacl_lep1+deltaGammadeltacl_lep2)/2.*1.e+15; // in units of 10^-15 GeV
 }
 
 GammacV_MVlnu::GammacV_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2)
@@ -117,7 +117,7 @@ double GammacV_MVlnu::computeThValue()
     double deltaGammadeltacV_lep1 = SM.getFlavour().getMVlnu(meson, vectorM, lep1).getDeltaGammaDeltacV(cV_min,cV_max);
     double deltaGammadeltacV_lep2 = SM.getFlavour().getMVlnu(meson, vectorM, lep2).getDeltaGammaDeltacV(cV_min,cV_max);
     
-    return (deltaGammadeltacV_lep1+deltaGammadeltacV_lep2)/2.;
+    return (deltaGammadeltacV_lep1+deltaGammadeltacV_lep2)/2.*1.e+15; // in units of 10^-15 GeV
 }
 
 Gammachi_MVlnu::Gammachi_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2)
@@ -139,7 +139,7 @@ double Gammachi_MVlnu::computeThValue()
     double deltaGammadeltachi_lep1 = SM.getFlavour().getMVlnu(meson, vectorM, lep1).getDeltaGammaDeltachi(chi_min,chi_max);
     double deltaGammadeltachi_lep2 = SM.getFlavour().getMVlnu(meson, vectorM, lep2).getDeltaGammaDeltachi(chi_min,chi_max);
     
-    return (deltaGammadeltachi_lep1+deltaGammadeltachi_lep2)/2.;
+    return (deltaGammadeltachi_lep1+deltaGammadeltachi_lep2)/2.*1.e+15; // in units of 10^-15 GeV
 }
 
 FL_MVlnu::FL_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i): ThObservable(SM_i) 
@@ -153,7 +153,7 @@ FL_MVlnu::FL_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vec
 
 double FL_MVlnu::computeThValue() 
 {
-    return SM.getFlavour().getMVlnu(meson, vectorM, lep).getFL();
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).getFL(); 
 }
 
 UnitarityV_MVlnu::UnitarityV_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)

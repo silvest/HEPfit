@@ -39,7 +39,7 @@ double Bdmumu::computeThValue()
     double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_D).computeWidth() * pow(FBd, 2.) * pow(mlep, 2.) * mBd * beta;
     yd = 0.; // Use the experimental number here
     timeInt = (1. + Amumu * yd) / (1. - yd * yd); // Note modification in form due to algorithm
-    
+
     if (obs == 1) return( PRF * ampSq);
     if (obs == 2) return( PRF * ampSq * timeInt);
     if (obs == 3) return( Amumu );
@@ -92,6 +92,12 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
 //    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
     gslpp::matrix<gslpp::complex> Vckm = SM.getVCKM();
     
+    C_10p = 0.;
+    C_S = 0.;
+    C_Sp = 0.;
+    C_P = 0.;
+    C_Pp = 0.;
+    
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     
     switch(order_qed) {
@@ -103,19 +109,35 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
 
-            gslpp::complex NPfactor = (Vckm(2,2).conjugate() * Vckm(2,0)) * coupling;
+            gslpp::complex NPfactor = coupling;
 
             if(SM.getModelName().compare("NPSMEFTd6U2") == 0 || SM.getModelName().compare("NPSMEFTd6U3") == 0)
             {
                 C_10 = C_10 + (dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCdeVLR(0,2,leptonindex,leptonindex) - 
                     dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedVLL(leptonindex,leptonindex,0,2)) / NPfactor; 
+                C_10p = C_10p + (- dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedVLR(leptonindex,leptonindex,0,2) + 
+                    dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedVRR(leptonindex,leptonindex,0,2)) / NPfactor; 
+                C_S = C_S + (dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedSRR(leptonindex,leptonindex,0,2) + 
+                    dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedSRL(leptonindex,leptonindex,2,0).conjugate()) / NPfactor; 
+                C_Sp = C_Sp + (dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedSRL(leptonindex,leptonindex,0,2) + 
+                    dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedSRR(leptonindex,leptonindex,2,0).conjugate()) / NPfactor; 
+                C_P = C_P + (dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedSRR(leptonindex,leptonindex,0,2) - 
+                    dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedSRL(leptonindex,leptonindex,2,0).conjugate()) / NPfactor; 
+                C_Pp = C_Pp + (dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedSRL(leptonindex,leptonindex,0,2) - 
+                    dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedSRR(leptonindex,leptonindex,2,0).conjugate()) / NPfactor; 
             }
 
+            gslpp::complex CC_P = ( C_10 - C_10p + mBd * mBd / ( 2. * mlep * (mb + md)) * (C_P - C_Pp) );
 
+                
+            absP = CC_P.abs(); 
+            argP = CC_P.arg();
+            
+            gslpp::complex CC_S = ( beta * mBd * mBd / ( 2. * mlep * (mb + md)) * (C_S - C_Sp) );
 
-            absP = C_10.abs();
-            argP = C_10.arg();
-           
+            absS = CC_S.abs();
+            argS = CC_S.arg();
+
             phiNP = 0.;
             
             ampSq = absP * absP ;

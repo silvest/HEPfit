@@ -349,6 +349,14 @@ public:
     double integrateDelta(int i, double q_min, double q_max);
     
     /**
+    * @brief The integral of \f$ \Sigma_{tree} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$ (arxiv/2301.06990)
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return \f$ <\Sigma_{tree}> \f$
+    */
+    double integrateSigmaTree(double q_min, double q_max);
+    
+    /**
     * @brief The width of the meson M
     * @return \f$ \Gamma_M \f$ 
     */
@@ -778,6 +786,8 @@ private:
     bool dispersion;
     bool zExpansion;
     bool FixedWCbtos;
+    bool NeutrinoTree_flag;
+    bool MVll_DM_flag; /**< A flag for switching to DM FF parameterization */
     double mJpsi, mJ2;
     double mPsi2S, mPsi2S2;
     double mD2;
@@ -846,6 +856,13 @@ private:
     double MMpMV2;/**< Cache variable */
     double MMmMV;/**< Cache variable */
     double MMmMV2;/**< Cache variable */
+    double rV;/**< Cache variable */
+    double Chi1minus;/**< Cache variable */
+    double Chi1plus;/**< Cache variable */
+    double Chi0plus;/**< Cache variable */
+    double Chi0minus;/**< Cache variable */
+    double ChiTT;/**< Cache variable */
+    double ChiBB;/**< Cache variable */
     double MM2;/**< Cache variable */
     double MM4;/**< Cache variable */
     double MV2;/**< Cache variable */
@@ -886,6 +903,7 @@ private:
     double fournineth;/**< Cache variable */
     double half;/**< Cache variable */
     double twothird;/**< Cache variable */
+    double sqrt3;/**< Cache variable */
     gslpp::complex ihalfMPI;/**< Cache variable */
     double twoMM3;/**< Cache variable */
     double gtilde_1_pre;/**< Cache variable */
@@ -952,11 +970,47 @@ private:
     double a_2T23;/**<LCSR fit parameter */
     double MRT23_2;/**<LCSR fit parameter */
 
+    double a_0f;/**<DM fit parameter */
+    double a_1f;/**<DM fit parameter */
+    double a_2f;/**<DM fit parameter */
+    double MRf_2;/**<DM fit parameter */
+    double a_0g;/**<DM fit parameter */
+    double a_1g;/**<DM fit parameter */
+    double a_2g;/**<DM fit parameter */
+    double MRg_2;/**<DM fit parameter */
+    double a_0F1;/**<DM fit parameter */
+    double a_1F1;/**<DM fit parameter */
+    double a_2F1;/**<DM fit parameter */
+    double MRF1_2;/**<DM fit parameter */
+    double a_0F2;/**<DM fit parameter */
+    double a_1F2;/**<DM fit parameter */
+    double a_2F2;/**<DM fit parameter */
+    double MRF2_2;/**<DM fit parameter */
+    double a_0T0;/**<DM fit parameter */
+    double a_1T0;/**<DM fit parameter */
+    double a_2T0;/**<DM fit parameter */
+    double MRT0_2;/**<DM fit parameter */
+
+    //additional variables for B to K nu nu
+    double GF4;
+    double MM3;
+    double fM2;
+    double fV2;
+
+    double mtau;
+    double mtau2;
+    double Gammatau;
+    double VusVub_abs2;
+
     gslpp::vector<gslpp::complex> ** allcoeff;/**<Vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<Vector that contains the primed Wilson coeffients */
     
     gslpp::vector<gslpp::complex> ** allcoeff_noSM;/**<Vector that contains the Wilson coeffients without the SM contribution.*/
+
+    gslpp::vector<gslpp::complex> ** allcoeff_nu;/**<Vector that contains the Wilson coeffients */
+    
+    gslpp::vector<gslpp::complex> ** allcoeff_noSM_nu;/**<Vector that contains the Wilson coeffients without the SM contribution.*/
     
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_1L_bar;/**<Wilson coeffients @f$C_1@f$*/
@@ -983,6 +1037,15 @@ private:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
+    gslpp::complex C_L_nunu;/**<Wilson coeffients @f$C_L^{\nu\nu}'@f$*/
+    gslpp::complex C_R_nunu;/**<Wilson coeffients @f$C_R^{\nu\nu}'@f$*/
+
+    gslpp::complex C_L_nunu_e;/**<Wilson coeffients @f$C_L^{\nu_1\nu_1}'@f$*/
+    gslpp::complex C_R_nunu_e;/**<Wilson coeffients @f$C_R^{\nu_1\nu_1}'@f$*/
+    gslpp::complex C_L_nunu_mu;/**<Wilson coeffients @f$C_L^{\nu_2\nu_2}'@f$*/
+    gslpp::complex C_R_nunu_mu;/**<Wilson coeffients @f$C_R^{\nu_2\nu_2}'@f$*/
+    gslpp::complex C_L_nunu_tau;/**<Wilson coeffients @f$C_L^{\nu_3\nu_3}'@f$*/
+    gslpp::complex C_R_nunu_tau;/**<Wilson coeffients @f$C_R^{\nu_3\nu_3}'@f$*/
     
     std::vector<double> Re_T_perp;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
     std::vector<double> Im_T_perp;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
@@ -1058,16 +1121,19 @@ private:
     
     double avaSigma;/**< GSL integral variable */
     double avaDelta;/**< GSL integral variable */
-    
+    double avaSigmaTree;/**< Gsl integral variable */
+
     double errSigma;/**< GSL integral variable */
     double errDelta;/**< GSL integral variable */
-    
+    double errSigmaTree;/**< Gsl integral variable */
+
     gsl_function FS;/**< GSL integral variable */
     gsl_function FD;/**< GSL integral variable */
     
     gsl_integration_cquad_workspace * w_sigma;/**< GSL integral variable */
     gsl_integration_cquad_workspace * w_delta;/**< GSL integral variable */
-    
+    gsl_integration_cquad_workspace * w_sigmaTree;/**< Gsl integral variable */
+
     gsl_error_handler_t * old_handler; /**< GSL error handler store */
     
     std::map<std::pair<double, double>, gslpp::complex > cacheI1;/**< Cache variable */
@@ -1094,6 +1160,8 @@ private:
     std::map<std::pair<double, double>, double > cacheDelta10;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta11;/**< Cache variable */
     
+    std::map<std::pair<double, double>, double > cacheSigmaTree;/**< Gsl integral variable */
+
     unsigned int N_updated;/**< Cache variable */
     gslpp::vector<double> N_cache;/**< Cache variable */
     gslpp::complex Nc_cache;/**< Cache variable */
@@ -1208,6 +1276,12 @@ private:
     unsigned int C_8Lh_updated;/**< Cache variable */
     gslpp::complex C_8Lh_cache;/**< Cache variable */
     
+    unsigned int C_L_nunu_updated;/**< Cache variable */
+    gslpp::complex C_L_nunu_cache;/**< Cache variable */
+    
+    unsigned int C_R_nunu_updated;/**< Cache variable */
+    gslpp::complex C_R_nunu_cache;/**< Cache variable */
+    
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */
     
@@ -1255,6 +1329,9 @@ private:
     unsigned int I10_updated;/**< Cache variable */
     unsigned int I11_updated;/**< Cache variable */
     
+    unsigned int Itree_updated;/**< Cache variable */
+    gslpp::vector<double> Itree_cache;/**< Cache variable */
+    
     std::map<std::pair<double, double>, unsigned int > I1Cached;/**< Cache variable */
     
     std::map<std::pair<double, double>, unsigned int > sigma0Cached;/**< Cache variable */
@@ -1279,6 +1356,8 @@ private:
     std::map<std::pair<double, double>, unsigned int > delta10Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta11Cached;/**< Cache variable */
     
+    std::map<std::pair<double, double>, unsigned int > sigmaTreeCached;/**< Cache variable */
+
     std::map<double, unsigned int> deltaTparpCached;/**< Cache variable */
     std::map<double, unsigned int> deltaTparmCached;/**< Cache variable */
     std::map<double, unsigned int> deltaTperpCached;/**< Cache variable */
@@ -1311,6 +1390,146 @@ private:
     */
     double z(double q2);
     
+    /**
+    * @brief The DM parameter \f$ z \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ z \f$
+    */
+    double z_DM(double q2);
+    
+    /**
+    * @brief The prefactor function of the form factor \f$ f \f$, \f$ \phi_f \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param MRf_2 fit parameter
+    * @return \f$ \phi_f \f$
+    */
+    double phi_f(double q2, double MRf_2);
+    
+    /**
+    * @brief The prefactor function of the form factor \f$ g \f$, \f$ \phi_g \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param MRg_2 fit parameter
+    * @return \f$ \phi_g \f$
+    */
+    double phi_g(double q2, double MRg_2);
+
+    /**
+    * @brief The prefactor function of the form factor \f$ F_1 \f$, \f$ \phi_{F_1} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param MRF1_2 fit parameter
+    * @return \f$ \phi_{F_1} \f$
+    */
+    double phi_F1(double q2, double MRF1_2);
+
+    /**
+    * @brief The prefactor function of the form factor \f$ F_2 \f$, \f$ \phi_{F_2} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param MRF2_2 fit parameter
+    * @return \f$ \phi_{F_2} \f$
+    */
+    double phi_F2(double q2, double MRF2_2);
+
+    /**
+    * @brief The prefactor function of the form factor \f$ T_0 \f$, \f$ \phi_{T_0} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param MRT0_2 fit parameter
+    * @return \f$ \phi_{T_0} \f$
+    */
+    double phi_T0(double q2, double MRT0_2);
+
+    /**
+    * @brief The prefactor function of the form factor \f$ T_1 \f$, \f$ \phi_{T_1} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param MRT1_2 fit parameter
+    * @return \f$ \phi_{T_1} \f$
+    */
+    double phi_T1(double q2, double MRT1_2);
+
+    /**
+    * @brief The prefactor function of the form factor \f$ T_2 \f$, \f$ \phi_{T_2} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param MRT2_2 fit parameter
+    * @return \f$ \phi_{T_2} \f$
+    */
+    double phi_T2(double q2, double MRT2_2);
+
+    /**
+    * @brief The transverse form factor \f$ f \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0f fit parameter
+    * @param[in] a_1f fit parameter
+    * @param[in] a_2f fit parameter
+    * @param[in] MRf_2 fit parameter
+    * @return \f$ f \f$
+    */
+    double f_DM(double q2, double a_0f, double a_1f, double a_2f, double MRf_2);
+    
+    /**
+    * @brief The transverse form factor \f$ g \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0g fit parameter
+    * @param[in] a_1g fit parameter
+    * @param[in] a_2g fit parameter
+    * @param[in] MRg_2 fit parameter
+    * @return \f$ g \f$
+    */
+    double g_DM(double q2, double a_0g, double a_1g, double a_2g, double MRg_2);
+    
+    /**
+    * @brief The transverse form factor \f$ F_1 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0F1 fit parameter
+    * @param[in] a_1F1 fit parameter
+    * @param[in] a_2F1 fit parameter
+    * @param[in] MRF1_2 fit parameter
+    * @return \f$ F_1 \f$
+    */
+    double F1_DM(double q2, double a_0F1, double a_1F1, double a_2F1, double MRF1_2);
+
+    /**
+    * @brief The transverse form factor \f$ F_2 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0F2 fit parameter
+    * @param[in] a_1F2 fit parameter
+    * @param[in] a_2F2 fit parameter
+    * @param[in] MRF2_2 fit parameter
+    * @return \f$ F_2 \f$
+    */
+    double F2_DM(double q2, double a_0F2, double a_1F2, double a_2F2, double MRF2_2);
+
+    /**
+    * @brief The transverse form factor \f$ T_0 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0T0 fit parameter
+    * @param[in] a_1T0 fit parameter
+    * @param[in] a_2T0 fit parameter
+    * @param[in] MRT0_2 fit parameter
+    * @return \f$ T_0 \f$
+    */
+    double T0_DM(double q2, double a_0T0, double a_1T0, double a_2T0, double MRT0_2);
+
+    /**
+    * @brief The transverse form factor \f$ T_1 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0T1 fit parameter
+    * @param[in] a_1T1 fit parameter
+    * @param[in] a_2T1 fit parameter
+    * @param[in] MRT1_2 fit parameter
+    * @return \f$ T_1 \f$
+    */
+    double T1_DM(double q2, double a_0T1, double a_1T1, double a_2T1, double MRT1_2);
+
+    /**
+    * @brief The transverse form factor \f$ T_2 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0T2 fit parameter
+    * @param[in] a_1T2 fit parameter
+    * @param[in] a_2T2 fit parameter
+    * @param[in] MRT2_2 fit parameter
+    * @return \f$ T_2 \f$
+    */
+    double T2_DM(double q2, double a_0T2, double a_1T2, double a_2T2, double MRT2_2);
+
     /**
     * @brief The transverse form factor \f$ V \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
@@ -2242,6 +2461,19 @@ private:
                 throw std::runtime_error("MVll::getDelta9 : vector " + out.str() + " not implemented");
         }
     };
+    
+    /**
+    * @brief The value of \f$ \Sigma_{tree}: contains the full q2-dependence but neglects a "prefactor"
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ <\Sigma{tree}> \f$
+    */
+    double SigmaTree(double q2);
+   
+    /**
+    * @brief The integral of \f$ \Sigma_{tree} \f$ from 0 to \f$q_{cut}\f$
+    * @return \f$ <\Sigma{tree}> \f$
+    */
+    double getintegratedSigmaTree();
     
     gslpp::complex A_Seidel(double q2, double mb2);
     

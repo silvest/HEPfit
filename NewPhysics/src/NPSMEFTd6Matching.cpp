@@ -18,7 +18,8 @@ NPSMEFTd6Matching::NPSMEFTd6Matching(const NPSMEFTd6 & NPSMEFTd6_i) :
     mcbsmm(8, NDR, NNLO, NLO_QED22),
     mcbdmm(8, NDR, NNLO, NLO_QED22),
     mcBMll(13, NDR, NLO),
-    mcprimeBMll(13, NDR, NLO)
+    mcprimeBMll(13, NDR, NLO),
+    mcbsnn(2, NDR, NLO, NLO_QED11)
 {}
 
 void NPSMEFTd6Matching::updateNPSMEFTd6Parameters()
@@ -29,6 +30,7 @@ void NPSMEFTd6Matching::updateNPSMEFTd6Parameters()
     
     double ytop = myNPSMEFTd6.getQuarks(QCD::TOP).getMass()/myNPSMEFTd6.v();
     loop_factor = myNPSMEFTd6.getCKM().computelamt_s()*ytop*ytop/(16.*M_PI*M_PI);
+    loop_factor_2 = 4./3.*(myNPSMEFTd6.v()/myNPSMEFTd6.getLambda_NP())*(myNPSMEFTd6.v()/myNPSMEFTd6.getLambda_NP())/myNPSMEFTd6.getCKM().computelamt_s();
     
     C7NP = 0.; // to be implemented
     C8NP = 0.; // to be implemented 
@@ -41,10 +43,18 @@ void NPSMEFTd6Matching::updateNPSMEFTd6Parameters()
     CLQ1_1123_tot -= loop_factor*logLambdaomu*(myNPSMEFTd6.getCHL1_11()-myNPSMEFTd6.getCLu_1133());
     CLQ1_2223_tot = myNPSMEFTd6.getCLQ1_2223();
     CLQ1_2223_tot -= loop_factor*logLambdaomu*(myNPSMEFTd6.getCHL1_22()-myNPSMEFTd6.getCLu_2233());
+    CLQ1_3323_tot = myNPSMEFTd6.getCLQ1_3323();
+    //CLQ1_3323_tot -= loop_factor*logLambdaomu*(myNPSMEFTd6.getCHL1_33()-myNPSMEFTd6.getCLu_3333());
+    CLQ1_1123_tot += loop_factor_2*logLambdaomu*myNPSMEFTd6.getCLQ1_3323();
+    CLQ1_2223_tot += loop_factor_2*logLambdaomu*myNPSMEFTd6.getCLQ1_3323();
     CLQ3_1123_tot = myNPSMEFTd6.getCLQ3_1123();
     CLQ3_1123_tot += loop_factor*logLambdaomu*myNPSMEFTd6.getCHL3_11();
     CLQ3_2223_tot = myNPSMEFTd6.getCLQ3_2223();
     CLQ3_2223_tot += loop_factor*logLambdaomu*myNPSMEFTd6.getCHL3_22();
+    CLQ3_3323_tot = myNPSMEFTd6.getCLQ3_3323();
+    //CLQ3_3323_tot += loop_factor*logLambdaomu*myNPSMEFTd6.getCHL3_33();
+    CLQ3_1123_tot += loop_factor_2*logLambdaomu*myNPSMEFTd6.getCLQ3_3323();
+    CLQ3_2223_tot += loop_factor_2*logLambdaomu*myNPSMEFTd6.getCLQ3_3323();
     CQe_2311_tot = myNPSMEFTd6.getCQe_2311();
     CQe_2311_tot -= loop_factor*logLambdaomu*(myNPSMEFTd6.getCHe_11()-myNPSMEFTd6.getCeu_1133());
     CQe_2322_tot = myNPSMEFTd6.getCQe_2322();
@@ -67,6 +77,13 @@ void NPSMEFTd6Matching::updateNPSMEFTd6Parameters()
     CSpNPe = SMEFT_factor*myNPSMEFTd6.getCpLedQ_11();
     CPNPe = -SMEFT_factor*CSNPe;
     CPpNPe = SMEFT_factor*CSpNPe; 
+
+    CLnunuNPe = SMEFT_factor*(CLQ1_1123_tot-CLQ3_1123_tot);
+    CRnunuNPe = SMEFT_factor*myNPSMEFTd6.getCLd_1123();
+    CLnunuNPmu = SMEFT_factor*(CLQ1_2223_tot-CLQ3_2223_tot);
+    CRnunuNPmu = SMEFT_factor*myNPSMEFTd6.getCLd_2223();
+    CLnunuNPtau = SMEFT_factor*(CLQ1_3323_tot-CLQ3_3323_tot);
+    CRnunuNPtau = SMEFT_factor*myNPSMEFTd6.getCLd_3323();
     
     StandardModelMatching::updateSMParameters();
 }
@@ -310,4 +327,54 @@ std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMprimeBMll(QCD::lepton lepto
 
     vmcprimeBMll.push_back(mcprimeBMll);
     return (vmcprimeBMll);
+}
+
+std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMBXsnn(QCD::lepton lepton) {
+
+    vmcbsnn.clear();
+    for (std::vector<WilsonCoefficient>::const_iterator it = StandardModelMatching::CMBXsnn(lepton).begin(); it != StandardModelMatching::CMBXsnn(lepton).end(); it++ ) vmcbsnn.push_back(*it);
+
+    mcbsnn.setMu(Muw);
+
+    switch (mcbsnn.getOrder()) {
+        case NNLO:
+        case NLO:
+            mcbsnn.setCoeff(0, 0., NLO);
+            mcbsnn.setCoeff(1, 0., NLO);
+        case LO:
+            if(lepton == NPSMEFTd6::NEUTRINO_1){
+                mcbsnn.setCoeff(0, CLnunuNPe, LO);
+                mcbsnn.setCoeff(1, CRnunuNPe, LO);
+            }
+            else if(lepton == NPSMEFTd6::NEUTRINO_2){
+                mcbsnn.setCoeff(0, CLnunuNPmu, LO);
+                mcbsnn.setCoeff(1, CRnunuNPmu, LO);
+            }
+            else if(lepton == NPSMEFTd6::NEUTRINO_3){
+                mcbsnn.setCoeff(0, CLnunuNPtau, LO);
+                mcbsnn.setCoeff(1, CRnunuNPtau, LO);
+            }
+            break;
+        default:
+            std::stringstream out;
+            out << mcbsnn.getOrder();
+            throw std::runtime_error("NPSMEFTd6Matching::CMBXsnn(): order " + out.str() + "not implemented"); 
+    }
+
+    switch (mcbsnn.getOrder_qed()) {
+        case NLO_QED11:
+            mcbsnn.setCoeff(0, 0., NLO_QED11);
+            mcbsnn.setCoeff(1, 0., NLO_QED11);
+        case LO_QED:
+            mcbsnn.setCoeff(0, 0., LO_QED);
+            mcbsnn.setCoeff(1, 0., LO_QED);
+            break; 
+        default:
+            std::stringstream out;
+            out << mcbsnn.getOrder_qed();
+            throw std::runtime_error("NPSMEFTd6Matching::CMXsnn(): qed order " + out.str() + " not implemented"); 
+    }
+
+    vmcbsnn.push_back(mcbsnn);
+    return (vmcbsnn);
 }

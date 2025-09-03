@@ -46,8 +46,8 @@ double muVBFgamma::computeThValue()
     return myNPbase->muVBFgamma(sqrt_s);
 }
 
-mueeWBF::mueeWBF(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeWBF::mueeWBF(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBF called with a class whose parent is not NPbase");
@@ -56,23 +56,12 @@ mueeWBF::mueeWBF(const StandardModel& SM_i, const double sqrt_s_i)
 
 double mueeWBF::computeThValue()
 {
-    return myNPbase->mueeWBF(sqrt_s);
+    return myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep);
 }
 
-mueeWBFPol::mueeWBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeHvv::mueeHvv(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeWBFPol called with a class whose parent is not NPbase");
-}
-
-double mueeWBFPol::computeThValue()
-{
-    return myNPbase->mueeWBFPol(sqrt_s, Pol_em, Pol_ep);
-}
-
-mueeHvv::mueeHvv(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvv called with a class whose parent is not NPbase");
@@ -80,23 +69,12 @@ mueeHvv::mueeHvv(const StandardModel& SM_i, const double sqrt_s_i)
 
 double mueeHvv::computeThValue()
 {
-    return myNPbase->mueeHvv(sqrt_s);
+    return myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep);
 }
 
-mueeHvvPol::mueeHvvPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeZBF::mueeZBF(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvPol called with a class whose parent is not NPbase");
-}
-
-double mueeHvvPol::computeThValue()
-{
-    return myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep);
-}
-
-mueeZBF::mueeZBF(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeZBF called with a class whose parent is not NPbase");
@@ -105,20 +83,9 @@ mueeZBF::mueeZBF(const StandardModel& SM_i, const double sqrt_s_i)
 
 double mueeZBF::computeThValue()
 {
-    return myNPbase->mueeZBF(sqrt_s);
+    return myNPbase->mueeZBF(sqrt_s, Pol_em, Pol_ep);
 }
 
-mueeZBFPol::mueeZBFPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeZBFPol called with a class whose parent is not NPbase");
-}
-
-double mueeZBFPol::computeThValue()
-{
-    return myNPbase->mueeZBFPol(sqrt_s, Pol_em, Pol_ep);
-}
 
 muepWBF::muepWBF(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
@@ -204,7 +171,7 @@ mueeZHGen::mueeZHGen(const StandardModel& SM_i, const double sqrt_s_i, const dou
 
 double mueeZHGen::computeThValue()
 {
-    return myNPbase->mueeZHGen(sqrt_s, Pol_em, Pol_ep);
+    return ( (myNPbase->mueeZHGen(sqrt_s, Pol_em, Pol_ep)) ); //+ (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 
@@ -217,11 +184,11 @@ mueeZH::mueeZH(const StandardModel& SM_i, const double sqrt_s_i, const double Po
 
 double mueeZH::computeThValue()
 {
-    return myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep);
+    return ( (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) ); //+ (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
-mueeZllH::mueeZllH(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeZllH::mueeZllH(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeZllH called with a class whose parent is not NPbase");
@@ -229,23 +196,12 @@ mueeZllH::mueeZllH(const StandardModel& SM_i, const double sqrt_s_i)
 
 double mueeZllH::computeThValue()
 {
-    return myNPbase->mueeZllH(sqrt_s);
+    return ( (myNPbase->mueeZllH(sqrt_s, Pol_em, Pol_ep)) ); //+ (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
-mueeZllHPol::mueeZllHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeZqqH::mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeZllHPol called with a class whose parent is not NPbase");
-}
-
-double mueeZllHPol::computeThValue()
-{
-    return myNPbase->mueeZllHPol(sqrt_s, Pol_em, Pol_ep);
-}
-
-mueeZqqH::mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeZqqH called with a class whose parent is not NPbase");
@@ -253,19 +209,7 @@ mueeZqqH::mueeZqqH(const StandardModel& SM_i, const double sqrt_s_i)
 
 double mueeZqqH::computeThValue()
 {
-    return myNPbase->mueeZqqH(sqrt_s);
-}
-
-mueeZqqHPol::mueeZqqHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeZqqHPol called with a class whose parent is not NPbase");
-}
-
-double mueeZqqHPol::computeThValue()
-{
-    return myNPbase->mueeZqqHPol(sqrt_s, Pol_em, Pol_ep);
+    return ( (myNPbase->mueeZqqH(sqrt_s, Pol_em, Pol_ep)) ); // + (myNPbase->delta2sH3(myNPbase->C1eeZH(sqrt_s))) );
 }
 
 
@@ -367,8 +311,8 @@ double muggHpttH::computeThValue()
     return myNPbase->muggHpttH(sqrt_s);
 }
 
-mueettH::mueettH(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueettH::mueettH(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueettH called with a class whose parent is not NPbase");
@@ -377,20 +321,9 @@ mueettH::mueettH(const StandardModel& SM_i, const double sqrt_s_i)
 
 double mueettH::computeThValue()
 {
-    return myNPbase->mueettH(sqrt_s);
+    return myNPbase->mueettH(sqrt_s, Pol_em, Pol_ep);
 }
 
-mueettHPol::mueettHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueettHPol called with a class whose parent is not NPbase");
-}
-
-double mueettHPol::computeThValue()
-{
-    return myNPbase->mueettHPol(sqrt_s, Pol_em, Pol_ep);
-}
 
 mummH::mummH(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
@@ -974,6 +907,36 @@ double BrHtoZmumuga_over_mumu_Ratio::computeThValue()
         return (1.0 + (myNPbase->BrHZgamumuRatio()) - (myNPbase->BrHmumuRatio()));
     } else {
         return (myNPbase->BrHZgamumuRatio()) / (myNPbase->BrHmumuRatio());
+    }
+}
+
+BrHtoZga_over_4mu_Ratio::BrHtoZga_over_4mu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtoZga_over_4mu_Ratio called with a class whose parent is not NPbase");
+}
+
+double BrHtoZga_over_4mu_Ratio::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return (1.0 + (myNPbase->BrHZgaRatio()) - (myNPbase->BrH4muRatio()));
+    } else {
+        return (myNPbase->BrHZgaRatio()) / (myNPbase->BrH4muRatio());
+    }
+}
+
+BrHtoZmumuga_over_4mu_Ratio::BrHtoZmumuga_over_4mu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("BrHtoZmumuga_over_4mu_Ratio called with a class whose parent is not NPbase");
+}
+
+double BrHtoZmumuga_over_4mu_Ratio::computeThValue()
+{
+    if ((this->getModel()).isModelLinearized()) {
+        return (1.0 + (myNPbase->BrHZgamumuRatio()) - (myNPbase->BrH4muRatio()));
+    } else {
+        return (myNPbase->BrHZgamumuRatio()) / (myNPbase->BrH4muRatio());
     }
 }
 
@@ -1718,6 +1681,135 @@ double muttHZga::computeThValue()
         return myNPbase->muttHZga(sqrt_s);
     }
 }
+
+
+
+
+
+muggHpttHptHpbbH_HZga::muggHpttHptHpbbH_HZga(const StandardModel& SM_i, const double sqrt_s_i)    //VM:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muggHpttHptHpbbH_HZga called with a class whose parent is not NPbase");
+}
+
+double muggHpttHptHpbbH_HZga::computeThValue()                                           //VM:added
+{
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this. Furthermore, the bbH is not included. In the SM this is
+    //very suppressed (and it's probably also the case in the SMEFT) but 
+    //in some NP models it may not be the case.Unfortunately, bbH is not
+    //obtained in the SMEFT, we could just set delta_mubbH to zero in the
+    //SMEFT and add here the general expression.
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_ggHbbH = 44.745;
+    double xsSM_ttH    = 0.4998;
+    double xsSM_tH     = 0.084769;
+    //double xsSM_ggH = myNPbase->computeSigmaggH(sqrt_s);
+    //double xsSM_ttH = myNPbase->computeSigmattH(sqrt_s);
+    //double xsSM_tH = myNPbase->computeSigmatH(sqrt_s);
+    //double xsSM_bbH = myNPbase->computeSigmabbH(sqrt_s);
+
+    
+    
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_1(sqrt_s)) + xsSM_ttH*(myNPbase->delta_muttH_1(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_1(sqrt_s)) )/(xsSM_ggHbbH+xsSM_ttH+xsSM_tH) ;
+        double muProd2 = ( xsSM_ggHbbH*(myNPbase->delta_muggH_2(sqrt_s)) + xsSM_ttH*(myNPbase->delta_muttH_2(sqrt_s)) + xsSM_tH*(myNPbase->delta_mutH_2(sqrt_s)) )/(xsSM_ggHbbH+xsSM_ttH+xsSM_tH) ;
+        double dGammaR1 = myNPbase->deltaGammaHZgaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZgaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
+    } else {
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end). Furthermore, the Hbb
+        //is not added in the original formula, fine for the SM (probably also
+        //for the SMEFT) but not for all NP models.
+        double NPmuggHpttHptHpbbH_HZga = myNPbase->muggHpttHptHpbbH_HZga(sqrt_s);
+        if(NPmuggHpttHptHpbbH_HZga==1.0){
+            return ( (xsSM_ggHbbH*(myNPbase->muggH(sqrt_s))+xsSM_ttH*(myNPbase->muttH(sqrt_s))+xsSM_tH*(myNPbase->mutH(sqrt_s))) / (xsSM_ggHbbH+xsSM_ttH+xsSM_tH)  )*(myNPbase->BrHZgaRatio()) ;
+        } else {
+            return NPmuggHpttHptHpbbH_HZga;
+        }  
+    }
+}
+
+
+muVBFpVH_HZga::muVBFpVH_HZga(const StandardModel& SM_i, const double sqrt_s_i)  //VM:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muVBFpVH_HZga called with a class whose parent is not NPbase");
+}
+
+double muVBFpVH_HZga::computeThValue()                                          //VM:added
+{
+    
+    //VM:Note that these values are valid for 13 TeV, they are not general
+    //We should access the SM function that has all the values (for the 
+    //different energies). The values are slightly different, we should 
+    //check this. 
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure2a (symmetrized)
+    double xsSM_VBF = 3.49948;
+    double xsSM_WH  = 1.21539;
+    double xsSM_ZH  = 0.795910;
+    //double xsSM_VBF = myNPbase->computeSigmaVBF(sqrt_s);
+    //double xsSM_WH = myNPbase->computeSigmaWH(sqrt_s);
+    //double xsSM_ZH = myNPbase->computeSigmaZH(sqrt_s);
+    if ((this->getModel()).isModelLinearized() || (this->getModel()).isModelNPquadratic()) {
+        //AG: Most general expression including quadratic corrections. 
+        //    If FlagQuadraticTerms=false, the quadratic pieces become 0 in NPSMEFTd6General
+        double muProd1 = ( xsSM_VBF*(myNPbase->delta_muVBF_1(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_1(sqrt_s)) + xsSM_ZH*(myNPbase->delta_muZH_1(sqrt_s)) )/(xsSM_VBF+xsSM_WH+xsSM_ZH);
+        double muProd2 = ( xsSM_VBF*(myNPbase->delta_muVBF_2(sqrt_s)) + xsSM_WH*(myNPbase->delta_muWH_2(sqrt_s)) + xsSM_ZH*(myNPbase->delta_muZH_2(sqrt_s)) )/(xsSM_VBF+xsSM_WH+xsSM_ZH);
+        double dGammaR1 = myNPbase->deltaGammaHZgaRatio1();
+        double dGammaR2 = myNPbase->deltaGammaHZgaRatio2();
+        
+        double dGammaRTot1 = myNPbase->deltaGammaTotalRatio1();
+        double dGammaRTot2 = myNPbase->deltaGammaTotalRatio2();
+        double Br1 = dGammaR1-dGammaRTot1;
+        double Br2 = dGammaR2 -dGammaRTot2 - dGammaR1*dGammaRTot1 + pow(dGammaRTot1,2.0);
+
+        double mu;
+        
+        mu = 1.0 + (muProd1 + Br1) + (muProd2 + Br2 + muProd1*Br1);
+        
+        if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+        
+        return mu; 
+        
+    } else {
+        
+        //VM: Just in case someone wants to add directly the production*decay 
+        //(which is the observable we fit at the end).
+        double NPmuVBFpVH_HZga = myNPbase->muVBFpVH_HZga(sqrt_s);
+        if(NPmuVBFpVH_HZga==1.0){
+            return ( (xsSM_VBF*(myNPbase->muVBF(sqrt_s))+xsSM_WH*(myNPbase->muWH(sqrt_s))+xsSM_ZH*(myNPbase->muZH(sqrt_s))) / (xsSM_VBF+xsSM_WH+xsSM_ZH)  )*(myNPbase->BrHZgaRatio()) ;
+        } else {
+            return NPmuVBFpVH_HZga;
+        } 
+    }
+}
+
+
+
+
+
 
 muggHZZ::muggHZZ(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
@@ -3644,6 +3736,18 @@ double muttHZbbboost::computeThValue()
     return (myNPbase->muttHZbbboost(sqrt_s));
 }
 
+muttHgagaZeeboost::muttHgagaZeeboost(const StandardModel& SM_i, const double sqrt_s_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("muttHgagaZeeboost called with a class whose parent is not NPbase");
+}
+
+double muttHgagaZeeboost::computeThValue()
+{
+    return (myNPbase->muttHgagaZeeboost(sqrt_s));
+}
+
 //AG:begin
 ggHgaga::ggHgaga(const StandardModel& SM_i, const double sqrt_s_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i)
@@ -4134,7 +4238,7 @@ mueeZHbb::mueeZHbb(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }
@@ -4150,7 +4254,7 @@ mueeZHcc::mueeZHcc(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHcc::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hcc)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
     }
@@ -4166,7 +4270,7 @@ mueeZHss::mueeZHss(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHss::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHssRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHssRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hss)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHssRatio());
     }
@@ -4182,7 +4286,7 @@ mueeZHgg::mueeZHgg(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHgg::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hgg)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
     }
@@ -4198,7 +4302,7 @@ mueeZHWW::mueeZHWW(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHWW::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1HWW)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
     }
@@ -4214,7 +4318,7 @@ mueeZHtautau::mueeZHtautau(const StandardModel& SM_i, const double sqrt_s_i, con
 double mueeZHtautau::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Htautau)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
     }
@@ -4230,7 +4334,7 @@ mueeZHZZ::mueeZHZZ(const StandardModel& SM_i, const double sqrt_s_i, const doubl
 double mueeZHZZ::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1HZZ)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
     }
@@ -4246,7 +4350,7 @@ mueeZHZga::mueeZHZga(const StandardModel& SM_i, const double sqrt_s_i, const dou
 double mueeZHZga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1HZga)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZgaRatio());
     }
@@ -4262,7 +4366,7 @@ mueeZHgaga::mueeZHgaga(const StandardModel& SM_i, const double sqrt_s_i, const d
 double mueeZHgaga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hgaga)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
     }
@@ -4278,7 +4382,7 @@ mueeZHmumu::mueeZHmumu(const StandardModel& SM_i, const double sqrt_s_i, const d
 double mueeZHmumu::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1Hmumu)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
     }
@@ -4309,15 +4413,15 @@ double mueeZHinv::computeThValue()
 {
 
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtoinvRatio()) - 1.0);
+        return ((myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtoinvRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZH(sqrt_s), myNPbase->C1HZZ)) - 1.0);
     } else {
         return (myNPbase->mueeZH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHtoinvRatio());
     }
 
 }
 
-mueeWBFbb::mueeWBFbb(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeWBFbb::mueeWBFbb(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBFbb called with a class whose parent is not NPbase");
@@ -4327,31 +4431,15 @@ mueeWBFbb::mueeWBFbb(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHbbRatio());
+        return (myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }
 }
 
-mueeWBFbbPol::mueeWBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeWBFcc::mueeWBFcc(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeWBFbbPol called with a class whose parent is not NPbase");
-
-}
-
-double mueeWBFbbPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBFPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeWBFPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
-    }
-}
-
-mueeWBFcc::mueeWBFcc(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBFcc called with a class whose parent is not NPbase");
@@ -4361,14 +4449,14 @@ mueeWBFcc::mueeWBFcc(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFcc::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hcc)) - 1.0);
     } else {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHccRatio());
+        return (myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
     }
 }
 
-mueeWBFgg::mueeWBFgg(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeWBFgg::mueeWBFgg(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBFgg called with a class whose parent is not NPbase");
@@ -4378,14 +4466,14 @@ mueeWBFgg::mueeWBFgg(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFgg::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hgg)) - 1.0);
     } else {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHggRatio());
+        return (myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
     }
 }
 
-mueeWBFWW::mueeWBFWW(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeWBFWW::mueeWBFWW(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBFWW called with a class whose parent is not NPbase");
@@ -4395,14 +4483,14 @@ mueeWBFWW::mueeWBFWW(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFWW::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHWWRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1HWW)) - 1.0);
     } else {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHWWRatio());
+        return (myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
     }
 }
 
-mueeWBFtautau::mueeWBFtautau(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeWBFtautau::mueeWBFtautau(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBFtautau called with a class whose parent is not NPbase");
@@ -4412,14 +4500,14 @@ mueeWBFtautau::mueeWBFtautau(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFtautau::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Htautau)) - 1.0);
     } else {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHtautauRatio());
+        return (myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
     }
 }
 
-mueeWBFZZ::mueeWBFZZ(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeWBFZZ::mueeWBFZZ(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBFZZ called with a class whose parent is not NPbase");
@@ -4429,14 +4517,14 @@ mueeWBFZZ::mueeWBFZZ(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFZZ::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHZZRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1HZZ)) - 1.0);
     } else {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHZZRatio());
+        return (myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
     }
 }
 
-mueeWBFZga::mueeWBFZga(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeWBFZga::mueeWBFZga(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBFZga called with a class whose parent is not NPbase");
@@ -4446,14 +4534,14 @@ mueeWBFZga::mueeWBFZga(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFZga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHZgaRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1HZga)) - 1.0);
     } else {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHZgaRatio());
+        return (myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZgaRatio());
     }
 }
 
-mueeWBFgaga::mueeWBFgaga(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeWBFgaga::mueeWBFgaga(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBFgaga called with a class whose parent is not NPbase");
@@ -4463,14 +4551,14 @@ mueeWBFgaga::mueeWBFgaga(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFgaga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hgaga)) - 1.0);
     } else {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHgagaRatio());
+        return (myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
     }
 }
 
-mueeWBFmumu::mueeWBFmumu(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeWBFmumu::mueeWBFmumu(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeWBFmumu called with a class whose parent is not NPbase");
@@ -4480,14 +4568,14 @@ mueeWBFmumu::mueeWBFmumu(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeWBFmumu::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHmumuRatio()) - 1.0);
+        return ((myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeWBF(sqrt_s), myNPbase->C1Hmumu)) - 1.0);
     } else {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHmumuRatio());
+        return (myNPbase->mueeWBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
     }
 }
 
-mueeHvvbb::mueeHvvbb(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+mueeHvvbb::mueeHvvbb(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvvbb called with a class whose parent is not NPbase");
@@ -4497,31 +4585,15 @@ mueeHvvbb::mueeHvvbb(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
-        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHbbRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }
 }
 
-mueeHvvbbPol::mueeHvvbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeHvvcc::mueeHvvcc(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvbbPol called with a class whose parent is not NPbase");
-
-}
-
-double mueeHvvbbPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
-    }
-}
-
-mueeHvvcc::mueeHvvcc(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvvcc called with a class whose parent is not NPbase");
@@ -4531,31 +4603,33 @@ mueeHvvcc::mueeHvvcc(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvcc::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hcc)) - 1.0);
     } else {
-        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHccRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
     }
 }
 
-mueeHvvccPol::mueeHvvccPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeHvvss::mueeHvvss(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvccPol called with a class whose parent is not NPbase");
+        throw std::runtime_error("mueeHvvss called with a class whose parent is not NPbase");
 
 }
 
-double mueeHvvccPol::computeThValue()
+double mueeHvvss::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHssRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hss)) - 1.0);
     } else {
-        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHssRatio());
     }
 }
 
-mueeHvvgg::mueeHvvgg(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
+
+mueeHvvgg::mueeHvvgg(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvvgg called with a class whose parent is not NPbase");
@@ -4565,31 +4639,15 @@ mueeHvvgg::mueeHvvgg(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvgg::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hgg)) - 1.0);
     } else {
-        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHggRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
     }
 }
 
-mueeHvvggPol::mueeHvvggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeHvvWW::mueeHvvWW(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvggPol called with a class whose parent is not NPbase");
-
-}
-
-double mueeHvvggPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
-    }
-}
-
-mueeHvvWW::mueeHvvWW(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvvWW called with a class whose parent is not NPbase");
@@ -4599,31 +4657,15 @@ mueeHvvWW::mueeHvvWW(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvWW::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHWWRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1HWW)) - 1.0);
     } else {
-        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHWWRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
     }
 }
 
-mueeHvvWWPol::mueeHvvWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeHvvtautau::mueeHvvtautau(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvWWPol called with a class whose parent is not NPbase");
-
-}
-
-double mueeHvvWWPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
-    }
-}
-
-mueeHvvtautau::mueeHvvtautau(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvvtautau called with a class whose parent is not NPbase");
@@ -4633,31 +4675,15 @@ mueeHvvtautau::mueeHvvtautau(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvtautau::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Htautau)) - 1.0);
     } else {
-        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHtautauRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
     }
 }
 
-mueeHvvtautauPol::mueeHvvtautauPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeHvvZZ::mueeHvvZZ(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvtautauPol called with a class whose parent is not NPbase");
-
-}
-
-double mueeHvvtautauPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
-    }
-}
-
-mueeHvvZZ::mueeHvvZZ(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvvZZ called with a class whose parent is not NPbase");
@@ -4667,31 +4693,15 @@ mueeHvvZZ::mueeHvvZZ(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvZZ::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHZZRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1HZZ)) - 1.0);
     } else {
-        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHZZRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
     }
 }
 
-mueeHvvZZPol::mueeHvvZZPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeHvvZga::mueeHvvZga(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvZZPol called with a class whose parent is not NPbase");
-
-}
-
-double mueeHvvZZPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
-    }
-}
-
-mueeHvvZga::mueeHvvZga(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvvZga called with a class whose parent is not NPbase");
@@ -4701,31 +4711,15 @@ mueeHvvZga::mueeHvvZga(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvZga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHZgaRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1HZga)) - 1.0);
     } else {
-        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHZgaRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZgaRatio());
     }
 }
 
-mueeHvvZgaPol::mueeHvvZgaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeHvvgaga::mueeHvvgaga(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvZgaPol called with a class whose parent is not NPbase");
-
-}
-
-double mueeHvvZgaPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHZgaRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHZgaRatio());
-    }
-}
-
-mueeHvvgaga::mueeHvvgaga(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvvgaga called with a class whose parent is not NPbase");
@@ -4735,31 +4729,15 @@ mueeHvvgaga::mueeHvvgaga(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvgaga::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hgaga)) - 1.0);
     } else {
-        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHgagaRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
     }
 }
 
-mueeHvvgagaPol::mueeHvvgagaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeHvvmumu::mueeHvvmumu(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvgagaPol called with a class whose parent is not NPbase");
-
-}
-
-double mueeHvvgagaPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
-    }
-}
-
-mueeHvvmumu::mueeHvvmumu(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeHvvmumu called with a class whose parent is not NPbase");
@@ -4769,31 +4747,15 @@ mueeHvvmumu::mueeHvvmumu(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeHvvmumu::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvv(sqrt_s)) + (myNPbase->BrHmumuRatio()) - 1.0);
+        return ((myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeHvv(sqrt_s), myNPbase->C1Hmumu)) - 1.0);
     } else {
-        return (myNPbase->mueeHvv(sqrt_s))*(myNPbase->BrHmumuRatio());
+        return (myNPbase->mueeHvv(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
     }
 }
 
-mueeHvvmumuPol::mueeHvvmumuPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueeZBFbb::mueeZBFbb(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeHvvmumuPol called with a class whose parent is not NPbase");
-
-}
-
-double mueeHvvmumuPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeHvvPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
-    }
-}
-
-mueeZBFbb::mueeZBFbb(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueeZBFbb called with a class whose parent is not NPbase");
@@ -4802,30 +4764,15 @@ mueeZBFbb::mueeZBFbb(const StandardModel& SM_i, const double sqrt_s_i)
 double mueeZBFbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZBF(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueeZBF(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eeZBF(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
-        return (myNPbase->mueeZBF(sqrt_s))*(myNPbase->BrHbbRatio());
+        return (myNPbase->mueeZBF(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }
 }
 
-mueeZBFbbPol::mueeZBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
+
+mueettHbb::mueettHbb(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueeZBFbbPol called with a class whose parent is not NPbase");
-}
-
-double mueeZBFbbPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueeZBFPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueeZBFPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
-    }
-}
-
-mueettHbb::mueettHbb(const StandardModel& SM_i, const double sqrt_s_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i)
 {
     if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
         throw std::runtime_error("mueettHbb called with a class whose parent is not NPbase");
@@ -4834,27 +4781,12 @@ mueettHbb::mueettHbb(const StandardModel& SM_i, const double sqrt_s_i)
 double mueettHbb::computeThValue()
 {
     if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueettH(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        return ((myNPbase->mueettH(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0); // + (myNPbase->delta2sBRH3(myNPbase->C1eettH(sqrt_s), myNPbase->C1Hbb)) - 1.0);
     } else {
-        return (myNPbase->mueettH(sqrt_s))*(myNPbase->BrHbbRatio());
+        return (myNPbase->mueettH(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
     }
 }
 
-mueettHbbPol::mueettHbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("mueettHbbPol called with a class whose parent is not NPbase");
-}
-
-double mueettHbbPol::computeThValue()
-{
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->mueettHPol(sqrt_s, Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
-    } else {
-        return (myNPbase->mueettHPol(sqrt_s, Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
-    }
-}
 
 
 //  Production signal strengths at mu+ mu- colliders
@@ -7647,6 +7579,80 @@ double STXS12_ggH_pTH120_200_Nj1::computeThValue()                              
 
 }
 
+
+
+// -----------------------------------------------------------------------------
+
+//VM:STXS2025
+STXS12_ggH_pTH60_200_Nj1::STXS12_ggH_pTH60_200_Nj1(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ggH_pTH60_200_Nj1 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ggH_pTH60_200_Nj1::computeThValue()                              //VM:modified
+{
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    double muProd   = (4.50294*(myNPbase->STXS12_ggH_pTH60_120_Nj1(sqrt_s))+
+                      0.74712*(myNPbase->STXS12_ggH_pTH120_200_Nj1(sqrt_s))
+                      )/(4.50294+0.74712);
+    double muProd1  = muProd -1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = (4.50294+0.74712); //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 2){
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 3){
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 4){
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else {
+        throw std::runtime_error("STXS12_ggH_pTH60_200_Nj1 called with invalid argument for final state in fstate_i");
+    } 
+
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
+    } else {
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+}
+
+
 // -----------------------------------------------------------------------------
 
 STXS12_ggH_mjj0_350_pTH0_60_Nj2::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
@@ -7659,24 +7665,67 @@ STXS12_ggH_mjj0_350_pTH0_60_Nj2::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const StandardM
 
 double STXS12_ggH_mjj0_350_pTH0_60_Nj2::computeThValue()
 {
-    double BrHXXRatio = 1.0;
-    if (fstate == 1){
-        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    
+    
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    
+    double muProd   = ((myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s)));
+    double muProd1  = muProd -1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    
+    
+    
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = (1.24); //Ref: CMS note HIG-21-018-PAS-V3
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 2){
-        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 3){
-        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
-        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_ggH_mjj0_350_pTH0_60_Nj2 called with invalid argument for final state in fstate_i");
     } 
 
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    
+    
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
     } else {
-        return (myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s))*(BrHXXRatio);
-    }
+        return weight*(muProd)*(BrHXXRatio);
+    } 
 }
 
 // -----------------------------------------------------------------------------
@@ -7691,24 +7740,65 @@ STXS12_ggH_mjj0_350_pTH60_120_Nj2::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const Stand
 
 double STXS12_ggH_mjj0_350_pTH60_120_Nj2::computeThValue()
 {
-    double BrHXXRatio = 1.0;
-    if (fstate == 1){
-        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    
+    
+    double muProd   = ((myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s)));
+    double muProd1  = muProd -1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    
+    
+    
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = (2.00); //Ref: CMS note HIG-21-018-PAS-V3
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 2){
-        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 3){
-        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
-        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_ggH_mjj0_350_pTH60_120_Nj2 called with invalid argument for final state in fstate_i");
     } 
 
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
     } else {
-        return (myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s))*(BrHXXRatio);
-    }
+        return weight*(muProd)*(BrHXXRatio);
+    } 
 }
 
 
@@ -7731,12 +7821,10 @@ double STXS12_ggH_mjj0_350_pTH0_120_Nj2::computeThValue()
     //-- Production:
     double weight = 1.0; //If normalized to the SM
     //Ref: https://www.hepdata.net/record/ins2104706 Figure7.
-    //We should weight each xsection with the SM prediction. We need to check
-    //this values, nevertheless, the difference between the two parametrisations
-    //is extremely small (way beyond our current precision)
-    double muProd   = ((myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s)) +
-                       (myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s)) )
-                        /(2.);
+    
+    double muProd   = ((1.24)*(myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s)) +
+                       (2.00)*(myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s)) )
+                        /(1.24+2.00);
     double muProd1  = muProd -1.0;
     double muProd2  = 0.0;
 
@@ -7747,6 +7835,11 @@ double STXS12_ggH_mjj0_350_pTH0_120_Nj2::computeThValue()
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
         weight = (2.9636); //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        //This weight is a bit smaller than the sum of the weights considered for the two bins that
+        //generate this bin when combined 1.24+2.00=3.24, This is because the values have been obtained
+        //from different papers and they give slightly different predictions. However, the uncertainty
+        //given by the ATLAS paper that combines the bins is of 0.6 pb for the SM prediction, above the
+        //difference that we find with the other SM prediction so it is fine.
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -7839,7 +7932,15 @@ double STXS12_ggH_mjj0_350_pTH120_200_Nj2::computeThValue()                     
         BrHXXRatio   = (myNPbase->BrHtautauRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
-    }else {
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else {
         throw std::runtime_error("STXS12_ggH_mjj0_350_pTH120_200_Nj2 called with invalid argument for final state in fstate_i");
     } 
 
@@ -7886,7 +7987,7 @@ double STXS12_ggH_mjj350_Inf_pTH0_200_Nj2::computeThValue()
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = (0.92136); //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        weight = (0.87751); //Ref: https://www.hepdata.net/record/ins2104706 Figure7. 
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -8083,15 +8184,17 @@ double STXS12_ggH_pTH0_200_Nj2::computeThValue()
     //-- Production:
     double weight = 1.0; //If normalized to the SM
     //Ref: https://www.hepdata.net/record/ins2104706 Figure7.
+    //Ref: Also CMS note HIG-21-018-PAS-v3
     //VM: In the reference above we have the SM predictions for less bins. Angelica should have
     //the ones for Madgraph and we could use those. In any case the parametrisation is very stable
     //we give the same weight to the bins for which we don't have the SM prediction (for the moment)!
     //The possible error that we could be introducing here is way below our precision!
     double muProd   = (
-    2.9636/2*(myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s)+myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s))+
+    1.24*(myNPbase->STXS12_ggH_mjj0_350_pTH0_60_Nj2(sqrt_s))+
+    2.00*(myNPbase->STXS12_ggH_mjj0_350_pTH60_120_Nj2(sqrt_s))+
     0.94321*(myNPbase->STXS12_ggH_mjj0_350_pTH120_200_Nj2(sqrt_s))+
     0.87751/2*(myNPbase->STXS12_ggH_mjj350_700_pTH0_200_Nj2(sqrt_s)+myNPbase->STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(sqrt_s))
-                        )/(2.9636+0.94321+0.87751);
+                        )/(1.24+2.00+0.94321+0.87751);
     double muProd1  = muProd -1.0;
     double muProd2  = 0.0;
 
@@ -8101,7 +8204,7 @@ double STXS12_ggH_pTH0_200_Nj2::computeThValue()
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = (2.9636+0.94321+0.87751); //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        weight = (1.24+2.00+0.94321+0.87751); //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -8999,77 +9102,6 @@ double STXS12_qqHqq_VH_veto_Nj01::computeThValue()
 
 
 
-// -----------------------------------------------------------------------------
-
-
-//VM:STXS2024;
-STXS12_qqHqq_VH_had_Nj2::STXS12_qqHqq_VH_had_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
-: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
-{
-    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-        throw std::runtime_error("STXS12_qqHqq_VH_had_Nj2 called with a class whose parent is not NPbase");
-
-}
-
-double STXS12_qqHqq_VH_had_Nj2::computeThValue()                                 
-{
-    //-- Production:
-    double weight = 1.0; //If normalized to the SM
-    //Ref: https://www.hepdata.net/record/ins2104706 Figure7.
-    double muProd   = myNPbase->STXS12_qqHqq_VH_had_Nj2(sqrt_s);
-    double muProd1  = muProd -1.0;
-    double muProd2  = 0.0;
-
-    //-- Decay:
-    double BrHXXRatio   = 1.0;
-    double dBrHXXRatio1 = 0.0;
-    double dBrHXXRatio2 = 0.0;
-    if (fstate==0){
-        // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = (1.); //Not available in Ref: https://www.hepdata.net/record/ins2104706 Figure7.
-    } else if (fstate == 1){
-        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
-        dBrHXXRatio1 = BrHXXRatio - 1.0;
-        dBrHXXRatio2 = 0.0;
-    } else if (fstate == 2){
-        BrHXXRatio   = (myNPbase->BrHgagaRatio());
-        dBrHXXRatio1 = BrHXXRatio - 1.0;
-        dBrHXXRatio2 = 0.0;
-    } else if (fstate == 3){
-        BrHXXRatio   = (myNPbase->BrHbbRatio());
-        dBrHXXRatio1 = BrHXXRatio - 1.0;
-        dBrHXXRatio2 = 0.0;
-    } else if (fstate == 4){
-        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
-        dBrHXXRatio1 = BrHXXRatio - 1.0;
-        dBrHXXRatio2 = 0.0;
-    } else if (fstate == 5){
-        BrHXXRatio   = (myNPbase->BrHtautauRatio());
-        dBrHXXRatio1 = BrHXXRatio - 1.0;
-        dBrHXXRatio2 = 0.0;
-    } else if (fstate == 6){
-        BrHXXRatio   = (myNPbase->BrHWWRatio());
-        dBrHXXRatio1 = BrHXXRatio - 1.0;
-        dBrHXXRatio2 = 0.0;
-    } else if (fstate == 7){
-        BrHXXRatio   = (myNPbase->BrHZZRatio());
-        dBrHXXRatio1 = BrHXXRatio - 1.0;
-        dBrHXXRatio2 = 0.0;
-    } else {
-        throw std::runtime_error("STXS12_ggH_pTH200_300 called with invalid argument for final state in fstate_i");
-    } 
-
-    //-- Production x Decay:    
-    if ((this->getModel()).isModelLinearized()){
-        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
-    } else if((this->getModel()).isModelNPquadratic()){
-        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
-    } else {
-        return weight*(muProd)*(BrHXXRatio);
-    } 
-
-}
-
 
 
 // -----------------------------------------------------------------------------
@@ -9244,6 +9276,12 @@ double STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2::computeThValue()
 
 // -----------------------------------------------------------------------------
 
+
+
+
+
+
+
 STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2::STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
 {
@@ -9254,24 +9292,67 @@ STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2::STXS12_qqHqq_mjj350_700_pTH0_200
 
 double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2::computeThValue()
 {
-    double BrHXXRatio = 1.0;
-    if (fstate == 1){
-        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    double muProd   = myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(sqrt_s) ;
+    double muProd1  = muProd -1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = 0.3948; //Ref: CMS-HIG-21-018-PAS-v3
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 2){
-        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 3){
-        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
-        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2 called with invalid argument for final state in fstate_i");
     } 
 
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
     } else {
-        return (myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(sqrt_s))*(BrHXXRatio);
-    }
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+    
+    
+    
+    
+    
+    
 }
 
 // -----------------------------------------------------------------------------
@@ -9286,24 +9367,63 @@ STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2::STXS12_qqHqq_mjj350_700_pTH0_2
 
 double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2::computeThValue()
 {
-    double BrHXXRatio = 1.0;
-    if (fstate == 1){
-        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    double muProd   = myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s) ;
+    double muProd1  = muProd -1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = 0.175166; //Ref: CMS-HIG-21-018-PAS-v3
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 2){
-        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 3){
-        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
-        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2 called with invalid argument for final state in fstate_i");
     } 
 
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
     } else {
-        return (myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s))*(BrHXXRatio);
-    }
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+    
+    
 }
 
 // -----------------------------------------------------------------------------
@@ -9318,24 +9438,66 @@ STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2::STXS12_qqHqq_mjj700_Inf_pTH0_200
 
 double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2::computeThValue()
 {
-    double BrHXXRatio = 1.0;
-    if (fstate == 1){
-        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+    
+    
+    
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    double muProd   = myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(sqrt_s) ;
+    double muProd1  = muProd -1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = 0.571956; //Ref: CMS-HIG-21-018-PAS-v3
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 2){
-        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 3){
-        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
-        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2 called with invalid argument for final state in fstate_i");
     } 
 
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
     } else {
-        return (myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(sqrt_s))*(BrHXXRatio);
-    }
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+    
+    
+    
 }
 
 // -----------------------------------------------------------------------------
@@ -9350,25 +9512,161 @@ STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2::STXS12_qqHqq_mjj700_Inf_pTH0_2
 
 double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2::computeThValue()
 {
-    double BrHXXRatio = 1.0;
-    if (fstate == 1){
-        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+
+    
+    
+    
+    
+        //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    double muProd   = myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s) ;
+    double muProd1  = muProd -1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = 0.1647; //Ref: CMS-HIG-21-018-PAS-v3
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 2){
-        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 3){
-        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
-        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2 called with invalid argument for final state in fstate_i");
     } 
 
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s)) + (BrHXXRatio) - 1.0);
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
     } else {
-        return (myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s))*(BrHXXRatio);
-    }
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+    
+    
+    
+    
+    
 }
+
+
+
+
+
+
+// -----------------------------------------------------------------------------
+
+
+
+//VM:STXS2025
+STXS12_qqHqq_mjj350_Inf_pTH0_200_pTHjj25_Inf_Nj2::STXS12_qqHqq_mjj350_Inf_pTH0_200_pTHjj25_Inf_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj350_Inf_pTH0_200_pTHjj25_Inf_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj350_Inf_pTH0_200_pTHjj25_Inf_Nj2::computeThValue()
+{
+
+    
+    
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    double muProd   = (
+                        0.175166*(myNPbase->STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s))+
+                        0.1647*(myNPbase->STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(sqrt_s)) 
+                        )/(0.175166+0.1647);
+    double muProd1  = muProd -1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = 0.1647; //Ref: CMS-HIG-21-018-PAS-v3
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 2){
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 3){
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 4){
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj350_Inf_pTH0_200_pTHjj25_Inf_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
+    } else {
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+    
+    
+}
+
+
+
+
+
+
 
 // -----------------------------------------------------------------------------
 
@@ -9418,6 +9716,10 @@ double STXS12_qqHqq_mjj350_700_pTH0_200_Nj2::computeThValue()                   
         dBrHXXRatio2 = 0.0;
     } else if (fstate == 6){
         BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
     } else {
@@ -9486,6 +9788,10 @@ double STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2::computeThValue()                  
         BrHXXRatio   = (myNPbase->BrHWWRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2 called with invalid argument for final state in fstate_i");
     } 
@@ -9550,6 +9856,10 @@ double STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2::computeThValue()                 
         dBrHXXRatio2 = 0.0;
     } else if (fstate == 6){
         BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
     } else {
@@ -9618,6 +9928,10 @@ double STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2::computeThValue()                  
         BrHXXRatio   = (myNPbase->BrHWWRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2 called with invalid argument for final state in fstate_i");
     } 
@@ -9651,9 +9965,9 @@ double STXS12_qqHqq_mjj1000_Inf_pTH0_200_Nj2::computeThValue()                  
     //Since adding bins, include partial weigths of SM_predictions 
     //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
     double muProd   = (0.22408*(myNPbase->STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(sqrt_s))
-                    + 0.21578*(myNPbase->STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(sqrt_s)) / (0.30189+0.21578));
-    double muProd1  = (0.22408*(myNPbase->STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(sqrt_s)-1.0)
-                    + 0.21578*(myNPbase->STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(sqrt_s)-1.0) / (0.30189+0.21578));
+                      + 0.21578*(myNPbase->STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(sqrt_s))
+                      ) / (0.22408+0.21578);
+    double muProd1  = muProd - 1.0;
     double muProd2  = 0.0;
 
     //-- Decay:
@@ -9662,7 +9976,7 @@ double STXS12_qqHqq_mjj1000_Inf_pTH0_200_Nj2::computeThValue()                  
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = 1.0 ; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        weight = (0.22408+0.21578) ; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -9677,6 +9991,18 @@ double STXS12_qqHqq_mjj1000_Inf_pTH0_200_Nj2::computeThValue()                  
         dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
         BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
     } else {
@@ -9694,6 +10020,86 @@ double STXS12_qqHqq_mjj1000_Inf_pTH0_200_Nj2::computeThValue()                  
 
     
 }
+
+
+
+// -----------------------------------------------------------------------------
+
+//VM:STXS2025
+STXS12_qqHqq_mjj700_Inf_pTH0_200_Nj2::STXS12_qqHqq_mjj700_Inf_pTH0_200_Nj2(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)         //AG:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHqq_mjj700_Inf_pTH0_200_Nj2 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHqq_mjj700_Inf_pTH0_200_Nj2::computeThValue()                   //VM:added
+{
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    //Since adding bins, include partial weigths of SM_predictions 
+    //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
+    double muProd   = (0.25614*(myNPbase->STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2(sqrt_s))
+                    + 0.22408*(myNPbase->STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(sqrt_s))
+                    + 0.21578*(myNPbase->STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(sqrt_s))
+                    )/(0.25614+0.22408+0.21578);
+    double muProd1  = (muProd-1.0);
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = (0.25614+0.22408+0.21578); //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 2){
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 3){
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 4){
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else {
+        throw std::runtime_error("STXS12_qqHqq_mjj700_Inf_pTH0_200_Nj2 called with invalid argument for final state in fstate_i");
+    } 
+
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
+    } else {
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+    
+}
+
+
+
 
 // -----------------------------------------------------------------------------
 
@@ -10071,6 +10477,11 @@ double STXS12_qqHlv_pTV150_250_Nj0::computeThValue()                            
 
 // -----------------------------------------------------------------------------
 
+
+
+
+
+
 STXS12_qqHlv_pTV150_250_Nj1::STXS12_qqHlv_pTV150_250_Nj1(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
 : ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
 {
@@ -10113,24 +10524,64 @@ STXS12_qqHlv_pTV250_Inf::STXS12_qqHlv_pTV250_Inf(const StandardModel& SM_i, cons
 
 double STXS12_qqHlv_pTV250_Inf::computeThValue()
 {
-    double BrHXXRatio = 1.0;
-    if (fstate == 1){
-        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+       
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    //Since adding bins, include partial weigths of SM_predictions 
+    //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
+    double muProd   = (myNPbase->STXS12_qqHlv_pTV250_Inf(sqrt_s));
+    double muProd1  = (muProd -1.);
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = (0.01127+0.00339) ; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 2){
-        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 3){
-        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
-        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_qqHlv_pTV250_Inf called with invalid argument for final state in fstate_i");
     } 
 
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->STXS12_qqHlv_pTV250_Inf(sqrt_s)) + (BrHXXRatio) - 1.0);
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
     } else {
-        return (myNPbase->STXS12_qqHlv_pTV250_Inf(sqrt_s))*(BrHXXRatio);
-    }
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+    
+    
 }
 
 // -----------------------------------------------------------------------------
@@ -10162,7 +10613,7 @@ double STXS12_qqHlv_pTV0_150::computeThValue()                                //
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = 1.0 ; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        weight = (0.21509+0.13440) ; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -10177,6 +10628,18 @@ double STXS12_qqHlv_pTV0_150::computeThValue()                                //
         dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
         BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
     } else {
@@ -10226,7 +10689,7 @@ double STXS12_qqHlv_pTV150_Inf::computeThValue()                                
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = 1.0 ; 
+        weight = (0.04117+0.01004+0.00214) ; 
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -10241,6 +10704,18 @@ double STXS12_qqHlv_pTV150_Inf::computeThValue()                                
         dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
         BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
     } else {
@@ -10491,7 +10966,7 @@ double STXS12_qqHll_pTV150_250_Nj0::computeThValue()                            
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = 0.03223 ; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        weight = 0.0147 ; //Ref: CMS-21-018-PAS-v3
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -10535,24 +11010,53 @@ STXS12_qqHll_pTV150_250_Nj1::STXS12_qqHll_pTV150_250_Nj1(const StandardModel& SM
 
 double STXS12_qqHll_pTV150_250_Nj1::computeThValue()
 {
-    double BrHXXRatio = 1.0;
-    if (fstate == 1){
-        BrHXXRatio = (myNPbase->STXS12_BrH4lRatio());
+        
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    double muProd   = myNPbase->STXS12_qqHll_pTV150_250_Nj1(sqrt_s);
+    double muProd1  = muProd -1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        // Use for Cross-section [pb] with no Higgs-boson decay
+        weight = (0.0168) ; //Ref: CMS-21-018-PAS-v3
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 2){
-        BrHXXRatio = (myNPbase->STXS12_BrHgagaRatio());
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 3){
-        BrHXXRatio = (myNPbase->STXS12_BrHbbRatio());
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
-        BrHXXRatio = (myNPbase->STXS12_BrHevmuvRatio());
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
-        throw std::runtime_error("STXS12_qqHll_pTV150_250_Nj1 called with invalid argument for final state in fstate_i");
+        throw std::runtime_error("STXS12_qqHll_pTV150_250_Nj0 called with invalid argument for final state in fstate_i");
     } 
 
-    if ((this->getModel()).isModelLinearized()) {
-        return ((myNPbase->STXS12_qqHll_pTV150_250_Nj1(sqrt_s)) + (BrHXXRatio) - 1.0);
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
     } else {
-        return (myNPbase->STXS12_qqHll_pTV150_250_Nj1(sqrt_s))*(BrHXXRatio);
-    }
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+    
+    
+    
+    
+    
 }
 
 // -----------------------------------------------------------------------------
@@ -10630,6 +11134,18 @@ double STXS12_qqHll_pTV0_150::computeThValue()                                //
         BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_qqHll_pTV0_150 called with invalid argument for final state in fstate_i");
     } 
@@ -10685,6 +11201,18 @@ double STXS12_qqHll_pTV250_400::computeThValue()                                
         dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
         BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
     } else {
@@ -10744,6 +11272,18 @@ double STXS12_qqHll_pTV400_Inf::computeThValue()                                
         BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_qqHll_pTV400_Inf called with invalid argument for final state in fstate_i");
     } 
@@ -10777,12 +11317,11 @@ double STXS12_qqHll_pTV150_Inf::computeThValue()                                
     double weight = 1.0; //If normalized to the SM
     //Since adding bins, include partial weigths of SM_predictions 
     //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
-    double muProd   = (0.03223*(myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s))
+    double muProd   = (0.0147*(myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s))
+                       +0.01683*(myNPbase->STXS12_qqHll_pTV150_250_Nj1(sqrt_s))
                        + 0.00715*(myNPbase->STXS12_qqHll_pTV250_400(sqrt_s))
-                       + 0.00126*(myNPbase->STXS12_qqHll_pTV400_Inf(sqrt_s)) )/(0.03223+0.00715+0.00126);
-    double muProd1  = (0.03223*(myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s)-1.0)
-                       + 0.00715*(myNPbase->STXS12_qqHll_pTV250_400(sqrt_s)-1.0)
-                       + 0.00126*(myNPbase->STXS12_qqHll_pTV400_Inf(sqrt_s)-1.0) )/(0.03223+0.00715+0.00126);
+                       + 0.00126*(myNPbase->STXS12_qqHll_pTV400_Inf(sqrt_s)) )/(0.0147+0.01683+0.00715+0.00126);
+    double muProd1  = muProd-1.0;
     double muProd2  = 0.0;
 
     //-- Decay:
@@ -10790,7 +11329,7 @@ double STXS12_qqHll_pTV150_Inf::computeThValue()                                
     double dBrHXXRatio1 = 0.0;
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
-        weight = 1.0 ;
+        weight = (0.0147+0.01683+0.00715+0.00126);
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -10805,6 +11344,18 @@ double STXS12_qqHll_pTV150_Inf::computeThValue()                                
         dBrHXXRatio2 = 0.0;
     } else if (fstate == 4){
         BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
     } else {
@@ -10822,6 +11373,90 @@ double STXS12_qqHll_pTV150_Inf::computeThValue()                                
 
     
 }
+
+
+
+
+
+
+
+
+//VM:STXS2025
+STXS12_qqHll::STXS12_qqHll(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)       //AG:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_qqHll called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_qqHll::computeThValue()                                //AG:added
+{
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    //Since adding bins, include partial weigths of SM_predictions 
+    //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
+    double muProd   = (0.19845*(myNPbase->STXS12_qqHll_pTV0_150(sqrt_s))
+                       +0.0147*(myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s))
+                       +0.01683*(myNPbase->STXS12_qqHll_pTV150_250_Nj1(sqrt_s))
+                       + 0.00715*(myNPbase->STXS12_qqHll_pTV250_400(sqrt_s))
+                       + 0.00126*(myNPbase->STXS12_qqHll_pTV400_Inf(sqrt_s)) 
+                        )/(0.19845+0.0147+0.01683+0.00715+0.00126);
+    double muProd1  = muProd - 1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        weight = (0.19845+0.0147+0.01683+0.00715+0.00126);
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 2){
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 3){
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 4){
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else {
+        throw std::runtime_error("STXS12_qqHll called with invalid argument for final state in fstate_i");
+    } 
+
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
+    } else {
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+    
+}
+
+
+
 
 // -----------------------------------------------------------------------------
 
@@ -10846,20 +11481,14 @@ double STXS12_VHlep::computeThValue()                                //AG:added
                     + 0.01127*myNPbase->STXS12_qqHlv_pTV250_400(sqrt_s)
                     + 0.00339*myNPbase->STXS12_qqHlv_pTV400_Inf(sqrt_s)
                     + 0.07934*myNPbase->STXS12_qqHll_pTV0_150(sqrt_s) 
-                    + 0.03525*myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s)
+                    +0.0147*(myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s))
+                    +0.01683*(myNPbase->STXS12_qqHll_pTV150_250_Nj1(sqrt_s))
                     + 0.00746*myNPbase->STXS12_qqHll_pTV250_400(sqrt_s)
                     + 0.00043*myNPbase->STXS12_qqHll_pTV400_Inf(sqrt_s)) 
-                    /(0.71256 + 0.06739 + 0.03943 + 0.01127 + 0.00339 + 0.07934 + 0.03525 + 0.00746 + 0.00043);
-    double muProd1  = ( 0.71256*(myNPbase->STXS12_qqHlv_pTV0_75(sqrt_s)-1.0)
-                    + 0.06739*(myNPbase->STXS12_qqHlv_pTV75_150(sqrt_s)-1.0)
-                    + 0.03943*(myNPbase->STXS12_qqHlv_pTV150_250_Nj0(sqrt_s)-1.0)
-                    + 0.01127*(myNPbase->STXS12_qqHlv_pTV250_400(sqrt_s)-1.0)
-                    + 0.00339*(myNPbase->STXS12_qqHlv_pTV400_Inf(sqrt_s)-1.0)
-                    + 0.07934*(myNPbase->STXS12_qqHll_pTV0_150(sqrt_s) -1.0)
-                    + 0.03525*(myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s)-1.0)
-                    + 0.00746*(myNPbase->STXS12_qqHll_pTV250_400(sqrt_s)-1.0)
-                    + 0.00043*(myNPbase->STXS12_qqHll_pTV400_Inf(sqrt_s)-1.0) )
-                    /(0.71256 + 0.06739 + 0.03943 + 0.01127 + 0.00339 + 0.07934 + 0.03525 + 0.00746 + 0.00043);
+                    /(0.71256 + 0.06739 + 0.03943 + 0.01127 + 0.00339 + 0.07934 
+                    + 0.0147 + 0.01683 + 0.00746 + 0.00043);
+
+    double muProd1  = muProd - 1.0;
     double muProd2  = 0.0;
 
     //-- Decay:
@@ -10867,7 +11496,8 @@ double STXS12_VHlep::computeThValue()                                //AG:added
     double dBrHXXRatio1 = 0.0;
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
-        weight = 1.0; 
+        weight = (0.71256 + 0.06739 + 0.03943 + 0.01127 + 0.00339 + 0.07934 
+                    + 0.0147 + 0.01683 + 0.00746 + 0.00043); 
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -10913,6 +11543,173 @@ double STXS12_VHlep::computeThValue()                                //AG:added
 }
 
 // -----------------------------------------------------------------------------
+
+
+
+
+
+
+//VM:STXS2025
+STXS12_VHlep_pTV0_150::STXS12_VHlep_pTV0_150(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)       //VM:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_VHlep_pTV0_150 called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_VHlep_pTV0_150::computeThValue()                                //VM:added
+{
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    //Since adding bins, include partial weigths of SM_predictions 
+    //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
+    double muProd   = ( 0.71256*myNPbase->STXS12_qqHlv_pTV0_75(sqrt_s)
+                    + 0.06739*myNPbase->STXS12_qqHlv_pTV75_150(sqrt_s)
+                    + 0.07934*myNPbase->STXS12_qqHll_pTV0_150(sqrt_s) 
+                    ) 
+                    /(0.71256 + 0.06739 + 0.07934);
+    double muProd1  = muProd - 1.0;
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        weight = 1.0; 
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 2){
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 3){
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 4){
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else {
+        throw std::runtime_error("STXS12_VHlep_pTV0_150 called with invalid argument for final state in fstate_i");
+    } 
+
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
+    } else {
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+    
+}
+
+// -----------------------------------------------------------------------------
+
+
+
+
+
+//VM:STXS2024
+STXS12_VHlep_pTV150_Inf::STXS12_VHlep_pTV150_Inf(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)       //VM:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_VHlep_pTV150_Inf called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_VHlep_pTV150_Inf::computeThValue()                                //VM:added
+{
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    //Since adding bins, include partial weigths of SM_predictions 
+    //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
+    double muProd   = (0.03943*myNPbase->STXS12_qqHlv_pTV150_250_Nj0(sqrt_s)
+                    + 0.01127*myNPbase->STXS12_qqHlv_pTV250_400(sqrt_s)
+                    + 0.00339*myNPbase->STXS12_qqHlv_pTV400_Inf(sqrt_s) 
+                    +0.0147*(myNPbase->STXS12_qqHll_pTV150_250_Nj0(sqrt_s))
+                    +0.01683*(myNPbase->STXS12_qqHll_pTV150_250_Nj1(sqrt_s))
+                    + 0.00746*myNPbase->STXS12_qqHll_pTV250_400(sqrt_s)
+                    + 0.00043*myNPbase->STXS12_qqHll_pTV400_Inf(sqrt_s)) 
+                    /(0.03943 + 0.01127 + 0.00339 + 0.0147 + 0.01683 + 0.00746 + 0.00043);
+    double muProd1  = (muProd - 1.0);
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        weight = (0.03943 + 0.01127 + 0.00339 + 0.0147 + 0.01683 + 0.00746 + 0.00043); 
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 2){
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 3){
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 4){
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else {
+        throw std::runtime_error("STXS12_VHlep_pTV150_Inf called with invalid argument for final state in fstate_i");
+    } 
+
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
+    } else {
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
+    
+}
+
+// -----------------------------------------------------------------------------
+
+
+
+
+
 
 //AG:STXS2024
 STXS12_ttH_pTH0_60::STXS12_ttH_pTH0_60(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)
@@ -11214,9 +12011,13 @@ STXS12_ttH_pTH300_Inf::STXS12_ttH_pTH300_Inf(const StandardModel& SM_i, const do
 
 double STXS12_ttH_pTH300_Inf::computeThValue()
 {
+    //VM: Modified to take the thinner bins
     //-- Production:
     double weight = 1.0; //If normalized to the SM
-    double muProd   = myNPbase->STXS12_ttH_pTH300_Inf(sqrt_s) ;
+    //double muProd   = myNPbase->STXS12_ttH_pTH300_Inf(sqrt_s) ;
+    double muProd   = (0.01903*(myNPbase->STXS12_ttH_pTH300_450(sqrt_s))
+                       +0.00538*(myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s))
+                        )/(0.01903+0.00538);
     double muProd1  = muProd -1.0;
     double muProd2  = 0.0;
 
@@ -11226,7 +12027,7 @@ double STXS12_ttH_pTH300_Inf::computeThValue()
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = 1.0; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        weight = (0.01903+0.00538); //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -11399,8 +12200,7 @@ double STXS12_ttH_pTH300_Inf_add::computeThValue()                              
     //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
     double muProd   = (0.01903*myNPbase->STXS12_ttH_pTH300_450(sqrt_s)
                     + 0.00538*myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s)) / (0.01903+0.00538);
-    double muProd1  = (0.01903*(myNPbase->STXS12_ttH_pTH300_450(sqrt_s)-1.0)
-                    + 0.00538*(myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s)-1.0)) / (0.01903+0.00538);
+    double muProd1  = muProd - 1.0;
     double muProd2  = 0.0;
 
     //-- Decay:
@@ -11409,7 +12209,7 @@ double STXS12_ttH_pTH300_Inf_add::computeThValue()                              
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = 0.00538; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        weight = (0.01903+0.00538); //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -11481,7 +12281,7 @@ double STXS12_ttH::computeThValue()                                  //AG:added
     double dBrHXXRatio1 = 0.0;
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
-        weight = 1.0; 
+        weight = (0.09779 + 0.13884 + 0.05439 + 0.05303 + 0.00498 + 0.00060 ); 
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -11571,6 +12371,14 @@ double STXS12_tH::computeThValue()                                              
         BrHXXRatio   = (myNPbase->BrHtautauRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
         dBrHXXRatio2 = 0.0;
+    }  else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
     } else {
         throw std::runtime_error("STXS12_tH called with invalid argument for final state in fstate_i");
     } 
@@ -11585,6 +12393,87 @@ double STXS12_tH::computeThValue()                                              
     } 
 
     
+}
+
+
+
+// -----------------------------------------------------------------------------
+
+
+
+//VM:STXS2025
+STXS12_ttH_tH::STXS12_ttH_tH(const StandardModel& SM_i, const double sqrt_s_i, unsigned int fstate_i)   //AG:added
+: ThObservable(SM_i), sqrt_s(sqrt_s_i), fstate(fstate_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("STXS12_ttH_tH called with a class whose parent is not NPbase");
+
+}
+
+double STXS12_ttH_tH::computeThValue()                                  //VM:added
+{
+    //-- Production:
+    double weight = 1.0; //If normalized to the SM
+    //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+    //Since adding bins, include partial weigths (SM_predictions)
+    double muProd   = ( 0.09779*myNPbase->STXS12_ttH_pTH0_60(sqrt_s)
+                    + 0.13884*myNPbase->STXS12_ttH_pTH60_120(sqrt_s)
+                    + 0.05439*myNPbase->STXS12_ttH_pTH120_200(sqrt_s)
+                    + 0.05303*myNPbase->STXS12_ttH_pTH200_300(sqrt_s)
+                    + 0.00498*myNPbase->STXS12_ttH_pTH300_450(sqrt_s)
+                    + 0.00060*myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s) 
+                    + 0.08207*myNPbase->STXS12_tH(sqrt_s) 
+                    ) /(0.09779 + 0.13884 + 0.05439 + 0.05303 + 0.00498 + 0.00060 + 0.08207);
+    double muProd1  = ( muProd - 1.0 );
+    double muProd2  = 0.0;
+
+    //-- Decay:
+    double BrHXXRatio   = 1.0;
+    double dBrHXXRatio1 = 0.0;
+    double dBrHXXRatio2 = 0.0;
+    if (fstate==0){
+        weight = (0.09779 + 0.13884 + 0.05439 + 0.05303 + 0.00498 + 0.00060 + 0.08207); 
+    } else if (fstate == 1){
+        BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 2){
+        BrHXXRatio   = (myNPbase->BrHgagaRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 3){
+        BrHXXRatio   = (myNPbase->BrHbbRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 4){
+        BrHXXRatio   = (myNPbase->STXS12_BrHevmuvRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 5){
+        BrHXXRatio   = (myNPbase->BrHtautauRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    }  else if (fstate == 6){
+        BrHXXRatio   = (myNPbase->BrHWWRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else if (fstate == 7){
+        BrHXXRatio   = (myNPbase->BrHZZRatio());
+        dBrHXXRatio1 = BrHXXRatio - 1.0;
+        dBrHXXRatio2 = 0.0;
+    } else {
+        throw std::runtime_error("STXS12_ttH called with invalid argument for final state in fstate_i");
+    } 
+
+    //-- Production x Decay:    
+    if ((this->getModel()).isModelLinearized()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1));
+    } else if((this->getModel()).isModelNPquadratic()){
+        return weight*( 1.0 + (muProd1 + dBrHXXRatio1) + (muProd2 + dBrHXXRatio2 + muProd1*dBrHXXRatio1) );    
+    } else {
+        return weight*(muProd)*(BrHXXRatio);
+    } 
+
 }
 
 // -----------------------------------------------------------------------------

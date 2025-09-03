@@ -184,6 +184,13 @@ public:
     double fB;            /**<B meson decay constant*/
     double Ms;            /**<s quark mass */
     double MW;            /**<W boson mass */
+    double t_p;
+    double t_m;
+    double z_DM;
+    double rV;            /**<ratio of the final vector meson mass and the initial meson mass */
+    double ChiTT;
+    double Chi1plus;
+    double Chi1minus;
     gslpp::complex lambda_t;     /**<Vckm factor lambds_t*/
     gslpp::complex lambda_u;     /**<Vckm factor lambda_u*/
     gslpp::complex h[2];         /**<parameter that contains the contribution from the hadronic hamiltonian */
@@ -205,6 +212,18 @@ public:
     double a_0T1;/**<LCSR fit parameter */
     double a_0A1;/**<LCSR fit parameter */
     double a_0V;/**<LCSR fit parameter */
+
+    double a_1T1;/**<DM fit parameter */
+    double a_2T1;/**<DM fit parameter */
+    double MRT1_2;/**<DM fit parameter */
+    double a_0f;/**<DM fit parameter */
+    double a_1f;/**<DM fit parameter */
+    double a_2f;/**<DM fit parameter */
+    double MRf_2;/**<DM fit parameter */
+    double a_0g;/**<DM fit parameter */
+    double a_1g;/**<DM fit parameter */
+    double a_2g;/**<DM fit parameter */
+    double MRg_2;/**<DM fit parameter */
     
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients at mub*/
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients at mub*/
@@ -220,7 +239,58 @@ public:
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
     gslpp::complex C_7p;/**<Wilson coeffients @f$C_7'@f$*/
     gslpp::complex C_8;/**<Wilson coeffients @f$C_8(mu_b)@f$*/
+
+    /**
+    * @brief The prefactor function of the form factor \f$ f \f$, \f$ \phi_{f} \f$.
+    * @param MRf_2 fit parameter
+    * @return \f$ \phi_{f} \f$
+    */
+    double phi_f(double MRf_2);
+
+    /**
+    * @brief The prefactor function of the form factor \f$ g \f$, \f$ \phi_{g} \f$.
+    * @param MRg_2 fit parameter
+    * @return \f$ \phi_{g} \f$
+    */
+    double phi_g(double MRg_2);
+
+    /**
+    * @brief The prefactor function of the form factor \f$ T_1 \f$, \f$ \phi_{T_1} \f$.
+    * @param MRT1_2 fit parameter
+    * @return \f$ \phi_{T_1} \f$
+    */
+    double phi_T1(double MRT1_2);
+
+    /**
+    * @brief The transverse form factor \f$ f \f$.
+    * @param[in] a_0f fit parameter
+    * @param[in] a_1f fit parameter
+    * @param[in] a_2f fit parameter
+    * @param[in] MRf_2 fit parameter
+    * @return \f$ f \f$
+    */
+    double f_DM(double a_0f, double a_1f, double a_2f, double MRf_2);
     
+    /**
+    * @brief The transverse form factor \f$ g \f$.
+    * @param[in] a_0g fit parameter
+    * @param[in] a_1g fit parameter
+    * @param[in] a_2g fit parameter
+    * @param[in] MRg_2 fit parameter
+    * @return \f$ g \f$
+    */
+    double g_DM(double a_0g, double a_1g, double a_2g, double MRg_2);
+
+    /**
+    * @brief The DM transverse form factor \f$ T_1 \f$.
+    * @param[in] a_0T1 fit parameter
+    * @param[in] a_1T1 fit parameter
+    * @param[in] a_2T1 fit parameter
+    * @param[in] MRT1_2 fit parameter
+    * @return \f$ T_1 \f$
+    */
+    double T1_DM(double a_0T1, double a_1T1, double a_2T1, double MRT1_2);
+
     /**
     * @brief The transverse form factor @f$ T_1 @f$.
     * @return @f$ T_1 @f$ 
@@ -373,12 +443,62 @@ public:
      */
     gslpp::complex T_QCDF_minus(bool conjugate);
     
+    /**
+    * @brief The expansion parameter \f$ \hat{z} \f$ from arXiv:2206.03797.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ zh \f$
+    */
+    gslpp::complex zh(double q2);
+    
+    /**
+    * @brief The Blaschke factor \f$ \mathcal{P} \f$ from arXiv:2206.03797.
+    * @return \f$ P \f$
+    */
+    gslpp::complex P();
+    
+    /**
+    * @brief The outer function \f$ phi_1 \f$ from arXiv:2011.09813.
+    * @return \f$ phi_1 \f$
+    */
+    gslpp::complex phi_1();
+    
+    /**
+    * @brief The outer function \f$ phi_2 \f$ from arXiv:2011.09813.
+    * @return \f$ phi_2 \f$
+    */
+    gslpp::complex phi_2();
+    
+    /**
+    * @brief The outer function \f$ phi_3 \f$ from arXiv:2011.09813.
+    * @return \f$ phi_3 \f$
+    */
+    gslpp::complex phi_3();
+        
+    /**
+    * @brief The correction to \f$ C_9 \f$ from arXiv:2206.03797.
+    * @param[in] tran transversity
+    * @return \f$ \Delta C_9 \f$
+    */
+    gslpp::complex DeltaC9_zExpansion(int tran);
+    
 private:
     QCD::meson meson;
     QCD::meson vectorM;
     bool dispersion;
+    bool zExpansion;
     bool FixedWCbtos;
-    double mJ2;
+    bool MVll_DM_flag; /**< A flag for switching to DM FF parameterization */
+
+    gslpp::complex beta_0[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex beta_1[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex beta_2[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    double s_p;
+    double s_0;
+    double Q2;
+    double chiOPE;
+    double mJpsi, mJ2;
+    double mPsi2S, mPsi2S2;
+    double mD2;
     
     const StandardModel& SM;
     std::unique_ptr<F_1> myF_1;

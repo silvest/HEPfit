@@ -280,7 +280,7 @@ const double SigmaBR::mueeZH(const double sqrt_s, const double Pol_em, const dou
 
 }
 
-const double SigmaBR::mueeHvv(const double sqrt_s) const
+const double SigmaBR::mueeHvv(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     if (sqrt_s == 0.240) {
         
@@ -324,12 +324,8 @@ const double SigmaBR::mueeHvv(const double sqrt_s) const
     return 1.0;
 }
 
-const double SigmaBR::mueeHvvPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    return mueeHvv(sqrt_s);
-}
 
-const double SigmaBR::mueeZBF(const double sqrt_s) const
+const double SigmaBR::mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     if (sqrt_s == 0.240) {
         
@@ -373,12 +369,7 @@ const double SigmaBR::mueeZBF(const double sqrt_s) const
     return 1.0;
 }
 
-const double SigmaBR::mueeZBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    return mueeZBF(sqrt_s);
-}
-
-const double SigmaBR::mueettH(const double sqrt_s) const
+const double SigmaBR::mueettH(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     if (sqrt_s == 0.500) {
         
@@ -400,11 +391,6 @@ const double SigmaBR::mueettH(const double sqrt_s) const
         throw std::runtime_error("Bad argument in SigmaBR::mueettH()");
     
     return 1.0;
-}
-
-const double SigmaBR::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
-{
-    return mueettH(sqrt_s);
 }
 
 const double SigmaBR::BrHggRatio() const

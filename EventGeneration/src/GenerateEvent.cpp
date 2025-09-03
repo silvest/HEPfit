@@ -94,7 +94,8 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)
         buff_int = new int*[procnum];
         buff_int[0]=new int[procnum];
         for(int i = 1; i < procnum; i++) buff_int[i] = buff_int[i - 1] + 1;
-        
+        double minweight = 0.;
+        std::string minweightobservable;
         /* computation of observables */
         while (rem_iteration > 0) {
             itno = rank + nIteration - rem_iteration + 1;
@@ -161,18 +162,33 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)
                         for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                             if (it->getObsType().compare("HiggsObservable") != 0) {
                                 if (outputTerm == 0) {
-                                    if (weight && it->getDistr().compare("noweight") != 0) std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")" << std::endl;
-                                    else std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
+                                    if (weight && it->getDistr().compare("noweight") != 0) {
+                                        std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")" << std::endl;
+                                        if (buff_w[iproc][positionID] < minweight) {
+                                            minweight = buff_w[iproc][positionID];
+                                            minweightobservable = it->getName();
+                                        }
+                                    } else std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
                                     positionID++;
                                 } else {
-                                    if (weight && it->getDistr().compare("noweight") != 0) (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] << std::endl;
-                                    else (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
+                                    if (weight && it->getDistr().compare("noweight") != 0) {
+                                        (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] << std::endl;
+                                        if (buff_w[iproc][positionID] < minweight) {
+                                            minweight = buff_w[iproc][positionID];
+                                            minweightobservable = it->getName();
+                                        }
+                                    } else (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
                                     positionID++;
                                 }
                             } else {
                                 if (outputTerm == 0) {
-                                    if (weight) std::cout << "\n" << it->getName() << " :" << " (weight: " << buff_w[iproc][positionID] << ")" << std::endl;
-                                    else std::cout << "\n" << it->getName() << " :" << std::endl;
+                                    if (weight) {
+                                        std::cout << "\n" << it->getName() << " :" << " (weight: " << buff_w[iproc][positionID] << ")" << std::endl;
+                                        if (buff_w[iproc][positionID] < minweight) {
+                                            minweight = buff_w[iproc][positionID];
+                                            minweightobservable = it->getName();
+                                        }
+                                    } else std::cout << "\n" << it->getName() << " :" << std::endl;
                                     for (int i = 0; i < it->getNTheoryValues(); i++) {
                                         std::cout << " sigma(" << i + 1 << ") = " << buff[iproc][positionID] << std::endl;
                                         positionID++;
@@ -194,16 +210,27 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)
                                         (*ObsOut[it->getName()]) << std::setw(10) << std::left << buff[iproc][positionID];
                                         positionID++;
                                     }
-                                    if (weight) (*ObsOut[it->getName()]) << std::setw(10) << std::left << buff_w[iproc][positionID - 1];
+                                    if (weight) {
+                                        (*ObsOut[it->getName()]) << std::setw(10) << std::left << buff_w[iproc][positionID - 1];
+                                        if (buff_w[iproc][positionID - 1] < minweight) {
+                                            minweight = buff_w[iproc][positionID - 1];
+                                            minweightobservable = it->getName();
+                                        }
                                     (*ObsOut[it->getName()]) << std::endl;
+                                    }
                                 }
                             }
                         }
                         if (outputTerm == 0 && CGO.size() > 0) std::cout << "\nCorrelated Gaussian Observables: \n" << std::endl;
                         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                             if (outputTerm == 0) {
-                                if (weight && !(it1->isPrediction())) std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" << std::endl;
-                                else std::cout << it1->getName() << std::endl;
+                                if (weight && !(it1->isPrediction())) {
+                                    std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" << std::endl;
+                                    if (buff_w[iproc][positionID] < minweight) {
+                                        minweight = buff_w[iproc][positionID];
+                                        minweightobservable = it1->getName();
+                                    }
+                                } else std::cout << it1->getName() << std::endl;
                             }
                             std::vector<Observable> ObsInCGO = it1->getObs();
                             for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
@@ -220,6 +247,10 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)
                             if (outputTerm == 0) std::cout << std::endl;
                             else (*CGOOut[it1->getName()]) << buff_w[iproc][positionID - 1] << std::endl;
                         }
+                        if (outputTerm == 0) std::cout << "minimum weight: " << minweight << " for observable " << minweightobservable << std::endl;
+                        else summary << "Event No.\t" << itno << "\tMinimum weight\t" << minweight << "\tfor observable\t" << minweightobservable << "\n";
+                        minweight = 0.;
+                        minweightobservable = "";
                     }
                 }
             }

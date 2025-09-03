@@ -83,6 +83,13 @@ public:
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l^{-} \f$
      */
     std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton);
+    
+    /** 
+     * 
+     * @brief operator basis: left-handed neutrino current; right-handed neutrino current
+     * @return Wilson coefficients for \f$ B \rightarrow K^{(*)} \nu \bar\nu \f$
+     */
+    std::vector<WilsonCoefficient>& CMBXsnn(QCD::lepton lepton);
 
 private:
     const RealWeakEFTLFV & myRealWeakEFTLFV;///< An object of the %RealWeakEFTLFV class.
@@ -111,6 +118,13 @@ private:
     gslpp::complex CSpNPmu;///< the Wilson Coefficient \f$C_{S,\mu}^{\prime NP}\f$.
     gslpp::complex CPNPmu;///< the Wilson Coefficient \f$C_{P,\mu}^{NP}\f$.
     gslpp::complex CPpNPmu;///< the Wilson Coefficient \f$C_{P,\mu}^{\prime NP}\f$.
+
+    gslpp::complex CLnunuNPe;///< the Wilson Coefficient \f$C_{L}^{\nu\nu}\f$.
+    gslpp::complex CRnunuNPe;///< the Wilson Coefficient \f$C_{R}^{\nu\nu}\f$.
+    gslpp::complex CLnunuNPmu;///< the Wilson Coefficient \f$C_{L}^{\nu\nu}\f$.
+    gslpp::complex CRnunuNPmu;///< the Wilson Coefficient \f$C_{R}^{\nu\nu}\f$.
+    gslpp::complex CLnunuNPtau;///< the Wilson Coefficient \f$C_{L}^{\nu\nu}\f$.
+    gslpp::complex CRnunuNPtau;///< the Wilson Coefficient \f$C_{R}^{\nu\nu}\f$.
     
     double WCscale;///< The scale of the Wilson coefficients.
     
@@ -118,10 +132,12 @@ private:
     WilsonCoefficient mcbsmm;
     WilsonCoefficient mcbdmm;
     WilsonCoefficient mcBMll, mcprimeBMll;
+    WilsonCoefficient mcbsnn;
     std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg;
     std::vector<WilsonCoefficient> vmcbsmm;
     std::vector<WilsonCoefficient> vmcbdmm;
     std::vector<WilsonCoefficient> vmcBMll, vmcprimeBMll;
+    std::vector<WilsonCoefficient> vmcbsnn;
 };
 
 #endif /* REALWEAKEFTLFVMATCHING_H */

@@ -967,6 +967,538 @@ private:
     const double mu;
 };
 
+
+//-----  Zff EFFECTIVE couplings observables: relative corrections (derived from Af and Gamma(Z->ff)  ----------
+
+
+/**
+ * @class deltagEffZveveL
+ * @brief An observable class for the deviation from the SM of the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZveveL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZveveL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZveveL class.
+     */
+    virtual ~deltagEffZveveL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \nu^{e}_{L} \nu^{e}_{L}@f$ coupling @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\nu^{e}\nu^{e}}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZvmuvmuL
+ * @brief An observable class for the deviation from the SM of the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZvmuvmuL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZvmuvmuL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZvmuvmuL class.
+     */
+    virtual ~deltagEffZvmuvmuL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \nu^{\mu}_{L} \nu^{\mu}_{L}@f$ coupling @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\nu^{\mu}\nu^{\mu}}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+    
+private:
+    const NPbase * myNPbase;
+
+};
+
+
+/**
+ * @class deltagEffZvtavtaL
+ * @brief An observable class for the deviation from the SM of the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling
+ * @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZvtavtaL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZvtavtaL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZvtavtaL class.
+     */
+    virtual ~deltagEffZvtavtaL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \nu^{\tau}_{L} \nu^{\tau}_{L}@f$ coupling @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\nu^{\tau}\nu^{\tau}}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+
+/**
+ * @class deltagEffZeeL
+ * @brief An observable class for the deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling
+ * @f$\delta g_{Zee}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z e_{L} e_{L}@f$ coupling
+ * @f$\delta g_{Zee}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZeeL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZeeL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZeeL class.
+     */
+    virtual ~deltagEffZeeL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z e_{L} e_{L}@f$ coupling @f$\delta g_{Zee}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zee}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZeeR
+ * @brief An observable class for the deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling
+ * @f$\delta g_{Zee}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z e_{R} e_{R}@f$ coupling
+ * @f$\delta g_{Zee}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZeeR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZeeR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZeeR class.
+     */
+    virtual ~deltagEffZeeR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z e_{R} e_{R}@f$ coupling @f$\delta g_{Zee}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zee}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZmumuL
+ * @brief An observable class for the deviation from the SM of the @f$Z \mu_{L} \mu_{L}@f$ coupling
+ * @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \mu_{L} \mu_{L}@f$ coupling
+ * @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZmumuL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZmumuL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZmumuL class.
+     */
+    virtual ~deltagEffZmumuL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \mu_{L} \mu_{L}@f$ coupling @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\mu\mu}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZmumuR
+ * @brief An observable class for the deviation from the SM of the @f$Z \mu_{R} \mu_{R}@f$ coupling
+ * @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \mu_{R} \mu_{R}@f$ coupling
+ * @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZmumuR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZmumuR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZmumuR class.
+     */
+    virtual ~deltagEffZmumuR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \mu_{R} \mu_{R}@f$ coupling @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\mu\mu}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZtataL
+ * @brief An observable class for the deviation from the SM of the @f$Z \tau_{L} \tau_{L}@f$ coupling
+ * @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \tau_{L} \tau_{L}@f$ coupling
+ * @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZtataL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZtataL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZtataL class.
+     */
+    virtual ~deltagEffZtataL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \tau_{L} \tau_{L}@f$ coupling @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\tau\tau}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZtataR
+ * @brief An observable class for the deviation from the SM of the @f$Z \tau_{R} \tau_{R}@f$ coupling
+ * @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z \tau_{R} \tau_{R}@f$ coupling
+ * @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZtataR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZtataR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZtataR class.
+     */
+    virtual ~deltagEffZtataR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z \tau_{R} \tau_{R}@f$ coupling @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Z\tau\tau}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZccL
+ * @brief An observable class for the deviation from the SM of the @f$Z c_{L} c_{L}@f$ coupling
+ * @f$\delta g_{Zcc}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z c_{L} c_{L}@f$ coupling
+ * @f$\delta g_{Zcc}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZccL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZccL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZccL class.
+     */
+    virtual ~deltagEffZccL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z c_{L} c_{L}@f$ coupling @f$\delta g_{Zcc}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zcc}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZccR
+ * @brief An observable class for the deviation from the SM of the @f$Z c_{R} c_{R}@f$ coupling
+ * @f$\delta g_{Zcc}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z c_{R} c_{R}@f$ coupling
+ * @f$\delta g_{Zcc}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZccR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZccR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZccR class.
+     */
+    virtual ~deltagEffZccR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z c_{R} c_{R}@f$ coupling @f$\delta g_{Zcc}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zcc}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+
+/**
+ * @class deltagEffZssL
+ * @brief An observable class for the deviation from the SM of the @f$Z s_{L} s_{L}@f$ coupling
+ * @f$\delta g_{Zss}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z s_{L} s_{L}@f$ coupling
+ * @f$\delta g_{Zss}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZssL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZssL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZssL class.
+     */
+    virtual ~deltagEffZssL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z s_{L} s_{L}@f$ coupling @f$\delta g_{Zss}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zss}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZssR
+ * @brief An observable class for the deviation from the SM of the @f$Z s_{R} s_{R}@f$ coupling
+ * @f$\delta g_{Zss}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z s_{R} s_{R}@f$ coupling
+ * @f$\delta g_{Zss}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZssR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZssR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZssR class.
+     */
+    virtual ~deltagEffZssR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z s_{R} s_{R}@f$ coupling @f$\delta g_{Zss}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zss}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZbbL
+ * @brief An observable class for the deviation from the SM of the @f$Z b_{L} b_{L}@f$ coupling
+ * @f$\delta g_{Zbb}^{L}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z b_{L} b_{L}@f$ coupling
+ * @f$\delta g_{Zbb}^{L}/g_{SM}@f$.
+ *
+ */
+class deltagEffZbbL : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZbbL(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZbbL class.
+     */
+    virtual ~deltagEffZbbL();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z b_{L} b_{L}@f$ coupling @f$\delta g_{Zbb}^{L}/g_{SM}@f$.
+     * @return @f$\delta g_{Zbb}^{L}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
+/**
+ * @class deltagEffZbbR
+ * @brief An observable class for the deviation from the SM of the @f$Z b_{R} b_{R}@f$ coupling
+ * @f$\delta g_{Zbb}^{R}/g_{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z b_{R} b_{R}@f$ coupling
+ * @f$\delta g_{Zbb}^{R}/g_{SM}@f$.
+ *
+ */
+class deltagEffZbbR : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagEffZbbR(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagEffZbbR class.
+     */
+    virtual ~deltagEffZbbR();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z b_{R} b_{R}@f$ coupling @f$\delta g_{Zbb}^{R}/g_{SM}@f$.
+     * @return @f$\delta g_{Zbb}^{R}/g_{SM}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+
+};
+
 //-----  Wff couplings observables  ----------
 
 /**
@@ -1884,6 +2416,40 @@ private:
 };
 
 /**
+ * @class gHZZ4feff
+ * @brief An observable class for the effective @f$H ZZ@f$ coupling, defined from 4f final sates 
+ * @f$g_{HZZ,4f}^{Eff}@f$, defined from the square root of @f$\Gamma_{H4f, NC}/\Gamma_{H4f, NC}^{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective @f$H ZZ@f$ coupling
+ * @f$g_{HZZ,4f}^{Eff}@f$, defined from the square root of @f$\Gamma_{H4f, NC}/\Gamma_{H4f, NC}^{SM}@f$.
+ *
+ */
+class gHZZ4feff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHZZ4feff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHZZeff class.
+     */
+    virtual ~gHZZ4feff();
+
+    /**
+     * @brief The effective @f$H ZZ@f$ coupling
+     * @return @f$g_{HZZ,4f}^{Eff}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+};
+
+/**
  * @class gHZZ1
  * @brief An observable class for the non-SM coupling @f$H Z_{\mu\nu} Z^{\mu\nu}@f$
  * @f$g_{HZZ}^{(1)}@f$.
@@ -2195,6 +2761,41 @@ public:
     /**
      * @brief The effective @f$H WW@f$ coupling
      * @return @f$g_{HWW}^{Eff}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+};
+
+/**
+ * @class gHWW4feff
+ * @brief An observable class for the effective @f$H WW@f$ coupling defined from all 4f final states minus pure NC
+ * (Still contains a small amount of NC and NC-CC interference)
+ * @f$g_{HWW,4f}^{Eff}@f$, defined from the square root of @f$\Gamma_{H4f, CC}/\Gamma_{H4f, CC}^{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective @f$H WW@f$ coupling
+ * @f$g_{HWW,4f}^{Eff}@f$, defined from the square root of @f$\Gamma_{H4f, CC}/\Gamma_{H4f, CC}^{SM}@f$.
+ *
+ */
+class gHWW4feff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHWW4feff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHWWeff class.
+     */
+    virtual ~gHWW4feff();
+
+    /**
+     * @brief The effective @f$H WW@f$ coupling
+     * @return @f$g_{HWW,4f}^{Eff}@f$
      */
     double computeThValue();
       
@@ -3030,6 +3631,47 @@ private:
     const NPbase * myNPbase;
 };
 
+
+//-----  Relative correction to EM constant  ----------
+
+/**
+ * @class deltae
+ * @brief An observable class for the relative deviation from the SM of the EM coupling @f$e@f$ 
+ * @f$\delta e@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute deviation from the SM of the EM coupling @f$e@f$
+ * @f$\delta e@f$.
+ *
+ */
+class deltae : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] lepton a lepton
+     */
+    deltae(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the deltae class.
+     */
+    virtual ~deltae();
+
+    /**
+     * @brief The absolute deviation from the SM from the SM of the EM coupling @f$e@f$
+     * @f$\delta e@f$.
+     * @return @f$\delta e@f$
+     */
+    double computeThValue();    
+    
+private:
+    const NPbase * myNPbase;
+    const double mu;
+};
+
+
 //-----  Absolute correction to some EW couplings (factoring e/sc or e/sqrt(2)s  ----------
 
 /**
@@ -3779,13 +4421,49 @@ public:
     CEWHQd33(const StandardModel& SM_i);
       
     /**
-     * @brief Destructor of the CEWHQ333 class.
+     * @brief Destructor of the CEWHQd33 class.
      */
     virtual ~CEWHQd33();
 
     /**
      * @brief The combination @f$(\hat{C}_{HQ}^{(d)})_{33}@f$.
      * @return @f$(\hat{C}_{HQ}^{(d)})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQu33
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis not constrained by EWPO (at LO)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis not constrained by EWPO (at LO)
+ * @f$(\hat{C}_{HQ}^{(u)})_{33}@f$.
+ *
+ */
+class CEWHQu33 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQu33(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQu33 class.
+     */
+    virtual ~CEWHQu33();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(u)})_{33}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(u)})_{33}@f$
      */
     double computeThValue();
       
@@ -4119,6 +4797,662 @@ public:
     /**
      * @brief The combination @f$(\hat{C}_{Hd})_{33}@f$.
      * @return @f$(\hat{C}_{Hd})_{33}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+//-----  The same, in the quark mass basis  ----------
+
+
+/**
+ * @class CEWHQ1uu
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$.
+ *
+ */
+class CEWHQ1uu : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ1uu(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ1uu class.
+     */
+    virtual ~CEWHQ1uu();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ1cc
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$.
+ *
+ */
+class CEWHQ1cc : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ1cc(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ1cc class.
+     */
+    virtual ~CEWHQ1cc();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ1tt
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$.
+ *
+ */
+class CEWHQ1tt : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ1tt(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ1tt class.
+     */
+    virtual ~CEWHQ1tt();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ1dd
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$.
+ *
+ */
+class CEWHQ1dd : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ1dd(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ1dd class.
+     */
+    virtual ~CEWHQ1dd();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ1ss
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$.
+ *
+ */
+class CEWHQ1ss : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ1ss(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ1ss class.
+     */
+    virtual ~CEWHQ1ss();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ1bb
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$.
+ *
+ */
+class CEWHQ1bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ1bb(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ1bb class.
+     */
+    virtual ~CEWHQ1bb();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHQ3uu
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$.
+ *
+ */
+class CEWHQ3uu : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ3uu(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ3uu class.
+     */
+    virtual ~CEWHQ3uu();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ3cc
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$.
+ *
+ */
+class CEWHQ3cc : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ3cc(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ3cc class.
+     */
+    virtual ~CEWHQ3cc();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ3tt
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$.
+ *
+ */
+class CEWHQ3tt : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ3tt(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ3tt class.
+     */
+    virtual ~CEWHQ3tt();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ3dd
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$.
+ *
+ */
+class CEWHQ3dd : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ3dd(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ3dd class.
+     */
+    virtual ~CEWHQ3dd();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ3ss
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$.
+ *
+ */
+class CEWHQ3ss : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ3ss(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ3ss class.
+     */
+    virtual ~CEWHQ3ss();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHQ3bb
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$.
+ *
+ */
+class CEWHQ3bb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHQ3bb(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHQ3bb class.
+     */
+    virtual ~CEWHQ3bb();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$.
+     * @return @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class CEWHuuu
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hu})_{uu}@f$.
+ *
+ */
+class CEWHuuu : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHuuu(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHuuu class.
+     */
+    virtual ~CEWHuuu();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hu})_{uu}@f$.
+     * @return @f$(\hat{C}_{Hu})_{uu}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHucc
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hu})_{cc}@f$.
+ *
+ */
+class CEWHucc : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHucc(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHucc class.
+     */
+    virtual ~CEWHucc();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hu})_{cc}@f$.
+     * @return @f$(\hat{C}_{Hu})_{cc}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHutt
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hu})_{tt}@f$.
+ *
+ */
+class CEWHutt : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHutt(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHutt class.
+     */
+    virtual ~CEWHutt();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hu})_{tt}@f$.
+     * @return @f$(\hat{C}_{Hu})_{tt}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+
+/**
+ * @class CEWHddd
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hd})_{dd}@f$.
+ *
+ */
+class CEWHddd : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHddd(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHddd class.
+     */
+    virtual ~CEWHddd();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hd})_{dd}@f$.
+     * @return @f$(\hat{C}_{Hd})_{dd}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHdss
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hd})_{ss}@f$.
+ *
+ */
+class CEWHdss : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHdss(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHdss class.
+     */
+    virtual ~CEWHdss();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hd})_{ss}@f$.
+     * @return @f$(\hat{C}_{Hd})_{ss}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class CEWHdbb
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{Hd})_{bb}@f$.
+ *
+ */
+class CEWHdbb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWHdbb(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the CEWHdbb class.
+     */
+    virtual ~CEWHdbb();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{Hd})_{bb}@f$.
+     * @return @f$(\hat{C}_{Hd})_{bb}@f$
      */
     double computeThValue();
       
@@ -5312,6 +6646,671 @@ private:
 // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
 
 /**
+ * @class TWGcQQ1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQQ1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQQ1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQQ1 class.
+     */
+    virtual ~TWGcQQ1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{QQ}^{1}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{QQ}^{1}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQQ8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQQ8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQQ8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQQ8 class.
+     */
+    virtual ~TWGcQQ8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{QQ}^{8}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{QQ}^{8}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGctt1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctt1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctt1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctt1 class.
+     */
+    virtual ~TWGctt1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{tt}^{1}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{tt}^{1}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQt1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQt1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQt1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQt1 class.
+     */
+    virtual ~TWGcQt1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Qt}^{1}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Qt}^{1}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQt8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQt8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQt8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQt8 class.
+     */
+    virtual ~TWGcQt8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Qt}^{8}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Qt}^{8}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQq31
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQq31 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQq31(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQq31 class.
+     */
+    virtual ~TWGcQq31();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q q}^{(3,1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Q q}^{(3,1)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQq38
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQq38 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQq38(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQq38 class.
+     */
+    virtual ~TWGcQq38();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q q}^{(3,8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Q q}^{(3,8)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQq11
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQq11 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQq11(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQq11 class.
+     */
+    virtual ~TWGcQq11();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q q}^{(1,1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Q q}^{(1,1)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQq18
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQq18 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQq18(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQq18 class.
+     */
+    virtual ~TWGcQq18();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q q}^{(1,8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Q q}^{(1,8)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQu1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQu1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQu1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQu1 class.
+     */
+    virtual ~TWGcQu1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q u}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Q u}^{(1)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQu8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQu8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQu8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQu8 class.
+     */
+    virtual ~TWGcQu8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q u}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Q u}^{(8)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQd1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQd1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQd1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQd1 class.
+     */
+    virtual ~TWGcQd1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q d}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Q d}^{(1)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQd8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQd8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQd8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQd8 class.
+     */
+    virtual ~TWGcQd8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q d}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Q d}^{(8)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGctq1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctq1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctq1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctq1 class.
+     */
+    virtual ~TWGctq1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t q}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{t q}^{(1)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGctq8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctq8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctq8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctq8 class.
+     */
+    virtual ~TWGctq8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t q}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{t q}^{(8)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGctu1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctu1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctu1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctu1 class.
+     */
+    virtual ~TWGctu1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t u}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{t u}^{(1)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGctu8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctu8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctu8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctu8 class.
+     */
+    virtual ~TWGctu8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{tu}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{tu}^{(8)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGctd1
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctd1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctd1(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctd1 class.
+     */
+    virtual ~TWGctd1();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{t d}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{t d}^{(1)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGctd8
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctd8 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctd8(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctd8 class.
+     */
+    virtual ~TWGctd8();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{td}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{td}^{(8)}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
  * @class TWGctH
  * @brief An observable class for the LHC Top WG definitions of Top operators.
  * @author HEPfit Collaboration
@@ -5416,74 +7415,6 @@ private:
 
 
 /**
- * @class TWGcHt
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGcHt : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGcHt(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGcHt class.
-     */
-    virtual ~TWGcHt();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{phi t}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{phi t}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGctG
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGctG : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGctG(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGctG class.
-     */
-    virtual ~TWGctG();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{t G}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{t G}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
  * @class TWGcHQ3
  * @brief An observable class for the LHC Top WG definitions of Top operators.
  * @author HEPfit Collaboration
@@ -5517,6 +7448,112 @@ private:
 
 };
 
+
+/**
+ * @class TWGcHt
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcHt : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcHt(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcHt class.
+     */
+    virtual ~TWGcHt();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{phi t}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{phi t}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcHb
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcHb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcHb(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcHb class.
+     */
+    virtual ~TWGcHb();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{phi b}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{phi b}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcHtb
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcHtb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcHtb(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcHtb class.
+     */
+    virtual ~TWGcHtb();
+
+    /**
+     * @brief The Wilson coefficient @f$Re[C_{phi tb}]/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$Re[C_{phi tb}]/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
 /**
  * @class TWGctW
  * @brief An observable class for the LHC Top WG definitions of Top operators.
@@ -5540,8 +7577,8 @@ public:
     virtual ~TWGctW();
 
     /**
-     * @brief The Wilson coefficient @f$C_{t W}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{t W}/\Lambda^2@f$
+     * @brief The Wilson coefficient @f$Re[C_{t W}]/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$Re[C_{t W}]/\Lambda^2@f$
      */
     double computeThValue();
           
@@ -5610,8 +7647,8 @@ public:
     virtual ~TWGctZ();
 
     /**
-     * @brief The Wilson coefficient @f$C_{t Z}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{t Z}/\Lambda^2@f$
+     * @brief The Wilson coefficient @f$Re[C_{t Z}]/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$Re[C_{t Z}]/\Lambda^2@f$
      */
     double computeThValue();
           
@@ -5620,6 +7657,7 @@ private:
     const double mu;
 
 };
+
 
 /**
  * @class TWGImctZ
@@ -5655,31 +7693,32 @@ private:
 
 };
 
+
 /**
- * @class TWGcHb
+ * @class TWGctG
  * @brief An observable class for the LHC Top WG definitions of Top operators.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
-class TWGcHb : public ThObservable {
+class TWGctG : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    TWGcHb(const StandardModel& SM_i, const double mu_i);
+    TWGctG(const StandardModel& SM_i, const double mu_i);
       
     /**
-     * @brief Destructor of the TWGcHb class.
+     * @brief Destructor of the TWGctG class.
      */
-    virtual ~TWGcHb();
+    virtual ~TWGctG();
 
     /**
-     * @brief The Wilson coefficient @f$C_{phi b}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{phi b}/\Lambda^2@f$
+     * @brief The Wilson coefficient @f$Re[C_{t G}]/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$Re[C_{t G}]/\Lambda^2@f$
      */
     double computeThValue();
           
@@ -5689,31 +7728,32 @@ private:
 
 };
 
+
 /**
- * @class TWGctu8
+ * @class TWGcbW
  * @brief An observable class for the LHC Top WG definitions of Top operators.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
-class TWGctu8 : public ThObservable {
+class TWGcbW : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    TWGctu8(const StandardModel& SM_i, const double mu_i);
+    TWGcbW(const StandardModel& SM_i, const double mu_i);
       
     /**
-     * @brief Destructor of the TWGctu8 class.
+     * @brief Destructor of the TWGcbW class.
      */
-    virtual ~TWGctu8();
+    virtual ~TWGcbW();
 
     /**
-     * @brief The Wilson coefficient @f$C_{tu}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{tu}^{(8)}/\Lambda^2@f$
+     * @brief The Wilson coefficient @f$Re[C_{b W}]/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$Re[C_{b W}]/\Lambda^2@f$
      */
     double computeThValue();
           
@@ -5723,447 +7763,6 @@ private:
 
 };
 
-/**
- * @class TWGctd8
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGctd8 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGctd8(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGctd8 class.
-     */
-    virtual ~TWGctd8();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{td}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{td}^{(8)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGcQq18
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGcQq18 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGcQq18(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGcQq18 class.
-     */
-    virtual ~TWGcQq18();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{Q q}^{(1,8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{Q q}^{(1,8)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGctq8
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGctq8 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGctq8(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGctq8 class.
-     */
-    virtual ~TWGctq8();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{t q}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{t q}^{(8)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGcQq38
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGcQq38 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGcQq38(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGcQq38 class.
-     */
-    virtual ~TWGcQq38();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{Q q}^{(3,8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{Q q}^{(3,8)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGcQu8
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGcQu8 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGcQu8(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGcQu8 class.
-     */
-    virtual ~TWGcQu8();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{Q u}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{Q u}^{(8)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGcQd8
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGcQd8 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGcQd8(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGcQd8 class.
-     */
-    virtual ~TWGcQd8();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{Q d}^{(8)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{Q d}^{(8)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGcQd1
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGcQd1 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGcQd1(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGcQd1 class.
-     */
-    virtual ~TWGcQd1();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{Q d}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{Q d}^{(1)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGcQu1
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGcQu1 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGcQu1(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGcQu1 class.
-     */
-    virtual ~TWGcQu1();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{Q u}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{Q u}^{(1)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGctd1
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGctd1 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGctd1(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGctd1 class.
-     */
-    virtual ~TWGctd1();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{t d}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{t d}^{(1)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGctu1
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGctu1 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGctu1(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGctu1 class.
-     */
-    virtual ~TWGctu1();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{t u}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{t u}^{(1)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGctq1
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGctq1 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGctq1(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGctq1 class.
-     */
-    virtual ~TWGctq1();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{t q}^{(1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{t q}^{(1)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGcQq11
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGcQq11 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGcQq11(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGcQq11 class.
-     */
-    virtual ~TWGcQq11();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{Q q}^{(1,1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{Q q}^{(1,1)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
-
-/**
- * @class TWGcQq31
- * @brief An observable class for the LHC Top WG definitions of Top operators.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
- *
- */
-class TWGcQq31 : public ThObservable {
-public:
-
-    /**
-     * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
-     */
-    TWGcQq31(const StandardModel& SM_i, const double mu_i);
-      
-    /**
-     * @brief Destructor of the TWGcQq31 class.
-     */
-    virtual ~TWGcQq31();
-
-    /**
-     * @brief The Wilson coefficient @f$C_{Q q}^{(3,1)}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{Q q}^{(3,1)}/\Lambda^2@f$
-     */
-    double computeThValue();
-          
-private:
-    const NPbase * myNPbase;
-    const double mu;
-
-};
 
 /**
  * @class TWGcQlM
@@ -6236,30 +7835,65 @@ private:
 
 
 /**
- * @class TWGcte
+ * @class TWGcQl3
  * @brief An observable class for the LHC Top WG definitions of Top operators.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
-class TWGcte : public ThObservable {
+class TWGcQl3 : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    TWGcte(const StandardModel& SM_i, const double mu_i);
+    TWGcQl3(const StandardModel& SM_i, const double mu_i);
       
     /**
-     * @brief Destructor of the TWGcte class.
+     * @brief Destructor of the TWGcQl3 class.
      */
-    virtual ~TWGcte();
+    virtual ~TWGcQl3();
 
     /**
-     * @brief The Wilson coefficient @f$C_{t e}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{t e}/\Lambda^2@f$
+     * @brief The Wilson coefficient @f$C_{Ql}^{3}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Ql}^{3}/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
+/**
+ * @class TWGcQe
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGcQe : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGcQe(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGcQe class.
+     */
+    virtual ~TWGcQe();
+
+    /**
+     * @brief The Wilson coefficient @f$C_{Q e}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{Q e}/\Lambda^2@f$
      */
     double computeThValue();
           
@@ -6306,30 +7940,30 @@ private:
 
 
 /**
- * @class TWGcQe
+ * @class TWGcte
  * @brief An observable class for the LHC Top WG definitions of Top operators.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
  *
  */
-class TWGcQe : public ThObservable {
+class TWGcte : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    TWGcQe(const StandardModel& SM_i, const double mu_i);
+    TWGcte(const StandardModel& SM_i, const double mu_i);
       
     /**
-     * @brief Destructor of the TWGcQe class.
+     * @brief Destructor of the TWGcte class.
      */
-    virtual ~TWGcQe();
+    virtual ~TWGcte();
 
     /**
-     * @brief The Wilson coefficient @f$C_{Q e}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
-     * @return @f$C_{Q e}/\Lambda^2@f$
+     * @brief The Wilson coefficient @f$C_{t e}/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$C_{t e}/\Lambda^2@f$
      */
     double computeThValue();
           
@@ -6338,6 +7972,76 @@ private:
     const double mu;
 
 };
+
+
+/**
+ * @class TWGctlS
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctlS : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctlS(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctlS class.
+     */
+    virtual ~TWGctlS();
+
+    /**
+     * @brief The Wilson coefficient @f$Re[C_{t}^{S(l)}]/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$Re[C_{t}^{S(l)}]/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+/**
+ * @class TWGctlT
+ * @brief An observable class for the LHC Top WG definitions of Top operators.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the Wilson coefficient of top operators in the notation of LHC Top WG arXiv: 1802.07237.
+ *
+ */
+class TWGctlT : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    TWGctlT(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the TWGctlT class.
+     */
+    virtual ~TWGctlT();
+
+    /**
+     * @brief The Wilson coefficient @f$Re[C_{t}^{T(l)}]/\Lambda^2@f$ in units of @f$TeV^{-2}@f$.
+     * @return @f$Re[C_{t}^{T(l)}]/\Lambda^2@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
 
 #endif	/* NPCOUPLINGS_H */
 

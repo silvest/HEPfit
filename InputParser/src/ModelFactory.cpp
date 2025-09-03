@@ -19,6 +19,8 @@
 #include "NPSMEFTd6U2.h"
 #include "NPSMEFTd6U3.h"
 
+#include "NPd6SILH.h"
+
 #include "NPSMEFT6dtopquark.h"
 #include "SigmaBR.h"
 #include "HiggsKigen.h"
@@ -64,6 +66,8 @@ ModelFactory::ModelFactory()
     modelFactory["NPSMEFTd6U2qU1le"] = boost::factory<NPSMEFTd6U2qU1le*>();
     modelFactory["NPSMEFTd6U2"] = boost::factory<NPSMEFTd6U2*>();
     modelFactory["NPSMEFTd6U3"] = boost::factory<NPSMEFTd6U3*>();
+    
+    modelFactory["NPd6SILH"] = boost::factory<NPd6SILH*>();
     
     modelFactory["NPSMEFT6dtopquark"] = boost::factory<NPSMEFT6dtopquark*>();
 

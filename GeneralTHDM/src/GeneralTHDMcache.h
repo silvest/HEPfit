@@ -3340,52 +3340,6 @@ public:
 //    double bbF_phi2_tt_TH13;
 
 
-    /**
-     *
-     * @brief The beta function of @f$\lambda_1@f$ appearing in unitarity conditions
-     * @return @f$\beta_{\lambda_1}@f$ as defined in Cacchio:2016qyh
-     */
-    double betalambda1_Z2(double la1, double la3, double la4, double la5){
-        return ((12.*la1*la1 + 4.*la3*la3 + 4.*la3*la4 + 2.*la4*la4 + 2.*la5*la5)/16./M_PI/M_PI);
-    }
-
-    /**
-     *
-     * @brief The beta function of @f$\lambda_2@f$ appearing in unitarity conditions
-     * @return @f$\beta_{\lambda_2}@f$ as defined in Cacchio:2016qyh
-     */
-    double betalambda2_Z2(double la2, double la3, double la4, double la5){
-        return ((12.*la2*la2 + 4.*la3*la3 + 4.*la3*la4 + 2.*la4*la4 + 2.*la5*la5)/16./M_PI/M_PI);
-    }
-
-    /**
-     *
-     * @brief The beta function of @f$\lambda_3@f$ appearing in unitarity conditions
-     * @return @f$\beta_{\lambda_3}@f$ as defined in Cacchio:2016qyh
-     */
-    double betalambda3_Z2(double la1, double la2, double la3, double la4, double la5){
-        return ((4.*la3*la3 + 2.*la4*la4 + (la1 + la2)*(6.*la3 + 2.*la4) + 2.*la5*la5)/16./M_PI/M_PI);
-    }
-
-    /**
-     *
-     * @brief The beta function of @f$\lambda_4@f$ appearing in unitarity conditions
-     * @return @f$\beta_{\lambda_4}@f$ as defined in Cacchio:2016qyh
-     */
-    double betalambda4_Z2(double la1, double la2, double la3, double la4, double la5){
-        return (((2.*la1 + 2.*la2 + 8.*la3)*la4 + 4.*la4*la4 + 8.*la5*la5)/16./M_PI/M_PI);
-    }
-
-    /**
-     *
-     * @brief The beta function of @f$\lambda_5@f$ appearing in unitarity conditions
-     * @return @f$\beta_{\lambda_5}@f$ as defined in Cacchio:2016qyh
-     */
-    double betalambda5_Z2(double la1, double la2, double la3, double la4, double la5){
-        return ((2.*la1 + 2.*la2 + 8.*la3 + 12.*la4)*la5/16./M_PI/M_PI);
-    }
-
-
     double mH1sq;
     double mH2sq;
     double mH3sq;
@@ -3470,7 +3424,7 @@ private:
     GeneralTHDMRunner * myRunnerGTHDM;
     const PVfunctions PV;
 
-    void runGeneralTHDMparameters();
+    void runGeneralTHDMparameters(std::string RGEorder);
 
     double mHl;
     double vev;

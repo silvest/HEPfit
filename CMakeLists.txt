@@ -220,6 +220,7 @@ else()
   execute_process(COMMAND ${ROOT_CONFIG} --libs
                   OUTPUT_VARIABLE ROOT_LIBS
                   OUTPUT_STRIP_TRAILING_WHITESPACE)
+  set(ROOT_LIBS "${ROOT_LIBS} -lMathMore")                
   message(STATUS "ROOT libs: ${ROOT_LIBS}")
   execute_process(COMMAND ${ROOT_CONFIG} --ldflags
                   OUTPUT_VARIABLE ROOT_LDFLAGS

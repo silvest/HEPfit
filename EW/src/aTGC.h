@@ -47,6 +47,43 @@ private:
     const double mu;
 };
 
+
+/**
+ * @class deltag1gamma
+ * @brief An observable class for the anomalous triple gauge coupling
+ * @f$\delta g_{1,\gamma}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the anomalous triple gauge coupling
+ * @f$\delta g_{1,\gamma}@f$.
+ *
+ */
+class deltag1gamma : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltag1gamma(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the deltag1gamma class.
+     */
+    virtual ~deltag1gamma();
+
+    /**
+     * @brief The anomalous triple gauge coupling @f$\delta g_{1,\gamma}@f$.
+     * @return @f$\delta g_{1,\gamma}@f$
+     */
+    double computeThValue();
+      
+private:
+    const NPbase * myNPbase;
+    const double mu;
+};
+
+
 /**
  * @class deltaKgamma
  * @brief An observable class for the anomalous triple gauge coupling

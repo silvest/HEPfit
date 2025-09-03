@@ -267,7 +267,7 @@ const double THDMW::muVBF(const double sqrt_s) const
     return getMyTHDMWCache()->rh_VV;
 }
 
-const double THDMW::mueeWBF(const double sqrt_s) const
+const double THDMW::mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return getMyTHDMWCache()->rh_VV;
 }
