@@ -3149,7 +3149,7 @@ public:
         return eeffsigmaEbin(pol_e, pol_p, s, cosmin, cosmax);
     }
         
-    const double eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
+    virtual const double eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
     
     virtual const double eeffsigmaEtsub(const double pol_e, const double pol_p, const double s) const    
     {

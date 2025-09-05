@@ -46,7 +46,9 @@ double LEP2dsigmadcosTau::computeThValue()
 
 double eeffsigmaTau::computeThValue() 
 { 
-    double sigma_tau = SM.eeffsigmaTau(pol_e, pol_p, s);
+    //double sigma_tau = SM.eeffsigmaTau(pol_e, pol_p, s);
+    double coscut = 0.9;
+    double sigma_tau = SM.eeffsigma(SM.getLeptons(SM.TAU), pol_e, pol_p, s, -coscut, coscut);
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_xseell");

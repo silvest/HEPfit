@@ -19,7 +19,9 @@ double LEP2sigmaBottom::computeThValue()
 
 double eeffsigmaBottom::computeThValue()
 { 
-    double sigma_bottom = SM.eeffsigmaBottom(pol_e, pol_p, s);
+    //double sigma_bottom = SM.eeffsigmaBottom(pol_e, pol_p, s);
+    double coscut = 0.9;
+    double sigma_bottom = SM.eeffsigma(SM.getQuarks(SM.BOTTOM), pol_e, pol_p, s, -coscut, coscut);
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_xseebb");
