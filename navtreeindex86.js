@@ -1,5 +1,6 @@
 var NAVTREEINDEX86 =
 {
+"d9/d60/class_higgs_observable.html#a876553fb09ced0daa473dac83dd877c5":[4,14,2,19],
 "d9/d60/class_higgs_observable.html#a92fc1a2cfc14048aebb83de264d872c6":[4,14,2,7],
 "d9/d60/class_higgs_observable.html#a9409d536ce4704f8d68a6c8fa773d997":[4,14,2,3],
 "d9/d60/class_higgs_observable.html#aa4de53414b4bd2d07a1c5a88b020bf90":[4,14,2,9],
@@ -248,6 +249,5 @@ var NAVTREEINDEX86 =
 "d9/d94/classsigma__250__bb__e_p___p30__e_m___p80.html":[27,0,2576],
 "d9/d94/classsigma__250__bb__e_p___p30__e_m___p80.html#a5873fa5518394225d677fcab864effbb":[27,0,2576,0],
 "d9/d94/classsigma__250__bb__e_p___p30__e_m___p80.html#a5a813793d62246b804ef8c37da70afad":[27,0,2576,1],
-"d9/d94/classsigma__250__bb__e_p___p30__e_m___p80.html#adcccae398ad978eb9191b124e357e266":[27,0,2576,2],
-"d9/d97/class_br_htobb__over__4l___ratio.html":[4,13,15]
+"d9/d94/classsigma__250__bb__e_p___p30__e_m___p80.html#adcccae398ad978eb9191b124e357e266":[27,0,2576,2]
 };

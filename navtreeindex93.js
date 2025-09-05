@@ -1,5 +1,6 @@
 var NAVTREEINDEX93 =
 {
+"da/d86/class_higgs_chiral.html#a711c40bd19096754165e5d3cc21f7a3d":[4,13,76,257],
 "da/d86/class_higgs_chiral.html#a7237a5304f12a94c0dc6eb9c35550118":[4,13,76,129],
 "da/d86/class_higgs_chiral.html#a7245cd63ec09a227399c0a7a29c10f18":[4,13,76,248],
 "da/d86/class_higgs_chiral.html#a72906689aa18803d536a60e2299cb97f":[4,13,76,225],
@@ -248,6 +249,5 @@ var NAVTREEINDEX93 =
 "da/d94/class_hobs__pp__phi3__bb___c_m_s13.html#a4b13038c5e3f9b38aebad7d3ebbc5407":[27,0,1343,1],
 "da/d94/classunitarity_n_l_o14.html":[4,17,463],
 "da/d94/classunitarity_n_l_o14.html#a20b86c99cedf8e8f51bf3d77dd7af904":[4,17,463,1],
-"da/d94/classunitarity_n_l_o14.html#af34cc0ed248997b8ae0e75a7026ab629":[4,17,463,2],
-"da/d94/classunitarity_n_l_o14.html#afd232254d31bf3eda901cf6c0ab7ec9b":[4,17,463,0]
+"da/d94/classunitarity_n_l_o14.html#af34cc0ed248997b8ae0e75a7026ab629":[4,17,463,2]
 };

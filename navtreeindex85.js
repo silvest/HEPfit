@@ -1,5 +1,6 @@
 var NAVTREEINDEX85 =
 {
+"d9/d3b/class_s_u_s_y_mass_insertion.html#ad351661ab6783af8bf12df8c8709260d":[27,0,2840,100],
 "d9/d3b/class_s_u_s_y_mass_insertion.html#ad599e87bc9ab295f08ca09a3ed7c0423":[27,0,2840,8],
 "d9/d3b/class_s_u_s_y_mass_insertion.html#ad5fa8112d93d0f095bf52ec12b581bdd":[27,0,2840,95],
 "d9/d3b/class_s_u_s_y_mass_insertion.html#ad62a76aca094618b1bf4cd141cb8d55e":[27,0,2840,149],
@@ -248,6 +249,5 @@ var NAVTREEINDEX85 =
 "d9/d60/class_higgs_observable.html#a4eb3ca7e1d56b96665a3b4f66d3e2ab0":[4,14,2,4],
 "d9/d60/class_higgs_observable.html#a722f9c3f4e427b0512af011afea64912":[4,14,2,17],
 "d9/d60/class_higgs_observable.html#a7387b8ca20bd58216bd7e1437fc11c3c":[4,14,2,16],
-"d9/d60/class_higgs_observable.html#a74837641efabbef7b712694b8ac6cd70":[4,14,2,0],
-"d9/d60/class_higgs_observable.html#a876553fb09ced0daa473dac83dd877c5":[4,14,2,19]
+"d9/d60/class_higgs_observable.html#a74837641efabbef7b712694b8ac6cd70":[4,14,2,0]
 };

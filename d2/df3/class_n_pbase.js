@@ -357,6 +357,7 @@ var class_n_pbase =
     [ "eeffRmuon", "d2/df3/class_n_pbase.html#a400f2ef15e15e126a29469ee20521382", null ],
     [ "eeffRstrange", "d2/df3/class_n_pbase.html#a0d294c3105c6155ebc3e4fa31f3ca144", null ],
     [ "eeffRtau", "d2/df3/class_n_pbase.html#a12c253d6a6298ec76dfe62c7a125a9d9", null ],
+    [ "eeffsigma", "d2/df3/class_n_pbase.html#afbf97f3d0222f4a713745cd834197d5a", null ],
     [ "eeffsigmaBottom", "d2/df3/class_n_pbase.html#a7a6b417c601198dbdd9290f26a7d23e1", null ],
     [ "eeffsigmaCharm", "d2/df3/class_n_pbase.html#a13235b79a3b4dcc7ea4338ec46230cae", null ],
     [ "eeffsigmaE", "d2/df3/class_n_pbase.html#ab7409412e91c07a5dffacf42188f2b84", null ],

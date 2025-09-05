@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['b_0',['b',['../dd/d00/class_evol_bsmm.html#ab70666a70386fbf22c7e9bbfe930b710',1,'EvolBsmm::b()'],['../df/d59/class_c_penguin_box.html#a1c134ef49cb1d622b2949d0a952a614b',1,'CPenguinBox::b()']]],
+  ['b_0',['b',['../df/d59/class_c_penguin_box.html#a1c134ef49cb1d622b2949d0a952a614b',1,'CPenguinBox']]],
   ['b_1',['B',['../df/dea/class_bernoulli_numbers.html#a75da801e940dee5454efd36c4bab2997',1,'BernoulliNumbers']]],
-  ['b_2',['b',['../db/db3/class_n_p_higgs.html#ad9f50402b931c46a55b89963bb76a4be',1,'NPHiggs::b()'],['../d6/d86/class_evol_d_f2.html#a50b52823572c0ed0bb77405c78ffeed4',1,'EvolDF2::b()'],['../d7/dc5/class_evol_d_f1nlep.html#a96a856fc07148faeaf682338c7983a56',1,'EvolDF1nlep::b()'],['../df/dcf/class_evol_d_c1_buras.html#ac314778950aa90176426673d0e57a51c',1,'EvolDC1Buras::b()'],['../d1/d9d/class_evol_d_f1__diujlknu.html#ad1c8966714fa0f4e8d2b3710f4c1ca29',1,'EvolDF1_diujlknu::b()'],['../dc/d99/class_evol_d_b1bsg.html#a187251313a2e8fb8639e5f7d3b2935d6',1,'EvolDB1bsg::b()'],['../d7/dda/class_evol_d_c1.html#a8d339be325c581f57497e4584b101f57',1,'EvolDC1::b()'],['../de/def/class_evol_d_b1_mll.html#a4287b52cf54ffc595b472d1e89f70140',1,'EvolDB1Mll::b()']]],
+  ['b_2',['b',['../db/db3/class_n_p_higgs.html#ad9f50402b931c46a55b89963bb76a4be',1,'NPHiggs::b()'],['../d6/d86/class_evol_d_f2.html#a50b52823572c0ed0bb77405c78ffeed4',1,'EvolDF2::b()'],['../d7/dc5/class_evol_d_f1nlep.html#a96a856fc07148faeaf682338c7983a56',1,'EvolDF1nlep::b()'],['../d1/d9d/class_evol_d_f1__diujlknu.html#ad1c8966714fa0f4e8d2b3710f4c1ca29',1,'EvolDF1_diujlknu::b()'],['../d7/dda/class_evol_d_c1.html#a8d339be325c581f57497e4584b101f57',1,'EvolDC1::b()'],['../df/dcf/class_evol_d_c1_buras.html#ac314778950aa90176426673d0e57a51c',1,'EvolDC1Buras::b()'],['../dd/d00/class_evol_bsmm.html#ab70666a70386fbf22c7e9bbfe930b710',1,'EvolBsmm::b()'],['../de/def/class_evol_d_b1_mll.html#a4287b52cf54ffc595b472d1e89f70140',1,'EvolDB1Mll::b()'],['../dc/d99/class_evol_d_b1bsg.html#a187251313a2e8fb8639e5f7d3b2935d6',1,'EvolDB1bsg::b()']]],
   ['b0_3',['b0',['../df/d59/class_c_penguin_box.html#a74c32110a042d94e5f6b5fa8383dd01e',1,'CPenguinBox::b0()'],['../da/d29/class_amp_d_b2.html#a38daa91ce86f5649435e2b4a132182ee',1,'AmpDB2::b0()']]],
   ['b00_5fmz2_5f0_5fma2_5fmhp2_5fcache_4',['B00_MZ2_0_mA2_mHp2_cache',['../dc/dfd/class_general_t_h_d_mcache.html#a3729b233c8f261021d2fa85069695f72',1,'GeneralTHDMcache::B00_MZ2_0_mA2_mHp2_cache()'],['../d5/df2/class_t_h_d_mcache.html#a02f8bf95aef99752ab39cc81e65d4001',1,'THDMcache::B00_MZ2_0_mA2_mHp2_cache()']]],
   ['b00_5fmz2_5f0_5fmhh2_5fma2_5fcache_5',['B00_MZ2_0_mHh2_mA2_cache',['../dc/dfd/class_general_t_h_d_mcache.html#af9ff8e22d5853d49d6eab9cee6e3b848',1,'GeneralTHDMcache::B00_MZ2_0_mHh2_mA2_cache()'],['../d5/df2/class_t_h_d_mcache.html#ac3e19ae464d66727894fdc3110aa6134',1,'THDMcache::B00_MZ2_0_mHh2_mA2_cache()']]],
@@ -179,8 +179,8 @@ var searchData=
   ['bbf_5fh_5ftt_5fth13_176',['bbF_H_tt_TH13',['../d5/df2/class_t_h_d_mcache.html#a74e46d6f983e9ebd6670e3e76db92e1d',1,'THDMcache']]],
   ['bbsobbd_177',['BBsoBBd',['../dd/d75/class_b_parameter.html#af552318922ef85690c795235dabf61f6',1,'BParameter']]],
   ['bdebug_178',['bDebug',['../db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#af067ce7f07eb37d5051034956aac41c8',1,'EWSMTwoFermionsLEP2']]],
-  ['bdmumu_5fmu_5fcache_179',['Bdmumu_mu_cache',['../dd/d87/class_heff_d_b1.html#aa431419db95b65f142d9558757a0a716',1,'HeffDB1']]],
-  ['bdmumu_5fmu_5fcache_180',['Bdmumu_Mu_cache',['../dd/d87/class_heff_d_b1.html#a2aa5329b2c18122ccb81005cb6b37207',1,'HeffDB1']]],
+  ['bdmumu_5fmu_5fcache_179',['Bdmumu_Mu_cache',['../dd/d87/class_heff_d_b1.html#a2aa5329b2c18122ccb81005cb6b37207',1,'HeffDB1']]],
+  ['bdmumu_5fmu_5fcache_180',['Bdmumu_mu_cache',['../dd/d87/class_heff_d_b1.html#aa431419db95b65f142d9558757a0a716',1,'HeffDB1']]],
   ['bdmumu_5fscheme_5fcache_181',['Bdmumu_scheme_cache',['../dd/d87/class_heff_d_b1.html#a415178014e8726c0eb35423124388e8e',1,'HeffDB1']]],
   ['bdmumu_5fwc_5fcache_182',['Bdmumu_WC_cache',['../dd/d87/class_heff_d_b1.html#a6629121fcfafff69ee9ee3f1a47c62f2',1,'HeffDB1']]],
   ['bdstartaunu_5fa_183',['BDstartaunu_A',['../d0/d52/class_t_h_d_m.html#a82f0e5c0f1bd633af03869a76004571b',1,'THDM::BDstartaunu_A()'],['../d5/df2/class_t_h_d_mcache.html#a1044b23269d50c254775b5b849d104b0',1,'THDMcache::BDstartaunu_A()']]],
