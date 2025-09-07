@@ -25869,7 +25869,8 @@ const double NPSMEFTd6General::GammaHggRatio() const {
 const double NPSMEFTd6General::deltaGammaHggRatio1() const {
     double dwidth = 0.0;
 
-    double C1 = 0.0066;
+    double C1 = 0.0066;    
+    double muRG = 125.1;
 
     /*dwidth += (+37526258. * getSMEFTCoeffEW("CHG")
             + cLHd6 * (
@@ -25888,14 +25889,14 @@ const double NPSMEFTd6General::deltaGammaHggRatio1() const {
     //  This should be at LO independent of alpha-MW scheme
     //dwidth += cWsch * ((
     dwidth += ((
-            (39.3001) * getSMEFTCoeffEW("CHG")
-            + (0.12124) * getSMEFTCoeffEW("CHbox")
-            + (-0.12251) * getSMEFTCoeffEW("CuHR", 2, 2)
-            + (1.12694) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
-            + (-0.03032) * getSMEFTCoeffEW("CHD")
-            + (-0.06064) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.06064) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.06064) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            (39.3001) * getSMEFTCoeff("CHG",muRG)
+            + (0.12124) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.12251) * getSMEFTCoeff("CuHR", 2, 2,muRG)
+            + (1.12694) * getSMEFTCoeff("CuGR", 2, 2,muRG) * g3_tree
+            + (-0.03032) * getSMEFTCoeff("CHD",muRG)
+            + (-0.06064) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.06064) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.06064) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             );
     //AG:end
 
@@ -26022,12 +26023,13 @@ const double NPSMEFTd6General::deltaGammaHWlvRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+121875. * getSMEFTCoeffEW("CHbox")
-            + 18351.9 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 159873. * getSMEFTCoeffEW("CHD")
-            - 91288.7 * getSMEFTCoeffEW("CHW")
-            - 284689. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121875. * getSMEFTCoeff("CHbox",muRG)
+            + 18351.9 * (1.0 / 2.0) * (getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 159873. * getSMEFTCoeff("CHD",muRG)
+            - 91288.7 * getSMEFTCoeff("CHW",muRG)
+            - 284689. * getSMEFTCoeff("CHWB",muRG)
             - 3.292 * delta_GF
             - 15.14 * deltaMwd6());
 
@@ -26098,12 +26100,13 @@ const double NPSMEFTd6General::deltaGammaHWW2l2vRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+120742. * getSMEFTCoeffEW("CHbox")
-            + 131582. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 204043. * getSMEFTCoeffEW("CHD")
-            - 91463.9 * getSMEFTCoeffEW("CHW")
-            - 379529. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+120742. * getSMEFTCoeff("CHbox",muRG)
+            + 131582. * (1.0 / 2.0) * (getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 204043. * getSMEFTCoeff("CHD",muRG)
+            - 91463.9 * getSMEFTCoeff("CHW",muRG)
+            - 379529. * getSMEFTCoeff("CHWB",muRG)
             - 4.705 * delta_GF
             - 13.735 * deltaMwd6()
             - 0.965 * deltaGwd6()
@@ -26179,12 +26182,13 @@ const double NPSMEFTd6General::deltaGammaHWjjRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+121611. * getSMEFTCoeffEW("CHbox")
-            + 17701.4 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1))
-            - 159273. * getSMEFTCoeffEW("CHD")
-            - 91021.6 * getSMEFTCoeffEW("CHW")
-            - 282574. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121611. * getSMEFTCoeff("CHbox",muRG)
+            + 17701.4 * (1.0 / 2.0) * (getSMEFTCoeff("CHq3R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            - 159273. * getSMEFTCoeff("CHD",muRG)
+            - 91021.6 * getSMEFTCoeff("CHW",muRG)
+            - 282574. * getSMEFTCoeff("CHWB",muRG)
             - 3.259 * delta_GF
             - 15.198 * deltaMwd6());
 
@@ -26255,12 +26259,13 @@ const double NPSMEFTd6General::deltaGammaHWW4jRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+121936. * getSMEFTCoeffEW("CHbox")
-            + 138860. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1))
-            - 205023. * getSMEFTCoeffEW("CHD")
-            - 89938.5 * getSMEFTCoeffEW("CHW")
-            - 383944. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121936. * getSMEFTCoeff("CHbox",muRG)
+            + 138860. * (1.0 / 2.0) * (getSMEFTCoeff("CHq3R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            - 205023. * getSMEFTCoeff("CHD",muRG)
+            - 89938.5 * getSMEFTCoeff("CHW",muRG)
+            - 383944. * getSMEFTCoeff("CHWB",muRG)
             - 4.816 * delta_GF
             - 13.647 * deltaMwd6()
             - 0.959 * deltaGwd6());
@@ -26335,13 +26340,14 @@ const double NPSMEFTd6General::deltaGammaHWffRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+121288. * getSMEFTCoeffEW("CHbox")
-            + 5395.21 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2))
-            + 11680.9 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1))
-            - 159787. * getSMEFTCoeffEW("CHD")
-            - 91509.1 * getSMEFTCoeffEW("CHW")
-            - 283092. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121288. * getSMEFTCoeff("CHbox",muRG)
+            + 5395.21 * (1.0 / 3.0) * (getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            + 11680.9 * (1.0 / 2.0) * (getSMEFTCoeff("CHq3R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            - 159787. * getSMEFTCoeff("CHD",muRG)
+            - 91509.1 * getSMEFTCoeff("CHW",muRG)
+            - 283092. * getSMEFTCoeff("CHWB",muRG)
             - 3.259 * delta_GF
             - 15.196 * deltaMwd6());
 
@@ -26412,22 +26418,23 @@ const double NPSMEFTd6General::deltaGammaHWW4fRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
     double CWff, sf;
 
-    CWff = (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2)) * v2 +
-            Nc * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1)) * v2;
+    CWff = (getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG)) * v2 +
+            Nc * (getSMEFTCoeff("CHq3R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG)) * v2;
 
     CWff = CWff / (3.0 + 2.0 * Nc);
 
-    sf = 90362.5 * (1.0 / 2.0) * (3.0 + 2.0 * Nc) / (Nc * v2); // Coefficient of the CWff term. From the getSMEFTCoeffEW("CHq3R",0,0) term in the ME.
+    sf = 90362.5 * (1.0 / 2.0) * (3.0 + 2.0 * Nc) / (Nc * v2); // Coefficient of the CWff term. From the getSMEFTCoeff("CHq3R",0,0) term in the ME.
 
-    dwidth += cAsch * (+121886. * getSMEFTCoeffEW("CHbox")
+    dwidth += cAsch * (+121886. * getSMEFTCoeff("CHbox",muRG)
             + sf * CWff
-            - 204009. * getSMEFTCoeffEW("CHD")
-            - 91455.7 * getSMEFTCoeffEW("CHW")
-            - 382903. * getSMEFTCoeffEW("CHWB")
+            - 204009. * getSMEFTCoeff("CHD",muRG)
+            - 91455.7 * getSMEFTCoeff("CHW",muRG)
+            - 382903. * getSMEFTCoeff("CHWB",muRG)
             - 4.757 * delta_GF
             - 13.716 * deltaMwd6()
             - 0.963 * deltaGwd6()
@@ -26437,12 +26444,12 @@ const double NPSMEFTd6General::deltaGammaHWW4fRatio1() const {
 
     //AG:begin
     dwidth += cWsch * (
-            ((0.12133) * getSMEFTCoeffEW("CHbox")
-            + (-0.0905777) * getSMEFTCoeffEW("CHW")
-            + (-0.03034378) * getSMEFTCoeffEW("CHD")
-            + (-0.11424153) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1141935) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.18202) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12133) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.0905777) * getSMEFTCoeff("CHW",muRG)
+            + (-0.03034378) * getSMEFTCoeff("CHD",muRG)
+            + (-0.11424153) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1141935) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.18202) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             );
 
     dwidth += cWsch * (+(-0.94) * deltaGwd6());
@@ -26603,15 +26610,16 @@ const double NPSMEFTd6General::deltaGammaHZllRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121715. * getSMEFTCoeffEW("CHbox")
-            + 8726.9 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1))
-            - 7315.2 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
-            + 8726.9 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 5544.15 * getSMEFTCoeffEW("CHD")
-            - 13560.9 * getSMEFTCoeffEW("CHB")
-            - 45585.2 * getSMEFTCoeffEW("CHW")
-            - 53507.9 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121715. * getSMEFTCoeff("CHbox",muRG)
+            + 8726.9 * (1.0 / 2.0) * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl1R", 1, 1,muRG))
+            - 7315.2 * (1.0 / 2.0) * (getSMEFTCoeff("CHeR", 0, 0,muRG) + getSMEFTCoeff("CHeR", 1, 1,muRG))
+            + 8726.9 * (1.0 / 2.0) * (getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 5544.15 * getSMEFTCoeff("CHD",muRG)
+            - 13560.9 * getSMEFTCoeff("CHB",muRG)
+            - 45585.2 * getSMEFTCoeff("CHW",muRG)
+            - 53507.9 * getSMEFTCoeff("CHWB",muRG)
             - 2.204 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -26681,17 +26689,18 @@ const double NPSMEFTd6General::deltaGammaHZeeRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //  Derived from the HZll expression for l=e only
 
-    dwidth += (+121715. * getSMEFTCoeffEW("CHbox")
-            + 8726.9 * getSMEFTCoeffEW("CHl1R", 0, 0)
-            - 7315.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-            + 8726.9 * getSMEFTCoeffEW("CHl3R", 0, 0)
-            - 5544.15 * getSMEFTCoeffEW("CHD")
-            - 13560.9 * getSMEFTCoeffEW("CHB")
-            - 45585.2 * getSMEFTCoeffEW("CHW")
-            - 53507.9 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121715. * getSMEFTCoeff("CHbox",muRG)
+            + 8726.9 * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            - 7315.2 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + 8726.9 * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            - 5544.15 * getSMEFTCoeff("CHD",muRG)
+            - 13560.9 * getSMEFTCoeff("CHB",muRG)
+            - 45585.2 * getSMEFTCoeff("CHW",muRG)
+            - 53507.9 * getSMEFTCoeff("CHWB",muRG)
             - 2.204 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -26737,17 +26746,18 @@ const double NPSMEFTd6General::deltaGammaHZmumuRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //  Derived from the HZll expression for l=mu only
 
-    dwidth += (+121715. * getSMEFTCoeffEW("CHbox")
-            + 8726.9 * getSMEFTCoeffEW("CHl1R", 1, 1)
-            - 7315.2 * getSMEFTCoeffEW("CHeR", 1, 1)
-            + 8726.9 * getSMEFTCoeffEW("CHl3R", 1, 1)
-            - 5544.15 * getSMEFTCoeffEW("CHD")
-            - 13560.9 * getSMEFTCoeffEW("CHB")
-            - 45585.2 * getSMEFTCoeffEW("CHW")
-            - 53507.9 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121715. * getSMEFTCoeff("CHbox",muRG)
+            + 8726.9 * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            - 7315.2 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + 8726.9 * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            - 5544.15 * getSMEFTCoeff("CHD",muRG)
+            - 13560.9 * getSMEFTCoeff("CHB",muRG)
+            - 45585.2 * getSMEFTCoeff("CHW",muRG)
+            - 53507.9 * getSMEFTCoeff("CHWB",muRG)
             - 2.204 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -26793,22 +26803,23 @@ const double NPSMEFTd6General::deltaGammaHZZ4lRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     double CZll, sf;
 
-    CZll = gZlL * (-0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1)) * v2) +
-            gZlR * (-0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1)) * v2);
+    CZll = gZlL * (-0.5 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG)) * v2) +
+            gZlR * (-0.5 * (getSMEFTCoeff("CHeR", 0, 0,muRG) + getSMEFTCoeff("CHeR", 1, 1,muRG)) * v2);
 
     CZll = CZll / (2.0 * (gZlL * gZlL + gZlR * gZlR));
 
-    sf = 124479. * (1.0 / 2.0) * (2.0 * (gZlL * gZlL + gZlR * gZlR)) / (-0.5 * gZlL * v2); // Coefficient of the CZll term. From the getSMEFTCoeffEW("CHl1R",0,0) term in the ME.
+    sf = 124479. * (1.0 / 2.0) * (2.0 * (gZlL * gZlL + gZlR * gZlR)) / (-0.5 * gZlL * v2); // Coefficient of the CZll term. From the getSMEFTCoeff("CHl1R",0,0) term in the ME.
 
-    dwidth += (+122273. * getSMEFTCoeffEW("CHbox")
+    dwidth += (+122273. * getSMEFTCoeff("CHbox",muRG)
             + sf * CZll
-            - 44025.7 * getSMEFTCoeffEW("CHD")
-            - 13602.6 * getSMEFTCoeffEW("CHB")
-            - 45248.6 * getSMEFTCoeffEW("CHW")
-            - 88372.1 * getSMEFTCoeffEW("CHWB")
+            - 44025.7 * getSMEFTCoeff("CHD",muRG)
+            - 13602.6 * getSMEFTCoeff("CHB",muRG)
+            - 45248.6 * getSMEFTCoeff("CHW",muRG)
+            - 88372.1 * getSMEFTCoeff("CHWB",muRG)
             - 3.462 * delta_GF
             - 0.808 * deltaGzd6());
 
@@ -26882,15 +26893,16 @@ const double NPSMEFTd6General::deltaGammaHZZ4eRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121386. * getSMEFTCoeffEW("CHbox")
-            + 123413. * getSMEFTCoeffEW("CHl1R", 0, 0)
-            - 103717. * getSMEFTCoeffEW("CHeR", 0, 0)
-            + 123413. * getSMEFTCoeffEW("CHl3R", 0, 0)
-            - 44056.9 * getSMEFTCoeffEW("CHD")
-            - 13385.3 * getSMEFTCoeffEW("CHB")
-            - 45127.7 * getSMEFTCoeffEW("CHW")
-            - 91708.7 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121386. * getSMEFTCoeff("CHbox",muRG)
+            + 123413. * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            - 103717. * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + 123413. * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            - 44056.9 * getSMEFTCoeff("CHD",muRG)
+            - 13385.3 * getSMEFTCoeff("CHB",muRG)
+            - 45127.7 * getSMEFTCoeff("CHW",muRG)
+            - 91708.7 * getSMEFTCoeff("CHWB",muRG)
             - 3.462 * delta_GF
             - 0.769 * deltaGzd6());
 
@@ -26964,15 +26976,16 @@ const double NPSMEFTd6General::deltaGammaHZZ2e2muRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+120836. * getSMEFTCoeffEW("CHbox")
-            + 126374. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1))
-            - 109064. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1))
-            + 126374. * (1.0 / 2.0) * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 42370.4 * getSMEFTCoeffEW("CHD")
-            - 14299. * getSMEFTCoeffEW("CHB")
-            - 47298.2 * getSMEFTCoeffEW("CHW")
-            - 83098.2 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+120836. * getSMEFTCoeff("CHbox",muRG)
+            + 126374. * (1.0 / 2.0) * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl1R", 1, 1,muRG))
+            - 109064. * (1.0 / 2.0) * (getSMEFTCoeff("CHeR", 0, 0,muRG) + getSMEFTCoeff("CHeR", 1, 1,muRG))
+            + 126374. * (1.0 / 2.0) * (getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 42370.4 * getSMEFTCoeff("CHD",muRG)
+            - 14299. * getSMEFTCoeff("CHB",muRG)
+            - 47298.2 * getSMEFTCoeff("CHW",muRG)
+            - 83098.2 * getSMEFTCoeff("CHWB",muRG)
             - 3.378 * delta_GF
             - 0.85 * deltaGzd6());
 
@@ -27046,15 +27059,16 @@ const double NPSMEFTd6General::deltaGammaHZZ4muRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+120688. * getSMEFTCoeffEW("CHbox")
-            + 123059. * getSMEFTCoeffEW("CHl1R", 1, 1)
-            - 103862. * getSMEFTCoeffEW("CHeR", 1, 1)
-            + 123059. * getSMEFTCoeffEW("CHl3R", 1, 1)
-            - 43977.1 * getSMEFTCoeffEW("CHD")
-            - 13575.5 * getSMEFTCoeffEW("CHB")
-            - 45200.8 * getSMEFTCoeffEW("CHW")
-            - 91625.2 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+120688. * getSMEFTCoeff("CHbox",muRG)
+            + 123059. * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            - 103862. * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + 123059. * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            - 43977.1 * getSMEFTCoeff("CHD",muRG)
+            - 13575.5 * getSMEFTCoeff("CHB",muRG)
+            - 45200.8 * getSMEFTCoeff("CHW",muRG)
+            - 91625.2 * getSMEFTCoeff("CHWB",muRG)
             - 3.471 * delta_GF
             - 0.774 * deltaGzd6());
 
@@ -27128,14 +27142,15 @@ const double NPSMEFTd6General::deltaGammaHZvvRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121530. * getSMEFTCoeffEW("CHbox")
-            - 7943.34 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl1R", 2, 2))
-            + 7943.34 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 229.41 * getSMEFTCoeffEW("CHD")
-            - 13535.2 * getSMEFTCoeffEW("CHB")
-            - 45480.6 * getSMEFTCoeffEW("CHW")
-            - 24891. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121530. * getSMEFTCoeff("CHbox",muRG)
+            - 7943.34 * (1.0 / 3.0) * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl1R", 2, 2,muRG))
+            + 7943.34 * (1.0 / 3.0) * (getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 229.41 * getSMEFTCoeff("CHD",muRG)
+            - 13535.2 * getSMEFTCoeff("CHB",muRG)
+            - 45480.6 * getSMEFTCoeff("CHW",muRG)
+            - 24891. * getSMEFTCoeff("CHWB",muRG)
             - 2. * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -27205,14 +27220,15 @@ const double NPSMEFTd6General::deltaGammaHZZ4vRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+120596. * getSMEFTCoeffEW("CHbox")
-            - 115532. * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl1R", 2, 2))
-            + 115532. * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 28744.1 * getSMEFTCoeffEW("CHD")
-            - 13816.7 * getSMEFTCoeffEW("CHB")
-            - 44782.1 * getSMEFTCoeffEW("CHW")
-            - 25256.6 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+120596. * getSMEFTCoeff("CHbox",muRG)
+            - 115532. * (1.0 / 3.0) * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl1R", 2, 2,muRG))
+            + 115532. * (1.0 / 3.0) * (getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 28744.1 * getSMEFTCoeff("CHD",muRG)
+            - 13816.7 * getSMEFTCoeff("CHB",muRG)
+            - 44782.1 * getSMEFTCoeff("CHW",muRG)
+            - 25256.6 * getSMEFTCoeff("CHWB",muRG)
             - 3.013 * delta_GF
             - 0.787 * deltaGzd6()
             );
@@ -27287,15 +27303,16 @@ const double NPSMEFTd6General::deltaGammaHZuuRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121512. * getSMEFTCoeffEW("CHbox")
-            - 9648.28 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1))
-            + 4218.6 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1))
-            + 9648.28 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1))
-            - 17762.5 * getSMEFTCoeffEW("CHD")
-            - 13473.3 * getSMEFTCoeffEW("CHB")
-            - 45667.9 * getSMEFTCoeffEW("CHW")
-            - 110057. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121512. * getSMEFTCoeff("CHbox",muRG)
+            - 9648.28 * (1.0 / 2.0) * (getSMEFTCoeff("CHq1R", 0, 0,muRG) + getSMEFTCoeff("CHq1R", 1, 1,muRG))
+            + 4218.6 * (1.0 / 2.0) * (getSMEFTCoeff("CHuR", 0, 0,muRG) + getSMEFTCoeff("CHuR", 1, 1,muRG))
+            + 9648.28 * (1.0 / 2.0) * (getSMEFTCoeff("CHq3R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            - 17762.5 * getSMEFTCoeff("CHD",muRG)
+            - 13473.3 * getSMEFTCoeff("CHB",muRG)
+            - 45667.9 * getSMEFTCoeff("CHW",muRG)
+            - 110057. * getSMEFTCoeff("CHWB",muRG)
             - 2.6 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -27379,15 +27396,16 @@ const double NPSMEFTd6General::deltaGammaHZddRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121756. * getSMEFTCoeffEW("CHbox")
-            + 9252.73 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2))
-            - 1471.03 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2))
-            + 9252.73 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2))
-            - 12714.3 * getSMEFTCoeffEW("CHD")
-            - 13589.3 * getSMEFTCoeffEW("CHB")
-            - 45689.4 * getSMEFTCoeffEW("CHW")
-            - 85582.3 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121756. * getSMEFTCoeff("CHbox",muRG)
+            + 9252.73 * (1.0 / 3.0) * (getSMEFTCoeff("CHq1R", 0, 0,muRG) + getSMEFTCoeff("CHq1R", 1, 1,muRG) + getSMEFTCoeff("CHq1R", 2, 2,muRG))
+            - 1471.03 * (1.0 / 3.0) * (getSMEFTCoeff("CHdR", 0, 0,muRG) + getSMEFTCoeff("CHdR", 1, 1,muRG) + getSMEFTCoeff("CHdR", 2, 2,muRG))
+            + 9252.73 * (1.0 / 3.0) * (getSMEFTCoeff("CHq3R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG) + getSMEFTCoeff("CHq3R", 2, 2,muRG))
+            - 12714.3 * getSMEFTCoeff("CHD",muRG)
+            - 13589.3 * getSMEFTCoeff("CHB",muRG)
+            - 45689.4 * getSMEFTCoeff("CHW",muRG)
+            - 85582.3 * getSMEFTCoeff("CHWB",muRG)
             - 2.427 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -27474,19 +27492,20 @@ const double NPSMEFTd6General::deltaGammaHZffRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121551. * getSMEFTCoeffEW("CHbox")
-            - 824.482 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl1R", 2, 2))
-            + 1840.54 * (1.0 / 12.0) * (5.0 * getSMEFTCoeffEW("CHq1R", 0, 0) + 5.0 * getSMEFTCoeffEW("CHq1R", 1, 1) + 2.0 * getSMEFTCoeffEW("CHq1R", 2, 2) - getSMEFTCoeffEW("CHq3R", 0, 0) - getSMEFTCoeffEW("CHq3R", 1, 1) + 2.0 * getSMEFTCoeffEW("CHq3R", 2, 2))
-            - 795.383 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1) + getSMEFTCoeffEW("CHeR", 2, 2))
-            + 1069.4 * (1.0 / 2.0) * (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1))
-            - 579.563 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2))
-            + 3164.56 * (1.0 / 3.0) * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2))
-            + 6413.99 * (-1.0 / 12.0) * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) - 2.0 * getSMEFTCoeffEW("CHq1R", 2, 2) - 5.0 * getSMEFTCoeffEW("CHq3R", 0, 0) - 5.0 * getSMEFTCoeffEW("CHq3R", 1, 1) - 2.0 * getSMEFTCoeffEW("CHq3R", 2, 2))
-            - 10839.5 * getSMEFTCoeffEW("CHD")
-            - 14222.3 * getSMEFTCoeffEW("CHB")
-            - 45455.6 * getSMEFTCoeffEW("CHW")
-            - 75343.1 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121551. * getSMEFTCoeff("CHbox",muRG)
+            - 824.482 * (1.0 / 3.0) * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl1R", 2, 2,muRG))
+            + 1840.54 * (1.0 / 12.0) * (5.0 * getSMEFTCoeff("CHq1R", 0, 0,muRG) + 5.0 * getSMEFTCoeff("CHq1R", 1, 1,muRG) + 2.0 * getSMEFTCoeff("CHq1R", 2, 2,muRG) - getSMEFTCoeff("CHq3R", 0, 0,muRG) - getSMEFTCoeff("CHq3R", 1, 1,muRG) + 2.0 * getSMEFTCoeff("CHq3R", 2, 2,muRG))
+            - 795.383 * (1.0 / 3.0) * (getSMEFTCoeff("CHeR", 0, 0,muRG) + getSMEFTCoeff("CHeR", 1, 1,muRG) + getSMEFTCoeff("CHeR", 2, 2,muRG))
+            + 1069.4 * (1.0 / 2.0) * (getSMEFTCoeff("CHuR", 0, 0,muRG) + getSMEFTCoeff("CHuR", 1, 1,muRG))
+            - 579.563 * (1.0 / 3.0) * (getSMEFTCoeff("CHdR", 0, 0,muRG) + getSMEFTCoeff("CHdR", 1, 1,muRG) + getSMEFTCoeff("CHdR", 2, 2,muRG))
+            + 3164.56 * (1.0 / 3.0) * (getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            + 6413.99 * (-1.0 / 12.0) * (getSMEFTCoeff("CHq1R", 0, 0,muRG) + getSMEFTCoeff("CHq1R", 1, 1,muRG) - 2.0 * getSMEFTCoeff("CHq1R", 2, 2,muRG) - 5.0 * getSMEFTCoeff("CHq3R", 0, 0,muRG) - 5.0 * getSMEFTCoeff("CHq3R", 1, 1,muRG) - 2.0 * getSMEFTCoeff("CHq3R", 2, 2,muRG))
+            - 10839.5 * getSMEFTCoeff("CHD",muRG)
+            - 14222.3 * getSMEFTCoeff("CHB",muRG)
+            - 45455.6 * getSMEFTCoeff("CHW",muRG)
+            - 75343.1 * getSMEFTCoeff("CHWB",muRG)
             - 2.356 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
@@ -27556,18 +27575,19 @@ const double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
     double CZff, sf;
 
-    CZff = gZvL * (-0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 0, 0) - getSMEFTCoeffEW("CHl3R", 1, 1) - getSMEFTCoeffEW("CHl3R", 2, 2)) * v2) +
-            gZlL * (-0.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) + getSMEFTCoeffEW("CHl3R", 2, 2)) * v2) +
-            gZlR * (-0.5 * (getSMEFTCoeffEW("CHeR", 0, 0) + getSMEFTCoeffEW("CHeR", 1, 1) + getSMEFTCoeffEW("CHeR", 2, 2)) * v2) +
+    CZff = gZvL * (-0.5 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl1R", 2, 2,muRG) - getSMEFTCoeff("CHl3R", 0, 0,muRG) - getSMEFTCoeff("CHl3R", 1, 1,muRG) - getSMEFTCoeff("CHl3R", 2, 2,muRG)) * v2) +
+            gZlL * (-0.5 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl1R", 2, 2,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG)) * v2) +
+            gZlR * (-0.5 * (getSMEFTCoeff("CHeR", 0, 0,muRG) + getSMEFTCoeff("CHeR", 1, 1,muRG) + getSMEFTCoeff("CHeR", 2, 2,muRG)) * v2) +
             Nc * (
-            gZdL * (-0.5 * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq1R", 2, 2) + getSMEFTCoeffEW("CHq3R", 0, 0) + getSMEFTCoeffEW("CHq3R", 1, 1) + getSMEFTCoeffEW("CHq3R", 2, 2)) * v2) +
-            gZdR * (-0.5 * (getSMEFTCoeffEW("CHdR", 0, 0) + getSMEFTCoeffEW("CHdR", 1, 1) + getSMEFTCoeffEW("CHdR", 2, 2)) * v2) +
-            gZuL * (-0.5 * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq1R", 1, 1) - getSMEFTCoeffEW("CHq3R", 0, 0) - getSMEFTCoeffEW("CHq3R", 1, 1)) * v2) +
-            gZuR * (-0.5 * (getSMEFTCoeffEW("CHuR", 0, 0) + getSMEFTCoeffEW("CHuR", 1, 1)) * v2)
+            gZdL * (-0.5 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) + getSMEFTCoeff("CHq1R", 1, 1,muRG) + getSMEFTCoeff("CHq1R", 2, 2,muRG) + getSMEFTCoeff("CHq3R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG) + getSMEFTCoeff("CHq3R", 2, 2,muRG)) * v2) +
+            gZdR * (-0.5 * (getSMEFTCoeff("CHdR", 0, 0,muRG) + getSMEFTCoeff("CHdR", 1, 1,muRG) + getSMEFTCoeff("CHdR", 2, 2,muRG)) * v2) +
+            gZuL * (-0.5 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) + getSMEFTCoeff("CHq1R", 1, 1,muRG) - getSMEFTCoeff("CHq3R", 0, 0,muRG) - getSMEFTCoeff("CHq3R", 1, 1,muRG)) * v2) +
+            gZuR * (-0.5 * (getSMEFTCoeff("CHuR", 0, 0,muRG) + getSMEFTCoeff("CHuR", 1, 1,muRG)) * v2)
             );
 
     CZff = CZff / (
@@ -27580,14 +27600,14 @@ const double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const {
             Nc * (3.0 * (gZdL * gZdL + gZdR * gZdR) + 2.0 * (gZuL * gZuL + gZuR * gZuR))
             );
 
-    sf = sf / (-0.5 * (gZlL + gZvL) * v2); // Coefficient of the CZff term. From the getSMEFTCoeffEW("CHl1R",0,0) term in the ME.
+    sf = sf / (-0.5 * (gZlL + gZvL) * v2); // Coefficient of the CZff term. From the getSMEFTCoeff("CHl1R",0,0) term in the ME.
 
-    dwidth += cAsch * (+121373. * getSMEFTCoeffEW("CHbox")
+    dwidth += cAsch * (+121373. * getSMEFTCoeff("CHbox",muRG)
             + sf * CZff
-            - 50927.1 * getSMEFTCoeffEW("CHD")
-            - 14137.9 * getSMEFTCoeffEW("CHB")
-            - 46350.1 * getSMEFTCoeffEW("CHW")
-            - 126336. * getSMEFTCoeffEW("CHWB")
+            - 50927.1 * getSMEFTCoeff("CHD",muRG)
+            - 14137.9 * getSMEFTCoeff("CHB",muRG)
+            - 46350.1 * getSMEFTCoeff("CHW",muRG)
+            - 126336. * getSMEFTCoeff("CHWB",muRG)
             - 3.715 * delta_GF
             - 0.834 * deltaGzd6()
             );
@@ -27596,18 +27616,18 @@ const double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const {
 
     //AG:begin
     dwidth += cWsch * (
-            ((0.12104) * getSMEFTCoeffEW("CHbox")
-            + (-0.02372) * getSMEFTCoeffEW("CHW")
-            + (-0.03647) * getSMEFTCoeffEW("CHB")
-            + (-0.016569) * getSMEFTCoeffEW("CHD")
-            + (-0.021999) * getSMEFTCoeffEW("CHWB")
-            + (-0.017927) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (-0.017925) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (-0.1213776) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1215437) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (-0.01686521) * getSMEFTCoeffEW("CHeR", 0, 0)
-            + (-0.01688863) * getSMEFTCoeffEW("CHeR", 1, 1)
-            + (0.18165) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12104) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.02372) * getSMEFTCoeff("CHW",muRG)
+            + (-0.03647) * getSMEFTCoeff("CHB",muRG)
+            + (-0.016569) * getSMEFTCoeff("CHD",muRG)
+            + (-0.021999) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.017927) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (-0.017925) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (-0.1213776) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1215437) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (-0.01686521) * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + (-0.01688863) * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + (0.18165) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             );
 
     dwidth += cWsch * (+(-0.797) * deltaGzd6());
@@ -27782,53 +27802,54 @@ const double NPSMEFTd6General::deltaGammaHZgaRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0;
+    double muRG = 125.1;
 
     //  It includes modifications of Zff vertices and MW, but not on the pure VVV and VVVV vertices
     //  Write the tree-level contributions directly as a function 
     //  of delta_ZA (or deltaG1_hZA()) to account for variations of sw2 and cw
     /*dwidth += (-71769.02 * deltaG1_hZA()
-            //            +14894914. *getSMEFTCoeffEW("CHB") 
-            //            -14894913. * getSMEFTCoeffEW("CHW") 
-            //            +9508089. * getSMEFTCoeffEW("CHWB") 
+            //            +14894914. *getSMEFTCoeff("CHB",muRG) 
+            //            -14894913. * getSMEFTCoeff("CHW",muRG) 
+            //            +9508089. * getSMEFTCoeff("CHWB",muRG) 
             + cLHd6 * (
-            +120002. * getSMEFTCoeffEW("CHbox")
-            + 50.12 * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + 17401. * getSMEFTCoeffEW("CHq1R", 2, 2)
-            + 50.12 * getSMEFTCoeffEW("CHeR", 2, 2)
-            + 17188.7 * getSMEFTCoeffEW("CHuR", 2, 2)
-            + 212.376 * getSMEFTCoeffEW("CHdR", 2, 2)
-            + 50.12 * getSMEFTCoeffEW("CHl3R", 2, 2)
-            - 16976.3 * getSMEFTCoeffEW("CHq3R", 2, 2)
-            - 373.856 * getSMEFTCoeffEW("CeHR", 2, 2)
-            - 2953.05 * getSMEFTCoeffEW("CuHR", 1, 1)
-            + 6636.34 * getSMEFTCoeffEW("CuHR", 2, 2)
-            - 6121.66 * getSMEFTCoeffEW("CdHR", 2, 2)
-            - 111254. * getSMEFTCoeffEW("CHD")
-            - 162538. * getSMEFTCoeffEW("CHWB")
+            +120002. * getSMEFTCoeff("CHbox",muRG)
+            + 50.12 * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + 17401. * getSMEFTCoeff("CHq1R", 2, 2,muRG)
+            + 50.12 * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + 17188.7 * getSMEFTCoeff("CHuR", 2, 2,muRG)
+            + 212.376 * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            + 50.12 * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            - 16976.3 * getSMEFTCoeff("CHq3R", 2, 2,muRG)
+            - 373.856 * getSMEFTCoeff("CeHR", 2, 2,muRG)
+            - 2953.05 * getSMEFTCoeff("CuHR", 1, 1,muRG)
+            + 6636.34 * getSMEFTCoeff("CuHR", 2, 2,muRG)
+            - 6121.66 * getSMEFTCoeff("CdHR", 2, 2,muRG)
+            - 111254. * getSMEFTCoeff("CHD",muRG)
+            - 162538. * getSMEFTCoeff("CHWB",muRG)
             - 96076.1 * delta_GF / v() / v()
             - 0.123 * deltaMwd6())
             );*/
 
     //AG:begin
     // Ref: https://arxiv.org/pdf/1903.12046.pdf
-    double cHbox = getSMEFTCoeffEW("CHbox");
-    double cHD = getSMEFTCoeffEW("CHD");
-    double cHW = getSMEFTCoeffEW("CHW");
-    double cHB = getSMEFTCoeffEW("CHB");
-    double cHWB = getSMEFTCoeffEW("CHWB");
-    double cW = getSMEFTCoeffEW("CW");
-    double cHu33 = getSMEFTCoeffEW("CHuR", 2, 2);
-    double cuH33 = getSMEFTCoeffEW("CuHR", 2, 2);
-    double cdH33 = getSMEFTCoeffEW("CdHR", 2, 2);
-    double cuB33 = getSMEFTCoeffEW("CuBR", 2, 2);
-    double cuW22 = getSMEFTCoeffEW("CuWR", 1, 1);
-    double cuW33 = getSMEFTCoeffEW("CuWR", 2, 2);
-    double cdW33 = getSMEFTCoeffEW("CdWR", 2, 2);
-    double cHq133 = getSMEFTCoeffEW("CHq1R", 2, 2);
-    double cHq333 = getSMEFTCoeffEW("CHq3R", 2, 2);
-    double cHl311 = getSMEFTCoeffEW("CHl3R", 0, 0);
-    double cHl322 = getSMEFTCoeffEW("CHl3R", 1, 1);
-    double cLL = getSMEFTCoeffEW("CllR", 0, 1, 1, 0);
+    double cHbox = getSMEFTCoeff("CHbox",muRG);
+    double cHD = getSMEFTCoeff("CHD",muRG);
+    double cHW = getSMEFTCoeff("CHW",muRG);
+    double cHB = getSMEFTCoeff("CHB",muRG);
+    double cHWB = getSMEFTCoeff("CHWB",muRG);
+    double cW = getSMEFTCoeff("CW",muRG);
+    double cHu33 = getSMEFTCoeff("CHuR", 2, 2,muRG);
+    double cuH33 = getSMEFTCoeff("CuHR", 2, 2,muRG);
+    double cdH33 = getSMEFTCoeff("CdHR", 2, 2,muRG);
+    double cuB33 = getSMEFTCoeff("CuBR", 2, 2,muRG);
+    double cuW22 = getSMEFTCoeff("CuWR", 1, 1,muRG);
+    double cuW33 = getSMEFTCoeff("CuWR", 2, 2,muRG);
+    double cdW33 = getSMEFTCoeff("CdWR", 2, 2,muRG);
+    double cHq133 = getSMEFTCoeff("CHq1R", 2, 2,muRG);
+    double cHq333 = getSMEFTCoeff("CHq3R", 2, 2,muRG);
+    double cHl311 = getSMEFTCoeff("CHl3R", 0, 0,muRG);
+    double cHl322 = getSMEFTCoeff("CHl3R", 1, 1,muRG);
+    double cLL = getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG);
 
     //dwidth += cWsch * (   // Allow it in both schemes until alpha is ready
     dwidth += (
@@ -27978,22 +27999,23 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0049;
+    double muRG = 125.1;
 
     //  It does not include modifications of MW
     //  Write the tree-level contributions directly as a function 
     //  of delta_AA (or deltaG_hAA) to account for variations of sw2 and cw2
     /*dwidth += (-255156.97 * deltaG_hAA()
-            //            -48314158. *getSMEFTCoeffEW("CHB") 
-            //            -14510502. * getSMEFTCoeffEW("CHW") 
-            //            +26477588. * getSMEFTCoeffEW("CHWB")  
+            //            -48314158. *getSMEFTCoeff("CHB",muRG) 
+            //            -14510502. * getSMEFTCoeff("CHW",muRG) 
+            //            +26477588. * getSMEFTCoeff("CHWB",muRG)  
             + cLHd6 * (
-            +119766. * getSMEFTCoeffEW("CHbox")
-            - 42565.7 * getSMEFTCoeffEW("CeHR", 2, 2)
-            - 48868.1 * getSMEFTCoeffEW("CuHR", 1, 1)
-            + 32078.2 * getSMEFTCoeffEW("CuHR", 2, 2)
-            - 18428.3 * getSMEFTCoeffEW("CdHR", 2, 2)
-            - 137452. * getSMEFTCoeffEW("CHD")
-            - 235677. * getSMEFTCoeffEW("CHWB")
+            +119766. * getSMEFTCoeff("CHbox",muRG)
+            - 42565.7 * getSMEFTCoeff("CeHR", 2, 2,muRG)
+            - 48868.1 * getSMEFTCoeff("CuHR", 1, 1,muRG)
+            + 32078.2 * getSMEFTCoeff("CuHR", 2, 2,muRG)
+            - 18428.3 * getSMEFTCoeff("CdHR", 2, 2,muRG)
+            - 137452. * getSMEFTCoeff("CHD",muRG)
+            - 235677. * getSMEFTCoeff("CHWB",muRG)
             - 124462. * delta_GF / v() / v()
             - 1.257 * deltaMwd6())
             );*/
@@ -28007,40 +28029,40 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
      * CKM=1. Pending to add the CKM into the cdH, coming from defining the SU2-doublet as (u,Vd).
      * Future improvement: change to analytic parametrization. 
      */
-    double cHbox = getSMEFTCoeffEW("CHbox");
-    double cHD = getSMEFTCoeffEW("CHD");
-    double cHW = getSMEFTCoeffEW("CHW");
-    double cHB = getSMEFTCoeffEW("CHB");
-    double cHWB = getSMEFTCoeffEW("CHWB");
-    double cW = getSMEFTCoeffEW("CW");
+    double cHbox = getSMEFTCoeff("CHbox",muRG);
+    double cHD = getSMEFTCoeff("CHD",muRG);
+    double cHW = getSMEFTCoeff("CHW",muRG);
+    double cHB = getSMEFTCoeff("CHB",muRG);
+    double cHWB = getSMEFTCoeff("CHWB",muRG);
+    double cW = getSMEFTCoeff("CW",muRG);
     double dgf = delta_GF;
-    double ceH11 = getSMEFTCoeffEW("CeHR", 0, 0);
-    double ceH22 = getSMEFTCoeffEW("CeHR", 1, 1);
-    double ceH33 = getSMEFTCoeffEW("CeHR", 2, 2);
-    double cuH11 = getSMEFTCoeffEW("CuHR", 0, 0);
-    double cuH22 = getSMEFTCoeffEW("CuHR", 1, 1);
-    double cuH33 = getSMEFTCoeffEW("CuHR", 2, 2);
-    double cdH11 = getSMEFTCoeffEW("CdHR", 0, 0);
-    double cdH22 = getSMEFTCoeffEW("CdHR", 1, 1);
-    double cdH33 = getSMEFTCoeffEW("CdHR", 2, 2);
-    double ceB11 = getSMEFTCoeffEW("CeBR", 0, 0);
-    double ceB22 = getSMEFTCoeffEW("CeBR", 1, 1);
-    double ceB33 = getSMEFTCoeffEW("CeBR", 2, 2);
-    double ceW11 = getSMEFTCoeffEW("CeWR", 0, 0);
-    double ceW22 = getSMEFTCoeffEW("CeWR", 1, 1);
-    double ceW33 = getSMEFTCoeffEW("CeWR", 2, 2);
-    double cuB11 = getSMEFTCoeffEW("CuBR", 0, 0);
-    double cuB22 = getSMEFTCoeffEW("CuBR", 1, 1);
-    double cuB33 = getSMEFTCoeffEW("CuBR", 2, 2);
-    double cuW11 = getSMEFTCoeffEW("CuWR", 0, 0);
-    double cuW22 = getSMEFTCoeffEW("CuWR", 1, 1);
-    double cuW33 = getSMEFTCoeffEW("CuWR", 2, 2);
-    double cdB11 = getSMEFTCoeffEW("CdBR", 0, 0);
-    double cdB22 = getSMEFTCoeffEW("CdBR", 1, 1);
-    double cdB33 = getSMEFTCoeffEW("CdBR", 2, 2);
-    double cdW11 = getSMEFTCoeffEW("CdWR", 0, 0);
-    double cdW22 = getSMEFTCoeffEW("CdWR", 1, 1);
-    double cdW33 = getSMEFTCoeffEW("CdWR", 2, 2);
+    double ceH11 = getSMEFTCoeff("CeHR", 0, 0,muRG);
+    double ceH22 = getSMEFTCoeff("CeHR", 1, 1,muRG);
+    double ceH33 = getSMEFTCoeff("CeHR", 2, 2,muRG);
+    double cuH11 = getSMEFTCoeff("CuHR", 0, 0,muRG);
+    double cuH22 = getSMEFTCoeff("CuHR", 1, 1,muRG);
+    double cuH33 = getSMEFTCoeff("CuHR", 2, 2,muRG);
+    double cdH11 = getSMEFTCoeff("CdHR", 0, 0,muRG);
+    double cdH22 = getSMEFTCoeff("CdHR", 1, 1,muRG);
+    double cdH33 = getSMEFTCoeff("CdHR", 2, 2,muRG);
+    double ceB11 = getSMEFTCoeff("CeBR", 0, 0,muRG);
+    double ceB22 = getSMEFTCoeff("CeBR", 1, 1,muRG);
+    double ceB33 = getSMEFTCoeff("CeBR", 2, 2,muRG);
+    double ceW11 = getSMEFTCoeff("CeWR", 0, 0,muRG);
+    double ceW22 = getSMEFTCoeff("CeWR", 1, 1,muRG);
+    double ceW33 = getSMEFTCoeff("CeWR", 2, 2,muRG);
+    double cuB11 = getSMEFTCoeff("CuBR", 0, 0,muRG);
+    double cuB22 = getSMEFTCoeff("CuBR", 1, 1,muRG);
+    double cuB33 = getSMEFTCoeff("CuBR", 2, 2,muRG);
+    double cuW11 = getSMEFTCoeff("CuWR", 0, 0,muRG);
+    double cuW22 = getSMEFTCoeff("CuWR", 1, 1,muRG);
+    double cuW33 = getSMEFTCoeff("CuWR", 2, 2,muRG);
+    double cdB11 = getSMEFTCoeff("CdBR", 0, 0,muRG);
+    double cdB22 = getSMEFTCoeff("CdBR", 1, 1,muRG);
+    double cdB33 = getSMEFTCoeff("CdBR", 2, 2,muRG);
+    double cdW11 = getSMEFTCoeff("CdWR", 0, 0,muRG);
+    double cdW22 = getSMEFTCoeff("CdWR", 1, 1,muRG);
+    double cdW33 = getSMEFTCoeff("CdWR", 2, 2,muRG);
 
     /*double cHbox = 0.;
     double cHD = 0.;
@@ -28202,8 +28224,10 @@ const double NPSMEFTd6General::BrHgagaRatio() const {
 
 const double NPSMEFTd6General::deltaGammaHffRatio1(const double mf, const double CifH) const //AG:added
 {
-    double CiHbox = getSMEFTCoeffEW("CHbox");
-    double CiHD = getSMEFTCoeffEW("CHD");
+    double muRG = 125.1;
+    
+    double CiHbox = getSMEFTCoeff("CHbox",muRG);
+    double CiHD = getSMEFTCoeff("CHD",muRG);
 
     return (-delta_GF + 2.0 * CiHbox * v2 - CiHD * v2 / 2.0 - pow(2.0, 0.5) * CifH * pow(v(), 3.0) / mf);
 }
@@ -28244,15 +28268,16 @@ const double NPSMEFTd6General::deltaGammaHmumuRatio1() const //AG:modified
     double dwidth = 0.0;
 
     double C1 = 0.0;
+    double muRG = 125.1;
 
-    /*dwidth += (+121248. * getSMEFTCoeffEW("CHbox")
-            - 199792511. * getSMEFTCoeffEW("CeHR", 1, 1)
-            - 30312.1 * getSMEFTCoeffEW("CHD")
+    /*dwidth += (+121248. * getSMEFTCoeff("CHbox")
+            - 199792511. * getSMEFTCoeff("CeHR", 1, 1)
+            - 30312.1 * getSMEFTCoeff("CHD")
             - 60624.1 * delta_GF / v() / v());*/
 
     //AG:begin
     double mf = leptons[MU].getMass();
-    double CifH = getSMEFTCoeffEW("CeHR", 1, 1);
+    double CifH = getSMEFTCoeff("CeHR", 1, 1,muRG);
     dwidth = deltaGammaHffRatio1(mf, CifH);
     //AG:end
 
@@ -28330,14 +28355,15 @@ const double NPSMEFTd6General::deltaGammaHtautauRatio1() const //AG:modified
     double dwidth = 0.0;
 
     double C1 = 0.0;
+    double muRG = 125.1;
 
-    /*dwidth += (+121248. * getSMEFTCoeffEW("CHbox")
-            - 11880369. * getSMEFTCoeffEW("CeHR", 2, 2)
-            - 30312.1 * getSMEFTCoeffEW("CHD")
+    /*dwidth += (+121248. * getSMEFTCoeff("CHbox")
+            - 11880369. * getSMEFTCoeff("CeHR", 2, 2)
+            - 30312.1 * getSMEFTCoeff("CHD")
             - 60624.1 * delta_GF / v() / v());*/
     //AG:begin
     double mf = leptons[TAU].getMass();
-    double CifH = getSMEFTCoeffEW("CeHR", 2, 2);
+    double CifH = getSMEFTCoeff("CeHR", 2, 2,muRG);
     dwidth = deltaGammaHffRatio1(mf, CifH);
     //AG:end
 
@@ -28416,29 +28442,30 @@ const double NPSMEFTd6General::deltaGammaHccRatio1() const //AG:modified
     double dwidth = 0.0;
 
     double C1 = 0.0;
+    double muRG = 125.1;
 
-    if (FlagLoopHd6) {
+    //if (FlagLoopHd6) {
 
-        dwidth += (+121248. * getSMEFTCoeffEW("CHbox")
-                - 16421890. * getSMEFTCoeffEW("CuHR", 1, 1)
-                - 992.159 * getSMEFTCoeffEW("CuHR", 2, 2)
-                - 30312.1 * getSMEFTCoeffEW("CHD")
-                - 60624.1 * delta_GF / v() / v());
+    //    dwidth += (+121248. * getSMEFTCoeff("CHbox",muRG)
+    //            - 16421890. * getSMEFTCoeff("CuHR", 1, 1,muRG)
+    //            - 992.159 * getSMEFTCoeff("CuHR", 2, 2,muRG)
+    //            - 30312.1 * getSMEFTCoeff("CHD",muRG)
+    //            - 60624.1 * delta_GF / v() / v());
 
-    } else {
+    //} else {
 
-        /*dwidth += (+121248. * getSMEFTCoeffEW("CHbox")
-                - 16556668. * getSMEFTCoeffEW("CuHR", 1, 1)
-                - 30312.1 * getSMEFTCoeffEW("CHD")
+        /*dwidth += (+121248. * getSMEFTCoeff("CHbox")
+                - 16556668. * getSMEFTCoeff("CuHR", 1, 1)
+                - 30312.1 * getSMEFTCoeff("CHD")
                 - 60624.1 * delta_GF / v() / v());*/
 
         //AG:begin
         double mf = quarks[CHARM].getMass();
-        double CifH = getSMEFTCoeffEW("CuHR", 1, 1);
+        double CifH = getSMEFTCoeff("CuHR", 1, 1,muRG);
         dwidth = deltaGammaHffRatio1(mf, CifH);
         //AG:end
 
-    }
+    //}
 
     //  Linear contribution from Higgs self-coupling
     dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
@@ -28518,30 +28545,31 @@ const double NPSMEFTd6General::deltaGammaHssRatio1() const
     double dwidth = 0.0;
 
     double C1 = 0.0;
+    double muRG = 125.1;
 
     //if (FlagLoopHd6) {
 
-    //    dwidth += (+121248. * getSMEFTCoeffEW("CHbox")
-    //            - 16421890. * getSMEFTCoeffEW("CuHR", 1, 1)
-    //            - 992.159 * getSMEFTCoeffEW("CuHR", 2, 2)
-    //            - 30312.1 * getSMEFTCoeffEW("CHD")
+    //    dwidth += (+121248. * getSMEFTCoeff("CHbox",muRG)
+    //            - 16421890. * getSMEFTCoeff("CuHR", 1, 1,muRG)
+    //            - 992.159 * getSMEFTCoeff("CuHR", 2, 2,muRG)
+    //            - 30312.1 * getSMEFTCoeff("CHD",muRG)
     //            - 60624.1 * delta_GF / v() / v());
 
     //} else {
 
-        /*dwidth += (+121248. * getSMEFTCoeffEW("CHbox")
-                - 16556668. * getSMEFTCoeffEW("CuHR", 1, 1)
-                - 30312.1 * getSMEFTCoeffEW("CHD")
+        /*dwidth += (+121248. * getSMEFTCoeff("CHbox",muRG)
+                - 16556668. * getSMEFTCoeff("CuHR", 1, 1,muRG)
+                - 30312.1 * getSMEFTCoeff("CHD",muRG)
                 - 60624.1 * delta_GF / v() / v());*/
 
     //    double mf = quarks[STRANGE].getMass();
-    //    double CifH = getSMEFTCoeffEW("CdHR", 1, 1);
+    //    double CifH = getSMEFTCoeff("CdHR", 1, 1,muRG);
     //    dwidth = deltaGammaHffRatio1(mf, CifH);
 
     //}
     
         double mf = quarks[STRANGE].getMass();
-        double CifH = getSMEFTCoeffEW("CdHR", 1, 1);
+        double CifH = getSMEFTCoeff("CdHR", 1, 1,muRG);
         dwidth = deltaGammaHffRatio1(mf, CifH);
 
     //  Linear contribution from Higgs self-coupling
@@ -28615,28 +28643,29 @@ const double NPSMEFTd6General::deltaGammaHbbRatio1() const //AG:modified
     double dwidth = 0.0;
 
     double C1 = 0.0;
+    double muRG = 125.1;
 
-    if (FlagLoopHd6) {
+    //if (FlagLoopHd6) {
 
-        dwidth += (+121248. * getSMEFTCoeffEW("CHbox")
-                - 558.186 * getSMEFTCoeffEW("CuHR", 2, 2)
-                - 5027051. * getSMEFTCoeffEW("CdHR", 2, 2)
-                - 30312.1 * getSMEFTCoeffEW("CHD")
-                - 60624.1 * delta_GF / v() / v());
+    //    dwidth += (+121248. * getSMEFTCoeff("CHbox",muRG)
+    //            - 558.186 * getSMEFTCoeff("CuHR", 2, 2,muRG)
+    //            - 5027051. * getSMEFTCoeff("CdHR", 2, 2,muRG)
+    //            - 30312.1 * getSMEFTCoeff("CHD",muRG)
+    //            - 60624.1 * delta_GF / v() / v());
 
-    } else {
+    //} else {
 
-        /*dwidth += (+121248. * getSMEFTCoeffEW("CHbox")
-                - 5050180. * getSMEFTCoeffEW("CdHR", 2, 2)
-                - 30312.1 * getSMEFTCoeffEW("CHD")
+        /*dwidth += (+121248. * getSMEFTCoeff("CHbox")
+                - 5050180. * getSMEFTCoeff("CdHR", 2, 2)
+                - 30312.1 * getSMEFTCoeff("CHD")
                 - 60624.1 * delta_GF / v() / v());*/
 
         //AG:begin
         double mf = quarks[BOTTOM].getMass();
-        double CifH = getSMEFTCoeffEW("CdHR", 2, 2);
+        double CifH = getSMEFTCoeff("CdHR", 2, 2,muRG);
         dwidth = deltaGammaHffRatio1(mf, CifH);
         //AG:end
-    }
+    //}
 
     //  Linear contribution from Higgs self-coupling
     dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
@@ -28712,25 +28741,26 @@ const double NPSMEFTd6General::deltaGammaH2L2LRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
     
-    dwidth += cAsch * (+121302. * getSMEFTCoeffEW("CHbox")
-            - 59592.5 * getSMEFTCoeffEW("CHB")
-            - 6187.97 * getSMEFTCoeffEW("CHW")
-            + 42404.3 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
-            + 42440.7 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            + 42633.3 * (getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 36384.4 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 36395.3 * getSMEFTCoeffEW("CHeR", 1, 1)
-            - 36589.1 * getSMEFTCoeffEW("CHeR", 2, 2)
-            - 42519.3 * getSMEFTCoeffEW("CHD")
-            - 112124. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121302. * getSMEFTCoeff("CHbox",muRG)
+            - 59592.5 * getSMEFTCoeff("CHB",muRG)
+            - 6187.97 * getSMEFTCoeff("CHW",muRG)
+            + 42404.3 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            + 42440.7 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            + 42633.3 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 36384.4 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 36395.3 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            - 36589.1 * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            - 42519.3 * getSMEFTCoeff("CHD",muRG)
+            - 112124. * getSMEFTCoeff("CHWB",muRG)
             - 3.401 * delta_GF
             - 0.836 * deltaGzd6()
             );
-            /*+ cWsch * (-1940.8 * getSMEFTCoeffEW("CHD")
-            - 23529. * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-1940.8 * getSMEFTCoeff("CHD")
+            - 23529. * getSMEFTCoeff("CHWB")
             - 3.002 * delta_GF
             - 0.836 * deltaGzd6()
             ));*/
@@ -28739,21 +28769,21 @@ const double NPSMEFTd6General::deltaGammaH2L2LRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12111) * getSMEFTCoeffEW("CHbox")
-            + (0.00953) * getSMEFTCoeffEW("CHW")
-            + (-0.0764) * getSMEFTCoeffEW("CHB")
-            + (0.01008) * getSMEFTCoeffEW("CHD")
-            + (-0.02236) * getSMEFTCoeffEW("CHWB")
-            + (0.043324) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (0.043349) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (0.043607) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.1385393) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1385419) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.043607) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (-0.03486366) * getSMEFTCoeffEW("CHeR", 0, 0)
-            + (-0.03493756) * getSMEFTCoeffEW("CHeR", 1, 1)
-            + (-0.03507062) * getSMEFTCoeffEW("CHeR", 2, 2)
-            + (0.18171) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12111) * getSMEFTCoeff("CHbox",muRG)
+            + (0.00953) * getSMEFTCoeff("CHW",muRG)
+            + (-0.0764) * getSMEFTCoeff("CHB",muRG)
+            + (0.01008) * getSMEFTCoeff("CHD",muRG)
+            + (-0.02236) * getSMEFTCoeff("CHWB",muRG)
+            + (0.043324) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (0.043349) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (0.043607) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.1385393) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1385419) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.043607) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (-0.03486366) * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + (-0.03493756) * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + (-0.03507062) * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + (0.18171) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.815) * deltaGzd6()
             );
 
@@ -28964,21 +28994,22 @@ const double NPSMEFTd6General::deltaGammaH2e2muRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121249. * getSMEFTCoeffEW("CHbox")
-            - 59336.7 * getSMEFTCoeffEW("CHB")
-            - 7152.53 * getSMEFTCoeffEW("CHW")
-            + 63753.6 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
-            + 63771.3 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 54745.8 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 54706. * getSMEFTCoeffEW("CHeR", 1, 1)
-            + cAsch * (-42424.4 * getSMEFTCoeffEW("CHD")
-            - 111863. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121249. * getSMEFTCoeff("CHbox",muRG)
+            - 59336.7 * getSMEFTCoeff("CHB",muRG)
+            - 7152.53 * getSMEFTCoeff("CHW",muRG)
+            + 63753.6 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            + 63771.3 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 54745.8 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 54706. * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + cAsch * (-42424.4 * getSMEFTCoeff("CHD",muRG)
+            - 111863. * getSMEFTCoeff("CHWB",muRG)
             - 3.401 * delta_GF
             - 0.837 * deltaGzd6()
             )
-            + cWsch * (-2206.38 * getSMEFTCoeffEW("CHD")
-            - 23677.2 * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-2206.38 * getSMEFTCoeff("CHD",muRG)
+            - 23677.2 * getSMEFTCoeff("CHWB",muRG)
             - 3.001 * delta_GF
             - 0.837 * deltaGzd6()
             ));
@@ -29056,21 +29087,22 @@ const double NPSMEFTd6General::deltaGammaH2v2vRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121344. * getSMEFTCoeffEW("CHbox")
-            - 14021.1 * getSMEFTCoeffEW("CHB")
-            - 46733.1 * getSMEFTCoeffEW("CHW")
-            - 39647.5 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
-            - 39690.9 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 39622.3 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 30324.8 * getSMEFTCoeffEW("CHD")
-            - 25575.1 * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121344. * getSMEFTCoeff("CHbox",muRG)
+            - 14021.1 * getSMEFTCoeff("CHB",muRG)
+            - 46733.1 * getSMEFTCoeff("CHW",muRG)
+            - 39647.5 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) - getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            - 39690.9 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) - getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 39622.3 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) - getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 30324.8 * getSMEFTCoeff("CHD",muRG)
+            - 25575.1 * getSMEFTCoeff("CHWB",muRG)
             - 3.003 * delta_GF
             - 0.847 * deltaGzd6()
             );
-            /*+ cWsch * (-30324.8 * getSMEFTCoeffEW("CHD")
-            - 25575.1 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-30324.8 * getSMEFTCoeff("CHD")
+            - 25575.1 * getSMEFTCoeff("CHWB")
             - 3.003 * delta_GF
             - 0.847 * deltaGzd6()
             ));*/
@@ -29079,18 +29111,18 @@ const double NPSMEFTd6General::deltaGammaH2v2vRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.121319) * getSMEFTCoeffEW("CHbox")
-            + (-0.0473339) * getSMEFTCoeffEW("CHW")
-            + (-0.01358688) * getSMEFTCoeffEW("CHB")
-            + (-0.0303464) * getSMEFTCoeffEW("CHD")
-            + (-0.0253525) * getSMEFTCoeffEW("CHWB")
-            + (-0.039647621) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (-0.03965331) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (-0.03967702) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.14240624) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.14220981) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.03968) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (0.18201) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.121319) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.0473339) * getSMEFTCoeff("CHW",muRG)
+            + (-0.01358688) * getSMEFTCoeff("CHB",muRG)
+            + (-0.0303464) * getSMEFTCoeff("CHD",muRG)
+            + (-0.0253525) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.039647621) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (-0.03965331) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (-0.03967702) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.14240624) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.14220981) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.03968) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (0.18201) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.825) * deltaGzd6()
             );
 
@@ -29259,27 +29291,28 @@ const double NPSMEFTd6General::deltaGammaH2L2vRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
     
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121291. * getSMEFTCoeffEW("CHbox")
-            - 35349.6 * getSMEFTCoeffEW("CHB")
-            - 27095.7 * getSMEFTCoeffEW("CHW")
-            + 3026.29 * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + 3021.87 * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + 2746.62 * getSMEFTCoeffEW("CHl1R", 2, 2)
-            - 18924.3 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 18918.4 * getSMEFTCoeffEW("CHeR", 1, 1)
-            - 18820.4 * getSMEFTCoeffEW("CHeR", 2, 2)
-            + 41085.2 * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + 41121.1 * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + 41134.2 * getSMEFTCoeffEW("CHl3R", 2, 2)
-            - 36393. * getSMEFTCoeffEW("CHD")
-            - 69325.9 * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121291. * getSMEFTCoeff("CHbox",muRG)
+            - 35349.6 * getSMEFTCoeff("CHB",muRG)
+            - 27095.7 * getSMEFTCoeff("CHW",muRG)
+            + 3026.29 * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + 3021.87 * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + 2746.62 * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            - 18924.3 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 18918.4 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            - 18820.4 * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + 41085.2 * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + 41121.1 * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + 41134.2 * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            - 36393. * getSMEFTCoeff("CHD",muRG)
+            - 69325.9 * getSMEFTCoeff("CHWB",muRG)
             - 3.201 * delta_GF
             - 0.846 * deltaGzd6()
             );
-            /*+ cWsch * (-16170.3 * getSMEFTCoeffEW("CHD")
-            - 24273.2 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-16170.3 * getSMEFTCoeff("CHD")
+            - 24273.2 * getSMEFTCoeff("CHWB")
             - 3. * delta_GF
             - 0.846 * deltaGzd6()
             ));*/
@@ -29288,21 +29321,21 @@ const double NPSMEFTd6General::deltaGammaH2L2vRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.1213) * getSMEFTCoeffEW("CHbox")
-            + (-0.01494) * getSMEFTCoeffEW("CHW")
-            + (-0.040852) * getSMEFTCoeffEW("CHB")
-            + (-0.009936) * getSMEFTCoeffEW("CHD")
-            + (-0.023597) * getSMEFTCoeffEW("CHWB")
-            + (0.003651) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (0.003794) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (0.003449) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.139236) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.138049) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.041527) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (-0.0181637) * getSMEFTCoeffEW("CHeR", 0, 0)
-            + (-0.0181476) * getSMEFTCoeffEW("CHeR", 1, 1)
-            + (-0.0180375) * getSMEFTCoeffEW("CHeR", 2, 2)
-            + (0.1819) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.1213) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.01494) * getSMEFTCoeff("CHW",muRG)
+            + (-0.040852) * getSMEFTCoeff("CHB",muRG)
+            + (-0.009936) * getSMEFTCoeff("CHD",muRG)
+            + (-0.023597) * getSMEFTCoeff("CHWB",muRG)
+            + (0.003651) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (0.003794) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (0.003449) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.139236) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.138049) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.041527) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (-0.0181637) * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + (-0.0181476) * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + (-0.0180375) * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + (0.1819) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.831) * deltaGzd6()
             );
 
@@ -29500,25 +29533,26 @@ const double NPSMEFTd6General::deltaGammaH2L2v2Ratio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121298. * getSMEFTCoeffEW("CHbox")
-            - 35499.1 * getSMEFTCoeffEW("CHB")
-            - 27241.9 * getSMEFTCoeffEW("CHW")
-            + 18600.1 * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + 18562.6 * getSMEFTCoeffEW("CHl1R", 1, 1)
-            - 28682. * getSMEFTCoeffEW("CHl1R", 2, 2)
-            - 28294.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 28285.3 * getSMEFTCoeffEW("CHeR", 1, 1)
-            + 47342.8 * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + 47360.7 * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + 28708.8 * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + cAsch * (-36443.1 * getSMEFTCoeffEW("CHD")
-            - 68837.8 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121298. * getSMEFTCoeff("CHbox",muRG)
+            - 35499.1 * getSMEFTCoeff("CHB",muRG)
+            - 27241.9 * getSMEFTCoeff("CHW",muRG)
+            + 18600.1 * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + 18562.6 * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            - 28682. * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            - 28294.2 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 28285.3 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + 47342.8 * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + 47360.7 * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + 28708.8 * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + cAsch * (-36443.1 * getSMEFTCoeff("CHD",muRG)
+            - 68837.8 * getSMEFTCoeff("CHWB",muRG)
             - 3.201 * delta_GF
             - 0.839 * deltaGzd6()
             )
-            + cWsch * (-16226. * getSMEFTCoeffEW("CHD")
-            - 24353. * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-16226. * getSMEFTCoeff("CHD",muRG)
+            - 24353. * getSMEFTCoeff("CHWB",muRG)
             - 3.002 * delta_GF
             - 0.839 * deltaGzd6()
             ));
@@ -29594,20 +29628,21 @@ const double NPSMEFTd6General::deltaGammaH2e2vRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121287. * getSMEFTCoeffEW("CHbox")
-            - 35405.9 * getSMEFTCoeffEW("CHB")
-            - 27195.5 * getSMEFTCoeffEW("CHW")
-            + 65790.6 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
-            - 28690.7 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 28703.9 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 56575.7 * getSMEFTCoeffEW("CHeR", 0, 0)
-            + cAsch * (-36350.8 * getSMEFTCoeffEW("CHD")
-            - 68896.2 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121287. * getSMEFTCoeff("CHbox",muRG)
+            - 35405.9 * getSMEFTCoeff("CHB",muRG)
+            - 27195.5 * getSMEFTCoeff("CHW",muRG)
+            + 65790.6 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            - 28690.7 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) - getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 28703.9 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) - getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 56575.7 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + cAsch * (-36350.8 * getSMEFTCoeff("CHD",muRG)
+            - 68896.2 * getSMEFTCoeff("CHWB",muRG)
             - 3.199 * delta_GF
             - 0.846 * deltaGzd6())
-            + cWsch * (-16304.9 * getSMEFTCoeffEW("CHD")
-            - 24376.4 * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-16304.9 * getSMEFTCoeff("CHD",muRG)
+            - 24376.4 * getSMEFTCoeff("CHWB",muRG)
             - 3. * delta_GF
             - 0.846 * deltaGzd6())
             );
@@ -29686,20 +29721,21 @@ const double NPSMEFTd6General::deltaGammaH2mu2vRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121291. * getSMEFTCoeffEW("CHbox")
-            - 35658.4 * getSMEFTCoeffEW("CHB")
-            - 26866.3 * getSMEFTCoeffEW("CHW")
-            - 28684.4 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
-            + 65832. * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 28703.3 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 56559.6 * getSMEFTCoeffEW("CHeR", 1, 1)
-            + cAsch * (-36391.6 * getSMEFTCoeffEW("CHD")
-            - 69347.6 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121291. * getSMEFTCoeff("CHbox",muRG)
+            - 35658.4 * getSMEFTCoeff("CHB",muRG)
+            - 26866.3 * getSMEFTCoeff("CHW",muRG)
+            - 28684.4 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) - getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            + 65832. * (getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 28703.3 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) - getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 56559.6 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + cAsch * (-36391.6 * getSMEFTCoeff("CHD",muRG)
+            - 69347.6 * getSMEFTCoeff("CHWB",muRG)
             - 3.198 * delta_GF
             - 0.842 * deltaGzd6())
-            + cWsch * (-16131.8 * getSMEFTCoeffEW("CHD")
-            - 24298.9 * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-16131.8 * getSMEFTCoeff("CHD",muRG)
+            - 24298.9 * getSMEFTCoeff("CHWB",muRG)
             - 3. * delta_GF
             - 0.842 * deltaGzd6())
             );
@@ -29777,22 +29813,23 @@ const double NPSMEFTd6General::deltaGammaH2u2uRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121242. * getSMEFTCoeffEW("CHbox")
-            - 147406. * getSMEFTCoeffEW("CHB")
-            + 73926.6 * getSMEFTCoeffEW("CHW")
-            - 71435.3 * (getSMEFTCoeffEW("CHq1R", 0, 0) - getSMEFTCoeffEW("CHq3R", 0, 0))
-            - 71331.9 * (getSMEFTCoeffEW("CHq1R", 1, 1) - getSMEFTCoeffEW("CHq3R", 1, 1))
-            + 31760.4 * getSMEFTCoeffEW("CHuR", 0, 0)
-            + 31666.6 * getSMEFTCoeffEW("CHuR", 1, 1)
-            - 66129.8 * getSMEFTCoeffEW("CHD")
-            - 270623. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121242. * getSMEFTCoeff("CHbox",muRG)
+            - 147406. * getSMEFTCoeff("CHB",muRG)
+            + 73926.6 * getSMEFTCoeff("CHW",muRG)
+            - 71435.3 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) - getSMEFTCoeff("CHq3R", 0, 0,muRG))
+            - 71331.9 * (getSMEFTCoeff("CHq1R", 1, 1,muRG) - getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            + 31760.4 * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + 31666.6 * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            - 66129.8 * getSMEFTCoeff("CHD",muRG)
+            - 270623. * getSMEFTCoeff("CHWB",muRG)
             - 4.182 * delta_GF
             - 0.827 * deltaGzd6()
             );
-            /*+ cWsch * (+53075.8 * getSMEFTCoeffEW("CHD")
-            - 9701.32 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (+53075.8 * getSMEFTCoeff("CHD")
+            - 9701.32 * getSMEFTCoeff("CHWB")
             - 3.002 * delta_GF
             - 0.827 * deltaGzd6()
             ));*/
@@ -29801,20 +29838,20 @@ const double NPSMEFTd6General::deltaGammaH2u2uRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.121221) * getSMEFTCoeffEW("CHbox")
-            + (0.0747) * getSMEFTCoeffEW("CHW")
-            + (-0.148967) * getSMEFTCoeffEW("CHB")
-            + (0.057368) * getSMEFTCoeffEW("CHD")
-            + (-0.011196) * getSMEFTCoeffEW("CHWB")
-            + (-0.071576) * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + (-0.071476) * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + (0.071574) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.071473) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.030282) * getSMEFTCoeffEW("CHuR", 0, 0)
-            + (0.030178) * getSMEFTCoeffEW("CHuR", 1, 1)
-            + (-0.181763) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.181763) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.18186) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.121221) * getSMEFTCoeff("CHbox",muRG)
+            + (0.0747) * getSMEFTCoeff("CHW",muRG)
+            + (-0.148967) * getSMEFTCoeff("CHB",muRG)
+            + (0.057368) * getSMEFTCoeff("CHD",muRG)
+            + (-0.011196) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.071576) * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + (-0.071476) * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + (0.071574) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.071473) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.030282) * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + (0.030178) * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            + (-0.181763) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.181763) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.18186) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.801) * deltaGzd6()
             );
 
@@ -30011,24 +30048,25 @@ const double NPSMEFTd6General::deltaGammaH2d2dRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121209. * getSMEFTCoeffEW("CHbox")
-            - 109493. * getSMEFTCoeffEW("CHB")
-            + 40559.6 * getSMEFTCoeffEW("CHW")
-            + 43704.5 * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq3R", 0, 0))
-            + 43686.8 * (getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq3R", 1, 1))
-            + 48405. * (getSMEFTCoeffEW("CHq1R", 2, 2) + getSMEFTCoeffEW("CHq3R", 2, 2))
-            - 7957.66 * getSMEFTCoeffEW("CHdR", 0, 0)
-            - 7942.9 * getSMEFTCoeffEW("CHdR", 1, 1)
-            - 8231.05 * getSMEFTCoeffEW("CHdR", 2, 2)
-            - 55688.4 * getSMEFTCoeffEW("CHD")
-            - 202420. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121209. * getSMEFTCoeff("CHbox",muRG)
+            - 109493. * getSMEFTCoeff("CHB",muRG)
+            + 40559.6 * getSMEFTCoeff("CHW",muRG)
+            + 43704.5 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 0, 0,muRG))
+            + 43686.8 * (getSMEFTCoeff("CHq1R", 1, 1,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            + 48405. * (getSMEFTCoeff("CHq1R", 2, 2,muRG) + getSMEFTCoeff("CHq3R", 2, 2,muRG))
+            - 7957.66 * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            - 7942.9 * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            - 8231.05 * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            - 55688.4 * getSMEFTCoeff("CHD",muRG)
+            - 202420. * getSMEFTCoeff("CHWB",muRG)
             - 3.837 * delta_GF
             - 0.829 * deltaGzd6()
             );
-            /*+ cWsch * (+28762.7 * getSMEFTCoeffEW("CHD")
-            - 17533.6 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (+28762.7 * getSMEFTCoeff("CHD")
+            - 17533.6 * getSMEFTCoeff("CHWB")
             - 3. * delta_GF
             - 0.829 * deltaGzd6()
             ));*/
@@ -30037,23 +30075,23 @@ const double NPSMEFTd6General::deltaGammaH2d2dRatio1() const {
     
     // AG: 
     dwidth += cWsch * (
-            ((0.12095) * getSMEFTCoeffEW("CHbox")
-            + (0.037885) * getSMEFTCoeffEW("CHW")
-            + (-0.106698) * getSMEFTCoeffEW("CHB")
-            + (0.029535) * getSMEFTCoeffEW("CHD")
-            + (-0.0189127) * getSMEFTCoeffEW("CHWB")
-            + (0.0435) * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + (0.043466) * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + (0.048137) * getSMEFTCoeffEW("CHq1R", 2, 2)
-            + (0.0435) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.043466) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.048137) * getSMEFTCoeffEW("CHq3R", 2, 2)
-            + (-0.007595) * getSMEFTCoeffEW("CHdR", 0, 0)
-            + (-0.0075958) * getSMEFTCoeffEW("CHdR", 1, 1)
-            + (-0.0078264) * getSMEFTCoeffEW("CHdR", 2, 2)
-            + (-0.181359) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.181359) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.18142) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12095) * getSMEFTCoeff("CHbox",muRG)
+            + (0.037885) * getSMEFTCoeff("CHW",muRG)
+            + (-0.106698) * getSMEFTCoeff("CHB",muRG)
+            + (0.029535) * getSMEFTCoeff("CHD",muRG)
+            + (-0.0189127) * getSMEFTCoeff("CHWB",muRG)
+            + (0.0435) * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + (0.043466) * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + (0.048137) * getSMEFTCoeff("CHq1R", 2, 2,muRG)
+            + (0.0435) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.043466) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.048137) * getSMEFTCoeff("CHq3R", 2, 2,muRG)
+            + (-0.007595) * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            + (-0.0075958) * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            + (-0.0078264) * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            + (-0.181359) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.181359) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.18142) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.826) * deltaGzd6()
             );
 
@@ -30280,29 +30318,30 @@ const double NPSMEFTd6General::deltaGammaH2u2dRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121245. * getSMEFTCoeffEW("CHbox")
-            - 129896. * getSMEFTCoeffEW("CHB")
-            + 58951.9 * getSMEFTCoeffEW("CHW")
-            - 18953.2 * getSMEFTCoeffEW("CHq1R", 0, 0)
-            - 18954.1 * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + 36775. * getSMEFTCoeffEW("CHq1R", 2, 2)
-            + 15639.1 * getSMEFTCoeffEW("CHuR", 0, 0)
-            + 15598.5 * getSMEFTCoeffEW("CHuR", 1, 1)
-            - 2951.74 * getSMEFTCoeffEW("CHdR", 0, 0)
-            - 2940.03 * getSMEFTCoeffEW("CHdR", 1, 1)
-            - 6238.49 * getSMEFTCoeffEW("CHdR", 2, 2)
-            + 51319. * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + 51289.2 * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + 36755.6 * getSMEFTCoeffEW("CHq3R", 2, 2)
-            - 60973.2 * getSMEFTCoeffEW("CHD")
-            - 238821. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121245. * getSMEFTCoeff("CHbox",muRG)
+            - 129896. * getSMEFTCoeff("CHB",muRG)
+            + 58951.9 * getSMEFTCoeff("CHW",muRG)
+            - 18953.2 * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            - 18954.1 * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + 36775. * getSMEFTCoeff("CHq1R", 2, 2,muRG)
+            + 15639.1 * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + 15598.5 * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            - 2951.74 * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            - 2940.03 * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            - 6238.49 * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            + 51319. * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + 51289.2 * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + 36755.6 * getSMEFTCoeff("CHq3R", 2, 2,muRG)
+            - 60973.2 * getSMEFTCoeff("CHD",muRG)
+            - 238821. * getSMEFTCoeff("CHWB",muRG)
             - 4.013 * delta_GF
             - 0.832 * deltaGzd6()
             );
-            /*+ cWsch * (+41194.1 * getSMEFTCoeffEW("CHD")
-            - 14774.7 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (+41194.1 * getSMEFTCoeff("CHD")
+            - 14774.7 * getSMEFTCoeff("CHWB")
             - 3.001 * delta_GF
             - 0.832 * deltaGzd6()
             ));*/
@@ -30311,25 +30350,25 @@ const double NPSMEFTd6General::deltaGammaH2u2dRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.1212) * getSMEFTCoeffEW("CHbox")
-            + (0.057954) * getSMEFTCoeffEW("CHW")
-            + (-0.12929) * getSMEFTCoeffEW("CHB")
-            + (0.043672) * getSMEFTCoeffEW("CHD")
-            + (-0.016284) * getSMEFTCoeffEW("CHWB")
-            + (-0.019017) * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + (-0.019103) * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + (0.036608) * getSMEFTCoeffEW("CHq1R", 2, 2)
-            + (0.051357) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.051276) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.036608) * getSMEFTCoeffEW("CHq3R", 2, 2)
-            + (0.014886) * getSMEFTCoeffEW("CHuR", 0, 0)
-            + (0.014851) * getSMEFTCoeffEW("CHuR", 1, 1)
-            + (-0.002823638) * getSMEFTCoeffEW("CHdR", 0, 0)
-            + (-0.002812766) * getSMEFTCoeffEW("CHdR", 1, 1)
-            + (-0.00594515) * getSMEFTCoeffEW("CHdR", 2, 2)
-            + (-0.181783) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.181783) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.18182) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.1212) * getSMEFTCoeff("CHbox",muRG)
+            + (0.057954) * getSMEFTCoeff("CHW",muRG)
+            + (-0.12929) * getSMEFTCoeff("CHB",muRG)
+            + (0.043672) * getSMEFTCoeff("CHD",muRG)
+            + (-0.016284) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.019017) * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + (-0.019103) * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + (0.036608) * getSMEFTCoeff("CHq1R", 2, 2,muRG)
+            + (0.051357) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.051276) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.036608) * getSMEFTCoeff("CHq3R", 2, 2,muRG)
+            + (0.014886) * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + (0.014851) * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            + (-0.002823638) * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            + (-0.002812766) * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            + (-0.00594515) * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            + (-0.181783) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.181783) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.18182) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.802) * deltaGzd6()
             );
 
@@ -30574,28 +30613,29 @@ const double NPSMEFTd6General::deltaGammaH2L2uRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121251. * getSMEFTCoeffEW("CHbox")
-            - 103956. * getSMEFTCoeffEW("CHB")
-            + 35760.1 * getSMEFTCoeffEW("CHW")
-            + 21276.1 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
-            + 21284.8 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            + 21179.4 * (getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 35906.7 * (getSMEFTCoeffEW("CHq1R", 0, 0) - getSMEFTCoeffEW("CHq3R", 0, 0))
-            - 35849.3 * (getSMEFTCoeffEW("CHq1R", 1, 1) - getSMEFTCoeffEW("CHq3R", 1, 1))
-            - 18274.6 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 18258.1 * getSMEFTCoeffEW("CHeR", 1, 1)
-            - 18170.5 * getSMEFTCoeffEW("CHeR", 2, 2)
-            + 15975.7 * getSMEFTCoeffEW("CHuR", 0, 0)
-            + 15912.4 * getSMEFTCoeffEW("CHuR", 1, 1)
-            - 54348.3 * getSMEFTCoeffEW("CHD")
-            - 194795. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121251. * getSMEFTCoeff("CHbox",muRG)
+            - 103956. * getSMEFTCoeff("CHB",muRG)
+            + 35760.1 * getSMEFTCoeff("CHW",muRG)
+            + 21276.1 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            + 21284.8 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            + 21179.4 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 35906.7 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) - getSMEFTCoeff("CHq3R", 0, 0,muRG))
+            - 35849.3 * (getSMEFTCoeff("CHq1R", 1, 1,muRG) - getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            - 18274.6 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 18258.1 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            - 18170.5 * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + 15975.7 * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + 15912.4 * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            - 54348.3 * getSMEFTCoeff("CHD",muRG)
+            - 194795. * getSMEFTCoeff("CHWB",muRG)
             - 3.791 * delta_GF
             - 0.836 * deltaGzd6()
             );
-            /*+ cWsch * (+25556.3 * getSMEFTCoeffEW("CHD")
-            - 19191.5 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (+25556.3 * getSMEFTCoeff("CHD")
+            - 19191.5 * getSMEFTCoeff("CHWB")
             - 3. * delta_GF
             - 0.836 * deltaGzd6()
             ));*/
@@ -30604,27 +30644,27 @@ const double NPSMEFTd6General::deltaGammaH2L2uRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12136) * getSMEFTCoeffEW("CHbox")
-            + (0.04252) * getSMEFTCoeffEW("CHW")
-            + (-0.11176) * getSMEFTCoeffEW("CHB")
-            + (0.0333) * getSMEFTCoeffEW("CHD")
-            + (-0.01805) * getSMEFTCoeffEW("CHWB")
-            + (0.021514) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (0.021631) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (0.021538) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.16016) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1598348) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.021538) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (-0.01711641) * getSMEFTCoeffEW("CHeR", 0, 0)
-            + (-0.01727087) * getSMEFTCoeffEW("CHeR", 1, 1)
-            + (-0.01726594) * getSMEFTCoeffEW("CHeR", 2, 2)
-            + (-0.03561039) * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + (-0.03558411) * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + (0.035628) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.035464) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.015096) * getSMEFTCoeffEW("CHuR", 0, 0)
-            + (0.014986) * getSMEFTCoeffEW("CHuR", 1, 1)
-            + (0.18207) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12136) * getSMEFTCoeff("CHbox",muRG)
+            + (0.04252) * getSMEFTCoeff("CHW",muRG)
+            + (-0.11176) * getSMEFTCoeff("CHB",muRG)
+            + (0.0333) * getSMEFTCoeff("CHD",muRG)
+            + (-0.01805) * getSMEFTCoeff("CHWB",muRG)
+            + (0.021514) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (0.021631) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (0.021538) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.16016) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1598348) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.021538) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (-0.01711641) * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + (-0.01727087) * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + (-0.01726594) * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + (-0.03561039) * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + (-0.03558411) * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + (0.035628) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.035464) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.015096) * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + (0.014986) * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            + (0.18207) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.816) * deltaGzd6()
             );
 
@@ -30884,30 +30924,31 @@ const double NPSMEFTd6General::deltaGammaH2L2dRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg    
-    dwidth += cAsch * (+121289. * getSMEFTCoeffEW("CHbox")
-            - 84134.2 * getSMEFTCoeffEW("CHB")
-            + 17402.7 * getSMEFTCoeffEW("CHW")
-            + 21075. * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
-            + 21073.9 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            + 20966.2 * (getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 2, 2))
-            + 23026.5 * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq3R", 0, 0))
-            + 23023.9 * (getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq3R", 1, 1))
-            + 22666. * (getSMEFTCoeffEW("CHq1R", 2, 2) + getSMEFTCoeffEW("CHq3R", 2, 2))
-            - 18090.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 18067. * getSMEFTCoeffEW("CHeR", 1, 1)
-            - 17980.6 * getSMEFTCoeffEW("CHeR", 2, 2)
-            - 4190.57 * getSMEFTCoeffEW("CHdR", 0, 0)
-            - 4189.38 * getSMEFTCoeffEW("CHdR", 1, 1)
-            - 3850.11 * getSMEFTCoeffEW("CHdR", 2, 2)
-            - 48948.9 * getSMEFTCoeffEW("CHD")
-            - 158101. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121289. * getSMEFTCoeff("CHbox",muRG)
+            - 84134.2 * getSMEFTCoeff("CHB",muRG)
+            + 17402.7 * getSMEFTCoeff("CHW",muRG)
+            + 21075. * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            + 21073.9 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            + 20966.2 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            + 23026.5 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 0, 0,muRG))
+            + 23023.9 * (getSMEFTCoeff("CHq1R", 1, 1,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            + 22666. * (getSMEFTCoeff("CHq1R", 2, 2,muRG) + getSMEFTCoeff("CHq3R", 2, 2,muRG))
+            - 18090.2 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 18067. * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            - 17980.6 * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            - 4190.57 * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            - 4189.38 * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            - 3850.11 * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            - 48948.9 * getSMEFTCoeff("CHD",muRG)
+            - 158101. * getSMEFTCoeff("CHWB",muRG)
             - 3.617 * delta_GF
             - 0.837 * deltaGzd6()
             );
-            /*+ cWsch * (+13172. * getSMEFTCoeffEW("CHD")
-            - 21275. * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (+13172. * getSMEFTCoeff("CHD")
+            - 21275. * getSMEFTCoeff("CHWB")
             - 3. * delta_GF
             - 0.837 * deltaGzd6()
             ));*/
@@ -30916,30 +30957,30 @@ const double NPSMEFTd6General::deltaGammaH2L2dRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12067) * getSMEFTCoeffEW("CHbox")
-            + (0.02221) * getSMEFTCoeffEW("CHW")
-            + (-0.08987) * getSMEFTCoeffEW("CHB")
-            + (0.0195) * getSMEFTCoeffEW("CHD")
-            + (-0.02029) * getSMEFTCoeffEW("CHWB")
-            + (0.021341) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (0.021391) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (0.021248) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.1582728) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.158513) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.021248) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (-0.01721521) * getSMEFTCoeffEW("CHeR", 0, 0)
-            + (-0.0172416) * getSMEFTCoeffEW("CHeR", 1, 1)
-            + (-0.0171251) * getSMEFTCoeffEW("CHeR", 2, 2)
-            + (0.022094) * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + (0.02214) * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + (0.023737) * getSMEFTCoeffEW("CHq1R", 2, 2)
-            + (0.022094) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.02214) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.023737) * getSMEFTCoeffEW("CHq3R", 2, 2)
-            + (-0.003856346) * getSMEFTCoeffEW("CHdR", 0, 0)
-            + (-0.00384488) * getSMEFTCoeffEW("CHdR", 1, 1)
-            + (-0.003870856) * getSMEFTCoeffEW("CHdR", 2, 2)
-            + (0.18095) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12067) * getSMEFTCoeff("CHbox",muRG)
+            + (0.02221) * getSMEFTCoeff("CHW",muRG)
+            + (-0.08987) * getSMEFTCoeff("CHB",muRG)
+            + (0.0195) * getSMEFTCoeff("CHD",muRG)
+            + (-0.02029) * getSMEFTCoeff("CHWB",muRG)
+            + (0.021341) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (0.021391) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (0.021248) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.1582728) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.158513) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.021248) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (-0.01721521) * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + (-0.0172416) * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + (-0.0171251) * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + (0.022094) * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + (0.02214) * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + (0.023737) * getSMEFTCoeff("CHq1R", 2, 2,muRG)
+            + (0.022094) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.02214) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.023737) * getSMEFTCoeff("CHq3R", 2, 2,muRG)
+            + (-0.003856346) * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            + (-0.00384488) * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            + (-0.003870856) * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            + (0.18095) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.831) * deltaGzd6()
             );
 
@@ -31227,25 +31268,26 @@ const double NPSMEFTd6General::deltaGammaH2v2uRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121248. * getSMEFTCoeffEW("CHbox")
-            - 76316.6 * getSMEFTCoeffEW("CHB")
-            + 13981.5 * getSMEFTCoeffEW("CHW")
-            - 19052.2 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
-            - 19081.3 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 19088.9 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 37234.1 * (getSMEFTCoeffEW("CHq1R", 0, 0) - getSMEFTCoeffEW("CHq3R", 0, 0))
-            - 37155.9 * (getSMEFTCoeffEW("CHq1R", 1, 1) - getSMEFTCoeffEW("CHq3R", 1, 1))
-            + 16564.7 * getSMEFTCoeffEW("CHuR", 0, 0)
-            + 16487.2 * getSMEFTCoeffEW("CHuR", 1, 1)
-            - 48203. * getSMEFTCoeffEW("CHD")
-            - 150929. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121248. * getSMEFTCoeff("CHbox",muRG)
+            - 76316.6 * getSMEFTCoeff("CHB",muRG)
+            + 13981.5 * getSMEFTCoeff("CHW",muRG)
+            - 19052.2 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) - getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            - 19081.3 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) - getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 19088.9 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) - getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 37234.1 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) - getSMEFTCoeff("CHq3R", 0, 0,muRG))
+            - 37155.9 * (getSMEFTCoeff("CHq1R", 1, 1,muRG) - getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            + 16564.7 * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + 16487.2 * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            - 48203. * getSMEFTCoeff("CHD",muRG)
+            - 150929. * getSMEFTCoeff("CHWB",muRG)
             - 3.589 * delta_GF
             - 0.849 * deltaGzd6()
             );
-            /*+ cWsch * (+11461.3 * getSMEFTCoeffEW("CHD")
-            - 20220.2 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (+11461.3 * getSMEFTCoeff("CHD")
+            - 20220.2 * getSMEFTCoeff("CHWB")
             - 2.998 * delta_GF
             - 0.849 * deltaGzd6()
             ));*/
@@ -31254,24 +31296,24 @@ const double NPSMEFTd6General::deltaGammaH2v2uRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12122) * getSMEFTCoeffEW("CHbox")
-            + (0.01598) * getSMEFTCoeffEW("CHW")
-            + (-0.074959) * getSMEFTCoeffEW("CHB")
-            + (0.013404) * getSMEFTCoeffEW("CHD")
-            + (-0.021103) * getSMEFTCoeffEW("CHWB")
-            + (-0.01884082) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (-0.01874224) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (-0.01879955) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.161822) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1613675) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.018957) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (-0.037156) * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + (-0.0371722) * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + (0.037258) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.037209) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.015779) * getSMEFTCoeffEW("CHuR", 0, 0)
-            + (0.015702) * getSMEFTCoeffEW("CHuR", 1, 1)
-            + (0.1818) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12122) * getSMEFTCoeff("CHbox",muRG)
+            + (0.01598) * getSMEFTCoeff("CHW",muRG)
+            + (-0.074959) * getSMEFTCoeff("CHB",muRG)
+            + (0.013404) * getSMEFTCoeff("CHD",muRG)
+            + (-0.021103) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.01884082) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (-0.01874224) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (-0.01879955) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.161822) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1613675) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.018957) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (-0.037156) * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + (-0.0371722) * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + (0.037258) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.037209) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.015779) * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + (0.015702) * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            + (0.1818) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.832) * deltaGzd6()
             );
 
@@ -31493,27 +31535,28 @@ const double NPSMEFTd6General::deltaGammaH2v2dRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121140. * getSMEFTCoeffEW("CHbox")
-            - 57872.8 * getSMEFTCoeffEW("CHB")
-            - 4371.77 * getSMEFTCoeffEW("CHW")
-            - 18746.1 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
-            - 18746.1 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 18868.3 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
-            + 23856.6 * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq3R", 0, 0))
-            + 23828.1 * (getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq3R", 1, 1))
-            + 23481.4 * (getSMEFTCoeffEW("CHq1R", 2, 2) + getSMEFTCoeffEW("CHq3R", 2, 2))
-            - 4335.75 * getSMEFTCoeffEW("CHdR", 0, 0)
-            - 4341.01 * getSMEFTCoeffEW("CHdR", 1, 1)
-            - 4000. * getSMEFTCoeffEW("CHdR", 2, 2)
-            - 42945.7 * getSMEFTCoeffEW("CHD")
-            - 113953. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121140. * getSMEFTCoeff("CHbox",muRG)
+            - 57872.8 * getSMEFTCoeff("CHB",muRG)
+            - 4371.77 * getSMEFTCoeff("CHW",muRG)
+            - 18746.1 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) - getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            - 18746.1 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) - getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 18868.3 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) - getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            + 23856.6 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 0, 0,muRG))
+            + 23828.1 * (getSMEFTCoeff("CHq1R", 1, 1,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            + 23481.4 * (getSMEFTCoeff("CHq1R", 2, 2,muRG) + getSMEFTCoeff("CHq3R", 2, 2,muRG))
+            - 4335.75 * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            - 4341.01 * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            - 4000. * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            - 42945.7 * getSMEFTCoeff("CHD",muRG)
+            - 113953. * getSMEFTCoeff("CHWB",muRG)
             - 3.412 * delta_GF
             - 0.842 * deltaGzd6()
             );
-            /*+ cWsch * (-837.5 * getSMEFTCoeffEW("CHD")
-            - 21725.9 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-837.5 * getSMEFTCoeff("CHD")
+            - 21725.9 * getSMEFTCoeff("CHWB")
             - 2.996 * delta_GF
             - 0.842 * deltaGzd6()
             ));*/
@@ -31522,27 +31565,27 @@ const double NPSMEFTd6General::deltaGammaH2v2dRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12129) * getSMEFTCoeffEW("CHbox")
-            + (-0.005765) * getSMEFTCoeffEW("CHW")
-            + (-0.0553328) * getSMEFTCoeffEW("CHB")
-            + (-0.0003856) * getSMEFTCoeffEW("CHD")
-            + (-0.0226353) * getSMEFTCoeffEW("CHWB")
-            + (-0.01872246) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (-0.01856267) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (-0.01867078) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.161664) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1624422) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.01871) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (0.023787) * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + (0.023795) * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + (0.023434) * getSMEFTCoeffEW("CHq1R", 2, 2)
-            + (0.023787) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.023795) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.023434) * getSMEFTCoeffEW("CHq3R", 2, 2)
-            + (-0.00413664) * getSMEFTCoeffEW("CHdR", 0, 0)
-            + (-0.00413066) * getSMEFTCoeffEW("CHdR", 1, 1)
-            + (-0.00380964) * getSMEFTCoeffEW("CHdR", 2, 2)
-            + (0.1819) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12129) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.005765) * getSMEFTCoeff("CHW",muRG)
+            + (-0.0553328) * getSMEFTCoeff("CHB",muRG)
+            + (-0.0003856) * getSMEFTCoeff("CHD",muRG)
+            + (-0.0226353) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.01872246) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (-0.01856267) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (-0.01867078) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.161664) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1624422) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.01871) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (0.023787) * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + (0.023795) * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + (0.023434) * getSMEFTCoeff("CHq1R", 2, 2,muRG)
+            + (0.023787) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.023795) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.023434) * getSMEFTCoeff("CHq3R", 2, 2,muRG)
+            + (-0.00413664) * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            + (-0.00413066) * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            + (-0.00380964) * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            + (0.1819) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.826) * deltaGzd6()
             );
 
@@ -31798,24 +31841,25 @@ const double NPSMEFTd6General::deltaGammaH4LRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth +=  cAsch * (+121291. * getSMEFTCoeffEW("CHbox")
-            - 103587. * getSMEFTCoeffEW("CHB")
-            - 25126.1 * getSMEFTCoeffEW("CHW")
-            + 40801.2 * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
-            + 40841.5 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            + 40593.4 * (getSMEFTCoeffEW("CHl1R", 2, 2) + getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 35062.5 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 35200.6 * getSMEFTCoeffEW("CHeR", 1, 1)
-            - 34739.1 * getSMEFTCoeffEW("CHeR", 2, 2)
-            - 43327.2 * getSMEFTCoeffEW("CHD")
-            - 83516.6 * getSMEFTCoeffEW("CHWB")
+    dwidth +=  cAsch * (+121291. * getSMEFTCoeff("CHbox",muRG)
+            - 103587. * getSMEFTCoeff("CHB",muRG)
+            - 25126.1 * getSMEFTCoeff("CHW",muRG)
+            + 40801.2 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            + 40841.5 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            + 40593.4 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) + getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 35062.5 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 35200.6 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            - 34739.1 * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            - 43327.2 * getSMEFTCoeff("CHD",muRG)
+            - 83516.6 * getSMEFTCoeff("CHWB",muRG)
             - 3.426 * delta_GF
             - 0.759 * deltaGzd6()
             );
-            /*+ cWsch * (-79.855 * getSMEFTCoeffEW("CHD")
-            + 10882.3 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-79.855 * getSMEFTCoeff("CHD")
+            + 10882.3 * getSMEFTCoeff("CHWB")
             - 3. * delta_GF
             - 0.759 * deltaGzd6()
             ));*/
@@ -31824,21 +31868,21 @@ const double NPSMEFTd6General::deltaGammaH4LRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12134) * getSMEFTCoeffEW("CHbox")
-            + (-0.0103) * getSMEFTCoeffEW("CHW")
-            + (-0.11604) * getSMEFTCoeffEW("CHB")
-            + (0.01268) * getSMEFTCoeffEW("CHD")
-            + (0.01261) * getSMEFTCoeffEW("CHWB")
-            + (0.041857) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (0.041873) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (0.041607) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.1401455) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1401933) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.041607) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (-0.03372101) * getSMEFTCoeffEW("CHeR", 0, 0)
-            + (-0.0338238) * getSMEFTCoeffEW("CHeR", 1, 1)
-            + (-0.03341988) * getSMEFTCoeffEW("CHeR", 2, 2)
-            + (0.18199) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12134) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.0103) * getSMEFTCoeff("CHW",muRG)
+            + (-0.11604) * getSMEFTCoeff("CHB",muRG)
+            + (0.01268) * getSMEFTCoeff("CHD",muRG)
+            + (0.01261) * getSMEFTCoeff("CHWB",muRG)
+            + (0.041857) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (0.041873) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (0.041607) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.1401455) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1401933) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.041607) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (-0.03372101) * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + (-0.0338238) * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + (-0.03341988) * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + (0.18199) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.741) * deltaGzd6()
             );
 
@@ -32038,21 +32082,22 @@ const double NPSMEFTd6General::deltaGammaH4L2Ratio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121305. * getSMEFTCoeffEW("CHbox")
-            - 101068. * getSMEFTCoeffEW("CHB")
-            - 26272.7 * getSMEFTCoeffEW("CHW")
-            + 61265. * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
-            + 61239.2 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 52542.2 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 52658.5 * getSMEFTCoeffEW("CHeR", 1, 1)
-            + cAsch * (-43256.5 * getSMEFTCoeffEW("CHD")
-            - 82588.8 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121305. * getSMEFTCoeff("CHbox",muRG)
+            - 101068. * getSMEFTCoeff("CHB",muRG)
+            - 26272.7 * getSMEFTCoeff("CHW",muRG)
+            + 61265. * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            + 61239.2 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 52542.2 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 52658.5 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + cAsch * (-43256.5 * getSMEFTCoeff("CHD",muRG)
+            - 82588.8 * getSMEFTCoeff("CHWB",muRG)
             - 3.426 * delta_GF
             - 0.761 * deltaGzd6()
             )
-            + cWsch * (-451.131 * getSMEFTCoeffEW("CHD")
-            + 10429. * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-451.131 * getSMEFTCoeff("CHD",muRG)
+            + 10429. * getSMEFTCoeff("CHWB",muRG)
             - 3.003 * delta_GF
             - 0.761 * deltaGzd6()
             ));
@@ -32130,18 +32175,19 @@ const double NPSMEFTd6General::deltaGammaH4eRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121313. * getSMEFTCoeffEW("CHbox")
-            - 101223. * getSMEFTCoeffEW("CHB")
-            - 25774.5 * getSMEFTCoeffEW("CHW")
-            + 122287. * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
-            - 104859. * getSMEFTCoeffEW("CHeR", 0, 0)
-            + cAsch * (-43133.2 * getSMEFTCoeffEW("CHD")
-            - 82523.3 * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121313. * getSMEFTCoeff("CHbox",muRG)
+            - 101223. * getSMEFTCoeff("CHB",muRG)
+            - 25774.5 * getSMEFTCoeff("CHW",muRG)
+            + 122287. * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            - 104859. * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + cAsch * (-43133.2 * getSMEFTCoeff("CHD",muRG)
+            - 82523.3 * getSMEFTCoeff("CHWB",muRG)
             - 3.424 * delta_GF
             - 0.754 * deltaGzd6())
-            + cWsch * (-321.416 * getSMEFTCoeffEW("CHD")
-            + 10203.3 * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-321.416 * getSMEFTCoeff("CHD",muRG)
+            + 10203.3 * getSMEFTCoeff("CHWB",muRG)
             - 3. * delta_GF
             - 0.754 * deltaGzd6())
             );
@@ -32219,18 +32265,19 @@ const double NPSMEFTd6General::deltaGammaH4muRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121280. * getSMEFTCoeffEW("CHbox")
-            - 101266. * getSMEFTCoeffEW("CHB")
-            - 25189.1 * getSMEFTCoeffEW("CHW")
-            + 122245. * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 105313. * getSMEFTCoeffEW("CHeR", 1, 1)
-            + cAsch * (-43187.7 * getSMEFTCoeffEW("CHD")
-            - 82284. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121280. * getSMEFTCoeff("CHbox",muRG)
+            - 101266. * getSMEFTCoeff("CHB",muRG)
+            - 25189.1 * getSMEFTCoeff("CHW",muRG)
+            + 122245. * (getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 105313. * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + cAsch * (-43187.7 * getSMEFTCoeff("CHD",muRG)
+            - 82284. * getSMEFTCoeff("CHWB",muRG)
             - 3.424 * delta_GF
             - 0.756 * deltaGzd6())
-            + cWsch * (-448.867 * getSMEFTCoeffEW("CHD")
-            + 10693.5 * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-448.867 * getSMEFTCoeff("CHD",muRG)
+            + 10693.5 * getSMEFTCoeff("CHWB",muRG)
             - 2.999 * delta_GF
             - 0.756 * deltaGzd6())
             );
@@ -32308,21 +32355,22 @@ const double NPSMEFTd6General::deltaGammaH4vRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121311. * getSMEFTCoeffEW("CHbox")
-            - 13320.2 * getSMEFTCoeffEW("CHB")
-            - 44355.6 * getSMEFTCoeffEW("CHW")
-            - 37027.3 * (getSMEFTCoeffEW("CHl1R", 0, 0) - getSMEFTCoeffEW("CHl3R", 0, 0))
-            - 36969.3 * (getSMEFTCoeffEW("CHl1R", 1, 1) - getSMEFTCoeffEW("CHl3R", 1, 1))
-            - 37032.5 * (getSMEFTCoeffEW("CHl1R", 2, 2) - getSMEFTCoeffEW("CHl3R", 2, 2))
-            - 30309.7 * getSMEFTCoeffEW("CHD")
-            - 24266.2 * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121311. * getSMEFTCoeff("CHbox",muRG)
+            - 13320.2 * getSMEFTCoeff("CHB",muRG)
+            - 44355.6 * getSMEFTCoeff("CHW",muRG)
+            - 37027.3 * (getSMEFTCoeff("CHl1R", 0, 0,muRG) - getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            - 36969.3 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) - getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            - 37032.5 * (getSMEFTCoeff("CHl1R", 2, 2,muRG) - getSMEFTCoeff("CHl3R", 2, 2,muRG))
+            - 30309.7 * getSMEFTCoeff("CHD",muRG)
+            - 24266.2 * getSMEFTCoeff("CHWB",muRG)
             - 2.998 * delta_GF
             - 0.715 * deltaGzd6()
             );
-            /*+ cWsch * (-30309.7 * getSMEFTCoeffEW("CHD")
-            - 24266.2 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-30309.7 * getSMEFTCoeff("CHD")
+            - 24266.2 * getSMEFTCoeff("CHWB")
             - 2.998 * delta_GF
             - 0.715 * deltaGzd6()
             ));*/
@@ -32331,18 +32379,18 @@ const double NPSMEFTd6General::deltaGammaH4vRatio1() const {
     
     // AG: 
     dwidth += cWsch * (
-            ((0.12132) * getSMEFTCoeffEW("CHbox")
-            + (-0.0448947) * getSMEFTCoeffEW("CHW")
-            + (-0.01288824) * getSMEFTCoeffEW("CHB")
-            + (-0.0303007) * getSMEFTCoeffEW("CHD")
-            + (-0.02405184) * getSMEFTCoeffEW("CHWB")
-            + (-0.03687556) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (-0.03708882) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (-0.03709052) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.1447394) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.144877) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.037099) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (0.18201) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12132) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.0448947) * getSMEFTCoeff("CHW",muRG)
+            + (-0.01288824) * getSMEFTCoeff("CHB",muRG)
+            + (-0.0303007) * getSMEFTCoeff("CHD",muRG)
+            + (-0.02405184) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.03687556) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (-0.03708882) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (-0.03709052) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.1447394) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.144877) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.037099) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (0.18201) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.705) * deltaGzd6()
             );
 
@@ -32509,23 +32557,24 @@ const double NPSMEFTd6General::deltaGammaH4uRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121283. * getSMEFTCoeffEW("CHbox")
-            - 153814. * getSMEFTCoeffEW("CHB")
-            + 70762.7 * getSMEFTCoeffEW("CHW")
-            - 476614. * getSMEFTCoeffEW("CHG")
-            - 70157.4 * (getSMEFTCoeffEW("CHq1R", 0, 0) - getSMEFTCoeffEW("CHq3R", 0, 0))
-            - 70569. * (getSMEFTCoeffEW("CHq1R", 1, 1) - getSMEFTCoeffEW("CHq3R", 1, 1))
-            + 30328.1 * getSMEFTCoeffEW("CHuR", 0, 0)
-            + 30455.3 * getSMEFTCoeffEW("CHuR", 1, 1)
-            - 67742.3 * getSMEFTCoeffEW("CHD")
-            - 272758. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121283. * getSMEFTCoeff("CHbox",muRG)
+            - 153814. * getSMEFTCoeff("CHB",muRG)
+            + 70762.7 * getSMEFTCoeff("CHW",muRG)
+            - 476614. * getSMEFTCoeff("CHG",muRG)
+            - 70157.4 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) - getSMEFTCoeff("CHq3R", 0, 0,muRG))
+            - 70569. * (getSMEFTCoeff("CHq1R", 1, 1,muRG) - getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            + 30328.1 * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + 30455.3 * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            - 67742.3 * getSMEFTCoeff("CHD",muRG)
+            - 272758. * getSMEFTCoeff("CHWB",muRG)
             - 4.233 * delta_GF
             - 0.781 * deltaGzd6()
             );
-            /*+ cWsch * (+56825.9 * getSMEFTCoeffEW("CHD")
-            + 5.842 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (+56825.9 * getSMEFTCoeff("CHD")
+            + 5.842 * getSMEFTCoeff("CHWB")
             - 3.002 * delta_GF
             - 0.781 * deltaGzd6()
             ));*/
@@ -32534,21 +32583,21 @@ const double NPSMEFTd6General::deltaGammaH4uRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12118) * getSMEFTCoeffEW("CHbox")
-            + (0.07154) * getSMEFTCoeffEW("CHW")
-            + (-0.154493) * getSMEFTCoeffEW("CHB")
-            + (0.06099) * getSMEFTCoeffEW("CHD")
-            + (-0.001621) * getSMEFTCoeffEW("CHWB")
-            + (-0.46458) * getSMEFTCoeffEW("CHG")
-            + (-0.070151) * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + (-0.070597) * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + (0.070159) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.070584) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.028845) * getSMEFTCoeffEW("CHuR", 0, 0)
-            + (0.028945) * getSMEFTCoeffEW("CHuR", 1, 1)
-            + (-0.181705) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.181705) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.18178) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12118) * getSMEFTCoeff("CHbox",muRG)
+            + (0.07154) * getSMEFTCoeff("CHW",muRG)
+            + (-0.154493) * getSMEFTCoeff("CHB",muRG)
+            + (0.06099) * getSMEFTCoeff("CHD",muRG)
+            + (-0.001621) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.46458) * getSMEFTCoeff("CHG",muRG)
+            + (-0.070151) * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + (-0.070597) * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + (0.070159) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.070584) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.028845) * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + (0.028945) * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            + (-0.181705) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.181705) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.18178) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.773) * deltaGzd6()
             );
 
@@ -32756,25 +32805,26 @@ const double NPSMEFTd6General::deltaGammaH4dRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121248. * getSMEFTCoeffEW("CHbox")
-            - 106312. * getSMEFTCoeffEW("CHB")
-            + 37722.3 * getSMEFTCoeffEW("CHW")
-            - 368494. * getSMEFTCoeffEW("CHG")
-            + 43669.1 * (getSMEFTCoeffEW("CHq1R", 0, 0) + getSMEFTCoeffEW("CHq3R", 0, 0))
-            + 43649.7 * (getSMEFTCoeffEW("CHq1R", 1, 1) + getSMEFTCoeffEW("CHq3R", 1, 1))
-            + 45003.6 * (getSMEFTCoeffEW("CHq1R", 2, 2) + getSMEFTCoeffEW("CHq3R", 2, 2))
-            - 7637.9 * getSMEFTCoeffEW("CHdR", 0, 0)
-            - 7633.36 * getSMEFTCoeffEW("CHdR", 1, 1)
-            - 7294.61 * getSMEFTCoeffEW("CHdR", 2, 2)
-            - 56026.9 * getSMEFTCoeffEW("CHD")
-            - 199805. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121248. * getSMEFTCoeff("CHbox",muRG)
+            - 106312. * getSMEFTCoeff("CHB",muRG)
+            + 37722.3 * getSMEFTCoeff("CHW",muRG)
+            - 368494. * getSMEFTCoeff("CHG",muRG)
+            + 43669.1 * (getSMEFTCoeff("CHq1R", 0, 0,muRG) + getSMEFTCoeff("CHq3R", 0, 0,muRG))
+            + 43649.7 * (getSMEFTCoeff("CHq1R", 1, 1,muRG) + getSMEFTCoeff("CHq3R", 1, 1,muRG))
+            + 45003.6 * (getSMEFTCoeff("CHq1R", 2, 2,muRG) + getSMEFTCoeff("CHq3R", 2, 2,muRG))
+            - 7637.9 * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            - 7633.36 * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            - 7294.61 * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            - 56026.9 * getSMEFTCoeff("CHD",muRG)
+            - 199805. * getSMEFTCoeff("CHWB",muRG)
             - 3.841 * delta_GF
             - 0.778 * deltaGzd6()
             );
-            /*+ cWsch * (+29594.4 * getSMEFTCoeffEW("CHD")
-            - 12377.7 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (+29594.4 * getSMEFTCoeff("CHD")
+            - 12377.7 * getSMEFTCoeff("CHWB")
             - 2.995 * delta_GF
             - 0.778 * deltaGzd6()
             ));*/
@@ -32783,24 +32833,24 @@ const double NPSMEFTd6General::deltaGammaH4dRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12101) * getSMEFTCoeffEW("CHbox")
-            + (0.035301) * getSMEFTCoeffEW("CHW")
-            + (-0.1036126) * getSMEFTCoeffEW("CHB")
-            + (0.030428) * getSMEFTCoeffEW("CHD")
-            + (-0.013792) * getSMEFTCoeffEW("CHWB")
-            + (-0.36157) * getSMEFTCoeffEW("CHG")
-            + (0.043464) * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + (0.043459) * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + (0.044816) * getSMEFTCoeffEW("CHq1R", 2, 2)
-            + (0.043464) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.043459) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.044816) * getSMEFTCoeffEW("CHq3R", 2, 2)
-            + (-0.0072915) * getSMEFTCoeffEW("CHdR", 0, 0)
-            + (-0.0072923) * getSMEFTCoeffEW("CHdR", 1, 1)
-            + (-0.00694917) * getSMEFTCoeffEW("CHdR", 2, 2)
-            + (-0.181499) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.181499) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.18154) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12101) * getSMEFTCoeff("CHbox",muRG)
+            + (0.035301) * getSMEFTCoeff("CHW",muRG)
+            + (-0.1036126) * getSMEFTCoeff("CHB",muRG)
+            + (0.030428) * getSMEFTCoeff("CHD",muRG)
+            + (-0.013792) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.36157) * getSMEFTCoeff("CHG",muRG)
+            + (0.043464) * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + (0.043459) * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + (0.044816) * getSMEFTCoeff("CHq1R", 2, 2,muRG)
+            + (0.043464) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.043459) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.044816) * getSMEFTCoeff("CHq3R", 2, 2,muRG)
+            + (-0.0072915) * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            + (-0.0072923) * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            + (-0.00694917) * getSMEFTCoeff("CHdR", 2, 2,muRG)
+            + (-0.181499) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.181499) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.18154) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.786) * deltaGzd6()
             );
 
@@ -33034,21 +33084,22 @@ const double NPSMEFTd6General::deltaGammaHLvvLRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121150. * getSMEFTCoeffEW("CHbox")
-            - 91767.5 * getSMEFTCoeffEW("CHW")
-            + 45140.3 * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + 45192.1 * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + 45407.7 * getSMEFTCoeffEW("CHl3R", 2, 2)
-            - 203598. * getSMEFTCoeffEW("CHD")
-            - 379536. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121150. * getSMEFTCoeff("CHbox",muRG)
+            - 91767.5 * getSMEFTCoeff("CHW",muRG)
+            + 45140.3 * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + 45192.1 * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + 45407.7 * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            - 203598. * getSMEFTCoeff("CHD",muRG)
+            - 379536. * getSMEFTCoeff("CHWB",muRG)
             - 4.713 * delta_GF
             - 13.743 * deltaMwd6()
             - 0.962 * deltaGwd6()
             );
-            /*+ cWsch * (-30310.3 * getSMEFTCoeffEW("CHD")
-            + 0. * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-30310.3 * getSMEFTCoeff("CHD")
+            + 0. * getSMEFTCoeff("CHWB")
             - 2.996 * delta_GF
             - 0.962 * deltaGwd6()
             ));*/
@@ -33057,13 +33108,13 @@ const double NPSMEFTd6General::deltaGammaHLvvLRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12141) * getSMEFTCoeffEW("CHbox")
-            + (-0.0905945) * getSMEFTCoeffEW("CHW")
-            + (-0.03032886) * getSMEFTCoeffEW("CHD")
-            + (-0.1367504) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1366861) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.045303) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (0.18211) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12141) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.0905945) * getSMEFTCoeff("CHW",muRG)
+            + (-0.03032886) * getSMEFTCoeff("CHD",muRG)
+            + (-0.1367504) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1366861) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.045303) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (0.18211) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.919) * deltaGwd6()
             );
 
@@ -33177,19 +33228,20 @@ const double NPSMEFTd6General::deltaGammaHevmuvRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+121407. * getSMEFTCoeffEW("CHbox")
-            - 91741.5 * getSMEFTCoeffEW("CHW")
-            + 68126.1 * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + 68223.8 * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + cAsch * (-203550. * getSMEFTCoeffEW("CHD")
-            - 380035. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121407. * getSMEFTCoeff("CHbox",muRG)
+            - 91741.5 * getSMEFTCoeff("CHW",muRG)
+            + 68126.1 * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + 68223.8 * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + cAsch * (-203550. * getSMEFTCoeff("CHD",muRG)
+            - 380035. * getSMEFTCoeff("CHWB",muRG)
             - 4.711 * delta_GF
             - 13.53 * deltaMwd6()
             - 0.964 * deltaGwd6()
             )
-            + cWsch * (-30299.6 * getSMEFTCoeffEW("CHD")
-            + 0. * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-30299.6 * getSMEFTCoeff("CHD",muRG)
+            + 0. * getSMEFTCoeff("CHWB",muRG)
             - 3. * delta_GF
             - 0.964 * deltaGwd6()
             ));
@@ -33267,20 +33319,21 @@ const double NPSMEFTd6General::deltaGammaHudduRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121333. * getSMEFTCoeffEW("CHbox")
-            - 92283.9 * getSMEFTCoeffEW("CHW")
-            + 68273.4 * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + 68176.3 * getSMEFTCoeffEW("CHq3R", 1, 1)
-            - 203776. * getSMEFTCoeffEW("CHD")
-            - 380178. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121333. * getSMEFTCoeff("CHbox",muRG)
+            - 92283.9 * getSMEFTCoeff("CHW",muRG)
+            + 68273.4 * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + 68176.3 * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            - 203776. * getSMEFTCoeff("CHD",muRG)
+            - 380178. * getSMEFTCoeff("CHWB",muRG)
             - 4.719 * delta_GF
             - 14.006 * deltaMwd6()
             - 0.956 * deltaGwd6()
             );
-            /*+ cWsch * (-30312.7 * getSMEFTCoeffEW("CHD")
-            + 0. * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-30312.7 * getSMEFTCoeff("CHD")
+            + 0. * getSMEFTCoeff("CHWB")
             - 3.003 * delta_GF
             - 0.956 * deltaGwd6()
             ));*/
@@ -33289,14 +33342,14 @@ const double NPSMEFTd6General::deltaGammaHudduRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12079) * getSMEFTCoeffEW("CHbox")
-            + (-0.0903745) * getSMEFTCoeffEW("CHW")
-            + (-0.03023476) * getSMEFTCoeffEW("CHD")
-            + (0.06934) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.069517) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (-0.1813696) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1813696) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.18117) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12079) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.0903745) * getSMEFTCoeff("CHW",muRG)
+            + (-0.03023476) * getSMEFTCoeff("CHD",muRG)
+            + (0.06934) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.069517) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (-0.1813696) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1813696) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.18117) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.955) * deltaGwd6()
             );
 
@@ -33421,23 +33474,24 @@ const double NPSMEFTd6General::deltaGammaHLvudRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121281. * getSMEFTCoeffEW("CHbox")
-            - 93409.7 * getSMEFTCoeffEW("CHW")
-            + 22531.9 * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + 22479. * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + 22364.3 * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + 34744.7 * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + 34720.9 * getSMEFTCoeffEW("CHq3R", 1, 1)
-            - 203784. * getSMEFTCoeffEW("CHD")
-            - 380028. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121281. * getSMEFTCoeff("CHbox",muRG)
+            - 93409.7 * getSMEFTCoeff("CHW",muRG)
+            + 22531.9 * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + 22479. * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + 22364.3 * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + 34744.7 * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + 34720.9 * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            - 203784. * getSMEFTCoeff("CHD",muRG)
+            - 380028. * getSMEFTCoeff("CHWB",muRG)
             - 4.721 * delta_GF
             - 13.591 * deltaMwd6()
             - 0.969 * deltaGwd6()
             );
-            /*+ cWsch * (-30359.9 * getSMEFTCoeffEW("CHD")
-            + 0. * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-30359.9 * getSMEFTCoeff("CHD")
+            + 0. * getSMEFTCoeff("CHWB")
             - 3.004 * delta_GF
             - 0.969 * deltaGwd6()
             ));*/
@@ -33446,15 +33500,15 @@ const double NPSMEFTd6General::deltaGammaHLvudRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12133) * getSMEFTCoeffEW("CHbox")
-            + (-0.0905501) * getSMEFTCoeffEW("CHW")
-            + (-0.03027917) * getSMEFTCoeffEW("CHD")
-            + (-0.1591054) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.15932529) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.022578) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (0.034785) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.034757) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.18198) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12133) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.0905501) * getSMEFTCoeff("CHW",muRG)
+            + (-0.03027917) * getSMEFTCoeff("CHD",muRG)
+            + (-0.1591054) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.15932529) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.022578) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (0.034785) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.034757) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.18198) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.964) * deltaGwd6()
             );
 
@@ -33587,29 +33641,30 @@ const double NPSMEFTd6General::deltaGammaH2udRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121425. * getSMEFTCoeffEW("CHbox")
-            - 3244.8 * getSMEFTCoeffEW("CHB")
-            - 88391.2 * getSMEFTCoeffEW("CHW")
-            - 55282. * getSMEFTCoeffEW("CHG")
-            - 23.442 * getSMEFTCoeffEW("CHq1R", 0, 0)
-            - 22.98 * getSMEFTCoeffEW("CHq1R", 1, 1)
-            + 559.485 * getSMEFTCoeffEW("CHuR", 0, 0)
-            + 560.558 * getSMEFTCoeffEW("CHuR", 1, 1)
-            - 217.102 * getSMEFTCoeffEW("CHdR", 0, 0)
-            - 218.04 * getSMEFTCoeffEW("CHdR", 1, 1)
-            + 68556.8 * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + 68783.1 * getSMEFTCoeffEW("CHq3R", 1, 1)
-            - 199535. * getSMEFTCoeffEW("CHD")
-            - 375669. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121425. * getSMEFTCoeff("CHbox",muRG)
+            - 3244.8 * getSMEFTCoeff("CHB",muRG)
+            - 88391.2 * getSMEFTCoeff("CHW",muRG)
+            - 55282. * getSMEFTCoeff("CHG",muRG)
+            - 23.442 * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            - 22.98 * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            + 559.485 * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + 560.558 * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            - 217.102 * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            - 218.04 * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            + 68556.8 * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + 68783.1 * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            - 199535. * getSMEFTCoeff("CHD",muRG)
+            - 375669. * getSMEFTCoeff("CHWB",muRG)
             - 4.696 * delta_GF
             - 0.026 * deltaGzd6()
             - 13.64 * deltaMwd6()
             - 0.944 * deltaGwd6()
             );
-            /*+ cWsch * (-28852.8 * getSMEFTCoeffEW("CHD")
-            - 1306.57 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-28852.8 * getSMEFTCoeff("CHD")
+            - 1306.57 * getSMEFTCoeff("CHWB")
             - 3.002 * delta_GF
             - 0.026 * deltaGzd6()
             - 0.944 * deltaGwd6()
@@ -33619,21 +33674,21 @@ const double NPSMEFTd6General::deltaGammaH2udRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12135) * getSMEFTCoeffEW("CHbox")
-            + (-0.0851047) * getSMEFTCoeffEW("CHW")
-            + (-0.0045438) * getSMEFTCoeffEW("CHB")
-            + (-0.02822615) * getSMEFTCoeffEW("CHD")
-            + (-0.0017067) * getSMEFTCoeffEW("CHWB")
-            + (-0.05868) * getSMEFTCoeffEW("CHG")
-            + (0.070123) * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + (0.069746) * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + (0.0006591) * getSMEFTCoeffEW("CHuR", 0, 0)
-            + (0.00065708) * getSMEFTCoeffEW("CHuR", 1, 1)
-            + (-0.000256626) * getSMEFTCoeffEW("CHdR", 0, 0)
-            + (-0.000252814) * getSMEFTCoeffEW("CHdR", 1, 1)
-            + (-0.181971) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.181971) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.182) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12135) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.0851047) * getSMEFTCoeff("CHW",muRG)
+            + (-0.0045438) * getSMEFTCoeff("CHB",muRG)
+            + (-0.02822615) * getSMEFTCoeff("CHD",muRG)
+            + (-0.0017067) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.05868) * getSMEFTCoeff("CHG",muRG)
+            + (0.070123) * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + (0.069746) * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + (0.0006591) * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + (0.00065708) * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            + (-0.000256626) * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            + (-0.000252814) * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            + (-0.181971) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.181971) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.182) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.895) * deltaGwd6()
             + (-0.0262) * deltaGzd6()
             );
@@ -33815,29 +33870,30 @@ const double NPSMEFTd6General::deltaGammaH2LvRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
     //------ Old alpha scheme expression: Beg
-    dwidth += cAsch * (+121133. * getSMEFTCoeffEW("CHbox")
-            + 1057.61 * getSMEFTCoeffEW("CHB")
-            - 91969.3 * getSMEFTCoeffEW("CHW")
-            - 137.279 * getSMEFTCoeffEW("CHl1R", 0, 0)
-            - 137.825 * getSMEFTCoeffEW("CHl1R", 1, 1)
-            - 123.03 * getSMEFTCoeffEW("CHl1R", 2, 2)
-            - 897.801 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 865.641 * getSMEFTCoeffEW("CHeR", 1, 1)
-            - 862.721 * getSMEFTCoeffEW("CHeR", 2, 2)
-            + 45408.9 * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + 45540.1 * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + 45765.4 * getSMEFTCoeffEW("CHl3R", 2, 2)
-            - 198032. * getSMEFTCoeffEW("CHD")
-            - 364301. * getSMEFTCoeffEW("CHWB")
+    dwidth += cAsch * (+121133. * getSMEFTCoeff("CHbox",muRG)
+            + 1057.61 * getSMEFTCoeff("CHB",muRG)
+            - 91969.3 * getSMEFTCoeff("CHW",muRG)
+            - 137.279 * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            - 137.825 * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            - 123.03 * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            - 897.801 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 865.641 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            - 862.721 * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + 45408.9 * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + 45540.1 * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + 45765.4 * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            - 198032. * getSMEFTCoeff("CHD",muRG)
+            - 364301. * getSMEFTCoeff("CHWB",muRG)
             - 4.631 * delta_GF
             - 13.529 * deltaMwd6()
             - 0.956 * deltaGwd6()
             - 0.037 * deltaGzd6()
             );
-            /*+ cWsch * (-33553.1 * getSMEFTCoeffEW("CHD")
-            - 3437.65 * getSMEFTCoeffEW("CHWB")
+            /*+ cWsch * (-33553.1 * getSMEFTCoeff("CHD")
+            - 3437.65 * getSMEFTCoeff("CHWB")
             - 3.001 * delta_GF
             - 0.036 * deltaGzd6()
             - 0.956 * deltaGwd6()
@@ -33847,21 +33903,21 @@ const double NPSMEFTd6General::deltaGammaH2LvRatio1() const {
 
     // AG: 
     dwidth += cWsch * (
-            ((0.12114) * getSMEFTCoeffEW("CHbox")
-            + (-0.0916348) * getSMEFTCoeffEW("CHW")
-            + (0.000592) * getSMEFTCoeffEW("CHB")
-            + (-0.0333329) * getSMEFTCoeffEW("CHD")
-            + (-0.003342) * getSMEFTCoeffEW("CHWB")
-            + (-0.00014956) * getSMEFTCoeffEW("CHl1R", 0, 0)
-            + (-0.0001496) * getSMEFTCoeffEW("CHl1R", 1, 1)
-            + (-0.0001277) * getSMEFTCoeffEW("CHl1R", 2, 2)
-            + (-0.1360386) * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + (-0.1361577) * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + (0.045354) * getSMEFTCoeffEW("CHl3R", 2, 2)
-            + (-0.000816964) * getSMEFTCoeffEW("CHeR", 0, 0)
-            + (-0.000817925) * getSMEFTCoeffEW("CHeR", 1, 1)
-            + (-0.000817821) * getSMEFTCoeffEW("CHeR", 2, 2)
-            + (0.1817) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
+            ((0.12114) * getSMEFTCoeff("CHbox",muRG)
+            + (-0.0916348) * getSMEFTCoeff("CHW",muRG)
+            + (0.000592) * getSMEFTCoeff("CHB",muRG)
+            + (-0.0333329) * getSMEFTCoeff("CHD",muRG)
+            + (-0.003342) * getSMEFTCoeff("CHWB",muRG)
+            + (-0.00014956) * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            + (-0.0001496) * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            + (-0.0001277) * getSMEFTCoeff("CHl1R", 2, 2,muRG)
+            + (-0.1360386) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + (-0.1361577) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + (0.045354) * getSMEFTCoeff("CHl3R", 2, 2,muRG)
+            + (-0.000816964) * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + (-0.000817925) * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + (-0.000817821) * getSMEFTCoeff("CHeR", 2, 2,muRG)
+            + (0.1817) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
             + (-0.938) * deltaGwd6()
             + (-0.041) * deltaGzd6()
             );
@@ -34016,25 +34072,26 @@ const double NPSMEFTd6General::deltaGammaH2Lv2Ratio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+121215. * getSMEFTCoeffEW("CHbox")
-            + 1054.39 * getSMEFTCoeffEW("CHB")
-            - 91849.7 * getSMEFTCoeffEW("CHW")
-            - 205.44 * getSMEFTCoeffEW("CHl1R", 0, 0)
-            - 205.933 * getSMEFTCoeffEW("CHl1R", 1, 1)
-            - 1345.15 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 1299.22 * getSMEFTCoeffEW("CHeR", 1, 1)
-            + 68383.7 * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + 68347.6 * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + cAsch * (-198193. * getSMEFTCoeffEW("CHD")
-            - 364163. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121215. * getSMEFTCoeff("CHbox",muRG)
+            + 1054.39 * getSMEFTCoeff("CHB",muRG)
+            - 91849.7 * getSMEFTCoeff("CHW",muRG)
+            - 205.44 * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            - 205.933 * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            - 1345.15 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 1299.22 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + 68383.7 * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + 68347.6 * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + cAsch * (-198193. * getSMEFTCoeff("CHD",muRG)
+            - 364163. * getSMEFTCoeff("CHWB",muRG)
             - 4.627 * delta_GF
             - 13.439 * deltaMwd6()
             - 0.961 * deltaGwd6()
             - 0.042 * deltaGzd6()
             )
-            + cWsch * (-33577.8 * getSMEFTCoeffEW("CHD")
-            - 3457.89 * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-33577.8 * getSMEFTCoeff("CHD",muRG)
+            - 3457.89 * getSMEFTCoeff("CHWB",muRG)
             - 2.999 * delta_GF
             - 0.042 * deltaGzd6()
             - 0.961 * deltaGwd6()
@@ -34114,21 +34171,22 @@ const double NPSMEFTd6General::deltaGammaH2evRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+121306. * getSMEFTCoeffEW("CHbox")
-            + 1054.18 * getSMEFTCoeffEW("CHB")
-            - 91797.7 * getSMEFTCoeffEW("CHW")
-            - 411.183 * getSMEFTCoeffEW("CHl1R", 0, 0)
-            - 2684.07 * getSMEFTCoeffEW("CHeR", 0, 0)
-            + 136899. * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + cAsch * (-198266. * getSMEFTCoeffEW("CHD")
-            - 364381. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121306. * getSMEFTCoeff("CHbox",muRG)
+            + 1054.18 * getSMEFTCoeff("CHB",muRG)
+            - 91797.7 * getSMEFTCoeff("CHW",muRG)
+            - 411.183 * getSMEFTCoeff("CHl1R", 0, 0,muRG)
+            - 2684.07 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            + 136899. * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + cAsch * (-198266. * getSMEFTCoeff("CHD",muRG)
+            - 364381. * getSMEFTCoeff("CHWB",muRG)
             - 4.629 * delta_GF
             - 0.037 * deltaGzd6()
             - 13.549 * deltaMwd6()
             - 0.965 * deltaGwd6())
-            + cWsch * (-33589.4 * getSMEFTCoeffEW("CHD")
-            - 3458.14 * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-33589.4 * getSMEFTCoeff("CHD",muRG)
+            - 3458.14 * getSMEFTCoeff("CHWB",muRG)
             - 2.999 * delta_GF
             - 0.037 * deltaGzd6()
             - 0.965 * deltaGwd6())
@@ -34208,19 +34266,20 @@ const double NPSMEFTd6General::deltaGammaH2muvRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+121244. * getSMEFTCoeffEW("CHbox")
-            + 1045.26 * getSMEFTCoeffEW("CHB")
-            - 91781. * getSMEFTCoeffEW("CHW")
-            - 410.738 * getSMEFTCoeffEW("CHl1R", 1, 1)
-            - 2593.82 * getSMEFTCoeffEW("CHeR", 1, 1)
-            + 136695. * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + cAsch * (-198022. * getSMEFTCoeffEW("CHD")
-            - 364213. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121244. * getSMEFTCoeff("CHbox",muRG)
+            + 1045.26 * getSMEFTCoeff("CHB",muRG)
+            - 91781. * getSMEFTCoeff("CHW",muRG)
+            - 410.738 * getSMEFTCoeff("CHl1R", 1, 1,muRG)
+            - 2593.82 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + 136695. * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + cAsch * (-198022. * getSMEFTCoeff("CHD",muRG)
+            - 364213. * getSMEFTCoeff("CHWB",muRG)
             - 4.625 * delta_GF
             - 0.031 * deltaGzd6())
-            + cWsch * (-33559. * getSMEFTCoeffEW("CHD")
-            - 3447.11 * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-33559. * getSMEFTCoeff("CHD",muRG)
+            - 3447.11 * getSMEFTCoeff("CHWB",muRG)
             - 2.998 * delta_GF
             - 0.031 * deltaGzd6())
             );
@@ -34703,29 +34762,30 @@ const double NPSMEFTd6General::deltaGammaHlljjRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0083;
+    double muRG = 125.1;
 
-    dwidth += (+121311. * getSMEFTCoeffEW("CHbox")
-            - 92298.6 * getSMEFTCoeffEW("CHB")
-            + 24856.5 * getSMEFTCoeffEW("CHW")
-            + 31820. * (getSMEFTCoeffEW("CHl1R", 0, 0) + getSMEFTCoeffEW("CHl3R", 0, 0))
-            + 31802.8 * (getSMEFTCoeffEW("CHl1R", 1, 1) + getSMEFTCoeffEW("CHl3R", 1, 1))
-            + 3495.26 * getSMEFTCoeffEW("CHq1R", 0, 0)
-            + 3545.61 * getSMEFTCoeffEW("CHq1R", 1, 1)
-            - 27325.3 * getSMEFTCoeffEW("CHeR", 0, 0)
-            - 27320.8 * getSMEFTCoeffEW("CHeR", 1, 1)
-            + 6992.68 * getSMEFTCoeffEW("CHuR", 0, 0)
-            + 6968.35 * getSMEFTCoeffEW("CHuR", 1, 1)
-            - 3496.34 * getSMEFTCoeffEW("CHdR", 0, 0)
-            - 3497.7 * getSMEFTCoeffEW("CHdR", 1, 1)
-            + 34929.4 * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + 34902.6 * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + cAsch * (-51170.9 * getSMEFTCoeffEW("CHD")
-            - 173417. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121311. * getSMEFTCoeff("CHbox",muRG)
+            - 92298.6 * getSMEFTCoeff("CHB",muRG)
+            + 24856.5 * getSMEFTCoeff("CHW",muRG)
+            + 31820. * (getSMEFTCoeff("CHl1R", 0, 0,muRG) + getSMEFTCoeff("CHl3R", 0, 0,muRG))
+            + 31802.8 * (getSMEFTCoeff("CHl1R", 1, 1,muRG) + getSMEFTCoeff("CHl3R", 1, 1,muRG))
+            + 3495.26 * getSMEFTCoeff("CHq1R", 0, 0,muRG)
+            + 3545.61 * getSMEFTCoeff("CHq1R", 1, 1,muRG)
+            - 27325.3 * getSMEFTCoeff("CHeR", 0, 0,muRG)
+            - 27320.8 * getSMEFTCoeff("CHeR", 1, 1,muRG)
+            + 6992.68 * getSMEFTCoeff("CHuR", 0, 0,muRG)
+            + 6968.35 * getSMEFTCoeff("CHuR", 1, 1,muRG)
+            - 3496.34 * getSMEFTCoeff("CHdR", 0, 0,muRG)
+            - 3497.7 * getSMEFTCoeff("CHdR", 1, 1,muRG)
+            + 34929.4 * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + 34902.6 * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + cAsch * (-51170.9 * getSMEFTCoeff("CHD",muRG)
+            - 173417. * getSMEFTCoeff("CHWB",muRG)
             - 3.69 * delta_GF
             - 0.84 * deltaGzd6()
             )
-            + cWsch * (+18275. * getSMEFTCoeffEW("CHD")
-            - 20362.3 * getSMEFTCoeffEW("CHWB")
+            + cWsch * (+18275. * getSMEFTCoeff("CHD",muRG)
+            - 20362.3 * getSMEFTCoeff("CHWB",muRG)
             - 3.001 * delta_GF
             - 0.84 * deltaGzd6()
             ));
@@ -34801,21 +34861,22 @@ const double NPSMEFTd6General::deltaGammaHlvjjRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0073;
+    double muRG = 125.1;
 
-    dwidth += (+121253. * getSMEFTCoeffEW("CHbox")
-            - 93392.5 * getSMEFTCoeffEW("CHW")
-            + 33596.1 * getSMEFTCoeffEW("CHl3R", 0, 0)
-            + 33564.4 * getSMEFTCoeffEW("CHl3R", 1, 1)
-            + 34752.8 * getSMEFTCoeffEW("CHq3R", 0, 0)
-            + 34719.9 * getSMEFTCoeffEW("CHq3R", 1, 1)
-            + cAsch * (-203815. * getSMEFTCoeffEW("CHD")
-            - 380827. * getSMEFTCoeffEW("CHWB")
+    dwidth += (+121253. * getSMEFTCoeff("CHbox",muRG)
+            - 93392.5 * getSMEFTCoeff("CHW",muRG)
+            + 33596.1 * getSMEFTCoeff("CHl3R", 0, 0,muRG)
+            + 33564.4 * getSMEFTCoeff("CHl3R", 1, 1,muRG)
+            + 34752.8 * getSMEFTCoeff("CHq3R", 0, 0,muRG)
+            + 34719.9 * getSMEFTCoeff("CHq3R", 1, 1,muRG)
+            + cAsch * (-203815. * getSMEFTCoeff("CHD",muRG)
+            - 380827. * getSMEFTCoeff("CHWB",muRG)
             - 4.723 * delta_GF
             - 13.742 * deltaMwd6()
             - 0.962 * deltaGwd6()
             )
-            + cWsch * (-30332.8 * getSMEFTCoeffEW("CHD")
-            + 0. * getSMEFTCoeffEW("CHWB")
+            + cWsch * (-30332.8 * getSMEFTCoeff("CHD",muRG)
+            + 0. * getSMEFTCoeff("CHWB",muRG)
             - 3.004 * delta_GF
             - 0.962 * deltaGwd6()
             ));
