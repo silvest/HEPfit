@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['c_0',['c',['../da/d29/class_amp_d_b2.html#ae0873151e306c7df09f53e2901482a6f',1,'AmpDB2']]],
-  ['c_1',['C',['../d5/d60/class_charm___kpnunu.html#aa5e90cfd0b6be8782e02a8f32995e75a',1,'Charm_Kpnunu']]],
+  ['c_0',['C',['../d5/d60/class_charm___kpnunu.html#aa5e90cfd0b6be8782e02a8f32995e75a',1,'Charm_Kpnunu']]],
+  ['c_1',['c',['../da/d29/class_amp_d_b2.html#ae0873151e306c7df09f53e2901482a6f',1,'AmpDB2']]],
   ['c0_2',['C0',['../d4/d7b/class_p_vfunctions.html#a1cfd36273fce66883dc455f962fd12df',1,'PVfunctions::C0(const double p1, const double p2, const double p1p22, const double m02, const double m12, const double m22) const'],['../d4/d7b/class_p_vfunctions.html#ad84dc06b0537389cc33bdfae8f9f7c53',1,'PVfunctions::C0(const double p2, const double m02, const double m12, const double m22) const']]],
   ['c02_3',['c02',['../dc/dd5/class_standard_model.html#ab4f91b5a130dbb1ffda09c1e2e3601fe',1,'StandardModel::c02()'],['../da/d10/class_l_e_p2oblique.html#ab1bad3f95f57c4ffd875761a32a7bc2e',1,'LEP2oblique::c02()']]],
   ['c0_5fhollik_4',['C0_Hollik',['../dd/d7f/class_e_w_s_m_two_fermions_l_e_p2___hollik.html#a4b536b9291704dde6c389db9688a9092',1,'EWSMTwoFermionsLEP2_Hollik']]],
@@ -407,8 +407,8 @@ var searchData=
   ['computeckmfromangles_404',['computeCKMfromAngles',['../d9/db9/class_c_k_m.html#ac8e811dcc62ea9cee01345a6a7516488',1,'CKM::computeCKMfromAngles(double s12_in, double s23_in, double s13_in, double delta_in)'],['../d9/db9/class_c_k_m.html#ad1da7420f8803efaa7737ea0f691dc63',1,'CKM::computeCKMfromAngles()']]],
   ['computeckmwithwolfenstein_405',['computeCKMwithWolfenstein',['../d9/db9/class_c_k_m.html#a293d0cad974ddcde71e6d12f6c409eaa',1,'CKM']]],
   ['computecmu_406',['computecmu',['../da/d86/class_higgs_chiral.html#ab734bab7f4b4069420356351492ce007',1,'HiggsChiral']]],
-  ['computecoeff_407',['computeCoeff',['../d0/d13/class_bsgamma.html#a3d6828455280f07cd41745da9070b2f0',1,'Bsgamma']]],
-  ['computecoeff_408',['ComputeCoeff',['../d0/d49/class_heff_d_f1.html#a95407a794c0eec406f05f7337647193d',1,'HeffDF1::ComputeCoeff()'],['../da/d75/class_heff_d_f1___n_p.html#a95e475206e2e605300bb9d46d520d824',1,'HeffDF1_NP::ComputeCoeff()']]],
+  ['computecoeff_407',['ComputeCoeff',['../d0/d49/class_heff_d_f1.html#a95407a794c0eec406f05f7337647193d',1,'HeffDF1::ComputeCoeff()'],['../da/d75/class_heff_d_f1___n_p.html#a95e475206e2e605300bb9d46d520d824',1,'HeffDF1_NP::ComputeCoeff()']]],
+  ['computecoeff_408',['computeCoeff',['../d0/d13/class_bsgamma.html#a3d6828455280f07cd41745da9070b2f0',1,'Bsgamma']]],
   ['computecoeffbd_409',['ComputeCoeffBd',['../d4/d6d/class_flavour.html#a2434b6bacf420fb19313b22b1b44fcde',1,'Flavour::ComputeCoeffBd()'],['../dc/da2/class_heff_d_f2.html#ab09267f40b721fd71a1a42632c5ac232',1,'HeffDF2::ComputeCoeffBd()']]],
   ['computecoeffbmll_410',['ComputeCoeffBMll',['../dd/d87/class_heff_d_b1.html#a6d6d2e68b3c521941f9f45ce8b18f62b',1,'HeffDB1::ComputeCoeffBMll()'],['../d4/d6d/class_flavour.html#ac585b1af2e51a6966b65c704aef2688e',1,'Flavour::ComputeCoeffBMll(double mu, QCD::lepton lepton, bool noSM=false, schemes scheme=NDR) const']]],
   ['computecoeffbmll_5fburas_411',['ComputeCoeffBMll_Buras',['../d4/d6d/class_flavour.html#a9c8d79ebd0c8b1dd353c5a61e931771d',1,'Flavour::ComputeCoeffBMll_Buras()'],['../dd/d87/class_heff_d_b1.html#ab4983944887cc3feafd88edb9a776800',1,'HeffDB1::ComputeCoeffBMll_Buras()']]],

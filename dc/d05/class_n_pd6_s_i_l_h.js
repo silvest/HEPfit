@@ -1,6 +1,11 @@
 var class_n_pd6_s_i_l_h =
 [
     [ "NPd6SILH", "dc/d05/class_n_pd6_s_i_l_h.html#ad281c13077aec4732e308920ea4d7949", null ],
+    [ "AuxObs_NP30", "dc/d05/class_n_pd6_s_i_l_h.html#a7b5ede9ed6f6d057f203e48eb65f9b37", null ],
+    [ "obliqueS", "dc/d05/class_n_pd6_s_i_l_h.html#a83c4e8a79ed57a01fcdda7e5e0aef352", null ],
+    [ "obliqueT", "dc/d05/class_n_pd6_s_i_l_h.html#a1337eedfb74314596a2e1a6f24bf254a", null ],
+    [ "obliqueW", "dc/d05/class_n_pd6_s_i_l_h.html#a73d5791839e5de40ef6bdcb181c4cbde", null ],
+    [ "obliqueY", "dc/d05/class_n_pd6_s_i_l_h.html#a573ec7bc0bcedcd17eb8f03eb6485ca5", null ],
     [ "PostUpdate", "dc/d05/class_n_pd6_s_i_l_h.html#aef058923331e43e6f429e228cff5b3c3", null ],
     [ "setFlag", "dc/d05/class_n_pd6_s_i_l_h.html#ae39d52863e72d473f858a595c104737d", null ],
     [ "setNPSMEFTd6GeneralParameters", "dc/d05/class_n_pd6_s_i_l_h.html#acc4efc3f780d25a8750d32ff409acff6", null ],
@@ -44,6 +49,7 @@ var class_n_pd6_s_i_l_h =
     [ "g3UV", "dc/d05/class_n_pd6_s_i_l_h.html#a4cba0a0dd1857137cd135c8a1da7dbc5", null ],
     [ "g3UV2", "dc/d05/class_n_pd6_s_i_l_h.html#a5a4ae479dfd969e4dc05079523281ff3", null ],
     [ "lambdaHUV", "dc/d05/class_n_pd6_s_i_l_h.html#a5c4279baea5c28a4e3f25e6a6737ed2c", null ],
+    [ "v2LambdaNP2", "dc/d05/class_n_pd6_s_i_l_h.html#a615707b5e31f99d5bab866f8b4fedbe5", null ],
     [ "YdUV", "dc/d05/class_n_pd6_s_i_l_h.html#a88371538896b6b47f7fe887eb02075a6", null ],
     [ "YdUVhc", "dc/d05/class_n_pd6_s_i_l_h.html#adb0230cdd218a034296c895eb42d2329", null ],
     [ "YeUV", "dc/d05/class_n_pd6_s_i_l_h.html#ac27ddaa2fc3ff50be23f1518e5ff5b75", null ],
