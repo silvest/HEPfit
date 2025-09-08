@@ -480,7 +480,10 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
 
 
 bool NPd6SILH::PostUpdate()
-{
+{    
+    //  1) Post-update operations involving SM parameters only 
+
+    v2LambdaNP2 = v() * v() / Lambda_NP/Lambda_NP;
 
 // Obtain the values of the SM parameters at the UV scale, to do the matching
     ChangeToEvolutorsBasisPureSM();
@@ -534,4 +537,52 @@ bool NPd6SILH::PostUpdate()
 
     return (true);
 
+}
+
+const double NPd6SILH::obliqueS() const
+{
+    return 0.0;
+}
+
+const double NPd6SILH::obliqueT() const
+{
+    return 0.0;
+}
+
+const double NPd6SILH::obliqueW() const
+{
+    return ( g2UV2 * c2W_LNP * v2LambdaNP2 / 2.0);
+}
+
+const double NPd6SILH::obliqueY() const
+{
+    return ( g2UV2 *  c2B_LNP * v2LambdaNP2 / 2.0);
+}
+
+
+const double NPd6SILH::AuxObs_NP30() const
+{
+    // To be used for some temporary observable
+
+    // WY analysis at 13 TeV for HL-LHC 3/ab
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2NC13, Chi2CC13, Chi2Tot;
+
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+
+    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
+
+    Chi2NC13 = 0.032772034538390675 * Wpar2 * Wpar2 + 2.815243944990361 * Ypar2 - 0.36522061776278516 * Ypar2 * Ypar
+            + 0.017375258924241194 * Ypar2 * Ypar2 + Wpar2 * Wpar * (-0.7059117582389635 + 0.006816297425306027 * Ypar)
+            + Wpar * Ypar * (7.988302197022343 + Ypar * (-0.5450119819316416 + 0.0050292149953719766 * Ypar))
+            + Wpar2 * (5.68581760491364 + Ypar * (-0.5794111075840261 + 0.048026245835369625 * Ypar));
+
+    Chi2Tot = Chi2CC13 + Chi2NC13;
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }

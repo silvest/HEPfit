@@ -39194,15 +39194,27 @@ const double NPSMEFTd6General::mupTVppWZ(const double sqrt_s, const double pTV1,
             mu += (410.0 * cHWp + 17.64 * cHWp * cHWp) / 2690.0;
 
         } else if (pTV1 == 220.) {
+            
+            cHWp = 4.0 * (sW2_tree / eeMz2) * (getSMEFTCoeff("CHq3R", 0, 0, 240.) ) * 1000000.0;
+            
             mu += (266.0 * cHWp + 45.6 * cHWp * cHWp) / 925.0;
 
         } else if (pTV1 == 300.) {
+            
+            cHWp = 4.0 * (sW2_tree / eeMz2) * (getSMEFTCoeff("CHq3R", 0, 0, 350.) ) * 1000000.0;
+            
             mu += (304.0 * cHWp + 108.0 * cHWp * cHWp) / 563.0;
 
         } else if (pTV1 == 500.) {
+            
+            cHWp = 4.0 * (sW2_tree / eeMz2) * (getSMEFTCoeff("CHq3R", 0, 0, 550.) ) * 1000000.0;
+            
             mu += (114.40 * cHWp + 96.8 * cHWp * cHWp) / 85.1;
 
         } else if (pTV1 == 750.) {
+            
+            cHWp = 4.0 * (sW2_tree / eeMz2) * (getSMEFTCoeff("CHq3R", 0, 0, 1000.) ) * 1000000.0;
+            
             mu += (46.20 * cHWp + 86.8 * cHWp * cHWp) / 14.9;
 
         } else {
