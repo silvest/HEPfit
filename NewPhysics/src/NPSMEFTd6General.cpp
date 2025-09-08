@@ -17936,7 +17936,7 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
-    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     return mu;
@@ -18288,7 +18288,7 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
         throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muVBF_1()");
 
     //  Linear contribution from Higgs self-coupling
-    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     return mu;
@@ -18639,7 +18639,7 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
         throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muWH_1()");
 
     //  Linear contribution from Higgs self-coupling
-    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     return mu;
@@ -18999,7 +18999,7 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
         throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muZH_1()");
 
     //  Linear contribution from Higgs self-coupling
-    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     return mu;
@@ -19611,7 +19611,7 @@ const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
         throw std::runtime_error("Bad argument in NPSMEFTd6General::delta_muttH_1()");
 
     //  Linear contribution from Higgs self-coupling
-    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     return mu;
@@ -20573,7 +20573,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
     mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -21452,7 +21452,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
     mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -21957,7 +21957,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
     mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -22683,7 +22683,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
     mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -23502,6 +23502,11 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
 
     double C1 = 0.0;
     
+    double muRG = 0;
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
+    
     if ( (Pol_em != 0.) || (Pol_ep != 0) ) return mueeZHPol(sqrt_s, Pol_em, Pol_ep);
 
     if (sqrt_s == 0.240) {
@@ -23781,7 +23786,7 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
     mu += eeeZHint + eeeZHpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -23843,6 +23848,11 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    double muRG = 0;
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
 
     if (sqrt_s == 0.240) {
 
@@ -24729,7 +24739,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
     mu += eeeZHint + eeeZHpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -25358,7 +25368,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
     mu += eeettHint + eeettHpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -25410,6 +25420,11 @@ const double NPSMEFTd6General::mummZH(const double sqrt_s) const {
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    double muRG = 0;
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
 
     if (sqrt_s == 3.0) {
 
@@ -25474,7 +25489,7 @@ const double NPSMEFTd6General::mummZH(const double sqrt_s) const {
     mu += eeeZHint + eeeZHpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -25564,7 +25579,7 @@ const double NPSMEFTd6General::mummHvv(const double sqrt_s) const {
     mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -25653,7 +25668,7 @@ const double NPSMEFTd6General::mummHmm(const double sqrt_s) const {
     mu += scalTH * eeeWBFint + eeeWBFpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -25668,6 +25683,11 @@ const double NPSMEFTd6General::mummttH(const double sqrt_s) const {
     double mu = 1.0;
 
     double C1 = 0.0;
+    
+    double muRG = 0;
+    
+    // RG scale in GeV
+    muRG = 1000. * sqrt_s;
 
     if (sqrt_s == 3.0) {
 
@@ -25744,7 +25764,7 @@ const double NPSMEFTd6General::mummttH(const double sqrt_s) const {
     mu += eeettHint + eeettHpar;
 
     //  Linear contribution from Higgs self-coupling
-    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    mu = mu + cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
@@ -25901,7 +25921,7 @@ const double NPSMEFTd6General::deltaGammaHggRatio1() const {
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26034,7 +26054,7 @@ const double NPSMEFTd6General::deltaGammaHWlvRatio1() const {
             - 15.14 * deltaMwd6());
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26113,7 +26133,7 @@ const double NPSMEFTd6General::deltaGammaHWW2l2vRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26193,7 +26213,7 @@ const double NPSMEFTd6General::deltaGammaHWjjRatio1() const {
             - 15.198 * deltaMwd6());
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26271,7 +26291,7 @@ const double NPSMEFTd6General::deltaGammaHWW4jRatio1() const {
             - 0.959 * deltaGwd6());
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26352,7 +26372,7 @@ const double NPSMEFTd6General::deltaGammaHWffRatio1() const {
             - 15.196 * deltaMwd6());
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26458,7 +26478,7 @@ const double NPSMEFTd6General::deltaGammaHWW4fRatio1() const {
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26623,7 +26643,7 @@ const double NPSMEFTd6General::deltaGammaHZllRatio1() const {
             - 2.204 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26704,7 +26724,7 @@ const double NPSMEFTd6General::deltaGammaHZeeRatio1() const {
             - 2.204 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26761,7 +26781,7 @@ const double NPSMEFTd6General::deltaGammaHZmumuRatio1() const {
             - 2.204 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26824,7 +26844,7 @@ const double NPSMEFTd6General::deltaGammaHZZ4lRatio1() const {
             - 0.808 * deltaGzd6());
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26907,7 +26927,7 @@ const double NPSMEFTd6General::deltaGammaHZZ4eRatio1() const {
             - 0.769 * deltaGzd6());
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -26990,7 +27010,7 @@ const double NPSMEFTd6General::deltaGammaHZZ2e2muRatio1() const {
             - 0.85 * deltaGzd6());
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -27073,7 +27093,7 @@ const double NPSMEFTd6General::deltaGammaHZZ4muRatio1() const {
             - 0.774 * deltaGzd6());
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -27154,7 +27174,7 @@ const double NPSMEFTd6General::deltaGammaHZvvRatio1() const {
             - 2. * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -27234,7 +27254,7 @@ const double NPSMEFTd6General::deltaGammaHZZ4vRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -27316,7 +27336,7 @@ const double NPSMEFTd6General::deltaGammaHZuuRatio1() const {
             - 2.6 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -27409,7 +27429,7 @@ const double NPSMEFTd6General::deltaGammaHZddRatio1() const {
             - 2.427 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -27509,7 +27529,7 @@ const double NPSMEFTd6General::deltaGammaHZffRatio1() const {
             - 2.356 * delta_GF);
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -27635,7 +27655,7 @@ const double NPSMEFTd6General::deltaGammaHZZ4fRatio1() const {
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -27802,7 +27822,7 @@ const double NPSMEFTd6General::deltaGammaHZgaRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0;
-    //double muRG = 125.1;
+    double muRG = 125.1;
 
     //  It includes modifications of Zff vertices and MW, but not on the pure VVV and VVVV vertices
     //  Write the tree-level contributions directly as a function 
@@ -27890,7 +27910,7 @@ const double NPSMEFTd6General::deltaGammaHZgaRatio1() const {
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -27999,7 +28019,7 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0049;
-    //double muRG = 125.1;
+    double muRG = 125.1;
 
     //  It does not include modifications of MW
     //  Write the tree-level contributions directly as a function 
@@ -28166,7 +28186,7 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -28282,7 +28302,7 @@ const double NPSMEFTd6General::deltaGammaHmumuRatio1() const //AG:modified
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -28368,7 +28388,7 @@ const double NPSMEFTd6General::deltaGammaHtautauRatio1() const //AG:modified
     //AG:end
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -28468,7 +28488,7 @@ const double NPSMEFTd6General::deltaGammaHccRatio1() const //AG:modified
     //}
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -28573,7 +28593,7 @@ const double NPSMEFTd6General::deltaGammaHssRatio1() const
         dwidth = deltaGammaHffRatio1(mf, CifH);
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters. Not here    
@@ -28668,7 +28688,7 @@ const double NPSMEFTd6General::deltaGammaHbbRatio1() const //AG:modified
     //}
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -28788,7 +28808,7 @@ const double NPSMEFTd6General::deltaGammaH2L2LRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -29015,7 +29035,7 @@ const double NPSMEFTd6General::deltaGammaH2e2muRatio1() const {
             ));
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -29127,7 +29147,7 @@ const double NPSMEFTd6General::deltaGammaH2v2vRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -29340,7 +29360,7 @@ const double NPSMEFTd6General::deltaGammaH2L2vRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -29558,7 +29578,7 @@ const double NPSMEFTd6General::deltaGammaH2L2v2Ratio1() const {
             ));
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -29648,7 +29668,7 @@ const double NPSMEFTd6General::deltaGammaH2e2vRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -29741,7 +29761,7 @@ const double NPSMEFTd6General::deltaGammaH2mu2vRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -29856,7 +29876,7 @@ const double NPSMEFTd6General::deltaGammaH2u2uRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -30096,7 +30116,7 @@ const double NPSMEFTd6General::deltaGammaH2d2dRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -30373,7 +30393,7 @@ const double NPSMEFTd6General::deltaGammaH2u2dRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -30669,7 +30689,7 @@ const double NPSMEFTd6General::deltaGammaH2L2uRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -30985,7 +31005,7 @@ const double NPSMEFTd6General::deltaGammaH2L2dRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -31318,7 +31338,7 @@ const double NPSMEFTd6General::deltaGammaH2v2uRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -31590,7 +31610,7 @@ const double NPSMEFTd6General::deltaGammaH2v2dRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -31887,7 +31907,7 @@ const double NPSMEFTd6General::deltaGammaH4LRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -32103,7 +32123,7 @@ const double NPSMEFTd6General::deltaGammaH4L2Ratio1() const {
             ));
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -32193,7 +32213,7 @@ const double NPSMEFTd6General::deltaGammaH4eRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -32283,7 +32303,7 @@ const double NPSMEFTd6General::deltaGammaH4muRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -32395,7 +32415,7 @@ const double NPSMEFTd6General::deltaGammaH4vRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -32602,7 +32622,7 @@ const double NPSMEFTd6General::deltaGammaH4uRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -32855,7 +32875,7 @@ const double NPSMEFTd6General::deltaGammaH4dRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -33119,7 +33139,7 @@ const double NPSMEFTd6General::deltaGammaHLvvLRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -33247,7 +33267,7 @@ const double NPSMEFTd6General::deltaGammaHevmuvRatio1() const {
             ));
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -33354,7 +33374,7 @@ const double NPSMEFTd6General::deltaGammaHudduRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -33513,7 +33533,7 @@ const double NPSMEFTd6General::deltaGammaHLvudRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -33694,7 +33714,7 @@ const double NPSMEFTd6General::deltaGammaH2udRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -33923,7 +33943,7 @@ const double NPSMEFTd6General::deltaGammaH2LvRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -34098,7 +34118,7 @@ const double NPSMEFTd6General::deltaGammaH2Lv2Ratio1() const {
             ));
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -34193,7 +34213,7 @@ const double NPSMEFTd6General::deltaGammaH2evRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -34285,7 +34305,7 @@ const double NPSMEFTd6General::deltaGammaH2muvRatio1() const {
             );
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -34791,7 +34811,7 @@ const double NPSMEFTd6General::deltaGammaHlljjRatio1() const {
             ));
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    
@@ -34882,7 +34902,7 @@ const double NPSMEFTd6General::deltaGammaHlvjjRatio1() const {
             ));
 
     //  Linear contribution from Higgs self-coupling
-    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio();
+    dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
 
 
     // Add modifications due to small variations of the SM parameters    

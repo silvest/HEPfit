@@ -895,6 +895,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["gHWW2"] = bind(boost::factory<gHWW2*>(), _1, muMH);//boost::factory<gHWW2*>();
     //-----  HHH couplings observables  ----------
     obsThFactory["deltalHHH"] = bind(boost::factory<deltalHHH*>(), _1, muMH);//boost::factory<deltalHHH*>();
+    obsThFactory["deltalHHH246"] = bind(boost::factory<deltalHHH*>(), _1, 240.0);//boost::factory<deltalHHH*>();
     //-----  Other Higgs couplings observables  ----------
     obsThFactory["gHWZeff_Ratio"] = boost::factory<gHWZeff*>();
     obsThFactory["gHbWeff_Ratio"] = boost::factory<gHbWeff*>();

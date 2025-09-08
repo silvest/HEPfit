@@ -345,10 +345,10 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
     Clq3_3322r_LNP = -0.5*(c2W_LNP*g2UV2);
     Clq3_3333r_LNP = -0.5*(c2W_LNP*g2UV2);
     Cee_1111r_LNP = -(c2B_LNP*g1UV2);
-    Cee_1122r_LNP = -(c2B_LNP*g1UV2);
-    Cee_1133r_LNP = -(c2B_LNP*g1UV2);
+    Cee_1122r_LNP = -0.5*(c2B_LNP*g1UV2);
+    Cee_1133r_LNP = -0.5*(c2B_LNP*g1UV2);
     Cee_2222r_LNP = -(c2B_LNP*g1UV2);
-    Cee_2233r_LNP = -(c2B_LNP*g1UV2);
+    Cee_2233r_LNP = -0.5*(c2B_LNP*g1UV2);
     Cee_3333r_LNP = -(c2B_LNP*g1UV2);
     Cuu_1111r_LNP = (-4*c2B_LNP*g1UV2)/9. - (c2G_LNP*g3UV2)/3.;
     Cuu_1122r_LNP = (-4*c2B_LNP*g1UV2)/9. + (c2G_LNP*g3UV2)/6.;
