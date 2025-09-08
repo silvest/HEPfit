@@ -27802,7 +27802,7 @@ const double NPSMEFTd6General::deltaGammaHZgaRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0;
-    double muRG = 125.1;
+    //double muRG = 125.1;
 
     //  It includes modifications of Zff vertices and MW, but not on the pure VVV and VVVV vertices
     //  Write the tree-level contributions directly as a function 
@@ -27832,24 +27832,24 @@ const double NPSMEFTd6General::deltaGammaHZgaRatio1() const {
 
     //AG:begin
     // Ref: https://arxiv.org/pdf/1903.12046.pdf
-    double cHbox = getSMEFTCoeff("CHbox",muRG);
-    double cHD = getSMEFTCoeff("CHD",muRG);
-    double cHW = getSMEFTCoeff("CHW",muRG);
-    double cHB = getSMEFTCoeff("CHB",muRG);
-    double cHWB = getSMEFTCoeff("CHWB",muRG);
-    double cW = getSMEFTCoeff("CW",muRG);
-    double cHu33 = getSMEFTCoeff("CHuR", 2, 2,muRG);
-    double cuH33 = getSMEFTCoeff("CuHR", 2, 2,muRG);
-    double cdH33 = getSMEFTCoeff("CdHR", 2, 2,muRG);
-    double cuB33 = getSMEFTCoeff("CuBR", 2, 2,muRG);
-    double cuW22 = getSMEFTCoeff("CuWR", 1, 1,muRG);
-    double cuW33 = getSMEFTCoeff("CuWR", 2, 2,muRG);
-    double cdW33 = getSMEFTCoeff("CdWR", 2, 2,muRG);
-    double cHq133 = getSMEFTCoeff("CHq1R", 2, 2,muRG);
-    double cHq333 = getSMEFTCoeff("CHq3R", 2, 2,muRG);
-    double cHl311 = getSMEFTCoeff("CHl3R", 0, 0,muRG);
-    double cHl322 = getSMEFTCoeff("CHl3R", 1, 1,muRG);
-    double cLL = getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG);
+    double cHbox = getSMEFTCoeffEW("CHbox");
+    double cHD = getSMEFTCoeffEW("CHD");
+    double cHW = getSMEFTCoeffEW("CHW");
+    double cHB = getSMEFTCoeffEW("CHB");
+    double cHWB = getSMEFTCoeffEW("CHWB");
+    double cW = getSMEFTCoeffEW("CW");
+    double cHu33 = getSMEFTCoeffEW("CHuR", 2, 2);
+    double cuH33 = getSMEFTCoeffEW("CuHR", 2, 2);
+    double cdH33 = getSMEFTCoeffEW("CdHR", 2, 2);
+    double cuB33 = getSMEFTCoeffEW("CuBR", 2, 2);
+    double cuW22 = getSMEFTCoeffEW("CuWR", 1, 1);
+    double cuW33 = getSMEFTCoeffEW("CuWR", 2, 2);
+    double cdW33 = getSMEFTCoeffEW("CdWR", 2, 2);
+    double cHq133 = getSMEFTCoeffEW("CHq1R", 2, 2);
+    double cHq333 = getSMEFTCoeffEW("CHq3R", 2, 2);
+    double cHl311 = getSMEFTCoeffEW("CHl3R", 0, 0);
+    double cHl322 = getSMEFTCoeffEW("CHl3R", 1, 1);
+    double cLL = getSMEFTCoeffEW("CllR", 0, 1, 1, 0);
 
     //dwidth += cWsch * (   // Allow it in both schemes until alpha is ready
     dwidth += (
@@ -27999,7 +27999,7 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
     double dwidth = 0.0;
 
     double C1 = 0.0049;
-    double muRG = 125.1;
+    //double muRG = 125.1;
 
     //  It does not include modifications of MW
     //  Write the tree-level contributions directly as a function 
@@ -28029,40 +28029,40 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
      * CKM=1. Pending to add the CKM into the cdH, coming from defining the SU2-doublet as (u,Vd).
      * Future improvement: change to analytic parametrization. 
      */
-    double cHbox = getSMEFTCoeff("CHbox",muRG);
-    double cHD = getSMEFTCoeff("CHD",muRG);
-    double cHW = getSMEFTCoeff("CHW",muRG);
-    double cHB = getSMEFTCoeff("CHB",muRG);
-    double cHWB = getSMEFTCoeff("CHWB",muRG);
-    double cW = getSMEFTCoeff("CW",muRG);
+    double cHbox = getSMEFTCoeffEW("CHbox");
+    double cHD = getSMEFTCoeffEW("CHD");
+    double cHW = getSMEFTCoeffEW("CHW");
+    double cHB = getSMEFTCoeffEW("CHB");
+    double cHWB = getSMEFTCoeffEW("CHWB");
+    double cW = getSMEFTCoeffEW("CW");
     double dgf = delta_GF;
-    double ceH11 = getSMEFTCoeff("CeHR", 0, 0,muRG);
-    double ceH22 = getSMEFTCoeff("CeHR", 1, 1,muRG);
-    double ceH33 = getSMEFTCoeff("CeHR", 2, 2,muRG);
-    double cuH11 = getSMEFTCoeff("CuHR", 0, 0,muRG);
-    double cuH22 = getSMEFTCoeff("CuHR", 1, 1,muRG);
-    double cuH33 = getSMEFTCoeff("CuHR", 2, 2,muRG);
-    double cdH11 = getSMEFTCoeff("CdHR", 0, 0,muRG);
-    double cdH22 = getSMEFTCoeff("CdHR", 1, 1,muRG);
-    double cdH33 = getSMEFTCoeff("CdHR", 2, 2,muRG);
-    double ceB11 = getSMEFTCoeff("CeBR", 0, 0,muRG);
-    double ceB22 = getSMEFTCoeff("CeBR", 1, 1,muRG);
-    double ceB33 = getSMEFTCoeff("CeBR", 2, 2,muRG);
-    double ceW11 = getSMEFTCoeff("CeWR", 0, 0,muRG);
-    double ceW22 = getSMEFTCoeff("CeWR", 1, 1,muRG);
-    double ceW33 = getSMEFTCoeff("CeWR", 2, 2,muRG);
-    double cuB11 = getSMEFTCoeff("CuBR", 0, 0,muRG);
-    double cuB22 = getSMEFTCoeff("CuBR", 1, 1,muRG);
-    double cuB33 = getSMEFTCoeff("CuBR", 2, 2,muRG);
-    double cuW11 = getSMEFTCoeff("CuWR", 0, 0,muRG);
-    double cuW22 = getSMEFTCoeff("CuWR", 1, 1,muRG);
-    double cuW33 = getSMEFTCoeff("CuWR", 2, 2,muRG);
-    double cdB11 = getSMEFTCoeff("CdBR", 0, 0,muRG);
-    double cdB22 = getSMEFTCoeff("CdBR", 1, 1,muRG);
-    double cdB33 = getSMEFTCoeff("CdBR", 2, 2,muRG);
-    double cdW11 = getSMEFTCoeff("CdWR", 0, 0,muRG);
-    double cdW22 = getSMEFTCoeff("CdWR", 1, 1,muRG);
-    double cdW33 = getSMEFTCoeff("CdWR", 2, 2,muRG);
+    double ceH11 = getSMEFTCoeffEW("CeHR", 0, 0);
+    double ceH22 = getSMEFTCoeffEW("CeHR", 1, 1);
+    double ceH33 = getSMEFTCoeffEW("CeHR", 2, 2);
+    double cuH11 = getSMEFTCoeffEW("CuHR", 0, 0);
+    double cuH22 = getSMEFTCoeffEW("CuHR", 1, 1);
+    double cuH33 = getSMEFTCoeffEW("CuHR", 2, 2);
+    double cdH11 = getSMEFTCoeffEW("CdHR", 0, 0);
+    double cdH22 = getSMEFTCoeffEW("CdHR", 1, 1);
+    double cdH33 = getSMEFTCoeffEW("CdHR", 2, 2);
+    double ceB11 = getSMEFTCoeffEW("CeBR", 0, 0);
+    double ceB22 = getSMEFTCoeffEW("CeBR", 1, 1);
+    double ceB33 = getSMEFTCoeffEW("CeBR", 2, 2);
+    double ceW11 = getSMEFTCoeffEW("CeWR", 0, 0);
+    double ceW22 = getSMEFTCoeffEW("CeWR", 1, 1);
+    double ceW33 = getSMEFTCoeffEW("CeWR", 2, 2);
+    double cuB11 = getSMEFTCoeffEW("CuBR", 0, 0);
+    double cuB22 = getSMEFTCoeffEW("CuBR", 1, 1);
+    double cuB33 = getSMEFTCoeffEW("CuBR", 2, 2);
+    double cuW11 = getSMEFTCoeffEW("CuWR", 0, 0);
+    double cuW22 = getSMEFTCoeffEW("CuWR", 1, 1);
+    double cuW33 = getSMEFTCoeffEW("CuWR", 2, 2);
+    double cdB11 = getSMEFTCoeffEW("CdBR", 0, 0);
+    double cdB22 = getSMEFTCoeffEW("CdBR", 1, 1);
+    double cdB33 = getSMEFTCoeffEW("CdBR", 2, 2);
+    double cdW11 = getSMEFTCoeffEW("CdWR", 0, 0);
+    double cdW22 = getSMEFTCoeffEW("CdWR", 1, 1);
+    double cdW33 = getSMEFTCoeffEW("CdWR", 2, 2);
 
     /*double cHbox = 0.;
     double cHD = 0.;
@@ -28269,7 +28269,7 @@ const double NPSMEFTd6General::deltaGammaHmumuRatio1() const //AG:modified
 
     double C1 = 0.0;
     double muRG = 125.1;
-
+    
     /*dwidth += (+121248. * getSMEFTCoeff("CHbox")
             - 199792511. * getSMEFTCoeff("CeHR", 1, 1)
             - 30312.1 * getSMEFTCoeff("CHD")
@@ -28288,7 +28288,7 @@ const double NPSMEFTd6General::deltaGammaHmumuRatio1() const //AG:modified
     // Add modifications due to small variations of the SM parameters    
     dwidth += cHSM * (+1. * deltaGmu()
             + 1. * deltaMh());
-
+    
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHmumuint + eHmumupar;
 
@@ -28356,7 +28356,7 @@ const double NPSMEFTd6General::deltaGammaHtautauRatio1() const //AG:modified
 
     double C1 = 0.0;
     double muRG = 125.1;
-
+    
     /*dwidth += (+121248. * getSMEFTCoeff("CHbox")
             - 11880369. * getSMEFTCoeff("CeHR", 2, 2)
             - 30312.1 * getSMEFTCoeff("CHD")
@@ -28375,7 +28375,7 @@ const double NPSMEFTd6General::deltaGammaHtautauRatio1() const //AG:modified
     dwidth += cHSM * (+1. * deltaGmu()
             + 1.002 * deltaMh()
             + 1.998 * deltamtau());
-
+    
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHtautauint + eHtautaupar;
 
@@ -28443,7 +28443,7 @@ const double NPSMEFTd6General::deltaGammaHccRatio1() const //AG:modified
 
     double C1 = 0.0;
     double muRG = 125.1;
-
+    
     //if (FlagLoopHd6) {
 
     //    dwidth += (+121248. * getSMEFTCoeff("CHbox",muRG)
@@ -28477,7 +28477,7 @@ const double NPSMEFTd6General::deltaGammaHccRatio1() const //AG:modified
             + 1.004 * deltaMh()
             + 0.001 * deltamt()
             + 1.995 * deltamc());
-
+    
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHccint + eHccpar;
 
@@ -28546,7 +28546,7 @@ const double NPSMEFTd6General::deltaGammaHssRatio1() const
 
     double C1 = 0.0;
     double muRG = 125.1;
-
+    
     //if (FlagLoopHd6) {
 
     //    dwidth += (+121248. * getSMEFTCoeff("CHbox",muRG)
@@ -28578,7 +28578,7 @@ const double NPSMEFTd6General::deltaGammaHssRatio1() const
 
     // Add modifications due to small variations of the SM parameters. Not here    
     dwidth += cHSM * (0.);
-    
+        
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHssint + eHsspar; // Defined but still not included as part of the model free parameters!
 
@@ -28644,7 +28644,7 @@ const double NPSMEFTd6General::deltaGammaHbbRatio1() const //AG:modified
 
     double C1 = 0.0;
     double muRG = 125.1;
-
+    
     //if (FlagLoopHd6) {
 
     //    dwidth += (+121248. * getSMEFTCoeff("CHbox",muRG)
@@ -28677,7 +28677,7 @@ const double NPSMEFTd6General::deltaGammaHbbRatio1() const //AG:modified
             + 1.007 * deltaMh()
             + 0.001 * deltamt()
             + 1.992 * deltamb());
-
+        
     // SM (1) + intrinsic + parametric theory relative errors (free pars)    
     dwidth += eHbbint + eHbbpar;
 
@@ -34359,7 +34359,7 @@ const double NPSMEFTd6General::GammaH4fRatio() const {
 
 const double NPSMEFTd6General::deltaGammaH4fRatio1() const {
     double dwidth = 0.0;
-
+    
     // SM decay widths (from MG simulations)
     /*double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
     double wH2u2uSM = 0.22500e-05, wH2d2dSM = 0.11906e-04, wH2u2dSM = 0.12361e-04;
@@ -34390,7 +34390,7 @@ const double NPSMEFTd6General::deltaGammaH4fRatio1() const {
             wH4uSM * deltaGammaH4uRatio1() + wH4dSM * deltaGammaH4dRatio1() +
             wHLvvLSM * deltaGammaHLvvLRatio1() + wHudduSM * deltaGammaHudduRatio1() + wHLvudSM * deltaGammaHLvudRatio1() +
             wH2udSM * deltaGammaH2udRatio1() + wH2LvSM * deltaGammaH2LvRatio1()) / wH4fSM;
-
+    
     return dwidth;
 }
 
@@ -34467,7 +34467,7 @@ const double NPSMEFTd6General::GammaH4fNCRatio() const {
 
 const double NPSMEFTd6General::deltaGammaH4fNCRatio1() const {
     double dwidth = 0.0;
-
+    
     // SM decay widths (from MG simulations) 
     double wH2L2LSM = 6.905e-07, wH2v2vSM = 2.922e-06, wH2L2vSM = 2.844e-06;
     double wH2u2uSM = 2.406e-06, wH2d2dSM = 1.265e-05, wH2u2dSM = 1.291e-05;
@@ -34484,7 +34484,7 @@ const double NPSMEFTd6General::deltaGammaH4fNCRatio1() const {
             wH2L2uSM * deltaGammaH2L2uRatio1() + wH2L2dSM * deltaGammaH2L2dRatio1() + wH2v2uSM * deltaGammaH2v2uRatio1() +
             wH2v2dSM * deltaGammaH2v2dRatio1() + wH4LSM * deltaGammaH4LRatio1() + wH4LSM * deltaGammaH4LRatio1() +
             wH4uSM * deltaGammaH4uRatio1() + wH4dSM * deltaGammaH4dRatio1()) / wH4fSM;
-
+    
     return dwidth;
 }
 
@@ -34556,7 +34556,7 @@ const double NPSMEFTd6General::GammaH4fCCRatio() const {
 
 const double NPSMEFTd6General::deltaGammaH4fCCRatio1() const {
     double dwidth = 0.0;
-
+    
     // SM decay widths (from MG simulations) 
     double wHLvvLSM = 6.318e-05, wHudduSM = 0.0001716, wHLvudSM = 0.0003606;
     double wH2udSM = 0.0001758, wH2LvSM = 3.164e-05;
@@ -34566,7 +34566,7 @@ const double NPSMEFTd6General::deltaGammaH4fCCRatio1() const {
 
     dwidth += (wHLvvLSM * deltaGammaHLvvLRatio1() + wHudduSM * deltaGammaHudduRatio1() + wHLvudSM * deltaGammaHLvudRatio1() +
             wH2udSM * deltaGammaH2udRatio1() + wH2LvSM * deltaGammaH2LvRatio1()) / wH4fSM;
-
+    
     return dwidth;
 }
 
@@ -35096,8 +35096,9 @@ const double NPSMEFTd6General::BrHvisRatio() const {
 
     //  Sum over decays of visible SM and exotic modes
     dvis1 = (trueSM.computeBrHtogg() * deltaGammaHggRatio1()
-            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio1()
-            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio1()
+            //            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio1()
+            //            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio1()
+            + trueSM.computeBrHto4f() * deltaGammaH4fRatio1()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio1()
             + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio1()
             + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio1()
