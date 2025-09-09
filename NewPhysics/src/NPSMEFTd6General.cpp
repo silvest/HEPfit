@@ -47468,7 +47468,7 @@ const double NPSMEFTd6General::chi2FCChh4Top() const
 
     double sigmaSMHT_Bin1a0 = 0.0, sigmaHT_Bin1a0 = 0.0; 
  
-        sigmaSMHT_Bin1a0 = 1.; 
+        sigmaSMHT_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaHT_Bin1a0 = sigmaSMHT_Bin1a0 
                 +94757.9 * getSMEFTCoeff("CG", 550.) 
@@ -47514,7 +47514,7 @@ const double NPSMEFTd6General::chi2FCChh4Top() const
 //----------------------------------------------------------- 
     double sigmaSMHT_Bin2a0 = 0.0, sigmaHT_Bin2a0 = 0.0; 
  
-        sigmaSMHT_Bin2a0 = 1.; 
+        sigmaSMHT_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaHT_Bin2a0 = sigmaSMHT_Bin2a0 
                 -42282.4 * getSMEFTCoeff("CG", 550.) 
@@ -47560,7 +47560,7 @@ const double NPSMEFTd6General::chi2FCChh4Top() const
 //----------------------------------------------------------- 
     double sigmaSMHT_Bin3a0 = 0.0, sigmaHT_Bin3a0 = 0.0; 
  
-        sigmaSMHT_Bin3a0 = 1.; 
+        sigmaSMHT_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaHT_Bin3a0 = sigmaSMHT_Bin3a0 
                 -246907. * getSMEFTCoeff("CG", 1000.) 
@@ -47606,7 +47606,7 @@ const double NPSMEFTd6General::chi2FCChh4Top() const
 //----------------------------------------------------------- 
     double sigmaSMHT_Bin4a0 = 0.0, sigmaHT_Bin4a0 = 0.0; 
  
-        sigmaSMHT_Bin4a0 = 1.; 
+        sigmaSMHT_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaHT_Bin4a0 = sigmaSMHT_Bin4a0 
                 -580892. * getSMEFTCoeff("CG", 1500.) 
@@ -47652,7 +47652,7 @@ const double NPSMEFTd6General::chi2FCChh4Top() const
 //----------------------------------------------------------- 
     double sigmaSMHT_Bin5a0 = 0.0, sigmaHT_Bin5a0 = 0.0; 
  
-        sigmaSMHT_Bin5a0 = 1.; 
+        sigmaSMHT_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaHT_Bin5a0 = sigmaSMHT_Bin5a0 
                 -976697. * getSMEFTCoeff("CG", 1500.) 
@@ -47699,7 +47699,7 @@ const double NPSMEFTd6General::chi2FCChh4Top() const
 //----------------------------------------------------------- 
     double sigmaSMHT_Bin6a0 = 0.0, sigmaHT_Bin6a0 = 0.0; 
  
-        sigmaSMHT_Bin6a0 = 1.; 
+        sigmaSMHT_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaHT_Bin6a0 = sigmaSMHT_Bin6a0 
                 -1508581. * getSMEFTCoeff("CG", 3000.) 
@@ -47746,7 +47746,7 @@ const double NPSMEFTd6General::chi2FCChh4Top() const
 //----------------------------------------------------------- 
     double sigmaSMHT_Bin7a0 = 0.0, sigmaHT_Bin7a0 = 0.0; 
  
-        sigmaSMHT_Bin7a0 = 1.; 
+        sigmaSMHT_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaHT_Bin7a0 = sigmaSMHT_Bin7a0 
                 -2351782. * getSMEFTCoeff("CG", 3000.) 
@@ -47799,7 +47799,7 @@ const double NPSMEFTd6General::chi2FCChhHtt() const
 
     double sigmaSMpTH_Bin1a0 = 0.0, sigmapTH_Bin1a0 = 0.0; 
  
-        sigmaSMpTH_Bin1a0 = 1.; 
+        sigmaSMpTH_Bin1a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin1a0 = sigmaSMpTH_Bin1a0 
                 -43345. * getSMEFTCoeff("CG", 80.) 
@@ -47846,7 +47846,7 @@ const double NPSMEFTd6General::chi2FCChhHtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin2a0 = 0.0, sigmapTH_Bin2a0 = 0.0; 
  
-        sigmaSMpTH_Bin2a0 = 1.; 
+        sigmaSMpTH_Bin2a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin2a0 = sigmaSMpTH_Bin2a0 
                 -10364. * getSMEFTCoeff("CG", 80.) 
@@ -47893,7 +47893,7 @@ const double NPSMEFTd6General::chi2FCChhHtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin3a0 = 0.0, sigmapTH_Bin3a0 = 0.0; 
  
-        sigmaSMpTH_Bin3a0 = 1.; 
+        sigmaSMpTH_Bin3a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin3a0 = sigmaSMpTH_Bin3a0 
                 +77384.7 * getSMEFTCoeff("CG", 125.) 
@@ -47946,7 +47946,7 @@ const double NPSMEFTd6General::chi2FCChhHtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin4a0 = 0.0, sigmapTH_Bin4a0 = 0.0; 
  
-        sigmaSMpTH_Bin4a0 = 1.; 
+        sigmaSMpTH_Bin4a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin4a0 = sigmaSMpTH_Bin4a0 
                 +191972. * getSMEFTCoeff("CG", 240.) 
@@ -47989,7 +47989,7 @@ const double NPSMEFTd6General::chi2FCChhHtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin5a0 = 0.0, sigmapTH_Bin5a0 = 0.0; 
  
-        sigmaSMpTH_Bin5a0 = 1.; 
+        sigmaSMpTH_Bin5a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin5a0 = sigmaSMpTH_Bin5a0 
                 +255516. * getSMEFTCoeff("CG", 365.) 
@@ -48035,7 +48035,7 @@ const double NPSMEFTd6General::chi2FCChhHtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin6a0 = 0.0, sigmapTH_Bin6a0 = 0.0; 
  
-        sigmaSMpTH_Bin6a0 = 1.; 
+        sigmaSMpTH_Bin6a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin6a0 = sigmaSMpTH_Bin6a0 
                 +203356. * getSMEFTCoeff("CG", 550.) 
@@ -48079,7 +48079,7 @@ const double NPSMEFTd6General::chi2FCChhHtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin7a0 = 0.0, sigmapTH_Bin7a0 = 0.0; 
  
-        sigmaSMpTH_Bin7a0 = 1.; 
+        sigmaSMpTH_Bin7a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin7a0 = sigmaSMpTH_Bin7a0 
                 +55737.5 * getSMEFTCoeff("CG", 550.) 
@@ -48122,7 +48122,7 @@ const double NPSMEFTd6General::chi2FCChhHtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin8a0 = 0.0, sigmapTH_Bin8a0 = 0.0; 
  
-        sigmaSMpTH_Bin8a0 = 1.; 
+        sigmaSMpTH_Bin8a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin8a0 = sigmaSMpTH_Bin8a0 
                 -472443. * getSMEFTCoeff("CG", 1000.) 
@@ -48177,7 +48177,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 
     double sigmaSMpTZ_Bin1a0 = 0.0, sigmapTZ_Bin1a0 = 0.0; 
  
-        sigmaSMpTZ_Bin1a0 = 1.; 
+        sigmaSMpTZ_Bin1a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin1a0 = sigmaSMpTZ_Bin1a0 
                 -269145. * getSMEFTCoeff("CG", 100.) 
@@ -48230,7 +48230,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin2a0 = 0.0, sigmapTZ_Bin2a0 = 0.0; 
  
-        sigmaSMpTZ_Bin2a0 = 1.; 
+        sigmaSMpTZ_Bin2a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin2a0 = sigmaSMpTZ_Bin2a0 
                 -366910. * getSMEFTCoeff("CG", 125.) 
@@ -48280,7 +48280,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin3a0 = 0.0, sigmapTZ_Bin3a0 = 0.0; 
  
-        sigmaSMpTZ_Bin3a0 = 1.; 
+        sigmaSMpTZ_Bin3a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin3a0 = sigmaSMpTZ_Bin3a0 
                 -493167. * getSMEFTCoeff("CG", 240.) 
@@ -48329,7 +48329,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin4a0 = 0.0, sigmapTZ_Bin4a0 = 0.0; 
  
-        sigmaSMpTZ_Bin4a0 = 1.; 
+        sigmaSMpTZ_Bin4a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin4a0 = sigmaSMpTZ_Bin4a0 
                 -636066. * getSMEFTCoeff("CG", 365.) 
@@ -48379,7 +48379,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin5a0 = 0.0, sigmapTZ_Bin5a0 = 0.0; 
  
-        sigmaSMpTZ_Bin5a0 = 1.; 
+        sigmaSMpTZ_Bin5a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin5a0 = sigmaSMpTZ_Bin5a0 
                 -798294. * getSMEFTCoeff("CG", 365.) 
@@ -48429,7 +48429,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin6a0 = 0.0, sigmapTZ_Bin6a0 = 0.0; 
  
-        sigmaSMpTZ_Bin6a0 = 1.; 
+        sigmaSMpTZ_Bin6a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin6a0 = sigmaSMpTZ_Bin6a0 
                 -1002548. * getSMEFTCoeff("CG", 550.) 
@@ -48475,7 +48475,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin7a0 = 0.0, sigmapTZ_Bin7a0 = 0.0; 
  
-        sigmaSMpTZ_Bin7a0 = 1.; 
+        sigmaSMpTZ_Bin7a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin7a0 = sigmaSMpTZ_Bin7a0 
                 -1288062. * getSMEFTCoeff("CG", 550.) 
@@ -48523,7 +48523,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin8a0 = 0.0, sigmapTZ_Bin8a0 = 0.0; 
  
-        sigmaSMpTZ_Bin8a0 = 1.; 
+        sigmaSMpTZ_Bin8a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin8a0 = sigmaSMpTZ_Bin8a0 
                 -1630199. * getSMEFTCoeff("CG", 550.) 
@@ -48573,7 +48573,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin9a0 = 0.0, sigmapTZ_Bin9a0 = 0.0; 
  
-        sigmaSMpTZ_Bin9a0 = 1.; 
+        sigmaSMpTZ_Bin9a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin9a0 = sigmaSMpTZ_Bin9a0 
                 -2146962. * getSMEFTCoeff("CG", 1000.) 
@@ -48621,7 +48621,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin10a0 = 0.0, sigmapTZ_Bin10a0 = 0.0; 
  
-        sigmaSMpTZ_Bin10a0 = 1.; 
+        sigmaSMpTZ_Bin10a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin10a0 = sigmaSMpTZ_Bin10a0 
                 -3021439. * getSMEFTCoeff("CG", 1500.) 
@@ -48672,7 +48672,7 @@ const double NPSMEFTd6General::chi2FCChhZtt() const
 //----------------------------------------------------------- 
     double sigmaSMpTZ_Bin11a0 = 0.0, sigmapTZ_Bin11a0 = 0.0; 
  
-        sigmaSMpTZ_Bin11a0 = 1.; 
+        sigmaSMpTZ_Bin11a0 = 0.; //Only NP contribution 
  
         sigmapTZ_Bin11a0 = sigmaSMpTZ_Bin11a0 
                 -4491790. * getSMEFTCoeff("CG", 1500.) 
@@ -48733,7 +48733,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 -49146.1 * getSMEFTCoeff("CG", 1000.) 
@@ -48769,7 +48769,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -99811.5 * getSMEFTCoeff("CG", 1500.) 
@@ -48804,7 +48804,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 -125668. * getSMEFTCoeff("CG", 1500.) 
@@ -48839,7 +48839,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 -141736. * getSMEFTCoeff("CG", 1500.) 
@@ -48878,7 +48878,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 -153268. * getSMEFTCoeff("CG", 3000.) 
@@ -48910,7 +48910,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 -159857. * getSMEFTCoeff("CG", 3000.) 
@@ -48946,7 +48946,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 -162570. * getSMEFTCoeff("CG", 5000.) 
@@ -48982,7 +48982,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 -164714. * getSMEFTCoeff("CG", 5000.) 
@@ -49016,7 +49016,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 -167592. * getSMEFTCoeff("CG", 5000.) 
@@ -49050,7 +49050,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 -168324. * getSMEFTCoeff("CG", 10000.) 
@@ -49083,7 +49083,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
  
-        sigmaSMMx_Bin11a0 = 1.; 
+        sigmaSMMx_Bin11a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
                 -167657. * getSMEFTCoeff("CG", 10000.) 
@@ -49115,7 +49115,7 @@ const double NPSMEFTd6General::chi2FCChhtt() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin12a0 = 0.0, sigmaMx_Bin12a0 = 0.0; 
  
-        sigmaSMMx_Bin12a0 = 1.; 
+        sigmaSMMx_Bin12a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin12a0 = sigmaSMMx_Bin12a0 
                 -167057. * getSMEFTCoeff("CG", 10000.) 
@@ -49161,7 +49161,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 -147.768 * getSMEFTCoeff("CHWB", 1000.) 
@@ -49185,7 +49185,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 +161.601 * getSMEFTCoeff("CHD", 1500.) 
@@ -49209,7 +49209,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 +93.633 * getSMEFTCoeff("CHD", 1500.) 
@@ -49235,7 +49235,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 -121292. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
@@ -49258,7 +49258,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 +111.75 * getSMEFTCoeff("CHD", 3000.) 
@@ -49284,7 +49284,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 -121188. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
@@ -49308,7 +49308,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 +88.8034 * getSMEFTCoeff("CHD", 5000.) 
@@ -49334,7 +49334,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 +152.164 * getSMEFTCoeff("CHD", 5000.) 
@@ -49359,7 +49359,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 -121195. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
@@ -49382,7 +49382,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 -244.679 * getSMEFTCoeff("CHD", 10000.) 
@@ -49407,7 +49407,7 @@ const double NPSMEFTd6General::chi2FCChhtb() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
  
-        sigmaSMMx_Bin11a0 = 1.; 
+        sigmaSMMx_Bin11a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
                 +144.446 * getSMEFTCoeff("CHD", 10000.) 
@@ -49449,7 +49449,7 @@ const double NPSMEFTd6General::chi2FCChhHW() const
 
     double sigmaSMpTH_Bin1a0 = 0.0, sigmapTH_Bin1a0 = 0.0; 
  
-        sigmaSMpTH_Bin1a0 = 1.; 
+        sigmaSMpTH_Bin1a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin1a0 = sigmaSMpTH_Bin1a0 
                 +825935. * getSMEFTCoeff("CHW", 80.) 
@@ -49468,7 +49468,7 @@ const double NPSMEFTd6General::chi2FCChhHW() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin2a0 = 0.0, sigmapTH_Bin2a0 = 0.0; 
  
-        sigmaSMpTH_Bin2a0 = 1.; 
+        sigmaSMpTH_Bin2a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin2a0 = sigmaSMpTH_Bin2a0 
                 +952699. * getSMEFTCoeff("CHW", 125.) 
@@ -49487,7 +49487,7 @@ const double NPSMEFTd6General::chi2FCChhHW() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin3a0 = 0.0, sigmapTH_Bin3a0 = 0.0; 
  
-        sigmaSMpTH_Bin3a0 = 1.; 
+        sigmaSMpTH_Bin3a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin3a0 = sigmaSMpTH_Bin3a0 
                 +1052877. * getSMEFTCoeff("CHW", 240.) 
@@ -49506,7 +49506,7 @@ const double NPSMEFTd6General::chi2FCChhHW() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin4a0 = 0.0, sigmapTH_Bin4a0 = 0.0; 
  
-        sigmaSMpTH_Bin4a0 = 1.; 
+        sigmaSMpTH_Bin4a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin4a0 = sigmaSMpTH_Bin4a0 
                 +1103692. * getSMEFTCoeff("CHW", 365.) 
@@ -49525,7 +49525,7 @@ const double NPSMEFTd6General::chi2FCChhHW() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin5a0 = 0.0, sigmapTH_Bin5a0 = 0.0; 
  
-        sigmaSMpTH_Bin5a0 = 1.; 
+        sigmaSMpTH_Bin5a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin5a0 = sigmaSMpTH_Bin5a0 
                 +1122075. * getSMEFTCoeff("CHW", 550.) 
@@ -49544,7 +49544,7 @@ const double NPSMEFTd6General::chi2FCChhHW() const
 //----------------------------------------------------------- 
     double sigmaSMpTH_Bin6a0 = 0.0, sigmapTH_Bin6a0 = 0.0; 
  
-        sigmaSMpTH_Bin6a0 = 1.; 
+        sigmaSMpTH_Bin6a0 = 0.; //Only NP contribution 
  
         sigmapTH_Bin6a0 = sigmaSMpTH_Bin6a0 
                 +1118903. * getSMEFTCoeff("CHW", 1000.) 
@@ -49577,7 +49577,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 -97243.9 * getSMEFTCoeff("CHD", 1500.) 
@@ -49617,7 +49617,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -97431.3 * getSMEFTCoeff("CHD", 1500.) 
@@ -49657,7 +49657,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 -98062.8 * getSMEFTCoeff("CHD", 3000.) 
@@ -49697,7 +49697,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 -98707.6 * getSMEFTCoeff("CHD", 3000.) 
@@ -49737,7 +49737,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 -98921.6 * getSMEFTCoeff("CHD", 5000.) 
@@ -49777,7 +49777,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 -99174.4 * getSMEFTCoeff("CHD", 5000.) 
@@ -49817,7 +49817,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 -99614.4 * getSMEFTCoeff("CHD", 5000.) 
@@ -49857,7 +49857,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 -99724.4 * getSMEFTCoeff("CHD", 5000.) 
@@ -49897,7 +49897,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 -100510. * getSMEFTCoeff("CHD", 10000.) 
@@ -49937,7 +49937,7 @@ const double NPSMEFTd6General::chi2FCChhee() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 -101407. * getSMEFTCoeff("CHD", 10000.) 
@@ -49987,7 +49987,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 -97243.9 * getSMEFTCoeff("CHD", 1500.) 
@@ -50027,7 +50027,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -97431.3 * getSMEFTCoeff("CHD", 1500.) 
@@ -50067,7 +50067,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 -98062.8 * getSMEFTCoeff("CHD", 3000.) 
@@ -50107,7 +50107,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 -98707.6 * getSMEFTCoeff("CHD", 3000.) 
@@ -50147,7 +50147,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 -98921.6 * getSMEFTCoeff("CHD", 5000.) 
@@ -50187,7 +50187,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 -99174.4 * getSMEFTCoeff("CHD", 5000.) 
@@ -50227,7 +50227,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 -99614.4 * getSMEFTCoeff("CHD", 5000.) 
@@ -50267,7 +50267,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 -99724.4 * getSMEFTCoeff("CHD", 5000.) 
@@ -50307,7 +50307,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 -100510. * getSMEFTCoeff("CHD", 10000.) 
@@ -50347,7 +50347,7 @@ const double NPSMEFTd6General::chi2FCChhmumu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 -101407. * getSMEFTCoeff("CHD", 10000.) 
@@ -50397,7 +50397,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 -96962.2 * getSMEFTCoeff("CHD", 1500.) 
@@ -50438,7 +50438,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -97322.4 * getSMEFTCoeff("CHD", 1500.) 
@@ -50479,7 +50479,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 -98336.1 * getSMEFTCoeff("CHD", 3000.) 
@@ -50520,7 +50520,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 -98755.8 * getSMEFTCoeff("CHD", 3000.) 
@@ -50561,7 +50561,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 -98866.9 * getSMEFTCoeff("CHD", 5000.) 
@@ -50602,7 +50602,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 -99060.5 * getSMEFTCoeff("CHD", 5000.) 
@@ -50643,7 +50643,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 -99750.7 * getSMEFTCoeff("CHD", 5000.) 
@@ -50684,7 +50684,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 -99732.2 * getSMEFTCoeff("CHD", 5000.) 
@@ -50725,7 +50725,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 -100464. * getSMEFTCoeff("CHD", 10000.) 
@@ -50766,7 +50766,7 @@ const double NPSMEFTd6General::chi2FCChhtata() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 -101401. * getSMEFTCoeff("CHD", 10000.) 
@@ -50816,7 +50816,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 +1176.34 * getSMEFTCoeff("CHD", 1500.) 
@@ -50836,7 +50836,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -93.2603 * getSMEFTCoeff("CHD", 1500.) 
@@ -50856,7 +50856,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 +1344.55 * getSMEFTCoeff("CHD", 3000.) 
@@ -50876,7 +50876,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 +598.783 * getSMEFTCoeff("CHD", 3000.) 
@@ -50896,7 +50896,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 +301.491 * getSMEFTCoeff("CHD", 5000.) 
@@ -50916,7 +50916,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 +916.787 * getSMEFTCoeff("CHD", 5000.) 
@@ -50936,7 +50936,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 +340.396 * getSMEFTCoeff("CHD", 5000.) 
@@ -50956,7 +50956,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 +393.017 * getSMEFTCoeff("CHD", 5000.) 
@@ -50976,7 +50976,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 +1239.19 * getSMEFTCoeff("CHD", 10000.) 
@@ -50996,7 +50996,7 @@ const double NPSMEFTd6General::chi2FCChhenu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 +792.849 * getSMEFTCoeff("CHD", 10000.) 
@@ -51027,7 +51027,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 +1176.34 * getSMEFTCoeff("CHD", 1500.) 
@@ -51047,7 +51047,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -93.2603 * getSMEFTCoeff("CHD", 1500.) 
@@ -51067,7 +51067,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 +1344.55 * getSMEFTCoeff("CHD", 3000.) 
@@ -51087,7 +51087,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 +598.783 * getSMEFTCoeff("CHD", 3000.) 
@@ -51107,7 +51107,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 +301.491 * getSMEFTCoeff("CHD", 5000.) 
@@ -51127,7 +51127,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 +916.787 * getSMEFTCoeff("CHD", 5000.) 
@@ -51147,7 +51147,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 +340.396 * getSMEFTCoeff("CHD", 5000.) 
@@ -51167,7 +51167,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 +393.017 * getSMEFTCoeff("CHD", 5000.) 
@@ -51187,7 +51187,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 +1239.19 * getSMEFTCoeff("CHD", 10000.) 
@@ -51207,7 +51207,7 @@ const double NPSMEFTd6General::chi2FCChhmunu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 +792.849 * getSMEFTCoeff("CHD", 10000.) 
@@ -51237,7 +51237,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 +1129.84 * getSMEFTCoeff("CHD", 1500.) 
@@ -51258,7 +51258,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -103.372 * getSMEFTCoeff("CHD", 1500.) 
@@ -51279,7 +51279,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 +1344.03 * getSMEFTCoeff("CHD", 3000.) 
@@ -51300,7 +51300,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 +598.783 * getSMEFTCoeff("CHD", 3000.) 
@@ -51321,7 +51321,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 +301.491 * getSMEFTCoeff("CHD", 5000.) 
@@ -51342,7 +51342,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 +916.787 * getSMEFTCoeff("CHD", 5000.) 
@@ -51363,7 +51363,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 +340.396 * getSMEFTCoeff("CHD", 5000.) 
@@ -51384,7 +51384,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 +393.017 * getSMEFTCoeff("CHD", 5000.) 
@@ -51405,7 +51405,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 +1239.19 * getSMEFTCoeff("CHD", 10000.) 
@@ -51426,7 +51426,7 @@ const double NPSMEFTd6General::chi2FCChhtanu() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 +792.849 * getSMEFTCoeff("CHD", 10000.) 
@@ -51457,7 +51457,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 -890.694 * getSMEFTCoeff("CG", 1000.) 
@@ -51505,7 +51505,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -1030.34 * getSMEFTCoeff("CG", 1500.) 
@@ -51551,7 +51551,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 -1818.29 * getSMEFTCoeff("CG", 1500.) 
@@ -51592,7 +51592,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 -1370. * getSMEFTCoeff("CG", 1500.) 
@@ -51640,7 +51640,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 -657.643 * getSMEFTCoeff("CG", 3000.) 
@@ -51687,7 +51687,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 -690.666 * getSMEFTCoeff("CG", 5000.) 
@@ -51734,7 +51734,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 -527.448 * getSMEFTCoeff("CG", 5000.) 
@@ -51775,7 +51775,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 -952.453 * getSMEFTCoeff("CG", 5000.) 
@@ -51817,7 +51817,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 +131.097 * getSMEFTCoeff("CG", 10000.) 
@@ -51861,7 +51861,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 +895.31 * getSMEFTCoeff("CG", 10000.) 
@@ -51902,7 +51902,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
  
-        sigmaSMMx_Bin11a0 = 1.; 
+        sigmaSMMx_Bin11a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
                 +3357.83 * getSMEFTCoeff("CG", 10000.) 
@@ -51947,7 +51947,7 @@ const double NPSMEFTd6General::chi2FCChhjj() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin12a0 = 0.0, sigmaMx_Bin12a0 = 0.0; 
  
-        sigmaSMMx_Bin12a0 = 1.; 
+        sigmaSMMx_Bin12a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin12a0 = sigmaSMMx_Bin12a0 
                 -1991797. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
@@ -51982,7 +51982,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 
     double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 +89.4114 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1000.) 
@@ -52029,7 +52029,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
  
-        sigmaSMMx_Bin1a0 = 1.; 
+        sigmaSMMx_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
                 -237.969 * getSMEFTCoeff("CG", 1000.) 
@@ -52086,7 +52086,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -809.459 * getSMEFTCoeff("CG", 1500.) 
@@ -52139,7 +52139,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
  
-        sigmaSMMx_Bin2a0 = 1.; 
+        sigmaSMMx_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
                 -648.306 * getSMEFTCoeff("CG", 1500.) 
@@ -52198,7 +52198,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 -242.411 * getSMEFTCoeff("CG", 1500.) 
@@ -52248,7 +52248,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
  
-        sigmaSMMx_Bin3a0 = 1.; 
+        sigmaSMMx_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
                 -621.27 * getSMEFTCoeff("CG", 1500.) 
@@ -52302,7 +52302,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 -198.937 * getSMEFTCoeff("CG", 3000.) 
@@ -52353,7 +52353,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
  
-        sigmaSMMx_Bin4a0 = 1.; 
+        sigmaSMMx_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
                 -975. * getSMEFTCoeff("CG", 3000.) 
@@ -52407,7 +52407,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 -89.7781 * getSMEFTCoeff("CG", 3000.) 
@@ -52458,7 +52458,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
  
-        sigmaSMMx_Bin5a0 = 1.; 
+        sigmaSMMx_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
                 -509.202 * getSMEFTCoeff("CG", 3000.) 
@@ -52514,7 +52514,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 -187.585 * getSMEFTCoeff("CG", 5000.) 
@@ -52569,7 +52569,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
  
-        sigmaSMMx_Bin6a0 = 1.; 
+        sigmaSMMx_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
                 -625.537 * getSMEFTCoeff("CG", 5000.) 
@@ -52627,7 +52627,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 -565.037 * getSMEFTCoeff("CG", 5000.) 
@@ -52681,7 +52681,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
  
-        sigmaSMMx_Bin7a0 = 1.; 
+        sigmaSMMx_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
                 -484.225 * getSMEFTCoeff("CG", 5000.) 
@@ -52736,7 +52736,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 -672.399 * getSMEFTCoeff("CG", 10000.) 
@@ -52788,7 +52788,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
  
-        sigmaSMMx_Bin8a0 = 1.; 
+        sigmaSMMx_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
                 -903.013 * getSMEFTCoeff("CG", 10000.) 
@@ -52845,7 +52845,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 +816890. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
@@ -52899,7 +52899,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
  
-        sigmaSMMx_Bin9a0 = 1.; 
+        sigmaSMMx_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
                 +129.364 * getSMEFTCoeff("CG", 10000.) 
@@ -52955,7 +52955,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 +815.658 * getSMEFTCoeff("CG", 10000.) 
@@ -53011,7 +53011,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
  
-        sigmaSMMx_Bin10a0 = 1.; 
+        sigmaSMMx_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
                 +881.119 * getSMEFTCoeff("CG", 10000.) 
@@ -53065,7 +53065,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
 //----------------------------------------------------------- 
     double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
  
-        sigmaSMMx_Bin11a0 = 1.; 
+        sigmaSMMx_Bin11a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
                 +3350.23 * getSMEFTCoeff("CG", 10000.) 
@@ -53127,7 +53127,7 @@ const double NPSMEFTd6General::chi2FCChhbbcc() const
  
     //double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
  
-        sigmaSMMx_Bin11a0 = 1.; 
+        sigmaSMMx_Bin11a0 = 0.; //Only NP contribution 
  
         sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
                 +3353.51 * getSMEFTCoeff("CG", 10000.) 
@@ -53192,7 +53192,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 
     double sigmaSMMemu_Bin1a0 = 0.0, sigmaMemu_Bin1a0 = 0.0; 
  
-        sigmaSMMemu_Bin1a0 = 1.; 
+        sigmaSMMemu_Bin1a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin1a0 = sigmaSMMemu_Bin1a0 
                 -122303. * (getSMEFTCoeff("CHl3R",0,0, 1500.) + getSMEFTCoeff("CHl3R",1,1, 1500.))
@@ -53213,7 +53213,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 //----------------------------------------------------------- 
     double sigmaSMMemu_Bin2a0 = 0.0, sigmaMemu_Bin2a0 = 0.0; 
  
-        sigmaSMMemu_Bin2a0 = 1.; 
+        sigmaSMMemu_Bin2a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin2a0 = sigmaSMMemu_Bin2a0 
                 -121738. * (getSMEFTCoeff("CHl3R",0,0, 1500.) + getSMEFTCoeff("CHl3R",1,1, 1500.))
@@ -53234,7 +53234,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 //----------------------------------------------------------- 
     double sigmaSMMemu_Bin3a0 = 0.0, sigmaMemu_Bin3a0 = 0.0; 
  
-        sigmaSMMemu_Bin3a0 = 1.; 
+        sigmaSMMemu_Bin3a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin3a0 = sigmaSMMemu_Bin3a0 
                 -115908. * (getSMEFTCoeff("CHl3R",0,0, 1500.) + getSMEFTCoeff("CHl3R",1,1, 1500.))
@@ -53255,7 +53255,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 //----------------------------------------------------------- 
     double sigmaSMMemu_Bin4a0 = 0.0, sigmaMemu_Bin4a0 = 0.0; 
  
-        sigmaSMMemu_Bin4a0 = 1.; 
+        sigmaSMMemu_Bin4a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin4a0 = sigmaSMMemu_Bin4a0 
                 -121437. * (getSMEFTCoeff("CHl3R",0,0, 3000.) + getSMEFTCoeff("CHl3R",1,1, 3000.))
@@ -53276,7 +53276,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 //----------------------------------------------------------- 
     double sigmaSMMemu_Bin5a0 = 0.0, sigmaMemu_Bin5a0 = 0.0; 
  
-        sigmaSMMemu_Bin5a0 = 1.; 
+        sigmaSMMemu_Bin5a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin5a0 = sigmaSMMemu_Bin5a0 
                 -120419. * (getSMEFTCoeff("CHl3R",0,0, 3000.) + getSMEFTCoeff("CHl3R",1,1, 3000.))
@@ -53297,7 +53297,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 //----------------------------------------------------------- 
     double sigmaSMMemu_Bin6a0 = 0.0, sigmaMemu_Bin6a0 = 0.0; 
  
-        sigmaSMMemu_Bin6a0 = 1.; 
+        sigmaSMMemu_Bin6a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin6a0 = sigmaSMMemu_Bin6a0 
                 -130729. * (getSMEFTCoeff("CHl3R",0,0, 3000.) + getSMEFTCoeff("CHl3R",1,1, 3000.))
@@ -53317,7 +53317,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 //----------------------------------------------------------- 
     double sigmaSMMemu_Bin7a0 = 0.0, sigmaMemu_Bin7a0 = 0.0; 
  
-        sigmaSMMemu_Bin7a0 = 1.; 
+        sigmaSMMemu_Bin7a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin7a0 = sigmaSMMemu_Bin7a0 
                 -117909. * (getSMEFTCoeff("CHl3R",0,0, 5000.) + getSMEFTCoeff("CHl3R",1,1, 5000.))
@@ -53338,7 +53338,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 //----------------------------------------------------------- 
     double sigmaSMMemu_Bin8a0 = 0.0, sigmaMemu_Bin8a0 = 0.0; 
  
-        sigmaSMMemu_Bin8a0 = 1.; 
+        sigmaSMMemu_Bin8a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin8a0 = sigmaSMMemu_Bin8a0 
                 -126799. * (getSMEFTCoeff("CHl3R",0,0, 5000.) + getSMEFTCoeff("CHl3R",1,1, 5000.))
@@ -53359,7 +53359,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 //----------------------------------------------------------- 
     double sigmaSMMemu_Bin9a0 = 0.0, sigmaMemu_Bin9a0 = 0.0; 
  
-        sigmaSMMemu_Bin9a0 = 1.; 
+        sigmaSMMemu_Bin9a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin9a0 = sigmaSMMemu_Bin9a0 
                 -135290. * (getSMEFTCoeff("CHl3R",0,0, 5000.) + getSMEFTCoeff("CHl3R",1,1, 5000.))
@@ -53380,7 +53380,7 @@ const double NPSMEFTd6General::chi2FCChhWW() const
 //----------------------------------------------------------- 
     double sigmaSMMemu_Bin10a0 = 0.0, sigmaMemu_Bin10a0 = 0.0; 
  
-        sigmaSMMemu_Bin10a0 = 1.; 
+        sigmaSMMemu_Bin10a0 = 0.; //Only NP contribution 
  
         sigmaMemu_Bin10a0 = sigmaSMMemu_Bin10a0 
                 -1388.26 * getSMEFTCoeff("CW", 10000.) 
