@@ -6909,6 +6909,29 @@ public:
      */
     virtual const double AuxObs_NP30() const;
     
+    // FCC-hh 84 TeV likelihoods (chi2FCChhXX)
+
+    const double chi2FCChh4Top() const;
+    
+    const double chi2FCChhHtt() const;
+    const double chi2FCChhZtt() const;
+    const double chi2FCChhtt() const;
+    const double chi2FCChhtb() const;
+    
+    const double chi2FCChhHW() const;    
+    const double chi2FCChhWW() const;
+
+    const double chi2FCChhee() const;
+    const double chi2FCChhmumu() const;
+    const double chi2FCChhtata() const;
+    
+    const double chi2FCChhenu() const;
+    const double chi2FCChhmunu() const;
+    const double chi2FCChhtanu() const;
+    
+    const double chi2FCChhjj() const;
+    const double chi2FCChhbbcc() const;
+
     /////////////RG evolution////////////////
 
     const RGESolver& getSMEFTEvol() const {

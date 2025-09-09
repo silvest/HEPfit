@@ -44741,11 +44741,15 @@ const double NPSMEFTd6General::AuxObs_NP5() const {
 }
 
 const double NPSMEFTd6General::AuxObs_NP6() const {
-    // To be used for some temporary observable
+    // FCC-hh 84 TeV high-E observables
 
     double Chi2Tot;
 
-    Chi2Tot = 0.0;
+    Chi2Tot = chi2FCChh4Top() + chi2FCChhHtt() + chi2FCChhZtt() +chi2FCChhtt() + chi2FCChhtb()
+            + chi2FCChhHW() + chi2FCChhWW()
+            + chi2FCChhee() + chi2FCChhmumu() + chi2FCChhtata() 
+            + chi2FCChhenu() + chi2FCChhmunu() + chi2FCChhtanu()
+            + chi2FCChhjj() + chi2FCChhbbcc();
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
@@ -47454,3 +47458,5951 @@ const double NPSMEFTd6General::ctlT_TWG(const double mu) const {
   
     return (toTeVm2 * comb);
 }
+
+
+// FCC-hh 84 TeV likelihoods (chi2FCChhXX)
+
+const double NPSMEFTd6General::chi2FCChh4Top() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMHT_Bin1a0 = 0.0, sigmaHT_Bin1a0 = 0.0; 
+ 
+        sigmaSMHT_Bin1a0 = 1.; 
+ 
+        sigmaHT_Bin1a0 = sigmaSMHT_Bin1a0 
+                +94757.9 * getSMEFTCoeff("CG", 550.) 
+                -18393.4 * getSMEFTCoeff("CuHR",2,2, 550.) 
+                -323815. * getSMEFTCoeff("CuGR",2,2, 550.) 
+                +87456.3 * getSMEFTCoeff("Cqq1R",2,2,2,2, 550.) 
+                +88937.6 * getSMEFTCoeff("Cqq3R",2,2,2,2, 550.) 
+                +86719.8 * getSMEFTCoeff("CuuR",2,2,2,2, 550.) 
+                -48353.8 * getSMEFTCoeff("Cqu1R",2,2,2,2, 550.) 
+                -2674.09 * getSMEFTCoeff("Cqq1R",0,0,2,2, 550.) 
+                +6252.44 * getSMEFTCoeff("Cqq1R",0,2,2,0, 550.) 
+                -418.116 * getSMEFTCoeff("Cqq1R",1,1,2,2, 550.) 
+                +635.16 * getSMEFTCoeff("Cqq1R",1,2,2,1, 550.) 
+                -955.898 * getSMEFTCoeff("Cqq3R",0,0,2,2, 550.) 
+                +15013.1 * getSMEFTCoeff("Cqq3R",0,2,2,0, 550.) 
+                +132.3 * getSMEFTCoeff("Cqq3R",1,1,2,2, 550.) 
+                +2309.88 * getSMEFTCoeff("Cqq3R",1,2,2,1, 550.) 
+                -1204.85 * getSMEFTCoeff("CuuR",0,0,2,2, 550.) 
+                -143.523 * getSMEFTCoeff("CuuR",1,1,2,2, 550.) 
+                +6591.85 * getSMEFTCoeff("CuuR",0,2,2,0, 550.) 
+                +666.431 * getSMEFTCoeff("CuuR",1,2,2,1, 550.) 
+                -392.884 * getSMEFTCoeff("Cud1R",2,2,0,0, 550.) 
+                -84.6328 * getSMEFTCoeff("Cud1R",2,2,1,1, 550.) 
+                +1956.37 * getSMEFTCoeff("Cud8R",2,2,0,0, 550.) 
+                +191.023 * getSMEFTCoeff("Cud8R",2,2,1,1, 550.) 
+                -1475.36 * getSMEFTCoeff("Cqu1R",0,0,2,2, 550.) 
+                -149.283 * getSMEFTCoeff("Cqu1R",1,1,2,2, 550.) 
+                -727.816 * getSMEFTCoeff("Cqu1R",2,2,0,0, 550.) 
+                -105.279 * getSMEFTCoeff("Cqu1R",2,2,1,1, 550.) 
+                +3360.71 * getSMEFTCoeff("Cqu8R",0,0,2,2, 550.) 
+                +441.723 * getSMEFTCoeff("Cqu8R",1,1,2,2, 550.) 
+                +2439.45 * getSMEFTCoeff("Cqu8R",2,2,0,0, 550.) 
+                +319.072 * getSMEFTCoeff("Cqu8R",2,2,1,1, 550.) 
+                -1093.7 * getSMEFTCoeff("Cqd1R",2,2,0,0, 550.) 
+                -111.668 * getSMEFTCoeff("Cqd1R",2,2,1,1, 550.) 
+                +1427.23 * getSMEFTCoeff("Cqd8R",2,2,0,0, 550.) 
+                +317.441 * getSMEFTCoeff("Cqd8R",2,2,1,1, 550.) 
+                ;
+ 
+        dchi2Tot += sigmaHT_Bin1a0 * sigmaHT_Bin1a0/0.147/0.147; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMHT_Bin2a0 = 0.0, sigmaHT_Bin2a0 = 0.0; 
+ 
+        sigmaSMHT_Bin2a0 = 1.; 
+ 
+        sigmaHT_Bin2a0 = sigmaSMHT_Bin2a0 
+                -42282.4 * getSMEFTCoeff("CG", 550.) 
+                -15432.9 * getSMEFTCoeff("CuHR",2,2, 550.) 
+                -358947. * getSMEFTCoeff("CuGR",2,2, 550.) 
+                +75426.3 * getSMEFTCoeff("Cqq1R",2,2,2,2, 550.) 
+                +75794.7 * getSMEFTCoeff("Cqq3R",2,2,2,2, 550.) 
+                +75498.3 * getSMEFTCoeff("CuuR",2,2,2,2, 550.) 
+                -28825.2 * getSMEFTCoeff("Cqu1R",2,2,2,2, 550.) 
+                +1854.25 * getSMEFTCoeff("Cqu8R",2,2,2,2, 550.) 
+                -3816.99 * getSMEFTCoeff("Cqq1R",0,0,2,2, 550.) 
+                +7210.1 * getSMEFTCoeff("Cqq1R",0,2,2,0, 550.) 
+                -567.613 * getSMEFTCoeff("Cqq1R",1,1,2,2, 550.) 
+                +622.658 * getSMEFTCoeff("Cqq1R",1,2,2,1, 550.) 
+                -547.804 * getSMEFTCoeff("Cqq3R",0,0,2,2, 550.) 
+                +18546.3 * getSMEFTCoeff("Cqq3R",0,2,2,0, 550.) 
+                +2694.31 * getSMEFTCoeff("Cqq3R",1,2,2,1, 550.) 
+                -2603.07 * getSMEFTCoeff("CuuR",0,0,2,2, 550.) 
+                -227.707 * getSMEFTCoeff("CuuR",1,1,2,2, 550.) 
+                +7301.71 * getSMEFTCoeff("CuuR",0,2,2,0, 550.) 
+                +788.675 * getSMEFTCoeff("CuuR",1,2,2,1, 550.) 
+                -1081.43 * getSMEFTCoeff("Cud1R",2,2,0,0, 550.) 
+                -158.905 * getSMEFTCoeff("Cud1R",2,2,1,1, 550.) 
+                +1855.74 * getSMEFTCoeff("Cud8R",2,2,0,0, 550.) 
+                +227.651 * getSMEFTCoeff("Cud8R",2,2,1,1, 550.) 
+                -2028.37 * getSMEFTCoeff("Cqu1R",0,0,2,2, 550.) 
+                -279.981 * getSMEFTCoeff("Cqu1R",1,1,2,2, 550.) 
+                -1474.78 * getSMEFTCoeff("Cqu1R",2,2,0,0, 550.) 
+                -95.1098 * getSMEFTCoeff("Cqu1R",2,2,1,1, 550.) 
+                +3864.6 * getSMEFTCoeff("Cqu8R",0,0,2,2, 550.) 
+                +529.557 * getSMEFTCoeff("Cqu8R",1,1,2,2, 550.) 
+                +1708.22 * getSMEFTCoeff("Cqu8R",2,2,0,0, 550.) 
+                +215.861 * getSMEFTCoeff("Cqu8R",2,2,1,1, 550.) 
+                -850.369 * getSMEFTCoeff("Cqd1R",2,2,0,0, 550.) 
+                -171.591 * getSMEFTCoeff("Cqd1R",2,2,1,1, 550.) 
+                +2239.76 * getSMEFTCoeff("Cqd8R",2,2,0,0, 550.) 
+                +267.003 * getSMEFTCoeff("Cqd8R",2,2,1,1, 550.) 
+                ;
+ 
+        dchi2Tot += sigmaHT_Bin2a0 * sigmaHT_Bin2a0/0.106/0.106; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMHT_Bin3a0 = 0.0, sigmaHT_Bin3a0 = 0.0; 
+ 
+        sigmaSMHT_Bin3a0 = 1.; 
+ 
+        sigmaHT_Bin3a0 = sigmaSMHT_Bin3a0 
+                -246907. * getSMEFTCoeff("CG", 1000.) 
+                -11956.6 * getSMEFTCoeff("CuHR",2,2, 1000.) 
+                -379980. * getSMEFTCoeff("CuGR",2,2, 1000.) 
+                +68653.9 * getSMEFTCoeff("Cqq1R",2,2,2,2, 1000.) 
+                +69558.9 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1000.) 
+                +68885.7 * getSMEFTCoeff("CuuR",2,2,2,2, 1000.) 
+                -13558.2 * getSMEFTCoeff("Cqu1R",2,2,2,2, 1000.) 
+                +910.327 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1000.) 
+                -4673.3 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1000.) 
+                +13341. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1000.) 
+                -675.693 * getSMEFTCoeff("Cqq1R",1,1,2,2, 1000.) 
+                +996.831 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1000.) 
+                -571.697 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1000.) 
+                +29495.4 * getSMEFTCoeff("Cqq3R",0,2,2,0, 1000.) 
+                +143.664 * getSMEFTCoeff("Cqq3R",1,1,2,2, 1000.) 
+                +3862.7 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1000.) 
+                -2994.2 * getSMEFTCoeff("CuuR",0,0,2,2, 1000.) 
+                -187.856 * getSMEFTCoeff("CuuR",1,1,2,2, 1000.) 
+                +12707.9 * getSMEFTCoeff("CuuR",0,2,2,0, 1000.) 
+                +1029.43 * getSMEFTCoeff("CuuR",1,2,2,1, 1000.) 
+                -470.61 * getSMEFTCoeff("Cud1R",2,2,0,0, 1000.) 
+                -148.373 * getSMEFTCoeff("Cud1R",2,2,1,1, 1000.) 
+                +2484.74 * getSMEFTCoeff("Cud8R",2,2,0,0, 1000.) 
+                +342.026 * getSMEFTCoeff("Cud8R",2,2,1,1, 1000.) 
+                -1735.76 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1000.) 
+                -183.45 * getSMEFTCoeff("Cqu1R",1,1,2,2, 1000.) 
+                -343.826 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1000.) 
+                +6847.74 * getSMEFTCoeff("Cqu8R",0,0,2,2, 1000.) 
+                +717.451 * getSMEFTCoeff("Cqu8R",1,1,2,2, 1000.) 
+                +3886.43 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1000.) 
+                +357.063 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1000.) 
+                -734.299 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1000.) 
+                -168.159 * getSMEFTCoeff("Cqd1R",2,2,1,1, 1000.) 
+                +3037.5 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1000.) 
+                +392.081 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1000.) 
+                ;
+ 
+        dchi2Tot += sigmaHT_Bin3a0 * sigmaHT_Bin3a0/0.08/0.08; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMHT_Bin4a0 = 0.0, sigmaHT_Bin4a0 = 0.0; 
+ 
+        sigmaSMHT_Bin4a0 = 1.; 
+ 
+        sigmaHT_Bin4a0 = sigmaSMHT_Bin4a0 
+                -580892. * getSMEFTCoeff("CG", 1500.) 
+                -9503.76 * getSMEFTCoeff("CuHR",2,2, 1500.) 
+                -388435. * getSMEFTCoeff("CuGR",2,2, 1500.) 
+                +58764.9 * getSMEFTCoeff("Cqq1R",2,2,2,2, 1500.) 
+                +61502.4 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                +60910.9 * getSMEFTCoeff("CuuR",2,2,2,2, 1500.) 
+                -3118.05 * getSMEFTCoeff("Cqu1R",2,2,2,2, 1500.) 
+                -9141.28 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1500.) 
+                -10798.5 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1500.) 
+                +23434.7 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                -1023.23 * getSMEFTCoeff("Cqq1R",1,1,2,2, 1500.) 
+                +1735.79 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                -3414.22 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                +55561.5 * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +6139.43 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                -6493.6 * getSMEFTCoeff("CuuR",0,0,2,2, 1500.) 
+                -462.097 * getSMEFTCoeff("CuuR",1,1,2,2, 1500.) 
+                +22942.5 * getSMEFTCoeff("CuuR",0,2,2,0, 1500.) 
+                +1716. * getSMEFTCoeff("CuuR",1,2,2,1, 1500.) 
+                -3777.28 * getSMEFTCoeff("Cud1R",2,2,0,0, 1500.) 
+                -437.439 * getSMEFTCoeff("Cud1R",2,2,1,1, 1500.) 
+                +3939.59 * getSMEFTCoeff("Cud8R",2,2,0,0, 1500.) 
+                +616.219 * getSMEFTCoeff("Cud8R",2,2,1,1, 1500.) 
+                -1376.11 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1500.) 
+                -178.53 * getSMEFTCoeff("Cqu1R",1,1,2,2, 1500.) 
+                -2144.47 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1500.) 
+                -112.462 * getSMEFTCoeff("Cqu1R",2,2,1,1, 1500.) 
+                +13966.3 * getSMEFTCoeff("Cqu8R",0,0,2,2, 1500.) 
+                +1218.24 * getSMEFTCoeff("Cqu8R",1,1,2,2, 1500.) 
+                +7668.53 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +580.451 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                -1425.45 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1500.) 
+                -105.279 * getSMEFTCoeff("Cqd1R",2,2,1,1, 1500.) 
+                +4386.83 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +702.354 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaHT_Bin4a0 * sigmaHT_Bin4a0/0.106/0.106; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMHT_Bin5a0 = 0.0, sigmaHT_Bin5a0 = 0.0; 
+ 
+        sigmaSMHT_Bin5a0 = 1.; 
+ 
+        sigmaHT_Bin5a0 = sigmaSMHT_Bin5a0 
+                -976697. * getSMEFTCoeff("CG", 1500.) 
+                -11968.1 * getSMEFTCoeff("CuHR",2,2, 1500.) 
+                -377470. * getSMEFTCoeff("CuGR",2,2, 1500.) 
+                +49580. * getSMEFTCoeff("Cqq1R",2,2,2,2, 1500.) 
+                +51572.4 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                +49905.9 * getSMEFTCoeff("CuuR",2,2,2,2, 1500.) 
+                -134.735 * getSMEFTCoeff("Cqu1R",2,2,2,2, 1500.) 
+                -25412.3 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1500.) 
+                -19273.8 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1500.) 
+                +44134.4 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                -1658.95 * getSMEFTCoeff("Cqq1R",1,1,2,2, 1500.) 
+                +2573.57 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                -3293.39 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                +102204. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +310.297 * getSMEFTCoeff("Cqq3R",1,1,2,2, 1500.) 
+                +9860.96 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                -11689.3 * getSMEFTCoeff("CuuR",0,0,2,2, 1500.) 
+                -635.038 * getSMEFTCoeff("CuuR",1,1,2,2, 1500.) 
+                +44306.8 * getSMEFTCoeff("CuuR",0,2,2,0, 1500.) 
+                +2589.26 * getSMEFTCoeff("CuuR",1,2,2,1, 1500.) 
+                -4599.57 * getSMEFTCoeff("Cud1R",2,2,0,0, 1500.) 
+                -496.244 * getSMEFTCoeff("Cud1R",2,2,1,1, 1500.) 
+                +8253.89 * getSMEFTCoeff("Cud8R",2,2,0,0, 1500.) 
+                +1024.53 * getSMEFTCoeff("Cud8R",2,2,1,1, 1500.) 
+                -1176.72 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1500.) 
+                -211.051 * getSMEFTCoeff("Cqu1R",1,1,2,2, 1500.) 
+                -1715.88 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1500.) 
+                -80.7701 * getSMEFTCoeff("Cqu1R",2,2,1,1, 1500.) 
+                +25965.1 * getSMEFTCoeff("Cqu8R",0,0,2,2, 1500.) 
+                +2146.74 * getSMEFTCoeff("Cqu8R",1,1,2,2, 1500.) 
+                +15962.4 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +941.244 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                -1572.67 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1500.) 
+                -224.38 * getSMEFTCoeff("Cqd1R",2,2,1,1, 1500.) 
+                +9354.26 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +1124.82 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaHT_Bin5a0 * sigmaHT_Bin5a0/0.189/0.189; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMHT_Bin6a0 = 0.0, sigmaHT_Bin6a0 = 0.0; 
+ 
+        sigmaSMHT_Bin6a0 = 1.; 
+ 
+        sigmaHT_Bin6a0 = sigmaSMHT_Bin6a0 
+                -1508581. * getSMEFTCoeff("CG", 3000.) 
+                -10170. * getSMEFTCoeff("CuHR",2,2, 3000.) 
+                -350859. * getSMEFTCoeff("CuGR",2,2, 3000.) 
+                +24799.6 * getSMEFTCoeff("Cqq1R",2,2,2,2, 3000.) 
+                +34526.8 * getSMEFTCoeff("Cqq3R",2,2,2,2, 3000.) 
+                +26880.3 * getSMEFTCoeff("CuuR",2,2,2,2, 3000.) 
+                -1941.29 * getSMEFTCoeff("Cqu1R",2,2,2,2, 3000.) 
+                -51971.2 * getSMEFTCoeff("Cqu8R",2,2,2,2, 3000.) 
+                -35561.3 * getSMEFTCoeff("Cqq1R",0,0,2,2, 3000.) 
+                +86032.1 * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                -2629.82 * getSMEFTCoeff("Cqq1R",1,1,2,2, 3000.) 
+                +4328.05 * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                -8708.08 * getSMEFTCoeff("Cqq3R",0,0,2,2, 3000.) 
+                +191217. * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +309.045 * getSMEFTCoeff("Cqq3R",1,1,2,2, 3000.) 
+                +16206.6 * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                -23381.8 * getSMEFTCoeff("CuuR",0,0,2,2, 3000.) 
+                -1004.54 * getSMEFTCoeff("CuuR",1,1,2,2, 3000.) 
+                +84766.6 * getSMEFTCoeff("CuuR",0,2,2,0, 3000.) 
+                +4096.92 * getSMEFTCoeff("CuuR",1,2,2,1, 3000.) 
+                -6363.72 * getSMEFTCoeff("Cud1R",2,2,0,0, 3000.) 
+                -722.16 * getSMEFTCoeff("Cud1R",2,2,1,1, 3000.) 
+                +15358.8 * getSMEFTCoeff("Cud8R",2,2,0,0, 3000.) 
+                +1635.73 * getSMEFTCoeff("Cud8R",2,2,1,1, 3000.) 
+                -267.798 * getSMEFTCoeff("Cqu1R",0,0,2,2, 3000.) 
+                -147.765 * getSMEFTCoeff("Cqu1R",1,1,2,2, 3000.) 
+                +570.077 * getSMEFTCoeff("Cqu1R",2,2,0,0, 3000.) 
+                +48721.5 * getSMEFTCoeff("Cqu8R",0,0,2,2, 3000.) 
+                +3421.58 * getSMEFTCoeff("Cqu8R",1,1,2,2, 3000.) 
+                +30178.4 * getSMEFTCoeff("Cqu8R",2,2,0,0, 3000.) 
+                +1414.71 * getSMEFTCoeff("Cqu8R",2,2,1,1, 3000.) 
+                +365.268 * getSMEFTCoeff("Cqd1R",2,2,0,0, 3000.) 
+                -169.521 * getSMEFTCoeff("Cqd1R",2,2,1,1, 3000.) 
+                +18918. * getSMEFTCoeff("Cqd8R",2,2,0,0, 3000.) 
+                +2077.7 * getSMEFTCoeff("Cqd8R",2,2,1,1, 3000.) 
+                -79.2853 * getSMEFTCoeff("Cqd1R",2,2,2,2, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaHT_Bin6a0 * sigmaHT_Bin6a0/0.343/0.343; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMHT_Bin7a0 = 0.0, sigmaHT_Bin7a0 = 0.0; 
+ 
+        sigmaSMHT_Bin7a0 = 1.; 
+ 
+        sigmaHT_Bin7a0 = sigmaSMHT_Bin7a0 
+                -2351782. * getSMEFTCoeff("CG", 3000.) 
+                -8541.03 * getSMEFTCoeff("CuHR",2,2, 3000.) 
+                -297402. * getSMEFTCoeff("CuGR",2,2, 3000.) 
+                -15326.8 * getSMEFTCoeff("Cqq1R",2,2,2,2, 3000.) 
+                -6195.36 * getSMEFTCoeff("Cqq3R",2,2,2,2, 3000.) 
+                -13417.4 * getSMEFTCoeff("CuuR",2,2,2,2, 3000.) 
+                -9679.7 * getSMEFTCoeff("Cqu1R",2,2,2,2, 3000.) 
+                -104400. * getSMEFTCoeff("Cqu8R",2,2,2,2, 3000.) 
+                -74855.1 * getSMEFTCoeff("Cqq1R",0,0,2,2, 3000.) 
+                +188240. * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                -4393.34 * getSMEFTCoeff("Cqq1R",1,1,2,2, 3000.) 
+                +7772.48 * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                -17769.5 * getSMEFTCoeff("Cqq3R",0,0,2,2, 3000.) 
+                +419672. * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +853.742 * getSMEFTCoeff("Cqq3R",1,1,2,2, 3000.) 
+                +29979.5 * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                -45968.8 * getSMEFTCoeff("CuuR",0,0,2,2, 3000.) 
+                -1830.3 * getSMEFTCoeff("CuuR",1,1,2,2, 3000.) 
+                +187873. * getSMEFTCoeff("CuuR",0,2,2,0, 3000.) 
+                +7744.84 * getSMEFTCoeff("CuuR",1,2,2,1, 3000.) 
+                -13304. * getSMEFTCoeff("Cud1R",2,2,0,0, 3000.) 
+                -1230.38 * getSMEFTCoeff("Cud1R",2,2,1,1, 3000.) 
+                +31693.8 * getSMEFTCoeff("Cud8R",2,2,0,0, 3000.) 
+                +3017.41 * getSMEFTCoeff("Cud8R",2,2,1,1, 3000.) 
+                +5677.7 * getSMEFTCoeff("Cqu1R",0,0,2,2, 3000.) 
+                +2956.74 * getSMEFTCoeff("Cqu1R",2,2,0,0, 3000.) 
+                +105753. * getSMEFTCoeff("Cqu8R",0,0,2,2, 3000.) 
+                +6355.45 * getSMEFTCoeff("Cqu8R",1,1,2,2, 3000.) 
+                +65887.4 * getSMEFTCoeff("Cqu8R",2,2,0,0, 3000.) 
+                +2626.3 * getSMEFTCoeff("Cqu8R",2,2,1,1, 3000.) 
+                +1590.4 * getSMEFTCoeff("Cqd1R",2,2,0,0, 3000.) 
+                +39238. * getSMEFTCoeff("Cqd8R",2,2,0,0, 3000.) 
+                +3833.44 * getSMEFTCoeff("Cqd8R",2,2,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaHT_Bin7a0 * sigmaHT_Bin7a0/0.765/0.765; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+const double NPSMEFTd6General::chi2FCChhHtt() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMpTH_Bin1a0 = 0.0, sigmapTH_Bin1a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin1a0 = 1.; 
+ 
+        sigmapTH_Bin1a0 = sigmaSMpTH_Bin1a0 
+                -43345. * getSMEFTCoeff("CG", 80.) 
+                -122357. * getSMEFTCoeff("CuHR",2,2, 80.) 
+                -175.956 * getSMEFTCoeff("CHq3R",0,0, 80.) 
+                +117.213 * getSMEFTCoeff("CHuR",0,0, 80.) 
+                +2577.29 * getSMEFTCoeff("CHq3R",2,2, 80.) 
+                +332.773 * getSMEFTCoeff("CHuR",2,2, 80.) 
+                -840292. * getSMEFTCoeff("CuGR",2,2, 80.) 
+                +211.683 * getSMEFTCoeff("Cqq1R",0,0,2,2, 80.) 
+                +28067.3 * getSMEFTCoeff("Cqq1R",0,2,2,0, 80.) 
+                +3997. * getSMEFTCoeff("Cqq1R",1,2,2,1, 80.) 
+                +173.873 * getSMEFTCoeff("Cqq3R",0,0,2,2, 80.) 
+                +69410.2 * getSMEFTCoeff("Cqq3R",0,2,2,0, 80.) 
+                +14309.5 * getSMEFTCoeff("Cqq3R",1,2,2,1, 80.) 
+                -197.348 * getSMEFTCoeff("CuuR",0,0,2,2, 80.) 
+                +28281.5 * getSMEFTCoeff("CuuR",0,2,2,0, 80.) 
+                +3934.37 * getSMEFTCoeff("CuuR",1,2,2,1, 80.) 
+                +282.523 * getSMEFTCoeff("Cud1R",2,2,0,0, 80.) 
+                +5036.56 * getSMEFTCoeff("Cud8R",2,2,0,0, 80.) 
+                +1236.41 * getSMEFTCoeff("Cud8R",2,2,1,1, 80.) 
+                +134.822 * getSMEFTCoeff("Cqu1R",2,2,0,0, 80.) 
+                +12641.8 * getSMEFTCoeff("Cqu8R",0,0,2,2, 80.) 
+                +2425.02 * getSMEFTCoeff("Cqu8R",1,1,2,2, 80.) 
+                +6472.76 * getSMEFTCoeff("Cqu8R",2,2,0,0, 80.) 
+                +1003.22 * getSMEFTCoeff("Cqu8R",2,2,1,1, 80.) 
+                +217.865 * getSMEFTCoeff("Cqd1R",2,2,0,0, 80.) 
+                +5320.63 * getSMEFTCoeff("Cqd8R",2,2,0,0, 80.) 
+                +1242.61 * getSMEFTCoeff("Cqd8R",2,2,1,1, 80.) 
+                -60189.9 * getSMEFTCoeff("CHl3R",0,0, 80.) 
+                -61437.9 * getSMEFTCoeff("CHl3R",1,1, 80.) 
+                +61724.9 * getSMEFTCoeff("CllR",0,1,1,0, 80.) 
+                -1536.15 * getSMEFTCoeff("Cqq1R",2,2,2,2, 80.) 
+                -3595.81 * getSMEFTCoeff("Cqq3R",2,2,2,2, 80.) 
+                +544.21 * getSMEFTCoeff("Cud8R",2,2,2,2, 80.) 
+                -520.292 * getSMEFTCoeff("Cqu1R",2,2,2,2, 80.) 
+                -200.207 * getSMEFTCoeff("Cqu8R",2,2,2,2, 80.) 
+                +551.445 * getSMEFTCoeff("Cqd8R",2,2,2,2, 80.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin1a0 * sigmapTH_Bin1a0/0.025/0.025; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin2a0 = 0.0, sigmapTH_Bin2a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin2a0 = 1.; 
+ 
+        sigmapTH_Bin2a0 = sigmaSMpTH_Bin2a0 
+                -10364. * getSMEFTCoeff("CG", 80.) 
+                -123822. * getSMEFTCoeff("CuHR",2,2, 80.) 
+                -338.518 * getSMEFTCoeff("CHq1R",0,0, 80.) 
+                -118.522 * getSMEFTCoeff("CHuR",0,0, 80.) 
+                -110.388 * getSMEFTCoeff("CHq3R",1,1, 80.) 
+                -132.106 * getSMEFTCoeff("CHuR",1,1, 80.) 
+                -274.468 * getSMEFTCoeff("CHq1R",2,2, 80.) 
+                +2843.86 * getSMEFTCoeff("CHq3R",2,2, 80.) 
+                -158.112 * getSMEFTCoeff("CHuR",2,2, 80.) 
+                -916846. * getSMEFTCoeff("CuGR",2,2, 80.) 
+                +35636.7 * getSMEFTCoeff("Cqq1R",0,2,2,0, 80.) 
+                +4779.03 * getSMEFTCoeff("Cqq1R",1,2,2,1, 80.) 
+                -226.553 * getSMEFTCoeff("Cqq3R",0,0,2,2, 80.) 
+                +88475.2 * getSMEFTCoeff("Cqq3R",0,2,2,0, 80.) 
+                +17402.1 * getSMEFTCoeff("Cqq3R",1,2,2,1, 80.) 
+                -143.73 * getSMEFTCoeff("CuuR",0,0,2,2, 80.) 
+                +35357. * getSMEFTCoeff("CuuR",0,2,2,0, 80.) 
+                +4785.22 * getSMEFTCoeff("CuuR",1,2,2,1, 80.) 
+                +5544.6 * getSMEFTCoeff("Cud8R",2,2,0,0, 80.) 
+                +1461.88 * getSMEFTCoeff("Cud8R",2,2,1,1, 80.) 
+                +15077.2 * getSMEFTCoeff("Cqu8R",0,0,2,2, 80.) 
+                +2792.66 * getSMEFTCoeff("Cqu8R",1,1,2,2, 80.) 
+                +8271.66 * getSMEFTCoeff("Cqu8R",2,2,0,0, 80.) 
+                +1155.11 * getSMEFTCoeff("Cqu8R",2,2,1,1, 80.) 
+                -373.818 * getSMEFTCoeff("Cqd1R",2,2,0,0, 80.) 
+                +5698.42 * getSMEFTCoeff("Cqd8R",2,2,0,0, 80.) 
+                +1642.42 * getSMEFTCoeff("Cqd8R",2,2,1,1, 80.) 
+                -60885.4 * getSMEFTCoeff("CHl3R",0,0, 80.) 
+                -61337.6 * getSMEFTCoeff("CHl3R",1,1, 80.) 
+                +61602.5 * getSMEFTCoeff("CllR",0,1,1,0, 80.) 
+                -1865.46 * getSMEFTCoeff("Cqq1R",2,2,2,2, 80.) 
+                -3946.74 * getSMEFTCoeff("Cqq3R",2,2,2,2, 80.) 
+                +647.795 * getSMEFTCoeff("Cud8R",2,2,2,2, 80.) 
+                -638.491 * getSMEFTCoeff("Cqu1R",2,2,2,2, 80.) 
+                -295.543 * getSMEFTCoeff("Cqu8R",2,2,2,2, 80.) 
+                +615.761 * getSMEFTCoeff("Cqd8R",2,2,2,2, 80.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin2a0 * sigmapTH_Bin2a0/0.024/0.024; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin3a0 = 0.0, sigmapTH_Bin3a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin3a0 = 1.; 
+ 
+        sigmapTH_Bin3a0 = sigmaSMpTH_Bin3a0 
+                +77384.7 * getSMEFTCoeff("CG", 125.) 
+                -120958. * getSMEFTCoeff("CuHR",2,2, 125.) 
+                +441.162 * getSMEFTCoeff("CHq1R",0,0, 125.) 
+                +434.756 * getSMEFTCoeff("CHq3R",0,0, 125.) 
+                +216.547 * getSMEFTCoeff("CHuR",0,0, 125.) 
+                +252.549 * getSMEFTCoeff("CHdR",0,0, 125.) 
+                +398.313 * getSMEFTCoeff("CHq1R",2,2, 125.) 
+                +3047.48 * getSMEFTCoeff("CHq3R",2,2, 125.) 
+                +186.818 * getSMEFTCoeff("CHuR",2,2, 125.) 
+                -1004388. * getSMEFTCoeff("CuGR",2,2, 125.) 
+                +190.926 * getSMEFTCoeff("Cqq1R",0,0,2,2, 125.) 
+                +57027.7 * getSMEFTCoeff("Cqq1R",0,2,2,0, 125.) 
+                +7065.51 * getSMEFTCoeff("Cqq1R",1,2,2,1, 125.) 
+                +136646. * getSMEFTCoeff("Cqq3R",0,2,2,0, 125.) 
+                +25044. * getSMEFTCoeff("Cqq3R",1,2,2,1, 125.) 
+                +261.973 * getSMEFTCoeff("CuuR",0,0,2,2, 125.) 
+                +139.717 * getSMEFTCoeff("CuuR",1,1,2,2, 125.) 
+                +57362.6 * getSMEFTCoeff("CuuR",0,2,2,0, 125.) 
+                +7026.67 * getSMEFTCoeff("CuuR",1,2,2,1, 125.) 
+                +287.69 * getSMEFTCoeff("Cud1R",2,2,0,0, 125.) 
+                +10901.7 * getSMEFTCoeff("Cud8R",2,2,0,0, 125.) 
+                +2417.88 * getSMEFTCoeff("Cud8R",2,2,1,1, 125.) 
+                +174.88 * getSMEFTCoeff("Cqu1R",0,0,2,2, 125.) 
+                +128.685 * getSMEFTCoeff("Cqu1R",1,1,2,2, 125.) 
+                +561.535 * getSMEFTCoeff("Cqu1R",2,2,0,0, 125.) 
+                +134.101 * getSMEFTCoeff("Cqu1R",2,2,1,1, 125.) 
+                +25560.3 * getSMEFTCoeff("Cqu8R",0,0,2,2, 125.) 
+                +4071.95 * getSMEFTCoeff("Cqu8R",1,1,2,2, 125.) 
+                +15234.5 * getSMEFTCoeff("Cqu8R",2,2,0,0, 125.) 
+                +1819.77 * getSMEFTCoeff("Cqu8R",2,2,1,1, 125.) 
+                +484.378 * getSMEFTCoeff("Cqd1R",2,2,0,0, 125.) 
+                +10116.8 * getSMEFTCoeff("Cqd8R",2,2,0,0, 125.) 
+                +2527.77 * getSMEFTCoeff("Cqd8R",2,2,1,1, 125.) 
+                -59503.6 * getSMEFTCoeff("CHl3R",0,0, 125.) 
+                -59552.8 * getSMEFTCoeff("CHl3R",1,1, 125.) 
+                +62130.6 * getSMEFTCoeff("CllR",0,1,1,0, 125.) 
+                -2335.75 * getSMEFTCoeff("Cqq1R",2,2,2,2, 125.) 
+                -4344. * getSMEFTCoeff("Cqq3R",2,2,2,2, 125.) 
+                +1001.69 * getSMEFTCoeff("Cud8R",2,2,2,2, 125.) 
+                -832.696 * getSMEFTCoeff("Cqu1R",2,2,2,2, 125.) 
+                -241.46 * getSMEFTCoeff("Cqu8R",2,2,2,2, 125.) 
+                +990.926 * getSMEFTCoeff("Cqd8R",2,2,2,2, 125.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin3a0 * sigmapTH_Bin3a0/0.0231/0.0231; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin4a0 = 0.0, sigmapTH_Bin4a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin4a0 = 1.; 
+ 
+        sigmapTH_Bin4a0 = sigmaSMpTH_Bin4a0 
+                +191972. * getSMEFTCoeff("CG", 240.) 
+                -123012. * getSMEFTCoeff("CuHR",2,2, 240.) 
+                +258.983 * getSMEFTCoeff("CHq3R",0,0, 240.) 
+                +172.402 * getSMEFTCoeff("CHuR",0,0, 240.) 
+                +2388.4 * getSMEFTCoeff("CHq3R",2,2, 240.) 
+                +327.041 * getSMEFTCoeff("CHuR",2,2, 240.) 
+                -975461. * getSMEFTCoeff("CuGR",2,2, 240.) 
+                -211.704 * getSMEFTCoeff("Cqq1R",0,0,2,2, 240.) 
+                +91009.8 * getSMEFTCoeff("Cqq1R",0,2,2,0, 240.) 
+                +10017. * getSMEFTCoeff("Cqq1R",1,2,2,1, 240.) 
+                +146.579 * getSMEFTCoeff("Cqq3R",0,0,2,2, 240.) 
+                +216905. * getSMEFTCoeff("Cqq3R",0,2,2,0, 240.) 
+                +36577.5 * getSMEFTCoeff("Cqq3R",1,2,2,1, 240.) 
+                +91549.5 * getSMEFTCoeff("CuuR",0,2,2,0, 240.) 
+                +10047.9 * getSMEFTCoeff("CuuR",1,2,2,1, 240.) 
+                +15450.8 * getSMEFTCoeff("Cud8R",2,2,0,0, 240.) 
+                +3400.75 * getSMEFTCoeff("Cud8R",2,2,1,1, 240.) 
+                +39320.7 * getSMEFTCoeff("Cqu8R",0,0,2,2, 240.) 
+                +5868.1 * getSMEFTCoeff("Cqu8R",1,1,2,2, 240.) 
+                +23974. * getSMEFTCoeff("Cqu8R",2,2,0,0, 240.) 
+                +2491.18 * getSMEFTCoeff("Cqu8R",2,2,1,1, 240.) 
+                +16009.8 * getSMEFTCoeff("Cqd8R",2,2,0,0, 240.) 
+                +3239.64 * getSMEFTCoeff("Cqd8R",2,2,1,1, 240.) 
+                -62097.9 * getSMEFTCoeff("CHl3R",0,0, 240.) 
+                -61869.3 * getSMEFTCoeff("CHl3R",1,1, 240.) 
+                +61303.3 * getSMEFTCoeff("CllR",0,1,1,0, 240.) 
+                -3095.12 * getSMEFTCoeff("Cqq1R",2,2,2,2, 240.) 
+                -4796.71 * getSMEFTCoeff("Cqq3R",2,2,2,2, 240.) 
+                +1359.74 * getSMEFTCoeff("Cud8R",2,2,2,2, 240.) 
+                -1333.04 * getSMEFTCoeff("Cqu1R",2,2,2,2, 240.) 
+                -383.319 * getSMEFTCoeff("Cqu8R",2,2,2,2, 240.) 
+                +1345.36 * getSMEFTCoeff("Cqd8R",2,2,2,2, 240.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin4a0 * sigmapTH_Bin4a0/0.0227/0.0227; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin5a0 = 0.0, sigmapTH_Bin5a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin5a0 = 1.; 
+ 
+        sigmapTH_Bin5a0 = sigmaSMpTH_Bin5a0 
+                +255516. * getSMEFTCoeff("CG", 365.) 
+                -120942. * getSMEFTCoeff("CuHR",2,2, 365.) 
+                +227.398 * getSMEFTCoeff("CHuR",0,0, 365.) 
+                +115.802 * getSMEFTCoeff("CHq1R",2,2, 365.) 
+                +1134.06 * getSMEFTCoeff("CHq3R",2,2, 365.) 
+                +207.967 * getSMEFTCoeff("CHuR",2,2, 365.) 
+                -774837. * getSMEFTCoeff("CuGR",2,2, 365.) 
+                -142.761 * getSMEFTCoeff("Cqq1R",0,0,2,2, 365.) 
+                +151535. * getSMEFTCoeff("Cqq1R",0,2,2,0, 365.) 
+                +14193.4 * getSMEFTCoeff("Cqq1R",1,2,2,1, 365.) 
+                +223.358 * getSMEFTCoeff("Cqq3R",0,0,2,2, 365.) 
+                +353183. * getSMEFTCoeff("Cqq3R",0,2,2,0, 365.) 
+                +52405.6 * getSMEFTCoeff("Cqq3R",1,2,2,1, 365.) 
+                +151326. * getSMEFTCoeff("CuuR",0,2,2,0, 365.) 
+                +14244.2 * getSMEFTCoeff("CuuR",1,2,2,1, 365.) 
+                +24720.8 * getSMEFTCoeff("Cud8R",2,2,0,0, 365.) 
+                +4742.6 * getSMEFTCoeff("Cud8R",2,2,1,1, 365.) 
+                -170.164 * getSMEFTCoeff("Cqu1R",0,0,2,2, 365.) 
+                +311.896 * getSMEFTCoeff("Cqu1R",2,2,0,0, 365.) 
+                +63813.3 * getSMEFTCoeff("Cqu8R",0,0,2,2, 365.) 
+                +8432.27 * getSMEFTCoeff("Cqu8R",1,1,2,2, 365.) 
+                +38423.5 * getSMEFTCoeff("Cqu8R",2,2,0,0, 365.) 
+                +3567.6 * getSMEFTCoeff("Cqu8R",2,2,1,1, 365.) 
+                +257.491 * getSMEFTCoeff("Cqd1R",2,2,0,0, 365.) 
+                +26761.1 * getSMEFTCoeff("Cqd8R",2,2,0,0, 365.) 
+                +4787.32 * getSMEFTCoeff("Cqd8R",2,2,1,1, 365.) 
+                -59260.6 * getSMEFTCoeff("CHl3R",0,0, 365.) 
+                -61218.1 * getSMEFTCoeff("CHl3R",1,1, 365.) 
+                +61585.3 * getSMEFTCoeff("CllR",0,1,1,0, 365.) 
+                -4046.41 * getSMEFTCoeff("Cqq1R",2,2,2,2, 365.) 
+                -5153.28 * getSMEFTCoeff("Cqq3R",2,2,2,2, 365.) 
+                +1902.35 * getSMEFTCoeff("Cud8R",2,2,2,2, 365.) 
+                -1787.31 * getSMEFTCoeff("Cqu1R",2,2,2,2, 365.) 
+                -513.613 * getSMEFTCoeff("Cqu8R",2,2,2,2, 365.) 
+                +1855.66 * getSMEFTCoeff("Cqd8R",2,2,2,2, 365.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin5a0 * sigmapTH_Bin5a0/0.023/0.023; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin6a0 = 0.0, sigmapTH_Bin6a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin6a0 = 1.; 
+ 
+        sigmapTH_Bin6a0 = sigmaSMpTH_Bin6a0 
+                +203356. * getSMEFTCoeff("CG", 550.) 
+                -121059. * getSMEFTCoeff("CuHR",2,2, 550.) 
+                -485.891 * getSMEFTCoeff("CHq3R",2,2, 550.) 
+                +233.977 * getSMEFTCoeff("CHuR",2,2, 550.) 
+                -520257. * getSMEFTCoeff("CuGR",2,2, 550.) 
+                +252833. * getSMEFTCoeff("Cqq1R",0,2,2,0, 550.) 
+                +20407.7 * getSMEFTCoeff("Cqq1R",1,2,2,1, 550.) 
+                +587056. * getSMEFTCoeff("Cqq3R",0,2,2,0, 550.) 
+                +75277.2 * getSMEFTCoeff("Cqq3R",1,2,2,1, 550.) 
+                +149.136 * getSMEFTCoeff("CuuR",0,0,2,2, 550.) 
+                +255293. * getSMEFTCoeff("CuuR",0,2,2,0, 550.) 
+                +20353.2 * getSMEFTCoeff("CuuR",1,2,2,1, 550.) 
+                +309.821 * getSMEFTCoeff("Cud1R",2,2,0,0, 550.) 
+                +41480. * getSMEFTCoeff("Cud8R",2,2,0,0, 550.) 
+                +6866.86 * getSMEFTCoeff("Cud8R",2,2,1,1, 550.) 
+                -116.694 * getSMEFTCoeff("Cqu1R",0,0,2,2, 550.) 
+                +201.396 * getSMEFTCoeff("Cqu1R",2,2,0,0, 550.) 
+                +105234. * getSMEFTCoeff("Cqu8R",0,0,2,2, 550.) 
+                +12066.6 * getSMEFTCoeff("Cqu8R",1,1,2,2, 550.) 
+                +63201. * getSMEFTCoeff("Cqu8R",2,2,0,0, 550.) 
+                +5141.25 * getSMEFTCoeff("Cqu8R",2,2,1,1, 550.) 
+                +252.903 * getSMEFTCoeff("Cqd1R",2,2,0,0, 550.) 
+                +41766.5 * getSMEFTCoeff("Cqd8R",2,2,0,0, 550.) 
+                +6890.86 * getSMEFTCoeff("Cqd8R",2,2,1,1, 550.) 
+                -58976.9 * getSMEFTCoeff("CHl3R",0,0, 550.) 
+                -61380.7 * getSMEFTCoeff("CHl3R",1,1, 550.) 
+                +61147.1 * getSMEFTCoeff("CllR",0,1,1,0, 550.) 
+                -5343.81 * getSMEFTCoeff("Cqq1R",2,2,2,2, 550.) 
+                -5719.86 * getSMEFTCoeff("Cqq3R",2,2,2,2, 550.) 
+                +2663.6 * getSMEFTCoeff("Cud8R",2,2,2,2, 550.) 
+                -2525.46 * getSMEFTCoeff("Cqu1R",2,2,2,2, 550.) 
+                -723.906 * getSMEFTCoeff("Cqu8R",2,2,2,2, 550.) 
+                +2602.76 * getSMEFTCoeff("Cqd8R",2,2,2,2, 550.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin6a0 * sigmapTH_Bin6a0/0.0261/0.0261; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin7a0 = 0.0, sigmapTH_Bin7a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin7a0 = 1.; 
+ 
+        sigmapTH_Bin7a0 = sigmaSMpTH_Bin7a0 
+                +55737.5 * getSMEFTCoeff("CG", 550.) 
+                -123218. * getSMEFTCoeff("CuHR",2,2, 550.) 
+                -294.839 * getSMEFTCoeff("CHq1R",0,0, 550.) 
+                -2752.38 * getSMEFTCoeff("CHq3R",2,2, 550.) 
+                -242.009 * getSMEFTCoeff("CHuR",2,2, 550.) 
+                -318452. * getSMEFTCoeff("CuGR",2,2, 550.) 
+                -327.336 * getSMEFTCoeff("Cqq1R",0,0,2,2, 550.) 
+                +420669. * getSMEFTCoeff("Cqq1R",0,2,2,0, 550.) 
+                +28839.4 * getSMEFTCoeff("Cqq1R",1,2,2,1, 550.) 
+                -225.029 * getSMEFTCoeff("Cqq3R",0,0,2,2, 550.) 
+                +963096. * getSMEFTCoeff("Cqq3R",0,2,2,0, 550.) 
+                +108027. * getSMEFTCoeff("Cqq3R",1,2,2,1, 550.) 
+                -271.377 * getSMEFTCoeff("CuuR",0,0,2,2, 550.) 
+                +421633. * getSMEFTCoeff("CuuR",0,2,2,0, 550.) 
+                +29185.1 * getSMEFTCoeff("CuuR",1,2,2,1, 550.) 
+                +67018. * getSMEFTCoeff("Cud8R",2,2,0,0, 550.) 
+                +9837.98 * getSMEFTCoeff("Cud8R",2,2,1,1, 550.) 
+                +171564. * getSMEFTCoeff("Cqu8R",0,0,2,2, 550.) 
+                +17175.4 * getSMEFTCoeff("Cqu8R",1,1,2,2, 550.) 
+                +104720. * getSMEFTCoeff("Cqu8R",2,2,0,0, 550.) 
+                +7244.19 * getSMEFTCoeff("Cqu8R",2,2,1,1, 550.) 
+                +67831.8 * getSMEFTCoeff("Cqd8R",2,2,0,0, 550.) 
+                +9859.54 * getSMEFTCoeff("Cqd8R",2,2,1,1, 550.) 
+                -60838. * getSMEFTCoeff("CHl3R",0,0, 550.) 
+                -59966.8 * getSMEFTCoeff("CHl3R",1,1, 550.) 
+                +60776.8 * getSMEFTCoeff("CllR",0,1,1,0, 550.) 
+                -7378.8 * getSMEFTCoeff("Cqq1R",2,2,2,2, 550.) 
+                -6914.29 * getSMEFTCoeff("Cqq3R",2,2,2,2, 550.) 
+                +3679.44 * getSMEFTCoeff("Cud8R",2,2,2,2, 550.) 
+                -3592.8 * getSMEFTCoeff("Cqu1R",2,2,2,2, 550.) 
+                -1042.06 * getSMEFTCoeff("Cqu8R",2,2,2,2, 550.) 
+                +3664.37 * getSMEFTCoeff("Cqd8R",2,2,2,2, 550.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin7a0 * sigmapTH_Bin7a0/0.0311/0.0311; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin8a0 = 0.0, sigmapTH_Bin8a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin8a0 = 1.; 
+ 
+        sigmapTH_Bin8a0 = sigmaSMpTH_Bin8a0 
+                -472443. * getSMEFTCoeff("CG", 1000.) 
+                -121162. * getSMEFTCoeff("CuHR",2,2, 1000.) 
+                -254.543 * getSMEFTCoeff("CHuR",0,0, 1000.) 
+                -7161.9 * getSMEFTCoeff("CHq3R",2,2, 1000.) 
+                -229.553 * getSMEFTCoeff("CHuR",2,2, 1000.) 
+                -42258.8 * getSMEFTCoeff("CuGR",2,2, 1000.) 
+                -367.083 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1000.) 
+                +1298534. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1000.) 
+                +60601.7 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1000.) 
+                +2898698. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1000.) 
+                +232388. * getSMEFTCoeff("Cqq3R",1,2,2,1, 1000.) 
+                +1300402. * getSMEFTCoeff("CuuR",0,2,2,0, 1000.) 
+                +60710.8 * getSMEFTCoeff("CuuR",1,2,2,1, 1000.) 
+                +199470. * getSMEFTCoeff("Cud8R",2,2,0,0, 1000.) 
+                +21629.1 * getSMEFTCoeff("Cud8R",2,2,1,1, 1000.) 
+                +307.495 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1000.) 
+                -171.864 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1000.) 
+                +524187. * getSMEFTCoeff("Cqu8R",0,0,2,2, 1000.) 
+                +36550.5 * getSMEFTCoeff("Cqu8R",1,1,2,2, 1000.) 
+                +323956. * getSMEFTCoeff("Cqu8R",2,2,0,0, 1000.) 
+                +15116.2 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1000.) 
+                +220.434 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1000.) 
+                +199469. * getSMEFTCoeff("Cqd8R",2,2,0,0, 1000.) 
+                +21713.8 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1000.) 
+                -60569.2 * getSMEFTCoeff("CHl3R",0,0, 1000.) 
+                -61646.4 * getSMEFTCoeff("CHl3R",1,1, 1000.) 
+                +60909.4 * getSMEFTCoeff("CllR",0,1,1,0, 1000.) 
+                -14265. * getSMEFTCoeff("Cqq1R",2,2,2,2, 1000.) 
+                -11804.6 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1000.) 
+                +7506.66 * getSMEFTCoeff("Cud8R",2,2,2,2, 1000.) 
+                -7511.84 * getSMEFTCoeff("Cqu1R",2,2,2,2, 1000.) 
+                -2451.46 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1000.) 
+                +7525.76 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1000.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin8a0 * sigmapTH_Bin8a0/0.0489/0.0489; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+
+const double NPSMEFTd6General::chi2FCChhZtt() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMpTZ_Bin1a0 = 0.0, sigmapTZ_Bin1a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin1a0 = 1.; 
+ 
+        sigmapTZ_Bin1a0 = sigmaSMpTZ_Bin1a0 
+                -269145. * getSMEFTCoeff("CG", 100.) 
+                +2080.72 * getSMEFTCoeff("CHq1R",0,0, 100.) 
+                +11217.6 * getSMEFTCoeff("CHq3R",0,0, 100.) 
+                +1276.43 * getSMEFTCoeff("CHuR",0,0, 100.) 
+                -1854.26 * getSMEFTCoeff("CHdR",0,0, 100.) 
+                +1027.54 * getSMEFTCoeff("CHq1R",1,1, 100.) 
+                +2320.34 * getSMEFTCoeff("CHq3R",1,1, 100.) 
+                +229.545 * getSMEFTCoeff("CHuR",1,1, 100.) 
+                -463.214 * getSMEFTCoeff("CHdR",1,1, 100.) 
+                -126725. * getSMEFTCoeff("CHq1R",2,2, 100.) 
+                +128406. * getSMEFTCoeff("CHq3R",2,2, 100.) 
+                +67351.7 * getSMEFTCoeff("CHuR",2,2, 100.) 
+                -311031. * getSMEFTCoeff("CuGR",2,2, 100.) 
+                +285.746 * getSMEFTCoeff("Cqq1R",0,0,2,2, 100.) 
+                +44961.5 * getSMEFTCoeff("Cqq1R",0,2,2,0, 100.) 
+                +5093.2 * getSMEFTCoeff("Cqq1R",1,2,2,1, 100.) 
+                +98.1295 * getSMEFTCoeff("Cqq3R",0,0,2,2, 100.) 
+                +250097. * getSMEFTCoeff("Cqq3R",0,2,2,0, 100.) 
+                +49234. * getSMEFTCoeff("Cqq3R",1,2,2,1, 100.) 
+                +300.125 * getSMEFTCoeff("CuuR",0,0,2,2, 100.) 
+                +12468.8 * getSMEFTCoeff("CuuR",0,2,2,0, 100.) 
+                +1538.24 * getSMEFTCoeff("CuuR",1,2,2,1, 100.) 
+                +512.187 * getSMEFTCoeff("Cud1R",2,2,0,0, 100.) 
+                +3735.49 * getSMEFTCoeff("Cud8R",2,2,0,0, 100.) 
+                +839.885 * getSMEFTCoeff("Cud8R",2,2,1,1, 100.) 
+                +388.534 * getSMEFTCoeff("Cqu1R",0,0,2,2, 100.) 
+                +270.232 * getSMEFTCoeff("Cqu1R",2,2,0,0, 100.) 
+                +30489.2 * getSMEFTCoeff("Cqu8R",0,0,2,2, 100.) 
+                +5636.73 * getSMEFTCoeff("Cqu8R",1,1,2,2, 100.) 
+                +6560.32 * getSMEFTCoeff("Cqu8R",2,2,0,0, 100.) 
+                +732.439 * getSMEFTCoeff("Cqu8R",2,2,1,1, 100.) 
+                +188.252 * getSMEFTCoeff("Cqd1R",2,2,0,0, 100.) 
+                +7277.99 * getSMEFTCoeff("Cqd8R",2,2,0,0, 100.) 
+                +1491.77 * getSMEFTCoeff("Cqd8R",2,2,1,1, 100.) 
+                -59566.1 * getSMEFTCoeff("CHl3R",0,0, 100.) 
+                -59929.9 * getSMEFTCoeff("CHl3R",1,1, 100.) 
+                +60925.3 * getSMEFTCoeff("CllR",0,1,1,0, 100.) 
+                -205.833 * getSMEFTCoeff("CHdR",2,2, 100.) 
+                +18068.6 * getSMEFTCoeff("Cqq3R",2,2,2,2, 100.) 
+                +428.576 * getSMEFTCoeff("Cud8R",2,2,2,2, 100.) 
+                +1799.74 * getSMEFTCoeff("Cqu8R",2,2,2,2, 100.) 
+                +632.096 * getSMEFTCoeff("Cqd8R",2,2,2,2, 100.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin1a0 * sigmapTZ_Bin1a0/0.03188/0.03188; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin2a0 = 0.0, sigmapTZ_Bin2a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin2a0 = 1.; 
+ 
+        sigmapTZ_Bin2a0 = sigmaSMpTZ_Bin2a0 
+                -366910. * getSMEFTCoeff("CG", 125.) 
+                +588.843 * getSMEFTCoeff("CHq1R",0,0, 125.) 
+                +6150.52 * getSMEFTCoeff("CHq3R",0,0, 125.) 
+                +713.391 * getSMEFTCoeff("CHuR",0,0, 125.) 
+                -1256.66 * getSMEFTCoeff("CHdR",0,0, 125.) 
+                +457.427 * getSMEFTCoeff("CHq1R",1,1, 125.) 
+                +1190.24 * getSMEFTCoeff("CHq3R",1,1, 125.) 
+                +124.676 * getSMEFTCoeff("CHuR",1,1, 125.) 
+                -260.095 * getSMEFTCoeff("CHdR",1,1, 125.) 
+                -128225. * getSMEFTCoeff("CHq1R",2,2, 125.) 
+                +128872. * getSMEFTCoeff("CHq3R",2,2, 125.) 
+                +81820.2 * getSMEFTCoeff("CHuR",2,2, 125.) 
+                -329068. * getSMEFTCoeff("CuGR",2,2, 125.) 
+                +42566.4 * getSMEFTCoeff("Cqq1R",0,2,2,0, 125.) 
+                +4305.46 * getSMEFTCoeff("Cqq1R",1,2,2,1, 125.) 
+                -225.775 * getSMEFTCoeff("Cqq3R",0,0,2,2, 125.) 
+                +205854. * getSMEFTCoeff("Cqq3R",0,2,2,0, 125.) 
+                +37105.1 * getSMEFTCoeff("Cqq3R",1,2,2,1, 125.) 
+                +202.608 * getSMEFTCoeff("CuuR",0,0,2,2, 125.) 
+                +17042.7 * getSMEFTCoeff("CuuR",0,2,2,0, 125.) 
+                +1745.77 * getSMEFTCoeff("CuuR",1,2,2,1, 125.) 
+                +3769.99 * getSMEFTCoeff("Cud8R",2,2,0,0, 125.) 
+                +852.984 * getSMEFTCoeff("Cud8R",2,2,1,1, 125.) 
+                +152.485 * getSMEFTCoeff("Cqu1R",0,0,2,2, 125.) 
+                +214.642 * getSMEFTCoeff("Cqu1R",2,2,0,0, 125.) 
+                +23736.5 * getSMEFTCoeff("Cqu8R",0,0,2,2, 125.) 
+                +3976.85 * getSMEFTCoeff("Cqu8R",1,1,2,2, 125.) 
+                +6417.76 * getSMEFTCoeff("Cqu8R",2,2,0,0, 125.) 
+                +728.204 * getSMEFTCoeff("Cqu8R",2,2,1,1, 125.) 
+                +6953.24 * getSMEFTCoeff("Cqd8R",2,2,0,0, 125.) 
+                +1391.26 * getSMEFTCoeff("Cqd8R",2,2,1,1, 125.) 
+                -61063.5 * getSMEFTCoeff("CHl3R",0,0, 125.) 
+                -60731.5 * getSMEFTCoeff("CHl3R",1,1, 125.) 
+                +61218.6 * getSMEFTCoeff("CllR",0,1,1,0, 125.) 
+                -105.913 * getSMEFTCoeff("CHdR",2,2, 125.) 
+                +13037.3 * getSMEFTCoeff("Cqq3R",2,2,2,2, 125.) 
+                +360.155 * getSMEFTCoeff("Cud8R",2,2,2,2, 125.) 
+                +1259.41 * getSMEFTCoeff("Cqu8R",2,2,2,2, 125.) 
+                +567.738 * getSMEFTCoeff("Cqd8R",2,2,2,2, 125.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin2a0 * sigmapTZ_Bin2a0/0.03107/0.03107; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin3a0 = 0.0, sigmapTZ_Bin3a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin3a0 = 1.; 
+ 
+        sigmapTZ_Bin3a0 = sigmaSMpTZ_Bin3a0 
+                -493167. * getSMEFTCoeff("CG", 240.) 
+                +124.112 * getSMEFTCoeff("CHq1R",0,0, 240.) 
+                +4405.53 * getSMEFTCoeff("CHq3R",0,0, 240.) 
+                +741.306 * getSMEFTCoeff("CHuR",0,0, 240.) 
+                -589.589 * getSMEFTCoeff("CHdR",0,0, 240.) 
+                +234.475 * getSMEFTCoeff("CHq1R",1,1, 240.) 
+                +766.296 * getSMEFTCoeff("CHq3R",1,1, 240.) 
+                -144.433 * getSMEFTCoeff("CHdR",1,1, 240.) 
+                -127859. * getSMEFTCoeff("CHq1R",2,2, 240.) 
+                +127728. * getSMEFTCoeff("CHq3R",2,2, 240.) 
+                +90035.7 * getSMEFTCoeff("CHuR",2,2, 240.) 
+                -343660. * getSMEFTCoeff("CuGR",2,2, 240.) 
+                +52983.9 * getSMEFTCoeff("Cqq1R",0,2,2,0, 240.) 
+                +4678.96 * getSMEFTCoeff("Cqq1R",1,2,2,1, 240.) 
+                -477.124 * getSMEFTCoeff("Cqq3R",0,0,2,2, 240.) 
+                +223204. * getSMEFTCoeff("Cqq3R",0,2,2,0, 240.) 
+                +35196. * getSMEFTCoeff("Cqq3R",1,2,2,1, 240.) 
+                +23582.7 * getSMEFTCoeff("CuuR",0,2,2,0, 240.) 
+                +2444.14 * getSMEFTCoeff("CuuR",1,2,2,1, 240.) 
+                -170.655 * getSMEFTCoeff("Cud1R",2,2,0,0, 240.) 
+                +3548.04 * getSMEFTCoeff("Cud8R",2,2,0,0, 240.) 
+                +782.141 * getSMEFTCoeff("Cud8R",2,2,1,1, 240.) 
+                -186.58 * getSMEFTCoeff("Cqu1R",1,1,2,2, 240.) 
+                -252.827 * getSMEFTCoeff("Cqu1R",2,2,0,0, 240.) 
+                +25382.1 * getSMEFTCoeff("Cqu8R",0,0,2,2, 240.) 
+                +3708.29 * getSMEFTCoeff("Cqu8R",1,1,2,2, 240.) 
+                +9948.97 * getSMEFTCoeff("Cqu8R",2,2,0,0, 240.) 
+                +970.584 * getSMEFTCoeff("Cqu8R",2,2,1,1, 240.) 
+                -404.699 * getSMEFTCoeff("Cqd1R",2,2,0,0, 240.) 
+                +8771.16 * getSMEFTCoeff("Cqd8R",2,2,0,0, 240.) 
+                +1691.29 * getSMEFTCoeff("Cqd8R",2,2,1,1, 240.) 
+                -60918.7 * getSMEFTCoeff("CHl3R",0,0, 240.) 
+                -61568.2 * getSMEFTCoeff("CHl3R",1,1, 240.) 
+                +60993.2 * getSMEFTCoeff("CllR",0,1,1,0, 240.) 
+                +12169.4 * getSMEFTCoeff("Cqq3R",2,2,2,2, 240.) 
+                +422.073 * getSMEFTCoeff("Cud8R",2,2,2,2, 240.) 
+                +1113.08 * getSMEFTCoeff("Cqu8R",2,2,2,2, 240.) 
+                +666.612 * getSMEFTCoeff("Cqd8R",2,2,2,2, 240.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin3a0 * sigmapTZ_Bin3a0/0.02971/0.02971; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin4a0 = 0.0, sigmapTZ_Bin4a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin4a0 = 1.; 
+ 
+        sigmapTZ_Bin4a0 = sigmaSMpTZ_Bin4a0 
+                -636066. * getSMEFTCoeff("CG", 365.) 
+                +344.015 * getSMEFTCoeff("CHq1R",0,0, 365.) 
+                +4432.83 * getSMEFTCoeff("CHq3R",0,0, 365.) 
+                +1087.56 * getSMEFTCoeff("CHuR",0,0, 365.) 
+                -188.864 * getSMEFTCoeff("CHdR",0,0, 365.) 
+                +287.083 * getSMEFTCoeff("CHq1R",1,1, 365.) 
+                +657.433 * getSMEFTCoeff("CHq3R",1,1, 365.) 
+                +149.946 * getSMEFTCoeff("CHuR",1,1, 365.) 
+                -127196. * getSMEFTCoeff("CHq1R",2,2, 365.) 
+                +128229. * getSMEFTCoeff("CHq3R",2,2, 365.) 
+                +93151.8 * getSMEFTCoeff("CHuR",2,2, 365.) 
+                -358538. * getSMEFTCoeff("CuGR",2,2, 365.) 
+                +609.77 * getSMEFTCoeff("Cqq1R",0,0,2,2, 365.) 
+                +78581.7 * getSMEFTCoeff("Cqq1R",0,2,2,0, 365.) 
+                +117.378 * getSMEFTCoeff("Cqq1R",1,1,2,2, 365.) 
+                +6588.67 * getSMEFTCoeff("Cqq1R",1,2,2,1, 365.) 
+                +498.232 * getSMEFTCoeff("Cqq3R",0,0,2,2, 365.) 
+                +296926. * getSMEFTCoeff("Cqq3R",0,2,2,0, 365.) 
+                +42594.1 * getSMEFTCoeff("Cqq3R",1,2,2,1, 365.) 
+                +491.776 * getSMEFTCoeff("CuuR",0,0,2,2, 365.) 
+                +41762.8 * getSMEFTCoeff("CuuR",0,2,2,0, 365.) 
+                +3623.17 * getSMEFTCoeff("CuuR",1,2,2,1, 365.) 
+                +562.222 * getSMEFTCoeff("Cud1R",2,2,0,0, 365.) 
+                +8284.78 * getSMEFTCoeff("Cud8R",2,2,0,0, 365.) 
+                +1422.73 * getSMEFTCoeff("Cud8R",2,2,1,1, 365.) 
+                +406.346 * getSMEFTCoeff("Cqu1R",0,0,2,2, 365.) 
+                +34860.4 * getSMEFTCoeff("Cqu8R",0,0,2,2, 365.) 
+                +4675.45 * getSMEFTCoeff("Cqu8R",1,1,2,2, 365.) 
+                +17810.2 * getSMEFTCoeff("Cqu8R",2,2,0,0, 365.) 
+                +1414.42 * getSMEFTCoeff("Cqu8R",2,2,1,1, 365.) 
+                +14559.8 * getSMEFTCoeff("Cqd8R",2,2,0,0, 365.) 
+                +2405.41 * getSMEFTCoeff("Cqd8R",2,2,1,1, 365.) 
+                -58566.6 * getSMEFTCoeff("CHl3R",0,0, 365.) 
+                -57942.6 * getSMEFTCoeff("CHl3R",1,1, 365.) 
+                +61721.4 * getSMEFTCoeff("CllR",0,1,1,0, 365.) 
+                +13978.9 * getSMEFTCoeff("Cqq3R",2,2,2,2, 365.) 
+                +601.947 * getSMEFTCoeff("Cud8R",2,2,2,2, 365.) 
+                +1258.07 * getSMEFTCoeff("Cqu8R",2,2,2,2, 365.) 
+                +955.48 * getSMEFTCoeff("Cqd8R",2,2,2,2, 365.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin4a0 * sigmapTZ_Bin4a0/0.02989/0.02989; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin5a0 = 0.0, sigmapTZ_Bin5a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin5a0 = 1.; 
+ 
+        sigmapTZ_Bin5a0 = sigmaSMpTZ_Bin5a0 
+                -798294. * getSMEFTCoeff("CG", 365.) 
+                -721.951 * getSMEFTCoeff("CHq1R",0,0, 365.) 
+                +4037.01 * getSMEFTCoeff("CHq3R",0,0, 365.) 
+                +557.169 * getSMEFTCoeff("CHuR",0,0, 365.) 
+                -1035.22 * getSMEFTCoeff("CHdR",0,0, 365.) 
+                +142.26 * getSMEFTCoeff("CHq1R",1,1, 365.) 
+                +439.738 * getSMEFTCoeff("CHq3R",1,1, 365.) 
+                -188.842 * getSMEFTCoeff("CHdR",1,1, 365.) 
+                -126729. * getSMEFTCoeff("CHq1R",2,2, 365.) 
+                +126258. * getSMEFTCoeff("CHq3R",2,2, 365.) 
+                +93682.8 * getSMEFTCoeff("CHuR",2,2, 365.) 
+                -368805. * getSMEFTCoeff("CuGR",2,2, 365.) 
+                -367.92 * getSMEFTCoeff("Cqq1R",0,0,2,2, 365.) 
+                +115509. * getSMEFTCoeff("Cqq1R",0,2,2,0, 365.) 
+                +8944.31 * getSMEFTCoeff("Cqq1R",1,2,2,1, 365.) 
+                -432.96 * getSMEFTCoeff("Cqq3R",0,0,2,2, 365.) 
+                +411791. * getSMEFTCoeff("Cqq3R",0,2,2,0, 365.) 
+                +53998.2 * getSMEFTCoeff("Cqq3R",1,2,2,1, 365.) 
+                -351.415 * getSMEFTCoeff("CuuR",0,0,2,2, 365.) 
+                +64259.7 * getSMEFTCoeff("CuuR",0,2,2,0, 365.) 
+                +5028.14 * getSMEFTCoeff("CuuR",1,2,2,1, 365.) 
+                +11370.6 * getSMEFTCoeff("Cud8R",2,2,0,0, 365.) 
+                +1800.96 * getSMEFTCoeff("Cud8R",2,2,1,1, 365.) 
+                +113.616 * getSMEFTCoeff("Cqu1R",0,0,2,2, 365.) 
+                -604.009 * getSMEFTCoeff("Cqu1R",2,2,0,0, 365.) 
+                +48271.1 * getSMEFTCoeff("Cqu8R",0,0,2,2, 365.) 
+                +5828.68 * getSMEFTCoeff("Cqu8R",1,1,2,2, 365.) 
+                +23200.1 * getSMEFTCoeff("Cqu8R",2,2,0,0, 365.) 
+                +1848.04 * getSMEFTCoeff("Cqu8R",2,2,1,1, 365.) 
+                -281.148 * getSMEFTCoeff("Cqd1R",2,2,0,0, 365.) 
+                +19326.7 * getSMEFTCoeff("Cqd8R",2,2,0,0, 365.) 
+                +2799.62 * getSMEFTCoeff("Cqd8R",2,2,1,1, 365.) 
+                -60228.3 * getSMEFTCoeff("CHl3R",0,0, 365.) 
+                -61686. * getSMEFTCoeff("CHl3R",1,1, 365.) 
+                +61046.9 * getSMEFTCoeff("CllR",0,1,1,0, 365.) 
+                +17296.3 * getSMEFTCoeff("Cqq3R",2,2,2,2, 365.) 
+                +753.436 * getSMEFTCoeff("Cud8R",2,2,2,2, 365.) 
+                +1455.17 * getSMEFTCoeff("Cqu8R",2,2,2,2, 365.) 
+                +1098.62 * getSMEFTCoeff("Cqd8R",2,2,2,2, 365.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin5a0 * sigmapTZ_Bin5a0/0.03077/0.03077; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin6a0 = 0.0, sigmapTZ_Bin6a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin6a0 = 1.; 
+ 
+        sigmapTZ_Bin6a0 = sigmaSMpTZ_Bin6a0 
+                -1002548. * getSMEFTCoeff("CG", 550.) 
+                -205.967 * getSMEFTCoeff("CHq1R",0,0, 550.) 
+                +4858.96 * getSMEFTCoeff("CHq3R",0,0, 550.) 
+                +882.666 * getSMEFTCoeff("CHuR",0,0, 550.) 
+                -502.35 * getSMEFTCoeff("CHdR",0,0, 550.) 
+                +234.393 * getSMEFTCoeff("CHq1R",1,1, 550.) 
+                +684.82 * getSMEFTCoeff("CHq3R",1,1, 550.) 
+                -126028. * getSMEFTCoeff("CHq1R",2,2, 550.) 
+                +125808. * getSMEFTCoeff("CHq3R",2,2, 550.) 
+                +93559.4 * getSMEFTCoeff("CHuR",2,2, 550.) 
+                -373828. * getSMEFTCoeff("CuGR",2,2, 550.) 
+                +301.438 * getSMEFTCoeff("Cqq1R",0,0,2,2, 550.) 
+                +183431. * getSMEFTCoeff("Cqq1R",0,2,2,0, 550.) 
+                +12519.5 * getSMEFTCoeff("Cqq1R",1,2,2,1, 550.) 
+                +619542. * getSMEFTCoeff("Cqq3R",0,2,2,0, 550.) 
+                +73884.6 * getSMEFTCoeff("Cqq3R",1,2,2,1, 550.) 
+                +106009. * getSMEFTCoeff("CuuR",0,2,2,0, 550.) 
+                +7918.64 * getSMEFTCoeff("CuuR",1,2,2,1, 550.) 
+                +18928.2 * getSMEFTCoeff("Cud8R",2,2,0,0, 550.) 
+                +2800.13 * getSMEFTCoeff("Cud8R",2,2,1,1, 550.) 
+                -110.184 * getSMEFTCoeff("Cqu1R",2,2,0,0, 550.) 
+                +73866.4 * getSMEFTCoeff("Cqu8R",0,0,2,2, 550.) 
+                +7974.81 * getSMEFTCoeff("Cqu8R",1,1,2,2, 550.) 
+                +40360.9 * getSMEFTCoeff("Cqu8R",2,2,0,0, 550.) 
+                +2848.83 * getSMEFTCoeff("Cqu8R",2,2,1,1, 550.) 
+                -127.89 * getSMEFTCoeff("Cqd1R",2,2,0,0, 550.) 
+                +30210. * getSMEFTCoeff("Cqd8R",2,2,0,0, 550.) 
+                +4316.48 * getSMEFTCoeff("Cqd8R",2,2,1,1, 550.) 
+                -60275.3 * getSMEFTCoeff("CHl3R",0,0, 550.) 
+                -59911.4 * getSMEFTCoeff("CHl3R",1,1, 550.) 
+                +61225.6 * getSMEFTCoeff("CllR",0,1,1,0, 550.) 
+                +22994.9 * getSMEFTCoeff("Cqq3R",2,2,2,2, 550.) 
+                +1107.68 * getSMEFTCoeff("Cud8R",2,2,2,2, 550.) 
+                +2114.19 * getSMEFTCoeff("Cqu8R",2,2,2,2, 550.) 
+                +1597.65 * getSMEFTCoeff("Cqd8R",2,2,2,2, 550.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin6a0 * sigmapTZ_Bin6a0/0.03065/0.03065; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin7a0 = 0.0, sigmapTZ_Bin7a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin7a0 = 1.; 
+ 
+        sigmapTZ_Bin7a0 = sigmaSMpTZ_Bin7a0 
+                -1288062. * getSMEFTCoeff("CG", 550.) 
+                +5661.04 * getSMEFTCoeff("CHq3R",0,0, 550.) 
+                +777.098 * getSMEFTCoeff("CHuR",0,0, 550.) 
+                -871.268 * getSMEFTCoeff("CHdR",0,0, 550.) 
+                +203.443 * getSMEFTCoeff("CHq1R",1,1, 550.) 
+                +596.723 * getSMEFTCoeff("CHq3R",1,1, 550.) 
+                -152.373 * getSMEFTCoeff("CHdR",1,1, 550.) 
+                -125040. * getSMEFTCoeff("CHq1R",2,2, 550.) 
+                +124842. * getSMEFTCoeff("CHq3R",2,2, 550.) 
+                +93954.7 * getSMEFTCoeff("CHuR",2,2, 550.) 
+                -371081. * getSMEFTCoeff("CuGR",2,2, 550.) 
+                +309660. * getSMEFTCoeff("Cqq1R",0,2,2,0, 550.) 
+                +18705.3 * getSMEFTCoeff("Cqq1R",1,2,2,1, 550.) 
+                -264.105 * getSMEFTCoeff("Cqq3R",0,0,2,2, 550.) 
+                +987418. * getSMEFTCoeff("Cqq3R",0,2,2,0, 550.) 
+                +105839. * getSMEFTCoeff("Cqq3R",1,2,2,1, 550.) 
+                -243.479 * getSMEFTCoeff("CuuR",0,0,2,2, 550.) 
+                +186685. * getSMEFTCoeff("CuuR",0,2,2,0, 550.) 
+                +12142.9 * getSMEFTCoeff("CuuR",1,2,2,1, 550.) 
+                -178.168 * getSMEFTCoeff("Cud1R",2,2,0,0, 550.) 
+                +30504.9 * getSMEFTCoeff("Cud8R",2,2,0,0, 550.) 
+                +4351.12 * getSMEFTCoeff("Cud8R",2,2,1,1, 550.) 
+                -334.142 * getSMEFTCoeff("Cqu1R",0,0,2,2, 550.) 
+                -173.226 * getSMEFTCoeff("Cqu1R",2,2,0,0, 550.) 
+                +118380. * getSMEFTCoeff("Cqu8R",0,0,2,2, 550.) 
+                +11475.4 * getSMEFTCoeff("Cqu8R",1,1,2,2, 550.) 
+                +67974.2 * getSMEFTCoeff("Cqu8R",2,2,0,0, 550.) 
+                +4137.41 * getSMEFTCoeff("Cqu8R",2,2,1,1, 550.) 
+                +50502.1 * getSMEFTCoeff("Cqd8R",2,2,0,0, 550.) 
+                +6561.82 * getSMEFTCoeff("Cqd8R",2,2,1,1, 550.) 
+                -60819.6 * getSMEFTCoeff("CHl3R",0,0, 550.) 
+                -59366.5 * getSMEFTCoeff("CHl3R",1,1, 550.) 
+                +59729.8 * getSMEFTCoeff("CllR",0,1,1,0, 550.) 
+                +31925.4 * getSMEFTCoeff("Cqq3R",2,2,2,2, 550.) 
+                +1602.47 * getSMEFTCoeff("Cud8R",2,2,2,2, 550.) 
+                +2803.8 * getSMEFTCoeff("Cqu8R",2,2,2,2, 550.) 
+                +2478.36 * getSMEFTCoeff("Cqd8R",2,2,2,2, 550.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin7a0 * sigmapTZ_Bin7a0/0.03407/0.03407; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin8a0 = 0.0, sigmapTZ_Bin8a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin8a0 = 1.; 
+ 
+        sigmapTZ_Bin8a0 = sigmaSMpTZ_Bin8a0 
+                -1630199. * getSMEFTCoeff("CG", 550.) 
+                -587.49 * getSMEFTCoeff("CHq1R",0,0, 550.) 
+                +6995.9 * getSMEFTCoeff("CHq3R",0,0, 550.) 
+                +1751.23 * getSMEFTCoeff("CHuR",0,0, 550.) 
+                -382.203 * getSMEFTCoeff("CHdR",0,0, 550.) 
+                +240.831 * getSMEFTCoeff("CHq1R",1,1, 550.) 
+                +802.708 * getSMEFTCoeff("CHq3R",1,1, 550.) 
+                +150.875 * getSMEFTCoeff("CHuR",1,1, 550.) 
+                -123807. * getSMEFTCoeff("CHq1R",2,2, 550.) 
+                +124746. * getSMEFTCoeff("CHq3R",2,2, 550.) 
+                +93456.1 * getSMEFTCoeff("CHuR",2,2, 550.) 
+                -358720. * getSMEFTCoeff("CuGR",2,2, 550.) 
+                +210.711 * getSMEFTCoeff("Cqq1R",0,0,2,2, 550.) 
+                +507420. * getSMEFTCoeff("Cqq1R",0,2,2,0, 550.) 
+                +195.896 * getSMEFTCoeff("Cqq1R",1,1,2,2, 550.) 
+                +27514. * getSMEFTCoeff("Cqq1R",1,2,2,1, 550.) 
+                +263.269 * getSMEFTCoeff("Cqq3R",0,0,2,2, 550.) 
+                +1573336. * getSMEFTCoeff("Cqq3R",0,2,2,0, 550.) 
+                +152351. * getSMEFTCoeff("Cqq3R",1,2,2,1, 550.) 
+                +320280. * getSMEFTCoeff("CuuR",0,2,2,0, 550.) 
+                +18504.3 * getSMEFTCoeff("CuuR",1,2,2,1, 550.) 
+                +239.899 * getSMEFTCoeff("Cud1R",2,2,0,0, 550.) 
+                +52669. * getSMEFTCoeff("Cud8R",2,2,0,0, 550.) 
+                +6646.4 * getSMEFTCoeff("Cud8R",2,2,1,1, 550.) 
+                +379.431 * getSMEFTCoeff("Cqu1R",0,0,2,2, 550.) 
+                +192957. * getSMEFTCoeff("Cqu8R",0,0,2,2, 550.) 
+                +16941.6 * getSMEFTCoeff("Cqu8R",1,1,2,2, 550.) 
+                +117224. * getSMEFTCoeff("Cqu8R",2,2,0,0, 550.) 
+                +6438.77 * getSMEFTCoeff("Cqu8R",2,2,1,1, 550.) 
+                +146.332 * getSMEFTCoeff("Cqd1R",2,2,0,0, 550.) 
+                +82556.4 * getSMEFTCoeff("Cqd8R",2,2,0,0, 550.) 
+                +10020.1 * getSMEFTCoeff("Cqd8R",2,2,1,1, 550.) 
+                -59765.5 * getSMEFTCoeff("CHl3R",0,0, 550.) 
+                -56893. * getSMEFTCoeff("CHl3R",1,1, 550.) 
+                +62968.9 * getSMEFTCoeff("CllR",0,1,1,0, 550.) 
+                +44367.6 * getSMEFTCoeff("Cqq3R",2,2,2,2, 550.) 
+                +2488.93 * getSMEFTCoeff("Cud8R",2,2,2,2, 550.) 
+                +3982.06 * getSMEFTCoeff("Cqu8R",2,2,2,2, 550.) 
+                +3651.48 * getSMEFTCoeff("Cqd8R",2,2,2,2, 550.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin8a0 * sigmapTZ_Bin8a0/0.03959/0.03959; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin9a0 = 0.0, sigmapTZ_Bin9a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin9a0 = 1.; 
+ 
+        sigmapTZ_Bin9a0 = sigmaSMpTZ_Bin9a0 
+                -2146962. * getSMEFTCoeff("CG", 1000.) 
+                -421.396 * getSMEFTCoeff("CHq1R",0,0, 1000.) 
+                +8430.37 * getSMEFTCoeff("CHq3R",0,0, 1000.) 
+                +2060.39 * getSMEFTCoeff("CHuR",0,0, 1000.) 
+                -331.255 * getSMEFTCoeff("CHdR",0,0, 1000.) 
+                +245.679 * getSMEFTCoeff("CHq1R",1,1, 1000.) 
+                +741.679 * getSMEFTCoeff("CHq3R",1,1, 1000.) 
+                +275.936 * getSMEFTCoeff("CHuR",1,1, 1000.) 
+                -122273. * getSMEFTCoeff("CHq1R",2,2, 1000.) 
+                +122686. * getSMEFTCoeff("CHq3R",2,2, 1000.) 
+                +93077.2 * getSMEFTCoeff("CHuR",2,2, 1000.) 
+                -337679. * getSMEFTCoeff("CuGR",2,2, 1000.) 
+                +285.082 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1000.) 
+                +917269. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1000.) 
+                +43267.9 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1000.) 
+                +170.232 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1000.) 
+                +2721463. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1000.) 
+                +232508. * getSMEFTCoeff("Cqq3R",1,2,2,1, 1000.) 
+                +593363. * getSMEFTCoeff("CuuR",0,2,2,0, 1000.) 
+                +29689.5 * getSMEFTCoeff("CuuR",1,2,2,1, 1000.) 
+                +95968.1 * getSMEFTCoeff("Cud8R",2,2,0,0, 1000.) 
+                +10787.5 * getSMEFTCoeff("Cud8R",2,2,1,1, 1000.) 
+                +533.753 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1000.) 
+                +297.093 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1000.) 
+                +336823. * getSMEFTCoeff("Cqu8R",0,0,2,2, 1000.) 
+                +25747.3 * getSMEFTCoeff("Cqu8R",1,1,2,2, 1000.) 
+                +213308. * getSMEFTCoeff("Cqu8R",2,2,0,0, 1000.) 
+                +10099.7 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1000.) 
+                +147398. * getSMEFTCoeff("Cqd8R",2,2,0,0, 1000.) 
+                +15848.8 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1000.) 
+                -58883.2 * getSMEFTCoeff("CHl3R",0,0, 1000.) 
+                -59627.3 * getSMEFTCoeff("CHl3R",1,1, 1000.) 
+                +61347.7 * getSMEFTCoeff("CllR",0,1,1,0, 1000.) 
+                +65306.2 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1000.) 
+                +3876.17 * getSMEFTCoeff("Cud8R",2,2,2,2, 1000.) 
+                +5792.02 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1000.) 
+                +5577.93 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1000.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin9a0 * sigmapTZ_Bin9a0/0.04928/0.04928; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin10a0 = 0.0, sigmapTZ_Bin10a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin10a0 = 1.; 
+ 
+        sigmapTZ_Bin10a0 = sigmaSMpTZ_Bin10a0 
+                -3021439. * getSMEFTCoeff("CG", 1500.) 
+                -472.42 * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +10902.9 * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +2993.32 * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                -622.528 * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                +330.676 * getSMEFTCoeff("CHq1R",1,1, 1500.) 
+                +919.856 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +216.542 * getSMEFTCoeff("CHuR",1,1, 1500.) 
+                -119786. * getSMEFTCoeff("CHq1R",2,2, 1500.) 
+                +120405. * getSMEFTCoeff("CHq3R",2,2, 1500.) 
+                +91515.4 * getSMEFTCoeff("CHuR",2,2, 1500.) 
+                -317406. * getSMEFTCoeff("CuGR",2,2, 1500.) 
+                +1895972. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +73802.3 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +298.286 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                +5402184. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +392201. * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                +125.564 * getSMEFTCoeff("CuuR",1,1,2,2, 1500.) 
+                +1274238. * getSMEFTCoeff("CuuR",0,2,2,0, 1500.) 
+                +52583.7 * getSMEFTCoeff("CuuR",1,2,2,1, 1500.) 
+                +394.546 * getSMEFTCoeff("Cud1R",2,2,0,0, 1500.) 
+                -122.94 * getSMEFTCoeff("Cud1R",2,2,1,1, 1500.) 
+                +201532. * getSMEFTCoeff("Cud8R",2,2,0,0, 1500.) 
+                +19487.2 * getSMEFTCoeff("Cud8R",2,2,1,1, 1500.) 
+                +302.697 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1500.) 
+                +171.399 * getSMEFTCoeff("Cqu1R",1,1,2,2, 1500.) 
+                +681779. * getSMEFTCoeff("Cqu8R",0,0,2,2, 1500.) 
+                +43506. * getSMEFTCoeff("Cqu8R",1,1,2,2, 1500.) 
+                +449033. * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +17650.5 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                +666.506 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1500.) 
+                +300968. * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +27789.2 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                -58729.3 * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -59250.6 * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +61314.6 * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +104581. * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                +6541.49 * getSMEFTCoeff("Cud8R",2,2,2,2, 1500.) 
+                +9504.92 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1500.) 
+                +9251.04 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin10a0 * sigmapTZ_Bin10a0/0.07801/0.07801; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTZ_Bin11a0 = 0.0, sigmapTZ_Bin11a0 = 0.0; 
+ 
+        sigmaSMpTZ_Bin11a0 = 1.; 
+ 
+        sigmapTZ_Bin11a0 = sigmaSMpTZ_Bin11a0 
+                -4491790. * getSMEFTCoeff("CG", 1500.) 
+                -1163.33 * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +14783.4 * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +3531.75 * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                -1123.68 * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                +421.868 * getSMEFTCoeff("CHq1R",1,1, 1500.) 
+                +971.281 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +205.014 * getSMEFTCoeff("CHuR",1,1, 1500.) 
+                -115815. * getSMEFTCoeff("CHq1R",2,2, 1500.) 
+                +116263. * getSMEFTCoeff("CHq3R",2,2, 1500.) 
+                +89518.1 * getSMEFTCoeff("CHuR",2,2, 1500.) 
+                -348498. * getSMEFTCoeff("CuGR",2,2, 1500.) 
+                +4441122. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +137852. * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +426.939 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                +12096087. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +721159. * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                +3094535. * getSMEFTCoeff("CuuR",0,2,2,0, 1500.) 
+                +100364. * getSMEFTCoeff("CuuR",1,2,2,1, 1500.) 
+                +244.87 * getSMEFTCoeff("Cud1R",2,2,0,0, 1500.) 
+                +479691. * getSMEFTCoeff("Cud8R",2,2,0,0, 1500.) 
+                +38154.7 * getSMEFTCoeff("Cud8R",2,2,1,1, 1500.) 
+                +290.759 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1500.) 
+                +189.586 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1500.) 
+                +1568589. * getSMEFTCoeff("Cqu8R",0,0,2,2, 1500.) 
+                +81148.3 * getSMEFTCoeff("Cqu8R",1,1,2,2, 1500.) 
+                +1064323. * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +33087.8 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                +242.741 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1500.) 
+                +690277. * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +53422.3 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                -59606.4 * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -58023. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +61870.9 * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +178964. * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                +11959.9 * getSMEFTCoeff("Cud8R",2,2,2,2, 1500.) 
+                +16428.9 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1500.) 
+                +16529.3 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmapTZ_Bin11a0 * sigmapTZ_Bin11a0/0.17988/0.17988; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+
+
+const double NPSMEFTd6General::chi2FCChhtt() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                -49146.1 * getSMEFTCoeff("CG", 1000.) 
+                -347238. * getSMEFTCoeff("CuGR",2,2, 1000.) 
+                +92520.6 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1000.) 
+                +10148.6 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1000.) 
+                +74.0686 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1000.) 
+                +218710. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1000.) 
+                +36758.4 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1000.) 
+                -106.138 * getSMEFTCoeff("CuuR",0,0,2,2, 1000.) 
+                +92896. * getSMEFTCoeff("CuuR",0,2,2,0, 1000.) 
+                +10221.9 * getSMEFTCoeff("CuuR",1,2,2,1, 1000.) 
+                +16044.9 * getSMEFTCoeff("Cud8R",2,2,0,0, 1000.) 
+                +3419.59 * getSMEFTCoeff("Cud8R",2,2,1,1, 1000.) 
+                +118.083 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1000.) 
+                +104.212 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1000.) 
+                +39338.7 * getSMEFTCoeff("Cqu8R",0,0,2,2, 1000.) 
+                +5865.93 * getSMEFTCoeff("Cqu8R",1,1,2,2, 1000.) 
+                +22593.6 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1000.) 
+                +2542.13 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1000.) 
+                +128.279 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1000.) 
+                +15724.8 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1000.) 
+                +3309.45 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1000.) 
+                +11026.7 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1000.) 
+                +1400.08 * getSMEFTCoeff("Cud8R",2,2,2,2, 1000.) 
+                +1413.14 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1000.) 
+                +1420.08 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -99811.5 * getSMEFTCoeff("CG", 1500.) 
+                -324579. * getSMEFTCoeff("CuGR",2,2, 1500.) 
+                -97.0577 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1500.) 
+                +139201. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +13244.4 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +325383. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +48366.7 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                -42.1888 * getSMEFTCoeff("CuuR",0,0,2,2, 1500.) 
+                +139146. * getSMEFTCoeff("CuuR",0,2,2,0, 1500.) 
+                +13243.9 * getSMEFTCoeff("CuuR",1,2,2,1, 1500.) 
+                +23442.3 * getSMEFTCoeff("Cud8R",2,2,0,0, 1500.) 
+                +4425.78 * getSMEFTCoeff("Cud8R",2,2,1,1, 1500.) 
+                -40.7952 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1500.) 
+                +39.2605 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1500.) 
+                +57955.6 * getSMEFTCoeff("Cqu8R",0,0,2,2, 1500.) 
+                +7651.87 * getSMEFTCoeff("Cqu8R",1,1,2,2, 1500.) 
+                +34776. * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +3318.15 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                +23412.3 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +4433.25 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                +14108. * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                +1721.93 * getSMEFTCoeff("Cud8R",2,2,2,2, 1500.) 
+                +1766.7 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1500.) 
+                +1784.55 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                -125668. * getSMEFTCoeff("CG", 1500.) 
+                -307664. * getSMEFTCoeff("CuGR",2,2, 1500.) 
+                +210138. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +17320.9 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                -62.0455 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                +486638. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +63916.6 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                +210364. * getSMEFTCoeff("CuuR",0,2,2,0, 1500.) 
+                +17357.2 * getSMEFTCoeff("CuuR",1,2,2,1, 1500.) 
+                +34753.6 * getSMEFTCoeff("Cud8R",2,2,0,0, 1500.) 
+                +5801.69 * getSMEFTCoeff("Cud8R",2,2,1,1, 1500.) 
+                -76.2501 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1500.) 
+                -101.97 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1500.) 
+                +86828.1 * getSMEFTCoeff("Cqu8R",0,0,2,2, 1500.) 
+                +10135.9 * getSMEFTCoeff("Cqu8R",1,1,2,2, 1500.) 
+                +52542.9 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +4348. * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                -53.7846 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1500.) 
+                +34503.2 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +5874.32 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                +18131.4 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                +2240.09 * getSMEFTCoeff("Cud8R",2,2,2,2, 1500.) 
+                +2262.83 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1500.) 
+                +2275.36 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                -141736. * getSMEFTCoeff("CG", 1500.) 
+                -293435. * getSMEFTCoeff("CuGR",2,2, 1500.) 
+                -46.7706 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1500.) 
+                +341378. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +23681.2 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                -77.9921 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                +782297. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +88177.9 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                -75.8623 * getSMEFTCoeff("CuuR",0,0,2,2, 1500.) 
+                +341233. * getSMEFTCoeff("CuuR",0,2,2,0, 1500.) 
+                +23645.2 * getSMEFTCoeff("CuuR",1,2,2,1, 1500.) 
+                -63.8464 * getSMEFTCoeff("Cud1R",2,2,0,0, 1500.) 
+                +54854.1 * getSMEFTCoeff("Cud8R",2,2,0,0, 1500.) 
+                +8044.99 * getSMEFTCoeff("Cud8R",2,2,1,1, 1500.) 
+                -73.7201 * getSMEFTCoeff("Cqu1R",0,0,2,2, 1500.) 
+                -77.5858 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1500.) 
+                -24.0009 * getSMEFTCoeff("Cqu1R",2,2,1,1, 1500.) 
+                +139959. * getSMEFTCoeff("Cqu8R",0,0,2,2, 1500.) 
+                +13950. * getSMEFTCoeff("Cqu8R",1,1,2,2, 1500.) 
+                +85528.1 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +5915.69 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                -80.9345 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1500.) 
+                +54982.1 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +8084.69 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                +24224.6 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                +2992.83 * getSMEFTCoeff("Cud8R",2,2,2,2, 1500.) 
+                +3032.52 * getSMEFTCoeff("Cqu8R",2,2,2,2, 1500.) 
+                +3015.78 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                -153268. * getSMEFTCoeff("CG", 3000.) 
+                -279520. * getSMEFTCoeff("CuGR",2,2, 3000.) 
+                +648317. * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                +35786.2 * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                +1465769. * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +135770. * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                +648885. * getSMEFTCoeff("CuuR",0,2,2,0, 3000.) 
+                +35855. * getSMEFTCoeff("CuuR",1,2,2,1, 3000.) 
+                +102155. * getSMEFTCoeff("Cud8R",2,2,0,0, 3000.) 
+                +12557.2 * getSMEFTCoeff("Cud8R",2,2,1,1, 3000.) 
+                +49.808 * getSMEFTCoeff("Cqu1R",0,0,2,2, 3000.) 
+                +264213. * getSMEFTCoeff("Cqu8R",0,0,2,2, 3000.) 
+                +21476.6 * getSMEFTCoeff("Cqu8R",1,1,2,2, 3000.) 
+                +162317. * getSMEFTCoeff("Cqu8R",2,2,0,0, 3000.) 
+                +8926.43 * getSMEFTCoeff("Cqu8R",2,2,1,1, 3000.) 
+                +102278. * getSMEFTCoeff("Cqd8R",2,2,0,0, 3000.) 
+                +12499. * getSMEFTCoeff("Cqd8R",2,2,1,1, 3000.) 
+                +35644.8 * getSMEFTCoeff("Cqq3R",2,2,2,2, 3000.) 
+                +4486.71 * getSMEFTCoeff("Cud8R",2,2,2,2, 3000.) 
+                +4442.76 * getSMEFTCoeff("Cqu8R",2,2,2,2, 3000.) 
+                +4441.57 * getSMEFTCoeff("Cqd8R",2,2,2,2, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                -159857. * getSMEFTCoeff("CG", 3000.) 
+                -271665. * getSMEFTCoeff("CuGR",2,2, 3000.) 
+                +182.491 * getSMEFTCoeff("Cqq1R",0,0,2,2, 3000.) 
+                +1178943. * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                +52791.2 * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                +80.7494 * getSMEFTCoeff("Cqq3R",0,0,2,2, 3000.) 
+                +2639571. * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +202937. * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                +104.472 * getSMEFTCoeff("CuuR",0,0,2,2, 3000.) 
+                +1180326. * getSMEFTCoeff("CuuR",0,2,2,0, 3000.) 
+                +52610.7 * getSMEFTCoeff("CuuR",1,2,2,1, 3000.) 
+                +182556. * getSMEFTCoeff("Cud8R",2,2,0,0, 3000.) 
+                +18825.6 * getSMEFTCoeff("Cud8R",2,2,1,1, 3000.) 
+                +95.1785 * getSMEFTCoeff("Cqu1R",0,0,2,2, 3000.) 
+                +204.949 * getSMEFTCoeff("Cqu1R",2,2,0,0, 3000.) 
+                +477852. * getSMEFTCoeff("Cqu8R",0,0,2,2, 3000.) 
+                +31960.9 * getSMEFTCoeff("Cqu8R",1,1,2,2, 3000.) 
+                +295099. * getSMEFTCoeff("Cqu8R",2,2,0,0, 3000.) 
+                +13197.5 * getSMEFTCoeff("Cqu8R",2,2,1,1, 3000.) 
+                +182615. * getSMEFTCoeff("Cqd8R",2,2,0,0, 3000.) 
+                +18803. * getSMEFTCoeff("Cqd8R",2,2,1,1, 3000.) 
+                +50824.1 * getSMEFTCoeff("Cqq3R",2,2,2,2, 3000.) 
+                +6356.04 * getSMEFTCoeff("Cud8R",2,2,2,2, 3000.) 
+                +6339.59 * getSMEFTCoeff("Cqu8R",2,2,2,2, 3000.) 
+                +6400.37 * getSMEFTCoeff("Cqd8R",2,2,2,2, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                -162570. * getSMEFTCoeff("CG", 5000.) 
+                -266789. * getSMEFTCoeff("CuGR",2,2, 5000.) 
+                +96.7866 * getSMEFTCoeff("Cqq1R",0,0,2,2, 5000.) 
+                +1927136. * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +71984.3 * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                +105.855 * getSMEFTCoeff("Cqq3R",0,0,2,2, 5000.) 
+                +4284591. * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +282082. * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                +1925681. * getSMEFTCoeff("CuuR",0,2,2,0, 5000.) 
+                +72051.5 * getSMEFTCoeff("CuuR",1,2,2,1, 5000.) 
+                +62.3371 * getSMEFTCoeff("Cud1R",2,2,0,0, 5000.) 
+                +294213. * getSMEFTCoeff("Cud8R",2,2,0,0, 5000.) 
+                +26320.4 * getSMEFTCoeff("Cud8R",2,2,1,1, 5000.) 
+                +67.3189 * getSMEFTCoeff("Cqu1R",0,0,2,2, 5000.) 
+                +45.2742 * getSMEFTCoeff("Cqu1R",2,2,0,0, 5000.) 
+                +776319. * getSMEFTCoeff("Cqu8R",0,0,2,2, 5000.) 
+                +44286.2 * getSMEFTCoeff("Cqu8R",1,1,2,2, 5000.) 
+                +481869. * getSMEFTCoeff("Cqu8R",2,2,0,0, 5000.) 
+                +18014.3 * getSMEFTCoeff("Cqu8R",2,2,1,1, 5000.) 
+                +294608. * getSMEFTCoeff("Cqd8R",2,2,0,0, 5000.) 
+                +26251.2 * getSMEFTCoeff("Cqd8R",2,2,1,1, 5000.) 
+                +67576.5 * getSMEFTCoeff("Cqq3R",2,2,2,2, 5000.) 
+                +8455.51 * getSMEFTCoeff("Cud8R",2,2,2,2, 5000.) 
+                +8452.26 * getSMEFTCoeff("Cqu8R",2,2,2,2, 5000.) 
+                +8462.31 * getSMEFTCoeff("Cqd8R",2,2,2,2, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                -164714. * getSMEFTCoeff("CG", 5000.) 
+                -263585. * getSMEFTCoeff("CuGR",2,2, 5000.) 
+                +49.4001 * getSMEFTCoeff("Cqq1R",0,0,2,2, 5000.) 
+                +3315978. * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +100934. * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                +7311815. * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +403668. * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                +3314283. * getSMEFTCoeff("CuuR",0,2,2,0, 5000.) 
+                +101078. * getSMEFTCoeff("CuuR",1,2,2,1, 5000.) 
+                +499585. * getSMEFTCoeff("Cud8R",2,2,0,0, 5000.) 
+                +37841.4 * getSMEFTCoeff("Cud8R",2,2,1,1, 5000.) 
+                +78.0719 * getSMEFTCoeff("Cqu1R",0,0,2,2, 5000.) 
+                +1328390. * getSMEFTCoeff("Cqu8R",0,0,2,2, 5000.) 
+                +63053.3 * getSMEFTCoeff("Cqu8R",1,1,2,2, 5000.) 
+                +827998. * getSMEFTCoeff("Cqu8R",2,2,0,0, 5000.) 
+                +25222.8 * getSMEFTCoeff("Cqu8R",2,2,1,1, 5000.) 
+                +42.3619 * getSMEFTCoeff("Cqd1R",2,2,0,0, 5000.) 
+                +499811. * getSMEFTCoeff("Cqd8R",2,2,0,0, 5000.) 
+                +37797.8 * getSMEFTCoeff("Cqd8R",2,2,1,1, 5000.) 
+                +91391.7 * getSMEFTCoeff("Cqq3R",2,2,2,2, 5000.) 
+                +11428.6 * getSMEFTCoeff("Cud8R",2,2,2,2, 5000.) 
+                +11441.1 * getSMEFTCoeff("Cqu8R",2,2,2,2, 5000.) 
+                +11421.9 * getSMEFTCoeff("Cqd8R",2,2,2,2, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                -167592. * getSMEFTCoeff("CG", 5000.) 
+                -261183. * getSMEFTCoeff("CuGR",2,2, 5000.) 
+                -49.7514 * getSMEFTCoeff("Cqq1R",0,0,2,2, 5000.) 
+                +6481126. * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +153199. * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                +135.834 * getSMEFTCoeff("Cqq3R",0,0,2,2, 5000.) 
+                +14130712. * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +630644. * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                +6482823. * getSMEFTCoeff("CuuR",0,2,2,0, 5000.) 
+                +153227. * getSMEFTCoeff("CuuR",1,2,2,1, 5000.) 
+                +956376. * getSMEFTCoeff("Cud8R",2,2,0,0, 5000.) 
+                +59708.7 * getSMEFTCoeff("Cud8R",2,2,1,1, 5000.) 
+                +2576258. * getSMEFTCoeff("Cqu8R",0,0,2,2, 5000.) 
+                +98013.1 * getSMEFTCoeff("Cqu8R",1,1,2,2, 5000.) 
+                +1619076. * getSMEFTCoeff("Cqu8R",2,2,0,0, 5000.) 
+                +38300.1 * getSMEFTCoeff("Cqu8R",2,2,1,1, 5000.) 
+                +73.1333 * getSMEFTCoeff("Cqd1R",2,2,0,0, 5000.) 
+                +956929. * getSMEFTCoeff("Cqd8R",2,2,0,0, 5000.) 
+                +59622.1 * getSMEFTCoeff("Cqd8R",2,2,1,1, 5000.) 
+                +131751. * getSMEFTCoeff("Cqq3R",2,2,2,2, 5000.) 
+                +16489.3 * getSMEFTCoeff("Cud8R",2,2,2,2, 5000.) 
+                +16476.3 * getSMEFTCoeff("Cqu8R",2,2,2,2, 5000.) 
+                +16491. * getSMEFTCoeff("Cqd8R",2,2,2,2, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                -168324. * getSMEFTCoeff("CG", 10000.) 
+                -258504. * getSMEFTCoeff("CuGR",2,2, 10000.) 
+                -54.085 * getSMEFTCoeff("Cqq1R",0,0,2,2, 10000.) 
+                +13314254. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +234539. * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +28454310. * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +1009354. * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +13311606. * getSMEFTCoeff("CuuR",0,2,2,0, 10000.) 
+                +234605. * getSMEFTCoeff("CuuR",1,2,2,1, 10000.) 
+                +1892086. * getSMEFTCoeff("Cud8R",2,2,0,0, 10000.) 
+                +96881.8 * getSMEFTCoeff("Cud8R",2,2,1,1, 10000.) 
+                +55.2644 * getSMEFTCoeff("Cqu1R",2,2,0,0, 10000.) 
+                +5220890. * getSMEFTCoeff("Cqu8R",0,0,2,2, 10000.) 
+                +155412. * getSMEFTCoeff("Cqu8R",1,1,2,2, 10000.) 
+                +3328601. * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +58568. * getSMEFTCoeff("Cqu8R",2,2,1,1, 10000.) 
+                +1892228. * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                +96758. * getSMEFTCoeff("Cqd8R",2,2,1,1, 10000.) 
+                +188187. * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                +23522.3 * getSMEFTCoeff("Cud8R",2,2,2,2, 10000.) 
+                +23530.3 * getSMEFTCoeff("Cqu8R",2,2,2,2, 10000.) 
+                +23515.5 * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
+ 
+        sigmaSMMx_Bin11a0 = 1.; 
+ 
+        sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
+                -167657. * getSMEFTCoeff("CG", 10000.) 
+                -258319. * getSMEFTCoeff("CuGR",2,2, 10000.) 
+                -103.077 * getSMEFTCoeff("Cqq1R",0,0,2,2, 10000.) 
+                +37458649. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +423545. * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +76262592. * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +2013173. * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +37473507. * getSMEFTCoeff("CuuR",0,2,2,0, 10000.) 
+                +423469. * getSMEFTCoeff("CuuR",1,2,2,1, 10000.) 
+                +4846211. * getSMEFTCoeff("Cud8R",2,2,0,0, 10000.) 
+                +198474. * getSMEFTCoeff("Cud8R",2,2,1,1, 10000.) 
+                +14218064. * getSMEFTCoeff("Cqu8R",0,0,2,2, 10000.) 
+                +304712. * getSMEFTCoeff("Cqu8R",1,1,2,2, 10000.) 
+                +9364333. * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +105748. * getSMEFTCoeff("Cqu8R",2,2,1,1, 10000.) 
+                +4849211. * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                +198778. * getSMEFTCoeff("Cqd8R",2,2,1,1, 10000.) 
+                +299131. * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                +37371.6 * getSMEFTCoeff("Cud8R",2,2,2,2, 10000.) 
+                +37361.2 * getSMEFTCoeff("Cqu8R",2,2,2,2, 10000.) 
+                +37358.8 * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin11a0 * sigmaMx_Bin11a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin12a0 = 0.0, sigmaMx_Bin12a0 = 0.0; 
+ 
+        sigmaSMMx_Bin12a0 = 1.; 
+ 
+        sigmaMx_Bin12a0 = sigmaSMMx_Bin12a0 
+                -167057. * getSMEFTCoeff("CG", 10000.) 
+                -257952. * getSMEFTCoeff("CuGR",2,2, 10000.) 
+                +98660688. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +665550. * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +185858238. * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +3857431. * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +98682351. * getSMEFTCoeff("CuuR",0,2,2,0, 10000.) 
+                +665513. * getSMEFTCoeff("CuuR",1,2,2,1, 10000.) 
+                +10901526. * getSMEFTCoeff("Cud8R",2,2,0,0, 10000.) 
+                +398904. * getSMEFTCoeff("Cud8R",2,2,1,1, 10000.) 
+                +109.44 * getSMEFTCoeff("Cqu1R",2,2,0,0, 10000.) 
+                +35563703. * getSMEFTCoeff("Cqu8R",0,0,2,2, 10000.) 
+                +565416. * getSMEFTCoeff("Cqu8R",1,1,2,2, 10000.) 
+                +24655834. * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +165849. * getSMEFTCoeff("Cqu8R",2,2,1,1, 10000.) 
+                +10890659. * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                +398790. * getSMEFTCoeff("Cqd8R",2,2,1,1, 10000.) 
+                +405314. * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                +50395.2 * getSMEFTCoeff("Cud8R",2,2,2,2, 10000.) 
+                +50430.6 * getSMEFTCoeff("Cqu8R",2,2,2,2, 10000.) 
+                +50426.1 * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin12a0 * sigmaMx_Bin12a0/0.048/0.048; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+
+
+
+
+const double NPSMEFTd6General::chi2FCChhtb() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                -147.768 * getSMEFTCoeff("CHWB", 1000.) 
+                -121264. * getSMEFTCoeff("CHl3R",0,0, 1000.) 
+                -121208. * getSMEFTCoeff("CHl3R",1,1, 1000.) 
+                +121124. * getSMEFTCoeff("CllR",0,1,1,0, 1000.) 
+                +105457. * getSMEFTCoeff("CHq3R",0,0, 1000.) 
+                +15846.3 * getSMEFTCoeff("CHq3R",1,1, 1000.) 
+                +121169. * getSMEFTCoeff("CHq3R",2,2, 1000.) 
+                +7288302. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1000.) 
+                +1086052. * getSMEFTCoeff("Cqq1R",1,2,2,1, 1000.) 
+                +43690511. * getSMEFTCoeff("Cqq3R",0,0,2,2, 1000.) 
+                -7288977. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1000.) 
+                +6515282. * getSMEFTCoeff("Cqq3R",1,1,2,2, 1000.) 
+                -1086309. * getSMEFTCoeff("Cqq3R",1,2,2,1, 1000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.034/0.034; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                +161.601 * getSMEFTCoeff("CHD", 1500.) 
+                -121270. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -121262. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +121164. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +107415. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +13844.9 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +121350. * getSMEFTCoeff("CHq3R",2,2, 1500.) 
+                +13621866. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +1743275. * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +81725539. * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                -13616620. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +10464637. * getSMEFTCoeff("Cqq3R",1,1,2,2, 1500.) 
+                -1743331. * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.035/0.035; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                +93.633 * getSMEFTCoeff("CHD", 1500.) 
+                +143.793 * getSMEFTCoeff("CHWB", 1500.) 
+                -121228. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -121191. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +121532. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +109136. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +12299.4 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +121382. * getSMEFTCoeff("CHq3R",2,2, 1500.) 
+                +147.138 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1500.) 
+                +21913430. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +2464463. * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +131494757. * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                -21907798. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +14779956. * getSMEFTCoeff("Cqq3R",1,1,2,2, 1500.) 
+                -2462136. * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.037/0.037; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                -121292. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -121292. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +121181. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +110645. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +10677.7 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +121165. * getSMEFTCoeff("CHq3R",2,2, 1500.) 
+                +36195717. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +3483149. * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +217135392. * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                -36170939. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +20891447. * getSMEFTCoeff("Cqq3R",1,1,2,2, 1500.) 
+                -3482777. * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.039/0.039; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                +111.75 * getSMEFTCoeff("CHD", 3000.) 
+                +175.607 * getSMEFTCoeff("CHWB", 3000.) 
+                -121165. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -121212. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +121711. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +112676. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +8860.15 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +121536. * getSMEFTCoeff("CHq3R",2,2, 3000.) 
+                +143.678 * getSMEFTCoeff("Cqq1R",0,0,2,2, 3000.) 
+                +67229757. * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                +5246536. * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                +403423883. * getSMEFTCoeff("Cqq3R",0,0,2,2, 3000.) 
+                -67235441. * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +31498132. * getSMEFTCoeff("Cqq3R",1,1,2,2, 3000.) 
+                -5245562. * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.045/0.045; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                -121188. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -121221. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +121324. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +114080. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +7304.79 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +121291. * getSMEFTCoeff("CHq3R",2,2, 3000.) 
+                -124.891 * getSMEFTCoeff("Cqq1R",0,0,2,2, 3000.) 
+                +114966160. * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                +7349951. * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                +689743527. * getSMEFTCoeff("Cqq3R",0,0,2,2, 3000.) 
+                -114937185. * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +44039379. * getSMEFTCoeff("Cqq3R",1,1,2,2, 3000.) 
+                -7352753. * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.053/0.053; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                +88.8034 * getSMEFTCoeff("CHD", 5000.) 
+                +118.404 * getSMEFTCoeff("CHWB", 5000.) 
+                -121208. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -121144. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +121453. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +115148. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +6245.84 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +121350. * getSMEFTCoeff("CHq3R",2,2, 5000.) 
+                +162.806 * getSMEFTCoeff("Cqq1R",0,0,2,2, 5000.) 
+                +175201465. * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +9457881. * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                +1051897980. * getSMEFTCoeff("Cqq3R",0,0,2,2, 5000.) 
+                -175261052. * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +56728658. * getSMEFTCoeff("Cqq3R",1,1,2,2, 5000.) 
+                -9457607. * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.061/0.061; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                +152.164 * getSMEFTCoeff("CHD", 5000.) 
+                -121203. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -121196. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +121113. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +116167. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +5224.68 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +121303. * getSMEFTCoeff("CHq3R",2,2, 5000.) 
+                +111.745 * getSMEFTCoeff("Cqq1R",0,0,2,2, 5000.) 
+                +275477603. * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +12208678. * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                +1652462863. * getSMEFTCoeff("Cqq3R",0,0,2,2, 5000.) 
+                -275425868. * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +73238160. * getSMEFTCoeff("Cqq3R",1,1,2,2, 5000.) 
+                -12211198. * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.09/0.09; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                -121195. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -121250. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +121190. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +116779. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +4093.79 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +121074. * getSMEFTCoeff("CHq3R",2,2, 5000.) 
+                +469404075. * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +16358803. * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                +2816732539. * getSMEFTCoeff("Cqq3R",0,0,2,2, 5000.) 
+                -469189045. * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +98061666. * getSMEFTCoeff("Cqq3R",1,1,2,2, 5000.) 
+                -16356698. * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.141/0.141; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                -244.679 * getSMEFTCoeff("CHD", 10000.) 
+                -177.555 * getSMEFTCoeff("CHWB", 10000.) 
+                -121335. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -121218. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +120962. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                +117931. * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +3170. * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +120832. * getSMEFTCoeff("CHq3R",2,2, 10000.) 
+                +818737704. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +21799490. * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +4915894667. * getSMEFTCoeff("Cqq3R",0,0,2,2, 10000.) 
+                -819765641. * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +130766534. * getSMEFTCoeff("Cqq3R",1,1,2,2, 10000.) 
+                -21790684. * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.115/0.115; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
+ 
+        sigmaSMMx_Bin11a0 = 1.; 
+ 
+        sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
+                +144.446 * getSMEFTCoeff("CHD", 10000.) 
+                -121234. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -121137. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +121678. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                +119363. * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2312.28 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +121334. * getSMEFTCoeff("CHq3R",2,2, 10000.) 
+                +151.324 * getSMEFTCoeff("Cqq1R",0,0,2,2, 10000.) 
+                +1719827513. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +31882248. * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +10328815247. * getSMEFTCoeff("Cqq3R",0,0,2,2, 10000.) 
+                -1721626115. * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +191466680. * getSMEFTCoeff("Cqq3R",1,1,2,2, 10000.) 
+                -31928941. * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin11a0 * sigmaMx_Bin11a0/0.36/0.36; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+
+
+
+
+
+
+
+const double NPSMEFTd6General::chi2FCChhHW() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMpTH_Bin1a0 = 0.0, sigmapTH_Bin1a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin1a0 = 1.; 
+ 
+        sigmapTH_Bin1a0 = sigmaSMpTH_Bin1a0 
+                +825935. * getSMEFTCoeff("CHW", 80.) 
+                -31177.2 * getSMEFTCoeff("CHD", 80.) 
+                +120632. * getSMEFTCoeff("CHbox", 80.) 
+                -121373. * getSMEFTCoeff("CHl3R",0,0, 80.) 
+                -122044. * getSMEFTCoeff("CHl3R",1,1, 80.) 
+                +120442. * getSMEFTCoeff("CllR",0,1,1,0, 80.) 
+                +871101. * getSMEFTCoeff("CHq3R",0,0, 80.) 
+                +272549. * getSMEFTCoeff("CHq3R",1,1, 80.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin1a0 * sigmapTH_Bin1a0/0.028/0.028; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin2a0 = 0.0, sigmapTH_Bin2a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin2a0 = 1.; 
+ 
+        sigmapTH_Bin2a0 = sigmaSMpTH_Bin2a0 
+                +952699. * getSMEFTCoeff("CHW", 125.) 
+                -30326. * getSMEFTCoeff("CHD", 125.) 
+                +121144. * getSMEFTCoeff("CHbox", 125.) 
+                -121838. * getSMEFTCoeff("CHl3R",0,0, 125.) 
+                -121700. * getSMEFTCoeff("CHl3R",1,1, 125.) 
+                +120614. * getSMEFTCoeff("CllR",0,1,1,0, 125.) 
+                +1549374. * getSMEFTCoeff("CHq3R",0,0, 125.) 
+                +438492. * getSMEFTCoeff("CHq3R",1,1, 125.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin2a0 * sigmapTH_Bin2a0/0.0268/0.0268; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin3a0 = 0.0, sigmapTH_Bin3a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin3a0 = 1.; 
+ 
+        sigmapTH_Bin3a0 = sigmaSMpTH_Bin3a0 
+                +1052877. * getSMEFTCoeff("CHW", 240.) 
+                -30446. * getSMEFTCoeff("CHD", 240.) 
+                +121012. * getSMEFTCoeff("CHbox", 240.) 
+                -121781. * getSMEFTCoeff("CHl3R",0,0, 240.) 
+                -121321. * getSMEFTCoeff("CHl3R",1,1, 240.) 
+                +120885. * getSMEFTCoeff("CllR",0,1,1,0, 240.) 
+                +3354452. * getSMEFTCoeff("CHq3R",0,0, 240.) 
+                +823967. * getSMEFTCoeff("CHq3R",1,1, 240.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin3a0 * sigmapTH_Bin3a0/0.0252/0.0252; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin4a0 = 0.0, sigmapTH_Bin4a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin4a0 = 1.; 
+ 
+        sigmapTH_Bin4a0 = sigmaSMpTH_Bin4a0 
+                +1103692. * getSMEFTCoeff("CHW", 365.) 
+                -30291.4 * getSMEFTCoeff("CHD", 365.) 
+                +120544. * getSMEFTCoeff("CHbox", 365.) 
+                -121094. * getSMEFTCoeff("CHl3R",0,0, 365.) 
+                -121804. * getSMEFTCoeff("CHl3R",1,1, 365.) 
+                +121320. * getSMEFTCoeff("CllR",0,1,1,0, 365.) 
+                +7734609. * getSMEFTCoeff("CHq3R",0,0, 365.) 
+                +1608098. * getSMEFTCoeff("CHq3R",1,1, 365.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin4a0 * sigmapTH_Bin4a0/0.0329/0.0329; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin5a0 = 0.0, sigmapTH_Bin5a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin5a0 = 1.; 
+ 
+        sigmapTH_Bin5a0 = sigmaSMpTH_Bin5a0 
+                +1122075. * getSMEFTCoeff("CHW", 550.) 
+                -30383.7 * getSMEFTCoeff("CHD", 550.) 
+                +120914. * getSMEFTCoeff("CHbox", 550.) 
+                -121403. * getSMEFTCoeff("CHl3R",0,0, 550.) 
+                -121937. * getSMEFTCoeff("CHl3R",1,1, 550.) 
+                +122160. * getSMEFTCoeff("CllR",0,1,1,0, 550.) 
+                +17932075. * getSMEFTCoeff("CHq3R",0,0, 550.) 
+                +3115786. * getSMEFTCoeff("CHq3R",1,1, 550.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin5a0 * sigmapTH_Bin5a0/0.0519/0.0519; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMpTH_Bin6a0 = 0.0, sigmapTH_Bin6a0 = 0.0; 
+ 
+        sigmaSMpTH_Bin6a0 = 1.; 
+ 
+        sigmapTH_Bin6a0 = sigmaSMpTH_Bin6a0 
+                +1118903. * getSMEFTCoeff("CHW", 1000.) 
+                -30139. * getSMEFTCoeff("CHD", 1000.) 
+                +120609. * getSMEFTCoeff("CHbox", 1000.) 
+                -120545. * getSMEFTCoeff("CHl3R",0,0, 1000.) 
+                -121340. * getSMEFTCoeff("CHl3R",1,1, 1000.) 
+                +121674. * getSMEFTCoeff("CllR",0,1,1,0, 1000.) 
+                +63346560. * getSMEFTCoeff("CHq3R",0,0, 1000.) 
+                +7533940. * getSMEFTCoeff("CHq3R",1,1, 1000.) 
+                ;
+ 
+        dchi2Tot += sigmapTH_Bin6a0 * sigmapTH_Bin6a0/0.0813/0.0813; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+
+
+
+
+const double NPSMEFTd6General::chi2FCChhee() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                -97243.9 * getSMEFTCoeff("CHD", 1500.) 
+                -224494. * getSMEFTCoeff("CHWB", 1500.) 
+                +68160.2 * getSMEFTCoeff("CHl1R",0,0, 1500.) 
+                -53071.3 * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -121155. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                -14006.5 * getSMEFTCoeff("CHeR",0,0, 1500.) 
+                -7753.22 * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +1994.53 * getSMEFTCoeff("CHq1R",1,1, 1500.) 
+                +47352.4 * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +6451.1 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +6820.81 * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                +245.892 * getSMEFTCoeff("CHuR",1,1, 1500.) 
+                -2539.73 * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                -664.844 * getSMEFTCoeff("CHdR",1,1, 1500.) 
+                +121382. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                -16512970. * getSMEFTCoeff("Clq1R",0,0,0,0, 1500.) 
+                +1068334. * getSMEFTCoeff("Clq1R",0,0,1,1, 1500.) 
+                +52226003. * getSMEFTCoeff("Clq3R",0,0,0,0, 1500.) 
+                +6758647. * getSMEFTCoeff("Clq3R",0,0,1,1, 1500.) 
+                -24046985. * getSMEFTCoeff("CeuR",0,0,0,0, 1500.) 
+                -1988406. * getSMEFTCoeff("CeuR",0,0,1,1, 1500.) 
+                +7896534. * getSMEFTCoeff("CedR",0,0,0,0, 1500.) 
+                +1320819. * getSMEFTCoeff("CedR",0,0,1,1, 1500.) 
+                -12006504. * getSMEFTCoeff("CluR",0,0,0,0, 1500.) 
+                -992334. * getSMEFTCoeff("CluR",0,0,1,1, 1500.) 
+                +3943772. * getSMEFTCoeff("CldR",0,0,0,0, 1500.) 
+                +659974. * getSMEFTCoeff("CldR",0,0,1,1, 1500.) 
+                -9780758. * getSMEFTCoeff("CqeR",0,0,0,0, 1500.) 
+                -1327510. * getSMEFTCoeff("CqeR",1,1,0,0, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.016/0.016; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -97431.3 * getSMEFTCoeff("CHD", 1500.) 
+                -225557. * getSMEFTCoeff("CHWB", 1500.) 
+                +68230.9 * getSMEFTCoeff("CHl1R",0,0, 1500.) 
+                -52888.6 * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -120971. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                -13485.7 * getSMEFTCoeff("CHeR",0,0, 1500.) 
+                -8144.46 * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +2169.65 * getSMEFTCoeff("CHq1R",1,1, 1500.) 
+                +48465.2 * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +6263.02 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +7414.12 * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                +817.106 * getSMEFTCoeff("CHuR",1,1, 1500.) 
+                -1685.66 * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                -35.3178 * getSMEFTCoeff("CHdR",1,1, 1500.) 
+                +121349. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                -26004523. * getSMEFTCoeff("Clq1R",0,0,0,0, 1500.) 
+                +1644928. * getSMEFTCoeff("Clq1R",0,0,1,1, 1500.) 
+                +79690894. * getSMEFTCoeff("Clq3R",0,0,0,0, 1500.) 
+                +9126861. * getSMEFTCoeff("Clq3R",0,0,1,1, 1500.) 
+                -36979870. * getSMEFTCoeff("CeuR",0,0,0,0, 1500.) 
+                -2617646. * getSMEFTCoeff("CeuR",0,0,1,1, 1500.) 
+                +11892407. * getSMEFTCoeff("CedR",0,0,0,0, 1500.) 
+                +1764025. * getSMEFTCoeff("CedR",0,0,1,1, 1500.) 
+                -18470041. * getSMEFTCoeff("CluR",0,0,0,0, 1500.) 
+                -1307847. * getSMEFTCoeff("CluR",0,0,1,1, 1500.) 
+                +5945870. * getSMEFTCoeff("CldR",0,0,0,0, 1500.) 
+                +881947. * getSMEFTCoeff("CldR",0,0,1,1, 1500.) 
+                -14924181. * getSMEFTCoeff("CqeR",0,0,0,0, 1500.) 
+                -1798475. * getSMEFTCoeff("CqeR",1,1,0,0, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.018/0.018; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                -98062.8 * getSMEFTCoeff("CHD", 3000.) 
+                -226952. * getSMEFTCoeff("CHWB", 3000.) 
+                +67360.1 * getSMEFTCoeff("CHl1R",0,0, 3000.) 
+                -53914.6 * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -121006. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                -13980.9 * getSMEFTCoeff("CHeR",0,0, 3000.) 
+                -9274.66 * getSMEFTCoeff("CHq1R",0,0, 3000.) 
+                +1556.94 * getSMEFTCoeff("CHq1R",1,1, 3000.) 
+                +48020. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +4867.43 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +7147.53 * getSMEFTCoeff("CHuR",0,0, 3000.) 
+                -67.0061 * getSMEFTCoeff("CHuR",1,1, 3000.) 
+                -2191.61 * getSMEFTCoeff("CHdR",0,0, 3000.) 
+                -280.035 * getSMEFTCoeff("CHdR",1,1, 3000.) 
+                +120868. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                -42247777. * getSMEFTCoeff("Clq1R",0,0,0,0, 3000.) 
+                +2606472. * getSMEFTCoeff("Clq1R",0,0,1,1, 3000.) 
+                +125977827. * getSMEFTCoeff("Clq3R",0,0,0,0, 3000.) 
+                +12555813. * getSMEFTCoeff("Clq3R",0,0,1,1, 3000.) 
+                -58848080. * getSMEFTCoeff("CeuR",0,0,0,0, 3000.) 
+                -3477668. * getSMEFTCoeff("CeuR",0,0,1,1, 3000.) 
+                +18556311. * getSMEFTCoeff("CedR",0,0,0,0, 3000.) 
+                +2384597. * getSMEFTCoeff("CedR",0,0,1,1, 3000.) 
+                -29411798. * getSMEFTCoeff("CluR",0,0,0,0, 3000.) 
+                -1738284. * getSMEFTCoeff("CluR",0,0,1,1, 3000.) 
+                +9276242. * getSMEFTCoeff("CldR",0,0,0,0, 3000.) 
+                +1191679. * getSMEFTCoeff("CldR",0,0,1,1, 3000.) 
+                -23571246. * getSMEFTCoeff("CqeR",0,0,0,0, 3000.) 
+                -2478389. * getSMEFTCoeff("CqeR",1,1,0,0, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.018/0.018; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                -98707.6 * getSMEFTCoeff("CHD", 3000.) 
+                -227449. * getSMEFTCoeff("CHWB", 3000.) 
+                +67415.5 * getSMEFTCoeff("CHl1R",0,0, 3000.) 
+                -53947.8 * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -120712. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                -13834.7 * getSMEFTCoeff("CHeR",0,0, 3000.) 
+                -9431.73 * getSMEFTCoeff("CHq1R",0,0, 3000.) 
+                +1736.57 * getSMEFTCoeff("CHq1R",1,1, 3000.) 
+                +48817.1 * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +4507.41 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +7618.35 * getSMEFTCoeff("CHuR",0,0, 3000.) 
+                +157.79 * getSMEFTCoeff("CHuR",1,1, 3000.) 
+                -2213. * getSMEFTCoeff("CHdR",0,0, 3000.) 
+                -325.428 * getSMEFTCoeff("CHdR",1,1, 3000.) 
+                +121122. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                -74171980. * getSMEFTCoeff("Clq1R",0,0,0,0, 3000.) 
+                +4457012. * getSMEFTCoeff("Clq1R",0,0,1,1, 3000.) 
+                +215110061. * getSMEFTCoeff("Clq3R",0,0,0,0, 3000.) 
+                +18190400. * getSMEFTCoeff("Clq3R",0,0,1,1, 3000.) 
+                -101246802. * getSMEFTCoeff("CeuR",0,0,0,0, 3000.) 
+                -4802433. * getSMEFTCoeff("CeuR",0,0,1,1, 3000.) 
+                +31289550. * getSMEFTCoeff("CedR",0,0,0,0, 3000.) 
+                +3371080. * getSMEFTCoeff("CedR",0,0,1,1, 3000.) 
+                -50630837. * getSMEFTCoeff("CluR",0,0,0,0, 3000.) 
+                -2402130. * getSMEFTCoeff("CluR",0,0,1,1, 3000.) 
+                +15636777. * getSMEFTCoeff("CldR",0,0,0,0, 3000.) 
+                +1685268. * getSMEFTCoeff("CldR",0,0,1,1, 3000.) 
+                -40235433. * getSMEFTCoeff("CqeR",0,0,0,0, 3000.) 
+                -3603419. * getSMEFTCoeff("CqeR",1,1,0,0, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.024/0.024; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                -98921.6 * getSMEFTCoeff("CHD", 5000.) 
+                -228610. * getSMEFTCoeff("CHWB", 5000.) 
+                +67326.1 * getSMEFTCoeff("CHl1R",0,0, 5000.) 
+                -54409.2 * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -120832. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                -13825.3 * getSMEFTCoeff("CHeR",0,0, 5000.) 
+                -9935.28 * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1541.2 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +49061.7 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3704.34 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7576.15 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                -89.8022 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2416.16 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -124.388 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121232. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -115112421. * getSMEFTCoeff("Clq1R",0,0,0,0, 5000.) 
+                +6775448. * getSMEFTCoeff("Clq1R",0,0,1,1, 5000.) 
+                +327497246. * getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) 
+                +24270920. * getSMEFTCoeff("Clq3R",0,0,1,1, 5000.) 
+                -154916017. * getSMEFTCoeff("CeuR",0,0,0,0, 5000.) 
+                -6117874. * getSMEFTCoeff("CeuR",0,0,1,1, 5000.) 
+                +47187152. * getSMEFTCoeff("CedR",0,0,0,0, 5000.) 
+                +4389694. * getSMEFTCoeff("CedR",0,0,1,1, 5000.) 
+                -77458421. * getSMEFTCoeff("CluR",0,0,0,0, 5000.) 
+                -3060690. * getSMEFTCoeff("CluR",0,0,1,1, 5000.) 
+                +23592827. * getSMEFTCoeff("CldR",0,0,0,0, 5000.) 
+                +2194638. * getSMEFTCoeff("CldR",0,0,1,1, 5000.) 
+                -61234314. * getSMEFTCoeff("CqeR",0,0,0,0, 5000.) 
+                -4822872. * getSMEFTCoeff("CqeR",1,1,0,0, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.035/0.035; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                -99174.4 * getSMEFTCoeff("CHD", 5000.) 
+                -229078. * getSMEFTCoeff("CHWB", 5000.) 
+                +67086.3 * getSMEFTCoeff("CHl1R",0,0, 5000.) 
+                -54290.7 * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -120971. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                -13556.3 * getSMEFTCoeff("CHeR",0,0, 5000.) 
+                -10027.9 * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1665.28 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +49622.2 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3337.55 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7620.7 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                -66.0873 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2056.13 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -205.831 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121935. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -165357045. * getSMEFTCoeff("Clq1R",0,0,0,0, 5000.) 
+                +9560132. * getSMEFTCoeff("Clq1R",0,0,1,1, 5000.) 
+                +462918764. * getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) 
+                +30752480. * getSMEFTCoeff("Clq3R",0,0,1,1, 5000.) 
+                -219834237. * getSMEFTCoeff("CeuR",0,0,0,0, 5000.) 
+                -7416469. * getSMEFTCoeff("CeuR",0,0,1,1, 5000.) 
+                +66220661. * getSMEFTCoeff("CedR",0,0,0,0, 5000.) 
+                +5428941. * getSMEFTCoeff("CedR",0,0,1,1, 5000.) 
+                -109945836. * getSMEFTCoeff("CluR",0,0,0,0, 5000.) 
+                -3707916. * getSMEFTCoeff("CluR",0,0,1,1, 5000.) 
+                +33104822. * getSMEFTCoeff("CldR",0,0,0,0, 5000.) 
+                +2715948. * getSMEFTCoeff("CldR",0,0,1,1, 5000.) 
+                -86507797. * getSMEFTCoeff("CqeR",0,0,0,0, 5000.) 
+                -6129870. * getSMEFTCoeff("CqeR",1,1,0,0, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.05/0.05; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                -99614.4 * getSMEFTCoeff("CHD", 5000.) 
+                -229696. * getSMEFTCoeff("CHWB", 5000.) 
+                +66424.9 * getSMEFTCoeff("CHl1R",0,0, 5000.) 
+                -54581.4 * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -121183. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                -13639. * getSMEFTCoeff("CHeR",0,0, 5000.) 
+                -10719. * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1388.78 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +49101.3 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +2685.5 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7396.94 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                -187.903 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2401.12 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -430.348 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121527. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -224838017. * getSMEFTCoeff("Clq1R",0,0,0,0, 5000.) 
+                +12758607. * getSMEFTCoeff("Clq1R",0,0,1,1, 5000.) 
+                +621668490. * getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) 
+                +37584429. * getSMEFTCoeff("Clq3R",0,0,1,1, 5000.) 
+                -296119823. * getSMEFTCoeff("CeuR",0,0,0,0, 5000.) 
+                -8684011. * getSMEFTCoeff("CeuR",0,0,1,1, 5000.) 
+                +88235244. * getSMEFTCoeff("CedR",0,0,0,0, 5000.) 
+                +6488458. * getSMEFTCoeff("CedR",0,0,1,1, 5000.) 
+                -148116395. * getSMEFTCoeff("CluR",0,0,0,0, 5000.) 
+                -4343738. * getSMEFTCoeff("CluR",0,0,1,1, 5000.) 
+                +44110429. * getSMEFTCoeff("CldR",0,0,0,0, 5000.) 
+                +3246640. * getSMEFTCoeff("CldR",0,0,1,1, 5000.) 
+                -116097164. * getSMEFTCoeff("CqeR",0,0,0,0, 5000.) 
+                -7514893. * getSMEFTCoeff("CqeR",1,1,0,0, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.073/0.073; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                -99724.4 * getSMEFTCoeff("CHD", 5000.) 
+                -230422. * getSMEFTCoeff("CHWB", 5000.) 
+                +66703.7 * getSMEFTCoeff("CHl1R",0,0, 5000.) 
+                -54824.9 * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -120962. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                -13457.4 * getSMEFTCoeff("CHeR",0,0, 5000.) 
+                -10579.1 * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1345.24 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +49965.1 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3605. * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7888.22 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                +354.862 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -1842.3 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -42.285 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +122024. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -322382967. * getSMEFTCoeff("Clq1R",0,0,0,0, 5000.) 
+                +17844141. * getSMEFTCoeff("Clq1R",0,0,1,1, 5000.) 
+                +874171560. * getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) 
+                +47408294. * getSMEFTCoeff("Clq3R",0,0,1,1, 5000.) 
+                -418491496. * getSMEFTCoeff("CeuR",0,0,0,0, 5000.) 
+                -10345114. * getSMEFTCoeff("CeuR",0,0,1,1, 5000.) 
+                +122816082. * getSMEFTCoeff("CedR",0,0,0,0, 5000.) 
+                +7949074. * getSMEFTCoeff("CedR",0,0,1,1, 5000.) 
+                -209389627. * getSMEFTCoeff("CluR",0,0,0,0, 5000.) 
+                -5171526. * getSMEFTCoeff("CluR",0,0,1,1, 5000.) 
+                +61414928. * getSMEFTCoeff("CldR",0,0,0,0, 5000.) 
+                +3975783. * getSMEFTCoeff("CldR",0,0,1,1, 5000.) 
+                -163177024. * getSMEFTCoeff("CqeR",0,0,0,0, 5000.) 
+                -9508995. * getSMEFTCoeff("CqeR",1,1,0,0, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.095/0.095; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                -100510. * getSMEFTCoeff("CHD", 10000.) 
+                -231517. * getSMEFTCoeff("CHWB", 10000.) 
+                +65608.5 * getSMEFTCoeff("CHl1R",0,0, 10000.) 
+                -55345.1 * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -121121. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                -13849.9 * getSMEFTCoeff("CHeR",0,0, 10000.) 
+                -11933.3 * getSMEFTCoeff("CHq1R",0,0, 10000.) 
+                +733.784 * getSMEFTCoeff("CHq1R",1,1, 10000.) 
+                +49410.4 * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2037.46 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +7380.19 * getSMEFTCoeff("CHuR",0,0, 10000.) 
+                -264.319 * getSMEFTCoeff("CHuR",1,1, 10000.) 
+                -2219.15 * getSMEFTCoeff("CHdR",0,0, 10000.) 
+                -391.998 * getSMEFTCoeff("CHdR",1,1, 10000.) 
+                +121692. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                -520854317. * getSMEFTCoeff("Clq1R",0,0,0,0, 10000.) 
+                +27550583. * getSMEFTCoeff("Clq1R",0,0,1,1, 10000.) 
+                +1366259680. * getSMEFTCoeff("Clq3R",0,0,0,0, 10000.) 
+                +64316523. * getSMEFTCoeff("Clq3R",0,0,1,1, 10000.) 
+                -660010778. * getSMEFTCoeff("CeuR",0,0,0,0, 10000.) 
+                -12872641. * getSMEFTCoeff("CeuR",0,0,1,1, 10000.) 
+                +188267289. * getSMEFTCoeff("CedR",0,0,0,0, 10000.) 
+                +10361421. * getSMEFTCoeff("CedR",0,0,1,1, 10000.) 
+                -330134709. * getSMEFTCoeff("CluR",0,0,0,0, 10000.) 
+                -6435948. * getSMEFTCoeff("CluR",0,0,1,1, 10000.) 
+                +94115987. * getSMEFTCoeff("CldR",0,0,0,0, 10000.) 
+                +5180936. * getSMEFTCoeff("CldR",0,0,1,1, 10000.) 
+                -254724895. * getSMEFTCoeff("CqeR",0,0,0,0, 10000.) 
+                -12959975. * getSMEFTCoeff("CqeR",1,1,0,0, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.174/0.174; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                -101407. * getSMEFTCoeff("CHD", 10000.) 
+                -234221. * getSMEFTCoeff("CHWB", 10000.) 
+                +65328.8 * getSMEFTCoeff("CHl1R",0,0, 10000.) 
+                -55952.8 * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -121205. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                -13344.3 * getSMEFTCoeff("CHeR",0,0, 10000.) 
+                -13274.2 * getSMEFTCoeff("CHq1R",0,0, 10000.) 
+                +678.518 * getSMEFTCoeff("CHq1R",1,1, 10000.) 
+                +49437.5 * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2289.93 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +7604.6 * getSMEFTCoeff("CHuR",0,0, 10000.) 
+                -186.358 * getSMEFTCoeff("CHuR",1,1, 10000.) 
+                -2157.98 * getSMEFTCoeff("CHdR",0,0, 10000.) 
+                -356.506 * getSMEFTCoeff("CHdR",1,1, 10000.) 
+                +121358. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                -981790301. * getSMEFTCoeff("Clq1R",0,0,0,0, 10000.) 
+                +46891875. * getSMEFTCoeff("Clq1R",0,0,1,1, 10000.) 
+                +2396912570. * getSMEFTCoeff("Clq3R",0,0,0,0, 10000.) 
+                +93748581. * getSMEFTCoeff("Clq3R",0,0,1,1, 10000.) 
+                -1182027332. * getSMEFTCoeff("CeuR",0,0,0,0, 10000.) 
+                -16375829. * getSMEFTCoeff("CeuR",0,0,1,1, 10000.) 
+                +315232994. * getSMEFTCoeff("CedR",0,0,0,0, 10000.) 
+                +14396262. * getSMEFTCoeff("CedR",0,0,1,1, 10000.) 
+                -591320866. * getSMEFTCoeff("CluR",0,0,0,0, 10000.) 
+                -8188396. * getSMEFTCoeff("CluR",0,0,1,1, 10000.) 
+                +157627105. * getSMEFTCoeff("CldR",0,0,0,0, 10000.) 
+                +7202228. * getSMEFTCoeff("CldR",0,0,1,1, 10000.) 
+                -445651523. * getSMEFTCoeff("CqeR",0,0,0,0, 10000.) 
+                -19010952. * getSMEFTCoeff("CqeR",1,1,0,0, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.441/0.441; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+const double NPSMEFTd6General::chi2FCChhmumu() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                -97243.9 * getSMEFTCoeff("CHD", 1500.) 
+                -224494. * getSMEFTCoeff("CHWB", 1500.) 
+                +68160.2 * getSMEFTCoeff("CHl1R",1,1, 1500.) 
+                -121228. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -52886. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                -14006.5 * getSMEFTCoeff("CHeR",1,1, 1500.) 
+                -7753.22 * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +1994.53 * getSMEFTCoeff("CHq1R",1,1, 1500.) 
+                +47352.4 * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +6451.1 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +6820.81 * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                +245.892 * getSMEFTCoeff("CHuR",1,1, 1500.) 
+                -2539.73 * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                -664.844 * getSMEFTCoeff("CHdR",1,1, 1500.) 
+                +121382. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                -16512970. * getSMEFTCoeff("Clq1R",1,1,0,0, 1500.) 
+                +1068334. * getSMEFTCoeff("Clq1R",1,1,1,1, 1500.) 
+                +52226003. * getSMEFTCoeff("Clq3R",1,1,0,0, 1500.) 
+                +6758647. * getSMEFTCoeff("Clq3R",1,1,1,1, 1500.) 
+                -24046985. * getSMEFTCoeff("CeuR",1,1,0,0, 1500.) 
+                -1988406. * getSMEFTCoeff("CeuR",1,1,1,1, 1500.) 
+                +7896534. * getSMEFTCoeff("CedR",1,1,0,0, 1500.) 
+                +1320819. * getSMEFTCoeff("CedR",1,1,1,1, 1500.) 
+                -12006504. * getSMEFTCoeff("CluR",1,1,0,0, 1500.) 
+                -992334. * getSMEFTCoeff("CluR",1,1,1,1, 1500.) 
+                +3943772. * getSMEFTCoeff("CldR",1,1,0,0, 1500.) 
+                +659974. * getSMEFTCoeff("CldR",1,1,1,1, 1500.) 
+                -9780758. * getSMEFTCoeff("CqeR",0,0,1,1, 1500.) 
+                -1327510. * getSMEFTCoeff("CqeR",1,1,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.012/0.012; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -97431.3 * getSMEFTCoeff("CHD", 1500.) 
+                -225557. * getSMEFTCoeff("CHWB", 1500.) 
+                +68230.9 * getSMEFTCoeff("CHl1R",1,1, 1500.) 
+                -120793. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -53396.6 * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                -13485.7 * getSMEFTCoeff("CHeR",1,1, 1500.) 
+                -8144.46 * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +2169.65 * getSMEFTCoeff("CHq1R",1,1, 1500.) 
+                +48465.2 * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +6263.02 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +7414.12 * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                +817.106 * getSMEFTCoeff("CHuR",1,1, 1500.) 
+                -1685.66 * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                -35.3178 * getSMEFTCoeff("CHdR",1,1, 1500.) 
+                +121349. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                -26004523. * getSMEFTCoeff("Clq1R",1,1,0,0, 1500.) 
+                +1644928. * getSMEFTCoeff("Clq1R",1,1,1,1, 1500.) 
+                +79690894. * getSMEFTCoeff("Clq3R",1,1,0,0, 1500.) 
+                +9126861. * getSMEFTCoeff("Clq3R",1,1,1,1, 1500.) 
+                -36979870. * getSMEFTCoeff("CeuR",1,1,0,0, 1500.) 
+                -2617646. * getSMEFTCoeff("CeuR",1,1,1,1, 1500.) 
+                +11892407. * getSMEFTCoeff("CedR",1,1,0,0, 1500.) 
+                +1764025. * getSMEFTCoeff("CedR",1,1,1,1, 1500.) 
+                -18470041. * getSMEFTCoeff("CluR",1,1,0,0, 1500.) 
+                -1307847. * getSMEFTCoeff("CluR",1,1,1,1, 1500.) 
+                +5945870. * getSMEFTCoeff("CldR",1,1,0,0, 1500.) 
+                +881947. * getSMEFTCoeff("CldR",1,1,1,1, 1500.) 
+                -14924181. * getSMEFTCoeff("CqeR",0,0,1,1, 1500.) 
+                -1798475. * getSMEFTCoeff("CqeR",1,1,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.013/0.013; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                -98062.8 * getSMEFTCoeff("CHD", 3000.) 
+                -226952. * getSMEFTCoeff("CHWB", 3000.) 
+                +67360.1 * getSMEFTCoeff("CHl1R",1,1, 3000.) 
+                -121126. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -53503.1 * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                -13980.9 * getSMEFTCoeff("CHeR",1,1, 3000.) 
+                -9274.66 * getSMEFTCoeff("CHq1R",0,0, 3000.) 
+                +1556.94 * getSMEFTCoeff("CHq1R",1,1, 3000.) 
+                +48020. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +4867.43 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +7147.53 * getSMEFTCoeff("CHuR",0,0, 3000.) 
+                -67.0061 * getSMEFTCoeff("CHuR",1,1, 3000.) 
+                -2191.61 * getSMEFTCoeff("CHdR",0,0, 3000.) 
+                -280.035 * getSMEFTCoeff("CHdR",1,1, 3000.) 
+                +120868. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                -42247777. * getSMEFTCoeff("Clq1R",1,1,0,0, 3000.) 
+                +2606472. * getSMEFTCoeff("Clq1R",1,1,1,1, 3000.) 
+                +125977827. * getSMEFTCoeff("Clq3R",1,1,0,0, 3000.) 
+                +12555813. * getSMEFTCoeff("Clq3R",1,1,1,1, 3000.) 
+                -58848080. * getSMEFTCoeff("CeuR",1,1,0,0, 3000.) 
+                -3477668. * getSMEFTCoeff("CeuR",1,1,1,1, 3000.) 
+                +18556311. * getSMEFTCoeff("CedR",1,1,0,0, 3000.) 
+                +2384597. * getSMEFTCoeff("CedR",1,1,1,1, 3000.) 
+                -29411798. * getSMEFTCoeff("CluR",1,1,0,0, 3000.) 
+                -1738284. * getSMEFTCoeff("CluR",1,1,1,1, 3000.) 
+                +9276242. * getSMEFTCoeff("CldR",1,1,0,0, 3000.) 
+                +1191679. * getSMEFTCoeff("CldR",1,1,1,1, 3000.) 
+                -23571246. * getSMEFTCoeff("CqeR",0,0,1,1, 3000.) 
+                -2478389. * getSMEFTCoeff("CqeR",1,1,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                -98707.6 * getSMEFTCoeff("CHD", 3000.) 
+                -227449. * getSMEFTCoeff("CHWB", 3000.) 
+                +67415.5 * getSMEFTCoeff("CHl1R",1,1, 3000.) 
+                -120962. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -53801.3 * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                -13834.7 * getSMEFTCoeff("CHeR",1,1, 3000.) 
+                -9431.73 * getSMEFTCoeff("CHq1R",0,0, 3000.) 
+                +1736.57 * getSMEFTCoeff("CHq1R",1,1, 3000.) 
+                +48817.1 * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +4507.41 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +7618.35 * getSMEFTCoeff("CHuR",0,0, 3000.) 
+                +157.79 * getSMEFTCoeff("CHuR",1,1, 3000.) 
+                -2213. * getSMEFTCoeff("CHdR",0,0, 3000.) 
+                -325.428 * getSMEFTCoeff("CHdR",1,1, 3000.) 
+                +121122. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                -74171980. * getSMEFTCoeff("Clq1R",1,1,0,0, 3000.) 
+                +4457012. * getSMEFTCoeff("Clq1R",1,1,1,1, 3000.) 
+                +215110061. * getSMEFTCoeff("Clq3R",1,1,0,0, 3000.) 
+                +18190400. * getSMEFTCoeff("Clq3R",1,1,1,1, 3000.) 
+                -101246802. * getSMEFTCoeff("CeuR",1,1,0,0, 3000.) 
+                -4802433. * getSMEFTCoeff("CeuR",1,1,1,1, 3000.) 
+                +31289550. * getSMEFTCoeff("CedR",1,1,0,0, 3000.) 
+                +3371080. * getSMEFTCoeff("CedR",1,1,1,1, 3000.) 
+                -50630837. * getSMEFTCoeff("CluR",1,1,0,0, 3000.) 
+                -2402130. * getSMEFTCoeff("CluR",1,1,1,1, 3000.) 
+                +15636777. * getSMEFTCoeff("CldR",1,1,0,0, 3000.) 
+                +1685268. * getSMEFTCoeff("CldR",1,1,1,1, 3000.) 
+                -40235433. * getSMEFTCoeff("CqeR",0,0,1,1, 3000.) 
+                -3603419. * getSMEFTCoeff("CqeR",1,1,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.019/0.019; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                -98921.6 * getSMEFTCoeff("CHD", 5000.) 
+                -228610. * getSMEFTCoeff("CHWB", 5000.) 
+                +67326.1 * getSMEFTCoeff("CHl1R",1,1, 5000.) 
+                -121032. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -54063.9 * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                -13825.3 * getSMEFTCoeff("CHeR",1,1, 5000.) 
+                -9935.28 * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1541.2 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +49061.7 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3704.34 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7576.15 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                -89.8022 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2416.16 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -124.388 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121232. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -115112421. * getSMEFTCoeff("Clq1R",1,1,0,0, 5000.) 
+                +6775448. * getSMEFTCoeff("Clq1R",1,1,1,1, 5000.) 
+                +327497246. * getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) 
+                +24270920. * getSMEFTCoeff("Clq3R",1,1,1,1, 5000.) 
+                -154916017. * getSMEFTCoeff("CeuR",1,1,0,0, 5000.) 
+                -6117874. * getSMEFTCoeff("CeuR",1,1,1,1, 5000.) 
+                +47187152. * getSMEFTCoeff("CedR",1,1,0,0, 5000.) 
+                +4389694. * getSMEFTCoeff("CedR",1,1,1,1, 5000.) 
+                -77458421. * getSMEFTCoeff("CluR",1,1,0,0, 5000.) 
+                -3060690. * getSMEFTCoeff("CluR",1,1,1,1, 5000.) 
+                +23592827. * getSMEFTCoeff("CldR",1,1,0,0, 5000.) 
+                +2194638. * getSMEFTCoeff("CldR",1,1,1,1, 5000.) 
+                -61234314. * getSMEFTCoeff("CqeR",0,0,1,1, 5000.) 
+                -4822872. * getSMEFTCoeff("CqeR",1,1,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.027/0.027; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                -99174.4 * getSMEFTCoeff("CHD", 5000.) 
+                -229078. * getSMEFTCoeff("CHWB", 5000.) 
+                +67086.3 * getSMEFTCoeff("CHl1R",1,1, 5000.) 
+                -120870. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -54429. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                -13556.3 * getSMEFTCoeff("CHeR",1,1, 5000.) 
+                -10027.9 * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1665.28 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +49622.2 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3337.55 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7620.7 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                -66.0873 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2056.13 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -205.831 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121935. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -165357045. * getSMEFTCoeff("Clq1R",1,1,0,0, 5000.) 
+                +9560132. * getSMEFTCoeff("Clq1R",1,1,1,1, 5000.) 
+                +462918764. * getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) 
+                +30752480. * getSMEFTCoeff("Clq3R",1,1,1,1, 5000.) 
+                -219834237. * getSMEFTCoeff("CeuR",1,1,0,0, 5000.) 
+                -7416469. * getSMEFTCoeff("CeuR",1,1,1,1, 5000.) 
+                +66220661. * getSMEFTCoeff("CedR",1,1,0,0, 5000.) 
+                +5428941. * getSMEFTCoeff("CedR",1,1,1,1, 5000.) 
+                -109945836. * getSMEFTCoeff("CluR",1,1,0,0, 5000.) 
+                -3707916. * getSMEFTCoeff("CluR",1,1,1,1, 5000.) 
+                +33104822. * getSMEFTCoeff("CldR",1,1,0,0, 5000.) 
+                +2715948. * getSMEFTCoeff("CldR",1,1,1,1, 5000.) 
+                -86507797. * getSMEFTCoeff("CqeR",0,0,1,1, 5000.) 
+                -6129870. * getSMEFTCoeff("CqeR",1,1,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.04/0.04; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                -99614.4 * getSMEFTCoeff("CHD", 5000.) 
+                -229696. * getSMEFTCoeff("CHWB", 5000.) 
+                +66424.9 * getSMEFTCoeff("CHl1R",1,1, 5000.) 
+                -121103. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -54822.2 * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                -13639. * getSMEFTCoeff("CHeR",1,1, 5000.) 
+                -10719. * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1388.78 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +49101.3 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +2685.5 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7396.94 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                -187.903 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2401.12 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -430.348 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121527. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -224838017. * getSMEFTCoeff("Clq1R",1,1,0,0, 5000.) 
+                +12758607. * getSMEFTCoeff("Clq1R",1,1,1,1, 5000.) 
+                +621668490. * getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) 
+                +37584429. * getSMEFTCoeff("Clq3R",1,1,1,1, 5000.) 
+                -296119823. * getSMEFTCoeff("CeuR",1,1,0,0, 5000.) 
+                -8684011. * getSMEFTCoeff("CeuR",1,1,1,1, 5000.) 
+                +88235244. * getSMEFTCoeff("CedR",1,1,0,0, 5000.) 
+                +6488458. * getSMEFTCoeff("CedR",1,1,1,1, 5000.) 
+                -148116395. * getSMEFTCoeff("CluR",1,1,0,0, 5000.) 
+                -4343738. * getSMEFTCoeff("CluR",1,1,1,1, 5000.) 
+                +44110429. * getSMEFTCoeff("CldR",1,1,0,0, 5000.) 
+                +3246640. * getSMEFTCoeff("CldR",1,1,1,1, 5000.) 
+                -116097164. * getSMEFTCoeff("CqeR",0,0,1,1, 5000.) 
+                -7514893. * getSMEFTCoeff("CqeR",1,1,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.058/0.058; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                -99724.4 * getSMEFTCoeff("CHD", 5000.) 
+                -230422. * getSMEFTCoeff("CHWB", 5000.) 
+                +66703.7 * getSMEFTCoeff("CHl1R",1,1, 5000.) 
+                -120975. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -54819.6 * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                -13457.4 * getSMEFTCoeff("CHeR",1,1, 5000.) 
+                -10579.1 * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1345.24 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +49965.1 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3605. * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7888.22 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                +354.862 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -1842.3 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -42.285 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +122024. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -322382967. * getSMEFTCoeff("Clq1R",1,1,0,0, 5000.) 
+                +17844141. * getSMEFTCoeff("Clq1R",1,1,1,1, 5000.) 
+                +874171560. * getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) 
+                +47408294. * getSMEFTCoeff("Clq3R",1,1,1,1, 5000.) 
+                -418491496. * getSMEFTCoeff("CeuR",1,1,0,0, 5000.) 
+                -10345114. * getSMEFTCoeff("CeuR",1,1,1,1, 5000.) 
+                +122816082. * getSMEFTCoeff("CedR",1,1,0,0, 5000.) 
+                +7949074. * getSMEFTCoeff("CedR",1,1,1,1, 5000.) 
+                -209389627. * getSMEFTCoeff("CluR",1,1,0,0, 5000.) 
+                -5171526. * getSMEFTCoeff("CluR",1,1,1,1, 5000.) 
+                +61414928. * getSMEFTCoeff("CldR",1,1,0,0, 5000.) 
+                +3975783. * getSMEFTCoeff("CldR",1,1,1,1, 5000.) 
+                -163177024. * getSMEFTCoeff("CqeR",0,0,1,1, 5000.) 
+                -9508995. * getSMEFTCoeff("CqeR",1,1,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.07/0.07; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                -100510. * getSMEFTCoeff("CHD", 10000.) 
+                -231517. * getSMEFTCoeff("CHWB", 10000.) 
+                +65608.5 * getSMEFTCoeff("CHl1R",1,1, 10000.) 
+                -121177. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -55036.2 * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                -13849.9 * getSMEFTCoeff("CHeR",1,1, 10000.) 
+                -11933.3 * getSMEFTCoeff("CHq1R",0,0, 10000.) 
+                +733.784 * getSMEFTCoeff("CHq1R",1,1, 10000.) 
+                +49410.4 * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2037.46 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +7380.19 * getSMEFTCoeff("CHuR",0,0, 10000.) 
+                -264.319 * getSMEFTCoeff("CHuR",1,1, 10000.) 
+                -2219.15 * getSMEFTCoeff("CHdR",0,0, 10000.) 
+                -391.998 * getSMEFTCoeff("CHdR",1,1, 10000.) 
+                +121692. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                -520854317. * getSMEFTCoeff("Clq1R",1,1,0,0, 10000.) 
+                +27550583. * getSMEFTCoeff("Clq1R",1,1,1,1, 10000.) 
+                +1366259680. * getSMEFTCoeff("Clq3R",1,1,0,0, 10000.) 
+                +64316523. * getSMEFTCoeff("Clq3R",1,1,1,1, 10000.) 
+                -660010778. * getSMEFTCoeff("CeuR",1,1,0,0, 10000.) 
+                -12872641. * getSMEFTCoeff("CeuR",1,1,1,1, 10000.) 
+                +188267289. * getSMEFTCoeff("CedR",1,1,0,0, 10000.) 
+                +10361421. * getSMEFTCoeff("CedR",1,1,1,1, 10000.) 
+                -330134709. * getSMEFTCoeff("CluR",1,1,0,0, 10000.) 
+                -6435948. * getSMEFTCoeff("CluR",1,1,1,1, 10000.) 
+                +94115987. * getSMEFTCoeff("CldR",1,1,0,0, 10000.) 
+                +5180936. * getSMEFTCoeff("CldR",1,1,1,1, 10000.) 
+                -254724895. * getSMEFTCoeff("CqeR",0,0,1,1, 10000.) 
+                -12959975. * getSMEFTCoeff("CqeR",1,1,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.126/0.126; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                -101407. * getSMEFTCoeff("CHD", 10000.) 
+                -234221. * getSMEFTCoeff("CHWB", 10000.) 
+                +65328.8 * getSMEFTCoeff("CHl1R",1,1, 10000.) 
+                -121130. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -55990.7 * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                -13344.3 * getSMEFTCoeff("CHeR",1,1, 10000.) 
+                -13274.2 * getSMEFTCoeff("CHq1R",0,0, 10000.) 
+                +678.518 * getSMEFTCoeff("CHq1R",1,1, 10000.) 
+                +49437.5 * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2289.93 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +7604.6 * getSMEFTCoeff("CHuR",0,0, 10000.) 
+                -186.358 * getSMEFTCoeff("CHuR",1,1, 10000.) 
+                -2157.98 * getSMEFTCoeff("CHdR",0,0, 10000.) 
+                -356.506 * getSMEFTCoeff("CHdR",1,1, 10000.) 
+                +121358. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                -981790301. * getSMEFTCoeff("Clq1R",1,1,0,0, 10000.) 
+                +46891875. * getSMEFTCoeff("Clq1R",1,1,1,1, 10000.) 
+                +2396912570. * getSMEFTCoeff("Clq3R",1,1,0,0, 10000.) 
+                +93748581. * getSMEFTCoeff("Clq3R",1,1,1,1, 10000.) 
+                -1182027332. * getSMEFTCoeff("CeuR",1,1,0,0, 10000.) 
+                -16375829. * getSMEFTCoeff("CeuR",1,1,1,1, 10000.) 
+                +315232994. * getSMEFTCoeff("CedR",1,1,0,0, 10000.) 
+                +14396262. * getSMEFTCoeff("CedR",1,1,1,1, 10000.) 
+                -591320866. * getSMEFTCoeff("CluR",1,1,0,0, 10000.) 
+                -8188396. * getSMEFTCoeff("CluR",1,1,1,1, 10000.) 
+                +157627105. * getSMEFTCoeff("CldR",1,1,0,0, 10000.) 
+                +7202228. * getSMEFTCoeff("CldR",1,1,1,1, 10000.) 
+                -445651523. * getSMEFTCoeff("CqeR",0,0,1,1, 10000.) 
+                -19010952. * getSMEFTCoeff("CqeR",1,1,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.756/0.756; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+const double NPSMEFTd6General::chi2FCChhtata() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                -96962.2 * getSMEFTCoeff("CHD", 1500.) 
+                -224517. * getSMEFTCoeff("CHWB", 1500.) 
+                +68034.7 * getSMEFTCoeff("CHl1R",2,2, 1500.) 
+                -121061. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -121035. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +68493.2 * getSMEFTCoeff("CHl3R",2,2, 1500.) 
+                -13930.6 * getSMEFTCoeff("CHeR",2,2, 1500.) 
+                -8040.19 * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +2228.7 * getSMEFTCoeff("CHq1R",1,1, 1500.) 
+                +47402.5 * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +6425.11 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +6959.46 * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                +641.927 * getSMEFTCoeff("CHuR",1,1, 1500.) 
+                -2220.38 * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                -209.139 * getSMEFTCoeff("CHdR",1,1, 1500.) 
+                +121424. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                -16571765. * getSMEFTCoeff("Clq1R",2,2,0,0, 1500.) 
+                +1072569. * getSMEFTCoeff("Clq1R",2,2,1,1, 1500.) 
+                +52246479. * getSMEFTCoeff("Clq3R",2,2,0,0, 1500.) 
+                +6720838. * getSMEFTCoeff("Clq3R",2,2,1,1, 1500.) 
+                -24102867. * getSMEFTCoeff("CeuR",2,2,0,0, 1500.) 
+                -1977027. * getSMEFTCoeff("CeuR",2,2,1,1, 1500.) 
+                +7887534. * getSMEFTCoeff("CedR",2,2,0,0, 1500.) 
+                +1314342. * getSMEFTCoeff("CedR",2,2,1,1, 1500.) 
+                -12033171. * getSMEFTCoeff("CluR",2,2,0,0, 1500.) 
+                -987252. * getSMEFTCoeff("CluR",2,2,1,1, 1500.) 
+                +3937619. * getSMEFTCoeff("CldR",2,2,0,0, 1500.) 
+                +657145. * getSMEFTCoeff("CldR",2,2,1,1, 1500.) 
+                -9787953. * getSMEFTCoeff("CqeR",0,0,2,2, 1500.) 
+                -1322464. * getSMEFTCoeff("CqeR",1,1,2,2, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.018/0.018; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -97322.4 * getSMEFTCoeff("CHD", 1500.) 
+                -225428. * getSMEFTCoeff("CHWB", 1500.) 
+                +68310.5 * getSMEFTCoeff("CHl1R",2,2, 1500.) 
+                -120537. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -121005. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +68405. * getSMEFTCoeff("CHl3R",2,2, 1500.) 
+                -13492.1 * getSMEFTCoeff("CHeR",2,2, 1500.) 
+                -8350.28 * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +2631.15 * getSMEFTCoeff("CHq1R",1,1, 1500.) 
+                +48442.5 * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +6582.06 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +7593.73 * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                +1211.63 * getSMEFTCoeff("CHuR",1,1, 1500.) 
+                -1838.4 * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                +87.8373 * getSMEFTCoeff("CHdR",1,1, 1500.) 
+                +121874. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                -26059353. * getSMEFTCoeff("Clq1R",2,2,0,0, 1500.) 
+                +1645007. * getSMEFTCoeff("Clq1R",2,2,1,1, 1500.) 
+                +79703109. * getSMEFTCoeff("Clq3R",2,2,0,0, 1500.) 
+                +9098413. * getSMEFTCoeff("Clq3R",2,2,1,1, 1500.) 
+                -37020530. * getSMEFTCoeff("CeuR",2,2,0,0, 1500.) 
+                -2607960. * getSMEFTCoeff("CeuR",2,2,1,1, 1500.) 
+                +11884844. * getSMEFTCoeff("CedR",2,2,0,0, 1500.) 
+                +1759034. * getSMEFTCoeff("CedR",2,2,1,1, 1500.) 
+                -18494542. * getSMEFTCoeff("CluR",2,2,0,0, 1500.) 
+                -1302091. * getSMEFTCoeff("CluR",2,2,1,1, 1500.) 
+                +5938058. * getSMEFTCoeff("CldR",2,2,0,0, 1500.) 
+                +879667. * getSMEFTCoeff("CldR",2,2,1,1, 1500.) 
+                -14928979. * getSMEFTCoeff("CqeR",0,0,2,2, 1500.) 
+                -1791881. * getSMEFTCoeff("CqeR",1,1,2,2, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.018/0.018; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                -98336.1 * getSMEFTCoeff("CHD", 3000.) 
+                -226879. * getSMEFTCoeff("CHWB", 3000.) 
+                +67292.7 * getSMEFTCoeff("CHl1R",2,2, 3000.) 
+                -121280. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -120930. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +67537.1 * getSMEFTCoeff("CHl3R",2,2, 3000.) 
+                -14199.2 * getSMEFTCoeff("CHeR",2,2, 3000.) 
+                -9693.63 * getSMEFTCoeff("CHq1R",0,0, 3000.) 
+                +1614.97 * getSMEFTCoeff("CHq1R",1,1, 3000.) 
+                +48235.2 * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +5326.15 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +6880.01 * getSMEFTCoeff("CHuR",0,0, 3000.) 
+                +399.763 * getSMEFTCoeff("CHuR",1,1, 3000.) 
+                -2301.82 * getSMEFTCoeff("CHdR",0,0, 3000.) 
+                -456.418 * getSMEFTCoeff("CHdR",1,1, 3000.) 
+                +121110. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                -42298788. * getSMEFTCoeff("Clq1R",2,2,0,0, 3000.) 
+                +2611761. * getSMEFTCoeff("Clq1R",2,2,1,1, 3000.) 
+                +125923307. * getSMEFTCoeff("Clq3R",2,2,0,0, 3000.) 
+                +12524093. * getSMEFTCoeff("Clq3R",2,2,1,1, 3000.) 
+                -58904782. * getSMEFTCoeff("CeuR",2,2,0,0, 3000.) 
+                -3469580. * getSMEFTCoeff("CeuR",2,2,1,1, 3000.) 
+                +18539910. * getSMEFTCoeff("CedR",2,2,0,0, 3000.) 
+                +2379131. * getSMEFTCoeff("CedR",2,2,1,1, 3000.) 
+                -29438609. * getSMEFTCoeff("CluR",2,2,0,0, 3000.) 
+                -1734015. * getSMEFTCoeff("CluR",2,2,1,1, 3000.) 
+                +9264619. * getSMEFTCoeff("CldR",2,2,0,0, 3000.) 
+                +1189541. * getSMEFTCoeff("CldR",2,2,1,1, 3000.) 
+                -23578486. * getSMEFTCoeff("CqeR",0,0,2,2, 3000.) 
+                -2473039. * getSMEFTCoeff("CqeR",1,1,2,2, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.018/0.018; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                -98755.8 * getSMEFTCoeff("CHD", 3000.) 
+                -227604. * getSMEFTCoeff("CHWB", 3000.) 
+                +67241.9 * getSMEFTCoeff("CHl1R",2,2, 3000.) 
+                -121044. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -120924. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +67270. * getSMEFTCoeff("CHl3R",2,2, 3000.) 
+                -14021. * getSMEFTCoeff("CHeR",2,2, 3000.) 
+                -9955.75 * getSMEFTCoeff("CHq1R",0,0, 3000.) 
+                +1705.55 * getSMEFTCoeff("CHq1R",1,1, 3000.) 
+                +48710. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +4665.62 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +7108.56 * getSMEFTCoeff("CHuR",0,0, 3000.) 
+                +365.836 * getSMEFTCoeff("CHuR",1,1, 3000.) 
+                -2345.22 * getSMEFTCoeff("CHdR",0,0, 3000.) 
+                -122.531 * getSMEFTCoeff("CHdR",1,1, 3000.) 
+                +121225. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                -74213882. * getSMEFTCoeff("Clq1R",2,2,0,0, 3000.) 
+                +4465204. * getSMEFTCoeff("Clq1R",2,2,1,1, 3000.) 
+                +214916990. * getSMEFTCoeff("Clq3R",2,2,0,0, 3000.) 
+                +18167219. * getSMEFTCoeff("Clq3R",2,2,1,1, 3000.) 
+                -101286995. * getSMEFTCoeff("CeuR",2,2,0,0, 3000.) 
+                -4797166. * getSMEFTCoeff("CeuR",2,2,1,1, 3000.) 
+                +31259003. * getSMEFTCoeff("CedR",2,2,0,0, 3000.) 
+                +3365376. * getSMEFTCoeff("CedR",2,2,1,1, 3000.) 
+                -50628003. * getSMEFTCoeff("CluR",2,2,0,0, 3000.) 
+                -2397377. * getSMEFTCoeff("CluR",2,2,1,1, 3000.) 
+                +15625846. * getSMEFTCoeff("CldR",2,2,0,0, 3000.) 
+                +1683012. * getSMEFTCoeff("CldR",2,2,1,1, 3000.) 
+                -40233754. * getSMEFTCoeff("CqeR",0,0,2,2, 3000.) 
+                -3598747. * getSMEFTCoeff("CqeR",1,1,2,2, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.021/0.021; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                -98866.9 * getSMEFTCoeff("CHD", 5000.) 
+                -228580. * getSMEFTCoeff("CHWB", 5000.) 
+                +67203.3 * getSMEFTCoeff("CHl1R",2,2, 5000.) 
+                -120919. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -120756. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +67058.6 * getSMEFTCoeff("CHl3R",2,2, 5000.) 
+                -13624.1 * getSMEFTCoeff("CHeR",2,2, 5000.) 
+                -10255. * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1813.43 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +48935.9 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +4071.25 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7338.83 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                +387.246 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2164.2 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                +244.992 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121699. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -115153624. * getSMEFTCoeff("Clq1R",2,2,0,0, 5000.) 
+                +6786855. * getSMEFTCoeff("Clq1R",2,2,1,1, 5000.) 
+                +327247151. * getSMEFTCoeff("Clq3R",2,2,0,0, 5000.) 
+                +24255032. * getSMEFTCoeff("Clq3R",2,2,1,1, 5000.) 
+                -154972668. * getSMEFTCoeff("CeuR",2,2,0,0, 5000.) 
+                -6116680. * getSMEFTCoeff("CeuR",2,2,1,1, 5000.) 
+                +47153614. * getSMEFTCoeff("CedR",2,2,0,0, 5000.) 
+                +4384880. * getSMEFTCoeff("CedR",2,2,1,1, 5000.) 
+                -77453747. * getSMEFTCoeff("CluR",2,2,0,0, 5000.) 
+                -3056501. * getSMEFTCoeff("CluR",2,2,1,1, 5000.) 
+                +23584196. * getSMEFTCoeff("CldR",2,2,0,0, 5000.) 
+                +2193306. * getSMEFTCoeff("CldR",2,2,1,1, 5000.) 
+                -61210033. * getSMEFTCoeff("CqeR",0,0,2,2, 5000.) 
+                -4821468. * getSMEFTCoeff("CqeR",1,1,2,2, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.023/0.023; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                -99060.5 * getSMEFTCoeff("CHD", 5000.) 
+                -228971. * getSMEFTCoeff("CHWB", 5000.) 
+                +67072. * getSMEFTCoeff("CHl1R",2,2, 5000.) 
+                -120789. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -120940. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +67100. * getSMEFTCoeff("CHl3R",2,2, 5000.) 
+                -13467.5 * getSMEFTCoeff("CHeR",2,2, 5000.) 
+                -10467.5 * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1943.15 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +49118.8 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3670.34 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7157.22 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                +398.247 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2222.92 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                +401.744 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121495. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -165237270. * getSMEFTCoeff("Clq1R",2,2,0,0, 5000.) 
+                +9555824. * getSMEFTCoeff("Clq1R",2,2,1,1, 5000.) 
+                +462689310. * getSMEFTCoeff("Clq3R",2,2,0,0, 5000.) 
+                +30738729. * getSMEFTCoeff("Clq3R",2,2,1,1, 5000.) 
+                -219959879. * getSMEFTCoeff("CeuR",2,2,0,0, 5000.) 
+                -7412700. * getSMEFTCoeff("CeuR",2,2,1,1, 5000.) 
+                +66146392. * getSMEFTCoeff("CedR",2,2,0,0, 5000.) 
+                +5427466. * getSMEFTCoeff("CedR",2,2,1,1, 5000.) 
+                -109976443. * getSMEFTCoeff("CluR",2,2,0,0, 5000.) 
+                -3705043. * getSMEFTCoeff("CluR",2,2,1,1, 5000.) 
+                +33085712. * getSMEFTCoeff("CldR",2,2,0,0, 5000.) 
+                +2714793. * getSMEFTCoeff("CldR",2,2,1,1, 5000.) 
+                -86477410. * getSMEFTCoeff("CqeR",0,0,2,2, 5000.) 
+                -6126133. * getSMEFTCoeff("CqeR",1,1,2,2, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.031/0.031; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                -99750.7 * getSMEFTCoeff("CHD", 5000.) 
+                -229630. * getSMEFTCoeff("CHWB", 5000.) 
+                +66354.1 * getSMEFTCoeff("CHl1R",2,2, 5000.) 
+                -121104. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -121198. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +66533.9 * getSMEFTCoeff("CHl3R",2,2, 5000.) 
+                -13637. * getSMEFTCoeff("CHeR",2,2, 5000.) 
+                -10951.3 * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1601.03 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +48910.3 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3175.24 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7183.96 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                +103.475 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2320.94 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                +260.265 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121141. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -224844863. * getSMEFTCoeff("Clq1R",2,2,0,0, 5000.) 
+                +12777805. * getSMEFTCoeff("Clq1R",2,2,1,1, 5000.) 
+                +620987209. * getSMEFTCoeff("Clq3R",2,2,0,0, 5000.) 
+                +37583030. * getSMEFTCoeff("Clq3R",2,2,1,1, 5000.) 
+                -296229449. * getSMEFTCoeff("CeuR",2,2,0,0, 5000.) 
+                -8682274. * getSMEFTCoeff("CeuR",2,2,1,1, 5000.) 
+                +88177179. * getSMEFTCoeff("CedR",2,2,0,0, 5000.) 
+                +6487475. * getSMEFTCoeff("CedR",2,2,1,1, 5000.) 
+                -148136168. * getSMEFTCoeff("CluR",2,2,0,0, 5000.) 
+                -4341251. * getSMEFTCoeff("CluR",2,2,1,1, 5000.) 
+                +44104437. * getSMEFTCoeff("CldR",2,2,0,0, 5000.) 
+                +3243190. * getSMEFTCoeff("CldR",2,2,1,1, 5000.) 
+                -116063601. * getSMEFTCoeff("CqeR",0,0,2,2, 5000.) 
+                -7517040. * getSMEFTCoeff("CqeR",1,1,2,2, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.049/0.049; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                -99732.2 * getSMEFTCoeff("CHD", 5000.) 
+                -230444. * getSMEFTCoeff("CHWB", 5000.) 
+                +66621.2 * getSMEFTCoeff("CHl1R",2,2, 5000.) 
+                -121113. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -121170. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +66306.9 * getSMEFTCoeff("CHl3R",2,2, 5000.) 
+                -13060.2 * getSMEFTCoeff("CHeR",2,2, 5000.) 
+                -11396.3 * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +1524.2 * getSMEFTCoeff("CHq1R",1,1, 5000.) 
+                +50125.3 * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3098.16 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +7670.77 * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                +452.782 * getSMEFTCoeff("CHuR",1,1, 5000.) 
+                -2106.77 * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                +567.637 * getSMEFTCoeff("CHdR",1,1, 5000.) 
+                +121980. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                -322337972. * getSMEFTCoeff("Clq1R",2,2,0,0, 5000.) 
+                +17854137. * getSMEFTCoeff("Clq1R",2,2,1,1, 5000.) 
+                +873616867. * getSMEFTCoeff("Clq3R",2,2,0,0, 5000.) 
+                +47402507. * getSMEFTCoeff("Clq3R",2,2,1,1, 5000.) 
+                -418523232. * getSMEFTCoeff("CeuR",2,2,0,0, 5000.) 
+                -10339786. * getSMEFTCoeff("CeuR",2,2,1,1, 5000.) 
+                +122759019. * getSMEFTCoeff("CedR",2,2,0,0, 5000.) 
+                +7946696. * getSMEFTCoeff("CedR",2,2,1,1, 5000.) 
+                -209436820. * getSMEFTCoeff("CluR",2,2,0,0, 5000.) 
+                -5168567. * getSMEFTCoeff("CluR",2,2,1,1, 5000.) 
+                +61391124. * getSMEFTCoeff("CldR",2,2,0,0, 5000.) 
+                +3973524. * getSMEFTCoeff("CldR",2,2,1,1, 5000.) 
+                -163132791. * getSMEFTCoeff("CqeR",0,0,2,2, 5000.) 
+                -9512668. * getSMEFTCoeff("CqeR",1,1,2,2, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.108/0.108; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                -100464. * getSMEFTCoeff("CHD", 10000.) 
+                -231543. * getSMEFTCoeff("CHWB", 10000.) 
+                +65730.9 * getSMEFTCoeff("CHl1R",2,2, 10000.) 
+                -121169. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -121072. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +65839.2 * getSMEFTCoeff("CHl3R",2,2, 10000.) 
+                -13575.9 * getSMEFTCoeff("CHeR",2,2, 10000.) 
+                -12551.6 * getSMEFTCoeff("CHq1R",0,0, 10000.) 
+                +1106.57 * getSMEFTCoeff("CHq1R",1,1, 10000.) 
+                +48992.5 * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2324.25 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +7304.73 * getSMEFTCoeff("CHuR",0,0, 10000.) 
+                +114.672 * getSMEFTCoeff("CHuR",1,1, 10000.) 
+                -2541.19 * getSMEFTCoeff("CHdR",0,0, 10000.) 
+                +298.465 * getSMEFTCoeff("CHdR",1,1, 10000.) 
+                +121163. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                -520697661. * getSMEFTCoeff("Clq1R",2,2,0,0, 10000.) 
+                +27550990. * getSMEFTCoeff("Clq1R",2,2,1,1, 10000.) 
+                +1364843148. * getSMEFTCoeff("Clq3R",2,2,0,0, 10000.) 
+                +64322721. * getSMEFTCoeff("Clq3R",2,2,1,1, 10000.) 
+                -660284807. * getSMEFTCoeff("CeuR",2,2,0,0, 10000.) 
+                -12869341. * getSMEFTCoeff("CeuR",2,2,1,1, 10000.) 
+                +188213551. * getSMEFTCoeff("CedR",2,2,0,0, 10000.) 
+                +10355279. * getSMEFTCoeff("CedR",2,2,1,1, 10000.) 
+                -330075941. * getSMEFTCoeff("CluR",2,2,0,0, 10000.) 
+                -6435559. * getSMEFTCoeff("CluR",2,2,1,1, 10000.) 
+                +94107881. * getSMEFTCoeff("CldR",2,2,0,0, 10000.) 
+                +5179181. * getSMEFTCoeff("CldR",2,2,1,1, 10000.) 
+                -254633018. * getSMEFTCoeff("CqeR",0,0,2,2, 10000.) 
+                -12963849. * getSMEFTCoeff("CqeR",1,1,2,2, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.051/0.051; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                -101401. * getSMEFTCoeff("CHD", 10000.) 
+                -234214. * getSMEFTCoeff("CHWB", 10000.) 
+                +65337.6 * getSMEFTCoeff("CHl1R",2,2, 10000.) 
+                -121119. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -121197. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +65243. * getSMEFTCoeff("CHl3R",2,2, 10000.) 
+                -13020.4 * getSMEFTCoeff("CHeR",2,2, 10000.) 
+                -13608.4 * getSMEFTCoeff("CHq1R",0,0, 10000.) 
+                +1308.16 * getSMEFTCoeff("CHq1R",1,1, 10000.) 
+                +49509.4 * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2051.19 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +7470.58 * getSMEFTCoeff("CHuR",0,0, 10000.) 
+                +144.42 * getSMEFTCoeff("CHuR",1,1, 10000.) 
+                -2404.4 * getSMEFTCoeff("CHdR",0,0, 10000.) 
+                +121111. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                -982611065. * getSMEFTCoeff("Clq1R",2,2,0,0, 10000.) 
+                +46975343. * getSMEFTCoeff("Clq1R",2,2,1,1, 10000.) 
+                +2394360210. * getSMEFTCoeff("Clq3R",2,2,0,0, 10000.) 
+                +93713983. * getSMEFTCoeff("Clq3R",2,2,1,1, 10000.) 
+                -1182637040. * getSMEFTCoeff("CeuR",2,2,0,0, 10000.) 
+                -16377797. * getSMEFTCoeff("CeuR",2,2,1,1, 10000.) 
+                +315191408. * getSMEFTCoeff("CedR",2,2,0,0, 10000.) 
+                +14396002. * getSMEFTCoeff("CedR",2,2,1,1, 10000.) 
+                -591004198. * getSMEFTCoeff("CluR",2,2,0,0, 10000.) 
+                -8189291. * getSMEFTCoeff("CluR",2,2,1,1, 10000.) 
+                +157659432. * getSMEFTCoeff("CldR",2,2,0,0, 10000.) 
+                +7196261. * getSMEFTCoeff("CldR",2,2,1,1, 10000.) 
+                -445406020. * getSMEFTCoeff("CqeR",0,0,2,2, 10000.) 
+                -19016833. * getSMEFTCoeff("CqeR",1,1,2,2, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.298/0.298; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+const double NPSMEFTd6General::chi2FCChhenu() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                +1176.34 * getSMEFTCoeff("CHD", 1500.) 
+                +1283.13 * getSMEFTCoeff("CHWB", 1500.) 
+                +118.409 * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -121047. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +109268. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +13635.3 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +120432. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +95562583. * getSMEFTCoeff("Clq3R",0,0,0,0, 1500.) 
+                +11443764. * getSMEFTCoeff("Clq3R",0,0,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.012/0.012; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -93.2603 * getSMEFTCoeff("CHD", 1500.) 
+                -490.918 * getSMEFTCoeff("CHWB", 1500.) 
+                -325.287 * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -120716. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +108979. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +12192.1 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +119649. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +129932554. * getSMEFTCoeff("Clq3R",0,0,0,0, 1500.) 
+                +14246036. * getSMEFTCoeff("Clq3R",0,0,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.013/0.013; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                +1344.55 * getSMEFTCoeff("CHD", 3000.) 
+                -911.708 * getSMEFTCoeff("CHWB", 3000.) 
+                -104.933 * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -121407. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +111000. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +9700.4 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +121277. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +260567340. * getSMEFTCoeff("Clq3R",0,0,0,0, 3000.) 
+                +22261564. * getSMEFTCoeff("Clq3R",0,0,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                +598.783 * getSMEFTCoeff("CHD", 3000.) 
+                +1157.45 * getSMEFTCoeff("CHWB", 3000.) 
+                -1078.71 * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -121995. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +112684. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +7962.93 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +121256. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +436697857. * getSMEFTCoeff("Clq3R",0,0,0,0, 3000.) 
+                +31212071. * getSMEFTCoeff("Clq3R",0,0,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.019/0.019; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                +301.491 * getSMEFTCoeff("CHD", 5000.) 
+                +946.195 * getSMEFTCoeff("CHWB", 5000.) 
+                -829.128 * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -122308. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +113961. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +7021.33 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +120914. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +648178773. * getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) 
+                +40038690. * getSMEFTCoeff("Clq3R",0,0,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.028/0.028; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                +916.787 * getSMEFTCoeff("CHD", 5000.) 
+                +1815.31 * getSMEFTCoeff("CHWB", 5000.) 
+                -1507.49 * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -122083. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +114967. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +5112.52 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +120778. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +887175206. * getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) 
+                +48623109. * getSMEFTCoeff("Clq3R",0,0,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.041/0.041; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                +340.396 * getSMEFTCoeff("CHD", 5000.) 
+                +1911.19 * getSMEFTCoeff("CHWB", 5000.) 
+                +1245.1 * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -120472. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +117818. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +7125.72 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +122431. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +1142595360. * getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) 
+                +56756510. * getSMEFTCoeff("Clq3R",0,0,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.061/0.061; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                +393.017 * getSMEFTCoeff("CHD", 5000.) 
+                -331.395 * getSMEFTCoeff("CHWB", 5000.) 
+                -212.179 * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -120915. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +114992. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +5593.4 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +119736. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +1464148563. * getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) 
+                +65769562. * getSMEFTCoeff("Clq3R",0,0,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.08/0.08; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                +1239.19 * getSMEFTCoeff("CHD", 10000.) 
+                -1258.2 * getSMEFTCoeff("CHWB", 10000.) 
+                +689.695 * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -122171. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +116060. * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +3818.58 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +120677. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                +2652444430. * getSMEFTCoeff("Clq3R",0,0,0,0, 10000.) 
+                +92243084. * getSMEFTCoeff("Clq3R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.15/0.15; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                +792.849 * getSMEFTCoeff("CHD", 10000.) 
+                -199.759 * getSMEFTCoeff("CHWB", 10000.) 
+                -480.565 * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -121923. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +117435. * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2906.69 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +120515. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                +4516469690. * getSMEFTCoeff("Clq3R",0,0,0,0, 10000.) 
+                +125603164. * getSMEFTCoeff("Clq3R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.358/0.358; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+
+const double NPSMEFTd6General::chi2FCChhmunu() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                +1176.34 * getSMEFTCoeff("CHD", 1500.) 
+                +1283.13 * getSMEFTCoeff("CHWB", 1500.) 
+                -121146. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                +228.604 * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +109268. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +13635.3 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +120432. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +95562583. * getSMEFTCoeff("Clq3R",1,1,0,0, 1500.) 
+                +11443764. * getSMEFTCoeff("Clq3R",1,1,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.011/0.011; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -93.2603 * getSMEFTCoeff("CHD", 1500.) 
+                -490.918 * getSMEFTCoeff("CHWB", 1500.) 
+                -121534. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                +609.328 * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +108979. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +12192.1 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +119649. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +129932554. * getSMEFTCoeff("Clq3R",1,1,0,0, 1500.) 
+                +14246036. * getSMEFTCoeff("Clq3R",1,1,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.012/0.012; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                +1344.55 * getSMEFTCoeff("CHD", 3000.) 
+                -911.708 * getSMEFTCoeff("CHWB", 3000.) 
+                -121326. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -174.429 * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +111000. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +9700.4 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +121277. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +260567340. * getSMEFTCoeff("Clq3R",1,1,0,0, 3000.) 
+                +22261564. * getSMEFTCoeff("Clq3R",1,1,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.012/0.012; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                +598.783 * getSMEFTCoeff("CHD", 3000.) 
+                +1157.45 * getSMEFTCoeff("CHWB", 3000.) 
+                -122190. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -854.194 * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +112684. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +7962.93 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +121256. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +436697857. * getSMEFTCoeff("Clq3R",1,1,0,0, 3000.) 
+                +31212071. * getSMEFTCoeff("Clq3R",1,1,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.016/0.016; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                +301.491 * getSMEFTCoeff("CHD", 5000.) 
+                +946.195 * getSMEFTCoeff("CHWB", 5000.) 
+                -121984. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -1159.79 * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +113961. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +7021.33 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +120914. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +648178773. * getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) 
+                +40038690. * getSMEFTCoeff("Clq3R",1,1,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.024/0.024; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                +916.787 * getSMEFTCoeff("CHD", 5000.) 
+                +1815.31 * getSMEFTCoeff("CHWB", 5000.) 
+                -122564. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -943.716 * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +114967. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +5112.52 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +120778. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +887175206. * getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) 
+                +48623109. * getSMEFTCoeff("Clq3R",1,1,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.035/0.035; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                +340.396 * getSMEFTCoeff("CHD", 5000.) 
+                +1911.19 * getSMEFTCoeff("CHWB", 5000.) 
+                -120156. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                +902.206 * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +117818. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +7125.72 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +122431. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +1142595360. * getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) 
+                +56756510. * getSMEFTCoeff("Clq3R",1,1,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.051/0.051; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                +393.017 * getSMEFTCoeff("CHD", 5000.) 
+                -331.395 * getSMEFTCoeff("CHWB", 5000.) 
+                -121452. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                +383.312 * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +114992. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +5593.4 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +119736. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +1464148563. * getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) 
+                +65769562. * getSMEFTCoeff("Clq3R",1,1,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.062/0.062; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                +1239.19 * getSMEFTCoeff("CHD", 10000.) 
+                -1258.2 * getSMEFTCoeff("CHWB", 10000.) 
+                -120632. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -1033.67 * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +116060. * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +3818.58 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +120677. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                +2652444430. * getSMEFTCoeff("Clq3R",1,1,0,0, 10000.) 
+                +92243084. * getSMEFTCoeff("Clq3R",1,1,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.103/0.103; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                +792.849 * getSMEFTCoeff("CHD", 10000.) 
+                -199.759 * getSMEFTCoeff("CHWB", 10000.) 
+                -121661. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -777.726 * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +117435. * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2906.69 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +120515. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                +4516469690. * getSMEFTCoeff("Clq3R",1,1,0,0, 10000.) 
+                +125603164. * getSMEFTCoeff("Clq3R",1,1,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.301/0.301; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+const double NPSMEFTd6General::chi2FCChhtanu() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                +1129.84 * getSMEFTCoeff("CHD", 1500.) 
+                +1314.12 * getSMEFTCoeff("CHWB", 1500.) 
+                -121224. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -121047. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +122469. * getSMEFTCoeff("CHl3R",2,2, 1500.) 
+                +108899. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +12659.2 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +121221. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +95558049. * getSMEFTCoeff("Clq3R",2,2,0,0, 1500.) 
+                +11431295. * getSMEFTCoeff("Clq3R",2,2,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.015/0.015; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -103.372 * getSMEFTCoeff("CHD", 1500.) 
+                -674.314 * getSMEFTCoeff("CHWB", 1500.) 
+                -121591. * getSMEFTCoeff("CHl3R",0,0, 1500.) 
+                -120814. * getSMEFTCoeff("CHl3R",1,1, 1500.) 
+                +120661. * getSMEFTCoeff("CHl3R",2,2, 1500.) 
+                +109501. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +10751.4 * getSMEFTCoeff("CHq3R",1,1, 1500.) 
+                +121589. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +130021001. * getSMEFTCoeff("Clq3R",2,2,0,0, 1500.) 
+                +14229132. * getSMEFTCoeff("Clq3R",2,2,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.02/0.02; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                +1344.03 * getSMEFTCoeff("CHD", 3000.) 
+                -916.997 * getSMEFTCoeff("CHWB", 3000.) 
+                -121331. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -121407. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +120821. * getSMEFTCoeff("CHl3R",2,2, 3000.) 
+                +110934. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +9656.97 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +121489. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +260084968. * getSMEFTCoeff("Clq3R",2,2,0,0, 3000.) 
+                +22286875. * getSMEFTCoeff("Clq3R",2,2,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.021/0.021; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                +598.783 * getSMEFTCoeff("CHD", 3000.) 
+                +1157.45 * getSMEFTCoeff("CHWB", 3000.) 
+                -122190. * getSMEFTCoeff("CHl3R",0,0, 3000.) 
+                -121995. * getSMEFTCoeff("CHl3R",1,1, 3000.) 
+                +120939. * getSMEFTCoeff("CHl3R",2,2, 3000.) 
+                +112486. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +8507.85 * getSMEFTCoeff("CHq3R",1,1, 3000.) 
+                +122710. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +435713560. * getSMEFTCoeff("Clq3R",2,2,0,0, 3000.) 
+                +31186573. * getSMEFTCoeff("Clq3R",2,2,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.052/0.052; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                +301.491 * getSMEFTCoeff("CHD", 5000.) 
+                +946.195 * getSMEFTCoeff("CHWB", 5000.) 
+                -121984. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -122308. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +121485. * getSMEFTCoeff("CHl3R",2,2, 5000.) 
+                +113573. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +6714.91 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +121506. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +647978259. * getSMEFTCoeff("Clq3R",2,2,0,0, 5000.) 
+                +40051102. * getSMEFTCoeff("Clq3R",2,2,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.111/0.111; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                +916.787 * getSMEFTCoeff("CHD", 5000.) 
+                +1815.31 * getSMEFTCoeff("CHWB", 5000.) 
+                -122564. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -122083. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +121308. * getSMEFTCoeff("CHl3R",2,2, 5000.) 
+                +113470. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +5610.7 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +120351. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +886363223. * getSMEFTCoeff("Clq3R",2,2,0,0, 5000.) 
+                +48573202. * getSMEFTCoeff("Clq3R",2,2,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.115/0.115; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                +340.396 * getSMEFTCoeff("CHD", 5000.) 
+                +1911.19 * getSMEFTCoeff("CHWB", 5000.) 
+                -120156. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -120472. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +123579. * getSMEFTCoeff("CHl3R",2,2, 5000.) 
+                +116798. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +7113.55 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +120160. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +1145045894. * getSMEFTCoeff("Clq3R",2,2,0,0, 5000.) 
+                +56813894. * getSMEFTCoeff("Clq3R",2,2,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.179/0.179; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                +393.017 * getSMEFTCoeff("CHD", 5000.) 
+                -331.395 * getSMEFTCoeff("CHWB", 5000.) 
+                -121452. * getSMEFTCoeff("CHl3R",0,0, 5000.) 
+                -120915. * getSMEFTCoeff("CHl3R",1,1, 5000.) 
+                +120392. * getSMEFTCoeff("CHl3R",2,2, 5000.) 
+                +116533. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3921.85 * getSMEFTCoeff("CHq3R",1,1, 5000.) 
+                +120955. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +1464612761. * getSMEFTCoeff("Clq3R",2,2,0,0, 5000.) 
+                +65777348. * getSMEFTCoeff("Clq3R",2,2,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.307/0.307; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                +1239.19 * getSMEFTCoeff("CHD", 10000.) 
+                -1258.2 * getSMEFTCoeff("CHWB", 10000.) 
+                -120632. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -122171. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +120411. * getSMEFTCoeff("CHl3R",2,2, 10000.) 
+                +117080. * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +3903.26 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +121244. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                +2648049651. * getSMEFTCoeff("Clq3R",2,2,0,0, 10000.) 
+                +92207893. * getSMEFTCoeff("Clq3R",2,2,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/1.154/1.154; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                +792.849 * getSMEFTCoeff("CHD", 10000.) 
+                -199.759 * getSMEFTCoeff("CHWB", 10000.) 
+                -121661. * getSMEFTCoeff("CHl3R",0,0, 10000.) 
+                -121923. * getSMEFTCoeff("CHl3R",1,1, 10000.) 
+                +121023. * getSMEFTCoeff("CHl3R",2,2, 10000.) 
+                +117292. * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +2583.14 * getSMEFTCoeff("CHq3R",1,1, 10000.) 
+                +120384. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                +4516504894. * getSMEFTCoeff("Clq3R",2,2,0,0, 10000.) 
+                +125553808. * getSMEFTCoeff("Clq3R",2,2,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/2.549/2.549; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+const double NPSMEFTd6General::chi2FCChhjj() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                -890.694 * getSMEFTCoeff("CG", 1000.) 
+                -9144.58 * getSMEFTCoeff("Cqq1R",0,0,0,0, 1000.) 
+                -109.779 * getSMEFTCoeff("Cqq1R",0,0,1,1, 1000.) 
+                -3628.55 * getSMEFTCoeff("Cqq1R",0,1,1,0, 1000.) 
+                -759.852 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1000.) 
+                -27041.8 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1000.) 
+                -215.715 * getSMEFTCoeff("Cqq3R",0,0,1,1, 1000.) 
+                -13544.3 * getSMEFTCoeff("Cqq3R",0,1,1,0, 1000.) 
+                -669.638 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1000.) 
+                -5536.87 * getSMEFTCoeff("CuuR",0,0,0,0, 1000.) 
+                -281.95 * getSMEFTCoeff("CuuR",0,0,1,1, 1000.) 
+                -107.759 * getSMEFTCoeff("CuuR",0,1,1,0, 1000.) 
+                -3701.32 * getSMEFTCoeff("CddR",0,0,0,0, 1000.) 
+                -3586.39 * getSMEFTCoeff("CddR",0,1,1,0, 1000.) 
+                -784.024 * getSMEFTCoeff("CddR",1,1,1,1, 1000.) 
+                -80.0339 * getSMEFTCoeff("Cud1R",0,0,0,0, 1000.) 
+                -112.615 * getSMEFTCoeff("Cud1R",0,0,1,1, 1000.) 
+                -116.089 * getSMEFTCoeff("Cud1R",1,1,0,0, 1000.) 
+                -2323.45 * getSMEFTCoeff("Cud8R",0,0,0,0, 1000.) 
+                -1398.66 * getSMEFTCoeff("Cud8R",0,0,1,1, 1000.) 
+                -97.7505 * getSMEFTCoeff("Cud8R",1,1,0,0, 1000.) 
+                -93.8728 * getSMEFTCoeff("Cqu1R",0,0,1,1, 1000.) 
+                -221.312 * getSMEFTCoeff("Cqu1R",1,1,0,0, 1000.) 
+                -54.386 * getSMEFTCoeff("Cqu1R",1,1,1,1, 1000.) 
+                -4775.26 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1000.) 
+                -104.874 * getSMEFTCoeff("Cqu8R",0,0,1,1, 1000.) 
+                -1398.23 * getSMEFTCoeff("Cqu8R",1,1,0,0, 1000.) 
+                -130.097 * getSMEFTCoeff("Cqd1R",0,0,0,0, 1000.) 
+                -201.117 * getSMEFTCoeff("Cqd1R",0,0,1,1, 1000.) 
+                -108.207 * getSMEFTCoeff("Cqd1R",1,1,0,0, 1000.) 
+                -4023.82 * getSMEFTCoeff("Cqd8R",0,0,0,0, 1000.) 
+                -2226.22 * getSMEFTCoeff("Cqd8R",0,0,1,1, 1000.) 
+                -983.363 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1000.) 
+                -401.769 * getSMEFTCoeff("Cqd8R",1,1,1,1, 1000.) 
+                +70.1405 * getSMEFTCoeff("Cqq3R",0,2,2,0, 1000.) 
+                -43.9352 * getSMEFTCoeff("Cud1R",2,2,0,0, 1000.) 
+                -46.5939 * getSMEFTCoeff("Cqd1R",2,2,1,1, 1000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -1030.34 * getSMEFTCoeff("CG", 1500.) 
+                -13649. * getSMEFTCoeff("Cqq1R",0,0,0,0, 1500.) 
+                -48.8212 * getSMEFTCoeff("Cqq1R",0,0,1,1, 1500.) 
+                -5008.43 * getSMEFTCoeff("Cqq1R",0,1,1,0, 1500.) 
+                -995.27 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1500.) 
+                -40651.7 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1500.) 
+                -104.636 * getSMEFTCoeff("Cqq3R",0,0,1,1, 1500.) 
+                -18929. * getSMEFTCoeff("Cqq3R",0,1,1,0, 1500.) 
+                -840.435 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1500.) 
+                -8388.46 * getSMEFTCoeff("CuuR",0,0,0,0, 1500.) 
+                -114.777 * getSMEFTCoeff("CuuR",0,0,1,1, 1500.) 
+                -5313.4 * getSMEFTCoeff("CddR",0,0,0,0, 1500.) 
+                -5014.73 * getSMEFTCoeff("CddR",0,1,1,0, 1500.) 
+                -974.761 * getSMEFTCoeff("CddR",1,1,1,1, 1500.) 
+                -77.7941 * getSMEFTCoeff("Cud1R",0,0,0,0, 1500.) 
+                -76.22 * getSMEFTCoeff("Cud1R",0,0,1,1, 1500.) 
+                -46.7399 * getSMEFTCoeff("Cud1R",1,1,0,0, 1500.) 
+                -3402.95 * getSMEFTCoeff("Cud8R",0,0,0,0, 1500.) 
+                -1831.44 * getSMEFTCoeff("Cud8R",0,0,1,1, 1500.) 
+                -175.154 * getSMEFTCoeff("Cud8R",1,1,0,0, 1500.) 
+                -72.2445 * getSMEFTCoeff("Cqu1R",0,0,0,0, 1500.) 
+                -153.3 * getSMEFTCoeff("Cqu1R",0,0,1,1, 1500.) 
+                -148.743 * getSMEFTCoeff("Cqu1R",1,1,0,0, 1500.) 
+                -29.7946 * getSMEFTCoeff("Cqu1R",1,1,1,1, 1500.) 
+                -7276.72 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1500.) 
+                -69.1379 * getSMEFTCoeff("Cqu8R",0,0,1,1, 1500.) 
+                -1928.44 * getSMEFTCoeff("Cqu8R",1,1,0,0, 1500.) 
+                -85.3015 * getSMEFTCoeff("Cqd1R",0,0,0,0, 1500.) 
+                -141.13 * getSMEFTCoeff("Cqd1R",0,0,1,1, 1500.) 
+                -40.9296 * getSMEFTCoeff("Cqd1R",1,1,0,0, 1500.) 
+                -5937.63 * getSMEFTCoeff("Cqd8R",0,0,0,0, 1500.) 
+                -3087.16 * getSMEFTCoeff("Cqd8R",0,0,1,1, 1500.) 
+                -1311.45 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1500.) 
+                -485.705 * getSMEFTCoeff("Cqd8R",1,1,1,1, 1500.) 
+                +74.1896 * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                -1818.29 * getSMEFTCoeff("CG", 1500.) 
+                -18744.5 * getSMEFTCoeff("Cqq1R",0,0,0,0, 1500.) 
+                -6290.79 * getSMEFTCoeff("Cqq1R",0,1,1,0, 1500.) 
+                -1145.47 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1500.) 
+                -55785.1 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1500.) 
+                -44.5407 * getSMEFTCoeff("Cqq3R",0,0,1,1, 1500.) 
+                -24360.4 * getSMEFTCoeff("Cqq3R",0,1,1,0, 1500.) 
+                -994.551 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1500.) 
+                -11662.1 * getSMEFTCoeff("CuuR",0,0,0,0, 1500.) 
+                -7144.78 * getSMEFTCoeff("CddR",0,0,0,0, 1500.) 
+                +49.8212 * getSMEFTCoeff("CddR",0,0,1,1, 1500.) 
+                -6292.42 * getSMEFTCoeff("CddR",0,1,1,0, 1500.) 
+                -1140.69 * getSMEFTCoeff("CddR",1,1,1,1, 1500.) 
+                -42.9242 * getSMEFTCoeff("Cud1R",0,0,0,0, 1500.) 
+                -4513.25 * getSMEFTCoeff("Cud8R",0,0,0,0, 1500.) 
+                -2298.43 * getSMEFTCoeff("Cud8R",0,0,1,1, 1500.) 
+                +49.1214 * getSMEFTCoeff("Cqu1R",0,0,0,0, 1500.) 
+                -9947.45 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1500.) 
+                -2335.04 * getSMEFTCoeff("Cqu8R",1,1,0,0, 1500.) 
+                -27.7359 * getSMEFTCoeff("Cqd1R",0,0,0,0, 1500.) 
+                -41.7542 * getSMEFTCoeff("Cqd1R",1,1,0,0, 1500.) 
+                -7892.2 * getSMEFTCoeff("Cqd8R",0,0,0,0, 1500.) 
+                -3879.38 * getSMEFTCoeff("Cqd8R",0,0,1,1, 1500.) 
+                -1671.67 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1500.) 
+                -569.236 * getSMEFTCoeff("Cqd8R",1,1,1,1, 1500.) 
+                +27.5835 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +36.3637 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +101.359 * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +29.3483 * getSMEFTCoeff("CddR",0,2,2,0, 1500.) 
+                +35.6089 * getSMEFTCoeff("CddR",1,2,2,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                -1370. * getSMEFTCoeff("CG", 1500.) 
+                -26477. * getSMEFTCoeff("Cqq1R",0,0,0,0, 1500.) 
+                -77.2249 * getSMEFTCoeff("Cqq1R",0,0,1,1, 1500.) 
+                -7895.02 * getSMEFTCoeff("Cqq1R",0,1,1,0, 1500.) 
+                -1332.58 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1500.) 
+                -78771.8 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1500.) 
+                -58.2757 * getSMEFTCoeff("Cqq3R",0,0,1,1, 1500.) 
+                -31695.2 * getSMEFTCoeff("Cqq3R",0,1,1,0, 1500.) 
+                -1164.47 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1500.) 
+                -16793.3 * getSMEFTCoeff("CuuR",0,0,0,0, 1500.) 
+                +66.296 * getSMEFTCoeff("CuuR",0,0,1,1, 1500.) 
+                +74.2346 * getSMEFTCoeff("CuuR",0,1,1,0, 1500.) 
+                -9743.06 * getSMEFTCoeff("CddR",0,0,0,0, 1500.) 
+                -46.0297 * getSMEFTCoeff("CddR",0,0,1,1, 1500.) 
+                -7875.89 * getSMEFTCoeff("CddR",0,1,1,0, 1500.) 
+                -1297.84 * getSMEFTCoeff("CddR",1,1,1,1, 1500.) 
+                -72.4818 * getSMEFTCoeff("Cud1R",1,1,0,0, 1500.) 
+                -6413.62 * getSMEFTCoeff("Cud8R",0,0,0,0, 1500.) 
+                -2966.86 * getSMEFTCoeff("Cud8R",0,0,1,1, 1500.) 
+                +61.2397 * getSMEFTCoeff("Cud8R",1,1,0,0, 1500.) 
+                +31.7482 * getSMEFTCoeff("Cud8R",1,1,1,1, 1500.) 
+                +64.2394 * getSMEFTCoeff("Cqu1R",0,0,0,0, 1500.) 
+                +29.4293 * getSMEFTCoeff("Cqu1R",0,0,1,1, 1500.) 
+                +97.0453 * getSMEFTCoeff("Cqu1R",1,1,0,0, 1500.) 
+                -13919.1 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1500.) 
+                +46.8639 * getSMEFTCoeff("Cqu8R",0,0,1,1, 1500.) 
+                -3004.36 * getSMEFTCoeff("Cqu8R",1,1,0,0, 1500.) 
+                +36.037 * getSMEFTCoeff("Cqd1R",0,0,0,0, 1500.) 
+                +33.4857 * getSMEFTCoeff("Cqd1R",0,0,1,1, 1500.) 
+                -10832. * getSMEFTCoeff("Cqd8R",0,0,0,0, 1500.) 
+                -4981.19 * getSMEFTCoeff("Cqd8R",0,0,1,1, 1500.) 
+                -2025.93 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1500.) 
+                -631.147 * getSMEFTCoeff("Cqd8R",1,1,1,1, 1500.) 
+                +33.6588 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +39.1519 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +101.596 * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +38.6293 * getSMEFTCoeff("CddR",0,2,2,0, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                -657.643 * getSMEFTCoeff("CG", 3000.) 
+                -42838.6 * getSMEFTCoeff("Cqq1R",0,0,0,0, 3000.) 
+                +63.4038 * getSMEFTCoeff("Cqq1R",0,0,1,1, 3000.) 
+                -10550.6 * getSMEFTCoeff("Cqq1R",0,1,1,0, 3000.) 
+                -1518.09 * getSMEFTCoeff("Cqq1R",1,1,1,1, 3000.) 
+                -126704. * getSMEFTCoeff("Cqq3R",0,0,0,0, 3000.) 
+                -75.2242 * getSMEFTCoeff("Cqq3R",0,0,1,1, 3000.) 
+                -43790.1 * getSMEFTCoeff("Cqq3R",0,1,1,0, 3000.) 
+                -1389.76 * getSMEFTCoeff("Cqq3R",1,1,1,1, 3000.) 
+                -28095.9 * getSMEFTCoeff("CuuR",0,0,0,0, 3000.) 
+                +95.6237 * getSMEFTCoeff("CuuR",0,0,1,1, 3000.) 
+                +70.6559 * getSMEFTCoeff("CuuR",0,1,1,0, 3000.) 
+                -14867.3 * getSMEFTCoeff("CddR",0,0,0,0, 3000.) 
+                +144.191 * getSMEFTCoeff("CddR",0,0,1,1, 3000.) 
+                -10501.1 * getSMEFTCoeff("CddR",0,1,1,0, 3000.) 
+                -1523.41 * getSMEFTCoeff("CddR",1,1,1,1, 3000.) 
+                +40.1804 * getSMEFTCoeff("Cud1R",1,1,0,0, 3000.) 
+                -10442.3 * getSMEFTCoeff("Cud8R",0,0,0,0, 3000.) 
+                -4179.75 * getSMEFTCoeff("Cud8R",0,0,1,1, 3000.) 
+                +164.988 * getSMEFTCoeff("Cud8R",1,1,0,0, 3000.) 
+                +60.2184 * getSMEFTCoeff("Cqu1R",0,0,0,0, 3000.) 
+                +52.054 * getSMEFTCoeff("Cqu1R",0,0,1,1, 3000.) 
+                +37.0848 * getSMEFTCoeff("Cqu1R",1,1,0,0, 3000.) 
+                -22465.4 * getSMEFTCoeff("Cqu8R",0,0,0,0, 3000.) 
+                -4089.11 * getSMEFTCoeff("Cqu8R",1,1,0,0, 3000.) 
+                +77.0442 * getSMEFTCoeff("Cqd1R",0,0,0,0, 3000.) 
+                +65.3417 * getSMEFTCoeff("Cqd1R",0,0,1,1, 3000.) 
+                -72.8357 * getSMEFTCoeff("Cqd1R",1,1,0,0, 3000.) 
+                -16859.2 * getSMEFTCoeff("Cqd8R",0,0,0,0, 3000.) 
+                -6908.72 * getSMEFTCoeff("Cqd8R",0,0,1,1, 3000.) 
+                -2725.52 * getSMEFTCoeff("Cqd8R",1,1,0,0, 3000.) 
+                -737.048 * getSMEFTCoeff("Cqd8R",1,1,1,1, 3000.) 
+                +35.3407 * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                +35.2539 * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                +95.6513 * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +36.0891 * getSMEFTCoeff("CddR",0,2,2,0, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                -690.666 * getSMEFTCoeff("CG", 5000.) 
+                -70988.4 * getSMEFTCoeff("Cqq1R",0,0,0,0, 5000.) 
+                +49.227 * getSMEFTCoeff("Cqq1R",0,0,1,1, 5000.) 
+                -13657.1 * getSMEFTCoeff("Cqq1R",0,1,1,0, 5000.) 
+                -1719.24 * getSMEFTCoeff("Cqq1R",1,1,1,1, 5000.) 
+                -206777. * getSMEFTCoeff("Cqq3R",0,0,0,0, 5000.) 
+                -71.8683 * getSMEFTCoeff("Cqq3R",0,0,1,1, 5000.) 
+                -59194.2 * getSMEFTCoeff("Cqq3R",0,1,1,0, 5000.) 
+                -1602.72 * getSMEFTCoeff("Cqq3R",1,1,1,1, 5000.) 
+                -48214.7 * getSMEFTCoeff("CuuR",0,0,0,0, 5000.) 
+                -121.418 * getSMEFTCoeff("CuuR",0,1,1,0, 5000.) 
+                -22958.9 * getSMEFTCoeff("CddR",0,0,0,0, 5000.) 
+                -148.247 * getSMEFTCoeff("CddR",0,0,1,1, 5000.) 
+                -13965. * getSMEFTCoeff("CddR",0,1,1,0, 5000.) 
+                -1724.97 * getSMEFTCoeff("CddR",1,1,1,1, 5000.) 
+                -100.087 * getSMEFTCoeff("Cud1R",0,0,0,0, 5000.) 
+                -191.574 * getSMEFTCoeff("Cud1R",0,0,1,1, 5000.) 
+                -72.2475 * getSMEFTCoeff("Cud1R",1,1,0,0, 5000.) 
+                -16985.4 * getSMEFTCoeff("Cud8R",0,0,0,0, 5000.) 
+                -5792.47 * getSMEFTCoeff("Cud8R",0,0,1,1, 5000.) 
+                -35.185 * getSMEFTCoeff("Cud8R",1,1,1,1, 5000.) 
+                -126.068 * getSMEFTCoeff("Cqu1R",0,0,0,0, 5000.) 
+                -55.2976 * getSMEFTCoeff("Cqu1R",1,1,0,0, 5000.) 
+                -36977.7 * getSMEFTCoeff("Cqu8R",0,0,0,0, 5000.) 
+                -96.4553 * getSMEFTCoeff("Cqu8R",0,0,1,1, 5000.) 
+                -5788.82 * getSMEFTCoeff("Cqu8R",1,1,0,0, 5000.) 
+                -76.0228 * getSMEFTCoeff("Cqd1R",0,0,0,0, 5000.) 
+                -158.362 * getSMEFTCoeff("Cqd1R",1,1,0,0, 5000.) 
+                -31.4492 * getSMEFTCoeff("Cqd1R",1,1,1,1, 5000.) 
+                -26479.7 * getSMEFTCoeff("Cqd8R",0,0,0,0, 5000.) 
+                -9075.99 * getSMEFTCoeff("Cqd8R",0,0,1,1, 5000.) 
+                -3598.88 * getSMEFTCoeff("Cqd8R",1,1,0,0, 5000.) 
+                -842.855 * getSMEFTCoeff("Cqd8R",1,1,1,1, 5000.) 
+                +53.8085 * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                -32.6925 * getSMEFTCoeff("CddR",1,1,2,2, 5000.) 
+                -30.7895 * getSMEFTCoeff("Cud8R",2,2,0,0, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                -527.448 * getSMEFTCoeff("CG", 5000.) 
+                -107805. * getSMEFTCoeff("Cqq1R",0,0,0,0, 5000.) 
+                -16158.1 * getSMEFTCoeff("Cqq1R",0,1,1,0, 5000.) 
+                -1759.96 * getSMEFTCoeff("Cqq1R",1,1,1,1, 5000.) 
+                -310084. * getSMEFTCoeff("Cqq3R",0,0,0,0, 5000.) 
+                -73102.6 * getSMEFTCoeff("Cqq3R",0,1,1,0, 5000.) 
+                -1651.97 * getSMEFTCoeff("Cqq3R",1,1,1,1, 5000.) 
+                -75705.9 * getSMEFTCoeff("CuuR",0,0,0,0, 5000.) 
+                +78.7685 * getSMEFTCoeff("CuuR",0,1,1,0, 5000.) 
+                -32135.1 * getSMEFTCoeff("CddR",0,0,0,0, 5000.) 
+                +58.1065 * getSMEFTCoeff("CddR",0,0,1,1, 5000.) 
+                -16273.8 * getSMEFTCoeff("CddR",0,1,1,0, 5000.) 
+                -1742.73 * getSMEFTCoeff("CddR",1,1,1,1, 5000.) 
+                -68.244 * getSMEFTCoeff("Cud1R",0,0,1,1, 5000.) 
+                -83.1764 * getSMEFTCoeff("Cud1R",1,1,0,0, 5000.) 
+                -25338. * getSMEFTCoeff("Cud8R",0,0,0,0, 5000.) 
+                -7158.64 * getSMEFTCoeff("Cud8R",0,0,1,1, 5000.) 
+                -60.3992 * getSMEFTCoeff("Cud8R",1,1,0,0, 5000.) 
+                -106.009 * getSMEFTCoeff("Cqu1R",0,0,0,0, 5000.) 
+                -251.154 * getSMEFTCoeff("Cqu1R",0,0,1,1, 5000.) 
+                +43.3554 * getSMEFTCoeff("Cqu1R",1,1,0,0, 5000.) 
+                -55907.3 * getSMEFTCoeff("Cqu8R",0,0,0,0, 5000.) 
+                -87.5442 * getSMEFTCoeff("Cqu8R",0,0,1,1, 5000.) 
+                -7316.96 * getSMEFTCoeff("Cqu8R",1,1,0,0, 5000.) 
+                -48.7969 * getSMEFTCoeff("Cqd1R",1,1,0,0, 5000.) 
+                -37867.8 * getSMEFTCoeff("Cqd8R",0,0,0,0, 5000.) 
+                -11233.9 * getSMEFTCoeff("Cqd8R",0,0,1,1, 5000.) 
+                -4001.97 * getSMEFTCoeff("Cqd8R",1,1,0,0, 5000.) 
+                -848.392 * getSMEFTCoeff("Cqd8R",1,1,1,1, 5000.) 
+                +39.049 * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                -952.453 * getSMEFTCoeff("CG", 5000.) 
+                -159403. * getSMEFTCoeff("Cqq1R",0,0,0,0, 5000.) 
+                +45.6804 * getSMEFTCoeff("Cqq1R",0,0,1,1, 5000.) 
+                -18208.8 * getSMEFTCoeff("Cqq1R",0,1,1,0, 5000.) 
+                -1734.8 * getSMEFTCoeff("Cqq1R",1,1,1,1, 5000.) 
+                -449952. * getSMEFTCoeff("Cqq3R",0,0,0,0, 5000.) 
+                +90.2891 * getSMEFTCoeff("Cqq3R",0,0,1,1, 5000.) 
+                -86591.1 * getSMEFTCoeff("Cqq3R",0,1,1,0, 5000.) 
+                -1684.65 * getSMEFTCoeff("Cqq3R",1,1,1,1, 5000.) 
+                -115869. * getSMEFTCoeff("CuuR",0,0,0,0, 5000.) 
+                +79.9841 * getSMEFTCoeff("CuuR",0,0,1,1, 5000.) 
+                +95.71 * getSMEFTCoeff("CuuR",0,1,1,0, 5000.) 
+                -43426.1 * getSMEFTCoeff("CddR",0,0,0,0, 5000.) 
+                -57.6202 * getSMEFTCoeff("CddR",0,0,1,1, 5000.) 
+                -18342.1 * getSMEFTCoeff("CddR",0,1,1,0, 5000.) 
+                -1704.53 * getSMEFTCoeff("CddR",1,1,1,1, 5000.) 
+                +60.2388 * getSMEFTCoeff("Cud1R",0,0,0,0, 5000.) 
+                -36423.3 * getSMEFTCoeff("Cud8R",0,0,0,0, 5000.) 
+                -8630.2 * getSMEFTCoeff("Cud8R",0,0,1,1, 5000.) 
+                -57.8113 * getSMEFTCoeff("Cud8R",1,1,0,0, 5000.) 
+                +34.3436 * getSMEFTCoeff("Cud8R",1,1,1,1, 5000.) 
+                +62.4532 * getSMEFTCoeff("Cqu1R",1,1,0,0, 5000.) 
+                -82616.1 * getSMEFTCoeff("Cqu8R",0,0,0,0, 5000.) 
+                -90.316 * getSMEFTCoeff("Cqu8R",0,0,1,1, 5000.) 
+                -8660.3 * getSMEFTCoeff("Cqu8R",1,1,0,0, 5000.) 
+                +87.1227 * getSMEFTCoeff("Cqd1R",1,1,0,0, 5000.) 
+                -52506.6 * getSMEFTCoeff("Cqd8R",0,0,0,0, 5000.) 
+                -13296.1 * getSMEFTCoeff("Cqd8R",0,0,1,1, 5000.) 
+                -4613.51 * getSMEFTCoeff("Cqd8R",1,1,0,0, 5000.) 
+                -833.9 * getSMEFTCoeff("Cqd8R",1,1,1,1, 5000.) 
+                +42.7555 * getSMEFTCoeff("CddR",0,2,2,0, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                +131.097 * getSMEFTCoeff("CG", 10000.) 
+                -228881. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -19944.2 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -1649.01 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                -633477. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -98285.2 * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -1598.6 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                -172593. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                +58.5154 * getSMEFTCoeff("CuuR",0,0,1,1, 10000.) 
+                +172.905 * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                +32.281 * getSMEFTCoeff("CuuR",1,1,1,1, 10000.) 
+                -56436.7 * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                +47.6583 * getSMEFTCoeff("CddR",0,0,1,1, 10000.) 
+                -20078.6 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1646.88 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -47.8239 * getSMEFTCoeff("Cud1R",0,0,1,1, 10000.) 
+                -50567.6 * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -9802.85 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                +51.9893 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +118.192 * getSMEFTCoeff("Cqu1R",0,0,0,0, 10000.) 
+                +156.355 * getSMEFTCoeff("Cqu1R",0,0,1,1, 10000.) 
+                +52.83 * getSMEFTCoeff("Cqu1R",1,1,1,1, 10000.) 
+                -119038. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -93.9273 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -9807.59 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                +38.6129 * getSMEFTCoeff("Cqu8R",1,1,1,1, 10000.) 
+                -92.833 * getSMEFTCoeff("Cqd1R",0,0,1,1, 10000.) 
+                +61.8971 * getSMEFTCoeff("Cqd1R",1,1,0,0, 10000.) 
+                -70515.4 * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -14877.7 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                -5056.07 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -770.979 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                +57.4731 * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                +895.31 * getSMEFTCoeff("CG", 10000.) 
+                -372378. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -21465.4 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -1435.1 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                -988569. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                +105.866 * getSMEFTCoeff("Cqq3R",0,0,1,1, 10000.) 
+                -114067. * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -1458.94 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                -295809. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -92.1936 * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                -77180.4 * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                -21587.4 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1509.08 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -273.902 * getSMEFTCoeff("Cud1R",0,0,0,0, 10000.) 
+                -128.661 * getSMEFTCoeff("Cud1R",0,0,1,1, 10000.) 
+                -76957.8 * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -11521. * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                +48.6947 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                -74.8927 * getSMEFTCoeff("Cqu1R",0,0,0,0, 10000.) 
+                -194400. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -220.835 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -11492.7 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                +203.061 * getSMEFTCoeff("Cqd1R",0,0,1,1, 10000.) 
+                -221.815 * getSMEFTCoeff("Cqd1R",1,1,0,0, 10000.) 
+                -103013. * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -16847.2 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                -5382.42 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -711.675 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                +51.8425 * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                -42.3835 * getSMEFTCoeff("Cqd1R",2,2,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
+ 
+        sigmaSMMx_Bin11a0 = 1.; 
+ 
+        sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
+                +3357.83 * getSMEFTCoeff("CG", 10000.) 
+                -749156. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                +222.025 * getSMEFTCoeff("Cqq1R",0,0,1,1, 10000.) 
+                -23565.3 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -1313.27 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                -1847207. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                +461.605 * getSMEFTCoeff("Cqq3R",0,0,1,1, 10000.) 
+                -142569. * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -1285.64 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                -634073. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -114126. * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                +174.705 * getSMEFTCoeff("CddR",0,0,1,1, 10000.) 
+                -23690.4 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1211.93 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -288.417 * getSMEFTCoeff("Cud1R",0,0,1,1, 10000.) 
+                +190.145 * getSMEFTCoeff("Cud1R",1,1,0,0, 10000.) 
+                -137020. * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -14494.3 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                +213.039 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +88.6778 * getSMEFTCoeff("Cud8R",1,1,1,1, 10000.) 
+                +107.979 * getSMEFTCoeff("Cqu1R",0,0,0,0, 10000.) 
+                +164.331 * getSMEFTCoeff("Cqu1R",1,1,0,0, 10000.) 
+                +82.7577 * getSMEFTCoeff("Cqu1R",1,1,1,1, 10000.) 
+                -394306. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                +294.595 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -14650.4 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                +379.273 * getSMEFTCoeff("Cqd1R",0,0,0,0, 10000.) 
+                -171300. * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -20416.9 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                -5936.05 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -600.189 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                +71.6434 * getSMEFTCoeff("Cqq3R",1,1,2,2, 10000.) 
+                +77.4172 * getSMEFTCoeff("CddR",1,2,2,1, 10000.) 
+                +65.0114 * getSMEFTCoeff("Cqd8R",1,1,2,2, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin11a0 * sigmaMx_Bin11a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin12a0 = 0.0, sigmaMx_Bin12a0 = 0.0; 
+ 
+        sigmaSMMx_Bin12a0 = 1.; 
+ 
+        sigmaMx_Bin12a0 = sigmaSMMx_Bin12a0 
+                -1991797. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -32861.5 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -4448913. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -236830. * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -1787040. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -202153. * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                -33059.1 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -304968. * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -24176.4 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                -1043931. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -23500.9 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                -359893. * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -31996. * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                -8218.99 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin12a0 * sigmaMx_Bin12a0/0.014/0.014; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+const double NPSMEFTd6General::chi2FCChhbbcc() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                +89.4114 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1000.) 
+                +54323.7 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1000.) 
+                +11566. * getSMEFTCoeff("Cqq1R",1,2,2,1, 1000.) 
+                +213132. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1000.) 
+                +29321.5 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1000.) 
+                +54323.1 * getSMEFTCoeff("CddR",0,2,2,0, 1000.) 
+                +11532. * getSMEFTCoeff("CddR",1,2,2,1, 1000.) 
+                -159.428 * getSMEFTCoeff("Cud1R",0,0,2,2, 1000.) 
+                +19834.1 * getSMEFTCoeff("Cud8R",0,0,2,2, 1000.) 
+                +2262.13 * getSMEFTCoeff("Cud8R",1,1,2,2, 1000.) 
+                +19784.5 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1000.) 
+                +2218.62 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1000.) 
+                +131.118 * getSMEFTCoeff("Cqd1R",0,0,2,2, 1000.) 
+                +33347.9 * getSMEFTCoeff("Cqd8R",0,0,2,2, 1000.) 
+                +5143.35 * getSMEFTCoeff("Cqd8R",1,1,2,2, 1000.) 
+                +13592.1 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1000.) 
+                +2856.66 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1000.) 
+                -8351.7 * getSMEFTCoeff("Cqq1R",2,2,2,2, 1000.) 
+                -8343.83 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1000.) 
+                -8381.12 * getSMEFTCoeff("CddR",2,2,2,2, 1000.) 
+                -17312.9 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1000.) 
+                +1010.69 * getSMEFTCoeff("Cqq1R",0,1,1,0, 1000.) 
+                -246.479 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1000.) 
+                +2235.23 * getSMEFTCoeff("Cqq3R",0,1,1,0, 1000.) 
+                +87.693 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1000.) 
+                +1128.18 * getSMEFTCoeff("CuuR",0,1,1,0, 1000.) 
+                -222.081 * getSMEFTCoeff("CuuR",1,1,1,1, 1000.) 
+                +189.142 * getSMEFTCoeff("Cud8R",1,1,0,0, 1000.) 
+                +476.08 * getSMEFTCoeff("Cqu8R",0,0,1,1, 1000.) 
+                -414.238 * getSMEFTCoeff("Cqu8R",1,1,1,1, 1000.) 
+                +161.447 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1000.) 
+                -304.855 * getSMEFTCoeff("Cqq1R",0,0,0,0, 1000.) 
+                -901.499 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1000.) 
+                -184.584 * getSMEFTCoeff("CuuR",0,0,0,0, 1000.) 
+                -123.392 * getSMEFTCoeff("CddR",0,0,0,0, 1000.) 
+                -119.56 * getSMEFTCoeff("CddR",0,1,1,0, 1000.) 
+                -159.194 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1000.) 
+                -134.143 * getSMEFTCoeff("Cqd8R",0,0,0,0, 1000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.022/0.022; 
+ 
+    //double sigmaSMMx_Bin1a0 = 0.0, sigmaMx_Bin1a0 = 0.0; 
+ 
+        sigmaSMMx_Bin1a0 = 1.; 
+ 
+        sigmaMx_Bin1a0 = sigmaSMMx_Bin1a0 
+                -237.969 * getSMEFTCoeff("CG", 1000.) 
+                +1759.25 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1000.) 
+                +365.273 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1000.) 
+                +6915.33 * getSMEFTCoeff("Cqq3R",0,2,2,0, 1000.) 
+                +7146.09 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1000.) 
+                +1761.92 * getSMEFTCoeff("CddR",0,2,2,0, 1000.) 
+                +375.21 * getSMEFTCoeff("CddR",1,2,2,1, 1000.) 
+                +632.58 * getSMEFTCoeff("Cud8R",0,0,2,2, 1000.) 
+                +836.705 * getSMEFTCoeff("Cud8R",1,1,2,2, 1000.) 
+                +637.525 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1000.) 
+                +864.548 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1000.) 
+                +1078.96 * getSMEFTCoeff("Cqd8R",0,0,2,2, 1000.) 
+                +924.365 * getSMEFTCoeff("Cqd8R",1,1,2,2, 1000.) 
+                +432.873 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1000.) 
+                +83.8523 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1000.) 
+                -270.063 * getSMEFTCoeff("Cqq1R",2,2,2,2, 1000.) 
+                -269.808 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1000.) 
+                -271.014 * getSMEFTCoeff("CddR",2,2,2,2, 1000.) 
+                -559.836 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1000.) 
+                +50014. * getSMEFTCoeff("Cqq1R",0,1,1,0, 1000.) 
+                -10266.4 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1000.) 
+                -87.3459 * getSMEFTCoeff("Cqq3R",0,0,1,1, 1000.) 
+                +117089. * getSMEFTCoeff("Cqq3R",0,1,1,0, 1000.) 
+                +4755.97 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1000.) 
+                +51200.2 * getSMEFTCoeff("CuuR",0,1,1,0, 1000.) 
+                -10011.2 * getSMEFTCoeff("CuuR",1,1,1,1, 1000.) 
+                -86.3913 * getSMEFTCoeff("Cud1R",1,1,0,0, 1000.) 
+                +8677.34 * getSMEFTCoeff("Cud8R",1,1,0,0, 1000.) 
+                +1850.69 * getSMEFTCoeff("Cud8R",1,1,1,1, 1000.) 
+                +21675.6 * getSMEFTCoeff("Cqu8R",0,0,1,1, 1000.) 
+                -18738.9 * getSMEFTCoeff("Cqu8R",1,1,1,1, 1000.) 
+                -94.3243 * getSMEFTCoeff("Cqd1R",1,1,0,0, 1000.) 
+                +8463.13 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1000.) 
+                +1750.33 * getSMEFTCoeff("Cqd8R",1,1,1,1, 1000.) 
+                -3066.89 * getSMEFTCoeff("Cqq1R",0,0,0,0, 1000.) 
+                -9069.24 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1000.) 
+                -1856.94 * getSMEFTCoeff("CuuR",0,0,0,0, 1000.) 
+                -1241.34 * getSMEFTCoeff("CddR",0,0,0,0, 1000.) 
+                -1202.8 * getSMEFTCoeff("CddR",0,1,1,0, 1000.) 
+                -262.944 * getSMEFTCoeff("CddR",1,1,1,1, 1000.) 
+                -779.235 * getSMEFTCoeff("Cud8R",0,0,0,0, 1000.) 
+                -469.079 * getSMEFTCoeff("Cud8R",0,0,1,1, 1000.) 
+                -1601.52 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1000.) 
+                -468.935 * getSMEFTCoeff("Cqu8R",1,1,0,0, 1000.) 
+                -1349.5 * getSMEFTCoeff("Cqd8R",0,0,0,0, 1000.) 
+                -746.626 * getSMEFTCoeff("Cqd8R",0,0,1,1, 1000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin1a0 * sigmaMx_Bin1a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -809.459 * getSMEFTCoeff("CG", 1500.) 
+                -161.401 * getSMEFTCoeff("Cqq1R",0,0,2,2, 1500.) 
+                +87150.7 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +16028.8 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                -116.359 * getSMEFTCoeff("Cqq3R",0,0,2,2, 1500.) 
+                +348657. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +40382.4 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                -126.866 * getSMEFTCoeff("CddR",0,0,2,2, 1500.) 
+                +87147.1 * getSMEFTCoeff("CddR",0,2,2,0, 1500.) 
+                +16053.7 * getSMEFTCoeff("CddR",1,2,2,1, 1500.) 
+                -131.511 * getSMEFTCoeff("Cud1R",0,0,2,2, 1500.) 
+                +32490.2 * getSMEFTCoeff("Cud8R",0,0,2,2, 1500.) 
+                +3015.06 * getSMEFTCoeff("Cud8R",1,1,2,2, 1500.) 
+                -88.5768 * getSMEFTCoeff("Cqu1R",2,2,0,0, 1500.) 
+                +32549.9 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +3011.3 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                -145.923 * getSMEFTCoeff("Cqd1R",2,2,0,0, 1500.) 
+                +54355. * getSMEFTCoeff("Cqd8R",0,0,2,2, 1500.) 
+                +7033.5 * getSMEFTCoeff("Cqd8R",1,1,2,2, 1500.) 
+                +21630.9 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +3999.45 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                -19620.5 * getSMEFTCoeff("Cqq1R",2,2,2,2, 1500.) 
+                -19616. * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                -19615. * getSMEFTCoeff("CddR",2,2,2,2, 1500.) 
+                -25772.6 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1500.) 
+                +1704.99 * getSMEFTCoeff("Cqq1R",0,1,1,0, 1500.) 
+                -563.429 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1500.) 
+                +3754.34 * getSMEFTCoeff("Cqq3R",0,1,1,0, 1500.) 
+                -98.6378 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1500.) 
+                +1864.6 * getSMEFTCoeff("CuuR",0,1,1,0, 1500.) 
+                -532.93 * getSMEFTCoeff("CuuR",1,1,1,1, 1500.) 
+                +303.692 * getSMEFTCoeff("Cud8R",1,1,0,0, 1500.) 
+                +775.343 * getSMEFTCoeff("Cqu8R",0,0,1,1, 1500.) 
+                -637.165 * getSMEFTCoeff("Cqu8R",1,1,1,1, 1500.) 
+                +267.974 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1500.) 
+                -435.18 * getSMEFTCoeff("Cqq1R",0,0,0,0, 1500.) 
+                -1296.13 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1500.) 
+                -267.455 * getSMEFTCoeff("CuuR",0,0,0,0, 1500.) 
+                -169.411 * getSMEFTCoeff("CddR",0,0,0,0, 1500.) 
+                -159.888 * getSMEFTCoeff("CddR",0,1,1,0, 1500.) 
+                -108.499 * getSMEFTCoeff("Cud8R",0,0,0,0, 1500.) 
+                -232.009 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1500.) 
+                -189.314 * getSMEFTCoeff("Cqd8R",0,0,0,0, 1500.) 
+                -98.4301 * getSMEFTCoeff("Cqd8R",0,0,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.022/0.022; 
+ 
+    //double sigmaSMMx_Bin2a0 = 0.0, sigmaMx_Bin2a0 = 0.0; 
+ 
+        sigmaSMMx_Bin2a0 = 1.; 
+ 
+        sigmaMx_Bin2a0 = sigmaSMMx_Bin2a0 
+                -648.306 * getSMEFTCoeff("CG", 1500.) 
+                +2836.29 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +513.094 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +11369.3 * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +9641.88 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                +2837.89 * getSMEFTCoeff("CddR",0,2,2,0, 1500.) 
+                +529.095 * getSMEFTCoeff("CddR",1,2,2,1, 1500.) 
+                +1054.73 * getSMEFTCoeff("Cud8R",0,0,2,2, 1500.) 
+                +1120.06 * getSMEFTCoeff("Cud8R",1,1,2,2, 1500.) 
+                +1054.27 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +1129.53 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                +1764.8 * getSMEFTCoeff("Cqd8R",0,0,2,2, 1500.) 
+                +1261.13 * getSMEFTCoeff("Cqd8R",1,1,2,2, 1500.) 
+                +700.816 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +126.654 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                -638.46 * getSMEFTCoeff("Cqq1R",2,2,2,2, 1500.) 
+                -638.314 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                -638.28 * getSMEFTCoeff("CddR",2,2,2,2, 1500.) 
+                -838.653 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1500.) 
+                +83331.8 * getSMEFTCoeff("Cqq1R",0,1,1,0, 1500.) 
+                -24543.6 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1500.) 
+                -120.604 * getSMEFTCoeff("Cqq3R",0,0,1,1, 1500.) 
+                +192420. * getSMEFTCoeff("Cqq3R",0,1,1,0, 1500.) 
+                -3544.14 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1500.) 
+                -111.534 * getSMEFTCoeff("CuuR",0,0,1,1, 1500.) 
+                +84930.3 * getSMEFTCoeff("CuuR",0,1,1,0, 1500.) 
+                -24270.5 * getSMEFTCoeff("CuuR",1,1,1,1, 1500.) 
+                -112.547 * getSMEFTCoeff("Cud1R",1,1,0,0, 1500.) 
+                +14033.1 * getSMEFTCoeff("Cud8R",1,1,0,0, 1500.) 
+                +2590.57 * getSMEFTCoeff("Cud8R",1,1,1,1, 1500.) 
+                -120.383 * getSMEFTCoeff("Cqu1R",0,0,1,1, 1500.) 
+                +35400.2 * getSMEFTCoeff("Cqu8R",0,0,1,1, 1500.) 
+                -29032.1 * getSMEFTCoeff("Cqu8R",1,1,1,1, 1500.) 
+                -152.329 * getSMEFTCoeff("Cqd1R",1,1,0,0, 1500.) 
+                +13689.6 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1500.) 
+                +2450.74 * getSMEFTCoeff("Cqd8R",1,1,1,1, 1500.) 
+                -4405.64 * getSMEFTCoeff("Cqq1R",0,0,0,0, 1500.) 
+                -13121.6 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1500.) 
+                -2707.64 * getSMEFTCoeff("CuuR",0,0,0,0, 1500.) 
+                -1715.07 * getSMEFTCoeff("CddR",0,0,0,0, 1500.) 
+                -1618.66 * getSMEFTCoeff("CddR",0,1,1,0, 1500.) 
+                -314.635 * getSMEFTCoeff("CddR",1,1,1,1, 1500.) 
+                -1098.41 * getSMEFTCoeff("Cud8R",0,0,0,0, 1500.) 
+                -591.154 * getSMEFTCoeff("Cud8R",0,0,1,1, 1500.) 
+                -2348.79 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1500.) 
+                -622.465 * getSMEFTCoeff("Cqu8R",1,1,0,0, 1500.) 
+                -1916.56 * getSMEFTCoeff("Cqd8R",0,0,0,0, 1500.) 
+                -996.478 * getSMEFTCoeff("Cqd8R",0,0,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin2a0 * sigmaMx_Bin2a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                -242.411 * getSMEFTCoeff("CG", 1500.) 
+                +163520. * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +24779.8 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +669281. * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +61495.1 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                +163608. * getSMEFTCoeff("CddR",0,2,2,0, 1500.) 
+                +24782. * getSMEFTCoeff("CddR",1,2,2,1, 1500.) 
+                +63110.7 * getSMEFTCoeff("Cud8R",0,0,2,2, 1500.) 
+                +4578.42 * getSMEFTCoeff("Cud8R",1,1,2,2, 1500.) 
+                +63041.7 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +4571.08 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                +104066. * getSMEFTCoeff("Cqd8R",0,0,2,2, 1500.) 
+                +10784.6 * getSMEFTCoeff("Cqd8R",1,1,2,2, 1500.) 
+                +40846.8 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +6173.84 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                -44476.3 * getSMEFTCoeff("Cqq1R",2,2,2,2, 1500.) 
+                -44462.5 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                -44459.2 * getSMEFTCoeff("CddR",2,2,2,2, 1500.) 
+                -44392.2 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1500.) 
+                +3326.07 * getSMEFTCoeff("Cqq1R",0,1,1,0, 1500.) 
+                -1304.03 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1500.) 
+                +7192.64 * getSMEFTCoeff("Cqq3R",0,1,1,0, 1500.) 
+                -589.397 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1500.) 
+                +3607.68 * getSMEFTCoeff("CuuR",0,1,1,0, 1500.) 
+                -1253.45 * getSMEFTCoeff("CuuR",1,1,1,1, 1500.) 
+                +584.381 * getSMEFTCoeff("Cud8R",1,1,0,0, 1500.) 
+                +88.4305 * getSMEFTCoeff("Cud8R",1,1,1,1, 1500.) 
+                +1486.96 * getSMEFTCoeff("Cqu8R",0,0,1,1, 1500.) 
+                -1149.52 * getSMEFTCoeff("Cqu8R",1,1,1,1, 1500.) 
+                +509.982 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1500.) 
+                -841.312 * getSMEFTCoeff("Cqq1R",0,0,0,0, 1500.) 
+                -2503.81 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1500.) 
+                -523.432 * getSMEFTCoeff("CuuR",0,0,0,0, 1500.) 
+                -320.681 * getSMEFTCoeff("CddR",0,0,0,0, 1500.) 
+                -282.424 * getSMEFTCoeff("CddR",0,1,1,0, 1500.) 
+                -202.569 * getSMEFTCoeff("Cud8R",0,0,0,0, 1500.) 
+                -103.161 * getSMEFTCoeff("Cud8R",0,0,1,1, 1500.) 
+                -446.473 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1500.) 
+                -104.804 * getSMEFTCoeff("Cqu8R",1,1,0,0, 1500.) 
+                -354.227 * getSMEFTCoeff("Cqd8R",0,0,0,0, 1500.) 
+                -174.119 * getSMEFTCoeff("Cqd8R",0,0,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.022/0.022; 
+ 
+    //double sigmaSMMx_Bin3a0 = 0.0, sigmaMx_Bin3a0 = 0.0; 
+ 
+        sigmaSMMx_Bin3a0 = 1.; 
+ 
+        sigmaMx_Bin3a0 = sigmaSMMx_Bin3a0 
+                -621.27 * getSMEFTCoeff("CG", 1500.) 
+                +4686.02 * getSMEFTCoeff("Cqq1R",0,2,2,0, 1500.) 
+                +724.156 * getSMEFTCoeff("Cqq1R",1,2,2,1, 1500.) 
+                +19175.2 * getSMEFTCoeff("Cqq3R",0,2,2,0, 1500.) 
+                +12477.8 * getSMEFTCoeff("Cqq3R",1,2,2,1, 1500.) 
+                +4689.26 * getSMEFTCoeff("CddR",0,2,2,0, 1500.) 
+                +722.691 * getSMEFTCoeff("CddR",1,2,2,1, 1500.) 
+                +1807.78 * getSMEFTCoeff("Cud8R",0,0,2,2, 1500.) 
+                +1464.31 * getSMEFTCoeff("Cud8R",1,1,2,2, 1500.) 
+                +1802.05 * getSMEFTCoeff("Cqu8R",2,2,0,0, 1500.) 
+                +1459.92 * getSMEFTCoeff("Cqu8R",2,2,1,1, 1500.) 
+                +2976.77 * getSMEFTCoeff("Cqd8R",0,0,2,2, 1500.) 
+                +1648.2 * getSMEFTCoeff("Cqd8R",1,1,2,2, 1500.) 
+                +1173.26 * getSMEFTCoeff("Cqd8R",2,2,0,0, 1500.) 
+                +181.441 * getSMEFTCoeff("Cqd8R",2,2,1,1, 1500.) 
+                -1271.58 * getSMEFTCoeff("Cqq1R",2,2,2,2, 1500.) 
+                -1271.19 * getSMEFTCoeff("Cqq3R",2,2,2,2, 1500.) 
+                -1271.09 * getSMEFTCoeff("CddR",2,2,2,2, 1500.) 
+                -1269.18 * getSMEFTCoeff("Cqd8R",2,2,2,2, 1500.) 
+                +141920. * getSMEFTCoeff("Cqq1R",0,1,1,0, 1500.) 
+                -50594.7 * getSMEFTCoeff("Cqq1R",1,1,1,1, 1500.) 
+                +321932. * getSMEFTCoeff("Cqq3R",0,1,1,0, 1500.) 
+                -22201.7 * getSMEFTCoeff("Cqq3R",1,1,1,1, 1500.) 
+                +144405. * getSMEFTCoeff("CuuR",0,1,1,0, 1500.) 
+                -50171.5 * getSMEFTCoeff("CuuR",1,1,1,1, 1500.) 
+                +23397. * getSMEFTCoeff("Cud8R",1,1,0,0, 1500.) 
+                +3543.3 * getSMEFTCoeff("Cud8R",1,1,1,1, 1500.) 
+                +59515. * getSMEFTCoeff("Cqu8R",0,0,1,1, 1500.) 
+                -46040.9 * getSMEFTCoeff("Cqu8R",1,1,1,1, 1500.) 
+                +22748.5 * getSMEFTCoeff("Cqd8R",1,1,0,0, 1500.) 
+                +3318.22 * getSMEFTCoeff("Cqd8R",1,1,1,1, 1500.) 
+                -7483.23 * getSMEFTCoeff("Cqq1R",0,0,0,0, 1500.) 
+                -22270.7 * getSMEFTCoeff("Cqq3R",0,0,0,0, 1500.) 
+                -4655.78 * getSMEFTCoeff("CuuR",0,0,0,0, 1500.) 
+                -2852.36 * getSMEFTCoeff("CddR",0,0,0,0, 1500.) 
+                -2512.08 * getSMEFTCoeff("CddR",0,1,1,0, 1500.) 
+                -455.391 * getSMEFTCoeff("CddR",1,1,1,1, 1500.) 
+                -1801.79 * getSMEFTCoeff("Cud8R",0,0,0,0, 1500.) 
+                -917.586 * getSMEFTCoeff("Cud8R",0,0,1,1, 1500.) 
+                -3971.25 * getSMEFTCoeff("Cqu8R",0,0,0,0, 1500.) 
+                -932.202 * getSMEFTCoeff("Cqu8R",1,1,0,0, 1500.) 
+                -3150.75 * getSMEFTCoeff("Cqd8R",0,0,0,0, 1500.) 
+                -1548.74 * getSMEFTCoeff("Cqd8R",0,0,1,1, 1500.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin3a0 * sigmaMx_Bin3a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                -198.937 * getSMEFTCoeff("CG", 3000.) 
+                +280929. * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                +34351.8 * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                +1172731. * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +83953.4 * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                +281081. * getSMEFTCoeff("CddR",0,2,2,0, 3000.) 
+                +34362.2 * getSMEFTCoeff("CddR",1,2,2,1, 3000.) 
+                +111451. * getSMEFTCoeff("Cud8R",0,0,2,2, 3000.) 
+                +6200.78 * getSMEFTCoeff("Cud8R",1,1,2,2, 3000.) 
+                +111298. * getSMEFTCoeff("Cqu8R",2,2,0,0, 3000.) 
+                +6198.7 * getSMEFTCoeff("Cqu8R",2,2,1,1, 3000.) 
+                +181780. * getSMEFTCoeff("Cqd8R",0,0,2,2, 3000.) 
+                +14808.7 * getSMEFTCoeff("Cqd8R",1,1,2,2, 3000.) 
+                +70298.3 * getSMEFTCoeff("Cqd8R",2,2,0,0, 3000.) 
+                +8596.87 * getSMEFTCoeff("Cqd8R",2,2,1,1, 3000.) 
+                -80333.9 * getSMEFTCoeff("Cqq1R",2,2,2,2, 3000.) 
+                -80329.3 * getSMEFTCoeff("Cqq3R",2,2,2,2, 3000.) 
+                -80316.4 * getSMEFTCoeff("CddR",2,2,2,2, 3000.) 
+                -68384.4 * getSMEFTCoeff("Cqd8R",2,2,2,2, 3000.) 
+                +4936.74 * getSMEFTCoeff("Cqq1R",0,1,1,0, 3000.) 
+                -2602.82 * getSMEFTCoeff("Cqq1R",1,1,1,1, 3000.) 
+                +8646.42 * getSMEFTCoeff("Cqq3R",0,1,1,0, 3000.) 
+                -1591.4 * getSMEFTCoeff("Cqq3R",1,1,1,1, 3000.) 
+                +6379.67 * getSMEFTCoeff("CuuR",0,1,1,0, 3000.) 
+                -2360.13 * getSMEFTCoeff("CuuR",1,1,1,1, 3000.) 
+                +1014.02 * getSMEFTCoeff("Cud8R",1,1,0,0, 3000.) 
+                +128.767 * getSMEFTCoeff("Cud8R",1,1,1,1, 3000.) 
+                +2604.55 * getSMEFTCoeff("Cqu8R",0,0,1,1, 3000.) 
+                -1861.53 * getSMEFTCoeff("Cqu8R",1,1,1,1, 3000.) 
+                +635.874 * getSMEFTCoeff("Cqd8R",1,1,0,0, 3000.) 
+                -4804.05 * getSMEFTCoeff("Cqq1R",0,0,0,0, 3000.) 
+                -14292.5 * getSMEFTCoeff("Cqq3R",0,0,0,0, 3000.) 
+                -3047.02 * getSMEFTCoeff("CuuR",0,0,0,0, 3000.) 
+                -1767.81 * getSMEFTCoeff("CddR",0,0,0,0, 3000.) 
+                -1429.02 * getSMEFTCoeff("CddR",0,1,1,0, 3000.) 
+                -235.483 * getSMEFTCoeff("CddR",1,1,1,1, 3000.) 
+                -1163.7 * getSMEFTCoeff("Cud8R",0,0,0,0, 3000.) 
+                -538.314 * getSMEFTCoeff("Cud8R",0,0,1,1, 3000.) 
+                -2525.52 * getSMEFTCoeff("Cqu8R",0,0,0,0, 3000.) 
+                -545.118 * getSMEFTCoeff("Cqu8R",1,1,0,0, 3000.) 
+                -1965.39 * getSMEFTCoeff("Cqd8R",0,0,0,0, 3000.) 
+                -903.8 * getSMEFTCoeff("Cqd8R",0,0,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.022/0.022; 
+ 
+    //double sigmaSMMx_Bin4a0 = 0.0, sigmaMx_Bin4a0 = 0.0; 
+ 
+        sigmaSMMx_Bin4a0 = 1.; 
+ 
+        sigmaMx_Bin4a0 = sigmaSMMx_Bin4a0 
+                -975. * getSMEFTCoeff("CG", 3000.) 
+                +3759.92 * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                +487.149 * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                +15666.6 * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +7645.36 * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                +3765.65 * getSMEFTCoeff("CddR",0,2,2,0, 3000.) 
+                +477.867 * getSMEFTCoeff("CddR",1,2,2,1, 3000.) 
+                +1493.5 * getSMEFTCoeff("Cud8R",0,0,2,2, 3000.) 
+                +898.066 * getSMEFTCoeff("Cud8R",1,1,2,2, 3000.) 
+                +1485.86 * getSMEFTCoeff("Cqu8R",2,2,0,0, 3000.) 
+                +895.919 * getSMEFTCoeff("Cqu8R",2,2,1,1, 3000.) 
+                +2424.23 * getSMEFTCoeff("Cqd8R",0,0,2,2, 3000.) 
+                +1011.12 * getSMEFTCoeff("Cqd8R",1,1,2,2, 3000.) 
+                +936.573 * getSMEFTCoeff("Cqd8R",2,2,0,0, 3000.) 
+                +124.194 * getSMEFTCoeff("Cqd8R",2,2,1,1, 3000.) 
+                -1067.98 * getSMEFTCoeff("Cqq1R",2,2,2,2, 3000.) 
+                -1067.92 * getSMEFTCoeff("Cqq3R",2,2,2,2, 3000.) 
+                -1067.75 * getSMEFTCoeff("CddR",2,2,2,2, 3000.) 
+                -909.119 * getSMEFTCoeff("Cqd8R",2,2,2,2, 3000.) 
+                +112619. * getSMEFTCoeff("Cqq1R",0,1,1,0, 3000.) 
+                -44943.4 * getSMEFTCoeff("Cqq1R",1,1,1,1, 3000.) 
+                +244176. * getSMEFTCoeff("Cqq3R",0,1,1,0, 3000.) 
+                -26560.4 * getSMEFTCoeff("Cqq3R",1,1,1,1, 3000.) 
+                +118543. * getSMEFTCoeff("CuuR",0,1,1,0, 3000.) 
+                -43941.2 * getSMEFTCoeff("CuuR",1,1,1,1, 3000.) 
+                +18712. * getSMEFTCoeff("Cud8R",1,1,0,0, 3000.) 
+                +2313.22 * getSMEFTCoeff("Cud8R",1,1,1,1, 3000.) 
+                +48352.6 * getSMEFTCoeff("Cqu8R",0,0,1,1, 3000.) 
+                -34697.7 * getSMEFTCoeff("Cqu8R",1,1,1,1, 3000.) 
+                +17156.1 * getSMEFTCoeff("Cqd8R",1,1,0,0, 3000.) 
+                +1813.49 * getSMEFTCoeff("Cqd8R",1,1,1,1, 3000.) 
+                -19869.5 * getSMEFTCoeff("Cqq1R",0,0,0,0, 3000.) 
+                -59113.8 * getSMEFTCoeff("Cqq3R",0,0,0,0, 3000.) 
+                -12602.4 * getSMEFTCoeff("CuuR",0,0,0,0, 3000.) 
+                -7311.62 * getSMEFTCoeff("CddR",0,0,0,0, 3000.) 
+                -5910.41 * getSMEFTCoeff("CddR",0,1,1,0, 3000.) 
+                -973.953 * getSMEFTCoeff("CddR",1,1,1,1, 3000.) 
+                -4813.06 * getSMEFTCoeff("Cud8R",0,0,0,0, 3000.) 
+                -2226.46 * getSMEFTCoeff("Cud8R",0,0,1,1, 3000.) 
+                -10445.5 * getSMEFTCoeff("Cqu8R",0,0,0,0, 3000.) 
+                -2254.6 * getSMEFTCoeff("Cqu8R",1,1,0,0, 3000.) 
+                -8128.83 * getSMEFTCoeff("Cqd8R",0,0,0,0, 3000.) 
+                -3738.11 * getSMEFTCoeff("Cqd8R",0,0,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin4a0 * sigmaMx_Bin4a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                -89.7781 * getSMEFTCoeff("CG", 3000.) 
+                +520800. * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                +50111.7 * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                +2212745. * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +120156. * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                +520866. * getSMEFTCoeff("CddR",0,2,2,0, 3000.) 
+                +50131.6 * getSMEFTCoeff("CddR",1,2,2,1, 3000.) 
+                +211340. * getSMEFTCoeff("Cud8R",0,0,2,2, 3000.) 
+                +8763.03 * getSMEFTCoeff("Cud8R",1,1,2,2, 3000.) 
+                +211469. * getSMEFTCoeff("Cqu8R",2,2,0,0, 3000.) 
+                +8751.72 * getSMEFTCoeff("Cqu8R",2,2,1,1, 3000.) 
+                +341580. * getSMEFTCoeff("Cqd8R",0,0,2,2, 3000.) 
+                +21286.2 * getSMEFTCoeff("Cqd8R",1,1,2,2, 3000.) 
+                +130172. * getSMEFTCoeff("Cqd8R",2,2,0,0, 3000.) 
+                +12537.3 * getSMEFTCoeff("Cqd8R",2,2,1,1, 3000.) 
+                -141657. * getSMEFTCoeff("Cqq1R",2,2,2,2, 3000.) 
+                -141655. * getSMEFTCoeff("Cqq3R",2,2,2,2, 3000.) 
+                -141617. * getSMEFTCoeff("CddR",2,2,2,2, 3000.) 
+                -108485. * getSMEFTCoeff("Cqd8R",2,2,2,2, 3000.) 
+                +9375.24 * getSMEFTCoeff("Cqq1R",0,1,1,0, 3000.) 
+                -4778.23 * getSMEFTCoeff("Cqq1R",1,1,1,1, 3000.) 
+                +15731.5 * getSMEFTCoeff("Cqq3R",0,1,1,0, 3000.) 
+                -3315.02 * getSMEFTCoeff("Cqq3R",1,1,1,1, 3000.) 
+                +12099.6 * getSMEFTCoeff("CuuR",0,1,1,0, 3000.) 
+                -4391.09 * getSMEFTCoeff("CuuR",1,1,1,1, 3000.) 
+                +1901.12 * getSMEFTCoeff("Cud8R",1,1,0,0, 3000.) 
+                +182.355 * getSMEFTCoeff("Cud8R",1,1,1,1, 3000.) 
+                +4884.85 * getSMEFTCoeff("Cqu8R",0,0,1,1, 3000.) 
+                -3133.68 * getSMEFTCoeff("Cqu8R",1,1,1,1, 3000.) 
+                +1160.64 * getSMEFTCoeff("Cqd8R",1,1,0,0, 3000.) 
+                -10989.4 * getSMEFTCoeff("Cqq1R",0,0,0,0, 3000.) 
+                -32503.4 * getSMEFTCoeff("Cqq3R",0,0,0,0, 3000.) 
+                -7207.45 * getSMEFTCoeff("CuuR",0,0,0,0, 3000.) 
+                -3813.92 * getSMEFTCoeff("CddR",0,0,0,0, 3000.) 
+                -2693.84 * getSMEFTCoeff("CddR",0,1,1,0, 3000.) 
+                -390.801 * getSMEFTCoeff("CddR",1,1,1,1, 3000.) 
+                -2678.76 * getSMEFTCoeff("Cud8R",0,0,0,0, 3000.) 
+                -1072.23 * getSMEFTCoeff("Cud8R",0,0,1,1, 3000.) 
+                -5763.04 * getSMEFTCoeff("Cqu8R",0,0,0,0, 3000.) 
+                -1048.98 * getSMEFTCoeff("Cqu8R",1,1,0,0, 3000.) 
+                -4324.88 * getSMEFTCoeff("Cqd8R",0,0,0,0, 3000.) 
+                -1772.3 * getSMEFTCoeff("Cqd8R",0,0,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.022/0.022; 
+ 
+    //double sigmaSMMx_Bin5a0 = 0.0, sigmaMx_Bin5a0 = 0.0; 
+ 
+        sigmaSMMx_Bin5a0 = 1.; 
+ 
+        sigmaMx_Bin5a0 = sigmaSMMx_Bin5a0 
+                -509.202 * getSMEFTCoeff("CG", 3000.) 
+                +5340.52 * getSMEFTCoeff("Cqq1R",0,2,2,0, 3000.) 
+                +540.295 * getSMEFTCoeff("Cqq1R",1,2,2,1, 3000.) 
+                +22646.2 * getSMEFTCoeff("Cqq3R",0,2,2,0, 3000.) 
+                +7996.63 * getSMEFTCoeff("Cqq3R",1,2,2,1, 3000.) 
+                +5341.79 * getSMEFTCoeff("CddR",0,2,2,0, 3000.) 
+                +533.414 * getSMEFTCoeff("CddR",1,2,2,1, 3000.) 
+                +2170.44 * getSMEFTCoeff("Cud8R",0,0,2,2, 3000.) 
+                +933.372 * getSMEFTCoeff("Cud8R",1,1,2,2, 3000.) 
+                +2169.94 * getSMEFTCoeff("Cqu8R",2,2,0,0, 3000.) 
+                +932.827 * getSMEFTCoeff("Cqu8R",2,2,1,1, 3000.) 
+                +3490.76 * getSMEFTCoeff("Cqd8R",0,0,2,2, 3000.) 
+                +1076.04 * getSMEFTCoeff("Cqd8R",1,1,2,2, 3000.) 
+                +1341.7 * getSMEFTCoeff("Cqd8R",2,2,0,0, 3000.) 
+                +137.252 * getSMEFTCoeff("Cqd8R",2,2,1,1, 3000.) 
+                -1444.82 * getSMEFTCoeff("Cqq1R",2,2,2,2, 3000.) 
+                -1444.79 * getSMEFTCoeff("Cqq3R",2,2,2,2, 3000.) 
+                -1444.41 * getSMEFTCoeff("CddR",2,2,2,2, 3000.) 
+                -1106.48 * getSMEFTCoeff("Cqd8R",2,2,2,2, 3000.) 
+                +163929. * getSMEFTCoeff("Cqq1R",0,1,1,0, 3000.) 
+                -63903.9 * getSMEFTCoeff("Cqq1R",1,1,1,1, 3000.) 
+                +349391. * getSMEFTCoeff("Cqq3R",0,1,1,0, 3000.) 
+                -43376.1 * getSMEFTCoeff("Cqq3R",1,1,1,1, 3000.) 
+                +80.573 * getSMEFTCoeff("CuuR",0,0,1,1, 3000.) 
+                +172571. * getSMEFTCoeff("CuuR",0,1,1,0, 3000.) 
+                -62704.1 * getSMEFTCoeff("CuuR",1,1,1,1, 3000.) 
+                +26676.3 * getSMEFTCoeff("Cud8R",1,1,0,0, 3000.) 
+                +2567.71 * getSMEFTCoeff("Cud8R",1,1,1,1, 3000.) 
+                +69713.7 * getSMEFTCoeff("Cqu8R",0,0,1,1, 3000.) 
+                -44814.5 * getSMEFTCoeff("Cqu8R",1,1,1,1, 3000.) 
+                +24338.1 * getSMEFTCoeff("Cqd8R",1,1,0,0, 3000.) 
+                +1958.71 * getSMEFTCoeff("Cqd8R",1,1,1,1, 3000.) 
+                -34870.9 * getSMEFTCoeff("Cqq1R",0,0,0,0, 3000.) 
+                -103138. * getSMEFTCoeff("Cqq3R",0,0,0,0, 3000.) 
+                -22870.3 * getSMEFTCoeff("CuuR",0,0,0,0, 3000.) 
+                -12102.1 * getSMEFTCoeff("CddR",0,0,0,0, 3000.) 
+                +117.373 * getSMEFTCoeff("CddR",0,0,1,1, 3000.) 
+                -8547.93 * getSMEFTCoeff("CddR",0,1,1,0, 3000.) 
+                -1240.07 * getSMEFTCoeff("CddR",1,1,1,1, 3000.) 
+                -8500.07 * getSMEFTCoeff("Cud8R",0,0,0,0, 3000.) 
+                -3402.34 * getSMEFTCoeff("Cud8R",0,0,1,1, 3000.) 
+                -18287. * getSMEFTCoeff("Cqu8R",0,0,0,0, 3000.) 
+                -3328.56 * getSMEFTCoeff("Cqu8R",1,1,0,0, 3000.) 
+                -13723.5 * getSMEFTCoeff("Cqd8R",0,0,0,0, 3000.) 
+                -5623.75 * getSMEFTCoeff("Cqd8R",0,0,1,1, 3000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin5a0 * sigmaMx_Bin5a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                -187.585 * getSMEFTCoeff("CG", 5000.) 
+                +689459. * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +50322.4 * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                +2983528. * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +117537. * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                +689417. * getSMEFTCoeff("CddR",0,2,2,0, 5000.) 
+                +50325.5 * getSMEFTCoeff("CddR",1,2,2,1, 5000.) 
+                +286605. * getSMEFTCoeff("Cud8R",0,0,2,2, 5000.) 
+                +8413.46 * getSMEFTCoeff("Cud8R",1,1,2,2, 5000.) 
+                +286609. * getSMEFTCoeff("Cqu8R",2,2,0,0, 5000.) 
+                +8403.93 * getSMEFTCoeff("Cqu8R",2,2,1,1, 5000.) 
+                +459120. * getSMEFTCoeff("Cqd8R",0,0,2,2, 5000.) 
+                +20993.2 * getSMEFTCoeff("Cqd8R",1,1,2,2, 5000.) 
+                +172411. * getSMEFTCoeff("Cqd8R",2,2,0,0, 5000.) 
+                +12572. * getSMEFTCoeff("Cqd8R",2,2,1,1, 5000.) 
+                -165359. * getSMEFTCoeff("Cqq1R",2,2,2,2, 5000.) 
+                -165346. * getSMEFTCoeff("Cqq3R",2,2,2,2, 5000.) 
+                -165372. * getSMEFTCoeff("CddR",2,2,2,2, 5000.) 
+                -116384. * getSMEFTCoeff("Cqd8R",2,2,2,2, 5000.) 
+                +8694.97 * getSMEFTCoeff("Cqq1R",0,1,1,0, 5000.) 
+                -6450.08 * getSMEFTCoeff("Cqq1R",1,1,1,1, 5000.) 
+                +2761.86 * getSMEFTCoeff("Cqq3R",0,1,1,0, 5000.) 
+                -4948.94 * getSMEFTCoeff("Cqq3R",1,1,1,1, 5000.) 
+                +16313.4 * getSMEFTCoeff("CuuR",0,1,1,0, 5000.) 
+                -5487.83 * getSMEFTCoeff("CuuR",1,1,1,1, 5000.) 
+                +2466.69 * getSMEFTCoeff("Cud8R",1,1,0,0, 5000.) 
+                +159.999 * getSMEFTCoeff("Cud8R",1,1,1,1, 5000.) 
+                +6500.04 * getSMEFTCoeff("Cqu8R",0,0,1,1, 5000.) 
+                -3624.73 * getSMEFTCoeff("Cqu8R",1,1,1,1, 5000.) 
+                -89.0967 * getSMEFTCoeff("Cqd1R",1,1,0,0, 5000.) 
+                +437.217 * getSMEFTCoeff("Cqd8R",1,1,0,0, 5000.) 
+                -294.458 * getSMEFTCoeff("Cqd8R",1,1,1,1, 5000.) 
+                -39931.3 * getSMEFTCoeff("Cqq1R",0,0,0,0, 5000.) 
+                -116313. * getSMEFTCoeff("Cqq3R",0,0,0,0, 5000.) 
+                -27121. * getSMEFTCoeff("CuuR",0,0,0,0, 5000.) 
+                -12914.5 * getSMEFTCoeff("CddR",0,0,0,0, 5000.) 
+                -83.3896 * getSMEFTCoeff("CddR",0,0,1,1, 5000.) 
+                -7855.38 * getSMEFTCoeff("CddR",0,1,1,0, 5000.) 
+                -970.304 * getSMEFTCoeff("CddR",1,1,1,1, 5000.) 
+                -107.761 * getSMEFTCoeff("Cud1R",0,0,1,1, 5000.) 
+                -9554.39 * getSMEFTCoeff("Cud8R",0,0,0,0, 5000.) 
+                -3258.29 * getSMEFTCoeff("Cud8R",0,0,1,1, 5000.) 
+                -20800.1 * getSMEFTCoeff("Cqu8R",0,0,0,0, 5000.) 
+                -3256.24 * getSMEFTCoeff("Cqu8R",1,1,0,0, 5000.) 
+                -14894.9 * getSMEFTCoeff("Cqd8R",0,0,0,0, 5000.) 
+                -5105.29 * getSMEFTCoeff("Cqd8R",0,0,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.022/0.022; 
+ 
+    //double sigmaSMMx_Bin6a0 = 0.0, sigmaMx_Bin6a0 = 0.0; 
+ 
+        sigmaSMMx_Bin6a0 = 1.; 
+ 
+        sigmaMx_Bin6a0 = sigmaSMMx_Bin6a0 
+                -625.537 * getSMEFTCoeff("CG", 5000.) 
+                +3697.34 * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +285.838 * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                +15992.3 * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +3825.08 * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                +3685.75 * getSMEFTCoeff("CddR",0,2,2,0, 5000.) 
+                +269.153 * getSMEFTCoeff("CddR",1,2,2,1, 5000.) 
+                +1525.51 * getSMEFTCoeff("Cud8R",0,0,2,2, 5000.) 
+                +444.207 * getSMEFTCoeff("Cud8R",1,1,2,2, 5000.) 
+                +1514.33 * getSMEFTCoeff("Cqu8R",2,2,0,0, 5000.) 
+                +444.107 * getSMEFTCoeff("Cqu8R",2,2,1,1, 5000.) 
+                +2439.61 * getSMEFTCoeff("Cqd8R",0,0,2,2, 5000.) 
+                +507.15 * getSMEFTCoeff("Cqd8R",1,1,2,2, 5000.) 
+                +928.658 * getSMEFTCoeff("Cqd8R",2,2,0,0, 5000.) 
+                -883.577 * getSMEFTCoeff("Cqq1R",2,2,2,2, 5000.) 
+                -883.505 * getSMEFTCoeff("Cqq3R",2,2,2,2, 5000.) 
+                -883.646 * getSMEFTCoeff("CddR",2,2,2,2, 5000.) 
+                -621.886 * getSMEFTCoeff("Cqd8R",2,2,2,2, 5000.) 
+                +109742. * getSMEFTCoeff("Cqq1R",0,1,1,0, 5000.) 
+                -42624.5 * getSMEFTCoeff("Cqq1R",1,1,1,1, 5000.) 
+                +214394. * getSMEFTCoeff("Cqq3R",0,1,1,0, 5000.) 
+                -31776.3 * getSMEFTCoeff("Cqq3R",1,1,1,1, 5000.) 
+                +122433. * getSMEFTCoeff("CuuR",0,1,1,0, 5000.) 
+                -41039.5 * getSMEFTCoeff("CuuR",1,1,1,1, 5000.) 
+                +18415.3 * getSMEFTCoeff("Cud8R",1,1,0,0, 5000.) 
+                +1312.06 * getSMEFTCoeff("Cud8R",1,1,1,1, 5000.) 
+                +48940.7 * getSMEFTCoeff("Cqu8R",0,0,1,1, 5000.) 
+                -27147.7 * getSMEFTCoeff("Cqu8R",1,1,1,1, 5000.) 
+                -148.215 * getSMEFTCoeff("Cqd1R",1,1,0,0, 5000.) 
+                +15049.3 * getSMEFTCoeff("Cqd8R",1,1,0,0, 5000.) 
+                +555.77 * getSMEFTCoeff("Cqd8R",1,1,1,1, 5000.) 
+                -66381.2 * getSMEFTCoeff("Cqq1R",0,0,0,0, 5000.) 
+                -193357. * getSMEFTCoeff("Cqq3R",0,0,0,0, 5000.) 
+                -45085.5 * getSMEFTCoeff("CuuR",0,0,0,0, 5000.) 
+                -21468.9 * getSMEFTCoeff("CddR",0,0,0,0, 5000.) 
+                -138.626 * getSMEFTCoeff("CddR",0,0,1,1, 5000.) 
+                -13058.7 * getSMEFTCoeff("CddR",0,1,1,0, 5000.) 
+                -1613.02 * getSMEFTCoeff("CddR",1,1,1,1, 5000.) 
+                -93.5913 * getSMEFTCoeff("Cud1R",0,0,0,0, 5000.) 
+                -179.14 * getSMEFTCoeff("Cud1R",0,0,1,1, 5000.) 
+                -15883.1 * getSMEFTCoeff("Cud8R",0,0,0,0, 5000.) 
+                -5416.53 * getSMEFTCoeff("Cud8R",0,0,1,1, 5000.) 
+                -117.886 * getSMEFTCoeff("Cqu1R",0,0,0,0, 5000.) 
+                -34577.8 * getSMEFTCoeff("Cqu8R",0,0,0,0, 5000.) 
+                -5413.12 * getSMEFTCoeff("Cqu8R",1,1,0,0, 5000.) 
+                -24761.1 * getSMEFTCoeff("Cqd8R",0,0,0,0, 5000.) 
+                -8486.95 * getSMEFTCoeff("Cqd8R",0,0,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin6a0 * sigmaMx_Bin6a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                -565.037 * getSMEFTCoeff("CG", 5000.) 
+                +942499. * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +58751.7 * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                -98.906 * getSMEFTCoeff("Cqq3R",0,0,2,2, 5000.) 
+                +4133143. * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +134648. * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                +942463. * getSMEFTCoeff("CddR",0,2,2,0, 5000.) 
+                +58767.2 * getSMEFTCoeff("CddR",1,2,2,1, 5000.) 
+                +398600. * getSMEFTCoeff("Cud8R",0,0,2,2, 5000.) 
+                +9485.07 * getSMEFTCoeff("Cud8R",1,1,2,2, 5000.) 
+                +398646. * getSMEFTCoeff("Cqu8R",2,2,0,0, 5000.) 
+                +9466.05 * getSMEFTCoeff("Cqu8R",2,2,1,1, 5000.) 
+                +634195. * getSMEFTCoeff("Cqd8R",0,0,2,2, 5000.) 
+                +24166.6 * getSMEFTCoeff("Cqd8R",1,1,2,2, 5000.) 
+                +235661. * getSMEFTCoeff("Cqd8R",2,2,0,0, 5000.) 
+                +14684. * getSMEFTCoeff("Cqd8R",2,2,1,1, 5000.) 
+                -203854. * getSMEFTCoeff("Cqq1R",2,2,2,2, 5000.) 
+                -203804. * getSMEFTCoeff("Cqq3R",2,2,2,2, 5000.) 
+                -203833. * getSMEFTCoeff("CddR",2,2,2,2, 5000.) 
+                -138275. * getSMEFTCoeff("Cqd8R",2,2,2,2, 5000.) 
+                +12929.6 * getSMEFTCoeff("Cqq1R",0,1,1,0, 5000.) 
+                -8156.7 * getSMEFTCoeff("Cqq1R",1,1,1,1, 5000.) 
+                +5118.52 * getSMEFTCoeff("Cqq3R",0,1,1,0, 5000.) 
+                -6414.65 * getSMEFTCoeff("Cqq3R",1,1,1,1, 5000.) 
+                +22831.5 * getSMEFTCoeff("CuuR",0,1,1,0, 5000.) 
+                -7088.23 * getSMEFTCoeff("CuuR",1,1,1,1, 5000.) 
+                +3328.59 * getSMEFTCoeff("Cud8R",1,1,0,0, 5000.) 
+                +220.819 * getSMEFTCoeff("Cud8R",1,1,1,1, 5000.) 
+                -152.924 * getSMEFTCoeff("Cqu1R",0,0,1,1, 5000.) 
+                +9005.92 * getSMEFTCoeff("Cqu8R",0,0,1,1, 5000.) 
+                -4535.57 * getSMEFTCoeff("Cqu8R",1,1,1,1, 5000.) 
+                +922.235 * getSMEFTCoeff("Cqd8R",1,1,0,0, 5000.) 
+                -307.493 * getSMEFTCoeff("Cqd8R",1,1,1,1, 5000.) 
+                -65744.1 * getSMEFTCoeff("Cqq1R",0,0,0,0, 5000.) 
+                -189103. * getSMEFTCoeff("Cqq3R",0,0,0,0, 5000.) 
+                -46168.9 * getSMEFTCoeff("CuuR",0,0,0,0, 5000.) 
+                -19597.5 * getSMEFTCoeff("CddR",0,0,0,0, 5000.) 
+                -9924.49 * getSMEFTCoeff("CddR",0,1,1,0, 5000.) 
+                -1062.8 * getSMEFTCoeff("CddR",1,1,1,1, 5000.) 
+                -15452.2 * getSMEFTCoeff("Cud8R",0,0,0,0, 5000.) 
+                -4365.66 * getSMEFTCoeff("Cud8R",0,0,1,1, 5000.) 
+                -34094.8 * getSMEFTCoeff("Cqu8R",0,0,0,0, 5000.) 
+                -4462.22 * getSMEFTCoeff("Cqu8R",1,1,0,0, 5000.) 
+                -23093.5 * getSMEFTCoeff("Cqd8R",0,0,0,0, 5000.) 
+                -6850.93 * getSMEFTCoeff("Cqd8R",0,0,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.023/0.023; 
+ 
+    //double sigmaSMMx_Bin7a0 = 0.0, sigmaMx_Bin7a0 = 0.0; 
+ 
+        sigmaSMMx_Bin7a0 = 1.; 
+ 
+        sigmaMx_Bin7a0 = sigmaSMMx_Bin7a0 
+                -484.225 * getSMEFTCoeff("CG", 5000.) 
+                +4681.73 * getSMEFTCoeff("Cqq1R",0,2,2,0, 5000.) 
+                +312.128 * getSMEFTCoeff("Cqq1R",1,2,2,1, 5000.) 
+                +20541. * getSMEFTCoeff("Cqq3R",0,2,2,0, 5000.) 
+                +3888. * getSMEFTCoeff("Cqq3R",1,2,2,1, 5000.) 
+                +4696.83 * getSMEFTCoeff("CddR",0,2,2,0, 5000.) 
+                +309.949 * getSMEFTCoeff("CddR",1,2,2,1, 5000.) 
+                +1991.67 * getSMEFTCoeff("Cud8R",0,0,2,2, 5000.) 
+                +449.35 * getSMEFTCoeff("Cud8R",1,1,2,2, 5000.) 
+                +1984.13 * getSMEFTCoeff("Cqu8R",2,2,0,0, 5000.) 
+                +449.201 * getSMEFTCoeff("Cqu8R",2,2,1,1, 5000.) 
+                +3142.78 * getSMEFTCoeff("Cqd8R",0,0,2,2, 5000.) 
+                +512.626 * getSMEFTCoeff("Cqd8R",1,1,2,2, 5000.) 
+                +1167.86 * getSMEFTCoeff("Cqd8R",2,2,0,0, 5000.) 
+                -1011.31 * getSMEFTCoeff("Cqq1R",2,2,2,2, 5000.) 
+                -1011.06 * getSMEFTCoeff("Cqq3R",2,2,2,2, 5000.) 
+                -1011.21 * getSMEFTCoeff("CddR",2,2,2,2, 5000.) 
+                -685.978 * getSMEFTCoeff("Cqd8R",2,2,2,2, 5000.) 
+                +143031. * getSMEFTCoeff("Cqq1R",0,1,1,0, 5000.) 
+                -50853.1 * getSMEFTCoeff("Cqq1R",1,1,1,1, 5000.) 
+                +276375. * getSMEFTCoeff("Cqq3R",0,1,1,0, 5000.) 
+                -39109.8 * getSMEFTCoeff("Cqq3R",1,1,1,1, 5000.) 
+                +158313. * getSMEFTCoeff("CuuR",0,1,1,0, 5000.) 
+                -49212.4 * getSMEFTCoeff("CuuR",1,1,1,1, 5000.) 
+                +23317.1 * getSMEFTCoeff("Cud8R",1,1,0,0, 5000.) 
+                +1474.94 * getSMEFTCoeff("Cud8R",1,1,1,1, 5000.) 
+                -234.721 * getSMEFTCoeff("Cqu1R",0,0,1,1, 5000.) 
+                +62837.5 * getSMEFTCoeff("Cqu8R",0,0,1,1, 5000.) 
+                -31512.9 * getSMEFTCoeff("Cqu8R",1,1,1,1, 5000.) 
+                +19589.1 * getSMEFTCoeff("Cqd8R",1,1,0,0, 5000.) 
+                +659.251 * getSMEFTCoeff("Cqd8R",1,1,1,1, 5000.) 
+                -101470. * getSMEFTCoeff("Cqq1R",0,0,0,0, 5000.) 
+                -291864. * getSMEFTCoeff("Cqq3R",0,0,0,0, 5000.) 
+                -71257.4 * getSMEFTCoeff("CuuR",0,0,0,0, 5000.) 
+                -30246.9 * getSMEFTCoeff("CddR",0,0,0,0, 5000.) 
+                -15317.5 * getSMEFTCoeff("CddR",0,1,1,0, 5000.) 
+                -1640.33 * getSMEFTCoeff("CddR",1,1,1,1, 5000.) 
+                -23849.1 * getSMEFTCoeff("Cud8R",0,0,0,0, 5000.) 
+                -6738. * getSMEFTCoeff("Cud8R",0,0,1,1, 5000.) 
+                -99.7803 * getSMEFTCoeff("Cqu1R",0,0,0,0, 5000.) 
+                -52622.2 * getSMEFTCoeff("Cqu8R",0,0,0,0, 5000.) 
+                -6887.02 * getSMEFTCoeff("Cqu8R",1,1,0,0, 5000.) 
+                -35642.7 * getSMEFTCoeff("Cqd8R",0,0,0,0, 5000.) 
+                -10573.8 * getSMEFTCoeff("Cqd8R",0,0,1,1, 5000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin7a0 * sigmaMx_Bin7a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                -672.399 * getSMEFTCoeff("CG", 10000.) 
+                +1702716. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +87137.9 * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +7692750. * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +193310. * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +1702995. * getSMEFTCoeff("CddR",0,2,2,0, 10000.) 
+                +87133. * getSMEFTCoeff("CddR",1,2,2,1, 10000.) 
+                +748472. * getSMEFTCoeff("Cud8R",0,0,2,2, 10000.) 
+                +13265.8 * getSMEFTCoeff("Cud8R",1,1,2,2, 10000.) 
+                +748238. * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +13250.7 * getSMEFTCoeff("Cqu8R",2,2,1,1, 10000.) 
+                +1173933. * getSMEFTCoeff("Cqd8R",0,0,2,2, 10000.) 
+                +35043.1 * getSMEFTCoeff("Cqd8R",1,1,2,2, 10000.) 
+                +425692. * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                +21764.2 * getSMEFTCoeff("Cqd8R",2,2,1,1, 10000.) 
+                -312333. * getSMEFTCoeff("Cqq1R",2,2,2,2, 10000.) 
+                -312231. * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                -312201. * getSMEFTCoeff("CddR",2,2,2,2, 10000.) 
+                -203534. * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                +32144.5 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -12717.5 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                +40939.4 * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -10202.3 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                +42830.4 * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                -11710.7 * getSMEFTCoeff("CuuR",1,1,1,1, 10000.) 
+                +6043.48 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +330.365 * getSMEFTCoeff("Cud8R",1,1,1,1, 10000.) 
+                +16719.7 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -7211.56 * getSMEFTCoeff("Cqu8R",1,1,1,1, 10000.) 
+                +3386.61 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -175.589 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                -92956. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -262389. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -67568.7 * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -25323.9 * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                -10696.2 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -993.993 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -21240.2 * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -5032.69 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                -48177.5 * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -5050.25 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                -30619.2 * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -7753.6 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.023/0.023; 
+ 
+    //double sigmaSMMx_Bin8a0 = 0.0, sigmaMx_Bin8a0 = 0.0; 
+ 
+        sigmaSMMx_Bin8a0 = 1.; 
+ 
+        sigmaMx_Bin8a0 = sigmaSMMx_Bin8a0 
+                -903.013 * getSMEFTCoeff("CG", 10000.) 
+                +8711.85 * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +469.46 * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +39266.6 * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +5332.79 * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +8729.94 * getSMEFTCoeff("CddR",0,2,2,0, 10000.) 
+                +449.45 * getSMEFTCoeff("CddR",1,2,2,1, 10000.) 
+                +3830.31 * getSMEFTCoeff("Cud8R",0,0,2,2, 10000.) 
+                +607.832 * getSMEFTCoeff("Cud8R",1,1,2,2, 10000.) 
+                +3824.01 * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +607.671 * getSMEFTCoeff("Cqu8R",2,2,1,1, 10000.) 
+                +5988.66 * getSMEFTCoeff("Cqd8R",0,0,2,2, 10000.) 
+                +709.983 * getSMEFTCoeff("Cqd8R",1,1,2,2, 10000.) 
+                +2169.08 * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                +98.7593 * getSMEFTCoeff("Cqd8R",2,2,1,1, 10000.) 
+                -1593.86 * getSMEFTCoeff("Cqq1R",2,2,2,2, 10000.) 
+                -1593.33 * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                -1593.18 * getSMEFTCoeff("CddR",2,2,2,2, 10000.) 
+                -1038.64 * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                +288652. * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -85236.1 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                +91.3861 * getSMEFTCoeff("Cqq3R",0,0,1,1, 10000.) 
+                +573069. * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -67429.1 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                +88.5284 * getSMEFTCoeff("CuuR",0,0,1,1, 10000.) 
+                +305682. * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                -83642.3 * getSMEFTCoeff("CuuR",1,1,1,1, 10000.) 
+                +43363.7 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +2248.93 * getSMEFTCoeff("Cud8R",1,1,1,1, 10000.) 
+                +119743. * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -51556.9 * getSMEFTCoeff("Cqu8R",1,1,1,1, 10000.) 
+                +88.8344 * getSMEFTCoeff("Cqd1R",1,1,0,0, 10000.) 
+                +39144.4 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                +1447.68 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                -147579. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -416574. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -107273. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -40204.7 * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                -16981.4 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1578.08 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -33721.3 * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -7989.99 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                -76487.4 * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -8017.86 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                -48611.6 * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -12309.8 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin8a0 * sigmaMx_Bin8a0/0.042/0.042; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                +816890. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +33509.7 * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +3975450. * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +69341.9 * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +816868. * getSMEFTCoeff("CddR",0,2,2,0, 10000.) 
+                +33503.1 * getSMEFTCoeff("CddR",1,2,2,1, 10000.) 
+                +394608. * getSMEFTCoeff("Cud8R",0,0,2,2, 10000.) 
+                +4477.66 * getSMEFTCoeff("Cud8R",1,1,2,2, 10000.) 
+                +394517. * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +4473.41 * getSMEFTCoeff("Cqu8R",2,2,1,1, 10000.) 
+                +598874. * getSMEFTCoeff("Cqd8R",0,0,2,2, 10000.) 
+                +12848.8 * getSMEFTCoeff("Cqd8R",1,1,2,2, 10000.) 
+                +204279. * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                +8362.42 * getSMEFTCoeff("Cqd8R",2,2,1,1, 10000.) 
+                -114792. * getSMEFTCoeff("Cqq1R",2,2,2,2, 10000.) 
+                -114780. * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                -114768. * getSMEFTCoeff("CddR",2,2,2,2, 10000.) 
+                -71428.3 * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                +4652.16 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -6385.15 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                -42288.4 * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -5385.61 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                +22708.8 * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                -4877.12 * getSMEFTCoeff("CuuR",1,1,1,1, 10000.) 
+                +2961.35 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +141.271 * getSMEFTCoeff("Cud8R",1,1,1,1, 10000.) 
+                +140.35 * getSMEFTCoeff("Cqu1R",0,0,1,1, 10000.) 
+                +8469.16 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -2863.38 * getSMEFTCoeff("Cqu8R",1,1,1,1, 10000.) 
+                -1619.09 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -572.476 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                -205360. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -568378. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -154857. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -50637. * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                -18015.2 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1477.64 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -45371. * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -8795.47 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                +106.046 * getSMEFTCoeff("Cqu1R",0,0,0,0, 10000.) 
+                -106805. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -8799.72 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                -83.2931 * getSMEFTCoeff("Cqd1R",0,0,1,1, 10000.) 
+                -63268.9 * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -13348.8 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.023/0.023; 
+ 
+    //double sigmaSMMx_Bin9a0 = 0.0, sigmaMx_Bin9a0 = 0.0; 
+ 
+        sigmaSMMx_Bin9a0 = 1.; 
+ 
+        sigmaMx_Bin9a0 = sigmaSMMx_Bin9a0 
+                +129.364 * getSMEFTCoeff("CG", 10000.) 
+                +2894.21 * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +134.584 * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +14073.3 * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +1153.1 * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +2880.63 * getSMEFTCoeff("CddR",0,2,2,0, 10000.) 
+                +146.367 * getSMEFTCoeff("CddR",1,2,2,1, 10000.) 
+                +1415.22 * getSMEFTCoeff("Cud8R",0,0,2,2, 10000.) 
+                +126.804 * getSMEFTCoeff("Cud8R",1,1,2,2, 10000.) 
+                +1380.48 * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +127.337 * getSMEFTCoeff("Cqu8R",2,2,1,1, 10000.) 
+                +2121.97 * getSMEFTCoeff("Cqd8R",0,0,2,2, 10000.) 
+                +157.904 * getSMEFTCoeff("Cqd8R",1,1,2,2, 10000.) 
+                +744.205 * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                -404.739 * getSMEFTCoeff("Cqq1R",2,2,2,2, 10000.) 
+                -404.699 * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                -404.655 * getSMEFTCoeff("CddR",2,2,2,2, 10000.) 
+                -251.846 * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                +91666.4 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -25838. * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                +129822. * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -21077.7 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                +111500. * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                -24185.7 * getSMEFTCoeff("CuuR",1,1,1,1, 10000.) 
+                +14438.8 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +612.844 * getSMEFTCoeff("Cud8R",1,1,1,1, 10000.) 
+                +154.194 * getSMEFTCoeff("Cqu1R",0,0,1,1, 10000.) 
+                +42129.1 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -14267.2 * getSMEFTCoeff("Cqu8R",1,1,1,1, 10000.) 
+                +9424.64 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -170.042 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                -225267. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -623474. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -169868. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -55545.5 * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                -19761.5 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1620.87 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -49769.1 * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -9648.06 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                +116.326 * getSMEFTCoeff("Cqu1R",0,0,0,0, 10000.) 
+                -117158. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -9652.72 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                -91.3671 * getSMEFTCoeff("Cqd1R",0,0,1,1, 10000.) 
+                -69401.9 * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -14642.7 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin9a0 * sigmaMx_Bin9a0/0.047/0.047; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                +815.658 * getSMEFTCoeff("CG", 10000.) 
+                +422956. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +15533.9 * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +2313693. * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +28745.6 * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +422911. * getSMEFTCoeff("CddR",0,2,2,0, 10000.) 
+                +15469.2 * getSMEFTCoeff("CddR",1,2,2,1, 10000.) 
+                +236107. * getSMEFTCoeff("Cud8R",0,0,2,2, 10000.) 
+                +1655.1 * getSMEFTCoeff("Cud8R",1,1,2,2, 10000.) 
+                +236165. * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +1651.88 * getSMEFTCoeff("Cqu8R",2,2,1,1, 10000.) 
+                +341900. * getSMEFTCoeff("Cqd8R",0,0,2,2, 10000.) 
+                +5521.04 * getSMEFTCoeff("Cqd8R",1,1,2,2, 10000.) 
+                +105666. * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                +3867.52 * getSMEFTCoeff("Cqd8R",2,2,1,1, 10000.) 
+                -43163.3 * getSMEFTCoeff("Cqq1R",2,2,2,2, 10000.) 
+                -43163.2 * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                -43189.4 * getSMEFTCoeff("CddR",2,2,2,2, 10000.) 
+                -26067.7 * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                -7339.18 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -3534.21 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                +102.567 * getSMEFTCoeff("Cqq3R",0,0,1,1, 10000.) 
+                -85111.1 * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -3115.44 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                +13402.9 * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                -2104.14 * getSMEFTCoeff("CuuR",1,1,1,1, 10000.) 
+                +1555.93 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +4668.65 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -1246.61 * getSMEFTCoeff("Cqu8R",1,1,1,1, 10000.) 
+                -215.545 * getSMEFTCoeff("Cqd1R",1,1,0,0, 10000.) 
+                -3713.82 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -635.773 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                -361347. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -959285. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -287046. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -74894.2 * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                -20948. * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1464.38 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -265.788 * getSMEFTCoeff("Cud1R",0,0,0,0, 10000.) 
+                -124.85 * getSMEFTCoeff("Cud1R",0,0,1,1, 10000.) 
+                -74678.1 * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -11179.7 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                -188641. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -11152.3 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                +197.046 * getSMEFTCoeff("Cqd1R",0,0,1,1, 10000.) 
+                -99961.6 * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -16348.2 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.047/0.047; 
+ 
+    //double sigmaSMMx_Bin10a0 = 0.0, sigmaMx_Bin10a0 = 0.0; 
+ 
+        sigmaSMMx_Bin10a0 = 1.; 
+ 
+        sigmaMx_Bin10a0 = sigmaSMMx_Bin10a0 
+                +881.119 * getSMEFTCoeff("CG", 10000.) 
+                +1379.43 * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +102.435 * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +7637.36 * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +353.34 * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +1433.82 * getSMEFTCoeff("CddR",0,2,2,0, 10000.) 
+                +764.276 * getSMEFTCoeff("Cud8R",0,0,2,2, 10000.) 
+                +781.305 * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +1152.04 * getSMEFTCoeff("Cqd8R",0,0,2,2, 10000.) 
+                +325.724 * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                -142.238 * getSMEFTCoeff("Cqq1R",2,2,2,2, 10000.) 
+                -142.238 * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                -142.324 * getSMEFTCoeff("CddR",2,2,2,2, 10000.) 
+                -85.9024 * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                +40882.6 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -11308.1 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                +104.571 * getSMEFTCoeff("Cqq3R",0,0,1,1, 10000.) 
+                +4520.81 * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -9293.06 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                +62155.2 * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                -9844.79 * getSMEFTCoeff("CuuR",1,1,1,1, 10000.) 
+                +7008.73 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +256.426 * getSMEFTCoeff("Cud8R",1,1,1,1, 10000.) 
+                +22307.7 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -5668.26 * getSMEFTCoeff("Cqu8R",1,1,1,1, 10000.) 
+                -222.058 * getSMEFTCoeff("Cqd1R",1,1,0,0, 10000.) 
+                +1607.81 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -455.098 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                -370460. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -983478. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -294286. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -76783. * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                -21476.3 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1501.31 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -272.491 * getSMEFTCoeff("Cud1R",0,0,0,0, 10000.) 
+                -127.998 * getSMEFTCoeff("Cud1R",0,0,1,1, 10000.) 
+                -76561.5 * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -11461.7 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                -193399. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -11433.5 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                +202.015 * getSMEFTCoeff("Cqd1R",0,0,1,1, 10000.) 
+                -102483. * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -16760.5 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin10a0 * sigmaMx_Bin10a0/0.065/0.065; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
+ 
+        sigmaSMMx_Bin11a0 = 1.; 
+ 
+        sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
+                +3350.23 * getSMEFTCoeff("CG", 10000.) 
+                +148362. * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +5488.11 * getSMEFTCoeff("Cqq1R",1,2,2,1, 10000.) 
+                +999082. * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +7867.86 * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +148357. * getSMEFTCoeff("CddR",0,2,2,0, 10000.) 
+                +5531.13 * getSMEFTCoeff("CddR",1,2,2,1, 10000.) 
+                +106259. * getSMEFTCoeff("Cud8R",0,0,2,2, 10000.) 
+                +296.177 * getSMEFTCoeff("Cud8R",1,1,2,2, 10000.) 
+                +106313. * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +295.641 * getSMEFTCoeff("Cqu8R",2,2,1,1, 10000.) 
+                +143412. * getSMEFTCoeff("Cqd8R",0,0,2,2, 10000.) 
+                +1725.61 * getSMEFTCoeff("Cqd8R",1,1,2,2, 10000.) 
+                +37049.2 * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                +1342.76 * getSMEFTCoeff("Cqd8R",2,2,1,1, 10000.) 
+                -7046.96 * getSMEFTCoeff("Cqq1R",2,2,2,2, 10000.) 
+                -7048.64 * getSMEFTCoeff("Cqq3R",2,2,2,2, 10000.) 
+                -7043.06 * getSMEFTCoeff("CddR",2,2,2,2, 10000.) 
+                -4157.97 * getSMEFTCoeff("Cqd8R",2,2,2,2, 10000.) 
+                +221.315 * getSMEFTCoeff("Cqq1R",0,0,1,1, 10000.) 
+                -17420.3 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -1749.91 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                +460.112 * getSMEFTCoeff("Cqq3R",0,0,1,1, 10000.) 
+                -131815. * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -1566.27 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                +129.829 * getSMEFTCoeff("CuuR",0,0,1,1, 10000.) 
+                +6129.17 * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                -472.852 * getSMEFTCoeff("CuuR",1,1,1,1, 10000.) 
+                +189.532 * getSMEFTCoeff("Cud1R",1,1,0,0, 10000.) 
+                +741.34 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +107.762 * getSMEFTCoeff("Cud8R",1,1,1,1, 10000.) 
+                +82.4887 * getSMEFTCoeff("Cqu1R",1,1,1,1, 10000.) 
+                +2340.57 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -212.425 * getSMEFTCoeff("Cqu8R",1,1,1,1, 10000.) 
+                -5388.02 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -578.963 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                -746837. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -1841489. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -632110. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -113773. * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                +174.164 * getSMEFTCoeff("CddR",0,0,1,1, 10000.) 
+                -23617.1 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1208.18 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -287.524 * getSMEFTCoeff("Cud1R",0,0,1,1, 10000.) 
+                -136596. * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -14449.4 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                +107.645 * getSMEFTCoeff("Cqu1R",0,0,0,0, 10000.) 
+                +163.822 * getSMEFTCoeff("Cqu1R",1,1,0,0, 10000.) 
+                -393085. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -14605. * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                +378.098 * getSMEFTCoeff("Cqd1R",0,0,0,0, 10000.) 
+                -170770. * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -20353.7 * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin11a0 * sigmaMx_Bin11a0/0.42/0.42; 
+ 
+    //double sigmaSMMx_Bin11a0 = 0.0, sigmaMx_Bin11a0 = 0.0; 
+ 
+        sigmaSMMx_Bin11a0 = 1.; 
+ 
+        sigmaMx_Bin11a0 = sigmaSMMx_Bin11a0 
+                +3353.51 * getSMEFTCoeff("CG", 10000.) 
+                +531.248 * getSMEFTCoeff("Cqq1R",0,2,2,0, 10000.) 
+                +3245.24 * getSMEFTCoeff("Cqq3R",0,2,2,0, 10000.) 
+                +97.3759 * getSMEFTCoeff("Cqq3R",1,2,2,1, 10000.) 
+                +510.097 * getSMEFTCoeff("CddR",0,2,2,0, 10000.) 
+                +94.9422 * getSMEFTCoeff("CddR",1,2,2,1, 10000.) 
+                +312.465 * getSMEFTCoeff("Cud8R",0,0,2,2, 10000.) 
+                +371.405 * getSMEFTCoeff("Cqu8R",2,2,0,0, 10000.) 
+                +491.963 * getSMEFTCoeff("Cqd8R",0,0,2,2, 10000.) 
+                +82.4921 * getSMEFTCoeff("Cqd8R",2,2,0,0, 10000.) 
+                +221.784 * getSMEFTCoeff("Cqq1R",0,0,1,1, 10000.) 
+                +3841.59 * getSMEFTCoeff("Cqq1R",0,1,1,0, 10000.) 
+                -3300.52 * getSMEFTCoeff("Cqq1R",1,1,1,1, 10000.) 
+                +461.022 * getSMEFTCoeff("Cqq3R",0,0,1,1, 10000.) 
+                -95959.2 * getSMEFTCoeff("Cqq3R",0,1,1,0, 10000.) 
+                -2568.74 * getSMEFTCoeff("Cqq3R",1,1,1,1, 10000.) 
+                +130.521 * getSMEFTCoeff("CuuR",0,0,1,1, 10000.) 
+                +27450.1 * getSMEFTCoeff("CuuR",0,1,1,0, 10000.) 
+                -2019.13 * getSMEFTCoeff("CuuR",1,1,1,1, 10000.) 
+                +189.914 * getSMEFTCoeff("Cud1R",1,1,0,0, 10000.) 
+                +2599.11 * getSMEFTCoeff("Cud8R",1,1,0,0, 10000.) 
+                +175.949 * getSMEFTCoeff("Cud8R",1,1,1,1, 10000.) 
+                +82.6475 * getSMEFTCoeff("Cqu1R",1,1,1,1, 10000.) 
+                +9528.16 * getSMEFTCoeff("Cqu8R",0,0,1,1, 10000.) 
+                -1048. * getSMEFTCoeff("Cqu8R",1,1,1,1, 10000.) 
+                -3542.99 * getSMEFTCoeff("Cqd8R",1,1,0,0, 10000.) 
+                -512.436 * getSMEFTCoeff("Cqd8R",1,1,1,1, 10000.) 
+                -748684. * getSMEFTCoeff("Cqq1R",0,0,0,0, 10000.) 
+                -1846042. * getSMEFTCoeff("Cqq3R",0,0,0,0, 10000.) 
+                -633673. * getSMEFTCoeff("CuuR",0,0,0,0, 10000.) 
+                -114054. * getSMEFTCoeff("CddR",0,0,0,0, 10000.) 
+                +174.595 * getSMEFTCoeff("CddR",0,0,1,1, 10000.) 
+                -23675.5 * getSMEFTCoeff("CddR",0,1,1,0, 10000.) 
+                -1211.17 * getSMEFTCoeff("CddR",1,1,1,1, 10000.) 
+                -288.235 * getSMEFTCoeff("Cud1R",0,0,1,1, 10000.) 
+                -136934. * getSMEFTCoeff("Cud8R",0,0,0,0, 10000.) 
+                -14485.2 * getSMEFTCoeff("Cud8R",0,0,1,1, 10000.) 
+                +107.911 * getSMEFTCoeff("Cqu1R",0,0,0,0, 10000.) 
+                +164.227 * getSMEFTCoeff("Cqu1R",1,1,0,0, 10000.) 
+                -394057. * getSMEFTCoeff("Cqu8R",0,0,0,0, 10000.) 
+                -14641.1 * getSMEFTCoeff("Cqu8R",1,1,0,0, 10000.) 
+                +379.033 * getSMEFTCoeff("Cqd1R",0,0,0,0, 10000.) 
+                -171192. * getSMEFTCoeff("Cqd8R",0,0,0,0, 10000.) 
+                -20404. * getSMEFTCoeff("Cqd8R",0,0,1,1, 10000.) 
+                ;
+ 
+        dchi2Tot += sigmaMx_Bin11a0 * sigmaMx_Bin11a0/0.609/0.609; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
+
+const double NPSMEFTd6General::chi2FCChhWW() const
+{
+    double dchi2Tot = 0.0;
+
+    double sigmaSMMemu_Bin1a0 = 0.0, sigmaMemu_Bin1a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin1a0 = 1.; 
+ 
+        sigmaMemu_Bin1a0 = sigmaSMMemu_Bin1a0 
+                -122303. * (getSMEFTCoeff("CHl3R",0,0, 1500.) + getSMEFTCoeff("CHl3R",1,1, 1500.))
+                +256434. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +802038. * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +2992200. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +649091. * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                -207683. * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                -485341.  * (getSMEFTCoeff("Clq1R",0,0,0,0, 1500.) + getSMEFTCoeff("Clq1R",1,1,0,0, 1500.) )
+                +2697877. * (getSMEFTCoeff("Clq3R",0,0,0,0, 1500.) + getSMEFTCoeff("Clq3R",1,1,0,0, 1500.) )
+                -252058.  * (getSMEFTCoeff("CluR",0,0,0,0, 1500.) + getSMEFTCoeff("CluR",1,1,0,0, 1500.) )
+                +86993.2  * (getSMEFTCoeff("CldR",0,0,0,0, 1500.) + getSMEFTCoeff("CldR",1,1,0,0, 1500.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin1a0 * sigmaMemu_Bin1a0/0.024/0.024; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMemu_Bin2a0 = 0.0, sigmaMemu_Bin2a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin2a0 = 1.; 
+ 
+        sigmaMemu_Bin2a0 = sigmaSMMemu_Bin2a0 
+                -121738. * (getSMEFTCoeff("CHl3R",0,0, 1500.) + getSMEFTCoeff("CHl3R",1,1, 1500.))
+                +240334. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +969759. * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +3549929. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +778774. * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                -300604. * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                -728938.  * (getSMEFTCoeff("Clq1R",0,0,0,0, 1500.) + getSMEFTCoeff("Clq1R",1,1,0,0, 1500.) )
+                +2841838. * (getSMEFTCoeff("Clq3R",0,0,0,0, 1500.) + getSMEFTCoeff("Clq3R",1,1,0,0, 1500.) )
+                -300243.  * (getSMEFTCoeff("CluR",0,0,0,0, 1500.) + getSMEFTCoeff("CluR",1,1,0,0, 1500.) )
+                +94035.2  * (getSMEFTCoeff("CldR",0,0,0,0, 1500.) + getSMEFTCoeff("CldR",1,1,0,0, 1500.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin2a0 * sigmaMemu_Bin2a0/0.032/0.032; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMemu_Bin3a0 = 0.0, sigmaMemu_Bin3a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin3a0 = 1.; 
+ 
+        sigmaMemu_Bin3a0 = sigmaSMMemu_Bin3a0 
+                -115908. * (getSMEFTCoeff("CHl3R",0,0, 1500.) + getSMEFTCoeff("CHl3R",1,1, 1500.))
+                +239054. * getSMEFTCoeff("CllR",0,1,1,0, 1500.) 
+                +1311967. * getSMEFTCoeff("CHq1R",0,0, 1500.) 
+                +4512946. * getSMEFTCoeff("CHq3R",0,0, 1500.) 
+                +999392. * getSMEFTCoeff("CHuR",0,0, 1500.) 
+                -323336. * getSMEFTCoeff("CHdR",0,0, 1500.) 
+                -776415.  * (getSMEFTCoeff("Clq1R",0,0,0,0, 1500.) + getSMEFTCoeff("Clq1R",1,1,0,0, 1500.) )
+                +3574926. * (getSMEFTCoeff("Clq3R",0,0,0,0, 1500.) + getSMEFTCoeff("Clq3R",1,1,0,0, 1500.) )
+                -390809.  * (getSMEFTCoeff("CluR",0,0,0,0, 1500.) + getSMEFTCoeff("CluR",1,1,0,0, 1500.) )
+                +140074.  * (getSMEFTCoeff("CldR",0,0,0,0, 1500.) + getSMEFTCoeff("CldR",1,1,0,0, 1500.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin3a0 * sigmaMemu_Bin3a0/0.03/0.03; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMemu_Bin4a0 = 0.0, sigmaMemu_Bin4a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin4a0 = 1.; 
+ 
+        sigmaMemu_Bin4a0 = sigmaSMMemu_Bin4a0 
+                -121437. * (getSMEFTCoeff("CHl3R",0,0, 3000.) + getSMEFTCoeff("CHl3R",1,1, 3000.))
+                +250927. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +1793516. * getSMEFTCoeff("CHq1R",0,0, 3000.) 
+                +5889601. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +1317159. * getSMEFTCoeff("CHuR",0,0, 3000.) 
+                -435275. * getSMEFTCoeff("CHdR",0,0, 3000.) 
+                -1079940. * (getSMEFTCoeff("Clq1R",0,0,0,0, 3000.) + getSMEFTCoeff("Clq1R",1,1,0,0, 3000.) )
+                +4966908. * (getSMEFTCoeff("Clq3R",0,0,0,0, 3000.) + getSMEFTCoeff("Clq3R",1,1,0,0, 3000.) )
+                -563778.  * (getSMEFTCoeff("CluR",0,0,0,0, 3000.) + getSMEFTCoeff("CluR",1,1,0,0, 3000.) )
+                +180870.  * (getSMEFTCoeff("CldR",0,0,0,0, 3000.) + getSMEFTCoeff("CldR",1,1,0,0, 3000.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin4a0 * sigmaMemu_Bin4a0/0.04/0.04; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMemu_Bin5a0 = 0.0, sigmaMemu_Bin5a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin5a0 = 1.; 
+ 
+        sigmaMemu_Bin5a0 = sigmaSMMemu_Bin5a0 
+                -120419. * (getSMEFTCoeff("CHl3R",0,0, 3000.) + getSMEFTCoeff("CHl3R",1,1, 3000.))
+                +233467. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +2346037. * getSMEFTCoeff("CHq1R",0,0, 3000.) 
+                +7424710. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +1677769. * getSMEFTCoeff("CHuR",0,0, 3000.) 
+                -526473. * getSMEFTCoeff("CHdR",0,0, 3000.) 
+                -1555194. * (getSMEFTCoeff("Clq1R",0,0,0,0, 3000.) + getSMEFTCoeff("Clq1R",1,1,0,0, 3000.) )
+                +5936364. * (getSMEFTCoeff("Clq3R",0,0,0,0, 3000.) + getSMEFTCoeff("Clq3R",1,1,0,0, 3000.) )
+                -762532.  * (getSMEFTCoeff("CluR",0,0,0,0, 3000.) + getSMEFTCoeff("CluR",1,1,0,0, 3000.) )
+                +231542.  * (getSMEFTCoeff("CldR",0,0,0,0, 3000.) + getSMEFTCoeff("CldR",1,1,0,0, 3000.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin5a0 * sigmaMemu_Bin5a0/0.047/0.047; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMemu_Bin6a0 = 0.0, sigmaMemu_Bin6a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin6a0 = 1.; 
+ 
+        sigmaMemu_Bin6a0 = sigmaSMMemu_Bin6a0 
+                -130729. * (getSMEFTCoeff("CHl3R",0,0, 3000.) + getSMEFTCoeff("CHl3R",1,1, 3000.))
+                +243685. * getSMEFTCoeff("CllR",0,1,1,0, 3000.) 
+                +3042941. * getSMEFTCoeff("CHq1R",0,0, 3000.) 
+                +9373413. * getSMEFTCoeff("CHq3R",0,0, 3000.) 
+                +2114399. * getSMEFTCoeff("CHuR",0,0, 3000.) 
+                -654620. * getSMEFTCoeff("CHdR",0,0, 3000.) 
+                -2160820. * (getSMEFTCoeff("Clq1R",0,0,0,0, 3000.) + getSMEFTCoeff("Clq1R",1,1,0,0, 3000.) )
+                +8196234. * (getSMEFTCoeff("Clq3R",0,0,0,0, 3000.) + getSMEFTCoeff("Clq3R",1,1,0,0, 3000.) )
+                -1119257. * (getSMEFTCoeff("CluR",0,0,0,0, 3000.) + getSMEFTCoeff("CluR",1,1,0,0, 3000.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin6a0 * sigmaMemu_Bin6a0/0.053/0.053; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMemu_Bin7a0 = 0.0, sigmaMemu_Bin7a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin7a0 = 1.; 
+ 
+        sigmaMemu_Bin7a0 = sigmaSMMemu_Bin7a0 
+                -117909. * (getSMEFTCoeff("CHl3R",0,0, 5000.) + getSMEFTCoeff("CHl3R",1,1, 5000.))
+                +265055. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +4271975. * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +12644187. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +2914675. * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                -894326. * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -2600983.  * (getSMEFTCoeff("Clq1R",0,0,0,0, 5000.) + getSMEFTCoeff("Clq1R",1,1,0,0, 5000.) )
+                +10420736. * (getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) + getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) )
+                -1617706.  * (getSMEFTCoeff("CluR",0,0,0,0, 5000.) + getSMEFTCoeff("CluR",1,1,0,0, 5000.) )
+                +437847.   * (getSMEFTCoeff("CldR",0,0,0,0, 5000.) + getSMEFTCoeff("CldR",1,1,0,0, 5000.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin7a0 * sigmaMemu_Bin7a0/0.094/0.094; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMemu_Bin8a0 = 0.0, sigmaMemu_Bin8a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin8a0 = 1.; 
+ 
+        sigmaMemu_Bin8a0 = sigmaSMMemu_Bin8a0 
+                -126799. * (getSMEFTCoeff("CHl3R",0,0, 5000.) + getSMEFTCoeff("CHl3R",1,1, 5000.))
+                +207625. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +5533849. * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +15770982. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +3673753. * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                -1105674. * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -3667020.  * (getSMEFTCoeff("Clq1R",0,0,0,0, 5000.) + getSMEFTCoeff("Clq1R",1,1,0,0, 5000.) )
+                +13260819. * (getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) + getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) )
+                -1957673.  * (getSMEFTCoeff("CluR",0,0,0,0, 5000.) + getSMEFTCoeff("CluR",1,1,0,0, 5000.) )
+                +541855.  * (getSMEFTCoeff("CldR",0,0,0,0, 5000.) + getSMEFTCoeff("CldR",1,1,0,0, 5000.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin8a0 * sigmaMemu_Bin8a0/0.14/0.14; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMemu_Bin9a0 = 0.0, sigmaMemu_Bin9a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin9a0 = 1.; 
+ 
+        sigmaMemu_Bin9a0 = sigmaSMMemu_Bin9a0 
+                -135290. * (getSMEFTCoeff("CHl3R",0,0, 5000.) + getSMEFTCoeff("CHl3R",1,1, 5000.))
+                +272244. * getSMEFTCoeff("CllR",0,1,1,0, 5000.) 
+                +6829918. * getSMEFTCoeff("CHq1R",0,0, 5000.) 
+                +19204913. * getSMEFTCoeff("CHq3R",0,0, 5000.) 
+                +4498782. * getSMEFTCoeff("CHuR",0,0, 5000.) 
+                -1326360. * getSMEFTCoeff("CHdR",0,0, 5000.) 
+                -3872170. * (getSMEFTCoeff("Clq1R",0,0,0,0, 5000.) + getSMEFTCoeff("Clq1R",1,1,0,0, 5000.) )
+                +16720785. * (getSMEFTCoeff("Clq3R",0,0,0,0, 5000.) + getSMEFTCoeff("Clq3R",1,1,0,0, 5000.) )
+                -2544802. * (getSMEFTCoeff("CluR",0,0,0,0, 5000.) + getSMEFTCoeff("CluR",1,1,0,0, 5000.) )
+                +760798.  * (getSMEFTCoeff("CldR",0,0,0,0, 5000.) + getSMEFTCoeff("CldR",1,1,0,0, 5000.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin9a0 * sigmaMemu_Bin9a0/0.189/0.189; 
+ 
+ 
+//----------------------------------------------------------- 
+    double sigmaSMMemu_Bin10a0 = 0.0, sigmaMemu_Bin10a0 = 0.0; 
+ 
+        sigmaSMMemu_Bin10a0 = 1.; 
+ 
+        sigmaMemu_Bin10a0 = sigmaSMMemu_Bin10a0 
+                -1388.26 * getSMEFTCoeff("CW", 10000.) 
+                -909.909 * getSMEFTCoeff("CHD", 10000.) 
+                -132815. * (getSMEFTCoeff("CHl3R",0,0, 10000.) + getSMEFTCoeff("CHl3R",1,1, 10000.))
+                +214835. * getSMEFTCoeff("CllR",0,1,1,0, 10000.) 
+                +8734437. * getSMEFTCoeff("CHq1R",0,0, 10000.) 
+                +23127329. * getSMEFTCoeff("CHq3R",0,0, 10000.) 
+                +5442023. * getSMEFTCoeff("CHuR",0,0, 10000.) 
+                -1528613. * getSMEFTCoeff("CHdR",0,0, 10000.) 
+                -6051795.  * (getSMEFTCoeff("Clq1R",0,0,0,0, 10000.) + getSMEFTCoeff("Clq1R",1,1,0,0, 10000.) )
+                +20079255. * (getSMEFTCoeff("Clq3R",0,0,0,0, 10000.) + getSMEFTCoeff("Clq3R",1,1,0,0, 10000.) )
+                -3823306.  * (getSMEFTCoeff("CluR",0,0,0,0, 10000.) + getSMEFTCoeff("CluR",1,1,0,0, 10000.) )
+                +930219. * (getSMEFTCoeff("CldR",0,0,0,0, 10000.) + getSMEFTCoeff("CldR",1,1,0,0, 10000.) )
+                ;
+ 
+        dchi2Tot += sigmaMemu_Bin10a0 * sigmaMemu_Bin10a0/0.251/0.251; 
+ 
+ 
+//----------------------------------------------------------- 
+ 
+    return dchi2Tot; 
+ 
+}
+
