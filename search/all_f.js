@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['n_0',['N',['../dc/d6f/class_s_u_s_y.html#a11af531d36efc3369ea4d231a7776400',1,'SUSY::N()'],['../d4/d6e/class_s_u_s_y_spectrum.html#a00e43d0a2ba9cbbfe6fd4f3ed415e978',1,'SUSYSpectrum::N()'],['../d0/d13/class_bsgamma.html#a03549901ff4b636860555a919f756e7f',1,'Bsgamma::N()']]],
-  ['n_1',['n',['../d7/dc5/class_evol_d_f1nlep.html#ab7c76de6692681bddc44220bc3732312',1,'EvolDF1nlep']]],
+  ['n_0',['n',['../d7/dc5/class_evol_d_f1nlep.html#ab7c76de6692681bddc44220bc3732312',1,'EvolDF1nlep']]],
+  ['n_1',['N',['../dc/d6f/class_s_u_s_y.html#a11af531d36efc3369ea4d231a7776400',1,'SUSY::N()'],['../d4/d6e/class_s_u_s_y_spectrum.html#a00e43d0a2ba9cbbfe6fd4f3ed415e978',1,'SUSYSpectrum::N()'],['../d0/d13/class_bsgamma.html#a03549901ff4b636860555a919f756e7f',1,'Bsgamma::N(double E0, double mu)']]],
   ['n_5f27_2',['N_27',['../d0/d13/class_bsgamma.html#a7cbe4aa4a30d8caea8eefb25390fd2c9',1,'Bsgamma']]],
   ['n_5f77_3',['N_77',['../d0/d13/class_bsgamma.html#af9ee103f0756fbd39822c9c814a69207',1,'Bsgamma']]],
   ['n_5fat_4',['N_at',['../d8/d84/class_q_w_a_p_v.html#a0bf03cf2dbfaa434ba30afeb9ee7d447',1,'QWAPV']]],
