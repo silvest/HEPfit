@@ -46356,9 +46356,13 @@ const double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double pol
     double Nf;
     
     double pLH, pRH; //Polarization factors, minus the 1/4 average
+    double pLLH, pRRH; 
     
     pLH = (1.0 - pol_e) * (1.0 + pol_p);
     pRH = (1.0 + pol_e) * (1.0 - pol_p);
+    
+    pLLH = (1.0 - pol_e) * (1.0 - pol_p);
+    pRRH = (1.0 + pol_e) * (1.0 + pol_p);
 
     //if (f.is("LEPTON")) {
     if ( f.getIndex() < 6 ) {
@@ -46377,7 +46381,7 @@ const double NPSMEFTd6General::delta_Dsigma_f(const Particle f, const double pol
     // Add t-channel contributions for f=e
     //if (f.is("ELECTRON")) {
     if ( f.getIndex() == 1 ) {
-        sumM2 = sumM2 + (pLH * deltaMLR2t_e(s,t) + pRH * deltaMRL2t_e(s,t)) * s * s / t / t;
+        sumM2 = sumM2 + (pLLH * deltaMLR2t_e(s,t) + pRRH * deltaMRL2t_e(s,t)) * s * s / t / t;
     }
 
     dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
