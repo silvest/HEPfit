@@ -4029,9 +4029,13 @@ const double StandardModel::eeffsigmaEbin(const double pol_e, const double pol_p
     double t0, t1, lambdaK;
     
     double pLH, pRH; //Polarization factors, minus the 1/4 average
+    double pLLH, pRRH;
     
     pLH = (1.0 - pol_e) * (1.0 + pol_p);
     pRH = (1.0 + pol_e) * (1.0 - pol_p);
+    
+    pLLH = (1.0 - pol_e) * (1.0 - pol_p);
+    pRRH = (1.0 + pol_e) * (1.0 + pol_p);
     
     // t values for cosmin and cosmax
     t0 = 0.5 * s * ( -1.0 + cosmin );
@@ -4041,7 +4045,8 @@ const double StandardModel::eeffsigmaEbin(const double pol_e, const double pol_p
     lambdaK = s*s;
     
     // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
-    sumM2 = (pLH + pRH) * ( intMLR2eeeets2(s, t0, t1) + intMLRtilde2eeeest2(s, t0, t1) ) + 
+    sumM2 = (pLH + pRH) * ( intMLR2eeeets2(s, t0, t1) ) + 
+            (pLLH + pRRH) * ( intMLRtilde2eeeest2(s, t0, t1) ) + 
             pLH * intMLL2eeeeus2(s, t0, t1) + pRH * intMRR2eeeeus2(s, t0, t1);   
     
     // Build the cross section

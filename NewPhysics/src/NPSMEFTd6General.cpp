@@ -46713,9 +46713,13 @@ const double NPSMEFTd6General::delta_sigma_ee(const double pol_e, const double p
     double t0, t1, lambdaK;
     
     double pLH, pRH; //Polarization factors, minus the 1/4 average
+    double pLLH, pRRH; 
     
     pLH = (1.0 - pol_e) * (1.0 + pol_p);
     pRH = (1.0 + pol_e) * (1.0 - pol_p);
+    
+    pLLH = (1.0 - pol_e) * (1.0 - pol_p);
+    pRRH = (1.0 + pol_e) * (1.0 + pol_p);
     
     // t values for cosmin and cosmax
     t0 = 0.5 * s * ( -1.0 + cosmin );
@@ -46727,7 +46731,7 @@ const double NPSMEFTd6General::delta_sigma_ee(const double pol_e, const double p
     // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
     sumM2 = pLH * intDMLL2eus2(s, t0, t1) + pRH * intDMRR2eus2(s, t0, t1) +
             pLH * intDMLR2ets2(s, t0, t1) + pRH * intDMRL2ets2(s, t0, t1) + 
-            pLH * intDMLR2etildest2(s, t0, t1) + pRH * intDMRL2etildest2(s, t0, t1);   
+            pLLH * intDMLR2etildest2(s, t0, t1) + pRRH * intDMRL2etildest2(s, t0, t1);   
     
     // Build the cross section
     dsigma = M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s / sqrt(lambdaK);
