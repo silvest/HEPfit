@@ -5971,6 +5971,54 @@ ThObsFactory::ThObsFactory()
         obsThFactory["ctlT_TWG_" + sqrt_s_str] = bind(boost::factory<TWGctlT*>(), _1, sqrt_s_eeff[i]);
 
     }
+    
+    //-----  (Extra temporary definition, evaluated at 10 TeV) ----------
+    //
+    obsThFactory["cQQ1_TWG_10TeV"] = bind(boost::factory<TWGcQQ1*>(), _1, 10000.);
+    obsThFactory["cQQ8_TWG_10TeV"] = bind(boost::factory<TWGcQQ8*>(), _1, 10000.);
+    obsThFactory["ctt1_TWG_10TeV"] = bind(boost::factory<TWGctt1*>(), _1, 10000.);
+    obsThFactory["cQt1_TWG_10TeV"] = bind(boost::factory<TWGcQt1*>(), _1, 10000.);
+    obsThFactory["cQt8_TWG_10TeV"] = bind(boost::factory<TWGcQt8*>(), _1, 10000.);
+    //
+    obsThFactory["cQq31_TWG_10TeV"] = bind(boost::factory<TWGcQq31*>(), _1, 10000.);
+    obsThFactory["cQq38_TWG_10TeV"] = bind(boost::factory<TWGcQq38*>(), _1, 10000.);
+    obsThFactory["cQq11_TWG_10TeV"] = bind(boost::factory<TWGcQq11*>(), _1, 10000.);
+    obsThFactory["cQq18_TWG_10TeV"] = bind(boost::factory<TWGcQq18*>(), _1, 10000.);
+    obsThFactory["cQu1_TWG_10TeV"] = bind(boost::factory<TWGcQu1*>(), _1, 10000.);
+    obsThFactory["cQu8_TWG_10TeV"] = bind(boost::factory<TWGcQu8*>(), _1, 10000.);
+    obsThFactory["cQd1_TWG_10TeV"] = bind(boost::factory<TWGcQd1*>(), _1, 10000.);
+    obsThFactory["cQd8_TWG_10TeV"] = bind(boost::factory<TWGcQd8*>(), _1, 10000.);
+    obsThFactory["ctq1_TWG_10TeV"] = bind(boost::factory<TWGctq1*>(), _1, 10000.);
+    obsThFactory["ctq8_TWG_10TeV"] = bind(boost::factory<TWGctq8*>(), _1, 10000.);
+    obsThFactory["ctu1_TWG_10TeV"] = bind(boost::factory<TWGctu1*>(), _1, 10000.);
+    obsThFactory["ctu8_TWG_10TeV"] = bind(boost::factory<TWGctu8*>(), _1, 10000.);
+    obsThFactory["ctd1_TWG_10TeV"] = bind(boost::factory<TWGctd1*>(), _1, 10000.);
+    obsThFactory["ctd8_TWG_10TeV"] = bind(boost::factory<TWGctd8*>(), _1, 10000.);
+    //
+    obsThFactory["ctH_TWG_10TeV"] = bind(boost::factory<TWGctH*>(), _1, 10000.);
+    obsThFactory["cHQm_TWG_10TeV"] = bind(boost::factory<TWGcHQm*>(), _1, 10000.);
+    obsThFactory["cHQp_TWG_10TeV"] = bind(boost::factory<TWGcHQp*>(), _1, 10000.);
+    obsThFactory["cHQ3_TWG_10TeV"] = bind(boost::factory<TWGcHQ3*>(), _1, 10000.);
+    obsThFactory["cHt_TWG_10TeV"] = bind(boost::factory<TWGcHt*>(), _1, 10000.);
+    obsThFactory["cHb_TWG_10TeV"] = bind(boost::factory<TWGcHb*>(), _1, 10000.);
+    obsThFactory["cHtb_TWG_10TeV"] = bind(boost::factory<TWGcHtb*>(), _1, 10000.);
+    //
+    obsThFactory["ctW_TWG_10TeV"] = bind(boost::factory<TWGctW*>(), _1, 10000.);
+    obsThFactory["ImctW_TWG_10TeV"] = bind(boost::factory<TWGImctW*>(), _1, 10000.);
+    obsThFactory["ctZ_TWG_10TeV"] = bind(boost::factory<TWGctZ*>(), _1, 10000.);
+    obsThFactory["ImctZ_TWG_10TeV"] = bind(boost::factory<TWGImctZ*>(), _1, 10000.);
+    obsThFactory["ctG_TWG_10TeV"] = bind(boost::factory<TWGctG*>(), _1, 10000.);
+    //
+    obsThFactory["cbW_TWG_10TeV"] = bind(boost::factory<TWGcbW*>(), _1, 10000.);
+    //
+    obsThFactory["cQlM_TWG_10TeV"] = bind(boost::factory<TWGcQlM*>(), _1, 10000.);
+    obsThFactory["cQlP_TWG_10TeV"] = bind(boost::factory<TWGcQlP*>(), _1, 10000.);
+    obsThFactory["cQl3_TWG_10TeV"] = bind(boost::factory<TWGcQl3*>(), _1, 10000.);
+    obsThFactory["cQe_TWG_10TeV"] = bind(boost::factory<TWGcQe*>(), _1, 10000.);
+    obsThFactory["ctl_TWG_10TeV"] = bind(boost::factory<TWGctl*>(), _1, 10000.);
+    obsThFactory["cte_TWG_10TeV"] = bind(boost::factory<TWGcte*>(), _1, 10000.);
+    obsThFactory["ctlS_TWG_10TeV"] = bind(boost::factory<TWGctlS*>(), _1, 10000.);
+    obsThFactory["ctlT_TWG_10TeV"] = bind(boost::factory<TWGctlT*>(), _1, 10000.);
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
 
