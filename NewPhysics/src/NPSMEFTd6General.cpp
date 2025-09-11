@@ -16447,202 +16447,223 @@ const double NPSMEFTd6General::A_f(const Particle f) const
 const double NPSMEFTd6General::deltaAFB(const Particle f) const
 {
     double dAFB = 0.;
-    double delGVf = deltaGV_f(f);
-    double delGAf = deltaGA_f(f);
+    //double delGVf = deltaGV_f(f);
+    //double delGAf = deltaGA_f(f);
     
-    double deltaNLO;
+    //double deltaNLO;
+    
+    // The electron part is needed for any final state
+    //double gVe = trueSM.gV_f(f).real();
+    //double gAe = trueSM.gA_f(f).real();
+    //double Ge = gVe * gVe + gAe * gAe;
+        
+    double AeSM = trueSM.A_f(leptons[ELECTRON]); //2.0 * gAe * gVe / Ge;
+    double delAe = deltaA_f(leptons[ELECTRON]);
     
     //if (f.is("ELECTRON")) {
     if ( f.getIndex() == 1 ) {
-        if (delGVf != 0.0 || delGAf != 0.0) {
-            double gVe = trueSM.gV_f(f).real();
-            double gAe = trueSM.gA_f(f).real();
-            double Ge = gVe * gVe + gAe*gAe;
-            double delGVeOverGAe = (gAe * delGVf - gVe * delGAf) / gAe / gAe;
-            dAFB = -6.0 * gVe * gAe * (gVe * gVe - gAe * gAe) * gAe * gAe / Ge / Ge / Ge*delGVeOverGAe;
-        }
+        
+        dAFB = (3.0/2.0) * AeSM * delAe;
+        
+        //if (delGVf != 0.0 || delGAf != 0.0) {
+        //    double gVe = trueSM.gV_f(f).real();
+        //    double gAe = trueSM.gA_f(f).real();
+        //    double Ge = gVe * gVe + gAe*gAe;
+        //    double delGVeOverGAe = (gAe * delGVf - gVe * delGAf) / gAe / gAe;
+        //    dAFB = -6.0 * gVe * gAe * (gVe * gVe - gAe * gAe) * gAe * gAe / Ge / Ge / Ge*delGVeOverGAe;
+        //}
     } else {
-        double delGVe = deltaGV_f(leptons[ELECTRON]);
-        double delGAe = deltaGA_f(leptons[ELECTRON]);
-        if (delGVe != 0.0 || delGAe != 0.0 || delGVf != 0.0 || delGAf != 0.0) {
-            double gVe = trueSM.gV_f(leptons[ELECTRON]).real();
-            double gAe = trueSM.gA_f(leptons[ELECTRON]).real();
-            double Ge = gVe * gVe + gAe*gAe;
-            double delGVeOverGAe = (gAe * delGVe - gVe * delGAe) / gAe / gAe;
-            //
-            double gVf = trueSM.gV_f(f).real();
-            double gAf = trueSM.gA_f(f).real();
-            double Gf = gVf * gVf + gAf*gAf;
-            double delGVfOverGAf = (gAf * delGVf - gVf * delGAf) / gAf / gAf;
 
-            dAFB = -(3.0 * gVf * gAf * (gVe * gVe - gAe * gAe) * gAe * gAe / Gf / Ge / Ge * delGVeOverGAe
-                    + 3.0 * gVe * gAe * (gVf * gVf - gAf * gAf) * gAf * gAf / Ge / Gf / Gf * delGVfOverGAf);
-        }
+        //double gVf = trueSM.gV_f(f).real();
+        //double gAf = trueSM.gA_f(f).real();
+        //double Gf = gVf * gVf + gAf * gAf;
+        
+        double AfSM = trueSM.A_f(f); //2.0 * gAf * gVf / Gf;
+        double delAf = deltaA_f(f);      
+        
+        dAFB = (3.0/4.0) * ( AfSM * delAe + AeSM * delAf );
+                
+        //double delGVe = deltaGV_f(leptons[ELECTRON]);
+        //double delGAe = deltaGA_f(leptons[ELECTRON]);
+        //if (delGVe != 0.0 || delGAe != 0.0 || delGVf != 0.0 || delGAf != 0.0) {
+        //    double gVe = trueSM.gV_f(leptons[ELECTRON]).real();
+        //    double gAe = trueSM.gA_f(leptons[ELECTRON]).real();
+        //    double Ge = gVe * gVe + gAe*gAe;
+        //    double delGVeOverGAe = (gAe * delGVe - gVe * delGAe) / gAe / gAe;
+            //
+        //    double gVf = trueSM.gV_f(f).real();
+        //    double gAf = trueSM.gA_f(f).real();
+        //    double Gf = gVf * gVf + gAf*gAf;
+        //    double delGVfOverGAf = (gAf * delGVf - gVf * delGAf) / gAf / gAf;
+
+        //    dAFB = -(3.0 * gVf * gAf * (gVe * gVe - gAe * gAe) * gAe * gAe / Gf / Ge / Ge * delGVeOverGAe
+        //            + 3.0 * gVe * gAe * (gVf * gVf - gAf * gAf) * gAf * gAf / Ge / Gf / Gf * delGVfOverGAf);
+        //}
     }
 
     // Finite NLO corrections: not available for u and d   
-    switch(f.getIndex()){
+    //switch(f.getIndex()){
     //if (f.is("ELECTRON")) {
-        case 1:
-            deltaNLO = (+0.00572 * getSMEFTCoeffEW("CW")  +0.001427 * getSMEFTCoeffEW("CHbox")  -0.252903 * getSMEFTCoeffEW("CHD")  +0.000491 * getSMEFTCoeffEW("CHB")   
-            +0.000842 * getSMEFTCoeffEW("CHW")  -0.262264 * getSMEFTCoeffEW("CHWB")  -0.010873 * getSMEFTCoeffEW("CuWR",2, 2) +0.015368 * getSMEFTCoeffEW("CuBR",2, 2)  
-            -0.13715 * getSMEFTCoeffEW("CHl1R",0, 0) +0.000816 * getSMEFTCoeffEW("CHl1R",1, 1) +0.000816 * getSMEFTCoeffEW("CHl1R",2, 2) -0.118334 * getSMEFTCoeffEW("CHl3R",0, 0)  
-            +0.022957 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000045 * getSMEFTCoeffEW("CHl3R",2, 2) -0.222466 * getSMEFTCoeffEW("CHeR",0, 0) +0.000816 * getSMEFTCoeffEW("CHeR",1, 1)  
-            +0.000816 * getSMEFTCoeffEW("CHeR",2, 2) -0.000816 * getSMEFTCoeffEW("CHq1R",0, 0) -0.000816 * getSMEFTCoeffEW("CHq1R",1, 1) +0.070151 * getSMEFTCoeffEW("CHq1R",2, 2)  
-            +0.000134 * getSMEFTCoeffEW("CHq3R",0, 0) +0.000134 * getSMEFTCoeffEW("CHq3R",1, 1) -0.044091 * getSMEFTCoeffEW("CHq3R",2, 2) -0.001632 * getSMEFTCoeffEW("CHuR",0, 0)  
-            -0.001632 * getSMEFTCoeffEW("CHuR",1, 1) -0.085923 * getSMEFTCoeffEW("CHuR",2, 2) +0.000816 * getSMEFTCoeffEW("CHdR",0, 0) +0.000816 * getSMEFTCoeffEW("CHdR",1, 1)  
-            +0.000816 * getSMEFTCoeffEW("CHdR",2, 2) +0.000237 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.00047 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.00047 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
-            -0.023145 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000232 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) -0.000235 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000235 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1)  
-            +0.010383 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2) -0.002448 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) -0.002448 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.013065 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
-            +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1) +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2) -0.000581 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0)  
-            -0.000581 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1) -0.015087 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) +0.000291 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000291 * getSMEFTCoeffEW("CedR",0, 0, 1, 1)  
-            +0.000291 * getSMEFTCoeffEW("CedR",0, 0, 2, 2) +0.000525 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000235 * getSMEFTCoeffEW("CleR",0, 0, 1, 1) +0.000235 * getSMEFTCoeffEW("CleR",0, 0, 2, 2)  
-            +0.000291 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000291 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) -0.00047 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.00047 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
-            -0.012191 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) +0.000235 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000235 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000235 * getSMEFTCoeffEW("CldR",0, 0, 2, 2)  
-            -0.000291 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000291 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0) +0.012849 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) ) * v2; 
-        break;
+    //    case 1:
+    //        deltaNLO = (+0.00572 * getSMEFTCoeffEW("CW")  +0.001427 * getSMEFTCoeffEW("CHbox")  -0.252903 * getSMEFTCoeffEW("CHD")  +0.000491 * getSMEFTCoeffEW("CHB")   
+    //        +0.000842 * getSMEFTCoeffEW("CHW")  -0.262264 * getSMEFTCoeffEW("CHWB")  -0.010873 * getSMEFTCoeffEW("CuWR",2, 2) +0.015368 * getSMEFTCoeffEW("CuBR",2, 2)  
+    //        -0.13715 * getSMEFTCoeffEW("CHl1R",0, 0) +0.000816 * getSMEFTCoeffEW("CHl1R",1, 1) +0.000816 * getSMEFTCoeffEW("CHl1R",2, 2) -0.118334 * getSMEFTCoeffEW("CHl3R",0, 0)  
+    //        +0.022957 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000045 * getSMEFTCoeffEW("CHl3R",2, 2) -0.222466 * getSMEFTCoeffEW("CHeR",0, 0) +0.000816 * getSMEFTCoeffEW("CHeR",1, 1)  
+    //        +0.000816 * getSMEFTCoeffEW("CHeR",2, 2) -0.000816 * getSMEFTCoeffEW("CHq1R",0, 0) -0.000816 * getSMEFTCoeffEW("CHq1R",1, 1) +0.070151 * getSMEFTCoeffEW("CHq1R",2, 2)  
+    //        +0.000134 * getSMEFTCoeffEW("CHq3R",0, 0) +0.000134 * getSMEFTCoeffEW("CHq3R",1, 1) -0.044091 * getSMEFTCoeffEW("CHq3R",2, 2) -0.001632 * getSMEFTCoeffEW("CHuR",0, 0)  
+    //        -0.001632 * getSMEFTCoeffEW("CHuR",1, 1) -0.085923 * getSMEFTCoeffEW("CHuR",2, 2) +0.000816 * getSMEFTCoeffEW("CHdR",0, 0) +0.000816 * getSMEFTCoeffEW("CHdR",1, 1)  
+    //        +0.000816 * getSMEFTCoeffEW("CHdR",2, 2) +0.000237 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.00047 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.00047 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
+    //        -0.023145 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000232 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) -0.000235 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000235 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1)  
+    //        +0.010383 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2) -0.002448 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) -0.002448 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.013065 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
+    //        +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1) +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2) -0.000581 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0)  
+    //        -0.000581 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1) -0.015087 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) +0.000291 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000291 * getSMEFTCoeffEW("CedR",0, 0, 1, 1)  
+    //        +0.000291 * getSMEFTCoeffEW("CedR",0, 0, 2, 2) +0.000525 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000235 * getSMEFTCoeffEW("CleR",0, 0, 1, 1) +0.000235 * getSMEFTCoeffEW("CleR",0, 0, 2, 2)  
+    //        +0.000291 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000291 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) -0.00047 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.00047 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
+    //        -0.012191 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) +0.000235 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000235 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000235 * getSMEFTCoeffEW("CldR",0, 0, 2, 2)  
+    //        -0.000291 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000291 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0) +0.012849 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) ) * v2; 
+    //    break;
     //} else if (f.is("MUON")) {
-        case 3:
-            deltaNLO = (+0.00572 * getSMEFTCoeffEW("CW")  +0.001427 * getSMEFTCoeffEW("CHbox")  -0.252903 * getSMEFTCoeffEW("CHD")  +0.000491 * getSMEFTCoeffEW("CHB")   
-            +0.000842 * getSMEFTCoeffEW("CHW")  -0.262264 * getSMEFTCoeffEW("CHWB")  -0.010873 * getSMEFTCoeffEW("CuWR",2, 2) +0.015368 * getSMEFTCoeffEW("CuBR",2, 2)  
-            -0.068167 * getSMEFTCoeffEW("CHl1R",0, 0) -0.068167 * getSMEFTCoeffEW("CHl1R",1, 1) +0.000816 * getSMEFTCoeffEW("CHl1R",2, 2) -0.047688 * getSMEFTCoeffEW("CHl3R",0, 0)  
-            -0.047688 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000045 * getSMEFTCoeffEW("CHl3R",2, 2) -0.110825 * getSMEFTCoeffEW("CHeR",0, 0) -0.110825 * getSMEFTCoeffEW("CHeR",1, 1)  
-            +0.000816 * getSMEFTCoeffEW("CHeR",2, 2) -0.000816 * getSMEFTCoeffEW("CHq1R",0, 0) -0.000816 * getSMEFTCoeffEW("CHq1R",1, 1) +0.070151 * getSMEFTCoeffEW("CHq1R",2, 2)  
-            +0.000134 * getSMEFTCoeffEW("CHq3R",0, 0) +0.000134 * getSMEFTCoeffEW("CHq3R",1, 1) -0.044091 * getSMEFTCoeffEW("CHq3R",2, 2) -0.001632 * getSMEFTCoeffEW("CHuR",0, 0)  
-            -0.001632 * getSMEFTCoeffEW("CHuR",1, 1) -0.085923 * getSMEFTCoeffEW("CHuR",2, 2) +0.000816 * getSMEFTCoeffEW("CHdR",0, 0) +0.000816 * getSMEFTCoeffEW("CHdR",1, 1)  
-            +0.000816 * getSMEFTCoeffEW("CHdR",2, 2) +0.000119 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.00047 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.000235 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
-            -0.023145 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000116 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) +0.000119 * getSMEFTCoeffEW("CllR",1, 1, 1, 1) +0.000235 * getSMEFTCoeffEW("CllR",1, 1, 2, 2)  
-            -0.000116 * getSMEFTCoeffEW("CllR",1, 2, 2, 1) -0.000117 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000117 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.005191 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2)  
-            -0.000117 * getSMEFTCoeffEW("Clq1R",1, 1, 0, 0) -0.000117 * getSMEFTCoeffEW("Clq1R",1, 1, 1, 1) +0.005191 * getSMEFTCoeffEW("Clq1R",1, 1, 2, 2) -0.001224 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0)  
-            -0.001224 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.006533 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2) -0.001224 * getSMEFTCoeffEW("Clq3R",1, 1, 0, 0) -0.001224 * getSMEFTCoeffEW("Clq3R",1, 1, 1, 1)  
-            -0.006533 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) +0.000407 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1) +0.000407 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2)  
-            +0.000407 * getSMEFTCoeffEW("CeeR",1, 1, 1, 1) +0.000407 * getSMEFTCoeffEW("CeeR",1, 1, 2, 2) -0.000291 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.000291 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
-            -0.007543 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) -0.000291 * getSMEFTCoeffEW("CeuR",1, 1, 0, 0) -0.000291 * getSMEFTCoeffEW("CeuR",1, 1, 1, 1) -0.007543 * getSMEFTCoeffEW("CeuR",1, 1, 2, 2)  
-            +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 2, 2) +0.000145 * getSMEFTCoeffEW("CedR",1, 1, 0, 0)  
-            +0.000145 * getSMEFTCoeffEW("CedR",1, 1, 1, 1) +0.000145 * getSMEFTCoeffEW("CedR",1, 1, 2, 2) +0.000263 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000263 * getSMEFTCoeffEW("CleR",0, 0, 1, 1)  
-            +0.000117 * getSMEFTCoeffEW("CleR",0, 0, 2, 2) +0.000263 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000263 * getSMEFTCoeffEW("CleR",1, 1, 1, 1) +0.000117 * getSMEFTCoeffEW("CleR",1, 1, 2, 2)  
-            +0.000145 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) +0.000145 * getSMEFTCoeffEW("CleR",2, 2, 1, 1) -0.000235 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.000235 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
-            -0.006095 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) -0.000235 * getSMEFTCoeffEW("CluR",1, 1, 0, 0) -0.000235 * getSMEFTCoeffEW("CluR",1, 1, 1, 1) -0.006095 * getSMEFTCoeffEW("CluR",1, 1, 2, 2)  
-            +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 2, 2) +0.000117 * getSMEFTCoeffEW("CldR",1, 1, 0, 0)  
-            +0.000117 * getSMEFTCoeffEW("CldR",1, 1, 1, 1) +0.000117 * getSMEFTCoeffEW("CldR",1, 1, 2, 2) -0.000145 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000145 * getSMEFTCoeffEW("CqeR",0, 0, 1, 1)  
-            -0.000145 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0) -0.000145 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1) +0.006425 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.006425 * getSMEFTCoeffEW("CqeR",2, 2, 1, 1) ) * v2; 
-        break;
-    //} else if (f.is("TAU")) {
-        case 5:
-            deltaNLO = (+0.00572 * getSMEFTCoeffEW("CW")  +0.001427 * getSMEFTCoeffEW("CHbox")  -0.252903 * getSMEFTCoeffEW("CHD")  +0.000491 * getSMEFTCoeffEW("CHB")   
-            +0.000842 * getSMEFTCoeffEW("CHW")  -0.262264 * getSMEFTCoeffEW("CHWB")  -0.010873 * getSMEFTCoeffEW("CuWR",2, 2) +0.015368 * getSMEFTCoeffEW("CuBR",2, 2)  
-            -0.068167 * getSMEFTCoeffEW("CHl1R",0, 0) +0.000816 * getSMEFTCoeffEW("CHl1R",1, 1) -0.068167 * getSMEFTCoeffEW("CHl1R",2, 2) -0.047688 * getSMEFTCoeffEW("CHl3R",0, 0)  
-            +0.022957 * getSMEFTCoeffEW("CHl3R",1, 1) -0.070601 * getSMEFTCoeffEW("CHl3R",2, 2) -0.110825 * getSMEFTCoeffEW("CHeR",0, 0) +0.000816 * getSMEFTCoeffEW("CHeR",1, 1)  
-            -0.110825 * getSMEFTCoeffEW("CHeR",2, 2) -0.000816 * getSMEFTCoeffEW("CHq1R",0, 0) -0.000816 * getSMEFTCoeffEW("CHq1R",1, 1) +0.070151 * getSMEFTCoeffEW("CHq1R",2, 2)  
-            +0.000134 * getSMEFTCoeffEW("CHq3R",0, 0) +0.000134 * getSMEFTCoeffEW("CHq3R",1, 1) -0.044091 * getSMEFTCoeffEW("CHq3R",2, 2) -0.001632 * getSMEFTCoeffEW("CHuR",0, 0)  
-            -0.001632 * getSMEFTCoeffEW("CHuR",1, 1) -0.085923 * getSMEFTCoeffEW("CHuR",2, 2) +0.000816 * getSMEFTCoeffEW("CHdR",0, 0) +0.000816 * getSMEFTCoeffEW("CHdR",1, 1)  
-            +0.000816 * getSMEFTCoeffEW("CHdR",2, 2) +0.000119 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.000235 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.00047 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
-            -0.023029 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000232 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) +0.000235 * getSMEFTCoeffEW("CllR",1, 1, 2, 2) -0.000116 * getSMEFTCoeffEW("CllR",1, 2, 2, 1)  
-            +0.000119 * getSMEFTCoeffEW("CllR",2, 2, 2, 2) -0.000117 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000117 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.005191 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2)  
-            -0.000117 * getSMEFTCoeffEW("Clq1R",2, 2, 0, 0) -0.000117 * getSMEFTCoeffEW("Clq1R",2, 2, 1, 1) +0.005191 * getSMEFTCoeffEW("Clq1R",2, 2, 2, 2) -0.001224 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0)  
-            -0.001224 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.006533 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2) -0.001224 * getSMEFTCoeffEW("Clq3R",2, 2, 0, 0) -0.001224 * getSMEFTCoeffEW("Clq3R",2, 2, 1, 1)  
-            -0.006533 * getSMEFTCoeffEW("Clq3R",2, 2, 2, 2) +0.000407 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.000407 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1) +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2)  
-            +0.000407 * getSMEFTCoeffEW("CeeR",1, 1, 2, 2) +0.000407 * getSMEFTCoeffEW("CeeR",2, 2, 2, 2) -0.000291 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.000291 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
-            -0.007543 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) -0.000291 * getSMEFTCoeffEW("CeuR",2, 2, 0, 0) -0.000291 * getSMEFTCoeffEW("CeuR",2, 2, 1, 1) -0.007543 * getSMEFTCoeffEW("CeuR",2, 2, 2, 2)  
-            +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 2, 2) +0.000145 * getSMEFTCoeffEW("CedR",2, 2, 0, 0)  
-            +0.000145 * getSMEFTCoeffEW("CedR",2, 2, 1, 1) +0.000145 * getSMEFTCoeffEW("CedR",2, 2, 2, 2) +0.000263 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000117 * getSMEFTCoeffEW("CleR",0, 0, 1, 1)  
-            +0.000263 * getSMEFTCoeffEW("CleR",0, 0, 2, 2) +0.000145 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000145 * getSMEFTCoeffEW("CleR",1, 1, 2, 2) +0.000263 * getSMEFTCoeffEW("CleR",2, 2, 0, 0)  
-            +0.000117 * getSMEFTCoeffEW("CleR",2, 2, 1, 1) +0.000263 * getSMEFTCoeffEW("CleR",2, 2, 2, 2) -0.000235 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.000235 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
-            -0.006095 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) -0.000235 * getSMEFTCoeffEW("CluR",2, 2, 0, 0) -0.000235 * getSMEFTCoeffEW("CluR",2, 2, 1, 1) -0.006095 * getSMEFTCoeffEW("CluR",2, 2, 2, 2)  
-            +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 2, 2) +0.000117 * getSMEFTCoeffEW("CldR",2, 2, 0, 0)  
-            +0.000117 * getSMEFTCoeffEW("CldR",2, 2, 1, 1) +0.000117 * getSMEFTCoeffEW("CldR",2, 2, 2, 2) -0.000145 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000145 * getSMEFTCoeffEW("CqeR",0, 0, 2, 2)  
-            -0.000145 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0) -0.000145 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2) +0.006425 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.006425 * getSMEFTCoeffEW("CqeR",2, 2, 2, 2) ) * v2; 
-        break;
+    //    case 3:
+    //        deltaNLO = (+0.00572 * getSMEFTCoeffEW("CW")  +0.001427 * getSMEFTCoeffEW("CHbox")  -0.252903 * getSMEFTCoeffEW("CHD")  +0.000491 * getSMEFTCoeffEW("CHB")   
+    //        +0.000842 * getSMEFTCoeffEW("CHW")  -0.262264 * getSMEFTCoeffEW("CHWB")  -0.010873 * getSMEFTCoeffEW("CuWR",2, 2) +0.015368 * getSMEFTCoeffEW("CuBR",2, 2)  
+    //        -0.068167 * getSMEFTCoeffEW("CHl1R",0, 0) -0.068167 * getSMEFTCoeffEW("CHl1R",1, 1) +0.000816 * getSMEFTCoeffEW("CHl1R",2, 2) -0.047688 * getSMEFTCoeffEW("CHl3R",0, 0)  
+    //        -0.047688 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000045 * getSMEFTCoeffEW("CHl3R",2, 2) -0.110825 * getSMEFTCoeffEW("CHeR",0, 0) -0.110825 * getSMEFTCoeffEW("CHeR",1, 1)  
+    //        +0.000816 * getSMEFTCoeffEW("CHeR",2, 2) -0.000816 * getSMEFTCoeffEW("CHq1R",0, 0) -0.000816 * getSMEFTCoeffEW("CHq1R",1, 1) +0.070151 * getSMEFTCoeffEW("CHq1R",2, 2)  
+    //        +0.000134 * getSMEFTCoeffEW("CHq3R",0, 0) +0.000134 * getSMEFTCoeffEW("CHq3R",1, 1) -0.044091 * getSMEFTCoeffEW("CHq3R",2, 2) -0.001632 * getSMEFTCoeffEW("CHuR",0, 0)  
+    //        -0.001632 * getSMEFTCoeffEW("CHuR",1, 1) -0.085923 * getSMEFTCoeffEW("CHuR",2, 2) +0.000816 * getSMEFTCoeffEW("CHdR",0, 0) +0.000816 * getSMEFTCoeffEW("CHdR",1, 1)  
+    //        +0.000816 * getSMEFTCoeffEW("CHdR",2, 2) +0.000119 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.00047 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.000235 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
+    //        -0.023145 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000116 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) +0.000119 * getSMEFTCoeffEW("CllR",1, 1, 1, 1) +0.000235 * getSMEFTCoeffEW("CllR",1, 1, 2, 2)  
+    //        -0.000116 * getSMEFTCoeffEW("CllR",1, 2, 2, 1) -0.000117 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000117 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.005191 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2)  
+    //        -0.000117 * getSMEFTCoeffEW("Clq1R",1, 1, 0, 0) -0.000117 * getSMEFTCoeffEW("Clq1R",1, 1, 1, 1) +0.005191 * getSMEFTCoeffEW("Clq1R",1, 1, 2, 2) -0.001224 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0)  
+    //        -0.001224 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.006533 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2) -0.001224 * getSMEFTCoeffEW("Clq3R",1, 1, 0, 0) -0.001224 * getSMEFTCoeffEW("Clq3R",1, 1, 1, 1)  
+    //        -0.006533 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) +0.000407 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1) +0.000407 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2)  
+    //        +0.000407 * getSMEFTCoeffEW("CeeR",1, 1, 1, 1) +0.000407 * getSMEFTCoeffEW("CeeR",1, 1, 2, 2) -0.000291 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.000291 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
+    //        -0.007543 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) -0.000291 * getSMEFTCoeffEW("CeuR",1, 1, 0, 0) -0.000291 * getSMEFTCoeffEW("CeuR",1, 1, 1, 1) -0.007543 * getSMEFTCoeffEW("CeuR",1, 1, 2, 2)  
+    //        +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 2, 2) +0.000145 * getSMEFTCoeffEW("CedR",1, 1, 0, 0)  
+    //        +0.000145 * getSMEFTCoeffEW("CedR",1, 1, 1, 1) +0.000145 * getSMEFTCoeffEW("CedR",1, 1, 2, 2) +0.000263 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000263 * getSMEFTCoeffEW("CleR",0, 0, 1, 1)  
+    //        +0.000117 * getSMEFTCoeffEW("CleR",0, 0, 2, 2) +0.000263 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000263 * getSMEFTCoeffEW("CleR",1, 1, 1, 1) +0.000117 * getSMEFTCoeffEW("CleR",1, 1, 2, 2)  
+    //        +0.000145 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) +0.000145 * getSMEFTCoeffEW("CleR",2, 2, 1, 1) -0.000235 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.000235 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
+    //        -0.006095 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) -0.000235 * getSMEFTCoeffEW("CluR",1, 1, 0, 0) -0.000235 * getSMEFTCoeffEW("CluR",1, 1, 1, 1) -0.006095 * getSMEFTCoeffEW("CluR",1, 1, 2, 2)  
+    //        +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 2, 2) +0.000117 * getSMEFTCoeffEW("CldR",1, 1, 0, 0)  
+    //        +0.000117 * getSMEFTCoeffEW("CldR",1, 1, 1, 1) +0.000117 * getSMEFTCoeffEW("CldR",1, 1, 2, 2) -0.000145 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000145 * getSMEFTCoeffEW("CqeR",0, 0, 1, 1)  
+    //        -0.000145 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0) -0.000145 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1) +0.006425 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.006425 * getSMEFTCoeffEW("CqeR",2, 2, 1, 1) ) * v2; 
+    //    break;
+    ////} else if (f.is("TAU")) {
+    //    case 5:
+    //        deltaNLO = (+0.00572 * getSMEFTCoeffEW("CW")  +0.001427 * getSMEFTCoeffEW("CHbox")  -0.252903 * getSMEFTCoeffEW("CHD")  +0.000491 * getSMEFTCoeffEW("CHB")   
+    //        +0.000842 * getSMEFTCoeffEW("CHW")  -0.262264 * getSMEFTCoeffEW("CHWB")  -0.010873 * getSMEFTCoeffEW("CuWR",2, 2) +0.015368 * getSMEFTCoeffEW("CuBR",2, 2)  
+    //        -0.068167 * getSMEFTCoeffEW("CHl1R",0, 0) +0.000816 * getSMEFTCoeffEW("CHl1R",1, 1) -0.068167 * getSMEFTCoeffEW("CHl1R",2, 2) -0.047688 * getSMEFTCoeffEW("CHl3R",0, 0)  
+    //        +0.022957 * getSMEFTCoeffEW("CHl3R",1, 1) -0.070601 * getSMEFTCoeffEW("CHl3R",2, 2) -0.110825 * getSMEFTCoeffEW("CHeR",0, 0) +0.000816 * getSMEFTCoeffEW("CHeR",1, 1)  
+    //        -0.110825 * getSMEFTCoeffEW("CHeR",2, 2) -0.000816 * getSMEFTCoeffEW("CHq1R",0, 0) -0.000816 * getSMEFTCoeffEW("CHq1R",1, 1) +0.070151 * getSMEFTCoeffEW("CHq1R",2, 2)  
+    //        +0.000134 * getSMEFTCoeffEW("CHq3R",0, 0) +0.000134 * getSMEFTCoeffEW("CHq3R",1, 1) -0.044091 * getSMEFTCoeffEW("CHq3R",2, 2) -0.001632 * getSMEFTCoeffEW("CHuR",0, 0)  
+    //        -0.001632 * getSMEFTCoeffEW("CHuR",1, 1) -0.085923 * getSMEFTCoeffEW("CHuR",2, 2) +0.000816 * getSMEFTCoeffEW("CHdR",0, 0) +0.000816 * getSMEFTCoeffEW("CHdR",1, 1)  
+    //        +0.000816 * getSMEFTCoeffEW("CHdR",2, 2) +0.000119 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.000235 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.00047 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
+    //        -0.023029 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000232 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) +0.000235 * getSMEFTCoeffEW("CllR",1, 1, 2, 2) -0.000116 * getSMEFTCoeffEW("CllR",1, 2, 2, 1)  
+    //        +0.000119 * getSMEFTCoeffEW("CllR",2, 2, 2, 2) -0.000117 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000117 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.005191 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2)  
+    //        -0.000117 * getSMEFTCoeffEW("Clq1R",2, 2, 0, 0) -0.000117 * getSMEFTCoeffEW("Clq1R",2, 2, 1, 1) +0.005191 * getSMEFTCoeffEW("Clq1R",2, 2, 2, 2) -0.001224 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0)  
+    //        -0.001224 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.006533 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2) -0.001224 * getSMEFTCoeffEW("Clq3R",2, 2, 0, 0) -0.001224 * getSMEFTCoeffEW("Clq3R",2, 2, 1, 1)  
+    //        -0.006533 * getSMEFTCoeffEW("Clq3R",2, 2, 2, 2) +0.000407 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.000407 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1) +0.000814 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2)  
+    //        +0.000407 * getSMEFTCoeffEW("CeeR",1, 1, 2, 2) +0.000407 * getSMEFTCoeffEW("CeeR",2, 2, 2, 2) -0.000291 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.000291 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
+    //        -0.007543 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) -0.000291 * getSMEFTCoeffEW("CeuR",2, 2, 0, 0) -0.000291 * getSMEFTCoeffEW("CeuR",2, 2, 1, 1) -0.007543 * getSMEFTCoeffEW("CeuR",2, 2, 2, 2)  
+    //        +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000145 * getSMEFTCoeffEW("CedR",0, 0, 2, 2) +0.000145 * getSMEFTCoeffEW("CedR",2, 2, 0, 0)  
+    //        +0.000145 * getSMEFTCoeffEW("CedR",2, 2, 1, 1) +0.000145 * getSMEFTCoeffEW("CedR",2, 2, 2, 2) +0.000263 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000117 * getSMEFTCoeffEW("CleR",0, 0, 1, 1)  
+    //        +0.000263 * getSMEFTCoeffEW("CleR",0, 0, 2, 2) +0.000145 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000145 * getSMEFTCoeffEW("CleR",1, 1, 2, 2) +0.000263 * getSMEFTCoeffEW("CleR",2, 2, 0, 0)  
+    //        +0.000117 * getSMEFTCoeffEW("CleR",2, 2, 1, 1) +0.000263 * getSMEFTCoeffEW("CleR",2, 2, 2, 2) -0.000235 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.000235 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
+    //        -0.006095 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) -0.000235 * getSMEFTCoeffEW("CluR",2, 2, 0, 0) -0.000235 * getSMEFTCoeffEW("CluR",2, 2, 1, 1) -0.006095 * getSMEFTCoeffEW("CluR",2, 2, 2, 2)  
+    //        +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000117 * getSMEFTCoeffEW("CldR",0, 0, 2, 2) +0.000117 * getSMEFTCoeffEW("CldR",2, 2, 0, 0)  
+    //        +0.000117 * getSMEFTCoeffEW("CldR",2, 2, 1, 1) +0.000117 * getSMEFTCoeffEW("CldR",2, 2, 2, 2) -0.000145 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000145 * getSMEFTCoeffEW("CqeR",0, 0, 2, 2)  
+    //        -0.000145 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0) -0.000145 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2) +0.006425 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.006425 * getSMEFTCoeffEW("CqeR",2, 2, 2, 2) ) * v2; 
+    //    break;
     //} else if (f.is("STRANGE")) {
-        case 9:
-            deltaNLO = (+0.013035 * getSMEFTCoeffEW("CW")  +0.003252 * getSMEFTCoeffEW("CHbox")  +0.146227 * getSMEFTCoeffEW("CHD")  +0.001119 * getSMEFTCoeffEW("CHB")   
-            +0.00192 * getSMEFTCoeffEW("CHW")  +0.177551 * getSMEFTCoeffEW("CHWB")  -0.024778 * getSMEFTCoeffEW("CuWR",2, 2) +0.035022 * getSMEFTCoeffEW("CuBR",2, 2)  
-            +0.108046 * getSMEFTCoeffEW("CHl1R",0, 0) +0.001859 * getSMEFTCoeffEW("CHl1R",1, 1) +0.001859 * getSMEFTCoeffEW("CHl1R",2, 2) +0.151035 * getSMEFTCoeffEW("CHl3R",0, 0)  
-            +0.052297 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000102 * getSMEFTCoeffEW("CHl3R",2, 2) +0.015591 * getSMEFTCoeffEW("CHeR",0, 0) +0.001859 * getSMEFTCoeffEW("CHeR",1, 1)  
-            +0.001859 * getSMEFTCoeffEW("CHeR",2, 2) -0.001859 * getSMEFTCoeffEW("CHq1R",0, 0) -0.006578 * getSMEFTCoeffEW("CHq1R",1, 1) +0.159871 * getSMEFTCoeffEW("CHq1R",2, 2)  
-            +0.000305 * getSMEFTCoeffEW("CHq3R",0, 0) -0.004524 * getSMEFTCoeffEW("CHq3R",1, 1) -0.10048 * getSMEFTCoeffEW("CHq3R",2, 2) -0.003719 * getSMEFTCoeffEW("CHuR",0, 0)  
-            -0.003719 * getSMEFTCoeffEW("CHuR",1, 1) -0.195812 * getSMEFTCoeffEW("CHuR",2, 2) +0.001859 * getSMEFTCoeffEW("CHdR",0, 0) -0.031424 * getSMEFTCoeffEW("CHdR",1, 1)  
-            +0.001859 * getSMEFTCoeffEW("CHdR",2, 2) +0.000531 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.001052 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.001052 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
-            -0.052716 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000521 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) -0.000018 * getSMEFTCoeffEW("Cqq1R",0, 0, 1, 1) -0.000014 * getSMEFTCoeffEW("Cqq1R",0, 1, 1, 0)  
-            -0.000032 * getSMEFTCoeffEW("Cqq1R",1, 1, 1, 1) +0.000815 * getSMEFTCoeffEW("Cqq1R",1, 1, 2, 2) -0.000014 * getSMEFTCoeffEW("Cqq1R",1, 2, 2, 1) -0.000192 * getSMEFTCoeffEW("Cqq3R",0, 0, 1, 1)  
-            +0.000009 * getSMEFTCoeffEW("Cqq3R",0, 1, 1, 0) -0.000183 * getSMEFTCoeffEW("Cqq3R",1, 1, 1, 1) -0.001025 * getSMEFTCoeffEW("Cqq3R",1, 1, 2, 2) +0.001097 * getSMEFTCoeffEW("Cqq3R",1, 2, 2, 1)  
-            -0.000526 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000517 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.023254 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2) +0.000009 * getSMEFTCoeffEW("Clq1R",1, 1, 1, 1)  
-            +0.000009 * getSMEFTCoeffEW("Clq1R",2, 2, 1, 1) -0.005482 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) -0.005514 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.029262 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
-            -0.000032 * getSMEFTCoeffEW("Clq3R",1, 1, 1, 1) -0.000032 * getSMEFTCoeffEW("Clq3R",2, 2, 1, 1) +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1)  
-            +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2) +0.000105 * getSMEFTCoeffEW("CddR",0, 0, 1, 1) +0.000014 * getSMEFTCoeffEW("CddR",0, 1, 1, 0) +0.000119 * getSMEFTCoeffEW("CddR",1, 1, 1, 1)  
-            +0.000105 * getSMEFTCoeffEW("CddR",1, 1, 2, 2) +0.000014 * getSMEFTCoeffEW("CddR",1, 2, 2, 1) -0.001302 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.001302 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
-            -0.033789 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) +0.000651 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000703 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000651 * getSMEFTCoeffEW("CedR",0, 0, 2, 2)  
-            +0.000053 * getSMEFTCoeffEW("CedR",1, 1, 1, 1) +0.000053 * getSMEFTCoeffEW("CedR",2, 2, 1, 1) -0.000105 * getSMEFTCoeffEW("Cud1R",0, 0, 1, 1) -0.000105 * getSMEFTCoeffEW("Cud1R",1, 1, 1, 1)  
-            -0.002732 * getSMEFTCoeffEW("Cud1R",2, 2, 1, 1) +0.001177 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000526 * getSMEFTCoeffEW("CleR",0, 0, 1, 1) +0.000526 * getSMEFTCoeffEW("CleR",0, 0, 2, 2)  
-            +0.000651 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000651 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) -0.001052 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.001052 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
-            -0.027303 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) +0.000526 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000578 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000526 * getSMEFTCoeffEW("CldR",0, 0, 2, 2)  
-            +0.000053 * getSMEFTCoeffEW("CldR",1, 1, 1, 1) +0.000053 * getSMEFTCoeffEW("CldR",2, 2, 1, 1) -0.000651 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000642 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0)  
-            +0.000009 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1) +0.000009 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2) +0.028779 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) -0.000018 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0)  
-            -0.000018 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1) -0.000478 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2) -0.000053 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.000009 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0)  
-            -0.000043 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) +0.000009 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) +0.002327 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) ) * v2; 
-        break;
-    //} else if (f.is("CHARM")) {
-        case 8:
-            deltaNLO = (+0.010682 * getSMEFTCoeffEW("CW")  +0.002665 * getSMEFTCoeffEW("CHbox")  +0.007558 * getSMEFTCoeffEW("CHD")  +0.000917 * getSMEFTCoeffEW("CHB")   
-            +0.001573 * getSMEFTCoeffEW("CHW")  +0.025056 * getSMEFTCoeffEW("CHWB")  -0.020306 * getSMEFTCoeffEW("CuWR",2, 2) +0.028701 * getSMEFTCoeffEW("CuBR",2, 2)  
-            +0.045525 * getSMEFTCoeffEW("CHl1R",0, 0) +0.001524 * getSMEFTCoeffEW("CHl1R",1, 1) +0.001524 * getSMEFTCoeffEW("CHl1R",2, 2) +0.081322 * getSMEFTCoeffEW("CHl3R",0, 0)  
-            +0.042823 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000083 * getSMEFTCoeffEW("CHl3R",2, 2) -0.030951 * getSMEFTCoeffEW("CHeR",0, 0) +0.001524 * getSMEFTCoeffEW("CHeR",1, 1)  
-            +0.001524 * getSMEFTCoeffEW("CHeR",2, 2) -0.001524 * getSMEFTCoeffEW("CHq1R",0, 0) +0.023905 * getSMEFTCoeffEW("CHq1R",1, 1) +0.131016 * getSMEFTCoeffEW("CHq1R",2, 2)  
-            +0.00025 * getSMEFTCoeffEW("CHq3R",0, 0) -0.025833 * getSMEFTCoeffEW("CHq3R",1, 1) -0.082345 * getSMEFTCoeffEW("CHq3R",2, 2) -0.003048 * getSMEFTCoeffEW("CHuR",0, 0)  
-            +0.073836 * getSMEFTCoeffEW("CHuR",1, 1) -0.16047 * getSMEFTCoeffEW("CHuR",2, 2) +0.001524 * getSMEFTCoeffEW("CHdR",0, 0) +0.001524 * getSMEFTCoeffEW("CHdR",1, 1)  
-            +0.001524 * getSMEFTCoeffEW("CHdR",2, 2) +0.000392 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.000777 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.000777 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
-            -0.043124 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000385 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) +0.0001 * getSMEFTCoeffEW("Cqq1R",0, 0, 1, 1) -0.000063 * getSMEFTCoeffEW("Cqq1R",0, 1, 1, 0)  
-            +0.000037 * getSMEFTCoeffEW("Cqq1R",1, 1, 1, 1) -0.004426 * getSMEFTCoeffEW("Cqq1R",1, 1, 2, 2) -0.003019 * getSMEFTCoeffEW("Cqq1R",1, 2, 2, 1) -0.001044 * getSMEFTCoeffEW("Cqq3R",0, 0, 1, 1)  
-            +0.00009 * getSMEFTCoeffEW("Cqq3R",0, 1, 1, 0) -0.000954 * getSMEFTCoeffEW("Cqq3R",1, 1, 1, 1) -0.00557 * getSMEFTCoeffEW("Cqq3R",1, 1, 2, 2) -0.002867 * getSMEFTCoeffEW("Cqq3R",1, 2, 2, 1)  
-            -0.000388 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000438 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.017178 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2) -0.00005 * getSMEFTCoeffEW("Clq1R",1, 1, 1, 1)  
-            -0.00005 * getSMEFTCoeffEW("Clq1R",2, 2, 1, 1) -0.00405 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) -0.004224 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.021616 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
-            -0.000174 * getSMEFTCoeffEW("Clq3R",1, 1, 1, 1) -0.000174 * getSMEFTCoeffEW("Clq3R",2, 2, 1, 1) +0.001346 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.001346 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1)  
-            +0.001346 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2) +0.000472 * getSMEFTCoeffEW("CuuR",0, 0, 1, 1) +0.000063 * getSMEFTCoeffEW("CuuR",0, 1, 1, 0) +0.000535 * getSMEFTCoeffEW("CuuR",1, 1, 1, 1)  
-            +0.012246 * getSMEFTCoeffEW("CuuR",1, 1, 2, 2) +0.007399 * getSMEFTCoeffEW("CuuR",1, 2, 2, 1) -0.000961 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.001079 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
-            -0.02496 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) -0.000118 * getSMEFTCoeffEW("CeuR",1, 1, 1, 1) -0.000118 * getSMEFTCoeffEW("CeuR",2, 2, 1, 1) +0.000481 * getSMEFTCoeffEW("CedR",0, 0, 0, 0)  
-            +0.000481 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000481 * getSMEFTCoeffEW("CedR",0, 0, 2, 2) -0.000118 * getSMEFTCoeffEW("Cud1R",1, 1, 0, 0) -0.000118 * getSMEFTCoeffEW("Cud1R",1, 1, 1, 1)  
-            -0.000118 * getSMEFTCoeffEW("Cud1R",1, 1, 2, 2) +0.000869 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000388 * getSMEFTCoeffEW("CleR",0, 0, 1, 1) +0.000388 * getSMEFTCoeffEW("CleR",0, 0, 2, 2)  
-            +0.000481 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000481 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) -0.000777 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.000895 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
-            -0.020169 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) -0.000118 * getSMEFTCoeffEW("CluR",1, 1, 1, 1) -0.000118 * getSMEFTCoeffEW("CluR",2, 2, 1, 1) +0.000388 * getSMEFTCoeffEW("CldR",0, 0, 0, 0)  
-            +0.000388 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000388 * getSMEFTCoeffEW("CldR",0, 0, 2, 2) -0.000481 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000531 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0)  
-            -0.00005 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1) -0.00005 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2) +0.021258 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.000118 * getSMEFTCoeffEW("Cqu1R",0, 0, 1, 1)  
-            +0.0001 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0) +0.000218 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1) +0.002599 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2) -0.005215 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1)  
-            -0.00005 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0) -0.00005 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) -0.00005 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) ) * v2; 
-        break;
+    //    case 9:
+    //        deltaNLO = (+0.013035 * getSMEFTCoeffEW("CW")  +0.003252 * getSMEFTCoeffEW("CHbox")  +0.146227 * getSMEFTCoeffEW("CHD")  +0.001119 * getSMEFTCoeffEW("CHB")   
+    //        +0.00192 * getSMEFTCoeffEW("CHW")  +0.177551 * getSMEFTCoeffEW("CHWB")  -0.024778 * getSMEFTCoeffEW("CuWR",2, 2) +0.035022 * getSMEFTCoeffEW("CuBR",2, 2)  
+    //        +0.108046 * getSMEFTCoeffEW("CHl1R",0, 0) +0.001859 * getSMEFTCoeffEW("CHl1R",1, 1) +0.001859 * getSMEFTCoeffEW("CHl1R",2, 2) +0.151035 * getSMEFTCoeffEW("CHl3R",0, 0)  
+    //        +0.052297 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000102 * getSMEFTCoeffEW("CHl3R",2, 2) +0.015591 * getSMEFTCoeffEW("CHeR",0, 0) +0.001859 * getSMEFTCoeffEW("CHeR",1, 1)  
+    //        +0.001859 * getSMEFTCoeffEW("CHeR",2, 2) -0.001859 * getSMEFTCoeffEW("CHq1R",0, 0) -0.006578 * getSMEFTCoeffEW("CHq1R",1, 1) +0.159871 * getSMEFTCoeffEW("CHq1R",2, 2)  
+    //        +0.000305 * getSMEFTCoeffEW("CHq3R",0, 0) -0.004524 * getSMEFTCoeffEW("CHq3R",1, 1) -0.10048 * getSMEFTCoeffEW("CHq3R",2, 2) -0.003719 * getSMEFTCoeffEW("CHuR",0, 0)  
+    //        -0.003719 * getSMEFTCoeffEW("CHuR",1, 1) -0.195812 * getSMEFTCoeffEW("CHuR",2, 2) +0.001859 * getSMEFTCoeffEW("CHdR",0, 0) -0.031424 * getSMEFTCoeffEW("CHdR",1, 1)  
+    //        +0.001859 * getSMEFTCoeffEW("CHdR",2, 2) +0.000531 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.001052 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.001052 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
+    //        -0.052716 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000521 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) -0.000018 * getSMEFTCoeffEW("Cqq1R",0, 0, 1, 1) -0.000014 * getSMEFTCoeffEW("Cqq1R",0, 1, 1, 0)  
+    //        -0.000032 * getSMEFTCoeffEW("Cqq1R",1, 1, 1, 1) +0.000815 * getSMEFTCoeffEW("Cqq1R",1, 1, 2, 2) -0.000014 * getSMEFTCoeffEW("Cqq1R",1, 2, 2, 1) -0.000192 * getSMEFTCoeffEW("Cqq3R",0, 0, 1, 1)  
+    //        +0.000009 * getSMEFTCoeffEW("Cqq3R",0, 1, 1, 0) -0.000183 * getSMEFTCoeffEW("Cqq3R",1, 1, 1, 1) -0.001025 * getSMEFTCoeffEW("Cqq3R",1, 1, 2, 2) +0.001097 * getSMEFTCoeffEW("Cqq3R",1, 2, 2, 1)  
+    //        -0.000526 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000517 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.023254 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2) +0.000009 * getSMEFTCoeffEW("Clq1R",1, 1, 1, 1)  
+    //        +0.000009 * getSMEFTCoeffEW("Clq1R",2, 2, 1, 1) -0.005482 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) -0.005514 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.029262 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
+    //        -0.000032 * getSMEFTCoeffEW("Clq3R",1, 1, 1, 1) -0.000032 * getSMEFTCoeffEW("Clq3R",2, 2, 1, 1) +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1)  
+    //        +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2) +0.000105 * getSMEFTCoeffEW("CddR",0, 0, 1, 1) +0.000014 * getSMEFTCoeffEW("CddR",0, 1, 1, 0) +0.000119 * getSMEFTCoeffEW("CddR",1, 1, 1, 1)  
+    //        +0.000105 * getSMEFTCoeffEW("CddR",1, 1, 2, 2) +0.000014 * getSMEFTCoeffEW("CddR",1, 2, 2, 1) -0.001302 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.001302 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
+    //        -0.033789 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) +0.000651 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000703 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000651 * getSMEFTCoeffEW("CedR",0, 0, 2, 2)  
+    //        +0.000053 * getSMEFTCoeffEW("CedR",1, 1, 1, 1) +0.000053 * getSMEFTCoeffEW("CedR",2, 2, 1, 1) -0.000105 * getSMEFTCoeffEW("Cud1R",0, 0, 1, 1) -0.000105 * getSMEFTCoeffEW("Cud1R",1, 1, 1, 1)  
+    //        -0.002732 * getSMEFTCoeffEW("Cud1R",2, 2, 1, 1) +0.001177 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000526 * getSMEFTCoeffEW("CleR",0, 0, 1, 1) +0.000526 * getSMEFTCoeffEW("CleR",0, 0, 2, 2)  
+    //        +0.000651 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000651 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) -0.001052 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.001052 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
+    //        -0.027303 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) +0.000526 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000578 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000526 * getSMEFTCoeffEW("CldR",0, 0, 2, 2)  
+    //        +0.000053 * getSMEFTCoeffEW("CldR",1, 1, 1, 1) +0.000053 * getSMEFTCoeffEW("CldR",2, 2, 1, 1) -0.000651 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000642 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0)  
+    //        +0.000009 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1) +0.000009 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2) +0.028779 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) -0.000018 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0)  
+    //        -0.000018 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1) -0.000478 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2) -0.000053 * getSMEFTCoeffEW("Cqd1R",0, 0, 1, 1) +0.000009 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0)  
+    //        -0.000043 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) +0.000009 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) +0.002327 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) ) * v2; 
+    //    break;
+    ////} else if (f.is("CHARM")) {
+    //    case 8:
+    //        deltaNLO = (+0.010682 * getSMEFTCoeffEW("CW")  +0.002665 * getSMEFTCoeffEW("CHbox")  +0.007558 * getSMEFTCoeffEW("CHD")  +0.000917 * getSMEFTCoeffEW("CHB")   
+    //        +0.001573 * getSMEFTCoeffEW("CHW")  +0.025056 * getSMEFTCoeffEW("CHWB")  -0.020306 * getSMEFTCoeffEW("CuWR",2, 2) +0.028701 * getSMEFTCoeffEW("CuBR",2, 2)  
+    //        +0.045525 * getSMEFTCoeffEW("CHl1R",0, 0) +0.001524 * getSMEFTCoeffEW("CHl1R",1, 1) +0.001524 * getSMEFTCoeffEW("CHl1R",2, 2) +0.081322 * getSMEFTCoeffEW("CHl3R",0, 0)  
+    //        +0.042823 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000083 * getSMEFTCoeffEW("CHl3R",2, 2) -0.030951 * getSMEFTCoeffEW("CHeR",0, 0) +0.001524 * getSMEFTCoeffEW("CHeR",1, 1)  
+    //        +0.001524 * getSMEFTCoeffEW("CHeR",2, 2) -0.001524 * getSMEFTCoeffEW("CHq1R",0, 0) +0.023905 * getSMEFTCoeffEW("CHq1R",1, 1) +0.131016 * getSMEFTCoeffEW("CHq1R",2, 2)  
+    //        +0.00025 * getSMEFTCoeffEW("CHq3R",0, 0) -0.025833 * getSMEFTCoeffEW("CHq3R",1, 1) -0.082345 * getSMEFTCoeffEW("CHq3R",2, 2) -0.003048 * getSMEFTCoeffEW("CHuR",0, 0)  
+    //        +0.073836 * getSMEFTCoeffEW("CHuR",1, 1) -0.16047 * getSMEFTCoeffEW("CHuR",2, 2) +0.001524 * getSMEFTCoeffEW("CHdR",0, 0) +0.001524 * getSMEFTCoeffEW("CHdR",1, 1)  
+    //        +0.001524 * getSMEFTCoeffEW("CHdR",2, 2) +0.000392 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.000777 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.000777 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
+    //        -0.043124 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000385 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) +0.0001 * getSMEFTCoeffEW("Cqq1R",0, 0, 1, 1) -0.000063 * getSMEFTCoeffEW("Cqq1R",0, 1, 1, 0)  
+    //        +0.000037 * getSMEFTCoeffEW("Cqq1R",1, 1, 1, 1) -0.004426 * getSMEFTCoeffEW("Cqq1R",1, 1, 2, 2) -0.003019 * getSMEFTCoeffEW("Cqq1R",1, 2, 2, 1) -0.001044 * getSMEFTCoeffEW("Cqq3R",0, 0, 1, 1)  
+    //        +0.00009 * getSMEFTCoeffEW("Cqq3R",0, 1, 1, 0) -0.000954 * getSMEFTCoeffEW("Cqq3R",1, 1, 1, 1) -0.00557 * getSMEFTCoeffEW("Cqq3R",1, 1, 2, 2) -0.002867 * getSMEFTCoeffEW("Cqq3R",1, 2, 2, 1)  
+    //        -0.000388 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000438 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.017178 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2) -0.00005 * getSMEFTCoeffEW("Clq1R",1, 1, 1, 1)  
+    //        -0.00005 * getSMEFTCoeffEW("Clq1R",2, 2, 1, 1) -0.00405 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) -0.004224 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.021616 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
+    //        -0.000174 * getSMEFTCoeffEW("Clq3R",1, 1, 1, 1) -0.000174 * getSMEFTCoeffEW("Clq3R",2, 2, 1, 1) +0.001346 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.001346 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1)  
+    //        +0.001346 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2) +0.000472 * getSMEFTCoeffEW("CuuR",0, 0, 1, 1) +0.000063 * getSMEFTCoeffEW("CuuR",0, 1, 1, 0) +0.000535 * getSMEFTCoeffEW("CuuR",1, 1, 1, 1)  
+    //        +0.012246 * getSMEFTCoeffEW("CuuR",1, 1, 2, 2) +0.007399 * getSMEFTCoeffEW("CuuR",1, 2, 2, 1) -0.000961 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.001079 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
+    //        -0.02496 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) -0.000118 * getSMEFTCoeffEW("CeuR",1, 1, 1, 1) -0.000118 * getSMEFTCoeffEW("CeuR",2, 2, 1, 1) +0.000481 * getSMEFTCoeffEW("CedR",0, 0, 0, 0)  
+    //        +0.000481 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000481 * getSMEFTCoeffEW("CedR",0, 0, 2, 2) -0.000118 * getSMEFTCoeffEW("Cud1R",1, 1, 0, 0) -0.000118 * getSMEFTCoeffEW("Cud1R",1, 1, 1, 1)  
+    //        -0.000118 * getSMEFTCoeffEW("Cud1R",1, 1, 2, 2) +0.000869 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000388 * getSMEFTCoeffEW("CleR",0, 0, 1, 1) +0.000388 * getSMEFTCoeffEW("CleR",0, 0, 2, 2)  
+    //        +0.000481 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000481 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) -0.000777 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.000895 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
+    //        -0.020169 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) -0.000118 * getSMEFTCoeffEW("CluR",1, 1, 1, 1) -0.000118 * getSMEFTCoeffEW("CluR",2, 2, 1, 1) +0.000388 * getSMEFTCoeffEW("CldR",0, 0, 0, 0)  
+    //        +0.000388 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000388 * getSMEFTCoeffEW("CldR",0, 0, 2, 2) -0.000481 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000531 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0)  
+    //        -0.00005 * getSMEFTCoeffEW("CqeR",1, 1, 1, 1) -0.00005 * getSMEFTCoeffEW("CqeR",1, 1, 2, 2) +0.021258 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.000118 * getSMEFTCoeffEW("Cqu1R",0, 0, 1, 1)  
+    //        +0.0001 * getSMEFTCoeffEW("Cqu1R",1, 1, 0, 0) +0.000218 * getSMEFTCoeffEW("Cqu1R",1, 1, 1, 1) +0.002599 * getSMEFTCoeffEW("Cqu1R",1, 1, 2, 2) -0.005215 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1)  
+    //        -0.00005 * getSMEFTCoeffEW("Cqd1R",1, 1, 0, 0) -0.00005 * getSMEFTCoeffEW("Cqd1R",1, 1, 1, 1) -0.00005 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2) ) * v2; 
+    //    break;
     //} else if (f.is("BOTTOM")) {
-        case 11:
-            deltaNLO = (+0.012979 * getSMEFTCoeffEW("CW")  +0.003252 * getSMEFTCoeffEW("CHbox")  +0.144659 * getSMEFTCoeffEW("CHD")  +0.001119 * getSMEFTCoeffEW("CHB")   
-            +0.00192 * getSMEFTCoeffEW("CHW")  +0.175886 * getSMEFTCoeffEW("CHWB")  -0.025098 * getSMEFTCoeffEW("CuWR",2, 2) +0.034979 * getSMEFTCoeffEW("CuBR",2, 2)  
-            +0.106801 * getSMEFTCoeffEW("CHl1R",0, 0) +0.001859 * getSMEFTCoeffEW("CHl1R",1, 1) +0.001859 * getSMEFTCoeffEW("CHl1R",2, 2) +0.149942 * getSMEFTCoeffEW("CHl3R",0, 0)  
-            +0.052448 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000102 * getSMEFTCoeffEW("CHl3R",2, 2) +0.014051 * getSMEFTCoeffEW("CHeR",0, 0) +0.001859 * getSMEFTCoeffEW("CHeR",1, 1)  
-            +0.001859 * getSMEFTCoeffEW("CHeR",2, 2) -0.001859 * getSMEFTCoeffEW("CHq1R",0, 0) -0.001859 * getSMEFTCoeffEW("CHq1R",1, 1) +0.155726 * getSMEFTCoeffEW("CHq1R",2, 2)  
-            +0.000305 * getSMEFTCoeffEW("CHq3R",0, 0) +0.000305 * getSMEFTCoeffEW("CHq3R",1, 1) -0.105403 * getSMEFTCoeffEW("CHq3R",2, 2) -0.003719 * getSMEFTCoeffEW("CHuR",0, 0)  
-            -0.003719 * getSMEFTCoeffEW("CHuR",1, 1) -0.195894 * getSMEFTCoeffEW("CHuR",2, 2) +0.001859 * getSMEFTCoeffEW("CHdR",0, 0) +0.001859 * getSMEFTCoeffEW("CHdR",1, 1)  
-            -0.029514 * getSMEFTCoeffEW("CHdR",2, 2) +0.000531 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.001052 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.001052 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
-            -0.052867 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000521 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) -0.000018 * getSMEFTCoeffEW("Cqq1R",0, 0, 2, 2) -0.000014 * getSMEFTCoeffEW("Cqq1R",0, 2, 2, 0)  
-            -0.000018 * getSMEFTCoeffEW("Cqq1R",1, 1, 2, 2) -0.000014 * getSMEFTCoeffEW("Cqq1R",1, 2, 2, 1) +0.000801 * getSMEFTCoeffEW("Cqq1R",2, 2, 2, 2) -0.000192 * getSMEFTCoeffEW("Cqq3R",0, 0, 2, 2)  
-            +0.000009 * getSMEFTCoeffEW("Cqq3R",0, 2, 2, 0) -0.000192 * getSMEFTCoeffEW("Cqq3R",1, 1, 2, 2) +0.000009 * getSMEFTCoeffEW("Cqq3R",1, 2, 2, 1) +0.000072 * getSMEFTCoeffEW("Cqq3R",2, 2, 2, 2)  
-            -0.000526 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000526 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.023264 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2) +0.000009 * getSMEFTCoeffEW("Clq1R",1, 1, 2, 2)  
-            +0.000009 * getSMEFTCoeffEW("Clq1R",2, 2, 2, 2) -0.005482 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) -0.005482 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.029294 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
-            -0.000032 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) -0.000032 * getSMEFTCoeffEW("Clq3R",2, 2, 2, 2) +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1)  
-            +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2) +0.000105 * getSMEFTCoeffEW("CddR",0, 0, 2, 2) +0.000014 * getSMEFTCoeffEW("CddR",0, 2, 2, 0) +0.000105 * getSMEFTCoeffEW("CddR",1, 1, 2, 2)  
-            +0.000014 * getSMEFTCoeffEW("CddR",1, 2, 2, 1) +0.000119 * getSMEFTCoeffEW("CddR",2, 2, 2, 2) -0.001302 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.001302 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
-            -0.033789 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) +0.000651 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000651 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000703 * getSMEFTCoeffEW("CedR",0, 0, 2, 2)  
-            +0.000053 * getSMEFTCoeffEW("CedR",1, 1, 2, 2) +0.000053 * getSMEFTCoeffEW("CedR",2, 2, 2, 2) -0.000105 * getSMEFTCoeffEW("Cud1R",0, 0, 2, 2) -0.000105 * getSMEFTCoeffEW("Cud1R",1, 1, 2, 2)  
-            -0.002732 * getSMEFTCoeffEW("Cud1R",2, 2, 2, 2) +0.001177 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000526 * getSMEFTCoeffEW("CleR",0, 0, 1, 1) +0.000526 * getSMEFTCoeffEW("CleR",0, 0, 2, 2)  
-            +0.000651 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000651 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) -0.001052 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.001052 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
-            -0.027303 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) +0.000526 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000526 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000578 * getSMEFTCoeffEW("CldR",0, 0, 2, 2)  
-            +0.000053 * getSMEFTCoeffEW("CldR",1, 1, 2, 2) +0.000053 * getSMEFTCoeffEW("CldR",2, 2, 2, 2) -0.000651 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000651 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0)  
-            +0.028788 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.000009 * getSMEFTCoeffEW("CqeR",2, 2, 1, 1) +0.000009 * getSMEFTCoeffEW("CqeR",2, 2, 2, 2) -0.000018 * getSMEFTCoeffEW("Cqu1R",2, 2, 0, 0)  
-            -0.000018 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1) -0.000478 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2) -0.000053 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) -0.000053 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2)  
-            +0.000009 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) +0.000009 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) +0.002336 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
-        break;
-    //} else {
-        default:
-            deltaNLO = 0.;
-    }
+    //    case 11:
+    //        deltaNLO = (+0.012979 * getSMEFTCoeffEW("CW")  +0.003252 * getSMEFTCoeffEW("CHbox")  +0.144659 * getSMEFTCoeffEW("CHD")  +0.001119 * getSMEFTCoeffEW("CHB")   
+    //        +0.00192 * getSMEFTCoeffEW("CHW")  +0.175886 * getSMEFTCoeffEW("CHWB")  -0.025098 * getSMEFTCoeffEW("CuWR",2, 2) +0.034979 * getSMEFTCoeffEW("CuBR",2, 2)  
+    //        +0.106801 * getSMEFTCoeffEW("CHl1R",0, 0) +0.001859 * getSMEFTCoeffEW("CHl1R",1, 1) +0.001859 * getSMEFTCoeffEW("CHl1R",2, 2) +0.149942 * getSMEFTCoeffEW("CHl3R",0, 0)  
+    //        +0.052448 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000102 * getSMEFTCoeffEW("CHl3R",2, 2) +0.014051 * getSMEFTCoeffEW("CHeR",0, 0) +0.001859 * getSMEFTCoeffEW("CHeR",1, 1)  
+    //        +0.001859 * getSMEFTCoeffEW("CHeR",2, 2) -0.001859 * getSMEFTCoeffEW("CHq1R",0, 0) -0.001859 * getSMEFTCoeffEW("CHq1R",1, 1) +0.155726 * getSMEFTCoeffEW("CHq1R",2, 2)  
+    //        +0.000305 * getSMEFTCoeffEW("CHq3R",0, 0) +0.000305 * getSMEFTCoeffEW("CHq3R",1, 1) -0.105403 * getSMEFTCoeffEW("CHq3R",2, 2) -0.003719 * getSMEFTCoeffEW("CHuR",0, 0)  
+    //        -0.003719 * getSMEFTCoeffEW("CHuR",1, 1) -0.195894 * getSMEFTCoeffEW("CHuR",2, 2) +0.001859 * getSMEFTCoeffEW("CHdR",0, 0) +0.001859 * getSMEFTCoeffEW("CHdR",1, 1)  
+    //        -0.029514 * getSMEFTCoeffEW("CHdR",2, 2) +0.000531 * getSMEFTCoeffEW("CllR",0, 0, 0, 0) +0.001052 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.001052 * getSMEFTCoeffEW("CllR",0, 0, 2, 2)  
+    //        -0.052867 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) -0.000521 * getSMEFTCoeffEW("CllR",0, 2, 2, 0) -0.000018 * getSMEFTCoeffEW("Cqq1R",0, 0, 2, 2) -0.000014 * getSMEFTCoeffEW("Cqq1R",0, 2, 2, 0)  
+    //        -0.000018 * getSMEFTCoeffEW("Cqq1R",1, 1, 2, 2) -0.000014 * getSMEFTCoeffEW("Cqq1R",1, 2, 2, 1) +0.000801 * getSMEFTCoeffEW("Cqq1R",2, 2, 2, 2) -0.000192 * getSMEFTCoeffEW("Cqq3R",0, 0, 2, 2)  
+    //        +0.000009 * getSMEFTCoeffEW("Cqq3R",0, 2, 2, 0) -0.000192 * getSMEFTCoeffEW("Cqq3R",1, 1, 2, 2) +0.000009 * getSMEFTCoeffEW("Cqq3R",1, 2, 2, 1) +0.000072 * getSMEFTCoeffEW("Cqq3R",2, 2, 2, 2)  
+    //        -0.000526 * getSMEFTCoeffEW("Clq1R",0, 0, 0, 0) -0.000526 * getSMEFTCoeffEW("Clq1R",0, 0, 1, 1) +0.023264 * getSMEFTCoeffEW("Clq1R",0, 0, 2, 2) +0.000009 * getSMEFTCoeffEW("Clq1R",1, 1, 2, 2)  
+    //        +0.000009 * getSMEFTCoeffEW("Clq1R",2, 2, 2, 2) -0.005482 * getSMEFTCoeffEW("Clq3R",0, 0, 0, 0) -0.005482 * getSMEFTCoeffEW("Clq3R",0, 0, 1, 1) -0.029294 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
+    //        -0.000032 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) -0.000032 * getSMEFTCoeffEW("Clq3R",2, 2, 2, 2) +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 0, 0) +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 1, 1)  
+    //        +0.001822 * getSMEFTCoeffEW("CeeR",0, 0, 2, 2) +0.000105 * getSMEFTCoeffEW("CddR",0, 0, 2, 2) +0.000014 * getSMEFTCoeffEW("CddR",0, 2, 2, 0) +0.000105 * getSMEFTCoeffEW("CddR",1, 1, 2, 2)  
+    //        +0.000014 * getSMEFTCoeffEW("CddR",1, 2, 2, 1) +0.000119 * getSMEFTCoeffEW("CddR",2, 2, 2, 2) -0.001302 * getSMEFTCoeffEW("CeuR",0, 0, 0, 0) -0.001302 * getSMEFTCoeffEW("CeuR",0, 0, 1, 1)  
+    //        -0.033789 * getSMEFTCoeffEW("CeuR",0, 0, 2, 2) +0.000651 * getSMEFTCoeffEW("CedR",0, 0, 0, 0) +0.000651 * getSMEFTCoeffEW("CedR",0, 0, 1, 1) +0.000703 * getSMEFTCoeffEW("CedR",0, 0, 2, 2)  
+    //        +0.000053 * getSMEFTCoeffEW("CedR",1, 1, 2, 2) +0.000053 * getSMEFTCoeffEW("CedR",2, 2, 2, 2) -0.000105 * getSMEFTCoeffEW("Cud1R",0, 0, 2, 2) -0.000105 * getSMEFTCoeffEW("Cud1R",1, 1, 2, 2)  
+    //        -0.002732 * getSMEFTCoeffEW("Cud1R",2, 2, 2, 2) +0.001177 * getSMEFTCoeffEW("CleR",0, 0, 0, 0) +0.000526 * getSMEFTCoeffEW("CleR",0, 0, 1, 1) +0.000526 * getSMEFTCoeffEW("CleR",0, 0, 2, 2)  
+    //        +0.000651 * getSMEFTCoeffEW("CleR",1, 1, 0, 0) +0.000651 * getSMEFTCoeffEW("CleR",2, 2, 0, 0) -0.001052 * getSMEFTCoeffEW("CluR",0, 0, 0, 0) -0.001052 * getSMEFTCoeffEW("CluR",0, 0, 1, 1)  
+    //        -0.027303 * getSMEFTCoeffEW("CluR",0, 0, 2, 2) +0.000526 * getSMEFTCoeffEW("CldR",0, 0, 0, 0) +0.000526 * getSMEFTCoeffEW("CldR",0, 0, 1, 1) +0.000578 * getSMEFTCoeffEW("CldR",0, 0, 2, 2)  
+    //        +0.000053 * getSMEFTCoeffEW("CldR",1, 1, 2, 2) +0.000053 * getSMEFTCoeffEW("CldR",2, 2, 2, 2) -0.000651 * getSMEFTCoeffEW("CqeR",0, 0, 0, 0) -0.000651 * getSMEFTCoeffEW("CqeR",1, 1, 0, 0)  
+    //        +0.028788 * getSMEFTCoeffEW("CqeR",2, 2, 0, 0) +0.000009 * getSMEFTCoeffEW("CqeR",2, 2, 1, 1) +0.000009 * getSMEFTCoeffEW("CqeR",2, 2, 2, 2) -0.000018 * getSMEFTCoeffEW("Cqu1R",2, 2, 0, 0)  
+    //        -0.000018 * getSMEFTCoeffEW("Cqu1R",2, 2, 1, 1) -0.000478 * getSMEFTCoeffEW("Cqu1R",2, 2, 2, 2) -0.000053 * getSMEFTCoeffEW("Cqd1R",0, 0, 2, 2) -0.000053 * getSMEFTCoeffEW("Cqd1R",1, 1, 2, 2)  
+    //        +0.000009 * getSMEFTCoeffEW("Cqd1R",2, 2, 0, 0) +0.000009 * getSMEFTCoeffEW("Cqd1R",2, 2, 1, 1) +0.002336 * getSMEFTCoeffEW("Cqd1R",2, 2, 2, 2) ) * v2; 
+    //    break;
+    ////} else {
+    //    default:
+    //        deltaNLO = 0.;
+    //}
 
-    return dAFB + cNLOd6 * deltaNLO;
+    return dAFB; // + cNLOd6 * deltaNLO;
 }
 
 const double NPSMEFTd6General::AFB(const Particle f) const
