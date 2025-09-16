@@ -18,6 +18,7 @@
 #include "NPSMEFTd6U2qU1le.h"
 #include "NPSMEFTd6U2.h"
 #include "NPSMEFTd6U3.h"
+#include "NPSMEFTd6MFV.h"
 
 #include "NPSMEFT6dtopquark.h"
 #include "SigmaBR.h"
@@ -64,6 +65,7 @@ ModelFactory::ModelFactory()
     modelFactory["NPSMEFTd6U2qU1le"] = boost::factory<NPSMEFTd6U2qU1le*>();
     modelFactory["NPSMEFTd6U2"] = boost::factory<NPSMEFTd6U2*>();
     modelFactory["NPSMEFTd6U3"] = boost::factory<NPSMEFTd6U3*>();
+    modelFactory["NPSMEFTd6MFV"] = boost::factory<NPSMEFTd6MFV*>();
     
     modelFactory["NPSMEFT6dtopquark"] = boost::factory<NPSMEFT6dtopquark*>();
 

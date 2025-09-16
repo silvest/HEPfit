@@ -8349,7 +8349,7 @@ void NPSMEFTd6General::getWCFromEvolutor()
 }
  */
 
-NPSMEFTd6General::GenerateSMInitialConditions()  {
+void NPSMEFTd6General::GenerateSMInitialConditions()  {
     //    std::cout<<"\033[1;31m Mw_inp = \033[0m "<< Mw_inp << std::endl;
 
     LambdaNP2 = Lambda_NP * Lambda_NP;
@@ -8400,9 +8400,18 @@ NPSMEFTd6General::GenerateSMInitialConditions()  {
 
     ChangeToEvolutorsBasisPureSM();
     //ChangeToEvolutorsBasisSMEFTtoSM();
-    double Mu_LEW[3] = {mu_LEW, mc_LEW, mt_LEW};
-    double Md_LEW[3] = {md_LEW, ms_LEW, mb_LEW};
-    double Me_LEW[3] = {me_LEW, mmu_LEW, mtau_LEW};
+    Mu_LEW[0] = mu_LEW;
+    Mu_LEW[1] = mc_LEW;
+    Mu_LEW[2] = mt_LEW;
+
+    Md_LEW[0] = md_LEW;
+    Md_LEW[1] = ms_LEW;
+    Md_LEW[2] = mb_LEW;
+
+    Me_LEW[0] = me_LEW;
+    Me_LEW[1] = mmu_LEW;
+    Me_LEW[2] = mtau_LEW;
+    
     
     // Renormalization Group Evolution (RGE)
     
