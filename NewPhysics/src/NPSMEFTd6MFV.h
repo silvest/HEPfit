@@ -39,142 +39,131 @@ public:
     
 protected:
 
-double CG = 0.;
-double CW = 0.;
-double CHG = 0.;
-double CHW = 0.;
-double CHB = 0.;
-double CHWB = 0.;
-double CHD = 0.;
-double CHbox = 0.;
-double CH = 0.;
-double CHl1 = 0.;
-double CHl3 = 0.;
-double CHe = 0.;
-double Cll = 0.;
-double Cll1 = 0.;
-double Cee = 0.;
-double Cle = 0.;
-double CuH_0 = 0.;
-double CuH_u = 0.;
-double CuH_d = 0.;
-double CuG_0 = 0.;
-double CuG_u = 0.;
-double CuG_d = 0.;
-double CuW_0 = 0.;
-double CuW_u = 0.;
-double CuW_d = 0.;
-double CuB_0 = 0.;
-double CuB_u = 0.;
-double CuB_d = 0.;
-double CdH_0 = 0.;
-double CdH_u = 0.;
-double CdH_d = 0.;
-double CdG_0 = 0.;
-double CdG_u = 0.;
-double CdG_d = 0.;
-double CdW_0 = 0.;
-double CdW_u = 0.;
-double CdW_d = 0.;
-double CdB_0 = 0.;
-double CdB_u = 0.;
-double CdB_d = 0.;
-double CHq1_0 = 0.;
-double CHq1_u = 0.;
-double CHq1_d = 0.;
-double CHq3_0 = 0.;
-double CHq3_u = 0.;
-double CHq3_d = 0.;
-double CHu_0 = 0.;
-double CHu_u = 0.;
-double CHd_0 = 0.;
-double CHd_d = 0.;
-double CHud_ud = 0.;
-double Clq1_0 = 0.;
-double Clq1_u = 0.;
-double Clq1_d = 0.;
-double Clq3_0 = 0.;
-double Clq3_u = 0.;
-double Clq3_d = 0.;
-double Cqe_0 = 0.;
-double Cqe_u = 0.;
-double Cqe_d = 0.;
-double Clu_0 = 0.;
-double Clu_u = 0.;
-double Ceu_0 = 0.;
-double Ceu_u = 0.;
-double Cld_0 = 0.;
-double Cld_d = 0.;
-double Ced_0 = 0.;
-double Ced_d = 0.;
-double Cqq1_00 = 0.;
-double Cqq1_0u = 0.;
-double Cqq1_0d = 0.;
-double Cqq1_u0 = 0.;
-double Cqq1_uu = 0.;
-double Cqq1_ud = 0.;
-double Cqq1_d0 = 0.;
-double Cqq1_du = 0.;
-double Cqq1_dd = 0.;
-double Cqq3_00 = 0.;
-double Cqq3_0u = 0.;
-double Cqq3_0d = 0.;
-double Cqq3_u0 = 0.;
-double Cqq3_uu = 0.;
-double Cqq3_ud = 0.;
-double Cqq3_d0 = 0.;
-double Cqq3_du = 0.;
-double Cqq3_dd = 0.;
-double Cuu_00 = 0.;
-double Cuu_0u = 0.;
-double Cuu_u0 = 0.;
-double Cuu_uu = 0.;
-double Cdd_00 = 0.;
-double Cdd_0d = 0.;
-double Cdd_d0 = 0.;
-double Cdd_dd = 0.;
-double Cud1_00 = 0.;
-double Cud1_u0 = 0.;
-double Cud1_0d = 0.;
-double Cud1_ud = 0.;
-double Cud8_00 = 0.;
-double Cud8_u0 = 0.;
-double Cud8_0d = 0.;
-double Cud8_ud = 0.;
-double Cqu1_00 = 0.;
-double Cqu1_u0 = 0.;
-double Cqu1_d0 = 0.;
-double Cqu1_0u = 0.;
-double Cqu1_uu = 0.;
-double Cqu1_du = 0.;
-double Cqu8_00 = 0.;
-double Cqu8_u0 = 0.;
-double Cqu8_d0 = 0.;
-double Cqu8_0u = 0.;
-double Cqu8_uu = 0.;
-double Cqu8_du = 0.;
-double Cqd1_00 = 0.;
-double Cqd1_u0 = 0.;
-double Cqd1_d0 = 0.;
-double Cqd1_0d = 0.;
-double Cqd1_ud = 0.;
-double Cqd1_dd = 0.;
-double Cqd8_00 = 0.;
-double Cqd8_u0 = 0.;
-double Cqd8_d0 = 0.;
-double Cqd8_0d = 0.;
-double Cqd8_ud = 0.;
-double Cqd8_dd = 0.;
-double Cquqd1 = 0.;
-double Cquqd8 = 0.;
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{Hl}^{(1)})_{ij}\f$.
+	double CHl1_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{Hl}^{(3)})_{ij}\f$.
+	double CHl3_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{He})_{ij}\f$.
+	double CHe_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$.
+	double Cll_aabb_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$.
+	double Cll_abba_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{ee})_{ijkm}\f$.
+	double Cee_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{le})_{ijkm}\f$.
+	double Cle_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{uH})_{ij}\f$.
+	double CuH_0_LNP = 0., CuH_u_LNP = 0., CuH_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{uG})_{ij}\f$.
+	double CuG_0_LNP = 0., CuG_u_LNP = 0., CuG_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{uW})_{ij}\f$.
+	double CuW_0_LNP = 0., CuW_u_LNP = 0., CuW_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{uB})_{ij}\f$.
+	double CuB_0_LNP = 0., CuB_u_LNP = 0., CuB_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{dH})_{ij}\f$.
+	double CdH_0_LNP = 0., CdH_u_LNP = 0., CdH_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{dG})_{ij}\f$.
+	double CdG_0_LNP = 0., CdG_u_LNP = 0., CdG_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{dW})_{ij}\f$.
+	double CdW_0_LNP = 0., CdW_u_LNP = 0., CdW_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{dB})_{ij}\f$.
+	double CdB_0_LNP = 0., CdB_u_LNP = 0., CdB_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{Hq}^{(1)})_{ij}\f$.
+	double CHq1_0_LNP = 0., CHq1_u_LNP = 0., CHq1_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{Hq}^{(3)})_{ij}\f$.
+	double CHq3_0_LNP = 0., CHq3_u_LNP = 0., CHq3_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{Hu})_{ij}\f$.
+	double CHu_0_LNP = 0., CHu_u_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{Hd})_{ij}\f$.
+	double CHd_0_LNP = 0., CHd_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{Hud})_{ij}\f$.
+	double CHud_ud_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}\f$.
+	double Clq1_0_LNP = 0., Clq1_u_LNP = 0., Clq1_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}\f$.
+	double Clq3_0_LNP = 0., Clq3_u_LNP = 0., Clq3_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{qe})_{ijkm}\f$.
+	double Cqe_0_LNP = 0., Cqe_u_LNP = 0., Cqe_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{lu})_{ijkm}\f$.
+	double Clu_0_LNP = 0., Clu_u_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{eu})_{ijkm}\f$.
+	double Ceu_0_LNP = 0., Ceu_u_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{ld})_{ijkm}\f$.
+	double Cld_0_LNP = 0., Cld_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{ed})_{ijkm}\f$.
+	double Ced_0_LNP = 0., Ced_d_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$.
+	double Cqq1_00_LNP = 0., Cqq1_0u_LNP = 0., Cqq1_0d_LNP = 0., Cqq1_u0_LNP = 0., Cqq1_uu_LNP = 0., Cqq1_ud_LNP = 0., Cqq1_d0_LNP = 0., Cqq1_du_LNP = 0., Cqq1_dd_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$.
+	double Cqq3_00_LNP = 0., Cqq3_0u_LNP = 0., Cqq3_0d_LNP = 0., Cqq3_u0_LNP = 0., Cqq3_uu_LNP = 0., Cqq3_ud_LNP = 0., Cqq3_d0_LNP = 0., Cqq3_du_LNP = 0., Cqq3_dd_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{uu})_{ijkm}\f$.
+	double Cuu_00_LNP = 0., Cuu_0u_LNP = 0., Cuu_u0_LNP = 0., Cuu_uu_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{dd})_{ijkm}\f$.
+	double Cdd_00_LNP = 0., Cdd_0d_LNP = 0., Cdd_d0_LNP = 0., Cdd_dd_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkm}\f$.
+	double Cud1_00_LNP = 0., Cud1_u0_LNP = 0., Cud1_0d_LNP = 0., Cud1_ud_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkm}\f$.
+	double Cud8_00_LNP = 0., Cud8_u0_LNP = 0., Cud8_0d_LNP = 0., Cud8_ud_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}\f$.
+	double Cqu1_00_LNP = 0., Cqu1_u0_LNP = 0., Cqu1_d0_LNP = 0., Cqu1_0u_LNP = 0., Cqu1_uu_LNP = 0., Cqu1_du_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}\f$.
+	double Cqu8_00_LNP = 0., Cqu8_u0_LNP = 0., Cqu8_d0_LNP = 0., Cqu8_0u_LNP = 0., Cqu8_uu_LNP = 0., Cqu8_du_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}\f$.
+	double Cqd1_00_LNP = 0., Cqd1_u0_LNP = 0., Cqd1_d0_LNP = 0., Cqd1_0d_LNP = 0., Cqd1_ud_LNP = 0., Cqd1_dd_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}\f$.
+	double Cqd8_00_LNP = 0., Cqd8_u0_LNP = 0., Cqd8_d0_LNP = 0., Cqd8_0d_LNP = 0., Cqd8_ud_LNP = 0., Cqd8_dd_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}\f$.
+	double Cquqd1_00_LNP = 0.;
+
+	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}\f$.
+	double Cquqd8_00_LNP = 0.;
 
 
-virtual void setParameter(const std::string name, const double& value);
 
-/**
-* @brief An auxiliary method to set the WC of the general class
-*/
-void setNPSMEFTd6GeneralParameters();
+	virtual void setParameter(const std::string name, const double& value);
+
+	/**
+	* @brief An auxiliary method to set the WC of the general class
+	*/
+	void setNPSMEFTd6GeneralParameters();
 
 private:
 
