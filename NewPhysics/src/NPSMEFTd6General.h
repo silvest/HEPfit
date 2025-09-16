@@ -630,13 +630,19 @@ public:
     virtual bool PreUpdate();
 
     /**
+     * @brief Generates the initial condition for the Standard Model parameters.
+     * @details This method sets all the Standard Model parameters to their values
+     * and RG evolves them up to the New Physics scale.
+     */
+    void GenerateSMInitialConditions();  
+
+    /**
      * @brief The post-update method for %NPSMEFTd6General.
      * @details This method runs all the procedures that are need to be executed
      * after the model is successfully updated.
      * @return a boolean that is true if the execution is successful
      */
     virtual bool PostUpdate();
-
     
     //I think that for this model, with so many parameters, it's better to include only those we're really interested in
     //Since all the parameters are initialized to zero we can just skip the CheckParameters for this model
@@ -7323,6 +7329,10 @@ protected:
     double s13CKM_LEW = 0.;
     double s23CKM_LEW = 0.;
     double dCKM_LEW = 0.;
+    double Mu_LEW[3] = {0, 0, 0};
+    double Md_LEW[3] = {0, 0, 0};
+    double Me_LEW[3] = {0, 0, 0};
+
 
     //We won't need the SM at the NP scale anymore
     //double g1_LNP = 0;
