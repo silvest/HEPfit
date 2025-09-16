@@ -1,5 +1,6 @@
 var NAVTREEINDEX87 =
 {
+"d9/d8f/group___standard_model.html#gadb5b4063c9d00b5fd8af20ec261246b1":[4,0,31],
 "d9/d8f/group___standard_model.html#gaedfe8994731224f3497151a54eb75abd":[4,0,29],
 "d9/d8f/group___standard_model.html#gafdeb2b6c039acca75ebbc57ff69004ae":[4,0,30],
 "d9/d93/classdeltag_eff_ztata_l.html":[27,0,468],
@@ -248,6 +249,5 @@ var NAVTREEINDEX87 =
 "d9/dba/class_observable.html#a68d687be3dee4458789442a1bd04b216":[4,14,4,47],
 "d9/dba/class_observable.html#a6995f19c15be8f73604779cb9f66a2d4":[4,14,4,75],
 "d9/dba/class_observable.html#a69b6456daca20360e06fcb82c1911042":[4,14,4,53],
-"d9/dba/class_observable.html#a6a3b3d34d93e9e439c922f7f1ca336ee":[4,14,4,55],
-"d9/dba/class_observable.html#a708ee90b41225765ec7dcb412f4229e4":[4,14,4,5]
+"d9/dba/class_observable.html#a6a3b3d34d93e9e439c922f7f1ca336ee":[4,14,4,55]
 };

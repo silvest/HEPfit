@@ -1,6 +1,6 @@
 var class_monte_carlo =
 [
-    [ "MonteCarlo", "d1/d58/class_monte_carlo.html#a07e9d4871d66553aaf3f1b47fe9ef140", null ],
+    [ "MonteCarlo", "d1/d58/class_monte_carlo.html#a2f65936ba81ecff0987c2d3f34ea13fd", null ],
     [ "~MonteCarlo", "d1/d58/class_monte_carlo.html#af53fc3a679af18b51a3002b4c1f6b6c2", null ],
     [ "addCustomObservableType", "d1/d58/class_monte_carlo.html#ab814dc650b93f24c43a0497c4a72f549", null ],
     [ "getHistograms1D", "d1/d58/class_monte_carlo.html#af6bbd9f136bcb84f935b22a7d9563a03", null ],
@@ -14,6 +14,7 @@ var class_monte_carlo =
     [ "CGP", "d1/d58/class_monte_carlo.html#a3a5616ed642d4508afb2ebfc36f3ee62", null ],
     [ "checkrun", "d1/d58/class_monte_carlo.html#acc0d4b2b2d9b76386d95d5a744c31335", null ],
     [ "ComputeHessianOnly", "d1/d58/class_monte_carlo.html#acfc7dbc9a6b26e537fe164575a555424", null ],
+    [ "FileIn", "d1/d58/class_monte_carlo.html#aaecebf5a0b3f68e40df6b778e09979e6", null ],
     [ "FindModeWithMinuit", "d1/d58/class_monte_carlo.html#ab34ab0850f6cca31325724fb4b105dc7", null ],
     [ "JobTag", "d1/d58/class_monte_carlo.html#a07fa8dcf3b47bd215769a19d6b3eccad", null ],
     [ "MCEngine", "d1/d58/class_monte_carlo.html#a2b79c025c9f7af2c087b5c7fae78400a", null ],

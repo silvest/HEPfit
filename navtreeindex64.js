@@ -1,5 +1,6 @@
 var NAVTREEINDEX64 =
 {
+"d6/d53/class_rb0_t_h_d_m_w.html#a06d5a9ff053a964527955f856a4347ce":[4,18,83,0],
 "d6/d53/class_rb0_t_h_d_m_w.html#a768635c1f5532cb66db2f5366771e151":[4,18,83,1],
 "d6/d53/class_rb0_t_h_d_m_w.html#ac6ff4332d633c29c105a4526ec6f03da":[4,18,83,2],
 "d6/d54/classsigma__tta__diff___n_l_o___a_t_l_a_s__emu__200706946.html":[27,0,2636],
@@ -248,6 +249,5 @@ var NAVTREEINDEX64 =
 "d6/d75/class_flavour_wilson_coefficient.html#afede57a424b64a0081759de69541f0b8":[4,6,2,5],
 "d6/d75/classunitarity_r5.html":[4,17,517],
 "d6/d75/classunitarity_r5.html#aab391d30049784fb0aa57f48cd65c8fa":[4,17,517,1],
-"d6/d75/classunitarity_r5.html#aba751f624c536bdcb0513bd698158e2c":[4,17,517,2],
-"d6/d75/classunitarity_r5.html#ad88e9c261f784ad005c51858b3d4b78c":[4,17,517,0]
+"d6/d75/classunitarity_r5.html#aba751f624c536bdcb0513bd698158e2c":[4,17,517,2]
 };

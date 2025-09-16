@@ -1,5 +1,6 @@
 var NAVTREEINDEX46 =
 {
+"d4/d6d/class_flavour.html#a3df2e5f8f9d44c0417b2d3911162f10a":[4,5,93,45],
 "d4/d6d/class_flavour.html#a3fe38a5dd9289c373a84e93a76eee2a2":[4,5,93,27],
 "d4/d6d/class_flavour.html#a404820118c58499402df07622317c088":[4,5,93,17],
 "d4/d6d/class_flavour.html#a42df9429dfae5476b04a7ff43305b182":[4,5,93,23],
@@ -248,6 +249,5 @@ var NAVTREEINDEX46 =
 "d4/d8d/class_alpha.html#abb5da4ab2ed7248afd8a782a719850c9":[4,5,28,0],
 "d4/d8d/class_alpha.html#abcde8319f0600b6d51720f871b06a973":[4,5,28,1],
 "d4/d8d/class_br_hto_zga__over__gaga___ratio.html":[4,13,44],
-"d4/d8d/class_br_hto_zga__over__gaga___ratio.html#a7092eb0ac74a7f33ac12d33d31cfa54e":[4,13,44,1],
-"d4/d8d/class_br_hto_zga__over__gaga___ratio.html#ac4a6ee3a03a80950aef633378cdedb9a":[4,13,44,2]
+"d4/d8d/class_br_hto_zga__over__gaga___ratio.html#a7092eb0ac74a7f33ac12d33d31cfa54e":[4,13,44,1]
 };

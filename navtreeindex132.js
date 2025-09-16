@@ -1,5 +1,6 @@
 var NAVTREEINDEX132 =
 {
+"df/d10/class_lepton_flavour.html#a349f58620e0e5c8aad903d29c269225c":[4,10,5,5],
 "df/d10/class_lepton_flavour.html#a4e9484f541424c562ab2d4a2cc4e6161":[4,10,5,10],
 "df/d10/class_lepton_flavour.html#a508d34d0ea78adb2814367ece007de66":[4,10,5,4],
 "df/d10/class_lepton_flavour.html#a7588124d09738476edb68dd14939d30b":[4,10,5,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX132 =
 "df/d15/class_higgs_kigen.html#a8d2d74715586b8096fe786ae5e27bb9f":[4,13,77,262],
 "df/d15/class_higgs_kigen.html#a8e2e26c4439e93a6bc386ed63a743659":[4,13,77,68],
 "df/d15/class_higgs_kigen.html#a8e4f34f50f11882224a3cde9d84462a5":[4,13,77,52],
-"df/d15/class_higgs_kigen.html#a8eba4fa985db868a8af7df042af54820":[4,13,77,252],
-"df/d15/class_higgs_kigen.html#a8f19533dbb06d855524d7ce811ee50dd":[4,13,77,280]
+"df/d15/class_higgs_kigen.html#a8eba4fa985db868a8af7df042af54820":[4,13,77,252]
 };

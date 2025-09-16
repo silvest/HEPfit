@@ -1,5 +1,6 @@
 var NAVTREEINDEX89 =
 {
+"d9/ddd/class_correlated_gaussian_parameters.html#aa9479216143e3ffe3915f6bfd62538c1":[4,14,1,7],
 "d9/ddd/class_correlated_gaussian_parameters.html#abfcbe43b0c9465275730275b3a5f1a4c":[4,14,1,1],
 "d9/ddd/class_correlated_gaussian_parameters.html#acaded09afe08bd0dc276bdad42ef16d0":[4,14,1,8],
 "d9/ddd/class_correlated_gaussian_parameters.html#acb812831b5eb1df249748068c82afcac":[4,14,1,9],
@@ -248,6 +249,5 @@ var NAVTREEINDEX89 =
 "da/d11/class_hobs__bb_f___a__tautau___c_m_s8.html#aa39f357460676023fb05ac9a25895194":[4,17,66,2],
 "da/d11/class_hobs__bb_f___a__tautau___c_m_s8.html#ae9c9ea4ba586c6fc12a7bc5351a29684":[4,17,66,1],
 "da/d11/class_v_b_f___vh__htogaga.html":[4,17,544],
-"da/d11/class_v_b_f___vh__htogaga.html#a33b887202daa787046e7b8be098ce5ee":[4,17,544,2],
-"da/d11/class_v_b_f___vh__htogaga.html#a8cf35247846f26e8296dc7aa81ad5154":[4,17,544,1]
+"da/d11/class_v_b_f___vh__htogaga.html#a33b887202daa787046e7b8be098ce5ee":[4,17,544,2]
 };
