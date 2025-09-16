@@ -52,10 +52,13 @@ int main(int argc, char** argv)
                 ("job_tag", value<string > ()->default_value(""),
                 "job tag, please specify with --job_tag <tag>")
                 ("weight", "run in generate event mode with --weight for weights")
+                ("loadRun", "load previous run data from file")
+                ("inFile", value<string > ()->default_value("MCin"),
+                "input root filename (without extension)")
                 ("help", "help message")
                 ;
         string coderun = "\n *** HEPfit Routines ***\n"
-                         "\nMonte Carlo mode: analysis Model.conf MonteCarlo.conf [--rootfile <name>] [--job_tag <tag>] [--thRange]"
+                         "\nMonte Carlo mode: analysis Model.conf MonteCarlo.conf [--rootfile <name>] [--job_tag <tag>] [--thRange] [--loadRun --inFile <name>]"
                          "\nSingle Event mode: analysis Model.conf MonteCarlo.conf --test"
                          "\nGenerate Event mode: analysis Model.conf --noMC [--it #] [--weight] [--output_folder <name> [--job_tag <tag>]]\n";
         positional_options_description pd;
@@ -123,12 +126,16 @@ int main(int argc, char** argv)
 //                noMC = false;
                 string MCMCConf = vm["mcconf"].as<string > ();
                 string FileOut = vm["rootfile"].as<string > ();
+                if (vm.count("loadRun")) cout << "\nLoading previous run data from file " << vm["inFile"].as<string > () << ".root\n" << endl;
+                if (vm.count("loadRun") && vm["inFile"].as<string > ()== FileOut)
+                    if (rank == 0) throw runtime_error("\nERROR:  Input and output root filenames cannot be the same when loading previous run data from file.\n");
+                
                 
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
 //                ThObsF.addObsToFactory("mtbar", boost::factory<mtbar*>());
-                
-                MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);
+                std::string FileIn = vm.count("loadRun") ? vm["inFile"].as<string > () + ".root" : "";
+                MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag, FileIn);
                 if (vm.count("test")){
 //                    MC.addCustomParser("PS", boost::factory<InputParser*>());
 //                    MC.addCustomObservableType("Poisson", boost::factory<Observable*>());

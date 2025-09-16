@@ -28,11 +28,13 @@ MonteCarlo::MonteCarlo(
         const std::string& ModelConf_i,
         const std::string& MonteCarloConf_i,
         const std::string& OutFile_i,
-        const std::string& JobTag_i)
+        const std::string& JobTag_i,
+        const std::string& FileIn_i)
 : myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO, CGP) {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
     JobTag = JobTag_i;
+    FileIn = FileIn_i;
     if (OutFile_i.compare("") == 0) OutFile = "MCout" + JobTag + ".root";
     else OutFile = OutFile_i + JobTag + ".root";
     ObsDirName = "Observables" + JobTag;
@@ -375,6 +377,8 @@ void MonteCarlo::Run(const int rank) {
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
+            if (FileIn != "")
+                MCEngine.LoadMCMC(FileIn);
             MCEngine.MarginalizeAll();
             std::time_t tf = std::time(NULL);
 #if __GNUC__ >= 5 || defined __clang__
@@ -543,9 +547,9 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
                 throw std::runtime_error("\nERROR: NIterationsUpdateMax in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
         } else if (beg->compare("NIterationsPreRunFactorized") == 0) {
             ++beg;
-            if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.SetNIterationsPreRunFactorized(atoi((*beg).c_str()));
+            if (isdigit(beg->at(0)) && atoi((*beg).c_str()) >= 0) MCEngine.SetNIterationsPreRunFactorized(atoi((*beg).c_str()));
             else
-                throw std::runtime_error("\nERROR: NIterationsPrerunFactorized in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
+                throw std::runtime_error("\nERROR: NIterationsPrerunFactorized in the MonteCarlo configuration file: " + MCMCConf + " can only be a non-negative integer.\n");
         } else if (beg->compare("Seed") == 0) {
             ++beg;
             if (!isdigit(beg->at(0))) throw std::runtime_error("\nERROR: Seed in the MonteCarlo configuration file: " + MCMCConf + " can only be a number.\n");

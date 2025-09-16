@@ -54,12 +54,14 @@ public:
      * @param[in] OutFile_i the name of the root output file to be given without the .root
      * extention
      * @param[in] JobTag_i optional job tag that might be specified
+     * @param[in] FileIn_i name of the input root file (to be given without the .root). If empty, no input file is read. If not empty, previous run data is loaded from this file.
      */
     MonteCarlo(ModelFactory& ModelF, ThObsFactory& ThObsF,
             const std::string& ModelConf_i,
             const std::string& MonteCarloConf_i,
             const std::string& OutFile_i,
-            const std::string& JobTag_i);
+            const std::string& JobTag_i, 
+            const std::string& FileIn_i);
 
     /**
      * @brief The default destructor.
@@ -178,6 +180,7 @@ private:
     bool WritePreRunData; ///< Flag for printing the overview parameter plots.
     bool checkrun; ///< A check to make sure TestRun()and Run() are not called consecutively. 
     bool writechains; ///< Flag for writing the chains of paramters and observables during the MCMC run.
+    std::string FileIn; ///< String for the name of the input root file without the .root extension. If empty, no input file is read. If not empty, previous run data is loaded from this file.
     
     void ParseMCMCConfig(std::string file);
     void ReadPreRunData(std::string file);
