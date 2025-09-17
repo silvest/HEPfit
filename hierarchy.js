@@ -267,6 +267,7 @@ var hierarchy =
             [ "NPSMEFT6dtopquark", "d4/d42/class_n_p_s_m_e_f_t6dtopquark.html", null ],
             [ "NPSMEFTd6", "d2/d0d/class_n_p_s_m_e_f_td6.html", null ],
             [ "NPSMEFTd6General", "d1/d9e/class_n_p_s_m_e_f_td6_general.html", [
+              [ "NPSMEFTd6MFV", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html", null ],
               [ "NPSMEFTd6U2", "d5/dfe/class_n_p_s_m_e_f_td6_u2.html", null ],
               [ "NPSMEFTd6U2qU1le", "d8/dcc/class_n_p_s_m_e_f_td6_u2q_u1le.html", null ],
               [ "NPSMEFTd6U3", "d7/d20/class_n_p_s_m_e_f_td6_u3.html", null ],
