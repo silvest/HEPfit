@@ -317,7 +317,7 @@ public:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the even 00 block.
  */
-class R1p00eveP_Z2: public unitarity_Z2 {
+class R1p00eveP_Z2: public ThObservable {
 public:
 
     /**
@@ -331,6 +331,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity00eveP_Z2 a_NLO;
 };
 
@@ -339,7 +341,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the even 00 block.
  */
-class R1p00eveM_Z2: public unitarity_Z2 {
+class R1p00eveM_Z2: public ThObservable {
 public:
 
     /**
@@ -353,6 +355,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity00eveM_Z2 a_NLO;
 };
 
@@ -366,7 +370,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the odd 00 block.
  */
-class R1p00oddP_Z2: public unitarity_Z2 {
+class R1p00oddP_Z2: public ThObservable {
 public:
 
     /**
@@ -380,6 +384,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity00oddP_Z2 a_NLO;
 };
 
@@ -388,7 +394,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the odd 00 block.
  */
-class R1p00oddM_Z2: public unitarity_Z2 {
+class R1p00oddM_Z2: public ThObservable {
 public:
 
     /**
@@ -402,6 +408,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity00oddM_Z2 a_NLO;
 };
 
@@ -415,7 +423,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the even 01 block.
  */
-class R1p01eveP_Z2: public unitarity_Z2 {
+class R1p01eveP_Z2: public ThObservable {
 public:
 
     /**
@@ -429,6 +437,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity01eveP_Z2 a_NLO;
 };
 
@@ -437,7 +447,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the even 01 block.
  */
-class R1p01eveM_Z2: public unitarity_Z2 {
+class R1p01eveM_Z2: public ThObservable {
 public:
 
     /**
@@ -451,6 +461,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity01eveM_Z2 a_NLO;
 };
 
@@ -464,7 +476,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the odd 01 block.
  */
-class R1p01oddP_Z2: public unitarity_Z2 {
+class R1p01oddP_Z2: public ThObservable {
 public:
 
     /**
@@ -478,6 +490,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity01oddP_Z2 a_NLO;
 };
 
@@ -486,7 +500,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the odd 01 block.
  */
-class R1p01oddM_Z2: public unitarity_Z2 {
+class R1p01oddM_Z2: public ThObservable {
 public:
 
     /**
@@ -500,6 +514,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity01oddM_Z2 a_NLO;
 };
 
@@ -513,7 +529,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the eigenvalue of the odd 10 block.
  */
-class R1p10odd_Z2: public unitarity_Z2 {
+class R1p10odd_Z2: public ThObservable {
 public:
 
     /**
@@ -527,6 +543,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity10odd_Z2 a_NLO;
 };
 
@@ -540,7 +558,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the even 11 block.
  */
-class R1p11eveP_Z2: public unitarity_Z2 {
+class R1p11eveP_Z2: public ThObservable {
 public:
 
     /**
@@ -554,6 +572,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity11eveP_Z2 a_NLO;
 };
 
@@ -562,7 +582,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the even 11 block.
  */
-class R1p11eveM_Z2: public unitarity_Z2 {
+class R1p11eveM_Z2: public ThObservable {
 public:
 
     /**
@@ -576,6 +596,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity11eveM_Z2 a_NLO;
 };
 
@@ -589,7 +611,7 @@ private:
  * @ingroup GeneralTHDM
  * @brief Perturbative unitarity ratio for the eigenvalue of the odd 11 block.
  */
-class R1p11odd_Z2: public unitarity_Z2 {
+class R1p11odd_Z2: public ThObservable {
 public:
 
     /**
@@ -603,6 +625,8 @@ public:
     double computeThValue();
 
 private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+
     unitarity11odd_Z2 a_NLO;
 };
 
