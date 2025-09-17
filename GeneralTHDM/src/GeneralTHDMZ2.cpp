@@ -11,7 +11,7 @@ const std::string GeneralTHDMZ2::GeneralTHDMZ2vars[NGeneralTHDMZ2vars] = {"logtb
 
 GeneralTHDMZ2::GeneralTHDMZ2() : GeneralTHDM()
 {
-    ModelParamMap.insert(std::make_pair("logtb",  std::cref(logtb)));
+    ModelParamMap.insert(std::make_pair("logtb", std::cref(logtb)));
     ModelParamMap.insert(std::make_pair("bma",   std::cref(bma)));
     ModelParamMap.insert(std::make_pair("m12_2", std::cref(m12_2)));
 }
@@ -69,7 +69,7 @@ bool GeneralTHDMZ2::PostUpdate()
 void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
 {
     if (name.compare("logtb") == 0) {
-        tanb = pow(10., value); // Input is log(tanb), but we work with tanb
+        tanb  = pow(10., value); // Input is log(tanb), but we work with tanb
         beta  = atan(tanb);
         cosb  = cos(beta);
         cos2b = cos(2.*beta);
