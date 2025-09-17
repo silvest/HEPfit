@@ -307,4 +307,303 @@ public:
     double computeThValue();
 };
 
+
+/***********************************/
+/* R1p ratios of the even 00 block */
+/***********************************/
+
+/**
+ * @class R1p00eveP_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the even 00 block.
+ */
+class R1p00eveP_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p00eveP_Z2 constructor.
+     */
+    R1p00eveP_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{even,\, NLO}}_{00+}}{a^{\text{even,\, LO}}_{00+}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity00eveP_Z2 a_NLO;
+};
+
+/**
+ * @class R1p00eveM_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the even 00 block.
+ */
+class R1p00eveM_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p00eveM_Z2 constructor.
+     */
+    R1p00eveM_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{even,\, NLO}}_{00-}}{a^{\text{even,\, LO}}_{00-}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity00eveM_Z2 a_NLO;
+};
+
+
+/**********************************/
+/* R1p ratios of the odd 00 block */
+/**********************************/
+
+/**
+ * @class R1p00oddP_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the odd 00 block.
+ */
+class R1p00oddP_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p00oddP_Z2 constructor.
+     */
+    R1p00oddP_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{odd,\, NLO}}_{00+}}{a^{\text{odd,\, LO}}_{00+}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity00oddP_Z2 a_NLO;
+};
+
+/**
+ * @class R1p00oddM_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the odd 00 block.
+ */
+class R1p00oddM_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p00oddM_Z2 constructor.
+     */
+    R1p00oddM_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{odd,\, NLO}}_{00-}}{a^{\text{odd,\, LO}}_{00-}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity00oddM_Z2 a_NLO;
+};
+
+
+/***********************************/
+/* R1p ratios of the even 01 block */
+/***********************************/
+
+/**
+ * @class R1p01eveP_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the even 01 block.
+ */
+class R1p01eveP_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p01eveP_Z2 constructor.
+     */
+    R1p01eveP_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{even,\, NLO}}_{01+}}{a^{\text{even,\, LO}}_{01+}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity01eveP_Z2 a_NLO;
+};
+
+/**
+ * @class R1p01eveM_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the even 01 block.
+ */
+class R1p01eveM_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p01eveM_Z2 constructor.
+     */
+    R1p01eveM_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{even,\, NLO}}_{01-}}{a^{\text{even,\, LO}}_{01-}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity01eveM_Z2 a_NLO;
+};
+
+
+/**********************************/
+/* R1p ratios of the odd 01 block */
+/**********************************/
+
+/**
+ * @class R1p01oddP_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the odd 01 block.
+ */
+class R1p01oddP_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p01oddP_Z2 constructor.
+     */
+    R1p01oddP_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{odd,\, NLO}}_{01+}}{a^{\text{odd,\, LO}}_{01+}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity01oddP_Z2 a_NLO;
+};
+
+/**
+ * @class R1p01oddM_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the odd 01 block.
+ */
+class R1p01oddM_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p01oddM_Z2 constructor.
+     */
+    R1p01oddM_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{odd,\, NLO}}_{01-}}{a^{\text{odd,\, LO}}_{01-}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity01oddM_Z2 a_NLO;
+};
+
+
+/*********************************/
+/* R1p ratio of the odd 10 block */
+/*********************************/
+
+/**
+ * @class R1p10odd_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the eigenvalue of the odd 10 block.
+ */
+class R1p10odd_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p10odd_Z2 constructor.
+     */
+    R1p10odd_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{odd,\, NLO}}_{10}}{a^{\text{odd,\, LO}}_{10}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity10odd_Z2 a_NLO;
+};
+
+
+/***********************************/
+/* R1p ratios of the even 11 block */
+/***********************************/
+
+/**
+ * @class R1p11eveP_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the plus-sign eigenvalue of the even 11 block.
+ */
+class R1p11eveP_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p11eveP_Z2 constructor.
+     */
+    R1p11eveP_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{even,\, NLO}}_{11+}}{a^{\text{even,\, LO}}_{11+}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity11eveP_Z2 a_NLO;
+};
+
+/**
+ * @class R1p11eveM_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the minus-sign eigenvalue of the even 11 block.
+ */
+class R1p11eveM_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p11eveM_Z2 constructor.
+     */
+    R1p11eveM_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{even,\, NLO}}_{11-}}{a^{\text{even,\, LO}}_{11-}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity11eveM_Z2 a_NLO;
+};
+
+
+/*********************************/
+/* R1p ratio of the odd 11 block */
+/*********************************/
+
+/**
+ * @class R1p11odd_Z2
+ * @ingroup GeneralTHDM
+ * @brief Perturbative unitarity ratio for the eigenvalue of the odd 11 block.
+ */
+class R1p11odd_Z2: public unitarity_Z2 {
+public:
+
+    /**
+     * @brief R1p11odd_Z2 constructor.
+     */
+    R1p11odd_Z2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$R_1^{\prime} = \vert\frac{a^{\text{odd,\, NLO}}_{11}}{a^{\text{odd,\, LO}}_{11}}\vert@f$
+     */
+    double computeThValue();
+
+private:
+    unitarity11odd_Z2 a_NLO;
+};
+
 #endif /* GENERALTHDMZ2UNITARITY_H */
