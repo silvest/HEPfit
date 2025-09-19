@@ -1,5 +1,6 @@
 var NAVTREEINDEX138 =
 {
+"df/ddb/class_l_e_p2_rcharm.html#aed7ed3061016696b48aa0bdb5c7b4a06":[4,3,92,0],
 "df/ddf/class_hobs__gg__phi3___zga__qqga___a_t_l_a_s13.html":[27,0,1116],
 "df/ddf/class_hobs__gg__phi3___zga__qqga___a_t_l_a_s13.html#a31ed6c8ad328180a140b2d6dd909b4c3":[27,0,1116,0],
 "df/ddf/class_hobs__gg__phi3___zga__qqga___a_t_l_a_s13.html#aa3cc054ab7728c97d5dc6ac3dc27185c":[27,0,1116,2],

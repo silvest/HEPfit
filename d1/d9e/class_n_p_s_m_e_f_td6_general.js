@@ -3729,6 +3729,7 @@ var class_n_p_s_m_e_f_td6_general =
     [ "gZuL", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a1081270c74db547dbfc6543dfb1becea", null ],
     [ "gZuR", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a45075c86b54652dee0fc500c88e9d070", null ],
     [ "gZvL", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a20704c1edcde2304a15fd95a6f697a3d", null ],
+    [ "isSMInitialConditionComputed", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#acac257518763a8752052f0ee504c602c", null ],
     [ "Lambda_NP", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#af267a5b4975341d24f114f6694e0e0e7", null ],
     [ "lambdaH_LEW", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#af585f3c4979ffc846c43a03da8663876", null ],
     [ "lambdaH_tree", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a81cc2468d6daacd1df1e9e4507b0d751", null ],

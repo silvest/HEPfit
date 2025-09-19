@@ -1,5 +1,6 @@
 var NAVTREEINDEX36 =
 {
+"d2/d99/classdeltag_h_a_a.html#a75fc264658cb7c8e42256fda2b7d864d":[27,0,473,0],
 "d2/d99/classdeltag_h_a_a.html#acc01ffbe58b088bee9106b24afaf7a48":[27,0,473,2],
 "d2/d99/classdeltag_h_a_a.html#ad80df65a3380e6a325c99994d4fd3d5e":[27,0,473,4],
 "d2/d99/classdeltag_h_a_a.html#adb1ae5624eb71d22e0b4cec88dd844f9":[27,0,473,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX36 =
 "d2/df1/class_hobs__t___hpb__taunub___c_m_s8.html#ae7c3f114174f0aadb074d3b4d80e66db":[27,0,1400,1],
 "d2/df1/classunitarity01odd_p___z2.html":[27,0,2977],
 "d2/df1/classunitarity01odd_p___z2.html#a114caa1b29ef9136681798ad77774a82":[27,0,2977,0],
-"d2/df1/classunitarity01odd_p___z2.html#ad7a99ef745d88dc833c6113c12ee2f45":[27,0,2977,1],
-"d2/df2/classgmuge_tau_l_f_u.html":[4,3,64]
+"d2/df1/classunitarity01odd_p___z2.html#ad7a99ef745d88dc833c6113c12ee2f45":[27,0,2977,1]
 };
