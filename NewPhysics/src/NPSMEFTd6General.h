@@ -8114,6 +8114,7 @@ private:
     
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function
+    bool isSMInitialConditionComputed; ///< A boolean to know if the SM initial conditions have been evolved to the SMEFT scale.
 
 };
 

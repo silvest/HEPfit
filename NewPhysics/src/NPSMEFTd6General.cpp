@@ -3016,7 +3016,9 @@ bool NPSMEFTd6General::PreUpdate() {
     SMEFTEvol3000.Reset();
     SMEFTEvol5000.Reset();
     SMEFTEvolUV.Reset();
-    
+
+    isSMInitialConditionComputed = false;
+
     if (!NPbase::PreUpdate()) return (false);
 
     return (true);
@@ -8441,10 +8443,14 @@ void NPSMEFTd6General::GenerateSMInitialConditions()  {
             g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
             Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
     }
+
+    isSMInitialConditionComputed = true;
 }
 
 bool NPSMEFTd6General::PostUpdate() {
     
+    if (!isSMInitialConditionComputed) GenerateSMInitialConditions();
+
     if (FlagRGEci) {
 
         // SMEFT initial conditions for RGEsolver SMEFTEvolEW

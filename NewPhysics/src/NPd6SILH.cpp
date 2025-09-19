@@ -513,7 +513,7 @@ bool NPd6SILH::PostUpdate()
     v2LambdaNP2 = v() * v() / Lambda_NP/Lambda_NP;
     
 //  Obtain the SM parameters at the UV scale
-    NPSMEFTd6General::GenerateSMInitialConditions();
+    GenerateSMInitialConditions();
 
 //  Perform the matching
     setNPSMEFTd6GeneralParameters();
