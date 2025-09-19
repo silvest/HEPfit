@@ -207,7 +207,34 @@ bool NPd6SILH::setFlag(const std::string name, const bool value) {
 
 
 void NPd6SILH::setNPSMEFTd6GeneralParameters()
-{
+{    
+    // SM parameters at the UV scale
+    g1UV = getSMEFTCoeffEW("g1");
+    g2UV = getSMEFTCoeffEW("g2");
+    g3UV = getSMEFTCoeffEW("g3");
+    lambdaHUV = getSMEFTCoeffEW("lambda");
+
+    g1UV2 = g1UV * g1UV;
+    g2UV2 = g2UV * g2UV;
+    g3UV2 = g3UV * g3UV;
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            YuUV.assignre(i, j, getSMEFTCoeffEW("YuR", i, j) );
+            YuUV.assignim(i, j, getSMEFTCoeffEW("YuI", i, j) );
+            YdUV.assignre(i, j, getSMEFTCoeffEW("YdR", i, j) );
+            YdUV.assignim(i, j, getSMEFTCoeffEW("YdI", i, j) );
+            YeUV.assignre(i, j, getSMEFTCoeffEW("YeR", i, j) );
+            YeUV.assignim(i, j, getSMEFTCoeffEW("YeI", i, j) );
+        }
+    }
+
+    YuUVhc = YuUV.hconjugate();
+    YdUVhc = YdUV.hconjugate();
+    YeUVhc = YeUV.hconjugate();
+    
+    
+    // Matching
 
     CG_LNP = c3G_LNP;
     CW_LNP = c3W_LNP;
@@ -484,53 +511,11 @@ bool NPd6SILH::PostUpdate()
     //  1) Post-update operations involving SM parameters only 
 
     v2LambdaNP2 = v() * v() / Lambda_NP/Lambda_NP;
+    
+//  Obtain the SM parameters at the UV scale
+    NPSMEFTd6General::GenerateSMInitialConditions();
 
-// Obtain the values of the SM parameters at the UV scale, to do the matching
-    ChangeToEvolutorsBasisPureSM();
-    double Mu_LEW[3] = {mu_LEW, mc_LEW, mt_LEW};
-    double Md_LEW[3] = {md_LEW, ms_LEW, mb_LEW};
-    double Me_LEW[3] = {me_LEW, mmu_LEW, mtau_LEW};
-
-    if (FlagRGEci) {
-        // SM initial conditions at the UV scale. Use RGEsolver SMEFTEvolEW
-        SMEFTEvolEW.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-
-    } else {
-        // SM initial conditions at the UV scale. Use RGEsolver SMEFTEvolEW
-        // Skip RGE by setting the two scales at Lambda_NP for the EFT and to muw for the SM pars
-        SMEFTEvolEW.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-    }
-
-// SM parameters at the UV scale
-    g1UV = getSMEFTCoeffEW("g1");
-    g2UV = getSMEFTCoeffEW("g2");
-    g3UV = getSMEFTCoeffEW("g3");
-    lambdaHUV = getSMEFTCoeffEW("lambda");
-
-    g1UV2 = g1UV * g1UV;
-    g2UV2 = g2UV * g2UV;
-    g3UV2 = g3UV * g3UV;
-
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            YuUV.assignre(i, j, getSMEFTCoeffEW("YuR", i, j) );
-            YuUV.assignim(i, j, getSMEFTCoeffEW("YuI", i, j) );
-            YdUV.assignre(i, j, getSMEFTCoeffEW("YdR", i, j) );
-            YdUV.assignim(i, j, getSMEFTCoeffEW("YdI", i, j) );
-            YeUV.assignre(i, j, getSMEFTCoeffEW("YeR", i, j) );
-            YeUV.assignim(i, j, getSMEFTCoeffEW("YeI", i, j) );
-        }
-    }
-
-    YuUVhc = YuUV.hconjugate();
-    YdUVhc = YdUV.hconjugate();
-    YeUVhc = YeUV.hconjugate();
-
-
+//  Perform the matching
     setNPSMEFTd6GeneralParameters();
 
     if (!NPSMEFTd6General::PostUpdate()) return (false);
