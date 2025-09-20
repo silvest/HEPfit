@@ -23280,18 +23280,18 @@ const double NPSMEFTd6General::mueeZH(const double sqrt_s, const double Pol_em, 
     
     xsSMLO = xsSMLO/( 48.0 * M_PI * (MZ2 - s) * (MZ2 - s) * s2 );
     
-    // Independent numerators of the LO dimension-6 contrib.
+    // Independent denominators of the LO dimension-6 contrib.
     CHDden = GF * (8.0 * MW8 * MZ4 * (-1.0 + Pe * Pp) - 4.0 * MW6 * MZ6 * (-3.0 + Pp + Pe * (-1.0 + 3.0 * Pp)) + MW4 * MZ8 * (-5.0 + 3.0 * Pp + Pe * (-3.0 + 5.0 * Pp)));
         
     CHWden = CHDden * (MH4 * MZ2 + MZ6 + 10.0 * MZ4 * s + MZ2 * s2 + MH2 * (-2.0 * MZ4 - 2.0 * MZ2 * s));
 
     CHWBden = CHWden * MZ2 * MW2 * (MZ4 - MZ2 * s) * (MZ4 - MZ2 * s);
     
-    // Independent denominators of the LO dimension-6 contrib.
-    Cllnum = 2.0; 
+    // Independent numerators of the LO dimension-6 contrib.
+    Cllnum = sqrt(2.0); 
     CHl111num = sqrt(2.0) * MW2 * MZ2 * (2.0 * MW4 * MZ2 - MW2 * MZ4) * (-1.0 + Pe) * (1.0 + Pp) * s; 
     CHe11num = 2.0 * sqrt(2.0) * MW2 * MZ2 * (MW4 * MZ2 - MW2 * MZ4) * (1.0 + Pe) * (-1.0 + Pp) * s; 
-    CHl322num = -2.0;
+    CHl322num = -Cllnum;
     
     CHBnum = -12.0 * sqrt(2.0) * (MW4 * MZ2 - MW2 * MZ4) * (-MH2 * MZ2 + MZ4 + MZ2 * s) * (8.0 * MW8 * MZ2 * (-1.0 + Pe * Pp) 
             + MW4 * MZ4 * (-5.0 - 3.0 * Pe + 3.0 * Pp + 5.0 * Pe * Pp) * s 
