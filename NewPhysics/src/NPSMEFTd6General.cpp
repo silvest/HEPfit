@@ -17926,7 +17926,7 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
                 + (-0.030314752945313873) * getSMEFTCoeffEW("CHD")
                 + (39.31144) * getSMEFTCoeffEW("CHG") //
                 + (-0.1224898892210304) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (1.1269562159310709) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                - (1.1269562159310709) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
                 + (-0.060629505890627745) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.060629505890627745) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.060629505890627745) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -17938,7 +17938,7 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
                 + (-0.03031) * getSMEFTCoeffEW("CHD")
                 + (39.31144) * getSMEFTCoeffEW("CHG")
                 + (-0.12245) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (1.127) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                - (1.127) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
                 + (-0.06062) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.06062) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.0606) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -17950,7 +17950,7 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
                 +121542. * CDH 
                 -30260.6 * CHD 
                 -121842. * CuHR33 
-                +1577851. * CtGR 
+                -1577851. * CtGR 
                 -60687.9 * (CHl3R11 + CHl3R22 - Cll1221)  
                 );
     } else if (sqrt_s == 50.0) {
@@ -17960,7 +17960,7 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
                 +121551. * CDH 
                 -30261.2 * CHD 
                 -121874. * CuHR33 
-                +1577818. * CtGR 
+                -1577818. * CtGR 
                 -60706.6 * (CHl3R11 + CHl3R22 - Cll1221)
                 );
     } else if (sqrt_s == 84.0) {
@@ -17970,7 +17970,7 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
                 +121540. * CDH 
                 -30278.6 * CHD 
                 -121876. * CuHR33 
-                +1577893. * CtGR 
+                -1577893. * CtGR 
                 -60714. * (CHl3R11 + CHl3R22 - Cll1221)
                 );
     } else
@@ -25941,9 +25941,21 @@ const double NPSMEFTd6General::GammaHggRatio() const {
 
 const double NPSMEFTd6General::deltaGammaHggRatio1() const {
     double dwidth = 0.0;
+    
+    double CHG = 0.0, CDH = 0.0, CHD = 0.0, CuHR33 = 0.0, CtGR = 0.0, CHl3R11 = 0.0, CHl3R22 = 0.0, Cll1221 = 0.0;
 
     double C1 = 0.0066;    
     double muRG = 125.1;
+    
+//  Wilson coefficients definitions 
+    CHG = getSMEFTCoeff("CHG",muRG); 
+    CDH = (-getSMEFTCoeff("CHbox",muRG)); 
+    CHD = getSMEFTCoeff("CHD",muRG); 
+    CuHR33 = getSMEFTCoeff("CuHR",2,2,muRG); 
+    CtGR = (getSMEFTCoeff("CuGR",2,2,muRG) / g3_tree); 
+    CHl3R11 = getSMEFTCoeff("CHl3R",0,0,muRG); 
+    CHl3R22 = getSMEFTCoeff("CHl3R",1,1,muRG); 
+    Cll1221 = getSMEFTCoeff("CllR",0,1,1,0,muRG); 
 
     /*dwidth += (+37526258. * getSMEFTCoeffEW("CHG")
             + cLHd6 * (
@@ -25961,17 +25973,25 @@ const double NPSMEFTd6General::deltaGammaHggRatio1() const {
     // Used reweigthing procedure for cHG
     //  This should be at LO independent of alpha-MW scheme
     //dwidth += cWsch * ((
-    dwidth += ((
+    /*dwidth += ((
             (39.3001) * getSMEFTCoeff("CHG",muRG)
             + (0.12124) * getSMEFTCoeff("CHbox",muRG)
             + (-0.12251) * getSMEFTCoeff("CuHR", 2, 2,muRG)
-            + (1.12694) * getSMEFTCoeff("CuGR", 2, 2,muRG) * g3_tree
+            - (1.12694) * getSMEFTCoeff("CuGR", 2, 2,muRG) * g3_tree
             + (-0.03032) * getSMEFTCoeff("CHD",muRG)
             + (-0.06064) * getSMEFTCoeff("CHl3R", 0, 0,muRG)
             + (-0.06064) * getSMEFTCoeff("CHl3R", 1, 1,muRG)
             + (0.06064) * getSMEFTCoeff("CllR", 0, 1, 1, 0,muRG)) * 1000000
-            );
+            );*/
     //AG:end
+      
+    dwidth +=   38059528. * CHG 
+                +121279. * CDH 
+                -30319.9 * CHD 
+                -122154. * CuHR33 
+                -1577777. * CtGR 
+                -60606.1 * (CHl3R11 + CHl3R22 - Cll1221) 
+                ;    
 
     //  Linear contribution from Higgs self-coupling
     dwidth += cLHd6 * deltaH3L1(C1) * deltaG_hhhRatio_mu(muRG);
@@ -36462,9 +36482,8 @@ const double NPSMEFTd6General::deltaKgammaNP(const double mu) const {
 
 const double NPSMEFTd6General::lambdaZNP(const double mu) const {
     double NPdirect;
-
-    //    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  
-    NPdirect = -(3.0 / 2.0) * (eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
+ 
+    NPdirect = (3.0 / 2.0) * (eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
 
     return NPdirect;
 }
@@ -43957,7 +43976,7 @@ const double NPSMEFTd6General::AuxObs_NP1() const {
             -197642. * CDH 
             +49037.9 * CHD 
             +232474. * CuHR33 
-            -1940437. * CtGR 
+            +1940437. * CtGR 
             -121226. * CHl3R11 
             -121348. * CHl3R22 
             +121165. * Cll1221 
@@ -43970,7 +43989,7 @@ const double NPSMEFTd6General::AuxObs_NP1() const {
                 -486652. * CDH 
                 +122169. * CHD 
                 +326258. * CuHR33 
-                -5775160. * CtGR 
+                +5775160. * CtGR 
                 -121052. * CHl3R11 
                 -121289. * CHl3R22 
                 +120714. * Cll1221 
@@ -44011,7 +44030,7 @@ const double NPSMEFTd6General::AuxObs_NP2() const {
                 -194386. * CDH 
                 +48143.5 * CHD 
                 +246078. * CuHR33 
-                -1463484. * CtGR 
+                +1463484. * CtGR 
                 -121072. * CHl3R11 
                 -121297. * CHl3R22 
                 +121307. * Cll1221 
@@ -44024,7 +44043,7 @@ const double NPSMEFTd6General::AuxObs_NP2() const {
                 -477797. * CDH 
                 +118355. * CHD 
                 +321241. * CuHR33 
-                -5690015. * CtGR 
+                +5690015. * CtGR 
                 -121604. * CHl3R11 
                 -121740. * CHl3R22 
                 +120802. * Cll1221 
@@ -44035,7 +44054,7 @@ const double NPSMEFTd6General::AuxObs_NP2() const {
                 -173321. * CDH 
                 +43168.9 * CHD 
                 +240838. * CuHR33 
-                -1150642. * CtGR 
+                +1150642. * CtGR 
                 -121085. * CHl3R11 
                 -121327. * CHl3R22 
                 +121841. * Cll1221 
@@ -47095,6 +47114,8 @@ const double NPSMEFTd6General::delta_TauLFU_gtaugmuK() const {
 // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
 // In units of TeV^-2
 
+// All studies using the Top WG notation are developed using SMEFTatNLO or dim6Topso, for the dipoles, I need to add a minus sign
+
 // In the same order as Table 1 (Not all implemented. Some extra WC are placed next to similar in kind)
 
 const double NPSMEFTd6General::cQQ1_TWG(const double mu) const {
@@ -47376,7 +47397,8 @@ const double NPSMEFTd6General::ctW_TWG(const double mu) const {
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
     
-    comb = getSMEFTCoeff("CuWR", 2, 2, mu);
+    // Minus sign because of difference in covariant derivative convention of Top WG
+    comb = - getSMEFTCoeff("CuWR", 2, 2, mu);
   
     return (toTeVm2 * comb);
 }
@@ -47385,8 +47407,9 @@ const double NPSMEFTd6General::IctW_TWG(const double mu) const {
 
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
-    
-    comb = getSMEFTCoeff("CuWI", 2, 2, mu);;
+
+    // Minus sign because of difference in covariant derivative convention of Top WG    
+    comb = - getSMEFTCoeff("CuWI", 2, 2, mu);;
   
     return (toTeVm2 * comb);
 }
@@ -47396,7 +47419,8 @@ const double NPSMEFTd6General::ctZ_TWG(const double mu) const {
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
     
-    comb = - sW_tree * getSMEFTCoeff("CuBR", 2, 2, mu) + cW_tree * getSMEFTCoeff("CuWR", 2, 2, mu);
+    // Minus sign because of difference in covariant derivative convention of Top WG
+    comb = - ( - sW_tree * getSMEFTCoeff("CuBR", 2, 2, mu) + cW_tree * getSMEFTCoeff("CuWR", 2, 2, mu) );
   
     return (toTeVm2 * comb);
 }
@@ -47405,8 +47429,9 @@ const double NPSMEFTd6General::IctZ_TWG(const double mu) const {
 
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
-    
-    comb = - sW_tree * getSMEFTCoeff("CuBI", 2, 2, mu) + cW_tree * getSMEFTCoeff("CuWI", 2, 2, mu);
+
+    // Minus sign because of difference in covariant derivative convention of Top WG    
+    comb = - ( - sW_tree * getSMEFTCoeff("CuBI", 2, 2, mu) + cW_tree * getSMEFTCoeff("CuWI", 2, 2, mu) );
   
     return (toTeVm2 * comb);
 }
@@ -47415,8 +47440,9 @@ const double NPSMEFTd6General::ctG_TWG(const double mu) const {
 
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
-    
-    comb = getSMEFTCoeff("CuGR", 2, 2, mu);
+
+    // Minus sign because of difference in covariant derivative convention of Top WG        
+    comb = - getSMEFTCoeff("CuGR", 2, 2, mu);
   
     return (toTeVm2 * comb);
 }
@@ -47426,7 +47452,8 @@ const double NPSMEFTd6General::cbW_TWG(const double mu) const {
     double comb;
     double toTeVm2 = 1000000.; ///< To change C/Lambda^2 from GeV to TeV
     
-    comb = getSMEFTCoeff("CdWR", 2, 2, mu);
+    // Minus sign because of difference in covariant derivative convention of Top WG    
+    comb = - getSMEFTCoeff("CdWR", 2, 2, mu);
   
     return (toTeVm2 * comb);
 }
