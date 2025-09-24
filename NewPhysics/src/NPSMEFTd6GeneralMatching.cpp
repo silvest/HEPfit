@@ -1171,7 +1171,7 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMbsg() {
     mcbsg.setMu(mySMEFT.getMuw());
 
     gslpp::complex LEFT_factor = sqrt(2.) / 4. / mySMEFT.getGF() / mySMEFT.getCKM().computelamt_s() ;
-    gslpp::complex LEFT_factor_radiative = 16. * M_PI * M_PI / Mrun(mySMEFT.getMuw(),mySMEFT.getQuarks(QCD::BOTTOM).getMass(),QCD::BOTTOM) * LEFT_factor / sqrt(4. * M_PI * mySMEFT.getAle());
+    gslpp::complex LEFT_factor_radiative = 16. * M_PI * M_PI / mySMEFT.Mrun(mySMEFT.getMuw(),mySMEFT.getQuarks(QCD::BOTTOM).getMass(),QCD::BOTTOM) * LEFT_factor / sqrt(4. * M_PI * mySMEFT.getAle());
     
     switch (mcbsg.getOrder()) {
         case NNLO:
