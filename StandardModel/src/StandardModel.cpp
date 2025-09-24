@@ -31,7 +31,7 @@ using namespace boost::placeholders;
   
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", 
-    "delMw", "delSin2th_l", "delSin2th_q", "delSin2th_b", "delGammaZ", "delsigma0H", "delR0l", "delR0c", "delR0b",
+    "delMw", "delSin2th_l", "delSin2th_q", "delSin2th_b", "delGammaZ", "delsigma0H", "delR0l", "delR0c", "delR0b", "delGammaWlv", "delGammaWqq",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
 };
 
@@ -131,6 +131,8 @@ SMM(*this), SMFlavour(*this), Ye(3, 3, 0.)
     ModelParamMap.insert(std::make_pair("delR0l", std::cref(delR0l)));
     ModelParamMap.insert(std::make_pair("delR0c", std::cref(delR0c)));
     ModelParamMap.insert(std::make_pair("delR0b", std::cref(delR0b)));
+    ModelParamMap.insert(std::make_pair("delGammaWlv", std::cref(delGammaWlv)));
+    ModelParamMap.insert(std::make_pair("delGammaWqq", std::cref(delGammaWqq)));    
     ModelParamMap.insert(std::make_pair("mneutrino_1", std::cref(leptons[NEUTRINO_1].getMass())));
     ModelParamMap.insert(std::make_pair("mneutrino_2", std::cref(leptons[NEUTRINO_2].getMass())));
     ModelParamMap.insert(std::make_pair("mneutrino_3", std::cref(leptons[NEUTRINO_3].getMass())));
@@ -311,6 +313,10 @@ void StandardModel::setParameter(const std::string name, const double& value)
         delR0c = value;
     else if (name.compare("delR0b") == 0)
         delR0b = value;
+    else if (name.compare("delGammaWlv") == 0)
+        delGammaWlv = value;
+    else if (name.compare("delGammaWqq") == 0)
+        delGammaWqq = value;    
     else if (name.compare("mneutrino_1") == 0) 
         leptons[NEUTRINO_1].setMass(value);
     else if (name.compare("mneutrino_2") == 0) 
@@ -558,10 +564,10 @@ bool StandardModel::checkSMparamsForEWPO()
     // 11 parameters in QCD:
     // AlsMz, Mz, mup, mdown, mcharm, mstrange, mtop, mbottom,
     // mut, mub, muc
-    // 19 parameters in StandardModel
+    // 21 parameters in StandardModel
     // GF, ale, dAle5Mz, mHl,
     // mneutrino_1, mneutrino_2, mneutrino_3, melectron, mmu, mtau,
-    // delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b,
+    // delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b, delGammaWlv, delGammaWqq,
     // 3 flags in StandardModel
     // FlagMw_cache, FlagRhoZ_cache, FlagKappaZ_cache
 
@@ -582,7 +588,7 @@ bool StandardModel::checkSMparamsForEWPO()
         quarks[STRANGE].getMass(),
         quarks[BOTTOM].getMass(),
         mut, mub, muc,
-        delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b,
+        delMw, delSin2th_l, delSin2th_q, delSin2th_b, delGammaZ, delsigma0H, delR0l, delR0c, delR0b, delGammaWlv, delGammaWqq,
         SchemeToDouble(FlagMw),
         SchemeToDouble(FlagRhoZ),
         SchemeToDouble(FlagKappaZ)
@@ -1256,10 +1262,10 @@ const double StandardModel::GammaW(const Particle fi, const Particle fj) const
         V = gslpp::complex(0.0, 0.0, false);
 
     if (fi.is("LEPTON"))
-        return ( V.abs2() * G0 * rho_GammaW(fi, fj));
+        return ( V.abs2() * G0 * rho_GammaW(fi, fj) * ( 1.0 + delGammaWlv ) );
     else {
         double AlsMw = AlsWithInit(Mw(), AlsMz, Mz, 5, FULLNLO);
-        return ( 3.0 * V.abs2() * G0 * rho_GammaW(fi, fj)*(1.0 + AlsMw / M_PI));
+        return ( 3.0 * V.abs2() * G0 * rho_GammaW(fi, fj) * (1.0 + AlsMw / M_PI) * ( 1.0 + delGammaWqq ) );
     }
 }
 
@@ -4023,9 +4029,13 @@ const double StandardModel::eeffsigmaEbin(const double pol_e, const double pol_p
     double t0, t1, lambdaK;
     
     double pLH, pRH; //Polarization factors, minus the 1/4 average
+    double pLLH, pRRH;
     
     pLH = (1.0 - pol_e) * (1.0 + pol_p);
     pRH = (1.0 + pol_e) * (1.0 - pol_p);
+    
+    pLLH = (1.0 - pol_e) * (1.0 - pol_p);
+    pRRH = (1.0 + pol_e) * (1.0 + pol_p);
     
     // t values for cosmin and cosmax
     t0 = 0.5 * s * ( -1.0 + cosmin );
@@ -4035,7 +4045,8 @@ const double StandardModel::eeffsigmaEbin(const double pol_e, const double pol_p
     lambdaK = s*s;
     
     // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
-    sumM2 = (pLH + pRH) * ( intMLR2eeeets2(s, t0, t1) + intMLRtilde2eeeest2(s, t0, t1) ) + 
+    sumM2 = (pLH + pRH) * ( intMLR2eeeets2(s, t0, t1) ) + 
+            (pLLH + pRRH) * ( intMLRtilde2eeeest2(s, t0, t1) ) + 
             pLH * intMLL2eeeeus2(s, t0, t1) + pRH * intMRR2eeeeus2(s, t0, t1);   
     
     // Build the cross section

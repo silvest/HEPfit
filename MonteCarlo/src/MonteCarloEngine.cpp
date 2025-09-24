@@ -55,6 +55,7 @@ MonteCarloEngine::MonteCarloEngine(
     significants = 0;
     histogramBufferSize = 0;
     LogLikelihood_max = std::numeric_limits<double>::lowest();
+
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
@@ -76,6 +77,7 @@ MonteCarloEngine::MonteCarloEngine(
         HEPfit_red = new TColor(rIdx, 0.57, 0.01, 0.00, "HEPfit_red");
     }
 };
+
 
 void MonteCarloEngine::Initialize(StandardModel* Mod_i)
 {

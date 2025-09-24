@@ -37,6 +37,41 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool setFlag(const std::string name, const bool value);
+    
+      
+    /**
+     * @brief The oblique parameter \f$S\f$.
+     * (Simplified implementation. Contribution only from @f$O_{HWB}@f$.)
+     * @return the value of @f$S@f$
+     */
+    virtual const double obliqueS() const;
+
+    /**
+     * @brief The oblique parameter \f$T\f$.
+     * (Simplified implementation. Contribution only from @f$O_{HD}@f$.)
+     * @return the value of @f$T@f$
+     */
+    virtual const double obliqueT() const;
+
+    /**
+     * @brief The oblique parameter \f$W\f$.
+     * (Simplified implementation. Contribution only from @f$O_{2W}@f$.)
+     * @return the value of @f$W@f$
+     */
+    virtual const double obliqueW() const;
+
+    /**
+     * @brief The oblique parameter \f$Y\f$.
+     * (Simplified implementation. Contribution only from @f$O_{2B}@f$.)
+     * @return the value of @f$Y@f$
+     */
+    virtual const double obliqueY() const;
+    
+    /**
+     * @brief Auxiliary observable AuxObs_NP30
+     * @return AuxObs_NP30
+     */
+    virtual const double AuxObs_NP30() const;
 
 
 protected:
@@ -72,7 +107,8 @@ protected:
     double cu_LNP = 0.0;
     double cd_LNP = 0.0;
     double ce_LNP = 0.0;
-
+    
+    double v2LambdaNP2; ///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
 
     virtual void setParameter(const std::string name, const double& value);
 

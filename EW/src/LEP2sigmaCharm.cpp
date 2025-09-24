@@ -17,7 +17,9 @@ double LEP2sigmaCharm::computeThValue()
 
 double eeffsigmaCharm::computeThValue() 
 { 
-    double sigma_charm = SM.eeffsigmaCharm(pol_e, pol_p, s);
+    //double sigma_charm = SM.eeffsigmaCharm(pol_e, pol_p, s);
+    double coscut = 0.9;
+    double sigma_charm = SM.eeffsigma(SM.getQuarks(SM.CHARM), pol_e, pol_p, s, -coscut, coscut);
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_xseejj");

@@ -522,3 +522,278 @@ double unitarity11odd_Z2::computeThValue()
 
     return (B30/16./M_PI - i/2.).abs();
 }
+
+
+/***********************************/
+/* R1p ratios of the even 00 block */
+/***********************************/
+
+R1p00eveP_Z2::R1p00eveP_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p00eveP_Z2::computeThValue()
+{
+    double la1 = myGTHDMZ2->getlambda1_Z2();
+    double la2 = myGTHDMZ2->getlambda2_Z2();
+    double la3 = myGTHDMZ2->getlambda3_Z2();
+    double la4 = myGTHDMZ2->getlambda4_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(3.*la1 + 3.*la2 + sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +
+                  4.*(2.*la3 + la4)*(2.*la3 + la4))) / 32. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+R1p00eveM_Z2::R1p00eveM_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p00eveM_Z2::computeThValue()
+{
+    double la1 = myGTHDMZ2->getlambda1_Z2();
+    double la2 = myGTHDMZ2->getlambda2_Z2();
+    double la3 = myGTHDMZ2->getlambda3_Z2();
+    double la4 = myGTHDMZ2->getlambda4_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(3.*la1 + 3.*la2 - sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +
+                  4.*(2.*la3 + la4)*(2.*la3 + la4))) / 32. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+
+/**********************************/
+/* R1p ratios of the odd 00 block */
+/**********************************/
+
+R1p00oddP_Z2::R1p00oddP_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p00oddP_Z2::computeThValue()
+{
+    double la3 = myGTHDMZ2->getlambda3_Z2();
+    double la4 = myGTHDMZ2->getlambda4_Z2();
+    double la5 = myGTHDMZ2->getlambda5_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la3 + 2.*la4 + 3.*la5) / 16. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+R1p00oddM_Z2::R1p00oddM_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p00oddM_Z2::computeThValue()
+{
+    double la3 = myGTHDMZ2->getlambda3_Z2();
+    double la4 = myGTHDMZ2->getlambda4_Z2();
+    double la5 = myGTHDMZ2->getlambda5_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la3 + 2.*la4 - 3.*la5) / 16. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+
+/***********************************/
+/* R1p ratios of the even 01 block */
+/***********************************/
+
+R1p01eveP_Z2::R1p01eveP_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p01eveP_Z2::computeThValue()
+{
+    double la1 = myGTHDMZ2->getlambda1_Z2();
+    double la2 = myGTHDMZ2->getlambda2_Z2();
+    double la4 = myGTHDMZ2->getlambda4_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+R1p01eveM_Z2::R1p01eveM_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p01eveM_Z2::computeThValue()
+{
+    double la1 = myGTHDMZ2->getlambda1_Z2();
+    double la2 = myGTHDMZ2->getlambda2_Z2();
+    double la4 = myGTHDMZ2->getlambda4_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+
+/**********************************/
+/* R1p ratios of the odd 01 block */
+/**********************************/
+
+R1p01oddP_Z2::R1p01oddP_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p01oddP_Z2::computeThValue()
+{
+    double la3 = myGTHDMZ2->getlambda3_Z2();
+    double la5 = myGTHDMZ2->getlambda5_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la3 + la5) / 16. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+R1p01oddM_Z2::R1p01oddM_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p01oddM_Z2::computeThValue()
+{
+    double la3 = myGTHDMZ2->getlambda3_Z2();
+    double la5 = myGTHDMZ2->getlambda5_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la3 - la5) / 16. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+
+/*********************************/
+/* R1p ratio of the odd 10 block */
+/*********************************/
+
+R1p10odd_Z2::R1p10odd_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p10odd_Z2::computeThValue()
+{
+    double la3 = myGTHDMZ2->getlambda3_Z2();
+    double la4 = myGTHDMZ2->getlambda4_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la3 - la4) / 16. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+
+/***********************************/
+/* R1p ratios of the even 11 block */
+/***********************************/
+
+R1p11eveP_Z2::R1p11eveP_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p11eveP_Z2::computeThValue()
+{
+    double la1 = myGTHDMZ2->getlambda1_Z2();
+    double la2 = myGTHDMZ2->getlambda2_Z2();
+    double la5 = myGTHDMZ2->getlambda5_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+R1p11eveM_Z2::R1p11eveM_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p11eveM_Z2::computeThValue()
+{
+    double la1 = myGTHDMZ2->getlambda1_Z2();
+    double la2 = myGTHDMZ2->getlambda2_Z2();
+    double la5 = myGTHDMZ2->getlambda5_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}
+
+
+/*********************************/
+/* R1p ratio of the odd 11 block */
+/*********************************/
+
+R1p11odd_Z2::R1p11odd_Z2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i)), a_NLO(SM_i)
+{}
+
+double R1p11odd_Z2::computeThValue()
+{
+    double la3 = myGTHDMZ2->getlambda3_Z2();
+    double la4 = myGTHDMZ2->getlambda4_Z2();
+
+    // LO eigenvalue, as defined in Grinstein:2015rtl
+    double a_LO = -(la3 + la4) / 16. / M_PI;
+
+    // To avoid applying the condition for accidentally small LO contributions
+    if(std::fabs(a_LO) > 1./16./M_PI)
+        return std::fabs((a_NLO.computeThValue() - a_LO) / a_LO);
+    else
+        return 0.009; // To allow perturbativity constraints as stringent as 1%
+}

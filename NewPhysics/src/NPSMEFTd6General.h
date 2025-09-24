@@ -630,13 +630,19 @@ public:
     virtual bool PreUpdate();
 
     /**
+     * @brief Generates the initial condition for the Standard Model parameters.
+     * @details This method sets all the Standard Model parameters to their values
+     * and RG evolves them up to the New Physics scale.
+     */
+    void GenerateSMInitialConditions();  
+
+    /**
      * @brief The post-update method for %NPSMEFTd6General.
      * @details This method runs all the procedures that are need to be executed
      * after the model is successfully updated.
      * @return a boolean that is true if the execution is successful
      */
     virtual bool PostUpdate();
-
     
     //I think that for this model, with so many parameters, it's better to include only those we're really interested in
     //Since all the parameters are initialized to zero we can just skip the CheckParameters for this model
@@ -6909,6 +6915,29 @@ public:
      */
     virtual const double AuxObs_NP30() const;
     
+    // FCC-hh 84 TeV likelihoods (chi2FCChhXX)
+
+    const double chi2FCChh4Top() const;
+    
+    const double chi2FCChhHtt() const;
+    const double chi2FCChhZtt() const;
+    const double chi2FCChhtt() const;
+    const double chi2FCChhtb() const;
+    
+    const double chi2FCChhHW() const;    
+    const double chi2FCChhWW() const;
+
+    const double chi2FCChhee() const;
+    const double chi2FCChhmumu() const;
+    const double chi2FCChhtata() const;
+    
+    const double chi2FCChhenu() const;
+    const double chi2FCChhmunu() const;
+    const double chi2FCChhtanu() const;
+    
+    const double chi2FCChhjj() const;
+    const double chi2FCChhbbcc() const;
+
     /////////////RG evolution////////////////
 
     const RGESolver& getSMEFTEvol() const {
@@ -7300,6 +7329,10 @@ protected:
     double s13CKM_LEW = 0.;
     double s23CKM_LEW = 0.;
     double dCKM_LEW = 0.;
+    double Mu_LEW[3] = {0, 0, 0};
+    double Md_LEW[3] = {0, 0, 0};
+    double Me_LEW[3] = {0, 0, 0};
+
 
     //We won't need the SM at the NP scale anymore
     //double g1_LNP = 0;
@@ -8081,6 +8114,7 @@ private:
     
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function
+    bool isSMInitialConditionComputed; ///< A boolean to know if the SM initial conditions have been evolved to the SMEFT scale.
 
 };
 

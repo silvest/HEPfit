@@ -1206,6 +1206,12 @@ const double NPbase::delta_AFB_ee(const double pol_e, const double pol_p, const 
 //   Extension of SM observable definitions
 
 // Cross sections
+const double NPbase::eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const
+{
+    return (trueSM.eeffsigma(f, pol_e, pol_p, s, cosmin, cosmax) + delta_sigma_f(f, pol_e, pol_p, s, cosmin, cosmax));
+    
+}
+
 const double NPbase::eeffsigmaE(const double pol_e, const double pol_p, const double s) const
 {
     return (trueSM.eeffsigmaE(pol_e, pol_p, s) + delta_sigmaTot_ee(pol_e, pol_p, s));

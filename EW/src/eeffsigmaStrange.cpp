@@ -11,7 +11,9 @@
 
 double eeffsigmaStrange::computeThValue()
 { 
-    double sigma_strange = SM.eeffsigmaStrange(pol_e, pol_p, s);
+    //double sigma_strange = SM.eeffsigmaStrange(pol_e, pol_p, s);
+    double coscut = 0.9;
+    double sigma_strange = SM.eeffsigma(SM.getQuarks(SM.STRANGE), pol_e, pol_p, s, -coscut, coscut);
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_xseejj");

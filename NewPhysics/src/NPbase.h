@@ -5194,6 +5194,7 @@ public:
     virtual const double delta_AFB_ee(const double pol_e, const double pol_p, const double s) const;
       
 //   Extension of SM observable definitions
+    virtual const double eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;    
     virtual const double eeffsigmaE(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffsigmaEtsub(const double pol_e, const double pol_p, const double s) const;
     virtual const double eeffsigmaMu(const double pol_e, const double pol_p, const double s) const;

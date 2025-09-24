@@ -207,7 +207,34 @@ bool NPd6SILH::setFlag(const std::string name, const bool value) {
 
 
 void NPd6SILH::setNPSMEFTd6GeneralParameters()
-{
+{    
+    // SM parameters at the UV scale
+    g1UV = getSMEFTCoeffEW("g1");
+    g2UV = getSMEFTCoeffEW("g2");
+    g3UV = getSMEFTCoeffEW("g3");
+    lambdaHUV = getSMEFTCoeffEW("lambda");
+
+    g1UV2 = g1UV * g1UV;
+    g2UV2 = g2UV * g2UV;
+    g3UV2 = g3UV * g3UV;
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            YuUV.assignre(i, j, getSMEFTCoeffEW("YuR", i, j) );
+            YuUV.assignim(i, j, getSMEFTCoeffEW("YuI", i, j) );
+            YdUV.assignre(i, j, getSMEFTCoeffEW("YdR", i, j) );
+            YdUV.assignim(i, j, getSMEFTCoeffEW("YdI", i, j) );
+            YeUV.assignre(i, j, getSMEFTCoeffEW("YeR", i, j) );
+            YeUV.assignim(i, j, getSMEFTCoeffEW("YeI", i, j) );
+        }
+    }
+
+    YuUVhc = YuUV.hconjugate();
+    YdUVhc = YdUV.hconjugate();
+    YeUVhc = YeUV.hconjugate();
+    
+    
+    // Matching
 
     CG_LNP = c3G_LNP;
     CW_LNP = c3W_LNP;
@@ -345,10 +372,10 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
     Clq3_3322r_LNP = -0.5*(c2W_LNP*g2UV2);
     Clq3_3333r_LNP = -0.5*(c2W_LNP*g2UV2);
     Cee_1111r_LNP = -(c2B_LNP*g1UV2);
-    Cee_1122r_LNP = -(c2B_LNP*g1UV2);
-    Cee_1133r_LNP = -(c2B_LNP*g1UV2);
+    Cee_1122r_LNP = -0.5*(c2B_LNP*g1UV2);
+    Cee_1133r_LNP = -0.5*(c2B_LNP*g1UV2);
     Cee_2222r_LNP = -(c2B_LNP*g1UV2);
-    Cee_2233r_LNP = -(c2B_LNP*g1UV2);
+    Cee_2233r_LNP = -0.5*(c2B_LNP*g1UV2);
     Cee_3333r_LNP = -(c2B_LNP*g1UV2);
     Cuu_1111r_LNP = (-4*c2B_LNP*g1UV2)/9. - (c2G_LNP*g3UV2)/3.;
     Cuu_1122r_LNP = (-4*c2B_LNP*g1UV2)/9. + (c2G_LNP*g3UV2)/6.;
@@ -480,58 +507,67 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
 
 
 bool NPd6SILH::PostUpdate()
-{
+{    
+    //  1) Post-update operations involving SM parameters only 
 
-// Obtain the values of the SM parameters at the UV scale, to do the matching
-    ChangeToEvolutorsBasisPureSM();
-    double Mu_LEW[3] = {mu_LEW, mc_LEW, mt_LEW};
-    double Md_LEW[3] = {md_LEW, ms_LEW, mb_LEW};
-    double Me_LEW[3] = {me_LEW, mmu_LEW, mtau_LEW};
+    v2LambdaNP2 = v() * v() / Lambda_NP/Lambda_NP;
+    
+//  Obtain the SM parameters at the UV scale
+    GenerateSMInitialConditions();
 
-    if (FlagRGEci) {
-        // SM initial conditions at the UV scale. Use RGEsolver SMEFTEvolEW
-        SMEFTEvolEW.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-
-    } else {
-        // SM initial conditions at the UV scale. Use RGEsolver SMEFTEvolEW
-        // Skip RGE by setting the two scales at Lambda_NP for the EFT and to muw for the SM pars
-        SMEFTEvolEW.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-    }
-
-// SM parameters at the UV scale
-    g1UV = getSMEFTCoeffEW("g1");
-    g2UV = getSMEFTCoeffEW("g2");
-    g3UV = getSMEFTCoeffEW("g3");
-    lambdaHUV = getSMEFTCoeffEW("lambda");
-
-    g1UV2 = g1UV * g1UV;
-    g2UV2 = g2UV * g2UV;
-    g3UV2 = g3UV * g3UV;
-
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            YuUV.assignre(i, j, getSMEFTCoeffEW("YuR", i, j) );
-            YuUV.assignim(i, j, getSMEFTCoeffEW("YuI", i, j) );
-            YdUV.assignre(i, j, getSMEFTCoeffEW("YdR", i, j) );
-            YdUV.assignim(i, j, getSMEFTCoeffEW("YdI", i, j) );
-            YeUV.assignre(i, j, getSMEFTCoeffEW("YeR", i, j) );
-            YeUV.assignim(i, j, getSMEFTCoeffEW("YeI", i, j) );
-        }
-    }
-
-    YuUVhc = YuUV.hconjugate();
-    YdUVhc = YdUV.hconjugate();
-    YeUVhc = YeUV.hconjugate();
-
-
+//  Perform the matching
     setNPSMEFTd6GeneralParameters();
 
     if (!NPSMEFTd6General::PostUpdate()) return (false);
 
     return (true);
 
+}
+
+const double NPd6SILH::obliqueS() const
+{
+    return 0.0;
+}
+
+const double NPd6SILH::obliqueT() const
+{
+    return 0.0;
+}
+
+const double NPd6SILH::obliqueW() const
+{
+    return ( g2UV2 * c2W_LNP * v2LambdaNP2 / 2.0);
+}
+
+const double NPd6SILH::obliqueY() const
+{
+    return ( g2UV2 *  c2B_LNP * v2LambdaNP2 / 2.0);
+}
+
+
+const double NPd6SILH::AuxObs_NP30() const
+{
+    // To be used for some temporary observable
+
+    // WY analysis at 13 TeV for HL-LHC 3/ab
+    double Wpar, Ypar, Wpar2, Ypar2;
+    double Chi2NC13, Chi2CC13, Chi2Tot;
+
+    Wpar = 10000.0 * obliqueW();
+    Ypar = 10000.0 * obliqueY();
+
+    Wpar2 = Wpar*Wpar;
+    Ypar2 = Ypar*Ypar;
+
+    Chi2CC13 = Wpar2 * (18.365037149441695 + 2.422904241798858 * Wpar + 0.12120594308623695 * Wpar2);
+
+    Chi2NC13 = 0.032772034538390675 * Wpar2 * Wpar2 + 2.815243944990361 * Ypar2 - 0.36522061776278516 * Ypar2 * Ypar
+            + 0.017375258924241194 * Ypar2 * Ypar2 + Wpar2 * Wpar * (-0.7059117582389635 + 0.006816297425306027 * Ypar)
+            + Wpar * Ypar * (7.988302197022343 + Ypar * (-0.5450119819316416 + 0.0050292149953719766 * Ypar))
+            + Wpar2 * (5.68581760491364 + Ypar * (-0.5794111075840261 + 0.048026245835369625 * Ypar));
+
+    Chi2Tot = Chi2CC13 + Chi2NC13;
+
+    // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
+    return sqrt(Chi2Tot);
 }
