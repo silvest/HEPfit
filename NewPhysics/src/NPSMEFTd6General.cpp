@@ -40192,7 +40192,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const
                 + (-0.030326693227091632) * getSMEFTCoeffEW("CHD")
                 + (39.28731544) * getSMEFTCoeffEW("CHG")
                 + (-0.12254980079681274) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (1.1274900398406373) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                + (1.1274900398406373) * getSMEFTCoeffEW("CuGR", 2, 2) * (-g3_tree)
                 + (-0.060669322709163344) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.060669322709163344) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.06064541832669322) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -40504,7 +40504,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const
                 + (-0.030312606184165817) * getSMEFTCoeffEW("CHD")
                 + (39.36687385) * getSMEFTCoeffEW("CHG")
                 + (-0.12249405368671423) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (1.126741420319402) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                + (1.126741420319402) * getSMEFTCoeffEW("CuGR", 2, 2) * (-g3_tree)
                 + (-0.060618416581719334) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.060618416581719334) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.060618416581719334) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -40541,7 +40541,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) con
                 + (-0.030315059861373662) * getSMEFTCoeffEW("CHD")
                 + (39.68515459) * getSMEFTCoeffEW("CHG")
                 + (-0.12249527410207939) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (1.119722747321991) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                + (1.119722747321991) * getSMEFTCoeffEW("CuGR", 2, 2) * (-g3_tree)
                 + (-0.060636420919974794) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.060636420919974794) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.060636420919974794) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -40579,7 +40579,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) co
                 + (-0.030307692307692306) * getSMEFTCoeffEW("CHD")
                 + (40.11053009) * getSMEFTCoeffEW("CHG")
                 + (-0.12248076923076923) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (1.115576923076923) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                + (1.115576923076923) * getSMEFTCoeffEW("CuGR", 2, 2) * (-g3_tree)
                 + (-0.06061538461538461) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.06061538461538461) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.06061538461538461) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -40617,7 +40617,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt
                 + (-0.03036231884057971) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
                 + (-0.12262479871175523) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (1.0990338164251208) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                + (1.0990338164251208) * getSMEFTCoeffEW("CuGR", 2, 2) * (-g3_tree)
                 + (-0.060708534621578096) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.060708534621578096) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.06058776167471819) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -40656,7 +40656,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sq
                 + (-0.0303) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
                 + (-0.1224) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (1.093) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                + (1.093) * getSMEFTCoeffEW("CuGR", 2, 2) * (-g3_tree)
                 + (-0.0606) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.0606) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.061) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -40694,7 +40694,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double s
                 + (-0.0303) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
                 + (-0.123) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (1.077) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                + (1.077) * getSMEFTCoeffEW("CuGR", 2, 2) * (-g3_tree)
                 + (-0.061) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.061) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.061) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -40844,7 +40844,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_Nj2(const double s
                 + (-0.030401291512915127) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
                 + (-0.12283210332103321) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (0.992158671586716) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                + (0.992158671586716) * getSMEFTCoeffEW("CuGR", 2, 2) * (-g3_tree)
                 + (-0.06079335793357934) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.06079335793357934) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.06060885608856089) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
@@ -40877,7 +40877,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(const double s
                 + (-0.030348953140578262) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
                 + (-0.12263210368893321) * getSMEFTCoeffEW("CuHR", 2, 2)
-                + (0.9950149551345963) * getSMEFTCoeffEW("CuGR", 2, 2) * g3_tree
+                + (0.9950149551345963) * getSMEFTCoeffEW("CuGR", 2, 2) * (-g3_tree)
                 + (-0.060697906281156525) * getSMEFTCoeffEW("CHl3R", 0, 0)
                 + (-0.060697906281156525) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.006083) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
