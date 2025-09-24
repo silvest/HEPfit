@@ -1171,7 +1171,7 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMbsg() {
     mcbsg.setMu(mySMEFT.getMuw());
 
     gslpp::complex LEFT_factor = sqrt(2.) / 4. / mySMEFT.getGF() / mySMEFT.getCKM().computelamt_s() ;
-    gslpp::complex LEFT_factor_radiative = 16. * M_PI * M_PI / mySMEFT.getQuarks(QCD::BOTTOM).getMass() * LEFT_factor / sqrt(4. * M_PI * mySMEFT.getAle());
+    gslpp::complex LEFT_factor_radiative = 16. * M_PI * M_PI / Mrun(mySMEFT.getMuw(),mySMEFT.getQuarks(QCD::BOTTOM).getMass(),QCD::BOTTOM) * LEFT_factor / sqrt(4. * M_PI * mySMEFT.getAle());
     
     switch (mcbsg.getOrder()) {
         case NNLO:
@@ -1182,7 +1182,7 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMbsg() {
             mcbsg.setCoeff(1, (2. * getCudV8LL(1,1,1,2) + 1./mySMEFT.getNc() * getCudV1LL(1,1,1,2)) * LEFT_factor, LO);
             // Add penguin operators in the future
             mcbsg.setCoeff(6, getCdg(1,2) * LEFT_factor_radiative, LO);
-            mcbsg.setCoeff(7, getCdG(1,2) * LEFT_factor_radiative * (mySMEFT.getAle()/mySMEFT.Als(mySMEFT.getQuarks(QCD::BOTTOM).getMass())), LO);
+            mcbsg.setCoeff(7, getCdG(1,2) * LEFT_factor_radiative * sqrt(mySMEFT.getAle()/mySMEFT.Als(mySMEFT.getMuw())), LO);
             break;
         default:
             std::stringstream out;
