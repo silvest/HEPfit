@@ -25093,6 +25093,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
     double C1 = 0.0;
 
     // Wilson coefficients and scale    
+    double CuHR33 = 0.0, CuWR33 = 0.0, CuBR33 = 0.0, CHq1R33 = 0.0, CHq3R33 = 0.0, CHuR33 = 0.0; 
     double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R11 = 0.0;
     double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR11 = 0.0, CllR1221 = 0.0, Clq1R1133 = 0.0;
     double Clq3R1133 = 0.0, CeuR1133 = 0.0, CluR1133 = 0.0, CqeR3311 = 0.0;
@@ -25115,6 +25116,13 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
     muRG = 1000. * sqrt_s;
     
 //  Wilson coefficients definitions 
+    CuHR33 = getSMEFTCoeff("CuHR",2,2, muRG); 
+    CuWR33 = getSMEFTCoeff("CuWR",2,2, muRG); 
+    CuBR33 = getSMEFTCoeff("CuBR",2,2, muRG); 
+    CHq1R33 = getSMEFTCoeff("CHq1R",2,2, muRG); 
+    CHq3R33 = getSMEFTCoeff("CHq3R",2,2, muRG); 
+    CHuR33 = getSMEFTCoeff("CHuR",2,2, muRG); 
+    
     CHB = getSMEFTCoeff("CHB", muRG); 
     CHW = getSMEFTCoeff("CHW", muRG); 
     CHWB = getSMEFTCoeff("CHWB", muRG); 
@@ -25185,6 +25193,11 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         sigmaSMeLHa0 = 0.00312; 
  
         sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -374.85 * CuHR33 
+                -6979.06 * CuWR33 
+                -3521.95 * CuBR33 
+                -375.26 * (CHq1R33 - CHq3R33) 
+                -341.4 * CHuR33 
                 +297.11 * CHB 
                 +724.31 * CHW 
                 -1223.66 * CHWB 
@@ -25206,6 +25219,11 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         sigmaSMeRHa0 = 0.001237; 
  
         sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                -151.8 * CuHR33 
+                +104.044 * CuWR33 
+                -4593.27 * CuBR33 
+                +169.26 * (CHq1R33 - CHq3R33)  
+                +191.71 * CHuR33
                  +409.925 * CHB 
                 -5.186 * CHW 
                 -935.608 * CHWB 
@@ -25232,6 +25250,11 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         sigmaSMeLHa0 = 0.005628; 
  
         sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -650.85 * CuHR33 
+                -22910.6 * CuWR33 
+                -12009.9 * CuBR33 
+                -1004.39 * (CHq1R33 - CHq3R33)  
+                -652.75 * CHuR33 
                 +1025.46 * CHB 
                 +3025.89 * CHW 
                 -2904.01 * CHWB 
@@ -25253,6 +25276,11 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         sigmaSMeRHa0 = 0.002438; 
  
         sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                -279.693 * CuHR33 
+                +133.03 * CuWR33 
+                -15458.3 * CuBR33 
+                +306.28 * (CHq1R33 - CHq3R33)  
+                +537.86 * CHuR33 
                 +1730.78 * CHB 
                 -4.46 * CHW 
                 -1901.35 * CHWB 
@@ -25324,6 +25352,11 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         sigmaSMeLHa0 = 0.003313; 
  
         sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -370.51 * CuHR33 
+                -20040.4 * CuWR33 
+                -10631.2 * CuBR33 
+                -712.39 * (CHq1R33 - CHq3R33)  
+                -392.69 * CHuR33 
                 +802.15 * CHB 
                 +2557.53 * CHW 
                 -2020.86 * CHWB 
@@ -25345,6 +25378,11 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         sigmaSMeRHa0 = 0.001501; 
  
         sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+                -163.043 * CuHR33 
+                +58.114 * CuWR33 
+                -13659.8 * CuBR33 
+                +178.766 * (CHq1R33 - CHq3R33)  
+                +388.734 * CHuR33                 
                 +1463.34 * CHB 
                 -0.798 * CHW 
                 -1194.15 * CHWB 
@@ -25370,6 +25408,11 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         sigmaSMeLHa0 = 0.001106; 
  
         sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+                -117.267 * CuHR33 
+                -14312.6 * CuWR33 
+                -7653.06 * CuBR33 
+                -289.34 * (CHq1R33 - CHq3R33)  
+                -134.869 * CHuR33                 
                 +369.229 * CHB 
                 +1267.68 * CHW 
                 -846.969 * CHWB 
@@ -25390,7 +25433,12 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.000527; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0                
+                -53.115 * CuHR33 
+                +11.469 * CuWR33 
+                -9862.53 * CuBR33 
+                +58.529 * (CHq1R33 - CHq3R33)  
+                +159.982 * CHuR33 
                 +724.065 * CHB 
                 +0.053 * CHW 
                 -436.716 * CHWB 
