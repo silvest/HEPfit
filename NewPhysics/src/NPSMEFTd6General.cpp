@@ -8774,6 +8774,12 @@ bool NPSMEFTd6General::PostUpdate() {
 
     if (!NPbase::PostUpdate()) return (false);
     if (!trueSM.PostUpdate()) return (false);
+    
+    // Also need to recompute some of the parameters that may depend of the top quark mass. 
+    // In the W scheme, that is the case of alphaMz(), which is computed from Mw
+    // In the alpha scheme this is an input so this does nothing. All derived quantities in
+    // GenerateSMInitialConditions() stay at the same value
+    aleMz = trueSM.alphaMz();   
 
     //  NP corrections to Total Higgs width
     dGammaHTotR1 = deltaGammaTotalRatio1();
@@ -15558,7 +15564,7 @@ const double NPSMEFTd6General::alphaMz() const {
             -0.000023 * getSMEFTCoeffEW("CHdR",2, 2) -0.000128 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.000495 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) +0.00011 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
             +0.00011 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) ) * v2; 
     
-    return (aleMz * (1.0 + 2.0 * delta_e + delta_A) + cNLOd6 * deltaNLO );
+    return (trueSM.alphaMz() * (1.0 + 2.0 * delta_e + delta_A) + cNLOd6 * deltaNLO );
 }
 
 const double NPSMEFTd6General::Mw() const {
