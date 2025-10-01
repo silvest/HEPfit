@@ -877,6 +877,45 @@ void MVll::updateParameters()
     std::cout << "T2_DM(4.): " << T2_DM(4., a_0T2, a_1T2, a_2T2, MRT2_2) << std::endl << std::endl;
     */
 
+    std::cout << "V(1.): " << V(1.) << std::endl;
+    std::cout << "A_0(1.): " << A_0(1.) << std::endl;
+    std::cout << "A_1(1.): " << A_1(1.) << std::endl;
+    std::cout << "A_2(1.): " << A_2(1.) << std::endl;
+    std::cout << "T_1(1.): " << T_1(1.) << std::endl;
+    std::cout << "T_2(1.): " << T_2(1.) << std::endl;
+    std::cout << "V_p(1.): " << V_p(1.) << std::endl;
+    std::cout << "V_m(1.): " << V_m(1.) << std::endl;
+    std::cout << "V_0t(1.): " << V_0t(1.) << std::endl;
+    std::cout << "T_p(1.): " << T_p(1.) << std::endl;
+    std::cout << "T_m(1.): " << T_m(1.) << std::endl;
+    std::cout << "T_0t(1.): " << T_0t(1.) << std::endl << std::endl;
+
+    std::cout << "V(4.): " << V(4.) << std::endl;
+    std::cout << "A_0(4.): " << A_0(4.) << std::endl;
+    std::cout << "A_1(4.): " << A_1(4.) << std::endl;
+    std::cout << "A_2(4.): " << A_2(4.) << std::endl;
+    std::cout << "T_1(4.): " << T_1(4.) << std::endl;
+    std::cout << "T_2(4.): " << T_2(4.) << std::endl;
+    std::cout << "V_p(4.): " << V_p(4.) << std::endl;
+    std::cout << "V_m(4.): " << V_m(4.) << std::endl;
+    std::cout << "V_0t(4.): " << V_0t(4.) << std::endl;
+    std::cout << "T_p(4.): " << T_p(4.) << std::endl;
+    std::cout << "T_m(4.): " << T_m(4.) << std::endl;
+    std::cout << "T_0t(4.): " << T_0t(4.) << std::endl << std::endl;
+
+    std::cout << "V(8.): " << V(8.) << std::endl;
+    std::cout << "A_0(8.): " << A_0(8.) << std::endl;
+    std::cout << "A_1(8.): " << A_1(8.) << std::endl;
+    std::cout << "A_2(8.): " << A_2(8.) << std::endl;
+    std::cout << "T_1(8.): " << T_1(8.) << std::endl;
+    std::cout << "T_2(8.): " << T_2(8.) << std::endl;
+    std::cout << "V_p(8.): " << V_p(8.) << std::endl;
+    std::cout << "V_m(8.): " << V_m(8.) << std::endl;
+    std::cout << "V_0t(8.): " << V_0t(8.) << std::endl;
+    std::cout << "T_p(8.): " << T_p(8.) << std::endl;
+    std::cout << "T_m(8.): " << T_m(8.) << std::endl;
+    std::cout << "T_0t(8.): " << T_0t(8.) << std::endl << std::endl;
+
     return;
 }
 
@@ -1572,7 +1611,14 @@ double MVll::T_2(double q2)
 
 double MVll::V_0t(double q2)
 {
-    return fourMV / sqrt(q2) * FF_fit(q2, a_0A12, a_1A12, a_2A12, MRA12_2);
+    double A12 = 0.;
+    if (MVll_DM_flag) {
+        A12 = F1_DM(q2, a_0F1, a_1F1, a_2F1, MRF1_2)/MMMV/8.;
+    } else {
+        A12 = FF_fit(q2, a_0A12, a_1A12, a_2A12, MRA12_2);
+    }
+
+    return fourMV / sqrt(q2) * A12;
 }
 
 double MVll::V_p(double q2)
