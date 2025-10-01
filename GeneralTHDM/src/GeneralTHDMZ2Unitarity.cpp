@@ -539,8 +539,8 @@ double R1p00eveP_Z2::computeThValue()
     double la3 = myGTHDMZ2->getlambda3_Z2();
     double la4 = myGTHDMZ2->getlambda4_Z2();
 
-    // LO eigenvalue, as defined in Grinstein:2015rtl
-    double a_LO = -(3.*la1 + 3.*la2 + sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +
+    // LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)
+    double a_LO = -(3.*la1 + 3.*la2 - sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +
                   4.*(2.*la3 + la4)*(2.*la3 + la4))) / 32. / M_PI;
 
     // To avoid applying the condition for accidentally small LO contributions
@@ -561,8 +561,8 @@ double R1p00eveM_Z2::computeThValue()
     double la3 = myGTHDMZ2->getlambda3_Z2();
     double la4 = myGTHDMZ2->getlambda4_Z2();
 
-    // LO eigenvalue, as defined in Grinstein:2015rtl
-    double a_LO = -(3.*la1 + 3.*la2 - sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +
+    // LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)
+    double a_LO = -(3.*la1 + 3.*la2 + sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +
                   4.*(2.*la3 + la4)*(2.*la3 + la4))) / 32. / M_PI;
 
     // To avoid applying the condition for accidentally small LO contributions
@@ -632,8 +632,8 @@ double R1p01eveP_Z2::computeThValue()
     double la2 = myGTHDMZ2->getlambda2_Z2();
     double la4 = myGTHDMZ2->getlambda4_Z2();
 
-    // LO eigenvalue, as defined in Grinstein:2015rtl
-    double a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;
+    // LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)
+    double a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;
 
     // To avoid applying the condition for accidentally small LO contributions
     if(std::fabs(a_LO) > 1./16./M_PI)
@@ -652,8 +652,8 @@ double R1p01eveM_Z2::computeThValue()
     double la2 = myGTHDMZ2->getlambda2_Z2();
     double la4 = myGTHDMZ2->getlambda4_Z2();
 
-    // LO eigenvalue, as defined in Grinstein:2015rtl
-    double a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;
+    // LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)
+    double a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;
 
     // To avoid applying the condition for accidentally small LO contributions
     if(std::fabs(a_LO) > 1./16./M_PI)
@@ -744,8 +744,8 @@ double R1p11eveP_Z2::computeThValue()
     double la2 = myGTHDMZ2->getlambda2_Z2();
     double la5 = myGTHDMZ2->getlambda5_Z2();
 
-    // LO eigenvalue, as defined in Grinstein:2015rtl
-    double a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;
+    // LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)
+    double a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;
 
     // To avoid applying the condition for accidentally small LO contributions
     if(std::fabs(a_LO) > 1./16./M_PI)
@@ -764,8 +764,8 @@ double R1p11eveM_Z2::computeThValue()
     double la2 = myGTHDMZ2->getlambda2_Z2();
     double la5 = myGTHDMZ2->getlambda5_Z2();
 
-    // LO eigenvalue, as defined in Grinstein:2015rtl
-    double a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;
+    // LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)
+    double a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;
 
     // To avoid applying the condition for accidentally small LO contributions
     if(std::fabs(a_LO) > 1./16./M_PI)
