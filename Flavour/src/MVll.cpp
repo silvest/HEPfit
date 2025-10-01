@@ -875,7 +875,6 @@ void MVll::updateParameters()
     std::cout << "T0_DM(4.): " << T0_DM(4., a_0T0, a_1T0, a_2T0, MRT0_2) << std::endl;
     std::cout << "T1_DM(4.): " << T1_DM(4., a_0T1, a_1T1, a_2T1, MRT1_2) << std::endl;
     std::cout << "T2_DM(4.): " << T2_DM(4., a_0T2, a_1T2, a_2T2, MRT2_2) << std::endl << std::endl;
-    */
 
     std::cout << "V(1.): " << V(1.) << std::endl;
     std::cout << "A_0(1.): " << A_0(1.) << std::endl;
@@ -915,6 +914,7 @@ void MVll::updateParameters()
     std::cout << "T_p(8.): " << T_p(8.) << std::endl;
     std::cout << "T_m(8.): " << T_m(8.) << std::endl;
     std::cout << "T_0t(8.): " << T_0t(8.) << std::endl << std::endl;
+    */
 
     return;
 }
