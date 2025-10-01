@@ -269,8 +269,8 @@ Additional Inherited Members</h2></td></tr>
 <div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>    <span class="keywordtype">double</span> la2 = <a class="code hl_variable" href="../../d7/da4/class_r1p01eve_m___z2.html#afbefd9d6ff4790c55cd283f6d76bd12a">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a187c3798b23ef16acc5280af0a6c3d23">getlambda2_Z2</a>();</div>
 <div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    <span class="keywordtype">double</span> la4 = <a class="code hl_variable" href="../../d7/da4/class_r1p01eve_m___z2.html#afbefd9d6ff4790c55cd283f6d76bd12a">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a2e605205ec22b1c8b2941b8b6d74c1ed">getlambda4_Z2</a>();</div>
 <div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span> </div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    <span class="comment">// LO eigenvalue, as defined in Grinstein:2015rtl</span></div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    <span class="comment">// LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)</span></div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;</div>
 <div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span> </div>
 <div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>    <span class="comment">// To avoid applying the condition for accidentally small LO contributions</span></div>
 <div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>    <span class="keywordflow">if</span>(std::fabs(a_LO) &gt; 1./16./M_PI)</div>
@@ -344,7 +344,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d7/da4/class_r1p01eve_m___z2.html">R1p01eveM_Z2</a></li>
-    <li class="footer">Generated on Mon Sep 29 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Wed Oct 1 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>

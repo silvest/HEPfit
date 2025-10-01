@@ -661,8 +661,8 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    <span class="keywordtype">double</span> la3 = <a class="code hl_variable" href="../../d4/df2/class_r1p00eve_p___z2.html#af64854cf8ec62725ab0cb1968ece98d5">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a9674e710c2ff4c598389d2e38fc561b5">getlambda3_Z2</a>();</div>
 <div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>    <span class="keywordtype">double</span> la4 = <a class="code hl_variable" href="../../d4/df2/class_r1p00eve_p___z2.html#af64854cf8ec62725ab0cb1968ece98d5">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a2e605205ec22b1c8b2941b8b6d74c1ed">getlambda4_Z2</a>();</div>
 <div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span> </div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>    <span class="comment">// LO eigenvalue, as defined in Grinstein:2015rtl</span></div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>    <span class="keywordtype">double</span> a_LO = -(3.*la1 + 3.*la2 + sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>    <span class="comment">// LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)</span></div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>    <span class="keywordtype">double</span> a_LO = -(3.*la1 + 3.*la2 - sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +</div>
 <div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>                  4.*(2.*la3 + la4)*(2.*la3 + la4))) / 32. / M_PI;</div>
 <div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span> </div>
 <div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    <span class="comment">// To avoid applying the condition for accidentally small LO contributions</span></div>
@@ -683,8 +683,8 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    <span class="keywordtype">double</span> la3 = <a class="code hl_variable" href="../../db/db2/class_r1p00eve_m___z2.html#a6f474310c3ff8eb6ec2765bc40435487">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a9674e710c2ff4c598389d2e38fc561b5">getlambda3_Z2</a>();</div>
 <div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>    <span class="keywordtype">double</span> la4 = <a class="code hl_variable" href="../../db/db2/class_r1p00eve_m___z2.html#a6f474310c3ff8eb6ec2765bc40435487">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a2e605205ec22b1c8b2941b8b6d74c1ed">getlambda4_Z2</a>();</div>
 <div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span> </div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    <span class="comment">// LO eigenvalue, as defined in Grinstein:2015rtl</span></div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    <span class="keywordtype">double</span> a_LO = -(3.*la1 + 3.*la2 - sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    <span class="comment">// LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)</span></div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    <span class="keywordtype">double</span> a_LO = -(3.*la1 + 3.*la2 + sqrt((3.*la1 - 3.*la2)*(3.*la1 - 3.*la2) +</div>
 <div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>                  4.*(2.*la3 + la4)*(2.*la3 + la4))) / 32. / M_PI;</div>
 <div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
 <div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>    <span class="comment">// To avoid applying the condition for accidentally small LO contributions</span></div>
@@ -754,8 +754,8 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    <span class="keywordtype">double</span> la2 = <a class="code hl_variable" href="../../dc/dcf/class_r1p01eve_p___z2.html#a9653b5856adcc5343c1313e3413fbed6">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a187c3798b23ef16acc5280af0a6c3d23">getlambda2_Z2</a>();</div>
 <div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>    <span class="keywordtype">double</span> la4 = <a class="code hl_variable" href="../../dc/dcf/class_r1p01eve_p___z2.html#a9653b5856adcc5343c1313e3413fbed6">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a2e605205ec22b1c8b2941b8b6d74c1ed">getlambda4_Z2</a>();</div>
 <div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span> </div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>    <span class="comment">// LO eigenvalue, as defined in Grinstein:2015rtl</span></div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>    <span class="comment">// LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)</span></div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;</div>
 <div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span> </div>
 <div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>    <span class="comment">// To avoid applying the condition for accidentally small LO contributions</span></div>
 <div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>    <span class="keywordflow">if</span>(std::fabs(a_LO) &gt; 1./16./M_PI)</div>
@@ -774,8 +774,8 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>    <span class="keywordtype">double</span> la2 = <a class="code hl_variable" href="../../d7/da4/class_r1p01eve_m___z2.html#afbefd9d6ff4790c55cd283f6d76bd12a">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a187c3798b23ef16acc5280af0a6c3d23">getlambda2_Z2</a>();</div>
 <div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    <span class="keywordtype">double</span> la4 = <a class="code hl_variable" href="../../d7/da4/class_r1p01eve_m___z2.html#afbefd9d6ff4790c55cd283f6d76bd12a">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a2e605205ec22b1c8b2941b8b6d74c1ed">getlambda4_Z2</a>();</div>
 <div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span> </div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    <span class="comment">// LO eigenvalue, as defined in Grinstein:2015rtl</span></div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    <span class="comment">// LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)</span></div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la4*la4)) / 32. / M_PI;</div>
 <div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span> </div>
 <div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>    <span class="comment">// To avoid applying the condition for accidentally small LO contributions</span></div>
 <div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>    <span class="keywordflow">if</span>(std::fabs(a_LO) &gt; 1./16./M_PI)</div>
@@ -866,8 +866,8 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>    <span class="keywordtype">double</span> la2 = <a class="code hl_variable" href="../../da/d12/class_r1p11eve_p___z2.html#aabda668bc39c95ddb0557b272ee5e53d">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a187c3798b23ef16acc5280af0a6c3d23">getlambda2_Z2</a>();</div>
 <div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>    <span class="keywordtype">double</span> la5 = <a class="code hl_variable" href="../../da/d12/class_r1p11eve_p___z2.html#aabda668bc39c95ddb0557b272ee5e53d">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a6d2ef9263aa98bdfe940cfbd1c160df0">getlambda5_Z2</a>();</div>
 <div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span> </div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>    <span class="comment">// LO eigenvalue, as defined in Grinstein:2015rtl</span></div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>    <span class="comment">// LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)</span></div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;</div>
 <div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span> </div>
 <div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>    <span class="comment">// To avoid applying the condition for accidentally small LO contributions</span></div>
 <div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>    <span class="keywordflow">if</span>(std::fabs(a_LO) &gt; 1./16./M_PI)</div>
@@ -886,8 +886,8 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    <span class="keywordtype">double</span> la2 = <a class="code hl_variable" href="../../d6/d4f/class_r1p11eve_m___z2.html#aaa3bc55ced1cf5ac0c64c07fd3e7d5fa">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a187c3798b23ef16acc5280af0a6c3d23">getlambda2_Z2</a>();</div>
 <div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    <span class="keywordtype">double</span> la5 = <a class="code hl_variable" href="../../d6/d4f/class_r1p11eve_m___z2.html#aaa3bc55ced1cf5ac0c64c07fd3e7d5fa">myGTHDMZ2</a>-&gt;<a class="code hl_function" href="../../db/db1/class_general_t_h_d_m_z2.html#a6d2ef9263aa98bdfe940cfbd1c160df0">getlambda5_Z2</a>();</div>
 <div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span> </div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>    <span class="comment">// LO eigenvalue, as defined in Grinstein:2015rtl</span></div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 - sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>    <span class="comment">// LO eigenvalue, as defined in Cacchio:2016qyh (Sign difference in front of the square-roots compared to Grinstein:2015rtl)</span></div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>    <span class="keywordtype">double</span> a_LO = -(la1 + la2 + sqrt((la1 - la2)*(la1 - la2) + 4.*la5*la5)) / 32. / M_PI;</div>
 <div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span> </div>
 <div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>    <span class="comment">// To avoid applying the condition for accidentally small LO contributions</span></div>
 <div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>    <span class="keywordflow">if</span>(std::fabs(a_LO) &gt; 1./16./M_PI)</div>
@@ -1019,7 +1019,7 @@ $(document).ready(function(){initNavTree('dd/d60/_general_t_h_d_m_z2_unitarity_8
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6e393f1cfc0ec71aa9e8f3d2e068aede.html">GeneralTHDM</a></li><li class="navelem"><a class="el" href="../../dir_e0771760c57e2379c2b9ea45e6536d33.html">src</a></li><li class="navelem"><a class="el" href="../../dd/d60/_general_t_h_d_m_z2_unitarity_8cpp.html">GeneralTHDMZ2Unitarity.cpp</a></li>
-    <li class="footer">Generated on Mon Sep 29 2025 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Wed Oct 1 2025 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
