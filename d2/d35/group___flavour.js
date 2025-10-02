@@ -1944,6 +1944,34 @@ var group___flavour =
       [ "meson", "df/da8/class_s.html#ad5177f505851f6f2e609a20b5e4a2355", null ],
       [ "vectorM", "df/da8/class_s.html#a11190f5222c2f47dab6c423bf018f9a1", null ]
     ] ],
+    [ "S_1c", "de/d87/class_s__1c.html", [
+      [ "S_1c", "de/d87/class_s__1c.html#aa9b7451dd75942b5bd4ed2b10ae3aad1", null ],
+      [ "computeThValue", "de/d87/class_s__1c.html#ae980dbb5d7f6ed31f5b486c4929ec9ba", null ],
+      [ "lep", "de/d87/class_s__1c.html#ac27478388957cd65628f4055b6ab673b", null ],
+      [ "meson", "de/d87/class_s__1c.html#a59d155d927129074c7a0018f93541c1d", null ],
+      [ "vectorM", "de/d87/class_s__1c.html#acab055ca98edb1ba2ac4786ce59a7a5c", null ]
+    ] ],
+    [ "S_1s", "d0/dee/class_s__1s.html", [
+      [ "S_1s", "d0/dee/class_s__1s.html#a5c2d33490178069ac470fedc641921c4", null ],
+      [ "computeThValue", "d0/dee/class_s__1s.html#ae134eef9e3b8459caa9367391bcd1395", null ],
+      [ "lep", "d0/dee/class_s__1s.html#a19d221351294705dc94e5c90396215a1", null ],
+      [ "meson", "d0/dee/class_s__1s.html#a9c8b3dc8f2dccc07651c3060b481b695", null ],
+      [ "vectorM", "d0/dee/class_s__1s.html#a45ae74067357d0ed46ef37e0f722fcb3", null ]
+    ] ],
+    [ "S_2c", "d7/dea/class_s__2c.html", [
+      [ "S_2c", "d7/dea/class_s__2c.html#afefa7644a9ad708e9fdf658744be7da2", null ],
+      [ "computeThValue", "d7/dea/class_s__2c.html#ac939a6e2a296aef737d77708aa033e6d", null ],
+      [ "lep", "d7/dea/class_s__2c.html#a9e48429c6a51c83891c779b37fd9604d", null ],
+      [ "meson", "d7/dea/class_s__2c.html#aa671fcc65f3670351c07290feb9685c3", null ],
+      [ "vectorM", "d7/dea/class_s__2c.html#a50662a8f87ece190649b9891167faca9", null ]
+    ] ],
+    [ "S_2s", "da/df1/class_s__2s.html", [
+      [ "S_2s", "da/df1/class_s__2s.html#aab25b64427deaae633b184dcf3ebd7b0", null ],
+      [ "computeThValue", "da/df1/class_s__2s.html#ab7fc2e1d7dffe50c7ef1bf809a927768", null ],
+      [ "lep", "da/df1/class_s__2s.html#aee585894e05fa2e9b3557cb88597e4b3", null ],
+      [ "meson", "da/df1/class_s__2s.html#a5fad763795173c91f2453b1bbbe4f84b", null ],
+      [ "vectorM", "da/df1/class_s__2s.html#a0ea6f1e25e3a46bfc18879b47517e959", null ]
+    ] ],
     [ "S_3", "de/d2f/class_s__3.html", [
       [ "S_3", "de/d2f/class_s__3.html#a67883af4132ae4c7b15d8607fa5f1c97", null ],
       [ "computeThValue", "de/d2f/class_s__3.html#a866bab504d1983b9d8e7f4481068e53e", null ],
@@ -1985,6 +2013,13 @@ var group___flavour =
       [ "lep", "da/d42/class_s__5f.html#a3320c44e5547dfd37d50055a17f6d2cd", null ],
       [ "meson", "da/d42/class_s__5f.html#a96a9643ec539b96ac417aef697de4ef3", null ],
       [ "vectorM", "da/d42/class_s__5f.html#ad29882bfa566a2a55774384ca54e450e", null ]
+    ] ],
+    [ "S_6c", "d0/d82/class_s__6c.html", [
+      [ "S_6c", "d0/d82/class_s__6c.html#a053ae71fc1c5c54d90f46d0b288e8610", null ],
+      [ "computeThValue", "d0/d82/class_s__6c.html#aa37b5871bd5f98782ccc96b8e9d4bdec", null ],
+      [ "lep", "d0/d82/class_s__6c.html#a95f4e8d2d72c8fd27e26ff7c40d4249f", null ],
+      [ "meson", "d0/d82/class_s__6c.html#a573d5e2cb86734241366af53bbcac03d", null ],
+      [ "vectorM", "d0/d82/class_s__6c.html#a504a6c0196f2c052fd97fcf1b561d7a1", null ]
     ] ],
     [ "S_7", "dc/da6/class_s__7.html", [
       [ "S_7", "dc/da6/class_s__7.html#a209814a6198ab608ec9b888e0f146218", null ],

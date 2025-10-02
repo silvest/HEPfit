@@ -917,9 +917,14 @@ var hierarchy =
           [ "RT_MVll", "d1/dab/class_r_t___m_vll.html", null ]
         ] ],
         [ "R_MVll", "d1/dfa/class_r___m_vll.html", null ],
+        [ "S_1c", "de/d87/class_s__1c.html", null ],
+        [ "S_1s", "d0/dee/class_s__1s.html", null ],
+        [ "S_2c", "d7/dea/class_s__2c.html", null ],
+        [ "S_2s", "da/df1/class_s__2s.html", null ],
         [ "S_3", "de/d2f/class_s__3.html", null ],
         [ "S_4", "d8/dd4/class_s__4.html", null ],
         [ "S_5", "db/d8a/class_s__5.html", null ],
+        [ "S_6c", "d0/d82/class_s__6c.html", null ],
         [ "S_7", "dc/da6/class_s__7.html", null ],
         [ "S_8", "d0/df3/class_s__8.html", null ],
         [ "S_9", "d7/d89/class_s__9.html", null ]
