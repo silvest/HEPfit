@@ -786,6 +786,162 @@ private:
 
 
 /**
+ * @class S_1c
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<S_{1c}>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<S_{1c}>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
+ * @f$<\Sigma_i>@f$, computed in the MVll class:
+ * @f[
+ * <S_{1c}>= \frac {<\Sigma_{1c}>}{<\Gamma'>} \,.
+ * @f]
+ */
+class S_1c : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    S_1c(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$<S_{1c}>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<S_{1c}>@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+
+/**
+ * @class S_1s
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<S_{1s}>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<S_{1s}>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
+ * @f$<\Sigma_i>@f$, computed in the MVll class:
+ * @f[
+ * <S_{1s}>= \frac {<\Sigma_{1s}>}{<\Gamma'>} \,.
+ * @f]
+ */
+class S_1s : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    S_1s(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$<S_{1s}>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<S_{1s}>@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+
+/**
+ * @class S_2c
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<S_{2c}>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<S_{2c}>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
+ * @f$<\Sigma_i>@f$, computed in the MVll class:
+ * @f[
+ * <S_{2c}>= \frac {<\Sigma_{2c}>}{<\Gamma'>} \,.
+ * @f]
+ */
+class S_2c : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    S_2c(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$<S_{2c}>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<S_{2c}>@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+
+/**
+ * @class S_2s
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<S_{2s}>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<S_{2s}>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
+ * @f$<\Sigma_i>@f$, computed in the MVll class:
+ * @f[
+ * <S_{2s}>= \frac {<\Sigma_{2s}>}{<\Gamma'>} \,.
+ * @f]
+ */
+class S_2s : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    S_2s(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$<S_{2s}>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<S_{2s}>@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+
+/**
  * @class S_3
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<S_3>@f$ in @f$M \to V l^+l^-@f$. 
@@ -891,6 +1047,45 @@ public:
     /**
     * @brief The observable @f$<S_5>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<S_5>@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+
+/**
+ * @class S_6c
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<S_{6c}>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<S_{6c}>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
+ * @f$<\Sigma_i>@f$, computed in the MVll class:
+ * @f[
+ * <S_{6c}>= \frac {<\Sigma_{6c}>}{<\Gamma'>} \,.
+ * @f]
+ */
+class S_6c : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    S_6c(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$<S_{6c}>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<S_{6c}>@f$
     */
     double computeThValue ();
    

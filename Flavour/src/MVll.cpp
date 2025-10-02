@@ -831,6 +831,7 @@ void MVll::updateParameters()
     if (I5_updated == 0) for (it = sigma5Cached.begin(); it != sigma5Cached.end(); ++it) it->second = 0;
     if (I6_updated == 0) for (it = sigma6Cached.begin(); it != sigma6Cached.end(); ++it) it->second = 0;
     if (I7_updated == 0) for (it = sigma7Cached.begin(); it != sigma7Cached.end(); ++it) it->second = 0;
+    if (I8_updated == 0) for (it = sigma8Cached.begin(); it != sigma8Cached.end(); ++it) it->second = 0;
     if (I9_updated == 0) for (it = sigma9Cached.begin(); it != sigma9Cached.end(); ++it) it->second = 0;
     if (I10_updated == 0) for (it = sigma10Cached.begin(); it != sigma10Cached.end(); ++it) it->second = 0;
     if (I11_updated == 0) for (it = sigma11Cached.begin(); it != sigma11Cached.end(); ++it) it->second = 0;
@@ -2851,6 +2852,15 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             }
             return cacheSigma7[qbin];
             break;
+        case 8:
+            if (sigma8Cached[qbin] == 0) {
+                FS = convertToGslFunction(bind(&MVll::getSigma6c, &(*this), _1));
+                if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+                cacheSigma8[qbin] = avaSigma;
+                sigma8Cached[qbin] = 1;
+            }
+            return cacheSigma8[qbin];
+            break;
         case 9:
             if (sigma9Cached[qbin] == 0) {
                 FS = convertToGslFunction(bind(&MVll::getSigma7, &(*this), _1));
@@ -2916,6 +2926,9 @@ double MVll::getSigma(int i, double q_2)
             break;
         case 7:
             return getSigma6s(q_2);
+            break;
+        case 8:
+            return getSigma6c(q_2);
             break;
         case 9:
             return getSigma7(q_2);

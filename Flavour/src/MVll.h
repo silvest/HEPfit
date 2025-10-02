@@ -1146,6 +1146,7 @@ private:
     std::map<std::pair<double, double>, double > cacheSigma5;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheSigma6;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheSigma7;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma8;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheSigma9;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheSigma10;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheSigma11;/**< Cache variable */
@@ -1342,6 +1343,7 @@ private:
     std::map<std::pair<double, double>, unsigned int > sigma5Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > sigma6Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > sigma7Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma8Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > sigma9Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > sigma10Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > sigma11Cached;/**< Cache variable */
