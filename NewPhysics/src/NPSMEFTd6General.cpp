@@ -25099,10 +25099,10 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
     double C1 = 0.0;
 
     // Wilson coefficients and scale    
-    double CuHR33 = 0.0, CuWR33 = 0.0, CuBR33 = 0.0, CHq1R33 = 0.0, CHq3R33 = 0.0, CHuR33 = 0.0; 
+    double CuHR33 = 0.0, CuWR33 = 0.0, CuBR33 = 0.0, CHq1R33 = 0.0, CHq3R33 = 0.0, CHuR33 = 0.0;
     double CHB = 0.0, CHW = 0.0, CHWB = 0.0, CHD = 0.0, CHbox = 0.0, CHl1R11 = 0.0;
     double CHl3R11 = 0.0, CHl3R22 = 0.0, CHeR11 = 0.0, CllR1221 = 0.0, Clq1R1133 = 0.0;
-    double Clq3R1133 = 0.0, CeuR1133 = 0.0, CluR1133 = 0.0, CqeR3311 = 0.0;
+    double Clq3R1133 = 0.0, CeuR1133 = 0.0, CluR1133 = 0.0, CqeR3311 = 0.0; 
     double muRG = 0;
     
     // Polarization factors
@@ -25128,7 +25128,6 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
     CHq1R33 = getSMEFTCoeff("CHq1R",2,2, muRG); 
     CHq3R33 = getSMEFTCoeff("CHq3R",2,2, muRG); 
     CHuR33 = getSMEFTCoeff("CHuR",2,2, muRG); 
-    
     CHB = getSMEFTCoeff("CHB", muRG); 
     CHW = getSMEFTCoeff("CHW", muRG); 
     CHWB = getSMEFTCoeff("CHWB", muRG); 
@@ -25152,43 +25151,44 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.000784; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
-                +64.05 * CHB 
-                +150.149 * CHW 
-                -293.859 * CHWB 
-                -83.749 * CHD 
-                +94.929 * CHbox 
-                +99.403 * CHl1R11 
-                -43.388 * CHl3R11 
-                -142.79 * CHl3R22 
-                -0.09 * CHeR11 
-                +142.587 * CllR1221 
-                -2459.84 * Clq1R1133 
-                +2459.57 * Clq3R1133 
-                -0.039 * CeuR1133 
-                -2383.15 * CluR1133 
-                +0.038 * CqeR3311 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+                -94.6115 * CuHR33 
+                -1581.75 * CuWR33 
+                -790.825 * CuBR33 
+                -87.3955 * ( CHq1R33 - CHq3R33 )
+                -84.292 * CHuR33 
+                +63.829 * CHB 
+                +150.202 * CHW 
+                -293.781 * CHWB 
+                -83.906 * CHD 
+                +95.054 * CHbox 
+                +99.373 * CHl1R11 
+                -43.164 * CHl3R11 
+                -142.68 * CHl3R22 
+                +142.748 * CllR1221 
+                -2460.16 * ( Clq1R1133 - Clq3R1133 ) 
+                -2382.75 * CluR1133 
                 );
         
         // RH -------------------------------
-        sigmaSMeRHa0 = 0.000306; 
+        sigmaSMeRHa0 = 0.000306;
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
-                +84.619 * CHB 
-                -1.392 * CHW 
-                -229.525 * CHWB 
-                -94.6744 * CHD 
-                +37.061 * CHbox 
-                -0.045 * CHl1R11 
-                -55.781 * CHl3R11 
-                -55.7456 * CHl3R22 
-                +47.617 * CHeR11 
-                +55.691 * CllR1221 
-                -0.07 * Clq1R1133 
-                -0.023 * Clq3R1133 
-                -1539.29 * CeuR1133 
-                -0.04 * CluR1133 
-                -1476.99 * CqeR3311               
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+                -37.8182 * CuHR33 
+                +27.0195 * CuWR33 
+                -1035.38 * CuBR33 
+                +42.106 * ( CHq1R33 - CHq3R33 )
+                +44.175 * CHuR33 
+                +84.692 * CHB 
+                -1.403 * CHW 
+                -229.508 * CHWB 
+                -94.7248 * CHD 
+                +37.112 * CHbox 
+                -55.6873 * ( CHl3R11 + CHl3R22) 
+                +47.609 * CHeR11 
+                +55.67 * CllR1221 
+                -1539.26 * CeuR1133 
+                -1477.11 * CqeR3311              
                 );
 
     } else if (sqrt_s == 0.550) {
@@ -25196,56 +25196,46 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         C1 = 0.086;
 
         // LH -------------------------------
-        sigmaSMeLHa0 = 0.00312; 
+        sigmaSMeLHa0 = 0.00312;
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
-                -374.85 * CuHR33 
-                -6979.06 * CuWR33 
-                -3521.95 * CuBR33 
-                -375.26 * (CHq1R33 - CHq3R33) 
-                -341.4 * CHuR33 
-                +297.11 * CHB 
-                +724.31 * CHW 
-                -1223.66 * CHWB 
-                -325.49 * CHD 
-                +377.98 * CHbox 
-                +534.49 * CHl1R11 
-                -33.9 * CHl3R11 
-                -567.507 * CHl3R22 
-                +0.21 * CHeR11 
-                +567.66 * CllR1221 
-                -11969.1 * Clq1R1133 
-                +11968.5 * Clq3R1133 
-                -0.11 * CeuR1133 
-                -11014.6 * CluR1133 
-                +0.67 * CqeR3311 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+                -375.082 * CuHR33 
+                -6978.68 * CuWR33 
+                -3521.69 * CuBR33 
+                -375.113 * ( CHq1R33 - CHq3R33 )
+                -340.953 * CHuR33 
+                +296.59 * CHB 
+                +724.94 * CHW 
+                -1223.44 * CHWB 
+                -325.65 * CHD 
+                +378.62 * CHbox 
+                +534.61 * CHl1R11 
+                -33.44 * CHl3R11 
+                -567.338 * CHl3R22 
+                +568.13 * CllR1221 
+                -11968.1 * ( Clq1R1133 - Clq3R1133 ) 
+                -11012.9 * CluR1133 
                 );
         
         // RH -------------------------------
         sigmaSMeRHa0 = 0.001237; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
-                -151.8 * CuHR33 
-                +104.044 * CuWR33 
-                -4593.27 * CuBR33 
-                +169.26 * (CHq1R33 - CHq3R33)  
-                +191.71 * CHuR33
-                 +409.925 * CHB 
-                -5.186 * CHW 
-                -935.608 * CHWB 
-                -381.431 * CHD 
-                +149.802 * CHbox 
-                -0.09 * CHl1R11 
-                -225.376 * CHl3R11 
-                -225.159 * CHl3R22 
-                +135.744 * CHeR11 
-                +225.027 * CllR1221 
-                -0.125 * Clq1R1133 
-                -0.068 * Clq3R1133 
-                -7563.55 * CeuR1133 
-                -0.029 * CluR1133 
-                -6791.05 * CqeR3311 
-             
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+                -151.896 * CuHR33 
+                +104.147 * CuWR33 
+                -4593.11 * CuBR33 
+                +169.25 * ( CHq1R33 - CHq3R33 )
+                +191.77 * CHuR33 
+                +409.723 * CHB 
+                -4.921 * CHW 
+                -935.687 * CHWB 
+                -381.661 * CHD 
+                +150.086 * CHbox 
+                -225.071 * ( CHl3R11 + CHl3R22) 
+                +135.045 * CHeR11 
+                +224.993 * CllR1221 
+                -7563.24 * CeuR1133 
+                -6791.07 * CqeR3311              
                 );
 
     } else if (sqrt_s == 1.0) {
@@ -25255,53 +25245,44 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.005628; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
-                -650.85 * CuHR33 
-                -22910.6 * CuWR33 
-                -12009.9 * CuBR33 
-                -1004.39 * (CHq1R33 - CHq3R33)  
-                -652.75 * CHuR33 
-                +1025.46 * CHB 
-                +3025.89 * CHW 
-                -2904.01 * CHWB 
-                -487.21 * CHD 
-                +679.93 * CHbox 
-                +7559.2 * CHl1R11 
-                +6531.9 * CHl3R11 
-                -1025.4 * CHl3R22 
-                -1.38 * CHeR11 
-                +1023.74 * CllR1221 
-                -74007.7 * Clq1R1133 
-                +74002.2 * Clq3R1133 
-                -0.51 * CeuR1133 
-                -49985.1 * CluR1133 
-                +1.77 * CqeR3311 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+                -652.48 * CuHR33 
+                -22912.9 * CuWR33 
+                -12009.3 * CuBR33 
+                -1002.82 * ( CHq1R33 - CHq3R33 )
+                -650.53 * CHuR33 
+                +1020.05 * CHB 
+                +3026.6 * CHW 
+                -2900.7 * CHWB 
+                -487.19 * CHD 
+                +681.99 * CHbox 
+                +7556. * CHl1R11 
+                +6526. * CHl3R11 
+                -1024.23 * CHl3R22 
+                +1024.69 * CllR1221 
+                -74003.6 * ( Clq1R1133 - Clq3R1133 ) 
+                -49960.2 * CluR1133 
                 );
         
         // RH -------------------------------
         sigmaSMeRHa0 = 0.002438; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
-                -279.693 * CuHR33 
-                +133.03 * CuWR33 
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+                -280.708 * CuHR33 
+                +133.165 * CuWR33 
                 -15458.3 * CuBR33 
-                +306.28 * (CHq1R33 - CHq3R33)  
-                +537.86 * CHuR33 
-                +1730.78 * CHB 
-                -4.46 * CHW 
-                -1901.35 * CHWB 
-                -734.641 * CHD 
-                +294.72 * CHbox 
-                +0.18 * CHl1R11 
-                -444.453 * CHl3R11 
-                -444.042 * CHl3R22 
-                -4301.18 * CHeR11 
-                +443.17 * CllR1221 
-                -0.99 * Clq1R1133 
-                -0.53 * Clq3R1133 
-                -49023.4 * CeuR1133 
-                +0. * CluR1133 
-                -29612. * CqeR3311               
+                +306.64 * ( CHq1R33 - CHq3R33 )
+                +537.89 * CHuR33 
+                +1726.87 * CHB 
+                -4.75 * CHW 
+                -1901.18 * CHWB 
+                -734.793 * CHD 
+                +294.43 * CHbox 
+                -443.534 * ( CHl3R11 + CHl3R22) 
+                -4293.44 * CHeR11 
+                +444. * CllR1221 
+                -49006.1 * CeuR1133 
+                -29616.4 * CqeR3311             
                 );
 
     } else if (sqrt_s == 1.4) {
@@ -25311,43 +25292,44 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.003663; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
-                +851.16 * CHB 
-                +2683.85 * CHW 
-                -2175.84 * CHWB 
-                -281.36 * CHD 
-                +443.46 * CHbox 
-                +14219.5 * CHl1R11 
-                +13530.3 * CHl3R11 
-                -666.64 * CHl3R22 
-                +0.23 * CHeR11 
-                +667.92 * CllR1221 
-                -94483. * Clq1R1133 
-                +94422.2 * Clq3R1133 
-                -0.27 * CeuR1133 
-                -55215.2 * CluR1133 
-                +2.12 * CqeR3311 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+                -413. * CuHR33 
+                -20698.3 * CuWR33 
+                -10960.3 * CuBR33 
+                -765.64 * ( CHq1R33 - CHq3R33 ) 
+                -431.605 * CHuR33 
+                +846.79 * CHB 
+                +2683.29 * CHW 
+                -2175.52 * CHWB 
+                -279.16 * CHD 
+                +444.75 * CHbox 
+                +14191.2 * CHl1R11 
+                +13535.2 * CHl3R11 
+                -664.85 * CHl3R22 
+                +667.9 * CllR1221 
+                -94432.1 * ( Clq1R1133 - Clq3R1133 ) 
+                -55175.6 * CluR1133 
                 );
         
         // RH -------------------------------
         sigmaSMeRHa0 = 0.001649; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
-                 +1534.5 * CHB 
-                -1.516 * CHW 
-                -1307.33 * CHWB 
-                -491.01 * CHD 
-                +199.437 * CHbox 
-                +0.185 * CHl1R11 
-                -300.664 * CHl3R11 
-                -300.5 * CHl3R22 
-                -9966.43 * CHeR11 
-                +299.889 * CllR1221 
-                -0.467 * Clq1R1133 
-                -0.15 * Clq3R1133 
-                -63653.5 * CeuR1133 
-                +0.084 * CluR1133 
-                -31925.6 * CqeR3311              
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+                -181.837 * CuHR33 
+                +67.2705 * CuWR33 
+                -14087.6 * CuBR33 
+                +197.955 * ( CHq1R33 - CHq3R33 ) 
+                +416.786 * CHuR33 
+                +1532.01 * CHB 
+                -1.81 * CHW 
+                -1307.84 * CHWB 
+                -491.203 * CHD 
+                +199.446 * CHbox 
+                -299.647 * ( CHl3R11 + CHl3R22) 
+                -9958.86 * CHeR11 
+                +300.578 * CllR1221 
+                -63614.1 * CeuR1133 
+                -31936.4 * CqeR3311           
                 );
 
     } else if (sqrt_s == 1.5) {
@@ -25357,53 +25339,44 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.003313; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
-                -370.51 * CuHR33 
-                -20040.4 * CuWR33 
-                -10631.2 * CuBR33 
-                -712.39 * (CHq1R33 - CHq3R33)  
-                -392.69 * CHuR33 
-                +802.15 * CHB 
-                +2557.53 * CHW 
-                -2020.86 * CHWB 
-                -247.18 * CHD 
-                +399.96 * CHbox 
-                +15759.7 * CHl1R11 
-                +15137.2 * CHl3R11 
-                -603.19 * CHl3R22 
-                -0.33 * CHeR11 
-                +603.07 * CllR1221 
-                -97959.2 * Clq1R1133 
-                +97891.1 * Clq3R1133 
-                -1.18 * CeuR1133 
-                -55773.9 * CluR1133 
-                +0.81 * CqeR3311 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+                -371.685 * CuHR33 
+                -20045. * CuWR33 
+                -10630.9 * CuBR33 
+                -711.73 * ( CHq1R33 - CHq3R33 )
+                -392.08 * CHuR33 
+                +798.31 * CHB 
+                +2557.11 * CHW 
+                -2021.37 * CHWB 
+                -246.88 * CHD 
+                +401.08 * CHbox 
+                +15729.7 * CHl1R11 
+                +15133.9 * CHl3R11 
+                -601.68 * CHl3R22 
+                +603.39 * CllR1221 
+                -97906.7 * ( Clq1R1133 - Clq3R1133 ) 
+                -55732.7 * CluR1133 
                 );
         
         // RH -------------------------------
         sigmaSMeRHa0 = 0.001501; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
-                -163.043 * CuHR33 
-                +58.114 * CuWR33 
-                -13659.8 * CuBR33 
-                +178.766 * (CHq1R33 - CHq3R33)  
-                +388.734 * CHuR33                 
-                +1463.34 * CHB 
-                -0.798 * CHW 
-                -1194.15 * CHWB 
-                -445.894 * CHD 
-                +181.657 * CHbox 
-                +0.545 * CHl1R11 
-                -273.374 * CHl3R11 
-                -273.049 * CHl3R22 
-                -11292.4 * CHeR11 
-                +273.183 * CllR1221 
-                -0.06 * Clq1R1133 
-                -0.076 * Clq3R1133 
-                -66166.1 * CeuR1133 
-                +0.319 * CluR1133 
-                -32094.8 * CqeR3311               
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+                -163.958 * CuHR33 
+                +57.7855 * CuWR33 
+                -13659.5 * CuBR33 
+                +178.697 * ( CHq1R33 - CHq3R33 ) 
+                +388.327 * CHuR33 
+                +1461.23 * CHB 
+                -1.005 * CHW 
+                -1194.73 * CHWB 
+                -445.862 * CHD 
+                +181.946 * CHbox 
+                -272.889 * ( CHl3R11 + CHl3R22) 
+                -11285.9 * CHeR11 
+                +273.7 * CllR1221 
+                -66137.7 * CeuR1133 
+                -32099.6 * CqeR3311             
                 );
 
     } else if (sqrt_s == 3.0) {
@@ -25413,53 +25386,44 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.001106; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
-                -117.267 * CuHR33 
-                -14312.6 * CuWR33 
-                -7653.06 * CuBR33 
-                -289.34 * (CHq1R33 - CHq3R33)  
-                -134.869 * CHuR33                 
-                +369.229 * CHB 
-                +1267.68 * CHW 
-                -846.969 * CHWB 
-                -65.475 * CHD 
-                +133.094 * CHbox 
-                +33426.2 * CHl1R11 
-                +33181.8 * CHl3R11 
-                -201.591 * CHl3R22 
-                +0.184 * CHeR11 
-                +201.833 * CllR1221 
-                -127907. * Clq1R1133 
-                +127790. * Clq3R1133 
-                -0.298 * CeuR1133 
-                -60001.5 * CluR1133 
-                +0.24 * CqeR3311 
+        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+                -117.72 * CuHR33 
+                -14308.7 * CuWR33 
+                -7652.82 * CuBR33 
+                -289.029 * ( CHq1R33 - CHq3R33 ) 
+                -134.343 * CHuR33 
+                +367.915 * CHB 
+                +1265.49 * CHW 
+                -847.142 * CHWB 
+                -64.809 * CHD 
+                +133.468 * CHbox 
+                +33390.9 * CHl1R11 
+                +33205.9 * CHl3R11 
+                -201.282 * CHl3R22 
+                +201.678 * CllR1221 
+                -127854. * ( Clq1R1133 - Clq3R1133 ) 
+                -59903. * CluR1133 
                 );
         
         // RH -------------------------------
         sigmaSMeRHa0 = 0.000527; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0                
-                -53.115 * CuHR33 
-                +11.469 * CuWR33 
-                -9862.53 * CuBR33 
-                +58.529 * (CHq1R33 - CHq3R33)  
-                +159.982 * CHuR33 
-                +724.065 * CHB 
-                +0.053 * CHW 
-                -436.716 * CHWB 
-                -153.745 * CHD 
-                +63.636 * CHbox 
-                +0.234 * CHl1R11 
-                -96.001 * CHl3R11 
-                -95.827 * CHl3R22 
-                -26304.8 * CHeR11 
-                +95.878 * CllR1221 
-                -0.166 * Clq1R1133 
-                -0.081 * Clq3R1133 
-                -88019.1 * CeuR1133 
-                +0.289 * CluR1133 
-                -33112.4 * CqeR3311               
+        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+                -53.268 * CuHR33 
+                +11.318 * CuWR33 
+                -9862.85 * CuBR33 
+                +58.6365 * ( CHq1R33 - CHq3R33 ) 
+                +159.909 * CHuR33 
+                +723.378 * CHB 
+                -0.326 * CHW 
+                -436.909 * CHWB 
+                -153.732 * CHD 
+                +63.687 * CHbox 
+                -95.841 * ( CHl3R11 + CHl3R22) 
+                -26314.6 * CHeR11 
+                +96.186 * CllR1221 
+                -87964.5 * CeuR1133 
+                -33133.1 * CqeR3311 
                 );
 
     } else
