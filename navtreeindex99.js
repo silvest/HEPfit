@@ -1,13 +1,5 @@
 var NAVTREEINDEX99 =
 {
-"db/d0f/class_d_gamma__s___m_sbar.html#a98f5e4cc62a4ae915bdb06e2a0be005e":[27,0,578,2],
-"db/d0f/class_d_gamma__s___m_sbar.html#aba761a8856a9c4fdee3280565e34d201":[27,0,578,0],
-"db/d10/class_robs___v_b_f___h___z_z__llnunu___c_m_s13.html":[4,17,401],
-"db/d10/class_robs___v_b_f___h___z_z__llnunu___c_m_s13.html#a0fc6c645a706bf6060877af0a4dd0fef":[4,17,401,1],
-"db/d10/class_robs___v_b_f___h___z_z__llnunu___c_m_s13.html#a68aaeda3ae1d198bb1f577cf6e172016":[4,17,401,2],
-"db/d10/class_robs___v_b_f___h___z_z__llnunu___c_m_s13.html#a86f4652df1e8123377693edcd45e5ad2":[4,17,401,0],
-"db/d11/classdeltag_zcc_r.html":[27,0,490],
-"db/d11/classdeltag_zcc_r.html#a338f6e97371a43bdaa09011c8b1d914e":[27,0,490,2],
 "db/d11/classdeltag_zcc_r.html#a55de399da493c0af1b4bd2af1d10d7e7":[27,0,490,3],
 "db/d11/classdeltag_zcc_r.html#a8cdfad22771dd6c22ec3973a7ac63a2f":[27,0,490,1],
 "db/d11/classdeltag_zcc_r.html#a8f5b97d721ba33005536db185f477ef3":[27,0,490,4],
@@ -249,5 +241,13 @@ var NAVTREEINDEX99 =
 "db/d2b/class_georgi_machacek.html#a8557cd929d0f8983a3aa2020d140f236":[4,8,46,67],
 "db/d2b/class_georgi_machacek.html#a881acb164e01923de02eccb0f33d6627":[4,8,46,21],
 "db/d2b/class_georgi_machacek.html#a8c3ce29e85f43a0418b4f7d97987542a":[4,8,46,83],
-"db/d2b/class_georgi_machacek.html#a8ce592537e2ac81741f863ede7c68083":[4,8,46,36]
+"db/d2b/class_georgi_machacek.html#a8ce592537e2ac81741f863ede7c68083":[4,8,46,36],
+"db/d2b/class_georgi_machacek.html#a912f1176fae41d1b98a7069e68278c5b":[4,8,46,71],
+"db/d2b/class_georgi_machacek.html#a95fba55f511c329360d1fb03cad43048":[4,8,46,32],
+"db/d2b/class_georgi_machacek.html#a969757c160ff5b53009e7374bf5424a0":[4,8,46,43],
+"db/d2b/class_georgi_machacek.html#aa3fa5b164786d8a9c38a159bfd02016d":[4,8,46,62],
+"db/d2b/class_georgi_machacek.html#aa4024c3809abd579d46fd978c464c51f":[4,8,46,5],
+"db/d2b/class_georgi_machacek.html#aa4dcb69e22f90b555e8faec7460f98c4":[4,8,46,76],
+"db/d2b/class_georgi_machacek.html#aa782d6f3b5c75f6f8876d73b413dd528":[4,8,46,44],
+"db/d2b/class_georgi_machacek.html#aa9731a5abe3059f8101a2f77a543d0d1":[4,8,46,25]
 };

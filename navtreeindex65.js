@@ -1,10 +1,5 @@
 var NAVTREEINDEX65 =
 {
-"d6/d75/class_flavour_wilson_coefficient.html#a8fb8a3d3f397b52ac20b07c15fcb9f7a":[4,6,2,31],
-"d6/d75/class_flavour_wilson_coefficient.html#a95d663107adbcd9e04272022a769dd58":[4,6,2,76],
-"d6/d75/class_flavour_wilson_coefficient.html#a96b9b424d456dc5b132d3163f7d2ca43":[4,6,2,35],
-"d6/d75/class_flavour_wilson_coefficient.html#a9a59fa73e2e413cfb70936b0efa15ab0":[4,6,2,7],
-"d6/d75/class_flavour_wilson_coefficient.html#a9ae1e70f49d07a97fd0dd5e671567ed8":[4,6,2,9],
 "d6/d75/class_flavour_wilson_coefficient.html#a9ce55a4527c27a20774e2de5f4d624b7":[4,6,2,46],
 "d6/d75/class_flavour_wilson_coefficient.html#a9e75652fdaee3fb3521333fc669e6bf6":[4,6,2,23],
 "d6/d75/class_flavour_wilson_coefficient.html#aa1b0be57156e9a04e5ca30afc08fc628":[4,6,2,81],
@@ -249,5 +244,10 @@ var NAVTREEINDEX65 =
 "d6/d9b/class_asymmetry__cos__je__t_hj__eta__cut__3.html#a2abb103d373a89e02b66f449e4135d57":[27,0,132,1],
 "d6/d9b/class_asymmetry__cos__je__t_hj__eta__cut__3.html#adf2ddde92d86dbab4ae8587fef6d77be":[27,0,132,2],
 "d6/d9b/class_asymmetry__cos__je__t_hj__eta__cut__3.html#ae62d872489444ee9001cfdbe7001339c":[27,0,132,0],
-"d6/d9b/classunitarity_n_l_oev12.html":[4,17,487]
+"d6/d9b/classunitarity_n_l_oev12.html":[4,17,487],
+"d6/d9b/classunitarity_n_l_oev12.html#a1d5c2adb3f49b0b5b85f792cf8bc5b08":[4,17,487,2],
+"d6/d9b/classunitarity_n_l_oev12.html#aa843a327f2e8b80123f4ba329b604359":[4,17,487,1],
+"d6/d9b/classunitarity_n_l_oev12.html#af4f7531e844dcc16e7757049badc93b8":[4,17,487,0],
+"d6/d9f/classrh__gg___t_h_d_m_w.html":[4,18,85],
+"d6/d9f/classrh__gg___t_h_d_m_w.html#a4a063b47ca704593ffb3346268f497c6":[4,18,85,2]
 };
