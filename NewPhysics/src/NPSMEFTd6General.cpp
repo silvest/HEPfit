@@ -43388,10 +43388,16 @@ const double NPSMEFTd6General::CEWHdbb() const {
 ///////////Collider observables: LHC dilepton events////////////////////////
 
 const double NPSMEFTd6General::NevLHCppee13(const int i_bin) const {
+    
+    double binscale[47] = {240., 240., 240., 240., 240., 365., 365., 365., 365., 365., 365., 365., 365., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 5000. }; 
+  
+    double muRG;  
+    muRG = binscale[i_bin - 1];  
+    
     // HighPT parameterization: Same operators in the UP and DOWN bases
     double Civect[49] = {
-        1., getSMEFTCoeffEW("Clq1R", 0, 0, 0, 0), getSMEFTCoeffEW("Clq1R", 0, 0, 1, 1), getSMEFTCoeffEW("Clq1R", 0, 0, 2, 2), getSMEFTCoeffEW("Clq3R", 0, 0, 0, 0), getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1), getSMEFTCoeffEW("Clq3R", 0, 0, 2, 2), getSMEFTCoeffEW("CqeR", 0, 0, 0, 0), getSMEFTCoeffEW("CqeR", 1, 1, 0, 0), getSMEFTCoeffEW("CqeR", 2, 2, 0, 0), getSMEFTCoeffEW("CluR", 0, 0, 0, 0), getSMEFTCoeffEW("CluR", 0, 0, 1, 1), getSMEFTCoeffEW("CldR", 0, 0, 0, 0), getSMEFTCoeffEW("CldR", 0, 0, 1, 1), getSMEFTCoeffEW("CldR", 0, 0, 2, 2), getSMEFTCoeffEW("CeuR", 0, 0, 0, 0), getSMEFTCoeffEW("CeuR", 0, 0, 1, 1), getSMEFTCoeffEW("CedR", 0, 0, 0, 0), getSMEFTCoeffEW("CedR", 0, 0, 1, 1), getSMEFTCoeffEW("CedR", 0, 0, 2, 2), getSMEFTCoeffEW("CHl1R", 0, 0), getSMEFTCoeffEW("CHl3R", 0, 0), getSMEFTCoeffEW("CHeR", 0, 0), getSMEFTCoeffEW("CHq1R", 0, 0), getSMEFTCoeffEW("CHq1R", 1, 1), getSMEFTCoeffEW("CHq1R", 2, 2), getSMEFTCoeffEW("CHq3R", 0, 0), getSMEFTCoeffEW("CHq3R", 1, 1), getSMEFTCoeffEW("CHq3R", 2, 2), getSMEFTCoeffEW("CHuR", 0, 0), getSMEFTCoeffEW("CHuR", 1, 1), getSMEFTCoeffEW("CHdR", 0, 0), getSMEFTCoeffEW("CHdR", 1, 1), getSMEFTCoeffEW("CHdR", 2, 2), getSMEFTCoeffEW("Clq1R", 0, 0, 0, 1), getSMEFTCoeffEW("Clq1R", 0, 0, 0, 2), getSMEFTCoeffEW("Clq1R", 0, 0, 1, 2), getSMEFTCoeffEW("Clq3R", 0, 0, 0, 1), getSMEFTCoeffEW("Clq3R", 0, 0, 0, 2), getSMEFTCoeffEW("Clq3R", 0, 0, 1, 2), getSMEFTCoeffEW("CqeR", 0, 1, 0, 0), getSMEFTCoeffEW("CqeR", 0, 2, 0, 0), getSMEFTCoeffEW("CqeR", 1, 2, 0, 0), getSMEFTCoeffEW("CHq1R", 0, 1), getSMEFTCoeffEW("CHq1R", 0, 2), getSMEFTCoeffEW("CHq1R", 1, 2), getSMEFTCoeffEW("CHq3R", 0, 1), getSMEFTCoeffEW("CHq3R", 0, 2), getSMEFTCoeffEW("CHq3R", 1, 2)
-    };
+        1. , getSMEFTCoeff("Clq1R",0,0,0,0,muRG), getSMEFTCoeff("Clq1R",0,0,1,1,muRG), getSMEFTCoeff("Clq1R",0,0,2,2,muRG), getSMEFTCoeff("Clq3R",0,0,0,0,muRG), getSMEFTCoeff("Clq3R",0,0,1,1,muRG), getSMEFTCoeff("Clq3R",0,0,2,2,muRG), getSMEFTCoeff("CqeR",0,0,0,0,muRG), getSMEFTCoeff("CqeR",1,1,0,0,muRG), getSMEFTCoeff("CqeR",2,2,0,0,muRG), getSMEFTCoeff("CluR",0,0,0,0,muRG), getSMEFTCoeff("CluR",0,0,1,1,muRG), getSMEFTCoeff("CldR",0,0,0,0,muRG), getSMEFTCoeff("CldR",0,0,1,1,muRG), getSMEFTCoeff("CldR",0,0,2,2,muRG), getSMEFTCoeff("CeuR",0,0,0,0,muRG), getSMEFTCoeff("CeuR",0,0,1,1,muRG), getSMEFTCoeff("CedR",0,0,0,0,muRG), getSMEFTCoeff("CedR",0,0,1,1,muRG), getSMEFTCoeff("CedR",0,0,2,2,muRG), getSMEFTCoeff("CHl1R",0,0,muRG), getSMEFTCoeff("CHl3R",0,0,muRG), getSMEFTCoeff("CHeR",0,0,muRG), getSMEFTCoeff("CHq1R",0,0,muRG), getSMEFTCoeff("CHq1R",1,1,muRG), getSMEFTCoeff("CHq1R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("CHuR",0,0,muRG), getSMEFTCoeff("CHuR",1,1,muRG), getSMEFTCoeff("CHdR",0,0,muRG), getSMEFTCoeff("CHdR",1,1,muRG), getSMEFTCoeff("CHdR",2,2,muRG), getSMEFTCoeff("Clq1R",0,0,0,1,muRG), getSMEFTCoeff("Clq1R",0,0,0,2,muRG), getSMEFTCoeff("Clq1R",0,0,1,2,muRG), getSMEFTCoeff("Clq3R",0,0,0,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,2,muRG), getSMEFTCoeff("Clq3R",0,0,1,2,muRG), getSMEFTCoeff("CqeR",0,1,0,0,muRG), getSMEFTCoeff("CqeR",0,2,0,0,muRG), getSMEFTCoeff("CqeR",1,2,0,0,muRG), getSMEFTCoeff("CHq1R",0,1,muRG), getSMEFTCoeff("CHq1R",0,2,muRG), getSMEFTCoeff("CHq1R",1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
+    }; 
 
     // UP Basis
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
@@ -43527,10 +43533,16 @@ const double NPSMEFTd6General::NevLHCppee13(const int i_bin) const {
 }
 
 const double NPSMEFTd6General::NevLHCppmumu13(const int i_bin) const {
+    
+    double binscale[30] = {240., 240., 240., 240., 240., 365., 365., 365., 365., 365., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 5000. }; 
+  
+    double muRG;  
+    muRG = binscale[i_bin - 1];  
+    
     // HighPT parameterization: Same operators in the UP and DOWN bases
     double Civect[49] = {
-        1., getSMEFTCoeffEW("Clq1R", 1, 1, 0, 0), getSMEFTCoeffEW("Clq1R", 1, 1, 1, 1), getSMEFTCoeffEW("Clq1R", 1, 1, 2, 2), getSMEFTCoeffEW("Clq3R", 1, 1, 0, 0), getSMEFTCoeffEW("Clq3R", 1, 1, 1, 1), getSMEFTCoeffEW("Clq3R", 1, 1, 2, 2), getSMEFTCoeffEW("CqeR", 0, 0, 1, 1), getSMEFTCoeffEW("CqeR", 1, 1, 1, 1), getSMEFTCoeffEW("CqeR", 2, 2, 1, 1), getSMEFTCoeffEW("CluR", 1, 1, 0, 0), getSMEFTCoeffEW("CluR", 1, 1, 1, 1), getSMEFTCoeffEW("CldR", 1, 1, 0, 0), getSMEFTCoeffEW("CldR", 1, 1, 1, 1), getSMEFTCoeffEW("CldR", 1, 1, 2, 2), getSMEFTCoeffEW("CeuR", 1, 1, 0, 0), getSMEFTCoeffEW("CeuR", 1, 1, 1, 1), getSMEFTCoeffEW("CedR", 1, 1, 0, 0), getSMEFTCoeffEW("CedR", 1, 1, 1, 1), getSMEFTCoeffEW("CedR", 1, 1, 2, 2), getSMEFTCoeffEW("CHl1R", 1, 1), getSMEFTCoeffEW("CHl3R", 1, 1), getSMEFTCoeffEW("CHeR", 1, 1), getSMEFTCoeffEW("CHq1R", 0, 0), getSMEFTCoeffEW("CHq1R", 1, 1), getSMEFTCoeffEW("CHq1R", 2, 2), getSMEFTCoeffEW("CHq3R", 0, 0), getSMEFTCoeffEW("CHq3R", 1, 1), getSMEFTCoeffEW("CHq3R", 2, 2), getSMEFTCoeffEW("CHuR", 0, 0), getSMEFTCoeffEW("CHuR", 1, 1), getSMEFTCoeffEW("CHdR", 0, 0), getSMEFTCoeffEW("CHdR", 1, 1), getSMEFTCoeffEW("CHdR", 2, 2), getSMEFTCoeffEW("Clq1R", 1, 1, 0, 1), getSMEFTCoeffEW("Clq1R", 1, 1, 0, 2), getSMEFTCoeffEW("Clq1R", 1, 1, 1, 2), getSMEFTCoeffEW("Clq3R", 1, 1, 0, 1), getSMEFTCoeffEW("Clq3R", 1, 1, 0, 2), getSMEFTCoeffEW("Clq3R", 1, 1, 1, 2), getSMEFTCoeffEW("CqeR", 0, 1, 1, 1), getSMEFTCoeffEW("CqeR", 0, 2, 1, 1), getSMEFTCoeffEW("CqeR", 1, 2, 1, 1), getSMEFTCoeffEW("CHq1R", 0, 1), getSMEFTCoeffEW("CHq1R", 0, 2), getSMEFTCoeffEW("CHq1R", 1, 2), getSMEFTCoeffEW("CHq3R", 0, 1), getSMEFTCoeffEW("CHq3R", 0, 2), getSMEFTCoeffEW("CHq3R", 1, 2)
-    };
+        1. , getSMEFTCoeff("Clq1R",1,1,0,0,muRG), getSMEFTCoeff("Clq1R",1,1,1,1,muRG), getSMEFTCoeff("Clq1R",1,1,2,2,muRG), getSMEFTCoeff("Clq3R",1,1,0,0,muRG), getSMEFTCoeff("Clq3R",1,1,1,1,muRG), getSMEFTCoeff("Clq3R",1,1,2,2,muRG), getSMEFTCoeff("CqeR",0,0,1,1,muRG), getSMEFTCoeff("CqeR",1,1,1,1,muRG), getSMEFTCoeff("CqeR",2,2,1,1,muRG), getSMEFTCoeff("CluR",1,1,0,0,muRG), getSMEFTCoeff("CluR",1,1,1,1,muRG), getSMEFTCoeff("CldR",1,1,0,0,muRG), getSMEFTCoeff("CldR",1,1,1,1,muRG), getSMEFTCoeff("CldR",1,1,2,2,muRG), getSMEFTCoeff("CeuR",1,1,0,0,muRG), getSMEFTCoeff("CeuR",1,1,1,1,muRG), getSMEFTCoeff("CedR",1,1,0,0,muRG), getSMEFTCoeff("CedR",1,1,1,1,muRG), getSMEFTCoeff("CedR",1,1,2,2,muRG), getSMEFTCoeff("CHl1R",1,1,muRG), getSMEFTCoeff("CHl3R",1,1,muRG), getSMEFTCoeff("CHeR",1,1,muRG), getSMEFTCoeff("CHq1R",0,0,muRG), getSMEFTCoeff("CHq1R",1,1,muRG), getSMEFTCoeff("CHq1R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("CHuR",0,0,muRG), getSMEFTCoeff("CHuR",1,1,muRG), getSMEFTCoeff("CHdR",0,0,muRG), getSMEFTCoeff("CHdR",1,1,muRG), getSMEFTCoeff("CHdR",2,2,muRG), getSMEFTCoeff("Clq1R",1,1,0,1,muRG), getSMEFTCoeff("Clq1R",1,1,0,2,muRG), getSMEFTCoeff("Clq1R",1,1,1,2,muRG), getSMEFTCoeff("Clq3R",1,1,0,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,2,muRG), getSMEFTCoeff("Clq3R",1,1,1,2,muRG), getSMEFTCoeff("CqeR",0,1,1,1,muRG), getSMEFTCoeff("CqeR",0,2,1,1,muRG), getSMEFTCoeff("CqeR",1,2,1,1,muRG), getSMEFTCoeff("CHq1R",0,1,muRG), getSMEFTCoeff("CHq1R",0,2,muRG), getSMEFTCoeff("CHq1R",1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
+    }; 
 
     // UP Basis
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
@@ -43632,10 +43644,16 @@ const double NPSMEFTd6General::NevLHCppmumu13(const int i_bin) const {
 }
 
 const double NPSMEFTd6General::NevLHCpptautau13(const int i_bin) const {
+    
+    double binscale[14] = {125.1, 240., 240., 365., 365., 365., 550., 550., 550., 550., 1000., 1000., 1000., 1500. }; 
+  
+    double muRG;  
+    muRG = binscale[i_bin - 1];  
+    
     // HighPT parameterization: Same operators in the UP and DOWN bases
     double Civect[49] = {
-        1., getSMEFTCoeffEW("Clq1R", 2, 2, 0, 0), getSMEFTCoeffEW("Clq1R", 2, 2, 1, 1), getSMEFTCoeffEW("Clq1R", 2, 2, 2, 2), getSMEFTCoeffEW("Clq3R", 2, 2, 0, 0), getSMEFTCoeffEW("Clq3R", 2, 2, 1, 1), getSMEFTCoeffEW("Clq3R", 2, 2, 2, 2), getSMEFTCoeffEW("CqeR", 0, 0, 2, 2), getSMEFTCoeffEW("CqeR", 1, 1, 2, 2), getSMEFTCoeffEW("CqeR", 2, 2, 2, 2), getSMEFTCoeffEW("CluR", 2, 2, 0, 0), getSMEFTCoeffEW("CluR", 2, 2, 1, 1), getSMEFTCoeffEW("CldR", 2, 2, 0, 0), getSMEFTCoeffEW("CldR", 2, 2, 1, 1), getSMEFTCoeffEW("CldR", 2, 2, 2, 2), getSMEFTCoeffEW("CeuR", 2, 2, 0, 0), getSMEFTCoeffEW("CeuR", 2, 2, 1, 1), getSMEFTCoeffEW("CedR", 2, 2, 0, 0), getSMEFTCoeffEW("CedR", 2, 2, 1, 1), getSMEFTCoeffEW("CedR", 2, 2, 2, 2), getSMEFTCoeffEW("CHl1R", 2, 2), getSMEFTCoeffEW("CHl3R", 2, 2), getSMEFTCoeffEW("CHeR", 2, 2), getSMEFTCoeffEW("CHq1R", 0, 0), getSMEFTCoeffEW("CHq1R", 1, 1), getSMEFTCoeffEW("CHq1R", 2, 2), getSMEFTCoeffEW("CHq3R", 0, 0), getSMEFTCoeffEW("CHq3R", 1, 1), getSMEFTCoeffEW("CHq3R", 2, 2), getSMEFTCoeffEW("CHuR", 0, 0), getSMEFTCoeffEW("CHuR", 1, 1), getSMEFTCoeffEW("CHdR", 0, 0), getSMEFTCoeffEW("CHdR", 1, 1), getSMEFTCoeffEW("CHdR", 2, 2), getSMEFTCoeffEW("Clq1R", 2, 2, 0, 1), getSMEFTCoeffEW("Clq1R", 2, 2, 0, 2), getSMEFTCoeffEW("Clq1R", 2, 2, 1, 2), getSMEFTCoeffEW("Clq3R", 2, 2, 0, 1), getSMEFTCoeffEW("Clq3R", 2, 2, 0, 2), getSMEFTCoeffEW("Clq3R", 2, 2, 1, 2), getSMEFTCoeffEW("CqeR", 0, 1, 2, 2), getSMEFTCoeffEW("CqeR", 0, 2, 2, 2), getSMEFTCoeffEW("CqeR", 1, 2, 2, 2), getSMEFTCoeffEW("CHq1R", 0, 1), getSMEFTCoeffEW("CHq1R", 0, 2), getSMEFTCoeffEW("CHq1R", 1, 2), getSMEFTCoeffEW("CHq3R", 0, 1), getSMEFTCoeffEW("CHq3R", 0, 2), getSMEFTCoeffEW("CHq3R", 1, 2)
-    };
+        1. , getSMEFTCoeff("Clq1R",2,2,0,0,muRG), getSMEFTCoeff("Clq1R",2,2,1,1,muRG), getSMEFTCoeff("Clq1R",2,2,2,2,muRG), getSMEFTCoeff("Clq3R",2,2,0,0,muRG), getSMEFTCoeff("Clq3R",2,2,1,1,muRG), getSMEFTCoeff("Clq3R",2,2,2,2,muRG), getSMEFTCoeff("CqeR",0,0,2,2,muRG), getSMEFTCoeff("CqeR",1,1,2,2,muRG), getSMEFTCoeff("CqeR",2,2,2,2,muRG), getSMEFTCoeff("CluR",2,2,0,0,muRG), getSMEFTCoeff("CluR",2,2,1,1,muRG), getSMEFTCoeff("CldR",2,2,0,0,muRG), getSMEFTCoeff("CldR",2,2,1,1,muRG), getSMEFTCoeff("CldR",2,2,2,2,muRG), getSMEFTCoeff("CeuR",2,2,0,0,muRG), getSMEFTCoeff("CeuR",2,2,1,1,muRG), getSMEFTCoeff("CedR",2,2,0,0,muRG), getSMEFTCoeff("CedR",2,2,1,1,muRG), getSMEFTCoeff("CedR",2,2,2,2,muRG), getSMEFTCoeff("CHl1R",2,2,muRG), getSMEFTCoeff("CHl3R",2,2,muRG), getSMEFTCoeff("CHeR",2,2,muRG), getSMEFTCoeff("CHq1R",0,0,muRG), getSMEFTCoeff("CHq1R",1,1,muRG), getSMEFTCoeff("CHq1R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("CHuR",0,0,muRG), getSMEFTCoeff("CHuR",1,1,muRG), getSMEFTCoeff("CHdR",0,0,muRG), getSMEFTCoeff("CHdR",1,1,muRG), getSMEFTCoeff("CHdR",2,2,muRG), getSMEFTCoeff("Clq1R",2,2,0,1,muRG), getSMEFTCoeff("Clq1R",2,2,0,2,muRG), getSMEFTCoeff("Clq1R",2,2,1,2,muRG), getSMEFTCoeff("Clq3R",2,2,0,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,2,muRG), getSMEFTCoeff("Clq3R",2,2,1,2,muRG), getSMEFTCoeff("CqeR",0,1,2,2,muRG), getSMEFTCoeff("CqeR",0,2,2,2,muRG), getSMEFTCoeff("CqeR",1,2,2,2,muRG), getSMEFTCoeff("CHq1R",0,1,muRG), getSMEFTCoeff("CHq1R",0,2,muRG), getSMEFTCoeff("CHq1R",1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
+    }; 
 
     // UP Basis
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
@@ -43709,11 +43727,16 @@ const double NPSMEFTd6General::NevLHCpptautau13(const int i_bin) const {
 
 const double NPSMEFTd6General::NevLHCppenu13(const int i_bin) const {
     
+    double binscale[24] = {365., 365., 550., 550., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 5000. };
+  
+    double muRG;  
+    muRG = binscale[i_bin - 1];
+    
     // UP Basis
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-        double CivectU[12] = {
-            1., getSMEFTCoeffEW("Clq3R", 0, 0, 0, 0), getSMEFTCoeffEW("Clq3R", 0, 0, 1, 1), getSMEFTCoeffEW("CHl3R", 0, 0), getSMEFTCoeffEW("CHq3R", 0, 0), getSMEFTCoeffEW("CHq3R", 1, 1), getSMEFTCoeffEW("Clq3R", 0, 0, 0, 1), getSMEFTCoeffEW("Clq3R", 0, 0, 0, 2), getSMEFTCoeffEW("Clq3R", 0, 0, 1, 2), getSMEFTCoeffEW("CHq3R", 0, 1), getSMEFTCoeffEW("CHq3R", 0, 2), getSMEFTCoeffEW("CHq3R", 1, 2)
-        };
+        double CivectU[12] = {  
+            1. , getSMEFTCoeff("Clq3R",0,0,0,0,muRG), getSMEFTCoeff("Clq3R",0,0,1,1,muRG), getSMEFTCoeff("CHl3R",0,0,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,2,muRG), getSMEFTCoeff("Clq3R",0,0,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
+        }; 
 
         double NevCiU[24][12] = {
             {9931.68, 15815028888., 1910124774., 505246116., 447917862., 57328254., 1857694407., -33812057., 44929051., 52387836., -970482., 1346390.},
@@ -43747,7 +43770,7 @@ const double NPSMEFTd6General::NevLHCppenu13(const int i_bin) const {
     // DOWN Basis
     // HighPT parameterization in the basis aligned with diagonal down sector (i.e. u_i = V^dagger u_m to pass to mass eigenstate basis)
         double CivectD[14] = {
-            1. , getSMEFTCoeffEW("Clq3R",0,0,0,0), getSMEFTCoeffEW("Clq3R",0,0,1,1), getSMEFTCoeffEW("Clq3R",0,0,2,2), getSMEFTCoeffEW("CHl3R",0,0), getSMEFTCoeffEW("CHq3R",0,0), getSMEFTCoeffEW("CHq3R",1,1), getSMEFTCoeffEW("CHq3R",2,2), getSMEFTCoeffEW("Clq3R",0,0,0,1), getSMEFTCoeffEW("Clq3R",0,0,0,2), getSMEFTCoeffEW("Clq3R",0,0,1,2), getSMEFTCoeffEW("CHq3R",0,1), getSMEFTCoeffEW("CHq3R",0,2), getSMEFTCoeffEW("CHq3R",1,2) }; 
+            1. , getSMEFTCoeff("Clq3R",0,0,0,0,muRG), getSMEFTCoeff("Clq3R",0,0,1,1,muRG), getSMEFTCoeff("Clq3R",0,0,2,2,muRG), getSMEFTCoeff("CHl3R",0,0,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("Clq3R",0,0,0,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,2,muRG), getSMEFTCoeff("Clq3R",0,0,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) }; 
   
         double NevCiD[24][14] = {  
             {9931.68 , 15518684615., 2204903365., 1565682., 505246116., 439638474., 65560832., 46810.8, -4423998758., 113227850., -127365148., -124084976., 3158772., -3796623.},  
@@ -43807,11 +43830,16 @@ const double NPSMEFTd6General::NevLHCppenu13(const int i_bin) const {
 
 const double NPSMEFTd6General::NevLHCppmunu13(const int i_bin) const {
     
+    double binscale[20] = {365., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 5000. }; 
+  
+    double muRG;  
+    muRG = binscale[i_bin - 1];  
+    
     // UP Basis
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
         double CivectU[12] = {
-            1., getSMEFTCoeffEW("Clq3R", 1, 1, 0, 0), getSMEFTCoeffEW("Clq3R", 1, 1, 1, 1), getSMEFTCoeffEW("CHl3R", 1, 1), getSMEFTCoeffEW("CHq3R", 0, 0), getSMEFTCoeffEW("CHq3R", 1, 1), getSMEFTCoeffEW("Clq3R", 1, 1, 0, 1), getSMEFTCoeffEW("Clq3R", 1, 1, 0, 2), getSMEFTCoeffEW("Clq3R", 1, 1, 1, 2), getSMEFTCoeffEW("CHq3R", 0, 1), getSMEFTCoeffEW("CHq3R", 0, 2), getSMEFTCoeffEW("CHq3R", 1, 2)
-        };
+            1. , getSMEFTCoeff("Clq3R",1,1,0,0,muRG), getSMEFTCoeff("Clq3R",1,1,1,1,muRG), getSMEFTCoeff("CHl3R",1,1,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,2,muRG), getSMEFTCoeff("Clq3R",1,1,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
+        }; 
 
         double NevCiU[20][12] = {
             {7748.92, 20588332522., 2366182989., 584995531., 521127530., 63868001., 2460246281., -41130627., 55918835., 61859868., -1099543., 1490609.},
@@ -43841,7 +43869,7 @@ const double NPSMEFTd6General::NevLHCppmunu13(const int i_bin) const {
     // DOWN Basis
     // HighPT parameterization in the basis aligned with diagonal down sector (i.e. u_i = V^dagger u_m to pass to mass eigenstate basis)
         double CivectD[14] = {  
-            1. , getSMEFTCoeffEW("Clq3R",1,1,0,0), getSMEFTCoeffEW("Clq3R",1,1,1,1), getSMEFTCoeffEW("Clq3R",1,1,2,2), getSMEFTCoeffEW("CHl3R",1,1), getSMEFTCoeffEW("CHq3R",0,0), getSMEFTCoeffEW("CHq3R",1,1), getSMEFTCoeffEW("CHq3R",2,2), getSMEFTCoeffEW("Clq3R",1,1,0,1), getSMEFTCoeffEW("Clq3R",1,1,0,2), getSMEFTCoeffEW("Clq3R",1,1,1,2), getSMEFTCoeffEW("CHq3R",0,1), getSMEFTCoeffEW("CHq3R",0,2), getSMEFTCoeffEW("CHq3R",1,2) }; 
+            1. , getSMEFTCoeff("Clq3R",1,1,0,0,muRG), getSMEFTCoeff("Clq3R",1,1,1,1,muRG), getSMEFTCoeff("Clq3R",1,1,2,2,muRG), getSMEFTCoeff("CHl3R",1,1,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("Clq3R",1,1,0,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,2,muRG), getSMEFTCoeff("Clq3R",1,1,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) }; 
   
         double NevCiD[20][14] = {  
             {7748.92 , 20205626996., 2746938517., 1949998., 584995531., 511551087., 73391730., 52714.4, -5774347252., 150276202., -158531533., -144788489., 3704583., -4253855.},  
@@ -43897,11 +43925,16 @@ const double NPSMEFTd6General::NevLHCppmunu13(const int i_bin) const {
 
 const double NPSMEFTd6General::NevLHCpptaunu13(const int i_bin) const {
     
+    double binscale[10] = {365., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 5000. }; 
+  
+    double muRG;  
+    muRG = binscale[i_bin - 1];  
+    
     // UP Basis
     // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
         double CivectU[12] = {
-            1., getSMEFTCoeffEW("Clq3R", 2, 2, 0, 0), getSMEFTCoeffEW("Clq3R", 2, 2, 1, 1), getSMEFTCoeffEW("CHl3R", 2, 2), getSMEFTCoeffEW("CHq3R", 0, 0), getSMEFTCoeffEW("CHq3R", 1, 1), getSMEFTCoeffEW("Clq3R", 2, 2, 0, 1), getSMEFTCoeffEW("Clq3R", 2, 2, 0, 2), getSMEFTCoeffEW("Clq3R", 2, 2, 1, 2), getSMEFTCoeffEW("CHq3R", 0, 1), getSMEFTCoeffEW("CHq3R", 0, 2), getSMEFTCoeffEW("CHq3R", 1, 2)
-        };
+            1. , getSMEFTCoeff("Clq3R",2,2,0,0,muRG), getSMEFTCoeff("Clq3R",2,2,1,1,muRG), getSMEFTCoeff("CHl3R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,2,muRG), getSMEFTCoeff("Clq3R",2,2,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
+        }; 
 
         double NevCiU[10][12] = {
             {3018.15, 9905184949., 908069072., 178721805., 162451504., 16270302., 1242657236., -19403426., 21667249., 21583813., -269839., 385219.},
@@ -43921,7 +43954,7 @@ const double NPSMEFTd6General::NevLHCpptaunu13(const int i_bin) const {
     // DOWN Basis
     // HighPT parameterization in the basis aligned with diagonal down sector (i.e. u_i = V^dagger u_m to pass to mass eigenstate basis)
         double CivectD[14] = {
-            1. , getSMEFTCoeffEW("Clq3R",2,2,0,0), getSMEFTCoeffEW("Clq3R",2,2,1,1), getSMEFTCoeffEW("Clq3R",2,2,2,2), getSMEFTCoeffEW("CHl3R",2,2), getSMEFTCoeffEW("CHq3R",0,0), getSMEFTCoeffEW("CHq3R",1,1), getSMEFTCoeffEW("CHq3R",2,2), getSMEFTCoeffEW("Clq3R",2,2,0,1), getSMEFTCoeffEW("Clq3R",2,2,0,2), getSMEFTCoeffEW("Clq3R",2,2,1,2), getSMEFTCoeffEW("CHq3R",0,1), getSMEFTCoeffEW("CHq3R",0,2), getSMEFTCoeffEW("CHq3R",1,2) }; 
+            1. , getSMEFTCoeff("Clq3R",2,2,0,0,muRG), getSMEFTCoeff("Clq3R",2,2,1,1,muRG), getSMEFTCoeff("Clq3R",2,2,2,2,muRG), getSMEFTCoeff("CHl3R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("Clq3R",2,2,0,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,2,muRG), getSMEFTCoeff("Clq3R",2,2,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) }; 
   
         double NevCiD[10][14] = {  
             {3018.15 , 9722345573., 1090165779., 742669., 178721805., 159786245., 18922262., 13299., -2826031094., 73536081., -61876909., -44663256., 1188015., -1087359.},  
