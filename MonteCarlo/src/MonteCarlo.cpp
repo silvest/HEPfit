@@ -343,9 +343,41 @@ void MonteCarlo::Run(const int rank) {
                         for (unsigned int j = i; j < Npars; j++) {
                         // calculate Hessian matrix element
                         Hessian.assign(i, j, -MCEngine.SecondDerivative(MCEngine.GetParameter(i), MCEngine.GetParameter(j), point));
+                        
+                        // save the symmetric entry too
+                        Hessian.assign(j, i, Hessian(i, j) );
+                        
                         //if (fabs(Hessian(i, j))/n[i]/n[j] > .1)
                             std::cout << "Corr(" << MCEngine.GetParameter(i).GetName() << "," << MCEngine.GetParameter(j).GetName() << ") = " << Hessian(i, j)/n[i]/n[j] << std::endl;
                         }
+                
+                std::cout << std::endl; 
+                std::cout << " ---------------------------------------------------------- "<< std::endl;
+                std::cout << " Full Hessian matrix as observable"<< std::endl;
+                std::cout << std::endl;   
+                                
+                std::streamsize ss_prec = std::cout.precision();
+                
+                std::cout << "ObservablesWithCovarianceInverse Hessian "<<Npars<< std::endl;
+                for (unsigned int i = 0; i < Npars; i++) {
+                    std::cout << "Observable " << MCEngine.GetParameter(i).GetName() << "_Hess  " << MCEngine.GetParameter(i).GetName()<< "    " << MCEngine.GetParameter(i).GetName() << "  1. -1. MCMC weight  0.  1.  0." << std::endl;
+                }
+                
+                // Increase precision
+                std::cout << std::setprecision(15);
+                
+                for (unsigned int i = 0; i < Npars; i++){
+                        // Write the entries of each row consecutively 
+                        for (unsigned int j = 0; j < Npars; j++) {                        
+                            std::cout << Hessian(i, j) << "  ";
+                        }
+                        // Next row
+                        std::cout << std::endl;
+                }
+                                
+                // Restore original precision
+                std::cout << std::setprecision(ss_prec);
+                
                 return;
             }
 
