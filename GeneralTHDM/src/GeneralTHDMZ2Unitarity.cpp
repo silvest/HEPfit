@@ -1218,3 +1218,16 @@ double R1p11odd_Z2::computeThValue()
     else
         return 0.009; // To allow perturbativity constraints as stringent as 1%
 }
+
+
+///////////////////////////////////////////////////////////////////////////
+// An observable for tanb
+
+tanbetaZ2::tanbetaZ2(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDMZ2(static_cast<const GeneralTHDMZ2*> (&SM_i))
+{}
+
+double tanbetaZ2::computeThValue()
+{
+    return myGTHDMZ2->gettanb_Z2();
+}

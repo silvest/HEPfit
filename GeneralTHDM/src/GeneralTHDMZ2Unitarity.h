@@ -624,4 +624,30 @@ private:
     const GeneralTHDMZ2 * myGTHDMZ2;
 };
 
+
+///////////////////////////////////////////////////////////////////////////
+// An observable for tanb
+
+/**
+ * @class tanbetaZ2
+ * @ingroup GeneralTHDM
+ * @brief The tangent of beta.
+ */
+class tanbetaZ2: public ThObservable {
+public:
+
+    /**
+     * @brief tanbetaZ2 constructor.
+     */
+    tanbetaZ2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$ \tan(\beta) @f$
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDMZ2 * myGTHDMZ2;
+};
+
 #endif /* GENERALTHDMZ2UNITARITY_H */

@@ -7394,6 +7394,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["R1p11eveM_Z2"] = boost::factory<R1p11eveM_Z2*>();
     obsThFactory["R1p11odd_Z2"]  = boost::factory<R1p11odd_Z2*>();
 
+    obsThFactory["tanbetaZ2"]  = boost::factory<tanbetaZ2*>();
+
     obsThFactory["perturbativity1_GTHDM"] = boost::factory<perturbativity1_GTHDM*>();
     obsThFactory["perturbativity2_GTHDM"] = boost::factory<perturbativity2_GTHDM*>();
 
