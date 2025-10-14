@@ -248,6 +248,6 @@ var NAVTREEINDEX34 =
 "d2/d5b/classrh__gaga___g_m.html#ac0fb3ef4d5bfe86dd648f935dfe6bbbe":[4,8,297,0],
 "d2/d5b/classrh__gaga___g_m.html#adfe4fb7560564b330c149de303f75461":[4,8,297,2],
 "d2/d5c/class_general_t_h_d_m_heavy_higgs.html":[27,0,783],
-"d2/d5d/class_t_w_gctq1.html":[27,0,2965],
-"d2/d5d/class_t_w_gctq1.html#a045c9b84069aa0faceef0c3e88fab031":[27,0,2965,2]
+"d2/d5d/class_t_w_gctq1.html":[27,0,2966],
+"d2/d5d/class_t_w_gctq1.html#a045c9b84069aa0faceef0c3e88fab031":[27,0,2966,2]
 };

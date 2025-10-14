@@ -3226,6 +3226,7 @@ var hierarchy =
       [ "tH_tchan", "dd/dc0/classt_h__tchan.html", null ],
       [ "tanbeta", "df/d2d/classtanbeta.html", null ],
       [ "tanbetaGM", "d2/d4a/classtanbeta_g_m.html", null ],
+      [ "tanbetaZ2", "db/d7c/classtanbeta_z2.html", null ],
       [ "tauKnu_o_tauPnu", "d9/ddc/classtau_knu__o__tau_pnu.html", null ],
       [ "tau_3e", "d9/d23/classtau__3e.html", null ],
       [ "tau_3mu", "d2/d8a/classtau__3mu.html", null ],

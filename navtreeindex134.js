@@ -1,5 +1,9 @@
 var NAVTREEINDEX134 =
 {
+"df/d15/class_higgs_kigen.html#aac7e035735068f038f55d90d81bb7abb":[4,13,77,344],
+"df/d15/class_higgs_kigen.html#aac9ec93aaa35108879b2de1267f3e520":[4,13,77,287],
+"df/d15/class_higgs_kigen.html#aacc461435bc00fe652de4e587a77c8ae":[4,13,77,364],
+"df/d15/class_higgs_kigen.html#aad3d87d547f3b1ae08da8f27c7472f0a":[4,13,77,361],
 "df/d15/class_higgs_kigen.html#aad7c8c5fbcfd4aaae53377af8b3fa789":[4,13,77,126],
 "df/d15/class_higgs_kigen.html#aad83319b97fc024277a39fd075ff7bd9":[4,13,77,33],
 "df/d15/class_higgs_kigen.html#aad998064dc4e67e5e1c2a92028cabb86":[4,13,77,7],
@@ -156,12 +160,12 @@ var NAVTREEINDEX134 =
 "df/d19/class_aux_obs_n_p12.html#a8ac22709f0066bf6653be76f809ad250":[27,0,152,0],
 "df/d19/class_aux_obs_n_p12.html#adfb9d91fc339dbc8dfee2b24c0d39b41":[27,0,152,1],
 "df/d19/class_aux_obs_n_p12.html#aed80c77fe764140e580e6bb646a393e4":[27,0,152,2],
-"df/d1a/class_t_w_gc_qe.html":[27,0,2943],
-"df/d1a/class_t_w_gc_qe.html#a49987368e346a1b0689aac0cacca702a":[27,0,2943,2],
-"df/d1a/class_t_w_gc_qe.html#a5deaf452ad5ec3972647c5e4485b8e11":[27,0,2943,4],
-"df/d1a/class_t_w_gc_qe.html#a8a4d0b57fd003f8e49b54ad20b925069":[27,0,2943,1],
-"df/d1a/class_t_w_gc_qe.html#a95b13acfe7d336c574133b0c43f94db0":[27,0,2943,3],
-"df/d1a/class_t_w_gc_qe.html#aff53c9656c7ada5abc0d39f8aa14cb5c":[27,0,2943,0],
+"df/d1a/class_t_w_gc_qe.html":[27,0,2944],
+"df/d1a/class_t_w_gc_qe.html#a49987368e346a1b0689aac0cacca702a":[27,0,2944,2],
+"df/d1a/class_t_w_gc_qe.html#a5deaf452ad5ec3972647c5e4485b8e11":[27,0,2944,4],
+"df/d1a/class_t_w_gc_qe.html#a8a4d0b57fd003f8e49b54ad20b925069":[27,0,2944,1],
+"df/d1a/class_t_w_gc_qe.html#a95b13acfe7d336c574133b0c43f94db0":[27,0,2944,3],
+"df/d1a/class_t_w_gc_qe.html#aff53c9656c7ada5abc0d39f8aa14cb5c":[27,0,2944,0],
 "df/d20/class_flavour_wilson_coefficient___d_f2___c_d.html":[27,0,714],
 "df/d20/class_flavour_wilson_coefficient___d_f2___c_d.html#a282f46285aa082735cb746839323fc7a":[27,0,714,4],
 "df/d20/class_flavour_wilson_coefficient___d_f2___c_d.html#a40c4623276ddbb31ad08df24a991f7dc":[27,0,714,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX134 =
 "df/d2f/class_general_t_h_d_m_matching.html#a6322ed4bfacef5b36f507db0b9200ac9":[27,0,785,8],
 "df/d2f/class_general_t_h_d_m_matching.html#a6351de8b7ca6758f6406141956464815":[27,0,785,4],
 "df/d2f/class_general_t_h_d_m_matching.html#a7117bb6f49eb30824b14501d8574919d":[27,0,785,1],
-"df/d2f/class_general_t_h_d_m_matching.html#a73be7a74c48b3253ef7950e67267e4e3":[27,0,785,31],
-"df/d2f/class_general_t_h_d_m_matching.html#a75f443ad21561d3a112167e47b3b1be0":[27,0,785,49],
-"df/d2f/class_general_t_h_d_m_matching.html#a7ac94ff247132a18ac4c9fa03e8f07bd":[27,0,785,11],
-"df/d2f/class_general_t_h_d_m_matching.html#a858c336a4c4604f900da7ebc19e4b52e":[27,0,785,56],
-"df/d2f/class_general_t_h_d_m_matching.html#a867934cc986abdf6d5c55c3b858f1865":[27,0,785,46]
+"df/d2f/class_general_t_h_d_m_matching.html#a73be7a74c48b3253ef7950e67267e4e3":[27,0,785,31]
 };
