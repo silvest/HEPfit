@@ -44864,13 +44864,12 @@ const double NPSMEFTd6General::AuxObs_NP5() const {
 }
 
 const double NPSMEFTd6General::AuxObs_NP6() const {
-    // FCC-hh 84 TeV high-E observables, except NC and CC DY
+    // FCC-hh 84 TeV high-E observables, except NC and CC DY, and dijet (including bb, cc)
 
     double Chi2Tot;
 
     Chi2Tot = chi2FCChh4Top() + chi2FCChhHtt() + chi2FCChhZtt() +chi2FCChhtt() + chi2FCChhtb()
-            + chi2FCChhHW() + chi2FCChhWW()
-            + chi2FCChhjj() + chi2FCChhbbcc();
+            + chi2FCChhHW() + chi2FCChhWW();
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
@@ -44889,11 +44888,11 @@ const double NPSMEFTd6General::AuxObs_NP7() const {
 }
 
 const double NPSMEFTd6General::AuxObs_NP8() const {
-    // To be used for some temporary observable
+    // FCC-hh 84 TeV high-E observables: dijet (including bb, cc)
 
     double Chi2Tot;
 
-    Chi2Tot = 0.0;
+    Chi2Tot = chi2FCChhjj() + chi2FCChhbbcc();
 
     // To be used as Gaussian observable with mean=0, var=1 I must return the sqrt.
     return sqrt(Chi2Tot);
