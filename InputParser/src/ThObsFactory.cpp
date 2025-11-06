@@ -6592,6 +6592,20 @@ ThObsFactory::ThObsFactory()
 
     obsThFactory["DC9_hlambda"] = bind(boost::factory<DC9_hlambda*>(), _1, StandardModel::B_D, StandardModel::K_0, StandardModel::MU);
     
+    //----- b to Xc lnu -----
+    obsThFactory["Q2moment1_BClnu"] = bind(boost::factory<Q2moments_BClnu*>(), _1, StandardModel::B_D, 1);
+    obsThFactory["Q2moment2_BClnu"] = bind(boost::factory<Q2moments_BClnu*>(), _1, StandardModel::B_D, 2);
+    obsThFactory["Q2moment3_BClnu"] = bind(boost::factory<Q2moments_BClnu*>(), _1, StandardModel::B_D, 3);
+    obsThFactory["Elmoment1_BClnu"] = bind(boost::factory<Elmoments_BClnu*>(), _1, StandardModel::B_D, 1);
+    obsThFactory["Elmoment2_BClnu"] = bind(boost::factory<Elmoments_BClnu*>(), _1, StandardModel::B_D, 2);
+    obsThFactory["Elmoment3_BClnu"] = bind(boost::factory<Elmoments_BClnu*>(), _1, StandardModel::B_D, 3);
+    obsThFactory["MXmoment1_BClnu"] = bind(boost::factory<MXmoments_BClnu*>(), _1, StandardModel::B_D, 1);
+    obsThFactory["MXmoment2_BClnu"] = bind(boost::factory<MXmoments_BClnu*>(), _1, StandardModel::B_D, 2);
+    obsThFactory["MXmoment3_BClnu"] = bind(boost::factory<MXmoments_BClnu*>(), _1, StandardModel::B_D, 3);
+
+    obsThFactory["PartialAverageBR_BClnu"] = bind(boost::factory<PartialAverageBR_BClnu*>(), _1, StandardModel::B_D);
+    obsThFactory["Vcb"] = bind(boost::factory<Vcb*>(), _1, StandardModel::B_D);
+    
     //----- B to K nunu-----
     obsThFactory["BR_BpKpnunu"] = bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, QCD::NEUTRINO_1); // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
     obsThFactory["BR_BpKstarpnunu"] = bind(boost::factory<BR_MVll*>(), _1, StandardModel::B_P, StandardModel::K_star_P, QCD::NEUTRINO_1); // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?

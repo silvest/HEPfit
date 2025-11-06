@@ -19,6 +19,7 @@ class MPll;
 class MVgamma;
 class MVlnu;
 class MPlnu;
+class BClnu;
 class AmpDB2;
 #include "QCD.h"
 #include <boost/tuple/tuple.hpp>
@@ -256,6 +257,16 @@ public:
     MPlnu& getMPlnu(QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) const;
 
     /**
+     * @brief Returns the initial and final state dependent object for \f$ B \to P \ell \nu \f$.
+     * @param[in] meson_i specifies the meson in the initial state
+     * @param[in] meson_j specifies the meson in the final state
+     * @param[in] lepton_i specifies the lepton in the final state
+     * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \ell \nu \f$
+     *
+     */
+    BClnu& getBClnu(QCD::meson meson_i) const;
+
+    /**
      * @brief sets the update flag for the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
      * @param[in] meson_i specifies the meson in the initial state
      * @param[in] vector_i specifies the vector in the final state
@@ -390,6 +401,7 @@ private:
     mutable std::map<std::vector<int>, std::shared_ptr<MVgamma> > MVgammaMap;
     mutable std::map<std::vector<int>, std::shared_ptr<MPll> > MPllMap;
     mutable std::map<std::vector<int>, std::shared_ptr<MPlnu> > MPlnuMap;
+    mutable std::map<std::vector<int>, std::shared_ptr<BClnu> > BClnuMap;
     mutable std::map<std::vector<int>, std::shared_ptr<AmpDB2> > AmpDB2Map;
     mutable std::map<std::vector<int>, bool> flagUpdateMap;
 

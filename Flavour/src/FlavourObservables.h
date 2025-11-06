@@ -45,6 +45,7 @@
 #include "BXqllObservables.h"
 #include "MVlnuObservables.h"
 #include "MPlnuObservables.h"
+#include "BClnuObservables.h"
 #include "Bdmumu.h"
 #include "Bsmumu.h"
 #include "BR_Kppnunu.h"

@@ -17,6 +17,7 @@
 #include "MVgamma.h"
 #include "MVlnu.h"
 #include "MPlnu.h"
+#include "BClnu.h" 
 #include "AmpDB2.h"
 
 Flavour::Flavour(const StandardModel& SM_i)
@@ -294,6 +295,11 @@ MPll& Flavour::getMPll(QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_
 //    }
 //    return *MPllMap.at(key);
     return getM<MPll>(MPllMap, meson_i, vector_i, lep_i);
+}
+
+BClnu& Flavour::getBClnu(QCD::meson meson_i) const
+{
+    return getM<BClnu>(BClnuMap, meson_i);
 }
 
 template <typename T, typename... Args>
