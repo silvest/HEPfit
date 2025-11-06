@@ -15,9 +15,10 @@ var searchData=
   ['vbfhtautau_12',['VBFHtautau',['../df/d40/class_v_b_f_htautau.html',1,'']]],
   ['vbfhww_13',['VBFHWW',['../de/d20/class_v_b_f_h_w_w.html',1,'']]],
   ['vbfhzz_14',['VBFHZZ',['../d3/da8/class_v_b_f_h_z_z.html',1,'']]],
-  ['vckm_15',['VCKM',['../d8/de1/class_v_c_k_m.html',1,'']]],
-  ['vectorlikearray_16',['VectorlikeArray',['../de/da2/class_b_o_l_1_1_vectorlike_array.html',1,'BOL']]],
-  ['vm_17',['Vm',['../db/d76/class_vm.html',1,'']]],
-  ['vp_18',['Vp',['../d3/dbc/class_vp.html',1,'']]],
-  ['vphigm_19',['vPhiGM',['../d7/d91/classv_phi_g_m.html',1,'']]]
+  ['vcb_15',['Vcb',['../d1/dbd/class_vcb.html',1,'']]],
+  ['vckm_16',['VCKM',['../d8/de1/class_v_c_k_m.html',1,'']]],
+  ['vectorlikearray_17',['VectorlikeArray',['../de/da2/class_b_o_l_1_1_vectorlike_array.html',1,'BOL']]],
+  ['vm_18',['Vm',['../db/d76/class_vm.html',1,'']]],
+  ['vp_19',['Vp',['../d3/dbc/class_vp.html',1,'']]],
+  ['vphigm_20',['vPhiGM',['../d7/d91/classv_phi_g_m.html',1,'']]]
 ];

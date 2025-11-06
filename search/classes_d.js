@@ -414,5 +414,6 @@ var searchData=
   ['mvlnu_411',['MVlnu',['../d6/d7b/class_m_vlnu.html',1,'']]],
   ['mw_412',['Mw',['../dc/dc7/class_mw.html',1,'']]],
   ['mw_5fdrho_413',['Mw_dRho',['../de/d02/class_mw__d_rho.html',1,'']]],
-  ['mwthdm_414',['MWTHDM',['../d8/d05/class_m_w_t_h_d_m.html',1,'']]]
+  ['mwthdm_414',['MWTHDM',['../d8/d05/class_m_w_t_h_d_m.html',1,'']]],
+  ['mxmoments_5fbclnu_415',['MXmoments_BClnu',['../dc/d7e/class_m_xmoments___b_clnu.html',1,'']]]
 ];
