@@ -3982,7 +3982,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHL111(const StandardModel& SM_i);
+    CEWHL111(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHL111 class.
@@ -3994,10 +3994,10 @@ public:
      * @return @f$(\hat{C}_{HL}^{(1)})_{11}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
     
 private:
+    const NPbase * myNPbase;
+    const double mu;
 
 
 };
@@ -4018,7 +4018,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHL122(const StandardModel& SM_i);
+    CEWHL122(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHL122 class.
@@ -4030,11 +4030,10 @@ public:
      * @return @f$(\hat{C}_{HL}^{(1)})_{22}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4054,7 +4053,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHL133(const StandardModel& SM_i);
+    CEWHL133(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHL133 class.
@@ -4066,11 +4065,10 @@ public:
      * @return @f$(\hat{C}_{HL}^{(1)})_{33}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4091,7 +4089,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHL311(const StandardModel& SM_i);
+    CEWHL311(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHL311 class.
@@ -4103,11 +4101,10 @@ public:
      * @return @f$(\hat{C}_{HL}^{(3)})_{11}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4127,7 +4124,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHL322(const StandardModel& SM_i);
+    CEWHL322(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHL322 class.
@@ -4139,11 +4136,10 @@ public:
      * @return @f$(\hat{C}_{HL}^{(3)})_{22}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4163,7 +4159,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHL333(const StandardModel& SM_i);
+    CEWHL333(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHL333 class.
@@ -4175,11 +4171,10 @@ public:
      * @return @f$(\hat{C}_{HL}^{(3)})_{33}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4200,7 +4195,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ111(const StandardModel& SM_i);
+    CEWHQ111(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ111 class.
@@ -4212,11 +4207,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(1)})_{11}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4236,7 +4230,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ122(const StandardModel& SM_i);
+    CEWHQ122(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ122 class.
@@ -4248,11 +4242,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(1)})_{22}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4272,7 +4265,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ133(const StandardModel& SM_i);
+    CEWHQ133(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ133 class.
@@ -4284,11 +4277,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(1)})_{33}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4309,7 +4301,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ311(const StandardModel& SM_i);
+    CEWHQ311(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ311 class.
@@ -4321,11 +4313,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(3)})_{11}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4345,7 +4336,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ322(const StandardModel& SM_i);
+    CEWHQ322(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ322 class.
@@ -4357,11 +4348,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(3)})_{22}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4381,7 +4371,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ333(const StandardModel& SM_i);
+    CEWHQ333(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ333 class.
@@ -4393,11 +4383,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(3)})_{33}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4418,7 +4407,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQd33(const StandardModel& SM_i);
+    CEWHQd33(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQd33 class.
@@ -4430,11 +4419,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(d)})_{33}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4454,7 +4442,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQu33(const StandardModel& SM_i);
+    CEWHQu33(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQu33 class.
@@ -4466,11 +4454,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(u)})_{33}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4491,7 +4478,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHe11(const StandardModel& SM_i);
+    CEWHe11(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHe11 class.
@@ -4503,11 +4490,10 @@ public:
      * @return @f$(\hat{C}_{He})_{11}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4528,7 +4514,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHe22(const StandardModel& SM_i);
+    CEWHe22(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHe22 class.
@@ -4540,11 +4526,10 @@ public:
      * @return @f$(\hat{C}_{He})_{22}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4565,7 +4550,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHe33(const StandardModel& SM_i);
+    CEWHe33(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHe33 class.
@@ -4577,11 +4562,10 @@ public:
      * @return @f$(\hat{C}_{He})_{33}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4602,7 +4586,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHu11(const StandardModel& SM_i);
+    CEWHu11(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHu11 class.
@@ -4614,11 +4598,10 @@ public:
      * @return @f$(\hat{C}_{Hu})_{11}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4639,7 +4622,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHu22(const StandardModel& SM_i);
+    CEWHu22(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHu22 class.
@@ -4651,11 +4634,10 @@ public:
      * @return @f$(\hat{C}_{Hu})_{22}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4676,7 +4658,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHu33(const StandardModel& SM_i);
+    CEWHu33(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHu33 class.
@@ -4688,11 +4670,10 @@ public:
      * @return @f$(\hat{C}_{Hu})_{33}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4713,7 +4694,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHd11(const StandardModel& SM_i);
+    CEWHd11(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHd11 class.
@@ -4725,11 +4706,10 @@ public:
      * @return @f$(\hat{C}_{Hd})_{11}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4750,7 +4730,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHd22(const StandardModel& SM_i);
+    CEWHd22(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHd22 class.
@@ -4762,11 +4742,10 @@ public:
      * @return @f$(\hat{C}_{Hd})_{22}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+         
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4787,7 +4766,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHd33(const StandardModel& SM_i);
+    CEWHd33(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHd33 class.
@@ -4799,11 +4778,10 @@ public:
      * @return @f$(\hat{C}_{Hd})_{33}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4827,7 +4805,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ1uu(const StandardModel& SM_i);
+    CEWHQ1uu(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ1uu class.
@@ -4839,11 +4817,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4863,7 +4840,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ1cc(const StandardModel& SM_i);
+    CEWHQ1cc(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ1cc class.
@@ -4875,11 +4852,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4899,7 +4875,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ1tt(const StandardModel& SM_i);
+    CEWHQ1tt(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ1tt class.
@@ -4911,11 +4887,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4935,7 +4910,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ1dd(const StandardModel& SM_i);
+    CEWHQ1dd(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ1dd class.
@@ -4947,11 +4922,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -4971,7 +4945,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ1ss(const StandardModel& SM_i);
+    CEWHQ1ss(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ1ss class.
@@ -4983,11 +4957,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5007,7 +4980,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ1bb(const StandardModel& SM_i);
+    CEWHQ1bb(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ1bb class.
@@ -5019,11 +4992,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5044,7 +5016,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ3uu(const StandardModel& SM_i);
+    CEWHQ3uu(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ3uu class.
@@ -5056,11 +5028,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5080,7 +5051,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ3cc(const StandardModel& SM_i);
+    CEWHQ3cc(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ3cc class.
@@ -5092,11 +5063,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5116,7 +5086,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ3tt(const StandardModel& SM_i);
+    CEWHQ3tt(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ3tt class.
@@ -5128,11 +5098,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5152,7 +5121,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ3dd(const StandardModel& SM_i);
+    CEWHQ3dd(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ3dd class.
@@ -5164,11 +5133,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5188,7 +5156,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ3ss(const StandardModel& SM_i);
+    CEWHQ3ss(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ3ss class.
@@ -5200,11 +5168,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5224,7 +5191,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHQ3bb(const StandardModel& SM_i);
+    CEWHQ3bb(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHQ3bb class.
@@ -5236,11 +5203,10 @@ public:
      * @return @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5261,7 +5227,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHuuu(const StandardModel& SM_i);
+    CEWHuuu(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHuuu class.
@@ -5273,11 +5239,10 @@ public:
      * @return @f$(\hat{C}_{Hu})_{uu}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5297,7 +5262,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHucc(const StandardModel& SM_i);
+    CEWHucc(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHucc class.
@@ -5309,11 +5274,10 @@ public:
      * @return @f$(\hat{C}_{Hu})_{cc}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5333,7 +5297,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHutt(const StandardModel& SM_i);
+    CEWHutt(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHutt class.
@@ -5345,11 +5309,10 @@ public:
      * @return @f$(\hat{C}_{Hu})_{tt}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5371,7 +5334,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHddd(const StandardModel& SM_i);
+    CEWHddd(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHddd class.
@@ -5383,11 +5346,10 @@ public:
      * @return @f$(\hat{C}_{Hd})_{dd}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5407,7 +5369,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHdss(const StandardModel& SM_i);
+    CEWHdss(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHdss class.
@@ -5419,11 +5381,10 @@ public:
      * @return @f$(\hat{C}_{Hd})_{ss}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 
@@ -5443,7 +5404,7 @@ public:
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    CEWHdbb(const StandardModel& SM_i);
+    CEWHdbb(const StandardModel& SM_i, const double mu_i);
       
     /**
      * @brief Destructor of the CEWHdbb class.
@@ -5455,11 +5416,10 @@ public:
      * @return @f$(\hat{C}_{Hd})_{bb}@f$
      */
     double computeThValue();
-      
-    const NPbase * myNPbase;
-    
+          
 private:
-
+    const NPbase * myNPbase;
+    const double mu;
 
 };
 

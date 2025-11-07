@@ -2630,11 +2630,13 @@ double oblY::computeThValue()
 /* -------------------------------------*/
 
 
-CEWHL111::CEWHL111(const StandardModel& SM_i):
+CEWHL111::CEWHL111(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHL111::~CEWHL111()
@@ -2642,16 +2644,18 @@ CEWHL111::~CEWHL111()
 
 double CEWHL111::computeThValue()
 {    
-    return (myNPbase->CEWHL111());
+    return (myNPbase->CEWHL111(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHL122::CEWHL122(const StandardModel& SM_i):
+CEWHL122::CEWHL122(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHL122::~CEWHL122()
@@ -2659,16 +2663,18 @@ CEWHL122::~CEWHL122()
 
 double CEWHL122::computeThValue()
 {    
-    return (myNPbase->CEWHL122());
+    return (myNPbase->CEWHL122(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHL133::CEWHL133(const StandardModel& SM_i):
+CEWHL133::CEWHL133(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHL133::~CEWHL133()
@@ -2676,16 +2682,18 @@ CEWHL133::~CEWHL133()
 
 double CEWHL133::computeThValue()
 {    
-    return (myNPbase->CEWHL133());
+    return (myNPbase->CEWHL133(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHL311::CEWHL311(const StandardModel& SM_i):
+CEWHL311::CEWHL311(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHL311::~CEWHL311()
@@ -2693,16 +2701,18 @@ CEWHL311::~CEWHL311()
 
 double CEWHL311::computeThValue()
 {    
-    return (myNPbase->CEWHL311());
+    return (myNPbase->CEWHL311(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHL322::CEWHL322(const StandardModel& SM_i):
+CEWHL322::CEWHL322(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHL322::~CEWHL322()
@@ -2710,16 +2720,18 @@ CEWHL322::~CEWHL322()
 
 double CEWHL322::computeThValue()
 {    
-    return (myNPbase->CEWHL322());
+    return (myNPbase->CEWHL322(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHL333::CEWHL333(const StandardModel& SM_i):
+CEWHL333::CEWHL333(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHL333::~CEWHL333()
@@ -2727,16 +2739,18 @@ CEWHL333::~CEWHL333()
 
 double CEWHL333::computeThValue()
 {    
-    return (myNPbase->CEWHL333());
+    return (myNPbase->CEWHL333(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHQ111::CEWHQ111(const StandardModel& SM_i):
+CEWHQ111::CEWHQ111(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ111::~CEWHQ111()
@@ -2744,16 +2758,18 @@ CEWHQ111::~CEWHQ111()
 
 double CEWHQ111::computeThValue()
 {    
-    return (myNPbase->CEWHQ111());
+    return (myNPbase->CEWHQ111(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHQ122::CEWHQ122(const StandardModel& SM_i):
+CEWHQ122::CEWHQ122(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ122::~CEWHQ122()
@@ -2761,16 +2777,18 @@ CEWHQ122::~CEWHQ122()
 
 double CEWHQ122::computeThValue()
 {    
-    return (myNPbase->CEWHQ122());
+    return (myNPbase->CEWHQ122(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHQ133::CEWHQ133(const StandardModel& SM_i):
+CEWHQ133::CEWHQ133(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ133::~CEWHQ133()
@@ -2778,16 +2796,18 @@ CEWHQ133::~CEWHQ133()
 
 double CEWHQ133::computeThValue()
 {    
-    return (myNPbase->CEWHQ133());
+    return (myNPbase->CEWHQ133(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHQ311::CEWHQ311(const StandardModel& SM_i):
+CEWHQ311::CEWHQ311(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ311::~CEWHQ311()
@@ -2795,16 +2815,18 @@ CEWHQ311::~CEWHQ311()
 
 double CEWHQ311::computeThValue()
 {    
-    return (myNPbase->CEWHQ311());
+    return (myNPbase->CEWHQ311(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHQ322::CEWHQ322(const StandardModel& SM_i):
+CEWHQ322::CEWHQ322(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ322::~CEWHQ322()
@@ -2812,16 +2834,18 @@ CEWHQ322::~CEWHQ322()
 
 double CEWHQ322::computeThValue()
 {    
-    return (myNPbase->CEWHQ322());
+    return (myNPbase->CEWHQ322(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHQ333::CEWHQ333(const StandardModel& SM_i):
+CEWHQ333::CEWHQ333(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ333::~CEWHQ333()
@@ -2829,16 +2853,18 @@ CEWHQ333::~CEWHQ333()
 
 double CEWHQ333::computeThValue()
 {    
-    return (myNPbase->CEWHQ333());
+    return (myNPbase->CEWHQ333(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHQd33::CEWHQd33(const StandardModel& SM_i):
+CEWHQd33::CEWHQd33(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQd33::~CEWHQd33()
@@ -2846,17 +2872,19 @@ CEWHQd33::~CEWHQd33()
 
 double CEWHQd33::computeThValue()
 {    
-    return (myNPbase->CEWHQd33());
+    return (myNPbase->CEWHQd33(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQu33::CEWHQu33(const StandardModel& SM_i):
+CEWHQu33::CEWHQu33(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQu33::~CEWHQu33()
@@ -2864,16 +2892,18 @@ CEWHQu33::~CEWHQu33()
 
 double CEWHQu33::computeThValue()
 {    
-    return (myNPbase->CEWHQu33());
+    return (myNPbase->CEWHQu33(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHe11::CEWHe11(const StandardModel& SM_i):
+CEWHe11::CEWHe11(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHe11::~CEWHe11()
@@ -2881,16 +2911,18 @@ CEWHe11::~CEWHe11()
 
 double CEWHe11::computeThValue()
 {    
-    return (myNPbase->CEWHe11());
+    return (myNPbase->CEWHe11(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHe22::CEWHe22(const StandardModel& SM_i):
+CEWHe22::CEWHe22(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHe22::~CEWHe22()
@@ -2898,16 +2930,18 @@ CEWHe22::~CEWHe22()
 
 double CEWHe22::computeThValue()
 {    
-    return (myNPbase->CEWHe22());
+    return (myNPbase->CEWHe22(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHe33::CEWHe33(const StandardModel& SM_i):
+CEWHe33::CEWHe33(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHe33::~CEWHe33()
@@ -2915,16 +2949,18 @@ CEWHe33::~CEWHe33()
 
 double CEWHe33::computeThValue()
 {    
-    return (myNPbase->CEWHe33());
+    return (myNPbase->CEWHe33(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHu11::CEWHu11(const StandardModel& SM_i):
+CEWHu11::CEWHu11(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHu11::~CEWHu11()
@@ -2932,16 +2968,18 @@ CEWHu11::~CEWHu11()
 
 double CEWHu11::computeThValue()
 {    
-    return (myNPbase->CEWHu11());
+    return (myNPbase->CEWHu11(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHu22::CEWHu22(const StandardModel& SM_i):
+CEWHu22::CEWHu22(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHu22::~CEWHu22()
@@ -2949,16 +2987,18 @@ CEWHu22::~CEWHu22()
 
 double CEWHu22::computeThValue()
 {    
-    return (myNPbase->CEWHu22());
+    return (myNPbase->CEWHu22(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHu33::CEWHu33(const StandardModel& SM_i):
+CEWHu33::CEWHu33(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHu33::~CEWHu33()
@@ -2966,16 +3006,18 @@ CEWHu33::~CEWHu33()
 
 double CEWHu33::computeThValue()
 {    
-    return (myNPbase->CEWHu33());
+    return (myNPbase->CEWHu33(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHd11::CEWHd11(const StandardModel& SM_i):
+CEWHd11::CEWHd11(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHd11::~CEWHd11()
@@ -2983,16 +3025,18 @@ CEWHd11::~CEWHd11()
 
 double CEWHd11::computeThValue()
 {    
-    return (myNPbase->CEWHd11());
+    return (myNPbase->CEWHd11(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHd22::CEWHd22(const StandardModel& SM_i):
+CEWHd22::CEWHd22(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHd22::~CEWHd22()
@@ -3000,16 +3044,18 @@ CEWHd22::~CEWHd22()
 
 double CEWHd22::computeThValue()
 {    
-    return (myNPbase->CEWHd22());
+    return (myNPbase->CEWHd22(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHd33::CEWHd33(const StandardModel& SM_i):
+CEWHd33::CEWHd33(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHd33::~CEWHd33()
@@ -3017,17 +3063,19 @@ CEWHd33::~CEWHd33()
 
 double CEWHd33::computeThValue()
 {    
-    return (myNPbase->CEWHd33());
+    return (myNPbase->CEWHd33(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ1uu::CEWHQ1uu(const StandardModel& SM_i):
+CEWHQ1uu::CEWHQ1uu(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ1uu::~CEWHQ1uu()
@@ -3035,17 +3083,19 @@ CEWHQ1uu::~CEWHQ1uu()
 
 double CEWHQ1uu::computeThValue()
 {    
-    return (myNPbase->CEWHQ1uu());
+    return (myNPbase->CEWHQ1uu(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ1cc::CEWHQ1cc(const StandardModel& SM_i):
+CEWHQ1cc::CEWHQ1cc(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ1cc::~CEWHQ1cc()
@@ -3053,17 +3103,19 @@ CEWHQ1cc::~CEWHQ1cc()
 
 double CEWHQ1cc::computeThValue()
 {    
-    return (myNPbase->CEWHQ1cc());
+    return (myNPbase->CEWHQ1cc(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ1tt::CEWHQ1tt(const StandardModel& SM_i):
+CEWHQ1tt::CEWHQ1tt(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ1tt::~CEWHQ1tt()
@@ -3071,16 +3123,18 @@ CEWHQ1tt::~CEWHQ1tt()
 
 double CEWHQ1tt::computeThValue()
 {    
-    return (myNPbase->CEWHQ1tt());
+    return (myNPbase->CEWHQ1tt(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHQ1dd::CEWHQ1dd(const StandardModel& SM_i):
+CEWHQ1dd::CEWHQ1dd(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ1dd::~CEWHQ1dd()
@@ -3088,17 +3142,19 @@ CEWHQ1dd::~CEWHQ1dd()
 
 double CEWHQ1dd::computeThValue()
 {    
-    return (myNPbase->CEWHQ1dd());
+    return (myNPbase->CEWHQ1dd(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ1ss::CEWHQ1ss(const StandardModel& SM_i):
+CEWHQ1ss::CEWHQ1ss(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ1ss::~CEWHQ1ss()
@@ -3106,17 +3162,19 @@ CEWHQ1ss::~CEWHQ1ss()
 
 double CEWHQ1ss::computeThValue()
 {    
-    return (myNPbase->CEWHQ1ss());
+    return (myNPbase->CEWHQ1ss(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ1bb::CEWHQ1bb(const StandardModel& SM_i):
+CEWHQ1bb::CEWHQ1bb(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ1bb::~CEWHQ1bb()
@@ -3124,17 +3182,19 @@ CEWHQ1bb::~CEWHQ1bb()
 
 double CEWHQ1bb::computeThValue()
 {    
-    return (myNPbase->CEWHQ1bb());
+    return (myNPbase->CEWHQ1bb(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ3uu::CEWHQ3uu(const StandardModel& SM_i):
+CEWHQ3uu::CEWHQ3uu(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ3uu::~CEWHQ3uu()
@@ -3142,17 +3202,19 @@ CEWHQ3uu::~CEWHQ3uu()
 
 double CEWHQ3uu::computeThValue()
 {    
-    return (myNPbase->CEWHQ3uu());
+    return (myNPbase->CEWHQ3uu(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ3cc::CEWHQ3cc(const StandardModel& SM_i):
+CEWHQ3cc::CEWHQ3cc(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ3cc::~CEWHQ3cc()
@@ -3160,17 +3222,19 @@ CEWHQ3cc::~CEWHQ3cc()
 
 double CEWHQ3cc::computeThValue()
 {    
-    return (myNPbase->CEWHQ3cc());
+    return (myNPbase->CEWHQ3cc(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ3tt::CEWHQ3tt(const StandardModel& SM_i):
+CEWHQ3tt::CEWHQ3tt(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ3tt::~CEWHQ3tt()
@@ -3178,16 +3242,18 @@ CEWHQ3tt::~CEWHQ3tt()
 
 double CEWHQ3tt::computeThValue()
 {    
-    return (myNPbase->CEWHQ3tt());
+    return (myNPbase->CEWHQ3tt(mu));
 }
 
 /* -------------------------------------*/
 
-CEWHQ3dd::CEWHQ3dd(const StandardModel& SM_i):
+CEWHQ3dd::CEWHQ3dd(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ3dd::~CEWHQ3dd()
@@ -3195,17 +3261,19 @@ CEWHQ3dd::~CEWHQ3dd()
 
 double CEWHQ3dd::computeThValue()
 {    
-    return (myNPbase->CEWHQ3dd());
+    return (myNPbase->CEWHQ3dd(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ3ss::CEWHQ3ss(const StandardModel& SM_i):
+CEWHQ3ss::CEWHQ3ss(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ3ss::~CEWHQ3ss()
@@ -3213,17 +3281,19 @@ CEWHQ3ss::~CEWHQ3ss()
 
 double CEWHQ3ss::computeThValue()
 {    
-    return (myNPbase->CEWHQ3ss());
+    return (myNPbase->CEWHQ3ss(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHQ3bb::CEWHQ3bb(const StandardModel& SM_i):
+CEWHQ3bb::CEWHQ3bb(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHQ3bb::~CEWHQ3bb()
@@ -3231,17 +3301,19 @@ CEWHQ3bb::~CEWHQ3bb()
 
 double CEWHQ3bb::computeThValue()
 {    
-    return (myNPbase->CEWHQ3bb());
+    return (myNPbase->CEWHQ3bb(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHuuu::CEWHuuu(const StandardModel& SM_i):
+CEWHuuu::CEWHuuu(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHuuu::~CEWHuuu()
@@ -3249,17 +3321,19 @@ CEWHuuu::~CEWHuuu()
 
 double CEWHuuu::computeThValue()
 {    
-    return (myNPbase->CEWHuuu());
+    return (myNPbase->CEWHuuu(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHucc::CEWHucc(const StandardModel& SM_i):
+CEWHucc::CEWHucc(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHucc::~CEWHucc()
@@ -3267,17 +3341,19 @@ CEWHucc::~CEWHucc()
 
 double CEWHucc::computeThValue()
 {    
-    return (myNPbase->CEWHucc());
+    return (myNPbase->CEWHucc(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHutt::CEWHutt(const StandardModel& SM_i):
+CEWHutt::CEWHutt(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHutt::~CEWHutt()
@@ -3285,17 +3361,19 @@ CEWHutt::~CEWHutt()
 
 double CEWHutt::computeThValue()
 {    
-    return (myNPbase->CEWHutt());
+    return (myNPbase->CEWHutt(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHddd::CEWHddd(const StandardModel& SM_i):
+CEWHddd::CEWHddd(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHddd::~CEWHddd()
@@ -3303,17 +3381,19 @@ CEWHddd::~CEWHddd()
 
 double CEWHddd::computeThValue()
 {    
-    return (myNPbase->CEWHddd());
+    return (myNPbase->CEWHddd(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHdss::CEWHdss(const StandardModel& SM_i):
+CEWHdss::CEWHdss(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHdss::~CEWHdss()
@@ -3321,17 +3401,19 @@ CEWHdss::~CEWHdss()
 
 double CEWHdss::computeThValue()
 {    
-    return (myNPbase->CEWHdss());
+    return (myNPbase->CEWHdss(mu));
 }
 
 /* -------------------------------------*/
 
 
-CEWHdbb::CEWHdbb(const StandardModel& SM_i):
+CEWHdbb::CEWHdbb(const StandardModel& SM_i, const double mu_i):
 
-        ThObservable(SM_i), 
-        myNPbase(static_cast<const NPbase*> (&SM_i))
-{}
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWHf called with a class whose parent is not NPbase");
+}
 
 
 CEWHdbb::~CEWHdbb()
@@ -3339,7 +3421,7 @@ CEWHdbb::~CEWHdbb()
 
 double CEWHdbb::computeThValue()
 {    
-    return (myNPbase->CEWHdbb());
+    return (myNPbase->CEWHdbb(mu));
 }
 
 /* -------------------------------------*/

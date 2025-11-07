@@ -933,54 +933,105 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltamt"] = boost::factory<dmtRef*>();
 
     //-----  Combinations of Warsaw basis coefficients constrained by EWPO  ----------
-    obsThFactory["CEWHL1_11"] = boost::factory<CEWHL111*>();
-    obsThFactory["CEWHL1_22"] = boost::factory<CEWHL122*>();
-    obsThFactory["CEWHL1_33"] = boost::factory<CEWHL133*>();
-    obsThFactory["CEWHL3_11"] = boost::factory<CEWHL311*>();
-    obsThFactory["CEWHL3_22"] = boost::factory<CEWHL322*>();
-    obsThFactory["CEWHL3_33"] = boost::factory<CEWHL333*>();
-    obsThFactory["CEWHQ1_11"] = boost::factory<CEWHQ111*>();
-    obsThFactory["CEWHQ1_22"] = boost::factory<CEWHQ122*>();
-    obsThFactory["CEWHQ1_33"] = boost::factory<CEWHQ133*>();
-    obsThFactory["CEWHQ3_11"] = boost::factory<CEWHQ311*>();
-    obsThFactory["CEWHQ3_22"] = boost::factory<CEWHQ322*>();
-    obsThFactory["CEWHQ3_33"] = boost::factory<CEWHQ333*>();
-    obsThFactory["CEWHQd_33"] = boost::factory<CEWHQd33*>();
-    obsThFactory["CEWHQu_33"] = boost::factory<CEWHQu33*>();
-    obsThFactory["CEWHe_11"] = boost::factory<CEWHe11*>();
-    obsThFactory["CEWHe_22"] = boost::factory<CEWHe22*>();
-    obsThFactory["CEWHe_33"] = boost::factory<CEWHe33*>();
-    obsThFactory["CEWHu_11"] = boost::factory<CEWHu11*>();
-    obsThFactory["CEWHu_22"] = boost::factory<CEWHu22*>();
-    obsThFactory["CEWHu_33"] = boost::factory<CEWHu33*>();
-    obsThFactory["CEWHd_11"] = boost::factory<CEWHd11*>();
-    obsThFactory["CEWHd_22"] = boost::factory<CEWHd22*>();
-    obsThFactory["CEWHd_33"] = boost::factory<CEWHd33*>();
+    obsThFactory["CEWHL1_11"] = bind(boost::factory<CEWHL111*>(), _1, muEW);
+    obsThFactory["CEWHL1_22"] = bind(boost::factory<CEWHL122*>(), _1, muEW);
+    obsThFactory["CEWHL1_33"] = bind(boost::factory<CEWHL133*>(), _1, muEW);
+    obsThFactory["CEWHL3_11"] = bind(boost::factory<CEWHL311*>(), _1, muEW);
+    obsThFactory["CEWHL3_22"] = bind(boost::factory<CEWHL322*>(), _1, muEW);
+    obsThFactory["CEWHL3_33"] = bind(boost::factory<CEWHL333*>(), _1, muEW);
+    obsThFactory["CEWHQ1_11"] = bind(boost::factory<CEWHQ111*>(), _1, muEW);
+    obsThFactory["CEWHQ1_22"] = bind(boost::factory<CEWHQ122*>(), _1, muEW);
+    obsThFactory["CEWHQ1_33"] = bind(boost::factory<CEWHQ133*>(), _1, muEW);
+    obsThFactory["CEWHQ3_11"] = bind(boost::factory<CEWHQ311*>(), _1, muEW);
+    obsThFactory["CEWHQ3_22"] = bind(boost::factory<CEWHQ322*>(), _1, muEW);
+    obsThFactory["CEWHQ3_33"] = bind(boost::factory<CEWHQ333*>(), _1, muEW);
+    obsThFactory["CEWHQd_33"] = bind(boost::factory<CEWHQd33*>(), _1, muEW);
+    obsThFactory["CEWHQu_33"] = bind(boost::factory<CEWHQu33*>(), _1, muEW);
+    obsThFactory["CEWHe_11"] = bind(boost::factory<CEWHe11*>(), _1, muEW);
+    obsThFactory["CEWHe_22"] = bind(boost::factory<CEWHe22*>(), _1, muEW);
+    obsThFactory["CEWHe_33"] = bind(boost::factory<CEWHe33*>(), _1, muEW);
+    obsThFactory["CEWHu_11"] = bind(boost::factory<CEWHu11*>(), _1, muEW);
+    obsThFactory["CEWHu_22"] = bind(boost::factory<CEWHu22*>(), _1, muEW);
+    obsThFactory["CEWHu_33"] = bind(boost::factory<CEWHu33*>(), _1, muEW);
+    obsThFactory["CEWHd_11"] = bind(boost::factory<CEWHd11*>(), _1, muEW);
+    obsThFactory["CEWHd_22"] = bind(boost::factory<CEWHd22*>(), _1, muEW);
+    obsThFactory["CEWHd_33"] = bind(boost::factory<CEWHd33*>(), _1, muEW);
     
     //-----  The same, in the quark mass basis  ----------
-    obsThFactory["CEWHQ1_uu"] = boost::factory<CEWHQ1uu*>();
-    obsThFactory["CEWHQ1_cc"] = boost::factory<CEWHQ1cc*>();
-    obsThFactory["CEWHQ1_tt"] = boost::factory<CEWHQ1tt*>();
+    obsThFactory["CEWHQ1_uu"] = bind(boost::factory<CEWHQ1uu*>(), _1, muEW);
+    obsThFactory["CEWHQ1_cc"] = bind(boost::factory<CEWHQ1cc*>(), _1, muEW);
+    obsThFactory["CEWHQ1_tt"] = bind(boost::factory<CEWHQ1tt*>(), _1, muEW);
     //
-    obsThFactory["CEWHQ1_dd"] = boost::factory<CEWHQ1dd*>();
-    obsThFactory["CEWHQ1_ss"] = boost::factory<CEWHQ1ss*>();
-    obsThFactory["CEWHQ1_bb"] = boost::factory<CEWHQ1bb*>();
+    obsThFactory["CEWHQ1_dd"] = bind(boost::factory<CEWHQ1dd*>(), _1, muEW);
+    obsThFactory["CEWHQ1_ss"] = bind(boost::factory<CEWHQ1ss*>(), _1, muEW);
+    obsThFactory["CEWHQ1_bb"] = bind(boost::factory<CEWHQ1bb*>(), _1, muEW);
     //
-    obsThFactory["CEWHQ3_uu"] = boost::factory<CEWHQ3uu*>();
-    obsThFactory["CEWHQ3_cc"] = boost::factory<CEWHQ3cc*>();
-    obsThFactory["CEWHQ3_tt"] = boost::factory<CEWHQ3tt*>();
+    obsThFactory["CEWHQ3_uu"] = bind(boost::factory<CEWHQ3uu*>(), _1, muEW);
+    obsThFactory["CEWHQ3_cc"] = bind(boost::factory<CEWHQ3cc*>(), _1, muEW);
+    obsThFactory["CEWHQ3_tt"] = bind(boost::factory<CEWHQ3tt*>(), _1, muEW);
     //
-    obsThFactory["CEWHQ3_dd"] = boost::factory<CEWHQ3dd*>();
-    obsThFactory["CEWHQ3_ss"] = boost::factory<CEWHQ3ss*>();
-    obsThFactory["CEWHQ3_bb"] = boost::factory<CEWHQ3bb*>();
+    obsThFactory["CEWHQ3_dd"] = bind(boost::factory<CEWHQ3dd*>(), _1, muEW);
+    obsThFactory["CEWHQ3_ss"] = bind(boost::factory<CEWHQ3ss*>(), _1, muEW);
+    obsThFactory["CEWHQ3_bb"] = bind(boost::factory<CEWHQ3bb*>(), _1, muEW);
     //    
-    obsThFactory["CEWHu_uu"] = boost::factory<CEWHuuu*>();
-    obsThFactory["CEWHu_cc"] = boost::factory<CEWHucc*>();
-    obsThFactory["CEWHu_tt"] = boost::factory<CEWHutt*>();
+    obsThFactory["CEWHu_uu"] = bind(boost::factory<CEWHuuu*>(), _1, muEW);
+    obsThFactory["CEWHu_cc"] = bind(boost::factory<CEWHucc*>(), _1, muEW);
+    obsThFactory["CEWHu_tt"] = bind(boost::factory<CEWHutt*>(), _1, muEW);
     //
-    obsThFactory["CEWHd_dd"] = boost::factory<CEWHddd*>();
-    obsThFactory["CEWHd_ss"] = boost::factory<CEWHdss*>();
-    obsThFactory["CEWHd_bb"] = boost::factory<CEWHdbb*>();
+    obsThFactory["CEWHd_dd"] = bind(boost::factory<CEWHddd*>(), _1, muEW);
+    obsThFactory["CEWHd_ss"] = bind(boost::factory<CEWHdss*>(), _1, muEW);
+    obsThFactory["CEWHd_bb"] = bind(boost::factory<CEWHdbb*>(), _1, muEW);
+    
+    
+    //-----  Combinations of Warsaw basis coefficients constrained by EWPO  ----------
+    obsThFactory["CEWHL1_11_1TeV"] = bind(boost::factory<CEWHL111*>(), _1, 1000.);
+    obsThFactory["CEWHL1_22_1TeV"] = bind(boost::factory<CEWHL122*>(), _1, 1000.);
+    obsThFactory["CEWHL1_33_1TeV"] = bind(boost::factory<CEWHL133*>(), _1, 1000.);
+    obsThFactory["CEWHL3_11_1TeV"] = bind(boost::factory<CEWHL311*>(), _1, 1000.);
+    obsThFactory["CEWHL3_22_1TeV"] = bind(boost::factory<CEWHL322*>(), _1, 1000.);
+    obsThFactory["CEWHL3_33_1TeV"] = bind(boost::factory<CEWHL333*>(), _1, 1000.);
+    obsThFactory["CEWHQ1_11_1TeV"] = bind(boost::factory<CEWHQ111*>(), _1, 1000.);
+    obsThFactory["CEWHQ1_22_1TeV"] = bind(boost::factory<CEWHQ122*>(), _1, 1000.);
+    obsThFactory["CEWHQ1_33_1TeV"] = bind(boost::factory<CEWHQ133*>(), _1, 1000.);
+    obsThFactory["CEWHQ3_11_1TeV"] = bind(boost::factory<CEWHQ311*>(), _1, 1000.);
+    obsThFactory["CEWHQ3_22_1TeV"] = bind(boost::factory<CEWHQ322*>(), _1, 1000.);
+    obsThFactory["CEWHQ3_33_1TeV"] = bind(boost::factory<CEWHQ333*>(), _1, 1000.);
+    obsThFactory["CEWHQd_33_1TeV"] = bind(boost::factory<CEWHQd33*>(), _1, 1000.);
+    obsThFactory["CEWHQu_33_1TeV"] = bind(boost::factory<CEWHQu33*>(), _1, 1000.);
+    obsThFactory["CEWHe_11_1TeV"] = bind(boost::factory<CEWHe11*>(), _1, 1000.);
+    obsThFactory["CEWHe_22_1TeV"] = bind(boost::factory<CEWHe22*>(), _1, 1000.);
+    obsThFactory["CEWHe_33_1TeV"] = bind(boost::factory<CEWHe33*>(), _1, 1000.);
+    obsThFactory["CEWHu_11_1TeV"] = bind(boost::factory<CEWHu11*>(), _1, 1000.);
+    obsThFactory["CEWHu_22_1TeV"] = bind(boost::factory<CEWHu22*>(), _1, 1000.);
+    obsThFactory["CEWHu_33_1TeV"] = bind(boost::factory<CEWHu33*>(), _1, 1000.);
+    obsThFactory["CEWHd_11_1TeV"] = bind(boost::factory<CEWHd11*>(), _1, 1000.);
+    obsThFactory["CEWHd_22_1TeV"] = bind(boost::factory<CEWHd22*>(), _1, 1000.);
+    obsThFactory["CEWHd_33_1TeV"] = bind(boost::factory<CEWHd33*>(), _1, 1000.);
+    
+    //-----  The same, in the quark mass basis  ----------
+    obsThFactory["CEWHQ1_uu_1TeV"] = bind(boost::factory<CEWHQ1uu*>(), _1, 1000.);
+    obsThFactory["CEWHQ1_cc_1TeV"] = bind(boost::factory<CEWHQ1cc*>(), _1, 1000.);
+    obsThFactory["CEWHQ1_tt_1TeV"] = bind(boost::factory<CEWHQ1tt*>(), _1, 1000.);
+    //
+    obsThFactory["CEWHQ1_dd_1TeV"] = bind(boost::factory<CEWHQ1dd*>(), _1, 1000.);
+    obsThFactory["CEWHQ1_ss_1TeV"] = bind(boost::factory<CEWHQ1ss*>(), _1, 1000.);
+    obsThFactory["CEWHQ1_bb_1TeV"] = bind(boost::factory<CEWHQ1bb*>(), _1, 1000.);
+    //
+    obsThFactory["CEWHQ3_uu_1TeV"] = bind(boost::factory<CEWHQ3uu*>(), _1, 1000.);
+    obsThFactory["CEWHQ3_cc_1TeV"] = bind(boost::factory<CEWHQ3cc*>(), _1, 1000.);
+    obsThFactory["CEWHQ3_tt_1TeV"] = bind(boost::factory<CEWHQ3tt*>(), _1, 1000.);
+    //
+    obsThFactory["CEWHQ3_dd_1TeV"] = bind(boost::factory<CEWHQ3dd*>(), _1, 1000.);
+    obsThFactory["CEWHQ3_ss_1TeV"] = bind(boost::factory<CEWHQ3ss*>(), _1, 1000.);
+    obsThFactory["CEWHQ3_bb_1TeV"] = bind(boost::factory<CEWHQ3bb*>(), _1, 1000.);
+    //    
+    obsThFactory["CEWHu_uu_1TeV"] = bind(boost::factory<CEWHuuu*>(), _1, 1000.);
+    obsThFactory["CEWHu_cc_1TeV"] = bind(boost::factory<CEWHucc*>(), _1, 1000.);
+    obsThFactory["CEWHu_tt_1TeV"] = bind(boost::factory<CEWHutt*>(), _1, 1000.);
+    //
+    obsThFactory["CEWHd_dd_1TeV"] = bind(boost::factory<CEWHddd*>(), _1, 1000.);
+    obsThFactory["CEWHd_ss_1TeV"] = bind(boost::factory<CEWHdss*>(), _1, 1000.);
+    obsThFactory["CEWHd_bb_1TeV"] = bind(boost::factory<CEWHdbb*>(), _1, 1000.);
 
 
     //-----  Auxiliary observables to work with new physics  ----------

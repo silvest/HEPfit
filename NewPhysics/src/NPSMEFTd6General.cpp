@@ -43215,173 +43215,173 @@ const double NPSMEFTd6General::lambz_HB(const double mu) const {
 /////////////Combinations of Warsaw basis coefficients constrained by EWPO////////////////
 //// Flavour properties to be checked ////////////////////////////////////////////////////
 
-const double NPSMEFTd6General::CEWHL111() const {
-    return getSMEFTCoeffEW("CHl1R", 0, 0) + (1.0 / 4.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHL111(const double mu) const {
+    return getSMEFTCoeff("CHl1R", 0, 0, mu) + (1.0 / 4.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHL122() const {
-    return getSMEFTCoeffEW("CHl1R", 1, 1) + (1.0 / 4.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHL122(const double mu) const {
+    return getSMEFTCoeff("CHl1R", 1, 1, mu) + (1.0 / 4.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHL133() const {
-    return getSMEFTCoeffEW("CHl1R", 2, 2) + (1.0 / 4.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHL133(const double mu) const {
+    return getSMEFTCoeff("CHl1R", 2, 2, mu) + (1.0 / 4.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHL311() const {
-    return getSMEFTCoeffEW("CHl3R", 0, 0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHL311(const double mu) const {
+    return getSMEFTCoeff("CHl3R", 0, 0, mu) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHL322() const {
-    return getSMEFTCoeffEW("CHl3R", 1, 1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHL322(const double mu) const {
+    return getSMEFTCoeff("CHl3R", 1, 1, mu) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHL333() const {
-    return getSMEFTCoeffEW("CHl3R", 2, 2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHL333(const double mu) const {
+    return getSMEFTCoeff("CHl3R", 2, 2, mu) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ111() const {
-    return getSMEFTCoeffEW("CHq1R", 0, 0) - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ111(const double mu) const {
+    return getSMEFTCoeff("CHq1R", 0, 0, mu) - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ122() const {
-    return getSMEFTCoeffEW("CHq1R", 1, 1) - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ122(const double mu) const {
+    return getSMEFTCoeff("CHq1R", 1, 1, mu) - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ133() const {
-    return getSMEFTCoeffEW("CHq1R", 2, 2) - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ133(const double mu) const {
+    return getSMEFTCoeff("CHq1R", 2, 2, mu) - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ311() const {
-    return getSMEFTCoeffEW("CHq3R", 0, 0) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHQ311(const double mu) const {
+    return getSMEFTCoeff("CHq3R", 0, 0, mu) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ322() const {
-    return getSMEFTCoeffEW("CHq3R", 1, 1) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHQ322(const double mu) const {
+    return getSMEFTCoeff("CHq3R", 1, 1, mu) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ333() const {
-    return getSMEFTCoeffEW("CHq3R", 2, 2) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHQ333(const double mu) const {
+    return getSMEFTCoeff("CHq3R", 2, 2, mu) + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHQd33() const {
-    return 0.5 * (CEWHQ133() + CEWHQ333());
+const double NPSMEFTd6General::CEWHQd33(const double mu) const {
+    return 0.5 * (CEWHQ133(mu) + CEWHQ333(mu));
 }
 
-const double NPSMEFTd6General::CEWHQu33() const {
-    return 0.5 * (CEWHQ133() - CEWHQ333());
+const double NPSMEFTd6General::CEWHQu33(const double mu) const {
+    return 0.5 * (CEWHQ133(mu) - CEWHQ333(mu));
 }
 
-const double NPSMEFTd6General::CEWHe11() const {
-    return getSMEFTCoeffEW("CHeR", 0, 0) + (1.0 / 2.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHe11(const double mu) const {
+    return getSMEFTCoeff("CHeR", 0, 0, mu) + (1.0 / 2.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHe22() const {
-    return getSMEFTCoeffEW("CHeR", 1, 1) + (1.0 / 2.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHe22(const double mu) const {
+    return getSMEFTCoeff("CHeR", 1, 1, mu) + (1.0 / 2.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHe33() const {
-    return getSMEFTCoeffEW("CHeR", 2, 2) + (1.0 / 2.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHe33(const double mu) const {
+    return getSMEFTCoeff("CHeR", 2, 2, mu) + (1.0 / 2.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHu11() const {
-    return getSMEFTCoeffEW("CHuR", 0, 0) - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHu11(const double mu) const {
+    return getSMEFTCoeff("CHuR", 0, 0, mu) - (1.0 / 3.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHu22() const {
-    return getSMEFTCoeffEW("CHuR", 1, 1) - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHu22(const double mu) const {
+    return getSMEFTCoeff("CHuR", 1, 1, mu) - (1.0 / 3.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHu33() const {
-    return getSMEFTCoeffEW("CHuR", 2, 2) - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHu33(const double mu) const {
+    return getSMEFTCoeff("CHuR", 2, 2, mu) - (1.0 / 3.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHd11() const {
-    return getSMEFTCoeffEW("CHdR", 0, 0) + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHd11(const double mu) const {
+    return getSMEFTCoeff("CHdR", 0, 0, mu) + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHd22() const {
-    return getSMEFTCoeffEW("CHdR", 1, 1) + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHd22(const double mu) const {
+    return getSMEFTCoeff("CHdR", 1, 1, mu) + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHd33() const {
-    return getSMEFTCoeffEW("CHdR", 2, 2) + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHd33(const double mu) const {
+    return getSMEFTCoeff("CHdR", 2, 2, mu) + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
 }
 
 //-----  The same, in the quark mass basis  ----------
 
-const double NPSMEFTd6General::CEWHQ1uu() const {
-    return CHq1EWuu - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ1uu(const double mu) const {
+    return getSMEFTCoeffMB("CHq1", 0, 0, VuLd, VuL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ1cc() const {
-    return CHq1EWcc - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ1cc(const double mu) const {
+    return getSMEFTCoeffMB("CHq1", 1, 1, VuLd, VuL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ1tt() const {
-    return CHq1EWtt - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ1tt(const double mu) const {
+    return getSMEFTCoeffMB("CHq1", 2, 2, VuLd, VuL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ1dd() const {
-    return CHq1EWdd - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ1dd(const double mu) const {
+    return getSMEFTCoeffMB("CHq1", 0, 0, VdLd, VdL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ1ss() const {
-    return CHq1EWss - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ1ss(const double mu) const {
+    return getSMEFTCoeffMB("CHq1", 1, 1, VdLd, VdL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ1bb() const {
-    return CHq1EWbb - (1.0 / 12.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ1bb(const double mu) const {
+    return getSMEFTCoeffMB("CHq1", 2, 2, VdLd, VdL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ3uu() const {
-    return CHq3EWuu + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHQ3uu(const double mu) const {
+    return getSMEFTCoeffMB("CHq3", 0, 0, VuLd, VuL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ3cc() const {
-    return CHq3EWcc + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHQ3cc(const double mu) const {
+    return getSMEFTCoeffMB("CHq3", 1, 1, VuLd, VuL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ3tt() const {
-    return CHq3EWtt + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHQ3tt(const double mu) const {
+    return getSMEFTCoeffMB("CHq3", 2, 2, VuLd, VuL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ3dd() const {
-    return CHq3EWdd + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHQ3dd(const double mu) const {
+    return getSMEFTCoeffMB("CHq3", 0, 0, VdLd, VdL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ3ss() const {
-    return CHq3EWss + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
+const double NPSMEFTd6General::CEWHQ3ss(const double mu) const {
+    return getSMEFTCoeffMB("CHq3", 1, 1, VdLd, VdL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
-const double NPSMEFTd6General::CEWHQ3bb() const {
-    return CHq3EWbb + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeffEW("CHD") + (cW_tree / sW_tree) * getSMEFTCoeffEW("CHWB");
-}
-
-
-const double NPSMEFTd6General::CEWHuuu() const {
-    return CHuEWuu - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
-}
-
-const double NPSMEFTd6General::CEWHucc() const {
-    return CHuEWcc - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
-}
-
-const double NPSMEFTd6General::CEWHutt() const {
-    return CHuEWtt - (1.0 / 3.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHQ3bb(const double mu) const {
+    return getSMEFTCoeffMB("CHq3", 2, 2, VdLd, VdL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
 }
 
 
-const double NPSMEFTd6General::CEWHddd() const {
-    return CHdEWdd + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHuuu(const double mu) const {
+    return getSMEFTCoeffMB("CHu", 0, 0, VuRd, VuR, mu).real() - (1.0 / 3.0) * getSMEFTCoeff("CHD", mu);
 }
 
-const double NPSMEFTd6General::CEWHdss() const {
-    return CHdEWss + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHucc(const double mu) const {
+    return getSMEFTCoeffMB("CHu", 1, 1, VuRd, VuR, mu).real() - (1.0 / 3.0) * getSMEFTCoeff("CHD", mu);
+}
+
+const double NPSMEFTd6General::CEWHutt(const double mu) const {
+    return getSMEFTCoeffMB("CHu", 2, 2, VuRd, VuR, mu).real() - (1.0 / 3.0) * getSMEFTCoeff("CHD", mu);
 }
 
 
-const double NPSMEFTd6General::CEWHdbb() const {
-    return CHdEWbb + (1.0 / 6.0) * getSMEFTCoeffEW("CHD");
+const double NPSMEFTd6General::CEWHddd(const double mu) const {
+    return getSMEFTCoeffMB("CHd", 0, 0, VdRd, VdR, mu).real() + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
+}
+
+const double NPSMEFTd6General::CEWHdss(const double mu) const {
+    return getSMEFTCoeffMB("CHd", 1, 1, VdRd, VdR, mu).real() + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
+}
+
+
+const double NPSMEFTd6General::CEWHdbb(const double mu) const {
+    return getSMEFTCoeffMB("CHd", 2, 2, VdRd, VdR, mu).real() + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
 }
 
 
