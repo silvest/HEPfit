@@ -38,29 +38,29 @@ BClnu::BClnu(const StandardModel& SM_i, QCD::meson meson_i)
      * @brief Definition of the grids
      */
 
-    std::filesystem::path sourcePath = __FILE__;
-    std::filesystem::path sourceDir = sourcePath.parent_path();
+    std::string sourcePath = __FILE__;
+    std::string sourceDir = sourcePath.substr(0, sourcePath.find_last_of("/\\"));
 
-    grid_np_Q2moments = parse4DArray(sourceDir / "grid_np_Q2moments.txt");
-    grid_DerQ2_Q2moments = parse3DArray(sourceDir / "grid_DerQ2_Q2moments.txt");
-    grid_Derr_Q2moments = parse3DArray(sourceDir / "grid_Derr_Q2moments.txt");
-    grid_NLO_MuG_Q2moments = parse3DArray(sourceDir / "grid_NLO_MuG_Q2moments.txt");
-    grid_NLO_RhoD_Q2moments = parse3DArray(sourceDir / "grid_NLO_RhoD_Q2moments.txt");
-    grid_NNLO_Q2moments = parse3DArray(sourceDir / "grid_NNLO_Q2moments.txt");
+    grid_np_Q2moments = parse4DArray(sourceDir + "/grid_np_Q2moments.txt");
+    grid_DerQ2_Q2moments = parse3DArray(sourceDir + "/grid_DerQ2_Q2moments.txt");
+    grid_Derr_Q2moments = parse3DArray(sourceDir + "/grid_Derr_Q2moments.txt");
+    grid_NLO_MuG_Q2moments = parse3DArray(sourceDir + "/grid_NLO_MuG_Q2moments.txt");
+    grid_NLO_RhoD_Q2moments = parse3DArray(sourceDir + "/grid_NLO_RhoD_Q2moments.txt");
+    grid_NNLO_Q2moments = parse3DArray(sourceDir + "/grid_NNLO_Q2moments.txt");
 
-    grid_np_Elmoments = parse4DArray(sourceDir / "grid_np_Elmoments.txt");
-    grid_DerEl_Elmoments = parse3DArray(sourceDir / "grid_DerEl_Elmoments.txt");
-    grid_Derr_Elmoments = parse3DArray(sourceDir / "grid_Derr_Elmoments.txt");
-    grid_BLM_Elmoments = parse3DArray(sourceDir / "grid_BLM_Elmoments.txt");
-    grid_NLO_MuG_Elmoments = parse3DArray(sourceDir / "grid_NLO_MuG_Elmoments.txt");
-    grid_NLO_MuPi_Elmoments = parse3DArray(sourceDir / "grid_NLO_MuPi_Elmoments.txt");
+    grid_np_Elmoments = parse4DArray(sourceDir + "/grid_np_Elmoments.txt");
+    grid_DerEl_Elmoments = parse3DArray(sourceDir + "/grid_DerEl_Elmoments.txt");
+    grid_Derr_Elmoments = parse3DArray(sourceDir + "/grid_Derr_Elmoments.txt");
+    grid_BLM_Elmoments = parse3DArray(sourceDir + "/grid_BLM_Elmoments.txt");
+    grid_NLO_MuG_Elmoments = parse3DArray(sourceDir + "/grid_NLO_MuG_Elmoments.txt");
+    grid_NLO_MuPi_Elmoments = parse3DArray(sourceDir + "/grid_NLO_MuPi_Elmoments.txt");
 
-    grid_np_mixmoments = parse5DArray(sourceDir / "grid_np_mixmoments.txt");
-    grid_DerEl_mixmoments = parse4DArray(sourceDir / "grid_DerEl_mixmoments.txt");
-    grid_Derr_mixmoments = parse4DArray(sourceDir / "grid_Derr_mixmoments.txt");
-    grid_BLM_mixmoments = parse4DArray(sourceDir / "grid_BLM_mixmoments.txt");
-    grid_NLO_MuG_mixmoments = parse4DArray(sourceDir / "grid_NLO_MuG_mixmoments.txt");
-    grid_NLO_MuPi_mixmoments = parse4DArray(sourceDir / "grid_NLO_MuPi_mixmoments.txt");
+    grid_np_mixmoments = parse5DArray(sourceDir + "/grid_np_mixmoments.txt");
+    grid_DerEl_mixmoments = parse4DArray(sourceDir + "/grid_DerEl_mixmoments.txt");
+    grid_Derr_mixmoments = parse4DArray(sourceDir + "/grid_Derr_mixmoments.txt");
+    grid_BLM_mixmoments = parse4DArray(sourceDir + "/grid_BLM_mixmoments.txt");
+    grid_NLO_MuG_mixmoments = parse4DArray(sourceDir + "/grid_NLO_MuG_mixmoments.txt");
+    grid_NLO_MuPi_mixmoments = parse4DArray(sourceDir + "/grid_NLO_MuPi_mixmoments.txt");
 
     /**
      * @brief For the caches control
