@@ -1,5 +1,15 @@
 var NAVTREEINDEX64 =
 {
+"d6/d50/class_t_w_gct_w.html#a503cc24dde0cb2786b5504ff2c7b7d67":[27,0,2976,4],
+"d6/d50/class_t_w_gct_w.html#a5e585e6c7aeaf24367a6f8f4effca09f":[27,0,2976,2],
+"d6/d50/class_t_w_gct_w.html#ab058dfba9fab0ac1eeb36e13baf1098f":[27,0,2976,0],
+"d6/d50/class_t_w_gct_w.html#ac7ef52b223d376cb5c02a332211d4af0":[27,0,2976,1],
+"d6/d50/classdxsee_w_w_l_e_p2_bin.html":[27,0,611],
+"d6/d50/classdxsee_w_w_l_e_p2_bin.html#a3dc24499156c2fa0de47a047cf8ffd77":[27,0,611,1],
+"d6/d50/classdxsee_w_w_l_e_p2_bin.html#a4c25b0b2fd356b43a09d899c8c4e80e8":[27,0,611,0],
+"d6/d50/classdxsee_w_w_l_e_p2_bin.html#aba2b25510d0c6878d5e8ca32e29a2357":[27,0,611,4],
+"d6/d50/classdxsee_w_w_l_e_p2_bin.html#ad4018a6c9e4bf095c75511f28a195174":[27,0,611,2],
+"d6/d50/classdxsee_w_w_l_e_p2_bin.html#aee769a93d2554294da05228a88806f57":[27,0,611,3],
 "d6/d50/classg__hh_hh.html":[4,17,28],
 "d6/d50/classg__hh_hh.html#a76804583c6127d77264b9a57ed440c92":[4,17,28,0],
 "d6/d50/classg__hh_hh.html#a782a0f037221f8268c652a2ebadbed54":[4,17,28,2],
@@ -239,15 +249,5 @@ var NAVTREEINDEX64 =
 "d6/d75/class_flavour_wilson_coefficient.html#a493a98463a769e10c860663c36bf9786":[4,6,2,62],
 "d6/d75/class_flavour_wilson_coefficient.html#a517a217076d5e265dbc593276d5c4261":[4,6,2,57],
 "d6/d75/class_flavour_wilson_coefficient.html#a517e6d57b4320feed6a3aa867edcf515":[4,6,2,85],
-"d6/d75/class_flavour_wilson_coefficient.html#a5b657da7748d9ed02035caa0973708df":[4,6,2,45],
-"d6/d75/class_flavour_wilson_coefficient.html#a5e33e77bce935c71ea6cc7506bb75fc9":[4,6,2,49],
-"d6/d75/class_flavour_wilson_coefficient.html#a627ea224e938612efdc4170a53537acb":[4,6,2,3],
-"d6/d75/class_flavour_wilson_coefficient.html#a62f5f76d944cc6e244b1276560c6c5c2":[4,6,2,52],
-"d6/d75/class_flavour_wilson_coefficient.html#a7051b14b2c4289c225b423d723d5aad3":[4,6,2,53],
-"d6/d75/class_flavour_wilson_coefficient.html#a725d6b2fc08805d1e341b707db3ddd9c":[4,6,2,14],
-"d6/d75/class_flavour_wilson_coefficient.html#a7399b7143f5fd0b9a180b4694f76bece":[4,6,2,16],
-"d6/d75/class_flavour_wilson_coefficient.html#a77b7543d09f2b0344382304d84708afa":[4,6,2,1],
-"d6/d75/class_flavour_wilson_coefficient.html#a78377c4014681ab38013001a525df19d":[4,6,2,24],
-"d6/d75/class_flavour_wilson_coefficient.html#a7d818264e520627d2e74557d2982a55d":[4,6,2,38],
-"d6/d75/class_flavour_wilson_coefficient.html#a854793626b0a8d08bd2aa586e4b11b0e":[4,6,2,58]
+"d6/d75/class_flavour_wilson_coefficient.html#a5b657da7748d9ed02035caa0973708df":[4,6,2,45]
 };
