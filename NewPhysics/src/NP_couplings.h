@@ -4786,6 +4786,42 @@ private:
 };
 
 
+/**
+ * @class CEWll
+ * @brief An observable class for the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the combinations of coefficients of the Warsaw basis constrained by EWPO
+ * @f$(\hat{C}_{ll})_{1221}@f$.
+ *
+ */
+class CEWll : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    CEWll(const StandardModel& SM_i, const double mu_i);
+      
+    /**
+     * @brief Destructor of the CEWll class.
+     */
+    virtual ~CEWll();
+
+    /**
+     * @brief The combination @f$(\hat{C}_{ll})_{1221}@f$.
+     * @return @f$(\hat{C}_{ll})_{1221}@f$
+     */
+    double computeThValue();
+          
+private:
+    const NPbase * myNPbase;
+    const double mu;
+
+};
+
+
 //-----  The same, in the quark mass basis  ----------
 
 

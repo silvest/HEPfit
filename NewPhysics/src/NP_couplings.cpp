@@ -3068,6 +3068,25 @@ double CEWHd33::computeThValue()
 
 /* -------------------------------------*/
 
+CEWll::CEWll(const StandardModel& SM_i, const double mu_i):
+
+        ThObservable(SM_i), mu(mu_i)
+{
+    if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+        throw std::runtime_error("CEWll called with a class whose parent is not NPbase");
+}
+
+
+CEWll::~CEWll()
+{}
+
+double CEWll::computeThValue()
+{    
+    return (myNPbase->CEWll(mu));
+}
+
+/* -------------------------------------*/
+
 
 CEWHQ1uu::CEWHQ1uu(const StandardModel& SM_i, const double mu_i):
 

@@ -956,6 +956,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["CEWHd_11"] = bind(boost::factory<CEWHd11*>(), _1, muEW);
     obsThFactory["CEWHd_22"] = bind(boost::factory<CEWHd22*>(), _1, muEW);
     obsThFactory["CEWHd_33"] = bind(boost::factory<CEWHd33*>(), _1, muEW);
+    obsThFactory["CEWll"] = bind(boost::factory<CEWll*>(), _1, muEW);
     
     //-----  The same, in the quark mass basis  ----------
     obsThFactory["CEWHQ1_uu"] = bind(boost::factory<CEWHQ1uu*>(), _1, muEW);
@@ -1007,6 +1008,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["CEWHd_11_1TeV"] = bind(boost::factory<CEWHd11*>(), _1, 1000.);
     obsThFactory["CEWHd_22_1TeV"] = bind(boost::factory<CEWHd22*>(), _1, 1000.);
     obsThFactory["CEWHd_33_1TeV"] = bind(boost::factory<CEWHd33*>(), _1, 1000.);
+    obsThFactory["CEWll_1TeV"] = bind(boost::factory<CEWll*>(), _1, 1000.);
     
     //-----  The same, in the quark mass basis  ----------
     obsThFactory["CEWHQ1_uu_1TeV"] = bind(boost::factory<CEWHQ1uu*>(), _1, 1000.);

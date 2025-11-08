@@ -43307,6 +43307,10 @@ const double NPSMEFTd6General::CEWHd33(const double mu) const {
     return getSMEFTCoeff("CHdR", 2, 2, mu) + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
 }
 
+const double NPSMEFTd6General::CEWll(const double mu) const {
+    return getSMEFTCoeff("CllR", 0, 1, 1, 0, mu);
+}
+
 //-----  The same, in the quark mass basis  ----------
 
 const double NPSMEFTd6General::CEWHQ1uu(const double mu) const {

@@ -6545,6 +6545,13 @@ public:
      */
     virtual const double CEWHd33(const double mu) const;
     
+    /**
+     * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
+     * @f$(\hat{C}_{ll})_{1221}@f$.
+     * @return @@f$(\hat{C}_{ll})_{1221}@f$
+     */
+    virtual const double CEWll(const double mu) const;
+    
     
     //-----  The same, in the quark mass basis  ----------    
     
