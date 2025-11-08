@@ -715,6 +715,7 @@ var hierarchy =
       [ "CEWHucc", "d3/de2/class_c_e_w_hucc.html", null ],
       [ "CEWHutt", "d6/dfd/class_c_e_w_hutt.html", null ],
       [ "CEWHuuu", "da/d90/class_c_e_w_huuu.html", null ],
+      [ "CEWll", "db/de5/class_c_e_wll.html", null ],
       [ "CKMGamma", "d4/dc1/class_c_k_m_gamma.html", null ],
       [ "CKM_2BpG", "d7/dff/class_c_k_m__2_bp_g.html", null ],
       [ "CKM_Alpha", "d3/d51/class_c_k_m___alpha.html", null ],

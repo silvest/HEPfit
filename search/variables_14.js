@@ -11,7 +11,7 @@ var searchData=
   ['ub_8',['ub',['../df/d59/class_c_penguin_box.html#af357322e502a10d98cec3a311d94d95c',1,'CPenguinBox']]],
   ['ub4_9',['ub4',['../df/d59/class_c_penguin_box.html#abc28bc0de311320f474d2528fa8a7ea9',1,'CPenguinBox']]],
   ['ub5_10',['ub5',['../df/d59/class_c_penguin_box.html#ab02a7c51f994cc2bd3818cbb0cf5c1d1',1,'CPenguinBox']]],
-  ['uevl_11',['UevL',['../d2/d0d/class_n_p_s_m_e_f_td6.html#a9446425c9023f5d022dc95393b9e49e8',1,'NPSMEFTd6::UevL()'],['../d1/d9e/class_n_p_s_m_e_f_td6_general.html#ac227e09573505a1082162955d81a2854',1,'NPSMEFTd6General::UevL()']]],
+  ['uevl_11',['UevL',['../d2/d0d/class_n_p_s_m_e_f_td6.html#a9446425c9023f5d022dc95393b9e49e8',1,'NPSMEFTd6']]],
   ['ug_12',['ug',['../d6/d1c/class_heff_d_c1.html#a63349888774c5c619a6e93da56c261fb',1,'HeffDC1']]],
   ['ukpnunu_13',['uKpnunu',['../d6/db5/class_heff_d_s1.html#a916a119f7ed14980d302403bdc24c71d',1,'HeffDS1']]],
   ['um_14',['uM',['../d6/db5/class_heff_d_s1.html#adfbcc82d451597f509010ceb1b63098e',1,'HeffDS1']]],
