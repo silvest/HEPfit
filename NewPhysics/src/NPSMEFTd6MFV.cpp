@@ -4,8 +4,6 @@
  *
  * For the licensing terms see doc/COPYING.
  * 
- * Created on 18 September 2023, 16:23
- * 
  */
 
 
@@ -21,14 +19,16 @@ std::string NPSMEFTd6MFV::NPSMEFTd6MFVVars[NNPSMEFTd6MFVVars] = {
 	"CHq1_0_LNP","CHq1_u_LNP","CHq1_d_LNP","CHq3_0_LNP","CHq3_u_LNP","CHq3_d_LNP","CHu_0_LNP","CHu_u_LNP",
 	"CHd_0_LNP","CHd_d_LNP","CHud_ud_LNP","Clq1_0_LNP","Clq1_u_LNP","Clq1_d_LNP","Clq3_0_LNP","Clq3_u_LNP",
 	"Clq3_d_LNP","Cqe_0_LNP","Cqe_u_LNP","Cqe_d_LNP","Clu_0_LNP","Clu_u_LNP","Ceu_0_LNP","Ceu_u_LNP",
-	"Cld_0_LNP","Cld_d_LNP","Ced_0_LNP","Ced_d_LNP","Cqq1_00_LNP","Cqq1_0u_LNP","Cqq1_0d_LNP","Cqq1_u0_LNP",
-	"Cqq1_uu_LNP","Cqq1_ud_LNP","Cqq1_d0_LNP","Cqq1_du_LNP","Cqq1_dd_LNP","Cqq3_00_LNP","Cqq3_0u_LNP","Cqq3_0d_LNP",
-	"Cqq3_u0_LNP","Cqq3_uu_LNP","Cqq3_ud_LNP","Cqq3_d0_LNP","Cqq3_du_LNP","Cqq3_dd_LNP","Cuu_00_LNP","Cuu_0u_LNP",
-	"Cuu_u0_LNP","Cuu_uu_LNP","Cdd_00_LNP","Cdd_0d_LNP","Cdd_d0_LNP","Cdd_dd_LNP","Cud1_00_LNP","Cud1_u0_LNP",
-	"Cud1_0d_LNP","Cud1_ud_LNP","Cud8_00_LNP","Cud8_u0_LNP","Cud8_0d_LNP","Cud8_ud_LNP","Cqu1_00_LNP","Cqu1_u0_LNP",
-	"Cqu1_d0_LNP","Cqu1_0u_LNP","Cqu1_uu_LNP","Cqu1_du_LNP","Cqu8_00_LNP","Cqu8_u0_LNP","Cqu8_d0_LNP","Cqu8_0u_LNP",
-	"Cqu8_uu_LNP","Cqu8_du_LNP","Cqd1_00_LNP","Cqd1_u0_LNP","Cqd1_d0_LNP","Cqd1_0d_LNP","Cqd1_ud_LNP","Cqd1_dd_LNP",
-	"Cqd8_00_LNP","Cqd8_u0_LNP","Cqd8_d0_LNP","Cqd8_0d_LNP","Cqd8_ud_LNP","Cqd8_dd_LNP","Cquqd1_00_LNP","Cquqd8_00_LNP",
+	"Cld_0_LNP","Cld_d_LNP","Ced_0_LNP","Ced_d_LNP","Cqq1_00_LNP","Cqq1_u0_LNP","Cqq1_d0_LNP","Cqq1_uu_LNP",
+	"Cqq1_dd_LNP","Cqq1_ud_LNP","Cqq1p_00_LNP","Cqq1p_u0_LNP","Cqq1p_d0_LNP","Cqq1p_uu_LNP","Cqq1p_dd_LNP","Cqq1p_ud_LNP",
+	"Cqq3_00_LNP","Cqq3_u0_LNP","Cqq3_d0_LNP","Cqq3_uu_LNP","Cqq3_dd_LNP","Cqq3_ud_LNP","Cqq3p_00_LNP","Cqq3p_u0_LNP",
+	"Cqq3p_d0_LNP","Cqq3p_uu_LNP","Cqq3p_dd_LNP","Cqq3p_ud_LNP","Cuu_00_LNP","Cuu_u0_LNP","Cuu_uu_LNP","Cuup_00_LNP",
+	"Cuup_u0_LNP","Cuup_uu_LNP","Cdd_00_LNP","Cdd_d0_LNP","Cdd_dd_LNP","Cddp_00_LNP","Cddp_d0_LNP","Cddp_dd_LNP",
+	"Cud1_00_LNP","Cud1_u0_LNP","Cud1_0d_LNP","Cud1_ud_LNP","Cud8_00_LNP","Cud8_u0_LNP","Cud8_0d_LNP","Cud8_ud_LNP",
+	"Cqu1_00_LNP","Cqu1_u0_LNP","Cqu1_d0_LNP","Cqu1_0u_LNP","Cqu1_uu_LNP","Cqu1_du_LNP","Cqu8_00_LNP","Cqu8_u0_LNP",
+	"Cqu8_d0_LNP","Cqu8_0u_LNP","Cqu8_uu_LNP","Cqu8_du_LNP","Cqd1_00_LNP","Cqd1_u0_LNP","Cqd1_d0_LNP","Cqd1_0d_LNP",
+	"Cqd1_ud_LNP","Cqd1_dd_LNP","Cqd8_00_LNP","Cqd8_u0_LNP","Cqd8_d0_LNP","Cqd8_0d_LNP","Cqd8_ud_LNP","Cqd8_dd_LNP",
+	"Cquqd1_00_LNP","Cquqd1p_00_LNP","Cquqd8_00_LNP","Cquqd8p_00_LNP",
     "Lambda_NP"
 };
 
@@ -103,31 +103,41 @@ NPSMEFTd6MFV::NPSMEFTd6MFV(): NPSMEFTd6General() {
 	ModelParamMap.insert(std::make_pair("Ced_0_LNP",std::cref(Ced_0_LNP)));
 	ModelParamMap.insert(std::make_pair("Ced_d_LNP",std::cref(Ced_d_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq1_00_LNP",std::cref(Cqq1_00_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq1_0u_LNP",std::cref(Cqq1_0u_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq1_0d_LNP",std::cref(Cqq1_0d_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq1_u0_LNP",std::cref(Cqq1_u0_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq1_uu_LNP",std::cref(Cqq1_uu_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq1_ud_LNP",std::cref(Cqq1_ud_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq1_d0_LNP",std::cref(Cqq1_d0_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq1_du_LNP",std::cref(Cqq1_du_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq1_uu_LNP",std::cref(Cqq1_uu_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq1_dd_LNP",std::cref(Cqq1_dd_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq1_ud_LNP",std::cref(Cqq1_ud_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq1p_00_LNP",std::cref(Cqq1p_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq1p_u0_LNP",std::cref(Cqq1p_u0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq1p_d0_LNP",std::cref(Cqq1p_d0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq1p_uu_LNP",std::cref(Cqq1p_uu_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq1p_dd_LNP",std::cref(Cqq1p_dd_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq1p_ud_LNP",std::cref(Cqq1p_ud_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq3_00_LNP",std::cref(Cqq3_00_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq3_0u_LNP",std::cref(Cqq3_0u_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq3_0d_LNP",std::cref(Cqq3_0d_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq3_u0_LNP",std::cref(Cqq3_u0_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq3_uu_LNP",std::cref(Cqq3_uu_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq3_ud_LNP",std::cref(Cqq3_ud_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq3_d0_LNP",std::cref(Cqq3_d0_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqq3_du_LNP",std::cref(Cqq3_du_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq3_uu_LNP",std::cref(Cqq3_uu_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq3_dd_LNP",std::cref(Cqq3_dd_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq3_ud_LNP",std::cref(Cqq3_ud_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq3p_00_LNP",std::cref(Cqq3p_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq3p_u0_LNP",std::cref(Cqq3p_u0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq3p_d0_LNP",std::cref(Cqq3p_d0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq3p_uu_LNP",std::cref(Cqq3p_uu_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq3p_dd_LNP",std::cref(Cqq3p_dd_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqq3p_ud_LNP",std::cref(Cqq3p_ud_LNP)));
 	ModelParamMap.insert(std::make_pair("Cuu_00_LNP",std::cref(Cuu_00_LNP)));
-	ModelParamMap.insert(std::make_pair("Cuu_0u_LNP",std::cref(Cuu_0u_LNP)));
 	ModelParamMap.insert(std::make_pair("Cuu_u0_LNP",std::cref(Cuu_u0_LNP)));
 	ModelParamMap.insert(std::make_pair("Cuu_uu_LNP",std::cref(Cuu_uu_LNP)));
+	ModelParamMap.insert(std::make_pair("Cuup_00_LNP",std::cref(Cuup_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cuup_u0_LNP",std::cref(Cuup_u0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cuup_uu_LNP",std::cref(Cuup_uu_LNP)));
 	ModelParamMap.insert(std::make_pair("Cdd_00_LNP",std::cref(Cdd_00_LNP)));
-	ModelParamMap.insert(std::make_pair("Cdd_0d_LNP",std::cref(Cdd_0d_LNP)));
 	ModelParamMap.insert(std::make_pair("Cdd_d0_LNP",std::cref(Cdd_d0_LNP)));
 	ModelParamMap.insert(std::make_pair("Cdd_dd_LNP",std::cref(Cdd_dd_LNP)));
+	ModelParamMap.insert(std::make_pair("Cddp_00_LNP",std::cref(Cddp_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cddp_d0_LNP",std::cref(Cddp_d0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cddp_dd_LNP",std::cref(Cddp_dd_LNP)));
 	ModelParamMap.insert(std::make_pair("Cud1_00_LNP",std::cref(Cud1_00_LNP)));
 	ModelParamMap.insert(std::make_pair("Cud1_u0_LNP",std::cref(Cud1_u0_LNP)));
 	ModelParamMap.insert(std::make_pair("Cud1_0d_LNP",std::cref(Cud1_0d_LNP)));
@@ -161,7 +171,9 @@ NPSMEFTd6MFV::NPSMEFTd6MFV(): NPSMEFTd6General() {
 	ModelParamMap.insert(std::make_pair("Cqd8_ud_LNP",std::cref(Cqd8_ud_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqd8_dd_LNP",std::cref(Cqd8_dd_LNP)));
 	ModelParamMap.insert(std::make_pair("Cquqd1_00_LNP",std::cref(Cquqd1_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cquqd1p_00_LNP",std::cref(Cquqd1p_00_LNP)));
 	ModelParamMap.insert(std::make_pair("Cquqd8_00_LNP",std::cref(Cquqd8_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cquqd8p_00_LNP",std::cref(Cquqd8p_00_LNP)));
 
 }
 
@@ -311,56 +323,76 @@ void NPSMEFTd6MFV::setParameter(const std::string name, const double& value) {
 		Ced_d_LNP = value;
 	} else if (name.compare("Cqq1_00_LNP") == 0) {
 		Cqq1_00_LNP = value;
-	} else if (name.compare("Cqq1_0u_LNP") == 0) {
-		Cqq1_0u_LNP = value;
-	} else if (name.compare("Cqq1_0d_LNP") == 0) {
-		Cqq1_0d_LNP = value;
 	} else if (name.compare("Cqq1_u0_LNP") == 0) {
 		Cqq1_u0_LNP = value;
-	} else if (name.compare("Cqq1_uu_LNP") == 0) {
-		Cqq1_uu_LNP = value;
-	} else if (name.compare("Cqq1_ud_LNP") == 0) {
-		Cqq1_ud_LNP = value;
 	} else if (name.compare("Cqq1_d0_LNP") == 0) {
 		Cqq1_d0_LNP = value;
-	} else if (name.compare("Cqq1_du_LNP") == 0) {
-		Cqq1_du_LNP = value;
+	} else if (name.compare("Cqq1_uu_LNP") == 0) {
+		Cqq1_uu_LNP = value;
 	} else if (name.compare("Cqq1_dd_LNP") == 0) {
 		Cqq1_dd_LNP = value;
+	} else if (name.compare("Cqq1_ud_LNP") == 0) {
+		Cqq1_ud_LNP = value;
+	} else if (name.compare("Cqq1p_00_LNP") == 0) {
+		Cqq1p_00_LNP = value;
+	} else if (name.compare("Cqq1p_u0_LNP") == 0) {
+		Cqq1p_u0_LNP = value;
+	} else if (name.compare("Cqq1p_d0_LNP") == 0) {
+		Cqq1p_d0_LNP = value;
+	} else if (name.compare("Cqq1p_uu_LNP") == 0) {
+		Cqq1p_uu_LNP = value;
+	} else if (name.compare("Cqq1p_dd_LNP") == 0) {
+		Cqq1p_dd_LNP = value;
+	} else if (name.compare("Cqq1p_ud_LNP") == 0) {
+		Cqq1p_ud_LNP = value;
 	} else if (name.compare("Cqq3_00_LNP") == 0) {
 		Cqq3_00_LNP = value;
-	} else if (name.compare("Cqq3_0u_LNP") == 0) {
-		Cqq3_0u_LNP = value;
-	} else if (name.compare("Cqq3_0d_LNP") == 0) {
-		Cqq3_0d_LNP = value;
 	} else if (name.compare("Cqq3_u0_LNP") == 0) {
 		Cqq3_u0_LNP = value;
-	} else if (name.compare("Cqq3_uu_LNP") == 0) {
-		Cqq3_uu_LNP = value;
-	} else if (name.compare("Cqq3_ud_LNP") == 0) {
-		Cqq3_ud_LNP = value;
 	} else if (name.compare("Cqq3_d0_LNP") == 0) {
 		Cqq3_d0_LNP = value;
-	} else if (name.compare("Cqq3_du_LNP") == 0) {
-		Cqq3_du_LNP = value;
+	} else if (name.compare("Cqq3_uu_LNP") == 0) {
+		Cqq3_uu_LNP = value;
 	} else if (name.compare("Cqq3_dd_LNP") == 0) {
 		Cqq3_dd_LNP = value;
+	} else if (name.compare("Cqq3_ud_LNP") == 0) {
+		Cqq3_ud_LNP = value;
+	} else if (name.compare("Cqq3p_00_LNP") == 0) {
+		Cqq3p_00_LNP = value;
+	} else if (name.compare("Cqq3p_u0_LNP") == 0) {
+		Cqq3p_u0_LNP = value;
+	} else if (name.compare("Cqq3p_d0_LNP") == 0) {
+		Cqq3p_d0_LNP = value;
+	} else if (name.compare("Cqq3p_uu_LNP") == 0) {
+		Cqq3p_uu_LNP = value;
+	} else if (name.compare("Cqq3p_dd_LNP") == 0) {
+		Cqq3p_dd_LNP = value;
+	} else if (name.compare("Cqq3p_ud_LNP") == 0) {
+		Cqq3p_ud_LNP = value;
 	} else if (name.compare("Cuu_00_LNP") == 0) {
 		Cuu_00_LNP = value;
-	} else if (name.compare("Cuu_0u_LNP") == 0) {
-		Cuu_0u_LNP = value;
 	} else if (name.compare("Cuu_u0_LNP") == 0) {
 		Cuu_u0_LNP = value;
 	} else if (name.compare("Cuu_uu_LNP") == 0) {
 		Cuu_uu_LNP = value;
+	} else if (name.compare("Cuup_00_LNP") == 0) {
+		Cuup_00_LNP = value;
+	} else if (name.compare("Cuup_u0_LNP") == 0) {
+		Cuup_u0_LNP = value;
+	} else if (name.compare("Cuup_uu_LNP") == 0) {
+		Cuup_uu_LNP = value;
 	} else if (name.compare("Cdd_00_LNP") == 0) {
 		Cdd_00_LNP = value;
-	} else if (name.compare("Cdd_0d_LNP") == 0) {
-		Cdd_0d_LNP = value;
 	} else if (name.compare("Cdd_d0_LNP") == 0) {
 		Cdd_d0_LNP = value;
 	} else if (name.compare("Cdd_dd_LNP") == 0) {
 		Cdd_dd_LNP = value;
+	} else if (name.compare("Cddp_00_LNP") == 0) {
+		Cddp_00_LNP = value;
+	} else if (name.compare("Cddp_d0_LNP") == 0) {
+		Cddp_d0_LNP = value;
+	} else if (name.compare("Cddp_dd_LNP") == 0) {
+		Cddp_dd_LNP = value;
 	} else if (name.compare("Cud1_00_LNP") == 0) {
 		Cud1_00_LNP = value;
 	} else if (name.compare("Cud1_u0_LNP") == 0) {
@@ -427,8 +459,12 @@ void NPSMEFTd6MFV::setParameter(const std::string name, const double& value) {
 		Cqd8_dd_LNP = value;
 	} else if (name.compare("Cquqd1_00_LNP") == 0) {
 		Cquqd1_00_LNP = value;
+	} else if (name.compare("Cquqd1p_00_LNP") == 0) {
+		Cquqd1p_00_LNP = value;
 	} else if (name.compare("Cquqd8_00_LNP") == 0) {
 		Cquqd8_00_LNP = value;
+	} else if (name.compare("Cquqd8p_00_LNP") == 0) {
+		Cquqd8p_00_LNP = value;
 	}  else if (name.compare("Lambda_NP") == 0) {
         Lambda_NP = value;
     } else {
@@ -858,153 +894,153 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Ced_3322r_LNP = (Ced_0_LNP + Ced_d_LNP*YddL(1)).real();
 	Ced_3333r_LNP = (Ced_0_LNP + Ced_d_LNP*YddL(2)).real();
 
-	Cqq1_1111r_LNP = (2*Cqq1_00_LNP + 2*Cqq1_0d_LNP*YddL(0) + 2*Cqq1_d0_LNP*YddL(0) + 2*Cqq1_dd_LNP*YddL(0)*YddL(0) + 2*Cqq1_0u_LNP*YucuL(0,0) + 2*Cqq1_u0_LNP*YucuL(0,0) + 2*Cqq1_du_LNP*YddL(0)*YucuL(0,0) + 2*Cqq1_ud_LNP*YddL(0)*YucuL(0,0) + 2*Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,0)).real();
-	Cqq1_1112r_LNP = (Cqq1_0u_LNP*YucuL(0,1) + Cqq1_u0_LNP*YucuL(0,1) + Cqq1_du_LNP*YddL(0)*YucuL(0,1) + Cqq1_ud_LNP*YddL(0)*YucuL(0,1) + 2*Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,1)).real();
-	Cqq1_1112i_LNP = (Cqq1_0u_LNP*YucuL(0,1) + Cqq1_u0_LNP*YucuL(0,1) + Cqq1_du_LNP*YddL(0)*YucuL(0,1) + Cqq1_ud_LNP*YddL(0)*YucuL(0,1) + 2*Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,1)).imag();
-	Cqq1_1113r_LNP = (Cqq1_0u_LNP*YucuL(0,2) + Cqq1_u0_LNP*YucuL(0,2) + Cqq1_du_LNP*YddL(0)*YucuL(0,2) + Cqq1_ud_LNP*YddL(0)*YucuL(0,2) + 2*Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,2)).real();
-	Cqq1_1113i_LNP = (Cqq1_0u_LNP*YucuL(0,2) + Cqq1_u0_LNP*YucuL(0,2) + Cqq1_du_LNP*YddL(0)*YucuL(0,2) + Cqq1_ud_LNP*YddL(0)*YucuL(0,2) + 2*Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,2)).imag();
-	Cqq1_1122r_LNP = (Cqq1_00_LNP + Cqq1_d0_LNP*YddL(0) + Cqq1_0d_LNP*YddL(1) + Cqq1_dd_LNP*YddL(0)*YddL(1) + Cqq1_u0_LNP*YucuL(0,0) + Cqq1_ud_LNP*YddL(1)*YucuL(0,0) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,0) + Cqq1_0u_LNP*YucuL(1,1) + Cqq1_du_LNP*YddL(0)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(1,1)).real();
-	Cqq1_1123r_LNP = (Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,0) + Cqq1_0u_LNP*YucuL(1,2) + Cqq1_du_LNP*YddL(0)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(1,2)).real();
-	Cqq1_1123i_LNP = (Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,0) + Cqq1_0u_LNP*YucuL(1,2) + Cqq1_du_LNP*YddL(0)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(1,2)).imag();
-	Cqq1_1133r_LNP = (Cqq1_00_LNP + Cqq1_d0_LNP*YddL(0) + Cqq1_0d_LNP*YddL(2) + Cqq1_dd_LNP*YddL(0)*YddL(2) + Cqq1_u0_LNP*YucuL(0,0) + Cqq1_ud_LNP*YddL(2)*YucuL(0,0) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,0) + Cqq1_0u_LNP*YucuL(2,2) + Cqq1_du_LNP*YddL(0)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(2,2)).real();
-	Cqq1_1212r_LNP = (2*Cqq1_uu_LNP*YucuL(0,1)*YucuL(0,1)).real();
-	Cqq1_1212i_LNP = (2*Cqq1_uu_LNP*YucuL(0,1)*YucuL(0,1)).imag();
-	Cqq1_1213r_LNP = (2*Cqq1_uu_LNP*YucuL(0,1)*YucuL(0,2)).real();
-	Cqq1_1213i_LNP = (2*Cqq1_uu_LNP*YucuL(0,1)*YucuL(0,2)).imag();
-	Cqq1_1221r_LNP = (Cqq1_00_LNP + Cqq1_d0_LNP*YddL(0) + Cqq1_0d_LNP*YddL(1) + Cqq1_dd_LNP*YddL(0)*YddL(1) + Cqq1_u0_LNP*YucuL(0,0) + Cqq1_ud_LNP*YddL(1)*YucuL(0,0) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,0) + Cqq1_0u_LNP*YucuL(1,1) + Cqq1_du_LNP*YddL(0)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(1,1)).real();
-	Cqq1_1222r_LNP = (2*Cqq1_u0_LNP*YucuL(0,1) + 2*Cqq1_ud_LNP*YddL(1)*YucuL(0,1) + 2*Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,1)).real();
-	Cqq1_1222i_LNP = (2*Cqq1_u0_LNP*YucuL(0,1) + 2*Cqq1_ud_LNP*YddL(1)*YucuL(0,1) + 2*Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,1)).imag();
-	Cqq1_1223r_LNP = (Cqq1_u0_LNP*YucuL(0,2) + Cqq1_ud_LNP*YddL(1)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,2)).real();
-	Cqq1_1223i_LNP = (Cqq1_u0_LNP*YucuL(0,2) + Cqq1_ud_LNP*YddL(1)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,2)).imag();
-	Cqq1_1231r_LNP = (Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,0) + Cqq1_0u_LNP*YucuL(2,1) + Cqq1_du_LNP*YddL(0)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(2,1)).real();
-	Cqq1_1231i_LNP = (Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,0) + Cqq1_0u_LNP*YucuL(2,1) + Cqq1_du_LNP*YddL(0)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(2,1)).imag();
-	Cqq1_1232r_LNP = (2*Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,1)).real();
-	Cqq1_1232i_LNP = (2*Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,1)).imag();
-	Cqq1_1233r_LNP = (Cqq1_u0_LNP*YucuL(0,1) + Cqq1_ud_LNP*YddL(2)*YucuL(0,1) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,2)).real();
-	Cqq1_1233i_LNP = (Cqq1_u0_LNP*YucuL(0,1) + Cqq1_ud_LNP*YddL(2)*YucuL(0,1) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,2)).imag();
-	Cqq1_1313r_LNP = (2*Cqq1_uu_LNP*YucuL(0,2)*YucuL(0,2)).real();
-	Cqq1_1313i_LNP = (2*Cqq1_uu_LNP*YucuL(0,2)*YucuL(0,2)).imag();
-	Cqq1_1322r_LNP = (Cqq1_u0_LNP*YucuL(0,2) + Cqq1_ud_LNP*YddL(1)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,2)).real();
-	Cqq1_1322i_LNP = (Cqq1_u0_LNP*YucuL(0,2) + Cqq1_ud_LNP*YddL(1)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,2)).imag();
-	Cqq1_1323r_LNP = (2*Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,2)).real();
-	Cqq1_1323i_LNP = (2*Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,2)).imag();
-	Cqq1_1331r_LNP = (Cqq1_00_LNP + Cqq1_d0_LNP*YddL(0) + Cqq1_0d_LNP*YddL(2) + Cqq1_dd_LNP*YddL(0)*YddL(2) + Cqq1_u0_LNP*YucuL(0,0) + Cqq1_ud_LNP*YddL(2)*YucuL(0,0) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,0) + Cqq1_0u_LNP*YucuL(2,2) + Cqq1_du_LNP*YddL(0)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(2,2)).real();
-	Cqq1_1332r_LNP = (Cqq1_u0_LNP*YucuL(0,1) + Cqq1_ud_LNP*YddL(2)*YucuL(0,1) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,2)).real();
-	Cqq1_1332i_LNP = (Cqq1_u0_LNP*YucuL(0,1) + Cqq1_ud_LNP*YddL(2)*YucuL(0,1) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,2)).imag();
-	Cqq1_1333r_LNP = (2*Cqq1_u0_LNP*YucuL(0,2) + 2*Cqq1_ud_LNP*YddL(2)*YucuL(0,2) + 2*Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,2)).real();
-	Cqq1_1333i_LNP = (2*Cqq1_u0_LNP*YucuL(0,2) + 2*Cqq1_ud_LNP*YddL(2)*YucuL(0,2) + 2*Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,2)).imag();
-	Cqq1_2222r_LNP = (2*Cqq1_00_LNP + 2*Cqq1_0d_LNP*YddL(1) + 2*Cqq1_d0_LNP*YddL(1) + 2*Cqq1_dd_LNP*YddL(1)*YddL(1) + 2*Cqq1_0u_LNP*YucuL(1,1) + 2*Cqq1_u0_LNP*YucuL(1,1) + 2*Cqq1_du_LNP*YddL(1)*YucuL(1,1) + 2*Cqq1_ud_LNP*YddL(1)*YucuL(1,1) + 2*Cqq1_uu_LNP*YucuL(1,1)*YucuL(1,1)).real();
-	Cqq1_2223r_LNP = (Cqq1_0u_LNP*YucuL(1,2) + Cqq1_u0_LNP*YucuL(1,2) + Cqq1_du_LNP*YddL(1)*YucuL(1,2) + Cqq1_ud_LNP*YddL(1)*YucuL(1,2) + 2*Cqq1_uu_LNP*YucuL(1,1)*YucuL(1,2)).real();
-	Cqq1_2223i_LNP = (Cqq1_0u_LNP*YucuL(1,2) + Cqq1_u0_LNP*YucuL(1,2) + Cqq1_du_LNP*YddL(1)*YucuL(1,2) + Cqq1_ud_LNP*YddL(1)*YucuL(1,2) + 2*Cqq1_uu_LNP*YucuL(1,1)*YucuL(1,2)).imag();
-	Cqq1_2233r_LNP = (Cqq1_00_LNP + Cqq1_d0_LNP*YddL(1) + Cqq1_0d_LNP*YddL(2) + Cqq1_dd_LNP*YddL(1)*YddL(2) + Cqq1_u0_LNP*YucuL(1,1) + Cqq1_ud_LNP*YddL(2)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(1,2)*YucuL(2,1) + Cqq1_0u_LNP*YucuL(2,2) + Cqq1_du_LNP*YddL(1)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(1,1)*YucuL(2,2)).real();
-	Cqq1_2323r_LNP = (2*Cqq1_uu_LNP*YucuL(1,2)*YucuL(1,2)).real();
-	Cqq1_2323i_LNP = (2*Cqq1_uu_LNP*YucuL(1,2)*YucuL(1,2)).imag();
-	Cqq1_2332r_LNP = (Cqq1_00_LNP + Cqq1_d0_LNP*YddL(1) + Cqq1_0d_LNP*YddL(2) + Cqq1_dd_LNP*YddL(1)*YddL(2) + Cqq1_u0_LNP*YucuL(1,1) + Cqq1_ud_LNP*YddL(2)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(1,2)*YucuL(2,1) + Cqq1_0u_LNP*YucuL(2,2) + Cqq1_du_LNP*YddL(1)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(1,1)*YucuL(2,2)).real();
-	Cqq1_2333r_LNP = (2*Cqq1_u0_LNP*YucuL(1,2) + 2*Cqq1_ud_LNP*YddL(2)*YucuL(1,2) + 2*Cqq1_uu_LNP*YucuL(1,2)*YucuL(2,2)).real();
-	Cqq1_2333i_LNP = (2*Cqq1_u0_LNP*YucuL(1,2) + 2*Cqq1_ud_LNP*YddL(2)*YucuL(1,2) + 2*Cqq1_uu_LNP*YucuL(1,2)*YucuL(2,2)).imag();
-	Cqq1_3333r_LNP = (2*Cqq1_00_LNP + 2*Cqq1_0d_LNP*YddL(2) + 2*Cqq1_d0_LNP*YddL(2) + 2*Cqq1_dd_LNP*YddL(2)*YddL(2) + 2*Cqq1_0u_LNP*YucuL(2,2) + 2*Cqq1_u0_LNP*YucuL(2,2) + 2*Cqq1_du_LNP*YddL(2)*YucuL(2,2) + 2*Cqq1_ud_LNP*YddL(2)*YucuL(2,2) + 2*Cqq1_uu_LNP*YucuL(2,2)*YucuL(2,2)).real();
+	Cqq1_1111r_LNP = (Cqq1_00_LNP + 2*Cqq1_d0_LNP*YddL(0) + Cqq1_dd_LNP*YddL(0)*YddL(0) + 2*Cqq1_u0_LNP*YucuL(0,0) + 2*Cqq1_ud_LNP*YucuL(0,0)*YucuL(0,0) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,0) + Cqq1p_00_LNP + 2*Cqq1p_d0_LNP*YddL(0) + Cqq1p_dd_LNP*YddL(0)*YddL(0) + 2*Cqq1p_u0_LNP*YucuL(0,0) + 2*Cqq1p_ud_LNP*YucuL(0,0)*YucuL(0,0) + Cqq1p_uu_LNP*YucuL(0,0)*YucuL(0,0)).real();
+	Cqq1_1112r_LNP = (Cqq1_u0_LNP*YucuL(0,1) + 2*Cqq1_ud_LNP*YucuL(0,0)*YucuL(0,1) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,1) + Cqq1p_u0_LNP*YucuL(0,1) + 2*Cqq1p_ud_LNP*YucuL(0,0)*YucuL(0,1) + Cqq1p_uu_LNP*YucuL(0,0)*YucuL(0,1)).real();
+	Cqq1_1112i_LNP = (Cqq1_u0_LNP*YucuL(0,1) + 2*Cqq1_ud_LNP*YucuL(0,0)*YucuL(0,1) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,1) + Cqq1p_u0_LNP*YucuL(0,1) + 2*Cqq1p_ud_LNP*YucuL(0,0)*YucuL(0,1) + Cqq1p_uu_LNP*YucuL(0,0)*YucuL(0,1)).imag();
+	Cqq1_1113r_LNP = (Cqq1_u0_LNP*YucuL(0,2) + 2*Cqq1_ud_LNP*YucuL(0,0)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,2) + Cqq1p_u0_LNP*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,0)*YucuL(0,2) + Cqq1p_uu_LNP*YucuL(0,0)*YucuL(0,2)).real();
+	Cqq1_1113i_LNP = (Cqq1_u0_LNP*YucuL(0,2) + 2*Cqq1_ud_LNP*YucuL(0,0)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(0,2) + Cqq1p_u0_LNP*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,0)*YucuL(0,2) + Cqq1p_uu_LNP*YucuL(0,0)*YucuL(0,2)).imag();
+	Cqq1_1122r_LNP = (Cqq1_00_LNP + Cqq1_d0_LNP*YddL(0) + Cqq1_d0_LNP*YddL(1) + Cqq1_dd_LNP*YddL(0)*YddL(1) + Cqq1_u0_LNP*YucuL(0,0) + Cqq1_u0_LNP*YucuL(1,1) + 2*Cqq1_ud_LNP*YucuL(0,0)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(1,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(1,0) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(1,0)).real();
+	Cqq1_1123r_LNP = (Cqq1_u0_LNP*YucuL(1,2) + 2*Cqq1_ud_LNP*YucuL(0,0)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(1,0) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(1,0)).real();
+	Cqq1_1123i_LNP = (Cqq1_u0_LNP*YucuL(1,2) + 2*Cqq1_ud_LNP*YucuL(0,0)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(1,0) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(1,0)).imag();
+	Cqq1_1133r_LNP = (Cqq1_00_LNP + Cqq1_d0_LNP*YddL(0) + Cqq1_d0_LNP*YddL(2) + Cqq1_dd_LNP*YddL(0)*YddL(2) + Cqq1_u0_LNP*YucuL(0,0) + Cqq1_u0_LNP*YucuL(2,2) + 2*Cqq1_ud_LNP*YucuL(0,0)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(0,0)*YucuL(2,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(2,0) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(2,0)).real();
+	Cqq1_1212r_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(0,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(0,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(0,1) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(0,1)).real();
+	Cqq1_1212i_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(0,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(0,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(0,1) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(0,1)).imag();
+	Cqq1_1213r_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(0,2) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(0,2)).real();
+	Cqq1_1213i_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(0,2) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(0,2)).imag();
+	Cqq1_1221r_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(1,0) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,0) + Cqq1p_00_LNP + Cqq1p_d0_LNP*YddL(0) + Cqq1p_d0_LNP*YddL(1) + Cqq1p_dd_LNP*YddL(0)*YddL(1) + Cqq1p_u0_LNP*YucuL(0,0) + Cqq1p_u0_LNP*YucuL(1,1) + 2*Cqq1p_ud_LNP*YucuL(0,0)*YucuL(1,1) + Cqq1p_uu_LNP*YucuL(0,0)*YucuL(1,1)).real();
+	Cqq1_1222r_LNP = (Cqq1_u0_LNP*YucuL(0,1) + 2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,1) + Cqq1p_u0_LNP*YucuL(0,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(1,1) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(1,1)).real();
+	Cqq1_1222i_LNP = (Cqq1_u0_LNP*YucuL(0,1) + 2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,1) + Cqq1p_u0_LNP*YucuL(0,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(1,1) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(1,1)).imag();
+	Cqq1_1223r_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,2) + Cqq1p_u0_LNP*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(1,1) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(1,1)).real();
+	Cqq1_1223i_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(1,2) + Cqq1p_u0_LNP*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(1,1) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(1,1)).imag();
+	Cqq1_1231r_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(2,0) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,0) + Cqq1p_u0_LNP*YucuL(2,1) + 2*Cqq1p_ud_LNP*YucuL(0,0)*YucuL(2,1) + Cqq1p_uu_LNP*YucuL(0,0)*YucuL(2,1)).real();
+	Cqq1_1231i_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(2,0) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,0) + Cqq1p_u0_LNP*YucuL(2,1) + 2*Cqq1p_ud_LNP*YucuL(0,0)*YucuL(2,1) + Cqq1p_uu_LNP*YucuL(0,0)*YucuL(2,1)).imag();
+	Cqq1_1232r_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(2,1) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(2,1)).real();
+	Cqq1_1232i_LNP = (2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(2,1) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(2,1)).imag();
+	Cqq1_1233r_LNP = (Cqq1_u0_LNP*YucuL(0,1) + 2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(2,1)).real();
+	Cqq1_1233i_LNP = (Cqq1_u0_LNP*YucuL(0,1) + 2*Cqq1_ud_LNP*YucuL(0,1)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(0,1)*YucuL(2,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(2,1)).imag();
+	Cqq1_1313r_LNP = (2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(0,2) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(0,2)).real();
+	Cqq1_1313i_LNP = (2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(0,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(0,2) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(0,2)).imag();
+	Cqq1_1322r_LNP = (Cqq1_u0_LNP*YucuL(0,2) + 2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(1,2) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(1,2)).real();
+	Cqq1_1322i_LNP = (Cqq1_u0_LNP*YucuL(0,2) + 2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(1,2) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(1,2)).imag();
+	Cqq1_1323r_LNP = (2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(1,2) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(1,2)).real();
+	Cqq1_1323i_LNP = (2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(1,2) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(1,2)).imag();
+	Cqq1_1331r_LNP = (2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(2,0) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,0) + Cqq1p_00_LNP + Cqq1p_d0_LNP*YddL(0) + Cqq1p_d0_LNP*YddL(2) + Cqq1p_dd_LNP*YddL(0)*YddL(2) + Cqq1p_u0_LNP*YucuL(0,0) + Cqq1p_u0_LNP*YucuL(2,2) + 2*Cqq1p_ud_LNP*YucuL(0,0)*YucuL(2,2) + Cqq1p_uu_LNP*YucuL(0,0)*YucuL(2,2)).real();
+	Cqq1_1332r_LNP = (2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1p_u0_LNP*YucuL(0,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(2,2) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(2,2)).real();
+	Cqq1_1332i_LNP = (2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq1p_u0_LNP*YucuL(0,1) + 2*Cqq1p_ud_LNP*YucuL(0,1)*YucuL(2,2) + Cqq1p_uu_LNP*YucuL(0,1)*YucuL(2,2)).imag();
+	Cqq1_1333r_LNP = (Cqq1_u0_LNP*YucuL(0,2) + 2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,2) + Cqq1p_u0_LNP*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(2,2) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(2,2)).real();
+	Cqq1_1333i_LNP = (Cqq1_u0_LNP*YucuL(0,2) + 2*Cqq1_ud_LNP*YucuL(0,2)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(0,2)*YucuL(2,2) + Cqq1p_u0_LNP*YucuL(0,2) + 2*Cqq1p_ud_LNP*YucuL(0,2)*YucuL(2,2) + Cqq1p_uu_LNP*YucuL(0,2)*YucuL(2,2)).imag();
+	Cqq1_2222r_LNP = (Cqq1_00_LNP + 2*Cqq1_d0_LNP*YddL(1) + Cqq1_dd_LNP*YddL(1)*YddL(1) + 2*Cqq1_u0_LNP*YucuL(1,1) + 2*Cqq1_ud_LNP*YucuL(1,1)*YucuL(1,1) + Cqq1_uu_LNP*YucuL(1,1)*YucuL(1,1) + Cqq1p_00_LNP + 2*Cqq1p_d0_LNP*YddL(1) + Cqq1p_dd_LNP*YddL(1)*YddL(1) + 2*Cqq1p_u0_LNP*YucuL(1,1) + 2*Cqq1p_ud_LNP*YucuL(1,1)*YucuL(1,1) + Cqq1p_uu_LNP*YucuL(1,1)*YucuL(1,1)).real();
+	Cqq1_2223r_LNP = (Cqq1_u0_LNP*YucuL(1,2) + 2*Cqq1_ud_LNP*YucuL(1,1)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(1,1)*YucuL(1,2) + Cqq1p_u0_LNP*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(1,1)*YucuL(1,2) + Cqq1p_uu_LNP*YucuL(1,1)*YucuL(1,2)).real();
+	Cqq1_2223i_LNP = (Cqq1_u0_LNP*YucuL(1,2) + 2*Cqq1_ud_LNP*YucuL(1,1)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(1,1)*YucuL(1,2) + Cqq1p_u0_LNP*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(1,1)*YucuL(1,2) + Cqq1p_uu_LNP*YucuL(1,1)*YucuL(1,2)).imag();
+	Cqq1_2233r_LNP = (Cqq1_00_LNP + Cqq1_d0_LNP*YddL(1) + Cqq1_d0_LNP*YddL(2) + Cqq1_dd_LNP*YddL(1)*YddL(2) + Cqq1_u0_LNP*YucuL(1,1) + Cqq1_u0_LNP*YucuL(2,2) + 2*Cqq1_ud_LNP*YucuL(1,1)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(1,1)*YucuL(2,2) + 2*Cqq1p_ud_LNP*YucuL(1,2)*YucuL(2,1) + Cqq1p_uu_LNP*YucuL(1,2)*YucuL(2,1)).real();
+	Cqq1_2323r_LNP = (2*Cqq1_ud_LNP*YucuL(1,2)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(1,2)*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(1,2)*YucuL(1,2) + Cqq1p_uu_LNP*YucuL(1,2)*YucuL(1,2)).real();
+	Cqq1_2323i_LNP = (2*Cqq1_ud_LNP*YucuL(1,2)*YucuL(1,2) + Cqq1_uu_LNP*YucuL(1,2)*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(1,2)*YucuL(1,2) + Cqq1p_uu_LNP*YucuL(1,2)*YucuL(1,2)).imag();
+	Cqq1_2332r_LNP = (2*Cqq1_ud_LNP*YucuL(1,2)*YucuL(2,1) + Cqq1_uu_LNP*YucuL(1,2)*YucuL(2,1) + Cqq1p_00_LNP + Cqq1p_d0_LNP*YddL(1) + Cqq1p_d0_LNP*YddL(2) + Cqq1p_dd_LNP*YddL(1)*YddL(2) + Cqq1p_u0_LNP*YucuL(1,1) + Cqq1p_u0_LNP*YucuL(2,2) + 2*Cqq1p_ud_LNP*YucuL(1,1)*YucuL(2,2) + Cqq1p_uu_LNP*YucuL(1,1)*YucuL(2,2)).real();
+	Cqq1_2333r_LNP = (Cqq1_u0_LNP*YucuL(1,2) + 2*Cqq1_ud_LNP*YucuL(1,2)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(1,2)*YucuL(2,2) + Cqq1p_u0_LNP*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(1,2)*YucuL(2,2) + Cqq1p_uu_LNP*YucuL(1,2)*YucuL(2,2)).real();
+	Cqq1_2333i_LNP = (Cqq1_u0_LNP*YucuL(1,2) + 2*Cqq1_ud_LNP*YucuL(1,2)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(1,2)*YucuL(2,2) + Cqq1p_u0_LNP*YucuL(1,2) + 2*Cqq1p_ud_LNP*YucuL(1,2)*YucuL(2,2) + Cqq1p_uu_LNP*YucuL(1,2)*YucuL(2,2)).imag();
+	Cqq1_3333r_LNP = (Cqq1_00_LNP + 2*Cqq1_d0_LNP*YddL(2) + Cqq1_dd_LNP*YddL(2)*YddL(2) + 2*Cqq1_u0_LNP*YucuL(2,2) + 2*Cqq1_ud_LNP*YucuL(2,2)*YucuL(2,2) + Cqq1_uu_LNP*YucuL(2,2)*YucuL(2,2) + Cqq1p_00_LNP + 2*Cqq1p_d0_LNP*YddL(2) + Cqq1p_dd_LNP*YddL(2)*YddL(2) + 2*Cqq1p_u0_LNP*YucuL(2,2) + 2*Cqq1p_ud_LNP*YucuL(2,2)*YucuL(2,2) + Cqq1p_uu_LNP*YucuL(2,2)*YucuL(2,2)).real();
 
-	Cqq3_1111r_LNP = (2*Cqq3_00_LNP + 2*Cqq3_0d_LNP*YddL(0) + 2*Cqq3_d0_LNP*YddL(0) + 2*Cqq3_dd_LNP*YddL(0)*YddL(0) + 2*Cqq3_0u_LNP*YucuL(0,0) + 2*Cqq3_u0_LNP*YucuL(0,0) + 2*Cqq3_du_LNP*YddL(0)*YucuL(0,0) + 2*Cqq3_ud_LNP*YddL(0)*YucuL(0,0) + 2*Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,0)).real();
-	Cqq3_1112r_LNP = (Cqq3_0u_LNP*YucuL(0,1) + Cqq3_u0_LNP*YucuL(0,1) + Cqq3_du_LNP*YddL(0)*YucuL(0,1) + Cqq3_ud_LNP*YddL(0)*YucuL(0,1) + 2*Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,1)).real();
-	Cqq3_1112i_LNP = (Cqq3_0u_LNP*YucuL(0,1) + Cqq3_u0_LNP*YucuL(0,1) + Cqq3_du_LNP*YddL(0)*YucuL(0,1) + Cqq3_ud_LNP*YddL(0)*YucuL(0,1) + 2*Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,1)).imag();
-	Cqq3_1113r_LNP = (Cqq3_0u_LNP*YucuL(0,2) + Cqq3_u0_LNP*YucuL(0,2) + Cqq3_du_LNP*YddL(0)*YucuL(0,2) + Cqq3_ud_LNP*YddL(0)*YucuL(0,2) + 2*Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,2)).real();
-	Cqq3_1113i_LNP = (Cqq3_0u_LNP*YucuL(0,2) + Cqq3_u0_LNP*YucuL(0,2) + Cqq3_du_LNP*YddL(0)*YucuL(0,2) + Cqq3_ud_LNP*YddL(0)*YucuL(0,2) + 2*Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,2)).imag();
-	Cqq3_1122r_LNP = (Cqq3_00_LNP + Cqq3_d0_LNP*YddL(0) + Cqq3_0d_LNP*YddL(1) + Cqq3_dd_LNP*YddL(0)*YddL(1) + Cqq3_u0_LNP*YucuL(0,0) + Cqq3_ud_LNP*YddL(1)*YucuL(0,0) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,0) + Cqq3_0u_LNP*YucuL(1,1) + Cqq3_du_LNP*YddL(0)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(1,1)).real();
-	Cqq3_1123r_LNP = (Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,0) + Cqq3_0u_LNP*YucuL(1,2) + Cqq3_du_LNP*YddL(0)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(1,2)).real();
-	Cqq3_1123i_LNP = (Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,0) + Cqq3_0u_LNP*YucuL(1,2) + Cqq3_du_LNP*YddL(0)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(1,2)).imag();
-	Cqq3_1133r_LNP = (Cqq3_00_LNP + Cqq3_d0_LNP*YddL(0) + Cqq3_0d_LNP*YddL(2) + Cqq3_dd_LNP*YddL(0)*YddL(2) + Cqq3_u0_LNP*YucuL(0,0) + Cqq3_ud_LNP*YddL(2)*YucuL(0,0) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,0) + Cqq3_0u_LNP*YucuL(2,2) + Cqq3_du_LNP*YddL(0)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(2,2)).real();
-	Cqq3_1212r_LNP = (2*Cqq3_uu_LNP*YucuL(0,1)*YucuL(0,1)).real();
-	Cqq3_1212i_LNP = (2*Cqq3_uu_LNP*YucuL(0,1)*YucuL(0,1)).imag();
-	Cqq3_1213r_LNP = (2*Cqq3_uu_LNP*YucuL(0,1)*YucuL(0,2)).real();
-	Cqq3_1213i_LNP = (2*Cqq3_uu_LNP*YucuL(0,1)*YucuL(0,2)).imag();
-	Cqq3_1221r_LNP = (Cqq3_00_LNP + Cqq3_d0_LNP*YddL(0) + Cqq3_0d_LNP*YddL(1) + Cqq3_dd_LNP*YddL(0)*YddL(1) + Cqq3_u0_LNP*YucuL(0,0) + Cqq3_ud_LNP*YddL(1)*YucuL(0,0) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,0) + Cqq3_0u_LNP*YucuL(1,1) + Cqq3_du_LNP*YddL(0)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(1,1)).real();
-	Cqq3_1222r_LNP = (2*Cqq3_u0_LNP*YucuL(0,1) + 2*Cqq3_ud_LNP*YddL(1)*YucuL(0,1) + 2*Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,1)).real();
-	Cqq3_1222i_LNP = (2*Cqq3_u0_LNP*YucuL(0,1) + 2*Cqq3_ud_LNP*YddL(1)*YucuL(0,1) + 2*Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,1)).imag();
-	Cqq3_1223r_LNP = (Cqq3_u0_LNP*YucuL(0,2) + Cqq3_ud_LNP*YddL(1)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,2)).real();
-	Cqq3_1223i_LNP = (Cqq3_u0_LNP*YucuL(0,2) + Cqq3_ud_LNP*YddL(1)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,2)).imag();
-	Cqq3_1231r_LNP = (Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,0) + Cqq3_0u_LNP*YucuL(2,1) + Cqq3_du_LNP*YddL(0)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(2,1)).real();
-	Cqq3_1231i_LNP = (Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,0) + Cqq3_0u_LNP*YucuL(2,1) + Cqq3_du_LNP*YddL(0)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(2,1)).imag();
-	Cqq3_1232r_LNP = (2*Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,1)).real();
-	Cqq3_1232i_LNP = (2*Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,1)).imag();
-	Cqq3_1233r_LNP = (Cqq3_u0_LNP*YucuL(0,1) + Cqq3_ud_LNP*YddL(2)*YucuL(0,1) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,2)).real();
-	Cqq3_1233i_LNP = (Cqq3_u0_LNP*YucuL(0,1) + Cqq3_ud_LNP*YddL(2)*YucuL(0,1) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,2)).imag();
-	Cqq3_1313r_LNP = (2*Cqq3_uu_LNP*YucuL(0,2)*YucuL(0,2)).real();
-	Cqq3_1313i_LNP = (2*Cqq3_uu_LNP*YucuL(0,2)*YucuL(0,2)).imag();
-	Cqq3_1322r_LNP = (Cqq3_u0_LNP*YucuL(0,2) + Cqq3_ud_LNP*YddL(1)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,2)).real();
-	Cqq3_1322i_LNP = (Cqq3_u0_LNP*YucuL(0,2) + Cqq3_ud_LNP*YddL(1)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,2)).imag();
-	Cqq3_1323r_LNP = (2*Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,2)).real();
-	Cqq3_1323i_LNP = (2*Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,2)).imag();
-	Cqq3_1331r_LNP = (Cqq3_00_LNP + Cqq3_d0_LNP*YddL(0) + Cqq3_0d_LNP*YddL(2) + Cqq3_dd_LNP*YddL(0)*YddL(2) + Cqq3_u0_LNP*YucuL(0,0) + Cqq3_ud_LNP*YddL(2)*YucuL(0,0) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,0) + Cqq3_0u_LNP*YucuL(2,2) + Cqq3_du_LNP*YddL(0)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(2,2)).real();
-	Cqq3_1332r_LNP = (Cqq3_u0_LNP*YucuL(0,1) + Cqq3_ud_LNP*YddL(2)*YucuL(0,1) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,2)).real();
-	Cqq3_1332i_LNP = (Cqq3_u0_LNP*YucuL(0,1) + Cqq3_ud_LNP*YddL(2)*YucuL(0,1) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,2)).imag();
-	Cqq3_1333r_LNP = (2*Cqq3_u0_LNP*YucuL(0,2) + 2*Cqq3_ud_LNP*YddL(2)*YucuL(0,2) + 2*Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,2)).real();
-	Cqq3_1333i_LNP = (2*Cqq3_u0_LNP*YucuL(0,2) + 2*Cqq3_ud_LNP*YddL(2)*YucuL(0,2) + 2*Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,2)).imag();
-	Cqq3_2222r_LNP = (2*Cqq3_00_LNP + 2*Cqq3_0d_LNP*YddL(1) + 2*Cqq3_d0_LNP*YddL(1) + 2*Cqq3_dd_LNP*YddL(1)*YddL(1) + 2*Cqq3_0u_LNP*YucuL(1,1) + 2*Cqq3_u0_LNP*YucuL(1,1) + 2*Cqq3_du_LNP*YddL(1)*YucuL(1,1) + 2*Cqq3_ud_LNP*YddL(1)*YucuL(1,1) + 2*Cqq3_uu_LNP*YucuL(1,1)*YucuL(1,1)).real();
-	Cqq3_2223r_LNP = (Cqq3_0u_LNP*YucuL(1,2) + Cqq3_u0_LNP*YucuL(1,2) + Cqq3_du_LNP*YddL(1)*YucuL(1,2) + Cqq3_ud_LNP*YddL(1)*YucuL(1,2) + 2*Cqq3_uu_LNP*YucuL(1,1)*YucuL(1,2)).real();
-	Cqq3_2223i_LNP = (Cqq3_0u_LNP*YucuL(1,2) + Cqq3_u0_LNP*YucuL(1,2) + Cqq3_du_LNP*YddL(1)*YucuL(1,2) + Cqq3_ud_LNP*YddL(1)*YucuL(1,2) + 2*Cqq3_uu_LNP*YucuL(1,1)*YucuL(1,2)).imag();
-	Cqq3_2233r_LNP = (Cqq3_00_LNP + Cqq3_d0_LNP*YddL(1) + Cqq3_0d_LNP*YddL(2) + Cqq3_dd_LNP*YddL(1)*YddL(2) + Cqq3_u0_LNP*YucuL(1,1) + Cqq3_ud_LNP*YddL(2)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(1,2)*YucuL(2,1) + Cqq3_0u_LNP*YucuL(2,2) + Cqq3_du_LNP*YddL(1)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(1,1)*YucuL(2,2)).real();
-	Cqq3_2323r_LNP = (2*Cqq3_uu_LNP*YucuL(1,2)*YucuL(1,2)).real();
-	Cqq3_2323i_LNP = (2*Cqq3_uu_LNP*YucuL(1,2)*YucuL(1,2)).imag();
-	Cqq3_2332r_LNP = (Cqq3_00_LNP + Cqq3_d0_LNP*YddL(1) + Cqq3_0d_LNP*YddL(2) + Cqq3_dd_LNP*YddL(1)*YddL(2) + Cqq3_u0_LNP*YucuL(1,1) + Cqq3_ud_LNP*YddL(2)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(1,2)*YucuL(2,1) + Cqq3_0u_LNP*YucuL(2,2) + Cqq3_du_LNP*YddL(1)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(1,1)*YucuL(2,2)).real();
-	Cqq3_2333r_LNP = (2*Cqq3_u0_LNP*YucuL(1,2) + 2*Cqq3_ud_LNP*YddL(2)*YucuL(1,2) + 2*Cqq3_uu_LNP*YucuL(1,2)*YucuL(2,2)).real();
-	Cqq3_2333i_LNP = (2*Cqq3_u0_LNP*YucuL(1,2) + 2*Cqq3_ud_LNP*YddL(2)*YucuL(1,2) + 2*Cqq3_uu_LNP*YucuL(1,2)*YucuL(2,2)).imag();
-	Cqq3_3333r_LNP = (2*Cqq3_00_LNP + 2*Cqq3_0d_LNP*YddL(2) + 2*Cqq3_d0_LNP*YddL(2) + 2*Cqq3_dd_LNP*YddL(2)*YddL(2) + 2*Cqq3_0u_LNP*YucuL(2,2) + 2*Cqq3_u0_LNP*YucuL(2,2) + 2*Cqq3_du_LNP*YddL(2)*YucuL(2,2) + 2*Cqq3_ud_LNP*YddL(2)*YucuL(2,2) + 2*Cqq3_uu_LNP*YucuL(2,2)*YucuL(2,2)).real();
+	Cqq3_1111r_LNP = (Cqq3_00_LNP + 2*Cqq3_d0_LNP*YddL(0) + Cqq3_dd_LNP*YddL(0)*YddL(0) + 2*Cqq3_u0_LNP*YucuL(0,0) + 2*Cqq3_ud_LNP*YucuL(0,0)*YucuL(0,0) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,0) + Cqq3p_00_LNP + 2*Cqq3p_d0_LNP*YddL(0) + Cqq3p_dd_LNP*YddL(0)*YddL(0) + 2*Cqq3p_u0_LNP*YucuL(0,0) + 2*Cqq3p_ud_LNP*YucuL(0,0)*YucuL(0,0) + Cqq3p_uu_LNP*YucuL(0,0)*YucuL(0,0)).real();
+	Cqq3_1112r_LNP = (Cqq3_u0_LNP*YucuL(0,1) + 2*Cqq3_ud_LNP*YucuL(0,0)*YucuL(0,1) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,1) + Cqq3p_u0_LNP*YucuL(0,1) + 2*Cqq3p_ud_LNP*YucuL(0,0)*YucuL(0,1) + Cqq3p_uu_LNP*YucuL(0,0)*YucuL(0,1)).real();
+	Cqq3_1112i_LNP = (Cqq3_u0_LNP*YucuL(0,1) + 2*Cqq3_ud_LNP*YucuL(0,0)*YucuL(0,1) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,1) + Cqq3p_u0_LNP*YucuL(0,1) + 2*Cqq3p_ud_LNP*YucuL(0,0)*YucuL(0,1) + Cqq3p_uu_LNP*YucuL(0,0)*YucuL(0,1)).imag();
+	Cqq3_1113r_LNP = (Cqq3_u0_LNP*YucuL(0,2) + 2*Cqq3_ud_LNP*YucuL(0,0)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,2) + Cqq3p_u0_LNP*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,0)*YucuL(0,2) + Cqq3p_uu_LNP*YucuL(0,0)*YucuL(0,2)).real();
+	Cqq3_1113i_LNP = (Cqq3_u0_LNP*YucuL(0,2) + 2*Cqq3_ud_LNP*YucuL(0,0)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(0,2) + Cqq3p_u0_LNP*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,0)*YucuL(0,2) + Cqq3p_uu_LNP*YucuL(0,0)*YucuL(0,2)).imag();
+	Cqq3_1122r_LNP = (Cqq3_00_LNP + Cqq3_d0_LNP*YddL(0) + Cqq3_d0_LNP*YddL(1) + Cqq3_dd_LNP*YddL(0)*YddL(1) + Cqq3_u0_LNP*YucuL(0,0) + Cqq3_u0_LNP*YucuL(1,1) + 2*Cqq3_ud_LNP*YucuL(0,0)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(1,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(1,0) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(1,0)).real();
+	Cqq3_1123r_LNP = (Cqq3_u0_LNP*YucuL(1,2) + 2*Cqq3_ud_LNP*YucuL(0,0)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(1,0) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(1,0)).real();
+	Cqq3_1123i_LNP = (Cqq3_u0_LNP*YucuL(1,2) + 2*Cqq3_ud_LNP*YucuL(0,0)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(1,0) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(1,0)).imag();
+	Cqq3_1133r_LNP = (Cqq3_00_LNP + Cqq3_d0_LNP*YddL(0) + Cqq3_d0_LNP*YddL(2) + Cqq3_dd_LNP*YddL(0)*YddL(2) + Cqq3_u0_LNP*YucuL(0,0) + Cqq3_u0_LNP*YucuL(2,2) + 2*Cqq3_ud_LNP*YucuL(0,0)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(0,0)*YucuL(2,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(2,0) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(2,0)).real();
+	Cqq3_1212r_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(0,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(0,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(0,1) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(0,1)).real();
+	Cqq3_1212i_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(0,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(0,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(0,1) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(0,1)).imag();
+	Cqq3_1213r_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(0,2) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(0,2)).real();
+	Cqq3_1213i_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(0,2) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(0,2)).imag();
+	Cqq3_1221r_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(1,0) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,0) + Cqq3p_00_LNP + Cqq3p_d0_LNP*YddL(0) + Cqq3p_d0_LNP*YddL(1) + Cqq3p_dd_LNP*YddL(0)*YddL(1) + Cqq3p_u0_LNP*YucuL(0,0) + Cqq3p_u0_LNP*YucuL(1,1) + 2*Cqq3p_ud_LNP*YucuL(0,0)*YucuL(1,1) + Cqq3p_uu_LNP*YucuL(0,0)*YucuL(1,1)).real();
+	Cqq3_1222r_LNP = (Cqq3_u0_LNP*YucuL(0,1) + 2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,1) + Cqq3p_u0_LNP*YucuL(0,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(1,1) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(1,1)).real();
+	Cqq3_1222i_LNP = (Cqq3_u0_LNP*YucuL(0,1) + 2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,1) + Cqq3p_u0_LNP*YucuL(0,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(1,1) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(1,1)).imag();
+	Cqq3_1223r_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,2) + Cqq3p_u0_LNP*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(1,1) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(1,1)).real();
+	Cqq3_1223i_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(1,2) + Cqq3p_u0_LNP*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(1,1) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(1,1)).imag();
+	Cqq3_1231r_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(2,0) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,0) + Cqq3p_u0_LNP*YucuL(2,1) + 2*Cqq3p_ud_LNP*YucuL(0,0)*YucuL(2,1) + Cqq3p_uu_LNP*YucuL(0,0)*YucuL(2,1)).real();
+	Cqq3_1231i_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(2,0) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,0) + Cqq3p_u0_LNP*YucuL(2,1) + 2*Cqq3p_ud_LNP*YucuL(0,0)*YucuL(2,1) + Cqq3p_uu_LNP*YucuL(0,0)*YucuL(2,1)).imag();
+	Cqq3_1232r_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(2,1) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(2,1)).real();
+	Cqq3_1232i_LNP = (2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(2,1) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(2,1)).imag();
+	Cqq3_1233r_LNP = (Cqq3_u0_LNP*YucuL(0,1) + 2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(2,1)).real();
+	Cqq3_1233i_LNP = (Cqq3_u0_LNP*YucuL(0,1) + 2*Cqq3_ud_LNP*YucuL(0,1)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(0,1)*YucuL(2,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(2,1)).imag();
+	Cqq3_1313r_LNP = (2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(0,2) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(0,2)).real();
+	Cqq3_1313i_LNP = (2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(0,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(0,2) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(0,2)).imag();
+	Cqq3_1322r_LNP = (Cqq3_u0_LNP*YucuL(0,2) + 2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(1,2) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(1,2)).real();
+	Cqq3_1322i_LNP = (Cqq3_u0_LNP*YucuL(0,2) + 2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(1,2) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(1,2)).imag();
+	Cqq3_1323r_LNP = (2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(1,2) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(1,2)).real();
+	Cqq3_1323i_LNP = (2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(1,2) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(1,2)).imag();
+	Cqq3_1331r_LNP = (2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(2,0) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,0) + Cqq3p_00_LNP + Cqq3p_d0_LNP*YddL(0) + Cqq3p_d0_LNP*YddL(2) + Cqq3p_dd_LNP*YddL(0)*YddL(2) + Cqq3p_u0_LNP*YucuL(0,0) + Cqq3p_u0_LNP*YucuL(2,2) + 2*Cqq3p_ud_LNP*YucuL(0,0)*YucuL(2,2) + Cqq3p_uu_LNP*YucuL(0,0)*YucuL(2,2)).real();
+	Cqq3_1332r_LNP = (2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3p_u0_LNP*YucuL(0,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(2,2) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(2,2)).real();
+	Cqq3_1332i_LNP = (2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,1) + Cqq3p_u0_LNP*YucuL(0,1) + 2*Cqq3p_ud_LNP*YucuL(0,1)*YucuL(2,2) + Cqq3p_uu_LNP*YucuL(0,1)*YucuL(2,2)).imag();
+	Cqq3_1333r_LNP = (Cqq3_u0_LNP*YucuL(0,2) + 2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,2) + Cqq3p_u0_LNP*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(2,2) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(2,2)).real();
+	Cqq3_1333i_LNP = (Cqq3_u0_LNP*YucuL(0,2) + 2*Cqq3_ud_LNP*YucuL(0,2)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(0,2)*YucuL(2,2) + Cqq3p_u0_LNP*YucuL(0,2) + 2*Cqq3p_ud_LNP*YucuL(0,2)*YucuL(2,2) + Cqq3p_uu_LNP*YucuL(0,2)*YucuL(2,2)).imag();
+	Cqq3_2222r_LNP = (Cqq3_00_LNP + 2*Cqq3_d0_LNP*YddL(1) + Cqq3_dd_LNP*YddL(1)*YddL(1) + 2*Cqq3_u0_LNP*YucuL(1,1) + 2*Cqq3_ud_LNP*YucuL(1,1)*YucuL(1,1) + Cqq3_uu_LNP*YucuL(1,1)*YucuL(1,1) + Cqq3p_00_LNP + 2*Cqq3p_d0_LNP*YddL(1) + Cqq3p_dd_LNP*YddL(1)*YddL(1) + 2*Cqq3p_u0_LNP*YucuL(1,1) + 2*Cqq3p_ud_LNP*YucuL(1,1)*YucuL(1,1) + Cqq3p_uu_LNP*YucuL(1,1)*YucuL(1,1)).real();
+	Cqq3_2223r_LNP = (Cqq3_u0_LNP*YucuL(1,2) + 2*Cqq3_ud_LNP*YucuL(1,1)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(1,1)*YucuL(1,2) + Cqq3p_u0_LNP*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(1,1)*YucuL(1,2) + Cqq3p_uu_LNP*YucuL(1,1)*YucuL(1,2)).real();
+	Cqq3_2223i_LNP = (Cqq3_u0_LNP*YucuL(1,2) + 2*Cqq3_ud_LNP*YucuL(1,1)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(1,1)*YucuL(1,2) + Cqq3p_u0_LNP*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(1,1)*YucuL(1,2) + Cqq3p_uu_LNP*YucuL(1,1)*YucuL(1,2)).imag();
+	Cqq3_2233r_LNP = (Cqq3_00_LNP + Cqq3_d0_LNP*YddL(1) + Cqq3_d0_LNP*YddL(2) + Cqq3_dd_LNP*YddL(1)*YddL(2) + Cqq3_u0_LNP*YucuL(1,1) + Cqq3_u0_LNP*YucuL(2,2) + 2*Cqq3_ud_LNP*YucuL(1,1)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(1,1)*YucuL(2,2) + 2*Cqq3p_ud_LNP*YucuL(1,2)*YucuL(2,1) + Cqq3p_uu_LNP*YucuL(1,2)*YucuL(2,1)).real();
+	Cqq3_2323r_LNP = (2*Cqq3_ud_LNP*YucuL(1,2)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(1,2)*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(1,2)*YucuL(1,2) + Cqq3p_uu_LNP*YucuL(1,2)*YucuL(1,2)).real();
+	Cqq3_2323i_LNP = (2*Cqq3_ud_LNP*YucuL(1,2)*YucuL(1,2) + Cqq3_uu_LNP*YucuL(1,2)*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(1,2)*YucuL(1,2) + Cqq3p_uu_LNP*YucuL(1,2)*YucuL(1,2)).imag();
+	Cqq3_2332r_LNP = (2*Cqq3_ud_LNP*YucuL(1,2)*YucuL(2,1) + Cqq3_uu_LNP*YucuL(1,2)*YucuL(2,1) + Cqq3p_00_LNP + Cqq3p_d0_LNP*YddL(1) + Cqq3p_d0_LNP*YddL(2) + Cqq3p_dd_LNP*YddL(1)*YddL(2) + Cqq3p_u0_LNP*YucuL(1,1) + Cqq3p_u0_LNP*YucuL(2,2) + 2*Cqq3p_ud_LNP*YucuL(1,1)*YucuL(2,2) + Cqq3p_uu_LNP*YucuL(1,1)*YucuL(2,2)).real();
+	Cqq3_2333r_LNP = (Cqq3_u0_LNP*YucuL(1,2) + 2*Cqq3_ud_LNP*YucuL(1,2)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(1,2)*YucuL(2,2) + Cqq3p_u0_LNP*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(1,2)*YucuL(2,2) + Cqq3p_uu_LNP*YucuL(1,2)*YucuL(2,2)).real();
+	Cqq3_2333i_LNP = (Cqq3_u0_LNP*YucuL(1,2) + 2*Cqq3_ud_LNP*YucuL(1,2)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(1,2)*YucuL(2,2) + Cqq3p_u0_LNP*YucuL(1,2) + 2*Cqq3p_ud_LNP*YucuL(1,2)*YucuL(2,2) + Cqq3p_uu_LNP*YucuL(1,2)*YucuL(2,2)).imag();
+	Cqq3_3333r_LNP = (Cqq3_00_LNP + 2*Cqq3_d0_LNP*YddL(2) + Cqq3_dd_LNP*YddL(2)*YddL(2) + 2*Cqq3_u0_LNP*YucuL(2,2) + 2*Cqq3_ud_LNP*YucuL(2,2)*YucuL(2,2) + Cqq3_uu_LNP*YucuL(2,2)*YucuL(2,2) + Cqq3p_00_LNP + 2*Cqq3p_d0_LNP*YddL(2) + Cqq3p_dd_LNP*YddL(2)*YddL(2) + 2*Cqq3p_u0_LNP*YucuL(2,2) + 2*Cqq3p_ud_LNP*YucuL(2,2)*YucuL(2,2) + Cqq3p_uu_LNP*YucuL(2,2)*YucuL(2,2)).real();
 
-	Cuu_1111r_LNP = (2*Cuu_00_LNP + 2*Cuu_0u_LNP*YuucL(0,0) + 2*Cuu_u0_LNP*YuucL(0,0) + 2*Cuu_uu_LNP*YuucL(0,0)*YuucL(0,0)).real();
-	Cuu_1112r_LNP = (Cuu_0u_LNP*YuucL(0,1) + Cuu_u0_LNP*YuucL(0,1) + 2*Cuu_uu_LNP*YuucL(0,0)*YuucL(0,1)).real();
-	Cuu_1112i_LNP = (Cuu_0u_LNP*YuucL(0,1) + Cuu_u0_LNP*YuucL(0,1) + 2*Cuu_uu_LNP*YuucL(0,0)*YuucL(0,1)).imag();
-	Cuu_1113r_LNP = (Cuu_0u_LNP*YuucL(0,2) + Cuu_u0_LNP*YuucL(0,2) + 2*Cuu_uu_LNP*YuucL(0,0)*YuucL(0,2)).real();
-	Cuu_1113i_LNP = (Cuu_0u_LNP*YuucL(0,2) + Cuu_u0_LNP*YuucL(0,2) + 2*Cuu_uu_LNP*YuucL(0,0)*YuucL(0,2)).imag();
-	Cuu_1122r_LNP = (Cuu_00_LNP + Cuu_u0_LNP*YuucL(0,0) + Cuu_uu_LNP*YuucL(0,1)*YuucL(1,0) + Cuu_0u_LNP*YuucL(1,1) + Cuu_uu_LNP*YuucL(0,0)*YuucL(1,1)).real();
-	Cuu_1123r_LNP = (Cuu_uu_LNP*YuucL(0,2)*YuucL(1,0) + Cuu_0u_LNP*YuucL(1,2) + Cuu_uu_LNP*YuucL(0,0)*YuucL(1,2)).real();
-	Cuu_1123i_LNP = (Cuu_uu_LNP*YuucL(0,2)*YuucL(1,0) + Cuu_0u_LNP*YuucL(1,2) + Cuu_uu_LNP*YuucL(0,0)*YuucL(1,2)).imag();
-	Cuu_1133r_LNP = (Cuu_00_LNP + Cuu_u0_LNP*YuucL(0,0) + Cuu_uu_LNP*YuucL(0,2)*YuucL(2,0) + Cuu_0u_LNP*YuucL(2,2) + Cuu_uu_LNP*YuucL(0,0)*YuucL(2,2)).real();
-	Cuu_1212r_LNP = (2*Cuu_uu_LNP*YuucL(0,1)*YuucL(0,1)).real();
-	Cuu_1212i_LNP = (2*Cuu_uu_LNP*YuucL(0,1)*YuucL(0,1)).imag();
-	Cuu_1213r_LNP = (2*Cuu_uu_LNP*YuucL(0,1)*YuucL(0,2)).real();
-	Cuu_1213i_LNP = (2*Cuu_uu_LNP*YuucL(0,1)*YuucL(0,2)).imag();
-	Cuu_1221r_LNP = (Cuu_00_LNP + Cuu_u0_LNP*YuucL(0,0) + Cuu_uu_LNP*YuucL(0,1)*YuucL(1,0) + Cuu_0u_LNP*YuucL(1,1) + Cuu_uu_LNP*YuucL(0,0)*YuucL(1,1)).real();
-	Cuu_1222r_LNP = (2*Cuu_u0_LNP*YuucL(0,1) + 2*Cuu_uu_LNP*YuucL(0,1)*YuucL(1,1)).real();
-	Cuu_1222i_LNP = (2*Cuu_u0_LNP*YuucL(0,1) + 2*Cuu_uu_LNP*YuucL(0,1)*YuucL(1,1)).imag();
-	Cuu_1223r_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,2)*YuucL(1,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(1,2)).real();
-	Cuu_1223i_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,2)*YuucL(1,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(1,2)).imag();
-	Cuu_1231r_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(2,0) + Cuu_0u_LNP*YuucL(2,1) + Cuu_uu_LNP*YuucL(0,0)*YuucL(2,1)).real();
-	Cuu_1231i_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(2,0) + Cuu_0u_LNP*YuucL(2,1) + Cuu_uu_LNP*YuucL(0,0)*YuucL(2,1)).imag();
-	Cuu_1232r_LNP = (2*Cuu_uu_LNP*YuucL(0,1)*YuucL(2,1)).real();
-	Cuu_1232i_LNP = (2*Cuu_uu_LNP*YuucL(0,1)*YuucL(2,1)).imag();
-	Cuu_1233r_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,2)*YuucL(2,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(2,2)).real();
-	Cuu_1233i_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,2)*YuucL(2,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(2,2)).imag();
-	Cuu_1313r_LNP = (2*Cuu_uu_LNP*YuucL(0,2)*YuucL(0,2)).real();
-	Cuu_1313i_LNP = (2*Cuu_uu_LNP*YuucL(0,2)*YuucL(0,2)).imag();
-	Cuu_1322r_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,2)*YuucL(1,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(1,2)).real();
-	Cuu_1322i_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,2)*YuucL(1,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(1,2)).imag();
-	Cuu_1323r_LNP = (2*Cuu_uu_LNP*YuucL(0,2)*YuucL(1,2)).real();
-	Cuu_1323i_LNP = (2*Cuu_uu_LNP*YuucL(0,2)*YuucL(1,2)).imag();
-	Cuu_1331r_LNP = (Cuu_00_LNP + Cuu_u0_LNP*YuucL(0,0) + Cuu_uu_LNP*YuucL(0,2)*YuucL(2,0) + Cuu_0u_LNP*YuucL(2,2) + Cuu_uu_LNP*YuucL(0,0)*YuucL(2,2)).real();
-	Cuu_1332r_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,2)*YuucL(2,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(2,2)).real();
-	Cuu_1332i_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,2)*YuucL(2,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(2,2)).imag();
-	Cuu_1333r_LNP = (2*Cuu_u0_LNP*YuucL(0,2) + 2*Cuu_uu_LNP*YuucL(0,2)*YuucL(2,2)).real();
-	Cuu_1333i_LNP = (2*Cuu_u0_LNP*YuucL(0,2) + 2*Cuu_uu_LNP*YuucL(0,2)*YuucL(2,2)).imag();
-	Cuu_2222r_LNP = (2*Cuu_00_LNP + 2*Cuu_0u_LNP*YuucL(1,1) + 2*Cuu_u0_LNP*YuucL(1,1) + 2*Cuu_uu_LNP*YuucL(1,1)*YuucL(1,1)).real();
-	Cuu_2223r_LNP = (Cuu_0u_LNP*YuucL(1,2) + Cuu_u0_LNP*YuucL(1,2) + 2*Cuu_uu_LNP*YuucL(1,1)*YuucL(1,2)).real();
-	Cuu_2223i_LNP = (Cuu_0u_LNP*YuucL(1,2) + Cuu_u0_LNP*YuucL(1,2) + 2*Cuu_uu_LNP*YuucL(1,1)*YuucL(1,2)).imag();
-	Cuu_2233r_LNP = (Cuu_00_LNP + Cuu_u0_LNP*YuucL(1,1) + Cuu_uu_LNP*YuucL(1,2)*YuucL(2,1) + Cuu_0u_LNP*YuucL(2,2) + Cuu_uu_LNP*YuucL(1,1)*YuucL(2,2)).real();
-	Cuu_2323r_LNP = (2*Cuu_uu_LNP*YuucL(1,2)*YuucL(1,2)).real();
-	Cuu_2323i_LNP = (2*Cuu_uu_LNP*YuucL(1,2)*YuucL(1,2)).imag();
-	Cuu_2332r_LNP = (Cuu_00_LNP + Cuu_u0_LNP*YuucL(1,1) + Cuu_uu_LNP*YuucL(1,2)*YuucL(2,1) + Cuu_0u_LNP*YuucL(2,2) + Cuu_uu_LNP*YuucL(1,1)*YuucL(2,2)).real();
-	Cuu_2333r_LNP = (2*Cuu_u0_LNP*YuucL(1,2) + 2*Cuu_uu_LNP*YuucL(1,2)*YuucL(2,2)).real();
-	Cuu_2333i_LNP = (2*Cuu_u0_LNP*YuucL(1,2) + 2*Cuu_uu_LNP*YuucL(1,2)*YuucL(2,2)).imag();
-	Cuu_3333r_LNP = (2*Cuu_00_LNP + 2*Cuu_0u_LNP*YuucL(2,2) + 2*Cuu_u0_LNP*YuucL(2,2) + 2*Cuu_uu_LNP*YuucL(2,2)*YuucL(2,2)).real();
+	Cuu_1111r_LNP = (Cuu_00_LNP + 2*Cuu_u0_LNP*YuucL(0,0) + Cuu_uu_LNP*YuucL(0,0)*YuucL(0,0) + Cuup_00_LNP + 2*Cuup_u0_LNP*YuucL(0,0) + Cuup_uu_LNP*YuucL(0,0)*YuucL(0,0)).real();
+	Cuu_1112r_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,0)*YuucL(0,1) + Cuup_u0_LNP*YuucL(0,1) + Cuup_uu_LNP*YuucL(0,0)*YuucL(0,1)).real();
+	Cuu_1112i_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,0)*YuucL(0,1) + Cuup_u0_LNP*YuucL(0,1) + Cuup_uu_LNP*YuucL(0,0)*YuucL(0,1)).imag();
+	Cuu_1113r_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,0)*YuucL(0,2) + Cuup_u0_LNP*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,0)*YuucL(0,2)).real();
+	Cuu_1113i_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,0)*YuucL(0,2) + Cuup_u0_LNP*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,0)*YuucL(0,2)).imag();
+	Cuu_1122r_LNP = (Cuu_00_LNP + Cuu_u0_LNP*YuucL(0,0) + Cuu_u0_LNP*YuucL(1,1) + Cuu_uu_LNP*YuucL(0,0)*YuucL(1,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(1,0)).real();
+	Cuu_1123r_LNP = (Cuu_u0_LNP*YuucL(1,2) + Cuu_uu_LNP*YuucL(0,0)*YuucL(1,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(1,0)).real();
+	Cuu_1123i_LNP = (Cuu_u0_LNP*YuucL(1,2) + Cuu_uu_LNP*YuucL(0,0)*YuucL(1,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(1,0)).imag();
+	Cuu_1133r_LNP = (Cuu_00_LNP + Cuu_u0_LNP*YuucL(0,0) + Cuu_u0_LNP*YuucL(2,2) + Cuu_uu_LNP*YuucL(0,0)*YuucL(2,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(2,0)).real();
+	Cuu_1212r_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(0,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(0,1)).real();
+	Cuu_1212i_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(0,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(0,1)).imag();
+	Cuu_1213r_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,1)*YuucL(0,2)).real();
+	Cuu_1213i_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,1)*YuucL(0,2)).imag();
+	Cuu_1221r_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(1,0) + Cuup_00_LNP + Cuup_u0_LNP*YuucL(0,0) + Cuup_u0_LNP*YuucL(1,1) + Cuup_uu_LNP*YuucL(0,0)*YuucL(1,1)).real();
+	Cuu_1222r_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(1,1) + Cuup_u0_LNP*YuucL(0,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(1,1)).real();
+	Cuu_1222i_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(1,1) + Cuup_u0_LNP*YuucL(0,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(1,1)).imag();
+	Cuu_1223r_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(1,2) + Cuup_u0_LNP*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(1,1)).real();
+	Cuu_1223i_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(1,2) + Cuup_u0_LNP*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(1,1)).imag();
+	Cuu_1231r_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(2,0) + Cuup_u0_LNP*YuucL(2,1) + Cuup_uu_LNP*YuucL(0,0)*YuucL(2,1)).real();
+	Cuu_1231i_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(2,0) + Cuup_u0_LNP*YuucL(2,1) + Cuup_uu_LNP*YuucL(0,0)*YuucL(2,1)).imag();
+	Cuu_1232r_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(2,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(2,1)).real();
+	Cuu_1232i_LNP = (Cuu_uu_LNP*YuucL(0,1)*YuucL(2,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(2,1)).imag();
+	Cuu_1233r_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(2,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(2,1)).real();
+	Cuu_1233i_LNP = (Cuu_u0_LNP*YuucL(0,1) + Cuu_uu_LNP*YuucL(0,1)*YuucL(2,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(2,1)).imag();
+	Cuu_1313r_LNP = (Cuu_uu_LNP*YuucL(0,2)*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(0,2)).real();
+	Cuu_1313i_LNP = (Cuu_uu_LNP*YuucL(0,2)*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(0,2)).imag();
+	Cuu_1322r_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,2)*YuucL(1,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(1,2)).real();
+	Cuu_1322i_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,2)*YuucL(1,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(1,2)).imag();
+	Cuu_1323r_LNP = (Cuu_uu_LNP*YuucL(0,2)*YuucL(1,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(1,2)).real();
+	Cuu_1323i_LNP = (Cuu_uu_LNP*YuucL(0,2)*YuucL(1,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(1,2)).imag();
+	Cuu_1331r_LNP = (Cuu_uu_LNP*YuucL(0,2)*YuucL(2,0) + Cuup_00_LNP + Cuup_u0_LNP*YuucL(0,0) + Cuup_u0_LNP*YuucL(2,2) + Cuup_uu_LNP*YuucL(0,0)*YuucL(2,2)).real();
+	Cuu_1332r_LNP = (Cuu_uu_LNP*YuucL(0,2)*YuucL(2,1) + Cuup_u0_LNP*YuucL(0,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(2,2)).real();
+	Cuu_1332i_LNP = (Cuu_uu_LNP*YuucL(0,2)*YuucL(2,1) + Cuup_u0_LNP*YuucL(0,1) + Cuup_uu_LNP*YuucL(0,1)*YuucL(2,2)).imag();
+	Cuu_1333r_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,2)*YuucL(2,2) + Cuup_u0_LNP*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(2,2)).real();
+	Cuu_1333i_LNP = (Cuu_u0_LNP*YuucL(0,2) + Cuu_uu_LNP*YuucL(0,2)*YuucL(2,2) + Cuup_u0_LNP*YuucL(0,2) + Cuup_uu_LNP*YuucL(0,2)*YuucL(2,2)).imag();
+	Cuu_2222r_LNP = (Cuu_00_LNP + 2*Cuu_u0_LNP*YuucL(1,1) + Cuu_uu_LNP*YuucL(1,1)*YuucL(1,1) + Cuup_00_LNP + 2*Cuup_u0_LNP*YuucL(1,1) + Cuup_uu_LNP*YuucL(1,1)*YuucL(1,1)).real();
+	Cuu_2223r_LNP = (Cuu_u0_LNP*YuucL(1,2) + Cuu_uu_LNP*YuucL(1,1)*YuucL(1,2) + Cuup_u0_LNP*YuucL(1,2) + Cuup_uu_LNP*YuucL(1,1)*YuucL(1,2)).real();
+	Cuu_2223i_LNP = (Cuu_u0_LNP*YuucL(1,2) + Cuu_uu_LNP*YuucL(1,1)*YuucL(1,2) + Cuup_u0_LNP*YuucL(1,2) + Cuup_uu_LNP*YuucL(1,1)*YuucL(1,2)).imag();
+	Cuu_2233r_LNP = (Cuu_00_LNP + Cuu_u0_LNP*YuucL(1,1) + Cuu_u0_LNP*YuucL(2,2) + Cuu_uu_LNP*YuucL(1,1)*YuucL(2,2) + Cuup_uu_LNP*YuucL(1,2)*YuucL(2,1)).real();
+	Cuu_2323r_LNP = (Cuu_uu_LNP*YuucL(1,2)*YuucL(1,2) + Cuup_uu_LNP*YuucL(1,2)*YuucL(1,2)).real();
+	Cuu_2323i_LNP = (Cuu_uu_LNP*YuucL(1,2)*YuucL(1,2) + Cuup_uu_LNP*YuucL(1,2)*YuucL(1,2)).imag();
+	Cuu_2332r_LNP = (Cuu_uu_LNP*YuucL(1,2)*YuucL(2,1) + Cuup_00_LNP + Cuup_u0_LNP*YuucL(1,1) + Cuup_u0_LNP*YuucL(2,2) + Cuup_uu_LNP*YuucL(1,1)*YuucL(2,2)).real();
+	Cuu_2333r_LNP = (Cuu_u0_LNP*YuucL(1,2) + Cuu_uu_LNP*YuucL(1,2)*YuucL(2,2) + Cuup_u0_LNP*YuucL(1,2) + Cuup_uu_LNP*YuucL(1,2)*YuucL(2,2)).real();
+	Cuu_2333i_LNP = (Cuu_u0_LNP*YuucL(1,2) + Cuu_uu_LNP*YuucL(1,2)*YuucL(2,2) + Cuup_u0_LNP*YuucL(1,2) + Cuup_uu_LNP*YuucL(1,2)*YuucL(2,2)).imag();
+	Cuu_3333r_LNP = (Cuu_00_LNP + 2*Cuu_u0_LNP*YuucL(2,2) + Cuu_uu_LNP*YuucL(2,2)*YuucL(2,2) + Cuup_00_LNP + 2*Cuup_u0_LNP*YuucL(2,2) + Cuup_uu_LNP*YuucL(2,2)*YuucL(2,2)).real();
 
-	Cdd_1111r_LNP = (2*Cdd_00_LNP + 2*Cdd_0d_LNP*YddL(0) + 2*Cdd_d0_LNP*YddL(0) + 2*Cdd_dd_LNP*YddL(0)*YddL(0)).real();
-	Cdd_1122r_LNP = (Cdd_00_LNP + Cdd_d0_LNP*YddL(0) + Cdd_0d_LNP*YddL(1) + Cdd_dd_LNP*YddL(0)*YddL(1)).real();
-	Cdd_1133r_LNP = (Cdd_00_LNP + Cdd_d0_LNP*YddL(0) + Cdd_0d_LNP*YddL(2) + Cdd_dd_LNP*YddL(0)*YddL(2)).real();
-	Cdd_1221r_LNP = (Cdd_00_LNP + Cdd_d0_LNP*YddL(0) + Cdd_0d_LNP*YddL(1) + Cdd_dd_LNP*YddL(0)*YddL(1)).real();
-	Cdd_1331r_LNP = (Cdd_00_LNP + Cdd_d0_LNP*YddL(0) + Cdd_0d_LNP*YddL(2) + Cdd_dd_LNP*YddL(0)*YddL(2)).real();
-	Cdd_2222r_LNP = (2*Cdd_00_LNP + 2*Cdd_0d_LNP*YddL(1) + 2*Cdd_d0_LNP*YddL(1) + 2*Cdd_dd_LNP*YddL(1)*YddL(1)).real();
-	Cdd_2233r_LNP = (Cdd_00_LNP + Cdd_d0_LNP*YddL(1) + Cdd_0d_LNP*YddL(2) + Cdd_dd_LNP*YddL(1)*YddL(2)).real();
-	Cdd_2332r_LNP = (Cdd_00_LNP + Cdd_d0_LNP*YddL(1) + Cdd_0d_LNP*YddL(2) + Cdd_dd_LNP*YddL(1)*YddL(2)).real();
-	Cdd_3333r_LNP = (2*Cdd_00_LNP + 2*Cdd_0d_LNP*YddL(2) + 2*Cdd_d0_LNP*YddL(2) + 2*Cdd_dd_LNP*YddL(2)*YddL(2)).real();
+	Cdd_1111r_LNP = (Cdd_00_LNP + 2*Cdd_d0_LNP*YddL(0) + Cdd_dd_LNP*YddL(0)*YddL(0) + Cddp_00_LNP + 2*Cddp_d0_LNP*YddL(0) + Cddp_dd_LNP*YddL(0)*YddL(0)).real();
+	Cdd_1122r_LNP = (Cdd_00_LNP + Cdd_d0_LNP*YddL(0) + Cdd_d0_LNP*YddL(1) + Cdd_dd_LNP*YddL(0)*YddL(1)).real();
+	Cdd_1133r_LNP = (Cdd_00_LNP + Cdd_d0_LNP*YddL(0) + Cdd_d0_LNP*YddL(2) + Cdd_dd_LNP*YddL(0)*YddL(2)).real();
+	Cdd_1221r_LNP = (Cddp_00_LNP + Cddp_d0_LNP*YddL(0) + Cddp_d0_LNP*YddL(1) + Cddp_dd_LNP*YddL(0)*YddL(1)).real();
+	Cdd_1331r_LNP = (Cddp_00_LNP + Cddp_d0_LNP*YddL(0) + Cddp_d0_LNP*YddL(2) + Cddp_dd_LNP*YddL(0)*YddL(2)).real();
+	Cdd_2222r_LNP = (Cdd_00_LNP + 2*Cdd_d0_LNP*YddL(1) + Cdd_dd_LNP*YddL(1)*YddL(1) + Cddp_00_LNP + 2*Cddp_d0_LNP*YddL(1) + Cddp_dd_LNP*YddL(1)*YddL(1)).real();
+	Cdd_2233r_LNP = (Cdd_00_LNP + Cdd_d0_LNP*YddL(1) + Cdd_d0_LNP*YddL(2) + Cdd_dd_LNP*YddL(1)*YddL(2)).real();
+	Cdd_2332r_LNP = (Cddp_00_LNP + Cddp_d0_LNP*YddL(1) + Cddp_d0_LNP*YddL(2) + Cddp_dd_LNP*YddL(1)*YddL(2)).real();
+	Cdd_3333r_LNP = (Cdd_00_LNP + 2*Cdd_d0_LNP*YddL(2) + Cdd_dd_LNP*YddL(2)*YddL(2) + Cddp_00_LNP + 2*Cddp_d0_LNP*YddL(2) + Cddp_dd_LNP*YddL(2)*YddL(2)).real();
 
 	Cud1_1111r_LNP = (Cud1_00_LNP + Cud1_0d_LNP*YddL(0) + Cud1_u0_LNP*YuucL(0,0) + Cud1_ud_LNP*YddL(0)*YuucL(0,0)).real();
 	Cud1_1122r_LNP = (Cud1_00_LNP + Cud1_0d_LNP*YddL(1) + Cud1_u0_LNP*YuucL(0,0) + Cud1_ud_LNP*YddL(1)*YuucL(0,0)).real();
@@ -1282,193 +1318,193 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Cqd8_3322r_LNP = (Cqd8_00_LNP + Cqd8_0d_LNP*YddL(1) + Cqd8_d0_LNP*YddL(2) + Cqd8_dd_LNP*YddL(1)*YddL(2) + Cqd8_u0_LNP*YucuL(2,2) + Cqd8_ud_LNP*YddL(1)*YucuL(2,2)).real();
 	Cqd8_3333r_LNP = (Cqd8_00_LNP + Cqd8_0d_LNP*YddL(2) + Cqd8_d0_LNP*YddL(2) + Cqd8_dd_LNP*YddL(2)*YddL(2) + Cqd8_u0_LNP*YucuL(2,2) + Cqd8_ud_LNP*YddL(2)*YucuL(2,2)).real();
 
-	Cquqd1_1111r_LNP = (2*Cquqd1_00_LNP*YdL(0)*YuL(0,0)).real();
-	Cquqd1_1111i_LNP = (2*Cquqd1_00_LNP*YdL(0)*YuL(0,0)).imag();
-	Cquqd1_1121r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,0)).real();
-	Cquqd1_1121i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,0)).imag();
+	Cquqd1_1111r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(0,0) + Cquqd1p_00_LNP*YdL(0)*YuL(0,0)).real();
+	Cquqd1_1111i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(0,0) + Cquqd1p_00_LNP*YdL(0)*YuL(0,0)).imag();
+	Cquqd1_1112r_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(0,1)).real();
+	Cquqd1_1112i_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(0,1)).imag();
+	Cquqd1_1113r_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(0,2)).real();
+	Cquqd1_1113i_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(0,2)).imag();
 	Cquqd1_1122r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,0)).real();
 	Cquqd1_1122i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,0)).imag();
-	Cquqd1_1131r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,0)).real();
-	Cquqd1_1131i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,0)).imag();
 	Cquqd1_1133r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,0)).real();
 	Cquqd1_1133i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,0)).imag();
-	Cquqd1_1211r_LNP = (2*Cquqd1_00_LNP*YdL(0)*YuL(0,1)).real();
-	Cquqd1_1211i_LNP = (2*Cquqd1_00_LNP*YdL(0)*YuL(0,1)).imag();
-	Cquqd1_1221r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,1)).real();
-	Cquqd1_1221i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,1)).imag();
-	Cquqd1_1222r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,1)).real();
-	Cquqd1_1222i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,1)).imag();
-	Cquqd1_1231r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,1)).real();
-	Cquqd1_1231i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,1)).imag();
+	Cquqd1_1211r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(0,1)).real();
+	Cquqd1_1211i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(0,1)).imag();
+	Cquqd1_1221r_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(0,0)).real();
+	Cquqd1_1221i_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(0,0)).imag();
+	Cquqd1_1222r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,1) + Cquqd1p_00_LNP*YdL(1)*YuL(0,1)).real();
+	Cquqd1_1222i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,1) + Cquqd1p_00_LNP*YdL(1)*YuL(0,1)).imag();
+	Cquqd1_1223r_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(0,2)).real();
+	Cquqd1_1223i_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(0,2)).imag();
 	Cquqd1_1233r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,1)).real();
 	Cquqd1_1233i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,1)).imag();
-	Cquqd1_1311r_LNP = (2*Cquqd1_00_LNP*YdL(0)*YuL(0,2)).real();
-	Cquqd1_1311i_LNP = (2*Cquqd1_00_LNP*YdL(0)*YuL(0,2)).imag();
-	Cquqd1_1321r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,2)).real();
-	Cquqd1_1321i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,2)).imag();
+	Cquqd1_1311r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(0,2)).real();
+	Cquqd1_1311i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(0,2)).imag();
 	Cquqd1_1322r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,2)).real();
 	Cquqd1_1322i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,2)).imag();
-	Cquqd1_1331r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,2)).real();
-	Cquqd1_1331i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,2)).imag();
-	Cquqd1_1333r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,2)).real();
-	Cquqd1_1333i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,2)).imag();
-	Cquqd1_2111r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,0)).real();
-	Cquqd1_2111i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,0)).imag();
-	Cquqd1_2112r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,0)).real();
-	Cquqd1_2112i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,0)).imag();
-	Cquqd1_2122r_LNP = (2*Cquqd1_00_LNP*YdL(1)*YuL(1,0)).real();
-	Cquqd1_2122i_LNP = (2*Cquqd1_00_LNP*YdL(1)*YuL(1,0)).imag();
-	Cquqd1_2132r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,0)).real();
-	Cquqd1_2132i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,0)).imag();
+	Cquqd1_1331r_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(0,0)).real();
+	Cquqd1_1331i_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(0,0)).imag();
+	Cquqd1_1332r_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(0,1)).real();
+	Cquqd1_1332i_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(0,1)).imag();
+	Cquqd1_1333r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,2) + Cquqd1p_00_LNP*YdL(2)*YuL(0,2)).real();
+	Cquqd1_1333i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,2) + Cquqd1p_00_LNP*YdL(2)*YuL(0,2)).imag();
+	Cquqd1_2111r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,0) + Cquqd1p_00_LNP*YdL(0)*YuL(1,0)).real();
+	Cquqd1_2111i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,0) + Cquqd1p_00_LNP*YdL(0)*YuL(1,0)).imag();
+	Cquqd1_2112r_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(1,1)).real();
+	Cquqd1_2112i_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(1,1)).imag();
+	Cquqd1_2113r_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(1,2)).real();
+	Cquqd1_2113i_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(1,2)).imag();
+	Cquqd1_2122r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(1,0)).real();
+	Cquqd1_2122i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(1,0)).imag();
 	Cquqd1_2133r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,0)).real();
 	Cquqd1_2133i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,0)).imag();
 	Cquqd1_2211r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,1)).real();
 	Cquqd1_2211i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,1)).imag();
-	Cquqd1_2212r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,1)).real();
-	Cquqd1_2212i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,1)).imag();
-	Cquqd1_2222r_LNP = (2*Cquqd1_00_LNP*YdL(1)*YuL(1,1)).real();
-	Cquqd1_2222i_LNP = (2*Cquqd1_00_LNP*YdL(1)*YuL(1,1)).imag();
-	Cquqd1_2232r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,1)).real();
-	Cquqd1_2232i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,1)).imag();
+	Cquqd1_2221r_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(1,0)).real();
+	Cquqd1_2221i_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(1,0)).imag();
+	Cquqd1_2222r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(1,1) + Cquqd1p_00_LNP*YdL(1)*YuL(1,1)).real();
+	Cquqd1_2222i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(1,1) + Cquqd1p_00_LNP*YdL(1)*YuL(1,1)).imag();
+	Cquqd1_2223r_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(1,2)).real();
+	Cquqd1_2223i_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(1,2)).imag();
 	Cquqd1_2233r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,1)).real();
 	Cquqd1_2233i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,1)).imag();
 	Cquqd1_2311r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,2)).real();
 	Cquqd1_2311i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(1,2)).imag();
-	Cquqd1_2312r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,2)).real();
-	Cquqd1_2312i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(0,2)).imag();
-	Cquqd1_2322r_LNP = (2*Cquqd1_00_LNP*YdL(1)*YuL(1,2)).real();
-	Cquqd1_2322i_LNP = (2*Cquqd1_00_LNP*YdL(1)*YuL(1,2)).imag();
-	Cquqd1_2332r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,2)).real();
-	Cquqd1_2332i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,2)).imag();
-	Cquqd1_2333r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,2)).real();
-	Cquqd1_2333i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,2)).imag();
-	Cquqd1_3111r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,0)).real();
-	Cquqd1_3111i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,0)).imag();
-	Cquqd1_3113r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,0)).real();
-	Cquqd1_3113i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,0)).imag();
+	Cquqd1_2322r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(1,2)).real();
+	Cquqd1_2322i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(1,2)).imag();
+	Cquqd1_2331r_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(1,0)).real();
+	Cquqd1_2331i_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(1,0)).imag();
+	Cquqd1_2332r_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(1,1)).real();
+	Cquqd1_2332i_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(1,1)).imag();
+	Cquqd1_2333r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,2) + Cquqd1p_00_LNP*YdL(2)*YuL(1,2)).real();
+	Cquqd1_2333i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,2) + Cquqd1p_00_LNP*YdL(2)*YuL(1,2)).imag();
+	Cquqd1_3111r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,0) + Cquqd1p_00_LNP*YdL(0)*YuL(2,0)).real();
+	Cquqd1_3111i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,0) + Cquqd1p_00_LNP*YdL(0)*YuL(2,0)).imag();
+	Cquqd1_3112r_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(2,1)).real();
+	Cquqd1_3112i_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(2,1)).imag();
+	Cquqd1_3113r_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(2,2)).real();
+	Cquqd1_3113i_LNP = (Cquqd1p_00_LNP*YdL(0)*YuL(2,2)).imag();
 	Cquqd1_3122r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,0)).real();
 	Cquqd1_3122i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,0)).imag();
-	Cquqd1_3123r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,0)).real();
-	Cquqd1_3123i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,0)).imag();
-	Cquqd1_3133r_LNP = (2*Cquqd1_00_LNP*YdL(2)*YuL(2,0)).real();
-	Cquqd1_3133i_LNP = (2*Cquqd1_00_LNP*YdL(2)*YuL(2,0)).imag();
+	Cquqd1_3133r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(2,0)).real();
+	Cquqd1_3133i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(2,0)).imag();
 	Cquqd1_3211r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,1)).real();
 	Cquqd1_3211i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,1)).imag();
-	Cquqd1_3213r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,1)).real();
-	Cquqd1_3213i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,1)).imag();
-	Cquqd1_3222r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,1)).real();
-	Cquqd1_3222i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,1)).imag();
-	Cquqd1_3223r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,1)).real();
-	Cquqd1_3223i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,1)).imag();
-	Cquqd1_3233r_LNP = (2*Cquqd1_00_LNP*YdL(2)*YuL(2,1)).real();
-	Cquqd1_3233i_LNP = (2*Cquqd1_00_LNP*YdL(2)*YuL(2,1)).imag();
+	Cquqd1_3221r_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(2,0)).real();
+	Cquqd1_3221i_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(2,0)).imag();
+	Cquqd1_3222r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,1) + Cquqd1p_00_LNP*YdL(1)*YuL(2,1)).real();
+	Cquqd1_3222i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,1) + Cquqd1p_00_LNP*YdL(1)*YuL(2,1)).imag();
+	Cquqd1_3223r_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(2,2)).real();
+	Cquqd1_3223i_LNP = (Cquqd1p_00_LNP*YdL(1)*YuL(2,2)).imag();
+	Cquqd1_3233r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(2,1)).real();
+	Cquqd1_3233i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(2,1)).imag();
 	Cquqd1_3311r_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,2)).real();
 	Cquqd1_3311i_LNP = (Cquqd1_00_LNP*YdL(0)*YuL(2,2)).imag();
-	Cquqd1_3313r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,2)).real();
-	Cquqd1_3313i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(0,2)).imag();
 	Cquqd1_3322r_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,2)).real();
 	Cquqd1_3322i_LNP = (Cquqd1_00_LNP*YdL(1)*YuL(2,2)).imag();
-	Cquqd1_3323r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,2)).real();
-	Cquqd1_3323i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(1,2)).imag();
-	Cquqd1_3333r_LNP = (2*Cquqd1_00_LNP*YdL(2)*YuL(2,2)).real();
-	Cquqd1_3333i_LNP = (2*Cquqd1_00_LNP*YdL(2)*YuL(2,2)).imag();
+	Cquqd1_3331r_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(2,0)).real();
+	Cquqd1_3331i_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(2,0)).imag();
+	Cquqd1_3332r_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(2,1)).real();
+	Cquqd1_3332i_LNP = (Cquqd1p_00_LNP*YdL(2)*YuL(2,1)).imag();
+	Cquqd1_3333r_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(2,2) + Cquqd1p_00_LNP*YdL(2)*YuL(2,2)).real();
+	Cquqd1_3333i_LNP = (Cquqd1_00_LNP*YdL(2)*YuL(2,2) + Cquqd1p_00_LNP*YdL(2)*YuL(2,2)).imag();
 
-	Cquqd8_1111r_LNP = (2*Cquqd8_00_LNP*YdL(0)*YuL(0,0)).real();
-	Cquqd8_1111i_LNP = (2*Cquqd8_00_LNP*YdL(0)*YuL(0,0)).imag();
-	Cquqd8_1121r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,0)).real();
-	Cquqd8_1121i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,0)).imag();
+	Cquqd8_1111r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(0,0) + Cquqd8p_00_LNP*YdL(0)*YuL(0,0)).real();
+	Cquqd8_1111i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(0,0) + Cquqd8p_00_LNP*YdL(0)*YuL(0,0)).imag();
+	Cquqd8_1112r_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(0,1)).real();
+	Cquqd8_1112i_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(0,1)).imag();
+	Cquqd8_1113r_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(0,2)).real();
+	Cquqd8_1113i_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(0,2)).imag();
 	Cquqd8_1122r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,0)).real();
 	Cquqd8_1122i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,0)).imag();
-	Cquqd8_1131r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,0)).real();
-	Cquqd8_1131i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,0)).imag();
 	Cquqd8_1133r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,0)).real();
 	Cquqd8_1133i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,0)).imag();
-	Cquqd8_1211r_LNP = (2*Cquqd8_00_LNP*YdL(0)*YuL(0,1)).real();
-	Cquqd8_1211i_LNP = (2*Cquqd8_00_LNP*YdL(0)*YuL(0,1)).imag();
-	Cquqd8_1221r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,1)).real();
-	Cquqd8_1221i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,1)).imag();
-	Cquqd8_1222r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,1)).real();
-	Cquqd8_1222i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,1)).imag();
-	Cquqd8_1231r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,1)).real();
-	Cquqd8_1231i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,1)).imag();
+	Cquqd8_1211r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(0,1)).real();
+	Cquqd8_1211i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(0,1)).imag();
+	Cquqd8_1221r_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(0,0)).real();
+	Cquqd8_1221i_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(0,0)).imag();
+	Cquqd8_1222r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,1) + Cquqd8p_00_LNP*YdL(1)*YuL(0,1)).real();
+	Cquqd8_1222i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,1) + Cquqd8p_00_LNP*YdL(1)*YuL(0,1)).imag();
+	Cquqd8_1223r_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(0,2)).real();
+	Cquqd8_1223i_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(0,2)).imag();
 	Cquqd8_1233r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,1)).real();
 	Cquqd8_1233i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,1)).imag();
-	Cquqd8_1311r_LNP = (2*Cquqd8_00_LNP*YdL(0)*YuL(0,2)).real();
-	Cquqd8_1311i_LNP = (2*Cquqd8_00_LNP*YdL(0)*YuL(0,2)).imag();
-	Cquqd8_1321r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,2)).real();
-	Cquqd8_1321i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,2)).imag();
+	Cquqd8_1311r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(0,2)).real();
+	Cquqd8_1311i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(0,2)).imag();
 	Cquqd8_1322r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,2)).real();
 	Cquqd8_1322i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,2)).imag();
-	Cquqd8_1331r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,2)).real();
-	Cquqd8_1331i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,2)).imag();
-	Cquqd8_1333r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,2)).real();
-	Cquqd8_1333i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,2)).imag();
-	Cquqd8_2111r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,0)).real();
-	Cquqd8_2111i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,0)).imag();
-	Cquqd8_2112r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,0)).real();
-	Cquqd8_2112i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,0)).imag();
-	Cquqd8_2122r_LNP = (2*Cquqd8_00_LNP*YdL(1)*YuL(1,0)).real();
-	Cquqd8_2122i_LNP = (2*Cquqd8_00_LNP*YdL(1)*YuL(1,0)).imag();
-	Cquqd8_2132r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,0)).real();
-	Cquqd8_2132i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,0)).imag();
+	Cquqd8_1331r_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(0,0)).real();
+	Cquqd8_1331i_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(0,0)).imag();
+	Cquqd8_1332r_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(0,1)).real();
+	Cquqd8_1332i_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(0,1)).imag();
+	Cquqd8_1333r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,2) + Cquqd8p_00_LNP*YdL(2)*YuL(0,2)).real();
+	Cquqd8_1333i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,2) + Cquqd8p_00_LNP*YdL(2)*YuL(0,2)).imag();
+	Cquqd8_2111r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,0) + Cquqd8p_00_LNP*YdL(0)*YuL(1,0)).real();
+	Cquqd8_2111i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,0) + Cquqd8p_00_LNP*YdL(0)*YuL(1,0)).imag();
+	Cquqd8_2112r_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(1,1)).real();
+	Cquqd8_2112i_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(1,1)).imag();
+	Cquqd8_2113r_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(1,2)).real();
+	Cquqd8_2113i_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(1,2)).imag();
+	Cquqd8_2122r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(1,0)).real();
+	Cquqd8_2122i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(1,0)).imag();
 	Cquqd8_2133r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,0)).real();
 	Cquqd8_2133i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,0)).imag();
 	Cquqd8_2211r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,1)).real();
 	Cquqd8_2211i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,1)).imag();
-	Cquqd8_2212r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,1)).real();
-	Cquqd8_2212i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,1)).imag();
-	Cquqd8_2222r_LNP = (2*Cquqd8_00_LNP*YdL(1)*YuL(1,1)).real();
-	Cquqd8_2222i_LNP = (2*Cquqd8_00_LNP*YdL(1)*YuL(1,1)).imag();
-	Cquqd8_2232r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,1)).real();
-	Cquqd8_2232i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,1)).imag();
+	Cquqd8_2221r_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(1,0)).real();
+	Cquqd8_2221i_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(1,0)).imag();
+	Cquqd8_2222r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(1,1) + Cquqd8p_00_LNP*YdL(1)*YuL(1,1)).real();
+	Cquqd8_2222i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(1,1) + Cquqd8p_00_LNP*YdL(1)*YuL(1,1)).imag();
+	Cquqd8_2223r_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(1,2)).real();
+	Cquqd8_2223i_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(1,2)).imag();
 	Cquqd8_2233r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,1)).real();
 	Cquqd8_2233i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,1)).imag();
 	Cquqd8_2311r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,2)).real();
 	Cquqd8_2311i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(1,2)).imag();
-	Cquqd8_2312r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,2)).real();
-	Cquqd8_2312i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(0,2)).imag();
-	Cquqd8_2322r_LNP = (2*Cquqd8_00_LNP*YdL(1)*YuL(1,2)).real();
-	Cquqd8_2322i_LNP = (2*Cquqd8_00_LNP*YdL(1)*YuL(1,2)).imag();
-	Cquqd8_2332r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,2)).real();
-	Cquqd8_2332i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,2)).imag();
-	Cquqd8_2333r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,2)).real();
-	Cquqd8_2333i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,2)).imag();
-	Cquqd8_3111r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,0)).real();
-	Cquqd8_3111i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,0)).imag();
-	Cquqd8_3113r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,0)).real();
-	Cquqd8_3113i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,0)).imag();
+	Cquqd8_2322r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(1,2)).real();
+	Cquqd8_2322i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(1,2)).imag();
+	Cquqd8_2331r_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(1,0)).real();
+	Cquqd8_2331i_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(1,0)).imag();
+	Cquqd8_2332r_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(1,1)).real();
+	Cquqd8_2332i_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(1,1)).imag();
+	Cquqd8_2333r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,2) + Cquqd8p_00_LNP*YdL(2)*YuL(1,2)).real();
+	Cquqd8_2333i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,2) + Cquqd8p_00_LNP*YdL(2)*YuL(1,2)).imag();
+	Cquqd8_3111r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,0) + Cquqd8p_00_LNP*YdL(0)*YuL(2,0)).real();
+	Cquqd8_3111i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,0) + Cquqd8p_00_LNP*YdL(0)*YuL(2,0)).imag();
+	Cquqd8_3112r_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(2,1)).real();
+	Cquqd8_3112i_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(2,1)).imag();
+	Cquqd8_3113r_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(2,2)).real();
+	Cquqd8_3113i_LNP = (Cquqd8p_00_LNP*YdL(0)*YuL(2,2)).imag();
 	Cquqd8_3122r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,0)).real();
 	Cquqd8_3122i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,0)).imag();
-	Cquqd8_3123r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,0)).real();
-	Cquqd8_3123i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,0)).imag();
-	Cquqd8_3133r_LNP = (2*Cquqd8_00_LNP*YdL(2)*YuL(2,0)).real();
-	Cquqd8_3133i_LNP = (2*Cquqd8_00_LNP*YdL(2)*YuL(2,0)).imag();
+	Cquqd8_3133r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(2,0)).real();
+	Cquqd8_3133i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(2,0)).imag();
 	Cquqd8_3211r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,1)).real();
 	Cquqd8_3211i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,1)).imag();
-	Cquqd8_3213r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,1)).real();
-	Cquqd8_3213i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,1)).imag();
-	Cquqd8_3222r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,1)).real();
-	Cquqd8_3222i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,1)).imag();
-	Cquqd8_3223r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,1)).real();
-	Cquqd8_3223i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,1)).imag();
-	Cquqd8_3233r_LNP = (2*Cquqd8_00_LNP*YdL(2)*YuL(2,1)).real();
-	Cquqd8_3233i_LNP = (2*Cquqd8_00_LNP*YdL(2)*YuL(2,1)).imag();
+	Cquqd8_3221r_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(2,0)).real();
+	Cquqd8_3221i_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(2,0)).imag();
+	Cquqd8_3222r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,1) + Cquqd8p_00_LNP*YdL(1)*YuL(2,1)).real();
+	Cquqd8_3222i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,1) + Cquqd8p_00_LNP*YdL(1)*YuL(2,1)).imag();
+	Cquqd8_3223r_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(2,2)).real();
+	Cquqd8_3223i_LNP = (Cquqd8p_00_LNP*YdL(1)*YuL(2,2)).imag();
+	Cquqd8_3233r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(2,1)).real();
+	Cquqd8_3233i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(2,1)).imag();
 	Cquqd8_3311r_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,2)).real();
 	Cquqd8_3311i_LNP = (Cquqd8_00_LNP*YdL(0)*YuL(2,2)).imag();
-	Cquqd8_3313r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,2)).real();
-	Cquqd8_3313i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(0,2)).imag();
 	Cquqd8_3322r_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,2)).real();
 	Cquqd8_3322i_LNP = (Cquqd8_00_LNP*YdL(1)*YuL(2,2)).imag();
-	Cquqd8_3323r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,2)).real();
-	Cquqd8_3323i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(1,2)).imag();
-	Cquqd8_3333r_LNP = (2*Cquqd8_00_LNP*YdL(2)*YuL(2,2)).real();
-	Cquqd8_3333i_LNP = (2*Cquqd8_00_LNP*YdL(2)*YuL(2,2)).imag();
+	Cquqd8_3331r_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(2,0)).real();
+	Cquqd8_3331i_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(2,0)).imag();
+	Cquqd8_3332r_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(2,1)).real();
+	Cquqd8_3332i_LNP = (Cquqd8p_00_LNP*YdL(2)*YuL(2,1)).imag();
+	Cquqd8_3333r_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(2,2) + Cquqd8p_00_LNP*YdL(2)*YuL(2,2)).real();
+	Cquqd8_3333i_LNP = (Cquqd8_00_LNP*YdL(2)*YuL(2,2) + Cquqd8p_00_LNP*YdL(2)*YuL(2,2)).imag();
 
 }
 
 bool NPSMEFTd6MFV::PostUpdate() {
 
-	GenerateSMInitialConditions();
+	NPSMEFTd6General::GenerateSMInitialConditions();
 	
     setNPSMEFTd6GeneralParameters();
     

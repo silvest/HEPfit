@@ -14,7 +14,7 @@
 class NPSMEFTd6MFV: public NPSMEFTd6General {
 public:
     
-    static const int NNPSMEFTd6MFVVars = 128+1;
+    static const int NNPSMEFTd6MFVVars = 140+1;
     
     static std::string NPSMEFTd6MFVVars[NNPSMEFTd6MFVVars];
     
@@ -121,16 +121,16 @@ protected:
 	double Ced_0_LNP = 0., Ced_d_LNP = 0.;
 
 	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$.
-	double Cqq1_00_LNP = 0., Cqq1_0u_LNP = 0., Cqq1_0d_LNP = 0., Cqq1_u0_LNP = 0., Cqq1_uu_LNP = 0., Cqq1_ud_LNP = 0., Cqq1_d0_LNP = 0., Cqq1_du_LNP = 0., Cqq1_dd_LNP = 0.;
+	double Cqq1_00_LNP = 0., Cqq1_u0_LNP = 0., Cqq1_d0_LNP = 0., Cqq1_uu_LNP = 0., Cqq1_dd_LNP = 0., Cqq1_ud_LNP = 0., Cqq1p_00_LNP = 0., Cqq1p_u0_LNP = 0., Cqq1p_d0_LNP = 0., Cqq1p_uu_LNP = 0., Cqq1p_dd_LNP = 0., Cqq1p_ud_LNP = 0.;
 
 	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$.
-	double Cqq3_00_LNP = 0., Cqq3_0u_LNP = 0., Cqq3_0d_LNP = 0., Cqq3_u0_LNP = 0., Cqq3_uu_LNP = 0., Cqq3_ud_LNP = 0., Cqq3_d0_LNP = 0., Cqq3_du_LNP = 0., Cqq3_dd_LNP = 0.;
+	double Cqq3_00_LNP = 0., Cqq3_u0_LNP = 0., Cqq3_d0_LNP = 0., Cqq3_uu_LNP = 0., Cqq3_dd_LNP = 0., Cqq3_ud_LNP = 0., Cqq3p_00_LNP = 0., Cqq3p_u0_LNP = 0., Cqq3p_d0_LNP = 0., Cqq3p_uu_LNP = 0., Cqq3p_dd_LNP = 0., Cqq3p_ud_LNP = 0.;
 
 	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{uu})_{ijkm}\f$.
-	double Cuu_00_LNP = 0., Cuu_0u_LNP = 0., Cuu_u0_LNP = 0., Cuu_uu_LNP = 0.;
+	double Cuu_00_LNP = 0., Cuu_u0_LNP = 0., Cuu_uu_LNP = 0., Cuup_00_LNP = 0., Cuup_u0_LNP = 0., Cuup_uu_LNP = 0.;
 
 	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{dd})_{ijkm}\f$.
-	double Cdd_00_LNP = 0., Cdd_0d_LNP = 0., Cdd_d0_LNP = 0., Cdd_dd_LNP = 0.;
+	double Cdd_00_LNP = 0., Cdd_d0_LNP = 0., Cdd_dd_LNP = 0., Cddp_00_LNP = 0., Cddp_d0_LNP = 0., Cddp_dd_LNP = 0.;
 
 	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkm}\f$.
 	double Cud1_00_LNP = 0., Cud1_u0_LNP = 0., Cud1_0d_LNP = 0., Cud1_ud_LNP = 0.;
@@ -151,10 +151,10 @@ protected:
 	double Cqd8_00_LNP = 0., Cqd8_u0_LNP = 0., Cqd8_d0_LNP = 0., Cqd8_0d_LNP = 0., Cqd8_ud_LNP = 0., Cqd8_dd_LNP = 0.;
 
 	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}\f$.
-	double Cquqd1_00_LNP = 0.;
+	double Cquqd1_00_LNP = 0., Cquqd1p_00_LNP = 0.;
 
 	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}\f$.
-	double Cquqd8_00_LNP = 0.;
+	double Cquqd8_00_LNP = 0., Cquqd8p_00_LNP = 0.;
 
 
 
