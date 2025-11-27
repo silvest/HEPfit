@@ -5,7 +5,7 @@ do
 	mkdir ${Model}
     fi
     if [[ $Model == "Standard_Model_DM" ]] ; then
-	cp StandardModel.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit_inputs.conf ${Model}/
+	cp StandardModel.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf ${Model}/
 	cp UTfit_DM.conf ${Model}/UTfit.conf
     else
 	cp StandardModel.conf Flavour.conf UTfit.conf MonteCarlo.conf submit_job.sh ${Model}/
@@ -75,7 +75,7 @@ do
 	    ln -s `pwd`/input Pred_Obs/${Obs}/input
 	fi
 	if [[ ${Obs} == "V_ub" ]] || [[ ${Obs} == "V_cb" ]] ; then
-	    sed -i '/CorrelatedGaussianParameters VubVcb 2/{s/.*/#; n; n; n; s/.*/#; n;s/.*/#}' Pred_Obs/${Obs}/UTfit.conf
+	    sed -i '/CorrelatedGaussianParameters VubVcb 2/{s/.*/#&/ ; n; n; n; s/.*/#&/ ; n;  s/.*/#&/ }' Pred_Obs/${Obs}/UTfit.conf
 	fi
 	sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'${CKMInputVals[$Obs]}$'\t''0. '$'\t'${CKMInputErrs[$Obs]}'/' Pred_Obs/${Obs}/UTfit.conf
 	sed -i 's/-J name/-J '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
@@ -156,26 +156,35 @@ do
 		sed -i 's/Observable\s\+'${Obs}' \(.*\)MCMC\s\+\(weight\|file\)/Observable '${Obs}' \1noMCMC noweight/' ${Fit}/UTfit.conf
 	    done
 	elif  [[ $Fit == "angles" ]] ; then
-	    cp UTfit_inputs.conf ${Fit}/UTfit.conf
-	    allobs="alpha_pipi alpha_rhopi alpha_rhorho gamma SJPsiK C2beta Phis_JPsiPhi"
+	    cp UTfit.conf ${Fit}/UTfit.conf
+            sed -i '/CorrelatedGaussianParameters VubVcb 2/{s/.*/#&/ ; n; n; n; s/.*/#&/ ; n;  s/.*/#&/ }' ${Fit}/UTfit.conf
+            allObs="V_ub"
+	    for Obs in ${allObs}
+	    do
+              sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'${CKMInputVals[$Obs]}$'\t''0. '$'\t'${CKMInputErrs[$Obs]}'/' ${Fit}/UTfit.conf
+	    done
+	    sed -i 's/Observable\(.*\)MCMC\s\+weight/Observable\1noMCMC noweight/' ${Fit}/UTfit.conf
+        sed -i 's/Observable\(.*\)MCMC\s\+file/Observable\1noMCMC file/' ${Fit}/UTfit.conf
+	    allobs="alpha_pipi alpha_rhopi alpha_rhorho SJPsiK C2beta Phis_JPsiPhi"
 	    for Obs in ${allobs}
 	    do
 		sed -i 's/Observable\s\+'${Obs}'\(.*\)noMCMC\s\+noweight/Observable '${Obs}'\1MCMC weight/' ${Fit}/UTfit.conf
 		sed -i 's/Observable\s\+'${Obs}'\(.*\)noMCMC\s\+file/Observable '${Obs}'\1MCMC file/' ${Fit}/UTfit.conf
 	    done
 	elif  [[ $Fit == "noangles" ]] ; then
+            Obs="gamma"
+            sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'${CKMInputVals[$Obs]}$'\t''0. '$'\t'${CKMInputErrs[$Obs]}'/' ${Fit}/UTfit.conf
 	    allobs="alpha_pipi alpha_rhopi alpha_rhorho SJPsiK C2beta Phis_JPsiPhi"
 	    for Obs in ${allobs}
 	    do
 		sed -i 's/Observable\s\+'${Obs}'\(.*\)MCMC\s\+weight/Observable '${Obs}'\1noMCMC noweight/' ${Fit}/UTfit.conf
 		sed -i 's/Observable\s\+'${Obs}'\(.*\)MCMC\s\+file/Observable '${Obs}'\1noMCMC noweight/' ${Fit}/UTfit.conf
 	    done
-	    sed -i 's/ModelParameter\s\+gamma\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter gamma 1.570796 0. 1.570796/' ${Fit}/UTfit.conf  
 	fi
 	sed -i 's/-J name/-J '${Fit}'/' ${Fit}/submit_job.sh
     done
     # auxiliary fits for 2D UT plot
-    allFits="Dmd Dms EpsilonK alpha SJPsiK gamma"
+    allFits="Dmd Dms EpsilonK_1 EpsilonK_2 alpha SJPsiK  lambda2 V_ub gamma"
     for Fit in $allFits
     do
 	if [ ! -d "Aux_${Fit}" ] ; then
@@ -186,29 +195,32 @@ do
 	    ln -s `pwd`/input Aux_${Fit}/input
 	fi
 	sed -i 's/ModelFlag\s\+Wolfenstein\s\+false/ModelFlag Wolfenstein true/' Aux_${Fit}/UTfit.conf
+	sed -i 's/Observable\(.*\)MCMC\s\+weight/Observable\1noMCMC noweight/' Aux_${Fit}/UTfit.conf
 	sed -i 's/#ModelParameter\s\+lambda\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter lambda \1 \2 \3/' Aux_${Fit}/UTfit.conf
 	sed -i 's/#ModelParameter\s\+A\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter A \1 \2 \3/' Aux_${Fit}/UTfit.conf
-	sed -i 's/#ModelParameter\s\+\rhob\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter rhob \1 \2 \3/' Aux_${Fit}/UTfit.conf
-	sed -i 's/#ModelParameter\s\+\etab\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter etab \1 \2 \3/' Aux_${Fit}/UTfit.conf
-	sed -i 's/ModelParameter\s\+V_ud\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/#ModelParameter V_ud \1 \2 \3/' Aux_${Fit}/UTfit.conf
-    sed -i '/CorrelatedGaussianParameters VubVcb 2/{s/.*/#; n; s/.*/#; n;s/.*/#; n; s/.*/#; n;s/.*/#}' Aux_${Fit}/UTfit.conf
-	sed -i 's/ModelParameter\s\+gamma\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/#ModelParameter gamma \1 \2 \3/' Aux_${Fit}/UTfit.conf
-	sed -i 's/Observable\(.*\)MCMC\s\+weight/Observable\1noMCMC noweight/' Aux_${Fit}/UTfit.conf
+	sed -i 's/#ModelParameter\s\+rhob\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter rhob \1 \2 \3/' Aux_${Fit}/UTfit.conf
+	sed -i 's/#ModelParameter\s\+etab\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter etab \1 \2 \3/' Aux_${Fit}/UTfit.conf
+	sed -i 's/ModelParameter\s\+V_ud\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/Observable V_ud Vud V_{ud} 1. -1. MCMC weight \1 \2 \3/' Aux_${Fit}/UTfit.conf
+    sed -i '/CorrelatedGaussianParameters VubVcb 2/{s/.*/#&/ ; n ; s/ModelParameter\s\+V_cb\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/Observable V_cb Vcb V_{cb} 1. -1. MCMC weight \1 \2 \3/ ; n ; s/ModelParameter\s\+V_ub\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/Observable V_ub Vub V_{ub} 1. -1. noMCMC noweight \1 \2 \3/ ; n ; s/.*/#&/ ; n; s/.*/#&/ }' Aux_${Fit}/UTfit.conf
+	sed -i 's/ModelParameter\s\+gamma\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/Observable gamma gamma #gamma 1. -1. noMCMC noweight \1 \2 \3/' Aux_${Fit}/UTfit.conf
 	sed -i 's/Observable\(.*\)MCMC\s\+file/Observable\1noMCMC file/' Aux_${Fit}/UTfit.conf
-	if [[ $Fit == "Dmd" ]] ; then
-	    sed -i 's/Observable\s\+'${Fit}'\(.*\)noMCMC\s\+\(noweight\|file\)/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
-	elif [[ $Fit == "Dms" ]] ; then
-	    sed -i 's/Observable\s\+'${Fit}'\(.*\)noMCMC\s\+\(noweight\|file\)/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
-	elif [[ $Fit == "EpsilonK" ]] ; then
-	    sed -i 's/Observable\s\+'${Fit}'\(.*\)noMCMC\s\+\(noweight\|file\)/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
+	if [[ $Fit == "EpsilonK_1" ]] ; then
+		sed -i 's/ModelParameter\s\+rhob\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter rhob 0. 0. 0./' Aux_${Fit}/UTfit.conf
+	    sed -i 's/Observable\s\+EpsilonK\(.*\)noMCMC\s\+noweight/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
+	elif [[ $Fit == "EpsilonK_2" ]] ; then
+		sed -i 's/ModelParameter\s\+rhob\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter rhob 0.4 0. 0./' Aux_${Fit}/UTfit.conf
+	    sed -i 's/Observable\s\+EpsilonK\(.*\)noMCMC\s\+noweight/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
 	elif  [[ $Fit == "alpha" ]] ; then
 	    allobs="alpha_pipi alpha_rhopi alpha_rhorho"
 	    for Obs_i in ${allobs}
 	    do
-		sed -i 's/Observable\s\+'${Obs_i}'\(.*\)noMCMC\s\+\(weight\|file\)/Observable '${Obs_i}'\1MCMC file/' Aux_${Fit}/UTfit.conf
+		sed -i 's/Observable\s\+'${Obs_i}'\(.*\)noMCMC\s\+file/Observable '${Obs_i}'\1MCMC file/' Aux_${Fit}/UTfit.conf
 	    done
-	elif [[ $Fit == "gamma" ]] ; then
-	    sed -i 's/Observable\s\+'${Fit}'\(.*\)noMCMC\s\+\(noweight\|file\)/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
+	elif  [[ $Fit == "lambda2" ]] ; then
+		sed -i 's/Observable\(.*\)MCMC\s\+weight/Observable\1noMCMC noweight/' Aux_${Fit}/UTfit.conf
+	    sed -i 's/Observable\s\+V_ud\(.*\)noMCMC\s\+noweight/Observable V_ud\1MCMC weight/' Aux_${Fit}/UTfit.conf
+	else
+	    sed -i 's/Observable\s\+'${Fit}'\(.*\)noMCMC\s\+noweight/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
 	fi
 	sed -i 's/-J name/-J 'Aux_${Fit}'/' Aux_${Fit}/submit_job.sh
     done
