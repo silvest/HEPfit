@@ -3283,7 +3283,7 @@ var annotated_dup =
     [ "VBFHtautau", "df/d40/class_v_b_f_htautau.html", "df/d40/class_v_b_f_htautau" ],
     [ "VBFHWW", "de/d20/class_v_b_f_h_w_w.html", "de/d20/class_v_b_f_h_w_w" ],
     [ "VBFHZZ", "d3/da8/class_v_b_f_h_z_z.html", "d3/da8/class_v_b_f_h_z_z" ],
-    [ "Vcb", "d1/dbd/class_vcb.html", "d1/dbd/class_vcb" ],
+    [ "Vcb_BClnu", "d1/d7c/class_vcb___b_clnu.html", "d1/d7c/class_vcb___b_clnu" ],
     [ "VCKM", "d8/de1/class_v_c_k_m.html", "d8/de1/class_v_c_k_m" ],
     [ "Vm", "db/d76/class_vm.html", "db/d76/class_vm" ],
     [ "Vp", "d3/dbc/class_vp.html", "d3/dbc/class_vp" ],

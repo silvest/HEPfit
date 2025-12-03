@@ -2042,7 +2042,7 @@ var hierarchy =
       [ "VBF_Vh_htogg", "dd/d73/class_v_b_f___vh__htogg.html", null ],
       [ "VBF_Vh_htotautau", "d3/d4c/class_v_b_f___vh__htotautau.html", null ],
       [ "VCKM", "d8/de1/class_v_c_k_m.html", null ],
-      [ "Vcb", "d1/dbd/class_vcb.html", null ],
+      [ "Vcb_BClnu", "d1/d7c/class_vcb___b_clnu.html", null ],
       [ "Vm", "db/d76/class_vm.html", null ],
       [ "Vp", "d3/dbc/class_vp.html", null ],
       [ "WC_C10", "d2/d1f/class_w_c___c10.html", null ],

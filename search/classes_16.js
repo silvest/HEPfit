@@ -15,7 +15,7 @@ var searchData=
   ['vbfhtautau_12',['VBFHtautau',['../df/d40/class_v_b_f_htautau.html',1,'']]],
   ['vbfhww_13',['VBFHWW',['../de/d20/class_v_b_f_h_w_w.html',1,'']]],
   ['vbfhzz_14',['VBFHZZ',['../d3/da8/class_v_b_f_h_z_z.html',1,'']]],
-  ['vcb_15',['Vcb',['../d1/dbd/class_vcb.html',1,'']]],
+  ['vcb_5fbclnu_15',['Vcb_BClnu',['../d1/d7c/class_vcb___b_clnu.html',1,'']]],
   ['vckm_16',['VCKM',['../d8/de1/class_v_c_k_m.html',1,'']]],
   ['vectorlikearray_17',['VectorlikeArray',['../de/da2/class_b_o_l_1_1_vectorlike_array.html',1,'BOL']]],
   ['vm_18',['Vm',['../db/d76/class_vm.html',1,'']]],
