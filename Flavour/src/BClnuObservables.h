@@ -117,7 +117,7 @@ class PartialAverageBR_BClnu : public ThObservable
         QCD::meson meson1; /**< Initial meson type */
 };
 
-class Vcb : public ThObservable
+class Vcb_BClnu : public ThObservable
 {
     public:
 
@@ -128,7 +128,7 @@ class Vcb : public ThObservable
          * @param[in] meson_i initial meson of the decay
          */
 
-        Vcb(const StandardModel& SM_i, QCD::meson meson_i);
+        Vcb_BClnu(const StandardModel& SM_i, QCD::meson meson_i);
 
         /**
          * @brief The computation of the moments, varying the number and elcut

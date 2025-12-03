@@ -82,7 +82,7 @@ double PartialAverageBR_BClnu::computeThValue()
     return ((SM.getFlavour().getBClnu(meson1).XDeltaBR(elcut) / SM.getFlavour().getBClnu(meson1).XDeltaBR(0.0)) * SM.getFlavour().getBClnu(meson1).getBR());
 }
 
-Vcb::Vcb(const StandardModel& SM_i, QCD::meson meson_i) 
+Vcb_BClnu::Vcb_BClnu(const StandardModel& SM_i, QCD::meson meson_i) 
 : ThObservable(SM_i)
 {
     meson1 = meson_i;
@@ -90,7 +90,7 @@ Vcb::Vcb(const StandardModel& SM_i, QCD::meson meson_i)
     setParametersForObservable(SM.getFlavour().getBClnu(meson1).initializeBClnuParameters());
 }
 
-double Vcb::computeThValue()
+double Vcb_BClnu::computeThValue()
 {
     double hbar = 6.582119569e-25; // Gev s
     double tauBzero = 1519e-15; // s 

@@ -6657,7 +6657,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["MXmoment3_BClnu"] = bind(boost::factory<MXmoments_BClnu*>(), _1, StandardModel::B_D, 3);
 
     obsThFactory["PartialAverageBR_BClnu"] = bind(boost::factory<PartialAverageBR_BClnu*>(), _1, StandardModel::B_D);
-    obsThFactory["Vcb"] = bind(boost::factory<Vcb*>(), _1, StandardModel::B_D);
+    obsThFactory["Vcb_BClnu"] = bind(boost::factory<Vcb_BClnu*>(), _1, StandardModel::B_D);
     
     //----- B to K nunu-----
     obsThFactory["BR_BpKpnunu"] = bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, QCD::NEUTRINO_1); // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
