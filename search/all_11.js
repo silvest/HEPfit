@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['p_0',['p',['../df/d59/class_c_penguin_box.html#a7306d9604c0f369bba7e2abe996dcdaf',1,'CPenguinBox::p()'],['../d7/dc5/class_evol_d_f1nlep.html#a70a72c2154330008839b5fc726da1804',1,'EvolDF1nlep::p()'],['../d8/d0e/classee_w_w.html#a84951ec81d8dc253114b60e3d252fe25',1,'eeWW::p()'],['../da/d29/class_amp_d_b2.html#a13c174e8fa969d70e69657cd63e24d12',1,'AmpDB2::p(quarks qq, int i, int j, int n, bool flag_LOz=false)']]],
-  ['p_1',['P',['../da/d29/class_amp_d_b2.html#a732c33a60ea98f830503fa87441a815b',1,'AmpDB2::P()'],['../d0/d13/class_bsgamma.html#a3f02ae4c74dc5bf0b7cd03c526cab6ab',1,'Bsgamma::P()']]],
+  ['p_0',['P',['../da/d29/class_amp_d_b2.html#a732c33a60ea98f830503fa87441a815b',1,'AmpDB2::P()'],['../d0/d13/class_bsgamma.html#a3f02ae4c74dc5bf0b7cd03c526cab6ab',1,'Bsgamma::P()']]],
+  ['p_1',['p',['../df/d59/class_c_penguin_box.html#a7306d9604c0f369bba7e2abe996dcdaf',1,'CPenguinBox::p()'],['../d7/dc5/class_evol_d_f1nlep.html#a70a72c2154330008839b5fc726da1804',1,'EvolDF1nlep::p()'],['../d8/d0e/classee_w_w.html#a84951ec81d8dc253114b60e3d252fe25',1,'eeWW::p()'],['../da/d29/class_amp_d_b2.html#a13c174e8fa969d70e69657cd63e24d12',1,'AmpDB2::p()']]],
   ['p0_2',['p0',['../df/d59/class_c_penguin_box.html#a02d1f1dc51d0272542dcc67e9fbadee1',1,'CPenguinBox']]],
   ['p0_3',['P0',['../d0/d13/class_bsgamma.html#a42e34f7b5aab58680a7409f7f98ea448',1,'Bsgamma']]],
   ['p0_5f4body_4',['P0_4body',['../d0/d13/class_bsgamma.html#a426bd24d872499ce2728c20013bdcf1c',1,'Bsgamma']]],
@@ -38,8 +38,8 @@ var searchData=
   ['paddingcharforints_35',['paddingCharForInts',['../d2/d43/class_b_o_l_1_1_string_parser.html#abfb91926689b326e4cb620f23763d361',1,'BOL::StringParser']]],
   ['pairedvalue_36',['pairedValue',['../dd/d45/class_l_h_p_c_1_1_pointers_with_value.html#ab158c5683d28edbab1bbf024b74242cb',1,'LHPC::PointersWithValue']]],
   ['par_5fat_5fll_5fmax_37',['par_at_LL_max',['../d6/dc9/class_monte_carlo_engine.html#a08e65ecbf79f00fb215b99f05bb972a7',1,'MonteCarloEngine']]],
-  ['param_38',['Param',['../dc/d6a/class_l_e_p2_g_i_m_r.html#af343753320fddbae5128223b9d4305c8',1,'LEP2GIMR']]],
-  ['param_39',['param',['../dc/d91/class_param_obs.html#a234430760f011b062079a226beb1e986',1,'ParamObs']]],
+  ['param_38',['param',['../dc/d91/class_param_obs.html#a234430760f011b062079a226beb1e986',1,'ParamObs']]],
+  ['param_39',['Param',['../dc/d6a/class_l_e_p2_g_i_m_r.html#af343753320fddbae5128223b9d4305c8',1,'LEP2GIMR']]],
   ['parameterlist_40',['parameterList',['../d0/d62/class_meson.html#a98f9ded20f3c8e10aebf3b7da8f82738',1,'Meson::parameterList()'],['../dd/d75/class_b_parameter.html#af0f504ce3685969ff95f9e421dd1f7e0',1,'BParameter::parameterList()']]],
   ['parametersformvgamma_41',['parametersForMVgamma',['../de/dc7/class_m_vgamma.html#af5bffa241ef6b0c5e8a45f2b234c1cef',1,'MVgamma']]],
   ['parametersforobservable_42',['parametersForObservable',['../dc/d1f/class_th_observable.html#aa7926fa7a12988b547ea01ce4aaeab49',1,'ThObservable']]],

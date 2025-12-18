@@ -1,8 +1,8 @@
 var searchData=
 [
   ['x_0',['X',['../d7/d0d/class_m_f_v.html#af90a5dad93f48332ff3ee822c6009186',1,'MFV']]],
-  ['x1_1',['x1',['../d7/d0d/class_m_f_v.html#a87868d1f5326db532c26d6611704ece9',1,'MFV']]],
-  ['x1_2',['X1',['../d5/d8b/class_xmatrices.html#a3bd8253a35ff61149a823a9134a71c1a',1,'Xmatrices']]],
+  ['x1_1',['X1',['../d5/d8b/class_xmatrices.html#a3bd8253a35ff61149a823a9134a71c1a',1,'Xmatrices']]],
+  ['x1_2',['x1',['../d7/d0d/class_m_f_v.html#a87868d1f5326db532c26d6611704ece9',1,'MFV']]],
   ['x13_3',['X13',['../d5/d8b/class_xmatrices.html#af744cf461b23c5072e722b077c4a421a',1,'Xmatrices']]],
   ['x1elderel0_4',['X1ElDerEl0',['../da/d12/class_b_clnu.html#aa0d6bf65d14dac5be1ae22f21e665487',1,'BClnu']]],
   ['x1elderel0cached_5',['X1ElDerEl0Cached',['../da/d12/class_b_clnu.html#a9b42a20cf64d3dffeb89688a993dd12b',1,'BClnu']]],
