@@ -177,7 +177,8 @@ void BClnu::updateParameters()
     if (alphas_updated == 0){
         scale_alphas = mbkin/2.;
         alphas = mySM.Als(scale_alphas,FULLNNNLO);
-        // alphas = 0.216;
+        // scale_alphas = mbkin;
+        // alphas = 0.22;
         api = alphas / M_PI;
         // std::cout << "alphas: " << alphas << std::endl;
     }
@@ -11234,6 +11235,8 @@ double BClnu::Elmoment_1(double elcut)
     
     // resNNLO_HQE = resNNLO - resNNLO_nonBLM - resNNLO_BLM;
 
+    // resNNLO += 0.00019 / ( api * api * mbkin); // Add the small constant shift to match the full NNLO at El=1.0 GeV
+
     res += api * api * resNNLO;
 
     // std::cout << std::fixed << std::setprecision(3);
@@ -11882,6 +11885,8 @@ double BClnu::Elmoment_2(double elcut)
           (Mupipert1 * X1ElSM0[Elcuthat] * ElXpi2er00[Elcuthat]) / ElX0er00_2[Elcuthat]));
 
     // resNNLO_HQE = resNNLO - resNNLO_BLM - resNNLO_nonBLM;        
+
+    // resNNLO -= 0.00011 / ( api * api * mbkin * mbkin); // Add the small constant shift to match the full NNLO at El=1.0 GeV     
     
     res += api * api * resNNLO;
 
@@ -13047,6 +13052,8 @@ double BClnu::Elmoment_3(double elcut)
           (Mupipert1 * X1ElSM0[Elcuthat] * ElXpi3er00[Elcuthat]) / ElX0er00_2[Elcuthat]));
 
     // resNNLO_HQE = resNNLO - resNNLO_nonBLM - resNNLO_BLM;
+
+    // resNNLO += 0.000414 / ( api * api * mbkin * mbkin * mbkin); // Add the small constant shift to match the full NNLO at El=1.0 GeV   
 
     res += api * api * resNNLO;
 
