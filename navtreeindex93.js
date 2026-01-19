@@ -1,6 +1,5 @@
 var NAVTREEINDEX93 =
 {
-"db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a0e272cc3540e42d0b8e26a9d1edc99ae":[4,0,11,17],
 "db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a0eaf62c1d9f3c73613798b0aa9150807":[4,0,11,51],
 "db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a1002cbd2ba764a99dfcbf4e31826641e":[4,0,11,70],
 "db/d32/class_e_w_s_m_two_fermions_l_e_p2.html#a15b37c89629dad9b51b22b14cc1a011f":[4,0,11,33],
@@ -249,5 +248,6 @@ var NAVTREEINDEX93 =
 "db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a0c22e72c0e2e4815b0870226845a5929":[27,0,1,2,8,4],
 "db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a15c86728b241ffa490f64abe8e2931e9":[27,0,1,2,8,17],
 "db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a28743e9c75d9d87b11be46921b6a0e02":[27,0,1,2,8,18],
-"db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a3319ce926348ab76f00fb1a69df0587f":[27,0,1,2,8,11]
+"db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a3319ce926348ab76f00fb1a69df0587f":[27,0,1,2,8,11],
+"db/d6c/class_l_h_p_c_1_1_mass_spectrum_class_1_1_nmssm_extra_ewsb_spin_zero_boson_set.html#a3372845f2a2006318d839b24e9aefc29":[27,0,1,2,8,1]
 };

@@ -1,7 +1,6 @@
 var class_n_p_s_m_e_f_td6_m_f_v =
 [
     [ "NPSMEFTd6MFV", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#ae79584f6f078a47aa7700c593e94cd3b", null ],
-    [ "Init", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a407f60947c757a843bc12fb7706b1098", null ],
     [ "PostUpdate", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#ae3d28ee541a57b6768ceece640a9c051", null ],
     [ "setNPSMEFTd6GeneralParameters", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a0cc5c8c0cae8b239a8b4e5d4093b4aa6", null ],
     [ "setParameter", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a0df715430eb14df4f73bdec117c0f9df", null ],
