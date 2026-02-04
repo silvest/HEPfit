@@ -858,6 +858,81 @@ double S::computeThValue()
    return SM.getFlavour().getMVll(meson, vectorM, lep).getS(getBinMin());
 }
 
+unitarity_bound_f_F1::unitarity_bound_f_F1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+
+   setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
+}
+
+double unitarity_bound_f_F1::computeThValue()
+{
+   return SM.getFlavour().getMVll(meson, vectorM, lep).get_unitarity_bound_f_F1();
+}
+
+unitarity_bound_g::unitarity_bound_g(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+
+   setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
+}
+
+double unitarity_bound_g::computeThValue()
+{
+   return SM.getFlavour().getMVll(meson, vectorM, lep).get_unitarity_bound_g();
+}
+
+unitarity_bound_F2::unitarity_bound_F2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+
+   setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
+}
+
+double unitarity_bound_F2::computeThValue()
+{
+   return SM.getFlavour().getMVll(meson, vectorM, lep).get_unitarity_bound_F2();
+}
+
+unitarity_bound_T1::unitarity_bound_T1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+
+   setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
+}
+
+double unitarity_bound_T1::computeThValue()
+{
+   return SM.getFlavour().getMVll(meson, vectorM, lep).get_unitarity_bound_T1();
+}
+
+unitarity_bound_T2_T0::unitarity_bound_T2_T0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+
+   setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
+}
+
+double unitarity_bound_T2_T0::computeThValue()
+{
+   return SM.getFlavour().getMVll(meson, vectorM, lep).get_unitarity_bound_T2_T0();
+}
+
 
 gtilde_1::gtilde_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i)
 : ThObservable(SM_i)

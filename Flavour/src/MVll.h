@@ -458,6 +458,56 @@ public:
     };
     
     /**
+    * @brief The unitarity constraints on form factors \f$ f \f$ and \f$ F_1 \f$.
+    * @return \f$ S \f$
+    */
+    double get_unitarity_bound_f_F1()
+    {
+        updateParameters();
+        return unitarity_bound_f_F1;
+    };
+    
+    /**
+    * @brief The unitarity constraints on form factors \f$ g \f$.
+    * @return \f$ S \f$
+    */
+    double get_unitarity_bound_g()
+    {
+        updateParameters();
+        return unitarity_bound_g;
+    };
+    
+    /**
+    * @brief The unitarity constraints on form factors \f$ F_2 \f$.
+    * @return \f$ S \f$
+    */
+    double get_unitarity_bound_F2()
+    {
+        updateParameters();
+        return unitarity_bound_F2;
+    };
+    
+    /**
+    * @brief The unitarity constraints on form factors \f$ T_1 \f$.
+    * @return \f$ S \f$
+    */
+    double get_unitarity_bound_T1()
+    {
+        updateParameters();
+        return unitarity_bound_T1;
+    };
+    
+    /**
+    * @brief The unitarity constraints on form factors \f$ T_2 \f$ and \f$ T_0 \f$ .
+    * @return \f$ S \f$
+    */
+    double get_unitarity_bound_T2_T0()
+    {
+        updateParameters();
+        return unitarity_bound_T2_T0;
+    };
+    
+    /**
      * @brief The non-pertubative ccbar contributions to the helicity amplitudes
      * @param hel helicity
      * @param q2 \f$q^2\f$
@@ -990,6 +1040,12 @@ private:
     double a_1T0;/**<DM fit parameter */
     double a_2T0;/**<DM fit parameter */
     double MRT0_2;/**<DM fit parameter */
+
+    double unitarity_bound_f_F1;/**<FF unitarity bound parameter */
+    double unitarity_bound_g;/**<FF unitarity bound parameter */
+    double unitarity_bound_F2;/**<FF unitarity bound parameter */
+    double unitarity_bound_T1;/**<FF unitarity bound parameter */
+    double unitarity_bound_T2_T0;/**<FF unitarity bound parameter */
 
     //additional variables for B to K nu nu
     double GF4;

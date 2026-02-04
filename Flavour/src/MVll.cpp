@@ -434,6 +434,12 @@ void MVll::updateParameters()
                 a_2T0 = mySM.getOptionalParameter("a_2T0");
                 MRT0_2 = mySM.getOptionalParameter("MRT0") * mySM.getOptionalParameter("MRT0");
                 a_0T0 = T2_DM(t_m,a_0T2,a_1T2,a_2T2,MRT2_2)*phi_T0(t_m, MRT0_2) - a_1T0*z_DM(t_m) - a_2T0*z_DM(t_m)*z_DM(t_m);
+
+                unitarity_bound_f_F1 = pow(a_0f,2) + pow(a_1f,2) + pow(a_2f,2) + pow(a_0F1,2) + pow(a_1F1,2) + pow(a_2F1,2);
+                unitarity_bound_g = pow(a_0g,2) + pow(a_1g,2) + pow(a_2g,2);
+                unitarity_bound_F2 = pow(a_0F2,2) + pow(a_1F2,2) + pow(a_2F2,2);
+                unitarity_bound_T1 = pow(a_0T1,2) + pow(a_1T1,2) + pow(a_2T1,2);
+                unitarity_bound_T2_T0 = pow(a_0T2,2) + pow(a_1T2,2) + pow(a_2T2,2) + pow(a_0T0,2) + pow(a_1T0,2) + pow(a_2T0,2);
             } else {
                 a_0V = mySM.getOptionalParameter("a_0V");
                 a_1V = mySM.getOptionalParameter("a_1V");
@@ -525,6 +531,12 @@ void MVll::updateParameters()
                 a_2T0 = mySM.getOptionalParameter("a_2T0phi");
                 MRT0_2 = mySM.getOptionalParameter("MRT0") * mySM.getOptionalParameter("MRT0");
                 a_0T0 = T2_DM(t_m,a_0T2,a_1T2,a_2T2,MRT2_2)*phi_T0(t_m, MRT0_2) - a_1T0*z_DM(t_m) - a_2T0*z_DM(t_m)*z_DM(t_m);
+
+                unitarity_bound_f_F1 = pow(a_0f,2) + pow(a_1f,2) + pow(a_2f,2) + pow(a_0F1,2) + pow(a_1F1,2) + pow(a_2F1,2);
+                unitarity_bound_g = pow(a_0g,2) + pow(a_1g,2) + pow(a_2g,2);
+                unitarity_bound_F2 = pow(a_0F2,2) + pow(a_1F2,2) + pow(a_2F2,2);
+                unitarity_bound_T1 = pow(a_0T1,2) + pow(a_1T1,2) + pow(a_2T1,2);
+                unitarity_bound_T2_T0 = pow(a_0T2,2) + pow(a_1T2,2) + pow(a_2T2,2) + pow(a_0T0,2) + pow(a_1T0,2) + pow(a_2T0,2);
             } else {
                 a_0V = mySM.getOptionalParameter("a_0Vphi");
                 a_1V = mySM.getOptionalParameter("a_1Vphi");

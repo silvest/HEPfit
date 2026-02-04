@@ -6504,6 +6504,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ArgAmperp_MVpsi"] = bind(boost::factory<ArgAmperp_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["Abs2Ampzero_MVpsi"] = bind(boost::factory<Abs2Ampzero_MVpsi*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 
+    obsThFactory["unitarity_bound_1_BdKstmu"] = bind(boost::factory<unitarity_bound_f_F1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["unitarity_bound_2_BdKstmu"] = bind(boost::factory<unitarity_bound_g*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["unitarity_bound_3_BdKstmu"] = bind(boost::factory<unitarity_bound_F2*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["unitarity_bound_4_BdKstmu"] = bind(boost::factory<unitarity_bound_T1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["unitarity_bound_5_BdKstmu"] = bind(boost::factory<unitarity_bound_T2_T0*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+
     //----- B+ to K*+ ll  -----
     obsThFactory["A_FB_BpKstmu"] = bind(boost::factory<A_FB*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);
     obsThFactory["F_L_BpKstmu"] = bind(boost::factory<F_L*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);
@@ -6629,6 +6635,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["F_L_Bsphie"] = bind(boost::factory<F_L*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON);
     obsThFactory["S_3_Bsphie"] = bind(boost::factory<S_3*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON);
 
+    obsThFactory["unitarity_bound_1_Bsphimu"] = bind(boost::factory<unitarity_bound_f_F1*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
+    obsThFactory["unitarity_bound_2_Bsphimu"] = bind(boost::factory<unitarity_bound_g*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
+    obsThFactory["unitarity_bound_3_Bsphimu"] = bind(boost::factory<unitarity_bound_F2*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
+    obsThFactory["unitarity_bound_4_Bsphimu"] = bind(boost::factory<unitarity_bound_T1*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
+    obsThFactory["unitarity_bound_5_Bsphimu"] = bind(boost::factory<unitarity_bound_T2_T0*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
+    
     //----- B+ to K+ ll  -----
     obsThFactory["BR_BpKmu"] = bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::MU);
     obsThFactory["BR_BpKe"] = bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON);
