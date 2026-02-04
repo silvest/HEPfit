@@ -1548,6 +1548,11 @@ var group___flavour =
       [ "deltaC9_QCDF", "d5/d81/class_m_vll.html#a434fafd70fb429110506babfb75ee959", null ],
       [ "FF_fit", "d5/d81/class_m_vll.html#ac8c8c8cf93b67325ec3ddcfe065c5c18", null ],
       [ "fit_QCDF_func", "d5/d81/class_m_vll.html#a7f09702f4b8fef4dfd677043af5116c7", null ],
+      [ "get_unitarity_bound_F2", "d5/d81/class_m_vll.html#ad1af47803550f1bdc5d08d28b7f82fca", null ],
+      [ "get_unitarity_bound_f_F1", "d5/d81/class_m_vll.html#affb7bbe942cd47de56852bea13fd8622", null ],
+      [ "get_unitarity_bound_g", "d5/d81/class_m_vll.html#a62d63a211a5722d06c0cd86670487877", null ],
+      [ "get_unitarity_bound_T1", "d5/d81/class_m_vll.html#aa0a185fb723153243530dab3fbd76979", null ],
+      [ "get_unitarity_bound_T2_T0", "d5/d81/class_m_vll.html#aa282a46027a03a49be4c2387728ab9a0", null ],
       [ "getDelta_C9_zExp_0", "d5/d81/class_m_vll.html#aaece979cebe06fb6e55bc372d27c8ff9", null ],
       [ "getDelta_C9_zExp_m", "d5/d81/class_m_vll.html#a2b64512e5fae579fa5a4a741a6306225", null ],
       [ "getDelta_C9_zExp_p", "d5/d81/class_m_vll.html#a1632a354be7b0b1f7a92f2c6ecea16fe", null ],
@@ -2108,6 +2113,41 @@ var group___flavour =
       [ "lep", "d9/d5c/class_tp.html#aa2a05425c6ab782e2fa702c59566fb1b", null ],
       [ "meson", "d9/d5c/class_tp.html#a10db85d4a89ab9f53ac01302497a7bac", null ],
       [ "vectorM", "d9/d5c/class_tp.html#ab3a3da0de2c83c4cf3928c893dbcd7e8", null ]
+    ] ],
+    [ "unitarity_bound_F2", "d0/d44/classunitarity__bound___f2.html", [
+      [ "unitarity_bound_F2", "d0/d44/classunitarity__bound___f2.html#a5067717794ed3e78e822a3b8cef01f3a", null ],
+      [ "computeThValue", "d0/d44/classunitarity__bound___f2.html#a7c7b6cd0839c71b3a1b66dfb110d5ab4", null ],
+      [ "lep", "d0/d44/classunitarity__bound___f2.html#ab10c250b1e0dfcb1655679ca1e5b7d5a", null ],
+      [ "meson", "d0/d44/classunitarity__bound___f2.html#aac5394b83f9456b4ed1629ea501edb95", null ],
+      [ "vectorM", "d0/d44/classunitarity__bound___f2.html#a7f72161d08d92f802e78fab7f9d6e952", null ]
+    ] ],
+    [ "unitarity_bound_f_F1", "d9/da1/classunitarity__bound__f___f1.html", [
+      [ "unitarity_bound_f_F1", "d9/da1/classunitarity__bound__f___f1.html#abead99e293c8efe34df2387d78656dc2", null ],
+      [ "computeThValue", "d9/da1/classunitarity__bound__f___f1.html#a6404cfaca845c0f472a2e0f8c74cd6dc", null ],
+      [ "lep", "d9/da1/classunitarity__bound__f___f1.html#a1071a3f2003fe515d29be364de009166", null ],
+      [ "meson", "d9/da1/classunitarity__bound__f___f1.html#aeef283addc81275655157a8c4b67dd34", null ],
+      [ "vectorM", "d9/da1/classunitarity__bound__f___f1.html#aec5b6ae709db3dd08a15f6e3cc1b135f", null ]
+    ] ],
+    [ "unitarity_bound_g", "d6/dcb/classunitarity__bound__g.html", [
+      [ "unitarity_bound_g", "d6/dcb/classunitarity__bound__g.html#a992ebaf8ffa6fdb47050b9ed49075e7a", null ],
+      [ "computeThValue", "d6/dcb/classunitarity__bound__g.html#a94cd7957187e4ae254e9a44d8159efcc", null ],
+      [ "lep", "d6/dcb/classunitarity__bound__g.html#a9423f0960dd64fcb81cc947f1a4fcfde", null ],
+      [ "meson", "d6/dcb/classunitarity__bound__g.html#ae628b9db26045bf6613ab67426404462", null ],
+      [ "vectorM", "d6/dcb/classunitarity__bound__g.html#a812071f43643768d1664651a467295a5", null ]
+    ] ],
+    [ "unitarity_bound_T1", "da/d3a/classunitarity__bound___t1.html", [
+      [ "unitarity_bound_T1", "da/d3a/classunitarity__bound___t1.html#ac1420b708223a945feca903768ee0ed2", null ],
+      [ "computeThValue", "da/d3a/classunitarity__bound___t1.html#a3ef503f351b01ac37af920181de6e2a4", null ],
+      [ "lep", "da/d3a/classunitarity__bound___t1.html#ac245bb25a8bb01812063b60f847c4402", null ],
+      [ "meson", "da/d3a/classunitarity__bound___t1.html#a46933554d4793ae5bb1dc7f185087208", null ],
+      [ "vectorM", "da/d3a/classunitarity__bound___t1.html#a96c2f02d152b69da0a80dcc21184a046", null ]
+    ] ],
+    [ "unitarity_bound_T2_T0", "d8/dc6/classunitarity__bound___t2___t0.html", [
+      [ "unitarity_bound_T2_T0", "d8/dc6/classunitarity__bound___t2___t0.html#a36e916adc280f42b8eb8b846c8ae287a", null ],
+      [ "computeThValue", "d8/dc6/classunitarity__bound___t2___t0.html#a4c7a0719b4eabc2a27f609c6996dcb5f", null ],
+      [ "lep", "d8/dc6/classunitarity__bound___t2___t0.html#a525db8146434350c416acb9af35b0817", null ],
+      [ "meson", "d8/dc6/classunitarity__bound___t2___t0.html#a69b7c3d809762e2f3cfc6baee05c9bac", null ],
+      [ "vectorM", "d8/dc6/classunitarity__bound___t2___t0.html#a7605c5248961b2d4ec6030360495b0aa", null ]
     ] ],
     [ "up_mass", "d1/d12/classup__mass.html", [
       [ "up_mass", "d1/d12/classup__mass.html#ab20ff154df5cfcc4fa1a1a9718fbd42a", null ],

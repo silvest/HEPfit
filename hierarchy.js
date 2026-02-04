@@ -3389,6 +3389,11 @@ var hierarchy =
         [ "unitarity11eveP_Z2", "db/dfa/classunitarity11eve_p___z2.html", null ],
         [ "unitarity11odd_Z2", "d4/dd6/classunitarity11odd___z2.html", null ]
       ] ],
+      [ "unitarity_bound_F2", "d0/d44/classunitarity__bound___f2.html", null ],
+      [ "unitarity_bound_T1", "da/d3a/classunitarity__bound___t1.html", null ],
+      [ "unitarity_bound_T2_T0", "d8/dc6/classunitarity__bound___t2___t0.html", null ],
+      [ "unitarity_bound_f_F1", "d9/da1/classunitarity__bound__f___f1.html", null ],
+      [ "unitarity_bound_g", "d6/dcb/classunitarity__bound__g.html", null ],
       [ "unitaritya00evenmIm", "db/da7/classunitaritya00evenm_im.html", null ],
       [ "unitaritya00evenmRe", "d3/d43/classunitaritya00evenm_re.html", null ],
       [ "unitaritya00evenpIm", "d0/d48/classunitaritya00evenp_im.html", null ],
