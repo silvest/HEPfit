@@ -8677,10 +8677,10 @@ bool NPSMEFTd6General::PostUpdate() {
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
-            MUQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuR", i, j) - getSMEFTCoeffEW("CuHR", i, j) * v2 / 2.));
-            MUQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuI", i, j) - getSMEFTCoeffEW("CuHI", i, j) * v2 / 2.));
-            MDQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdR", i, j) - getSMEFTCoeffEW("CdHR", i, j) * v2 / 2.));
-            MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdI", i, j) - getSMEFTCoeffEW("CdHI", i, j) * v2 / 2.));
+            MUQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuR", i, j) - getSMEFTCoeffEW("CuHR", j, i) * v2 / 2.));
+            MUQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuI", i, j) + getSMEFTCoeffEW("CuHI", j, i) * v2 / 2.));
+            MDQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdR", i, j) - getSMEFTCoeffEW("CdHR", j, i) * v2 / 2.));
+            MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdI", i, j) + getSMEFTCoeffEW("CdHI", j, i) * v2 / 2.));
         }
 
     gslpp::vector<double> mmu(3), mmd(3);
