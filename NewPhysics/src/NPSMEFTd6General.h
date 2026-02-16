@@ -7234,19 +7234,19 @@ public:
     }
     
     /**
-     * getter for the lepton masses
+     * getter for the leptons masses
      */
     std::array<double, 3> getMe_LEW() const {
     	return { me_LEW, mmu_LEW, mtau_LEW};
     }
     /**
-     * getter for the lepton masses
+     * getter for the up-type quarks masses
      */
     std::array<double, 3> getMu_LEW() const {
     	return { mu_LEW, mc_LEW, mt_LEW};
     }
     /**
-     * getter for the lepton masses
+     * getter for the down-type quarks masses
      */
     std::array<double, 3> getMd_LEW() const {
     	return { md_LEW, ms_LEW, mb_LEW};
@@ -7258,7 +7258,11 @@ public:
     {
         return lambdaH_tree;
     }
-    bool FlagNewTerms; ///< A boolean for the model flag NewTerms, to include corrections in the matching between SMEFT and LEFT
+    bool FlagNewTerms; ///< A boolean for the model flag NewTerms, to include corrections in the matching between SMEFT and LEFT.
+    bool FlagMomProp; ///< A boolean for the model flag MomProp, to include corrections in the matching between SMEFT and LEFT coming from the propagator.
+    bool FlagMomVert; ///< A boolean for the model flag MomVert, to include corrections in the matching between SMEFT and LEFT coming from the vertex.
+    bool FlagHiggsExch; ///< A boolean for the model flag HiggsExch, to include corrections in the matching between SMEFT and LEFT coming from the Higgs exchange.
+    bool FlagQuadraticWC; ///< A boolean for the model flag QuadraticWC, to include quadratic terms relevant for DeltaF=2 processes in the matching between SMEFT and LEFT.
    
     ////////////////////////////////////////////////////////////////////////
 protected:

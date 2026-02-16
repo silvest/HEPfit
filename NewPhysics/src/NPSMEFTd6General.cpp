@@ -355,6 +355,10 @@ NPbase(), NPSMEFTd6GM(*this),
     FlagfiniteNLO = false;
     FlagmatchLEFT = true;
     FlagNewTerms = false;
+    FlagMomProp = true;
+    FlagMomVert = true;
+    FlagHiggsExch = true;
+    FlagQuadraticWC = false;
     SMEFTBasisFlag = "UP";
     flavBas = 1;
     setModelLinearized();
@@ -14118,6 +14122,18 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
         res = true;
     } else if (name.compare("NewTerms") == 0) {
         FlagNewTerms = value;
+        res = true;
+    } else if (name.compare("MomProp") == 0) {
+        FlagMomProp = value;
+        res = true;
+    } else if (name.compare("MomVert") == 0) {
+        FlagMomVert = value;
+        res = true;
+    } else if (name.compare("HiggsExch") == 0) {
+        FlagHiggsExch= value;
+        res = true;
+    } else if (name.compare("QuadraticWC") == 0) {
+        FlagQuadraticWC = value;
         res = true;
     } else
         res = NPbase::setFlag(name, value);
