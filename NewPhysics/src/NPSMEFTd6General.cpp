@@ -17900,7 +17900,7 @@ const double NPSMEFTd6General::delta_muggH_1(const double sqrt_s) const {
     
 //  Wilson coefficients definitions 
     CHG = getSMEFTCoeff("CHG",muRG); 
-    CDH = (-getSMEFTCoeff("CHbox",muRG)); 
+    CDH = getSMEFTCoeff("CHbox",muRG); 
     CHD = getSMEFTCoeff("CHD",muRG); 
     CuHR33 = getSMEFTCoeff("CuHR",2,2,muRG); 
     CtGR = (getSMEFTCoeff("CuGR",2,2,muRG) / g3_tree); 
@@ -25983,7 +25983,7 @@ const double NPSMEFTd6General::deltaGammaHggRatio1() const {
     
 //  Wilson coefficients definitions 
     CHG = getSMEFTCoeff("CHG",muRG); 
-    CDH = (-getSMEFTCoeff("CHbox",muRG)); 
+    CDH = getSMEFTCoeff("CHbox",muRG); 
     CHD = getSMEFTCoeff("CHD",muRG); 
     CuHR33 = getSMEFTCoeff("CuHR",2,2,muRG); 
     CtGR = (getSMEFTCoeff("CuGR",2,2,muRG) / g3_tree); 
@@ -34513,7 +34513,7 @@ const double NPSMEFTd6General::deltaGammaH4fRatio1() const {
     dwidth += (wH2L2LSM * deltaGammaH2L2LRatio1() + wH2v2vSM * deltaGammaH2v2vRatio1() + wH2L2vSM * deltaGammaH2L2vRatio1() +
             wH2u2uSM * deltaGammaH2u2uRatio1() + wH2d2dSM * deltaGammaH2d2dRatio1() + wH2u2dSM * deltaGammaH2u2dRatio1() +
             wH2L2uSM * deltaGammaH2L2uRatio1() + wH2L2dSM * deltaGammaH2L2dRatio1() + wH2v2uSM * deltaGammaH2v2uRatio1() +
-            wH2v2dSM * deltaGammaH2v2dRatio1() + wH4LSM * deltaGammaH4LRatio1() + wH4LSM * deltaGammaH4LRatio1() +
+            wH2v2dSM * deltaGammaH2v2dRatio1() + wH4LSM * deltaGammaH4LRatio1() + wH4vSM * deltaGammaH4vRatio1() +
             wH4uSM * deltaGammaH4uRatio1() + wH4dSM * deltaGammaH4dRatio1() +
             wHLvvLSM * deltaGammaHLvvLRatio1() + wHudduSM * deltaGammaHudduRatio1() + wHLvudSM * deltaGammaHLvudRatio1() +
             wH2udSM * deltaGammaH2udRatio1() + wH2LvSM * deltaGammaH2LvRatio1()) / wH4fSM;
@@ -34543,7 +34543,7 @@ const double NPSMEFTd6General::deltaGammaH4fRatio2() const {
         dwidth += (wH2L2LSM * deltaGammaH2L2LRatio2() + wH2v2vSM * deltaGammaH2v2vRatio2() + wH2L2vSM * deltaGammaH2L2vRatio2() +
                 wH2u2uSM * deltaGammaH2u2uRatio2() + wH2d2dSM * deltaGammaH2d2dRatio2() + wH2u2dSM * deltaGammaH2u2dRatio2() +
                 wH2L2uSM * deltaGammaH2L2uRatio2() + wH2L2dSM * deltaGammaH2L2dRatio2() + wH2v2uSM * deltaGammaH2v2uRatio2() +
-                wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4LSM * deltaGammaH4LRatio2() +
+                wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4vSM * deltaGammaH4vRatio2() +
                 wH4uSM * deltaGammaH4uRatio2() + wH4dSM * deltaGammaH4dRatio2() +
                 wHLvvLSM * deltaGammaHLvvLRatio2() + wHudduSM * deltaGammaHudduRatio2() + wHLvudSM * deltaGammaHLvudRatio2() +
                 wH2udSM * deltaGammaH2udRatio2() + wH2LvSM * deltaGammaH2LvRatio2()) / wH4fSM;
@@ -34609,7 +34609,7 @@ const double NPSMEFTd6General::deltaGammaH4fNCRatio1() const {
     dwidth += (wH2L2LSM * deltaGammaH2L2LRatio1() + wH2v2vSM * deltaGammaH2v2vRatio1() + wH2L2vSM * deltaGammaH2L2vRatio1() +
             wH2u2uSM * deltaGammaH2u2uRatio1() + wH2d2dSM * deltaGammaH2d2dRatio1() + wH2u2dSM * deltaGammaH2u2dRatio1() +
             wH2L2uSM * deltaGammaH2L2uRatio1() + wH2L2dSM * deltaGammaH2L2dRatio1() + wH2v2uSM * deltaGammaH2v2uRatio1() +
-            wH2v2dSM * deltaGammaH2v2dRatio1() + wH4LSM * deltaGammaH4LRatio1() + wH4LSM * deltaGammaH4LRatio1() +
+            wH2v2dSM * deltaGammaH2v2dRatio1() + wH4LSM * deltaGammaH4LRatio1() + wH4vSM * deltaGammaH4vRatio1() +
             wH4uSM * deltaGammaH4uRatio1() + wH4dSM * deltaGammaH4dRatio1()) / wH4fSM;
     
     return dwidth;
@@ -34634,7 +34634,7 @@ const double NPSMEFTd6General::deltaGammaH4fNCRatio2() const {
         dwidth += (wH2L2LSM * deltaGammaH2L2LRatio2() + wH2v2vSM * deltaGammaH2v2vRatio2() + wH2L2vSM * deltaGammaH2L2vRatio2() +
                 wH2u2uSM * deltaGammaH2u2uRatio2() + wH2d2dSM * deltaGammaH2d2dRatio2() + wH2u2dSM * deltaGammaH2u2dRatio2() +
                 wH2L2uSM * deltaGammaH2L2uRatio2() + wH2L2dSM * deltaGammaH2L2dRatio2() + wH2v2uSM * deltaGammaH2v2uRatio2() +
-                wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4LSM * deltaGammaH4LRatio2() +
+                wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4vSM * deltaGammaH4vRatio2() +
                 wH4uSM * deltaGammaH4uRatio2() + wH4dSM * deltaGammaH4dRatio2()) / wH4fSM;
     }
 
@@ -44032,7 +44032,7 @@ const double NPSMEFTd6General::AuxObs_NP1() const {
 //  Wilson coefficients definitions 
     CHG = getSMEFTCoeff("CHG",muRG); 
     CH = getSMEFTCoeff("CH",muRG); 
-    CDH = (-getSMEFTCoeff("CHbox",muRG)); 
+    CDH = getSMEFTCoeff("CHbox",muRG); 
     CHD = getSMEFTCoeff("CHD",muRG); 
     CuHR33 = getSMEFTCoeff("CuHR",2,2,muRG); 
     CtGR = (getSMEFTCoeff("CuGR",2,2,muRG) / g3_tree); 
@@ -44086,7 +44086,7 @@ const double NPSMEFTd6General::AuxObs_NP2() const {
 //  Wilson coefficients definitions 
     CHG = getSMEFTCoeff("CHG",muRG); 
     CH = getSMEFTCoeff("CH",muRG); 
-    CDH = (-getSMEFTCoeff("CHbox",muRG)); 
+    CDH = getSMEFTCoeff("CHbox",muRG); 
     CHD = getSMEFTCoeff("CHD",muRG); 
     CuHR33 = getSMEFTCoeff("CuHR",2,2,muRG); 
     CtGR = (getSMEFTCoeff("CuGR",2,2,muRG) / g3_tree); 
