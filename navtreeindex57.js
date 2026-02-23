@@ -1,5 +1,8 @@
 var NAVTREEINDEX57 =
 {
+"d7/d09/class_a_f_bbottom.html#a12cd365a8255e0e2c3425f7c832abcdc":[4,3,3,1],
+"d7/d09/class_a_f_bbottom.html#aeb6367263c9979baefd21c61d3d0910b":[4,3,3,0],
+"d7/d0a/class_c_e_w_h_q1ss.html":[27,0,370],
 "d7/d0a/class_c_e_w_h_q1ss.html#a13c50208848a08e4922796e98916904b":[27,0,370,3],
 "d7/d0a/class_c_e_w_h_q1ss.html#a1db4df593739fb827eeb2c46f04fc9fd":[27,0,370,1],
 "d7/d0a/class_c_e_w_h_q1ss.html#a6b62c4068ac5ae0471cb853c7e89baeb":[27,0,370,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX57 =
 "d7/d3d/classdelta_r_l__13__u.html#ae376987d75b2039c110928ff07891585":[4,16,30,2],
 "d7/d3e/group___georgi_machacek.html":[4,8],
 "d7/d40/classunitarity12___g_t_h_d_m.html":[27,0,3000],
-"d7/d40/classunitarity12___g_t_h_d_m.html#a0a12dee8f9150d45207dd88b9cf2d5a3":[27,0,3000,0],
-"d7/d40/classunitarity12___g_t_h_d_m.html#a623830516af4c05d7d2179a59d5102cd":[27,0,3000,2],
-"d7/d40/classunitarity12___g_t_h_d_m.html#a86ff4a48408043e9b8df27ca7b0949c1":[27,0,3000,1],
-"d7/d42/class_betas___j_psi_phi.html":[4,5,37]
+"d7/d40/classunitarity12___g_t_h_d_m.html#a0a12dee8f9150d45207dd88b9cf2d5a3":[27,0,3000,0]
 };

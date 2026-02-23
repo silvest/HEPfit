@@ -1,5 +1,8 @@
 var NAVTREEINDEX59 =
 {
+"d7/d86/classdelta_r_r1__e.html":[4,16,38],
+"d7/d86/classdelta_r_r1__e.html#a09f84bc3ee6d7b13bc868c3721365d9e":[4,16,38,0],
+"d7/d86/classdelta_r_r1__e.html#a1b9251324a1d336deaec3138cba53754":[4,16,38,2],
 "d7/d86/classdelta_r_r1__e.html#adbe728301266f510792a28bba483e417":[4,16,38,1],
 "d7/d87/classmu__3e.html":[4,10,9],
 "d7/d87/classmu__3e.html#a85c75220c2792da4ff6183c9467deea1":[4,10,9,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX59 =
 "d7/db1/classlogmslepton.html":[4,16,50],
 "d7/db1/classlogmslepton.html#a013a395f3c57fff48657501b2ae3442f":[4,16,50,0],
 "d7/db1/classlogmslepton.html#a3ccf69fa8d5093ced27e8bc23b530aab":[4,16,50,1],
-"d7/db1/classlogmslepton.html#a8d1386613efb8edf232e4b40d9c8422a":[4,16,50,2],
-"d7/db4/classdelta_kgamma_eff.html":[27,0,517],
-"d7/db4/classdelta_kgamma_eff.html#a04b3dab8b6348af78871a267734894b1":[27,0,517,1],
-"d7/db4/classdelta_kgamma_eff.html#a135d506dd874d7b9988b165171768dd9":[27,0,517,0]
+"d7/db1/classlogmslepton.html#a8d1386613efb8edf232e4b40d9c8422a":[4,16,50,2]
 };

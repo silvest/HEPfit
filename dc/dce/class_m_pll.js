@@ -26,6 +26,7 @@ var class_m_pll =
     [ "getwidth", "dc/dce/class_m_pll.html#ae030bb998ae55abc75c60b4e9a98b970", null ],
     [ "H_A", "dc/dce/class_m_pll.html#a28d8077ed80bcc30d77f754209f5ec75", null ],
     [ "h_lambda", "dc/dce/class_m_pll.html#a2b06cbeae77bc788451c7fb54d15e419", null ],
+    [ "H_nunu", "dc/dce/class_m_pll.html#a8d6a5d896fd17ce5c9cdb0d5642a536e", null ],
     [ "H_P", "dc/dce/class_m_pll.html#a3b61f037234686f139f921bc7332cf3c", null ],
     [ "H_S", "dc/dce/class_m_pll.html#a3d71114d0a46566accf79b86e42369e6", null ],
     [ "H_V", "dc/dce/class_m_pll.html#ac7bd9d2fc3da131d924f427c948326ca", null ],
