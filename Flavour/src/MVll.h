@@ -609,6 +609,30 @@ public:
     gslpp::complex H_P(double q2, bool bar);
     
     /**
+    * @brief The helicity amplitude \f$ H^0 \f$ for the invisible decay .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] lep final leptons of the decay
+    * @return \f$ H^0 \f$
+    */
+    gslpp::complex H_0_nunu(double q2, bool bar, QCD::lepton lep);
+    
+    /**
+    * @brief The helicity amplitude \f$ H^+ \f$ for the invisible decay .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] lep final leptons of the decay
+    * @return \f$ H^+ \f$
+    */
+    gslpp::complex H_p_nunu(double q2, bool bar, QCD::lepton lep);
+    
+    /**
+    * @brief The helicity amplitude \f$ H^- \f$ for the invisible decay .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] lep final leptons of the decay
+    * @return \f$ H^- \f$
+    */
+    gslpp::complex H_m_nunu(double q2, bool bar, QCD::lepton lep);
+    
+    /**
     * @brief Polarization amplitudes for M to V psi, Eq. B.16 of arXiv:2206.03797.
     * @param[in] mass of the charmonium resonance \f$m_{\psi}\f$
     * @param[in] tran transversity
@@ -1092,9 +1116,6 @@ private:
     gslpp::complex C_10p;/**<Wilson coeffients @f$C_{10}'@f$*/
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
-    
-    gslpp::complex C_L_nunu;/**<Wilson coeffients @f$C_L^{\nu\nu}'@f$*/
-    gslpp::complex C_R_nunu;/**<Wilson coeffients @f$C_R^{\nu\nu}'@f$*/
 
     gslpp::complex C_L_nunu_e;/**<Wilson coeffients @f$C_L^{\nu_1\nu_1}'@f$*/
     gslpp::complex C_R_nunu_e;/**<Wilson coeffients @f$C_R^{\nu_1\nu_1}'@f$*/
@@ -1333,11 +1354,19 @@ private:
     unsigned int C_8Lh_updated;/**< Cache variable */
     gslpp::complex C_8Lh_cache;/**< Cache variable */
     
-    unsigned int C_L_nunu_updated;/**< Cache variable */
-    gslpp::complex C_L_nunu_cache;/**< Cache variable */
-    
-    unsigned int C_R_nunu_updated;/**< Cache variable */
-    gslpp::complex C_R_nunu_cache;/**< Cache variable */
+    unsigned int C_L_nunu_e_updated;/**< Cache variable */
+    unsigned int C_L_nunu_mu_updated;/**< Cache variable */
+    unsigned int C_L_nunu_tau_updated;/**< Cache variable */
+    gslpp::complex C_L_nunu_e_cache;/**< Cache variable */
+    gslpp::complex C_L_nunu_mu_cache;/**< Cache variable */
+    gslpp::complex C_L_nunu_tau_cache;/**< Cache variable */
+
+    unsigned int C_R_nunu_e_updated;/**< Cache variable */
+    unsigned int C_R_nunu_mu_updated;/**< Cache variable */
+    unsigned int C_R_nunu_tau_updated;/**< Cache variable */
+    gslpp::complex C_R_nunu_e_cache;/**< Cache variable */
+    gslpp::complex C_R_nunu_mu_cache;/**< Cache variable */
+    gslpp::complex C_R_nunu_tau_cache;/**< Cache variable */
     
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */

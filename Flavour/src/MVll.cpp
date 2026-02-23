@@ -698,9 +698,6 @@ void MVll::updateParameters()
             C_L_nunu_tau = mySM.getOptionalParameter("CLnunu_SM") + ((*(allcoeff_noSM_nu[LO]))(0) + (*(allcoeff_noSM_nu[NLO]))(0) + (*(allcoeff_noSM_nu[NLO_QED11]))(0));
         } else
             C_L_nunu_tau = ((*(allcoeff_nu[LO]))(0) + (*(allcoeff_nu[NLO]))(0) + (*(allcoeff_nu[NLO_QED11]))(0));
-
-        C_L_nunu = sqrt(C_L_nunu_e * C_L_nunu_e + C_L_nunu_mu * C_L_nunu_mu + C_L_nunu_tau * C_L_nunu_tau);
-        C_R_nunu = sqrt(C_R_nunu_e * C_R_nunu_e + C_R_nunu_mu * C_R_nunu_mu + C_R_nunu_tau * C_R_nunu_tau);
     }
     else{
         allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
@@ -1253,18 +1250,46 @@ void MVll::checkCache()
         C_8Lh_cache = C_8Lh;
     }
 
-    if (C_L_nunu == C_L_nunu_cache) {
-        C_L_nunu_updated = 1;
+    if (C_L_nunu_e == C_L_nunu_e_cache) {
+        C_L_nunu_e_updated = 1;
     } else {
-        C_L_nunu_updated = 0;
-        C_L_nunu_cache = C_L_nunu;
+        C_L_nunu_e_updated = 0;
+        C_L_nunu_e_cache = C_L_nunu_e;
+    }
+    
+    if (C_L_nunu_mu == C_L_nunu_mu_cache) {
+        C_L_nunu_mu_updated = 1;
+    } else {
+        C_L_nunu_mu_updated = 0;
+        C_L_nunu_mu_cache = C_L_nunu_mu;
+    }
+    
+    if (C_L_nunu_tau == C_L_nunu_tau_cache) {
+        C_L_nunu_tau_updated = 1;
+    } else {
+        C_L_nunu_tau_updated = 0;
+        C_L_nunu_tau_cache = C_L_nunu_tau;
+    }
+    
+    if (C_R_nunu_e == C_R_nunu_e_cache) {
+        C_R_nunu_e_updated = 1;
+    } else {
+        C_R_nunu_e_updated = 0;
+        C_R_nunu_e_cache = C_R_nunu_e;
     }
 
-    if (C_R_nunu == C_R_nunu_cache) {
-        C_R_nunu_updated = 1;
+    if (C_R_nunu_mu == C_R_nunu_mu_cache) {
+        C_R_nunu_mu_updated = 1;
     } else {
-        C_R_nunu_updated = 0;
-        C_R_nunu_cache = C_R_nunu;
+        C_R_nunu_mu_updated = 0;
+        C_R_nunu_mu_cache = C_R_nunu_mu;
+    }
+
+    if (C_R_nunu_tau == C_R_nunu_tau_cache) {
+        C_R_nunu_tau_updated = 1;
+    } else {
+        C_R_nunu_tau_updated = 0;
+        C_R_nunu_tau_cache = C_R_nunu_tau;
     }
 
     if (Mb == Ycache(0) && Mc == Ycache(1)) {
@@ -1353,12 +1378,12 @@ void MVll::checkCache()
     }
     
     if (lep == QCD::NEUTRINO_1){
-        H_V0updated = N_updated * VL0_updated * C_L_nunu_updated * C_R_nunu_updated * VR0_updated;
-        H_V1updated = N_updated * VL1_updated * C_L_nunu_updated * C_R_nunu_updated * VR1_updated;
-        H_V2updated = N_updated * VL2_updated * C_L_nunu_updated * C_R_nunu_updated * VR2_updated;
-        H_A0updated = N_updated * VL0_updated * C_L_nunu_updated * C_R_nunu_updated * VR0_updated;
-        H_A1updated = N_updated * VL1_updated * C_L_nunu_updated * C_R_nunu_updated * VR1_updated;
-        H_A2updated = N_updated * VL2_updated * C_L_nunu_updated * C_R_nunu_updated * VR2_updated;
+        H_V0updated = N_updated * VL0_updated * C_L_nunu_e_updated  * C_L_nunu_mu_updated  * C_L_nunu_tau_updated * C_R_nunu_e_updated * C_R_nunu_mu_updated * C_R_nunu_tau_updated * VR0_updated;
+        H_V1updated = N_updated * VL1_updated * C_L_nunu_e_updated  * C_L_nunu_mu_updated  * C_L_nunu_tau_updated * C_R_nunu_e_updated * C_R_nunu_mu_updated * C_R_nunu_tau_updated * VR1_updated;
+        H_V2updated = N_updated * VL2_updated * C_L_nunu_e_updated  * C_L_nunu_mu_updated  * C_L_nunu_tau_updated * C_R_nunu_e_updated * C_R_nunu_mu_updated * C_R_nunu_tau_updated * VR2_updated;
+        H_A0updated = N_updated * VL0_updated * C_L_nunu_e_updated  * C_L_nunu_mu_updated  * C_L_nunu_tau_updated * C_R_nunu_e_updated * C_R_nunu_mu_updated * C_R_nunu_tau_updated * VR0_updated;
+        H_A1updated = N_updated * VL1_updated * C_L_nunu_e_updated  * C_L_nunu_mu_updated  * C_L_nunu_tau_updated * C_R_nunu_e_updated * C_R_nunu_mu_updated * C_R_nunu_tau_updated * VR1_updated;
+        H_A2updated = N_updated * VL2_updated * C_L_nunu_e_updated  * C_L_nunu_mu_updated  * C_L_nunu_tau_updated * C_R_nunu_e_updated * C_R_nunu_mu_updated * C_R_nunu_tau_updated * VR2_updated;
     } else { 
         if (MM == H_V0cache(0) && Mb == H_V0cache(1)) {
             H_V0updated = N_updated * C_9_updated * Yupdated * VL0_updated * C_9p_updated * VR0_updated * C_7_updated * TL0_updated * C_7p_updated * TR0_updated * h0_updated;
@@ -2519,61 +2544,36 @@ double MVll::Delta_C9_zExp(int hel)
 
 gslpp::complex MVll::H_V_0(double q2, bool bar)
 {
-    if (lep == QCD::NEUTRINO_1) {
-        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu - etaV * pow(-1, angmomV) * C_R_nunu) * V_0t(q2);
-        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() - etaV * pow(-1, angmomV) * C_R_nunu.conjugate()) * V_0t(q2);
-    }
     if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV * pow(-1, angmomV) * C_9p) * V_0t(q2) + T_0(q2, !bar) + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, !bar, SPLINE) - etaV * pow(-1, angmomV) * C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV * pow(-1, angmomV) * C_9p.conjugate()) * V_0t(q2) + T_0(q2, bar) + MM2 / q2 * (twoMboMM * (C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE) - etaV * pow(-1, angmomV) * C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0, q2)));
-
 }
 
 gslpp::complex MVll::H_V_p(double q2, bool bar)
 {
-    if (lep == QCD::NEUTRINO_1) {
-        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu * V_m(q2));
-        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu.conjugate() * V_m(q2));
-    }
     if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV * pow(-1, angmomV) * C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_p(q2) - etaV * pow(-1, angmomV) * C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV * pow(-1, angmomV) * C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_p(q2) - etaV * pow(-1, angmomV) * C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1, q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2, bool bar)
 {
-    if (lep == QCD::NEUTRINO_1) {
-        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu * V_p(q2));
-        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu.conjugate() * V_p(q2));
-    }
     if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV * pow(-1, angmomV) * C_9p * V_p(q2)) + T_minus(q2, !bar) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_m(q2) - etaV * pow(-1, angmomV) * C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV * pow(-1, angmomV) * C_9p.conjugate() * V_p(q2)) + T_minus(q2, bar) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_m(q2) - etaV * pow(-1, angmomV) * C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2, q2)));
 }
 
 gslpp::complex MVll::H_A_0(double q2, bool bar)
 {
-    if (lep == QCD::NEUTRINO_1) {
-        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu - etaV * pow(-1, angmomV) * C_R_nunu) * V_0t(q2);
-        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() - etaV * pow(-1, angmomV) * C_R_nunu.conjugate()) * V_0t(q2);
-    }
     if (!bar) return gslpp::complex::i() * NN * (-C_10 + etaV * pow(-1, angmomV) * C_10p) * V_0t(q2);
     return gslpp::complex::i() * NN_conjugate * (-C_10.conjugate() + etaV * pow(-1, angmomV) * C_10p.conjugate()) * V_0t(q2);
 }
 
 gslpp::complex MVll::H_A_p(double q2, bool bar)
 {
-    if (lep == QCD::NEUTRINO_1) {
-        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu * V_m(q2));
-        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu.conjugate() * V_m(q2));
-    }
     if (!bar) return gslpp::complex::i() * NN * (-C_10 * V_p(q2) + etaV * pow(-1, angmomV) * C_10p * V_m(q2));
     return gslpp::complex::i() * NN_conjugate * (-C_10.conjugate() * V_p(q2) + etaV * pow(-1, angmomV) * C_10p.conjugate() * V_m(q2));
 }
 
 gslpp::complex MVll::H_A_m(double q2, bool bar)
 {
-    if (lep == QCD::NEUTRINO_1) {
-        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu * V_p(q2));
-        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu.conjugate() * V_m(q2) - etaV * pow(-1, angmomV) *  C_R_nunu.conjugate() * V_p(q2));
-    }
     if (!bar) return gslpp::complex::i() * NN * (-C_10 * V_m(q2) + etaV * pow(-1, angmomV) * C_10p * V_p(q2));
     return gslpp::complex::i() * NN_conjugate * (-C_10.conjugate() * V_m(q2) + etaV * pow(-1, angmomV) * C_10p.conjugate() * V_p(q2));
 }
@@ -2592,6 +2592,48 @@ gslpp::complex MVll::H_P(double q2, bool bar)
     
     if (!bar) return gslpp::complex::i() * NN * (MboMW * (C_P - etaV * pow(-1, angmomV) * C_Pp) + twoMlepMb / q2 * (C_10 * (1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p * (etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
     return gslpp::complex::i() * NN_conjugate * (MboMW * (C_P.conjugate() - etaV * pow(-1, angmomV) * C_Pp.conjugate()) + twoMlepMb / q2 * (C_10.conjugate()*(1. + etaV * pow(-1, angmomV) * MsoMb) - C_10p.conjugate()*(etaV * pow(-1, angmomV) + MsoMb))) * S_L(q2);
+}
+
+gslpp::complex MVll::H_0_nunu(double q2, bool bar, QCD::lepton lep)
+{
+    if (lep == QCD::NEUTRINO_1) {
+        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_e - etaV * pow(-1, angmomV) * C_R_nunu_e) * V_0t(q2);
+        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_e.conjugate() - etaV * pow(-1, angmomV) * C_R_nunu_e.conjugate()) * V_0t(q2);
+    } else if (lep == QCD::NEUTRINO_2) {
+        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_mu - etaV * pow(-1, angmomV) * C_R_nunu_mu) * V_0t(q2);
+        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_mu.conjugate() - etaV * pow(-1, angmomV) * C_R_nunu_mu.conjugate()) * V_0t(q2);
+    } else if (lep == QCD::NEUTRINO_3) {
+        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_tau - etaV * pow(-1, angmomV) * C_R_nunu_tau) * V_0t(q2);
+        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_tau.conjugate() - etaV * pow(-1, angmomV) * C_R_nunu_tau.conjugate()) * V_0t(q2);
+    } 
+}
+
+gslpp::complex MVll::H_p_nunu(double q2, bool bar, QCD::lepton lep)
+{
+    if (lep == QCD::NEUTRINO_1) {
+        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_e * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_e * V_m(q2));
+        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_e.conjugate() * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_e.conjugate() * V_m(q2));
+    } else if (lep == QCD::NEUTRINO_2) {
+        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_mu * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_mu * V_m(q2));
+        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_mu.conjugate() * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_mu.conjugate() * V_m(q2));
+    } else if (lep == QCD::NEUTRINO_3) {
+        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_tau * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau * V_m(q2));
+        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_tau.conjugate() * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau.conjugate() * V_m(q2));
+    } 
+}
+
+gslpp::complex MVll::H_m_nunu(double q2, bool bar, QCD::lepton lep)
+{
+    if (lep == QCD::NEUTRINO_1) {
+        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_e * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_e * V_p(q2));
+        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_e.conjugate() * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_e.conjugate() * V_p(q2));
+    } else if (lep == QCD::NEUTRINO_2) {
+        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_mu * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_mu * V_p(q2));
+        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_mu.conjugate() * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_mu.conjugate() * V_p(q2));
+    } else if (lep == QCD::NEUTRINO_3) {
+        if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_tau * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau * V_p(q2));
+        return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_tau.conjugate() * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau.conjugate() * V_p(q2));
+    } 
 }
 
 gslpp::complex MVll::AmpMVpsi_zExpansion(double mpsi, int tran)
@@ -2648,24 +2690,36 @@ double MVll::F(double q2, double b_i)
 
 double MVll::I_1c(double q2, bool bar)
 {
-    return F(q2, b)*((H_V_0(q2, bar).abs2() + H_A_0(q2, bar).abs2()) / 2. + H_P(q2, bar).abs2() + 2. * Mlep2 / q2 * (H_V_0(q2, bar).abs2()
+    if (lep == QCD::NEUTRINO_1) 
+        return F(q2, b)*H_0_nunu(q2, bar, QCD::NEUTRINO_1).abs2() + F(q2, b)*H_0_nunu(q2, bar, QCD::NEUTRINO_2).abs2() + F(q2, b)*H_0_nunu(q2, bar, QCD::NEUTRINO_3).abs2();
+    else return F(q2, b)*((H_V_0(q2, bar).abs2() + H_A_0(q2, bar).abs2()) / 2. + H_P(q2, bar).abs2() + 2. * Mlep2 / q2 * (H_V_0(q2, bar).abs2()
             - H_A_0(q2, bar).abs2()) + beta2(q2) * H_S(q2, bar).abs2());
 }
 
 double MVll::I_1s(double q2, bool bar)
 {
-    return F(q2, b)*((beta2(q2) + 2.) / 8. * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() + H_A_p(q2, bar).abs2() + H_A_m(q2, bar).abs2()) +
+    if (lep == QCD::NEUTRINO_1) 
+        return F(q2, b) * 3. / 4. * (H_p_nunu(q2, bar, QCD::NEUTRINO_1).abs2() + H_m_nunu(q2, bar, QCD::NEUTRINO_1).abs2()) +
+            F(q2, b) * 3. / 4. * (H_p_nunu(q2, bar, QCD::NEUTRINO_2).abs2() + H_m_nunu(q2, bar, QCD::NEUTRINO_2).abs2()) +
+            F(q2, b) * 3. / 4. * (H_p_nunu(q2, bar, QCD::NEUTRINO_3).abs2() + H_m_nunu(q2, bar, QCD::NEUTRINO_3).abs2());
+    else return F(q2, b)*((beta2(q2) + 2.) / 8. * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() + H_A_p(q2, bar).abs2() + H_A_m(q2, bar).abs2()) +
             Mlep2 / q2 * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() - H_A_p(q2, bar).abs2() - H_A_m(q2, bar).abs2()));
 }
 
 double MVll::I_2c(double q2, bool bar)
 {
-    return -F(q2, b) * beta2(q2) / 2. * (H_V_0(q2, bar).abs2() + H_A_0(q2, bar).abs2());
+    if (lep == QCD::NEUTRINO_1) 
+        return - F(q2, b)*H_0_nunu(q2, bar, QCD::NEUTRINO_1).abs2() - F(q2, b)*H_0_nunu(q2, bar, QCD::NEUTRINO_2).abs2() - F(q2, b)*H_0_nunu(q2, bar, QCD::NEUTRINO_3).abs2();
+    else return -F(q2, b) * beta2(q2) / 2. * (H_V_0(q2, bar).abs2() + H_A_0(q2, bar).abs2());
 }
 
 double MVll::I_2s(double q2, bool bar)
 {
-    return F(q2, b) * beta2(q2) / 8. * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() + H_A_p(q2, bar).abs2() + H_A_m(q2, bar).abs2());
+    if (lep == QCD::NEUTRINO_1) 
+        return F(q2, b) / 4. * (H_p_nunu(q2, bar, QCD::NEUTRINO_1).abs2() + H_m_nunu(q2, bar, QCD::NEUTRINO_1).abs2()) +
+            F(q2, b) / 4. * (H_p_nunu(q2, bar, QCD::NEUTRINO_2).abs2() + H_m_nunu(q2, bar, QCD::NEUTRINO_2).abs2()) +
+            F(q2, b) / 4. * (H_p_nunu(q2, bar, QCD::NEUTRINO_3).abs2() + H_m_nunu(q2, bar, QCD::NEUTRINO_3).abs2());
+    else return F(q2, b) * beta2(q2) / 8. * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() + H_A_p(q2, bar).abs2() + H_A_m(q2, bar).abs2());
 }
 
 double MVll::I_3(double q2, bool bar)

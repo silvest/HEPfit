@@ -252,6 +252,14 @@ public:
     */
     gslpp::complex H_P(double q2);
 
+    /**
+    * @brief The helicity amplitude \f$ H^{\lambda} \f$ for the invisible decay.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] lep final leptons of the decay
+    * @return \f$ H^{\lambda} \f$
+    */
+    gslpp::complex H_nunu(double q2, QCD::lepton lep);
+
 
     /**
     * @brief The integral of \f$ \Sigma_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
@@ -405,9 +413,6 @@ private:
     gslpp::complex C_10p;/**<Wilson coeffients @f$C_{10}'@f$*/
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
-
-    gslpp::complex C_L_nunu;/**<Wilson coeffients @f$C_L^{\nu\nu}'@f$*/
-    gslpp::complex C_R_nunu;/**<Wilson coeffients @f$C_R^{\nu\nu}'@f$*/
 
     gslpp::complex C_L_nunu_e;/**<Wilson coeffients @f$C_L^{\nu_1\nu_1}'@f$*/
     gslpp::complex C_R_nunu_e;/**<Wilson coeffients @f$C_R^{\nu_1\nu_1}'@f$*/
@@ -629,11 +634,19 @@ private:
     unsigned int C_8Lh_updated;/**< Cache variable */
     gslpp::complex C_8Lh_cache;/**< Cache variable */
 
-    unsigned int C_L_nunu_updated;/**< Cache variable */
-    gslpp::complex C_L_nunu_cache;/**< Cache variable */
+    unsigned int C_L_nunu_e_updated;/**< Cache variable */
+    unsigned int C_L_nunu_mu_updated;/**< Cache variable */
+    unsigned int C_L_nunu_tau_updated;/**< Cache variable */
+    gslpp::complex C_L_nunu_e_cache;/**< Cache variable */
+    gslpp::complex C_L_nunu_mu_cache;/**< Cache variable */
+    gslpp::complex C_L_nunu_tau_cache;/**< Cache variable */
 
-    unsigned int C_R_nunu_updated;/**< Cache variable */
-    gslpp::complex C_R_nunu_cache;/**< Cache variable */
+    unsigned int C_R_nunu_e_updated;/**< Cache variable */
+    unsigned int C_R_nunu_mu_updated;/**< Cache variable */
+    unsigned int C_R_nunu_tau_updated;/**< Cache variable */
+    gslpp::complex C_R_nunu_e_cache;/**< Cache variable */
+    gslpp::complex C_R_nunu_mu_cache;/**< Cache variable */
+    gslpp::complex C_R_nunu_tau_cache;/**< Cache variable */
     
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */
