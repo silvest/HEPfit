@@ -49,6 +49,7 @@ var group___flavour =
       [ "meson", "dd/d1e/class_a___f_bf.html#a0f43325f73205ee111879a7e514278ba", null ],
       [ "vectorM", "dd/d1e/class_a___f_bf.html#afa43e798a6074cac88a886ec0541ef43", null ]
     ] ],
+    [ "A_T", "d3/d12/class_a___t.html", null ],
     [ "Abs2Ampar_MVpsi", "d4/dcd/class_abs2_ampar___m_vpsi.html", [
       [ "Abs2Ampar_MVpsi", "d4/dcd/class_abs2_ampar___m_vpsi.html#aa5f6905dbaed5bc5383cbf68c6bd21d8", null ],
       [ "computeThValue", "d4/dcd/class_abs2_ampar___m_vpsi.html#a92b2e02e58461c4ecb1208e59dd876e7", null ],

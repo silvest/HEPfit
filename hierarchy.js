@@ -2,6 +2,7 @@ var hierarchy =
 [
     [ "__f_params", "da/d0e/struct____f__params.html", null ],
     [ "__fPS_params", "de/d78/struct____f_p_s__params.html", null ],
+    [ "A_T", "d3/d12/class_a___t.html", null ],
     [ "AmpDB2", "da/d29/class_amp_d_b2.html", null ],
     [ "AmpDD2", "d3/d05/class_amp_d_d2.html", [
       [ "ArgD", "d7/d54/class_arg_d.html", null ],
@@ -914,6 +915,7 @@ var hierarchy =
         [ "A_8", "d2/d2c/class_a__8.html", null ],
         [ "A_9", "de/de6/class_a__9.html", null ],
         [ "A_FB", "df/dea/class_a___f_b.html", null ],
+        [ "A_T1", "da/d6e/class_a___t1.html", null ],
         [ "BR_MVll", "d6/dfc/class_b_r___m_vll.html", null ],
         [ "F_L", "d6/d55/class_f___l.html", [
           [ "RL_MVll", "d4/da7/class_r_l___m_vll.html", null ],
