@@ -379,6 +379,45 @@ private:
 
 
 /**
+ * @class A_T^(1)
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<A_T^{(1)}>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<A_T^{(1)}>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
+ * @f$<\Sigma_i>@f$, computed in the MVll class:
+ * @f[
+ * <A_T^{(1)}>=- \frac {2<\Sigma_{6s}>}{3<\Sigma_{1s}>-<\Sigma_{2s}>} \,.
+ * @f]
+ */
+class A_T1 : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    A_T1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The binned observable @f$<A_{T1}>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<A_{FB}>@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+
+/**
  * @class BR_MVll
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<BR>@f$ in @f$M \to V l^+l^-@f$. 

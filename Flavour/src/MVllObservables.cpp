@@ -207,6 +207,25 @@ double A_FB::computeThValue()
 }
 
 
+A_T1::A_T1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+
+    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
+}
+
+double A_T1::computeThValue()
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return 2. * SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(7,q_min,q_max) / (3.*SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(1,q_min,q_max) - SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(3,q_min,q_max));
+}
+
+
 BR_MVll::BR_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
 : GammaPrime(SM_i, meson_i, vector_i, lep_i)
 {

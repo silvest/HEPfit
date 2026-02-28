@@ -6675,6 +6675,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BR_BpKpnunu"] = bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, QCD::NEUTRINO_1); // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
     obsThFactory["BR_BpKstarpnunu"] = bind(boost::factory<BR_MVll*>(), _1, StandardModel::B_P, StandardModel::K_star_P, QCD::NEUTRINO_1); // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
     obsThFactory["BR_BKstarnunu"] = bind(boost::factory<BR_MVll*>(), _1, StandardModel::B_D, StandardModel::K_star, QCD::NEUTRINO_1); // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
+    obsThFactory["AT1_BpKstarpnunu"] = bind(boost::factory<A_T1*>(), _1, StandardModel::B_P, StandardModel::K_star_P, QCD::NEUTRINO_1); // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
+    obsThFactory["AT1_BKstarnunu"] = bind(boost::factory<A_T1*>(), _1, StandardModel::B_D, StandardModel::K_star, QCD::NEUTRINO_1); // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
  
     //----- B to D*lnu -----
     obsThFactory["Gammaw_MVlnu"] = bind(boost::factory<Gammaw_MVlnu*>(), _1, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU, StandardModel::ELECTRON);

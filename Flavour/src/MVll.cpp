@@ -2740,7 +2740,11 @@ double MVll::I_5(double q2, bool bar)
 
 double MVll::I_6s(double q2, bool bar)
 {
-    return F(q2, b) * beta(q2)*(H_V_m(q2, bar)*(H_A_m(q2, bar).conjugate()) - H_V_p(q2, bar)*(H_A_p(q2, bar).conjugate())).real();
+    if (lep == QCD::NEUTRINO_1) 
+        return F(q2, b) * (H_m_nunu(q2, bar, QCD::NEUTRINO_1).abs2() - H_p_nunu(q2, bar, QCD::NEUTRINO_1).abs2()) +
+            F(q2, b) * (H_m_nunu(q2, bar, QCD::NEUTRINO_2).abs2() - H_p_nunu(q2, bar, QCD::NEUTRINO_2).abs2()) +
+            F(q2, b) * (H_m_nunu(q2, bar, QCD::NEUTRINO_3).abs2() - H_p_nunu(q2, bar, QCD::NEUTRINO_3).abs2());
+    else return F(q2, b) * beta(q2)*(H_V_m(q2, bar)*(H_A_m(q2, bar).conjugate()) - H_V_p(q2, bar)*(H_A_p(q2, bar).conjugate())).real();
 }
 
 double MVll::I_6c(double q2, bool bar)
