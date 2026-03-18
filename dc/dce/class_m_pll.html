@@ -1191,8 +1191,8 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l01155" name="l01155"></a><span class="lineno"> 1155</span>    gr1 = TGraph(dim, myq2.data(), ReDeltaC9.data());</div>
 <div class="line"><a id="l01156" name="l01156"></a><span class="lineno"> 1156</span>    gr2 = TGraph(dim, myq2.data(), ImDeltaC9.data());</div>
 <div class="line"><a id="l01157" name="l01157"></a><span class="lineno"> 1157</span> </div>
-<div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span>    reffit = TF1(<span class="stringliteral">&quot;reffit&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a857ab251719ddb10be31eb1209c75427">MPll::reDC9fit</a>, 0, 8.1, 7, <span class="stringliteral">&quot;MPll&quot;</span>, <span class="stringliteral">&quot;reDC9fit&quot;</span>);</div>
-<div class="line"><a id="l01159" name="l01159"></a><span class="lineno"> 1159</span>    imffit = TF1(<span class="stringliteral">&quot;imffit&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a6bcd4b0536a457b154518ca1b40c52e9">MPll::imDC9fit</a>, 0, 8.1, 8, <span class="stringliteral">&quot;MPll&quot;</span>, <span class="stringliteral">&quot;imDC9fit&quot;</span>);</div>
+<div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span>    reffit = TF1(<span class="stringliteral">&quot;reffit&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a857ab251719ddb10be31eb1209c75427">MPll::reDC9fit</a>, 0, 8.1, 7);</div>
+<div class="line"><a id="l01159" name="l01159"></a><span class="lineno"> 1159</span>    imffit = TF1(<span class="stringliteral">&quot;imffit&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a6bcd4b0536a457b154518ca1b40c52e9">MPll::imDC9fit</a>, 0, 8.1, 8);</div>
 <div class="line"><a id="l01160" name="l01160"></a><span class="lineno"> 1160</span> </div>
 <div class="line"><a id="l01161" name="l01161"></a><span class="lineno"> 1161</span>    refres = gr1.Fit(&amp;reffit, <span class="stringliteral">&quot;SQN0+rob=0.99&quot;</span>);</div>
 <div class="line"><a id="l01162" name="l01162"></a><span class="lineno"> 1162</span>    imfres = gr2.Fit(&amp;imffit, <span class="stringliteral">&quot;SQN0+rob=0.99&quot;</span>);</div>
@@ -1336,10 +1336,10 @@ Private Attributes</h2></td></tr>
 <p>The integral of \( \Sigma_{tree} \) from 0 to \(q_{cut}\). </p>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;\Sigma{tree}&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01537">1537</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span>{</div>
-<div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a88cca25d242a303ed08701e7e7deadfd">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a5fe90858165ff8ab09e8555d401a113f">getMesons</a>(<a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a7125cb1947e6b90da54f18a0d00fccda">meson</a>).<a class="code hl_function" href="../../d0/d62/class_meson.html#afdad6c853e0a129cb234c2cd90f0943a">getLifetime</a>() / HCUT * GF4 * VusVub_abs2 * fP2 * fM2 / (128. * M_PI2 * MM3 * Gammatau) * mtau * (mtau2 - MP2) * (mtau2 - MP2) * (MM2 - mtau2) * (MM2 - mtau2);</div>
-<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01538">1538</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span>{</div>
+<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a88cca25d242a303ed08701e7e7deadfd">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a5fe90858165ff8ab09e8555d401a113f">getMesons</a>(<a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a7125cb1947e6b90da54f18a0d00fccda">meson</a>).<a class="code hl_function" href="../../d0/d62/class_meson.html#afdad6c853e0a129cb234c2cd90f0943a">getLifetime</a>() / HCUT * GF4 * VusVub_abs2 * fP2 * fM2 / (128. * M_PI2 * MM3 * Gammatau) * mtau * (mtau2 - MP2) * (mtau2 - MP2) * (MM2 - mtau2) * (MM2 - mtau2);</div>
+<div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span>}</div>
 <div class="ttc" id="aclass_meson_html_afdad6c853e0a129cb234c2cd90f0943a"><div class="ttname"><a href="../../d0/d62/class_meson.html#afdad6c853e0a129cb234c2cd90f0943a">Meson::getLifetime</a></div><div class="ttdeci">double getLifetime() const</div><div class="ttdoc">A get method for the lifetime of the meson.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d1a/_meson_8h_source.html#l00351">Meson.h:351</a></div></div>
 <div class="ttc" id="aclass_q_c_d_html_a5fe90858165ff8ab09e8555d401a113f"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#a5fe90858165ff8ab09e8555d401a113f">QCD::getMesons</a></div><div class="ttdeci">const Meson &amp; getMesons(const QCD::meson m) const</div><div class="ttdoc">A get method to access a meson as an object of the type Meson.</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d68/_q_c_d_8h_source.html#l00526">QCD.h:526</a></div></div>
 </div><!-- fragment -->
@@ -1381,26 +1381,26 @@ Private Attributes</h2></td></tr>
 </dl>
 <p>_form#752 value of the function </p><dl class="section return"><dt>Returns</dt><dd>\( &lt;\Sigma_{i}&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01444">1444</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01445" name="l01445"></a><span class="lineno"> 1445</span>{</div>
-<div class="line"><a id="l01446" name="l01446"></a><span class="lineno"> 1446</span>    updateParameters();</div>
-<div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span> </div>
-<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"> 1448</span>    <span class="keywordflow">switch</span> (i) {</div>
-<div class="line"><a id="l01449" name="l01449"></a><span class="lineno"> 1449</span>        <span class="keywordflow">case</span> 0:</div>
-<div class="line"><a id="l01450" name="l01450"></a><span class="lineno"> 1450</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/dce/class_m_pll.html#a1457aabe2308497d7e4cd1e59c8cb679">getSigma1c</a>(q_2);</div>
-<div class="line"><a id="l01451" name="l01451"></a><span class="lineno"> 1451</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01452" name="l01452"></a><span class="lineno"> 1452</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l01453" name="l01453"></a><span class="lineno"> 1453</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/dce/class_m_pll.html#aacea48dda1007debdf18d6d1ddd42a32">getSigma2c</a>(q_2);</div>
-<div class="line"><a id="l01454" name="l01454"></a><span class="lineno"> 1454</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01455" name="l01455"></a><span class="lineno"> 1455</span>        <span class="keywordflow">case</span> 8:</div>
-<div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/dce/class_m_pll.html#ad4fc580aeb25cc29d427d32eafe95ac2">getSigma6c</a>(q_2);</div>
-<div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span>            std::stringstream out;</div>
-<div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span>            out &lt;&lt; i;</div>
-<div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPll::getSigma: index &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
-<div class="line"><a id="l01462" name="l01462"></a><span class="lineno"> 1462</span>    }</div>
-<div class="line"><a id="l01463" name="l01463"></a><span class="lineno"> 1463</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01445">1445</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01446" name="l01446"></a><span class="lineno"> 1446</span>{</div>
+<div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span>    updateParameters();</div>
+<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"> 1448</span> </div>
+<div class="line"><a id="l01449" name="l01449"></a><span class="lineno"> 1449</span>    <span class="keywordflow">switch</span> (i) {</div>
+<div class="line"><a id="l01450" name="l01450"></a><span class="lineno"> 1450</span>        <span class="keywordflow">case</span> 0:</div>
+<div class="line"><a id="l01451" name="l01451"></a><span class="lineno"> 1451</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/dce/class_m_pll.html#a1457aabe2308497d7e4cd1e59c8cb679">getSigma1c</a>(q_2);</div>
+<div class="line"><a id="l01452" name="l01452"></a><span class="lineno"> 1452</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01453" name="l01453"></a><span class="lineno"> 1453</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l01454" name="l01454"></a><span class="lineno"> 1454</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/dce/class_m_pll.html#aacea48dda1007debdf18d6d1ddd42a32">getSigma2c</a>(q_2);</div>
+<div class="line"><a id="l01455" name="l01455"></a><span class="lineno"> 1455</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span>        <span class="keywordflow">case</span> 8:</div>
+<div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/dce/class_m_pll.html#ad4fc580aeb25cc29d427d32eafe95ac2">getSigma6c</a>(q_2);</div>
+<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span>            std::stringstream out;</div>
+<div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span>            out &lt;&lt; i;</div>
+<div class="line"><a id="l01462" name="l01462"></a><span class="lineno"> 1462</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPll::getSigma: index &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
+<div class="line"><a id="l01463" name="l01463"></a><span class="lineno"> 1463</span>    }</div>
+<div class="line"><a id="l01464" name="l01464"></a><span class="lineno"> 1464</span>}</div>
 <div class="ttc" id="aclass_m_pll_html_a1457aabe2308497d7e4cd1e59c8cb679"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#a1457aabe2308497d7e4cd1e59c8cb679">MPll::getSigma1c</a></div><div class="ttdeci">double getSigma1c(double q2)</div><div class="ttdoc">The CP average  .</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/dee/_m_pll_8h_source.html#l01011">MPll.h:1011</a></div></div>
 <div class="ttc" id="aclass_m_pll_html_aacea48dda1007debdf18d6d1ddd42a32"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#aacea48dda1007debdf18d6d1ddd42a32">MPll::getSigma2c</a></div><div class="ttdeci">double getSigma2c(double q2)</div><div class="ttdoc">The CP average  .</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/dee/_m_pll_8h_source.html#l01021">MPll.h:1021</a></div></div>
 <div class="ttc" id="aclass_m_pll_html_ad4fc580aeb25cc29d427d32eafe95ac2"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#ad4fc580aeb25cc29d427d32eafe95ac2">MPll::getSigma6c</a></div><div class="ttdeci">double getSigma6c(double q2)</div><div class="ttdoc">The CP average  .</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/dee/_m_pll_8h_source.html#l01031">MPll.h:1031</a></div></div>
@@ -1685,7 +1685,8 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>        <span class="keywordflow">return</span> -(C_L_nunu_mu - etaP * pow(-1, angmomP) * C_R_nunu_mu) * <a class="code hl_function" href="../../dc/dce/class_m_pll.html#a8c6287657ecf07257c6953d6ddfe8fa4">V_L</a>(q2);</div>
 <div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a919f82451292bbcb80f4e66b3f4d692f">lep</a> == <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3af58da9e9c17fe7320453243849fe98aa">QCD::NEUTRINO_3</a>) </div>
 <div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span>        <span class="keywordflow">return</span> -(C_L_nunu_tau - etaP * pow(-1, angmomP) * C_R_nunu_tau) * <a class="code hl_function" href="../../dc/dce/class_m_pll.html#a8c6287657ecf07257c6953d6ddfe8fa4">V_L</a>(q2);</div>
-<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>}</div>
+<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>    <span class="keywordflow">else</span> <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPll::H_nunu: lepton not supported&quot;</span>);</div>
+<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>}</div>
 <div class="ttc" id="aclass_q_c_d_html_ac8b0ab59ae9d238b1ee9d67525ee92d3a1c1dd42891aac04de77877bf30b64b7d"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3a1c1dd42891aac04de77877bf30b64b7d">QCD::NEUTRINO_2</a></div><div class="ttdeci">@ NEUTRINO_2</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d68/_q_c_d_8h_source.html#l00313">QCD.h:313</a></div></div>
 <div class="ttc" id="aclass_q_c_d_html_ac8b0ab59ae9d238b1ee9d67525ee92d3a3c9c3283d397e094db9c664aa534e351"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3a3c9c3283d397e094db9c664aa534e351">QCD::NEUTRINO_1</a></div><div class="ttdeci">@ NEUTRINO_1</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d68/_q_c_d_8h_source.html#l00311">QCD.h:311</a></div></div>
 <div class="ttc" id="aclass_q_c_d_html_ac8b0ab59ae9d238b1ee9d67525ee92d3af58da9e9c17fe7320453243849fe98aa"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3af58da9e9c17fe7320453243849fe98aa">QCD::NEUTRINO_3</a></div><div class="ttdeci">@ NEUTRINO_3</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d68/_q_c_d_8h_source.html#l00315">QCD.h:315</a></div></div>
@@ -2304,42 +2305,42 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;\Delta_{i}&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01465">1465</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01466" name="l01466"></a><span class="lineno"> 1466</span>{</div>
-<div class="line"><a id="l01467" name="l01467"></a><span class="lineno"> 1467</span>    updateParameters();</div>
-<div class="line"><a id="l01468" name="l01468"></a><span class="lineno"> 1468</span> </div>
-<div class="line"><a id="l01469" name="l01469"></a><span class="lineno"> 1469</span>    std::pair&lt;double, double &gt; qbin = std::make_pair(q_min, q_max);</div>
-<div class="line"><a id="l01470" name="l01470"></a><span class="lineno"> 1470</span> </div>
-<div class="line"><a id="l01471" name="l01471"></a><span class="lineno"> 1471</span>    old_handler = gsl_set_error_handler_off();</div>
-<div class="line"><a id="l01472" name="l01472"></a><span class="lineno"> 1472</span> </div>
-<div class="line"><a id="l01473" name="l01473"></a><span class="lineno"> 1473</span>    <span class="keywordflow">switch</span> (i) {</div>
-<div class="line"><a id="l01474" name="l01474"></a><span class="lineno"> 1474</span>        <span class="keywordflow">case</span> 0:</div>
-<div class="line"><a id="l01475" name="l01475"></a><span class="lineno"> 1475</span>            <span class="keywordflow">if</span> (delta0Cached[qbin] == 0) {</div>
-<div class="line"><a id="l01476" name="l01476"></a><span class="lineno"> 1476</span>                FD = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#ac41d944308b45c7add97e00b3f091e19">MPll::getDelta1c</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
-<div class="line"><a id="l01477" name="l01477"></a><span class="lineno"> 1477</span>                <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &amp;avaDelta, &amp;errDelta, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
-<div class="line"><a id="l01478" name="l01478"></a><span class="lineno"> 1478</span>                cacheDelta0[qbin] = NN*avaDelta;</div>
-<div class="line"><a id="l01479" name="l01479"></a><span class="lineno"> 1479</span>                delta0Cached[qbin] = 1;</div>
-<div class="line"><a id="l01480" name="l01480"></a><span class="lineno"> 1480</span>            }</div>
-<div class="line"><a id="l01481" name="l01481"></a><span class="lineno"> 1481</span>            <span class="keywordflow">return</span> cacheDelta0[qbin];</div>
-<div class="line"><a id="l01482" name="l01482"></a><span class="lineno"> 1482</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01483" name="l01483"></a><span class="lineno"> 1483</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l01484" name="l01484"></a><span class="lineno"> 1484</span>            <span class="keywordflow">if</span> (delta2Cached[qbin] == 0) {</div>
-<div class="line"><a id="l01485" name="l01485"></a><span class="lineno"> 1485</span>                FD = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a6c7d5f2766d85ad56e48996508e60df3">MPll::getDelta2c</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
-<div class="line"><a id="l01486" name="l01486"></a><span class="lineno"> 1486</span>                <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &amp;avaDelta, &amp;errDelta, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
-<div class="line"><a id="l01487" name="l01487"></a><span class="lineno"> 1487</span>                cacheDelta2[qbin] = NN*avaDelta;</div>
-<div class="line"><a id="l01488" name="l01488"></a><span class="lineno"> 1488</span>                delta2Cached[qbin] = 1;</div>
-<div class="line"><a id="l01489" name="l01489"></a><span class="lineno"> 1489</span>            }</div>
-<div class="line"><a id="l01490" name="l01490"></a><span class="lineno"> 1490</span>            <span class="keywordflow">return</span> cacheDelta2[qbin];</div>
-<div class="line"><a id="l01491" name="l01491"></a><span class="lineno"> 1491</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01492" name="l01492"></a><span class="lineno"> 1492</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l01493" name="l01493"></a><span class="lineno"> 1493</span>            std::stringstream out;</div>
-<div class="line"><a id="l01494" name="l01494"></a><span class="lineno"> 1494</span>            out &lt;&lt; i;</div>
-<div class="line"><a id="l01495" name="l01495"></a><span class="lineno"> 1495</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPll::integrateDelta: index &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
-<div class="line"><a id="l01496" name="l01496"></a><span class="lineno"> 1496</span>    }</div>
-<div class="line"><a id="l01497" name="l01497"></a><span class="lineno"> 1497</span> </div>
-<div class="line"><a id="l01498" name="l01498"></a><span class="lineno"> 1498</span>    gsl_set_error_handler(old_handler);</div>
-<div class="line"><a id="l01499" name="l01499"></a><span class="lineno"> 1499</span> </div>
-<div class="line"><a id="l01500" name="l01500"></a><span class="lineno"> 1500</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01466">1466</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01467" name="l01467"></a><span class="lineno"> 1467</span>{</div>
+<div class="line"><a id="l01468" name="l01468"></a><span class="lineno"> 1468</span>    updateParameters();</div>
+<div class="line"><a id="l01469" name="l01469"></a><span class="lineno"> 1469</span> </div>
+<div class="line"><a id="l01470" name="l01470"></a><span class="lineno"> 1470</span>    std::pair&lt;double, double &gt; qbin = std::make_pair(q_min, q_max);</div>
+<div class="line"><a id="l01471" name="l01471"></a><span class="lineno"> 1471</span> </div>
+<div class="line"><a id="l01472" name="l01472"></a><span class="lineno"> 1472</span>    old_handler = gsl_set_error_handler_off();</div>
+<div class="line"><a id="l01473" name="l01473"></a><span class="lineno"> 1473</span> </div>
+<div class="line"><a id="l01474" name="l01474"></a><span class="lineno"> 1474</span>    <span class="keywordflow">switch</span> (i) {</div>
+<div class="line"><a id="l01475" name="l01475"></a><span class="lineno"> 1475</span>        <span class="keywordflow">case</span> 0:</div>
+<div class="line"><a id="l01476" name="l01476"></a><span class="lineno"> 1476</span>            <span class="keywordflow">if</span> (delta0Cached[qbin] == 0) {</div>
+<div class="line"><a id="l01477" name="l01477"></a><span class="lineno"> 1477</span>                FD = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#ac41d944308b45c7add97e00b3f091e19">MPll::getDelta1c</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
+<div class="line"><a id="l01478" name="l01478"></a><span class="lineno"> 1478</span>                <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &amp;avaDelta, &amp;errDelta, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
+<div class="line"><a id="l01479" name="l01479"></a><span class="lineno"> 1479</span>                cacheDelta0[qbin] = NN*avaDelta;</div>
+<div class="line"><a id="l01480" name="l01480"></a><span class="lineno"> 1480</span>                delta0Cached[qbin] = 1;</div>
+<div class="line"><a id="l01481" name="l01481"></a><span class="lineno"> 1481</span>            }</div>
+<div class="line"><a id="l01482" name="l01482"></a><span class="lineno"> 1482</span>            <span class="keywordflow">return</span> cacheDelta0[qbin];</div>
+<div class="line"><a id="l01483" name="l01483"></a><span class="lineno"> 1483</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01484" name="l01484"></a><span class="lineno"> 1484</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l01485" name="l01485"></a><span class="lineno"> 1485</span>            <span class="keywordflow">if</span> (delta2Cached[qbin] == 0) {</div>
+<div class="line"><a id="l01486" name="l01486"></a><span class="lineno"> 1486</span>                FD = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a6c7d5f2766d85ad56e48996508e60df3">MPll::getDelta2c</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
+<div class="line"><a id="l01487" name="l01487"></a><span class="lineno"> 1487</span>                <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &amp;avaDelta, &amp;errDelta, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
+<div class="line"><a id="l01488" name="l01488"></a><span class="lineno"> 1488</span>                cacheDelta2[qbin] = NN*avaDelta;</div>
+<div class="line"><a id="l01489" name="l01489"></a><span class="lineno"> 1489</span>                delta2Cached[qbin] = 1;</div>
+<div class="line"><a id="l01490" name="l01490"></a><span class="lineno"> 1490</span>            }</div>
+<div class="line"><a id="l01491" name="l01491"></a><span class="lineno"> 1491</span>            <span class="keywordflow">return</span> cacheDelta2[qbin];</div>
+<div class="line"><a id="l01492" name="l01492"></a><span class="lineno"> 1492</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01493" name="l01493"></a><span class="lineno"> 1493</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l01494" name="l01494"></a><span class="lineno"> 1494</span>            std::stringstream out;</div>
+<div class="line"><a id="l01495" name="l01495"></a><span class="lineno"> 1495</span>            out &lt;&lt; i;</div>
+<div class="line"><a id="l01496" name="l01496"></a><span class="lineno"> 1496</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPll::integrateDelta: index &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
+<div class="line"><a id="l01497" name="l01497"></a><span class="lineno"> 1497</span>    }</div>
+<div class="line"><a id="l01498" name="l01498"></a><span class="lineno"> 1498</span> </div>
+<div class="line"><a id="l01499" name="l01499"></a><span class="lineno"> 1499</span>    gsl_set_error_handler(old_handler);</div>
+<div class="line"><a id="l01500" name="l01500"></a><span class="lineno"> 1500</span> </div>
+<div class="line"><a id="l01501" name="l01501"></a><span class="lineno"> 1501</span>}</div>
 <div class="ttc" id="aclass_m_pll_html_a6c7d5f2766d85ad56e48996508e60df3"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#a6c7d5f2766d85ad56e48996508e60df3">MPll::getDelta2c</a></div><div class="ttdeci">double getDelta2c(double q2)</div><div class="ttdoc">The CP asymmetry  .</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/dee/_m_pll_8h_source.html#l01051">MPll.h:1051</a></div></div>
 <div class="ttc" id="aclass_m_pll_html_ac41d944308b45c7add97e00b3f091e19"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#ac41d944308b45c7add97e00b3f091e19">MPll::getDelta1c</a></div><div class="ttdeci">double getDelta1c(double q2)</div><div class="ttdoc">The CP asymmetry  .</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/dee/_m_pll_8h_source.html#l01041">MPll.h:1041</a></div></div>
 </div><!-- fragment -->
@@ -2388,42 +2389,42 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;\Sigma_{i}&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01407">1407</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01408" name="l01408"></a><span class="lineno"> 1408</span>{</div>
-<div class="line"><a id="l01409" name="l01409"></a><span class="lineno"> 1409</span>    updateParameters();</div>
-<div class="line"><a id="l01410" name="l01410"></a><span class="lineno"> 1410</span>    </div>
-<div class="line"><a id="l01411" name="l01411"></a><span class="lineno"> 1411</span>    std::pair&lt;double, double &gt; qbin = std::make_pair(q_min, q_max);</div>
-<div class="line"><a id="l01412" name="l01412"></a><span class="lineno"> 1412</span> </div>
-<div class="line"><a id="l01413" name="l01413"></a><span class="lineno"> 1413</span>    old_handler = gsl_set_error_handler_off();</div>
-<div class="line"><a id="l01414" name="l01414"></a><span class="lineno"> 1414</span> </div>
-<div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span>    <span class="keywordflow">switch</span> (i) {</div>
-<div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span>        <span class="keywordflow">case</span> 0:</div>
-<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span>            <span class="keywordflow">if</span> (sigma0Cached[qbin] == 0) {</div>
-<div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span>                FS = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a1457aabe2308497d7e4cd1e59c8cb679">MPll::getSigma1c</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
-<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>                <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &amp;avaSigma, &amp;errSigma, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
-<div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span>                cacheSigma0[qbin] = NN*avaSigma;</div>
-<div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span>                sigma0Cached[qbin] = 1;</div>
-<div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span>            }</div>
-<div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span>            <span class="keywordflow">return</span> cacheSigma0[qbin];</div>
-<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span>            <span class="keywordflow">if</span> (sigma2Cached[qbin] == 0) {</div>
-<div class="line"><a id="l01427" name="l01427"></a><span class="lineno"> 1427</span>                FS = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#aacea48dda1007debdf18d6d1ddd42a32">MPll::getSigma2c</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
-<div class="line"><a id="l01428" name="l01428"></a><span class="lineno"> 1428</span>                <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &amp;avaSigma, &amp;errSigma, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
-<div class="line"><a id="l01429" name="l01429"></a><span class="lineno"> 1429</span>                cacheSigma2[qbin] = NN*avaSigma;</div>
-<div class="line"><a id="l01430" name="l01430"></a><span class="lineno"> 1430</span>                sigma2Cached[qbin] = 1;</div>
-<div class="line"><a id="l01431" name="l01431"></a><span class="lineno"> 1431</span>            }</div>
-<div class="line"><a id="l01432" name="l01432"></a><span class="lineno"> 1432</span>            <span class="keywordflow">return</span> cacheSigma2[qbin];</div>
-<div class="line"><a id="l01433" name="l01433"></a><span class="lineno"> 1433</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01434" name="l01434"></a><span class="lineno"> 1434</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l01435" name="l01435"></a><span class="lineno"> 1435</span>            std::stringstream out;</div>
-<div class="line"><a id="l01436" name="l01436"></a><span class="lineno"> 1436</span>            out &lt;&lt; i;</div>
-<div class="line"><a id="l01437" name="l01437"></a><span class="lineno"> 1437</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPll::integrateSigma: index &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
-<div class="line"><a id="l01438" name="l01438"></a><span class="lineno"> 1438</span>    }</div>
-<div class="line"><a id="l01439" name="l01439"></a><span class="lineno"> 1439</span> </div>
-<div class="line"><a id="l01440" name="l01440"></a><span class="lineno"> 1440</span>    gsl_set_error_handler(old_handler);</div>
-<div class="line"><a id="l01441" name="l01441"></a><span class="lineno"> 1441</span> </div>
-<div class="line"><a id="l01442" name="l01442"></a><span class="lineno"> 1442</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01408">1408</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01409" name="l01409"></a><span class="lineno"> 1409</span>{</div>
+<div class="line"><a id="l01410" name="l01410"></a><span class="lineno"> 1410</span>    updateParameters();</div>
+<div class="line"><a id="l01411" name="l01411"></a><span class="lineno"> 1411</span>    </div>
+<div class="line"><a id="l01412" name="l01412"></a><span class="lineno"> 1412</span>    std::pair&lt;double, double &gt; qbin = std::make_pair(q_min, q_max);</div>
+<div class="line"><a id="l01413" name="l01413"></a><span class="lineno"> 1413</span> </div>
+<div class="line"><a id="l01414" name="l01414"></a><span class="lineno"> 1414</span>    old_handler = gsl_set_error_handler_off();</div>
+<div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span> </div>
+<div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span>    <span class="keywordflow">switch</span> (i) {</div>
+<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span>        <span class="keywordflow">case</span> 0:</div>
+<div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span>            <span class="keywordflow">if</span> (sigma0Cached[qbin] == 0) {</div>
+<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>                FS = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a1457aabe2308497d7e4cd1e59c8cb679">MPll::getSigma1c</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
+<div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span>                <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &amp;avaSigma, &amp;errSigma, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
+<div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span>                cacheSigma0[qbin] = NN*avaSigma;</div>
+<div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span>                sigma0Cached[qbin] = 1;</div>
+<div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span>            }</div>
+<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span>            <span class="keywordflow">return</span> cacheSigma0[qbin];</div>
+<div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l01427" name="l01427"></a><span class="lineno"> 1427</span>            <span class="keywordflow">if</span> (sigma2Cached[qbin] == 0) {</div>
+<div class="line"><a id="l01428" name="l01428"></a><span class="lineno"> 1428</span>                FS = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#aacea48dda1007debdf18d6d1ddd42a32">MPll::getSigma2c</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
+<div class="line"><a id="l01429" name="l01429"></a><span class="lineno"> 1429</span>                <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &amp;avaSigma, &amp;errSigma, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
+<div class="line"><a id="l01430" name="l01430"></a><span class="lineno"> 1430</span>                cacheSigma2[qbin] = NN*avaSigma;</div>
+<div class="line"><a id="l01431" name="l01431"></a><span class="lineno"> 1431</span>                sigma2Cached[qbin] = 1;</div>
+<div class="line"><a id="l01432" name="l01432"></a><span class="lineno"> 1432</span>            }</div>
+<div class="line"><a id="l01433" name="l01433"></a><span class="lineno"> 1433</span>            <span class="keywordflow">return</span> cacheSigma2[qbin];</div>
+<div class="line"><a id="l01434" name="l01434"></a><span class="lineno"> 1434</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01435" name="l01435"></a><span class="lineno"> 1435</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l01436" name="l01436"></a><span class="lineno"> 1436</span>            std::stringstream out;</div>
+<div class="line"><a id="l01437" name="l01437"></a><span class="lineno"> 1437</span>            out &lt;&lt; i;</div>
+<div class="line"><a id="l01438" name="l01438"></a><span class="lineno"> 1438</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPll::integrateSigma: index &quot;</span> + out.str() + <span class="stringliteral">&quot; not implemented&quot;</span>);</div>
+<div class="line"><a id="l01439" name="l01439"></a><span class="lineno"> 1439</span>    }</div>
+<div class="line"><a id="l01440" name="l01440"></a><span class="lineno"> 1440</span> </div>
+<div class="line"><a id="l01441" name="l01441"></a><span class="lineno"> 1441</span>    gsl_set_error_handler(old_handler);</div>
+<div class="line"><a id="l01442" name="l01442"></a><span class="lineno"> 1442</span> </div>
+<div class="line"><a id="l01443" name="l01443"></a><span class="lineno"> 1443</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2463,37 +2464,37 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>\( &lt;\Sigma_{tree}&gt; \) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01502">1502</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01503" name="l01503"></a><span class="lineno"> 1503</span>{</div>
-<div class="line"><a id="l01504" name="l01504"></a><span class="lineno"> 1504</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a919f82451292bbcb80f4e66b3f4d692f">lep</a> != <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3a3c9c3283d397e094db9c664aa534e351">QCD::NEUTRINO_1</a> or <a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a7125cb1947e6b90da54f18a0d00fccda">meson</a> != <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba3a13fa8a79e0f1c4f4ea11207b77c154">QCD::B_P</a> or !<a class="code hl_variable" href="../../dc/dce/class_m_pll.html#ab6ad4505c5ff50f2058e5dc99714edf0">NeutrinoTree_flag</a>) <span class="keywordflow">return</span> 0.;</div>
-<div class="line"><a id="l01505" name="l01505"></a><span class="lineno"> 1505</span> </div>
-<div class="line"><a id="l01506" name="l01506"></a><span class="lineno"> 1506</span>    updateParameters();</div>
-<div class="line"><a id="l01507" name="l01507"></a><span class="lineno"> 1507</span>    </div>
-<div class="line"><a id="l01508" name="l01508"></a><span class="lineno"> 1508</span>    <span class="comment">//phase space limit where tree-level contribution is relevant (0908.1174)</span></div>
-<div class="line"><a id="l01509" name="l01509"></a><span class="lineno"> 1509</span>    <span class="keywordtype">double</span> q_cut = (mtau2 - MP2) * (MM2 - mtau2) / mtau2;</div>
-<div class="line"><a id="l01510" name="l01510"></a><span class="lineno"> 1510</span>    <span class="keywordflow">if</span> (q_max &gt;= q_cut) {</div>
-<div class="line"><a id="l01511" name="l01511"></a><span class="lineno"> 1511</span>        <span class="keywordflow">if</span> (q_min == 0.) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/dce/class_m_pll.html#abbaa474ec58b3287154d71bcf326fc8d">getintegratedSigmaTree</a>();</div>
-<div class="line"><a id="l01512" name="l01512"></a><span class="lineno"> 1512</span>        q_max = q_cut;</div>
-<div class="line"><a id="l01513" name="l01513"></a><span class="lineno"> 1513</span>    }</div>
-<div class="line"><a id="l01514" name="l01514"></a><span class="lineno"> 1514</span>    </div>
-<div class="line"><a id="l01515" name="l01515"></a><span class="lineno"> 1515</span>    <span class="keywordtype">double</span> prefactor = <a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a88cca25d242a303ed08701e7e7deadfd">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a5fe90858165ff8ab09e8555d401a113f">getMesons</a>(<a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a7125cb1947e6b90da54f18a0d00fccda">meson</a>).<a class="code hl_function" href="../../d0/d62/class_meson.html#afdad6c853e0a129cb234c2cd90f0943a">getLifetime</a>() / HCUT * GF4 * VusVub_abs2 * fP2 * fM2 / (64. * M_PI2 * MM3 * Gammatau) * mtau2 * mtau;</div>
-<div class="line"><a id="l01516" name="l01516"></a><span class="lineno"> 1516</span>    </div>
-<div class="line"><a id="l01517" name="l01517"></a><span class="lineno"> 1517</span>    std::pair&lt;double, double &gt; qbin = std::make_pair(q_min, q_max);</div>
-<div class="line"><a id="l01518" name="l01518"></a><span class="lineno"> 1518</span> </div>
-<div class="line"><a id="l01519" name="l01519"></a><span class="lineno"> 1519</span>    old_handler = gsl_set_error_handler_off();</div>
-<div class="line"><a id="l01520" name="l01520"></a><span class="lineno"> 1520</span> </div>
-<div class="line"><a id="l01521" name="l01521"></a><span class="lineno"> 1521</span>    <span class="keywordflow">if</span> (sigmaTreeCached[qbin] == 0) {</div>
-<div class="line"><a id="l01522" name="l01522"></a><span class="lineno"> 1522</span>        FD = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a27a8f7b689875f2860321f0691fd81a5">MPll::SigmaTree</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
-<div class="line"><a id="l01523" name="l01523"></a><span class="lineno"> 1523</span>        <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FD, q_min, q_max, 1.e-2, 1.e-1, w_sigmaTree, &amp;avaSigmaTree, &amp;errSigmaTree, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
-<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span>        cacheSigmaTree[qbin] = avaSigmaTree;</div>
-<div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span>        sigmaTreeCached[qbin] = 1;</div>
-<div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span>    }</div>
-<div class="line"><a id="l01527" name="l01527"></a><span class="lineno"> 1527</span>    <span class="keywordflow">return</span> prefactor * cacheSigmaTree[qbin];</div>
-<div class="line"><a id="l01528" name="l01528"></a><span class="lineno"> 1528</span> </div>
-<div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span>    gsl_set_error_handler(old_handler);</div>
-<div class="line"><a id="l01530" name="l01530"></a><span class="lineno"> 1530</span>}</div>
-<div class="ttc" id="aclass_m_pll_html_a27a8f7b689875f2860321f0691fd81a5"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#a27a8f7b689875f2860321f0691fd81a5">MPll::SigmaTree</a></div><div class="ttdeci">double SigmaTree(double q2)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l01532">MPll.cpp:1532</a></div></div>
-<div class="ttc" id="aclass_m_pll_html_abbaa474ec58b3287154d71bcf326fc8d"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#abbaa474ec58b3287154d71bcf326fc8d">MPll::getintegratedSigmaTree</a></div><div class="ttdeci">double getintegratedSigmaTree()</div><div class="ttdoc">The integral of  from 0 to .</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l01537">MPll.cpp:1537</a></div></div>
+<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01503">1503</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01504" name="l01504"></a><span class="lineno"> 1504</span>{</div>
+<div class="line"><a id="l01505" name="l01505"></a><span class="lineno"> 1505</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a919f82451292bbcb80f4e66b3f4d692f">lep</a> != <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#ac8b0ab59ae9d238b1ee9d67525ee92d3a3c9c3283d397e094db9c664aa534e351">QCD::NEUTRINO_1</a> or <a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a7125cb1947e6b90da54f18a0d00fccda">meson</a> != <a class="code hl_enumvalue" href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba3a13fa8a79e0f1c4f4ea11207b77c154">QCD::B_P</a> or !<a class="code hl_variable" href="../../dc/dce/class_m_pll.html#ab6ad4505c5ff50f2058e5dc99714edf0">NeutrinoTree_flag</a>) <span class="keywordflow">return</span> 0.;</div>
+<div class="line"><a id="l01506" name="l01506"></a><span class="lineno"> 1506</span> </div>
+<div class="line"><a id="l01507" name="l01507"></a><span class="lineno"> 1507</span>    updateParameters();</div>
+<div class="line"><a id="l01508" name="l01508"></a><span class="lineno"> 1508</span>    </div>
+<div class="line"><a id="l01509" name="l01509"></a><span class="lineno"> 1509</span>    <span class="comment">//phase space limit where tree-level contribution is relevant (0908.1174)</span></div>
+<div class="line"><a id="l01510" name="l01510"></a><span class="lineno"> 1510</span>    <span class="keywordtype">double</span> q_cut = (mtau2 - MP2) * (MM2 - mtau2) / mtau2;</div>
+<div class="line"><a id="l01511" name="l01511"></a><span class="lineno"> 1511</span>    <span class="keywordflow">if</span> (q_max &gt;= q_cut) {</div>
+<div class="line"><a id="l01512" name="l01512"></a><span class="lineno"> 1512</span>        <span class="keywordflow">if</span> (q_min == 0.) <span class="keywordflow">return</span> <a class="code hl_function" href="../../dc/dce/class_m_pll.html#abbaa474ec58b3287154d71bcf326fc8d">getintegratedSigmaTree</a>();</div>
+<div class="line"><a id="l01513" name="l01513"></a><span class="lineno"> 1513</span>        q_max = q_cut;</div>
+<div class="line"><a id="l01514" name="l01514"></a><span class="lineno"> 1514</span>    }</div>
+<div class="line"><a id="l01515" name="l01515"></a><span class="lineno"> 1515</span>    </div>
+<div class="line"><a id="l01516" name="l01516"></a><span class="lineno"> 1516</span>    <span class="keywordtype">double</span> prefactor = <a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a88cca25d242a303ed08701e7e7deadfd">mySM</a>.<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a5fe90858165ff8ab09e8555d401a113f">getMesons</a>(<a class="code hl_variable" href="../../dc/dce/class_m_pll.html#a7125cb1947e6b90da54f18a0d00fccda">meson</a>).<a class="code hl_function" href="../../d0/d62/class_meson.html#afdad6c853e0a129cb234c2cd90f0943a">getLifetime</a>() / HCUT * GF4 * VusVub_abs2 * fP2 * fM2 / (64. * M_PI2 * MM3 * Gammatau) * mtau2 * mtau;</div>
+<div class="line"><a id="l01517" name="l01517"></a><span class="lineno"> 1517</span>    </div>
+<div class="line"><a id="l01518" name="l01518"></a><span class="lineno"> 1518</span>    std::pair&lt;double, double &gt; qbin = std::make_pair(q_min, q_max);</div>
+<div class="line"><a id="l01519" name="l01519"></a><span class="lineno"> 1519</span> </div>
+<div class="line"><a id="l01520" name="l01520"></a><span class="lineno"> 1520</span>    old_handler = gsl_set_error_handler_off();</div>
+<div class="line"><a id="l01521" name="l01521"></a><span class="lineno"> 1521</span> </div>
+<div class="line"><a id="l01522" name="l01522"></a><span class="lineno"> 1522</span>    <span class="keywordflow">if</span> (sigmaTreeCached[qbin] == 0) {</div>
+<div class="line"><a id="l01523" name="l01523"></a><span class="lineno"> 1523</span>        FD = convertToGslFunction(bind(&amp;<a class="code hl_function" href="../../dc/dce/class_m_pll.html#a27a8f7b689875f2860321f0691fd81a5">MPll::SigmaTree</a>, &amp;(*<span class="keyword">this</span>), _1));</div>
+<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span>        <span class="keywordflow">if</span> (gsl_integration_cquad(&amp;FD, q_min, q_max, 1.e-2, 1.e-1, w_sigmaTree, &amp;avaSigmaTree, &amp;errSigmaTree, NULL) != 0) <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
+<div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span>        cacheSigmaTree[qbin] = avaSigmaTree;</div>
+<div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span>        sigmaTreeCached[qbin] = 1;</div>
+<div class="line"><a id="l01527" name="l01527"></a><span class="lineno"> 1527</span>    }</div>
+<div class="line"><a id="l01528" name="l01528"></a><span class="lineno"> 1528</span>    <span class="keywordflow">return</span> prefactor * cacheSigmaTree[qbin];</div>
+<div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span> </div>
+<div class="line"><a id="l01530" name="l01530"></a><span class="lineno"> 1530</span>    gsl_set_error_handler(old_handler);</div>
+<div class="line"><a id="l01531" name="l01531"></a><span class="lineno"> 1531</span>}</div>
+<div class="ttc" id="aclass_m_pll_html_a27a8f7b689875f2860321f0691fd81a5"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#a27a8f7b689875f2860321f0691fd81a5">MPll::SigmaTree</a></div><div class="ttdeci">double SigmaTree(double q2)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l01533">MPll.cpp:1533</a></div></div>
+<div class="ttc" id="aclass_m_pll_html_abbaa474ec58b3287154d71bcf326fc8d"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#abbaa474ec58b3287154d71bcf326fc8d">MPll::getintegratedSigmaTree</a></div><div class="ttdeci">double getintegratedSigmaTree()</div><div class="ttdoc">The integral of  from 0 to .</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l01538">MPll.cpp:1538</a></div></div>
 <div class="ttc" id="aclass_q_c_d_html_a18ab2f6f6e5a803af54771626281044ba3a13fa8a79e0f1c4f4ea11207b77c154"><div class="ttname"><a href="../../dd/dfa/class_q_c_d.html#a18ab2f6f6e5a803af54771626281044ba3a13fa8a79e0f1c4f4ea11207b77c154">QCD::B_P</a></div><div class="ttdeci">@ B_P</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d68/_q_c_d_8h_source.html#l00345">QCD.h:345</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -2605,10 +2606,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01532">1532</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span>{</div>
-<div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span>    <span class="keywordflow">return</span> MM2 * (mtau2 - MP2) - mtau2 * (mtau2 + q2 - MP2);</div>
-<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html#l01533">1533</a> of file <a class="el" href="../../d5/dac/_m_pll_8cpp_source.html">MPll.cpp</a>.</p>
+<div class="fragment"><div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span>{</div>
+<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>    <span class="keywordflow">return</span> MM2 * (mtau2 - MP2) - mtau2 * (mtau2 + q2 - MP2);</div>
+<div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -3580,7 +3581,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dc/dce/class_m_pll.html">MPll</a></li>
-    <li class="footer">Generated on Sat Feb 28 2026 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Wed Mar 18 2026 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
