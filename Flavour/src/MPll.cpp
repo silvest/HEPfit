@@ -1155,8 +1155,8 @@ void MPll::fit_DeltaC9_mumu()
     gr1 = TGraph(dim, myq2.data(), ReDeltaC9.data());
     gr2 = TGraph(dim, myq2.data(), ImDeltaC9.data());
 
-    reffit = TF1("reffit", this, &MPll::reDC9fit, 0, 8.1, 7, "MPll", "reDC9fit");
-    imffit = TF1("imffit", this, &MPll::imDC9fit, 0, 8.1, 8, "MPll", "imDC9fit");
+    reffit = TF1("reffit", this, &MPll::reDC9fit, 0, 8.1, 7);
+    imffit = TF1("imffit", this, &MPll::imDC9fit, 0, 8.1, 8);
 
     refres = gr1.Fit(&reffit, "SQN0+rob=0.99");
     imfres = gr2.Fit(&imffit, "SQN0+rob=0.99");
@@ -1348,6 +1348,7 @@ gslpp::complex MPll::H_nunu(double q2, QCD::lepton lep)
         return -(C_L_nunu_mu - etaP * pow(-1, angmomP) * C_R_nunu_mu) * V_L(q2);
     else if (lep == QCD::NEUTRINO_3) 
         return -(C_L_nunu_tau - etaP * pow(-1, angmomP) * C_R_nunu_tau) * V_L(q2);
+    else throw std::runtime_error("MPll::H_nunu: lepton not supported");
 }
 
 /*******************************************************************************
