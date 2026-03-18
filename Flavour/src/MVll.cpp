@@ -2134,43 +2134,43 @@ void MVll::fit_QCDF_func()
     }
 
     gr1 = TGraph(dim, myq2.data(), Re_T_perp.data());
-    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_perp");
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Re_T_perp_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Re_T_perp.clear();
 
     gr1 = TGraph(dim, myq2.data(), Im_T_perp.data());
-    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_perp");
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Im_T_perp_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Im_T_perp.clear();
 
     gr1 = TGraph(dim, myq2.data(), Re_T_para.data());
-    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_para");
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Re_T_para_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Re_T_para.clear();
 
     gr1 = TGraph(dim, myq2.data(), Im_T_para.data());
-    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_para");
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Im_T_para_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Im_T_para.clear();
 
 #if COMPUTECP  
     gr1 = TGraph(dim, myq2.data(), Re_T_perp_conj.data());
-    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_perp_conj");
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Re_T_perp_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Re_T_perp_conj.clear();
 
     gr1 = TGraph(dim, myq2.data(), Im_T_perp_conj.data());
-    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_perp_conj");
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Im_T_perp_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Im_T_perp_conj.clear();
 
     gr1 = TGraph(dim, myq2.data(), Re_T_para_conj.data());
-    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_para_conj");
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Re_T_para_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Re_T_para_conj.clear();
 
     gr1 = TGraph(dim, myq2.data(), Im_T_para_conj.data());
-    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_para_conj");
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Im_T_para_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Im_T_para_conj.clear();
 #endif
