@@ -1085,7 +1085,7 @@ const double QCD::logLambda5(orders order) const
     else
     {
         double xmin = -4., xmax = -0.2;
-        TF1 f = TF1("f", this, &QCD::ZeroNf5, xmin, xmax, 1, "QCD", "zeroNf5");
+        TF1 f = TF1("f", this, &QCD::ZeroNf5, xmin, xmax, 1);
 
         ROOT::Math::WrappedTF1 wf1(f);
         double ledouble = (double)order;
@@ -1127,15 +1127,15 @@ const double QCD::logLambdaNLO(const double nfNEW, const double nfORG,
     TF1 f;
     if (nfNEW == 6. && nfORG == 5.)
     {
-        f = TF1("f", this, &QCD::ZeroNf6NLO, xmin, xmax, 1, "QCD", "zeroNf6NLO");
+        f = TF1("f", this, &QCD::ZeroNf6NLO, xmin, xmax, 1);
     }
     else if (nfNEW == 4. && nfORG == 5.)
     {
-        f = TF1("f", this, &QCD::ZeroNf4NLO, xmin, xmax, 1, "QCD", "zeroNf4NLO");
+        f = TF1("f", this, &QCD::ZeroNf4NLO, xmin, xmax, 1);
     }
     else if (nfNEW == 3. && nfORG == 4.)
     {
-        f = TF1("f", this, &QCD::ZeroNf3NLO, xmin, xmax, 1, "QCD", "zeroNf3NLO");
+        f = TF1("f", this, &QCD::ZeroNf3NLO, xmin, xmax, 1);
     }
     else
     {
@@ -1637,7 +1637,7 @@ const double QCD::Mp2Mbar_bar(const double mp, const quark q, const orders order
             && (double)order == mp2mbar_cache[4][i])
             return mp2mbar_cache[5][i];
 
-    TF1 f("f", this, &QCD::Mp2MbarTMP, mp / 2., 2. * mp, 3, "QCD", "Mp2MbarTMP");
+    TF1 f("f", this, &QCD::Mp2MbarTMP, mp / 2., 2. * mp, 3);
 
     ROOT::Math::WrappedTF1 wf1(f);
     double params[3];
@@ -1758,7 +1758,7 @@ const double QCD::Mofmu2Mbar(const double m, const double mu, const quark q) con
         break;
     }
     double mlow = Mrun(mutmp, mu, m, q);
-    TF1 f("f", this, &QCD::Mofmu2MbarTMP, mlow / 2., 2. * mlow, 3, "QCD", "mofmu2mbara");
+    TF1 f("f", this, &QCD::Mofmu2MbarTMP, mlow / 2., 2. * mlow, 3);
 
     ROOT::Math::WrappedTF1 wf1(f);
 
