@@ -1203,7 +1203,7 @@ $(document).ready(function(){initNavTree('d2/d8d/_q_c_d_8cpp_source.html','../..
 <div class="line"><a id="l01085" name="l01085"></a><span class="lineno"> 1085</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l01086" name="l01086"></a><span class="lineno"> 1086</span>    {</div>
 <div class="line"><a id="l01087" name="l01087"></a><span class="lineno"> 1087</span>        <span class="keywordtype">double</span> xmin = -4., xmax = -0.2;</div>
-<div class="line"><a id="l01088" name="l01088"></a><span class="lineno"> 1088</span>        TF1 f = TF1(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a84625bf598cc27198ffd227baf202589">QCD::ZeroNf5</a>, xmin, xmax, 1, <span class="stringliteral">&quot;QCD&quot;</span>, <span class="stringliteral">&quot;zeroNf5&quot;</span>);</div>
+<div class="line"><a id="l01088" name="l01088"></a><span class="lineno"> 1088</span>        TF1 f = TF1(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a84625bf598cc27198ffd227baf202589">QCD::ZeroNf5</a>, xmin, xmax, 1);</div>
 <div class="line"><a id="l01089" name="l01089"></a><span class="lineno"> 1089</span> </div>
 <div class="line"><a id="l01090" name="l01090"></a><span class="lineno"> 1090</span>        ROOT::Math::WrappedTF1 wf1(f);</div>
 <div class="line"><a id="l01091" name="l01091"></a><span class="lineno"> 1091</span>        <span class="keywordtype">double</span> ledouble = (double)order;</div>
@@ -1245,15 +1245,15 @@ $(document).ready(function(){initNavTree('d2/d8d/_q_c_d_8cpp_source.html','../..
 <div class="line"><a id="l01127" name="l01127"></a><span class="lineno"> 1127</span>    TF1 f;</div>
 <div class="line"><a id="l01128" name="l01128"></a><span class="lineno"> 1128</span>    <span class="keywordflow">if</span> (nfNEW == 6. &amp;&amp; nfORG == 5.)</div>
 <div class="line"><a id="l01129" name="l01129"></a><span class="lineno"> 1129</span>    {</div>
-<div class="line"><a id="l01130" name="l01130"></a><span class="lineno"> 1130</span>        f = TF1(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a63cce64d70de26f8b6766f8dae89b4ac">QCD::ZeroNf6NLO</a>, xmin, xmax, 1, <span class="stringliteral">&quot;QCD&quot;</span>, <span class="stringliteral">&quot;zeroNf6NLO&quot;</span>);</div>
+<div class="line"><a id="l01130" name="l01130"></a><span class="lineno"> 1130</span>        f = TF1(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a63cce64d70de26f8b6766f8dae89b4ac">QCD::ZeroNf6NLO</a>, xmin, xmax, 1);</div>
 <div class="line"><a id="l01131" name="l01131"></a><span class="lineno"> 1131</span>    }</div>
 <div class="line"><a id="l01132" name="l01132"></a><span class="lineno"> 1132</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (nfNEW == 4. &amp;&amp; nfORG == 5.)</div>
 <div class="line"><a id="l01133" name="l01133"></a><span class="lineno"> 1133</span>    {</div>
-<div class="line"><a id="l01134" name="l01134"></a><span class="lineno"> 1134</span>        f = TF1(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae70a0cf2fcff0f888b3dacfb5e83df1e">QCD::ZeroNf4NLO</a>, xmin, xmax, 1, <span class="stringliteral">&quot;QCD&quot;</span>, <span class="stringliteral">&quot;zeroNf4NLO&quot;</span>);</div>
+<div class="line"><a id="l01134" name="l01134"></a><span class="lineno"> 1134</span>        f = TF1(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#ae70a0cf2fcff0f888b3dacfb5e83df1e">QCD::ZeroNf4NLO</a>, xmin, xmax, 1);</div>
 <div class="line"><a id="l01135" name="l01135"></a><span class="lineno"> 1135</span>    }</div>
 <div class="line"><a id="l01136" name="l01136"></a><span class="lineno"> 1136</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (nfNEW == 3. &amp;&amp; nfORG == 4.)</div>
 <div class="line"><a id="l01137" name="l01137"></a><span class="lineno"> 1137</span>    {</div>
-<div class="line"><a id="l01138" name="l01138"></a><span class="lineno"> 1138</span>        f = TF1(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a1be5b62a0778e07cdf042c7cabf4940c">QCD::ZeroNf3NLO</a>, xmin, xmax, 1, <span class="stringliteral">&quot;QCD&quot;</span>, <span class="stringliteral">&quot;zeroNf3NLO&quot;</span>);</div>
+<div class="line"><a id="l01138" name="l01138"></a><span class="lineno"> 1138</span>        f = TF1(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a1be5b62a0778e07cdf042c7cabf4940c">QCD::ZeroNf3NLO</a>, xmin, xmax, 1);</div>
 <div class="line"><a id="l01139" name="l01139"></a><span class="lineno"> 1139</span>    }</div>
 <div class="line"><a id="l01140" name="l01140"></a><span class="lineno"> 1140</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l01141" name="l01141"></a><span class="lineno"> 1141</span>    {</div>
@@ -1753,7 +1753,7 @@ $(document).ready(function(){initNavTree('d2/d8d/_q_c_d_8cpp_source.html','../..
 <div class="line"><a id="l01637" name="l01637"></a><span class="lineno"> 1637</span>            &amp;&amp; (<span class="keywordtype">double</span>)order == <a class="code hl_variable" href="../../dd/dfa/class_q_c_d.html#a095c7b0499d12bbeef4f4706f1ab6fd5">mp2mbar_cache</a>[4][i])</div>
 <div class="line"><a id="l01638" name="l01638"></a><span class="lineno"> 1638</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="../../dd/dfa/class_q_c_d.html#a095c7b0499d12bbeef4f4706f1ab6fd5">mp2mbar_cache</a>[5][i];</div>
 <div class="line"><a id="l01639" name="l01639"></a><span class="lineno"> 1639</span> </div>
-<div class="line"><a id="l01640" name="l01640"></a><span class="lineno"> 1640</span>    TF1 f(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a6db94b688416e1d9a907a2b871c8b5ab">QCD::Mp2MbarTMP</a>, mp / 2., 2. * mp, 3, <span class="stringliteral">&quot;QCD&quot;</span>, <span class="stringliteral">&quot;Mp2MbarTMP&quot;</span>);</div>
+<div class="line"><a id="l01640" name="l01640"></a><span class="lineno"> 1640</span>    TF1 f(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a6db94b688416e1d9a907a2b871c8b5ab">QCD::Mp2MbarTMP</a>, mp / 2., 2. * mp, 3);</div>
 <div class="line"><a id="l01641" name="l01641"></a><span class="lineno"> 1641</span> </div>
 <div class="line"><a id="l01642" name="l01642"></a><span class="lineno"> 1642</span>    ROOT::Math::WrappedTF1 wf1(f);</div>
 <div class="line"><a id="l01643" name="l01643"></a><span class="lineno"> 1643</span>    <span class="keywordtype">double</span> params[3];</div>
@@ -1874,7 +1874,7 @@ $(document).ready(function(){initNavTree('d2/d8d/_q_c_d_8cpp_source.html','../..
 <div class="line"><a id="l01758" name="l01758"></a><span class="lineno"> 1758</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l01759" name="l01759"></a><span class="lineno"> 1759</span>    }</div>
 <div class="line"><a id="l01760" name="l01760"></a><span class="lineno"> 1760</span>    <span class="keywordtype">double</span> mlow = <a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#a7d70e16ba778c8e83c2b56d6472492bf">Mrun</a>(mutmp, mu, m, q);</div>
-<div class="line"><a id="l01761" name="l01761"></a><span class="lineno"> 1761</span>    TF1 f(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#aa20d6debe663bb9a6650e29ee478ec0d">QCD::Mofmu2MbarTMP</a>, mlow / 2., 2. * mlow, 3, <span class="stringliteral">&quot;QCD&quot;</span>, <span class="stringliteral">&quot;mofmu2mbara&quot;</span>);</div>
+<div class="line"><a id="l01761" name="l01761"></a><span class="lineno"> 1761</span>    TF1 f(<span class="stringliteral">&quot;f&quot;</span>, <span class="keyword">this</span>, &amp;<a class="code hl_function" href="../../dd/dfa/class_q_c_d.html#aa20d6debe663bb9a6650e29ee478ec0d">QCD::Mofmu2MbarTMP</a>, mlow / 2., 2. * mlow, 3);</div>
 <div class="line"><a id="l01762" name="l01762"></a><span class="lineno"> 1762</span> </div>
 <div class="line"><a id="l01763" name="l01763"></a><span class="lineno"> 1763</span>    ROOT::Math::WrappedTF1 wf1(f);</div>
 <div class="line"><a id="l01764" name="l01764"></a><span class="lineno"> 1764</span> </div>
