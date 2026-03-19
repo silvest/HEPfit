@@ -7,6 +7,7 @@ var group___observable =
       [ "~CorrelatedGaussianObservables", "dc/d47/class_correlated_gaussian_observables.html#a72c5562956f883742f6984209b997d00", null ],
       [ "AddObs", "dc/d47/class_correlated_gaussian_observables.html#ad0a3321614b8d1392a81f559563ff5e3", null ],
       [ "ComputeCov", "dc/d47/class_correlated_gaussian_observables.html#ac8702cf04ed9aec44f102e35fb630b2a", null ],
+      [ "computeLeaveOneOutWeights", "dc/d47/class_correlated_gaussian_observables.html#a7fa3e4b0e98eb5045e16f65a46aa833b", null ],
       [ "computeWeight", "dc/d47/class_correlated_gaussian_observables.html#a5a409318f0865f3b21ec9408555335a1", null ],
       [ "getCov", "dc/d47/class_correlated_gaussian_observables.html#a93e1147f3d0763fd725223e8ac1eeee6", null ],
       [ "getName", "dc/d47/class_correlated_gaussian_observables.html#a6e304e40277367023c95d6604608caf3", null ],
@@ -24,7 +25,8 @@ var group___observable =
       [ "IsEOF", "dc/d47/class_correlated_gaussian_observables.html#a8b36bc4d1ac4c04283ff275e5415f902", null ],
       [ "IsPrediction", "dc/d47/class_correlated_gaussian_observables.html#a03acbb4194b426d064b4987253bce9dc", null ],
       [ "name", "dc/d47/class_correlated_gaussian_observables.html#acab184cfad2a1a795704df404a9ac1e4", null ],
-      [ "Obs", "dc/d47/class_correlated_gaussian_observables.html#a01f868d4c4e6d1ed92252c6ecba01660", null ]
+      [ "Obs", "dc/d47/class_correlated_gaussian_observables.html#a01f868d4c4e6d1ed92252c6ecba01660", null ],
+      [ "x", "dc/d47/class_correlated_gaussian_observables.html#a9f01edd62f107b7062818c79c286ccfb", null ]
     ] ],
     [ "CorrelatedGaussianParameters", "d9/ddd/class_correlated_gaussian_parameters.html", [
       [ "CorrelatedGaussianParameters", "d9/ddd/class_correlated_gaussian_parameters.html#a678a1ce65fd569b1c6f9967d97d85de7", null ],

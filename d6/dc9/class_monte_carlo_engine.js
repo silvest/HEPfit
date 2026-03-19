@@ -21,6 +21,7 @@ var class_monte_carlo_engine =
     [ "getNumOfUsedEvents", "d6/dc9/class_monte_carlo_engine.html#a7620775d20c3a455af11d931bdb131bb", null ],
     [ "getPrecision", "d6/dc9/class_monte_carlo_engine.html#a90921e40238d7f367ed99eff63089338", null ],
     [ "getWriteLogLikelihoodChain", "d6/dc9/class_monte_carlo_engine.html#aa7c1467a88ff64e6d4f4869bf0705f2f", null ],
+    [ "getWriteMCMCweights", "d6/dc9/class_monte_carlo_engine.html#a04c2598c805b9f700a892293d9f3657b", null ],
     [ "getWriteParametersChain", "d6/dc9/class_monte_carlo_engine.html#ac14122a91b0f0eb2c7ca6e219a48e5f3", null ],
     [ "goodFormat", "d6/dc9/class_monte_carlo_engine.html#a136b788ca45a5d373d8d299ababc7587", null ],
     [ "InChainFillObservablesTree", "d6/dc9/class_monte_carlo_engine.html#a836d00e35ae6b249a694d841285a7c78", null ],
@@ -47,6 +48,7 @@ var class_monte_carlo_engine =
     [ "setSignificants", "d6/dc9/class_monte_carlo_engine.html#ac23f12a6b234c6bcbd52843a50d6752a", null ],
     [ "setSmooth", "d6/dc9/class_monte_carlo_engine.html#ad15391b135553d99844b611967647ef2", null ],
     [ "setWriteLogLikelihoodChain", "d6/dc9/class_monte_carlo_engine.html#af4e2349f108d47e4feb6f87d0dabe2b3", null ],
+    [ "setWriteMCMCweights", "d6/dc9/class_monte_carlo_engine.html#ab93d2a1691ab1b57b087a124ef8f4b1b", null ],
     [ "setWriteParametersChain", "d6/dc9/class_monte_carlo_engine.html#a44da5a41c40265a3aabbbcdda2916ace", null ],
     [ "writePreRunData", "d6/dc9/class_monte_carlo_engine.html#a6531931ad26e6e671a00696b6737ffb9", null ],
     [ "alpha2D", "d6/dc9/class_monte_carlo_engine.html#aca8416f5704c5897cd7714b44dac5c58", null ],
@@ -78,6 +80,7 @@ var class_monte_carlo_engine =
     [ "kchainedObs", "d6/dc9/class_monte_carlo_engine.html#ab23ad6ea002644fc38ab44e50171ed83", null ],
     [ "kmax", "d6/dc9/class_monte_carlo_engine.html#a35c564a9647889cae95dde143b11e82f", null ],
     [ "kwmax", "d6/dc9/class_monte_carlo_engine.html#a2bbc9018257a6126ea434d06e1639d07", null ],
+    [ "kwmcmc", "d6/dc9/class_monte_carlo_engine.html#ae130339c94844596375f82464d9ae3a1", null ],
     [ "LogLikelihood_max", "d6/dc9/class_monte_carlo_engine.html#a31836f56075e4ae952f2a1abcb50d6b0", null ],
     [ "Mod", "d6/dc9/class_monte_carlo_engine.html#a57dd9a28a3cfa401f04f3405b6effe51", null ],
     [ "ModPars", "d6/dc9/class_monte_carlo_engine.html#abf8a2f5c2ae21113b1a476f2a4400657", null ],
@@ -102,5 +105,6 @@ var class_monte_carlo_engine =
     [ "thMin", "d6/dc9/class_monte_carlo_engine.html#a2829489e64853982c59103bc1be907fc", null ],
     [ "unknownParameters", "d6/dc9/class_monte_carlo_engine.html#a2eb6d1439c27a0e5448f769573aeaf9b", null ],
     [ "WriteLogLikelihoodChain", "d6/dc9/class_monte_carlo_engine.html#a3f33d34295ad2a8d6c38af06975fc5d5", null ],
+    [ "WriteMCMCweights", "d6/dc9/class_monte_carlo_engine.html#ada05b8cbb1c849e9263629d18d756cd6", null ],
     [ "WriteParametersChain", "d6/dc9/class_monte_carlo_engine.html#aea3f4ad89128b4fb67a478cafcef0697", null ]
 ];

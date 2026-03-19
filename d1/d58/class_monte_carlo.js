@@ -35,5 +35,6 @@ var class_monte_carlo =
     [ "PrintTrianglePlot", "d1/d58/class_monte_carlo.html#a6507ed42033a91957fdcae1552b7cc7c", null ],
     [ "RunMinuitOnly", "d1/d58/class_monte_carlo.html#a742565747e8c3050fba9e96210e0b915", null ],
     [ "writechains", "d1/d58/class_monte_carlo.html#a4848383613ed4b81b2caf6cecfa5f51a", null ],
+    [ "writeMCMCweights", "d1/d58/class_monte_carlo.html#a40fb2cfd20e6a4dbd31596b6834d7345", null ],
     [ "WritePreRunData", "d1/d58/class_monte_carlo.html#a798fba601f49e0a17e46d373fbe0819e", null ]
 ];
