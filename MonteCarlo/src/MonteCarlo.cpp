@@ -51,6 +51,7 @@ MonteCarlo::MonteCarlo(
     WritePreRunData = false;
     checkrun = false;
     writechains = false;
+    writeMCMCweights = false;
 }
 
 MonteCarlo::~MonteCarlo() 
@@ -272,6 +273,7 @@ void MonteCarlo::Run(const int rank) {
 #endif
         } else {
             ParseMCMCConfig(MCMCConf);
+            MCEngine.setWriteMCMCweights(writeMCMCweights);
             if (!RunMinuitOnly && !ComputeHessianOnly) std::cout << std::endl << "\nRunning in MonteCarlo mode...\n" << std::endl;
             else if (RunMinuitOnly) std::cout << std::endl << "\nRunning Minuit Minimizer..." << std::endl;
             else std::cout << std::endl << "\nComputing the Hessian for central values of the input parameters..." << std::endl;
@@ -616,6 +618,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (beg->compare("true") == 0 || beg->compare("false") == 0) writechains = (beg->compare("true") == 0);
             else
                 throw std::runtime_error("\nERROR: WriteChain in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+        } else if (beg->compare("WriteMCMCWeights") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) writeMCMCweights = (beg->compare("true") == 0);
+            else
+                throw std::runtime_error("\nERROR: WriteMCMCWeights in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
         } else if (beg->compare("FindModeWithMinuit") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) FindModeWithMinuit = (beg->compare("true") == 0);

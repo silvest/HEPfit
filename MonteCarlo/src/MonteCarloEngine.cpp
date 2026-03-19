@@ -48,8 +48,10 @@ MonteCarloEngine::MonteCarloEngine(
     PrintLoglikelihoodPlots = false;
     WriteLogLikelihoodChain = false;
     WriteParametersChain = false;
+    WriteMCMCweights = false;
     alpha2D = 1.;
     kchainedObs = 0;
+    kwmcmc = 0;
     nBins1D = NBINS1D;
     nBins2D = NBINS2D;
     significants = 0;
@@ -82,13 +84,15 @@ MonteCarloEngine::MonteCarloEngine(
 void MonteCarloEngine::Initialize(StandardModel* Mod_i)
 {
     Mod = Mod_i;
-    int k = 0, kweight = 0;
+    int k = 0, kweight = 0, kmcmcweight = 0;
 
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
         if (!it->isTMCMC()) {
             k++;
             if (it->getDistr().compare("noweight") != 0) kweight++;
             if (it->isWriteChain()) kchainedObs++;
+        } else {
+            kmcmcweight++;
         }
         thMin[it->getName()] = std::numeric_limits<double>::max();
         thMax[it->getName()] = -std::numeric_limits<double>::max();
@@ -115,10 +119,13 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
         }
         if (it1->isPrediction()) {
             CorrelationMap[it1->getName()] = new TPrincipal(it1->getObs().size(), "N");
+        } else {
+            kmcmcweight += 1 + ObsV.size(); // full weight + leave-one-out weights
         }
     }
     kmax = k;
     kwmax = kweight;
+    kwmcmc = kmcmcweight;
 
     unknownParameters = Mod->getUnknownParameters();
     DefineParameters();
@@ -447,7 +454,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             if (index_chain[il] >= 0) {
                 int k = 0;
                 // fill the histograms for observables
-                int ko = 0, kweight = 0, k_all = 0, k_cObs = 0;
+                int ko = 0, kweight = 0, kweight_ob = 0, k_all = 0, k_cObs = 0;
                 for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
                         it < Obs_ALL.end(); it++) {
                     double th = buff[il][k++];
@@ -462,10 +469,15 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                         ko++;
                         if (it->getDistr().compare("noweight") != 0 && it->getDistr().compare("writeChain") != 0) {
                             double weight = it->computeWeight(th);
-                            obweight[index_chain[il] * kwmax + kweight] = weight;
+                            obweight[index_chain[il] * kwmax + kweight_ob] = weight;
+                            kweight_ob++;
                             if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[index_chain[il]][kweight] = weight;
                             kweight++;
                         }
+                    } else if (WriteMCMCweights) {
+                        double weight = it->computeWeight(th);
+                        if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[index_chain[il]][kweight] = weight;
+                        kweight++;
                     }
                 }
 
@@ -497,6 +509,13 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                     }
                     if (it1->isPrediction()) CorrelationMap[it1->getName()]->AddRow(COdata);
                     delete [] COdata;
+                    if (WriteMCMCweights && !it1->isPrediction()) {
+                        std::vector<double> weights = it1->computeLeaveOneOutWeights();
+                        for (unsigned int iw = 0; iw < weights.size(); iw++) {
+                            if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[index_chain[il]][kweight] = weights[iw];
+                            kweight++;
+                        }
+                    }
                 }
             }
         }
@@ -524,7 +543,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
 
         Mod->Update(DPars);
         // fill the histograms for observables
-        int k = 0, kweight = 0, k_all = 0, k_cObs = 0;
+        int k = 0, kweight = 0, kweight_ob = 0, k_all = 0, k_cObs = 0;
         for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
                 it < Obs_ALL.end(); it++) {
             double th = it->computeTheoryValue();
@@ -539,10 +558,15 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 k++;
                 if (it->getDistr().compare("noweight") != 0 && it->getDistr().compare("writeChain") != 0) {
                     double weight = it->computeWeight(th);
-                    obweight[i * kwmax + kweight] = weight;
+                    obweight[i * kwmax + kweight_ob] = weight;
+                    kweight_ob++;
                     if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[i][kweight] = weight;
                     kweight++;
                 }
+            } else if (WriteMCMCweights) {
+                double weight = it->computeWeight(th);
+                if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[i][kweight] = weight;
+                kweight++;
             }
         }
         
@@ -576,6 +600,13 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             }
             if (it1->isPrediction()) CorrelationMap[it1->getName()]->AddRow(COdata);
             delete [] COdata;
+            if (WriteMCMCweights && !it1->isPrediction()) {
+                std::vector<double> weights = it1->computeLeaveOneOutWeights();
+                for (unsigned int iw = 0; iw < weights.size(); iw++) {
+                    if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[i][kweight] = weights[iw];
+                    kweight++;
+                }
+            }
         }
     }
     
@@ -912,9 +943,10 @@ void MonteCarloEngine::AddChains() {
         }
         hMCMCObservables.assign(fMCMCNChains, std::vector<double>(ObsNum, 0.));
         hMCMCTree_Observables.assign(ObsNum, 0.);
-        if (kwmax > 0) {
-            hMCMCObservables_weight.assign(fMCMCNChains, std::vector<double>(kwmax, 0.));
-            hMCMCTree_Observables_weight.assign(kwmax, 0.);
+        unsigned int kwtotal = kwmax + (WriteMCMCweights ? kwmcmc : 0);
+        if (kwtotal > 0) {
+            hMCMCObservables_weight.assign(fMCMCNChains, std::vector<double>(kwtotal, 0.));
+            hMCMCTree_Observables_weight.assign(kwtotal, 0.);
         }
         int k = 0, kweight = 0;
         for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
@@ -922,6 +954,10 @@ void MonteCarloEngine::AddChains() {
             hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables%i", k), it->getName().data());
             k++;
             if (!it->isTMCMC() && it->getDistr().compare("weight") == 0) {
+                hMCMCObservableTree->Branch((it->getName() + "_weight").data(), &hMCMCTree_Observables_weight[kweight], (it->getName() + "_weight/D").data());
+                hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables_weight%i", kweight), (it->getName() + "_weight").data());
+                kweight++;
+            } else if (WriteMCMCweights && it->isTMCMC()) {
                 hMCMCObservableTree->Branch((it->getName() + "_weight").data(), &hMCMCTree_Observables_weight[kweight], (it->getName() + "_weight/D").data());
                 hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables_weight%i", kweight), (it->getName() + "_weight").data());
                 kweight++;
@@ -941,6 +977,16 @@ void MonteCarloEngine::AddChains() {
                 hMCMCObservableTree->Branch(it->getName().data(), &hMCMCTree_Observables[k], (it->getName() + "/D").data());
                 hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables%i", k), it->getName().data());
                 k++;
+            }
+            if (WriteMCMCweights && !it1->isPrediction()) {
+                hMCMCObservableTree->Branch((it1->getName() + "_weight").data(), &hMCMCTree_Observables_weight[kweight], (it1->getName() + "_weight/D").data());
+                hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables_weight%i", kweight), (it1->getName() + "_weight").data());
+                kweight++;
+                for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) {
+                    hMCMCObservableTree->Branch((it->getName() + "_weight").data(), &hMCMCTree_Observables_weight[kweight], (it->getName() + "_weight/D").data());
+                    hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables_weight%i", kweight), (it->getName() + "_weight").data());
+                    kweight++;
+                }
             }
         }
     } else if (getchainedObsSize() > 0) {
@@ -987,7 +1033,7 @@ void MonteCarloEngine::InChainFillObservablesTree()
             hMCMCLogProbability = fMCMCStates.at(fMCMCTree_Chain).log_probability;
             hMCMCLogPriorProbability = fMCMCStates.at(fMCMCTree_Chain).log_prior;
         }
-        if (kwmax > 0 && fMCMCFlagWriteChainToFile) hMCMCTree_Observables_weight = hMCMCObservables_weight[fMCMCTree_Chain];
+        if ((kwmax > 0 || (WriteMCMCweights && kwmcmc > 0)) && fMCMCFlagWriteChainToFile) hMCMCTree_Observables_weight = hMCMCObservables_weight[fMCMCTree_Chain];
         hMCMCObservableTree->Fill();
     }
 }

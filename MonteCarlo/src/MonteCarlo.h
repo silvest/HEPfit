@@ -179,7 +179,8 @@ private:
     bool PrintTrianglePlot; ///< Flag for printing the triangle plot.
     bool WritePreRunData; ///< Flag for printing the overview parameter plots.
     bool checkrun; ///< A check to make sure TestRun()and Run() are not called consecutively. 
-    bool writechains; ///< Flag for writing the chains of paramters and observables during the MCMC run.
+    bool writechains; ///< Flag for writing the chains of parameters and observables during the MCMC run.
+    bool writeMCMCweights; ///< Flag for writing the MCMC weights during the MCMC run.
     std::string FileIn; ///< String for the name of the input root file without the .root extension. If empty, no input file is read. If not empty, previous run data is loaded from this file.
     
     void ParseMCMCConfig(std::string file);

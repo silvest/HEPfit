@@ -67,6 +67,11 @@ public:
     virtual double computeWeight();
 
     /**
+     * @brief A method to compute the full weight and the weights associated with the observable when one observable is left out of the set.
+     */
+    std::vector<double> computeLeaveOneOutWeights();
+
+    /**
      * @brief A method to add observables to the list of correlated Gaussian observables.
      * @param Obs_i reference to an object of type Observable
      */
@@ -176,6 +181,7 @@ public:
 private:
     std::vector<Observable> Obs;///< A vector of observables whose correlation will be calculated.
     TMatrixDSym InvCov;///< The inverse covariance matrix.
+    TVectorD x;///< The vector of the differences between the theory and average values of the observables in the set.
     std::string name;///< The name of the correlated Gaussian Observables set.
     std::string filepath;///< The path to the config file being parsed
     bool IsEOF;///< A boolean which is true if the end of file is reached.

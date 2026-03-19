@@ -26,7 +26,7 @@ CorrelatedGaussianObservables::CorrelatedGaussianObservables() {
     covarianceFromConfig = false;
 }
 
-CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig) : InvCov(orig.InvCov) {
+CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig) : InvCov(orig.InvCov), x(orig.x) {
     Obs = orig.Obs;
     name = orig.name;
     IsPrediction = orig.IsPrediction;
@@ -46,6 +46,7 @@ void CorrelatedGaussianObservables::ComputeCov(const TMatrixDSym& Corr) {
     if (Corr.GetNrows() != size)
         throw std::runtime_error("The size of the correlated observables in " + name + " does not match the size of the correlation matrix!");
     InvCov.ResizeTo(size, size);
+    x.ResizeTo(size);
     if (covarianceFromConfig) {
         for (unsigned int i = 0; i < size; i++) {
             for (unsigned int j = 0; j < size; j++)
@@ -94,12 +95,29 @@ void CorrelatedGaussianObservables::ComputeCov(const TMatrixDSym& Corr) {
 }
 
 double CorrelatedGaussianObservables::computeWeight() {
-    TVectorD x(Obs.size());
         
     for (unsigned int i = 0; i < Obs.size(); i++)
         x(i) = Obs.at(i).computeTheoryValue() - Obs.at(i).getAve();
 
     return (-0.5 * x * (InvCov * x));
+}
+
+std::vector<double> CorrelatedGaussianObservables::computeLeaveOneOutWeights() {
+    std::vector<double> weights;
+
+    for (unsigned int i = 0; i < Obs.size(); i++) 
+        x(i) = Obs.at(i).computeTheoryValue() - Obs.at(i).getAve();
+    
+    weights.push_back(-0.5 * x * (InvCov * x));
+    
+    for (unsigned int i = 0; i < Obs.size(); i++) {
+        double xi_backup = x(i);
+        x(i) = 0.0;
+        weights.push_back(-0.5 * x * (InvCov * x));
+        x(i) = xi_backup;
+    }
+
+    return weights;
 }
 
 int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Observables,

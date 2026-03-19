@@ -353,6 +353,23 @@ public:
     };
     
     /**
+     * @brief A set method to toggle the writing of MCMC weights for TMCMC observables in the ROOT tree
+     * @param[in] flag a boolean to toggle the writing of MCMC weights
+     */
+    void setWriteMCMCweights(bool flag)
+    {
+        WriteMCMCweights = flag;
+    };
+    
+    /**
+     * @brief A get method to get the value of the bool for writing MCMC weights in the ROOT tree
+     */
+    bool getWriteMCMCweights()
+    {
+        return WriteMCMCweights;
+    };
+    
+    /**
      * @brief A set method to toggle the printing of legends in 1D and 2D histograms.
      * @param[in] legend a boolean to toggle the the printing of legends
      */
@@ -465,6 +482,7 @@ private:
     unsigned int kwmax; ///< The number of observables whose weights are used for the MCMC.
     unsigned int kmax; ///< The number of observables.
     unsigned int kchainedObs; ///< The number of observables for which the chains should be written.
+    unsigned int kwmcmc; ///< The number of TMCMC observables whose weights can be written.
     std::ostringstream HistoLog; ///< A stream to store the output messages from printing and checking histograms.
     int NumOfUsedEvents; ///< The number of events for which the model is successfully updated and hence used for the MCMC run.
     int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
@@ -490,6 +508,7 @@ private:
     bool PrintLoglikelihoodPlots; ///< A flag to toggle the printing of Parameters vs. Loglikelihood.
     bool WriteLogLikelihoodChain; ///< A flag to toggle the writing of Loglikelihood chains in the ROOT tree.
     bool WriteParametersChain; ///< A flag to toggle the writing of parameters chains in the ROOT tree.
+    bool WriteMCMCweights; ///< A flag to toggle the writing of MCMC weights for TMCMC observables in the ROOT tree.
     double alpha2D;///< A number between 0. and 1. that sets the opacity level of 2D Histograms, 1. being fully opaque.
     int gIdx;
     int rIdx;
