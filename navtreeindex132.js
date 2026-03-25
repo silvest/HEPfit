@@ -1,5 +1,7 @@
 var NAVTREEINDEX132 =
 {
+"functions_p.html":[27,3,0,15],
+"functions_q.html":[27,3,0,16],
 "functions_r.html":[27,3,0,17],
 "functions_rela.html":[27,3,6],
 "functions_s.html":[27,3,0,18],
@@ -40,8 +42,8 @@ var NAVTREEINDEX132 =
 "functions_z.html":[27,3,0,25],
 "functions_~.html":[27,3,0,26],
 "hierarchy.html":[27,2],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "modules.html":[4],
 "pages.html":[]
 };

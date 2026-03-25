@@ -1,5 +1,7 @@
 var NAVTREEINDEX93 =
 {
+"db/d2b/class_georgi_machacek.html#aae38b512b823776ac9a81996a6d0818f":[4,8,46,28],
+"db/d2b/class_georgi_machacek.html#ab08b1b78f8d28fbd0ffae4b716ad8b42":[4,8,46,77],
 "db/d2b/class_georgi_machacek.html#ab35ea2c87717ece2550b75d4a4cdefcb":[4,8,46,55],
 "db/d2b/class_georgi_machacek.html#ab434fe4b2329d429d76500652d26e46d":[4,8,46,79],
 "db/d2b/class_georgi_machacek.html#ab75c40235dee89d143a578727560ffb6":[4,8,46,14],
@@ -247,7 +249,5 @@ var NAVTREEINDEX93 =
 "db/d60/class_asl__s___p_s.html#ac77b60de9489928f284cf7a30cb66344":[27,0,125,0],
 "db/d60/class_asl__s___p_s.html#af6ca3e39b9866583b025c0c06594648d":[27,0,125,2],
 "db/d60/class_gamma_htoss_ratio.html":[4,13,67],
-"db/d60/class_gamma_htoss_ratio.html#a248aee251f022d9518ce87a7547477aa":[4,13,67,2],
-"db/d60/class_gamma_htoss_ratio.html#a921186e358f066e16d36271fff7cacc7":[4,13,67,0],
-"db/d60/class_gamma_htoss_ratio.html#ae33d970ecb2e7223acf1f141387cc002":[4,13,67,1]
+"db/d60/class_gamma_htoss_ratio.html#a248aee251f022d9518ce87a7547477aa":[4,13,67,2]
 };

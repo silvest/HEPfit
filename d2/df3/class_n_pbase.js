@@ -107,6 +107,7 @@ var class_n_pbase =
     [ "cZBox_HB", "d2/df3/class_n_pbase.html#a808ee07fcd85c66d66be8266db262aa3", null ],
     [ "cZga_HB", "d2/df3/class_n_pbase.html#a569b6e76f1aea5ee32abfa1b95190499", null ],
     [ "cZZ_HB", "d2/df3/class_n_pbase.html#ac2cda2c408baed3cd16e90982094c035", null ],
+    [ "Dalpha5hMz", "d2/df3/class_n_pbase.html#afc7052cdccacaaa0bc9ef9ce18d81b0a", null ],
     [ "delta2sBRH3", "d2/df3/class_n_pbase.html#a2c5b08969de869545e951e24868ba29e", null ],
     [ "delta2sH3", "d2/df3/class_n_pbase.html#a8f06ca91364e9f7c0013f0f11f8606b1", null ],
     [ "delta_mubbH_1", "d2/df3/class_n_pbase.html#a86decca7008e907de795875d03632fa7", null ],

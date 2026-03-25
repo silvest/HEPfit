@@ -1,5 +1,7 @@
 var NAVTREEINDEX127 =
 {
+"df/d15/class_higgs_kigen.html#a97a21eee2ada8f4091d198bdd35fbf86":[4,13,77,328],
+"df/d15/class_higgs_kigen.html#a986af4a96d819102a5900fad37e8e2fb":[4,13,77,219],
 "df/d15/class_higgs_kigen.html#a98d2d8d4a44b986db61471b189914950":[4,13,77,18],
 "df/d15/class_higgs_kigen.html#a9a2f3ec427cf437ce007a6fdb58d8c56":[4,13,77,117],
 "df/d15/class_higgs_kigen.html#a9abca82c2dbfb94e558a8719277d1f19":[4,13,77,390],
@@ -247,7 +249,5 @@ var NAVTREEINDEX127 =
 "df/d2d/classtanbeta.html#a94726bd9380e93d1466f88ff10665afc":[4,17,407,2],
 "df/d2f/class_c_bs.html":[4,5,56],
 "df/d2f/class_c_bs.html#a0f8a9736ce0d950589629d865722c0dd":[4,5,56,0],
-"df/d2f/class_c_bs.html#a2c7da42fc970ce39f94d7f438f5583f7":[4,5,56,1],
-"df/d2f/class_general_t_h_d_m_matching.html":[27,0,790],
-"df/d2f/class_general_t_h_d_m_matching.html#a0000b1a1bc11b45908814508a80d96b6":[27,0,790,52]
+"df/d2f/class_c_bs.html#a2c7da42fc970ce39f94d7f438f5583f7":[4,5,56,1]
 };

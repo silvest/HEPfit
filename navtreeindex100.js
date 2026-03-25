@@ -1,5 +1,7 @@
 var NAVTREEINDEX100 =
 {
+"dc/d6f/class_s_u_s_y.html#a96bab972a643af47fad0660b41db376f":[4,16,61,4],
+"dc/d6f/class_s_u_s_y.html#a9b0aac172748cf703d7ecedd10c647d4":[4,16,61,5],
 "dc/d6f/class_s_u_s_y.html#a9b4ea8c4735781f05ca9f061cab120d8":[4,16,61,87],
 "dc/d6f/class_s_u_s_y.html#a9b5139502f775c9cd8f387ceb771be67":[4,16,61,34],
 "dc/d6f/class_s_u_s_y.html#a9c2f6bd1490cb757d281f92e955337e8":[4,16,61,61],
@@ -247,7 +249,5 @@ var NAVTREEINDEX100 =
 "dc/d8e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_minimal_supersymmetric_standard_model.html#a9a4bf351039dc96bd470abf0a9ae86b0":[27,0,1,2,3,0],
 "dc/d8e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_minimal_supersymmetric_standard_model.html#abe2d510ae4a6bac7b865923196a8d2b2":[27,0,1,2,3,1],
 "dc/d8e/classdeltayb_h_b.html":[27,0,570],
-"dc/d8e/classdeltayb_h_b.html#a42864fc4d96e8ee2ac37ba72b897d36e":[27,0,570,1],
-"dc/d8e/classdeltayb_h_b.html#a9818dadf54a970dde100f92adf785b40":[27,0,570,2],
-"dc/d8e/classdeltayb_h_b.html#a9c3d29a934c28e15a24c434fec25b6cc":[27,0,570,4]
+"dc/d8e/classdeltayb_h_b.html#a42864fc4d96e8ee2ac37ba72b897d36e":[27,0,570,1]
 };
