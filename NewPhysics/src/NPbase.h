@@ -172,6 +172,16 @@ public:
      * @return @f$\alpha(M_Z^2)@f$
      */
     virtual const double alphaMz() const;
+    
+    /**
+     * @brief The 5-quark contribution to the running of the em constant to the @f$Z@f$ pole.
+     * @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$.
+     * @details
+     * Depending on the flag MWinput this is given by the input parameter dAle5Mz (MWinput=false)
+     * or it is computed from Mw (MWinput=true)
+     * @return @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$
+     */
+    virtual const double Dalpha5hMz() const;
         
     /////////////////////// Corrections to V and A Zff couplings /////////////////////////
 

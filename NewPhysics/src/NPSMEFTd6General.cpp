@@ -15583,6 +15583,27 @@ const double NPSMEFTd6General::alphaMz() const {
     return (trueSM.alphaMz() * (1.0 + 2.0 * delta_e + delta_A) + cNLOd6 * deltaNLO );
 }
 
+const double NPSMEFTd6General::Dalpha5hMz() const {
+    
+    double deltaNLO, alphaZ;
+    
+    alphaZ = trueSM.alphaMz();
+    
+    // Finite NLO corrections in W mass scheme
+    deltaNLO = cWsch * (-0.000072 * getSMEFTCoeffEW("CW")  -0.000016 * getSMEFTCoeffEW("CHbox")  -0.000478 * getSMEFTCoeffEW("CHD")  -0.000014 * getSMEFTCoeffEW("CHB")   
+            -0.000017 * getSMEFTCoeffEW("CHW")  -0.00081 * getSMEFTCoeffEW("CHWB")  -0.000144 * getSMEFTCoeffEW("CuWR",2, 2) -0.000438 * getSMEFTCoeffEW("CuBR",2, 2)  
+            -0.00003 * getSMEFTCoeffEW("CHl1R",0, 0) -0.00003 * getSMEFTCoeffEW("CHl1R",1, 1) -0.000023 * getSMEFTCoeffEW("CHl1R",2, 2) -0.000672 * getSMEFTCoeffEW("CHl3R",0, 0)  
+            -0.000672 * getSMEFTCoeffEW("CHl3R",1, 1) +0.000014 * getSMEFTCoeffEW("CHl3R",2, 2) -0.000023 * getSMEFTCoeffEW("CHeR",0, 0) -0.000023 * getSMEFTCoeffEW("CHeR",1, 1)  
+            -0.000023 * getSMEFTCoeffEW("CHeR",2, 2) +0.000023 * getSMEFTCoeffEW("CHq1R",0, 0) +0.000023 * getSMEFTCoeffEW("CHq1R",1, 1) -0.001004 * getSMEFTCoeffEW("CHq1R",2, 2)  
+            +0.000043 * getSMEFTCoeffEW("CHq3R",0, 0) +0.000043 * getSMEFTCoeffEW("CHq3R",1, 1) +0.000584 * getSMEFTCoeffEW("CHq3R",2, 2) +0.000045 * getSMEFTCoeffEW("CHuR",0, 0)  
+            +0.000045 * getSMEFTCoeffEW("CHuR",1, 1) +0.001179 * getSMEFTCoeffEW("CHuR",2, 2) -0.000023 * getSMEFTCoeffEW("CHdR",0, 0) -0.000023 * getSMEFTCoeffEW("CHdR",1, 1)  
+            -0.000023 * getSMEFTCoeffEW("CHdR",2, 2) -0.000128 * getSMEFTCoeffEW("CllR",0, 0, 1, 1) +0.000495 * getSMEFTCoeffEW("CllR",0, 1, 1, 0) +0.00011 * getSMEFTCoeffEW("Clq3R",0, 0, 2, 2)  
+            +0.00011 * getSMEFTCoeffEW("Clq3R",1, 1, 2, 2) ) * v2; 
+    
+    return (trueSM.Dalpha5hMz() + (ale/alphaZ) * ( 2.0 * delta_e + delta_A + cNLOd6 * deltaNLO / alphaZ ) );
+}
+
+
 const double NPSMEFTd6General::Mw() const {
     //    return (trueSM.Mw() - Mw_tree / 4.0 / (cW2_tree - sW2_tree)
     //            *(4.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2_over_LambdaNP2

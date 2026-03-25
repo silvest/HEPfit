@@ -1028,6 +1028,14 @@ public:
      */
     virtual const double  alphaMz() const;
     
+    /**
+     * @brief The 5-quark contribution to the running of the em constant to the @f$Z@f$ pole.
+     * @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$.
+     * @return @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$
+     */
+    virtual const double Dalpha5hMz() const;
+    
+    
     /////////////////////// EWPO: W mass and widths /////////////////////////
 
     /**

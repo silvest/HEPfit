@@ -68,6 +68,15 @@ const double NPbase::alphaMz() const
     return myAlphaMz;
 }
 
+
+const double NPbase::Dalpha5hMz() const
+{
+    double myDalpha5hMz = trueSM.Dalpha5hMz();
+    
+    return myDalpha5hMz;
+}
+
+
 const double NPbase::Mw() const
 {
     double myMw = trueSM.Mw();
