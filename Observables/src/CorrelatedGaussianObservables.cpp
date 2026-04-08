@@ -113,7 +113,7 @@ std::vector<double> CorrelatedGaussianObservables::computeLeaveOneOutWeights() {
     for (unsigned int i = 0; i < Obs.size(); i++) {
         double xi_backup = x(i);
         x(i) = 0.0;
-        weights.push_back(-0.5 * x * (InvCov * x));
+        weights.push_back(0.5 * x * (InvCov * x)+weights.at(0));
         x(i) = xi_backup;
     }
 
