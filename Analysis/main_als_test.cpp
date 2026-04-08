@@ -81,13 +81,13 @@ int main(void) {
     ModelFactory ModelF;
     ThObsFactory ThObsF;
 
-    ThObsF.addObsToFactory("AlsTest", boost::factory<AlsTest*>());
+    ThObsF.addObsToFactory("AlsTest", [](const StandardModel& SM) -> ThObservable* { return new AlsTest(SM); });
     
     /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
-    /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*>() ) */
+    /* ModelF.addModelToFactory(ModelName, []() { return new ModelClass(); }) */
 
     /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
-    /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
+    /* ThObsF.addObsToFactory(ThObsName, [](const StandardModel& SM) { return new ThObsClass(SM); }) */
 
     /* Create an object of the class ComputeObservables. */
     ComputeObservables CO(ModelF, ThObsF, ModelConf);

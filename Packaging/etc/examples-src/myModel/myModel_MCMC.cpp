@@ -18,7 +18,6 @@
 
 #include <iostream>
 #include <HEPfit.h>
-#include <boost/bind.hpp>
 #include "myModel.h"
 #include "myObservables.h"
 
@@ -74,17 +73,17 @@ int main(int argc, char** argv)
         myModel my_model;
 
         /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
-        ModelF.addModelToFactory("myModel", boost::factory<myModel*>() );
+        ModelF.addModelToFactory("myModel", []() -> StandardModel* { return new myModel(); });
         
         /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
-        ThObsF.addObsToFactory("BIN1", boost::bind(boost::factory<yield*>(), _1, 1) );
-        ThObsF.addObsToFactory("BIN2", boost::bind(boost::factory<yield*>(), _1, 2) );
-        ThObsF.addObsToFactory("BIN3", boost::bind(boost::factory<yield*>(), _1, 3) );
-        ThObsF.addObsToFactory("BIN4", boost::bind(boost::factory<yield*>(), _1, 4) );
-        ThObsF.addObsToFactory("BIN5", boost::bind(boost::factory<yield*>(), _1, 5) );
-        ThObsF.addObsToFactory("BIN6", boost::bind(boost::factory<yield*>(), _1, 6) );
-        ThObsF.addObsToFactory("C_3", boost::factory<C_3*>() );
-        ThObsF.addObsToFactory("C_4", boost::factory<C_4*>() );
+        ThObsF.addObsToFactory("BIN1", [](const StandardModel& SM) -> ThObservable* { return new yield(SM, 1); });
+        ThObsF.addObsToFactory("BIN2", [](const StandardModel& SM) -> ThObservable* { return new yield(SM, 2); });
+        ThObsF.addObsToFactory("BIN3", [](const StandardModel& SM) -> ThObservable* { return new yield(SM, 3); });
+        ThObsF.addObsToFactory("BIN4", [](const StandardModel& SM) -> ThObservable* { return new yield(SM, 4); });
+        ThObsF.addObsToFactory("BIN5", [](const StandardModel& SM) -> ThObservable* { return new yield(SM, 5); });
+        ThObsF.addObsToFactory("BIN6", [](const StandardModel& SM) -> ThObservable* { return new yield(SM, 6); });
+        ThObsF.addObsToFactory("C_3", [](const StandardModel& SM) -> ThObservable* { return new C_3(SM); });
+        ThObsF.addObsToFactory("C_4", [](const StandardModel& SM) -> ThObservable* { return new C_4(SM); });
         
         /* Create an object of the class MonteCarlo. */        
         MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);

@@ -822,6 +822,6 @@ void MonteCarlo::ReadPreRunData(std::string file)
     MCEngine.SetInitialScaleFactors(scale_all);
 }
 
-void MonteCarlo::addCustomObservableType(const std::string name, boost::function<Observable*() > funct) {
+void MonteCarlo::addCustomObservableType(const std::string name, std::function<Observable*() > funct) {
     myInputParser.addCustomObservableType(name, funct);
 }

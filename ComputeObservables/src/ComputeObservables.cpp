@@ -152,6 +152,6 @@ void ComputeObservables::AddObservable(std::string ObsName)
     DObs.insert(std::pair<std::string, double> (ObsName , 0.));
 }
  
-void ComputeObservables::addCustomObservableType(const std::string name, boost::function<Observable*() > funct){
+void ComputeObservables::addCustomObservableType(const std::string name, std::function<Observable*() > funct){
         myInputParser.addCustomObservableType(name, funct);
 }

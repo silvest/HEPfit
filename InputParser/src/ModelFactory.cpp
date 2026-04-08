@@ -47,61 +47,58 @@
 #include "GeneralTHDMZ2.h"
 #include "THDMW.h"
 /* END: REMOVE FROM THE PACKAGE */
-#include <boost/bind/bind.hpp>
-using namespace boost::placeholders;
         
 ModelFactory::ModelFactory()
 {
-    modelFactory["StandardModel"] = boost::factory<StandardModel*>();
-    modelFactory["NPSTU"] = boost::factory<NPSTU*>();
-    modelFactory["NPSTUZbbbarLR"] = boost::factory<NPSTUZbbbarLR*>();
-    modelFactory["NPEpsilons"] = boost::factory<NPEpsilons*>();
-    modelFactory["NPEpsilons_pureNP"] = boost::factory<NPEpsilons_pureNP*>();
-    modelFactory["NPHiggs"] = boost::factory<NPHiggs*>();
-    modelFactory["NPZbbbar"] = bind(boost::factory<NPZbbbar*>(), false);
-    modelFactory["NPZbbbarLR"] = bind(boost::factory<NPZbbbar*>(), true);
-    modelFactory["NPZbbbarLinearized"] = bind(boost::factory<NPZbbbarLinearized*>(), false);
-    modelFactory["NPZbbbarLinearizedLR"] = bind(boost::factory<NPZbbbarLinearized*>(), true);
-    modelFactory["NPSMEFTd6"] = bind(boost::factory<NPSMEFTd6*>(), false, false);
-    modelFactory["NPSMEFTd6General"] = boost::factory<NPSMEFTd6General*>();
-    modelFactory["NPSMEFTd6U2qU1le"] = boost::factory<NPSMEFTd6U2qU1le*>();
-    modelFactory["NPSMEFTd6U2"] = boost::factory<NPSMEFTd6U2*>();
-    modelFactory["NPSMEFTd6U3"] = boost::factory<NPSMEFTd6U3*>();
-    modelFactory["NPSMEFTd6MFV"] = boost::factory<NPSMEFTd6MFV*>();
+    modelFactory["StandardModel"] = []() -> StandardModel* { return new StandardModel(); };
+    modelFactory["NPSTU"] = []() -> StandardModel* { return new NPSTU(); };
+    modelFactory["NPSTUZbbbarLR"] = []() -> StandardModel* { return new NPSTUZbbbarLR(); };
+    modelFactory["NPEpsilons"] = []() -> StandardModel* { return new NPEpsilons(); };
+    modelFactory["NPEpsilons_pureNP"] = []() -> StandardModel* { return new NPEpsilons_pureNP(); };
+    modelFactory["NPHiggs"] = []() -> StandardModel* { return new NPHiggs(); };
+    modelFactory["NPZbbbar"] = []() -> StandardModel* { return new NPZbbbar(false); };
+    modelFactory["NPZbbbarLR"] = []() -> StandardModel* { return new NPZbbbar(true); };
+    modelFactory["NPZbbbarLinearized"] = []() -> StandardModel* { return new NPZbbbarLinearized(false); };
+    modelFactory["NPZbbbarLinearizedLR"] = []() -> StandardModel* { return new NPZbbbarLinearized(true); };
+    modelFactory["NPSMEFTd6"] = []() -> StandardModel* { return new NPSMEFTd6(false, false); };
+    modelFactory["NPSMEFTd6General"] = []() -> StandardModel* { return new NPSMEFTd6General(); };
+    modelFactory["NPSMEFTd6U2qU1le"] = []() -> StandardModel* { return new NPSMEFTd6U2qU1le(); };
+    modelFactory["NPSMEFTd6U2"] = []() -> StandardModel* { return new NPSMEFTd6U2(); };
+    modelFactory["NPSMEFTd6U3"] = []() -> StandardModel* { return new NPSMEFTd6U3(); };
+    modelFactory["NPSMEFTd6MFV"] = []() -> StandardModel* { return new NPSMEFTd6MFV(); };
     
-    modelFactory["NPd6SILH"] = boost::factory<NPd6SILH*>();
+    modelFactory["NPd6SILH"] = []() -> StandardModel* { return new NPd6SILH(); };
     
-    modelFactory["NPSMEFT6dtopquark"] = boost::factory<NPSMEFT6dtopquark*>();
+    modelFactory["NPSMEFT6dtopquark"] = []() -> StandardModel* { return new NPSMEFT6dtopquark(); };
 
-    //modelFactory["NPSMEFT6dtopquark"] = bind(boost::factory<NPSMEFT6dtopquark*>(), false, false);
-    modelFactory["SigmaBR"] = boost::factory<SigmaBR*>();
-    modelFactory["NPSMEFTd6_LFU_QFU"] = bind(boost::factory<NPSMEFTd6*>(), true, true);
-    modelFactory["HiggsKigen"] = boost::factory<HiggsKigen*>();
-    modelFactory["HiggsChiral"] = boost::factory<HiggsChiral*>();
-    modelFactory["NPDF2"] = boost::factory<NPDF2*>();
-    modelFactory["CMFV"] = boost::factory<CMFV*>();
-    modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
-    modelFactory["FlavourWilsonCoefficient_DF2"] = boost::factory<FlavourWilsonCoefficient_DF2*>();
-    modelFactory["RealWeakEFTLFV"] = boost::factory<RealWeakEFTLFV*>();
-    modelFactory["RealWeakEFTCC"] = bind(boost::factory<RealWeakEFTCC*>(), 0);
-    modelFactory["RealWeakEFTCCPM"] = bind(boost::factory<RealWeakEFTCC*>(), 1);
-    modelFactory["LoopMediators"] = boost::factory<LoopMediators*>();
-    modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
-    modelFactory["THDM"] = boost::factory<THDM*>();
-    modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
-    modelFactory["GeorgiMachacek"] = boost::factory<GeorgiMachacek*>();
-    modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
+    modelFactory["SigmaBR"] = []() -> StandardModel* { return new SigmaBR(); };
+    modelFactory["NPSMEFTd6_LFU_QFU"] = []() -> StandardModel* { return new NPSMEFTd6(true, true); };
+    modelFactory["HiggsKigen"] = []() -> StandardModel* { return new HiggsKigen(); };
+    modelFactory["HiggsChiral"] = []() -> StandardModel* { return new HiggsChiral(); };
+    modelFactory["NPDF2"] = []() -> StandardModel* { return new NPDF2(); };
+    modelFactory["CMFV"] = []() -> StandardModel* { return new CMFV(); };
+    modelFactory["FlavourWilsonCoefficient"] = []() -> StandardModel* { return new FlavourWilsonCoefficient(); };
+    modelFactory["FlavourWilsonCoefficient_DF2"] = []() -> StandardModel* { return new FlavourWilsonCoefficient_DF2(); };
+    modelFactory["RealWeakEFTLFV"] = []() -> StandardModel* { return new RealWeakEFTLFV(); };
+    modelFactory["RealWeakEFTCC"] = []() -> StandardModel* { return new RealWeakEFTCC(0); };
+    modelFactory["RealWeakEFTCCPM"] = []() -> StandardModel* { return new RealWeakEFTCC(1); };
+    modelFactory["LoopMediators"] = []() -> StandardModel* { return new LoopMediators(); };
+    modelFactory["SUSYMassInsertion"] = []() -> StandardModel* { return new SUSYMassInsertion(); };
+    modelFactory["THDM"] = []() -> StandardModel* { return new THDM(); };
+    modelFactory["GeneralSUSY"] = []() -> StandardModel* { return new GeneralSUSY(); };
+    modelFactory["GeorgiMachacek"] = []() -> StandardModel* { return new GeorgiMachacek(); };
+    modelFactory["LeftRightSymmetricModel"] = []() -> StandardModel* { return new LeftRightSymmetricModel(); };
 /* BEGIN: REMOVE FROM THE PACKAGE */
-    modelFactory["MFV"] = boost::factory<MFV*>();
-    modelFactory["pMSSM"] = boost::factory<pMSSM*>();
-    modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
-    modelFactory["GeneralTHDM"] = boost::factory<GeneralTHDM*>();
-    modelFactory["GeneralTHDMZ2"] = boost::factory<GeneralTHDMZ2*>();
-    modelFactory["THDMW"] = boost::factory<THDMW*>();
+    modelFactory["MFV"] = []() -> StandardModel* { return new MFV(); };
+    modelFactory["pMSSM"] = []() -> StandardModel* { return new pMSSM(); };
+    modelFactory["NPSTUVWXY"] = []() -> StandardModel* { return new NPSTUVWXY(); };
+    modelFactory["GeneralTHDM"] = []() -> StandardModel* { return new GeneralTHDM(); };
+    modelFactory["GeneralTHDMZ2"] = []() -> StandardModel* { return new GeneralTHDMZ2(); };
+    modelFactory["THDMW"] = []() -> StandardModel* { return new THDMW(); };
 /* END: REMOVE FROM THE PACKAGE */
 }
 
-void ModelFactory::addModelToFactory(const std::string name, boost::function<StandardModel*() > funct)
+void ModelFactory::addModelToFactory(const std::string name, std::function<StandardModel*() > funct)
 {
     modelFactory[name] = funct;
 }

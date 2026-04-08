@@ -10,8 +10,7 @@
 #define	MODELFACTORY_H
 
 #include "StandardModel.h"
-#include <boost/functional/factory.hpp>
-#include <boost/function.hpp>
+#include <functional>
 #include <map>
 
 /**
@@ -28,11 +27,11 @@ public:
     ModelFactory(const ModelFactory& orig);
     virtual ~ModelFactory(){};
     
-    void addModelToFactory (const std::string name, boost::function<StandardModel*() >);
+    void addModelToFactory (const std::string name, std::function<StandardModel*() >);
     
     StandardModel* CreateModel(const std::string& ModelName);
 private:
-    std::map<std::string, boost::function<StandardModel* ()> > modelFactory;
+    std::map<std::string, std::function<StandardModel* ()> > modelFactory;
 
 };
 

@@ -9,8 +9,7 @@
 #define	THOBSFACTORY_H
 
 #include "StandardModel.h"
-#include <boost/functional/factory.hpp>
-#include <boost/function.hpp>
+#include <functional>
 #include <map>
 
 class ThObservable;
@@ -34,7 +33,7 @@ public:
     {
     };
 
-    void addObsToFactory(const std::string name, boost::function<ThObservable*(const StandardModel&) >);
+    void addObsToFactory(const std::string name, std::function<ThObservable*(const StandardModel&) >);
 
     /**
      * @brief This method checks for the existence of an observable of a specific name in the map
@@ -47,7 +46,17 @@ public:
 
 
 private:
-    std::map<std::string, boost::function<ThObservable* (const StandardModel &) > > obsThFactory;
+    std::map<std::string, std::function<ThObservable* (const StandardModel &) > > obsThFactory;
+
+    void registerEWObservables();
+    void registerDiBosonObservables();
+    void registerCouplingObservables();
+    void registerHiggsObservables();
+    void registerHiggsLeptonObservables();
+    void registerTopQuarkObservables();
+    void registerLEP2Observables();
+    void registerFlavourObservables();
+    void registerBSMObservables();
 };
 
 #endif	/* THOBSFACTORY_H */

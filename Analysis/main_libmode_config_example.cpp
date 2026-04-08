@@ -39,10 +39,10 @@ int main(int argc, char** argv)
         ThObsFactory ThObsF;
 
         /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
-        /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*>() ) */
+        /* ModelF.addModelToFactory(ModelName, []() -> StandardModel* { return new ModelClass(); }) */
         
         /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
-        /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
+        /* ThObsF.addObsToFactory(ThObsName, [](const StandardModel& SM) -> ThObservable* { return new ThObsClass(SM); })*/
         
         /* Create an object of the class ComputeObservables. */
         ComputeObservables CO(ModelF, ThObsF, ModelConf);

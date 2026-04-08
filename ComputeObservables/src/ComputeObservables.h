@@ -114,7 +114,7 @@ public:
      * @brief A method to add a user defined observable with a user defined likelihood
      * @param[in] a function of the type observable
      */
-    void addCustomObservableType(const std::string name, boost::function<Observable*() > funct);
+    void addCustomObservableType(const std::string name, std::function<Observable*() > funct);
     
     /**
      * @brief A get method return the pointer to the model

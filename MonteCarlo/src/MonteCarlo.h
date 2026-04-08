@@ -151,7 +151,7 @@ public:
         return MCEngine.getHistograms2D();
     }
     
-   void addCustomObservableType(const std::string name, boost::function<Observable*() > funct);
+   void addCustomObservableType(const std::string name, std::function<Observable*() > funct);
    
 private:
     std::string ModelName; ///< The name of the model.
