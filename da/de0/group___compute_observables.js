@@ -4,7 +4,7 @@ var group___compute_observables =
       [ "ComputeObservables", "dd/d3e/class_compute_observables.html#acc76ea54f26ed094b82f40799715b43d", null ],
       [ "ComputeObservables", "dd/d3e/class_compute_observables.html#ade1e3f2ade9a859469c6f68a0e008ff5", null ],
       [ "~ComputeObservables", "dd/d3e/class_compute_observables.html#ab5eb7817ffe792e93a487dc255288da7", null ],
-      [ "addCustomObservableType", "dd/d3e/class_compute_observables.html#ada7bc163d0f2bcb1f400e21c8e068121", null ],
+      [ "addCustomObservableType", "dd/d3e/class_compute_observables.html#a5413dd076a5b46d6e6f36dbdc405bc26", null ],
       [ "AddObservable", "dd/d3e/class_compute_observables.html#ae99c394499b78635121b86e10701a0ac", null ],
       [ "compute", "dd/d3e/class_compute_observables.html#a8c6d761df1e45dc7dd3c58bf4dbe24a1", null ],
       [ "getModel", "dd/d3e/class_compute_observables.html#ad445e81b5c893c78d479b8abb2523556", null ],

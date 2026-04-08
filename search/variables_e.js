@@ -20,7 +20,7 @@ var searchData=
   ['observerlist_17',['observerList',['../d8/dcb/class_b_o_l_1_1_basic_observed.html#a5359eaa0b9136411c360dbad621bba84',1,'BOL::BasicObserved::observerList()'],['../d4/dbd/class_b_o_l_1_1_pushing_observed.html#a3503bae4e9fd9d00051174470672c7b7',1,'BOL::PushingObserved::observerList()']]],
   ['observingspectrumupdater_18',['observingSpectrumUpdater',['../d4/deb/class_l_h_p_c_1_1_slha_parser.html#ac324b0f3e94a9264273b414ee25e7625',1,'LHPC::SlhaParser']]],
   ['obsout_19',['ObsOut',['../d5/def/group___event_generation.html#gaf02a9047b53c5596db7cb51a3d542a99',1,'GenerateEvent']]],
-  ['obsthfactory_20',['obsThFactory',['../d5/d49/class_th_obs_factory.html#ab0b8eb52d045634a9cafac3688f70a97',1,'ThObsFactory']]],
+  ['obsthfactory_20',['obsThFactory',['../d5/d49/class_th_obs_factory.html#a379549ae086fa2579bd929e4088e2d9e',1,'ThObsFactory']]],
   ['obstype_21',['obsType',['../d9/dba/class_observable.html#a68469a423de278c7c019bd09d0f4837b',1,'Observable']]],
   ['obstype2_22',['obsType2',['../de/d0a/class_observable2_d.html#af7c6f08dc1833f59f7f008e7ee843852',1,'Observable2D']]],
   ['obszgalimitatlas_23',['obsZgaLimitATLAS',['../da/d86/class_higgs_chiral.html#aa210b937566aa26696765b79c1513c17',1,'HiggsChiral']]],

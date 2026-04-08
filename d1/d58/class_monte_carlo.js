@@ -2,7 +2,7 @@ var class_monte_carlo =
 [
     [ "MonteCarlo", "d1/d58/class_monte_carlo.html#a2f65936ba81ecff0987c2d3f34ea13fd", null ],
     [ "~MonteCarlo", "d1/d58/class_monte_carlo.html#af53fc3a679af18b51a3002b4c1f6b6c2", null ],
-    [ "addCustomObservableType", "d1/d58/class_monte_carlo.html#ab814dc650b93f24c43a0497c4a72f549", null ],
+    [ "addCustomObservableType", "d1/d58/class_monte_carlo.html#af36d8d836f8e826c6498cad98a9a5d28", null ],
     [ "getHistograms1D", "d1/d58/class_monte_carlo.html#af6bbd9f136bcb84f935b22a7d9563a03", null ],
     [ "getHistograms2D", "d1/d58/class_monte_carlo.html#a1327ec711a3dbd7764e11b15ca1386e1", null ],
     [ "ParseMCMCConfig", "d1/d58/class_monte_carlo.html#ace0c0ba33bd1b4738841ac1e8863c5d0", null ],

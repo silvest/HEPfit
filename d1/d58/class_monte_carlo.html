@@ -140,8 +140,8 @@ $(document).ready(function(){initNavTree('d1/d58/class_monte_carlo.html','../../
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab814dc650b93f24c43a0497c4a72f549"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/class_monte_carlo.html#ab814dc650b93f24c43a0497c4a72f549">addCustomObservableType</a> (const std::string name, boost::function&lt; <a class="el" href="../../d9/dba/class_observable.html">Observable</a> *() &gt; funct)</td></tr>
-<tr class="separator:ab814dc650b93f24c43a0497c4a72f549"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af36d8d836f8e826c6498cad98a9a5d28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/class_monte_carlo.html#af36d8d836f8e826c6498cad98a9a5d28">addCustomObservableType</a> (const std::string name, std::function&lt; <a class="el" href="../../d9/dba/class_observable.html">Observable</a> *() &gt; funct)</td></tr>
+<tr class="separator:af36d8d836f8e826c6498cad98a9a5d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6bbd9f136bcb84f935b22a7d9563a03"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, BCH1D &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/class_monte_carlo.html#af6bbd9f136bcb84f935b22a7d9563a03">getHistograms1D</a> () const</td></tr>
 <tr class="separator:af6bbd9f136bcb84f935b22a7d9563a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1327ec711a3dbd7764e11b15ca1386e1"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, BCH2D &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d58/class_monte_carlo.html#a1327ec711a3dbd7764e11b15ca1386e1">getHistograms2D</a> () const</td></tr>
@@ -412,8 +412,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab814dc650b93f24c43a0497c4a72f549" name="ab814dc650b93f24c43a0497c4a72f549"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab814dc650b93f24c43a0497c4a72f549">&#9670;&nbsp;</a></span>addCustomObservableType()</h2>
+<a id="af36d8d836f8e826c6498cad98a9a5d28" name="af36d8d836f8e826c6498cad98a9a5d28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af36d8d836f8e826c6498cad98a9a5d28">&#9670;&nbsp;</a></span>addCustomObservableType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -427,7 +427,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">boost::function&lt; <a class="el" href="../../d9/dba/class_observable.html">Observable</a> *() &gt;&#160;</td>
+          <td class="paramtype">std::function&lt; <a class="el" href="../../d9/dba/class_observable.html">Observable</a> *() &gt;&#160;</td>
           <td class="paramname"><em>funct</em>&#160;</td>
         </tr>
         <tr>
@@ -439,7 +439,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d0a/_monte_carlo_8cpp_source.html#l00825">825</a> of file <a class="el" href="../../d4/d0a/_monte_carlo_8cpp_source.html">MonteCarlo.cpp</a>.</p>
-<div class="fragment"><div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>                                                                                                  {</div>
+<div class="fragment"><div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>                                                                                                {</div>
 <div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>    <a class="code hl_variable" href="../../d1/d58/class_monte_carlo.html#a319b6cb315f4c169db25b2c5e2d41d8e">myInputParser</a>.<a class="code hl_function" href="../../d1/df4/class_input_parser.html#ab386f1cde7a83b57abd4393d0a6e3324">addCustomObservableType</a>(name, funct);</div>
 <div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>}</div>
 <div class="ttc" id="aclass_input_parser_html_ab386f1cde7a83b57abd4393d0a6e3324"><div class="ttname"><a href="../../d1/df4/class_input_parser.html#ab386f1cde7a83b57abd4393d0a6e3324">InputParser::addCustomObservableType</a></div><div class="ttdeci">void addCustomObservableType(const std::string name, boost::function&lt; Observable *() &gt; funct)</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d8e/_input_parser_8cpp_source.html#l00256">InputParser.cpp:256</a></div></div>
