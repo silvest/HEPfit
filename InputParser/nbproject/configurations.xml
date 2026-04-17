@@ -18,6 +18,15 @@
       <itemPath>src/InputParser.cpp</itemPath>
       <itemPath>src/ModelFactory.cpp</itemPath>
       <itemPath>src/ThObsFactory.cpp</itemPath>
+      <itemPath>src/ThObsFactory_BSM.cpp</itemPath>
+      <itemPath>src/ThObsFactory_Couplings.cpp</itemPath>
+      <itemPath>src/ThObsFactory_DiBoson.cpp</itemPath>
+      <itemPath>src/ThObsFactory_EW.cpp</itemPath>
+      <itemPath>src/ThObsFactory_Flavour.cpp</itemPath>
+      <itemPath>src/ThObsFactory_Higgs.cpp</itemPath>
+      <itemPath>src/ThObsFactory_HiggsLepton.cpp</itemPath>
+      <itemPath>src/ThObsFactory_LEP2.cpp</itemPath>
+      <itemPath>src/ThObsFactory_TopQuark.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -113,6 +122,24 @@
       </item>
       <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ThObsFactory_BSM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Couplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_DiBoson.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_EW.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Flavour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Higgs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_HiggsLepton.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_LEP2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_TopQuark.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -201,6 +228,24 @@
       <item path="src/ThObsFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_BSM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Couplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_DiBoson.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_EW.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Flavour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Higgs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_HiggsLepton.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_LEP2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_TopQuark.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -293,6 +338,24 @@
       </item>
       <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ThObsFactory_BSM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Couplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_DiBoson.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_EW.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Flavour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Higgs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_HiggsLepton.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_LEP2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_TopQuark.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -370,6 +433,24 @@
       <item path="src/ThObsFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_BSM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Couplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_DiBoson.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_EW.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Flavour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_Higgs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_HiggsLepton.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_LEP2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory_TopQuark.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
