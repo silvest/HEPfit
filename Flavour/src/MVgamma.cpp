@@ -56,25 +56,31 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
             "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << 
             "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg" << 
             "Chi1minus" << "Chi1plus" << "ChiTT" <<
-            "absh_p" << "absh_m" << "argh_p" << "argh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
+            "absh_p" << "absh_m" << "argh_p" << "argh_m" << "SU3_breaking_abs" << "SU3_breaking_arg"
+            << "Delta_C7_U";
         else mVgammaParameters = make_vector<std::string>() << 
             "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
-            "absh_p" << "absh_m" << "argh_p" << "argh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
+            "absh_p" << "absh_m" << "argh_p" << "argh_m" << "SU3_breaking_abs" << "SU3_breaking_arg"
+            << "Delta_C7_U";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
         if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
             "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << 
             "a_0f" << "a_1f" << "a_2f" << "MRf" << 
             "a_0g" << "a_1g" << "a_2g" << "MRg" <<
             "Chi1minus" << "Chi1plus" << "ChiTT" <<
-            "absh_p" << "absh_m" << "argh_p" << "argh_m";
+            "absh_p" << "absh_m" << "argh_p" << "argh_m"
+            << "Delta_C7_U";
         else mVgammaParameters = make_vector<std::string>() << "a_0T1" << "a_0A1" << "a_0V" << 
-            "absh_p" << "absh_m" << "argh_p" << "argh_m";
+            "absh_p" << "absh_m" << "argh_p" << "argh_m"
+            << "Delta_C7_U";
     else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
         mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
-            "absh_p" << "absh_m" << "argh_p" << "argh_m";
+            "absh_p" << "absh_m" << "argh_p" << "argh_m"
+            << "Delta_C7_U";
     else if (vectorM == StandardModel::OMEGA) 
         mVgammaParameters = make_vector<std::string>() << "a_0T1omega" << "a_0A1omega" << "a_0Vomega" << 
-            "absh_p" << "absh_m" << "argh_p" << "argh_m";
+            "absh_p" << "absh_m" << "argh_p" << "argh_m"
+            << "Delta_C7_U";
 #else
     if (vectorM == StandardModel::PHI)
         if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
@@ -82,26 +88,32 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
             "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << 
             "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg" <<
             "Chi1minus" << "Chi1plus" << "ChiTT" <<
-            "reh_p" << "reh_m" << "imh_p" << "imh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
+            "reh_p" << "reh_m" << "imh_p" << "imh_m" << "SU3_breaking_abs" << "SU3_breaking_arg"
+            << "Delta_C7_U";
         else mVgammaParameters = make_vector<std::string>() << 
             "a_0T1phi" << "a_0A1phi" << "a_0Vphi" << 
-            "reh_p" << "reh_m" << "imh_p" << "imh_m" << "SU3_breaking_abs" << "SU3_breaking_arg";
+            "reh_p" << "reh_m" << "imh_p" << "imh_m" << "SU3_breaking_abs" << "SU3_breaking_arg"
+            << "Delta_C7_U";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
         if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
             "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" <<
             "a_0f" << "a_1f" << "a_2f" << "MRf" << 
             "a_0g" << "a_1g" << "a_2g" << "MRg" <<
             "Chi1minus" << "Chi1plus" << "ChiTT" <<
-            "reh_p" << "reh_m" << "imh_p" << "imh_m";
+            "reh_p" << "reh_m" << "imh_p" << "imh_m"
+            << "Delta_C7_U";
         else mVgammaParameters = make_vector<std::string>() << 
             "a_0T1" << "a_0A1" << "a_0V" << 
-            "reh_p" << "reh_m" << "imh_p" << "imh_m";
+            "reh_p" << "reh_m" << "imh_p" << "imh_m"
+            << "Delta_C7_U";
     else if (vectorM == StandardModel::RHO || vectorM == StandardModel::RHO_P) 
         mVgammaParameters = make_vector<std::string>() << "a_0T1rho" << "a_0A1rho" << "a_0Vrho" << 
-            "reh_p" << "reh_m" << "imh_p" << "imh_m";
+            "reh_p" << "reh_m" << "imh_p" << "imh_m"
+            << "Delta_C7_U";
     else if (vectorM == StandardModel::OMEGA) 
         mVgammaParameters = make_vector<std::string>() << "a_0T1omega" << "a_0A1omega" << "a_0Vomega" << 
-            "reh_p" << "reh_m" << "imh_p" << "imh_m";
+            "reh_p" << "reh_m" << "imh_p" << "imh_m"
+            << "Delta_C7_U";
 #endif
     else {
         std::stringstream out;
@@ -407,6 +419,8 @@ void MVgamma::updateParameters()
         deltaC9_2 = 0.;
         exp_Phase_1 = 0.;
         exp_Phase_2 = 0.;
+
+        Delta_C7_U = SM.getOptionalParameter("Delta_C7_U");
 #else
         h[0] = gslpp::complex(SM.getOptionalParameter("reh_p"), SM.getOptionalParameter("imh_p"), false); //h_plus
         h[1] = gslpp::complex(SM.getOptionalParameter("reh_m"), SM.getOptionalParameter("imh_m"), false); //h_minus
@@ -421,6 +435,8 @@ void MVgamma::updateParameters()
         deltaC9_2 = 0.;
         exp_Phase_1 = 0.;
         exp_Phase_2 = 0.;
+
+        Delta_C7_U = SM.getOptionalParameter("Delta_C7_U");
 #endif
     }
 
@@ -445,6 +461,11 @@ void MVgamma::updateParameters()
 //    C_7p -= ms_over_mb * C_7;
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
     C_7p += ms_over_mb * (-C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6);
+
+    if (!zExpansion && !dispersion) {
+        C_7 += Delta_C7_U;
+    }
+
 #else   
     allcoeff = SM.getFlavour().ComputeCoeffsgamma(mu_b);
     allcoeffprime = SM.getFlavour().ComputeCoeffprimesgamma(mu_b);

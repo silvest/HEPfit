@@ -500,6 +500,8 @@ private:
     double mPsi2S, mPsi2S2;
     double mD2;
     
+    double Delta_C7_U;
+    
     const StandardModel& SM;
     std::unique_ptr<F_1> myF_1;
     std::unique_ptr<F_2> myF_2;
