@@ -212,7 +212,8 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
             << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
             << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
-            << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2" << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg";
+            << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2" << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg"
+            << "Delta_C7_U" << "Delta_C9_U";
         else mvllParameters = make_vector<std::string>()
             << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
             << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
@@ -220,7 +221,8 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
             << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
             << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
-            << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2" << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg";
+            << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2" << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg"
+            << "Delta_C7_U" << "Delta_C9_U";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
         if (MVll_DM_flag) mvllParameters = make_vector<std::string>()
             << "a_0f" << "a_1f" << "a_2f" << "MRf" << "a_0g" << "a_1g" << "a_2g" << "MRg"
@@ -230,7 +232,8 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
             << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
             << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
-            << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2";
+            << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2"
+            << "Delta_C7_U" << "Delta_C9_U";
         else mvllParameters = make_vector<std::string>()
             << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
             << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
@@ -238,7 +241,8 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
             << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
             << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
-            << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2";
+            << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2"
+            << "Delta_C7_U" << "Delta_C9_U";
 #endif
     else {
         std::stringstream out;
@@ -661,6 +665,9 @@ void MVll::updateParameters()
         h_2[0] = 0.;
         h_2[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_2"), mySM.getOptionalParameter("imh_p_2"), false);
         h_2[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_2"), mySM.getOptionalParameter("imh_m_2"), false);
+
+        Delta_C7_U = mySM.getOptionalParameter("Delta_C7_U");
+        Delta_C9_U = mySM.getOptionalParameter("Delta_C9_U");
 #endif
     }
     sqrt3 = sqrt(3.);
@@ -740,8 +747,17 @@ void MVll::updateParameters()
         C_8Lh = (*(allcoeffh[LO]))(7);
 
         if (zExpansion) {
+            C_7 = C_7;
             C_9 += DeltaC9;
             C_10 += DeltaC10;
+        } else if (dispersion) {
+            C_7 = C_7;
+            C_9 = C_9;
+            C_10 = C_10;
+        } else {
+            C_7 += Delta_C7_U;
+            C_9 += Delta_C9_U;
+            C_10 = C_10;
         }
     }
 

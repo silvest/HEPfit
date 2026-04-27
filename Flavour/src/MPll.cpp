@@ -112,9 +112,9 @@ std::vector<std::string> MPll::initializeMPllParameters()
             mpllParameters.insert(mpllParameters.end(), { "r1_BK", "r2_BK", "deltaC9_BK", "phDC9_BK" });
         } else {
 #if NFPOLARBASIS_MPLL
-            mpllParameters.insert(mpllParameters.end(), { "absh_0_MP", "argh_0_MP", "absh_1_MP", "argh_1_MP", "absh_2_MP", "argh_2_MP" });
+            mpllParameters.insert(mpllParameters.end(), { "absh_0_MP", "argh_0_MP", "absh_1_MP", "argh_1_MP", "absh_2_MP", "argh_2_MP", "Delta_C7_U", "Delta_C9_U" });
 #else
-            mpllParameters.insert(mpllParameters.end(), { "reh_0_MP", "imh_0_MP", "reh_1_MP", "imh_1_MP", "reh_2_MP", "imh_2_MP" });
+            mpllParameters.insert(mpllParameters.end(), { "reh_0_MP", "imh_0_MP", "reh_1_MP", "imh_1_MP", "reh_2_MP", "imh_2_MP", "Delta_C7_U", "Delta_C9_U" });
 #endif
         }
     }
@@ -232,6 +232,9 @@ void MPll::updateParameters()
             r_2 = 0.;
             Delta_C9 = 0.;
             exp_Phase = 0.;
+
+            Delta_C7_U = mySM.getOptionalParameter("Delta_C7_U");
+            Delta_C9_U = mySM.getOptionalParameter("Delta_C9_U");
 #else
             h_0 = gslpp::complex(mySM.getOptionalParameter("reh_0_MP"), mySM.getOptionalParameter("imh_0_MP"), false);
             h_1 = gslpp::complex(mySM.getOptionalParameter("reh_1_MP"), mySM.getOptionalParameter("imh_1_MP"), false);
@@ -241,6 +244,9 @@ void MPll::updateParameters()
             r_2 = 0.;
             Delta_C9 = 0.;
             exp_Phase = 0.;
+
+            Delta_C7_U = mySM.getOptionalParameter("Delta_C7_U");
+            Delta_C9_U = mySM.getOptionalParameter("Delta_C9_U");
 #endif
         } else {
             h_0 = 0.;
@@ -251,6 +257,9 @@ void MPll::updateParameters()
             r_2 = mySM.getOptionalParameter("r2_BK");
             Delta_C9 = mySM.getOptionalParameter("deltaC9_BK");
             exp_Phase = exp(gslpp::complex::i() * mySM.getOptionalParameter("phDC9_BK"));
+
+            Delta_C7_U = 0.;
+            Delta_C9_U = 0.;
         }
     }
     
@@ -328,6 +337,11 @@ void MPll::updateParameters()
         C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
         C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
         C_8Lh = (*(allcoeffh[LO]))(7);
+
+        if (!dispersion) {
+            C_7 += Delta_C7_U;
+            C_9 += Delta_C9_U;
+        }
     }
     
     checkCache();
@@ -938,12 +952,12 @@ double MPll::f_0(double q2)
 
 gslpp::complex MPll::V_L(double q2)
 {
-    return gslpp::complex::i() * sqrt(lambda(q2)) / (twoMM * sqrt(q2)) * f_plus(q2);
+    return /*gslpp::complex::i() */ sqrt(lambda(q2)) / (twoMM * sqrt(q2)) * f_plus(q2);
 }
 
 gslpp::complex MPll::T_L(double q2)
 {
-    return gslpp::complex::i() * sqrt(lambda(q2) * q2) / (twoMM2_MMpMP) * f_T(q2);
+    return /*gslpp::complex::i() */ sqrt(lambda(q2) * q2) / (twoMM2_MMpMP) * f_T(q2);
 }
 
 double MPll::S_L(double q2)
@@ -1311,7 +1325,9 @@ gslpp::complex MPll::h_lambda(double q2)
 //            h_2 = (-sixteenM_PI2*4.9e-7/MM2 * (1. + gslpp::complex::i()) / sqrt(2.) - h_1 / MM2 * V_L(1.) - h_2 * sixteenM_PI2) / twoMboMM / T_L(1.);
 //            h_2 = 1.3e-4/MM2 * (1. + gslpp::complex::i()) / sqrt(2.) - h_1 * V_L(1.)/sixteenM_PI2/MM2;
             //else return 4.9e-7/MM2 + h_1 * (q2 * V_L(q2) - T_L(q2). * V_L(1)/T_L(1.)) / MM2  / sixteenM_PI2;
-            return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * q2;
+            
+            //return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * sqrt(q2);
+            return (h_1 + h_2 * q2 ) * sqrt(q2);
 //        }
     } else {
         return -q2 / (MM2 * sixteenM_PI2) * V_L(q2) * DeltaC9_KD(q2);

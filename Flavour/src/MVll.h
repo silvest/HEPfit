@@ -902,6 +902,9 @@ private:
     gslpp::complex beta_0[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex beta_1[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex beta_2[7];      /**<Parameter that contains the contribution from the hadronic hamiltonian */
+
+    double Delta_C7_U;
+    double Delta_C9_U;
     
     double t_p;/**< Cache variable */
     double t_m;/**< Cache variable */

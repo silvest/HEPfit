@@ -355,6 +355,9 @@ private:
     gslpp::complex Delta_C9;
     gslpp::complex exp_Phase;
 
+    double Delta_C7_U;
+    double Delta_C9_U;
+
     /*LATTICE fit parameters*/
     double b_0_fplus;/**<LATTICE fit parameter */
     double b_1_fplus;/**<LATTICE fit parameter */
