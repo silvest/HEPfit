@@ -143,6 +143,7 @@ void MPll::updateParameters()
     }
     
     MM = mySM.getMesons(meson).getMass();
+    MM3 = MM * MM * MM;
     MP = mySM.getMesons(pseudoscalar).getMass();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass();
@@ -266,7 +267,6 @@ void MPll::updateParameters()
     if (lep == QCD::NEUTRINO_1){
         VusVub_abs2 = (mySM.getCKM().computelamu_s() * mySM.getCKM().computelamu_s().conjugate()).abs();
         GF4 = GF * GF * GF * GF;
-        MM3 = MM * MM * MM;
         fM2 = mySM.getMesons(meson).getDecayconst() * mySM.getMesons(meson).getDecayconst();
         fP2 = mySM.getMesons(pseudoscalar).getDecayconst() * mySM.getMesons(pseudoscalar).getDecayconst();
         mtau = mySM.getLeptons(QCD::TAU).getMass();
