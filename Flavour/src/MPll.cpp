@@ -1327,7 +1327,7 @@ gslpp::complex MPll::h_lambda(double q2)
             //else return 4.9e-7/MM2 + h_1 * (q2 * V_L(q2) - T_L(q2). * V_L(1)/T_L(1.)) / MM2  / sixteenM_PI2;
             
             //return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * sqrt(q2);
-            return (h_1 + h_2 * q2 ) * sqrt(q2) * sqrt(lambda(q2)) / MM3;
+            return (h_1 + h_2 * q2 ) * sqrt(q2) * sqrt(lambda(q2)) / MM3 / 2.;
 //        }
     } else {
         return -q2 / (MM2 * sixteenM_PI2) * V_L(q2) * DeltaC9_KD(q2);
