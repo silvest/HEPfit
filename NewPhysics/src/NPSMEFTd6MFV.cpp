@@ -12,28 +12,30 @@
 
 std::string NPSMEFTd6MFV::NPSMEFTd6MFVVars[NNPSMEFTd6MFVVars] = {
 	"CG_LNP","CW_LNP","CHG_LNP","CHW_LNP","CHB_LNP","CHWB_LNP","CHD_LNP","CHbox_LNP",
-	"CH_LNP","CHl1_LNP","CHl3_LNP","CHe_LNP","Cll_aabb_LNP","Cll_abba_LNP","Cee_LNP","Cle_LNP",
-	"CuH_0_LNP","CuH_u_LNP","CuH_d_LNP","CuG_0_LNP","CuG_u_LNP","CuG_d_LNP","CuW_0_LNP","CuW_u_LNP",
-	"CuW_d_LNP","CuB_0_LNP","CuB_u_LNP","CuB_d_LNP","CdH_0_LNP","CdH_u_LNP","CdH_d_LNP","CdG_0_LNP",
-	"CdG_u_LNP","CdG_d_LNP","CdW_0_LNP","CdW_u_LNP","CdW_d_LNP","CdB_0_LNP","CdB_u_LNP","CdB_d_LNP",
-	"CHq1_0_LNP","CHq1_u_LNP","CHq1_d_LNP","CHq3_0_LNP","CHq3_u_LNP","CHq3_d_LNP","CHu_0_LNP","CHu_u_LNP",
-	"CHd_0_LNP","CHd_d_LNP","CHud_ud_LNP","Clq1_0_LNP","Clq1_u_LNP","Clq1_d_LNP","Clq3_0_LNP","Clq3_u_LNP",
-	"Clq3_d_LNP","Cqe_0_LNP","Cqe_u_LNP","Cqe_d_LNP","Clu_0_LNP","Clu_u_LNP","Ceu_0_LNP","Ceu_u_LNP",
-	"Cld_0_LNP","Cld_d_LNP","Ced_0_LNP","Ced_d_LNP","Cqq1_00_LNP","Cqq1_u0_LNP","Cqq1_d0_LNP","Cqq1_uu_LNP",
-	"Cqq1_dd_LNP","Cqq1_ud_LNP","Cqq1p_00_LNP","Cqq1p_u0_LNP","Cqq1p_d0_LNP","Cqq1p_uu_LNP","Cqq1p_dd_LNP","Cqq1p_ud_LNP",
-	"Cqq3_00_LNP","Cqq3_u0_LNP","Cqq3_d0_LNP","Cqq3_uu_LNP","Cqq3_dd_LNP","Cqq3_ud_LNP","Cqq3p_00_LNP","Cqq3p_u0_LNP",
-	"Cqq3p_d0_LNP","Cqq3p_uu_LNP","Cqq3p_dd_LNP","Cqq3p_ud_LNP","Cuu_00_LNP","Cuu_u0_LNP","Cuu_uu_LNP","Cuup_00_LNP",
-	"Cuup_u0_LNP","Cuup_uu_LNP","Cdd_00_LNP","Cdd_d0_LNP","Cdd_dd_LNP","Cddp_00_LNP","Cddp_d0_LNP","Cddp_dd_LNP",
-	"Cud1_00_LNP","Cud1_u0_LNP","Cud1_0d_LNP","Cud1_ud_LNP","Cud1p_ud_LNP","Cud8_00_LNP","Cud8_u0_LNP","Cud8_0d_LNP",
-	"Cud8_ud_LNP","Cud8p_ud_LNP","Cqu1_00_LNP","Cqu1_u0_LNP","Cqu1_d0_LNP","Cqu1_0u_LNP","Cqu1_uu_LNP","Cqu1_du_LNP",
-	"Cqu1_y_LNP","Cqu1_uy_LNP","Cqu1_dy_LNP","Cqu1_yu_LNP","Cqu1_yd_LNP","Cqu8_00_LNP","Cqu8_u0_LNP","Cqu8_d0_LNP",
-	"Cqu8_0u_LNP","Cqu8_uu_LNP","Cqu8_du_LNP","Cqu8_y_LNP","Cqu8_uy_LNP","Cqu8_dy_LNP","Cqu8_yu_LNP","Cqu8_yd_LNP",
-	"Cqd1_00_LNP","Cqd1_u0_LNP","Cqd1_d0_LNP","Cqd1_0d_LNP","Cqd1_ud_LNP","Cqd1_dd_LNP","Cqd1_y_LNP","Cqd1_uy_LNP",
-	"Cqd1_dy_LNP","Cqd1_yu_LNP","Cqd1_yd_LNP","Cqd8_00_LNP","Cqd8_u0_LNP","Cqd8_d0_LNP","Cqd8_0d_LNP","Cqd8_ud_LNP",
-	"Cqd8_dd_LNP","Cqd8_y_LNP","Cqd8_uy_LNP","Cqd8_dy_LNP","Cqd8_yu_LNP","Cqd8_yd_LNP","Cquqd1_00_LNP","Cquqd1_u0_LNP",
-	"Cquqd1_d0_LNP","Cquqd1_0u_LNP","Cquqd1_0d_LNP","Cquqd1p_00_LNP","Cquqd1p_u0_LNP","Cquqd1p_d0_LNP","Cquqd1p_0u_LNP","Cquqd1p_0d_LNP",
-	"Cquqd8_00_LNP","Cquqd8_u0_LNP","Cquqd8_d0_LNP","Cquqd8_0u_LNP","Cquqd8_0d_LNP","Cquqd8p_00_LNP","Cquqd8p_u0_LNP","Cquqd8p_d0_LNP",
-	"Cquqd8p_0u_LNP","Cquqd8p_0d_LNP",
+	"CH_LNP","CuH_0_LNP","CuH_u_LNP","CuH_d_LNP","CuG_0_LNP","CuG_u_LNP","CuG_d_LNP","CuW_0_LNP",
+	"CuW_u_LNP","CuW_d_LNP","CuB_0_LNP","CuB_u_LNP","CuB_d_LNP","CdH_0_LNP","CdH_u_LNP","CdH_d_LNP",
+	"CdG_0_LNP","CdG_u_LNP","CdG_d_LNP","CdW_0_LNP","CdW_u_LNP","CdW_d_LNP","CdB_0_LNP","CdB_u_LNP",
+	"CdB_d_LNP","CeH_0_LNP","CeW_0_LNP","CeB_0_LNP","CHq1_0_LNP","CHq1_u_LNP","CHq1_d_LNP","CHq3_0_LNP",
+	"CHq3_u_LNP","CHq3_d_LNP","CHu_0_LNP","CHu_u_LNP","CHd_0_LNP","CHd_d_LNP","CHud_ud_LNP","CHl1_0_LNP",
+	"CHl1_l_LNP","CHl3_0_LNP","CHl3_l_LNP","CHe_0_LNP","CHe_e_LNP","Cll_00_LNP","Cll_l0_LNP","Cllp_00_LNP",
+	"Cllp_l0_LNP","Cee_00_LNP","Cee_e0_LNP","Cle_00_LNP","Cle_l0_LNP","Cle_0e_LNP","Clq1_00_LNP","Clq1_l0_LNP",
+	"Clq1_0u_LNP","Clq1_0d_LNP","Clq3_00_LNP","Clq3_l0_LNP","Clq3_0u_LNP","Clq3_0d_LNP","Cqe_00_LNP","Cqe_u0_LNP",
+	"Cqe_d0_LNP","Cqe_0e_LNP","Clu_00_LNP","Clu_l0_LNP","Clu_0u_LNP","Cld_00_LNP","Cld_l0_LNP","Cld_0d_LNP",
+	"Ceu_00_LNP","Ceu_e0_LNP","Ceu_0u_LNP","Ced_00_LNP","Ced_e0_LNP","Ced_0d_LNP","Cqq1_00_LNP","Cqq1_u0_LNP",
+	"Cqq1_d0_LNP","Cqq1_uu_LNP","Cqq1_dd_LNP","Cqq1_ud_LNP","Cqq1p_00_LNP","Cqq1p_u0_LNP","Cqq1p_d0_LNP","Cqq1p_uu_LNP",
+	"Cqq1p_dd_LNP","Cqq1p_ud_LNP","Cqq3_00_LNP","Cqq3_u0_LNP","Cqq3_d0_LNP","Cqq3_uu_LNP","Cqq3_dd_LNP","Cqq3_ud_LNP",
+	"Cqq3p_00_LNP","Cqq3p_u0_LNP","Cqq3p_d0_LNP","Cqq3p_uu_LNP","Cqq3p_dd_LNP","Cqq3p_ud_LNP","Cuu_00_LNP","Cuu_u0_LNP",
+	"Cuu_uu_LNP","Cuup_00_LNP","Cuup_u0_LNP","Cuup_uu_LNP","Cdd_00_LNP","Cdd_d0_LNP","Cdd_dd_LNP","Cddp_00_LNP",
+	"Cddp_d0_LNP","Cddp_dd_LNP","Cud1_00_LNP","Cud1_u0_LNP","Cud1_0d_LNP","Cud1_ud_LNP","Cud1p_ud_LNP","Cud8_00_LNP",
+	"Cud8_u0_LNP","Cud8_0d_LNP","Cud8_ud_LNP","Cud8p_ud_LNP","Cqu1_00_LNP","Cqu1_u0_LNP","Cqu1_d0_LNP","Cqu1_0u_LNP",
+	"Cqu1_uu_LNP","Cqu1_du_LNP","Cqu1_y_LNP","Cqu1_uy_LNP","Cqu1_dy_LNP","Cqu1_yu_LNP","Cqu1_yd_LNP","Cqu8_00_LNP",
+	"Cqu8_u0_LNP","Cqu8_d0_LNP","Cqu8_0u_LNP","Cqu8_uu_LNP","Cqu8_du_LNP","Cqu8_y_LNP","Cqu8_uy_LNP","Cqu8_dy_LNP",
+	"Cqu8_yu_LNP","Cqu8_yd_LNP","Cqd1_00_LNP","Cqd1_u0_LNP","Cqd1_d0_LNP","Cqd1_0d_LNP","Cqd1_ud_LNP","Cqd1_dd_LNP",
+	"Cqd1_y_LNP","Cqd1_uy_LNP","Cqd1_dy_LNP","Cqd1_yu_LNP","Cqd1_yd_LNP","Cqd8_00_LNP","Cqd8_u0_LNP","Cqd8_d0_LNP",
+	"Cqd8_0d_LNP","Cqd8_ud_LNP","Cqd8_dd_LNP","Cqd8_y_LNP","Cqd8_uy_LNP","Cqd8_dy_LNP","Cqd8_yu_LNP","Cqd8_yd_LNP",
+	"Cledq_00_LNP","Clequ1_00_LNP","Clequ3_00_LNP","Cquqd1_00_LNP","Cquqd1_u0_LNP","Cquqd1_d0_LNP","Cquqd1_0u_LNP","Cquqd1_0d_LNP",
+	"Cquqd1p_00_LNP","Cquqd1p_u0_LNP","Cquqd1p_d0_LNP","Cquqd1p_0u_LNP","Cquqd1p_0d_LNP","Cquqd8_00_LNP","Cquqd8_u0_LNP","Cquqd8_d0_LNP",
+	"Cquqd8_0u_LNP","Cquqd8_0d_LNP","Cquqd8p_00_LNP","Cquqd8p_u0_LNP","Cquqd8p_d0_LNP","Cquqd8p_0u_LNP","Cquqd8p_0d_LNP",
     "Lambda_NP"
 };
 
@@ -48,13 +50,6 @@ NPSMEFTd6MFV::NPSMEFTd6MFV(): NPSMEFTd6General() {
 	ModelParamMap.insert(std::make_pair("CHD_LNP",std::cref(CHD_LNP)));
 	ModelParamMap.insert(std::make_pair("CHbox_LNP",std::cref(CHbox_LNP)));
 	ModelParamMap.insert(std::make_pair("CH_LNP",std::cref(CH_LNP)));
-	ModelParamMap.insert(std::make_pair("CHl1_LNP",std::cref(CHl1_LNP)));
-	ModelParamMap.insert(std::make_pair("CHl3_LNP",std::cref(CHl3_LNP)));
-	ModelParamMap.insert(std::make_pair("CHe_LNP",std::cref(CHe_LNP)));
-	ModelParamMap.insert(std::make_pair("Cll_aabb_LNP",std::cref(Cll_aabb_LNP)));
-	ModelParamMap.insert(std::make_pair("Cll_abba_LNP",std::cref(Cll_abba_LNP)));
-	ModelParamMap.insert(std::make_pair("Cee_LNP",std::cref(Cee_LNP)));
-	ModelParamMap.insert(std::make_pair("Cle_LNP",std::cref(Cle_LNP)));
 	ModelParamMap.insert(std::make_pair("CuH_0_LNP",std::cref(CuH_0_LNP)));
 	ModelParamMap.insert(std::make_pair("CuH_u_LNP",std::cref(CuH_u_LNP)));
 	ModelParamMap.insert(std::make_pair("CuH_d_LNP",std::cref(CuH_d_LNP)));
@@ -79,6 +74,9 @@ NPSMEFTd6MFV::NPSMEFTd6MFV(): NPSMEFTd6General() {
 	ModelParamMap.insert(std::make_pair("CdB_0_LNP",std::cref(CdB_0_LNP)));
 	ModelParamMap.insert(std::make_pair("CdB_u_LNP",std::cref(CdB_u_LNP)));
 	ModelParamMap.insert(std::make_pair("CdB_d_LNP",std::cref(CdB_d_LNP)));
+	ModelParamMap.insert(std::make_pair("CeH_0_LNP",std::cref(CeH_0_LNP)));
+	ModelParamMap.insert(std::make_pair("CeW_0_LNP",std::cref(CeW_0_LNP)));
+	ModelParamMap.insert(std::make_pair("CeB_0_LNP",std::cref(CeB_0_LNP)));
 	ModelParamMap.insert(std::make_pair("CHq1_0_LNP",std::cref(CHq1_0_LNP)));
 	ModelParamMap.insert(std::make_pair("CHq1_u_LNP",std::cref(CHq1_u_LNP)));
 	ModelParamMap.insert(std::make_pair("CHq1_d_LNP",std::cref(CHq1_d_LNP)));
@@ -90,23 +88,45 @@ NPSMEFTd6MFV::NPSMEFTd6MFV(): NPSMEFTd6General() {
 	ModelParamMap.insert(std::make_pair("CHd_0_LNP",std::cref(CHd_0_LNP)));
 	ModelParamMap.insert(std::make_pair("CHd_d_LNP",std::cref(CHd_d_LNP)));
 	ModelParamMap.insert(std::make_pair("CHud_ud_LNP",std::cref(CHud_ud_LNP)));
-	ModelParamMap.insert(std::make_pair("Clq1_0_LNP",std::cref(Clq1_0_LNP)));
-	ModelParamMap.insert(std::make_pair("Clq1_u_LNP",std::cref(Clq1_u_LNP)));
-	ModelParamMap.insert(std::make_pair("Clq1_d_LNP",std::cref(Clq1_d_LNP)));
-	ModelParamMap.insert(std::make_pair("Clq3_0_LNP",std::cref(Clq3_0_LNP)));
-	ModelParamMap.insert(std::make_pair("Clq3_u_LNP",std::cref(Clq3_u_LNP)));
-	ModelParamMap.insert(std::make_pair("Clq3_d_LNP",std::cref(Clq3_d_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqe_0_LNP",std::cref(Cqe_0_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqe_u_LNP",std::cref(Cqe_u_LNP)));
-	ModelParamMap.insert(std::make_pair("Cqe_d_LNP",std::cref(Cqe_d_LNP)));
-	ModelParamMap.insert(std::make_pair("Clu_0_LNP",std::cref(Clu_0_LNP)));
-	ModelParamMap.insert(std::make_pair("Clu_u_LNP",std::cref(Clu_u_LNP)));
-	ModelParamMap.insert(std::make_pair("Ceu_0_LNP",std::cref(Ceu_0_LNP)));
-	ModelParamMap.insert(std::make_pair("Ceu_u_LNP",std::cref(Ceu_u_LNP)));
-	ModelParamMap.insert(std::make_pair("Cld_0_LNP",std::cref(Cld_0_LNP)));
-	ModelParamMap.insert(std::make_pair("Cld_d_LNP",std::cref(Cld_d_LNP)));
-	ModelParamMap.insert(std::make_pair("Ced_0_LNP",std::cref(Ced_0_LNP)));
-	ModelParamMap.insert(std::make_pair("Ced_d_LNP",std::cref(Ced_d_LNP)));
+	ModelParamMap.insert(std::make_pair("CHl1_0_LNP",std::cref(CHl1_0_LNP)));
+	ModelParamMap.insert(std::make_pair("CHl1_l_LNP",std::cref(CHl1_l_LNP)));
+	ModelParamMap.insert(std::make_pair("CHl3_0_LNP",std::cref(CHl3_0_LNP)));
+	ModelParamMap.insert(std::make_pair("CHl3_l_LNP",std::cref(CHl3_l_LNP)));
+	ModelParamMap.insert(std::make_pair("CHe_0_LNP",std::cref(CHe_0_LNP)));
+	ModelParamMap.insert(std::make_pair("CHe_e_LNP",std::cref(CHe_e_LNP)));
+	ModelParamMap.insert(std::make_pair("Cll_00_LNP",std::cref(Cll_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cll_l0_LNP",std::cref(Cll_l0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cllp_00_LNP",std::cref(Cllp_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cllp_l0_LNP",std::cref(Cllp_l0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cee_00_LNP",std::cref(Cee_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cee_e0_LNP",std::cref(Cee_e0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cle_00_LNP",std::cref(Cle_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cle_l0_LNP",std::cref(Cle_l0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cle_0e_LNP",std::cref(Cle_0e_LNP)));
+	ModelParamMap.insert(std::make_pair("Clq1_00_LNP",std::cref(Clq1_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Clq1_l0_LNP",std::cref(Clq1_l0_LNP)));
+	ModelParamMap.insert(std::make_pair("Clq1_0u_LNP",std::cref(Clq1_0u_LNP)));
+	ModelParamMap.insert(std::make_pair("Clq1_0d_LNP",std::cref(Clq1_0d_LNP)));
+	ModelParamMap.insert(std::make_pair("Clq3_00_LNP",std::cref(Clq3_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Clq3_l0_LNP",std::cref(Clq3_l0_LNP)));
+	ModelParamMap.insert(std::make_pair("Clq3_0u_LNP",std::cref(Clq3_0u_LNP)));
+	ModelParamMap.insert(std::make_pair("Clq3_0d_LNP",std::cref(Clq3_0d_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqe_00_LNP",std::cref(Cqe_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqe_u0_LNP",std::cref(Cqe_u0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqe_d0_LNP",std::cref(Cqe_d0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cqe_0e_LNP",std::cref(Cqe_0e_LNP)));
+	ModelParamMap.insert(std::make_pair("Clu_00_LNP",std::cref(Clu_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Clu_l0_LNP",std::cref(Clu_l0_LNP)));
+	ModelParamMap.insert(std::make_pair("Clu_0u_LNP",std::cref(Clu_0u_LNP)));
+	ModelParamMap.insert(std::make_pair("Cld_00_LNP",std::cref(Cld_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Cld_l0_LNP",std::cref(Cld_l0_LNP)));
+	ModelParamMap.insert(std::make_pair("Cld_0d_LNP",std::cref(Cld_0d_LNP)));
+	ModelParamMap.insert(std::make_pair("Ceu_00_LNP",std::cref(Ceu_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Ceu_e0_LNP",std::cref(Ceu_e0_LNP)));
+	ModelParamMap.insert(std::make_pair("Ceu_0u_LNP",std::cref(Ceu_0u_LNP)));
+	ModelParamMap.insert(std::make_pair("Ced_00_LNP",std::cref(Ced_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Ced_e0_LNP",std::cref(Ced_e0_LNP)));
+	ModelParamMap.insert(std::make_pair("Ced_0d_LNP",std::cref(Ced_0d_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq1_00_LNP",std::cref(Cqq1_00_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq1_u0_LNP",std::cref(Cqq1_u0_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqq1_d0_LNP",std::cref(Cqq1_d0_LNP)));
@@ -197,6 +217,9 @@ NPSMEFTd6MFV::NPSMEFTd6MFV(): NPSMEFTd6General() {
 	ModelParamMap.insert(std::make_pair("Cqd8_dy_LNP",std::cref(Cqd8_dy_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqd8_yu_LNP",std::cref(Cqd8_yu_LNP)));
 	ModelParamMap.insert(std::make_pair("Cqd8_yd_LNP",std::cref(Cqd8_yd_LNP)));
+	ModelParamMap.insert(std::make_pair("Cledq_00_LNP",std::cref(Cledq_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Clequ1_00_LNP",std::cref(Clequ1_00_LNP)));
+	ModelParamMap.insert(std::make_pair("Clequ3_00_LNP",std::cref(Clequ3_00_LNP)));
 	ModelParamMap.insert(std::make_pair("Cquqd1_00_LNP",std::cref(Cquqd1_00_LNP)));
 	ModelParamMap.insert(std::make_pair("Cquqd1_u0_LNP",std::cref(Cquqd1_u0_LNP)));
 	ModelParamMap.insert(std::make_pair("Cquqd1_d0_LNP",std::cref(Cquqd1_d0_LNP)));
@@ -239,20 +262,6 @@ void NPSMEFTd6MFV::setParameter(const std::string name, const double& value) {
 		CHbox_LNP = value;
 	} else if (name.compare("CH_LNP") == 0) {
 		CH_LNP = value;
-	} else if (name.compare("CHl1_LNP") == 0) {
-		CHl1_LNP = value;
-	} else if (name.compare("CHl3_LNP") == 0) {
-		CHl3_LNP = value;
-	} else if (name.compare("CHe_LNP") == 0) {
-		CHe_LNP = value;
-	} else if (name.compare("Cll_aabb_LNP") == 0) {
-		Cll_aabb_LNP = value;
-	} else if (name.compare("Cll_abba_LNP") == 0) {
-		Cll_abba_LNP = value;
-	} else if (name.compare("Cee_LNP") == 0) {
-		Cee_LNP = value;
-	} else if (name.compare("Cle_LNP") == 0) {
-		Cle_LNP = value;
 	} else if (name.compare("CuH_0_LNP") == 0) {
 		CuH_0_LNP = value;
 	} else if (name.compare("CuH_u_LNP") == 0) {
@@ -301,6 +310,12 @@ void NPSMEFTd6MFV::setParameter(const std::string name, const double& value) {
 		CdB_u_LNP = value;
 	} else if (name.compare("CdB_d_LNP") == 0) {
 		CdB_d_LNP = value;
+	} else if (name.compare("CeH_0_LNP") == 0) {
+		CeH_0_LNP = value;
+	} else if (name.compare("CeW_0_LNP") == 0) {
+		CeW_0_LNP = value;
+	} else if (name.compare("CeB_0_LNP") == 0) {
+		CeB_0_LNP = value;
 	} else if (name.compare("CHq1_0_LNP") == 0) {
 		CHq1_0_LNP = value;
 	} else if (name.compare("CHq1_u_LNP") == 0) {
@@ -323,40 +338,84 @@ void NPSMEFTd6MFV::setParameter(const std::string name, const double& value) {
 		CHd_d_LNP = value;
 	} else if (name.compare("CHud_ud_LNP") == 0) {
 		CHud_ud_LNP = value;
-	} else if (name.compare("Clq1_0_LNP") == 0) {
-		Clq1_0_LNP = value;
-	} else if (name.compare("Clq1_u_LNP") == 0) {
-		Clq1_u_LNP = value;
-	} else if (name.compare("Clq1_d_LNP") == 0) {
-		Clq1_d_LNP = value;
-	} else if (name.compare("Clq3_0_LNP") == 0) {
-		Clq3_0_LNP = value;
-	} else if (name.compare("Clq3_u_LNP") == 0) {
-		Clq3_u_LNP = value;
-	} else if (name.compare("Clq3_d_LNP") == 0) {
-		Clq3_d_LNP = value;
-	} else if (name.compare("Cqe_0_LNP") == 0) {
-		Cqe_0_LNP = value;
-	} else if (name.compare("Cqe_u_LNP") == 0) {
-		Cqe_u_LNP = value;
-	} else if (name.compare("Cqe_d_LNP") == 0) {
-		Cqe_d_LNP = value;
-	} else if (name.compare("Clu_0_LNP") == 0) {
-		Clu_0_LNP = value;
-	} else if (name.compare("Clu_u_LNP") == 0) {
-		Clu_u_LNP = value;
-	} else if (name.compare("Ceu_0_LNP") == 0) {
-		Ceu_0_LNP = value;
-	} else if (name.compare("Ceu_u_LNP") == 0) {
-		Ceu_u_LNP = value;
-	} else if (name.compare("Cld_0_LNP") == 0) {
-		Cld_0_LNP = value;
-	} else if (name.compare("Cld_d_LNP") == 0) {
-		Cld_d_LNP = value;
-	} else if (name.compare("Ced_0_LNP") == 0) {
-		Ced_0_LNP = value;
-	} else if (name.compare("Ced_d_LNP") == 0) {
-		Ced_d_LNP = value;
+	} else if (name.compare("CHl1_0_LNP") == 0) {
+		CHl1_0_LNP = value;
+	} else if (name.compare("CHl1_l_LNP") == 0) {
+		CHl1_l_LNP = value;
+	} else if (name.compare("CHl3_0_LNP") == 0) {
+		CHl3_0_LNP = value;
+	} else if (name.compare("CHl3_l_LNP") == 0) {
+		CHl3_l_LNP = value;
+	} else if (name.compare("CHe_0_LNP") == 0) {
+		CHe_0_LNP = value;
+	} else if (name.compare("CHe_e_LNP") == 0) {
+		CHe_e_LNP = value;
+	} else if (name.compare("Cll_00_LNP") == 0) {
+		Cll_00_LNP = value;
+	} else if (name.compare("Cll_l0_LNP") == 0) {
+		Cll_l0_LNP = value;
+	} else if (name.compare("Cllp_00_LNP") == 0) {
+		Cllp_00_LNP = value;
+	} else if (name.compare("Cllp_l0_LNP") == 0) {
+		Cllp_l0_LNP = value;
+	} else if (name.compare("Cee_00_LNP") == 0) {
+		Cee_00_LNP = value;
+	} else if (name.compare("Cee_e0_LNP") == 0) {
+		Cee_e0_LNP = value;
+	} else if (name.compare("Cle_00_LNP") == 0) {
+		Cle_00_LNP = value;
+	} else if (name.compare("Cle_l0_LNP") == 0) {
+		Cle_l0_LNP = value;
+	} else if (name.compare("Cle_0e_LNP") == 0) {
+		Cle_0e_LNP = value;
+	} else if (name.compare("Clq1_00_LNP") == 0) {
+		Clq1_00_LNP = value;
+	} else if (name.compare("Clq1_l0_LNP") == 0) {
+		Clq1_l0_LNP = value;
+	} else if (name.compare("Clq1_0u_LNP") == 0) {
+		Clq1_0u_LNP = value;
+	} else if (name.compare("Clq1_0d_LNP") == 0) {
+		Clq1_0d_LNP = value;
+	} else if (name.compare("Clq3_00_LNP") == 0) {
+		Clq3_00_LNP = value;
+	} else if (name.compare("Clq3_l0_LNP") == 0) {
+		Clq3_l0_LNP = value;
+	} else if (name.compare("Clq3_0u_LNP") == 0) {
+		Clq3_0u_LNP = value;
+	} else if (name.compare("Clq3_0d_LNP") == 0) {
+		Clq3_0d_LNP = value;
+	} else if (name.compare("Cqe_00_LNP") == 0) {
+		Cqe_00_LNP = value;
+	} else if (name.compare("Cqe_u0_LNP") == 0) {
+		Cqe_u0_LNP = value;
+	} else if (name.compare("Cqe_d0_LNP") == 0) {
+		Cqe_d0_LNP = value;
+	} else if (name.compare("Cqe_0e_LNP") == 0) {
+		Cqe_0e_LNP = value;
+	} else if (name.compare("Clu_00_LNP") == 0) {
+		Clu_00_LNP = value;
+	} else if (name.compare("Clu_l0_LNP") == 0) {
+		Clu_l0_LNP = value;
+	} else if (name.compare("Clu_0u_LNP") == 0) {
+		Clu_0u_LNP = value;
+	} else if (name.compare("Cld_00_LNP") == 0) {
+		Cld_00_LNP = value;
+	} else if (name.compare("Cld_l0_LNP") == 0) {
+		Cld_l0_LNP = value;
+	} else if (name.compare("Cld_0d_LNP") == 0) {
+		Cld_0d_LNP = value;
+	} else if (name.compare("Ceu_00_LNP") == 0) {
+		Ceu_00_LNP = value;
+	} else if (name.compare("Ceu_e0_LNP") == 0) {
+		Ceu_e0_LNP = value;
+	} else if (name.compare("Ceu_0u_LNP") == 0) {
+		Ceu_0u_LNP = value;
+	} else if (name.compare("Ced_00_LNP") == 0) {
+		Ced_00_LNP = value;
+	} else if (name.compare("Ced_e0_LNP") == 0) {
+		Ced_e0_LNP = value;
+	} else if (name.compare("Ced_0d_LNP") == 0) {
+		Ced_0d_LNP = value;
 	} else if (name.compare("Cqq1_00_LNP") == 0) {
 		Cqq1_00_LNP = value;
 	} else if (name.compare("Cqq1_u0_LNP") == 0) {
@@ -537,6 +596,12 @@ void NPSMEFTd6MFV::setParameter(const std::string name, const double& value) {
 		Cqd8_yu_LNP = value;
 	} else if (name.compare("Cqd8_yd_LNP") == 0) {
 		Cqd8_yd_LNP = value;
+	} else if (name.compare("Cledq_00_LNP") == 0) {
+		Cledq_00_LNP = value;
+	} else if (name.compare("Clequ1_00_LNP") == 0) {
+		Clequ1_00_LNP = value;
+	} else if (name.compare("Clequ3_00_LNP") == 0) {
+		Clequ3_00_LNP = value;
 	} else if (name.compare("Cquqd1_00_LNP") == 0) {
 		Cquqd1_00_LNP = value;
 	} else if (name.compare("Cquqd1_u0_LNP") == 0) {
@@ -588,10 +653,20 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	
 	// Precomputing Yukawa matrices and matrix products	
 
+	// Leptons (flavor diagonal)
+	gslpp::vector<gslpp::complex> YlL(3, 0.), Yl2L(3, 0.);
+	
+	for (int i = 0; i < 3; i++) {
+		double yl = getSMEFTCoeffEW("YeR", i, i);
+        YlL.assign(i, yl);
+		Yl2L.assign(i, yl*yl);
+	}	
+
+	// Quark Sector
 	// Single Yukawa
 	gslpp::matrix<gslpp::complex> YuL(3, 3, 0.), YucL(3, 3, 0.);
 	gslpp::matrix<gslpp::complex> YdL(3, 3, 0.), YdcL(3, 3, 0.);
-
+	
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             YuL.assignre(i, j, getSMEFTCoeffEW("YuR", i, j));
@@ -643,28 +718,6 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 
 
 	// Operator assignments
-
-	CHl1_11r_LNP = CHl1_LNP;
-	CHl1_22r_LNP = CHl1_LNP;
-	CHl1_33r_LNP = CHl1_LNP;
-
-	CHl3_11r_LNP = CHl3_LNP;
-	CHl3_22r_LNP = CHl3_LNP;
-	CHl3_33r_LNP = CHl3_LNP;
-
-	CHe_11r_LNP = CHe_LNP;
-	CHe_22r_LNP = CHe_LNP;
-	CHe_33r_LNP = CHe_LNP;
-
-	Cll_1111r_LNP = Cll_aabb_LNP + Cll_abba_LNP;
-	Cll_2222r_LNP = Cll_aabb_LNP + Cll_abba_LNP;
-	Cll_3333r_LNP = Cll_aabb_LNP + Cll_abba_LNP;
-	Cll_1122r_LNP = Cll_aabb_LNP;
-	Cll_1133r_LNP = Cll_aabb_LNP;
-	Cll_2233r_LNP = Cll_aabb_LNP;
-	Cll_1221r_LNP = Cll_abba_LNP;
-	Cll_1331r_LNP = Cll_abba_LNP;
-	Cll_2332r_LNP = Cll_abba_LNP;
 
 	CuH_11r_LNP = (CuH_d_LNP*SQDYucL(0,0) + CuH_u_LNP*SQUYucL(0,0) + CuH_0_LNP*YucL(0,0)).real();
 	CuH_11i_LNP = (CuH_d_LNP*SQDYucL(0,0) + CuH_u_LNP*SQUYucL(0,0) + CuH_0_LNP*YucL(0,0)).imag();
@@ -818,6 +871,18 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	CdB_33r_LNP = (CdB_d_LNP*SQDYdcL(2,2) + CdB_u_LNP*SQUYdcL(2,2) + CdB_0_LNP*YdcL(2,2)).real();
 	CdB_33i_LNP = (CdB_d_LNP*SQDYdcL(2,2) + CdB_u_LNP*SQUYdcL(2,2) + CdB_0_LNP*YdcL(2,2)).imag();
 
+	CeH_11r_LNP = (CeH_0_LNP*YlL(0)).real();
+	CeH_22r_LNP = (CeH_0_LNP*YlL(1)).real();
+	CeH_33r_LNP = (CeH_0_LNP*YlL(2)).real();
+
+	CeW_11r_LNP = (CeW_0_LNP*YlL(0)).real();
+	CeW_22r_LNP = (CeW_0_LNP*YlL(1)).real();
+	CeW_33r_LNP = (CeW_0_LNP*YlL(2)).real();
+
+	CeB_11r_LNP = (CeB_0_LNP*YlL(0)).real();
+	CeB_22r_LNP = (CeB_0_LNP*YlL(1)).real();
+	CeB_33r_LNP = (CeB_0_LNP*YlL(2)).real();
+
 	CHq1_11r_LNP = (CHq1_0_LNP + CHq1_d_LNP*SQDL(0,0) + CHq1_u_LNP*SQUL(0,0)).real();
 	CHq1_12r_LNP = (CHq1_d_LNP*SQDL(0,1) + CHq1_u_LNP*SQUL(0,1)).real();
 	CHq1_12i_LNP = (CHq1_d_LNP*SQDL(0,1) + CHq1_u_LNP*SQUL(0,1)).imag();
@@ -877,201 +942,240 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	CHud_33r_LNP = (CHud_ud_LNP*SUDL(2,2)).real();
 	CHud_33i_LNP = (CHud_ud_LNP*SUDL(2,2)).imag();
 
-	Clq1_1111r_LNP = (Clq1_0_LNP + Clq1_d_LNP*SQDL(0,0) + Clq1_u_LNP*SQUL(0,0)).real();
-	Clq1_1112r_LNP = (Clq1_d_LNP*SQDL(0,1) + Clq1_u_LNP*SQUL(0,1)).real();
-	Clq1_1112i_LNP = (Clq1_d_LNP*SQDL(0,1) + Clq1_u_LNP*SQUL(0,1)).imag();
-	Clq1_1113r_LNP = (Clq1_d_LNP*SQDL(0,2) + Clq1_u_LNP*SQUL(0,2)).real();
-	Clq1_1113i_LNP = (Clq1_d_LNP*SQDL(0,2) + Clq1_u_LNP*SQUL(0,2)).imag();
-	Clq1_1122r_LNP = (Clq1_0_LNP + Clq1_d_LNP*SQDL(1,1) + Clq1_u_LNP*SQUL(1,1)).real();
-	Clq1_1123r_LNP = (Clq1_d_LNP*SQDL(1,2) + Clq1_u_LNP*SQUL(1,2)).real();
-	Clq1_1123i_LNP = (Clq1_d_LNP*SQDL(1,2) + Clq1_u_LNP*SQUL(1,2)).imag();
-	Clq1_1133r_LNP = (Clq1_0_LNP + Clq1_d_LNP*SQDL(2,2) + Clq1_u_LNP*SQUL(2,2)).real();
-	Clq1_2211r_LNP = (Clq1_0_LNP + Clq1_d_LNP*SQDL(0,0) + Clq1_u_LNP*SQUL(0,0)).real();
-	Clq1_2212r_LNP = (Clq1_d_LNP*SQDL(0,1) + Clq1_u_LNP*SQUL(0,1)).real();
-	Clq1_2212i_LNP = (Clq1_d_LNP*SQDL(0,1) + Clq1_u_LNP*SQUL(0,1)).imag();
-	Clq1_2213r_LNP = (Clq1_d_LNP*SQDL(0,2) + Clq1_u_LNP*SQUL(0,2)).real();
-	Clq1_2213i_LNP = (Clq1_d_LNP*SQDL(0,2) + Clq1_u_LNP*SQUL(0,2)).imag();
-	Clq1_2222r_LNP = (Clq1_0_LNP + Clq1_d_LNP*SQDL(1,1) + Clq1_u_LNP*SQUL(1,1)).real();
-	Clq1_2223r_LNP = (Clq1_d_LNP*SQDL(1,2) + Clq1_u_LNP*SQUL(1,2)).real();
-	Clq1_2223i_LNP = (Clq1_d_LNP*SQDL(1,2) + Clq1_u_LNP*SQUL(1,2)).imag();
-	Clq1_2233r_LNP = (Clq1_0_LNP + Clq1_d_LNP*SQDL(2,2) + Clq1_u_LNP*SQUL(2,2)).real();
-	Clq1_3311r_LNP = (Clq1_0_LNP + Clq1_d_LNP*SQDL(0,0) + Clq1_u_LNP*SQUL(0,0)).real();
-	Clq1_3312r_LNP = (Clq1_d_LNP*SQDL(0,1) + Clq1_u_LNP*SQUL(0,1)).real();
-	Clq1_3312i_LNP = (Clq1_d_LNP*SQDL(0,1) + Clq1_u_LNP*SQUL(0,1)).imag();
-	Clq1_3313r_LNP = (Clq1_d_LNP*SQDL(0,2) + Clq1_u_LNP*SQUL(0,2)).real();
-	Clq1_3313i_LNP = (Clq1_d_LNP*SQDL(0,2) + Clq1_u_LNP*SQUL(0,2)).imag();
-	Clq1_3322r_LNP = (Clq1_0_LNP + Clq1_d_LNP*SQDL(1,1) + Clq1_u_LNP*SQUL(1,1)).real();
-	Clq1_3323r_LNP = (Clq1_d_LNP*SQDL(1,2) + Clq1_u_LNP*SQUL(1,2)).real();
-	Clq1_3323i_LNP = (Clq1_d_LNP*SQDL(1,2) + Clq1_u_LNP*SQUL(1,2)).imag();
-	Clq1_3333r_LNP = (Clq1_0_LNP + Clq1_d_LNP*SQDL(2,2) + Clq1_u_LNP*SQUL(2,2)).real();
+	CHl1_11r_LNP = (CHl1_0_LNP + CHl1_l_LNP*Yl2L(0)).real();
+	CHl1_22r_LNP = (CHl1_0_LNP + CHl1_l_LNP*Yl2L(1)).real();
+	CHl1_33r_LNP = (CHl1_0_LNP + CHl1_l_LNP*Yl2L(2)).real();
 
-	Clq3_1111r_LNP = (Clq3_0_LNP + Clq3_d_LNP*SQDL(0,0) + Clq3_u_LNP*SQUL(0,0)).real();
-	Clq3_1112r_LNP = (Clq3_d_LNP*SQDL(0,1) + Clq3_u_LNP*SQUL(0,1)).real();
-	Clq3_1112i_LNP = (Clq3_d_LNP*SQDL(0,1) + Clq3_u_LNP*SQUL(0,1)).imag();
-	Clq3_1113r_LNP = (Clq3_d_LNP*SQDL(0,2) + Clq3_u_LNP*SQUL(0,2)).real();
-	Clq3_1113i_LNP = (Clq3_d_LNP*SQDL(0,2) + Clq3_u_LNP*SQUL(0,2)).imag();
-	Clq3_1122r_LNP = (Clq3_0_LNP + Clq3_d_LNP*SQDL(1,1) + Clq3_u_LNP*SQUL(1,1)).real();
-	Clq3_1123r_LNP = (Clq3_d_LNP*SQDL(1,2) + Clq3_u_LNP*SQUL(1,2)).real();
-	Clq3_1123i_LNP = (Clq3_d_LNP*SQDL(1,2) + Clq3_u_LNP*SQUL(1,2)).imag();
-	Clq3_1133r_LNP = (Clq3_0_LNP + Clq3_d_LNP*SQDL(2,2) + Clq3_u_LNP*SQUL(2,2)).real();
-	Clq3_2211r_LNP = (Clq3_0_LNP + Clq3_d_LNP*SQDL(0,0) + Clq3_u_LNP*SQUL(0,0)).real();
-	Clq3_2212r_LNP = (Clq3_d_LNP*SQDL(0,1) + Clq3_u_LNP*SQUL(0,1)).real();
-	Clq3_2212i_LNP = (Clq3_d_LNP*SQDL(0,1) + Clq3_u_LNP*SQUL(0,1)).imag();
-	Clq3_2213r_LNP = (Clq3_d_LNP*SQDL(0,2) + Clq3_u_LNP*SQUL(0,2)).real();
-	Clq3_2213i_LNP = (Clq3_d_LNP*SQDL(0,2) + Clq3_u_LNP*SQUL(0,2)).imag();
-	Clq3_2222r_LNP = (Clq3_0_LNP + Clq3_d_LNP*SQDL(1,1) + Clq3_u_LNP*SQUL(1,1)).real();
-	Clq3_2223r_LNP = (Clq3_d_LNP*SQDL(1,2) + Clq3_u_LNP*SQUL(1,2)).real();
-	Clq3_2223i_LNP = (Clq3_d_LNP*SQDL(1,2) + Clq3_u_LNP*SQUL(1,2)).imag();
-	Clq3_2233r_LNP = (Clq3_0_LNP + Clq3_d_LNP*SQDL(2,2) + Clq3_u_LNP*SQUL(2,2)).real();
-	Clq3_3311r_LNP = (Clq3_0_LNP + Clq3_d_LNP*SQDL(0,0) + Clq3_u_LNP*SQUL(0,0)).real();
-	Clq3_3312r_LNP = (Clq3_d_LNP*SQDL(0,1) + Clq3_u_LNP*SQUL(0,1)).real();
-	Clq3_3312i_LNP = (Clq3_d_LNP*SQDL(0,1) + Clq3_u_LNP*SQUL(0,1)).imag();
-	Clq3_3313r_LNP = (Clq3_d_LNP*SQDL(0,2) + Clq3_u_LNP*SQUL(0,2)).real();
-	Clq3_3313i_LNP = (Clq3_d_LNP*SQDL(0,2) + Clq3_u_LNP*SQUL(0,2)).imag();
-	Clq3_3322r_LNP = (Clq3_0_LNP + Clq3_d_LNP*SQDL(1,1) + Clq3_u_LNP*SQUL(1,1)).real();
-	Clq3_3323r_LNP = (Clq3_d_LNP*SQDL(1,2) + Clq3_u_LNP*SQUL(1,2)).real();
-	Clq3_3323i_LNP = (Clq3_d_LNP*SQDL(1,2) + Clq3_u_LNP*SQUL(1,2)).imag();
-	Clq3_3333r_LNP = (Clq3_0_LNP + Clq3_d_LNP*SQDL(2,2) + Clq3_u_LNP*SQUL(2,2)).real();
+	CHl3_11r_LNP = (CHl3_0_LNP + CHl3_l_LNP*Yl2L(0)).real();
+	CHl3_22r_LNP = (CHl3_0_LNP + CHl3_l_LNP*Yl2L(1)).real();
+	CHl3_33r_LNP = (CHl3_0_LNP + CHl3_l_LNP*Yl2L(2)).real();
 
-	Cqe_1111r_LNP = (Cqe_0_LNP + Cqe_d_LNP*SQDL(0,0) + Cqe_u_LNP*SQUL(0,0)).real();
-	Cqe_1122r_LNP = (Cqe_0_LNP + Cqe_d_LNP*SQDL(0,0) + Cqe_u_LNP*SQUL(0,0)).real();
-	Cqe_1133r_LNP = (Cqe_0_LNP + Cqe_d_LNP*SQDL(0,0) + Cqe_u_LNP*SQUL(0,0)).real();
-	Cqe_1211r_LNP = (Cqe_d_LNP*SQDL(0,1) + Cqe_u_LNP*SQUL(0,1)).real();
-	Cqe_1211i_LNP = (Cqe_d_LNP*SQDL(0,1) + Cqe_u_LNP*SQUL(0,1)).imag();
-	Cqe_1222r_LNP = (Cqe_d_LNP*SQDL(0,1) + Cqe_u_LNP*SQUL(0,1)).real();
-	Cqe_1222i_LNP = (Cqe_d_LNP*SQDL(0,1) + Cqe_u_LNP*SQUL(0,1)).imag();
-	Cqe_1233r_LNP = (Cqe_d_LNP*SQDL(0,1) + Cqe_u_LNP*SQUL(0,1)).real();
-	Cqe_1233i_LNP = (Cqe_d_LNP*SQDL(0,1) + Cqe_u_LNP*SQUL(0,1)).imag();
-	Cqe_1311r_LNP = (Cqe_d_LNP*SQDL(0,2) + Cqe_u_LNP*SQUL(0,2)).real();
-	Cqe_1311i_LNP = (Cqe_d_LNP*SQDL(0,2) + Cqe_u_LNP*SQUL(0,2)).imag();
-	Cqe_1322r_LNP = (Cqe_d_LNP*SQDL(0,2) + Cqe_u_LNP*SQUL(0,2)).real();
-	Cqe_1322i_LNP = (Cqe_d_LNP*SQDL(0,2) + Cqe_u_LNP*SQUL(0,2)).imag();
-	Cqe_1333r_LNP = (Cqe_d_LNP*SQDL(0,2) + Cqe_u_LNP*SQUL(0,2)).real();
-	Cqe_1333i_LNP = (Cqe_d_LNP*SQDL(0,2) + Cqe_u_LNP*SQUL(0,2)).imag();
-	Cqe_2211r_LNP = (Cqe_0_LNP + Cqe_d_LNP*SQDL(1,1) + Cqe_u_LNP*SQUL(1,1)).real();
-	Cqe_2222r_LNP = (Cqe_0_LNP + Cqe_d_LNP*SQDL(1,1) + Cqe_u_LNP*SQUL(1,1)).real();
-	Cqe_2233r_LNP = (Cqe_0_LNP + Cqe_d_LNP*SQDL(1,1) + Cqe_u_LNP*SQUL(1,1)).real();
-	Cqe_2311r_LNP = (Cqe_d_LNP*SQDL(1,2) + Cqe_u_LNP*SQUL(1,2)).real();
-	Cqe_2311i_LNP = (Cqe_d_LNP*SQDL(1,2) + Cqe_u_LNP*SQUL(1,2)).imag();
-	Cqe_2322r_LNP = (Cqe_d_LNP*SQDL(1,2) + Cqe_u_LNP*SQUL(1,2)).real();
-	Cqe_2322i_LNP = (Cqe_d_LNP*SQDL(1,2) + Cqe_u_LNP*SQUL(1,2)).imag();
-	Cqe_2333r_LNP = (Cqe_d_LNP*SQDL(1,2) + Cqe_u_LNP*SQUL(1,2)).real();
-	Cqe_2333i_LNP = (Cqe_d_LNP*SQDL(1,2) + Cqe_u_LNP*SQUL(1,2)).imag();
-	Cqe_3311r_LNP = (Cqe_0_LNP + Cqe_d_LNP*SQDL(2,2) + Cqe_u_LNP*SQUL(2,2)).real();
-	Cqe_3322r_LNP = (Cqe_0_LNP + Cqe_d_LNP*SQDL(2,2) + Cqe_u_LNP*SQUL(2,2)).real();
-	Cqe_3333r_LNP = (Cqe_0_LNP + Cqe_d_LNP*SQDL(2,2) + Cqe_u_LNP*SQUL(2,2)).real();
+	CHe_11r_LNP = (CHe_0_LNP + CHe_e_LNP*Yl2L(0)).real();
+	CHe_22r_LNP = (CHe_0_LNP + CHe_e_LNP*Yl2L(1)).real();
+	CHe_33r_LNP = (CHe_0_LNP + CHe_e_LNP*Yl2L(2)).real();
 
-	Clu_1111r_LNP = (Clu_0_LNP + Clu_u_LNP*SUL(0,0)).real();
-	Clu_1112r_LNP = (Clu_u_LNP*SUL(0,1)).real();
-	Clu_1112i_LNP = (Clu_u_LNP*SUL(0,1)).imag();
-	Clu_1113r_LNP = (Clu_u_LNP*SUL(0,2)).real();
-	Clu_1113i_LNP = (Clu_u_LNP*SUL(0,2)).imag();
-	Clu_1122r_LNP = (Clu_0_LNP + Clu_u_LNP*SUL(1,1)).real();
-	Clu_1123r_LNP = (Clu_u_LNP*SUL(1,2)).real();
-	Clu_1123i_LNP = (Clu_u_LNP*SUL(1,2)).imag();
-	Clu_1133r_LNP = (Clu_0_LNP + Clu_u_LNP*SUL(2,2)).real();
-	Clu_2211r_LNP = (Clu_0_LNP + Clu_u_LNP*SUL(0,0)).real();
-	Clu_2212r_LNP = (Clu_u_LNP*SUL(0,1)).real();
-	Clu_2212i_LNP = (Clu_u_LNP*SUL(0,1)).imag();
-	Clu_2213r_LNP = (Clu_u_LNP*SUL(0,2)).real();
-	Clu_2213i_LNP = (Clu_u_LNP*SUL(0,2)).imag();
-	Clu_2222r_LNP = (Clu_0_LNP + Clu_u_LNP*SUL(1,1)).real();
-	Clu_2223r_LNP = (Clu_u_LNP*SUL(1,2)).real();
-	Clu_2223i_LNP = (Clu_u_LNP*SUL(1,2)).imag();
-	Clu_2233r_LNP = (Clu_0_LNP + Clu_u_LNP*SUL(2,2)).real();
-	Clu_3311r_LNP = (Clu_0_LNP + Clu_u_LNP*SUL(0,0)).real();
-	Clu_3312r_LNP = (Clu_u_LNP*SUL(0,1)).real();
-	Clu_3312i_LNP = (Clu_u_LNP*SUL(0,1)).imag();
-	Clu_3313r_LNP = (Clu_u_LNP*SUL(0,2)).real();
-	Clu_3313i_LNP = (Clu_u_LNP*SUL(0,2)).imag();
-	Clu_3322r_LNP = (Clu_0_LNP + Clu_u_LNP*SUL(1,1)).real();
-	Clu_3323r_LNP = (Clu_u_LNP*SUL(1,2)).real();
-	Clu_3323i_LNP = (Clu_u_LNP*SUL(1,2)).imag();
-	Clu_3333r_LNP = (Clu_0_LNP + Clu_u_LNP*SUL(2,2)).real();
+	Cll_1111r_LNP = (Cll_00_LNP + 2*Cll_l0_LNP*Yl2L(0) + Cllp_00_LNP + 2*Cllp_l0_LNP*Yl2L(0)).real();
+	Cll_1122r_LNP = (Cll_00_LNP + Cll_l0_LNP*Yl2L(0) + Cll_l0_LNP*Yl2L(1)).real();
+	Cll_1133r_LNP = (Cll_00_LNP + Cll_l0_LNP*Yl2L(0) + Cll_l0_LNP*Yl2L(2)).real();
+	Cll_1221r_LNP = (Cllp_00_LNP + Cllp_l0_LNP*Yl2L(0) + Cllp_l0_LNP*Yl2L(1)).real();
+	Cll_1331r_LNP = (Cllp_00_LNP + Cllp_l0_LNP*Yl2L(0) + Cllp_l0_LNP*Yl2L(2)).real();
+	Cll_2222r_LNP = (Cll_00_LNP + 2*Cll_l0_LNP*Yl2L(1) + Cllp_00_LNP + 2*Cllp_l0_LNP*Yl2L(1)).real();
+	Cll_2233r_LNP = (Cll_00_LNP + Cll_l0_LNP*Yl2L(1) + Cll_l0_LNP*Yl2L(2)).real();
+	Cll_2332r_LNP = (Cllp_00_LNP + Cllp_l0_LNP*Yl2L(1) + Cllp_l0_LNP*Yl2L(2)).real();
+	Cll_3333r_LNP = (Cll_00_LNP + 2*Cll_l0_LNP*Yl2L(2) + Cllp_00_LNP + 2*Cllp_l0_LNP*Yl2L(2)).real();
 
-	Ceu_1111r_LNP = (Ceu_0_LNP + Ceu_u_LNP*SUL(0,0)).real();
-	Ceu_1112r_LNP = (Ceu_u_LNP*SUL(0,1)).real();
-	Ceu_1112i_LNP = (Ceu_u_LNP*SUL(0,1)).imag();
-	Ceu_1113r_LNP = (Ceu_u_LNP*SUL(0,2)).real();
-	Ceu_1113i_LNP = (Ceu_u_LNP*SUL(0,2)).imag();
-	Ceu_1122r_LNP = (Ceu_0_LNP + Ceu_u_LNP*SUL(1,1)).real();
-	Ceu_1123r_LNP = (Ceu_u_LNP*SUL(1,2)).real();
-	Ceu_1123i_LNP = (Ceu_u_LNP*SUL(1,2)).imag();
-	Ceu_1133r_LNP = (Ceu_0_LNP + Ceu_u_LNP*SUL(2,2)).real();
-	Ceu_2211r_LNP = (Ceu_0_LNP + Ceu_u_LNP*SUL(0,0)).real();
-	Ceu_2212r_LNP = (Ceu_u_LNP*SUL(0,1)).real();
-	Ceu_2212i_LNP = (Ceu_u_LNP*SUL(0,1)).imag();
-	Ceu_2213r_LNP = (Ceu_u_LNP*SUL(0,2)).real();
-	Ceu_2213i_LNP = (Ceu_u_LNP*SUL(0,2)).imag();
-	Ceu_2222r_LNP = (Ceu_0_LNP + Ceu_u_LNP*SUL(1,1)).real();
-	Ceu_2223r_LNP = (Ceu_u_LNP*SUL(1,2)).real();
-	Ceu_2223i_LNP = (Ceu_u_LNP*SUL(1,2)).imag();
-	Ceu_2233r_LNP = (Ceu_0_LNP + Ceu_u_LNP*SUL(2,2)).real();
-	Ceu_3311r_LNP = (Ceu_0_LNP + Ceu_u_LNP*SUL(0,0)).real();
-	Ceu_3312r_LNP = (Ceu_u_LNP*SUL(0,1)).real();
-	Ceu_3312i_LNP = (Ceu_u_LNP*SUL(0,1)).imag();
-	Ceu_3313r_LNP = (Ceu_u_LNP*SUL(0,2)).real();
-	Ceu_3313i_LNP = (Ceu_u_LNP*SUL(0,2)).imag();
-	Ceu_3322r_LNP = (Ceu_0_LNP + Ceu_u_LNP*SUL(1,1)).real();
-	Ceu_3323r_LNP = (Ceu_u_LNP*SUL(1,2)).real();
-	Ceu_3323i_LNP = (Ceu_u_LNP*SUL(1,2)).imag();
-	Ceu_3333r_LNP = (Ceu_0_LNP + Ceu_u_LNP*SUL(2,2)).real();
+	Cee_1111r_LNP = (Cee_00_LNP + 2*Cee_e0_LNP*Yl2L(0)).real();
+	Cee_1122r_LNP = (Cee_00_LNP + Cee_e0_LNP*Yl2L(0) + Cee_e0_LNP*Yl2L(1)).real();
+	Cee_1133r_LNP = (Cee_00_LNP + Cee_e0_LNP*Yl2L(0) + Cee_e0_LNP*Yl2L(2)).real();
+	Cee_2222r_LNP = (Cee_00_LNP + 2*Cee_e0_LNP*Yl2L(1)).real();
+	Cee_2233r_LNP = (Cee_00_LNP + Cee_e0_LNP*Yl2L(1) + Cee_e0_LNP*Yl2L(2)).real();
+	Cee_3333r_LNP = (Cee_00_LNP + 2*Cee_e0_LNP*Yl2L(2)).real();
 
-	Cld_1111r_LNP = (Cld_0_LNP + Cld_d_LNP*SDL(0,0)).real();
-	Cld_1112r_LNP = (Cld_d_LNP*SDL(0,1)).real();
-	Cld_1112i_LNP = (Cld_d_LNP*SDL(0,1)).imag();
-	Cld_1113r_LNP = (Cld_d_LNP*SDL(0,2)).real();
-	Cld_1113i_LNP = (Cld_d_LNP*SDL(0,2)).imag();
-	Cld_1122r_LNP = (Cld_0_LNP + Cld_d_LNP*SDL(1,1)).real();
-	Cld_1123r_LNP = (Cld_d_LNP*SDL(1,2)).real();
-	Cld_1123i_LNP = (Cld_d_LNP*SDL(1,2)).imag();
-	Cld_1133r_LNP = (Cld_0_LNP + Cld_d_LNP*SDL(2,2)).real();
-	Cld_2211r_LNP = (Cld_0_LNP + Cld_d_LNP*SDL(0,0)).real();
-	Cld_2212r_LNP = (Cld_d_LNP*SDL(0,1)).real();
-	Cld_2212i_LNP = (Cld_d_LNP*SDL(0,1)).imag();
-	Cld_2213r_LNP = (Cld_d_LNP*SDL(0,2)).real();
-	Cld_2213i_LNP = (Cld_d_LNP*SDL(0,2)).imag();
-	Cld_2222r_LNP = (Cld_0_LNP + Cld_d_LNP*SDL(1,1)).real();
-	Cld_2223r_LNP = (Cld_d_LNP*SDL(1,2)).real();
-	Cld_2223i_LNP = (Cld_d_LNP*SDL(1,2)).imag();
-	Cld_2233r_LNP = (Cld_0_LNP + Cld_d_LNP*SDL(2,2)).real();
-	Cld_3311r_LNP = (Cld_0_LNP + Cld_d_LNP*SDL(0,0)).real();
-	Cld_3312r_LNP = (Cld_d_LNP*SDL(0,1)).real();
-	Cld_3312i_LNP = (Cld_d_LNP*SDL(0,1)).imag();
-	Cld_3313r_LNP = (Cld_d_LNP*SDL(0,2)).real();
-	Cld_3313i_LNP = (Cld_d_LNP*SDL(0,2)).imag();
-	Cld_3322r_LNP = (Cld_0_LNP + Cld_d_LNP*SDL(1,1)).real();
-	Cld_3323r_LNP = (Cld_d_LNP*SDL(1,2)).real();
-	Cld_3323i_LNP = (Cld_d_LNP*SDL(1,2)).imag();
-	Cld_3333r_LNP = (Cld_0_LNP + Cld_d_LNP*SDL(2,2)).real();
+	Cle_1111r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(0) + Cle_l0_LNP*Yl2L(0)).real();
+	Cle_1122r_LNP = (Cle_00_LNP + Cle_l0_LNP*Yl2L(0) + Cle_0e_LNP*Yl2L(1)).real();
+	Cle_1133r_LNP = (Cle_00_LNP + Cle_l0_LNP*Yl2L(0) + Cle_0e_LNP*Yl2L(2)).real();
+	Cle_2211r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(0) + Cle_l0_LNP*Yl2L(1)).real();
+	Cle_2222r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(1) + Cle_l0_LNP*Yl2L(1)).real();
+	Cle_2233r_LNP = (Cle_00_LNP + Cle_l0_LNP*Yl2L(1) + Cle_0e_LNP*Yl2L(2)).real();
+	Cle_3311r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(0) + Cle_l0_LNP*Yl2L(2)).real();
+	Cle_3322r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(1) + Cle_l0_LNP*Yl2L(2)).real();
+	Cle_3333r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(2) + Cle_l0_LNP*Yl2L(2)).real();
 
-	Ced_1111r_LNP = (Ced_0_LNP + Ced_d_LNP*SDL(0,0)).real();
-	Ced_1112r_LNP = (Ced_d_LNP*SDL(0,1)).real();
-	Ced_1112i_LNP = (Ced_d_LNP*SDL(0,1)).imag();
-	Ced_1113r_LNP = (Ced_d_LNP*SDL(0,2)).real();
-	Ced_1113i_LNP = (Ced_d_LNP*SDL(0,2)).imag();
-	Ced_1122r_LNP = (Ced_0_LNP + Ced_d_LNP*SDL(1,1)).real();
-	Ced_1123r_LNP = (Ced_d_LNP*SDL(1,2)).real();
-	Ced_1123i_LNP = (Ced_d_LNP*SDL(1,2)).imag();
-	Ced_1133r_LNP = (Ced_0_LNP + Ced_d_LNP*SDL(2,2)).real();
-	Ced_2211r_LNP = (Ced_0_LNP + Ced_d_LNP*SDL(0,0)).real();
-	Ced_2212r_LNP = (Ced_d_LNP*SDL(0,1)).real();
-	Ced_2212i_LNP = (Ced_d_LNP*SDL(0,1)).imag();
-	Ced_2213r_LNP = (Ced_d_LNP*SDL(0,2)).real();
-	Ced_2213i_LNP = (Ced_d_LNP*SDL(0,2)).imag();
-	Ced_2222r_LNP = (Ced_0_LNP + Ced_d_LNP*SDL(1,1)).real();
-	Ced_2223r_LNP = (Ced_d_LNP*SDL(1,2)).real();
-	Ced_2223i_LNP = (Ced_d_LNP*SDL(1,2)).imag();
-	Ced_2233r_LNP = (Ced_0_LNP + Ced_d_LNP*SDL(2,2)).real();
-	Ced_3311r_LNP = (Ced_0_LNP + Ced_d_LNP*SDL(0,0)).real();
-	Ced_3312r_LNP = (Ced_d_LNP*SDL(0,1)).real();
-	Ced_3312i_LNP = (Ced_d_LNP*SDL(0,1)).imag();
-	Ced_3313r_LNP = (Ced_d_LNP*SDL(0,2)).real();
-	Ced_3313i_LNP = (Ced_d_LNP*SDL(0,2)).imag();
-	Ced_3322r_LNP = (Ced_0_LNP + Ced_d_LNP*SDL(1,1)).real();
-	Ced_3323r_LNP = (Ced_d_LNP*SDL(1,2)).real();
-	Ced_3323i_LNP = (Ced_d_LNP*SDL(1,2)).imag();
-	Ced_3333r_LNP = (Ced_0_LNP + Ced_d_LNP*SDL(2,2)).real();
+	Clq1_1111r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(0,0) + Clq1_0u_LNP*SQUL(0,0) + Clq1_l0_LNP*Yl2L(0)).real();
+	Clq1_1112r_LNP = (Clq1_0d_LNP*SQDL(0,1) + Clq1_0u_LNP*SQUL(0,1)).real();
+	Clq1_1112i_LNP = (Clq1_0d_LNP*SQDL(0,1) + Clq1_0u_LNP*SQUL(0,1)).imag();
+	Clq1_1113r_LNP = (Clq1_0d_LNP*SQDL(0,2) + Clq1_0u_LNP*SQUL(0,2)).real();
+	Clq1_1113i_LNP = (Clq1_0d_LNP*SQDL(0,2) + Clq1_0u_LNP*SQUL(0,2)).imag();
+	Clq1_1122r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(1,1) + Clq1_0u_LNP*SQUL(1,1) + Clq1_l0_LNP*Yl2L(0)).real();
+	Clq1_1123r_LNP = (Clq1_0d_LNP*SQDL(1,2) + Clq1_0u_LNP*SQUL(1,2)).real();
+	Clq1_1123i_LNP = (Clq1_0d_LNP*SQDL(1,2) + Clq1_0u_LNP*SQUL(1,2)).imag();
+	Clq1_1133r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(2,2) + Clq1_0u_LNP*SQUL(2,2) + Clq1_l0_LNP*Yl2L(0)).real();
+	Clq1_2211r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(0,0) + Clq1_0u_LNP*SQUL(0,0) + Clq1_l0_LNP*Yl2L(1)).real();
+	Clq1_2212r_LNP = (Clq1_0d_LNP*SQDL(0,1) + Clq1_0u_LNP*SQUL(0,1)).real();
+	Clq1_2212i_LNP = (Clq1_0d_LNP*SQDL(0,1) + Clq1_0u_LNP*SQUL(0,1)).imag();
+	Clq1_2213r_LNP = (Clq1_0d_LNP*SQDL(0,2) + Clq1_0u_LNP*SQUL(0,2)).real();
+	Clq1_2213i_LNP = (Clq1_0d_LNP*SQDL(0,2) + Clq1_0u_LNP*SQUL(0,2)).imag();
+	Clq1_2222r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(1,1) + Clq1_0u_LNP*SQUL(1,1) + Clq1_l0_LNP*Yl2L(1)).real();
+	Clq1_2223r_LNP = (Clq1_0d_LNP*SQDL(1,2) + Clq1_0u_LNP*SQUL(1,2)).real();
+	Clq1_2223i_LNP = (Clq1_0d_LNP*SQDL(1,2) + Clq1_0u_LNP*SQUL(1,2)).imag();
+	Clq1_2233r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(2,2) + Clq1_0u_LNP*SQUL(2,2) + Clq1_l0_LNP*Yl2L(1)).real();
+	Clq1_3311r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(0,0) + Clq1_0u_LNP*SQUL(0,0) + Clq1_l0_LNP*Yl2L(2)).real();
+	Clq1_3312r_LNP = (Clq1_0d_LNP*SQDL(0,1) + Clq1_0u_LNP*SQUL(0,1)).real();
+	Clq1_3312i_LNP = (Clq1_0d_LNP*SQDL(0,1) + Clq1_0u_LNP*SQUL(0,1)).imag();
+	Clq1_3313r_LNP = (Clq1_0d_LNP*SQDL(0,2) + Clq1_0u_LNP*SQUL(0,2)).real();
+	Clq1_3313i_LNP = (Clq1_0d_LNP*SQDL(0,2) + Clq1_0u_LNP*SQUL(0,2)).imag();
+	Clq1_3322r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(1,1) + Clq1_0u_LNP*SQUL(1,1) + Clq1_l0_LNP*Yl2L(2)).real();
+	Clq1_3323r_LNP = (Clq1_0d_LNP*SQDL(1,2) + Clq1_0u_LNP*SQUL(1,2)).real();
+	Clq1_3323i_LNP = (Clq1_0d_LNP*SQDL(1,2) + Clq1_0u_LNP*SQUL(1,2)).imag();
+	Clq1_3333r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(2,2) + Clq1_0u_LNP*SQUL(2,2) + Clq1_l0_LNP*Yl2L(2)).real();
+
+	Clq3_1111r_LNP = (Clq3_00_LNP + Clq3_0d_LNP*SQDL(0,0) + Clq3_0u_LNP*SQUL(0,0) + Clq3_l0_LNP*Yl2L(0)).real();
+	Clq3_1112r_LNP = (Clq3_0d_LNP*SQDL(0,1) + Clq3_0u_LNP*SQUL(0,1)).real();
+	Clq3_1112i_LNP = (Clq3_0d_LNP*SQDL(0,1) + Clq3_0u_LNP*SQUL(0,1)).imag();
+	Clq3_1113r_LNP = (Clq3_0d_LNP*SQDL(0,2) + Clq3_0u_LNP*SQUL(0,2)).real();
+	Clq3_1113i_LNP = (Clq3_0d_LNP*SQDL(0,2) + Clq3_0u_LNP*SQUL(0,2)).imag();
+	Clq3_1122r_LNP = (Clq3_00_LNP + Clq3_0d_LNP*SQDL(1,1) + Clq3_0u_LNP*SQUL(1,1) + Clq3_l0_LNP*Yl2L(0)).real();
+	Clq3_1123r_LNP = (Clq3_0d_LNP*SQDL(1,2) + Clq3_0u_LNP*SQUL(1,2)).real();
+	Clq3_1123i_LNP = (Clq3_0d_LNP*SQDL(1,2) + Clq3_0u_LNP*SQUL(1,2)).imag();
+	Clq3_1133r_LNP = (Clq3_00_LNP + Clq3_0d_LNP*SQDL(2,2) + Clq3_0u_LNP*SQUL(2,2) + Clq3_l0_LNP*Yl2L(0)).real();
+	Clq3_2211r_LNP = (Clq3_00_LNP + Clq3_0d_LNP*SQDL(0,0) + Clq3_0u_LNP*SQUL(0,0) + Clq3_l0_LNP*Yl2L(1)).real();
+	Clq3_2212r_LNP = (Clq3_0d_LNP*SQDL(0,1) + Clq3_0u_LNP*SQUL(0,1)).real();
+	Clq3_2212i_LNP = (Clq3_0d_LNP*SQDL(0,1) + Clq3_0u_LNP*SQUL(0,1)).imag();
+	Clq3_2213r_LNP = (Clq3_0d_LNP*SQDL(0,2) + Clq3_0u_LNP*SQUL(0,2)).real();
+	Clq3_2213i_LNP = (Clq3_0d_LNP*SQDL(0,2) + Clq3_0u_LNP*SQUL(0,2)).imag();
+	Clq3_2222r_LNP = (Clq3_00_LNP + Clq3_0d_LNP*SQDL(1,1) + Clq3_0u_LNP*SQUL(1,1) + Clq3_l0_LNP*Yl2L(1)).real();
+	Clq3_2223r_LNP = (Clq3_0d_LNP*SQDL(1,2) + Clq3_0u_LNP*SQUL(1,2)).real();
+	Clq3_2223i_LNP = (Clq3_0d_LNP*SQDL(1,2) + Clq3_0u_LNP*SQUL(1,2)).imag();
+	Clq3_2233r_LNP = (Clq3_00_LNP + Clq3_0d_LNP*SQDL(2,2) + Clq3_0u_LNP*SQUL(2,2) + Clq3_l0_LNP*Yl2L(1)).real();
+	Clq3_3311r_LNP = (Clq3_00_LNP + Clq3_0d_LNP*SQDL(0,0) + Clq3_0u_LNP*SQUL(0,0) + Clq3_l0_LNP*Yl2L(2)).real();
+	Clq3_3312r_LNP = (Clq3_0d_LNP*SQDL(0,1) + Clq3_0u_LNP*SQUL(0,1)).real();
+	Clq3_3312i_LNP = (Clq3_0d_LNP*SQDL(0,1) + Clq3_0u_LNP*SQUL(0,1)).imag();
+	Clq3_3313r_LNP = (Clq3_0d_LNP*SQDL(0,2) + Clq3_0u_LNP*SQUL(0,2)).real();
+	Clq3_3313i_LNP = (Clq3_0d_LNP*SQDL(0,2) + Clq3_0u_LNP*SQUL(0,2)).imag();
+	Clq3_3322r_LNP = (Clq3_00_LNP + Clq3_0d_LNP*SQDL(1,1) + Clq3_0u_LNP*SQUL(1,1) + Clq3_l0_LNP*Yl2L(2)).real();
+	Clq3_3323r_LNP = (Clq3_0d_LNP*SQDL(1,2) + Clq3_0u_LNP*SQUL(1,2)).real();
+	Clq3_3323i_LNP = (Clq3_0d_LNP*SQDL(1,2) + Clq3_0u_LNP*SQUL(1,2)).imag();
+	Clq3_3333r_LNP = (Clq3_00_LNP + Clq3_0d_LNP*SQDL(2,2) + Clq3_0u_LNP*SQUL(2,2) + Clq3_l0_LNP*Yl2L(2)).real();
+
+	Cqe_1111r_LNP = (Cqe_00_LNP + Cqe_d0_LNP*SQDL(0,0) + Cqe_u0_LNP*SQUL(0,0) + Cqe_0e_LNP*Yl2L(0)).real();
+	Cqe_1122r_LNP = (Cqe_00_LNP + Cqe_d0_LNP*SQDL(0,0) + Cqe_u0_LNP*SQUL(0,0) + Cqe_0e_LNP*Yl2L(1)).real();
+	Cqe_1133r_LNP = (Cqe_00_LNP + Cqe_d0_LNP*SQDL(0,0) + Cqe_u0_LNP*SQUL(0,0) + Cqe_0e_LNP*Yl2L(2)).real();
+	Cqe_1211r_LNP = (Cqe_d0_LNP*SQDL(0,1) + Cqe_u0_LNP*SQUL(0,1)).real();
+	Cqe_1211i_LNP = (Cqe_d0_LNP*SQDL(0,1) + Cqe_u0_LNP*SQUL(0,1)).imag();
+	Cqe_1222r_LNP = (Cqe_d0_LNP*SQDL(0,1) + Cqe_u0_LNP*SQUL(0,1)).real();
+	Cqe_1222i_LNP = (Cqe_d0_LNP*SQDL(0,1) + Cqe_u0_LNP*SQUL(0,1)).imag();
+	Cqe_1233r_LNP = (Cqe_d0_LNP*SQDL(0,1) + Cqe_u0_LNP*SQUL(0,1)).real();
+	Cqe_1233i_LNP = (Cqe_d0_LNP*SQDL(0,1) + Cqe_u0_LNP*SQUL(0,1)).imag();
+	Cqe_1311r_LNP = (Cqe_d0_LNP*SQDL(0,2) + Cqe_u0_LNP*SQUL(0,2)).real();
+	Cqe_1311i_LNP = (Cqe_d0_LNP*SQDL(0,2) + Cqe_u0_LNP*SQUL(0,2)).imag();
+	Cqe_1322r_LNP = (Cqe_d0_LNP*SQDL(0,2) + Cqe_u0_LNP*SQUL(0,2)).real();
+	Cqe_1322i_LNP = (Cqe_d0_LNP*SQDL(0,2) + Cqe_u0_LNP*SQUL(0,2)).imag();
+	Cqe_1333r_LNP = (Cqe_d0_LNP*SQDL(0,2) + Cqe_u0_LNP*SQUL(0,2)).real();
+	Cqe_1333i_LNP = (Cqe_d0_LNP*SQDL(0,2) + Cqe_u0_LNP*SQUL(0,2)).imag();
+	Cqe_2211r_LNP = (Cqe_00_LNP + Cqe_d0_LNP*SQDL(1,1) + Cqe_u0_LNP*SQUL(1,1) + Cqe_0e_LNP*Yl2L(0)).real();
+	Cqe_2222r_LNP = (Cqe_00_LNP + Cqe_d0_LNP*SQDL(1,1) + Cqe_u0_LNP*SQUL(1,1) + Cqe_0e_LNP*Yl2L(1)).real();
+	Cqe_2233r_LNP = (Cqe_00_LNP + Cqe_d0_LNP*SQDL(1,1) + Cqe_u0_LNP*SQUL(1,1) + Cqe_0e_LNP*Yl2L(2)).real();
+	Cqe_2311r_LNP = (Cqe_d0_LNP*SQDL(1,2) + Cqe_u0_LNP*SQUL(1,2)).real();
+	Cqe_2311i_LNP = (Cqe_d0_LNP*SQDL(1,2) + Cqe_u0_LNP*SQUL(1,2)).imag();
+	Cqe_2322r_LNP = (Cqe_d0_LNP*SQDL(1,2) + Cqe_u0_LNP*SQUL(1,2)).real();
+	Cqe_2322i_LNP = (Cqe_d0_LNP*SQDL(1,2) + Cqe_u0_LNP*SQUL(1,2)).imag();
+	Cqe_2333r_LNP = (Cqe_d0_LNP*SQDL(1,2) + Cqe_u0_LNP*SQUL(1,2)).real();
+	Cqe_2333i_LNP = (Cqe_d0_LNP*SQDL(1,2) + Cqe_u0_LNP*SQUL(1,2)).imag();
+	Cqe_3311r_LNP = (Cqe_00_LNP + Cqe_d0_LNP*SQDL(2,2) + Cqe_u0_LNP*SQUL(2,2) + Cqe_0e_LNP*Yl2L(0)).real();
+	Cqe_3322r_LNP = (Cqe_00_LNP + Cqe_d0_LNP*SQDL(2,2) + Cqe_u0_LNP*SQUL(2,2) + Cqe_0e_LNP*Yl2L(1)).real();
+	Cqe_3333r_LNP = (Cqe_00_LNP + Cqe_d0_LNP*SQDL(2,2) + Cqe_u0_LNP*SQUL(2,2) + Cqe_0e_LNP*Yl2L(2)).real();
+
+	Clu_1111r_LNP = (Clu_00_LNP + Clu_0u_LNP*SUL(0,0) + Clu_l0_LNP*Yl2L(0)).real();
+	Clu_1112r_LNP = (Clu_0u_LNP*SUL(0,1)).real();
+	Clu_1112i_LNP = (Clu_0u_LNP*SUL(0,1)).imag();
+	Clu_1113r_LNP = (Clu_0u_LNP*SUL(0,2)).real();
+	Clu_1113i_LNP = (Clu_0u_LNP*SUL(0,2)).imag();
+	Clu_1122r_LNP = (Clu_00_LNP + Clu_0u_LNP*SUL(1,1) + Clu_l0_LNP*Yl2L(0)).real();
+	Clu_1123r_LNP = (Clu_0u_LNP*SUL(1,2)).real();
+	Clu_1123i_LNP = (Clu_0u_LNP*SUL(1,2)).imag();
+	Clu_1133r_LNP = (Clu_00_LNP + Clu_0u_LNP*SUL(2,2) + Clu_l0_LNP*Yl2L(0)).real();
+	Clu_2211r_LNP = (Clu_00_LNP + Clu_0u_LNP*SUL(0,0) + Clu_l0_LNP*Yl2L(1)).real();
+	Clu_2212r_LNP = (Clu_0u_LNP*SUL(0,1)).real();
+	Clu_2212i_LNP = (Clu_0u_LNP*SUL(0,1)).imag();
+	Clu_2213r_LNP = (Clu_0u_LNP*SUL(0,2)).real();
+	Clu_2213i_LNP = (Clu_0u_LNP*SUL(0,2)).imag();
+	Clu_2222r_LNP = (Clu_00_LNP + Clu_0u_LNP*SUL(1,1) + Clu_l0_LNP*Yl2L(1)).real();
+	Clu_2223r_LNP = (Clu_0u_LNP*SUL(1,2)).real();
+	Clu_2223i_LNP = (Clu_0u_LNP*SUL(1,2)).imag();
+	Clu_2233r_LNP = (Clu_00_LNP + Clu_0u_LNP*SUL(2,2) + Clu_l0_LNP*Yl2L(1)).real();
+	Clu_3311r_LNP = (Clu_00_LNP + Clu_0u_LNP*SUL(0,0) + Clu_l0_LNP*Yl2L(2)).real();
+	Clu_3312r_LNP = (Clu_0u_LNP*SUL(0,1)).real();
+	Clu_3312i_LNP = (Clu_0u_LNP*SUL(0,1)).imag();
+	Clu_3313r_LNP = (Clu_0u_LNP*SUL(0,2)).real();
+	Clu_3313i_LNP = (Clu_0u_LNP*SUL(0,2)).imag();
+	Clu_3322r_LNP = (Clu_00_LNP + Clu_0u_LNP*SUL(1,1) + Clu_l0_LNP*Yl2L(2)).real();
+	Clu_3323r_LNP = (Clu_0u_LNP*SUL(1,2)).real();
+	Clu_3323i_LNP = (Clu_0u_LNP*SUL(1,2)).imag();
+	Clu_3333r_LNP = (Clu_00_LNP + Clu_0u_LNP*SUL(2,2) + Clu_l0_LNP*Yl2L(2)).real();
+
+	Cld_1111r_LNP = (Cld_00_LNP + Cld_0d_LNP*SDL(0,0) + Cld_l0_LNP*Yl2L(0)).real();
+	Cld_1112r_LNP = (Cld_0d_LNP*SDL(0,1)).real();
+	Cld_1112i_LNP = (Cld_0d_LNP*SDL(0,1)).imag();
+	Cld_1113r_LNP = (Cld_0d_LNP*SDL(0,2)).real();
+	Cld_1113i_LNP = (Cld_0d_LNP*SDL(0,2)).imag();
+	Cld_1122r_LNP = (Cld_00_LNP + Cld_0d_LNP*SDL(1,1) + Cld_l0_LNP*Yl2L(0)).real();
+	Cld_1123r_LNP = (Cld_0d_LNP*SDL(1,2)).real();
+	Cld_1123i_LNP = (Cld_0d_LNP*SDL(1,2)).imag();
+	Cld_1133r_LNP = (Cld_00_LNP + Cld_0d_LNP*SDL(2,2) + Cld_l0_LNP*Yl2L(0)).real();
+	Cld_2211r_LNP = (Cld_00_LNP + Cld_0d_LNP*SDL(0,0) + Cld_l0_LNP*Yl2L(1)).real();
+	Cld_2212r_LNP = (Cld_0d_LNP*SDL(0,1)).real();
+	Cld_2212i_LNP = (Cld_0d_LNP*SDL(0,1)).imag();
+	Cld_2213r_LNP = (Cld_0d_LNP*SDL(0,2)).real();
+	Cld_2213i_LNP = (Cld_0d_LNP*SDL(0,2)).imag();
+	Cld_2222r_LNP = (Cld_00_LNP + Cld_0d_LNP*SDL(1,1) + Cld_l0_LNP*Yl2L(1)).real();
+	Cld_2223r_LNP = (Cld_0d_LNP*SDL(1,2)).real();
+	Cld_2223i_LNP = (Cld_0d_LNP*SDL(1,2)).imag();
+	Cld_2233r_LNP = (Cld_00_LNP + Cld_0d_LNP*SDL(2,2) + Cld_l0_LNP*Yl2L(1)).real();
+	Cld_3311r_LNP = (Cld_00_LNP + Cld_0d_LNP*SDL(0,0) + Cld_l0_LNP*Yl2L(2)).real();
+	Cld_3312r_LNP = (Cld_0d_LNP*SDL(0,1)).real();
+	Cld_3312i_LNP = (Cld_0d_LNP*SDL(0,1)).imag();
+	Cld_3313r_LNP = (Cld_0d_LNP*SDL(0,2)).real();
+	Cld_3313i_LNP = (Cld_0d_LNP*SDL(0,2)).imag();
+	Cld_3322r_LNP = (Cld_00_LNP + Cld_0d_LNP*SDL(1,1) + Cld_l0_LNP*Yl2L(2)).real();
+	Cld_3323r_LNP = (Cld_0d_LNP*SDL(1,2)).real();
+	Cld_3323i_LNP = (Cld_0d_LNP*SDL(1,2)).imag();
+	Cld_3333r_LNP = (Cld_00_LNP + Cld_0d_LNP*SDL(2,2) + Cld_l0_LNP*Yl2L(2)).real();
+
+	Ceu_1111r_LNP = (Ceu_00_LNP + Ceu_0u_LNP*SUL(0,0) + Ceu_e0_LNP*Yl2L(0)).real();
+	Ceu_1112r_LNP = (Ceu_0u_LNP*SUL(0,1)).real();
+	Ceu_1112i_LNP = (Ceu_0u_LNP*SUL(0,1)).imag();
+	Ceu_1113r_LNP = (Ceu_0u_LNP*SUL(0,2)).real();
+	Ceu_1113i_LNP = (Ceu_0u_LNP*SUL(0,2)).imag();
+	Ceu_1122r_LNP = (Ceu_00_LNP + Ceu_0u_LNP*SUL(1,1) + Ceu_e0_LNP*Yl2L(0)).real();
+	Ceu_1123r_LNP = (Ceu_0u_LNP*SUL(1,2)).real();
+	Ceu_1123i_LNP = (Ceu_0u_LNP*SUL(1,2)).imag();
+	Ceu_1133r_LNP = (Ceu_00_LNP + Ceu_0u_LNP*SUL(2,2) + Ceu_e0_LNP*Yl2L(0)).real();
+	Ceu_2211r_LNP = (Ceu_00_LNP + Ceu_0u_LNP*SUL(0,0) + Ceu_e0_LNP*Yl2L(1)).real();
+	Ceu_2212r_LNP = (Ceu_0u_LNP*SUL(0,1)).real();
+	Ceu_2212i_LNP = (Ceu_0u_LNP*SUL(0,1)).imag();
+	Ceu_2213r_LNP = (Ceu_0u_LNP*SUL(0,2)).real();
+	Ceu_2213i_LNP = (Ceu_0u_LNP*SUL(0,2)).imag();
+	Ceu_2222r_LNP = (Ceu_00_LNP + Ceu_0u_LNP*SUL(1,1) + Ceu_e0_LNP*Yl2L(1)).real();
+	Ceu_2223r_LNP = (Ceu_0u_LNP*SUL(1,2)).real();
+	Ceu_2223i_LNP = (Ceu_0u_LNP*SUL(1,2)).imag();
+	Ceu_2233r_LNP = (Ceu_00_LNP + Ceu_0u_LNP*SUL(2,2) + Ceu_e0_LNP*Yl2L(1)).real();
+	Ceu_3311r_LNP = (Ceu_00_LNP + Ceu_0u_LNP*SUL(0,0) + Ceu_e0_LNP*Yl2L(2)).real();
+	Ceu_3312r_LNP = (Ceu_0u_LNP*SUL(0,1)).real();
+	Ceu_3312i_LNP = (Ceu_0u_LNP*SUL(0,1)).imag();
+	Ceu_3313r_LNP = (Ceu_0u_LNP*SUL(0,2)).real();
+	Ceu_3313i_LNP = (Ceu_0u_LNP*SUL(0,2)).imag();
+	Ceu_3322r_LNP = (Ceu_00_LNP + Ceu_0u_LNP*SUL(1,1) + Ceu_e0_LNP*Yl2L(2)).real();
+	Ceu_3323r_LNP = (Ceu_0u_LNP*SUL(1,2)).real();
+	Ceu_3323i_LNP = (Ceu_0u_LNP*SUL(1,2)).imag();
+	Ceu_3333r_LNP = (Ceu_00_LNP + Ceu_0u_LNP*SUL(2,2) + Ceu_e0_LNP*Yl2L(2)).real();
+
+	Ced_1111r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(0,0) + Ced_e0_LNP*Yl2L(0)).real();
+	Ced_1112r_LNP = (Ced_0d_LNP*SDL(0,1)).real();
+	Ced_1112i_LNP = (Ced_0d_LNP*SDL(0,1)).imag();
+	Ced_1113r_LNP = (Ced_0d_LNP*SDL(0,2)).real();
+	Ced_1113i_LNP = (Ced_0d_LNP*SDL(0,2)).imag();
+	Ced_1122r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(1,1) + Ced_e0_LNP*Yl2L(0)).real();
+	Ced_1123r_LNP = (Ced_0d_LNP*SDL(1,2)).real();
+	Ced_1123i_LNP = (Ced_0d_LNP*SDL(1,2)).imag();
+	Ced_1133r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(2,2) + Ced_e0_LNP*Yl2L(0)).real();
+	Ced_2211r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(0,0) + Ced_e0_LNP*Yl2L(1)).real();
+	Ced_2212r_LNP = (Ced_0d_LNP*SDL(0,1)).real();
+	Ced_2212i_LNP = (Ced_0d_LNP*SDL(0,1)).imag();
+	Ced_2213r_LNP = (Ced_0d_LNP*SDL(0,2)).real();
+	Ced_2213i_LNP = (Ced_0d_LNP*SDL(0,2)).imag();
+	Ced_2222r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(1,1) + Ced_e0_LNP*Yl2L(1)).real();
+	Ced_2223r_LNP = (Ced_0d_LNP*SDL(1,2)).real();
+	Ced_2223i_LNP = (Ced_0d_LNP*SDL(1,2)).imag();
+	Ced_2233r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(2,2) + Ced_e0_LNP*Yl2L(1)).real();
+	Ced_3311r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(0,0) + Ced_e0_LNP*Yl2L(2)).real();
+	Ced_3312r_LNP = (Ced_0d_LNP*SDL(0,1)).real();
+	Ced_3312i_LNP = (Ced_0d_LNP*SDL(0,1)).imag();
+	Ced_3313r_LNP = (Ced_0d_LNP*SDL(0,2)).real();
+	Ced_3313i_LNP = (Ced_0d_LNP*SDL(0,2)).imag();
+	Ced_3322r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(1,1) + Ced_e0_LNP*Yl2L(2)).real();
+	Ced_3323r_LNP = (Ced_0d_LNP*SDL(1,2)).real();
+	Ced_3323i_LNP = (Ced_0d_LNP*SDL(1,2)).imag();
+	Ced_3333r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(2,2) + Ced_e0_LNP*Yl2L(2)).real();
 
 	Cqq1_1111r_LNP = (Cqq1_00_LNP + 2*Cqq1_d0_LNP*SQDL(0,0) + Cqq1_dd_LNP*SQDL(0,0)*SQDL(0,0) + 2*Cqq1_u0_LNP*SQUL(0,0) + 2*Cqq1_ud_LNP*SQDL(0,0)*SQUL(0,0) + Cqq1_uu_LNP*SQUL(0,0)*SQUL(0,0) + Cqq1p_00_LNP + 2*Cqq1p_d0_LNP*SQDL(0,0) + Cqq1p_dd_LNP*SQDL(0,0)*SQDL(0,0) + 2*Cqq1p_u0_LNP*SQUL(0,0) + 2*Cqq1p_ud_LNP*SQDL(0,0)*SQUL(0,0) + Cqq1p_uu_LNP*SQUL(0,0)*SQUL(0,0)).real();
 	Cqq1_1112r_LNP = (Cqq1_d0_LNP*SQDL(0,1) + Cqq1_dd_LNP*SQDL(0,0)*SQDL(0,1) + Cqq1_ud_LNP*SQDL(0,1)*SQUL(0,0) + Cqq1_u0_LNP*SQUL(0,1) + Cqq1_ud_LNP*SQDL(0,0)*SQUL(0,1) + Cqq1_uu_LNP*SQUL(0,0)*SQUL(0,1) + Cqq1p_d0_LNP*SQDL(0,1) + Cqq1p_dd_LNP*SQDL(0,0)*SQDL(0,1) + Cqq1p_ud_LNP*SQDL(0,1)*SQUL(0,0) + Cqq1p_u0_LNP*SQUL(0,1) + Cqq1p_ud_LNP*SQDL(0,0)*SQUL(0,1) + Cqq1p_uu_LNP*SQUL(0,0)*SQUL(0,1)).real();
@@ -1748,6 +1852,171 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Cqd8_3323r_LNP = (Cqd8_0d_LNP*SDL(1,2) + Cqd8_dd_LNP*SDL(1,2)*SQDL(2,2) + Cqd8_ud_LNP*SDL(1,2)*SQUL(2,2) + Cqd8_yd_LNP*SQDYdcL(1,2)*YdcL(2,2) + Cqd8_dy_LNP*SQDYdcL(2,2)*YdL(1,2) + Cqd8_uy_LNP*SQUYdcL(2,2)*YdL(1,2) + Cqd8_y_LNP*YdcL(2,2)*YdL(1,2) + Cqd8_yu_LNP*YdcL(2,2)*YdSQUL(1,2)).real();
 	Cqd8_3323i_LNP = (Cqd8_0d_LNP*SDL(1,2) + Cqd8_dd_LNP*SDL(1,2)*SQDL(2,2) + Cqd8_ud_LNP*SDL(1,2)*SQUL(2,2) + Cqd8_yd_LNP*SQDYdcL(1,2)*YdcL(2,2) + Cqd8_dy_LNP*SQDYdcL(2,2)*YdL(1,2) + Cqd8_uy_LNP*SQUYdcL(2,2)*YdL(1,2) + Cqd8_y_LNP*YdcL(2,2)*YdL(1,2) + Cqd8_yu_LNP*YdcL(2,2)*YdSQUL(1,2)).imag();
 	Cqd8_3333r_LNP = (Cqd8_00_LNP + Cqd8_0d_LNP*SDL(2,2) + Cqd8_d0_LNP*SQDL(2,2) + Cqd8_dd_LNP*SDL(2,2)*SQDL(2,2) + Cqd8_u0_LNP*SQUL(2,2) + Cqd8_ud_LNP*SDL(2,2)*SQUL(2,2) + Cqd8_yd_LNP*SQDYdcL(2,2)*YdcL(2,2) + Cqd8_dy_LNP*SQDYdcL(2,2)*YdL(2,2) + Cqd8_uy_LNP*SQUYdcL(2,2)*YdL(2,2) + Cqd8_y_LNP*YdcL(2,2)*YdL(2,2) + Cqd8_yu_LNP*YdcL(2,2)*YdSQUL(2,2)).real();
+
+	Cledq_1111r_LNP = (Cledq_00_LNP*YdL(0,0)*YlL(0)).real();
+	Cledq_1111i_LNP = (Cledq_00_LNP*YdL(0,0)*YlL(0)).imag();
+	Cledq_1112r_LNP = (Cledq_00_LNP*YdL(0,1)*YlL(0)).real();
+	Cledq_1112i_LNP = (Cledq_00_LNP*YdL(0,1)*YlL(0)).imag();
+	Cledq_1113r_LNP = (Cledq_00_LNP*YdL(0,2)*YlL(0)).real();
+	Cledq_1113i_LNP = (Cledq_00_LNP*YdL(0,2)*YlL(0)).imag();
+	Cledq_1121r_LNP = (Cledq_00_LNP*YdL(1,0)*YlL(0)).real();
+	Cledq_1121i_LNP = (Cledq_00_LNP*YdL(1,0)*YlL(0)).imag();
+	Cledq_1122r_LNP = (Cledq_00_LNP*YdL(1,1)*YlL(0)).real();
+	Cledq_1122i_LNP = (Cledq_00_LNP*YdL(1,1)*YlL(0)).imag();
+	Cledq_1123r_LNP = (Cledq_00_LNP*YdL(1,2)*YlL(0)).real();
+	Cledq_1123i_LNP = (Cledq_00_LNP*YdL(1,2)*YlL(0)).imag();
+	Cledq_1131r_LNP = (Cledq_00_LNP*YdL(2,0)*YlL(0)).real();
+	Cledq_1131i_LNP = (Cledq_00_LNP*YdL(2,0)*YlL(0)).imag();
+	Cledq_1132r_LNP = (Cledq_00_LNP*YdL(2,1)*YlL(0)).real();
+	Cledq_1132i_LNP = (Cledq_00_LNP*YdL(2,1)*YlL(0)).imag();
+	Cledq_1133r_LNP = (Cledq_00_LNP*YdL(2,2)*YlL(0)).real();
+	Cledq_1133i_LNP = (Cledq_00_LNP*YdL(2,2)*YlL(0)).imag();
+	Cledq_2211r_LNP = (Cledq_00_LNP*YdL(0,0)*YlL(1)).real();
+	Cledq_2211i_LNP = (Cledq_00_LNP*YdL(0,0)*YlL(1)).imag();
+	Cledq_2212r_LNP = (Cledq_00_LNP*YdL(0,1)*YlL(1)).real();
+	Cledq_2212i_LNP = (Cledq_00_LNP*YdL(0,1)*YlL(1)).imag();
+	Cledq_2213r_LNP = (Cledq_00_LNP*YdL(0,2)*YlL(1)).real();
+	Cledq_2213i_LNP = (Cledq_00_LNP*YdL(0,2)*YlL(1)).imag();
+	Cledq_2221r_LNP = (Cledq_00_LNP*YdL(1,0)*YlL(1)).real();
+	Cledq_2221i_LNP = (Cledq_00_LNP*YdL(1,0)*YlL(1)).imag();
+	Cledq_2222r_LNP = (Cledq_00_LNP*YdL(1,1)*YlL(1)).real();
+	Cledq_2222i_LNP = (Cledq_00_LNP*YdL(1,1)*YlL(1)).imag();
+	Cledq_2223r_LNP = (Cledq_00_LNP*YdL(1,2)*YlL(1)).real();
+	Cledq_2223i_LNP = (Cledq_00_LNP*YdL(1,2)*YlL(1)).imag();
+	Cledq_2231r_LNP = (Cledq_00_LNP*YdL(2,0)*YlL(1)).real();
+	Cledq_2231i_LNP = (Cledq_00_LNP*YdL(2,0)*YlL(1)).imag();
+	Cledq_2232r_LNP = (Cledq_00_LNP*YdL(2,1)*YlL(1)).real();
+	Cledq_2232i_LNP = (Cledq_00_LNP*YdL(2,1)*YlL(1)).imag();
+	Cledq_2233r_LNP = (Cledq_00_LNP*YdL(2,2)*YlL(1)).real();
+	Cledq_2233i_LNP = (Cledq_00_LNP*YdL(2,2)*YlL(1)).imag();
+	Cledq_3311r_LNP = (Cledq_00_LNP*YdL(0,0)*YlL(2)).real();
+	Cledq_3311i_LNP = (Cledq_00_LNP*YdL(0,0)*YlL(2)).imag();
+	Cledq_3312r_LNP = (Cledq_00_LNP*YdL(0,1)*YlL(2)).real();
+	Cledq_3312i_LNP = (Cledq_00_LNP*YdL(0,1)*YlL(2)).imag();
+	Cledq_3313r_LNP = (Cledq_00_LNP*YdL(0,2)*YlL(2)).real();
+	Cledq_3313i_LNP = (Cledq_00_LNP*YdL(0,2)*YlL(2)).imag();
+	Cledq_3321r_LNP = (Cledq_00_LNP*YdL(1,0)*YlL(2)).real();
+	Cledq_3321i_LNP = (Cledq_00_LNP*YdL(1,0)*YlL(2)).imag();
+	Cledq_3322r_LNP = (Cledq_00_LNP*YdL(1,1)*YlL(2)).real();
+	Cledq_3322i_LNP = (Cledq_00_LNP*YdL(1,1)*YlL(2)).imag();
+	Cledq_3323r_LNP = (Cledq_00_LNP*YdL(1,2)*YlL(2)).real();
+	Cledq_3323i_LNP = (Cledq_00_LNP*YdL(1,2)*YlL(2)).imag();
+	Cledq_3331r_LNP = (Cledq_00_LNP*YdL(2,0)*YlL(2)).real();
+	Cledq_3331i_LNP = (Cledq_00_LNP*YdL(2,0)*YlL(2)).imag();
+	Cledq_3332r_LNP = (Cledq_00_LNP*YdL(2,1)*YlL(2)).real();
+	Cledq_3332i_LNP = (Cledq_00_LNP*YdL(2,1)*YlL(2)).imag();
+	Cledq_3333r_LNP = (Cledq_00_LNP*YdL(2,2)*YlL(2)).real();
+	Cledq_3333i_LNP = (Cledq_00_LNP*YdL(2,2)*YlL(2)).imag();
+
+	Clequ1_1111r_LNP = (Clequ1_00_LNP*YlL(0)*YucL(0,0)).real();
+	Clequ1_1111i_LNP = (Clequ1_00_LNP*YlL(0)*YucL(0,0)).imag();
+	Clequ1_1112r_LNP = (Clequ1_00_LNP*YlL(0)*YucL(0,1)).real();
+	Clequ1_1112i_LNP = (Clequ1_00_LNP*YlL(0)*YucL(0,1)).imag();
+	Clequ1_1113r_LNP = (Clequ1_00_LNP*YlL(0)*YucL(0,2)).real();
+	Clequ1_1113i_LNP = (Clequ1_00_LNP*YlL(0)*YucL(0,2)).imag();
+	Clequ1_1121r_LNP = (Clequ1_00_LNP*YlL(0)*YucL(1,0)).real();
+	Clequ1_1121i_LNP = (Clequ1_00_LNP*YlL(0)*YucL(1,0)).imag();
+	Clequ1_1122r_LNP = (Clequ1_00_LNP*YlL(0)*YucL(1,1)).real();
+	Clequ1_1122i_LNP = (Clequ1_00_LNP*YlL(0)*YucL(1,1)).imag();
+	Clequ1_1123r_LNP = (Clequ1_00_LNP*YlL(0)*YucL(1,2)).real();
+	Clequ1_1123i_LNP = (Clequ1_00_LNP*YlL(0)*YucL(1,2)).imag();
+	Clequ1_1131r_LNP = (Clequ1_00_LNP*YlL(0)*YucL(2,0)).real();
+	Clequ1_1131i_LNP = (Clequ1_00_LNP*YlL(0)*YucL(2,0)).imag();
+	Clequ1_1132r_LNP = (Clequ1_00_LNP*YlL(0)*YucL(2,1)).real();
+	Clequ1_1132i_LNP = (Clequ1_00_LNP*YlL(0)*YucL(2,1)).imag();
+	Clequ1_1133r_LNP = (Clequ1_00_LNP*YlL(0)*YucL(2,2)).real();
+	Clequ1_1133i_LNP = (Clequ1_00_LNP*YlL(0)*YucL(2,2)).imag();
+	Clequ1_2211r_LNP = (Clequ1_00_LNP*YlL(1)*YucL(0,0)).real();
+	Clequ1_2211i_LNP = (Clequ1_00_LNP*YlL(1)*YucL(0,0)).imag();
+	Clequ1_2212r_LNP = (Clequ1_00_LNP*YlL(1)*YucL(0,1)).real();
+	Clequ1_2212i_LNP = (Clequ1_00_LNP*YlL(1)*YucL(0,1)).imag();
+	Clequ1_2213r_LNP = (Clequ1_00_LNP*YlL(1)*YucL(0,2)).real();
+	Clequ1_2213i_LNP = (Clequ1_00_LNP*YlL(1)*YucL(0,2)).imag();
+	Clequ1_2221r_LNP = (Clequ1_00_LNP*YlL(1)*YucL(1,0)).real();
+	Clequ1_2221i_LNP = (Clequ1_00_LNP*YlL(1)*YucL(1,0)).imag();
+	Clequ1_2222r_LNP = (Clequ1_00_LNP*YlL(1)*YucL(1,1)).real();
+	Clequ1_2222i_LNP = (Clequ1_00_LNP*YlL(1)*YucL(1,1)).imag();
+	Clequ1_2223r_LNP = (Clequ1_00_LNP*YlL(1)*YucL(1,2)).real();
+	Clequ1_2223i_LNP = (Clequ1_00_LNP*YlL(1)*YucL(1,2)).imag();
+	Clequ1_2231r_LNP = (Clequ1_00_LNP*YlL(1)*YucL(2,0)).real();
+	Clequ1_2231i_LNP = (Clequ1_00_LNP*YlL(1)*YucL(2,0)).imag();
+	Clequ1_2232r_LNP = (Clequ1_00_LNP*YlL(1)*YucL(2,1)).real();
+	Clequ1_2232i_LNP = (Clequ1_00_LNP*YlL(1)*YucL(2,1)).imag();
+	Clequ1_2233r_LNP = (Clequ1_00_LNP*YlL(1)*YucL(2,2)).real();
+	Clequ1_2233i_LNP = (Clequ1_00_LNP*YlL(1)*YucL(2,2)).imag();
+	Clequ1_3311r_LNP = (Clequ1_00_LNP*YlL(2)*YucL(0,0)).real();
+	Clequ1_3311i_LNP = (Clequ1_00_LNP*YlL(2)*YucL(0,0)).imag();
+	Clequ1_3312r_LNP = (Clequ1_00_LNP*YlL(2)*YucL(0,1)).real();
+	Clequ1_3312i_LNP = (Clequ1_00_LNP*YlL(2)*YucL(0,1)).imag();
+	Clequ1_3313r_LNP = (Clequ1_00_LNP*YlL(2)*YucL(0,2)).real();
+	Clequ1_3313i_LNP = (Clequ1_00_LNP*YlL(2)*YucL(0,2)).imag();
+	Clequ1_3321r_LNP = (Clequ1_00_LNP*YlL(2)*YucL(1,0)).real();
+	Clequ1_3321i_LNP = (Clequ1_00_LNP*YlL(2)*YucL(1,0)).imag();
+	Clequ1_3322r_LNP = (Clequ1_00_LNP*YlL(2)*YucL(1,1)).real();
+	Clequ1_3322i_LNP = (Clequ1_00_LNP*YlL(2)*YucL(1,1)).imag();
+	Clequ1_3323r_LNP = (Clequ1_00_LNP*YlL(2)*YucL(1,2)).real();
+	Clequ1_3323i_LNP = (Clequ1_00_LNP*YlL(2)*YucL(1,2)).imag();
+	Clequ1_3331r_LNP = (Clequ1_00_LNP*YlL(2)*YucL(2,0)).real();
+	Clequ1_3331i_LNP = (Clequ1_00_LNP*YlL(2)*YucL(2,0)).imag();
+	Clequ1_3332r_LNP = (Clequ1_00_LNP*YlL(2)*YucL(2,1)).real();
+	Clequ1_3332i_LNP = (Clequ1_00_LNP*YlL(2)*YucL(2,1)).imag();
+	Clequ1_3333r_LNP = (Clequ1_00_LNP*YlL(2)*YucL(2,2)).real();
+	Clequ1_3333i_LNP = (Clequ1_00_LNP*YlL(2)*YucL(2,2)).imag();
+
+	Clequ3_1111r_LNP = (Clequ3_00_LNP*YlL(0)*YucL(0,0)).real();
+	Clequ3_1111i_LNP = (Clequ3_00_LNP*YlL(0)*YucL(0,0)).imag();
+	Clequ3_1112r_LNP = (Clequ3_00_LNP*YlL(0)*YucL(0,1)).real();
+	Clequ3_1112i_LNP = (Clequ3_00_LNP*YlL(0)*YucL(0,1)).imag();
+	Clequ3_1113r_LNP = (Clequ3_00_LNP*YlL(0)*YucL(0,2)).real();
+	Clequ3_1113i_LNP = (Clequ3_00_LNP*YlL(0)*YucL(0,2)).imag();
+	Clequ3_1121r_LNP = (Clequ3_00_LNP*YlL(0)*YucL(1,0)).real();
+	Clequ3_1121i_LNP = (Clequ3_00_LNP*YlL(0)*YucL(1,0)).imag();
+	Clequ3_1122r_LNP = (Clequ3_00_LNP*YlL(0)*YucL(1,1)).real();
+	Clequ3_1122i_LNP = (Clequ3_00_LNP*YlL(0)*YucL(1,1)).imag();
+	Clequ3_1123r_LNP = (Clequ3_00_LNP*YlL(0)*YucL(1,2)).real();
+	Clequ3_1123i_LNP = (Clequ3_00_LNP*YlL(0)*YucL(1,2)).imag();
+	Clequ3_1131r_LNP = (Clequ3_00_LNP*YlL(0)*YucL(2,0)).real();
+	Clequ3_1131i_LNP = (Clequ3_00_LNP*YlL(0)*YucL(2,0)).imag();
+	Clequ3_1132r_LNP = (Clequ3_00_LNP*YlL(0)*YucL(2,1)).real();
+	Clequ3_1132i_LNP = (Clequ3_00_LNP*YlL(0)*YucL(2,1)).imag();
+	Clequ3_1133r_LNP = (Clequ3_00_LNP*YlL(0)*YucL(2,2)).real();
+	Clequ3_1133i_LNP = (Clequ3_00_LNP*YlL(0)*YucL(2,2)).imag();
+	Clequ3_2211r_LNP = (Clequ3_00_LNP*YlL(1)*YucL(0,0)).real();
+	Clequ3_2211i_LNP = (Clequ3_00_LNP*YlL(1)*YucL(0,0)).imag();
+	Clequ3_2212r_LNP = (Clequ3_00_LNP*YlL(1)*YucL(0,1)).real();
+	Clequ3_2212i_LNP = (Clequ3_00_LNP*YlL(1)*YucL(0,1)).imag();
+	Clequ3_2213r_LNP = (Clequ3_00_LNP*YlL(1)*YucL(0,2)).real();
+	Clequ3_2213i_LNP = (Clequ3_00_LNP*YlL(1)*YucL(0,2)).imag();
+	Clequ3_2221r_LNP = (Clequ3_00_LNP*YlL(1)*YucL(1,0)).real();
+	Clequ3_2221i_LNP = (Clequ3_00_LNP*YlL(1)*YucL(1,0)).imag();
+	Clequ3_2222r_LNP = (Clequ3_00_LNP*YlL(1)*YucL(1,1)).real();
+	Clequ3_2222i_LNP = (Clequ3_00_LNP*YlL(1)*YucL(1,1)).imag();
+	Clequ3_2223r_LNP = (Clequ3_00_LNP*YlL(1)*YucL(1,2)).real();
+	Clequ3_2223i_LNP = (Clequ3_00_LNP*YlL(1)*YucL(1,2)).imag();
+	Clequ3_2231r_LNP = (Clequ3_00_LNP*YlL(1)*YucL(2,0)).real();
+	Clequ3_2231i_LNP = (Clequ3_00_LNP*YlL(1)*YucL(2,0)).imag();
+	Clequ3_2232r_LNP = (Clequ3_00_LNP*YlL(1)*YucL(2,1)).real();
+	Clequ3_2232i_LNP = (Clequ3_00_LNP*YlL(1)*YucL(2,1)).imag();
+	Clequ3_2233r_LNP = (Clequ3_00_LNP*YlL(1)*YucL(2,2)).real();
+	Clequ3_2233i_LNP = (Clequ3_00_LNP*YlL(1)*YucL(2,2)).imag();
+	Clequ3_3311r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(0,0)).real();
+	Clequ3_3311i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(0,0)).imag();
+	Clequ3_3312r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(0,1)).real();
+	Clequ3_3312i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(0,1)).imag();
+	Clequ3_3313r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(0,2)).real();
+	Clequ3_3313i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(0,2)).imag();
+	Clequ3_3321r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(1,0)).real();
+	Clequ3_3321i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(1,0)).imag();
+	Clequ3_3322r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(1,1)).real();
+	Clequ3_3322i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(1,1)).imag();
+	Clequ3_3323r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(1,2)).real();
+	Clequ3_3323i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(1,2)).imag();
+	Clequ3_3331r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(2,0)).real();
+	Clequ3_3331i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(2,0)).imag();
+	Clequ3_3332r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(2,1)).real();
+	Clequ3_3332i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(2,1)).imag();
+	Clequ3_3333r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(2,2)).real();
+	Clequ3_3333i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(2,2)).imag();
 
 	Cquqd1_1111r_LNP = (Cquqd1_d0_LNP*SQDYucL(0,0)*YdcL(0,0) + Cquqd1_u0_LNP*SQUYucL(0,0)*YdcL(0,0) + Cquqd1_0d_LNP*SQDYdcL(0,0)*YucL(0,0) + Cquqd1_0u_LNP*SQUYdcL(0,0)*YucL(0,0) + Cquqd1_00_LNP*YdcL(0,0)*YucL(0,0) + Cquqd1p_d0_LNP*SQDYucL(0,0)*YdcL(0,0) + Cquqd1p_u0_LNP*SQUYucL(0,0)*YdcL(0,0) + Cquqd1p_0d_LNP*SQDYdcL(0,0)*YucL(0,0) + Cquqd1p_0u_LNP*SQUYdcL(0,0)*YucL(0,0) + Cquqd1p_00_LNP*YdcL(0,0)*YucL(0,0)).real();
 	Cquqd1_1111i_LNP = (Cquqd1_d0_LNP*SQDYucL(0,0)*YdcL(0,0) + Cquqd1_u0_LNP*SQUYucL(0,0)*YdcL(0,0) + Cquqd1_0d_LNP*SQDYdcL(0,0)*YucL(0,0) + Cquqd1_0u_LNP*SQUYdcL(0,0)*YucL(0,0) + Cquqd1_00_LNP*YdcL(0,0)*YucL(0,0) + Cquqd1p_d0_LNP*SQDYucL(0,0)*YdcL(0,0) + Cquqd1p_u0_LNP*SQUYucL(0,0)*YdcL(0,0) + Cquqd1p_0d_LNP*SQDYdcL(0,0)*YucL(0,0) + Cquqd1p_0u_LNP*SQUYdcL(0,0)*YucL(0,0) + Cquqd1p_00_LNP*YdcL(0,0)*YucL(0,0)).imag();
