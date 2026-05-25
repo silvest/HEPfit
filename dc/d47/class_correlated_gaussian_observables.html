@@ -490,7 +490,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#a01f868d4c4e6d1ed92252c6ecba01660">Obs</a>.size(); i++) {</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordtype">double</span> xi_backup = <a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#a9f01edd62f107b7062818c79c286ccfb">x</a>(i);</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#a9f01edd62f107b7062818c79c286ccfb">x</a>(i) = 0.0;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        weights.push_back(0.5 * <a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#a9f01edd62f107b7062818c79c286ccfb">x</a> * (<a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#af564c38c5deffd42131864a48234c7f1">InvCov</a> * <a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#a9f01edd62f107b7062818c79c286ccfb">x</a>)+weights.at(0));</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        weights.push_back(0.5 * <a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#a9f01edd62f107b7062818c79c286ccfb">x</a> * (<a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#af564c38c5deffd42131864a48234c7f1">InvCov</a> * <a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#a9f01edd62f107b7062818c79c286ccfb">x</a>)+weights.at(0)); <span class="comment">// The weight is computed as the difference between the full weight and the weight with one observable left out, which is equivalent to 0.5 * x * (InvCov * x) with the corresponding xi set to zero.</span></div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <a class="code hl_variable" href="../../dc/d47/class_correlated_gaussian_observables.html#a9f01edd62f107b7062818c79c286ccfb">x</a>(i) = xi_backup;</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
@@ -1275,7 +1275,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dc/d47/class_correlated_gaussian_observables.html">CorrelatedGaussianObservables</a></li>
-    <li class="footer">Generated on Fri May 8 2026 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Mon May 25 2026 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
