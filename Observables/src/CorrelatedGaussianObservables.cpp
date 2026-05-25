@@ -113,7 +113,7 @@ std::vector<double> CorrelatedGaussianObservables::computeLeaveOneOutWeights() {
     for (unsigned int i = 0; i < Obs.size(); i++) {
         double xi_backup = x(i);
         x(i) = 0.0;
-        weights.push_back(0.5 * x * (InvCov * x)+weights.at(0));
+        weights.push_back(0.5 * x * (InvCov * x)+weights.at(0)); // The weight is computed as the difference between the full weight and the weight with one observable left out, which is equivalent to 0.5 * x * (InvCov * x) with the corresponding xi set to zero.
         x(i) = xi_backup;
     }
 
