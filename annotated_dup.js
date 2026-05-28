@@ -2347,6 +2347,7 @@ var annotated_dup =
     [ "NPSMEFTd6General", "d1/d9e/class_n_p_s_m_e_f_td6_general.html", "d1/d9e/class_n_p_s_m_e_f_td6_general" ],
     [ "NPSMEFTd6GeneralMatching", "d9/d18/class_n_p_s_m_e_f_td6_general_matching.html", "d9/d18/class_n_p_s_m_e_f_td6_general_matching" ],
     [ "NPSMEFTd6Matching", "de/d13/class_n_p_s_m_e_f_td6_matching.html", "de/d13/class_n_p_s_m_e_f_td6_matching" ],
+    [ "NPSMEFTd6MFP", "d2/d56/class_n_p_s_m_e_f_td6_m_f_p.html", "d2/d56/class_n_p_s_m_e_f_td6_m_f_p" ],
     [ "NPSMEFTd6MFV", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v" ],
     [ "NPSMEFTd6U2", "d5/dfe/class_n_p_s_m_e_f_td6_u2.html", "d5/dfe/class_n_p_s_m_e_f_td6_u2" ],
     [ "NPSMEFTd6U2qU1le", "d8/dcc/class_n_p_s_m_e_f_td6_u2q_u1le.html", "d8/dcc/class_n_p_s_m_e_f_td6_u2q_u1le" ],
