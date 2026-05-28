@@ -14,7 +14,7 @@
 class NPSMEFTd6MFV: public NPSMEFTd6General {
 public:
     
-    static const int NNPSMEFTd6MFVVars = 199+1;
+    static const int NNPSMEFTd6MFVVars = 200+1;
     
     static std::string NPSMEFTd6MFVVars[NNPSMEFTd6MFVVars];
     
@@ -95,7 +95,7 @@ protected:
 	double Cee_00_LNP = 0., Cee_e0_LNP = 0.;
 
 	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{le})_{ijkm}\f$.
-	double Cle_00_LNP = 0., Cle_l0_LNP = 0., Cle_0e_LNP = 0.;
+	double Cle_00_LNP = 0., Cle_l0_LNP = 0., Cle_0e_LNP = 0., Cle_y_LNP = 0.;
 
 	///< Coefficients of the MFV expansion of the dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}\f$.
 	double Clq1_00_LNP = 0., Clq1_l0_LNP = 0., Clq1_0u_LNP = 0., Clq1_0d_LNP = 0.;

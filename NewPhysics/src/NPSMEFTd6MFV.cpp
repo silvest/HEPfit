@@ -18,24 +18,24 @@ std::string NPSMEFTd6MFV::NPSMEFTd6MFVVars[NNPSMEFTd6MFVVars] = {
 	"CdB_d_LNP","CeH_0_LNP","CeW_0_LNP","CeB_0_LNP","CHq1_0_LNP","CHq1_u_LNP","CHq1_d_LNP","CHq3_0_LNP",
 	"CHq3_u_LNP","CHq3_d_LNP","CHu_0_LNP","CHu_u_LNP","CHd_0_LNP","CHd_d_LNP","CHud_ud_LNP","CHl1_0_LNP",
 	"CHl1_l_LNP","CHl3_0_LNP","CHl3_l_LNP","CHe_0_LNP","CHe_e_LNP","Cll_00_LNP","Cll_l0_LNP","Cllp_00_LNP",
-	"Cllp_l0_LNP","Cee_00_LNP","Cee_e0_LNP","Cle_00_LNP","Cle_l0_LNP","Cle_0e_LNP","Clq1_00_LNP","Clq1_l0_LNP",
-	"Clq1_0u_LNP","Clq1_0d_LNP","Clq3_00_LNP","Clq3_l0_LNP","Clq3_0u_LNP","Clq3_0d_LNP","Cqe_00_LNP","Cqe_u0_LNP",
-	"Cqe_d0_LNP","Cqe_0e_LNP","Clu_00_LNP","Clu_l0_LNP","Clu_0u_LNP","Cld_00_LNP","Cld_l0_LNP","Cld_0d_LNP",
-	"Ceu_00_LNP","Ceu_e0_LNP","Ceu_0u_LNP","Ced_00_LNP","Ced_e0_LNP","Ced_0d_LNP","Cqq1_00_LNP","Cqq1_u0_LNP",
-	"Cqq1_d0_LNP","Cqq1_uu_LNP","Cqq1_dd_LNP","Cqq1_ud_LNP","Cqq1p_00_LNP","Cqq1p_u0_LNP","Cqq1p_d0_LNP","Cqq1p_uu_LNP",
-	"Cqq1p_dd_LNP","Cqq1p_ud_LNP","Cqq3_00_LNP","Cqq3_u0_LNP","Cqq3_d0_LNP","Cqq3_uu_LNP","Cqq3_dd_LNP","Cqq3_ud_LNP",
-	"Cqq3p_00_LNP","Cqq3p_u0_LNP","Cqq3p_d0_LNP","Cqq3p_uu_LNP","Cqq3p_dd_LNP","Cqq3p_ud_LNP","Cuu_00_LNP","Cuu_u0_LNP",
-	"Cuu_uu_LNP","Cuup_00_LNP","Cuup_u0_LNP","Cuup_uu_LNP","Cdd_00_LNP","Cdd_d0_LNP","Cdd_dd_LNP","Cddp_00_LNP",
-	"Cddp_d0_LNP","Cddp_dd_LNP","Cud1_00_LNP","Cud1_u0_LNP","Cud1_0d_LNP","Cud1_ud_LNP","Cud1p_ud_LNP","Cud8_00_LNP",
-	"Cud8_u0_LNP","Cud8_0d_LNP","Cud8_ud_LNP","Cud8p_ud_LNP","Cqu1_00_LNP","Cqu1_u0_LNP","Cqu1_d0_LNP","Cqu1_0u_LNP",
-	"Cqu1_uu_LNP","Cqu1_du_LNP","Cqu1_y_LNP","Cqu1_uy_LNP","Cqu1_dy_LNP","Cqu1_yu_LNP","Cqu1_yd_LNP","Cqu8_00_LNP",
-	"Cqu8_u0_LNP","Cqu8_d0_LNP","Cqu8_0u_LNP","Cqu8_uu_LNP","Cqu8_du_LNP","Cqu8_y_LNP","Cqu8_uy_LNP","Cqu8_dy_LNP",
-	"Cqu8_yu_LNP","Cqu8_yd_LNP","Cqd1_00_LNP","Cqd1_u0_LNP","Cqd1_d0_LNP","Cqd1_0d_LNP","Cqd1_ud_LNP","Cqd1_dd_LNP",
-	"Cqd1_y_LNP","Cqd1_uy_LNP","Cqd1_dy_LNP","Cqd1_yu_LNP","Cqd1_yd_LNP","Cqd8_00_LNP","Cqd8_u0_LNP","Cqd8_d0_LNP",
-	"Cqd8_0d_LNP","Cqd8_ud_LNP","Cqd8_dd_LNP","Cqd8_y_LNP","Cqd8_uy_LNP","Cqd8_dy_LNP","Cqd8_yu_LNP","Cqd8_yd_LNP",
-	"Cledq_00_LNP","Clequ1_00_LNP","Clequ3_00_LNP","Cquqd1_00_LNP","Cquqd1_u0_LNP","Cquqd1_d0_LNP","Cquqd1_0u_LNP","Cquqd1_0d_LNP",
-	"Cquqd1p_00_LNP","Cquqd1p_u0_LNP","Cquqd1p_d0_LNP","Cquqd1p_0u_LNP","Cquqd1p_0d_LNP","Cquqd8_00_LNP","Cquqd8_u0_LNP","Cquqd8_d0_LNP",
-	"Cquqd8_0u_LNP","Cquqd8_0d_LNP","Cquqd8p_00_LNP","Cquqd8p_u0_LNP","Cquqd8p_d0_LNP","Cquqd8p_0u_LNP","Cquqd8p_0d_LNP",
+	"Cllp_l0_LNP","Cee_00_LNP","Cee_e0_LNP","Cle_00_LNP","Cle_l0_LNP","Cle_0e_LNP","Cle_y_LNP","Clq1_00_LNP",
+	"Clq1_l0_LNP","Clq1_0u_LNP","Clq1_0d_LNP","Clq3_00_LNP","Clq3_l0_LNP","Clq3_0u_LNP","Clq3_0d_LNP","Cqe_00_LNP",
+	"Cqe_u0_LNP","Cqe_d0_LNP","Cqe_0e_LNP","Clu_00_LNP","Clu_l0_LNP","Clu_0u_LNP","Cld_00_LNP","Cld_l0_LNP",
+	"Cld_0d_LNP","Ceu_00_LNP","Ceu_e0_LNP","Ceu_0u_LNP","Ced_00_LNP","Ced_e0_LNP","Ced_0d_LNP","Cqq1_00_LNP",
+	"Cqq1_u0_LNP","Cqq1_d0_LNP","Cqq1_uu_LNP","Cqq1_dd_LNP","Cqq1_ud_LNP","Cqq1p_00_LNP","Cqq1p_u0_LNP","Cqq1p_d0_LNP",
+	"Cqq1p_uu_LNP","Cqq1p_dd_LNP","Cqq1p_ud_LNP","Cqq3_00_LNP","Cqq3_u0_LNP","Cqq3_d0_LNP","Cqq3_uu_LNP","Cqq3_dd_LNP",
+	"Cqq3_ud_LNP","Cqq3p_00_LNP","Cqq3p_u0_LNP","Cqq3p_d0_LNP","Cqq3p_uu_LNP","Cqq3p_dd_LNP","Cqq3p_ud_LNP","Cuu_00_LNP",
+	"Cuu_u0_LNP","Cuu_uu_LNP","Cuup_00_LNP","Cuup_u0_LNP","Cuup_uu_LNP","Cdd_00_LNP","Cdd_d0_LNP","Cdd_dd_LNP",
+	"Cddp_00_LNP","Cddp_d0_LNP","Cddp_dd_LNP","Cud1_00_LNP","Cud1_u0_LNP","Cud1_0d_LNP","Cud1_ud_LNP","Cud1p_ud_LNP",
+	"Cud8_00_LNP","Cud8_u0_LNP","Cud8_0d_LNP","Cud8_ud_LNP","Cud8p_ud_LNP","Cqu1_00_LNP","Cqu1_u0_LNP","Cqu1_d0_LNP",
+	"Cqu1_0u_LNP","Cqu1_uu_LNP","Cqu1_du_LNP","Cqu1_y_LNP","Cqu1_uy_LNP","Cqu1_dy_LNP","Cqu1_yu_LNP","Cqu1_yd_LNP",
+	"Cqu8_00_LNP","Cqu8_u0_LNP","Cqu8_d0_LNP","Cqu8_0u_LNP","Cqu8_uu_LNP","Cqu8_du_LNP","Cqu8_y_LNP","Cqu8_uy_LNP",
+	"Cqu8_dy_LNP","Cqu8_yu_LNP","Cqu8_yd_LNP","Cqd1_00_LNP","Cqd1_u0_LNP","Cqd1_d0_LNP","Cqd1_0d_LNP","Cqd1_ud_LNP",
+	"Cqd1_dd_LNP","Cqd1_y_LNP","Cqd1_uy_LNP","Cqd1_dy_LNP","Cqd1_yu_LNP","Cqd1_yd_LNP","Cqd8_00_LNP","Cqd8_u0_LNP",
+	"Cqd8_d0_LNP","Cqd8_0d_LNP","Cqd8_ud_LNP","Cqd8_dd_LNP","Cqd8_y_LNP","Cqd8_uy_LNP","Cqd8_dy_LNP","Cqd8_yu_LNP",
+	"Cqd8_yd_LNP","Cledq_00_LNP","Clequ1_00_LNP","Clequ3_00_LNP","Cquqd1_00_LNP","Cquqd1_u0_LNP","Cquqd1_d0_LNP","Cquqd1_0u_LNP",
+	"Cquqd1_0d_LNP","Cquqd1p_00_LNP","Cquqd1p_u0_LNP","Cquqd1p_d0_LNP","Cquqd1p_0u_LNP","Cquqd1p_0d_LNP","Cquqd8_00_LNP","Cquqd8_u0_LNP",
+	"Cquqd8_d0_LNP","Cquqd8_0u_LNP","Cquqd8_0d_LNP","Cquqd8p_00_LNP","Cquqd8p_u0_LNP","Cquqd8p_d0_LNP","Cquqd8p_0u_LNP","Cquqd8p_0d_LNP",
     "Lambda_NP"
 };
 
@@ -103,6 +103,7 @@ NPSMEFTd6MFV::NPSMEFTd6MFV(): NPSMEFTd6General() {
 	ModelParamMap.insert(std::make_pair("Cle_00_LNP",std::cref(Cle_00_LNP)));
 	ModelParamMap.insert(std::make_pair("Cle_l0_LNP",std::cref(Cle_l0_LNP)));
 	ModelParamMap.insert(std::make_pair("Cle_0e_LNP",std::cref(Cle_0e_LNP)));
+	ModelParamMap.insert(std::make_pair("Cle_y_LNP",std::cref(Cle_y_LNP)));
 	ModelParamMap.insert(std::make_pair("Clq1_00_LNP",std::cref(Clq1_00_LNP)));
 	ModelParamMap.insert(std::make_pair("Clq1_l0_LNP",std::cref(Clq1_l0_LNP)));
 	ModelParamMap.insert(std::make_pair("Clq1_0u_LNP",std::cref(Clq1_0u_LNP)));
@@ -368,6 +369,8 @@ void NPSMEFTd6MFV::setParameter(const std::string name, const double& value) {
 		Cle_l0_LNP = value;
 	} else if (name.compare("Cle_0e_LNP") == 0) {
 		Cle_0e_LNP = value;
+	} else if (name.compare("Cle_y_LNP") == 0) {
+		Cle_y_LNP = value;
 	} else if (name.compare("Clq1_00_LNP") == 0) {
 		Clq1_00_LNP = value;
 	} else if (name.compare("Clq1_l0_LNP") == 0) {
@@ -971,15 +974,21 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Cee_2233r_LNP = (Cee_00_LNP + Cee_e0_LNP*Yl2L(1) + Cee_e0_LNP*Yl2L(2)).real();
 	Cee_3333r_LNP = (Cee_00_LNP + 2*Cee_e0_LNP*Yl2L(2)).real();
 
-	Cle_1111r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(0) + Cle_l0_LNP*Yl2L(0)).real();
+	Cle_1111r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(0) + Cle_l0_LNP*Yl2L(0) + Cle_y_LNP*YlL(0)*YlL(0)).real();
 	Cle_1122r_LNP = (Cle_00_LNP + Cle_l0_LNP*Yl2L(0) + Cle_0e_LNP*Yl2L(1)).real();
 	Cle_1133r_LNP = (Cle_00_LNP + Cle_l0_LNP*Yl2L(0) + Cle_0e_LNP*Yl2L(2)).real();
+	Cle_1221r_LNP = (Cle_y_LNP*YlL(0)*YlL(1)).real();
+	Cle_1221i_LNP = (Cle_y_LNP*YlL(0)*YlL(1)).imag();
+	Cle_1331r_LNP = (Cle_y_LNP*YlL(0)*YlL(2)).real();
+	Cle_1331i_LNP = (Cle_y_LNP*YlL(0)*YlL(2)).imag();
 	Cle_2211r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(0) + Cle_l0_LNP*Yl2L(1)).real();
-	Cle_2222r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(1) + Cle_l0_LNP*Yl2L(1)).real();
+	Cle_2222r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(1) + Cle_l0_LNP*Yl2L(1) + Cle_y_LNP*YlL(1)*YlL(1)).real();
 	Cle_2233r_LNP = (Cle_00_LNP + Cle_l0_LNP*Yl2L(1) + Cle_0e_LNP*Yl2L(2)).real();
+	Cle_2332r_LNP = (Cle_y_LNP*YlL(1)*YlL(2)).real();
+	Cle_2332i_LNP = (Cle_y_LNP*YlL(1)*YlL(2)).imag();
 	Cle_3311r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(0) + Cle_l0_LNP*Yl2L(2)).real();
 	Cle_3322r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(1) + Cle_l0_LNP*Yl2L(2)).real();
-	Cle_3333r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(2) + Cle_l0_LNP*Yl2L(2)).real();
+	Cle_3333r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(2) + Cle_l0_LNP*Yl2L(2) + Cle_y_LNP*YlL(2)*YlL(2)).real();
 
 	Clq1_1111r_LNP = (Clq1_00_LNP + Clq1_0d_LNP*SQDL(0,0) + Clq1_0u_LNP*SQUL(0,0) + Clq1_l0_LNP*Yl2L(0)).real();
 	Clq1_1112r_LNP = (Clq1_0d_LNP*SQDL(0,1) + Clq1_0u_LNP*SQUL(0,1)).real();
