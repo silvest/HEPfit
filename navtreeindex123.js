@@ -1,5 +1,6 @@
 var NAVTREEINDEX123 =
 {
+"de/d85/class_particle.html#aa9ee582256e1b303da867e384772061f":[4,0,19,3],
 "de/d85/class_particle.html#adfaa80de34958757e0e0397acf1cee22":[4,0,19,4],
 "de/d85/class_particle.html#ae6d46dc24a6666d526f211151fecca5f":[4,0,19,21],
 "de/d85/class_particle.html#af583faf22ecb74e2356e012ab642ae80":[4,0,19,19],
@@ -248,6 +249,5 @@ var NAVTREEINDEX123 =
 "de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#aa7b2e5fbfce7d2b5e3b02cf1d4466191":[114,0,1,6,13],
 "de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#ab8b9c8fa39e2f7c58c4343a3361fd511":[114,0,1,6,8],
 "de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#ac2df7903e2d00f8cb506e3d31670c164":[114,0,1,6,10],
-"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#ac4054758c37186a18553f85feb305c07":[114,0,1,6,2],
-"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#aeeb138395ac469d93a3411e96d364bd6":[114,0,1,6,14]
+"de/dbd/class_l_h_p_c_1_1_flavor_observable_error.html#ac4054758c37186a18553f85feb305c07":[114,0,1,6,2]
 };

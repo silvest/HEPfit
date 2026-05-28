@@ -1,5 +1,6 @@
 var NAVTREEINDEX96 =
 {
+"db/db6/class_effective_e_d_mcouplings.html#aa219d4fe4f17d39dadd7f513e3acb324":[4,0,2,2],
 "db/db6/class_effective_e_d_mcouplings.html#aacbcaa743d976554ae2101200dc7b33b":[4,0,2,0],
 "db/db6/class_unitarity_v___m_vlnu.html":[114,0,3142],
 "db/db6/class_unitarity_v___m_vlnu.html#a15da6ea41a591988924cc5544fea8024":[114,0,3142,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX96 =
 "db/df1/class_robs__gg_f___a__tautau___a_t_l_a_s8.html":[4,17,317],
 "db/df1/class_robs__gg_f___a__tautau___a_t_l_a_s8.html#a117c94864b996d149c14ced539b25ddf":[4,17,317,1],
 "db/df1/class_robs__gg_f___a__tautau___a_t_l_a_s8.html#a12fbb6319049511e2f3f981c21737598":[4,17,317,0],
-"db/df1/class_robs__gg_f___a__tautau___a_t_l_a_s8.html#a54db5142c925ea3eedccdac8fb5b10d8":[4,17,317,2],
-"db/df1/class_s_t_x_s12__qq_hll__p_t_v0__75.html":[4,13,405]
+"db/df1/class_robs__gg_f___a__tautau___a_t_l_a_s8.html#a54db5142c925ea3eedccdac8fb5b10d8":[4,17,317,2]
 };

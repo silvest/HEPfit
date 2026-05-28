@@ -1,5 +1,6 @@
 var NAVTREEINDEX95 =
 {
+"db/d89/class_s_t_x_sqq_hqq___rest__4l.html#aff48f668e4932be3a706cceb1fd1ae2f":[4,13,492,3],
 "db/d8a/class_s__5.html":[4,5,187],
 "db/d8a/class_s__5.html#a4f46e76b184518f0be057cf2d02616ad":[4,5,187,1],
 "db/d8a/class_s__5.html#a71177a91d2c05834c8cc9237f98c044a":[4,5,187,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX95 =
 "db/db5/class_amp_d_k2.html#af32b43337304cf1bf6dd3ad182e1187c":[4,5,33,2],
 "db/db6/class_effective_e_d_mcouplings.html":[4,0,2],
 "db/db6/class_effective_e_d_mcouplings.html#a30a49a7c28f268d040368af1d8965132":[4,0,2,1],
-"db/db6/class_effective_e_d_mcouplings.html#a33e4379ac4c47b923c0d150020c62766":[4,0,2,3],
-"db/db6/class_effective_e_d_mcouplings.html#aa219d4fe4f17d39dadd7f513e3acb324":[4,0,2,2]
+"db/db6/class_effective_e_d_mcouplings.html#a33e4379ac4c47b923c0d150020c62766":[4,0,2,3]
 };

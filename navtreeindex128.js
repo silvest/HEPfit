@@ -1,5 +1,6 @@
 var NAVTREEINDEX128 =
 {
+"df/d18/classeeff_a_f_belectrontsub.html#a1c9bd2cf40b22ee1cf9b23d759881e8f":[4,3,23,0],
 "df/d18/classeeff_a_f_belectrontsub.html#a761cf6855f3fa8c161bb8f4de9ff839c":[4,3,23,1],
 "df/d19/class_aux_obs_n_p12.html":[114,0,154],
 "df/d19/class_aux_obs_n_p12.html#a36e6a201e495483a7d2a10190e947f69":[114,0,154,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX128 =
 "df/d3f/class_w_hbb.html#ab7fb3464cff4e6e727dccb7b6e760f11":[4,13,520,2],
 "df/d40/class_v_b_f_htautau.html":[4,13,517],
 "df/d40/class_v_b_f_htautau.html#a41dc26bb359bd59e57c6d1df1f9b7f95":[4,13,517,2],
-"df/d40/class_v_b_f_htautau.html#ab82a4b99b39e53209d85153dad1d95b9":[4,13,517,0],
-"df/d40/class_v_b_f_htautau.html#ac3a3fd3cc3c5d541f8ce5a6ead144540":[4,13,517,3]
+"df/d40/class_v_b_f_htautau.html#ab82a4b99b39e53209d85153dad1d95b9":[4,13,517,0]
 };
