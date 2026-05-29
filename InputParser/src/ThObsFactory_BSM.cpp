@@ -16,6 +16,7 @@
 #include "THDMWObservables.h"
 /* END: REMOVE FROM THE PACKAGE */
 #include "GeorgiMachacekObservables.h"
+#include "FlavourWilsonCoefficient_DF2_Observables.h"
 using namespace ThObsConst;
 
 void ThObsFactory::registerBSMObservables()
@@ -58,6 +59,51 @@ void ThObsFactory::registerBSMObservables()
     obsThFactory["Mneu3"] = [=](const StandardModel& SM) { return new Mneutralino(SM, 2); };
     obsThFactory["Mneu4"] = [=](const StandardModel& SM) { return new Mneutralino(SM, 3); };
     obsThFactory["Mw_dRho"] = [](const StandardModel& SM) { return new Mw_dRho(SM); };
+
+    //-----  FlavourWilsonCoefficient_DF2 observables  -----
+    obsThFactory["WC_abs_C1_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 0, 0); };
+    obsThFactory["WC_abs_C2_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 1, 0); };
+    obsThFactory["WC_abs_C3_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 2, 0); };
+    obsThFactory["WC_abs_C4_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 3, 0); };
+    obsThFactory["WC_abs_C5_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 4, 0); };
+    obsThFactory["WC_arg_C1_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 0, 1); };
+    obsThFactory["WC_arg_C2_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 1, 1); };
+    obsThFactory["WC_arg_C3_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 2, 1); };
+    obsThFactory["WC_arg_C4_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 3, 1); };
+    obsThFactory["WC_arg_C5_s"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CK(SM, 4, 1); };
+
+    obsThFactory["WC_abs_C1_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 0, 0); };
+    obsThFactory["WC_abs_C2_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 1, 0); };
+    obsThFactory["WC_abs_C3_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 2, 0); };
+    obsThFactory["WC_abs_C4_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 3, 0); };
+    obsThFactory["WC_abs_C5_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 4, 0); };
+    obsThFactory["WC_arg_C1_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 0, 1); };
+    obsThFactory["WC_arg_C2_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 1, 1); };
+    obsThFactory["WC_arg_C3_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 2, 1); };
+    obsThFactory["WC_arg_C4_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 3, 1); };
+    obsThFactory["WC_arg_C5_c"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CD(SM, 4, 1); };
+
+    obsThFactory["WC_abs_C1_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 0, 0); };
+    obsThFactory["WC_abs_C2_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 1, 0); };
+    obsThFactory["WC_abs_C3_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 2, 0); };
+    obsThFactory["WC_abs_C4_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 3, 0); };
+    obsThFactory["WC_abs_C5_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 4, 0); };
+    obsThFactory["WC_arg_C1_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 0, 1); };
+    obsThFactory["WC_arg_C2_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 1, 1); };
+    obsThFactory["WC_arg_C3_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 2, 1); };
+    obsThFactory["WC_arg_C4_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 3, 1); };
+    obsThFactory["WC_arg_C5_bd"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBd(SM, 4, 1); };
+
+    obsThFactory["WC_abs_C1_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 0, 0); };
+    obsThFactory["WC_abs_C2_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 1, 0); };
+    obsThFactory["WC_abs_C3_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 2, 0); };
+    obsThFactory["WC_abs_C4_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 3, 0); };
+    obsThFactory["WC_abs_C5_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 4, 0); };
+    obsThFactory["WC_arg_C1_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 0, 1); };
+    obsThFactory["WC_arg_C2_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 1, 1); };
+    obsThFactory["WC_arg_C3_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 2, 1); };
+    obsThFactory["WC_arg_C4_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 3, 1); };
+    obsThFactory["WC_arg_C5_bs"] = [=](const StandardModel& SM) { return new FlavourWilsonCoefficient_DF2_CBs(SM, 4, 1); };
 
     //-----  THDM observables  -----
     obsThFactory["globalminimum"] = [](const StandardModel& SM) { return new globalminimum(SM); };
