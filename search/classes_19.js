@@ -13,5 +13,6 @@ var searchData=
   ['ytauatq_10',['YtauatQ',['../df/dba/class_ytauat_q.html',1,'']]],
   ['ytopatq_11',['YtopatQ',['../d9/ddf/class_ytopat_q.html',1,'']]],
   ['yu1r_5fgthdm_12',['yu1r_GTHDM',['../d2/de7/classyu1r___g_t_h_d_m.html',1,'']]],
-  ['yu3r_5fgthdm_13',['yu3r_GTHDM',['../dd/dc3/classyu3r___g_t_h_d_m.html',1,'']]]
+  ['yu3r_5fgthdm_13',['yu3r_GTHDM',['../dd/dc3/classyu3r___g_t_h_d_m.html',1,'']]],
+  ['yukawamats_14',['YukawaMats',['../dc/d5b/struct_n_p_s_m_e_f_td6_m_f_v_1_1_yukawa_mats.html',1,'NPSMEFTd6MFV']]]
 ];

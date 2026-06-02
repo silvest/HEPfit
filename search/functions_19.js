@@ -24,5 +24,6 @@ var searchData=
   ['ytauatq_21',['YtauatQ',['../df/dba/class_ytauat_q.html#a438a07340aca7383c16efd9d83cb923e',1,'YtauatQ']]],
   ['ytopatq_22',['YtopatQ',['../d9/ddf/class_ytopat_q.html#a41974b23432893dc1c3d698d4d0924e8',1,'YtopatQ']]],
   ['yu1r_5fgthdm_23',['yu1r_GTHDM',['../d2/de7/classyu1r___g_t_h_d_m.html#a9d5f8bc12d6f2f85e0a874810fabcdc3',1,'yu1r_GTHDM']]],
-  ['yu3r_5fgthdm_24',['yu3r_GTHDM',['../dd/dc3/classyu3r___g_t_h_d_m.html#a879bd2710a41ddf08e92dac3ffc06e46',1,'yu3r_GTHDM']]]
+  ['yu3r_5fgthdm_24',['yu3r_GTHDM',['../dd/dc3/classyu3r___g_t_h_d_m.html#a879bd2710a41ddf08e92dac3ffc06e46',1,'yu3r_GTHDM']]],
+  ['yukawamats_25',['YukawaMats',['../dc/d5b/struct_n_p_s_m_e_f_td6_m_f_v_1_1_yukawa_mats.html#ad455c92f6356fd73ef3c31c77d8e5ff3',1,'NPSMEFTd6MFV::YukawaMats']]]
 ];

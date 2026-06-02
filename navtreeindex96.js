@@ -1,5 +1,13 @@
 var NAVTREEINDEX96 =
 {
+"db/db5/class_amp_d_k2.html":[4,5,33],
+"db/db5/class_amp_d_k2.html#a1a10c0f46de71102c7e272f18306ef5f":[4,5,33,1],
+"db/db5/class_amp_d_k2.html#a776e6182415f6c184fc18f4056c935e3":[4,5,33,0],
+"db/db5/class_amp_d_k2.html#ad6bfc1022d2c74ea466751ab921c80b4":[4,5,33,3],
+"db/db5/class_amp_d_k2.html#af32b43337304cf1bf6dd3ad182e1187c":[4,5,33,2],
+"db/db6/class_effective_e_d_mcouplings.html":[4,0,2],
+"db/db6/class_effective_e_d_mcouplings.html#a30a49a7c28f268d040368af1d8965132":[4,0,2,1],
+"db/db6/class_effective_e_d_mcouplings.html#a33e4379ac4c47b923c0d150020c62766":[4,0,2,3],
 "db/db6/class_effective_e_d_mcouplings.html#aa219d4fe4f17d39dadd7f513e3acb324":[4,0,2,2],
 "db/db6/class_effective_e_d_mcouplings.html#aacbcaa743d976554ae2101200dc7b33b":[4,0,2,0],
 "db/db6/class_unitarity_v___m_vlnu.html":[114,0,3142],
@@ -241,13 +249,5 @@ var NAVTREEINDEX96 =
 "db/def/class_b_r___kppnunu.html#ae26824a0b111e9de1f71edf2eff77783":[4,5,45,4],
 "db/def/class_b_r___kppnunu.html#afc625055f6ddfd7c3231f9cf2e7698a1":[4,5,45,2],
 "db/df0/class_arg_ampar___m_vpsi.html":[4,5,34],
-"db/df0/class_arg_ampar___m_vpsi.html#a4253e397cec248e8eb0ad072f60198c2":[4,5,34,4],
-"db/df0/class_arg_ampar___m_vpsi.html#a481a21f29b870949147015fa4278d696":[4,5,34,1],
-"db/df0/class_arg_ampar___m_vpsi.html#a608e5781da9f0bf5d1fff445d67d57c0":[4,5,34,3],
-"db/df0/class_arg_ampar___m_vpsi.html#a6a17a6eeba4991b5da02fcbdeeab3ebd":[4,5,34,0],
-"db/df0/class_arg_ampar___m_vpsi.html#aabf9c5eac117ec4333d09285f3f0b510":[4,5,34,2],
-"db/df1/class_robs__gg_f___a__tautau___a_t_l_a_s8.html":[4,17,317],
-"db/df1/class_robs__gg_f___a__tautau___a_t_l_a_s8.html#a117c94864b996d149c14ced539b25ddf":[4,17,317,1],
-"db/df1/class_robs__gg_f___a__tautau___a_t_l_a_s8.html#a12fbb6319049511e2f3f981c21737598":[4,17,317,0],
-"db/df1/class_robs__gg_f___a__tautau___a_t_l_a_s8.html#a54db5142c925ea3eedccdac8fb5b10d8":[4,17,317,2]
+"db/df0/class_arg_ampar___m_vpsi.html#a4253e397cec248e8eb0ad072f60198c2":[4,5,34,4]
 };

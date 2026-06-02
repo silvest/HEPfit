@@ -238,7 +238,7 @@ var NAVTREEINDEX2 =
 "d0/d49/classsigma__250__bb__e_p___m30__e_m___p80.html#a737875e186ba3cb7458960a287d38afa":[114,0,2601,0],
 "d0/d49/classsigma__250__bb__e_p___m30__e_m___p80.html#ad0fe4f9a04c0077b8734e7a5d7a6d069":[114,0,2601,2],
 "d0/d49/classsigma__250__bb__e_p___m30__e_m___p80.html#af9b7121f2f32dba643b17884833d9afb":[114,0,2601,1],
-"d0/d4a/classs.html":[114,0,2564],
+"d0/d4a/classs.html":[114,0,2563],
 "d0/d4b/class_q_we.html":[4,3,108],
 "d0/d4b/class_q_we.html#af4796678835d43c6cf62802384c44b73":[4,3,108,0],
 "d0/d4b/class_q_we.html#afec236b3d3e06ae334e8217e18549257":[4,3,108,1],

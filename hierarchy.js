@@ -3479,5 +3479,6 @@ var hierarchy =
       [ "WilsonCoefficientNew", "d4/dac/class_wilson_coefficient_new.html", null ]
     ] ],
     [ "Xmatrices", "d5/d8b/class_xmatrices.html", null ],
+    [ "NPSMEFTd6MFV::YukawaMats", "dc/d5b/struct_n_p_s_m_e_f_td6_m_f_v_1_1_yukawa_mats.html", null ],
     [ "ZFitterWrapper", "d3/d5f/class_z_fitter_wrapper.html", null ]
 ];

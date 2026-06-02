@@ -1,9 +1,18 @@
 var class_n_p_s_m_e_f_td6_m_f_v =
 [
+    [ "YukawaMats", "dc/d5b/struct_n_p_s_m_e_f_td6_m_f_v_1_1_yukawa_mats.html", "dc/d5b/struct_n_p_s_m_e_f_td6_m_f_v_1_1_yukawa_mats" ],
     [ "NPSMEFTd6MFV", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#ae79584f6f078a47aa7700c593e94cd3b", null ],
     [ "PostUpdate", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#ae3d28ee541a57b6768ceece640a9c051", null ],
     [ "setNPSMEFTd6GeneralParameters", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a0cc5c8c0cae8b239a8b4e5d4093b4aa6", null ],
     [ "setParameter", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a0df715430eb14df4f73bdec117c0f9df", null ],
+    [ "setParams_4quarkQD", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#ab24c62ea6836b9ff648ba1618ced6c0a", null ],
+    [ "setParams_4quarkQQ", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a753c7ffe9889fb150728aa13a8956aaa", null ],
+    [ "setParams_4quarkUD8_QuU", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a967ff5ad107c9793915bc4f8fc78c7ef", null ],
+    [ "setParams_Cquqd", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#abc978eeb3b5b60834a2f3db9738317e3", null ],
+    [ "setParams_dipoleYukawa", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a19cf97b580afcaa15b507f562b0acce2", null ],
+    [ "setParams_downLeptonDipole", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#ac8a7d50fd00b6ec77a79f1dba3b5f12e", null ],
+    [ "setParams_HiggsCurrentSemileptonic", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a4029d94f0c528fabbef7e62f740bdbff", null ],
+    [ "setParams_semileptonic4f", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#af164d4d174913ea924f8e1d5729e2fa2", null ],
     [ "CdB_0_LNP", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a9abdb27a440270a64a197b196e0f216f", null ],
     [ "CdB_d_LNP", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a96fa3398eb6830438dbcdb6627cd23ac", null ],
     [ "CdB_u_LNP", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html#a200e950ac9885b35b23392ba0329dc20", null ],
