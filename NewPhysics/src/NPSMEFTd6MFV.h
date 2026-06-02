@@ -173,6 +173,35 @@ protected:
 	void setNPSMEFTd6GeneralParameters();
 
 private:
+	// Internal struct bundling Yukawa matrices and their products
+	// to avoid repeating the full parameter list in each helper.
+	struct YukawaMats {
+		gslpp::vector<gslpp::complex> YlL, Yl2L;
+		gslpp::matrix<gslpp::complex> YuL, YucL, YdL, YdcL;
+		gslpp::matrix<gslpp::complex> SQUL, SQDL, SUL, SDL, SUDL, SUDcL;
+		gslpp::matrix<gslpp::complex> SQUYucL, YuSQUL;
+		gslpp::matrix<gslpp::complex> SQUYdcL, YdSQUL;
+		gslpp::matrix<gslpp::complex> SQDYucL, YuSQDL;
+		gslpp::matrix<gslpp::complex> SQDYdcL, YdSQDL;
+		YukawaMats()
+		  : YlL(3, 0.), Yl2L(3, 0.),
+		    YuL(3, 3, 0.), YucL(3, 3, 0.), YdL(3, 3, 0.), YdcL(3, 3, 0.),
+		    SQUL(3, 3, 0.), SQDL(3, 3, 0.), SUL(3, 3, 0.), SDL(3, 3, 0.),
+		    SUDL(3, 3, 0.), SUDcL(3, 3, 0.),
+		    SQUYucL(3, 3, 0.), YuSQUL(3, 3, 0.),
+		    SQUYdcL(3, 3, 0.), YdSQUL(3, 3, 0.),
+		    SQDYucL(3, 3, 0.), YuSQDL(3, 3, 0.),
+		    SQDYdcL(3, 3, 0.), YdSQDL(3, 3, 0.) {}
+	};
+
+	void setParams_dipoleYukawa(const YukawaMats& Y);
+	void setParams_downLeptonDipole(const YukawaMats& Y);
+	void setParams_HiggsCurrentSemileptonic(const YukawaMats& Y);
+	void setParams_4quarkQQ(const YukawaMats& Y);
+	void setParams_4quarkUD8_QuU(const YukawaMats& Y);
+	void setParams_4quarkQD(const YukawaMats& Y);
+	void setParams_semileptonic4f(const YukawaMats& Y);
+	void setParams_Cquqd(const YukawaMats& Y);
 
 };
 

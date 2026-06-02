@@ -653,74 +653,92 @@ void NPSMEFTd6MFV::setParameter(const std::string name, const double& value) {
 }
 
 void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
-	
-	// Precomputing Yukawa matrices and matrix products	
 
-	// Leptons (flavor diagonal)
-	gslpp::vector<gslpp::complex> YlL(3, 0.), Yl2L(3, 0.);
-	
-	for (int i = 0; i < 3; i++) {
-		double yl = getSMEFTCoeffEW("YeR", i, i);
-        YlL.assign(i, yl);
-		Yl2L.assign(i, yl*yl);
-	}	
+        // Build Yukawa matrix bundle (constructor initialises all to zero)
+        YukawaMats Y;
 
-	// Quark Sector
-	// Single Yukawa
-	gslpp::matrix<gslpp::complex> YuL(3, 3, 0.), YucL(3, 3, 0.);
-	gslpp::matrix<gslpp::complex> YdL(3, 3, 0.), YdcL(3, 3, 0.);
-	
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            YuL.assignre(i, j, getSMEFTCoeffEW("YuR", i, j));
-            YuL.assignim(i, j, getSMEFTCoeffEW("YuI", i, j));
+        // Leptons (flavor diagonal)
+        for (int i = 0; i < 3; i++) {
+                double yl = getSMEFTCoeffEW("YeR", i, i);
+                Y.YlL.assign(i, yl);
+                Y.Yl2L.assign(i, yl*yl);
         }
-	}
 
-    for (int i = 0; i < 3; i++) {
+        // Quark Sector - Single Yukawa
+        for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            YdL.assignre(i, j, getSMEFTCoeffEW("YdR", i, j));
-            YdL.assignim(i, j, getSMEFTCoeffEW("YdI", i, j));
+            Y.YuL.assignre(i, j, getSMEFTCoeffEW("YuR", i, j));
+            Y.YuL.assignim(i, j, getSMEFTCoeffEW("YuI", i, j));
         }
-	}
+        }
 
-	YucL = YuL.hconjugate();
-	YdcL = YdL.hconjugate();
+        for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            Y.YdL.assignre(i, j, getSMEFTCoeffEW("YdR", i, j));
+            Y.YdL.assignim(i, j, getSMEFTCoeffEW("YdI", i, j));
+        }
+        }
 
-	// Products of two Yukawas
-	gslpp::matrix<gslpp::complex> SQUL(3, 3, 0.), SUL(3, 3, 0.);
-	gslpp::matrix<gslpp::complex> SQDL(3, 3, 0.), SDL(3, 3, 0.);
-	gslpp::matrix<gslpp::complex> SUDL(3, 3, 0.), SUDcL(3, 3, 0.);
+        Y.YucL = Y.YuL.hconjugate();
+        Y.YdcL = Y.YdL.hconjugate();
 
-	SQUL  = YucL * YuL;
-	SQDL  = YdcL * YdL;
+        // Products of two Yukawas
+        Y.SQUL  = Y.YucL * Y.YuL;
+        Y.SQDL  = Y.YdcL * Y.YdL;
+        Y.SUL   = Y.YuL  * Y.YucL;
+        Y.SDL   = Y.YdL  * Y.YdcL;
+        Y.SUDL  = Y.YuL  * Y.YdcL;
+        Y.SUDcL = Y.YdL  * Y.YucL;
 
-	SUL   = YuL * YucL;
-	SDL   = YdL * YdcL;
+        // Products of three Yukawas
+        Y.SQUYucL = Y.SQUL * Y.YucL;
+        Y.YuSQUL  = Y.YuL  * Y.SQUL;
+        Y.SQUYdcL = Y.SQUL * Y.YdcL;
+        Y.YdSQUL  = Y.YdL  * Y.SQUL;
+        Y.SQDYucL = Y.SQDL * Y.YucL;
+        Y.YuSQDL  = Y.YuL  * Y.SQDL;
+        Y.SQDYdcL = Y.SQDL * Y.YdcL;
+        Y.YdSQDL  = Y.YdL  * Y.SQDL;
 
-	SUDL  = YuL * YdcL;
-	SUDcL = YdL * YucL;
-
-	// Products of three Yukawas
-	gslpp::matrix<gslpp::complex> SQUYucL(3, 3, 0.), YuSQUL(3, 3, 0.);
-	gslpp::matrix<gslpp::complex> SQUYdcL(3, 3, 0.), YdSQUL(3, 3, 0.);
-	gslpp::matrix<gslpp::complex> SQDYucL(3, 3, 0.), YuSQDL(3, 3, 0.);
-	gslpp::matrix<gslpp::complex> SQDYdcL(3, 3, 0.), YdSQDL(3, 3, 0.);
-	
-	SQUYucL = SQUL * YucL;
-	YuSQUL  = YuL  * SQUL;
-
-	SQUYdcL = SQUL * YdcL;
-	YdSQUL  = YdL  * SQUL;
-
-	SQDYucL = SQDL * YucL;
-	YuSQDL  = YuL  * SQDL;
-
-	SQDYdcL = SQDL * YdcL;
-	YdSQDL  = YdL  * SQDL;
+	setParams_dipoleYukawa(Y);
+	setParams_downLeptonDipole(Y);
+	setParams_HiggsCurrentSemileptonic(Y);
+	setParams_4quarkQQ(Y);
+	setParams_4quarkUD8_QuU(Y);
+	setParams_4quarkQD(Y);
+	setParams_semileptonic4f(Y);
+	setParams_Cquqd(Y);
+}
 
 
-	// Operator assignments
+// ---------------------------------------------------------------------------
+// Helper: setParams_dipoleYukawa
+// ---------------------------------------------------------------------------
+void NPSMEFTd6MFV::setParams_dipoleYukawa(const YukawaMats& Y) {
+	const gslpp::vector<gslpp::complex>& YlL    = Y.YlL;
+	const gslpp::vector<gslpp::complex>& Yl2L   = Y.Yl2L;
+	const gslpp::matrix<gslpp::complex>& YuL    = Y.YuL;
+	const gslpp::matrix<gslpp::complex>& YucL   = Y.YucL;
+	const gslpp::matrix<gslpp::complex>& YdL    = Y.YdL;
+	const gslpp::matrix<gslpp::complex>& YdcL   = Y.YdcL;
+	const gslpp::matrix<gslpp::complex>& SQUL   = Y.SQUL;
+	const gslpp::matrix<gslpp::complex>& SQDL   = Y.SQDL;
+	const gslpp::matrix<gslpp::complex>& SUL    = Y.SUL;
+	const gslpp::matrix<gslpp::complex>& SDL    = Y.SDL;
+	const gslpp::matrix<gslpp::complex>& SUDL   = Y.SUDL;
+	const gslpp::matrix<gslpp::complex>& SUDcL  = Y.SUDcL;
+	const gslpp::matrix<gslpp::complex>& SQUYucL = Y.SQUYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQUL  = Y.YuSQUL;
+	const gslpp::matrix<gslpp::complex>& SQUYdcL = Y.SQUYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQUL  = Y.YdSQUL;
+	const gslpp::matrix<gslpp::complex>& SQDYucL = Y.SQDYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQDL  = Y.YuSQDL;
+	const gslpp::matrix<gslpp::complex>& SQDYdcL = Y.SQDYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQDL  = Y.YdSQDL;
+	(void)YlL; (void)Yl2L; (void)YuL; (void)YucL; (void)YdL; (void)YdcL;
+	(void)SQUL; (void)SQDL; (void)SUL; (void)SDL; (void)SUDL; (void)SUDcL;
+	(void)SQUYucL; (void)YuSQUL; (void)SQUYdcL; (void)YdSQUL;
+	(void)SQDYucL; (void)YuSQDL; (void)SQDYdcL; (void)YdSQDL;
 
 	CuH_11r_LNP = (CuH_d_LNP*SQDYucL(0,0) + CuH_u_LNP*SQUYucL(0,0) + CuH_0_LNP*YucL(0,0)).real();
 	CuH_11i_LNP = (CuH_d_LNP*SQDYucL(0,0) + CuH_u_LNP*SQUYucL(0,0) + CuH_0_LNP*YucL(0,0)).imag();
@@ -797,6 +815,37 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	CuB_32i_LNP = (CuB_d_LNP*SQDYucL(2,1) + CuB_u_LNP*SQUYucL(2,1) + CuB_0_LNP*YucL(2,1)).imag();
 	CuB_33r_LNP = (CuB_d_LNP*SQDYucL(2,2) + CuB_u_LNP*SQUYucL(2,2) + CuB_0_LNP*YucL(2,2)).real();
 	CuB_33i_LNP = (CuB_d_LNP*SQDYucL(2,2) + CuB_u_LNP*SQUYucL(2,2) + CuB_0_LNP*YucL(2,2)).imag();
+
+}
+
+// ---------------------------------------------------------------------------
+// Helper: setParams_downLeptonDipole
+// ---------------------------------------------------------------------------
+void NPSMEFTd6MFV::setParams_downLeptonDipole(const YukawaMats& Y) {
+	const gslpp::vector<gslpp::complex>& YlL    = Y.YlL;
+	const gslpp::vector<gslpp::complex>& Yl2L   = Y.Yl2L;
+	const gslpp::matrix<gslpp::complex>& YuL    = Y.YuL;
+	const gslpp::matrix<gslpp::complex>& YucL   = Y.YucL;
+	const gslpp::matrix<gslpp::complex>& YdL    = Y.YdL;
+	const gslpp::matrix<gslpp::complex>& YdcL   = Y.YdcL;
+	const gslpp::matrix<gslpp::complex>& SQUL   = Y.SQUL;
+	const gslpp::matrix<gslpp::complex>& SQDL   = Y.SQDL;
+	const gslpp::matrix<gslpp::complex>& SUL    = Y.SUL;
+	const gslpp::matrix<gslpp::complex>& SDL    = Y.SDL;
+	const gslpp::matrix<gslpp::complex>& SUDL   = Y.SUDL;
+	const gslpp::matrix<gslpp::complex>& SUDcL  = Y.SUDcL;
+	const gslpp::matrix<gslpp::complex>& SQUYucL = Y.SQUYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQUL  = Y.YuSQUL;
+	const gslpp::matrix<gslpp::complex>& SQUYdcL = Y.SQUYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQUL  = Y.YdSQUL;
+	const gslpp::matrix<gslpp::complex>& SQDYucL = Y.SQDYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQDL  = Y.YuSQDL;
+	const gslpp::matrix<gslpp::complex>& SQDYdcL = Y.SQDYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQDL  = Y.YdSQDL;
+	(void)YlL; (void)Yl2L; (void)YuL; (void)YucL; (void)YdL; (void)YdcL;
+	(void)SQUL; (void)SQDL; (void)SUL; (void)SDL; (void)SUDL; (void)SUDcL;
+	(void)SQUYucL; (void)YuSQUL; (void)SQUYdcL; (void)YdSQUL;
+	(void)SQDYucL; (void)YuSQDL; (void)SQDYdcL; (void)YdSQDL;
 
 	CdH_11r_LNP = (CdH_d_LNP*SQDYdcL(0,0) + CdH_u_LNP*SQUYdcL(0,0) + CdH_0_LNP*YdcL(0,0)).real();
 	CdH_11i_LNP = (CdH_d_LNP*SQDYdcL(0,0) + CdH_u_LNP*SQUYdcL(0,0) + CdH_0_LNP*YdcL(0,0)).imag();
@@ -885,6 +934,37 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	CeB_11r_LNP = (CeB_0_LNP*YlL(0)).real();
 	CeB_22r_LNP = (CeB_0_LNP*YlL(1)).real();
 	CeB_33r_LNP = (CeB_0_LNP*YlL(2)).real();
+
+}
+
+// ---------------------------------------------------------------------------
+// Helper: setParams_HiggsCurrentSemileptonic
+// ---------------------------------------------------------------------------
+void NPSMEFTd6MFV::setParams_HiggsCurrentSemileptonic(const YukawaMats& Y) {
+	const gslpp::vector<gslpp::complex>& YlL    = Y.YlL;
+	const gslpp::vector<gslpp::complex>& Yl2L   = Y.Yl2L;
+	const gslpp::matrix<gslpp::complex>& YuL    = Y.YuL;
+	const gslpp::matrix<gslpp::complex>& YucL   = Y.YucL;
+	const gslpp::matrix<gslpp::complex>& YdL    = Y.YdL;
+	const gslpp::matrix<gslpp::complex>& YdcL   = Y.YdcL;
+	const gslpp::matrix<gslpp::complex>& SQUL   = Y.SQUL;
+	const gslpp::matrix<gslpp::complex>& SQDL   = Y.SQDL;
+	const gslpp::matrix<gslpp::complex>& SUL    = Y.SUL;
+	const gslpp::matrix<gslpp::complex>& SDL    = Y.SDL;
+	const gslpp::matrix<gslpp::complex>& SUDL   = Y.SUDL;
+	const gslpp::matrix<gslpp::complex>& SUDcL  = Y.SUDcL;
+	const gslpp::matrix<gslpp::complex>& SQUYucL = Y.SQUYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQUL  = Y.YuSQUL;
+	const gslpp::matrix<gslpp::complex>& SQUYdcL = Y.SQUYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQUL  = Y.YdSQUL;
+	const gslpp::matrix<gslpp::complex>& SQDYucL = Y.SQDYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQDL  = Y.YuSQDL;
+	const gslpp::matrix<gslpp::complex>& SQDYdcL = Y.SQDYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQDL  = Y.YdSQDL;
+	(void)YlL; (void)Yl2L; (void)YuL; (void)YucL; (void)YdL; (void)YdcL;
+	(void)SQUL; (void)SQDL; (void)SUL; (void)SDL; (void)SUDL; (void)SUDcL;
+	(void)SQUYucL; (void)YuSQUL; (void)SQUYdcL; (void)YdSQUL;
+	(void)SQDYucL; (void)YuSQDL; (void)SQDYdcL; (void)YdSQDL;
 
 	CHq1_11r_LNP = (CHq1_0_LNP + CHq1_d_LNP*SQDL(0,0) + CHq1_u_LNP*SQUL(0,0)).real();
 	CHq1_12r_LNP = (CHq1_d_LNP*SQDL(0,1) + CHq1_u_LNP*SQUL(0,1)).real();
@@ -1186,6 +1266,37 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Ced_3323i_LNP = (Ced_0d_LNP*SDL(1,2)).imag();
 	Ced_3333r_LNP = (Ced_00_LNP + Ced_0d_LNP*SDL(2,2) + Ced_e0_LNP*Yl2L(2)).real();
 
+}
+
+// ---------------------------------------------------------------------------
+// Helper: setParams_4quarkQQ
+// ---------------------------------------------------------------------------
+void NPSMEFTd6MFV::setParams_4quarkQQ(const YukawaMats& Y) {
+	const gslpp::vector<gslpp::complex>& YlL    = Y.YlL;
+	const gslpp::vector<gslpp::complex>& Yl2L   = Y.Yl2L;
+	const gslpp::matrix<gslpp::complex>& YuL    = Y.YuL;
+	const gslpp::matrix<gslpp::complex>& YucL   = Y.YucL;
+	const gslpp::matrix<gslpp::complex>& YdL    = Y.YdL;
+	const gslpp::matrix<gslpp::complex>& YdcL   = Y.YdcL;
+	const gslpp::matrix<gslpp::complex>& SQUL   = Y.SQUL;
+	const gslpp::matrix<gslpp::complex>& SQDL   = Y.SQDL;
+	const gslpp::matrix<gslpp::complex>& SUL    = Y.SUL;
+	const gslpp::matrix<gslpp::complex>& SDL    = Y.SDL;
+	const gslpp::matrix<gslpp::complex>& SUDL   = Y.SUDL;
+	const gslpp::matrix<gslpp::complex>& SUDcL  = Y.SUDcL;
+	const gslpp::matrix<gslpp::complex>& SQUYucL = Y.SQUYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQUL  = Y.YuSQUL;
+	const gslpp::matrix<gslpp::complex>& SQUYdcL = Y.SQUYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQUL  = Y.YdSQUL;
+	const gslpp::matrix<gslpp::complex>& SQDYucL = Y.SQDYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQDL  = Y.YuSQDL;
+	const gslpp::matrix<gslpp::complex>& SQDYdcL = Y.SQDYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQDL  = Y.YdSQDL;
+	(void)YlL; (void)Yl2L; (void)YuL; (void)YucL; (void)YdL; (void)YdcL;
+	(void)SQUL; (void)SQDL; (void)SUL; (void)SDL; (void)SUDL; (void)SUDcL;
+	(void)SQUYucL; (void)YuSQUL; (void)SQUYdcL; (void)YdSQUL;
+	(void)SQDYucL; (void)YuSQDL; (void)SQDYdcL; (void)YdSQDL;
+
 	Cqq1_1111r_LNP = (Cqq1_00_LNP + 2*Cqq1_d0_LNP*SQDL(0,0) + Cqq1_dd_LNP*SQDL(0,0)*SQDL(0,0) + 2*Cqq1_u0_LNP*SQUL(0,0) + 2*Cqq1_ud_LNP*SQDL(0,0)*SQUL(0,0) + Cqq1_uu_LNP*SQUL(0,0)*SQUL(0,0) + Cqq1p_00_LNP + 2*Cqq1p_d0_LNP*SQDL(0,0) + Cqq1p_dd_LNP*SQDL(0,0)*SQDL(0,0) + 2*Cqq1p_u0_LNP*SQUL(0,0) + 2*Cqq1p_ud_LNP*SQDL(0,0)*SQUL(0,0) + Cqq1p_uu_LNP*SQUL(0,0)*SQUL(0,0)).real();
 	Cqq1_1112r_LNP = (Cqq1_d0_LNP*SQDL(0,1) + Cqq1_dd_LNP*SQDL(0,0)*SQDL(0,1) + Cqq1_ud_LNP*SQDL(0,1)*SQUL(0,0) + Cqq1_u0_LNP*SQUL(0,1) + Cqq1_ud_LNP*SQDL(0,0)*SQUL(0,1) + Cqq1_uu_LNP*SQUL(0,0)*SQUL(0,1) + Cqq1p_d0_LNP*SQDL(0,1) + Cqq1p_dd_LNP*SQDL(0,0)*SQDL(0,1) + Cqq1p_ud_LNP*SQDL(0,1)*SQUL(0,0) + Cqq1p_u0_LNP*SQUL(0,1) + Cqq1p_ud_LNP*SQDL(0,0)*SQUL(0,1) + Cqq1p_uu_LNP*SQUL(0,0)*SQUL(0,1)).real();
 	Cqq1_1112i_LNP = (Cqq1_d0_LNP*SQDL(0,1) + Cqq1_dd_LNP*SQDL(0,0)*SQDL(0,1) + Cqq1_ud_LNP*SQDL(0,1)*SQUL(0,0) + Cqq1_u0_LNP*SQUL(0,1) + Cqq1_ud_LNP*SQDL(0,0)*SQUL(0,1) + Cqq1_uu_LNP*SQUL(0,0)*SQUL(0,1) + Cqq1p_d0_LNP*SQDL(0,1) + Cqq1p_dd_LNP*SQDL(0,0)*SQDL(0,1) + Cqq1p_ud_LNP*SQDL(0,1)*SQUL(0,0) + Cqq1p_u0_LNP*SQUL(0,1) + Cqq1p_ud_LNP*SQDL(0,0)*SQUL(0,1) + Cqq1p_uu_LNP*SQUL(0,0)*SQUL(0,1)).imag();
@@ -1452,6 +1563,37 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Cud1_3323i_LNP = (Cud1_0d_LNP*SDL(1,2) + Cud1p_ud_LNP*SUDcL(1,2)*SUDL(2,2) + Cud1_ud_LNP*SDL(1,2)*SUL(2,2)).imag();
 	Cud1_3333r_LNP = (Cud1_00_LNP + Cud1_0d_LNP*SDL(2,2) + Cud1p_ud_LNP*SUDcL(2,2)*SUDL(2,2) + Cud1_u0_LNP*SUL(2,2) + Cud1_ud_LNP*SDL(2,2)*SUL(2,2)).real();
 
+}
+
+// ---------------------------------------------------------------------------
+// Helper: setParams_4quarkUD8_QuU
+// ---------------------------------------------------------------------------
+void NPSMEFTd6MFV::setParams_4quarkUD8_QuU(const YukawaMats& Y) {
+	const gslpp::vector<gslpp::complex>& YlL    = Y.YlL;
+	const gslpp::vector<gslpp::complex>& Yl2L   = Y.Yl2L;
+	const gslpp::matrix<gslpp::complex>& YuL    = Y.YuL;
+	const gslpp::matrix<gslpp::complex>& YucL   = Y.YucL;
+	const gslpp::matrix<gslpp::complex>& YdL    = Y.YdL;
+	const gslpp::matrix<gslpp::complex>& YdcL   = Y.YdcL;
+	const gslpp::matrix<gslpp::complex>& SQUL   = Y.SQUL;
+	const gslpp::matrix<gslpp::complex>& SQDL   = Y.SQDL;
+	const gslpp::matrix<gslpp::complex>& SUL    = Y.SUL;
+	const gslpp::matrix<gslpp::complex>& SDL    = Y.SDL;
+	const gslpp::matrix<gslpp::complex>& SUDL   = Y.SUDL;
+	const gslpp::matrix<gslpp::complex>& SUDcL  = Y.SUDcL;
+	const gslpp::matrix<gslpp::complex>& SQUYucL = Y.SQUYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQUL  = Y.YuSQUL;
+	const gslpp::matrix<gslpp::complex>& SQUYdcL = Y.SQUYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQUL  = Y.YdSQUL;
+	const gslpp::matrix<gslpp::complex>& SQDYucL = Y.SQDYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQDL  = Y.YuSQDL;
+	const gslpp::matrix<gslpp::complex>& SQDYdcL = Y.SQDYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQDL  = Y.YdSQDL;
+	(void)YlL; (void)Yl2L; (void)YuL; (void)YucL; (void)YdL; (void)YdcL;
+	(void)SQUL; (void)SQDL; (void)SUL; (void)SDL; (void)SUDL; (void)SUDcL;
+	(void)SQUYucL; (void)YuSQUL; (void)SQUYdcL; (void)YdSQUL;
+	(void)SQDYucL; (void)YuSQDL; (void)SQDYdcL; (void)YdSQDL;
+
 	Cud8_1111r_LNP = (Cud8_00_LNP + Cud8_0d_LNP*SDL(0,0) + Cud8p_ud_LNP*SUDcL(0,0)*SUDL(0,0) + Cud8_u0_LNP*SUL(0,0) + Cud8_ud_LNP*SDL(0,0)*SUL(0,0)).real();
 	Cud8_1112r_LNP = (Cud8_0d_LNP*SDL(0,1) + Cud8p_ud_LNP*SUDcL(0,0)*SUDL(0,1) + Cud8_ud_LNP*SDL(0,1)*SUL(0,0)).real();
 	Cud8_1112i_LNP = (Cud8_0d_LNP*SDL(0,1) + Cud8p_ud_LNP*SUDcL(0,0)*SUDL(0,1) + Cud8_ud_LNP*SDL(0,1)*SUL(0,0)).imag();
@@ -1698,6 +1840,37 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Cqu8_3323i_LNP = (Cqu8_0u_LNP*SUL(1,2) + Cqu8_du_LNP*SQDL(2,2)*SUL(1,2) + Cqu8_uu_LNP*SQUL(2,2)*SUL(1,2) + Cqu8_dy_LNP*SQDYucL(2,2)*YuL(1,2) + Cqu8_uy_LNP*SQUYucL(2,2)*YuL(1,2) + Cqu8_y_LNP*YucL(2,2)*YuL(1,2) + Cqu8_yd_LNP*YucL(2,2)*YuSQDL(1,2) + Cqu8_yu_LNP*YucL(2,2)*YuSQUL(1,2)).imag();
 	Cqu8_3333r_LNP = (Cqu8_00_LNP + Cqu8_d0_LNP*SQDL(2,2) + Cqu8_u0_LNP*SQUL(2,2) + Cqu8_0u_LNP*SUL(2,2) + Cqu8_du_LNP*SQDL(2,2)*SUL(2,2) + Cqu8_uu_LNP*SQUL(2,2)*SUL(2,2) + Cqu8_dy_LNP*SQDYucL(2,2)*YuL(2,2) + Cqu8_uy_LNP*SQUYucL(2,2)*YuL(2,2) + Cqu8_y_LNP*YucL(2,2)*YuL(2,2) + Cqu8_yd_LNP*YucL(2,2)*YuSQDL(2,2) + Cqu8_yu_LNP*YucL(2,2)*YuSQUL(2,2)).real();
 
+}
+
+// ---------------------------------------------------------------------------
+// Helper: setParams_4quarkQD
+// ---------------------------------------------------------------------------
+void NPSMEFTd6MFV::setParams_4quarkQD(const YukawaMats& Y) {
+	const gslpp::vector<gslpp::complex>& YlL    = Y.YlL;
+	const gslpp::vector<gslpp::complex>& Yl2L   = Y.Yl2L;
+	const gslpp::matrix<gslpp::complex>& YuL    = Y.YuL;
+	const gslpp::matrix<gslpp::complex>& YucL   = Y.YucL;
+	const gslpp::matrix<gslpp::complex>& YdL    = Y.YdL;
+	const gslpp::matrix<gslpp::complex>& YdcL   = Y.YdcL;
+	const gslpp::matrix<gslpp::complex>& SQUL   = Y.SQUL;
+	const gslpp::matrix<gslpp::complex>& SQDL   = Y.SQDL;
+	const gslpp::matrix<gslpp::complex>& SUL    = Y.SUL;
+	const gslpp::matrix<gslpp::complex>& SDL    = Y.SDL;
+	const gslpp::matrix<gslpp::complex>& SUDL   = Y.SUDL;
+	const gslpp::matrix<gslpp::complex>& SUDcL  = Y.SUDcL;
+	const gslpp::matrix<gslpp::complex>& SQUYucL = Y.SQUYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQUL  = Y.YuSQUL;
+	const gslpp::matrix<gslpp::complex>& SQUYdcL = Y.SQUYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQUL  = Y.YdSQUL;
+	const gslpp::matrix<gslpp::complex>& SQDYucL = Y.SQDYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQDL  = Y.YuSQDL;
+	const gslpp::matrix<gslpp::complex>& SQDYdcL = Y.SQDYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQDL  = Y.YdSQDL;
+	(void)YlL; (void)Yl2L; (void)YuL; (void)YucL; (void)YdL; (void)YdcL;
+	(void)SQUL; (void)SQDL; (void)SUL; (void)SDL; (void)SUDL; (void)SUDcL;
+	(void)SQUYucL; (void)YuSQUL; (void)SQUYdcL; (void)YdSQUL;
+	(void)SQDYucL; (void)YuSQDL; (void)SQDYdcL; (void)YdSQDL;
+
 	Cqd1_1111r_LNP = (Cqd1_00_LNP + Cqd1_0d_LNP*SDL(0,0) + Cqd1_d0_LNP*SQDL(0,0) + Cqd1_dd_LNP*SDL(0,0)*SQDL(0,0) + Cqd1_u0_LNP*SQUL(0,0) + Cqd1_ud_LNP*SDL(0,0)*SQUL(0,0) + Cqd1_yd_LNP*SQDYdcL(0,0)*YdcL(0,0) + Cqd1_dy_LNP*SQDYdcL(0,0)*YdL(0,0) + Cqd1_uy_LNP*SQUYdcL(0,0)*YdL(0,0) + Cqd1_y_LNP*YdcL(0,0)*YdL(0,0) + Cqd1_yu_LNP*YdcL(0,0)*YdSQUL(0,0)).real();
 	Cqd1_1112r_LNP = (Cqd1_0d_LNP*SDL(0,1) + Cqd1_dd_LNP*SDL(0,1)*SQDL(0,0) + Cqd1_ud_LNP*SDL(0,1)*SQUL(0,0) + Cqd1_yd_LNP*SQDYdcL(0,0)*YdcL(0,1) + Cqd1_dy_LNP*SQDYdcL(0,1)*YdL(0,0) + Cqd1_uy_LNP*SQUYdcL(0,1)*YdL(0,0) + Cqd1_y_LNP*YdcL(0,1)*YdL(0,0) + Cqd1_yu_LNP*YdcL(0,1)*YdSQUL(0,0)).real();
 	Cqd1_1112i_LNP = (Cqd1_0d_LNP*SDL(0,1) + Cqd1_dd_LNP*SDL(0,1)*SQDL(0,0) + Cqd1_ud_LNP*SDL(0,1)*SQUL(0,0) + Cqd1_yd_LNP*SQDYdcL(0,0)*YdcL(0,1) + Cqd1_dy_LNP*SQDYdcL(0,1)*YdL(0,0) + Cqd1_uy_LNP*SQUYdcL(0,1)*YdL(0,0) + Cqd1_y_LNP*YdcL(0,1)*YdL(0,0) + Cqd1_yu_LNP*YdcL(0,1)*YdSQUL(0,0)).imag();
@@ -1861,6 +2034,37 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Cqd8_3323r_LNP = (Cqd8_0d_LNP*SDL(1,2) + Cqd8_dd_LNP*SDL(1,2)*SQDL(2,2) + Cqd8_ud_LNP*SDL(1,2)*SQUL(2,2) + Cqd8_yd_LNP*SQDYdcL(1,2)*YdcL(2,2) + Cqd8_dy_LNP*SQDYdcL(2,2)*YdL(1,2) + Cqd8_uy_LNP*SQUYdcL(2,2)*YdL(1,2) + Cqd8_y_LNP*YdcL(2,2)*YdL(1,2) + Cqd8_yu_LNP*YdcL(2,2)*YdSQUL(1,2)).real();
 	Cqd8_3323i_LNP = (Cqd8_0d_LNP*SDL(1,2) + Cqd8_dd_LNP*SDL(1,2)*SQDL(2,2) + Cqd8_ud_LNP*SDL(1,2)*SQUL(2,2) + Cqd8_yd_LNP*SQDYdcL(1,2)*YdcL(2,2) + Cqd8_dy_LNP*SQDYdcL(2,2)*YdL(1,2) + Cqd8_uy_LNP*SQUYdcL(2,2)*YdL(1,2) + Cqd8_y_LNP*YdcL(2,2)*YdL(1,2) + Cqd8_yu_LNP*YdcL(2,2)*YdSQUL(1,2)).imag();
 	Cqd8_3333r_LNP = (Cqd8_00_LNP + Cqd8_0d_LNP*SDL(2,2) + Cqd8_d0_LNP*SQDL(2,2) + Cqd8_dd_LNP*SDL(2,2)*SQDL(2,2) + Cqd8_u0_LNP*SQUL(2,2) + Cqd8_ud_LNP*SDL(2,2)*SQUL(2,2) + Cqd8_yd_LNP*SQDYdcL(2,2)*YdcL(2,2) + Cqd8_dy_LNP*SQDYdcL(2,2)*YdL(2,2) + Cqd8_uy_LNP*SQUYdcL(2,2)*YdL(2,2) + Cqd8_y_LNP*YdcL(2,2)*YdL(2,2) + Cqd8_yu_LNP*YdcL(2,2)*YdSQUL(2,2)).real();
+
+}
+
+// ---------------------------------------------------------------------------
+// Helper: setParams_semileptonic4f
+// ---------------------------------------------------------------------------
+void NPSMEFTd6MFV::setParams_semileptonic4f(const YukawaMats& Y) {
+	const gslpp::vector<gslpp::complex>& YlL    = Y.YlL;
+	const gslpp::vector<gslpp::complex>& Yl2L   = Y.Yl2L;
+	const gslpp::matrix<gslpp::complex>& YuL    = Y.YuL;
+	const gslpp::matrix<gslpp::complex>& YucL   = Y.YucL;
+	const gslpp::matrix<gslpp::complex>& YdL    = Y.YdL;
+	const gslpp::matrix<gslpp::complex>& YdcL   = Y.YdcL;
+	const gslpp::matrix<gslpp::complex>& SQUL   = Y.SQUL;
+	const gslpp::matrix<gslpp::complex>& SQDL   = Y.SQDL;
+	const gslpp::matrix<gslpp::complex>& SUL    = Y.SUL;
+	const gslpp::matrix<gslpp::complex>& SDL    = Y.SDL;
+	const gslpp::matrix<gslpp::complex>& SUDL   = Y.SUDL;
+	const gslpp::matrix<gslpp::complex>& SUDcL  = Y.SUDcL;
+	const gslpp::matrix<gslpp::complex>& SQUYucL = Y.SQUYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQUL  = Y.YuSQUL;
+	const gslpp::matrix<gslpp::complex>& SQUYdcL = Y.SQUYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQUL  = Y.YdSQUL;
+	const gslpp::matrix<gslpp::complex>& SQDYucL = Y.SQDYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQDL  = Y.YuSQDL;
+	const gslpp::matrix<gslpp::complex>& SQDYdcL = Y.SQDYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQDL  = Y.YdSQDL;
+	(void)YlL; (void)Yl2L; (void)YuL; (void)YucL; (void)YdL; (void)YdcL;
+	(void)SQUL; (void)SQDL; (void)SUL; (void)SDL; (void)SUDL; (void)SUDcL;
+	(void)SQUYucL; (void)YuSQUL; (void)SQUYdcL; (void)YdSQUL;
+	(void)SQDYucL; (void)YuSQDL; (void)SQDYdcL; (void)YdSQDL;
 
 	Cledq_1111r_LNP = (Cledq_00_LNP*YdL(0,0)*YlL(0)).real();
 	Cledq_1111i_LNP = (Cledq_00_LNP*YdL(0,0)*YlL(0)).imag();
@@ -2026,6 +2230,37 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Clequ3_3332i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(2,1)).imag();
 	Clequ3_3333r_LNP = (Clequ3_00_LNP*YlL(2)*YucL(2,2)).real();
 	Clequ3_3333i_LNP = (Clequ3_00_LNP*YlL(2)*YucL(2,2)).imag();
+
+}
+
+// ---------------------------------------------------------------------------
+// Helper: setParams_Cquqd
+// ---------------------------------------------------------------------------
+void NPSMEFTd6MFV::setParams_Cquqd(const YukawaMats& Y) {
+	const gslpp::vector<gslpp::complex>& YlL    = Y.YlL;
+	const gslpp::vector<gslpp::complex>& Yl2L   = Y.Yl2L;
+	const gslpp::matrix<gslpp::complex>& YuL    = Y.YuL;
+	const gslpp::matrix<gslpp::complex>& YucL   = Y.YucL;
+	const gslpp::matrix<gslpp::complex>& YdL    = Y.YdL;
+	const gslpp::matrix<gslpp::complex>& YdcL   = Y.YdcL;
+	const gslpp::matrix<gslpp::complex>& SQUL   = Y.SQUL;
+	const gslpp::matrix<gslpp::complex>& SQDL   = Y.SQDL;
+	const gslpp::matrix<gslpp::complex>& SUL    = Y.SUL;
+	const gslpp::matrix<gslpp::complex>& SDL    = Y.SDL;
+	const gslpp::matrix<gslpp::complex>& SUDL   = Y.SUDL;
+	const gslpp::matrix<gslpp::complex>& SUDcL  = Y.SUDcL;
+	const gslpp::matrix<gslpp::complex>& SQUYucL = Y.SQUYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQUL  = Y.YuSQUL;
+	const gslpp::matrix<gslpp::complex>& SQUYdcL = Y.SQUYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQUL  = Y.YdSQUL;
+	const gslpp::matrix<gslpp::complex>& SQDYucL = Y.SQDYucL;
+	const gslpp::matrix<gslpp::complex>& YuSQDL  = Y.YuSQDL;
+	const gslpp::matrix<gslpp::complex>& SQDYdcL = Y.SQDYdcL;
+	const gslpp::matrix<gslpp::complex>& YdSQDL  = Y.YdSQDL;
+	(void)YlL; (void)Yl2L; (void)YuL; (void)YucL; (void)YdL; (void)YdcL;
+	(void)SQUL; (void)SQDL; (void)SUL; (void)SDL; (void)SUDL; (void)SUDcL;
+	(void)SQUYucL; (void)YuSQUL; (void)SQUYdcL; (void)YdSQUL;
+	(void)SQDYucL; (void)YuSQDL; (void)SQDYdcL; (void)YdSQDL;
 
 	Cquqd1_1111r_LNP = (Cquqd1_d0_LNP*SQDYucL(0,0)*YdcL(0,0) + Cquqd1_u0_LNP*SQUYucL(0,0)*YdcL(0,0) + Cquqd1_0d_LNP*SQDYdcL(0,0)*YucL(0,0) + Cquqd1_0u_LNP*SQUYdcL(0,0)*YucL(0,0) + Cquqd1_00_LNP*YdcL(0,0)*YucL(0,0) + Cquqd1p_d0_LNP*SQDYucL(0,0)*YdcL(0,0) + Cquqd1p_u0_LNP*SQUYucL(0,0)*YdcL(0,0) + Cquqd1p_0d_LNP*SQDYdcL(0,0)*YucL(0,0) + Cquqd1p_0u_LNP*SQUYdcL(0,0)*YucL(0,0) + Cquqd1p_00_LNP*YdcL(0,0)*YucL(0,0)).real();
 	Cquqd1_1111i_LNP = (Cquqd1_d0_LNP*SQDYucL(0,0)*YdcL(0,0) + Cquqd1_u0_LNP*SQUYucL(0,0)*YdcL(0,0) + Cquqd1_0d_LNP*SQDYdcL(0,0)*YucL(0,0) + Cquqd1_0u_LNP*SQUYdcL(0,0)*YucL(0,0) + Cquqd1_00_LNP*YdcL(0,0)*YucL(0,0) + Cquqd1p_d0_LNP*SQDYucL(0,0)*YdcL(0,0) + Cquqd1p_u0_LNP*SQUYucL(0,0)*YdcL(0,0) + Cquqd1p_0d_LNP*SQDYdcL(0,0)*YucL(0,0) + Cquqd1p_0u_LNP*SQUYdcL(0,0)*YucL(0,0) + Cquqd1p_00_LNP*YdcL(0,0)*YucL(0,0)).imag();
@@ -2354,6 +2589,7 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 	Cquqd8_3333i_LNP = (Cquqd8_d0_LNP*SQDYucL(2,2)*YdcL(2,2) + Cquqd8_u0_LNP*SQUYucL(2,2)*YdcL(2,2) + Cquqd8_0d_LNP*SQDYdcL(2,2)*YucL(2,2) + Cquqd8_0u_LNP*SQUYdcL(2,2)*YucL(2,2) + Cquqd8_00_LNP*YdcL(2,2)*YucL(2,2) + Cquqd8p_d0_LNP*SQDYucL(2,2)*YdcL(2,2) + Cquqd8p_u0_LNP*SQUYucL(2,2)*YdcL(2,2) + Cquqd8p_0d_LNP*SQDYdcL(2,2)*YucL(2,2) + Cquqd8p_0u_LNP*SQUYdcL(2,2)*YucL(2,2) + Cquqd8p_00_LNP*YdcL(2,2)*YucL(2,2)).imag();
 
 }
+
 
 bool NPSMEFTd6MFV::PostUpdate() {
 
