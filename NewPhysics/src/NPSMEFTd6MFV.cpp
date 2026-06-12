@@ -1047,12 +1047,12 @@ void NPSMEFTd6MFV::setParams_HiggsCurrentSemileptonic(const YukawaMats& Y) {
 	Cll_2332r_LNP = (Cllp_00_LNP + Cllp_l0_LNP*Yl2L(1) + Cllp_l0_LNP*Yl2L(2)).real();
 	Cll_3333r_LNP = (Cll_00_LNP + 2*Cll_l0_LNP*Yl2L(2) + Cllp_00_LNP + 2*Cllp_l0_LNP*Yl2L(2)).real();
 
-	Cee_1111r_LNP = (Cee_00_LNP + 2*Cee_e0_LNP*Yl2L(0)).real();
+	Cee_1111r_LNP = (Cee_00_LNP + 4*Cee_e0_LNP*Yl2L(0)).real();
 	Cee_1122r_LNP = (Cee_00_LNP + Cee_e0_LNP*Yl2L(0) + Cee_e0_LNP*Yl2L(1)).real();
 	Cee_1133r_LNP = (Cee_00_LNP + Cee_e0_LNP*Yl2L(0) + Cee_e0_LNP*Yl2L(2)).real();
-	Cee_2222r_LNP = (Cee_00_LNP + 2*Cee_e0_LNP*Yl2L(1)).real();
+	Cee_2222r_LNP = (Cee_00_LNP + 4*Cee_e0_LNP*Yl2L(1)).real();
 	Cee_2233r_LNP = (Cee_00_LNP + Cee_e0_LNP*Yl2L(1) + Cee_e0_LNP*Yl2L(2)).real();
-	Cee_3333r_LNP = (Cee_00_LNP + 2*Cee_e0_LNP*Yl2L(2)).real();
+	Cee_3333r_LNP = (Cee_00_LNP + 4*Cee_e0_LNP*Yl2L(2)).real();
 
 	Cle_1111r_LNP = (Cle_00_LNP + Cle_0e_LNP*Yl2L(0) + Cle_l0_LNP*Yl2L(0) + Cle_y_LNP*YlL(0)*YlL(0)).real();
 	Cle_1122r_LNP = (Cle_00_LNP + Cle_l0_LNP*Yl2L(0) + Cle_0e_LNP*Yl2L(1)).real();
