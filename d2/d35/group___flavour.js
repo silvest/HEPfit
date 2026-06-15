@@ -164,6 +164,13 @@ var group___flavour =
       [ "computeThValue", "d4/dbe/class_a_f_b___b_xqll.html#a41006fa96a0e4e3e435b9afa9211197b", null ],
       [ "myBXqll", "d4/dbe/class_a_f_b___b_xqll.html#a92c5d83236832bef0213833454977682", null ]
     ] ],
+    [ "AFB_MPll", "d3/dfc/class_a_f_b___m_pll.html", [
+      [ "AFB_MPll", "d3/dfc/class_a_f_b___m_pll.html#ab2d0779ead3ddfe730bd4fa00b3a66f5", null ],
+      [ "computeThValue", "d3/dfc/class_a_f_b___m_pll.html#afe7370f01b43c183fda02480b087a47b", null ],
+      [ "lep", "d3/dfc/class_a_f_b___m_pll.html#a6c66ea45aad9f3c818fd329641fd4663", null ],
+      [ "meson", "d3/dfc/class_a_f_b___m_pll.html#a36f7c65884911e51f1846b0b7b64785d", null ],
+      [ "pseudoscalar", "d3/dfc/class_a_f_b___m_pll.html#aff1ef1e74f4ea8d55226c4604be136b8", null ]
+    ] ],
     [ "Alpha", "d4/d8d/class_alpha.html", [
       [ "Alpha", "d4/d8d/class_alpha.html#abb5da4ab2ed7248afd8a782a719850c9", null ],
       [ "computeThValue", "d4/d8d/class_alpha.html#abcde8319f0600b6d51720f871b06a973", null ]
@@ -1110,6 +1117,13 @@ var group___flavour =
     [ "FBsSqrtBBs", "d5/d8f/class_f_bs_sqrt_b_bs.html", [
       [ "FBsSqrtBBs", "d5/d8f/class_f_bs_sqrt_b_bs.html#a0e179ed626959e323e1bfd31a0c02c14", null ],
       [ "computeThValue", "d5/d8f/class_f_bs_sqrt_b_bs.html#a29ec6dda5705d0e9e221bdbe0d08be19", null ]
+    ] ],
+    [ "FH_MPll", "d5/dcf/class_f_h___m_pll.html", [
+      [ "FH_MPll", "d5/dcf/class_f_h___m_pll.html#a31ddc33b0543e642f411afb32ad4bcd5", null ],
+      [ "computeThValue", "d5/dcf/class_f_h___m_pll.html#a41ab44369cf389be130b5fdd2e6f32ca", null ],
+      [ "lep", "d5/dcf/class_f_h___m_pll.html#a8e0a91afc987da83c2be6bbf35071699", null ],
+      [ "meson", "d5/dcf/class_f_h___m_pll.html#a391210b0ea73fe26b991e6944c9fe71f", null ],
+      [ "pseudoscalar", "d5/dcf/class_f_h___m_pll.html#a10f166987f65ebe7aa6f4a684f59c5e1", null ]
     ] ],
     [ "Flavour", "d4/d6d/class_flavour.html", [
       [ "Flavour", "d4/d6d/class_flavour.html#ae652efc7e3f169ead40bcf8f0f895db9", null ],
