@@ -356,9 +356,9 @@ void MPll::updateParameters()
     ihalfMPI = gslpp::complex::i() * M_PI / 2.;
     Mc2 = Mc*Mc;
     Mb2 = Mb*Mb;
+    mu_b2 = mu_b*mu_b;
     logMc = log(Mc2 / mu_b2);
     logMb = log(Mb2 / mu_b2);
-    mu_b2 = mu_b*mu_b;
     fourMc2 = 4. * Mc2;
     fourMb2 = 4. * Mb2;
     Mlep2 = Mlep*Mlep;
