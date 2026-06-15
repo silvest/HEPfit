@@ -175,6 +175,82 @@ private:
 
 
 /**
+ * @class AFB_MPll
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<A_{FB}>@f$ in @f$M \to P l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<A_{FB}>@f$ in 
+ * @f$M \to P l^+l^-@f$ in terms of the binned CP asymmetry helicity coefficients 
+ * @f$<\Delta_i>@f$, computed in the MVll class, and the @f$\Gamma'@f$:
+ * @f[
+ * <A_{FB}>= \frac {-3<\Sigma{6c}>}{2(3<\Sigma{1c}> - <\Sigma{2s}>)} \,.
+ * @f]
+ */
+class AFB_MPll : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    AFB_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The binned observable @f$<A_{FB}>@f$ in @f$M \to P l^+l^-@f$.
+    * @return @f$<A_{FB}>@f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+};
+
+
+/**
+ * @class FH_MPll
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<F_{H}>@f$ in @f$M \to P l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<F_{H}>@f$ in 
+ * @f$M \to P l^+l^-@f$ in terms of the binned CP asymmetry helicity coefficients 
+ * @f$<\Delta_i>@f$, computed in the MVll class, and the @f$\Gamma'@f$:
+ * @f[
+ * <F_{H}>= \frac {3<\Sigma{1c}> + 3<\Sigma{2s}>}{3<\Sigma{1c}> - <\Sigma{2s}>} \,.
+ * @f]
+ */
+class FH_MPll : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    FH_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The binned observable @f$<F_{H}>@f$ in @f$M \to P l^+l^-@f$.
+    * @return @f$<F_{H}>@f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+};
+
+
+/**
  * @class hlambda_at_1
  * @ingroup Flavour
  * @brief A class for @f$h_{\lambda}(q^2=1)@f$ in @f$M \to P l^+l^-@f$. 

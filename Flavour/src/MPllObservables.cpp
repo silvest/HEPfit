@@ -98,6 +98,44 @@ double ACP_MPll::computeThValue()
     return (3.*SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateDelta(0, q_min, q_max) - SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateDelta(2, q_min, q_max))/(4.*computeBR_MPll(q_min, q_max, lep)* SM.getFlavour().getMPll(meson, pseudoscalar, lep).getwidth());
 }
 
+
+AFB_MPll::AFB_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    pseudoscalar = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep).initializeMPllParameters());
+}
+
+double AFB_MPll::computeThValue() 
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    return -3.*SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateSigma(8, q_min, q_max)/(2.*(3.*SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateSigma(0,q_min,q_max)- SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateSigma(2,q_min,q_max)));
+}
+
+
+FH_MPll::FH_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    pseudoscalar = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep).initializeMPllParameters());
+}
+
+double FH_MPll::computeThValue() 
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    return (3.*SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateSigma(0,q_min,q_max) + 3.*SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateSigma(2,q_min,q_max))/(3.*SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateSigma(0,q_min,q_max) - SM.getFlavour().getMPll(meson, pseudoscalar, lep).integrateSigma(2,q_min,q_max));
+}
+
 DC9_hlambda::DC9_hlambda(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
 : ThObservable(SM_i) 
 {  

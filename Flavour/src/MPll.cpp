@@ -423,6 +423,7 @@ void MPll::updateParameters()
 
     if (I0_updated == 0) for (it = sigma0Cached.begin(); it != sigma0Cached.end(); ++it) it->second = 0;
     if (I2_updated == 0) for (it = sigma2Cached.begin(); it != sigma2Cached.end(); ++it) it->second = 0;
+    if (I8_updated == 0) for (it = sigma8Cached.begin(); it != sigma8Cached.end(); ++it) it->second = 0;
 
     if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
     if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
@@ -1326,8 +1327,8 @@ gslpp::complex MPll::h_lambda(double q2)
 //            h_2 = 1.3e-4/MM2 * (1. + gslpp::complex::i()) / sqrt(2.) - h_1 * V_L(1.)/sixteenM_PI2/MM2;
             //else return 4.9e-7/MM2 + h_1 * (q2 * V_L(q2) - T_L(q2). * V_L(1)/T_L(1.)) / MM2  / sixteenM_PI2;
             
-            //return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * sqrt(q2);
-            return (h_1 + h_2 * q2 ) * sqrt(q2) * sqrt(lambda(q2)) / MM3 / 2.;
+            return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * sqrt(q2);
+            // return (h_1 + h_2 * q2 ) * sqrt(q2) * sqrt(lambda(q2)) / MM3 / 2.;
 //        }
     } else {
         return -q2 / (MM2 * sixteenM_PI2) * V_L(q2) * DeltaC9_KD(q2);
@@ -1447,6 +1448,15 @@ double MPll::integrateSigma(int i, double q_min, double q_max)
                 sigma2Cached[qbin] = 1;
             }
             return cacheSigma2[qbin];
+            break;
+        case 8:
+            if (sigma8Cached[qbin] == 0) {
+                FS = convertToGslFunction(bind(&MPll::getSigma6c, &(*this), _1));
+                if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+                cacheSigma8[qbin] = NN*avaSigma;
+                sigma8Cached[qbin] = 1;
+            }
+            return cacheSigma8[qbin];
             break;
         default:
             std::stringstream out;

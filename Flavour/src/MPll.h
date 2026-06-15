@@ -678,6 +678,7 @@ private:
 
     std::map<std::pair<double, double>, unsigned int > sigma0Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > sigma2Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma8Cached;/**< Cache variable */
 
     std::map<std::pair<double, double>, unsigned int > delta0Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta2Cached;/**< Cache variable */
@@ -709,6 +710,7 @@ private:
 
     std::map<std::pair<double, double>, double > cacheSigma0;/**< Gsl integral variable */
     std::map<std::pair<double, double>, double > cacheSigma2;/**< Gsl integral variable */
+    std::map<std::pair<double, double>, double > cacheSigma8;/**< Gsl integral variable */
 
     std::map<std::pair<double, double>, double > cacheDelta0;/**< Gsl integral variable */
     std::map<std::pair<double, double>, double > cacheDelta2;/**< Gsl integral variable */

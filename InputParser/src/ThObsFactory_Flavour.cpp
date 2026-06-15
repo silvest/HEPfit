@@ -373,6 +373,10 @@ void ThObsFactory::registerFlavourObservables()
     obsThFactory["BR_BpKe"] = [=](const StandardModel& SM) { return new BR_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON); };
     obsThFactory["dBR_BpKmu"] = [=](const StandardModel& SM) { return new dBR_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::MU); };
     obsThFactory["dBR_BpKe"] = [=](const StandardModel& SM) { return new dBR_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON); };
+    obsThFactory["AFB_BpKmu"] = [=](const StandardModel& SM) { return new AFB_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::MU); };
+    obsThFactory["AFB_BpKe"] = [=](const StandardModel& SM) { return new AFB_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON); };
+    obsThFactory["FH_BpKmu"] = [=](const StandardModel& SM) { return new FH_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::MU); };
+    obsThFactory["FH_BpKe"] = [=](const StandardModel& SM) { return new FH_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON); };
     obsThFactory["RK_BpKll"] = [=](const StandardModel& SM) { return new R_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::MU, StandardModel::ELECTRON); };
 
     //----- B0 to K0 ll  -----
@@ -380,6 +384,10 @@ void ThObsFactory::registerFlavourObservables()
     obsThFactory["BR_B0Ke"] = [=](const StandardModel& SM) { return new BR_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::ELECTRON); };
     obsThFactory["dBR_B0Kmu"] = [=](const StandardModel& SM) { return new dBR_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::MU); };
     obsThFactory["dBR_B0Ke"] = [=](const StandardModel& SM) { return new dBR_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::ELECTRON); };
+    obsThFactory["AFB_B0Kmu"] = [=](const StandardModel& SM) { return new AFB_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::MU); };
+    obsThFactory["AFB_B0Ke"] = [=](const StandardModel& SM) { return new AFB_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::ELECTRON); };
+    obsThFactory["FH_B0Kmu"] = [=](const StandardModel& SM) { return new FH_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::MU); };
+    obsThFactory["FH_B0Ke"] = [=](const StandardModel& SM) { return new FH_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::ELECTRON); };
     obsThFactory["RK_B0Kll"] = [=](const StandardModel& SM) { return new R_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::MU, StandardModel::ELECTRON); };
 
     obsThFactory["DC9_hlambda"] = [=](const StandardModel& SM) { return new DC9_hlambda(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::MU); };
