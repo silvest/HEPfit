@@ -1630,16 +1630,14 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l01327" name="l01327"></a><span class="lineno"> 1327</span><span class="comment">//            h_2 = 1.3e-4/MM2 * (1. + gslpp::complex::i()) / sqrt(2.) - h_1 * V_L(1.)/sixteenM_PI2/MM2;</span></div>
 <div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>            <span class="comment">//else return 4.9e-7/MM2 + h_1 * (q2 * V_L(q2) - T_L(q2). * V_L(1)/T_L(1.)) / MM2  / sixteenM_PI2;</span></div>
 <div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span>            </div>
-<div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>            <span class="keywordflow">return</span> (twoMboMM * <a class="code hl_class" href="../../df/db7/classh__0.html">h_0</a> * <a class="code hl_function" href="../../dc/dce/class_m_pll.html#aa548896e7dfbaea7bb3dc2548a7e0b1c">T_L</a>(q2) + h_1 * q2 / MM2 * <a class="code hl_function" href="../../dc/dce/class_m_pll.html#a8c6287657ecf07257c6953d6ddfe8fa4">V_L</a>(q2)) / sixteenM_PI2 + h_2 * q2 * sqrt(q2);</div>
-<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>            <span class="comment">// return (h_1 + h_2 * q2 ) * sqrt(q2) * sqrt(lambda(q2)) / MM3 / 2.;</span></div>
+<div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>            <span class="comment">// return (twoMboMM * h_0 * T_L(q2) + h_1 * q2 / MM2 * V_L(q2)) / sixteenM_PI2 + h_2 * q2 * sqrt(q2);</span></div>
+<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>            <span class="keywordflow">return</span> (h_1 + h_2 * q2 ) * sqrt(q2) * sqrt(lambda(q2)) / MM3 / 2.;</div>
 <div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span><span class="comment">//        }</span></div>
 <div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>        <span class="keywordflow">return</span> -q2 / (MM2 * sixteenM_PI2) * <a class="code hl_function" href="../../dc/dce/class_m_pll.html#a8c6287657ecf07257c6953d6ddfe8fa4">V_L</a>(q2) * <a class="code hl_function" href="../../dc/dce/class_m_pll.html#a383373be2326398500effaec5cd426da">DeltaC9_KD</a>(q2);</div>
 <div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span>    }</div>
 <div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span>}</div>
 <div class="ttc" id="aclass_m_pll_html_a383373be2326398500effaec5cd426da"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#a383373be2326398500effaec5cd426da">MPll::DeltaC9_KD</a></div><div class="ttdeci">gslpp::complex DeltaC9_KD(double q2)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l01315">MPll.cpp:1315</a></div></div>
-<div class="ttc" id="aclass_m_pll_html_aa548896e7dfbaea7bb3dc2548a7e0b1c"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#aa548896e7dfbaea7bb3dc2548a7e0b1c">MPll::T_L</a></div><div class="ttdeci">gslpp::complex T_L(double q2)</div><div class="ttdoc">The helicity form factor .</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l00959">MPll.cpp:959</a></div></div>
-<div class="ttc" id="aclassh__0_html"><div class="ttname"><a href="../../df/db7/classh__0.html">h_0</a></div><div class="ttdoc">A class for the correction  in .</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d5a/_m_vll_observables_8h_source.html#l01991">MVllObservables.h:1991</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1793,6 +1791,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a id="l01343" name="l01343"></a><span class="lineno"> 1343</span>}</div>
 <div class="ttc" id="aclass_m_pll_html_a2b06cbeae77bc788451c7fb54d15e419"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#a2b06cbeae77bc788451c7fb54d15e419">MPll::h_lambda</a></div><div class="ttdeci">gslpp::complex h_lambda(double q2)</div><div class="ttdoc">The non-pertubative ccbar contributions to the helicity amplitudes.</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l01321">MPll.cpp:1321</a></div></div>
 <div class="ttc" id="aclass_m_pll_html_a37f7903fcc011660bab205d5e1a79101"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#a37f7903fcc011660bab205d5e1a79101">MPll::deltaC9_QCDF</a></div><div class="ttdeci">gslpp::complex deltaC9_QCDF(double q2, bool spline=false)</div><div class="ttdoc">QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et....</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l01223">MPll.cpp:1223</a></div></div>
+<div class="ttc" id="aclass_m_pll_html_aa548896e7dfbaea7bb3dc2548a7e0b1c"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#aa548896e7dfbaea7bb3dc2548a7e0b1c">MPll::T_L</a></div><div class="ttdeci">gslpp::complex T_L(double q2)</div><div class="ttdoc">The helicity form factor .</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l00959">MPll.cpp:959</a></div></div>
 <div class="ttc" id="aclass_m_pll_html_acf359e356cf2f8a3e9b8a65c5d4aa75a"><div class="ttname"><a href="../../dc/dce/class_m_pll.html#acf359e356cf2f8a3e9b8a65c5d4aa75a">MPll::deltaC7_QCDF</a></div><div class="ttdeci">gslpp::complex deltaC7_QCDF(double q2, bool spline=false)</div><div class="ttdoc">QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et....</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dac/_m_pll_8cpp_source.html#l01198">MPll.cpp:1198</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -3592,7 +3591,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dc/dce/class_m_pll.html">MPll</a></li>
-    <li class="footer">Generated on Mon Jun 15 2026 for $\texttt{HEPfit}$ using
+    <li class="footer">Generated on Wed Jun 17 2026 for $\texttt{HEPfit}$ using
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.9.2 </li>
   </ul>

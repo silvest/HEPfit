@@ -270,7 +270,9 @@ var hierarchy =
             [ "NPSMEFTd6", "d2/d0d/class_n_p_s_m_e_f_td6.html", null ],
             [ "NPSMEFTd6General", "d1/d9e/class_n_p_s_m_e_f_td6_general.html", [
               [ "NPSMEFTd6MFP", "d2/d56/class_n_p_s_m_e_f_td6_m_f_p.html", null ],
-              [ "NPSMEFTd6MFV", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html", null ],
+              [ "NPSMEFTd6MFV", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html", [
+                [ "NPSMEFTd6CHRU", "df/dbc/class_n_p_s_m_e_f_td6_c_h_r_u.html", null ]
+              ] ],
               [ "NPSMEFTd6U2", "d5/dfe/class_n_p_s_m_e_f_td6_u2.html", null ],
               [ "NPSMEFTd6U2qU1le", "d8/dcc/class_n_p_s_m_e_f_td6_u2q_u1le.html", null ],
               [ "NPSMEFTd6U3", "d7/d20/class_n_p_s_m_e_f_td6_u3.html", null ],
@@ -719,6 +721,8 @@ var hierarchy =
       [ "CEWHutt", "d6/dfd/class_c_e_w_hutt.html", null ],
       [ "CEWHuuu", "da/d90/class_c_e_w_huuu.html", null ],
       [ "CEWll", "db/de5/class_c_e_wll.html", null ],
+      [ "CHRU_eps_dL", "d3/d45/class_c_h_r_u__eps__d_l.html", null ],
+      [ "CHRU_eps_uL", "d0/df2/class_c_h_r_u__eps__u_l.html", null ],
       [ "CKMGamma", "d4/dc1/class_c_k_m_gamma.html", null ],
       [ "CKM_2BpG", "d7/dff/class_c_k_m__2_bp_g.html", null ],
       [ "CKM_Alpha", "d3/d51/class_c_k_m___alpha.html", null ],
