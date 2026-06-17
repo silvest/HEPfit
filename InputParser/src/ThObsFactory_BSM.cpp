@@ -17,6 +17,7 @@
 /* END: REMOVE FROM THE PACKAGE */
 #include "GeorgiMachacekObservables.h"
 #include "FlavourWilsonCoefficient_DF2_Observables.h"
+#include "NPSMEFTd6CHRU.h"
 using namespace ThObsConst;
 
 void ThObsFactory::registerBSMObservables()
@@ -1739,4 +1740,7 @@ void ThObsFactory::registerBSMObservables()
     obsThFactory["log10_pp_H5ppmmH5mmpp_WWWW_TH13"] = [](const StandardModel& SM) { return new log10_pp_H5ppmmH5mmpp_WWWW_TH13(SM); };
     obsThFactory["log10_VV_H5ppmm_WW_TH8"] = [](const StandardModel& SM) { return new log10_VV_H5ppmm_WW_TH8(SM); };
     obsThFactory["log10_VV_H5ppmm_WW_TH13"] = [](const StandardModel& SM) { return new log10_VV_H5ppmm_WW_TH13(SM); };
+
+    obsThFactory["eps_uL"] = [](const StandardModel& SM) { return new CHRU_eps_uL(SM); };
+    obsThFactory["eps_dL"] = [](const StandardModel& SM) { return new CHRU_eps_dL(SM); };
 }

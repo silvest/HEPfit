@@ -20,6 +20,7 @@
 #include "NPSMEFTd6MFP.h"
 #include "NPSMEFTd6U3.h"
 #include "NPSMEFTd6MFV.h"
+#include "NPSMEFTd6CHRU.h"
 
 #include "NPd6SILH.h"
 
@@ -68,7 +69,8 @@ ModelFactory::ModelFactory()
     modelFactory["NPSMEFTd6MFP"] = []() -> StandardModel* { return new NPSMEFTd6MFP(); };
     modelFactory["NPSMEFTd6U3"] = []() -> StandardModel* { return new NPSMEFTd6U3(); };
     modelFactory["NPSMEFTd6MFV"] = []() -> StandardModel* { return new NPSMEFTd6MFV(); };
-    
+    modelFactory["NPSMEFTd6CHRU"] = []() -> StandardModel* { return new NPSMEFTd6CHRU(); };
+
     modelFactory["NPd6SILH"] = []() -> StandardModel* { return new NPd6SILH(); };
     
     modelFactory["NPSMEFT6dtopquark"] = []() -> StandardModel* { return new NPSMEFT6dtopquark(); };
