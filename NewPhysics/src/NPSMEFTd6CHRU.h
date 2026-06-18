@@ -42,12 +42,12 @@ public:
 	virtual bool Init(const std::map<std::string, double>& DPars);
 
 	double get_eps_uL() const {
-		double yt = getSMEFTCoeffEW("YuR",3,3);
+		double yt = getSMEFTCoeffEW("YuR",2,2);
 		return gstar * eps_u/yt - 1;
 	}
 
 	double get_eps_dL() const {
-		double yb = getSMEFTCoeffEW("YdR",3,3);
+		double yb = getSMEFTCoeffEW("YdR",2,2);
 		return gstar * eps_d/yb - 1;
 	}
     
