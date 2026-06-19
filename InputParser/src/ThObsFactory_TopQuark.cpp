@@ -441,6 +441,13 @@ void ThObsFactory::registerTopQuarkObservables()
    obsThFactory["sigma_tq_8_LO"] = [](const StandardModel& SM) { return new sigma_tq_8_LO(SM); };
    obsThFactory["sigma_tw_7_LO"] = [](const StandardModel& SM) { return new sigma_tw_7_LO(SM); };
    obsThFactory["sigma_tq_7_LO"] = [](const StandardModel& SM) { return new sigma_tq_7_LO(SM); };
+   
+   obsThFactory["BR_tuZ"] = [](const StandardModel& SM) { return new BR_tuZ(SM); };
+   obsThFactory["BR_tuH"] = [](const StandardModel& SM) { return new BR_tuH(SM); };
+   obsThFactory["BR_tugamma"] = [](const StandardModel& SM) { return new BR_tugamma(SM); };
+   obsThFactory["BR_tcZ"] = [](const StandardModel& SM) { return new BR_tcZ(SM); };
+   obsThFactory["BR_tcH"] = [](const StandardModel& SM) { return new BR_tcH(SM); };
+   obsThFactory["BR_tcgamma"] = [](const StandardModel& SM) { return new BR_tcgamma(SM); };
 
 
 

@@ -135,9 +135,21 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         double lambda = mySMEFT.getLambdaH_tree() * 2.;
         double oneoMh2 = mySMEFT.FlagHiggsExch * 1. / (lambda * v2);
         double deltaoneoMh2 = (- 2. * mySMEFT.getSMEFTCoeffEW("CHbox") + 0.5 * mySMEFT.getSMEFTCoeffEW("CHD") + 3 * mySMEFT.getSMEFTCoeffEW("CH") / lambda) * v2;
-        std::array<double, 3> Me = mySMEFT.getMe_LEW();
-        std::array<double, 3> Mu = mySMEFT.getMu_LEW();
-        std::array<double, 3> Md = mySMEFT.getMd_LEW();
+        
+        std::array<double, 3> Me = {
+    	mySMEFT.getLeptons(StandardModel::ELECTRON).getMass(),
+    	mySMEFT.getLeptons(StandardModel::MU).getMass(),
+    	mySMEFT.getLeptons(StandardModel::TAU).getMass()
+};
+        std::array<double, 3> Mu = {
+        mySMEFT.getQuarks(QCD::UP).getMass(),   
+        mySMEFT.getQuarks(QCD::CHARM).getMass()
+};
+        std::array<double, 3> Md = {
+        mySMEFT.getQuarks(QCD::DOWN).getMass(),
+        mySMEFT.getQuarks(QCD::STRANGE).getMass(),
+        mySMEFT.getQuarks(QCD::BOTTOM).getMass(),
+};
 
         // std::cout << "CKM from rotated UfA = " << (VuL.hconjugate()) * VdL << std::endl;
 

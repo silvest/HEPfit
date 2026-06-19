@@ -4774,6 +4774,297 @@ double sigma_ttbb_13_LO_lepjet::computeThValue()
 }
 
 
+BR_tcZ::BR_tcZ(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "Gammatop");
+}
+
+double BR_tcZ::computeThValue()
+{
+    bool flag_Quadratic = false; //Needs to be properly defined
+
+    
+    double alpha = mytopobs.GetmyNPSMEFTd6General().getAle();
+    double sbar = -mytopobs.GetmyNPSMEFTd6General().getXBZ_tree();
+    double cbar = mytopobs.GetmyNPSMEFTd6General().getXWZ_tree();
+    double sbar2 = sbar * sbar;
+    double cbar2 = cbar * cbar;
+    double mZ = mytopobs.GetmyNPSMEFTd6General().getMz();
+    double mt = mytopobs.GetmyNPSMEFTd6General().getMtpole();
+    double mZ2 = mZ * mZ;
+    double mt2 = mt * mt;
+    double mt3 = mt2 * mt;
+    double v = mytopobs.GetmyNPSMEFTd6General().v();
+    double v2 = v * v;
+    double Gammatop = SM.getOptionalParameter("Gammatop");
+    
+    gslpp::complex XL = 0.5 * v2 * (ewgc("CHq3R",1,2) + gslpp::complex::i() * ewgc("CHq3I",1,2) + ewgc("CHq3R",2,1) - gslpp::complex::i() * ewgc("CHq3I",2,1) - ewgc("CHq1R",1,2) - gslpp::complex::i() * ewgc("CHq1I",1,2) - ewgc("CHq1R",2,1) + gslpp::complex::i() * ewgc("CHq1I",2,1));
+    double absXL2 = (XL * XL.conjugate()).abs();
+    gslpp::complex XR = - 0.5 * v2 * (ewgc("CHuR",1,2) + gslpp::complex::i() * ewgc("CHuI",1,2) + ewgc("CHuR",2,1) - gslpp::complex::i() * ewgc("CHuI",2,1));
+    double absXR2 = (XR * XR.conjugate()).abs();
+    gslpp::complex kL = sqrt(2.) * v2 * (cbar * (ewgc("CuWR",2,1) - gslpp::complex::i() * ewgc("CuWI",2,1)) - sbar * (ewgc("CuBR",2,1) - gslpp::complex::i() * ewgc("CuBI",2,1)));
+    double abskL2 = (kL * kL.conjugate()).abs();
+    gslpp::complex kR = sqrt(2.) * v2 * (cbar * (ewgc("CuWR",1,2) + gslpp::complex::i() * ewgc("CuWI",1,2)) - sbar * (ewgc("CuBR",1,2) + gslpp::complex::i() * ewgc("CuBI",1,2)));
+    double abskR2 = (kR * kR.conjugate()).abs();
+    
+
+    if(flag_Quadratic){
+
+        return 0.;
+
+       }
+    else{
+
+        double Gammag = alpha / (32. * sbar2 * cbar2) * (absXL2 + absXR2) * mt3 / mZ2 * (1. - mZ2 / mt2) * (1. - mZ2 / mt2) * (1. + 2. * mZ2 / mt2);
+        double Gammas = alpha / (16. * sbar2 * cbar2) * (abskL2 + abskR2) * mt * (1. - mZ2 / mt2) * (1. - mZ2 / mt2) * (2. + mZ2 / mt2);
+	double Gammags = alpha / (32. * sbar2 * cbar2) * 12. * ((XL * kR.conjugate()).real() + (XR * kL.conjugate()).real()) * mt * (1. - mZ2 / mt2) * (1. - mZ2 / mt2);
+        double total = (Gammag + Gammas + Gammags) / Gammatop;
+
+        if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+
+        return total;
+
+    }
+
+}
+
+
+BR_tuZ::BR_tuZ(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "Gammatop");
+}
+
+double BR_tuZ::computeThValue()
+{
+    bool flag_Quadratic = false; //Needs to be properly defined
+
+    
+    double alpha = mytopobs.GetmyNPSMEFTd6General().getAle();
+    double sbar = -mytopobs.GetmyNPSMEFTd6General().getXBZ_tree();
+    double cbar = mytopobs.GetmyNPSMEFTd6General().getXWZ_tree();
+    double sbar2 = sbar * sbar;
+    double cbar2 = cbar * cbar;
+    double mZ = mytopobs.GetmyNPSMEFTd6General().getMz();
+    double mt = mytopobs.GetmyNPSMEFTd6General().getMtpole();
+    double mZ2 = mZ * mZ;
+    double mt2 = mt * mt;
+    double mt3 = mt2 * mt;
+    double v = mytopobs.GetmyNPSMEFTd6General().v();
+    double v2 = v * v;
+    double Gammatop = SM.getOptionalParameter("Gammatop");
+    
+    gslpp::complex XL = 0.5 * v2 * (ewgc("CHq3R",0,2) + gslpp::complex::i() * ewgc("CHq3I",0,2) + ewgc("CHq3R",2,0) - gslpp::complex::i() * ewgc("CHq3I",2,0) - ewgc("CHq1R",0,2) - gslpp::complex::i() * ewgc("CHq1I",0,2) - ewgc("CHq1R",2,0) + gslpp::complex::i() * ewgc("CHq1I",2,0));
+    double absXL2 = (XL * XL.conjugate()).abs();
+    gslpp::complex XR = - 0.5 * v2 * (ewgc("CHuR",0,2) + gslpp::complex::i() * ewgc("CHuI",0,2) + ewgc("CHuR",2,0) - gslpp::complex::i() * ewgc("CHuI",2,0));
+    double absXR2 = (XR * XR.conjugate()).abs();
+    gslpp::complex kL = sqrt(2.) * v2 * (cbar * (ewgc("CuWR",2,0) - gslpp::complex::i() * ewgc("CuWI",2,0)) - sbar * (ewgc("CuBR",2,0) - gslpp::complex::i() * ewgc("CuBI",2,0)));
+    double abskL2 = (kL * kL.conjugate()).abs();
+    gslpp::complex kR = sqrt(2.) * v2 * (cbar * (ewgc("CuWR",0,2) + gslpp::complex::i() * ewgc("CuWI",0,2)) - sbar * (ewgc("CuBR",0,2) + gslpp::complex::i() * ewgc("CuBI",0,2)));
+    double abskR2 = (kR * kR.conjugate()).abs();
+    
+
+    if(flag_Quadratic){
+
+        return 0.;
+
+       }
+    else{
+
+        double Gammag = alpha / (32. * sbar2 * cbar2) * (absXL2 + absXR2) * mt3 / mZ2 * (1. - mZ2 / mt2) * (1. - mZ2 / mt2) * (1. + 2. * mZ2 / mt2);
+        double Gammas = alpha / (16. * sbar2 * cbar2) * (abskL2 + abskR2) * mt * (1. - mZ2 / mt2) * (1. - mZ2 / mt2) * (2. + mZ2 / mt2);
+	double Gammags = alpha / (32. * sbar2 * cbar2) * 12. * ((XL * kR.conjugate()).real() + (XR * kL.conjugate()).real()) * mt * (1. - mZ2 / mt2) * (1. - mZ2 / mt2);
+        double total = (Gammag + Gammas + Gammags) / Gammatop;
+
+        if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+
+        return total;
+
+    }
+
+}
+
+
+BR_tcgamma::BR_tcgamma(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "Gammatop");
+}
+
+double BR_tcgamma::computeThValue()
+{
+    bool flag_Quadratic = false; //Needs to be properly defined
+
+
+    double alpha = mytopobs.GetmyNPSMEFTd6General().getAle();
+    double mt = mytopobs.GetmyNPSMEFTd6General().getMtpole();
+    double v = mytopobs.GetmyNPSMEFTd6General().v();
+    double ee = mytopobs.GetmyNPSMEFTd6General().getEeMz();
+    double sbar = -mytopobs.GetmyNPSMEFTd6General().getXBZ_tree();
+    double cbar = mytopobs.GetmyNPSMEFTd6General().getXWZ_tree();
+    double Gammatop = SM.getOptionalParameter("Gammatop");
+    
+    gslpp::complex lambdaL = sqrt(2.) / ee * v * mt * (sbar * (ewgc("CuWR",2,1) - gslpp::complex::i() * ewgc("CuWI",2,1)) + cbar * (ewgc("CuBR",2,1) - gslpp::complex::i() * ewgc("CuBI",2,1)));
+    gslpp::complex lambdaR = sqrt(2.) / ee * v * mt * (sbar * (ewgc("CuWR",1,2) + gslpp::complex::i() * ewgc("CuWI",1,2)) + cbar * (ewgc("CuBR",1,2) + gslpp::complex::i() * ewgc("CuBI",1,2)));
+    double abslambdaL2 = (lambdaL * lambdaL.conjugate()).abs();
+    double abslambdaR2 = (lambdaR * lambdaR.conjugate()).abs();
+    
+
+    if(flag_Quadratic){
+
+        return 0.;
+
+       }
+    else{
+
+        double total = alpha / 2 * (abslambdaL2 + abslambdaR2) * mt / Gammatop;
+
+        if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+
+        return total;
+
+    }
+
+}
+
+
+BR_tugamma::BR_tugamma(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "Gammatop");
+}
+
+double BR_tugamma::computeThValue()
+{
+    bool flag_Quadratic = false; //Needs to be properly defined
+
+
+    double alpha = mytopobs.GetmyNPSMEFTd6General().getAle();
+    double mt = mytopobs.GetmyNPSMEFTd6General().getMtpole();
+    double v = mytopobs.GetmyNPSMEFTd6General().v();
+    double ee = mytopobs.GetmyNPSMEFTd6General().getEeMz();
+    double sbar = -mytopobs.GetmyNPSMEFTd6General().getXBZ_tree();
+    double cbar = mytopobs.GetmyNPSMEFTd6General().getXWZ_tree();
+    double Gammatop = SM.getOptionalParameter("Gammatop");
+    
+    gslpp::complex lambdaL = sqrt(2.) / ee * v * mt * (sbar * (ewgc("CuWR",2,0) - gslpp::complex::i() * ewgc("CuWI",2,0)) + cbar * (ewgc("CuBR",2,0) - gslpp::complex::i() * ewgc("CuBI",2,0)));
+    gslpp::complex lambdaR = sqrt(2.) / ee * v * mt * (sbar * (ewgc("CuWR",0,2) + gslpp::complex::i() * ewgc("CuWI",0,2)) + cbar * (ewgc("CuBR",0,2) + gslpp::complex::i() * ewgc("CuBI",0,2)));
+    double abslambdaL2 = (lambdaL * lambdaL.conjugate()).abs();
+    double abslambdaR2 = (lambdaR * lambdaR.conjugate()).abs();
+    
+
+    if(flag_Quadratic){
+
+        return 0.;
+
+       }
+    else{
+
+        double total = alpha / 2 * (abslambdaL2 + abslambdaR2) * mt / Gammatop;
+
+        if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+
+        return total;
+
+    }
+
+}
+
+
+BR_tcH::BR_tcH(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "Gammatop");
+}
+
+double BR_tcH::computeThValue()
+{
+    bool flag_Quadratic = false; //Needs to be properly defined
+
+
+    double alpha = mytopobs.GetmyNPSMEFTd6General().getAle();
+    double sbar = -mytopobs.GetmyNPSMEFTd6General().getXBZ_tree();
+    double sbar2 = sbar * sbar;
+    double mt = mytopobs.GetmyNPSMEFTd6General().getMtpole();
+    double mt2 = mt * mt;
+    double mH = mytopobs.GetmyNPSMEFTd6General().getMHl();
+    double mH2 = mH * mH;
+    double v = mytopobs.GetmyNPSMEFTd6General().v();
+    double v2 = v * v;
+    double Gammatop = SM.getOptionalParameter("Gammatop");
+    
+    gslpp::complex gL = 1.5 * v2 * (ewgc("CuHR",2,1) - gslpp::complex::i() * ewgc("CuHI",2,1));
+    gslpp::complex gR = 1.5 * v2 * (ewgc("CuHR",1,2) + gslpp::complex::i() * ewgc("CuHI",1,2));
+    double absgL2 = (gL * gL.conjugate()).abs();
+    double absgR2 = (gR * gR.conjugate()).abs();
+    
+
+    if(flag_Quadratic){
+
+        return 0.;
+
+       }
+    else{
+
+        double total = alpha / (32. * sbar2) * mt * (absgL2 + absgR2) * (1. - mH2 / mt2) * (1. - mH2 / mt2) / Gammatop;
+
+        if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+
+        return total;
+
+    }
+
+}
+
+
+BR_tuH::BR_tuH(const StandardModel& SM_i)
+: ThObservable(SM_i), mytopobs(static_cast<const NPSMEFTd6General&> (SM))
+{
+    setParametersForObservable(make_vector<std::string>() << "Gammatop");
+}
+
+double BR_tuH::computeThValue()
+{
+    bool flag_Quadratic = false; //Needs to be properly defined
+
+
+    double alpha = mytopobs.GetmyNPSMEFTd6General().getAle();
+    double sbar = -mytopobs.GetmyNPSMEFTd6General().getXBZ_tree();
+    double sbar2 = sbar * sbar;
+    double mt = mytopobs.GetmyNPSMEFTd6General().getMtpole();
+    double mt2 = mt * mt;
+    double mH = mytopobs.GetmyNPSMEFTd6General().getMHl();
+    double mH2 = mH * mH;
+    double v = mytopobs.GetmyNPSMEFTd6General().v();
+    double v2 = v * v;
+    double Gammatop = SM.getOptionalParameter("Gammatop");
+    
+    gslpp::complex gL = 1.5 * v2 * (ewgc("CuHR",2,0) - gslpp::complex::i() * ewgc("CuHI",2,0));
+    gslpp::complex gR = 1.5 * v2 * (ewgc("CuHR",0,2) + gslpp::complex::i() * ewgc("CuHI",0,2));
+    double absgL2 = (gL * gL.conjugate()).abs();
+    double absgR2 = (gR * gR.conjugate()).abs();
+    
+
+    if(flag_Quadratic){
+
+        return 0.;
+
+       }
+    else{
+
+        double total = alpha / (32. * sbar2) * mt * (absgL2 + absgR2) * (1. - mH2 / mt2) * (1. - mH2 / mt2) / Gammatop;
+
+        if (total < 0) return std::numeric_limits<double>::quiet_NaN();
+
+        return total;
+
+    }
+
+}
+
+
+
 
 
 

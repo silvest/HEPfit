@@ -1767,6 +1767,282 @@ private:
 
 
     /**
+    * @class tcZ vertex
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class BR_tcZ: public ThObservable {
+    public:
+
+    /**
+     * @brief BR_tcZ: constructor.
+     */
+    BR_tcZ(const StandardModel& SM_i);
+
+    /**
+     * @return The value of BR_tcZ:
+     */
+    double computeThValue();
+    
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
+    }
+    
+    
+    private:
+
+    const TopQuarkObservables mytopobs;
+
+    };  
+    
+    
+    
+    
+    
+    
+    
+    /**
+    * @class tuZ vertex
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class BR_tuZ: public ThObservable {
+    public:
+
+    /**
+     * @brief BR_tuZ: constructor.
+     */
+    BR_tuZ(const StandardModel& SM_i);
+
+    /**
+     * @return The value of BR_tuZ:
+     */
+    double computeThValue();
+    
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
+    }
+    
+    
+    private:
+
+    const TopQuarkObservables mytopobs;
+
+    }; 
+    
+    
+    
+    
+
+
+
+        /**
+    * @class tcH vertex
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class BR_tcH: public ThObservable {
+    public:
+
+    /**
+     * @brief BR_tcH: constructor.
+     */
+    BR_tcH(const StandardModel& SM_i);
+
+    /**
+     * @return The value of BR_tcH:
+     */
+    double computeThValue();
+
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
+    }
+    
+    
+    private:
+
+    const TopQuarkObservables mytopobs;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+        /**
+    * @class tuH vertex
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class BR_tuH: public ThObservable {
+    public:
+
+    /**
+     * @brief BR_tuH: constructor.
+     */
+    BR_tuH(const StandardModel& SM_i);
+
+    /**
+     * @return The value of BR_tuH:
+     */
+    double computeThValue();
+
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
+    }
+    
+    
+    private:
+
+    const TopQuarkObservables mytopobs;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+        /**
+    * @class tcgamma vertex
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class BR_tcgamma: public ThObservable {
+    public:
+
+    /**
+     * @brief BR_tcgamma: constructor.
+     */
+    BR_tcgamma(const StandardModel& SM_i);
+
+    /**
+     * @return The value of BR_tcgamma:
+     */
+    double computeThValue();
+
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
+    }
+    
+    
+    private:
+
+    const TopQuarkObservables mytopobs;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+        /**
+    * @class tugamma vertex
+    * @ingroup TopQuarkObservables 
+    * @brief Test Observable
+    */
+    class BR_tugamma: public ThObservable {
+    public:
+
+    /**
+     * @brief BR_tugamma: constructor.
+     */
+    BR_tugamma(const StandardModel& SM_i);
+
+    /**
+     * @return The value of BR_tugamma:
+     */
+    double computeThValue();
+
+    inline double ewgc(const std::string name) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
+    }
+    
+    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    {
+        return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
+    }
+    
+    
+    private:
+
+    const TopQuarkObservables mytopobs;
+
+    };
+    
+    
+    
+    
+    
+    
+    
+    /**
     * @class Test_direct
     * @ingroup TopQuarkObservables 
     * @brief Test Observable
@@ -1808,10 +2084,10 @@ private:
     
 
     };
-    
-    
+  
+     
+   
 
-
-
+   
 #endif /* TOPQUARKOBSERVABLES_H */
 
