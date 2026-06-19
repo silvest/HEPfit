@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['s_0',['S',['../df/da8/class_s.html',1,'']]],
-  ['s_1',['s',['../d0/d4a/classs.html',1,'s'],['../db/de5/class_l_e_p2_th_observable.html#a79e955b45bca3d284280a6a15cada065',1,'LEP2ThObservable::s()'],['../dd/d28/class_l_e_p2_th_diff_observable.html#a6c778c65578cd0ed5e6560fa7cf43cb5',1,'LEP2ThDiffObservable::s()'],['../d3/ddd/class_l_e_p2_th_diff_observable_bin.html#a1c2e9d5ce2a3f744af1e16f51c86f222',1,'LEP2ThDiffObservableBin::s()'],['../d1/da5/classeeff_th_observable.html#ac4322b10c9040962f3465f851fb90764',1,'eeffThObservable::s()'],['../da/d29/class_amp_d_b2.html#ab229a74d211724bde5f5516a1874912caca0b4d3d73f81bceba4ab2f9dc48e0d3',1,'AmpDB2::s()'],['../d7/dc5/class_evol_d_f1nlep.html#a9312f884c229cb3819df29f4d504c32c',1,'EvolDF1nlep::s()']]],
-  ['s_2',['S',['../df/da8/class_s.html#aa061a38833466a3810657530f986ea01',1,'S']]],
+  ['s_0',['s',['../d0/d4a/classs.html',1,'']]],
+  ['s_1',['S',['../df/da8/class_s.html',1,'S'],['../df/da8/class_s.html#aa061a38833466a3810657530f986ea01',1,'S::S()']]],
+  ['s_2',['s',['../db/de5/class_l_e_p2_th_observable.html#a79e955b45bca3d284280a6a15cada065',1,'LEP2ThObservable::s()'],['../dd/d28/class_l_e_p2_th_diff_observable.html#a6c778c65578cd0ed5e6560fa7cf43cb5',1,'LEP2ThDiffObservable::s()'],['../d3/ddd/class_l_e_p2_th_diff_observable_bin.html#a1c2e9d5ce2a3f744af1e16f51c86f222',1,'LEP2ThDiffObservableBin::s()'],['../d1/da5/classeeff_th_observable.html#ac4322b10c9040962f3465f851fb90764',1,'eeffThObservable::s()'],['../da/d29/class_amp_d_b2.html#ab229a74d211724bde5f5516a1874912caca0b4d3d73f81bceba4ab2f9dc48e0d3',1,'AmpDB2::s()'],['../d7/dc5/class_evol_d_f1nlep.html#a9312f884c229cb3819df29f4d504c32c',1,'EvolDF1nlep::s()']]],
   ['s0_3',['S0',['../d4/dfa/class_c_m_f_v_matching.html#abddca696df434ae58392c53469b7dc96',1,'CMFVMatching']]],
   ['s02_4',['s02',['../da/d10/class_l_e_p2oblique.html#a4774051be98b60b8ac2c72769f25685a',1,'LEP2oblique::s02()'],['../dc/dd5/class_standard_model.html#a786bb7c95b8ccdfb57375e11c46b00dd',1,'StandardModel::s02()']]],
   ['s0tt_5',['S0tt',['../dc/da2/class_heff_d_f2.html#ac6f15092ccb1d122af1bc17bd9b2d5e9',1,'HeffDF2']]],
