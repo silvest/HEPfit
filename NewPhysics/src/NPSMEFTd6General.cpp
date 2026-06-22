@@ -2997,18 +2997,6 @@ NPbase(), NPSMEFTd6GM(*this),
 
 }
 
-//If we do not set the SMEFTEvol in the SetParameter this is not needed
-
-bool NPSMEFTd6General::Init(const std::map<std::string, double>& DPars) {
-    std::map<std::string, double> myDPars(DPars);
-
-    Lambda_NP = myDPars.at("Lambda_NP"); //done here since it's needed for the numerical value of Wilson Coefficients in SetParameters()
-    LambdaNP2 = Lambda_NP * Lambda_NP;
-    LambdaNPm2 = 1. / LambdaNP2;
-
-    return (StandardModel::Init(myDPars));
-}
-
 bool NPSMEFTd6General::PreUpdate() {
     SMEFTEvolEW.Reset();    
     SMEFTEvolMH.Reset();
@@ -8359,6 +8347,7 @@ void NPSMEFTd6General::getWCFromEvolutor()
 void NPSMEFTd6General::GenerateSMInitialConditions()  {
     //    std::cout<<"\033[1;31m Mw_inp = \033[0m "<< Mw_inp << std::endl;
 
+    Lambda_NP = ModelParamMap.at("Lambda_NP");
     LambdaNP2 = Lambda_NP * Lambda_NP;
     LambdaNPm2 = 1. / LambdaNP2;
     
