@@ -1,6 +1,5 @@
 var NAVTREEINDEX52 =
 {
-"d6/d4d/classopt__obs__muon__30_te_v.html#ad7990b82a646afd4b4be55ee17fbdb25":[114,0,2298,0],
 "d6/d4e/classsigmaschannel8.html":[114,0,2706],
 "d6/d4e/classsigmaschannel8.html#a75856d8cf1eab763388caa85145651f7":[114,0,2706,2],
 "d6/d4e/classsigmaschannel8.html#afc9181ccaef7de405c37cfec8fff4aec":[114,0,2706,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX52 =
 "d6/d75/class_flavour_wilson_coefficient.html#a23ca1117b042f606474e5523c5279566":[4,6,2,13],
 "d6/d75/class_flavour_wilson_coefficient.html#a24d8d2ea265c3906fb7ee3fdc6fd3941":[4,6,2,12],
 "d6/d75/class_flavour_wilson_coefficient.html#a24fdef1369a90f629a94622ffc8cef4e":[4,6,2,68],
-"d6/d75/class_flavour_wilson_coefficient.html#a2c3eab0e70595d3a8536f104f58eea5a":[4,6,2,15]
+"d6/d75/class_flavour_wilson_coefficient.html#a2c3eab0e70595d3a8536f104f58eea5a":[4,6,2,15],
+"d6/d75/class_flavour_wilson_coefficient.html#a30690d686dd766745a40bb4901fcd179":[4,6,2,20]
 };

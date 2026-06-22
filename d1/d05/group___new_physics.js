@@ -5629,7 +5629,6 @@ var group___new_physics =
       [ "getMatching", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a62d15126379b969eca67a1351a3bfb9b", null ],
       [ "IctW_TWG", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a8b16c00d6472eb2b8a14500db832587d", null ],
       [ "IctZ_TWG", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a8648021d89435495d24ab4d97e4bd16c", null ],
-      [ "Init", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a58e073623a3ffa16632c961cd0097a53", null ],
       [ "intDMLL2eus2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a4b83125d4ef2450cef008422e301f80e", null ],
       [ "intDMLR2etildest2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#abc9c23d100411044ecaed3150ef067f1", null ],
       [ "intDMLR2ets2", "d1/d9e/class_n_p_s_m_e_f_td6_general.html#a187e74054f5cab939c5f0b014f75e2eb", null ],

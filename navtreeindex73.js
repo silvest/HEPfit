@@ -1,6 +1,5 @@
 var NAVTREEINDEX73 =
 {
-"d9/d3b/class_s_u_s_y_mass_insertion.html#a0f621ebe1226952bd3cc143b9c7130a3":[114,0,2878,130],
 "d9/d3b/class_s_u_s_y_mass_insertion.html#a122e2ed7a8c1b97ae66ac4113edb89a5":[114,0,2878,134],
 "d9/d3b/class_s_u_s_y_mass_insertion.html#a133a51b8f69f8ac61351a0d531d677f0":[114,0,2878,83],
 "d9/d3b/class_s_u_s_y_mass_insertion.html#a136648b143014c829703872735b49e10":[114,0,2878,79],
@@ -249,5 +248,6 @@ var NAVTREEINDEX73 =
 "d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a4fa8a2f7bcc549badc5a9211083dcbfc":[114,0,1,2,9,17],
 "d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a52802271c925c46b490f640bcb0d7cc8":[114,0,1,2,9,30],
 "d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a5b13c49dca42c1a7155e6746dc7b1ebe":[114,0,1,2,9,21],
-"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a6671c90a53d6fb6d5e26104acaa6d710":[114,0,1,2,9,4]
+"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a6671c90a53d6fb6d5e26104acaa6d710":[114,0,1,2,9,4],
+"d9/d4e/class_l_h_p_c_1_1_mass_spectrum_class_1_1_sneutrinos_one_to_three.html#a6d850cd489e819734efd9e49c74852b1":[114,0,1,2,9,26]
 };

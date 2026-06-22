@@ -1,6 +1,5 @@
 var NAVTREEINDEX115 =
 {
-"dd/d1d/class_asymmetry__cos__se__t_hj__eta__cut__3.html":[114,0,137],
 "dd/d1d/class_asymmetry__cos__se__t_hj__eta__cut__3.html#a30ebc97042c5867f28fe29945f1461e4":[114,0,137,0],
 "dd/d1d/class_asymmetry__cos__se__t_hj__eta__cut__3.html#a3779a6d9ff844cc070faec8398977db6":[114,0,137,1],
 "dd/d1d/class_asymmetry__cos__se__t_hj__eta__cut__3.html#ac348ccabfc9450baa2bf2a4492284df5":[114,0,137,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX115 =
 "dd/d5e/classunitarity_n_l_o25.html":[4,17,475],
 "dd/d5e/classunitarity_n_l_o25.html#a28bd2472da1b5be2399345756c68c33e":[4,17,475,2],
 "dd/d5e/classunitarity_n_l_o25.html#a4d2e46acfc3a1f82ff09f4186dfa1fa2":[4,17,475,0],
-"dd/d5e/classunitarity_n_l_o25.html#a869d9e441c202f0e4e0fb6fc3ee9605d":[4,17,475,1]
+"dd/d5e/classunitarity_n_l_o25.html#a869d9e441c202f0e4e0fb6fc3ee9605d":[4,17,475,1],
+"dd/d60/class_left_right_symmetric_model_matching.html":[114,0,1539]
 };

@@ -1,6 +1,5 @@
 var NAVTREEINDEX55 =
 {
-"d6/db2/class_h_hlambda6.html#af13eaaf0f20545cebdf821446e297bf7":[4,17,60,1],
 "d6/db2/class_p__3.html":[4,5,139],
 "d6/db2/class_p__3.html#a001bac024be52be50a0d522b83a333fb":[4,5,139,4],
 "d6/db2/class_p__3.html#a01804cb01dc53e8473a3116e182ababd":[4,5,139,3],
@@ -249,5 +248,6 @@ var NAVTREEINDEX55 =
 "d6/dcb/classmueett_h.html#a4e39ec36a520a18b64def47795f18308":[4,13,89,0],
 "d6/dcb/classmueett_h.html#a50f8e52e06297aca68b799228019a87f":[4,13,89,1],
 "d6/dcb/classmueett_h.html#a64a9e0e20c703487ca0636f898f79e24":[4,13,89,2],
-"d6/dcb/classmueett_h.html#ad2e73eaa1b9b6aed3d869ef8f1b51a22":[4,13,89,5]
+"d6/dcb/classmueett_h.html#ad2e73eaa1b9b6aed3d869ef8f1b51a22":[4,13,89,5],
+"d6/dcb/classunitarity__bound__g.html":[4,5,208]
 };

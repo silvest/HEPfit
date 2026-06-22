@@ -1,6 +1,5 @@
 var NAVTREEINDEX96 =
 {
-"db/db1/class_general_t_h_d_m_z2.html#aa13d48c63395c290d84ea866946e318c":[114,0,804,4],
 "db/db1/class_general_t_h_d_m_z2.html#aa1731a543029a62a1703efad96b8155e":[114,0,804,43],
 "db/db1/class_general_t_h_d_m_z2.html#aac0ae08e94c156e7b4c91f9fec2def46":[114,0,804,30],
 "db/db1/class_general_t_h_d_m_z2.html#aada45af0a98b88ac3e9106168708a45b":[114,0,804,3],
@@ -249,5 +248,6 @@ var NAVTREEINDEX96 =
 "db/de0/class_b_r___h5___h3p_w___g_m.html#a6272d68f6ed1961ffca8c93513ee8cd8":[4,8,34,0],
 "db/de0/class_b_r___h5___h3p_w___g_m.html#ad7b0e69372309015de1d055f6613b0b5":[4,8,34,2],
 "db/de1/class_br_hto_zga_ratio.html":[4,13,49],
-"db/de1/class_br_hto_zga_ratio.html#a13a164c5b69e74777f113f88bc451b93":[4,13,49,1]
+"db/de1/class_br_hto_zga_ratio.html#a13a164c5b69e74777f113f88bc451b93":[4,13,49,1],
+"db/de1/class_br_hto_zga_ratio.html#a23282ff61f538f67bbe75fda15684273":[4,13,49,0]
 };
