@@ -271,6 +271,7 @@ var hierarchy =
             [ "NPSMEFTd6General", "d1/d9e/class_n_p_s_m_e_f_td6_general.html", [
               [ "NPSMEFTd6MFP", "d2/d56/class_n_p_s_m_e_f_td6_m_f_p.html", null ],
               [ "NPSMEFTd6MFV", "d9/d4f/class_n_p_s_m_e_f_td6_m_f_v.html", [
+                [ "NPSMEFTd6ATHDM", "df/d22/class_n_p_s_m_e_f_td6_a_t_h_d_m.html", null ],
                 [ "NPSMEFTd6CHRU", "df/dbc/class_n_p_s_m_e_f_td6_c_h_r_u.html", null ]
               ] ],
               [ "NPSMEFTd6U2", "d5/dfe/class_n_p_s_m_e_f_td6_u2.html", null ],
