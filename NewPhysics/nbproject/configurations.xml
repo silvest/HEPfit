@@ -13,8 +13,11 @@
       <itemPath>src/NPHiggs.h</itemPath>
       <itemPath>src/NPSMEFT6dtopquark.h</itemPath>
       <itemPath>src/NPSMEFTd6.h</itemPath>
+      <itemPath>src/NPSMEFTd6ATHDM.h</itemPath>
+      <itemPath>src/NPSMEFTd6CHRU.h</itemPath>
       <itemPath>src/NPSMEFTd6General.h</itemPath>
       <itemPath>src/NPSMEFTd6GeneralMatching.h</itemPath>
+      <itemPath>src/NPSMEFTd6MFP.h</itemPath>
       <itemPath>src/NPSMEFTd6MFV.h</itemPath>
       <itemPath>src/NPSMEFTd6Matching.h</itemPath>
       <itemPath>src/NPSMEFTd6U2.h</itemPath>
@@ -49,8 +52,11 @@
       <itemPath>src/NPHiggs.cpp</itemPath>
       <itemPath>src/NPSMEFT6dtopquark.cpp</itemPath>
       <itemPath>src/NPSMEFTd6.cpp</itemPath>
+      <itemPath>src/NPSMEFTd6ATHDM.cpp</itemPath>
+      <itemPath>src/NPSMEFTd6CHRU.cpp</itemPath>
       <itemPath>src/NPSMEFTd6General.cpp</itemPath>
       <itemPath>src/NPSMEFTd6GeneralMatching.cpp</itemPath>
+      <itemPath>src/NPSMEFTd6MFP.cpp</itemPath>
       <itemPath>src/NPSMEFTd6MFV.cpp</itemPath>
       <itemPath>src/NPSMEFTd6Matching.cpp</itemPath>
       <itemPath>src/NPSMEFTd6U2.cpp</itemPath>
@@ -176,6 +182,14 @@
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6ATHDM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6ATHDM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6CHRU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6CHRU.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6General.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6General.h" ex="false" tool="3" flavor2="0">
@@ -183,6 +197,10 @@
       <item path="src/NPSMEFTd6GeneralMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6GeneralMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6MFP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6MFP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6MFV.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -336,6 +354,14 @@
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6ATHDM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6ATHDM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6CHRU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6CHRU.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6General.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6General.h" ex="false" tool="3" flavor2="0">
@@ -343,6 +369,10 @@
       <item path="src/NPSMEFTd6GeneralMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6GeneralMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6MFP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6MFP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6MFV.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -484,6 +514,14 @@
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6ATHDM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6ATHDM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6CHRU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6CHRU.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6General.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6General.h" ex="false" tool="3" flavor2="0">
@@ -491,6 +529,10 @@
       <item path="src/NPSMEFTd6GeneralMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6GeneralMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6MFP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6MFP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6MFV.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -623,6 +665,14 @@
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6ATHDM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6ATHDM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6CHRU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6CHRU.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6General.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6General.h" ex="false" tool="3" flavor2="0">
@@ -630,6 +680,10 @@
       <item path="src/NPSMEFTd6GeneralMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6GeneralMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6MFP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6MFP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6MFV.cpp" ex="false" tool="1" flavor2="0">
       </item>

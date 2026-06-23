@@ -2593,7 +2593,7 @@ void NPSMEFTd6MFV::setParams_Cquqd(const YukawaMats& Y) {
 
 bool NPSMEFTd6MFV::PostUpdate() {
 
-	NPSMEFTd6General::GenerateSMInitialConditions();
+    NPSMEFTd6General::GenerateSMInitialConditions();
 	
     setNPSMEFTd6GeneralParameters();
     
