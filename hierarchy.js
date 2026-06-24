@@ -934,6 +934,7 @@ var hierarchy =
         [ "A_FB", "df/dea/class_a___f_b.html", null ],
         [ "A_T1", "da/d6e/class_a___t1.html", null ],
         [ "BR_MVll", "d6/dfc/class_b_r___m_vll.html", null ],
+        [ "BR_MVll_tot", "d8/d3b/class_b_r___m_vll__tot.html", null ],
         [ "F_L", "d6/d55/class_f___l.html", [
           [ "RL_MVll", "d4/da7/class_r_l___m_vll.html", null ],
           [ "RT_MVll", "d1/dab/class_r_t___m_vll.html", null ]

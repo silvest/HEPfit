@@ -487,6 +487,13 @@ var group___flavour =
       [ "meson", "d6/dfc/class_b_r___m_vll.html#a3f1e0d74a9bae4a301fe0918d8f708f1", null ],
       [ "vectorM", "d6/dfc/class_b_r___m_vll.html#a12a420cc385f6c605cef58a76f9c947f", null ]
     ] ],
+    [ "BR_MVll_tot", "d8/d3b/class_b_r___m_vll__tot.html", [
+      [ "BR_MVll_tot", "d8/d3b/class_b_r___m_vll__tot.html#a42f948980106e2038c571ef272c90181", null ],
+      [ "computeThValue", "d8/d3b/class_b_r___m_vll__tot.html#a16ac8dd434540a07e1c6515170e546f0", null ],
+      [ "lep", "d8/d3b/class_b_r___m_vll__tot.html#a13da5c0b9d97cbf37c385a3971bbae7d", null ],
+      [ "meson", "d8/d3b/class_b_r___m_vll__tot.html#a4bbdc4441149b8eb559bb494f50b9036", null ],
+      [ "vectorM", "d8/d3b/class_b_r___m_vll__tot.html#a44c961680b59e3516e21b464954ad792", null ]
+    ] ],
     [ "BR_MVllf", "d1/d43/class_b_r___m_vllf.html", null ],
     [ "BR_MVpsi", "d8/deb/class_b_r___m_vpsi.html", [
       [ "BR_MVpsi", "d8/deb/class_b_r___m_vpsi.html#ac8011754bb4266d4b0c306357d1798f9", null ],

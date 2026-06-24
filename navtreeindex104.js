@@ -1,8 +1,14 @@
 var NAVTREEINDEX104 =
 {
-"dc/dd5/class_hobs__gg__phi2__phi1phi1___a_t_l_a_s8.html#a4ef643911d0ee6c81338ba16015d7042":[114,0,1070,1],
-"dc/dd5/class_hobs__gg__phi2__phi1phi1___a_t_l_a_s8.html#adccdfaeeecd02274b38bb68257546785":[114,0,1070,2],
-"dc/dd5/class_hobs__gg__phi2__phi1phi1___a_t_l_a_s8.html#ae865009f2c0864be8b5850535e2147e1":[114,0,1070,0],
+"dc/dd5/class_general_t_h_d_m_e_d_mcouplings.html":[4,17,37],
+"dc/dd5/class_general_t_h_d_m_e_d_mcouplings.html#a1ef5e00feb04e169eaeba677d2c727d7":[4,17,37,0],
+"dc/dd5/class_general_t_h_d_m_e_d_mcouplings.html#a5c49875400e799094eb24a98e5d61ed4":[4,17,37,1],
+"dc/dd5/class_general_t_h_d_m_e_d_mcouplings.html#ace9541669b27851f36371ffac88ecb12":[4,17,37,2],
+"dc/dd5/class_general_t_h_d_m_e_d_mcouplings.html#ae3adedce87edea68057ec55026cfada5":[4,17,37,3],
+"dc/dd5/class_hobs__gg__phi2__phi1phi1___a_t_l_a_s8.html":[114,0,1071],
+"dc/dd5/class_hobs__gg__phi2__phi1phi1___a_t_l_a_s8.html#a4ef643911d0ee6c81338ba16015d7042":[114,0,1071,1],
+"dc/dd5/class_hobs__gg__phi2__phi1phi1___a_t_l_a_s8.html#adccdfaeeecd02274b38bb68257546785":[114,0,1071,2],
+"dc/dd5/class_hobs__gg__phi2__phi1phi1___a_t_l_a_s8.html#ae865009f2c0864be8b5850535e2147e1":[114,0,1071,0],
 "dc/dd5/class_standard_model.html":[4,0,23],
 "dc/dd5/class_standard_model.html#a0109ed05909402b6ef06cb0ac69a2bdc":[4,0,23,358],
 "dc/dd5/class_standard_model.html#a0140efd19fa1951442d603c7f4dad5f2":[4,0,23,481],
@@ -243,11 +249,5 @@ var NAVTREEINDEX104 =
 "dc/dd5/class_standard_model.html#a62b0ad424e0c7220d0093da72ab5a0bf":[4,0,23,13],
 "dc/dd5/class_standard_model.html#a637a48ddb0c8e8ebc7eb982e8cb3c120":[4,0,23,522],
 "dc/dd5/class_standard_model.html#a642173869a076f7ddb67348060bc05d3":[4,0,23,87],
-"dc/dd5/class_standard_model.html#a64623208a51a3943cd8032a9b604fd19":[4,0,23,508],
-"dc/dd5/class_standard_model.html#a649e1fdc7809dd5aad1b4edec431bc2a":[4,0,23,14],
-"dc/dd5/class_standard_model.html#a64aedd81c542d7ce8aae2481f3ea4014":[4,0,23,326],
-"dc/dd5/class_standard_model.html#a656ce6332d3261ef74c2b13be392c31e":[4,0,23,111],
-"dc/dd5/class_standard_model.html#a6637a9d3cee87de76e3c0eded53ded75":[4,0,23,349],
-"dc/dd5/class_standard_model.html#a66d8266eced1104672cbf04a5db786eb":[4,0,23,648],
-"dc/dd5/class_standard_model.html#a6711df4c6644f9b1e95bfbae7d1a5fa5":[4,0,23,468]
+"dc/dd5/class_standard_model.html#a64623208a51a3943cd8032a9b604fd19":[4,0,23,508]
 };
