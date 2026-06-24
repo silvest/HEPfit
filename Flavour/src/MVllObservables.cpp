@@ -259,6 +259,39 @@ double BR_MVll::computeThValue()
 }
 
 
+BR_MVll_tot::BR_MVll_tot(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
+: GammaPrime(SM_i, meson_i, vector_i, lep_i)
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+
+    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).initializeMVllParameters());
+}
+
+double BR_MVll_tot::computeThValue()
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
+
+    switch(vectorM){
+            case StandardModel::K_star:
+            case StandardModel::K_star_P:
+                return (computeGammaPrime(q_min, q_max, lep)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth() + SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigmaTree(q_min, q_max));
+                break;
+            case StandardModel::PHI:
+                return computeGammaPrime(q_min, q_max, lep)/SM.getFlavour().getMVll(meson, vectorM, lep).getwidth()/(1. - ys*ys) ;
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("BR_MVll_tot: vector " + out.str() + " not implemented");
+        }
+}
+
+
 R_MVll::R_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2)
 : GammaPrime(SM_i, meson_i, vector_i, lep_1)
 {

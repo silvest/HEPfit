@@ -408,8 +408,9 @@ void ThObsFactory::registerFlavourObservables()
     
     //----- B to K nunu-----
     obsThFactory["BR_BpKpnunu"] = [=](const StandardModel& SM) { return new BR_MPll(SM, StandardModel::B_P, StandardModel::K_P, QCD::NEUTRINO_1); }; // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
-    obsThFactory["BR_BpKstarpnunu"] = [=](const StandardModel& SM) { return new BR_MVll(SM, StandardModel::B_P, StandardModel::K_star_P, QCD::NEUTRINO_1); }; // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
-    obsThFactory["BR_BKstarnunu"] = [=](const StandardModel& SM) { return new BR_MVll(SM, StandardModel::B_D, StandardModel::K_star, QCD::NEUTRINO_1); }; // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
+    obsThFactory["BR_BKnunu"] = [=](const StandardModel& SM) { return new BR_MPll(SM, StandardModel::B_D, StandardModel::K_0, QCD::NEUTRINO_1); }; // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
+    obsThFactory["BR_BpKstarpnunu"] = [=](const StandardModel& SM) { return new BR_MVll_tot(SM, StandardModel::B_P, StandardModel::K_star_P, QCD::NEUTRINO_1); }; // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
+    obsThFactory["BR_BKstarnunu"] = [=](const StandardModel& SM) { return new BR_MVll_tot(SM, StandardModel::B_D, StandardModel::K_star, QCD::NEUTRINO_1); }; // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
     obsThFactory["AT1_BpKstarpnunu"] = [=](const StandardModel& SM) { return new A_T1(SM, StandardModel::B_P, StandardModel::K_star_P, QCD::NEUTRINO_1); }; // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
     obsThFactory["AT1_BKstarnunu"] = [=](const StandardModel& SM) { return new A_T1(SM, StandardModel::B_D, StandardModel::K_star, QCD::NEUTRINO_1); }; // MAYBE WE SHOULD DEFINE ALL_NEUTRINO ?
  

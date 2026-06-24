@@ -420,10 +420,10 @@ private:
 /**
  * @class BR_MVll
  * @ingroup Flavour
- * @brief A class for the binned observable @f$<BR>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the normalised binned observable @f$<BR>@f$ in @f$M \to V l^+l^-@f$. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the binned observable @f$<BR>@f$ in 
+ * @details This class is used to compute the normalised binned observable @f$<BR>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class, and the meson width @f$W_M@f$:
  * @f[
@@ -441,6 +441,45 @@ public:
      * @param[in] lep_i final leptons of the decay
      */
     BR_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The binned observable @f$<BR>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<BR>@f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+
+
+/**
+ * @class BR_MVll_tot
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<BR>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<BR>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
+ * @f$<\Sigma_i>@f$, computed in the MVll class, and the meson width @f$W_M@f$:
+ * @f[
+ * <BR>= \frac {<\Gamma'>}{W_M} \,.
+ * @f]
+ */
+class BR_MVll_tot : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    BR_MVll_tot(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<BR>@f$ in @f$M \to V l^+l^-@f$.
