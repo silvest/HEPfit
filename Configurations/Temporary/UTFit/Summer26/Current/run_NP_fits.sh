@@ -1,5 +1,5 @@
 #!/bin/sh
-for dir0 in NPWC
+for dir0 in NPWC NPWC_200
 do
     if [ -d ${dir0} ]
     then  

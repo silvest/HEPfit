@@ -1,20 +1,22 @@
 #!/bin/bash
 Model=$1
-if [ ! -d "${Model}" ]; then
-    mkdir ${Model}
+Scale=${2:-""}
+Modeldir=${Model}${Scale}
+if [ ! -d "${Modeldir}" ]; then
+    mkdir ${Modeldir}
 fi
 if [[ $Model == "Standard_Model_DM" ]]; then
-    cp StandardModel.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf ${Model}/
-    cp UTfit_DM.conf ${Model}/UTfit.conf
+    cp StandardModel.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf ${Modeldir}/
+    cp UTfit_DM.conf ${ModelDir}/UTfit.conf
 elif [[ $Model == "NPWC" ]]; then
-    cp NPWC.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit_NP.conf ${Model}/
+    cp NPWC.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit_NP.conf ${Modeldir}/
 else
-    cp StandardModel.conf Flavour.conf UTfit.conf MonteCarlo.conf submit_job.sh ${Model}/
+    cp StandardModel.conf Flavour.conf UTfit.conf MonteCarlo.conf submit_job.sh ${Modeldir}/
 fi
-if [ ! -L "${Model}/input" ]; then
-    ln -s $(pwd)/input ${Model}/input
+if [ ! -L "${Modeldir}/input" ]; then
+    ln -s $(pwd)/input ${Modeldir}/input
 fi
-cd ${Model}
+cd ${Modeldir}
 if [[ $Model == "Standard_Model" ]] || [[ $Model == "Standard_Model_DM" ]]; then
     sed -i 's/ModelParameter\s\+'BBs'\([2-5]\s\+[0-9\.]\+\s\+\)[0-9\.]\+/ModelParameter  BBs\1 0./' UTfit.conf
     sed -i 's/ModelParameter\s\+'BBd'\([2-5]\s\+[0-9\.]\+\s\+\)[0-9\.]\+/ModelParameter  BBd\1 0./' UTfit.conf
@@ -30,7 +32,8 @@ if [ ${Model} == "NPWC" ]; then
             ln -s $(pwd)/input ${Coefficient}/input
         fi
         for Flavour in s c bd bs; do
-			perl -pi -e 's/ModelParameter\s+[a-z][a-z]'${Coefficient}'_'${Flavour}'\s+([0-9\.-]+)\s+([0-9\.-]+)\s+([0-9\.-]+)/ModelParameter re'${Coefficient}'_'${Flavour}' $1 $2 1.e-10/' ${Coefficient}/NPWC.conf
+			perl -pi -e 's/ModelParameter\s+([a-z][a-z])'${Coefficient}'_'${Flavour}'\s+([0-9\.-]+)\s+([0-9\.-]+)\s+([0-9\.-]+)/ModelParameter $1'${Coefficient}'_'${Flavour}' $2 $3 1.e-10/' ${Coefficient}/NPWC.conf
+			perl -pi -e 's/#Observable\s+([a-z][a-z])'${Coefficient}'_'${Flavour}'(.*)/Observable $1'${Coefficient}'_'${Flavour}'$2/' ${Coefficient}/NPWC.conf
         done
     done
 else
@@ -195,6 +198,7 @@ else
             ln -s $(pwd)/input Aux_${Fit}/input
         fi
         sed -i 's/ModelFlag\s\+Wolfenstein\s\+false/ModelFlag Wolfenstein true/' Aux_${Fit}/UTfit.conf
+        sed -i 's/ModelFlag\s\+UseVud\s\+true/ModelFlag UseVud false/' Aux_${Fit}/UTfit.conf
         sed -i 's/Observable\(.*\)MCMC\s\+weight/Observable\1noMCMC noweight/' Aux_${Fit}/UTfit.conf
         sed -i 's/#ModelParameter\s\+lambda\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter lambda \1 \2 \3/' Aux_${Fit}/UTfit.conf
         sed -i 's/#ModelParameter\s\+A\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter A \1 \2 \3/' Aux_${Fit}/UTfit.conf
