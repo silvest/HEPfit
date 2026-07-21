@@ -734,6 +734,7 @@ var hierarchy =
       [ "CHRU_eps_dL", "d3/d45/class_c_h_r_u__eps__d_l.html", null ],
       [ "CHRU_eps_uL", "d0/df2/class_c_h_r_u__eps__u_l.html", null ],
       [ "CKMGamma", "d4/dc1/class_c_k_m_gamma.html", null ],
+      [ "CKMGamma_rad", "d3/dec/class_c_k_m_gamma__rad.html", null ],
       [ "CKM_2BpG", "d7/dff/class_c_k_m__2_bp_g.html", null ],
       [ "CKM_Alpha", "d3/d51/class_c_k_m___alpha.html", null ],
       [ "CKM_Beta", "db/da6/class_c_k_m___beta.html", null ],

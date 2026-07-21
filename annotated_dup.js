@@ -562,6 +562,7 @@ var annotated_dup =
     [ "CKM_SinTheta23", "d5/d56/class_c_k_m___sin_theta23.html", "d5/d56/class_c_k_m___sin_theta23" ],
     [ "CKM_VtdoVts", "d4/dfc/class_c_k_m___vtdo_vts.html", "d4/dfc/class_c_k_m___vtdo_vts" ],
     [ "CKMGamma", "d4/dc1/class_c_k_m_gamma.html", "d4/dc1/class_c_k_m_gamma" ],
+    [ "CKMGamma_rad", "d3/dec/class_c_k_m_gamma__rad.html", "d3/dec/class_c_k_m_gamma__rad" ],
     [ "ClausenFunctions", "d5/d9d/class_clausen_functions.html", "d5/d9d/class_clausen_functions" ],
     [ "CMFV", "d1/d6a/class_c_m_f_v.html", "d1/d6a/class_c_m_f_v" ],
     [ "CMFVMatching", "d4/dfa/class_c_m_f_v_matching.html", "d4/dfa/class_c_m_f_v_matching" ],
