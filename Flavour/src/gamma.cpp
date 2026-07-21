@@ -15,3 +15,11 @@ double CKMGamma::computeThValue()
 {
     return(SM.getCKM().computeGamma()/M_PI*180.);
 }
+
+CKMGamma_rad::CKMGamma_rad(const StandardModel& SM_i) : ThObservable(SM_i) 
+{}
+
+double CKMGamma_rad::computeThValue() 
+{
+    return(SM.getCKM().computeGamma());
+}

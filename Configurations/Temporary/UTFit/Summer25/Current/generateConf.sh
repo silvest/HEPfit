@@ -202,7 +202,7 @@ do
 	sed -i 's/#ModelParameter\s\+etab\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter etab \1 \2 \3/' Aux_${Fit}/UTfit.conf
 	sed -i 's/ModelParameter\s\+V_ud\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/Observable V_ud Vud V_{ud} 1. -1. MCMC weight \1 \2 \3/' Aux_${Fit}/UTfit.conf
     sed -i '/CorrelatedGaussianParameters VubVcb 2/{s/.*/#&/ ; n ; s/ModelParameter\s\+V_cb\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/Observable V_cb Vcb V_{cb} 1. -1. MCMC weight \1 \2 \3/ ; n ; s/ModelParameter\s\+V_ub\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/Observable V_ub Vub V_{ub} 1. -1. noMCMC noweight \1 \2 \3/ ; n ; s/.*/#&/ ; n; s/.*/#&/ }' Aux_${Fit}/UTfit.conf
-	sed -i 's/ModelParameter\s\+gamma\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/Observable gamma gamma #gamma 1. -1. noMCMC noweight \1 \2 \3/' Aux_${Fit}/UTfit.conf
+	sed -i 's/ModelParameter\s\+gamma\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/Observable gamma CKMGamma_rad #gamma 1. -1. noMCMC noweight \1 \2 \3/' Aux_${Fit}/UTfit.conf
 	sed -i 's/Observable\(.*\)MCMC\s\+file/Observable\1noMCMC file/' Aux_${Fit}/UTfit.conf
 	if [[ $Fit == "EpsilonK_1" ]] ; then
 		sed -i 's/ModelParameter\s\+rhob\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter rhob 0. 0. 0./' Aux_${Fit}/UTfit.conf

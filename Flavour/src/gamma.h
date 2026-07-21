@@ -33,4 +33,18 @@ public:
     double computeThValue();
 };
 
+class CKMGamma_rad : public ThObservable {
+public:
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    */
+    CKMGamma_rad(const StandardModel& SM_i);
+
+    /**
+     * @return The CKM angle @f$\gamma @f$ in radians
+     */
+    double computeThValue();
+};
+
 #endif	/* GAMMA_H */
