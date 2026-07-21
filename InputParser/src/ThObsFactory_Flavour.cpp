@@ -671,6 +671,7 @@ void ThObsFactory::registerFlavourObservables()
     obsThFactory["argVtb"] = [=](const StandardModel& SM) { return new VCKM(SM, 3, 3, 1); };
     obsThFactory["CKM_alpha"] = [](const StandardModel& SM) { return new CKM_Alpha(SM); };
     obsThFactory["CKM_gamma"] = [](const StandardModel& SM) { return new CKM_Gamma(SM); };
+    obsThFactory["CKMGamma_rad"] = [](const StandardModel& SM) { return new CKMGamma_rad(SM); };
     obsThFactory["CKM_beta"] = [](const StandardModel& SM) { return new CKM_Beta(SM); };
     obsThFactory["CKM_betas"] = [](const StandardModel& SM) { return new CKM_Betas(SM); };
     obsThFactory["CKM_2betapgamma"] = [](const StandardModel& SM) { return new CKM_2BpG(SM); };
