@@ -1,7 +1,8 @@
 #!/bin/bash
 Model=$1
-Scale=${2:-""}
-Modeldir=${Model}${Scale}
+Dir=$2
+Scale=${3:-""}
+Modeldir=${Dir}${Scale}
 if [ ! -d "${Modeldir}" ]; then
     mkdir ${Modeldir}
 fi
