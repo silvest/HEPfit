@@ -11,6 +11,8 @@ if [[ $Model == "Standard_Model_DM" ]]; then
     cp UTfit_DM.conf ${ModelDir}/UTfit.conf
 elif [[ $Model == "NPWC" ]]; then
     cp NPWC.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf UTfit_NP.conf ${Modeldir}/
+elif [[ $Model == "NPDF2" ]]; then
+    cp NPDF2.conf StandardModel.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf UTfit_NP.conf ${Modeldir}/
 else
     cp StandardModel.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh ${Modeldir}/
 fi
@@ -37,6 +39,10 @@ if [ ${Model} == "NPWC" ]; then
 			perl -pi -e 's/#Observable\s+([a-z][a-z])'${Coefficient}'_'${Flavour}'(.*)/Observable $1'${Coefficient}'_'${Flavour}'$2/' ${Coefficient}/NPWC.conf
         done
     done
+elif [ ${Model} == "NPDF2" ]; then
+    sed -i 's/IncludeFile\s+UTfit_SM.conf/IncludeFile UTfit_NP.conf/' StandardModel.conf
+    sed -i 's/-J name/-J '${Model}'/' submit_job.sh
+    sed -i 's/-N MPICH2_job/-N '${Model}'/' submit_job.sh
 else
     # Full Fit
     for Fit in Full_Fit Full_Fit_epe_th; do
@@ -52,6 +58,7 @@ else
             sed -i 's/Observable\s\+EpsilonP_O_Epsilon_TH \(.*\)noMCMC\s\+\(noweight\|file\)/Observable EpsilonP_O_Epsilon_TH \1MCMC weight/' ${Fit}/UTfit_SM.conf
         fi
         sed -i 's/-J name/-J '${Model}_${Fit}'/' ${Fit}/submit_job.sh
+        sed -i 's/-N MPICH2_job/-N '${Model}_${Fit}'/' ${Fit}/submit_job.sh
     done
 
     # Predictions for observables
@@ -75,6 +82,7 @@ else
             sed -i 's/Observable\s\+'${Obs}'\(.*\)MCMC\s\+\(weight\|file\)/Observable '${Obs}'\1noMCMC noweight/' Pred_Obs/${Obs}/UTfit_SM.conf
         fi
         sed -i 's/-J name/-J '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
+        sed -i 's/-N MPICH2_job/-N '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
     done
     # Predictions for CKM elements used as inputs
     declare -A CKMInputVals=(["V_ud"]=0.97375 ["V_cb"]=0.0425 ["V_ub"]=0.0037 ["gamma"]=1.13)
@@ -95,6 +103,7 @@ else
         fi
         sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'${CKMInputVals[$Obs]}$'\t''0. '$'\t'${CKMInputErrs[$Obs]}'/' Pred_Obs/${Obs}/UTfit.conf
         sed -i 's/-J name/-J '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
+        sed -i 's/-N MPICH2_job/-N '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
     done
     # Predictions for lattice and other parameters
     allFits="BBs1BBsoBBdOnly FBsoFBdBBsoBBdOnly BKOnly"
@@ -129,6 +138,7 @@ else
         fi
         sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'${LatInpVals[$Obs]}$'\t''0. '$'\t'${LatInpErrs[$Obs]}'/' Pred_Obs/${Obs}/UTfit.conf
         sed -i 's/-J name/-J '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
+        sed -i 's/-N MPICH2_job/-N '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
     done
     for Obs in "${!BBs1BErrs[@]}"; do
         sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'' \1 '$'\t''0. '$'\t'${BBs1BErrs[$Obs]}'/' Pred_Obs/BBs1BBsoBBdOnly/UTfit.conf
@@ -142,6 +152,7 @@ else
         sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'${BKOnlyVals[$Obs]}$'\t''0. '$'\t'${BKOnlyErrs[$Obs]}'/' Pred_Obs/BKOnly/UTfit.conf
     done
     sed -i 's/-J name/-J '${Model}_BKOnly'/' Pred_Obs/BKOnly/submit_job.sh
+    sed -i 's/-N MPICH2_job/-N '${Model}_BKOnly'/' Pred_Obs/BKOnly/submit_job.sh
     #    for Obs in  "${!noLatErrs[@]}"
     #    do
     #	sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'' \1 '$'\t''0. '$'\t'${noLatErrs[$Obs]}'/' Pred_Obs/noLattice/UTfit.conf
@@ -192,6 +203,7 @@ else
             done
         fi
         sed -i 's/-J name/-J '${Fit}'/' ${Fit}/submit_job.sh
+        sed -i 's/-N MPICH2_job/-N '${Fit}'/' ${Fit}/submit_job.sh
     done
     # auxiliary fits for 2D UT plot
     allFits="Dmd Dms EpsilonK_1 EpsilonK_2 alpha SJPsiK  lambda2 V_ub gamma"
@@ -236,6 +248,7 @@ else
             sed -i 's/Observable\s\+'${Fit}'\(.*\)noMCMC\s\+noweight/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
         fi
         sed -i 's/-J name/-J 'Aux_${Fit}'/' Aux_${Fit}/submit_job.sh
+        sed -i 's/-N MPICH2_job/-N 'Aux_${Fit}'/' Aux_${Fit}/submit_job.sh
     done
 fi
 cd ..
