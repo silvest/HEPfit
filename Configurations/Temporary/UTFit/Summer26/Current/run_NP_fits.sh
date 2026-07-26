@@ -1,5 +1,5 @@
 #!/bin/sh
-for dir0 in NPWC NPWC_200
+for dir0 in $1
 do
     if [ -d ${dir0} ]
     then  
@@ -13,7 +13,7 @@ do
 #		then
 		    #-------------------------------------------------------------  
 		    echo "submitting job in $PWD"  
-		    qsub -vARGS="NPWC.conf ../MonteCarlo.conf" -N ${dir0}_${dir} ../submit_job.sh 
+		    qsub -vARGS="NPWC.conf MonteCarlo.conf" -N ${dir0}_${dir} submit_job.sh 
 #		    bsub < submit_job.sh  
 #		fi  
 		cd ..  
