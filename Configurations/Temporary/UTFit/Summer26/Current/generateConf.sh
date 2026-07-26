@@ -41,7 +41,7 @@ if [ ${Model} == "NPWC" ]; then
     done
 elif [ ${Model} == "NPDF2" ]; then
     sed -i 's/StandardModel//' StandardModel.conf
-    sed -i 's/IncludeFile\s+UTfit_SM.conf/IncludeFile UTfit_NP.conf/' StandardModel.conf
+    sed -i 's/IncludeFile\s+UTfit_SM\.conf/IncludeFile UTfit_NP.conf/' StandardModel.conf
     sed -i 's/-J name/-J '${Model}'/' submit_job.sh
     sed -i 's/-N MPICH2_job/-N '${Model}'/' submit_job.sh
 else
