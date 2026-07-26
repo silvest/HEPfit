@@ -6,7 +6,7 @@
 #	cd $dir0  
 # SM fits  
 #for dir0 in Standard_Model Standard_Model_DM
-for dir0 in Standard_Model
+for dir0 in $1
 do
     if [ -d ${dir0} ]  
     then  
