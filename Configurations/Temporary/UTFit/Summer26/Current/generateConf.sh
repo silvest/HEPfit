@@ -245,6 +245,8 @@ else
             sed -i 's/Observable\s\+V_ud\(.*\)noMCMC\s\+noweight/Observable V_ud\1MCMC weight/' Aux_${Fit}/UTfit.conf
         elif [[ $Fit == "gamma" ]]; then
             sed -i 's/Observable\s\+gamma\s\+CKMGamma_rad\s\+\(.*\)noMCMC\s\+noweight/Observable gamma CKMGamma_rad \1MCMC weight/' Aux_${Fit}/UTfit.conf
+        elif [[ $Fit == "Dms" ]]; then
+            sed -i 's/Observable\s\+Dm\([ds]+.*\)noMCMC\s\+noweight/Observable Dm\1MCMC weight/' Aux_${Fit}/UTfit.conf
         else
             sed -i 's/Observable\s\+'${Fit}'\(.*\)noMCMC\s\+noweight/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
         fi
