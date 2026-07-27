@@ -259,7 +259,8 @@ void MVgamma::updateParameters()
                 MRg_2 = SM.getOptionalParameter("MRg")*SM.getOptionalParameter("MRg");
                 Chi1minus = SM.getOptionalParameter("Chi1minus"); //0.000623174575;
                 Chi1plus = SM.getOptionalParameter("Chi1plus"); //0.000543940610;
-                ChiTT = SM.getOptionalParameter("ChiTT"); //0.0454644444;
+                ChiTT = SM.getOptionalParameter("ChiTT"); //0.0003659;
+                n_I = 2.;
             }
             else {
                 a_0T1 = SM.getOptionalParameter("a_0T1");
@@ -287,7 +288,8 @@ void MVgamma::updateParameters()
                 MRg_2 = SM.getOptionalParameter("MRg")*SM.getOptionalParameter("MRg");
                 Chi1minus = SM.getOptionalParameter("Chi1minus"); //0.000623174575;
                 Chi1plus = SM.getOptionalParameter("Chi1plus"); //0.000543940610;
-                ChiTT = SM.getOptionalParameter("ChiTT"); //0.0454644444;
+                ChiTT = SM.getOptionalParameter("ChiTT"); //0.0003659;
+                n_I = 2.;
             }
             else {
                 a_0T1 = SM.getOptionalParameter("a_0T1");
@@ -315,7 +317,8 @@ void MVgamma::updateParameters()
                 MRg_2 = SM.getOptionalParameter("MRg")*SM.getOptionalParameter("MRg");
                 Chi1minus = SM.getOptionalParameter("Chi1minus"); //0.000623174575;
                 Chi1plus = SM.getOptionalParameter("Chi1plus"); //0.000543940610;
-                ChiTT = SM.getOptionalParameter("ChiTT"); //0.0454644444;
+                ChiTT = SM.getOptionalParameter("ChiTT"); //0.0003659;
+                n_I = 1.;
             }
             else {
                 a_0T1 = SM.getOptionalParameter("a_0T1phi");
@@ -537,7 +540,7 @@ double MVgamma::phi_f(double MRf_2)
     double z = z_DM;
     double z_M = (sqrt(t_p - MRf_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRf_2) + sqrt(t_p - t_m));
 
-    return 4.*rV/MM2*sqrt(2./3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    return 4.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVgamma::phi_g(double MRg_2)
@@ -545,7 +548,7 @@ double MVgamma::phi_g(double MRg_2)
     double z = z_DM;
     double z_M = (sqrt(t_p - MRg_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRg_2) + sqrt(t_p - t_m));
 
-    return 16.*rV*rV*sqrt(2./3./Chi1minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    return 16.*rV*rV*sqrt(n_I/3./Chi1minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVgamma::phi_T1(double MRT1_2)
@@ -553,7 +556,7 @@ double MVgamma::phi_T1(double MRT1_2)
     double z = z_DM;
     double z_M = (sqrt(t_p - MRT1_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRT1_2) + sqrt(t_p - t_m));
 
-    return 32.*rV*rV/MM*sqrt(2./3./ChiTT/M_PI) * (1. + z)*(1. + z)*pow(1. - z,0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
+    return 32.*rV*rV/MM*sqrt(n_I/3./ChiTT/M_PI) * (1. + z)*(1. + z)*pow(1. - z,0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVgamma::f_DM(double a_0f, double a_1f, double a_2f, double MRf_2)

@@ -191,6 +191,7 @@ public:
     double ChiTT;
     double Chi1plus;
     double Chi1minus;
+    double n_I;
     gslpp::complex lambda_t;     /**<Vckm factor lambds_t*/
     gslpp::complex lambda_u;     /**<Vckm factor lambda_u*/
     gslpp::complex h[2];         /**<parameter that contains the contribution from the hadronic hamiltonian */

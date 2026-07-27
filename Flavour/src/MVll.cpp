@@ -403,8 +403,9 @@ void MVll::updateParameters()
                 Chi1plus = mySM.getOptionalParameter("Chi1plus"); //0.000543940610;
                 Chi0plus = mySM.getOptionalParameter("Chi0plus"); //0.0142;
                 Chi0minus = mySM.getOptionalParameter("Chi0minus"); //0.0138586514;
-                ChiTT = mySM.getOptionalParameter("ChiTT"); //0.0454644444;
-                ChiBB = mySM.getOptionalParameter("ChiBB"); //0.0423069792;
+                ChiTT = mySM.getOptionalParameter("ChiTT"); //0.0003659;
+                ChiBB = mySM.getOptionalParameter("ChiBB"); //0.000291351;
+                n_I = 2.;
 
                 a_0f = mySM.getOptionalParameter("a_0f");
                 a_1f = mySM.getOptionalParameter("a_1f");
@@ -500,8 +501,9 @@ void MVll::updateParameters()
                 Chi1plus = mySM.getOptionalParameter("Chi1plus"); //0.000543940610;
                 Chi0plus = mySM.getOptionalParameter("Chi0plus"); //0.0142;
                 Chi0minus = mySM.getOptionalParameter("Chi0minus"); //0.0138586514;
-                ChiTT = mySM.getOptionalParameter("ChiTT"); //0.0454644444;
-                ChiBB = mySM.getOptionalParameter("ChiBB"); //0.0423069792;
+                ChiTT = mySM.getOptionalParameter("ChiTT"); //0.0003659;
+                ChiBB = mySM.getOptionalParameter("ChiBB"); //0.000291351;
+                n_I = 1.;
 
                 a_0f = mySM.getOptionalParameter("a_0fphi");
                 a_1f = mySM.getOptionalParameter("a_1fphi");
@@ -1518,7 +1520,7 @@ double MVll::phi_f(double q2, double MRf_2)
     double z = z_DM(q2);
     double z_M = z_DM(MRf_2);
 
-    return 4.*rV/MM2*sqrt(2./3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    return 4.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVll::phi_g(double q2, double MRg_2)
@@ -1526,7 +1528,7 @@ double MVll::phi_g(double q2, double MRg_2)
     double z = z_DM(q2);
     double z_M = z_DM(MRg_2);
 
-    return 16.*rV*rV*sqrt(2./3./Chi1minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    return 16.*rV*rV*sqrt(n_I/3./Chi1minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVll::phi_F1(double q2, double MRF1_2)
@@ -1534,7 +1536,7 @@ double MVll::phi_F1(double q2, double MRF1_2)
     double z = z_DM(q2);
     double z_M = z_DM(MRF1_2);
 
-    return 2.*rV/MM3*sqrt(4./3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
+    return 2.*rV/MM3*sqrt(2.*n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVll::phi_F2(double q2, double MRF2_2)
@@ -1542,7 +1544,7 @@ double MVll::phi_F2(double q2, double MRF2_2)
     double z = z_DM(q2);
     double z_M = z_DM(MRF2_2);
 
-    return 8.*rV*rV*sqrt(4./Chi0minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    return 8.*rV*rV*sqrt(2.*n_I/Chi0minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVll::phi_T0(double q2, double MRT0_2)
@@ -1550,7 +1552,7 @@ double MVll::phi_T0(double q2, double MRT0_2)
     double z = z_DM(q2);
     double z_M = z_DM(MRT0_2);
 
-    return 2.*rV*(1. + rV)/MM*sqrt(4./3./ChiBB/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    return 2.*rV*(1. + rV)/MM*sqrt(2.*n_I/3./ChiBB/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVll::phi_T1(double q2, double MRT1_2)
@@ -1558,7 +1560,7 @@ double MVll::phi_T1(double q2, double MRT1_2)
     double z = z_DM(q2);
     double z_M = z_DM(MRT1_2);
 
-    return 32.*rV*rV/MM*sqrt(2./3./ChiTT/M_PI) * (1. + z)*(1. + z)*pow(1. - z,0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
+    return 32.*rV*rV/MM*sqrt(n_I/3./ChiTT/M_PI) * (1. + z)*(1. + z)*pow(1. - z,0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVll::phi_T2(double q2, double MRT2_2)
@@ -1566,7 +1568,7 @@ double MVll::phi_T2(double q2, double MRT2_2)
     double z = z_DM(q2);
     double z_M = z_DM(MRT2_2);
 
-    return 4.*rV*(1. - rV*rV)/MM*sqrt(2./3./ChiBB/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
+    return 4.*rV*(1. - rV*rV)/MM*sqrt(n_I/3./ChiBB/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
 }
 
 double MVll::f_DM(double q2, double a_0f, double a_1f, double a_2f, double MRf_2)
@@ -1694,7 +1696,7 @@ double MVll::T_0t(double q2)
 {
     double T23 = 0.;
     if (MVll_DM_flag) {
-        T23 = T0_DM(q2, a_0T0, a_1T0, a_2T0, MRT0_2)*MMpMV*MMpMV/4./MM;
+        T23 = T0_DM(q2, a_0T0, a_1T0, a_2T0, MRT0_2)*MMpMV*MMpMV/4./MM/MV;
     } else {
         T23 = FF_fit(q2, a_0T23, a_1T23, a_2T23, MRT23_2);
     }

@@ -940,6 +940,7 @@ private:
     double Chi0minus;/**< Cache variable */
     double ChiTT;/**< Cache variable */
     double ChiBB;/**< Cache variable */
+    double n_I;/**< Cache variable */
     double MM2;/**< Cache variable */
     double MM4;/**< Cache variable */
     double MV2;/**< Cache variable */

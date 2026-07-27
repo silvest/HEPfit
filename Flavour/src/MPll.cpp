@@ -98,7 +98,8 @@ std::vector<std::string> MPll::initializeMPllParameters()
         else if (MPll_DM_flag) mpllParameters = make_vector<std::string>()
             << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
             << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-            << "b_1_f0" << "b_2_f0" ;
+            << "b_1_f0" << "b_2_f0"
+            << "Chi1minus" << "Chi0plus" << "ChiTT" ;
         else mpllParameters = make_vector<std::string>()
             << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0";
     } else {
@@ -187,6 +188,9 @@ void MPll::updateParameters()
             b_2_f0 = mySM.getOptionalParameter("b_2_f0");
             m_fit2_f0_lat = mySM.getOptionalParameter("m_fit_f0_lat") * mySM.getOptionalParameter("m_fit_f0_lat");
         } else if (MPll_DM_flag) {
+            Chi1minus = mySM.getOptionalParameter("Chi1minus"); //0.000623174575;
+            Chi0plus = mySM.getOptionalParameter("Chi0plus"); //0.0142;
+            ChiTT = mySM.getOptionalParameter("ChiTT"); //0.0003659;
             b_0_fplus = mySM.getOptionalParameter("b_0_fplus");
             b_1_fplus = mySM.getOptionalParameter("b_1_fplus");
             b_2_fplus = mySM.getOptionalParameter("b_2_fplus");
@@ -855,7 +859,6 @@ double MPll::phiplus_DM(double q2, double m_fit2)
     double z = zeta_DM(q2);
     double z_M = zeta_DM(m_fit2);
     double rP = MP/MM;
-    double Chi1minus = 0.000623174575;
     
     return 16.*rP*rP/MM*sqrt(4./3./Chi1minus/M_PI) * (1. + z)*(1. + z)*sqrt(1. - z)/pow((1. + rP)*(1. - z)+2.*sqrt(rP)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
 }
@@ -864,7 +867,6 @@ double MPll::phi0_DM(double q2)
 {
     double z = zeta_DM(q2);
     double rP = MP/MM;
-    double Chi0plus = 0.0142;
     
     return 2.*rP*(1 - rP*rP)*sqrt(4./Chi0plus/M_PI)* (1. - z*z)*sqrt(1. - z)/pow((1. + rP)*(1. - z)+2.*sqrt(rP)*(1. + z),4);
 }
@@ -874,7 +876,6 @@ double MPll::phiT_DM(double q2, double m_fit2)
     double z = zeta_DM(q2);
     double z_M = zeta_DM(m_fit2);
     double rP = MP/MM;
-    double ChiTT = 0.0454644444;
     
     return 16*rP*rP/MM/(1. + rP)*sqrt(4./3./ChiTT/M_PI) * (1. + z)*(1. + z)/sqrt(1. - z)/pow((1. + rP)*(1. - z)+2.*sqrt(rP)*(1. + z),4) * (z - z_M)/(1. - z_M*z);
 }
