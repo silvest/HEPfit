@@ -1542,6 +1542,7 @@ var group___flavour =
       [ "mu_h", "de/dc7/class_m_vgamma.html#aa3850d36ff52bd8ed7a8767e0a6bef8e", null ],
       [ "MV", "de/dc7/class_m_vgamma.html#af56778a14fdc5f3fe06ca0657d2c538a", null ],
       [ "MW", "de/dc7/class_m_vgamma.html#ae496546461c31c71211a68b04b42756a", null ],
+      [ "n_I", "de/dc7/class_m_vgamma.html#a4d00a686c4cb3740910da12b0143719e", null ],
       [ "parametersForMVgamma", "de/dc7/class_m_vgamma.html#af5bffa241ef6b0c5e8a45f2b234c1cef", null ],
       [ "r1_1", "de/dc7/class_m_vgamma.html#a4700b2c5d47bcc89a46293f5367cddd9", null ],
       [ "r1_2", "de/dc7/class_m_vgamma.html#aea6d2047e954be2f8a0b6e297753bc9f", null ],
