@@ -371,6 +371,9 @@ private:
     double b_1_f0;/**<LATTICE fit parameter */
     double b_2_f0;/**<LATTICE fit parameter */
     double m_fit2_f0_lat;/**<LATTICE fit parameter */
+    double Chi1minus;/**< Cache variable */
+    double Chi0plus;/**< Cache variable */
+    double ChiTT;/**< Cache variable */
     /*LCSR fit parameters*/
     double r_1_fplus;/**<LCSR fit parameter */
     double r_2_fplus;/**<LCSR fit parameter */
