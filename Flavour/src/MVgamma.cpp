@@ -52,9 +52,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 #if NFPOLARBASIS_MVGAMMA
     if (vectorM == StandardModel::PHI)
         if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
-            "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << 
-            "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << 
-            "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg" << 
+            "a_0T1phi" << "a_1T1phi" << "a_2T1phi" <<
+            "a_0fphi" << "a_1fphi" << "a_2fphi" <<
+            "a_0gphi" << "a_1gphi" << "a_2gphi" <<
+            "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2" <<
             "Chi1minus" << "Chi1plus" << "ChiTT" <<
             "absh_p" << "absh_m" << "argh_p" << "argh_m" << "SU3_breaking_abs" << "SU3_breaking_arg"
             << "Delta_C7_U";
@@ -64,9 +65,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
             << "Delta_C7_U";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
         if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
-            "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << 
-            "a_0f" << "a_1f" << "a_2f" << "MRf" << 
-            "a_0g" << "a_1g" << "a_2g" << "MRg" <<
+            "a_0T1" << "a_1T1" << "a_2T1" <<
+            "a_0f" << "a_1f" << "a_2f" <<
+            "a_0g" << "a_1g" << "a_2g" <<
+            "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2" <<
             "Chi1minus" << "Chi1plus" << "ChiTT" <<
             "absh_p" << "absh_m" << "argh_p" << "argh_m"
             << "Delta_C7_U";
@@ -84,9 +86,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 #else
     if (vectorM == StandardModel::PHI)
         if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
-            "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << 
-            "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << 
-            "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg" <<
+            "a_0T1phi" << "a_1T1phi" << "a_2T1phi" <<
+            "a_0fphi" << "a_1fphi" << "a_2fphi" <<
+            "a_0gphi" << "a_1gphi" << "a_2gphi" <<
+            "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2" <<
             "Chi1minus" << "Chi1plus" << "ChiTT" <<
             "reh_p" << "reh_m" << "imh_p" << "imh_m" << "SU3_breaking_abs" << "SU3_breaking_arg"
             << "Delta_C7_U";
@@ -96,9 +99,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
             << "Delta_C7_U";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
         if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
-            "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" <<
-            "a_0f" << "a_1f" << "a_2f" << "MRf" << 
-            "a_0g" << "a_1g" << "a_2g" << "MRg" <<
+            "a_0T1" << "a_1T1" << "a_2T1" <<
+            "a_0f" << "a_1f" << "a_2f" <<
+            "a_0g" << "a_1g" << "a_2g" <<
+            "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2" <<
             "Chi1minus" << "Chi1plus" << "ChiTT" <<
             "reh_p" << "reh_m" << "imh_p" << "imh_m"
             << "Delta_C7_U";
@@ -125,9 +129,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
         mVgammaParameters.clear();
         if (vectorM == StandardModel::PHI) 
             if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
-                "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << 
-                "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << 
-                "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg" <<
+                "a_0T1phi" << "a_1T1phi" << "a_2T1phi" <<
+                "a_0fphi" << "a_1fphi" << "a_2fphi" <<
+                "a_0gphi" << "a_1gphi" << "a_2gphi" <<
+                "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2" <<
                 "Chi1minus" << "Chi1plus" << "ChiTT" <<
                 "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2" << "SU3_breaking_abs" << "SU3_breaking_arg";
             else mVgammaParameters = make_vector<std::string>() << 
@@ -135,9 +140,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
                 "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2" << "SU3_breaking_abs" << "SU3_breaking_arg";
         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
             if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
-                "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << 
-                "a_0f" << "a_1f" << "a_2f" << "MRf" << 
-                "a_0g" << "a_1g" << "a_2g" << "MRg" <<
+                "a_0T1" << "a_1T1" << "a_2T1" <<
+                "a_0f" << "a_1f" << "a_2f" <<
+                "a_0g" << "a_1g" << "a_2g" <<
+                "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2" <<
                 "Chi1minus" << "Chi1plus" << "ChiTT" <<
                 "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1" << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2";
             else mVgammaParameters = make_vector<std::string>() << 
@@ -160,9 +166,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
         mVgammaParameters.clear();
         if (vectorM == StandardModel::PHI) 
             if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
-                "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" 
-                << "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" 
-                << "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg"
+                "a_0T1phi" << "a_1T1phi" << "a_2T1phi" 
+                << "a_0fphi" << "a_1fphi" << "a_2fphi" 
+                << "a_0gphi" << "a_1gphi" << "a_2gphi" 
+                << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
                 << "Chi1minus" << "Chi1plus" << "ChiTT"
                 << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
                 << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
@@ -176,9 +183,10 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
                 << "im_beta_2_0" << "im_beta_2_1" << "im_beta_2_2" << "im_beta_2_3" << "im_beta_2_4" << "im_beta_2_5" << "im_beta_2_6" << "SU3_breaking_abs" << "SU3_breaking_arg";
         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
             if (MVll_DM_flag) mVgammaParameters = make_vector<std::string>() << 
-                "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" 
-                << "a_0f" << "a_1f" << "a_2f" << "MRf" 
-                << "a_0g" << "a_1g" << "a_2g" << "MRg" 
+                "a_0T1" << "a_1T1" << "a_2T1"
+                << "a_0f" << "a_1f" << "a_2f"
+                << "a_0g" << "a_1g" << "a_2g" 
+                << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
                 << "Chi1minus" << "Chi1plus" << "ChiTT"
                 << "re_beta_1_0" << "re_beta_1_1" << "re_beta_1_2" << "re_beta_1_3" << "re_beta_1_4" << "re_beta_1_5" << "re_beta_1_6"
                 << "im_beta_1_0" << "im_beta_1_1" << "im_beta_1_2" << "im_beta_1_3" << "im_beta_1_4" << "im_beta_1_5" << "im_beta_1_6"
@@ -248,15 +256,18 @@ void MVgamma::updateParameters()
                 a_0T1 = SM.getOptionalParameter("a_0T1");
                 a_1T1 = SM.getOptionalParameter("a_1T1");
                 a_2T1 = SM.getOptionalParameter("a_2T1");
-                MRT1_2 = SM.getOptionalParameter("MRT1")*SM.getOptionalParameter("MRT1");
+                MRT1_2 = SM.getOptionalParameter("mBsst_1") * SM.getOptionalParameter("mBsst_1");
+                MRT12_2 = SM.getOptionalParameter("mBsst_2") * SM.getOptionalParameter("mBsst_2");
                 a_0f = SM.getOptionalParameter("a_0f");
                 a_1f = SM.getOptionalParameter("a_1f");
                 a_2f = SM.getOptionalParameter("a_2f");
-                MRf_2 = SM.getOptionalParameter("MRf")*SM.getOptionalParameter("MRf");
+                MRf_2 = SM.getOptionalParameter("mBs1_1") * SM.getOptionalParameter("mBs1_1");
+                MRf2_2 = SM.getOptionalParameter("mBs1_2") * SM.getOptionalParameter("mBs1_2");
                 a_0g = SM.getOptionalParameter("a_0g");
                 a_1g = SM.getOptionalParameter("a_1g");
                 a_2g = SM.getOptionalParameter("a_2g");
-                MRg_2 = SM.getOptionalParameter("MRg")*SM.getOptionalParameter("MRg");
+                MRg_2 = SM.getOptionalParameter("mBsst_1") * SM.getOptionalParameter("mBsst_1");
+                MRg2_2 = SM.getOptionalParameter("mBsst_2") * SM.getOptionalParameter("mBsst_2");
                 Chi1minus = SM.getOptionalParameter("Chi1minus"); //0.000623174575;
                 Chi1plus = SM.getOptionalParameter("Chi1plus"); //0.000543940610;
                 ChiTT = SM.getOptionalParameter("ChiTT"); //0.0003659;
@@ -277,15 +288,18 @@ void MVgamma::updateParameters()
                 a_0T1 = SM.getOptionalParameter("a_0T1");
                 a_1T1 = SM.getOptionalParameter("a_1T1");
                 a_2T1 = SM.getOptionalParameter("a_2T1");
-                MRT1_2 = SM.getOptionalParameter("MRT1")*SM.getOptionalParameter("MRT1");
+                MRT1_2 = SM.getOptionalParameter("mBsst_1") * SM.getOptionalParameter("mBsst_1");
+                MRT12_2 = SM.getOptionalParameter("mBsst_2") * SM.getOptionalParameter("mBsst_2");
                 a_0f = SM.getOptionalParameter("a_0f");
                 a_1f = SM.getOptionalParameter("a_1f");
                 a_2f = SM.getOptionalParameter("a_2f");
-                MRf_2 = SM.getOptionalParameter("MRf")*SM.getOptionalParameter("MRf");
+                MRf_2 = SM.getOptionalParameter("mBs1_1") * SM.getOptionalParameter("mBs1_1");
+                MRf2_2 = SM.getOptionalParameter("mBs1_2") * SM.getOptionalParameter("mBs1_2");
                 a_0g = SM.getOptionalParameter("a_0g");
                 a_1g = SM.getOptionalParameter("a_1g");
                 a_2g = SM.getOptionalParameter("a_2g");
-                MRg_2 = SM.getOptionalParameter("MRg")*SM.getOptionalParameter("MRg");
+                MRg_2 = SM.getOptionalParameter("mBsst_1") * SM.getOptionalParameter("mBsst_1");
+                MRg2_2 = SM.getOptionalParameter("mBsst_2") * SM.getOptionalParameter("mBsst_2");
                 Chi1minus = SM.getOptionalParameter("Chi1minus"); //0.000623174575;
                 Chi1plus = SM.getOptionalParameter("Chi1plus"); //0.000543940610;
                 ChiTT = SM.getOptionalParameter("ChiTT"); //0.0003659;
@@ -306,15 +320,18 @@ void MVgamma::updateParameters()
                 a_0T1 = SM.getOptionalParameter("a_0T1phi");
                 a_1T1 = SM.getOptionalParameter("a_1T1phi");
                 a_2T1 = SM.getOptionalParameter("a_2T1phi");
-                MRT1_2 = SM.getOptionalParameter("MRT1")*SM.getOptionalParameter("MRT1");
+                MRT1_2 = SM.getOptionalParameter("mBsst_1") * SM.getOptionalParameter("mBsst_1");
+                MRT12_2 = SM.getOptionalParameter("mBsst_2") * SM.getOptionalParameter("mBsst_2");
                 a_0f = SM.getOptionalParameter("a_0fphi");
                 a_1f = SM.getOptionalParameter("a_1fphi");
                 a_2f = SM.getOptionalParameter("a_2fphi");
-                MRf_2 = SM.getOptionalParameter("MRf")*SM.getOptionalParameter("MRf");
+                MRf_2 = SM.getOptionalParameter("mBs1_1") * SM.getOptionalParameter("mBs1_1");
+                MRf2_2 = SM.getOptionalParameter("mBs1_2") * SM.getOptionalParameter("mBs1_2");
                 a_0g = SM.getOptionalParameter("a_0gphi");
                 a_1g = SM.getOptionalParameter("a_1gphi");
                 a_2g = SM.getOptionalParameter("a_2gphi");
-                MRg_2 = SM.getOptionalParameter("MRg")*SM.getOptionalParameter("MRg");
+                MRg_2 = SM.getOptionalParameter("mBsst_1") * SM.getOptionalParameter("mBsst_1");
+                MRg2_2 = SM.getOptionalParameter("mBsst_2") * SM.getOptionalParameter("mBsst_2");
                 Chi1minus = SM.getOptionalParameter("Chi1minus"); //0.000623174575;
                 Chi1plus = SM.getOptionalParameter("Chi1plus"); //0.000543940610;
                 ChiTT = SM.getOptionalParameter("ChiTT"); //0.0003659;
@@ -535,48 +552,54 @@ void MVgamma::updateParameters()
 /*******************************************************************************
  * Form Factor                                                     *
  * ****************************************************************************/
-double MVgamma::phi_f(double MRf_2)
+double MVgamma::phi_f(double MRf_2, double MRf2_2)
 {
     double z = z_DM;
     double z_M = (sqrt(t_p - MRf_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRf_2) + sqrt(t_p - t_m));
+    double z_M2 = (sqrt(t_p - MRf2_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRf2_2) + sqrt(t_p - t_m));
 
-    return 4.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    if (vectorM == StandardModel::PHI)
+        return 4.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
+    else
+        return 4.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
 }
 
-double MVgamma::phi_g(double MRg_2)
+double MVgamma::phi_g(double MRg_2, double MRg2_2)
 {
     double z = z_DM;
     double z_M = (sqrt(t_p - MRg_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRg_2) + sqrt(t_p - t_m));
+    double z_M2 = (sqrt(t_p - MRg2_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRg2_2) + sqrt(t_p - t_m));
 
-    return 16.*rV*rV*sqrt(n_I/3./Chi1minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    return 16.*rV*rV*sqrt(n_I/3./Chi1minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
 }
 
-double MVgamma::phi_T1(double MRT1_2)
+double MVgamma::phi_T1(double MRT1_2, double MRT12_2)
 {
     double z = z_DM;
     double z_M = (sqrt(t_p - MRT1_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRT1_2) + sqrt(t_p - t_m));
+    double z_M2 = (sqrt(t_p - MRT12_2) - sqrt(t_p - t_m)) / (sqrt(t_p - MRT12_2) + sqrt(t_p - t_m));
 
-    return 32.*rV*rV/MM*sqrt(n_I/3./ChiTT/M_PI) * (1. + z)*(1. + z)*pow(1. - z,0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
+    return 32.*rV*rV/MM*sqrt(n_I/3./ChiTT/M_PI) * (1. + z)*(1. + z)*pow(1. - z,0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
 }
 
-double MVgamma::f_DM(double a_0f, double a_1f, double a_2f, double MRf_2)
+double MVgamma::f_DM(double a_0f, double a_1f, double a_2f, double MRf_2, double MRf2_2)
 {
-    return (a_0f + a_1f*z_DM + a_2f*z_DM*z_DM) / phi_f(MRf_2);
+    return (a_0f + a_1f*z_DM + a_2f*z_DM*z_DM) / phi_f(MRf_2, MRf2_2);
 }
 
-double MVgamma::g_DM(double a_0g, double a_1g, double a_2g, double MRg_2)
+double MVgamma::g_DM(double a_0g, double a_1g, double a_2g, double MRg_2, double MRg2_2)
 {
-    return (a_0g + a_1g*z_DM + a_2g*z_DM*z_DM) / phi_g(MRg_2);
+    return (a_0g + a_1g*z_DM + a_2g*z_DM*z_DM) / phi_g(MRg_2, MRg2_2);
 }
 
-double MVgamma::T1_DM(double a_0T1, double a_1T1, double a_2T1, double MRT1_2)
+double MVgamma::T1_DM(double a_0T1, double a_1T1, double a_2T1, double MRT1_2, double MRT12_2)
 {
-    return (a_0T1 + a_1T1*z_DM + a_2T1*z_DM*z_DM) / phi_T1(MRT1_2);
+    return (a_0T1 + a_1T1*z_DM + a_2T1*z_DM*z_DM) / phi_T1(MRT1_2, MRT12_2);
 }
 
 double MVgamma::T_1()
 {
-    if (MVll_DM_flag) return T1_DM(a_0T1, a_1T1, a_2T1, MRT1_2);
+    if (MVll_DM_flag) return T1_DM(a_0T1, a_1T1, a_2T1, MRT1_2, MRT12_2);
     else return a_0T1;
 }
 
@@ -764,8 +787,8 @@ gslpp::complex MVgamma::h_lambda(int hel)
     double V;
 
     if (MVll_DM_flag) {
-        A1 = f_DM(a_0f,a_1f,a_2f,MRf_2)/(MM+MV);
-        V = g_DM(a_0g,a_1g,a_2g,MRg_2)*(MM+MV)/2.;
+        A1 = f_DM(a_0f,a_1f,a_2f,MRf_2,MRf2_2)/(MM+MV);
+        V = g_DM(a_0g,a_1g,a_2g,MRg_2,MRg2_2)*(MM+MV)/2.;
     } else {
         A1 = a_0A1;
         V = a_0V;

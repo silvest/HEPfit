@@ -1039,10 +1039,12 @@ private:
     double a_1T1;/**<LCSR fit parameter */
     double a_2T1;/**<LCSR fit parameter */
     double MRT1_2;/**<LCSR fit parameter */
+    double MRT12_2;/**<LCSR fit parameter */
     double a_0T2;/**<LCSR fit parameter */
     double a_1T2;/**<LCSR fit parameter */
     double a_2T2;/**<LCSR fit parameter */
     double MRT2_2;/**<LCSR fit parameter */
+    double MRT22_2;/**<LCSR fit parameter */
     double a_0T23;/**<LCSR fit parameter */
     double a_1T23;/**<LCSR fit parameter */
     double a_2T23;/**<LCSR fit parameter */
@@ -1052,22 +1054,27 @@ private:
     double a_1f;/**<DM fit parameter */
     double a_2f;/**<DM fit parameter */
     double MRf_2;/**<DM fit parameter */
+    double MRf2_2;/**<DM fit parameter */
     double a_0g;/**<DM fit parameter */
     double a_1g;/**<DM fit parameter */
     double a_2g;/**<DM fit parameter */
     double MRg_2;/**<DM fit parameter */
+    double MRg2_2;/**<DM fit parameter */
     double a_0F1;/**<DM fit parameter */
     double a_1F1;/**<DM fit parameter */
     double a_2F1;/**<DM fit parameter */
     double MRF1_2;/**<DM fit parameter */
+    double MRF12_2;/**<DM fit parameter */
     double a_0F2;/**<DM fit parameter */
     double a_1F2;/**<DM fit parameter */
     double a_2F2;/**<DM fit parameter */
     double MRF2_2;/**<DM fit parameter */
+    double MRF22_2;/**<DM fit parameter */
     double a_0T0;/**<DM fit parameter */
     double a_1T0;/**<DM fit parameter */
     double a_2T0;/**<DM fit parameter */
     double MRT0_2;/**<DM fit parameter */
+    double MRT02_2;/**<DM fit parameter */
 
     double unitarity_bound_f_F1;/**<FF unitarity bound parameter */
     double unitarity_bound_g;/**<FF unitarity bound parameter */
@@ -1492,57 +1499,64 @@ private:
     * @brief The prefactor function of the form factor \f$ f \f$, \f$ \phi_f \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param MRf_2 fit parameter
+    * @param MRf2_2 fit parameter
     * @return \f$ \phi_f \f$
     */
-    double phi_f(double q2, double MRf_2);
+    double phi_f(double q2, double MRf_2, double MRf2_2);
     
     /**
     * @brief The prefactor function of the form factor \f$ g \f$, \f$ \phi_g \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param MRg_2 fit parameter
+    * @param MRg2_2 fit parameter
     * @return \f$ \phi_g \f$
     */
-    double phi_g(double q2, double MRg_2);
+    double phi_g(double q2, double MRg_2, double MRg2_2);
 
     /**
     * @brief The prefactor function of the form factor \f$ F_1 \f$, \f$ \phi_{F_1} \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param MRF1_2 fit parameter
+    * @param MRF12_2 fit parameter
     * @return \f$ \phi_{F_1} \f$
     */
-    double phi_F1(double q2, double MRF1_2);
+    double phi_F1(double q2, double MRF1_2, double MRF12_2);
 
     /**
     * @brief The prefactor function of the form factor \f$ F_2 \f$, \f$ \phi_{F_2} \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param MRF2_2 fit parameter
+    * @param MRF22_2 fit parameter
     * @return \f$ \phi_{F_2} \f$
     */
-    double phi_F2(double q2, double MRF2_2);
+    double phi_F2(double q2, double MRF2_2, double MRF22_2);
 
     /**
     * @brief The prefactor function of the form factor \f$ T_0 \f$, \f$ \phi_{T_0} \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param MRT0_2 fit parameter
+    * @param MRT02_2 fit parameter
     * @return \f$ \phi_{T_0} \f$
     */
-    double phi_T0(double q2, double MRT0_2);
+    double phi_T0(double q2, double MRT0_2, double MRT02_2);
 
     /**
     * @brief The prefactor function of the form factor \f$ T_1 \f$, \f$ \phi_{T_1} \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param MRT1_2 fit parameter
+    * @param MRT12_2 fit parameter
     * @return \f$ \phi_{T_1} \f$
     */
-    double phi_T1(double q2, double MRT1_2);
+    double phi_T1(double q2, double MRT1_2, double MRT12_2);
 
     /**
     * @brief The prefactor function of the form factor \f$ T_2 \f$, \f$ \phi_{T_2} \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param MRT2_2 fit parameter
+    * @param MRT22_2 fit parameter
     * @return \f$ \phi_{T_2} \f$
     */
-    double phi_T2(double q2, double MRT2_2);
+    double phi_T2(double q2, double MRT2_2, double MRT22_2);
 
     /**
     * @brief The transverse form factor \f$ f \f$.
@@ -1551,9 +1565,10 @@ private:
     * @param[in] a_1f fit parameter
     * @param[in] a_2f fit parameter
     * @param[in] MRf_2 fit parameter
+    * @param[in] MRf2_2 fit parameter
     * @return \f$ f \f$
     */
-    double f_DM(double q2, double a_0f, double a_1f, double a_2f, double MRf_2);
+    double f_DM(double q2, double a_0f, double a_1f, double a_2f, double MRf_2, double MRf2_2);
     
     /**
     * @brief The transverse form factor \f$ g \f$.
@@ -1562,10 +1577,11 @@ private:
     * @param[in] a_1g fit parameter
     * @param[in] a_2g fit parameter
     * @param[in] MRg_2 fit parameter
+    * @param[in] MRg2_2 fit parameter
     * @return \f$ g \f$
     */
-    double g_DM(double q2, double a_0g, double a_1g, double a_2g, double MRg_2);
-    
+    double g_DM(double q2, double a_0g, double a_1g, double a_2g, double MRg_2, double MRg2_2);
+
     /**
     * @brief The transverse form factor \f$ F_1 \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
@@ -1573,9 +1589,10 @@ private:
     * @param[in] a_1F1 fit parameter
     * @param[in] a_2F1 fit parameter
     * @param[in] MRF1_2 fit parameter
+    * @param[in] MRF12_2 fit parameter
     * @return \f$ F_1 \f$
     */
-    double F1_DM(double q2, double a_0F1, double a_1F1, double a_2F1, double MRF1_2);
+    double F1_DM(double q2, double a_0F1, double a_1F1, double a_2F1, double MRF1_2, double MRF12_2);
 
     /**
     * @brief The transverse form factor \f$ F_2 \f$.
@@ -1584,9 +1601,10 @@ private:
     * @param[in] a_1F2 fit parameter
     * @param[in] a_2F2 fit parameter
     * @param[in] MRF2_2 fit parameter
+    * @param[in] MRF22_2 fit parameter
     * @return \f$ F_2 \f$
     */
-    double F2_DM(double q2, double a_0F2, double a_1F2, double a_2F2, double MRF2_2);
+    double F2_DM(double q2, double a_0F2, double a_1F2, double a_2F2, double MRF2_2, double MRF22_2);
 
     /**
     * @brief The transverse form factor \f$ T_0 \f$.
@@ -1595,9 +1613,10 @@ private:
     * @param[in] a_1T0 fit parameter
     * @param[in] a_2T0 fit parameter
     * @param[in] MRT0_2 fit parameter
+    * @param[in] MRT02_2 fit parameter
     * @return \f$ T_0 \f$
     */
-    double T0_DM(double q2, double a_0T0, double a_1T0, double a_2T0, double MRT0_2);
+    double T0_DM(double q2, double a_0T0, double a_1T0, double a_2T0, double MRT0_2, double MRT02_2);
 
     /**
     * @brief The transverse form factor \f$ T_1 \f$.
@@ -1606,9 +1625,10 @@ private:
     * @param[in] a_1T1 fit parameter
     * @param[in] a_2T1 fit parameter
     * @param[in] MRT1_2 fit parameter
+    * @param[in] MRT12_2 fit parameter
     * @return \f$ T_1 \f$
     */
-    double T1_DM(double q2, double a_0T1, double a_1T1, double a_2T1, double MRT1_2);
+    double T1_DM(double q2, double a_0T1, double a_1T1, double a_2T1, double MRT1_2, double MRT12_2);
 
     /**
     * @brief The transverse form factor \f$ T_2 \f$.
@@ -1617,9 +1637,10 @@ private:
     * @param[in] a_1T2 fit parameter
     * @param[in] a_2T2 fit parameter
     * @param[in] MRT2_2 fit parameter
+    * @param[in] MRT22_2 fit parameter
     * @return \f$ T_2 \f$
     */
-    double T2_DM(double q2, double a_0T2, double a_1T2, double a_2T2, double MRT2_2);
+    double T2_DM(double q2, double a_0T2, double a_1T2, double a_2T2, double MRT2_2, double MRT22_2);
 
     /**
     * @brief The transverse form factor \f$ V \f$.

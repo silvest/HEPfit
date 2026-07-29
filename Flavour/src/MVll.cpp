@@ -168,10 +168,11 @@ std::vector<std::string> MVll::initializeMVllParameters()
 #if NFPOLARBASIS_MVLL
     if (vectorM == StandardModel::PHI) 
         if (MVll_DM_flag) mvllParameters = make_vector<std::string>()
-            << "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg"
-            << "a_1F1phi" << "a_2F1phi" << "MRF1" << "a_1F2phi" << "a_2F2phi" << "MRF2" /*a_0F1 and a_0F2 are not independent*/
-            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-            << "a_1T0phi" << "a_2T0phi" << "MRT0" /*a_0T0 and a_0T2 are not independent*/
+            << "a_0fphi" << "a_1fphi" << "a_2fphi" << "a_0gphi" << "a_1gphi" << "a_2gphi"
+            << "a_1F1phi" << "a_2F1phi" << "a_1F2phi" << "a_2F2phi" /*a_0F1 and a_0F2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "a_1T2phi" << "a_2T2phi"
+            << "a_1T0phi" << "a_2T0phi" /*a_0T0 and a_0T2 are not independent*/
+            << "mBs_1" << "mBs_2" << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
             << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
             << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
             << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
@@ -188,10 +189,11 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "Delta_C7_U" << "Delta_C9_U";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P)
         if (MVll_DM_flag) mvllParameters = make_vector<std::string>()
-            << "a_0f" << "a_1f" << "a_2f" << "MRf" << "a_0g" << "a_1g" << "a_2g" << "MRg"
-            << "a_1F1" << "a_2F1" << "MRF1" << "a_1F2" << "a_2F2" << "MRF2" /*a_0F1 and a_0F2 are not independent*/
-            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-            << "a_1T0" << "a_2T0" << "MRT0" /*a_0T0 and a_0T2 are not independent*/
+            << "a_0f" << "a_1f" << "a_2f" << "a_0g" << "a_1g" << "a_2g"
+            << "a_1F1" << "a_2F1" << "a_1F2" << "a_2F2" /*a_0F1 and a_0F2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "a_1T2" << "a_2T2"
+            << "a_1T0" << "a_2T0" /*a_0T0 and a_0T2 are not independent*/
+            << "mBs_1" << "mBs_2" << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
             << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
             << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
             << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
@@ -207,10 +209,11 @@ std::vector<std::string> MVll::initializeMVllParameters()
 #else 
     if (vectorM == StandardModel::PHI)
         if (MVll_DM_flag) mvllParameters = make_vector<std::string>()
-            << "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg"
-            << "a_1F1phi" << "a_2F1phi" << "MRF1" << "a_1F2phi" << "a_2F2phi" << "MRF2" /*a_0F1 and a_0F2 are not independent*/
-            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-            << "a_1T0phi" << "a_2T0phi" << "MRT0" /*a_0T0 and a_0T2 are not independent*/
+            << "a_0fphi" << "a_1fphi" << "a_2fphi" << "a_0gphi" << "a_1gphi" << "a_2gphi"
+            << "a_1F1phi" << "a_2F1phi" << "a_1F2phi" << "a_2F2phi" /*a_0F1 and a_0F2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "a_1T2phi" << "a_2T2phi"
+            << "a_1T0phi" << "a_2T0phi" /*a_0T0 and a_0T2 are not independent*/
+            << "mBs_1" << "mBs_2" << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
             << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
             << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
             << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
@@ -227,10 +230,11 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "Delta_C7_U" << "Delta_C9_U";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
         if (MVll_DM_flag) mvllParameters = make_vector<std::string>()
-            << "a_0f" << "a_1f" << "a_2f" << "MRf" << "a_0g" << "a_1g" << "a_2g" << "MRg"
-            << "a_1F1" << "a_2F1" << "MRF1" << "a_1F2" << "a_2F2" << "MRF2" /*a_0F1 and a_0F2 are not independent*/
-            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-            << "a_1T0" << "a_2T0" << "MRT0" /*a_0T0 and a_0T2 are not independent*/
+            << "a_0f" << "a_1f" << "a_2f" << "a_0g" << "a_1g" << "a_2g"
+            << "a_1F1" << "a_2F1" << "a_1F2" << "a_2F2" /*a_0F1 and a_0F2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "a_1T2" << "a_2T2"
+            << "a_1T0" << "a_2T0" /*a_0T0 and a_0T2 are not independent*/
+            << "mBs_1" << "mBs_2" << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
             << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
             << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
             << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
@@ -256,10 +260,11 @@ std::vector<std::string> MVll::initializeMVllParameters()
         mvllParameters.clear();
         if (vectorM == StandardModel::PHI)
             if (MVll_DM_flag) mvllParameters = make_vector<std::string>()
-                << "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg"
-                << "a_1F1phi" << "a_2F1phi" << "MRF1" << "a_1F2phi" << "a_2F2phi" << "MRF2" /*a_0F1 and a_0F2 are not independent*/
-                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-                << "a_1T0phi" << "a_2T0phi" << "MRT0" /*a_0T0 and a_0T2 are not independent*/
+                << "a_0fphi" << "a_1fphi" << "a_2fphi" << "a_0gphi" << "a_1gphi" << "a_2gphi"
+                << "a_1F1phi" << "a_2F1phi" << "a_1F2phi" << "a_2F2phi" /*a_0F1 and a_0F2 are not independent*/
+                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "a_1T2phi" << "a_2T2phi"
+                << "a_1T0phi" << "a_2T0phi" /*a_0T0 and a_0T2 are not independent*/
+                << "mBs_1" << "mBs_2" << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
                 << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
                 << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
                 << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
@@ -274,10 +279,11 @@ std::vector<std::string> MVll::initializeMVllParameters()
                 << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg";
         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) 
             if (MVll_DM_flag) mvllParameters = make_vector<std::string>()
-                << "a_0f" << "a_1f" << "a_2f" << "MRf" << "a_0g" << "a_1g" << "a_2g" << "MRg"
-                << "a_1F1" << "a_2F1" << "MRF1" << "a_1F2" << "a_2F2" << "MRF2" /*a_0F1 and a_0F2 are not independent*/
-                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-                << "a_1T0" << "a_2T0" << "MRT0" /*a_0T0 and a_0T2 are not independent*/
+                << "a_0f" << "a_1f" << "a_2f" << "a_0g" << "a_1g" << "a_2g"
+                << "a_1F1" << "a_2F1" << "a_1F2" << "a_2F2" /*a_0F1 and a_0F2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "a_1T2" << "a_2T2"
+                << "a_1T0" << "a_2T0" /*a_0T0 and a_0T2 are not independent*/
+                << "mBs_1" << "mBs_2" << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
                 << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
                 << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
                 << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
@@ -296,10 +302,11 @@ std::vector<std::string> MVll::initializeMVllParameters()
         mvllParameters.clear();
         if (vectorM == StandardModel::PHI)
             if (MVll_DM_flag) mvllParameters = make_vector<std::string>()
-                << "a_0fphi" << "a_1fphi" << "a_2fphi" << "MRf" << "a_0gphi" << "a_1gphi" << "a_2gphi" << "MRg"
-                << "a_1F1phi" << "a_2F1phi" << "MRF1" << "a_1F2phi" << "a_2F2phi" << "MRF2" /*a_0F1 and a_0F2 are not independent*/
-                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-                << "a_1T0phi" << "a_2T0phi" << "MRT0" /*a_0T0 and a_0T2 are not independent*/
+                << "a_0fphi" << "a_1fphi" << "a_2fphi" << "a_0gphi" << "a_1gphi" << "a_2gphi"
+                << "a_1F1phi" << "a_2F1phi" << "a_1F2phi" << "a_2F2phi" /*a_0F1 and a_0F2 are not independent*/
+                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "a_1T2phi" << "a_2T2phi"
+                << "a_1T0phi" << "a_2T0phi" /*a_0T0 and a_0T2 are not independent*/
+                << "mBs_1" << "mBs_2" << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
                 << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
                 << "DeltaC9" << "DeltaC10"
                 << "re_beta_0_0" << "re_beta_0_1" << "re_beta_0_2" << "re_beta_0_3" << "re_beta_0_4" << "re_beta_0_5" << "re_beta_0_6"
@@ -323,10 +330,11 @@ std::vector<std::string> MVll::initializeMVllParameters()
                 << "xs_phi" << "SU3_breaking_abs" << "SU3_breaking_arg";
         else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P)
             if (MVll_DM_flag) mvllParameters = make_vector<std::string>()
-                << "a_0f" << "a_1f" << "a_2f" << "MRf" << "a_0g" << "a_1g" << "a_2g" << "MRg"
-                << "a_1F1" << "a_2F1" << "MRF1" << "a_1F2" << "a_2F2" << "MRF2" /*a_0F1 and a_0F2 are not independent*/
-                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-                << "a_1T0" << "a_2T0" << "MRT0" /*a_0T0 and a_0T2 are not independent*/
+                << "a_0f" << "a_1f" << "a_2f" << "a_0g" << "a_1g" << "a_2g"
+                << "a_1F1" << "a_2F1" << "a_1F2" << "a_2F2" /*a_0F1 and a_0F2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "a_1T2" << "a_2T2"
+                << "a_1T0" << "a_2T0" /*a_0T0 and a_0T2 are not independent*/
+                << "mBs_1" << "mBs_2" << "mBsst_1" << "mBsst_2" << "mBs1_1" << "mBs1_2"
                 << "Chi1minus" << "Chi1plus" << "Chi0plus" << "Chi0minus" << "ChiTT" << "ChiBB"
                 << "DeltaC9" << "DeltaC10"
                 << "re_beta_0_0" << "re_beta_0_1" << "re_beta_0_2" << "re_beta_0_3" << "re_beta_0_4" << "re_beta_0_5" << "re_beta_0_6"
@@ -410,37 +418,44 @@ void MVll::updateParameters()
                 a_0f = mySM.getOptionalParameter("a_0f");
                 a_1f = mySM.getOptionalParameter("a_1f");
                 a_2f = mySM.getOptionalParameter("a_2f");
-                MRf_2 = mySM.getOptionalParameter("MRf") * mySM.getOptionalParameter("MRf");
+                MRf_2 = mySM.getOptionalParameter("mBs1_1") * mySM.getOptionalParameter("mBs1_1");
+                MRf2_2 = mySM.getOptionalParameter("mBs1_2") * mySM.getOptionalParameter("mBs1_2");
 
                 a_0g = mySM.getOptionalParameter("a_0g");
                 a_1g = mySM.getOptionalParameter("a_1g");
                 a_2g = mySM.getOptionalParameter("a_2g");
-                MRg_2 = mySM.getOptionalParameter("MRg") * mySM.getOptionalParameter("MRg");
+                MRg_2 = mySM.getOptionalParameter("mBsst_1") * mySM.getOptionalParameter("mBsst_1");
+                MRg2_2 = mySM.getOptionalParameter("mBsst_2") * mySM.getOptionalParameter("mBsst_2");
 
                 a_1F1 = mySM.getOptionalParameter("a_1F1");
                 a_2F1 = mySM.getOptionalParameter("a_2F1");
-                MRF1_2 = mySM.getOptionalParameter("MRF1") * mySM.getOptionalParameter("MRF1");
-                a_0F1 = f_DM(t_m,a_0f,a_1f,a_2f,MRf_2)*MM*(1. - rV)*phi_F1(t_m, MRF1_2) - a_1F1*z_DM(t_m) - a_2F1*z_DM(t_m)*z_DM(t_m);
+                MRF1_2 = mySM.getOptionalParameter("mBs1_1") * mySM.getOptionalParameter("mBs1_1");
+                MRF12_2 = mySM.getOptionalParameter("mBs1_2") * mySM.getOptionalParameter("mBs1_2");
+                a_0F1 = f_DM(t_m,a_0f,a_1f,a_2f,MRf_2,MRf2_2)*MM*(1. - rV)*phi_F1(t_m, MRF1_2, MRF12_2) - a_1F1*z_DM(t_m) - a_2F1*z_DM(t_m)*z_DM(t_m);
 
                 a_1F2 = mySM.getOptionalParameter("a_1F2");
                 a_2F2 = mySM.getOptionalParameter("a_2F2");
-                MRF2_2 = mySM.getOptionalParameter("MRF2") * mySM.getOptionalParameter("MRF2");
-                a_0F2 = F1_DM(0.,a_0F1,a_1F1,a_2F1,MRF1_2)*2./MM2/(1. - rV*rV)*phi_F2(0., MRF2_2) - a_1F2*z_DM(0.) - a_2F2*z_DM(0.)*z_DM(0.);
+                MRF2_2 = mySM.getOptionalParameter("mBs_1") * mySM.getOptionalParameter("mBs_1");
+                MRF22_2 = mySM.getOptionalParameter("mBs_2") * mySM.getOptionalParameter("mBs_2");
+                a_0F2 = F1_DM(0.,a_0F1,a_1F1,a_2F1,MRF1_2,MRF12_2)*2./MM2/(1. - rV*rV)*phi_F2(0., MRF2_2, MRF22_2) - a_1F2*z_DM(0.) - a_2F2*z_DM(0.)*z_DM(0.);
 
                 a_0T1 = mySM.getOptionalParameter("a_0T1");
                 a_1T1 = mySM.getOptionalParameter("a_1T1");
                 a_2T1 = mySM.getOptionalParameter("a_2T1");
-                MRT1_2 = mySM.getOptionalParameter("MRT1") * mySM.getOptionalParameter("MRT1");
+                MRT1_2 = mySM.getOptionalParameter("mBsst_1") * mySM.getOptionalParameter("mBsst_1");
+                MRT12_2 = mySM.getOptionalParameter("mBsst_2") * mySM.getOptionalParameter("mBsst_2");
 
                 a_1T2 = mySM.getOptionalParameter("a_1T2");
                 a_2T2 = mySM.getOptionalParameter("a_2T2");
-                MRT2_2 = mySM.getOptionalParameter("MRT2") * mySM.getOptionalParameter("MRT2");
-                a_0T2 = T1_DM(0.,a_0T1,a_1T1,a_2T1,MRT1_2)*phi_T2(0., MRT2_2) - a_1T2*z_DM(0.) - a_2T2*z_DM(0.)*z_DM(0.);
+                MRT2_2 = mySM.getOptionalParameter("mBs1_1") * mySM.getOptionalParameter("mBs1_1");
+                MRT22_2 = mySM.getOptionalParameter("mBs1_2") * mySM.getOptionalParameter("mBs1_2");
+                a_0T2 = T1_DM(0.,a_0T1,a_1T1,a_2T1,MRT1_2,MRT12_2)*phi_T2(0., MRT2_2, MRT22_2) - a_1T2*z_DM(0.) - a_2T2*z_DM(0.)*z_DM(0.);
 
                 a_1T0 = mySM.getOptionalParameter("a_1T0");
                 a_2T0 = mySM.getOptionalParameter("a_2T0");
-                MRT0_2 = mySM.getOptionalParameter("MRT0") * mySM.getOptionalParameter("MRT0");
-                a_0T0 = T2_DM(t_m,a_0T2,a_1T2,a_2T2,MRT2_2)*phi_T0(t_m, MRT0_2) - a_1T0*z_DM(t_m) - a_2T0*z_DM(t_m)*z_DM(t_m);
+                MRT0_2 = mySM.getOptionalParameter("mBs1_1") * mySM.getOptionalParameter("mBs1_1");
+                MRT02_2 = mySM.getOptionalParameter("mBs1_2") * mySM.getOptionalParameter("mBs1_2");
+                a_0T0 = T2_DM(t_m,a_0T2,a_1T2,a_2T2,MRT2_2,MRT22_2)*phi_T0(t_m, MRT0_2, MRT02_2) - a_1T0*z_DM(t_m) - a_2T0*z_DM(t_m)*z_DM(t_m);
 
                 unitarity_bound_f_F1 = pow(a_0f,2) + pow(a_1f,2) + pow(a_2f,2) + pow(a_0F1,2) + pow(a_1F1,2) + pow(a_2F1,2);
                 unitarity_bound_g = pow(a_0g,2) + pow(a_1g,2) + pow(a_2g,2);
@@ -508,37 +523,44 @@ void MVll::updateParameters()
                 a_0f = mySM.getOptionalParameter("a_0fphi");
                 a_1f = mySM.getOptionalParameter("a_1fphi");
                 a_2f = mySM.getOptionalParameter("a_2fphi");
-                MRf_2 = mySM.getOptionalParameter("MRf") * mySM.getOptionalParameter("MRf");
+                MRf_2 = mySM.getOptionalParameter("mBs1_1") * mySM.getOptionalParameter("mBs1_1");
+                MRf2_2 = mySM.getOptionalParameter("mBs1_2") * mySM.getOptionalParameter("mBs1_2");
 
                 a_0g = mySM.getOptionalParameter("a_0gphi");
                 a_1g = mySM.getOptionalParameter("a_1gphi");
                 a_2g = mySM.getOptionalParameter("a_2gphi");
-                MRg_2 = mySM.getOptionalParameter("MRg") * mySM.getOptionalParameter("MRg");
+                MRg_2 = mySM.getOptionalParameter("mBsst_1") * mySM.getOptionalParameter("mBsst_1");
+                MRg2_2 = mySM.getOptionalParameter("mBsst_2") * mySM.getOptionalParameter("mBsst_2");
 
                 a_1F1 = mySM.getOptionalParameter("a_1F1phi");
                 a_2F1 = mySM.getOptionalParameter("a_2F1phi");
-                MRF1_2 = mySM.getOptionalParameter("MRF1") * mySM.getOptionalParameter("MRF1");
-                a_0F1 = f_DM(t_m,a_0f,a_1f,a_2f,MRf_2)*MM*(1. - rV)*phi_F1(t_m, MRF1_2) - a_1F1*z_DM(t_m) - a_2F1*z_DM(t_m)*z_DM(t_m);
+                MRF1_2 = mySM.getOptionalParameter("mBs1_1") * mySM.getOptionalParameter("mBs1_1");
+                MRF12_2 = mySM.getOptionalParameter("mBs1_2") * mySM.getOptionalParameter("mBs1_2");
+                a_0F1 = f_DM(t_m,a_0f,a_1f,a_2f,MRf_2,MRf2_2)*MM*(1. - rV)*phi_F1(t_m, MRF1_2, MRF12_2) - a_1F1*z_DM(t_m) - a_2F1*z_DM(t_m)*z_DM(t_m);
 
                 a_1F2 = mySM.getOptionalParameter("a_1F2phi");
                 a_2F2 = mySM.getOptionalParameter("a_2F2phi");
-                MRF2_2 = mySM.getOptionalParameter("MRF2") * mySM.getOptionalParameter("MRF2");
-                a_0F2 = F1_DM(0.,a_0F1,a_1F1,a_2F1,MRF1_2)*2./MM2/(1. - rV*rV)*phi_F2(0., MRF2_2) - a_1F2*z_DM(0.) - a_2F2*z_DM(0.)*z_DM(0.);
+                MRF2_2 = mySM.getOptionalParameter("mBs_1") * mySM.getOptionalParameter("mBs_1");
+                MRF22_2 = mySM.getOptionalParameter("mBs_2") * mySM.getOptionalParameter("mBs_2");
+                a_0F2 = F1_DM(0.,a_0F1,a_1F1,a_2F1,MRF1_2,MRF12_2)*2./MM2/(1. - rV*rV)*phi_F2(0., MRF2_2, MRF22_2) - a_1F2*z_DM(0.) - a_2F2*z_DM(0.)*z_DM(0.);
 
                 a_0T1 = mySM.getOptionalParameter("a_0T1phi");
                 a_1T1 = mySM.getOptionalParameter("a_1T1phi");
                 a_2T1 = mySM.getOptionalParameter("a_2T1phi");
-                MRT1_2 = mySM.getOptionalParameter("MRT1") * mySM.getOptionalParameter("MRT1");
+                MRT1_2 = mySM.getOptionalParameter("mBsst_1") * mySM.getOptionalParameter("mBsst_1");
+                MRT12_2 = mySM.getOptionalParameter("mBsst_2") * mySM.getOptionalParameter("mBsst_2");
 
                 a_1T2 = mySM.getOptionalParameter("a_1T2phi");
                 a_2T2 = mySM.getOptionalParameter("a_2T2phi");
-                MRT2_2 = mySM.getOptionalParameter("MRT2") * mySM.getOptionalParameter("MRT2");
-                a_0T2 = T1_DM(0.,a_0T1,a_1T1,a_2T1,MRT1_2)*phi_T2(0., MRT2_2) - a_1T2*z_DM(0.) - a_2T2*z_DM(0.)*z_DM(0.);
+                MRT2_2 = mySM.getOptionalParameter("mBs1_1") * mySM.getOptionalParameter("mBs1_1");
+                MRT22_2 = mySM.getOptionalParameter("mBs1_2") * mySM.getOptionalParameter("mBs1_2");
+                a_0T2 = T1_DM(0.,a_0T1,a_1T1,a_2T1,MRT1_2,MRT12_2)*phi_T2(0., MRT2_2, MRT22_2) - a_1T2*z_DM(0.) - a_2T2*z_DM(0.)*z_DM(0.);
 
                 a_1T0 = mySM.getOptionalParameter("a_1T0phi");
                 a_2T0 = mySM.getOptionalParameter("a_2T0phi");
-                MRT0_2 = mySM.getOptionalParameter("MRT0") * mySM.getOptionalParameter("MRT0");
-                a_0T0 = T2_DM(t_m,a_0T2,a_1T2,a_2T2,MRT2_2)*phi_T0(t_m, MRT0_2) - a_1T0*z_DM(t_m) - a_2T0*z_DM(t_m)*z_DM(t_m);
+                MRT0_2 = mySM.getOptionalParameter("mBs1_1") * mySM.getOptionalParameter("mBs1_1");
+                MRT02_2 = mySM.getOptionalParameter("mBs1_2") * mySM.getOptionalParameter("mBs1_2");
+                a_0T0 = T2_DM(t_m,a_0T2,a_1T2,a_2T2,MRT2_2,MRT22_2)*phi_T0(t_m, MRT0_2, MRT02_2) - a_1T0*z_DM(t_m) - a_2T0*z_DM(t_m)*z_DM(t_m);
 
                 unitarity_bound_f_F1 = pow(a_0f,2) + pow(a_1f,2) + pow(a_2f,2) + pow(a_0F1,2) + pow(a_1F1,2) + pow(a_2F1,2);
                 unitarity_bound_g = pow(a_0g,2) + pow(a_1g,2) + pow(a_2g,2);
@@ -1515,108 +1537,127 @@ double MVll::z_DM(double q2)
     return (sqrt(t_p - q2) - sqrt(t_p - t_m)) / (sqrt(t_p - q2) + sqrt(t_p - t_m));
 }
 
-double MVll::phi_f(double q2, double MRf_2)
+double MVll::phi_f(double q2, double MRf_2, double MRf2_2)
 {
     double z = z_DM(q2);
     double z_M = z_DM(MRf_2);
+    double z_M2 = z_DM(MRf2_2);
 
-    return 4.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    if (vectorM == StandardModel::PHI)
+        return 2.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
+    else
+        return 4.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z);
 }
 
-double MVll::phi_g(double q2, double MRg_2)
+double MVll::phi_g(double q2, double MRg_2, double MRg2_2)
 {
     double z = z_DM(q2);
     double z_M = z_DM(MRg_2);
+    double z_M2 = z_DM(MRg2_2);
 
-    return 16.*rV*rV*sqrt(n_I/3./Chi1minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    return 16.*rV*rV*sqrt(n_I/3./Chi1minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
 }
 
-double MVll::phi_F1(double q2, double MRF1_2)
+double MVll::phi_F1(double q2, double MRF1_2, double MRF12_2)
 {
     double z = z_DM(q2);
     double z_M = z_DM(MRF1_2);
+    double z_M2 = z_DM(MRF12_2);
 
-    return 2.*rV/MM3*sqrt(2.*n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
+    if (vectorM == StandardModel::PHI)
+        return 2.*rV/MM3*sqrt(2.*n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
+    else
+        return 2.*rV/MM3*sqrt(2.*n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5) * (z - z_M)/(1. - z_M*z);
 }
 
-double MVll::phi_F2(double q2, double MRF2_2)
+double MVll::phi_F2(double q2, double MRF2_2, double MRF22_2)
 {
     double z = z_DM(q2);
     double z_M = z_DM(MRF2_2);
+    double z_M2 = z_DM(MRF22_2);
 
-    return 8.*rV*rV*sqrt(2.*n_I/Chi0minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    return 8.*rV*rV*sqrt(2.*n_I/Chi0minus/M_PI) * (1. + z)*(1. + z)*pow(1. - z,-0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
 }
 
-double MVll::phi_T0(double q2, double MRT0_2)
+double MVll::phi_T0(double q2, double MRT0_2, double MRT02_2)
 {
     double z = z_DM(q2);
     double z_M = z_DM(MRT0_2);
+    double z_M2 = z_DM(MRT02_2);
 
-    return 2.*rV*(1. + rV)/MM*sqrt(2.*n_I/3./ChiBB/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4)  * (z - z_M)/(1. - z_M*z);
+    if (vectorM == StandardModel::PHI)
+        return 2.*rV*(1. + rV)/MM*sqrt(2.*n_I/3./ChiBB/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
+    else
+        return 2.*rV*(1. + rV)/MM*sqrt(2.*n_I/3./ChiBB/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z);
 }
 
-double MVll::phi_T1(double q2, double MRT1_2)
+double MVll::phi_T1(double q2, double MRT1_2, double MRT12_2)
 {
     double z = z_DM(q2);
     double z_M = z_DM(MRT1_2);
+    double z_M2 = z_DM(MRT12_2);
 
-    return 32.*rV*rV/MM*sqrt(n_I/3./ChiTT/M_PI) * (1. + z)*(1. + z)*pow(1. - z,0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
+    return 32.*rV*rV/MM*sqrt(n_I/3./ChiTT/M_PI) * (1. + z)*(1. + z)*pow(1. - z,0.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
 }
 
-double MVll::phi_T2(double q2, double MRT2_2)
+double MVll::phi_T2(double q2, double MRT2_2, double MRT22_2)
 {
     double z = z_DM(q2);
     double z_M = z_DM(MRT2_2);
+    double z_M2 = z_DM(MRT22_2);
 
-    return 4.*rV*(1. - rV*rV)/MM*sqrt(n_I/3./ChiBB/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
+    if (vectorM == StandardModel::PHI)
+        return 4.*rV*(1. - rV*rV)/MM*sqrt(n_I/3./ChiBB/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
+    else
+        return 4.*rV*(1. - rV*rV)/MM*sqrt(n_I/3./ChiBB/M_PI) * (1. + z)*pow(1. - z,2.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),5) * (z - z_M)/(1. - z_M*z);
 }
 
-double MVll::f_DM(double q2, double a_0f, double a_1f, double a_2f, double MRf_2)
+double MVll::f_DM(double q2, double a_0f, double a_1f, double a_2f, double MRf_2, double MRf2_2)
 {
     double z = z_DM(q2);
-    return (a_0f + a_1f*z + a_2f*z*z) / phi_f(q2, MRf_2);
+    return (a_0f + a_1f*z + a_2f*z*z) / phi_f(q2, MRf_2, MRf2_2);
 }
 
-double MVll::g_DM(double q2, double a_0g, double a_1g, double a_2g, double MRg_2)
+double MVll::g_DM(double q2, double a_0g, double a_1g, double a_2g, double MRg_2, double MRg2_2)
 {
     double z = z_DM(q2);
-    return (a_0g + a_1g*z + a_2g*z*z) / phi_g(q2, MRg_2);
+    return (a_0g + a_1g*z + a_2g*z*z) / phi_g(q2, MRg_2, MRg2_2);
 }
 
-double MVll::F1_DM(double q2, double a_0F1, double a_1F1, double a_2F1, double MRF1_2)
+double MVll::F1_DM(double q2, double a_0F1, double a_1F1, double a_2F1, double MRF1_2, double MRF12_2)
 {
     double z = z_DM(q2);
-    return (a_0F1 + a_1F1*z + a_2F1*z*z) / phi_F1(q2, MRF1_2);
+    return (a_0F1 + a_1F1*z + a_2F1*z*z) / phi_F1(q2, MRF1_2, MRF12_2);
 }
 
-double MVll::F2_DM(double q2, double a_0F2, double a_1F2, double a_2F2, double MRF2_2)
+double MVll::F2_DM(double q2, double a_0F2, double a_1F2, double a_2F2, double MRF2_2, double MRF22_2)
 {
     double z = z_DM(q2);
-    return (a_0F2 + a_1F2*z + a_2F2*z*z) / phi_F2(q2, MRF2_2);
+    return (a_0F2 + a_1F2*z + a_2F2*z*z) / phi_F2(q2, MRF2_2, MRF22_2);
 }
 
-double MVll::T0_DM(double q2, double a_0T0, double a_1T0, double a_2T0, double MRT0_2)
+double MVll::T0_DM(double q2, double a_0T0, double a_1T0, double a_2T0, double MRT0_2, double MRT02_2)
 {
     double z = z_DM(q2);
-    return (a_0T0 + a_1T0*z + a_2T0*z*z) / phi_T0(q2, MRT0_2);
+    return (a_0T0 + a_1T0*z + a_2T0*z*z) / phi_T0(q2, MRT0_2, MRT02_2);
 }
 
-double MVll::T1_DM(double q2, double a_0T1, double a_1T1, double a_2T1, double MRT1_2)
+double MVll::T1_DM(double q2, double a_0T1, double a_1T1, double a_2T1, double MRT1_2, double MRT12_2)
 {
     double z = z_DM(q2);
-    return (a_0T1 + a_1T1*z + a_2T1*z*z) / phi_T1(q2, MRT1_2);
+    return (a_0T1 + a_1T1*z + a_2T1*z*z) / phi_T1(q2, MRT1_2, MRT12_2);
 }
 
-double MVll::T2_DM(double q2, double a_0T2, double a_1T2, double a_2T2, double MRT2_2)
+double MVll::T2_DM(double q2, double a_0T2, double a_1T2, double a_2T2, double MRT2_2, double MRT22_2)
 {
     double z = z_DM(q2);
-    return (a_0T2 + a_1T2*z + a_2T2*z*z) / phi_T2(q2, MRT2_2);
+    return (a_0T2 + a_1T2*z + a_2T2*z*z) / phi_T2(q2, MRT2_2, MRT22_2);
 }
 
 double MVll::V(double q2)
 {
     if (MVll_DM_flag) {
-        return g_DM(q2, a_0g, a_1g, a_2g, MRg_2)*MMpMV/2.;
+        return g_DM(q2, a_0g, a_1g, a_2g, MRg_2, MRg2_2)*MMpMV/2.;
     } else {
         return FF_fit(q2, a_0V, a_1V, a_2V, MRV_2);
     }
@@ -1625,7 +1666,7 @@ double MVll::V(double q2)
 double MVll::A_0(double q2)
 {
     if (MVll_DM_flag) {
-        return F2_DM(q2, a_0F2, a_1F2, a_2F2, MRF2_2)/2.;
+        return F2_DM(q2, a_0F2, a_1F2, a_2F2, MRF2_2, MRF22_2)/2.;
     } else {
         return FF_fit(q2, a_0A0, a_1A0, a_2A0, MRA0_2);
     }
@@ -1634,7 +1675,7 @@ double MVll::A_0(double q2)
 double MVll::A_1(double q2)
 {
     if (MVll_DM_flag) {
-        return f_DM(q2, a_0f, a_1f, a_2f, MRf_2)/MMpMV;
+        return f_DM(q2, a_0f, a_1f, a_2f, MRf_2, MRf2_2)/MMpMV;
     } else {
         return FF_fit(q2, a_0A1, a_1A1, a_2A1, MRA1_2);
     }
@@ -1644,7 +1685,7 @@ double MVll::A_2(double q2)
 {
     double A12 = 0.;
     if (MVll_DM_flag) {
-        A12 = F1_DM(q2, a_0F1, a_1F1, a_2F1, MRF1_2)/MMMV/8.;
+        A12 = F1_DM(q2, a_0F1, a_1F1, a_2F1, MRF1_2, MRF12_2)/MMMV/8.;
     } else {
         A12 = FF_fit(q2, a_0A12, a_1A12, a_2A12, MRA12_2);
     }
@@ -1655,7 +1696,7 @@ double MVll::A_2(double q2)
 double MVll::T_1(double q2)
 {
     if (MVll_DM_flag) {
-        return T1_DM(q2, a_0T1, a_1T1, a_2T1, MRT1_2);
+        return T1_DM(q2, a_0T1, a_1T1, a_2T1, MRT1_2, MRT12_2);
     } else {
         return FF_fit(q2, a_0T1, a_1T1, a_2T1, MRT1_2);
     }
@@ -1664,7 +1705,7 @@ double MVll::T_1(double q2)
 double MVll::T_2(double q2)
 {
     if (MVll_DM_flag) {
-        return T2_DM(q2, a_0T2, a_1T2, a_2T2, MRT2_2);
+        return T2_DM(q2, a_0T2, a_1T2, a_2T2, MRT2_2, MRT22_2);
     } else {
         return FF_fit(q2, a_0T2, a_1T2, a_2T2, MRT2_2);
     }
@@ -1674,7 +1715,7 @@ double MVll::V_0t(double q2)
 {
     double A12 = 0.;
     if (MVll_DM_flag) {
-        A12 = F1_DM(q2, a_0F1, a_1F1, a_2F1, MRF1_2)/MMMV/8.;
+        A12 = F1_DM(q2, a_0F1, a_1F1, a_2F1, MRF1_2, MRF12_2)/MMMV/8.;
     } else {
         A12 = FF_fit(q2, a_0A12, a_1A12, a_2A12, MRA12_2);
     }
@@ -1696,7 +1737,7 @@ double MVll::T_0t(double q2)
 {
     double T23 = 0.;
     if (MVll_DM_flag) {
-        T23 = T0_DM(q2, a_0T0, a_1T0, a_2T0, MRT0_2)*MMpMV*MMpMV/4./MM/MV;
+        T23 = T0_DM(q2, a_0T0, a_1T0, a_2T0, MRT0_2, MRT02_2)*MMpMV*MMpMV/4./MM/MV;
     } else {
         T23 = FF_fit(q2, a_0T23, a_1T23, a_2T23, MRT23_2);
     }

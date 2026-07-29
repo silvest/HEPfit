@@ -96,9 +96,10 @@ std::vector<std::string> MPll::initializeMPllParameters()
             << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
             << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat" ;
         else if (MPll_DM_flag) mpllParameters = make_vector<std::string>()
-            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT"
             << "b_1_f0" << "b_2_f0"
+            << "mBsst_1"
             << "Chi1minus" << "Chi0plus" << "ChiTT" ;
         else mpllParameters = make_vector<std::string>()
             << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0";
@@ -194,11 +195,11 @@ void MPll::updateParameters()
             b_0_fplus = mySM.getOptionalParameter("b_0_fplus");
             b_1_fplus = mySM.getOptionalParameter("b_1_fplus");
             b_2_fplus = mySM.getOptionalParameter("b_2_fplus");
-            m_fit2_fplus_lat = mySM.getOptionalParameter("m_fit_fplus_lat") * mySM.getOptionalParameter("m_fit_fplus_lat");
+            m_fit2_fplus_lat = mySM.getOptionalParameter("mBsst_1") * mySM.getOptionalParameter("mBsst_1");
             b_0_fT = mySM.getOptionalParameter("b_0_fT");
             b_1_fT = mySM.getOptionalParameter("b_1_fT");
             b_2_fT = mySM.getOptionalParameter("b_2_fT");
-            m_fit2_fT_lat = mySM.getOptionalParameter("m_fit_fT_lat") * mySM.getOptionalParameter("m_fit_fT_lat");
+            m_fit2_fT_lat = mySM.getOptionalParameter("mBsst_1") * mySM.getOptionalParameter("mBsst_1");
             b_1_f0 = mySM.getOptionalParameter("b_1_f0");
             b_2_f0 = mySM.getOptionalParameter("b_2_f0");
             b_0_f0 = fplus_DM(0.,b_0_fplus,b_1_fplus,b_2_fplus,m_fit2_fplus_lat)*phi0_DM(0) - b_1_f0*zeta_DM(0) - b_2_f0*zeta_DM(0)*zeta_DM(0);

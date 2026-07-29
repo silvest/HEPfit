@@ -217,14 +217,17 @@ public:
     double a_1T1;/**<DM fit parameter */
     double a_2T1;/**<DM fit parameter */
     double MRT1_2;/**<DM fit parameter */
+    double MRT12_2;/**<DM fit parameter */
     double a_0f;/**<DM fit parameter */
     double a_1f;/**<DM fit parameter */
     double a_2f;/**<DM fit parameter */
     double MRf_2;/**<DM fit parameter */
+    double MRf2_2;/**<DM fit parameter */
     double a_0g;/**<DM fit parameter */
     double a_1g;/**<DM fit parameter */
     double a_2g;/**<DM fit parameter */
     double MRg_2;/**<DM fit parameter */
+    double MRg2_2;/**<DM fit parameter */
     
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients at mub*/
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients at mub*/
@@ -244,23 +247,26 @@ public:
     /**
     * @brief The prefactor function of the form factor \f$ f \f$, \f$ \phi_{f} \f$.
     * @param MRf_2 fit parameter
+    * @param MRf2_2 fit parameter
     * @return \f$ \phi_{f} \f$
     */
-    double phi_f(double MRf_2);
+    double phi_f(double MRf_2, double MRf2_2);
 
     /**
     * @brief The prefactor function of the form factor \f$ g \f$, \f$ \phi_{g} \f$.
     * @param MRg_2 fit parameter
+    * @param MRg2_2 fit parameter
     * @return \f$ \phi_{g} \f$
     */
-    double phi_g(double MRg_2);
+    double phi_g(double MRg_2, double MRg2_2);
 
     /**
     * @brief The prefactor function of the form factor \f$ T_1 \f$, \f$ \phi_{T_1} \f$.
     * @param MRT1_2 fit parameter
+    * @param MRT12_2 fit parameter
     * @return \f$ \phi_{T_1} \f$
     */
-    double phi_T1(double MRT1_2);
+    double phi_T1(double MRT1_2, double MRT12_2);
 
     /**
     * @brief The transverse form factor \f$ f \f$.
@@ -268,9 +274,10 @@ public:
     * @param[in] a_1f fit parameter
     * @param[in] a_2f fit parameter
     * @param[in] MRf_2 fit parameter
+    * @param[in] MRf2_2 fit parameter
     * @return \f$ f \f$
     */
-    double f_DM(double a_0f, double a_1f, double a_2f, double MRf_2);
+    double f_DM(double a_0f, double a_1f, double a_2f, double MRf_2, double MRf2_2);
     
     /**
     * @brief The transverse form factor \f$ g \f$.
@@ -278,9 +285,10 @@ public:
     * @param[in] a_1g fit parameter
     * @param[in] a_2g fit parameter
     * @param[in] MRg_2 fit parameter
+    * @param[in] MRg2_2 fit parameter
     * @return \f$ g \f$
     */
-    double g_DM(double a_0g, double a_1g, double a_2g, double MRg_2);
+    double g_DM(double a_0g, double a_1g, double a_2g, double MRg_2, double MRg2_2);
 
     /**
     * @brief The DM transverse form factor \f$ T_1 \f$.
@@ -288,9 +296,10 @@ public:
     * @param[in] a_1T1 fit parameter
     * @param[in] a_2T1 fit parameter
     * @param[in] MRT1_2 fit parameter
+    * @param[in] MRT12_2 fit parameter
     * @return \f$ T_1 \f$
     */
-    double T1_DM(double a_0T1, double a_1T1, double a_2T1, double MRT1_2);
+    double T1_DM(double a_0T1, double a_1T1, double a_2T1, double MRT1_2, double MRT12_2);
 
     /**
     * @brief The transverse form factor @f$ T_1 @f$.
