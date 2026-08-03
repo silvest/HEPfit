@@ -199,6 +199,14 @@ public:
         return WCscale_s;
     }
 
+     /**
+     * @brief A method to set a flag of %FlavourWilsonCoefficient_DF2.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool setFlag(const std::string name, const bool value);
+
 protected: 
     
     /**
@@ -220,6 +228,7 @@ private:
     double imC1_bs, imC2_bs, imC3_bs, imC4_bs, imC5_bs;///< The imaginary parts of the  Wilson Coefficients.
     gslpp::vector<gslpp::complex> C_s, C_c, C_bd, C_bs;///< The complex Wilson Coefficients.
     double WCscale_s, WCscale_c, WCscale_bd, WCscale_bs;///< The scale of the  Wilson Coefficients.
+    bool FlagNMFV;///< A boolean that is true if the model is next-to-minimal flavour violation (NMFV) and false if the model is generic flavour violation.
 
 };
 

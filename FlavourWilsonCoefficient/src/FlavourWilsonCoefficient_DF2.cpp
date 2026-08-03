@@ -6,6 +6,7 @@
  */
 
 #include "FlavourWilsonCoefficient_DF2.h"
+#include <string>
 
 const std::string FlavourWilsonCoefficient_DF2::FlavourWilsonCoefficient_DF2vars[NFlavourWilsonCoefficient_DF2vars] = {
     "reC1_s","reC2_s","reC3_s","reC4_s","reC5_s",
@@ -17,6 +18,7 @@ const std::string FlavourWilsonCoefficient_DF2::FlavourWilsonCoefficient_DF2vars
 FlavourWilsonCoefficient_DF2::FlavourWilsonCoefficient_DF2() : StandardModel(), 
         FWCM(*this), C_s(5,0.), C_c(5,0.), C_bd(5,0.), C_bs(5,0.) {   
 
+    FlagNMFV = false;
     SMM.setObj((StandardModelMatching&) FWCM.getObj());
     ModelParamMap.insert(std::make_pair("reC1_s", std::cref(reC1_s)));
     ModelParamMap.insert(std::make_pair("reC2_s", std::cref(reC2_s)));
@@ -99,9 +101,31 @@ bool FlavourWilsonCoefficient_DF2::PostUpdate()
     C_bs.assign(2,gslpp::complex(reC3_bs, imC3_bs));
     C_bs.assign(3,gslpp::complex(reC4_bs, imC4_bs));
     C_bs.assign(4,gslpp::complex(reC5_bs, imC5_bs));
+    if (FlagNMFV) {
+        // Add NMFV factors to the Wilson coefficients
+        double NMFV_factor_s = getCKM().computelamt().abs2();
+        double NMFV_factor_c = getCKM().getV_cb().abs2()*getCKM().getV_ub().abs2();
+        double NMFV_factor_bd = getCKM().computelamt_d().abs2();
+        double NMFV_factor_bs = getCKM().computelamt_s().abs2();
+        for (int i = 0; i < 5; i++) {
+            C_s.assign(i, C_s(i) * NMFV_factor_s);
+            C_c.assign(i, C_c(i) * NMFV_factor_c);
+            C_bd.assign(i, C_bd(i) * NMFV_factor_bd);
+            C_bs.assign(i, C_bs(i) * NMFV_factor_bs);
+        }
+    }
 
     return (true);
 }
+
+bool FlavourWilsonCoefficient_DF2::setFlag(const std::string name, const bool value) {
+    if(name.compare("NMFV") == 0) {
+        FlagNMFV = value;
+        return true;
+    }
+    else
+        return StandardModel::setFlag(name,value);
+}   
 
 void FlavourWilsonCoefficient_DF2::setParameter(const std::string name, const double& value){    
     if(name.compare("reC1_s") == 0) 

@@ -7,14 +7,16 @@ if [ ! -d "${Modeldir}" ]; then
     mkdir ${Modeldir}
 fi
 if [[ $Model == "Standard_Model_DM" ]]; then
-    cp StandardModel.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf ${Modeldir}/
+    cp StandardModel.conf SM_parameters.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf ${Modeldir}/
     cp UTfit_DM.conf ${ModelDir}/UTfit.conf
 elif [[ $Model == "NPWC" ]]; then
-    cp NPWC.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf UTfit_NP.conf ${Modeldir}/
+    cp NPWC.conf SM_parameters.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf UTfit_NP.conf ${Modeldir}/
+elif [[ $Model == "NPWC_NMFV" ]]; then
+    cp NPWC_NMFV.conf SM_parameters.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf UTfit_NP.conf ${Modeldir}/
 elif [[ $Model == "NPDF2" ]]; then
-    cp NPDF2.conf StandardModel.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf UTfit_NP.conf ${Modeldir}/
+    cp NPDF2.conf StandardModel.conf SM_parameters.conf Flavour.conf MonteCarlo.conf submit_job.sh UTfit.conf UTfit_NP.conf ${Modeldir}/
 else
-    cp StandardModel.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh ${Modeldir}/
+    cp StandardModel.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh ${Modeldir}/
 fi
 if [ ! -L "${Modeldir}/input" ]; then
     ln -s $(pwd)/input ${Modeldir}/input
@@ -25,23 +27,25 @@ if [[ $Model == "Standard_Model" ]] || [[ $Model == "Standard_Model_DM" ]]; then
     sed -i 's/ModelParameter\s\+'BBd'\([2-5]\s\+[0-9\.]\+\s\+\)[0-9\.]\+/ModelParameter  BBd\1 0./' UTfit.conf
     sed -i 's/ModelParameter\s\+'BK'\([2-5]\s\+[0-9\.]\+\s\+\)[0-9\.]\+/ModelParameter  BK\1 0./' UTfit.conf
 fi
-if [ ${Model} == "NPWC" ]; then
+if [ ${Model} == "NPWC" ] || [ ${Model} == "NPWC_NMFV" ]; then
     for Coefficient in C1 C2 C3 C4 C5; do
         if [ ! -d "$Coefficient" ]; then
             mkdir "$Coefficient"
         fi
-        cp NPWC.conf Flavour.conf UTfit.conf UTfit_NP.conf MonteCarlo.conf submit_job.sh ${Coefficient}/
+        cp ${Model}.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_NP.conf MonteCarlo.conf submit_job.sh ${Coefficient}/
         if [ ! -L "${Coefficient}/input" ]; then
             ln -s $(pwd)/input ${Coefficient}/input
         fi
         for Flavour in s c bd bs; do
-			perl -pi -e 's/ModelParameter\s+([a-z][a-z])'${Coefficient}'_'${Flavour}'\s+([0-9\.-]+)\s+([0-9\.-]+)\s+([0-9\.-]+)/ModelParameter $1'${Coefficient}'_'${Flavour}' $2 $3 1.e-10/' ${Coefficient}/NPWC.conf
-			perl -pi -e 's/#Observable\s+([a-z][a-z])'${Coefficient}'_'${Flavour}'(.*)/Observable $1'${Coefficient}'_'${Flavour}'$2/' ${Coefficient}/NPWC.conf
+            if [[ $Model == "NPWC_NMFV" ]]; then
+                perl -pi -e 's/ModelParameter\s+([a-z][a-z])'${Coefficient}'_'${Flavour}'\s+([0-9\.-]+)\s+([0-9\.-]+)\s+([0-9\.-]+)/ModelParameter $1'${Coefficient}'_'${Flavour}' $2 $3 1.e-2/' ${Coefficient}/${Model}.conf    
+            else
+                perl -pi -e 's/ModelParameter\s+([a-z][a-z])'${Coefficient}'_'${Flavour}'\s+([0-9\.-]+)\s+([0-9\.-]+)\s+([0-9\.-]+)/ModelParameter $1'${Coefficient}'_'${Flavour}' $2 $3 1.e-10/' ${Coefficient}/${Model}.conf
+            fi
+    			perl -pi -e 's/#Observable\s+([a-z][a-z])'${Coefficient}'_'${Flavour}'(.*)/Observable $1'${Coefficient}'_'${Flavour}'$2/' ${Coefficient}/${Model}.conf
         done
     done
 elif [ ${Model} == "NPDF2" ]; then
-    sed -i 's/StandardModel//' StandardModel.conf
-    sed -i 's/IncludeFile UTfit_SM\.conf/IncludeFile UTfit_NP.conf/' StandardModel.conf
     sed -i 's/-J name/-J '${Model}'/' submit_job.sh
     sed -i 's/-N MPICH2_job/-N '${Model}'/' submit_job.sh
 else
@@ -50,7 +54,7 @@ else
         if [ ! -d "${Fit}" ]; then
             mkdir ${Fit}
         fi
-        cp StandardModel.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh ${Fit}/
+        cp StandardModel.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh ${Fit}/
         if [ ! -L "${Fit}/input" ]; then
             ln -s $(pwd)/input ${Fit}/input
         fi
@@ -71,7 +75,7 @@ else
             fi
             mkdir Pred_Obs/${Obs}
         fi
-        cp StandardModel.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Pred_Obs/${Obs}/
+        cp StandardModel.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Pred_Obs/${Obs}/
         if [ ! -L "Pred_Obs/${Obs}/input" ]; then
             ln -s $(pwd)/input Pred_Obs/${Obs}/input
         fi
@@ -95,7 +99,7 @@ else
             fi
             mkdir Pred_Obs/${Obs}
         fi
-        cp StandardModel.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Pred_Obs/${Obs}/
+        cp StandardModel.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Pred_Obs/${Obs}/
         if [ ! -L "Pred_Obs/${Obs}/input" ]; then
             ln -s $(pwd)/input Pred_Obs/${Obs}/input
         fi
@@ -121,7 +125,7 @@ else
             fi
             mkdir Pred_Obs/${lfit}
         fi
-        cp StandardModel.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Pred_Obs/${lfit}/
+        cp StandardModel.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Pred_Obs/${lfit}/
         if [ ! -L "Pred_Obs/${lfit}/input" ]; then
             ln -s $(pwd)/input Pred_Obs/${lfit}/input
         fi
@@ -133,7 +137,7 @@ else
             fi
             mkdir Pred_Obs/${Obs}
         fi
-        cp StandardModel.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Pred_Obs/${Obs}/
+        cp StandardModel.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Pred_Obs/${Obs}/
         if [ ! -L "Pred_Obs/${Obs}/input" ]; then
             ln -s $(pwd)/input Pred_Obs/${Obs}/input
         fi
@@ -165,7 +169,7 @@ else
         if [ ! -d "${Fit}" ]; then
             mkdir ${Fit}
         fi
-        cp StandardModel.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh ${Fit}/
+        cp StandardModel.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh ${Fit}/
         if [ ! -L "${Fit}/input" ]; then
             ln -s $(pwd)/input ${Fit}/input
         fi
@@ -212,7 +216,7 @@ else
         if [ ! -d "Aux_${Fit}" ]; then
             mkdir Aux_${Fit}
         fi
-        cp StandardModel.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Aux_${Fit}/
+        cp StandardModel.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Aux_${Fit}/
         if [ ! -L "Aux_${Fit}/input" ]; then
             ln -s $(pwd)/input Aux_${Fit}/input
         fi
