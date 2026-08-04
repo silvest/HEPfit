@@ -9,8 +9,9 @@
 #include <iostream>
 #include <iomanip>
 #include <stdexcept>
+#include <string>
+#include <vector>
 #include <unistd.h>
-#include <boost/program_options.hpp>
 #include <InputParser.h>
 #include <ModelParameter.h>
 #include <Observable.h>
@@ -18,8 +19,65 @@
 #include "ZFitterWrapper.h"
 #include "ZFEWObservables.h"
 
-using namespace boost::program_options;
 using namespace std;
+
+namespace {
+
+struct ParsedOptions {
+    string modconf;
+    string rootfile;
+    bool help = false;
+};
+
+static string requireValue(const char* optionName, int& index, int argc, char** argv)
+{
+    if (index + 1 >= argc) {
+        throw runtime_error(string("Missing value for option ") + optionName + ".");
+    }
+    ++index;
+    return argv[index];
+}
+
+static ParsedOptions parseOptions(int argc, char** argv, const string& defaultModconf, const string& defaultRootfile)
+{
+    ParsedOptions parsed;
+    parsed.modconf = defaultModconf;
+    parsed.rootfile = defaultRootfile;
+    std::vector<string> positional;
+
+    for (int i = 1; i < argc; ++i) {
+        const string arg = argv[i];
+        if (arg == "--help") {
+            parsed.help = true;
+        } else if (arg.rfind("--modconf=", 0) == 0) {
+            parsed.modconf = arg.substr(10);
+        } else if (arg == "--modconf") {
+            parsed.modconf = requireValue("--modconf", i, argc, argv);
+        } else if (arg.rfind("--rootfile=", 0) == 0) {
+            parsed.rootfile = arg.substr(11);
+        } else if (arg == "--rootfile") {
+            parsed.rootfile = requireValue("--rootfile", i, argc, argv);
+        } else if (arg.rfind("--", 0) == 0) {
+            throw runtime_error(string("Unknown option: ") + arg);
+        } else {
+            positional.push_back(arg);
+        }
+    }
+
+    if (positional.size() > 2U) {
+        throw runtime_error("Too many positional arguments. Expected at most: modconf rootfile.");
+    }
+    if (!positional.empty()) {
+        parsed.modconf = positional[0];
+    }
+    if (positional.size() > 1U) {
+        parsed.rootfile = positional[1];
+    }
+
+    return parsed;
+}
+
+}
 
 int main(int argc, char** argv) {
 
@@ -32,29 +90,23 @@ int main(int argc, char** argv) {
         getcwd(dir,255);
         
         // set filenames
-        options_description desc("Allowed (positional) options");
+        const string desc =
+            "Allowed (positional) options\n"
+            "  modconf              model config filename (1st)\n"
+            "  rootfile             output root filename (2nd)\n"
+            "  --modconf <path>     model config filename\n"
+            "  --rootfile <path>    output root filename\n"
+            "  --help               help message\n";
         string inputFile(dir), outputFile(dir);
         inputFile += "/tests/StandardModel.conf";
         outputFile += "/tests/LEP2test.root";
-        desc.add_options()
-            ("modconf", value<string>()->default_value(inputFile), 
-                "model config filename (1st)")
-            ("rootfile", value<string>()->default_value(outputFile), 
-                "output root filename (2nd)")
-            ("help", "help message")
-            ;
-        positional_options_description pd;
-        pd.add("modconf", 1);
-        pd.add("rootfile", 1);
-        variables_map vm;
-        store(command_line_parser(argc, argv).options(desc).positional(pd).run(), vm);
-        notify(vm);
-        if (vm.count("help")) {
+        ParsedOptions opts = parseOptions(argc, argv, inputFile, outputFile);
+        if (opts.help) {
             cout << desc << endl;
             return EXIT_SUCCESS;
         }
-        ModelConf = vm["modconf"].as<string > ();
-        FileOut = vm["rootfile"].as<string>();
+        ModelConf = opts.modconf;
+        FileOut = opts.rootfile;
         cout << "# set " << ModelConf << " for the model config file" << endl;
         cout << "# set " << FileOut << " for the output file" << endl;
         

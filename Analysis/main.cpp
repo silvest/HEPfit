@@ -6,18 +6,109 @@
  */
 
 #include <iostream>
+#include <stdexcept>
+#include <string>
+#include <vector>
 #include <MonteCarlo.h>
 #include <GenerateEvent.h>
 #include <InputParser.h>
 #include <Observable.h>
-#include <boost/program_options.hpp>
 //#include <mtbar.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
 
-using namespace boost::program_options;
 using namespace std;
+
+namespace {
+
+struct ParsedOptions {
+    string modconf;
+    string mcconf;
+    bool hasModconf = false;
+    bool hasMcconf = false;
+    bool test = false;
+    bool noMC = false;
+    int it = 0;
+    string rootfile = "MCout";
+    string output_folder;
+    string job_tag;
+    bool weight = false;
+    bool loadRun = false;
+    string inFile = "MCin";
+    bool help = false;
+};
+
+static string requireValue(const char* optionName, int& index, int argc, char** argv)
+{
+    if (index + 1 >= argc) {
+        throw runtime_error(string("Missing value for option ") + optionName + ".");
+    }
+    ++index;
+    return argv[index];
+}
+
+static ParsedOptions parseOptions(int argc, char** argv)
+{
+    ParsedOptions parsed;
+    std::vector<string> positional;
+
+    for (int i = 1; i < argc; ++i) {
+        const string arg = argv[i];
+
+        if (arg == "--help") {
+            parsed.help = true;
+        } else if (arg == "--test") {
+            parsed.test = true;
+        } else if (arg == "--noMC") {
+            parsed.noMC = true;
+        } else if (arg == "--weight") {
+            parsed.weight = true;
+        } else if (arg == "--loadRun") {
+            parsed.loadRun = true;
+        } else if (arg.rfind("--it=", 0) == 0) {
+            parsed.it = stoi(arg.substr(5));
+        } else if (arg == "--it") {
+            parsed.it = stoi(requireValue("--it", i, argc, argv));
+        } else if (arg.rfind("--rootfile=", 0) == 0) {
+            parsed.rootfile = arg.substr(11);
+        } else if (arg == "--rootfile") {
+            parsed.rootfile = requireValue("--rootfile", i, argc, argv);
+        } else if (arg.rfind("--output_folder=", 0) == 0) {
+            parsed.output_folder = arg.substr(16);
+        } else if (arg == "--output_folder") {
+            parsed.output_folder = requireValue("--output_folder", i, argc, argv);
+        } else if (arg.rfind("--job_tag=", 0) == 0) {
+            parsed.job_tag = arg.substr(10);
+        } else if (arg == "--job_tag") {
+            parsed.job_tag = requireValue("--job_tag", i, argc, argv);
+        } else if (arg.rfind("--inFile=", 0) == 0) {
+            parsed.inFile = arg.substr(9);
+        } else if (arg == "--inFile") {
+            parsed.inFile = requireValue("--inFile", i, argc, argv);
+        } else if (arg.rfind("--", 0) == 0) {
+            throw runtime_error(string("Unknown option: ") + arg);
+        } else {
+            positional.push_back(arg);
+        }
+    }
+
+    if (positional.size() > 2U) {
+        throw runtime_error("Too many positional arguments. Expected at most: modconf mcconf.");
+    }
+    if (!positional.empty()) {
+        parsed.modconf = positional[0];
+        parsed.hasModconf = true;
+    }
+    if (positional.size() > 1U) {
+        parsed.mcconf = positional[1];
+        parsed.hasMcconf = true;
+    }
+
+    return parsed;
+}
+
+}
 
 int main(int argc, char** argv) 
 {
@@ -37,41 +128,32 @@ int main(int argc, char** argv)
     //bool noMC;
 
     try {
-        options_description desc("\nAllowed (positional) options");
-        desc.add_options()
-                ("modconf", value<string > (), "MANDATORY model config filename (1st)")
-                ("mcconf", value<string > (), "MANDATORY Monte Carlo config filename (2nd) for MCMC run")
-                ("test", "run in test mode to generate a single event with --test (no MCMC run but requires the Monte Carlo config file)")
-                ("noMC", "run in generate event mode with --noMC (no MCMC run)")
-                ("it", value<int > ()->default_value(0),
-                 "no. of iterations in generate event mode, specify with --it=# or --it #")
-                ("rootfile", value<string > ()->default_value("MCout"),
-                "output root filename (without extension)")
-                ("output_folder", value<string > ()->default_value(""),
-                "output folder for Generate Event mode to be specified for printing to file, please specify with --output_folder <name>")
-                ("job_tag", value<string > ()->default_value(""),
-                "job tag, please specify with --job_tag <tag>")
-                ("weight", "run in generate event mode with --weight for weights")
-                ("loadRun", "load previous run data from file")
-                ("inFile", value<string > ()->default_value("MCin"),
-                "input root filename (without extension)")
-                ("help", "help message")
-                ;
+        const string desc =
+                "\nAllowed (positional) options\n"
+                "  modconf            MANDATORY model config filename (1st)\n"
+                "  mcconf             MANDATORY Monte Carlo config filename (2nd) for MCMC run\n"
+                "  --test             run in test mode to generate a single event\n"
+                "  --noMC             run in generate event mode\n"
+                "  --it <n>           no. of iterations in generate event mode\n"
+                "  --rootfile <name>  output root filename (without extension)\n"
+                "  --output_folder <name>\n"
+                "                     output folder for Generate Event mode\n"
+                "  --job_tag <tag>    job tag\n"
+                "  --weight           run in generate event mode with weights\n"
+                "  --loadRun          load previous run data from file\n"
+                "  --inFile <name>    input root filename (without extension)\n"
+                "  --help             help message\n";
         string coderun = "\n *** HEPfit Routines ***\n"
                          "\nMonte Carlo mode: analysis Model.conf MonteCarlo.conf [--rootfile <name>] [--job_tag <tag>] [--thRange] [--loadRun --inFile <name>]"
                          "\nSingle Event mode: analysis Model.conf MonteCarlo.conf --test"
                          "\nGenerate Event mode: analysis Model.conf --noMC [--it #] [--weight] [--output_folder <name> [--job_tag <tag>]]\n";
-        positional_options_description pd;
-        variables_map vm;
-        pd.add("modconf", 1);
-        pd.add("mcconf", 1);
+        ParsedOptions opts;
 
         
         try {
-            store(command_line_parser(argc, argv).options(desc).positional(pd).run(), vm);
-            notify(vm);
+            opts = parseOptions(argc, argv);
 
-            if (vm.count("help")) {
+            if (opts.help) {
                 if (rank == 0){
                     cout << coderun << endl;
                     cout << desc << endl;
@@ -79,8 +161,8 @@ int main(int argc, char** argv)
                 return EXIT_SUCCESS;
             }       
             
-            if (vm.count("modconf"))
-                ModelConf = vm["modconf"].as<string > ();
+            if (opts.hasModconf)
+                ModelConf = opts.modconf;
             else
                 if (rank == 0){
                     cout << coderun << endl;
@@ -88,13 +170,13 @@ int main(int argc, char** argv)
                     throw runtime_error("\nERROR: Please specify mandatory model config filename.\n");
                 }
 
-            if (vm.count("noMC") && vm["output_folder"].as<string > () == "" && !(vm["job_tag"].as<string > () == "")){
+            if (opts.noMC && opts.output_folder == "" && !(opts.job_tag == "")){
                 if (rank == 0) cout << "\nWARNING: --job_tag not being used as --output_folder is not specified.\nOutput being sent to terminal only.\n";
             } else {
-                JobTag = vm["job_tag"].as<string > ();
+                JobTag = opts.job_tag;
             }
             
-            if (vm.count("noMC") && vm.count("mcconf"))
+            if (opts.noMC && opts.hasMcconf)
             {
                 if (rank == 0){
                     cout << coderun << endl;
@@ -102,15 +184,15 @@ int main(int argc, char** argv)
                     throw std::runtime_error("\nERROR: Please specify EITHER --noMC OR Monte Carlo configuration file as the second free argument.\nAll other arguments must be specified with option specifiers (--nI=#, --job_tag <tag>, etc.)\n");
                 }
             }
-            else if (vm.count("noMC") && !vm.count("mcconf"))
+            else if (opts.noMC && !opts.hasMcconf)
             {
                 if (rank == 0)
                     cout << "\n *** HEPfit Event Generation ***\n" << endl;
 //                noMC = true;
-                FolderOut = vm["output_folder"].as<string > ();
+                FolderOut = opts.output_folder;
                 bool weight = false;
-                nIterations = vm["it"].as<int > ();
-                if (vm.count("weight")) weight = true;
+                nIterations = opts.it;
+                if (opts.weight) weight = true;
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
                 GenerateEvent GE(ModelF, ThObsF, ModelConf, FolderOut, JobTag);
@@ -119,24 +201,24 @@ int main(int argc, char** argv)
 //                GE.linkParserToObservable("Poisson", "PS");
                 GE.generate(nIterations, 1, weight);
             }
-            else if (!vm.count("noMC") && vm.count("mcconf"))
+            else if (!opts.noMC && opts.hasMcconf)
             {
                 if (rank == 0)
                     cout << "\n *** HEPfit Markov Chain Monte Carlo ***\n" << endl;
 //                noMC = false;
-                string MCMCConf = vm["mcconf"].as<string > ();
-                string FileOut = vm["rootfile"].as<string > ();
-                if (vm.count("loadRun")) cout << "\nLoading previous run data from file " << vm["inFile"].as<string > () << ".root\n" << endl;
-                if (vm.count("loadRun") && vm["inFile"].as<string > ()== FileOut)
+                string MCMCConf = opts.mcconf;
+                string FileOut = opts.rootfile;
+                if (opts.loadRun) cout << "\nLoading previous run data from file " << opts.inFile << ".root\n" << endl;
+                if (opts.loadRun && opts.inFile == FileOut)
                     if (rank == 0) throw runtime_error("\nERROR:  Input and output root filenames cannot be the same when loading previous run data from file.\n");
                 
                 
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
 //                ThObsF.addObsToFactory("mtbar", boost::factory<mtbar*>());
-                std::string FileIn = vm.count("loadRun") ? vm["inFile"].as<string > () + ".root" : "";
+                std::string FileIn = opts.loadRun ? opts.inFile + ".root" : "";
                 MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag, FileIn);
-                if (vm.count("test")){
+                if (opts.test){
 //                    MC.addCustomParser("PS", boost::factory<InputParser*>());
 //                    MC.addCustomObservableType("Poisson", boost::factory<Observable*>());
 //                    MC.linkParserToObservable("Poisson", "PS");
@@ -154,7 +236,7 @@ int main(int argc, char** argv)
             }
             
 
-        } catch(error& e) {
+        } catch(const exception& e) {
             if (rank == 0)
                 cout << coderun << endl;
             cerr << "\nERROR: " << e.what() << std::endl << std::endl

@@ -5,7 +5,6 @@
 #   -DCMAKE_INSTALL_PREFIX:PATH=<HEPfit installation directory>
 #   -DNOMCMC:BOOL=<ON or OFF>
 #   -DBOOST_INCLUDE_DIR:PATH=<include path>/boost/
-#   -DBOOST_LIB_DIR:PATH=<boost lib path>
 #   -DRGESOLVER_CONFIG_DIR:PATH=<rgesolver-config directory>
 #   -DGSL_CONFIG_DIR:PATH=<gsl-config directory>
 #   -DROOT_CONFIG_DIR:PATH=<root-config directory>
@@ -127,29 +126,6 @@ endif()
 
 message(STATUS "Found Boost headers in ${BOOST_INCLUDE_DIR}")
 string(REGEX REPLACE "/boost$" "" BOOST_INC ${BOOST_INCLUDE_DIR})
-
-set(BOOST_LIB_ERROR_MESSAGE "Boost libraries could not be found. Please specify the Boost library path with ${RedBold}-DBOOST_LIB_DIR=<boost library path>${ColReset}.")
-
-if(NOT BOOST_LIB_DIR)
-  find_library(BOOST_LIB_DIR "libboost_program_options.a" HINTS $ENV{LD_LIBRARY_PATH} DOC "Boost library path")
-  if(BOOST_LIB_DIR-NOTFOUND)
-    message(FATAL_ERROR "${BOOST_LIB_ERROR_MESSAGE}")
-  else()
-    string(REGEX REPLACE "/libboost_program_options.a$" "" BOOST_LIB_DIR ${BOOST_LIB_DIR})
-    set(BOOST_LIB_DIR "${BOOST_LIB_DIR}" CACHE PATH "Boost library path" FORCE)
-  endif()
-else()
-  set(BOOST_LIB_DIR ${BOOST_LIB_DIR} CACHE PATH "Boost library path" FORCE)
-  find_path(TMP_BOOST_LIB "libboost_program_options.a" PATHS ${BOOST_LIB_DIR} NO_DEFAULT_PATH)
-  if(TMP_BOOST_LIB_NOTFOUND)
-    unset(TMP_BOOST_LIB CACHE)
-    message(FATAL_ERROR "${BOOST_LIB_ERROR_MESSAGE}")
-  else()
-    unset(TMP_BOOST_LIB CACHE)
-  endif()
-endif()
-
-message(STATUS "Found Boost libs in ${BOOST_LIB_DIR}")
 
 
 ##########  GSL  ##########
@@ -526,7 +502,6 @@ if(DEBUG_MODE)
   message("  LOOPTOOLS:BOOL = ${LOOPTOOLS}")
   message("  LOOPTOOLS_DIR:PATH = ${LOOPTOOLS_DIR}")
   message("  INTEL_FORTRAN:BOOL = ${INTEL_FORTRAN}")
-  message("  BOOST LIBRARY PATH = ${BOOST_LIB_DIR}")
 
   message("\nNormal variables:")
   message("  LIBTYPE = ${LIBTYPE}")
