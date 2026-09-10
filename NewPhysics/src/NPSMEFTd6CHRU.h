@@ -124,9 +124,9 @@ protected:
 	virtual void setParameter(const std::string name, const double& value);
 
 	/**
-	* @brief An auxiliary method to set the WC of the general class
+	* @brief An auxiliary method to set the WC of the MFV class
 	*/
-	void setNPSMEFTd6GeneralParameters();
+	void setNPSMEFTd6MFVParameters();
 
 private:
 

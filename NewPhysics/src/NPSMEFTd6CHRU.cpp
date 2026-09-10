@@ -13,11 +13,9 @@
 /*
 TODO:
 
- - testare se flagPLR funziona
+ - test flagPLR
 
  - CT
-
- - definire osservabile eps_L, nel file di conf AsyGausObservable
 
 */
 
@@ -559,7 +557,7 @@ void NPSMEFTd6CHRU::setParameter(const std::string name, const double& value) {
 	}
 }
 
-void NPSMEFTd6CHRU::setNPSMEFTd6GeneralParameters() {
+void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
 	double g1, g2, g3;
     double g1_2, g1_3, g1_4;
     double g2_2, g2_3, g2_4;
@@ -620,7 +618,7 @@ void NPSMEFTd6CHRU::setNPSMEFTd6GeneralParameters() {
     CHB = sign(scHB)*cHB*loop/(mstar_2);
     CHW = sign(scHW)*cHW*loop/(mstar_2);
 
-    Cga = sign(scga)*cga*loop/(mstar_2); // TODO: add yt^2
+    Cga = sign(scga)*cga*loop/(mstar_2);
     Cg  = sign(scg)*cg*loop/(mstar_2);
 
     C3W = sign(sc3W)*c3W*loop/(mstar_2);
@@ -670,7 +668,6 @@ void NPSMEFTd6CHRU::setNPSMEFTd6GeneralParameters() {
     */
 
     // Dipoles (20 = 2 leptons + 18 quarks)
-    // Generated at 1-loop, skip for now
 
 
     /*
@@ -981,12 +978,17 @@ void NPSMEFTd6CHRU::setNPSMEFTd6GeneralParameters() {
 }
 
 bool NPSMEFTd6CHRU::PostUpdate() {
+
+    NPSMEFTd6General::GenerateSMInitialConditions();
     
-    if (!NPSMEFTd6MFV::PostUpdate()) return (false);
+    setNPSMEFTd6MFVParameters();
+
+    NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters();
+    
+    if (!NPSMEFTd6General::PostUpdate()) return (false);
     
     return (true);    
 }
-
 
 
 
