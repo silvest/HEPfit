@@ -245,7 +245,7 @@ bool NPSMEFTd6CHRU::setFlag(const std::string name, const bool value) {
 
 void NPSMEFTd6CHRU::setParameter(const std::string name, const double& value) {
     if (name.compare("mstar") == 0) {
-        if (JeffreysPriorFlag) {
+        if (FlagJeffreysPrior) {
            mstar = 1/sqrt(value);
         } else {
             mstar = value;
