@@ -232,6 +232,10 @@ bool NPSMEFTd6CHRU::setFlag(const std::string name, const bool value) {
         std::cout<<"PLRFlag = "<< value <<std::endl;
         FlagPLR = value;
         res = true;
+    } else if(name.compare("JeffreysPriorFlag") == 0) {
+        std::cout<<"JeffreysPriorFlag = "<< value <<std::endl;
+        FlagJeffreysPrior = value;
+        res = true;
     } else {
         res = NPSMEFTd6MFV::setFlag(name,value);
     }
@@ -241,7 +245,11 @@ bool NPSMEFTd6CHRU::setFlag(const std::string name, const bool value) {
 
 void NPSMEFTd6CHRU::setParameter(const std::string name, const double& value) {
     if (name.compare("mstar") == 0) {
-		mstar = value;
+        if (JeffreysPriorFlag) {
+           mstar = 1/sqrt(value);
+        } else {
+            mstar = value;
+        }
 	} else if (name.compare("gstar") == 0) {
 		gstar = value;
 	} else if (name.compare("eps_u") == 0) {

@@ -118,6 +118,8 @@ protected:
 	///< Flag to enable the P_LR discrete symmetry
 	bool FlagPLR = true;
 
+	///< Flag to switch to Jeffreys prior for mstar
+	bool FlagJeffreysPrior = false;
 
 	virtual bool setFlag(const std::string, const bool);
 
