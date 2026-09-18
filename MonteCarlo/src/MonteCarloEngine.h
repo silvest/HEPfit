@@ -14,6 +14,7 @@
 #include "CorrelatedGaussianParameters.h"
 #include "ModelParameter.h"
 #include "Model.h"
+#include "gslpp.h"
 #include <BAT/BCModel.h>
 #include <BAT/BCH1D.h>
 #include <BAT/BCH2D.h>
@@ -28,6 +29,16 @@
 #define NBINS1D 100
 #define NBINS2D 100
 #define NSTEPS 1e5
+/* Relative step of the direct Hessian stencil, in units of the prior width of
+   each parameter. See MonteCarloEngine::getDerivativeStep(). With the step
+   calibration enabled this is only the starting guess. */
+#define HESSIAN_RELSTEP 1.e-2
+/* The change in the log posterior that the calibrated step aims for, the factor
+   within which that change is accepted, and the number of rounds allowed.
+   See MonteCarloEngine::calibrateDerivativeSteps(). */
+#define HESSIAN_TARGET 1.
+#define HESSIAN_WINDOW 10.
+#define HESSIAN_MAXITER 12
 
 /**
  * @class MonteCarloEngine
@@ -266,23 +277,108 @@ public:
     std::vector<double> computeNormalizationMC(int NIterationNormalizationMC);
     
     /**
+     * @brief A method to evaluate Function_h() at several points at once.
+     * @details Under MPI the points are distributed over the ranks waiting in the
+     * worker loop of MonteCarlo::Run(), so this must only be called from rank 0.
+     * Without MPI the points are evaluated in sequence.
+     * @param[in] points the points in parameter space
+     * @return the value of Function_h() at each point, in the same order
+     */
+    std::vector<double> computeFunction_h(const std::vector<std::vector<double> >& points);
+
+    /**
+     * @brief A method to calculate the finite-difference step along a parameter.
+     * @details The step is a fixed fraction of the width of the prior of the
+     * parameter, shrunk where needed to keep point +- 2 steps inside the range of
+     * the parameter. Scaling with the prior width, rather than with the range, is
+     * what keeps the step matched to the curvature the Hessian is meant to resolve.
+     * @param[in] i the index of the parameter
+     * @param[in] point the point at which the derivative is taken
+     * @param[in] relStep the step in units of the width of the prior
+     * @return the step
+     */
+    double getDerivativeStep(unsigned int i, const std::vector<double>& point,
+            double relStep = HESSIAN_RELSTEP) const;
+
+    /**
+     * @brief A method to calculate the Hessian matrix of Function_h().
+     * @details Uses the direct symmetric stencil, which needs 2 N^2 + 2 N + 1
+     * evaluations of Function_h() for N parameters, distributed over the MPI ranks. The
+     * curvature along each parameter is also recomputed with a doubled step and the
+     * two are compared, which detects a step size spoiled by the noise of the model.
+     * @param[in] point the point at which the Hessian is calculated
+     * @param[in] relStep the step in units of the width of the prior
+     * @return the Hessian matrix, symmetric by construction
+     */
+    gslpp::matrix<double> computeHessian(const std::vector<double>& point,
+            double relStep = HESSIAN_RELSTEP, bool adaptive = true);
+
+    /**
+     * @brief A method to calibrate the finite-difference step of every parameter.
+     * @details The width of the prior is only a guess at the scale over which the
+     * posterior curves, and a poor one when the prior is deliberately uninformative:
+     * a flat prior of +-628 on a Wilson coefficient says nothing about a posterior
+     * of width 0.003. This drives each step towards the one that changes the log
+     * posterior by @p target, which is a property of the posterior alone. Since that
+     * change grows as the square of the step, the correction is
+     * @f$h \to h\sqrt{target/d}@f$, exact in one round for a quadratic. Steps whose
+     * model does not evaluate are shrunk, steps that see no change at all are grown,
+     * and everything stays inside the range of the parameter.
+     * @param[in] point the point at which the derivatives will be taken
+     * @param[in] relStep the starting guess, in units of the width of the prior
+     * @param[in] target the change in the log posterior to aim for
+     * @return the calibrated step of each parameter
+     */
+    std::vector<double> calibrateDerivativeSteps(const std::vector<double>& point,
+            double relStep = HESSIAN_RELSTEP, double target = HESSIAN_TARGET);
+
+    /**
+     * @brief A get method for the steps used by the last call to computeHessian().
+     * @return the finite-difference step of each parameter
+     */
+    const std::vector<double>& getDerivativeSteps() const
+    {
+        return derivativeSteps;
+    }
+
+    /**
+     * @brief A get method for the outcome of the last step calibration.
+     * @return for each parameter: 1 if a step was accepted, 2 if the posterior does
+     * not change anywhere inside the range of the parameter, 3 if the model could
+     * not be evaluated at any step
+     */
+    const std::vector<int>& getDerivativeStepStatus() const
+    {
+        return derivativeStepStatus;
+    }
+
+    /**
+     * @brief A method to calculate the Hessian matrix with the legacy stencil.
+     * @details Uses SecondDerivative() for every element, which needs 36 N^2 serial
+     * evaluations of Function_h(). Kept to cross-check computeHessian().
+     * @param[in] point the point at which the Hessian is calculated
+     * @return the Hessian matrix
+     */
+    gslpp::matrix<double> computeHessianLegacy(const std::vector<double>& point);
+
+    /**
      * @brief A method to calculate the second derivative.
      * @return the second derivative
      */
-    double SecondDerivative(BCParameter par1, BCParameter par2, std::vector<double> point);
+    double SecondDerivative(const BCParameter& par1, const BCParameter& par2, const std::vector<double>& point);
     
     /**
      * @brief A method to calculate the first derivative.
      * @return the first derivative
      */
-    double FirstDerivative(BCParameter par, std::vector<double> point);
+    double FirstDerivative(const BCParameter& par, const std::vector<double>& point);
     
     /**
      * @brief A method to calculate the LogLikelihood + LogAprioriProbability.
      * @param[in] point the set of points in the parameter space
      * @return LogLikelihood + LogAprioriProbability
      */
-    double Function_h(std::vector<double> point);
+    double Function_h(const std::vector<double>& point);
     
     /**
      * @brief A method to rotate the diagonalized parameters to the original basis for correlated parameters.
@@ -487,6 +583,8 @@ private:
     int NumOfUsedEvents; ///< The number of events for which the model is successfully updated and hence used for the MCMC run.
     int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
     int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
+    std::vector<double> derivativeSteps; ///< The finite-difference step of each parameter in the last call to computeHessian().
+    std::vector<int> derivativeStepStatus; ///< The outcome of the last step calibration, per parameter.
     TTree * hMCMCObservableTree; ///< A ROOT tree that contains the observables values and weight when the chains are written.
     TTree * hMCMCParameterTree; ///< A ROOT tree that contains the parameter values when the chains are written.
     std::vector<std::vector<double> > hMCMCObservables; ///< A vector of vectors containing the observables values of all the chains to be put into the ROOT tree.

@@ -170,6 +170,9 @@ private:
     bool FindModeWithMinuit; ///< Flag for using Minuit libraries.
     bool RunMinuitOnly; ///< Flag for running Minuit only.
     bool ComputeHessianOnly; ///< Flag for computing the Hessian only.
+    bool CrossCheckHessian; ///< Flag for also computing the Hessian with the legacy stencil and comparing.
+    double HessianRelativeStep; ///< Finite-difference step of the Hessian, in units of the width of the prior of each parameter.
+    bool AdaptiveHessianStep; ///< Flag for calibrating the finite-difference step of the Hessian to each parameter.
     std::string CalculateNormalization; ///<< Flag for calculating the evidence.
     int NIterationNormalizationMC; ///<< Number of iterations for MC integral done to compute normalization of a model
     bool PrintAllMarginalized; ///< Flag for printing all Marginalized distributions to be passed on to the <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> routines.
@@ -185,6 +188,16 @@ private:
     
     void ParseMCMCConfig(std::string file);
     void ReadPreRunData(std::string file);
+
+#ifdef _MPI
+    /**
+     * @brief Release the MPI ranks waiting in the worker loop of Run().
+     * @details Must be called on rank 0 before leaving Run() by any path, or the
+     * other ranks stay blocked in MPI_Scatter().
+     * @param[in] buffsize the size of the buffer exchanged with the workers
+     */
+    void terminateMPIWorkers(int buffsize);
+#endif
 };
 
 /** 

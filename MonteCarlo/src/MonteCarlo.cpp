@@ -41,6 +41,9 @@ MonteCarlo::MonteCarlo(
     FindModeWithMinuit = false;
     RunMinuitOnly = false;
     ComputeHessianOnly = false;
+    CrossCheckHessian = false;
+    HessianRelativeStep = HESSIAN_RELSTEP;
+    AdaptiveHessianStep = true;
     CalculateNormalization = "false";
     NIterationNormalizationMC = 0;
     PrintAllMarginalized = false;
@@ -236,6 +239,10 @@ void MonteCarlo::Run(const int rank) {
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
                     double ll = MCEngine.LogEval(pars);
                     MPI_Gather(&ll, 1, MPI_DOUBLE, sendbuff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+                } else if (recvbuff[0] == 4.) { // compute LogLikelihood + LogAPrioriProbability
+                    pars.assign(recvbuff + 1, recvbuff + buffsize);
+                    double fh = MCEngine.Function_h(pars);
+                    MPI_Gather(&fh, 1, MPI_DOUBLE, sendbuff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == 2.) { // compute observables
                     double sbuff[obsbuffsize];
                     std::map<std::string, double> DPars;
@@ -333,25 +340,71 @@ void MonteCarlo::Run(const int rank) {
                     std::cout << "Parameter " << MCEngine.GetParameter(i).GetName() << " = " << MCEngine.GetParameter(i).GetPriorMean() << std::endl;
                     point.push_back(MCEngine.GetParameter(i).GetPriorMean());
                 }
-                gslpp::matrix<double> Hessian(Npars, Npars, 0.);
-                std::vector<double> n;
-                for (unsigned int i = 0; i < Npars; i++)
-                    {
-                        Hessian.assign(i, i, -MCEngine.SecondDerivative(MCEngine.GetParameter(i), MCEngine.GetParameter(i), point));
-                        n.push_back(sqrt(fabs(Hessian(i, i))));
-                        std::cout << "Sqrt(|Hessian(" << MCEngine.GetParameter(i).GetName() << "," << MCEngine.GetParameter(i).GetName() << ")|) = " << n[i] << std::endl;
+                /* The whole matrix at once: symmetric by construction, and its
+                   2 N^2 + 2 N + 1 evaluations of the model are distributed over the
+                   MPI ranks waiting in the worker loop above. */
+                gslpp::matrix<double> Hessian(-MCEngine.computeHessian(point, HessianRelativeStep, AdaptiveHessianStep));
+
+                if (AdaptiveHessianStep) {
+                    const std::vector<double>& hstep = MCEngine.getDerivativeSteps();
+                    const std::vector<int>& hstat = MCEngine.getDerivativeStepStatus();
+                    std::cout << std::endl << "Calibrated finite-difference steps:" << std::endl;
+                    for (unsigned int i = 0; i < Npars; i++) {
+                        std::cout << "  " << MCEngine.GetParameter(i).GetName() << "  step = " << hstep.at(i);
+                        if (hstat.at(i) == 2) std::cout << "   (flat over the range of the parameter)";
+                        else if (hstat.at(i) == 3) std::cout << "   (the model could not be evaluated at any step)";
+                        std::cout << std::endl;
                     }
+                    std::cout << std::endl;
+                }
+
+                std::vector<double> n;
+                for (unsigned int i = 0; i < Npars; i++) {
+                    n.push_back(sqrt(fabs(Hessian(i, i))));
+                    std::cout << "Sqrt(|Hessian(" << MCEngine.GetParameter(i).GetName() << "," << MCEngine.GetParameter(i).GetName() << ")|) = " << n[i] << std::endl;
+                }
                 for (unsigned int i = 0; i < Npars; i++)
+                    for (unsigned int j = i; j < Npars; j++)
+                        std::cout << "Corr(" << MCEngine.GetParameter(i).GetName() << "," << MCEngine.GetParameter(j).GetName() << ") = " << Hessian(i, j)/n[i]/n[j] << std::endl;
+
+                if (CrossCheckHessian) {
+                    /* The same matrix from the legacy nested stencil, 36 N^2 serial
+                       evaluations of the model, for comparison. */
+                    std::cout << std::endl;
+                    std::cout << " ---------------------------------------------------------- " << std::endl;
+                    std::cout << " Cross-check against the legacy stencil" << std::endl;
+                    std::cout << " (direct stencil at a relative step of " << HessianRelativeStep << ")" << std::endl;
+                    std::cout << std::endl;
+                    gslpp::matrix<double> Legacy(-MCEngine.computeHessianLegacy(point));
+                    double worst = 0.;
+                    unsigned int wi = 0, wj = 0, nelem = 0, n1 = 0, n10 = 0, nsign = 0;
+                    for (unsigned int i = 0; i < Npars; i++)
                         for (unsigned int j = i; j < Npars; j++) {
-                        // calculate Hessian matrix element
-                        Hessian.assign(i, j, -MCEngine.SecondDerivative(MCEngine.GetParameter(i), MCEngine.GetParameter(j), point));
-                        
-                        // save the symmetric entry too
-                        Hessian.assign(j, i, Hessian(i, j) );
-                        
-                        //if (fabs(Hessian(i, j))/n[i]/n[j] > .1)
-                            std::cout << "Corr(" << MCEngine.GetParameter(i).GetName() << "," << MCEngine.GetParameter(j).GetName() << ") = " << Hessian(i, j)/n[i]/n[j] << std::endl;
+                            double scale = std::max(fabs(Hessian(i, j)), fabs(Legacy(i, j)));
+                            if (scale == 0.) continue;
+                            nelem++;
+                            double reldiff = fabs(Hessian(i, j) - Legacy(i, j)) / scale;
+                            if (reldiff > 1.e-2) n1++;
+                            if (reldiff > 1.e-1) n10++;
+                            if (Hessian(i, j) * Legacy(i, j) < 0.) nsign++;
+                            if (reldiff > worst) {
+                                worst = reldiff;
+                                wi = i;
+                                wj = j;
+                            }
                         }
+                    std::cout << nelem << " elements compared: " << n1 << " differ by more than 1%, "
+                            << n10 << " by more than 10%, " << nsign << " have opposite signs." << std::endl;
+                    std::cout << "Largest relative difference: " << worst << " on ("
+                            << MCEngine.GetParameter(wi).GetName() << "," << MCEngine.GetParameter(wj).GetName() << ")" << std::endl;
+                    std::cout << "  direct stencil: " << Hessian(wi, wj) << std::endl;
+                    std::cout << "  legacy stencil: " << Legacy(wi, wj) << std::endl;
+                    std::cout << std::endl;
+                    std::cout << "Diagonal, direct vs legacy:" << std::endl;
+                    for (unsigned int i = 0; i < Npars; i++)
+                        std::cout << "  " << MCEngine.GetParameter(i).GetName() << ": "
+                                << Hessian(i, i) << "  vs  " << Legacy(i, i) << std::endl;
+                }
                 
                 std::cout << std::endl; 
                 std::cout << " ---------------------------------------------------------- "<< std::endl;
@@ -380,6 +433,9 @@ void MonteCarlo::Run(const int rank) {
                 // Restore original precision
                 std::cout << std::setprecision(ss_prec);
                 
+#ifdef _MPI
+                terminateMPIWorkers(buffsize);
+#endif
                 return;
             }
 
@@ -525,15 +581,7 @@ void MonteCarlo::Run(const int rank) {
             
             
 #ifdef _MPI
-            double ** sendbuff = new double *[MCEngine.procnum];
-            sendbuff[0] = new double[MCEngine.procnum * buffsize];
-            for (int il = 1; il < MCEngine.procnum; il++) {
-                sendbuff[il] = sendbuff[il - 1] + buffsize;
-                sendbuff[il][0] = -1.; //Exit command
-            }
-            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-            delete sendbuff[0];
-            delete [] sendbuff;
+            terminateMPIWorkers(buffsize);
 #endif
         }
 #ifdef _MPI
@@ -544,6 +592,24 @@ void MonteCarlo::Run(const int rank) {
         exit(EXIT_FAILURE);
     }
 }
+
+#ifdef _MPI
+void MonteCarlo::terminateMPIWorkers(int buffsize)
+{
+    int procnum = MCEngine.getMPIWorldSize();
+    double ** sendbuff = new double *[procnum];
+    sendbuff[0] = new double[procnum * buffsize];
+    for (int il = 1; il < procnum; il++) {
+        sendbuff[il] = sendbuff[il - 1] + buffsize;
+        sendbuff[il][0] = -1.; //Exit command
+    }
+    double * recvbuff = new double[buffsize];
+    MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    delete [] recvbuff;
+    delete [] sendbuff[0];
+    delete [] sendbuff;
+}
+#endif
 
 void MonteCarlo::ParseMCMCConfig(std::string file)
 {
@@ -633,6 +699,21 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (beg->compare("true") == 0 || beg->compare("false") == 0) RunMinuitOnly = (beg->compare("true") == 0);
             else
                 throw std::runtime_error("\nERROR: RunMinuitOnly in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+        } else if (beg->compare("AdaptiveHessianStep") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) AdaptiveHessianStep = (beg->compare("true") == 0);
+            else
+                throw std::runtime_error("\nERROR: AdaptiveHessianStep in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+        } else if (beg->compare("HessianRelativeStep") == 0) {
+            ++beg;
+            HessianRelativeStep = atof((*beg).c_str());
+            if (HessianRelativeStep <= 0.)
+                throw std::runtime_error("\nERROR: HessianRelativeStep in the MonteCarlo configuration file: " + MCMCConf + " must be positive.\n");
+        } else if (beg->compare("CrossCheckHessian") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) CrossCheckHessian = (beg->compare("true") == 0);
+            else
+                throw std::runtime_error("\nERROR: CrossCheckHessian in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
         } else if (beg->compare("ComputeHessianOnly") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) ComputeHessianOnly = (beg->compare("true") == 0);

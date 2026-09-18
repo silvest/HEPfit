@@ -12,6 +12,7 @@
 #include <BAT/BCGaussianPrior.h>
 #include <BAT/BCTF1Prior.h>
 #include <BAT/BCCombinedPrior.h>
+#include <BAT/BCLog.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -21,6 +22,9 @@
 #include <TPaveText.h>
 #include <TStyle.h>
 #include <TCanvas.h>
+#include <algorithm>
+#include <ctime>
+#include <cstdio>
 #include <fstream>
 #include <stdexcept>
 #include <iomanip>
@@ -1499,6 +1503,31 @@ std::vector<double> MonteCarloEngine::computeNormalizationMC(int NIterationNorma
     return norm;
 }
 
+/**
+ * @brief A duration, in whichever unit reads best.
+ * @param[in] seconds the duration
+ * @return the duration as a string
+ */
+static std::string duration(double seconds) {
+    std::ostringstream out;
+    out << std::fixed << std::setprecision(1);
+    if (seconds < 90.) out << seconds << " s";
+    else if (seconds < 5400.) out << seconds / 60. << " min";
+    else out << seconds / 3600. << " h";
+    return out.str();
+}
+
+/**
+ * @brief Report progress on a computation too long to sit through in silence.
+ * @details Written to stdout, which MonteCarlo::Run() redirects into the results
+ * file, and flushed so that it can be followed while the job runs.
+ * @param[in] line the message
+ */
+static void progress(const std::string& line) {
+    std::cout << line << std::endl;
+    fflush(stdout);
+}
+
 double MonteCarloEngine::computeNormalizationLME() {
 /* PENDING REVIEW FOR USE WITH BAT v1.0. */
     unsigned int Npars = GetNParameters();
@@ -1518,10 +1547,392 @@ double MonteCarloEngine::computeNormalizationLME() {
     return exp(Npars / 2. * log(2. * M_PI) + 0.5 * log(1. / det_Hessian) + LogLikelihood(mode) + LogAPrioriProbability(mode));
 }
 
-double MonteCarloEngine::SecondDerivative(BCParameter par1, BCParameter par2, std::vector<double> point) {
+std::vector<double> MonteCarloEngine::computeFunction_h(const std::vector<std::vector<double> >& points) {
+
+    unsigned int npoints = points.size();
+    std::vector<double> values(npoints, 0.);
+
+#ifdef _MPI
+    if (procnum > 1) {
+        unsigned int npars = GetNParameters();
+        int buffsize = npars + 1;
+        std::vector<double> sendbuff(procnum * buffsize, 0.);
+        std::vector<double> recvbuff(buffsize, 0.);
+        std::vector<double> gathbuff(procnum, 0.);
+        std::vector<double> pars(npars, 0.);
+
+        for (unsigned int first = 0; first < npoints; first += procnum) {
+            unsigned int nchunk = std::min((unsigned int) procnum, npoints - first);
+
+            for (unsigned int il = 0; il < nchunk; il++) {
+                // The first entry of the array specifies the task to be executed.
+                sendbuff[il * buffsize] = 4.; // 4 = evaluate Function_h
+                for (unsigned int im = 0; im < npars; im++)
+                    sendbuff[il * buffsize + im + 1] = points.at(first + il).at(im);
+            }
+            for (unsigned int il = nchunk; il < (unsigned int) procnum; il++)
+                sendbuff[il * buffsize] = 0.; // 0 = nothing to execute
+
+            MPI_Scatter(&sendbuff[0], buffsize, MPI_DOUBLE, &recvbuff[0], buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+            double fh;
+            if (recvbuff[0] == 4.) {
+                pars.assign(recvbuff.begin() + 1, recvbuff.end());
+                fh = Function_h(pars);
+            } else
+                fh = log(0.);
+
+            MPI_Gather(&fh, 1, MPI_DOUBLE, &gathbuff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+            for (unsigned int il = 0; il < nchunk; il++)
+                values[first + il] = gathbuff[il];
+        }
+        return values;
+    }
+#endif
+
+    for (unsigned int i = 0; i < npoints; i++)
+        values[i] = Function_h(points[i]);
+
+    return values;
+}
+
+double MonteCarloEngine::getDerivativeStep(unsigned int i, const std::vector<double>& point, double relStep) const {
+
+    const BCParameter& par = GetParameter(i);
+
+    /* The width of the prior of the parameter, which is the scale the curvature of
+       the posterior is measured against. HEPfit builds the prior out of a Gaussian
+       of width errg and a flat part of half width errf, so its variance is known
+       analytically and needs no integration. */
+    double scale = 0.;
+    for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it < ModPars.end(); it++)
+        if (it->getname().compare(par.GetName()) == 0) {
+            scale = sqrt(it->geterrg() * it->geterrg() + it->geterrf() * it->geterrf() / 3.);
+            break;
+        }
+    if (!std::isfinite(scale) || scale <= 0.) scale = par.GetRangeWidth() / sqrt(12.);
+
+    double step = relStep * scale;
+
+    /* Keep point +- 2 steps inside the range of the parameter: outside it the priors
+       of BAT are still finite, so leaving the range is silently allowed and the
+       model is evaluated at unphysical values. */
+    double room = std::min(par.GetUpperLimit() - point.at(i), point.at(i) - par.GetLowerLimit());
+    if (room <= 0.)
+        BCLog::OutWarning(("MonteCarloEngine::getDerivativeStep(): " + par.GetName() + " is on or outside the boundary of its range; its derivatives are unreliable.").c_str());
+    else if (step > room / 2.)
+        step = room / 2.;
+
+    return step;
+}
+
+std::vector<double> MonteCarloEngine::calibrateDerivativeSteps(const std::vector<double>& point,
+        double relStep, double target) {
+
+    unsigned int Npars = GetNParameters();
+    if (point.size() != Npars) {
+        throw std::runtime_error("MonteCarloEngine::calibrateDerivativeSteps(): Invalid number of entries in the vector.");
+    }
+
+    std::vector<double> step(Npars, 0.);
+    std::vector<double> maxstep(Npars, 0.);
+    for (unsigned int i = 0; i < Npars; i++) {
+        step[i] = getDerivativeStep(i, point, relStep);
+        /* the largest step that keeps point +- 2 steps inside the range */
+        const BCParameter& par = GetParameter(i);
+        double room = std::min(par.GetUpperLimit() - point.at(i), point.at(i) - par.GetLowerLimit());
+        maxstep[i] = (room > 0.) ? room / 2. : step[i];
+    }
+
+    derivativeStepStatus.assign(Npars, 0); // 0 = still searching
+    std::vector<bool> failing(Npars, false);
+
+    std::vector<std::vector<double> > centre(1, point);
+    double f0 = computeFunction_h(centre).at(0);
+    if (!std::isfinite(f0))
+        throw std::runtime_error("MonteCarloEngine::calibrateDerivativeSteps(): the model cannot be evaluated at the point itself.");
+
+    std::time_t tstart = std::time(NULL);
+    unsigned long nevaluations = 1;
+    progress("Calibrating the finite-difference steps...");
+
+    for (unsigned int iter = 0; iter < HESSIAN_MAXITER; iter++) {
+
+        std::vector<unsigned int> active;
+        for (unsigned int i = 0; i < Npars; i++)
+            if (derivativeStepStatus[i] == 0) active.push_back(i);
+        if (active.empty()) break;
+
+        /* every parameter still being calibrated goes into one batch, so a round
+           costs 2 x active points spread over the ranks */
+        std::vector<std::vector<double> > points;
+        for (unsigned int k = 0; k < active.size(); k++) {
+            std::vector<double> p(point);
+            p[active[k]] += step[active[k]];
+            points.push_back(p);
+            p = point;
+            p[active[k]] -= step[active[k]];
+            points.push_back(p);
+        }
+        std::vector<double> f(computeFunction_h(points));
+        nevaluations += points.size();
+        {
+            std::ostringstream line;
+            line << "  round " << iter + 1 << ": " << active.size()
+                 << " parameters still being calibrated, " << points.size() << " evaluations";
+            progress(line.str());
+        }
+
+        for (unsigned int k = 0; k < active.size(); k++) {
+            unsigned int i = active[k];
+
+            if (!std::isfinite(f.at(2 * k)) || !std::isfinite(f.at(2 * k + 1))) {
+                /* the model does not survive this step: back off */
+                step[i] *= 0.25;
+                failing[i] = true;
+                continue;
+            }
+            failing[i] = false;
+
+            double change = fabs(f.at(2 * k) + f.at(2 * k + 1) - 2. * f0);
+
+            if (change == 0.) {
+                /* nothing resolved yet: grow, unless the whole range has been used */
+                if (step[i] >= maxstep[i]) {
+                    step[i] = maxstep[i];
+                    derivativeStepStatus[i] = 2; // flat over the range of the parameter
+                } else
+                    step[i] = std::min(step[i] * 4., maxstep[i]);
+                continue;
+            }
+
+            if (change >= target / HESSIAN_WINDOW && change <= target * HESSIAN_WINDOW) {
+                derivativeStepStatus[i] = 1; // accepted
+                continue;
+            }
+
+            /* the change grows as the square of the step, so this lands on the
+               target in one round whenever the posterior is quadratic */
+            double factor = sqrt(target / change);
+            if (factor > 10.) factor = 10.;
+            if (factor < 0.1) factor = 0.1;
+            step[i] *= factor;
+            if (step[i] > maxstep[i]) step[i] = maxstep[i];
+        }
+    }
+
+    unsigned int naccept = 0, nflat = 0, nfail = 0;
+    std::ostringstream flatnames, failnames;
+    for (unsigned int i = 0; i < Npars; i++) {
+        if (derivativeStepStatus[i] == 0)
+            derivativeStepStatus[i] = failing[i] ? 3 : 1;
+        if (derivativeStepStatus[i] == 1) naccept++;
+        else if (derivativeStepStatus[i] == 2) {
+            nflat++;
+            flatnames << " " << GetParameter(i).GetName();
+        } else {
+            nfail++;
+            failnames << " " << GetParameter(i).GetName();
+        }
+    }
+
+    {
+        std::ostringstream line;
+        line << "  calibration complete: " << naccept << " accepted, " << nflat << " flat, "
+             << nfail << " unusable (" << nevaluations << " evaluations, "
+             << duration(std::difftime(std::time(NULL), tstart)) << ")";
+        progress(line.str());
+    }
+
+    if (nflat > 0) {
+        std::ostringstream message;
+        message << "MonteCarloEngine::calibrateDerivativeSteps(): the log posterior does not change "
+                << "anywhere inside the range of " << nflat << " parameters, whose curvature is therefore zero:"
+                << flatnames.str();
+        BCLog::OutWarning(message.str().c_str());
+    }
+    if (nfail > 0) {
+        std::ostringstream message;
+        message << "MonteCarloEngine::calibrateDerivativeSteps(): the model could not be evaluated at any step "
+                << "along " << nfail << " parameters, whose derivatives are unusable:" << failnames.str();
+        BCLog::OutWarning(message.str().c_str());
+    }
+
+    return step;
+}
+
+gslpp::matrix<double> MonteCarloEngine::computeHessian(const std::vector<double>& point, double relStep, bool adaptive) {
+
+    unsigned int Npars = GetNParameters();
+    if (point.size() != Npars) {
+        throw std::runtime_error("MonteCarloEngine::computeHessian(): Invalid number of entries in the vector.");
+    }
+
+    gslpp::matrix<double> Hessian(Npars, Npars, 0.);
+
+    std::time_t tstart = std::time(NULL);
+    unsigned long long ntotal = 2ULL * Npars * Npars + 2ULL * Npars + 1ULL;
+    unsigned long long ndone = 0;
+    {
+        std::ostringstream line;
+        line << "Computing the Hessian: " << Npars << " parameters, " << ntotal
+             << " evaluations of the model";
+        progress(line.str());
+    }
+
+    std::vector<double> step(Npars, 0.);
+    if (adaptive)
+        step = calibrateDerivativeSteps(point, relStep);
+    else {
+        for (unsigned int i = 0; i < Npars; i++)
+            step[i] = getDerivativeStep(i, point, relStep);
+        derivativeStepStatus.assign(Npars, 1);
+    }
+    derivativeSteps = step;
+
+    /* the stencil begins here: the calibration is a one-off, and folding it into
+       the rate would make the first estimates of the time left far too pessimistic */
+    std::time_t tstencil = std::time(NULL);
+
+    unsigned int nonfinite = 0;
+    std::vector<bool> badpar(Npars, false);
+
+    /* The centre and the points at +- one and +- two steps along each parameter.
+       The doubled step gives a second estimate of each diagonal element, whose
+       disagreement with the first measures how far the step has sunk into the
+       numerical noise of the model. */
+    static const double axis[4] = {1., -1., 2., -2.};
+    std::vector<std::vector<double> > points;
+    points.push_back(point);
+    for (unsigned int i = 0; i < Npars; i++)
+        for (unsigned int k = 0; k < 4; k++) {
+            std::vector<double> p(point);
+            p[i] += axis[k] * step[i];
+            points.push_back(p);
+        }
+    std::vector<double> f(computeFunction_h(points));
+    ndone += points.size();
+    {
+        std::ostringstream line;
+        line << "  diagonal complete: " << ndone << " evaluations, "
+             << duration(std::difftime(std::time(NULL), tstart));
+        progress(line.str());
+    }
+
+    double worstDiscrepancy = 0.;
+    std::string worstParameter;
+    for (unsigned int i = 0; i < Npars; i++) {
+        double d2 = (f.at(4 * i + 1) - 2. * f.at(0) + f.at(4 * i + 2)) / step[i] / step[i];
+        double d2double = (f.at(4 * i + 3) - 2. * f.at(0) + f.at(4 * i + 4)) / 4. / step[i] / step[i];
+        if (!std::isfinite(d2)) {
+            nonfinite++;
+            badpar[i] = true;
+            d2 = 0.;
+        } else if (std::isfinite(d2double) && (fabs(d2) > 0. || fabs(d2double) > 0.)) {
+            double discrepancy = fabs(d2 - d2double) / std::max(fabs(d2), fabs(d2double));
+            if (discrepancy > worstDiscrepancy) {
+                worstDiscrepancy = discrepancy;
+                worstParameter = GetParameter(i).GetName();
+            }
+        }
+        Hessian.assign(i, i, d2);
+    }
+
+    /* The mixed derivatives, four evaluations per pair of parameters, sent out one
+       row at a time so that the buffer stays small and every rank stays busy. */
+    static const double si[4] = {1., 1., -1., -1.};
+    static const double sj[4] = {1., -1., 1., -1.};
+    for (unsigned int i = 0; i < Npars; i++) {
+        std::vector<std::vector<double> > row;
+        for (unsigned int j = i + 1; j < Npars; j++)
+            for (unsigned int k = 0; k < 4; k++) {
+                std::vector<double> p(point);
+                p[i] += si[k] * step[i];
+                p[j] += sj[k] * step[j];
+                row.push_back(p);
+            }
+        if (row.empty()) continue;
+
+        std::vector<double> fr(computeFunction_h(row));
+        ndone += row.size();
+        {
+            std::time_t now = std::time(NULL);
+            std::ostringstream line;
+            line << "  row " << i + 1 << "/" << Npars << ": " << ndone << "/" << ntotal
+                 << " evaluations (" << (100 * ndone) / ntotal << "%), "
+                 << duration(std::difftime(now, tstart));
+            /* the remaining rows shrink, so scale what is left by the evaluations
+               still to do rather than by the rows still to do */
+            double stencil = std::difftime(now, tstencil);
+            if (ndone > 0 && ndone < ntotal)
+                line << " elapsed, about " << duration(stencil * (ntotal - ndone) / ndone) << " left";
+            progress(line.str());
+        }
+        for (unsigned int j = i + 1; j < Npars; j++) {
+            unsigned int b = 4 * (j - i - 1);
+            double d2 = (fr.at(b) - fr.at(b + 1) - fr.at(b + 2) + fr.at(b + 3)) / 4. / step[i] / step[j];
+            if (!std::isfinite(d2)) {
+                nonfinite++;
+                badpar[i] = true;
+                badpar[j] = true;
+                d2 = 0.;
+            }
+            Hessian.assign(i, j, d2);
+            Hessian.assign(j, i, d2);
+        }
+    }
+
+    if (nonfinite > 0) {
+        std::ostringstream message;
+        message << "MonteCarloEngine::computeHessian(): " << nonfinite
+                << " elements could not be evaluated and were set to zero. The model fails along:";
+        for (unsigned int i = 0; i < Npars; i++)
+            if (badpar[i]) message << " " << GetParameter(i).GetName();
+        BCLog::OutWarning(message.str().c_str());
+    }
+
+    {
+        std::ostringstream line;
+        line << "Hessian complete: " << ndone << " evaluations in "
+             << duration(std::difftime(std::time(NULL), tstart));
+        progress(line.str());
+    }
+
+    if (worstDiscrepancy > 1.e-2) {
+        std::ostringstream message;
+        message << "MonteCarloEngine::computeHessian(): the curvature along " << worstParameter
+                << " changes by " << worstDiscrepancy * 100. << "% when the step is doubled."
+                << " Either the posterior is not quadratic over this step, or the step is small enough"
+                << " for the numerical noise of the model to show; raise HESSIAN_TARGET to widen it.";
+        BCLog::OutWarning(message.str().c_str());
+    }
+
+    return Hessian;
+}
+
+gslpp::matrix<double> MonteCarloEngine::computeHessianLegacy(const std::vector<double>& point) {
+
+    unsigned int Npars = GetNParameters();
+    if (point.size() != Npars) {
+        throw std::runtime_error("MonteCarloEngine::computeHessianLegacy(): Invalid number of entries in the vector.");
+    }
+
+    gslpp::matrix<double> Hessian(Npars, Npars, 0.);
+    for (unsigned int i = 0; i < Npars; i++)
+        for (unsigned int j = i; j < Npars; j++) {
+            double d2 = SecondDerivative(GetParameter(i), GetParameter(j), point);
+            Hessian.assign(i, j, d2);
+            Hessian.assign(j, i, d2);
+        }
+
+    return Hessian;
+}
+
+double MonteCarloEngine::SecondDerivative(const BCParameter& par1, const BCParameter& par2, const std::vector<double>& point) {
 
     if (point.size() != GetNParameters()) {
-        throw std::runtime_error("MCMCENgine::SecondDerivative : Invalid number of entries in the vector.");
+        throw std::runtime_error("MonteCarloEngine::SecondDerivative : Invalid number of entries in the vector.");
     }
 
     // define steps
@@ -1553,10 +1964,10 @@ double MonteCarloEngine::SecondDerivative(BCParameter par1, BCParameter par2, st
     return 3. / 2. * m1 - 3. / 5. * m2 + 1. / 10. * m3;
 }
 
-double MonteCarloEngine::FirstDerivative(BCParameter par, std::vector<double> point) {
+double MonteCarloEngine::FirstDerivative(const BCParameter& par, const std::vector<double>& point) {
 
     if (point.size() != GetNParameters()) {
-        throw std::runtime_error("MCMCENgine::FirstDerivative : Invalid number of entries in the vector.");
+        throw std::runtime_error("MonteCarloEngine::FirstDerivative : Invalid number of entries in the vector.");
     }
 
     // define steps
@@ -1588,9 +1999,9 @@ double MonteCarloEngine::FirstDerivative(BCParameter par, std::vector<double> po
     return 3. / 2. * m1 - 3. / 5. * m2 + 1. / 10. * m3;
 }
 
-double MonteCarloEngine::Function_h(std::vector<double> point) {
+double MonteCarloEngine::Function_h(const std::vector<double>& point) {
     if (point.size() != GetNParameters()) {
-        throw std::runtime_error("MCMCENgine::Function_h : Invalid number of entries in the vector.");
+        throw std::runtime_error("MonteCarloEngine::Function_h : Invalid number of entries in the vector.");
     }
     return LogLikelihood(point) + LogAPrioriProbability(point);
 }
