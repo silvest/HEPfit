@@ -282,16 +282,16 @@ GeneralTHDMcache::GeneralTHDMcache(const StandardModel& SM_i)
         csrHpHm_pp_13_LO(12, 2, 0.),
         csrHpHm_pp_13_NLO(31, 2, 0.),
         //Tables of integrals for g-2
-        integral_x2_1mx_G_log(62500, 3, 0.),
-        integral_x2_1px_G_log(62500, 3, 0.),
-        integral_x2_G_log(62500, 3, 0.),
-        integral_x_1mx2_G_log(62500, 3, 0.),
-        integral_x_1mx_1px_G_log(62500, 3, 0.),
+        integral_x2_1mx_G_log(250000, 3, 0.),
+        integral_x2_1px_G_log(250000, 3, 0.),
+        integral_x2_G_log(250000, 3, 0.),
+        integral_x_1mx2_G_log(250000, 3, 0.),
+        integral_x_1mx_1px_G_log(250000, 3, 0.),
         
-        integral_x2_1mx_G_variable_set_1_log(2000, 2, 0.),
-        integral_x2_G_variable_set_1_log(2000, 2, 0.),
-        integral_x_1mx2_G_variable_set_0_log(2000, 2, 0.),
-        integral_perturb_ATHDM_values_log(2000, 2, 0.),
+        integral_x2_1mx_G_variable_set_1_log(4000, 2, 0.),
+        integral_x2_G_variable_set_1_log(4000, 2, 0.),
+        integral_x_1mx2_G_variable_set_0_log(4000, 2, 0.),
+        integral_perturb_ATHDM_values_log(4000, 2, 0.),
         //
         integral_Hp_A_Wstar(2835, 3, 0.),
         //
@@ -2643,31 +2643,31 @@ void GeneralTHDMcache::read(){
     CMS13_pp_HpHm_munumunu = readTable(susyHpC02.str(),22,2);
 
     thint01 << tablepath << "integral_x2_1mx_G_values_log.dat";
-    integral_x2_1mx_G_log = readTable(thint01.str(),62500,3);
+    integral_x2_1mx_G_log = readTable(thint01.str(),250000,3);
 
     thint02 << tablepath << "integral_x2_1px_G_values_log.dat";
-    integral_x2_1px_G_log = readTable(thint02.str(),62500,3);
+    integral_x2_1px_G_log = readTable(thint02.str(),250000,3);
 
     thint03 << tablepath << "integral_x2_G_values_log.dat";
-    integral_x2_G_log = readTable(thint03.str(),62500,3);
+    integral_x2_G_log = readTable(thint03.str(),250000,3);
 
     thint04 << tablepath << "integral_x_1mx2_G_values_log.dat";
-    integral_x_1mx2_G_log = readTable(thint04.str(),62500,3);
+    integral_x_1mx2_G_log = readTable(thint04.str(),250000,3);
 
     thint05 << tablepath << "integral_x_1mx_1px_G_values_log.dat";
-    integral_x_1mx_1px_G_log = readTable(thint05.str(),62500,3);
+    integral_x_1mx_1px_G_log = readTable(thint05.str(),250000,3);
 
     thint06 << tablepath << "integral_x2_1mx_G_variable_set_1_values_log.dat";
-    integral_x2_1mx_G_variable_set_1_log = readTable(thint06.str(),2000,2);
+    integral_x2_1mx_G_variable_set_1_log = readTable(thint06.str(),4000,2);
 
     thint07 << tablepath << "integral_x2_G_variable_set_1_values_log.dat";
-    integral_x2_G_variable_set_1_log = readTable(thint07.str(),2000,2);
+    integral_x2_G_variable_set_1_log = readTable(thint07.str(),4000,2);
 
     thint08 << tablepath << "integral_x_1mx2_G_variable_set_0_values_log.dat";
-    integral_x_1mx2_G_variable_set_0_log = readTable(thint08.str(),2000,2);
+    integral_x_1mx2_G_variable_set_0_log = readTable(thint08.str(),4000,2);
 
     thint09 << tablepath << "integral_perturb_ATHDM_values_log.dat";
-    integral_perturb_ATHDM_values_log = readTable(thint09.str(),2000,2);
+    integral_perturb_ATHDM_values_log = readTable(thint09.str(),4000,2);
 
     thint10 << tablepath << "integral_Hp_A_Wstar.dat";
     integral_Hp_A_Wstar = readTable(thint10.str(),2835,3);
