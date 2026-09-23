@@ -1014,3 +1014,10 @@ CHRU_eps_dL::CHRU_eps_dL(const StandardModel& SM_i) : ThObservable(SM_i), myNPSM
 double CHRU_eps_dL::computeThValue() {
     return myNPSMEFTd6CHRU.get_eps_dL();
 }
+
+oneOvermstar2::oneOvermstar2(const StandardModel& SM_i) : ThObservable(SM_i), myNPSMEFTd6CHRU(static_cast<const NPSMEFTd6CHRU&> (SM_i)) {}
+
+double oneOvermstar2::computeThValue() {
+    double oneOvermstar = 1.0 / (myNPSMEFTd6CHRU.getModelParam("mstar")); 
+    return oneOvermstar * oneOvermstar;
+}

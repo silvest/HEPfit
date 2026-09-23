@@ -168,6 +168,18 @@ private:
     const NPSMEFTd6CHRU& myNPSMEFTd6CHRU;
 };
 
+class oneOvermstar2 : public ThObservable {
+public:
+
+	oneOvermstar2(const StandardModel& SM_i);
+	
+   
+	double computeThValue();
+
+private:
+	const NPSMEFTd6CHRU& myNPSMEFTd6CHRU;
+};
+
 
 
 #endif /* NPSMEFTD6CHRU_H */
