@@ -1743,5 +1743,5 @@ void ThObsFactory::registerBSMObservables()
 
     obsThFactory["eps_uL"] = [](const StandardModel& SM) { return new CHRU_eps_uL(SM); };
     obsThFactory["eps_dL"] = [](const StandardModel& SM) { return new CHRU_eps_dL(SM); };
-    obsThFactory["oneOvermstar2"] = [](const StandardModel& SM) { return new CHRU_oneOvermstar2(SM); };
+    obsThFactory["oneOvermstar2"] = [](const StandardModel& SM) { return new oneOvermstar2(SM); };
 }
