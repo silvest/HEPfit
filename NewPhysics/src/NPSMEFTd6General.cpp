@@ -23865,7 +23865,7 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
         }
 
     } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZH()");
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZHGen()");
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeeZHint + eeeZHpar;
