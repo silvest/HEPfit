@@ -44,6 +44,11 @@ MonteCarlo::MonteCarlo(
     CrossCheckHessian = false;
     HessianRelativeStep = HESSIAN_RELSTEP;
     AdaptiveHessianStep = true;
+    HessianTarget = HESSIAN_TARGET;
+    RefineHessianSoftDirections = false;
+    HessianSoftThreshold = HESSIAN_SOFTTHRESHOLD;
+    HessianSoftTarget = 0.;
+    HessianSoftPasses = 2;
     CalculateNormalization = "false";
     NIterationNormalizationMC = 0;
     PrintAllMarginalized = false;
@@ -340,10 +345,16 @@ void MonteCarlo::Run(const int rank) {
                     std::cout << "Parameter " << MCEngine.GetParameter(i).GetName() << " = " << MCEngine.GetParameter(i).GetPriorMean() << std::endl;
                     point.push_back(MCEngine.GetParameter(i).GetPriorMean());
                 }
+                /* The refinement keeps the stiff block of the first pass and starts from
+                   its eigenvectors. Fixed steps are set by the width of the prior, not of
+                   the posterior, so they bias both wherever the posterior is not quadratic
+                   over them, and nothing downstream detects it. */
+                if (RefineHessianSoftDirections && !AdaptiveHessianStep)
+                    BCLog::OutWarning("MonteCarlo::Run(): RefineHessianSoftDirections with AdaptiveHessianStep false: the refinement keeps the stiff block of the first pass, whose fixed steps are biased, with no warning, wherever the posterior is not quadratic over them. Use AdaptiveHessianStep true, with a larger HessianTarget for larger steps.");
                 /* The whole matrix at once: symmetric by construction, and its
                    2 N^2 + 2 N + 1 evaluations of the model are distributed over the
                    MPI ranks waiting in the worker loop above. */
-                gslpp::matrix<double> Hessian(-MCEngine.computeHessian(point, HessianRelativeStep, AdaptiveHessianStep));
+                gslpp::matrix<double> Hessian(-MCEngine.computeHessian(point, HessianRelativeStep, AdaptiveHessianStep, HessianTarget));
 
                 if (AdaptiveHessianStep) {
                     const std::vector<double>& hstep = MCEngine.getDerivativeSteps();
@@ -357,6 +368,18 @@ void MonteCarlo::Run(const int rank) {
                     }
                     std::cout << std::endl;
                 }
+
+                /* The first pass, kept for the cross-check with the legacy stencil. Each
+                   pass of the refinement steps along the eigenvectors of the last; the
+                   noise of the log posterior is measured once, on the first pass. */
+                gslpp::matrix<double> FirstPass(Hessian);
+                if (RefineHessianSoftDirections)
+                    for (unsigned int pass = 0; pass < HessianSoftPasses; pass++) {
+                        if (HessianSoftPasses > 1)
+                            std::cout << std::endl << "Refinement, pass " << pass + 1 << " of " << HessianSoftPasses << ":" << std::endl;
+                        Hessian = MCEngine.refineHessianSoftDirections(point, Hessian, HessianSoftThreshold, HessianSoftTarget,
+                                pass == 0 ? 0. : MCEngine.getHessianNoise());
+                    }
 
                 std::vector<double> n;
                 for (unsigned int i = 0; i < Npars; i++) {
@@ -380,13 +403,13 @@ void MonteCarlo::Run(const int rank) {
                     unsigned int wi = 0, wj = 0, nelem = 0, n1 = 0, n10 = 0, nsign = 0;
                     for (unsigned int i = 0; i < Npars; i++)
                         for (unsigned int j = i; j < Npars; j++) {
-                            double scale = std::max(fabs(Hessian(i, j)), fabs(Legacy(i, j)));
+                            double scale = std::max(fabs(FirstPass(i, j)), fabs(Legacy(i, j)));
                             if (scale == 0.) continue;
                             nelem++;
-                            double reldiff = fabs(Hessian(i, j) - Legacy(i, j)) / scale;
+                            double reldiff = fabs(FirstPass(i, j) - Legacy(i, j)) / scale;
                             if (reldiff > 1.e-2) n1++;
                             if (reldiff > 1.e-1) n10++;
-                            if (Hessian(i, j) * Legacy(i, j) < 0.) nsign++;
+                            if (FirstPass(i, j) * Legacy(i, j) < 0.) nsign++;
                             if (reldiff > worst) {
                                 worst = reldiff;
                                 wi = i;
@@ -397,13 +420,13 @@ void MonteCarlo::Run(const int rank) {
                             << n10 << " by more than 10%, " << nsign << " have opposite signs." << std::endl;
                     std::cout << "Largest relative difference: " << worst << " on ("
                             << MCEngine.GetParameter(wi).GetName() << "," << MCEngine.GetParameter(wj).GetName() << ")" << std::endl;
-                    std::cout << "  direct stencil: " << Hessian(wi, wj) << std::endl;
+                    std::cout << "  direct stencil: " << FirstPass(wi, wj) << std::endl;
                     std::cout << "  legacy stencil: " << Legacy(wi, wj) << std::endl;
                     std::cout << std::endl;
                     std::cout << "Diagonal, direct vs legacy:" << std::endl;
                     for (unsigned int i = 0; i < Npars; i++)
                         std::cout << "  " << MCEngine.GetParameter(i).GetName() << ": "
-                                << Hessian(i, i) << "  vs  " << Legacy(i, i) << std::endl;
+                                << FirstPass(i, i) << "  vs  " << Legacy(i, i) << std::endl;
                 }
                 
                 std::cout << std::endl; 
@@ -709,6 +732,32 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             HessianRelativeStep = atof((*beg).c_str());
             if (HessianRelativeStep <= 0.)
                 throw std::runtime_error("\nERROR: HessianRelativeStep in the MonteCarlo configuration file: " + MCMCConf + " must be positive.\n");
+        } else if (beg->compare("HessianTarget") == 0) {
+            ++beg;
+            HessianTarget = atof((*beg).c_str());
+            if (HessianTarget <= 0.)
+                throw std::runtime_error("\nERROR: HessianTarget in the MonteCarlo configuration file: " + MCMCConf + " must be positive.\n");
+        } else if (beg->compare("RefineHessianSoftDirections") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) RefineHessianSoftDirections = (beg->compare("true") == 0);
+            else
+                throw std::runtime_error("\nERROR: RefineHessianSoftDirections in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+        } else if (beg->compare("HessianSoftThreshold") == 0) {
+            ++beg;
+            HessianSoftThreshold = atof((*beg).c_str());
+            if (HessianSoftThreshold <= 0.)
+                throw std::runtime_error("\nERROR: HessianSoftThreshold in the MonteCarlo configuration file: " + MCMCConf + " must be positive.\n");
+        } else if (beg->compare("HessianSoftPasses") == 0) {
+            ++beg;
+            int passes = atoi((*beg).c_str());
+            if (passes < 1)
+                throw std::runtime_error("\nERROR: HessianSoftPasses in the MonteCarlo configuration file: " + MCMCConf + " must be a positive integer.\n");
+            HessianSoftPasses = passes;
+        } else if (beg->compare("HessianSoftTarget") == 0) {
+            ++beg;
+            HessianSoftTarget = atof((*beg).c_str());
+            if (HessianSoftTarget < 0.)
+                throw std::runtime_error("\nERROR: HessianSoftTarget in the MonteCarlo configuration file: " + MCMCConf + " must be positive, or 0 for the default.\n");
         } else if (beg->compare("CrossCheckHessian") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) CrossCheckHessian = (beg->compare("true") == 0);
