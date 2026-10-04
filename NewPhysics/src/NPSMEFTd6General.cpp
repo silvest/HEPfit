@@ -46080,7 +46080,7 @@ const double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) con
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
 
@@ -46189,7 +46189,7 @@ const double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) con
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
 
@@ -46238,7 +46238,7 @@ const double NPSMEFTd6General::deltaMLR2t_e(const double s, const double t) cons
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZ;
 
     deltaM2 = deltaM2a * deltaM2b;
@@ -46353,14 +46353,14 @@ const double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, con
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
 
     // Add t-channel contributions for f=e
     if (f.is("ELECTRON")) {
         deltaM2a = deltaM2a + is2c2 * geSM * gfSM * propZt + s / t;
-        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt;
+        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt + s * 2.0 * delta_em / t;
     }
 
     deltaM2 = deltaM2a * deltaM2b;
@@ -46471,7 +46471,7 @@ const double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, con
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
 
@@ -46479,7 +46479,7 @@ const double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, con
     //if (f.is("ELECTRON")) {
     if ( f.getIndex() == 1 ) {
         deltaM2a = deltaM2a + is2c2 * geSM * gfSM * propZt + s / t;
-        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt;
+        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt + s * 2.0 * delta_em / t;
     }
 
     deltaM2 = deltaM2a * deltaM2b;
@@ -46736,10 +46736,11 @@ const double NPSMEFTd6General::intDMLL2eus2(const double s, const double t0, con
     s2 = s * s;
 
     intM2 = (1.0/(3.0*s2))*((2.0*gLeSM*gLeSM*gLeSM*Mz2*s2*GammaZSM*(gLeSM*(Mz4 + s2 - Mz2*(2.0*s + GammaZSM*GammaZSM))*deltaGammaZ + 2.0*GammaZSM*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagLe))/(sw2cw2*sw2cw2 * pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),3.0)) + 
-            2.0*(1.0 - (gLeSM*gLeSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(delta_em + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gLeSM*(Mz2 - s)*s*(gLeSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagLe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
-            ((2.0*delta_em + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gLeSM*(Mz2 - s)*s*deltagLe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
-            (gLeSM *(gLeSM*(2.0*sw2cw2*delta_em + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gLeSM*gLeSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagLe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
-            (4.0*gLeSM*deltagLe)/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            2.0*(1.0 - (gLeSM*gLeSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(2.0 * delta_em + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gLeSM*(Mz2 - s)*s*(gLeSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagLe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
+            ((4.0* (2.0 + gLeSM*gLeSM*s*(s - Mz2)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) * delta_em + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gLeSM*(Mz2 - s)*s*deltagLe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
+            (gLeSM *(gLeSM*(4.0*sw2cw2*delta_em + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gLeSM*gLeSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagLe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (4.0*gLeSM*( gLeSM*delta_em + deltagLe ))/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +            
+            4.0*delta_em*( s2*(1.0/t0 - 1.0/t1) + (t1-t0) +2.0*s*log(t1/t0) ) +            
             (4.0*gLeSM*gLeSM*gLeSM*deltagLe)/(sw2cw2*sw2cw2)*(((Mz2 + s)*(Mz2 + s)/(Mz2 - t1) - (Mz2 + s)*(Mz2 + s)/(Mz2 - t0) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))));
 
     return intM2;
@@ -46771,10 +46772,11 @@ const double NPSMEFTd6General::intDMRR2eus2(const double s, const double t0, con
     s2 = s * s;
 
     intM2 = (1.0/(3.0*s2))*((2.0*gReSM*gReSM*gReSM*Mz2*s2*GammaZSM*(gReSM*(Mz4 + s2 - Mz2*(2.0*s + GammaZSM*GammaZSM))*deltaGammaZ + 2.0*GammaZSM*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagRe))/(sw2cw2*sw2cw2 * pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),3.0)) + 
-            2.0*(1.0 - (gReSM*gReSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(delta_em + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gReSM*(Mz2 - s)*s*(gReSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagRe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
-            ((2.0*delta_em + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gReSM*(Mz2 - s)*s*deltagRe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
-            (gReSM *(gReSM*(2.0*sw2cw2*delta_em + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gReSM*gReSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagRe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
-            (4.0*gReSM*deltagRe)/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            2.0*(1.0 - (gReSM*gReSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(2.0*delta_em + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gReSM*(Mz2 - s)*s*(gReSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagRe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
+            ((4.0* (2.0 + gReSM*gReSM*s*(s - Mz2)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) * delta_em + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gReSM*(Mz2 - s)*s*deltagRe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
+            (gReSM *(gReSM*(4.0*sw2cw2*delta_em + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gReSM*gReSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagRe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (4.0*gReSM* ( gReSM*delta_em + deltagRe ))/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +            
+            4.0*delta_em*( s2*(1.0/t0 - 1.0/t1) + (t1-t0) +2.0*s*log(t1/t0) ) +            
             (4.0*gReSM*gReSM*gReSM*deltagRe)/(sw2cw2*sw2cw2)*(((Mz2 + s)*(Mz2 + s)/(Mz2 - t1) - (Mz2 + s)*(Mz2 + s)/(Mz2 - t0) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))));
 
     return intM2;
@@ -46820,8 +46822,8 @@ const double NPSMEFTd6General::intDMLR2etildest2(const double s, const double t0
     deltagRe = deltaGR_f_mu(leptons[ELECTRON], muRG);
     s2 = s*s;
     
-    intM2 = -2.0 * s2*delta_em *(1/t1 - 1/t0) -
-            (2.0 * s2*(gReSM * deltagLe + gLeSM*(gReSM*delta_em + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
+    intM2 = -4.0 * s2*delta_em *(1.0/t1 - 1.0/t0) -
+            (2.0 * s2*(gReSM * deltagLe + gLeSM*(2.0*gReSM*delta_em + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
             (s2*Aeeee)/(2.0 * M_PI * aEM )* log(t1/t0) +
             (gLeSM*gReSM*(s2)*Aeeee )/(2.0 * M_PI * sw2cw2 * aEM) * log( (Mz * Mz - t1)/(Mz * Mz - t0) ) +
             ((2.0 *gLeSM*gReSM*s2*(gReSM*deltagLe +  gLeSM*deltagRe))/ sw2cw2/ sw2cw2) *(1.0/ (Mz * Mz - t1) - 1.0/ (Mz * Mz - t0));
@@ -46851,8 +46853,8 @@ const double NPSMEFTd6General::intDMRL2etildest2(const double s, const double t0
     deltagRe = deltaGR_f_mu(leptons[ELECTRON], muRG);
     s2 = s*s;
     
-    intM2 = -2.0 * s2*delta_em *(1/t1 - 1/t0) -
-            (2.0 * s2*(gReSM * deltagLe + gLeSM*(gReSM*delta_em + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
+    intM2 = -4.0 * s2*delta_em *(1.0/t1 - 1.0/t0) -
+            (2.0 * s2*(gReSM * deltagLe + gLeSM*(2.0*gReSM*delta_em + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
             (s2*Aeeee)/(2.0 * M_PI * aEM )* log(t1/t0) +
             (gLeSM*gReSM*(s2)*Aeeee )/(2.0 * M_PI * sw2cw2 * aEM) * log( (Mz * Mz - t1)/(Mz * Mz - t0) ) +
             ((2.0 *gLeSM*gReSM*s2*(gReSM*deltagLe +  gLeSM*deltagRe))/ sw2cw2/ sw2cw2) *(1.0/ (Mz * Mz - t1) - 1.0/ (Mz * Mz - t0));
