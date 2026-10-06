@@ -332,10 +332,10 @@ void NPSMEFTd6U3::setNPSMEFTd6GeneralParameters()
     
     
     Cee_1111r_LNP = Cee_LNP;
-    Cee_1122r_LNP = Cee_LNP;
-    Cee_1133r_LNP = Cee_LNP;
+    Cee_1122r_LNP = 0.5 * Cee_LNP;
+    Cee_1133r_LNP = 0.5 * Cee_LNP;
     Cee_2222r_LNP = Cee_LNP;
-    Cee_2233r_LNP = Cee_LNP;
+    Cee_2233r_LNP = 0.5 * Cee_LNP;
     Cee_3333r_LNP = Cee_LNP;
     
     
