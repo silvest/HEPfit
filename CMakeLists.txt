@@ -423,6 +423,9 @@ else()
   else()
     string(REGEX REPLACE "^-L" "" RGESOLVER_LIB_PATH ${RGESOLVER_LIB_PATH})
   endif()
+  # Full path of the library file, used to relink when RGESolver is updated
+  unset(RGESOLVER_LIBRARY CACHE)
+  find_library(RGESOLVER_LIBRARY NAMES RGESolver PATHS ${RGESOLVER_LIB_PATH} NO_DEFAULT_PATH)
   unset(RGESOLVER_CONFIG CACHE)
 endif()
 
