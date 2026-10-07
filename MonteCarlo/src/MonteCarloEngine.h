@@ -33,12 +33,26 @@
    each parameter. See MonteCarloEngine::getDerivativeStep(). With the step
    calibration enabled this is only the starting guess. */
 #define HESSIAN_RELSTEP 1.e-2
-/* The change in the log posterior that the calibrated step aims for, the factor
-   within which that change is accepted, and the number of rounds allowed.
+/* The change in the log posterior that the calibrated step aims for (by default:
+   HessianTarget in the MonteCarlo configuration sets it for the first pass), the
+   factor within which that change is accepted, and the number of rounds allowed.
    See MonteCarloEngine::calibrateDerivativeSteps(). */
 #define HESSIAN_TARGET 1.
 #define HESSIAN_WINDOW 10.
 #define HESSIAN_MAXITER 12
+/* The eigenvalue of the Hessian normalised to unit diagonal below which a
+   direction is recomputed. The directions above it keep the values of the first
+   pass, whose noise must be negligible against their curvature: at 1.e-3 it still
+   shows in the covariance, the more so the narrower the prior.
+   See MonteCarloEngine::refineHessianSoftDirections(). */
+#define HESSIAN_SOFTTHRESHOLD 1.e-2
+/* A soft direction whose curvature changes by more than HESSIAN_SOFTTOL when the
+   step is doubled is retried once with a smaller step, but not so small that the
+   noise of the log posterior, estimated from the first pass, would exceed
+   1 / HESSIAN_SOFTNOISEFACTOR of its change. See
+   MonteCarloEngine::refineHessianSoftDirections(). */
+#define HESSIAN_SOFTNOISEFACTOR 1.e3
+#define HESSIAN_SOFTTOL 1.e-2
 
 /**
  * @class MonteCarloEngine
@@ -308,10 +322,15 @@ public:
      * two are compared, which detects a step size spoiled by the noise of the model.
      * @param[in] point the point at which the Hessian is calculated
      * @param[in] relStep the step in units of the width of the prior
+     * @param[in] adaptive whether the step is calibrated to each parameter
+     * @param[in] target the change in the log posterior the calibrated steps aim
+     * for: larger steps have less noise, but are more sensitive to a posterior that
+     * is not quadratic, which the doubled-step check detects
      * @return the Hessian matrix, symmetric by construction
      */
     gslpp::matrix<double> computeHessian(const std::vector<double>& point,
-            double relStep = HESSIAN_RELSTEP, bool adaptive = true);
+            double relStep = HESSIAN_RELSTEP, bool adaptive = true,
+            double target = HESSIAN_TARGET);
 
     /**
      * @brief A method to calibrate the finite-difference step of every parameter.
@@ -331,6 +350,74 @@ public:
      */
     std::vector<double> calibrateDerivativeSteps(const std::vector<double>& point,
             double relStep = HESSIAN_RELSTEP, double target = HESSIAN_TARGET);
+
+    /**
+     * @brief A method to recompute the Hessian along its soft directions.
+     * @details The steps of computeHessian() are calibrated along each parameter,
+     * so a combination of parameters that the data leave (almost) unconstrained is
+     * only seen through the cancellation of large, correlated elements, whose
+     * numerical noise then swamps its true curvature (and that of the prior). This
+     * normalises the matrix to unit diagonal, diagonalises it, and recomputes, in
+     * the eigenbasis, every element involving an eigenvector with eigenvalue below
+     * @p threshold, with a step calibrated along each eigenvector as
+     * calibrateDerivativeSteps() does along each parameter. The soft x stiff
+     * elements have to be recomputed as well: they are of the order of the noise of
+     * the first pass, which, squared over a stiff eigenvalue, can exceed the soft
+     * curvatures. Only the stiff block is kept from the first pass.
+     *
+     * Every element involving a soft direction is computed with the step h and with
+     * 2h and extrapolated as (4 M(h) - M(2h)) / 3 (Richardson), which cancels the h^2
+     * error of a posterior that is not quadratic over the step. This is needed because
+     * the soft eigenvalues span orders of magnitude, so the covariance amplifies errors
+     * of these elements many times over. The steps aim for a change @p target of the
+     * log posterior (HESSIAN_TARGET by default), and are set on it once calibrated: a
+     * large target keeps the numerical noise small, which matters for the same reason.
+     * A mixed element reuses the points of its two directions on their axes, so it
+     * needs two new points per step. Where a soft curvature changes by more than
+     * HESSIAN_SOFTTOL between h and 2h, the direction is retried once with a step
+     * shrunk as that change requires (by at most 16, and not below the step at which
+     * the noise would dominate); the retry is decided on the diagonal alone, before
+     * the pairs are computed, so that no pair is computed twice, and the pairs of a
+     * direction whose smaller step is kept have both steps shrunk. A pair can be far
+     * from quadratic where neither of its directions is, so every pair changing by
+     * more than HESSIAN_SOFTTOL on the scale of its element is retried in the same way.
+     * A smaller step replaces the first only if its extrapolation differs by more
+     * than three times its noise: where the terms beyond h^2 vanish (a log posterior
+     * quartic in the parameters) the first is right, and less noisy. The noise of
+     * Function_h() is measured on the first pass, from the width of the band of its
+     * eigenvalues that the noise spreads. The soft directions that remain
+     * non-quadratic are listed.
+     *
+     * A pass costs, for k soft directions out of N, 4 N + 2 k (k - 1) + 4 k (N - k)
+     * evaluations of Function_h(), plus at most 2 N HESSIAN_MAXITER for the steps
+     * (usually two rounds), plus 4 for each direction retried and about 4 N more for
+     * each whose smaller step is kept, plus 8 for each pair retried. A second pass,
+     * along the eigenvectors of the first, starts from a matrix whose soft directions
+     * are no longer mixed by the noise, and removes most of what is left of it.
+     * @param[in] point the point at which the Hessian is calculated
+     * @param[in] curvature minus the Hessian of Function_h(): from computeHessian(),
+     * or from an earlier pass
+     * @param[in] threshold the eigenvalue, in units of the normalised matrix, below
+     * which a direction is recomputed
+     * @param[in] target the change in the log posterior the steps aim for; zero or
+     * negative for HESSIAN_TARGET
+     * @param[in] noise the noise of Function_h(); zero or negative to measure it on
+     * @p curvature, which must then come from computeHessian()
+     * @return minus the Hessian of Function_h(), with the soft block recomputed
+     */
+    gslpp::matrix<double> refineHessianSoftDirections(const std::vector<double>& point,
+            const gslpp::matrix<double>& curvature, double threshold = HESSIAN_SOFTTHRESHOLD,
+            double target = 0., double noise = 0.);
+
+    /**
+     * @brief A get method for the noise of Function_h() used by the last call to
+     * refineHessianSoftDirections(), to be passed on to a later pass.
+     * @return the noise of the log posterior
+     */
+    double getHessianNoise() const
+    {
+        return hessianNoise;
+    }
 
     /**
      * @brief A get method for the steps used by the last call to computeHessian().
@@ -585,6 +672,7 @@ private:
     int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
     std::vector<double> derivativeSteps; ///< The finite-difference step of each parameter in the last call to computeHessian().
     std::vector<int> derivativeStepStatus; ///< The outcome of the last step calibration, per parameter.
+    double hessianNoise; ///< The noise of Function_h() used by the last call to refineHessianSoftDirections().
     TTree * hMCMCObservableTree; ///< A ROOT tree that contains the observables values and weight when the chains are written.
     TTree * hMCMCParameterTree; ///< A ROOT tree that contains the parameter values when the chains are written.
     std::vector<std::vector<double> > hMCMCObservables; ///< A vector of vectors containing the observables values of all the chains to be put into the ROOT tree.

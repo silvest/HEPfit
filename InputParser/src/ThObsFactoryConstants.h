@@ -91,9 +91,9 @@ namespace ThObsConst {
     const double sqrt_s_FCCep_5 = 5.0; ///< the center-of-mass energy in TeV
     // Polarizations at lepton colliders
     const double pol_0 = 0.0;
-    const double pol_20 = 20.0;
-    const double pol_30 = 30.0;
-    const double pol_80 = 80.0;
+    const double pol_20 = 0.20;
+    const double pol_30 = 0.30;
+    const double pol_80 = 0.80;
     // Lists with values of energies/angles for energy/angle dependent definitions
     //
     // Parameters for LEP 2 inclusive observables

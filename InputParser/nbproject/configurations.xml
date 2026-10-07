@@ -7,6 +7,7 @@
       <itemPath>src/InputParser.h</itemPath>
       <itemPath>src/ModelFactory.h</itemPath>
       <itemPath>src/ThObsFactory.h</itemPath>
+      <itemPath>src/ThObsFactoryConstants.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -122,6 +123,8 @@
       </item>
       <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ThObsFactoryConstants.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ThObsFactory_BSM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ThObsFactory_Couplings.cpp" ex="false" tool="1" flavor2="0">
@@ -228,6 +231,8 @@
       <item path="src/ThObsFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsFactoryConstants.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ThObsFactory_BSM.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -338,6 +343,8 @@
       </item>
       <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ThObsFactoryConstants.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ThObsFactory_BSM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ThObsFactory_Couplings.cpp" ex="false" tool="1" flavor2="0">
@@ -433,6 +440,8 @@
       <item path="src/ThObsFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsFactoryConstants.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ThObsFactory_BSM.cpp" ex="false" tool="1" flavor2="0">
       </item>

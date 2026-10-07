@@ -125,13 +125,13 @@ void ThObsFactory::registerHiggsObservables()
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrts_eetoH[i]);
 
         // Unpolarized
-        obsThFactory["eeZH_" + sqrt_s_str] = [=](const StandardModel& SM) { return new mueeZHGen(SM, sqrts_eetoH[i], 0., 0.); };
+        obsThFactory["eeZH_" + sqrt_s_str] = [=](const StandardModel& SM) { return new mueeZHGen(SM, sqrts_eetoH[i]/1000., 0., 0.); };
 
         // Polarized: Pe-: -80% Pe+: +30%
-        obsThFactory["eeZH_m80p30_" + sqrt_s_str] = [=](const StandardModel& SM) { return new mueeZHGen(SM, sqrts_eetoH[i], -0.8, 0.3); };
+        obsThFactory["eeZH_m80p30_" + sqrt_s_str] = [=](const StandardModel& SM) { return new mueeZHGen(SM, sqrts_eetoH[i]/1000., -0.8, 0.3); };
 
         // Polarized: Pe-: 80% Pe+: -30%
-        obsThFactory["eeZH_p80m30_" + sqrt_s_str] = [=](const StandardModel& SM) { return new mueeZHGen(SM, sqrts_eetoH[i], 0.8, -0.3); };
+        obsThFactory["eeZH_p80m30_" + sqrt_s_str] = [=](const StandardModel& SM) { return new mueeZHGen(SM, sqrts_eetoH[i]/1000., 0.8, -0.3); };
     }
     //
     obsThFactory["eeZH230"] = [=](const StandardModel& SM) { return new mueeZH(SM, sqrt_s_leptcoll_230, 0., 0.); };

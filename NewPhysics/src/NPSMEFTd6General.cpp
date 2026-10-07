@@ -23865,7 +23865,7 @@ const double NPSMEFTd6General::mueeZHGen(const double sqrt_s, const double Pol_e
         }
 
     } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZH()");
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::mueeZHGen()");
 
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeeZHint + eeeZHpar;
@@ -23943,7 +23943,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = 0.0173302;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121260. * getSMEFTCoeffEW("CHbox")
                     + 117191. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -23962,7 +23962,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.544 * deltaMz()
                     - 3.071 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121254. * getSMEFTCoeffEW("CHbox")
                     + 1495015. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -23981,7 +23981,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 8.834 * deltaMz()
                     - 3.071 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121256. * getSMEFTCoeffEW("CHbox")
                     + 204529. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24000,7 +24000,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 0.05 * deltaMz()
                     - 3.071 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121264. * getSMEFTCoeffEW("CHbox")
                     + 1442776. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24027,7 +24027,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = 0.015;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121264. * getSMEFTCoeffEW("CHbox")
                     + 127210. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24046,7 +24046,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.1 * deltaMz()
                     - 2.27 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121257. * getSMEFTCoeffEW("CHbox")
                     + 1622228. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24065,7 +24065,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 9.279 * deltaMz()
                     - 2.27 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121309. * getSMEFTCoeffEW("CHbox")
                     + 221930. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24084,7 +24084,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 0.494 * deltaMz()
                     - 2.27 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121269. * getSMEFTCoeffEW("CHbox")
                     + 1565559. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24111,7 +24111,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = 0.0057;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121274. * getSMEFTCoeffEW("CHbox")
                     + 249309. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24130,7 +24130,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 0.077 * deltaMz()
                     - 0.729 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121289. * getSMEFTCoeffEW("CHbox")
                     + 3179548. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24149,7 +24149,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 9.456 * deltaMz()
                     - 0.729 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121304. * getSMEFTCoeffEW("CHbox")
                     + 434952. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24168,7 +24168,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 0.671 * deltaMz()
                     - 0.729 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121259. * getSMEFTCoeffEW("CHbox")
                     + 3068356. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24195,7 +24195,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = 0.00493549;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121270. * getSMEFTCoeffEW("CHbox")
                     + 271098. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24214,7 +24214,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 0.029 * deltaMz()
                     - 0.664 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121238. * getSMEFTCoeffEW("CHbox")
                     + 3457848. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24233,7 +24233,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 9.408 * deltaMz()
                     - 0.664 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121251. * getSMEFTCoeffEW("CHbox")
                     + 472985. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24252,7 +24252,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 0.623 * deltaMz()
                     - 0.664 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121238. * getSMEFTCoeffEW("CHbox")
                     + 3336984. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24279,7 +24279,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = 0.0057; // Use same as 350 GeV
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121228. * getSMEFTCoeffEW("CHbox")
                     + 293860. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24298,7 +24298,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.018 * deltaMz()
                     - 0.609 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121226. * getSMEFTCoeffEW("CHbox")
                     + 3747707. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24317,7 +24317,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 9.361 * deltaMz()
                     - 0.609 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121325. * getSMEFTCoeffEW("CHbox")
                     + 512707. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24336,7 +24336,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 0.576 * deltaMz()
                     - 0.609 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121273. * getSMEFTCoeffEW("CHbox")
                     + 3617032. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24363,7 +24363,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = 0.00099;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121268. * getSMEFTCoeffEW("CHbox")
                     + 508715. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24382,7 +24382,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.319 * deltaMz()
                     - 0.351 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121273. * getSMEFTCoeffEW("CHbox")
                     + 6488707. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24401,7 +24401,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 9.06 * deltaMz()
                     - 0.351 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121280. * getSMEFTCoeffEW("CHbox")
                     + 887632. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24420,7 +24420,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 0.275 * deltaMz()
                     - 0.351 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121268. * getSMEFTCoeffEW("CHbox")
                     + 6262095. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24447,7 +24447,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = -0.0012;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121236. * getSMEFTCoeffEW("CHbox")
                     + 2034785. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24466,7 +24466,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.745 * deltaMz()
                     - 0.092 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121298. * getSMEFTCoeffEW("CHbox")
                     + 25954994. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24485,7 +24485,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 8.633 * deltaMz()
                     - 0.092 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == -20.) {
+        } else if (Pol_em == 0.80 && Pol_ep == -0.20) {
             mu +=
                     +121257. * getSMEFTCoeffEW("CHbox")
                     + 2475072. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24504,7 +24504,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 2.375 * deltaaMZ()
                     - 0.377 * deltaGmu());
 
-        } else if (Pol_em == -80. && Pol_ep == 20.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.20) {
             mu +=
                     +121306. * getSMEFTCoeffEW("CHbox")
                     + 25696973. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24523,7 +24523,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 2.178 * deltaaMZ()
                     + 4.178 * deltaGmu());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121307. * getSMEFTCoeffEW("CHbox")
                     + 3550656. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24542,7 +24542,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.151 * deltaMz()
                     - 0.092 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121327. * getSMEFTCoeffEW("CHbox")
                     + 25048839. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24569,7 +24569,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = -0.0011;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121277. * getSMEFTCoeffEW("CHbox")
                     + 3988231. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24588,7 +24588,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.828 * deltaMz()
                     - 0.047 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121314. * getSMEFTCoeffEW("CHbox")
                     + 50871646. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24607,7 +24607,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 8.55 * deltaMz()
                     - 0.047 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121250. * getSMEFTCoeffEW("CHbox")
                     + 6958750. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24626,7 +24626,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.234 * deltaMz()
                     - 0.047 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121278. * getSMEFTCoeffEW("CHbox")
                     + 49094486. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24653,7 +24653,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = -0.0011; // Use the same as 1400 GeV
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121268. * getSMEFTCoeffEW("CHbox")
                     + 4578315. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24672,7 +24672,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.84 * deltaMz()
                     - 0.041 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121277. * getSMEFTCoeffEW("CHbox")
                     + 58398883. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24691,7 +24691,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 8.539 * deltaMz()
                     - 0.041 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121289. * getSMEFTCoeffEW("CHbox")
                     + 7988570. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24710,7 +24710,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.246 * deltaMz()
                     - 0.041 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121259. * getSMEFTCoeffEW("CHbox")
                     + 56356946. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24737,7 +24737,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
 
         C1 = -0.00054;
 
-        if (Pol_em == 80. && Pol_ep == -30.) {
+        if (Pol_em == 0.80 && Pol_ep == -0.30) {
             mu +=
                     +121320. * getSMEFTCoeffEW("CHbox")
                     + 18314161. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24756,7 +24756,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.899 * deltaMz()
                     - 0.01 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 30.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.30) {
             mu +=
                     +121305. * getSMEFTCoeffEW("CHbox")
                     + 233598342. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24775,7 +24775,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     + 8.48 * deltaMz()
                     - 0.01 * deltaMh());
 
-        } else if (Pol_em == 80. && Pol_ep == 0.) {
+        } else if (Pol_em == 0.80 && Pol_ep == 0.) {
             mu +=
                     +121225. * getSMEFTCoeffEW("CHbox")
                     + 31953446. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24794,7 +24794,7 @@ const double NPSMEFTd6General::mueeZHPol(const double sqrt_s, const double Pol_e
                     - 0.305 * deltaMz()
                     - 0.01 * deltaMh());
 
-        } else if (Pol_em == -80. && Pol_ep == 0.) {
+        } else if (Pol_em == -0.80 && Pol_ep == 0.) {
             mu +=
                     +121248. * getSMEFTCoeffEW("CHbox")
                     + 225427310. * getSMEFTCoeffEW("CHl1R", 0, 0)
@@ -24951,8 +24951,8 @@ const double NPSMEFTd6General::aPskPol(const double sqrt_s, const double Pol_em,
     aR = dgR + 2 * dMz - dv + EtaZ - (sM - Mz2) / (2 * Mz2) * CHE / sW2_tree + kZ * dMz + kH*dMH;
 
     //  Polarized a parameter
-    aPol = 0.25 * ((1.0 - Pol_em / 100.0)*(1.0 + Pol_ep / 100.0) * aL
-            + (1.0 + Pol_em / 100.0)*(1.0 - Pol_ep / 100.0) * aR);
+    aPol = 0.25 * ((1.0 - Pol_em)*(1.0 + Pol_ep) * aL
+            + (1.0 + Pol_em)*(1.0 - Pol_ep) * aR);
 
     return aPol;
 }
@@ -24978,8 +24978,8 @@ const double NPSMEFTd6General::bPskPol(const double sqrt_s, const double Pol_em,
     bR = ZetaZ - (cW_tree / sW_tree)*(sM - Mz2) / sM*ZetaAZ;
 
     //  Polarized b parameter
-    bPol = 0.25 * ((1.0 - Pol_em / 100.0)*(1.0 + Pol_ep / 100.0) * bL
-            + (1.0 + Pol_em / 100.0)*(1.0 - Pol_ep / 100.0) * bR);
+    bPol = 0.25 * ((1.0 - Pol_em)*(1.0 + Pol_ep) * bL
+            + (1.0 + Pol_em)*(1.0 - Pol_ep) * bR);
 
     return bPol;
 }
@@ -46080,7 +46080,7 @@ const double NPSMEFTd6General::deltaMLR2_f(const Particle f, const double s) con
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
 
@@ -46189,7 +46189,7 @@ const double NPSMEFTd6General::deltaMRL2_f(const Particle f, const double s) con
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
 
@@ -46238,7 +46238,7 @@ const double NPSMEFTd6General::deltaMLR2t_e(const double s, const double t) cons
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZ;
 
     deltaM2 = deltaM2a * deltaM2b;
@@ -46353,14 +46353,14 @@ const double NPSMEFTd6General::deltaMLL2_f(const Particle f, const double s, con
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
 
     // Add t-channel contributions for f=e
     if (f.is("ELECTRON")) {
         deltaM2a = deltaM2a + is2c2 * geSM * gfSM * propZt + s / t;
-        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt;
+        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt + s * 2.0 * delta_em / t;
     }
 
     deltaM2 = deltaM2a * deltaM2b;
@@ -46471,7 +46471,7 @@ const double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, con
 
     deltaM2a = (-Qf + is2c2 * geSM * gfSM * propZ);
 
-    deltaM2b = -Qf * delta_em + Aeeff
+    deltaM2b = - 2.0 * Qf * delta_em + Aeeff
             + is2c2 * (geSM * deltagf + gfSM * deltage) * propZc
             - (gslpp::complex::i()) * is2c2 * geSM * gfSM * Mz * deltaGammaZ * propZc * propZc / s;
 
@@ -46479,7 +46479,7 @@ const double NPSMEFTd6General::deltaMRR2_f(const Particle f, const double s, con
     //if (f.is("ELECTRON")) {
     if ( f.getIndex() == 1 ) {
         deltaM2a = deltaM2a + is2c2 * geSM * gfSM * propZt + s / t;
-        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt;
+        deltaM2b = deltaM2b + is2c2 * (geSM * deltagf + gfSM * deltage) * propZt + s * 2.0 * delta_em / t;
     }
 
     deltaM2 = deltaM2a * deltaM2b;
@@ -46736,10 +46736,11 @@ const double NPSMEFTd6General::intDMLL2eus2(const double s, const double t0, con
     s2 = s * s;
 
     intM2 = (1.0/(3.0*s2))*((2.0*gLeSM*gLeSM*gLeSM*Mz2*s2*GammaZSM*(gLeSM*(Mz4 + s2 - Mz2*(2.0*s + GammaZSM*GammaZSM))*deltaGammaZ + 2.0*GammaZSM*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagLe))/(sw2cw2*sw2cw2 * pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),3.0)) + 
-            2.0*(1.0 - (gLeSM*gLeSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(delta_em + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gLeSM*(Mz2 - s)*s*(gLeSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagLe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
-            ((2.0*delta_em + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gLeSM*(Mz2 - s)*s*deltagLe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
-            (gLeSM *(gLeSM*(2.0*sw2cw2*delta_em + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gLeSM*gLeSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagLe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
-            (4.0*gLeSM*deltagLe)/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            2.0*(1.0 - (gLeSM*gLeSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(2.0 * delta_em + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gLeSM*(Mz2 - s)*s*(gLeSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagLe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
+            ((4.0* (2.0 + gLeSM*gLeSM*s*(s - Mz2)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) * delta_em + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gLeSM*(Mz2 - s)*s*deltagLe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
+            (gLeSM *(gLeSM*(4.0*sw2cw2*delta_em + (4.0*gLeSM*gLeSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gLeSM*gLeSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagLe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (4.0*gLeSM*( gLeSM*delta_em + deltagLe ))/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +            
+            4.0*delta_em*( s2*(1.0/t0 - 1.0/t1) + (t1-t0) +2.0*s*log(t1/t0) ) +            
             (4.0*gLeSM*gLeSM*gLeSM*deltagLe)/(sw2cw2*sw2cw2)*(((Mz2 + s)*(Mz2 + s)/(Mz2 - t1) - (Mz2 + s)*(Mz2 + s)/(Mz2 - t0) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))));
 
     return intM2;
@@ -46771,10 +46772,11 @@ const double NPSMEFTd6General::intDMRR2eus2(const double s, const double t0, con
     s2 = s * s;
 
     intM2 = (1.0/(3.0*s2))*((2.0*gReSM*gReSM*gReSM*Mz2*s2*GammaZSM*(gReSM*(Mz4 + s2 - Mz2*(2.0*s + GammaZSM*GammaZSM))*deltaGammaZ + 2.0*GammaZSM*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagRe))/(sw2cw2*sw2cw2 * pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),3.0)) + 
-            2.0*(1.0 - (gReSM*gReSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(delta_em + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gReSM*(Mz2 - s)*s*(gReSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagRe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
-            ((2.0*delta_em + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gReSM*(Mz2 - s)*s*deltagRe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
-            (gReSM *(gReSM*(2.0*sw2cw2*delta_em + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gReSM*gReSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagRe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
-            (4.0*gReSM*deltagRe)/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            2.0*(1.0 - (gReSM*gReSM*(Mz2 - s)*s)/(sw2cw2*((Mz2 - s)*(Mz2 - s) + Mz2*GammaZSM*GammaZSM)))*(2.0*delta_em + (s*Aeeee)/(2.0*M_PI*aEM) + (2.0*gReSM*(Mz2 - s)*s*(gReSM*Mz2*GammaZSM*deltaGammaZ - (Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))*deltagRe))/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0))))*(pow(s + t1 ,3.0) - pow(s + t0,3.0)) +
+            ((4.0* (2.0 + gReSM*gReSM*s*(s - Mz2)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))) * delta_em + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/(sw2cw2*pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0)) + (s*Aeeee)/(M_PI*aEM) - (4.0*gReSM*(Mz2 - s)*s*deltagRe)/(sw2cw2*(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM))))/s)*(2*s*( t1 - t0) + (t1*t1 - t0*t0)/2.0 + s2*log(t1/t0)) +           
+            (gReSM *(gReSM*(4.0*sw2cw2*delta_em + (4.0*gReSM*gReSM*Mz2*(Mz2 - s)*s*GammaZSM*deltaGammaZ)/pow(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM),2.0) + (s*sw2cw2*Aeeee)/(M_PI*aEM)) + 4.0*(sw2cw2 + (2.0*gReSM*gReSM*s*(-Mz2 + s))/(Mz4 + s2 + Mz2*(-2.0*s + GammaZSM*GammaZSM)))*deltagRe))/(s*sw2cw2*sw2cw2)*((1.0/2.0)*( t1*(2.0*Mz2 + 4.0*s + t1) - t0*(2.0*Mz2 + 4.0*s + t0)) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +
+            (4.0*gReSM* ( gReSM*delta_em + deltagRe ))/(Mz2*sw2cw2) * (Mz2*(t1 - t0) - s2*log(t1/t0) + pow(Mz2 + s,2.0)*log((-Mz2 + t1)/(-Mz2 + t0))) +            
+            4.0*delta_em*( s2*(1.0/t0 - 1.0/t1) + (t1-t0) +2.0*s*log(t1/t0) ) +            
             (4.0*gReSM*gReSM*gReSM*deltagRe)/(sw2cw2*sw2cw2)*(((Mz2 + s)*(Mz2 + s)/(Mz2 - t1) - (Mz2 + s)*(Mz2 + s)/(Mz2 - t0) + t1 - t0 + 2.0*(Mz2 + s)*log((-Mz2 + t1)/(-Mz2 + t0))));
 
     return intM2;
@@ -46820,8 +46822,8 @@ const double NPSMEFTd6General::intDMLR2etildest2(const double s, const double t0
     deltagRe = deltaGR_f_mu(leptons[ELECTRON], muRG);
     s2 = s*s;
     
-    intM2 = -2.0 * s2*delta_em *(1/t1 - 1/t0) -
-            (2.0 * s2*(gReSM * deltagLe + gLeSM*(gReSM*delta_em + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
+    intM2 = -4.0 * s2*delta_em *(1.0/t1 - 1.0/t0) -
+            (2.0 * s2*(gReSM * deltagLe + gLeSM*(2.0*gReSM*delta_em + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
             (s2*Aeeee)/(2.0 * M_PI * aEM )* log(t1/t0) +
             (gLeSM*gReSM*(s2)*Aeeee )/(2.0 * M_PI * sw2cw2 * aEM) * log( (Mz * Mz - t1)/(Mz * Mz - t0) ) +
             ((2.0 *gLeSM*gReSM*s2*(gReSM*deltagLe +  gLeSM*deltagRe))/ sw2cw2/ sw2cw2) *(1.0/ (Mz * Mz - t1) - 1.0/ (Mz * Mz - t0));
@@ -46851,8 +46853,8 @@ const double NPSMEFTd6General::intDMRL2etildest2(const double s, const double t0
     deltagRe = deltaGR_f_mu(leptons[ELECTRON], muRG);
     s2 = s*s;
     
-    intM2 = -2.0 * s2*delta_em *(1/t1 - 1/t0) -
-            (2.0 * s2*(gReSM * deltagLe + gLeSM*(gReSM*delta_em + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
+    intM2 = -4.0 * s2*delta_em *(1.0/t1 - 1.0/t0) -
+            (2.0 * s2*(gReSM * deltagLe + gLeSM*(2.0*gReSM*delta_em + deltagRe)))/(Mz * Mz * sw2cw2)*(log(t1/t0) - log( (-Mz * Mz + t1)/(-Mz * Mz + t0) ) ) +
             (s2*Aeeee)/(2.0 * M_PI * aEM )* log(t1/t0) +
             (gLeSM*gReSM*(s2)*Aeeee )/(2.0 * M_PI * sw2cw2 * aEM) * log( (Mz * Mz - t1)/(Mz * Mz - t0) ) +
             ((2.0 *gLeSM*gReSM*s2*(gReSM*deltagLe +  gLeSM*deltagRe))/ sw2cw2/ sw2cw2) *(1.0/ (Mz * Mz - t1) - 1.0/ (Mz * Mz - t0));

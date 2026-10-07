@@ -173,6 +173,11 @@ private:
     bool CrossCheckHessian; ///< Flag for also computing the Hessian with the legacy stencil and comparing.
     double HessianRelativeStep; ///< Finite-difference step of the Hessian, in units of the width of the prior of each parameter.
     bool AdaptiveHessianStep; ///< Flag for calibrating the finite-difference step of the Hessian to each parameter.
+    double HessianTarget; ///< Change of the log posterior the calibrated steps of the first pass aim for (HESSIAN_TARGET by default).
+    bool RefineHessianSoftDirections; ///< Flag for recomputing the Hessian once along its soft directions.
+    double HessianSoftThreshold; ///< Normalised eigenvalue below which a direction of the Hessian is recomputed.
+    double HessianSoftTarget; ///< Change of the log posterior the refinement steps aim for; 0 for the default (HESSIAN_TARGET).
+    unsigned int HessianSoftPasses; ///< Number of passes of the refinement, each along the eigenvectors of the last.
     std::string CalculateNormalization; ///<< Flag for calculating the evidence.
     int NIterationNormalizationMC; ///<< Number of iterations for MC integral done to compute normalization of a model
     bool PrintAllMarginalized; ///< Flag for printing all Marginalized distributions to be passed on to the <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> routines.
