@@ -6961,17 +6961,17 @@ public:
         return Yu;
     }
 
-    inline double getSMEFTCoeffEW(const std::string name) const
+    inline double getSMEFTCoeffEW(const std::string& name) const
     {
         return SMEFTEvolEW.GetCoefficient(name);
     }
     
-    inline double getSMEFTCoeffEW(const std::string name, int i, int j) const
+    inline double getSMEFTCoeffEW(const std::string& name, int i, int j) const
     {
         return SMEFTEvolEW.GetCoefficient(name, i, j);
     }
     
-    inline double getSMEFTCoeffEW(const std::string name, int i, int j, int k, int l) const
+    inline double getSMEFTCoeffEW(const std::string& name, int i, int j, int k, int l) const
     {
         return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
     }
