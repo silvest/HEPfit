@@ -246,7 +246,7 @@ bool NPSMEFTd6CHRU::setFlag(const std::string name, const bool value) {
 void NPSMEFTd6CHRU::setParameter(const std::string name, const double& value) {
     if (name.compare("mstar") == 0) {
         if (FlagJeffreysPrior) {
-           mstar = 1/sqrt(value);
+            mstar = 1/sqrt(value);
         } else {
             mstar = value;
         }
@@ -613,7 +613,7 @@ void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
 
     // SILH universal operators
 
-    CH  = cH*gstar_2/(mstar_2);
+    CH  = sign(scH)*cH*gstar_2/(mstar_2);
     CT  = 0; // TODO: CUSTODIAL BREAKING TERM, DEPENDS ON THE REPRESENTATIONS AND FLAVOR
 
     CB  = sign(scB)*cB/(mstar_2);
