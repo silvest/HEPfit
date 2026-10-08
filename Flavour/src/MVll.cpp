@@ -1544,7 +1544,7 @@ double MVll::phi_f(double q2, double MRf_2, double MRf2_2)
     double z_M2 = z_DM(MRf2_2);
 
     if (vectorM == StandardModel::PHI)
-        return 2.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
+        return 4.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z) * (z - z_M2)/(1. - z_M2*z);
     else
         return 4.*rV/MM2*sqrt(n_I/3./Chi1plus/M_PI) * (1. + z)*pow(1. - z,1.5)/pow((1. + rV)*(1. - z)+2.*sqrt(rV)*(1. + z),4) * (z - z_M)/(1. - z_M*z);
 }
