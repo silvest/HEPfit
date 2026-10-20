@@ -8688,14 +8688,19 @@ bool NPSMEFTd6General::PostUpdate() {
     //std::cout<<"  "<<std::endl;
 
     MUQ.singularvalue(VuR, VuL, mmu);
-    if(mmu(2) < 50.0) {
-        std::cout << "Warning: top quark mass is too low, m(2) = " << mmu(2) << std::endl;
+    if (!std::isfinite(mmu(2)) || mmu(2) < 3.0) {
+        std::cout << "Warning: top quark mass out of range, mu(2) = " << mmu(2) << std::endl;
+        return false;
+    }
+    
+    if (!std::isfinite(mmu(1)) || mmu(1) < 0.15) {
+        std::cout << "Warning: charm quark mass out of range, mu(1) = " << mmu(1) << std::endl;
         return false;
     }
 
     MDQ.singularvalue(VdR, VdL, mmd);
-    if(mmd(2) < 2.5) {
-        std::cout << "Warning: bottom quark mass is too low, m(2) = " << mmd(2) << std::endl;
+    if (!std::isfinite(mmd(2)) || mmd(2) < 0.55) {
+        std::cout << "Warning: bottom quark mass out of range, md(2) = " << mmd(2) << std::endl;
         return false;
     }
 
