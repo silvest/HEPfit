@@ -255,13 +255,34 @@ endif(MPICXX)
 
 if(NOT NOMCMC)
 
+# Prefer the exported package from modern bat_MPI; legacy BAT remains supported.
+set(HEPFIT_BAT_TARGET "")
+if(NOT BAT_INSTALL)
+  if(BAT_INSTALL_DIR)
+    find_package(BAT CONFIG QUIET PATHS "${BAT_INSTALL_DIR}" NO_DEFAULT_PATH)
+  else()
+    find_package(BAT CONFIG QUIET)
+  endif()
+  if(TARGET BAT::BAT)
+    set(HEPFIT_BAT_TARGET BAT::BAT)
+    set(IBAT "${BAT_INCLUDE_DIR}/BAT")
+    find_library(LBAT BAT PATHS "${BAT_LIBRARY_DIR}" NO_DEFAULT_PATH)
+    message(STATUS "Using exported BAT CMake package from ${BAT_DIR}")
+  endif()
+endif()
 message(STATUS "Looking for BAT in ${BAT_INSTALL_DIR} or in paths defined by ENV")
+# An explicit prefix takes precedence over environment installations. Mixing new
+# headers with an older libBAT can otherwise pass detection and fail at link time.
+if(BAT_INSTALL_DIR)
+  find_path(IBAT "BCModel.h" PATHS "${BAT_INSTALL_DIR}/include/BAT" NO_DEFAULT_PATH)
+  find_library(LBAT BAT PATHS "${BAT_INSTALL_DIR}/lib" "${BAT_INSTALL_DIR}/lib64" "${BAT_INSTALL_DIR}/lib32" NO_DEFAULT_PATH)
+endif()
 find_path(IBAT "BCModel.h" PATHS ENV CPATH ${BAT_INSTALL_DIR}/include PATH_SUFFIXES BAT)
 find_library(LBAT BAT PATHS ENV LD_LIBRARY_PATH ${BAT_INSTALL_DIR} PATH_SUFFIXES lib lib32 lib64)
 if(IBAT AND LBAT)
   string(REGEX REPLACE "/BAT$" "" BAT_INCLUDE_PATH ${IBAT})
   string(REGEX REPLACE "/libBAT.*$" "" BAT_LIB_PATH ${LBAT})
-  string(REPLACE "/BAT" "" BAT_INSTALL_DIR ${IBAT})
+  get_filename_component(BAT_INSTALL_DIR "${BAT_INCLUDE_PATH}" DIRECTORY)
   message(STATUS "Found BAT headers in ${BAT_INCLUDE_PATH} and libs in ${BAT_LIB_PATH}")
   if(BAT_INSTALL)
     if(MPIBAT)
@@ -351,6 +372,46 @@ if(BAT_INSTALL)
 	set(BAT_INCLUDE_PATH ${BAT_INSTALL_DIR}/include)
 	set(BAT_LIB_PATH ${BAT_INSTALL_DIR}/lib)
 endif(BAT_INSTALL)
+
+# Detect the external bat_MPI API without requiring PT in legacy BAT builds.
+# Recheck on every configuration: BAT_INSTALL_DIR may have changed.
+include(CheckCXXSourceCompiles)
+set(_pt_saved_flags "${CMAKE_REQUIRED_FLAGS}")
+set(_pt_saved_includes "${CMAKE_REQUIRED_INCLUDES}")
+set(_pt_saved_type "${CMAKE_TRY_COMPILE_TARGET_TYPE}")
+set(CMAKE_REQUIRED_FLAGS "${ROOT_CFLAGS} ${MPI_COMPILE_FLAGS}")
+set(CMAKE_REQUIRED_INCLUDES "${BAT_INCLUDE_PATH};${MPI_CXX_INCLUDE_DIRS}")
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+unset(HEPFIT_BAT_HAS_PT CACHE)
+unset(HEPFIT_BAT_HAS_PT_STREAMING CACHE)
+if(BAT_INSTALL)
+  # The bundled download is legacy BAT even if the current prefix has a PT API.
+  set(HEPFIT_BAT_HAS_PT FALSE)
+  set(HEPFIT_BAT_HAS_PT_STREAMING FALSE)
+else()
+check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
+int main() {
+    auto configure = &BCEngineMCMC::SetParallelTempering;
+    auto transport = &BCEngineMCMC::WriteParallelTemperingTransport;
+    auto replicas = &BCEngineMCMC::GetReplicaIDs;
+    (void) configure; (void) transport; (void) replicas;
+}" HEPFIT_BAT_HAS_PT)
+check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
+int main() { auto streaming = &BCEngineMCMC::SetPTDiagnosticsOutput; (void)streaming; }
+" HEPFIT_BAT_HAS_PT_STREAMING)
+endif()
+set(CMAKE_REQUIRED_FLAGS "${_pt_saved_flags}")
+set(CMAKE_REQUIRED_INCLUDES "${_pt_saved_includes}")
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "${_pt_saved_type}")
+if(HEPFIT_BAT_HAS_PT_STREAMING)
+  add_definitions(-DHEPFIT_BAT_HAS_PT_STREAMING)
+endif()
+if(HEPFIT_BAT_HAS_PT)
+  add_definitions(-DHEPFIT_BAT_HAS_PT)
+  message(STATUS "BAT supports Parallel Tempering and transport diagnostics")
+else()
+  message(STATUS "BAT has no PT API: ordinary MCMC remains available")
+endif()
 
 unset(IBAT CACHE)
 unset(LBAT CACHE)
@@ -697,3 +758,26 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Packaging/etc/cmake_uninstall.cmake.
 add_custom_target(uninstall COMMAND ${CMAKE_COMMAND} 
                   -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
+
+# Optional HEPfit-specific regression tests; BAT owns the sampler/statistics tests.
+option(HEPFIT_BUILD_PT_TESTS "Build HEPfit Parallel Tempering integration tests" OFF)
+set(HEPFIT_DIAGNOSTICS_PYTHON "" CACHE FILEPATH "Python with bat_MPI diagnostics dependencies installed")
+set(HEPFIT_BAT_SOURCE_DIR "" CACHE PATH "bat_MPI source containing diagnostics/analyze_mcmc.py")
+if(HEPFIT_BUILD_PT_TESTS)
+  enable_testing()
+  add_executable(HEPfitPTConfigTest MonteCarlo/tests/pt_config_test.cpp)
+  target_include_directories(HEPfitPTConfigTest PRIVATE MonteCarlo/src)
+  add_test(NAME HEPfit_PT_config COMMAND HEPfitPTConfigTest)
+  if(HEPFIT_BAT_HAS_PT AND MPIBAT AND HEPFIT_DIAGNOSTICS_PYTHON AND HEPFIT_BAT_SOURCE_DIR)
+    set(_pt_streaming_test_option "")
+    if(HEPFIT_BAT_HAS_PT_STREAMING)
+      set(_pt_streaming_test_option --expect-streaming)
+    endif()
+    add_test(NAME HEPfit_PT_integration COMMAND ${HEPFIT_DIAGNOSTICS_PYTHON}
+      ${CMAKE_SOURCE_DIR}/MonteCarlo/tests/test_pt_integration.py
+      --analysis $<TARGET_FILE:analysis> --bat-source ${HEPFIT_BAT_SOURCE_DIR}
+      --mpiexec ${MPIEXEC_EXECUTABLE} "--mpi-flags=${MPIEXEC_PREFLAGS}" ${_pt_streaming_test_option})
+    set_tests_properties(HEPfit_PT_integration PROPERTIES TIMEOUT 180 RUN_SERIAL TRUE
+      ENVIRONMENT "MPLCONFIGDIR=${CMAKE_BINARY_DIR}/diagnostics-mpl;XDG_CACHE_HOME=${CMAKE_BINARY_DIR}/diagnostics-cache;PYTHONDONTWRITEBYTECODE=1")
+  endif()
+endif()

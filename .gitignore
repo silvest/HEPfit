@@ -101,3 +101,6 @@ Packaging/HEPfit*
 ZFitter*
 /BAT
 /Configurations/Temporary/UTFit/Summer26/Current/NPWC
+
+# Isolated Parallel Tempering build and local BAT installation
+/build-pt/

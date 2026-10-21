@@ -43,8 +43,16 @@ else()
   target_link_libraries(analysis ${target_lib_list})
 endif()
 
-target_link_libraries(analysis BATmodels)
-target_link_libraries(analysis BAT)
+# The BAT core API used by HEPfit does not require the optional BATmodels library.
+# The external bat_MPI CMake build intentionally provides only BAT core.
+if(HEPFIT_BAT_TARGET)
+  target_link_libraries(analysis ${HEPFIT_BAT_TARGET})
+else()
+  target_link_libraries(analysis BAT)
+endif()
+# External BAT CMake builds use an @rpath install name on macOS.
+set_property(TARGET analysis APPEND PROPERTY BUILD_RPATH "${BAT_LIB_PATH}")
+set_property(TARGET analysis APPEND PROPERTY INSTALL_RPATH "${BAT_LIB_PATH}")
 if(LOOPTOOLS)
   target_link_libraries(analysis ooptools)
   target_link_libraries(analysis ${LFORTRAN})

@@ -8,11 +8,7 @@ version MASTER
 
 The installation of `HEPfit` requires the availability of `CMake` in the system. 
 A description of `CMake` and the details of how to install it can be found in the
-[`CMake` website](https://cmake.org/). Most package managers for Linux distributions 
-should have a `CMake` package available for installation. For Mac users, it can be 
-either installed from source or from a Unix port like [Darwin Ports](https://www.macports.org/)
-or [Fink](http://www.finkproject.org/), or the installation package can be downloaded 
-from the [CMake website](https://cmake.org/). We list below the dependencies that need 
+[`CMake` website](https://cmake.org/). We list below the dependencies that need 
 to be satisfied to successfully install `HEPfit`:
 
 
@@ -20,33 +16,21 @@ Dependencies
 ------------
     
    * `GSL`:  The GNU Scientific Library (`GSL`) is a `C` library for numerical computations. 
-   It can be found on the [GSL website](http://www.gnu.org/software/gsl/). Most
-   Linux package managers will have a stable version as will any ports
-   for Mac. `HEPfit` is compatible with `GSL` v1.16 or greater.
+   It can be found on the [GSL website](http://www.gnu.org/software/gsl/). `HEPfit` is compatible with `GSL` v1.16 or greater.
 
-   * `ROOT v5` or greater: `ROOT` is an object oriented data analysis framework. You can obtain 
-   it from the [`ROOT` website](http://root.cern.ch/). `BAT` requires `ROOT v5.34.19` or greater. 
-   Both `HEPfit` and `BAT` are compatible with `ROOT v6`.  __NOTE__: If `GSL` is installed 
-   before compiling `ROOT` from source, then `ROOT` builds by default the `MathMore` library, which depends
-   on `GSL`. Hence it is recommended to install `GSL` before installing `ROOT`.
+   * `ROOT v6` or greater: `ROOT` is an object oriented data analysis framework. You can obtain 
+   it from the [`ROOT` website](http://root.cern.ch/).
 
-   * `BOOST`:  `BOOST` is a `C++` library which can be obtained from the 
-   [`BOOST` website](http://www.boost.org) or from Linux package managers or Mac ports. 
+   * `BOOST`: `BOOST` is a `C++` library which can be obtained from the 
+   [`BOOST` website](http://www.boost.org). 
    `HEPfit` only requires the `BOOST` headers, not the full libraries, so a header-only
    installation is sufficient. `HEPfit` has been tested to work with `BOOST` v1.53 and greater.
 
-   * `MPI`: Optionally, `HEPfit` can be compiled with MPI for usage in parallelized clusters and 
-   processors supporting multi-threading. In this case, the `HEPfit` installer will patch and
-   compile `BAT` with MPI support as described below. To this purpose one needs 
-   [OpenMPI](https://www.open-mpi.org/) which is also available through package managers in 
-   Linux and ports on Mac.
+   * `MPI`: We recommend compiling `HEPfit` with MPI for usage in parallelized clusters and 
+   processors supporting multi-threading.  To this purpose one needs 
+   [OpenMPI](https://www.open-mpi.org/).
 
-   * `BAT v1.0` (not required for the Library mode): The [`BAT` website](https://www.mppmu.mpg.de/bat/) 
-   offers the source code for `BAT` but it should __not__ be used with `HEPfit` since a patch is required 
-   to integrate `BAT` with `HEPfit`. With the compilation option `-DBAT\_INSTALL=ON` explained below, 
-   the `HEPfit` installation package will download, patch and install `BAT`. The parallelized version of `BAT` 
-   compatible with the parallelized version of `HEPfit` can be installed with the additional option 
-   `-DMPIBAT=ON` for which MPI must be installed (see "MPI Support" below).
+   * `BAT` (not required for the Library mode): We recommend using the mpi-parallelized version of the BAT library [bat_MPI](https://github.com/silvest/bat_MPI).
     
 Build System
 ------------    

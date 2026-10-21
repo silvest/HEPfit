@@ -6,6 +6,7 @@
  */
 
 #include "MonteCarlo.h"
+#include "ParallelTemperingConfig.h"
 #include "ModelFactory.h"
 #include "ThObsFactory.h"
 #include <BAT/BCParameter.h>
@@ -59,6 +60,8 @@ MonteCarlo::MonteCarlo(
     WritePreRunData = false;
     checkrun = false;
     writechains = false;
+    parallelTempering = false;
+    ptDiagnostics = true;
     writeMCMCweights = false;
 }
 
@@ -280,7 +283,7 @@ void MonteCarlo::Run(const int rank) {
                     throw std::runtime_error("MonteCarlo::Run(): error in MPI message!\n");
                 }
             }
-            delete sendbuff[0];
+            delete [] sendbuff[0];
             delete [] sendbuff;
 #endif
         } else {
@@ -493,6 +496,13 @@ void MonteCarlo::Run(const int rank) {
             if (FileIn != "")
                 MCEngine.LoadMCMC(FileIn);
             MCEngine.MarginalizeAll();
+#ifdef HEPFIT_BAT_HAS_PT
+            if (parallelTempering && ptDiagnostics) {
+                const std::string prefix = OutFile.substr(0, OutFile.size() - 5) + "_";
+                MCEngine.WriteParallelTemperingDiagnostics(prefix + "pt_swaps.csv");
+                MCEngine.WriteParallelTemperingTransport(prefix);
+            }
+#endif
             std::time_t tf = std::time(NULL);
 #if __GNUC__ >= 5 || defined __clang__
             std::cout << "\nMCMC run ended at  " << std::put_time(std::localtime(&tf), "%c %Z") << " (" << tf << "s since the Epoch)" << std::endl;
@@ -640,16 +650,17 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
     if (!ifile.is_open())
         throw std::runtime_error("\nERROR: " + MCMCConf + " does not exist. Make sure to specify a valid Monte Carlo configuration file.\n");
     std::string line;
-    bool IsEOF = false;
-    do {
-        IsEOF = getline(ifile, line).eof();
-        if(IsEOF) continue;
+    HEPfitPTConfig pt;
+    std::string preRunData;
+    while (std::getline(ifile, line)) {
+        if (pt.ParseLine(line)) continue;
         if (!line.empty() && *line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.at(0) == '#')
             continue;
         boost::char_separator<char> sep(" \t");
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
+        if (beg == tok.end() || beg->at(0) == '#') continue;
         if (beg->compare("NChains") == 0) {
             ++beg;
             if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.setNChains(atoi((*beg).c_str()));
@@ -810,7 +821,7 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
                 throw std::runtime_error("\nERROR: WritePreRunData in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
         } else if (beg->compare("ReadPreRunData") == 0) {
             ++beg;
-            ReadPreRunData(*beg);
+            preRunData = *beg;
         } else if (beg->compare("MultivariateProposal") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.SetProposeMultivariate((beg->compare("true") == 0));
@@ -910,7 +921,37 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             else throw std::runtime_error("\nERROR: ScaleFactorLowerLimit in the MonteCarlo configuration file: " + MCMCConf + " can only be a double greater or equal to 0.\n");
         } else
             throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
-    } while (!IsEOF);
+    }
+    pt.Validate();
+    parallelTempering = pt.enabled;
+    ptDiagnostics = pt.diagnostics;
+    if (parallelTempering) {
+#ifndef HEPFIT_BAT_HAS_PT
+        throw std::runtime_error("ParallelTempering requires a PT-enabled bat_MPI installation; rebuild HEPfit against it with BAT_INSTALL=OFF.");
+#else
+#ifndef _MPI
+        throw std::runtime_error("ParallelTempering requires HEPfit configured with MPIBAT=ON.");
+#endif
+        if (!FileIn.empty() || !preRunData.empty())
+            throw std::runtime_error("PT cannot use --loadRun or ReadPreRunData: these legacy files do not restore a tempered ensemble.");
+        if (RunMinuitOnly || ComputeHessianOnly)
+            throw std::runtime_error("ParallelTempering cannot be combined with RunMinuitOnly or ComputeHessianOnly.");
+        const unsigned ladders = MCEngine.GetNChains();
+        if (ladders < 2)
+            throw std::runtime_error("PT requires NChains >= 2 independent ladders for convergence diagnostics.");
+        MCEngine.SetParallelTempering(pt.temperatures, ladders, pt.swapInterval);
+#ifdef HEPFIT_BAT_HAS_PT_STREAMING
+        if (ptDiagnostics)
+            MCEngine.SetPTDiagnosticsOutput(OutFile.substr(0, OutFile.size() - 5) + "_", 1000, 100);
+#endif
+        MCEngine.setNChains(MCEngine.GetNChains());
+        writechains = true; // Cold samples are required for production diagnostics.
+        std::cout << "Parallel tempering: " << ladders << " ladders, "
+                  << pt.temperatures.size() << " temperatures, "
+                  << MCEngine.GetNChains() << " total replicas; saving cold chains.\n";
+#endif
+    }
+    if (!preRunData.empty()) ReadPreRunData(preRunData);
     if (FindModeWithMinuit || RunMinuitOnly) 
         MCEngine.SetOptimizationMethod(BCIntegrate::kOptMinuit);
     if (MCEngine.GetMaximumEfficiency() <= MCEngine.GetMinimumEfficiency()) 

@@ -196,8 +196,27 @@ void MonteCarloEngine::CreateHistogramMaps()
 
 void MonteCarloEngine::setNChains(unsigned int i) {
     SetNChains(i);
+    delete [] obval;
+    delete [] obweight;
     obval = new double[fMCMCNChains * kmax];
     obweight = new double[fMCMCNChains * kwmax];
+}
+
+unsigned int MonteCarloEngine::GetNPosteriorChains() const
+{
+#ifdef HEPFIT_BAT_HAS_PT
+    return GetNColdChains();
+#else
+    return GetNChains();
+#endif
+}
+
+unsigned int MonteCarloEngine::GetPosteriorReplica(unsigned int chain) const
+{
+#ifdef HEPFIT_BAT_HAS_PT
+    if (GetParallelTempering()) return GetReplicaIDs().at(chain);
+#endif
+    return chain;
 }
 
 // ---------------------------------------------------------
@@ -395,7 +414,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     for (int il = 1; il < procnum; il++)
         sendbuff[il] = sendbuff[il - 1] + buffsize;
 
-    while (mychain < fMCMCNChains) {
+    while (mychain < GetNPosteriorChains()) {
         pars.clear();
         pars = fMCMCStates.at(mychain).parameters;
 
@@ -412,7 +431,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         index_chain[iproc] = mychain;
         iproc++;
         mychain++;
-        if (iproc < procnum && mychain < fMCMCNChains)
+        if (iproc < procnum && mychain < GetNPosteriorChains())
             continue;
 
         for (int il = 0; il < iproc; il++) {
@@ -529,13 +548,13 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     }
     if (fMCMCFlagWriteChainToFile || getchainedObsSize() > 0 || WriteLogLikelihoodChain) InChainFillObservablesTree();
     if (WriteParametersChain) InChainFillParametersTree();
-    delete sendbuff[0];
+    delete [] sendbuff[0];
     delete [] sendbuff;
     delete [] recvbuff;
-    delete buff[0];
+    delete [] buff[0];
     delete [] buff;
 #else
-    for (unsigned int i = 0; i < fMCMCNChains; ++i) {
+    for (unsigned int i = 0; i < GetNPosteriorChains(); ++i) {
         // NOTE: BAT syncs fMCMCThreadLocalStorage with fMCMCStates before calling MCMCUserIterationInterface.
         std::vector<double>::const_iterator first = fMCMCStates.at(i).parameters.begin(); 
         std::vector<double>::const_iterator last = first + GetNParameters();
@@ -619,7 +638,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     if (fMCMCFlagWriteChainToFile || getchainedObsSize() > 0  || WriteLogLikelihoodChain) InChainFillObservablesTree();
     if (WriteParametersChain) InChainFillParametersTree();
 #endif
-    for (unsigned int i = 0; i < fMCMCNChains; i++) {
+    for (unsigned int i = 0; i < GetNPosteriorChains(); i++) {
         double LogLikelihood = fMCMCStates.at(i).log_likelihood;
         if (LogLikelihood > LogLikelihood_max) {
             LogLikelihood_max = std::max(LogLikelihood, LogLikelihood_max);
@@ -936,6 +955,8 @@ void MonteCarloEngine::AddChains() {
     hMCMCObservableTree = new TTree(TString::Format("%s_Observables", GetSafeName().data()), TString::Format("%s_Observables", GetSafeName().data()));
     hMCMCObservableTree->Branch("Chain", &fMCMCTree_Chain, "chain/i");
     hMCMCObservableTree->Branch("Iteration", &fMCMCCurrentIteration, "iteration/i");
+    hMCMCObservableTree->Branch("Phase", &fMCMCPhase, "phase/I");
+    hMCMCObservableTree->Branch("Replica", &hMCMCReplica, "replica/i");
     if (WriteLogLikelihoodChain) {
         hMCMCObservableTree->Branch("LogLikelihood", &hMCMCLogLikelihood, "loglikelihood/D");
         hMCMCObservableTree->Branch("LogProbability", &hMCMCLogProbability, "logprobability/D");
@@ -1013,6 +1034,8 @@ void MonteCarloEngine::AddChains() {
     hMCMCParameterTree = new TTree(TString::Format("%s_Parameters", GetSafeName().data()), TString::Format("%s_Parameters", GetSafeName().data()));
     hMCMCParameterTree->Branch("Chain", &fMCMCTree_Chain, "chain/i");
     hMCMCParameterTree->Branch("Iteration", &fMCMCCurrentIteration, "iteration/i");
+    hMCMCParameterTree->Branch("Phase", &fMCMCPhase, "phase/I");
+    hMCMCParameterTree->Branch("Replica", &hMCMCReplica, "replica/i");
     if (WriteParametersChain) {
         hMCMCParameters.assign(fMCMCNChains, std::vector<double>(DPars.size(), 0.));
         hMCMCTree_Parameters.assign(DPars.size(), 0.);
@@ -1032,7 +1055,8 @@ void MonteCarloEngine::AddChains() {
 void MonteCarloEngine::InChainFillObservablesTree()
 {
     if (!hMCMCObservableTree) return;
-    for (fMCMCTree_Chain = 0; fMCMCTree_Chain < fMCMCNChains; ++fMCMCTree_Chain) {
+    for (fMCMCTree_Chain = 0; fMCMCTree_Chain < GetNPosteriorChains(); ++fMCMCTree_Chain) {
+        hMCMCReplica = GetPosteriorReplica(fMCMCTree_Chain);
         if (getchainedObsSize() > 0 || fMCMCFlagWriteChainToFile) hMCMCTree_Observables = hMCMCObservables[fMCMCTree_Chain];
         if (WriteLogLikelihoodChain) {
             hMCMCLogLikelihood = fMCMCStates.at(fMCMCTree_Chain).log_likelihood;
@@ -1047,7 +1071,8 @@ void MonteCarloEngine::InChainFillObservablesTree()
 void MonteCarloEngine::InChainFillParametersTree()
 {
     if (!hMCMCParameterTree) return;
-    for (fMCMCTree_Chain = 0; fMCMCTree_Chain < fMCMCNChains; ++fMCMCTree_Chain) {
+    for (fMCMCTree_Chain = 0; fMCMCTree_Chain < GetNPosteriorChains(); ++fMCMCTree_Chain) {
+        hMCMCReplica = GetPosteriorReplica(fMCMCTree_Chain);
         hMCMCTree_Parameters = hMCMCParameters[fMCMCTree_Chain];
         hMCMCParameterTree->Fill();
     }

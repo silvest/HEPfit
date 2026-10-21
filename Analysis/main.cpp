@@ -241,6 +241,10 @@ int main(int argc, char** argv)
                 cout << coderun << endl;
             cerr << "\nERROR: " << e.what() << std::endl << std::endl
                  << desc << std::endl;
+#ifdef _MPI
+            // Workers may be waiting in the sampler when rank zero rejects a config.
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+#endif
             return EXIT_FAILURE;
         }
         

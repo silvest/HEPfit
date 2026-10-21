@@ -192,6 +192,11 @@ public:
      */
     void setNChains(unsigned int i);
 
+    /// Number of posterior chains; excludes heated replicas in PT runs.
+    unsigned int GetNPosteriorChains() const;
+    /// Replica identity currently occupying a posterior chain.
+    unsigned int GetPosteriorReplica(unsigned int chain) const;
+
     /**
      * @brief A method to add the observable values and weights to the chain information.
      * @details If the WriteChain flag is set to true in the MonteCarlo.conf file then chain information
@@ -684,6 +689,7 @@ private:
     double hMCMCLogLikelihood; ///< A variable containing the LogLikelihood values to be put into the ROOT tree.
     double hMCMCLogProbability; ///< A variable containing the LogProbability values to be put into the ROOT tree.
     double hMCMCLogPriorProbability; ///< A variable containing the LogPriorProbability values to be put into the ROOT tree.
+    unsigned int hMCMCReplica; ///< Walker identity written alongside the cold-chain slot.
     unsigned int cindex;///< An index to distinguish between succesive canvases used to draw histograms.
     std::ofstream ofi;
     std::vector<std::string> unknownParameters; ///< A vector to contain the unkenown parameters passed in the configuration file.
