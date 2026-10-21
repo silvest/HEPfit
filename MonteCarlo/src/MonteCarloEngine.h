@@ -235,6 +235,16 @@ public:
     std::string writePreRunData();
 
     /**
+     * @brief A method to write in a text file the results of the last minimization by Minuit.
+     * @details The status of the minimization; the mode and the parabolic errors, in the
+     * format of the global mode of the summary of BAT; the correlation matrix; and the
+     * Hessian of -log(posterior) at the mode, the inverse of the covariance matrix of
+     * Minuit, as an observable in the format of ComputeHessianOnly.
+     * @return a string containing the results
+     */
+    std::string writeMinuitResults();
+
+    /**
      * @brief This member generates the correlation matrix using BCH2D from the
      * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT libraries</a>.
      * @param[in] filename the name of the file where the correlation matrix is printed

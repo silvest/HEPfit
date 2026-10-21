@@ -1489,6 +1489,93 @@ std::string MonteCarloEngine::writePreRunData()
     return StatsLog.str().c_str();
 }
 
+std::string MonteCarloEngine::writeMinuitResults()
+{
+    TMinuitMinimizer& min = GetMinuit();
+    if (min.NCalls() == 0)
+        return " Minuit has not been run.\n";
+
+    unsigned int Npars = GetNParameters();
+    const double * mode = min.X();
+    const double * errors = min.Errors();
+    /* The status of Minuit is that of Migrad, 0 if it converged and 4 otherwise, plus 100
+       times that of Hesse. Minuit only gives its covariance matrix if Migrad converged. */
+    int status = min.Status();
+    bool converged = (status % 100 == 0);
+    int covStatus = min.CovMatrixStatus();
+    static const char * const covMessage[4] = {"not computed", "approximate, not accurate",
+        "full, but forced positive-definite", "full and accurate"};
+
+    std::ostringstream out;
+    out << " -----------------------------------------------------" << std::endl;
+    out << " Summary of the minimization by Minuit" << std::endl;
+    out << " -----------------------------------------------------" << std::endl;
+    out << std::endl;
+    out << " Minimization" << std::endl;
+    out << " ============" << std::endl;
+    out << " Function minimized: -log(posterior), errors for a change of " << min.ErrorDef() << std::endl;
+    out << " Algorithm: Migrad, strategy " << min.Strategy() << ", tolerance " << min.Tolerance() << std::endl;
+    out << " Status: " << status << (converged ? " (Migrad converged)" : " (Migrad did not converge)") << std::endl;
+    out << " Covariance matrix: " << (covStatus >= 0 && covStatus <= 3 ? covMessage[covStatus] : "unknown")
+            << " (status " << covStatus << ")" << std::endl;
+    out << " Estimated distance to the minimum: " << min.Edm() << std::endl;
+    out << " Number of calls to the function: " << min.NCalls() << std::endl;
+    out << std::endl;
+
+    /* The global mode in the format of the summary of BAT. */
+    out << " Best Fit Results" << std::endl;
+    out << " ===========================" << std::endl;
+    out << " Log of the maximum posterior: " << std::fixed << std::setprecision(6) << -min.MinValue() << std::endl;
+    out.unsetf(std::ios::floatfield);
+    out << std::endl;
+    out << " Global mode:" << std::endl;
+    unsigned int n = (int) log10(Npars) + 1;
+    unsigned int width = GetMaximumParameterNameLength();
+    for (unsigned int i = 0; i < Npars; i++) {
+        const std::string& name = GetParameter(i).GetName();
+        out << " " << std::setw(n) << i << ") " << std::setw(10) << GetParameter(i).GetPrefix() << " \"" << name << "\""
+                << std::string(width - name.length(), ' ') << " : "
+                << std::setprecision(GetParameter(i).GetPrecision()) << mode[i];
+        /* without a covariance matrix the errors of Minuit are only its initial steps */
+        if (covStatus > 0)
+            out << " +- " << errors[i] << std::endl;
+        else
+            out << " (no error estimate available)" << std::endl;
+    }
+    out << std::setprecision(6) << std::endl;
+
+    if (!converged || covStatus < 1)
+        return out.str() + " No covariance matrix from Minuit: the correlation matrix and the Hessian are not available.\n";
+
+    out << " Correlation matrix:" << std::endl;
+    for (unsigned int i = 0; i < Npars; i++)
+        for (unsigned int j = i + 1; j < Npars; j++)
+            out << " Corr(" << GetParameter(i).GetName() << "," << GetParameter(j).GetName() << ") = " << min.Correlation(i, j) << std::endl;
+    out << std::endl;
+
+    std::vector<double> hessian(Npars * Npars);
+    if (covStatus < 2 || !min.GetHessianMatrix(&hessian[0]))
+        return out.str() + " The covariance matrix of Minuit is only approximate: the Hessian is not available.\n";
+
+    /* The Hessian in the format of ComputeHessianOnly, but centred on the mode. */
+    out << " ---------------------------------------------------------- " << std::endl;
+    out << " Hessian of -log(posterior) at the mode as observable" << std::endl;
+    out << std::endl;
+    out << std::setprecision(15);
+    out << "ObservablesWithCovarianceInverse Hessian " << Npars << std::endl;
+    for (unsigned int i = 0; i < Npars; i++) {
+        const std::string& name = GetParameter(i).GetName();
+        out << "Observable " << name << "_Hess  " << name << "    " << name << "  1. -1. MCMC weight  " << mode[i] << "  1.  0." << std::endl;
+    }
+    for (unsigned int i = 0; i < Npars; i++) {
+        for (unsigned int j = 0; j < Npars; j++)
+            out << hessian[i * Npars + j] << "  ";
+        out << std::endl;
+    }
+
+    return out.str();
+}
+
 std::vector<double> MonteCarloEngine::computeNormalizationMC(int NIterationNormalizationMC) {
     // Number of MC iterations
     SetNIterationsMin(NIterationNormalizationMC);

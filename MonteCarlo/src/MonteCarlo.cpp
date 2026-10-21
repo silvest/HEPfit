@@ -317,6 +317,7 @@ void MonteCarlo::Run(const int rank) {
                 MCEngine.GetMinuit().Options().Print();
                 std::cout << "          " <<std::endl;
                 MCEngine.FindMode();
+                std::ofstream(("Minuit_results" + JobTag + ".txt").c_str()) << MCEngine.writeMinuitResults();
                 std::time_t tf = std::time(NULL);
 #if __GNUC__ >= 5 || defined __clang__
                 std::cout << "\nMinuit Minimization ended at " << std::put_time(std::localtime(&tf), "%c %Z") << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
@@ -333,6 +334,9 @@ void MonteCarlo::Run(const int rank) {
                 BCLog::CloseLog();               
                 MCEngine.GetMinuit().PrintResults();
                 std::cout << std::endl;
+#ifdef _MPI
+                terminateMPIWorkers(buffsize);
+#endif
                 return;
             }
             else if (ComputeHessianOnly) {
@@ -510,7 +514,10 @@ void MonteCarlo::Run(const int rank) {
             std::cout << std::setfill('0') << std::setw(2) << sec   << "\n" << std::endl;
 
             // find mode using the best fit parameters as start values
-            if (FindModeWithMinuit) MCEngine.FindMode(MCEngine.GetBestFitParameters());
+            if (FindModeWithMinuit) {
+                MCEngine.FindMode(MCEngine.GetBestFitParameters());
+                std::ofstream(("Minuit_results" + JobTag + ".txt").c_str()) << MCEngine.writeMinuitResults();
+            }
 
             // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized) MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".pdf").c_str());
@@ -913,6 +920,10 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
     } while (!IsEOF);
     if (FindModeWithMinuit || RunMinuitOnly) 
         MCEngine.SetOptimizationMethod(BCIntegrate::kOptMinuit);
+    /* Have Minuit run Hesse after every Migrad that converges, also when Migrad deems its
+       own approximation of the covariance matrix accurate, so that the errors and the
+       Hessian in Minuit_results.txt come from the second derivatives at the mode. */
+    MCEngine.GetMinuit().SetValidError(true);
     if (MCEngine.GetMaximumEfficiency() <= MCEngine.GetMinimumEfficiency()) 
         throw std::runtime_error("\nERROR: MaximumEfficiency (default 0.5) must be greater than MaximumEfficiency (default 0.15) in the MonteCarlo configuration file: " + MCMCConf + ".\n");
      if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
