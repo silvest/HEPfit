@@ -1489,9 +1489,146 @@ std::string MonteCarloEngine::writePreRunData()
     return StatsLog.str().c_str();
 }
 
-std::string MonteCarloEngine::writeMinuitResults()
+static void symmetricEigensystem(const std::vector<double>& a, unsigned int N,
+        std::vector<double>& eval, std::vector<std::vector<double> >& evec);
+static std::string duration(double seconds);
+static void progress(const std::string& line);
+
+namespace {
+
+/**
+ * @brief -log(posterior), for Minuit, with its gradient computed by HEPfit in parallel.
+ * @details The gradient is computed by central differences at 2 N points evaluated at once
+ * with MonteCarloEngine::computeFunction_h(), that is over the MPI ranks.
+ */
+class ParallelLogPosterior : public ROOT::Math::IMultiGradFunction {
+public:
+
+    ParallelLogPosterior(MonteCarloEngine& engine_i, const std::vector<double>& step_i)
+    : gradients(0), evaluations(0), tstart(std::time(NULL)), engine(&engine_i), step(step_i), lastValue(0.)
+    {
+    }
+
+    ROOT::Math::IMultiGenFunction * Clone() const override
+    {
+        return new ParallelLogPosterior(*this);
+    }
+
+    unsigned int NDim() const override
+    {
+        return step.size();
+    }
+
+    void Gradient(const double * x, double * grad) const override
+    {
+        unsigned int n = step.size();
+        std::vector<double> up(n), down(n);
+        std::vector<std::vector<double> > points;
+        for (unsigned int i = 0; i < n; i++) {
+            /* shortened where it would leave the range of the parameter */
+            const BCParameter& par = engine->GetParameter(i);
+            up[i] = std::min(step[i], par.GetUpperLimit() - x[i]);
+            down[i] = std::min(step[i], x[i] - par.GetLowerLimit());
+            std::vector<double> p(x, x + n);
+            p[i] = x[i] + up[i];
+            points.push_back(p);
+            p[i] = x[i] - down[i];
+            points.push_back(p);
+        }
+        std::vector<double> f(engine->computeFunction_h(points));
+        evaluations += points.size();
+        for (unsigned int i = 0; i < n; i++)
+            grad[i] = -(f[2 * i] - f[2 * i + 1]) / (up[i] + down[i]);
+        /* Minuit asks for the function just before the gradient at the same point */
+        if (++gradients % 10 == 0) {
+            std::ostringstream line;
+            line << "  Migrad: " << gradients << " gradients, " << evaluations << " evaluations, -log(posterior) = "
+                 << std::setprecision(10) << -lastValue << ", " << duration(std::difftime(std::time(NULL), tstart));
+            progress(line.str());
+        }
+    }
+
+    mutable unsigned long gradients; ///< The gradients computed.
+    mutable unsigned long evaluations; ///< The evaluations of the model, for the function and its gradients.
+    std::time_t tstart; ///< When the minimization started, for the progress reports.
+
+private:
+
+    double DoEval(const double * x) const override
+    {
+        /* Minuit asks again for the point it has just evaluated, before each gradient */
+        std::vector<double> point(x, x + step.size());
+        if (point != lastPoint) {
+            lastPoint = point;
+            lastValue = engine->Function_h(point);
+            evaluations++;
+        }
+        return -lastValue;
+    }
+
+    /* not used by Minuit, which asks for the whole gradient */
+    double DoDerivative(const double * x, unsigned int icoord) const override
+    {
+        std::vector<double> grad(step.size());
+        Gradient(x, &grad[0]);
+        return grad[icoord];
+    }
+
+    MonteCarloEngine * engine; ///< The engine evaluating the model.
+    std::vector<double> step; ///< The step of the differences along each parameter.
+    mutable double lastValue; ///< The last value of the log posterior.
+    mutable std::vector<double> lastPoint; ///< The point of lastValue.
+};
+
+}
+
+std::vector<double> MonteCarloEngine::findModeParallel(std::vector<double> start)
 {
-    TMinuitMinimizer& min = GetMinuit();
+    unsigned int Npars = GetNParameters();
+    /* the starting point, as for FindMode() of BAT */
+    if (start.empty())
+        start = GetBestFitParameters();
+    if (start.size() != Npars || !GetParameters().IsWithinLimits(start))
+        start = GetParameters().GetRangeCenters();
+
+    /* The steps calibrated for the Hessian at the starting point, which change the log
+       posterior by about 1, are the initial steps of Minuit, and a fraction of them those
+       of the gradient. */
+    std::vector<double> step(calibrateDerivativeSteps(start, HESSIAN_RELSTEP, HESSIAN_TARGET));
+    std::vector<double> gradientStep(step);
+    for (unsigned int i = 0; i < Npars; i++)
+        gradientStep[i] *= MINUIT_GRADIENT_STEP;
+
+    ParallelLogPosterior * function = new ParallelLogPosterior(*this, gradientStep);
+    parallelFunction.reset(function);
+    parallelMinimizer.reset(new TMinuitMinimizer(ROOT::Minuit::kMigrad));
+    TMinuitMinimizer& min = *parallelMinimizer;
+    min.SetFunction(*function);
+    /* the print level that BAT gives its own minimizer */
+    int printlevel = -1;
+    if (BCLog::GetLogLevelScreen() <= BCLog::detail) printlevel = 0;
+    if (BCLog::GetLogLevelScreen() <= BCLog::debug) printlevel = 1;
+    min.SetPrintLevel(printlevel);
+    min.SetErrorDef(0.5);
+    /* with strategy 0 Migrad does not compute the Hessian, serially, when it converges */
+    min.SetStrategy(0);
+    for (unsigned int i = 0; i < Npars; i++)
+        min.SetLimitedVariable(i, GetParameter(i).GetName(), start[i], step[i],
+                GetParameter(i).GetLowerLimit(), GetParameter(i).GetUpperLimit());
+
+    min.Minimize();
+    std::ostringstream line;
+    line << "Minuit done: " << function->gradients << " gradients, " << function->evaluations
+         << " evaluations of the model, " << duration(std::difftime(std::time(NULL), function->tstart));
+    progress(line.str());
+    return std::vector<double>(min.X(), min.X() + Npars);
+}
+
+std::string MonteCarloEngine::writeMinuitResults(const gslpp::matrix<double> * hessian)
+{
+    if (hessian && !parallelMinimizer)
+        return " Minuit has not been run.\n";
+    TMinuitMinimizer& min = hessian ? *parallelMinimizer : GetMinuit();
     if (min.NCalls() == 0)
         return " Minuit has not been run.\n";
 
@@ -1506,6 +1643,37 @@ std::string MonteCarloEngine::writeMinuitResults()
     static const char * const covMessage[4] = {"not computed", "approximate, not accurate",
         "full, but forced positive-definite", "full and accurate"};
 
+    /* With the Hessian computed by HEPfit, the covariance matrix is its inverse, if it is
+       positive-definite. Both come from the eigensystem of the Hessian normalised to unit
+       diagonal, as in refineHessianSoftDirections(): the diagonal can span many orders of
+       magnitude, and the eigenvalues of the raw matrix are only accurate relative to the
+       largest one. */
+    std::vector<double> h(Npars * Npars), covariance;
+    unsigned int negative = 0;
+    if (hessian) {
+        std::vector<double> d(Npars), s(Npars * Npars);
+        for (unsigned int i = 0; i < Npars; i++)
+            d[i] = (*hessian)(i, i) > 0. ? 1. / sqrt((*hessian)(i, i)) : 1.;
+        for (unsigned int i = 0; i < Npars; i++)
+            for (unsigned int j = 0; j < Npars; j++) {
+                h[i * Npars + j] = (*hessian)(i, j);
+                s[i * Npars + j] = d[i] * h[i * Npars + j] * d[j];
+            }
+        std::vector<double> eval;
+        std::vector<std::vector<double> > evec;
+        symmetricEigensystem(s, Npars, eval, evec);
+        for (unsigned int k = 0; k < Npars; k++)
+            if (eval[k] <= 0.)
+                negative++;
+        if (negative == 0) {
+            covariance.assign(Npars * Npars, 0.);
+            for (unsigned int k = 0; k < Npars; k++)
+                for (unsigned int i = 0; i < Npars; i++)
+                    for (unsigned int j = 0; j < Npars; j++)
+                        covariance[i * Npars + j] += d[i] * evec[k][i] * evec[k][j] * d[j] / eval[k];
+        }
+    }
+
     std::ostringstream out;
     out << " -----------------------------------------------------" << std::endl;
     out << " Summary of the minimization by Minuit" << std::endl;
@@ -1515,11 +1683,21 @@ std::string MonteCarloEngine::writeMinuitResults()
     out << " ============" << std::endl;
     out << " Function minimized: -log(posterior), errors for a change of " << min.ErrorDef() << std::endl;
     out << " Algorithm: Migrad, strategy " << min.Strategy() << ", tolerance " << min.Tolerance() << std::endl;
+    if (hessian)
+        out << " Gradient: central differences computed by HEPfit over " << getMPIWorldSize() << " MPI processes" << std::endl;
     out << " Status: " << status << (converged ? " (Migrad converged)" : " (Migrad did not converge)") << std::endl;
-    out << " Covariance matrix: " << (covStatus >= 0 && covStatus <= 3 ? covMessage[covStatus] : "unknown")
-            << " (status " << covStatus << ")" << std::endl;
+    if (hessian)
+        out << " Hessian: computed by HEPfit at the mode, as in ComputeHessianOnly; "
+                << (negative == 0 ? "positive-definite" : "not positive-definite") << std::endl;
+    else
+        out << " Covariance matrix: " << (covStatus >= 0 && covStatus <= 3 ? covMessage[covStatus] : "unknown")
+                << " (status " << covStatus << ")" << std::endl;
     out << " Estimated distance to the minimum: " << min.Edm() << std::endl;
-    out << " Number of calls to the function: " << min.NCalls() << std::endl;
+    if (hessian) {
+        const ParallelLogPosterior& function = static_cast<const ParallelLogPosterior&>(*parallelFunction);
+        out << " Evaluations of the model by Migrad: " << function.evaluations << " (" << function.gradients << " gradients)" << std::endl;
+    } else
+        out << " Number of calls to the function: " << min.NCalls() << std::endl;
     out << std::endl;
 
     /* The global mode in the format of the summary of BAT. */
@@ -1537,24 +1715,29 @@ std::string MonteCarloEngine::writeMinuitResults()
                 << std::string(width - name.length(), ' ') << " : "
                 << std::setprecision(GetParameter(i).GetPrecision()) << mode[i];
         /* without a covariance matrix the errors of Minuit are only its initial steps */
-        if (covStatus > 0)
-            out << " +- " << errors[i] << std::endl;
+        if (hessian ? negative == 0 : covStatus > 0)
+            out << " +- " << (hessian ? sqrt(covariance[i * Npars + i]) : errors[i]) << std::endl;
         else
             out << " (no error estimate available)" << std::endl;
     }
     out << std::setprecision(6) << std::endl;
 
-    if (!converged || covStatus < 1)
+    if (!hessian && (!converged || covStatus < 1))
         return out.str() + " No covariance matrix from Minuit: the correlation matrix and the Hessian are not available.\n";
 
-    out << " Correlation matrix:" << std::endl;
-    for (unsigned int i = 0; i < Npars; i++)
-        for (unsigned int j = i + 1; j < Npars; j++)
-            out << " Corr(" << GetParameter(i).GetName() << "," << GetParameter(j).GetName() << ") = " << min.Correlation(i, j) << std::endl;
+    if (hessian && negative > 0)
+        out << " The Hessian has " << negative << " eigenvalues that are not positive: no covariance matrix, so neither errors nor correlations." << std::endl;
+    else {
+        out << " Correlation matrix:" << std::endl;
+        for (unsigned int i = 0; i < Npars; i++)
+            for (unsigned int j = i + 1; j < Npars; j++)
+                out << " Corr(" << GetParameter(i).GetName() << "," << GetParameter(j).GetName() << ") = "
+                    << (hessian ? covariance[i * Npars + j] / sqrt(covariance[i * Npars + i] * covariance[j * Npars + j])
+                    : min.Correlation(i, j)) << std::endl;
+    }
     out << std::endl;
 
-    std::vector<double> hessian(Npars * Npars);
-    if (covStatus < 2 || !min.GetHessianMatrix(&hessian[0]))
+    if (!hessian && (covStatus < 2 || !min.GetHessianMatrix(&h[0])))
         return out.str() + " The covariance matrix of Minuit is only approximate: the Hessian is not available.\n";
 
     /* The Hessian in the format of ComputeHessianOnly, but centred on the mode. */
@@ -1569,7 +1752,7 @@ std::string MonteCarloEngine::writeMinuitResults()
     }
     for (unsigned int i = 0; i < Npars; i++) {
         for (unsigned int j = 0; j < Npars; j++)
-            out << hessian[i * Npars + j] << "  ";
+            out << h[i * Npars + j] << "  ";
         out << std::endl;
     }
 

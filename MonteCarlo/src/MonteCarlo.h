@@ -169,6 +169,7 @@ private:
     std::string ObsDirName; ///< String for the output directory name.
     bool FindModeWithMinuit; ///< Flag for using Minuit libraries.
     bool RunMinuitOnly; ///< Flag for running Minuit only.
+    bool ParallelMinuit; ///< Flag for running Minuit with the gradient and the Hessian computed in parallel by HEPfit.
     bool ComputeHessianOnly; ///< Flag for computing the Hessian only.
     bool CrossCheckHessian; ///< Flag for also computing the Hessian with the legacy stencil and comparing.
     double HessianRelativeStep; ///< Finite-difference step of the Hessian, in units of the width of the prior of each parameter.
@@ -193,6 +194,12 @@ private:
     
     void ParseMCMCConfig(std::string file);
     void ReadPreRunData(std::string file);
+
+    /**
+     * @brief Find the mode with MonteCarloEngine::findModeParallel(), compute the Hessian there
+     * as ComputeHessianOnly does, with its options, and write the results in Minuit_results.txt.
+     */
+    void RunParallelMinuit();
 
 #ifdef _MPI
     /**

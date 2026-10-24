@@ -53,6 +53,10 @@
    MonteCarloEngine::refineHessianSoftDirections(). */
 #define HESSIAN_SOFTNOISEFACTOR 1.e3
 #define HESSIAN_SOFTTOL 1.e-2
+/* The step of the gradient that HEPfit computes for Minuit with ParallelMinuit, in units of
+   the step calibrated for the Hessian at the starting point: small for the truncation error,
+   large against the numerical noise of the model. See MonteCarloEngine::findModeParallel(). */
+#define MINUIT_GRADIENT_STEP 0.1
 
 /**
  * @class MonteCarloEngine
@@ -240,9 +244,24 @@ public:
      * format of the global mode of the summary of BAT; the correlation matrix; and the
      * Hessian of -log(posterior) at the mode, the inverse of the covariance matrix of
      * Minuit, as an observable in the format of ComputeHessianOnly.
+     * @param[in] hessian the Hessian of -log(posterior) at the mode computed by HEPfit after
+     * findModeParallel(), whose results are then written, with the errors and the correlations
+     * from the inverse of this Hessian; NULL for the results of the last FindMode() of BAT
      * @return a string containing the results
      */
-    std::string writeMinuitResults();
+    std::string writeMinuitResults(const gslpp::matrix<double> * hessian = NULL);
+
+    /**
+     * @brief A method to find the mode with Minuit, with the gradient computed in parallel.
+     * @details Migrad minimizes -log(posterior) with the gradient given by HEPfit: central
+     * differences at 2 N points evaluated at once over the MPI ranks by computeFunction_h(), with
+     * steps MINUIT_GRADIENT_STEP times those calibrated for the Hessian at the starting point.
+     * Strategy 0 keeps Migrad from computing the Hessian serially. The minimizer is not the one
+     * of BAT, whose global mode is not updated.
+     * @param[in] start the starting point; if empty, as for FindMode() of BAT
+     * @return the mode
+     */
+    std::vector<double> findModeParallel(std::vector<double> start = std::vector<double>());
 
     /**
      * @brief This member generates the correlation matrix using BCH2D from the
@@ -683,6 +702,8 @@ private:
     std::vector<double> derivativeSteps; ///< The finite-difference step of each parameter in the last call to computeHessian().
     std::vector<int> derivativeStepStatus; ///< The outcome of the last step calibration, per parameter.
     double hessianNoise; ///< The noise of Function_h() used by the last call to refineHessianSoftDirections().
+    std::shared_ptr<TMinuitMinimizer> parallelMinimizer; ///< The minimizer of the last findModeParallel(), separate from that of BAT.
+    std::shared_ptr<ROOT::Math::IMultiGradFunction> parallelFunction; ///< The function minimized by the last findModeParallel(), with its gradient.
     TTree * hMCMCObservableTree; ///< A ROOT tree that contains the observables values and weight when the chains are written.
     TTree * hMCMCParameterTree; ///< A ROOT tree that contains the parameter values when the chains are written.
     std::vector<std::vector<double> > hMCMCObservables; ///< A vector of vectors containing the observables values of all the chains to be put into the ROOT tree.

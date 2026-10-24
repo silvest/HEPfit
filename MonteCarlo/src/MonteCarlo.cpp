@@ -40,6 +40,7 @@ MonteCarlo::MonteCarlo(
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
     RunMinuitOnly = false;
+    ParallelMinuit = false;
     ComputeHessianOnly = false;
     CrossCheckHessian = false;
     HessianRelativeStep = HESSIAN_RELSTEP;
@@ -313,11 +314,15 @@ void MonteCarlo::Run(const int rank) {
                 std::cout << "\nMinuit Minimization started at " << mitime << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
 #endif      
                 std::cout << "          " <<std::endl;
-                std::cout << "\t\t*** Minimizer Options ***" << std::endl;
-                MCEngine.GetMinuit().Options().Print();
-                std::cout << "          " <<std::endl;
-                MCEngine.FindMode();
-                std::ofstream(("Minuit_results" + JobTag + ".txt").c_str()) << MCEngine.writeMinuitResults();
+                if (ParallelMinuit)
+                    RunParallelMinuit();
+                else {
+                    std::cout << "\t\t*** Minimizer Options ***" << std::endl;
+                    MCEngine.GetMinuit().Options().Print();
+                    std::cout << "          " <<std::endl;
+                    MCEngine.FindMode();
+                    std::ofstream(("Minuit_results" + JobTag + ".txt").c_str()) << MCEngine.writeMinuitResults();
+                }
                 std::time_t tf = std::time(NULL);
 #if __GNUC__ >= 5 || defined __clang__
                 std::cout << "\nMinuit Minimization ended at " << std::put_time(std::localtime(&tf), "%c %Z") << " (" << tf << "s since the Epoch)" << "\n" << std::endl;
@@ -514,7 +519,9 @@ void MonteCarlo::Run(const int rank) {
             std::cout << std::setfill('0') << std::setw(2) << sec   << "\n" << std::endl;
 
             // find mode using the best fit parameters as start values
-            if (FindModeWithMinuit) {
+            if (FindModeWithMinuit && ParallelMinuit)
+                RunParallelMinuit();
+            else if (FindModeWithMinuit) {
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
                 std::ofstream(("Minuit_results" + JobTag + ".txt").c_str()) << MCEngine.writeMinuitResults();
             }
@@ -724,6 +731,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (beg->compare("true") == 0 || beg->compare("false") == 0) FindModeWithMinuit = (beg->compare("true") == 0);
             else
                 throw std::runtime_error("\nERROR: FindModeWithMinuit in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+        } else if (beg->compare("ParallelMinuit") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) ParallelMinuit = (beg->compare("true") == 0);
+            else
+                throw std::runtime_error("\nERROR: ParallelMinuit in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
         } else if (beg->compare("RunMinuitOnly") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) RunMinuitOnly = (beg->compare("true") == 0);
@@ -961,6 +973,19 @@ void MonteCarlo::ReadPreRunData(std::string file)
     }
     MCEngine.SetInitialPositions(mode_all);
     MCEngine.SetInitialScaleFactors(scale_all);
+}
+
+void MonteCarlo::RunParallelMinuit()
+{
+    std::vector<double> mode(MCEngine.findModeParallel());
+    /* The Hessian at the mode, in parallel and with the options of ComputeHessianOnly,
+       instead of Hesse. */
+    gslpp::matrix<double> Hessian(-MCEngine.computeHessian(mode, HessianRelativeStep, AdaptiveHessianStep, HessianTarget));
+    if (RefineHessianSoftDirections)
+        for (unsigned int pass = 0; pass < HessianSoftPasses; pass++)
+            Hessian = MCEngine.refineHessianSoftDirections(mode, Hessian, HessianSoftThreshold, HessianSoftTarget,
+                    pass == 0 ? 0. : MCEngine.getHessianNoise());
+    std::ofstream(("Minuit_results" + JobTag + ".txt").c_str()) << MCEngine.writeMinuitResults(&Hessian);
 }
 
 void MonteCarlo::addCustomObservableType(const std::string name, std::function<Observable*() > funct) {
