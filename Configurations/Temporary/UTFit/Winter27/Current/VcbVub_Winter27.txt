@@ -1,0 +1,83 @@
+***************************************************************
+*  Updated database for averaging Vcb and Vub (October 2026) *
+***************************************************************
+
+- Vcb exclusive (in units of 10^{-3})
+
+Vcb = 39.92 (64)           (B \to D*) arXiv:2310.03680
+Vcb = 39.60 (86)           (B \to D) update of arXiv:2105.08674 including BelleII 2025
+Vcb = 40.7 (2.4)           (Bs \to Ds*) arXiv:2204.05925
+Vcb = 41.7 (1.9)           (Bs \to Ds) arXiv:2204.05925
+
+Final value for Vcb exclusive:
+Vcb = 39.75 (50)			  (all B(s) decay channels averaged together)
+
+
+- Vub exclusive (in units of 10^{-3})
+
+Vub = 3.59 (25)            (B \to \pi) update of arXiv:2202.10285 (lattice + experiments)
+
+
+- Vub/Vcb exclusive (in units of 10^{-3})
+
+Vub/Vcb = 0.087 (9)        (Bs \to K e Ds) arXiv:2310.03680
+
+
+- Vcb inclusive (in units of 10^{-3})
+
+Vcb =  41.64 (47)         (B \to Xc) arXiv:2507.22123
+
+Note: this value includes O(\alpha_{em}) corrections to the decay width as evaluated in arXiv:2309.02849.
+      Without QED corrections the value would be 41.86 (48) (private communication from Gael Finauri)
+
+
+- Vub inclusive (in units of 10^{-3})
+
+Vub = 4.06 (26)            (B \to Xud) PDG ’26
+
+- For Vub one may add the leptonic determination from the B \to \tau \nu channel.
+Following FLAG6 (the same as in FLAG21) we have:
+
+Br(B \to \tau \nu) = 0.91 (22) Belle
+                     1.79 (48) BaBar
+                     
+                     1.06 (33) average
+
+It follows Vub fB = 0.77 (12) MeV.
+
+Then, using fB = 192.0 (4.3) MeV (Nf=2+1) and fB = 190.0 (1.3) MeV (Nf=2+1+1) 
+from FLAG6 (the same as in FLAG21) we get
+
+Vub = 4.01 (64) (Nf=2+1)
+      4.05 (64) (Nf=2+1+1)
+
+By averaging one has
+
+Vub = 4.03 (64).
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Below the values to be used as inputs to the global UTfit study.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+- Averaging exclusive and inclusive determinations one obtains (chi^2 / d.o.f. = 4.74):
+
+Vcb = 40.77 (74)
+Vub = 3.77 (36)
+Vub/Vcb = 0.0924 (88)
+
+with a correlation coefficient between Vcb and Vub equal to 0.04,
+
+and including also B \to \tau \nu (chi^2 / d.o.f. = 4.62)
+
+Vcb = 40.78 (74)
+Vub = 3.78 (34)
+Vub/Vcb = 0.0928 (85)
+
+with a correlation coefficient between Vcb and Vub equal to 0.04.
+
+We will use the last set of numbers.
