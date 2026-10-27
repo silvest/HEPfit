@@ -1537,9 +1537,21 @@ public:
         }
         std::vector<double> f(engine->computeFunction_h(points));
         evaluations += points.size();
-        for (unsigned int i = 0; i < n; i++)
-            grad[i] = -(f[2 * i] - f[2 * i + 1]) / (up[i] + down[i]);
-        /* Minuit asks for the function just before the gradient at the same point */
+        /* Where the model rejects the point on one side, the difference is one-sided, from the
+           value at the point; where on both, the gradient gives no direction. */
+        double f0 = logPosterior(x);
+        for (unsigned int i = 0; i < n; i++) {
+            double fup = f[2 * i], fdown = f[2 * i + 1], hup = up[i], hdown = down[i];
+            if (!std::isfinite(fup)) {
+                fup = f0;
+                hup = 0.;
+            }
+            if (!std::isfinite(fdown)) {
+                fdown = f0;
+                hdown = 0.;
+            }
+            grad[i] = (hup + hdown > 0. && std::isfinite(fup - fdown)) ? -(fup - fdown) / (hup + hdown) : 0.;
+        }
         if (++gradients % 10 == 0) {
             std::ostringstream line;
             line << "  Migrad: " << gradients << " gradients, " << evaluations << " evaluations, -log(posterior) = "
@@ -1556,14 +1568,23 @@ private:
 
     double DoEval(const double * x) const override
     {
-        /* Minuit asks again for the point it has just evaluated, before each gradient */
+        /* A point the model rejects is worse than any other, but finite: TMinuit's line search
+           fits a parabola through the values, and an infinite one would make its next point NaN. */
+        double f = logPosterior(x);
+        return std::isfinite(f) ? -f : 1.e10;
+    }
+
+    /* The log posterior at x. Minuit asks again for the point it has just evaluated, before each
+       gradient. */
+    double logPosterior(const double * x) const
+    {
         std::vector<double> point(x, x + step.size());
         if (point != lastPoint) {
             lastPoint = point;
             lastValue = engine->Function_h(point);
             evaluations++;
         }
-        return -lastValue;
+        return lastValue;
     }
 
     /* not used by Minuit, which asks for the whole gradient */
@@ -2906,5 +2927,24 @@ double MonteCarloEngine::Function_h(const std::vector<double>& point) {
     if (point.size() != GetNParameters()) {
         throw std::runtime_error("MonteCarloEngine::Function_h : Invalid number of entries in the vector.");
     }
-    return LogLikelihood(point) + LogAPrioriProbability(point);
+    /* At points far outside the region the data allow, some parts of the model throw an
+       exception instead of rejecting the point, e.g. the evolution classes of Flavour
+       ("M = ... < mu = ..."), and MonteCarlo::Run would then end the whole run. Only Minuit
+       and the Hessian call this function: for them such a point is rejected, like any point
+       the model cannot evaluate. */
+    std::string message;
+    try {
+        return LogLikelihood(point) + LogAPrioriProbability(point);
+    } catch (const std::string& s) {
+        message = s;
+    } catch (const char * s) {
+        message = s;
+    } catch (const std::exception& e) {
+        message = e.what();
+    } catch (...) {
+        message = "unknown exception";
+    }
+    NumOfDiscardedEvents++;
+    std::cout << "MonteCarloEngine::Function_h(): point rejected, the model threw: " << message << std::endl;
+    return log(0.);
 }
