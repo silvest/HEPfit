@@ -84,6 +84,7 @@
       <itemPath>src/gamma.h</itemPath>
       <itemPath>src/hpl.h</itemPath>
       <itemPath>src/masses.h</itemPath>
+      <itemPath>src/phid.h</itemPath>
       <itemPath>src/tauKnu_o_tauPnu.h</itemPath>
       <itemPath>src/xi.h</itemPath>
     </logicalFolder>
@@ -169,6 +170,7 @@
       <itemPath>src/bsgamma.cpp</itemPath>
       <itemPath>src/gamma.cpp</itemPath>
       <itemPath>src/masses.cpp</itemPath>
+      <itemPath>src/phid.cpp</itemPath>
       <itemPath>src/tauKnu_o_tauPnu.cpp</itemPath>
       <itemPath>src/xi.cpp</itemPath>
     </logicalFolder>
@@ -542,6 +544,10 @@
       </item>
       <item path="src/masses.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/phid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/phid.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/tauKnu_o_tauPnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tauKnu_o_tauPnu.h" ex="false" tool="3" flavor2="0">
@@ -892,6 +898,10 @@
       </item>
       <item path="src/masses.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/phid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/phid.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/tauKnu_o_tauPnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tauKnu_o_tauPnu.h" ex="false" tool="3" flavor2="0">
@@ -1237,6 +1247,10 @@
       <item path="src/masses.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/masses.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/phid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/phid.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/tauKnu_o_tauPnu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1591,6 +1605,10 @@
       <item path="src/masses.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/masses.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/phid.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/phid.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/tauKnu_o_tauPnu.cpp" ex="false" tool="1" flavor2="0">
       </item>

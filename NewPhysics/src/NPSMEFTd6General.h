@@ -6991,9 +6991,9 @@ public:
     // Coefficients of fermionic operators in the mass basis
     
     // Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
-    inline gslpp::complex getSMEFTCoeffEWMB(const std::string name, int i, int j, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj) const;
+    inline gslpp::complex getSMEFTCoeffEWMB(const std::string& name, int i, int j, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj) const;
     
-    inline gslpp::complex getSMEFTCoeffEWMB(const std::string name, int i, int j, int k, int l, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, gslpp::matrix<gslpp::complex> Vk, gslpp::matrix<gslpp::complex>  Vl) const;
+    inline gslpp::complex getSMEFTCoeffEWMB(const std::string& name, int i, int j, int k, int l, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj, const gslpp::matrix<gslpp::complex>& Vk, const gslpp::matrix<gslpp::complex>& Vl) const;
         
     void printNonVanishingSMEFTCoeffEW() const;
     
@@ -7003,11 +7003,11 @@ public:
     }
     
     // Functions to select the operators at different scales
-    double getSMEFTCoeff(const std::string name, const double mu) const;
+    double getSMEFTCoeff(const std::string& name, const double mu) const;
     
-    double getSMEFTCoeff(const std::string name, int i, int j, const double mu) const;
+    double getSMEFTCoeff(const std::string& name, int i, int j, const double mu) const;
     
-    double getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const;
+    double getSMEFTCoeff(const std::string& name, int i, int j, int k, int l, const double mu) const;
         
     // Functions used by the above to compute the approximation by a polynomial up to log^5 to the RG evolution
     

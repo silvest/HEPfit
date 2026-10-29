@@ -14216,7 +14216,7 @@ bool NPSMEFTd6General::setFlagStr(const std::string name, const std::string valu
 // Coefficients of fermionic operators in the mass basis
     
 // Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
-inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name, int i, int j, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj) const
+inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string& name, int i, int j, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj) const
 {
         std::string nameR, nameI;
         gslpp::complex Cij;
@@ -14239,7 +14239,7 @@ inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name
         return Cij;
 }
     
-inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name, int i, int j, int k, int l, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, gslpp::matrix<gslpp::complex> Vk, gslpp::matrix<gslpp::complex>  Vl) const
+inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string& name, int i, int j, int k, int l, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj, const gslpp::matrix<gslpp::complex>& Vk, const gslpp::matrix<gslpp::complex>& Vl) const
 {
         std::string nameR, nameI;
         gslpp::complex Cijkl;
@@ -14268,7 +14268,7 @@ inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name
 
 // Functions to select the SMEFT WC at different energy scales 
 
-double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) const {
+double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, const double mu) const {
     //return SMEFTEvolEW.GetCoefficient(name);
         
     if ( (!FlagmultiScaleRGE) || (mu <= 120.0) ) {
@@ -14361,7 +14361,7 @@ double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) 
     //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5); 
 }
     
-double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, const double mu) const {
+double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, int i, int j, const double mu) const {
     //return SMEFTEvolEW.GetCoefficient(name, i, j);
     
     if ( (!FlagmultiScaleRGE) || (mu <= 120.0) ) {
@@ -14454,7 +14454,7 @@ double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, con
     //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
 }
     
-double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const {
+double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, int i, int j, int k, int l, const double mu) const {
     //return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
     
     if ( (!FlagmultiScaleRGE) || (mu <= 120.0) ) {
