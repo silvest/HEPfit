@@ -560,6 +560,7 @@ void ThObsFactory::registerFlavourObservables()
     obsThFactory["alpha"] = [](const StandardModel& SM) { return new Alpha(SM); };
     obsThFactory["alpha_2a"] = [](const StandardModel& SM) { return new Alpha_2a(SM); };
     obsThFactory["SJPsiK"] = [](const StandardModel& SM) { return new SJPsiK(SM); };
+    obsThFactory["phid"] = [](const StandardModel& SM) { return new phid(SM); };
     obsThFactory["C2beta"] = [](const StandardModel& SM) { return new C2beta(SM); };
     obsThFactory["Phis_JPsiPhi"] = [](const StandardModel& SM) { return new Phis_JPsiPhi(SM); };
     obsThFactory["EpsilonK"] = [](const StandardModel& SM) { return new EpsilonK(SM); };
