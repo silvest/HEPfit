@@ -3016,6 +3016,30 @@ bool NPSMEFTd6General::PreUpdate() {
     return (true);
 }
 
+bool NPSMEFTd6General::Update(const std::map<std::string, double>& DPars) {
+    // PostUpdate() replaces the quark masses with those derived from the mass matrices, so a quark
+    // mass that is not passed, as a fixed parameter in a Monte Carlo run, is set again to its last input.
+    // A lepton mass is set again only if it has changed, in case the lepton masses are also replaced in
+    // the future. DPars is copied only when a mass is added.
+    static const std::string fermionMasses[12] = {"mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
+        "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau"};
+    std::map<std::string, double> missingMasses;
+    for (int i = 0; i < 12; i++) {
+        std::map<std::string, double>::const_iterator it = DPars.find(fermionMasses[i]);
+        std::map<std::string, double>::const_iterator in = fermionMassInputs.find(fermionMasses[i]);
+        if (it != DPars.end())
+            fermionMassInputs[fermionMasses[i]] = it->second;
+        else if (in != fermionMassInputs.end() && (i < 6 || in->second != getModelParam(fermionMasses[i])))
+            missingMasses.insert(*in);
+    }
+    if (missingMasses.empty())
+        return (NPbase::Update(DPars));
+
+    std::map<std::string, double> myDPars(DPars);
+    myDPars.insert(missingMasses.begin(), missingMasses.end());
+    return (NPbase::Update(myDPars));
+}
+
 void NPSMEFTd6General::ChangeToEvolutorsBasisPureSM() {
     //In this function we switch from the SM parameters used in the SM class to those needed for the evolutor using the SM expressions
     //(Parameters at the EW scale, which we take to be muw ~ Mz)
